@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 django = "*"
 psycopg2 = "*"
+django-compressor = "*"
+django-compressor-toolkit = "*"
 
 [requires]
 python_version = "3.7"
