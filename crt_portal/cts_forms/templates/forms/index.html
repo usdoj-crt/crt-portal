@@ -1,0 +1,9 @@
+{% if latest_report_list %}
+    <ul>
+    {% for violationreport in latest_report_list %}
+        <li><a href="{% url 'crt_forms:detail' violationreport.id %}">{{ violationreport.description_text }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No reports are available.</p>
+{% endif %}
