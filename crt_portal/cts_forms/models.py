@@ -1,11 +1,28 @@
 from django.db import models
 from django.utils import timezone
 
-# Create your models here.
+
+# TODO, add person and case classes
+
+class State(models.Model):
+    """State or territory, we can hard code but this allows for flexibility in the admin"""
+    state_name = models.CharField(max_length=200)
+
+
+class InternalHistory(models.Model):
+    note = models.CharField(max_length=500, null=False, blank=False,)
+    create_date = models.DateTimeField(auto_now_add=True)
+
 
 class ViolationReport(models.Model):
-    description_text = models.CharField(max_length=200)
-    create_date = models.DateTimeField('date published')
+    email = models.EmailField(max_length=254, null=True, blank=True)
+    # TODO, upgrade to add validation https://pypi.org/project/django-phone-field/
+    phone = models.CharField(max_length=200, null=True, blank=True)
+    city = models.CharField(max_length=200, null=True, blank=True)
+    state =  models.ForeignKey(State, null=True, blank=True, on_delete=models.SET_NULL)
+    first_date_of_incident = models.DateField(null=True, blank=True)
+    description_text = models.CharField(max_length=500, null=False, blank=False,)
+    create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.description_text
@@ -15,6 +32,7 @@ class ViolationReport(models.Model):
 
 
 class Choice(models.Model):
+    """ This is a throwaway class to test some functionality """
     question = models.ForeignKey(ViolationReport, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
