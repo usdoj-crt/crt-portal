@@ -3,8 +3,9 @@ applications:
 - name: crt-portal
   memory: 512M
   instances: 1
-  buildpack: python_buildpack
-  command: null
+  buildpacks:
+  - python_buildpack
+  command: cd crt_portal && python manage.py migrate && gunicorn crt_portal.wsgi --workers 2
   services:
   - crt-db
   - crt-s3

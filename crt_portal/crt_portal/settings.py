@@ -132,5 +132,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-if os.environ['ENV'] and os.environ['ENV']=='LOCAL':
+if 'ENV' in os.environ and os.environ['ENV']=='LOCAL':
     from .local_settings import *
