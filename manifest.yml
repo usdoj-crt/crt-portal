@@ -1,0 +1,11 @@
+---
+applications:
+- name: crt-portal
+  memory: 512M
+  instances: 1
+  buildpack: python_buildpack
+  command: null
+  services:
+  - crt-db
+  - crt-s3
+  - VCAP_SERVICES
