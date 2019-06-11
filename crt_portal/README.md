@@ -2,39 +2,15 @@
 
 ## local set up
 
-crate postgres database
+crate postgres database and set the variables below accordingly
 
-export DB_NAME=''
-export DB_USER=''
-export DB_PASSWORD=''
-export DB_HOST=''
-export SECRET_KEY=''
-export ENV='DEV'
+    export =''
+    export DB_USER=''
+    export DB_PASSWORD=''
+    export DB_HOST='local'
+    export SECRET_KEY=''
+    export ENV='LOCAL'
 
-    export VCAP_SERVICES="{
-        'aws-rds':
-            [
-                {
-                    'credentials':
-                        {
-                            'db_name': '',
-                            'host': '',
-                            'password': '',
-                            'port': '',
-                            'username': ''
-                        },
-                },
-            ],
-        'user-provided':
-            [
-                {
-                    'credentials':
-                        {
-                            'SECRET_KEY': ''},
-                        }
-                }
-            ]
-    }"
 
 python manage.py migrate
 
@@ -52,4 +28,4 @@ python manage.py runserver
  cf cups VCAP_SERVICES -p "{'SECRET_KEY': 'replace-with-your-secret-key'}"
 
 
- need to ssh to run migrations and create superuser (will do this automatically in another PR)
+Need to ssh to run migrations and create superuser (will do this automatically in another PR)
