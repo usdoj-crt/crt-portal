@@ -9,9 +9,9 @@ export DB_USER=''
 export DB_PASSWORD=''
 export DB_HOST=''
 export SECRET_KEY=''
+export ENV='DEV'
 
-
-    export VCAP_SERVICES="""{
+    export VCAP_SERVICES="{
         'aws-rds':
             [
                 {
@@ -34,7 +34,7 @@ export SECRET_KEY=''
                         }
                 }
             ]
-    }"""
+    }"
 
 python manage.py migrate
 
@@ -50,3 +50,6 @@ python manage.py runserver
 
 - store environment variables
  cf cups VCAP_SERVICES -p "{'SECRET_KEY': 'replace-with-your-secret-key'}"
+
+
+ need to ssh to run migrations and create superuser (will do this automatically in another PR)
