@@ -28,4 +28,4 @@ python manage.py runserver
  cf cups VCAP_SERVICES -p "{'SECRET_KEY': 'replace-with-your-secret-key'}"
 
 
-Need to ssh to run migrations and create superuser (will do this automatically in another PR)
+Need to ssh to create superuser (will do this automatically in another PR)
