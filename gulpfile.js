@@ -40,7 +40,7 @@ PATHS
 const PROJECT_SASS_SRC = './crt_portal/static/sass';
 
 // Images destination
-const IMG_DEST = './crt_portal/static/images';
+const IMG_DEST = './crt_portal/static/img';
 
 // Fonts destination
 const FONTS_DEST = './crt_portal/static/fonts';

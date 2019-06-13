@@ -1,3 +1,6 @@
+{% extends "forms/base.html" %}
+
+{% block content %}
 <h1>{{ violationreport.description_text }}</h1>
 
 <ul>
@@ -7,3 +10,5 @@
 </ul>
 
 <a href="{% url 'crt_forms:detail' violationreport.id %}">Vote again?</a>
+
+{% endblock %}

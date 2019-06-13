@@ -28,6 +28,10 @@ run server locally
     python manage.py compress
     python manage.py runserver
 
+in another terminal if you are doing
+
+    gulp watch
+
 
 
 ## cloud.gov set up
