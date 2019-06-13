@@ -9,6 +9,8 @@ verify_ssl = true
 django = "==2.2.2"
 gunicorn = "*"
 psycopg2 = "*"
+django-compressor = "*"
+django-compressor-toolkit = "*"
 
 [requires]
 python_version = "3.7"
