@@ -37,19 +37,19 @@ PATHS
 */
 
 // Project Sass source directory
-const PROJECT_SASS_SRC = './path/to/project/sass';
+const PROJECT_SASS_SRC = './crt_portal/static/sass';
 
 // Images destination
-const IMG_DEST = './path/to/images/destination';
+const IMG_DEST = './crt_portal/static/images';
 
 // Fonts destination
-const FONTS_DEST = './path/to/fonts/destination';
+const FONTS_DEST = './crt_portal/static/fonts';
 
 // Javascript destination
-const JS_DEST = './path/to/js/destination';
+const JS_DEST = './crt_portal/static/js';
 
 // Compiled CSS destination
-const CSS_DEST = './path/to/css/destination';
+const CSS_DEST = './crt_portal/static/css';
 
 /*
 ----------------------------------------
