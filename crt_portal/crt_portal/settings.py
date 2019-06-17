@@ -148,7 +148,6 @@ if 's3' in vcap:
     AWS_DEFAULT_ACL = 'public-read'
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    COMPRESS_URL = "{0}/".format(vcap['s3'][0]["credentials"]["uri"])
 
 else:
     STATIC_URL = '/static/'
