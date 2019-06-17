@@ -141,7 +141,7 @@ if 's3' in vcap:
     AWS_SECRET_ACCESS_KEY = s3_creds["secret_access_key"]
     AWS_STORAGE_BUCKET_NAME = s3_creds["bucket"]
     AWS_S3_REGION_NAME = s3_creds["region"]
-    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_REGION_NAME}.s3.amazonaws.com'
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3-{AWS_S3_REGION_NAME}.amazonaws.com'
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',
     }
