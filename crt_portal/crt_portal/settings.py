@@ -60,6 +60,7 @@ INSTALLED_APPS = [
     'cts_forms',
     'compressor',
     'compressor_toolkit',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -132,7 +133,25 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
+
+
+if 's3' in vcap:
+    AWS_ACCESS_KEY_ID = vcap['s3'][0]["credentials"]["access_key_id"]
+    AWS_SECRET_ACCESS_KEY = vcap['s3'][0]["credentials"]["secret_access_key"]
+    AWS_STORAGE_BUCKET_NAME = vcap['s3'][0]["credentials"]["bucket"]
+    AWS_S3_REGION_NAME = vcap['s3'][0]["credentials"]["region"]
+    AWS_S3_CUSTOM_DOMAIN = '{0}.{1}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME)
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+    AWS_LOCATION = 'static'
+    AWS_DEFAULT_ACL = 'public-read'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    COMPRESS_URL = "{0}/".format(vcap['s3'][0]["credentials"]["uri"])
+
+else:
+    STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 

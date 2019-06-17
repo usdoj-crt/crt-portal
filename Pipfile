@@ -11,6 +11,8 @@ gunicorn = "*"
 psycopg2 = "*"
 django-compressor = "*"
 django-compressor-toolkit = "*"
+boto3 = "*"
+django-storages = "*"
 
 [requires]
 python_version = "3.7"
