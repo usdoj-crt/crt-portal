@@ -136,18 +136,19 @@ USE_TZ = True
 
 
 if 's3' in vcap:
-    AWS_ACCESS_KEY_ID = vcap['s3'][0]["credentials"]["access_key_id"]
-    AWS_SECRET_ACCESS_KEY = vcap['s3'][0]["credentials"]["secret_access_key"]
-    AWS_STORAGE_BUCKET_NAME = vcap['s3'][0]["credentials"]["bucket"]
-    AWS_S3_REGION_NAME = vcap['s3'][0]["credentials"]["region"]
-    AWS_S3_CUSTOM_DOMAIN = '{0}.{1}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME, AWS_S3_REGION_NAME)
+    s3_creds = vcap['s3'][0]["credentials"]
+    AWS_ACCESS_KEY_ID = s3_creds["access_key_id"]
+    AWS_SECRET_ACCESS_KEY = s3_creds["secret_access_key"]
+    AWS_STORAGE_BUCKET_NAME = s3_creds["bucket"]
+    AWS_S3_REGION_NAME = s3_creds["region"]
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.{AWS_S3_REGION_NAME}.s3.amazonaws.com'
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',
     }
     AWS_LOCATION = 'static'
-    AWS_DEFAULT_ACL = 'public-read'
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
 else:
     STATIC_URL = '/static/'
