@@ -18,10 +18,12 @@ import json
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+environment = os.environ.get('ENV', 'PROD')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-if 'ENV' not in os.environ or os.environ['ENV']!='LOCAL':
+if environment != 'LOCAL':
     vcap = json.loads(os.environ['VCAP_SERVICES'])
 
     # SECURITY WARNING: keep the secret key used in production secret!
@@ -138,8 +140,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 
-
-if 'ENV' in os.environ and os.environ['ENV']!='LOCAL':
+if environment != 'LOCAL':
     s3_creds = vcap['s3'][0]["credentials"]
     AWS_ACCESS_KEY_ID = s3_creds["access_key_id"]
     AWS_SECRET_ACCESS_KEY = s3_creds["secret_access_key"]
@@ -150,6 +151,7 @@ if 'ENV' in os.environ and os.environ['ENV']!='LOCAL':
         'CacheControl': 'max-age=86400',
     }
     AWS_LOCATION = 'static'
+    AWS_QUERYSTRING_AUTH = False
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
@@ -180,5 +182,5 @@ COMPRESS_PRECOMPILERS = (
 # COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
 
-if 'ENV' in os.environ and os.environ['ENV']=='LOCAL':
+if 'environment' == 'LOCAL':
     from .local_settings import *
