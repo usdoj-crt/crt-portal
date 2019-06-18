@@ -44,4 +44,10 @@ in another terminal if you are doing
  cf cups VCAP_SERVICES -p "{'SECRET_KEY': 'replace-with-your-secret-key'}"
 
 
-Need to ssh to create superuser (will do this automatically in another PR)
+Need to ssh to create superuser (would like to do this automatically in another PR)
+
+Needed to enable CORS via awscli https://cloud.gov/docs/services/s3/#allowing-client-side-web-access-from-external-applications (would like to do this automatically in another PR)
+
+
+
+

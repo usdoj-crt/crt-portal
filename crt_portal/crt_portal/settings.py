@@ -21,25 +21,29 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-vcap = json.loads(os.environ['VCAP_SERVICES'])
+if 'ENV' not in os.environ or os.environ['ENV']!='LOCAL':
+    vcap = json.loads(os.environ['VCAP_SERVICES'])
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = vcap['user-provided'][0]['credentials']['SECRET_KEY']
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = vcap['user-provided'][0]['credentials']['SECRET_KEY']
 
-db_credentials = vcap['aws-rds'][0]['credentials']
+    db_credentials = vcap['aws-rds'][0]['credentials']
 
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': db_credentials['db_name'],
-        'USER': db_credentials['username'],
-        'PASSWORD': db_credentials['password'],
-        'HOST': db_credentials['host'],
-        'PORT': '',
+    # Database
+    # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': db_credentials['db_name'],
+            'USER': db_credentials['username'],
+            'PASSWORD': db_credentials['password'],
+            'HOST': db_credentials['host'],
+            'PORT': '',
+        }
     }
-}
+else:
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = os.environ['SECRET_KEY']
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -135,7 +139,7 @@ USE_TZ = True
 
 
 
-if 's3' in vcap:
+if 'ENV' in os.environ and os.environ['ENV']!='LOCAL':
     s3_creds = vcap['s3'][0]["credentials"]
     AWS_ACCESS_KEY_ID = s3_creds["access_key_id"]
     AWS_SECRET_ACCESS_KEY = s3_creds["secret_access_key"]
