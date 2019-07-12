@@ -134,3 +134,6 @@ drush/sites/.checksums
 
 # Deprecation detector rules
 .rules
+
+# Crypto and creds
+salt.txt
