@@ -15,7 +15,8 @@ project:
 # Configuration settings for new git repository.
 git:
   default_branch: master
-  remotes: {  }
+  remotes:
+    cloud: '${ACQUIA_CLOUD_REMOTE_GIT}'
 deploy:
   # When manually deploying a tag, also tag the source repository.
   tag_source: true
