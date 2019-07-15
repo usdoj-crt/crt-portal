@@ -1,0 +1,6 @@
+local:
+    root: /var/www/dojportal-blt/docroot
+    uri: 'http://local.dojportal-blt.com'
+    host: local.dojportal-blt.com
+    user: vagrant
+    ssh: { options: '-o StrictHostKeyChecking=no -o PasswordAuthentication=no -i $HOME/.vagrant.d/insecure_private_key' }
