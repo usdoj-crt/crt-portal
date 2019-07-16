@@ -27,7 +27,7 @@ This project is based on BLT, an open-source project template and tool that enab
 
 
 ----
-# Setup Local Environment.
+# Setup Local Environment
 
 ## Core Setup
 
