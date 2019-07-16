@@ -21,7 +21,7 @@ Search for and replace the following placeholders within this file:
 
 # Getting Started
 
-This project is based on BLT, an open-source project template and tool that enables building, testing, and deploying Drupal installations following Acquia Professional Services best practices. While this is one of many methodologies, it is our recommended methodology. 
+This project is based on BLT, an open-source project template and tool that enables building, testing, and deploying Drupal installations following Acquia Professional Services best practices. While this is one of many methodologies, it is our recommended methodology.
 
 1. Review the [Required / Recommended Skills](https://docs.acquia.com/blt/developer/skills/) for working with a BLT project.
 2. Ensure that your computer meets the minimum installation requirements (and then install the required applications). See the [System Requirements](https://docs.acquia.com/blt/install/).
@@ -47,29 +47,45 @@ This project is based on BLT, an open-source project template and tool that enab
 # Setup Local Environment.
 
 BLT provides an automation layer for testing, building, and launching Drupal 8 applications. For ease when updating codebase it is recommended to use  Drupal VM. If you prefer, you can use another tool such as Docker, [DDEV](https://docs.acquia.com/blt/install/alt-env/ddev/), [Docksal](https://docs.acquia.com/blt/install/alt-env/docksal/), [Lando](https://docs.acquia.com/blt/install/alt-env/lando/), (other) Vagrant, or your own custom LAMP stack, however support is very limited for these solutions.
+
 1. Install Composer dependencies.
 After you have forked, cloned the project and setup your blt.yml file install Composer Dependencies. (Warning: this can take some time based on internet speeds.)
-    ```
-    $ composer install
-    ```
-2. Setup VM.
+
+```
+composer install
+```
+
+2. Install VM dependencies.
+
+3. Install blt vm
+
+```
+blt vm
+```
+
+3. Setup VM.
 Setup the VM with the configuration from this repositories [configuration files](#important-configuration-files).
 
-    ```
-    $ vagrant up
-    ```
+```
+vagrant up
+```
 
-3. Setup a local blt alias.
-If the blt alias is not available use this command outside and inside vagrant (one time only).
-    ```
-    $ composer run-script blt-alias
-    ```
+4. Setup a local blt alias.
+
+You should be able to run `blt` from the root of your project and see a list of `blt` commands.
+
+If blt is not available at the root of your project, use this command outside and inside vagrant to set up a blt alias (one time only).
+
+```
+composer run-script blt-alias
+```
 
 4. SSH into your VM.
 SSH into your localized Drupal VM environment automated with the BLT launch and automation tools.
-    ```
-    $ vagrant ssh
-    ```
+
+```
+$ vagrant ssh
+```
 
 5. Setup a local Drupal site with an empty database.
 Use BLT to setup the site with configuration.  If it is a multisite you can identify a specific site.
@@ -112,12 +128,12 @@ If you have an existing database you can use BLT to pull down the database from 
 
 ---
 
-# Resources 
+# Resources
 
 Additional [BLT documentation](https://docs.acquia.com/blt/) may be useful. You may also access a list of BLT commands by running this:
 ```
 $ blt
-``` 
+```
 
 Note the following properties of this project:
 * Primary development branch: #GIT_PRIMARY_DEV_BRANCH
@@ -126,7 +142,7 @@ Note the following properties of this project:
 
 ## Working With a BLT Project
 
-BLT projects are designed to instill software development best practices (including git workflows). 
+BLT projects are designed to instill software development best practices (including git workflows).
 
 Our BLT Developer documentation includes an [example workflow](https://docs.acquia.com/blt/developer/dev-workflow/).
 
