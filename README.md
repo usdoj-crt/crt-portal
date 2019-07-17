@@ -118,7 +118,6 @@ cd docroot
 drush uli
 ```
 
----
 ## Other Local Setup Steps
 
 1. Set up frontend build and theme.
@@ -129,24 +128,23 @@ After the initial theme setup you can configure `blt/blt.yml` to install and con
 2. Pull Files locally.
 Use BLT to pull all files down from your Cloud environment.
 
-   ```
-   $ blt drupal:sync:files
-   ```
+```
+blt drupal:sync:files
+```
 
 3. Sync the Cloud Database.
 If you have an existing database you can use BLT to pull down the database from your Cloud environment.
-   ```
-   $ blt sync
-   ```
 
-
----
+```
+blt sync
+```
 
 # Resources
 
 Additional [BLT documentation](https://docs.acquia.com/blt/) may be useful. You may also access a list of BLT commands by running this:
+
 ```
-$ blt
+blt
 ```
 
 Note the following properties of this project:
