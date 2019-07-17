@@ -169,10 +169,3 @@ BLT uses a number of configuration (`.yml` or `.json`) files to define and custo
 * `box/config.yml` (if using Drupal VM)
 * `drush/sites` (contains Drush aliases for this project)
 * `composer.json` (includes required components, including Drupal Modules, for this project)
-
-## Resources
-
-* JIRA - #JIRA_URL
-* GitHub - https://github.com/#GITHUB_ORG/#GITHUB_PROJECT
-* Acquia Cloud subscription - #ACQUIA_CLOUD_URL
-* TravisCI - #TRAVIS_URL
