@@ -1,32 +1,25 @@
 # DOJ CRT Portal
 
-A civil rights complaint portal built using the Acquia BLT Drupal stack.
+A civil rights complaint portal built using the Acquia [BLT](https://github.com/acquia/blt) Drupal stack.
 
 # Getting Started
 
-This project is based on BLT, an open-source project template and tool that enables building, testing, and deploying Drupal installations following Acquia Professional Services best practices. While this is one of many methodologies, it is our recommended methodology.
+This project is based on BLT, a  template and tool that enables building, testing, and deploying Drupal from Acquia.
 
-1. Review the [Required / Recommended Skills](https://docs.acquia.com/blt/developer/skills/) for working with a BLT project.
-2. Ensure that your computer meets the minimum installation requirements (and then install the required applications). See the [System Requirements](https://docs.acquia.com/blt/install/).
-3. Request access to organization that owns the project repo in GitHub (if needed).
-4. Fork the project repository in GitHub.
-5. Request access to the Acquia Cloud Environment for your project (if needed).
-6. Setup a SSH key that can be used for GitHub and the Acquia Cloud (you CAN use the same key).
+1. Request access to the Acquia Cloud Environment for your project (if needed).
+
+2. Setup a SSH key that can be used for GitHub and the Acquia Cloud (you CAN use the same key).
     1. [Setup GitHub SSH Keys](https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/)
     2. [Setup Acquia Cloud SSH Keys](https://docs.acquia.com/acquia-cloud/ssh/generate)
-7. Clone your forked repository. By default, Git names this "origin" on your local.
-    ```
-    $ git clone git@github.com:<account>/#GITHUB_PROJECT.git
-    ```
-8. To ensure that upstream changes to the parent repository may be tracked, add the upstream locally as well.
-    ```
-    $ git remote add upstream git@github.com:#GITHUB_ORG/#GITHUB_PROJECT.git
-    ```
 
-9. Update your the configuration located in the `/blt/blt.yml` file to match your site's needs. See [configuration files](#important-configuration-files) for other important configuration files.
+3. Clone this repository. By default, Git names this "origin" on your local machine.
 
+```
+git clone git@github.com:usdoj/crt-portal.git
+```
 
-----
+4. Update your the configuration located in the `/blt/blt.yml` file to match your site's needs. See [configuration files](#important-configuration-files) for other important configuration files.
+
 # Setup Local Environment
 
 ## Core Setup
