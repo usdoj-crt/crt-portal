@@ -1,6 +1,6 @@
 # DOJ CRT Portal
 
-A civil rights complaint portal built using the Acquia [BLT](https://github.com/acquia/blt) Drupal stack.
+A Civil Rights complaints portal built using the Acquia [BLT](https://github.com/acquia/blt) Drupal stack.
 
 # Getting Started
 
@@ -147,10 +147,12 @@ Additional [BLT documentation](https://docs.acquia.com/blt/) may be useful. You 
 blt
 ```
 
+<!---
 Note the following properties of this project:
 * Primary development branch: #GIT_PRIMARY_DEV_BRANCH
 * Local environment: #LOCAL_DEV_SITE_ALIAS
 * Local site URL: #LOCAL_DEV_URL
+--->
 
 ## Working With a BLT Project
 
