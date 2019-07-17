@@ -41,12 +41,31 @@ composer install
 
 #### 3. Setup a local blt alias
 
-You should be able to run `blt` from the root of your project and see a list of `blt` commands.
-
-If blt is not available at the root of your project, use this command to set up a blt alias (one time only):
+Add the following to your `~/.bash_profile` or equivalent to create a local alias to the `blt` tool:
 
 ```
-composer run-script blt-alias
+function blt() {
+  if [[ ! -z ${AH_SITE_ENVIRONMENT} ]]; then
+    PROJECT_ROOT="/var/www/html/${AH_SITE_GROUP}.${AH_SITE_ENVIRONMENT}"
+  elif [ "`git rev-parse --show-cdup 2> /dev/null`" != "" ]; then
+    PROJECT_ROOT=$(git rev-parse --show-cdup)
+  else
+    PROJECT_ROOT="."
+  fi
+
+  if [ -f "$PROJECT_ROOT/vendor/bin/blt" ]; then
+    $PROJECT_ROOT/vendor/bin/blt "$@"
+
+  # Check for local BLT.
+  elif [ -f "./vendor/bin/blt" ]; then
+    ./vendor/bin/blt "$@"
+
+  else
+    echo "You must run this command from within a BLT-generated project."
+    return 1
+  fi
+}
+
 ```
 
 #### 4. Install DrupalVM setup using blt vm
