@@ -90,6 +90,12 @@ sudo apt install python-pip
 pip install --upgrade ansible
 ```
 
+If `vagrant up` did not run successfully, you may need to run:
+
+```
+vagrant reload --provision
+```
+
 #### 6. Check vagrant status
 
 See the status of your virtual machines:
