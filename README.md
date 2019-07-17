@@ -31,13 +31,22 @@ This project is based on BLT, an open-source project template and tool that enab
 
 ## Core Setup
 
-#### 1. Install Composer dependencies locally
+#### 1. Install VM dependencies
+
+Running your local environment requires VirtualBox and Vagrant. Install both locally:
+
+- https://www.virtualbox.org/
+- https://www.vagrantup.com/downloads.html
+
+#### 2. Install Composer dependencies locally
+
+From the root directory of this project:
 
 ```
 composer install
 ```
 
-#### 2. Setup a local blt alias
+#### 3. Setup a local blt alias
 
 You should be able to run `blt` from the root of your project and see a list of `blt` commands.
 
@@ -47,18 +56,11 @@ If blt is not available at the root of your project, use this command to set up 
 composer run-script blt-alias
 ```
 
-#### 3. Install DrupalVM setup using blt vm
+#### 4. Install DrupalVM setup using blt vm
 
 ```
 blt vm
 ```
-
-#### 4. Install VM dependencies
-
-Running your local environment requires VirtualBox and Vagrant. Install both locally:
-
-- https://www.virtualbox.org/
-- https://www.vagrantup.com/downloads.html
 
 #### 5. Setup VM
 
