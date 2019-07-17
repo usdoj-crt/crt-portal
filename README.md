@@ -158,6 +158,12 @@ If you have an existing database you can use BLT to pull down the database from 
 blt sync
 ```
 
+# Deploy
+
+```
+ACQUIA_CLOUD_REMOTE_GIT=acquia_git_destination blt artifact:deploy --commit-msg "message here" --branch "branch name here" --no-interaction
+```
+
 # Resources
 
 Additional [BLT documentation](https://docs.acquia.com/blt/) may be useful. You may also access a list of BLT commands by running this:
