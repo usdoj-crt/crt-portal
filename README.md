@@ -25,6 +25,8 @@ Running your local environment requires VirtualBox and Vagrant. Install both loc
 - https://www.virtualbox.org/
 - https://www.vagrantup.com/downloads.html
 
+If the VirtualBox installation process ends with an error screen on MacOS, you may need to follow [these obscure steps](https://ilgthegeek.wordpress.com/2018/01/27/macos-install-oracle-virtualbox-on-10-13/) and try re-installing.
+
 #### 2. Install Composer dependencies locally
 
 From the root directory of this project:
