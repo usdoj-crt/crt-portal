@@ -76,7 +76,19 @@ Setup the VM with the configuration from this repositories [configuration files]
 vagrant up
 ```
 
-If this throws errors, you may need to manually `vagrant ssh` into the box and install missing dependencies to satisfy error messages.
+This task may fail with the following error:
+
+```
+pip: command not found
+```
+
+You will need to fix this by logging into the box and installing pip and ansible manually:
+
+```
+vagrant ssh
+sudo apt install python-pip
+pip install --upgrade ansible
+```
 
 #### 6. Check vagrant status
 
