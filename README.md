@@ -27,7 +27,23 @@ Running your local environment requires VirtualBox and Vagrant. Install both loc
 
 If the VirtualBox installation process ends with an error screen on MacOS, you may need to follow [these obscure steps](https://ilgthegeek.wordpress.com/2018/01/27/macos-install-oracle-virtualbox-on-10-13/) and try re-installing.
 
-#### 2. Install Composer dependencies locally
+#### 2. Install Composer
+
+Download Composer:
+
+- https://getcomposer.org/download/
+
+You may have to take additional steps to make composer available anywhere in your Terminal, such as:
+
+```
+mv composer.phar /usr/local/bin/composer
+```
+
+See https://getcomposer.org/doc/00-intro.md for more information.
+
+You should be able to run composer from the root directory of this project and see a list of composer commands.
+
+#### 3. Install Composer dependencies locally
 
 From the root directory of this project:
 
@@ -35,7 +51,7 @@ From the root directory of this project:
 composer install
 ```
 
-#### 3. Setup a local blt alias
+#### 4. Setup a local blt alias
 
 Add the following to your `~/.bash_profile` or equivalent to create a local alias to the `blt` tool:
 
@@ -64,13 +80,13 @@ function blt() {
 
 ```
 
-#### 4. Install DrupalVM setup using blt vm
+#### 5. Install DrupalVM setup using blt vm
 
 ```
 blt vm
 ```
 
-#### 5. Setup VM
+#### 6. Setup VM
 
 Setup the VM with the configuration from this repositories [configuration files](#important-configuration-files).
 
@@ -98,7 +114,7 @@ If `vagrant up` did not run successfully, you may need to run:
 vagrant reload --provision
 ```
 
-#### 6. Check vagrant status
+#### 7. Check vagrant status
 
 See the status of your virtual machines:
 
