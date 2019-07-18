@@ -175,8 +175,12 @@ blt sync
 # Deploy
 
 ```
-ACQUIA_CLOUD_REMOTE_GIT=acquia_git_destination blt artifact:deploy --commit-msg "message here" --branch "branch name here" --no-interaction
+ACQUIA_CLOUD_REMOTE_GIT=acquia_git_destination blt artifact:deploy --commit-msg "BLT-001: Commit message here." --branch "branch name here" --no-interaction
 ```
+
+Note that by default, commit messages need to conform to a strict pattern specified in `build.yml` under `git > commit-msg > pattern`. The default regex pattern is as follows, with "project.prefix" being "BLT" by default:
+
+`"/(^${project.prefix}-[0-9]+(: )[^ ].{15,}\\.)|(Merge branch (.)+)/"`
 
 # Resources
 
