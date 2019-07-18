@@ -182,6 +182,8 @@ Note that by default, commit messages need to conform to a strict pattern specif
 
 `"/(^${project.prefix}-[0-9]+(: )[^ ].{15,}\\.)|(Merge branch (.)+)/"`
 
+Note that this regex requires a period at the end of the commit message.
+
 # Resources
 
 Additional [BLT documentation](https://docs.acquia.com/blt/) may be useful. You may also access a list of BLT commands by running this:
