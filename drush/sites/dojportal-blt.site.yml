@@ -35,5 +35,3 @@ test:
   user: '${ACQUIA_TEST_DRUSH_USER}'
   paths:
     drush-script: drush9
-
-
