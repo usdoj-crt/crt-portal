@@ -134,6 +134,32 @@ http://local.dojportal-blt.com/
 
 If you don't see anything, check your `/etc/hosts` file or adjust the port forwarding settings in your `Vagrantfile`.
 
+## ... I want to run drush commands against Acquia Cloud sites
+
+Copy the example `set_environment_variables` example file over:
+
+```
+cp example.set_environment_variables.sh set_environment_variables.sh
+```
+
+Fill in the environment variables based on your Acquia Cloud config.
+
+Then, execute the file to set the environment variables locally:
+
+```
+chmod +x set_environment_variables.sh
+
+./set_environment_variables.sh
+```
+
+Cheeck to see if your drush aliases are set up correctly:
+
+```
+drush sa
+```
+
+You should see local, dev, and test environments listed.
+
 ## ... I want to set up a new Drupal site
 
 After you've completed steps 1 through 6 above:
