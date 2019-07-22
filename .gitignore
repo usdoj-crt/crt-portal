@@ -1,3 +1,6 @@
+# Ignore script that sets env variables
+set_environment_variables.sh
+
 # Ignore configuration files that may contain sensitive information.
 local.settings.php
 local.drush.yml
