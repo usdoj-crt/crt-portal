@@ -234,6 +234,14 @@ Note that by default, commit messages need to conform to a strict pattern specif
 
 Also note that this regex requires a period at the end of the commit message.
 
+## Installing, deploying, and enabling a new module
+
+1. Install and enable the module locally
+2. Export configuration locally (eg, `drush @dojportal-blt.local cex`)
+3. Commit the exported configuration
+4. Deploy to Acquia (see deploy commands above)
+5. Import the configuration to Acquia (eg, `drush @dojportal-blt.dev cim`)
+
 # Resources
 
 Additional [BLT documentation](https://docs.acquia.com/blt/) may be useful. You may also access a list of BLT commands by running this:
