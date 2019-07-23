@@ -4,3 +4,34 @@ local:
     host: local.dojportal-blt.com
     user: vagrant
     ssh: { options: '-o StrictHostKeyChecking=no -o PasswordAuthentication=no -i $HOME/.vagrant.d/insecure_private_key' }
+
+# Application 'dojportal', environment 'dev'.
+dev:
+  root: /var/www/html/dojportal.dev/docroot
+  ac-site: dojportal
+  ac-env: dev
+  ac-realm: devcloud
+  uri: '${ACQUIA_DEV_URI}'
+  dev.livedev:
+    parent: '@dojportal.dev'
+    root: /mnt/gfs/dojportal.dev/livedev/docroot
+  host: '${ACQUIA_DEV_SSH_HOST}'
+  user: '${ACQUIA_DEV_DRUSH_USER}'
+  paths:
+    drush-script: drush9
+
+
+# Application 'dojportal', environment 'test'.
+test:
+  root: /var/www/html/dojportal.test/docroot
+  ac-site: dojportal
+  ac-env: test
+  ac-realm: devcloud
+  uri: '${ACQUIA_TEST_URI}'
+  test.livedev:
+    parent: '@dojportal.test'
+    root: /mnt/gfs/dojportal.test/livedev/docroot
+  host: '${ACQUIA_TEST_SSH_HOST}'
+  user: '${ACQUIA_TEST_DRUSH_USER}'
+  paths:
+    drush-script: drush9

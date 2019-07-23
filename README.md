@@ -134,6 +134,32 @@ http://local.dojportal-blt.com/
 
 If you don't see anything, check your `/etc/hosts` file or adjust the port forwarding settings in your `Vagrantfile`.
 
+## ... I want to run drush commands against Acquia Cloud sites
+
+Copy the example `set_environment_variables` example file over:
+
+```
+cp example.set_environment_variables.sh set_environment_variables.sh
+```
+
+Fill in the environment variables based on your Acquia Cloud config.
+
+Then, execute the file to set the environment variables locally:
+
+```
+chmod +x set_environment_variables.sh
+
+./set_environment_variables.sh
+```
+
+Cheeck to see if your drush aliases are set up correctly:
+
+```
+drush sa
+```
+
+You should see local, dev, and test environments listed.
+
 ## ... I want to set up a new Drupal site
 
 After you've completed steps 1 through 6 above:
@@ -194,15 +220,19 @@ blt sync
 
 # Deploy
 
+First, make sure you have run the `set_environment_variables` script, as described above in "I want to run drush commands against Acquia Cloud sites".
+
+Next:
+
 ```
-ACQUIA_CLOUD_REMOTE_GIT=acquia_git_destination blt artifact:deploy --commit-msg "BLT-001: Commit message here." --branch "branch name here" --no-interaction
+blt artifact:deploy --commit-msg "BLT-001: Commit message here." --branch "branch name here" --no-interaction
 ```
 
 Note that by default, commit messages need to conform to a strict pattern specified in `build.yml` under `git > commit-msg > pattern`. The default regex pattern is as follows, with "project.prefix" being "BLT" by default:
 
 `"/(^${project.prefix}-[0-9]+(: )[^ ].{15,}\\.)|(Merge branch (.)+)/"`
 
-Note that this regex requires a period at the end of the commit message.
+Also note that this regex requires a period at the end of the commit message.
 
 # Resources
 
