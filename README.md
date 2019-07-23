@@ -209,7 +209,7 @@ Note that this regex requires a period at the end of the commit message.
 1. Install and enable the module locally
 2. Export configuration locally (eg, `drush @dojportal-blt.local cex`)
 3. Commit the exported configuration
-4. Deploy to Acquia with `blt deploy`
+4. Deploy to Acquia (see deploy commands above)
 5. Import the configuration to Acquia (eg, `drush @dojportal-blt.dev cim`)
 
 # Resources
