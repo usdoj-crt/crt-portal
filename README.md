@@ -149,7 +149,7 @@ Then, execute the file to set the environment variables locally:
 ```
 chmod +x set_environment_variables.sh
 
-./set_environment_variables.sh
+source set_environment_variables.sh
 ```
 
 Cheeck to see if your drush aliases are set up correctly:
