@@ -1,0 +1,18 @@
+uuid: 1ae77fe1-008a-44e1-ab21-af8c90de9b6e
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - maestro_form_approval_example
+_core:
+  default_config_hash: nZo2G_SvN4wG7iUWD4ODJlEzCfjDJ7qw2fb8i409fIg
+id: maestro_example
+label: 'Maestro Example'
+weight: 3
+is_admin: null
+permissions:
+  - 'create approval_form content'
+  - 'edit any approval_form content'
+  - 'edit own approval_form content'
+  - 'start maestro process'

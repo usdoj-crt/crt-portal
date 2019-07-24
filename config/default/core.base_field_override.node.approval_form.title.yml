@@ -1,0 +1,20 @@
+uuid: 2685ef48-d657-4b1f-9389-2ef2de10cbc8
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.approval_form
+_core:
+  default_config_hash: 7A89s-9R2HKhjLw5ZpSpb7w2XkVyMOYnqzm9_quae_o
+id: node.approval_form.title
+field_name: title
+entity_type: node
+bundle: approval_form
+label: 'Label for your request'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

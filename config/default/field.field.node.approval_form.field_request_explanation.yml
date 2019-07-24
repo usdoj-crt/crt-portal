@@ -1,0 +1,21 @@
+uuid: a624fe55-9183-4c06-ae0d-98415d1771dc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_request_explanation
+    - node.type.approval_form
+_core:
+  default_config_hash: IvkFerioE4AWVKquexoUJhJBAejHS6OMZjIn8WacEaw
+id: node.approval_form.field_request_explanation
+field_name: field_request_explanation
+entity_type: node
+bundle: approval_form
+label: 'Request Explanation'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

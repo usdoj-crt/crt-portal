@@ -1,0 +1,14 @@
+uuid: 7e20cde5-0506-43a6-83e9-c7684229cb07
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.approval_form_reviewer
+  module:
+    - user
+id: user_remove_role_action.approval_form_reviewer
+label: 'Remove the Approval Form reviewer role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: approval_form_reviewer

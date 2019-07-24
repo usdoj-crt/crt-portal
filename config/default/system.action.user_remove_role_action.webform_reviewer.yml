@@ -1,0 +1,14 @@
+uuid: c294aa98-9e00-44b6-85dd-3c96be8f227f
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.webform_reviewer
+  module:
+    - user
+id: user_remove_role_action.webform_reviewer
+label: 'Remove the Webform reviewer role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: webform_reviewer

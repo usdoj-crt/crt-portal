@@ -1,0 +1,14 @@
+uuid: 2ab08c78-1700-4cff-8827-8cf27839150b
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.approval_form_creator
+  module:
+    - user
+id: user_remove_role_action.approval_form_creator
+label: 'Remove the Approval Form creator role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: approval_form_creator

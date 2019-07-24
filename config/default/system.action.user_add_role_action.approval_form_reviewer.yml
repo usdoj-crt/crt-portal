@@ -1,0 +1,14 @@
+uuid: d10cb3e1-4ba7-4958-a9cc-ff6ace3f1ce6
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.approval_form_reviewer
+  module:
+    - user
+id: user_add_role_action.approval_form_reviewer
+label: 'Add the Approval Form reviewer role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: approval_form_reviewer

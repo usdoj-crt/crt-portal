@@ -1,0 +1,51 @@
+uuid: 270754b3-b950-4a9e-bade-9a2a52f94f4a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.approval_form.field_request_explanation
+    - node.type.approval_form
+  module:
+    - content_moderation
+_core:
+  default_config_hash: fwIXMM05ltMXRpJ5Fqr27Z-AJvznbkrW8KOtbafYChA
+id: node.approval_form.default
+targetEntityType: node
+bundle: approval_form
+mode: default
+content:
+  field_request_explanation:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textarea
+    region: content
+  moderation_state:
+    type: moderation_state_default
+    weight: 100
+    settings: {  }
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 120
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  path: true
+  promote: true
+  sticky: true
+  uid: true

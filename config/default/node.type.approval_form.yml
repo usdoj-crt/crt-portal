@@ -1,0 +1,23 @@
+uuid: 3177d34e-51e7-4c26-b449-e29812f1ba17
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - maestro_form_approval_example
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+_core:
+  default_config_hash: U7vlsAieVxpyMZS5ed0fae1XwfAHPMo8La77tEWEaRQ
+name: 'Approval Form'
+type: approval_form
+description: 'Maestro Approval Form Example workflow content type'
+help: ''
+new_revision: false
+preview_mode: 1
+display_submitted: true
