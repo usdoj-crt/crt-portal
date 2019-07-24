@@ -197,6 +197,26 @@ cd docroot
 drush uli
 ```
 
+## ... I want to import configuration locally
+
+First, download the configuration you want to import to `config/default`. (Or switch to a branch which contains the configuration you need in `config/default`.)
+
+Make sure your drush config is set to match the UUID of the Drupal site you would like to import from. In the case of our app, use:
+
+```
+# from within vagrant ssh
+
+drush config-set "system.site" uuid "3bb8cee4-7729-4ef8-acb0-46ca31a0d55d"
+```
+
+Once the UUID matches, you should be able to run:
+
+```
+# from within vagrant ssh
+
+drush cim
+```
+
 ## Other Local Setup Steps
 
 1. Set up frontend build and theme.
@@ -241,6 +261,7 @@ Also note that this regex requires a period at the end of the commit message.
 3. Commit the exported configuration
 4. Deploy to Acquia (see deploy commands above)
 5. Import the configuration to Acquia (eg, `drush @dojportal-blt.dev cim`)
+6. When you have a choice to use "sync" or "vcs", choose "vcs".
 
 # Resources
 
