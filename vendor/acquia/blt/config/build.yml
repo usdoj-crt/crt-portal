@@ -1,0 +1,275 @@
+# @todo Move to subkey of tests.
+behat:
+  config: ${repo.root}/tests/behat/local.yml
+  profile: local
+  # An array of paths with behat tests that should be executed.
+  paths:
+    # - ${docroot}/modules
+    # - ${docroot}/profiles
+    - ${repo.root}/tests/behat
+  tags: '~ajax&&~experimental&&~lightningextension'
+  extra: ''
+  validate: true
+  # May be chrome, selenium.
+  web-driver: chrome
+
+bin.path: vendor/bin
+
+blt:
+  update:
+    ignore-existing-file: ${blt.root}/scripts/blt/ignore-existing.txt
+  config-files:
+    project: ${repo.root}/blt/blt.yml
+    local: ${repo.root}/blt/local.blt.yml
+    example-local: ${repo.root}/blt/example.local.blt.yml
+    schema-version: ${repo.root}/blt/.schema_version
+  command-cache-dir: ${blt.root}/cache/commands
+
+composer:
+  bin: ${repo.root}/${bin.path}
+  extra: ''
+
+cm:
+  # Possible values: core-only, config-split, features, none.
+  strategy: config-split
+  core:
+    # The parent directory for configuration directories, relative to the docroot.
+    path: ../config
+    # The default config key to use for imports. This is the key used in Drupal's global $config_directories variable.
+    # E.g., $config_directories['sync']. It must have a corresponding key in cm.core.dirs. E.g., `cm.core.dirs.sync`.
+    key: sync
+    dirs:
+      # Corresponding value is defined in config.settings.php.
+      sync:
+        path: ${cm.core.path}/default
+    # Install site directly from existing config.
+    # This cannot be used if your install profile implements hook_install.
+    # Import our project config
+    install_from_config: true
+  features:
+    no-overrides: true
+
+deploy:
+  # If true, dependencies will be built during deploy. If false, you should commit dependencies directly.
+  build-dependencies: true
+  dir: ${repo.root}/deploy
+  exclude_file: ${blt.root}/scripts/blt/deploy/deploy-exclude.txt
+  exclude_additions_file: ${repo.root}/blt/deploy-exclude-additions.txt
+  gitignore_file: ${blt.root}/scripts/blt/deploy/.gitignore
+
+# File and Directory locations.
+docroot: ${repo.root}/docroot
+
+# Drupal Account Credentials. These are used for installing Drupal.
+drupal:
+  #account.name: admin
+  account.mail: no-reply@acquia.com
+  locale: en
+  local_settings_file: ${docroot}/sites/${site}/settings/local.settings.php
+  settings_file: ${docroot}/sites/${site}/settings.php
+  db:
+    database: drupal
+    username: drupal
+    password: drupal
+    host: localhost
+    port: 3306
+
+drush:
+  bin: ${composer.bin}/drush
+  dir: ${docroot}
+  alias-dir: ${repo.root}/drush/sites
+  sanitize: true
+  ansi: true
+
+git:
+  # The value of a hook should be the file path to a directory containing an
+  # executable file named after the hook. Changing a hook value to 'false' will disable it.
+  # You should execute `blt blt:init:git-hooks` after modifying these values.
+  hooks:
+    pre-commit: ${blt.root}/scripts/git-hooks
+    commit-msg: ${blt.root}/scripts/git-hooks
+  commit-msg:
+    # Commit messages must conform to this pattern.
+    pattern: "/(^${project.prefix}-[0-9]+(: )[^ ].{15,}\\.)|(Merge branch (.)+)/"
+    # Human readable help description explaining the pattern/restrictions.
+    help_description: "The commit message should include your project prefix,
+                      followed by a hyphen and ticket number, followed by a colon and a space,
+                      fifteen characters or more describing the commit, and end with a period."
+    # Provide an example of a valid commit message.
+    example: "${project.prefix}-123: Update module configuration."
+  user:
+    # Name and email to use for the purposes of Git commits if you don't want to
+    # use global Git configuration.
+    name: ''
+    email: ''
+
+# You may provide a list of sites for BLT to run commands against,
+# otherwise BLT will generate this sites list based on directories
+# in ${docroot}/sites/*/
+#
+# multisites:
+#  - default
+
+# @todo Move to subkey of validate.
+phpcs:
+  standard: Drupal,DrupalPractice
+
+#$ @todo Move to subkey of fix.
+phpcbf:
+  filesets:
+    - files.php.custom.modules
+    - files.php.tests
+    - files.php.custom.themes
+    - files.frontend.custom.themes
+
+project:
+  local:
+    uri: ${project.local.protocol}://${project.local.hostname}
+
+setup:
+  # Valid values are install, sync, import.
+  strategy: install
+  # If setup.strategy is import, this file will be imported. File path is
+  # relative to drupal docroot directory.
+  dump-file: null
+
+sync:
+  # By default, files are not synced during sync:refresh.
+  # Set this value to 'true' or pass -D sync.files=true
+  # to override this behavior.
+  files: false
+  # Paths to exclude during file syncing operations.
+  exclude-paths:
+    - styles
+    - css
+    - js
+  commands:
+    - source:build:composer
+    - blt:init:settings
+    - drupal:sync:db
+    - drupal:update
+    - source:build:frontend
+
+# Custom tasks that are triggered at pre-defined times in the build process.
+# The tasks hook into BLT's existing commands.
+command-hooks:
+  # Executed when front end dependencies should be installed.
+  frontend-reqs:
+    # E.g., ${docroot}/themes/custom/mytheme
+    dir: ${docroot}
+    # E.g., '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use 4.4.4 && npm install'
+    command: null
+  # Executed when front end assets should be generated.
+  frontend-assets:
+    # E.g., ${docroot}/themes/custom/mytheme
+    dir: ${docroot}
+    # E.g., '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" && nvm use 4.4.4 && npm build'
+    command: null
+  frontend-test:
+    # E.g., ${docroot}/themes/custom/mytheme
+    dir: ${docroot}
+    # E.g., `npm test`.
+    command: null
+  pre-commit:
+    # E.g., ${docroot}
+    dir: ${docroot}
+    # E.g., `php -l`.
+    command: null
+  # Executed before configuration is imported.
+  pre-config-import:
+    dir: ${docroot}
+    command: null
+  # Executed after deployment artifact is created.
+  post-deploy-build:
+    dir: '${deploy.dir}/docroot'
+    command: null
+  # Executed after source:build is run.
+  post-setup-build:
+    dir: ${docroot}
+    command: null
+  # Executed after deploy:push-all is run.
+  post-deploy:
+    dir: ${docroot}
+    command: null
+
+tests:
+  reports:
+    localDir: ${repo.root}/reports
+    remoteDir: reports
+  run-server: false
+  # This is used for ad-hoc creation of a server via `drush runserver`.
+  server:
+    port: 8888
+    url: http://127.0.0.1:${tests.server.port}
+  # The URL of selenium server. Must correspond with setting in behat's yaml config.
+  selenium:
+    port: 4444
+    url: http://127.0.0.1:${tests.selenium.port}/wd/hub
+  chrome:
+    port: 9222
+    args: ""
+  chromedriver:
+    port: 9515
+    args: null
+  drupal:
+    # May be phpunit or run-tests-script.
+    test-runner: run-tests-script
+    sudo-run-tests: true
+    # Only chromedriver is supported at this time.
+    web-driver: chromedriver
+    sqlite: '${repo.root}/tmp/test.sqlite'
+    browsertest-output-directory: 'browser_output'
+    apache-run-group: 'www-data'
+    apache-run-user: 'www-data'
+    # mink-driver-args: ''
+    mink-driver-args-webdriver: '["chrome", {"browserName":"chrome","chromeOptions":{"args":["--disable-gpu","--headless","--no-sandbox"]}}, "http://localhost:9515"]'
+    # mink-driver-class: 'Drupal\FunctionalJavascriptTests\DrupalSelenium2Driver'
+    simpletest-base-url: '${project.local.protocol}://${project.local.hostname}'
+    simpletest-db: 'sqlite://localhost/${tests.drupal.sqlite}'
+    symfony-deprecations-helper: 'disabled'
+    # Tests to run with Drupal's implementation of PHPUnit.
+    phpunit:
+    # Tests to run with Drupal's run-test.sh script.
+    drupal-tests:
+  # Tests to run directly with PHPUnit.
+  phpunit:
+    # - path: '${repo.root}/tests/phpunit'
+    #   config: ${docroot}/core/phpunit.xml.dist
+    #   directory: '${repo.root}/tests/phpunit'
+
+validate:
+  # You can change this to true to have blt automatically validate acsf-init.
+  acsf: false
+  # You can change one or both of these to true to have blt automatically scan for deprecated code.
+  deprecation:
+    modules: false
+    themes: false
+
+  deprecated:
+    filesets:
+      - files.php.custom.modules
+  lint:
+    filesets:
+      - files.php.custom.modules
+      - files.php.custom.themes
+      - files.php.tests
+  twig:
+    filesets:
+      - files.twig
+    # Add any custom Twig filters for linter to ignore.
+    filters: { }
+    # Add any custom Twig functions for linter to ignore.
+    functions: { }
+  yaml:
+    filesets:
+      - files.yaml
+
+vm:
+  enable: false
+  config: ${repo.root}/box/config.yml
+  # By default, BLT should only be run from inside a VM, if it exists. You can
+  # choose to run it on the host instead by setting this to false, and changing
+  # drush.aliases.local to an alias that can SSH into the VM.
+  blt-in-vm: true
+  vagrant:
+      hostname: ${project.local.hostname}
