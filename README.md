@@ -136,29 +136,15 @@ If you don't see anything, check your `/etc/hosts` file or adjust the port forwa
 
 ## ... I want to run drush commands against Acquia Cloud sites
 
-Copy the example `set_environment_variables` example file over:
+Follow the "Acquia Cloud aliases" instructions on https://docs.acquia.com/blt/developer/drush/:
 
-```
-cp example.set_environment_variables.sh set_environment_variables.sh
-```
-
-Fill in the environment variables based on your Acquia Cloud config.
-
-Then, execute the file to set the environment variables locally:
-
-```
-chmod +x set_environment_variables.sh
-
-source set_environment_variables.sh
-```
+> You can download aliases for Acquia Cloud sites by signing in to https://cloud.acquia.com, and then going to the Credentials tab on your user profile. Download and place the relevant alias file into drush/sites.
 
 Cheeck to see if your drush aliases are set up correctly:
 
 ```
 drush sa
 ```
-
-You should see local, dev, and test environments listed.
 
 ## ... I want to set up a new Drupal site
 
@@ -240,7 +226,17 @@ blt sync
 
 # Deploy
 
-First, make sure you have run the `set_environment_variables` script, as described above in "I want to run drush commands against Acquia Cloud sites".
+First, make sure you have the `ACQUIA_CLOUD_REMOTE_GIT` variable set in your `set_environment_variables` script. This represents the git location for the project you want to deploy to, and is available in Acquia Cloud.
+
+```
+cp example.set_environment_variables.sh set_environment_variables.sh
+
+{set value for ACQUIA_CLOUD_REMOTE_GIT}
+
+chmod +x set_environment_variables.sh
+
+source set_environment_variables.sh
+```
 
 Next:
 
