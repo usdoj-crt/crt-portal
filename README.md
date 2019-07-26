@@ -146,6 +146,10 @@ Cheeck to see if your drush aliases are set up correctly:
 drush sa
 ```
 
+### Troubleshooting Drush/BLT commands 
+
+When you run into set up errors, using the `--verbose` flag can give valuable info for debugging
+
 ## ... I want to set up a new Drupal site
 
 After you've completed steps 1 through 6 above:
