@@ -1,0 +1,30 @@
+uuid: 7d8a4047-37d9-4ae4-b286-05b466647a91
+langcode: en
+status: true
+dependencies: {  }
+id: webform_creator
+label: 'Webform creator'
+weight: 7
+is_admin: false
+permissions:
+  - 'access ckeditor_media_browser entity browser pages'
+  - 'access contextual links'
+  - 'access image_browser entity browser pages'
+  - 'access in-place editing'
+  - 'access media_browser entity browser pages'
+  - 'access panels in-place editing'
+  - 'access toolbar'
+  - 'administer panelizer node webform content'
+  - 'administer panelizer node webform layout'
+  - 'change layouts in place editing'
+  - 'create url aliases'
+  - 'create webform content'
+  - 'edit own webform content'
+  - 'use editorial transition create_new_draft'
+  - 'use editorial transition review'
+  - 'use moderation sidebar'
+  - 'use text format rich_text'
+  - 'view any unpublished content'
+  - 'view latest version'
+  - 'view own unpublished content'
+  - 'view webform revisions'

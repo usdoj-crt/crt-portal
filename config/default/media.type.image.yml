@@ -1,0 +1,15 @@
+uuid: b25889c9-babb-458b-b790-617b53836d9c
+langcode: und
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: UbLy1_yBV5jSxil0-k8gV9GiVUg3Oik3hlAJzqeT8YQ
+id: image
+label: Image
+description: 'Locally hosted images.'
+source: image
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  source_field: image
+field_map: {  }

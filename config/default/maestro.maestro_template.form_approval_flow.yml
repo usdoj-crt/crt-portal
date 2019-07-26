@@ -1,0 +1,227 @@
+uuid: b663ff99-b5fa-4e6b-803f-e44904f80f39
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: aItHXhwzRnNFiXo7pondCniLHIIpuXO2--ejx0C_FTc
+id: form_approval_flow
+label: 'Form Approval Flow'
+app_group: 0
+canvas_height: 500
+canvas_width: 800
+default_workflow_timeline_stage_count: null
+show_details: null
+validated: true
+views_attached: null
+variables:
+  initiator:
+    variable_id: initiator
+    variable_value: '0'
+  rejected:
+    variable_id: rejected
+    variable_value: '0'
+  workflow_timeline_stage_count:
+    variable_id: workflow_timeline_stage_count
+    variable_value: ''
+  workflow_current_stage:
+    variable_id: workflow_current_stage
+    variable_value: ''
+  workflow_current_stage_message:
+    variable_id: workflow_current_stage_message
+    variable_value: ''
+tasks:
+  start:
+    id: start
+    tasktype: MaestroStart
+    label: Start
+    nextstep: submit_request
+    nextfalsestep: ''
+    top: '35'
+    left: '129'
+    assignby: fixed
+    assignto: engine
+  end:
+    id: end
+    tasktype: MaestroEnd
+    label: End
+    nextstep: ''
+    nextfalsestep: ''
+    top: '424'
+    left: '131'
+    assignby: fixed
+    assignto: engine
+  submit_request:
+    id: submit_request
+    label: 'Submit your Request'
+    tasktype: MaestroContentType
+    nextstep: spv_turn_off_rejected
+    nextfalsestep: ''
+    top: '146'
+    left: '130'
+    assignby: fixed
+    assignto: ''
+    raphael: ''
+    to: ''
+    pointedfrom: ''
+    falsebranch: ''
+    lines: {  }
+    data:
+      unique_id: request
+      content_type: approval_form
+      save_edit_later: 1
+      redirect_to: taskconsole
+    handler: '/node/add/approval_form?maestro=1'
+    assigned: 'user:fixed:maestro_employee,user:fixed:admin'
+    runonce: false
+    showindetail: true
+    notifications:
+      notification_assignment: ''
+      notification_reminder: ''
+      notification_escalation: ''
+      reminder_after: 0
+      escalation_after: 0
+  manager_approval:
+    id: manager_approval
+    label: 'Approve a Manager Request'
+    tasktype: MaestroInteractive
+    nextstep: if_approved
+    nextfalsestep: ''
+    top: '324'
+    left: '418'
+    assignby: fixed
+    assignto: ''
+    raphael: ''
+    to: ''
+    pointedfrom: ''
+    falsebranch: ''
+    lines: {  }
+    handler: maestro_form_approval_example_manager_approval_form
+    data:
+      modal: modal
+      reditect_to: taskconsole
+    assigned: 'user:fixed:maestro_manager,user:fixed:admin'
+    runonce: false
+    showindetail: true
+    notifications:
+      notification_assignment: ''
+      notification_reminder: ''
+      notification_escalation: ''
+      reminder_after: 0
+      escalation_after: 0
+  if_approved:
+    id: if_approved
+    label: 'Approved?'
+    tasktype: MaestroIf
+    nextstep: end
+    nextfalsestep: spv_turn_on_rejected
+    top: '326'
+    left: '131'
+    assignby: fixed
+    assignto: ''
+    raphael: ''
+    to: ''
+    pointedfrom: ''
+    falsebranch: ''
+    lines: {  }
+    data:
+      if:
+        method: bylasttaskstatus
+        variable: initiator
+        operator: '='
+        variable_value: ''
+        status: '1'
+    assigned: ''
+    runonce: false
+    handler: ''
+    showindetail: true
+    notifications:
+      notification_assignment: null
+      notification_reminder: null
+      notification_escalation: null
+      reminder_after: null
+      escalation_after: null
+  set_flow_name:
+    id: set_flow_name
+    label: 'Set Flow Name'
+    tasktype: MaestroBatchFunction
+    nextstep: manager_approval
+    nextfalsestep: ''
+    top: '146'
+    left: '416'
+    assignby: fixed
+    assignto: ''
+    raphael: ''
+    to: ''
+    pointedfrom: ''
+    falsebranch: ''
+    lines: {  }
+    handler: maestro_form_approval_example_set_flow_name_batch
+    assigned: ''
+    runonce: false
+    showindetail: true
+    notifications:
+      notification_assignment: null
+      notification_reminder: null
+      notification_escalation: null
+      reminder_after: null
+      escalation_after: null
+  spv_turn_off_rejected:
+    id: spv_turn_off_rejected
+    label: 'Turn off rejected'
+    tasktype: MaestroSetProcessVariable
+    nextstep: set_flow_name
+    nextfalsestep: ''
+    top: '146'
+    left: '273'
+    assignby: fixed
+    assignto: ''
+    raphael: ''
+    to: ''
+    pointedfrom: ''
+    falsebranch: ''
+    lines: {  }
+    data:
+      spv:
+        variable: rejected
+        method: hardcoded
+        variable_value: '0'
+    assigned: ''
+    runonce: false
+    handler: ''
+    showindetail: true
+    notifications:
+      notification_assignment: null
+      notification_reminder: null
+      notification_escalation: null
+      reminder_after: null
+      escalation_after: null
+  spv_turn_on_rejected:
+    id: spv_turn_on_rejected
+    label: 'Turn On Rejected Flag'
+    tasktype: MaestroSetProcessVariable
+    nextstep: submit_request
+    nextfalsestep: ''
+    top: '237'
+    left: '130'
+    assignby: fixed
+    assignto: ''
+    raphael: ''
+    to: ''
+    pointedfrom: ''
+    falsebranch: ''
+    lines: {  }
+    data:
+      spv:
+        variable: rejected
+        method: hardcoded
+        variable_value: '1'
+    assigned: ''
+    runonce: false
+    handler: ''
+    showindetail: true
+    notifications:
+      notification_assignment: null
+      notification_reminder: null
+      notification_escalation: null
+      reminder_after: null
+      escalation_after: null

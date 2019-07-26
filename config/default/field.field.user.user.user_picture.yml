@@ -1,0 +1,40 @@
+uuid: 682c7ef8-4657-4d59-ba60-929da50ce234
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.user.user_picture
+  module:
+    - image
+    - user
+_core:
+  default_config_hash: Iiq0AttdhgbebJwabSFwQQ1ORn64GoGz0xSZ_eyCJ8A
+id: user.user.user_picture
+field_name: user_picture
+entity_type: user
+bundle: user
+label: Picture
+description: 'Your virtual face or picture.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  file_extensions: 'png gif jpg jpeg'
+  file_directory: 'pictures/[date:custom:Y]-[date:custom:m]'
+  max_filesize: ''
+  alt_field: false
+  title_field: false
+  max_resolution: ''
+  min_resolution: ''
+  default_image:
+    uuid: 278c375f-f186-4aa5-beca-03002caf5d22
+    alt: 'A generic silhouette of a person.'
+    title: ''
+    width: 140
+    height: 140
+  alt_field_required: false
+  title_field_required: false
+  handler: 'default:file'
+  handler_settings: {  }
+field_type: image

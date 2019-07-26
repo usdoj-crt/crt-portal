@@ -15,10 +15,13 @@
         "drupal/core": "^8.6.0",
         "drupal/devel": "^2.0.0",
         "drupal/features": "^3.8.0",
+        "drupal/maestro": "^2.1@RC",
         "drupal/memcache": "2.0-alpha7",
         "drupal/qa_accounts": "^1.0.0-alpha1",
         "drupal/seckit": "^1.0.0-alpha2",
-        "drupal/shield": "^1.2.0"
+        "drupal/shield": "^1.2.0",
+        "drupal/webform": "^5.3",
+        "drupal/webform_views": "^5.0@alpha"
     },
     "require-dev": {
         "acquia/blt-require-dev": "^10.0.0-alpha1",

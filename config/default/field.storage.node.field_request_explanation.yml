@@ -1,0 +1,24 @@
+uuid: ec1e1fea-8e11-4462-9190-7d1d8c647f52
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - maestro_form_approval_example
+  module:
+    - node
+_core:
+  default_config_hash: qzzZO8UeYxxYhKzdEPGXBuOmDJeVVjuZvDOp6hmRJrQ
+id: node.field_request_explanation
+field_name: field_request_explanation
+entity_type: node
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

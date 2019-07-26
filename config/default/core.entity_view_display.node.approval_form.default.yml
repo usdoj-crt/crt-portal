@@ -1,0 +1,28 @@
+uuid: 8c8b9cf3-9be1-4c9a-af18-088064488223
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.approval_form.field_request_explanation
+    - node.type.approval_form
+  module:
+    - user
+_core:
+  default_config_hash: DY2bZH1txi6PX_FyXTPVoruwe0bQGAsiNKbt4ex8PNU
+id: node.approval_form.default
+targetEntityType: node
+bundle: approval_form
+mode: default
+content:
+  field_request_explanation:
+    weight: 101
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  links:
+    weight: 100
+    region: content
+hidden:
+  search_api_excerpt: true
