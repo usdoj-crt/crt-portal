@@ -220,6 +220,13 @@ cp -r node_modules/uswds/dist assets
 npm run build
 ```
 
+Or use "watch" mode to regenerate the CSS whenever the Sass is edited:
+
+```
+...
+npm run build:watch
+```
+
 ## Other BLT Steps
 
 #### Pull Files locally.
