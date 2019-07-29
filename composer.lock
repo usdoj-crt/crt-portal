@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67488e4d2aadc2922b08a5dcdab9b8e9",
+    "content-hash": "139c228e545ccc3b75e56e5f7067ea42",
     "packages": [
         {
             "name": "acquia/blt",
@@ -3334,77 +3334,6 @@
                 "standards"
             ],
             "time": "2019-06-14T15:06:06+00:00"
-        },
-        {
-            "name": "drupal/cog",
-            "version": "1.13.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/cog.git",
-                "reference": "8.x-1.13"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/cog-8.x-1.13.zip",
-                "reference": "8.x-1.13",
-                "shasum": "3eaa27fc8e4aa9cf1249f49d941ee34d8dc75e1a"
-            },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "type": "drupal-theme",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.13",
-                    "datestamp": "1516296784",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "aellison",
-                    "homepage": "https://www.drupal.org/user/277818"
-                },
-                {
-                    "name": "elm45",
-                    "homepage": "https://www.drupal.org/user/805178"
-                },
-                {
-                    "name": "grasmash",
-                    "homepage": "https://www.drupal.org/user/455714"
-                },
-                {
-                    "name": "jenter",
-                    "homepage": "https://www.drupal.org/user/186584"
-                },
-                {
-                    "name": "littlekope0903",
-                    "homepage": "https://www.drupal.org/user/2867321"
-                },
-                {
-                    "name": "sarahjean",
-                    "homepage": "https://www.drupal.org/user/553728"
-                }
-            ],
-            "description": "Acquia maintained starter theme.",
-            "homepage": "https://github.com/acquia-pso/cog",
-            "keywords": [
-                "Drupal"
-            ],
-            "support": {
-                "source": "https://github.com/acquia-pso/cog",
-                "issues": "https://github.com/acquia-pso/cog/issues"
-            }
         },
         {
             "name": "drupal/config_filter",
