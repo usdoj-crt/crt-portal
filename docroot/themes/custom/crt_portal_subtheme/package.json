@@ -1,5 +1,5 @@
 {
-  "name": "my-subtheme",
+  "name": "crt-portal-uswds-subtheme",
   "version": "1.0.0",
   "scripts": {
     "prebuild:css": "node-sass --include-path scss sass/uswds.scss assets/css/uswds.css",
