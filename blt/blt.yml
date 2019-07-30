@@ -11,6 +11,7 @@ git:
   default_branch: master
   hooks:
     pre-commit: false
+    commit-msg: false
   remotes:
     cloud: '${ACQUIA_CLOUD_REMOTE_GIT}'
 deploy:
