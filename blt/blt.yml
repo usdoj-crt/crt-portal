@@ -13,6 +13,7 @@ git:
     cloud: '${ACQUIA_CLOUD_REMOTE_GIT}'
 deploy:
   tag_source: true
+  dir: ${repo.root}/deploy
 drush:
   aliases:
     remote: '${project.machine_name}.test'
