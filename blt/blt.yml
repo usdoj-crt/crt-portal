@@ -9,6 +9,8 @@ project:
     hostname: 'local.${project.machine_name}.com'
 git:
   default_branch: master
+  hooks:
+    pre-commit: false
   remotes:
     cloud: '${ACQUIA_CLOUD_REMOTE_GIT}'
 deploy:
