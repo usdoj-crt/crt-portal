@@ -1,0 +1,35 @@
+features:
+  node_user_picture: 1
+  comment_user_picture: true
+  comment_user_verification: true
+  favicon: 1
+logo:
+  use_default: 0
+  path: profiles/contrib/lightning/lightning.png
+favicon:
+  use_default: 0
+  path: profiles/contrib/lightning/favicon.ico
+  mimetype: image/vnd.microsoft.icon
+uswds_header_style: basic
+uswds_header_mega: 0
+uswds_government_banner: 1
+uswds_footer_style: medium
+uswds_footer_agency: 0
+uswds_footer_agency_name: ''
+uswds_footer_agency_url: ''
+uswds_footer_agency_logo: ''
+uswds_contact_center: ''
+uswds_email: ''
+uswds_phone: ''
+uswds_facebook: ''
+uswds_twitter: ''
+uswds_youtube: ''
+uswds_rss: ''
+uswds_paragraphs_edge_to_edge: 1
+uswds_menu_accordion_duplicate_parent: 0
+uswds_menu_bypass:
+  primary_menu: 0
+  secondary_menu: 0
+  sidebar_first: 0
+  sidebar_second: 0
+  footer_menu: 0
