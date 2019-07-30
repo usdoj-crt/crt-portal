@@ -11,9 +11,9 @@ git:
   default_branch: master
   remotes:
     cloud: 'crtdoj@svn-6609.devcloud.hosting.acquia.com:crtdoj.git'
-    hooks:
-      pre-commit: false
-      commit-msg: false
+  hooks:
+    pre-commit: false
+    commit-msg: false
 deploy:
   tag_source: true
 drush:
