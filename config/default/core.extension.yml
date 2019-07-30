@@ -128,6 +128,8 @@ theme:
   classy: 0
   bartik: 0
   seven: 0
+  uswds: 0
+  crt_portal_subtheme: 0
 profile: lightning
 _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
