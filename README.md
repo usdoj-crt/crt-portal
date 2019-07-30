@@ -146,7 +146,7 @@ Cheeck to see if your drush aliases are set up correctly:
 drush sa
 ```
 
-### Troubleshooting Drush/BLT commands 
+### Troubleshooting Drush/BLT commands
 
 When you run into set up errors, using the `--verbose` flag can give valuable info for debugging
 
@@ -207,21 +207,36 @@ Once the UUID matches, you should be able to run:
 drush cim
 ```
 
-## Other Local Setup Steps
+## ... I want to customize the project theme
 
-1. Set up frontend build and theme.
-By default BLT sets up a site with the lightning profile and a cog base theme. You can choose your own profile before setup in the blt.yml file. If you do choose to use cog, see [Cog's documentation](https://github.com/acquia-pso/cog/blob/8.x-1.x/STARTERKIT/README.md#create-cog-sub-theme) for installation.
-See [BLT's Frontend docs](https://docs.acquia.com/blt/developer/frontend/) to see how to automate the theme requirements and frontend tests.
-After the initial theme setup you can configure `blt/blt.yml` to install and configure your frontend dependencies with `blt setup`.
+This project uses the [Drupal USWDS base theme](https://www.drupal.org/project/uswds). Its active theme is a subtheme called `crt_portal_subtheme`.
 
-2. Pull Files locally.
+To customize the subtheme using Sass, edit the `_variables.scss` and `uswds.scss` override files in the `crt_portal_subtheme` folder, and then regenerate the CSS:
+
+```
+cd docroot/themes/custom/crt_portal_subtheme/
+npm install
+cp -r node_modules/uswds/dist assets
+npm run build
+```
+
+Or use "watch" mode to regenerate the CSS whenever the Sass is edited:
+
+```
+...
+npm run build:watch
+```
+
+## Other BLT Steps
+
+#### Pull Files locally.
 Use BLT to pull all files down from your Cloud environment.
 
 ```
 blt drupal:sync:files
 ```
 
-3. Sync the Cloud Database.
+#### Sync the Cloud Database.
 If you have an existing database you can use BLT to pull down the database from your Cloud environment.
 
 ```

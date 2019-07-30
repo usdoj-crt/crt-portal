@@ -4,6 +4,10 @@ set_environment_variables.sh
 # Ignore drush config
 drush/sites/dojportal-blt.site.yml
 
+# Ignore subtheme files that ultimately generate CSS
+docroot/themes/custom/crt_portal_subtheme/node_modules
+docroot/themes/custom/crt_portal_subtheme/assets/scss
+
 # Ignore configuration files that may contain sensitive information.
 local.settings.php
 local.drush.yml
