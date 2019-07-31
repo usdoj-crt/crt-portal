@@ -245,20 +245,6 @@ blt sync
 
 # Deploy
 
-First, make sure you have the `ACQUIA_CLOUD_REMOTE_GIT` variable set in your `set_environment_variables` script. This represents the git location for the project you want to deploy to, and is available in Acquia Cloud.
-
-```
-cp example.set_environment_variables.sh set_environment_variables.sh
-
-{set value for ACQUIA_CLOUD_REMOTE_GIT}
-
-chmod +x set_environment_variables.sh
-
-source set_environment_variables.sh
-```
-
-Next:
-
 ```
 blt artifact:deploy --commit-msg "Commit message here." --branch "branch name here" --no-interaction
 ```
