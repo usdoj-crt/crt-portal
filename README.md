@@ -260,14 +260,8 @@ source set_environment_variables.sh
 Next:
 
 ```
-blt artifact:deploy --commit-msg "BLT-001: Commit message here." --branch "branch name here" --no-interaction
+blt artifact:deploy --commit-msg "Commit message here." --branch "branch name here" --no-interaction
 ```
-
-Note that by default, commit messages need to conform to a strict pattern specified in `build.yml` under `git > commit-msg > pattern`. The default regex pattern is as follows, with "project.prefix" being "BLT" by default:
-
-`"/(^${project.prefix}-[0-9]+(: )[^ ].{15,}\\.)|(Merge branch (.)+)/"`
-
-Also note that this regex requires a period at the end of the commit message.
 
 ## Installing, deploying, and enabling a new module
 
