@@ -20313,6 +20313,10 @@ example:
   max-width: 100%; }
 
 .usa-footer__logo-heading {
+  font-family: Merriweather Web, Georgia, Cambria, Times New Roman, Times, serif;
+  font-size: 0.97574rem;
+  line-height: 1.22983 ;
+  font-weight: bold;
   color: white;
   font-weight: normal; }
 

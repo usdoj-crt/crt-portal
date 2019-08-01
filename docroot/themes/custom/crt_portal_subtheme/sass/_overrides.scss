@@ -5,6 +5,7 @@
 
 // Footer
 .usa-footer__logo-heading {
+  @include h4
   color: white;
   font-weight: normal;
 }
