@@ -1,6 +1,3 @@
-# Ignore script that sets env variables
-set_environment_variables.sh
-
 # Ignore drush config
 drush/sites/dojportal-blt.site.yml
 

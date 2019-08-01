@@ -245,29 +245,9 @@ blt sync
 
 # Deploy
 
-First, make sure you have the `ACQUIA_CLOUD_REMOTE_GIT` variable set in your `set_environment_variables` script. This represents the git location for the project you want to deploy to, and is available in Acquia Cloud.
-
 ```
-cp example.set_environment_variables.sh set_environment_variables.sh
-
-{set value for ACQUIA_CLOUD_REMOTE_GIT}
-
-chmod +x set_environment_variables.sh
-
-source set_environment_variables.sh
+blt artifact:deploy --commit-msg "Commit message here." --branch "branch name here" --no-interaction
 ```
-
-Next:
-
-```
-blt artifact:deploy --commit-msg "BLT-001: Commit message here." --branch "branch name here" --no-interaction
-```
-
-Note that by default, commit messages need to conform to a strict pattern specified in `build.yml` under `git > commit-msg > pattern`. The default regex pattern is as follows, with "project.prefix" being "BLT" by default:
-
-`"/(^${project.prefix}-[0-9]+(: )[^ ].{15,}\\.)|(Merge branch (.)+)/"`
-
-Also note that this regex requires a period at the end of the commit message.
 
 ## Installing, deploying, and enabling a new module
 
