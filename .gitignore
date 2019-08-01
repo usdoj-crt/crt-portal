@@ -1,5 +1,5 @@
 # Ignore drush config
-drush/sites/dojportal-blt.site.yml
+drush/sites/*.site.yml
 
 # Ignore subtheme files that ultimately generate CSS
 docroot/themes/custom/crt_portal_subtheme/node_modules
