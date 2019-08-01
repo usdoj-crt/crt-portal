@@ -20311,3 +20311,9 @@ example:
 
 .usa-form {
   max-width: 100%; }
+
+.usa-footer__logo-heading {
+  color: white; }
+
+.usa-footer__secondary-section {
+  background-color: #2E2E2A; }
