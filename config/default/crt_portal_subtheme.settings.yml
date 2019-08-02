@@ -14,10 +14,10 @@ uswds_header_style: basic
 uswds_header_mega: 0
 uswds_government_banner: 1
 uswds_footer_style: medium
-uswds_footer_agency: 0
-uswds_footer_agency_name: ''
+uswds_footer_agency: 1
+uswds_footer_agency_name: 'Civil Rights Division'
 uswds_footer_agency_url: ''
-uswds_footer_agency_logo: ''
+uswds_footer_agency_logo: images/doj-logo-footer.svg
 uswds_contact_center: ''
 uswds_email: ''
 uswds_phone: ''

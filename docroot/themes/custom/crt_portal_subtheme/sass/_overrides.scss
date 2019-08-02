@@ -1,0 +1,15 @@
+// Enable full-page "wizard"-style form.
+.usa-form {
+  max-width: 100%;
+}
+
+// Footer
+.usa-footer__logo-heading {
+  @include h4
+  color: white;
+  font-weight: normal;
+}
+
+.usa-footer__secondary-section {
+  background-color: #2E2E2A;
+}
