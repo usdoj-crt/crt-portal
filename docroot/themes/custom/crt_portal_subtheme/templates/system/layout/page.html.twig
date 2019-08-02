@@ -1,0 +1,235 @@
+{#
+/**
+ * @file
+ * USWDS theme implementation to display a single page.
+ */
+#}
+
+{% if page.header_top or government_banner %}
+  {{ government_banner }}
+{% endif %}
+
+<div class="usa-overlay"></div>
+
+{% if page.header_top %}
+  <div class="grid-container">
+    {{ page.header_top }}
+  </div>
+{% endif %}
+
+<header class="{{ header_classes }}" role="banner">
+  {% if header_basic %}
+    <div class="usa-nav-container">
+   {% endif %}
+      <div class="usa-navbar">
+        {{ page.header }}
+        <button class="usa-menu-btn">{{ 'Menu'|t }}</button>
+      </div>
+
+      <nav class="usa-nav" role="navigation">
+        <button class="usa-nav__close">
+          <img src="{{ active_theme_path }}/assets/img/close.svg" alt="close" />
+        </button>
+        {% if header_extended %}
+          <div class="usa-nav__inner">
+        {% endif %}
+
+        {% if page.primary_menu %}
+          {{ page.primary_menu }}
+        {% endif %}
+
+        {% if page.secondary_menu %}
+          <div class="usa-nav__secondary">
+            {{ page.secondary_menu }}
+          </div>
+        {% endif %}
+
+        {% if header_extended %}
+          </div>
+        {% endif %}
+     </nav>
+
+  {% if header_basic %}
+    </div>
+  {% endif %}
+
+</header>
+
+{% if page.hero %}
+     <section class="usa-hero">
+  {{ page.hero }}
+</section>
+{% endif %}
+
+ <main class="usa-section">
+   <div class="{{ main_class }}">
+     <div class="grid-row grid-gap">
+       <div class="grid-col-12">
+         {{ page.breadcrumb }}
+         {{ page.highlighted }}
+
+         {% if page.help|render|trim %}
+           <div class="usa-alert usa-alert--info">
+             <div class="usa-alert__body">
+               <p class="usa-alert__text">
+                 {{ page.help }}
+               </p>
+             </div>
+           </div>
+         {% endif %}
+
+      </div>
+     </div>
+
+     <div class="grid-row grid-gap">
+
+      {% if page.sidebar_first %}
+        <aside class="tablet:grid-col-3">
+          {{ page.sidebar_first }}
+        </aside>
+      {% endif %}
+
+       <div class="region-content {{ content_class }}">
+         <!-- hardcoded for now... -->
+         <h1 class="font-heading-2xl">
+           Contact the Department of Justice about a civil rights concern
+         </h1>
+
+         {{ page.content }}
+       </div>
+
+      {% if page.sidebar_second %}
+        <aside class="tablet:grid-col-3">
+          {{ page.sidebar_second }}
+        </aside>
+      {% endif %}
+
+    </div>
+   </div>
+
+   </main>
+
+<footer class="{{ footer_classes }}" role="contentinfo">
+  <div class="grid-container usa-footer__return-to-top">
+    <a href="#">Return to top</a>
+  </div>
+
+  {% if display_footer_primary %}
+     <div class="usa-footer__primary-section">
+       <div class="grid-container">
+         <div class="grid-row grid-gap {{ footer_primary_padding }}">
+           {% if page.footer_menu %}
+             <div class="{{ footer_menu_width }}">
+               <nav class="usa-footer__nav">{{ page.footer_menu }}
+               </nav>
+             </div>
+           {% endif %}
+
+        {% if footer_slim and (phone or email) %}
+          <div class="mobile-lg:grid-col-4">
+            <address class="usa-footer__address">
+              <div class="grid-row grid-gap mobile-lg:grid-gap-0">
+                {% if phone %}
+                  <div class="usa-footer__contact-info">
+                    <p><a href="tel:{{ phone }}">{{ phone }}</a></p>
+                  </div>
+                {% endif %}
+
+                {% if email %}
+                  <div class="usa-footer__contact-info">
+                  <p><a href="mailto:{{ email }}">{{ email }}</a></p>
+                </div>
+                {% endif %}
+
+              </div>
+            </address>
+          </div>
+        {% endif %}
+         </div>
+
+         {% if page.footer %}
+           <div class="grid-row grid-gap">
+             <div class="mobile-lg:grid-col-12">
+               {{ page.footer }}
+             </div>
+           </div>
+         {% endif %}
+       </div>
+     </div>
+  {% endif %}
+
+    {% if display_footer_secondary %}
+      <div class="usa-footer__secondary-section">
+        <div class="grid-container">
+
+        {% if display_footer_agency %}
+          <div class="grid-row grid-gap">
+            <div class="usa-footer__logo grid-row mobile-lg:grid-col-6 mobile-lg:grid-gap-2">
+              <div class="mobile-lg:grid-col-auto">
+                <img class="usa-footer__logo-img" src="{{ footer_agency_logo }}" alt="{{ 'Agency logo'|t }}">
+            </div>
+              <div class="mobile-lg:grid-col-auto">
+                <h3 class="usa-footer__logo-heading">{{ footer_agency_name }}</h3>
+              </div>
+            </div>
+            {% if not footer_slim %}
+              <div class="usa-footer__contact-links mobile-lg:grid-col-6">
+                <div class="usa-footer__social-links grid-row grid-gap-1">
+                  {% if facebook %}
+                    <div class="grid-col-auto">
+                      <a class="usa-social-link usa-social-link--facebook" href="{{ facebook }}">
+                        <span>Facebook</span>
+                      </a>
+                    </div>
+                  {% endif %}
+                  {% if twitter %}
+                    <div class="grid-col-auto">
+                      <a class="usa-social-link usa-social-link--twitter" href="{{ twitter }}">
+                        <span>Twitter</span>
+                      </a>
+                    </div>
+                  {% endif %}
+                  {% if youtube %}
+                    <div class="grid-col-auto">
+                      <a class="usa-social-link usa-social-link--youtube" href="{{ youtube }}">
+                        <span>YouTube</span>
+                      </a>
+                    </div>
+                  {% endif %}
+                  {% if rss %}
+                    <div class="grid-col-auto">
+                      <a class="usa-social-link usa-social-link--rss" href="{{ rss }}">
+                        <span>RSS</span>
+                      </a>
+                  </div>
+                  {% endif %}
+                </div>
+
+                <h3 class="usa-footer__contact-heading">{{ contact_center }}</h3>
+                <address class="usa-footer__address">
+                  <div class="usa-footer__contact-info grid-row grid-gap">
+                    <div class="grid-col-auto">
+                      <a href="tel:{{ phone }}">{{ phone }}</a>
+                    </div>
+                    <div class="grid-col-auto">
+                      <a href="mailto:{{ email }}">{{ email }}</a>
+                    </div>
+                  </div>
+                </address>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        {% if page.footer_secondary %}
+          <div class="grid-row grid-gap">
+            <div class="mobile-lg:grid-col-12">
+              {{ page.footer_secondary }}
+            </div>
+          </div>
+        {% endif %}
+      </div>
+      </div>
+    {% endif %}
+
+</footer>
