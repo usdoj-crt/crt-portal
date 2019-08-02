@@ -249,6 +249,23 @@ blt sync
 blt artifact:deploy --commit-msg "Commit message here." --branch "branch name here" --no-interaction
 ```
 
+Most likely, when deploying, you will need to make changes that also affect the database, since Drupal saves configuration in the database. For those kinds of changes, you will also need to run drush commands.
+
+Here is an example of runnning that on dev after a successful deploy:
+
+Import the configuration from the files with:
+```
+drush @dojportal-blt.dev cim
+```
+
+Rebuild the cashe with drush
+```
+drush @dojportal-blt.dev cr
+```
+
+To make sure you see changes, also go to the dashboard and clear varnish.
+
+
 ## Installing, deploying, and enabling a new module
 
 1. Install and enable the module locally
