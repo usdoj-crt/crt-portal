@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-if 'ENV' in os.environ and os.environ['ENV'] != 'LOCAL':
+if 'ENV' not in os.environ or os.environ['ENV'] != 'LOCAL':
     """ This will default to prod settings and locally, setting the env
     to local will allow you to add the variables directly and not have
     to recreate the vacap structure."""
@@ -49,7 +49,7 @@ if 'ENV' in os.environ and os.environ['ENV'] != 'LOCAL':
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['crt-portal.app.cloud.gov',]
+ALLOWED_HOSTS = ['crt-portal.app.cloud.gov','crt-portal-django.app.cloud.gov']
 
 
 # Application definition

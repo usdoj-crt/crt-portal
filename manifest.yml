@@ -1,6 +1,6 @@
 ---
 applications:
-- name: crt-portal
+- name: crt-portal-django
   memory: 512M
   instances: 1
   buildpacks:
