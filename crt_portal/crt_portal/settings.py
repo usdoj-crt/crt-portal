@@ -21,29 +21,33 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-vcap = json.loads(os.environ['VCAP_SERVICES'])
+if 'ENV' in os.environ and os.environ['ENV'] != 'LOCAL':
+    """ This will default to prod settings and locally, setting the env
+    to local will allow you to add the variables directly and not have
+    to recreate the vacap structure."""
+    vcap = json.loads(os.environ['VCAP_SERVICES'])
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = vcap['user-provided'][0]['credentials']['SECRET_KEY']
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = vcap['user-provided'][0]['credentials']['SECRET_KEY']
 
-db_credentials = vcap['aws-rds'][0]['credentials']
+    db_credentials = vcap['aws-rds'][0]['credentials']
 
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': db_credentials['db_name'],
-        'USER': db_credentials['username'],
-        'PASSWORD': db_credentials['password'],
-        'HOST': db_credentials['host'],
-        'PORT': '',
+    # Database
+    # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': db_credentials['db_name'],
+            'USER': db_credentials['username'],
+            'PASSWORD': db_credentials['password'],
+            'HOST': db_credentials['host'],
+            'PORT': '',
+        }
     }
-}
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['crt-portal.app.cloud.gov',]
 
@@ -132,5 +136,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-if 'ENV' in os.environ and os.environ['ENV']=='LOCAL':
+if 'ENV' in os.environ and os.environ['ENV'] == 'LOCAL':
     from .local_settings import *

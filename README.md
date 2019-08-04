@@ -12,6 +12,7 @@ crate postgres database and set the variables below accordingly
     export ENV='LOCAL'
 
 
+
 python manage.py migrate
 
 python manage.py runserver
