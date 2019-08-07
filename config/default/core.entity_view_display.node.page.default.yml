@@ -38,4 +38,5 @@ content:
     region: content
 hidden:
   content_moderation_control: true
+  panelizer: true
   search_api_excerpt: true
