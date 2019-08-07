@@ -12,4 +12,6 @@ DATABASES = {
     }
 }
 
+SECRET_KEY = ['SECRET_KEY']
 ALLOWED_HOSTS = ['localhost']
+DEBUG = True

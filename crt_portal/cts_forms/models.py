@@ -8,6 +8,8 @@ class State(models.Model):
     """State or territory, we can hard code but this allows for flexibility in the admin"""
     state_name = models.CharField(max_length=200)
 
+    def __str__(self):
+        return self.state_name
 
 class InternalHistory(models.Model):
     note = models.CharField(max_length=500, null=False, blank=False,)
@@ -19,7 +21,7 @@ class ViolationReport(models.Model):
     # TODO, upgrade to add validation https://pypi.org/project/django-phone-field/
     phone = models.CharField(max_length=200, null=True, blank=True)
     city = models.CharField(max_length=200, null=True, blank=True)
-    state =  models.ForeignKey(State, null=True, blank=True, on_delete=models.SET_NULL)
+    state =  models.ManyToManyField(State, null=True, blank=True)
     first_date_of_incident = models.DateField(null=True, blank=True)
     description_text = models.CharField(max_length=500, null=False, blank=False,)
     create_date = models.DateTimeField(auto_now_add=True)

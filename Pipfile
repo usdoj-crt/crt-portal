@@ -7,13 +7,13 @@ verify_ssl = true
 awscli = "*"
 
 [packages]
-django = "==2.2.2"
+django = "==2.2.3"
 gunicorn = "*"
-psycopg2 = "==2.8.2"
 django-compressor = "*"
 django-compressor-toolkit = "*"
 boto3 = "*"
 django-storages = "*"
+psycopg2-binary = "*"
 
 [requires]
 python_version = "3.7"
