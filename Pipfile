@@ -14,6 +14,7 @@ django-compressor-toolkit = "*"
 boto3 = "*"
 django-storages = "*"
 psycopg2-binary = "*"
+rcssmin = "*"
 
 [requires]
 python_version = "3.7"
