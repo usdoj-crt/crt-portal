@@ -1,0 +1,1 @@
+web: cd crt_portal && python manage.py migrate && gunicorn crt_portal.wsgi --workers 2

@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import json
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -19,13 +21,35 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+if 'ENV' not in os.environ or os.environ['ENV'] != 'LOCAL':
+    """ This will default to prod settings and locally, setting the env
+    to local will allow you to add the variables directly and not have
+    to recreate the vacap structure."""
+    vcap = json.loads(os.environ['VCAP_SERVICES'])
+
+    # SECURITY WARNING: keep the secret key used in production secret!
+    SECRET_KEY = vcap['user-provided'][0]['credentials']['SECRET_KEY']
+
+    db_credentials = vcap['aws-rds'][0]['credentials']
+
+    # Database
+    # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': db_credentials['db_name'],
+            'USER': db_credentials['username'],
+            'PASSWORD': db_credentials['password'],
+            'HOST': db_credentials['host'],
+            'PORT': '',
+        }
+    }
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['crt-portal.app.cloud.gov','crt-portal-django.app.cloud.gov']
 
 
 # Application definition
@@ -71,19 +95,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'crt_portal.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ['DB_NAME'],
-        'USER': os.environ['DB_USER'],
-        'PASSWORD': os.environ['DB_PASSWORD'],
-        'HOST': os.environ['DB_HOST'],
-        'PORT': '',
-    }
-}
 
 
 # Password validation
@@ -123,3 +135,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+if 'ENV' in os.environ and os.environ['ENV'] == 'LOCAL':
+    from .local_settings import *
