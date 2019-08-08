@@ -1,89 +1,32 @@
-This was the result of a discovery sprint, I am in the process of cleaning it up for easier local install.
-
 ## Local set up
 
-This is using Pipenv and Postgres
+Install Docker
 
-### Pipenv info
-
- https://github.com/pypa/pipenv
-
-### Postgres
-
- https://www.postgresql.org/download/
-
-I recommend [pgcli](https://www.pgcli.com/) for interfacing with postgres
+    https://www.docker.com/get-started
 
 
-In pgcli or your sql shell command to create datebase with:
+Use a long, random string for your secret key and save it in your local environment.
 
-    create database crt_portal;
-
-
-commands to create local db user for app, replace `username` and `userpass` with your choices:
-
-    CREATE USER username WITH PASSWORD 'userpass' CREATEDB;
-    GRANT permissions ON DATABASE crt_portal TO username;
-
-
-(I would like the local set up to be in docker next. so we don't need to to the previous steps)
-
-Once you crate the crt_portal postgres database, set the variables in your local environment accordingly.
-
-    export =''
-    export DB_USER=''
-    export DB_PASSWORD=''
-    export DB_HOST='local'
     export SECRET_KEY=''
-    export ENV='LOCAL'
 
-Add those variables to your bash_profile so that you don't have to set them going forward.
+To build the project
 
-For start up after you have initially installed the project, activate the environment, change directory to the app and run the server:
+    docker-compose up -d --build
 
-    pipenv shell
-    cd crt_portal
-    python manage.py runserver
+To run the project
 
+    docker-compose u
 
-The 'Local' setting will trigger the local_settings.py for easier setup.
-
-If you have pipenv installed and your database set up, you can run the following commands to get the project running:
-
-    pipenv install
-
-    cd crt_portal
-
-apply the data migrations
-
-    python manage.py migrate
 
 create a superuser for admin access
 
-    python manage.py createsuperuser
-
-run the server on localhost:8000
-
-    python manage.py runserver
-
-add some test data after you log in at `/admin`
+     docker-compose run web python /code/crt_portal/manage.py createsuperuser
 
 
-Set up node for front end files
-[some of this won't need to be repeated]
+To add some test data after you log in at `http://0.0.0.0:8000/admin/login`
 
-    npm install
-    npm install gulp-cli -g
-    npm install autoprefixer css-mqpacker cssnano gulp@^4.0.0 gulp-notify gulp-postcss gulp-rename gulp-replace gulp-sass gulp-sourcemaps path uswds@^2.0.0 uswds-gulp@github:uswds/uswds-gulp --save-dev
-    gulp init
-    gulp inits
 
-run server locally
-
-    python manage.py compress
-    python manage.py runserver
-
-in another terminal if you are doing front end work
+in another terminal if you are doing front end work:
 
     gulp watch
 
@@ -111,3 +54,26 @@ once in, activate local env
 
 Needed to enable CORS via awscli https://cloud.gov/docs/services/s3/#allowing-client-side-web-access-from-external-applications (would like to do this automatically in another PR)
 
+
+# Background notes
+
+These are some technologies we are using in the build, here are some links for background.
+
+Pipenv, this is what we use to manage python packages
+
+- https://github.com/pypa/pipenv
+
+Postgres
+
+- https://www.postgresql.org/download/
+
+This is a tool for for interfacing with postgres [pgcli](https://www.pgcli.com/)
+
+Docker
+We are using containers for local development.
+
+- https://wsvincent.com/django-docker-postgresql/
+
+USWDS
+We are using 2.0 as our base
+- https://designsystem.digital.gov/
