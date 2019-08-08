@@ -10,7 +10,7 @@ services:
       - ENV=LOCAL
       - SECRET_KEY=${SECRET_KEY}
     build: .
-    command: python /code/manage.py runserver 0.0.0.0:8000
+    command: /code/run.sh
     volumes:
       - .:/code
     ports:
