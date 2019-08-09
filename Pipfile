@@ -15,6 +15,7 @@ boto3 = "*"
 django-storages = "*"
 psycopg2-binary = "*"
 rcssmin = "*"
+django-formtools = "*"
 
 [requires]
 python_version = "3.7"

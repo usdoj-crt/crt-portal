@@ -18,7 +18,11 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 
+from cts_forms.forms import ContactForm1, ContactForm2
+from cts_forms.views import ContactWizard
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('form/', include('cts_forms.urls')),
+    path('report/', ContactWizard.as_view([ContactForm1, ContactForm2])),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
