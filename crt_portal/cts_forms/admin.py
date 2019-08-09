@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import State, ViolationReport
+from .models import State, Report
 
 admin.site.register(State)
-admin.site.register(ViolationReport)
+admin.site.register(Report)

@@ -4,7 +4,7 @@ from django.views import generic
 
 from formtools.wizard.views import SessionWizardView
 
-from .models import ViolationReport
+from .models import Report
 from .forms import ContactForm1, ContactForm2
 
 
