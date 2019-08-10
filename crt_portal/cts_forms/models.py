@@ -4,14 +4,7 @@ from django.utils import timezone
 
 from .model_variables import *
 
-# TODO, add person and case classes
 
-class State(models.Model):
-    """State or territory, we can hard code but this allows for flexibility in the admin"""
-    state_name = models.CharField(max_length=200)
-
-    def __str__(self):
-        return self.state_name
 
 class InternalHistory(models.Model):
     note = models.CharField(max_length=500, null=False, blank=False,)
@@ -32,7 +25,7 @@ class Report(models.Model):
     respondent_contact_ask = models.BooleanField(null=True)
     respondent_name = models.CharField(max_length=225, null=True, blank=True)
     respondent_city = models.CharField(max_length=700, null=True, blank=True)
-    respondent_state =  models.ManyToManyField(State, blank=True, related_name='respondent_state')
+    respondent_state =  models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
     violation_summary = models.TextField()
     when = models.CharField(max_length=700, null=True, blank=True, choices=WHEN_CHOICES)
     how_many = models.CharField(max_length=700, null=True, blank=True, choices=HOW_MANY_CHOICES)
@@ -42,7 +35,7 @@ class Report(models.Model):
     contact_given_name = models.CharField(max_length=225, null=True, blank=True)
     contact_family_name = models.CharField(max_length=225, null=True, blank=True)
     contact_email = models.EmailField(null=True, blank=True)
-    contact_state = models.ManyToManyField(State, blank=True, related_name='contact_state')
+    contact_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
     contact_address_line_1 = models.CharField(max_length=225, null=True, blank=True)
     contact_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
     # TODO, upgrade to add validation https://pypi.org/project/django-phone-field/

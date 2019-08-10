@@ -1,0 +1,12 @@
+{% extends "forms/base.html" %}
+
+{% block content %}
+
+<h1>We have sucessfully recieved your form:</h1>
+
+{% for label, value in data_dict.items %}
+  <h2>{{ label }}:</h2>
+  <p>{{ value }}</p>
+{% endfor %}
+
+{% endblock %}
