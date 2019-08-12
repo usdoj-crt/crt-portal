@@ -15,7 +15,7 @@ To build the project
 
 To run the project
 
-    docker-compose u
+    docker-compose up
 
 
 create a superuser for admin access
@@ -23,7 +23,7 @@ create a superuser for admin access
      docker-compose run web python /code/crt_portal/manage.py createsuperuser
 
 
-To add some test data after you log in at `http://0.0.0.0:8000/admin/login`
+To add some test data after you log in at `http://0.0.0.0:8000/admin/login`; Then you can check out `http://0.0.0.0:8000/form/`.
 
 
 in another terminal if you are doing front end work:
