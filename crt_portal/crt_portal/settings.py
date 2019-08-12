@@ -18,10 +18,13 @@ import json
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+environment = os.environ.get('ENV', 'PROD')
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-if 'ENV' not in os.environ or os.environ['ENV'] != 'LOCAL':
+
+if environment != 'LOCAL':
     """ This will default to prod settings and locally, setting the env
     to local will allow you to add the variables directly and not have
     to recreate the vacap structure."""
@@ -49,7 +52,7 @@ if 'ENV' not in os.environ or os.environ['ENV'] != 'LOCAL':
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['crt-portal.app.cloud.gov','crt-portal-django.app.cloud.gov']
+ALLOWED_HOSTS = ['crt-portal.app.cloud.gov', 'crt-portal-django.app.cloud.gov']
 
 
 # Application definition
@@ -62,6 +65,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cts_forms',
+    'compressor',
+    'compressor_toolkit',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -134,7 +140,49 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
 
-if 'ENV' in os.environ and os.environ['ENV'] == 'LOCAL':
+
+if environment != 'LOCAL':
+    s3_creds = vcap['s3'][0]["credentials"]
+    AWS_ACCESS_KEY_ID = s3_creds["access_key_id"]
+    AWS_SECRET_ACCESS_KEY = s3_creds["secret_access_key"]
+    AWS_STORAGE_BUCKET_NAME = s3_creds["bucket"]
+    AWS_S3_REGION_NAME = s3_creds["region"]
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3-{AWS_S3_REGION_NAME}.amazonaws.com'
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+    AWS_LOCATION = 'static'
+    AWS_QUERYSTRING_AUTH = False
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+else:
+    STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+
+COMPRESS_CSS_FILTERS = [
+    'compressor.filters.css_default.CssAbsoluteFilter',
+    'compressor.filters.cssmin.CSSMinFilter',
+    'compressor.filters.template.TemplateFilter'
+]
+COMPRESS_JS_FILTERS = [
+    'compressor.filters.jsmin.JSMinFilter',
+]
+COMPRESS_PRECOMPILERS = (
+    ('module', 'compressor_toolkit.precompilers.ES6Compiler'),
+    ('css', 'compressor_toolkit.precompilers.SCSSCompiler'),
+)
+# COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = True
+
+if environment == 'LOCAL':
     from .local_settings import *

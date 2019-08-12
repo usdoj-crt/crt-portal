@@ -1,13 +1,12 @@
 #!/bin/bash
-if [ -z “$VCAP_APP_PORT” ];
-   then SERVER_PORT=80;
-   else SERVER_PORT=”$VCAP_APP_PORT”;
-fi
-echo port is $SERVER_PORT
-echo “make migrations”
-python manage.py makemigrations
-echo “migrate”
-python manage.py migrate
-echo “from django.contrib.auth.models import User; User.objects.create_superuser(‘admin’, ‘admin@email.io’, ‘password’)” | python manage.py shell
-echo [$0] Starting Django Server…
-python manage.py runserver 0.0.0.0:$SERVER_PORT — noreload
+# make sure migrations are applied
+echo migrate database...
+python /code/crt_portal/manage.py migrate
+
+echo USWDS gulp commands...
+# running USWDS https://github.com/uswds/uswds-gulp
+npm install autoprefixer css-mqpacker cssnano gulp@^4.0.0 gulp-notify gulp-postcss gulp-rename gulp-replace gulp-sass gulp-sourcemaps path uswds@latest uswds-gulp@github:uswds/uswds-gulp --save-dev
+
+echo Starting Django Server…
+python /code/crt_portal/manage.py compress
+python /code/crt_portal/manage.py runserver 0.0.0.0:8000

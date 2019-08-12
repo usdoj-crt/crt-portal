@@ -4,11 +4,17 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+awscli = "*"
 
 [packages]
 django = "==2.2.3"
 gunicorn = "*"
+django-compressor = "*"
+django-compressor-toolkit = "*"
+boto3 = "*"
+django-storages = "*"
 psycopg2-binary = "*"
+rcssmin = "*"
 
 [requires]
 python_version = "3.7"
