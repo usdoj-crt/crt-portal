@@ -5,7 +5,7 @@ Install Docker
     https://www.docker.com/get-started
 
 
-Use a long, random string for your secret key and save it in your local environment.
+You can make your own long, random string for your secret key and save it in your local environment or one will be crated for you each time you spin up the project.
 
     export SECRET_KEY=''
 
