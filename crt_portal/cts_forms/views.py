@@ -25,6 +25,7 @@ class ContactWizard(SessionWizardView):
     def done(self, form_list, form_dict, **kwargs):
         form_data = [form.cleaned_data for form in form_list]
         consolidated_data = dict(ChainMap(*form_data))
+        logger.error(consolidated_data)
         report_instance = Report(**consolidated_data)
         report_instance.save()
 
