@@ -15,9 +15,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-### Forms view
 
-class ContactWizard(SessionWizardView):
+class CRTReportWizard(SessionWizardView):
     """once all the sub-forms are submitted this class will clean data and save."""
     template_name = 'forms/report.html'
 
