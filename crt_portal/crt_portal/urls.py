@@ -19,10 +19,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from cts_forms.forms import WhatHappened, Where, Who, Details, Contact
-from cts_forms.views import ContactWizard
+from cts_forms.views import CRTReportWizard
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('form/', include('cts_forms.urls')),
-    path('report/', ContactWizard.as_view([WhatHappened, Where, Who, Details, Contact])),
+    path('report/', CRTReportWizard.as_view([WhatHappened, Where, Who, Details, Contact])),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
