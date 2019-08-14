@@ -65,6 +65,16 @@ class Where(ModelForm):
             'public_or_private_healthcare': RadioSelect,
         }
 
+    def __init__(self, *args, **kwargs):
+        """setting label settings to remove --- in the selects"""
+        super(Where, self).__init__(*args, **kwargs)
+        self.fields['place'].empty_label = None
+        self.fields['public_or_private_employer'].empty_label = None
+        self.fields['employer_size'].empty_label = None
+        self.fields['public_or_private_school'].empty_label = None
+        self.fields['public_or_private_facility'].empty_label = None
+        self.fields['public_or_private_healthcare'].empty_label = None
+
 
 class Who(ModelForm):
     class Meta:
