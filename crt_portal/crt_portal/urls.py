@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from cts_forms.forms import WhatHappened, Where, Who, Details, Contact
-from cts_forms.views import ContactWizard
+from cts_forms.views import CRTReportWizard
 
 urlpatterns = [
     path('admin/', admin.site.urls),
