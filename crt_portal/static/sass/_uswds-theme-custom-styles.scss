@@ -20,17 +20,7 @@ i.e.
 ----------------------------------------
 */
 
-// Footer
-.usa-footer__logo-heading {
-  @include h4
-  color: white;
-  font-weight: normal;
-}
-
-.usa-footer__secondary-section {
-  background-color: #2E2E2A;
-}
-
+// Sticky Footer
 body {
   display: flex;
   min-height: 100vh;
@@ -41,3 +31,15 @@ main {
   flex: 1;
   width: 100%;
 }
+
+// Footer Styles
+.usa-footer__logo-heading {
+  @include h4
+  color: white;
+  font-weight: normal;
+}
+
+.usa-footer__secondary-section {
+  background-color: #2E2E2A;
+}
+
