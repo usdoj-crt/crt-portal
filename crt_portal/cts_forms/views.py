@@ -1,46 +1,30 @@
-from django.shortcuts import render, HttpResponse, HttpResponseRedirect, get_object_or_404
+from collections import ChainMap
+
+from django.shortcuts import render, HttpResponse, HttpResponseRedirect, get_object_or_404, render_to_response
 from django.urls import reverse
 from django.views import generic
 
-from .models import ViolationReport, Choice
+from formtools.wizard.views import SessionWizardView
+
+from .models import Report
+from .forms import WhatHappened, Where, Who, Details, Contact
 
 
-class IndexView(generic.ListView):
-    template_name = 'forms/index.html'
-    context_object_name = 'latest_report_list'
+import logging
 
-    def get_queryset(self):
-        """Return the last five published questions."""
-        return ViolationReport.objects.order_by('-create_date')[:5]
-
-class ResultsView(generic.DetailView):
-    model = ViolationReport
-    template_name = 'forms/results.html'
-
-def VoteView(request, violationreport_id):
-    report = get_object_or_404(ViolationReport, pk=violationreport_id)
-    try:
-        selected_choice = report.choice_set.get(pk=request.POST['choice'])
-    except (KeyError, Choice.DoesNotExist):
-        # Redisplay the question voting form.
-        return render(request, 'forms/detail.html', {
-            'violationreport': report,
-            'error_message': "You didn't select a choice.",
-        })
-    else:
-        selected_choice.votes += 1
-        selected_choice.save()
-        # Always return an HttpResponseRedirect after successfully dealing
-        # with POST data. This prevents data from being posted twice if a
-        # user hits the Back button.
-        return HttpResponseRedirect(reverse('crt_forms:results', args=(report.id,)))
-
-class DetailView(generic.DetailView):
-    model = ViolationReport
-    template_name = 'forms/detail.html'
+logger = logging.getLogger(__name__)
 
 
-class ResultsView(generic.DetailView):
-    model = ViolationReport
-    template_name = 'forms/results.html'
 
+class CRTReportWizard(SessionWizardView):
+    """once all the sub-forms are submitted this class will clean data and save."""
+    template_name = 'forms/report.html'
+
+
+    def done(self, form_list, form_dict, **kwargs):
+        form_data = [form.cleaned_data for form in form_list]
+        consolidated_data = dict(ChainMap(*form_data))
+        report_instance = Report(**consolidated_data)
+        report_instance.save()
+
+        return render_to_response('forms/confirmation.html', {'data_dict': consolidated_data})

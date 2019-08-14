@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from .models import State, ViolationReport, Choice
+from .models import InternalHistory, Report
 
-admin.site.register(State)
-admin.site.register(ViolationReport)
-admin.site.register(Choice)
+admin.site.register(InternalHistory)
+admin.site.register(Report)
