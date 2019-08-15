@@ -49,6 +49,7 @@ h1 {
 }
 
 // USA Gov Banner Customization
+$bg-yellow: #fee685;
 
 .usa-banner {
   background-color: #2E2E2A;
@@ -62,7 +63,7 @@ h1 {
     color: #FFBE2E;
 
     &:hover {
-      color: yellow;
+      color: $bg-yellow;
     }
   }
 }
