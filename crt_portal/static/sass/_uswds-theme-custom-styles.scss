@@ -43,7 +43,18 @@ main {
   background-color: #2E2E2A;
 }
 
-// Header styles
+// Header Styles
 h1 {
   @include u-font('heading', '2xl')
+}
+
+// USA Gov Banner Customization
+
+.usa-banner {
+  background-color: #2E2E2A;
+  color: white;
+
+  a {
+    color: #FFBE2E;
+  }
 }
