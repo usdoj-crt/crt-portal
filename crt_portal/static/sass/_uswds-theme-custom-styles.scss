@@ -52,9 +52,12 @@ h1 {
 
 .usa-banner {
   background-color: #2E2E2A;
-  color: white;
 
-  a {
+  .usa-banner__header-text {
+    color: white;
+  }
+
+  .usa-banner__button, {
     color: #FFBE2E;
   }
 }
