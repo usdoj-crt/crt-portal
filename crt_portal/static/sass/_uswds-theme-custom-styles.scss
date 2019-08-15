@@ -43,3 +43,7 @@ main {
   background-color: #2E2E2A;
 }
 
+// Header styles
+h1 {
+  @include u-font('heading', '2xl')
+}
