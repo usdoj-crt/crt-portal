@@ -1,6 +1,7 @@
-from django.forms import ModelForm, RadioSelect, Select, ModelMultipleChoiceField, CheckboxSelectMultiple, CheckboxInput
+from django.forms import ModelForm, RadioSelect, Select, ChoiceField, ModelMultipleChoiceField, CheckboxSelectMultiple, CheckboxInput, TypedChoiceField
 
 from .models import Report, ProtectedClass
+from .model_variables import *
 
 import logging
 
@@ -10,7 +11,9 @@ logger = logging.getLogger(__name__)
 class WhatHappened(ModelForm):
     class Meta:
         model = Report
-        protected_class = ModelMultipleChoiceField(queryset=ProtectedClass.objects.all())
+        protected_class = ModelMultipleChoiceField(
+            queryset=ProtectedClass.objects.all()
+        )
         fields = ['primary_complaint', 'protected_class']
         widgets = {
             'primary_complaint': RadioSelect,
@@ -34,45 +37,59 @@ class WhatHappened(ModelForm):
 
 
 class Where(ModelForm):
+    place = TypedChoiceField(
+        choices=PLACE_CHOICES, empty_value=None, widget=RadioSelect, required=False
+        )
+    public_or_private_employer = TypedChoiceField(
+        choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, empty_value=None, widget=RadioSelect, required=False
+        )
+    public_or_private_facility = TypedChoiceField(
+        choices=PUBLIC_OR_PRIVATE_FACILITY_CHOICES, empty_value=None, widget=RadioSelect, required=False
+        )
+    public_or_private_healthcare = TypedChoiceField(
+        choices=PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES, empty_value=None, widget=RadioSelect, required=False
+        )
+    employer_size = TypedChoiceField(
+        choices=EMPLOYER_SIZE_CHOICES, empty_value=None, widget=RadioSelect, required=False
+        )
+    public_or_private_school = TypedChoiceField(
+        choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, empty_value=None, widget=RadioSelect, required=False
+        )
+
+
     class Meta:
         model = Report
         fields = ['place', 'public_or_private_employer', 'employer_size', 'public_or_private_school', 'public_or_private_facility', 'public_or_private_healthcare']
-        widgets = {
-            'place': RadioSelect,
-            'public_or_private_employer': RadioSelect,
-            'employer_size': RadioSelect,
-            'public_or_private_school': RadioSelect,
-            'public_or_private_facility': RadioSelect,
-            'public_or_private_healthcare': RadioSelect,
-        }
 
 
 class Who(ModelForm):
+    respondent_type = TypedChoiceField(choices=RESPONDENT_TYPE_CHOICES, empty_value=None, widget=RadioSelect, required=False)
+
+
     class Meta:
         model = Report
         fields = ['respondent_contact_ask', 'respondent_type', 'respondent_name', 'respondent_city', 'respondent_state']
         widgets = {
             'respondent_contact_ask': CheckboxInput,
-            'respondent_type': RadioSelect,
         }
 
 
 class Details(ModelForm):
+    when = TypedChoiceField(choices=WHEN_CHOICES, empty_value=None, widget=RadioSelect, required=False)
+    how_many = TypedChoiceField(choices=HOW_MANY_CHOICES, empty_value=None, widget=RadioSelect, required=False)
+
     class Meta:
         model = Report
         fields = ['violation_summary', 'when', 'how_many']
-        widgets = {
-            'when': RadioSelect,
-            'how_many': RadioSelect,
-        }
 
 
 class Contact(ModelForm):
+    who_reporting_for = TypedChoiceField(choices=WHO_CHOICES, empty_value=None, widget=RadioSelect, required=False)
+    relationship = TypedChoiceField(choices=RELATIONSHIP_CHOICES, empty_value=None, widget=RadioSelect, required=False)
+
     class Meta:
         model = Report
         fields = ['who_reporting_for', 'relationship', 'do_not_contact', 'contact_given_name', 'contact_family_name', 'contact_email', 'contact_state', 'contact_address_line_1', 'contact_address_line_2', 'contact_phone']
         widgets = {
             'do_not_contact': CheckboxInput,
-            'who_reporting_for': RadioSelect,
-            'relationship': RadioSelect,
         }
