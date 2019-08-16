@@ -1,0 +1,124 @@
+/*
+  Wizard progress bar code adapted from Carlos Ballena via CodePen:
+  https://codepen.io/cballenar/pen/vxpZxE
+*/
+
+// Variables
+$steps-width: 100%;
+
+$label-font-size: .8em;
+$label-line-height: 1.25em;
+
+$counter-font-size: 1.25em;   // dependent on label font size
+
+$circle-diameter: 24px;        // dependent on counter font-size
+$circle-border-width: 1px; // dependent on counter font-size
+$line-width: 1px;            // dependent on counter font-size
+
+$visited-dark-blue: #1A4480;
+$outline-light-gray: #D8D8D8;
+
+// Steps Progress Bar
+ol.steps {
+  display: flex;
+  list-style: none; text-align: center;
+  counter-reset: milestones; // init counter
+
+  // design
+  width: $steps-width;
+  margin: 0; padding: 0;
+
+  li {
+    flex-grow: 1; flex-basis: 0;
+    margin: 0; padding: 0;
+    position: relative; z-index: 1;
+
+    // design
+    font-size: $label-font-size; line-height: $label-line-height;
+  }
+
+  a { display: block; text-decoration: none; }
+
+  a::before,
+  a::after {
+    display: block;
+    font-size: $counter-font-size;
+    box-sizing: border-box;
+  }
+
+  // circle
+  a::before {
+    border-radius: 50%;
+    text-decoration: none;
+
+    // add counter
+    content: counter(milestones);
+    counter-increment: milestones;
+
+    // design
+    width: $circle-diameter; height: $circle-diameter; line-height: $circle-diameter;
+    margin: 0 auto .5em;
+  }
+
+  // connecting line
+  a::after {
+    content: "";
+    position: absolute; z-index: -1;
+    width: 100%; height: 0; border: 0;
+
+    // design
+    left: 50%; top: $circle-diameter/2;
+    border-bottom-width: $line-width; margin-top: -$line-width/2;
+  }
+  // don't show for last element
+  li:last-child a::after { display: none; }
+
+  // Colors
+  a, a:visited {
+    color: $visited-dark-blue;
+  }
+
+  // finished milestone - default
+  a::before {
+    color: #fdfefe;
+    background-color: $visited-dark-blue;
+    box-shadow: inset 0 0 0 $circle-border-width $visited-dark-blue;
+  }
+
+  a::after {
+    border-bottom-style: solid;
+    border-color: $outline-light-gray;
+  }
+
+  // current milestone
+  li.current {
+    a {
+      font-weight: 600;
+      color: $visited-dark-blue;
+    }
+
+    a::before {
+      color: $visited-dark-blue;
+      background-color: #fcfcfa;
+      box-shadow: inset 0 0 0 $circle-border-width $outline-light-gray;
+    }
+
+    a::after {
+      border-style: dashed;
+      border-color: $outline-light-gray;
+    }
+  }
+
+  // unfinished milestone
+  li.current ~ li {
+    a::before {
+      color: #707070;
+      background-color: #e7e7e3;
+      box-shadow: inset 0 0 0 $circle-border-width #d4d4d4;
+    }
+
+    a::after {
+      border-bottom-style: none;
+    }
+  }
+}
