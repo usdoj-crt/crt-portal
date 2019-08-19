@@ -5,7 +5,21 @@
 {% endblock %}
 {% block content %}
   <span class="usa-sr-only">.
-    Step {% wizard.steps.step1 %} of 6.
+    Current step: {% if wizard.steps.step1 == 1 %}
+      What Happened
+    {% elif wizard.steps.step1 == 2 %}
+      Where
+    {% elif wizard.steps.step1 == 3 %}
+      Who
+    {% elif wizard.steps.step1 == 4 %}
+      Details
+    {% elif wizard.steps.step1 == 5 %}
+      Contact
+    {% elif wizard.steps.step1 == 6 %}
+      Review & Submit
+    {% endif %}
+
+    Step {{ wizard.steps.step1 }} of 6.
   </span>
   <ol class="steps" aria-hidden="true">
     <li {% if wizard.steps.step1 == 1 %}class="current"{% endif %}>
