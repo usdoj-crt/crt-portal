@@ -92,22 +92,20 @@ ol.steps {
 
   // current milestone
   li.current {
-  /* a {
-      font-weight: 600;
-      color: $visited-dark-blue;
+   a {
+      font-weight: bold;
     }
 
-    a::before {
-      color: $visited-dark-blue;
-      background-color: #fcfcfa;
-      box-shadow: inset 0 0 0 $circle-border-width $outline-light-gray;
-    }
+    // a::before {
+    //   color: $visited-dark-blue;
+    //   background-color: #fcfcfa;
+    //   box-shadow: inset 0 0 0 $circle-border-width $outline-light-gray;
+    // }
 
-    a::after {
-      border-style: dashed;
-      border-color: $outline-light-gray;
-    }
-  */
+    // a::after {
+    //   border-style: dashed;
+    //   border-color: $outline-light-gray;
+    // }
   }
 
   // unfinished milestone
