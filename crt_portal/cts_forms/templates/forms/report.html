@@ -4,7 +4,10 @@
 {{ wizard.form.media }}
 {% endblock %}
 {% block content %}
-  <ol class="steps">
+  <span class="usa-sr-only">.
+    Step {% wizard.steps.step1 %} of 6.
+  </span>
+  <ol class="steps" aria-hidden="true">
     <li {% if wizard.steps.step1 == 1 %}class="current"{% endif %}>
       <a href="#">What Happened</a>
     </li>
