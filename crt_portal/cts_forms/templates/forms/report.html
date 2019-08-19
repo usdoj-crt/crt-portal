@@ -5,20 +5,23 @@
 {% endblock %}
 {% block content %}
   <ol class="steps">
-    <li>
+    <li {% if wizard.steps.step1 == 1 %}class="current"{% endif %}>
       <a href="#">What Happened</a>
     </li>
-    <li>
+    <li {% if wizard.steps.step1 == 2 %}class="current"{% endif %}>
       <a href="#">Where</a>
     </li>
-    <li class="current">
+    <li {% if wizard.steps.step1 == 3 %}class="current"{% endif %}>
       <a href="#">Who</a>
     </li>
-    <li>
+    <li {% if wizard.steps.step1 == 4 %}class="current"{% endif %}>
       <a href="#">Details</a>
     </li>
-    <li>
+    <li {% if wizard.steps.step1 == 5 %}class="current"{% endif %}>
       <a href="#">Contact</a>
+    </li>
+    <li {% if wizard.steps.step1 == 6 %}class="current"{% endif %}>
+      <a href="#">Review & Submit</a>
     </li>
   </ol>
 
