@@ -83,7 +83,7 @@ ol.steps {
 
   // finished milestone - default
   .step::before {
-    color: #fdfefe;
+    color: white;
     background-color: $visited-dark-blue;
     box-shadow: inset 0 0 0 $circle-border-width $visited-dark-blue;
   }
