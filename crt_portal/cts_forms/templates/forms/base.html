@@ -53,7 +53,7 @@
       </div>
     </div>
 
-    <main>
+    <header class="page-header-background">
       <div class="grid-container">
         <div class="grid-row">
           <div class="grid-col-1"></div>
@@ -61,11 +61,17 @@
             <h1>
               Contact the Department of Justice about a civil rights concern
             </h1>
-            {% block content %} {% endblock %}
+            <p class="intro-subtitle">
+              If you believe you or someone else has experienced a civil rights violation, please use the form below to tell us what happened and contact us.
+            </p>
           </div>
           <div class="grid-col-1"></div>
         </div>
       </div>
+    </header>
+
+    <main>
+      {% block content %} {% endblock %}
     </main>
 
     <footer class="usa-footer usa-footer--slim" role="contentinfo">

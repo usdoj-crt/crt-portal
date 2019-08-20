@@ -4,6 +4,7 @@
 {{ wizard.form.media }}
 {% endblock %}
 {% block content %}
+  {# Progress text for screen reader. #}
   <span class="usa-sr-only">
     Current step: {% if wizard.steps.step1 == 1 %}
       What Happened
@@ -21,43 +22,64 @@
 
     Step {{ wizard.steps.step1 }} of 6.
   </span>
-  <ol class="steps" aria-hidden="true">
-    <li {% if wizard.steps.step1 == 1 %}class="current"{% endif %}>
-      <div class="step">What Happened</div>
-    </li>
-    <li {% if wizard.steps.step1 == 2 %}class="current"{% endif %}>
-      <div class="step">Where</div>
-    </li>
-    <li {% if wizard.steps.step1 == 3 %}class="current"{% endif %}>
-      <div class="step">Who</div>
-    </li>
-    <li {% if wizard.steps.step1 == 4 %}class="current"{% endif %}>
-      <div class="step">Details</div>
-    </li>
-    <li {% if wizard.steps.step1 == 5 %}class="current"{% endif %}>
-      <div class="step">Contact</div>
-    </li>
-    <li {% if wizard.steps.step1 == 6 %}class="current"{% endif %}>
-      <div class="step">Submit</div>
-    </li>
-  </ol>
 
-  <form action="/report/" method="post">{% csrf_token %}
-    <table>
-      {{ wizard.management_form }}
-      {% if wizard.form.forms %}
-          {{ wizard.form.management_form }}
-          {% for form in wizard.form.forms %}
-              {{ form }}
-          {% endfor %}
-      {% else %}
-          {{ wizard.form }}
-      {% endif %}
-    </table>
-    {% if wizard.steps.prev %}
-      <button name="wizard_goto_step" type="submit" label="first step" value="{{ wizard.steps.first }}" class="usa-button">{% trans "first step" %}</button>
-      <button name="wizard_goto_step" type="submit" label="previous step" value="{{ wizard.steps.prev }}" class="usa-button">{% trans "prev step" %}</button>
-    {% endif %}
-    <input type="submit" label="submit" value="{% trans "submit" %}" class="usa-button"/>
-  </form>
+  <div class="page-header-background">
+    <div class="grid-container">
+      <div class="grid-row">
+        <div class="grid-col-1"></div>
+        <div class="grid-col-10">
+          <div class="margin-bottom-4 margin-top-3">
+            <ol class="steps" aria-hidden="true">
+              <li {% if wizard.steps.step1 == 1 %}class="current"{% endif %}>
+                <div class="step">What Happened</div>
+              </li>
+              <li {% if wizard.steps.step1 == 2 %}class="current"{% endif %}>
+                <div class="step">Where</div>
+              </li>
+              <li {% if wizard.steps.step1 == 3 %}class="current"{% endif %}>
+                <div class="step">Who</div>
+              </li>
+              <li {% if wizard.steps.step1 == 4 %}class="current"{% endif %}>
+                <div class="step">Details</div>
+              </li>
+              <li {% if wizard.steps.step1 == 5 %}class="current"{% endif %}>
+                <div class="step">Contact</div>
+              </li>
+              <li {% if wizard.steps.step1 == 6 %}class="current"{% endif %}>
+                <div class="step">Submit</div>
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div class="grid-col-1"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-container">
+    <div class="grid-row">
+      <div class="grid-col-1"></div>
+      <div class="grid-col-10">
+        <form action="/report/" method="post">{% csrf_token %}
+          <table>
+            {{ wizard.management_form }}
+            {% if wizard.form.forms %}
+                {{ wizard.form.management_form }}
+                {% for form in wizard.form.forms %}
+                    {{ form }}
+                {% endfor %}
+            {% else %}
+                {{ wizard.form }}
+            {% endif %}
+          </table>
+          {% if wizard.steps.prev %}
+            <button name="wizard_goto_step" type="submit" label="first step" value="{{ wizard.steps.first }}" class="usa-button">{% trans "first step" %}</button>
+            <button name="wizard_goto_step" type="submit" label="previous step" value="{{ wizard.steps.prev }}" class="usa-button">{% trans "prev step" %}</button>
+          {% endif %}
+          <input type="submit" label="submit" value="{% trans "submit" %}" class="usa-button"/>
+        </form>
+      </div>
+      <div class="grid-col-1"></div>
+    </div>
+  </div>
 {% endblock %}
