@@ -1,6 +1,7 @@
 /*
   Wizard progress bar code adapted from Carlos Ballena via CodePen:
   https://codepen.io/cballenar/pen/vxpZxE
+  MIT Licensed: https://blog.codepen.io/legal/licensing/
 */
 
 // Variables
@@ -9,11 +10,11 @@ $steps-width: 100%;
 $label-font-size: .8em;
 $label-line-height: 1.25em;
 
-$counter-font-size: 1.25em;   // dependent on label font size
+$counter-font-size: 1.25em;
 
-$circle-diameter: 24px;        // dependent on counter font-size
-$circle-border-width: 1px; // dependent on counter font-size
-$line-width: 1px;            // dependent on counter font-size
+$circle-diameter: 24px;
+$circle-border-width: 1px;
+$line-width: 1px;
 
 $visited-dark-blue: #1A4480;
 $outline-light-gray: #D8D8D8;
@@ -37,17 +38,21 @@ ol.steps {
     font-size: $label-font-size; line-height: $label-line-height;
   }
 
-  a { display: block; text-decoration: none; }
+  .step {
+    display: block;
+    text-decoration: none;
+    color: black;
+  }
 
-  a::before,
-  a::after {
+  .step::before,
+  .step::after {
     display: block;
     font-size: $counter-font-size;
     box-sizing: border-box;
   }
 
   // circle
-  a::before {
+  .step::before {
     border-radius: 50%;
     text-decoration: none;
 
@@ -61,7 +66,7 @@ ol.steps {
   }
 
   // connecting line
-  a::after {
+  .step::after {
     content: "";
     position: absolute; z-index: -1;
     width: 100%; height: 0; border: 0;
@@ -70,54 +75,37 @@ ol.steps {
     left: 50%; top: $circle-diameter/2;
     border-bottom-width: $line-width; margin-top: -$line-width/2;
   }
-  // don't show for last element
-  li:last-child a::after { display: none; }
 
-  // Colors
-  a, a:visited {
-    color: black;
+  // don't show for last element
+  li:last-child .step::after {
+    display: none;
   }
 
   // finished milestone - default
-  a::before {
+  .step::before {
     color: #fdfefe;
     background-color: $visited-dark-blue;
     box-shadow: inset 0 0 0 $circle-border-width $visited-dark-blue;
   }
 
-  a::after {
+  .step::after {
     border-bottom-style: solid;
     border-color: $outline-light-gray;
   }
 
   // current milestone
   li.current {
-   a {
+    .step {
       font-weight: bold;
     }
-
-    // a::before {
-    //   color: $visited-dark-blue;
-    //   background-color: #fcfcfa;
-    //   box-shadow: inset 0 0 0 $circle-border-width $outline-light-gray;
-    // }
-
-    // a::after {
-    //   border-style: dashed;
-    //   border-color: $outline-light-gray;
-    // }
   }
 
   // unfinished milestone
   li.current ~ li {
-    a::before {
+    .step::before {
       color: black;
       background-color: white;
       box-shadow: inset 0 0 0 $circle-border-width $outline-light-gray;
-    }
-
-    a::after {
-      // border-bottom-style: none;
     }
   }
 }
