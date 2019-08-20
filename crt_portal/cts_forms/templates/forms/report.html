@@ -4,7 +4,7 @@
 {{ wizard.form.media }}
 {% endblock %}
 {% block content %}
-  <span class="usa-sr-only">.
+  <span class="usa-sr-only">
     Current step: {% if wizard.steps.step1 == 1 %}
       What Happened
     {% elif wizard.steps.step1 == 2 %}
@@ -17,7 +17,7 @@
       Contact
     {% elif wizard.steps.step1 == 6 %}
       Review & Submit
-    {% endif %}
+    {% endif %}.
 
     Step {{ wizard.steps.step1 }} of 6.
   </span>
