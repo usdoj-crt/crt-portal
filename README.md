@@ -34,6 +34,9 @@ in another terminal if you are doing front end work:
 
 ## cloud.gov set up
 
+### Set up services
+First log into the desired space.
+
 - create postgres DB and S3 with development settings:
  cf create-service aws-rds shared-psql crt-db
  cf create-service s3 basic-public crt-s3
@@ -42,9 +45,16 @@ in another terminal if you are doing front end work:
 
 
 - store environment variables
- cf cups VCAP_SERVICES -p "{'SECRET_KEY': 'replace-with-your-secret-key'}"
+ cf cups VCAP_SERVICES -p SECRET_KEY
 
-(I had to give it the varable name in this command and follow up with the secret key, I am not sure why)
+when prompted give it the secret key
+
+
+Needed to enable CORS via awscli https://cloud.gov/docs/services/s3/#allowing-client-side-web-access-from-external-applications
+
+
+
+### Create admin accounts
 
 Need to ssh to create superuser (would like to do this automatically in another PR)
 
@@ -52,7 +62,6 @@ Need to ssh to create superuser (would like to do this automatically in another 
 
 once in, activate local env
 
-Needed to enable CORS via awscli https://cloud.gov/docs/services/s3/#allowing-client-side-web-access-from-external-applications (would like to do this automatically in another PR)
 
 
 # Background notes

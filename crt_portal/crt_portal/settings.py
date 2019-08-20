@@ -52,7 +52,7 @@ if environment != 'LOCAL':
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['crt-portal.app.cloud.gov', 'crt-portal-django.app.cloud.gov']
+ALLOWED_HOSTS = ['crt-portal.app.cloud.gov', 'crt-portal-django.app.cloud.gov', 'crt-portal-django-prod.app.cloud.gov']
 
 
 # Application definition
@@ -141,8 +141,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-
-
 if environment != 'LOCAL':
     s3_creds = vcap['s3'][0]["credentials"]
     AWS_ACCESS_KEY_ID = s3_creds["access_key_id"]
@@ -158,11 +156,13 @@ if environment != 'LOCAL':
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
 else:
     STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_DIRS = ( os.path.join(BASE_DIR, 'static'), )
+ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
+MEDIA_URL = 'media/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
