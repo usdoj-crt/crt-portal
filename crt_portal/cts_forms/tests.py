@@ -1,77 +1,59 @@
-import copy
-
 from django.test import TestCase
-from django.urls import reverse
-from django.contrib.auth.models import User
 
 from .models import ProtectedClass, Report
-from django.forms import ModelForm, models
+from .forms import WhatHappened, Where, Who, Details, Contact
 
-
-class UserForm(ModelForm):
-    class Meta:
-        model = User
-        fields = '__all__'
-
-
-class ReportTests(object):
-    """" See django form wizard tests for testing examples: https://github.com/django/django-formtools/blob/master/tests/wizard/wizardtests/tests.py """
-    def setUp(self):
-        self.testuser, created = User.objects.get_or_create(username='testuser1')
-        # Get new step data, since we modify it during the tests.
-        self.wizard_step_data = copy.deepcopy(self.wizard_step_data)
-        self.wizard_step_data[0]['form1-user'] = self.testuser.pk
-
-
-    def test_report_form_minium(self):
-        """ This example has the minimum amount of data required for a successful report"""
-
-        what_happened_form = {
+class Valad_Form_Test(TestCase):
+    """Confirms each form is valid when given valid test data."""
+    def test_WhatHappened_valad(self):
+        form = WhatHappened(data={
             'primary_complaint': 'vote',
-            'protected_class': '<QuerySet []>',
-        }
+            'protected_class_set': ProtectedClass.objects.all(),
+        })
+        self.assertTrue(form.is_valid())
 
-        where_form = {
-            'place': 'Null',
-            'public_or_private_employer': 'Null',
-            'employer_size': 'Null',
-            'public_or_private_school': 'Null',
-            'public_or_private_facility': 'Null',
-            'public_or_private_healthcare': 'Null',
-        }
+    def test_Where_valid(self):
+        form = Where(data={
+            'place': 'place_of_worship',
+            'public_or_private_employer': 'public_employer',
+            'employer_size': '14_or_less',
+            'public_or_private_school': 'public',
+            'public_or_private_facility': 'state_local_facility',
+            'public_or_private_healthcare': 'state_local_facility',
+        })
+        self.assertTrue(form.is_valid())
 
-        who_form = {
-            'respondent_contact_ask': 'Null',
-            'respondent_type': 'Null',
-            'respondent_name': 'Null',
-            'respondent_city': 'Null',
-            'respondent_state': 'Null',
-        }
+    def test_Who_valad(self):
+        form = Who( data={
+            'respondent_contact_ask': False,
+            'respondent_type': 'employer',
+            'respondent_name': 'Max',
+            'respondent_city': 'Hometown',
+            'respondent_state': 'AK',
+        })
+        self.assertTrue(form.is_valid())
 
-        details_form = {
+    def test_Details_valad(self):
+        form = Details( data={
             'violation_summary': 'Hello! I have a problem.',
-            'when': 'Null',
-            'how_many': 'Null',
-        }
+            'when': 'last_6_months',
+            'how_many': 'no',
+        })
+        self.assertTrue(form.is_valid())
 
-        contact_form = {
-            'who_reporting_for': 'Null',
-            'relationship': 'Null',
-            'do_not_contact': 'Null',
-            'contact_given_name': 'Null',
-            'contact_family_name': 'Null',
-            'contact_email': 'Null',
-            'contact_state': 'Null',
-            'contact_address_line_1': 'Null',
-            'contact_address_line_2': 'Null',
-            'contact_phone': 'Null',
-        }
+    def test_Contact_valad(self):
+        form = Contact( data={
+            'who_reporting_for': 'employer',
+            'relationship': 'myself',
+            'do_not_contact': '',
+            'contact_given_name': 'first_name',
+            'contact_family_name': 'last_name',
+            'contact_email': 'email@email.com',
+            'contact_state': 'CA',
+            'contact_address_line_1': '123 Street',
+            'contact_address_line_2': 'Apt B',
+            'contact_phone': '202-222-2222',
+        })
+        self.assertTrue(form.is_valid())
 
-        FORM_STEPS_DATA = [what_happened_form, where_form, who_form, details_form, contact_form]
-
-        for step, data_step in enumerate(FORM_STEPS_DATA, 1):
-            response = self.client.post(reverse('crt_report_form'), data_step)
-
-            if step == len(FORM_STEPS_DATA):
-                self.assertEqual(response.status_code, 200)
 
