@@ -16,7 +16,7 @@
     {% elif wizard.steps.step1 == 5 %}
       Contact
     {% elif wizard.steps.step1 == 6 %}
-      Review & Submit
+      Submit
     {% endif %}.
 
     Step {{ wizard.steps.step1 }} of 6.
@@ -38,7 +38,7 @@
       <div class="step">Contact</div>
     </li>
     <li {% if wizard.steps.step1 == 6 %}class="current"{% endif %}>
-      <div class="step">Review & Submit</div>
+      <div class="step">Submit</div>
     </li>
   </ol>
 
