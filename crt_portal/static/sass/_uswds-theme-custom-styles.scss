@@ -19,3 +19,51 @@ i.e.
 @include u-padding-right('05');
 ----------------------------------------
 */
+
+// Sticky Footer
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+}
+
+// Footer Styles
+.usa-footer__logo-heading {
+  @include h4
+  color: white;
+  font-weight: normal;
+}
+
+.usa-footer__secondary-section {
+  background-color: #2E2E2A;
+}
+
+// Header Styles
+h1 {
+  @include u-font('heading', '2xl')
+}
+
+// USA Gov Banner Customization
+$bg-yellow: #fee685;
+
+.usa-banner {
+  background-color: #2E2E2A;
+
+  .usa-banner__header-text,
+  .usa-media-block__body {
+    color: white;
+  }
+
+  .usa-banner__button {
+    color: #FFBE2E;
+
+    &:hover {
+      color: $bg-yellow;
+    }
+  }
+}
