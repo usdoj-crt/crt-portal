@@ -48,8 +48,13 @@ h1 {
   @include u-font('heading', '2xl')
 }
 
+.intro-subtitle {
+  @include u-line-height('alt', 5)
+  @include u-font-size('body', 'sm')
+}
+
 // USA Gov Banner Customization
-$bg-yellow: #fee685;
+$bg-yellow: #FEE685;
 
 .usa-banner {
   background-color: #2E2E2A;
@@ -66,4 +71,12 @@ $bg-yellow: #fee685;
       color: $bg-yellow;
     }
   }
+}
+
+// Header area
+
+$header-background: #F6F6F2;
+
+.page-header-background {
+  background-color: $header-background;
 }
