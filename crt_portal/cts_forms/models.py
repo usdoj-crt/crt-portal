@@ -19,24 +19,28 @@ class ProtectedClass(models.Model):
 
 
 class Report(models.Model):
+    # what happened form
     primary_complaint = models.CharField(max_length=100, choices=PRIMARY_COMPLAINT_CHOICES, default=None)
     protected_class = models.ManyToManyField(ProtectedClass, blank=True)
+    # where form
     place = models.CharField(max_length=100, null=True, choices=PLACE_CHOICES, default=None)
     public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)
-    # location_details to come after user testing
     employer_size = models.CharField(max_length=100, null=True, choices=EMPLOYER_SIZE_CHOICES, default=None)
     public_or_private_school = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, default=None)
     public_or_private_facility = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_FACILITY_CHOICES, default=None)
-    public_or_private_healthcare = models.CharField(max_length=100,null=True, choices=PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES, default=None)
-    respondent_type = models.CharField(max_length=100, null=True, choices=RESPONDENT_TYPE_CHOICES, default=None)
+    public_or_private_healthcare = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES, default=None)
+    # who form
+    respondent_type = models.CharField(max_length=100, null=True, blank=True, choices=RESPONDENT_TYPE_CHOICES, default=None)
     respondent_contact_ask = models.BooleanField(null=True)
     respondent_name = models.CharField(max_length=225, null=True, blank=True)
     respondent_city = models.CharField(max_length=700, null=True, blank=True)
     respondent_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
+    # details form
     violation_summary = models.TextField()
-    when = models.CharField(max_length=700, null=True, blank=True, choices=WHEN_CHOICES, default=None)
+    when = models.CharField(max_length=700, choices=WHEN_CHOICES, default=None)
     how_many = models.CharField(max_length=700, null=True, blank=True, choices=HOW_MANY_CHOICES, default=None)
-    who_reporting_for= models.CharField(max_length=100, null=True, blank=True, choices=WHO_CHOICES)
+    # contact form
+    who_reporting_for= models.CharField(max_length=100, choices=WHO_FOR_CHOICES, default=None)
     relationship = models.CharField(max_length=100, null=True, blank=True, choices=RELATIONSHIP_CHOICES, default=None)
     do_not_contact = models.BooleanField(null=True)
     contact_given_name = models.CharField(max_length=225, null=True, blank=True)

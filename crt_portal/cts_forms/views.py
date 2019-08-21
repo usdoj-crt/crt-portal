@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 class CRTReportWizard(SessionWizardView):
-    """once all the sub-forms are submitted this class will clean data and save."""
+    """Once all the sub-forms are submitted this class will clean data and save."""
     template_name = 'forms/report.html'
 
     def done(self, form_list, form_dict, **kwargs):
@@ -26,6 +26,7 @@ class CRTReportWizard(SessionWizardView):
         r = Report.objects.create(**form_data_dict)
         r.save()
 
+        # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
         for protected in m2mfield:
             p = ProtectedClass.objects.get(protected_class=protected)
             r.protected_class.add(p)

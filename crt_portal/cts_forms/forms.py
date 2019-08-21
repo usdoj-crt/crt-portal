@@ -63,8 +63,9 @@ class Where(ModelForm):
 
 
 class Who(ModelForm):
-    respondent_type = TypedChoiceField(choices=RESPONDENT_TYPE_CHOICES, empty_value=None, widget=RadioSelect, required=False)
-
+    respondent_type = TypedChoiceField(
+        choices=RESPONDENT_TYPE_CHOICES, empty_value=None, widget=RadioSelect, required=False
+        )
 
     class Meta:
         model = Report
@@ -75,21 +76,27 @@ class Who(ModelForm):
 
 
 class Details(ModelForm):
-    when = TypedChoiceField(choices=WHEN_CHOICES, empty_value=None, widget=RadioSelect, required=False)
-    how_many = TypedChoiceField(choices=HOW_MANY_CHOICES, empty_value=None, widget=RadioSelect, required=False)
+    how_many = TypedChoiceField(
+        choices=HOW_MANY_CHOICES, empty_value=None, widget=RadioSelect, required=False
+        )
 
     class Meta:
         model = Report
         fields = ['violation_summary', 'when', 'how_many']
+        widgets = {
+            'when': RadioSelect,
+        }
 
 
 class Contact(ModelForm):
-    who_reporting_for = TypedChoiceField(choices=WHO_CHOICES, empty_value=None, widget=RadioSelect, required=False)
-    relationship = TypedChoiceField(choices=RELATIONSHIP_CHOICES, empty_value=None, widget=RadioSelect, required=False)
+    relationship = TypedChoiceField(
+        choices=RELATIONSHIP_CHOICES, empty_value=None, widget=RadioSelect, required=False
+        )
 
     class Meta:
         model = Report
         fields = ['who_reporting_for', 'relationship', 'do_not_contact', 'contact_given_name', 'contact_family_name', 'contact_email', 'contact_state', 'contact_address_line_1', 'contact_address_line_2', 'contact_phone']
         widgets = {
             'do_not_contact': CheckboxInput,
+            'who_reporting_for':RadioSelect,
         }
