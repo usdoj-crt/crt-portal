@@ -36,7 +36,7 @@ When running migrations, make sure you set up a SECRET_KEY in a .env file for yo
 
 In Django, when you update the data models you need to create migrations and then apply those migrations, you can do that with:
 
-    docker-compose run web python /code/crt_portal/manage.py createmigrations
+    docker-compose run web python /code/crt_portal/manage.py makemigrations
     docker-compose run web python /code/crt_portal/manage.py migrate
 
 To ssh into your local docker container run:
