@@ -35,6 +35,10 @@ Also note, that the staticfiles folder is the destination of all static assets w
 ## cloud.gov set up
 You only need to get the services stood up, configure the S3 bucket once.
 
+For working with cloud.gov directly, you will need to [install the cloud foundry cli](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html). That will allow you ro run the `cf` commands in a terminal.
+
+Log on with `cf login -a api.fr.cloud.gov --sso` and go to the link to sign in and get your pass-code.
+
 ### Initial cloud.gov set up
 First log into the desired space.
 
