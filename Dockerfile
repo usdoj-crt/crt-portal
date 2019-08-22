@@ -12,7 +12,6 @@ WORKDIR /code
 # Install Python dependencies
 RUN pip install pipenv
 
-
 COPY Pipfile Pipfile.lock /code/
 RUN pipenv install --system
 
