@@ -9,3 +9,5 @@ applications:
   - crt-db
   - crt-s3
   - VCAP_SERVICES
+  env:
+    ENV: PROD
