@@ -5,4 +5,7 @@ node_modules/
 *.log
 *.pyc
 *.DS_Store
-.env
+*.env
+# this is where collect static puts the files
+staticfiles/
+

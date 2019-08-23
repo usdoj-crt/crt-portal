@@ -29,6 +29,8 @@ in another terminal if you are doing front end work:
 
     gulp watch
 
+Also note, that the staticfiles folder is the destination of all static assets when you or a script runs `manage.py collectstatic` so don't make your changes there, or they will be overwritten.
+
 
 ## Running common tasks
 
@@ -50,6 +52,14 @@ You can run tests with docker with:
 
 
 ## cloud.gov set up
+You only need to get the services stood up and configure the S3 bucket once.
+
+For working with cloud.gov directly, you will need to [install the cloud foundry cli](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html). That will allow you to run the `cf` commands in a terminal.
+
+Log on with `cf login -a api.fr.cloud.gov --sso` and go to the link to sign in and get your pass-code.
+
+### Initial cloud.gov set up
+First, log into the desired space.
 
 - create postgres DB and S3 with development settings:
  cf create-service aws-rds shared-psql crt-db
@@ -59,29 +69,53 @@ You can run tests with docker with:
 
 
 - store environment variables
- cf cups VCAP_SERVICES -p "{'SECRET_KEY': 'replace-with-your-secret-key'}"
+ cf cups VCAP_SERVICES -p SECRET_KEY
 
-(I had to give it the varable name in this command and follow up with the secret key, I am not sure why)
+when prompted give it the secret key
+
+
+You will needed to enable CORS via awscli, instructions are here: https://cloud.gov/docs/services/s3/#allowing-client-side-web-access-from-external-applications
+
+
+Right now, the route is set for the production space, we will want to pass in different routes for different spaces but that can be handled when we add the automation.
+
+To deploy run:
+
+    cf push
+
+That will push to cloud.gov according to the instructions in the manifest and Profile.
+
+### Create admin accounts
 
 Need to ssh to create superuser (would like to do this automatically in another PR)
 
     cf ssh crt-portal-django
 
-once in, activate local env
+Once in, activate local env
 
-Needed to enable CORS via awscli https://cloud.gov/docs/services/s3/#allowing-client-side-web-access-from-external-applications (would like to do this automatically in another PR)
+    /tmp/lifecycle/shell
 
+Then, you can create a superuser
+
+    python /crt_portal/manage.py createsuperuser
+
+### Subsequent deploys
+
+Once cloud.gov is set up, you can deploy just with a push
+
+    cf push
 
 # Background notes
 
 These are some technologies we are using in the build, here are some links for background.
 
-Pipenv, this is what we use to manage python packages
+Pipenv
+This is what we use to manage python packages
 
 - https://github.com/pypa/pipenv
 
 Postgres
-
+Here are the database docs
 - https://www.postgresql.org/download/
 
 This is a tool for for interfacing with postgres [pgcli](https://www.pgcli.com/)
@@ -94,3 +128,11 @@ We are using containers for local development.
 USWDS
 We are using 2.0 as our base
 - https://designsystem.digital.gov/
+
+Django
+This is the web framework
+- https://docs.djangoproject.com/en/2.2/
+
+Cloud.gov
+This is the PaaS the app is on
+- https://cloud.gov/docs/
