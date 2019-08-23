@@ -9,11 +9,9 @@ from formtools.wizard.views import SessionWizardView
 from .models import Report, ProtectedClass
 from .forms import WhatHappened, Where, Who, Details, Contact
 
-
 import logging
 
 logger = logging.getLogger(__name__)
-
 
 
 class CRTReportWizard(SessionWizardView):
