@@ -184,6 +184,3 @@ COMPRESS_PRECOMPILERS = (
 )
 # COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = True
-
-if environment == 'LOCAL':
-    from .local_settings import *
