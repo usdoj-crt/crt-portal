@@ -1,7 +1,6 @@
 """Reminder not to put secrets in this file, it is in source control """
 import os
-import random
-import string
+
 
 DATABASES = {
     'default': {
