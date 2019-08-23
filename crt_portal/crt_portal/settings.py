@@ -196,7 +196,6 @@ if environment == 'LOCAL':
         }
     }
 
-
     SECRET_KEY = os.getenv('SECRET_KEY')
     ALLOWED_HOSTS = ['localhost', '0.0.0.0']
     DEBUG = True
