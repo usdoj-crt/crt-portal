@@ -1,0 +1,111 @@
+/*
+  Wizard progress bar code adapted from Carlos Ballena via CodePen:
+  https://codepen.io/cballenar/pen/vxpZxE
+  MIT Licensed: https://blog.codepen.io/legal/licensing/
+*/
+
+// Variables
+$steps-width: 100%;
+
+$label-font-size: .8em;
+$label-line-height: 1.25em;
+
+$counter-font-size: 1.25em;
+
+$circle-diameter: 24px;
+$circle-border-width: 1px;
+$line-width: 1px;
+
+$visited-dark-blue: #1A4480;
+$outline-light-gray: #D8D8D8;
+
+// Steps Progress Bar
+ol.steps {
+  display: flex;
+  list-style: none; text-align: center;
+  counter-reset: milestones; // init counter
+
+  // design
+  width: $steps-width;
+  margin: 0; padding: 0;
+
+  li {
+    flex-grow: 1; flex-basis: 0;
+    margin: 0; padding: 0;
+    position: relative; z-index: 1;
+
+    // design
+    font-size: $label-font-size; line-height: $label-line-height;
+  }
+
+  .step {
+    display: block;
+    text-decoration: none;
+    color: black;
+  }
+
+  .step::before,
+  .step::after {
+    display: block;
+    font-size: $counter-font-size;
+    box-sizing: border-box;
+  }
+
+  // circle
+  .step::before {
+    border-radius: 50%;
+    text-decoration: none;
+
+    // add counter
+    content: counter(milestones);
+    counter-increment: milestones;
+
+    // design
+    width: $circle-diameter; height: $circle-diameter; line-height: $circle-diameter;
+    margin: 0 auto .5em;
+  }
+
+  // connecting line
+  .step::after {
+    content: "";
+    position: absolute; z-index: -1;
+    width: 100%; height: 0; border: 0;
+
+    // design
+    left: 50%; top: $circle-diameter/2;
+    border-bottom-width: $line-width; margin-top: -$line-width/2;
+  }
+
+  // don't show for last element
+  li:last-child .step::after {
+    display: none;
+  }
+
+  // finished milestone - default
+  .step::before {
+    color: white;
+    background-color: $visited-dark-blue;
+    box-shadow: inset 0 0 0 $circle-border-width $visited-dark-blue;
+  }
+
+  .step::after {
+    border-bottom-style: solid;
+    border-color: $outline-light-gray;
+  }
+
+  // current milestone
+  li.current {
+    .step {
+      font-weight: bold;
+    }
+  }
+
+  // unfinished milestone
+  li.current ~ li {
+    .step::before {
+      color: black;
+      background-color: white;
+      box-shadow: inset 0 0 0 $circle-border-width $outline-light-gray;
+    }
+  }
+}

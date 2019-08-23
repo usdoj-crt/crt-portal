@@ -30,7 +30,14 @@ in another terminal if you are doing front end work:
 
     gulp watch
 
+
 Also note, that the staticfiles folder is the destination of all static assets when you or a script runs `manage.py collectstatic` so don't make your changes there, or they will be overwritten.
+
+## Tests
+
+You can run tests with docker with:
+
+    docker-compose run web python /code/crt_portal/manage.py test cts_forms
 
 ## cloud.gov set up
 You only need to get the services stood up and configure the S3 bucket once.
