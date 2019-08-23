@@ -1,11 +1,8 @@
 from collections import ChainMap
-
-from django.shortcuts import render, HttpResponse, HttpResponseRedirect, get_object_or_404, render_to_response
-
+from django.shortcuts import render_to_response
 from formtools.wizard.views import SessionWizardView
 
-from .models import Report, ProtectedClass
-from .forms import WhatHappened, Where, Who, Details, Contact
+from .models import Report
 
 import logging
 
