@@ -4,10 +4,9 @@ Install Docker
 
     https://www.docker.com/get-started
 
+Create a .env file in the top of your directory and set `SECRET_KEY` to a long, random string.
 
-You can make your own long, random string for your secret key and save it in your local environment or one will be crated for you each time you spin up the project.
-
-    export SECRET_KEY=''
+    SECRET_KEY=''
 
 To build the project
 
@@ -32,7 +31,6 @@ in another terminal if you are doing front end work:
 
 ## Running common tasks
 
-When running migrations, make sure you set up a SECRET_KEY in a .env file for yourself locally
 
 In Django, when you update the data models you need to create migrations and then apply those migrations, you can do that with:
 
