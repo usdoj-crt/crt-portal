@@ -3,6 +3,7 @@ from django.test import TestCase
 from .models import ProtectedClass, Report
 from .forms import WhatHappened, Where, Who, Details, Contact
 
+
 class Valid_Form_Tests(TestCase):
     """Confirms each form is valid when given valid test data."""
     def test_WhatHappened_valid(self):
@@ -24,7 +25,7 @@ class Valid_Form_Tests(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_Who_valid(self):
-        form = Who( data={
+        form = Who(data={
             'respondent_contact_ask': False,
             'respondent_type': 'employer',
             'respondent_name': 'Max',
@@ -34,7 +35,7 @@ class Valid_Form_Tests(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_Details_valid(self):
-        form = Details( data={
+        form = Details(data={
             'violation_summary': 'Hello! I have a problem.',
             'when': 'last_6_months',
             'how_many': 'no',
@@ -42,7 +43,7 @@ class Valid_Form_Tests(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_Contact_valid(self):
-        form = Contact( data={
+        form = Contact(data={
             'who_reporting_for': 'myself',
             'relationship': 'parent_guardian',
             'do_not_contact': '',
@@ -68,7 +69,7 @@ class Validation_Form_Tests(TestCase):
         self.assertTrue('primary_complaint<ul class="errorlist"><li>This field is required.' in str(form.errors))
 
     def test_required_who_reporting_for(self):
-        form = Contact( data={
+        form = Contact(data={
             'who_reporting_for': '',
             'relationship': 'parent_guardian',
             'do_not_contact': '',
@@ -82,28 +83,29 @@ class Validation_Form_Tests(TestCase):
         })
         self.assertTrue('who_reporting_for<ul class="errorlist"><li>This field is required.' in str(form.errors))
 
-
     def test_required_when(self):
-        form = Details( data={
+        form = Details(data={
             'violation_summary': 'Hello! I have a problem.',
             'when': '',
             'how_many': 'no',
         })
         self.assertTrue('when<ul class="errorlist"><li>This field is required.' in str(form.errors))
 
-
     def test_required_violation_summary(self):
-        form = Details( data={
+        form = Details(data={
             'violation_summary': '',
             'when': 'last_6_months',
             'how_many': 'no',
         })
         self.assertTrue('violation_summary<ul class="errorlist"><li>This field is required.' in str(form.errors))
 
-    def test_required_when(self):
-        form = Details( data={
-            'violation_summary': 'Hello! I have a problem.',
-            'when': '',
-            'how_many': 'no',
+    def test_required_where(self):
+        form = Where(data={
+            'place': '',
+            'public_or_private_employer': 'public_employer',
+            'employer_size': '14_or_less',
+            'public_or_private_school': 'public',
+            'public_or_private_facility': 'state_local_facility',
+            'public_or_private_healthcare': 'state_local_facility',
         })
-        self.assertTrue('when<ul class="errorlist"><li>This field is required.' in str(form.errors))
+        self.assertTrue('place<ul class="errorlist"><li>This field is required.' in str(form.errors))

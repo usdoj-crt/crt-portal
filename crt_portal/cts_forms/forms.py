@@ -37,9 +37,6 @@ class WhatHappened(ModelForm):
 
 
 class Where(ModelForm):
-    place = TypedChoiceField(
-        choices=PLACE_CHOICES, empty_value=None, widget=RadioSelect, required=False
-        )
     public_or_private_employer = TypedChoiceField(
         choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, empty_value=None, widget=RadioSelect, required=False
         )
@@ -60,6 +57,10 @@ class Where(ModelForm):
     class Meta:
         model = Report
         fields = ['place', 'public_or_private_employer', 'employer_size', 'public_or_private_school', 'public_or_private_facility', 'public_or_private_healthcare']
+        widgets = {
+            'place': RadioSelect,
+        }
+
 
 
 class Who(ModelForm):

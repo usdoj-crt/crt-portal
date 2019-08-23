@@ -23,7 +23,7 @@ class Report(models.Model):
     primary_complaint = models.CharField(max_length=100, choices=PRIMARY_COMPLAINT_CHOICES, default=None)
     protected_class = models.ManyToManyField(ProtectedClass, blank=True)
     # where form
-    place = models.CharField(max_length=100, null=True, choices=PLACE_CHOICES, default=None)
+    place = models.CharField(max_length=100, choices=PLACE_CHOICES, default=None)
     public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)
     employer_size = models.CharField(max_length=100, null=True, choices=EMPLOYER_SIZE_CHOICES, default=None)
     public_or_private_school = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, default=None)
@@ -40,7 +40,7 @@ class Report(models.Model):
     when = models.CharField(max_length=700, choices=WHEN_CHOICES, default=None)
     how_many = models.CharField(max_length=700, null=True, blank=True, choices=HOW_MANY_CHOICES, default=None)
     # contact form
-    who_reporting_for= models.CharField(max_length=100, choices=WHO_FOR_CHOICES, default=None)
+    who_reporting_for = models.CharField(max_length=100, choices=WHO_FOR_CHOICES, default=None)
     relationship = models.CharField(max_length=100, null=True, blank=True, choices=RELATIONSHIP_CHOICES, default=None)
     do_not_contact = models.BooleanField(null=True)
     contact_given_name = models.CharField(max_length=225, null=True, blank=True)
