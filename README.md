@@ -4,10 +4,9 @@ Install Docker
 
     https://www.docker.com/get-started
 
+Create a .env file in the top of your directory and set `SECRET_KEY` to a long, random string.
 
-You can make your own long, random string for your secret key and save it in your local environment or one will be crated for you each time you spin up the project.
-
-    export SECRET_KEY=''
+    SECRET_KEY=''
 
 To build the project
 
@@ -30,11 +29,25 @@ in another terminal if you are doing front end work:
 
     gulp watch
 
+
+## Running common tasks
+
+In Django, when you update the data models you need to create migrations and then apply those migrations, you can do that with:
+
+    docker-compose run web python /code/crt_portal/manage.py makemigrations
+    docker-compose run web python /code/crt_portal/manage.py migrate
+
+To ssh into your local docker container run:
+
+    docker exec -it crt-django_web_1 /bin/bash
+
+
 ## Tests
 
 You can run tests with docker with:
 
     docker-compose run web python /code/crt_portal/manage.py test cts_forms
+
 
 ## cloud.gov set up
 
