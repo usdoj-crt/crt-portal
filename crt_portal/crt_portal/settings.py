@@ -161,7 +161,8 @@ else:
 
 # This is where source assets are collect from by collect static
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
-MEDIA_URL = 'media/'
+# Enable for admin storage
+# MEDIA_URL = 'media/'
 # Where assets are served by web server
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
