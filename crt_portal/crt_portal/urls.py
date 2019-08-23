@@ -24,5 +24,5 @@ from cts_forms.views import CRTReportWizard
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('form/', include('cts_forms.urls')),
-    path('report/', CRTReportWizard.as_view([WhatHappened, Where, Who, Details, Contact])),
+    path('report/', CRTReportWizard.as_view([WhatHappened, Where, Who, Details, Contact]), name='crt_report_form'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

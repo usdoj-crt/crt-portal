@@ -29,8 +29,8 @@ in another terminal if you are doing front end work:
 
     gulp watch
 
-## Running common tasks
 
+## Running common tasks
 
 In Django, when you update the data models you need to create migrations and then apply those migrations, you can do that with:
 
@@ -40,6 +40,13 @@ In Django, when you update the data models you need to create migrations and the
 To ssh into your local docker container run:
 
     docker exec -it crt-django_web_1 /bin/bash
+
+
+## Tests
+
+You can run tests with docker with:
+
+    docker-compose run web python /code/crt_portal/manage.py test cts_forms
 
 
 ## cloud.gov set up
