@@ -1,4 +1,2 @@
 docker-compose.yml
 Dockerfile
-/tmp
-/log
