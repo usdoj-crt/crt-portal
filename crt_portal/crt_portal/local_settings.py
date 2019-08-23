@@ -13,11 +13,6 @@ DATABASES = {
     }
 }
 
-def randomStringDigits(stringLength=18):
-    """Generate a random string of letters and digits """
-    lettersAndDigits = string.ascii_letters + string.digits
-    return ''.join(random.choice(lettersAndDigits) for i in range(stringLength))
-
-SECRET_KEY = os.getenv('SECRET_KEY', randomStringDigits(8))
+SECRET_KEY = os.getenv('SECRET_KEY')
 ALLOWED_HOSTS = ['localhost', '0.0.0.0']
 DEBUG = True
