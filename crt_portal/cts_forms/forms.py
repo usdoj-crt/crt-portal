@@ -1,55 +1,103 @@
-from django.forms import ModelForm, RadioSelect
+from django.forms import ModelForm, RadioSelect, Select, ChoiceField, ModelMultipleChoiceField, CheckboxSelectMultiple, CheckboxInput, TypedChoiceField
 
-from .models import Report
+from .models import Report, ProtectedClass
+from .model_variables import *
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class WhatHappened(ModelForm):
     class Meta:
         model = Report
+        protected_class = ModelMultipleChoiceField(
+            queryset=ProtectedClass.objects.all()
+        )
         fields = ['primary_complaint', 'protected_class']
         widgets = {
             'primary_complaint': RadioSelect,
-            'primary_complaint': RadioSelect,
+            'protected_class': CheckboxSelectMultiple,
         }
+
+    # Overriding __init__ here allows us to provide initial
+    # data for 'protected_class' field
+    def __init__(self, *args, **kwargs):
+        # Only in case we build the form from an instance
+        # (otherwise, 'protected class' list should be empty)
+        if kwargs.get('instance'):
+            # We get the 'initial' keyword argument or initialize it
+            # as a dict if it didn't exist.
+            initial = kwargs.setdefault('initial', {})
+            # The widget for a ModelMultipleChoiceField expects
+            # a list of primary key for the selected data.
+            initial['protected_class'] = [t.pk for t in kwargs['instance'].protected_class_set.all()]
+
+        ModelForm.__init__(self, *args, **kwargs)
 
 
 class Where(ModelForm):
+    public_or_private_employer = TypedChoiceField(
+        choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, empty_value=None, widget=RadioSelect, required=False
+        )
+    public_or_private_facility = TypedChoiceField(
+        choices=PUBLIC_OR_PRIVATE_FACILITY_CHOICES, empty_value=None, widget=RadioSelect, required=False
+        )
+    public_or_private_healthcare = TypedChoiceField(
+        choices=PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES, empty_value=None, widget=RadioSelect, required=False
+        )
+    employer_size = TypedChoiceField(
+        choices=EMPLOYER_SIZE_CHOICES, empty_value=None, widget=RadioSelect, required=False
+        )
+    public_or_private_school = TypedChoiceField(
+        choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, empty_value=None, widget=RadioSelect, required=False
+        )
+
+
     class Meta:
         model = Report
         fields = ['place', 'public_or_private_employer', 'employer_size', 'public_or_private_school', 'public_or_private_facility', 'public_or_private_healthcare']
         widgets = {
             'place': RadioSelect,
-            'public_or_private_employer': RadioSelect,
-            'employer_size': RadioSelect,
-            'public_or_private_school': RadioSelect,
-            'public_or_private_facility': RadioSelect,
-            'public_or_private_healthcare': RadioSelect,
         }
 
 
+
 class Who(ModelForm):
+    respondent_type = TypedChoiceField(
+        choices=RESPONDENT_TYPE_CHOICES, empty_value=None, widget=RadioSelect, required=False
+        )
+
     class Meta:
         model = Report
         fields = ['respondent_contact_ask', 'respondent_type', 'respondent_name', 'respondent_city', 'respondent_state']
         widgets = {
-            'respondent_type': RadioSelect,
+            'respondent_contact_ask': CheckboxInput,
         }
 
 
 class Details(ModelForm):
+    how_many = TypedChoiceField(
+        choices=HOW_MANY_CHOICES, empty_value=None, widget=RadioSelect, required=False
+        )
+
     class Meta:
         model = Report
         fields = ['violation_summary', 'when', 'how_many']
         widgets = {
             'when': RadioSelect,
-            'how_many': RadioSelect,
         }
 
 
 class Contact(ModelForm):
+    relationship = TypedChoiceField(
+        choices=RELATIONSHIP_CHOICES, empty_value=None, widget=RadioSelect, required=False
+        )
+
     class Meta:
         model = Report
         fields = ['who_reporting_for', 'relationship', 'do_not_contact', 'contact_given_name', 'contact_family_name', 'contact_email', 'contact_state', 'contact_address_line_1', 'contact_address_line_2', 'contact_phone']
         widgets = {
-            'relationship': RadioSelect,
+            'do_not_contact': CheckboxInput,
+            'who_reporting_for':RadioSelect,
         }

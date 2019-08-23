@@ -30,7 +30,11 @@ in another terminal if you are doing front end work:
 
     gulp watch
 
+## Tests
 
+You can run tests with docker with:
+
+    docker-compose run web python /code/crt_portal/manage.py test cts_forms
 
 ## cloud.gov set up
 
