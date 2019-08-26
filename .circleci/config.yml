@@ -54,7 +54,6 @@ jobs: # A basic unit of work in a run
           # Run unit tests, (run bandit tests when ready)
           command: |
             pipenv run crt_portal/manage.py test cts_forms
-          # pipenv run bandit
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test-results
       - store_artifacts: # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
