@@ -13,3 +13,5 @@ _these will eventually be enforced by CircleCI; we need to set that up at the US
 + [ ] Tests pass locally
 + [ ] Running `flake8` in root returns no style errors
 + [ ] pa11y manual chekc against the `/report` page returns no errors
+
+## Notes for reviewer:
