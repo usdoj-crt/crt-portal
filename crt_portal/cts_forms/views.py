@@ -1,4 +1,3 @@
-from collections import ChainMap
 from django.shortcuts import render_to_response
 from formtools.wizard.views import SessionWizardView
 
