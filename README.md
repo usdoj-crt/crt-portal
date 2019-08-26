@@ -43,7 +43,9 @@ To ssh into your local docker container run:
 
     docker exec -it crt-django_web_1 /bin/bash
 
-To update a python package
+To install a new python package run:
+
+    docker-compose run web pipenv install name-of-package
 
 ## Tests
 
@@ -51,7 +53,7 @@ You can run project tests with docker with:
 
     docker-compose run web python /code/crt_portal/manage.py test cts_forms
 
-You can scan the code for potential python security flaws using [bandit](https://github.com/PyCQA/bandit). run bandit manually:
+You can scan the code for potential python security flaws using [bandit](https://github.com/PyCQA/bandit). Run bandit manually:
 
     docker-compose run web bandit -r crt_portal/
 
