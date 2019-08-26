@@ -2,7 +2,9 @@ Link to ZenHub issue: {{}}
 
 ## What does this change?
 
-## Are there security considerations?
+## Security considerations?
+
+## Screenshots (for front-end PR)
 
 ## Checklist
 
