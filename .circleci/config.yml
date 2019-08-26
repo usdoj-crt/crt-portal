@@ -67,5 +67,3 @@ workflows:
     jobs:
       - build
       - test_python
-          requires:
-              - test2
