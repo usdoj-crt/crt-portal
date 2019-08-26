@@ -99,5 +99,5 @@ class Contact(ModelForm):
         fields = ['who_reporting_for', 'relationship', 'do_not_contact', 'contact_given_name', 'contact_family_name', 'contact_email', 'contact_state', 'contact_address_line_1', 'contact_address_line_2', 'contact_phone']
         widgets = {
             'do_not_contact': CheckboxInput,
-            'who_reporting_for':RadioSelect,
+            'who_reporting_for': RadioSelect,
         }
