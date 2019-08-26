@@ -2,8 +2,6 @@ Link to ZenHub issue: {{}}
 
 ## What does this change?
 
-## Security considerations?
-
 ## Screenshots (for front-end PR):
 
 ## Checklist:
