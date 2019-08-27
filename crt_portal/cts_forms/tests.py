@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from .models import ProtectedClass, Report
+from .models import ProtectedClass
 from .forms import WhatHappened, Where, Who, Details, Contact
 
 
