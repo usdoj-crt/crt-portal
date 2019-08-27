@@ -47,13 +47,16 @@ jobs: # A basic unit of work in a run
             - "/usr/local/bin"
             - "/usr/local/lib/python3.7/site-packages"
       - run:
+          command: |
+            mkdir test-results
+      - run:
           # Run unit tests, (run bandit tests when ready)
           command: |
             pipenv run crt_portal/manage.py test cts_forms
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-          path: test-results
+          path: tmp/test-results
       - store_artifacts: # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
-          path: test-results
+          path: tmp/test-results
           destination: tr1
 workflows:
   version: 2
