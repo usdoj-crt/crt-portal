@@ -49,7 +49,6 @@ jobs: # A basic unit of work in a run
       - run:
           command: |
             mkdir /tmp/test-results;
-            mkdir /tmp/test-artifacts;
       - run:
           # Run unit tests, (run bandit tests when ready)
           command: |
