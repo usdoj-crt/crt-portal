@@ -1,4 +1,4 @@
-Link to ZenHub issue: {{}}
+[Link to ZenHub issue.](link-goes-here)
 
 ## What does this change?
 
