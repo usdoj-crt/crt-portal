@@ -48,7 +48,7 @@ jobs: # A basic unit of work in a run
             - "/usr/local/lib/python3.7/site-packages"
       - run:
           command: |
-            mkdir test-results
+            mkdir tmp/test-results
       - run:
           # Run unit tests, (run bandit tests when ready)
           command: |
