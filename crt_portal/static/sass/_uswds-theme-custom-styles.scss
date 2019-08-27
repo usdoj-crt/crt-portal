@@ -80,3 +80,11 @@ $header-background: #F6F6F2;
 .page-header-background {
   background-color: $header-background;
 }
+
+// Django Formtools Wizard customization
+
+form#report-form {
+  li {
+    list-style: none;
+  }
+}
