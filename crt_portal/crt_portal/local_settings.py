@@ -13,5 +13,6 @@ DATABASES = {
 }
 
 SECRET_KEY = os.getenv('SECRET_KEY')
-ALLOWED_HOSTS = ['localhost', '0.0.0.0']
+# This setting will only be used in local development
+ALLOWED_HOSTS = ['localhost', '0.0.0.0']  # nosec
 DEBUG = True
