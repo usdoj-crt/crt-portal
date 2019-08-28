@@ -22,7 +22,7 @@ jobs:
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
-          # Add Node install to python container
+          name: Node install
           command: |
             echo "deb https://deb.nodesource.com/node_10.x stretch main" > /etc/apt/sources.list.d/nodesource.list && \
             wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
@@ -34,7 +34,7 @@ jobs:
             rm -rf /var/lib/apt/lists/*
             npm install
       - run:
-          # Python install with pipenv then migrate the database
+          name: Python install with pipenv then migrate the database
           command: |
             pip install -U pip && pip install pipenv && \
             pip install pipenv
@@ -47,14 +47,24 @@ jobs:
             - "/usr/local/bin"
             - "/usr/local/lib/python3.7/site-packages"
       - run:
+          name: Make directory for test results
           command: |
             mkdir /tmp/test-results;
       - run:
-          # Run unit tests
+          name: Run unit tests
           command: |
             pipenv run crt_portal/manage.py test cts_forms
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: /tmp/test-results
+
+  deploy:
+    machine:
+      enabled: true
+    steps:
+      - run:
+          name: Deploy to cloud.gov
+          command:
+
 workflows:
   version: 2
   build-test-deploy:
