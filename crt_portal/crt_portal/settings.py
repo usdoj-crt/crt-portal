@@ -157,7 +157,7 @@ if environment != 'LOCAL':
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     CORS_ORIGIN_WHITELIST = [
-        "https://cg-b88f3063-f22b-4f72-b235-51832fdfffca.s3-us-gov-west-1.amazonaws.com/",
+        "https://cg-b88f3063-f22b-4f72-b235-51832fdfffca.s3-us-gov-west-1.amazonaws.com",
     ]
 else:
     STATIC_URL = '/static/'
