@@ -17,6 +17,6 @@ psycopg2-binary = "*"
 rcssmin = "*"
 django-formtools = "*"
 bandit = "*"
+django-cors-headers = "*"
 
-[requires]
 python_version = "3.7"
