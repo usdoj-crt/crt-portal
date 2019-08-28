@@ -17,7 +17,9 @@ import json
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
+# If ENV is not set explicitly, assume "PROD".
+# Note that when using Docker, ENV is set to "LOCAL" by docker-compose.yml.
+# We are using Docker for local development only.
 environment = os.environ.get('ENV', 'PROD')
 
 # Quick-start development settings - unsuitable for production
