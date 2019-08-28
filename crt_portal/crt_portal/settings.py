@@ -17,7 +17,9 @@ import json
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
+# If ENV is not set explicitly, assume "PROD".
+# Note that when using Docker, ENV is set to "LOCAL" by docker-compose.yml.
+# We are using Docker for local development only.
 environment = os.environ.get('ENV', 'PROD')
 
 # Quick-start development settings - unsuitable for production
@@ -102,9 +104,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'crt_portal.wsgi.application'
 
 
-
-
-
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -140,6 +139,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
+
 
 if environment != 'LOCAL':
     s3_creds = vcap['s3'][0]["credentials"]
@@ -188,4 +188,4 @@ COMPRESS_PRECOMPILERS = (
 COMPRESS_OFFLINE = True
 
 if environment == 'LOCAL':
-    from .local_settings import *
+    from .local_settings import *  # noqa: F401,F403

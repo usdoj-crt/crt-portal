@@ -80,7 +80,7 @@
     <div class="grid-row">
       <div class="grid-col-1"></div>
       <div class="grid-col-10">
-        <form action="/report/" method="post">{% csrf_token %}
+        <form id="report-form" action="/report/" method="post">{% csrf_token %}
           <table>
             {{ wizard.management_form }}
             {% if wizard.form.forms %}
@@ -93,10 +93,10 @@
             {% endif %}
           </table>
           {% if wizard.steps.prev %}
-            <button name="wizard_goto_step" type="submit" label="first step" value="{{ wizard.steps.first }}" class="usa-button">{% trans "first step" %}</button>
-            <button name="wizard_goto_step" type="submit" label="previous step" value="{{ wizard.steps.prev }}" class="usa-button">{% trans "prev step" %}</button>
+            <button name="wizard_goto_step" type="submit" label="first step" value="{{ wizard.steps.first }}" class="usa-button">{% trans "First" %}</button>
+            <button name="wizard_goto_step" type="submit" label="previous step" value="{{ wizard.steps.prev }}" class="usa-button">{% trans "Back" %}</button>
           {% endif %}
-          <input type="submit" label="submit" value="{% trans "submit" %}" class="usa-button"/>
+          <input type="submit" label="submit" value="{% trans "Next" %}" class="usa-button"/>
         </form>
       </div>
       <div class="grid-col-1"></div>
