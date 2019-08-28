@@ -69,10 +69,12 @@ INSTALLED_APPS = [
     'compressor_toolkit',
     'storages',
     'formtools',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -154,6 +156,9 @@ if environment != 'LOCAL':
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    CORS_ORIGIN_WHITELIST = [
+        "https://cg-b88f3063-f22b-4f72-b235-51832fdfffca.s3-us-gov-west-1.amazonaws.com/",
+    ]
 else:
     STATIC_URL = '/static/'
 
