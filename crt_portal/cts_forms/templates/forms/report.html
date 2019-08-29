@@ -105,7 +105,7 @@
 
           {% for field in wizard.form.visible_fields %}
             <fieldset class="usa-fieldset">
-              {{ field.label_tag }}
+              <h3>{{ field.label_tag }}</h3>
               {{ field.errors }}
               {{ field }}
               {{ field.help_text }}
