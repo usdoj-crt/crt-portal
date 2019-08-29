@@ -83,6 +83,15 @@
         <form id="report-form" action="/report/" method="post">
           {% csrf_token %}
           {{ wizard.management_form }}
+
+          {% if form.non_field_errors %}
+            <ul>
+              {% for error in form.non_field_errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+
           {% for field in wizard.form.visible_fields %}
             <div>
               {{ field.label_tag }}
@@ -91,6 +100,7 @@
               {{ field.help_text }}
             </div>
           {% endfor %}
+
           {% if wizard.steps.prev %}
             <button name="wizard_goto_step" type="submit" label="first step" value="{{ wizard.steps.first }}" class="usa-button">{% trans "First" %}</button>
             <button name="wizard_goto_step" type="submit" label="previous step" value="{{ wizard.steps.prev }}" class="usa-button">{% trans "Back" %}</button>
