@@ -80,7 +80,7 @@
     <div class="grid-row">
       <div class="grid-col-1"></div>
       <div class="grid-col-10">
-        <form id="report-form" action="/report/" method="post">
+        <form id="report-form" class="usa-form" action="/report/" method="post">
           {% csrf_token %}
           {{ wizard.management_form }}
 
@@ -104,12 +104,12 @@
           {% endfor %}
 
           {% for field in wizard.form.visible_fields %}
-            <div>
+            <fieldset class="usa-fieldset">
               {{ field.label_tag }}
               {{ field.errors }}
               {{ field }}
               {{ field.help_text }}
-            </div>
+            </fieldset>
           {% endfor %}
 
           {% if wizard.steps.prev %}

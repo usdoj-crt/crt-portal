@@ -17,7 +17,7 @@ class WhatHappened(ModelForm):
         )
         fields = ['primary_complaint', 'protected_class']
         widgets = {
-            'primary_complaint': UsaRadioSelect(attrs={'class': 'usa-radio__input'}),
+            'primary_complaint': UsaRadioSelect,
             'protected_class': CheckboxSelectMultiple,
         }
 
