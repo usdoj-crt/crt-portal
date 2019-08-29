@@ -49,7 +49,11 @@ To install a new python package run:
 
 ## Tests
 
-You can run project tests with docker with:
+
+Tests run automatically with repos that are integrated with Circle CI. You can run those tests locally with the following instructions.
+
+
+You can also run project tests using docker with:
 
     docker-compose run web python /code/crt_portal/manage.py test cts_forms
 
