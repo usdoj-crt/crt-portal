@@ -1,5 +1,6 @@
 from django.forms import ModelForm, RadioSelect, Select, ChoiceField, ModelMultipleChoiceField, CheckboxSelectMultiple, CheckboxInput, TypedChoiceField
 
+from .widgets import UsaRadioSelect
 from .models import Report, ProtectedClass
 from .model_variables import *
 
@@ -16,7 +17,7 @@ class WhatHappened(ModelForm):
         )
         fields = ['primary_complaint', 'protected_class']
         widgets = {
-            'primary_complaint': RadioSelect,
+            'primary_complaint': UsaRadioSelect,
             'protected_class': CheckboxSelectMultiple,
         }
 
