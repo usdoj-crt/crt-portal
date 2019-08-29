@@ -53,6 +53,10 @@ h1 {
   @include u-font-size('body', 'sm')
 }
 
+h3 {
+  @include u-text('primary-dark')
+}
+
 // USA Gov Banner Customization
 $bg-yellow: #FEE685;
 
