@@ -92,6 +92,17 @@
             </ul>
           {% endif %}
 
+          {% for hidden_field in form.hidden_fields %}
+            {% if hidden_field.errors %}
+              <ul>
+                {% for error in hidden_field.errors %}
+                  <li>(Hidden field {{ hidden_field.name }}) {{ error }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+            {{ hidden_field }}
+          {% endfor %}
+
           {% for field in wizard.form.visible_fields %}
             <div>
               {{ field.label_tag }}
