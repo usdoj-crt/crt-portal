@@ -81,8 +81,8 @@
       <div class="grid-col-1"></div>
       <div class="grid-col-10">
         <form id="report-form" action="/report/" method="post">
-			    {% csrf_token %}
-			    {{ wizard.management_form }}
+          {% csrf_token %}
+          {{ wizard.management_form }}
           {% for field in wizard.form.visible_fields %}
             <div>
               {{ field.label_tag }}
