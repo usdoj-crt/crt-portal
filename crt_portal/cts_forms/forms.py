@@ -1,4 +1,4 @@
-from django.forms import ModelForm, RadioSelect, Select, ChoiceField, ModelMultipleChoiceField, CheckboxSelectMultiple, CheckboxInput, TypedChoiceField
+from django.forms import ModelForm, Select, ChoiceField, ModelMultipleChoiceField, CheckboxSelectMultiple, CheckboxInput, TypedChoiceField
 
 from .widgets import UsaRadioSelect
 from .models import Report, ProtectedClass
