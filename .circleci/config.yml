@@ -75,7 +75,7 @@ workflows:
         branches:
           only: dev
       command: |
-        blue-green-deploy.sh $USERNAME $CF_PASSWORD_DEV dev
+        ./blue-green-deploy.sh $USERNAME $CF_PASSWORD_DEV dev
 
     - deploy-stage:
       requires:
@@ -85,7 +85,7 @@ workflows:
         branches:
           only: release/*
       command: |
-        blue-green-deploy.sh $USERNAME $CF_PASSWORD_STAGE stage
+        ./blue-green-deploy.sh $USERNAME $CF_PASSWORD_STAGE stage
 
     - deploy-prod:
         requires:
@@ -95,4 +95,4 @@ workflows:
           branches:
             only: master
         command: |
-          blue-green-deploy.sh $USERNAME $CF_PASSWORD_PROD prod
+          ./blue-green-deploy.sh $USERNAME $CF_PASSWORD_PROD prod
