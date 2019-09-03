@@ -9,7 +9,8 @@ SPACE=$3
 
 
 # login to the right place
-cf auth -a https://api.fr.cloud.gov $CRT_USERNAME $CRT_PASSWORD;
+cf api https://api.fr.cloud.gov;
+cf auth  $CRT_USERNAME  $CRT_PASSWORD;
 cf target -o doj-crtportal-prototyping -s $SPACE;
 
 
