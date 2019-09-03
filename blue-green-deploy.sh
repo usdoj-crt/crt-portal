@@ -47,4 +47,5 @@ else
     cf rename "$VEN_NAME" "$APP_NAME";
   fi;
   echo 'FAILED :(';
+  exit 1
 fi;
