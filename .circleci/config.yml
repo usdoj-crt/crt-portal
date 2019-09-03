@@ -61,38 +61,58 @@ jobs:
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: /tmp/test-results
 
+  deploy-dev:
+    steps:
+      - run:
+        - command: |
+              ./blue-green-deploy.sh $USERNAME_DEV $CF_PASSWORD_DEV dev
+
+  deploy-stage:
+    steps:
+      - run:
+        - command: |
+            ./blue-green-deploy.sh $USERNAME_STAGE $CF_PASSWORD_STAGE stage
+
+  deploy-prod:
+    machine:
+        enabled: true
+    working_directory: ~/code
+    steps:
+      - run:
+        - name: Deploy to production
+        - command: |
+            ./blue-green-deploy.sh $USERNAME_PROD $CF_PASSWORD_PROD prod
+
 workflows:
   version: 2
   build-test-deploy:
     jobs:
       - build
-      - test
-    - deploy-dev:
-      requires:
-        - build
-        - test
-      filters:
-        branches:
-          only: dev
-      command: |
-        ./blue-green-deploy.sh $USERNAME_DEV $CF_PASSWORD_DEV dev
 
-    - deploy-stage:
-      requires:
-        - build
-        - test
-      filters:
-        branches:
-          only: release/*
-      command: |
-        ./blue-green-deploy.sh $USERNAME_STAGE $CF_PASSWORD_STAGE stage
+      - test:
+          requires:
+            - build
 
-    - deploy-prod:
-        requires:
-          - build
-          - test
-        filters:
-          branches:
-            only: master
-        command: |
-          ./blue-green-deploy.sh $USERNAME_PROD $CF_PASSWORD_PROD prod
+      - deploy-dev:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: dev
+
+      - deploy-stage:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: release/*
+
+      - deploy-prod:
+          requires:
+            - build
+            - test
+          filters:
+            branches:
+              only: master
