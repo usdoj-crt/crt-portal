@@ -46,6 +46,10 @@ jobs:
             - ".venv"
             - "/usr/local/bin"
             - "/usr/local/lib/python3.7/site-packages"
+  test:
+    requires:
+      - build
+    steps:
       - run:
           name: Make directory for test results
           command: |
@@ -57,16 +61,38 @@ jobs:
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: /tmp/test-results
 
-  deploy:
-    machine:
-      enabled: true
-    steps:
-      - run:
-          name: Deploy to cloud.gov
-          command:
-
 workflows:
   version: 2
   build-test-deploy:
     jobs:
       - build
+      - test
+    - deploy-dev:
+      requires:
+        - build
+        - test
+      filters:
+        branches:
+          only: dev
+      command: |
+        blue-green-deploy.sh $USERNAME $CF_PASSWORD_DEV dev
+
+    - deploy-stage:
+      requires:
+        - build
+        - test
+      filters:
+        branches:
+          only: release/*
+      command: |
+        blue-green-deploy.sh $USERNAME $CF_PASSWORD_STAGE stage
+
+    - deploy-prod:
+        requires:
+          - build
+          - test
+        filters:
+          branches:
+            only: master
+        command: |
+          blue-green-deploy.sh $USERNAME $CF_PASSWORD_PROD prod
