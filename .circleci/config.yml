@@ -62,12 +62,18 @@ jobs:
           path: /tmp/test-results
 
   deploy-dev:
+    machine:
+        enabled: true
+    working_directory: ~/code
     steps:
       - run:
         - command: |
               ./blue-green-deploy.sh $USERNAME_DEV $CF_PASSWORD_DEV dev
 
   deploy-stage:
+    machine:
+        enabled: true
+    working_directory: ~/code
     steps:
       - run:
         - command: |
