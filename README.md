@@ -76,12 +76,20 @@ First, log into the desired space.
 when prompted give it the secret key
 
 
-You will needed to enable CORS via awscli, instructions are here: https://cloud.gov/docs/services/s3/#allowing-client-side-web-access-from-external-applications
+You will needed to enable CORS via awscli, for each bucket instructions are here: https://cloud.gov/docs/services/s3/#allowing-client-side-web-access-from-external-applications
 
+
+Create a [service account for deployment](https://cloud.gov/docs/services/cloud-gov-service-account/) for each space you are setting up. (Replace "space" with the name of the space you are setting up.)
+
+    cf create-service cloud-gov-service-account space-deployer crt-service-account-space
+    cf create-service-key crt-service-account-space crt-portal-space-key
+    cf service-key crt-service-account-space crt-portal-space-key
+
+Those credeintials will need to be added to CircleCI as environment variables: `CRT_USERNAME_SPACE` `CRT_PASSWORD_SPACE` (replace "SPACE" with the relevant space).
 
 Right now, the route is set for the production space, we will want to pass in different routes for different spaces but that can be handled when we add the automation.
 
-To deploy run:
+To deploy manually run:
 
     cf push
 
