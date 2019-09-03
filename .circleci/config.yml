@@ -2,7 +2,7 @@
 # Circle docs https://circleci.com/docs/2.0/language-python/
 version: 2
 jobs:
-  build: # runs not using Workflows must have a `build` job as entry point
+  build_and_test: # runs not using Workflows must have a `build` job as entry point
     # directory where steps are run
     working_directory: ~/code
     docker:
@@ -46,10 +46,6 @@ jobs:
             - ".venv"
             - "/usr/local/bin"
             - "/usr/local/lib/python3.7/site-packages"
-  test:
-    requires:
-      - build
-    steps:
       - run:
           name: Make directory for test results
           command: |
@@ -62,28 +58,125 @@ jobs:
           path: /tmp/test-results
 
   deploy-dev:
-    machine:
-        enabled: true
     working_directory: ~/code
+    docker:
+      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
+      - image: python:3.7
+        environment: # environment variables for primary container
+          PIPENV_VENV_IN_PROJECT: true
+          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
+      - image: postgres:10.1-alpine
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle_test
     steps:
+      - checkout
+      - restore_cache:
+          # this should all be cached from the test
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
+          name: Node install
+          command: |
+            echo "deb https://deb.nodesource.com/node_10.x stretch main" > /etc/apt/sources.list.d/nodesource.list && \
+            wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
+            echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
+            wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+            apt-get update && \
+            apt-get install -yqq nodejs yarn && \
+            npm i -g npm@^6 && \
+            rm -rf /var/lib/apt/lists/*
+            npm install
+      - run:
+          # database will be migrated in cloud.gov
+          name: Python install with pipenv
+          command: |
+            pip install -U pip && pip install pipenv && \
+            pip install pipenv
+            pipenv install
+      - run:
+        - name: deploy to dev
         - command: |
               ./blue-green-deploy.sh $USERNAME_DEV $CF_PASSWORD_DEV dev
 
   deploy-stage:
-    machine:
-        enabled: true
     working_directory: ~/code
+    docker:
+      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
+      - image: python:3.7
+        environment: # environment variables for primary container
+          PIPENV_VENV_IN_PROJECT: true
+          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
+      - image: postgres:10.1-alpine
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle_test
     steps:
+      - checkout
+      - restore_cache:
+          # this should all be cached from the test
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+      - run:
+          name: Node install
+          command: |
+            echo "deb https://deb.nodesource.com/node_10.x stretch main" > /etc/apt/sources.list.d/nodesource.list && \
+            wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
+            echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
+            wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+            apt-get update && \
+            apt-get install -yqq nodejs yarn && \
+            npm i -g npm@^6 && \
+            rm -rf /var/lib/apt/lists/*
+            npm install
+      - run:
+          # database will be migrated in cloud.gov
+          name: Python install with pipenv
+          command: |
+            pip install -U pip && pip install pipenv && \
+            pip install pipenv
+            pipenv install
       - run:
         - command: |
             ./blue-green-deploy.sh $USERNAME_STAGE $CF_PASSWORD_STAGE stage
 
   deploy-prod:
-    machine:
-        enabled: true
     working_directory: ~/code
+    docker:
+      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
+      - image: python:3.7
+        environment: # environment variables for primary container
+          PIPENV_VENV_IN_PROJECT: true
+          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
+      - image: postgres:10.1-alpine
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle_test
     steps:
+      - checkout
+      - restore_cache:
+          # this should all be cached from the test
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+      - run:
+          name: Node install
+          command: |
+            echo "deb https://deb.nodesource.com/node_10.x stretch main" > /etc/apt/sources.list.d/nodesource.list && \
+            wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
+            echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
+            wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+            apt-get update && \
+            apt-get install -yqq nodejs yarn && \
+            npm i -g npm@^6 && \
+            rm -rf /var/lib/apt/lists/*
+            npm install
+      - run:
+          # database will be migrated in cloud.gov
+          name: Python install with pipenv
+          command: |
+            pip install -U pip && pip install pipenv && \
+            pip install pipenv
+            pipenv install
       - run:
         - name: Deploy to production
         - command: |
@@ -93,32 +186,25 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - build
-
-      - test:
-          requires:
-            - build
+      - build_and_test
 
       - deploy-dev:
           requires:
-            - build
-            - test
+            - build_and_test
           filters:
             branches:
               only: dev
 
       - deploy-stage:
           requires:
-            - build
-            - test
+            - build_and_test
           filters:
             branches:
               only: release/*
 
       - deploy-prod:
           requires:
-            - build
-            - test
+            - build_and_test
           filters:
             branches:
               only: master
