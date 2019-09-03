@@ -95,8 +95,8 @@ jobs:
             pip install pipenv
             pipenv install
       - run:
-        - name: deploy to dev
-        - command: |
+          name: Deploy to dev
+          command: |
               ./blue-green-deploy.sh $USERNAME_DEV $CF_PASSWORD_DEV dev
 
   deploy-stage:
@@ -137,7 +137,8 @@ jobs:
             pip install pipenv
             pipenv install
       - run:
-        - command: |
+          name: Deploy to stage
+          command: |
             ./blue-green-deploy.sh $USERNAME_STAGE $CF_PASSWORD_STAGE stage
 
   deploy-prod:
@@ -178,8 +179,8 @@ jobs:
             pip install pipenv
             pipenv install
       - run:
-        - name: Deploy to production
-        - command: |
+          name: Deploy to production
+          command: |
             ./blue-green-deploy.sh $USERNAME_PROD $CF_PASSWORD_PROD prod
 
 workflows:
