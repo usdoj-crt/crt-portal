@@ -58,11 +58,10 @@ jobs:
           name: Run bandit (Python security) tests
           command: |
             pipenv run bandit -r crt_portal/
-# # we are not ready for this
-#       - run:
-#           name:
-#           command: |
-#             pipenv run flake8
+      - run:
+          name: Run flake8 test for Python code style
+          command: |
+            pipenv run flake8
 
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: /tmp/test-results
