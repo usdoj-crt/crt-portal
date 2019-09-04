@@ -63,6 +63,11 @@ You can scan the code for potential python security flaws using [bandit](https:/
 
 If there is a false positive you can add `# nosec` at the end of the line that is triggering the error. Please also add a comment that explains why that line is a false positive.
 
+You can check for style issues by running flake8:
+
+    docker-compose run web flake8
+
+
 ## cloud.gov set up
 You only need to get the services stood up and configure the S3 bucket once.
 
