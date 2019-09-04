@@ -1,3 +1,4 @@
 [flake8]
 ignore = E501
-exclude = node_modules/*,crt_portal/cts_forms/migrations/*
+exclude = node_modules/*,crt_portal/cts_forms/migrations/*,./.venv/*
+

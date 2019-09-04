@@ -63,6 +63,11 @@ You can scan the code for potential python security flaws using [bandit](https:/
 
 If there is a false positive you can add `# nosec` at the end of the line that is triggering the error. Please also add a comment that explains why that line is a false positive.
 
+You can check for style issues by running flake8:
+
+    docker-compose run web flake8
+
+
 ## cloud.gov set up
 You only need to get the services stood up and configure the S3 bucket once.
 
@@ -86,14 +91,22 @@ First, log into the desired space.
 when prompted give it the secret key
 
 
-You will needed to enable CORS via awscli, instructions are here: https://cloud.gov/docs/services/s3/#allowing-client-side-web-access-from-external-applications
+You will needed to enable CORS via awscli, for each bucket instructions are here: https://cloud.gov/docs/services/s3/#allowing-client-side-web-access-from-external-applications
 
+
+Create a [service account for deployment](https://cloud.gov/docs/services/cloud-gov-service-account/) for each space you are setting up. (Replace "space" with the name of the space you are setting up.)
+
+    cf create-service cloud-gov-service-account space-deployer crt-service-account-space
+    cf create-service-key crt-service-account-space crt-portal-space-key
+    cf service-key crt-service-account-space crt-portal-space-key
+
+Those credentials will need to be added to CircleCI as environment variables: `CRT_USERNAME_SPACE` `CRT_PASSWORD_SPACE` (replace "SPACE" with the relevant space).
 
 Right now, the route is set for the production space, we will want to pass in different routes for different spaces but that can be handled when we add the automation.
 
-To deploy run:
+To deploy manually, make sure you are logged in, run the push command and pass it the name of the manifest for the space you want to deploy to:
 
-    cf push
+    cf push -f manifest_space.yml
 
 That will push to cloud.gov according to the instructions in the manifest and Profile.
 
@@ -113,9 +126,14 @@ Then, you can create a superuser
 
 ### Subsequent deploys
 
-Once cloud.gov is set up, you can deploy just with a push
+Deploys will happen via Circle CI.
+    - For deploys to dev, it will deploy after tests pass, when a PR is merged into the develop branch.
+    - For deploys to staging, it will deploy after tests pass, when we make or update a branch the starts with "release/".
+    - Once we are cleared to deploy to prod, it will deploy after tests pass, when we merge the release into the master branch.
 
-    cf push
+As a back up contingency, you can deploy just with a push using the manifest:
+
+    cf push -f manifest_space.yml
 
 # Background notes
 

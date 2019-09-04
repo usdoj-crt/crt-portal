@@ -54,8 +54,13 @@ if environment != 'LOCAL':
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['crt-portal.app.cloud.gov', 'crt-portal-django.app.cloud.gov', 'crt-portal-django-prod.app.cloud.gov']
-
+ALLOWED_HOSTS = [
+    'crt-portal.app.cloud.gov',
+    'crt-portal-django.app.cloud.gov',
+    'crt-portal-django-prod.app.cloud.gov',
+    'crt-portal-django-stage.app.cloud.gov',
+    'crt-portal-django-dev.app.cloud.gov',
+]
 
 # Application definition
 
