@@ -59,7 +59,7 @@ jobs:
           command: |
             pipenv run bandit -r crt_portal/
       - run:
-          name:
+          name: Run flake8 test for Python code style
           command: |
             pipenv run flake8
 
