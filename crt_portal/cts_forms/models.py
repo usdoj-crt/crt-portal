@@ -1,9 +1,10 @@
+from datetime import datetime
+
 from django.db import models
 from django.utils import timezone
 
 from .model_variables import (
     PRIMARY_COMPLAINT_CHOICES,
-    PROTECTED_CLASS_CHOICES,
     PLACE_CHOICES,
     PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
     EMPLOYER_SIZE_CHOICES,
@@ -23,6 +24,7 @@ class InternalHistory(models.Model):
     note = models.CharField(max_length=500, null=False, blank=False,)
     create_date = models.DateTimeField(auto_now_add=True)
     # add author
+
 
 class ProtectedClass(models.Model):
     protected_class = models.CharField(max_length=100, null=True, blank=True,)

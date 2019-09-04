@@ -1,5 +1,6 @@
 from django.forms.widgets import ChoiceWidget
 
+
 class UsaRadioSelect(ChoiceWidget):
     input_type = 'radio'
     template_name = 'django/forms/widgets/radio.html'

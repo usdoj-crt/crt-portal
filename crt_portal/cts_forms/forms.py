@@ -1,8 +1,8 @@
-from django.forms import ModelForm, Select, ChoiceField, ModelMultipleChoiceField, CheckboxSelectMultiple, CheckboxInput, TypedChoiceField
+from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxSelectMultiple, CheckboxInput, TypedChoiceField
 
 from .widgets import UsaRadioSelect
 from .models import Report, ProtectedClass
-from .model_variables import *
+from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, HOW_MANY_CHOICES, RELATIONSHIP_CHOICES, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES
 
 import logging
 
@@ -40,20 +40,19 @@ class WhatHappened(ModelForm):
 class Where(ModelForm):
     public_or_private_employer = TypedChoiceField(
         choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-        )
+    )
     public_or_private_facility = TypedChoiceField(
         choices=PUBLIC_OR_PRIVATE_FACILITY_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-        )
+    )
     public_or_private_healthcare = TypedChoiceField(
         choices=PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-        )
+    )
     employer_size = TypedChoiceField(
         choices=EMPLOYER_SIZE_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-        )
+    )
     public_or_private_school = TypedChoiceField(
         choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-        )
-
+    )
 
     class Meta:
         model = Report
@@ -63,11 +62,10 @@ class Where(ModelForm):
         }
 
 
-
 class Who(ModelForm):
     respondent_type = TypedChoiceField(
         choices=RESPONDENT_TYPE_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-        )
+    )
 
     class Meta:
         model = Report
@@ -80,7 +78,7 @@ class Who(ModelForm):
 class Details(ModelForm):
     how_many = TypedChoiceField(
         choices=HOW_MANY_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-        )
+    )
 
     class Meta:
         model = Report
@@ -93,7 +91,7 @@ class Details(ModelForm):
 class Contact(ModelForm):
     relationship = TypedChoiceField(
         choices=RELATIONSHIP_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-        )
+    )
 
     class Meta:
         model = Report
