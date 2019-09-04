@@ -127,7 +127,7 @@ Then, you can create a superuser
 ### Subsequent deploys
 
 Deploys will happen via Circle CI.
-    - For deploys to dev, it will deploy after tests pass, when a PR is merged into the dev branch.
+    - For deploys to dev, it will deploy after tests pass, when a PR is merged into the develop branch.
     - For deploys to staging, it will deploy after tests pass, when we make or update a branch the starts with "release/".
     - Once we are cleared to deploy to prod, it will deploy after tests pass, when we merge the release into the master branch.
 
