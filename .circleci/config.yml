@@ -62,7 +62,7 @@ jobs:
       - run:
           name:
           command: |
-            flake8
+            pipenv run flake8
 
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: /tmp/test-results
