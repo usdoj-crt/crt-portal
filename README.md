@@ -100,7 +100,7 @@ Create a [service account for deployment](https://cloud.gov/docs/services/cloud-
     cf create-service-key crt-service-account-space crt-portal-space-key
     cf service-key crt-service-account-space crt-portal-space-key
 
-Those credeintials will need to be added to CircleCI as environment variables: `CRT_USERNAME_SPACE` `CRT_PASSWORD_SPACE` (replace "SPACE" with the relevant space).
+Those credentials will need to be added to CircleCI as environment variables: `CRT_USERNAME_SPACE` `CRT_PASSWORD_SPACE` (replace "SPACE" with the relevant space).
 
 Right now, the route is set for the production space, we will want to pass in different routes for different spaces but that can be handled when we add the automation.
 

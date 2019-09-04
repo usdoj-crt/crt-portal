@@ -105,7 +105,7 @@ jobs:
             pip install pipenv
             pipenv install
       - run:
-          name: Inslall cloud foundry deploy tools
+          name: Install cloud foundry deploy tools
           command: |
             wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
             echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
@@ -154,7 +154,7 @@ jobs:
             pip install pipenv
             pipenv install
       - run:
-          name: Inslall cloud foundry deploy tools
+          name: Install cloud foundry deploy tools
           command: |
             wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
             echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
@@ -203,7 +203,7 @@ jobs:
             pip install pipenv
             pipenv install
       - run:
-          name: Inslall cloud foundry deploy tools
+          name: Install cloud foundry deploy tools
           command: |
             wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
             echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
