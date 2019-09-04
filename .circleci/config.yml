@@ -54,6 +54,16 @@ jobs:
           name: Run unit tests
           command: |
             pipenv run crt_portal/manage.py test cts_forms
+      - run:
+          name: Run bandit (Python security) tests
+          command: |
+            pipenv run bandit -r crt_portal/
+# we are not ready for this
+      - run:
+          name:
+          command: |
+            flake8
+
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: /tmp/test-results
 
