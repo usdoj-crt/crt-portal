@@ -20,6 +20,11 @@ i.e.
 ----------------------------------------
 */
 
+// Form Width
+.usa-form {
+  max-width: none !important;
+}
+
 // Sticky Footer
 body {
   display: flex;
@@ -51,6 +56,10 @@ h1 {
 .intro-subtitle {
   @include u-line-height('alt', 5)
   @include u-font-size('body', 'sm')
+}
+
+h3 {
+  @include u-text('primary-dark')
 }
 
 // USA Gov Banner Customization
