@@ -99,9 +99,9 @@ Those credeintials will need to be added to CircleCI as environment variables: `
 
 Right now, the route is set for the production space, we will want to pass in different routes for different spaces but that can be handled when we add the automation.
 
-To deploy manually run:
+To deploy manually, make sure you are logged in, run the push command and pass it the name of the manifest for the space you want to deploy to:
 
-    cf push
+    cf push -f manifest_space.yml
 
 That will push to cloud.gov according to the instructions in the manifest and Profile.
 
@@ -121,9 +121,14 @@ Then, you can create a superuser
 
 ### Subsequent deploys
 
-Once cloud.gov is set up, you can deploy just with a push
+Deploys will happen via Circle CI.
+    - For deploys to dev, it will deploy after tests pass, when a PR is merged into the dev branch.
+    - For deploys to staging, it will deploy after tests pass, when we make or update a branch the starts with "release/".
+    - Once we are cleared to deploy to prod, it will deploy after tests pass, when we merge the release into the master branch.
 
-    cf push
+As a back up contingency, you can deploy just with a push using the manifest:
+
+    cf push -f manifest_space.yml
 
 # Background notes
 
