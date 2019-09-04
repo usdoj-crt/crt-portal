@@ -51,7 +51,11 @@ jobs:
           command: |
             mkdir /tmp/test-results;
       - run:
+<<<<<<< HEAD
           name: Run unit tests
+=======
+          # Run unit tests
+>>>>>>> master
           command: |
             pipenv run crt_portal/manage.py test cts_forms
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/

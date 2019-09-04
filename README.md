@@ -43,15 +43,25 @@ To ssh into your local docker container run:
 
     docker exec -it crt-django_web_1 /bin/bash
 
+To install a new python package run:
+
+    docker-compose run web pipenv install name-of-package
 
 ## Tests
 
+
 Tests run automatically with repos that are integrated with Circle CI. You can run those tests locally with the following instructions.
 
-You can run tests with docker with:
+
+You can also run project tests using docker with:
 
     docker-compose run web python /code/crt_portal/manage.py test cts_forms
 
+You can scan the code for potential python security flaws using [bandit](https://github.com/PyCQA/bandit). Run bandit manually:
+
+    docker-compose run web bandit -r crt_portal/
+
+If there is a false positive you can add `# nosec` at the end of the line that is triggering the error. Please also add a comment that explains why that line is a false positive.
 
 ## cloud.gov set up
 You only need to get the services stood up and configure the S3 bucket once.

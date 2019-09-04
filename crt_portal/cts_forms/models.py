@@ -1,9 +1,22 @@
 from django.db import models
-from django.forms import ModelForm
 from django.utils import timezone
 
-from .model_variables import *
-
+from .model_variables import (
+    PRIMARY_COMPLAINT_CHOICES,
+    PROTECTED_CLASS_CHOICES,
+    PLACE_CHOICES,
+    PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
+    EMPLOYER_SIZE_CHOICES,
+    PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
+    PUBLIC_OR_PRIVATE_FACILITY_CHOICES,
+    PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES,
+    RESPONDENT_TYPE_CHOICES,
+    WHEN_CHOICES,
+    HOW_MANY_CHOICES,
+    WHO_FOR_CHOICES,
+    RELATIONSHIP_CHOICES,
+    STATES_AND_TERRITORIES
+)
 
 
 class InternalHistory(models.Model):

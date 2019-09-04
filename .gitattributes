@@ -1,0 +1,4 @@
+# This file ensures consistent line-ending behavior for all users, regardless of their Git settings.
+
+# Git will always convert line endings to `LF` on checkout. You should use this for files that must keep LF endings, even on Windows.
+* text eol=lf
