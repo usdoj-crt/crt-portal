@@ -42,7 +42,7 @@ jobs:
       - run:
           name: run server for tests
           command: |
-            pipenv run manage.py runserver 8000
+            pipenv run crt_portal/manage.py runserver 8000
           background: true
       - run:
           name: Make directory for test results
