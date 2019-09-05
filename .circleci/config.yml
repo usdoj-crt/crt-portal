@@ -62,6 +62,9 @@ jobs:
           name: Run flake8 test for Python code style
           command: |
             pipenv run flake8
+      - run:
+          name: Run pa11y-ci accessibility check
+          command: npm run test:a11y
 
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: /tmp/test-results
