@@ -21,7 +21,7 @@ jobs:
       - checkout
       - restore_cache:
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}-node-browsers
       - run:
           name: Node install
           command: |
