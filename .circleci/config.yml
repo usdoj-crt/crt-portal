@@ -7,7 +7,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: python:3.7
+      - image: python:3.7-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -65,7 +65,9 @@ jobs:
             pipenv run flake8
       - run:
           name: Run pa11y-ci accessibility check
-          command: npm run test:a11y
+          command: |
+            pipenv run crt_portal/manage.py runserver
+            npm run test:a11y
 
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: /tmp/test-results
