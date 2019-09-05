@@ -1,6 +1,6 @@
-from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxSelectMultiple, CheckboxInput, TypedChoiceField
+from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxInput, TypedChoiceField
 
-from .widgets import UsaRadioSelect
+from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple
 from .models import Report, ProtectedClass
 from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, HOW_MANY_CHOICES, RELATIONSHIP_CHOICES, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES
 
@@ -18,7 +18,7 @@ class WhatHappened(ModelForm):
         fields = ['primary_complaint', 'protected_class']
         widgets = {
             'primary_complaint': UsaRadioSelect,
-            'protected_class': CheckboxSelectMultiple,
+            'protected_class': UsaCheckboxSelectMultiple,
         }
 
     # Overriding __init__ here allows us to provide initial
