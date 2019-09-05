@@ -42,6 +42,7 @@ jobs:
       - run:
           name: run server for tests
           command: |
+            pipenv run crt_portal/manage.py migrate
             pipenv run crt_portal/manage.py runserver 8000
           background: true
       - run:
