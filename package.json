@@ -4,7 +4,8 @@
   "description": "crt portal",
   "main": "index.js",
   "scripts": {
-    "test:a11y": "pa11y-ci http://0.0.0.0:8000/report/"
+    "test:a11y": "pa11y-ci http://0.0.0.0:8000/report/",
+    "test:a11y-ci": "pa11y-ci http://127.0.0.1:8000/report/"
   },
   "author": "",
   "license": "ISC",
