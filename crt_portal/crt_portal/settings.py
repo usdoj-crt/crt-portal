@@ -60,6 +60,7 @@ ALLOWED_HOSTS = [
     'crt-portal-django-prod.app.cloud.gov',
     'crt-portal-django-stage.app.cloud.gov',
     'crt-portal-django-dev.app.cloud.gov',
+    '127.0.0.1',
 ]
 
 # Application definition
