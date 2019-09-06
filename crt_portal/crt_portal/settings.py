@@ -21,6 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Note that when using Docker, ENV is set to "LOCAL" by docker-compose.yml.
 # We are using Docker for local development only.
 environment = os.environ.get('ENV', 'PROD')
+circle = os.environ.get('CIRCLE', False)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -62,6 +63,9 @@ ALLOWED_HOSTS = [
     'crt-portal-django-dev.app.cloud.gov',
     '127.0.0.1',
 ]
+
+if circle is True:
+    ALLOWED_HOSTS.append('127.0.0.1')
 
 # Application definition
 

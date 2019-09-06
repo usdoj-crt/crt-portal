@@ -17,6 +17,7 @@ jobs:
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+          CIRCLE: true
     steps:
       - checkout
       - restore_cache:
