@@ -1,7 +1,7 @@
 # Pull Requests
 
 ## For creating a PR
-Push your branch locally to the repo
+Push your local branch to the repo
 - While you are working on the branch you can add [WIP] for work in progress to the beginning of the title.
 - Name your branch something descriptive
 - Link to the ticket and copy the ticket contents over in the description of the PR
@@ -23,6 +23,7 @@ Once you are assigned as a reviewer
 - If it is for logic, test the logic locally (and make sure there is an appropriate test)
 - If it is a front end task, make sure renders as expected
 - Make sure tests pass
+- Think critically about any security concerns the PR may introduce. (Have those discussions off of GitHub.)
 - We are not looking for perfection, we are looking for a solid base to iterate on. Things need to be secure and usable, but we can always make things better later.
 
 Once the reviewer is satisfied with the PR:
