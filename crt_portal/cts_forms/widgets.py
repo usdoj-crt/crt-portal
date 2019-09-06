@@ -7,6 +7,8 @@ class UsaRadioSelect(ChoiceWidget):
     option_template_name = '../templates/forms/widgets/usa_radio_option.html'
 
 
+# Overrides Django CheckboxSelectMultiple:
+# https://docs.djangoproject.com/en/2.2/ref/forms/widgets/#checkboxselectmultiple
 class UsaCheckboxSelectMultiple(ChoiceWidget):
     allow_multiple_selected = True
     input_type = 'checkbox'
