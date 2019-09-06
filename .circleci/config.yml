@@ -11,7 +11,7 @@ jobs:
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
-          NODE_ENV: development # Only needed if puppeteer is in `devDependencies`
+          # NODE_ENV: development # Only needed if puppeteer is in `devDependencies`
       # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
       - image: postgres:10.1-alpine
         environment:
