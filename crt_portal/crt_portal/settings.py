@@ -20,7 +20,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # If ENV is not set explicitly, assume "PROD".
 # Note that when using Docker, ENV is set to "LOCAL" by docker-compose.yml.
 # We are using Docker for local development only.
-environment = os.environ.get('ENV', 'PROD')
+# We are running the testing envrionment with UNDEFINED.
+# For cloud.gov we set ENV to PRODUCTION with the manifests
+environment = os.environ.get('ENV', 'UNDEFINED')
 circle = os.environ.get('CIRCLE', False)
 
 # Quick-start development settings - unsuitable for production
@@ -63,8 +65,8 @@ ALLOWED_HOSTS = [
     'crt-portal-django-dev.app.cloud.gov',
 ]
 
-if circle is True:
-    ALLOWED_HOSTS.append('127.0.0.1')
+if ENV == 'UNDEFINED':
+    ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
