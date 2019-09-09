@@ -20,7 +20,7 @@ jobs:
       - checkout
       - restore_cache:
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          key: deps9-node-browsers-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
           command: |
@@ -33,7 +33,7 @@ jobs:
             pipenv install
             pipenv run crt_portal/manage.py migrate
       - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          key: deps9-node-browsers-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
@@ -86,7 +86,7 @@ jobs:
       - checkout
       - restore_cache:
           # this should all be cached from the test
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          key: deps9-node-browsers-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
           command: |
@@ -127,7 +127,7 @@ jobs:
       - checkout
       - restore_cache:
           # this should all be cached from the test
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          key: deps9-node-browsers-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
           command: |
@@ -168,7 +168,7 @@ jobs:
       - checkout
       - restore_cache:
           # this should all be cached from the test
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          key: deps9-node-browsers-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
           command: |
