@@ -5,6 +5,8 @@ applications:
   - route: crt-portal-django-dev.app.cloud.gov
   memory: 512M
   instances: 1
+  environment:
+    ENV: PRODUCTION
   buildpacks:
   - python_buildpack
   services:
