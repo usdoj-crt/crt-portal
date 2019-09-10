@@ -18,9 +18,8 @@ jobs:
           POSTGRES_DB: circle_test
     steps:
       - checkout
-      - restore_cache:
+      # Removing chache for now, we either need to build our image or move the cache location
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: deps9-node-browsers-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
           command: |
@@ -32,8 +31,6 @@ jobs:
             pip install pipenv
             pipenv install
             pipenv run crt_portal/manage.py migrate
-      - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
-          key: deps9-node-browsers-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
@@ -83,9 +80,6 @@ jobs:
           POSTGRES_DB: circle_test
     steps:
       - checkout
-      - restore_cache:
-          # this should all be cached from the test
-          key: deps9-node-browsers-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
           command: |
@@ -124,9 +118,6 @@ jobs:
           POSTGRES_DB: circle_test
     steps:
       - checkout
-      - restore_cache:
-          # this should all be cached from the test
-          key: deps9-node-browsers-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
           command: |
@@ -165,9 +156,6 @@ jobs:
           POSTGRES_DB: circle_test
     steps:
       - checkout
-      - restore_cache:
-          # this should all be cached from the test
-          key: deps9-node-browsers-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
           command: |
