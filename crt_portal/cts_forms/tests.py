@@ -1,6 +1,7 @@
 from django.test import TestCase
+from django.core.exceptions import ValidationError
 
-from .models import ProtectedClass
+from .models import ProtectedClass, Report
 from .forms import WhatHappened, Where, Who, Details, Contact
 
 
@@ -44,16 +45,8 @@ class Valid_Form_Tests(TestCase):
 
     def test_Contact_valid(self):
         form = Contact(data={
-            'who_reporting_for': 'myself',
-            'relationship': 'parent_guardian',
-            'do_not_contact': '',
-            'contact_given_name': 'first_name',
-            'contact_family_name': 'last_name',
-            'contact_email': 'email@email.com',
-            'contact_state': 'CA',
-            'contact_address_line_1': '123 Street',
-            'contact_address_line_2': 'Apt B',
-            'contact_phone': '202-222-2222',
+            'contact_first_name': 'first_name',
+            'contact_last_name': 'last_name',
         })
         self.assertTrue(form.is_valid())
 
@@ -67,21 +60,6 @@ class Validation_Form_Tests(TestCase):
         })
 
         self.assertTrue('primary_complaint<ul class="errorlist"><li>This field is required.' in str(form.errors))
-
-    def test_required_who_reporting_for(self):
-        form = Contact(data={
-            'who_reporting_for': '',
-            'relationship': 'parent_guardian',
-            'do_not_contact': '',
-            'contact_given_name': 'first_name',
-            'contact_family_name': 'last_name',
-            'contact_email': 'email@email.com',
-            'contact_state': 'CA',
-            'contact_address_line_1': '123 Street',
-            'contact_address_line_2': 'Apt B',
-            'contact_phone': '202-222-2222',
-        })
-        self.assertTrue('who_reporting_for<ul class="errorlist"><li>This field is required.' in str(form.errors))
 
     def test_required_when(self):
         form = Details(data={
@@ -109,3 +87,34 @@ class Validation_Form_Tests(TestCase):
             'public_or_private_healthcare': 'state_local_facility',
         })
         self.assertTrue('place<ul class="errorlist"><li>This field is required.' in str(form.errors))
+
+
+class ContactValidationTests(TestCase):
+    def test_non_ascii_name(self):
+        form = Contact(data={
+            'contact_first_name': '李王',
+            'contact_last_name': '王-Núñez',
+            'contact_email': '',
+            'contact_phone': ''
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_non_ascii_email(self):
+        form = Contact(data={
+            'contact_first_name': '',
+            'contact_last_name': '',
+            'contact_email': 'foo@bär.com',
+            'contact_phone': ''
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_phone_too_short(self):
+        """Model validation tests need to be structured differently"""
+        phone = Report(
+            contact_phone='202',
+        )
+
+        try:
+            error = phone.full_clean()
+        except ValidationError as err:
+            self.assertTrue(err.message_dict['contact_phone'] == ['"202" doesn\'t have enough numbers to be a phone number. Please double check your phone number and make sure you have an area code.'])

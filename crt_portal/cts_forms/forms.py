@@ -9,6 +9,20 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+class Contact(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ModelForm, self).__init__(*args, **kwargs)
+        self.fields['contact_first_name'].label = 'First name'
+        self.fields['contact_last_name'].label = 'Last name'
+        self.fields['contact_email'].label = 'Email address'
+        self.fields['contact_phone'].label = 'Phone number'
+
+
+    class Meta:
+        model = Report
+        fields = ['contact_first_name', 'contact_last_name', 'contact_email', 'contact_phone']
+
+
 class WhatHappened(ModelForm):
     class Meta:
         model = Report
@@ -85,18 +99,4 @@ class Details(ModelForm):
         fields = ['violation_summary', 'when', 'how_many']
         widgets = {
             'when': UsaRadioSelect,
-        }
-
-
-class Contact(ModelForm):
-    relationship = TypedChoiceField(
-        choices=RELATIONSHIP_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-    )
-
-    class Meta:
-        model = Report
-        fields = ['who_reporting_for', 'relationship', 'do_not_contact', 'contact_given_name', 'contact_family_name', 'contact_email', 'contact_state', 'contact_address_line_1', 'contact_address_line_2', 'contact_phone']
-        widgets = {
-            'do_not_contact': CheckboxInput,
-            'who_reporting_for': UsaRadioSelect,
         }
