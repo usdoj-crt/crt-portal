@@ -20,7 +20,12 @@ TEMPLATES = (
 
 class CRTReportWizard(SessionWizardView):
     """Once all the sub-forms are submitted this class will clean data and save."""
-    # template_name = 'forms/report.html'
+    def get_context_data(self, form, **kwargs):
+        context = super(CRTReportWizard, self).get_context_data(form=form, **kwargs)
+        context.update({
+            'step_names': ['Contact', 'What Happened', 'Where', 'Who', 'Details']
+        })
+        return context
 
     def get_template_names(self):
         return [TEMPLATES[int(self.steps.current)]]

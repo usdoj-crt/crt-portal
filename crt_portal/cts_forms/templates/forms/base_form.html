@@ -1,0 +1,88 @@
+{% extends "forms/base.html" %}
+{% load i18n %}
+{% block head %}
+  {{ wizard.form.media }}
+{% endblock %}
+
+{% block page_header %}
+  <header class="page-header-background">
+    <div class="grid-container">
+      <div class="grid-row">
+        <div class="grid-col-1"></div>
+        <div class="grid-col-10">
+          <h1>
+            Contact the Department of Justice about a civil rights concern
+          </h1>
+          <p class="intro-subtitle">
+            If you believe you or someone else has experienced a civil rights violation, please use the form below to tell us what happened and contact us.
+          </p>
+        </div>
+        <div class="grid-col-1"></div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block content %}
+  {# Progress text for screen reader. #}
+  <span class="usa-sr-only">
+    Current step: {% if wizard.steps.step1 == 1 %}
+      {{ step_names.0 }}
+    {% elif wizard.steps.step1 == 2 %}
+      {{ step_names.1 }}
+    {% elif wizard.steps.step1 == 3 %}
+      {{ step_names.2 }}
+    {% elif wizard.steps.step1 == 4 %}
+      {{ step_names.3 }}
+    {% elif wizard.steps.step1 == 5 %}
+      {{ step_names.4 }}
+    {% elif wizard.steps.step1 == 6 %}
+      Submit
+    {% endif %}.
+
+    Step {{ wizard.steps.step1 }} of 6.
+  </span>
+
+  <div class="page-header-background">
+    <div class="grid-container">
+      <div class="grid-row">
+        <div class="grid-col-1"></div>
+        <div class="grid-col-10">
+          <div class="margin-bottom-4 margin-top-3">
+            <ol class="steps" aria-hidden="true">
+              <li {% if wizard.steps.step1 == 1 %}class="current"{% endif %}>
+                <div class="step">{{ step_names.0 }}</div>
+              </li>
+              <li {% if wizard.steps.step1 == 2 %}class="current"{% endif %}>
+                <div class="step">{{ step_names.1 }}</div>
+              </li>
+              <li {% if wizard.steps.step1 == 3 %}class="current"{% endif %}>
+                <div class="step">{{ step_names.2 }}</div>
+              </li>
+              <li {% if wizard.steps.step1 == 4 %}class="current"{% endif %}>
+                <div class="step">{{ step_names.3 }}</div>
+              </li>
+              <li {% if wizard.steps.step1 == 5 %}class="current"{% endif %}>
+                <div class="step">{{ step_names.4 }}</div>
+              </li>
+              <li {% if wizard.steps.step1 == 6 %}class="current"{% endif %}>
+                <div class="step">Submit</div>
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div class="grid-col-1"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-container">
+    <div class="grid-row">
+      <div class="grid-col-1"></div>
+
+      {% block form_element %}{% endblock %}
+
+      <div class="grid-col-1"></div>
+    </div>
+  </div>
+{% endblock %}

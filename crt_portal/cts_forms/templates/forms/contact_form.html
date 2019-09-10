@@ -1,0 +1,74 @@
+{% extends "forms/base_form.html" %}
+{% load i18n %}
+
+{% block form_element %}
+<div class="grid-col-10">
+  <form id="report-form" class="usa-form" action="/report/" method="post">
+    {% csrf_token %}
+    {{ wizard.management_form }}
+
+    {% if form.non_field_errors %}
+      <ul>
+        {% for error in form.non_field_errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
+    {% for hidden_field in form.hidden_fields %}
+      {% if hidden_field.errors %}
+        <ul>
+          {% for error in hidden_field.errors %}
+            <li>(Hidden field {{ hidden_field.name }}) {{ error }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      {{ hidden_field }}
+    {% endfor %}
+
+    <h2 class="usa-prose-h2">Contact</h2>
+    <h3>Who should we contact about this issue?</h3>
+    <p>To ask for additional information or respond to your submission we'll need to know the best person to contact.</p>
+
+    <h3 class="usa-prose-h3">Name (optional)</h3>
+    <p><em>Your identity and sensitive information like immigration status will be protected.</em></p>
+
+    <fieldset class="usa-fieldset">
+      <legend><h4>{{ form.contact_first_name.label_tag }}</h4></legend>
+      {{ form.contact_first_name.errors }}
+      {{ form.contact_first_name }}
+      {{ form.contact_first_name.help_text }}
+    </fieldset>
+
+    <fieldset class="usa-fieldset">
+      <legend><h4>{{ form.contact_last_name.label_tag }}</h4></legend>
+      {{ form.contact_last_name.errors }}
+      {{ form.contact_last_name }}
+      {{ form.contact_last_name.help_text }}
+    </fieldset>
+
+    <h3 class="usa-prose-h3">Contact Information (optional)</h3>
+    <p>Please choose at least one way we can contact you.</p>
+
+    <fieldset class="usa-fieldset">
+      <legend><h4>{{ form.contact_email.label_tag }}</h4></legend>
+      {{ form.contact_email.errors }}
+      {{ form.contact_email }}
+      {{ form.contact_email.help_text }}
+    </fieldset>
+
+    <fieldset class="usa-fieldset">
+      <legend><h4>{{ form.contact_phone.label_tag }}</h4></legend>
+      {{ form.contact_phone.errors }}
+      {{ form.contact_phone }}
+      {{ form.contact_phone.help_text }}
+    </fieldset>
+
+    {% if wizard.steps.prev %}
+      <button name="wizard_goto_step" type="submit" label="first step" value="{{ wizard.steps.first }}" class="usa-button">{% trans "First" %}</button>
+      <button name="wizard_goto_step" type="submit" label="previous step" value="{{ wizard.steps.prev }}" class="usa-button">{% trans "Back" %}</button>
+    {% endif %}
+    <input type="submit" label="submit" value="{% trans "Next" %}" class="usa-button"/>
+  </form>
+</div>
+{% endblock%}
