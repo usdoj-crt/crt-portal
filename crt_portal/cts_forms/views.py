@@ -9,13 +9,12 @@ logger = logging.getLogger(__name__)
 
 
 TEMPLATES = (
-        'forms/contact_form.html',
-        'forms/report.html',
-        'forms/report.html',
-        'forms/report.html',
-        'forms/report.html',
+    'forms/contact_form.html',
+    'forms/report.html',
+    'forms/report.html',
+    'forms/report.html',
+    'forms/report.html',
 )
-
 
 
 class CRTReportWizard(SessionWizardView):

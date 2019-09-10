@@ -2,7 +2,7 @@ from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxInput, Typ
 
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple
 from .models import Report, ProtectedClass
-from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, HOW_MANY_CHOICES, RELATIONSHIP_CHOICES, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES
+from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, HOW_MANY_CHOICES, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES
 
 import logging
 
@@ -16,7 +16,6 @@ class Contact(ModelForm):
         self.fields['contact_last_name'].label = 'Last name'
         self.fields['contact_email'].label = 'Email address'
         self.fields['contact_phone'].label = 'Phone number'
-
 
     class Meta:
         model = Report

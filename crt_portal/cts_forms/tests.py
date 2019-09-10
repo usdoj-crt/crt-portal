@@ -115,6 +115,6 @@ class ContactValidationTests(TestCase):
         )
 
         try:
-            error = phone.full_clean()
+            phone.full_clean()
         except ValidationError as err:
             self.assertTrue(err.message_dict['contact_phone'] == ['"202" doesn\'t have enough numbers to be a phone number. Please double check your phone number and make sure you have an area code.'])
