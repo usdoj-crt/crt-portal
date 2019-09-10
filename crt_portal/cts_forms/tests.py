@@ -118,3 +118,21 @@ class ContactValidationTests(TestCase):
             phone.full_clean()
         except ValidationError as err:
             self.assertTrue(err.message_dict['contact_phone'] == ['"202" doesn\'t have enough numbers to be a phone number. Please double check your phone number and make sure you have an area code.'])
+
+    def test_international_phone(self):
+        phone = Report(
+            contact_phone='+02071838750',
+        )
+        try:
+            phone.full_clean()
+        except ValidationError as err:
+            self.assertTrue('contact_phone' not in err.message_dict)
+
+    def test_international_phone_longer(self):
+        phone = Report(
+            contact_phone='+442071838750',
+        )
+        try:
+            phone.full_clean()
+        except ValidationError as err:
+            self.assertTrue('contact_phone' not in err.message_dict)
