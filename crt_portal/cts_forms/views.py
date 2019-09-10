@@ -8,9 +8,22 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+TEMPLATES = (
+        'forms/contact_form.html',
+        'forms/report.html',
+        'forms/report.html',
+        'forms/report.html',
+        'forms/report.html',
+)
+
+
+
 class CRTReportWizard(SessionWizardView):
     """Once all the sub-forms are submitted this class will clean data and save."""
-    template_name = 'forms/report.html'
+    # template_name = 'forms/report.html'
+
+    def get_template_names(self):
+        return [TEMPLATES[int(self.steps.current)]]
 
     def done(self, form_list, form_dict, **kwargs):
         form_data_dict = self.get_all_cleaned_data()
