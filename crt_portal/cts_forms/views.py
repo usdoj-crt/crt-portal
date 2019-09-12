@@ -8,6 +8,11 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+def IndexView(request):
+    latest_reports = Report.objects.order_by('-create_date')[:5]
+    return render_to_response('forms/index.html', {'data_dict': latest_reports})
+
+
 class CRTReportWizard(SessionWizardView):
     """Once all the sub-forms are submitted this class will clean data and save."""
     template_name = 'forms/report.html'
