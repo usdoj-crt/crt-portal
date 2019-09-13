@@ -94,10 +94,10 @@ jobs:
       - run:
           name: Install cloud foundry deploy tools
           command: |
-            wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
+            sudo wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
             echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-            apt-get update
-            apt-get install cf-cli
+            sudo apt-get update
+            sudo apt-get install cf-cli
       - run:
           name: Deploy to dev
           command: |
@@ -132,10 +132,10 @@ jobs:
       - run:
           name: Install cloud foundry deploy tools
           command: |
-            wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
+            sudo wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
             echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-            apt-get update
-            apt-get install cf-cli
+            sudo apt-get update
+            sudo apt-get install cf-cli
       - run:
           name: Deploy to stage
           command: |
@@ -170,10 +170,10 @@ jobs:
       - run:
           name: Install cloud foundry deploy tools
           command: |
-            wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
+            sudo wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
             echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-            apt-get update
-            apt-get install cf-cli
+            sudo apt-get update
+            sudo apt-get install cf-cli
       - run:
           name: Deploy to production
           command: |
