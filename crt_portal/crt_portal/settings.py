@@ -158,6 +158,7 @@ if environment != 'LOCAL':
     AWS_SECRET_ACCESS_KEY = s3_creds["secret_access_key"]
     AWS_STORAGE_BUCKET_NAME = s3_creds["bucket"]
     AWS_S3_REGION_NAME = s3_creds["region"]
+    AWS_DEFAULT_REGION = s3_creds["region"]
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3-{AWS_S3_REGION_NAME}.amazonaws.com'
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',
@@ -167,6 +168,7 @@ if environment != 'LOCAL':
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    AWS_DEFAULT_ACL = 'public-read'
 else:
     STATIC_URL = '/static/'
 
