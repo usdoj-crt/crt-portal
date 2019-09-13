@@ -25,6 +25,14 @@ i.e.
   max-width: none !important;
 }
 
+// Input Overrides
+.usa-checkbox__input, .usa-radio__input {
+  // Display HTML5 error messages on hidden inputs:
+  // https://stackoverflow.com/questions/49687229/display-html5-error-message-validation-on-hidden-radio-checkbox
+  left: 45px;
+  opacity: 0;
+}
+
 // Sticky Footer
 body {
   display: flex;
