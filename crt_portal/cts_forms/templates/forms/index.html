@@ -1,10 +1,28 @@
 {% extends "forms/base.html" %}
 
+{% block page_header %}
+
+<header class="page-header-background">
+    <div class="grid-container">
+      <div class="grid-row">
+        <div class="grid-col-12">
+          <p align="right"><a href="/accounts/logout">log out</a></p>
+          <h1>
+            DOJ Civil Rights Portal
+          </h1>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+
 {% block content %}
+
 <div class="grid-container">
-  <div class="grid-col-1"></div>
-  <p><a href="/accounts/logout">log out</a> </p>
-  <h2>Report view</h2>
+<div class="grid-col-auto">
+  <a href="/report"><button name="Create record" label="first step" class="usa-button">+ Add new record</button></a>
+  <h2>All reports view</h2>
   <table class="usa-table">
     <tr>
       <th>Submission Date</th>
