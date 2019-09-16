@@ -1,5 +1,8 @@
 from django.forms.forms import BoundField
 
+# Adapted from this blog post by Michael Kowalchik (mikepk):
+# https://mikepk.com/2010/08/python-django-forms-errors-fieldsets/
+
 class QuestionGroup(object):
     def __init__(self, form, fields, group_name='', help_text='', cls=None):
         self.form = form
