@@ -83,17 +83,15 @@
             {{ step_question }}
           </h3>
           {% if step_helptext %}
-            <p class="margin-bottom-4"><em>{{ step_helptext }}</em></p>
+            <div class="margin-bottom-4"><em>{{ step_helptext }}</em></div>
           {% endif %}
 
           {% if wizard.form.question_groups %}
             {# Phasing in question grouping so that we can add names and help text to groups of questions #}
 
             {% for question_group in wizard.form.question_groups %}
-              <h3 class="usa-prose-h3">{{ question_group.group_name }}</h3>
-              {% if question_group.help_text %}
-                <p><em>{{ question_group.help_text }}</em></p>
-              {% endif %}
+              <h3 class="margin-bottom-1">{{ question_group.group_name }}</h3>
+              <div class="margin-bottom-3"><em>{{ question_group.help_text }}</em></div>
 
               {% for field in question_group %}
                 <fieldset class="usa-fieldset">
