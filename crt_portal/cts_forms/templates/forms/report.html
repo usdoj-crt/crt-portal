@@ -6,19 +6,13 @@
 
 {% block page_header %}
   <header class="page-header-background">
-    <div class="grid-container">
-      <div class="grid-row">
-        <div class="grid-col-1"></div>
-        <div class="grid-col-10">
-          <h1 class="margin-top-5">
-            Contact the Department of Justice about a civil rights concern
-          </h1>
-          <p class="intro-subtitle">
-            If you believe you or someone else has experienced a civil rights violation, please use the form below to tell us what happened and contact us.
-          </p>
-        </div>
-        <div class="grid-col-1"></div>
-      </div>
+    <div class="content-wrapper">
+      <h1 class="margin-top-5">
+        Contact the Department of Justice about a civil rights concern
+      </h1>
+      <p class="intro-subtitle">
+        If you believe you or someone else has experienced a civil rights violation, please use the form below to tell us what happened and contact us.
+      </p>
     </div>
   </header>
 {% endblock %}
@@ -30,102 +24,90 @@
   </span>
 
   <div class="page-header-background">
-    <div class="grid-container">
-      <div class="grid-row">
-        <div class="grid-col-1"></div>
-        <div class="grid-col-10">
-          <div class="margin-bottom-4 margin-top-3">
-            <ol class="steps" aria-hidden="true">
-              {% for step in ordered_step_names %}
-                <li {% if step == current_step_name %}class="current"{% endif %}>
-                  <div class="step">{{ step }}</div>
-                </li>
-              {% endfor %}
-            </ol>
-          </div>
-        </div>
-        <div class="grid-col-1"></div>
+    <div class="content-wrapper">
+      <div class="padding-bottom-4 padding-top-3">
+        <ol class="steps" aria-hidden="true">
+          {% for step in ordered_step_names %}
+            <li {% if step == current_step_name %}class="current"{% endif %}>
+              <div class="step">{{ step }}</div>
+            </li>
+          {% endfor %}
+        </ol>
       </div>
     </div>
   </div>
 
-  <div class="grid-container">
-    <div class="grid-row">
-      <div class="grid-col-1"></div>
-      <div class="grid-col-10">
-        <form id="report-form" class="usa-form" action="/report/" method="post">
-          {% csrf_token %}
-          {{ wizard.management_form }}
+  <div class="content-wrapper">
+    <form id="report-form" class="usa-form" action="/report/" method="post">
+      {% csrf_token %}
+      {{ wizard.management_form }}
 
-          {% if form.non_field_errors %}
-            <ul>
-              {% for error in form.non_field_errors %}
-                <li>{{ error }}</li>
-              {% endfor %}
-            </ul>
-          {% endif %}
-
-          {% for hidden_field in form.hidden_fields %}
-            {% if hidden_field.errors %}
-              <ul>
-                {% for error in hidden_field.errors %}
-                  <li>(Hidden field {{ hidden_field.name }}) {{ error }}</li>
-                {% endfor %}
-              </ul>
-            {% endif %}
-            {{ hidden_field }}
+      {% if form.non_field_errors %}
+        <ul>
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
           {% endfor %}
+        </ul>
+      {% endif %}
 
-          <h2 class="margin-top-5 margin-bottom-4">
-            {{ current_step_name }}
-          </h2>
+      {% for hidden_field in form.hidden_fields %}
+        {% if hidden_field.errors %}
+          <ul>
+            {% for error in hidden_field.errors %}
+              <li>(Hidden field {{ hidden_field.name }}) {{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {{ hidden_field }}
+      {% endfor %}
+
+      <h2 class="margin-top-5 margin-bottom-4">
+        {{ current_step_name }}
+      </h2>
+      <h3 class="margin-bottom-1">
+        {{ step_question }}
+      </h3>
+      {% if step_helptext %}
+        <div class="margin-bottom-4"><em>{{ step_helptext }}</em></div>
+      {% endif %}
+
+      {% if wizard.form.question_groups %}
+        {# Phasing in question grouping so that we can add names and help text to groups of questions #}
+
+        {% for question_group in wizard.form.question_groups %}
           <h3 class="margin-bottom-1">
-            {{ step_question }}
+            {{ question_group.group_name }} 
+            {% if question_group.optional %}
+              <span class="question_group_optional_tag">(optional)</span>
+            {% endif %}
           </h3>
-          {% if step_helptext %}
-            <div class="margin-bottom-4"><em>{{ step_helptext }}</em></div>
-          {% endif %}
+          <div class="margin-bottom-3"><em>{{ question_group.help_text }}</em></div>
 
-          {% if wizard.form.question_groups %}
-            {# Phasing in question grouping so that we can add names and help text to groups of questions #}
+          {% for field in question_group %}
+            <fieldset class="usa-fieldset">
+              <legend class="margin-bottom-1">{{ field.label_tag }}</legend>
+              {{ field.errors }}
+              <div class="margin-bottom-2">{{ field }}</div>
+              {{ field.help_text }}
+            </fieldset>
+          {% endfor %}
+        {% endfor %}
+      {% else %}
+        {% for field in wizard.form.visible_fields %}
+          <fieldset class="usa-fieldset">
+            <legend class="margin-bottom-1">{{ field.label_tag }}</legend>
+            {{ field.errors }}
+            <div class="margin-bottom-2">{{ field }}</div>
+            {{ field.help_text }}
+          </fieldset>
+        {% endfor %}
+      {% endif %}
 
-            {% for question_group in wizard.form.question_groups %}
-              <h3 class="margin-bottom-1">
-                {{ question_group.group_name }} 
-                {% if question_group.optional %}
-                  <span class="question_group_optional_tag">(optional)</span>
-                {% endif %}
-              </h3>
-              <div class="margin-bottom-3"><em>{{ question_group.help_text }}</em></div>
-
-              {% for field in question_group %}
-                <fieldset class="usa-fieldset">
-                  <legend class="margin-bottom-1">{{ field.label_tag }}</legend>
-                  {{ field.errors }}
-                  <div class="margin-bottom-2">{{ field }}</div>
-                  {{ field.help_text }}
-                </fieldset>
-              {% endfor %}
-            {% endfor %}
-          {% else %}
-            {% for field in wizard.form.visible_fields %}
-              <fieldset class="usa-fieldset">
-                <legend class="margin-bottom-1">{{ field.label_tag }}</legend>
-                {{ field.errors }}
-                <div class="margin-bottom-2">{{ field }}</div>
-                {{ field.help_text }}
-              </fieldset>
-            {% endfor %}
-          {% endif %}
-
-          {% if wizard.steps.prev %}
-            <button name="wizard_goto_step" type="submit" label="first step" value="{{ wizard.steps.first }}" class="usa-button">{% trans "First" %}</button>
-            <button name="wizard_goto_step" type="submit" label="previous step" value="{{ wizard.steps.prev }}" class="usa-button">{% trans "Back" %}</button>
-          {% endif %}
-          <input type="submit" label="submit" value="{% trans "Next" %}" class="usa-button margin-bottom-9" />
-        </form>
-      </div>
-      <div class="grid-col-1"></div>
-    </div>
+      {% if wizard.steps.prev %}
+        <button name="wizard_goto_step" type="submit" label="first step" value="{{ wizard.steps.first }}" class="usa-button">{% trans "First" %}</button>
+        <button name="wizard_goto_step" type="submit" label="previous step" value="{{ wizard.steps.prev }}" class="usa-button">{% trans "Back" %}</button>
+      {% endif %}
+      <input type="submit" label="submit" value="{% trans "Next" %}" class="usa-button margin-bottom-9" />
+    </form>
   </div>
 {% endblock %}
