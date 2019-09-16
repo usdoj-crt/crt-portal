@@ -103,13 +103,22 @@
             {{ hidden_field }}
           {% endfor %}
 
-          {% for field in wizard.form.visible_fields %}
-            <fieldset class="usa-fieldset">
-              <legend><h3>{{ field.label_tag }}</h3></legend>
-              {{ field.errors }}
-              {{ field }}
-              {{ field.help_text }}
-            </fieldset>
+          <h2 class="usa-prose-h2">{{ current_step_name }}</h2>
+          <h3>{{ step_question }}</h3>
+          <p>{{ step_helptext }}</p>
+
+          {% for question_group in wizard.form.question_groups %}
+            <h3 class="usa-prose-h3">{{ question_group.group_name }}</h3>
+            <p><em>{{ question_group.help_text }}</em></p>
+
+            {% for field in question_group %}
+              <fieldset class="usa-fieldset">
+                <legend><h3>{{ field.label_tag }}</h3></legend>
+                {{ field.errors }}
+                {{ field }}
+                {{ field.help_text }}
+              </fieldset>
+            {% endfor %}
           {% endfor %}
 
           {% if wizard.steps.prev %}

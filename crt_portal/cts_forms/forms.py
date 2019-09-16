@@ -1,5 +1,5 @@
 from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxInput, TypedChoiceField
-
+from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple
 from .models import Report, ProtectedClass
 from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, HOW_MANY_CHOICES, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES
@@ -16,6 +16,21 @@ class Contact(ModelForm):
         self.fields['contact_last_name'].label = 'Last name'
         self.fields['contact_email'].label = 'Email address'
         self.fields['contact_phone'].label = 'Phone number'
+
+        self.question_groups = [
+            QuestionGroup(
+                self,
+                ('contact_first_name', 'contact_last_name'),
+                group_name='Name',
+                help_text='Your identity and sensitive information like immigration status will be protected.',
+            ),
+            QuestionGroup(
+                self,
+                ('contact_email', 'contact_phone'),
+                group_name='Contact information',
+                help_text='Please choose at least one way for us to contact you.',
+            )
+         ]
 
     class Meta:
         model = Report
