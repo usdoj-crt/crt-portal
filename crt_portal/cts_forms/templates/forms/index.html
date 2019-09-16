@@ -18,7 +18,7 @@
        <td>{{ violationreport.create_date|date:"SHORT_DATE_FORMAT" }}</td>
        <td>{{ violationreport.contact_last_name }}, {{ violationreport.contact_first_name }}</td>
        <td>{{ violationreport.contact_email }}<br>{{ violationreport.contact_phone }}</td>
-       <td>{{ violationreport.violation_summary }}</td>
+       <td>{{ violationreport.violation_summary|truncatechars:125 }}</td>
        </tr>
      {% endfor %}
     {% else %}
