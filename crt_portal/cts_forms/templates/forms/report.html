@@ -26,21 +26,7 @@
 {% block content %}
   {# Progress text for screen reader. #}
   <span class="usa-sr-only">
-    Current step: {% if wizard.steps.step1 == 1 %}
-      What Happened
-    {% elif wizard.steps.step1 == 2 %}
-      Where
-    {% elif wizard.steps.step1 == 3 %}
-      Who
-    {% elif wizard.steps.step1 == 4 %}
-      Details
-    {% elif wizard.steps.step1 == 5 %}
-      Contact
-    {% elif wizard.steps.step1 == 6 %}
-      Submit
-    {% endif %}.
-
-    Step {{ wizard.steps.step1 }} of 6.
+    Current step: {{ current_step_name }}. Step {{ wizard.steps.step1 }} of 6.
   </span>
 
   <div class="page-header-background">
@@ -50,24 +36,11 @@
         <div class="grid-col-10">
           <div class="margin-bottom-4 margin-top-3">
             <ol class="steps" aria-hidden="true">
-              <li {% if wizard.steps.step1 == 1 %}class="current"{% endif %}>
-                <div class="step">What Happened</div>
-              </li>
-              <li {% if wizard.steps.step1 == 2 %}class="current"{% endif %}>
-                <div class="step">Where</div>
-              </li>
-              <li {% if wizard.steps.step1 == 3 %}class="current"{% endif %}>
-                <div class="step">Who</div>
-              </li>
-              <li {% if wizard.steps.step1 == 4 %}class="current"{% endif %}>
-                <div class="step">Details</div>
-              </li>
-              <li {% if wizard.steps.step1 == 5 %}class="current"{% endif %}>
-                <div class="step">Contact</div>
-              </li>
-              <li {% if wizard.steps.step1 == 6 %}class="current"{% endif %}>
-                <div class="step">Submit</div>
-              </li>
+              {% for step in ordered_step_names %}
+                <li {% if step == current_step_name %}class="current"{% endif %}>
+                  <div class="step">{{ step }}</div>
+                </li>
+              {% endfor %}
             </ol>
           </div>
         </div>

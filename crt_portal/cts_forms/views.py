@@ -18,7 +18,7 @@ class CRTReportWizard(SessionWizardView):
         current_step_name = ordered_step_names[int(self.steps.current)]
 
         context.update({
-            'step_names': ordered_step_names,
+            'ordered_step_names': ordered_step_names,
             'current_step_name': current_step_name
         })
 
