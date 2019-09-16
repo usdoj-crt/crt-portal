@@ -6,17 +6,17 @@
   <h2>Report view</h2>
   <table class="usa-table">
     <tr>
+      <th>Submission Date</th>
       <th>Complainant Name</th>
       <th>Complainant Contact</th>
-      <th>Submission Date</th>
       <th>Violation Summary</th>
     </tr>
     {% if data_dict %}
      {% for violationreport in data_dict %}
        <tr>
+       <td>{{ violationreport.create_date|date:"SHORT_DATE_FORMAT" }}</td>
        <td>{{ violationreport.contact_last_name }}, {{ violationreport.contact_first_name }}</td>
        <td>{{ violationreport.contact_email }}<br>{{ violationreport.contact_phone }}</td>
-       <td>{{ violationreport.create_date|date:"SHORT_DATE_FORMAT" }}</td>
        <td>{{ violationreport.violation_summary }}</td>
        </tr>
      {% endfor %}
