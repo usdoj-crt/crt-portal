@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "93d21a4a5a32ecd87b34e597b04ff027852bed3ad7346f58df2145ad5d58c3c9"
+            "sha256": "27c9da48fac81e72d9f8d2694072154d08a5ed9369ac7c117f382a7b567a5d8c"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -34,10 +34,10 @@
         },
         "botocore": {
             "hashes": [
-                "sha256:0a70ebf0b64d0667a22bc1cf461ff61789bac2dda107a47edaa9f6371b68eb1c",
-                "sha256:4e97755376dbdc3de8c99685ef34b19303751a0c0b5984803f870c0a5798c973"
+                "sha256:7c391c46cf1f8d6c04758f84b51337a64136077e4a160eced87551fdcc051669",
+                "sha256:c9148df92ba21a90ea32f2c7f185c31b1c8b8e48417d0ba8cad02b9b3336c09a"
             ],
-            "version": "==1.12.227"
+            "version": "==1.12.228"
         },
         "django": {
             "hashes": [
@@ -76,6 +76,14 @@
             ],
             "index": "pypi",
             "version": "==2.1"
+        },
+        "django-phone-field": {
+            "hashes": [
+                "sha256:beb6e909dd174ab8860f4fc9daaf6465d05e1974eea5b00ab6abd64f30248b50",
+                "sha256:eac0ad7043c103e78dcfe2b215e105cfa042fcaa5471c9072bf0bcb124a457b9"
+            ],
+            "index": "pypi",
+            "version": "==1.8.0"
         },
         "django-storages": {
             "hashes": [
@@ -304,18 +312,18 @@
     "develop": {
         "awscli": {
             "hashes": [
-                "sha256:b85da8f14e580d0e487506b9d1a2d0c3b31e33f6fb8732172ada76904430df3f",
-                "sha256:cda5c2dfe64a02db0fe954746c0d1aed3fe7c6b0a5dddbfc31ab83ea69a3ca9b"
+                "sha256:5c36a818130c8393b778e5b98b9bf38985522b62a684782512a2d57340697582",
+                "sha256:a022dfb7e6cc9ee8540c382b9bdc4637070dbbe2b09f3a74ad4f30719414c0b7"
             ],
             "index": "pypi",
-            "version": "==1.16.237"
+            "version": "==1.16.238"
         },
         "botocore": {
             "hashes": [
-                "sha256:0a70ebf0b64d0667a22bc1cf461ff61789bac2dda107a47edaa9f6371b68eb1c",
-                "sha256:4e97755376dbdc3de8c99685ef34b19303751a0c0b5984803f870c0a5798c973"
+                "sha256:7c391c46cf1f8d6c04758f84b51337a64136077e4a160eced87551fdcc051669",
+                "sha256:c9148df92ba21a90ea32f2c7f185c31b1c8b8e48417d0ba8cad02b9b3336c09a"
             ],
-            "version": "==1.12.227"
+            "version": "==1.12.228"
         },
         "colorama": {
             "hashes": [

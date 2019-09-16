@@ -76,6 +76,7 @@ INSTALLED_APPS = [
     'compressor_toolkit',
     'storages',
     'formtools',
+    'phone_field',
 ]
 
 MIDDLEWARE = [
