@@ -12,6 +12,9 @@ logger = logging.getLogger(__name__)
 class Contact(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)
+
+        self.label_suffix=''
+
         self.fields['contact_first_name'].label = 'First name'
         self.fields['contact_last_name'].label = 'Last name'
         self.fields['contact_email'].label = 'Email address'
@@ -21,13 +24,12 @@ class Contact(ModelForm):
             QuestionGroup(
                 self,
                 ('contact_first_name', 'contact_last_name'),
-                group_name='Name',
-                help_text='Your identity and sensitive information like immigration status will be protected.',
+                group_name='Name (optional)',
             ),
             QuestionGroup(
                 self,
                 ('contact_email', 'contact_phone'),
-                group_name='Contact information',
+                group_name='Contact information (optional)',
                 help_text='Please choose at least one way for us to contact you.',
             )
          ]

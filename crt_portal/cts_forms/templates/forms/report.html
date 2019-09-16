@@ -76,21 +76,30 @@
             {{ hidden_field }}
           {% endfor %}
 
-          <h2 class="usa-prose-h2">{{ current_step_name }}</h2>
-          <h3>{{ step_question }}</h3>
-          <p>{{ step_helptext }}</p>
+          <h2 class="margin-top-5 margin-bottom-4">
+            {{ current_step_name }}
+          </h2>
+          <h3 class="margin-bottom-1">
+            {{ step_question }}
+          </h3>
+          {% if step_helptext %}
+            <p class="margin-bottom-4"><em>{{ step_helptext }}</em></p>
+          {% endif %}
 
           {% if wizard.form.question_groups %}
             {# Phasing in question grouping so that we can add names and help text to groups of questions #}
+
             {% for question_group in wizard.form.question_groups %}
               <h3 class="usa-prose-h3">{{ question_group.group_name }}</h3>
-              <p><em>{{ question_group.help_text }}</em></p>
+              {% if question_group.help_text %}
+                <p><em>{{ question_group.help_text }}</em></p>
+              {% endif %}
 
               {% for field in question_group %}
                 <fieldset class="usa-fieldset">
-                  <legend><h3>{{ field.label_tag }}</h3></legend>
+                  <legend class="margin-bottom-1">{{ field.label_tag }}</legend>
                   {{ field.errors }}
-                  {{ field }}
+                  <div class="margin-bottom-2">{{ field }}</div>
                   {{ field.help_text }}
                 </fieldset>
               {% endfor %}
@@ -98,9 +107,9 @@
           {% else %}
             {% for field in wizard.form.visible_fields %}
               <fieldset class="usa-fieldset">
-                <legend><h3>{{ field.label_tag }}</h3></legend>
+                <legend class="margin-bottom-1">{{ field.label_tag }}</legend>
                 {{ field.errors }}
-                {{ field }}
+                <div class="margin-bottom-2">{{ field }}</div>
                 {{ field.help_text }}
               </fieldset>
             {% endfor %}
@@ -110,7 +119,7 @@
             <button name="wizard_goto_step" type="submit" label="first step" value="{{ wizard.steps.first }}" class="usa-button">{% trans "First" %}</button>
             <button name="wizard_goto_step" type="submit" label="previous step" value="{{ wizard.steps.prev }}" class="usa-button">{% trans "Back" %}</button>
           {% endif %}
-          <input type="submit" label="submit" value="{% trans "Next" %}" class="usa-button"/>
+          <input type="submit" label="submit" value="{% trans "Next" %}" class="usa-button margin-bottom-9" />
         </form>
       </div>
       <div class="grid-col-1"></div>
