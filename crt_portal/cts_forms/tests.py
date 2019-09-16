@@ -1,5 +1,4 @@
-import random
-import string
+import secrets
 
 from django.test import TestCase
 from django.test.client import Client
@@ -148,12 +147,16 @@ class LoginRequiredTests(TestCase):
     """Please add a test for each url that is tied to a view that requires login."""
     def setUp(self):
         self.client = Client()
-        self.test_pass = ''.join(random.choice(string.ascii_lowercase) for i in range(32))
-        self.user = User.objects.create_user('john', 'lennon@thebeatles.com', self.test_pass)
+        # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'lennon@thebeatles.com', self.test_pass)
+
+    def tearDown(self):
+        self.user.delete()
 
     def test_view_all_login_success(self):
         """ We probably only need one successful login test"""
-        self.client.login(username='john', password=self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
         response = self.client.get(reverse('crt_forms:crt-forms-index'))
         self.assertEqual(response.status_code, 200)
 
