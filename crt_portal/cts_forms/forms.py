@@ -24,12 +24,12 @@ class Contact(ModelForm):
             QuestionGroup(
                 self,
                 ('contact_first_name', 'contact_last_name'),
-                group_name='Name (optional)',
+                group_name='Name',
             ),
             QuestionGroup(
                 self,
                 ('contact_email', 'contact_phone'),
-                group_name='Contact information (optional)',
+                group_name='Contact information',
                 help_text='Please choose at least one way for us to contact you.',
             )
          ]
