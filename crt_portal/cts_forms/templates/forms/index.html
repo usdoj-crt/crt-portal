@@ -1,24 +1,27 @@
 {% extends "forms/base.html" %}
 
 {% block content %}
-<h2>Report view</h2>
-<table>
-  <tr>
-    <th>last name</th>
-    <th>first name</th>
-    <th>summary</th>
-  </tr>
-  {% if data_dict %}
-   {% for violationreport in data_dict %}
-     <tr>
-     <td>{{ violationreport.contact_last_name }}</td>
-     <td>{{ violationreport.contact_first_name }}</td>
-     <td>{{ violationreport.violation_summary }}</td>
-     </tr>
-   {% endfor %}
-  {% else %}
-    <tr><th>No reports are available.<th><tr>
-  {% endif %}
-</table>
-
+<div class="grid-container">
+  <div class="grid-col-1"></div>
+  <h2>Report view</h2>
+  <table class="usa-table">
+    <tr>
+      <th>last name</th>
+      <th>first name</th>
+      <th>summary</th>
+    </tr>
+    {% if data_dict %}
+     {% for violationreport in data_dict %}
+       <tr>
+       <td>{{ violationreport.contact_last_name }}</td>
+       <td>{{ violationreport.contact_first_name }}</td>
+       <td>{{ violationreport.violation_summary }}</td>
+       </tr>
+     {% endfor %}
+    {% else %}
+      <tr><th>No reports are available.<th><tr>
+    {% endif %}
+  </table>
+  </div>
+</div>
 {% endblock %}
