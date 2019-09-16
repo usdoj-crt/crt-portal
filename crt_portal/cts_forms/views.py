@@ -1,4 +1,6 @@
 from django.shortcuts import render_to_response
+from django.contrib.auth.decorators import login_required
+
 from formtools.wizard.views import SessionWizardView
 
 from .models import Report, ProtectedClass
@@ -16,10 +18,11 @@ TEMPLATES = (
     'forms/report.html',
 )
 
+
+@login_required
 def IndexView(request):
-    latest_reports = Report.objects.order_by('-create_date')[:5]
-    print(latest_reports.__dict__)
-    return render_to_response('forms/index.html', {'data_dict': latest_reports.__dict__})
+    latest_reports = Report.objects.order_by('-create_date')
+    return render_to_response('forms/index.html', {'data_dict': latest_reports})
 
 
 class CRTReportWizard(SessionWizardView):
