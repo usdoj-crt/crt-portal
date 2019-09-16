@@ -90,7 +90,12 @@
             {# Phasing in question grouping so that we can add names and help text to groups of questions #}
 
             {% for question_group in wizard.form.question_groups %}
-              <h3 class="margin-bottom-1">{{ question_group.group_name }}</h3>
+              <h3 class="margin-bottom-1">
+                {{ question_group.group_name }} 
+                {% if question_group.optional %}
+                  <span class="question_group_optional_tag">(optional)</span>
+                {% endif %}
+              </h3>
               <div class="margin-bottom-3"><em>{{ question_group.help_text }}</em></div>
 
               {% for field in question_group %}
