@@ -87,9 +87,9 @@
           {% for field in question_group %}
             <fieldset class="usa-fieldset">
               <legend class="margin-bottom-1">{{ field.label_tag }}</legend>
+              <em>{{ field.help_text }}</em>
               {{ field.errors }}
               <div class="margin-bottom-2">{{ field }}</div>
-              {{ field.help_text }}
             </fieldset>
           {% endfor %}
         {% endfor %}

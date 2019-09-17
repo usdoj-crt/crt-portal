@@ -1,8 +1,10 @@
-from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxInput, TypedChoiceField, TextInput
+from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxInput, \
+    TypedChoiceField, TextInput, EmailInput
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple
 from .models import Report, ProtectedClass
 from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, HOW_MANY_CHOICES, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES
+from .phone_regex import phone_validation_regex
 
 import logging
 
@@ -19,6 +21,7 @@ class Contact(ModelForm):
         self.fields['contact_last_name'].label = 'Last name'
         self.fields['contact_email'].label = 'Email address'
         self.fields['contact_phone'].label = 'Phone number'
+        # self.fields['contact_phone'].help_text = 'Please enter numbers only.'
 
         self.question_groups = [
             QuestionGroup(
@@ -45,8 +48,11 @@ class Contact(ModelForm):
         widgets = {
             'contact_first_name': TextInput(attrs={'class':'usa-input'}),
             'contact_last_name': TextInput(attrs={'class':'usa-input'}),
-            'contact_email': TextInput(attrs={'class':'usa-input'}),
-            'contact_phone': TextInput(attrs={'class':'usa-input'}),
+            'contact_email': EmailInput(attrs={'class':'usa-input'}),
+            'contact_phone': TextInput(attrs={
+                'class': 'usa-input',
+                'pattern': phone_validation_regex
+            }),
         }
 
 
