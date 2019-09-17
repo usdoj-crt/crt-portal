@@ -20,7 +20,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # If ENV is not set explicitly, assume "PROD".
 # Note that when using Docker, ENV is set to "LOCAL" by docker-compose.yml.
 # We are using Docker for local development only.
-environment = os.environ.get('ENV', 'PROD')
+# We are running the testing envrionment with UNDEFINED.
+# For cloud.gov we set ENV to PRODUCTION with the manifests
+environment = os.environ.get('ENV', 'UNDEFINED')
+circle = os.environ.get('CIRCLE', False)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -61,6 +64,9 @@ ALLOWED_HOSTS = [
     'crt-portal-django-stage.app.cloud.gov',
     'crt-portal-django-dev.app.cloud.gov',
 ]
+
+if environment == 'UNDEFINED':
+    ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -153,6 +159,7 @@ if environment != 'LOCAL':
     AWS_SECRET_ACCESS_KEY = s3_creds["secret_access_key"]
     AWS_STORAGE_BUCKET_NAME = s3_creds["bucket"]
     AWS_S3_REGION_NAME = s3_creds["region"]
+    AWS_DEFAULT_REGION = s3_creds["region"]
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3-{AWS_S3_REGION_NAME}.amazonaws.com'
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',
@@ -162,6 +169,7 @@ if environment != 'LOCAL':
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    AWS_DEFAULT_ACL = 'public-read'
 else:
     STATIC_URL = '/static/'
 
