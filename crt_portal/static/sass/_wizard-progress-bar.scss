@@ -22,7 +22,7 @@ $outline-light-gray: #D8D8D8;
 #connecting-line {
   border-bottom: 1px solid $outline-light-gray;
   position: relative;
-  bottom: 35px;
+  bottom: 50px;
   left: 10px;
   width: 95%;
 }
@@ -43,6 +43,7 @@ ol.steps {
     padding: 0;
     position: relative; 
     z-index: 1;
+    width: 50px;
 
     // design
     font-size: $label-font-size; line-height: $label-line-height;
