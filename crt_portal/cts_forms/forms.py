@@ -1,4 +1,4 @@
-from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxInput, TypedChoiceField
+from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxInput, TypedChoiceField, TextInput
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple
 from .models import Report, ProtectedClass
@@ -34,9 +34,20 @@ class Contact(ModelForm):
             )
          ]
 
+
+
     class Meta:
         model = Report
-        fields = ['contact_first_name', 'contact_last_name', 'contact_email', 'contact_phone']
+        fields = [
+            'contact_first_name', 'contact_last_name',
+            'contact_email', 'contact_phone'
+        ]
+        widgets = {
+            'contact_first_name': TextInput(attrs={'class':'usa-input'}),
+            'contact_last_name': TextInput(attrs={'class':'usa-input'}),
+            'contact_email': TextInput(attrs={'class':'usa-input'}),
+            'contact_phone': TextInput(attrs={'class':'usa-input'}),
+        }
 
 
 class WhatHappened(ModelForm):
