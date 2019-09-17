@@ -24,12 +24,14 @@
   <a href="/report"><button name="Create record" label="first step" class="usa-button margin-top-2">+ Add new record</button></a>
   <h2>All reports view</h2>
   <table class="usa-table">
+    <thead>
     <tr>
       <th>Submission Date</th>
       <th>Complainant Name</th>
       <th>Complainant Contact</th>
       <th>Violation Summary</th>
     </tr>
+    </thead>
     {% if data_dict %}
      {% for violationreport in data_dict %}
        <tr>
