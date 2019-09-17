@@ -109,7 +109,7 @@ class ContactValidationTests(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_phone_too_short(self):
-        """Model validation tests need to be structured differently"""
+        """Model validation unit tests require testing the model directly"""
         phone = Report(
             contact_phone='202',
         )
