@@ -71,8 +71,8 @@ h2 {
 }
 
 .intro-subtitle {
+  @include u-font('body', 'lg')
   @include u-line-height('alt', 5)
-  @include u-font-size('body', 'sm')
 }
 
 h3 {
