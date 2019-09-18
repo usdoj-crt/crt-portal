@@ -108,6 +108,15 @@ class ContactValidationTests(TestCase):
         })
         self.assertTrue(form.is_valid())
 
+    def test_invalid_phone(self):
+        form = Contact(data={
+            'contact_first_name': '',
+            'contact_last_name': '',
+            'contact_email': 'foo@bär.com',
+            'contact_phone': '33333333333333333333333333'
+        })
+        self.assertFalse(form.is_valid())
+
     def test_phone_too_short(self):
         """Model validation unit tests require testing the model directly"""
         phone = Report(
@@ -117,7 +126,8 @@ class ContactValidationTests(TestCase):
         try:
             phone.full_clean()
         except ValidationError as err:
-            self.assertTrue(err.message_dict['contact_phone'] == ['"202" doesn\'t have enough numbers to be a phone number. Please double check your phone number and make sure you have an area code.'])
+            phone_error_message = err.message_dict['contact_phone']
+            self.assertTrue(phone_error_message == ['Enter a valid value.'])
 
     def test_international_phone(self):
         phone = Report(
