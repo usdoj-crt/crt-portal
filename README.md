@@ -86,13 +86,14 @@ Log on with `cf login -a api.fr.cloud.gov --sso-passcode <put_passcode_here>` an
 ### Initial cloud.gov set up
 First, log into the desired space.
 
-- create postgres DB and S3 with development settings:
+Create postgres DB and S3 with development settings:
 
  cf create-service aws-rds shared-psql crt-db
  cf create-service s3 basic-public crt-s3
 
 
-- store environment variables
+Store environment variables
+
  cf cups VCAP_SERVICES -p SECRET_KEY
 
 when prompted give it the secret key
