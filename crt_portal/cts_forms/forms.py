@@ -21,7 +21,6 @@ class Contact(ModelForm):
         self.fields['contact_last_name'].label = 'Last name'
         self.fields['contact_email'].label = 'Email address'
         self.fields['contact_phone'].label = 'Phone number'
-        # self.fields['contact_phone'].help_text = 'Please enter numbers only.'
 
         self.question_groups = [
             QuestionGroup(
@@ -51,7 +50,8 @@ class Contact(ModelForm):
             'contact_email': EmailInput(attrs={'class':'usa-input'}),
             'contact_phone': TextInput(attrs={
                 'class': 'usa-input',
-                'pattern': phone_validation_regex
+                'pattern': phone_validation_regex,
+                'title': 'If you submit a phone number, please include between 10 and 15 digits.'
             }),
         }
 
