@@ -15,7 +15,7 @@ class Contact(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)
 
-        self.label_suffix=''
+        self.label_suffix = ''
 
         self.fields['contact_first_name'].label = 'First name'
         self.fields['contact_last_name'].label = 'Last name'
@@ -34,9 +34,7 @@ class Contact(ModelForm):
                 group_name='Contact information',
                 help_text='Please choose at least one way for us to contact you.',
             )
-         ]
-
-
+        ]
 
     class Meta:
         model = Report
@@ -45,9 +43,9 @@ class Contact(ModelForm):
             'contact_email', 'contact_phone'
         ]
         widgets = {
-            'contact_first_name': TextInput(attrs={'class':'usa-input'}),
-            'contact_last_name': TextInput(attrs={'class':'usa-input'}),
-            'contact_email': EmailInput(attrs={'class':'usa-input'}),
+            'contact_first_name': TextInput(attrs={'class': 'usa-input'}),
+            'contact_last_name': TextInput(attrs={'class': 'usa-input'}),
+            'contact_email': EmailInput(attrs={'class': 'usa-input'}),
             'contact_phone': TextInput(attrs={
                 'class': 'usa-input',
                 'pattern': phone_validation_regex,

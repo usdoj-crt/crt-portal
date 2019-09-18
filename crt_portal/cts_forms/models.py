@@ -2,7 +2,6 @@ from datetime import datetime
 
 from django.db import models
 from django.utils import timezone
-from django.core.exceptions import ValidationError
 from django.core.validators import RegexValidator
 
 from .phone_regex import phone_validation_regex
@@ -42,7 +41,7 @@ class Report(models.Model):
     contact_last_name = models.CharField(max_length=225, null=True, blank=True)
     contact_email = models.EmailField(null=True, blank=True)
     contact_phone = models.CharField(
-        validators=[ RegexValidator(phone_validation_regex) ],
+        validators=[RegexValidator(phone_validation_regex)],
         max_length=225, null=True, blank=True
     )
     # Not adding the address to the form yet
