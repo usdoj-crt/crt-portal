@@ -23,15 +23,6 @@ from .model_variables import (
 )
 
 
-def validate_phone(value):
-    if value is not None or value != '':
-        if len(value) < 10:
-            raise ValidationError(
-                ('"%(value)s" doesn\'t have enough numbers to be a phone number. Please double check your phone number and make sure you have an area code.'),
-                params={'value': value},
-            )
-
-
 class InternalHistory(models.Model):
     note = models.CharField(max_length=500, null=False, blank=False,)
     create_date = models.DateTimeField(auto_now_add=True)
