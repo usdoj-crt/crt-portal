@@ -8,7 +8,7 @@
         <div class="grid-col-12">
           <p align="right"><a href="/accounts/logout">log out</a></p>
           <h1>
-            DOJ Civil Rights Portal
+            CRT Complaint Records
           </h1>
         </div>
       </div>
@@ -26,19 +26,39 @@
   <table class="usa-table">
     <thead>
     <tr>
-      <th>Submission Date</th>
-      <th>Complainant Name</th>
-      <th>Complainant Contact</th>
+      <th>Submitted</th>
+      <th>Contact Name</th>
+      <th>Contact</th>
       <th>Violation Summary</th>
     </tr>
     </thead>
     {% if data_dict %}
      {% for violationreport in data_dict %}
        <tr>
-       <td>{{ violationreport.create_date|date:"SHORT_DATE_FORMAT" }}</td>
-       <td>{{ violationreport.contact_last_name }}, {{ violationreport.contact_first_name }}</td>
-       <td>{{ violationreport.contact_email }}<br>{{ violationreport.contact_phone }}</td>
-       <td>{{ violationreport.violation_summary|truncatechars:125 }}</td>
+        <td>{{ violationreport.create_date|date:"SHORT_DATE_FORMAT" }}</td>
+        <td>
+        {% with last=violationreport.contact_last_name|default:"—" %}
+            {{ last|truncatechars:20 }}
+        {% endwith %}
+        ,
+        {% with first=violationreport.contact_first_name|default:"—" %}
+            {{ first|truncatechars:20 }}
+        {% endwith %}
+        </td>
+        <td>
+        {% with email=violationreport.contact_email|default:"—" %}
+            {{ email|truncatechars:20 }}
+        {% endwith %}
+        <br>
+        {% with phone=violationreport.contact_phone|default:"—"  %}
+            {{ phone|truncatechars:20 }}
+        {% endwith %}
+        </td>
+        <td>
+        {% with summary=violationreport.violation_summary|default:"—" %}
+            {{ summary|truncatechars:125 }}
+        {% endwith %}
+        </td>
        </tr>
      {% endfor %}
     {% else %}
