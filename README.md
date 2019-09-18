@@ -88,13 +88,13 @@ First, log into the desired space.
 
 Create postgres DB and S3 with development settings:
 
- cf create-service aws-rds shared-psql crt-db
- cf create-service s3 basic-public crt-s3
+    cf create-service aws-rds shared-psql crt-db
+    cf create-service s3 basic-public crt-s3
 
 
 Store environment variables
 
- cf cups VCAP_SERVICES -p SECRET_KEY
+    cf cups VCAP_SERVICES -p SECRET_KEY
 
 when prompted give it the secret key
 
