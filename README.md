@@ -79,16 +79,17 @@ You only need to get the services stood up and configure the S3 bucket once.
 
 For working with cloud.gov directly, you will need to [install the cloud foundry cli](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html). That will allow you to run the `cf` commands in a terminal.
 
-Log on with `cf login -a api.fr.cloud.gov --sso` and go to the link to sign in and get your pass-code.
+First, login to cloud.gov at https://login.fr.cloud.gov/login and then, get a passcode https://login.fr.cloud.gov/passcode.
+
+Log on with `cf login -a api.fr.cloud.gov --sso-passcode <put_passcode_here>` and go to the link to sign in and get your pass-code.
 
 ### Initial cloud.gov set up
 First, log into the desired space.
 
 - create postgres DB and S3 with development settings:
+
  cf create-service aws-rds shared-psql crt-db
  cf create-service s3 basic-public crt-s3
-
-(or basic-sandbox if in sandbox)
 
 
 - store environment variables
