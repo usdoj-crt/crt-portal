@@ -116,6 +116,10 @@ class ContactValidationTests(TestCase):
             'contact_phone': '33333333333333333333333333'
         })
         self.assertFalse(form.is_valid())
+        self.assertEquals(
+            form.errors,
+            {'contact_phone': ['Enter a valid value.']}
+        )
 
     def test_phone_too_short(self):
         """Model validation unit tests require testing the model directly"""
