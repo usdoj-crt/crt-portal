@@ -1,12 +1,57 @@
-from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxInput, TypedChoiceField
-
+from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxInput, \
+    TypedChoiceField, TextInput, EmailInput
+from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple
 from .models import Report, ProtectedClass
-from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, HOW_MANY_CHOICES, RELATIONSHIP_CHOICES, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES
+from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, HOW_MANY_CHOICES, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES
+from .phone_regex import phone_validation_regex
 
 import logging
 
 logger = logging.getLogger(__name__)
+
+
+class Contact(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ModelForm, self).__init__(*args, **kwargs)
+
+        self.label_suffix = ''
+
+        self.fields['contact_first_name'].label = 'First name'
+        self.fields['contact_last_name'].label = 'Last name'
+        self.fields['contact_email'].label = 'Email address'
+        self.fields['contact_phone'].label = 'Phone number'
+
+        self.question_groups = [
+            QuestionGroup(
+                self,
+                ('contact_first_name', 'contact_last_name'),
+                group_name='Name',
+            ),
+            QuestionGroup(
+                self,
+                ('contact_email', 'contact_phone'),
+                group_name='Contact information',
+                help_text='Please choose at least one way for us to contact you.',
+            )
+        ]
+
+    class Meta:
+        model = Report
+        fields = [
+            'contact_first_name', 'contact_last_name',
+            'contact_email', 'contact_phone'
+        ]
+        widgets = {
+            'contact_first_name': TextInput(attrs={'class': 'usa-input'}),
+            'contact_last_name': TextInput(attrs={'class': 'usa-input'}),
+            'contact_email': EmailInput(attrs={'class': 'usa-input'}),
+            'contact_phone': TextInput(attrs={
+                'class': 'usa-input',
+                'pattern': phone_validation_regex,
+                'title': 'If you submit a phone number, please include between 10 and 15 digits.'
+            }),
+        }
 
 
 class WhatHappened(ModelForm):
@@ -85,18 +130,4 @@ class Details(ModelForm):
         fields = ['violation_summary', 'when', 'how_many']
         widgets = {
             'when': UsaRadioSelect,
-        }
-
-
-class Contact(ModelForm):
-    relationship = TypedChoiceField(
-        choices=RELATIONSHIP_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-    )
-
-    class Meta:
-        model = Report
-        fields = ['who_reporting_for', 'relationship', 'do_not_contact', 'contact_given_name', 'contact_family_name', 'contact_email', 'contact_state', 'contact_address_line_1', 'contact_address_line_2', 'contact_phone']
-        widgets = {
-            'do_not_contact': CheckboxInput,
-            'who_reporting_for': UsaRadioSelect,
         }

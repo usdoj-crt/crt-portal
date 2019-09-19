@@ -1,12 +1,15 @@
 {% extends "forms/base.html" %}
 
 {% block content %}
+  <div class="grid-container">
+    <div class="grid-col-1"></div>
+      <h1>We have sucessfully recieved your form:</h1>
 
-<h1>We have sucessfully recieved your form:</h1>
+      {% for label, value in data_dict.items %}
+        <h2>{{ label }}:</h2>
+        <p>{{ value }}</p>
+      {% endfor %}
 
-{% for label, value in data_dict.items %}
-  <h2>{{ label }}:</h2>
-  <p>{{ value }}</p>
-{% endfor %}
-
+    </div>
+  </div>
 {% endblock %}
