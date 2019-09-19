@@ -74,6 +74,10 @@ You can check for style issues by running flake8:
 
 If you have a a reason why a line of code shouldn't apply flake8 you can add `# noqa`, but try to use that sparingly.
 
+## Browser targeting
+
+We aim to test against Interent Explorer 11 and Google Chrome on a regular basis, and test against Safari and Firefox on an occasional basis.
+
 ## cloud.gov set up
 You only need to get the services stood up and configure the S3 bucket once.
 
