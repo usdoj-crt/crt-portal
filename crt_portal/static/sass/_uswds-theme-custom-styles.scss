@@ -38,18 +38,6 @@ i.e.
   opacity: 0;
 }
 
-// Sticky Footer
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-main {
-  flex: 1;
-  width: 100%;
-}
-
 // Footer Styles
 .usa-footer__logo-heading {
   @include h4
