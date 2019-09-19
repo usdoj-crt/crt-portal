@@ -9,9 +9,9 @@ logger = logging.getLogger(__name__)
 
 
 class CRTReportWizard(SessionWizardView):
+    """Once all the sub-forms are submitted this class will clean data and save."""
     template_name = 'forms/report.html'
 
-    """Once all the sub-forms are submitted this class will clean data and save."""
     def get_context_data(self, form, **kwargs):
         context = super(CRTReportWizard, self).get_context_data(form=form, **kwargs)
         ordered_step_names = ['Contact', 'What Happened', 'Where', 'Who', 'Details']
