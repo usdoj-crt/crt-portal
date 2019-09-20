@@ -248,7 +248,7 @@ workflows:
             - build_and_test
           filters:
             branches:
-              only: release/*
+              only: /^release.*/
 
       - deploy-prod:
           requires:
