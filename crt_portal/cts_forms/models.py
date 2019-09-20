@@ -2,9 +2,10 @@ from datetime import datetime
 
 from django.db import models
 from django.utils import timezone
-from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 
-from phone_field import PhoneField
+from .phone_regex import phone_validation_regex
+
 
 from .model_variables import (
     PRIMARY_COMPLAINT_CHOICES,
@@ -19,15 +20,6 @@ from .model_variables import (
     HOW_MANY_CHOICES,
     STATES_AND_TERRITORIES
 )
-
-
-def validate_phone(value):
-    if value is not None or value != '':
-        if len(value) < 10:
-            raise ValidationError(
-                ('"%(value)s" doesn\'t have enough numbers to be a phone number. Please double check your phone number and make sure you have an area code.'),
-                params={'value': value},
-            )
 
 
 class InternalHistory(models.Model):
@@ -48,7 +40,10 @@ class Report(models.Model):
     contact_first_name = models.CharField(max_length=225, null=True, blank=True)
     contact_last_name = models.CharField(max_length=225, null=True, blank=True)
     contact_email = models.EmailField(null=True, blank=True)
-    contact_phone = PhoneField(validators=[validate_phone], null=True, blank=True, E164_only=False)
+    contact_phone = models.CharField(
+        validators=[RegexValidator(phone_validation_regex)],
+        max_length=225, null=True, blank=True
+    )
     # Not adding the address to the form yet
     contact_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
     contact_address_line_1 = models.CharField(max_length=225, null=True, blank=True)

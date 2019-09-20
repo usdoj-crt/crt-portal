@@ -2,7 +2,6 @@
 
 import cts_forms.models
 from django.db import migrations
-import phone_field.models
 
 
 class Migration(migrations.Migration):
@@ -33,10 +32,5 @@ class Migration(migrations.Migration):
         migrations.RemoveField(
             model_name='report',
             name='who_reporting_for',
-        ),
-        migrations.AlterField(
-            model_name='report',
-            name='contact_phone',
-            field=phone_field.models.PhoneField(blank=True, max_length=31, null=True, validators=[cts_forms.models.validate_phone]),
         ),
     ]

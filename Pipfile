@@ -18,7 +18,6 @@ rcssmin = "*"
 django-formtools = "*"
 bandit = "*"
 flake8 = "*"
-django-phone-field = "*"
 
 [requires]
 python_version = "3.7"

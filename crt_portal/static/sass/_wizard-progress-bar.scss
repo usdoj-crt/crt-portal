@@ -19,9 +19,18 @@ $line-width: 1px;
 $visited-dark-blue: #1A4480;
 $outline-light-gray: #D8D8D8;
 
+#connecting-line {
+  border-bottom: 1px solid $outline-light-gray;
+  position: relative;
+  bottom: 50px;
+  left: 15px;
+  width: 95%;
+}
+
 // Steps Progress Bar
 ol.steps {
   display: flex;
+  justify-content: space-between;
   list-style: none; text-align: center;
   counter-reset: milestones; // init counter
 
@@ -30,14 +39,15 @@ ol.steps {
   margin: 0; padding: 0;
 
   li {
-    flex-grow: 1; flex-basis: 0;
-    margin: 0; padding: 0;
-    position: relative; z-index: 1;
+    margin: 0; 
+    padding: 0;
+    position: relative; 
+    z-index: 1;
+    width: 50px;
 
     // design
     font-size: $label-font-size; line-height: $label-line-height;
   }
-
   .step {
     display: block;
     text-decoration: none;
@@ -63,34 +73,10 @@ ol.steps {
     // design
     width: $circle-diameter; height: $circle-diameter; line-height: $circle-diameter;
     margin: 0 auto .5em;
-  }
 
-  // connecting line
-  .step::after {
-    content: "";
-    position: absolute; z-index: -1;
-    width: 100%; height: 0; border: 0;
-
-    // design
-    left: 50%; top: $circle-diameter/2;
-    border-bottom-width: $line-width; margin-top: -$line-width/2;
-  }
-
-  // don't show for last element
-  li:last-child .step::after {
-    display: none;
-  }
-
-  // finished milestone - default
-  .step::before {
     color: white;
     background-color: $visited-dark-blue;
     box-shadow: inset 0 0 0 $circle-border-width $visited-dark-blue;
-  }
-
-  .step::after {
-    border-bottom-style: solid;
-    border-color: $outline-light-gray;
   }
 
   // current milestone

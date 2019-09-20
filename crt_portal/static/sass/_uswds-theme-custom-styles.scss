@@ -20,9 +20,14 @@ i.e.
 ----------------------------------------
 */
 
+.content-wrapper {
+  max-width: 700px;
+  margin: auto;
+}
+
 // Form Width
 .usa-form {
-  max-width: none !important;
+  max-width: 30rem !important;
 }
 
 // Input Overrides
@@ -31,18 +36,6 @@ i.e.
   // https://stackoverflow.com/questions/49687229/display-html5-error-message-validation-on-hidden-radio-checkbox
   left: 45px;
   opacity: 0;
-}
-
-// Sticky Footer
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-main {
-  flex: 1;
-  width: 100%;
 }
 
 // Footer Styles
@@ -61,9 +54,13 @@ h1 {
   @include u-font('heading', '2xl')
 }
 
+h2 {
+  @include u-font('body', '2xl')
+}
+
 .intro-subtitle {
+  @include u-font('body', 'lg')
   @include u-line-height('alt', 5)
-  @include u-font-size('body', 'sm')
 }
 
 h3 {
@@ -104,4 +101,13 @@ form#report-form {
   li {
     list-style: none;
   }
+}
+
+.question_group_optional_tag {
+  font-weight: lighter;
+  color: black;
+}
+
+.usa-input {
+  width: 320px;
 }
