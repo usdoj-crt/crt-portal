@@ -57,6 +57,11 @@ You can also run project tests using docker with:
 
     docker-compose run web python /code/crt_portal/manage.py test cts_forms
 
+For accessibility testing with Pa11y, you can run that locally, _if you have npm installed locally_ with:
+
+    npm run test:a11y
+
+
 You can scan the code for potential python security flaws using [bandit](https://github.com/PyCQA/bandit). Run bandit manually:
 
     docker-compose run web bandit -r crt_portal/
@@ -67,6 +72,7 @@ You can check for style issues by running flake8:
 
     docker-compose run web flake8
 
+If you have a a reason why a line of code shouldn't apply flake8 you can add `# noqa`, but try to use that sparingly.
 
 ## cloud.gov set up
 You only need to get the services stood up and configure the S3 bucket once.

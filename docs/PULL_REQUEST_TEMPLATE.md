@@ -9,8 +9,8 @@
 _these will eventually be enforced by CircleCI; we need to set that up at the USDOJ org level_
 
 + [ ] If front end or functionality change, run locally and check http://0.0.0.0:8000/report/.
-+ [ ] Tests pass locally: `docker-compose run web python /code/crt_portal/manage.py test cts_forms`.
-+ [ ] Running `flake8` in root returns no style errors.
-+ [ ] pa11y manual check against the `/report` page returns no errors.
++ [ ] [Tests pass](https://github.com/USDOJ/crt-portal/#tests)
+
+See [PR instructions doc](https://github.com/usdoj/crt-portal/blob/master/docs/pull_requests.md) for full pull request review instructions.
 
 ## Notes for reviewer:

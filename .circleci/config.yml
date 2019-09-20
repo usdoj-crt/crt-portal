@@ -7,6 +7,68 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
+      - image: circleci/python:3.7-node-browsers
+        environment: # environment variables for primary container
+          PIPENV_VENV_IN_PROJECT: true
+          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
+      - image: postgres:10.1-alpine
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle_test
+    steps:
+      - checkout
+      # Removing chache for now, we either need to build our image or move the cache location
+      # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+      - run:
+          name: Node install
+          command: |
+            npm install
+      - run:
+          name: Python install with pipenv then migrate the database
+          command: |
+            pip install -U pip && pip install pipenv && \
+            pip install pipenv
+            pipenv install
+            pipenv run crt_portal/manage.py migrate
+          paths:
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.7/site-packages"
+      - run:
+          name: run server for tests
+          command: |
+            pipenv run crt_portal/manage.py runserver 8000
+          background: true
+      - run:
+          name: Make directory for test results
+          command: |
+            mkdir /tmp/test-results;
+      - run:
+          name: Run unit tests
+          command: |
+            pipenv run crt_portal/manage.py test cts_forms
+      - run:
+          name: Run bandit (Python security) tests
+          command: |
+            pipenv run bandit -r crt_portal/
+      - run:
+          name: Run flake8 test for Python code style
+          command: |
+            pipenv run flake8
+      - run:
+          name: Run pa11y-ci accessibility check
+          command: |
+            curl --retry-delay 5 --retry 10  --retry-connrefused http://127.0.0.1:8000
+            npm run test:a11y-ci
+
+      - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
+          path: /tmp/test-results
+
+  deploy-dev:
+    working_directory: ~/code
+    docker:
+      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
       - image: python:3.7
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
@@ -34,69 +96,6 @@ jobs:
             rm -rf /var/lib/apt/lists/*
             npm install
       - run:
-          name: Python install with pipenv then migrate the database
-          command: |
-            pip install -U pip && pip install pipenv && \
-            pip install pipenv
-            pipenv install
-            pipenv run crt_portal/manage.py migrate
-      - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
-          paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.7/site-packages"
-      - run:
-          name: Make directory for test results
-          command: |
-            mkdir /tmp/test-results;
-      - run:
-          name: Run unit tests
-          command: |
-            pipenv run crt_portal/manage.py test cts_forms
-      - run:
-          name: Run bandit (Python security) tests
-          command: |
-            pipenv run bandit -r crt_portal/
-      - run:
-          name: Run flake8 test for Python code style
-          command: |
-            pipenv run flake8
-
-      - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
-          path: /tmp/test-results
-
-  deploy-dev:
-    working_directory: ~/code
-    docker:
-      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: python:3.7
-        environment: # environment variables for primary container
-          PIPENV_VENV_IN_PROJECT: true
-          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
-        environment:
-          POSTGRES_USER: root
-          POSTGRES_DB: circle_test
-    steps:
-      - checkout
-      - restore_cache:
-          # this should all be cached from the test
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
-      - run:
-          name: Node install
-          command: |
-            echo "deb https://deb.nodesource.com/node_10.x stretch main" > /etc/apt/sources.list.d/nodesource.list && \
-            wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-            echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
-            wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-            apt-get update && \
-            apt-get install -yqq nodejs yarn && \
-            npm i -g npm@^6 && \
-            rm -rf /var/lib/apt/lists/*
-            npm install
-      - run:
           # database will be migrated in cloud.gov
           name: Python install with pipenv
           command: |
@@ -110,6 +109,12 @@ jobs:
             echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
             apt-get update
             apt-get install cf-cli
+      - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          paths:
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.7/site-packages"
       - run:
           name: Deploy to dev
           command: |
@@ -131,7 +136,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          # this should all be cached from the test
+      # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
@@ -159,6 +164,12 @@ jobs:
             echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
             apt-get update
             apt-get install cf-cli
+      - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          paths:
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.7/site-packages"
       - run:
           name: Deploy to stage
           command: |
@@ -180,7 +191,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          # this should all be cached from the test
+      # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
@@ -208,6 +219,12 @@ jobs:
             echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
             apt-get update
             apt-get install cf-cli
+      - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
+          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          paths:
+            - ".venv"
+            - "/usr/local/bin"
+            - "/usr/local/lib/python3.7/site-packages"
       - run:
           name: Deploy to production
           command: |
