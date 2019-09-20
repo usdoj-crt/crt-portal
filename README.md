@@ -114,7 +114,7 @@ Right now, the route is set for the production space, we will want to pass in di
 
 To deploy manually, make sure you are logged in, run the push command and pass it the name of the manifest for the space you want to deploy to:
 
-    cf push -f manifest_space.yml
+    cf push -f manifest_space.yaml
 
 That will push to cloud.gov according to the instructions in the manifest and Profile.
 
