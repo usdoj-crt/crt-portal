@@ -1,14 +1,12 @@
 {% extends "forms/base.html" %}
 {% block content %}
-  <div class="grid-container">
-    <div class="grid-col-1"></div>
-        <h2>Login</h2>
-        <p>Please note this process will be replaced with DOJ single sign on.</p>
-        <form label="log in form" method="post">
-          {% csrf_token %}
-          {{ form.as_p }}
-          <button label="login" type="submit">Login</button>
-        </form>
-  <div class="grid-container">
-    <div class="grid-col-1"></div>
+  <div class="content-wrapper">
+    <h2>Login</h2>
+    <p>Please note this process will be replaced with DOJ single sign on.</p>
+    <form label="log in form" method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button label="login" type="submit">Login</button>
+    </form>
+  </div>
 {% endblock %}
