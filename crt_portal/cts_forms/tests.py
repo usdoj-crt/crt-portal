@@ -158,7 +158,8 @@ class ContactValidationTests(TestCase):
 
 
 class LoginRequiredTests(TestCase):
-    """Please add a test for each url that is tied to a view that requires login."""
+    """Please add a test for each url that is tied to a view that requires authorization/authentication."""
+
     def setUp(self):
         self.client = Client()
         # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
@@ -169,11 +170,20 @@ class LoginRequiredTests(TestCase):
         self.user.delete()
 
     def test_view_all_login_success(self):
-        """ We probably only need one successful login test"""
+        """Successful login returns 200 success code."""
         self.client.login(username='DELETE_USER', password=self.test_pass)
         response = self.client.get(reverse('crt_forms:crt-forms-index'))
         self.assertEqual(response.status_code, 200)
 
-    def test_view_all_login(self):
+    def test_view_all_unauthenticated(self):
+        """Unauthenticated attempt to view all page redirects to login page."""
         response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/accounts/login/?next=/form/view')
+
+    def test_view_all_incorrect_password(self):
+        """Attempt with incorrect password redirects to login page."""
+        self.client.login(username='DELETE_USER', password='incorrect_password')
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/accounts/login/?next=/form/view')
