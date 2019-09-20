@@ -183,7 +183,7 @@ class LoginRequiredTests(TestCase):
 
     def test_view_all_incorrect_password(self):
         """Attempt with incorrect password redirects to login page."""
-        self.client.login(username='DELETE_USER', password='incorrect_password')
+        self.client.login(username='DELETE_USER', password='incorrect_password') # nosec -- this code runs in test only
         response = self.client.get(reverse('crt_forms:crt-forms-index'))
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/accounts/login/?next=/form/view')
