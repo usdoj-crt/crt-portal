@@ -81,7 +81,7 @@ For working with cloud.gov directly, you will need to [install the cloud foundry
 
 First, login to cloud.gov at https://login.fr.cloud.gov/login and then, get a passcode https://login.fr.cloud.gov/passcode.
 
-Log on with `cf login -a api.fr.cloud.gov --sso-passcode <put_passcode_here>` and go to the link to sign in and get your pass-code.
+Log on with `cf login -a api.fr.cloud.gov --sso-passcode <put_passcode_here>` 
 
 ### Initial cloud.gov set up
 First, log into the desired space.
@@ -102,11 +102,11 @@ when prompted give it the secret key
 You will needed to enable CORS via awscli, for each bucket instructions are here: https://cloud.gov/docs/services/s3/#allowing-client-side-web-access-from-external-applications
 
 
-Create a [service account for deployment](https://cloud.gov/docs/services/cloud-gov-service-account/) for each space you are setting up. (Replace "space" with the name of the space you are setting up.)
+Create a [service account for deployment](https://cloud.gov/docs/services/cloud-gov-service-account/) for each space you are setting up. (Replace "SPACE" with the name of the space you are setting up.)
 
-    cf create-service cloud-gov-service-account space-deployer crt-service-account-space
-    cf create-service-key crt-service-account-space crt-portal-space-key
-    cf service-key crt-service-account-space crt-portal-space-key
+    cf create-service cloud-gov-service-account space-deployer crt-service-account-SPACE
+    cf create-service-key crt-service-account-SPACE crt-portal-SPACE-key
+    cf service-key crt-service-account-SPACE crt-portal-SPACE-key
 
 Those credentials will need to be added to CircleCI as environment variables: `CRT_USERNAME_SPACE` `CRT_PASSWORD_SPACE` (replace "SPACE" with the relevant space).
 
