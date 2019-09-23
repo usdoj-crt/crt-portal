@@ -1,5 +1,6 @@
 # Python CircleCI 2.0 configuration file
 # Circle docs https://circleci.com/docs/2.0/language-python/
+# Set deployment variables in CircleCI as environment variables
 version: 2
 jobs:
   build_and_test: # runs not using Workflows must have a `build` job as entry point
