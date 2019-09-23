@@ -83,20 +83,22 @@ You only need to get the services stood up and configure the S3 bucket once.
 
 For working with cloud.gov directly, you will need to [install the cloud foundry cli](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html). That will allow you to run the `cf` commands in a terminal.
 
-Log on with `cf login -a api.fr.cloud.gov --sso` and go to the link to sign in and get your pass-code.
+First, login to cloud.gov at https://login.fr.cloud.gov/login and then, get a passcode https://login.fr.cloud.gov/passcode.
+
+Log on with `cf login -a api.fr.cloud.gov --sso-passcode <put_passcode_here>` 
 
 ### Initial cloud.gov set up
 First, log into the desired space.
 
-- create postgres DB and S3 with development settings:
- cf create-service aws-rds shared-psql crt-db
- cf create-service s3 basic-public crt-s3
+Create postgres DB and S3 with development settings:
 
-(or basic-sandbox if in sandbox)
+    cf create-service aws-rds shared-psql crt-db
+    cf create-service s3 basic-public crt-s3
 
 
-- store environment variables
- cf cups VCAP_SERVICES -p SECRET_KEY
+Store environment variables
+
+    cf cups VCAP_SERVICES -p SECRET_KEY
 
 when prompted give it the secret key
 
@@ -104,11 +106,11 @@ when prompted give it the secret key
 You will needed to enable CORS via awscli, for each bucket instructions are here: https://cloud.gov/docs/services/s3/#allowing-client-side-web-access-from-external-applications
 
 
-Create a [service account for deployment](https://cloud.gov/docs/services/cloud-gov-service-account/) for each space you are setting up. (Replace "space" with the name of the space you are setting up.)
+Create a [service account for deployment](https://cloud.gov/docs/services/cloud-gov-service-account/) for each space you are setting up. (Replace "SPACE" with the name of the space you are setting up.)
 
-    cf create-service cloud-gov-service-account space-deployer crt-service-account-space
-    cf create-service-key crt-service-account-space crt-portal-space-key
-    cf service-key crt-service-account-space crt-portal-space-key
+    cf create-service cloud-gov-service-account space-deployer crt-service-account-SPACE
+    cf create-service-key crt-service-account-SPACE crt-portal-SPACE-key
+    cf service-key crt-service-account-SPACE crt-portal-SPACE-key
 
 Those credentials will need to be added to CircleCI as environment variables: `CRT_USERNAME_SPACE` `CRT_PASSWORD_SPACE` (replace "SPACE" with the relevant space).
 
@@ -116,7 +118,7 @@ Right now, the route is set for the production space, we will want to pass in di
 
 To deploy manually, make sure you are logged in, run the push command and pass it the name of the manifest for the space you want to deploy to:
 
-    cf push -f manifest_space.yml
+    cf push -f manifest_space.yaml
 
 That will push to cloud.gov according to the instructions in the manifest and Profile.
 
