@@ -20,6 +20,27 @@ i.e.
 ----------------------------------------
 */
 
+// Sticky Footer (IE 10/11)
+// Based on: https://codepen.io/dezertdezine/pen/zKjggy
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
 .content-wrapper {
   max-width: 700px;
   margin: auto;
