@@ -1,5 +1,6 @@
 # Python CircleCI 2.0 configuration file
 # Circle docs https://circleci.com/docs/2.0/language-python/
+# Set deployment variables in CircleCI as environment variables
 version: 2
 jobs:
   build_and_test: # runs not using Workflows must have a `build` job as entry point
@@ -118,7 +119,7 @@ jobs:
       - run:
           name: Deploy to dev
           command: |
-              ./blue-green-deploy.sh $USERNAME_DEV $CF_PASSWORD_DEV dev
+              ./blue-green-deploy.sh $CRT_USERNAME_DEV $CRT_PASSWORD_DEV dev
 
   deploy-stage:
     working_directory: ~/code
@@ -173,7 +174,7 @@ jobs:
       - run:
           name: Deploy to stage
           command: |
-            ./blue-green-deploy.sh $USERNAME_STAGE $CF_PASSWORD_STAGE stage
+            ./blue-green-deploy.sh $CRT_USERNAME_STAGE $CRT_PASSWORD_STAGE staging
 
   deploy-prod:
     working_directory: ~/code
@@ -228,7 +229,7 @@ jobs:
       - run:
           name: Deploy to production
           command: |
-            ./blue-green-deploy.sh $USERNAME_PROD $CF_PASSWORD_PROD prod
+            ./blue-green-deploy.sh $CRT_USERNAME_PROD $CRT_PASSWORD_PROD prod
 
 workflows:
   version: 2
@@ -248,7 +249,7 @@ workflows:
             - build_and_test
           filters:
             branches:
-              only: release/*
+              only: /^release.*/
 
       - deploy-prod:
           requires:

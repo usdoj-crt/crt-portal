@@ -36,7 +36,7 @@ if [[ "$APP_STATE" != 'missing' ]]; then
   fi;
 fi;
 
-if cf push "$APP_NAME" -f manifest_$SPACE.yml; then
+if cf push "$APP_NAME" -f manifest_$SPACE.yaml; then
   if [[ "$MADE_VEN" == 'true' ]]; then
     cf delete "$VEN_NAME" -f;
   fi;
