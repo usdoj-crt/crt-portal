@@ -157,6 +157,15 @@ class ContactValidationTests(TestCase):
         except ValidationError as err:
             self.assertTrue('contact_phone' not in err.message_dict)
 
+    def test_phone_has_letters(self):
+        phone = Report(
+            contact_phone='(123) 123-4567 x445',
+        )
+        try:
+            phone.full_clean()
+        except ValidationError as err:
+            self.assertTrue('contact_phone' in err.message_dict)
+
 
 class LoginRequiredTests(TestCase):
     """Please add a test for each url that is tied to a view that requires authorization/authentication."""
