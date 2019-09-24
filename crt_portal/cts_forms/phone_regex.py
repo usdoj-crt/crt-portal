@@ -10,7 +10,7 @@
 # PASSES: +12 (345) 678 9000
 
 # FAILS: (123) 456 789 -- too few numerical digits
-# FAILS: "happy happy" -- no digits
+# FAILS: "happy happy" -- letters are present
 # FAILS: (123) 456 7890 0000 0000 -- too many digits
 
-phone_validation_regex = r'^\D*(\d\D*){7,15}$'
+phone_validation_regex = r'^(?=^\D*(\d\D*){7,15}$)(?=^(?:(?![a-zA-Z]).)*$).*$'
