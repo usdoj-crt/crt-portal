@@ -4,8 +4,9 @@
  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {# Asking search engines not to index our site while we're in development mode. #}
+    <meta name="robots" content="noindex">
     <title>U.S. Department of Justice - Civil Rights Division</title>
-    <!-- TODO: properly manage static assets -->
     <link rel="icon" href="{% static "img/us_flag_small.png" %}">
     <link rel="stylesheet" href="{% static "css/styles.css" %}">
     {% block head %}{% endblock %}
