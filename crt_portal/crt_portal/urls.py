@@ -26,6 +26,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('form/', include('cts_forms.urls')),
-    path('report/', CRTReportWizard.as_view([Contact, WhatHappened, Where, Who, Details]), name='crt_report_form'),
+    path('report/', CRTReportWizard.as_view([
+        Contact,
+        # WhatHappened,
+        # Where,
+        # Who,
+        # Details
+    ]), name='crt_report_form'),
     path('', RedirectView.as_view(pattern_name='crt_report_form', permanent=False)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
