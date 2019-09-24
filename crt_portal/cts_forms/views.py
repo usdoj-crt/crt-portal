@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 
 from formtools.wizard.views import SessionWizardView
 
-from .models import Report, ProtectedClass
+from .models import Report
 
 import logging
 

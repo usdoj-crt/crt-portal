@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
-from cts_forms.forms import WhatHappened, Where, Who, Details, Contact
+from cts_forms.forms import Contact
 from cts_forms.views import CRTReportWizard
 
 urlpatterns = [
