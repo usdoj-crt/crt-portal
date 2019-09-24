@@ -1,5 +1,10 @@
+import secrets
+
 from django.test import TestCase
+from django.test.client import Client
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 
 from .models import ProtectedClass, Report
 from .forms import WhatHappened, Where, Who, Details, Contact
@@ -150,3 +155,35 @@ class ContactValidationTests(TestCase):
             phone.full_clean()
         except ValidationError as err:
             self.assertTrue('contact_phone' not in err.message_dict)
+
+
+class LoginRequiredTests(TestCase):
+    """Please add a test for each url that is tied to a view that requires authorization/authentication."""
+
+    def setUp(self):
+        self.client = Client()
+        # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'lennon@thebeatles.com', self.test_pass)
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_view_all_login_success(self):
+        """Successful login returns 200 success code."""
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_all_unauthenticated(self):
+        """Unauthenticated attempt to view all page redirects to login page."""
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/accounts/login/?next=/form/view')
+
+    def test_view_all_incorrect_password(self):
+        """Attempt with incorrect password redirects to login page."""
+        self.client.login(username='DELETE_USER', password='incorrect_password')  # nosec -- this code runs in test only
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/accounts/login/?next=/form/view')
