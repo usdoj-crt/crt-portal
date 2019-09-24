@@ -58,13 +58,14 @@ class Valid_Form_Tests(TestCase):
 
 class Validation_Form_Tests(TestCase):
     """Confirming validation on the server level"""
-    def test_required_primary_complaint(self):
-        form = WhatHappened(data={
-            'primary_complaint': '',
-            'protected_class_set': ProtectedClass.objects.all(),
-        })
+    # NOTE: Commenting out this test until the Primary Complaint story comes to the dev queue.
+    # def test_required_primary_complaint(self):
+    #     form = WhatHappened(data={
+    #         'primary_complaint': '',
+    #         'protected_class_set': ProtectedClass.objects.all(),
+    #     })
 
-        self.assertTrue('primary_complaint<ul class="errorlist"><li>This field is required.' in str(form.errors))
+    #     self.assertTrue('primary_complaint<ul class="errorlist"><li>This field is required.' in str(form.errors))
 
     def test_required_when(self):
         form = Details(data={
