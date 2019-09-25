@@ -20,6 +20,12 @@ i.e.
 ----------------------------------------
 */
 
+// Variables
+
+$text-ink: #1B1B1B;
+$bg-yellow: #FEE685;
+$header-background: #F6F6F2;
+
 // Sticky Footer (IE 10/11)
 // Based on: https://codepen.io/dezertdezine/pen/zKjggy
 
@@ -89,7 +95,6 @@ h3 {
 }
 
 // USA Gov Banner Customization
-$bg-yellow: #FEE685;
 
 .usa-banner {
   background-color: #2E2E2A;
@@ -110,8 +115,6 @@ $bg-yellow: #FEE685;
 
 // Header area
 
-$header-background: #F6F6F2;
-
 .page-header-background {
   background-color: $header-background;
 }
@@ -126,7 +129,7 @@ form#report-form {
 
 .question_group_optional_tag {
   font-weight: lighter;
-  color: black;
+  color: $text-ink;
 }
 
 .usa-input {
