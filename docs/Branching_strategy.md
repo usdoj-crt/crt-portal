@@ -23,6 +23,8 @@ It ensures:
     - security
     - code quality (making sure it is understandable so that future O&M is easier)
 - Automated tests
+    - important business logic requirements should be captured in tests
+    - key functionality should be checked with tests
 
 Once code is merged into the develop branch, the code is deployed to the development instance and the card describing the work goes into the "dev done" column. This step can happen at anytime.
 
@@ -52,7 +54,7 @@ Automated tests are run on any code corrections via a PR and PR review to the re
 
 ## Timeline
 
-Week |M |Tu |W |Th |F
+Week |Monday |Tuesday |Wednesday |Thursday |Friday
 --|--|--|--|--|--
 Week 1 | |Sprint begins |Create a `release/...` branch to deploy to staging | |
 Week 2 |Merge the `release/...` branch into `master` to deploy to production | Next Sprint begins| | |
