@@ -49,7 +49,7 @@ class Contact(ModelForm):
             'contact_phone': TextInput(attrs={
                 'class': 'usa-input',
                 'pattern': phone_validation_regex,
-                'title': 'If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and letters are allowed. Please include country code if entering an international phone number.'
+                'title': 'If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.'
             }),
         }
 
