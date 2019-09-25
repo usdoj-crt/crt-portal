@@ -11,6 +11,7 @@ We currently have automated tests for:
 
 Automated testing doesn't replace the need for people with context who are approving work, but it does reduce the risk of introducing errors or vulnerabilities. It can make sure certain bugs are not reintroduced and catch common security and accessibility errors.
 
+----
 
 ### Step one, PR review:
 
@@ -47,15 +48,19 @@ Automated tests are run on any code corrections via a PR and PR review to the re
 
  A successful deploy is communicated to the team, and there is a quick check to make sure the release went smoothly.
 
+----
+
 ## Timeline
 
 Week |M |Tu |W |Th |F
 --|--|--|--|--|--
-Week 1 | | |Create a `release/...` branch to deploy to staging | |
-Week 2 |Merge the `release/...` branch into master to deploy to production | | | |
+Week 1 | |Sprint begins |Create a `release/...` branch to deploy to staging | |
+Week 2 |Merge the `release/...` branch into `master` to deploy to production | Next Sprint begins| | |
 
 
 The main workflow is based on a [GitFlow](https://danielkummer.github.io/git-flow-cheatsheet/) approach, but you don't need to know or use GitFlow for this to work.
 
+----
+
 ### Contingency
-Hotfixes are the way that we approach critical bugs or flaws found in production. When this happens, a business owner or their designee will request a hotfix. Once the solution is identified, the hotfix will undergo PR review and QA at the same time. The branch is then merged into the develop branch. Once automated tests pass, there is a quick QA, then the code is merged into the upcoming release. This auto-deploys after tests with a short QA period. Then the code will be merged into master, which will also auto-deploy after tests.
+**Hotfixes** are the way that we approach critical bugs or flaws found in production. When this happens, a business owner or their designee will request a hotfix. Once the solution is identified, the hotfix will undergo PR review and QA at the same time. The branch is then merged into the develop branch. Once automated tests pass, there is a quick QA, then the code is merged into the upcoming release. This auto-deploys after tests with a short QA period. Then the code will be merged into master, which will also auto-deploy after tests.
