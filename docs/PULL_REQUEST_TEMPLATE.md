@@ -9,10 +9,12 @@
 ### Author
 
 + [ ] If this is a story, run locally and check to make sure all Acceptance Criteria are met. (If any criteria are unclear, ask about them.)
++ [ ] [Tests pass](https://github.com/USDOJ/crt-portal/#tests)
 
 ### Reviewer
 
 + [ ] If this is a story, run locally and check to make sure all Acceptance Criteria are met. (If any criteria are unclear, ask about them.)
++ [ ] [Tests pass](https://github.com/USDOJ/crt-portal/#tests)
 
 ## Notes for reviewer:
 
