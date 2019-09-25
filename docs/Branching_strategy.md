@@ -31,7 +31,7 @@ Once code is merged into the develop branch, the code is deployed to the develop
 
 Releases are created every two weeks as part of the a two week sprint cadence. Product owners and managers approve for the work in the develop branch to become a release. This is represented in two processes on the kanban board the initial check that the product owner moves cards from "dev done" to "ready for UAT".
 
-The work from the develop branch is made into a new branch named "release/date-of-planed-release"
+The work from the develop branch is made into a new branch named `release/date-of-planed-release`
 
 There will then be a couple days for QA. Generally we will want to check it matches Acceptance Criteria, if there are unusual bugs or inconsistencies and it should be ready to bring in the relevant business interests to approve.
 
@@ -44,7 +44,7 @@ Automated tests are run on any code corrections via a PR and PR review to the re
 
  The release is merged into the development branch to make sure any of the adjustments in staging are also accounted for upstream.
 
- The release branch is merged into the master branch, which triggers the final run of the automated testing suite. If this is successful, the code is deployed automatically.
+ The release branch, `release/date-of-planed-release` is merged into the `master` branch, which triggers the final run of the automated testing suite. If this is successful, the code is deployed automatically.
 
  A successful deploy is communicated to the team, and there is a quick check to make sure the release went smoothly.
 
