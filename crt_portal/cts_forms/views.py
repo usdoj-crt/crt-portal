@@ -22,17 +22,27 @@ class CRTReportWizard(SessionWizardView):
 
     def get_context_data(self, form, **kwargs):
         context = super(CRTReportWizard, self).get_context_data(form=form, **kwargs)
+
+        # This name appears in the progress bar wizard
         ordered_step_names = [
             'Contact',
+            'Details',
             # 'What Happened',
             # 'Where',
             # 'Who',
-            # 'Details'
         ]
         current_step_name = ordered_step_names[int(self.steps.current)]
 
+        # This title appears in large font above the question elements
+        ordered_step_titles = [
+            'Contact',
+            'Please provide details on what happened'
+        ]
+        current_step_title = ordered_step_titles[int(self.steps.current)]
+
         context.update({
             'ordered_step_names': ordered_step_names,
+            'current_step_title': current_step_title,
             'current_step_name': current_step_name
         })
 

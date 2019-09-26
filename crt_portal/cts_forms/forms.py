@@ -54,6 +54,25 @@ class Contact(ModelForm):
         }
 
 
+class Details(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ModelForm, self).__init__(*args, **kwargs)
+
+        self.question_groups = [
+            QuestionGroup(
+                self,
+                ['violation_summary'],
+                group_name='Please describe what happened in your own words',
+            )
+        ]
+
+    class Meta:
+        model = Report
+        fields = [
+            'violation_summary'
+        ]
+
+
 class WhatHappened(ModelForm):
     class Meta:
         model = Report
@@ -119,15 +138,3 @@ class Who(ModelForm):
             'respondent_contact_ask': CheckboxInput,
         }
 
-
-class Details(ModelForm):
-    how_many = TypedChoiceField(
-        choices=HOW_MANY_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-    )
-
-    class Meta:
-        model = Report
-        fields = ['violation_summary', 'when', 'how_many']
-        widgets = {
-            'when': UsaRadioSelect,
-        }
