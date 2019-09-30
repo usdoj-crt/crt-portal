@@ -44,7 +44,9 @@ class Report(models.Model):
         validators=[RegexValidator(phone_validation_regex)],
         max_length=225, null=True, blank=True
     )
-    # Not adding the address to the form yet
+    # details form
+    violation_summary = models.TextField(max_length=7000)
+    # fields below are not implemented yet #
     contact_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
     contact_address_line_1 = models.CharField(max_length=225, null=True, blank=True)
     contact_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
@@ -64,8 +66,7 @@ class Report(models.Model):
     respondent_name = models.CharField(max_length=225, null=True, blank=True)
     respondent_city = models.CharField(max_length=700, null=True, blank=True)
     respondent_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
-    # details form
-    violation_summary = models.TextField()
+    # previous details form
     when = models.CharField(max_length=700, choices=WHEN_CHOICES, default=None, null=True)
     how_many = models.CharField(max_length=700, null=True, blank=True, choices=HOW_MANY_CHOICES, default=None)
     # TODO, upgrade to add validation https://pypi.org/project/django-phone-field/
