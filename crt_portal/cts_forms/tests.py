@@ -76,14 +76,6 @@ class Validation_Form_Tests(TestCase):
     #     })
     #     self.assertTrue('when<ul class="errorlist"><li>This field is required.' in str(form.errors))
 
-    def test_required_violation_summary(self):
-        form = Details(data={
-            'violation_summary': '',
-            'when': 'last_6_months',
-            'how_many': 'no',
-        })
-        self.assertTrue('violation_summary<ul class="errorlist"><li>This field is required.' in str(form.errors))
-
     def test_required_where(self):
         form = Where(data={
             'place': '',
