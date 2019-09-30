@@ -178,3 +178,5 @@ This is the web framework
 Cloud.gov
 This is the PaaS the app is on
 - https://cloud.gov/docs/
+
+Thanks for reading all the way!
