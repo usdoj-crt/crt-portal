@@ -101,7 +101,7 @@
             {{ field.help_text.0 }}
             {{ field.errors }}
             <div class="margin-bottom-2">{{ field }}</div>
-             <span id="display_count">{{ field.help_text.1 }}</span> {{ field.help_text.2 }}
+             <span id="display_count">{{ field.help_text.1 }}</span><span id="count_message">{{ field.help_text.2 }}</span>
           </fieldset>
         {% endfor %}
       {% endif %}
@@ -115,17 +115,22 @@
   </div>
 <!-- move this later -->
 <script type="text/javascript">
-document.getElementById("id_1-violation_summary").onkeyup = function () {
-  if (this.value != null){
-    document.getElementById("display_count").innerHTML =  (500 - this.value.match(/\S+/g).length);
-    var words = this.value.match(/\S+/g).length;
-    if (words > 500) {
-      // Split the string on first 500 words and rejoin on spaces
-      var trimmed = this.value.split(/\s+/, 500).join(" ");
-      // replace the input with trimmed text
-      document.getElementById("id_1-violation_summary").value = trimmed
-    }
-  }
+if (document.getElementById("id_1-violation_summary")) {
+  document.getElementById("id_1-violation_summary").onkeyup = function () {
+      document.getElementById("display_count").innerHTML =  (500 - this.value.match(/\S+/g).length);
+      var words = this.value.match(/\S+/g).length;
+      if (words > 500) {
+        // Split the string on first 500 words and rejoin on spaces
+        var trimmed = this.value.split(/\s+/, 500).join(" ");
+        // replace the input with trimmed text
+        document.getElementById("id_1-violation_summary").value = trimmed;
+        document.getElementById("count_message").innerHTML = ' word limit reached';
+        document.getElementById("display_count").innerHTML = '500';
+      } else {
+        document.getElementById("display_count").innerHTML =  (500 - this.value.match(/\S+/g).length);
+        document.getElementById("count_message").innerHTML = ' words remaining.'
+      }
+  };
 };
 </script>
 
