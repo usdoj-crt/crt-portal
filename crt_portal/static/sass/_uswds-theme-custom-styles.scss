@@ -77,6 +77,13 @@ footer {
   background-color: #2E2E2A;
 }
 
+.look-like-link {
+  padding: 0;
+  border: none;
+  background: none;
+  text-decoration: underline;
+}
+
 // Header Styles
 h1 {
   @include u-font('heading', '2xl')

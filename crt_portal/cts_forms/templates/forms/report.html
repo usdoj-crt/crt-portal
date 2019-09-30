@@ -33,9 +33,7 @@
             </li>
           {% endfor %}
         </ol>
-        <!-- uncomment when there is more than one step on form
           <div id="connecting-line"></div>
-        -->
       </div>
     </div>
   </div>
@@ -92,25 +90,44 @@
               <em>{{ field.help_text }}</em>
               {{ field.errors }}
               <div class="margin-bottom-2">{{ field }}</div>
+              <em>{{ field.help_texts.below }}</em>
             </fieldset>
           {% endfor %}
         {% endfor %}
       {% else %}
         {% for field in wizard.form.visible_fields %}
           <fieldset class="usa-fieldset">
-            <legend class="margin-bottom-0">{{ field.label_tag }}</legend>
+            <h3 class="margin-bottom-1"><legend class="margin-bottom-0">{{ field.label_tag }}</legend></h3>
+            {{ field.help_text.0 }}
             {{ field.errors }}
             <div class="margin-bottom-2">{{ field }}</div>
-            {{ field.help_text }}
+             <span id="display_count">{{ field.help_text.1 }}</span> {{ field.help_text.2 }}
           </fieldset>
         {% endfor %}
       {% endif %}
-
+      <input type="submit" label="submit" value="{% trans "Next" %}" class="usa-button margin-bottom-1" />
       {% if wizard.steps.prev %}
-        <button name="wizard_goto_step" type="submit" label="first step" value="{{ wizard.steps.first }}" class="usa-button">{% trans "First" %}</button>
-        <button name="wizard_goto_step" type="submit" label="previous step" value="{{ wizard.steps.prev }}" class="usa-button">{% trans "Back" %}</button>
+        <br>
+        <button name="wizard_goto_step" type="submit" label="previous step" value="{{ wizard.steps.prev }}" class="look-like-link margin-bottom-9">{% trans "Back" %}</button>
       {% endif %}
-      <input type="submit" label="submit" value="{% trans "Next" %}" class="usa-button margin-bottom-9" />
+
     </form>
   </div>
+<!-- move this later -->
+<script type="text/javascript">
+document.getElementById("id_1-violation_summary").onkeyup = function () {
+  if (this.value != null){
+    document.getElementById("display_count").innerHTML =  (500 - this.value.match(/\S+/g).length);
+    var words = this.value.match(/\S+/g).length;
+    if (words > 500) {
+      // Split the string on first 500 words and rejoin on spaces
+      var trimmed = this.value.split(/\s+/, 500).join(" ");
+      // replace the input with trimmed text
+      document.getElementById("id_1-violation_summary").value = trimmed
+    }
+  }
+};
+</script>
+
+
 {% endblock %}
