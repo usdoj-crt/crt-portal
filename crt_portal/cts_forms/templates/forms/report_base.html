@@ -71,12 +71,13 @@
 
       {% block form_questions %}
       {% endblock %}
-
-      {% if wizard.steps.prev %}
-        <button name="wizard_goto_step" type="submit" label="first step" value="{{ wizard.steps.first }}" class="usa-button">{% trans "First" %}</button>
-        <button name="wizard_goto_step" type="submit" label="previous step" value="{{ wizard.steps.prev }}" class="usa-button">{% trans "Back" %}</button>
-      {% endif %}
-      <input type="submit" label="submit" value="{% trans "Next" %}" class="usa-button margin-bottom-9" />
+      <div class="margin-bottom-9">
+        <input type="submit" label="submit" value="{% trans "Next" %}" class="usa-button" />
+        {% if wizard.steps.prev %}
+          <br>
+          <button name="wizard_goto_step" type="submit" label="previous step" value="{{ wizard.steps.prev }}" class="look-like-link margin-top-2">{% trans "Back" %}</button>
+        {% endif %}
+      </div>
     </form>
   </div>
 {% endblock %}
