@@ -16,9 +16,18 @@ def IndexView(request):
     return render_to_response('forms/index.html', {'data_dict': latest_reports})
 
 
+TEMPLATES = [
+    # Contact
+    'forms/grouped_questions.html',
+    # Details
+    'forms/report_contact.html',
+]
+
+
 class CRTReportWizard(SessionWizardView):
     """Once all the sub-forms are submitted this class will clean data and save."""
-    template_name = 'forms/report.html'
+    def get_template_names(self):
+        return [TEMPLATES[int(self.steps.current)]]
 
     def get_context_data(self, form, **kwargs):
         context = super(CRTReportWizard, self).get_context_data(form=form, **kwargs)
