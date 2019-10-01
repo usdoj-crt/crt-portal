@@ -18,9 +18,9 @@ def IndexView(request):
 
 TEMPLATES = [
     # Contact
-    'forms/grouped_questions.html',
+    'forms/report_grouped_questions.html',
     # Details
-    'forms/report_contact.html',
+    'forms/report_details.html',
 ]
 
 
