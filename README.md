@@ -85,7 +85,7 @@ For working with cloud.gov directly, you will need to [install the cloud foundry
 
 First, login to cloud.gov at https://login.fr.cloud.gov/login and then, get a passcode https://login.fr.cloud.gov/passcode.
 
-Log on with `cf login -a api.fr.cloud.gov --sso-passcode <put_passcode_here>` 
+Log on with `cf login -a api.fr.cloud.gov --sso-passcode <put_passcode_here>`
 
 ### Initial cloud.gov set up
 First, log into the desired space.
@@ -134,7 +134,7 @@ Once in, activate local env
 
 Then, you can create a superuser
 
-    python /crt_portal/manage.py createsuperuser
+    python crt_portal/manage.py createsuperuser
 
 ### Subsequent deploys
 
