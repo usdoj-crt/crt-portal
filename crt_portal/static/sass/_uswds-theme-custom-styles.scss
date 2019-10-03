@@ -61,6 +61,7 @@ footer {
 
 .usa-button {
   background-color: $blue-warm-70v;
+  margin: 0;
 }
 
 // Textarea no resize
@@ -156,4 +157,11 @@ form#report-form {
 
 #word-limit-alert.usa-alert.usa-alert--warning {
   background-image: url(../img/alerts/word-count-alert.svg),linear-gradient(transparent,transparent);
+}
+
+legend, .page-legend {
+  color: $blue-warm-70v;
+  font-weight: bold;
+  font-size: 1.17em; // Matches h3 size
+  margin-bottom: 0.5rem;
 }

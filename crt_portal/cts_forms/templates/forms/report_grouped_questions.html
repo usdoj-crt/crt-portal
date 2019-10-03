@@ -1,30 +1,33 @@
 {% extends "forms/report_base.html" %}
 {% block form_questions %}
-  <h3 class="margin-bottom-1">
-    {{ step_question }}
-  </h3>
+  <div class="page-legend">{{ step_question }}</div>
 
   {% if step_helptext %}
   <div class="margin-bottom-4"><em>{{ step_helptext }}</em></div>
   {% endif %}
 
   {% for question_group in wizard.form.question_groups %}
-    <h3 class="margin-bottom-1">
-      {{ question_group.group_name }}
-      {% if question_group.optional %}
-        <span class="question_group_optional_tag">(optional)</span>
-      {% endif %}
-    </h3>
-    <div class="margin-bottom-3"><em>{{ question_group.help_text }}</em></div>
+    <fieldset class="usa-fieldset margin-bottom-5">
+      <div class="margin-bottom-3">
+        <legend>
+          {{ question_group.group_name }}
+          {% if question_group.optional %}
+            <span class="question_group_optional_tag">(optional)</span>
+          {% endif %}
+        </legend>
+        {% if question_group.help_text %}
+          <em>{{ question_group.help_text }}</em>
+        {% endif %}
+      </div>
 
-    {% for field in question_group %}
-      <fieldset class="usa-fieldset margin-bottom-1">
-        <legend class="margin-bottom-0">{{ field.label_tag }}</legend>
+      {% for field in question_group %}
+        <label class="margin-bottom-0">{{ field.label_tag }}</label>
         <em>{{ field.help_text }}</em>
         {{ field.errors }}
-        <div class="margin-bottom-2">{{ field }}</div>
-        <em>{{ field.help_texts.below }}</em>
-      </fieldset>
-    {% endfor %}
+        <div {% if forloop.last %}{% else %}class="margin-bottom-2"{% endif %}>
+          {{ field }}
+        </div>
+      {% endfor %}
+    </fieldset>
   {% endfor %}
 {% endblock %}

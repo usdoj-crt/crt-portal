@@ -4,9 +4,9 @@
 
 {% for field in wizard.form.visible_fields %}
   <fieldset class="usa-fieldset">
-    <h3><legend class="margin-bottom-0 usa-prose-h3">{{ field.label_tag }}</legend></h3>
+    <legend>{{ field.label_tag }}</legend>
     <div class="margin-bottom-2">
-      <p class="usa-prose"><em>{{ field.help_text.0 }}</em></p>
+      <p><em>{{ field.help_text.0 }}</em></p>
       {{ field.errors }}
     </div>
     <div class="margin-bottom-1">
