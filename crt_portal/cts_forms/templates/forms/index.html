@@ -56,7 +56,7 @@
             </td>
             <td>
             {% with summary=violationreport.violation_summary|default:"—" %}
-                {{ summary|truncatechars:125 }}
+                {{ summary|truncatechars:120 }}
             {% endwith %}
             </td>
           </tr>
