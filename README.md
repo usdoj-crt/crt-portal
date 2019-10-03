@@ -122,6 +122,14 @@ To deploy manually, make sure you are logged in, run the push command and pass i
 
 That will push to cloud.gov according to the instructions in the manifest and Profile.
 
+### User roles and permissions
+
+As of October 2019, we have two user roles in the system:
+
+* __Staff.__ Logged-in staff can view the table of complaints at `/form/view`.
+
+* __Admin (superusers).__ Logged-in admins can add and remove users, adjust form details such as protected classes, and view the table of complaints at `/form/view`.
+
 ### Create admin accounts
 
 Need to ssh to create superuser (would like to do this automatically in another PR)
