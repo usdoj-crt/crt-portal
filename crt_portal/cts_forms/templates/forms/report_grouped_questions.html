@@ -8,17 +8,16 @@
 
   {% for question_group in wizard.form.question_groups %}
     <fieldset class="usa-fieldset margin-bottom-5">
-      <div class="margin-bottom-3">
-        <legend>
-          {{ question_group.group_name }}
-          {% if question_group.optional %}
-            <span class="question_group_optional_tag">(optional)</span>
-          {% endif %}
-        </legend>
-        {% if question_group.help_text %}
-          <em>{{ question_group.help_text }}</em>
+      <legend>
+        {{ question_group.group_name }}
+        {% if question_group.optional %}
+          <span class="question_group_optional_tag">(optional)</span>
         {% endif %}
-      </div>
+      </legend>
+      {% if question_group.help_text %}
+        <em>{{ question_group.help_text }}</em>
+      {% endif %}
+      <div class="margin-bottom-3"></div>
 
       {% for field in question_group %}
         <label class="margin-bottom-0">{{ field.label_tag }}</label>
