@@ -153,3 +153,7 @@ form#report-form {
 .usa-input {
   width: 320px;
 }
+
+#word-limit-alert.usa-alert.usa-alert--warning {
+  background-image: url(../img/alerts/word-count-alert.svg),linear-gradient(transparent,transparent);
+}
