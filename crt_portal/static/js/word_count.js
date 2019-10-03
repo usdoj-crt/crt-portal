@@ -2,6 +2,9 @@ var textAreaElem = document.getElementById("id_1-violation_summary");
 var displayCountElem = document.getElementById("display_count");
 var countMessageElem = document.getElementById("count_message");
 
+var wordLimitAlert = document.getElementById("word-limit-alert");
+wordLimitAlert.style.display = 'none';
+
 function updateWordCount (e) {
     // Ignore `e` and read the value directly from the textarea here;
     // we want this function to work even if the user hasn't typed
@@ -11,16 +14,18 @@ function updateWordCount (e) {
 
     displayCountElem.innerHTML = (500 - words);
 
-    if (words > 500) {
+    if (words >= 500) {
       // Split the string on first 500 words and rejoin on spaces
       var trimmed = textAreaElem.value.split(/\s+/, 500).join(" ");
       // replace the input with trimmed text
       textAreaElem.value = trimmed;
-      countMessageElem.innerHTML = ' word limit reached';
-      displayCountElem.innerHTML = '500';
+      countMessageElem.innerHTML = ' word(s) remaining';
+      displayCountElem.innerHTML = '0';
+      wordLimitAlert.style.display = 'block';
     } else {
       displayCountElem.innerHTML =  (500 - words);
       countMessageElem.innerHTML = ' word(s) remaining'
+      wordLimitAlert.style.display = 'none';
     }
 };
 
@@ -32,4 +37,3 @@ if (textAreaElem) {
 
   document.addEventListener('keyup', updateWordCount);
 };
-
