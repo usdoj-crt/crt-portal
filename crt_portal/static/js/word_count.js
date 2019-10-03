@@ -15,17 +15,17 @@ function updateWordCount (e) {
     displayCountElem.innerHTML = (500 - words);
 
     if (words >= 500) {
-      // Split the string on first 500 words and rejoin on spaces
+      // Word count greater than or equal to 500 word limit.
+      // Trim the text down to the first 500 words:
       var trimmed = textAreaElem.value.split(/\s+/, 500).join(" ");
-      // replace the input with trimmed text
       textAreaElem.value = trimmed;
-      countMessageElem.innerHTML = ' word(s) remaining';
+
+      // Update display for user:
       displayCountElem.innerHTML = '0';
-      wordLimitAlert.style.display = 'block';
+      wordLimitAlert.style.display = 'block';  // Show alert
     } else {
-      displayCountElem.innerHTML =  (500 - words);
-      countMessageElem.innerHTML = ' word(s) remaining'
-      wordLimitAlert.style.display = 'none';
+      displayCountElem.innerHTML = (500 - words);
+      wordLimitAlert.style.display = 'none';  // Hide alert
     }
 };
 

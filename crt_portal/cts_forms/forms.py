@@ -65,7 +65,6 @@ class Details(ModelForm):
             "already stated. Document upload is not available at this time, but please describe "
             "if you have evidence you’d like to include later.",
             500,
-            'word(s) remaining'
         ]
 
     class Meta:
