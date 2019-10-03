@@ -25,6 +25,7 @@ i.e.
 $text-ink: #1B1B1B;
 $bg-yellow: #FEE685;
 $header-background: #F6F6F2;
+$blue-warm-70v: #1A4480;
 
 // Sticky Footer (IE 10/11)
 // Based on: https://codepen.io/dezertdezine/pen/zKjggy
@@ -56,6 +57,10 @@ footer {
 // Form Width
 .usa-form {
   max-width: 30rem !important;
+}
+
+.usa-button {
+  background-color: $blue-warm-70v;
 }
 
 // Textarea no resize
