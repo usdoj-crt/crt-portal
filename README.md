@@ -128,7 +128,7 @@ As of October 2019, we have two user roles in the system:
 
 * __Staff.__ Logged-in staff can view the table of complaints at `/form/view`.
 
-* __Admin (superusers).__ Logged-in admins can add and remove users, adjust form details such as protected classes, and view the table of complaints at `/form/view`.
+* __Admin (superusers).__ Logged-in admins can add and remove users, adjust form settings such as the list of protected classes, and view the table of complaints at `/form/view`.
 
 As we build out the product, we expect to add more granular user roles and permissions.
 
