@@ -67,21 +67,14 @@ class Validation_Form_Tests(TestCase):
 
     #     self.assertTrue('primary_complaint<ul class="errorlist"><li>This field is required.' in str(form.errors))
 
-    def test_required_when(self):
-        form = Details(data={
-            'violation_summary': 'Hello! I have a problem.',
-            'when': '',
-            'how_many': 'no',
-        })
-        self.assertTrue('when<ul class="errorlist"><li>This field is required.' in str(form.errors))
-
-    def test_required_violation_summary(self):
-        form = Details(data={
-            'violation_summary': '',
-            'when': 'last_6_months',
-            'how_many': 'no',
-        })
-        self.assertTrue('violation_summary<ul class="errorlist"><li>This field is required.' in str(form.errors))
+    # NOTE: Commenting out this test until the When story comes to the dev queue.
+    # def test_required_when(self):
+    #     form = Details(data={
+    #         'violation_summary': 'Hello! I have a problem.',
+    #         'when': '',
+    #         'how_many': 'no',
+    #     })
+    #     self.assertTrue('when<ul class="errorlist"><li>This field is required.' in str(form.errors))
 
     def test_required_where(self):
         form = Where(data={

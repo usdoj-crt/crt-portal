@@ -1,0 +1,14 @@
+{% extends "forms/report_base.html" %}
+{% block form_questions %}
+<p class="margin-top-0"><em>{{ page_note }}</em></p>
+
+{% for field in wizard.form.visible_fields %}
+  <fieldset class="usa-fieldset">
+    <h3><legend class="margin-bottom-0 usa-prose-h3">{{ field.label_tag }}</legend></h3>
+    <div class="margin-bottom-2"><p class="usa-prose"><em>{{ field.help_text.0 }}</em></p>
+    {{ field.errors }}</div>
+    <div class="margin-bottom-2">{{ field }}</div>
+    <span id="display_count">{{ field.help_text.1 }}</span><span id="count_message"> {{ field.help_text.2 }}</span>
+  </fieldset>
+{% endfor %}
+{% endblock %}
