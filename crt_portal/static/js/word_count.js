@@ -3,7 +3,7 @@ var displayCountElem = document.getElementById("display_count");
 var countMessageElem = document.getElementById("count_message");
 
 var wordLimitAlert = document.getElementById("word-limit-alert");
-wordLimitAlert.style.display = 'none';
+if (wordLimitAlert) { wordLimitAlert.style.display = 'none'; }
 
 function updateWordCount (e) {
     // Ignore `e` and read the value directly from the textarea here;
