@@ -120,7 +120,7 @@ h1 {
 }
 
 h2 {
-  @include u-font('body', '2xl')
+  @include u-font('body', 'xl')
 }
 
 .intro-subtitle {
