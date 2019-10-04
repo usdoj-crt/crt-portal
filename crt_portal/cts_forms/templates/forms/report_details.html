@@ -5,7 +5,7 @@
 <fieldset class="usa-fieldset">
   <div class="page-legend">{{ step_question }}</div>
   {% for field in wizard.form.visible_fields %}
-    <div class="margin-bottom-2">
+    <div class="usa-prose margin-bottom-2">
       <p><em>{{ field.help_text }}</em></p>
       {{ field.errors }}
     </div>
