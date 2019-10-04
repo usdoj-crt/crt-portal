@@ -130,6 +130,8 @@ As of October 2019, we have two user roles in the system:
 
 * __Admin (superusers).__ Logged-in admins can add and remove users, adjust form settings such as the list of protected classes, and view the table of complaints at `/form/view`.
 
+Please update the [Accounts Spreadsheet](https://docs.google.com/spreadsheets/d/1VM5hSsxUgqFM6t51Ejm_EjxnbxLI-pTXF_CVxZJSekQ/edit#gid=0) if you create or modify any user accounts.
+
 As we build out the product, we expect to add more granular user roles and permissions.
 
 ### Create admin accounts
