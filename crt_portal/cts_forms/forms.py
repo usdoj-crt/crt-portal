@@ -59,13 +59,12 @@ class Details(ModelForm):
         super(ModelForm, self).__init__(*args, **kwargs)
         self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea'
         self.fields['violation_summary'].label = 'Please describe what happened in your own words'
-        self.fields['violation_summary'].help_text = [
+        self.fields['violation_summary'].help_text = (
             "This is your opportunity to share any additional details you think would be helpful "
             "for us to know like time, names, witnesses to the event, or anything you haven’t "
             "already stated. Document upload is not available at this time, but please describe "
-            "if you have evidence you’d like to include later.",
-            500,
-        ]
+            "if you have evidence you’d like to include later."
+        )
 
     class Meta:
         model = Report
