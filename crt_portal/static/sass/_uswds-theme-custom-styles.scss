@@ -22,11 +22,11 @@ i.e.
 
 // Variables
 
-$text-ink: #1B1B1B;
 $bg-yellow: #FEE685;
 $bg-gold: #FFBE2E;
-$header-background: #F6F6F2;
+$light-beige: #F6F6F2;
 $blue-warm-70v: #1A4480;
+$bg-gray-warm-80: #2E2E2A;
 
 // Sticky Footer (IE 10/11)
 // Based on: https://codepen.io/dezertdezine/pen/zKjggy
@@ -55,15 +55,23 @@ footer {
   padding: 0 8px;
 }
 
+p, em, label, h2 {
+  color: $bg-gray-warm-80;
+}
+
 // Form Width
 .usa-form {
   max-width: 30rem !important;
+
+  .usa-button {
+    background-color: $blue-warm-70v;
+
+    @media (min-width: 30em) {
+      margin-top: 0;
+    }
+  }
 }
 
-.usa-button {
-  background-color: $blue-warm-70v;
-  margin: 0;
-}
 
 // Textarea no resize
 textarea {
@@ -146,7 +154,7 @@ h3 {
 // Header area
 
 .page-header-background {
-  background-color: $header-background;
+  background-color: $light-beige;
 }
 
 // Django Formtools Wizard customization
@@ -159,7 +167,7 @@ form#report-form {
 
 .question_group_optional_tag {
   font-weight: lighter;
-  color: $text-ink;
+  color: $bg-gray-warm-80;
 }
 
 .usa-input {

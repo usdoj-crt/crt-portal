@@ -62,6 +62,7 @@ class CRTReportWizard(SessionWizardView):
             })
         if current_step_name == 'Details':
             context.update({
+                'step_question': 'Please describe what happened in your own words',
                 'page_note': 'Continued'
             })
 

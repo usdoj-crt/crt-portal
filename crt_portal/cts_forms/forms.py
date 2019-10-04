@@ -58,7 +58,6 @@ class Details(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)
         self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea'
-        self.fields['violation_summary'].label = 'Please describe what happened in your own words'
         self.fields['violation_summary'].help_text = (
             "This is your opportunity to share any additional details you think would be helpful "
             "for us to know like time, names, witnesses to the event, or anything you haven’t "

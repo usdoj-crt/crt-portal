@@ -1,10 +1,10 @@
 {% extends "forms/report_base.html" %}
 {% block form_questions %}
-<p class="margin-top-0"><em>{{ page_note }}</em></p>
+<p class="margin-top-1 margin-bottom-4"><em>{{ page_note }}</em></p>
 
-{% for field in wizard.form.visible_fields %}
-  <fieldset class="usa-fieldset">
-    <legend>{{ field.label_tag }}</legend>
+<fieldset class="usa-fieldset">
+  <div class="page-legend">{{ step_question }}</div>
+  {% for field in wizard.form.visible_fields %}
     <div class="margin-bottom-2">
       <p><em>{{ field.help_text }}</em></p>
       {{ field.errors }}
@@ -21,6 +21,7 @@
         <em class="usa-alert__text">500 word limit reached</em>
       </div>
     </div>
-  </fieldset>
-{% endfor %}
+  {% endfor %}
+</fieldset>
+<div class="margin-bottom-4"></div>
 {% endblock %}
