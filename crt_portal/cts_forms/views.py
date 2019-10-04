@@ -57,12 +57,12 @@ class CRTReportWizard(SessionWizardView):
 
         if current_step_name == 'Contact':
             context.update({
-                'step_question': 'Who should we contact about this issue?',
+                'page_subtitle': 'Who should we contact about this issue?',
                 'step_helptext': "To ask for additional information or respond to your submission, we'll need to know the best person to contact."
             })
         if current_step_name == 'Details':
             context.update({
-                'step_question': 'Please describe what happened in your own words',
+                'page_subtitle': 'Please describe what happened in your own words',
                 'page_note': 'Continued'
             })
 

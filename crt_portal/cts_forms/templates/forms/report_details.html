@@ -3,7 +3,7 @@
 <p class="margin-top-1 margin-bottom-4"><em>{{ page_note }}</em></p>
 
 <fieldset class="usa-fieldset">
-  <div class="page-legend">{{ step_question }}</div>
+  <div class="page-subtitle">{{ page_subtitle }}</div>
   {% for field in wizard.form.visible_fields %}
     <div class="usa-prose margin-bottom-2">
       <p><em>{{ field.help_text }}</em></p>
