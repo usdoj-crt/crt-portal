@@ -74,8 +74,9 @@ p, em, label, h2 {
 
 
 // Textarea no resize
-textarea {
+textarea.usa-textarea {
   resize: none;
+  height: 15rem;
 
    &.bg-gold-outline {
     outline: .25rem solid $bg-gold;
