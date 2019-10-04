@@ -23,9 +23,11 @@ function updateWordCount (e) {
       // Update display for user:
       displayCountElem.innerHTML = '0';
       wordLimitAlert.style.display = 'block';  // Show alert
+      textAreaElem.classList.add('bg-gold-outline');
     } else {
       displayCountElem.innerHTML = (500 - words);
       wordLimitAlert.style.display = 'none';  // Hide alert
+      textAreaElem.classList.remove('bg-gold-outline');
     }
 };
 

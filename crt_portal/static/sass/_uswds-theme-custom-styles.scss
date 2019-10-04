@@ -24,6 +24,7 @@ i.e.
 
 $text-ink: #1B1B1B;
 $bg-yellow: #FEE685;
+$bg-gold: #FFBE2E;
 $header-background: #F6F6F2;
 $blue-warm-70v: #1A4480;
 
@@ -67,6 +68,16 @@ footer {
 // Textarea no resize
 textarea {
   resize: none;
+
+   &.bg-gold-outline {
+    outline: .25rem solid $bg-gold;
+  }
+
+  // Override default USWDS blue outline
+  // on focused form control elements
+   &.bg-gold-outline:focus {
+    outline: .25rem solid $bg-gold;
+  }
 }
 
 // Input Overrides
@@ -124,7 +135,7 @@ h3 {
   }
 
   .usa-banner__button {
-    color: #FFBE2E;
+    color: $bg-gold;
 
     &:hover {
       color: $bg-yellow;
