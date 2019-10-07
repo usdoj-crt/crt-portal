@@ -15,7 +15,9 @@ function updateWordCount (e) {
     if (words >= 500) {
       // Word count greater than or equal to 500 word limit.
       // Trim the text down to the first 500 words:
-      var trimmed = textAreaElem.value.split(/\s+/, 500).join(" ");
+      var trimmed = textAreaElem.value.split(" ", 500).join(" ")
+                                      .split("\t", 500).join("\t")
+                                      .split("\n", 500).join("\n");
       textAreaElem.value = trimmed;
 
       // Update display for user:
