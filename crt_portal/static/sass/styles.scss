@@ -36,6 +36,11 @@
 @import 'wizard-progress-bar';
 
 // -------------------------------------
+// Import IE shims
+
+@import 'internet-explorer';
+
+// -------------------------------------
 // Import theme custom styles
 
 @import 'uswds-theme-custom-styles';

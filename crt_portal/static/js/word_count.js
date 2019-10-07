@@ -1,9 +1,7 @@
 var textAreaElem = document.getElementById("id_1-violation_summary");
 var displayCountElem = document.getElementById("display_count");
 var countMessageElem = document.getElementById("count_message");
-
 var wordLimitAlert = document.getElementById("word-limit-alert");
-if (wordLimitAlert) { wordLimitAlert.style.display = 'none'; }
 
 function updateWordCount (e) {
     // Ignore `e` and read the value directly from the textarea here;
@@ -22,12 +20,12 @@ function updateWordCount (e) {
 
       // Update display for user:
       displayCountElem.innerHTML = '0';
-      wordLimitAlert.style.display = 'block';  // Show alert
       textAreaElem.classList.add('bg-gold-outline');
+      wordLimitAlert.removeAttribute('hidden');
     } else {
       displayCountElem.innerHTML = (500 - words);
-      wordLimitAlert.style.display = 'none';  // Hide alert
       textAreaElem.classList.remove('bg-gold-outline');
+      wordLimitAlert.setAttribute('hidden', '');
     }
 };
 
