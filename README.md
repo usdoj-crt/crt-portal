@@ -85,7 +85,7 @@ For working with cloud.gov directly, you will need to [install the cloud foundry
 
 First, login to cloud.gov at https://login.fr.cloud.gov/login and then, get a passcode https://login.fr.cloud.gov/passcode.
 
-Log on with `cf login -a api.fr.cloud.gov --sso-passcode <put_passcode_here>` 
+Log on with `cf login -a api.fr.cloud.gov --sso-passcode <put_passcode_here>`
 
 ### Initial cloud.gov set up
 First, log into the desired space.
@@ -122,6 +122,18 @@ To deploy manually, make sure you are logged in, run the push command and pass i
 
 That will push to cloud.gov according to the instructions in the manifest and Profile.
 
+### User roles and permissions
+
+As of October 2019, we have two user roles in the system:
+
+* __Staff.__ Logged-in staff can view the table of complaints at `/form/view`.
+
+* __Admin (superusers).__ Logged-in admins can add and remove users, adjust form settings such as the list of protected classes, and view the table of complaints at `/form/view`.
+
+Please update the [Accounts Spreadsheet](https://docs.google.com/spreadsheets/d/1VM5hSsxUgqFM6t51Ejm_EjxnbxLI-pTXF_CVxZJSekQ/edit#gid=0) if you create or modify any user accounts.
+
+As we build out the product, we expect to add more granular user roles and permissions.
+
 ### Create admin accounts
 
 Need to ssh to create superuser (would like to do this automatically in another PR)
@@ -134,7 +146,7 @@ Once in, activate local env
 
 Then, you can create a superuser
 
-    python /crt_portal/manage.py createsuperuser
+    python crt_portal/manage.py createsuperuser
 
 ### Subsequent deploys
 
