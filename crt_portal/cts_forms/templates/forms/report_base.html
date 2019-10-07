@@ -1,5 +1,6 @@
 {% extends "forms/base.html" %}
 {% load i18n %}
+{% load static %}
 {% block head %}
   {{ wizard.form.media }}
 {% endblock %}
@@ -64,53 +65,33 @@
         {{ hidden_field }}
       {% endfor %}
 
-      <h2 class="margin-top-5 margin-bottom-4">
-        {{ current_step_name }}
+      <h2 class="margin-top-5 margin-bottom-0">
+        {{ current_step_title }}
       </h2>
-      <h3 class="margin-bottom-1">
-        {{ step_question }}
-      </h3>
-      {% if step_helptext %}
-        <div class="margin-bottom-4"><em>{{ step_helptext }}</em></div>
-      {% endif %}
 
-      {% if wizard.form.question_groups %}
-        {# Phasing in question grouping so that we can add names and help text to groups of questions #}
+      {% block form_questions %}
+      {% endblock %}
 
-        {% for question_group in wizard.form.question_groups %}
-          <h3 class="margin-bottom-1">
-            {{ question_group.group_name }}
-            {% if question_group.optional %}
-              <span class="question_group_optional_tag">(optional)</span>
-            {% endif %}
-          </h3>
-          <div class="margin-bottom-3"><em>{{ question_group.help_text }}</em></div>
-
-          {% for field in question_group %}
-            <fieldset class="usa-fieldset margin-bottom-1">
-              <legend class="margin-bottom-0">{{ field.label_tag }}</legend>
-              <em>{{ field.help_text }}</em>
-              {{ field.errors }}
-              <div class="margin-bottom-2">{{ field }}</div>
-            </fieldset>
-          {% endfor %}
-        {% endfor %}
-      {% else %}
-        {% for field in wizard.form.visible_fields %}
-          <fieldset class="usa-fieldset">
-            <legend class="margin-bottom-0">{{ field.label_tag }}</legend>
-            {{ field.errors }}
-            <div class="margin-bottom-2">{{ field }}</div>
-            {{ field.help_text }}
-          </fieldset>
-        {% endfor %}
-      {% endif %}
-
-      {% if wizard.steps.prev %}
-        <button name="wizard_goto_step" type="submit" label="first step" value="{{ wizard.steps.first }}" class="usa-button">{% trans "First" %}</button>
-        <button name="wizard_goto_step" type="submit" label="previous step" value="{{ wizard.steps.prev }}" class="usa-button">{% trans "Back" %}</button>
-      {% endif %}
-      <input type="submit" label="submit" value="{% trans "Next" %}" class="usa-button margin-bottom-9" />
+      <div class="margin-bottom-9">
+        <input type="submit"
+               label="submit"
+               value="{% trans 'Next' %}"
+               class="usa-button" />
+        {% if wizard.steps.prev %}
+          <br/>
+          <button name="wizard_goto_step"
+                  type="submit"
+                  label="previous step"
+                  value="{{ wizard.steps.prev }}"
+                  class="look-like-link margin-top-2">
+            {% trans "Back" %}
+          </button>
+        {% endif %}
+      </div>
     </form>
   </div>
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'js/word_count.js' %}"></script>
 {% endblock %}

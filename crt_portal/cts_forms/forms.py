@@ -3,7 +3,7 @@ from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxInput, \
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple
 from .models import Report, ProtectedClass
-from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, HOW_MANY_CHOICES, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES
+from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES
 from .phone_regex import phone_validation_regex
 
 import logging
@@ -52,6 +52,19 @@ class Contact(ModelForm):
                 'title': 'If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.'
             }),
         }
+
+
+class Details(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ModelForm, self).__init__(*args, **kwargs)
+        self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea'
+        self.fields['violation_summary'].help_text = "This is your opportunity to share any additional details you think would be helpful for us to know like time, names, witnesses to the event, or anything you haven’t already stated. Document upload is not available at this time, but please describe if you have evidence you’d like to include later."
+
+    class Meta:
+        model = Report
+        fields = [
+            'violation_summary'
+        ]
 
 
 class WhatHappened(ModelForm):
@@ -117,17 +130,4 @@ class Who(ModelForm):
         fields = ['respondent_contact_ask', 'respondent_type', 'respondent_name', 'respondent_city', 'respondent_state']
         widgets = {
             'respondent_contact_ask': CheckboxInput,
-        }
-
-
-class Details(ModelForm):
-    how_many = TypedChoiceField(
-        choices=HOW_MANY_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-    )
-
-    class Meta:
-        model = Report
-        fields = ['violation_summary', 'when', 'how_many']
-        widgets = {
-            'when': UsaRadioSelect,
         }

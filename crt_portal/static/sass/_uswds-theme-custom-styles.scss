@@ -22,9 +22,11 @@ i.e.
 
 // Variables
 
-$text-ink: #1B1B1B;
 $bg-yellow: #FEE685;
-$header-background: #F6F6F2;
+$bg-gold: #FFBE2E;
+$light-beige: #F6F6F2;
+$blue-warm-70v: #1A4480;
+$bg-gray-warm-80: #2E2E2A;
 
 // Sticky Footer (IE 10/11)
 // Based on: https://codepen.io/dezertdezine/pen/zKjggy
@@ -41,6 +43,10 @@ body {
 
 main {
   flex: 1 0 auto;
+
+  p, em, label, h2 {
+    color: $bg-gray-warm-80;
+  }
 }
 
 footer {
@@ -56,6 +62,31 @@ footer {
 // Form Width
 .usa-form {
   max-width: 30rem !important;
+
+  .usa-button {
+    background-color: $blue-warm-70v;
+
+    @media (min-width: 30em) {
+      margin-top: 0;
+    }
+  }
+}
+
+
+// Textarea no resize
+textarea.usa-textarea {
+  resize: none;
+  height: 15rem;
+
+   &.bg-gold-outline {
+    outline: .25rem solid $bg-gold;
+  }
+
+  // Override default USWDS blue outline
+  // on focused form control elements
+   &.bg-gold-outline:focus {
+    outline: .25rem solid $bg-gold;
+  }
 }
 
 // Input Overrides
@@ -77,13 +108,20 @@ footer {
   background-color: #2E2E2A;
 }
 
+.look-like-link {
+  padding: 0;
+  border: none;
+  background: none;
+  text-decoration: underline;
+}
+
 // Header Styles
 h1 {
   @include u-font('heading', '2xl')
 }
 
 h2 {
-  @include u-font('body', '2xl')
+  @include u-font('body', 'xl')
 }
 
 .intro-subtitle {
@@ -106,7 +144,7 @@ h3 {
   }
 
   .usa-banner__button {
-    color: #FFBE2E;
+    color: $bg-gold;
 
     &:hover {
       color: $bg-yellow;
@@ -117,7 +155,7 @@ h3 {
 // Header area
 
 .page-header-background {
-  background-color: $header-background;
+  background-color: $light-beige;
 }
 
 // Django Formtools Wizard customization
@@ -130,7 +168,7 @@ form#report-form {
 
 .question_group_optional_tag {
   font-weight: lighter;
-  color: $text-ink;
+  color: $bg-gray-warm-80;
 }
 
 .usa-input {
@@ -154,4 +192,15 @@ form#report-form {
   background: #FFFFFF;
   line-height: 25.92px;
   text-transform: uppercase;
+}
+
+#word-limit-alert.usa-alert.usa-alert--warning {
+  background-image: url(../img/alerts/word-count-alert.svg),linear-gradient(transparent,transparent);
+}
+
+legend, .page-subtitle {
+  color: $blue-warm-70v;
+  font-weight: bold;
+  font-size: 1.17em; // Matches h3 size
+  margin-bottom: 0.5rem;
 }
