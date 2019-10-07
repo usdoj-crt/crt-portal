@@ -2,6 +2,9 @@ var textAreaElem = document.getElementById("id_1-violation_summary");
 var displayCountElem = document.getElementById("display_count");
 var countMessageElem = document.getElementById("count_message");
 
+var wordLimitAlert = document.getElementById("word-limit-alert");
+if (wordLimitAlert) { wordLimitAlert.style.display = 'none'; }
+
 function updateWordCount (e) {
     // Ignore `e` and read the value directly from the textarea here;
     // we want this function to work even if the user hasn't typed
@@ -11,16 +14,20 @@ function updateWordCount (e) {
 
     displayCountElem.innerHTML = (500 - words);
 
-    if (words > 500) {
-      // Split the string on first 500 words and rejoin on spaces
+    if (words >= 500) {
+      // Word count greater than or equal to 500 word limit.
+      // Trim the text down to the first 500 words:
       var trimmed = textAreaElem.value.split(/\s+/, 500).join(" ");
-      // replace the input with trimmed text
       textAreaElem.value = trimmed;
-      countMessageElem.innerHTML = ' word limit reached';
-      displayCountElem.innerHTML = '500';
+
+      // Update display for user:
+      displayCountElem.innerHTML = '0';
+      wordLimitAlert.style.display = 'block';  // Show alert
+      textAreaElem.classList.add('bg-gold-outline');
     } else {
-      displayCountElem.innerHTML =  (500 - words);
-      countMessageElem.innerHTML = ' word(s) remaining'
+      displayCountElem.innerHTML = (500 - words);
+      wordLimitAlert.style.display = 'none';  // Hide alert
+      textAreaElem.classList.remove('bg-gold-outline');
     }
 };
 
@@ -32,4 +39,3 @@ if (textAreaElem) {
 
   document.addEventListener('keyup', updateWordCount);
 };
-

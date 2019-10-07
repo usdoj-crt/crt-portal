@@ -1,14 +1,27 @@
 {% extends "forms/report_base.html" %}
 {% block form_questions %}
-<p class="margin-top-0"><em>{{ page_note }}</em></p>
+<p class="margin-top-1 margin-bottom-4"><em>{{ page_note }}</em></p>
 
-{% for field in wizard.form.visible_fields %}
-  <fieldset class="usa-fieldset">
-    <h3><legend class="margin-bottom-0 usa-prose-h3">{{ field.label_tag }}</legend></h3>
-    <div class="margin-bottom-2"><p class="usa-prose"><em>{{ field.help_text.0 }}</em></p>
-    {{ field.errors }}</div>
-    <div class="margin-bottom-2">{{ field }}</div>
-    <span id="display_count">{{ field.help_text.1 }}</span><span id="count_message"> {{ field.help_text.2 }}</span>
-  </fieldset>
-{% endfor %}
+<fieldset class="usa-fieldset">
+  <div class="page-subtitle">{{ page_subtitle }}</div>
+  {% for field in wizard.form.visible_fields %}
+    <div class="usa-prose margin-bottom-2">
+      <p><em>{{ field.help_text }}</em></p>
+      {{ field.errors }}
+    </div>
+    <div class="margin-bottom-1">
+      {{ field }}
+    </div>
+    <em>
+      <span id="display_count">500</span>
+      <span id="count_message">word(s) remaining</span>
+    </em>
+    <div id="word-limit-alert" class="usa-alert usa-alert--warning usa-alert--slim" >
+      <div class="usa-alert__body">
+        <em class="usa-alert__text">500 word limit reached</em>
+      </div>
+    </div>
+  {% endfor %}
+</fieldset>
+<div class="margin-bottom-5"></div>
 {% endblock %}

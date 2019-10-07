@@ -65,17 +65,27 @@
         {{ hidden_field }}
       {% endfor %}
 
-      <h2 class="margin-top-5 margin-bottom-4">
-        {{ current_step_name }}
+      <h2 class="margin-top-5 margin-bottom-0">
+        {{ current_step_title }}
       </h2>
 
       {% block form_questions %}
       {% endblock %}
+
       <div class="margin-bottom-9">
-        <input type="submit" label="submit" value="{% trans "Next" %}" class="usa-button" />
+        <input type="submit"
+               label="submit"
+               value="{% trans 'Next' %}"
+               class="usa-button" />
         {% if wizard.steps.prev %}
-          <br>
-          <button name="wizard_goto_step" type="submit" label="previous step" value="{{ wizard.steps.prev }}" class="look-like-link margin-top-2">{% trans "Back" %}</button>
+          <br/>
+          <button name="wizard_goto_step"
+                  type="submit"
+                  label="previous step"
+                  value="{{ wizard.steps.prev }}"
+                  class="look-like-link margin-top-2">
+            {% trans "Back" %}
+          </button>
         {% endif %}
       </div>
     </form>
