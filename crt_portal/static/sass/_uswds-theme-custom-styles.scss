@@ -44,7 +44,14 @@ body {
 main {
   flex: 1 0 auto;
 
-  p, em, label, h2 {
+  legend, .page-subtitle, label.big {
+    color: $blue-warm-70v;
+    font-weight: bold;
+    font-size: 1.17em; // Matches h3 size
+    margin-bottom: 0.5rem;
+  }
+
+  p, em, h2, label:not(.big) {
     color: $bg-gray-warm-80;
   }
 }
@@ -179,9 +186,3 @@ form#report-form {
   background-image: url(../img/alerts/word-count-alert.svg),linear-gradient(transparent,transparent);
 }
 
-legend, .page-subtitle {
-  color: $blue-warm-70v;
-  font-weight: bold;
-  font-size: 1.17em; // Matches h3 size
-  margin-bottom: 0.5rem;
-}
