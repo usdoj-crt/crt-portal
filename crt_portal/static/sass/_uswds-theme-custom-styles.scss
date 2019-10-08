@@ -27,6 +27,9 @@ $bg-gold: #FFBE2E;
 $light-beige: #F6F6F2;
 $blue-warm-70v: #1A4480;
 $bg-gray-warm-80: #2E2E2A;
+$gray-90: #171717;
+$white: #FFFFFF;
+$bold: 700;
 
 // Sticky Footer (IE 10/11)
 // Based on: https://codepen.io/dezertdezine/pen/zKjggy
@@ -175,6 +178,24 @@ form#report-form {
   width: 320px;
 }
 
+.crt-table {
+  @extend .usa-table;
+  font-size: 14px;
+  color: $gray-90;
+  line-height: 22px;
+  background: $white;
+  box-shadow: 0 1px 6px 2px rgba(0,0,0,0.14);
+  thead {
+    font-weight: $bold;
+    font-size: 12px;
+    line-height: 25.92px;
+    text-transform: uppercase;
+    th {
+      background-color: $white;
+    }
+  }
+}
+
 #word-limit-alert.usa-alert.usa-alert--warning {
   background-image: url(../img/alerts/word-count-alert.svg),linear-gradient(transparent,transparent);
 }
@@ -185,3 +206,4 @@ legend, .page-subtitle {
   font-size: 1.17em; // Matches h3 size
   margin-bottom: 0.5rem;
 }
+

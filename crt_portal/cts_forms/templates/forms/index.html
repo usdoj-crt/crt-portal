@@ -15,6 +15,8 @@
 </header>
 {% endblock %}
 
+{% block main_class %} class="page-header-background"{% endblock %}
+
 
 {% block content %}
 <div class="grid-container">
@@ -24,7 +26,7 @@
         + Add new record
       </button>
     </a>
-    <table class="usa-table">
+    <table class="usa-table crt-table">
       <thead>
         <tr>
           <th>Submitted</th>
@@ -54,7 +56,7 @@
             </td>
             <td>
             {% with summary=violationreport.violation_summary|default:"—" %}
-                {{ summary|truncatechars:125 }}
+                {{ summary|truncatechars:120 }}
             {% endwith %}
             </td>
           </tr>
