@@ -27,6 +27,8 @@ $bg-gold: #FFBE2E;
 $light-beige: #F6F6F2;
 $blue-warm-70v: #1A4480;
 $bg-gray-warm-80: #2E2E2A;
+$gray-90: #171717;
+$white: #FFFFFF;
 
 // Sticky Footer (IE 10/11)
 // Based on: https://codepen.io/dezertdezine/pen/zKjggy
@@ -175,23 +177,23 @@ form#report-form {
   width: 320px;
 }
 
-.crt-table{
+.crt-table {
   @extend .usa-table;
   font-family: PublicSans-Regular;
   font-size: 14px;
-  color: #171717;
+  color: $gray-90;
   line-height: 22px;
-  background: #FFFFFF;
+  background: $white;
   box-shadow: 0 1px 6px 2px rgba(0,0,0,0.14);
-}
-
-.crt-headings{
-  font-family: PublicSans-Bold;
-  font-size: 12px;
-  color: #171717;
-  background: #FFFFFF;
-  line-height: 25.92px;
-  text-transform: uppercase;
+  thead {
+    font-family: PublicSans-Bold;
+    font-size: 12px;
+    line-height: 25.92px;
+    text-transform: uppercase;
+    th {
+      background-color: $white;
+    }
+  }
 }
 
 #word-limit-alert.usa-alert.usa-alert--warning {
