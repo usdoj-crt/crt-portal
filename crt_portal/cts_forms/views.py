@@ -85,6 +85,6 @@ class CRTReportWizard(SessionWizardView):
 
         r.save()
         # adding this back for the save page results
-        # form_data_dict['protected_class'] = m2mfield.values()
+        form_data_dict['protected_class'] = m2mfield.values()
 
         return render_to_response('forms/confirmation.html', {'data_dict': form_data_dict})

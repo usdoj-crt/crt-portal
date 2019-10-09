@@ -67,11 +67,12 @@ class Details(ModelForm):
         ]
 
 
-def retrieve_or_create_choices():
+def retrieve_or_create_choices(choice_names):
     choices = []
-    for choice in PROTECTED_CLASS_CHOICES:
+    for choice in choice_names:
         c = ProtectedClass.objects.get_or_create(protected_class=choice)
-        choices.append(c.pk)
+        choices.append(c[0].pk)
+    print(ProtectedClass.objects.filter(pk__in=choices))
     return ProtectedClass.objects.filter(pk__in=choices)
 
 
@@ -79,8 +80,7 @@ class ProtectedClassForm(ModelForm):
     class Meta:
         model = Report
         protected_class = ModelMultipleChoiceField(
-            # will want the standard choices
-            queryset=ProtectedClass.objects.all()
+            queryset=retrieve_or_create_choices(PROTECTED_CLASS_CHOICES)
         )
         fields = ['protected_class']
         widgets = {
@@ -90,18 +90,8 @@ class ProtectedClassForm(ModelForm):
     # Overriding __init__ here allows us to provide initial
     # data for 'protected_class' field
     def __init__(self, *args, **kwargs):
-        # Only in case we build the form from an instance
-        # (otherwise, 'protected class' list should be empty)
-        if kwargs.get('instance'):
-            # We get the 'initial' keyword argument or initialize it
-            # as a dict if it didn't exist.
-            initial = kwargs.setdefault('initial', {})
-            # The widget for a ModelMultipleChoiceField expects
-            # a list of primary key for the selected data.
-
-            initial['protected_class'] = [t.pk for t in retrieve_or_create_choices()]
-
         ModelForm.__init__(self, *args, **kwargs)
+        self.fields['protected_class'].queryset = retrieve_or_create_choices(PROTECTED_CLASS_CHOICES)
         self.fields['protected_class'].label = 'Do you believe any of the following characteristics influenced whyd you were treated this way?'
         self.fields['protected_class'].help_text = 'Civil rights laws protect people from discrimination and include these protected classes.'
 
