@@ -67,15 +67,15 @@ class Details(ModelForm):
         ]
 
 
-class WhatHappened(ModelForm):
+class ProtectedClassForm(ModelForm):
     class Meta:
         model = Report
         protected_class = ModelMultipleChoiceField(
+            # will want the standard choices
             queryset=ProtectedClass.objects.all()
         )
-        fields = ['primary_complaint', 'protected_class']
+        fields = ['protected_class']
         widgets = {
-            'primary_complaint': UsaRadioSelect,
             'protected_class': UsaCheckboxSelectMultiple,
         }
 
@@ -93,6 +93,8 @@ class WhatHappened(ModelForm):
             initial['protected_class'] = [t.pk for t in kwargs['instance'].protected_class_set.all()]
 
         ModelForm.__init__(self, *args, **kwargs)
+        self.fields['protected_class'].label = 'Do you believe any of the following characteristics influenced whyd you were treated this way?'
+        self.fields['protected_class'].help_text = 'Civil rights laws protect people from discrimination and include these protected classes.'
 
 
 class Where(ModelForm):

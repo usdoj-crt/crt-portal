@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 
 from formtools.wizard.views import SessionWizardView
 
-from .models import Report
+from .models import Report, ProtectedClass
 
 import logging
 
@@ -17,6 +17,8 @@ def IndexView(request):
 
 
 TEMPLATES = [
+    # Protected Class
+    'forms/report_single_questions.html',
     # Contact
     'forms/report_grouped_questions.html',
     # Details
@@ -34,6 +36,7 @@ class CRTReportWizard(SessionWizardView):
 
         # This name appears in the progress bar wizard
         ordered_step_names = [
+            'Protected Class',
             'Contact',
             'Details',
             # 'What Happened',
@@ -44,8 +47,9 @@ class CRTReportWizard(SessionWizardView):
 
         # This title appears in large font above the question elements
         ordered_step_titles = [
+            'Please provide details on what happened',
             'Contact',
-            'Please provide details on what happened'
+            'Please provide details on what happened',
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]
 
@@ -70,14 +74,14 @@ class CRTReportWizard(SessionWizardView):
 
     def done(self, form_list, form_dict, **kwargs):
         form_data_dict = self.get_all_cleaned_data()
-        # m2mfield = form_data_dict.pop('protected_class')
+        m2mfield = form_data_dict.pop('protected_class')
         r = Report.objects.create(**form_data_dict)
         r.save()
 
         # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
-        # for protected in m2mfield:
-        #     p = ProtectedClass.objects.get(protected_class=protected)
-        #     r.protected_class.add(p)
+        for protected in m2mfield:
+            p = ProtectedClass.objects.get(protected_class=protected)
+            r.protected_class.add(p)
 
         r.save()
         # adding this back for the save page results

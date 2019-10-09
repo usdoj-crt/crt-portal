@@ -36,6 +36,8 @@ class ProtectedClass(models.Model):
 
 
 class Report(models.Model):
+    # protected class
+    protected_class = models.ManyToManyField(ProtectedClass, blank=True)
     # contact form
     contact_first_name = models.CharField(max_length=225, null=True, blank=True)
     contact_last_name = models.CharField(max_length=225, null=True, blank=True)
@@ -52,7 +54,6 @@ class Report(models.Model):
     contact_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
     # what happened form
     primary_complaint = models.CharField(max_length=100, choices=PRIMARY_COMPLAINT_CHOICES, default=None, null=True, blank=True)
-    protected_class = models.ManyToManyField(ProtectedClass, blank=True)
     # where form
     place = models.CharField(max_length=100, choices=PLACE_CHOICES, default=None, null=True)
     public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)
