@@ -12,17 +12,17 @@ PRIMARY_COMPLAINT_CHOICES = (
 )
 
 PROTECTED_CLASS_CHOICES = (
-    ('race_color', 'Race/color'),
-    ('national_origin', 'National origin (including ancestry, ethnicity, and language)'),
-    ('immigration_citizenship', 'Immigration or citizenship status (you do not have to divulge your status)'),
-    ('religion', 'Religion'),
-    ('disability', 'Disability (including temporary)'),
-    ('sex_gender', 'Sex or gender identity (including pregnancy)'),
-    ('sexual_orientation', 'Sexual orientation'),
-    ('familial_status', 'Familial, marital, or parental status'),
-    ('age', 'Age'),
-    ('military_status', 'Military status'),
-    ('genetic_information', 'Genetic information'),
+    'Disability (including temporary or in recovery)',
+    'Race/color',
+    'National origin (including ancestry, ethnicity, and language)',
+    'Immigration/citizenship status (choosing this does not share your status)',
+    'Religion',
+    'Sex, gender identity, or pregnancy',
+    'Sexual orientation',
+    'Familial, marital, or parental status',
+    'Military status',
+    'Age',
+    'Genetic information',
 )
 
 PLACE_CHOICES = (
