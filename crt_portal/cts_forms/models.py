@@ -18,7 +18,8 @@ from .model_variables import (
     RESPONDENT_TYPE_CHOICES,
     WHEN_CHOICES,
     HOW_MANY_CHOICES,
-    STATES_AND_TERRITORIES
+    STATES_AND_TERRITORIES,
+    PROTECTED_MODEL_CHOICES,
 )
 
 
@@ -29,7 +30,8 @@ class InternalHistory(models.Model):
 
 
 class ProtectedClass(models.Model):
-    protected_class = models.CharField(max_length=100, null=True, blank=True,)
+    # add to be unique
+    protected_class = models.CharField(max_length=100, null=True, blank=True, choices=PROTECTED_MODEL_CHOICES, unique=True)
 
     def __str__(self):
         return self.protected_class
@@ -38,6 +40,7 @@ class ProtectedClass(models.Model):
 class Report(models.Model):
     # protected class
     protected_class = models.ManyToManyField(ProtectedClass, blank=True)
+    other_class = models.CharField(max_length=150, null=True, blank=True)
     # contact form
     contact_first_name = models.CharField(max_length=225, null=True, blank=True)
     contact_last_name = models.CharField(max_length=225, null=True, blank=True)

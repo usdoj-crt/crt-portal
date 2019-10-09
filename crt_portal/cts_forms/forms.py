@@ -72,7 +72,6 @@ def retrieve_or_create_choices(choice_names):
     for choice in choice_names:
         c = ProtectedClass.objects.get_or_create(protected_class=choice)
         choices.append(c[0].pk)
-    print(ProtectedClass.objects.filter(pk__in=choices))
     return ProtectedClass.objects.filter(pk__in=choices)
 
 
@@ -82,10 +81,11 @@ class ProtectedClassForm(ModelForm):
         protected_class = ModelMultipleChoiceField(
             queryset=retrieve_or_create_choices(PROTECTED_CLASS_CHOICES)
         )
-        fields = ['protected_class']
         widgets = {
             'protected_class': UsaCheckboxSelectMultiple,
+            'other_class': TextInput(),
         }
+        fields = ['protected_class', 'other_class']
 
     # Overriding __init__ here allows us to provide initial
     # data for 'protected_class' field
@@ -94,6 +94,8 @@ class ProtectedClassForm(ModelForm):
         self.fields['protected_class'].queryset = retrieve_or_create_choices(PROTECTED_CLASS_CHOICES)
         self.fields['protected_class'].label = 'Do you believe any of the following characteristics influenced whyd you were treated this way?'
         self.fields['protected_class'].help_text = 'Civil rights laws protect people from discrimination and include these protected classes.'
+        self.fields['other_class'].label = ''
+        self.fields['other_class'].help_text = 'Please describe'
 
 
 class Where(ModelForm):

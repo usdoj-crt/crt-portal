@@ -207,3 +207,8 @@ legend, .page-subtitle {
   margin-bottom: 0.5rem;
 }
 
+.crt-checkbox__label {
+  @extend .usa-checkbox__label;
+  padding-left: 0;
+}
+

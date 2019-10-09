@@ -23,10 +23,26 @@ PROTECTED_CLASS_CHOICES = (
     'Military status',
     'Age',
     'Genetic information',
+    'Other',
+)
+
+PROTECTED_MODEL_CHOICES = (
+    ('disability', 'Disability (including temporary or in recovery)'),
+    ('race', 'Race/color'),
+    ('origin', 'National origin (including ancestry, ethnicity, and language)'),
+    ('immigration', 'Immigration/citizenship status (choosing this does not share your status)'),
+    ('religion', 'Religion'),
+    ('gender', 'Sex, gender identity, or pregnancy'),
+    ('orientation', 'Sexual orientation'),
+    ('family', 'Familial, marital, or parental status'),
+    ('military', 'Military status'),
+    ('age', 'Age'),
+    ('genetic', 'Genetic information'),
+    ('other', 'Other'),
 )
 
 PLACE_CHOICES = (
-    ('home,', 'Home, potential home, or services to help with purchasing a home (banks, lenders, or other financial services)'),
+    ('home', 'Home, potential home, or services to help with purchasing a home (banks, lenders, or other financial services)'),
     ('workplace', 'Workplace or potential workplace'),
     ('school', 'Educational institution (school, university), education program or educational activity (after school program or workshop)'),
     ('place_of_worship', 'Place of worship'),
