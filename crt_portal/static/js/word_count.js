@@ -1,4 +1,5 @@
-var textAreaElem = document.getElementById("id_2-violation_summary");
+var textAreaElem500 = document.getElementsByClassName("word-count-500");
+var textAreaElem10 = document.getElementsByClassName("word-count-10");
 var displayCountElem = document.getElementById("display_count");
 var countMessageElem = document.getElementById("count_message");
 var wordLimitAlert = document.getElementById("word-limit-alert");
@@ -7,7 +8,7 @@ var wordCountArea = document.getElementById("word_count_area");
 // Show word count area for JS-enabled browsers:
 wordCountArea.removeAttribute('hidden');
 
-function updateWordCount (e) {
+function updateWordCount (e, textAreaElem='', wordMax='') {
     // Ignore `e` and read the value directly from the textarea here;
     // we want this function to work even if the user hasn't typed
     // anything (e.g. if textarea has initial content).
@@ -35,11 +36,11 @@ function updateWordCount (e) {
     }
 };
 
-if (textAreaElem) {
+if (textAreaElem500) {
   // Fire `updateWordCount()` on page load because textarea may have
   // some initial content; for example if the user fills in the textarea,
   // presses "Next" and then uses the back button to navigate back.
-  updateWordCount();
+  updateWordCount(element='textAreaElem500');
 
-  document.addEventListener('keyup', updateWordCount);
+  document.addEventListener('keyup', updateWordCount(element='textAreaElem500'));
 };

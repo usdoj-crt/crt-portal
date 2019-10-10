@@ -1,7 +1,6 @@
 {% extends "forms/report_base.html" %}
 {% block form_questions %}
 <fieldset class="usa-fieldset">
-
   <div class="page-subtitle">{{ page_subtitle }}</div>
   {% for field in wizard.form.visible_fields %}
       {% if field.label == 'Other' %}
