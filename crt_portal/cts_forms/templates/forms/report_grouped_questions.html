@@ -23,7 +23,9 @@
       {% endif %}
 
       {% for field in question_group %}
-        <label class="margin-bottom-0">{{ field.label_tag }}</label>
+        <label for="{{ field.id_for_label }}" class="margin-bottom-0">
+          {{ field.label }}
+        </label>
         <em>{{ field.help_text }}</em>
         {{ field.errors }}
         <div {% if forloop.last %}{% else %}class="margin-bottom-2"{% endif %}>
