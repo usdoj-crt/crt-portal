@@ -17,11 +17,11 @@ We currently have pa11y configured to test proposed code changes for accessibili
 For each Story, we will manually test the corresponding page in these ways:
 
 1. Test the site by zooming the page to 200%.
-  + This is an important and easy-to-do check that shows how the site will appear for someone with low vision who zooms in. More from the Bureau of Internet Accessibility.
+    + This is an important and easy-to-do check that shows how the site will appear for someone with low vision who zooms in. More from the Bureau of Internet Accessibility.
 2. View website on mobile phone.
-  + Check text size and navigation.
+    + Check text size and navigation.
 3. Test the page in black-and-white (find contrast) + color inverse (find issues).
-  + This is another important and easy-to perform check. It shows how users with low or no color contrast vision will experience the site. If a tester knows how to update CSS styles manually in the browser, they can see how the site would look in black-and-white by adding this CSS to the `<html>` tag:
+    + This is another important and easy-to perform check. It shows how users with low or no color contrast vision will experience the site. If a tester knows how to update CSS styles manually in the browser, they can see how the site would look in black-and-white by adding this CSS to the `<html>` tag:
 
   ```
       -moz-filter: grayscale(100%);
@@ -29,20 +29,19 @@ For each Story, we will manually test the corresponding page in these ways:
       filter: gray; /* IE6-9 */
       filter: grayscale(100%);
   ```
-  + Chrome extensions like Accessibility Insights can also help you see pages in grayscale.
-  + Chrome’s built-in inspector includes a tool for checking contrast ratios. This is a quick way to make sure text has the right contrast against a background of the right size.
-  + Other tools: WCAG 2.0 Contrast checker, ANDI.
+    + Chrome extensions like Accessibility Insights can also help you see pages in grayscale.
+    + Chrome’s built-in inspector includes a tool for checking contrast ratios. This is a quick way to make sure text has the right contrast against a background of the right size.
+    + Other tools: WCAG 2.0 Contrast checker, ANDI.
 
 4. Test that the page is accessible via the keyboard; check images, forms, and multimedia for accessibility.
-  + All new features developed should be accessible via the keyboard only, without using the mouse. The Accessibility Insights Chrome Extension tool provides guidance and thorough checklists to assist with manual keyboard accessibility testing.
-  + Use the 18F Accessibility Checklist to help you check: https://accessibility.18f.gov/checklist/
+    + All new features developed should be accessible via the keyboard only, without using the mouse. The Accessibility Insights Chrome Extension tool provides guidance and thorough checklists to assist with manual keyboard accessibility testing.
+    + Use the 18F Accessibility Checklist to help you check: https://accessibility.18f.gov/checklist/
 
 5. Test using VoiceOver (or another screen reader).
-
-  + Testing with a screen reader is an important step and one that will require some training. VoiceOver comes with a built-in tutorial: you can start the tutorial by opening VoiceOver and pressing fn+ctrl+opt+cmd+f8 on a Mac.
-    + Recommended to use Safari with VoiceOver
-  + Do keyboard shortcuts work in a table to navigate
-  + All fields have explicit labels
+    + Testing with a screen reader is an important step and one that will require some training. VoiceOver comes with a built-in tutorial: you can start the tutorial by opening VoiceOver and pressing fn+ctrl+opt+cmd+f8 on a Mac.
+      + Recommended to use Safari with VoiceOver
+    + Do keyboard shortcuts work in a table to navigate
+    + All fields have explicit labels
 
 ## Collaborating with the Accessibility Guild
 
