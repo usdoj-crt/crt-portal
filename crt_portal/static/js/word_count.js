@@ -28,12 +28,14 @@ function updateWordCount (e) {
       displayCountElem.innerHTML = '0';
       textAreaElem.classList.add('bg-gold-outline');
       wordLimitAlert.removeAttribute('hidden');
+      wordLimitAlert.setAttribute('role', 'alert');
     } else {
       var wordsRemaining = 500 - words;
       displayCountElem.innerHTML = wordsRemaining;
       countMessageElem.value = (wordsRemaining === 1) ? 'word remaining' : 'words remaining';
       textAreaElem.classList.remove('bg-gold-outline');
       wordLimitAlert.setAttribute('hidden', '');
+      wordLimitAlert.removeAttribute('role');
     }
 
     if (words >= 400) {
