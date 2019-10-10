@@ -18,7 +18,7 @@ def IndexView(request):
 
 TEMPLATES = [
     # Protected Class
-    'forms/report_single_questions.html',
+    'forms/report_class.html',
     # Contact
     'forms/report_grouped_questions.html',
     # Details

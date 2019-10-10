@@ -1,4 +1,4 @@
-var textAreaElem = document.getElementById("id_1-violation_summary");
+var textAreaElem = document.getElementById("id_2-violation_summary");
 var displayCountElem = document.getElementById("display_count");
 var countMessageElem = document.getElementById("count_message");
 var wordLimitAlert = document.getElementById("word-limit-alert");
