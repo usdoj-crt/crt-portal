@@ -35,6 +35,12 @@ function updateWordCount (e) {
       textAreaElem.classList.remove('bg-gold-outline');
       wordLimitAlert.setAttribute('hidden', '');
     }
+
+    if (words >= 400) {
+      wordCountArea.setAttribute('aria-live', 'assertive');
+    } else {
+      wordCountArea.setAttribute('aria-live', 'polite');
+    }
 };
 
 if (textAreaElem) {
