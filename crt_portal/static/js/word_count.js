@@ -60,6 +60,15 @@ function listenWordCount (e){
   };
 };
 
+function hideOther(){
+  var x = document.getElementById("other-class-option");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+
 document.addEventListener('keyup', listenWordCount);
-// not submit, reload,back
-document.addEventListener('pageload', listenWordCount);
+// not submit, reload,
+document.addEventListener('loadeddata', listenWordCount);

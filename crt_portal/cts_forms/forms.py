@@ -100,7 +100,6 @@ class ProtectedClassForm(ModelForm):
         self.fields['other_class'].label = 'Other'
         self.fields['other_class'].help_text = 'Please describe'
         self.fields['other_class'].widget.attrs['class'] = 'usa-input word-count-10'
-        self.fields['other_class'].widget.attrs['onclick'] = {'onclick': "hideOther()"}
 
 
 class Where(ModelForm):
