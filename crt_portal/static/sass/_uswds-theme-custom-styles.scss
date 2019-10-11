@@ -81,26 +81,36 @@ footer {
       background-color: $blue-warm-60;
     }
 
+    &:focus {
+      outline: .25rem solid $blue-warm-60;
+    }
+
     @media (min-width: 30em) {
       margin-top: 0;
     }
   }
-}
 
-textarea.usa-textarea {
-  resize: none;
-  height: 15rem;
-
-  &:focus {
-    outline: .25rem solid $blue-warm-60;
+  .usa-input {
+    &:focus {
+      outline: .25rem solid $blue-warm-60;
+    }
   }
 
-  &.bg-gold-outline {
-    outline: .25rem solid $gold;
-  }
+  textarea.usa-textarea {
+    resize: none;
+    height: 15rem;
 
-  &.bg-gold-outline:focus {
-    outline: .25rem solid $gold;
+    &:focus {
+      outline: .25rem solid $blue-warm-60;
+    }
+
+    &.bg-gold-outline {
+      outline: .25rem solid $gold;
+    }
+
+    &.bg-gold-outline:focus {
+      outline: .25rem solid $gold;
+    }
   }
 }
 
