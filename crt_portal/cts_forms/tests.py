@@ -7,18 +7,11 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 from .models import ProtectedClass, Report
-from .forms import WhatHappened, Where, Who, Details, Contact
+from .forms import Where, Who, Details, Contact, ProtectedClassForm
 
 
 class Valid_Form_Tests(TestCase):
     """Confirms each form is valid when given valid test data."""
-    def test_WhatHappened_valid(self):
-        form = WhatHappened(data={
-            'primary_complaint': 'vote',
-            'protected_class_set': ProtectedClass.objects.all(),
-        })
-        self.assertTrue(form.is_valid())
-
     def test_Where_valid(self):
         form = Where(data={
             'place': 'place_of_worship',
@@ -42,7 +35,7 @@ class Valid_Form_Tests(TestCase):
 
     def test_Details_valid(self):
         form = Details(data={
-            'violation_summary': 'Hello! I have a problem.',
+            'violation_summary': 'Hello! I have a problem. ႠႡႢ',
             'when': 'last_6_months',
             'how_many': 'no',
         })
@@ -52,6 +45,13 @@ class Valid_Form_Tests(TestCase):
         form = Contact(data={
             'contact_first_name': 'first_name',
             'contact_last_name': 'last_name',
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_Class_valid(self):
+        form = ProtectedClassForm(data={
+            'protected_class_set': ProtectedClass.objects.all(),
+            'other_class': 'Random string under 150 characters (हिन्दी)',
         })
         self.assertTrue(form.is_valid())
 
