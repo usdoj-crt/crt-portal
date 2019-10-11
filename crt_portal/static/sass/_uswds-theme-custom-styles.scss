@@ -46,10 +46,6 @@ body {
 
 main {
   flex: 1 0 auto;
-
-  p, em, label, h2 {
-    color: $bg-gray-warm-80;
-  }
 }
 
 footer {
@@ -60,6 +56,10 @@ footer {
   max-width: 700px;
   margin: auto;
   padding: 0 8px;
+}
+
+p, em, label, h2 {
+  color: $bg-gray-warm-80;
 }
 
 // Form Width
