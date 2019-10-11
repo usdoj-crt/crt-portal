@@ -57,7 +57,10 @@ class Contact(ModelForm):
 class Details(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)
-        self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
+        self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea-large word-count-500'
+        self.label_suffix = ''
+        self.fields['violation_summary'].label = 'Please describe what happened in your own words'
+        self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'word_count_area'
         self.fields['violation_summary'].help_text = "This is your opportunity to share any additional details you think would be helpful for us to know like time, names, witnesses to the event, or anything you haven’t already stated. Document upload is not available at this time, but please describe if you have evidence you’d like to include later."
 
     class Meta:
@@ -96,7 +99,8 @@ class ProtectedClassForm(ModelForm):
         self.fields['protected_class'].help_text = 'Civil rights laws protect people from discrimination and include these protected classes.'
         self.fields['other_class'].label = 'Other'
         self.fields['other_class'].help_text = 'Please describe'
-        self.fields['other_class'].widget.attrs['class'] = 'usa-textarea word-count-10'
+        self.fields['other_class'].widget.attrs['class'] = 'usa-input word-count-10'
+        self.fields['other_class'].widget.attrs['onclick'] = {'onclick': "hideOther()"}
 
 
 class Where(ModelForm):

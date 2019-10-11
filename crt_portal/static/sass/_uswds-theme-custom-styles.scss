@@ -47,7 +47,14 @@ body {
 main {
   flex: 1 0 auto;
 
-  p, em, label, h2 {
+  legend, .page-subtitle, label.big {
+    color: $blue-warm-70v;
+    font-weight: bold;
+    font-size: 1.17em; // Matches h3 size
+    margin-bottom: 0.5rem;
+  }
+
+  p, em, h2, label:not(.big) {
     color: $bg-gray-warm-80;
   }
 }
@@ -79,7 +86,6 @@ footer {
 // Textarea no resize
 textarea.usa-textarea {
   resize: none;
-  height: 15rem;
 
    &.bg-gold-outline {
     outline: .25rem solid $bg-gold;
@@ -90,6 +96,11 @@ textarea.usa-textarea {
    &.bg-gold-outline:focus {
     outline: .25rem solid $bg-gold;
   }
+}
+
+.usa-textarea-large {
+  @extend .usa-textarea;
+  height: 15rem;
 }
 
 // Input Overrides

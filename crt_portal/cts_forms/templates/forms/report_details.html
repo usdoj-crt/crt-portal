@@ -3,9 +3,12 @@
 <p class="margin-top-1 margin-bottom-4"><em>{{ page_note }}</em></p>
 
 <fieldset class="usa-fieldset">
-  <div class="page-subtitle">{{ page_subtitle }}</div>
   {% for field in wizard.form.visible_fields %}
     <div class="usa-prose margin-bottom-2">
+      <label for="{{ field.id_for_label }}"
+             class="big margin-bottom-0">
+        {{ field.label }}
+      </label>
       <p><em>{{ field.help_text }}</em></p>
       {{ field.errors }}
     </div>
@@ -15,9 +18,10 @@
     <noscript>
       <em>500 word limit.</em>
     </noscript>
-    <em id="word_count_area" hidden>
+    <em id="word_count_area" aria-live="polite" hidden>
       <span id="display_count">500</span>
-      <span id="count_message">word(s) remaining</span>
+      <span> </span>
+      <span id="count_message">words remaining</span>
     </em>
     <div id="word-limit-alert" class="usa-alert usa-alert--warning usa-alert--slim" hidden>
       <div class="usa-alert__body">
