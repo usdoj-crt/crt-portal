@@ -39,7 +39,7 @@ class ProtectedClass(models.Model):
 
 class Report(models.Model):
     # protected class
-    protected_class = models.ManyToManyField(ProtectedClass, blank=True)
+    protected_class = models.ManyToManyField(ProtectedClass)
     other_class = models.CharField(max_length=150, null=True, blank=True)
     # contact form
     contact_first_name = models.CharField(max_length=225, null=True, blank=True)

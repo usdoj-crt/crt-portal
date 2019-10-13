@@ -82,7 +82,7 @@ class ProtectedClassForm(ModelForm):
     class Meta:
         model = Report
         protected_class = ModelMultipleChoiceField(
-            queryset=retrieve_or_create_choices(PROTECTED_CLASS_CHOICES)
+            queryset=ProtectedClass.objects.all()
         )
         widgets = {
             'protected_class': UsaCheckboxSelectMultiple,
@@ -94,7 +94,6 @@ class ProtectedClassForm(ModelForm):
     # data for 'protected_class' field
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
-        self.fields['protected_class'].queryset = retrieve_or_create_choices(PROTECTED_CLASS_CHOICES)
         self.fields['protected_class'].label = 'Do you believe any of the following characteristics influenced why you were treated this way?'
         self.fields['protected_class'].help_text = 'Civil rights laws protect people from discrimination and include these protected classes.'
         self.fields['other_class'].label = 'Other'
