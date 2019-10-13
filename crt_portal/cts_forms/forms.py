@@ -70,19 +70,11 @@ class Details(ModelForm):
         ]
 
 
-def retrieve_or_create_choices(choice_names):
-    choices = []
-    for choice in choice_names:
-        c = ProtectedClass.objects.get_or_create(protected_class=choice)
-        choices.append(c[0].pk)
-    return ProtectedClass.objects.filter(pk__in=choices)
-
-
 class ProtectedClassForm(ModelForm):
     class Meta:
         model = Report
         protected_class = ModelMultipleChoiceField(
-            queryset=retrieve_or_create_choices(PROTECTED_CLASS_CHOICES)
+            queryset=ProtectedClass.objects.all()
         )
         widgets = {
             'protected_class': UsaCheckboxSelectMultiple,
