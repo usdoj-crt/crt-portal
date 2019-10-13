@@ -17,10 +17,10 @@ def IndexView(request):
 
 
 TEMPLATES = [
-    # Protected Class
-    'forms/report_class.html',
     # Contact
     'forms/report_grouped_questions.html',
+    # Protected Class
+    'forms/report_class.html',
     # Details
     'forms/report_details.html',
 ]
@@ -36,8 +36,8 @@ class CRTReportWizard(SessionWizardView):
 
         # This name appears in the progress bar wizard
         ordered_step_names = [
-            'Protected Class',
             'Contact',
+            'Protected Class',
             'Details',
             # 'What Happened',
             # 'Where',
@@ -47,8 +47,8 @@ class CRTReportWizard(SessionWizardView):
 
         # This title appears in large font above the question elements
         ordered_step_titles = [
-            'Please provide details on what happened',
             'Contact',
+            'Please provide details on what happened',
             'Please provide details on what happened',
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]

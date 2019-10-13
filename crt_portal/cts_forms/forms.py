@@ -82,7 +82,7 @@ class ProtectedClassForm(ModelForm):
     class Meta:
         model = Report
         protected_class = ModelMultipleChoiceField(
-            queryset=ProtectedClass.objects.all()
+            queryset=retrieve_or_create_choices(PROTECTED_CLASS_CHOICES)
         )
         widgets = {
             'protected_class': UsaCheckboxSelectMultiple,

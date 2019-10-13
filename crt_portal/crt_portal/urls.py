@@ -27,8 +27,8 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('form/', include('cts_forms.urls')),
     path('report/', CRTReportWizard.as_view([
-        ProtectedClassForm,
         Contact,
+        ProtectedClassForm,
         Details,
         # WhatHappened,
         # Where,
