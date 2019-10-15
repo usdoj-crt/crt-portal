@@ -78,7 +78,7 @@ def retrieve_or_create_choices(*args, **defaults):
                 choices.append(c[0].pk)
             except:
                 # this has a concurrency issue for initial migrations
-                pass
+                logger.info('ProtectedClass not loaded yet')
         return ProtectedClass.objects.filter(pk__in=choices)
 
 
