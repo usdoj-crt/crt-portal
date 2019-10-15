@@ -3,7 +3,7 @@ from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxInput, \
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple
 from .models import Report, ProtectedClass
-from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES
+from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES, PROTECTED_CLASS_CHOICES
 from .phone_regex import phone_validation_regex
 
 import logging
@@ -70,11 +70,19 @@ class Details(ModelForm):
         ]
 
 
+def retrieve_or_create_choices(*args, **defaults):
+        choices = []
+        for choice in PROTECTED_CLASS_CHOICES:
+            c = ProtectedClass.objects.get_or_create(protected_class=choice)
+            choices.append(c[0].pk)
+        return ProtectedClass.objects.filter(pk__in=choices)
+
+
 class ProtectedClassForm(ModelForm):
     class Meta:
         model = Report
         protected_class = ModelMultipleChoiceField(
-            queryset=ProtectedClass.objects.all()
+            queryset=retrieve_or_create_choices()
         )
         widgets = {
             'protected_class': UsaCheckboxSelectMultiple,
