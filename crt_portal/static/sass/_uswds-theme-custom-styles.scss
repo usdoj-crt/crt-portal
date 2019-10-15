@@ -25,7 +25,7 @@ i.e.
 $yellow: #FEE685;
 $gold: #FFBE2E;
 $light-beige: #F6F6F2;
-$blue-warm-70: #1A4480;
+$blue-warm-vivid-70: #1A4480;
 $blue-50: #2378C3;
 $blue-vivid-40: #2491FF;
 $gray-warm: #2E2E2A;
@@ -50,7 +50,7 @@ main {
   flex: 1 0 auto;
 
   legend, .page-subtitle, label.big {
-    color: $blue-warm-70;
+    color: $blue-warm-vivid-70;
     font-weight: bold;
     font-size: 1.17em; // Matches h3 size
     margin-bottom: 0.5rem;
@@ -76,7 +76,7 @@ footer {
   max-width: 30rem !important;
 
   .usa-button {
-    background-color: $blue-warm-70;
+    background-color: $blue-warm-vivid-70;
 
     &:hover {
       background-color: $blue-50;
