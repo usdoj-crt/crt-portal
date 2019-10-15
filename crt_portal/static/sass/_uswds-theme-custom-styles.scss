@@ -95,7 +95,7 @@ footer {
   .usa-input {
     &:focus {
       outline: .125rem solid $blue-vivid-40;
-      outline-offset: .125rem;
+      border: 1px solid $blue-vivid-40;
     }
   }
 
@@ -105,14 +105,17 @@ footer {
 
     &:focus {
       outline: .125rem solid $blue-vivid-40;
+      border: 1px solid $blue-vivid-40;
     }
 
     &.bg-gold-outline {
       outline: .125rem solid $gold;
+      border: 1px solid $gold;
     }
 
     &.bg-gold-outline:focus {
       outline: .125rem solid $gold;
+      border: .125rem solid $gold;
     }
   }
 }
