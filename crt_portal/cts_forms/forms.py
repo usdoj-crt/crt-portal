@@ -73,8 +73,9 @@ class Details(ModelForm):
 def retrieve_or_create_choices(*args, **defaults):
         choices = []
         for choice in PROTECTED_CLASS_CHOICES:
-            c = ProtectedClass.objects.get_or_create(protected_class=choice)
-            choices.append(c[0].pk)
+            try:
+                c = ProtectedClass.objects.get_or_create(protected_class=choice)
+                choices.append(c[0].pk)
         return ProtectedClass.objects.filter(pk__in=choices)
 
 
