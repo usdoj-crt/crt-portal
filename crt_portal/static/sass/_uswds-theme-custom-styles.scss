@@ -27,6 +27,7 @@ $gold: #FFBE2E;
 $light-beige: #F6F6F2;
 $blue-warm-70: #1A4480;
 $blue-warm-60: #345D96;
+$blue-vivid-50: #0076d6;
 $gray-warm: #2E2E2A;
 $gray-90: #171717;
 $white: #FFFFFF;
@@ -82,7 +83,7 @@ footer {
     }
 
     &:focus {
-      outline: .125rem solid $blue-warm-60;
+      outline: .125rem solid $blue-vivid-50;
       outline-offset: .125rem;
     }
 
@@ -93,7 +94,8 @@ footer {
 
   .usa-input {
     &:focus {
-      outline: .125rem solid $blue-warm-60;
+      outline: .125rem solid $blue-vivid-50;
+      outline-offset: .125rem;
     }
   }
 
@@ -102,7 +104,7 @@ footer {
     height: 15rem;
 
     &:focus {
-      outline: .125rem solid $blue-warm-60;
+      outline: .125rem solid $blue-vivid-50;
     }
 
     &.bg-gold-outline {
