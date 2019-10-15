@@ -50,4 +50,7 @@ var othercheck = document.getElementById("id_{{ wizard.steps.current }}-protecte
 othercheck.setAttribute("onclick","hideOther();");
 </script>
 <script src="{% static 'js/word_count.js' %}"></script>
+<script type="text/javascript">
+window.selectionchange = checkOther('id_{{ wizard.steps.current }}-protected_class_11');
+</script>
 {% endblock %}

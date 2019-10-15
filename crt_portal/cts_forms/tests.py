@@ -14,8 +14,7 @@ from .forms import Where, Who, Details, Contact, ProtectedClassForm
 class Valid_Form_Tests(TestCase):
     def setUp(self):
         for choice in PROTECTED_CLASS_CHOICES:
-            c = ProtectedClass.objects.get_or_create(protected_class=choice)
-
+            ProtectedClass.objects.get_or_create(protected_class=choice)
 
     """Confirms each form is valid when given valid test data."""
     def test_Where_valid(self):

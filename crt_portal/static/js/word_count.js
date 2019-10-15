@@ -60,15 +60,29 @@ function listenWordCount (e){
   };
 };
 
+document.addEventListener('keyup', listenWordCount);
+
+
+//  change this to/from hidden on click of other option
 function hideOther(){
   var x = document.getElementById("other-class-option");
   if (x.style.display === "none") {
     x.style.display = "block";
+    // x.removeAttribute('hidden');
   } else {
     x.style.display = "none";
+    // x.removeAttribute('hidden');
+  }
+  console.log('trigger');
+}
+
+function checkOther(elem){
+  var y = document.getElementById(elem);
+  var x = document.getElementById("other-class-option");
+  if (y.checked == true){
+      x.style.display = "block";
   }
 }
 
-document.addEventListener('keyup', listenWordCount);
-// not submit, reload,
-document.addEventListener('loadeddata', listenWordCount);
+
+window.selectionchange = checkOther('id_1-protected_class_11');
