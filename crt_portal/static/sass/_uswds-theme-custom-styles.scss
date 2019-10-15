@@ -82,7 +82,8 @@ footer {
     }
 
     &:focus {
-      outline: .25rem solid $blue-warm-60;
+      outline: .125rem solid $blue-warm-60;
+      outline-offset: .125rem;
     }
 
     @media (min-width: 30em) {
@@ -92,7 +93,7 @@ footer {
 
   .usa-input {
     &:focus {
-      outline: .25rem solid $blue-warm-60;
+      outline: .125rem solid $blue-warm-60;
     }
   }
 
@@ -101,15 +102,15 @@ footer {
     height: 15rem;
 
     &:focus {
-      outline: .25rem solid $blue-warm-60;
+      outline: .125rem solid $blue-warm-60;
     }
 
     &.bg-gold-outline {
-      outline: .25rem solid $gold;
+      outline: .125rem solid $gold;
     }
 
     &.bg-gold-outline:focus {
-      outline: .25rem solid $gold;
+      outline: .125rem solid $gold;
     }
   }
 }
