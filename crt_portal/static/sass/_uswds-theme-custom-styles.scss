@@ -26,8 +26,8 @@ $yellow: #FEE685;
 $gold: #FFBE2E;
 $light-beige: #F6F6F2;
 $blue-warm-70: #1A4480;
-$blue-warm-60: #345D96;
-$blue-vivid-50: #0076d6;
+$blue-50: #2378C3;
+$blue-vivid-40: #2491FF;
 $gray-warm: #2E2E2A;
 $gray-90: #171717;
 $white: #FFFFFF;
@@ -79,11 +79,11 @@ footer {
     background-color: $blue-warm-70;
 
     &:hover {
-      background-color: $blue-warm-60;
+      background-color: $blue-50;
     }
 
     &:focus {
-      outline: .125rem solid $blue-vivid-50;
+      outline: .125rem solid $blue-vivid-40;
       outline-offset: .125rem;
     }
 
@@ -94,7 +94,7 @@ footer {
 
   .usa-input {
     &:focus {
-      outline: .125rem solid $blue-vivid-50;
+      outline: .125rem solid $blue-vivid-40;
       outline-offset: .125rem;
     }
   }
@@ -104,7 +104,7 @@ footer {
     height: 15rem;
 
     &:focus {
-      outline: .125rem solid $blue-vivid-50;
+      outline: .125rem solid $blue-vivid-40;
     }
 
     &.bg-gold-outline {
