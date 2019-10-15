@@ -71,15 +71,15 @@ class Details(ModelForm):
 
 
 def retrieve_or_create_choices(*args, **defaults):
-        choices = []
-        for choice in PROTECTED_CLASS_CHOICES:
-            try:
-                c = ProtectedClass.objects.get_or_create(protected_class=choice)
-                choices.append(c[0].pk)
-            except: #noqa
-                # this has a concurrency issue for initial migrations
-                logger.info('ProtectedClass not loaded yet')
-        return ProtectedClass.objects.filter(pk__in=choices)
+    choices = []
+    for choice in PROTECTED_CLASS_CHOICES:
+        try:
+            c = ProtectedClass.objects.get_or_create(protected_class=choice)
+            choices.append(c[0].pk)
+        except:  # noqa
+            # this has a concurrency issue for initial migrations
+            logger.info('ProtectedClass not loaded yet')
+    return ProtectedClass.objects.filter(pk__in=choices)
 
 
 class ProtectedClassForm(ModelForm):
