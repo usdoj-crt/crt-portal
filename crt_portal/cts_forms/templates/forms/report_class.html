@@ -13,12 +13,7 @@
       {{ field.errors }}
     <div class="margin-bottom-1">
     {% if field.label == 'Other' %}
-      <noscript>
-        <p><em><label for="{{ field.id_for_label }}" class="big margin-bottom-0">{{ field.help_text }}</div></em></p>
-        {{ field }}
-        <em>10 word limit.</em>
-      </noscript>
-        <div display='none'>
+        <div>
           <p><em>{{ field.help_text }}</em></p>
           {{ field }}
           <em id="word_count_area" hidden>
@@ -44,13 +39,16 @@
 
 {% block page_js %}
 <script>
+var check_id = "id_{{ wizard.steps.current }}-protected_class_11"
 var otherbox = document.getElementById("other-class-option");
-otherbox.setAttribute("style", "display: none");
-var othercheck = document.getElementById("id_{{ wizard.steps.current }}-protected_class_11");
-othercheck.setAttribute("onclick","hideOther();");
+otherbox.setAttribute("hidden","");
+
+var othercheck = document.getElementById(check_id);
+
+othercheck.setAttribute("onclick","checkOther(check_id);");
 </script>
 <script src="{% static 'js/word_count.js' %}"></script>
 <script type="text/javascript">
-window.selectionchange = checkOther('id_{{ wizard.steps.current }}-protected_class_11');
+window.selectionchange = checkOther(check_id);
 </script>
 {% endblock %}
