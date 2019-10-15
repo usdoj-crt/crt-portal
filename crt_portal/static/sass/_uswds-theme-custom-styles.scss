@@ -144,6 +144,11 @@ footer {
   border: none;
   background: none;
   text-decoration: underline;
+
+  &:focus:not([disabled]) {
+    outline: .125rem solid $blue-vivid-40;
+    outline-offset: .125rem;
+  }
 }
 
 // Header Styles
