@@ -8,13 +8,13 @@
         <div class="usa-prose margin-bottom-2 padding-left-3" id='other-class-option' >
       {% else %}
         <div class="usa-prose margin-bottom-2">
-        <h3 class="usa-prose">{{ field.label }}</h3>
+        <label for="{{ field.id_for_label }}" class="big margin-bottom-0">{{ field.label }}</div>
       {% endif %}
       {{ field.errors }}
     <div class="margin-bottom-1">
     {% if field.label == 'Other' %}
       <noscript>
-        <p><em>{{ field.help_text }}</em></p>
+        <p><em><label for="{{ field.id_for_label }}" class="big margin-bottom-0">{{ field.help_text }}</div></em></p>
         {{ field }}
         <em>10 word limit.</em>
       </noscript>
