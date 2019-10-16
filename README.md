@@ -150,14 +150,13 @@ Then, you can create a superuser
 
 ### Subsequent deploys
 
-Deploys will happen via Circle CI.
-    - For deploys to dev, it will deploy after tests pass, when a PR is merged into the develop branch.
-    - For deploys to staging, it will deploy after tests pass, when we make or update a branch the starts with "release/".
-    - Once we are cleared to deploy to prod, it will deploy after tests pass, when we merge the release into the master branch.
+We deploy from CircleCI.
 
-As a back up contingency, you can deploy just with a push using the manifest:
+* The app will deploy to dev when the tests pass and a PR is merged into `develop`.
+* The app will deploy to staging when the tests pass and when we make or update a branch that starts with `release/`.
+* The app will deploy to prod when the tests pass and a PR is merged into `master`.
 
-    cf push -f manifest_space.yml
+When CircleCI tries to deploy two PRs back-to-back, one of them can fail. In this case, you can restart the failed deploy process by clicking the "Rerun Workflow" button.
 
 # Background notes
 
