@@ -22,11 +22,13 @@ i.e.
 
 // Variables
 
-$bg-yellow: #FEE685;
-$bg-gold: #FFBE2E;
+$yellow: #FEE685;
+$gold: #FFBE2E;
 $light-beige: #F6F6F2;
-$blue-warm-70v: #1A4480;
-$bg-gray-warm-80: #2E2E2A;
+$blue-warm-vivid-70: #1A4480;
+$blue-50: #2378C3;
+$blue-vivid-40: #2491FF;
+$gray-warm: #2E2E2A;
 $gray-90: #171717;
 $white: #FFFFFF;
 $bold: 700;
@@ -48,14 +50,14 @@ main {
   flex: 1 0 auto;
 
   legend, .page-subtitle, label.big {
-    color: $blue-warm-70v;
+    color: $blue-warm-vivid-70;
     font-weight: bold;
     font-size: 1.17em; // Matches h3 size
     margin-bottom: 0.5rem;
   }
 
   p, em, h2, label:not(.big) {
-    color: $bg-gray-warm-80;
+    color: $gray-warm;
   }
 }
 
@@ -74,28 +76,47 @@ footer {
   max-width: 30rem !important;
 
   .usa-button {
-    background-color: $blue-warm-70v;
+    background-color: $blue-warm-vivid-70;
+
+    &:hover {
+      background-color: $blue-50;
+    }
+
+    &:focus {
+      outline: .125rem solid $blue-vivid-40;
+      outline-offset: .125rem;
+    }
 
     @media (min-width: 30em) {
       margin-top: 0;
     }
   }
-}
 
-
-// Textarea no resize
-textarea.usa-textarea {
-  resize: none;
-  height: 15rem;
-
-   &.bg-gold-outline {
-    outline: .25rem solid $bg-gold;
+  .usa-input {
+    &:focus {
+      outline: .125rem solid $blue-vivid-40;
+      border: 1px solid $blue-vivid-40;
+    }
   }
 
-  // Override default USWDS blue outline
-  // on focused form control elements
-   &.bg-gold-outline:focus {
-    outline: .25rem solid $bg-gold;
+  textarea.usa-textarea {
+    resize: none;
+    height: 15rem;
+
+    &:focus {
+      outline: .125rem solid $blue-vivid-40;
+      border: 1px solid $blue-vivid-40;
+    }
+
+    &.bg-gold-outline {
+      outline: .125rem solid $gold;
+      border: 1px solid $gold;
+    }
+
+    &.bg-gold-outline:focus {
+      outline: .125rem solid $gold;
+      border: .125rem solid $gold;
+    }
   }
 }
 
@@ -123,6 +144,11 @@ textarea.usa-textarea {
   border: none;
   background: none;
   text-decoration: underline;
+
+  &:focus:not([disabled]) {
+    outline: .125rem solid $blue-vivid-40;
+    outline-offset: .125rem;
+  }
 }
 
 // Header Styles
@@ -154,10 +180,10 @@ h3 {
   }
 
   .usa-banner__button, .usa-banner__header-action {
-    color: $bg-gold;
+    color: $gold;
 
     &:hover {
-      color: $bg-yellow;
+      color: $yellow;
     }
   }
 }
@@ -178,7 +204,7 @@ form#report-form {
 
 .question_group_optional_tag {
   font-weight: lighter;
-  color: $bg-gray-warm-80;
+  color: $gray-warm;
 }
 
 .usa-input {
