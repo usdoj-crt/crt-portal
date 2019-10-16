@@ -62,8 +62,9 @@ function listenWordCount (e){
 
 document.addEventListener('keyup', listenWordCount);
 
+
 function checkOther(elem){
-  var y = document.getElementById(elem);
+  var y = document.querySelectorAll('.' + 'usa-checkbox__input').item(13);
   var x = document.getElementById("other-class-option");
   if (y.checked == true){
     x.removeAttribute('hidden');

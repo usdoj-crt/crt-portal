@@ -45,16 +45,15 @@
 
 {% block page_js %}
 <script>
-var check_id = "id_{{ wizard.steps.current }}-protected_class_11"
 var otherbox = document.getElementById("other-class-option");
 otherbox.setAttribute("hidden","");
-
-var othercheck = document.getElementById(check_id);
-
-othercheck.setAttribute("onclick","checkOther(check_id);");
+var otherCheckLabel = document.getElementsByTagName("LABEL").item(14);
+var otherCheck = document.querySelectorAll('.' + 'usa-checkbox').item(13)
+var otherCheckID = document.querySelectorAll('.' + 'usa-checkbox').item(13).id;
+otherCheck.setAttribute("onclick","checkOther(otherCheckID);");
 </script>
 <script src="{% static 'js/word_count.js' %}"></script>
 <script type="text/javascript">
-window.selectionchange = checkOther(check_id);
+window.selectionchange = checkOther(otherCheckID);
 </script>
 {% endblock %}

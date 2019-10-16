@@ -32,6 +32,8 @@ class InternalHistory(models.Model):
 class ProtectedClass(models.Model):
     # add to be unique
     protected_class = models.CharField(max_length=100, null=True, blank=True, choices=PROTECTED_MODEL_CHOICES, unique=True)
+    # used for ordering the choices on the form displays
+    form_order = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.protected_class
