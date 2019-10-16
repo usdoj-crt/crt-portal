@@ -6,7 +6,7 @@ from cts_forms.model_variables import PROTECTED_CLASS_CHOICES
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0008_auto_20191011_2101'),
+        ('cts_forms', '0010_auto_20191015_2247'),
     ]
 
     def retrieve_or_create_choices(*args, **defaults):
