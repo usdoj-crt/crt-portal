@@ -10,11 +10,9 @@ class Migration(migrations.Migration):
     ]
 
     def retrieve_or_create_choices(*args, **defaults):
-        choices = []
         for choice in PROTECTED_CLASS_CHOICES:
             c = ProtectedClass.objects.get_or_create(protected_class=choice)
-            choices.append(c[0].pk)
-        return ProtectedClass.objects.filter(pk__in=choices)
+            c.save()
 
     operations = [
         migrations.RunPython(retrieve_or_create_choices),
