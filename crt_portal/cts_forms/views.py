@@ -49,7 +49,7 @@ class CRTReportWizard(SessionWizardView):
         ordered_step_titles = [
             'Contact',
             'Please provide details on what happened',
-            'Please provide details on what happened',
+            'Details'
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]
 
