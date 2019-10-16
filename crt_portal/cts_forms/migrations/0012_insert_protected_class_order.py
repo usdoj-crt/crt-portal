@@ -2,10 +2,11 @@ from django.db import migrations, models
 from cts_forms.models import ProtectedClass
 from cts_forms.model_variables import PROTECTED_CLASS_CHOICES
 
+
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0011_protectedclass_form_order'),
+        ('cts_forms', '0011_insert_protected_classes'),
     ]
 
     def load_class_order(*args, **defaults):

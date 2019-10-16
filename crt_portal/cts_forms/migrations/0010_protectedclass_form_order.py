@@ -5,7 +5,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0009_insert_protected_classes'),
+        ('cts_forms', '0009_auto_20191015_2247'),
     ]
 
     operations = [
