@@ -1,0 +1,21 @@
+{
+    "urls": [
+        {
+          "url": "http://0.0.0.0:8000/report",
+          "screenCapture": "pa11y-screenshots/page1.png"
+        },
+        {
+          "url": "http://0.0.0.0:8000/report",
+          "actions": ["click element #submit-next"],
+          "screenCapture": "pa11y-screenshots/page2.png"
+        },
+        {
+          "url": "http://0.0.0.0:8000/report",
+          "actions": [
+            "click element #submit-next",
+            "click element #submit-next"
+          ],
+          "screenCapture": "pa11y-screenshots/page3.png"
+        }
+    ]
+}
