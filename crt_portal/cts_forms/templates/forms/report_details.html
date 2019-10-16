@@ -2,7 +2,6 @@
 {% block form_questions %}
 <p class="margin-top-1 margin-bottom-4"><em>{{ page_note }}</em></p>
 
-<fieldset class="usa-fieldset">
   {% for field in wizard.form.visible_fields %}
     <div class="usa-prose margin-bottom-2">
       <label for="{{ field.id_for_label }}"
@@ -35,6 +34,6 @@
       </div>
     </div>
   {% endfor %}
-</fieldset>
+
 <div class="margin-bottom-5"></div>
 {% endblock %}
