@@ -27,12 +27,13 @@ class Contact(ModelForm):
                 self,
                 ('contact_first_name', 'contact_last_name'),
                 group_name='Name',
+                help_text="Leave the fields blank if you'd like to file anonymously",
             ),
             QuestionGroup(
                 self,
                 ('contact_email', 'contact_phone'),
                 group_name='Contact information',
-                help_text='Please choose at least one way for us to contact you.',
+                help_text='You are not required to provide contact information, but it will help us if we need to gather more information about the incident you are reporting or to respond to your submission',
             )
         ]
 
