@@ -45,7 +45,7 @@ class CRTReportWizard(SessionWizardView):
         # This title appears in large font above the question elements
         ordered_step_titles = [
             'Contact',
-            'Please provide details on what happened'
+            'Details'
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]
 
@@ -55,11 +55,6 @@ class CRTReportWizard(SessionWizardView):
             'current_step_name': current_step_name
         })
 
-        if current_step_name == 'Contact':
-            context.update({
-                'page_subtitle': 'Who should we contact about this issue?',
-                'step_helptext': "To ask for additional information or respond to your submission, we'll need to know the best person to contact."
-            })
         if current_step_name == 'Details':
             context.update({
                 'page_subtitle': 'Please describe what happened in your own words',
