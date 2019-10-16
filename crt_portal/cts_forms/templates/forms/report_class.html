@@ -1,8 +1,8 @@
 {% extends "forms/report_base.html" %}
 {% load static %}
 {% block form_questions %}
-<fieldset class="usa-fieldset">
-  <div class="page-subtitle">{{ page_subtitle }}</div>
+<fieldset class="usa-fieldset" aria-label="{{ current_step_name }}">
+  <legend class="usa-sr-only">{{ current_step_name }}</legend hidden>
   {% for field in wizard.form.visible_fields %}
       {% if field.label == 'Other' %}
         <div class="usa-prose margin-bottom-2 padding-left-3" id='other-class-option' >
@@ -20,7 +20,7 @@
     <div class="margin-bottom-1">
     {% if field.label == 'Other' %}
         <div>
-          <p><em>{{ field.help_text }}</em></p>
+          <p><em><label for="{{ field.id_for_label }}">{{ field.help_text }}</label></em></p>
           {{ field }}
           <em id="word_count_area" hidden>
             <span id="display_count">10</span>
