@@ -27,12 +27,13 @@ class Contact(ModelForm):
                 self,
                 ('contact_first_name', 'contact_last_name'),
                 group_name='Name',
+                help_text="Leave the fields blank if you'd like to file anonymously",
             ),
             QuestionGroup(
                 self,
                 ('contact_email', 'contact_phone'),
                 group_name='Contact information',
-                help_text='Please choose at least one way for us to contact you.',
+                help_text='You are not required to provide contact information, but it will help us if we need to gather more information about the incident you are reporting or to respond to your submission',
             )
         ]
 
@@ -57,7 +58,7 @@ class Contact(ModelForm):
 class Details(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)
-        self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea-large word-count-500'
+        self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
         self.label_suffix = ''
         self.fields['violation_summary'].label = 'Please describe what happened in your own words'
         self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'word_count_area'
