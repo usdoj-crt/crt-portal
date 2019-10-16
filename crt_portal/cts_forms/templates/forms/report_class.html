@@ -10,7 +10,13 @@
         <div class="usa-prose margin-bottom-2">
         <label for="{{ field.id_for_label }}" class="big margin-bottom-0">{{ field.label }}</div>
       {% endif %}
-      {{ field.errors }}
+      {% if field.errors %}
+        <div class="usa-alert usa-alert--warning usa-alert--slim">
+          <div class="usa-alert__body">
+          <em class="usa-alert__text">{{ field.errors }}</em>
+          </div>
+        </div>
+      {% endif %}
     <div class="margin-bottom-1">
     {% if field.label == 'Other' %}
         <div>

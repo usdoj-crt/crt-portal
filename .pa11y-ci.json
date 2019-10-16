@@ -13,6 +13,8 @@
           "url": "http://127.0.0.1:8000/report",
           "actions": [
             "click element #submit-next",
+            "wait for element #id_1-protected_class to be visible",
+            "click element #id_1-protected_class_13",
             "click element #submit-next"
           ],
           "screenCapture": "pa11y-screenshots/page3.png"
