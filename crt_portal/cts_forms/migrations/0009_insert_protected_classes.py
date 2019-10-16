@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     def retrieve_or_create_choices(*args, **defaults):
         for choice in PROTECTED_CLASS_CHOICES:
             c = ProtectedClass.objects.get_or_create(protected_class=choice)
-            c.save()
+            c[0].save()
 
     operations = [
         migrations.RunPython(retrieve_or_create_choices),
