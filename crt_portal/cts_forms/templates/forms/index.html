@@ -29,16 +29,17 @@
     <table class="usa-table crt-table">
       <thead>
         <tr>
-          <th>Submitted</th>
-          <th>Contact Name</th>
-          <th>Contact Details</th>
-          <th>Violation Summary</th>
+          <th scope="col">Submitted</th>
+          <th scope="col">Contact Name</th>
+          <th scope="col">Contact Details</th>
+          <th scope="col">Violation Summary</th>
+          <th scope="col">Class</th>
         </tr>
       </thead>
       {% if data_dict %}
         {% for violationreport in data_dict %}
           <tr>
-            <td>{{ violationreport.create_date|date:"SHORT_DATE_FORMAT" }}</td>
+            <td scope="row">{{ violationreport.create_date|date:"SHORT_DATE_FORMAT" }}</td>
             <td>
             {% with last=violationreport.contact_last_name|default:"—" %}
                 {{ last|truncatechars:20 }}{% endwith %}, {% with first=violationreport.contact_first_name|default:"—" %}
@@ -58,6 +59,43 @@
             {% with summary=violationreport.violation_summary|default:"—" %}
                 {{ summary|truncatechars:120 }}
             {% endwith %}
+            </td>
+            <td>
+            {% for p in violationreport.protected_class.all %}
+              {% if p.protected_class == "Disability (including temporary or in recovery)" %}
+                Disability,
+              {% endif %}
+              {% if p.protected_class == "Race/color" %}
+                Race/color,
+              {% endif %}
+              {% if p.protected_class == "National origin (including ancestry, ethnicity, and language)" %}
+                National Origin,
+              {% endif %}
+              {% if p.protected_class == "  Immigration/citizenship status (choosing this does not share your status)" %}
+                Immigration,
+              {% endif %}
+              {% if p.protected_class == "Religion" %}
+                Religion,
+              {% endif %}
+              {% if p.protected_class == "Sex or gender identity (including gender stereotypes) or pregnancy" %}
+                Sex,
+              {% endif %}
+              {% if p.protected_class == "Family, marriage, or parental status" %}
+                Family status,
+              {% endif %}
+              {% if p.protected_class == "Sexual orientation" %}
+                Orientation,
+              {% endif %}
+              {% if p.protected_class == "Military status" %}
+                Military,
+              {% endif %}
+              {% if p.protected_class == "Age" %}
+                Age,
+              {% endif %}
+              {% if p.protected_class == "Genetic information" %}
+                Genetic,
+              {% endif %}
+            {% endfor %}
             </td>
           </tr>
         {% endfor %}
