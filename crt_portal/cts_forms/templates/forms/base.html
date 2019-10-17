@@ -13,6 +13,7 @@
     {% block head %}{% endblock %}
   </head>
   <body>
+    <a class="usa-skipnav" href="#main-content">Skip to main content</a>
     <div class="usa-banner">
       <div class="usa-accordion">
         <header class="usa-banner__header">
@@ -55,10 +56,9 @@
       </div>
     </div>
 
+    {% block page_header %}{% endblock %}
 
-    <main {% block main_class %}{% endblock %}>
-      {% block page_header %}{% endblock %}
-
+    <main id="main-content" {% block main_class %}{% endblock %}>
       {% block content %} {% endblock %}
     </main>
 
