@@ -31,7 +31,7 @@ Once code is merged into the develop branch, the code is deployed to the develop
 
 ### Step two, Release QA:
 
-Releases are created every two weeks as part of the a two week sprint cadence. Product owners and managers approve for the work in the develop branch to become a release. This is represented in two processes on the kanban board the initial check that the product owner moves cards from "dev done" to "ready for UAT".
+Releases are created every two weeks as part of the a two week sprint cadence. Product owners and managers approve the work in the develop branch to become a release. This is represented in two processes on the project scrum board; the initial check that the product owner moves cards from "dev done" to "ready for UAT".
 
 The work from the develop branch is made into a new branch named `release/date-of-planed-release`
 
@@ -42,7 +42,7 @@ Automated tests are run on any code corrections via a PR and PR review to the re
 
 ### Step three:
 
- Once customer sign off is done, theproduct owner or their designee gives final approval of the staging site and the deploy to the production environment.
+ Once customer sign off is done, the product owner or their designee gives final approval of the staging site and the deploy to the production environment.
 
  The release is merged into the development branch to make sure any of the adjustments in staging are also accounted for upstream.
 
