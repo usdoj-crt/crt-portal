@@ -11,6 +11,7 @@ PRIMARY_COMPLAINT_CHOICES = (
     ('discriminated_against', 'Otherwise discriminated against'),
 )
 
+# this will create the initial order, the form_order data can be directly adjusted after the initial load.
 PROTECTED_CLASS_CHOICES = (
     'Disability (including temporary or in recovery)',
     'Race/color',
@@ -18,8 +19,8 @@ PROTECTED_CLASS_CHOICES = (
     'Immigration/citizenship status (choosing this does not share your status)',
     'Religion',
     'Sex or gender identity (including gender stereotypes) or pregnancy',
-    'Sexual orientation',
     'Family, marriage, or parental status',
+    'Sexual orientation',
     'Military status',
     'Age',
     'Genetic information',

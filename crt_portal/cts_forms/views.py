@@ -19,8 +19,8 @@ def IndexView(request):
     for l in latest_reports:
         reports = []
         for p in l.protected_class.all().order_by('-form_order'):
-            if p.protected_class is not None and p.protected_class != "None":
-                reports.append(PROTECTED_CLASS_CODES.get(p.protected_class, 'unknown'))
+            if p.protected_class is not None:
+                reports.append(PROTECTED_CLASS_CODES.get(p.protected_class, p.protected_class))
         protected_class = ', '.join([i for i in reports if i])
         data.append([l, protected_class])
 
