@@ -47,11 +47,13 @@
       {{ wizard.management_form }}
 
       {% if form.non_field_errors %}
-        <ul>
-          {% for error in form.non_field_errors %}
-            <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
+        {% for error in form.non_field_errors %}
+          <div id="word-limit-alert" class="usa-alert usa-alert--warning usa-alert--slim" hidden>
+          <div class="usa-alert__body">
+            <em class="usa-alert__text">{{ error }}</em>
+          </div>
+          </div>
+        {% endfor %}
       {% endif %}
 
       {% for hidden_field in form.hidden_fields %}
@@ -73,7 +75,8 @@
       {% endblock %}
 
       <div class="margin-bottom-9">
-        <input type="submit"
+        <input id="submit-next"
+               type="submit"
                label="submit"
                value="{% trans 'Next' %}"
                class="usa-button" />

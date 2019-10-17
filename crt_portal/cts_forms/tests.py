@@ -7,18 +7,16 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 from .models import ProtectedClass, Report
-from .forms import WhatHappened, Where, Who, Details, Contact
+from .model_variables import PROTECTED_CLASS_CHOICES
+from .forms import Where, Who, Details, Contact, ProtectedClassForm
 
 
 class Valid_Form_Tests(TestCase):
-    """Confirms each form is valid when given valid test data."""
-    def test_WhatHappened_valid(self):
-        form = WhatHappened(data={
-            'primary_complaint': 'vote',
-            'protected_class_set': ProtectedClass.objects.all(),
-        })
-        self.assertTrue(form.is_valid())
+    def setUp(self):
+        for choice in PROTECTED_CLASS_CHOICES:
+            ProtectedClass.objects.get_or_create(protected_class=choice)
 
+    """Confirms each form is valid when given valid test data."""
     def test_Where_valid(self):
         form = Where(data={
             'place': 'place_of_worship',
@@ -42,7 +40,7 @@ class Valid_Form_Tests(TestCase):
 
     def test_Details_valid(self):
         form = Details(data={
-            'violation_summary': 'Hello! I have a problem.',
+            'violation_summary': 'Hello! I have a problem. ႠႡႢ',
             'when': 'last_6_months',
             'how_many': 'no',
         })
@@ -53,6 +51,14 @@ class Valid_Form_Tests(TestCase):
             'contact_first_name': 'first_name',
             'contact_last_name': 'last_name',
         })
+        self.assertTrue(form.is_valid())
+
+    def test_Class_valid(self):
+        form = ProtectedClassForm(data={
+            'protected_class': ProtectedClass.objects.all(),
+            'other_class': 'Random string under 150 characters (हिन्दी)',
+        })
+        print(form.errors)
         self.assertTrue(form.is_valid())
 
 
@@ -76,16 +82,16 @@ class Validation_Form_Tests(TestCase):
     #     })
     #     self.assertTrue('when<ul class="errorlist"><li>This field is required.' in str(form.errors))
 
-    def test_required_where(self):
-        form = Where(data={
-            'place': '',
-            'public_or_private_employer': 'public_employer',
-            'employer_size': '14_or_less',
-            'public_or_private_school': 'public',
-            'public_or_private_facility': 'state_local_facility',
-            'public_or_private_healthcare': 'state_local_facility',
-        })
-        self.assertTrue('place<ul class="errorlist"><li>This field is required.' in str(form.errors))
+    # def test_required_where(self):
+    #     form = Where(data={
+    #         'place': '',
+    #         'public_or_private_employer': 'public_employer',
+    #         'employer_size': '14_or_less',
+    #         'public_or_private_school': 'public',
+    #         'public_or_private_facility': 'state_local_facility',
+    #         'public_or_private_healthcare': 'state_local_facility',
+    #     })
+    #     self.assertTrue('place<ul class="errorlist"><li>This field is required.' in str(form.errors))
 
 
 class ContactValidationTests(TestCase):

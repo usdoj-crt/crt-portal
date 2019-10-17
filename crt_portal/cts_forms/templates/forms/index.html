@@ -39,63 +39,31 @@
       {% if data_dict %}
         {% for violationreport in data_dict %}
           <tr>
-            <td scope="row">{{ violationreport.create_date|date:"SHORT_DATE_FORMAT" }}</td>
+            <td scope="row">{{ violationreport.0.create_date|date:"SHORT_DATE_FORMAT" }}</td>
             <td>
-            {% with last=violationreport.contact_last_name|default:"—" %}
-                {{ last|truncatechars:20 }}{% endwith %}, {% with first=violationreport.contact_first_name|default:"—" %}
+            {% with last=violationreport.0.contact_last_name|default:"—" %}
+                {{ last|truncatechars:20 }}{% endwith %}, {% with first=violationreport.0.contact_first_name|default:"—" %}
                 {{ first|truncatechars:20 }}
             {% endwith %}
             </td>
             <td>
-            {% with email=violationreport.contact_email|default:"—" %}
+            {% with email=violationreport.0.contact_email|default:"—" %}
                 {{ email|truncatechars:20 }}
             {% endwith %}
             <br>
-            {% with phone=violationreport.contact_phone|default:"—"  %}
+            {% with phone=violationreport.0.contact_phone|default:"—"  %}
                 {{ phone|truncatechars:20 }}
             {% endwith %}
             </td>
             <td>
-            {% with summary=violationreport.violation_summary|default:"—" %}
+            {% with summary=violationreport.0.violation_summary|default:"—" %}
                 {{ summary|truncatechars:120 }}
             {% endwith %}
             </td>
             <td>
-            {% for p in violationreport.protected_class.all %}
-              {% if p.protected_class == "Disability (including temporary or in recovery)" %}
-                Disability,
-              {% endif %}
-              {% if p.protected_class == "Race/color" %}
-                Race/color,
-              {% endif %}
-              {% if p.protected_class == "National origin (including ancestry, ethnicity, and language)" %}
-                National Origin,
-              {% endif %}
-              {% if p.protected_class == "  Immigration/citizenship status (choosing this does not share your status)" %}
-                Immigration,
-              {% endif %}
-              {% if p.protected_class == "Religion" %}
-                Religion,
-              {% endif %}
-              {% if p.protected_class == "Sex or gender identity (including gender stereotypes) or pregnancy" %}
-                Sex,
-              {% endif %}
-              {% if p.protected_class == "Family, marriage, or parental status" %}
-                Family status,
-              {% endif %}
-              {% if p.protected_class == "Sexual orientation" %}
-                Orientation,
-              {% endif %}
-              {% if p.protected_class == "Military status" %}
-                Military,
-              {% endif %}
-              {% if p.protected_class == "Age" %}
-                Age,
-              {% endif %}
-              {% if p.protected_class == "Genetic information" %}
-                Genetic,
-              {% endif %}
-            {% endfor %}
+            {% with protected_class=violationreport.1|default:"—" %}
+                {{ protected_class|truncatechars:50 }}
+            {% endwith %}
             </td>
           </tr>
         {% endfor %}

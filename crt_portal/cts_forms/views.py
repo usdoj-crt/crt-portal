@@ -3,7 +3,8 @@ from django.contrib.auth.decorators import login_required
 
 from formtools.wizard.views import SessionWizardView
 
-from .models import Report
+from .models import Report, ProtectedClass
+from .model_variables import PROTECTED_CLASS_CODES
 
 import logging
 
@@ -13,12 +14,24 @@ logger = logging.getLogger(__name__)
 @login_required
 def IndexView(request):
     latest_reports = Report.objects.order_by('-create_date')
-    return render_to_response('forms/index.html', {'data_dict': latest_reports})
+    data = []
+    # formatting protected class
+    for l in latest_reports:
+        reports = []
+        for p in l.protected_class.all().order_by('-form_order'):
+            if p.protected_class is not None and p.protected_class != "None":
+                reports.append(PROTECTED_CLASS_CODES.get(p.protected_class, 'unknown'))
+        protected_class = ', '.join([i for i in reports if i])
+        data.append([l, protected_class])
+
+    return render_to_response('forms/index.html', {'data_dict': data})
 
 
 TEMPLATES = [
     # Contact
     'forms/report_grouped_questions.html',
+    # Protected Class
+    'forms/report_class.html',
     # Details
     'forms/report_details.html',
 ]
@@ -35,6 +48,7 @@ class CRTReportWizard(SessionWizardView):
         # This name appears in the progress bar wizard
         ordered_step_names = [
             'Contact',
+            'Protected Class',
             'Details',
             # 'What Happened',
             # 'Where',
@@ -45,6 +59,7 @@ class CRTReportWizard(SessionWizardView):
         # This title appears in large font above the question elements
         ordered_step_titles = [
             'Contact',
+            'Please provide details on what happened',
             'Details'
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]
@@ -65,17 +80,17 @@ class CRTReportWizard(SessionWizardView):
 
     def done(self, form_list, form_dict, **kwargs):
         form_data_dict = self.get_all_cleaned_data()
-        # m2mfield = form_data_dict.pop('protected_class')
+        m2mfield = form_data_dict.pop('protected_class')
         r = Report.objects.create(**form_data_dict)
         r.save()
 
         # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
-        # for protected in m2mfield:
-        #     p = ProtectedClass.objects.get(protected_class=protected)
-        #     r.protected_class.add(p)
+        for protected in m2mfield:
+            p = ProtectedClass.objects.get(protected_class=protected)
+            r.protected_class.add(p)
 
         r.save()
         # adding this back for the save page results
-        # form_data_dict['protected_class'] = m2mfield.values()
+        form_data_dict['protected_class'] = m2mfield.values()
 
         return render_to_response('forms/confirmation.html', {'data_dict': form_data_dict})
