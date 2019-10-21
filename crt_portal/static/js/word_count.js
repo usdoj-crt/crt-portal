@@ -26,11 +26,8 @@ function onBelowLimit (wordCount) {
   wordLimitMessage.innerHTML = wordsRemaining + description;
 }
 
-function onEqualOrExceedLimit (wordCount) {
-  // Trim the text down to the first 500 words:
-  var trimmed = textAreaElem.value.split(" ", 500).join(" ")
-                                  .split("\t", 500).join("\t")
-                                  .split("\n", 500).join("\n");
+function onEqualOrExceedLimit (value) {
+  var trimmed = value.split(/(?=[^\s]\s+)/, 500).join('');
   textAreaElem.value = trimmed;
 
   // Unset message
@@ -48,9 +45,10 @@ function updateWordCountArea (e) {
     // anything (e.g. if textarea has initial content).
     var value = textAreaElem.value;
     var wordCount = value ? value.match(/\S+/g).length : 0;
+    console.log('wordCount', wordCount);
 
     if (wordCount >= 500) {
-      onEqualOrExceedLimit(wordCount);
+      onEqualOrExceedLimit(value);
     } else {
       onBelowLimit(wordCount);
     }
