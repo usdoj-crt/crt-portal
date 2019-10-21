@@ -2,9 +2,9 @@
 
 This strategy is aimed at reducing the risk of production deploys. Smaller, more frequent deploys reduce the risk of each deploy. Since these smaller deploys are less likely to cause problems, that provides the benefit of less downtime and higher availability of your systems. It also has the benefit of better schedules for maintainers since there is rarely a need to wait until the site is not in use if you can do seamless deploys.
 
-So, the overall goal is to make sure that we have small, frequent deploys while ensuring proper quality checks. Before code is deployed it goes though 3 human evaluations and at least 3 rounds of automated testing.
+So, the overall goal is to make sure that the team has small, frequent deploys while ensuring proper quality checks. Before code is deployed it goes though 3 human evaluations and at least 3 rounds of automated testing.
 
-We currently have automated tests for:
+The team currently have automated tests for:
 - accessibility
 - security
 - business logic
@@ -35,7 +35,7 @@ Releases are created every two weeks as part of the a two week sprint cadence. P
 
 The work from the develop branch is made into a new branch named `release/date-of-planed-release`
 
-There will then be a couple days for QA. Generally we will want to check it matches Acceptance Criteria, if there are unusual bugs or inconsistencies and it should be ready to bring in the relevant business interests to approve.
+There will then be a couple days for QA. Generally the reviewer will want to check it matches Acceptance Criteria, if there are unusual bugs or inconsistencies and it should be ready to bring in the relevant business interests to approve.
 
 Automated tests are run on any code corrections via a PR and PR review to the release branch.
 
@@ -65,4 +65,4 @@ The main workflow is based on a [GitFlow](https://danielkummer.github.io/git-flo
 ----
 
 ### Contingency
-**Hotfixes** are the way that we approach critical bugs or flaws found in production. When this happens, a business owner or their designee will request a hotfix. Once the solution is identified, the hotfix will undergo PR review and QA at the same time. The branch is then merged into the develop branch. Once automated tests pass, there is a quick QA, then the code is merged into the upcoming release. This auto-deploys after tests with a short QA period. Then the code will be merged into master, which will also auto-deploy after tests.
+**Hotfixes** are the way that the team approachs critical bugs or flaws found in production. When this happens, a business owner or their designee will request a hotfix. Once the solution is identified, the hotfix will undergo PR review and QA at the same time. The branch is then merged into the develop branch. Once automated tests pass, there is a quick QA, then the code is merged into the upcoming release. This auto-deploys after tests with a short QA period. Then the code will be merged into master, which will also auto-deploy after tests.
