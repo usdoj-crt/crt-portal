@@ -1,5 +1,5 @@
 from django.forms import ModelForm, CheckboxInput, \
-    TypedChoiceField, TextInput, EmailInput, Form, ModelMultipleChoiceField
+    TypedChoiceField, TextInput, EmailInput, ModelMultipleChoiceField
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple
 from .models import Report, ProtectedClass
