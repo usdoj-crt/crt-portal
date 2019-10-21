@@ -198,6 +198,7 @@ COMPRESS_PRECOMPILERS = (
     ('module', 'compressor_toolkit.precompilers.ES6Compiler'),
     ('css', 'compressor_toolkit.precompilers.SCSSCompiler'),
 )
+
 COMPRESS_ENABLED = True
 
 if environment == 'LOCAL':
