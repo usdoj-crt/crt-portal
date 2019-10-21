@@ -27,6 +27,9 @@ function onBelowLimit (wordCount) {
 }
 
 function onEqualOrExceedLimit (value) {
+  // Thank you Stack Overflow users Michal and Steve Bradshaw
+  // for the examples of trim-to-word-count!
+  // https://stackoverflow.com/a/47136558
   var trimmed = value.split(/(?=[^\s]\s+)/, 500).join('');
   textAreaElem.value = trimmed;
 
