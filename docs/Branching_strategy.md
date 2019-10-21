@@ -5,9 +5,9 @@ This strategy is aimed at reducing the risk of production deploys. Smaller, more
 So, the overall goal is to make sure that we have small, frequent deploys while ensuring proper quality checks. Before code is deployed it goes though 3 human evaluations and at least 3 rounds of automated testing.
 
 We currently have automated tests for:
-        - accessibility
-        - security
-        - business logic
+- accessibility
+- security
+- business logic
 
 Automated testing doesn't replace the need for people with context who are approving work, but it does reduce the risk of introducing errors or vulnerabilities. It can make sure certain bugs are not reintroduced and catch common security and accessibility errors.
 
