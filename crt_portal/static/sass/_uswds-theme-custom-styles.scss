@@ -55,10 +55,6 @@ main {
     font-size: 1.17em; // Matches h3 size
     margin-bottom: 0.5rem;
   }
-
-  p, em, h2, label:not(.big) {
-    color: $gray-warm;
-  }
 }
 
 footer {
@@ -69,6 +65,10 @@ footer {
   max-width: 700px;
   margin: auto;
   padding: 0 8px;
+}
+
+p, em, h2, label:not(.big) {
+  color: $gray-warm;
 }
 
 // Form Width
