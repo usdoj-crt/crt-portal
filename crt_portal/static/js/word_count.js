@@ -61,14 +61,3 @@ function listenWordCount (e){
 };
 
 document.addEventListener('keyup', listenWordCount);
-
-
-function checkOther(elem){
-  var checkBox = document.querySelectorAll('.' + 'usa-checkbox__input').item(13);
-  var otherArea = document.getElementById("other-class-option");
-  if (checkBox.checked == true){
-    otherArea.removeAttribute('hidden');
-  } else {
-    otherArea.setAttribute('hidden', '');
-  }
-}

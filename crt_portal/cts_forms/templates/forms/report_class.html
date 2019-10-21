@@ -1,5 +1,6 @@
 {% extends "forms/report_base.html" %}
 {% load static %}
+{% load compress %}
 {% block form_questions %}
 <fieldset class="usa-fieldset" aria-label="{{ current_step_name }}">
   <legend class="usa-sr-only">{{ current_step_name }}</legend hidden>
@@ -10,13 +11,15 @@
         <div class="usa-prose margin-bottom-2">
         <label for="{{ field.id_for_label }}" class="big margin-bottom-0">{{ field.label }}</div>
       {% endif %}
+
       {% if field.errors %}
         <div class="usa-alert usa-alert--warning usa-alert--slim">
-          <div class="usa-alert__body">
-          <em class="usa-alert__text">{{ field.errors }}</em>
-          </div>
+          <div class="usa-alert__body"><em class="usa-alert__text">
+            {{ field.errors }}
+          </em></div>
         </div>
       {% endif %}
+
     <div class="margin-bottom-1">
     {% if field.label == 'Other' %}
         <div>
@@ -44,16 +47,27 @@
 {% endblock %}
 
 {% block page_js %}
-<script>
+{% compress js inline%}
+<script type="text/javascript">
 var otherbox = document.getElementById("other-class-option");
 otherbox.setAttribute("hidden","");
-var otherCheckLabel = document.getElementsByTagName("LABEL").item(14);
-var otherCheck = document.querySelectorAll('.' + 'usa-checkbox').item(13)
-var otherCheckID = document.querySelectorAll('.' + 'usa-checkbox').item(13).id;
+
+var otherCheck = document.querySelectorAll('.' + 'usa-checkbox').item(11);
+var otherCheckID = document.querySelectorAll('.' + 'usa-checkbox__input').item(11).id;
+
+function checkOther(elem){
+  var checkBox = document.querySelectorAll('.' + 'usa-checkbox__input').item(11);
+  var otherArea = document.getElementById("other-class-option");
+  if (checkBox.checked == true){
+    otherArea.removeAttribute('hidden');
+  } else {
+    otherArea.setAttribute('hidden', '');
+  }
+}
+
 otherCheck.setAttribute("onclick","checkOther(otherCheckID);");
+
+window.selectionchange = checkOther(document.querySelectorAll('.' + 'usa-checkbox__input').item(11).id);
 </script>
-<script src="{% static 'js/word_count.js' %}"></script>
-<script type="text/javascript">
-window.selectionchange = checkOther(otherCheckID);
-</script>
+{% endcompress %}
 {% endblock %}
