@@ -62,7 +62,7 @@ class Details(ModelForm):
         self.label_suffix = ''
         self.fields['violation_summary'].label = 'Tell us what happened'
         self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'word_count_area'
-        self.fields['violation_summary'].help_text = "Do you have more details about the time, location, or people involved with the event? Can you give names of witnesses or materials that would corroborate your concern?"
+        self.fields['violation_summary'].help_text = "Please include any details you have about time, location, or people involved with the event, names of witnesses or any materials that would support your description"
 
     class Meta:
         model = Report

@@ -11,6 +11,7 @@ PRIMARY_COMPLAINT_CHOICES = (
     ('discriminated_against', 'Otherwise discriminated against'),
 )
 
+# See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
 PROTECTED_CLASS_CHOICES = (
     'Disability (including temporary or in recovery)',
     'Race/color',
