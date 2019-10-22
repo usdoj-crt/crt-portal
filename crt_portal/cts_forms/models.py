@@ -40,7 +40,7 @@ class ProtectedClass(models.Model):
 
 
 class Report(models.Model):
-    # protected class
+    # protected class, see maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/.maintenance_or_infrequent_tasks.md#change-protected-class-options
     protected_class = models.ManyToManyField(ProtectedClass)
     other_class = models.CharField(max_length=150, null=True, blank=True)
     # contact form
