@@ -75,7 +75,6 @@ class Report(models.Model):
     # previous details form
     when = models.CharField(max_length=700, choices=WHEN_CHOICES, default=None, null=True)
     how_many = models.CharField(max_length=700, null=True, blank=True, choices=HOW_MANY_CHOICES, default=None)
-    # TODO, upgrade to add validation https://pypi.org/project/django-phone-field/
     create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
