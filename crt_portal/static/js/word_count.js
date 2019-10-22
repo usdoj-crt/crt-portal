@@ -5,6 +5,7 @@ var wordLimitMessage = document.getElementById("word_limit_message");
 
 // Word limit alert state
 var wordLimitAlert = document.getElementById("word_limit_alert");
+var wordLimitScreenReaderText = document.getElementById("word_limit_sr_text");
 
 // Wraps both "words remaining" message and alert state
 var wordCountArea = document.getElementById("word_count_area");
@@ -40,6 +41,12 @@ function onEqualOrExceedLimit (value) {
   textAreaElem.setAttribute('aria-invalid', 'true');
   textAreaElem.classList.add('bg-gold-outline');
   wordLimitAlert.removeAttribute('hidden');
+
+  if (wordLimitScreenReaderText.innerText === '500 word limit reached') {
+    wordLimitScreenReaderText.innerText = 'Please finish your summary -- 500 word limit reached';
+  } else {
+    wordLimitScreenReaderText.innerText = '500 word limit reached';
+  }
 }
 
 function updateWordCountArea (e) {

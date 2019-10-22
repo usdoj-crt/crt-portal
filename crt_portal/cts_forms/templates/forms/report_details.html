@@ -27,7 +27,12 @@
            class="usa-alert usa-alert--warning usa-alert--slim"
            hidden>
         <div class="usa-alert__body">
-          <em class="usa-alert__text">500 word limit reached</em>
+          <em class="usa-alert__text" aria-hidden="true">
+            500 word limit reached
+          </em>
+          <span id="word_limit_sr_text" class="usa-sr-only">
+            500 word limit reached
+          </span>
         </div>
       </div>
     </div>
