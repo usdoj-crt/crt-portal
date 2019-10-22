@@ -75,8 +75,8 @@ def retrieve_or_create_choices():
     choices = []
     for choice in PROTECTED_CLASS_CHOICES:
         try:
-            c = ProtectedClass.objects.get_or_create(protected_class=choice)
-            c[0].save()
+            choice_object = ProtectedClass.objects.get_or_create(protected_class=choice)
+            choice_object[0].save()
             choices.append(c[0].pk)
         except:  # noqa
             # this has a concurrency issue for initial migrations
@@ -113,8 +113,8 @@ class ProtectedClassForm(ModelForm):
             queryset=ProtectedClass.objects.filter(pk__in=choices).order_by('form_order'),
             widget=UsaCheckboxSelectMultiple,
         )
-        self.fields['protected_class'].label = 'Do you believe any of the following characteristics influenced why you were treated this way?'
-        self.fields['protected_class'].help_text = 'Civil rights laws protect people from discrimination and include these protected classes.'
+        self.fields['protected_class'].label = 'Do you believe you were treated this way because of any of the following characteristics or statuses that apply to you?'
+        self.fields['protected_class'].help_text = 'Civil rights laws protects individuals from being discriminated against based on race, color, sex, religion, and other characteristics.'
         self.fields['other_class'].label = 'Other'
         self.fields['other_class'].help_text = 'Please describe'
         self.fields['other_class'].widget.attrs['class'] = 'usa-input word-count-10'

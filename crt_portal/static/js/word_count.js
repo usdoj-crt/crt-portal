@@ -8,7 +8,7 @@ var wordCountArea = document.getElementById("word_count_area");
 // Show word count area for JS-enabled browsers:
 if (wordCountArea) { wordCountArea.removeAttribute('hidden'); }
 
-function updateWordCount (e, max='', textAreaElem='') {
+function updateWordCount (e, max, textAreaElem) {
     // Ignore `e` and read the value directly from the textarea here;
     // we want this function to work even if the user hasn't typed
     // anything (e.g. if textarea has initial content).
@@ -34,7 +34,7 @@ function updateWordCount (e, max='', textAreaElem='') {
       var wordsRemaining = max - words;
       displayCountElem.innerHTML = wordsRemaining;
       countMessageElem.value = (wordsRemaining === 1) ? 'word remaining' : 'words remaining';
-      // textAreaElem.classList.remove('bg-gold-outline');
+      textAreaElem.classList.remove('bg-gold-outline');
       wordLimitAlert.setAttribute('hidden', '');
       wordLimitAlert.removeAttribute('role');
     }
