@@ -170,6 +170,10 @@ if environment != 'LOCAL':
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_DEFAULT_ACL = 'public-read'
+    COMPRESS_OFFLINE = True
+    COMPRESS_URL = STATIC_URL
+    COMPRESS_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    COMPRESS_ROOT = os.path.join(BASE_DIR, "staticfiles")
 else:
     STATIC_URL = '/static/'
 
@@ -199,7 +203,6 @@ COMPRESS_PRECOMPILERS = (
     ('css', 'compressor_toolkit.precompilers.SCSSCompiler'),
 )
 
-COMPRESS_OFFLINE = True
 COMPRESS_ENABLED = True
 
 if environment == 'LOCAL':
