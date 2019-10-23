@@ -40,7 +40,7 @@ jobs:
           name: run server for tests
           command: |
             pipenv run crt_portal/manage.py compress
-            pipenv run crt_portal/manage.py collect static
+            pipenv run crt_portal/manage.py collectstatic
             pipenv run crt_portal/manage.py runserver 8000
           background: true
       - run:
