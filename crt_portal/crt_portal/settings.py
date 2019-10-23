@@ -152,6 +152,22 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
+# Compressor for remote storages
+# https://django-compressor.readthedocs.io/en/stable/remote-storages/
+class CachedS3Boto3Storage(S3Boto3Storage):
+    """
+    S3 storage backend that saves the files locally, too.
+    """
+    def __init__(self, *args, **kwargs):
+        super(CachedS3Boto3Storage, self).__init__(*args, **kwargs)
+        self.local_storage = get_storage_class(
+            "compressor.storage.CompressorFileStorage")()
+
+    def save(self, name, content):
+        self.local_storage._save(name, content)
+        super(CachedS3Boto3Storage, self).save(name, self.local_storage._open(name))
+        return name
+
 
 if environment != 'LOCAL':
     s3_creds = vcap['s3'][0]["credentials"]
@@ -167,12 +183,12 @@ if environment != 'LOCAL':
     AWS_LOCATION = 'static'
     AWS_QUERYSTRING_AUTH = False
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    STATICFILES_STORAGE = 'CachedS3Boto3Storage'
+    DEFAULT_FILE_STORAGE = 'CachedS3Boto3Storage'
     AWS_DEFAULT_ACL = 'public-read'
     COMPRESS_OFFLINE = True
     COMPRESS_URL = STATIC_URL
-    COMPRESS_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    COMPRESS_STORAGE = STATICFILES_STORAGE
     COMPRESS_ROOT = os.path.join(BASE_DIR, "staticfiles")
 else:
     STATIC_URL = '/static/'
