@@ -242,7 +242,9 @@ workflows:
             - build_and_test
           filters:
             branches:
-              only: develop
+              # DO NOT MERGE
+              only: compress-on-deploy
+              # only: develop
 
       - deploy-stage:
           requires:
