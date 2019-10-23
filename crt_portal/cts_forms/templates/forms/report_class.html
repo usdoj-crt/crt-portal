@@ -1,6 +1,5 @@
 {% extends "forms/report_base.html" %}
 {% load static %}
-{% load compress %}
 {% block form_questions %}
 <fieldset class="usa-fieldset" aria-label="{{ current_step_name }}">
   <legend class="usa-sr-only">{{ current_step_name }}</legend hidden>
@@ -39,8 +38,6 @@
 {% endblock %}
 
 {% block page_js %}
-{% compress js file base %}
 <script src="{% static 'js/other_show_hide.js' %}"></script>
 <script src="{% static 'js/word_count.js' %}"></script>
-{% endcompress %}
 {% endblock %}
