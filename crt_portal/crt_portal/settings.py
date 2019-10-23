@@ -199,6 +199,7 @@ COMPRESS_PRECOMPILERS = (
     ('css', 'compressor_toolkit.precompilers.SCSSCompiler'),
 )
 
+COMPRESS_OFFLINE = True
 COMPRESS_ENABLED = True
 
 if environment == 'LOCAL':
