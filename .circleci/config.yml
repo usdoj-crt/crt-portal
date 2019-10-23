@@ -39,6 +39,8 @@ jobs:
       - run:
           name: run server for tests
           command: |
+            pipenv run crt_portal/manage.py compress
+            pipenv run crt_portal/manage.py collect static
             pipenv run crt_portal/manage.py runserver 8000
           background: true
       - run:
@@ -64,6 +66,8 @@ jobs:
             npm run test:a11y-ci
 
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
+          path: /tmp/test-results
+      - store_artifacts:
           path: /tmp/test-results
 
   deploy-dev:
