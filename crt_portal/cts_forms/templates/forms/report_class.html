@@ -25,22 +25,7 @@
       <div>
         <p><em><label for="{{ field.id_for_label }}">{{ field.help_text }}</label></em></p>
         {{ field }}
-        <div id="word_count_area" aria-live="polite" hidden>
-          <em id="word_limit_message"></em>
-          <div id="word_limit_alert"
-               role="alert"
-               class="usa-alert usa-alert--warning usa-alert--slim"
-               hidden>
-            <div class="usa-alert__body">
-              <em class="usa-alert__text" aria-hidden="true">
-                10 word limit reached
-              </em>
-              <span id="word_limit_sr_text" class="usa-sr-only">
-                10 word limit reached
-              </span>
-            </div>
-          </div>
-        </div>
+        {% include "forms/word_counter.html" with word_limit=10 %}
       </div>
     {% else %}
       <p><em>{{ field.help_text }}</em></p>
