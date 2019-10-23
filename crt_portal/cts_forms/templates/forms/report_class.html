@@ -22,18 +22,10 @@
 
     <div class="margin-bottom-1">
     {% if field.label == 'Other' %}
-        <div>
-          <p><em><label for="{{ field.id_for_label }}">{{ field.help_text }}</label></em></p>
-          {{ field }}
-          <em id="word_count_area" hidden>
-            <span id="display_count">10</span>
-            <span id="count_message">word(s) remaining</span>
-          </em>
-          <div id="word-limit-alert" class="usa-alert usa-alert--warning usa-alert--slim" hidden>
-            <div class="usa-alert__body">
-              <em class="usa-alert__text">10 word limit reached</em>
-            </div>
-        </div>
+      <div>
+        <p><em><label for="{{ field.id_for_label }}">{{ field.help_text }}</label></em></p>
+        {{ field }}
+        {% include "forms/word_counter.html" with word_limit=10 %}
       </div>
     {% else %}
       <p><em>{{ field.help_text }}</em></p>

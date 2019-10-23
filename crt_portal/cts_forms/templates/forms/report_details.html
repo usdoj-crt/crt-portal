@@ -20,19 +20,7 @@
     <div class="margin-bottom-1">
       {{ field }}
     </div>
-    <noscript>
-      <em>500 word limit.</em>
-    </noscript>
-    <em id="word_count_area" aria-live="polite" hidden>
-      <span id="display_count">500</span>
-      <span> </span>
-      <span id="count_message">words remaining</span>
-    </em>
-    <div id="word-limit-alert" class="usa-alert usa-alert--warning usa-alert--slim" hidden>
-      <div class="usa-alert__body">
-        <em class="usa-alert__text">500 word limit reached</em>
-      </div>
-    </div>
+    {% include "forms/word_counter.html" with word_limit=500 %}
   {% endfor %}
 
 <div class="margin-bottom-5"></div>
