@@ -30,8 +30,10 @@ function onBelowLimit (wordCount, max, textAreaElem) {
 
 function onEqualOrExceedLimit (value, max, textAreaElem) {
   // Thank you Stack Overflow users Michal and Steve Bradshaw
-  // for the examples of trim-to-word-count!
-  // https://stackoverflow.com/a/47136558
+  // for the examples of trim-to-word-count! https://stackoverflow.com/a/47136558
+
+  // Find all whitespace characters (newline, tab) and use to trim to
+  // the max number of words:
   var trimmed = value.split(/(\s+)/, ((max * 2) - 1)).join('');
   textAreaElem.value = trimmed;
 
@@ -61,8 +63,12 @@ function updateWordCount (e, max, textAreaElem) {
   // Ignore `e` and read the value directly from the textarea;
   // we want this function to work even if the user hasn't typed
   // anything (e.g. if textarea has initial content).
-  var value = textAreaElem.value;
-  var wordCount = value ? value.match(/\S+/g).length : 0;
+  // TrimStart because leading whitespace messes with our word count.
+  var value = textAreaElem.value.trimStart();
+
+  // Match groups of non-whitespace characters, i.e. words.
+  var wordMatch = value.match(/\S+/g);
+  var wordCount = wordMatch ? wordMatch.length : 0;
 
   if (wordCount >= max) {
     onEqualOrExceedLimit(value, max, textAreaElem);
