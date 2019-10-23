@@ -80,7 +80,7 @@ def retrieve_or_create_choices():
             choices.append(choice_object[0].pk)
         except:  # noqa
             # this has a concurrency issue for initial migrations
-            logger.info('ProtectedClass not loaded yet')
+            logger.warning('ProtectedClass not loaded yet')
     return choices
 
 
