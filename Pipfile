@@ -19,7 +19,6 @@ django-formtools = "*"
 bandit = "*"
 flake8 = "*"
 django-crequest = "*"
-crequest = "*"
 
 [requires]
 python_version = "3.7"
