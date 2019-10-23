@@ -1,6 +1,7 @@
 {% extends "forms/base.html" %}
 {% load i18n %}
 {% load static %}
+{% load compress %}
 {% block head %}
   {{ wizard.form.media }}
 {% endblock %}
@@ -9,7 +10,7 @@
   <header class="page-header-background">
     <div class="content-wrapper">
       <h1 class="padding-top-5 margin-0">
-        Submit a civil rights concern to the Department of Justice
+        Contact the Department of Justice about a civil rights concern
       </h1>
       <div class="intro-subtitle padding-y-3">
         If you believe you or someone else has experienced a civil rights violation, please tell us what happened
@@ -47,11 +48,13 @@
       {{ wizard.management_form }}
 
       {% if form.non_field_errors %}
-        <ul>
-          {% for error in form.non_field_errors %}
-            <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
+        {% for error in form.non_field_errors %}
+          <div id="word-limit-alert" class="usa-alert usa-alert--warning usa-alert--slim" hidden>
+          <div class="usa-alert__body">
+            <em class="usa-alert__text">{{ error }}</em>
+          </div>
+          </div>
+        {% endfor %}
       {% endif %}
 
       {% for hidden_field in form.hidden_fields %}
@@ -73,7 +76,8 @@
       {% endblock %}
 
       <div class="margin-bottom-9">
-        <input type="submit"
+        <input id="submit-next"
+               type="submit"
                label="submit"
                value="{% trans 'Next' %}"
                class="usa-button" />
@@ -93,5 +97,7 @@
 {% endblock %}
 
 {% block page_js %}
+{% compress js file base %}
 <script src="{% static 'js/word_count.js' %}"></script>
+{% endcompress %}
 {% endblock %}

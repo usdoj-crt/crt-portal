@@ -49,15 +49,15 @@ body {
 main {
   flex: 1 0 auto;
 
+  p, em, h2, label:not(.big) {
+    color: $gray-warm;
+  }
+
   legend, .page-subtitle, label.big {
     color: $blue-warm-vivid-70;
     font-weight: bold;
     font-size: 1.17em; // Matches h3 size
     margin-bottom: 0.5rem;
-  }
-
-  p, em, h2, label:not(.big) {
-    color: $gray-warm;
   }
 }
 
@@ -231,4 +231,17 @@ form#report-form {
 
 #word-limit-alert.usa-alert.usa-alert--warning {
   background-image: url(../img/alerts/word-count-alert.svg),linear-gradient(transparent,transparent);
+}
+
+legend, .page-subtitle {
+  color: $blue-warm-vivid-70;
+  font-weight: bold;
+  font-size: 1.17em; // Matches h3 size
+  margin-bottom: 0.5rem;
+}
+
+.crt-checkbox__label {
+  @extend .usa-checkbox__label;
+  padding-left: 0;
+  margin: 8px;
 }
