@@ -1,7 +1,6 @@
 {% extends "forms/base.html" %}
 {% load i18n %}
 {% load static %}
-{% load compress %}
 {% block head %}
   {{ wizard.form.media }}
 {% endblock %}
@@ -97,7 +96,5 @@
 {% endblock %}
 
 {% block page_js %}
-{% compress js file base %}
 <script src="{% static 'js/word_count.js' %}"></script>
-{% endcompress %}
 {% endblock %}
