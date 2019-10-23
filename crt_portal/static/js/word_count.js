@@ -32,7 +32,7 @@ function onEqualOrExceedLimit (value, max, textAreaElem) {
   // Thank you Stack Overflow users Michal and Steve Bradshaw
   // for the examples of trim-to-word-count!
   // https://stackoverflow.com/a/47136558
-  var trimmed = value.split(/(?=[^\s]\s+)/, max).join('');
+  var trimmed = value.split(/(\s+)/, ((max * 2) - 1)).join('');
   textAreaElem.value = trimmed;
 
   // Unset message
