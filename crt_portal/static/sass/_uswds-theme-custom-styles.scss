@@ -49,6 +49,10 @@ body {
 main {
   flex: 1 0 auto;
 
+  p, em, h2, label:not(.big) {
+    color: $gray-warm;
+  }
+
   legend, .page-subtitle, label.big {
     color: $blue-warm-vivid-70;
     font-weight: bold;
@@ -65,10 +69,6 @@ footer {
   max-width: 700px;
   margin: auto;
   padding: 0 8px;
-}
-
-p, em, h2, label:not(.big) {
-  color: $gray-warm;
 }
 
 // Form Width
