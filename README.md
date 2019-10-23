@@ -68,11 +68,19 @@ You can scan the code for potential python security flaws using [bandit](https:/
 
 If there is a false positive you can add `# nosec` at the end of the line that is triggering the error. Please also add a comment that explains why that line is a false positive.
 
-You can check for style issues by running flake8:
+You can check for Python style issues by running flake8:
 
     docker-compose run web flake8
 
 If you have a a reason why a line of code shouldn't apply flake8 you can add `# noqa`, but try to use that sparingly.
+
+You can check for JS style issues by running Prettier:
+
+    prettier --check "crt_portal/static/js/*.js"
+
+Prettier can automatically fix JS style issues for you:
+
+    prettier --write "crt_portal/static/js/*.js"
 
 ## Browser targeting
 
