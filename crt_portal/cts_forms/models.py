@@ -1,3 +1,4 @@
+"""All models need to be added to signals.py for proper logging."""
 from datetime import datetime
 
 from django.db import models
@@ -82,12 +83,4 @@ class Report(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.create_date, self.violation_summary
-
-    # def save(self, *args, **kwargs):
-    #     if request.user.is_authenticated:
-
-    #     message = [self.create_date, ]
-    #     logger.info()
-
-
+        return f'{self.create_date} {self.violation_summary}'

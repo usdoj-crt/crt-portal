@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
-from .models import Report
+from .models import Report, ProtectedClass, InternalHistory
 
 logger = logging.getLogger(__name__)
 
@@ -55,23 +55,27 @@ def delete_user(sender, instance, **kwargs):
     logger.info(message)
 
 
-# @receiver(post_save, sender=Report)
-# def save_report(sender, instance, **kwargs):
-#     current_request = CrequestMiddleware.get_request()
-#     ip = get_client_ip(current_request) if current_request else 'CLI'
-#     username = current_request.user.username if current_request else 'CLI'
-#     userid = current_request.user.id if current_request else 'CLI'
+@receiver(post_save, sender=Report)
+@receiver(post_save, sender=ProtectedClass)
+@receiver(post_save, sender=InternalHistory)
+def save_report(sender, instance, **kwargs):
+    current_request = CrequestMiddleware.get_request()
+    ip = get_client_ip(current_request) if current_request else 'CLI'
+    username = current_request.user.username if current_request else 'CLI'
+    userid = current_request.user.id if current_request else 'CLI'
 
-    # message = format_data_message('Data saved: ', username, userid, ip, instance)
-    # logger.info(message)
+    message = format_data_message('Data saved: ', username, userid, ip, instance)
+    logger.info(message)
 
 
-# @receiver(post_delete, sender=Report)
-# def delete_report(sender, instance, **kwargs):
-#     current_request = CrequestMiddleware.get_request()
-#     ip = get_client_ip(current_request) if current_request else 'CLI'
-#     username = current_request.user.username if current_request else 'CLI'
-#     userid = current_request.user.id if current_request else 'CLI'
+@receiver(post_delete, sender=Report)
+@receiver(post_delete, sender=ProtectedClass)
+@receiver(post_delete, sender=InternalHistory)
+def delete_report(sender, instance, **kwargs):
+    current_request = CrequestMiddleware.get_request()
+    ip = get_client_ip(current_request) if current_request else 'CLI'
+    username = current_request.user.username if current_request else 'CLI'
+    userid = current_request.user.id if current_request else 'CLI'
 
-    # message = str(format_data_message('DATA DELETED: ', username, userid, ip, instance))
-    # logger.info(message)
+    message = str(format_data_message('DATA DELETED: ', username, userid, ip, instance))
+    logger.info(message)
