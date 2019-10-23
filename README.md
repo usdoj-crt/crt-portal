@@ -76,11 +76,11 @@ If you have a a reason why a line of code shouldn't apply flake8 you can add `# 
 
 You can check for JS style issues by running Prettier:
 
-    prettier --check "crt_portal/static/js/*.js"
+    npm run lint:check
 
 Prettier can automatically fix JS style issues for you:
 
-    prettier --write "crt_portal/static/js/*.js"
+    npm run lint:write
 
 ## Browser targeting
 

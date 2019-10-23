@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test:a11y": "pa11y-ci --config .pa11y-local.json",
-    "test:a11y-ci": "pa11y-ci --config .pa11y-ci.json"
+    "test:a11y-ci": "pa11y-ci --config .pa11y-ci.json",
+    "lint:check": "prettier --check \"crt_portal/static/js/*.js\"",
+    "lint:write": "prettier --write \"crt_portal/static/js/*.js\""
   },
   "author": "",
   "license": "ISC",
