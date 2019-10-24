@@ -38,7 +38,6 @@ def save_user(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
     ip = get_client_ip(current_request) if current_request else 'CLI'
     # CLI in the case that someone is using the python shell, in that case more log will be available outside the app in cloud.gov
-    print(current_request.user.id)
     username = current_request.user.username if current_request else 'CLI'
     userid = current_request.user.id if current_request else 'CLI'
     message = format_user_message('User saved: ', username, userid, ip, instance)
