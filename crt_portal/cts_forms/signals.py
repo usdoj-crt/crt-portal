@@ -57,6 +57,7 @@ def delete_user(sender, instance, **kwargs):
 
 @receiver(user_logged_in)
 def user_login(sender, instance, **kwargs):
+    current_request = CrequestMiddleware.get_request()
     username = current_request.user.username if current_request else 'CLI'
     userid = current_request.user.id if current_request else 'CLI'
     message = format_data_message(f'User login: {username} {userid}', username, userid, ip, instance)
@@ -64,7 +65,8 @@ def user_login(sender, instance, **kwargs):
 
 
 @receiver(user_logged_out)
-def user_login(sender, instance, **kwargs):
+def user_logout(sender, instance, **kwargs):
+    current_request = CrequestMiddleware.get_request()
     username = current_request.user.username if current_request else 'CLI'
     userid = current_request.user.id if current_request else 'CLI'
     message = format_data_message(f'User logout: {username} {userid}', username, userid, ip, instance)
