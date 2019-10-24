@@ -97,6 +97,10 @@ footer {
     padding-left: 0.5rem;
   }
 
+  li {
+    margin-bottom: 1rem;
+  }
+
   .usa-input {
     width: 320px;
 
@@ -246,5 +250,4 @@ legend, .page-subtitle {
 .crt-checkbox__label {
   @extend .usa-checkbox__label;
   padding-left: 0;
-  margin: 8px;
 }
