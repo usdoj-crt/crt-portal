@@ -65,9 +65,12 @@
         {{ hidden_field }}
       {% endfor %}
 
-      <h2 class="margin-top-5 margin-bottom-0">
-        {{ current_step_title }}
-      </h2>
+      <div class="margin-top-5 margin-bottom-4">
+        <h2 class="margin-0">{{ current_step_title }}</h2>
+        {% if page_note %}
+          <p class="margin-top-1"><em>{{ page_note }}</em></p>
+        {% endif %}
+      </div>
 
       {% block form_questions %}
       {% endblock %}
