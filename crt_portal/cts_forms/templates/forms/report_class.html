@@ -2,7 +2,6 @@
 {% load static %}
 {% block form_questions %}
 <fieldset class="usa-fieldset" aria-label="{{ current_step_name }}">
-  <legend class="usa-sr-only">{{ current_step_name }}</legend hidden>
   {% for field in wizard.form.visible_fields %}
       {% if field.label == 'Other' %}
         <div class="margin-bottom-2 padding-left-3" id='other-class-option' >
