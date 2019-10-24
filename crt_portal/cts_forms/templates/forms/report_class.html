@@ -5,11 +5,11 @@
 <fieldset class="usa-fieldset" aria-label="{{ current_step_name }}">
   {% for field in wizard.form.visible_fields %}
 
-    {% if field.name == 'other_class' %}
-      <div class="margin-bottom-2 padding-left-3" id='other-class-option' >
-    {% elif field.name == 'protected_class' %}
+    {% if field.name == 'protected_class' %}
       <div class="margin-bottom-2">
       <label for="{{ field.id_for_label }}" class="big margin-bottom-0">{{ field.label }}</div>
+    {% elif field.name == 'other_class' %}
+      <div class="margin-bottom-2 padding-left-3" id='other-class-option' >
     {% endif %}
 
     {% if field.errors %}
@@ -21,7 +21,10 @@
     {% endif %}
 
     <div class="margin-bottom-1">
-    {% if field.name == 'other_class' %}
+    {% if field.name == 'protected_class' %}
+      <p><em>{{ field.help_text }}</em></p>
+      {{ field }}
+    {% elif field.name == 'other_class' %}
       <div>
         <div class="blue-left-highlight">
           <p><em><label for="{{ field.id_for_label }}">{{ field.help_text }}</label></em></p>
@@ -29,9 +32,6 @@
           {% include "forms/word_counter.html" with word_limit=10 %}
         </div>
       </div>
-    {% elif field.name == 'protected_class' %}
-      <p><em>{{ field.help_text }}</em></p>
-      {{ field }}
     {% endif %}
     </div>
   {% endfor %}
