@@ -242,7 +242,9 @@ workflows:
             - build_and_test
           filters:
             branches:
-              only: develop
+              # DO NOT MERGE
+              # only: develop
+              only: signals-for-logging
 
       - deploy-stage:
           requires:
