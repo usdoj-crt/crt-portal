@@ -196,7 +196,7 @@ class LoginRequiredTests(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/accounts/login/?next=/form/view')
 
-    def test_required_logging(self):
+    def test_required_user_logging(self):
         """For compliance and good forensics, check a sample of required logging events"""
         with self.assertLogs(logger='my_logger', level='INFO') as cm:
             self.client = Client()
