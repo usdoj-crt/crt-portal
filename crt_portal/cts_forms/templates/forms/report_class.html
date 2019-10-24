@@ -23,9 +23,11 @@
           {% include "forms/error_warning.html" with errors=field.errors %}
         {% endif %}
         <div class="blue-left-highlight">
-          <p><em><label for="{{ field.id_for_label }}">{{ field.help_text }}</label></em></p>
+          <label for="{{ field.id_for_label }}">{{ field.help_text }}</label>
           {{ field }}
-          {% include "forms/word_counter.html" with word_limit=10 %}
+          <div class="margin-top-1">
+            {% include "forms/word_counter.html" with word_limit=10 %}
+          </div>
         </div>
       </div>
     {% endif %}
