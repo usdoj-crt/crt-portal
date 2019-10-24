@@ -195,3 +195,27 @@ class LoginRequiredTests(TestCase):
         response = self.client.get(reverse('crt_forms:crt-forms-index'))
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/accounts/login/?next=/form/view')
+
+    def test_required_logging(self):
+        """For compliance and good forensics, check a sample of required logging events"""
+        with self.assertLogs(logger='my_logger', level='INFO') as cm:
+            self.client = Client()
+            self.test_pass = secrets.token_hex(32)
+            self.user2 = User.objects.create_user('DELETE_USER_2', 'mccartney@thebeatles.com', self.test_pass)
+            self.user2.delete()
+
+            # make sure we have an easy way to find admin actions in the logs
+            self.assertIn(
+                "ADMIN ACTION",
+                cm.output
+            )
+            # make sure we are logging when new users are saved
+            self.assertIn(
+                "User saved",
+                cm.output
+            )
+            # make sure we are logging when users are deleted
+            self.assertIn(
+                "User deleted",
+                cm.output
+            )
