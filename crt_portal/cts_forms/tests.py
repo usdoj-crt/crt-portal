@@ -1,5 +1,7 @@
 import secrets
 
+from testfixtures import LogCapture
+
 from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import User
@@ -198,24 +200,22 @@ class LoginRequiredTests(TestCase):
 
     def test_required_user_logging(self):
         """For compliance and good forensics, check a sample of required logging events"""
-        with self.assertLogs(logger='my_logger', level='INFO') as cm:
+        with LogCapture() as cm:
             self.client = Client()
             self.test_pass = secrets.token_hex(32)
             self.user2 = User.objects.create_user('DELETE_USER_2', 'mccartney@thebeatles.com', self.test_pass)
             self.user2.delete()
 
-            # make sure we have an easy way to find admin actions in the logs
-            self.assertIn(
-                "ADMIN ACTION",
-                cm.output
+            self.assertEqual(
+                cm.check_present(
+                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User saved: 2 permissions: <QuerySet []> staff: False superuser: False active: True'),
+                ),
+                None,
             )
-            # make sure we are logging when new users are saved
-            self.assertIn(
-                "User saved",
-                cm.output
-            )
-            # make sure we are logging when users are deleted
-            self.assertIn(
-                "User deleted",
-                cm.output
+
+            self.assertEqual(
+                cm.check_present(
+                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User deleted: 2 permissions: <QuerySet []> staff: False superuser: False active: True'),
+                ),
+                None,
             )

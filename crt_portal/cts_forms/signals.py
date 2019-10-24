@@ -29,12 +29,7 @@ def format_user_message(action, current_request, instance):
     ip = get_client_ip(current_request) if current_request else 'CLI'
     username = current_request.user.username if current_request else 'CLI'
     userid = current_request.user.id if current_request else 'CLI'
-    return f'ADMIN ACTION by: {username} {userid} @ {ip} \
-        User {action}: {instance.pk} \
-        permissions: {instance.user_permissions.all()} \
-        staff: {instance.is_staff} \
-        superuser: {instance.is_superuser} \
-        active: {instance.is_active}'
+    return f'ADMIN ACTION by: {username} {userid} @ {ip} User {action}: {instance.pk} permissions: {instance.user_permissions.all()} staff: {instance.is_staff} superuser: {instance.is_superuser} active: {instance.is_active}'
 
 
 def format_data_message(action, current_request, instance):
@@ -43,8 +38,7 @@ def format_data_message(action, current_request, instance):
     username = current_request.user.username if current_request else 'CLI'
     userid = current_request.user.id if current_request else 'CLI'
     details = str(instance.__dict__)
-    return f'DATA ACTION by: {username} {userid} @ {ip} \
-        {action}: {instance.pk} -- {details}'
+    return f'DATA ACTION by: {username} {userid} @ {ip} {action}: {instance.pk} -- {details}'
 
 
 @receiver(post_save, sender=User)
