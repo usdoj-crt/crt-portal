@@ -24,34 +24,40 @@ def get_client_ip(request):
     return ip
 
 
-def format_user_message(action, username, userid, ip, instance):
-    return f'ADMIN ACTION by: {username} {userid} @ {ip} User {action}: {instance.pk} permissions: {instance.user_permissions.all()} staff: {instance.is_staff} superuser: {instance.is_superuser} active: {instance.is_active}'
+def format_user_message(action, current_request, instance):
+    # CLI in the case that someone is using the python shell, in that case more log will be available outside the app in cloud.gov
+    ip = get_client_ip(current_request) if current_request else 'CLI'
+    username = current_request.user.username if current_request else 'CLI'
+    userid = current_request.user.id if current_request else 'CLI'
+    return f'ADMIN ACTION by: {username} {userid} @ {ip} \
+        User {action}: {instance.pk} \
+        permissions: {instance.user_permissions.all()} \
+        staff: {instance.is_staff} \
+        superuser: {instance.is_superuser} \
+        active: {instance.is_active}'
 
 
-def format_data_message(action, username, userid, ip, instance):
+def format_data_message(action, current_request, instance):
     # public users will not have usernames, but they will have ip addresses
+    ip = get_client_ip(current_request) if current_request else 'CLI'
+    username = current_request.user.username if current_request else 'CLI'
+    userid = current_request.user.id if current_request else 'CLI'
     details = str(instance.__dict__)
-    return f'DATA ACTION by: {username} {userid} @ {ip} User {action}: {instance.pk} -- {details}'
+    return f'DATA ACTION by: {username} {userid} @ {ip} \
+        {action}: {instance.pk} -- {details}'
 
 
 @receiver(post_save, sender=User)
 def save_user(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
-    # CLI in the case that someone is using the python shell, in that case more log will be available outside the app in cloud.gov
-    ip = get_client_ip(current_request) if current_request else 'CLI'
-    username = current_request.user.username if current_request else 'CLI'
-    userid = current_request.user.id if current_request else 'CLI'
-    message = format_user_message('User saved: ', username, userid, ip, instance)
+    message = format_user_message('saved', current_request, instance)
     logger.info(message)
 
 
 @receiver(post_delete, sender=User)
 def delete_user(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
-    ip = get_client_ip(current_request) if current_request else 'CLI'
-    username = current_request.user.username if current_request else 'CLI'
-    userid = current_request.user.id if current_request else 'CLI'
-    message = format_user_message('User deleted: ', username, userid, ip, instance)
+    message = format_user_message('deleted', current_request, instance)
     logger.info(message)
 
 
@@ -78,10 +84,7 @@ def user_logout(sender, **kwargs):
 @receiver(post_save, sender=InternalHistory)
 def save_report(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
-    ip = get_client_ip(current_request) if current_request else 'CLI'
-    username = current_request.user.username if current_request else 'CLI'
-    userid = current_request.user.id if current_request else 'CLI'
-    message = format_data_message('Data saved: ', username, userid, ip, instance)
+    message = format_data_message('Data saved', current_request, instance)
     logger.info(message)
 
 
@@ -90,8 +93,5 @@ def save_report(sender, instance, **kwargs):
 @receiver(post_delete, sender=InternalHistory)
 def delete_report(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
-    ip = get_client_ip(current_request) if current_request else 'CLI'
-    username = current_request.user.username if current_request else 'CLI'
-    userid = current_request.user.id if current_request else 'CLI'
-    message = str(format_data_message('DATA DELETED: ', username, userid, ip, instance))
+    message = str(format_data_message('DATA DELETED', current_request, instance))
     logger.info(message)

@@ -76,7 +76,6 @@ def retrieve_or_create_choices():
     for choice in PROTECTED_CLASS_CHOICES:
         try:
             choice_object = ProtectedClass.objects.get_or_create(protected_class=choice)
-            choice_object[0].save()
             choices.append(choice_object[0].pk)
         except:  # noqa
             # this has a concurrency issue for initial migrations
