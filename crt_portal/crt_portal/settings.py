@@ -13,8 +13,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import json
 
-from crequest.middleware import CrequestMiddleware
-
 from django.utils.log import DEFAULT_LOGGING
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -226,8 +224,8 @@ LOGGING = {
             # root level logger.
             'handlers': ['console'],
             'level': 'INFO',
-            'propagate': False, # this tells logger to send logging message
-                                # to its parent (will send if set to True)
+            'propagate': False,  # this tells logger to send logging message
+                                 # to its parent (will send if set to True)
         },
         'django.db': {
             # django also has database level logging

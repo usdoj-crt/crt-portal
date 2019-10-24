@@ -1,12 +1,8 @@
 """All models need to be added to signals.py for proper logging."""
-from datetime import datetime
-
 from django.db import models
-from django.utils import timezone
 from django.core.validators import RegexValidator
 
 from .phone_regex import phone_validation_regex
-
 
 from .model_variables import (
     PRIMARY_COMPLAINT_CHOICES,
