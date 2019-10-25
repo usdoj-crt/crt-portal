@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 from .models import ProtectedClass, Report
-from .model_variables import PROTECTED_CLASS_CHOICES
+from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR
 from .forms import Where, Who, Details, Contact, ProtectedClassForm
 
 
@@ -63,15 +63,14 @@ class Valid_Form_Tests(TestCase):
 
 
 class Validation_Form_Tests(TestCase):
-    """Confirming validation on the server level"""
-    # NOTE: Commenting out this test until the Primary Complaint story comes to the dev queue.
-    # def test_required_primary_complaint(self):
-    #     form = WhatHappened(data={
-    #         'primary_complaint': '',
-    #         'protected_class_set': ProtectedClass.objects.all(),
-    #     })
+    """Confirming validation on the server level, required fields etc"""
+    def test_required_protected_class(self):
+        form = ProtectedClassForm(data={
+            'other_class': '',
+            'protected_class_set': None,
+        })
 
-    #     self.assertTrue('primary_complaint<ul class="errorlist"><li>This field is required.' in str(form.errors))
+        self.assertTrue('protected_class<ul class="errorlist"><li>{0}'.format(PROTECTED_CLASS_ERROR)[:13] in str(form.errors))
 
     # NOTE: Commenting out this test until the When story comes to the dev queue.
     # def test_required_when(self):

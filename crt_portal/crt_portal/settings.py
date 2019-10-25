@@ -198,8 +198,9 @@ COMPRESS_PRECOMPILERS = (
     ('module', 'compressor_toolkit.precompilers.ES6Compiler'),
     ('css', 'compressor_toolkit.precompilers.SCSSCompiler'),
 )
-# COMPRESS_ENABLED = True
-COMPRESS_OFFLINE = True
+
+# would like to add this before public release
+COMPRESS_ENABLED = False
 
 if environment == 'LOCAL':
     from .local_settings import *  # noqa: F401,F403

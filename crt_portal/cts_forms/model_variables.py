@@ -11,7 +11,8 @@ PRIMARY_COMPLAINT_CHOICES = (
     ('discriminated_against', 'Otherwise discriminated against'),
 )
 
-# this will create the initial order, the form_order data can be directly adjusted after the initial load.
+# This will create the initial order, the form_order data can be directly adjusted after the initial load.
+# See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
 PROTECTED_CLASS_CHOICES = (
     'Disability (including temporary or in recovery)',
     'Race/color',
@@ -57,6 +58,8 @@ PROTECTED_MODEL_CHOICES = (
     ('genetic', 'Genetic information'),
     ('other', 'Other'),
 )
+
+PROTECTED_CLASS_ERROR = 'Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.'
 
 PLACE_CHOICES = (
     ('home', 'Home, potential home, or services to help with purchasing a home (banks, lenders, or other financial services)'),

@@ -52,6 +52,25 @@ To install a new python package run:
 
 Tests run automatically with repos that are integrated with Circle CI. You can run those tests locally with the following instructions.
 
+Run unit test on Windows:
+1. Ensure docker is running
+2. Start a powershell as admin (git bash has issue running ssh console in docker)
+3. Find the id for the web container
+   ``` 
+    docker container ls
+   ``` 
+4. Identify the id for the crt-portal_web_1
+5. SSH to web container in docker:
+    ```
+    docker exec -it [id for the crt-portal_web goes here] /bin/bash (see below)
+    docker exec -it 0a6039095e34 /bin/bash
+    ```
+6. Once you are in the SSH ./code run the test command below:
+    ```
+    python crt_portal/manage.py test cts_forms
+    ```
+7. If you lucky your test will result OK or lots of error to work on!
+    
 
 You can also run project tests using docker with:
 

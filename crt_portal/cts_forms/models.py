@@ -40,7 +40,7 @@ class ProtectedClass(models.Model):
 
 
 class Report(models.Model):
-    # protected class
+    # protected class, see maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
     protected_class = models.ManyToManyField(ProtectedClass)
     other_class = models.CharField(max_length=150, null=True, blank=True)
     # contact form
@@ -75,7 +75,6 @@ class Report(models.Model):
     # previous details form
     when = models.CharField(max_length=700, choices=WHEN_CHOICES, default=None, null=True)
     how_many = models.CharField(max_length=700, null=True, blank=True, choices=HOW_MANY_CHOICES, default=None)
-    # TODO, upgrade to add validation https://pypi.org/project/django-phone-field/
     create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
