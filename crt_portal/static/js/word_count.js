@@ -1,22 +1,24 @@
-var textAreaElem500 = document.getElementsByClassName("word-count-500");
-var textAreaElem10 = document.getElementsByClassName("word-count-10");
+var textAreaElem500 = document.getElementsByClassName('word-count-500');
+var textAreaElem10 = document.getElementsByClassName('word-count-10');
 
 // "Words remaining" message
-var wordLimitMessage = document.getElementById("word_limit_message");
+var wordLimitMessage = document.getElementById('word_limit_message');
 
 // Word limit alert states (visual and for screen readers)
-var wordLimitAlert = document.getElementById("word_limit_alert");
-var wordLimitScreenReaderText = document.getElementById("word_limit_sr_text");
+var wordLimitAlert = document.getElementById('word_limit_alert');
+var wordLimitScreenReaderText = document.getElementById('word_limit_sr_text');
 
 // Wraps both "words remaining" message and alert state
-var wordCountArea = document.getElementById("word_count_area");
+var wordCountArea = document.getElementById('word_count_area');
 
 // Show word count area for JS-enabled browsers
-if (wordCountArea) { wordCountArea.removeAttribute('hidden'); }
+if (wordCountArea) {
+  wordCountArea.removeAttribute('hidden');
+}
 
-function onBelowLimit (wordCount, max, textAreaElem) {
+function onBelowLimit(wordCount, max, textAreaElem) {
   var wordsRemaining = String(max - wordCount);
-  var description = (wordsRemaining === 1) ? ' word remaining' : ' words remaining';
+  var description = wordsRemaining === 1 ? ' word remaining' : ' words remaining';
 
   // Unset alert states
   wordLimitAlert.setAttribute('hidden', ''); // hide
@@ -28,13 +30,13 @@ function onBelowLimit (wordCount, max, textAreaElem) {
   wordLimitMessage.innerHTML = wordsRemaining + description;
 }
 
-function onEqualOrExceedLimit (value, max, textAreaElem) {
+function onEqualOrExceedLimit(value, max, textAreaElem) {
   // Thank you Stack Overflow users Michal and Steve Bradshaw
   // for the examples of trim-to-word-count! https://stackoverflow.com/a/47136558
 
   // Find all whitespace characters (newline, tab) and use to trim to
   // the max number of words:
-  var trimmed = value.split(/(\s+)/, ((max * 2) - 1)).join('');
+  var trimmed = value.split(/(\s+)/, max * 2 - 1).join('');
   textAreaElem.value = trimmed;
 
   // Unset message
@@ -54,11 +56,15 @@ function onEqualOrExceedLimit (value, max, textAreaElem) {
   }
 }
 
-function updateWordCount (e, max, textAreaElem) {
+function updateWordCount(e, max, textAreaElem) {
   // Initial validation; throw a helpful error if somehow we
   // aren't getting the data we need from the HTML
-  if (!max || typeof max !== "number") { throw 'Missing or invalid argument: max'; }
-  if (!textAreaElem) { throw 'Missing argument: textAreaElem'; }
+  if (!max || typeof max !== 'number') {
+    throw 'Missing or invalid argument: max';
+  }
+  if (!textAreaElem) {
+    throw 'Missing argument: textAreaElem';
+  }
 
   // Ignore `e` and read the value directly from the textarea;
   // we want this function to work even if the user hasn't typed
@@ -76,22 +82,26 @@ function updateWordCount (e, max, textAreaElem) {
     onBelowLimit(wordCount, max, textAreaElem);
   }
 
-  if (wordCount >= (max * 4 / 5)) {
+  if (wordCount >= (max * 4) / 5) {
     wordCountArea.setAttribute('aria-live', 'assertive');
   } else {
     wordCountArea.setAttribute('aria-live', 'polite');
   }
-};
+}
 
-function listenWordCount (e) {
+function listenWordCount(e) {
   if (textAreaElem500.length > 0) {
-    updateWordCount(e, max=500, textAreaElem=document.getElementById(textAreaElem500[0].id));
-  };
+    updateWordCount(
+      e,
+      (max = 500),
+      (textAreaElem = document.getElementById(textAreaElem500[0].id))
+    );
+  }
 
   if (textAreaElem10.length > 0) {
-    updateWordCount(e, max=10, textAreaElem=document.getElementById(textAreaElem10[0].id));
-  };
-};
+    updateWordCount(e, (max = 10), (textAreaElem = document.getElementById(textAreaElem10[0].id)));
+  }
+}
 
 document.addEventListener('keyup', listenWordCount);
 
