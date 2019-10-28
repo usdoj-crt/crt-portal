@@ -5,9 +5,7 @@
 <fieldset class="usa-fieldset" aria-label="{{ current_step_name }}">
   {% for field in wizard.form.visible_fields %}
     {% if field.name == 'protected_class' %}
-      <label for="{{ field.id_for_label }}" class="big">
-        {{ field.label }}
-      </label>
+      <legend>{{ field.label }}</legend>
       {% if field.errors %}
         {% include "forms/error_warning.html" with errors=field.errors %}
       {% endif %}
