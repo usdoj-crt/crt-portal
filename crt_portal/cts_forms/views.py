@@ -21,6 +21,8 @@ def IndexView(request):
         for p in l.protected_class.all().order_by('-form_order'):
             if p.protected_class is not None:
                 reports.append(PROTECTED_CLASS_CODES.get(p.protected_class, p.protected_class))
+        if l.other_class is not None:
+            reports.append(l.other_class)
         protected_class = ', '.join([i for i in reports if i])
         data.append([l, protected_class])
 
