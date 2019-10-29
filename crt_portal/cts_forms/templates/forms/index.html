@@ -62,15 +62,15 @@
             {% endwith %}
             </td>
             <td>
-            {% with protected_class=violationreport.1|default:"—" %}
-              {% for protected in protected_class %}
+            {% for protected_class in violationreport.1 %}
+              <!-- {% with protected=protected_class|default:"—" %} -->
                 {% if not forloop.last %}
-                  {{ protected|truncatechars:50 }},<br>
+                  {{ protected_class|truncatechars:50 }},<br>
                 {% else %}
-                  {{ protected|truncatechars:50 }}
+                  {{ protected_class|truncatechars:50 }}
                 {% endif %}
-              {% endfor %}
-            {% endwith %}
+              <!-- {% endwith %} -->
+            {% endfor %}
             </td>
           </tr>
         {% endfor %}
