@@ -71,7 +71,7 @@ footer {
   padding: 0 8px;
 }
 
-// Form Width
+// Form styles
 .usa-form {
   max-width: 30rem !important;
 
@@ -92,7 +92,18 @@ footer {
     }
   }
 
+  .blue-left-highlight {
+    border-left: 2px solid $blue-warm-vivid-70;
+    padding-left: 0.5rem;
+  }
+
+  li {
+    margin-bottom: 1rem;
+  }
+
   .usa-input {
+    width: 320px;
+
     &:focus {
       outline: .125rem solid $blue-vivid-40;
       border: 1px solid $blue-vivid-40;
@@ -207,10 +218,6 @@ form#report-form {
   color: $gray-warm;
 }
 
-.usa-input {
-  width: 320px;
-}
-
 .crt-table {
   @extend .usa-table;
   font-size: 14px;
@@ -243,5 +250,4 @@ legend, .page-subtitle {
 .crt-checkbox__label {
   @extend .usa-checkbox__label;
   padding-left: 0;
-  margin: 8px;
 }
