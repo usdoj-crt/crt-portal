@@ -18,6 +18,8 @@ rcssmin = "*"
 django-formtools = "*"
 bandit = "*"
 flake8 = "*"
+django-crequest = "*"
+testfixtures = "*"
 
 [requires]
 python_version = "3.7"
