@@ -16,14 +16,14 @@ def IndexView(request):
     latest_reports = Report.objects.order_by('-create_date')
     data = []
     # formatting protected class
-    for l in latest_reports:
+    for report in latest_reports:
         reports = []
-        for p in l.protected_class.all().order_by('-form_order'):
-            if p.protected_class is not None:
-                reports.append(PROTECTED_CLASS_CODES.get(p.protected_class, p.protected_class))
-        if l.other_class is not None:
-            reports.append(l.other_class)
-        protected_class = ', '.join([i for i in reports if i])
+        for p_class in report.protected_class.all().order_by('-form_order'):
+            if p_class.protected_class is not None:
+                reports.append(PROTECTED_CLASS_CODES.get(p_class.protected_class, p_class.protected_class))
+        if report.other_class:
+            reports.append(report.other_class)
+        protected_class = ', '.join([record for record in reports if record])
         data.append([l, protected_class])
 
     return render_to_response('forms/index.html', {'data_dict': data})
