@@ -24,7 +24,7 @@ def IndexView(request):
         if report.other_class:
             reports.append(report.other_class)
         protected_class = ', '.join([record for record in reports if record])
-        data.append([l, protected_class])
+        data.append([p_class, protected_class])
 
     return render_to_response('forms/index.html', {'data_dict': data})
 
