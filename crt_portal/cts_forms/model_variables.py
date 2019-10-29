@@ -16,7 +16,7 @@ PROTECTED_CLASS_CHOICES = (
     'Disability (including temporary or in recovery)',
     'Race/color',
     'National origin (including ancestry, ethnicity, and language)',
-    'Immigration/citizenship status (choosing this does not share your status)',
+    'Immigration/citizenship status (choosing this will not share your status)',
     'Religion',
     'Sex or gender identity (including gender stereotypes) or pregnancy',
     'Sexual orientation',
@@ -24,7 +24,7 @@ PROTECTED_CLASS_CHOICES = (
     'Military status',
     'Age',
     'Genetic information',
-    'Other',
+    'Other reason',
 )
 
 PROTECTED_MODEL_CHOICES = (
