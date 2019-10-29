@@ -48,7 +48,7 @@ class CRTReportWizard(SessionWizardView):
         # This title appears in large font above the question elements
         ordered_step_titles = [
             'Contact',
-            'Please provide details on what happened',
+            'Please provide details',
             'Details'
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]
