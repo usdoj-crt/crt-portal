@@ -96,10 +96,20 @@ class Valid_CRT_view_Tests(TestCase):
         self.assertTrue(PROTECTED_CLASS_CODES.get(self.protected_example.protected_class) in self.content)
 
     def test_first_name(self):
-        response = self.client.get(reverse('crt_forms:crt-forms-index'))
-        content = str(response.content)
+        self.assertTrue(self.test_report.contact_first_name in self.content)
 
-        self.assertTrue(self.test_report.contact_first_name in content)
+    def test_last_name(self):
+        self.assertTrue(self.test_report.contact_last_name in self.content)
+
+    def test_email(self):
+        self.assertTrue(self.test_report.contact_email in self.content)
+
+    def test_phone(self):
+        self.assertTrue(self.test_report.contact_phone in self.content)
+
+    def test_violation_summary(self):
+        # formatting the summary is done in the template
+        self.assertTrue(self.test_report.violation_summary[:119] in self.content)
 
 
 class Validation_Form_Tests(TestCase):
