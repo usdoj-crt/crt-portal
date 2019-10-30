@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 from .models import ProtectedClass, Report
-from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR
+from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES
 from .forms import Where, Who, Details, Contact, ProtectedClassForm
 
 
@@ -60,8 +60,58 @@ class Valid_Form_Tests(TestCase):
             'protected_class': ProtectedClass.objects.all(),
             'other_class': 'Random string under 150 characters (हिन्दी)',
         })
-        print(form.errors)
         self.assertTrue(form.is_valid())
+
+
+class Valid_CRT_view_Tests(TestCase):
+    def setUp(self):
+        for choice in PROTECTED_CLASS_CHOICES:
+            ProtectedClass.objects.get_or_create(protected_class=choice)
+        test_report = Report.objects.create(
+            other_class="test other",
+            contact_first_name="Lincoln",
+            contact_last_name="Abraham",
+            contact_email="Lincoln@usa.gov",
+            contact_phone="202-867-5309",
+            violation_summary="Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.",
+        )
+        self.protected_example = ProtectedClass.objects.get(protected_class=PROTECTED_CLASS_CHOICES[0])
+        test_report.protected_class.add(self.protected_example)
+        test_report.save()
+        self.test_report = test_report
+        self.client = Client()
+        # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        self.content = str(response.content)
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_other_class(self):
+        self.assertTrue('test other' in self.content)
+
+    def test_class(self):
+        # uses the short hand code for display
+        self.assertTrue(PROTECTED_CLASS_CODES.get(self.protected_example.protected_class) in self.content)
+
+    def test_first_name(self):
+        self.assertTrue(self.test_report.contact_first_name in self.content)
+
+    def test_last_name(self):
+        self.assertTrue(self.test_report.contact_last_name in self.content)
+
+    def test_email(self):
+        self.assertTrue(self.test_report.contact_email in self.content)
+
+    def test_phone(self):
+        self.assertTrue(self.test_report.contact_phone in self.content)
+
+    def test_violation_summary(self):
+        # formatting the summary is done in the template
+        self.assertTrue(self.test_report.violation_summary[:119] in self.content)
 
 
 class Validation_Form_Tests(TestCase):
