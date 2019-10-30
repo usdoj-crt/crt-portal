@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 from .models import ProtectedClass, Report
-from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR
+from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES
 from .forms import Where, Who, Details, Contact, ProtectedClassForm
 
 
@@ -73,8 +73,8 @@ class Valid_CRT_view_Tests(TestCase):
             contact_phone="202-867-5309",
             violation_summary="Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.",
         )
-        p = ProtectedClass.objects.get(protected_class=PROTECTED_CLASS_CHOICES[0])
-        test_report.protected_class.add(p)
+        self.protected_example = ProtectedClass.objects.get(protected_class=PROTECTED_CLASS_CHOICES[0])
+        test_report.protected_class.add(self.protected_example)
         test_report.save()
         self.test_report = test_report
         self.client = Client()
@@ -91,9 +91,15 @@ class Valid_CRT_view_Tests(TestCase):
     def test_other_class(self):
         self.assertTrue('test other' in self.content)
 
-    # def test_class(self):
-    #     print(self.test_report.protected_class.all()[0])
-    #     self.assertTrue(self.test_report.protected_class.all()[0] in self.content)
+    def test_class(self):
+        # uses the short hand code for display
+        self.assertTrue(PROTECTED_CLASS_CODES.get(self.protected_example.protected_class) in self.content)
+
+    def test_first_name(self):
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        content = str(response.content)
+
+        self.assertTrue(self.test_report.contact_first_name in content)
 
 
 class Validation_Form_Tests(TestCase):

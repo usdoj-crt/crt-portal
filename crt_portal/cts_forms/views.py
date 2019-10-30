@@ -17,21 +17,22 @@ def IndexView(request):
     data = []
     # formatting protected class
     for report in latest_reports:
-        reports = []
+        p_class_list = []
         for p_class in report.protected_class.all().order_by('form_order'):
             if p_class.protected_class is not None:
                 code = PROTECTED_CLASS_CODES.get(p_class.protected_class, p_class.protected_class)
                 if code is not 'Other':
-                    reports.append(code)
+                    p_class_list.append(code)
                 # If this code is other but there is no other_class description, we want it to say "Other". If there is an other_class that will take the place of "Other"
                 elif report.other_class is None:
-                    reports.append(code)
+                    p_class_list.append(code)
+
         if report.other_class:
-            reports.append(report.other_class)
-        if len(reports) > 3:
-            reports = reports[:3]
-            reports[2] = f'{reports[2]}...'
-        data.append([p_class, reports])
+            p_class_list.append(report.other_class)
+        if len(p_class_list) > 3:
+            p_class_list = p_class_list[:3]
+            p_class_list[2] = f'{p_class_list[2]}...'
+        data.append([report, p_class_list])
 
     return render_to_response('forms/index.html', {'data_dict': data})
 
