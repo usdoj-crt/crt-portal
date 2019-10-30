@@ -63,13 +63,11 @@
             </td>
             <td>
             {% for protected_class in violationreport.1 %}
-              <!-- {% with protected=protected_class|default:"—" %} -->
                 {% if not forloop.last %}
                   {{ protected_class|truncatechars:50 }},<br>
                 {% else %}
                   {{ protected_class|truncatechars:50 }}
                 {% endif %}
-              <!-- {% endwith %} -->
             {% endfor %}
             </td>
           </tr>
