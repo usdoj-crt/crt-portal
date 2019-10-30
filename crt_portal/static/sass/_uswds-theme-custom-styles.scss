@@ -251,7 +251,3 @@ legend, .page-subtitle {
   @extend .usa-checkbox__label;
   padding-left: 0;
 }
-
-.usa-checkbox__input:checked+.crt-checkbox__label:before {
-  background-color: $blue-warm-vivid-70;
-}
