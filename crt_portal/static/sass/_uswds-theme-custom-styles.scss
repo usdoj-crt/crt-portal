@@ -76,7 +76,6 @@ footer {
   max-width: 30rem !important;
 
   .usa-button {
-    background-color: $blue-warm-vivid-70;
 
     &:hover {
       background-color: $blue-50;
@@ -250,8 +249,4 @@ legend, .page-subtitle {
 .crt-checkbox__label {
   @extend .usa-checkbox__label;
   padding-left: 0;
-}
-
-.usa-checkbox__input:checked+.crt-checkbox__label:before {
-  background-color: $blue-warm-vivid-70;
 }
