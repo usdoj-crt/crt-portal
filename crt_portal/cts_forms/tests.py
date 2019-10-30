@@ -1,5 +1,7 @@
 import secrets
 
+from testfixtures import LogCapture
+
 from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import User
@@ -245,3 +247,25 @@ class LoginRequiredTests(TestCase):
         response = self.client.get(reverse('crt_forms:crt-forms-index'))
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/accounts/login/?next=/form/view')
+
+    def test_required_user_logging(self):
+        """For compliance and good forensics, check a sample of required logging events"""
+        with LogCapture() as cm:
+            self.client = Client()
+            self.test_pass = secrets.token_hex(32)
+            self.user2 = User.objects.create_user('DELETE_USER_2', 'mccartney@thebeatles.com', self.test_pass)
+            self.user2.delete()
+
+            self.assertEqual(
+                cm.check_present(
+                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User saved: 2 permissions: <QuerySet []> staff: False superuser: False active: True'),
+                ),
+                None,
+            )
+
+            self.assertEqual(
+                cm.check_present(
+                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User deleted: 2 permissions: <QuerySet []> staff: False superuser: False active: True'),
+                ),
+                None,
+            )

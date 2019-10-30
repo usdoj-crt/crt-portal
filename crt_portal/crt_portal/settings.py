@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import json
 
+from django.utils.log import DEFAULT_LOGGING
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -82,6 +83,7 @@ INSTALLED_APPS = [
     'compressor_toolkit',
     'storages',
     'formtools',
+    'crequest',
 ]
 
 MIDDLEWARE = [
@@ -92,6 +94,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'crequest.middleware.CrequestMiddleware',
 ]
 
 ROOT_URLCONF = 'crt_portal.urls'
@@ -201,6 +204,36 @@ COMPRESS_PRECOMPILERS = (
 
 # would like to add this before public release
 COMPRESS_ENABLED = False
+
+# disable logging filters
+DEFAULT_LOGGING['handlers']['console']['filters'] = []
+
+LOGGING = {
+    'disable_existing_loggers': False,
+    'version': 1,
+    'handlers': {
+        'console': {
+            # logging handler that outputs log messages to terminal
+            'class': 'logging.StreamHandler',
+            'level': 'INFO',  # message level to be written to console
+        },
+    },
+    'loggers': {
+        '': {
+            # this sets root level logger to log debug and higher level
+            # logs to console. All other loggers inherit settings from
+            # root level logger.
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,  # this tells logger to send logging message
+                                 # to its parent (will send if set to True)
+        },
+        'django.db': {
+            # django also has database level logging
+            'level': 'INFO'
+        },
+    },
+}
 
 if environment == 'LOCAL':
     from .local_settings import *  # noqa: F401,F403

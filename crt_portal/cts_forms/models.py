@@ -1,11 +1,8 @@
-from datetime import datetime
-
+"""All models need to be added to signals.py for proper logging."""
 from django.db import models
-from django.utils import timezone
 from django.core.validators import RegexValidator
 
 from .phone_regex import phone_validation_regex
-
 
 from .model_variables import (
     PRIMARY_COMPLAINT_CHOICES,
@@ -21,6 +18,10 @@ from .model_variables import (
     STATES_AND_TERRITORIES,
     PROTECTED_MODEL_CHOICES,
 )
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class InternalHistory(models.Model):
@@ -78,7 +79,4 @@ class Report(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.violation_summary
-
-    def was_published_recently(self):
-        return self.create_date >= timezone.now() - datetime.timedelta(days=1)
+        return f'{self.create_date} {self.violation_summary}'

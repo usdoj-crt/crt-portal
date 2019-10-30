@@ -69,7 +69,7 @@ class CRTReportWizard(SessionWizardView):
         # This title appears in large font above the question elements
         ordered_step_titles = [
             'Contact',
-            'Please provide details on what happened',
+            'Please provide details',
             'Details'
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]
@@ -92,7 +92,6 @@ class CRTReportWizard(SessionWizardView):
         form_data_dict = self.get_all_cleaned_data()
         m2mfield = form_data_dict.pop('protected_class')
         r = Report.objects.create(**form_data_dict)
-        r.save()
 
         # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
         for protected in m2mfield:
