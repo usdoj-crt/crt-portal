@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from formtools.wizard.views import SessionWizardView
 
 from .models import Report, ProtectedClass
+from .model_variables import PROTECTED_CLASS_CODES
 
 import logging
 
@@ -13,7 +14,26 @@ logger = logging.getLogger(__name__)
 @login_required
 def IndexView(request):
     latest_reports = Report.objects.order_by('-create_date')
-    return render_to_response('forms/index.html', {'data_dict': latest_reports})
+    data = []
+    # formatting protected class
+    for report in latest_reports:
+        reports = []
+        for p_class in report.protected_class.all().order_by('form_order'):
+            if p_class.protected_class is not None:
+                code = PROTECTED_CLASS_CODES.get(p_class.protected_class, p_class.protected_class)
+                if code != 'Other':
+                    reports.append(code)
+                # If this code is other but there is no other_class description, we want it to say "Other". If there is an other_class that will take the place of "Other"
+                elif report.other_class is None:
+                    reports.append(code)
+        if report.other_class:
+            reports.append(report.other_class)
+        if len(reports) > 3:
+            reports = reports[:3]
+            reports[2] = f'{reports[2]}...'
+        data.append([p_class, reports])
+
+    return render_to_response('forms/index.html', {'data_dict': data})
 
 
 TEMPLATES = [

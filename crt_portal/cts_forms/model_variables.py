@@ -11,6 +11,7 @@ PRIMARY_COMPLAINT_CHOICES = (
     ('discriminated_against', 'Otherwise discriminated against'),
 )
 
+# This will create the initial order, the form_order data can be directly adjusted after the initial load.
 # See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
 PROTECTED_CLASS_CHOICES = (
     'Disability (including temporary or in recovery)',
@@ -19,13 +20,29 @@ PROTECTED_CLASS_CHOICES = (
     'Immigration/citizenship status (choosing this does not share your status)',
     'Religion',
     'Sex or gender identity (including gender stereotypes) or pregnancy',
-    'Sexual orientation',
     'Family, marriage, or parental status',
+    'Sexual orientation',
     'Military status',
     'Age',
     'Genetic information',
     'Other',
 )
+
+# used in internal CRT view display
+PROTECTED_CLASS_CODES = {
+    'Disability (including temporary or in recovery)': 'Disability',
+    'Race/color': 'Race/color',
+    'National origin (including ancestry, ethnicity, and language)': 'National Origin',
+    'Immigration/citizenship status (choosing this does not share your status)': 'Immigration',
+    'Religion': 'Religion',
+    'Sex or gender identity (including gender stereotypes) or pregnancy': 'Sex',
+    'Sexual orientation': 'Orientation',
+    'Family, marriage, or parental status': 'Family status',
+    'Military status': 'Military',
+    'Age': 'Age',
+    'Genetic information': 'Genetic',
+    'Other': 'Other',
+}
 
 PROTECTED_MODEL_CHOICES = (
     ('disability', 'Disability (including temporary or in recovery)'),
