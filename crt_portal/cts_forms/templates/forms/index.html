@@ -38,31 +38,31 @@
         </tr>
       </thead>
       {% if data_dict %}
-        {% for violationreport in data_dict %}
+        {% for datum in data_dict %}
           <tr>
-            <td scope="row">{{ violationreport.0.create_date|date:"SHORT_DATE_FORMAT" }}</td>
+            <td scope="row">{{ datum.report.create_date|date:"SHORT_DATE_FORMAT" }}</td>
             <td>
-            {% with last=violationreport.0.contact_last_name|default:"—" %}
-              {{ last|truncatechars:20 }}{% endwith %}, {% with first=violationreport.0.contact_first_name|default:"—" %}
+            {% with last=datum.report.contact_last_name|default:"—" %}
+              {{ last|truncatechars:20 }}{% endwith %}, {% with first=datum.report.contact_first_name|default:"—" %}
               {{ first|truncatechars:20 }}
             {% endwith %}
             </td>
             <td>
-            {% with email=violationreport.0.contact_email|default:"—" %}
+            {% with email=datum.report.contact_email|default:"—" %}
               {{ email|truncatechars:20 }}
             {% endwith %}
             <br>
-            {% with phone=violationreport.0.contact_phone|default:"—"  %}
+            {% with phone=datum.report.contact_phone|default:"—"  %}
               {{ phone|truncatechars:20 }}
             {% endwith %}
             </td>
             <td>
-            {% with summary=violationreport.0.violation_summary|default:"—" %}
+            {% with summary=datum.report.violation_summary|default:"—" %}
               {{ summary|truncatechars:120 }}
             {% endwith %}
             </td>
             <td>
-            {% for protected_class in violationreport.1 %}
+            {% for protected_class in datum.report_protected_classes %}
                 {% if not forloop.last %}
                   {{ protected_class|truncatechars:50 }},<br>
                 {% else %}
