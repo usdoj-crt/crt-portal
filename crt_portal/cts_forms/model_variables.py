@@ -41,7 +41,7 @@ PROTECTED_CLASS_CODES = {
     'Military status': 'Military',
     'Age': 'Age',
     'Genetic information': 'Genetic',
-    'Other': None,
+    'Other': 'Other',
 }
 
 PROTECTED_MODEL_CHOICES = (

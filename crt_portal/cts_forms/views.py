@@ -21,10 +21,11 @@ def IndexView(request):
         for p_class in report.protected_class.all().order_by('form_order'):
             if p_class.protected_class is not None:
                 code = PROTECTED_CLASS_CODES.get(p_class.protected_class, p_class.protected_class)
-                if code is not None:
+                if code is not 'Other':
                     reports.append(code)
+                # If this code is other but there is no other_class description, we want it to say "Other". If there is an other_class that will take the place of "Other"
                 elif report.other_class is None:
-                    reports.append("Other")
+                    reports.append(code)
         if report.other_class:
             reports.append(report.other_class)
         if len(reports) > 3:
