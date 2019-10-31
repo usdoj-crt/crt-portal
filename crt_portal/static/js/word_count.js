@@ -69,8 +69,10 @@ function updateWordCount(e, max, textAreaElem) {
   // Ignore `e` and read the value directly from the textarea;
   // we want this function to work even if the user hasn't typed
   // anything (e.g. if textarea has initial content).
-  // TrimStart because leading whitespace messes with our word count.
-  var value = textAreaElem.value.trimStart();
+  //
+  // Trim the start of the string because leading whitespace
+  // messes with our word count function.
+  var value = textAreaElem.value.replace(/^\s+/,'');
 
   // Match groups of non-whitespace characters, i.e. words.
   var wordMatch = value.match(/\S+/g);
