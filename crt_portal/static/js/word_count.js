@@ -72,7 +72,7 @@ function updateWordCount(e, max, textAreaElem) {
   //
   // Trim the start of the string because leading whitespace
   // messes with our word count function.
-  var value = textAreaElem.value.replace(/^\s+/,'');
+  var value = textAreaElem.value.replace(/^\s+/, '');
 
   // Match groups of non-whitespace characters, i.e. words.
   var wordMatch = value.match(/\S+/g);
