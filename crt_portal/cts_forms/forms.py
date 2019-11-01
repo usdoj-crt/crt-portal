@@ -54,6 +54,14 @@ class Contact(ModelForm):
             }),
         }
 
+class PrimaryReason(ModelForm):
+
+    class Meta:
+        model = Report
+        fields = [
+            'primary_complaint'
+        ]
+
 
 class Details(ModelForm):
     def __init__(self, *args, **kwargs):
