@@ -208,8 +208,11 @@ h3 {
 
 // Django Formtools Wizard customization
 
+// Django wraps lot of elements in <li> by default
+// that we'd prefer not to have bulleted, like
+// radio buttons; so remove list item bullets by default.
 form#report-form {
-  li {
+  li:not(.disc-style) {
     list-style: none;
   }
 }
