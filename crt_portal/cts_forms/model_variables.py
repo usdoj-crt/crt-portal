@@ -1,14 +1,33 @@
 """Setting the variables that can be reused in models and forms for readability and reuse"""
 
 PRIMARY_COMPLAINT_CHOICES = (
-    ('denied_access', 'Denied access or removed from a location (including segregation)'),
-    ('prevented_from_service', 'Prevented from using a service or service terminated'),
-    ('denied_housing', 'Denied housing or subjected to harmful living conditions'),
-    ('fired', 'Fired, not hired, demoted, or asked to show more documentation than required'),
-    ('retaliated', 'Retaliated against or otherwise mistreated for reporting an issue'),
-    ('harassed', 'Harassed, threatened, assaulted, or otherwise made to feel unsafe (including sexual harassment or assault)'),
-    ('vote', 'Ability to vote was impacted'),
-    ('discriminated_against', 'Otherwise discriminated against'),
+    ('workplace', 'Workplace discrimination or other employment-related problem'),
+    ('housing', 'Housing discrimination or harassment '),
+    ('education', 'Discrimination at a school, educational program, or related to receiving education'),
+    ('voting', 'Right to vote impacted'),
+)
+
+PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = (
+    ('workplace', (
+        'Fired, not hired, or demoted for reasons unrelated to job performance or qualifications',
+        'Retaliated against for reporting discrimination',
+        'Inappropriately asked to provide immigration documentation'
+    )),
+    ('housing', (
+        'Denied housing, a permit, or a loan',
+        'Harmful living conditions or lack accommodations for disability',
+        'Harassment by a landlord or another tenant'
+    )),
+    ('education', (
+        'Harassment based on race, sex, national origin, disability, or religion',
+        'Denied admission or segregated in an education program or activity',
+        'Denied services or accommodations for a disability or language barrier'
+    )),
+    ('voting', (
+        'Blocked from registering to vote, entering a polling place to vote, or any other voting activity',
+        'Lack of polling place accommodations for disability',
+        'Ballot tampering'
+    ))
 )
 
 # This will create the initial order, the form_order data can be directly adjusted after the initial load.

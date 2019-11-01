@@ -1,9 +1,11 @@
-from django.forms import ModelForm, CheckboxInput, \
-    TypedChoiceField, TextInput, EmailInput, ModelMultipleChoiceField
+from django.forms import ModelForm, CheckboxInput, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
+    ModelMultipleChoiceField
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea
 from .models import Report, ProtectedClass
-from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES, PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PRIMARY_COMPLAINT_CHOICES
+from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, \
+    PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES, \
+    PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PRIMARY_COMPLAINT_CHOICES, PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES
 from .phone_regex import phone_validation_regex
 
 import logging
@@ -55,9 +57,8 @@ class Contact(ModelForm):
         }
 
 class PrimaryReason(ModelForm):
-    primary_complaint = TypedChoiceField(
+    primary_complaint = ChoiceField(
         choices=PRIMARY_COMPLAINT_CHOICES,
-        empty_value=None,
         widget=CrtRadioArea,
         required=False,
         help_text='Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.'
