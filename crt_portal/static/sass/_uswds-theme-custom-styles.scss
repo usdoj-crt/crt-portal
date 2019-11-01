@@ -30,6 +30,8 @@ $blue-50: #2378C3;
 $blue-vivid-40: #2491FF;
 $gray-warm: #2E2E2A;
 $gray-90: #171717;
+$gray-70: #454545;
+$gray-cool-4: #F1F3F6;
 $white: #FFFFFF;
 $bold: 700;
 
@@ -249,4 +251,17 @@ legend, .page-subtitle {
 .crt-checkbox__label {
   @extend .usa-checkbox__label;
   padding-left: 0;
+}
+
+.crt-radio__label_area {
+  @extend .usa-radio__label;
+  background-color: $gray-cool-4;
+  padding: 1.5rem 0 1.5rem 3.5rem;
+  border-radius: 1rem;
+
+  .examples {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: $gray-70;
+  }
 }
