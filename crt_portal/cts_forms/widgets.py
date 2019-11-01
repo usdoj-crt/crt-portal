@@ -7,10 +7,10 @@ class UsaRadioSelect(ChoiceWidget):
     option_template_name = '../templates/forms/widgets/usa_radio_option.html'
 
 
-class UsaRadioArea(ChoiceWidget):
+class CrtRadioArea(ChoiceWidget):
     input_type = 'radio'
     template_name = 'django/forms/widgets/radio.html'
-    option_template_name = '../templates/forms/widgets/usa_radio_area.html'
+    option_template_name = '../templates/forms/widgets/crt_radio_area.html'
 
 
 # Overrides Django CheckboxSelectMultiple:
