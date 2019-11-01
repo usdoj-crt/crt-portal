@@ -11,9 +11,9 @@
       Examples
     </div>
     <ul class="primary_reason_examples">
-      <li class="disc-style">Something</li>
-      <li class="disc-style">Something</li>
-      <li class="disc-style">Something</li>
+      {% for example in widget.examples %}
+        <li class="disc-style">{{ example }}</li>
+      {% endfor %}
     </ul>
   </label>
 </div>
