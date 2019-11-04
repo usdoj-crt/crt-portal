@@ -5,7 +5,7 @@
       "actions": [
         "wait for element #id_0-contact_phone to be visible",
         "click element #submit-next",
-        "wait for element #id_1-protected_class to be visible"
+        "wait for element #id_1-primary_complaint to be visible"
       ],
       "screenCapture": "pa11y-screenshots/page2.png"
     }
