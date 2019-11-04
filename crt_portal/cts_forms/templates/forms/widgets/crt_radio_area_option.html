@@ -6,8 +6,8 @@
          {% include "django/forms/widgets/attrs.html" %} />
   <label class="crt-radio__label_area"
          {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>
-    <span class="big">{{ widget.label }}</span>
     <div class="examples-area margin-top-2 margin-bottom-1 padding-left-5">
+      <div class="big">{{ widget.label }}</div>
       <div class="examples-title">
         Examples
       </div>

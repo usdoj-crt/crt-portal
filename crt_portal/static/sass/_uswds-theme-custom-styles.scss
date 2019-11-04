@@ -56,7 +56,7 @@ main {
     color: $gray-warm;
   }
 
-  legend, .page-subtitle, label.big, span.big {
+  legend, .page-subtitle, .big {
     color: $blue-warm-vivid-70;
     font-weight: bold;
     font-size: 1.17em; // Matches h3 size
@@ -280,6 +280,10 @@ input[type="radio"]:checked + .crt-radio__label_area {
   }
 
   .examples-area {
+    position: relative;
+    bottom: 40px;
+    margin-bottom: -50px;
+
     ul {
       padding-inline-start: 20px;
     }
