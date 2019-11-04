@@ -28,6 +28,7 @@ $light-beige: #F6F6F2;
 $blue-warm-vivid-70: #1A4480;
 $blue-50: #2378C3;
 $blue-vivid-40: #2491FF;
+$blue-warm-5: #ECF1F7;
 $gray-warm: #2E2E2A;
 $gray-90: #171717;
 $gray-70: #454545;
@@ -260,11 +261,22 @@ legend, .page-subtitle {
   padding-left: 0;
 }
 
+input[type="radio"]:checked + .crt-radio__label_area {
+  background-color: $blue-warm-5;
+  border: 1px solid $blue-warm-vivid-70;
+}
+
 .crt-radio__label_area {
   @extend .usa-radio__label;
   background-color: $gray-cool-4;
   padding: 1.5rem 0 1.5rem 3.5rem;
+  border: 1px solid $gray-cool-4;
   border-radius: 1rem;
+
+  &:hover {
+    background-color: $blue-warm-5;
+    border: 1px solid $blue-warm-vivid-70;
+  }
 
   .examples {
     text-transform: uppercase;
