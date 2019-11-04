@@ -1,10 +1,16 @@
 {% extends "forms/report_base.html" %}
 {% block form_questions %}
-  {% if step_helptext %}
-  <div class="margin-bottom-4"><em>{{ step_helptext }}</em></div>
-  {% endif %}
 
   {% for field in wizard.form.visible_fields %}
-    {{ field }}
+    <div class="margin-bottom-5">
+      {% if field.help_text %}
+        <div class="margin-bottom-4 usa-prose">
+          <em>{{ field.help_text }}</em>
+        </div>
+      {% endif %}
+
+      {{ field }}
+    </div>
   {% endfor %}
+
 {% endblock %}
