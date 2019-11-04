@@ -10,12 +10,12 @@
     <div class="examples margin-top-2 margin-bottom-1 padding-left-5">
       Examples
     </div>
-    <ul class="primary_reason_examples">
+    <ul class="primary_reason_examples show">
       {% if widget.value != None %}
         {% for reason, examples in widget.attrs.choices_to_examples.items %}
           {% if widget.value == reason %}
             {% for example in examples %}
-              <li class="disc-style">{{example}}</li>
+              <li class="show">{{example}}</li>
             {% endfor %}
           {% endif %}
         {% endfor %}
