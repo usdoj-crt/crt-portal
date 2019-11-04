@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
         ('cts_forms', '0012_insert_protected_class_order'),
     ]
 
-        def retrieve_or_create_options(*args, **defaults):
+    def retrieve_or_create_options(*args, **defaults):
         try:
             with transaction.atomic():
                 c = ProtectedClass.objects.filter(protected_class='Immigration/citizenship status (choosing this does not share your status)').update(protected_class='Immigration/citizenship status (choosing this will not share your status)')
