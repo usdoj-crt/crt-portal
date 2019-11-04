@@ -7,19 +7,21 @@
   <label class="crt-radio__label_area"
          {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>
     <span class="big">{{ widget.label }}</span>
-    <div class="examples margin-top-2 margin-bottom-1 padding-left-5">
-      Examples
+    <div class="examples-area margin-top-2 margin-bottom-1 padding-left-5">
+      <div class="examples-title">
+        Examples
+      </div>
+      <ul class="show margin-top-1">
+        {% if widget.value != None %}
+          {% for reason, examples in widget.attrs.choices_to_examples.items %}
+            {% if widget.value == reason %}
+              {% for example in examples %}
+                <li class="show">{{example}}</li>
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </ul>
     </div>
-    <ul class="primary_reason_examples show">
-      {% if widget.value != None %}
-        {% for reason, examples in widget.attrs.choices_to_examples.items %}
-          {% if widget.value == reason %}
-            {% for example in examples %}
-              <li class="show">{{example}}</li>
-            {% endfor %}
-          {% endif %}
-        {% endfor %}
-      {% endif %}
-    </ul>
   </label>
 </div>

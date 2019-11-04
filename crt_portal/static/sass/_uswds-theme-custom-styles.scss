@@ -268,8 +268,9 @@ input[type="radio"]:checked + .crt-radio__label_area {
 
 .crt-radio__label_area {
   @extend .usa-radio__label;
+  text-indent: 0;
   background-color: $gray-cool-4;
-  padding: 1.5rem 0 1.5rem 3.5rem;
+  padding: 1.5rem;
   border: 1px solid $gray-cool-4;
   border-radius: 1rem;
 
@@ -278,9 +279,15 @@ input[type="radio"]:checked + .crt-radio__label_area {
     border: 1px solid $blue-warm-vivid-70;
   }
 
-  .examples {
-    text-transform: uppercase;
-    font-weight: bold;
-    color: $gray-70;
+  .examples-area {
+    ul {
+      padding-inline-start: 20px;
+    }
+
+    .examples-title {
+      text-transform: uppercase;
+      font-weight: bold;
+      color: $gray-70;
+    }
   }
 }
