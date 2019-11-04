@@ -12,4 +12,6 @@ To do that, we would keep that and add the new classes "National origin" and "Id
 
 If you change the the ProtectedClass model, you may need to squish the migrations and make a new data load script.
 
-You can reorder the form by setting the value in the database or making a data migration to update the protected classes and form_order.
+To rename existing models, change the name in model_variables.py and create a data migration like: crt_portal/cts_forms/migrations/0016_rename_more_protected_class.py
+
+You should be able to reorder the form by setting the value in the database or making a data migration to update the protected classes and form_order. (This might not be working, we may need additional work to override the django built in sort order for models.)
