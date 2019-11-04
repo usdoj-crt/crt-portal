@@ -2,6 +2,10 @@ from django.db import migrations, models
 from cts_forms.models import ProtectedClass
 from cts_forms.model_variables import PROTECTED_CLASS_CHOICES
 
+import logging
+
+logger = logging.getLogger(__name__)
+
 
 class Migration(migrations.Migration):
 
