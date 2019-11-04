@@ -1,6 +1,5 @@
 from django.forms import ModelForm, CheckboxInput, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
     ModelMultipleChoiceField
-from .fields import ChoiceFieldWithExamples
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea
 from .models import Report, ProtectedClass
@@ -58,7 +57,7 @@ class Contact(ModelForm):
         }
 
 class PrimaryReason(ModelForm):
-    primary_complaint = ChoiceFieldWithExamples(
+    primary_complaint = ChoiceField(
         choices=PRIMARY_COMPLAINT_CHOICES,
         widget=CrtRadioArea(attrs={'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES}),
         required=False,
