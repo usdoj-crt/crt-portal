@@ -5,7 +5,20 @@ PRIMARY_COMPLAINT_CHOICES = (
     ('housing', 'Housing discrimination or harassment '),
     ('education', 'Discrimination at a school, educational program, or related to receiving education'),
     ('voting', 'Right to vote impacted'),
+    ('police', 'Mistreated by police, law enforcement, or correctional staff (including while in prison)'),
+    ('commercial_or_public', 'Discriminated against in any other commercial location or public place'),
+    ('something_else', '')
 )
+
+PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT = {
+    'workplace': None,
+    'housing': None,
+    'education': None,
+    'voting': None,
+    'police': None,
+    'commercial_or_public': 'Store, restaurant, bar, hotel, place of worship, library, medical facility, bank, courthouse, government buildings, public park or street, or online',
+    'something_else': 'You will be able to tell us more later.'
+}
 
 PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
     'workplace': [
@@ -27,7 +40,18 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
         'Blocked from registering to vote, entering a polling place to vote, or any other voting activity',
         'Lack of polling place accommodations for disability',
         'Ballot tampering'
-    ]
+    ],
+    'police': [
+        'Police brutality or use of excessive force, including patterns of police misconduct',
+        'Searched and arrested under false pretenses, including racial or other discriminatory profiling',
+        'Denied rights, language access barriers, subjected to harmful living conditions or lack of accessible facilities'
+    ],
+    'commercial_or_public': [
+        'A location or website lacking disability accommodations',
+        'Denied service or entry because of a percieved personal characteristic like race, sex, or religion',
+        'Blocked from receiving reproductive health services)',
+    ],
+    'something_else': []
 }
 
 # This will create the initial order, the form_order data can be directly adjusted after the initial load.
