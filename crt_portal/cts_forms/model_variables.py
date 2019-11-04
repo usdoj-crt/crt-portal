@@ -7,28 +7,28 @@ PRIMARY_COMPLAINT_CHOICES = (
     ('voting', 'Right to vote impacted'),
 )
 
-PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = (
-    ('workplace', (
+PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
+    'workplace': [
         'Fired, not hired, or demoted for reasons unrelated to job performance or qualifications',
         'Retaliated against for reporting discrimination',
         'Inappropriately asked to provide immigration documentation'
-    )),
-    ('housing', (
+    ],
+    'housing': [
         'Denied housing, a permit, or a loan',
         'Harmful living conditions or lack accommodations for disability',
         'Harassment by a landlord or another tenant'
-    )),
-    ('education', (
+    ],
+    'education': [
         'Harassment based on race, sex, national origin, disability, or religion',
         'Denied admission or segregated in an education program or activity',
         'Denied services or accommodations for a disability or language barrier'
-    )),
-    ('voting', (
+    ],
+    'voting': [
         'Blocked from registering to vote, entering a polling place to vote, or any other voting activity',
         'Lack of polling place accommodations for disability',
         'Ballot tampering'
-    ))
-)
+    ]
+}
 
 # This will create the initial order, the form_order data can be directly adjusted after the initial load.
 # See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
