@@ -56,6 +56,7 @@ class Contact(ModelForm):
             }),
         }
 
+
 class PrimaryReason(ModelForm):
     primary_complaint = ChoiceField(
         choices=PRIMARY_COMPLAINT_CHOICES,
