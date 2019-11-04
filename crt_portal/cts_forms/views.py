@@ -63,7 +63,7 @@ class CRTReportWizard(SessionWizardView):
         # This name appears in the progress bar wizard
         ordered_step_names = [
             'Contact',
-            'Category',
+            'Primary Issue',
             'Protected Class',
             'Details',
         ]
