@@ -14,10 +14,10 @@ PRIMARY_COMPLAINT_CHOICES = (
 # This will create the initial order, the form_order data can be directly adjusted after the initial load.
 # See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
 PROTECTED_CLASS_CHOICES = (
-    'Disability (including temporary or in recovery)',
+    'Disability (including temporary or recovery)',
     'Race/color',
     'National origin (including ancestry, ethnicity, and language)',
-    'Immigration/citizenship status (choosing this does not share your status)',
+    'Immigration/citizenship status (choosing this will not share your status)',
     'Religion',
     'Sex or gender identity (including gender stereotypes) or pregnancy',
     'Family, marriage, or parental status',
@@ -25,15 +25,15 @@ PROTECTED_CLASS_CHOICES = (
     'Military status',
     'Age',
     'Genetic information',
-    'Other',
+    'Other reason',
 )
 
 # used in internal CRT view display
 PROTECTED_CLASS_CODES = {
-    'Disability (including temporary or in recovery)': 'Disability',
+    'Disability (including temporary or recovery)': 'Disability',
     'Race/color': 'Race/color',
-    'National origin (including ancestry, ethnicity, and language)': 'National Origin',
-    'Immigration/citizenship status (choosing this does not share your status)': 'Immigration',
+    'National origin (including ancestry, ethnicity, and language)': 'National origin',
+    'Immigration/citizenship status (choosing this will not share your status)': 'Immigration',
     'Religion': 'Religion',
     'Sex or gender identity (including gender stereotypes) or pregnancy': 'Sex',
     'Sexual orientation': 'Orientation',
@@ -41,14 +41,14 @@ PROTECTED_CLASS_CODES = {
     'Military status': 'Military',
     'Age': 'Age',
     'Genetic information': 'Genetic',
-    'Other': 'Other',
+    'Other reason': 'Other',
 }
 
 PROTECTED_MODEL_CHOICES = (
-    ('disability', 'Disability (including temporary or in recovery)'),
+    ('disability', 'Disability (including temporary or recovery)'),
     ('race', 'Race/color'),
     ('origin', 'National origin (including ancestry, ethnicity, and language)'),
-    ('immigration', 'Immigration/citizenship status (choosing this does not share your status)'),
+    ('immigration', 'Immigration/citizenship status (choosing this will not share your status)'),
     ('religion', 'Religion'),
     ('gender', 'Sex or gender identity (including gender stereotypes) or pregnancy'),
     ('orientation', 'Sexual orientation'),
@@ -56,7 +56,7 @@ PROTECTED_MODEL_CHOICES = (
     ('military', 'Military status'),
     ('age', 'Age'),
     ('genetic', 'Genetic information'),
-    ('other', 'Other'),
+    ('other', 'Other reason'),
 )
 
 PROTECTED_CLASS_ERROR = 'Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.'
