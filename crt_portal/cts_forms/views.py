@@ -6,10 +6,6 @@ from formtools.wizard.views import SessionWizardView
 from .models import Report, ProtectedClass
 from .model_variables import PROTECTED_CLASS_CODES
 
-import logging
-
-logger = logging.getLogger(__name__)
-
 
 @login_required
 def IndexView(request):
