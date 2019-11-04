@@ -56,9 +56,9 @@ Run unit test on Windows:
 1. Ensure docker is running
 2. Start a powershell as admin (git bash has issue running ssh console in docker)
 3. Find the id for the web container
-   ``` 
+   ```
     docker container ls
-   ``` 
+   ```
 4. Identify the id for the crt-portal_web_1
 5. SSH to web container in docker:
     ```
@@ -70,7 +70,7 @@ Run unit test on Windows:
     python crt_portal/manage.py test cts_forms
     ```
 7. If you lucky your test will result OK or lots of error to work on!
-    
+
 
 You can also run project tests using docker with:
 
@@ -184,6 +184,14 @@ We deploy from CircleCI.
 * The app will deploy to prod when the tests pass and a PR is merged into `master`.
 
 When CircleCI tries to deploy two PRs back-to-back, one of them can fail. In this case, you can restart the failed deploy process by clicking the "Rerun Workflow" button.
+
+## Additional documentation
+
+For more technical documentation see the [docs](https://github.com/usdoj-crt/crt-portal/tree/develop/docs)
+    - A11y testing plan
+    - Branching strategy
+    - Maintenance or infrequent tasks
+    - Pull request instructions
 
 # Background notes
 
