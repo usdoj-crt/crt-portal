@@ -26,7 +26,7 @@ class Contact(ModelForm):
             QuestionGroup(
                 self,
                 ('contact_first_name', 'contact_last_name'),
-                group_name='Name',
+                group_name='Your name',
                 help_text="Leave the fields blank if you'd like to file anonymously",
             ),
             QuestionGroup(
