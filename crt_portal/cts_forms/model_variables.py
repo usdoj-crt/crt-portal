@@ -11,7 +11,7 @@ PRIMARY_COMPLAINT_CHOICES = (
 )
 
 PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT = {
-    'commercial_or_public': 'Store, restaurant, bar, hotel, place of worship, library, medical facility, bank, courthouse, government buildings, public park or street, or online',
+    'commercial_or_public': 'Store, restaurant, bar, hotel, place of worship, library, medical facility, bank, courthouse, government buildings, public park or street, or online.',
     'something_else': 'You will be able to tell us more later.'
 }
 
