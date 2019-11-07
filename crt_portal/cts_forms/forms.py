@@ -65,6 +65,9 @@ class PrimaryReason(ModelForm):
             'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
         }),
         required=True,
+        error_messages={
+            'required': 'Please select a primary reason to continue.'
+        },
         help_text='Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.'
     )
 

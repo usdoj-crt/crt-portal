@@ -3,6 +3,9 @@
 
   {% for field in wizard.form.visible_fields %}
     <div class="question_{{field.name}} margin-bottom-5">
+      {% if field.errors %}
+        {% include "forms/error_warning.html" with errors=field.errors %}
+      {% endif %}
       {% if field.help_text %}
         <div class="margin-bottom-4 usa-prose">
           <em>{{ field.help_text }}</em>
