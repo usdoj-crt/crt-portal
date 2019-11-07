@@ -7,15 +7,10 @@ PRIMARY_COMPLAINT_CHOICES = (
     ('voting', 'Right to vote impacted'),
     ('police', 'Mistreated by police, law enforcement, or correctional staff (including while in prison)'),
     ('commercial_or_public', 'Discriminated against in any other commercial location or public place'),
-    ('something_else', '')
+    ('something_else', 'Something else')
 )
 
 PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT = {
-    'workplace': None,
-    'housing': None,
-    'education': None,
-    'voting': None,
-    'police': None,
     'commercial_or_public': 'Store, restaurant, bar, hotel, place of worship, library, medical facility, bank, courthouse, government buildings, public park or street, or online',
     'something_else': 'You will be able to tell us more later.'
 }

@@ -8,6 +8,13 @@
          {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>
     <div class="label-text margin-top-2 margin-bottom-1 padding-left-5">
       <div class="big label-reason">{{ widget.label }}</div>
+      {% if widget.value != None %}
+        {% for reason, helptext in widget.attrs.choices_to_helptext.items %}
+          {% if widget.value == reason %}
+            <em>{{ helptext }}</em>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
       <div class="examples-title">
         Examples
       </div>
