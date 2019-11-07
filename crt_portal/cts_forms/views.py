@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from formtools.wizard.views import SessionWizardView
 
@@ -8,8 +9,24 @@ from .model_variables import PROTECTED_CLASS_CODES
 
 
 @login_required
-def IndexView(request):
+def IndexView(request, per_page=15):
     latest_reports = Report.objects.order_by('-create_date')
+
+    paginator = Paginator(latest_reports, per_page)
+    page = request.GET.get('page', 1)
+    try:
+        latest_reports = paginator.page(page)
+    except PageNotAnInteger:
+        latest_reports = paginator.page(1)
+    except EmptyPage:
+        latest_reports = paginator.page(paginator.num_pages)
+
+    pagnation = {
+        "page": page,
+        "page_range": paginator.page_range,
+        "count": paginator.count,
+    }
+
     data = []
     # formatting protected class
     for report in latest_reports:
