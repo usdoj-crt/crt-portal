@@ -19,7 +19,6 @@
 
 {% block main_class %} class="page-header-background"{% endblock %}
 
-
 {% block content %}
 <div class="grid-container">
   <div class="grid-col-auto">
@@ -27,7 +26,28 @@
         + Add new record
     </a>
 
-    <p>{{ data_dict|length }} of {{ pagnation.count }} records</p>
+    <p>{{ data_dict|length }} of {{ pagination.count }} records</p>
+      <ul class="pagination">
+        {% if pagination.has_previous %}
+          <li><a href="?page={{ pagination.previous_page_number }}&per_page={{ pagination.per_page }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+
+        {% for i in pagination.page_range %}
+          {% if pagination.number == i %}
+            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+          {% else %}
+            <li><a href="?page={{ i }}&per_page={{ pagination.per_page }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+
+        {% if pagination.has_next %}
+          <li><a href="?page={{ pagination.next_page_number }}&per_page={{ per_page }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+      </ul>
 
     <table class="usa-table crt-table">
       <thead>

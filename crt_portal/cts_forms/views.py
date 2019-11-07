@@ -9,11 +9,12 @@ from .model_variables import PROTECTED_CLASS_CODES
 
 
 @login_required
-def IndexView(request, per_page=15):
+def IndexView(request):
     latest_reports = Report.objects.order_by('-create_date')
-
+    per_page = request.GET.get('per_page', 15)
     paginator = Paginator(latest_reports, per_page)
     page = request.GET.get('page', 1)
+
     try:
         latest_reports = paginator.page(page)
     except PageNotAnInteger:
@@ -44,7 +45,7 @@ def IndexView(request, per_page=15):
             "report_protected_classes": p_class_list
         })
 
-    return render_to_response('forms/index.html', {'data_dict': data, 'pagnation': paginator})
+    return render_to_response('forms/index.html', {'data_dict': data, 'pagination': paginator})
 
 
 TEMPLATES = [
