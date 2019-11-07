@@ -56,6 +56,9 @@ class CRTReportWizard(SessionWizardView):
     def get_context_data(self, form, **kwargs):
         context = super(CRTReportWizard, self).get_context_data(form=form, **kwargs)
 
+        field_errors = list(map(lambda field: field.errors, context['form']))
+        page_errors = [error for field in field_errors for error in field]
+
         # This name appears in the progress bar wizard
         ordered_step_names = [
             'Contact',
@@ -77,7 +80,8 @@ class CRTReportWizard(SessionWizardView):
         context.update({
             'ordered_step_names': ordered_step_names,
             'current_step_title': current_step_title,
-            'current_step_name': current_step_name
+            'current_step_name': current_step_name,
+            'page_errors': page_errors,
         })
 
         if current_step_name == 'Details':
