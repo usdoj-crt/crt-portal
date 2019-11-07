@@ -213,8 +213,10 @@ h3 {
 // that we'd prefer not to have bulleted, like
 // radio buttons; so remove list item bullets by default.
 form#report-form {
-  ul:not(.show) {
-    padding-inline-start: 0;
+  .question_primary_complaint {
+    ul {
+      padding-inline-start: 0;
+    }
   }
 
   li:not(.show) {

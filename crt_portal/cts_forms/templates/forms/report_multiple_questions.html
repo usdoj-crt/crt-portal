@@ -2,7 +2,7 @@
 {% block form_questions %}
 
   {% for field in wizard.form.visible_fields %}
-    <div class="margin-bottom-5">
+    <div class="question_{{field.name}} margin-bottom-5">
       {% if field.help_text %}
         <div class="margin-bottom-4 usa-prose">
           <em>{{ field.help_text }}</em>
