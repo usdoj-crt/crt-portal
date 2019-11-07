@@ -64,7 +64,7 @@ class PrimaryReason(ModelForm):
             'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
             'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
         }),
-        required=False,
+        required=True,
         help_text='Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.'
     )
 
