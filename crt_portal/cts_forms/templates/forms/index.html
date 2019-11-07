@@ -26,7 +26,9 @@
     <a class="usa-button margin-top-2" href="/report" label="first step" name="Create record">
         + Add new record
     </a>
-    </a>
+
+    <p>{{ data_dict|length }} of {{ pagnation.count }} records</p>
+
     <table class="usa-table crt-table">
       <thead>
         <tr>

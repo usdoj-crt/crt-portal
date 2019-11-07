@@ -21,12 +21,6 @@ def IndexView(request, per_page=15):
     except EmptyPage:
         latest_reports = paginator.page(paginator.num_pages)
 
-    pagnation = {
-        "page": page,
-        "page_range": paginator.page_range,
-        "count": paginator.count,
-    }
-
     data = []
     # formatting protected class
     for report in latest_reports:
@@ -50,7 +44,7 @@ def IndexView(request, per_page=15):
             "report_protected_classes": p_class_list
         })
 
-    return render_to_response('forms/index.html', {'data_dict': data})
+    return render_to_response('forms/index.html', {'data_dict': data, 'pagnation': paginator})
 
 
 TEMPLATES = [
