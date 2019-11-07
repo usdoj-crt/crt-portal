@@ -84,6 +84,12 @@ class CRTReportWizard(SessionWizardView):
             context.update({
                 'page_note': 'Continued'
             })
+        elif current_step_name == 'Primary Issue':
+            # Disable default client-side validation to roll our own.
+            # Roll this out incrementally page-by-page.
+            context.update({
+                'form_novalidate': True
+            })
 
         return context
 

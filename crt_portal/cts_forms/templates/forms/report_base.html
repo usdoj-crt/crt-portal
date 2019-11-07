@@ -40,7 +40,11 @@
   </div>
 
   <div class="content-wrapper">
-    <form id="report-form" class="usa-form" action="/report/" method="post">
+    <form id="report-form"
+          class="usa-form"
+          action="/report/"
+          method="post"
+          {% if form_novalidate %}novalidate{% endif %}>
       {% csrf_token %}
       {{ wizard.management_form }}
 
