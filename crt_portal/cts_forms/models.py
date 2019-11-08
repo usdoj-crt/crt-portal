@@ -41,25 +41,37 @@ class ProtectedClass(models.Model):
 
 
 class Report(models.Model):
-    # protected class, see maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
-    protected_class = models.ManyToManyField(ProtectedClass)
-    other_class = models.CharField(max_length=150, null=True, blank=True)
-    # contact form
+    # Contact
     contact_first_name = models.CharField(max_length=225, null=True, blank=True)
     contact_last_name = models.CharField(max_length=225, null=True, blank=True)
     contact_email = models.EmailField(null=True, blank=True)
     contact_phone = models.CharField(
         validators=[RegexValidator(phone_validation_regex)],
-        max_length=225, null=True, blank=True
+        max_length=225,
+        null=True,
+        blank=True
     )
-    # details form
+    # Primary Issue
+    primary_complaint = models.CharField(
+        max_length=100,
+        choices=PRIMARY_COMPLAINT_CHOICES,
+        default='',
+        blank=False
+    )
+    # Protected Class
+    # See docs for notes on updating these values:
+    # docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
+    protected_class = models.ManyToManyField(ProtectedClass)
+    other_class = models.CharField(max_length=150, null=True, blank=True)
+    # Details Summary
     violation_summary = models.TextField(max_length=7000, null=True, blank=True)
-    # fields below are not implemented yet #
+
+    ###############################################################
+    #   These fields have not been implemented in the form yet:   #
+    ###############################################################
     contact_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
     contact_address_line_1 = models.CharField(max_length=225, null=True, blank=True)
     contact_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
-    # what happened form
-    primary_complaint = models.CharField(max_length=100, choices=PRIMARY_COMPLAINT_CHOICES, default=None, null=True, blank=True)
     # where form
     place = models.CharField(max_length=100, choices=PLACE_CHOICES, default=None, null=True)
     public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)

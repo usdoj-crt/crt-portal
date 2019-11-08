@@ -39,6 +39,8 @@ def IndexView(request):
 TEMPLATES = [
     # Contact
     'forms/report_grouped_questions.html',
+    # Primary reason
+    'forms/report_multiple_questions.html',
     # Protected Class
     'forms/report_class.html',
     # Details
@@ -57,17 +59,16 @@ class CRTReportWizard(SessionWizardView):
         # This name appears in the progress bar wizard
         ordered_step_names = [
             'Contact',
+            'Primary Issue',
             'Protected Class',
             'Details',
-            # 'What Happened',
-            # 'Where',
-            # 'Who',
         ]
         current_step_name = ordered_step_names[int(self.steps.current)]
 
         # This title appears in large font above the question elements
         ordered_step_titles = [
             'Contact',
+            'What is your primary reason for contacting the Civil Rights Division?',
             'Please provide details',
             'Details'
         ]
@@ -81,7 +82,6 @@ class CRTReportWizard(SessionWizardView):
 
         if current_step_name == 'Details':
             context.update({
-                'page_subtitle': 'Please describe what happened in your own words',
                 'page_note': 'Continued'
             })
 

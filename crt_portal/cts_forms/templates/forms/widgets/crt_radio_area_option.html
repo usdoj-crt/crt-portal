@@ -1,0 +1,38 @@
+<div class="usa-radio">
+  <input type="radio"
+         name="{{ widget.name }}"
+         {% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}
+         class="usa-radio__input"
+         {% include "django/forms/widgets/attrs.html" %} />
+  <label class="crt-radio__label_area"
+         {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>
+    <div class="label-text margin-top-2 padding-left-5">
+      <div class="big label-reason">{{ widget.label }}</div>
+      {% if widget.value != None %}
+        {% for reason, helptext in widget.attrs.choices_to_helptext.items %}
+          {% if widget.value == reason %}
+            <em class="margin-top-1">{{ helptext }}</em>
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+      {% if widget.value != None %}
+        {% for reason, examples in widget.attrs.choices_to_examples.items %}
+          {% if widget.value == reason %}
+            {% if examples %}
+              <div class="examples-title margin-top-2">
+                Examples:
+              </div>
+              <ul class="margin-top-1">
+                {% for example in examples %}
+                  <li class="primary-issue-example-li">{{ example }}</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <div class="margin-bottom-2"></div>
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+      {% endif %}
+    </div>
+  </label>
+</div>
