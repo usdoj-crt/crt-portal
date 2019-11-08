@@ -1,0 +1,34 @@
+<nav class="usa-pagination" role="navigation" aria-label="Pagination">
+  <ol class="pagination">
+  <!-- first arrow button -->
+  {% if page_format.has_previous %}
+    <li><a href="?page={{ page_format.previous_page_number }}&per_page={{ page_format.per_page }}"aria-hidden="true">&laquo;</a></li>
+  {% else %}
+    <li class="disabled" aria-hidden="true">&laquo;</li>
+  {% endif %}
+  <!-- pagination buttons-->
+  {% if page_format.show_first %}
+    <li><a href="?page=1&per_page={{ page_format.per_page }}" role="button" aria-label="Go to page 1">1</a></li>
+    <li><span class="ellipsis">...</span></li>
+  {% endif %}
+
+  {% for linkpage in page_format.page_numbers %}
+    {% ifequal linkpage page_format.page %}
+       <li class="is-active" aria-label="current page, page {{ page_format.page }}"><b>{{ page_format.page }}</b></li>
+    {% else %}
+       <li><a href="?page={{ linkpage }}&per_page={{ page_format.per_page }}" role="button" aria-label="Go to page {{ linkpage }}">{{ linkpage }}</a></li>
+    {% endifequal %}
+  {% endfor %}
+
+  {% if page_format.show_last %}
+    <li><span class="ellipsis">...</span></li>
+    <a href="?page={{ page_format.total_pages }}&per_page={{ page_format.per_page }}" role="button" aria-label="Go to page {{ page_format.total_pages }}">{{ page_format.total_pages }}</a></span>
+  {% endif %}
+  <!-- last arrow button -->
+  {% if page_format.has_next %}
+    <li><a href="?page={{ page_format.next_page_number }}&per_page={{ page_format.per_page }}" aria-hidden="true">&raquo;</a></li>
+  {% else %}
+    <li class="disabled" aria-hidden="true">&raquo;</li>
+  {% endif %}
+  </ol>
+</nav>
