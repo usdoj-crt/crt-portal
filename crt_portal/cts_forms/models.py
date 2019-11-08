@@ -67,7 +67,7 @@ class Report(models.Model):
     violation_summary = models.TextField(max_length=7000, null=True, blank=True)
 
     ###############################################################
-    ### These fields have not been implemented in the form yet: ###
+    #   These fields have not been implemented in the form yet:   #
     ###############################################################
     contact_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
     contact_address_line_1 = models.CharField(max_length=225, null=True, blank=True)
