@@ -26,29 +26,43 @@
         + Add new record
     </a>
 
-    <p>{{ data_dict|length }} of {{ pagination.count }} records</p>
+    <p>{{ data_dict|length }} of {{ page_format.count }} records</p>
+
       <ul class="pagination">
-        {% if pagination.has_previous %}
-          <li><a href="?page={{ pagination.previous_page_number }}&per_page={{ pagination.per_page }}">&laquo;</a></li>
-        {% else %}
-          <li class="disabled"><span>&laquo;</span></li>
-        {% endif %}
+      <!-- first arrow button -->
+      {% if page_format.has_previous %}
+        <li><a href="?page={{ page_format.previous_page_number }}&per_page={{ page_format.per_page }}">&laquo;</a></li>
+      {% else %}
+        <li class="disabled">&laquo;</li>
+      {% endif %}
+      <!-- pagination buttons-->
+      {% if page_format.show_first %}
+        <li><a href="?page=1&per_page={{ page_format.per_page }}">1</a></li>
+        <li><span class="ellipsis">...</span></li>
+      {% endif %}
 
-        {% for i in pagination.page_range %}
-          {% if pagination.number == i %}
-            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
-          {% else %}
-            <li><a href="?page={{ i }}&per_page={{ pagination.per_page }}">{{ i }}</a></li>
-          {% endif %}
-        {% endfor %}
-
-        {% if pagination.has_next %}
-          <li><a href="?page={{ pagination.next_page_number }}&per_page={{ per_page }}">&raquo;</a></li>
+      {% for linkpage in page_format.page_numbers %}
+        {% ifequal linkpage page_format.page %}
+           <li class="current"><b>{{ page_format.page }}</b></li>
         {% else %}
-          <li class="disabled"><span>&raquo;</span></li>
-        {% endif %}
+           <li class="page"><a href="?page={{ linkpage }}&per_page={{ page_format.per_page }}"
+                 >{{ linkpage }}</a></li>
+        {% endifequal %}
+      {% endfor %}
+
+      {% if page_format.show_last %}
+        <li><span class="ellipsis">...</span></li>
+        <span class="page"><a href="?page={{ page_format.total_pages }}&per_page={{ page_format.per_page }}">{{ page_format.total_pages }}</a></span>
+      {% endif %}
+      <!-- last arrow button -->
+      {% if page_format.has_next %}
+        <li><a href="?page={{ page_format.next_page_number }}&per_page={{ page_format.per_page }}">&raquo;</a></li>
+      {% else %}
+        <li class="disabled">&raquo;</li>
+      {% endif %}
+
       </ul>
-
+  </div>
     <table class="usa-table crt-table">
       <thead>
         <tr>
