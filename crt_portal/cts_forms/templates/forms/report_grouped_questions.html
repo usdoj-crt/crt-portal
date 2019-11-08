@@ -1,9 +1,5 @@
 {% extends "forms/report_base.html" %}
 {% block form_questions %}
-  {% if step_helptext %}
-  <div class="margin-bottom-4"><em>{{ step_helptext }}</em></div>
-  {% endif %}
-
   {% for question_group in wizard.form.question_groups %}
     <fieldset class="usa-fieldset margin-bottom-5">
       <legend>

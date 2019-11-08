@@ -64,6 +64,7 @@ jobs:
             npm run test:a11y-ci-1
             npm run test:a11y-ci-2
             npm run test:a11y-ci-3
+            npm run test:a11y-ci-4
       - run:
           name: Run prettier code formatting check
           command: npm run lint:check

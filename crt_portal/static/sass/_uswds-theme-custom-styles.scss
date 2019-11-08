@@ -28,8 +28,11 @@ $light-beige: #F6F6F2;
 $blue-warm-vivid-70: #1A4480;
 $blue-50: #2378C3;
 $blue-vivid-40: #2491FF;
+$blue-warm-5: #ECF1F7;
 $gray-warm: #2E2E2A;
 $gray-90: #171717;
+$gray-70: #454545;
+$gray-cool-4: #F1F3F6;
 $white: #FFFFFF;
 $bold: 700;
 
@@ -49,11 +52,11 @@ body {
 main {
   flex: 1 0 auto;
 
-  p, em, h2, label:not(.big) {
+  p, em, h2, label:not(.big), span:not(.big) {
     color: $gray-warm;
   }
 
-  legend, .page-subtitle, label.big {
+  legend, .page-subtitle, .big {
     color: $blue-warm-vivid-70;
     font-weight: bold;
     font-size: 1.17em; // Matches h3 size
@@ -206,7 +209,26 @@ h3 {
 
 // Django Formtools Wizard customization
 
+// Django wraps lot of elements in <li> by default
+// that we'd prefer not to have bulleted, like
+// radio buttons; so remove list item bullets by default.
 form#report-form {
+  .question_primary_complaint {
+    ul {
+      padding-inline-start: 0;
+    }
+
+    li {
+      margin-bottom: 1.5rem;
+    }
+
+    li.primary-issue-example-li {
+      margin-left: 18px;
+      margin-bottom: 1rem;
+      list-style: disc;
+    }
+  }
+
   li {
     list-style: none;
   }
@@ -251,6 +273,7 @@ legend, .page-subtitle {
   padding-left: 0;
 }
 
+
 .usa-pagination {
   text-align: right;
 
@@ -272,6 +295,41 @@ legend, .page-subtitle {
 
   a {
     text-decoration: none;
+  }
+}
 
+input[type="radio"]:checked + .crt-radio__label_area {
+  background-color: $blue-warm-5;
+  border: 1px solid $blue-warm-vivid-70;
+}
+
+.crt-radio__label_area {
+  @extend .usa-radio__label;
+  text-indent: 0;
+  background-color: $gray-cool-4;
+  padding: 1.5rem;
+  border: 1px solid $gray-cool-4;
+  border-radius: 1rem;
+  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, .13));
+
+  &:hover {
+    background-color: $blue-warm-5;
+    border: 1px solid $blue-warm-vivid-70;
+  }
+
+  .label-text {
+    position: relative;
+    bottom: 40px;
+    margin-bottom: -60px;
+
+    ul {
+      padding-inline-start: 20px;
+    }
+
+    .examples-title {
+      text-transform: uppercase;
+      font-weight: bold;
+      color: $gray-70;
+    }
   }
 }
