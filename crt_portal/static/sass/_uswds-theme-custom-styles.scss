@@ -250,3 +250,28 @@ legend, .page-subtitle {
   @extend .usa-checkbox__label;
   padding-left: 0;
 }
+
+.usa-pagination {
+  text-align: right;
+
+  ol {
+    list-style-type: none;
+    padding-left: 2rem;
+  }
+
+  li {
+    display: inline;
+    padding: 3px 10px;
+
+    &.is-active {
+      background-color: $blue-warm-vivid-70;
+      color: $white;
+    }
+
+  }
+
+  a {
+    text-decoration: none;
+
+  }
+}
