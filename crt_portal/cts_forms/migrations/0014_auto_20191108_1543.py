@@ -6,7 +6,8 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0012_insert_protected_class_order'),
+        ('cts_forms', '0013_rename_protected_class'),
+
     ]
 
     operations = [
