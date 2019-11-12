@@ -33,6 +33,7 @@ $gray-warm: #2E2E2A;
 $gray-90: #171717;
 $gray-70: #454545;
 $gray-cool-4: #F1F3F6;
+$red-vivid-60: #B51D09;
 $white: #FFFFFF;
 $bold: 700;
 
@@ -257,10 +258,6 @@ form#report-form {
   }
 }
 
-#word-limit-alert.usa-alert.usa-alert--warning {
-  background-image: url(../img/alerts/word-count-alert.svg),linear-gradient(transparent,transparent);
-}
-
 legend, .page-subtitle {
   color: $blue-warm-vivid-70;
   font-weight: bold;
@@ -333,3 +330,19 @@ input[type="radio"]:checked + .crt-radio__label_area {
     }
   }
 }
+
+// Alert Overrides
+
+.page-errors {
+  font-weight: bold;
+  color: $red-vivid-60;
+}
+
+.usa-alert--error {
+  background-image: url(../img/alerts/error-red.svg),linear-gradient(transparent,transparent);
+}
+
+#word-limit-alert.usa-alert.usa-alert--warning {
+  background-image: url(../img/alerts/word-count-alert.svg),linear-gradient(transparent,transparent);
+}
+

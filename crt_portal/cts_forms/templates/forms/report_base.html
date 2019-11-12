@@ -40,7 +40,11 @@
   </div>
 
   <div class="content-wrapper">
-    <form id="report-form" class="usa-form" action="/report/" method="post">
+    <form id="report-form"
+          class="usa-form"
+          action="/report/"
+          method="post"
+          {% if form_novalidate %}novalidate{% endif %}>
       {% csrf_token %}
       {{ wizard.management_form }}
 
@@ -65,7 +69,14 @@
         {{ hidden_field }}
       {% endfor %}
 
-      <div class="margin-top-5 margin-bottom-4">
+
+      {% if page_errors %}
+        <div id="page-errors" class="page-errors margin-top-4 margin-bottom-2">
+          {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
+        </div>
+      {% endif %}
+
+      <div class="margin-bottom-4 {% if not page_errors %}margin-top-5{% endif %}">
         <h2 class="margin-0">{{ current_step_title }}</h2>
         {% if page_note %}
           <p class="margin-top-1"><em>{{ page_note }}</em></p>

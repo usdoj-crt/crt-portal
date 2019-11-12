@@ -6,9 +6,6 @@
   {% for field in wizard.form.visible_fields %}
     {% if field.name == 'protected_class' %}
       <legend>{{ field.label }}</legend>
-      {% if field.errors %}
-        {% include "forms/error_warning.html" with errors=field.errors %}
-      {% endif %}
       <p class="usa-prose margin-top-0 margin-bottom-4">
         <em>{{ field.help_text }}</em>
       </p>
@@ -17,19 +14,21 @@
       </div>
     {% elif field.name == 'other_class' %}
       <div id='other-class-option' class="padding-left-4">
-        {% if field.errors %}
-          {% include "forms/error_warning.html" with errors=field.errors %}
-        {% endif %}
         <div class="blue-left-highlight">
           <div class="padding-left-2">
-          <label for="{{ field.id_for_label }}">{{ field.help_text }}</label>
-          {{ field }}
-          <div class="margin-top-1">
-            {% include "forms/word_counter.html" with word_limit=10 %}
-          <div>
+            <label for="{{ field.id_for_label }}">{{ field.help_text }}</label>
+            {{ field }}
+            <div class="margin-top-1">
+              {% include "forms/word_counter.html" with word_limit=10 %}
+            </div>
           </div>
         </div>
       </div>
+    {% endif %}
+  {% endfor %}
+  {% for field in wizard.form.visible_fields %}
+    {% if field.errors %}
+      {% include "forms/snippets/error_alert.html" with errors=field.errors %}
     {% endif %}
   {% endfor %}
 </fieldset>
