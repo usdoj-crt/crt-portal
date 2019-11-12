@@ -144,7 +144,6 @@ class Valid_CRT_Pagnation_Tests(TestCase):
         url = f'{url_base}?page=6&per_page=1'
         response = self.client.get(url)
         content = str(response.content)
-        print(content)
         # check first page, current page, and the pages before and after
         self.assertTrue('Go to page 1.' in content)
         self.assertTrue('Go to page 5.' in content)
