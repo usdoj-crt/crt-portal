@@ -71,7 +71,7 @@
 
 
       {% if page_errors %}
-        <div class="page-errors margin-top-4 margin-bottom-2">
+        <div id="page-errors" class="page-errors margin-top-4 margin-bottom-2">
           {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
         </div>
       {% endif %}
