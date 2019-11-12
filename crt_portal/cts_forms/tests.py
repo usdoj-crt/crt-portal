@@ -151,7 +151,7 @@ class Valid_CRT_Pagnation_Tests(TestCase):
         self.assertTrue('Go to page 7.' in content)
         self.assertTrue('Go to page 12.' in content)
         # link generation, update with sorting etc. as we add
-        self.assertTrue('href="?page=1&per_page=1"aria-hidden="true"' in content)
+        self.assertTrue('href="?page=1&per_page=1"' in content)
 
 
 class Validation_Form_Tests(TestCase):
