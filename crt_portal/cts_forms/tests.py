@@ -146,11 +146,13 @@ class Valid_CRT_Pagnation_Tests(TestCase):
         content = str(response.content)
         print(content)
         # check first page, current page, and the pages before and after
-        self.assertTrue("Go to page 1" in content)
-        self.assertTrue("Go to page 5" in content)
-        self.assertTrue("Current page, page 6" in content)
-        self.assertTrue("Go to page 7" in content)
-        self.assertTrue("Go to page 12" in content)
+        self.assertTrue('Go to page 1.' in content)
+        self.assertTrue('Go to page 5.' in content)
+        self.assertTrue('Current page, page 6.' in content)
+        self.assertTrue('Go to page 7.' in content)
+        self.assertTrue('Go to page 12.' in content)
+        # link generation, update with sorting etc. as we add
+        self.assertTrue('href="?page=1&per_page=1"aria-hidden="true"' in content)
 
 
 class Validation_Form_Tests(TestCase):

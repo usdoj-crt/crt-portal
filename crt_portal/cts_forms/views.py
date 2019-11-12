@@ -41,8 +41,6 @@ def IndexView(request):
             "report_protected_classes": p_class_list
         })
 
-        print(page_format)
-
     return render_to_response('forms/index.html', {'data_dict': data, 'page_format': page_format})
 
 
