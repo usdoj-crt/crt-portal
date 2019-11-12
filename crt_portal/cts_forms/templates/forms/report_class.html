@@ -28,7 +28,7 @@
   {% endfor %}
   {% for field in wizard.form.visible_fields %}
     {% if field.errors %}
-      {% include "forms/error_alert.html" with errors=field.errors %}
+      {% include "forms/snippets/error_alert.html" with errors=field.errors %}
     {% endif %}
   {% endfor %}
 </fieldset>
