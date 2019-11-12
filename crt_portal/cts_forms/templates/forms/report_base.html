@@ -69,6 +69,11 @@
         {{ hidden_field }}
       {% endfor %}
 
+
+      {% if page_errors %}
+        {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
+      {% endif %}
+
       <div class="margin-top-5 margin-bottom-4">
         <h2 class="margin-0">{{ current_step_title }}</h2>
         {% if page_note %}

@@ -82,6 +82,8 @@ class CRTReportWizard(SessionWizardView):
             'current_step_title': current_step_title,
             'current_step_name': current_step_name,
             'page_errors': page_errors,
+            'num_page_errors': len(list(page_errors)),
+            'page_errors_desc': ','.join([f'"{error_desc}"' for error_desc in page_errors])
         })
 
         if current_step_name == 'Details':
