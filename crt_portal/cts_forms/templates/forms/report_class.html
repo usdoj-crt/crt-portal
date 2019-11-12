@@ -7,7 +7,7 @@
     {% if field.name == 'protected_class' %}
       <legend>{{ field.label }}</legend>
       {% if field.errors %}
-        {% include "forms/error_warning.html" with errors=field.errors %}
+        {% include "forms/error_alert.html" with errors=field.errors %}
       {% endif %}
       <p class="usa-prose margin-top-0 margin-bottom-4">
         <em>{{ field.help_text }}</em>
@@ -18,7 +18,7 @@
     {% elif field.name == 'other_class' %}
       <div id='other-class-option' class="padding-left-4">
         {% if field.errors %}
-          {% include "forms/error_warning.html" with errors=field.errors %}
+          {% include "forms/error_alert.html" with errors=field.errors %}
         {% endif %}
         <div class="blue-left-highlight">
           <div class="padding-left-2">
