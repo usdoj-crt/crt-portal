@@ -32,8 +32,8 @@ Create a superuser for local admin access
 
 To add some test data with the form http://0.0.0.0:8000/form/ and then you can check it out in the backend view http://0.0.0.0:8000/form/view and the admin view at http://0.0.0.0:8000/admin/.
 
-Generate the SASS for the front end.
-    In another terminal, if you are doing front end work you will want 
+Generate the SASS for the front end with gulp:
+    In another terminal, if you are doing front end work you will want to have gulp compile the css so you can instantly see changes.
 
     gulp watch
 
