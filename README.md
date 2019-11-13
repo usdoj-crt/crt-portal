@@ -15,20 +15,25 @@ In the top level directory create a .env file in the top of your directory and s
     SECRET_KEY=''
 
 To build the project
+    You will need to build the project for the first time and when there are package updates to apply.
 
     docker-compose up -d --build
 
 To run the project
+    This is a quicker way to start the project as long as you don't have new packages to install.
 
     docker-compose up
 
-create a superuser for admin access
+Visit the site locally at [http://0.0.0.0:8000/report] 🎉 
+
+Create a superuser for local admin access
 
      docker-compose run web python /code/crt_portal/manage.py createsuperuser
 
-To add some test data after you log in at `http://0.0.0.0:8000/admin/login`; Then you can check out `http://0.0.0.0:8000/form/`.
+To add some test data with the form http://0.0.0.0:8000/form/ and then you can check it out in the backend view http://0.0.0.0:8000/form/view and the admin view at http://0.0.0.0:8000/admin/.
 
-in another terminal if you are doing front end work:
+Generate the SASS for the front end.
+    In another terminal, if you are doing front end work you will want 
 
     gulp watch
 
