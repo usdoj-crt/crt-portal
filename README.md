@@ -3,8 +3,14 @@
 Install Docker
 
     https://www.docker.com/get-started
+    
+Create [ssh key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and add it to GitHub. 
 
-Create a .env file in the top of your directory and set `SECRET_KEY` to a long, random string.
+Clone the project locally:
+
+    git clone git@github.com:usdoj-crt/crt-portal.git
+
+In the top level directory create a .env file in the top of your directory and set `SECRET_KEY` to a long, random string.
 
     SECRET_KEY=''
 
@@ -16,14 +22,11 @@ To run the project
 
     docker-compose up
 
-
 create a superuser for admin access
 
      docker-compose run web python /code/crt_portal/manage.py createsuperuser
 
-
 To add some test data after you log in at `http://0.0.0.0:8000/admin/login`; Then you can check out `http://0.0.0.0:8000/form/`.
-
 
 in another terminal if you are doing front end work:
 
@@ -48,7 +51,6 @@ To install a new python package run:
     docker-compose run web pipenv install name-of-package
 
 ## Tests
-
 
 Tests run automatically with repos that are integrated with Circle CI. You can run those tests locally with the following instructions.
 
@@ -79,7 +81,6 @@ You can also run project tests using docker with:
 For accessibility testing with Pa11y, you can run that locally, _if you have npm installed locally_ with:
 
     npm run test:a11y
-
 
 You can scan the code for potential python security flaws using [bandit](https://github.com/PyCQA/bandit). Run bandit manually:
 
@@ -122,16 +123,13 @@ Create postgres DB and S3 with development settings:
     cf create-service aws-rds shared-psql crt-db
     cf create-service s3 basic-public crt-s3
 
-
 Store environment variables
 
     cf cups VCAP_SERVICES -p SECRET_KEY
 
 when prompted give it the secret key
 
-
 You will needed to enable CORS via awscli, for each bucket instructions are here: https://cloud.gov/docs/services/s3/#allowing-client-side-web-access-from-external-applications
-
 
 Create a [service account for deployment](https://cloud.gov/docs/services/cloud-gov-service-account/) for each space you are setting up. (Replace "SPACE" with the name of the space you are setting up.)
 
