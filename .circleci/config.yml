@@ -22,10 +22,10 @@ jobs:
       # Removing chache for now, we either need to build our image or move the cache location
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
       - run:
-          name: Node install
+          name: Node install, generate CSS
           command: |
             npm install
-            gulp build-sass
+            node node_modules/gulp/bin/gulp build-sass
       - run:
           name: Python install with pipenv then migrate the database
           command: |

@@ -1,11 +1,12 @@
 #!/bin/bash
 # used by local docker container
+
 # make sure migrations are applied
 echo migrate database...
 python /code/crt_portal/manage.py migrate
 
 echo generate css...
-gulp build-sass
+node node_modules/gulp/bin/gulp build-sass
 
 echo collect static assets...
 python /code/crt_portal/manage.py collectstatic --noinput
