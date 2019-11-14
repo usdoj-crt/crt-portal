@@ -4,6 +4,9 @@
 echo migrate database...
 python /code/crt_portal/manage.py migrate
 
+echo generate css...
+gulp build-sass
+
 echo collect static assets...
 python /code/crt_portal/manage.py collectstatic --noinput
 
