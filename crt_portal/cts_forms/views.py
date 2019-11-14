@@ -103,6 +103,7 @@ class CRTReportWizard(SessionWizardView):
         form_data_dict = self.get_all_cleaned_data()
         m2mfield = form_data_dict.pop('protected_class')
         r = Report.objects.create(**form_data_dict)
+        r.status = 'new'
 
         # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
         for protected in m2mfield:
