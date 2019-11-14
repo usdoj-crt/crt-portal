@@ -103,6 +103,7 @@ jobs:
             npm i -g npm@^6 && \
             rm -rf /var/lib/apt/lists/*
             npm install
+            node node_modules/gulp/bin/gulp build-sass
       - run:
           # database will be migrated in cloud.gov
           name: Python install with pipenv
@@ -158,6 +159,7 @@ jobs:
             npm i -g npm@^6 && \
             rm -rf /var/lib/apt/lists/*
             npm install
+            node node_modules/gulp/bin/gulp build-sass
       - run:
           # database will be migrated in cloud.gov
           name: Python install with pipenv
@@ -213,6 +215,7 @@ jobs:
             npm i -g npm@^6 && \
             rm -rf /var/lib/apt/lists/*
             npm install
+            node node_modules/gulp/bin/gulp build-sass
       - run:
           # database will be migrated in cloud.gov
           name: Python install with pipenv
