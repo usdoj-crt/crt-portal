@@ -80,14 +80,8 @@ footer {
   max-width: 30rem !important;
 
   .usa-button {
-
     &:hover {
       background-color: $blue-50;
-    }
-
-    &:focus {
-      outline: .125rem solid $blue-vivid-40;
-      outline-offset: .125rem;
     }
 
     @media (min-width: 30em) {
@@ -108,7 +102,7 @@ footer {
     width: 320px;
 
     &:focus {
-      outline: .125rem solid $blue-vivid-40;
+      outline-offset: 0;
       border: 1px solid $blue-vivid-40;
     }
   }
@@ -119,16 +113,19 @@ footer {
 
     &:focus {
       outline: .125rem solid $blue-vivid-40;
+      outline-offset: 0;
       border: 1px solid $blue-vivid-40;
     }
 
     &.bg-gold-outline {
       outline: .125rem solid $gold;
+      outline-offset: 0;
       border: 1px solid $gold;
     }
 
     &.bg-gold-outline:focus {
       outline: .125rem solid $gold;
+      outline-offset: 0;
       border: .125rem solid $gold;
     }
   }
@@ -158,11 +155,6 @@ footer {
   border: none;
   background: none;
   text-decoration: underline;
-
-  &:focus:not([disabled]) {
-    outline: .125rem solid $blue-vivid-40;
-    outline-offset: .125rem;
-  }
 }
 
 // Header Styles
@@ -321,3 +313,8 @@ input[type="radio"]:checked + .crt-radio__label_area {
   background-image: url(../img/alerts/word-count-alert.svg),linear-gradient(transparent,transparent);
 }
 
+// Skipnav
+
+.usa-skipnav:focus {
+  outline-offset: 0;
+}
