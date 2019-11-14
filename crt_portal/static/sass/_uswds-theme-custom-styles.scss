@@ -262,6 +262,31 @@ legend, .page-subtitle {
   padding-left: 0;
 }
 
+
+.usa-pagination {
+  text-align: right;
+
+  ol {
+    list-style-type: none;
+    padding-left: 2rem;
+  }
+
+  li {
+    display: inline;
+    padding: 3px 10px;
+
+    &.is-active {
+      background-color: $blue-warm-vivid-70;
+      color: $white;
+    }
+
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
 input[type="radio"]:checked + .crt-radio__label_area {
   background-color: $blue-warm-5;
   border: 1px solid $blue-warm-vivid-70;
