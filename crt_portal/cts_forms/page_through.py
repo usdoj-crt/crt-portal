@@ -16,7 +16,7 @@ def pagination(paginator, page, per_page):
     first_ellipsis = show_first and not (page <= adjacent_pages + 2)
 
     show_last = page < paginator.num_pages - adjacent_pages
-    last_ellipsis = show_last and not (paginator.num_pages - adjacent_pages - 1)
+    last_ellipsis = show_last and not (page == paginator.num_pages - adjacent_pages - 1)
 
     start_page = max(page - adjacent_pages, 1)
     end_page = min(page + adjacent_pages + 1, paginator.num_pages + 1)
