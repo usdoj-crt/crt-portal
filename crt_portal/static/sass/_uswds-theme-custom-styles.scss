@@ -34,6 +34,7 @@ $gray-warm: #2E2E2A;
 $gray-90: #171717;
 $gray-70: #454545;
 $gray-cool-4: #F1F3F6;
+$gray-warm-10: #E6E6E2;
 $red-vivid-60: #B51D09;
 $white: #FFFFFF;
 $bold: 700;
@@ -270,29 +271,29 @@ form#report-form {
 .status-new {
   color: $white !important;
   background-color: $blue-warm-vivid-70;
-  padding: 6px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
   border-radius: 8.5rem;
 }
 
 .status-open {
   background-color: $gold-20v;
   font-weight: bold;
-  padding: 6px;
-  padding-left: 15px;
-  padding-right: 15px;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
   border-radius: 8.5rem;
 }
 
-// .status-closed {
-  // background-color: ;
-  // font-weight: bold;
-  // padding: 6px;
-  // padding-left: 15px;
-  // padding-right: 15px;
-  // border-radius: 8.5rem;
-// }
+.status-closed {
+  background-color: $gray-warm-10;
+  font-weight: bold;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 8.5rem;
+}
 
 legend, .page-subtitle {
   color: $blue-warm-vivid-70;
