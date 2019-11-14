@@ -7,7 +7,7 @@
   <label class="crt-radio__label_area"
          {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>
     <div class="label-text margin-top-2 padding-left-5">
-      <div class="big label-reason">{{ widget.label }}</div>
+      <div class="big label-reason">{{ widget.label }}<span class="usa-sr-only">.</span></div>
       {% if widget.value != None %}
         {% for reason, helptext in widget.attrs.choices_to_helptext.items %}
           {% if widget.value == reason %}
@@ -24,7 +24,9 @@
               </div>
               <ul class="margin-top-1">
                 {% for example in examples %}
-                  <li class="primary-issue-example-li">{{ example }}</li>
+                  <li class="primary-issue-example-li">
+                    {{ example }}<span class="usa-sr-only">.</span>
+                  </li>
                 {% endfor %}
               </ul>
             {% else %}

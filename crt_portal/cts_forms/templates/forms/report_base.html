@@ -49,26 +49,15 @@
       {{ wizard.management_form }}
 
       {% if form.non_field_errors %}
-        {% for error in form.non_field_errors %}
-          <div id="word-limit-alert" class="usa-alert usa-alert--warning usa-alert--slim" hidden>
-          <div class="usa-alert__body">
-            <em class="usa-alert__text">{{ error }}</em>
-          </div>
-          </div>
-        {% endfor %}
+        {% include "forms/snippets/error_alert.html" with errors=form.non_field_errors %}
       {% endif %}
 
       {% for hidden_field in form.hidden_fields %}
         {% if hidden_field.errors %}
-          <ul>
-            {% for error in hidden_field.errors %}
-              <li>(Hidden field {{ hidden_field.name }}) {{ error }}</li>
-            {% endfor %}
-          </ul>
+          {% include "forms/snippets/error_alert.html" with errors=hidden_field.errors %}
         {% endif %}
         {{ hidden_field }}
       {% endfor %}
-
 
       {% if page_errors %}
         <div id="page-errors" class="page-errors margin-top-4 margin-bottom-2">
