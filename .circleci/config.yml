@@ -25,6 +25,7 @@ jobs:
           name: Node install
           command: |
             npm install
+            gulp build-sass
       - run:
           name: Python install with pipenv then migrate the database
           command: |

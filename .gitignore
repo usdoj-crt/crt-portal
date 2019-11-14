@@ -9,3 +9,6 @@ node_modules/
 # this is where collect static puts the files
 staticfiles/
 pa11y-screenshots/
+# generated files
+crt_portal/static/css/styles.css
+crt_portal/static/css/styles.css.map
