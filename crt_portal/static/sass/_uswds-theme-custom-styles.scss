@@ -24,6 +24,7 @@ i.e.
 
 $yellow: #FEE685;
 $gold: #FFBE2E;
+$gold-20v: #FFBE2E;
 $light-beige: #F6F6F2;
 $blue-warm-vivid-70: #1A4480;
 $blue-50: #2378C3;
@@ -270,17 +271,27 @@ form#report-form {
   color: $white !important;
   background-color: $blue-warm-vivid-70;
   padding: 6px;
-  border-radius: .25rem;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 8.5rem;
 }
 
-// .status-open {
-//   padding: 6px;
-//   border-radius: .25rem;
-// }
+.status-open {
+  background-color: $gold-20v;
+  font-weight: bold;
+  padding: 6px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 8.5rem;
+}
 
 // .status-closed {
-//   padding: 6px;
-//   border-radius: .25rem;
+  // background-color: ;
+  // font-weight: bold;
+  // padding: 6px;
+  // padding-left: 15px;
+  // padding-right: 15px;
+  // border-radius: 8.5rem;
 // }
 
 legend, .page-subtitle {
