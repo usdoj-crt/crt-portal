@@ -252,9 +252,7 @@ workflows:
             - build_and_test
           filters:
             branches:
-              # DO NOT MERGE
-              # only: develop
-              only: remove-generated-files
+              only: develop
 
       - deploy-stage:
           requires:
