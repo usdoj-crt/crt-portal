@@ -1,15 +1,23 @@
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 from formtools.wizard.views import SessionWizardView
 
 from .models import Report, ProtectedClass
 from .model_variables import PROTECTED_CLASS_CODES
+from .page_through import pagination
 
 
 @login_required
 def IndexView(request):
     latest_reports = Report.objects.order_by('-create_date')
+    per_page = request.GET.get('per_page', 15)
+    paginator = Paginator(latest_reports, per_page)
+    page = request.GET.get('page', 1)
+
+    latest_reports, page_format = pagination(paginator, page, per_page)
+
     data = []
     # formatting protected class
     for report in latest_reports:
@@ -33,7 +41,7 @@ def IndexView(request):
             "report_protected_classes": p_class_list
         })
 
-    return render_to_response('forms/index.html', {'data_dict': data})
+    return render_to_response('forms/index.html', {'data_dict': data, 'page_format': page_format})
 
 
 TEMPLATES = [
