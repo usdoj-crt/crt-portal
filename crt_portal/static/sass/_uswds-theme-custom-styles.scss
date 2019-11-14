@@ -85,6 +85,11 @@ footer {
       background-color: $blue-50;
     }
 
+    &:focus {
+      outline: .125rem solid $blue-vivid-40;
+      outline-offset: .125rem;
+    }
+
     @media (min-width: 30em) {
       margin-top: 0;
     }
@@ -153,6 +158,11 @@ footer {
   border: none;
   background: none;
   text-decoration: underline;
+
+  &:focus:not([disabled]) {
+    outline: .125rem solid $blue-vivid-40;
+    outline-offset: .125rem;
+  }
 }
 
 // Header Styles
