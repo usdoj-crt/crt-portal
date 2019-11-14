@@ -21,9 +21,12 @@
           {{ field.label }}
         </label>
         <em>{{ field.help_text }}</em>
-        {{ field.errors }}
         <div {% if forloop.last %}{% else %}class="margin-bottom-2"{% endif %}>
           {{ field }}
+
+          {% if field.errors %}
+            {% include "forms/snippets/error_alert.html" with errors=field.errors %}
+          {% endif %}
         </div>
       {% endfor %}
     </fieldset>

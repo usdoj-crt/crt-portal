@@ -8,16 +8,13 @@
         {{ field.label }}
       </label>
       <p><em>{{ field.help_text }}</em></p>
-      {% if field.errors %}
-        <div class="usa-alert usa-alert--warning usa-alert--slim">
-          <div class="usa-alert__body">
-          <em class="usa-alert__text">{{ field.errors }}</em>
-          </div>
-        </div>
-      {% endif %}
     </div>
     <div class="margin-bottom-1">
       {{ field }}
+
+      {% if field.errors %}
+        {% include "forms/snippets/error_alert.html" with errors=field.errors %}
+      {% endif %}
     </div>
     {% include "forms/word_counter.html" with word_limit=500 %}
   {% endfor %}
