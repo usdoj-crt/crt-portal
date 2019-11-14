@@ -100,7 +100,7 @@ PROTECTED_MODEL_CHOICES = (
 PROTECTED_CLASS_ERROR = 'Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.'
 
 STATUS_CHOICES = (
-    ('new','New'),
+    ('new', 'New'),
     ('open', 'Open'),
     ('closed', 'Closed'),
 )

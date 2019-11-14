@@ -240,6 +240,7 @@ form#report-form {
   color: $gray-warm;
 }
 
+// crt view table
 .crt-table {
   @extend .usa-table;
   font-size: 14px;
@@ -257,6 +258,29 @@ form#report-form {
     }
   }
 }
+// not working
+.tr-status-new {
+  @extend .crt-table;
+  font-weight: bold !important;
+}
+
+// crt view statuses
+.status-new {
+  color: $white !important;
+  background-color: $blue-warm-vivid-70;
+  padding: 6px;
+  border-radius: .25rem;
+}
+
+// .status-open {
+//   padding: 6px;
+//   border-radius: .25rem;
+// }
+
+// .status-closed {
+//   padding: 6px;
+//   border-radius: .25rem;
+// }
 
 legend, .page-subtitle {
   color: $blue-warm-vivid-70;
