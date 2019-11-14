@@ -11,6 +11,7 @@ from django.urls import reverse
 from .models import ProtectedClass, Report
 from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES
 from .forms import Where, Who, Details, Contact, ProtectedClassForm
+from .test_data import SAMPLE_REPORT
 
 
 class Valid_Form_Tests(TestCase):
@@ -112,6 +113,45 @@ class Valid_CRT_view_Tests(TestCase):
     def test_violation_summary(self):
         # formatting the summary is done in the template
         self.assertTrue(self.test_report.violation_summary[:119] in self.content)
+
+
+class Valid_CRT_Pagnation_Tests(TestCase):
+    def setUp(self):
+        for choice in PROTECTED_CLASS_CHOICES:
+            pc = ProtectedClass.objects.get_or_create(protected_class=choice)
+            test_report = Report.objects.create(**SAMPLE_REPORT)
+            test_report.protected_class.add(pc[0])
+            test_report.save()
+
+        self.client = Client()
+        # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        self.content = str(response.content)
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_total_pages(self):
+        # we are making a test record for each protected class
+        num_records = len(PROTECTED_CLASS_CHOICES)
+        self.assertTrue(f'{num_records} of {num_records} records' in self.content)
+
+    def test_paging(self):
+        url_base = reverse('crt_forms:crt-forms-index')
+        url = f'{url_base}?page=6&per_page=1'
+        response = self.client.get(url)
+        content = str(response.content)
+        # check first page, current page, and the pages before and after
+        self.assertTrue('Go to page 1.' in content)
+        self.assertTrue('Go to page 5.' in content)
+        self.assertTrue('Current page, page 6.' in content)
+        self.assertTrue('Go to page 7.' in content)
+        self.assertTrue('Go to page 12.' in content)
+        # link generation, update with sorting etc. as we add
+        self.assertTrue('href="?page=1&per_page=1"' in content)
 
 
 class Validation_Form_Tests(TestCase):
