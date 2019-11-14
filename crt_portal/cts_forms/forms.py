@@ -1,9 +1,9 @@
-from django.forms import ModelForm, ModelMultipleChoiceField, CheckboxInput, \
-    TypedChoiceField, TextInput, EmailInput
+from django.forms import ModelForm, CheckboxInput, \
+    TypedChoiceField, TextInput, EmailInput, ModelMultipleChoiceField
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple
 from .models import Report, ProtectedClass
-from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, HOW_MANY_CHOICES, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES
+from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES, PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR
 from .phone_regex import phone_validation_regex
 
 import logging
@@ -26,13 +26,14 @@ class Contact(ModelForm):
             QuestionGroup(
                 self,
                 ('contact_first_name', 'contact_last_name'),
-                group_name='Name',
+                group_name='Your name',
+                help_text="Leave the fields blank if you'd like to file anonymously",
             ),
             QuestionGroup(
                 self,
                 ('contact_email', 'contact_phone'),
                 group_name='Contact information',
-                help_text='Please choose at least one way for us to contact you.',
+                help_text='You are not required to provide contact information, but it will help us if we need to gather more information about the incident you are reporting or to respond to your submission',
             )
         ]
 
@@ -54,32 +55,67 @@ class Contact(ModelForm):
         }
 
 
-class WhatHappened(ModelForm):
+class Details(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ModelForm, self).__init__(*args, **kwargs)
+        self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
+        self.label_suffix = ''
+        self.fields['violation_summary'].label = 'Tell us what happened'
+        self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'word_count_area'
+        self.fields['violation_summary'].help_text = "Please include any details you have about time, location, or people involved with the event, names of witnesses or any materials that would support your description"
+
     class Meta:
         model = Report
-        protected_class = ModelMultipleChoiceField(
-            queryset=ProtectedClass.objects.all()
-        )
-        fields = ['primary_complaint', 'protected_class']
+        fields = [
+            'violation_summary'
+        ]
+
+
+def retrieve_or_create_choices():
+    choices = []
+    for choice in PROTECTED_CLASS_CHOICES:
+        try:
+            choice_object = ProtectedClass.objects.get_or_create(protected_class=choice)
+            choices.append(choice_object[0].pk)
+        except:  # noqa
+            # this has a concurrency issue for initial migrations
+            logger.warning('ProtectedClass not loaded yet')
+    return choices
+
+
+class ProtectedClassForm(ModelForm):
+    class Meta:
+        model = Report
+        fields = ['protected_class', 'other_class']
         widgets = {
-            'primary_complaint': UsaRadioSelect,
             'protected_class': UsaCheckboxSelectMultiple,
+            'other_class': TextInput(),
         }
 
-    # Overriding __init__ here allows us to provide initial
-    # data for 'protected_class' field
-    def __init__(self, *args, **kwargs):
-        # Only in case we build the form from an instance
-        # (otherwise, 'protected class' list should be empty)
-        if kwargs.get('instance'):
-            # We get the 'initial' keyword argument or initialize it
-            # as a dict if it didn't exist.
-            initial = kwargs.setdefault('initial', {})
-            # The widget for a ModelMultipleChoiceField expects
-            # a list of primary key for the selected data.
-            initial['protected_class'] = [t.pk for t in kwargs['instance'].protected_class_set.all()]
+    choices = retrieve_or_create_choices()
+    protected_class = ModelMultipleChoiceField(
+        error_messages={'required': PROTECTED_CLASS_ERROR},
+        required=True,
+        queryset=ProtectedClass.objects.filter(pk__in=choices).order_by('form_order'),
+    )
+    other_class = TextInput()
 
+    # Overriding __init__ here allows us to provide initial data for 'protected_class' field
+    def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
+        choices = retrieve_or_create_choices()
+        self.fields['protected_class'].queryset = ProtectedClass.objects.filter(pk__in=choices).order_by('-form_order')
+        choices = retrieve_or_create_choices()
+        self.fields['protected_class'] = ModelMultipleChoiceField(
+            error_messages={'required': 'Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.'},
+            required=True,
+            queryset=ProtectedClass.objects.filter(pk__in=choices).order_by('form_order'),
+            widget=UsaCheckboxSelectMultiple,
+        )
+        self.fields['protected_class'].label = 'Do you believe any of these personal characteristics influenced why you were treated this way?'
+        self.fields['protected_class'].help_text = 'Some civil rights laws protect people from discrimination, which include these protected classes. These are some of the most common classes that we see.'
+        self.fields['other_class'].help_text = 'Please describe "Other reason"'
+        self.fields['other_class'].widget.attrs['class'] = 'usa-input word-count-10'
 
 
 class Where(ModelForm):
@@ -117,17 +153,4 @@ class Who(ModelForm):
         fields = ['respondent_contact_ask', 'respondent_type', 'respondent_name', 'respondent_city', 'respondent_state']
         widgets = {
             'respondent_contact_ask': CheckboxInput,
-        }
-
-
-class Details(ModelForm):
-    how_many = TypedChoiceField(
-        choices=HOW_MANY_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-    )
-
-    class Meta:
-        model = Report
-        fields = ['violation_summary', 'when', 'how_many']
-        widgets = {
-            'when': UsaRadioSelect,
         }

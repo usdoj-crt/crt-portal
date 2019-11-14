@@ -1,0 +1,19 @@
+<noscript>
+  <em>{{ word_limit }} word limit.</em>
+</noscript>
+<div id="word_count_area" aria-live="polite" hidden>
+  <em id="word_limit_message" class="margin-bottom-0"></em>
+  <div id="word_limit_alert"
+       role="alert"
+       class="usa-alert usa-alert--warning usa-alert--slim"
+       hidden>
+    <div class="usa-alert__body">
+      <em class="usa-alert__text" aria-hidden="true">
+        {{ word_limit }} word limit reached
+      </em>
+      <span id="word_limit_sr_text" class="usa-sr-only">
+        {{ word_limit }} word limit reached
+      </span>
+    </div>
+  </div>
+</div>

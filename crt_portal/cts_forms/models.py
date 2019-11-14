@@ -1,11 +1,8 @@
-from datetime import datetime
-
+"""All models need to be added to signals.py for proper logging."""
 from django.db import models
-from django.utils import timezone
 from django.core.validators import RegexValidator
 
 from .phone_regex import phone_validation_regex
-
 
 from .model_variables import (
     PRIMARY_COMPLAINT_CHOICES,
@@ -18,8 +15,13 @@ from .model_variables import (
     RESPONDENT_TYPE_CHOICES,
     WHEN_CHOICES,
     HOW_MANY_CHOICES,
-    STATES_AND_TERRITORIES
+    STATES_AND_TERRITORIES,
+    PROTECTED_MODEL_CHOICES,
 )
+
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class InternalHistory(models.Model):
@@ -29,13 +31,19 @@ class InternalHistory(models.Model):
 
 
 class ProtectedClass(models.Model):
-    protected_class = models.CharField(max_length=100, null=True, blank=True,)
+    # add to be unique
+    protected_class = models.CharField(max_length=100, null=True, blank=True, choices=PROTECTED_MODEL_CHOICES, unique=True)
+    # used for ordering the choices on the form displays
+    form_order = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.protected_class
 
 
 class Report(models.Model):
+    # protected class, see maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
+    protected_class = models.ManyToManyField(ProtectedClass)
+    other_class = models.CharField(max_length=150, null=True, blank=True)
     # contact form
     contact_first_name = models.CharField(max_length=225, null=True, blank=True)
     contact_last_name = models.CharField(max_length=225, null=True, blank=True)
@@ -44,13 +52,14 @@ class Report(models.Model):
         validators=[RegexValidator(phone_validation_regex)],
         max_length=225, null=True, blank=True
     )
-    # Not adding the address to the form yet
+    # details form
+    violation_summary = models.TextField(max_length=7000, null=True, blank=True)
+    # fields below are not implemented yet #
     contact_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
     contact_address_line_1 = models.CharField(max_length=225, null=True, blank=True)
     contact_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
     # what happened form
     primary_complaint = models.CharField(max_length=100, choices=PRIMARY_COMPLAINT_CHOICES, default=None, null=True, blank=True)
-    protected_class = models.ManyToManyField(ProtectedClass, blank=True)
     # where form
     place = models.CharField(max_length=100, choices=PLACE_CHOICES, default=None, null=True)
     public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)
@@ -64,15 +73,10 @@ class Report(models.Model):
     respondent_name = models.CharField(max_length=225, null=True, blank=True)
     respondent_city = models.CharField(max_length=700, null=True, blank=True)
     respondent_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
-    # details form
-    violation_summary = models.TextField()
+    # previous details form
     when = models.CharField(max_length=700, choices=WHEN_CHOICES, default=None, null=True)
     how_many = models.CharField(max_length=700, null=True, blank=True, choices=HOW_MANY_CHOICES, default=None)
-    # TODO, upgrade to add validation https://pypi.org/project/django-phone-field/
     create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.violation_summary
-
-    def was_published_recently(self):
-        return self.create_date >= timezone.now() - datetime.timedelta(days=1)
+        return f'{self.create_date} {self.violation_summary}'

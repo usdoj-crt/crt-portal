@@ -1,0 +1,101 @@
+{% extends "forms/base.html" %}
+{% load i18n %}
+{% load static %}
+{% block head %}
+  {{ wizard.form.media }}
+{% endblock %}
+
+{% block page_header %}
+  <header class="page-header-background">
+    <div class="content-wrapper">
+      <h1 class="padding-top-5 margin-0">
+        Contact the Department of Justice about a civil rights concern
+      </h1>
+      <div class="intro-subtitle padding-y-3">
+        If you believe you or someone else has experienced a civil rights violation, please tell us what happened
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block content %}
+  {# Progress text for screen reader. #}
+  <span class="usa-sr-only">
+    Current step: {{ current_step_name }}. Step {{ wizard.steps.step1 }} of 6.
+  </span>
+
+  <div class="page-header-background">
+    <div class="content-wrapper">
+      <div class="padding-bottom-4 padding-top-3">
+        <ol class="steps" aria-hidden="true">
+          {% for step in ordered_step_names %}
+            <li {% if step == current_step_name %}class="current"{% endif %}>
+              <div class="step">{{ step }}</div>
+            </li>
+          {% endfor %}
+        </ol>
+        <div id="connecting-line"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-wrapper">
+    <form id="report-form" class="usa-form" action="/report/" method="post">
+      {% csrf_token %}
+      {{ wizard.management_form }}
+
+      {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+          <div id="word-limit-alert" class="usa-alert usa-alert--warning usa-alert--slim" hidden>
+          <div class="usa-alert__body">
+            <em class="usa-alert__text">{{ error }}</em>
+          </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+
+      {% for hidden_field in form.hidden_fields %}
+        {% if hidden_field.errors %}
+          <ul>
+            {% for error in hidden_field.errors %}
+              <li>(Hidden field {{ hidden_field.name }}) {{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {{ hidden_field }}
+      {% endfor %}
+
+      <div class="margin-top-5 margin-bottom-4">
+        <h2 class="margin-0">{{ current_step_title }}</h2>
+        {% if page_note %}
+          <p class="margin-top-1"><em>{{ page_note }}</em></p>
+        {% endif %}
+      </div>
+
+      {% block form_questions %}
+      {% endblock %}
+
+      <div class="margin-bottom-9">
+        <input id="submit-next"
+               type="submit"
+               label="submit"
+               value="{% trans 'Next' %}"
+               class="usa-button" />
+        {% if wizard.steps.prev %}
+          <br/>
+          <button name="wizard_goto_step"
+                  type="submit"
+                  label="previous step"
+                  value="{{ wizard.steps.prev }}"
+                  class="look-like-link margin-top-2">
+            {% trans "Back" %}
+          </button>
+        {% endif %}
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'js/word_count.js' %}"></script>
+{% endblock %}

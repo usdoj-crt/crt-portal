@@ -52,6 +52,25 @@ To install a new python package run:
 
 Tests run automatically with repos that are integrated with Circle CI. You can run those tests locally with the following instructions.
 
+Run unit test on Windows:
+1. Ensure docker is running
+2. Start a powershell as admin (git bash has issue running ssh console in docker)
+3. Find the id for the web container
+   ```
+    docker container ls
+   ```
+4. Identify the id for the crt-portal_web_1
+5. SSH to web container in docker:
+    ```
+    docker exec -it [id for the crt-portal_web goes here] /bin/bash (see below)
+    docker exec -it 0a6039095e34 /bin/bash
+    ```
+6. Once you are in the SSH ./code run the test command below:
+    ```
+    python crt_portal/manage.py test cts_forms
+    ```
+7. If you lucky your test will result OK or lots of error to work on!
+
 
 You can also run project tests using docker with:
 
@@ -68,11 +87,19 @@ You can scan the code for potential python security flaws using [bandit](https:/
 
 If there is a false positive you can add `# nosec` at the end of the line that is triggering the error. Please also add a comment that explains why that line is a false positive.
 
-You can check for style issues by running flake8:
+You can check for Python style issues by running flake8:
 
     docker-compose run web flake8
 
 If you have a a reason why a line of code shouldn't apply flake8 you can add `# noqa`, but try to use that sparingly.
+
+You can check for JS style issues by running Prettier:
+
+    npm run lint:check
+
+Prettier can automatically fix JS style issues for you:
+
+    npm run lint:write
 
 ## Browser targeting
 
@@ -85,7 +112,7 @@ For working with cloud.gov directly, you will need to [install the cloud foundry
 
 First, login to cloud.gov at https://login.fr.cloud.gov/login and then, get a passcode https://login.fr.cloud.gov/passcode.
 
-Log on with `cf login -a api.fr.cloud.gov --sso-passcode <put_passcode_here>` 
+Log on with `cf login -a api.fr.cloud.gov --sso-passcode <put_passcode_here>`
 
 ### Initial cloud.gov set up
 First, log into the desired space.
@@ -122,6 +149,18 @@ To deploy manually, make sure you are logged in, run the push command and pass i
 
 That will push to cloud.gov according to the instructions in the manifest and Profile.
 
+### User roles and permissions
+
+As of October 2019, we have two user roles in the system:
+
+* __Staff.__ Logged-in staff can view the table of complaints at `/form/view`.
+
+* __Admin (superusers).__ Logged-in admins can add and remove users, adjust form settings such as the list of protected classes, and view the table of complaints at `/form/view`.
+
+Please update the [Accounts Spreadsheet](https://docs.google.com/spreadsheets/d/1VM5hSsxUgqFM6t51Ejm_EjxnbxLI-pTXF_CVxZJSekQ/edit#gid=0) if you create or modify any user accounts.
+
+As we build out the product, we expect to add more granular user roles and permissions.
+
 ### Create admin accounts
 
 Need to ssh to create superuser (would like to do this automatically in another PR)
@@ -134,18 +173,25 @@ Once in, activate local env
 
 Then, you can create a superuser
 
-    python /crt_portal/manage.py createsuperuser
+    python crt_portal/manage.py createsuperuser
 
 ### Subsequent deploys
 
-Deploys will happen via Circle CI.
-    - For deploys to dev, it will deploy after tests pass, when a PR is merged into the develop branch.
-    - For deploys to staging, it will deploy after tests pass, when we make or update a branch the starts with "release/".
-    - Once we are cleared to deploy to prod, it will deploy after tests pass, when we merge the release into the master branch.
+We deploy from CircleCI.
 
-As a back up contingency, you can deploy just with a push using the manifest:
+* The app will deploy to dev when the tests pass and a PR is merged into `develop`.
+* The app will deploy to staging when the tests pass and when we make or update a branch that starts with `release/`.
+* The app will deploy to prod when the tests pass and a PR is merged into `master`.
 
-    cf push -f manifest_space.yml
+When CircleCI tries to deploy two PRs back-to-back, one of them can fail. In this case, you can restart the failed deploy process by clicking the "Rerun Workflow" button.
+
+## Additional documentation
+
+For more technical documentation see the [docs](https://github.com/usdoj-crt/crt-portal/tree/develop/docs)
+    - A11y testing plan
+    - Branching strategy
+    - Maintenance or infrequent tasks
+    - Pull request instructions
 
 # Background notes
 
@@ -178,3 +224,5 @@ This is the web framework
 Cloud.gov
 This is the PaaS the app is on
 - https://cloud.gov/docs/
+
+Thanks for reading all the way!

@@ -1,5 +1,7 @@
 import secrets
 
+from testfixtures import LogCapture
+
 from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import User
@@ -7,18 +9,16 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 from .models import ProtectedClass, Report
-from .forms import WhatHappened, Where, Who, Details, Contact
+from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES
+from .forms import Where, Who, Details, Contact, ProtectedClassForm
 
 
 class Valid_Form_Tests(TestCase):
-    """Confirms each form is valid when given valid test data."""
-    def test_WhatHappened_valid(self):
-        form = WhatHappened(data={
-            'primary_complaint': 'vote',
-            'protected_class_set': ProtectedClass.objects.all(),
-        })
-        self.assertTrue(form.is_valid())
+    def setUp(self):
+        for choice in PROTECTED_CLASS_CHOICES:
+            ProtectedClass.objects.get_or_create(protected_class=choice)
 
+    """Confirms each form is valid when given valid test data."""
     def test_Where_valid(self):
         form = Where(data={
             'place': 'place_of_worship',
@@ -42,7 +42,7 @@ class Valid_Form_Tests(TestCase):
 
     def test_Details_valid(self):
         form = Details(data={
-            'violation_summary': 'Hello! I have a problem.',
+            'violation_summary': 'Hello! I have a problem. ႠႡႢ',
             'when': 'last_6_months',
             'how_many': 'no',
         })
@@ -55,44 +55,94 @@ class Valid_Form_Tests(TestCase):
         })
         self.assertTrue(form.is_valid())
 
+    def test_Class_valid(self):
+        form = ProtectedClassForm(data={
+            'protected_class': ProtectedClass.objects.all(),
+            'other_class': 'Random string under 150 characters (हिन्दी)',
+        })
+        self.assertTrue(form.is_valid())
+
+
+class Valid_CRT_view_Tests(TestCase):
+    def setUp(self):
+        for choice in PROTECTED_CLASS_CHOICES:
+            ProtectedClass.objects.get_or_create(protected_class=choice)
+        test_report = Report.objects.create(
+            other_class="test other",
+            contact_first_name="Lincoln",
+            contact_last_name="Abraham",
+            contact_email="Lincoln@usa.gov",
+            contact_phone="202-867-5309",
+            violation_summary="Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.",
+        )
+        self.protected_example = ProtectedClass.objects.get(protected_class=PROTECTED_CLASS_CHOICES[0])
+        test_report.protected_class.add(self.protected_example)
+        test_report.save()
+        self.test_report = test_report
+        self.client = Client()
+        # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        self.content = str(response.content)
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_other_class(self):
+        self.assertTrue('test other' in self.content)
+
+    def test_class(self):
+        # uses the short hand code for display
+        self.assertTrue(PROTECTED_CLASS_CODES.get(self.protected_example.protected_class) in self.content)
+
+    def test_first_name(self):
+        self.assertTrue(self.test_report.contact_first_name in self.content)
+
+    def test_last_name(self):
+        self.assertTrue(self.test_report.contact_last_name in self.content)
+
+    def test_email(self):
+        self.assertTrue(self.test_report.contact_email in self.content)
+
+    def test_phone(self):
+        self.assertTrue(self.test_report.contact_phone in self.content)
+
+    def test_violation_summary(self):
+        # formatting the summary is done in the template
+        self.assertTrue(self.test_report.violation_summary[:119] in self.content)
+
 
 class Validation_Form_Tests(TestCase):
-    """Confirming validation on the server level"""
-    # NOTE: Commenting out this test until the Primary Complaint story comes to the dev queue.
-    # def test_required_primary_complaint(self):
-    #     form = WhatHappened(data={
-    #         'primary_complaint': '',
-    #         'protected_class_set': ProtectedClass.objects.all(),
+    """Confirming validation on the server level, required fields etc"""
+    def test_required_protected_class(self):
+        form = ProtectedClassForm(data={
+            'other_class': '',
+            'protected_class_set': None,
+        })
+
+        self.assertTrue('protected_class<ul class="errorlist"><li>{0}'.format(PROTECTED_CLASS_ERROR)[:13] in str(form.errors))
+
+    # NOTE: Commenting out this test until the When story comes to the dev queue.
+    # def test_required_when(self):
+    #     form = Details(data={
+    #         'violation_summary': 'Hello! I have a problem.',
+    #         'when': '',
+    #         'how_many': 'no',
     #     })
+    #     self.assertTrue('when<ul class="errorlist"><li>This field is required.' in str(form.errors))
 
-    #     self.assertTrue('primary_complaint<ul class="errorlist"><li>This field is required.' in str(form.errors))
-
-    def test_required_when(self):
-        form = Details(data={
-            'violation_summary': 'Hello! I have a problem.',
-            'when': '',
-            'how_many': 'no',
-        })
-        self.assertTrue('when<ul class="errorlist"><li>This field is required.' in str(form.errors))
-
-    def test_required_violation_summary(self):
-        form = Details(data={
-            'violation_summary': '',
-            'when': 'last_6_months',
-            'how_many': 'no',
-        })
-        self.assertTrue('violation_summary<ul class="errorlist"><li>This field is required.' in str(form.errors))
-
-    def test_required_where(self):
-        form = Where(data={
-            'place': '',
-            'public_or_private_employer': 'public_employer',
-            'employer_size': '14_or_less',
-            'public_or_private_school': 'public',
-            'public_or_private_facility': 'state_local_facility',
-            'public_or_private_healthcare': 'state_local_facility',
-        })
-        self.assertTrue('place<ul class="errorlist"><li>This field is required.' in str(form.errors))
+    # def test_required_where(self):
+    #     form = Where(data={
+    #         'place': '',
+    #         'public_or_private_employer': 'public_employer',
+    #         'employer_size': '14_or_less',
+    #         'public_or_private_school': 'public',
+    #         'public_or_private_facility': 'state_local_facility',
+    #         'public_or_private_healthcare': 'state_local_facility',
+    #     })
+    #     self.assertTrue('place<ul class="errorlist"><li>This field is required.' in str(form.errors))
 
 
 class ContactValidationTests(TestCase):
@@ -197,3 +247,25 @@ class LoginRequiredTests(TestCase):
         response = self.client.get(reverse('crt_forms:crt-forms-index'))
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/accounts/login/?next=/form/view')
+
+    def test_required_user_logging(self):
+        """For compliance and good forensics, check a sample of required logging events"""
+        with LogCapture() as cm:
+            self.client = Client()
+            self.test_pass = secrets.token_hex(32)
+            self.user2 = User.objects.create_user('DELETE_USER_2', 'mccartney@thebeatles.com', self.test_pass)
+            self.user2.delete()
+
+            self.assertEqual(
+                cm.check_present(
+                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User saved: 2 permissions: <QuerySet []> staff: False superuser: False active: True'),
+                ),
+                None,
+            )
+
+            self.assertEqual(
+                cm.check_present(
+                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User deleted: 2 permissions: <QuerySet []> staff: False superuser: False active: True'),
+                ),
+                None,
+            )

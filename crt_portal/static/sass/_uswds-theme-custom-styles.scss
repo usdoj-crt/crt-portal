@@ -22,9 +22,16 @@ i.e.
 
 // Variables
 
-$text-ink: #1B1B1B;
-$bg-yellow: #FEE685;
-$header-background: #F6F6F2;
+$yellow: #FEE685;
+$gold: #FFBE2E;
+$light-beige: #F6F6F2;
+$blue-warm-vivid-70: #1A4480;
+$blue-50: #2378C3;
+$blue-vivid-40: #2491FF;
+$gray-warm: #2E2E2A;
+$gray-90: #171717;
+$white: #FFFFFF;
+$bold: 700;
 
 // Sticky Footer (IE 10/11)
 // Based on: https://codepen.io/dezertdezine/pen/zKjggy
@@ -41,6 +48,17 @@ body {
 
 main {
   flex: 1 0 auto;
+
+  p, em, h2, label:not(.big) {
+    color: $gray-warm;
+  }
+
+  legend, .page-subtitle, label.big {
+    color: $blue-warm-vivid-70;
+    font-weight: bold;
+    font-size: 1.17em; // Matches h3 size
+    margin-bottom: 0.5rem;
+  }
 }
 
 footer {
@@ -50,11 +68,66 @@ footer {
 .content-wrapper {
   max-width: 700px;
   margin: auto;
+  padding: 0 8px;
 }
 
-// Form Width
+// Form styles
 .usa-form {
   max-width: 30rem !important;
+
+  .usa-button {
+
+    &:hover {
+      background-color: $blue-50;
+    }
+
+    &:focus {
+      outline: .125rem solid $blue-vivid-40;
+      outline-offset: .125rem;
+    }
+
+    @media (min-width: 30em) {
+      margin-top: 0;
+    }
+  }
+
+  .blue-left-highlight {
+    border-left: 2px solid $blue-warm-vivid-70;
+    padding-left: 0.5rem;
+  }
+
+  li {
+    margin-bottom: 1rem;
+  }
+
+  .usa-input {
+    width: 320px;
+
+    &:focus {
+      outline: .125rem solid $blue-vivid-40;
+      border: 1px solid $blue-vivid-40;
+    }
+  }
+
+  textarea.usa-textarea {
+    resize: none;
+    height: 15rem;
+
+    &:focus {
+      outline: .125rem solid $blue-vivid-40;
+      border: 1px solid $blue-vivid-40;
+    }
+
+    &.bg-gold-outline {
+      outline: .125rem solid $gold;
+      border: 1px solid $gold;
+    }
+
+    &.bg-gold-outline:focus {
+      outline: .125rem solid $gold;
+      border: .125rem solid $gold;
+    }
+  }
 }
 
 // Input Overrides
@@ -76,13 +149,25 @@ footer {
   background-color: #2E2E2A;
 }
 
+.look-like-link {
+  padding: 0;
+  border: none;
+  background: none;
+  text-decoration: underline;
+
+  &:focus:not([disabled]) {
+    outline: .125rem solid $blue-vivid-40;
+    outline-offset: .125rem;
+  }
+}
+
 // Header Styles
 h1 {
   @include u-font('heading', '2xl')
 }
 
 h2 {
-  @include u-font('body', '2xl')
+  @include u-font('body', 'xl')
 }
 
 .intro-subtitle {
@@ -104,11 +189,11 @@ h3 {
     color: white;
   }
 
-  .usa-banner__button {
-    color: #FFBE2E;
+  .usa-banner__button, .usa-banner__header-action {
+    color: $gold;
 
     &:hover {
-      color: $bg-yellow;
+      color: $yellow;
     }
   }
 }
@@ -116,7 +201,7 @@ h3 {
 // Header area
 
 .page-header-background {
-  background-color: $header-background;
+  background-color: $light-beige;
 }
 
 // Django Formtools Wizard customization
@@ -129,9 +214,39 @@ form#report-form {
 
 .question_group_optional_tag {
   font-weight: lighter;
-  color: $text-ink;
+  color: $gray-warm;
 }
 
-.usa-input {
-  width: 320px;
+.crt-table {
+  @extend .usa-table;
+  font-size: 14px;
+  color: $gray-90;
+  line-height: 22px;
+  background: $white;
+  box-shadow: 0 1px 6px 2px rgba(0,0,0,0.14);
+  thead {
+    font-weight: $bold;
+    font-size: 12px;
+    line-height: 25.92px;
+    text-transform: uppercase;
+    th {
+      background-color: $white;
+    }
+  }
+}
+
+#word-limit-alert.usa-alert.usa-alert--warning {
+  background-image: url(../img/alerts/word-count-alert.svg),linear-gradient(transparent,transparent);
+}
+
+legend, .page-subtitle {
+  color: $blue-warm-vivid-70;
+  font-weight: bold;
+  font-size: 1.17em; // Matches h3 size
+  margin-bottom: 0.5rem;
+}
+
+.crt-checkbox__label {
+  @extend .usa-checkbox__label;
+  padding-left: 0;
 }
