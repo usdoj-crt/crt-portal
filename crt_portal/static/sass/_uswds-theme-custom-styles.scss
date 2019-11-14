@@ -258,10 +258,11 @@ form#report-form {
     }
   }
 }
-// not working
+
 .tr-status-new {
-  @extend .crt-table;
-  font-weight: bold !important;
+  td {
+    font-weight: bold;
+  }
 }
 
 // crt view statuses
