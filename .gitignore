@@ -10,5 +10,4 @@ node_modules/
 staticfiles/
 pa11y-screenshots/
 # auto-generated files
-crt_portal/static/css/styles.css
-crt_portal/static/css/styles.css.map
+crt_portal/static/css/*
