@@ -22,9 +22,10 @@ jobs:
       # Removing chache for now, we either need to build our image or move the cache location
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
       - run:
-          name: Node install
+          name: Node install, generate CSS
           command: |
             npm install
+            node node_modules/gulp/bin/gulp build-sass
       - run:
           name: Python install with pipenv then migrate the database
           command: |
@@ -102,6 +103,7 @@ jobs:
             npm i -g npm@^6 && \
             rm -rf /var/lib/apt/lists/*
             npm install
+            node node_modules/gulp/bin/gulp build-sass
       - run:
           # database will be migrated in cloud.gov
           name: Python install with pipenv
@@ -157,6 +159,7 @@ jobs:
             npm i -g npm@^6 && \
             rm -rf /var/lib/apt/lists/*
             npm install
+            node node_modules/gulp/bin/gulp build-sass
       - run:
           # database will be migrated in cloud.gov
           name: Python install with pipenv
@@ -212,6 +215,7 @@ jobs:
             npm i -g npm@^6 && \
             rm -rf /var/lib/apt/lists/*
             npm install
+            node node_modules/gulp/bin/gulp build-sass
       - run:
           # database will be migrated in cloud.gov
           name: Python install with pipenv
