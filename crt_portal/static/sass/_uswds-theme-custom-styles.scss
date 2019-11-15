@@ -274,12 +274,12 @@ legend, .page-subtitle {
   li {
     display: inline;
     padding: 3px 10px;
+    border-radius: 5px;
 
     &.is-active {
       background-color: $blue-warm-vivid-70;
       color: $white;
     }
-
   }
 
   a {
