@@ -99,6 +99,12 @@ PROTECTED_MODEL_CHOICES = (
 
 PROTECTED_CLASS_ERROR = 'Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.'
 
+STATUS_CHOICES = (
+    ('new', 'New'),
+    ('open', 'Open'),
+    ('closed', 'Closed'),
+)
+
 PLACE_CHOICES = (
     ('home', 'Home, potential home, or services to help with purchasing a home (banks, lenders, or other financial services)'),
     ('workplace', 'Workplace or potential workplace'),

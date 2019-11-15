@@ -17,6 +17,7 @@ from .model_variables import (
     HOW_MANY_CHOICES,
     STATES_AND_TERRITORIES,
     PROTECTED_MODEL_CHOICES,
+    STATUS_CHOICES,
 )
 
 import logging
@@ -65,6 +66,7 @@ class Report(models.Model):
     other_class = models.CharField(max_length=150, null=True, blank=True)
     # Details Summary
     violation_summary = models.TextField(max_length=7000, null=True, blank=True)
+    status = models.TextField(choices=STATUS_CHOICES, default='new')
 
     ###############################################################
     #   These fields have not been implemented in the form yet:   #
