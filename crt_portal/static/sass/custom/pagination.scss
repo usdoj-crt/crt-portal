@@ -33,10 +33,8 @@
     }
   }
 
-  &.nav-arrow {
-    svg.nav-arrow-svg.point-right {
-      transform: rotate(180deg);
-    }
+  svg.point-right {
+    transform: rotate(180deg);
   }
 
   a {
