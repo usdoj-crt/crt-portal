@@ -11,7 +11,7 @@
     border-radius: 5px;
     padding: 3px 10px;
 
-    &:hover {
+    &:hover:not(.disabled-nav) {
       background: $blue-warm-5;
     }
 
