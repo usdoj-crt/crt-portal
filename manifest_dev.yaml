@@ -1,0 +1,17 @@
+---
+applications:
+- name: crt-portal-django
+  routes:
+  - route: crt-portal-django-dev.app.cloud.gov
+  memory: 512M
+  instances: 1
+  env:
+    ENV: PRODUCTION
+  buildpacks:
+  - python_buildpack
+  services:
+  - crt-db
+  - crt-s3
+  - VCAP_SERVICES
+  env:
+    ENV: PROD

@@ -1,16 +1,25 @@
 {% load static %}
 <!DOCTYPE html>
-<html>
+<html lang="en">
  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>U.S. Department of Justice - Civil Rights Division</title>
-    <!-- TODO: properly manage static assets -->
+    {# Asking search engines not to index our site while we're in development mode. #}
+    <meta name="robots" content="noindex">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% if wizard.steps.step1 and current_step_name %}
+      <title>Step {{ wizard.steps.step1 }}: {{ current_step_name }} - Contact the Civil Rights Division - Department of Justice</title>
+    {% else %}
+      <title>Contact the Civil Rights Division - Department of Justice</title>
+    {% endif %}
+
     <link rel="icon" href="{% static "img/us_flag_small.png" %}">
     <link rel="stylesheet" href="{% static "css/styles.css" %}">
     {% block head %}{% endblock %}
   </head>
   <body>
+    <a class="usa-skipnav" href="#main-content">Skip to main content</a>
     <div class="usa-banner">
       <div class="usa-accordion">
         <header class="usa-banner__header">
@@ -55,32 +64,31 @@
 
     {% block page_header %}{% endblock %}
 
-    <main>
+    <main id="main-content" {% block main_class %}{% endblock %}>
       {% block content %} {% endblock %}
     </main>
 
     <footer class="usa-footer usa-footer--slim" role="contentinfo">
-      <div class="grid-container usa-footer__return-to-top">
-        <a href="#">Return to top</a>
-      </div>
       <div class="usa-footer__secondary-section">
         <div class="grid-container">
           <div class="usa-footer__logo grid-row grid-gap-2">
             <div class="grid-col-auto">
               <img src="{% static "img/doj-logo-footer.svg" %}"
-                   alt="U.S. Department of Justice Seal, image of an eagle holding a bundle of arrows in one claw and an olive branch in the other, with the Latin words Qui Pro Domina Justitia Sequitur below."
+                   alt=""
                    height="64" />
             </div>
             <div class="grid-col-auto">
-              <h3 class="usa-footer__logo-heading">
+              <p class="usa-footer__logo-heading">
                 Civil Rights Division
                 <br/> U.S. Department of Justice
-              </h3>
+              </p>
             </div>
           </div>
         </div>
       </div>
     </footer>
   </body>
-  <script src="{%static  "js/uswds.min.js" %}"></script>
+  <script src="{% static 'js/uswds.min.js' %}"></script>
+  <script src="{% static 'js/focus_alert.js' %}"></script>
+  {% block page_js %}{% endblock %}
 </html>

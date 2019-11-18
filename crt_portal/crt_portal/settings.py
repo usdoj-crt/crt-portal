@@ -13,12 +13,18 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import json
 
+from django.utils.log import DEFAULT_LOGGING
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
-environment = os.environ.get('ENV', 'PROD')
+# If ENV is not set explicitly, assume "PROD".
+# Note that when using Docker, ENV is set to "LOCAL" by docker-compose.yml.
+# We are using Docker for local development only.
+# We are running the testing envrionment with UNDEFINED.
+# For cloud.gov we set ENV to PRODUCTION with the manifests
+environment = os.environ.get('ENV', 'UNDEFINED')
+circle = os.environ.get('CIRCLE', False)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -52,8 +58,16 @@ if environment != 'LOCAL':
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['crt-portal.app.cloud.gov', 'crt-portal-django.app.cloud.gov']
+ALLOWED_HOSTS = [
+    'crt-portal.app.cloud.gov',
+    'crt-portal-django.app.cloud.gov',
+    'crt-portal-django-prod.app.cloud.gov',
+    'crt-portal-django-stage.app.cloud.gov',
+    'crt-portal-django-dev.app.cloud.gov',
+]
 
+if environment == 'UNDEFINED':
+    ALLOWED_HOSTS = ['127.0.0.1']
 
 # Application definition
 
@@ -70,6 +84,7 @@ INSTALLED_APPS = [
     'storages',
     'formtools',
     'django_saml2_auth',
+    'crequest',
 ]
 
 MIDDLEWARE = [
@@ -80,6 +95,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'crequest.middleware.CrequestMiddleware',
 ]
 
 ROOT_URLCONF = 'crt_portal.urls'
@@ -87,7 +103,7 @@ ROOT_URLCONF = 'crt_portal.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -121,6 +137,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_REDIRECT_URL = '/'
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -150,12 +167,13 @@ if environment != 'LOCAL':
         'METADATA_LOCAL_FILE_PATH': os.environ.get('METADATA_LOCAL_FILE_PATH'),
     }
 
-    #AWS
+    # AWS
     s3_creds = vcap['s3'][0]["credentials"]
     AWS_ACCESS_KEY_ID = s3_creds["access_key_id"]
     AWS_SECRET_ACCESS_KEY = s3_creds["secret_access_key"]
     AWS_STORAGE_BUCKET_NAME = s3_creds["bucket"]
     AWS_S3_REGION_NAME = s3_creds["region"]
+    AWS_DEFAULT_REGION = s3_creds["region"]
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3-{AWS_S3_REGION_NAME}.amazonaws.com'
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',
@@ -165,11 +183,16 @@ if environment != 'LOCAL':
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
+    AWS_DEFAULT_ACL = 'public-read'
 else:
     STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# This is where source assets are collect from by collect static
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+# Enable for admin storage
+# MEDIA_URL = 'media/'
+# Where assets are served by web server
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -189,8 +212,39 @@ COMPRESS_PRECOMPILERS = (
     ('module', 'compressor_toolkit.precompilers.ES6Compiler'),
     ('css', 'compressor_toolkit.precompilers.SCSSCompiler'),
 )
-# COMPRESS_ENABLED = True
-COMPRESS_OFFLINE = True
+
+# would like to add this before public release
+COMPRESS_ENABLED = False
+
+# disable logging filters
+DEFAULT_LOGGING['handlers']['console']['filters'] = []
+
+LOGGING = {
+    'disable_existing_loggers': False,
+    'version': 1,
+    'handlers': {
+        'console': {
+            # logging handler that outputs log messages to terminal
+            'class': 'logging.StreamHandler',
+            'level': 'INFO',  # message level to be written to console
+        },
+    },
+    'loggers': {
+        '': {
+            # this sets root level logger to log debug and higher level
+            # logs to console. All other loggers inherit settings from
+            # root level logger.
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,  # this tells logger to send logging message
+                                 # to its parent (will send if set to True)
+        },
+        'django.db': {
+            # django also has database level logging
+            'level': 'INFO'
+        },
+    },
+}
 
 if environment == 'LOCAL':
-    from .local_settings import *
+    from .local_settings import *  # noqa: F401,F403

@@ -20,16 +20,125 @@ i.e.
 ----------------------------------------
 */
 
-// Sticky Footer
+// Variables
+
+$yellow: #FEE685;
+$gold: #FFBE2E;
+$gold-20v: #FFBE2E;
+$light-beige: #F6F6F2;
+$blue-warm-vivid-70: #1A4480;
+$blue-50: #2378C3;
+$blue-vivid-40: #2491FF;
+$blue-warm-5: #ECF1F7;
+$gray-warm: #2E2E2A;
+$gray-90: #171717;
+$gray-70: #454545;
+$gray-cool-4: #F1F3F6;
+$gray-warm-10: #E6E6E2;
+$red-vivid-60: #B51D09;
+$white: #FFFFFF;
+$bold: 700;
+
+// Sticky Footer (IE 10/11)
+// Based on: https://codepen.io/dezertdezine/pen/zKjggy
+
+html, body {
+  height: 100%;
+}
+
 body {
   display: flex;
-  min-height: 100vh;
   flex-direction: column;
+  margin: 0;
 }
 
 main {
-  flex: 1;
-  width: 100%;
+  flex: 1 0 auto;
+
+  p, em, h2, label:not(.big), span:not(.big) {
+    color: $gray-warm;
+  }
+
+  legend, .page-subtitle, .big {
+    color: $blue-warm-vivid-70;
+    font-weight: bold;
+    font-size: 1.17em; // Matches h3 size
+    margin-bottom: 0.5rem;
+  }
+}
+
+footer {
+  flex-shrink: 0;
+}
+
+.content-wrapper {
+  max-width: 700px;
+  margin: auto;
+  padding: 0 8px;
+}
+
+// Form styles
+.usa-form {
+  max-width: 30rem !important;
+
+  .usa-button {
+    &:hover {
+      background-color: $blue-50;
+    }
+
+    @media (min-width: 30em) {
+      margin-top: 0;
+    }
+  }
+
+  .blue-left-highlight {
+    border-left: 2px solid $blue-warm-vivid-70;
+    padding-left: 0.5rem;
+  }
+
+  li {
+    margin-bottom: 1rem;
+  }
+
+  .usa-input {
+    width: 320px;
+
+    &:focus {
+      outline-offset: 0;
+      border: 1px solid $blue-vivid-40;
+    }
+  }
+
+  textarea.usa-textarea {
+    resize: none;
+    height: 15rem;
+
+    &:focus {
+      outline: .125rem solid $blue-vivid-40;
+      outline-offset: 0;
+      border: 1px solid $blue-vivid-40;
+    }
+
+    &.bg-gold-outline {
+      outline: .125rem solid $gold;
+      outline-offset: 0;
+      border: 1px solid $gold;
+    }
+
+    &.bg-gold-outline:focus {
+      outline: .125rem solid $gold;
+      outline-offset: 0;
+      border: .125rem solid $gold;
+    }
+  }
+}
+
+// Input Overrides
+.usa-checkbox__input, .usa-radio__input {
+  // Display HTML5 error messages on hidden inputs:
+  // https://stackoverflow.com/questions/49687229/display-html5-error-message-validation-on-hidden-radio-checkbox
+  left: 45px;
+  opacity: 0;
 }
 
 // Footer Styles
@@ -43,18 +152,32 @@ main {
   background-color: #2E2E2A;
 }
 
+.look-like-link {
+  padding: 0;
+  border: none;
+  background: none;
+  text-decoration: underline;
+}
+
 // Header Styles
 h1 {
   @include u-font('heading', '2xl')
 }
 
+h2 {
+  @include u-font('body', 'xl')
+}
+
 .intro-subtitle {
+  @include u-font('body', 'lg')
   @include u-line-height('alt', 5)
-  @include u-font-size('body', 'sm')
+}
+
+h3 {
+  @include u-text('primary-dark')
 }
 
 // USA Gov Banner Customization
-$bg-yellow: #FEE685;
 
 .usa-banner {
   background-color: #2E2E2A;
@@ -64,19 +187,195 @@ $bg-yellow: #FEE685;
     color: white;
   }
 
-  .usa-banner__button {
-    color: #FFBE2E;
+  .usa-banner__button, .usa-banner__header-action {
+    color: $gold;
 
     &:hover {
-      color: $bg-yellow;
+      color: $yellow;
     }
   }
 }
 
 // Header area
 
-$header-background: #F6F6F2;
-
 .page-header-background {
-  background-color: $header-background;
+  background-color: $light-beige;
+}
+
+// Django Formtools Wizard customization
+
+// Django wraps lot of elements in <li> by default
+// that we'd prefer not to have bulleted, like
+// radio buttons; so remove list item bullets by default.
+form#report-form {
+  .question_primary_complaint {
+    ul {
+      padding-inline-start: 0;
+    }
+
+    li {
+      margin-bottom: 1.5rem;
+    }
+
+    li.primary-issue-example-li {
+      margin-left: 18px;
+      margin-bottom: 1rem;
+      list-style: disc;
+    }
+  }
+
+  li {
+    list-style: none;
+  }
+}
+
+.question_group_optional_tag {
+  font-weight: lighter;
+  color: $gray-warm;
+}
+
+// crt view table
+.crt-table {
+  @extend .usa-table;
+  font-size: 14px;
+  color: $gray-90;
+  line-height: 22px;
+  background: $white;
+  box-shadow: 0 1px 6px 2px rgba(0,0,0,0.14);
+  thead {
+    font-weight: $bold;
+    font-size: 12px;
+    line-height: 25.92px;
+    text-transform: uppercase;
+    th {
+      background-color: $white;
+    }
+  }
+}
+
+.tr-status-new {
+  td {
+    font-weight: bold;
+  }
+}
+
+// crt view statuses
+.status-new {
+  color: $white !important;
+  background-color: $blue-warm-vivid-70;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 1.5rem;
+}
+
+.status-open {
+  background-color: $gold-20v;
+  font-weight: bold;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 1.5rem;
+}
+
+.status-closed {
+  background-color: $gray-warm-10;
+  font-weight: bold;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 1.5rem;
+}
+
+legend, .page-subtitle {
+  color: $blue-warm-vivid-70;
+  font-weight: bold;
+  font-size: 1.17em; // Matches h3 size
+  margin-bottom: 0.5rem;
+}
+
+.crt-checkbox__label {
+  @extend .usa-checkbox__label;
+  padding-left: 0;
+}
+
+
+.usa-pagination {
+  text-align: right;
+
+  ol {
+    list-style-type: none;
+    padding-left: 2rem;
+  }
+
+  li {
+    display: inline;
+    padding: 3px 10px;
+
+    &.is-active {
+      background-color: $blue-warm-vivid-70;
+      color: $white;
+    }
+
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+input[type="radio"]:checked + .crt-radio__label_area {
+  background-color: $blue-warm-5;
+  border: 1px solid $blue-warm-vivid-70;
+}
+
+.crt-radio__label_area {
+  @extend .usa-radio__label;
+  text-indent: 0;
+  background-color: $gray-cool-4;
+  padding: 1.5rem;
+  border: 1px solid $gray-cool-4;
+  border-radius: 5px;
+  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, .13));
+
+  &:hover {
+    background-color: $blue-warm-5;
+  }
+
+  .label-text {
+    position: relative;
+    bottom: 40px;
+    margin-bottom: -60px;
+
+    ul {
+      padding-inline-start: 20px;
+    }
+
+    .examples-title {
+      text-transform: uppercase;
+      font-weight: bold;
+      color: $gray-70;
+    }
+  }
+}
+
+// Alert Overrides
+
+.page-errors {
+  font-weight: bold;
+  color: $red-vivid-60;
+}
+
+.usa-alert--error {
+  background-image: url(../img/alerts/error-red.svg),linear-gradient(transparent,transparent);
+}
+
+#word-limit-alert.usa-alert.usa-alert--warning {
+  background-image: url(../img/alerts/word-count-alert.svg),linear-gradient(transparent,transparent);
+}
+
+// Skipnav
+
+.usa-skipnav:focus {
+  outline-offset: 0;
 }

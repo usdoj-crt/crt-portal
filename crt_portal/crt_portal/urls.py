@@ -19,10 +19,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.views.generic import RedirectView
 import django_saml2_auth.views
 
-from cts_forms.forms import WhatHappened, Where, Who, Details, Contact
+from cts_forms.forms import Contact, Details, PrimaryReason, ProtectedClassForm
 from cts_forms.views import CRTReportWizard
 
 environment = os.environ.get('ENV', 'PROD')
@@ -53,8 +53,16 @@ if environment != 'LOCAL':
 # add app related urls here or in cts_forms.urls
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('form/', include('cts_forms.urls')),
-    path('report/', CRTReportWizard.as_view(
-        [WhatHappened, Where, Who, Details, Contact])
-    ),
+    path('report/', CRTReportWizard.as_view([
+        Contact,
+        PrimaryReason,
+        ProtectedClassForm,
+        Details,
+        # WhatHappened,
+        # Where,
+        # Who,
+    ]), name='crt_report_form'),
+    path('', RedirectView.as_view(pattern_name='crt_report_form', permanent=False)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
