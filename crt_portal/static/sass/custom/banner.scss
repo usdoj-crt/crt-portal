@@ -1,0 +1,18 @@
+// USA Gov Banner Customization
+
+.usa-banner {
+  background-color: #2E2E2A;
+
+  .usa-banner__header-text,
+  .usa-media-block__body {
+    color: white;
+  }
+
+  .usa-banner__button, .usa-banner__header-action {
+    color: $gold;
+
+    &:hover {
+      color: $yellow;
+    }
+  }
+}
