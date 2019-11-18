@@ -105,6 +105,19 @@ STATUS_CHOICES = (
     ('closed', 'Closed'),
 )
 
+SECTION_CHOICES = (
+    ('ADM', 'Administrative'),
+    ('IER', 'Immigrant and Employee Rights'),
+    ('VOT', 'Voting'),
+    ('DRS', 'Disability'),
+    ('CRM', 'Criminal'),
+    ('HCE', 'Housing'),
+    ('EOS', 'Education'),
+    ('SPL', 'Special Litigation'),
+    ('ELS', 'Employment Litigation Services'),
+    ('FCS', 'Federal Coordination and Compliance'),
+)
+
 PLACE_CHOICES = (
     ('home', 'Home, potential home, or services to help with purchasing a home (banks, lenders, or other financial services)'),
     ('workplace', 'Workplace or potential workplace'),

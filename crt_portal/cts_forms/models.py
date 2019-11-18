@@ -18,6 +18,7 @@ from .model_variables import (
     STATES_AND_TERRITORIES,
     PROTECTED_MODEL_CHOICES,
     STATUS_CHOICES,
+    SECTION_CHOICES,
 )
 
 import logging
@@ -67,6 +68,7 @@ class Report(models.Model):
     # Details Summary
     violation_summary = models.TextField(max_length=7000, null=True, blank=True)
     status = models.TextField(choices=STATUS_CHOICES, default='new')
+    assigned_section = models.TextField(choices=SECTION_CHOICES, default='ADM')
 
     ###############################################################
     #   These fields have not been implemented in the form yet:   #
@@ -94,3 +96,6 @@ class Report(models.Model):
 
     def __str__(self):
         return f'{self.create_date} {self.violation_summary}'
+
+    def assign_section(self):
+        return ('ADM')
