@@ -34,6 +34,7 @@
     <table class="usa-table crt-table">
       <thead>
         <tr>
+          <th scope="col">Status</th>
           <th scope="col">Submitted</th>
           <th scope="col">Contact Name</th>
           <th scope="col">Contact Details</th>
@@ -43,8 +44,9 @@
       </thead>
       {% if data_dict %}
         {% for datum in data_dict %}
-          <tr>
-            <td scope="row">{{ datum.report.create_date|date:"SHORT_DATE_FORMAT" }}</td>
+          <tr class="tr-status-{{ datum.report.status }}">
+            <td><span class="status-{{ datum.report.status }} row-status-{{ datum.report.status }}">{{ datum.report.status|upper }}</span></td>
+            <td>{{ datum.report.create_date|date:"SHORT_DATE_FORMAT" }}</td>
             <td>
             {% with last=datum.report.contact_last_name|default:"—" %}
               {{ last|truncatechars:20 }}{% endwith %}, {% with first=datum.report.contact_first_name|default:"—" %}
@@ -77,7 +79,7 @@
           </tr>
         {% endfor %}
       {% else %}
-        <tr><td>No reports are available.</td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>No reports are available.<td></td></td><td></td><td></td><td></td><td></td></tr>
       {% endif %}
     </table>
   </div>
