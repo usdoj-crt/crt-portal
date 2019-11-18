@@ -1,0 +1,17 @@
+.crt-table {
+  @extend .usa-table;
+  font-size: 14px;
+  color: $gray-90;
+  line-height: 22px;
+  background: $white;
+  box-shadow: 0 1px 6px 2px rgba(0,0,0,0.14);
+  thead {
+    font-weight: $bold;
+    font-size: 12px;
+    line-height: 25.92px;
+    text-transform: uppercase;
+    th {
+      background-color: $white;
+    }
+  }
+}

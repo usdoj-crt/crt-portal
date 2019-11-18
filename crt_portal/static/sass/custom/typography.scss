@@ -1,0 +1,25 @@
+// Header Styles
+h1 {
+  @include u-font('heading', '2xl')
+}
+
+h2 {
+  @include u-font('body', 'xl')
+}
+
+.intro-subtitle {
+  @include u-font('body', 'lg')
+  @include u-line-height('alt', 5)
+}
+
+h3 {
+  @include u-text('primary-dark')
+}
+
+legend, .page-subtitle {
+  color: $blue-warm-vivid-70;
+  font-weight: bold;
+  font-size: 1.17em; // Matches h3 size
+  margin-bottom: 0.5rem;
+}
+

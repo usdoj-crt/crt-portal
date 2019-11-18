@@ -26,21 +26,19 @@
 // @import 'uswds-utilities';
 
 // -------------------------------------
-// ...or import all USWDS modules
+// Import app custom styles
 
-@import 'uswds';
-
-// -------------------------------------
-// Import wizard progress bar
-
-@import 'wizard-progress-bar';
-
-// -------------------------------------
-// Import IE shims
-
-@import 'internet-explorer';
-
-// -------------------------------------
-// Import theme custom styles
-
-@import 'uswds-theme-custom-styles';
+@import 'custom/colors';
+@import 'custom/alerts';
+@import 'custom/banner';
+@import 'custom/footer';
+@import 'custom/form';
+@import 'custom/header';
+@import 'custom/ie';
+@import 'custom/layout';
+@import 'custom/pagination';
+@import 'custom/progress';
+@import 'custom/skipnav';
+@import 'custom/sticky-footer';
+@import 'custom/table';
+@import 'custom/typography';
