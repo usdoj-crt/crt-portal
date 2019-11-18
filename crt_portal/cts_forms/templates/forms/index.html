@@ -35,6 +35,7 @@
       <thead>
         <tr>
           <th scope="col">Status</th>
+          <th scope="col">Routed</th>
           <th scope="col">Submitted</th>
           <th scope="col">Contact Name</th>
           <th scope="col">Contact Details</th>
@@ -46,6 +47,7 @@
         {% for datum in data_dict %}
           <tr class="tr-status-{{ datum.report.status }}">
             <td><span class="status-{{ datum.report.status }} row-status-{{ datum.report.status }}">{{ datum.report.status|upper }}</span></td>
+            <td>{{ datum.report.assigned_section }}</td>
             <td>{{ datum.report.create_date|date:"SHORT_DATE_FORMAT" }}</td>
             <td>
             {% with last=datum.report.contact_last_name|default:"—" %}
@@ -79,7 +81,7 @@
           </tr>
         {% endfor %}
       {% else %}
-        <tr><td>No reports are available.<td></td></td><td></td><td></td><td></td><td></td></tr>
+        <tr><td>No reports are available.<td><td></td></td></td><td></td><td></td><td></td><td></td></tr>
       {% endif %}
     </table>
   </div>
