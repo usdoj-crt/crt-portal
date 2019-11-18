@@ -31,23 +31,23 @@ environment = os.environ.get('ENV', 'PROD')
 if environment != 'LOCAL':
     # These are the SAML2 related URLs. You can change "^saml2_auth/" regex to
     # any path you want, like "^sso_auth/", "^sso_login/", etc. (required)
-    url(r'^saml2_auth/', include('django_saml2_auth.urls')),
+    path('saml2_auth/', include('django_saml2_auth.urls')),
 
     # The following line will replace the default user login with SAML2 (optional)
     # If you want to specific the after-login-redirect-URL, use parameter "?next=/the/path/you/want"
     # with this view.
-    url(r'^accounts/login/$', django_saml2_auth.views.signin),
+    path('accounts/login/', django_saml2_auth.views.signin),
 
     # The following line will replace the admin login with SAML2 (optional)
     # If you want to specific the after-login-redirect-URL, use parameter "?next=/the/path/you/want"
     # with this view.
-    url(r'^admin/login/$', django_saml2_auth.views.signin),
+    path('admin/login/', django_saml2_auth.views.signin),
 
     # The following line will replace the default user logout with the signout page (optional)
-    url(r'^accounts/logout/$', django_saml2_auth.views.signout),
+    path('accounts/logout/', django_saml2_auth.views.signout),
 
     # The following line will replace the default admin user logout with the signout page (optional)
-    url(r'^admin/logout/$', django_saml2_auth.views.signout),
+    path('admin/logout/', django_saml2_auth.views.signout),
 
 
 # add app related urls here or in cts_forms.urls
