@@ -16,7 +16,13 @@ h3 {
   @include u-text('primary-dark')
 }
 
-legend, .page-subtitle {
+// TODO (ARS): Don't target raw HTML elements with styles.
+p, em, h2, label:not(.big), span:not(.big) {
+  color: $gray-warm;
+}
+
+// TODO (ARS): Don't target raw HTML elements with styles.
+legend, .page-subtitle, .big {
   color: $blue-warm-vivid-70;
   font-weight: bold;
   font-size: 1.17em; // Matches h3 size

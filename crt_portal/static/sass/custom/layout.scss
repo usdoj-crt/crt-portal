@@ -13,17 +13,6 @@ body {
 
 main {
   flex: 1 0 auto;
-
-  p, em, h2, label:not(.big), span:not(.big) {
-    color: $gray-warm;
-  }
-
-  legend, .page-subtitle, .big {
-    color: $blue-warm-vivid-70;
-    font-weight: bold;
-    font-size: 1.17em; // Matches h3 size
-    margin-bottom: 0.5rem;
-  }
 }
 
 footer {
