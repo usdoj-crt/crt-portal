@@ -19,6 +19,24 @@
       background-color: $blue-warm-vivid-70;
       color: $white;
     }
+
+    &.nav-arrow.disabled-nav {
+      .nav-arrow-svg {
+        g {
+          g {
+            path {
+              fill: #ADADAD;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.nav-arrow {
+    svg.nav-arrow-svg.point-right {
+      transform: rotate(180deg);
+    }
   }
 
   a {
