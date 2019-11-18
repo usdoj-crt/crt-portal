@@ -1,10 +1,17 @@
+{% load static %}
 <nav class="usa-pagination" role="navigation" aria-label="Pagination">
   <ol class="pagination">
 
   {% if page_format.has_previous %}
-    <li><a href="?page={{ page_format.previous_page_number }}&per_page={{ page_format.per_page }}"aria-hidden="true">&laquo;</a></li>
+    <li class="nav-arrow">
+      <a href="?page={{ page_format.previous_page_number }}&per_page={{ page_format.per_page }}" aria-hidden="true">
+        <img src="{% static 'img/nav-arrow.svg' %}" />
+      </a>
+    </li>
   {% else %}
-    <li class="disabled" aria-hidden="true">&laquo;</li>
+    <li class="nav-arrow disabled-nav" aria-hidden="true">
+        <img src="{% static 'img/nav-arrow.svg' %}" />
+    </li>
   {% endif %}
 
   {% if page_format.show_first %}
@@ -30,9 +37,17 @@
   {% endif %}
 
   {% if page_format.has_next %}
-    <li><a href="?page={{ page_format.next_page_number }}&per_page={{ page_format.per_page }}" aria-hidden="true">&raquo;</a></li>
+    <li class="nav-arrow">
+      <a href="?page={{ page_format.next_page_number }}&per_page={{ page_format.per_page }}" aria-hidden="true">
+        <img src="{% static 'img/nav-arrow.svg' %}"
+             style="transform: rotate(180deg);"  />
+      </a>
+    </li>
   {% else %}
-    <li class="disabled" aria-hidden="true">&raquo;</li>
+    <li class="nav-arrow disabled-nav" aria-hidden="true">
+      <img src="{% static 'img/nav-arrow.svg' %}"
+           style="transform: rotate(180deg);" />
+    </li>
   {% endif %}
   </ol>
 </nav>
