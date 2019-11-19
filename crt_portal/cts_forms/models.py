@@ -98,4 +98,7 @@ class Report(models.Model):
         return f'{self.create_date} {self.violation_summary}'
 
     def assign_section(self):
-        return ('ADM')
+        if self.primary_complaint == 'voting':
+            return 'VOT'
+
+        return 'ADM'
