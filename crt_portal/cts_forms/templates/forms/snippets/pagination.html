@@ -6,7 +6,7 @@
       {# Left nav arrow #}
       {% if page_format.has_previous %}
         <li class="nav-arrow">
-          <a href="?page={{ page_format.previous_page_number }}&per_page={{ page_format.per_page }}" aria-hidden="true">
+          <a href="?page={{ page_format.previous_page_number }}&per_page={{ page_format.per_page }}" aria-label="Go back 1 page.">
             {% include "forms/snippets/nav_arrow.html" %}
           </a>
         </li>
@@ -52,7 +52,7 @@
           </a>
         </li>
       {% else %}
-        <li class="nav-arrow disabled-nav" aria-hidden="true">
+        <li class="nav-arrow disabled-nav" aria-label="Go forward 1 page.">
           <div>
             {% include "forms/snippets/nav_arrow.html" with point_right=True %}
           </div>
