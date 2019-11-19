@@ -2,7 +2,7 @@
 {% block form_questions %}
   {% for question_group in wizard.form.question_groups %}
     <fieldset class="usa-fieldset margin-bottom-5">
-      <legend>
+      <legend class="em-text">
         {{ question_group.group_name }}
         {% if question_group.optional %}
           <span class="question_group_optional_tag">(optional)</span>
