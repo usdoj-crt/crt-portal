@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 from .models import ProtectedClass, Report
-from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES
+from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES, PRIMARY_COMPLAINT_CHOICES
 from .forms import Where, Who, Details, Contact, ProtectedClassForm
 from .test_data import SAMPLE_REPORT
 
@@ -68,14 +68,7 @@ class Valid_CRT_view_Tests(TestCase):
     def setUp(self):
         for choice in PROTECTED_CLASS_CHOICES:
             ProtectedClass.objects.get_or_create(protected_class=choice)
-        test_report = Report.objects.create(
-            other_class="test other",
-            contact_first_name="Lincoln",
-            contact_last_name="Abraham",
-            contact_email="Lincoln@usa.gov",
-            contact_phone="202-867-5309",
-            violation_summary="Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.",
-        )
+        test_report = Report.objects.create(**SAMPLE_REPORT)
         self.protected_example = ProtectedClass.objects.get(protected_class=PROTECTED_CLASS_CHOICES[0])
         test_report.protected_class.add(self.protected_example)
         test_report.save()
@@ -115,7 +108,21 @@ class Valid_CRT_view_Tests(TestCase):
         self.assertTrue(self.test_report.violation_summary[:119] in self.content)
 
     def test_auto_section_assignment(self):
+        # move this to the section assignment once there are clear rules of when it should be assigned to ADM
         self.assertTrue('ADM' in self.content)
+
+
+class SectionAssigmnetTests(TestCase):
+    def setUp(self):
+        for choice in PRIMARY_COMPLAINT_CHOICES:
+            SAMPLE_REPORT['primary_complaint'] = choice[0]
+            test_report = Report.objects.create(**SAMPLE_REPORT)
+            test_report.save()
+
+    def test_voiting(self):
+        # All reports with a primary complaint of voting should be assigned to voting
+        vote_test = Report.objects.get(primary_complaint='voting')
+        self.assertTrue(vote_test.assign_section() == 'VOT')
 
 
 class Valid_CRT_Pagnation_Tests(TestCase):
