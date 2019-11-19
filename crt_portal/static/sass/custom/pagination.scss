@@ -1,20 +1,55 @@
+.usa-pagination-wrapper {
+  display: flex;
+}
+
 .usa-pagination {
-  text-align: right;
+
+  &.view-all-pagination {
+    margin-left: auto;
+  }
 
   ol {
     list-style-type: none;
     padding-left: 2rem;
+    display: flex;
   }
 
   li {
-    display: inline;
-    padding: 3px 10px;
+    border-radius: 5px;
+    margin: 0 2px;
 
-    &.is-active {
+    a, div, span.ellipsis {
+      display: block;
+      width: 40px;
+      height: 44px;
+      line-height: 44px;
+      text-align: center;
+    }
+
+    &:hover:not(.disabled-nav) {
+      background: $blue-warm-5;
+    }
+
+    &.current-page {
       background-color: $blue-warm-vivid-70;
       color: $white;
     }
 
+    &.nav-arrow.disabled-nav {
+      .nav-arrow-svg {
+        g {
+          g {
+            path {
+              fill: #ADADAD;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  svg.point-right {
+    transform: rotate(180deg);
   }
 
   a {
