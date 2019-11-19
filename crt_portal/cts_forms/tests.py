@@ -119,7 +119,7 @@ class SectionAssigmnetTests(TestCase):
             test_report = Report.objects.create(**SAMPLE_REPORT)
             test_report.save()
 
-    def test_voiting(self):
+    def test_voting(self):
         # All reports with a primary complaint of voting should be assigned to voting
         vote_test = Report.objects.get(primary_complaint='voting')
         self.assertTrue(vote_test.assign_section() == 'VOT')
