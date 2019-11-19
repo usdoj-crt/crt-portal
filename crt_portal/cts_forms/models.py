@@ -33,13 +33,21 @@ class InternalHistory(models.Model):
 
 
 class ProtectedClass(models.Model):
-    # add to be unique
     protected_class = models.CharField(max_length=100, null=True, blank=True, choices=PROTECTED_MODEL_CHOICES, unique=True)
     # used for ordering the choices on the form displays
     form_order = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
         return self.protected_class
+
+
+class JudicialDistrict(models.Model):
+    zipcode = models.CharField(max_length=700, null=True, blank=True)
+    city = models.CharField(max_length=700, null=True, blank=True)
+    county = models.CharField(max_length=700, null=True, blank=True)
+    state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
+    district_number = models.SmallIntegerField(null=True, blank=True)
+    district_letter = models.CharField(max_length=2, null=True, blank=True)
 
 
 class Report(models.Model):
@@ -73,6 +81,9 @@ class Report(models.Model):
     ###############################################################
     #   These fields have not been implemented in the form yet:   #
     ###############################################################
+    district_number = models.SmallIntegerField(null=True, blank=True)
+    district_letter = models.CharField(max_length=2, null=True, blank=True)
+
     contact_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
     contact_address_line_1 = models.CharField(max_length=225, null=True, blank=True)
     contact_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
@@ -99,3 +110,7 @@ class Report(models.Model):
 
     def assign_section(self):
         return ('ADM')
+
+    def assign_judicial_district(self):
+
+        return(None)
