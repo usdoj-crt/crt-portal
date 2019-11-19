@@ -1,55 +1,63 @@
 {% load static %}
-<nav class="usa-pagination" role="navigation" aria-label="Pagination">
-  <ol class="pagination">
+<div class="usa-pagination-wrapper">
+  <nav class="usa-pagination view-all-pagination" role="navigation" aria-label="Pagination">
+    <ol class="pagination">
 
-  {% if page_format.has_previous %}
-    <li class="nav-arrow">
-      <a href="?page={{ page_format.previous_page_number }}&per_page={{ page_format.per_page }}" aria-hidden="true">
-        {% include "forms/snippets/nav_arrow.html" %}
-      </a>
-    </li>
-  {% else %}
-    <li class="nav-arrow disabled-nav" aria-hidden="true">
-      {% include "forms/snippets/nav_arrow.html" %}
-    </li>
-  {% endif %}
+      {# Left nav arrow #}
+      {% if page_format.has_previous %}
+        <li class="nav-arrow">
+          <a href="?page={{ page_format.previous_page_number }}&per_page={{ page_format.per_page }}" aria-hidden="true">
+            {% include "forms/snippets/nav_arrow.html" %}
+          </a>
+        </li>
+      {% else %}
+        <li class="nav-arrow disabled-nav" aria-hidden="true">
+          <div>
+            {% include "forms/snippets/nav_arrow.html" %}
+          </div>
+        </li>
+      {% endif %}
 
-  {% if page_format.show_first %}
-    <li><a href="?page=1&per_page={{ page_format.per_page }}" role="button" aria-label="Go to page 1.">1</a></li>
-  {% endif %}
-  {% if page_format.first_ellipsis %}
-    <li class="disabled-nav">
-      <span class="ellipsis" aria-hidden='true'>...</span>
-    </li>
-  {% endif %}
+      {% if page_format.show_first %}
+        <li><a href="?page=1&per_page={{ page_format.per_page }}" role="button" aria-label="Go to page 1.">1</a></li>
+      {% endif %}
+      {% if page_format.first_ellipsis %}
+        <li class="disabled-nav">
+          <span class="ellipsis" aria-hidden='true'>...</span>
+        </li>
+      {% endif %}
 
-  {% for linkpage in page_format.page_numbers %}
-    {% ifequal linkpage page_format.page %}
-       <li class="current-page disabled-nav" aria-label="Current page, page {{ page_format.page }}." aria-current="true">{{ page_format.page }}</li>
-    {% else %}
-       <li><a href="?page={{ linkpage }}&per_page={{ page_format.per_page }}" role="button" aria-label="Go to page {{ linkpage }}.">{{ linkpage }}</a></li>
-    {% endifequal %}
-  {% endfor %}
+      {% for linkpage in page_format.page_numbers %}
+        {% ifequal linkpage page_format.page %}
+           <li class="current-page disabled-nav" aria-label="Current page, page {{ page_format.page }}." aria-current="true"><div>{{ page_format.page }}</div></li>
+        {% else %}
+           <li><a href="?page={{ linkpage }}&per_page={{ page_format.per_page }}" role="button" aria-label="Go to page {{ linkpage }}.">{{ linkpage }}</a></li>
+        {% endifequal %}
+      {% endfor %}
 
-  {% if page_format.last_ellipsis %}
-    <li class="disabled-nav">
-      <span class="ellipsis" aria-hidden='true'>...</span>
-    </li>
-  {% endif %}
-  {% if page_format.show_last %}
-    <a href="?page={{ page_format.total_pages }}&per_page={{ page_format.per_page }}" role="button" aria-label="Go to page {{ page_format.total_pages }}.">{{ page_format.total_pages }}</a></span>
-  {% endif %}
+      {% if page_format.last_ellipsis %}
+        <li class="disabled-nav">
+          <span class="ellipsis" aria-hidden='true'>...</span>
+        </li>
+      {% endif %}
+      {% if page_format.show_last %}
+        <li><a href="?page={{ page_format.total_pages }}&per_page={{ page_format.per_page }}" role="button" aria-label="Go to page {{ page_format.total_pages }}.">{{ page_format.total_pages }}</a></li>
+      {% endif %}
 
-  {% if page_format.has_next %}
-    <li class="nav-arrow">
-      <a href="?page={{ page_format.next_page_number }}&per_page={{ page_format.per_page }}" aria-hidden="true">
-        {% include "forms/snippets/nav_arrow.html" with point_right=True %}
-      </a>
-    </li>
-  {% else %}
-    <li class="nav-arrow disabled-nav" aria-hidden="true">
-      {% include "forms/snippets/nav_arrow.html" with point_right=True %}
-    </li>
-  {% endif %}
-  </ol>
-</nav>
+      {# Right nav arrow #}
+      {% if page_format.has_next %}
+        <li class="nav-arrow">
+          <a href="?page={{ page_format.next_page_number }}&per_page={{ page_format.per_page }}" aria-hidden="true">
+            {% include "forms/snippets/nav_arrow.html" with point_right=True %}
+          </a>
+        </li>
+      {% else %}
+        <li class="nav-arrow disabled-nav" aria-hidden="true">
+          <div>
+            {% include "forms/snippets/nav_arrow.html" with point_right=True %}
+          </div>
+        </li>
+      {% endif %}
+    </ol>
+  </nav>
+</div>
