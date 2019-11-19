@@ -43,7 +43,11 @@
     {% if data_dict %}
       {% for datum in data_dict %}
         <tr class="tr-status-{{ datum.report.status }}">
-          <td><span class="status-{{ datum.report.status }} row-status-{{ datum.report.status }}">{{ datum.report.status }}</span></td>
+          <td>
+            <span class="status-tag status-{{ datum.report.status }} row-status-{{ datum.report.status }}">
+              {{ datum.report.status }}
+            </span>
+          </td>
           <td>{{ datum.report.assigned_section }}</td>
           <td>{{ datum.report.create_date|date:"SHORT_DATE_FORMAT" }}</td>
           <td>
