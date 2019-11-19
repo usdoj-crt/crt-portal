@@ -28,23 +28,17 @@
 .status-new {
   color: $white !important;
   background-color: $blue-warm-vivid-70;
-  padding: 4px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 1.5rem;
 }
 
 .status-open {
   background-color: $gold;
-  font-weight: bold;
-  padding: 4px;
-  padding-left: 10px;
-  padding-right: 10px;
-  border-radius: 1.5rem;
 }
 
 .status-closed {
   background-color: $gray-warm-10;
+}
+
+.status-tag {
   font-weight: bold;
   padding: 4px;
   padding-left: 10px;
