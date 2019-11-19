@@ -116,6 +116,7 @@ SECTION_CHOICES = (
     ('SPL', 'Special Litigation'),
     ('ELS', 'Employment Litigation Services'),
     ('FCS', 'Federal Coordination and Compliance'),
+    ('APP', 'Appellate'),
 )
 
 PLACE_CHOICES = (
