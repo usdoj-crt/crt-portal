@@ -24,6 +24,7 @@
       height: 44px;
       line-height: 44px;
       text-align: center;
+      color: $blue-warm-vivid-70;
     }
 
     &:hover:not(.disabled-nav) {
@@ -32,7 +33,10 @@
 
     &.current-page {
       background-color: $blue-warm-vivid-70;
-      color: $white;
+
+      div {
+        color: $white;
+      }
     }
 
     &.nav-arrow.disabled-nav {
