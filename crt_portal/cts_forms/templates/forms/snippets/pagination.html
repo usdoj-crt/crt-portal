@@ -23,7 +23,7 @@
 
   {% for linkpage in page_format.page_numbers %}
     {% ifequal linkpage page_format.page %}
-       <li class="is-active" aria-label="Current page, page {{ page_format.page }}." aria-current="true"><b>{{ page_format.page }}</b></li>
+       <li class="current-page disabled-nav" aria-label="Current page, page {{ page_format.page }}." aria-current="true"><b>{{ page_format.page }}</b></li>
     {% else %}
        <li><a href="?page={{ linkpage }}&per_page={{ page_format.per_page }}" role="button" aria-label="Go to page {{ linkpage }}.">{{ linkpage }}</a></li>
     {% endifequal %}
