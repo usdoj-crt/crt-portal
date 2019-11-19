@@ -25,65 +25,64 @@
     <a class="usa-button margin-top-2" href="/report" label="first step" name="Create record">
         + Add new record
     </a>
-
     <p>{{ data_dict|length }} of {{ page_format.count }} records</p>
-
     {% include "forms/snippets/pagination.html" with page_format=page_format %}
-
   </div>
-    <table class="usa-table crt-table">
-      <thead>
-        <tr>
-          <th scope="col">Status</th>
-          <th scope="col">Routed</th>
-          <th scope="col">Submitted</th>
-          <th scope="col">Contact Name</th>
-          <th scope="col">Contact Details</th>
-          <th scope="col">Summary</th>
-          <th scope="col">Class</th>
+  <table class="usa-table crt-table">
+    <thead>
+      <tr>
+        <th scope="col">Status</th>
+        <th scope="col">Routed</th>
+        <th scope="col">Submitted</th>
+        <th scope="col">Contact Name</th>
+        <th scope="col">Contact Details</th>
+        <th scope="col">Summary</th>
+        <th scope="col">Class</th>
+      </tr>
+    </thead>
+    {% if data_dict %}
+      {% for datum in data_dict %}
+        <tr class="tr-status-{{ datum.report.status }}">
+          <td><span class="status-{{ datum.report.status }} row-status-{{ datum.report.status }}">{{ datum.report.status }}</span></td>
+          <td>{{ datum.report.assigned_section }}</td>
+          <td>{{ datum.report.create_date|date:"SHORT_DATE_FORMAT" }}</td>
+          <td>
+          {% with last=datum.report.contact_last_name|default:"—" %}
+            {{ last|truncatechars:20 }}{% endwith %}, {% with first=datum.report.contact_first_name|default:"—" %}
+            {{ first|truncatechars:20 }}
+          {% endwith %}
+          </td>
+          <td>
+          {% with email=datum.report.contact_email|default:"—" %}
+            {{ email|truncatechars:20 }}
+          {% endwith %}
+          <br>
+          {% with phone=datum.report.contact_phone|default:"—"  %}
+            {{ phone|truncatechars:20 }}
+          {% endwith %}
+          </td>
+          <td>
+          {% with summary=datum.report.violation_summary|default:"—" %}
+            {{ summary|truncatechars:120 }}
+          {% endwith %}
+          </td>
+          <td>
+          {% for protected_class in datum.report_protected_classes %}
+              {% if not forloop.last %}
+                {{ protected_class|truncatechars:50 }},<br>
+              {% else %}
+                {{ protected_class|truncatechars:50 }}
+              {% endif %}
+          {% endfor %}
+          </td>
         </tr>
-      </thead>
-      {% if data_dict %}
-        {% for datum in data_dict %}
-          <tr class="tr-status-{{ datum.report.status }}">
-            <td><span class="status-{{ datum.report.status }} row-status-{{ datum.report.status }}">{{ datum.report.status }}</span></td>
-            <td>{{ datum.report.assigned_section }}</td>
-            <td>{{ datum.report.create_date|date:"SHORT_DATE_FORMAT" }}</td>
-            <td>
-            {% with last=datum.report.contact_last_name|default:"—" %}
-              {{ last|truncatechars:20 }}{% endwith %}, {% with first=datum.report.contact_first_name|default:"—" %}
-              {{ first|truncatechars:20 }}
-            {% endwith %}
-            </td>
-            <td>
-            {% with email=datum.report.contact_email|default:"—" %}
-              {{ email|truncatechars:20 }}
-            {% endwith %}
-            <br>
-            {% with phone=datum.report.contact_phone|default:"—"  %}
-              {{ phone|truncatechars:20 }}
-            {% endwith %}
-            </td>
-            <td>
-            {% with summary=datum.report.violation_summary|default:"—" %}
-              {{ summary|truncatechars:120 }}
-            {% endwith %}
-            </td>
-            <td>
-            {% for protected_class in datum.report_protected_classes %}
-                {% if not forloop.last %}
-                  {{ protected_class|truncatechars:50 }},<br>
-                {% else %}
-                  {{ protected_class|truncatechars:50 }}
-                {% endif %}
-            {% endfor %}
-            </td>
-          </tr>
-        {% endfor %}
-      {% else %}
-        <tr><td>No reports are available.<td><td></td></td></td><td></td><td></td><td></td><td></td></tr>
-      {% endif %}
-    </table>
+      {% endfor %}
+    {% else %}
+      <tr><td>No reports are available.<td><td></td></td></td><td></td><td></td><td></td><td></td></tr>
+    {% endif %}
+  </table>
+  <div class="margin-bottom-5">
+    {% include "forms/snippets/pagination.html" with page_format=page_format %}
   </div>
 </div>
 {% endblock %}
