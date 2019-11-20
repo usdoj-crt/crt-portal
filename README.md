@@ -86,6 +86,18 @@ Then from, within the container, you can run:
 
 As a logged-in local Postgres user, you can run queries directly against the database, for example: `select * from cts_forms_report;` to see report data in your local database.
 
+### I18N
+
+Important commands to use during internationalization (i18n):
+
+When you run `makemessages`, Django will search through .py, .txt, and .html files to find strings marked for translation. Django finds these strings through the `gettext` function or its lazy-loading equivalent (in Python) or the `trans` function (in HTML). This adds the marked strings to `.po` files where translators will do their work.
+
+    docker-compose run web django-admin makemessages -l es
+
+After the strings translated, the translation can be compiled back to Django-readable `.mo` files using run `compilemessages`:
+
+    docker-compose run web django-admin compilemessages
+
 ## Tests
 
 Tests run automatically with repos that are integrated with Circle CI. You can run those tests locally with the following instructions.
