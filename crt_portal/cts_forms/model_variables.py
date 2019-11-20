@@ -1,7 +1,9 @@
 """Setting the variables that can be reused in models and forms for readability and reuse"""
 
+from django.utils.translation import gettext as _
+
 PRIMARY_COMPLAINT_CHOICES = (
-    ('workplace', 'Workplace discrimination or other employment-related problem'),
+    ('workplace', _('Workplace discrimination or other employment-related problem')),
     ('housing', 'Housing discrimination or harassment'),
     ('education', 'Discrimination at a school, educational program, or related to receiving education'),
     ('voting', 'Right to vote impacted'),
