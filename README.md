@@ -30,29 +30,25 @@ Create a superuser for local admin access
 
      docker-compose run web python /code/crt_portal/manage.py createsuperuser
 
-To add some test data with the form http://0.0.0.0:8000/form/ and then you can check it out in the backend view http://0.0.0.0:8000/form/view and the admin view at http://0.0.0.0:8000/admin/.
+To add some test data with the form http://0.0.0.0:8000/report and then you can check it out in the backend view http://0.0.0.0:8000/form/view and the admin view at http://0.0.0.0:8000/admin.
 
 Generate the SASS for the front end with gulp:
     If you are doing front end work you will want to have gulp compile the css so you can instantly see changes.
-    
     To ensure we are all using the same versions of our front-end dependencies, we use `nvm` to peg a version of node to this project.
-
     Check that `nvm` is installed with `nvm --version`
-
     If not, run the following command to install it:
 
-    ```
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
     source ~/.bash_profile
-    ```
     
-    If you get an error, and don't have a `bash_profile` file, create one first with `touch ~/.bash_profile`, then run the command above again.
+If you get an error, and don't have a `bash_profile` file, create one first with `touch ~/.bash_profile`, then run the command above again.
 
-    Then, if this is your first time installing the project or `nvm`, run `nvm install`.
+Then, if this is your first time installing the project or `nvm`, run `nvm install`.
     
-    Finally, `nvm use && npm install`
+Finally, `nvm use && npm install`
 
-    Now to compile the sass files into css, run:
+Now to compile the sass files into css, run:
+
     npm run sass:watch
 
 Also note, that the staticfiles folder is the destination of all static assets when you or a script runs `manage.py collectstatic` so don't make your changes there, or they will be overwritten.
@@ -95,6 +91,8 @@ Run unit test on Windows:
     python crt_portal/manage.py test cts_forms
     ```
 7. If you lucky your test will result OK or lots of error to work on!
+
+
 
 
 You can also run project tests using docker with:
