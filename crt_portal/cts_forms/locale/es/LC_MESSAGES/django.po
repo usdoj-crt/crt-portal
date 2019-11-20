@@ -19,12 +19,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 #: crt_portal/cts_forms/model_variables.py:6
 msgid "Workplace discrimination or other employment-related problem"
-msgstr "adkfkfajkd;fkjlasdfkjlasdk;fasjklfklajdf;asdfaksdf"
+msgstr ""
 
 #: crt_portal/cts_forms/templates/forms/report_base.html:82
 msgid "Next"
-msgstr "adkfkfajkd;fkjlasdfkjlasdk;fasjklfklajdf;asdfaksdf"
+msgstr ""
 
 #: crt_portal/cts_forms/templates/forms/report_base.html:91
 msgid "Back"
-msgstr "adkfkfajkd;fkjlasdfkjlasdk;fasjklfklajdf;asdfaksdf"
+msgstr ""
