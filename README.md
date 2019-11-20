@@ -3,8 +3,8 @@
 Install Docker
 
     https://www.docker.com/get-started
-    
-Create [ssh key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and add it to GitHub. 
+
+Create [ssh key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and add it to GitHub.
 
 Clone the project locally:
 
@@ -24,7 +24,7 @@ To run the project
 
     docker-compose up
 
-Visit the site locally at [http://0.0.0.0:8000/report] 🎉 
+Visit the site locally at [http://0.0.0.0:8000/report] 🎉
 
 Create a superuser for local admin access
 
@@ -34,7 +34,7 @@ To add some test data with the form http://0.0.0.0:8000/form/ and then you can c
 
 Generate the SASS for the front end with gulp:
     If you are doing front end work you will want to have gulp compile the css so you can instantly see changes.
-    
+
     To ensure we are all using the same versions of our front-end dependencies, we use `nvm` to peg a version of node to this project.
 
     Check that `nvm` is installed with `nvm --version`
@@ -45,11 +45,11 @@ Generate the SASS for the front end with gulp:
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
     source ~/.bash_profile
     ```
-    
+
     If you get an error, and don't have a `bash_profile` file, create one first with `touch ~/.bash_profile`, then run the command above again.
 
     Then, if this is your first time installing the project or `nvm`, run `nvm install`.
-    
+
     Finally, `nvm use && npm install`
 
     Now to compile the sass files into css, run:
@@ -72,6 +72,18 @@ To ssh into your local docker container run:
 To install a new python package run:
 
     docker-compose run web pipenv install name-of-package
+
+### I18N
+
+Important commands to use during internationalization (i18n):
+
+When you run `makemessages`, Django will search through .py, .txt, and .html files to find strings marked for translation. Django finds these strings through the `gettext` function or its lazy-loading equivalent (in Python) or the `trans` function (in HTML). This adds the marked strings to `.po` files where translators will do their work.
+
+    docker-compose run web django-admin makemessages -l es
+
+After the strings translated, the translation can be compiled back to Django-readable `.mo` files using run `compilemessages`:
+
+    docker-compose run web django-admin compilemessages
 
 ## Tests
 
