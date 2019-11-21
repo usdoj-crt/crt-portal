@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-21 16:52+0000\n"
+"POT-Creation-Date: 2019-11-21 21:10+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,6 +17,48 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: crt_portal/cts_forms/forms.py:23
+msgid "First name"
+msgstr ""
+
+#: crt_portal/cts_forms/forms.py:24
+msgid "Last name"
+msgstr ""
+
+#: crt_portal/cts_forms/forms.py:25
+msgid "Email address"
+msgstr ""
+
+#: crt_portal/cts_forms/forms.py:26
+msgid "Phone number"
+msgstr ""
+
+#: crt_portal/cts_forms/forms.py:32
+msgid "Your name"
+msgstr ""
+
+#: crt_portal/cts_forms/forms.py:33
+msgid "Leave the fields blank if you'd like to file anonymously"
+msgstr ""
+
+#: crt_portal/cts_forms/forms.py:38
+msgid "Contact information"
+msgstr ""
+
+#: crt_portal/cts_forms/forms.py:39
+msgid ""
+"You are not required to provide contact information, but it will help us if "
+"we need to gather more information about the incident you are reporting or "
+"to respond to your submission"
+msgstr ""
+
+#: crt_portal/cts_forms/forms.py:56
+msgid ""
+"If you submit a phone number, please make sure to include between 7 and 15 "
+"digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
+"Please include country code if entering an international phone number."
+msgstr ""
 
 #: crt_portal/cts_forms/model_variables.py:6
 msgid "Workplace discrimination or other employment-related problem"
