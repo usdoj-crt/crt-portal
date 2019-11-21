@@ -17,13 +17,24 @@ if (wordCountArea) {
 }
 
 function onBelowLimit(wordCount, max, textAreaElem) {
-  var wordsRemaining = String(max - wordCount);
-  var description = wordsRemaining === 1 ? ' word remaining' : ' words remaining';
+  var config = {
+    wordsRemaining: String(max - wordCount)
+  };
+
+  var description = config.wordsRemaining === 1 ? ' word remaining' : ' words remaining';
+  var finalMessage;
 
   // Unset alert states
   wordLimitAlert.setAttribute('hidden', ''); // hide
   textAreaElem.classList.remove('bg-gold-outline');
   textAreaElem.setAttribute('aria-invalid', 'false');
+
+  finalMessage = interpolate(
+    ngettext('%(wordsRemaining) word remaining'),
+    config,
+    true
+  );
+
 
   // Update word counter
   wordLimitMessage.removeAttribute('hidden');
