@@ -74,6 +74,8 @@ To ssh into your local Docker web container run:
 
     docker exec -it crt-portal_web_1 /bin/bash
 
+### Logging into Docker database locally
+
 To log into your local Docker database for debugging purposes, first run:
 
     docker exec -it crt-portal_db_1 /bin/bash
