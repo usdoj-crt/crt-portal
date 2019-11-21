@@ -22,6 +22,11 @@ def IndexView(request):
     page = request.GET.get('page', 1)
     requested_reports, page_format = pagination(paginator, page, per_page)
 
+    # make sure the links for this page have the same paging, sorting, filtering etc.
+    page_args = f'?per_page={per_page}'
+    for sort_item in sort:
+        page_args = page_args + f'&sort={sort_item}'
+
     data = []
     # formatting protected class
     for report in requested_reports:
@@ -45,7 +50,7 @@ def IndexView(request):
             "report_protected_classes": p_class_list
         })
 
-    return render_to_response('forms/index.html', {'data_dict': data, 'page_format': page_format})
+    return render_to_response('forms/index.html', {'data_dict': data, 'page_format': page_format, 'page_args': page_args})
 
 
 TEMPLATES = [
