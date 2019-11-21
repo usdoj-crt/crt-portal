@@ -1,5 +1,6 @@
 from django.forms import ModelForm, CheckboxInput, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
     ModelMultipleChoiceField
+from django.utils.translation import gettext_lazy as _
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea
 from .models import Report, ProtectedClass
@@ -19,23 +20,23 @@ class Contact(ModelForm):
 
         self.label_suffix = ''
 
-        self.fields['contact_first_name'].label = 'First name'
-        self.fields['contact_last_name'].label = 'Last name'
-        self.fields['contact_email'].label = 'Email address'
-        self.fields['contact_phone'].label = 'Phone number'
+        self.fields['contact_first_name'].label = _('First name')
+        self.fields['contact_last_name'].label = _('Last name')
+        self.fields['contact_email'].label = _('Email address')
+        self.fields['contact_phone'].label = _('Phone number')
 
         self.question_groups = [
             QuestionGroup(
                 self,
                 ('contact_first_name', 'contact_last_name'),
-                group_name='Your name',
-                help_text="Leave the fields blank if you'd like to file anonymously",
+                group_name=_('Your name'),
+                help_text=_('Leave the fields blank if you\'d like to file anonymously'),
             ),
             QuestionGroup(
                 self,
                 ('contact_email', 'contact_phone'),
-                group_name='Contact information',
-                help_text='You are not required to provide contact information, but it will help us if we need to gather more information about the incident you are reporting or to respond to your submission',
+                group_name=_('Contact information'),
+                help_text=_('You are not required to provide contact information, but it will help us if we need to gather more information about the incident you are reporting or to respond to your submission'),
             )
         ]
 
@@ -52,7 +53,7 @@ class Contact(ModelForm):
             'contact_phone': TextInput(attrs={
                 'class': 'usa-input',
                 'pattern': phone_validation_regex,
-                'title': 'If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.'
+                'title': _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')
             }),
         }
 
