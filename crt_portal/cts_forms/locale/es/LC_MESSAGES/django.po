@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-21 16:30+0000\n"
+"POT-Creation-Date: 2019-11-21 16:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,6 +142,55 @@ msgstr ""
 
 #: crt_portal/cts_forms/model_variables.py:49
 msgid "Blocked from receiving reproductive health services"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:58
+msgid "Disability (including temporary or recovery)"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:59
+msgid "Race/color"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:60
+msgid "National origin (including ancestry, ethnicity, and language)"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:61
+msgid ""
+"Immigration/citizenship status (choosing this will not share your status)"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:62
+msgid "Religion"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:63
+msgid "Sex or gender identity (including gender stereotypes) or pregnancy"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:64
+msgid "Family, marriage, or parental status"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:65
+msgid "Sexual orientation"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:66
+msgid "Military status"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:67
+msgid "Age"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:68
+msgid "Genetic information"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:69
+msgid "Other reason"
 msgstr ""
 
 #: crt_portal/cts_forms/templates/forms/report_base.html:82
