@@ -11,7 +11,8 @@ from .page_through import pagination
 
 @login_required
 def IndexView(request):
-    latest_reports = Report.objects.order_by('-create_date')
+    sort = request.GET.getlist('sort', ['-create_date'])
+    latest_reports = Report.objects.order_by(*sort)
     per_page = request.GET.get('per_page', 15)
     paginator = Paginator(latest_reports, per_page)
     page = request.GET.get('page', 1)
