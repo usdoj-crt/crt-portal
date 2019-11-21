@@ -69,7 +69,25 @@ PROTECTED_CLASS_CHOICES = (
     _('Other reason'),
 )
 
-# used in internal CRT view display
+# PROTECTED_MODEL_CHOICES are used in the database only and not presented to users,
+# so we don't need to translate these strings.
+PROTECTED_MODEL_CHOICES = (
+    ('disability', 'Disability (including temporary or recovery)'),
+    ('race', 'Race/color'),
+    ('origin', 'National origin (including ancestry, ethnicity, and language)'),
+    ('immigration', 'Immigration/citizenship status (choosing this will not share your status)'),
+    ('religion', 'Religion'),
+    ('gender', 'Sex or gender identity (including gender stereotypes) or pregnancy'),
+    ('orientation', 'Sexual orientation'),
+    ('family', 'Family, marriage, or parental status'),
+    ('military', 'Military status'),
+    ('age', 'Age'),
+    ('genetic', 'Genetic information'),
+    ('other', 'Other reason'),
+)
+
+# PROTECTED_MODEL_CHOICES are used in the internal CRT view display, which may
+# not need translation. We don't need to mark these strings for translation.
 PROTECTED_CLASS_CODES = {
     'Disability (including temporary or recovery)': 'Disability',
     'Race/color': 'Race/color',
@@ -85,20 +103,6 @@ PROTECTED_CLASS_CODES = {
     'Other reason': 'Other',
 }
 
-PROTECTED_MODEL_CHOICES = (
-    ('disability', 'Disability (including temporary or recovery)'),
-    ('race', 'Race/color'),
-    ('origin', 'National origin (including ancestry, ethnicity, and language)'),
-    ('immigration', 'Immigration/citizenship status (choosing this will not share your status)'),
-    ('religion', 'Religion'),
-    ('gender', 'Sex or gender identity (including gender stereotypes) or pregnancy'),
-    ('orientation', 'Sexual orientation'),
-    ('family', 'Family, marriage, or parental status'),
-    ('military', 'Military status'),
-    ('age', 'Age'),
-    ('genetic', 'Genetic information'),
-    ('other', 'Other reason'),
-)
 
 PROTECTED_CLASS_ERROR = 'Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.'
 
