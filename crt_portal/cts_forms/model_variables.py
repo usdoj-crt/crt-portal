@@ -55,18 +55,18 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
 # See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
 # This tuple will create the initial order, the form_order data can be directly adjusted after the initial load.
 PROTECTED_CLASS_CHOICES = (
-    _('Disability (including temporary or recovery)'),
-    _('Race/color'),
-    _('National origin (including ancestry, ethnicity, and language)'),
-    _('Immigration/citizenship status (choosing this will not share your status)'),
-    _('Religion'),
-    _('Sex or gender identity (including gender stereotypes) or pregnancy'),
-    _('Family, marriage, or parental status'),
-    _('Sexual orientation'),
-    _('Military status'),
-    _('Age'),
-    _('Genetic information'),
-    _('Other reason'),
+    'Disability (including temporary or recovery)',
+    'Race/color',
+    'National origin (including ancestry, ethnicity, and language)',
+    'Immigration/citizenship status (choosing this will not share your status)',
+    'Religion',
+    'Sex or gender identity (including gender stereotypes) or pregnancy',
+    'Family, marriage, or parental status',
+    'Sexual orientation',
+    'Military status',
+    'Age',
+    'Genetic information',
+    'Other reason',
 )
 
 # used in internal CRT view display
