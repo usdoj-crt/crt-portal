@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.http import Http404
 
 from formtools.wizard.views import SessionWizardView
 
@@ -12,16 +13,18 @@ from .page_through import pagination
 @login_required
 def IndexView(request):
     sort = request.GET.getlist('sort', ['-create_date'])
-    latest_reports = Report.objects.order_by(*sort)
+    report_fields = [f.name for f in Report._meta.fields]
+    if all(elem.replace("-", '') in report_fields for elem in sort) is False:
+        raise Http404(f'Invalid sort request: {sort}')
     per_page = request.GET.get('per_page', 15)
-    paginator = Paginator(latest_reports, per_page)
+    requested_reports = Report.objects.order_by(*sort)
+    paginator = Paginator(requested_reports, per_page)
     page = request.GET.get('page', 1)
-
-    latest_reports, page_format = pagination(paginator, page, per_page)
+    requested_reports, page_format = pagination(paginator, page, per_page)
 
     data = []
     # formatting protected class
-    for report in latest_reports:
+    for report in requested_reports:
         p_class_list = []
         for p_class in report.protected_class.all().order_by('form_order'):
             if p_class.protected_class is not None:
