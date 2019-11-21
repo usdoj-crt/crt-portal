@@ -12,14 +12,16 @@ from .page_through import pagination
 
 @login_required
 def IndexView(request):
-    sort = request.GET.getlist('sort', ['-create_date'])
+    sort = request.GET.getlist('sort', ['create_date'])
+    per_page = request.GET.get('per_page', 15)
+    page = request.GET.get('page', 1)
+
     report_fields = [f.name for f in Report._meta.fields]
     if all(elem.replace("-", '') in report_fields for elem in sort) is False:
         raise Http404(f'Invalid sort request: {sort}')
-    per_page = request.GET.get('per_page', 15)
+
     requested_reports = Report.objects.order_by(*sort)
     paginator = Paginator(requested_reports, per_page)
-    page = request.GET.get('page', 1)
     requested_reports, page_format = pagination(paginator, page, per_page)
 
     # make sure the links for this page have the same paging, sorting, filtering etc.
