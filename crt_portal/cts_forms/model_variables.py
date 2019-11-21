@@ -1,6 +1,6 @@
 """Setting the variables that can be reused in models and forms for readability and reuse"""
 
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 PRIMARY_COMPLAINT_CHOICES = (
     ('workplace', _('Workplace discrimination or other employment-related problem')),
