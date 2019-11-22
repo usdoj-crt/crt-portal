@@ -19,7 +19,7 @@ $line-width: 1px;
 $visited-dark-blue: #1A4480;
 $outline-light-gray: #D8D8D8;
 
-#connecting-line {
+.connecting-line {
   border-bottom: 1px solid $outline-light-gray;
   position: relative;
   bottom: 52px;
@@ -36,7 +36,8 @@ ol.steps {
 
   // design
   width: $steps-width;
-  margin: 0; padding: 0;
+  margin: 0;
+  padding: 0;
 
   li {
     margin: 0;
@@ -46,7 +47,8 @@ ol.steps {
     width: 50px;
 
     // design
-    font-size: $label-font-size; line-height: $label-line-height;
+    font-size: $label-font-size;
+    line-height: $label-line-height;
   }
   .step {
     display: block;
@@ -71,7 +73,9 @@ ol.steps {
     counter-increment: milestones;
 
     // design
-    width: $circle-diameter; height: $circle-diameter; line-height: $circle-diameter;
+    width: $circle-diameter;
+    height: $circle-diameter;
+    line-height: $circle-diameter;
     margin: 0 auto .5em;
 
     color: white;
