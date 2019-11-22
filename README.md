@@ -49,12 +49,6 @@ If you get an error, and don't have a `bash_profile` file, create one first with
 
 Then, if this is your first time installing the project or `nvm`, run `nvm install`.
 
-Finally, `nvm use && npm install`.
-
-If you get an error, and don't have a `bash_profile` file, create one first with `touch ~/.bash_profile`, then run the command above again.
-
-Then, if this is your first time installing the project or `nvm`, run `nvm install`.
-
 Finally, `nvm use && npm install`
 
 Now to compile the sass files into css, run:
@@ -66,18 +60,35 @@ Also note, that the staticfiles folder is the destination of all static assets w
 
 ## Running common tasks
 
+### Migrations
+
 In Django, when you update the data models you need to create migrations and then apply those migrations, you can do that with:
 
     docker-compose run web python /code/crt_portal/manage.py makemigrations
     docker-compose run web python /code/crt_portal/manage.py migrate
 
-To ssh into your local docker container run:
-
-    docker exec -it crt-django_web_1 /bin/bash
-
-To install a new python package run:
+### Installing a new Python package
+To install a new Python package, run:
 
     docker-compose run web pipenv install name-of-package
+
+### SSH'ing into Docker locally
+
+To ssh into your local Docker web container run:
+
+    docker exec -it crt-portal_web_1 /bin/bash
+
+### Logging into Docker database locally
+
+To log into your local Docker database for debugging purposes, first run:
+
+    docker exec -it crt-portal_db_1 /bin/bash
+
+Then from, within the container, you can run:
+
+    psql -U postgres
+
+As a logged-in local Postgres user, you can run queries directly against the database, for example: `select * from cts_forms_report;` to see report data in your local database.
 
 ### I18N
 
