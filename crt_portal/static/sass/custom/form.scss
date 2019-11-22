@@ -140,3 +140,10 @@ form#report-form {
   text-decoration: underline;
 }
 
+.form-help-text {
+  color: $gray-70;
+  font-size: .9rem;
+  // Necessary because we want to override styles applied to the p tag
+  margin: .5rem 0 1rem 0 !important;
+}
+

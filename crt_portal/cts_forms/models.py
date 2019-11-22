@@ -1,12 +1,11 @@
 """All models need to be added to signals.py for proper logging."""
 from django.db import models
-from django.core.validators import RegexValidator, MaxValueValidator
+from django.core.validators import RegexValidator
 
 from .phone_regex import phone_validation_regex
 
 from .model_variables import (
     PRIMARY_COMPLAINT_CHOICES,
-    PLACE_CHOICES,
     PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
     EMPLOYER_SIZE_CHOICES,
     PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
@@ -75,7 +74,6 @@ class Report(models.Model):
     location_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
     location_city_town = models.CharField(max_length=700, blank=False)
     location_state = models.CharField(max_length=100, blank=False, choices=STATES_AND_TERRITORIES)
-    location_zip = models.SmallIntegerField(MaxValueValidator(99999), null=True, blank=True)
     ###############################################################
     #   These fields have not been implemented in the form yet:   #
     ###############################################################

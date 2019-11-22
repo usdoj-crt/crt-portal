@@ -49,6 +49,8 @@ TEMPLATES = [
     'forms/report_grouped_questions.html',
     # Primary reason
     'forms/report_multiple_questions.html',
+    # Location
+    'forms/report_location.html',
     # Protected Class
     'forms/report_class.html',
     # Details
@@ -71,6 +73,7 @@ class CRTReportWizard(SessionWizardView):
         ordered_step_names = [
             'Contact',
             'Primary Issue',
+            'Location',
             'Protected Class',
             'Details',
         ]
@@ -80,6 +83,7 @@ class CRTReportWizard(SessionWizardView):
         ordered_step_titles = [
             'Contact',
             'What is your primary reason for contacting the Civil Rights Division?',
+            'Location details',
             'Please provide details',
             'Details'
         ]
@@ -99,6 +103,10 @@ class CRTReportWizard(SessionWizardView):
         if current_step_name == 'Details':
             context.update({
                 'page_note': 'Continued',
+            })
+        elif current_step_name == 'Location':
+            context.update({
+                'page_note': 'Providing details on where this occured helps us properly review your issue and get it to the right people within the Civil Rights Division.',
             })
 
         return context

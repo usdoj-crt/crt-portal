@@ -9,8 +9,8 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 from .models import ProtectedClass, Report
-from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES, VIOLATION_SUMMARY_ERROR
-from .forms import Where, Who, Details, Contact, ProtectedClassForm
+from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES, VIOLATION_SUMMARY_ERROR, WHERE_ERRORS
+from .forms import Who, Details, Contact, ProtectedClassForm, LocationForm
 from .test_data import SAMPLE_REPORT
 
 
@@ -45,6 +45,35 @@ class Valid_Form_Tests(TestCase):
             'contact_last_name': 'last_name',
         })
         self.assertTrue(form.is_valid())
+
+    def test_Location_valid(self):
+        form = LocationForm(data={
+            'location_name': 'Beach',
+            'location_address_line_1': '',
+            'location_address_line_2': '',
+            'location_city_town': 'Bethany',
+            'location_state': 'DE',
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_Location_invalid(self):
+        form = LocationForm(data={
+            'location_name': '',
+            'location_address_line_1': '',
+            'location_address_line_2': '',
+            'location_city_town': '',
+            'location_state ': '',
+        })
+        errors = dict(WHERE_ERRORS)
+        self.assertFalse(form.is_valid())
+        self.assertEquals(
+            form.errors,
+            {
+                'location_name': [errors['location_name']],
+                'location_state': [errors['location_state']],
+                'location_city_town': [errors['location_city_town']],
+            }
+        )
 
     def test_Class_valid(self):
         form = ProtectedClassForm(data={
