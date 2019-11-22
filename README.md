@@ -98,6 +98,9 @@ After the strings translated, the translation can be compiled back to Django-rea
 
     docker-compose run web django-admin compilemessages
 
+A slightly different command is needed to compile translation strings found in the JS code. Django seems to attempt to process _every_ JS file it can find, so it is necessary to manually ignore files we don't need to translate, such as those found in the `node_modules` folder. To do this, run:
+    docker-compose run web django-admin makemessages -d djangojs -l es -i "node_modules" -i "staticfiles" -i "gulpfile.js" {-i _other_files_to_ignore_}
+
 ## Tests
 
 Tests run automatically with repos that are integrated with Circle CI. You can run those tests locally with the following instructions.
