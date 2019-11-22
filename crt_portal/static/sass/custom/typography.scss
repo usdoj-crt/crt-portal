@@ -16,11 +16,6 @@ h3 {
   @include u-text('primary-dark')
 }
 
-// TODO (ARS): Don't target raw HTML elements with styles.
-p, em, h2, label:not(.em-text), span:not(.em-text) {
-  color: $gray-warm;
-}
-
 .em-text {
   color: $blue-warm-vivid-70;
   font-weight: bold;
