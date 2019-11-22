@@ -1,58 +1,59 @@
 """Setting the variables that can be reused in models and forms for readability and reuse"""
 
-from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy as _
 
 PRIMARY_COMPLAINT_CHOICES = (
     ('workplace', _('Workplace discrimination or other employment-related problem')),
-    ('housing', 'Housing discrimination or harassment'),
-    ('education', 'Discrimination at a school, educational program, or related to receiving education'),
-    ('voting', 'Right to vote impacted'),
-    ('police', 'Mistreated by police, law enforcement, or correctional staff (including while in prison)'),
-    ('commercial_or_public', 'Discriminated against in any other commercial location or public place'),
-    ('something_else', 'Something else happened')
+    ('housing', _('Housing discrimination or harassment')),
+    ('education', _('Discrimination at a school, educational program, or related to receiving education')),
+    ('voting', _('Right to vote impacted')),
+    ('police', _('Mistreated by police, law enforcement, or correctional staff (including while in prison)')),
+    ('commercial_or_public', _('Discriminated against in any other commercial location or public place')),
+    ('something_else', _('Something else happened'))
 )
 
 PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT = {
-    'commercial_or_public': 'Store, restaurant, bar, hotel, place of worship, library, medical facility, bank, courthouse, government buildings, public park or street, or online',
-    'something_else': 'You will be able to tell us more later'
+    'commercial_or_public': _('Store, restaurant, bar, hotel, place of worship, library, medical facility, bank, courthouse, government buildings, public park or street, or online'),
+    'something_else': _('You will be able to tell us more later')
 }
 
 PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
     'workplace': [
-        'Fired, not hired, or demoted for reasons unrelated to job performance or qualifications',
-        'Retaliated against for reporting discrimination',
-        'Inappropriately asked to provide immigration documentation'
+        _('Fired, not hired, or demoted for reasons unrelated to job performance or qualifications'),
+        _('Retaliated against for reporting discrimination'),
+        _('Inappropriately asked to provide immigration documentation'),
     ],
     'housing': [
-        'Denied housing, a permit, or a loan',
-        'Harmful living conditions or lack accommodations for disability',
-        'Harassment by a landlord or another tenant'
+        _('Denied housing, a permit, or a loan'),
+        _('Harmful living conditions or lack accommodations for disability'),
+        _('Harassment by a landlord or another tenant'),
     ],
     'education': [
-        'Harassment based on race, sex, national origin, disability, or religion',
-        'Denied admission or segregated in an education program or activity',
-        'Denied services or accommodations for a disability or language barrier'
+        _('Harassment based on race, sex, national origin, disability, or religion'),
+        _('Denied admission or segregated in an education program or activity'),
+        _('Denied services or accommodations for a disability or language barrier'),
     ],
     'voting': [
-        'Blocked from registering to vote, entering a polling place to vote, or any other voting activity',
-        'Lack of polling place accommodations for disability',
-        'Ballot tampering'
+        _('Blocked from registering to vote, entering a polling place to vote, or any other voting activity'),
+        _('Lack of polling place accommodations for disability'),
+        _('Ballot tampering'),
     ],
     'police': [
-        'Police brutality or use of excessive force, including patterns of police misconduct',
-        'Searched and arrested under false pretenses, including racial or other discriminatory profiling',
-        'Denied rights, language access barriers, subjected to harmful living conditions or lack of accessible facilities'
+        _('Police brutality or use of excessive force, including patterns of police misconduct'),
+        _('Searched and arrested under false pretenses, including racial or other discriminatory profiling'),
+        _('Denied rights, language access barriers, subjected to harmful living conditions or lack of accessible facilities'),
     ],
     'commercial_or_public': [
-        'A location or website lacking disability accommodations',
-        'Denied service or entry because of a percieved personal characteristic like race, sex, or religion',
-        'Blocked from receiving reproductive health services',
+        _('A location or website lacking disability accommodations'),
+        _('Denied service or entry because of a perceived personal characteristic like race, sex, or religion'),
+        _('Blocked from receiving reproductive health services'),
     ],
     'something_else': []
 }
 
-# This will create the initial order, the form_order data can be directly adjusted after the initial load.
+# PROTECTED_CLASS_CHOICES means "PROTECTED_CLASS_FORM_CHOICES" and refers to the choices that will be displayed on the form front-end.
 # See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
+# This tuple will create the initial order, the form_order data can be directly adjusted after the initial load.
 PROTECTED_CLASS_CHOICES = (
     'Disability (including temporary or recovery)',
     'Race/color',

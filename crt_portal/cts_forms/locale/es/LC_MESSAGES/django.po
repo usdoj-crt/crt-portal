@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-20 17:39+0000\n"
+"POT-Creation-Date: 2019-11-21 21:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,8 +17,173 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: crt_portal/cts_forms/forms.py:23
+msgid "First name"
+msgstr ""
+
+#: crt_portal/cts_forms/forms.py:24
+msgid "Last name"
+msgstr ""
+
+#: crt_portal/cts_forms/forms.py:25
+msgid "Email address"
+msgstr ""
+
+#: crt_portal/cts_forms/forms.py:26
+msgid "Phone number"
+msgstr ""
+
+#: crt_portal/cts_forms/forms.py:32
+msgid "Your name"
+msgstr ""
+
+#: crt_portal/cts_forms/forms.py:33
+msgid "Leave the fields blank if you'd like to file anonymously"
+msgstr ""
+
+#: crt_portal/cts_forms/forms.py:38
+msgid "Contact information"
+msgstr ""
+
+#: crt_portal/cts_forms/forms.py:39
+msgid ""
+"You are not required to provide contact information, but it will help us if "
+"we need to gather more information about the incident you are reporting or "
+"to respond to your submission"
+msgstr ""
+
+#: crt_portal/cts_forms/forms.py:56
+msgid ""
+"If you submit a phone number, please make sure to include between 7 and 15 "
+"digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
+"Please include country code if entering an international phone number."
+msgstr ""
+
 #: crt_portal/cts_forms/model_variables.py:6
 msgid "Workplace discrimination or other employment-related problem"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:7
+msgid "Housing discrimination or harassment"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:8
+msgid ""
+"Discrimination at a school, educational program, or related to receiving "
+"education"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:9
+msgid "Right to vote impacted"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:10
+msgid ""
+"Mistreated by police, law enforcement, or correctional staff (including "
+"while in prison)"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:11
+msgid "Discriminated against in any other commercial location or public place"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:12
+msgid "Something else happened"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:16
+msgid ""
+"Store, restaurant, bar, hotel, place of worship, library, medical facility, "
+"bank, courthouse, government buildings, public park or street, or online"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:17
+msgid "You will be able to tell us more later"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:22
+msgid ""
+"Fired, not hired, or demoted for reasons unrelated to job performance or "
+"qualifications"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:23
+msgid "Retaliated against for reporting discrimination"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:24
+msgid "Inappropriately asked to provide immigration documentation"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:27
+msgid "Denied housing, a permit, or a loan"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:28
+msgid "Harmful living conditions or lack accommodations for disability"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:29
+msgid "Harassment by a landlord or another tenant"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:32
+msgid "Harassment based on race, sex, national origin, disability, or religion"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:33
+msgid "Denied admission or segregated in an education program or activity"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:34
+msgid "Denied services or accommodations for a disability or language barrier"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:37
+msgid ""
+"Blocked from registering to vote, entering a polling place to vote, or any "
+"other voting activity"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:38
+msgid "Lack of polling place accommodations for disability"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:39
+msgid "Ballot tampering"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:42
+msgid ""
+"Police brutality or use of excessive force, including patterns of police "
+"misconduct"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:43
+msgid ""
+"Searched and arrested under false pretenses, including racial or other "
+"discriminatory profiling"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:44
+msgid ""
+"Denied rights, language access barriers, subjected to harmful living "
+"conditions or lack of accessible facilities"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:47
+msgid "A location or website lacking disability accommodations"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:48
+msgid ""
+"Denied service or entry because of a perceived personal characteristic like "
+"race, sex, or religion"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:49
+msgid "Blocked from receiving reproductive health services"
 msgstr ""
 
 #: crt_portal/cts_forms/templates/forms/report_base.html:82
