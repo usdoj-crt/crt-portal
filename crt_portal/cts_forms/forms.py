@@ -142,31 +142,6 @@ class ProtectedClassForm(ModelForm):
         self.fields['other_class'].widget.attrs['class'] = 'usa-input word-count-10'
 
 
-class Where(ModelForm):
-    public_or_private_employer = TypedChoiceField(
-        choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-    )
-    public_or_private_facility = TypedChoiceField(
-        choices=PUBLIC_OR_PRIVATE_FACILITY_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-    )
-    public_or_private_healthcare = TypedChoiceField(
-        choices=PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-    )
-    employer_size = TypedChoiceField(
-        choices=EMPLOYER_SIZE_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-    )
-    public_or_private_school = TypedChoiceField(
-        choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-    )
-
-    class Meta:
-        model = Report
-        fields = ['place', 'public_or_private_employer', 'employer_size', 'public_or_private_school', 'public_or_private_facility', 'public_or_private_healthcare']
-        widgets = {
-            'place': UsaRadioSelect,
-        }
-
-
 class Who(ModelForm):
     respondent_type = TypedChoiceField(
         choices=RESPONDENT_TYPE_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False

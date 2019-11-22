@@ -20,16 +20,6 @@ class Valid_Form_Tests(TestCase):
             ProtectedClass.objects.get_or_create(protected_class=choice)
 
     """Confirms each form is valid when given valid test data."""
-    def test_Where_valid(self):
-        form = Where(data={
-            'place': 'place_of_worship',
-            'public_or_private_employer': 'public_employer',
-            'employer_size': '14_or_less',
-            'public_or_private_school': 'public',
-            'public_or_private_facility': 'state_local_facility',
-            'public_or_private_healthcare': 'state_local_facility',
-        })
-        self.assertTrue(form.is_valid())
 
     def test_Who_valid(self):
         form = Who(data={
@@ -187,18 +177,6 @@ class Validation_Form_Tests(TestCase):
             'violation_summary': ''
         })
         self.assertTrue(f'<ul class="errorlist"><li>{VIOLATION_SUMMARY_ERROR}' in str(form.errors))
-
-    # def test_required_where(self):
-    #     form = Where(data={
-    #         'place': '',
-    #         'public_or_private_employer': 'public_employer',
-    #         'employer_size': '14_or_less',
-    #         'public_or_private_school': 'public',
-    #         'public_or_private_facility': 'state_local_facility',
-    #         'public_or_private_healthcare': 'state_local_facility',
-    #     })
-    #     self.assertTrue('place<ul class="errorlist"><li>This field is required.' in str(form.errors))
-
 
 class ContactValidationTests(TestCase):
     def test_non_ascii_name(self):
