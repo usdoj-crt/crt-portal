@@ -33,10 +33,14 @@ Create a superuser for local admin access
 To add some test data with the form http://0.0.0.0:8000/report and then you can check it out in the backend view http://0.0.0.0:8000/form/view and the admin view at http://0.0.0.0:8000/admin.
 
 Generate the SASS for the front end with gulp:
-    If you are doing front end work you will want to have gulp compile the css so you can instantly see changes.
-    To ensure we are all using the same versions of our front-end dependencies, we use `nvm` to peg a version of node to this project.
-    Check that `nvm` is installed with `nvm --version`
-    If not, run the following command to install it:
+
+If you are doing front end work, you will want to have gulp compile the css so you can instantly see changes.
+
+To ensure we are all using the same versions of our front-end dependencies, we use `nvm` to peg a version of node to this project.
+
+Check that `nvm` is installed with `nvm --version`.
+
+If not, run the following command to install it:
 
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
     source ~/.bash_profile
@@ -100,6 +104,7 @@ After the strings translated, the translation can be compiled back to Django-rea
 
 A slightly different command is needed to compile translation strings found in the JS code. Django seems to attempt to process _every_ JS file it can find, so it is necessary to manually ignore files we don't need to translate, such as those found in the `node_modules` folder. To do this, run:
     docker-compose run web django-admin makemessages -d djangojs -l es -i "node_modules" -i "staticfiles" -i "gulpfile.js" {-i _other_files_to_ignore_}
+
 
 ## Tests
 

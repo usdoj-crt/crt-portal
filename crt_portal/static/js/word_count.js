@@ -18,13 +18,9 @@
   }
 
   function getTranslatedMessage(wordsRemaining) {
-    return interpolate(
-      ngettext(
-        '%s word remaining',
-        '%s words remaining',
-        wordsRemaining
-      ), [wordsRemaining]
-    );
+    return interpolate(ngettext('%s word remaining', '%s words remaining', wordsRemaining), [
+      wordsRemaining
+    ]);
   }
 
   function onBelowLimit(wordCount, max, textAreaElem) {
@@ -111,7 +107,11 @@
     }
 
     if (textAreaElem10.length > 0) {
-      updateWordCount(e, (max = 10), (textAreaElem = document.getElementById(textAreaElem10[0].id)));
+      updateWordCount(
+        e,
+        (max = 10),
+        (textAreaElem = document.getElementById(textAreaElem10[0].id))
+      );
     }
   }
 
