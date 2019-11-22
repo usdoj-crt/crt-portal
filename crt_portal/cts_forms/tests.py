@@ -113,16 +113,21 @@ class Valid_CRT_view_Tests(TestCase):
 
 
 class SectionAssigmnetTests(TestCase):
-    def setUp(self):
-        for choice in PRIMARY_COMPLAINT_CHOICES:
-            SAMPLE_REPORT['primary_complaint'] = choice[0]
-            test_report = Report.objects.create(**SAMPLE_REPORT)
-            test_report.save()
+    def test_voting_primary_complaint(self):
+        # Most reports with a primary complaint of voting should be assigned to voting
+        SAMPLE_REPORT['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+        test_report.save()
+        self.assertTrue(test_report.assign_section() == 'VOT')
 
-    def test_voting(self):
-        # All reports with a primary complaint of voting should be assigned to voting
-        vote_test = Report.objects.get(primary_complaint='voting')
-        self.assertTrue(vote_test.assign_section() == 'VOT')
+    def test_voting_disability_exception(self):
+        # Reports with a primary complaint of voting and protected class of disability should not be assign to voting
+        SAMPLE_REPORT['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+        disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
+        test_report.protected_class.add(disability[0])
+        test_report.save()
+        self.assertFalse(test_report.assign_section() == 'VOT')
 
 
 class Valid_CRT_Pagnation_Tests(TestCase):
