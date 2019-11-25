@@ -197,19 +197,23 @@ Please update the [Accounts Spreadsheet](https://docs.google.com/spreadsheets/d/
 
 As we build out the product, we expect to add more granular user roles and permissions.
 
-### Create admin accounts
+### Create and update admin accounts
 
-Need to ssh to create superuser (would like to do this automatically in another PR)
+Need to ssh to create superuser (would like to do this automatically in another PR):
 
     cf ssh crt-portal-django
 
-Once in, activate local env
+Once in, activate local env:
 
     /tmp/lifecycle/shell
 
-Then, you can create a superuser
+Then, you can create a superuser:
 
     python crt_portal/manage.py createsuperuser
+
+Or change a user's password:
+
+    python crt_portal/manage.py changepassword {{username}}
 
 ### Subsequent deploys
 
