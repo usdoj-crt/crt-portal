@@ -112,7 +112,7 @@ class Valid_CRT_view_Tests(TestCase):
         self.assertTrue('ADM' in self.content)
 
 
-class SectionAssigmentTests(TestCase):
+class SectionAssignmentTests(TestCase):
     def test_voting_primary_complaint(self):
         # Most reports with a primary complaint of voting should be assigned to voting
         SAMPLE_REPORT['primary_complaint'] = 'voting'
