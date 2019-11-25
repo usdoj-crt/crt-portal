@@ -128,6 +128,7 @@ class SectionAssignmentTests(TestCase):
         test_report.protected_class.add(disability[0])
         test_report.save()
         self.assertFalse(test_report.assign_section() == 'VOT')
+        self.assertTrue(test_report.assign_section() == 'ADM')
 
 
 class Valid_CRT_Pagnation_Tests(TestCase):
