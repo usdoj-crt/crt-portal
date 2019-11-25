@@ -6,8 +6,8 @@
 {% endblock %}
 
 {% block page_header %}
-  <header class="page-header-background flex-child">
-    <div class="content-wrapper">
+  <header class="page-header-background grid-row flex-child">
+    <div class="grid-col-7 grid-offset-3">
       <h1 class="padding-top-5 margin-0">
         Contact the Department of Justice about a civil rights concern
       </h1>
@@ -24,8 +24,8 @@
     Current step: {{ current_step_name }}. Step {{ wizard.steps.step1 }} of 6.
   </span>
 
-  <div class="page-header-background">
-    <div class="content-wrapper">
+  <div class="page-header-background grid-row">
+    <div class="grid-col-7 grid-offset-3">
       <div class="padding-bottom-4 padding-top-3">
         <ol class="steps" aria-hidden="true">
           {% for step in ordered_step_names %}
@@ -39,7 +39,7 @@
     </div>
   </div>
 
-  <div class="content-wrapper">
+  <div class="grid-col-7 grid-offset-3">
     <form id="report-form"
           class="usa-form"
           action="/report/"
