@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block page_header %}
-  <header class="page-header-background grid-row flex-child">
+  <header class="page-header-background grid-row grid-gap flex-child">
     <div class="grid-col-7 grid-offset-3">
       <h1 class="padding-top-5 margin-0">
         Contact the Department of Justice about a civil rights concern
@@ -24,7 +24,7 @@
     Current step: {{ current_step_name }}. Step {{ wizard.steps.step1 }} of 6.
   </span>
 
-  <div class="page-header-background grid-row">
+  <div class="page-header-background grid-row grid-gap">
     <div class="grid-col-7 grid-offset-3">
       <div class="padding-bottom-4 padding-top-3">
         <ol class="steps" aria-hidden="true">
@@ -36,6 +36,21 @@
         </ol>
         <div class="connecting-line"></div>
       </div>
+    </div>
+  </div>
+
+  <div class="grid-col-8 grid-offset-3">
+    {% if page_errors %}
+      <div id="page-errors" class="page-errors margin-top-4 margin-bottom-2">
+        {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
+      </div>
+    {% endif %}
+
+    <div class="margin-bottom-4 {% if not page_errors %}margin-top-5{% endif %}">
+      <h2 class="margin-0">{{ current_step_title }}</h2>
+      {% if page_note %}
+        <p class="margin-top-1"><em>{{ page_note }}</em></p>
+      {% endif %}
     </div>
   </div>
 
@@ -58,19 +73,6 @@
         {% endif %}
         {{ hidden_field }}
       {% endfor %}
-
-      {% if page_errors %}
-        <div id="page-errors" class="page-errors margin-top-4 margin-bottom-2">
-          {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
-        </div>
-      {% endif %}
-
-      <div class="margin-bottom-4 {% if not page_errors %}margin-top-5{% endif %}">
-        <h2 class="margin-0">{{ current_step_title }}</h2>
-        {% if page_note %}
-          <p class="margin-top-1"><em>{{ page_note }}</em></p>
-        {% endif %}
-      </div>
 
       {% block form_questions %}
       {% endblock %}
