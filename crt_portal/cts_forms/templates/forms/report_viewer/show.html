@@ -1,0 +1,18 @@
+{% extends "forms/base.html" %}
+
+{% block page_header %}
+{% include 'forms/report_viewer/header.html' %}
+{% endblock %}
+
+{% block main_class %} class="page-header-background"{% endblock %}
+
+{% block content %}
+  <div class="grid-container">
+    <div class="grid-col-auto">
+      <div>
+        <strong>DEBUG</strong>
+        <pre style="white-space: pre-wrap;">
+            {{ data }}
+        </pre>
+      </div>
+{% endblock %}
