@@ -96,7 +96,8 @@ class CRTReportWizard(SessionWizardView):
 
         if current_step_name == 'Details':
             context.update({
-                'page_note': 'Continued'
+                'page_note': 'Continued',
+                'form_novalidate': True,
             })
         elif current_step_name == 'Primary Issue':
             # Disable default client-side validation to roll our own.

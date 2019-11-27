@@ -5,7 +5,7 @@ from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea
 from .models import Report, ProtectedClass
 from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, \
     PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES, \
-    PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PRIMARY_COMPLAINT_CHOICES, PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES, PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT
+    PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PRIMARY_COMPLAINT_CHOICES, PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES, PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT, VIOLATION_SUMMARY_ERROR
 from .phone_regex import phone_validation_regex
 
 import logging
@@ -86,6 +86,7 @@ class Details(ModelForm):
         self.fields['violation_summary'].label = 'Tell us what happened'
         self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'word_count_area'
         self.fields['violation_summary'].help_text = "Please include any details you have about time, location, or people involved with the event, names of witnesses or any materials that would support your description"
+        self.fields['violation_summary'].error_messages = {'required': VIOLATION_SUMMARY_ERROR}
 
     class Meta:
         model = Report

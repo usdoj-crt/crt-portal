@@ -261,3 +261,5 @@ STATES_AND_TERRITORIES = (
     ("AE", "Armed Forces Middle East "),
     ("AP", "Armed Forces Pacific "),
 )
+
+VIOLATION_SUMMARY_ERROR = 'Please provide description to continue'
