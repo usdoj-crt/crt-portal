@@ -91,19 +91,13 @@ class CRTReportWizard(SessionWizardView):
             'current_step_name': current_step_name,
             'page_errors': page_errors,
             'num_page_errors': len(list(page_errors)),
-            'page_errors_desc': ','.join([f'"{error_desc}"' for error_desc in page_errors])
+            'page_errors_desc': ','.join([f'"{error_desc}"' for error_desc in page_errors]),
+            'form_novalidate': True,
         })
 
         if current_step_name == 'Details':
             context.update({
                 'page_note': 'Continued',
-                'form_novalidate': True,
-            })
-        elif current_step_name == 'Primary Issue':
-            # Disable default client-side validation to roll our own.
-            # Roll this out incrementally page-by-page.
-            context.update({
-                'form_novalidate': True
             })
 
         return context
