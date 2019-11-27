@@ -9,8 +9,8 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 from .models import ProtectedClass, Report
-from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES, PRIMARY_COMPLAINT_CHOICES
-from .forms import Where, Who, Details, Contact, ProtectedClassForm
+from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES, VIOLATION_SUMMARY_ERROR, WHERE_ERRORS
+from .forms import Who, Details, Contact, ProtectedClassForm, LocationForm
 from .test_data import SAMPLE_REPORT
 
 
@@ -20,16 +20,6 @@ class Valid_Form_Tests(TestCase):
             ProtectedClass.objects.get_or_create(protected_class=choice)
 
     """Confirms each form is valid when given valid test data."""
-    def test_Where_valid(self):
-        form = Where(data={
-            'place': 'place_of_worship',
-            'public_or_private_employer': 'public_employer',
-            'employer_size': '14_or_less',
-            'public_or_private_school': 'public',
-            'public_or_private_facility': 'state_local_facility',
-            'public_or_private_healthcare': 'state_local_facility',
-        })
-        self.assertTrue(form.is_valid())
 
     def test_Who_valid(self):
         form = Who(data={
@@ -55,6 +45,35 @@ class Valid_Form_Tests(TestCase):
             'contact_last_name': 'last_name',
         })
         self.assertTrue(form.is_valid())
+
+    def test_Location_valid(self):
+        form = LocationForm(data={
+            'location_name': 'Beach',
+            'location_address_line_1': '',
+            'location_address_line_2': '',
+            'location_city_town': 'Bethany',
+            'location_state': 'DE',
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_Location_invalid(self):
+        form = LocationForm(data={
+            'location_name': '',
+            'location_address_line_1': '',
+            'location_address_line_2': '',
+            'location_city_town': '',
+            'location_state ': '',
+        })
+        errors = dict(WHERE_ERRORS)
+        self.assertFalse(form.is_valid())
+        self.assertEquals(
+            form.errors,
+            {
+                'location_name': [errors['location_name']],
+                'location_state': [errors['location_state']],
+                'location_city_town': [errors['location_city_town']],
+            }
+        )
 
     def test_Class_valid(self):
         form = ProtectedClassForm(data={
@@ -112,17 +131,25 @@ class Valid_CRT_view_Tests(TestCase):
         self.assertTrue('ADM' in self.content)
 
 
-class SectionAssigmnetTests(TestCase):
-    def setUp(self):
-        for choice in PRIMARY_COMPLAINT_CHOICES:
-            SAMPLE_REPORT['primary_complaint'] = choice[0]
-            test_report = Report.objects.create(**SAMPLE_REPORT)
-            test_report.save()
+class SectionAssignmentTests(TestCase):
+    def test_voting_primary_complaint(self):
+        # Unless a protected class of disability is selected, reports
+        # with a primary complaint of voting should be assigned to voting.
+        SAMPLE_REPORT['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+        test_report.save()
+        self.assertTrue(test_report.assign_section() == 'VOT')
 
-    def test_voting(self):
-        # All reports with a primary complaint of voting should be assigned to voting
-        vote_test = Report.objects.get(primary_complaint='voting')
-        self.assertTrue(vote_test.assign_section() == 'VOT')
+    def test_voting_disability_exception(self):
+        # Reports with a primary complaint of voting and protected class of disability
+        # should not be assigned to voting.
+        SAMPLE_REPORT['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+        disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
+        test_report.protected_class.add(disability[0])
+        test_report.save()
+        self.assertFalse(test_report.assign_section() == 'VOT')
+        self.assertTrue(test_report.assign_section() == 'ADM')
 
 
 class Valid_CRT_Pagnation_Tests(TestCase):
@@ -212,25 +239,11 @@ class Validation_Form_Tests(TestCase):
 
         self.assertTrue('protected_class<ul class="errorlist"><li>{0}'.format(PROTECTED_CLASS_ERROR)[:13] in str(form.errors))
 
-    # NOTE: Commenting out this test until the When story comes to the dev queue.
-    # def test_required_when(self):
-    #     form = Details(data={
-    #         'violation_summary': 'Hello! I have a problem.',
-    #         'when': '',
-    #         'how_many': 'no',
-    #     })
-    #     self.assertTrue('when<ul class="errorlist"><li>This field is required.' in str(form.errors))
-
-    # def test_required_where(self):
-    #     form = Where(data={
-    #         'place': '',
-    #         'public_or_private_employer': 'public_employer',
-    #         'employer_size': '14_or_less',
-    #         'public_or_private_school': 'public',
-    #         'public_or_private_facility': 'state_local_facility',
-    #         'public_or_private_healthcare': 'state_local_facility',
-    #     })
-    #     self.assertTrue('place<ul class="errorlist"><li>This field is required.' in str(form.errors))
+    def test_required_tests(self):
+        form = Details(data={
+            'violation_summary': ''
+        })
+        self.assertTrue(f'<ul class="errorlist"><li>{VIOLATION_SUMMARY_ERROR}' in str(form.errors))
 
 
 class ContactValidationTests(TestCase):

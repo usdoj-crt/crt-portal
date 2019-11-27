@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block page_header %}
-  <header class="page-header-background">
+  <header class="page-header-background flex-child">
     <div class="content-wrapper">
       <h1 class="padding-top-5 margin-0">
         Contact the Department of Justice about a civil rights concern
@@ -34,7 +34,7 @@
             </li>
           {% endfor %}
         </ol>
-        <div id="connecting-line"></div>
+        <div class="connecting-line"></div>
       </div>
     </div>
   </div>
@@ -75,7 +75,7 @@
       {% block form_questions %}
       {% endblock %}
 
-      <div class="margin-bottom-9">
+      <div class="margin-top-5 margin-bottom-9">
         <input id="submit-next"
                type="submit"
                label="submit"

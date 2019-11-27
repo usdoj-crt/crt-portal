@@ -18,11 +18,13 @@
   td {
     vertical-align: top;
   }
-}
 
-.tr-status-new {
-  td {
-    font-weight: bold;
+  tbody {
+    .tr-status-new {
+      td {
+        font-weight: bold;
+      }
+    }
   }
 }
 
