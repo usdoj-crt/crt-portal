@@ -1,7 +1,18 @@
 {% extends "forms/base.html" %}
 
 {% block page_header %}
-{% include 'forms/report_viewer/header.html' %}
+<header class="page-header-background">
+  <div class="grid-container">
+    <div class="grid-row flex-align-center">
+      <div class="grid-col-fill">
+        <h1>CRT Public Complaint Intake</h1>
+      </div>
+      <div class="grid-col-auto">
+        <a class="usa-button" href="/accounts/logout">Log out</a>
+      </div>
+    </div>
+  </div>
+</header>
 {% endblock %}
 
 {% block main_class %} class="page-header-background"{% endblock %}
@@ -15,4 +26,6 @@
             {{ data }}
         </pre>
       </div>
+    </div>
+  </div>
 {% endblock %}
