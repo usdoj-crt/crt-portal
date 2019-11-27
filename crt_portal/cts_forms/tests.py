@@ -189,7 +189,6 @@ class Valid_CRT_Pagnation_Tests(TestCase):
         self.assertTrue('Go to page 12.' in content)
         # link generation, update with sorting etc. as we add
         self.assertTrue('href="?per_page=1' in content)
-        print(content)
         self.assertTrue('sort=assigned_section' in content)
 
 
@@ -197,7 +196,6 @@ class Valid_CRT_SORT_Tests(TestCase):
     def setUp(self):
         for choice in PRIMARY_COMPLAINT_CHOICES:
             SAMPLE_REPORT['primary_complaint'] = choice[0]
-            print(choice[0])
             test_report = Report.objects.create(**SAMPLE_REPORT)
             test_report.assigned_section = test_report.assign_section()
             test_report.save()
