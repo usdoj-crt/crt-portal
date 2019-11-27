@@ -133,10 +133,22 @@ form#report-form {
   }
 }
 
+// Remove extra dropown error from datalist element
+[list]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
 .look-like-link {
   padding: 0;
   border: none;
   background: none;
   text-decoration: underline;
+}
+
+.form-help-text {
+  color: $gray-70;
+  font-size: .9rem;
+  // Necessary because we want to override styles applied to the p tag
+  margin: .5rem 0 1rem 0 !important;
 }
 

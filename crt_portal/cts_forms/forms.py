@@ -1,11 +1,19 @@
 from django.forms import ModelForm, CheckboxInput, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
     ModelMultipleChoiceField
 from .question_group import QuestionGroup
-from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea
+from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtDropdown
 from .models import Report, ProtectedClass
-from .model_variables import EMPLOYER_SIZE_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, RESPONDENT_TYPE_CHOICES, \
-    PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, PUBLIC_OR_PRIVATE_FACILITY_CHOICES, PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES, \
-    PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PRIMARY_COMPLAINT_CHOICES, PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES, PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT, VIOLATION_SUMMARY_ERROR
+from .model_variables import (
+    RESPONDENT_TYPE_CHOICES,
+    PROTECTED_CLASS_CHOICES,
+    PROTECTED_CLASS_ERROR,
+    PRIMARY_COMPLAINT_CHOICES,
+    PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
+    PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+    STATES_AND_TERRITORIES,
+    VIOLATION_SUMMARY_ERROR,
+    WHERE_ERRORS
+)
 from .phone_regex import phone_validation_regex
 
 import logging
@@ -95,6 +103,62 @@ class Details(ModelForm):
         ]
 
 
+class LocationForm(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ModelForm, self).__init__(*args, **kwargs)
+
+        errors = dict(WHERE_ERRORS)
+
+        self.fields['location_name'].label = 'Location name'
+        self.fields['location_name'].help_text = 'Examples: Name of business, school, intersection, prison, polling place, website, etc.'
+        self.fields['location_name'].error_messages = {
+            'required': errors['location_name']
+        }
+        self.fields['location_address_line_1'].label = 'Street address 1 (Optional)'
+        self.fields['location_address_line_2'].label = 'Street address 2 (Optional)'
+        self.fields['location_city_town'].label = 'City/town'
+        self.fields['location_city_town'].error_messages = {
+            'required': errors['location_city_town']
+        }
+        self.fields['location_state'] = ChoiceField(
+            choices=STATES_AND_TERRITORIES,
+            widget=CrtDropdown,
+            required=True,
+            error_messages={
+                'required': errors['location_state']
+            },
+            label='State'
+        )
+
+        self.question_groups = [
+            QuestionGroup(
+                self,
+                ('location_name', 'location_address_line_1', 'location_address_line_2'),
+                group_name='Where did this happen?',
+                help_text='Please be as specific as possible. We will handle this information with sensitivity.',
+                optional=False
+            )
+        ]
+
+    class Meta:
+        model = Report
+        fields = [
+            'location_name',
+            'location_address_line_1',
+            'location_address_line_2',
+            'location_city_town',
+            'location_state',
+        ]
+
+        widgets = {
+            'location_name': TextInput(attrs={'class': 'usa-input'}),
+            'location_address_line_1': TextInput(attrs={'class': 'usa-input'}),
+            'location_address_line_2': TextInput(attrs={'class': 'usa-input'}),
+            'location_city_town': TextInput(attrs={'class': 'usa-input'}),
+            'location_state': CrtDropdown,
+        }
+
+
 def retrieve_or_create_choices():
     choices = []
     for choice in PROTECTED_CLASS_CHOICES:
@@ -140,31 +204,6 @@ class ProtectedClassForm(ModelForm):
         self.fields['protected_class'].help_text = 'Some civil rights laws protect people from discrimination, which include these protected classes. These are some of the most common classes that we see.'
         self.fields['other_class'].help_text = 'Please describe "Other reason"'
         self.fields['other_class'].widget.attrs['class'] = 'usa-input word-count-10'
-
-
-class Where(ModelForm):
-    public_or_private_employer = TypedChoiceField(
-        choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-    )
-    public_or_private_facility = TypedChoiceField(
-        choices=PUBLIC_OR_PRIVATE_FACILITY_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-    )
-    public_or_private_healthcare = TypedChoiceField(
-        choices=PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-    )
-    employer_size = TypedChoiceField(
-        choices=EMPLOYER_SIZE_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-    )
-    public_or_private_school = TypedChoiceField(
-        choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-    )
-
-    class Meta:
-        model = Report
-        fields = ['place', 'public_or_private_employer', 'employer_size', 'public_or_private_school', 'public_or_private_facility', 'public_or_private_healthcare']
-        widgets = {
-            'place': UsaRadioSelect,
-        }
 
 
 class Who(ModelForm):

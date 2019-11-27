@@ -6,7 +6,6 @@ from .phone_regex import phone_validation_regex
 
 from .model_variables import (
     PRIMARY_COMPLAINT_CHOICES,
-    PLACE_CHOICES,
     PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
     EMPLOYER_SIZE_CHOICES,
     PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
@@ -66,18 +65,19 @@ class Report(models.Model):
     protected_class = models.ManyToManyField(ProtectedClass)
     other_class = models.CharField(max_length=150, null=True, blank=True)
     # Details Summary
-    violation_summary = models.TextField(max_length=7000, blank=False, default='previous record')
+    violation_summary = models.TextField(max_length=7000, blank=False)
     status = models.TextField(choices=STATUS_CHOICES, default='new')
     assigned_section = models.TextField(choices=SECTION_CHOICES, default='ADM')
-
+    # Incident location
+    location_name = models.CharField(max_length=225, blank=False)
+    location_address_line_1 = models.CharField(max_length=225, null=True, blank=True)
+    location_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
+    location_city_town = models.CharField(max_length=700, blank=False)
+    location_state = models.CharField(max_length=100, blank=False, choices=STATES_AND_TERRITORIES)
     ###############################################################
     #   These fields have not been implemented in the form yet:   #
     ###############################################################
-    contact_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
-    contact_address_line_1 = models.CharField(max_length=225, null=True, blank=True)
-    contact_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
     # where form
-    place = models.CharField(max_length=100, choices=PLACE_CHOICES, default=None, null=True)
     public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)
     employer_size = models.CharField(max_length=100, null=True, choices=EMPLOYER_SIZE_CHOICES, default=None)
     public_or_private_school = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, default=None)
