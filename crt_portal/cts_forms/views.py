@@ -28,6 +28,8 @@ def IndexView(request):
 
     # make sure the links for this page have the same paging, sorting, filtering etc.
     page_args = f'?per_page={per_page}'
+    # create a version of the args that doesn't have sort, so it can be over written
+    page_args_for_sort_url = page_args
     for sort_item in sort:
         page_args = page_args + f'&sort={sort_item}'
 
@@ -54,7 +56,7 @@ def IndexView(request):
             'report_protected_classes': p_class_list,
         })
 
-    return render_to_response('forms/index.html', {'data_dict': data, 'page_format': page_format, 'page_args': page_args, 'sort_state': sort})
+    return render_to_response('forms/index.html', {'data_dict': data, 'page_format': page_format, 'page_args': page_args, 'page_args_for_sort_url': page_args_for_sort_url, 'sort_state': sort})
 
 
 TEMPLATES = [
