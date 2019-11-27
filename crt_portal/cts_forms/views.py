@@ -57,14 +57,21 @@ def IndexView(request):
             "url": '{}/'.format(report.id)
         })
 
-    return render_to_response('forms/index.html', {'data_dict': data, 'page_format': page_format, 'page_args': page_args, 'sort_state': sort})
+    return render_to_response('forms/report_view/index.html', {
+        'data_dict': data,
+        'page_format': page_format,
+        'page_args': page_args,
+        'sort_state': sort
+    })
+
 
 @login_required
 def ShowView(request, id):
     report = Report.objects.get(id=1)
 
-    return render_to_response('forms/report_viewer/show.html', {
-        'data': serializers.serialize('json', [ report, ])
+    return render_to_response('forms/report_view/show.html', {
+        'data': report,
+        'debug_data': serializers.serialize('json', [ report, ])
     })
 
 TEMPLATES = [
