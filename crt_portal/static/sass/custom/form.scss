@@ -133,6 +133,11 @@ form#report-form {
   }
 }
 
+// Remove extra dropown error from datalist element
+[list]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
 .look-like-link {
   padding: 0;
   border: none;

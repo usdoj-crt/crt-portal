@@ -11,7 +11,7 @@ from .model_variables import (
     PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
     PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
     STATES_AND_TERRITORIES,
-    VIOLATION_SUMMARY_ERROR
+    VIOLATION_SUMMARY_ERROR,
     WHERE_ERRORS
 )
 from .phone_regex import phone_validation_regex

@@ -1,5 +1,5 @@
-<select class="usa-select" name="{{widget.name}}" id="id_{{widget.name}}_0">
-  <option value=''>- Select -</option>
+<input class="usa-select crt-select" name="{{widget.name}}" id="id_{{widget.name}}_0" list="states" placeholder="- Select -" />
+<datalist id="states">
   {% for name, choices, index in widget.optgroups %}
     {% for option in choices %}
       <option value="{{option.value}}" {% if option.selected is not False %}selected{% endif %}>
@@ -7,4 +7,4 @@
       </option>
     {% endfor %}
   {% endfor %}
-</select>
+</datalist>

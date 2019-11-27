@@ -65,7 +65,7 @@ class Report(models.Model):
     protected_class = models.ManyToManyField(ProtectedClass)
     other_class = models.CharField(max_length=150, null=True, blank=True)
     # Details Summary
-    violation_summary = models.TextField(max_length=7000, blank=False, default='previous record')
+    violation_summary = models.TextField(max_length=7000, blank=False)
     status = models.TextField(choices=STATUS_CHOICES, default='new')
     assigned_section = models.TextField(choices=SECTION_CHOICES, default='ADM')
     # Incident location
