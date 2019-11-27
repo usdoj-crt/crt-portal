@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 from .models import ProtectedClass, Report
-from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES
+from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES, VIOLATION_SUMMARY_ERROR
 from .forms import Where, Who, Details, Contact, ProtectedClassForm
 from .test_data import SAMPLE_REPORT
 
@@ -182,14 +182,11 @@ class Validation_Form_Tests(TestCase):
 
         self.assertTrue('protected_class<ul class="errorlist"><li>{0}'.format(PROTECTED_CLASS_ERROR)[:13] in str(form.errors))
 
-    # NOTE: Commenting out this test until the When story comes to the dev queue.
-    # def test_required_when(self):
-    #     form = Details(data={
-    #         'violation_summary': 'Hello! I have a problem.',
-    #         'when': '',
-    #         'how_many': 'no',
-    #     })
-    #     self.assertTrue('when<ul class="errorlist"><li>This field is required.' in str(form.errors))
+    def test_required_tests(self):
+        form = Details(data={
+            'violation_summary': ''
+        })
+        self.assertTrue(f'<ul class="errorlist"><li>{VIOLATION_SUMMARY_ERROR}' in str(form.errors))
 
     # def test_required_where(self):
     #     form = Where(data={
