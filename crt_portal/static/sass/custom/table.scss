@@ -1,6 +1,7 @@
 .crt-table {
   @extend .usa-table;
   font-size: 14px;
+  height: 100%;
   line-height: 22px;
   background: $white;
   box-shadow: 0 1px 6px 2px rgba(0,0,0,0.14);
@@ -17,14 +18,16 @@
 
   &.usa-table {
     td {
-      padding: 0;
+      // USWDS adds a lot of complicated styles, and this is the most straightforward
+      // way to remove padding from td elements in the table body
+      padding: 0 !important;
       vertical-align: top;
 
       a {
-        display: inline-block;
+        display: block;
         height: 100%;
-        width: 100%;
         padding: .5rem 1rem;
+        width: 100%;
       }
     }
   }

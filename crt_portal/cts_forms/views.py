@@ -52,8 +52,9 @@ def IndexView(request):
             p_class_list = p_class_list[:3]
             p_class_list[2] = f'{p_class_list[2]}...'
         data.append({
-            'report': report,
-            'report_protected_classes': p_class_list,
+            "report": report,
+            "report_protected_classes": p_class_list,
+            "url": '{}/'.format(report.id)
         })
 
     return render_to_response('forms/index.html', {'data_dict': data, 'page_format': page_format, 'page_args': page_args, 'sort_state': sort})

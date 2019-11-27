@@ -44,16 +44,16 @@
       {% for datum in data_dict %}
         <tr class="tr-status-{{ datum.report.status }}">
           <td>
-            <a href="form/{{datum.report.id}}">
+            <a href="{{datum.url}}">
               <span class="status-tag status-{{ datum.report.status }}">
                 {{ datum.report.status }}
               </span>
             </a>
           </td>
-          <td><a href="form/{{datum.report.id}}">{{ datum.report.assigned_section }}</a></td>
-          <td><a href="#">{{ datum.report.create_date|date:"SHORT_DATE_FORMAT" }}</a></td>
+          <td><a href="{{datum.url}}">{{ datum.report.assigned_section }}</a></td>
+          <td><a href="{{datum.url}}">{{ datum.report.create_date|date:"SHORT_DATE_FORMAT" }}</a></td>
           <td>
-            <a href="#">
+            <a href="{{datum.url}}">
               {% with last=datum.report.contact_last_name|default:"—" %}
                 {{ last|truncatechars:20 }}{% endwith %}, {% with first=datum.report.contact_first_name|default:"—" %}
                 {{ first|truncatechars:20 }}
@@ -61,7 +61,7 @@
             </a>
           </td>
           <td>
-            <a href="#">
+            <a href="{{datum.url}}">
               {% with email=datum.report.contact_email|default:"—" %}
                 {{ email|truncatechars:20 }}
               {% endwith %}
@@ -72,14 +72,14 @@
             </a>
           </td>
           <td>
-            <a href="#">
+            <a href="{{datum.url}}">
               {% with summary=datum.report.violation_summary|default:"—" %}
                 {{ summary|truncatechars:120 }}
               {% endwith %}
             </a>
           </td>
           <td>
-            <a href="#">
+            <a href="{{datum.url}}">
               {% for protected_class in datum.report_protected_classes %}
                   {% if not forloop.last %}
                     {{ protected_class|truncatechars:50 }},<br>
