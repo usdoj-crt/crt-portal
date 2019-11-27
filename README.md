@@ -86,6 +86,18 @@ Then from, within the container, you can run:
 
 As a logged-in local Postgres user, you can run queries directly against the database, for example: `select * from cts_forms_report;` to see report data in your local database.
 
+### Hard reset with a fresh database
+
+If your local database is in a wonky state, you might want to try tearing it all down and rebuilding from scratch.
+
+First, shut down any containers you have running locally. Then run:
+
+    docker system prune --volumes
+
+The volumes are the data elements in Docker. Note that you will need to re-create any local user roles after running this command, and the database will be in an empty state, with no complaint records.
+
+:warning: Note that this command will prune **all** containers, images, and caches on your local machine -- not just the crt-portal project.
+
 ## Tests
 
 Tests run automatically with repos that are integrated with Circle CI. You can run those tests locally with the following instructions.
