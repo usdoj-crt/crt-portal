@@ -44,40 +44,50 @@
       {% for datum in data_dict %}
         <tr class="tr-status-{{ datum.report.status }}">
           <td>
-            <span class="status-tag status-{{ datum.report.status }}">
-              {{ datum.report.status }}
-            </span>
+            <a href="form/{{datum.report.id}}">
+              <span class="status-tag status-{{ datum.report.status }}">
+                {{ datum.report.status }}
+              </span>
+            </a>
           </td>
-          <td>{{ datum.report.assigned_section }}</td>
-          <td>{{ datum.report.create_date|date:"SHORT_DATE_FORMAT" }}</td>
+          <td><a href="form/{{datum.report.id}}">{{ datum.report.assigned_section }}</a></td>
+          <td><a href="#">{{ datum.report.create_date|date:"SHORT_DATE_FORMAT" }}</a></td>
           <td>
-          {% with last=datum.report.contact_last_name|default:"—" %}
-            {{ last|truncatechars:20 }}{% endwith %}, {% with first=datum.report.contact_first_name|default:"—" %}
-            {{ first|truncatechars:20 }}
-          {% endwith %}
-          </td>
-          <td>
-          {% with email=datum.report.contact_email|default:"—" %}
-            {{ email|truncatechars:20 }}
-          {% endwith %}
-          <br>
-          {% with phone=datum.report.contact_phone|default:"—"  %}
-            {{ phone|truncatechars:20 }}
-          {% endwith %}
+            <a href="#">
+              {% with last=datum.report.contact_last_name|default:"—" %}
+                {{ last|truncatechars:20 }}{% endwith %}, {% with first=datum.report.contact_first_name|default:"—" %}
+                {{ first|truncatechars:20 }}
+              {% endwith %}
+            </a>
           </td>
           <td>
-          {% with summary=datum.report.violation_summary|default:"—" %}
-            {{ summary|truncatechars:120 }}
-          {% endwith %}
+            <a href="#">
+              {% with email=datum.report.contact_email|default:"—" %}
+                {{ email|truncatechars:20 }}
+              {% endwith %}
+              <br>
+              {% with phone=datum.report.contact_phone|default:"—"  %}
+                {{ phone|truncatechars:20 }}
+              {% endwith %}
+            </a>
           </td>
           <td>
-          {% for protected_class in datum.report_protected_classes %}
-              {% if not forloop.last %}
-                {{ protected_class|truncatechars:50 }},<br>
-              {% else %}
-                {{ protected_class|truncatechars:50 }}
-              {% endif %}
-          {% endfor %}
+            <a href="#">
+              {% with summary=datum.report.violation_summary|default:"—" %}
+                {{ summary|truncatechars:120 }}
+              {% endwith %}
+            </a>
+          </td>
+          <td>
+            <a href="#">
+              {% for protected_class in datum.report_protected_classes %}
+                  {% if not forloop.last %}
+                    {{ protected_class|truncatechars:50 }},<br>
+                  {% else %}
+                    {{ protected_class|truncatechars:50 }}
+                  {% endif %}
+              {% endfor %}
+            </a>
           </td>
         </tr>
       {% endfor %}

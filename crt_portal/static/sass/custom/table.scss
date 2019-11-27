@@ -15,8 +15,18 @@
     }
   }
 
-  td {
-    vertical-align: top;
+  &.usa-table {
+    td {
+      padding: 0;
+      vertical-align: top;
+
+      a {
+        display: inline-block;
+        height: 100%;
+        width: 100%;
+        padding: .5rem 1rem;
+      }
+    }
   }
 
   tbody {
