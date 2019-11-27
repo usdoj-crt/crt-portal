@@ -24,3 +24,9 @@ footer {
   margin: auto;
   padding: 0 8px;
 }
+
+.flex-child {
+  // Explicitly tell this element it should grow.
+  // IE sets its flex-grow property to 0 by default
+  flex: 1 0 auto;
+}

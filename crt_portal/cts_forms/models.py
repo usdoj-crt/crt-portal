@@ -98,7 +98,9 @@ class Report(models.Model):
         return f'{self.create_date} {self.violation_summary}'
 
     def assign_section(self):
-        if self.primary_complaint == 'voting':
+        protected_classes = [n.protected_class for n in self.protected_class.all()]
+
+        if self.primary_complaint == 'voting' and 'Disability (including temporary or recovery)' not in protected_classes:
             return 'VOT'
 
         return 'ADM'
