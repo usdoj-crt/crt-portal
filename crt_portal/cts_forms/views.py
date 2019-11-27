@@ -12,10 +12,12 @@ from .page_through import pagination
 
 @login_required
 def IndexView(request):
+    # Sort data based on request from params, default to `created_date` of complaint
     sort = request.GET.getlist('sort', ['create_date'])
     per_page = request.GET.get('per_page', 15)
     page = request.GET.get('page', 1)
 
+    # Validate requested sort params
     report_fields = [f.name for f in Report._meta.fields]
     if all(elem.replace("-", '') in report_fields for elem in sort) is False:
         raise Http404(f'Invalid sort request: {sort}')
