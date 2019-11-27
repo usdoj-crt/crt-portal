@@ -92,6 +92,7 @@ class CRTReportWizard(SessionWizardView):
             'page_errors': page_errors,
             'num_page_errors': len(list(page_errors)),
             'page_errors_desc': ','.join([f'"{error_desc}"' for error_desc in page_errors]),
+            # Disable default client-side validation
             'form_novalidate': True,
         })
 
