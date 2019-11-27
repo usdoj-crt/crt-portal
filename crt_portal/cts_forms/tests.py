@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 from .models import ProtectedClass, Report
-from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES, VIOLATION_SUMMARY_ERROR, WHERE_ERRORS
+from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES, VIOLATION_SUMMARY_ERROR, WHERE_ERRORS, PRIMARY_COMPLAINT_CHOICES
 from .forms import Who, Details, Contact, ProtectedClassForm, LocationForm
 from .test_data import SAMPLE_REPORT
 
