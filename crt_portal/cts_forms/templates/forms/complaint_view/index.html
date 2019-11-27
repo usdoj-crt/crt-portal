@@ -42,7 +42,7 @@
     </thead>
     {% if data_dict %}
       {% for datum in data_dict %}
-        <tr class="tr-status-{{ datum.report.status }}">
+        <tr class="tr-status-{{ datum.report.status }} tr--hover">
           <td>
             <a href="{{datum.url}}">
               <span class="status-tag status-{{ datum.report.status }}">

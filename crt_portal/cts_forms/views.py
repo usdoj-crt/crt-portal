@@ -6,6 +6,7 @@ from django.http import Http404
 from formtools.wizard.views import SessionWizardView
 
 from django.core import serializers
+from django.conf import settings
 
 from .models import Report, ProtectedClass
 from .model_variables import PROTECTED_CLASS_CODES
@@ -57,7 +58,7 @@ def IndexView(request):
             "url": '{}/'.format(report.id)
         })
 
-    return render_to_response('forms/report_view/index.html', {
+    return render_to_response('forms/complaint_view/index.html', {
         'data_dict': data,
         'page_format': page_format,
         'page_args': page_args,
@@ -67,12 +68,18 @@ def IndexView(request):
 
 @login_required
 def ShowView(request, id):
-    report = Report.objects.get(id=1)
-
-    return render_to_response('forms/report_view/show.html', {
+    report = Report.objects.get(id=id)
+    output = {
         'data': report,
-        'debug_data': serializers.serialize('json', [ report, ])
-    })
+    }
+
+    if settings.DEBUG:
+        output.update({
+            'debug_data': serializers.serialize('json', [report, ])
+        })
+
+    return render_to_response('forms/complaint_view/show.html', output)
+
 
 TEMPLATES = [
     # Contact

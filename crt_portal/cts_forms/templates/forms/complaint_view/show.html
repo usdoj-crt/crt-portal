@@ -1,0 +1,84 @@
+{% extends "forms/base.html" %}
+{% load static %}
+
+{% block page_header %}
+<header class="page-header-background">
+  <div class="grid-container">
+    <div class="grid-row flex-align-center">
+      <div class="grid-col-fill">
+        <h1>CRT Public Complaint Intake</h1>
+      </div>
+      <div class="grid-col-auto">
+        <a class="usa-button" href="/accounts/logout">Log out</a>
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock %}
+
+{% block main_class %} class="page-header-background"{% endblock %}
+
+{% block content %}
+  <div class="grid-container">
+    <div class="complaint-header bg-primary text-white">
+      <div class="grid-container">
+      <div class="grid-row grid-gap">
+        <div class="tablet:grid-col-8">
+          <h2 class="text-uppercase">
+            Complaint <span class="text-gold">{{ data.id }}</span>
+          </h2>
+          <p>
+            <span class="text-gold text-uppercase">Received:  </span>
+            <span class="text-white">{{ data.create_date|date:'g:s a F j, Y' }}</span>
+          </p>
+        </div>
+        <div class="tablet:grid-col-3 tablet:grid-offset-1 text-right">
+          <a class="usa-button usa-button--light close-record" href="/form/view">
+            <img src="{% static "img/close-blue-50-alt.svg" %}">
+            Close record
+          </a>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="complaint-body">
+      <div class="grid-container">
+        <div class="grid-row">
+          <div class="tablet:grid-col-6"></div>
+          <div class="tablet:grid-col-6">
+            <div class="complaint-card">
+              <div class="grid-row">
+                <div class="grid-col-fill">
+                  <h3 class="complaint-card-heading text-uppercase">Correspondant information</h3>
+                </div>
+                <div class="grid-col-auto">                
+                  <button class="usa-button usa-button--outline complaint-card-action">
+                    Edit
+                  </button>
+                </div>
+              </div>
+              <table class="usa-table usa-table--borderless complaint-card-table">
+                <tr>
+                  <th>Name</th>
+                  <td>
+                    <strong>
+                      {{ data.contact_last_name }}, {{ data.contact_first_name }}
+                    </strong>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Email</th>
+                  <td>{{ data.contact_email|default_if_none:'N/A' }}</td>
+                </tr>
+                <tr>
+                  <th>Telephone</th>
+                  <td>{{ data.contact_phone|default:'N/A' }}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

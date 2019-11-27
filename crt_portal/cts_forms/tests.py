@@ -324,6 +324,9 @@ class LoginRequiredTests(TestCase):
         # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
         self.test_pass = secrets.token_hex(32)
         self.user = User.objects.create_user('DELETE_USER', 'lennon@thebeatles.com', self.test_pass)
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+        test_report.save()
+        self.report = test_report
 
     def tearDown(self):
         self.user.delete()
@@ -339,6 +342,17 @@ class LoginRequiredTests(TestCase):
         response = self.client.get(reverse('crt_forms:crt-forms-index'))
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/accounts/login/?next=/form/view')
+
+    def test_view_report_details_authenticated(self):
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_report_details_unauthenticated(self):
+        response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id}))
+        expected_response = '/accounts/login/?next=/form/%s/' % self.report.id
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, expected_response)
 
     def test_view_all_incorrect_password(self):
         """Attempt with incorrect password redirects to login page."""
