@@ -27,7 +27,7 @@ form#report-form {
 
 // Form styles
 .usa-form {
-  max-width: 30rem !important;
+  max-width: 100% !important;
 
   .usa-button {
     &:hover {
@@ -49,7 +49,9 @@ form#report-form {
   }
 
   .usa-input {
-    width: 320px;
+    @media screen and (min-width: $tablet) {
+      width: 320px;
+    }
 
     &:focus {
       outline-offset: 0;

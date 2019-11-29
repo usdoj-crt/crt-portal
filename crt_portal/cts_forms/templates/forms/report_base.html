@@ -9,7 +9,7 @@
   <header class="page-header-background">
     <div class="grid-container">
       <div class="grid-row grid-gap flex-child">
-        <div class="grid-col-7 grid-offset-2">
+        <div class="tablet:grid-col-7 tablet:grid-offset-2">
           <h1 class="padding-top-5 margin-0">
             Contact the Department of Justice about a civil rights concern
           </h1>
@@ -31,7 +31,7 @@
   <div class="page-header-background">
     <div class="grid-container">
       <div class="grid-row grid-gap">
-        <div class="grid-col-7 grid-offset-2">
+        <div class="tablet:grid-col-7 tablet:grid-offset-2">
           <div class="padding-bottom-4 padding-top-3">
             <ol class="steps" aria-hidden="true">
               {% for step in ordered_step_names %}
@@ -49,7 +49,7 @@
 
   <div class="grid-container">
     <div class="grid-row grid-gap">
-      <div class="grid-col-8 grid-offset-2">
+      <div class="tablet:grid-col-8 tablet:grid-offset-2">
         {% if page_errors %}
           <div id="page-errors" class="page-errors margin-top-4 margin-bottom-2">
             {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
@@ -66,7 +66,7 @@
     </div>
 
     <div class="grid-row grid-gap">
-      <div class="grid-col-7 grid-offset-2">
+      <div class="tablet:grid-col-7 tablet:grid-offset-2">
         <form id="report-form"
               class="usa-form"
               action="/report/"
