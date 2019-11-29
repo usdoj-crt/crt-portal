@@ -44,6 +44,7 @@
           class="usa-form"
           action="/report/"
           method="post"
+          autocomplete="off"
           {% if form_novalidate %}novalidate{% endif %}>
       {% csrf_token %}
       {{ wizard.management_form }}
