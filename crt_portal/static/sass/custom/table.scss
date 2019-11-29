@@ -18,12 +18,13 @@
   td {
     vertical-align: top;
   }
-}
-
-.tr-status-new {
-  td {
-    font-weight: bold;
-    text-transform: uppercase;
+  
+  tbody {
+    .tr-status-new {
+      td {
+        font-weight: bold;
+      }
+    }
   }
 }
 
@@ -48,4 +49,5 @@
   padding-left: 10px;
   padding-right: 10px;
   border-radius: 1.5rem;
+  text-transform: uppercase;
 }
