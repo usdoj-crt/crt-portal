@@ -18,7 +18,7 @@ if (wordCountArea) {
 
 function onBelowLimit(wordCount, max, textAreaElem) {
   var wordsRemaining = String(max - wordCount);
-  var description = wordsRemaining === 1 ? ' word remaining' : ' words remaining';
+  var description = wordsRemaining === 1 ? wordRemainingText : wordsRemainingText;
 
   // Unset alert states
   wordLimitAlert.setAttribute('hidden', ''); // hide
@@ -47,10 +47,10 @@ function onEqualOrExceedLimit(value, max, textAreaElem) {
   textAreaElem.classList.add('bg-gold-outline');
   wordLimitAlert.removeAttribute('hidden');
 
-  var messageText = String(max) + ' word limit reached';
+  var messageText = String(max) + wordLimitReachedText;
 
   if (wordLimitScreenReaderText.innerText === messageText) {
-    wordLimitScreenReaderText.innerText = 'Please finish your summary -- ' + messageText;
+    wordLimitScreenReaderText.innerText = finishSummaryText + messageText;
   } else {
     wordLimitScreenReaderText.innerText = messageText;
   }

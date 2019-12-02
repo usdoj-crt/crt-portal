@@ -112,5 +112,11 @@
 {% endblock %}
 
 {% block page_js %}
+<script type="text/javascript">
+  var wordRemainingText = "{{ word_count_text.wordRemainingText }}"
+  var wordsRemainingText = "{{ word_count_text.wordsRemainingText }}"
+  var wordLimitReachedText = "{{ word_count_text.wordLimitReachedText }}"
+  var finishSummaryText = "{{ word_count_text.finishSummaryText }}"
+</script>
 <script src="{% static 'js/word_count.js' %}"></script>
 {% endblock %}
