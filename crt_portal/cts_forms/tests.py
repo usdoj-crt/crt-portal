@@ -9,7 +9,7 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 from .models import ProtectedClass, Report
-from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES, VIOLATION_SUMMARY_ERROR, WHERE_ERRORS
+from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES, VIOLATION_SUMMARY_ERROR, WHERE_ERRORS, PRIMARY_COMPLAINT_CHOICES
 from .forms import Who, Details, Contact, ProtectedClassForm, LocationForm
 from .test_data import SAMPLE_REPORT
 
@@ -178,7 +178,7 @@ class Valid_CRT_Pagnation_Tests(TestCase):
 
     def test_paging(self):
         url_base = reverse('crt_forms:crt-forms-index')
-        url = f'{url_base}?page=6&per_page=1'
+        url = f'{url_base}?page=6&per_page=1&sort=assigned_section'
         response = self.client.get(url)
         content = str(response.content)
         # check first page, current page, and the pages before and after
@@ -188,7 +188,43 @@ class Valid_CRT_Pagnation_Tests(TestCase):
         self.assertTrue('Go to page 7.' in content)
         self.assertTrue('Go to page 12.' in content)
         # link generation, update with sorting etc. as we add
-        self.assertTrue('href="?page=1&per_page=1"' in content)
+        self.assertTrue('href="?per_page=1' in content)
+        self.assertTrue('sort=assigned_section' in content)
+
+
+class Valid_CRT_SORT_Tests(TestCase):
+    def setUp(self):
+        for choice in PRIMARY_COMPLAINT_CHOICES:
+            SAMPLE_REPORT['primary_complaint'] = choice[0]
+            test_report = Report.objects.create(**SAMPLE_REPORT)
+            test_report.assigned_section = test_report.assign_section()
+            test_report.save()
+
+        self.client = Client()
+        # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        url_base = reverse('crt_forms:crt-forms-index')
+        url_1 = f'{url_base}?sort=assigned_section'
+        url_2 = f'{url_base}?sort=-assigned_section'
+        self.response_1 = self.client.get(url_1).content
+        self.response_2 = self.client.get(url_2).content
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_sort(self):
+        # Vote should come after ADM when alphabetical, opposite for reverse
+        vote_index_1 = str(self.response_1).find('VOT')
+        vote_index_2 = str(self.response_2).find('VOT')
+        self.assertTrue(vote_index_1 > vote_index_2)
+
+    def test_bad_sort_param(self):
+        url_base = reverse('crt_forms:crt-forms-index')
+        url_3 = f'{url_base}?sort=-assigned_section'
+        response_3 = self.client.get(url_3)
+        self.assertTrue(response_3.status_code, '404')
 
 
 class Validation_Form_Tests(TestCase):
