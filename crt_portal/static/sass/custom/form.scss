@@ -6,7 +6,7 @@
 form#report-form {
   .question_primary_complaint {
     ul {
-      padding-inline-start: 0;
+      padding-left: 0;
     }
 
     li {
@@ -49,7 +49,9 @@ form#report-form {
   }
 
   .usa-input {
-    width: 320px;
+    @media screen and (min-width: $tablet) {
+      width: 320px;
+    }
 
     &:focus {
       outline-offset: 0;
