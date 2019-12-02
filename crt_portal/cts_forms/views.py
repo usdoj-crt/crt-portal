@@ -72,21 +72,21 @@ class CRTReportWizard(SessionWizardView):
 
         # This name appears in the progress bar wizard
         ordered_step_names = [
-            'Contact',
-            'Primary Issue',
-            'Location',
-            'Protected Class',
-            'Details',
+            _('Contact'),
+            _('Primary Issue'),
+            _('Location'),
+            _('Protected Class'),
+            _('Details'),
         ]
         current_step_name = ordered_step_names[int(self.steps.current)]
 
         # This title appears in large font above the question elements
         ordered_step_titles = [
-            'Contact',
-            'What is your primary reason for contacting the Civil Rights Division?',
-            'Location details',
-            'Please provide details',
-            'Details'
+            _('Contact'),
+            _('What is your primary reason for contacting the Civil Rights Division?'),
+            _('Location details'),
+            _('Please provide details'),
+            _('Details'),
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]
 
@@ -101,13 +101,13 @@ class CRTReportWizard(SessionWizardView):
             'form_novalidate': True,
         })
 
-        if current_step_name == 'Details':
+        if current_step_name == _('Details'):
             context.update({
-                'page_note': 'Continued',
+                'page_note': _('Continued'),
             })
-        elif current_step_name == 'Location':
+        elif current_step_name == _('Location'):
             context.update({
-                'page_note': 'Providing details on where this occured helps us properly review your issue and get it to the right people within the Civil Rights Division.',
+                'page_note': _('Providing details on where this occurred helps us properly review your issue and get it to the right people within the Civil Rights Division.'),
             })
 
         return context
