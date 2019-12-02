@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.http import Http404
 
 from formtools.wizard.views import SessionWizardView
 
@@ -11,16 +12,28 @@ from .page_through import pagination
 
 @login_required
 def IndexView(request):
-    latest_reports = Report.objects.order_by('-create_date')
+    # Sort data based on request from params, default to `created_date` of complaint
+    sort = request.GET.getlist('sort', ['create_date'])
     per_page = request.GET.get('per_page', 15)
-    paginator = Paginator(latest_reports, per_page)
     page = request.GET.get('page', 1)
 
-    latest_reports, page_format = pagination(paginator, page, per_page)
+    # Validate requested sort params
+    report_fields = [f.name for f in Report._meta.fields]
+    if all(elem.replace("-", '') in report_fields for elem in sort) is False:
+        raise Http404(f'Invalid sort request: {sort}')
+
+    requested_reports = Report.objects.order_by(*sort)
+    paginator = Paginator(requested_reports, per_page)
+    requested_reports, page_format = pagination(paginator, page, per_page)
+
+    # make sure the links for this page have the same paging, sorting, filtering etc.
+    page_args = f'?per_page={per_page}'
+    for sort_item in sort:
+        page_args = page_args + f'&sort={sort_item}'
 
     data = []
     # formatting protected class
-    for report in latest_reports:
+    for report in requested_reports:
         p_class_list = []
         for p_class in report.protected_class.all().order_by('form_order'):
             if p_class.protected_class is not None:
@@ -37,11 +50,11 @@ def IndexView(request):
             p_class_list = p_class_list[:3]
             p_class_list[2] = f'{p_class_list[2]}...'
         data.append({
-            "report": report,
-            "report_protected_classes": p_class_list
+            'report': report,
+            'report_protected_classes': p_class_list,
         })
 
-    return render_to_response('forms/index.html', {'data_dict': data, 'page_format': page_format})
+    return render_to_response('forms/index.html', {'data_dict': data, 'page_format': page_format, 'page_args': page_args, 'sort_state': sort})
 
 
 TEMPLATES = [

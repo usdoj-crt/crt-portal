@@ -26,7 +26,7 @@
         + Add new record
     </a>
     <p>{{ page_format.page_range_start }} - {{ page_format.page_range_end }} of {{ page_format.count }} records</p>
-    {% include "forms/snippets/pagination.html" with page_format=page_format %}
+    {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args %}
   </div>
   <table class="usa-table crt-table">
     <thead>
@@ -86,7 +86,7 @@
     {% endif %}
   </table>
   <div class="margin-bottom-5">
-    {% include "forms/snippets/pagination.html" with page_format=page_format %}
+    {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args %}
   </div>
 </div>
 {% endblock %}
