@@ -13,6 +13,11 @@ class CrtRadioArea(ChoiceWidget):
     option_template_name = '../templates/forms/widgets/crt_radio_area_option.html'
 
 
+class CrtDropdown(ChoiceWidget):
+    input_type = 'select'
+    template_name = '../templates/forms/widgets/crt_dropdown.html'
+
+
 # Overrides Django CheckboxSelectMultiple:
 # https://docs.djangoproject.com/en/2.2/ref/forms/widgets/#checkboxselectmultiple
 class UsaCheckboxSelectMultiple(ChoiceWidget):

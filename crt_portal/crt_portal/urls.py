@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
-from cts_forms.forms import Contact, Details, PrimaryReason, ProtectedClassForm
+from cts_forms.forms import Contact, Details, PrimaryReason, LocationForm, ProtectedClassForm
 from cts_forms.views import CRTReportWizard
 
 urlpatterns = [
@@ -29,10 +29,10 @@ urlpatterns = [
     path('report/', CRTReportWizard.as_view([
         Contact,
         PrimaryReason,
+        LocationForm,
         ProtectedClassForm,
         Details,
         # WhatHappened,
-        # Where,
         # Who,
     ]), name='crt_report_form'),
     path('', RedirectView.as_view(pattern_name='crt_report_form', permanent=False)),

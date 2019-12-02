@@ -264,3 +264,11 @@ STATES_AND_TERRITORIES = (
     ('AE', _('Armed Forces Middle East')),
     ('AP', _('Armed Forces Pacific')),
 )
+
+VIOLATION_SUMMARY_ERROR = _('Please provide description to continue')
+
+WHERE_ERRORS = (
+    ('location_name', _('Please enter the name of the location where this took place.')),
+    ('location_city_town', _('Please enter the city or town where this took place.')),
+    ('location_state', _('Please select the state where this took place.')),
+)

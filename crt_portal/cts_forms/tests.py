@@ -9,8 +9,8 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 from .models import ProtectedClass, Report
-from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES
-from .forms import Where, Who, Details, Contact, ProtectedClassForm
+from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES, VIOLATION_SUMMARY_ERROR, WHERE_ERRORS
+from .forms import Who, Details, Contact, ProtectedClassForm, LocationForm
 from .test_data import SAMPLE_REPORT
 
 
@@ -20,16 +20,6 @@ class Valid_Form_Tests(TestCase):
             ProtectedClass.objects.get_or_create(protected_class=choice)
 
     """Confirms each form is valid when given valid test data."""
-    def test_Where_valid(self):
-        form = Where(data={
-            'place': 'place_of_worship',
-            'public_or_private_employer': 'public_employer',
-            'employer_size': '14_or_less',
-            'public_or_private_school': 'public',
-            'public_or_private_facility': 'state_local_facility',
-            'public_or_private_healthcare': 'state_local_facility',
-        })
-        self.assertTrue(form.is_valid())
 
     def test_Who_valid(self):
         form = Who(data={
@@ -55,6 +45,35 @@ class Valid_Form_Tests(TestCase):
             'contact_last_name': 'last_name',
         })
         self.assertTrue(form.is_valid())
+
+    def test_Location_valid(self):
+        form = LocationForm(data={
+            'location_name': 'Beach',
+            'location_address_line_1': '',
+            'location_address_line_2': '',
+            'location_city_town': 'Bethany',
+            'location_state': 'DE',
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_Location_invalid(self):
+        form = LocationForm(data={
+            'location_name': '',
+            'location_address_line_1': '',
+            'location_address_line_2': '',
+            'location_city_town': '',
+            'location_state ': '',
+        })
+        errors = dict(WHERE_ERRORS)
+        self.assertFalse(form.is_valid())
+        self.assertEquals(
+            form.errors,
+            {
+                'location_name': [errors['location_name']],
+                'location_state': [errors['location_state']],
+                'location_city_town': [errors['location_city_town']],
+            }
+        )
 
     def test_Class_valid(self):
         form = ProtectedClassForm(data={
@@ -182,25 +201,11 @@ class Validation_Form_Tests(TestCase):
 
         self.assertTrue('protected_class<ul class="errorlist"><li>{0}'.format(PROTECTED_CLASS_ERROR)[:13] in str(form.errors))
 
-    # NOTE: Commenting out this test until the When story comes to the dev queue.
-    # def test_required_when(self):
-    #     form = Details(data={
-    #         'violation_summary': 'Hello! I have a problem.',
-    #         'when': '',
-    #         'how_many': 'no',
-    #     })
-    #     self.assertTrue('when<ul class="errorlist"><li>This field is required.' in str(form.errors))
-
-    # def test_required_where(self):
-    #     form = Where(data={
-    #         'place': '',
-    #         'public_or_private_employer': 'public_employer',
-    #         'employer_size': '14_or_less',
-    #         'public_or_private_school': 'public',
-    #         'public_or_private_facility': 'state_local_facility',
-    #         'public_or_private_healthcare': 'state_local_facility',
-    #     })
-    #     self.assertTrue('place<ul class="errorlist"><li>This field is required.' in str(form.errors))
+    def test_required_tests(self):
+        form = Details(data={
+            'violation_summary': ''
+        })
+        self.assertTrue(f'<ul class="errorlist"><li>{VIOLATION_SUMMARY_ERROR}' in str(form.errors))
 
 
 class ContactValidationTests(TestCase):

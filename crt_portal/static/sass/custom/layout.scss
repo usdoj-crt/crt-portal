@@ -19,12 +19,6 @@ footer {
   flex-shrink: 0;
 }
 
-.content-wrapper {
-  max-width: 700px;
-  margin: auto;
-  padding: 0 8px;
-}
-
 .flex-child {
   // Explicitly tell this element it should grow.
   // IE sets its flex-grow property to 0 by default
