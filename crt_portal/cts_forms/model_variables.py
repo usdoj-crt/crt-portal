@@ -43,7 +43,7 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
     ],
     'commercial_or_public': [
         'A location or website lacking disability accommodations',
-        'Denied service or entry because of a percieved personal characteristic like race, sex, or religion',
+        'Denied service or entry because of a perceived personal characteristic like race, sex, or religion',
         'Blocked from receiving reproductive health services',
     ],
     'something_else': []
