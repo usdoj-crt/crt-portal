@@ -67,9 +67,9 @@ class PrimaryReason(ModelForm):
         }),
         required=True,
         error_messages={
-            'required': 'Please select a primary reason to continue.'
+            'required': _('Please select a primary reason to continue.')
         },
-        help_text='Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.'
+        help_text=_('Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.')
     )
 
     class Meta:
@@ -84,9 +84,9 @@ class Details(ModelForm):
         super(ModelForm, self).__init__(*args, **kwargs)
         self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
         self.label_suffix = ''
-        self.fields['violation_summary'].label = 'Tell us what happened'
+        self.fields['violation_summary'].label = _('Tell us what happened')
         self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'word_count_area'
-        self.fields['violation_summary'].help_text = "Please include any details you have about time, location, or people involved with the event, names of witnesses or any materials that would support your description"
+        self.fields['violation_summary'].help_text = _("Please include any details you have about time, location, or people involved with the event, names of witnesses or any materials that would support your description")
 
     class Meta:
         model = Report
@@ -131,15 +131,15 @@ class ProtectedClassForm(ModelForm):
         self.fields['protected_class'].queryset = ProtectedClass.objects.filter(pk__in=choices).order_by('-form_order')
         choices = retrieve_or_create_choices()
         self.fields['protected_class'] = ModelMultipleChoiceField(
-            error_messages={'required': 'Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.'},
+            error_messages={'required': _('Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.')},
             required=True,
             queryset=ProtectedClass.objects.filter(pk__in=choices).order_by('form_order'),
             widget=UsaCheckboxSelectMultiple,
         )
-        self.fields['protected_class'].label = 'Do you believe any of these personal characteristics influenced why you were treated this way?'
-        self.fields['protected_class'].help_text = 'Some civil rights laws protect people from discrimination, which include these protected classes. These are some of the most common classes that we see.'
-        self.fields['other_class'].help_text = 'Please describe "Other reason"'
-        self.fields['other_class'].widget.attrs['class'] = 'usa-input word-count-10'
+        self.fields['protected_class'].label = _('Do you believe any of these personal characteristics influenced why you were treated this way?')
+        self.fields['protected_class'].help_text = _('Some civil rights laws protect people from discrimination, which include these protected classes. These are some of the most common classes that we see.')
+        self.fields['other_class'].help_text = _('Please describe "Other reason"')
+        self.fields['other_class'].widget.attrs['class'] = _('usa-input word-count-10')
 
 
 class Where(ModelForm):
