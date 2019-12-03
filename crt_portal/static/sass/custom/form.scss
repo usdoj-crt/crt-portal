@@ -39,6 +39,17 @@ form#report-form {
     }
   }
 
+  .look-like-link {
+    padding: 0;
+    border: none;
+    background: none;
+    text-decoration: underline;
+  }
+
+  .back-button {
+    display: block;
+  }
+
   .blue-left-highlight {
     border-left: 2px solid $blue-warm-vivid-70;
     padding-left: 0.5rem;
@@ -138,13 +149,6 @@ form#report-form {
 // Remove extra dropown error from datalist element
 [list]::-webkit-calendar-picker-indicator {
   display: none;
-}
-
-.look-like-link {
-  padding: 0;
-  border: none;
-  background: none;
-  text-decoration: underline;
 }
 
 .form-help-text {
