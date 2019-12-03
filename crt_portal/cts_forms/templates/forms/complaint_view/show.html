@@ -62,17 +62,19 @@
                   <th>Name</th>
                   <td>
                     <strong>
-                      {{ data.contact_last_name }}, {{ data.contact_first_name }}
+                      {% with l_name=data.contact_last_name|default:"—" f_name=data.contact_first_name|default:"—" %}
+                      {{ l_name }}, {{ f_name }}
+                      {% endwith %}
                     </strong>
                   </td>
                 </tr>
                 <tr>
                   <th>Email</th>
-                  <td>{{ data.contact_email|default_if_none:'N/A' }}</td>
+                  <td>{{ data.contact_email|default:"—" }}</td>
                 </tr>
                 <tr>
                   <th>Telephone</th>
-                  <td>{{ data.contact_phone|default:'N/A' }}</td>
+                  <td>{{ data.contact_phone|default:"—" }}</td>
                 </tr>
               </table>
             </div>
