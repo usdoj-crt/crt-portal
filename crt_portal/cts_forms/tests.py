@@ -131,6 +131,22 @@ class Valid_CRT_view_Tests(TestCase):
         self.assertTrue('ADM' in self.content)
 
 
+class Complaint_Show_View_Test(TestCase):
+    def setUp(self):
+        self.client = Client()
+        # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_404_on_non_existant_record(self):
+        response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': '1'}))
+        self.assertEqual(response.status_code, 404)
+
+
 class SectionAssignmentTests(TestCase):
     def test_voting_primary_complaint(self):
         # Unless a protected class of disability is selected, reports
@@ -371,14 +387,14 @@ class LoginRequiredTests(TestCase):
 
             self.assertEqual(
                 cm.check_present(
-                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User saved: 2 permissions: <QuerySet []> staff: False superuser: False active: True'),
+                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User saved: 3 permissions: <QuerySet []> staff: False superuser: False active: True'),
                 ),
                 None,
             )
 
             self.assertEqual(
                 cm.check_present(
-                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User deleted: 2 permissions: <QuerySet []> staff: False superuser: False active: True'),
+                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User deleted: 3 permissions: <QuerySet []> staff: False superuser: False active: True'),
                 ),
                 None,
             )

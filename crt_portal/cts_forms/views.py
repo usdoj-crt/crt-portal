@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.http import Http404
@@ -68,7 +68,7 @@ def IndexView(request):
 
 @login_required
 def ShowView(request, id):
-    report = Report.objects.get(id=id)
+    report = get_object_or_404(Report.objects, id=id)
     output = {
         'data': report,
     }
