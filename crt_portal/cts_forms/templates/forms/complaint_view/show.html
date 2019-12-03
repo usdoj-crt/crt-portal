@@ -33,7 +33,7 @@
           </p>
         </div>
         <div class="tablet:grid-col-3 tablet:grid-offset-1 text-right">
-          <a class="usa-button usa-button--light close-record" href="/form/view">
+          <a class="usa-button usa-button--light close-record" href="/form/view{{ return_url_args }}">
             <img src="{% static "img/close-blue-50-alt.svg" %}">
             Close record
           </a>
@@ -51,7 +51,7 @@
                 <div class="grid-col-fill">
                   <h3 class="complaint-card-heading text-uppercase">Correspondant information</h3>
                 </div>
-                <div class="grid-col-auto">                
+                <div class="grid-col-auto">
                   <button class="usa-button usa-button--outline complaint-card-action">
                     Edit
                   </button>
