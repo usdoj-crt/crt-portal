@@ -1,3 +1,5 @@
+import urllib.parse
+
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
@@ -34,6 +36,8 @@ def IndexView(request):
     for sort_item in sort:
         page_args = page_args + f'&sort={sort_item}'
 
+    all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
+
     data = []
     # formatting protected class
     for report in requested_reports:
@@ -55,7 +59,7 @@ def IndexView(request):
         data.append({
             "report": report,
             "report_protected_classes": p_class_list,
-            "url": '{}/'.format(report.id)
+            "url": f'{report.id}/?next={all_args_encoded}'
         })
 
     return render_to_response('forms/complaint_view/index.html', {
@@ -71,6 +75,7 @@ def ShowView(request, id):
     report = get_object_or_404(Report.objects, id=id)
     output = {
         'data': report,
+        'return_url_args': request.GET.get('next', ''),
     }
 
     if settings.DEBUG:
