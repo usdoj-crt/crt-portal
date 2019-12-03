@@ -44,6 +44,7 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
         _('Denied rights, language access barriers, subjected to harmful living conditions or lack of accessible facilities'),
     ],
     'commercial_or_public': [
+
         _('A location or website lacking disability accommodations'),
         _('Denied service or entry because of a perceived personal characteristic like race, sex, or religion'),
         _('Blocked from receiving reproductive health services'),
