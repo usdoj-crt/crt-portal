@@ -95,12 +95,11 @@
                    value="{% trans 'Next' %}"
                    class="usa-button" />
             {% if wizard.steps.prev %}
-              <br/>
               <button name="wizard_goto_step"
                       type="submit"
                       label="previous step"
                       value="{{ wizard.steps.prev }}"
-                      class="look-like-link margin-top-2">
+                      class="look-like-link margin-top-2 display-block">
                 {% trans "Back" %}
               </button>
             {% endif %}
