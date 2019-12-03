@@ -33,10 +33,14 @@ Create a superuser for local admin access
 To add some test data with the form http://0.0.0.0:8000/report and then you can check it out in the backend view http://0.0.0.0:8000/form/view and the admin view at http://0.0.0.0:8000/admin.
 
 Generate the SASS for the front end with gulp:
-    If you are doing front end work you will want to have gulp compile the css so you can instantly see changes.
-    To ensure we are all using the same versions of our front-end dependencies, we use `nvm` to peg a version of node to this project.
-    Check that `nvm` is installed with `nvm --version`
-    If not, run the following command to install it:
+
+If you are doing front end work, you will want to have gulp compile the css so you can instantly see changes.
+
+To ensure we are all using the same versions of our front-end dependencies, we use `nvm` to peg a version of node to this project.
+
+Check that `nvm` is installed with `nvm --version`.
+
+If not, run the following command to install it:
 
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
     source ~/.bash_profile
@@ -85,6 +89,18 @@ Then from, within the container, you can run:
     psql -U postgres
 
 As a logged-in local Postgres user, you can run queries directly against the database, for example: `select * from cts_forms_report;` to see report data in your local database.
+
+### I18N
+
+Important commands to use during internationalization (i18n):
+
+When you run `makemessages`, Django will search through .py, .txt, and .html files to find strings marked for translation. Django finds these strings through the `gettext` function or its lazy-loading equivalent (in Python) or the `trans` function (in HTML). This adds the marked strings to `.po` files where translators will do their work.
+
+    docker-compose run web django-admin makemessages -l es
+
+After the strings translated, the translation can be compiled back to Django-readable `.mo` files using run `compilemessages`:
+
+    docker-compose run web django-admin compilemessages
 
 ### Hard reset with a fresh database
 

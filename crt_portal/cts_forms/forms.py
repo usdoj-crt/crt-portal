@@ -1,5 +1,6 @@
 from django.forms import ModelForm, CheckboxInput, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
     ModelMultipleChoiceField
+from django.utils.translation import gettext_lazy as _
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtDropdown
 from .models import Report, ProtectedClass
@@ -27,23 +28,23 @@ class Contact(ModelForm):
 
         self.label_suffix = ''
 
-        self.fields['contact_first_name'].label = 'First name'
-        self.fields['contact_last_name'].label = 'Last name'
-        self.fields['contact_email'].label = 'Email address'
-        self.fields['contact_phone'].label = 'Phone number'
+        self.fields['contact_first_name'].label = _('First name')
+        self.fields['contact_last_name'].label = _('Last name')
+        self.fields['contact_email'].label = _('Email address')
+        self.fields['contact_phone'].label = _('Phone number')
 
         self.question_groups = [
             QuestionGroup(
                 self,
                 ('contact_first_name', 'contact_last_name'),
-                group_name='Your name',
-                help_text="Leave the fields blank if you'd like to file anonymously",
+                group_name=_('Your name'),
+                help_text=_('Leave the fields blank if you\'d like to file anonymously'),
             ),
             QuestionGroup(
                 self,
                 ('contact_email', 'contact_phone'),
-                group_name='Contact information',
-                help_text='You are not required to provide contact information, but it will help us if we need to gather more information about the incident you are reporting or to respond to your submission',
+                group_name=_('Contact information'),
+                help_text=_('You are not required to provide contact information, but it will help us if we need to gather more information about the incident you are reporting or to respond to your submission'),
             )
         ]
 
@@ -60,7 +61,7 @@ class Contact(ModelForm):
             'contact_phone': TextInput(attrs={
                 'class': 'usa-input',
                 'pattern': phone_validation_regex,
-                'title': 'If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.'
+                'title': _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')
             }),
         }
 
@@ -74,9 +75,9 @@ class PrimaryReason(ModelForm):
         }),
         required=True,
         error_messages={
-            'required': 'Please select a primary reason to continue.'
+            'required': _('Please select a primary reason to continue.')
         },
-        help_text='Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.'
+        help_text=_('Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.')
     )
 
     class Meta:
@@ -91,9 +92,9 @@ class Details(ModelForm):
         super(ModelForm, self).__init__(*args, **kwargs)
         self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
         self.label_suffix = ''
-        self.fields['violation_summary'].label = 'Tell us what happened'
+        self.fields['violation_summary'].label = _('Tell us what happened')
         self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'word_count_area'
-        self.fields['violation_summary'].help_text = "Please include any details you have about time, location, or people involved with the event, names of witnesses or any materials that would support your description"
+        self.fields['violation_summary'].help_text = _("Please include any details you have about time, location, or people involved with the event, names of witnesses or any materials that would support your description")
         self.fields['violation_summary'].error_messages = {'required': VIOLATION_SUMMARY_ERROR}
 
     class Meta:
@@ -195,15 +196,15 @@ class ProtectedClassForm(ModelForm):
         self.fields['protected_class'].queryset = ProtectedClass.objects.filter(pk__in=choices).order_by('-form_order')
         choices = retrieve_or_create_choices()
         self.fields['protected_class'] = ModelMultipleChoiceField(
-            error_messages={'required': 'Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.'},
+            error_messages={'required': _('Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.')},
             required=True,
             queryset=ProtectedClass.objects.filter(pk__in=choices).order_by('form_order'),
             widget=UsaCheckboxSelectMultiple,
         )
-        self.fields['protected_class'].label = 'Do you believe any of these personal characteristics influenced why you were treated this way?'
-        self.fields['protected_class'].help_text = 'Some civil rights laws protect people from discrimination, which include these protected classes. These are some of the most common classes that we see.'
-        self.fields['other_class'].help_text = 'Please describe "Other reason"'
-        self.fields['other_class'].widget.attrs['class'] = 'usa-input word-count-10'
+        self.fields['protected_class'].label = _('Do you believe any of these personal characteristics influenced why you were treated this way?')
+        self.fields['protected_class'].help_text = _('Some civil rights laws protect people from discrimination, which include these protected classes. These are some of the most common classes that we see.')
+        self.fields['other_class'].help_text = _('Please describe "Other reason"')
+        self.fields['other_class'].widget.attrs['class'] = _('usa-input word-count-10')
 
 
 class Who(ModelForm):
