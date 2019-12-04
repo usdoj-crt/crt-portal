@@ -1,4 +1,6 @@
-from django.shortcuts import render_to_response
+import urllib.parse
+
+from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.utils.translation import gettext_lazy as _
@@ -6,6 +8,9 @@ from django.http import Http404
 
 
 from formtools.wizard.views import SessionWizardView
+
+from django.core import serializers
+from django.conf import settings
 
 from .models import Report, ProtectedClass
 from .model_variables import PROTECTED_CLASS_CODES
@@ -33,6 +38,8 @@ def IndexView(request):
     for sort_item in sort:
         page_args = page_args + f'&sort={sort_item}'
 
+    all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
+
     data = []
     # formatting protected class
     for report in requested_reports:
@@ -52,11 +59,33 @@ def IndexView(request):
             p_class_list = p_class_list[:3]
             p_class_list[2] = f'{p_class_list[2]}...'
         data.append({
-            'report': report,
-            'report_protected_classes': p_class_list,
+            "report": report,
+            "report_protected_classes": p_class_list,
+            "url": f'{report.id}/?next={all_args_encoded}'
         })
 
-    return render_to_response('forms/index.html', {'data_dict': data, 'page_format': page_format, 'page_args': page_args, 'sort_state': sort})
+    return render_to_response('forms/complaint_view/index.html', {
+        'data_dict': data,
+        'page_format': page_format,
+        'page_args': page_args,
+        'sort_state': sort
+    })
+
+
+@login_required
+def ShowView(request, id):
+    report = get_object_or_404(Report.objects, id=id)
+    output = {
+        'data': report,
+        'return_url_args': request.GET.get('next', ''),
+    }
+
+    if settings.DEBUG:
+        output.update({
+            'debug_data': serializers.serialize('json', [report, ])
+        })
+
+    return render_to_response('forms/complaint_view/show.html', output)
 
 
 TEMPLATES = [
