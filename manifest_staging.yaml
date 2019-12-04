@@ -7,6 +7,7 @@ applications:
   instances: 2
   env:
     ENV: PRODUCTION
+    FORM_AUTOCOMPLETE_OFF: True
   buildpacks:
   - python_buildpack
   services:
