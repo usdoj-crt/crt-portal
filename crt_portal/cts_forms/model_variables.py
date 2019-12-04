@@ -57,6 +57,10 @@ HATE_CRIMES_TRAFFICKING_MODEL_CHOICES = (
     ('trafficking', _('Coerced or forced to do work or perform a commercial sex act')),
 )
 
+HATE_CRIMES_TRAFFICKING_CHOICES = (
+    _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability'),
+    _('Coerced or forced to do work or perform a commercial sex act'),
+)
     
 
 # PROTECTED_CLASS_CHOICES means "PROTECTED_CLASS_FORM_CHOICES" and refers to the choices that will be displayed on the form front-end.

@@ -131,6 +131,7 @@ class CRTReportWizard(SessionWizardView):
         m2mfield = form_data_dict.pop('protected_class')
         r = Report.objects.create(**form_data_dict)
 
+     #add a save feature for hatecrimes and trafficking question on primary reason page   
         # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
         for protected in m2mfield:
             p = ProtectedClass.objects.get(protected_class=protected)

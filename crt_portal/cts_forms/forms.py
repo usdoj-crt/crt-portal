@@ -3,7 +3,7 @@ from django.forms import ModelForm, CheckboxInput, ChoiceField, TypedChoiceField
 from django.utils.translation import gettext_lazy as _
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtDropdown
-from .models import Report, ProtectedClass
+from .models import Report, ProtectedClass, HateCrimesandTrafficking
 from .model_variables import (
     RESPONDENT_TYPE_CHOICES,
     PROTECTED_CLASS_CHOICES,
@@ -13,13 +13,27 @@ from .model_variables import (
     PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
     STATES_AND_TERRITORIES,
     VIOLATION_SUMMARY_ERROR,
-    WHERE_ERRORS
+    WHERE_ERRORS,
+    HATE_CRIMES_TRAFFICKING_CHOICES,
 )
+
 from .phone_regex import phone_validation_regex
 
 import logging
 
 logger = logging.getLogger(__name__)
+
+def retrieve_or_create_choices_2(options, model_object):
+    choices = []
+    for choice in options:
+        try:
+            model_object.objects.get_or_create(hatecrimes_trafficking_option=choice)
+            #change option to generic and replace other options function
+        except:  # noqa
+            # this has a concurrency issue for initial migrations
+            logger.warning('class not loaded yet')
+            # customize the warning message later
+    return choices
 
 
 class Contact(ModelForm):
@@ -67,25 +81,42 @@ class Contact(ModelForm):
 
 
 class PrimaryReason(ModelForm):
-    primary_complaint = ChoiceField(
-        choices=PRIMARY_COMPLAINT_CHOICES,
-        widget=CrtRadioArea(attrs={
-            'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
-            'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
-        }),
-        required=True,
-        error_messages={
-            'required': _('Please select a primary reason to continue.')
-        },
-        help_text=_('Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.')
+    choices = retrieve_or_create_choices_2(HATE_CRIMES_TRAFFICKING_CHOICES, HateCrimesandTrafficking)
+    hatecrimes_trafficking = ModelMultipleChoiceField(
+        queryset=HateCrimesandTrafficking.objects.filter(pk__in=choices),
+        widget=UsaCheckboxSelectMultiple,
     )
+    def __init__(self, *args, **kwargs):
+        super(ModelForm, self).__init__(*args, **kwargs)
+
+           
+        primary_complaint = ChoiceField(
+            choices=PRIMARY_COMPLAINT_CHOICES,
+            widget=CrtRadioArea(attrs={
+                'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
+                'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+            }),
+            required=True,
+            error_messages={
+                'required': _('Please select a primary reason to continue.')
+            },
+            help_text=_('Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.')
+        )
+
 
     class Meta:
         model = Report
+        
         fields = [
-            'primary_complaint'
+            'primary_complaint', 'hatecrimes_trafficking'
         ]
-
+        widgets={
+            'hatecrimes_trafficking': UsaCheckboxSelectMultiple,
+            'primary_complaint': CrtRadioArea(attrs={
+                'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
+                'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+            }),
+        }
 
 class Details(ModelForm):
     def __init__(self, *args, **kwargs):
