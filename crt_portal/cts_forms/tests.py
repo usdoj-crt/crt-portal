@@ -214,6 +214,15 @@ class Valid_CRT_SORT_Tests(TestCase):
     def tearDown(self):
         self.user.delete()
 
+    def test_default_sort_order_desc(self):
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        expected_list = []
+        for record in response.context['data_dict']:
+            expected_list.append(record['report'].create_date)
+
+        self.assertTrue(expected_list == sorted(expected_list, key=None, reverse=True))
+        self.assertFalse(expected_list == sorted(expected_list))
+
     def test_sort(self):
         # Vote should come after ADM when alphabetical, opposite for reverse
         vote_index_1 = str(self.response_1).find('VOT')
