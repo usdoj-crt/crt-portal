@@ -70,6 +70,7 @@
               class="usa-form"
               action="/report/"
               method="post"
+              {% if form_autocomplete_off %}autocomplete="off"{% endif %}
               {% if form_novalidate %}novalidate{% endif %}>
           {% csrf_token %}
           {{ wizard.management_form }}
