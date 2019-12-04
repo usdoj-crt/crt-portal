@@ -1,21 +1,18 @@
 {% load static %}
 
 
-{% with descending_sort = -|add:heading_title %}
-<th scope="col">
-  {{ heading_title }}
-  {% if descending_sort in sort_state %}
-    <a href="?sort=contact_last_name&sort=contact_first_name">
-      <img src="{% static "img/sort-up.svg" %}">
-    </a>
-  {% elif heading_title in sort_state %}
-    <a href="?sort=-contact_last_name&sort=-contact_first_name">
-      <img src="{% static "img/sort-down.svg" %}">
+<th scope="col" class="{% if sort_url %}sort-cell{% endif %}">
+  {% if sort_url %}
+    <a
+      href="{{sort_url}}"
+      class="sort-link display-block {% if is_descending %}sort-up{% else %}sort-down{% endif %}"
+      aria-label="Sort complaints by property {{ heading }}"
+    >
+      <span>{{ heading }}</span>
     </a>
   {% else %}
-    <a href="?sort=contact_last_name&sort=contact_first_name">
-      <img src="{% static "img/sort-down.svg" %}">
-    </a>
+    <span>
+      {{ heading }}
+    </span>
   {% endif %}
 </th>
-{% endwith %}

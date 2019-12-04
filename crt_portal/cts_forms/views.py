@@ -16,6 +16,9 @@ from .model_variables import PROTECTED_CLASS_CODES
 from .page_through import pagination
 
 
+SORT_DESC_CHAR = '-'
+
+
 @login_required
 def IndexView(request):
     # Sort data based on request from params, default to `created_date` of complaint
@@ -32,9 +35,15 @@ def IndexView(request):
     paginator = Paginator(requested_reports, per_page)
     requested_reports, page_format = pagination(paginator, page, per_page)
 
+    sort_state = {}
     # make sure the links for this page have the same paging, sorting, filtering etc.
     page_args = f'?per_page={per_page}'
     for sort_item in sort:
+        if sort_item[0] == SORT_DESC_CHAR:
+            sort_state.update({sort_item[1::]: True})
+        else:
+            sort_state.update({sort_item: False})
+
         page_args = page_args + f'&sort={sort_item}'
 
     all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
@@ -67,7 +76,7 @@ def IndexView(request):
         'data_dict': data,
         'page_format': page_format,
         'page_args': page_args,
-        'sort_state': sort
+        'sort_state': sort_state
     })
 
 
