@@ -111,5 +111,17 @@
 {% endblock %}
 
 {% block page_js %}
+<script>
+  (function(root) {
+    root.CRT = root.CRT || {};
+
+    root.CRT.translations = {
+      wordRemainingText: "{{ word_count_text.wordRemainingText }}",
+      wordsRemainingText: "{{ word_count_text.wordsRemainingText }}",
+      wordLimitReachedText: "{{ word_count_text.wordLimitReachedText }}",
+      finishSummaryText: "{{ word_count_text.finishSummaryText }}"
+    };
+  })(window)
+</script>
 <script src="{% static 'js/word_count.js' %}"></script>
 {% endblock %}

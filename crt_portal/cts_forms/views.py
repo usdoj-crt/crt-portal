@@ -6,7 +6,6 @@ from django.core.paginator import Paginator
 from django.utils.translation import gettext_lazy as _
 from django.http import Http404
 
-
 from formtools.wizard.views import SessionWizardView
 
 from django.core import serializers
@@ -142,6 +141,12 @@ class CRTReportWizard(SessionWizardView):
             'page_errors_desc': ','.join([f'"{error_desc}"' for error_desc in page_errors]),
             # Disable default client-side validation
             'form_novalidate': True,
+            'word_count_text': {
+                'wordRemainingText': _('word remaining'),
+                'wordsRemainingText': _(' words remaining'),
+                'wordLimitReachedText': _(' word limit reached'),
+                'finishSummaryText': _('Please finish your summary -- '),
+            },
         })
 
         if current_step_name == _('Details'):
