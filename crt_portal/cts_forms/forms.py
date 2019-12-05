@@ -183,9 +183,10 @@ class ProtectedClassForm(ModelForm):
 
     choices = retrieve_or_create_choices()
     protected_class = ModelMultipleChoiceField(
-        error_messages={'required': PROTECTED_CLASS_ERROR},
+        error_messages={'required': _('Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.')},
         required=True,
         queryset=ProtectedClass.objects.filter(pk__in=choices).order_by('form_order'),
+        widget=UsaCheckboxSelectMultiple,
     )
     other_class = TextInput()
 
@@ -193,14 +194,6 @@ class ProtectedClassForm(ModelForm):
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
         choices = retrieve_or_create_choices()
-        self.fields['protected_class'].queryset = ProtectedClass.objects.filter(pk__in=choices).order_by('-form_order')
-        choices = retrieve_or_create_choices()
-        self.fields['protected_class'] = ModelMultipleChoiceField(
-            error_messages={'required': _('Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.')},
-            required=True,
-            queryset=ProtectedClass.objects.filter(pk__in=choices).order_by('form_order'),
-            widget=UsaCheckboxSelectMultiple,
-        )
         self.fields['protected_class'].label = _('Do you believe any of these personal characteristics influenced why you were treated this way?')
         self.fields['protected_class'].help_text = _('Some civil rights laws protect people from discrimination, which include these protected classes. These are some of the most common classes that we see.')
         self.fields['other_class'].help_text = _('Please describe "Other reason"')
