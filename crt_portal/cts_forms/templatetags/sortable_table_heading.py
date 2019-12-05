@@ -40,7 +40,8 @@ def render_sortable_heading(heading, sort_state):
     sortable_prop = sort_lookup.get(safe_heading, None)
 
     sort_dict = {
-        'heading': heading
+        'heading': heading,
+        'id': heading.lower().replace(' ', '-') + '-sort'
     }
 
     if sortable_prop in sortable_props:
