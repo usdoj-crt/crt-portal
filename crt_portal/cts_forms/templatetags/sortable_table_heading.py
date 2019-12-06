@@ -6,10 +6,15 @@ sort_lookup = {
     'status': 'status',
     'routed': 'assigned_section',
     'submitted': 'create_date',
-    'contact name': 'contact_last_name'
+    'contact name': 'contact_last_name',
+    'incident location': 'location_city_town'
 }
 sortable_props = [
-    'status', 'assigned_section', 'create_date', 'contact_last_name'
+    'status',
+    'assigned_section',
+    'create_date',
+    'contact_last_name',
+    'location_city_town'
 ]
 
 
@@ -17,6 +22,8 @@ sortable_props = [
 def heading_2_model_prop(heading):
     if heading == 'contact name':
         return ['contact_last_name', 'contact_first_name']
+    elif heading == 'incident location':
+        return ['location_city_town', 'location_state']
     else:
         return [sort_lookup[heading]]
 
