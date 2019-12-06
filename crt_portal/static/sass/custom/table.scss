@@ -1,18 +1,40 @@
+@mixin clickable-table-cell {
+  color: $gray-warm-80;
+  height: 100%;
+  outline: 0;
+  padding: .5rem 1rem;
+  text-decoration: none;
+  width: 100%;
+}
+
+@mixin sortable-cell-icon {
+  content: ' ';
+  display: block;
+  font-size: 12px;
+  height: 6px;
+  margin-right: 5px;
+  position: absolute;
+  right: 5%;
+  top: 40%;
+  width: 10px;
+}
+
 .crt-table {
   @extend .usa-table;
+  background: $white;
+  box-shadow: 0 1px 6px 2px rgba(0,0,0,0.14);
   font-size: 14px;
   height: 100%;
   line-height: 22px;
-  background: $white;
-  box-shadow: 0 1px 6px 2px rgba(0,0,0,0.14);
+  width: 100%;
 
   thead {
-    font-weight: $bold;
-    font-size: 12px;
-    line-height: 25.92px;
-    text-transform: uppercase;
     th {
       background-color: $white;
+      font-size: 12px;
+      line-height: 25.92px;
+      position: relative;
+      text-transform: uppercase;
     }
   }
 
@@ -22,16 +44,10 @@
       // way to remove padding from td elements in the table body
       padding: 0 !important;
       vertical-align: top;
+    }
 
-      a {
-        color: $gray-warm-80;
-        display: block;
-        height: 100%;
-        outline: 0;
-        padding: .5rem 1rem;
-        text-decoration: none;
-        width: 100%;
-      }
+    .td-link {
+      @include clickable-table-cell();
     }
   }
 
@@ -72,5 +88,39 @@
   &:hover {
     box-shadow: 0 1px 6px 2px rgba(0,0,0,0.14);
     transform: scale(1);
+  }
+}
+
+.sort-cell {
+  padding: 0 !important;
+
+  span {
+    margin-right: 20px;
+    white-space: nowrap;
+  }
+}
+
+.sort-image {
+  text-align: right;
+}
+
+.sort-link {
+  @include clickable-table-cell();
+  display: inline-block;
+  vertical-align: middle;
+
+
+  &.sort-up {
+    &:after {
+      @include sortable-cell-icon();
+      background: url("/static/img/sort-up.svg");
+    }
+  }
+
+  &.sort-down {
+    &:after {
+      @include sortable-cell-icon();
+      background: url("/static/img/sort-down.svg");
+    }
   }
 }
