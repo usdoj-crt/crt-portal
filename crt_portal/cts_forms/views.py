@@ -1,15 +1,23 @@
 from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 
 from formtools.wizard.views import SessionWizardView
 
 from .models import Report, ProtectedClass
 from .model_variables import PROTECTED_CLASS_CODES
+from .page_through import pagination
 
 
 @login_required
 def IndexView(request):
     latest_reports = Report.objects.order_by('-create_date')
+    per_page = request.GET.get('per_page', 15)
+    paginator = Paginator(latest_reports, per_page)
+    page = request.GET.get('page', 1)
+
+    latest_reports, page_format = pagination(paginator, page, per_page)
+
     data = []
     # formatting protected class
     for report in latest_reports:
@@ -33,12 +41,14 @@ def IndexView(request):
             "report_protected_classes": p_class_list
         })
 
-    return render_to_response('forms/index.html', {'data_dict': data})
+    return render_to_response('forms/index.html', {'data_dict': data, 'page_format': page_format})
 
 
 TEMPLATES = [
     # Contact
     'forms/report_grouped_questions.html',
+    # Primary reason
+    'forms/report_multiple_questions.html',
     # Protected Class
     'forms/report_class.html',
     # Details
@@ -54,20 +64,22 @@ class CRTReportWizard(SessionWizardView):
     def get_context_data(self, form, **kwargs):
         context = super(CRTReportWizard, self).get_context_data(form=form, **kwargs)
 
+        field_errors = list(map(lambda field: field.errors, context['form']))
+        page_errors = [error for field in field_errors for error in field]
+
         # This name appears in the progress bar wizard
         ordered_step_names = [
             'Contact',
+            'Primary Issue',
             'Protected Class',
             'Details',
-            # 'What Happened',
-            # 'Where',
-            # 'Who',
         ]
         current_step_name = ordered_step_names[int(self.steps.current)]
 
         # This title appears in large font above the question elements
         ordered_step_titles = [
             'Contact',
+            'What is your primary reason for contacting the Civil Rights Division?',
             'Please provide details',
             'Details'
         ]
@@ -76,13 +88,21 @@ class CRTReportWizard(SessionWizardView):
         context.update({
             'ordered_step_names': ordered_step_names,
             'current_step_title': current_step_title,
-            'current_step_name': current_step_name
+            'current_step_name': current_step_name,
+            'page_errors': page_errors,
+            'num_page_errors': len(list(page_errors)),
+            'page_errors_desc': ','.join([f'"{error_desc}"' for error_desc in page_errors])
         })
 
         if current_step_name == 'Details':
             context.update({
-                'page_subtitle': 'Please describe what happened in your own words',
                 'page_note': 'Continued'
+            })
+        elif current_step_name == 'Primary Issue':
+            # Disable default client-side validation to roll our own.
+            # Roll this out incrementally page-by-page.
+            context.update({
+                'form_novalidate': True
             })
 
         return context

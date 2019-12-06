@@ -24,12 +24,18 @@ i.e.
 
 $yellow: #FEE685;
 $gold: #FFBE2E;
+$gold-20v: #FFBE2E;
 $light-beige: #F6F6F2;
 $blue-warm-vivid-70: #1A4480;
 $blue-50: #2378C3;
 $blue-vivid-40: #2491FF;
+$blue-warm-5: #ECF1F7;
 $gray-warm: #2E2E2A;
 $gray-90: #171717;
+$gray-70: #454545;
+$gray-cool-4: #F1F3F6;
+$gray-warm-10: #E6E6E2;
+$red-vivid-60: #B51D09;
 $white: #FFFFFF;
 $bold: 700;
 
@@ -49,11 +55,11 @@ body {
 main {
   flex: 1 0 auto;
 
-  p, em, h2, label:not(.big) {
+  p, em, h2, label:not(.big), span:not(.big) {
     color: $gray-warm;
   }
 
-  legend, .page-subtitle, label.big {
+  legend, .page-subtitle, .big {
     color: $blue-warm-vivid-70;
     font-weight: bold;
     font-size: 1.17em; // Matches h3 size
@@ -76,14 +82,8 @@ footer {
   max-width: 30rem !important;
 
   .usa-button {
-
     &:hover {
       background-color: $blue-50;
-    }
-
-    &:focus {
-      outline: .125rem solid $blue-vivid-40;
-      outline-offset: .125rem;
     }
 
     @media (min-width: 30em) {
@@ -104,7 +104,7 @@ footer {
     width: 320px;
 
     &:focus {
-      outline: .125rem solid $blue-vivid-40;
+      outline-offset: 0;
       border: 1px solid $blue-vivid-40;
     }
   }
@@ -115,16 +115,19 @@ footer {
 
     &:focus {
       outline: .125rem solid $blue-vivid-40;
+      outline-offset: 0;
       border: 1px solid $blue-vivid-40;
     }
 
     &.bg-gold-outline {
       outline: .125rem solid $gold;
+      outline-offset: 0;
       border: 1px solid $gold;
     }
 
     &.bg-gold-outline:focus {
       outline: .125rem solid $gold;
+      outline-offset: 0;
       border: .125rem solid $gold;
     }
   }
@@ -154,11 +157,6 @@ footer {
   border: none;
   background: none;
   text-decoration: underline;
-
-  &:focus:not([disabled]) {
-    outline: .125rem solid $blue-vivid-40;
-    outline-offset: .125rem;
-  }
 }
 
 // Header Styles
@@ -206,7 +204,26 @@ h3 {
 
 // Django Formtools Wizard customization
 
+// Django wraps lot of elements in <li> by default
+// that we'd prefer not to have bulleted, like
+// radio buttons; so remove list item bullets by default.
 form#report-form {
+  .question_primary_complaint {
+    ul {
+      padding-inline-start: 0;
+    }
+
+    li {
+      margin-bottom: 1.5rem;
+    }
+
+    li.primary-issue-example-li {
+      margin-left: 18px;
+      margin-bottom: 1rem;
+      list-style: disc;
+    }
+  }
+
   li {
     list-style: none;
   }
@@ -217,6 +234,7 @@ form#report-form {
   color: $gray-warm;
 }
 
+// crt view table
 .crt-table {
   @extend .usa-table;
   font-size: 14px;
@@ -235,8 +253,38 @@ form#report-form {
   }
 }
 
-#word-limit-alert.usa-alert.usa-alert--warning {
-  background-image: url(../img/alerts/word-count-alert.svg),linear-gradient(transparent,transparent);
+.tr-status-new {
+  td {
+    font-weight: bold;
+  }
+}
+
+// crt view statuses
+.status-new {
+  color: $white !important;
+  background-color: $blue-warm-vivid-70;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 1.5rem;
+}
+
+.status-open {
+  background-color: $gold-20v;
+  font-weight: bold;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 1.5rem;
+}
+
+.status-closed {
+  background-color: $gray-warm-10;
+  font-weight: bold;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 1.5rem;
 }
 
 legend, .page-subtitle {
@@ -249,4 +297,85 @@ legend, .page-subtitle {
 .crt-checkbox__label {
   @extend .usa-checkbox__label;
   padding-left: 0;
+}
+
+
+.usa-pagination {
+  text-align: right;
+
+  ol {
+    list-style-type: none;
+    padding-left: 2rem;
+  }
+
+  li {
+    display: inline;
+    padding: 3px 10px;
+
+    &.is-active {
+      background-color: $blue-warm-vivid-70;
+      color: $white;
+    }
+
+  }
+
+  a {
+    text-decoration: none;
+  }
+}
+
+input[type="radio"]:checked + .crt-radio__label_area {
+  background-color: $blue-warm-5;
+  border: 1px solid $blue-warm-vivid-70;
+}
+
+.crt-radio__label_area {
+  @extend .usa-radio__label;
+  text-indent: 0;
+  background-color: $gray-cool-4;
+  padding: 1.5rem;
+  border: 1px solid $gray-cool-4;
+  border-radius: 5px;
+  filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, .13));
+
+  &:hover {
+    background-color: $blue-warm-5;
+  }
+
+  .label-text {
+    position: relative;
+    bottom: 40px;
+    margin-bottom: -60px;
+
+    ul {
+      padding-inline-start: 20px;
+    }
+
+    .examples-title {
+      text-transform: uppercase;
+      font-weight: bold;
+      color: $gray-70;
+    }
+  }
+}
+
+// Alert Overrides
+
+.page-errors {
+  font-weight: bold;
+  color: $red-vivid-60;
+}
+
+.usa-alert--error {
+  background-image: url(../img/alerts/error-red.svg),linear-gradient(transparent,transparent);
+}
+
+#word-limit-alert.usa-alert.usa-alert--warning {
+  background-image: url(../img/alerts/word-count-alert.svg),linear-gradient(transparent,transparent);
+}
+
+// Skipnav
+
+.usa-skipnav:focus {
+  outline-offset: 0;
 }
