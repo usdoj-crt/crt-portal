@@ -158,7 +158,7 @@ USE_TZ = True
 
 
 if environment != 'LOCAL':
-    for S3 service in vcap['s3']:
+    for service in vcap['s3']:
         if service['instance_name'] == 'crt-s3':
             s3_creds = service["credentials"]
         if service['instance_name'] == 'sso-creds':
