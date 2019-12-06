@@ -158,17 +158,24 @@ USE_TZ = True
 
 
 if environment != 'LOCAL':
+    for S3 service in vcap['s3']:
+        if service['instance_name'] == 'crt-s3':
+            s3_creds = service["credentials"]
+        if service['instance_name'] == 'sso-creds':
+            sso_creds = service["credentials"]
+
     # Single sign on
+    PRIVATE_STORAGE_URI = sso_creds["uri"]
+    METADATA_LOCAL_FILE_PATH = f'https://{PRIVATE_STORAGE_URI}/federationmetadata_dev.xml'
     SAML2_AUTH = {
         # Metadata is required, choose either remote url or local file path
         # [The auto(dynamic) metadata configuration URL of SAML2]
         'METADATA_AUTO_CONF_URL': os.environ.get('METADATA_AUTO_CONF_URL'),
         # [The metadata configuration file path]
-        'METADATA_LOCAL_FILE_PATH': os.environ.get('METADATA_LOCAL_FILE_PATH'),
+        'METADATA_LOCAL_FILE_PATH': METADATA_LOCAL_FILE_PATH,
     }
 
-    # AWS
-    s3_creds = vcap['s3'][0]["credentials"]
+    # AWS for web assets
     AWS_ACCESS_KEY_ID = s3_creds["access_key_id"]
     AWS_SECRET_ACCESS_KEY = s3_creds["secret_access_key"]
     AWS_STORAGE_BUCKET_NAME = s3_creds["bucket"]
