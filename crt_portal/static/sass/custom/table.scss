@@ -129,7 +129,9 @@
 .sort-link {
   @include clickable-table-cell();
   display: inline-block;
+  position: relative;
   vertical-align: middle;
+  z-index: 1;
 
 
   &.sort-up {

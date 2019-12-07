@@ -1,7 +1,7 @@
 {% extends "forms/base.html" %}
 {% load sortable_table_heading %}
 {% block page_header %}
-<header class="page-header-background">
+<header class="page-background">
     <div class="grid-container">
       <div class="grid-row">
         <div class="grid-col-12">
@@ -17,7 +17,7 @@
   </header>
 {% endblock %}
 
-{% block main_class %} class="page-header-background"{% endblock %}
+{% block main_class %} class="page-background"{% endblock %}
 
 {% block content %}
 <div class="grid-container-widescreen">
@@ -82,7 +82,7 @@
           <td>
             <a class="td-link display-block" href="{{datum.url}}">
               {% with summary=datum.report.violation_summary|default:"—" %}
-                {{ summary|truncatechars:60 }}
+                {{ summary|truncatechars:120 }}
               {% endwith %}
             </a>
           </td>
