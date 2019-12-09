@@ -126,6 +126,10 @@ class Valid_CRT_view_Tests(TestCase):
         # formatting the summary is done in the template
         self.assertTrue(self.test_report.violation_summary[:119] in self.content)
 
+    def test_incident_location(self):
+        self.assertTrue(self.test_report.location_city_town in self.content)
+        self.assertTrue(self.test_report.location_state in self.content)
+
     def test_auto_section_assignment(self):
         # move this to the section assignment once there are clear rules of when it should be assigned to ADM
         self.assertTrue('ADM' in self.content)

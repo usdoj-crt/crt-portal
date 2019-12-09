@@ -31,14 +31,28 @@
   thead {
     th {
       background-color: $white;
+      border-bottom: 1px solid $gray-cool-10;
+      border-top: 0;
       font-size: 12px;
       line-height: 25.92px;
       position: relative;
       text-transform: uppercase;
+      white-space: nowrap;
+    }
+  }
+
+  tr.stripe {
+    td {
+      background-color: $gray-2;
     }
   }
 
   &.usa-table {
+    tr, td, th {
+      border-left: 0;
+      border-right: 0;
+    }
+
     td {
       // USWDS adds a lot of complicated styles, and this is the most straightforward
       // way to remove padding from td elements in the table body
@@ -52,6 +66,14 @@
   }
 
   tbody {
+    td {
+      border-bottom: 1px solid $gray-cool-10;
+    }
+
+    tr:last-child {
+      border-bottom: 0;
+    }
+
     .tr-status-new {
       td {
         font-weight: bold;
@@ -107,7 +129,9 @@
 .sort-link {
   @include clickable-table-cell();
   display: inline-block;
+  position: relative;
   vertical-align: middle;
+  z-index: 1;
 
 
   &.sort-up {

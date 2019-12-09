@@ -1,7 +1,7 @@
 {% extends "forms/base.html" %}
 {% load sortable_table_heading %}
 {% block page_header %}
-<header class="page-header-background">
+<header class="page-background">
     <div class="grid-container">
       <div class="grid-row">
         <div class="grid-col-12">
@@ -17,10 +17,10 @@
   </header>
 {% endblock %}
 
-{% block main_class %} class="page-header-background"{% endblock %}
+{% block main_class %} class="page-background"{% endblock %}
 
 {% block content %}
-<div class="grid-container">
+<div class="grid-container-widescreen">
   <div class="grid-col-auto">
     <a class="usa-button margin-top-2" href="/report" label="first step" name="Create record">
         + Add new record
@@ -36,13 +36,14 @@
         {% render_sortable_heading 'Submitted' sort_state %}
         {% render_sortable_heading 'Contact Name' sort_state %}
         {% render_sortable_heading 'Contact Details' sort_state %}
-        {% render_sortable_heading 'Summary' sort_state %}
+        {% render_sortable_heading 'Incident Location' sort_state %}
+        {% render_sortable_heading 'Violation Summary' sort_state %}
         {% render_sortable_heading 'Class' sort_state %}
       </tr>
     </thead>
     {% if data_dict %}
       {% for datum in data_dict %}
-        <tr class="tr-status-{{ datum.report.status }} tr--hover">
+        <tr class="tr-status-{{ datum.report.status }} tr--hover{% cycle ' stripe' '' %}">
           <td>
             <a class="td-link display-block" href="{{datum.url}}">
               <span class="status-tag status-{{ datum.report.status }}">
@@ -69,6 +70,13 @@
               {% with phone=datum.report.contact_phone|default:"—"  %}
                 {{ phone|truncatechars:20 }}
               {% endwith %}
+            </a>
+          </td>
+          <td>
+            <a class="td-link display-block" href="{{datum.url">
+              <b>
+                {{ datum.report.location_city_town }}, {{ datum.report.location_state }}
+              </b>
             </a>
           </td>
           <td>
