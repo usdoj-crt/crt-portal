@@ -14,13 +14,15 @@ from django.conf import settings
 from .models import Report, ProtectedClass
 from .model_variables import PROTECTED_CLASS_CODES
 from .page_through import pagination
-
+from .filters import ReportFilter
 
 SORT_DESC_CHAR = '-'
 
 
 @login_required
 def IndexView(request):
+    report_filter = ReportFilter(Report, request.GET.dict())
+
     # Sort data based on request from params, default to `created_date` of complaint
     sort = request.GET.getlist('sort', ['-create_date'])
     per_page = request.GET.get('per_page', 15)
@@ -31,7 +33,7 @@ def IndexView(request):
     if all(elem.replace("-", '') in report_fields for elem in sort) is False:
         raise Http404(f'Invalid sort request: {sort}')
 
-    requested_reports = Report.objects.order_by(*sort)
+    requested_reports = report_filter.filter().order_by(*sort)
     paginator = Paginator(requested_reports, per_page)
     requested_reports, page_format = pagination(paginator, page, per_page)
 
@@ -76,7 +78,8 @@ def IndexView(request):
         'data_dict': data,
         'page_format': page_format,
         'page_args': page_args,
-        'sort_state': sort_state
+        'sort_state': sort_state,
+        'filters': report_filter.get_filters()
     })
 
 

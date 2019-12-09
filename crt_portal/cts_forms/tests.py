@@ -256,6 +256,42 @@ class Valid_CRT_SORT_Tests(TestCase):
         self.assertTrue(response_3.status_code, '404')
 
 
+class CRT_FILTER_Tests(TestCase):
+    def setUp(self):
+        for choice in PRIMARY_COMPLAINT_CHOICES:
+            SAMPLE_REPORT['primary_complaint'] = choice[0]
+            test_report = Report.objects.create(**SAMPLE_REPORT)
+            test_report.assigned_section = test_report.assign_section()
+            test_report.save()
+
+        self.client = Client()
+        # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        url_base = reverse('crt_forms:crt-forms-index')
+        url = f'{url_base}?assigned_section=ADM&status=great'
+        self.response = self.client.get(url)
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_accepts_defined_filters(self):
+        context = self.response.context
+
+        self.assertTrue(context['filters']['assigned_section'] == 'ADM')
+        self.assertFalse(context['filters'].get('state'))
+
+    def test_filter(self):
+        expected_reports = filter(
+            lambda x: x.assigned_section == 'ADM',
+            Report.objects.all()
+        )
+        actual_reports = self.response.context['data_dict']
+
+        self.assertTrue(len(actual_reports) == len(list(expected_reports)))
+
+
 class Validation_Form_Tests(TestCase):
     """Confirming validation on the server level, required fields etc"""
     def test_required_protected_class(self):
@@ -400,14 +436,14 @@ class LoginRequiredTests(TestCase):
 
             self.assertEqual(
                 cm.check_present(
-                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User saved: 3 permissions: <QuerySet []> staff: False superuser: False active: True'),
+                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User saved: 5 permissions: <QuerySet []> staff: False superuser: False active: True')
                 ),
                 None,
             )
 
             self.assertEqual(
                 cm.check_present(
-                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User deleted: 3 permissions: <QuerySet []> staff: False superuser: False active: True'),
+                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User deleted: 5 permissions: <QuerySet []> staff: False superuser: False active: True')
                 ),
                 None,
             )
