@@ -155,8 +155,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
-
-
 if environment != 'LOCAL':
     s3_creds = ''
     sso_creds = ''

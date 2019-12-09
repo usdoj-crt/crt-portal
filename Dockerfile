@@ -9,6 +9,13 @@ ENV PYTHONUNBUFFERED 1
 # Set work directory
 WORKDIR /code
 
+# get binary dependencies
+RUN \
+  apt-get update && \
+  apt-get install -y apt-utils && \
+  apt-get install -y libxmlsec1 libxmlsec1-openssl xmlsec1 && \
+  apt-get install -y apt-transport-https
+
 # Install Python dependencies
 RUN pip install pipenv
 
@@ -16,9 +23,6 @@ COPY Pipfile Pipfile.lock /code/
 RUN pipenv install --system
 
 # Install Node and npm dependencies
-RUN \
-  apt-get update && \
-  apt-get install -yqq apt-transport-https
 RUN \
   echo "deb https://deb.nodesource.com/node_10.x stretch main" > /etc/apt/sources.list.d/nodesource.list && \
   wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
@@ -30,7 +34,7 @@ RUN \
   npm i -g npm@^6 && \
   rm -rf /var/lib/apt/lists/*
 
-RUN npm install
+RUN npm install --system
 
 # Copy project
 COPY . /code/
