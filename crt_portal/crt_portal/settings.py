@@ -15,6 +15,8 @@ import json
 
 from django.utils.log import DEFAULT_LOGGING
 
+import boto3
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -160,19 +162,30 @@ if environment != 'LOCAL':
     sso_creds = ''
     for service in vcap['s3']:
         if service['instance_name'] == 'crt-s3':
-            s3_creds = service["credentials"]
+            s3_creds = service['credentials']
         if service['instance_name'] == 'sso-creds':
-            sso_creds = service["credentials"]
+            sso_creds = service['credentials']
 
     # Single sign on
-    PRIVATE_STORAGE_URI = sso_creds["uri"]
-    METADATA_LOCAL_FILE_PATH = f'https://{PRIVATE_STORAGE_URI}/federationmetadata_dev.xml'
+    SSO_BUCKET = sso_creds['bucket']
+    SSO_REGION = sso_creds['region']
+    AWS_S3_SSO_URL = f'https://{SSO_BUCKET}.s3-{SSO_REGION}.amazonaws.com/federationmetadata_dev.xml'
+    client_sso = boto3.client(
+        's3',
+        SSO_REGION,
+        aws_access_key_id=sso_creds['access_key_id'],
+        aws_secret_access_key=sso_creds['secret_access_key'],
+    )
+
+    with open('federationmetadata_dev.xml', 'wb') as DATA:
+        client_sso.download_file(SSO_BUCKET, 'federationmetadata_dev.xml', 'federationmetadata_dev.xml')
+
     SAML2_AUTH = {
         # Metadata is required, choose either remote url or local file path
         # [The auto(dynamic) metadata configuration URL of SAML2]
-        'METADATA_AUTO_CONF_URL': os.environ.get('METADATA_AUTO_CONF_URL'),
+        'METADATA_AUTO_CONF_URL': vcap['user-provided'][0]['credentials']['METADATA_AUTO_CONF_URL'],
         # [The metadata configuration file path]
-        'METADATA_LOCAL_FILE_PATH': METADATA_LOCAL_FILE_PATH,
+        'METADATA_LOCAL_FILE_PATH': 'federationmetadata_dev.xml',
     }
 
     # AWS for web assets
@@ -180,7 +193,6 @@ if environment != 'LOCAL':
     AWS_SECRET_ACCESS_KEY = s3_creds["secret_access_key"]
     AWS_STORAGE_BUCKET_NAME = s3_creds["bucket"]
     AWS_S3_REGION_NAME = s3_creds["region"]
-    AWS_DEFAULT_REGION = s3_creds["region"]
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3-{AWS_S3_REGION_NAME}.amazonaws.com'
     AWS_S3_OBJECT_PARAMETERS = {
         'CacheControl': 'max-age=86400',

@@ -1,5 +1,28 @@
 # Maintenance or infrequent tasks
 
+## Debugging in Cloud.gov
+
+Sometimes you need to see how things work on the server. As you know, don't test it in production, use environments people are less likely to look at, like dev.
+
+First you can SSH into the app with:
+
+    cf ssh crt-portal-django
+
+Then you will need to activate the environment:
+
+    /tmp/lifecycle/shell
+
+This gets you a terminal where you can test things such as `curl` a url to see if it can access it etc.
+
+For testing things out in the python code, you can use the Django shell.
+
+    cd crt_portal
+    python manage.py shell
+
+There you can import the things that you want to test and work on code interactively. See [Django tutorial documentation](https://docs.djangoproject.com/en/2.2/intro/tutorial02/#playing-with-the-api) for an example of the ways you can use the shell.
+
+`Control+D`  to exit the shell then, the SSH session.
+
 ## Change protected class options
 
 The PROTECTED_CLASS_CHOICES determine what is populated in the form. PROTECTED_MODEL_CHOICES determine what is allowable data in the models.
@@ -24,5 +47,20 @@ You should be able to reorder the form by setting the value in the database or m
 - Create a private S3 bucket
 
 
+
+- Upload metadata to bucket
+
+    SERVICE_INSTANCE_NAME=sso-creds
+    KEY_NAME=sso-creds-key
+    cf create-service-key "${SERVICE_INSTANCE_NAME}" "${KEY_NAME}"
+    S3_CREDENTIALS=`cf service-key "${SERVICE_INSTANCE_NAME}" "${KEY_NAME}" | tail -n +2`
+    export AWS_ACCESS_KEY_ID=`echo "${S3_CREDENTIALS}" | jq -r .access_key_id`
+    export AWS_SECRET_ACCESS_KEY=`echo "${S3_CREDENTIALS}" | jq -r .secret_access_key`
+    export BUCKET_NAME=`echo "${S3_CREDENTIALS}" | jq -r .bucket`
+    export AWS_DEFAULT_REGION=`echo "${S3_CREDENTIALS}" | jq -r '.region'`
+
+
 Set:
 METADATA_AUTO_CONF_URL
+
+
