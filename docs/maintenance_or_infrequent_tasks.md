@@ -45,10 +45,12 @@ You should be able to reorder the form by setting the value in the database or m
 - Get the needed metadata in XML from the SSO provider
 
 - Create a private S3 bucket
+See more details about S3 in [cloud.gov docs](https://cloud.gov/docs/services/s3/)
 
-
+    cf create-service s3 basic sso-creds
 
 - Upload metadata to bucket
+Requires the [jq tool](https://stedolan.github.io/jq/)
 
     SERVICE_INSTANCE_NAME=sso-creds
     KEY_NAME=sso-creds-key
@@ -61,6 +63,7 @@ You should be able to reorder the form by setting the value in the database or m
 
 
 Set:
-METADATA_AUTO_CONF_URL
+
+METADATA_AUTO_CONF_URL in
 
 

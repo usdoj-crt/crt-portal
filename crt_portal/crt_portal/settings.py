@@ -186,6 +186,18 @@ if environment != 'LOCAL':
         'METADATA_AUTO_CONF_URL': vcap['user-provided'][0]['credentials']['METADATA_AUTO_CONF_URL'],
         # [The metadata configuration file path]
         'METADATA_LOCAL_FILE_PATH': 'federationmetadata_dev.xml',
+        'DEFAULT_NEXT_URL': '/form/view',
+
+        # !!! change this explicitly to FALSE once this is working !!! #
+        'CREATE_USER': 'TRUE',
+        # remove once working #
+        'NEW_USER_PROFILE': {
+            'USER_GROUPS': [],  # The default group name when a new user logs in
+            'ACTIVE_STATUS': True,  # The default active status for new users
+            'STAFF_STATUS': True,  # The staff status for new users
+            'SUPERUSER_STATUS': False,  # The superuser status for new users
+        },
+
     }
 
     # AWS for web assets
@@ -203,6 +215,7 @@ if environment != 'LOCAL':
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_DEFAULT_ACL = 'public-read'
+
 else:
     STATIC_URL = '/static/'
 
