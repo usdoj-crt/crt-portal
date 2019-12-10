@@ -27,8 +27,10 @@ def retrieve_or_create_choices_2(options, model_object):
     choices = []
     for choice in options:
         try:
-            model_object.objects.get_or_create(hatecrimes_trafficking_option=choice)
+            
+            choice_object = model_object.objects.get_or_create(hatecrimes_trafficking_option=choice)
             #change option to generic and replace other options function
+            choices.append(choice_object[0].pk)
         except:  # noqa
             # this has a concurrency issue for initial migrations
             logger.warning('class not loaded yet')
@@ -81,16 +83,29 @@ class Contact(ModelForm):
 
 
 class PrimaryReason(ModelForm):
+    class Meta:
+        model = Report     
+        fields = [
+            'primary_complaint', 
+            'hatecrimes_trafficking'
+        ]
+        widgets = {
+            'hatecrimes_trafficking': UsaCheckboxSelectMultiple,
+            'primary_complaint': CrtRadioArea(attrs={
+                'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
+                'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+            }),
+        }
+
     choices = retrieve_or_create_choices_2(HATE_CRIMES_TRAFFICKING_CHOICES, HateCrimesandTrafficking)
     hatecrimes_trafficking = ModelMultipleChoiceField(
         queryset=HateCrimesandTrafficking.objects.filter(pk__in=choices),
         widget=UsaCheckboxSelectMultiple,
     )
-    def __init__(self, *args, **kwargs):
-        super(ModelForm, self).__init__(*args, **kwargs)
 
-           
-        primary_complaint = ChoiceField(
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)      
+        self.fields['primary_complaint'] = ChoiceField(
             choices=PRIMARY_COMPLAINT_CHOICES,
             widget=CrtRadioArea(attrs={
                 'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
@@ -103,20 +118,13 @@ class PrimaryReason(ModelForm):
             help_text=_('Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.')
         )
 
+        choices = retrieve_or_create_choices_2(HATE_CRIMES_TRAFFICKING_CHOICES, HateCrimesandTrafficking)
+        print(choices)
+        self.fields['hatecrimes_trafficking'] = ModelMultipleChoiceField(
+            queryset=HateCrimesandTrafficking.objects.filter(pk__in=choices),
+            widget=UsaCheckboxSelectMultiple,
+        )
 
-    class Meta:
-        model = Report
-        
-        fields = [
-            'primary_complaint', 'hatecrimes_trafficking'
-        ]
-        widgets={
-            'hatecrimes_trafficking': UsaCheckboxSelectMultiple,
-            'primary_complaint': CrtRadioArea(attrs={
-                'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
-                'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
-            }),
-        }
 
 class Details(ModelForm):
     def __init__(self, *args, **kwargs):
