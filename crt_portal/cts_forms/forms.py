@@ -123,6 +123,8 @@ class PrimaryReason(ModelForm):
         self.fields['hatecrimes_trafficking'] = ModelMultipleChoiceField(
             queryset=HateCrimesandTrafficking.objects.filter(pk__in=choices),
             widget=UsaCheckboxSelectMultiple,
+            help_text=_('Hate crimes and human trafficking are considered criminal cases and go through a different process for investigation than other civil rights cases. If we determine your situation falls into these categories after submitting your concern, we will contact you with next steps.'),
+            label=_('Hate Crimes & Human Trafficking')
         )
 
 
