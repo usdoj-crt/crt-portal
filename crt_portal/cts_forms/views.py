@@ -1,4 +1,5 @@
 import urllib.parse
+import os
 
 from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -140,6 +141,7 @@ class CRTReportWizard(SessionWizardView):
             _('Details'),
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]
+        form_autocomplete_off = os.getenv('FORM_AUTOCOMPLETE_OFF', False)
 
         context.update({
             'ordered_step_names': ordered_step_names,
@@ -150,6 +152,7 @@ class CRTReportWizard(SessionWizardView):
             'page_errors_desc': ','.join([f'"{error_desc}"' for error_desc in page_errors]),
             # Disable default client-side validation
             'form_novalidate': True,
+            'form_autocomplete_off': form_autocomplete_off,
             'word_count_text': {
                 'wordRemainingText': _('word remaining'),
                 'wordsRemainingText': _(' words remaining'),
