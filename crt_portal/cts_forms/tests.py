@@ -126,6 +126,10 @@ class Valid_CRT_view_Tests(TestCase):
         # formatting the summary is done in the template
         self.assertTrue(self.test_report.violation_summary[:119] in self.content)
 
+    def test_incident_location(self):
+        self.assertTrue(self.test_report.location_city_town in self.content)
+        self.assertTrue(self.test_report.location_state in self.content)
+
     def test_auto_section_assignment(self):
         # move this to the section assignment once there are clear rules of when it should be assigned to ADM
         self.assertTrue('ADM' in self.content)
@@ -229,6 +233,15 @@ class Valid_CRT_SORT_Tests(TestCase):
 
     def tearDown(self):
         self.user.delete()
+
+    def test_default_sort_order_desc(self):
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        expected_list = []
+        for record in response.context['data_dict']:
+            expected_list.append(record['report'].create_date)
+
+        self.assertTrue(expected_list == sorted(expected_list, key=None, reverse=True))
+        self.assertFalse(expected_list == sorted(expected_list))
 
     def test_sort(self):
         # Vote should come after ADM when alphabetical, opposite for reverse

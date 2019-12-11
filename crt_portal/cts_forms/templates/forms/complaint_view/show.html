@@ -25,7 +25,7 @@
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-8">
           <h2 class="text-uppercase">
-            Complaint <span class="text-gold">{{ data.id }}</span>
+            Complaint
           </h2>
           <p>
             <span class="text-gold text-uppercase">Received:  </span>
@@ -46,38 +46,8 @@
         <div class="grid-row">
           <div class="tablet:grid-col-6"></div>
           <div class="tablet:grid-col-6">
-            <div class="complaint-card">
-              <div class="grid-row">
-                <div class="grid-col-fill">
-                  <h3 class="complaint-card-heading text-uppercase">Correspondant information</h3>
-                </div>
-                <div class="grid-col-auto">
-                  <button class="usa-button usa-button--outline complaint-card-action">
-                    Edit
-                  </button>
-                </div>
-              </div>
-              <table class="usa-table usa-table--borderless complaint-card-table">
-                <tr>
-                  <th>Name</th>
-                  <td>
-                    <strong>
-                      {% with l_name=data.contact_last_name|default:"—" f_name=data.contact_first_name|default:"—" %}
-                      {{ l_name }}, {{ f_name }}
-                      {% endwith %}
-                    </strong>
-                  </td>
-                </tr>
-                <tr>
-                  <th>Email</th>
-                  <td>{{ data.contact_email|default:"—" }}</td>
-                </tr>
-                <tr>
-                  <th>Telephone</th>
-                  <td>{{ data.contact_phone|default:"—" }}</td>
-                </tr>
-              </table>
-            </div>
+            {% include 'forms/complaint_view/show/correspondent_info.html' with data=data %}
+            {% include 'forms/complaint_view/show/full_summary.html' with summary=data.violation_summary %}
           </div>
         </div>
       </div>

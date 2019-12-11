@@ -7,7 +7,6 @@ from django.core.paginator import Paginator
 from django.utils.translation import gettext_lazy as _
 from django.http import Http404
 
-
 from formtools.wizard.views import SessionWizardView
 
 from django.core import serializers
@@ -18,10 +17,13 @@ from .model_variables import PROTECTED_CLASS_CODES
 from .page_through import pagination
 
 
+SORT_DESC_CHAR = '-'
+
+
 @login_required
 def IndexView(request):
     # Sort data based on request from params, default to `created_date` of complaint
-    sort = request.GET.getlist('sort', ['create_date'])
+    sort = request.GET.getlist('sort', ['-create_date'])
     per_page = request.GET.get('per_page', 15)
     page = request.GET.get('page', 1)
 
@@ -34,9 +36,15 @@ def IndexView(request):
     paginator = Paginator(requested_reports, per_page)
     requested_reports, page_format = pagination(paginator, page, per_page)
 
+    sort_state = {}
     # make sure the links for this page have the same paging, sorting, filtering etc.
     page_args = f'?per_page={per_page}'
     for sort_item in sort:
+        if sort_item[0] == SORT_DESC_CHAR:
+            sort_state.update({sort_item[1::]: True})
+        else:
+            sort_state.update({sort_item: False})
+
         page_args = page_args + f'&sort={sort_item}'
 
     all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
@@ -69,7 +77,7 @@ def IndexView(request):
         'data_dict': data,
         'page_format': page_format,
         'page_args': page_args,
-        'sort_state': sort
+        'sort_state': sort_state
     })
 
 
@@ -145,6 +153,12 @@ class CRTReportWizard(SessionWizardView):
             # Disable default client-side validation
             'form_novalidate': True,
             'form_autocomplete_off': form_autocomplete_off,
+            'word_count_text': {
+                'wordRemainingText': _('word remaining'),
+                'wordsRemainingText': _(' words remaining'),
+                'wordLimitReachedText': _(' word limit reached'),
+                'finishSummaryText': _('Please finish your summary -- '),
+            },
         })
 
         if current_step_name == _('Details'):
