@@ -39,6 +39,13 @@ form#report-form {
     }
   }
 
+  .look-like-link {
+    padding: 0;
+    border: none;
+    background: none;
+    text-decoration: underline;
+  }
+
   .blue-left-highlight {
     border-left: 2px solid $blue-warm-vivid-70;
     padding-left: 0.5rem;
@@ -140,17 +147,26 @@ form#report-form {
   display: none;
 }
 
-.look-like-link {
-  padding: 0;
-  border: none;
-  background: none;
-  text-decoration: underline;
-}
-
 .form-help-text {
   color: $gray-70;
   font-size: .9rem;
   // Necessary because we want to override styles applied to the p tag
   margin: .5rem 0 1rem 0 !important;
+}
+
+.usa-button--light {
+  background-color: $light-beige;
+  color: $blue-50;
+
+  &:hover {
+    background-color: #f2f2f2;
+    color: $blue-50;
+  }
+
+  img {
+    margin-top: -2px; 
+    padding-right: .5rem;
+    vertical-align: middle;
+  }
 }
 

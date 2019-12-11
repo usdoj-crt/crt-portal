@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="6px" viewBox="0 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 60.1 (88133) - https://sketch.com -->
+    <title>sort-up</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="sort-up" transform="translate(5.000000, 3.000000) rotate(-180.000000) translate(-5.000000, -3.000000) translate(-7.000000, -9.000000)">
+            <rect id="Rectangle" x="0" y="0" width="24" height="24"></rect>
+            <path d="M16.3113095,9 L7.62083333,9 C7.45261905,9 7.30714286,9.06142857 7.18428571,9.18416667 C7.06142857,9.30702381 7,9.4525 7,9.62059524 C7,9.78869048 7.06142857,9.93428571 7.18428571,10.0570238 L11.5295238,14.4022619 C11.6525,14.525119 11.7979762,14.5866667 11.9660714,14.5866667 C12.1341667,14.5866667 12.2797619,14.525119 12.4025,14.4022619 L16.7477381,10.0570238 C16.8704762,9.93428571 16.9321429,9.78869048 16.9321429,9.62059524 C16.9321429,9.4525 16.8704762,9.30702381 16.7477381,9.18416667 C16.625,9.06130952 16.4794048,9 16.3113095,9 L16.3113095,9 Z" id="Shape" fill="#323A44"></path>
+        </g>
+    </g>
+</svg>

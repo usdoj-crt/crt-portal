@@ -1,0 +1,110 @@
+{% extends "forms/base.html" %}
+{% load sortable_table_heading %}
+{% block page_header %}
+<header class="page-background">
+    <div class="grid-container">
+      <div class="grid-row">
+        <div class="grid-col-12">
+          <div class="display-flex flex-column flex-align-end">
+            <p><a href="/accounts/logout">log out</a></p>
+          </div>
+          <h1>
+            CRT Complaint Records
+          </h1>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block main_class %} class="page-background"{% endblock %}
+
+{% block content %}
+<div class="grid-container-widescreen">
+  <div class="grid-col-auto">
+    <a class="usa-button margin-top-2" href="/report" label="first step" name="Create record">
+        + Add new record
+    </a>
+    <p>{{ page_format.page_range_start }} - {{ page_format.page_range_end }} of {{ page_format.count }} records</p>
+    {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args %}
+  </div>
+  <table class="usa-table crt-table sort-table">
+    <thead>
+      <tr>
+        {% render_sortable_heading 'Status' sort_state %}
+        {% render_sortable_heading 'Routed' sort_state %}
+        {% render_sortable_heading 'Submitted' sort_state %}
+        {% render_sortable_heading 'Contact Name' sort_state %}
+        {% render_sortable_heading 'Contact Details' sort_state %}
+        {% render_sortable_heading 'Incident Location' sort_state %}
+        {% render_sortable_heading 'Violation Summary' sort_state %}
+        {% render_sortable_heading 'Class' sort_state %}
+      </tr>
+    </thead>
+    {% if data_dict %}
+      {% for datum in data_dict %}
+        <tr class="tr-status-{{ datum.report.status }} tr--hover{% cycle ' stripe' '' %}">
+          <td>
+            <a class="td-link display-block" href="{{datum.url}}">
+              <span class="status-tag status-{{ datum.report.status }}">
+                {{ datum.report.status }}
+              </span>
+            </a>
+          </td>
+          <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.assigned_section }}</a></td>
+          <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.create_date|date:"SHORT_DATE_FORMAT" }}</a></td>
+          <td>
+            <a class="td-link display-block" href="{{datum.url}}">
+              {% with last=datum.report.contact_last_name|default:"—" %}
+                {{ last|truncatechars:20 }}{% endwith %}, {% with first=datum.report.contact_first_name|default:"—" %}
+                {{ first|truncatechars:20 }}
+              {% endwith %}
+            </a>
+          </td>
+          <td>
+            <a class="td-link display-block" href="{{datum.url}}">
+              {% with email=datum.report.contact_email|default:"—" %}
+                {{ email|truncatechars:20 }}
+              {% endwith %}
+              <br>
+              {% with phone=datum.report.contact_phone|default:"—"  %}
+                {{ phone|truncatechars:20 }}
+              {% endwith %}
+            </a>
+          </td>
+          <td>
+            <a class="td-link display-block" href="{{datum.url}}">
+              <b>
+                {{ datum.report.location_city_town }}, {{ datum.report.location_state }}
+              </b>
+            </a>
+          </td>
+          <td>
+            <a class="td-link display-block" href="{{datum.url}}">
+              {% with summary=datum.report.violation_summary|default:"—" %}
+                {{ summary|truncatechars:120 }}
+              {% endwith %}
+            </a>
+          </td>
+          <td>
+            <a class="td-link display-block" href="{{datum.url}}">
+              {% for protected_class in datum.report_protected_classes %}
+                  {% if not forloop.last %}
+                    {{ protected_class|truncatechars:50 }},<br>
+                  {% else %}
+                    {{ protected_class|truncatechars:50 }}
+                  {% endif %}
+              {% endfor %}
+            </a>
+          </td>
+        </tr>
+      {% endfor %}
+    {% else %}
+      <tr><td>No reports are available.<td><td></td></td></td><td></td><td></td><td></td><td></td></tr>
+    {% endif %}
+  </table>
+  <div class="margin-bottom-5">
+    {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args %}
+  </div>
+</div>
+{% endblock %}
