@@ -10,6 +10,7 @@ filter_options = {
     'location_state': '__in',
 }
 
+
 # Populate query with valid filterable fields
 def report_filter(request):
     kwargs = {}
