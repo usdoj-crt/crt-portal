@@ -1,35 +1,26 @@
 # Class to handle filtering Reports by supplied query params,
 # provided they are valid filterable model properties.
+from .models import Report
 
+# To add a new filter option for Reports, add the field name and expected filter behavior
+filter_options = {
+    'assigned_section': 'match',
+    'primary_complaint': 'match',
+    'status': 'match',
+    'location_state': 'match',
+}
 
-class ReportFilter:
-    def __init__(self, model, filter_dict):
-        self.model = model
-        self.filterable_fields = ['assigned_section']
-        self.filters = self.__sanitize_filters(filter_dict)
+# Populate query with valid filterable fields
+def report_filter(request):
+    kwargs = {}
+    filters = {}
+    for field in filter_options.keys():
+        if filter_options[field] == 'match':
+            filter_list = request.GET.getlist(field)
+            if len(filter_list) > 0:
+                # works for one or more options with exact matches
+                kwargs[f'{field}__in'] = request.GET.getlist(field)
+                filters[field] = request.GET.getlist(field)
 
-    # Populate internal filters object with valid filterable fields
-    def __sanitize_filters(self, filter_dict):
-        filters = {}
-
-        for field in self.filterable_fields:
-            if field in filter_dict:
-                filters.update({
-                    field: filter_dict[field]
-                })
-
-        return filters
-
-    def get_filters(self):
-        return self.filters
-
-    # Return a QuerySet ready to be filtered on evaluation, or the
-    # original QuerySet supplied to this class on instantiation
-    def filter(self):
-        filtered = self.model.objects
-        filters = self.get_filters()
-
-        if len(filters.keys()):
-            filtered = filtered.filter(**filters)
-
-        return filtered
+    # returns a query and a dictionary that we can use to keep track of the filters we apply
+    return Report.objects.filter(**kwargs), filters
