@@ -15,14 +15,14 @@ from django.conf import settings
 from .models import Report, ProtectedClass
 from .model_variables import PROTECTED_CLASS_CODES
 from .page_through import pagination
-from .filters import ReportFilter
+from .filters import report_filter
 
 SORT_DESC_CHAR = '-'
 
 
 @login_required
 def IndexView(request):
-    report_filter = ReportFilter(Report, request.GET.dict())
+    report_query, query_filters = report_filter(request)
 
     # Sort data based on request from params, default to `created_date` of complaint
     sort = request.GET.getlist('sort', ['-create_date'])
@@ -34,22 +34,28 @@ def IndexView(request):
     if all(elem.replace("-", '') in report_fields for elem in sort) is False:
         raise Http404(f'Invalid sort request: {sort}')
 
-    requested_reports = report_filter.filter().order_by(*sort)
+    requested_reports = report_query.order_by(*sort)
     paginator = Paginator(requested_reports, per_page)
     requested_reports, page_format = pagination(paginator, page, per_page)
 
     sort_state = {}
     # make sure the links for this page have the same paging, sorting, filtering etc.
     page_args = f'?per_page={per_page}'
+    query_args = ''
+    for query_item in query_filters.keys():
+        arg = query_item
+        for item in query_filters[query_item]:
+            query_args = query_args + f'&{arg}={item}'
+
     for sort_item in sort:
         if sort_item[0] == SORT_DESC_CHAR:
             sort_state.update({sort_item[1::]: True})
         else:
             sort_state.update({sort_item: False})
 
-        page_args = page_args + f'&sort={sort_item}'
+        page_args = page_args + f'&sort={sort_item}{query_args}'
 
-    all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
+    all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}{query_args}')
 
     data = []
     # formatting protected class
@@ -80,7 +86,7 @@ def IndexView(request):
         'page_format': page_format,
         'page_args': page_args,
         'sort_state': sort_state,
-        'filters': report_filter.get_filters()
+        'filters': query_args,
     })
 
 

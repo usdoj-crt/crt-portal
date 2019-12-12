@@ -270,26 +270,32 @@ class CRT_FILTER_Tests(TestCase):
         self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
         url_base = reverse('crt_forms:crt-forms-index')
-        url = f'{url_base}?assigned_section=ADM&status=great'
-        self.response = self.client.get(url)
+        url = f'{url_base}?assigned_section=ADM'
+        self.one_filter_response = self.client.get(url)
+        url_1 = f'{url_base}?assigned_section=ADM&status=new'
+        self.two_filter_response = self.client.get(url_1)
+        url_2 = f'{url_base}?assigned_section=ADM&status=closed'
+        self.two_filter_no_match = self.client.get(url_2)
 
     def tearDown(self):
         self.user.delete()
 
-    def test_accepts_defined_filters(self):
-        context = self.response.context
-
-        self.assertTrue(context['filters']['assigned_section'] == 'ADM')
-        self.assertFalse(context['filters'].get('state'))
-
     def test_filter(self):
-        expected_reports = filter(
-            lambda x: x.assigned_section == 'ADM',
-            Report.objects.all()
-        )
-        actual_reports = self.response.context['data_dict']
+        expected_reports = Report.objects.filter(assigned_section='ADM')
+        actual_reports = self.one_filter_response.context['data_dict']
 
         self.assertTrue(len(actual_reports) == len(list(expected_reports)))
+
+    def test_combined_filter(self):
+        # assumes all new reports are assigned to ADM and labeled new
+        all_reports_actual = Report.objects.filter(assigned_section='ADM', status='new')
+        all_reports_expected = self.two_filter_response.context['data_dict']
+        # assumes no reports should be assigned to ADM and marked closed
+        no_reports_actual = Report.objects.filter(assigned_section='ADM', status='closed')
+        no_reports_expected = self.two_filter_no_match.context['data_dict']
+
+        self.assertTrue(len(all_reports_actual) == len(all_reports_expected))
+        self.assertTrue(len(no_reports_actual) == len(no_reports_expected))
 
 
 class Validation_Form_Tests(TestCase):
