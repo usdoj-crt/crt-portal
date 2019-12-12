@@ -1,0 +1,37 @@
+{% extends "forms/base.html" %}
+
+{% block page_header %}
+<header class="page-background">
+    <div class="grid-container">
+      <div class="grid-row">
+        <div class="grid-col-12">
+          <div class="display-flex flex-column flex-align-end">
+            <p><a href="/accounts/logout">log out</a></p>
+          </div>
+          <h1>
+            CRT Complaint Records
+          </h1>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block main_class %} class="page-background"{% endblock %}
+
+{% block content %}
+<div class="grid-container-widescreen">
+  <div class="grid-col-auto">
+    <a class="usa-button margin-top-2" href="/report" label="first step" name="Create record">
+        + Add new record
+    </a>
+    <p>{{ page_format.page_range_start }} - {{ page_format.page_range_end }} of {{ page_format.count }} records</p>
+    {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args %}
+  </div>
+  {% include "forms/complaint_view/index/filters.html" with filters=filters form=form %}
+  {% include "forms/complaint_view/index/complaints_table.html" with data_dict=data_dict sort_state=sort_state %}
+  <div class="margin-bottom-5">
+    {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args %}
+  </div>
+</div>
+{% endblock %}

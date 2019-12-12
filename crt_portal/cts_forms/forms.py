@@ -11,9 +11,10 @@ from .model_variables import (
     PRIMARY_COMPLAINT_CHOICES,
     PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
     PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+    SECTION_CHOICES,
     STATES_AND_TERRITORIES,
     VIOLATION_SUMMARY_ERROR,
-    WHERE_ERRORS
+    WHERE_ERRORS,
 )
 from .phone_regex import phone_validation_regex
 
@@ -130,6 +131,7 @@ class LocationForm(ModelForm):
             },
             label='State'
         )
+        self.fields['location_state'].widget.attrs['list'] = 'states'
 
         self.question_groups = [
             QuestionGroup(
@@ -218,3 +220,20 @@ class Who(ModelForm):
         widgets = {
             'respondent_contact_ask': CheckboxInput,
         }
+
+
+class Filters(ModelForm):
+    class Meta:
+        model = Report
+        fields = ['assigned_section']
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+
+        self.fields['assigned_section'] = ChoiceField(
+            choices=SECTION_CHOICES,
+            widget=CrtDropdown,
+            label="View sections",
+            required=False
+        )
+        self.fields['assigned_section'].widget.attrs['list'] = 'assigned_sections_choices'

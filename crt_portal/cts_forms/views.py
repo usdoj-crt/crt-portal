@@ -16,6 +16,7 @@ from .models import Report, ProtectedClass
 from .model_variables import PROTECTED_CLASS_CODES
 from .page_through import pagination
 from .filters import report_filter
+from .forms import Filters
 
 SORT_DESC_CHAR = '-'
 
@@ -81,13 +82,16 @@ def IndexView(request):
             "url": f'{report.id}/?next={all_args_encoded}'
         })
 
-    return render_to_response('forms/complaint_view/index.html', {
+    final_data = {
+        'form': Filters(request.GET),
         'data_dict': data,
         'page_format': page_format,
         'page_args': page_args,
         'sort_state': sort_state,
         'filters': query_args,
-    })
+    }
+
+    return render_to_response('forms/complaint_view/index/index.html', final_data)
 
 
 @login_required
@@ -103,7 +107,7 @@ def ShowView(request, id):
             'debug_data': serializers.serialize('json', [report, ])
         })
 
-    return render_to_response('forms/complaint_view/show.html', output)
+    return render_to_response('forms/complaint_view/show/index.html', output)
 
 
 TEMPLATES = [
