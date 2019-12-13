@@ -42,11 +42,12 @@ def IndexView(request):
     sort_state = {}
     # make sure the links for this page have the same paging, sorting, filtering etc.
     page_args = f'?per_page={per_page}'
-    query_args = ''
+    filter_args = ''
+
     for query_item in query_filters.keys():
         arg = query_item
         for item in query_filters[query_item]:
-            query_args = query_args + f'&{arg}={item}'
+            filter_args = filter_args + f'&{arg}={item}'
 
     for sort_item in sort:
         if sort_item[0] == SORT_DESC_CHAR:
@@ -54,9 +55,10 @@ def IndexView(request):
         else:
             sort_state.update({sort_item: False})
 
-        page_args = page_args + f'&sort={sort_item}{query_args}'
+        # all query params except info about what page we are on
+        page_args = page_args + f'&sort={sort_item}{filter_args}'
 
-    all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}{query_args}')
+    all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
 
     data = []
     # formatting protected class
@@ -88,7 +90,8 @@ def IndexView(request):
         'page_format': page_format,
         'page_args': page_args,
         'sort_state': sort_state,
-        'filters': query_args,
+        'filter_state': filter_args,
+        'filters': query_filters,
     }
 
     return render_to_response('forms/complaint_view/index/index.html', final_data)

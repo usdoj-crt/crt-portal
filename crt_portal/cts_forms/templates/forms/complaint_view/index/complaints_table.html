@@ -1,19 +1,21 @@
 {% load sortable_table_heading %}
+{% load static %}
 
 <table class="usa-table crt-table sort-table">
   <thead>
     <tr>
-      {% render_sortable_heading 'Status' sort_state %}
-      {% render_sortable_heading 'Routed' sort_state %}
-      {% render_sortable_heading 'Submitted' sort_state %}
-      {% render_sortable_heading 'Contact Name' sort_state %}
-      {% render_sortable_heading 'Contact Details' sort_state %}
-      {% render_sortable_heading 'Incident Location' sort_state %}
-      {% render_sortable_heading 'Violation Summary' sort_state %}
-      {% render_sortable_heading 'Class' sort_state %}
+      {% render_sortable_heading 'Status' sort_state filter_state %}
+      {% render_sortable_heading 'Routed' sort_state filter_state %}
+      {% render_sortable_heading 'Submitted' sort_state filter_state %}
+      {% render_sortable_heading 'Contact Name' sort_state filter_state %}
+      {% render_sortable_heading 'Contact Details' sort_state filter_state %}
+      {% render_sortable_heading 'Incident Location' sort_state filter_state %}
+      {% render_sortable_heading 'Violation Summary' sort_state filter_state %}
+      {% render_sortable_heading 'Class' sort_state filter_state %}
     </tr>
   </thead>
   {% if data_dict %}
+    <tbody>
     {% for datum in data_dict %}
       <tr class="tr-status-{{ datum.report.status }} tr--hover{% cycle ' stripe' '' %}">
         <td>
@@ -71,7 +73,33 @@
         </td>
       </tr>
     {% endfor %}
-  {% else %}
-    <tr><td>No reports are available.<td><td></td></td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>  
   {% endif %}
 </table>
+
+
+{% if not data_dict %}
+<div class="complaint-card table-message">
+  <div class="grid-container padding-bottom-2">
+    <div class="align-center">
+      <img src="{% static 'img/filters.svg' %}" class="margin-top-1" />
+      <p class="margin-bottom-1 margin-top-1"><b>No records found</b></p>
+      <em>Try adjusting your filters to see more records</em>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% if not page_format.has_next and data_dict %}
+<div class="complaint-card table-message">
+  <div class="grid-container padding-bottom-2">
+    <div class="align-center">
+      <p class="margin-bottom-1">
+        <img src="{% static 'img/coffee.svg' %}" />
+        <b>End of results</b>
+      </p>
+      <em>Try adjusting your filters to see more records</em>
+    </div>
+  </div>
+</div>
+{% endif %}

@@ -8,19 +8,28 @@
     action="/form/view"
     novalidate
   >
-    {{ form }}
+    <label for="{{form.assigned_section.attrs.id}}" class="usa-label margin-bottom-1">
+      <b>View sections</b>
+    </label>
+    {{ form.assigned_section }}
+    <div class="margin-top-2">
+      <button type="submit" class="usa-button usa-button--primary">Filter results</button>
+    </div>
   </form>
-  <div class="active-filters margin-top-4">
+  <div id="active-filters" class="active-filters margin-top-4">
     {% for key, value in filters.items %}
-      <span class="usa-sr-only">{{key}}: {{value}}</span>
-      <button
-        class="filter-control usa-button usa-button--light"
-        aria-label="Remove filter {{ key}}: {{value}} from the list"
-      >
-        {% if key == 'assigned_section' %} Routed {% else %} {{key}} {% endif %}: {{value}}  
-        <div class="divider"></div>
-        <img src="{% static "img/close-blue-50-alt.svg" %}" class="filter-action">
-      </button>
+      {% for item in value %}
+        <span class="usa-sr-only">{{key}}: {{item}}</span>
+        <button
+          class="filter-control usa-button usa-button--light"
+          aria-label="Remove filter {{ key}}: {{item}} from the list"
+          data-filter-name="{{key}}"
+        >
+          {% if key == 'assigned_section' %} Routed {% else %} {{key}} {% endif %}: {{item}}  
+          <div class="divider"></div>
+          <img src="{% static "img/close-blue-50-alt.svg" %}" class="filter-action">
+        </button>
+        {% endfor %}
     {% endfor %}
   </div>
 </div>

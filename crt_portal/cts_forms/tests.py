@@ -246,8 +246,8 @@ class Valid_CRT_SORT_Tests(TestCase):
     def test_sort(self):
         # Vote should come after ADM when alphabetical, opposite for reverse
         vote_index_1 = str(self.response_1).find('VOT')
-        vote_index_2 = str(self.response_2).find('VOT')
-        self.assertTrue(vote_index_1 > vote_index_2)
+        adm_index_1 = str(self.response_1).find('ADM')
+        self.assertTrue(vote_index_1 > adm_index_1)
 
     def test_bad_sort_param(self):
         url_base = reverse('crt_forms:crt-forms-index')

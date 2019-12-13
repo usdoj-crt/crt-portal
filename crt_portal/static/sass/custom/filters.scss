@@ -22,4 +22,8 @@
     vertical-align: top;
     width: 34px;
   }
+
+  > * {
+    pointer-events: none;
+  }
 }

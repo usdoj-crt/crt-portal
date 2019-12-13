@@ -1,8 +1,8 @@
 from django.forms import ModelForm, CheckboxInput, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
-    ModelMultipleChoiceField
+    ModelMultipleChoiceField, MultipleChoiceField
 from django.utils.translation import gettext_lazy as _
 from .question_group import QuestionGroup
-from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtDropdown
+from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtDropdown, CrtMultiSelect
 from .models import Report, ProtectedClass
 from .model_variables import (
     RESPONDENT_TYPE_CHOICES,
@@ -230,10 +230,8 @@ class Filters(ModelForm):
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
 
-        self.fields['assigned_section'] = ChoiceField(
+        self.fields['assigned_section'] = MultipleChoiceField(
             choices=SECTION_CHOICES,
-            widget=CrtDropdown,
-            label="View sections",
+            widget=CrtMultiSelect,
             required=False
         )
-        self.fields['assigned_section'].widget.attrs['list'] = 'assigned_sections_choices'
