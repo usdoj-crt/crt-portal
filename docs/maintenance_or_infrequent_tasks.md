@@ -14,4 +14,4 @@ If you change the the ProtectedClass model, you may need to squish the migration
 
 To rename existing models, change the name in model_variables.py and create a data migration like: crt_portal/cts_forms/migrations/0016_rename_more_protected_class.py
 
-You should be able to reorder the form by setting the value in the database or making a data migration to update the protected classes and form_order. (This might not be working, we may need additional work to override the django built in sort order for models.)
+You should be able to reorder the form by setting the value in the database or making a data migration to update the protected classes and form_order. Do NOT use the Django admin for this task, you can use the Django shell.
