@@ -22,7 +22,7 @@ SORT_DESC_CHAR = '-'
 
 @login_required
 def IndexView(request):
-    report_filter_kwargs, query_filters = report_filter(request)
+    report_query, query_filters = report_filter(request)
 
     # Sort data based on request from params, default to `created_date` of complaint
     sort = request.GET.getlist('sort', ['-create_date'])
@@ -34,7 +34,7 @@ def IndexView(request):
     if all(elem.replace("-", '') in report_fields for elem in sort) is False:
         raise Http404(f'Invalid sort request: {sort}')
 
-    requested_reports = Report.objects.filter(**report_filter_kwargs).order_by(*sort)
+    requested_reports = report_query.order_by(*sort)
     paginator = Paginator(requested_reports, per_page)
     requested_reports, page_format = pagination(paginator, page, per_page)
 

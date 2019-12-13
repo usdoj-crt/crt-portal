@@ -45,5 +45,5 @@ def report_filter(request):
                 day = int(request.GET.getlist(field)[0][6:])
                 kwargs[f'create_date{filter_options[field]}'] = datetime.date(year, month, day)
 
-    # returns keyword arguments that will be used for filtering, and a dictionary that we can use to keep track of the filters we apply
-    return kwargs, filters
+    # returns a filtered query, and a dictionary that we can use to keep track of the filters we apply
+    return Report.objects.filter(**kwargs), filters
