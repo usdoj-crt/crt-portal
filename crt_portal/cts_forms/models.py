@@ -38,7 +38,7 @@ class ProtectedClass(models.Model):
     form_order = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return f'{self.protected_class}, {self.form_order}'
+        return f'{self.protected_class}'
 
 
 class Report(models.Model):
