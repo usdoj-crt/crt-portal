@@ -1,5 +1,6 @@
 import secrets
 from datetime import date, timedelta
+import copy
 
 from testfixtures import LogCapture
 
@@ -483,18 +484,21 @@ class LoginRequiredTests(TestCase):
             self.client = Client()
             self.test_pass = secrets.token_hex(32)
             self.user2 = User.objects.create_user('DELETE_USER_2', 'mccartney@thebeatles.com', self.test_pass)
+            self.user2_pk = copy.copy(self.user2.pk)
             self.user2.delete()
 
+            create = 'cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User saved: {pk} permissions: <QuerySet []> staff: False superuser: False active: True'.format(pk=self.user2_pk)
             self.assertEqual(
                 cm.check_present(
-                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User saved: 7 permissions: <QuerySet []> staff: False superuser: False active: True')
+                    (create)
                 ),
                 None,
             )
 
+            delete = 'cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User deleted: {pk} permissions: <QuerySet []> staff: False superuser: False active: True'.format(pk=self.user2_pk)
             self.assertEqual(
                 cm.check_present(
-                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User deleted: 7 permissions: <QuerySet []> staff: False superuser: False active: True')
+                    (delete)
                 ),
                 None,
             )
