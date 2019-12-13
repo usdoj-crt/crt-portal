@@ -487,14 +487,14 @@ class LoginRequiredTests(TestCase):
 
             self.assertEqual(
                 cm.check_present(
-                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User saved: 5 permissions: <QuerySet []> staff: False superuser: False active: True')
+                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User saved: 7 permissions: <QuerySet []> staff: False superuser: False active: True')
                 ),
                 None,
             )
 
             self.assertEqual(
                 cm.check_present(
-                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User deleted: 5 permissions: <QuerySet []> staff: False superuser: False active: True')
+                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User deleted: 7 permissions: <QuerySet []> staff: False superuser: False active: True')
                 ),
                 None,
             )
