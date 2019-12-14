@@ -171,7 +171,7 @@ class ProtectedClassForm(ModelForm):
         self.fields['protected_class'] = ModelMultipleChoiceField(
             label=_('Do you believe any of these personal characteristics influenced why you were treated this way?'),
             help_text=_('Some civil rights laws protect people from discrimination, which include these protected classes. These are some of the most common classes that we see.'),
-            error_messages={'required': _('Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.')},
+            error_messages={'required': PROTECTED_CLASS_ERROR},
             required=True,
             queryset=ProtectedClass.objects.filter(protected_class__in=PROTECTED_CLASS_CHOICES).order_by('form_order'),
             widget=UsaCheckboxSelectMultiple,
