@@ -18,6 +18,7 @@ from .model_variables import (
     PROTECTED_MODEL_CHOICES,
     STATUS_CHOICES,
     SECTION_CHOICES,
+    ELECTION_CHOICES,
 )
 
 import logging
@@ -75,6 +76,7 @@ class Report(models.Model):
     location_city_town = models.CharField(max_length=700, blank=False)
     location_state = models.CharField(max_length=100, blank=False, choices=STATES_AND_TERRITORIES)
     create_date = models.DateTimeField(auto_now_add=True)
+    election_details = models.CharField(choices=ELECTION_CHOICES, max_length=225, null=True, blank=True)
     ###############################################################
     #   These fields have not been implemented in the form yet:   #
     ###############################################################

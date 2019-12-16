@@ -5,6 +5,7 @@ from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtDropdown
 from .models import Report, ProtectedClass
 from .model_variables import (
+    ELECTION_CHOICES,
     RESPONDENT_TYPE_CHOICES,
     PROTECTED_CLASS_CHOICES,
     PROTECTED_CLASS_ERROR,
@@ -130,13 +131,28 @@ class LocationForm(ModelForm):
             },
             label='State'
         )
+        self.fields['election_details'] = TypedChoiceField(
+            choices=ELECTION_CHOICES,
+            empty_value=None,
+            widget=UsaRadioSelect,
+            required=True,
+            label=_('What kind of election or voting activity was this related to?'),
+            error_messages={
+                'required': errors['location_state']
+            },
+        )
 
         self.question_groups = [
             QuestionGroup(
                 self,
+                ('election_details',),
+                optional=False,
+            ),
+            QuestionGroup(
+                self,
                 ('location_name', 'location_address_line_1', 'location_address_line_2'),
-                group_name='Where did this happen?',
-                help_text='Please be as specific as possible. We will handle this information with sensitivity.',
+                group_name=_('Where did this happen?'),
+                help_text=_('Please be as specific as possible. We will handle this information with sensitivity.'),
                 optional=False
             )
         ]
@@ -144,6 +160,7 @@ class LocationForm(ModelForm):
     class Meta:
         model = Report
         fields = [
+            'election_details',
             'location_name',
             'location_address_line_1',
             'location_address_line_2',
