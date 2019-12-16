@@ -1,4 +1,6 @@
 import secrets
+from datetime import date, timedelta
+import copy
 
 from testfixtures import LogCapture
 
@@ -269,33 +271,77 @@ class CRT_FILTER_Tests(TestCase):
         self.test_pass = secrets.token_hex(32)
         self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
-        url_base = reverse('crt_forms:crt-forms-index')
-        url = f'{url_base}?assigned_section=ADM'
-        self.one_filter_response = self.client.get(url)
-        url_1 = f'{url_base}?assigned_section=ADM&status=new'
-        self.two_filter_response = self.client.get(url_1)
-        url_2 = f'{url_base}?assigned_section=ADM&status=closed'
-        self.two_filter_no_match = self.client.get(url_2)
+        self.url_base = reverse('crt_forms:crt-forms-index')
+        self.len_all_results = len(self.client.get(self.url_base).context['data_dict'])
 
     def tearDown(self):
         self.user.delete()
 
     def test_filter(self):
+        url = f'{self.url_base}?assigned_section=ADM'
+        one_filter_response = self.client.get(url)
         expected_reports = Report.objects.filter(assigned_section='ADM')
-        actual_reports = self.one_filter_response.context['data_dict']
+        actual_reports = one_filter_response.context['data_dict']
 
         self.assertTrue(len(actual_reports) == len(list(expected_reports)))
 
     def test_combined_filter(self):
+        url_1 = f'{self.url_base}?assigned_section=ADM&status=new'
+        two_filter_response = self.client.get(url_1)
+        url_2 = f'{self.url_base}?assigned_section=ADM&status=closed'
+        two_filter_no_match = self.client.get(url_2)
+
         # assumes all new reports are assigned to ADM and labeled new
         all_reports_actual = Report.objects.filter(assigned_section='ADM', status='new')
-        all_reports_expected = self.two_filter_response.context['data_dict']
+        all_reports_expected = two_filter_response.context['data_dict']
         # assumes no reports should be assigned to ADM and marked closed
         no_reports_actual = Report.objects.filter(assigned_section='ADM', status='closed')
-        no_reports_expected = self.two_filter_no_match.context['data_dict']
+        no_reports_expected = two_filter_no_match.context['data_dict']
 
         self.assertTrue(len(all_reports_actual) == len(all_reports_expected))
         self.assertTrue(len(no_reports_actual) == len(no_reports_expected))
+
+    def test_date_filter(self):
+        yesterday = date.today() - timedelta(days=1)
+        tomorrow = date.today() + timedelta(days=1)
+
+        url_start_yesterday = f"{self.url_base}?create_date_start={yesterday.strftime('%Y%m%d')}"
+        start_yesterday_response = self.client.get(url_start_yesterday).context['data_dict']
+
+        url_start_tomorrow = f"{self.url_base}?create_date_start={tomorrow.strftime('%Y%m%d')}"
+        start_tomorrow_response = self.client.get(url_start_tomorrow).context['data_dict']
+
+        url_end_yesterday = f"{self.url_base}?create_date_end={yesterday.strftime('%Y%m%d')}"
+        end_yesterday_response = self.client.get(url_end_yesterday).context['data_dict']
+
+        url_end_tomorrow = f"{self.url_base}?create_date_end={tomorrow.strftime('%Y%m%d')}"
+        end_tomorrow_response = self.client.get(url_end_tomorrow).context['data_dict']
+
+        # sanity check
+        self.assertTrue(self.len_all_results > 0)
+
+        self.assertEqual(len(start_tomorrow_response), 0)
+        self.assertEqual(len(end_yesterday_response), 0)
+        self.assertEqual(len(start_yesterday_response), self.len_all_results)
+        self.assertEqual(len(end_tomorrow_response), self.len_all_results)
+
+    def test_text_filter(self):
+        url_phrase = f'{self.url_base}?violation_summary=Four%20score%20and%20seven'
+        phrase_response = self.client.get(url_phrase).context['data_dict']
+
+        url_phrase_case_insensitive = f'{self.url_base}?violation_summary=four%20score%20and%20seven'
+        case_insensitive_phrase_response = self.client.get(url_phrase_case_insensitive).context['data_dict']
+
+        url_disjointed_phrase = f'{self.url_base}?violation_summary=For%20seven'
+        disjointed_phrase_response = self.client.get(url_disjointed_phrase).context['data_dict']
+
+        url_not_in_phrase = f'{self.url_base}?violation_summary=haberdashery'
+        url_not_in_phrase_response = self.client.get(url_not_in_phrase).context['data_dict']
+
+        self.assertEqual(len(phrase_response), self.len_all_results)
+        self.assertEqual(len(case_insensitive_phrase_response), self.len_all_results)
+        self.assertEqual(len(disjointed_phrase_response), self.len_all_results)
+        self.assertEqual(len(url_not_in_phrase_response), 0)
 
 
 class Validation_Form_Tests(TestCase):
@@ -438,18 +484,21 @@ class LoginRequiredTests(TestCase):
             self.client = Client()
             self.test_pass = secrets.token_hex(32)
             self.user2 = User.objects.create_user('DELETE_USER_2', 'mccartney@thebeatles.com', self.test_pass)
+            self.user2_pk = copy.copy(self.user2.pk)
             self.user2.delete()
 
+            create = 'cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User saved: {pk} permissions: <QuerySet []> staff: False superuser: False active: True'.format(pk=self.user2_pk)
             self.assertEqual(
                 cm.check_present(
-                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User saved: 5 permissions: <QuerySet []> staff: False superuser: False active: True')
+                    (create)
                 ),
                 None,
             )
 
+            delete = 'cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User deleted: {pk} permissions: <QuerySet []> staff: False superuser: False active: True'.format(pk=self.user2_pk)
             self.assertEqual(
                 cm.check_present(
-                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User deleted: 5 permissions: <QuerySet []> staff: False superuser: False active: True')
+                    (delete)
                 ),
                 None,
             )

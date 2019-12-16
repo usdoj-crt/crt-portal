@@ -74,6 +74,7 @@ class Report(models.Model):
     location_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
     location_city_town = models.CharField(max_length=700, blank=False)
     location_state = models.CharField(max_length=100, blank=False, choices=STATES_AND_TERRITORIES)
+    create_date = models.DateTimeField(auto_now_add=True)
     ###############################################################
     #   These fields have not been implemented in the form yet:   #
     ###############################################################
@@ -92,7 +93,6 @@ class Report(models.Model):
     # previous details form
     when = models.CharField(max_length=700, choices=WHEN_CHOICES, default=None, null=True)
     how_many = models.CharField(max_length=700, null=True, blank=True, choices=HOW_MANY_CHOICES, default=None)
-    create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.create_date} {self.violation_summary}'
