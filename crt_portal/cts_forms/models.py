@@ -18,6 +18,7 @@ from .model_variables import (
     PROTECTED_MODEL_CHOICES,
     STATUS_CHOICES,
     SECTION_CHOICES,
+    HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
 )
 
 import logging
@@ -41,6 +42,13 @@ class ProtectedClass(models.Model):
         return self.protected_class
 
 
+class HateCrimesandTrafficking(models.Model):
+    hatecrimes_trafficking_option = models.CharField(max_length=500, null=True, blank=True, choices=HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, unique=True)
+
+    def __str__(self):
+        return self.hatecrimes_trafficking_option
+
+
 class Report(models.Model):
     # Contact
     contact_first_name = models.CharField(max_length=225, null=True, blank=True)
@@ -59,6 +67,7 @@ class Report(models.Model):
         default='',
         blank=False
     )
+    hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, null=True, blank=True)
     # Protected Class
     # See docs for notes on updating these values:
     # docs/maintenance_or_infrequent_tasks.md#change-protected-class-options

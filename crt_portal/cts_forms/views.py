@@ -6,13 +6,12 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.utils.translation import gettext_lazy as _
 from django.http import Http404
-
-from formtools.wizard.views import SessionWizardView
-
 from django.core import serializers
 from django.conf import settings
 
-from .models import Report, ProtectedClass
+from formtools.wizard.views import SessionWizardView
+
+from .models import Report, ProtectedClass, HateCrimesandTrafficking
 from .model_variables import PROTECTED_CLASS_CODES
 from .page_through import pagination
 from .filters import report_filter
@@ -185,22 +184,33 @@ class CRTReportWizard(SessionWizardView):
             context.update({
                 'page_note': _('Providing details on where this occurred helps us properly review your issue and get it to the right people within the Civil Rights Division.'),
             })
+        elif current_step_name == _('Primary Issue'):
+            context.update({
+                'crime_help_text2': _('Please select if any that apply to your situation (optional)'),
+            })
 
         return context
 
     def done(self, form_list, form_dict, **kwargs):
         form_data_dict = self.get_all_cleaned_data()
-        m2mfield = form_data_dict.pop('protected_class')
+        m2m_protected_class = form_data_dict.pop('protected_class')
+        m2m_hatecrime = form_data_dict.pop('hatecrimes_trafficking')
         r = Report.objects.create(**form_data_dict)
 
+        # add a save feature for hatecrimes and trafficking question on primary reason page
         # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
-        for protected in m2mfield:
+        for protected in m2m_protected_class:
             p = ProtectedClass.objects.get(protected_class=protected)
             r.protected_class.add(p)
+
+        for option in m2m_hatecrime:
+            o = HateCrimesandTrafficking.objects.get(hatecrimes_trafficking_option=option)
+            r.hatecrimes_trafficking.add(o)
 
         r.assigned_section = r.assign_section()
         r.save()
         # adding this back for the save page results
-        form_data_dict['protected_class'] = m2mfield.values()
+        form_data_dict['protected_class'] = m2m_protected_class.values()
+        form_data_dict['hatecrimes_trafficking'] = m2m_hatecrime.values()
 
         return render_to_response('forms/confirmation.html', {'data_dict': form_data_dict})

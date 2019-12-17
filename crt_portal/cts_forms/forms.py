@@ -3,7 +3,7 @@ from django.forms import ModelForm, CheckboxInput, ChoiceField, TypedChoiceField
 from django.utils.translation import gettext_lazy as _
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtDropdown, CrtMultiSelect
-from .models import Report, ProtectedClass
+from .models import Report, ProtectedClass, HateCrimesandTrafficking
 from .model_variables import (
     RESPONDENT_TYPE_CHOICES,
     PROTECTED_CLASS_CHOICES,
@@ -15,7 +15,10 @@ from .model_variables import (
     STATES_AND_TERRITORIES,
     VIOLATION_SUMMARY_ERROR,
     WHERE_ERRORS,
+    HATE_CRIMES_TRAFFICKING_CHOICES,
+    PRIMARY_COMPLAINT_ERROR,
 )
+
 from .phone_regex import phone_validation_regex
 
 import logging
@@ -68,24 +71,42 @@ class Contact(ModelForm):
 
 
 class PrimaryReason(ModelForm):
-    primary_complaint = ChoiceField(
-        choices=PRIMARY_COMPLAINT_CHOICES,
-        widget=CrtRadioArea(attrs={
-            'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
-            'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
-        }),
-        required=True,
-        error_messages={
-            'required': _('Please select a primary reason to continue.')
-        },
-        help_text=_('Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.')
-    )
-
     class Meta:
         model = Report
         fields = [
-            'primary_complaint'
+            'primary_complaint',
+            'hatecrimes_trafficking'
         ]
+        widgets = {
+            'hatecrimes_trafficking': UsaCheckboxSelectMultiple,
+            'primary_complaint': CrtRadioArea(attrs={
+                'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
+                'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+        self.fields['primary_complaint'] = ChoiceField(
+            choices=PRIMARY_COMPLAINT_CHOICES,
+            widget=CrtRadioArea(attrs={
+                'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
+                'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+            }),
+            required=True,
+            error_messages={
+                'required': PRIMARY_COMPLAINT_ERROR
+            },
+            help_text=_('Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.')
+        )
+
+        self.fields['hatecrimes_trafficking'] = ModelMultipleChoiceField(
+            queryset=HateCrimesandTrafficking.objects.filter(hatecrimes_trafficking_option__in=HATE_CRIMES_TRAFFICKING_CHOICES),
+            widget=UsaCheckboxSelectMultiple,
+            required=False,
+            help_text=_('Hate crimes and human trafficking are considered criminal cases and go through a different process for investigation than other civil rights cases. If we determine your situation falls into these categories after submitting your concern, we will contact you with next steps.'),
+            label=_('Hate Crimes & Human Trafficking')
+        )
 
 
 class Details(ModelForm):

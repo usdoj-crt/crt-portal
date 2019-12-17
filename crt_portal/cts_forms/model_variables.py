@@ -9,7 +9,7 @@ PRIMARY_COMPLAINT_CHOICES = (
     ('voting', _('Right to vote impacted')),
     ('police', _('Mistreated by police, law enforcement, or correctional staff (including while in prison)')),
     ('commercial_or_public', _('Discriminated against in any other commercial location or public place')),
-    ('something_else', _('Something else happened'))
+    ('something_else', _('Something else happened')),
 )
 
 PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT = {
@@ -51,6 +51,17 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
     ],
     'something_else': []
 }
+
+HATE_CRIMES_TRAFFICKING_MODEL_CHOICES = (
+    ('physical_harm', _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability')),
+    ('trafficking', _('Coerced or forced to do work or perform a commercial sex act')),
+)
+
+HATE_CRIMES_TRAFFICKING_CHOICES = (
+    _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability'),
+    _('Coerced or forced to do work or perform a commercial sex act'),
+)
+
 
 # PROTECTED_CLASS_CHOICES means "PROTECTED_CLASS_FORM_CHOICES" and refers to the choices that will be displayed on the form front-end.
 # See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
@@ -267,6 +278,7 @@ STATES_AND_TERRITORIES = (
 )
 
 VIOLATION_SUMMARY_ERROR = _('Please provide description to continue')
+PRIMARY_COMPLAINT_ERROR = _('Please select a primary reason to continue.')
 
 WHERE_ERRORS = (
     ('location_name', _('Please enter the name of the location where this took place.')),
