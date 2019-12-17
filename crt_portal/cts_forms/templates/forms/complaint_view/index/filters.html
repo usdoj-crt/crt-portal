@@ -16,14 +16,15 @@
       <button type="submit" class="usa-button usa-button--primary">Filter results</button>
     </div>
   </form>
-  <div id="active-filters" class="active-filters margin-top-4">
+  <div id="active-filters" class="active-filters margin-top-2">
     {% for key, value in filters.items %}
       {% for item in value %}
         <span class="usa-sr-only">{{key}}: {{item}}</span>
         <button
-          class="filter-control usa-button usa-button--light"
+          class="filter-control usa-button usa-button--light margin-top-2"
           aria-label="Remove filter {{ key}}: {{item}} from the list"
           data-filter-name="{{key}}"
+          data-filter-value="{{item}}"
         >
           {% if key == 'assigned_section' %} Routed {% else %} {{key}} {% endif %}: {{item}}  
           <div class="divider"></div>

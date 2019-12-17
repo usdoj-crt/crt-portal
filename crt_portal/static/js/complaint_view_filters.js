@@ -121,7 +121,7 @@
 
     function onFilterTagClick(node) {
       var sections = filterData.assigned_section;
-      var filterName = node.getAttribute('data-filter-name');
+      var filterName = node.getAttribute('data-filter-value');
       sections.splice(sections.indexOf(filterName), 1);
       filterData.assigned_section = sections;
 
