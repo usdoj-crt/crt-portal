@@ -60,7 +60,7 @@ class Contact(ModelForm):
             'contact_email', 'contact_phone'
         ]
         widgets = {
-            'contact_first_name': TextInput(attrs={'class': 'usa-input'}),
+            'contact_first_name': TextInput(attrs={'class': 'usa-input', 'aria-describedby': 'Your name-help-text'}),
             'contact_last_name': TextInput(attrs={'class': 'usa-input'}),
             'contact_email': EmailInput(attrs={'class': 'usa-input'}),
             'contact_phone': TextInput(attrs={
