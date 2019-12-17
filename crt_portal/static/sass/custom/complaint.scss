@@ -28,10 +28,9 @@ $complaint-body-offset: calc(
   @include u-margin-bottom(1);
   @include u-padding-y(1.5);
   @include u-padding-x(2.5);
-  @include u-radius('md');
-  @include u-shadow(1);
-
+  
   background-color: $white;
+  box-shadow: 0 1px 6px 2px rgba(0,0,0,.14);
 
   .complaint-card-heading {
     color: $gray-warm-80;
@@ -46,9 +45,14 @@ $complaint-body-offset: calc(
       padding: .5rem;
       text-transform: uppercase;
     }
+
+    &--rounded {
+      @include u-radius('md');
+    }
   }
 
   .complaint-card-table {
+    display: fixed;
     width: 100%;
 
     th {
@@ -57,10 +61,15 @@ $complaint-body-offset: calc(
       font-weight: bold;
       padding-right: 0;
       text-transform: uppercase;
+      width: 40%;
     }
 
     td {
       padding-left: 0;
+      width: 60%;
+      white-space: normal;
+      word-wrap: break-word;
+      word-break: break-all;
     }
 
     th, td {

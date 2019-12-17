@@ -1,0 +1,54 @@
+{% extends "forms/base.html" %}
+{% load static %}
+
+{% block page_header %}
+<header class="page-background">
+    <div class="grid-container">
+      <div class="grid-row">
+        <div class="grid-col-12">
+          <div class="display-flex flex-column flex-align-end">
+            <p><a href="/accounts/logout">log out</a></p>
+          </div>
+          <h1>
+            CRT Complaint Records
+          </h1>
+        </div>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block main_class %} class="page-background"{% endblock %}
+
+{% block content %}
+<div class="grid-container-widescreen-xl">
+  <div class="grid-col-auto">
+    <a class="usa-button margin-top-2" href="/report" label="first step" name="Create record">
+        + Add new record
+    </a>
+    <p>{{ page_format.page_range_start }} - {{ page_format.page_range_end }} of {{ page_format.count }} records</p>
+    {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args %}
+  </div>
+  <div class="grid-row grid-gap">
+    <div class="grid-col-3">
+      {% include "forms/complaint_view/index/filters.html" with filters=filters form=form %}
+    </div> 
+    <div class="grid-col-9">
+      {% include "forms/complaint_view/index/complaints_table.html" with page_format=page_format data_dict=data_dict sort_state=sort_state filter_state=filter_state %}
+    </div>
+  </div>
+  <div class="margin-bottom-5">
+    {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args %}
+  </div>
+</div>
+{% endblock %}
+
+{% block page_js %}
+<script>
+  (function(root) {
+    root.CRT = root.CRT || {}
+    root.CRT.pageArgs = "{{ page_args }}"
+  })(window);
+</script>
+<script src="{% static 'js/complaint_view_filters.js' %}"></script>
+{% endblock %}

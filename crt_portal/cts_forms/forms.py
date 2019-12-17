@@ -1,8 +1,8 @@
 from django.forms import ModelForm, CheckboxInput, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
-    ModelMultipleChoiceField
+    ModelMultipleChoiceField, MultipleChoiceField
 from django.utils.translation import gettext_lazy as _
 from .question_group import QuestionGroup
-from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtDropdown
+from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtDropdown, CrtMultiSelect
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
 from .model_variables import (
     RESPONDENT_TYPE_CHOICES,
@@ -11,6 +11,7 @@ from .model_variables import (
     PRIMARY_COMPLAINT_CHOICES,
     PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
     PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+    SECTION_CHOICES,
     STATES_AND_TERRITORIES,
     VIOLATION_SUMMARY_ERROR,
     WHERE_ERRORS,
@@ -151,6 +152,7 @@ class LocationForm(ModelForm):
             },
             label='State'
         )
+        self.fields['location_state'].widget.attrs['list'] = 'states'
 
         self.question_groups = [
             QuestionGroup(
@@ -239,3 +241,18 @@ class Who(ModelForm):
         widgets = {
             'respondent_contact_ask': CheckboxInput,
         }
+
+
+class Filters(ModelForm):
+    class Meta:
+        model = Report
+        fields = ['assigned_section']
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+
+        self.fields['assigned_section'] = MultipleChoiceField(
+            choices=SECTION_CHOICES,
+            widget=CrtMultiSelect,
+            required=False
+        )

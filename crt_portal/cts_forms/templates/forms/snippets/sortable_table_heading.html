@@ -1,11 +1,10 @@
 {% load static %}
 
-
 <th scope="col" class="{% if sort_url %}sort-cell{% endif %}">
   {% if sort_url %}
     <a
       id="{{id}}"
-      href="{{sort_url}}"
+      href="{{sort_url}}{{filter_state}}"
       class="sort-link display-block {% if is_descending %}sort-up{% else %}sort-down{% endif %}"
       aria-label="Sort complaints by property {{ heading }}"
     >

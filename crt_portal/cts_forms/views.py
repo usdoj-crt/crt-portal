@@ -14,13 +14,16 @@ from formtools.wizard.views import SessionWizardView
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
 from .model_variables import PROTECTED_CLASS_CODES
 from .page_through import pagination
-
+from .filters import report_filter
+from .forms import Filters
 
 SORT_DESC_CHAR = '-'
 
 
 @login_required
 def IndexView(request):
+    report_query, query_filters = report_filter(request)
+
     # Sort data based on request from params, default to `created_date` of complaint
     sort = request.GET.getlist('sort', ['-create_date'])
     per_page = request.GET.get('per_page', 15)
@@ -31,20 +34,28 @@ def IndexView(request):
     if all(elem.replace("-", '') in report_fields for elem in sort) is False:
         raise Http404(f'Invalid sort request: {sort}')
 
-    requested_reports = Report.objects.order_by(*sort)
+    requested_reports = report_query.order_by(*sort)
     paginator = Paginator(requested_reports, per_page)
     requested_reports, page_format = pagination(paginator, page, per_page)
 
     sort_state = {}
     # make sure the links for this page have the same paging, sorting, filtering etc.
     page_args = f'?per_page={per_page}'
+    filter_args = ''
+
+    for query_item in query_filters.keys():
+        arg = query_item
+        for item in query_filters[query_item]:
+            filter_args = filter_args + f'&{arg}={item}'
+
     for sort_item in sort:
         if sort_item[0] == SORT_DESC_CHAR:
             sort_state.update({sort_item[1::]: True})
         else:
             sort_state.update({sort_item: False})
 
-        page_args = page_args + f'&sort={sort_item}'
+        # all query params except info about what page we are on
+        page_args = page_args + f'&sort={sort_item}{filter_args}'
 
     all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
 
@@ -72,12 +83,17 @@ def IndexView(request):
             "url": f'{report.id}/?next={all_args_encoded}'
         })
 
-    return render_to_response('forms/complaint_view/index.html', {
+    final_data = {
+        'form': Filters(request.GET),
         'data_dict': data,
         'page_format': page_format,
         'page_args': page_args,
-        'sort_state': sort_state
-    })
+        'sort_state': sort_state,
+        'filter_state': filter_args,
+        'filters': query_filters,
+    }
+
+    return render_to_response('forms/complaint_view/index/index.html', final_data)
 
 
 @login_required
@@ -93,7 +109,7 @@ def ShowView(request, id):
             'debug_data': serializers.serialize('json', [report, ])
         })
 
-    return render_to_response('forms/complaint_view/show.html', output)
+    return render_to_response('forms/complaint_view/show/index.html', output)
 
 
 TEMPLATES = [
