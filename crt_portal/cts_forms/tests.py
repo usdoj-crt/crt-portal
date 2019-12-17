@@ -8,9 +8,9 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 
-from .models import ProtectedClass, Report
-from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES, VIOLATION_SUMMARY_ERROR, WHERE_ERRORS, PRIMARY_COMPLAINT_CHOICES
-from .forms import Who, Details, Contact, ProtectedClassForm, LocationForm
+from .models import ProtectedClass, Report, HateCrimesandTrafficking
+from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES, VIOLATION_SUMMARY_ERROR, WHERE_ERRORS, PRIMARY_COMPLAINT_CHOICES, PRIMARY_COMPLAINT_ERROR
+from .forms import Who, Details, Contact, ProtectedClassForm, LocationForm, PrimaryReason
 from .test_data import SAMPLE_REPORT
 
 
@@ -79,6 +79,13 @@ class Valid_Form_Tests(TestCase):
         form = ProtectedClassForm(data={
             'protected_class': ProtectedClass.objects.all(),
             'other_class': 'Random string under 150 characters (हिन्दी)',
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_Primary_reason_valid(self):
+        form = PrimaryReason(data={
+            'hatecrimes_trafficking': HateCrimesandTrafficking.objects.all(),
+            'primary_complaint': PRIMARY_COMPLAINT_CHOICES[0][0],
         })
         self.assertTrue(form.is_valid())
 
@@ -243,6 +250,14 @@ class Validation_Form_Tests(TestCase):
         })
         self.assertTrue(f'<ul class="errorlist"><li>{VIOLATION_SUMMARY_ERROR}' in str(form.errors))
 
+    def test_required_primary_reason_hatecrime(self):
+        form = PrimaryReason(data={
+            'hatecrimes_trafficking_set': None,
+            'primary_complaint': '',
+        })
+        # ensure Hatecrime is not in error list
+        self.assertFalse('hatecrimes_trafficking<ul class="errorlist"><li>' in str(form.errors))
+        self.assertTrue(f'<ul class="errorlist"><li>{PRIMARY_COMPLAINT_ERROR}' in str(form.errors))
 
 class ContactValidationTests(TestCase):
     def test_non_ascii_name(self):

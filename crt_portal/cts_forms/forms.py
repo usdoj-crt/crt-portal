@@ -15,6 +15,7 @@ from .model_variables import (
     VIOLATION_SUMMARY_ERROR,
     WHERE_ERRORS,
     HATE_CRIMES_TRAFFICKING_CHOICES,
+    PRIMARY_COMPLAINT_ERROR,
 )
 
 from .phone_regex import phone_validation_regex
@@ -22,20 +23,6 @@ from .phone_regex import phone_validation_regex
 import logging
 
 logger = logging.getLogger(__name__)
-
-def retrieve_or_create_choices_2(options, model_object):
-    choices = []
-    for choice in options:
-        try:
-            
-            choice_object = model_object.objects.get_or_create(hatecrimes_trafficking_option=choice)
-            #change option to generic and replace other options function
-            choices.append(choice_object[0].pk)
-        except:  # noqa
-            # this has a concurrency issue for initial migrations
-            logger.warning('class not loaded yet')
-            # customize the warning message later
-    return choices
 
 
 class Contact(ModelForm):
@@ -84,9 +71,9 @@ class Contact(ModelForm):
 
 class PrimaryReason(ModelForm):
     class Meta:
-        model = Report     
+        model = Report
         fields = [
-            'primary_complaint', 
+            'primary_complaint',
             'hatecrimes_trafficking'
         ]
         widgets = {
@@ -97,14 +84,8 @@ class PrimaryReason(ModelForm):
             }),
         }
 
-    choices = retrieve_or_create_choices_2(HATE_CRIMES_TRAFFICKING_CHOICES, HateCrimesandTrafficking)
-    hatecrimes_trafficking = ModelMultipleChoiceField(
-        queryset=HateCrimesandTrafficking.objects.filter(pk__in=choices),
-        widget=UsaCheckboxSelectMultiple,
-    )
-
     def __init__(self, *args, **kwargs):
-        ModelForm.__init__(self, *args, **kwargs)      
+        ModelForm.__init__(self, *args, **kwargs)
         self.fields['primary_complaint'] = ChoiceField(
             choices=PRIMARY_COMPLAINT_CHOICES,
             widget=CrtRadioArea(attrs={
@@ -113,16 +94,15 @@ class PrimaryReason(ModelForm):
             }),
             required=True,
             error_messages={
-                'required': _('Please select a primary reason to continue.')
+                'required': PRIMARY_COMPLAINT_ERROR
             },
             help_text=_('Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.')
         )
 
-        choices = retrieve_or_create_choices_2(HATE_CRIMES_TRAFFICKING_CHOICES, HateCrimesandTrafficking)
-        print(choices)
         self.fields['hatecrimes_trafficking'] = ModelMultipleChoiceField(
-            queryset=HateCrimesandTrafficking.objects.filter(pk__in=choices),
+            queryset=HateCrimesandTrafficking.objects.filter(hatecrimes_trafficking_option__in=HATE_CRIMES_TRAFFICKING_CHOICES),
             widget=UsaCheckboxSelectMultiple,
+            required=False,
             help_text=_('Hate crimes and human trafficking are considered criminal cases and go through a different process for investigation than other civil rights cases. If we determine your situation falls into these categories after submitting your concern, we will contact you with next steps.'),
             label=_('Hate Crimes & Human Trafficking')
         )
