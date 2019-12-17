@@ -114,6 +114,12 @@ The volumes are the data elements in Docker. Note that you will need to re-creat
 
 :warning: Note that this command will prune **all** containers, images, and caches on your local machine -- not just the crt-portal project.
 
+### Adjust form autocomplete per-instance
+
+To prevent form autocomplete on an application instance, add `FORM_AUTOCOMPLETE_OFF=True` as an environment variable (locally, add to `.env`).
+
+To restore default behavior of allowing form autocomplete, remove the `FORM_AUTOCOMPLETE_OFF` flag.
+
 ## Tests
 
 Tests run automatically with repos that are integrated with Circle CI. You can run those tests locally with the following instructions.

@@ -133,9 +133,29 @@ class Valid_CRT_view_Tests(TestCase):
         # formatting the summary is done in the template
         self.assertTrue(self.test_report.violation_summary[:119] in self.content)
 
+    def test_incident_location(self):
+        self.assertTrue(self.test_report.location_city_town in self.content)
+        self.assertTrue(self.test_report.location_state in self.content)
+
     def test_auto_section_assignment(self):
         # move this to the section assignment once there are clear rules of when it should be assigned to ADM
         self.assertTrue('ADM' in self.content)
+
+
+class Complaint_Show_View_Test(TestCase):
+    def setUp(self):
+        self.client = Client()
+        # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_404_on_non_existant_record(self):
+        response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': '1'}))
+        self.assertEqual(response.status_code, 404)
 
 
 class SectionAssignmentTests(TestCase):
@@ -220,6 +240,15 @@ class Valid_CRT_SORT_Tests(TestCase):
 
     def tearDown(self):
         self.user.delete()
+
+    def test_default_sort_order_desc(self):
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        expected_list = []
+        for record in response.context['data_dict']:
+            expected_list.append(record['report'].create_date)
+
+        self.assertTrue(expected_list == sorted(expected_list, key=None, reverse=True))
+        self.assertFalse(expected_list == sorted(expected_list))
 
     def test_sort(self):
         # Vote should come after ADM when alphabetical, opposite for reverse
@@ -339,6 +368,9 @@ class LoginRequiredTests(TestCase):
         # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
         self.test_pass = secrets.token_hex(32)
         self.user = User.objects.create_user('DELETE_USER', 'lennon@thebeatles.com', self.test_pass)
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+        test_report.save()
+        self.report = test_report
 
     def tearDown(self):
         self.user.delete()
@@ -354,6 +386,17 @@ class LoginRequiredTests(TestCase):
         response = self.client.get(reverse('crt_forms:crt-forms-index'))
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/accounts/login/?next=/form/view')
+
+    def test_view_report_details_authenticated(self):
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_report_details_unauthenticated(self):
+        response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id}))
+        expected_response = '/accounts/login/?next=/form/%s/' % self.report.id
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, expected_response)
 
     def test_view_all_incorrect_password(self):
         """Attempt with incorrect password redirects to login page."""
@@ -372,14 +415,14 @@ class LoginRequiredTests(TestCase):
 
             self.assertEqual(
                 cm.check_present(
-                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User saved: 2 permissions: <QuerySet []> staff: False superuser: False active: True'),
+                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User saved: 3 permissions: <QuerySet []> staff: False superuser: False active: True'),
                 ),
                 None,
             )
 
             self.assertEqual(
                 cm.check_present(
-                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User deleted: 2 permissions: <QuerySet []> staff: False superuser: False active: True'),
+                    ('cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User deleted: 3 permissions: <QuerySet []> staff: False superuser: False active: True'),
                 ),
                 None,
             )

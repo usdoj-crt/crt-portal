@@ -1,9 +1,13 @@
-from django.shortcuts import render_to_response
+import urllib.parse
+import os
+
+from django.shortcuts import render_to_response, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.utils.translation import gettext_lazy as _
 from django.http import Http404
-
+from django.core import serializers
+from django.conf import settings
 
 from formtools.wizard.views import SessionWizardView
 
@@ -12,10 +16,13 @@ from .model_variables import PROTECTED_CLASS_CODES
 from .page_through import pagination
 
 
+SORT_DESC_CHAR = '-'
+
+
 @login_required
 def IndexView(request):
     # Sort data based on request from params, default to `created_date` of complaint
-    sort = request.GET.getlist('sort', ['create_date'])
+    sort = request.GET.getlist('sort', ['-create_date'])
     per_page = request.GET.get('per_page', 15)
     page = request.GET.get('page', 1)
 
@@ -28,10 +35,18 @@ def IndexView(request):
     paginator = Paginator(requested_reports, per_page)
     requested_reports, page_format = pagination(paginator, page, per_page)
 
+    sort_state = {}
     # make sure the links for this page have the same paging, sorting, filtering etc.
     page_args = f'?per_page={per_page}'
     for sort_item in sort:
+        if sort_item[0] == SORT_DESC_CHAR:
+            sort_state.update({sort_item[1::]: True})
+        else:
+            sort_state.update({sort_item: False})
+
         page_args = page_args + f'&sort={sort_item}'
+
+    all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
 
     data = []
     # formatting protected class
@@ -52,11 +67,33 @@ def IndexView(request):
             p_class_list = p_class_list[:3]
             p_class_list[2] = f'{p_class_list[2]}...'
         data.append({
-            'report': report,
-            'report_protected_classes': p_class_list,
+            "report": report,
+            "report_protected_classes": p_class_list,
+            "url": f'{report.id}/?next={all_args_encoded}'
         })
 
-    return render_to_response('forms/index.html', {'data_dict': data, 'page_format': page_format, 'page_args': page_args, 'sort_state': sort})
+    return render_to_response('forms/complaint_view/index.html', {
+        'data_dict': data,
+        'page_format': page_format,
+        'page_args': page_args,
+        'sort_state': sort_state
+    })
+
+
+@login_required
+def ShowView(request, id):
+    report = get_object_or_404(Report.objects, id=id)
+    output = {
+        'data': report,
+        'return_url_args': request.GET.get('next', ''),
+    }
+
+    if settings.DEBUG:
+        output.update({
+            'debug_data': serializers.serialize('json', [report, ])
+        })
+
+    return render_to_response('forms/complaint_view/show.html', output)
 
 
 TEMPLATES = [
@@ -103,6 +140,7 @@ class CRTReportWizard(SessionWizardView):
             _('Details'),
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]
+        form_autocomplete_off = os.getenv('FORM_AUTOCOMPLETE_OFF', False)
 
         context.update({
             'ordered_step_names': ordered_step_names,
@@ -113,6 +151,13 @@ class CRTReportWizard(SessionWizardView):
             'page_errors_desc': ','.join([f'"{error_desc}"' for error_desc in page_errors]),
             # Disable default client-side validation
             'form_novalidate': True,
+            'form_autocomplete_off': form_autocomplete_off,
+            'word_count_text': {
+                'wordRemainingText': _('word remaining'),
+                'wordsRemainingText': _(' words remaining'),
+                'wordLimitReachedText': _(' word limit reached'),
+                'finishSummaryText': _('Please finish your summary -- '),
+            },
         })
 
         if current_step_name == _('Details'):
