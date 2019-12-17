@@ -26,6 +26,8 @@
   font-size: 14px;
   height: 100%;
   line-height: 22px;
+  margin-bottom: 0;
+  margin-top: 0;
   width: 100%;
 
   thead {
@@ -37,7 +39,6 @@
       line-height: 25.92px;
       position: relative;
       text-transform: uppercase;
-      white-space: nowrap;
     }
   }
 
@@ -124,6 +125,10 @@
 
 .sort-image {
   text-align: right;
+}
+
+.table-message {
+  box-shadow: 0 5px 5px 2px rgba(0,0,0,.09)
 }
 
 .sort-link {
