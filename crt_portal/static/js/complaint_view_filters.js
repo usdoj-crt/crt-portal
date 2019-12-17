@@ -105,8 +105,13 @@
 
     var preparedFilters = filters.length ? '&' + filters.join('&') : '';
     var preparedParams = params.length ? params.join('&') : '';
+    var finalQuery = '';
 
-    window.location = form.action + '?' + preparedParams + preparedFilters;
+    if (preparedFilters || preparedParams) {
+      finalQuery = '?' + preparedParams + preparedFilters;
+    }
+
+    window.location = form.action + finalQuery;
   }
 
   function addMultiSelectBehavior(props) {
@@ -122,6 +127,7 @@
     function onFilterTagClick(node) {
       var sections = filterData.assigned_section;
       var filterName = node.getAttribute('data-filter-value');
+
       sections.splice(sections.indexOf(filterName), 1);
       filterData.assigned_section = sections;
 
