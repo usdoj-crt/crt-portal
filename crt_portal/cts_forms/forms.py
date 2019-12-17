@@ -131,23 +131,8 @@ class LocationForm(ModelForm):
             },
             label='State'
         )
-        self.fields['election_details'] = TypedChoiceField(
-            choices=ELECTION_CHOICES,
-            empty_value=None,
-            widget=UsaRadioSelect,
-            required=True,
-            label=_('What kind of election or voting activity was this related to?'),
-            error_messages={
-                'required': errors['location_state']
-            },
-        )
 
         self.question_groups = [
-            QuestionGroup(
-                self,
-                ('election_details',),
-                optional=False,
-            ),
             QuestionGroup(
                 self,
                 ('location_name', 'location_address_line_1', 'location_address_line_2'),
@@ -157,6 +142,8 @@ class LocationForm(ModelForm):
             )
         ]
 
+
+class ElectionLocation(LocationForm):
     class Meta:
         model = Report
         fields = [
@@ -168,13 +155,18 @@ class LocationForm(ModelForm):
             'location_state',
         ]
 
-        widgets = {
-            'location_name': TextInput(attrs={'class': 'usa-input'}),
-            'location_address_line_1': TextInput(attrs={'class': 'usa-input'}),
-            'location_address_line_2': TextInput(attrs={'class': 'usa-input'}),
-            'location_city_town': TextInput(attrs={'class': 'usa-input'}),
-            'location_state': CrtDropdown,
-        }
+    def __init__(self, *args, **kwargs):
+        super(LocationForm, self).__init__(*args, **kwargs)
+        self.fields['election_details'] = TypedChoiceField(
+            choices=ELECTION_CHOICES,
+            empty_value=None,
+            widget=UsaRadioSelect,
+            required=True,
+            label=_('What kind of election or voting activity was this related to?'),
+            error_messages={
+                'required': _('Please select the type of election or voting activity.')
+            },
+        )
 
 
 def retrieve_or_create_choices():
