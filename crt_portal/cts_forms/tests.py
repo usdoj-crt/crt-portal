@@ -288,6 +288,7 @@ class Validation_Form_Tests(TestCase):
         self.assertFalse('hatecrimes_trafficking<ul class="errorlist"><li>' in str(form.errors))
         self.assertTrue(f'<ul class="errorlist"><li>{PRIMARY_COMPLAINT_ERROR}' in str(form.errors))
 
+
 class ContactValidationTests(TestCase):
     def test_non_ascii_name(self):
         form = Contact(data={
