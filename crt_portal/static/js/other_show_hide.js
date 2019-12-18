@@ -1,7 +1,7 @@
 var otherbox = document.getElementById('other-class-option');
 otherbox.setAttribute('hidden', '');
 
-var OtherIndex = 13
+var OtherIndex = 13;
 var otherCheck = document.querySelectorAll('.' + 'usa-checkbox').item(OtherIndex);
 var otherCheckID = document.querySelectorAll('.' + 'usa-checkbox__input').item(OtherIndex).id;
 
