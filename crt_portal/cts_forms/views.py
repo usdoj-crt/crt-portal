@@ -112,7 +112,7 @@ TEMPLATES = [
     # Primary reason
     'forms/report_multiple_questions.html',
     # Election + location
-    'forms/report_multiple_questions.html',
+    'forms/report_location.html',
     # Location
     'forms/report_location.html',
     # Protected Class
@@ -157,7 +157,17 @@ class CRTReportWizard(SessionWizardView):
             _('Protected Class'),
             _('Details'),
         ]
-        current_step_name = ordered_step_names[int(self.steps.current)]
+        # Name for all forms whether they are skipped or not
+        all_step_names = [
+            _('Contact'),
+            _('Primary Issue'),
+            _('Location'),
+            _('Location'),
+            _('Protected Class'),
+            _('Details'),
+        ]
+
+        current_step_name = all_step_names[int(self.steps.current)]
 
         # This title appears in large font above the question elements
         ordered_step_titles = [
@@ -192,16 +202,10 @@ class CRTReportWizard(SessionWizardView):
         if current_step_name == _('Details'):
             context.update({
                 'page_note': _('Continued'),
-                'ordered_step_override': 4,
             })
         elif current_step_name == _('Location'):
             context.update({
                 'page_note': _('Providing details on where this occurred helps us properly review your issue and get it to the right people within the Civil Rights Division.'),
-                'ordered_step_override': 2,
-            })
-        elif current_step_name == _('Protected Class'):
-            context.update({
-                'ordered_step_override': 3,
             })
 
         return context
