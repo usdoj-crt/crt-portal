@@ -106,6 +106,16 @@ class Details(ModelForm):
 
 
 class LocationForm(ModelForm):
+    class Meta:
+        model = Report
+        fields = [
+            'location_name',
+            'location_address_line_1',
+            'location_address_line_2',
+            'location_city_town',
+            'location_state',
+        ]
+
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)
 
