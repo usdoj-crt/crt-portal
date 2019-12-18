@@ -3,12 +3,17 @@
 
   {% for field in wizard.form.visible_fields %}
     <div class="usa-prose margin-bottom-2">
-      <label for="{{ field.id_for_label }}"
-             class="em-text margin-bottom-0"
-             tabindex="0">
+      <label
+        for="{{ field.id_for_label }}"
+        class="em-text margin-bottom-0"
+      >
         {{ field.label }}
       </label>
-      <p><em tabindex="0">{{ field.help_text }}</em></p>
+      {% if field.help_text %}
+      <p>
+        <em>{{ field.help_text }}</em>
+      </p>
+      {% endif %}
     </div>
     <div class="margin-bottom-1">
       {{ field }}

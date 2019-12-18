@@ -27,9 +27,23 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+class ContactA11y():
+    def __init__(self):
+        self.name_a11y_id = 'contact_name'
+        self.contact_a11y_id = 'contact_info'
+
+    def name_id(self):
+        return self.name_a11y_id
+
+    def contact_info_id(self):
+        return self.contact_a11y_id
+
+
 class Contact(ModelForm):
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)
+
+        a11y = ContactA11y()
 
         self.label_suffix = ''
 
@@ -44,27 +58,40 @@ class Contact(ModelForm):
                 ('contact_first_name', 'contact_last_name'),
                 group_name=_('Your name'),
                 help_text=_('Leave the fields blank if you\'d like to file anonymously'),
+                ally_id=a11y.name_id
             ),
             QuestionGroup(
                 self,
                 ('contact_email', 'contact_phone'),
                 group_name=_('Contact information'),
                 help_text=_('You are not required to provide contact information, but it will help us if we need to gather more information about the incident you are reporting or to respond to your submission'),
+                ally_id=a11y.contact_info_id
             )
         ]
 
     class Meta:
+        a11y = ContactA11y()
         model = Report
         fields = [
             'contact_first_name', 'contact_last_name',
             'contact_email', 'contact_phone'
         ]
         widgets = {
-            'contact_first_name': TextInput(attrs={'class': 'usa-input', 'aria-describedby': 'Your name-help-text'}),
-            'contact_last_name': TextInput(attrs={'class': 'usa-input'}),
-            'contact_email': EmailInput(attrs={'class': 'usa-input'}),
+            'contact_first_name': TextInput(attrs={
+                'class': 'usa-input',
+                'aria-describedby': a11y.name_id
+            }),
+            'contact_last_name': TextInput(attrs={
+                'class': 'usa-input',
+                'aria-describedby': a11y.name_id
+            }),
+            'contact_email': EmailInput(attrs={
+                'class': 'usa-input',
+                'aria-describedby': a11y.contact_info_id
+            }),
             'contact_phone': TextInput(attrs={
                 'class': 'usa-input',
+                'aria-describedby': a11y.contact_info_id,
                 'pattern': phone_validation_regex,
                 'title': _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')
             }),
