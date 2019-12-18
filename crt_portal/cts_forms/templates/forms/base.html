@@ -20,6 +20,7 @@
   </head>
   <body>
     <a class="usa-skipnav" href="#main-content">Skip to main content</a>
+    {% block usa_banner %}
     <div class="usa-banner">
       <div class="usa-accordion">
         <header class="usa-banner__header">
@@ -61,6 +62,7 @@
         </div>
       </div>
     </div>
+    {% endblock %}
 
     {% block page_header %}{% endblock %}
 
@@ -68,6 +70,7 @@
       {% block content %} {% endblock %}
     </main>
 
+    {% block usa_footer %}
     <footer class="usa-footer usa-footer--slim" role="contentinfo">
       <div class="usa-footer__secondary-section">
         <div class="grid-container">
@@ -87,6 +90,7 @@
         </div>
       </div>
     </footer>
+    {% endblock %}
   </body>
   <script src="{% static 'js/uswds.min.js' %}"></script>
   <script src="{% static 'js/focus_alert.js' %}"></script>
