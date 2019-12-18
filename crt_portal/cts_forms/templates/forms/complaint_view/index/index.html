@@ -33,7 +33,7 @@
     <div class="grid-col-3">
       {% include "forms/complaint_view/index/filters.html" with filters=filters form=form %}
     </div> 
-    <div class="grid-col-9">
+    <div class="grid-col-9 height-full">
       {% include "forms/complaint_view/index/complaints_table.html" with page_format=page_format data_dict=data_dict sort_state=sort_state filter_state=filter_state %}
     </div>
   </div>
