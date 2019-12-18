@@ -42,7 +42,7 @@ You should be able to reorder the form by setting the value in the database or m
 
 # Setting up SSO
 
-- Get the needed metadata in XML from the SSO provider
+- Get the needed metadata url from the SSO provider
 
 - Create a private S3 bucket
 See more details about S3 in [cloud.gov docs](https://cloud.gov/docs/services/s3/)

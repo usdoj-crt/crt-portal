@@ -185,7 +185,7 @@ if environment != 'LOCAL':
         # [The auto(dynamic) metadata configuration URL of SAML2]
         'METADATA_AUTO_CONF_URL': vcap['user-provided'][0]['credentials']['METADATA_AUTO_CONF_URL'],
         # [The metadata configuration file path]
-        'METADATA_LOCAL_FILE_PATH': 'federationmetadata_dev.xml',
+        # 'METADATA_LOCAL_FILE_PATH': 'federationmetadata_dev.xml',
         'DEFAULT_NEXT_URL': '/form/view',
 
         # !!! change this explicitly to FALSE once this is working !!! #
