@@ -215,7 +215,7 @@ class Valid_CRT_Pagnation_Tests(TestCase):
         self.assertTrue('Go to page 5.' in content)
         self.assertTrue('Current page, page 6.' in content)
         self.assertTrue('Go to page 7.' in content)
-        self.assertTrue('Go to page 12.' in content)
+        self.assertTrue(f'Go to page {len(PROTECTED_CLASS_CHOICES)}.' in content)
         # link generation, update with sorting etc. as we add
         self.assertTrue('href="?per_page=1' in content)
         self.assertTrue('sort=assigned_section' in content)

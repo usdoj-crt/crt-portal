@@ -183,51 +183,26 @@ class LocationForm(ModelForm):
         }
 
 
-def retrieve_or_create_choices():
-    choices = []
-    for choice in PROTECTED_CLASS_CHOICES:
-        try:
-            choice_object = ProtectedClass.objects.get_or_create(protected_class=choice)
-            choices.append(choice_object[0].pk)
-        except:  # noqa
-            # this has a concurrency issue for initial migrations
-            logger.warning('ProtectedClass not loaded yet')
-    return choices
-
-
 class ProtectedClassForm(ModelForm):
     class Meta:
         model = Report
         fields = ['protected_class', 'other_class']
-        widgets = {
-            'protected_class': UsaCheckboxSelectMultiple,
-            'other_class': TextInput(),
-        }
-
-    choices = retrieve_or_create_choices()
-    protected_class = ModelMultipleChoiceField(
-        error_messages={'required': PROTECTED_CLASS_ERROR},
-        required=True,
-        queryset=ProtectedClass.objects.filter(pk__in=choices).order_by('form_order'),
-    )
-    other_class = TextInput()
 
     # Overriding __init__ here allows us to provide initial data for 'protected_class' field
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
-        choices = retrieve_or_create_choices()
-        self.fields['protected_class'].queryset = ProtectedClass.objects.filter(pk__in=choices).order_by('-form_order')
-        choices = retrieve_or_create_choices()
         self.fields['protected_class'] = ModelMultipleChoiceField(
-            error_messages={'required': _('Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.')},
+            label=_('Do you believe any of these personal characteristics influenced why you were treated this way?'),
+            help_text=_('Some civil rights laws protect people from discrimination, which include these protected classes. These are some of the most common classes that we see.'),
+            error_messages={'required': PROTECTED_CLASS_ERROR},
             required=True,
-            queryset=ProtectedClass.objects.filter(pk__in=choices).order_by('form_order'),
+            queryset=ProtectedClass.objects.filter(protected_class__in=PROTECTED_CLASS_CHOICES).order_by('form_order'),
             widget=UsaCheckboxSelectMultiple,
         )
-        self.fields['protected_class'].label = _('Do you believe any of these personal characteristics influenced why you were treated this way?')
-        self.fields['protected_class'].help_text = _('Some civil rights laws protect people from discrimination, which include these protected classes. These are some of the most common classes that we see.')
         self.fields['other_class'].help_text = _('Please describe "Other reason"')
-        self.fields['other_class'].widget.attrs['class'] = _('usa-input word-count-10')
+        self.fields['other_class'].widget = TextInput(
+            attrs={'class': 'usa-input word-count-10'}
+        )
 
 
 class Who(ModelForm):

@@ -67,17 +67,19 @@ HATE_CRIMES_TRAFFICKING_CHOICES = (
 # See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
 # This tuple will create the initial order, the form_order data can be directly adjusted after the initial load.
 PROTECTED_CLASS_CHOICES = (
-    _('Disability (including temporary or recovery)'),
     _('Race/color'),
-    _('National origin (including ancestry, ethnicity, and language)'),
+    _('National origin (including ancestry and ethnicity)'),
     _('Immigration/citizenship status (choosing this will not share your status)'),
     _('Religion'),
     _('Sex or gender identity (including gender stereotypes) or pregnancy'),
-    _('Family, marriage, or parental status'),
     _('Sexual orientation'),
+    _('Disability (including temporary or recovery)'),
+    _('Language'),
+    _('Family, marriage, or parental status'),
     _('Military status'),
     _('Age'),
     _('Genetic information'),
+    _('None of these apply to me'),
     _('Other reason'),
 )
 
@@ -85,7 +87,7 @@ PROTECTED_CLASS_CHOICES = (
 PROTECTED_CLASS_CODES = {
     'Disability (including temporary or recovery)': 'Disability',
     'Race/color': 'Race/color',
-    'National origin (including ancestry, ethnicity, and language)': 'National origin',
+    'National origin (including ancestry and ethnicity)': 'National origin',
     'Immigration/citizenship status (choosing this will not share your status)': 'Immigration',
     'Religion': 'Religion',
     'Sex or gender identity (including gender stereotypes) or pregnancy': 'Sex',
@@ -95,12 +97,14 @@ PROTECTED_CLASS_CODES = {
     'Age': 'Age',
     'Genetic information': 'Genetic',
     'Other reason': 'Other',
+    'None of these apply to me': 'None',
+    'Language': 'Language'
 }
 
 PROTECTED_MODEL_CHOICES = (
     ('disability', _('Disability (including temporary or recovery)')),
     ('race', _('Race/color')),
-    ('origin', _('National origin (including ancestry, ethnicity, and language)')),
+    ('origin', _('National origin (including ancestry and ethnicity)')),
     ('immigration', _('Immigration/citizenship status (choosing this will not share your status)')),
     ('religion', _('Religion')),
     ('gender', _('Sex or gender identity (including gender stereotypes) or pregnancy')),
@@ -109,7 +113,9 @@ PROTECTED_MODEL_CHOICES = (
     ('military', _('Military status')),
     ('age', _('Age')),
     ('genetic', _('Genetic information')),
+    ('language', _('Language')),
     ('other', _('Other reason')),
+    ('none', _('None of these apply to me')),
 )
 
 PROTECTED_CLASS_ERROR = _('Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.')
