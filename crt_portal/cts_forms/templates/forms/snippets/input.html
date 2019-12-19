@@ -1,0 +1,24 @@
+<div class="usa-prose margin-bottom-2">
+  <label
+    for="{{ field.id_for_label }}"
+    class="em-text margin-bottom-0"
+  >
+    {{ field.label }}
+    {% if field.help_text %}
+    <span class="usa-sr-only">
+      {{ field.help_text }}
+    </span>
+    {% endif %}
+  </label>
+  {% if field.help_text %}
+  <p>
+    <em>{{ field.help_text }}</em>
+  </p>
+  {% endif %}
+</div>
+<div class="usa-prose margin-bottom-4">
+  {{ field }}
+  {% if field.errors %}
+    {% include "forms/snippets/error_alert.html" with errors=field.errors %}
+  {% endif %}
+</div>

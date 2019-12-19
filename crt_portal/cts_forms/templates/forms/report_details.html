@@ -2,28 +2,7 @@
 {% block form_questions %}
 
   {% for field in wizard.form.visible_fields %}
-    <div class="usa-prose margin-bottom-2">
-      <label
-        for="{{ field.id_for_label }}"
-        class="em-text margin-bottom-0"
-      >
-        {{ field.label }}
-      </label>
-      {% if field.help_text %}
-      <p>
-        <em>{{ field.help_text }}</em>
-      </p>
-      {% endif %}
-    </div>
-    <div class="margin-bottom-1">
-      {{ field }}
-
-      {% if field.errors %}
-        {% include "forms/snippets/error_alert.html" with errors=field.errors %}
-      {% endif %}
-    </div>
+    {% include "forms/snippets/input.html" with field=field %}
     {% include "forms/word_counter.html" with word_limit=500 %}
   {% endfor %}
-
-<div class="margin-bottom-5"></div>
 {% endblock %}
