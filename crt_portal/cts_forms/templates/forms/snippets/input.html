@@ -4,14 +4,9 @@
     class="{{label_class}} margin-bottom-0"
   >
     {{ field.label }}
-    {% if field.help_text %}
-    <span id="hatecrimes-help-text" class="usa-sr-only">
-      {{ field.help_text }}
-    </span>
-    {% endif %}
   </label>
   {% if field.help_text %}
-  <p>
+  <p {% if ally_id%}id="{{ally_id}}"{%endif%}>
     <em>{{ field.help_text }}</em>
   </p>
   {% endif %}

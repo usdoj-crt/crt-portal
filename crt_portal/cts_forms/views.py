@@ -119,6 +119,7 @@ TEMPLATES = [
     'forms/report_primary_complaint.html',
     # Election + location
     'forms/report_location.html',
+    'forms/report_location.html',
     # Protected Class
     'forms/report_class.html',
     # Details

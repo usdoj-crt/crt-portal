@@ -1,7 +1,7 @@
 {% extends "forms/report_base.html" %}
 {% block form_questions %}
   {% for field in wizard.form.visible_fields %}
-    {% include "forms/snippets/input.html" with field=field %}
+    {% include "forms/snippets/input.html" with field=field ally_id="details-help-text" %}
     {% include "forms/word_counter.html" with word_limit=500 %}
   {% endfor %}
 {% endblock %}
