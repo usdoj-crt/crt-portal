@@ -17,9 +17,7 @@
     {% endif %}
 
     {% for field in question_group %}
-      <div class="margin-top-3"> 
-        {% include "forms/snippets/input.html" with field=field %}
-      </div>
+      {% include "forms/snippets/input.html" with field=field label_class=question_group.cls %}
     {% endfor %}
   </fieldset>
 {% endfor %}

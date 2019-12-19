@@ -116,10 +116,8 @@ TEMPLATES = [
     # Contact
     'forms/report_grouped_questions.html',
     # Primary reason
-    'forms/report_multiple_questions.html',
+    'forms/report_primary_complaint.html',
     # Election + location
-    'forms/report_location.html',
-    # Location
     'forms/report_location.html',
     # Protected Class
     'forms/report_class.html',

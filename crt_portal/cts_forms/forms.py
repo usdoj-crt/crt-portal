@@ -106,11 +106,10 @@ class PrimaryReason(ModelForm):
             'hatecrimes_trafficking'
         ]
         widgets = {
-            'hatecrimes_trafficking': UsaCheckboxSelectMultiple,
-            'primary_complaint': CrtRadioArea(attrs={
-                'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
-                'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+            'hatecrimes_trafficking': UsaCheckboxSelectMultiple(attrs={
+                'aria-describedby': 'hatecrimes-help-text'
             }),
+            'primary_complaint': CrtRadioArea,
         }
 
     def __init__(self, *args, **kwargs):
@@ -120,6 +119,7 @@ class PrimaryReason(ModelForm):
             widget=CrtRadioArea(attrs={
                 'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                 'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+                 'aria-describedby': 'primary-complaint-help-text',
             }),
             required=True,
             error_messages={
@@ -130,12 +130,24 @@ class PrimaryReason(ModelForm):
 
         self.fields['hatecrimes_trafficking'] = ModelMultipleChoiceField(
             queryset=HateCrimesandTrafficking.objects.filter(hatecrimes_trafficking_option__in=HATE_CRIMES_TRAFFICKING_CHOICES),
-            widget=UsaCheckboxSelectMultiple,
+            widget=UsaCheckboxSelectMultiple(attrs={
+                'aria-describedby': 'hatecrimes-help-text'
+            }),
             required=False,
-            help_text=_('Hate crimes and human trafficking are considered criminal cases and go through a different process for investigation than other civil rights cases. If we determine your situation falls into these categories after submitting your concern, we will contact you with next steps.'),
-            label=_('Hate Crimes & Human Trafficking')
+            label=_('Please select if any that apply to your situation (optional)')
         )
-
+        self.question_groups = [
+            QuestionGroup(
+                self,
+                ('hatecrimes_trafficking',),
+                group_name=_('Hate Crimes & Human Trafficking'),
+                help_text=_('Hate crimes and human trafficking are considered criminal cases and go through a different process for investigation than other civil rights cases. If we determine your situation falls into these categories after submitting your concern, we will contact you with next steps.'),
+                optional=False,
+                cls="text-bold",
+                ally_id="hatecrimes-help-text"
+            )
+        ]
+       
 
 class Details(ModelForm):
     def __init__(self, *args, **kwargs):
