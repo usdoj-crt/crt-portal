@@ -9,7 +9,7 @@ PRIMARY_COMPLAINT_CHOICES = (
     ('voting', _('Right to vote impacted')),
     ('police', _('Mistreated by police, law enforcement, or correctional staff (including while in prison)')),
     ('commercial_or_public', _('Discriminated against in any other commercial location or public place')),
-    ('something_else', _('Something else happened'))
+    ('something_else', _('Something else happened')),
 )
 
 PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT = {
@@ -59,21 +59,33 @@ ELECTION_CHOICES = (
     ('unknown', _('I don’t know')),
 )
 
+HATE_CRIMES_TRAFFICKING_MODEL_CHOICES = (
+    ('physical_harm', _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability')),
+    ('trafficking', _('Coerced or forced to do work or perform a commercial sex act')),
+)
+
+HATE_CRIMES_TRAFFICKING_CHOICES = (
+    _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability'),
+    _('Coerced or forced to do work or perform a commercial sex act'),
+)
+
 # PROTECTED_CLASS_CHOICES means "PROTECTED_CLASS_FORM_CHOICES" and refers to the choices that will be displayed on the form front-end.
 # See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
 # This tuple will create the initial order, the form_order data can be directly adjusted after the initial load.
 PROTECTED_CLASS_CHOICES = (
-    _('Disability (including temporary or recovery)'),
     _('Race/color'),
-    _('National origin (including ancestry, ethnicity, and language)'),
+    _('National origin (including ancestry and ethnicity)'),
     _('Immigration/citizenship status (choosing this will not share your status)'),
     _('Religion'),
     _('Sex or gender identity (including gender stereotypes) or pregnancy'),
-    _('Family, marriage, or parental status'),
     _('Sexual orientation'),
+    _('Disability (including temporary or recovery)'),
+    _('Language'),
+    _('Family, marriage, or parental status'),
     _('Military status'),
     _('Age'),
     _('Genetic information'),
+    _('None of these apply to me'),
     _('Other reason'),
 )
 
@@ -81,7 +93,7 @@ PROTECTED_CLASS_CHOICES = (
 PROTECTED_CLASS_CODES = {
     'Disability (including temporary or recovery)': 'Disability',
     'Race/color': 'Race/color',
-    'National origin (including ancestry, ethnicity, and language)': 'National origin',
+    'National origin (including ancestry and ethnicity)': 'National origin',
     'Immigration/citizenship status (choosing this will not share your status)': 'Immigration',
     'Religion': 'Religion',
     'Sex or gender identity (including gender stereotypes) or pregnancy': 'Sex',
@@ -91,12 +103,14 @@ PROTECTED_CLASS_CODES = {
     'Age': 'Age',
     'Genetic information': 'Genetic',
     'Other reason': 'Other',
+    'None of these apply to me': 'None',
+    'Language': 'Language'
 }
 
 PROTECTED_MODEL_CHOICES = (
     ('disability', _('Disability (including temporary or recovery)')),
     ('race', _('Race/color')),
-    ('origin', _('National origin (including ancestry, ethnicity, and language)')),
+    ('origin', _('National origin (including ancestry and ethnicity)')),
     ('immigration', _('Immigration/citizenship status (choosing this will not share your status)')),
     ('religion', _('Religion')),
     ('gender', _('Sex or gender identity (including gender stereotypes) or pregnancy')),
@@ -105,7 +119,9 @@ PROTECTED_MODEL_CHOICES = (
     ('military', _('Military status')),
     ('age', _('Age')),
     ('genetic', _('Genetic information')),
+    ('language', _('Language')),
     ('other', _('Other reason')),
+    ('none', _('None of these apply to me')),
 )
 
 PROTECTED_CLASS_ERROR = _('Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.')
@@ -274,6 +290,7 @@ STATES_AND_TERRITORIES = (
 )
 
 VIOLATION_SUMMARY_ERROR = _('Please provide description to continue')
+PRIMARY_COMPLAINT_ERROR = _('Please select a primary reason to continue.')
 
 WHERE_ERRORS = (
     ('location_name', _('Please enter the name of the location where this took place.')),

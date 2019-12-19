@@ -10,9 +10,9 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 
-from .models import ProtectedClass, Report
-from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES, VIOLATION_SUMMARY_ERROR, WHERE_ERRORS, PRIMARY_COMPLAINT_CHOICES
-from .forms import Who, Details, Contact, ProtectedClassForm, LocationForm
+from .models import ProtectedClass, Report, HateCrimesandTrafficking
+from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES, VIOLATION_SUMMARY_ERROR, WHERE_ERRORS, PRIMARY_COMPLAINT_CHOICES, PRIMARY_COMPLAINT_ERROR
+from .forms import Who, Details, Contact, ProtectedClassForm, LocationForm, PrimaryReason
 from .test_data import SAMPLE_REPORT
 
 
@@ -81,6 +81,13 @@ class Valid_Form_Tests(TestCase):
         form = ProtectedClassForm(data={
             'protected_class': ProtectedClass.objects.all(),
             'other_class': 'Random string under 150 characters (हिन्दी)',
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_Primary_reason_valid(self):
+        form = PrimaryReason(data={
+            'hatecrimes_trafficking': HateCrimesandTrafficking.objects.all(),
+            'primary_complaint': PRIMARY_COMPLAINT_CHOICES[0][0],
         })
         self.assertTrue(form.is_valid())
 
@@ -208,7 +215,7 @@ class Valid_CRT_Pagnation_Tests(TestCase):
         self.assertTrue('Go to page 5.' in content)
         self.assertTrue('Current page, page 6.' in content)
         self.assertTrue('Go to page 7.' in content)
-        self.assertTrue('Go to page 12.' in content)
+        self.assertTrue(f'Go to page {len(PROTECTED_CLASS_CHOICES)}.' in content)
         # link generation, update with sorting etc. as we add
         self.assertTrue('href="?per_page=1' in content)
         self.assertTrue('sort=assigned_section' in content)
@@ -248,8 +255,8 @@ class Valid_CRT_SORT_Tests(TestCase):
     def test_sort(self):
         # Vote should come after ADM when alphabetical, opposite for reverse
         vote_index_1 = str(self.response_1).find('VOT')
-        vote_index_2 = str(self.response_2).find('VOT')
-        self.assertTrue(vote_index_1 > vote_index_2)
+        adm_index_1 = str(self.response_1).find('ADM')
+        self.assertTrue(vote_index_1 > adm_index_1)
 
     def test_bad_sort_param(self):
         url_base = reverse('crt_forms:crt-forms-index')
@@ -359,6 +366,15 @@ class Validation_Form_Tests(TestCase):
             'violation_summary': ''
         })
         self.assertTrue(f'<ul class="errorlist"><li>{VIOLATION_SUMMARY_ERROR}' in str(form.errors))
+
+    def test_required_primary_reason_hatecrime(self):
+        form = PrimaryReason(data={
+            'hatecrimes_trafficking_set': None,
+            'primary_complaint': '',
+        })
+        # ensure Hatecrime is not in error list
+        self.assertFalse('hatecrimes_trafficking<ul class="errorlist"><li>' in str(form.errors))
+        self.assertTrue(f'<ul class="errorlist"><li>{PRIMARY_COMPLAINT_ERROR}' in str(form.errors))
 
 
 class ContactValidationTests(TestCase):

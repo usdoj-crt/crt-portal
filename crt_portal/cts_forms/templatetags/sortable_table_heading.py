@@ -30,7 +30,7 @@ def heading_2_model_prop(heading):
 
 # Helper function to generate a sort query string to be passed to the template
 # When the query is descending, returns a query string for an ascending sort.
-def sort_url_factory(heading, is_descending):
+def sort_url_factory(heading, is_descending, filter_state):
     sort_properties = heading_2_model_prop(heading)
 
     if is_descending:
@@ -38,11 +38,11 @@ def sort_url_factory(heading, is_descending):
     else:
         sortables = map(lambda x: '-{}'.format(x), sort_properties)
 
-    return '?' + '&'.join('sort=' + p for p in sortables)
+    return '?' + '&'.join('sort=' + p for p in sortables) + filter_state
 
 
 @register.inclusion_tag('forms/snippets/sortable_table_heading.html')
-def render_sortable_heading(heading, sort_state):
+def render_sortable_heading(heading, sort_state, filter_state):
     safe_heading = heading.lower()
     sortable_prop = sort_lookup.get(safe_heading, None)
 
@@ -54,7 +54,7 @@ def render_sortable_heading(heading, sort_state):
     if sortable_prop in sortable_props:
         is_descending = sort_state.get(sortable_prop, False)
         sort_dict.update({
-            'sort_url': sort_url_factory(safe_heading, is_descending),
+            'sort_url': sort_url_factory(safe_heading, is_descending, filter_state),
             'is_descending': is_descending
         })
 

@@ -18,7 +18,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "gulp": "^4.0.2"
+    "gulp": "^4.0.2",
+    "url-search-params-polyfill": "^7.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^9.6.1",
