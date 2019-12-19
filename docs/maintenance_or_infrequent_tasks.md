@@ -18,5 +18,17 @@ You should be able to reorder the form by setting the value in the database or m
 
 
 ## Add a new optional form
+See example code here: https://github.com/usdoj-crt/crt-portal/pull/209/files
 
+1) Make any model changes in models.py, such as new fields. Create and then apply the migration
 
+2) Make a form class in forms.py. You can inherit pieces of other forms if this form is similar to another.
+
+3) make a function to determine when you want the form to show on the front end
+
+4) Add the form class and the function to urls.py
+
+5) In views.py
+    - add the new page name for the form page `to all_step_names`
+    - add the top-line title for the page to `ordered_step_titles`
+    - add an existing or template to the `TEMPLATES` list
