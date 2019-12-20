@@ -1,22 +1,26 @@
-var otherbox = document.getElementById('other-class-option');
-otherbox.setAttribute('hidden', '');
+(function(dom) {
+  /**
+   * The index of the 'other' option on the protected class form.
+   * We target it explicitly becuase while it is currently
+   * the last element in the list of options, it might not always be
+   */
+  var OTHER_OPTION_INDEX = 13;
 
-var OtherIndex = 13;
-var otherCheck = document.querySelectorAll('.' + 'usa-checkbox').item(OtherIndex);
-var otherCheckID = document.querySelectorAll('.' + 'usa-checkbox__input').item(OtherIndex).id;
+  // Wapper element for the 'other' option checkbox
+  var otherOptionEl = dom.querySelectorAll('.usa-checkbox')[OTHER_OPTION_INDEX];
+  // The actual checkbox the user will interact with
+  var otherOptionCheckbox = otherOptionEl.querySelector('.usa-checkbox__input');
+  // Wrapper element for the short text description revealed when the 'other' option is selected
+  var otherOptionTextEl = dom.getElementById('other-class-option');
 
-function checkOther(elem) {
-  var checkBox = document.querySelectorAll('.' + 'usa-checkbox__input').item(OtherIndex);
-  var otherArea = document.getElementById('other-class-option');
-  if (checkBox.checked == true) {
-    otherArea.removeAttribute('hidden');
-  } else {
-    otherArea.setAttribute('hidden', '');
+  function toggleOtherOptionTextInput() {
+    if (otherOptionCheckbox.checked) {
+      otherOptionTextEl.removeAttribute('hidden');
+    } else {
+      otherOptionTextEl.setAttribute('hidden', '');
+    }
   }
-}
 
-otherCheck.setAttribute('onclick', 'checkOther(otherCheckID);');
-
-window.selectionchange = checkOther(
-  document.querySelectorAll('.' + 'usa-checkbox__input').item(OtherIndex).id
-);
+  otherOptionCheckbox.addEventListener('click', toggleOtherOptionTextInput);
+  otherOptionTextEl.setAttribute('hidden', '');
+})(document);
