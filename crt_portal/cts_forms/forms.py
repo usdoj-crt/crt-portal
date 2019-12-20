@@ -137,6 +137,13 @@ class LocationForm(ModelForm):
             'location_city_town',
             'location_state',
         ]
+        widgets = {
+            'location_name': TextInput(attrs={'class': 'usa-input'}),
+            'location_address_line_1': TextInput(attrs={'class': 'usa-input'}),
+            'location_address_line_2': TextInput(attrs={'class': 'usa-input'}),
+            'location_city_town': TextInput(attrs={'class': 'usa-input'}),
+            'location_state': CrtDropdown,
+        }
 
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)
@@ -180,6 +187,7 @@ class ElectionLocation(LocationForm):
     class Meta:
         model = Report
         fields = LocationForm.Meta.fields + ['election_details']
+        widgets = LocationForm.Meta.widgets
 
     def __init__(self, *args, **kwargs):
         LocationForm.__init__(self, *args, **kwargs)
