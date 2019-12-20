@@ -19,7 +19,7 @@
 {% block main_class %} class="page-header-background"{% endblock %}
 
 {% block content %}
-  <div class="grid-container">
+  <div class="grid-container-widescreen">
     <div class="complaint-header bg-primary text-white">
       <div class="grid-container">
       <div class="grid-row grid-gap">
@@ -43,10 +43,10 @@
     </div>
     <div class="complaint-body">
       <div class="grid-container">
-        <div class="grid-row">
-          <div class="tablet:grid-col-6"></div>
-          <div class="tablet:grid-col-6">
+        <div class="grid-row grid-gap-md">
+          <div class="tablet:grid-col-8 grid-offset-2">
             {% include 'forms/complaint_view/show/correspondent_info.html' with data=data %}
+            {% include 'forms/complaint_view/show/complaint_details.html' %}
             {% include 'forms/complaint_view/show/full_summary.html' with summary=data.violation_summary %}
           </div>
         </div>
