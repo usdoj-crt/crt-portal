@@ -117,6 +117,8 @@ TEMPLATES = [
     'forms/report_grouped_questions.html',
     # Primary reason
     'forms/report_multiple_questions.html',
+    # Election + location
+    'forms/report_location.html',
     # Location
     'forms/report_location.html',
     # Protected Class
@@ -124,6 +126,22 @@ TEMPLATES = [
     # Details
     'forms/report_details.html',
 ]
+
+
+def show_election_form_condition(wizard):
+    # try to get the cleaned data of step 1
+    cleaned_data = wizard.get_cleaned_data_for_step('1') or {'primary_complaint': 'not yet completed'}
+    if cleaned_data['primary_complaint'] == 'voting':
+        return True
+    return False
+
+
+def show_location_form_condition(wizard):
+    # try to get the cleaned data of step 1
+    cleaned_data = wizard.get_cleaned_data_for_step('1') or {'primary_complaint': 'not yet completed'}
+    if cleaned_data['primary_complaint'] != 'voting':
+        return True
+    return False
 
 
 class CRTReportWizard(SessionWizardView):
@@ -145,12 +163,23 @@ class CRTReportWizard(SessionWizardView):
             _('Protected Class'),
             _('Details'),
         ]
-        current_step_name = ordered_step_names[int(self.steps.current)]
+        # Name for all forms whether they are skipped or not
+        all_step_names = [
+            _('Contact'),
+            _('Primary Issue'),
+            _('Location'),
+            _('Location'),
+            _('Protected Class'),
+            _('Details'),
+        ]
+
+        current_step_name = all_step_names[int(self.steps.current)]
 
         # This title appears in large font above the question elements
         ordered_step_titles = [
             _('Contact'),
             _('What is your primary reason for contacting the Civil Rights Division?'),
+            _('Location details'),
             _('Location details'),
             _('Please provide details'),
             _('Details'),

@@ -52,6 +52,13 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
     'something_else': []
 }
 
+ELECTION_CHOICES = (
+    ('federal', _('Federal- presidential, or congressional')),
+    ('state_local', _('State or local- Governor, state legislation, city position (mayor, council, local board)')),
+    ('both', _('Both Federal & State/local')),
+    ('unknown', _('I don’t know')),
+)
+
 HATE_CRIMES_TRAFFICKING_MODEL_CHOICES = (
     ('physical_harm', _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability')),
     ('trafficking', _('Coerced or forced to do work or perform a commercial sex act')),
@@ -61,7 +68,6 @@ HATE_CRIMES_TRAFFICKING_CHOICES = (
     _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability'),
     _('Coerced or forced to do work or perform a commercial sex act'),
 )
-
 
 # PROTECTED_CLASS_CHOICES means "PROTECTED_CLASS_FORM_CHOICES" and refers to the choices that will be displayed on the form front-end.
 # See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options

@@ -5,6 +5,7 @@ from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtDropdown, CrtMultiSelect
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
 from .model_variables import (
+    ELECTION_CHOICES,
     RESPONDENT_TYPE_CHOICES,
     PROTECTED_CLASS_CHOICES,
     PROTECTED_CLASS_ERROR,
@@ -127,6 +128,16 @@ class Details(ModelForm):
 
 
 class LocationForm(ModelForm):
+    class Meta:
+        model = Report
+        fields = [
+            'location_name',
+            'location_address_line_1',
+            'location_address_line_2',
+            'location_city_town',
+            'location_state',
+        ]
+
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)
 
@@ -158,29 +169,38 @@ class LocationForm(ModelForm):
             QuestionGroup(
                 self,
                 ('location_name', 'location_address_line_1', 'location_address_line_2'),
-                group_name='Where did this happen?',
-                help_text='Please be as specific as possible. We will handle this information with sensitivity.',
+                group_name=_('Where did this happen?'),
+                help_text=_('Please be as specific as possible. We will handle this information with sensitivity.'),
                 optional=False
             )
         ]
 
+
+class ElectionLocation(LocationForm):
     class Meta:
         model = Report
-        fields = [
-            'location_name',
-            'location_address_line_1',
-            'location_address_line_2',
-            'location_city_town',
-            'location_state',
-        ]
+        fields = LocationForm.Meta.fields + ['election_details']
 
-        widgets = {
-            'location_name': TextInput(attrs={'class': 'usa-input'}),
-            'location_address_line_1': TextInput(attrs={'class': 'usa-input'}),
-            'location_address_line_2': TextInput(attrs={'class': 'usa-input'}),
-            'location_city_town': TextInput(attrs={'class': 'usa-input'}),
-            'location_state': CrtDropdown,
-        }
+    def __init__(self, *args, **kwargs):
+        LocationForm.__init__(self, *args, **kwargs)
+        self.question_groups = [
+            QuestionGroup(
+                self,
+                ('election_details',),
+                group_name=_('What kind of election or voting activity was this related to?'),
+                optional=False
+            )
+        ] + self.question_groups
+
+        self.fields['election_details'] = TypedChoiceField(
+            choices=ELECTION_CHOICES,
+            empty_value=None,
+            widget=UsaRadioSelect,
+            required=True,
+            error_messages={
+                'required': _('Please select the type of election or voting activity.')
+            }
+        )
 
 
 class ProtectedClassForm(ModelForm):
