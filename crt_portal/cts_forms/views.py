@@ -99,7 +99,7 @@ def IndexView(request):
 @login_required
 def ShowView(request, id):
     report = get_object_or_404(Report.objects, id=id)
-    primary_complaint = [ choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint ]
+    primary_complaint = [choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint]
     crimes = {
         'physical_harm': False,
         'trafficking': False
