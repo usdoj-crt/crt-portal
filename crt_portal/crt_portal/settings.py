@@ -188,6 +188,13 @@ if environment != 'LOCAL':
         # 'METADATA_LOCAL_FILE_PATH': 'federationmetadata_dev.xml',
         'DEFAULT_NEXT_URL': '/form/view',
 
+        'ATTRIBUTES_MAP': {  # Change Email/UserName/FirstName/LastName to corresponding SAML2 userprofile attributes.
+            'email': 'EMAIL',
+            'username': 'NAMEID',
+        },
+
+        'NAME_ID_FORMAT': 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
+
         # !!! change this explicitly to FALSE once this is working !!! #
         'CREATE_USER': 'TRUE',
         # remove once working #
