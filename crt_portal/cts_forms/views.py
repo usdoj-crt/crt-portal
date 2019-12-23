@@ -12,7 +12,7 @@ from django.conf import settings
 from formtools.wizard.views import SessionWizardView
 
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
-from .model_variables import PROTECTED_CLASS_CODES
+from .model_variables import PROTECTED_CLASS_CODES, PRIMARY_COMPLAINT_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
 from .page_through import pagination
 from .filters import report_filter
 from .forms import Filters
@@ -99,8 +99,21 @@ def IndexView(request):
 @login_required
 def ShowView(request, id):
     report = get_object_or_404(Report.objects, id=id)
+    primary_complaint = [ choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint ]
+    crimes = {
+        'physical_harm': False,
+        'trafficking': False
+    }
+
+    for crime in report.hatecrimes_trafficking.all():
+        for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
+            if crime.hatecrimes_trafficking_option == choice[1]:
+                crimes[choice[0]] = True
+
     output = {
+        'crimes': crimes,
         'data': report,
+        'primary_complaint': primary_complaint,
         'return_url_args': request.GET.get('next', ''),
     }
 
