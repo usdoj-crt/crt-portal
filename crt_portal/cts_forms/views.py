@@ -119,6 +119,8 @@ TEMPLATES = [
     'forms/report_multiple_questions.html',
     # Election + location
     'forms/report_location.html',
+    # Workplace + location
+    'forms/report_location.html',
     # Location
     'forms/report_location.html',
     # Protected Class
@@ -126,6 +128,8 @@ TEMPLATES = [
     # Details
     'forms/report_details.html',
 ]
+
+conditional_location_routings = ['voting', 'workplace']
 
 
 def show_election_form_condition(wizard):
@@ -136,10 +140,18 @@ def show_election_form_condition(wizard):
     return False
 
 
+def show_workplace_form_condition(wizard):
+    cleaned_data = wizard.get_cleaned_data_for_step('1') or {'primary_complaint': 'not yet completed'}
+    if cleaned_data['primary_complaint'] == 'workplace':
+        return True
+    return False
+
+
 def show_location_form_condition(wizard):
     # try to get the cleaned data of step 1
     cleaned_data = wizard.get_cleaned_data_for_step('1') or {'primary_complaint': 'not yet completed'}
-    if cleaned_data['primary_complaint'] != 'voting':
+
+    if not cleaned_data['primary_complaint'] in conditional_location_routings:
         return True
     return False
 
@@ -169,6 +181,7 @@ class CRTReportWizard(SessionWizardView):
             _('Primary Issue'),
             _('Location'),
             _('Location'),
+            _('Location'),
             _('Protected Class'),
             _('Details'),
         ]
@@ -179,6 +192,7 @@ class CRTReportWizard(SessionWizardView):
         ordered_step_titles = [
             _('Contact'),
             _('What is your primary reason for contacting the Civil Rights Division?'),
+            _('Location details'),
             _('Location details'),
             _('Location details'),
             _('Please provide details'),
