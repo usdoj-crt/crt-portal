@@ -180,6 +180,41 @@ class SectionAssignmentTests(TestCase):
         self.assertFalse(test_report.assign_section() == 'VOT')
         self.assertTrue(test_report.assign_section() == 'ADM')
 
+    def test_workplace_primary_complaint_exception(self):
+        # Workplace discrimination complaints are routed to ADM by default
+        SAMPLE_REPORT['primary_complaint'] = 'workplace'
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+        test_report.save()
+        self.assertTrue(test_report.assign_section() == 'ADM')
+
+    def test_workplace_primary_complaint_routing(self):
+        # If the report contains any of the first three Protected Classes here,
+        # route to IER
+        immigration = ProtectedClass.objects.get_or_create(protected_class='Immigration/citizenship status (choosing this will not share your status)')
+        language = ProtectedClass.objects.get_or_create(protected_class='Language')
+        origin = ProtectedClass.objects.get_or_create(protected_class='National origin (including ancestry and ethnicity)')
+        disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
+
+        SAMPLE_REPORT['primary_complaint'] = 'workplace'
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+        test_report.protected_class.add(immigration[0])
+        test_report.save()
+        self.assertTrue(test_report.assign_section() == 'IER')
+        test_report.protected_class.remove(immigration[0])
+        test_report.protected_class.add(language[0])
+        test_report.save()
+        self.assertTrue(test_report.assign_section() == 'IER')
+        test_report.protected_class.remove(language[0])
+        test_report.protected_class.add(origin[0])
+        test_report.save()
+        self.assertTrue(test_report.assign_section() == 'IER')
+        test_report.protected_class.add(language[0])
+        test_report.save()
+        self.assertTrue(test_report.assign_section() == 'IER')
+        test_report.protected_class.add(disability[0])
+        test_report.save()
+        self.assertTrue(test_report.assign_section() == 'IER')
+
 
 class Valid_CRT_Pagnation_Tests(TestCase):
     def setUp(self):
