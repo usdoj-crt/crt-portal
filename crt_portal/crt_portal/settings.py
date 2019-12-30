@@ -159,52 +159,21 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 if environment != 'LOCAL':
     s3_creds = ''
-    sso_creds = ''
     for service in vcap['s3']:
         if service['instance_name'] == 'crt-s3':
             s3_creds = service['credentials']
-        if service['instance_name'] == 'sso-creds':
-            sso_creds = service['credentials']
-
-    # Single sign on
-    SSO_BUCKET = sso_creds['bucket']
-    SSO_REGION = sso_creds['region']
-    AWS_S3_SSO_URL = f'https://{SSO_BUCKET}.s3-{SSO_REGION}.amazonaws.com/federationmetadata_dev.xml'
-    client_sso = boto3.client(
-        's3',
-        SSO_REGION,
-        aws_access_key_id=sso_creds['access_key_id'],
-        aws_secret_access_key=sso_creds['secret_access_key'],
-    )
-
-    with open('federationmetadata_dev.xml', 'wb') as DATA:
-        client_sso.download_file(SSO_BUCKET, 'federationmetadata_dev.xml', 'federationmetadata_dev.xml')
 
     SAML2_AUTH = {
         # Metadata is required, choose either remote url or local file path
         # [The auto(dynamic) metadata configuration URL of SAML2]
         'METADATA_AUTO_CONF_URL': vcap['user-provided'][0]['credentials']['METADATA_AUTO_CONF_URL'],
-        # [The metadata configuration file path]
-        # 'METADATA_LOCAL_FILE_PATH': 'federationmetadata_dev.xml',
+
         'DEFAULT_NEXT_URL': '/form/view',
 
-        'ATTRIBUTES_MAP': {  # Change Email/UserName/FirstName/LastName to corresponding SAML2 userprofile attributes.
+        'ATTRIBUTES_MAP': {
             'email': 'EMAIL',
             'username': 'NAMEID',
         },
-
-        'NAME_ID_FORMAT': 'urn:oasis:names:tc:SAML:1.1:nameid-format:unspecified',
-
-        # !!! change this explicitly to FALSE once this is working !!! #
-        'CREATE_USER': 'TRUE',
-        # remove once working #
-        'NEW_USER_PROFILE': {
-            'USER_GROUPS': [],  # The default group name when a new user logs in
-            'ACTIVE_STATUS': True,  # The default active status for new users
-            'STAFF_STATUS': True,  # The staff status for new users
-            'SUPERUSER_STATUS': False,  # The superuser status for new users
-        },
-
     }
 
     # AWS for web assets
