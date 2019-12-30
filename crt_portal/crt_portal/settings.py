@@ -170,6 +170,8 @@ if environment != 'LOCAL':
 
         'DEFAULT_NEXT_URL': '/form/view',
 
+        # 'NAME_ID_FORMAT': ''
+
         'ATTRIBUTES_MAP': {
             'email': 'EMAIL',
             'username': 'NAMEID',
