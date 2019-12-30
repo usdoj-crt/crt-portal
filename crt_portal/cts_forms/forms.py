@@ -29,9 +29,51 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+class ContactA11y():
+    def __init__(self):
+        self.name_a11y_id = 'contact_name'
+        self.contact_a11y_id = 'contact_info'
+
+    def name_id(self):
+        return self.name_a11y_id
+
+    def contact_info_id(self):
+        return self.contact_a11y_id
+
+
 class Contact(ModelForm):
+    class Meta:
+        a11y = ContactA11y()
+        model = Report
+        fields = [
+            'contact_first_name', 'contact_last_name',
+            'contact_email', 'contact_phone'
+        ]
+        widgets = {
+            'contact_first_name': TextInput(attrs={
+                'class': 'usa-input',
+                'aria-describedby': a11y.name_id
+            }),
+            'contact_last_name': TextInput(attrs={
+                'class': 'usa-input',
+                'aria-describedby': a11y.name_id
+            }),
+            'contact_email': EmailInput(attrs={
+                'class': 'usa-input',
+                'aria-describedby': a11y.contact_info_id
+            }),
+            'contact_phone': TextInput(attrs={
+                'class': 'usa-input',
+                'aria-describedby': a11y.contact_info_id,
+                'pattern': phone_validation_regex,
+                'title': _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')
+            }),
+        }
+
     def __init__(self, *args, **kwargs):
-        super(ModelForm, self).__init__(*args, **kwargs)
+        ModelForm.__init__(self, *args, **kwargs)
+
+        a11y = ContactA11y()
 
         self.label_suffix = ''
 
@@ -46,31 +88,16 @@ class Contact(ModelForm):
                 ('contact_first_name', 'contact_last_name'),
                 group_name=_('Your name'),
                 help_text=_('Leave the fields blank if you\'d like to file anonymously'),
+                ally_id=a11y.name_id
             ),
             QuestionGroup(
                 self,
                 ('contact_email', 'contact_phone'),
                 group_name=_('Contact information'),
                 help_text=_('You are not required to provide contact information, but it will help us if we need to gather more information about the incident you are reporting or to respond to your submission'),
+                ally_id=a11y.contact_info_id
             )
         ]
-
-    class Meta:
-        model = Report
-        fields = [
-            'contact_first_name', 'contact_last_name',
-            'contact_email', 'contact_phone'
-        ]
-        widgets = {
-            'contact_first_name': TextInput(attrs={'class': 'usa-input'}),
-            'contact_last_name': TextInput(attrs={'class': 'usa-input'}),
-            'contact_email': EmailInput(attrs={'class': 'usa-input'}),
-            'contact_phone': TextInput(attrs={
-                'class': 'usa-input',
-                'pattern': phone_validation_regex,
-                'title': _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')
-            }),
-        }
 
 
 class PrimaryReason(ModelForm):
@@ -81,11 +108,10 @@ class PrimaryReason(ModelForm):
             'hatecrimes_trafficking'
         ]
         widgets = {
-            'hatecrimes_trafficking': UsaCheckboxSelectMultiple,
-            'primary_complaint': CrtRadioArea(attrs={
-                'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
-                'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+            'hatecrimes_trafficking': UsaCheckboxSelectMultiple(attrs={
+                'aria-describedby': 'hatecrimes-help-text'
             }),
+            'primary_complaint': CrtRadioArea,
         }
 
     def __init__(self, *args, **kwargs):
@@ -95,6 +121,7 @@ class PrimaryReason(ModelForm):
             widget=CrtRadioArea(attrs={
                 'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                 'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+                'aria-describedby': 'primary-complaint-help-text',
             }),
             required=True,
             error_messages={
@@ -105,28 +132,41 @@ class PrimaryReason(ModelForm):
 
         self.fields['hatecrimes_trafficking'] = ModelMultipleChoiceField(
             queryset=HateCrimesandTrafficking.objects.filter(hatecrimes_trafficking_option__in=HATE_CRIMES_TRAFFICKING_CHOICES),
-            widget=UsaCheckboxSelectMultiple,
+            widget=UsaCheckboxSelectMultiple(attrs={
+                'aria-describedby': 'hatecrimes-help-text'
+            }),
             required=False,
-            help_text=_('Hate crimes and human trafficking are considered criminal cases and go through a different process for investigation than other civil rights cases. If we determine your situation falls into these categories after submitting your concern, we will contact you with next steps.'),
-            label=_('Hate Crimes & Human Trafficking')
+            label=_('Please select if any that apply to your situation (optional)')
         )
+        self.question_groups = [
+            QuestionGroup(
+                self,
+                ('hatecrimes_trafficking',),
+                group_name=_('Hate Crimes & Human Trafficking'),
+                help_text=_('Hate crimes and human trafficking are considered criminal cases and go through a different process for investigation than other civil rights cases. If we determine your situation falls into these categories after submitting your concern, we will contact you with next steps.'),
+                optional=False,
+                cls="text-bold",
+                ally_id="hatecrimes-help-text"
+            )
+        ]
 
 
 class Details(ModelForm):
-    def __init__(self, *args, **kwargs):
-        super(ModelForm, self).__init__(*args, **kwargs)
-        self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
-        self.label_suffix = ''
-        self.fields['violation_summary'].label = _('Tell us what happened')
-        self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'word_count_area'
-        self.fields['violation_summary'].help_text = _("Please include any details you have about time, location, or people involved with the event, names of witnesses or any materials that would support your description")
-        self.fields['violation_summary'].error_messages = {'required': VIOLATION_SUMMARY_ERROR}
-
     class Meta:
         model = Report
         fields = [
             'violation_summary'
         ]
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+
+        self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
+        self.label_suffix = ''
+        self.fields['violation_summary'].label = _('Tell us what happened')
+        self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
+        self.fields['violation_summary'].help_text = _("Please include any details you have about time, location, or people involved with the event, names of witnesses or any materials that would support your description")
+        self.fields['violation_summary'].error_messages = {'required': VIOLATION_SUMMARY_ERROR}
 
 
 class LocationForm(ModelForm):
@@ -139,16 +179,31 @@ class LocationForm(ModelForm):
             'location_city_town',
             'location_state',
         ]
+
         widgets = {
-            'location_name': TextInput(attrs={'class': 'usa-input'}),
-            'location_address_line_1': TextInput(attrs={'class': 'usa-input'}),
-            'location_address_line_2': TextInput(attrs={'class': 'usa-input'}),
-            'location_city_town': TextInput(attrs={'class': 'usa-input'}),
-            'location_state': CrtDropdown,
+            'location_name': TextInput(attrs={
+                'class': 'usa-input',
+                'aria-describedby': 'location-help-text'
+            }),
+            'location_address_line_1': TextInput(attrs={
+                'class': 'usa-input',
+                'aria-describedby': 'location-help-text'
+            }),
+            'location_address_line_2': TextInput(attrs={
+                'class': 'usa-input',
+                'aria-describedby': 'location-help-text'
+            }),
+            'location_city_town': TextInput(attrs={
+                'class': 'usa-input',
+                'aria-describedby': 'location-help-text'
+            }),
+            'location_state': CrtDropdown(attrs={
+                'aria-describedby': 'location-help-text'
+            }),
         }
 
     def __init__(self, *args, **kwargs):
-        super(ModelForm, self).__init__(*args, **kwargs)
+        ModelForm.__init__(self, *args, **kwargs)
 
         errors = dict(WHERE_ERRORS)
 
@@ -170,7 +225,8 @@ class LocationForm(ModelForm):
             error_messages={
                 'required': errors['location_state']
             },
-            label='State'
+            label='State',
+            help_text="Where did this happen?"
         )
         self.fields['location_state'].widget.attrs['list'] = 'states'
 
@@ -180,8 +236,9 @@ class LocationForm(ModelForm):
                 ('location_name', 'location_address_line_1', 'location_address_line_2'),
                 group_name=_('Where did this happen?'),
                 help_text=_('Please be as specific as possible. We will handle this information with sensitivity.'),
-                optional=False
-            )
+                optional=False,
+                ally_id='location-help-text'
+            ),
         ]
 
 
@@ -269,17 +326,29 @@ class ProtectedClassForm(ModelForm):
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
         self.fields['protected_class'] = ModelMultipleChoiceField(
-            label=_('Do you believe any of these personal characteristics influenced why you were treated this way?'),
-            help_text=_('Some civil rights laws protect people from discrimination, which include these protected classes. These are some of the most common classes that we see.'),
             error_messages={'required': PROTECTED_CLASS_ERROR},
             required=True,
+            label="",
             queryset=ProtectedClass.objects.filter(protected_class__in=PROTECTED_CLASS_CHOICES).order_by('form_order'),
-            widget=UsaCheckboxSelectMultiple,
+            widget=UsaCheckboxSelectMultiple(attrs={
+                'aria-describedby': 'protected-class-help-text'
+            }),
         )
         self.fields['other_class'].help_text = _('Please describe "Other reason"')
         self.fields['other_class'].widget = TextInput(
             attrs={'class': 'usa-input word-count-10'}
         )
+
+        self.question_groups = [
+            QuestionGroup(
+                self,
+                ('protected_class',),
+                group_name=_('Do you believe any of these personal characteristics influenced why you were treated this way?'),
+                help_text=_('Some civil rights laws protect people from discrimination, which include these protected classes. These are some of the most common classes that we see.'),
+                optional=False,
+                ally_id="protected-class-help-text"
+            )
+        ]
 
 
 class Who(ModelForm):

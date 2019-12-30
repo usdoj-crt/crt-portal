@@ -1,39 +1,23 @@
 {% for question_group in wizard.form.question_groups %}
   <fieldset class="usa-fieldset margin-bottom-5">
-    <legend tabindex="0" class="em-text">
+    <legend class="em-text">
       {{ question_group.group_name }}
       {% if question_group.optional %}
         <span class="question_group_optional_tag">(optional)</span>
       {% endif %}
     </legend>
     {% if question_group.help_text %}
-      <p tabindex="0" class="margin-bottom-4 margin-top-0">
-        <em>{{ question_group.help_text }}</em>
+      <p class="margin-bottom-4 margin-top-0" id="{{question_group.ally_id}}">
+        <em>
+          {{ question_group.help_text }}
+        </em>
       </p>
     {% else %}
       <div class="margin-bottom-4"></div>
     {% endif %}
 
     {% for field in question_group %}
-      <div class="margin-top-3">
-        <div class="usa-prose">
-          <label for="{{ field.id_for_label }}" class="form-label usa-label margin-bottom-0">
-            {{ field.label }}
-          </label>
-          {% if field.help_text %}
-            <p tabindex="0" class="form-help-text">
-              <em>{{ field.help_text }}</em>
-            </p>
-          {% endif %}
-          <div {% if forloop.last %}{% else %}class="margin-bottom-2"{% endif %}>
-            {{ field }}
-
-            {% if field.errors %}
-              {% include "forms/snippets/error_alert.html" with errors=field.errors %}
-            {% endif %}
-          </div>
-        </div>
-      </div>
+      {% include "forms/snippets/input.html" with field=field label_class=question_group.cls %}
     {% endfor %}
   </fieldset>
 {% endfor %}

@@ -11,7 +11,16 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 from .models import ProtectedClass, Report, HateCrimesandTrafficking
-from .model_variables import PROTECTED_CLASS_CHOICES, PROTECTED_CLASS_ERROR, PROTECTED_CLASS_CODES, VIOLATION_SUMMARY_ERROR, WHERE_ERRORS, PRIMARY_COMPLAINT_CHOICES, PRIMARY_COMPLAINT_ERROR
+from .model_variables import (
+    PROTECTED_CLASS_CHOICES,
+    PROTECTED_CLASS_ERROR,
+    PROTECTED_CLASS_CODES,
+    VIOLATION_SUMMARY_ERROR,
+    WHERE_ERRORS,
+    PRIMARY_COMPLAINT_CHOICES,
+    PRIMARY_COMPLAINT_ERROR,
+    HATE_CRIMES_TRAFFICKING_CHOICES,
+)
 from .forms import Who, Details, Contact, ProtectedClassForm, LocationForm, PrimaryReason
 from .test_data import SAMPLE_REPORT
 
@@ -144,7 +153,7 @@ class Valid_CRT_view_Tests(TestCase):
         self.assertTrue('ADM' in self.content)
 
 
-class Complaint_Show_View_Test(TestCase):
+class Complaint_Show_View_404(TestCase):
     def setUp(self):
         self.client = Client()
         # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
@@ -158,6 +167,55 @@ class Complaint_Show_View_Test(TestCase):
     def test_404_on_non_existant_record(self):
         response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': '1'}))
         self.assertEqual(response.status_code, 404)
+
+
+class Complaint_Show_View_Valid(TestCase):
+    def setUp(self):
+        SAMPLE_REPORT['primary_complaint'] = 'voting'
+        SAMPLE_REPORT['election_details'] = 'federal'
+
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+
+        for choice in PROTECTED_CLASS_CHOICES:
+            pc = ProtectedClass.objects.get_or_create(protected_class=choice)
+            test_report.protected_class.add(pc[0])
+            test_report.save()
+
+        for choice in HATE_CRIMES_TRAFFICKING_CHOICES:
+            hct = HateCrimesandTrafficking.objects.get_or_create(hatecrimes_trafficking_option=choice)
+            test_report.hatecrimes_trafficking.add(hct[0])
+            test_report.save()
+
+        self.client = Client()
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': test_report.id}))
+        self.context = response.context
+        self.content = str(response.content)
+        self.test_report = test_report
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_correspondant_info(self):
+        self.assertTrue(self.test_report.contact_email in self.content)
+        self.assertTrue(self.test_report.contact_phone in self.content)
+        self.assertTrue(self.test_report.contact_first_name in self.content)
+        self.assertTrue(self.test_report.contact_last_name in self.content)
+
+    def test_complaint_details(self):
+        pc = PRIMARY_COMPLAINT_CHOICES[3][1]
+        self.assertTrue(str(pc) in self.content)
+        self.assertTrue('Election type (federal/local): federal' in self.content)
+        self.assertTrue(self.context['crimes']['physical_harm'])
+        self.assertTrue(self.context['crimes']['trafficking'])
+        self.assertTrue(self.test_report.location_name in self.content)
+        self.assertTrue(self.test_report.location_city_town in self.content)
+        self.assertTrue(self.test_report.location_state in self.content)
+
+    def test_full_summary(self):
+        self.assertTrue(self.test_report.violation_summary in self.content)
 
 
 class SectionAssignmentTests(TestCase):
