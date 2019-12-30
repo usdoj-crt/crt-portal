@@ -134,16 +134,16 @@ STATUS_CHOICES = (
 
 SECTION_CHOICES = (
     ('ADM', _('Administrative')),
-    ('IER', _('Immigrant and Employee Rights')),
-    ('VOT', _('Voting')),
-    ('DRS', _('Disability')),
-    ('CRM', _('Criminal')),
-    ('HCE', _('Housing')),
-    ('EOS', _('Education')),
-    ('SPL', _('Special Litigation')),
-    ('ELS', _('Employment Litigation Services')),
-    ('FCS', _('Federal Coordination and Compliance')),
     ('APP', _('Appellate')),
+    ('CRM', _('Criminal')),
+    ('DRS', _('Disability')),
+    ('ELS', _('Employment Litigation Services')),
+    ('EOS', _('Education')),
+    ('FCS', _('Federal Coordination and Compliance')),
+    ('HCE', _('Housing')),
+    ('IER', _('Immigrant and Employee Rights')),
+    ('SPL', _('Special Litigation')),
+    ('VOT', _('Voting')),
 )
 
 PLACE_CHOICES = (
