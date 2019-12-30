@@ -23,7 +23,7 @@
     <div class="complaint-header bg-primary text-white">
       <div class="grid-container">
       <div class="grid-row grid-gap">
-        <div class="tablet:grid-col-8">
+        <div class="tablet:grid-col-6 grid-offset-2">
           <h2 class="text-uppercase">
             Complaint
           </h2>
@@ -43,10 +43,10 @@
     </div>
     <div class="complaint-body">
       <div class="grid-container">
-        <div class="grid-row">
-          <div class="tablet:grid-col-6"></div>
-          <div class="tablet:grid-col-6">
+        <div class="grid-row grid-gap-md">
+          <div class="tablet:grid-col-8 grid-offset-2">
             {% include 'forms/complaint_view/show/correspondent_info.html' with data=data %}
+            {% include 'forms/complaint_view/show/complaint_details.html' with data=data primaty_complaint=primary_complaint %}
             {% include 'forms/complaint_view/show/full_summary.html' with summary=data.violation_summary %}
           </div>
         </div>
