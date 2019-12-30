@@ -84,6 +84,7 @@ INSTALLED_APPS = [
     'compressor_toolkit',
     'storages',
     'formtools',
+    'django_saml2_auth',
     'crequest',
 ]
 
@@ -158,6 +159,16 @@ USE_TZ = True
 
 
 if environment != 'LOCAL':
+    # Single sign on
+    SAML2_AUTH = {
+        # Metadata is required, choose either remote url or local file path
+        # [The auto(dynamic) metadata configuration URL of SAML2]
+        'METADATA_AUTO_CONF_URL': os.environ.get('METADATA_AUTO_CONF_URL'),
+        # [The metadata configuration file path]
+        'METADATA_LOCAL_FILE_PATH': os.environ.get('METADATA_LOCAL_FILE_PATH'),
+    }
+
+    # AWS
     s3_creds = vcap['s3'][0]["credentials"]
     AWS_ACCESS_KEY_ID = s3_creds["access_key_id"]
     AWS_SECRET_ACCESS_KEY = s3_creds["secret_access_key"]
