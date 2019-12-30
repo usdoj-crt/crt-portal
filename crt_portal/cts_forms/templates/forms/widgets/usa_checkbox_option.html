@@ -1,8 +1,10 @@
 <div class="usa-checkbox">
-  <input type="checkbox"
-         name="{{ widget.name }}"
-         {% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}
-         class="usa-checkbox__input"
-         {% include "django/forms/widgets/attrs.html" %} />
-  <label class="crt-checkbox__label" {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>{{ widget.label }}</label>
+  <input
+    type="checkbox"
+    name="{{ widget.name }}"
+    {% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}
+    class="usa-checkbox__input"
+    {% include "django/forms/widgets/attrs.html" %}
+  />
+  <label role="label" class="crt-checkbox__label" {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>{{ widget.label }}</label>
 </div>

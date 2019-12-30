@@ -25,7 +25,7 @@
 {% block content %}
   {# Progress text for screen reader. #}
   <span class="usa-sr-only">
-    Current step: {{ current_step_name }}. Step {{ wizard.steps.step1 }} of 6.
+    Current step: {{ current_step_name }}. Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}.
   </span>
   <div class="page-header-background">
     <div class="grid-container">
@@ -55,7 +55,7 @@
           </div>
         {% endif %}
         <div class="margin-bottom-4 {% if not page_errors %}margin-top-5{% endif %}">
-          <h2 class="margin-0" tabindex="0">{{ current_step_title }}</h2>
+          <h2 class="margin-0">{{ current_step_title }}</h2>
           {% if page_note %}
             <p class="margin-top-1"><em>{{ page_note }}</em></p>
           {% endif %}
@@ -91,7 +91,6 @@
           <div class="margin-top-5 margin-bottom-9">
             <input id="submit-next"
                    type="submit"
-                   label="submit"
                    value="{% trans 'Next' %}"
                    class="usa-button" />
             {% if wizard.steps.prev %}
