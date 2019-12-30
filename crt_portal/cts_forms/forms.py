@@ -12,6 +12,8 @@ from .model_variables import (
     PRIMARY_COMPLAINT_CHOICES,
     PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
     PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+    PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
+    EMPLOYER_SIZE_CHOICES,
     SECTION_CHOICES,
     STATES_AND_TERRITORIES,
     VIOLATION_SUMMARY_ERROR,
@@ -265,6 +267,53 @@ class ElectionLocation(LocationForm):
             error_messages={
                 'required': _('Please select the type of election or voting activity.')
             }
+        )
+
+
+class WorkplaceLocation(LocationForm):
+    class Meta:
+        model = Report
+        fields = LocationForm.Meta.fields + [
+            'public_or_private_employer',
+            'employer_size'
+        ]
+        widgets = LocationForm.Meta.widgets
+
+    def __init__(self, *args, **kwargs):
+        LocationForm.__init__(self, *args, **kwargs)
+        self.question_groups = [
+            QuestionGroup(
+                self,
+                ('public_or_private_employer',),
+                group_name=_('Was this a public or private employer?'),
+                optional=False
+            ),
+            QuestionGroup(
+                self,
+                ('employer_size',),
+                group_name=_('How large is this employer?'),
+                optional=False
+            )
+        ] + self.question_groups
+
+        self.fields['public_or_private_employer'] = TypedChoiceField(
+            choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
+            widget=UsaRadioSelect,
+            required=True,
+            error_messages={
+                'required': _('Please select what type of employer this is.')
+            },
+            label=''
+        )
+
+        self.fields['employer_size'] = TypedChoiceField(
+            choices=EMPLOYER_SIZE_CHOICES,
+            widget=UsaRadioSelect,
+            required=True,
+            error_messages={
+                'required': _('Please select how large the employer is.')
+            },
+            label=''
         )
 
 

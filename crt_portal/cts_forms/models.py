@@ -85,13 +85,14 @@ class Report(models.Model):
     location_city_town = models.CharField(max_length=700, blank=False)
     location_state = models.CharField(max_length=100, blank=False, choices=STATES_AND_TERRITORIES)
     create_date = models.DateTimeField(auto_now_add=True)
+    # Incident location routing-specific fields
     election_details = models.CharField(choices=ELECTION_CHOICES, max_length=225, null=True, blank=True)
+    public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)
+    employer_size = models.CharField(max_length=100, null=True, choices=EMPLOYER_SIZE_CHOICES, default=None)
     ###############################################################
     #   These fields have not been implemented in the form yet:   #
     ###############################################################
     # where form
-    public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)
-    employer_size = models.CharField(max_length=100, null=True, choices=EMPLOYER_SIZE_CHOICES, default=None)
     public_or_private_school = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, default=None)
     public_or_private_facility = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_FACILITY_CHOICES, default=None)
     public_or_private_healthcare = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES, default=None)

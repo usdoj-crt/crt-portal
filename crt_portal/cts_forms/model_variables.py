@@ -168,6 +168,7 @@ PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES = (
 EMPLOYER_SIZE_CHOICES = (
     ('14_or_less', _('Fewer than 15 employees')),
     ('15_or_more', _('15 or more employees')),
+    ('not_sure', _('I\'m not sure')),
 )
 
 PUBLIC_OR_PRIVATE_SCHOOL_CHOICES = (

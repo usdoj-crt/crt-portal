@@ -19,8 +19,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
-from cts_forms.forms import Contact, Details, PrimaryReason, LocationForm, ProtectedClassForm, ElectionLocation
-from cts_forms.views import CRTReportWizard, show_election_form_condition, show_location_form_condition
+from cts_forms.forms import Contact, Details, PrimaryReason, LocationForm, ProtectedClassForm, ElectionLocation, WorkplaceLocation
+from cts_forms.views import CRTReportWizard, show_election_form_condition, show_location_form_condition, show_workplace_form_condition
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,13 +31,15 @@ urlpatterns = [
             Contact,
             PrimaryReason,
             ElectionLocation,
+            WorkplaceLocation,
             LocationForm,
             ProtectedClassForm,
             Details,
         ],
         condition_dict={
             '2': show_election_form_condition,
-            '3': show_location_form_condition,
+            '3': show_workplace_form_condition,
+            '4': show_location_form_condition,
         },
     ), name='crt_report_form'),
     path('', RedirectView.as_view(pattern_name='crt_report_form', permanent=False)),
