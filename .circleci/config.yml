@@ -92,6 +92,10 @@ jobs:
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
+          name: Add xmlsec dependency
+          command: |
+            apt-get install -y libxmlsec1 libxmlsec1-openssl xmlsec1
+      - run:
           name: Node install
           command: |
             echo "deb https://deb.nodesource.com/node_10.x stretch main" > /etc/apt/sources.list.d/nodesource.list && \
@@ -148,6 +152,10 @@ jobs:
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
+          name: Add xmlsec dependency
+          command: |
+            apt-get install -y libxmlsec1 libxmlsec1-openssl xmlsec1
+      - run:
           name: Node install
           command: |
             echo "deb https://deb.nodesource.com/node_10.x stretch main" > /etc/apt/sources.list.d/nodesource.list && \
@@ -203,6 +211,10 @@ jobs:
       - restore_cache:
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+      - run:
+          name: Add xmlsec dependency
+          command: |
+            apt-get install -y libxmlsec1 libxmlsec1-openssl xmlsec1
       - run:
           name: Node install
           command: |

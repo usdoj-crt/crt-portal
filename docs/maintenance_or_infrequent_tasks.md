@@ -44,26 +44,6 @@ You should be able to reorder the form by setting the value in the database or m
 
 - Get the needed metadata url from the SSO provider
 
-- Create a private S3 bucket
-See more details about S3 in [cloud.gov docs](https://cloud.gov/docs/services/s3/)
-
-    cf create-service s3 basic sso-creds
-
-- Upload metadata to bucket
-Requires the [jq tool](https://stedolan.github.io/jq/)
-
-    SERVICE_INSTANCE_NAME=sso-creds
-    KEY_NAME=sso-creds-key
-    cf create-service-key "${SERVICE_INSTANCE_NAME}" "${KEY_NAME}"
-    S3_CREDENTIALS=`cf service-key "${SERVICE_INSTANCE_NAME}" "${KEY_NAME}" | tail -n +2`
-    export AWS_ACCESS_KEY_ID=`echo "${S3_CREDENTIALS}" | jq -r .access_key_id`
-    export AWS_SECRET_ACCESS_KEY=`echo "${S3_CREDENTIALS}" | jq -r .secret_access_key`
-    export BUCKET_NAME=`echo "${S3_CREDENTIALS}" | jq -r .bucket`
-    export AWS_DEFAULT_REGION=`echo "${S3_CREDENTIALS}" | jq -r '.region'`
-
-
-Set:
-
-METADATA_AUTO_CONF_URL in
+- Set METADATA_AUTO_CONF_URL in VCAP_SERVICES
 
 
