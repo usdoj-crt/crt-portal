@@ -22,6 +22,10 @@ jobs:
       # Removing chache for now, we either need to build our image or move the cache location
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
       - run:
+          name: Add xmlsec dependency
+          command: |
+            apt-get install -y libxmlsec1 libxmlsec1-openssl xmlsec1
+      - run:
           name: Node install, generate CSS
           command: |
             npm install
