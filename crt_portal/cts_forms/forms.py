@@ -121,7 +121,6 @@ class PrimaryReason(ModelForm):
             widget=CrtRadioArea(attrs={
                 'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                 'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
-                'aria-describedby': 'primary-complaint-help-text',
             }),
             required=True,
             error_messages={
