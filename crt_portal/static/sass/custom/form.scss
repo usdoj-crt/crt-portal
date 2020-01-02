@@ -96,6 +96,16 @@ form#report-form {
     opacity: 0;
   }
 
+  .crt-radio__label_helper {
+    line-height: 1.5rem;
+
+    .label-text {
+      position: relative;
+      bottom: 40px;
+      margin-bottom: -30px;
+    }
+  }
+
   .crt-radio__label_area {
     @extend .usa-radio__label;
     text-indent: 0;
