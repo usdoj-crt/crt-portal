@@ -16,6 +16,8 @@ To rename existing models, change the name in model_variables.py and create a da
 
 You should be able to reorder the form by setting the value in the database or making a data migration to update the protected classes and form_order. Do NOT use the Django admin for this task, you can use the Django shell.
 
+The "Other" options needs to be last because the other reason explanation text question is implemented as a separate question below the protected class question.
+
 
 ## Add a new optional form
 See example code here: https://github.com/usdoj-crt/crt-portal/pull/209/files
