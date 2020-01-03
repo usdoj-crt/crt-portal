@@ -8,10 +8,21 @@
     action="/form/view"
     novalidate
   >
-    <label for="{{form.assigned_section.attrs.id}}" class="usa-label margin-bottom-1">
-      <b>View sections</b>
-    </label>
-    {{ form.assigned_section }}
+    <div id="view-section-filter">
+      <label for="{{form.assigned_section.attrs.id}}" class="usa-label margin-bottom-1">
+        <b>{{form.assigned_section.label }}</b>
+      </label>
+      {{ form.assigned_section }}
+    </div>
+    <div>
+      <h3>Filters</h3>
+      <div id="contact-name-filter">
+        <label for="{{form.contact_name.attrs.id}}" class="usa-label margin-bottom-1">
+          <b>{{form.contact_name.label }}</b>
+        </label>
+        {{ form.contact_name }}
+      </div>
+    </div>
     <div class="margin-top-2">
       <button type="submit" class="usa-button usa-button--primary">Filter results</button>
     </div>
