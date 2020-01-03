@@ -11,8 +11,8 @@ filter_options = {
     'status': '__in',
     'location_state': '__in',
     'primary_complaint': '__in',
-    'contact_first_name': '__search',
-    'contact_last_name': '__search',
+    'contact_first_name': '__contains',
+    'contact_last_name': '__contains',
     'contact_email': '__search',
     'other_class': '__search',
     'violation_summary': '__search',
@@ -30,6 +30,7 @@ def report_filter(request):
     filters = {}
     for field in filter_options.keys():
         filter_list = request.GET.getlist(field)
+
         if len(filter_list) > 0:
             filters[field] = request.GET.getlist(field)
             if filter_options[field] == '__in':
@@ -38,6 +39,8 @@ def report_filter(request):
             elif filter_options[field] == '__search':
                 # takes one phrase
                 kwargs[f'{field}__search'] = request.GET.getlist(field)[0]
+            elif filter_options[field] == '__contains':
+                kwargs[f'{field}__icontains'] = request.GET.getlist(field)[0]
             elif field.startswith('create_date'):
                 # filters by a start date or an end date expects ddmmyyyy
                 year = int(request.GET.getlist(field)[0][:4])

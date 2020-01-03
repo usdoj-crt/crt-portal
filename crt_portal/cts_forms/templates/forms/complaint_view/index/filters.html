@@ -3,28 +3,34 @@
 <div class="complaint-card">
   <form
     id="filters-form"
-    class="usa-form"
     method="GET"
     action="/form/view"
     novalidate
   >
-    <div id="view-section-filter">
-      <label for="{{form.assigned_section.attrs.id}}" class="usa-label margin-bottom-1">
-        <b>{{form.assigned_section.label }}</b>
-      </label>
-      {{ form.assigned_section }}
-    </div>
-    <div>
-      <h3>Filters</h3>
-      <div id="contact-name-filter">
-        <label for="{{form.contact_name.attrs.id}}" class="usa-label margin-bottom-1">
-          <b>{{form.contact_name.label }}</b>
+    <div class="grid-row">
+      <div id="view-section-filter" class="margin-right-2">
+        <label for="{{form.assigned_section.attrs.id}}" class="usa-label margin-bottom-1">
+          <b>{{form.assigned_section.label }}</b>
         </label>
-        {{ form.contact_name }}
+        {{ form.assigned_section }}
+      </div>
+      <div id="contact-first-name-filter" class="margin-right-2">
+        <label for="{{form.contact_first_name.attrs.id}}" class="usa-label margin-bottom-1">
+          <b>{{form.contact_first_name.label }}</b>
+        </label>
+        {{ form.contact_first_name }}
+      </div>
+      <div id="contact-last-name-filter" class="margin-right-2">
+        <label for="{{form.contact_last_name.attrs.id}}" class="usa-label margin-bottom-1">
+          <b>{{form.contact_last_name.label }}</b>
+        </label>
+        {{ form.contact_last_name }}
       </div>
     </div>
     <div class="margin-top-2">
-      <button type="submit" class="usa-button usa-button--primary">Filter results</button>
+      <button type="submit" class="usa-button usa-button--primary">
+        Filter results
+      </button>
     </div>
   </form>
   <div id="active-filters" class="active-filters margin-top-2">
@@ -37,7 +43,15 @@
           data-filter-name="{{key}}"
           data-filter-value="{{item}}"
         >
-          {% if key == 'assigned_section' %} Routed {% else %} {{key}} {% endif %}: {{item}}  
+          {% if key == 'assigned_section' %}
+            Routed
+          {% elif key == 'contact_first_name' %}
+            Contact first name
+          {% elif key == 'contact_last_name' %}
+            Contact last name
+          {% else %}
+            {{key}}
+          {% endif %}: {{item}}
           <div class="divider"></div>
           <img src="{% static "img/close-blue-50-alt.svg" %}" class="filter-action">
         </button>

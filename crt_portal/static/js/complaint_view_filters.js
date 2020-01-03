@@ -1,12 +1,15 @@
 (function(root, dom) {
   var SEARCH_PARAMS_WHITELIST = ['sort', 'page', 'per_page'];
-  var FILTERS_WHITELIST = ['assigned_section'];
+  var FILTERS_WHITELIST = ['assigned_section', 'contact_first_name', 'contact_last_name'];
   var filterData = {
-    assigned_section: []
+    assigned_section: [],
+    contact_first_name: '',
+    contact_last_name: ''
   };
 
   /**
    * Convert an array-like object to an array.
+   *
    * NodeLists, such as those returned via a form's `elements`
    * property, can be accessed like arrays but are missing
    * their interation helpers. This allows us to call methods like
@@ -20,6 +23,7 @@
    * Converts a query string into an object, where the key is the
    * name of the query and the value is an array of all values associated
    * with that query.
+   *
    * Necessary because we can have multiple filters / search params
    * with the same name, and they all need to be passed in the final query
    */
@@ -80,7 +84,7 @@
         filter.forEach(function(v) {
           memo.push(makeQueryParam(key, v));
         });
-      } else {
+      } else if (filter) {
         memo.push(makeQueryParam(key, filter));
       }
 
@@ -120,20 +124,37 @@
     });
   }
 
+  function addTextInputBehavior(props) {
+    if (!props.el || !props.name) {
+      throw new Error(
+        'Component must be supplied with a valid DOM node and a `name` key corresponding to a key in the filterData object'
+      );
+    }
+
+    props.el.addEventListener('change', function(event) {
+      filterData[props.name] = event.target.value;
+    });
+  }
+
   function filterController() {
     var form = dom.getElementById('filters-form');
     var activeFilters = dom.getElementById('active-filters');
 
     function onFilterTagClick(node) {
       var sections = filterData.assigned_section;
-      var filterName = node.getAttribute('data-filter-value');
+      var filterName = node.getAttribute('data-filter-name');
 
-      sections.splice(sections.indexOf(filterName), 1);
-      filterData.assigned_section = sections;
+      if (filterName === 'assigned_section') {
+        sections.splice(sections.indexOf(filterName), 1);
+        filterData.assigned_section = sections;
+      } else {
+        filterData[filterName] = '';
+      }
 
       doSearch(form);
     }
 
+    // Bootstrap the filterData object with existing filters, if any
     getFilterParams(root.location.search, filterData);
 
     addFormSubmitBehavior({
@@ -141,6 +162,14 @@
     });
     addMultiSelectBehavior({
       el: form.querySelector('select[name="assigned_section"')
+    });
+    addTextInputBehavior({
+      el: form.querySelector('input[name="contact_first_name"'),
+      name: 'contact_first_name'
+    });
+    addTextInputBehavior({
+      el: form.querySelector('input[name="contact_last_name"'),
+      name: 'contact_last_name'
     });
     addActiveFiltersBehavior({
       el: activeFilters,
