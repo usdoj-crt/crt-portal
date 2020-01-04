@@ -1,10 +1,21 @@
 (function(root, dom) {
   var SEARCH_PARAMS_WHITELIST = ['sort', 'page', 'per_page'];
-  var FILTERS_WHITELIST = ['assigned_section', 'contact_first_name', 'contact_last_name'];
   var filterData = {
     assigned_section: [],
+    primary_complaint: '',
+    status: '',
+    location_state: '',
+    primary_complaint: '',
     contact_first_name: '',
-    contact_last_name: ''
+    contact_last_name: '',
+    contact_email: '',
+    other_class: '',
+    violation_summary: '',
+    location_name: '',
+    location_address_line_1: '',
+    location_address_line_2: '',
+    create_date_start: '',
+    create_date_end: '',
   };
 
   /**
@@ -25,90 +36,107 @@
    * with that query.
    *
    * Necessary because we can have multiple filters / search params
-   * with the same name, and they all need to be passed in the final query
+   * with the same name, and they all need to be passed in the final query.
+   *
+   * @param {String} queryString The query string we want to convert into an object
+   * @param {Array} paramsWhitelist The list of params accepted as search filters
+   * @returns {Object} Map of all params and their URL encoded values
    */
-  function getSearchParams(queryString) {
-    var params = {};
+  function getQueryParams(queryString, paramsWhitelist) {
+    var paramsMap = {};
     var search = new URLSearchParams(queryString);
+    var acceptedParams = (paramsWhitelist instanceof Array && paramsWhitelist) || [];
 
     search.forEach(function(value, filterName) {
-      if (SEARCH_PARAMS_WHITELIST.indexOf(filterName) >= 0) {
-        params[filterName] = params[filterName] || [];
+      if (acceptedParams.indexOf(filterName) >= 0) {
+        paramsMap[filterName] = paramsMap[filterName] || [];
 
-        if (params[filterName].indexOf(value) < 0) {
-          params[filterName].push(encodeURIComponent(value));
+        if (paramsMap[filterName].indexOf(value) < 0) {
+          paramsMap[filterName].push(encodeURIComponent(value));
         }
       }
     });
 
-    return params;
+    return paramsMap;
   }
 
-  function getFilterParams(queryString, dataStore) {
-    var search = new URLSearchParams(queryString);
-
-    search.forEach(function(value, filterName) {
-      if (FILTERS_WHITELIST.indexOf(filterName) >= 0) {
-        dataStore[filterName] = dataStore[filterName] || [];
-
-        if (dataStore[filterName].indexOf(value) < 0) {
-          dataStore[filterName].push(value);
-        }
+  /**
+   * Mutate the current filter state with updated filter values
+   * @param {Object} state The current filter state
+   * @param {Object} updates The properties of the filter state to be updated
+   */
+  function mutateFilterDataWithUpdates(state, updates) {
+    for (var key in updates) {
+      if (state.hasOwnProperty(key)) {
+        state[key] = updates[key];
       }
-    });
+    }
   }
 
   function getMutiselectValues(select) {
     var options = toArray((select && select.options) || []);
 
+    function isSelected(option) {
+      return option.selected;
+    }
+
+    function unwrapValue(x) {
+      return x.value;
+    }
+
     return options
-      .filter(function(option) {
-        return option.selected;
-      })
-      .map(function(selected) {
-        return selected.value;
-      });
+      .filter(isSelected)
+      .map(unwrapValue);
   }
 
-  function makeQueryParam(key, value) {
-    return key + '=' + encodeURIComponent(value);
-  }
+  /**
+   * Given an object of query parameters, convert them back into a string
+   * @param {Object} paramsObj An object containing initial
+   * @returns {Array} A list of URI-encoded query param strings
+   */
+  function makeQueryParams(params) {
+    var keys = Object.keys(params);
 
-  function doSearch(form) {
-    var paramsObj = getSearchParams(root.location.search);
-    var filterKeys = Object.keys(filterData);
-    var filters = filterKeys.reduce(function(memo, key) {
-      var filter = filterData[key];
+    return keys.reduce(function(memo, key) {
+      var paramValue = params[key];
 
-      if (filter instanceof Array) {
-        filter.forEach(function(v) {
-          memo.push(makeQueryParam(key, v));
-        });
-      } else if (filter) {
-        memo.push(makeQueryParam(key, filter));
+      if (!paramValue) {
+        return memo;
       }
 
-      return memo;
-    }, []);
-
-    var params = Object.keys(paramsObj).reduce(function(memo, paramName) {
-      var values = paramsObj[paramName];
-
-      var paramsString = values
+      var valueAsList = paramValue instanceof Array ? paramValue : [ paramValue ];
+      var paramsString = valueAsList
         .reduce(function(accum, value) {
-          accum.push(makeQueryParam(paramName, value));
+          accum.push(makeQueryParam(key, value));
 
-          return accum;
-        }, [])
-        .join('&');
+        return accum;
+      }, [])
+      .join('&');
 
       memo.push(paramsString);
 
       return memo;
     }, []);
+  }
 
-    var preparedFilters = filters.length ? '&' + filters.join('&') : '';
-    var preparedParams = params.length ? params.join('&') : '';
+  /**
+   * Build a URI-encoded query paramater
+   * @param {String} key The name of the query param
+   * @param {String} value The value of the query param
+   * @returns {String} Param in the format of {key}={value}
+   */
+  function makeQueryParam(key, value) {
+    return key + '=' + encodeURIComponent(value);
+  }
+
+  function finalizeQueryParams(params) {
+    return params.length ? params.join('&') : '';
+  }
+
+  function doSearch(form) {
+    var paramsObj = getQueryParams(root.location.search, SEARCH_PARAMS_WHITELIST);
+    var preparedFilters = finalizeQueryParams(makeQueryParams(filterData));
+    var preparedParams = finalizeQueryParams(makeQueryParams(paramsObj));
     var finalQuery = '';
 
     if (preparedFilters || preparedParams) {
@@ -154,8 +182,8 @@
       doSearch(form);
     }
 
-    // Bootstrap the filterData object with existing filters, if any
-    getFilterParams(root.location.search, filterData);
+    var filterUpdates = getQueryParams(root.location.search, Object.keys(filterData));
+    mutateFilterDataWithUpdates(filterData, filterUpdates);
 
     addFormSubmitBehavior({
       el: form
@@ -171,7 +199,7 @@
       el: form.querySelector('input[name="contact_last_name"'),
       name: 'contact_last_name'
     });
-    addActiveFiltersBehavior({
+    addFilterTagBehavior({
       el: activeFilters,
       onClick: onFilterTagClick
     });
@@ -187,7 +215,7 @@
     });
   }
 
-  function addActiveFiltersBehavior(props) {
+  function addFilterTagBehavior(props) {
     var filters = props.el;
     var onClickHandler = props.onClick;
 
