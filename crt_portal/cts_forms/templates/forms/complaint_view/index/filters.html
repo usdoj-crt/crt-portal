@@ -26,6 +26,12 @@
         </label>
         {{ form.contact_last_name }}
       </div>
+      <div>
+        <label for="{{form.location_city_town.attrs.id}}" class="usa-label margin-bottom-1">
+          <b>{{form.location_city_town.label}}</b>
+        </label>
+        {{ form.location_city_town }}
+      </div>
     </div>
     <div class="margin-top-2">
       <button type="submit" class="usa-button usa-button--primary">
