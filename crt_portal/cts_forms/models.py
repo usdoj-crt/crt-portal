@@ -1,4 +1,6 @@
 """All models need to be added to signals.py for proper logging."""
+from datetime import datetime
+
 from django.db import models
 from django.core.validators import RegexValidator
 
@@ -12,8 +14,6 @@ from .model_variables import (
     PUBLIC_OR_PRIVATE_FACILITY_CHOICES,
     PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES,
     RESPONDENT_TYPE_CHOICES,
-    WHEN_CHOICES,
-    HOW_MANY_CHOICES,
     STATES_AND_TERRITORIES,
     PROTECTED_MODEL_CHOICES,
     STATUS_CHOICES,
@@ -25,6 +25,15 @@ from .model_variables import (
 import logging
 
 logger = logging.getLogger(__name__)
+
+
+def validate_date(year, month, day=1):
+    test_date = datetime(year, month, day)
+    if test_date > datetime.now():
+        raise ValidationError(
+            _('Date can not be in the future'),
+            params={'value': test_date.strftime('%x')},
+        )
 
 
 class InternalHistory(models.Model):
@@ -89,6 +98,14 @@ class Report(models.Model):
     election_details = models.CharField(choices=ELECTION_CHOICES, max_length=225, null=True, blank=True)
     public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)
     employer_size = models.CharField(max_length=100, null=True, choices=EMPLOYER_SIZE_CHOICES, default=None)
+    last_incident_year = models.IntegerField(MaxValueValidator=datetime.now.year(), MinValueValidator=1800)
+    last_incident_month = models.IntegerField(MaxValueValidator=12, MinValueValidator=1)
+    last_incident_day = models.IntegerField(MaxValueValidator=31, MinValueValidator=1 null=True, blank=True)
+
+    @property
+    def last_incident_date():
+        models.DateTimeField()
+
     ###############################################################
     #   These fields have not been implemented in the form yet:   #
     ###############################################################
@@ -102,9 +119,6 @@ class Report(models.Model):
     respondent_name = models.CharField(max_length=225, null=True, blank=True)
     respondent_city = models.CharField(max_length=700, null=True, blank=True)
     respondent_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
-    # previous details form
-    when = models.CharField(max_length=700, choices=WHEN_CHOICES, default=None, null=True)
-    how_many = models.CharField(max_length=700, null=True, blank=True, choices=HOW_MANY_CHOICES, default=None)
 
     def __str__(self):
         return f'{self.create_date} {self.violation_summary}'
