@@ -105,7 +105,8 @@ class Report(models.Model):
     election_details = models.CharField(choices=ELECTION_CHOICES, max_length=225, null=True, blank=True)
     public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)
     employer_size = models.CharField(max_length=100, null=True, choices=EMPLOYER_SIZE_CHOICES, default=None)
-    last_incident_year = models.IntegerField(MaxValueValidator=datetime.now.year(), MinValueValidator=1800)
+    # Incident date
+    last_incident_year = models.IntegerField(MaxValueValidator=datetime.now.year(), MinValueValidator=1776)
     last_incident_day = models.IntegerField(MaxValueValidator=31, MinValueValidator=1 null=True, blank=True)
     last_incident_month = models.IntegerField(
         validators=[
