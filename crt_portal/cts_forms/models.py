@@ -109,10 +109,25 @@ class Report(models.Model):
     def __str__(self):
         return f'{self.create_date} {self.violation_summary}'
 
+    def __has_immigration_protected_classes(self, pcs):
+        immigration_classes = [
+            'Immigration/citizenship status (choosing this will not share your status)',
+            'National origin (including ancestry and ethnicity)',
+            'Language'
+        ]
+        is_not_included = set(pcs).isdisjoint(set(immigration_classes))
+
+        if is_not_included:
+            return False
+
+        return True
+
     def assign_section(self):
         protected_classes = [n.protected_class for n in self.protected_class.all()]
 
         if self.primary_complaint == 'voting' and 'Disability (including temporary or recovery)' not in protected_classes:
             return 'VOT'
+        elif self.primary_complaint == 'workplace' and self.__has_immigration_protected_classes(protected_classes):
+            return 'IER'
 
         return 'ADM'
