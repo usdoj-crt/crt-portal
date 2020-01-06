@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    {# Asking search engines not to index our site while we're in development mode. #}
+    <meta name="robots" content="noindex">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% if wizard.steps.step1 and current_step_name %}
+      <title>Step {{ wizard.steps.step1 }}: {{ current_step_name }} - Contact the Civil Rights Division - Department of Justice</title>
+    {% else %}
+      <title>Contact the Civil Rights Division - Department of Justice</title>
+    {% endif %}
+
+    <link rel="icon" href="{% static "img/us_flag_small.png" %}">
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <a class="usa-skipnav" href="#main-content">Skip to main content</a>
+    {% block usa_banner %}
+      {% include "partials/banner/usa_banner.html" %}
+    {% endblock %}
+
+    {% block page_header %}{% endblock %}
+
+    <main id="main-content" {% block main_class %}{% endblock %}>
+      {% block content %} {% endblock %}
+    </main>
+
+    {% block usa_footer %}
+    <footer class="usa-footer usa-footer--slim">
+      <div class="usa-footer__secondary-section">
+        <div class="grid-container">
+          <div class="usa-footer__logo grid-row grid-gap-2">
+            <div class="grid-col-auto">
+              <img src="{% static "img/doj-logo-footer.svg" %}"
+                   alt=""
+                   height="64" />
+            </div>
+            <div class="grid-col-auto">
+              <p class="usa-footer__logo-heading">
+                Civil Rights Division
+                <br/> U.S. Department of Justice
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    {% endblock %}
+    <script src="{% static 'js/url_params_polyfill.js' %}"></script>
+    <script src="{% static 'js/uswds.min.js' %}"></script>
+    <script src="{% static 'js/focus_alert.js' %}"></script>
+    {% block page_js %}{% endblock %}
+  </body>
+</html>
