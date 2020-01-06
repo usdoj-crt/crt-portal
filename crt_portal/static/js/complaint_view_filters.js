@@ -234,6 +234,7 @@
     var multiSelectEl = formEl.querySelector('select[name="assigned_section"');
     var firstNameEl = formEl.querySelector('input[name="contact_first_name"');
     var lastNameEl = formEl.querySelector('input[name="contact_last_name"');
+    var cityEl = formEl.querySelector('input[name="location_city_town"]');
     var activeFiltersEl = dom.getElementById('active-filters');
 
     /**
@@ -270,6 +271,10 @@
     textInputView({
       el: lastNameEl,
       name: 'contact_last_name'
+    });
+    textInputView({
+      el: cityEl,
+      name: 'location_city_town'
     });
     filterTagView({
       el: activeFiltersEl,
