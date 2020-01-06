@@ -160,8 +160,8 @@ PLACE_CHOICES = (
 )
 
 PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES = (
-    ('public_employer', _('Public employer -- Funded by the government like a post office, fire department, courthouse, DMV, or public school. This could be at the local, state, or federal level.')),
-    ('private_employer', _('Private employer -- Businesses or non-profits not funded by the government such as retail stores, banks, or restaurants.')),
+    ('public_employer', _('Public employer')),
+    ('private_employer', _('Private employer')),
     ('not_sure', _('I\'m not sure')),
 )
 

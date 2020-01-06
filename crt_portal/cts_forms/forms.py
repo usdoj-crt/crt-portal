@@ -297,7 +297,12 @@ class WorkplaceLocation(LocationForm):
 
         self.fields['public_or_private_employer'] = TypedChoiceField(
             choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
-            widget=UsaRadioSelect,
+            widget=UsaRadioSelect(attrs={
+                'help_text': {
+                    'public_employer': _('Funded by the government like a post office, fire department, courthouse, DMV, or public school. This could be at the local, state, or federal level'),
+                    'private_employer': _('Businesses or non-profits not funded by the government such as retail stores, banks, or restaurants')
+                }
+            }),
             required=True,
             error_messages={
                 'required': _('Please select what type of employer this is.')
