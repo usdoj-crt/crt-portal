@@ -371,7 +371,15 @@ class Who(ModelForm):
 class Filters(ModelForm):
     class Meta:
         model = Report
-        fields = ['assigned_section']
+        fields = ['assigned_section', 'contact_first_name', 'contact_last_name']
+        widgets = {
+            'contact_first_name': TextInput(attrs={
+                'class': 'usa-input'
+            }),
+            'contact_last_name': TextInput(attrs={
+                'class': 'usa-input'
+            }),
+        }
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
@@ -381,3 +389,5 @@ class Filters(ModelForm):
             widget=CrtMultiSelect,
             required=False
         )
+        self.fields['contact_first_name'].label = _('Contact first name')
+        self.fields['contact_last_name'].label = _('Contact last name')
