@@ -2,7 +2,7 @@
 from datetime import datetime
 
 from django.db import models
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, ValidationError
 
 from .phone_regex import phone_validation_regex
 
@@ -27,13 +27,20 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def validate_date(year, month, day=1):
+def validate_month(year, month, day=1):
     test_date = datetime(year, month, day)
-    if test_date > datetime.now():
+    if month > 12 or month < 1:
+        raise ValidationError(
+            _('Month must be a number 1-12'),
+            params={'value': month},
+        )
+    elif test_date > datetime.now():
         raise ValidationError(
             _('Date can not be in the future'),
             params={'value': test_date.strftime('%x')},
         )
+    else:
+        return month
 
 
 class InternalHistory(models.Model):
@@ -99,12 +106,17 @@ class Report(models.Model):
     public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)
     employer_size = models.CharField(max_length=100, null=True, choices=EMPLOYER_SIZE_CHOICES, default=None)
     last_incident_year = models.IntegerField(MaxValueValidator=datetime.now.year(), MinValueValidator=1800)
-    last_incident_month = models.IntegerField(MaxValueValidator=12, MinValueValidator=1)
     last_incident_day = models.IntegerField(MaxValueValidator=31, MinValueValidator=1 null=True, blank=True)
+    last_incident_month = models.IntegerField(
+        validators=[
+            validate_month(self.last_incident_year, value, self.last_incident_day)
+        ]
+    )
 
-    @property
-    def last_incident_date():
-        models.DateTimeField()
+    @cached_property
+    def last_incident_date(self):
+        day = last_incident_day or 1
+        return datetime(self.last_incident_year, self.last_incident_month, day)
 
     ###############################################################
     #   These fields have not been implemented in the form yet:   #
