@@ -29,25 +29,20 @@ logger = logging.getLogger(__name__)
 
 
 # needs to be added to a clean function in the form, validate can only handle one field
-def validate_month(self):
-    def __init__(self, params):
-        year
-        month
-        day
+# def validate_month(self):
+#     def __init__(self, params):
+#         year
+#         month
+#         day
 
-    test_date = datetime(year, month, day)
-    if month > 12 or month < 1:
-        raise ValidationError(
-            _('Month must be a number 1-12'),
-            params={'value': month},
-        )
-    elif test_date > datetime.now():
-        raise ValidationError(
-            _('Date can not be in the future'),
-            params={'value': test_date.strftime('%x')},
-        )
-    else:
-        return month
+#     test_date = datetime(year, month, day)
+#     if test_date > datetime.now():
+#         raise ValidationError(
+#             _('Date can not be in the future'),
+#             params={'value': test_date.strftime('%x')},
+#         )
+#     else:
+#         return month
 
 
 class InternalHistory(models.Model):
@@ -113,14 +108,14 @@ class Report(models.Model):
     public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)
     employer_size = models.CharField(max_length=100, null=True, choices=EMPLOYER_SIZE_CHOICES, default=None)
     # Incident date
-    last_incident_year = models.IntegerField(MaxValueValidator(datetime.now().year), MinValueValidator(1776))
-    # last_incident_day = models.IntegerField(MaxValueValidator(31), MinValueValidator(1), null=True, blank=True)
-    # last_incident_month = models.IntegerField(MaxValueValidator(12), MinValueValidator(1))
+    last_incident_year = models.PositiveIntegerField(MaxValueValidator(datetime.now().year))
+    last_incident_day = models.PositiveIntegerField(MaxValueValidator(31, message='Day value too high'), null=True, blank=True)
+    last_incident_month = models.PositiveIntegerField(MaxValueValidator(12))
 
-    # @cached_property
-    # def last_incident_date(self):
-    #     day = self.last_incident_day or 1
-    #     return datetime(self.last_incident_year, self.last_incident_month, day)
+    @cached_property
+    def last_incident_date(self):
+        day = self.last_incident_day or 1
+        return datetime(self.last_incident_year, self.last_incident_month, day)
 
     ###############################################################
     #   These fields have not been implemented in the form yet:   #
