@@ -136,6 +136,8 @@ TEMPLATES = [
     'forms/report_location.html',
     # Location
     'forms/report_location.html',
+    # Date
+    'forms/report_grouped_questions.html',
     # Protected Class
     'forms/report_class.html',
     # Details
@@ -185,6 +187,7 @@ class CRTReportWizard(SessionWizardView):
             _('Contact'),
             _('Primary Issue'),
             _('Location'),
+            _('Date'),
             _('Protected Class'),
             _('Details'),
         ]
@@ -195,6 +198,7 @@ class CRTReportWizard(SessionWizardView):
             _('Location'),
             _('Location'),
             _('Location'),
+            _('Date'),
             _('Protected Class'),
             _('Details'),
         ]
@@ -208,6 +212,7 @@ class CRTReportWizard(SessionWizardView):
             _('Location details'),
             _('Location details'),
             _('Location details'),
+            _('Date'),
             _('Please provide details'),
             _('Details'),
         ]

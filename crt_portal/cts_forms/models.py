@@ -86,7 +86,7 @@ class Report(models.Model):
         default='',
         blank=False
     )
-    hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, null=True, blank=True)
+    hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, blank=True)
     # Protected Class
     # See docs for notes on updating these values:
     # docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
@@ -108,9 +108,9 @@ class Report(models.Model):
     public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)
     employer_size = models.CharField(max_length=100, null=True, choices=EMPLOYER_SIZE_CHOICES, default=None)
     # Incident date
-    last_incident_year = models.PositiveIntegerField(MaxValueValidator(datetime.now().year))
+    last_incident_year = models.PositiveIntegerField(MaxValueValidator(datetime.now().year, message="Date must not be in the future"))
     last_incident_day = models.PositiveIntegerField(MaxValueValidator(31, message='Day value too high'), null=True, blank=True)
-    last_incident_month = models.PositiveIntegerField(MaxValueValidator(12))
+    last_incident_month = models.PositiveIntegerField(MaxValueValidator(12, message="Month must be 12 or less"))
 
     @cached_property
     def last_incident_date(self):

@@ -355,6 +355,49 @@ class ProtectedClassForm(ModelForm):
         ]
 
 
+class When(ModelForm):
+    class Meta:
+        model = Report
+        fields = ['last_incident_month', 'last_incident_day', 'last_incident_year']
+        widgets = {
+            'last_incident_month': TextInput(attrs={
+                'class': 'usa-input',
+                # 'aria-describedby': a11y.name_id
+            }),
+            'last_incident_day': TextInput(attrs={
+                'class': 'usa-input',
+                # 'aria-describedby': a11y.name_id
+            }),
+            'last_incident_year': EmailInput(attrs={
+                'class': 'usa-input',
+                # 'aria-describedby': a11y.contact_info_id
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+
+        # a11y = ContactA11y()
+        # self.label_suffix = ''
+
+        self.fields['last_incident_month'].label = _('Month')
+        self.fields['last_incident_day'].label = _('Day (Optional)')
+        self.fields['last_incident_year'].label = _('Year')
+
+        self.question_groups = [
+            QuestionGroup(
+                self,
+                ('last_incident_month', 'last_incident_day', 'last_incident_year'),
+                group_name=_('When did this happen'),
+                help_text=_(
+                    'It is important for us to know how recently this incident happened. Some civil rights violations must be reported within a certain amount of time by law. \
+                    If this happened over a period of time or is still happening, please provide the most recent date.',
+                ),
+                # ally_id=a11y.name_id
+            )
+        ]
+
+
 class Who(ModelForm):
     respondent_type = TypedChoiceField(
         choices=RESPONDENT_TYPE_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False

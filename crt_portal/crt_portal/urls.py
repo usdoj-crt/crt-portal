@@ -19,7 +19,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
-from cts_forms.forms import Contact, Details, PrimaryReason, LocationForm, ProtectedClassForm, ElectionLocation, WorkplaceLocation
+from cts_forms.forms import Contact, Details, PrimaryReason, LocationForm, ProtectedClassForm, ElectionLocation, WorkplaceLocation, When
 from cts_forms.views import CRTReportWizard, show_election_form_condition, show_location_form_condition, show_workplace_form_condition
 
 
@@ -35,6 +35,7 @@ urlpatterns = [
             ElectionLocation,
             WorkplaceLocation,
             LocationForm,
+            When,
             ProtectedClassForm,
             Details,
         ],
