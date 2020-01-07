@@ -2,7 +2,8 @@
 from datetime import datetime
 
 from django.db import models
-from django.core.validators import RegexValidator, ValidationError
+from django.core.validators import RegexValidator, ValidationError, MaxValueValidator, MinValueValidator
+from django.utils.functional import cached_property
 
 from .phone_regex import phone_validation_regex
 
@@ -27,7 +28,13 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def validate_month(year, month, day=1):
+# needs to be added to a clean function in the form, validate can only handle one field
+def validate_month(self):
+    def __init__(self, params):
+        year
+        month
+        day
+
     test_date = datetime(year, month, day)
     if month > 12 or month < 1:
         raise ValidationError(
@@ -106,18 +113,14 @@ class Report(models.Model):
     public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)
     employer_size = models.CharField(max_length=100, null=True, choices=EMPLOYER_SIZE_CHOICES, default=None)
     # Incident date
-    last_incident_year = models.IntegerField(MaxValueValidator=datetime.now.year(), MinValueValidator=1776)
-    last_incident_day = models.IntegerField(MaxValueValidator=31, MinValueValidator=1 null=True, blank=True)
-    last_incident_month = models.IntegerField(
-        validators=[
-            validate_month(self.last_incident_year, value, self.last_incident_day)
-        ]
-    )
+    last_incident_year = models.IntegerField(MaxValueValidator(datetime.now().year), MinValueValidator(1776))
+    # last_incident_day = models.IntegerField(MaxValueValidator(31), MinValueValidator(1), null=True, blank=True)
+    # last_incident_month = models.IntegerField(MaxValueValidator(12), MinValueValidator(1))
 
-    @cached_property
-    def last_incident_date(self):
-        day = last_incident_day or 1
-        return datetime(self.last_incident_year, self.last_incident_month, day)
+    # @cached_property
+    # def last_incident_date(self):
+    #     day = self.last_incident_day or 1
+    #     return datetime(self.last_incident_year, self.last_incident_month, day)
 
     ###############################################################
     #   These fields have not been implemented in the form yet:   #
