@@ -252,7 +252,7 @@ class SectionAssignmentTests(TestCase):
         SAMPLE_REPORT['primary_complaint'] = 'workplace'
         test_report = Report.objects.create(**SAMPLE_REPORT)
         test_report.save()
-        self.assertTrue(test_report.assign_section() == 'ADM')
+        self.assertTrue(test_report.assign_section() == 'ELS')
 
     def test_workplace_primary_complaint_routing(self):
         # If the report contains any of the first three Protected Classes here,
@@ -264,23 +264,28 @@ class SectionAssignmentTests(TestCase):
 
         SAMPLE_REPORT['primary_complaint'] = 'workplace'
         test_report = Report.objects.create(**SAMPLE_REPORT)
+
         test_report.protected_class.add(immigration[0])
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'IER')
+
         test_report.protected_class.remove(immigration[0])
         test_report.protected_class.add(language[0])
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'IER')
+
         test_report.protected_class.remove(language[0])
         test_report.protected_class.add(origin[0])
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'IER')
+
         test_report.protected_class.add(language[0])
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'IER')
+
         test_report.protected_class.add(disability[0])
         test_report.save()
-        self.assertTrue(test_report.assign_section() == 'IER')
+        self.assertTrue(test_report.assign_section() == 'DRS')
 
 
 class Valid_CRT_Pagnation_Tests(TestCase):
