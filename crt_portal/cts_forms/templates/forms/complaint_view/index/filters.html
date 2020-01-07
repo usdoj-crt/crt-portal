@@ -32,6 +32,12 @@
         </label>
         {{ form.location_city_town }}
       </div>
+      <div id="location-state-filter" class="margin-right-2">
+        <label for="{{form.location_state.attrs.id}}" class="usa-label margin-bottom-1">
+          <b>{{form.location_state.label }}</b>
+        </label>
+        {{ form.location_state }}
+      </div>
     </div>
     <div class="margin-top-2">
       <button type="submit" class="usa-button usa-button--primary">
@@ -57,6 +63,8 @@
             Contact last name
           {% elif key == 'location_city_town' %}
             City
+          {% elif key == 'location_state' %}
+            State
           {% else %}
             {{key}}
           {% endif %}: {{item}}

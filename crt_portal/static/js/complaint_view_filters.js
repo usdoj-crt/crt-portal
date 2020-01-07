@@ -11,20 +11,6 @@
     return Array.prototype.slice.call(arrayLike);
   }
 
-  function getMutiselectValues(select) {
-    var options = toArray((select && select.options) || []);
-
-    function isSelected(option) {
-      return option.selected;
-    }
-
-    function unwrapValue(x) {
-      return x.value;
-    }
-
-    return options.filter(isSelected).map(unwrapValue);
-  }
-
   /**
    * Converts a query string into an object, where the key is the
    * name of the query and the value is an array of all values associated
@@ -201,6 +187,19 @@
     window.location = form.action + finalQuery;
   };
 
+  function getMutiselectValues(select) {
+    var options = toArray((select && select.options) || []);
+
+    function isSelected(option) {
+      return option.selected;
+    }
+
+    function unwrapValue(x) {
+      return x.value;
+    }
+
+    return options.filter(isSelected).map(unwrapValue);
+  }
   /**
    * View to control multiselect elemeent behavior
    * @param {Object} props
@@ -236,6 +235,7 @@
     var firstNameEl = formEl.querySelector('input[name="contact_first_name"');
     var lastNameEl = formEl.querySelector('input[name="contact_last_name"');
     var cityEl = formEl.querySelector('input[name="location_city_town"]');
+    var locationStateEl = formEl.querySelector('input[name="location_state"]');
     var activeFiltersEl = dom.getElementById('active-filters');
 
     /**
@@ -276,6 +276,10 @@
     textInputView({
       el: cityEl,
       name: 'location_city_town'
+    });
+    textInputView({
+      el: locationStateEl,
+      name: 'location_state'
     });
     filterTagView({
       el: activeFiltersEl,
