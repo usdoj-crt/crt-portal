@@ -366,6 +366,14 @@ class CRT_FILTER_Tests(TestCase):
             test_report.assigned_section = test_report.assign_section()
             test_report.save()
 
+        SAMPLE_REPORT['primary_complaint'] = PRIMARY_COMPLAINT_CHOICES[0][0]
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+        test_report.contact_first_name = 'Mary'
+        test_report.contact_last_name = 'Bar'
+        test_report.location_city_town = 'Cleveland'
+        test_report.assigned_section = test_report.assign_section()
+        test_report.save()
+
         self.client = Client()
         # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
         self.test_pass = secrets.token_hex(32)
@@ -442,6 +450,33 @@ class CRT_FILTER_Tests(TestCase):
         self.assertEqual(len(case_insensitive_phrase_response), self.len_all_results)
         self.assertEqual(len(disjointed_phrase_response), self.len_all_results)
         self.assertEqual(len(url_not_in_phrase_response), 0)
+
+    def test_first_name_filter(self):
+        first_name_filter = 'contact_first_name=lin'
+        response = self.client.get(f'{self.url_base}?{first_name_filter}')
+        reports = response.context['data_dict']
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, self.len_all_results - 1)
+
+    def test_last_name_filter(self):
+        last_name_filter = 'contact_last_name=bar'
+        response = self.client.get(f'{self.url_base}?{last_name_filter}')
+        reports = response.context['data_dict']
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, 1)
+
+    def test_city_name_filter(self):
+        city_name_filter = 'location_city_town=land'
+        response = self.client.get(f'{self.url_base}?{city_name_filter}')
+        reports = response.context['data_dict']
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, 1)
 
 
 class Validation_Form_Tests(TestCase):

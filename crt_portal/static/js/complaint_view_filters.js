@@ -65,12 +65,12 @@
 
     return keys.reduce(function(memo, key) {
       var paramValue = params[key];
+      var valueAsList = paramValue instanceof Array ? paramValue : [paramValue];
 
-      if (!paramValue) {
+      if (!paramValue.length) {
         return memo;
       }
 
-      var valueAsList = paramValue instanceof Array ? paramValue : [paramValue];
       var paramsString = valueAsList
         .reduce(function(accum, value) {
           accum.push(makeQueryParam(key, value));
@@ -123,6 +123,7 @@
     location_name: '',
     location_address_line_1: '',
     location_address_line_2: '',
+    location_city_town: '',
     create_date_start: '',
     create_date_end: '',
     sort: '',
@@ -234,6 +235,7 @@
     var multiSelectEl = formEl.querySelector('select[name="assigned_section"');
     var firstNameEl = formEl.querySelector('input[name="contact_first_name"');
     var lastNameEl = formEl.querySelector('input[name="contact_last_name"');
+    var cityEl = formEl.querySelector('input[name="location_city_town"]');
     var activeFiltersEl = dom.getElementById('active-filters');
 
     /**
@@ -270,6 +272,10 @@
     textInputView({
       el: lastNameEl,
       name: 'contact_last_name'
+    });
+    textInputView({
+      el: cityEl,
+      name: 'location_city_town'
     });
     filterTagView({
       el: activeFiltersEl,
