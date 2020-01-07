@@ -371,7 +371,13 @@ class Who(ModelForm):
 class Filters(ModelForm):
     class Meta:
         model = Report
-        fields = ['assigned_section', 'contact_first_name', 'contact_last_name', 'location_city_town']
+        fields = [
+            'assigned_section',
+            'contact_first_name',
+            'contact_last_name',
+            'location_city_town',
+            'location_state'
+        ]
         widgets = {
             'contact_first_name': TextInput(attrs={
                 'class': 'usa-input'
@@ -381,7 +387,8 @@ class Filters(ModelForm):
             }),
             'location_city_town': TextInput(attrs={
                 'class': 'usa-input'
-            })
+            }),
+            'location_state': CrtDropdown
         }
 
     def __init__(self, *args, **kwargs):
@@ -392,7 +399,16 @@ class Filters(ModelForm):
             widget=CrtMultiSelect,
             required=False
         )
+        self.fields['location_state'] = ChoiceField(
+            choices=STATES_AND_TERRITORIES,
+            widget=CrtDropdown,
+            required=False,
+        )
+
         self.fields['assigned_section'].label = _('View sections')
         self.fields['contact_first_name'].label = _('Contact first name')
         self.fields['contact_last_name'].label = _('Contact last name')
         self.fields['location_city_town'].label = _('City')
+
+        self.fields['location_state'].label = _('State')
+        self.fields['location_state'].widget.attrs['list'] = 'states'

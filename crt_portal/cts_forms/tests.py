@@ -371,6 +371,7 @@ class CRT_FILTER_Tests(TestCase):
         test_report.contact_first_name = 'Mary'
         test_report.contact_last_name = 'Bar'
         test_report.location_city_town = 'Cleveland'
+        test_report.location_state = 'OH'
         test_report.assigned_section = test_report.assign_section()
         test_report.save()
 
@@ -472,6 +473,15 @@ class CRT_FILTER_Tests(TestCase):
     def test_city_name_filter(self):
         city_name_filter = 'location_city_town=land'
         response = self.client.get(f'{self.url_base}?{city_name_filter}')
+        reports = response.context['data_dict']
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, 1)
+
+    def test_state_filter(self):
+        state_filter = 'location_state=OH'
+        response = self.client.get(f'{self.url_base}?{state_filter}')
         reports = response.context['data_dict']
 
         report_len = len(reports)
