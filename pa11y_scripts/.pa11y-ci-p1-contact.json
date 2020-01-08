@@ -5,7 +5,7 @@
       "actions": [
         "wait for element #id_0-contact_phone to be visible"
       ],
-      "screenCapture": "pa11y-screenshots/page1.png"
+      "screenCapture": "pa11y-screenshots/page1-contact.png"
     }
   ]
 }
