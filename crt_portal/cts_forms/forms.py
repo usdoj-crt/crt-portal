@@ -324,6 +324,25 @@ class WorkplaceLocation(LocationForm):
         )
 
 
+class LawLocation(LocationForm):
+    class Meta:
+        model = Report
+        fields = LocationForm.Meta.fields + ['inside_correctional_facility', 'correctional_facility_type']
+        widgets = LocationForm.Meta.widgets
+
+    def __init__(self, *args, **kwargs):
+        LocationForm.__init__(self, *args, **kwargs)
+
+        self.question_groups = [
+            QuestionGroup(
+                self,
+                ('inside_correctional_facility', 'correctional_facility_type'),
+                group_name=_('Where did this take place?'),
+                optional=False
+            )
+        ]
+
+
 class ProtectedClassForm(ModelForm):
     class Meta:
         model = Report

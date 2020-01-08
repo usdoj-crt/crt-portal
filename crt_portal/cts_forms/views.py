@@ -149,6 +149,8 @@ TEMPLATES = [
     'forms/report_location.html',
     # Workplace + location
     'forms/report_location.html',
+    # Law + location
+    'forms/report_location.html',
     # Location
     'forms/report_location.html',
     # Protected Class
@@ -176,6 +178,11 @@ def show_workplace_form_condition(wizard):
         return True
     return False
 
+def show_law_form_condition(wizard):
+    cleaned_data = wizard.get_cleaned_data_for_step('1') or {'primary_complaint': 'not yet completed'}
+    if cleaned_data['primary_complaint'] == 'police':
+        return True
+    return False
 
 def show_location_form_condition(wizard):
     # try to get the cleaned data of step 1
