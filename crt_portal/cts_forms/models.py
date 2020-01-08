@@ -2,7 +2,7 @@
 from datetime import datetime
 
 from django.db import models
-from django.core.validators import RegexValidator, ValidationError, MaxValueValidator, MinValueValidator
+from django.core.validators import RegexValidator, MaxValueValidator
 from django.utils.functional import cached_property
 
 from .phone_regex import phone_validation_regex
@@ -26,23 +26,6 @@ from .model_variables import (
 import logging
 
 logger = logging.getLogger(__name__)
-
-
-# needs to be added to a clean function in the form, validate can only handle one field
-# def validate_month(self):
-#     def __init__(self, params):
-#         year
-#         month
-#         day
-
-#     test_date = datetime(year, month, day)
-#     if test_date > datetime.now():
-#         raise ValidationError(
-#             _('Date can not be in the future'),
-#             params={'value': test_date.strftime('%x')},
-#         )
-#     else:
-#         return month
 
 
 class InternalHistory(models.Model):

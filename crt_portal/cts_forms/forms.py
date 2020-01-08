@@ -1,3 +1,4 @@
+from django.core.validators import ValidationError
 from django.forms import ModelForm, CheckboxInput, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
     ModelMultipleChoiceField, MultipleChoiceField
 from django.utils.translation import gettext_lazy as _
@@ -396,6 +397,22 @@ class When(ModelForm):
                 # ally_id=a11y.name_id
             )
         ]
+
+    def clean(self):
+        cleaned_data = self.cleaned_data
+        print(cleaned_data)
+        if 'last_incident_month' in cleaned_data:
+            year = datetime.now().year
+            month = cleaned_data.last_incident_month or 1
+            day = datetime.now().day
+            test_date = datetime(year, month, day)
+            if test_date > datetime.now():
+                raise ValidationError(
+                    _('Date can not be in the future'),
+                    params={'value': test_date.strftime('%x')},
+                )
+        else:
+            return cleaned_data
 
 
 class Who(ModelForm):
