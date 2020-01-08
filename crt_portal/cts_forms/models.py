@@ -131,7 +131,10 @@ class Report(models.Model):
 
         elif self.primary_complaint == 'voting' and 'Disability (including temporary or recovery)' not in protected_classes:
             return 'VOT'
-        elif self.primary_complaint == 'workplace' and self.__has_immigration_protected_classes(protected_classes):
-            return 'IER'
+        elif self.primary_complaint == 'workplace':
+            if self.__has_immigration_protected_classes(protected_classes):
+                return 'IER'
+            elif 'Disability (including temporary or recovery)' not in protected_classes:
+                return 'ELS'
 
         return 'ADM'
