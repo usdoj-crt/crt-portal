@@ -24,6 +24,8 @@ from .model_variables import (
     WHERE_ERRORS,
     HATE_CRIMES_TRAFFICKING_CHOICES,
     PRIMARY_COMPLAINT_ERROR,
+    CORRECTIONAL_FACILITY_LOCATION_CHOICES,
+    CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
 )
 from .phone_regex import phone_validation_regex
 
@@ -324,7 +326,7 @@ class WorkplaceLocation(LocationForm):
         )
 
 
-class LawLocation(LocationForm):
+class PoliceLocation(LocationForm):
     class Meta:
         model = Report
         fields = LocationForm.Meta.fields + ['inside_correctional_facility', 'correctional_facility_type']
@@ -333,14 +335,29 @@ class LawLocation(LocationForm):
     def __init__(self, *args, **kwargs):
         LocationForm.__init__(self, *args, **kwargs)
 
-        self.question_groups = [
-            QuestionGroup(
-                self,
-                ('inside_correctional_facility', 'correctional_facility_type'),
-                group_name=_('Where did this take place?'),
-                optional=False
-            )
-        ]
+        self.name = 'PoliceLocation'
+
+        self.fields['inside_correctional_facility'] = TypedChoiceField(
+            choices=CORRECTIONAL_FACILITY_LOCATION_CHOICES,
+            widget=UsaRadioSelect,
+            required=True,
+            error_messages={
+                'required': _('Please select where this occurred')
+            },
+            label=''
+        )
+
+        self.fields['correctional_facility_type'] = TypedChoiceField(
+            choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+            widget=UsaRadioSelect,
+            required=True,
+            error_messages={
+                'required': _('Please select the type of location')
+            },
+            label=''
+        )
+        self.fields['correctional_facility_type'].widget.attrs['class'] = 'margin-bottom-0 padding-bottom-0 padding-left-1'
+        self.fields['correctional_facility_type'].help_text = 'What type of prison or correctional facility?'
 
 
 class ProtectedClassForm(ModelForm):

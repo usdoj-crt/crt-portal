@@ -29,6 +29,21 @@ form#report-form {
 .usa-form {
   max-width: 30rem !important;
 
+  ul {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .other-class-option {
+    margin-top: -3.5rem;
+
+    ul li:last-child {
+      height: 25px;
+      margin-bottom: 0 !important;
+      padding-bottom: 0;
+    }
+  }
+
   .usa-button {
     &:hover {
       background-color: $blue-50;

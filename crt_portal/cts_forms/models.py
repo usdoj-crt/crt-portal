@@ -89,15 +89,14 @@ class Report(models.Model):
     location_state = models.CharField(max_length=100, blank=False, choices=STATES_AND_TERRITORIES)
     create_date = models.DateTimeField(auto_now_add=True)
 
-
     # Incident location routing-specific fields
     election_details = models.CharField(choices=ELECTION_CHOICES, max_length=225, null=True, blank=True)
     public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)
     employer_size = models.CharField(max_length=100, null=True, choices=EMPLOYER_SIZE_CHOICES, default=None)
-    # by law
-    inside_correctional_facility = models.BooleanField(null=False, choices=CORRECTIONAL_FACILITY_LOCATION_CHOICES)
-    correctional_facility_type = models.CharField(null=True, choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES, default=None, max_length=50)
 
+    # by law
+    inside_correctional_facility = models.BooleanField(null=True, choices=CORRECTIONAL_FACILITY_LOCATION_CHOICES, default=None)
+    correctional_facility_type = models.CharField(null=True, choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES, max_length=50)
 
     # Incident date
     last_incident_year = models.PositiveIntegerField(MaxValueValidator(datetime.now().year, message="Date must not be in the future"))

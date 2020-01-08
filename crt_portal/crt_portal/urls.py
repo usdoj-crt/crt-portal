@@ -27,15 +27,15 @@ from cts_forms.forms import (
     ProtectedClassForm,
     ElectionLocation,
     WorkplaceLocation,
-    LawLocation,
-    When
+    PoliceLocation,
+    When,
 )
 from cts_forms.views import (
     CRTReportWizard,
     show_election_form_condition,
     show_location_form_condition,
     show_workplace_form_condition,
-    show_law_form_condition,
+    show_police_form_condition,
 )
 
 
@@ -50,7 +50,7 @@ urlpatterns = [
             PrimaryReason,
             ElectionLocation,
             WorkplaceLocation,
-            LawLocation,
+            PoliceLocation,
             LocationForm,
             ProtectedClassForm,
             When,
@@ -59,7 +59,7 @@ urlpatterns = [
         condition_dict={
             '2': show_election_form_condition,
             '3': show_workplace_form_condition,
-            '4': show_law_form_condition,
+            '4': show_police_form_condition,
             '5': show_location_form_condition,
         },
     ), name='crt_report_form'),

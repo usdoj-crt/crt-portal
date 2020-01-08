@@ -1,0 +1,38 @@
+<fieldset class="usa-fieldset margin-bottom-4">
+  <legend class="em-text">
+    Where did this take place?
+  </legend>
+  <div data-toggle="toggle">
+    {{ wizard.form.inside_correctional_facility }}
+  </div>
+  {% with field=wizard.form.correctional_facility_type %}
+    <div class="other-class-option padding-left-4 margin-bottom-2 padding-top-3">
+      <div class="blue-left-highlight">
+        <label for="{{ field.id_for_label }}">
+          <b>{{ field.help_text }}</b>  
+        </label>
+        {{ field }}
+      </div>
+    </div>
+  {% endwith %}
+
+  <script>
+    var toggleWrapperEl = document.querySelector('[data-toggle="toggle"]');
+    var toggleControls = Array.prototype.slice.call(
+      toggleWrapperEl.querySelectorAll('[name="4-inside_correctional_facility"]')
+    );
+    var toggleShowEl = toggleControls[toggleControls.length - 1];
+    var toggleableEl = document.querySelector('.other-class-option');
+    toggleableEl.classList.add('display-none');
+
+    toggleWrapperEl.addEventListener('click', function(event) {
+      if (event.target.nodeName === 'INPUT') {
+        if (event.target === toggleShowEl) {
+          toggleableEl.classList.remove('display-none');
+        } else {
+          toggleableEl.classList.add('display-none');
+        }
+      }
+    });
+  </script>
+</fieldset>

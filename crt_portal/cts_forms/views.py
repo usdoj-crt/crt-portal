@@ -149,7 +149,7 @@ TEMPLATES = [
     'forms/report_location.html',
     # Workplace + location
     'forms/report_location.html',
-    # Law + location
+    # Police + location
     'forms/report_location.html',
     # Location
     'forms/report_location.html',
@@ -161,7 +161,7 @@ TEMPLATES = [
     'forms/report_details.html',
 ]
 
-conditional_location_routings = ['voting', 'workplace']
+conditional_location_routings = ['voting', 'workplace', 'police']
 
 
 def show_election_form_condition(wizard):
@@ -178,11 +178,13 @@ def show_workplace_form_condition(wizard):
         return True
     return False
 
-def show_law_form_condition(wizard):
+
+def show_police_form_condition(wizard):
     cleaned_data = wizard.get_cleaned_data_for_step('1') or {'primary_complaint': 'not yet completed'}
     if cleaned_data['primary_complaint'] == 'police':
         return True
     return False
+
 
 def show_location_form_condition(wizard):
     # try to get the cleaned data of step 1
@@ -200,9 +202,9 @@ class CRTReportWizard(SessionWizardView):
 
     def get_context_data(self, form, **kwargs):
         context = super(CRTReportWizard, self).get_context_data(form=form, **kwargs)
-
         field_errors = list(map(lambda field: field.errors, context['form']))
         page_errors = [error for field in field_errors for error in field]
+        form_name = form.name if hasattr(form, 'name') else ''
 
         # This name appears in the progress bar wizard
         ordered_step_names = [
@@ -220,6 +222,7 @@ class CRTReportWizard(SessionWizardView):
             _('Location'),
             _('Location'),
             _('Location'),
+            _('Location'),
             _('Protected Class'),
             _('Date'),
             _('Details'),
@@ -231,6 +234,7 @@ class CRTReportWizard(SessionWizardView):
         ordered_step_titles = [
             _('Contact'),
             _('What is your primary reason for contacting the Civil Rights Division?'),
+            _('Location details'),
             _('Location details'),
             _('Location details'),
             _('Location details'),
@@ -257,6 +261,7 @@ class CRTReportWizard(SessionWizardView):
                 'wordLimitReachedText': _(' word limit reached'),
                 'finishSummaryText': _('Please finish your summary -- '),
             },
+            'form_name': form_name
         })
 
         if current_step_name == _('Details'):
