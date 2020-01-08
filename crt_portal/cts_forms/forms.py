@@ -1,7 +1,10 @@
+from datetime import datetime
+
 from django.core.validators import ValidationError
 from django.forms import ModelForm, CheckboxInput, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
     ModelMultipleChoiceField, MultipleChoiceField
 from django.utils.translation import gettext_lazy as _
+
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtDropdown, CrtMultiSelect
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
@@ -22,7 +25,6 @@ from .model_variables import (
     HATE_CRIMES_TRAFFICKING_CHOICES,
     PRIMARY_COMPLAINT_ERROR,
 )
-
 from .phone_regex import phone_validation_regex
 
 import logging
@@ -356,30 +358,39 @@ class ProtectedClassForm(ModelForm):
         ]
 
 
+class DateA11y():
+    def __init__(self):
+        self.when_a11y_id = 'when'
+
+    def when_id(self):
+        return self.when_a11y_id
+
+
 class When(ModelForm):
     class Meta:
         model = Report
+        a11y = DateA11y()
         fields = ['last_incident_month', 'last_incident_day', 'last_incident_year']
         widgets = {
             'last_incident_month': TextInput(attrs={
                 'class': 'usa-input',
-                # 'aria-describedby': a11y.name_id
+                'aria-describedby': a11y.when_id
             }),
             'last_incident_day': TextInput(attrs={
                 'class': 'usa-input',
-                # 'aria-describedby': a11y.name_id
+                'aria-describedby': a11y.when_id
             }),
             'last_incident_year': EmailInput(attrs={
                 'class': 'usa-input',
-                # 'aria-describedby': a11y.contact_info_id
+                'aria-describedby': a11y.when_id
             }),
         }
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
 
-        # a11y = ContactA11y()
-        # self.label_suffix = ''
+        a11y = DateA11y()
+        self.label_suffix = ''
 
         self.fields['last_incident_month'].label = _('Month')
         self.fields['last_incident_day'].label = _('Day (Optional)')
@@ -394,25 +405,34 @@ class When(ModelForm):
                     'It is important for us to know how recently this incident happened. Some civil rights violations must be reported within a certain amount of time by law. \
                     If this happened over a period of time or is still happening, please provide the most recent date.',
                 ),
-                # ally_id=a11y.name_id
+                ally_id=a11y.when_id
             )
         ]
 
     def clean(self):
-        cleaned_data = self.cleaned_data
-        print(cleaned_data)
-        if 'last_incident_month' in cleaned_data:
-            year = datetime.now().year
-            month = cleaned_data.last_incident_month or 1
-            day = datetime.now().day
+        cleaned_data = super(When, self).clean()
+
+        try:
+            year = cleaned_data['last_incident_year']
+            month = cleaned_data['last_incident_month']
+            day = cleaned_data['last_incident_day'] or 1
             test_date = datetime(year, month, day)
             if test_date > datetime.now():
                 raise ValidationError(
                     _('Date can not be in the future'),
                     params={'value': test_date.strftime('%x')},
                 )
-        else:
+        except ValueError:
+            # a bit of a catch-all for all the ways people could make bad dates
+            raise ValidationError(
+                _(f'Invalid date format {month}/{day}/{year}'),
+                params={'value': f'{month}/{day}/{year}'},
+            )
+        except KeyError:
+            # these will be caught by the built in error validation
             return cleaned_data
+
+        return cleaned_data
 
 
 class Who(ModelForm):
