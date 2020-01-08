@@ -6,11 +6,13 @@
   "scripts": {
     "sass:watch": "gulp watch",
     "test:a11y": "pa11y-ci --config pa11y_scripts/.pa11y-local.json",
-    "test:a11y-ci-1": "pa11y-ci --config pa11y_scripts/.pa11y-ci-p1.json",
-    "test:a11y-ci-2": "pa11y-ci --config pa11y_scripts/.pa11y-ci-p2.json",
+    "test:a11y-ci-1": "pa11y-ci --config pa11y_scripts/.pa11y-ci-p1-contact.json",
+    "test:a11y-ci-2": "pa11y-ci --config pa11y_scripts/.pa11y-ci-p2-primary-issue.json",
     "test:a11y-ci-2-error-state": "pa11y-ci --config pa11y_scripts/.pa11y-ci-p2-error.json",
-    "test:a11y-ci-3": "pa11y-ci --config pa11y_scripts/.pa11y-ci-p3.json",
-    "test:a11y-ci-4": "pa11y-ci --config pa11y_scripts/.pa11y-ci-p4.json",
+    "test:a11y-ci-3": "pa11y-ci --config pa11y_scripts/.pa11y-ci-p3-location.json",
+    "test:a11y-ci-4": "pa11y-ci --config pa11y_scripts/.pa11y-ci-p4-date.json",
+    "test:a11y-ci-5": "pa11y-ci --config pa11y_scripts/.pa11y-ci-p5-protected-class.json",
+    "test:a11y-ci-6": "pa11y-ci --config pa11y_scripts/.pa11y-ci-p6-details.json",
     "test:a11y-crt-view": "pa11y-ci --config pa11y_scripts/.pa11y-crt-view.json",
     "lint:check": "prettier --check \"crt_portal/static/js/*.js\"",
     "lint:write": "prettier --write \"crt_portal/static/js/*.js\""
