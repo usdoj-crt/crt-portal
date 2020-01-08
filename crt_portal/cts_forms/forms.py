@@ -374,7 +374,8 @@ class When(ModelForm):
         widgets = {
             'last_incident_month': TextInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.when_id
+                'aria-describedby': a11y.when_id,
+                'required': True,
             }),
             'last_incident_day': TextInput(attrs={
                 'class': 'usa-input',
@@ -382,7 +383,8 @@ class When(ModelForm):
             }),
             'last_incident_year': EmailInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.when_id
+                'aria-describedby': a11y.when_id,
+                'required': True,
             }),
         }
 
@@ -393,8 +395,14 @@ class When(ModelForm):
         self.label_suffix = ''
 
         self.fields['last_incident_month'].label = _('Month')
+        self.fields['last_incident_month'].error_messages = {
+            'required': _('Please enter a month'),
+        }
         self.fields['last_incident_day'].label = _('Day (Optional)')
         self.fields['last_incident_year'].label = _('Year')
+        self.fields['last_incident_year'].error_messages = {
+            'required': _('Please enter a year'),
+        }
 
         self.question_groups = [
             QuestionGroup(
@@ -410,6 +418,7 @@ class When(ModelForm):
         ]
 
     def clean(self):
+        """Validating more than one field at a time can't be done in the model validation"""
         cleaned_data = super(When, self).clean()
 
         try:
