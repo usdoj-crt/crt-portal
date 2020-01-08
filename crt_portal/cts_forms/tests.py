@@ -227,6 +227,15 @@ class SectionAssignmentTests(TestCase):
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'VOT')
 
+    def test_crm_humantrafficking_routing(self):
+        # All human trafficking goes to CRM.
+        SAMPLE_REPORT['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+        human_trafficking = HateCrimesandTrafficking.objects.get_or_create(hatecrimes_trafficking_option='Coerced or forced to do work or perform a commercial sex act')
+        test_report.hatecrimes_trafficking.add(human_trafficking[0])
+        test_report.save()
+        self.assertTrue(test_report.assign_section() == 'CRM')
+
     def test_voting_disability_exception(self):
         # Reports with a primary complaint of voting and protected class of disability
         # should not be assigned to voting.
