@@ -248,7 +248,7 @@ class SectionAssignmentTests(TestCase):
         self.assertTrue(test_report.assign_section() == 'ADM')
 
     def test_workplace_primary_complaint_exception(self):
-        # Workplace discrimination complaints are routed to ADM by default
+        # Workplace discrimination complaints are routed to ELS by default
         SAMPLE_REPORT['primary_complaint'] = 'workplace'
         test_report = Report.objects.create(**SAMPLE_REPORT)
         test_report.save()
@@ -279,13 +279,10 @@ class SectionAssignmentTests(TestCase):
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'IER')
 
-        test_report.protected_class.add(language[0])
-        test_report.save()
-        self.assertTrue(test_report.assign_section() == 'IER')
-
+        test_report.protected_class.remove(origin[0])
         test_report.protected_class.add(disability[0])
         test_report.save()
-        self.assertTrue(test_report.assign_section() == 'DRS')
+        self.assertTrue(test_report.assign_section() == 'ADM')
 
 
 class Valid_CRT_Pagnation_Tests(TestCase):
