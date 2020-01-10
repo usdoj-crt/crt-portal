@@ -34,3 +34,34 @@ See example code here: https://github.com/usdoj-crt/crt-portal/pull/209/files
     - add the new page name for the form page `to all_step_names`
     - add the top-line title for the page to `ordered_step_titles`
     - add an existing or template to the `TEMPLATES` list
+
+## Debugging tips
+
+### Front end 
+If you are trying to figure out what variables are getting passed to the template you can add the following code in any template:
+
+    <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre>
+
+### Back end
+#### Use the Django shell
+SSH into a docker image so you have local database access, (your image may have a different name)
+
+    docker exec -it crt-portal_web_1 /bin/bash
+
+get into the project directory where we can run the Django shell 
+
+    cd crt_portal
+    python manage.py shell
+
+This takes you into an interactive shell it adds `>>>` to the beginning of lines
+
+import your models or whatever you are working with
+
+    from cts_forms.models import *
+
+Start typing and try out code interactively.
+
+#### pdb
+The built in python debugger is good for setting traces.
+See the [pdb documentation](https://docs.python.org/3.8/library/pdb.html) for details 
+
