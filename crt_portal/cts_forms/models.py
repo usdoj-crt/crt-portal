@@ -123,12 +123,12 @@ class Report(models.Model):
         return True
 
     def assign_section(self):
+        """See the SectionAssignmentTests for expected behaviors"""
         protected_classes = [n.protected_class for n in self.protected_class.all()]
         hatecrimes_options = [n.hatecrimes_trafficking_option for n in self.hatecrimes_trafficking.all()]
 
         if len(hatecrimes_options) > 0:
             return 'CRM'
-
         elif self.primary_complaint == 'voting' and 'Disability (including temporary or recovery)' not in protected_classes:
             return 'VOT'
         elif self.primary_complaint == 'workplace':
