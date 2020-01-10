@@ -219,14 +219,6 @@ class Complaint_Show_View_Valid(TestCase):
 
 
 class SectionAssignmentTests(TestCase):
-    def test_voting_primary_complaint(self):
-        # Unless a protected class of disability is selected, reports
-        # with a primary complaint of voting should be assigned to voting.
-        SAMPLE_REPORT['primary_complaint'] = 'voting'
-        test_report = Report.objects.create(**SAMPLE_REPORT)
-        test_report.save()
-        self.assertTrue(test_report.assign_section() == 'VOT')
-
     def test_crm_humantrafficking_routing(self):
         # All human trafficking goes to CRM.
         SAMPLE_REPORT['primary_complaint'] = 'voting'
@@ -235,6 +227,33 @@ class SectionAssignmentTests(TestCase):
         test_report.hatecrimes_trafficking.add(human_trafficking[0])
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'CRM')
+
+    def test_crm_hatecrime(self):
+        # All hate crime goes to CRM.
+        SAMPLE_REPORT['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+        disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
+        test_report.protected_class.add(disability[0])
+        human_trafficking = HateCrimesandTrafficking.objects.get_or_create(hatecrimes_trafficking_option='Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability')
+        test_report.hatecrimes_trafficking.add(human_trafficking[0])
+        test_report.save()
+        self.assertTrue(test_report.assign_section() == 'CRM')
+
+    def test_no_hatecrime_trafficking(self):
+        SAMPLE_REPORT['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+        disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
+        test_report.protected_class.add(disability[0])
+        test_report.save()
+        self.assertTrue(test_report.assign_section() != 'CRM')
+
+    def test_voting_primary_complaint(self):
+        # Unless a protected class of disability is selected, reports
+        # with a primary complaint of voting should be assigned to voting.
+        SAMPLE_REPORT['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+        test_report.save()
+        self.assertTrue(test_report.assign_section() == 'VOT')
 
     def test_voting_disability_exception(self):
         # Reports with a primary complaint of voting and protected class of disability

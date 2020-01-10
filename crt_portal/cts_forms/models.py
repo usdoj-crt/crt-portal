@@ -126,7 +126,7 @@ class Report(models.Model):
         protected_classes = [n.protected_class for n in self.protected_class.all()]
         hatecrimes_options = [n.hatecrimes_trafficking_option for n in self.hatecrimes_trafficking.all()]
 
-        if 'Coerced or forced to do work or perform a commercial sex act' in hatecrimes_options:
+        if len(hatecrimes_options) > 0:
             return 'CRM'
 
         elif self.primary_complaint == 'voting' and 'Disability (including temporary or recovery)' not in protected_classes:
