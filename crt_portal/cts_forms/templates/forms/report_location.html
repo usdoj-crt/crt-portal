@@ -1,8 +1,8 @@
 {% extends "forms/report_base.html" %}
 
 
-{% block form_questions %}
-  {% include 'forms/grouped_questions.html' %}
+{% block form_questions %}  {% include 'forms/grouped_questions.html' %}
+
   {% with city=wizard.form.location_city_town state=wizard.form.location_state %}
     <div class="grid-row grid-gap margin-y-neg-2 margin-bottom-5">
       <div class="mobile-lg:grid-col-8">
@@ -10,7 +10,7 @@
           {{ city.label }}
         </label>
         {{ city }}
-      </div>    
+      </div>
       <div class="mobile-lg:grid-col-4">
         <label for="{{state.id_for_label}}">
           {{state.label}}

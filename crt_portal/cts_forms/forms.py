@@ -398,24 +398,11 @@ class When(ModelForm):
         self.fields['last_incident_month'].error_messages = {
             'required': _('Please enter a month'),
         }
-        self.fields['last_incident_day'].label = _('Day (Optional)')
+        self.fields['last_incident_day'].label = _('Day')
         self.fields['last_incident_year'].label = _('Year')
         self.fields['last_incident_year'].error_messages = {
             'required': _('Please enter a year'),
         }
-
-        # self.question_groups = [
-        #     QuestionGroup(
-        #         self,
-        #         ('last_incident_month', 'last_incident_day', 'last_incident_year'),
-        #         group_name=_('When did this happen'),
-        #         help_text=_(
-        #             'It is important for us to know how recently this incident happened. Some civil rights violations must be reported within a certain amount of time by law. \
-        #             If this happened over a period of time or is still happening, please provide the most recent date.',
-        #         ),
-        #         ally_id=a11y.when_id
-        #     )
-        # ]
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
