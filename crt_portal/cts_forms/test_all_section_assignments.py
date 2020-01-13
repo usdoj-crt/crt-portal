@@ -56,11 +56,5 @@ class Ultimate_Section_Assignment_Test(TestCase):
                         'hate_crimes_trafficking': "hate crimes and trafficking",
                     })
 
+
 csvfile.close()
-
-
-
-
-
-
-
