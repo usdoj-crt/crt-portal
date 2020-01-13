@@ -66,6 +66,17 @@ form#report-form {
     }
   }
 
+  .usa-input-narrow{
+    @media screen and (min-width: $tablet) {
+      width: 6rem;
+    }
+
+    &:focus {
+      outline-offset: 0;
+      border: 1px solid $blue-vivid-40;
+    }
+  }
+
   textarea.usa-textarea {
     resize: none;
     height: 15rem;
@@ -174,7 +185,7 @@ form#report-form {
   }
 
   img {
-    margin-top: -2px; 
+    margin-top: -2px;
     padding-right: .5rem;
     vertical-align: middle;
   }

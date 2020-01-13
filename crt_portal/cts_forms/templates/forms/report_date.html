@@ -1,0 +1,41 @@
+{% extends "forms/report_base.html" %}
+
+{% block form_questions %}  {% include 'forms/grouped_questions.html' %}
+
+  {% with month=wizard.form.last_incident_month day=wizard.form.last_incident_day year=wizard.form.last_incident_year %}
+    <div class="grid-row grid-gap margin-y-neg-2 margin-bottom-5">
+      <div class="mobile-lg:grid-col-4">
+        <label for="{{ month.id_for_label }}">
+          {{ month.label }}
+        </label>
+        {{ month }}
+      </div>
+      <div class="mobile-lg:grid-col-4">
+        <label for="{{ day.id_for_label}}">
+          {{ day.label }}
+        </label>
+        {{ day }}
+      </div>
+      <div class="mobile-lg:grid-col-4">
+        <label for="{{ year.id_for_label }}">
+          {{ year.label }}
+        </label>
+        {{ year }}
+      </div>
+      <div class="mobile-lg:grid-col-3">
+        MM/DD/YYYY
+      </div>
+    </div>
+
+    {% if month.errors %}
+      {% include "forms/snippets/error_alert.html" with errors=month.errors %}
+    {% endif %}
+    {% if day.errors %}
+      {% include "forms/snippets/error_alert.html" with day=state.errors %}
+    {% endif %}
+    {% if year.errors %}
+      {% include "forms/snippets/error_alert.html" with year=state.errors %}
+    {% endif %}
+
+  {% endwith %}
+{% endblock %}

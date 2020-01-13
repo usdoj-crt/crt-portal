@@ -137,7 +137,7 @@ TEMPLATES = [
     # Location
     'forms/report_location.html',
     # Date
-    'forms/report_grouped_questions.html',
+    'forms/report_date.html',
     # Protected Class
     'forms/report_class.html',
     # Details
