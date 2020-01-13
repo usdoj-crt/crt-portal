@@ -245,6 +245,10 @@ class CRTReportWizard(SessionWizardView):
             context.update({
                 'page_note': _('Providing details on where this occurred helps us properly review your issue and get it to the right people within the Civil Rights Division.'),
             })
+        elif current_step_name == _('Date'):
+            context.update({
+                'page_note': _('It is important for us to know how recently this incident happened. Some civil rights violations must be reported within a certain amount of time.')
+            })
         elif current_step_name == _('Primary Issue'):
             context.update({
                 'crime_help_text2': _('Please select if any that apply to your situation (optional)'),

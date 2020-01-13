@@ -358,41 +358,29 @@ class ProtectedClassForm(ModelForm):
         ]
 
 
-class DateA11y():
-    def __init__(self):
-        self.when_a11y_id = 'when'
-
-    def when_id(self):
-        return self.when_a11y_id
-
-
 class When(ModelForm):
     class Meta:
         model = Report
-        a11y = DateA11y()
         fields = ['last_incident_month', 'last_incident_day', 'last_incident_year']
         widgets = {
             'last_incident_month': TextInput(attrs={
-                'class': 'usa-input-narrow',
-                'aria-describedby': a11y.when_id,
+                'class': 'usa-input-3-rem',
                 'required': True,
+                'type': 'number',
             }),
             'last_incident_day': TextInput(attrs={
-                'class': 'usa-input-narrow',
-                'aria-describedby': a11y.when_id
+                'class': 'usa-input-3-rem',
+                'type': 'number',
             }),
             'last_incident_year': EmailInput(attrs={
-                'class': 'usa-input-narrow',
-                'aria-describedby': a11y.when_id,
+                'class': 'usa-input-6-rem',
                 'required': True,
+                'type': 'number',
             }),
         }
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
-
-        a11y = DateA11y()
-        self.label_suffix = ''
 
         self.fields['last_incident_month'].label = _('Month')
         self.fields['last_incident_month'].error_messages = {
