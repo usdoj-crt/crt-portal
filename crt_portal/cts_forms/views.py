@@ -20,7 +20,7 @@ from .forms import Filters
 SORT_DESC_CHAR = '-'
 
 
-def format_protected_class(p_class_objects):
+def format_protected_class(p_class_objects, other_class):
     p_class_list = []
     for p_class in p_class_objects:
         if p_class.protected_class is not None:
@@ -28,7 +28,7 @@ def format_protected_class(p_class_objects):
             if code != 'Other':
                 p_class_list.append(code)
             # If this code is other but there is no other_class description, we want it to say "Other". If there is an other_class that will take the place of "Other"
-            elif report.other_class is None:
+            elif other_class is None:
                 p_class_list.append(code)
 
     return p_class_list
@@ -76,7 +76,10 @@ def IndexView(request):
     data = []
 
     for report in requested_reports:
-        p_class_list = format_protected_class(report.protected_class.all().order_by('form_order'))
+        p_class_list = format_protected_class(
+            report.protected_class.all().order_by('form_order'),
+            report.other_class,
+        )
         if report.other_class:
             p_class_list.append(report.other_class)
         if len(p_class_list) > 3:
@@ -116,7 +119,10 @@ def ShowView(request, id):
             if crime.hatecrimes_trafficking_option == choice[1]:
                 crimes[choice[0]] = True
 
-    p_class_list = format_protected_class(report.protected_class.all().order_by('form_order'))
+    p_class_list = format_protected_class(
+        report.protected_class.all().order_by('form_order'),
+        report.other_class,
+    )
 
     output = {
         'crimes': crimes,

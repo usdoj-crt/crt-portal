@@ -50,7 +50,13 @@
       <tr>
         <th>Protected class</th>
         <td>
-          {{data.p_class_list}}
+          {% for p_class in p_class_list %}
+            {% if not forloop.last %}
+              {{p_class}},
+            {% else %}
+              {{p_class}}
+            {% endif %}
+          {% endfor %}
           {% if data.other_class %}
             Other: {{data.other_class}}
           {% endif %}
