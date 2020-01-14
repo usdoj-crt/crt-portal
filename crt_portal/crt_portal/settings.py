@@ -84,7 +84,7 @@ INSTALLED_APPS = [
     'compressor_toolkit',
     'storages',
     'formtools',
-    'django_saml2_auth',
+    'django_auth_adfs',
     'crequest',
 ]
 
@@ -153,20 +153,37 @@ USE_L10N = True
 
 USE_TZ = True
 
+AUTHENTICATION_BACKENDS = (
+    'django_auth_adfs.backend.AdfsAuthCodeBackend',
+)
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
+AUTH_ADFS = {
+    "SERVER": "http://crt-portal-django-prod.app.cloud.gov/",
+    "CLIENT_ID": "your-configured-client-id",
+    "RELYING_PARTY_ID": "your-adfs-RPT-name",
+    # Make sure to read the documentation about the AUDIENCE setting
+    # when you configured the identifier as a URL!
+    "AUDIENCE": "microsoft:identityserver:your-RelyingPartyTrust-identifier",
+    "CA_BUNDLE": "/path/to/ca-bundle.pem",
+    "CLAIM_MAPPING": {"first_name": "given_name",
+                      "last_name": "family_name",
+                      "email": "email"},
+}
+
+# Configure django to redirect users to the right URL for login
+LOGIN_URL = "django_auth_adfs:login"
+LOGIN_REDIRECT_URL = "/form/view/"
 
 
 if environment != 'LOCAL':
     # Single sign on
-    SAML2_AUTH = {
-        # Metadata is required, choose either remote url or local file path
-        # [The auto(dynamic) metadata configuration URL of SAML2]
-        'METADATA_AUTO_CONF_URL': os.environ.get('METADATA_AUTO_CONF_URL'),
-        # [The metadata configuration file path]
-        'METADATA_LOCAL_FILE_PATH': os.environ.get('METADATA_LOCAL_FILE_PATH'),
-    }
+    # SAML2_AUTH = {
+    #     # Metadata is required, choose either remote url or local file path
+    #     # [The auto(dynamic) metadata configuration URL of SAML2]
+    #     'METADATA_AUTO_CONF_URL': os.environ.get('METADATA_AUTO_CONF_URL'),
+    #     # [The metadata configuration file path]
+    #     'METADATA_LOCAL_FILE_PATH': os.environ.get('METADATA_LOCAL_FILE_PATH'),
+    # }
 
     # AWS
     s3_creds = vcap['s3'][0]["credentials"]
@@ -188,6 +205,8 @@ if environment != 'LOCAL':
 else:
     STATIC_URL = '/static/'
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.2/howto/static-files/
 # This is where source assets are collect from by collect static
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 # Enable for admin storage
