@@ -28,7 +28,9 @@
         </label>
         {{ year }}
       </div>
-      <div class="mobile-lg:grid-col-2 grid-offset-2 margin-top-neg-2">
+    </div>
+    <div>
+      <div class="mobile-lg:grid-col-2 grid-offset-2 margin-top-neg-2 margin-top-neg-3">
         <em>(Optional)</em>
       </div>
     </div>
@@ -42,6 +44,7 @@
     {% if year.errors %}
       {% include "forms/snippets/error_alert.html" with year=state.errors %}
     {% endif %}
+
   </div>
   {% endwith %}
 {% endblock %}
