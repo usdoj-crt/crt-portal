@@ -47,6 +47,15 @@
           {{data.location_state|default:"-"}}
         </td>
       </tr>
+      <tr>
+        <th>Protected class</th>
+        <td>
+          {{data.p_class_list}}
+          {% if data.other_class %}
+            Other: {{data.other_class}}
+          {% endif %}
+        </td>
+      </tr>
     </tr>
   </table>
 </div>

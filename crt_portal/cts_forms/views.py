@@ -20,6 +20,20 @@ from .forms import Filters
 SORT_DESC_CHAR = '-'
 
 
+def format_protected_class(p_class_objects):
+    p_class_list = []
+    for p_class in p_class_objects:
+        if p_class.protected_class is not None:
+            code = PROTECTED_CLASS_CODES.get(p_class.protected_class, p_class.protected_class)
+            if code != 'Other':
+                p_class_list.append(code)
+            # If this code is other but there is no other_class description, we want it to say "Other". If there is an other_class that will take the place of "Other"
+            elif report.other_class is None:
+                p_class_list.append(code)
+
+    return p_class_list
+
+
 @login_required
 def IndexView(request):
     report_query, query_filters = report_filter(request)
@@ -60,23 +74,15 @@ def IndexView(request):
     all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
 
     data = []
-    # formatting protected class
-    for report in requested_reports:
-        p_class_list = []
-        for p_class in report.protected_class.all().order_by('form_order'):
-            if p_class.protected_class is not None:
-                code = PROTECTED_CLASS_CODES.get(p_class.protected_class, p_class.protected_class)
-                if code != 'Other':
-                    p_class_list.append(code)
-                # If this code is other but there is no other_class description, we want it to say "Other". If there is an other_class that will take the place of "Other"
-                elif report.other_class is None:
-                    p_class_list.append(code)
 
+    for report in requested_reports:
+        p_class_list = format_protected_class(report.protected_class.all().order_by('form_order'))
         if report.other_class:
             p_class_list.append(report.other_class)
         if len(p_class_list) > 3:
             p_class_list = p_class_list[:3]
             p_class_list[2] = f'{p_class_list[2]}...'
+
         data.append({
             "report": report,
             "report_protected_classes": p_class_list,
@@ -110,9 +116,12 @@ def ShowView(request, id):
             if crime.hatecrimes_trafficking_option == choice[1]:
                 crimes[choice[0]] = True
 
+    p_class_list = format_protected_class(report.protected_class.all().order_by('form_order'))
+
     output = {
         'crimes': crimes,
         'data': report,
+        'p_class_list': p_class_list,
         'primary_complaint': primary_complaint,
         'return_url_args': request.GET.get('next', ''),
     }
