@@ -1,4 +1,18 @@
 {% extends "forms/report_base.html" %}
 {% block form_questions %}
   {% include 'forms/grouped_questions.html' %}
+
+{% with field=wizard.form.servicemember %}
+  <div id='servicemember' class="margin-bottom-5">
+    <legend class="em-text big margin-bottom-0">
+      {{field.label}}
+    </legend>
+    <div class="">
+      <label for="{{ field.id_for_label }}">{{ field.help_text }}</label>
+    {{ field }}
+    </div>
+  </div>
+{% endwith %}
+</fieldset>
+
 {% endblock %}

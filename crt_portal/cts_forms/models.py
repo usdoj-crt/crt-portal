@@ -20,6 +20,7 @@ from .model_variables import (
     SECTION_CHOICES,
     ELECTION_CHOICES,
     HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
+    SERVICEMEMBER_CHOICES,
 )
 
 import logging
@@ -61,6 +62,7 @@ class Report(models.Model):
         null=True,
         blank=True
     )
+    servicemember = models.CharField(max_length=4, null=False, choices=SERVICEMEMBER_CHOICES)
     # Primary Issue
     primary_complaint = models.CharField(
         max_length=100,
@@ -68,7 +70,7 @@ class Report(models.Model):
         default='',
         blank=False
     )
-    hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, null=True, blank=True)
+    hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, blank=True)
     # Protected Class
     # See docs for notes on updating these values:
     # docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
