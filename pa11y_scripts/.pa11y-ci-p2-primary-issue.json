@@ -7,7 +7,7 @@
         "click element #submit-next",
         "wait for element #id_1-primary_complaint to be visible"
       ],
-      "screenCapture": "pa11y-screenshots/page2.png"
+      "screenCapture": "pa11y-screenshots/page2-primary-issue.png"
     }
   ]
 }

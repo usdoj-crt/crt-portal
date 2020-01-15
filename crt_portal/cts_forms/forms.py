@@ -1,6 +1,10 @@
+from datetime import datetime
+
+from django.core.validators import ValidationError
 from django.forms import ModelForm, CheckboxInput, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
     ModelMultipleChoiceField, MultipleChoiceField
 from django.utils.translation import gettext_lazy as _
+
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtDropdown, CrtMultiSelect
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
@@ -21,7 +25,6 @@ from .model_variables import (
     HATE_CRIMES_TRAFFICKING_CHOICES,
     PRIMARY_COMPLAINT_ERROR,
 )
-
 from .phone_regex import phone_validation_regex
 
 import logging
@@ -353,6 +356,67 @@ class ProtectedClassForm(ModelForm):
                 ally_id="protected-class-help-text"
             )
         ]
+
+
+class When(ModelForm):
+    class Meta:
+        model = Report
+        fields = ['last_incident_month', 'last_incident_day', 'last_incident_year']
+        widgets = {
+            'last_incident_month': TextInput(attrs={
+                'class': 'usa-input usa-input--small',
+                'required': True,
+                'type': 'number',
+            }),
+            'last_incident_day': TextInput(attrs={
+                'class': 'usa-input usa-input--small',
+                'type': 'number',
+            }),
+            'last_incident_year': EmailInput(attrs={
+                'class': 'usa-input usa-input--medium',
+                'required': True,
+                'type': 'number',
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+
+        self.fields['last_incident_month'].label = _('Month')
+        self.fields['last_incident_month'].error_messages = {
+            'required': _('Please enter a month'),
+        }
+        self.fields['last_incident_day'].label = _('Day')
+        self.fields['last_incident_year'].label = _('Year')
+        self.fields['last_incident_year'].error_messages = {
+            'required': _('Please enter a year'),
+        }
+
+    def clean(self):
+        """Validating more than one field at a time can't be done in the model validation"""
+        cleaned_data = super(When, self).clean()
+
+        try:
+            year = cleaned_data['last_incident_year']
+            month = cleaned_data['last_incident_month']
+            day = cleaned_data['last_incident_day'] or 1
+            test_date = datetime(year, month, day)
+            if test_date > datetime.now():
+                raise ValidationError(
+                    _('Date can not be in the future'),
+                    params={'value': test_date.strftime('%x')},
+                )
+        except ValueError:
+            # a bit of a catch-all for all the ways people could make bad dates
+            raise ValidationError(
+                _(f'Invalid date format {month}/{day}/{year}'),
+                params={'value': f'{month}/{day}/{year}'},
+            )
+        except KeyError:
+            # these will be caught by the built in error validation
+            return cleaned_data
+
+        return cleaned_data
 
 
 class Who(ModelForm):

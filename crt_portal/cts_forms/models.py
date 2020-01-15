@@ -1,6 +1,9 @@
 """All models need to be added to signals.py for proper logging."""
+from datetime import datetime
+
 from django.db import models
-from django.core.validators import RegexValidator
+from django.core.validators import RegexValidator, MaxValueValidator
+from django.utils.functional import cached_property
 
 from .phone_regex import phone_validation_regex
 
@@ -12,8 +15,6 @@ from .model_variables import (
     PUBLIC_OR_PRIVATE_FACILITY_CHOICES,
     PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES,
     RESPONDENT_TYPE_CHOICES,
-    WHEN_CHOICES,
-    HOW_MANY_CHOICES,
     STATES_AND_TERRITORIES,
     PROTECTED_MODEL_CHOICES,
     STATUS_CHOICES,
@@ -68,7 +69,7 @@ class Report(models.Model):
         default='',
         blank=False
     )
-    hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, null=True, blank=True)
+    hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, blank=True)
     # Protected Class
     # See docs for notes on updating these values:
     # docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
@@ -89,6 +90,16 @@ class Report(models.Model):
     election_details = models.CharField(choices=ELECTION_CHOICES, max_length=225, null=True, blank=True)
     public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)
     employer_size = models.CharField(max_length=100, null=True, choices=EMPLOYER_SIZE_CHOICES, default=None)
+    # Incident date
+    last_incident_year = models.PositiveIntegerField(MaxValueValidator(datetime.now().year, message="Date must not be in the future"))
+    last_incident_day = models.PositiveIntegerField(MaxValueValidator(31, message='Day value too high'), null=True, blank=True)
+    last_incident_month = models.PositiveIntegerField(MaxValueValidator(12, message="Month must be 12 or less"))
+
+    @cached_property
+    def last_incident_date(self):
+        day = self.last_incident_day or 1
+        return datetime(self.last_incident_year, self.last_incident_month, day)
+
     ###############################################################
     #   These fields have not been implemented in the form yet:   #
     ###############################################################
@@ -102,9 +113,6 @@ class Report(models.Model):
     respondent_name = models.CharField(max_length=225, null=True, blank=True)
     respondent_city = models.CharField(max_length=700, null=True, blank=True)
     respondent_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
-    # previous details form
-    when = models.CharField(max_length=700, choices=WHEN_CHOICES, default=None, null=True)
-    how_many = models.CharField(max_length=700, null=True, blank=True, choices=HOW_MANY_CHOICES, default=None)
 
     def __str__(self):
         return f'{self.create_date} {self.violation_summary}'

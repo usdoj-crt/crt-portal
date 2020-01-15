@@ -151,6 +151,8 @@ TEMPLATES = [
     'forms/report_location.html',
     # Location
     'forms/report_location.html',
+    # Date
+    'forms/report_date.html',
     # Protected Class
     'forms/report_class.html',
     # Details
@@ -200,6 +202,7 @@ class CRTReportWizard(SessionWizardView):
             _('Contact'),
             _('Primary Issue'),
             _('Location'),
+            _('Date'),
             _('Protected Class'),
             _('Details'),
         ]
@@ -210,6 +213,7 @@ class CRTReportWizard(SessionWizardView):
             _('Location'),
             _('Location'),
             _('Location'),
+            _('Date'),
             _('Protected Class'),
             _('Details'),
         ]
@@ -223,6 +227,7 @@ class CRTReportWizard(SessionWizardView):
             _('Location details'),
             _('Location details'),
             _('Location details'),
+            _('Date'),
             _('Please provide details'),
             _('Details'),
         ]
@@ -254,6 +259,10 @@ class CRTReportWizard(SessionWizardView):
         elif current_step_name == _('Location'):
             context.update({
                 'page_note': _('Providing details on where this occurred helps us properly review your issue and get it to the right people within the Civil Rights Division.'),
+            })
+        elif current_step_name == _('Date'):
+            context.update({
+                'page_note': _('It is important for us to know how recently this incident happened. Some civil rights violations must be reported within a certain amount of time.')
             })
         elif current_step_name == _('Primary Issue'):
             context.update({

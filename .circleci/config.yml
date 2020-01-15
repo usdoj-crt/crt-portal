@@ -67,6 +67,8 @@ jobs:
             npm run test:a11y-ci-2-error-state
             npm run test:a11y-ci-3
             npm run test:a11y-ci-4
+            npm run test:a11y-ci-5
+            npm run test:a11y-ci-6
       - run:
           name: Run prettier code formatting check
           command: npm run lint:check
