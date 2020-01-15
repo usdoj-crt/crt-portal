@@ -21,8 +21,12 @@ from .model_variables import (
     SECTION_CHOICES,
     ELECTION_CHOICES,
     HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
+<<<<<<< HEAD
     CORRECTIONAL_FACILITY_LOCATION_CHOICES,
     CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+=======
+    COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
+>>>>>>> Adds new model fields and model options
 )
 
 import logging
@@ -97,6 +101,10 @@ class Report(models.Model):
     # by law
     inside_correctional_facility = models.CharField(null=True, choices=CORRECTIONAL_FACILITY_LOCATION_CHOICES, default=None, max_length=255)
     correctional_facility_type = models.CharField(null=True, choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES, max_length=50)
+
+    # Commercial or public space
+    commercial_or_public_place = models.CharField(max_length=225, choices=COMMERCIAL_OR_PUBLIC_PLACE_CHOICES, null=True, default=None)
+    other_commercial_or_public_place = models.CharField(max_length=150, blank=True, null=True)
 
     # Incident date
     last_incident_year = models.PositiveIntegerField(MaxValueValidator(datetime.now().year, message="Date must not be in the future"))
