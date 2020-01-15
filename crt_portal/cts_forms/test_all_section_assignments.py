@@ -10,9 +10,6 @@ from .test_data import SAMPLE_REPORT
 
 fieldnames = ['section_assignment_actual', 'primary_complaint', 'protected_class', 'hate_crimes_trafficking']
 
-csvfile = open('section_assignment.csv', 'w', newline='')
-writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-
 
 class Ultimate_Section_Assignment_Test(TestCase):
 
@@ -55,6 +52,3 @@ class Ultimate_Section_Assignment_Test(TestCase):
                         'protected_class': protected_class,
                         'hate_crimes_trafficking': "hate crimes and trafficking",
                     })
-
-
-csvfile.close()
