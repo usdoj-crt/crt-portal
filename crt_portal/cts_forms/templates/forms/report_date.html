@@ -1,50 +1,49 @@
 {% extends "forms/report_base.html" %}
 
 {% block form_questions %}
-  <div class="usa-fieldset">
-  <legend class="em-text ">When did this happen?</legend>
+  <fieldset class="usa-fieldset">
+    <legend class="em-text ">When did this happen?</legend>
 
-  <p class='margin-bottom-4 margin-top-1'><em>If this happened over a period of time or is still happening, please provide the most recent date.</em></p>
+    <p class='margin-bottom-4 margin-top-1'><em>If this happened over a period of time or is still happening, please provide the most recent date.</em></p>
 
-  <br>
+    <br>
 
-  {% with month=wizard.form.last_incident_month day=wizard.form.last_incident_day year=wizard.form.last_incident_year %}
-    <div class="grid-row grid-gap margin-y-neg-2 margin-bottom-5 usa-fieldset margin-bottom-5">
-      <div class="mobile-lg:grid-col-2">
-        <label for="{{ month.id_for_label }}">
-          {{ month.label }}
-        </label>
-        {{ month }}
-      </div>
-      <div class="mobile-lg:grid-col-2">
-        <label for="{{ day.id_for_label}}">
-          {{ day.label }}
-        </label>
-        {{ day }}
-      </div>
-      <div class="mobile-lg:grid-col-3">
-        <label for="{{ year.id_for_label }}">
-          {{ year.label }}
-        </label>
-        {{ year }}
-      </div>
+    {% with month=wizard.form.last_incident_month day=wizard.form.last_incident_day year=wizard.form.last_incident_year %}
+      <div class="usa-memorable-date">
+        <div class="grid-row grid-gap margin-y-neg-2 margin-bottom-5 usa-fieldset margin-bottom-5">
+          <div class="mobile-lg:grid-col-3">
+            <label for="{{ month.id_for_label }}">
+              {{ month.label }}
+            </label>
+            {{ month }}
+          </div>
+          <div class="mobile-lg:grid-col-3">
+            <label for="{{ day.id_for_label}}">
+              {{ day.label }} <span class="usa-sr-only">optional</span>
+            </label>
+            {{ day }}
+          </div>
+          <div class="mobile-lg:grid-col-3">
+            <label for="{{ year.id_for_label }}">
+              {{ year.label }}
+            </label>
+            {{ year }}
+          </div>
+          <div class="mobile-lg:grid-col-2 grid-offset-2 margin-top-neg-2 margin-top-neg-3">
+            <em>(Optional)</em>
+          </div>
+        </div>
+
+        {% if month.errors %}
+          {% include "forms/snippets/error_alert.html" with errors=month.errors %}
+        {% endif %}
+        {% if day.errors %}
+          {% include "forms/snippets/error_alert.html" with day=state.errors %}
+        {% endif %}
+        {% if year.errors %}
+          {% include "forms/snippets/error_alert.html" with year=state.errors %}
+        {% endif %}
     </div>
-    <div>
-      <div class="mobile-lg:grid-col-2 grid-offset-2 margin-top-neg-2 margin-top-neg-3">
-        <em>(Optional)</em>
-      </div>
-    </div>
-
-    {% if month.errors %}
-      {% include "forms/snippets/error_alert.html" with errors=month.errors %}
-    {% endif %}
-    {% if day.errors %}
-      {% include "forms/snippets/error_alert.html" with day=state.errors %}
-    {% endif %}
-    {% if year.errors %}
-      {% include "forms/snippets/error_alert.html" with year=state.errors %}
-    {% endif %}
-
-  </div>
+  </fieldset>
   {% endwith %}
 {% endblock %}

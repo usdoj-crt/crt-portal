@@ -67,25 +67,11 @@ form#report-form {
   }
 
   .usa-input-6-rem{
-    @media screen and (min-width: $tablet) {
-      width: 6rem;
-    }
-
-    &:focus {
-      outline-offset: 0;
-      border: 1px solid $blue-vivid-40;
-    }
+    width: 6rem !important;
   }
 
   .usa-input-3-rem{
-    @media screen and (min-width: $tablet) {
-      width: 3rem;
-    }
-
-    &:focus {
-      outline-offset: 0;
-      border: 1px solid $blue-vivid-40;
-    }
+    width: 3rem !important;
   }
 
   textarea.usa-textarea {
