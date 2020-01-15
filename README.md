@@ -1,10 +1,16 @@
 ## Contents
-[Local set up](#local-set-up)
-[Running common tasks](#running-common-tasks)
-[Tests](#tests)
-[Cloud.gov set up](#cloudgov-set-up)
-[Additional documentation](#additional-documentation)
-[Background notes](l#background-notes)
+
+* [Local set up](#local-set-up)
+
+* [Running common tasks](#running-common-tasks)
+
+* [Tests](#tests)
+
+* [Cloud.gov set up](#cloudgov-set-up)
+
+* [Additional documentation](#additional-documentation)
+
+* [Background notes](#background-notes)
 
 ## Local set up
 
