@@ -364,16 +364,16 @@ class When(ModelForm):
         fields = ['last_incident_month', 'last_incident_day', 'last_incident_year']
         widgets = {
             'last_incident_month': TextInput(attrs={
-                'class': 'usa-input usa-input-3-rem',
+                'class': 'usa-input usa-input--small',
                 'required': True,
                 'type': 'number',
             }),
             'last_incident_day': TextInput(attrs={
-                'class': 'usa-input usa-input-3-rem',
+                'class': 'usa-input usa-input--small',
                 'type': 'number',
             }),
             'last_incident_year': EmailInput(attrs={
-                'class': 'usa-input usa-input-6-rem',
+                'class': 'usa-input usa-input--medium',
                 'required': True,
                 'type': 'number',
             }),
