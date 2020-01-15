@@ -47,6 +47,22 @@
           {{data.location_state|default:"-"}}
         </td>
       </tr>
+      <tr>
+        <th>Protected class</th>
+        <td>
+          {% for p_class in p_class_list %}
+            {% if not forloop.last %}
+              {{p_class}},
+            {% else %}
+              {{p_class}}
+            {% endif %}
+          {% endfor %}
+          {% if data.other_class %}
+            <br>
+            Other: {{data.other_class}}
+          {% endif %}
+        </td>
+      </tr>
     </tr>
   </table>
 </div>
