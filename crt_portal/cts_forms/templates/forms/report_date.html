@@ -10,27 +10,27 @@
 
     {% with month=wizard.form.last_incident_month day=wizard.form.last_incident_day year=wizard.form.last_incident_year %}
       <div class="usa-memorable-date">
-        <div class="grid-row grid-gap margin-y-neg-2 margin-bottom-5 usa-fieldset margin-bottom-5">
-          <div class="mobile-lg:grid-col-3">
+        <div class="grid-row grid-gap margin-y-neg-2 usa-fieldset margin-bottom-4">
+          <div class="mobile-lg:grid-col-2">
             <label for="{{ month.id_for_label }}">
               {{ month.label }}
             </label>
             {{ month }}
           </div>
-          <div class="mobile-lg:grid-col-3">
+          <div class="mobile-lg:grid-col-2">
             <label for="{{ day.id_for_label}}">
               {{ day.label }} <span class="usa-sr-only">optional</span>
             </label>
             {{ day }}
           </div>
-          <div class="mobile-lg:grid-col-3">
+          <div class="mobile-lg:grid-col-5">
             <label for="{{ year.id_for_label }}">
               {{ year.label }}
             </label>
             {{ year }}
           </div>
-          <div class="mobile-lg:grid-col-2 grid-offset-2 margin-top-neg-2 margin-top-neg-3">
-            <em>(Optional)</em>
+          <div class="mobile-lg:grid-col-2 grid-offset-2 margin-top-1">
+            <em>Optional</em>
           </div>
         </div>
 
