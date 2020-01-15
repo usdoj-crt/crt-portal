@@ -176,17 +176,18 @@ LOGIN_REDIRECT_URL = "/form/view/"
 
 
 if environment != 'LOCAL':
-    # Single sign on
-    # SAML2_AUTH = {
-    #     # Metadata is required, choose either remote url or local file path
-    #     # [The auto(dynamic) metadata configuration URL of SAML2]
-    #     'METADATA_AUTO_CONF_URL': os.environ.get('METADATA_AUTO_CONF_URL'),
-    #     # [The metadata configuration file path]
-    #     'METADATA_LOCAL_FILE_PATH': os.environ.get('METADATA_LOCAL_FILE_PATH'),
-    # }
 
-    # AWS
-    s3_creds = vcap['s3'][0]["credentials"]
+    for service in vcap['s3']:
+        if service['instance_name'] == 'crt-s3':
+            # Public AWS S3 bucket for the app
+            s3_creds = service["credentials"]
+        if service['instance_name'] == 'sso-creds':
+            # Private AWS bucket
+            sso_creds = service["credentials"]
+
+    # Move auth stuff here
+
+    # Public AWS S3 bucket for the app
     AWS_ACCESS_KEY_ID = s3_creds["access_key_id"]
     AWS_SECRET_ACCESS_KEY = s3_creds["secret_access_key"]
     AWS_STORAGE_BUCKET_NAME = s3_creds["bucket"]
