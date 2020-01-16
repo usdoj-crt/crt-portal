@@ -145,11 +145,13 @@ TEMPLATES = [
     'forms/report_grouped_questions.html',
     # Primary reason
     'forms/report_primary_complaint.html',
-    # Election + location
+    # Voting + location
     'forms/report_location.html',
     # Workplace + location
     'forms/report_location.html',
     # Police + location
+    'forms/report_location.html',
+    # Commercial/Public + location
     'forms/report_location.html',
     # Location
     'forms/report_location.html',
@@ -161,7 +163,7 @@ TEMPLATES = [
     'forms/report_details.html',
 ]
 
-conditional_location_routings = ['voting', 'workplace', 'police']
+conditional_location_routings = ['voting', 'workplace', 'police', 'commercial_or_public']
 
 
 def show_election_form_condition(wizard):
@@ -182,6 +184,15 @@ def show_workplace_form_condition(wizard):
 def show_police_form_condition(wizard):
     cleaned_data = wizard.get_cleaned_data_for_step('1') or {'primary_complaint': 'not yet completed'}
     if cleaned_data['primary_complaint'] == 'police':
+        return True
+    return False
+
+
+def show_commercial_public_form_condition(wizard):
+    # try to get the cleaned data of step 1
+    cleaned_data = wizard.get_cleaned_data_for_step('1') or {'primary_complaint': 'not yet completed'}
+
+    if cleaned_data['primary_complaint'] == 'commercial_or_public':
         return True
     return False
 

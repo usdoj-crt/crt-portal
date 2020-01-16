@@ -21,12 +21,9 @@ from .model_variables import (
     SECTION_CHOICES,
     ELECTION_CHOICES,
     HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
-<<<<<<< HEAD
     CORRECTIONAL_FACILITY_LOCATION_CHOICES,
     CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
-=======
     COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
->>>>>>> Adds new model fields and model options
 )
 
 import logging

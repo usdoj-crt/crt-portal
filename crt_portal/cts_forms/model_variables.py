@@ -160,7 +160,7 @@ COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT = (
     ('store', _('Store, restaurant, bar, hotel, theate')),
     ('healthcare', _('Hospital or clinic (including inpatient and outpatient programs), reproductive care clinic, state developmental institution, nursing home')),
     ('financial', _('Bank, credit union, loan services')),
-    ('public_space', _('Park, sidewalk, street, other public buildings (courthouse, DMV, city library)')),    
+    ('public_space', _('Park, sidewalk, street, other public buildings (courthouse, DMV, city library)')),
     ('other', _('Other'))
 )
 
