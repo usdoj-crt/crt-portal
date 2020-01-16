@@ -95,7 +95,7 @@ class Report(models.Model):
     employer_size = models.CharField(max_length=100, null=True, choices=EMPLOYER_SIZE_CHOICES, default=None)
 
     # by law
-    inside_correctional_facility = models.BooleanField(null=True, choices=CORRECTIONAL_FACILITY_LOCATION_CHOICES, default=None)
+    inside_correctional_facility = models.CharField(null=True, choices=CORRECTIONAL_FACILITY_LOCATION_CHOICES, default=None, max_length=255)
     correctional_facility_type = models.CharField(null=True, choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES, max_length=50)
 
     # Incident date

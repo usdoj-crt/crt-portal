@@ -26,6 +26,7 @@ from .model_variables import (
     PRIMARY_COMPLAINT_ERROR,
     CORRECTIONAL_FACILITY_LOCATION_CHOICES,
     CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+    POLICE_LOCATION_ERRORS,
 )
 from .phone_regex import phone_validation_regex
 
@@ -342,7 +343,7 @@ class PoliceLocation(LocationForm):
             widget=UsaRadioSelect,
             required=True,
             error_messages={
-                'required': _('Please select where this occurred')
+                'required': POLICE_LOCATION_ERRORS['facility']
             },
             label=''
         )
@@ -350,14 +351,22 @@ class PoliceLocation(LocationForm):
         self.fields['correctional_facility_type'] = TypedChoiceField(
             choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
             widget=UsaRadioSelect,
-            required=True,
-            error_messages={
-                'required': _('Please select the type of location')
-            },
+            required=False,
             label=''
         )
         self.fields['correctional_facility_type'].widget.attrs['class'] = 'margin-bottom-0 padding-bottom-0 padding-left-1'
         self.fields['correctional_facility_type'].help_text = 'What type of prison or correctional facility?'
+
+    def clean(self):
+        inside_facility = self.cleaned_data.get('inside_correctional_facility')
+
+        if inside_facility == 'inside':
+            msg = ValidationError(POLICE_LOCATION_ERRORS['facility_type'])
+            self.add_error('correctional_facility_type', msg)
+        else:
+            self.cleaned_data['correctional_facility_type'] = None
+
+        return self.cleaned_data
 
 
 class ProtectedClassForm(ModelForm):

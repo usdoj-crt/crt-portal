@@ -298,3 +298,8 @@ WHERE_ERRORS = (
     ('location_city_town', _('Please enter the city or town where this took place.')),
     ('location_state', _('Please select the state where this took place.')),
 )
+
+POLICE_LOCATION_ERRORS = {
+    'facility': _('Please select where this occurred'),
+    'facility_type': _('Please select the type of location'),
+}
