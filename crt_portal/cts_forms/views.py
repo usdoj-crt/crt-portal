@@ -151,10 +151,10 @@ TEMPLATES = [
     'forms/report_location.html',
     # Location
     'forms/report_location.html',
-    # Date
-    'forms/report_date.html',
     # Protected Class
     'forms/report_class.html',
+    # Date
+    'forms/report_date.html',
     # Details
     'forms/report_details.html',
 ]
@@ -202,8 +202,8 @@ class CRTReportWizard(SessionWizardView):
             _('Contact'),
             _('Primary Issue'),
             _('Location'),
-            _('Date'),
             _('Protected Class'),
+            _('Date'),
             _('Details'),
         ]
         # Name for all forms whether they are skipped or not
@@ -213,8 +213,8 @@ class CRTReportWizard(SessionWizardView):
             _('Location'),
             _('Location'),
             _('Location'),
-            _('Date'),
             _('Protected Class'),
+            _('Date'),
             _('Details'),
         ]
 
@@ -227,8 +227,8 @@ class CRTReportWizard(SessionWizardView):
             _('Location details'),
             _('Location details'),
             _('Location details'),
-            _('Date'),
             _('Please provide details'),
+            _('Date'),
             _('Details'),
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]

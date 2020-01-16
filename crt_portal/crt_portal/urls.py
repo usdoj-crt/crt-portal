@@ -35,8 +35,8 @@ urlpatterns = [
             ElectionLocation,
             WorkplaceLocation,
             LocationForm,
-            When,
             ProtectedClassForm,
+            When,
             Details,
         ],
         condition_dict={
