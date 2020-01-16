@@ -8,7 +8,9 @@
       {{field.label}}
     </legend>
     <div class="">
-      <label for="{{ field.id_for_label }}">{{ field.help_text }}</label>
+      <label for="{{ field.id_for_label }}">
+        <em>{{ field.help_text }}</em>
+      </label>
     {{ field }}
     </div>
   </div>

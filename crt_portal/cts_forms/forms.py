@@ -21,6 +21,7 @@ from .model_variables import (
     HATE_CRIMES_TRAFFICKING_CHOICES,
     PRIMARY_COMPLAINT_ERROR,
     SERVICEMEMBER_CHOICES,
+    SERVICEMEMBER_ERROR,
 )
 
 from .phone_regex import phone_validation_regex
@@ -83,9 +84,10 @@ class Contact(ModelForm):
         self.fields['contact_email'].label = _('Email address')
         self.fields['contact_phone'].label = _('Phone number')
         self.fields['servicemember'] = TypedChoiceField(
-            error_messages={'required': _('Please indicate status as an active duty service member')},
+            error_messages={'required': SERVICEMEMBER_ERROR},
             widget=UsaRadioSelect(),
             label=_('Are you now or have ever been an active duty service member?'),
+            help_text=_('If you’re reporting on behalf of someone else, please select their status.'),
             empty_value=None,
             choices=SERVICEMEMBER_CHOICES,
         )
