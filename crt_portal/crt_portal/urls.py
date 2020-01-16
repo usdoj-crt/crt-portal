@@ -25,6 +25,7 @@ from cts_forms.views import CRTReportWizard, show_election_form_condition, show_
 
 # add app related urls here or in cts_forms.urls
 urlpatterns = [
+    path('oauth2/', include('django_auth_adfs.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('form/', include('cts_forms.urls')),

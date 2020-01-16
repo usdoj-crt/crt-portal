@@ -185,7 +185,26 @@ if environment != 'LOCAL':
             # Private AWS bucket
             sso_creds = service["credentials"]
 
-    # Move auth stuff here
+    # Auth stuff
+
+    # AUTH_CLIENT_ID = vcap['user-provided'][0]['credentials']['AUTH_CLIENT_ID'] or 'circle'
+    # AUTH_AUDIENCE = vcap['user-provided'][0]['credentials']['AUTH_CLIENT_ID'] or 'circle'
+    # AUTH_ADFS = {
+    #     "SERVER": "http://crt-portal-django-prod.app.cloud.gov/",
+    #     "CLIENT_ID": ADFS_CLIENT_ID,
+    #     "RELYING_PARTY_ID": "crt-portal-django-prod.app.cloud.gov",
+    #     # Make sure to read the documentation about the AUDIENCE setting
+    #     # when you configured the identifier as a URL!
+    #     "AUDIENCE": AUTH_AUDIENCE,
+    #     "CA_BUNDLE": "/ca_bundle.pem",
+    #     "CLAIM_MAPPING": {"first_name": "givenname",
+    #                       "last_name": "surname",
+    #                       "email": "emailaddress"},
+    # }
+    # Configure django to redirect users to the right URL for login
+    # LOGIN_URL = "/form/view/"
+    # would be nice to have a login failure page
+    # LOGIN_REDIRECT_URL = "/"
 
     # Public AWS S3 bucket for the app
     AWS_ACCESS_KEY_ID = s3_creds["access_key_id"]
