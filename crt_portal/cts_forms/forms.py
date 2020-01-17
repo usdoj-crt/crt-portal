@@ -457,7 +457,7 @@ class When(ModelForm):
                     _('Please enter four digits for the year'),
                     params={'value': test_date.strftime('%x')},
                 )
-            if test_date < datetime(1964, 7, 2):
+            if test_date < datetime(1899, 12, 31):
                 raise ValidationError(
                     _('Date too long ago'),
                     params={'value': test_date.strftime('%x')},
