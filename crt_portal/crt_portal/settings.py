@@ -18,17 +18,14 @@ from django.utils.log import DEFAULT_LOGGING
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# If ENV is not set explicitly, assume "PROD".
-# Note that when using Docker, ENV is set to "LOCAL" by docker-compose.yml.
-# We are using Docker for local development only.
-# We are running the testing envrionment with UNDEFINED.
-# For cloud.gov we set ENV to PRODUCTION with the manifests
+# Note that when using Docker, ENV is set to "LOCAL" by docker-compose.yml. We are using Docker for local development only.
+# We are running the testing environment with UNDEFINED.
+# For cloud.gov the ENV must be set in the manifests
 environment = os.environ.get('ENV', 'UNDEFINED')
 circle = os.environ.get('CIRCLE', False)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
 
 if environment != 'LOCAL':
     """ This will default to prod settings and locally, setting the env
@@ -170,25 +167,57 @@ AUTH_ADFS = {
                       "email": "email"},
 }
 
-# Configure django to redirect users to the right URL for login
-LOGIN_URL = "django_auth_adfs:login"
-LOGIN_REDIRECT_URL = "/form/view/"
-
-
-if environment != 'LOCAL':
+# for AUTH, probably want to add stage in the future
+if environment == 'PRODUCTION':
+    # AUTH_CLIENT_ID = vcap['user-provided'][0]['credentials']['AUTH_CLIENT_ID']
+    # AUTH_SERVER = vcap['user-provided'][0]['credentials']['AUTH_SERVER']
+    # AUTH_USERNAME_CLAIM = vcap['user-provided'][0]['credentials']['AUTH_USERNAME_CLAIM']
+    # AUTH_GROUP_CLAIM = vcap['user-provided'][0]['credentials']['AUTH_GROUP_CLAIM']
 
     for service in vcap['s3']:
-        if service['instance_name'] == 'crt-s3':
-            # Public AWS S3 bucket for the app
-            s3_creds = service["credentials"]
         if service['instance_name'] == 'sso-creds':
             # Private AWS bucket
             sso_creds = service["credentials"]
 
-    # Auth stuff
+    SSO_BUCKET = sso_creds['bucket']
+    SSO_REGION = sso_creds['region']
+    client_sso = boto3.client(
+        's3',
+        SSO_REGION,
+        aws_access_key_id=sso_creds['access_key_id'],
+        aws_secret_access_key=sso_creds['secret_access_key'],
+    )
 
-    # AUTH_CLIENT_ID = vcap['user-provided'][0]['credentials']['AUTH_CLIENT_ID'] or 'circle'
-    # AUTH_AUDIENCE = vcap['user-provided'][0]['credentials']['AUTH_CLIENT_ID'] or 'circle'
+    with open('ca_bundle.pem', 'wb') as DATA:
+        client_sso.download_file(SSO_BUCKET, 'sso/ca_bundle.pem', 'ca_bundle.pem')
+
+    AUTH_ADFS = {
+        "SERVER": AUTH_SERVER,
+        "CLIENT_ID": AUTH_CLIENT_ID,
+        "RELYING_PARTY_ID": "crt-portal-django-prod.app.cloud.gov",
+        # Make sure to read the documentation about the AUDIENCE setting
+        # when you configured the identifier as a URL!
+        "AUDIENCE": "crt-portal-django-prod.app.cloud.gov",
+        "CA_BUNDLE": os.path.join(BASE_DIR, 'cabundle.pem'),
+        "CLAIM_MAPPING": {"first_name": "givenname",
+                          "last_name": "surname",
+                          "email": "emailaddress"},
+        "USERNAME_CLAIM": AUTH_USERNAME_CLAIM,
+        "GROUP_CLAIM": AUTH_GROUP_CLAIM,
+    }
+
+    # Configure django to redirect users to the right URL for login
+    LOGIN_URL = "/oauth2/login"
+    # The url where the ADFS server calls back to our app
+    LOGIN_REDIRECT_URL = "/oauth2/callback"
+
+
+if environment != 'LOCAL':
+    for service in vcap['s3']:
+        if service['instance_name'] == 'crt-s3':
+            # Public AWS S3 bucket for the app
+            s3_creds = service["credentials"]
+
     # AUTH_ADFS = {
     #     "SERVER": "http://crt-portal-django-prod.app.cloud.gov/",
     #     "CLIENT_ID": ADFS_CLIENT_ID,
