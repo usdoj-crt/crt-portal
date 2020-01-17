@@ -1,7 +1,13 @@
 {% extends "forms/report_base.html" %}
+{% load static %}
 
 {% block form_questions %}
+  {% if wizard.form.name == 'PoliceLocation' %}
+    {% include "forms/report_police_location.html" with form=form %}
+  {% endif %}
+
   {% include 'forms/grouped_questions.html' %}
+  
   {% with city=wizard.form.location_city_town state=wizard.form.location_state %}
     <div class="grid-row grid-gap margin-y-neg-2 margin-bottom-5">
       <div class="mobile-lg:grid-col-8">

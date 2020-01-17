@@ -4,9 +4,9 @@
 
 {% include 'forms/grouped_questions.html' %}
 {% with field=wizard.form.other_class %}    
-  <div id='other-class-option' class="padding-left-4">
+  <div class='other-class-option' class="padding-left-4">
     <div class="blue-left-highlight">
-      <div class="padding-left-2">
+      <div>
         <label for="{{ field.id_for_label }}">{{ field.help_text }}</label>
         {{ field }}
         <div class="margin-top-1">

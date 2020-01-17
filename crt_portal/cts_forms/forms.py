@@ -24,6 +24,9 @@ from .model_variables import (
     WHERE_ERRORS,
     HATE_CRIMES_TRAFFICKING_CHOICES,
     PRIMARY_COMPLAINT_ERROR,
+    CORRECTIONAL_FACILITY_LOCATION_CHOICES,
+    CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+    POLICE_LOCATION_ERRORS,
 )
 from .phone_regex import phone_validation_regex
 
@@ -322,6 +325,49 @@ class WorkplaceLocation(LocationForm):
             },
             label=''
         )
+
+
+class PoliceLocation(LocationForm):
+    class Meta:
+        model = Report
+        fields = LocationForm.Meta.fields + ['inside_correctional_facility', 'correctional_facility_type']
+        widgets = LocationForm.Meta.widgets
+
+    def __init__(self, *args, **kwargs):
+        LocationForm.__init__(self, *args, **kwargs)
+
+        self.name = 'PoliceLocation'
+
+        self.fields['inside_correctional_facility'] = TypedChoiceField(
+            choices=CORRECTIONAL_FACILITY_LOCATION_CHOICES,
+            widget=UsaRadioSelect,
+            required=True,
+            error_messages={
+                'required': POLICE_LOCATION_ERRORS['facility']
+            },
+            label=''
+        )
+
+        self.fields['correctional_facility_type'] = TypedChoiceField(
+            choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+            widget=UsaRadioSelect,
+            required=False,
+            label=''
+        )
+        self.fields['correctional_facility_type'].widget.attrs['class'] = 'margin-bottom-0 padding-bottom-0 padding-left-1'
+        self.fields['correctional_facility_type'].help_text = 'What type of prison or correctional facility?'
+
+    def clean(self):
+        inside_facility = self.cleaned_data.get('inside_correctional_facility')
+        facility_type = self.cleaned_data.get('correctional_facility_type')
+
+        if inside_facility == 'inside' and facility_type is None:
+            msg = ValidationError(POLICE_LOCATION_ERRORS['facility_type'])
+            self.add_error('correctional_facility_type', msg)
+        else:
+            self.cleaned_data['correctional_facility_type'] = None
+
+        return self.cleaned_data
 
 
 class ProtectedClassForm(ModelForm):

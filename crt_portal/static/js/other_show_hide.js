@@ -11,7 +11,7 @@
   // The actual checkbox the user will interact with
   var otherOptionCheckbox = otherOptionEl.querySelector('.usa-checkbox__input');
   // Wrapper element for the short text description revealed when the 'other' option is selected
-  var otherOptionTextEl = dom.getElementById('other-class-option');
+  var otherOptionTextEl = dom.querySelector('.other-class-option');
 
   function toggleOtherOptionTextInput() {
     if (otherOptionCheckbox.checked) {

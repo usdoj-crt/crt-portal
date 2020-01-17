@@ -29,6 +29,22 @@ form#report-form {
 .usa-form {
   max-width: 30rem !important;
 
+  ul {
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  .other-class-option {
+    margin-left: 2rem;
+    margin-top: -3.5rem;
+
+    ul li:last-child {
+      height: 25px;
+      margin-bottom: 0 !important;
+      padding-bottom: 0;
+    }
+  }
+
   .usa-button {
     &:hover {
       background-color: $blue-50;
@@ -48,7 +64,7 @@ form#report-form {
 
   .blue-left-highlight {
     border-left: 2px solid $blue-warm-vivid-70;
-    padding-left: 0.5rem;
+    padding-left: 1rem;
   }
 
   li {
@@ -143,7 +159,6 @@ form#report-form {
 
   .crt-checkbox__label {
     @extend .usa-checkbox__label;
-    padding-left: 0;
   }
 
   .question_group_optional_tag {
