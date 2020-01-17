@@ -4,6 +4,7 @@
   "description": "crt portal",
   "main": "index.js",
   "scripts": {
+    "sass:watch": "gulp watch",
     "test:a11y": "pa11y-ci --config pa11y_scripts/.pa11y-local.json",
     "test:a11y-ci-1": "pa11y-ci --config pa11y_scripts/.pa11y-ci-p1.json",
     "test:a11y-ci-2": "pa11y-ci --config pa11y_scripts/.pa11y-ci-p2.json",
@@ -17,7 +18,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "gulp": "^4.0.2"
+    "gulp": "^4.0.2",
+    "url-search-params-polyfill": "^7.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^9.6.1",

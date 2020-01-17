@@ -3,8 +3,8 @@
 Install Docker
 
     https://www.docker.com/get-started
-    
-Create [ssh key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and add it to GitHub. 
+
+Create [ssh key](https://help.github.com/en/github/authenticating-to-github/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent) and add it to GitHub.
 
 Clone the project locally:
 
@@ -24,36 +24,101 @@ To run the project
 
     docker-compose up
 
-Visit the site locally at [http://0.0.0.0:8000/report] 🎉 
+Visit the site locally at [http://0.0.0.0:8000/report] 🎉
 
 Create a superuser for local admin access
 
      docker-compose run web python /code/crt_portal/manage.py createsuperuser
 
-To add some test data with the form http://0.0.0.0:8000/form/ and then you can check it out in the backend view http://0.0.0.0:8000/form/view and the admin view at http://0.0.0.0:8000/admin/.
+To add some test data with the form http://0.0.0.0:8000/report and then you can check it out in the backend view http://0.0.0.0:8000/form/view and the admin view at http://0.0.0.0:8000/admin.
 
 Generate the SASS for the front end with gulp:
-    In another terminal, if you are doing front end work you will want to have gulp compile the css so you can instantly see changes.
 
-    gulp watch
+If you are doing front end work, you will want to have gulp compile the css so you can instantly see changes.
+
+To ensure we are all using the same versions of our front-end dependencies, we use `nvm` to peg a version of node to this project.
+
+Check that `nvm` is installed with `nvm --version`.
+
+If not, run the following command to install it:
+
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
+    source ~/.bash_profile
+
+If you get an error, and don't have a `bash_profile` file, create one first with `touch ~/.bash_profile`, then run the command above again.
+
+Then, if this is your first time installing the project or `nvm`, run `nvm install`.
+
+Finally, `nvm use && npm install`
+
+Now to compile the sass files into css, run:
+
+    npm run sass:watch
 
 Also note, that the staticfiles folder is the destination of all static assets when you or a script runs `manage.py collectstatic` so don't make your changes there, or they will be overwritten.
 
 
 ## Running common tasks
 
+### Migrations
+
 In Django, when you update the data models you need to create migrations and then apply those migrations, you can do that with:
 
     docker-compose run web python /code/crt_portal/manage.py makemigrations
     docker-compose run web python /code/crt_portal/manage.py migrate
 
-To ssh into your local docker container run:
-
-    docker exec -it crt-django_web_1 /bin/bash
-
-To install a new python package run:
+### Installing a new Python package
+To install a new Python package, run:
 
     docker-compose run web pipenv install name-of-package
+
+### SSH'ing into Docker locally
+
+To ssh into your local Docker web container run:
+
+    docker exec -it crt-portal_web_1 /bin/bash
+
+### Logging into Docker database locally
+
+To log into your local Docker database for debugging purposes, first run:
+
+    docker exec -it crt-portal_db_1 /bin/bash
+
+Then from, within the container, you can run:
+
+    psql -U postgres
+
+As a logged-in local Postgres user, you can run queries directly against the database, for example: `select * from cts_forms_report;` to see report data in your local database.
+
+### I18N
+
+Important commands to use during internationalization (i18n):
+
+When you run `makemessages`, Django will search through .py, .txt, and .html files to find strings marked for translation. Django finds these strings through the `gettext` function or its lazy-loading equivalent (in Python) or the `trans` function (in HTML). This adds the marked strings to `.po` files where translators will do their work.
+
+    docker-compose run web django-admin makemessages -l es
+
+After the strings translated, the translation can be compiled back to Django-readable `.mo` files using run `compilemessages`:
+
+    docker-compose run web django-admin compilemessages
+
+### Hard reset with a fresh database
+
+If your local database is in a wonky state, you might want to try tearing it all down and rebuilding from scratch.
+
+First, shut down any containers you have running locally. Then run:
+
+    docker system prune --volumes
+
+The volumes are the data elements in Docker. Note that you will need to re-create any local user roles after running this command, and the database will be in an empty state, with no complaint records.
+
+:warning: Note that this command will prune **all** containers, images, and caches on your local machine -- not just the crt-portal project.
+
+### Adjust form autocomplete per-instance
+
+To prevent form autocomplete on an application instance, add `FORM_AUTOCOMPLETE_OFF=True` as an environment variable (locally, add to `.env`).
+
+To restore default behavior of allowing form autocomplete, remove the `FORM_AUTOCOMPLETE_OFF` flag.
 
 ## Tests
 
@@ -77,6 +142,8 @@ Run unit test on Windows:
     python crt_portal/manage.py test cts_forms
     ```
 7. If you lucky your test will result OK or lots of error to work on!
+
+
 
 
 You can also run project tests using docker with:
@@ -164,19 +231,23 @@ Please update the [Accounts Spreadsheet](https://docs.google.com/spreadsheets/d/
 
 As we build out the product, we expect to add more granular user roles and permissions.
 
-### Create admin accounts
+### Create and update admin accounts
 
-Need to ssh to create superuser (would like to do this automatically in another PR)
+Need to ssh to create superuser (would like to do this automatically in another PR):
 
     cf ssh crt-portal-django
 
-Once in, activate local env
+Once in, activate local env:
 
     /tmp/lifecycle/shell
 
-Then, you can create a superuser
+Then, you can create a superuser:
 
     python crt_portal/manage.py createsuperuser
+
+Or change a user's password:
+
+    python crt_portal/manage.py changepassword {{username}}
 
 ### Subsequent deploys
 

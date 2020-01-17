@@ -1,0 +1,41 @@
+// Header Styles
+h1 {
+  @include u-font('heading', '2xl');
+}
+
+h2 {
+  @include u-font('body', 'xl');
+}
+
+.intro-subtitle {
+  @include u-font('body', 'lg');
+  @include u-line-height('alt', 5);
+}
+
+h3 {
+  @include u-text('primary-dark');
+}
+
+.em-text {
+  color: $blue-warm-vivid-70;
+  font-weight: bold;
+  font-size: 1.22rem;
+  margin-bottom: 0.5rem;
+}
+
+.usa-prose {
+  p {
+    margin-top: .5rem;
+  }
+
+  .form-label {
+    line-height: 1.62;
+    margin-bottom: 0;
+    margin-top: 0;
+    max-width: 68ex;
+  }
+}
+
+.align-center {
+  text-align: center;
+}

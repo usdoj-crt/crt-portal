@@ -1,0 +1,56 @@
+{% extends "forms/complaint_view/intake_base.html" %}
+{% load static %}
+
+{% block page_header %}
+<header class="page-header-background">
+  <div class="grid-container">
+    <div class="grid-row flex-align-center">
+      <div class="grid-col-fill">
+        <h1>CRT Public Complaint Intake</h1>
+      </div>
+      <div class="grid-col-auto">
+        <a class="usa-button" href="/accounts/logout">Log out</a>
+      </div>
+    </div>
+  </div>
+</header>
+{% endblock %}
+
+{% block main_class %} class="page-header-background"{% endblock %}
+
+{% block content %}
+  <div class="grid-container">
+    <div class="complaint-header bg-primary text-white">
+      <div class="grid-container">
+      <div class="grid-row grid-gap">
+        <div class="tablet:grid-col-6 grid-offset-2">
+          <h2 class="text-uppercase">
+            Complaint
+          </h2>
+          <p>
+            <span class="text-gold text-uppercase">Received:  </span>
+            <span class="text-white">{{ data.create_date|date:'g:s a F j, Y' }}</span>
+          </p>
+        </div>
+        <div class="tablet:grid-col-3 tablet:grid-offset-1 text-right">
+          <a class="usa-button usa-button--light close-record" href="/form/view{{ return_url_args }}">
+            <img src="{% static "img/close-blue-50-alt.svg" %}">
+            Close record
+          </a>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="complaint-body">
+      <div class="grid-container">
+        <div class="grid-row grid-gap-md">
+          <div class="tablet:grid-col-8 grid-offset-2">
+            {% include 'forms/complaint_view/show/correspondent_info.html' with data=data %}
+            {% include 'forms/complaint_view/show/complaint_details.html' with data=data primaty_complaint=primary_complaint %}
+            {% include 'forms/complaint_view/show/full_summary.html' with summary=data.violation_summary %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

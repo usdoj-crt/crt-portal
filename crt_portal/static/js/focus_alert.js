@@ -1,11 +1,11 @@
 function triggerAlert() {
-  // querySelector() will find the first element matching the
-  // CSS selector; the JS that follows will announce it.
-  var alertEl = document.querySelector('.usa-alert__text');
+  var alertEl = document.querySelectorAll('.usa-alert__text');
 
-  if (alertEl) {
-    alertEl.setAttribute('role', 'alert');
+  if (alertEl.length) {
+    Array.prototype.slice.call(alertEl).forEach(function(el) {
+      el.setAttribute('role', 'alert');
+    });
   }
 }
 
-window.onload = triggerAlert();
+window.addEventListener('DOMContentLoaded', triggerAlert);

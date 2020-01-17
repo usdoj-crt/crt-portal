@@ -48,6 +48,8 @@ def pagination(paginator, page, per_page):
         'next_page_number': next_page_number,
         'previous_page_number': previous_page_number,
         'total_pages': paginator.num_pages,
+        'page_range_start': records.start_index(),
+        'page_range_end': records.end_index(),
     }
 
     return(records, page_format)

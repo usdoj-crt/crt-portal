@@ -1,4 +1,4 @@
-{% extends "forms/base.html" %}
+{% extends "base.html" %}
 {% load i18n %}
 {% load static %}
 {% block head %}
@@ -6,13 +6,17 @@
 {% endblock %}
 
 {% block page_header %}
-  <header class="page-header-background">
-    <div class="content-wrapper">
-      <h1 class="padding-top-5 margin-0">
-        Contact the Department of Justice about a civil rights concern
-      </h1>
-      <div class="intro-subtitle padding-y-3">
-        If you believe you or someone else has experienced a civil rights violation, please tell us what happened
+  <header class="page-header-background flex-child">
+    <div class="grid-container">
+      <div class="grid-row grid-gap flex-child">
+        <div class="tablet:grid-col-7 tablet:grid-offset-2">
+          <h1 class="padding-top-5 margin-0">
+            Contact the Department of Justice about a civil rights concern
+          </h1>
+          <div class="intro-subtitle padding-y-3">
+            If you believe you or someone else has experienced a civil rights violation, please tell us what happened
+          </div>
+        </div>
       </div>
     </div>
   </header>
@@ -21,81 +25,102 @@
 {% block content %}
   {# Progress text for screen reader. #}
   <span class="usa-sr-only">
-    Current step: {{ current_step_name }}. Step {{ wizard.steps.step1 }} of 6.
+    Current step: {{ current_step_name }}. Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}.
   </span>
-
   <div class="page-header-background">
-    <div class="content-wrapper">
-      <div class="padding-bottom-4 padding-top-3">
-        <ol class="steps" aria-hidden="true">
-          {% for step in ordered_step_names %}
-            <li {% if step == current_step_name %}class="current"{% endif %}>
-              <div class="step">{{ step }}</div>
-            </li>
-          {% endfor %}
-        </ol>
-        <div id="connecting-line"></div>
+    <div class="grid-container">
+      <div class="grid-row grid-gap">
+        <div class="tablet:grid-col-7 tablet:grid-offset-2">
+          <div class="padding-bottom-4 padding-top-3">
+            <ol class="steps" aria-hidden="true">
+              {% for step in ordered_step_names %}
+                <li {% if step == current_step_name %}class="current"{% endif %}>
+                  <div class="step">{{ step }}</div>
+                </li>
+              {% endfor %}
+            </ol>
+            <div class="connecting-line"></div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 
-  <div class="content-wrapper">
-    <form id="report-form"
-          class="usa-form"
-          action="/report/"
-          method="post"
-          {% if form_novalidate %}novalidate{% endif %}>
-      {% csrf_token %}
-      {{ wizard.management_form }}
-
-      {% if form.non_field_errors %}
-        {% include "forms/snippets/error_alert.html" with errors=form.non_field_errors %}
-      {% endif %}
-
-      {% for hidden_field in form.hidden_fields %}
-        {% if hidden_field.errors %}
-          {% include "forms/snippets/error_alert.html" with errors=hidden_field.errors %}
+  <div class="grid-container">
+    <div class="grid-row grid-gap">
+      <div class="tablet:grid-col-8 tablet:grid-offset-2">
+        {% if page_errors %}
+          <div id="page-errors" class="page-errors margin-top-4 margin-bottom-2">
+            {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
+          </div>
         {% endif %}
-        {{ hidden_field }}
-      {% endfor %}
-
-      {% if page_errors %}
-        <div id="page-errors" class="page-errors margin-top-4 margin-bottom-2">
-          {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
+        <div class="margin-bottom-4 {% if not page_errors %}margin-top-5{% endif %}">
+          <h2 class="margin-0">{{ current_step_title }}</h2>
+          {% if page_note %}
+            <p class="margin-top-1"><em>{{ page_note }}</em></p>
+          {% endif %}
         </div>
-      {% endif %}
-
-      <div class="margin-bottom-4 {% if not page_errors %}margin-top-5{% endif %}">
-        <h2 class="margin-0">{{ current_step_title }}</h2>
-        {% if page_note %}
-          <p class="margin-top-1"><em>{{ page_note }}</em></p>
-        {% endif %}
       </div>
+    </div>
 
-      {% block form_questions %}
-      {% endblock %}
+    <div class="grid-row grid-gap">
+      <div class="tablet:grid-col-7 tablet:grid-offset-2">
+        <form id="report-form"
+              class="usa-form"
+              action="/report/"
+              method="post"
+              {% if form_autocomplete_off %}autocomplete="off"{% endif %}
+              {% if form_novalidate %}novalidate{% endif %}>
+          {% csrf_token %}
+          {{ wizard.management_form }}
 
-      <div class="margin-bottom-9">
-        <input id="submit-next"
-               type="submit"
-               label="submit"
-               value="{% trans 'Next' %}"
-               class="usa-button" />
-        {% if wizard.steps.prev %}
-          <br/>
-          <button name="wizard_goto_step"
-                  type="submit"
-                  label="previous step"
-                  value="{{ wizard.steps.prev }}"
-                  class="look-like-link margin-top-2">
-            {% trans "Back" %}
-          </button>
-        {% endif %}
+          {% if form.non_field_errors %}
+            {% include "forms/snippets/error_alert.html" with errors=form.non_field_errors %}
+          {% endif %}
+
+          {% for hidden_field in form.hidden_fields %}
+            {% if hidden_field.errors %}
+              {% include "forms/snippets/error_alert.html" with errors=hidden_field.errors %}
+            {% endif %}
+            {{ hidden_field }}
+          {% endfor %}
+
+          {% block form_questions %}
+          {% endblock %}
+
+          <div class="margin-top-5 margin-bottom-9">
+            <input id="submit-next"
+                   type="submit"
+                   value="{% trans 'Next' %}"
+                   class="usa-button" />
+            {% if wizard.steps.prev %}
+              <button name="wizard_goto_step"
+                      type="submit"
+                      label="previous step"
+                      value="{{ wizard.steps.prev }}"
+                      class="look-like-link margin-top-2 display-block">
+                {% trans "Back" %}
+              </button>
+            {% endif %}
+          </div>
+        </form>
       </div>
-    </form>
+    </div>
   </div>
 {% endblock %}
 
 {% block page_js %}
+<script>
+  (function(root) {
+    root.CRT = root.CRT || {};
+
+    root.CRT.translations = {
+      wordRemainingText: "{{ word_count_text.wordRemainingText }}",
+      wordsRemainingText: "{{ word_count_text.wordsRemainingText }}",
+      wordLimitReachedText: "{{ word_count_text.wordLimitReachedText }}",
+      finishSummaryText: "{{ word_count_text.finishSummaryText }}"
+    };
+  })(window)
+</script>
 <script src="{% static 'js/word_count.js' %}"></script>
 {% endblock %}

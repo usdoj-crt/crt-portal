@@ -1,0 +1,185 @@
+// Django Formtools Wizard customization
+
+// Django wraps lot of elements in <li> by default
+// that we'd prefer not to have bulleted, like
+// radio buttons; so remove list item bullets by default.
+form#report-form {
+  .question_primary_complaint {
+    ul {
+      padding-left: 0;
+    }
+
+    li {
+      margin-bottom: 1.5rem;
+    }
+
+    li.primary-issue-example-li {
+      margin-left: 18px;
+      margin-bottom: 1rem;
+      list-style: disc;
+    }
+  }
+
+  li {
+    list-style: none;
+  }
+}
+
+// Form styles
+.usa-form {
+  max-width: 30rem !important;
+
+  .usa-button {
+    &:hover {
+      background-color: $blue-50;
+    }
+
+    @media (min-width: 30em) {
+      margin-top: 0;
+    }
+  }
+
+  .look-like-link {
+    padding: 0;
+    border: none;
+    background: none;
+    text-decoration: underline;
+  }
+
+  .blue-left-highlight {
+    border-left: 2px solid $blue-warm-vivid-70;
+    padding-left: 0.5rem;
+  }
+
+  li {
+    margin-bottom: 1rem;
+  }
+
+  .usa-input {
+    @media screen and (min-width: $tablet) {
+      width: 320px;
+    }
+
+    &:focus {
+      outline-offset: 0;
+      border: 1px solid $blue-vivid-40;
+    }
+  }
+
+  textarea.usa-textarea {
+    resize: none;
+    height: 15rem;
+
+    &:focus {
+      outline: .125rem solid $blue-vivid-40;
+      outline-offset: 0;
+      border: 1px solid $blue-vivid-40;
+    }
+
+    &.bg-gold-outline {
+      outline: .125rem solid $gold;
+      outline-offset: 0;
+      border: 1px solid $gold;
+    }
+
+    &.bg-gold-outline:focus {
+      outline: .125rem solid $gold;
+      outline-offset: 0;
+      border: .125rem solid $gold;
+    }
+  }
+
+  .usa-checkbox__input, .usa-radio__input {
+    // Display HTML5 error messages on hidden inputs:
+    // https://stackoverflow.com/questions/49687229/display-html5-error-message-validation-on-hidden-radio-checkbox
+    left: 45px;
+    opacity: 0;
+  }
+
+  .crt-radio__label_helper {
+    line-height: 1.5rem;
+
+    .label-text {
+      position: relative;
+      bottom: 40px;
+      margin-bottom: -30px;
+    }
+  }
+
+  .crt-radio__label_area {
+    @extend .usa-radio__label;
+    text-indent: 0;
+    background-color: $gray-cool-4;
+    padding: 1.5rem;
+    border: 1px solid $gray-cool-4;
+    border-radius: 5px;
+    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, .13));
+
+    &:hover {
+      background-color: $blue-warm-5;
+    }
+
+    .label-text {
+      position: relative;
+      bottom: 40px;
+      margin-bottom: -60px;
+
+      ul {
+        padding-inline-start: 20px;
+      }
+
+      .examples-title {
+        text-transform: uppercase;
+        font-weight: bold;
+        color: $gray-70;
+      }
+    }
+  }
+
+  input[type="radio"]:checked + .crt-radio__label_area {
+    background-color: $blue-warm-5;
+    border: 1px solid $blue-warm-vivid-70;
+  }
+
+  .crt-checkbox__label {
+    @extend .usa-checkbox__label;
+    padding-left: 0;
+  }
+
+  .question_group_optional_tag {
+    font-weight: lighter;
+    color: $gray-warm-80;
+  }
+}
+
+// Remove extra dropown error from datalist element
+[list]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+.form-help-text {
+  color: $gray-70;
+  font-size: .9rem;
+  // Necessary because we want to override styles applied to the p tag
+  margin: .5rem 0 1rem 0 !important;
+}
+
+.usa-button--light {
+  background-color: $light-beige;
+  color: $blue-50;
+
+  &:hover {
+    background-color: #f2f2f2;
+    color: $blue-50;
+  }
+
+  img {
+    margin-top: -2px; 
+    padding-right: .5rem;
+    vertical-align: middle;
+  }
+}
+
+.complaint-multi-select {
+  min-width: 140px;
+}

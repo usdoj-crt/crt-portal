@@ -1,0 +1,105 @@
+{% load sortable_table_heading %}
+{% load static %}
+
+<table class="usa-table crt-table sort-table">
+  <thead>
+    <tr>
+      {% render_sortable_heading 'Status' sort_state filter_state %}
+      {% render_sortable_heading 'Routed' sort_state filter_state %}
+      {% render_sortable_heading 'Submitted' sort_state filter_state %}
+      {% render_sortable_heading 'Contact Name' sort_state filter_state %}
+      {% render_sortable_heading 'Contact Details' sort_state filter_state %}
+      {% render_sortable_heading 'Incident Location' sort_state filter_state %}
+      {% render_sortable_heading 'Summary' sort_state filter_state %}
+      {% render_sortable_heading 'Class' sort_state filter_state %}
+    </tr>
+  </thead>
+  {% if data_dict %}
+    <tbody>
+    {% for datum in data_dict %}
+      <tr class="tr-status-{{ datum.report.status }} tr--hover{% cycle ' stripe' '' %}">
+        <td>
+          <a class="td-link display-block" href="{{datum.url}}">
+            <span class="status-tag status-{{ datum.report.status }}">
+              {{ datum.report.status }}
+            </span>
+          </a>
+        </td>
+        <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.assigned_section }}</a></td>
+        <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.create_date|date:"SHORT_DATE_FORMAT" }}</a></td>
+        <td>
+          <a class="td-link display-block" href="{{datum.url}}">
+            {% with last=datum.report.contact_last_name|default:"—" %}
+              {{ last|truncatechars:20 }}{% endwith %}, {% with first=datum.report.contact_first_name|default:"—" %}
+              {{ first|truncatechars:20 }}
+            {% endwith %}
+          </a>
+        </td>
+        <td>
+          <a class="td-link display-block" href="{{datum.url}}">
+            {% with email=datum.report.contact_email|default:"—" %}
+              {{ email|truncatechars:20 }}
+            {% endwith %}
+            <br>
+            {% with phone=datum.report.contact_phone|default:"—"  %}
+              {{ phone|truncatechars:20 }}
+            {% endwith %}
+          </a>
+        </td>
+        <td>
+          <a class="td-link display-block" href="{{datum.url}}">
+            <b>
+              {{ datum.report.location_city_town }}, {{ datum.report.location_state }}
+            </b>
+          </a>
+        </td>
+        <td>
+          <a class="td-link display-block" href="{{datum.url}}">
+            {% with summary=datum.report.violation_summary|default:"—" %}
+              {{ summary|truncatechars:120 }}
+            {% endwith %}
+          </a>
+        </td>
+        <td>
+          <a class="td-link display-block" href="{{datum.url}}">
+            {% for protected_class in datum.report_protected_classes %}
+                {% if not forloop.last %}
+                  {{ protected_class|truncatechars:50 }},<br>
+                {% else %}
+                  {{ protected_class|truncatechars:50 }}
+                {% endif %}
+            {% endfor %}
+          </a>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  {% endif %}
+</table>
+
+
+{% if not data_dict %}
+<div class="complaint-card table-message">
+  <div class="grid-container padding-bottom-2">
+    <div class="align-center">
+      <img src="{% static 'img/filters.svg' %}" class="margin-top-1" />
+      <p class="margin-bottom-1 margin-top-1"><b>No records found</b></p>
+      <em>Try adjusting your filters to see more records</em>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% if not page_format.has_next and data_dict %}
+<div class="complaint-card table-message">
+  <div class="grid-container padding-bottom-2">
+    <div class="align-center">
+      <p class="margin-bottom-1">
+        <img src="{% static 'img/coffee.svg' %}" />
+        <b>End of results</b>
+      </p>
+      <em>Try adjusting your filters to see more records</em>
+    </div>
+  </div>
+</div>
+{% endif %}

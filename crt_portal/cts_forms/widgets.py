@@ -1,4 +1,4 @@
-from django.forms.widgets import ChoiceWidget
+from django.forms.widgets import ChoiceWidget, SelectMultiple
 
 
 class UsaRadioSelect(ChoiceWidget):
@@ -11,6 +11,16 @@ class CrtRadioArea(ChoiceWidget):
     input_type = 'radio'
     template_name = 'django/forms/widgets/radio.html'
     option_template_name = '../templates/forms/widgets/crt_radio_area_option.html'
+
+
+class CrtDropdown(ChoiceWidget):
+    input_type = 'select'
+    template_name = '../templates/forms/widgets/crt_dropdown.html'
+
+
+class CrtMultiSelect(SelectMultiple):
+    template_name = '../templates/forms/widgets/multi_select.html'
+    option_template_name = '../templates/forms/widgets/multi_select_option.html'
 
 
 # Overrides Django CheckboxSelectMultiple:

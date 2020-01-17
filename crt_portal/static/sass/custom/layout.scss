@@ -1,0 +1,46 @@
+// Sticky Footer (IE 10/11)
+// Based on: https://codepen.io/dezertdezine/pen/zKjggy
+
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
+.flex-child {
+  // Explicitly tell this element it should grow.
+  // IE sets its flex-grow property to 0 by default
+  flex: 1 0 auto;
+}
+
+.grid-container {
+  &-widescreen-xl {
+    @extend .grid-container;
+    max-width: 1680px;
+
+    > .desktop-lg\:grid-col-3 {
+      @include grid-col(3);
+    }
+    > .desktop-lg\:grid-col-9 {
+      @include grid-col(9);
+    }
+
+    @media only screen and (max-width: 90em) {
+      .grid-col-3, .grid-col-9 {
+        width: 100%;
+      }
+    }
+  }
+}

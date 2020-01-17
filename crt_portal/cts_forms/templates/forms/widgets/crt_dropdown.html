@@ -1,0 +1,17 @@
+<input
+  class="usa-select crt-select"
+  name="{{widget.name}}"
+  id="id_{{widget.name}}_0"
+  list="{{widget.attrs.list}}"
+  placeholder="- Select -"
+  value="{{widget.value.0}}"
+/>
+<datalist id="{{widget.attrs.list}}">
+  {% for name, choices, index in widget.optgroups %}
+    {% for option in choices %}
+      <option value="{{option.value}}" {% if option.selected is not False %}selected{% endif %}>
+        {{option.label}}
+      </option>
+    {% endfor %}
+  {% endfor %}
+</datalist>

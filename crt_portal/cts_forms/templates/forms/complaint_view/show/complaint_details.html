@@ -1,0 +1,52 @@
+<div class="complaint-card complaint-card--rounded">
+  <h3 class="complaint-card-heading text-uppercase">Complaint details</h3>
+  <table class="usa-table usa-table--borderless complaint-card-table">
+    <tr>
+      <th>Primary issue</th>
+      <td>
+        <strong>{{primary_complaint.0}}</strong>
+      </td>
+      <tr>
+        <th>Hate crime</th>
+        <td>
+          {% if crimes.physical_harm %}
+            Yes (checked)
+          {% else %}
+            No (unchecked)
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <th>Human Trafficking</th>
+        <td>
+          {% if crimes.trafficking %}
+            Yes (checked)
+          {% else %}
+            No (unchecked)
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <th>Relevant Details</th>
+        <td>
+          {% if data.election_details %}
+            Election type (federal/local): {{ data.election_details }}
+          {% else %}
+            —
+          {% endif %}
+        </td>
+      </tr>
+      <tr>
+        <th>Location name</th>
+        <td>{{data.location_name|default:"-"}}</td>
+      </tr>
+      <tr>
+        <th>City, State</th>
+        <td>
+          {{data.location_city_town|default:"-"}},
+          {{data.location_state|default:"-"}}
+        </td>
+      </tr>
+    </tr>
+  </table>
+</div>

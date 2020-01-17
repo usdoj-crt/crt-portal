@@ -1,0 +1,155 @@
+@mixin clickable-table-cell {
+  color: $gray-warm-80;
+  height: 100%;
+  outline: 0;
+  padding: .5rem 1rem;
+  text-decoration: none;
+  width: 100%;
+}
+
+@mixin sortable-cell-icon {
+  content: ' ';
+  display: block;
+  font-size: 12px;
+  height: 6px;
+  margin-right: 5px;
+  position: absolute;
+  right: 5%;
+  top: 40%;
+  width: 10px;
+}
+
+.crt-table {
+  @extend .usa-table;
+  background: $white;
+  box-shadow: 0 1px 6px 2px rgba(0,0,0,0.14);
+  font-size: 14px;
+  height: 100%;
+  line-height: 22px;
+  margin-bottom: 0;
+  margin-top: 0;
+  width: 100%;
+
+  thead {
+    th {
+      background-color: $white;
+      border-bottom: 1px solid $gray-cool-10;
+      border-top: 0;
+      font-size: 12px;
+      line-height: 25.92px;
+      position: relative;
+      text-transform: uppercase;
+    }
+  }
+
+  tr.stripe {
+    td {
+      background-color: $gray-2;
+    }
+  }
+
+  &.usa-table {
+    tr, td, th {
+      border-left: 0;
+      border-right: 0;
+    }
+
+    td {
+      // USWDS adds a lot of complicated styles, and this is the most straightforward
+      // way to remove padding from td elements in the table body
+      padding: 0 !important;
+      vertical-align: top;
+    }
+
+    .td-link {
+      @include clickable-table-cell();
+    }
+  }
+
+  tbody {
+    td {
+      border-bottom: 1px solid $gray-cool-10;
+    }
+
+    tr:last-child {
+      border-bottom: 0;
+    }
+
+    .tr-status-new {
+      td {
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+// Styles for complaint statuses in View All Table
+
+.status-new {
+  color: $white;
+  background-color: $blue-warm-vivid-70;
+}
+
+.status-open {
+  background-color: $gold;
+}
+
+.status-closed {
+  background-color: $gray-warm-10;
+}
+
+.status-tag {
+  font-weight: bold;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 1.5rem;
+  text-transform: uppercase;
+}
+
+.tr--hover {
+  &:hover {
+    box-shadow: 0 1px 6px 2px rgba(0,0,0,0.14);
+    transform: scale(1);
+  }
+}
+
+.sort-cell {
+  padding: 0 !important;
+
+  span {
+    margin-right: 20px;
+    white-space: nowrap;
+  }
+}
+
+.sort-image {
+  text-align: right;
+}
+
+.table-message {
+  box-shadow: 0 5px 5px 2px rgba(0,0,0,.09)
+}
+
+.sort-link {
+  @include clickable-table-cell();
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  z-index: 1;
+
+
+  &.sort-up {
+    &:after {
+      @include sortable-cell-icon();
+      background: url("/static/img/sort-up.svg");
+    }
+  }
+
+  &.sort-down {
+    &:after {
+      @include sortable-cell-icon();
+      background: url("/static/img/sort-down.svg");
+    }
+  }
+}

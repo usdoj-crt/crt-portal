@@ -6,7 +6,6 @@ from .phone_regex import phone_validation_regex
 
 from .model_variables import (
     PRIMARY_COMPLAINT_CHOICES,
-    PLACE_CHOICES,
     PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
     EMPLOYER_SIZE_CHOICES,
     PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
@@ -18,6 +17,9 @@ from .model_variables import (
     STATES_AND_TERRITORIES,
     PROTECTED_MODEL_CHOICES,
     STATUS_CHOICES,
+    SECTION_CHOICES,
+    ELECTION_CHOICES,
+    HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
 )
 
 import logging
@@ -38,7 +40,14 @@ class ProtectedClass(models.Model):
     form_order = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return self.protected_class
+        return f'{self.protected_class}'
+
+
+class HateCrimesandTrafficking(models.Model):
+    hatecrimes_trafficking_option = models.CharField(max_length=500, null=True, blank=True, choices=HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, unique=True)
+
+    def __str__(self):
+        return self.hatecrimes_trafficking_option
 
 
 class Report(models.Model):
@@ -59,25 +68,31 @@ class Report(models.Model):
         default='',
         blank=False
     )
+    hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, null=True, blank=True)
     # Protected Class
     # See docs for notes on updating these values:
     # docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
     protected_class = models.ManyToManyField(ProtectedClass)
     other_class = models.CharField(max_length=150, null=True, blank=True)
     # Details Summary
-    violation_summary = models.TextField(max_length=7000, null=True, blank=True)
+    violation_summary = models.TextField(max_length=7000, blank=False)
     status = models.TextField(choices=STATUS_CHOICES, default='new')
-
+    assigned_section = models.TextField(choices=SECTION_CHOICES, default='ADM')
+    # Incident location
+    location_name = models.CharField(max_length=225, blank=False)
+    location_address_line_1 = models.CharField(max_length=225, null=True, blank=True)
+    location_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
+    location_city_town = models.CharField(max_length=700, blank=False)
+    location_state = models.CharField(max_length=100, blank=False, choices=STATES_AND_TERRITORIES)
+    create_date = models.DateTimeField(auto_now_add=True)
+    # Incident location routing-specific fields
+    election_details = models.CharField(choices=ELECTION_CHOICES, max_length=225, null=True, blank=True)
+    public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)
+    employer_size = models.CharField(max_length=100, null=True, choices=EMPLOYER_SIZE_CHOICES, default=None)
     ###############################################################
     #   These fields have not been implemented in the form yet:   #
     ###############################################################
-    contact_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
-    contact_address_line_1 = models.CharField(max_length=225, null=True, blank=True)
-    contact_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
     # where form
-    place = models.CharField(max_length=100, choices=PLACE_CHOICES, default=None, null=True)
-    public_or_private_employer = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, default=None)
-    employer_size = models.CharField(max_length=100, null=True, choices=EMPLOYER_SIZE_CHOICES, default=None)
     public_or_private_school = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, default=None)
     public_or_private_facility = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_FACILITY_CHOICES, default=None)
     public_or_private_healthcare = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES, default=None)
@@ -90,7 +105,29 @@ class Report(models.Model):
     # previous details form
     when = models.CharField(max_length=700, choices=WHEN_CHOICES, default=None, null=True)
     how_many = models.CharField(max_length=700, null=True, blank=True, choices=HOW_MANY_CHOICES, default=None)
-    create_date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f'{self.create_date} {self.violation_summary}'
+
+    def __has_immigration_protected_classes(self, pcs):
+        immigration_classes = [
+            'Immigration/citizenship status (choosing this will not share your status)',
+            'National origin (including ancestry and ethnicity)',
+            'Language'
+        ]
+        is_not_included = set(pcs).isdisjoint(set(immigration_classes))
+
+        if is_not_included:
+            return False
+
+        return True
+
+    def assign_section(self):
+        protected_classes = [n.protected_class for n in self.protected_class.all()]
+
+        if self.primary_complaint == 'voting' and 'Disability (including temporary or recovery)' not in protected_classes:
+            return 'VOT'
+        elif self.primary_complaint == 'workplace' and self.__has_immigration_protected_classes(protected_classes):
+            return 'IER'
+
+        return 'ADM'
