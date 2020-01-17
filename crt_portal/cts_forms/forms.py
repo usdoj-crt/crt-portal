@@ -359,8 +359,9 @@ class PoliceLocation(LocationForm):
 
     def clean(self):
         inside_facility = self.cleaned_data.get('inside_correctional_facility')
+        facility_type = self.cleaned_data.get('correctional_facility_type')
 
-        if inside_facility == 'inside':
+        if inside_facility == 'inside' and facility_type is None:
             msg = ValidationError(POLICE_LOCATION_ERRORS['facility_type'])
             self.add_error('correctional_facility_type', msg)
         else:
