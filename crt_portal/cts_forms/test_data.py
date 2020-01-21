@@ -5,4 +5,6 @@ SAMPLE_REPORT = {
     'contact_email': "Lincoln@usa.gov",
     'contact_phone': "202-867-5309",
     'violation_summary': "Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.",
+    'last_incident_month': 1,
+    'last_incident_year': 2019,
 }

@@ -208,18 +208,6 @@ RESPONDENT_TYPE_CHOICES = (
     ('lender', _('Bank or loaning service')),
 )
 
-WHEN_CHOICES = (
-    ('last_6_months', _('Within the last 6 months')),
-    ('last_3_years', _('Within the last 3 years')),
-    ('greater_than_3_years', _('More than 3 years ago')),
-)
-
-HOW_MANY_CHOICES = (
-    ('no', _('No')),
-    ('not_sure', _('I\'m not sure')),
-    ('yes', _('Yes')),
-)
-
 WHO_FOR_CHOICES = (
     ('myself', _('I\'m reporting for myself')),
     ('another', _('I\'m reporting on behalf of another person')),
