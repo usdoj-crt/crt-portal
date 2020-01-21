@@ -439,12 +439,12 @@ class When(ModelForm):
 
         self.fields['last_incident_month'].label = _('Month')
         self.fields['last_incident_month'].error_messages = {
-            'required': _('Please enter a month'),
+            'required': _('Please enter a month.'),
         }
         self.fields['last_incident_day'].label = _('Day')
         self.fields['last_incident_year'].label = _('Year')
         self.fields['last_incident_year'].error_messages = {
-            'required': _('Please enter a year'),
+            'required': _('Please enter a year.'),
         }
 
     def clean(self):
@@ -457,26 +457,26 @@ class When(ModelForm):
             day = cleaned_data['last_incident_day'] or 1
             test_date = datetime(year, month, day)
             if test_date > datetime.now():
-                raise ValidationError(
-                    _('Date can not be in the future'),
+                self.add_error('last_incident_year', ValidationError(
+                    _('Date can not be in the future.'),
                     params={'value': test_date.strftime('%x')},
-                )
+                ))
             if year < 100:
-                raise ValidationError(
-                    _('Please enter four digits for the year'),
+                self.add_error('last_incident_year', ValidationError(
+                    _('Please enter four digits for the year.'),
                     params={'value': test_date.strftime('%x')},
-                )
+                ))
             if test_date < datetime(1899, 12, 31):
-                raise ValidationError(
-                    _('Date too long ago'),
+                self.add_error('last_incident_year', ValidationError(
+                    _('Date too long ago.'),
                     params={'value': test_date.strftime('%x')},
-                )
+                ))
         except ValueError:
             # a bit of a catch-all for all the ways people could make bad dates
-            raise ValidationError(
-                _(f'Invalid date format {month}/{day}/{year}'),
+            self.add_error('last_incident_year', ValidationError(
+                _(f'Invalid date format {month}/{day}/{year}.'),
                 params={'value': f'{month}/{day}/{year}'},
-            )
+            ))
         except KeyError:
             # these will be caught by the built in error validation
             return cleaned_data
