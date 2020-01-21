@@ -4,7 +4,7 @@
 {% block form_questions %}
   {% if wizard.form.name == 'PoliceLocation' %}
     {% include "forms/report_police_location.html" with form=form %}
-  {% else if wizard.form.name == 'CommericalPublicLocation' %}
+  {% elif wizard.form.name == 'CommericalPublicLocation' %}
     {% include 'forms/report_commercial_public_location.html' %}
   {% endif %}
 
