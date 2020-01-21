@@ -22,7 +22,7 @@ from .model_variables import (
     HATE_CRIMES_TRAFFICKING_CHOICES,
     SERVICEMEMBER_ERROR,
 )
-from .forms import Who, Details, Contact, ProtectedClassForm, LocationForm, PrimaryReason
+from .forms import Who, Details, Contact, ProtectedClassForm, LocationForm, PrimaryReason, When
 from .test_data import SAMPLE_REPORT
 
 
@@ -46,8 +46,6 @@ class Valid_Form_Tests(TestCase):
     def test_Details_valid(self):
         form = Details(data={
             'violation_summary': 'Hello! I have a problem. ႠႡႢ',
-            'when': 'last_6_months',
-            'how_many': 'no',
         })
         self.assertTrue(form.is_valid())
 
@@ -99,6 +97,14 @@ class Valid_Form_Tests(TestCase):
         form = PrimaryReason(data={
             'hatecrimes_trafficking': HateCrimesandTrafficking.objects.all(),
             'primary_complaint': PRIMARY_COMPLAINT_CHOICES[0][0],
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_When_vaild(self):
+        form = When(data={
+            'last_incident_year': 2019,
+            'last_incident_month': 5,
+            'last_incident_day': 5,
         })
         self.assertTrue(form.is_valid())
 
@@ -549,6 +555,43 @@ class Validation_Form_Tests(TestCase):
     def test_required_servicemember(self):
         form = Contact(data={})
         self.assertTrue(f'<ul class="errorlist"><li>{SERVICEMEMBER_ERROR}' in str(form.errors))
+
+    def test_required_year(self):
+        form = When(data={
+            'last_incident_month': 5,
+            'last_incident_day': 5,
+        })
+        self.assertTrue(f'<ul class="errorlist"><li>Please enter a year' in str(form.errors))
+
+    def test_required_month(self):
+        form = When(data={
+            'last_incident_year': 2019,
+            'last_incident_day': 5,
+        })
+        self.assertTrue(f'<ul class="errorlist"><li>Please enter a month' in str(form.errors))
+
+    def test_NOT_required_day(self):
+        form = When(data={
+            'last_incident_year': 2019,
+            'last_incident_month': 5,
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_future_incident_date(self):
+        form = When(data={
+            'last_incident_year': 2200,
+            'last_incident_month': 5,
+            'last_incident_day': 5,
+        })
+        self.assertFalse(form.is_valid())
+
+    def test_past_incident_date(self):
+        form = When(data={
+            'last_incident_year': 20,
+            'last_incident_month': 5,
+            'last_incident_day': 5,
+        })
+        self.assertFalse(form.is_valid())
 
 
 class ContactValidationTests(TestCase):

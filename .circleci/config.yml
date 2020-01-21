@@ -49,7 +49,7 @@ jobs:
       - run:
           name: Run unit tests
           command: |
-            pipenv run crt_portal/manage.py test cts_forms
+            pipenv run crt_portal/manage.py test cts_forms.tests
       - run:
           name: Run bandit (Python security) tests
           command: |
