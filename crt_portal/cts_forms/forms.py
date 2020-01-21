@@ -270,17 +270,25 @@ class ElectionLocation(LocationForm):
                 ('election_details',),
                 group_name=_('What kind of election or voting activity was this related to?'),
                 optional=False
+
             )
         ] + self.question_groups
 
         self.fields['election_details'] = TypedChoiceField(
             choices=ELECTION_CHOICES,
             empty_value=None,
-            widget=UsaRadioSelect,
+            widget=UsaRadioSelect(attrs={
+                'help_text': {
+                    'federal': _('Presidential or congressional'),
+                    'state_local': _('Governor, state legislation, city position (mayor, council, local board)'),
+                    'both': _('Federal & State/local')
+                }
+            }),
             required=True,
             error_messages={
                 'required': _('Please select the type of election or voting activity.')
-            }
+            },
+            label=''
         )
 
 
