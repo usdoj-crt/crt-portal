@@ -103,7 +103,7 @@ class Valid_Form_Tests(TestCase):
             'last_incident_year': 2019,
             'last_incident_month': 5,
             'last_incident_day': 5,
-            })
+        })
         self.assertTrue(form.is_valid())
 
 
@@ -554,21 +554,21 @@ class Validation_Form_Tests(TestCase):
         form = When(data={
             'last_incident_month': 5,
             'last_incident_day': 5,
-            })
+        })
         self.assertTrue(f'<ul class="errorlist"><li>Please enter a year' in str(form.errors))
 
     def test_required_month(self):
         form = When(data={
             'last_incident_year': 2019,
             'last_incident_day': 5,
-            })
+        })
         self.assertTrue(f'<ul class="errorlist"><li>Please enter a month' in str(form.errors))
 
     def test_NOT_required_day(self):
         form = When(data={
             'last_incident_year': 2019,
             'last_incident_month': 5,
-            })
+        })
         self.assertTrue(form.is_valid())
 
     def test_future_incident_date(self):
@@ -576,7 +576,7 @@ class Validation_Form_Tests(TestCase):
             'last_incident_year': 2200,
             'last_incident_month': 5,
             'last_incident_day': 5,
-            })
+        })
         self.assertFalse(form.is_valid())
 
     def test_past_incident_date(self):
@@ -584,7 +584,7 @@ class Validation_Form_Tests(TestCase):
             'last_incident_year': 20,
             'last_incident_month': 5,
             'last_incident_day': 5,
-            })
+        })
         self.assertFalse(form.is_valid())
 
 
