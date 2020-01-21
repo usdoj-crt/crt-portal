@@ -24,6 +24,8 @@ from .model_variables import (
     WHERE_ERRORS,
     HATE_CRIMES_TRAFFICKING_CHOICES,
     PRIMARY_COMPLAINT_ERROR,
+    SERVICEMEMBER_CHOICES,
+    SERVICEMEMBER_ERROR,
     CORRECTIONAL_FACILITY_LOCATION_CHOICES,
     CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
     POLICE_LOCATION_ERRORS,
@@ -53,7 +55,7 @@ class Contact(ModelForm):
         model = Report
         fields = [
             'contact_first_name', 'contact_last_name',
-            'contact_email', 'contact_phone'
+            'contact_email', 'contact_phone', 'servicemember',
         ]
         widgets = {
             'contact_first_name': TextInput(attrs={
@@ -87,7 +89,14 @@ class Contact(ModelForm):
         self.fields['contact_last_name'].label = _('Last name')
         self.fields['contact_email'].label = _('Email address')
         self.fields['contact_phone'].label = _('Phone number')
-
+        self.fields['servicemember'] = TypedChoiceField(
+            error_messages={'required': SERVICEMEMBER_ERROR},
+            widget=UsaRadioSelect(),
+            label=_('Are you now or have ever been an active duty service member?'),
+            help_text=_('If you’re reporting on behalf of someone else, please select their status.'),
+            empty_value=None,
+            choices=SERVICEMEMBER_CHOICES,
+        )
         self.question_groups = [
             QuestionGroup(
                 self,

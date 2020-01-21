@@ -20,6 +20,7 @@ from .model_variables import (
     PRIMARY_COMPLAINT_CHOICES,
     PRIMARY_COMPLAINT_ERROR,
     HATE_CRIMES_TRAFFICKING_CHOICES,
+    SERVICEMEMBER_ERROR,
 )
 from .forms import Who, Details, Contact, ProtectedClassForm, LocationForm, PrimaryReason, When
 from .test_data import SAMPLE_REPORT
@@ -52,6 +53,7 @@ class Valid_Form_Tests(TestCase):
         form = Contact(data={
             'contact_first_name': 'first_name',
             'contact_last_name': 'last_name',
+            'servicemember': 'yes',
         })
         self.assertTrue(form.is_valid())
 
@@ -550,6 +552,10 @@ class Validation_Form_Tests(TestCase):
         self.assertFalse('hatecrimes_trafficking<ul class="errorlist"><li>' in str(form.errors))
         self.assertTrue(f'<ul class="errorlist"><li>{PRIMARY_COMPLAINT_ERROR}' in str(form.errors))
 
+    def test_required_servicemember(self):
+        form = Contact(data={})
+        self.assertTrue(f'<ul class="errorlist"><li>{SERVICEMEMBER_ERROR}' in str(form.errors))
+
     def test_required_year(self):
         form = When(data={
             'last_incident_month': 5,
@@ -594,7 +600,8 @@ class ContactValidationTests(TestCase):
             'contact_first_name': '李王',
             'contact_last_name': '王-Núñez',
             'contact_email': '',
-            'contact_phone': ''
+            'contact_phone': '',
+            'servicemember': 'yes',
         })
         self.assertTrue(form.is_valid())
 
@@ -603,7 +610,8 @@ class ContactValidationTests(TestCase):
             'contact_first_name': '',
             'contact_last_name': '',
             'contact_email': 'foo@bär.com',
-            'contact_phone': ''
+            'contact_phone': '',
+            'servicemember': 'yes',
         })
         self.assertTrue(form.is_valid())
 
@@ -611,8 +619,9 @@ class ContactValidationTests(TestCase):
         form = Contact(data={
             'contact_first_name': '',
             'contact_last_name': '',
-            'contact_email': 'foo@bär.com',
-            'contact_phone': '33333333333333333333333333'
+            'contact_email': '',
+            'contact_phone': '33333333333333333333333333',
+            'servicemember': 'yes',
         })
         self.assertFalse(form.is_valid())
         self.assertEquals(

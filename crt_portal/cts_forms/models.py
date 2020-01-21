@@ -21,6 +21,7 @@ from .model_variables import (
     SECTION_CHOICES,
     ELECTION_CHOICES,
     HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
+    SERVICEMEMBER_CHOICES,
     CORRECTIONAL_FACILITY_LOCATION_CHOICES,
     CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
 )
@@ -64,6 +65,7 @@ class Report(models.Model):
         null=True,
         blank=True
     )
+    servicemember = models.CharField(max_length=4, null=False, choices=SERVICEMEMBER_CHOICES)
     # Primary Issue
     primary_complaint = models.CharField(
         max_length=100,

@@ -2,6 +2,13 @@
 
 from django.utils.translation import gettext_lazy as _
 
+SERVICEMEMBER_CHOICES = (
+    ('yes', _('Yes')),
+    ('no', _('No')),
+)
+
+SERVICEMEMBER_ERROR = _('Please select a status as an active duty service member.')
+
 PRIMARY_COMPLAINT_CHOICES = (
     ('workplace', _('Workplace discrimination or other employment-related problem')),
     ('housing', _('Housing discrimination or harassment')),
