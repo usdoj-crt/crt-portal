@@ -63,7 +63,7 @@ ELECTION_CHOICES = (
     ('federal', _('Federal')),
     ('state_local', _('State or local')),
     ('both', _('Both')),
-    ('unknown', _('I don’t know')),
+    ('unknown', _('I\'m not sure')),
 )
 
 HATE_CRIMES_TRAFFICKING_MODEL_CHOICES = (
