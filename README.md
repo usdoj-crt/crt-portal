@@ -1,3 +1,17 @@
+## Contents
+
+* [Local set up](#local-set-up)
+
+* [Running common tasks](#running-common-tasks)
+
+* [Tests](#tests)
+
+* [Cloud.gov set up](#cloudgov-set-up)
+
+* [Additional documentation](#additional-documentation)
+
+* [Background notes](#background-notes)
+
 ## Local set up
 
 Install Docker
@@ -114,17 +128,11 @@ The volumes are the data elements in Docker. Note that you will need to re-creat
 
 :warning: Note that this command will prune **all** containers, images, and caches on your local machine -- not just the crt-portal project.
 
-### Adjust form autocomplete per-instance
-
-To prevent form autocomplete on an application instance, add `FORM_AUTOCOMPLETE_OFF=True` as an environment variable (locally, add to `.env`).
-
-To restore default behavior of allowing form autocomplete, remove the `FORM_AUTOCOMPLETE_OFF` flag.
-
 ## Tests
 
 Tests run automatically with repos that are integrated with Circle CI. You can run those tests locally with the following instructions.
 
-Run unit test on Windows:
+Run unit test on **Windows**:
 1. Ensure docker is running
 2. Start a powershell as admin (git bash has issue running ssh console in docker)
 3. Find the id for the web container
@@ -144,11 +152,18 @@ Run unit test on Windows:
 7. If you lucky your test will result OK or lots of error to work on!
 
 
-
+Run unit test on **MAC**:
 
 You can also run project tests using docker with:
 
     docker-compose run web python /code/crt_portal/manage.py test cts_forms
+
+This will run [tests.py](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/tests.py), where the business logic tests live. It will also run [test_all_section_assignments.py](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/test_all_section_assignments.py), a script that generates a csv in the /data folder that has the relevant permutations of form fields and runs the out put from the (section assignment function)[https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/models.py#L125]. The idea is that we can expand the spreadsheet and the script to check outcomes. Then it will be a true test, in the meantime, this is not being run as part of deploy.
+
+You can also run a subset of tests, for example:
+
+    docker-compose run web python /code/crt_portal/manage.py test cts_forms.tests.Valid_Form_Tests
+
 
 For accessibility testing with Pa11y, you can run that locally, _if you have npm installed locally_ with:
 
@@ -266,6 +281,12 @@ For more technical documentation see the [docs](https://github.com/usdoj-crt/crt
     - Branching strategy
     - Maintenance or infrequent tasks
     - Pull request instructions
+
+### Adjust form autocomplete per-instance
+
+To prevent form autocomplete on an application instance, add `FORM_AUTOCOMPLETE_OFF=True` as an environment variable (locally, add to `.env`).
+
+To restore default behavior of allowing form autocomplete, remove the `FORM_AUTOCOMPLETE_OFF` flag.
 
 # Background notes
 
