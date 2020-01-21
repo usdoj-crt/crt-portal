@@ -234,6 +234,7 @@ class CRTReportWizard(SessionWizardView):
             _('Location'),
             _('Location'),
             _('Location'),
+            _('Location'),
             _('Protected Class'),
             _('Date'),
             _('Details'),
@@ -245,6 +246,7 @@ class CRTReportWizard(SessionWizardView):
         ordered_step_titles = [
             _('Contact'),
             _('What is your primary reason for contacting the Civil Rights Division?'),
+            _('Location details'),
             _('Location details'),
             _('Location details'),
             _('Location details'),
