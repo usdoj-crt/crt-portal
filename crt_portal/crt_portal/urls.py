@@ -28,6 +28,7 @@ from cts_forms.forms import (
     ElectionLocation,
     WorkplaceLocation,
     PoliceLocation,
+    CommercialPublicLocation,
     When,
 )
 from cts_forms.views import (
@@ -36,6 +37,7 @@ from cts_forms.views import (
     show_location_form_condition,
     show_workplace_form_condition,
     show_police_form_condition,
+    show_commercial_public_form_condition,
 )
 
 
@@ -51,6 +53,7 @@ urlpatterns = [
             ElectionLocation,
             WorkplaceLocation,
             PoliceLocation,
+            CommercialPublicLocation,
             LocationForm,
             ProtectedClassForm,
             When,
@@ -60,7 +63,8 @@ urlpatterns = [
             '2': show_election_form_condition,
             '3': show_workplace_form_condition,
             '4': show_police_form_condition,
-            '5': show_location_form_condition,
+            '5': show_commercial_public_form_condition,
+            '6': show_location_form_condition,
         },
     ), name='crt_report_form'),
     path('', RedirectView.as_view(pattern_name='crt_report_form', permanent=False)),

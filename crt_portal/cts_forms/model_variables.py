@@ -153,17 +153,22 @@ SECTION_CHOICES = (
     ('VOT', _('Voting')),
 )
 
-PLACE_CHOICES = (
-    ('home', _('Home, potential home, or services to help with purchasing a home (banks, lenders, or other financial services)')),
-    ('workplace', _('Workplace or potential workplace')),
-    ('school', _('Educational institution (school, university), education program or educational activity (after school program or workshop)')),
+COMMERCIAL_OR_PUBLIC_PLACE_CHOICES = (
     ('place_of_worship', _('Place of worship')),
-    ('store', _('Retail/commercial building (store, restaurant, hotel, nightclub, theater, gym, or other commercial space)')),
-    ('public_space', _('Outdoor public space (including car, street, sidewalk, park)')),
-    ('voting', _('Voting location or ballot (including mail-in ballots)')),
-    ('healthcare', _('Healthcare facility (including mental health or long-term care)')),
-    ('incarcerated', _('Prison, jail, or juvenile corrections facility, or while otherwise incarcerated')),
-    ('government_building', _('Another government building (courthouse, DMV, post office)')),
+    ('store', _('Commercial or retail building')),
+    ('healthcare', _('Healthcare facility')),
+    ('financial', _('Financial institution')),
+    ('public_space', _('Public outdoor space')),
+    ('other', _('Other'))
+)
+
+COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT = (
+    ('place_of_worship', _('Church, synagogue, temple, religious community center')),
+    ('store', _('Store, restaurant, bar, hotel, theate')),
+    ('healthcare', _('Hospital or clinic (including inpatient and outpatient programs), reproductive care clinic, state developmental institution, nursing home')),
+    ('financial', _('Bank, credit union, loan services')),
+    ('public_space', _('Park, sidewalk, street, other public buildings (courthouse, DMV, city library)')),
+    ('other', _('Other'))
 )
 
 CORRECTIONAL_FACILITY_LOCATION_CHOICES = (

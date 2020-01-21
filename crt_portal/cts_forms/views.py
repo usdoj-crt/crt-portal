@@ -145,11 +145,13 @@ TEMPLATES = [
     'forms/report_grouped_questions.html',
     # Primary reason
     'forms/report_primary_complaint.html',
-    # Election + location
+    # Voting + location
     'forms/report_location.html',
     # Workplace + location
     'forms/report_location.html',
     # Police + location
+    'forms/report_location.html',
+    # Commercial/Public + location
     'forms/report_location.html',
     # Location
     'forms/report_location.html',
@@ -161,29 +163,31 @@ TEMPLATES = [
     'forms/report_details.html',
 ]
 
-conditional_location_routings = ['voting', 'workplace', 'police']
+conditional_location_routings = ['voting', 'workplace', 'police', 'commercial_or_public']
+
+
+def is_routable_complaint(wizard, primary_complaint):
+    # try to get the cleaned data of step 1
+    cleaned_data = wizard.get_cleaned_data_for_step('1') or {'primary_complaint': 'not yet completed'}
+    if cleaned_data['primary_complaint'] == primary_complaint:
+        return True
+    return False
 
 
 def show_election_form_condition(wizard):
-    # try to get the cleaned data of step 1
-    cleaned_data = wizard.get_cleaned_data_for_step('1') or {'primary_complaint': 'not yet completed'}
-    if cleaned_data['primary_complaint'] == 'voting':
-        return True
-    return False
+    return is_routable_complaint(wizard, 'voting')
 
 
 def show_workplace_form_condition(wizard):
-    cleaned_data = wizard.get_cleaned_data_for_step('1') or {'primary_complaint': 'not yet completed'}
-    if cleaned_data['primary_complaint'] == 'workplace':
-        return True
-    return False
+    return is_routable_complaint(wizard, 'workplace')
 
 
 def show_police_form_condition(wizard):
-    cleaned_data = wizard.get_cleaned_data_for_step('1') or {'primary_complaint': 'not yet completed'}
-    if cleaned_data['primary_complaint'] == 'police':
-        return True
-    return False
+    return is_routable_complaint(wizard, 'police')
+
+
+def show_commercial_public_form_condition(wizard):
+    return is_routable_complaint(wizard, 'commercial_or_public')
 
 
 def show_location_form_condition(wizard):
@@ -223,6 +227,7 @@ class CRTReportWizard(SessionWizardView):
             _('Location'),
             _('Location'),
             _('Location'),
+            _('Location'),
             _('Protected Class'),
             _('Date'),
             _('Details'),
@@ -234,6 +239,7 @@ class CRTReportWizard(SessionWizardView):
         ordered_step_titles = [
             _('Contact'),
             _('What is your primary reason for contacting the Civil Rights Division?'),
+            _('Location details'),
             _('Location details'),
             _('Location details'),
             _('Location details'),
