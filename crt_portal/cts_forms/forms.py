@@ -452,6 +452,16 @@ class When(ModelForm):
                     _('Date can not be in the future'),
                     params={'value': test_date.strftime('%x')},
                 )
+            if year < 100:
+                raise ValidationError(
+                    _('Please enter four digits for the year'),
+                    params={'value': test_date.strftime('%x')},
+                )
+            if test_date < datetime(1899, 12, 31):
+                raise ValidationError(
+                    _('Date too long ago'),
+                    params={'value': test_date.strftime('%x')},
+                )
         except ValueError:
             # a bit of a catch-all for all the ways people could make bad dates
             raise ValidationError(
