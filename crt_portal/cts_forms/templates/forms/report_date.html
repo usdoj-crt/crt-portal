@@ -32,17 +32,16 @@
             {{ year }}
           </div>
         </div>
-
-        {% if month.errors %}
-          {% include "forms/snippets/error_alert.html" with errors=month.errors %}
-        {% endif %}
-        {% if day.errors %}
-          {% include "forms/snippets/error_alert.html" with day=state.errors %}
-        {% endif %}
-        {% if year.errors %}
-          {% include "forms/snippets/error_alert.html" with year=state.errors %}
-        {% endif %}
     </div>
+    {% if month.errors %}
+      {% include "forms/snippets/error_alert.html" with errors=month.errors %}
+    {% endif %}
+    {% if day.errors %}
+      {% include "forms/snippets/error_alert.html" with errors=day.errors %}
+    {% endif %}
+    {% if year.errors %}
+      {% include "forms/snippets/error_alert.html" with errors=year.errors %}
+    {% endif %}
   </fieldset>
   {% endwith %}
 {% endblock %}

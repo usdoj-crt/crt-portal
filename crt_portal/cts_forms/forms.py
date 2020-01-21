@@ -448,26 +448,26 @@ class When(ModelForm):
             day = cleaned_data['last_incident_day'] or 1
             test_date = datetime(year, month, day)
             if test_date > datetime.now():
-                raise ValidationError(
+                self.add_error('last_incident_year', ValidationError(
                     _('Date can not be in the future'),
                     params={'value': test_date.strftime('%x')},
-                )
+                ))
             if year < 100:
-                raise ValidationError(
+                self.add_error('last_incident_year', ValidationError(
                     _('Please enter four digits for the year'),
                     params={'value': test_date.strftime('%x')},
-                )
+                ))
             if test_date < datetime(1899, 12, 31):
-                raise ValidationError(
+                self.add_error('last_incident_year', ValidationError(
                     _('Date too long ago'),
                     params={'value': test_date.strftime('%x')},
-                )
+                ))
         except ValueError:
             # a bit of a catch-all for all the ways people could make bad dates
-            raise ValidationError(
+            self.add_error('last_incident_year', ValidationError(
                 _(f'Invalid date format {month}/{day}/{year}'),
                 params={'value': f'{month}/{day}/{year}'},
-            )
+            ))
         except KeyError:
             # these will be caught by the built in error validation
             return cleaned_data
