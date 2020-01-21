@@ -60,10 +60,10 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
 }
 
 ELECTION_CHOICES = (
-    ('federal', _('Federal- presidential, or congressional')),
-    ('state_local', _('State or local- Governor, state legislation, city position (mayor, council, local board)')),
-    ('both', _('Both Federal & State/local')),
-    ('unknown', _('I don’t know')),
+    ('federal', _('Federal')),
+    ('state_local', _('State or local')),
+    ('both', _('Both')),
+    ('unknown', _('I\'m not sure')),
 )
 
 HATE_CRIMES_TRAFFICKING_MODEL_CHOICES = (
