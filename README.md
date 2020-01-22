@@ -284,7 +284,7 @@ For more technical documentation see the [docs](https://github.com/usdoj-crt/crt
 
 ### Adjust form autocomplete per-instance
 
-To prevent form autocomplete on an application instance, add `FORM_AUTOCOMPLETE_OFF=True` as an environment variable (locally, add to `.env`).
+To prevent form autocomplete on an application instance, add `FORM_AUTOCOMPLETE_OFF=True` as an environment variable. We are using that in staging to help mask personal data during usability testing.
 
 To restore default behavior of allowing form autocomplete, remove the `FORM_AUTOCOMPLETE_OFF` flag.
 
