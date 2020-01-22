@@ -22,7 +22,16 @@ from .model_variables import (
     HATE_CRIMES_TRAFFICKING_CHOICES,
     SERVICEMEMBER_ERROR,
 )
-from .forms import Who, Details, Contact, ProtectedClassForm, LocationForm, PrimaryReason, When
+from .forms import (
+    Who,
+    Details,
+    Contact,
+    ProtectedClassForm,
+    LocationForm,
+    PrimaryReason,
+    CommercialPublicLocation,
+    When,
+)
 from .test_data import SAMPLE_REPORT
 
 
@@ -590,6 +599,12 @@ class Validation_Form_Tests(TestCase):
             'last_incident_year': 20,
             'last_incident_month': 5,
             'last_incident_day': 5,
+        })
+        self.assertFalse(form.is_valid())
+
+    def test_commercial_public_place(self):
+        form = CommercialPublicLocation(data={
+            'commercial_or_public_space': ''
         })
         self.assertFalse(form.is_valid())
 

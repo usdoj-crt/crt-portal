@@ -16,10 +16,10 @@
         "set field #id_3-location_city_town to Town",
         "set field #id_3-location_state_0 to AL",
         "click element #submit-next",
-        "wait for element #id_6-protected_class_0 to be visible",
-        "click element #id_6-protected_class_0",
+        "wait for element #id_7-protected_class_0 to be visible",
+        "click element #id_7-protected_class_0",
         "click element #submit-next",
-        "wait for element #id_7-last_incident_month to be visible"
+        "wait for element #id_8-last_incident_month to be visible"
       ],
       "screenCapture": "pa11y-screenshots/page4-date.png"
     }
