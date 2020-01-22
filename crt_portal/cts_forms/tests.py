@@ -320,6 +320,23 @@ class SectionAssignmentTests(TestCase):
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'ADM')
 
+    def test_housing_routing(self):
+        SAMPLE_REPORT['primary_complaint'] = 'commercial_or_public'
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+        self.assertTrue(test_report.assign_section() == 'HCE')
+
+    def test_housing_excepetions(self):
+        SAMPLE_REPORT['primary_complaint'] = 'commercial_or_public'
+        SAMPLE_REPORT['commercial_or_public_place'] = 'healthcare'
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+        self.assertFalse(test_report.assign_section() == 'HCE')
+
+        test_report2 = Report.objects.create(**SAMPLE_REPORT)
+        disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
+        test_report2.protected_class.add(disability[0])
+        test_report2.save()
+        self.assertFalse(test_report.assign_section() == 'HCE')
+
 
 class Valid_CRT_Pagnation_Tests(TestCase):
     def setUp(self):
