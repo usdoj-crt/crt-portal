@@ -154,22 +154,22 @@ SECTION_CHOICES = (
 )
 
 COMMERCIAL_OR_PUBLIC_PLACE_CHOICES = (
-    ('place_of_worship', _('Place of worship')),
+    ('place_of_worship', _('Place of worship or about a place of worship')),
     ('store', _('Commercial or retail building')),
     ('healthcare', _('Healthcare facility')),
     ('financial', _('Financial institution')),
-    ('public_space', _('Public outdoor space')),
+    ('public_space', _('Public space')),
     ('other', _('Other'))
 )
 
-COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT = (
-    ('place_of_worship', _('Church, synagogue, temple, religious community center')),
-    ('store', _('Store, restaurant, bar, hotel, theate')),
-    ('healthcare', _('Hospital or clinic (including inpatient and outpatient programs), reproductive care clinic, state developmental institution, nursing home')),
-    ('financial', _('Bank, credit union, loan services')),
-    ('public_space', _('Park, sidewalk, street, other public buildings (courthouse, DMV, city library)')),
-    ('other', _('Other'))
-)
+COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT = {
+    'place_of_worship': _('Church, synagogue, temple, religious community center'),
+    'store': _('Store, restaurant, bar, hotel, theate'),
+    'healthcare': _('Hospital or clinic (including inpatient and outpatient programs), reproductive care clinic, state developmental institution, nursing home'),
+    'financial': _('Bank, credit union, loan services'),
+    'public_space': _('Park, sidewalk, street, other public buildings (courthouse, DMV, city library)'),
+    'other': ''
+}
 
 CORRECTIONAL_FACILITY_LOCATION_CHOICES = (
     ('outside', _('Outside a prison or correctional facility')),

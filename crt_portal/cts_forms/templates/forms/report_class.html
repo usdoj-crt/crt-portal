@@ -3,7 +3,7 @@
 {% block form_questions %}
 
 {% include 'forms/grouped_questions.html' %}
-{% with field=wizard.form.other_class %}    
+{% with field=wizard.form.other_class %}
   <div class='other-class-option' class="padding-left-4">
     <div class="blue-left-highlight">
       <div>
@@ -24,4 +24,5 @@
 {% block page_js %}
 {{ block.super }}
 <script src="{% static 'js/other_show_hide.js' %}"></script>
+<script>window.CRT.otherTextInputToggle()</script>
 {% endblock %}

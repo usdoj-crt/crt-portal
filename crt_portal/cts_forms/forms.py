@@ -30,6 +30,7 @@ from .model_variables import (
     CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
     POLICE_LOCATION_ERRORS,
     COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
+    COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
 )
 from .phone_regex import phone_validation_regex
 
@@ -348,7 +349,7 @@ class WorkplaceLocation(LocationForm):
 class CommercialPublicLocation(LocationForm):
     class Meta:
         model = Report
-        fields = LocationForm.Meta.fields
+        fields = LocationForm.Meta.fields + ['commercial_or_public_place', 'other_commercial_or_public_place']
         widgets = LocationForm.Meta.widgets
 
     def __init__(self, *args, **kwargs):
@@ -359,11 +360,18 @@ class CommercialPublicLocation(LocationForm):
         self.fields['commercial_or_public_place'] = TypedChoiceField(
             choices=COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
             empty_value=None,
-            widget=UsaRadioSelect,
+            widget=UsaRadioSelect(attrs={
+                'help_text': COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT
+            }),
             required=True,
             error_messages={
                 'required': _('Please select the type of location. If none of these apply to your situation, please select "Other".')
             }
+        )
+
+        self.fields['other_commercial_or_public_place'].help_text = _('Please describe')
+        self.fields['other_commercial_or_public_place'].widget = TextInput(
+            attrs={'class': 'usa-input word-count-10'}
         )
 
 

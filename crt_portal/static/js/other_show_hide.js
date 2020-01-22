@@ -1,26 +1,29 @@
-(function(dom) {
-  /**
-   * The index of the 'other' option on the protected class form.
-   * We target it explicitly becuase while it is currently
-   * the last element in the list of options, it might not always be
-   */
-  var OTHER_OPTION_INDEX = 13;
+(function(root) {
+  root.CRT = root.CRT || {};
+  root.CRT.otherTextInputToggle = function toggleTextInput(selector, index) {
+    var selector = selector || '.usa-checkbox';
+    var dom = root.document;
+    var options = dom.querySelectorAll(selector);
+    var index = index || options.length - 1;
 
-  // Wapper element for the 'other' option checkbox
-  var otherOptionEl = dom.querySelectorAll('.usa-checkbox')[OTHER_OPTION_INDEX];
-  // The actual checkbox the user will interact with
-  var otherOptionCheckbox = otherOptionEl.querySelector('.usa-checkbox__input');
-  // Wrapper element for the short text description revealed when the 'other' option is selected
-  var otherOptionTextEl = dom.querySelector('.other-class-option');
+    // Wapper element for the 'other' option checkbox
+    var otherOptionEl = options[index];
+    // The actual checkbox the user will interact with
+    var otherOptionCheckbox = otherOptionEl.querySelector('[class$="__input"]');
+    // Wrapper element for the short text description revealed when the 'other' option is selected
+    var otherOptionTextEl = dom.querySelector('.other-class-option');
 
-  function toggleOtherOptionTextInput() {
-    if (otherOptionCheckbox.checked) {
-      otherOptionTextEl.removeAttribute('hidden');
-    } else {
-      otherOptionTextEl.setAttribute('hidden', '');
+    function toggleOtherOptionTextInput() {
+      if (otherOptionCheckbox.checked) {
+        otherOptionTextEl.removeAttribute('hidden');
+      } else {
+        otherOptionTextEl.setAttribute('hidden', '');
+      }
     }
-  }
 
-  otherOptionCheckbox.addEventListener('click', toggleOtherOptionTextInput);
-  otherOptionTextEl.setAttribute('hidden', '');
-})(document);
+    otherOptionCheckbox.addEventListener('click', toggleOtherOptionTextInput);
+    otherOptionTextEl.setAttribute('hidden', '');
+  };
+
+  return root;
+})(window);
