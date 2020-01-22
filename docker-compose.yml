@@ -9,7 +9,7 @@ services:
     environment:
       - ENV=LOCAL
       - SECRET_KEY=${SECRET_KEY}
-      - FORM_AUTOCOMPLETE_OFF=${FORM_AUTOCOMPLETE_OFF}
+      - FORM_AUTOCOMPLETE_OFF=False
     build: .
     command: /code/run.sh
     volumes:
