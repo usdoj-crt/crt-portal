@@ -5,7 +5,7 @@
   <legend class="em-text">
     {% trans "Please choose the location that best describes your situation" %}
   </legend>
-  <div>
+  <div data-toggle>
     {{ form.commercial_or_public_place }}
     {% with field=form.other_commercial_or_public_place %}    
     <div class='other-class-option padding-top-1'>
