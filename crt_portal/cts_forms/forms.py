@@ -476,7 +476,7 @@ class When(ModelForm):
                 ))
             if test_date < datetime(1899, 12, 31):
                 self.add_error('last_incident_year', ValidationError(
-                    _('Date too long ago.'),
+                    _('Please enter a year after 1900.'),
                     params={'value': test_date.strftime('%x')},
                 ))
         except ValueError:
