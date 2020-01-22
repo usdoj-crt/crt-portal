@@ -8,7 +8,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: circleci/python:3.7-node-browsers
+      - image: circleci/python:3.8-node-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -36,7 +36,7 @@ jobs:
           paths:
             - ".venv"
             - "/usr/local/bin"
-            - "/usr/local/lib/python3.7/site-packages"
+            - "/usr/local/lib/python3.8/site-packages"
       - run:
           name: run server for tests
           command: |
@@ -78,8 +78,8 @@ jobs:
   deploy-dev:
     working_directory: ~/code
     docker:
-      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: python:3.7
+      # standard docker python image
+      - image: python:3.8
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -125,7 +125,7 @@ jobs:
           paths:
             - ".venv"
             - "/usr/local/bin"
-            - "/usr/local/lib/python3.7/site-packages"
+            - "/usr/local/lib/python3.8/site-packages"
       - run:
           name: Deploy to dev
           command: |
@@ -134,8 +134,7 @@ jobs:
   deploy-stage:
     working_directory: ~/code
     docker:
-      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: python:3.7
+      - image: python:3.8
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -181,7 +180,7 @@ jobs:
           paths:
             - ".venv"
             - "/usr/local/bin"
-            - "/usr/local/lib/python3.7/site-packages"
+            - "/usr/local/lib/python3.8/site-packages"
       - run:
           name: Deploy to stage
           command: |
@@ -191,7 +190,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: python:3.7
+      - image: python:3.8
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -237,7 +236,7 @@ jobs:
           paths:
             - ".venv"
             - "/usr/local/bin"
-            - "/usr/local/lib/python3.7/site-packages"
+            - "/usr/local/lib/python3.8/site-packages"
       - run:
           name: Deploy to production
           command: |
