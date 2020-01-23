@@ -336,6 +336,13 @@ class SectionAssignmentTests(TestCase):
         print(test_report.assign_section())
         self.assertTrue(test_report.assign_section() == 'HCE')
 
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'housing'
+        test_report = Report.objects.create(**data)
+        print(SAMPLE_REPORT)
+        print(test_report.assign_section())
+        self.assertTrue(test_report.assign_section() == 'HCE')
+
     def test_housing_excepetions(self):
         data = copy.deepcopy(SAMPLE_REPORT)
         data['primary_complaint'] = 'commercial_or_public'

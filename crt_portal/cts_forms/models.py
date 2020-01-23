@@ -162,5 +162,8 @@ class Report(models.Model):
         elif self.primary_complaint == 'commercial_or_public':
             if ('Disability (including temporary or recovery)' not in protected_classes) and (self.commercial_or_public_place != 'healthcare'):
                 return 'HCE'
+        elif self.primary_complaint == 'housing':
+            if 'Disability (including temporary or recovery)' not in protected_classes:
+                return 'HCE'
 
         return 'ADM'
