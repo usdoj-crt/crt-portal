@@ -105,6 +105,9 @@ class Report(models.Model):
     commercial_or_public_place = models.CharField(max_length=225, choices=COMMERCIAL_OR_PUBLIC_PLACE_CHOICES, null=True, default=None)
     other_commercial_or_public_place = models.CharField(max_length=150, blank=True, null=True)
 
+    # Education location
+    public_or_private_school = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, default=None)
+
     # Incident date
     last_incident_year = models.PositiveIntegerField(MaxValueValidator(datetime.now().year, message="Date must not be in the future"))
     last_incident_day = models.PositiveIntegerField(MaxValueValidator(31, message='Day value too high'), null=True, blank=True)
@@ -119,7 +122,6 @@ class Report(models.Model):
     #   These fields have not been implemented in the form yet:   #
     ###############################################################
     # where form
-    public_or_private_school = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, default=None)
     public_or_private_facility = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_FACILITY_CHOICES, default=None)
     public_or_private_healthcare = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES, default=None)
     # who form

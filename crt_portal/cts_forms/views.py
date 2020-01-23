@@ -153,6 +153,8 @@ TEMPLATES = [
     'forms/report_location.html',
     # Commercial/Public + location
     'forms/report_location.html',
+    # Education + location
+    'forms/report_location.html',
     # Location
     'forms/report_location.html',
     # Protected Class
@@ -163,7 +165,7 @@ TEMPLATES = [
     'forms/report_details.html',
 ]
 
-conditional_location_routings = ['voting', 'workplace', 'police', 'commercial_or_public']
+conditional_location_routings = ['voting', 'workplace', 'police', 'commercial_or_public', 'education']
 
 
 def is_routable_complaint(wizard, primary_complaint):
@@ -188,6 +190,10 @@ def show_police_form_condition(wizard):
 
 def show_commercial_public_form_condition(wizard):
     return is_routable_complaint(wizard, 'commercial_or_public')
+
+
+def show_education_form_condition(wizard):
+    return is_routable_complaint(wizard, 'education')
 
 
 def show_location_form_condition(wizard):
@@ -228,6 +234,7 @@ class CRTReportWizard(SessionWizardView):
             _('Location'),
             _('Location'),
             _('Location'),
+            _('Location'),
             _('Protected Class'),
             _('Date'),
             _('Details'),
@@ -239,6 +246,7 @@ class CRTReportWizard(SessionWizardView):
         ordered_step_titles = [
             _('Contact'),
             _('What is your primary reason for contacting the Civil Rights Division?'),
+            _('Location details'),
             _('Location details'),
             _('Location details'),
             _('Location details'),
