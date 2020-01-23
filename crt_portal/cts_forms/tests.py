@@ -30,6 +30,7 @@ from .forms import (
     LocationForm,
     PrimaryReason,
     CommercialPublicLocation,
+    EducationLocation,
     When,
 )
 from .test_data import SAMPLE_REPORT
@@ -605,6 +606,12 @@ class Validation_Form_Tests(TestCase):
     def test_commercial_public_place(self):
         form = CommercialPublicLocation(data={
             'commercial_or_public_space': ''
+        })
+        self.assertFalse(form.is_valid())
+
+    def test_education_location(self):
+        form = EducationLocation(data={
+            'public_or_private_school': ''
         })
         self.assertFalse(form.is_valid())
 
