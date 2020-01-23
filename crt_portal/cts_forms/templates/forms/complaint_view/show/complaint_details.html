@@ -48,7 +48,7 @@
         </td>
       </tr>
       <tr>
-        <th>Protected class</th>
+        <th>Reported reason</th>
         <td>
           {% for p_class in p_class_list %}
             {% if not forloop.last %}
@@ -62,6 +62,10 @@
             Other: {{data.other_class}}
           {% endif %}
         </td>
+      </tr>
+      <tr>
+        <th>Service Member</th>
+        <td>{{data.servicemember|title|default:"—"}}</td>
       </tr>
     </tr>
   </table>
