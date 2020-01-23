@@ -156,25 +156,12 @@ AUTHENTICATION_BACKENDS = (
     'django_auth_adfs.backend.AdfsAuthCodeBackend',
 )
 
-AUTH_ADFS = {
-    "SERVER": "http://crt-portal-django-prod.app.cloud.gov/",
-    "CLIENT_ID": "your-configured-client-id",
-    "RELYING_PARTY_ID": "your-adfs-RPT-name",
-    # Make sure to read the documentation about the AUDIENCE setting
-    # when you configured the identifier as a URL!
-    "AUDIENCE": "microsoft:identityserver:your-RelyingPartyTrust-identifier",
-    "CA_BUNDLE": "/path/to/ca-bundle.pem",
-    "CLAIM_MAPPING": {"first_name": "given_name",
-                      "last_name": "family_name",
-                      "email": "email"},
-}
-
 # for AUTH, probably want to add stage in the future
 if environment == 'PRODUCTION':
-    # AUTH_CLIENT_ID = vcap['user-provided'][0]['credentials']['AUTH_CLIENT_ID']
-    # AUTH_SERVER = vcap['user-provided'][0]['credentials']['AUTH_SERVER']
-    # AUTH_USERNAME_CLAIM = vcap['user-provided'][0]['credentials']['AUTH_USERNAME_CLAIM']
-    # AUTH_GROUP_CLAIM = vcap['user-provided'][0]['credentials']['AUTH_GROUP_CLAIM']
+    AUTH_CLIENT_ID = vcap['user-provided'][0]['credentials']['AUTH_CLIENT_ID']
+    AUTH_SERVER = vcap['user-provided'][0]['credentials']['AUTH_SERVER']
+    AUTH_USERNAME_CLAIM = vcap['user-provided'][0]['credentials']['AUTH_USERNAME_CLAIM']
+    AUTH_GROUP_CLAIM = vcap['user-provided'][0]['credentials']['AUTH_GROUP_CLAIM']
 
     for service in vcap['s3']:
         if service['instance_name'] == 'sso-creds':
@@ -219,23 +206,6 @@ if environment != 'LOCAL':
         if service['instance_name'] == 'crt-s3':
             # Public AWS S3 bucket for the app
             s3_creds = service["credentials"]
-
-    # AUTH_ADFS = {
-    #     "SERVER": "http://crt-portal-django-prod.app.cloud.gov/",
-    #     "CLIENT_ID": ADFS_CLIENT_ID,
-    #     "RELYING_PARTY_ID": "crt-portal-django-prod.app.cloud.gov",
-    #     # Make sure to read the documentation about the AUDIENCE setting
-    #     # when you configured the identifier as a URL!
-    #     "AUDIENCE": AUTH_AUDIENCE,
-    #     "CA_BUNDLE": "/ca_bundle.pem",
-    #     "CLAIM_MAPPING": {"first_name": "givenname",
-    #                       "last_name": "surname",
-    #                       "email": "emailaddress"},
-    # }
-    # Configure django to redirect users to the right URL for login
-    # LOGIN_URL = "/form/view/"
-    # would be nice to have a login failure page
-    # LOGIN_REDIRECT_URL = "/"
 
     # Public AWS S3 bucket for the app
     AWS_ACCESS_KEY_ID = s3_creds["access_key_id"]

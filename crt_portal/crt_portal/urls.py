@@ -13,6 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import os
+
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -23,9 +25,16 @@ from cts_forms.forms import Contact, Details, PrimaryReason, LocationForm, Prote
 from cts_forms.views import CRTReportWizard, show_election_form_condition, show_location_form_condition, show_workplace_form_condition
 
 
+environment = os.environ.get('ENV', 'UNDEFINED')
+if environment == 'PRODUCTION':
+    auth = [
+        path('oauth2/', include('django_auth_adfs.urls')),
+    ]
+else:
+    auth = []
+
 # add app related urls here or in cts_forms.urls
-urlpatterns = [
-    path('oauth2/', include('django_auth_adfs.urls')),
+urlpatterns = auth + [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('form/', include('cts_forms.urls')),
