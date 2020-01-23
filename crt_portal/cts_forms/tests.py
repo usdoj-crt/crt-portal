@@ -238,7 +238,9 @@ class Complaint_Show_View_Valid(TestCase):
 class SectionAssignmentTests(TestCase):
     def test_crm_humantrafficking_routing(self):
         # All human trafficking goes to CRM.
-        SAMPLE_REPORT['primary_complaint'] = 'voting'
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**data)
         test_report = Report.objects.create(**SAMPLE_REPORT)
         human_trafficking = HateCrimesandTrafficking.objects.get_or_create(hatecrimes_trafficking_option='Coerced or forced to do work or perform a commercial sex act')
         test_report.hatecrimes_trafficking.add(human_trafficking[0])
@@ -247,7 +249,9 @@ class SectionAssignmentTests(TestCase):
 
     def test_crm_hatecrime(self):
         # All hate crime goes to CRM.
-        SAMPLE_REPORT['primary_complaint'] = 'voting'
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**data)
         test_report = Report.objects.create(**SAMPLE_REPORT)
         disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
         test_report.protected_class.add(disability[0])
@@ -257,8 +261,9 @@ class SectionAssignmentTests(TestCase):
         self.assertTrue(test_report.assign_section() == 'CRM')
 
     def test_no_hatecrime_trafficking(self):
-        SAMPLE_REPORT['primary_complaint'] = 'voting'
-        test_report = Report.objects.create(**SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**data)
         disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
         test_report.protected_class.add(disability[0])
         test_report.save()
@@ -267,16 +272,18 @@ class SectionAssignmentTests(TestCase):
     def test_voting_primary_complaint(self):
         # Unless a protected class of disability is selected, reports
         # with a primary complaint of voting should be assigned to voting.
-        SAMPLE_REPORT['primary_complaint'] = 'voting'
-        test_report = Report.objects.create(**SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**data)
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'VOT')
 
     def test_voting_disability_exception(self):
         # Reports with a primary complaint of voting and protected class of disability
         # should not be assigned to voting.
-        SAMPLE_REPORT['primary_complaint'] = 'voting'
-        test_report = Report.objects.create(**SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**data)
         disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
         test_report.protected_class.add(disability[0])
         test_report.save()
@@ -285,8 +292,9 @@ class SectionAssignmentTests(TestCase):
 
     def test_workplace_primary_complaint_exception(self):
         # Workplace discrimination complaints are routed to ELS by default
-        SAMPLE_REPORT['primary_complaint'] = 'workplace'
-        test_report = Report.objects.create(**SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'workplace'
+        test_report = Report.objects.create(**data)
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'ELS')
 
@@ -319,6 +327,34 @@ class SectionAssignmentTests(TestCase):
         test_report.protected_class.add(disability[0])
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'ADM')
+
+    def test_housing_routing(self):
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'commercial_or_public'
+        test_report = Report.objects.create(**data)
+        print(SAMPLE_REPORT)
+        print(test_report.assign_section())
+        self.assertTrue(test_report.assign_section() == 'HCE')
+
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'housing'
+        test_report = Report.objects.create(**data)
+        print(SAMPLE_REPORT)
+        print(test_report.assign_section())
+        self.assertTrue(test_report.assign_section() == 'HCE')
+
+    def test_housing_excepetions(self):
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'commercial_or_public'
+        data['commercial_or_public_place'] = 'healthcare'
+        test_report = Report.objects.create(**data)
+        self.assertFalse(test_report.assign_section() == 'HCE')
+
+        test_report2 = Report.objects.create(**SAMPLE_REPORT)
+        disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
+        test_report2.protected_class.add(disability[0])
+        test_report2.save()
+        self.assertFalse(test_report.assign_section() == 'HCE')
 
 
 class Valid_CRT_Pagnation_Tests(TestCase):
