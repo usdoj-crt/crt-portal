@@ -31,6 +31,7 @@ from .model_variables import (
     POLICE_LOCATION_ERRORS,
     COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
     COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
+    PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
 )
 from .phone_regex import phone_validation_regex
 
@@ -416,6 +417,39 @@ class PoliceLocation(LocationForm):
             self.cleaned_data['correctional_facility_type'] = None
 
         return self.cleaned_data
+
+
+class EducationLocation(LocationForm):
+    class Meta:
+        model = Report
+        fields = LocationForm.Meta.fields + ['public_or_private_school']
+        widgets = LocationForm.Meta.widgets
+
+    def __init__(self, *args, **kwargs):
+        LocationForm.__init__(self, *args, **kwargs)
+
+        self.question_groups = [
+            QuestionGroup(
+                self,
+                ('public_or_private_school',),
+                group_name=_('Did this happen at a public or a private school, educational program or activity?'),
+                help_text=_('Includes schools, educational programs, or educational activities, like training programs, sports teams, clubs, or other school-sponsored activities'),
+                optional=False,
+                ally_id='education-location-help-text'
+            ),
+        ] + self.question_groups
+
+        self.fields['public_or_private_school'] = TypedChoiceField(
+            choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
+            widget=UsaRadioSelect(attrs={
+                'aria-describedby': 'education-location-help-text'
+            }),
+            label='',
+            required=True,
+            error_messages={
+                'required': _('Please select the type of school or educational program.')
+            }
+        )
 
 
 class ProtectedClassForm(ModelForm):

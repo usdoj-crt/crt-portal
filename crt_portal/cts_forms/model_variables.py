@@ -196,8 +196,8 @@ EMPLOYER_SIZE_CHOICES = (
 )
 
 PUBLIC_OR_PRIVATE_SCHOOL_CHOICES = (
-    ('public', _('Public -- Schools or programs funded by local, state, or the federal government')),
-    ('private', _('Private -- Schools or programs funded privately such as charter schools, magnet schools, or faith-based colleges')),
+    ('public', _('Public school or educational program')),
+    ('private', _('Private school or educational program')),
     ('not_sure', _('I\'m not sure')),
 )
 
