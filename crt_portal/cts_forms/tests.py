@@ -31,6 +31,7 @@ from .forms import (
     PrimaryReason,
     CommercialPublicLocation,
     EducationLocation,
+    PoliceLocation,
     When,
 )
 from .test_data import SAMPLE_REPORT
@@ -669,6 +670,40 @@ class Validation_Form_Tests(TestCase):
             'other_commercial_or_public_place': 'Home'
         })
         form = CommercialPublicLocation(data=location_data)
+        self.assertTrue(form.is_valid())
+
+    def test_correctional_facility(self):
+        location_data = {
+            'location_name': 'Street',
+            'location_city_town': 'Nome',
+            'location_state': 'AK',
+        }
+
+        location_data.update({
+            'inside_correctional_facility': ''
+        })
+        form = PoliceLocation(data=location_data)
+        self.assertFalse(form.is_valid())
+
+        location_data.update({
+            'inside_correctional_facility': 'outside'
+        })
+        form = PoliceLocation(data=location_data)
+        self.assertTrue(form.is_valid())
+
+
+        location_data.update({
+            'inside_correctional_facility': 'inside',
+            'correctional_facility_type': None
+        })
+        form = PoliceLocation(data=location_data)
+        self.assertFalse(form.is_valid())
+
+        location_data.update({
+            'inside_correctional_facility': 'inside',
+            'correctional_facility_type': 'state_local'
+        })
+        form = PoliceLocation(data=location_data)
         self.assertTrue(form.is_valid())
 
     def test_education_location(self):
