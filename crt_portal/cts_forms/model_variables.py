@@ -191,6 +191,14 @@ CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES = (
     ('not_sure', _('I\'m not sure'))
 )
 
+CORRECTIONAL_FACILITY_FRIENDLY_TEXT = {
+    'outside': _('Outside of prison'),
+    'state_local': 'Prison (State/local)',
+    'federal': _('Prison (Federal)'),
+    'private': _('Prison (Private)'),
+    'not_sure': _('Prison (I\'m not sure)'),
+}
+
 PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES = (
     ('public_employer', _('Public employer')),
     ('private_employer', _('Private employer')),

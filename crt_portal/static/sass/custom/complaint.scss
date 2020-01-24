@@ -76,5 +76,11 @@ $complaint-body-offset: calc(
       border-top: 0;
       padding-bottom: 0;
     }
+
+    tr:last-child {
+      th, td {
+        border: none;
+      }
+    }
   }
 }
