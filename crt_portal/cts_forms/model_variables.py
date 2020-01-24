@@ -162,6 +162,14 @@ COMMERCIAL_OR_PUBLIC_PLACE_CHOICES = (
     ('other', _('Other'))
 )
 
+COMMERCIAL_PUBLIC_FRIENDLY_TEXT = {
+    'place_of_worship': _('Place of worship'),
+    'store': _('Healthcare facility'),
+    'healthcare': _('Commercial'),
+    'financial': _('Financial institution'),
+    'public_space': _('Public outdoor space'),
+}
+
 COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT = {
     'place_of_worship': _('Church, synagogue, temple, religious community center'),
     'store': _('Store, restaurant, bar, hotel, theate'),
