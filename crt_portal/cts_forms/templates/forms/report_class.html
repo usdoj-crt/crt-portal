@@ -2,11 +2,12 @@
 {% load static %}
 {% block form_questions %}
 
+<div data-toggle>
 {% include 'forms/grouped_questions.html' %}
-{% with field=wizard.form.other_class %}    
-  <div id='other-class-option' class="padding-left-4">
+{% with field=wizard.form.other_class %}
+  <div class='other-class-option' class="padding-left-4">
     <div class="blue-left-highlight">
-      <div class="padding-left-2">
+      <div>
         <label for="{{ field.id_for_label }}">{{ field.help_text }}</label>
         {{ field }}
         <div class="margin-top-1">
@@ -16,7 +17,7 @@
     </div>
   </div>
 {% endwith %}
-</fieldset>
+</div>
 
 <div class="margin-bottom-5"></div>
 {% endblock %}
@@ -24,4 +25,5 @@
 {% block page_js %}
 {{ block.super }}
 <script src="{% static 'js/other_show_hide.js' %}"></script>
+<script>window.CRT.otherTextInputToggle()</script>
 {% endblock %}

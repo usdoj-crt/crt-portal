@@ -7,7 +7,7 @@ verify_ssl = true
 awscli = "*"
 
 [packages]
-django = "==2.2.8"
+django = "==2.2.9"
 gunicorn = "*"
 django-compressor = "*"
 django-compressor-toolkit = "*"
@@ -23,4 +23,4 @@ testfixtures = "*"
 django-auth-adfs = "*"
 
 [requires]
-python_version = "3.7"
+python_version = "3.8"

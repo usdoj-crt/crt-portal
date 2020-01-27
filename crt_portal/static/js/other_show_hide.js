@@ -1,26 +1,44 @@
-(function(dom) {
-  /**
-   * The index of the 'other' option on the protected class form.
-   * We target it explicitly becuase while it is currently
-   * the last element in the list of options, it might not always be
-   */
-  var OTHER_OPTION_INDEX = 13;
+(function(root, dom) {
+  root.CRT = root.CRT || {};
 
-  // Wapper element for the 'other' option checkbox
-  var otherOptionEl = dom.querySelectorAll('.usa-checkbox')[OTHER_OPTION_INDEX];
-  // The actual checkbox the user will interact with
-  var otherOptionCheckbox = otherOptionEl.querySelector('.usa-checkbox__input');
-  // Wrapper element for the short text description revealed when the 'other' option is selected
-  var otherOptionTextEl = dom.getElementById('other-class-option');
-
-  function toggleOtherOptionTextInput() {
-    if (otherOptionCheckbox.checked) {
-      otherOptionTextEl.removeAttribute('hidden');
+  function doToggle(predicate, target) {
+    if (predicate) {
+      target.removeAttribute('hidden');
     } else {
-      otherOptionTextEl.setAttribute('hidden', '');
+      target.setAttribute('hidden', '');
     }
   }
 
-  otherOptionCheckbox.addEventListener('click', toggleOtherOptionTextInput);
-  otherOptionTextEl.setAttribute('hidden', '');
-})(document);
+  root.CRT.otherTextInputToggle = function toggleTextInput(selector, index) {
+    var parentEl = dom.querySelector('[data-toggle]');
+    var selector = selector || '.usa-checkbox';
+    var options = parentEl.querySelectorAll(selector);
+    var index = index || options.length - 1;
+
+    // Wapper element for the 'other' option form control
+    var otherOptionEl = options[index];
+    // The actual checkbox or radio button the user will interact with
+    var otherOptionFormEl = otherOptionEl.querySelector('[class$="__input"]');
+    // Wrapper element for the short text description revealed when the 'other' option is selected
+    var otherOptionTextEl = parentEl.querySelector('.other-class-option');
+
+    function toggleOtherOptionTextInput(event) {
+      var target = event.target;
+
+      if (target.nodeName !== 'INPUT') {
+        return;
+      }
+
+      if (target.type === 'checkbox') {
+        doToggle(otherOptionFormEl.checked, otherOptionTextEl);
+      } else if (target.type === 'radio') {
+        doToggle(target === otherOptionFormEl, otherOptionTextEl);
+      }
+    }
+
+    parentEl.addEventListener('click', toggleOtherOptionTextInput);
+    otherOptionTextEl.setAttribute('hidden', '');
+  };
+
+  return root;
+})(window, document);

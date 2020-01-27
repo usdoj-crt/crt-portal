@@ -20,8 +20,19 @@ from .model_variables import (
     PRIMARY_COMPLAINT_CHOICES,
     PRIMARY_COMPLAINT_ERROR,
     HATE_CRIMES_TRAFFICKING_CHOICES,
+    SERVICEMEMBER_ERROR,
 )
-from .forms import Who, Details, Contact, ProtectedClassForm, LocationForm, PrimaryReason
+from .forms import (
+    Who,
+    Details,
+    Contact,
+    ProtectedClassForm,
+    LocationForm,
+    PrimaryReason,
+    CommercialPublicLocation,
+    EducationLocation,
+    When,
+)
 from .test_data import SAMPLE_REPORT
 
 
@@ -45,8 +56,6 @@ class Valid_Form_Tests(TestCase):
     def test_Details_valid(self):
         form = Details(data={
             'violation_summary': 'Hello! I have a problem. ႠႡႢ',
-            'when': 'last_6_months',
-            'how_many': 'no',
         })
         self.assertTrue(form.is_valid())
 
@@ -54,6 +63,7 @@ class Valid_Form_Tests(TestCase):
         form = Contact(data={
             'contact_first_name': 'first_name',
             'contact_last_name': 'last_name',
+            'servicemember': 'yes',
         })
         self.assertTrue(form.is_valid())
 
@@ -97,6 +107,14 @@ class Valid_Form_Tests(TestCase):
         form = PrimaryReason(data={
             'hatecrimes_trafficking': HateCrimesandTrafficking.objects.all(),
             'primary_complaint': PRIMARY_COMPLAINT_CHOICES[0][0],
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_When_vaild(self):
+        form = When(data={
+            'last_incident_year': 2019,
+            'last_incident_month': 5,
+            'last_incident_day': 5,
         })
         self.assertTrue(form.is_valid())
 
@@ -221,7 +239,9 @@ class Complaint_Show_View_Valid(TestCase):
 class SectionAssignmentTests(TestCase):
     def test_crm_humantrafficking_routing(self):
         # All human trafficking goes to CRM.
-        SAMPLE_REPORT['primary_complaint'] = 'voting'
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**data)
         test_report = Report.objects.create(**SAMPLE_REPORT)
         human_trafficking = HateCrimesandTrafficking.objects.get_or_create(hatecrimes_trafficking_option='Coerced or forced to do work or perform a commercial sex act')
         test_report.hatecrimes_trafficking.add(human_trafficking[0])
@@ -230,7 +250,9 @@ class SectionAssignmentTests(TestCase):
 
     def test_crm_hatecrime(self):
         # All hate crime goes to CRM.
-        SAMPLE_REPORT['primary_complaint'] = 'voting'
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**data)
         test_report = Report.objects.create(**SAMPLE_REPORT)
         disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
         test_report.protected_class.add(disability[0])
@@ -240,8 +262,9 @@ class SectionAssignmentTests(TestCase):
         self.assertTrue(test_report.assign_section() == 'CRM')
 
     def test_no_hatecrime_trafficking(self):
-        SAMPLE_REPORT['primary_complaint'] = 'voting'
-        test_report = Report.objects.create(**SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**data)
         disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
         test_report.protected_class.add(disability[0])
         test_report.save()
@@ -250,16 +273,18 @@ class SectionAssignmentTests(TestCase):
     def test_voting_primary_complaint(self):
         # Unless a protected class of disability is selected, reports
         # with a primary complaint of voting should be assigned to voting.
-        SAMPLE_REPORT['primary_complaint'] = 'voting'
-        test_report = Report.objects.create(**SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**data)
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'VOT')
 
     def test_voting_disability_exception(self):
         # Reports with a primary complaint of voting and protected class of disability
         # should not be assigned to voting.
-        SAMPLE_REPORT['primary_complaint'] = 'voting'
-        test_report = Report.objects.create(**SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'voting'
+        test_report = Report.objects.create(**data)
         disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
         test_report.protected_class.add(disability[0])
         test_report.save()
@@ -268,8 +293,9 @@ class SectionAssignmentTests(TestCase):
 
     def test_workplace_primary_complaint_exception(self):
         # Workplace discrimination complaints are routed to ELS by default
-        SAMPLE_REPORT['primary_complaint'] = 'workplace'
-        test_report = Report.objects.create(**SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'workplace'
+        test_report = Report.objects.create(**data)
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'ELS')
 
@@ -302,6 +328,34 @@ class SectionAssignmentTests(TestCase):
         test_report.protected_class.add(disability[0])
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'ADM')
+
+    def test_housing_routing(self):
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'commercial_or_public'
+        test_report = Report.objects.create(**data)
+        print(SAMPLE_REPORT)
+        print(test_report.assign_section())
+        self.assertTrue(test_report.assign_section() == 'HCE')
+
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'housing'
+        test_report = Report.objects.create(**data)
+        print(SAMPLE_REPORT)
+        print(test_report.assign_section())
+        self.assertTrue(test_report.assign_section() == 'HCE')
+
+    def test_housing_excepetions(self):
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'commercial_or_public'
+        data['commercial_or_public_place'] = 'healthcare'
+        test_report = Report.objects.create(**data)
+        self.assertFalse(test_report.assign_section() == 'HCE')
+
+        test_report2 = Report.objects.create(**SAMPLE_REPORT)
+        disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
+        test_report2.protected_class.add(disability[0])
+        test_report2.save()
+        self.assertFalse(test_report.assign_section() == 'HCE')
 
 
 class Valid_CRT_Pagnation_Tests(TestCase):
@@ -544,6 +598,59 @@ class Validation_Form_Tests(TestCase):
         self.assertFalse('hatecrimes_trafficking<ul class="errorlist"><li>' in str(form.errors))
         self.assertTrue(f'<ul class="errorlist"><li>{PRIMARY_COMPLAINT_ERROR}' in str(form.errors))
 
+    def test_required_servicemember(self):
+        form = Contact(data={})
+        self.assertTrue(f'<ul class="errorlist"><li>{SERVICEMEMBER_ERROR}' in str(form.errors))
+
+    def test_required_year(self):
+        form = When(data={
+            'last_incident_month': 5,
+            'last_incident_day': 5,
+        })
+        self.assertTrue(f'<ul class="errorlist"><li>Please enter a year' in str(form.errors))
+
+    def test_required_month(self):
+        form = When(data={
+            'last_incident_year': 2019,
+            'last_incident_day': 5,
+        })
+        self.assertTrue(f'<ul class="errorlist"><li>Please enter a month' in str(form.errors))
+
+    def test_NOT_required_day(self):
+        form = When(data={
+            'last_incident_year': 2019,
+            'last_incident_month': 5,
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_future_incident_date(self):
+        form = When(data={
+            'last_incident_year': 2200,
+            'last_incident_month': 5,
+            'last_incident_day': 5,
+        })
+        self.assertFalse(form.is_valid())
+
+    def test_past_incident_date(self):
+        form = When(data={
+            'last_incident_year': 20,
+            'last_incident_month': 5,
+            'last_incident_day': 5,
+        })
+        self.assertFalse(form.is_valid())
+
+    def test_commercial_public_place(self):
+        form = CommercialPublicLocation(data={
+            'commercial_or_public_space': ''
+        })
+        self.assertFalse(form.is_valid())
+
+    def test_education_location(self):
+        form = EducationLocation(data={
+            'public_or_private_school': ''
+        })
+        self.assertFalse(form.is_valid())
+
 
 class ContactValidationTests(TestCase):
     def test_non_ascii_name(self):
@@ -551,7 +658,8 @@ class ContactValidationTests(TestCase):
             'contact_first_name': '李王',
             'contact_last_name': '王-Núñez',
             'contact_email': '',
-            'contact_phone': ''
+            'contact_phone': '',
+            'servicemember': 'yes',
         })
         self.assertTrue(form.is_valid())
 
@@ -560,7 +668,8 @@ class ContactValidationTests(TestCase):
             'contact_first_name': '',
             'contact_last_name': '',
             'contact_email': 'foo@bär.com',
-            'contact_phone': ''
+            'contact_phone': '',
+            'servicemember': 'yes',
         })
         self.assertTrue(form.is_valid())
 
@@ -568,8 +677,9 @@ class ContactValidationTests(TestCase):
         form = Contact(data={
             'contact_first_name': '',
             'contact_last_name': '',
-            'contact_email': 'foo@bär.com',
-            'contact_phone': '33333333333333333333333333'
+            'contact_email': '',
+            'contact_phone': '33333333333333333333333333',
+            'servicemember': 'yes',
         })
         self.assertFalse(form.is_valid())
         self.assertEquals(
@@ -651,7 +761,7 @@ class LoginRequiredTests(TestCase):
 
     def test_view_report_details_unauthenticated(self):
         response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id}))
-        expected_response = '/accounts/login/?next=/form/%s/' % self.report.id
+        expected_response = '/accounts/login/?next=/form/view/%s/' % self.report.id
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, expected_response)
 

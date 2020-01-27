@@ -2,6 +2,13 @@
 
 from django.utils.translation import gettext_lazy as _
 
+SERVICEMEMBER_CHOICES = (
+    ('yes', _('Yes')),
+    ('no', _('No')),
+)
+
+SERVICEMEMBER_ERROR = _('Please select a status as an active duty service member.')
+
 PRIMARY_COMPLAINT_CHOICES = (
     ('workplace', _('Workplace discrimination or other employment-related problem')),
     ('housing', _('Housing discrimination or harassment')),
@@ -53,10 +60,10 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
 }
 
 ELECTION_CHOICES = (
-    ('federal', _('Federal- presidential, or congressional')),
-    ('state_local', _('State or local- Governor, state legislation, city position (mayor, council, local board)')),
-    ('both', _('Both Federal & State/local')),
-    ('unknown', _('I don’t know')),
+    ('federal', _('Federal')),
+    ('state_local', _('State or local')),
+    ('both', _('Both')),
+    ('unknown', _('I\'m not sure')),
 )
 
 HATE_CRIMES_TRAFFICKING_MODEL_CHOICES = (
@@ -146,17 +153,34 @@ SECTION_CHOICES = (
     ('VOT', _('Voting')),
 )
 
-PLACE_CHOICES = (
-    ('home', _('Home, potential home, or services to help with purchasing a home (banks, lenders, or other financial services)')),
-    ('workplace', _('Workplace or potential workplace')),
-    ('school', _('Educational institution (school, university), education program or educational activity (after school program or workshop)')),
-    ('place_of_worship', _('Place of worship')),
-    ('store', _('Retail/commercial building (store, restaurant, hotel, nightclub, theater, gym, or other commercial space)')),
-    ('public_space', _('Outdoor public space (including car, street, sidewalk, park)')),
-    ('voting', _('Voting location or ballot (including mail-in ballots)')),
-    ('healthcare', _('Healthcare facility (including mental health or long-term care)')),
-    ('incarcerated', _('Prison, jail, or juvenile corrections facility, or while otherwise incarcerated')),
-    ('government_building', _('Another government building (courthouse, DMV, post office)')),
+COMMERCIAL_OR_PUBLIC_PLACE_CHOICES = (
+    ('place_of_worship', _('Place of worship or about a place of worship')),
+    ('store', _('Commercial or retail building')),
+    ('healthcare', _('Healthcare facility')),
+    ('financial', _('Financial institution')),
+    ('public_space', _('Public space')),
+    ('other', _('Other'))
+)
+
+COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT = {
+    'place_of_worship': _('Church, synagogue, temple, religious community center'),
+    'store': _('Store, restaurant, bar, hotel, theate'),
+    'healthcare': _('Hospital or clinic (including inpatient and outpatient programs), reproductive care clinic, state developmental institution, nursing home'),
+    'financial': _('Bank, credit union, loan services'),
+    'public_space': _('Park, sidewalk, street, other public buildings (courthouse, DMV, city library)'),
+    'other': ''
+}
+
+CORRECTIONAL_FACILITY_LOCATION_CHOICES = (
+    ('outside', _('Outside a prison or correctional facility')),
+    ('inside', _('Inside a prison or correctional facility'))
+)
+
+CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES = (
+    ('state_local', _('State/local')),
+    ('federal', _('Federal')),
+    ('private', _('Private')),
+    ('not_sure', _('I\'m not sure'))
 )
 
 PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES = (
@@ -172,8 +196,8 @@ EMPLOYER_SIZE_CHOICES = (
 )
 
 PUBLIC_OR_PRIVATE_SCHOOL_CHOICES = (
-    ('public', _('Public -- Schools or programs funded by local, state, or the federal government')),
-    ('private', _('Private -- Schools or programs funded privately such as charter schools, magnet schools, or faith-based colleges')),
+    ('public', _('Public school or educational program')),
+    ('private', _('Private school or educational program')),
     ('not_sure', _('I\'m not sure')),
 )
 
@@ -199,18 +223,6 @@ RESPONDENT_TYPE_CHOICES = (
     ('school', _('Individual(s) from school or educational program (teacher, administrator, staff, or students)')),
     ('healthcare', _('Healthcare provider or staff')),
     ('lender', _('Bank or loaning service')),
-)
-
-WHEN_CHOICES = (
-    ('last_6_months', _('Within the last 6 months')),
-    ('last_3_years', _('Within the last 3 years')),
-    ('greater_than_3_years', _('More than 3 years ago')),
-)
-
-HOW_MANY_CHOICES = (
-    ('no', _('No')),
-    ('not_sure', _('I\'m not sure')),
-    ('yes', _('Yes')),
 )
 
 WHO_FOR_CHOICES = (
@@ -298,3 +310,8 @@ WHERE_ERRORS = (
     ('location_city_town', _('Please enter the city or town where this took place.')),
     ('location_state', _('Please select the state where this took place.')),
 )
+
+POLICE_LOCATION_ERRORS = {
+    'facility': _('Please select where this occurred'),
+    'facility_type': _('Please select the type of location'),
+}

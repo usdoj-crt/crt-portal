@@ -3,23 +3,34 @@
         {
           "url": "http://0.0.0.0:8000/report",
           "actions": [
-            "wait for element #id_0-contact_phone to be visible"
+            "wait for element #id_0-servicemember_1 to be visible"
           ],
-          "screenCapture": "pa11y-screenshots/page1.png"
+          "screenCapture": "pa11y-screenshots/page-1-contact.png"
         },
         {
           "url": "http://0.0.0.0:8000/report",
           "actions": [
-            "wait for element #id_0-contact_phone to be visible",
+            "wait for element #id_0-servicemember_1 to be visible",
+            "click element #submit-next",
+            "wait for element #page-errors to be visible"
+          ],
+          "screenCapture": "pa11y-screenshots/page1-error.png"
+        },
+        {
+          "url": "http://0.0.0.0:8000/report",
+          "actions": [
+            "wait for element #id_0-servicemember_1 to be visible",
+            "click element #id_0-servicemember_1",
             "click element #submit-next",
             "wait for element #id_1-primary_complaint to be visible"
           ],
-          "screenCapture": "pa11y-screenshots/page2.png"
+          "screenCapture": "pa11y-screenshots/page-2-primary-issue.png"
         },
         {
           "url": "http://0.0.0.0:8000/report",
           "actions": [
-            "wait for element #id_0-contact_phone to be visible",
+            "wait for element #id_0-servicemember_1 to be visible",
+            "click element #id_0-servicemember_1",
             "click element #submit-next",
             "wait for element #id_1-primary_complaint to be visible",
             "click element #submit-next",
@@ -30,19 +41,22 @@
         {
           "url": "http://0.0.0.0:8000/report",
           "actions": [
-            "wait for element #id_0-contact_phone to be visible",
+            "wait for element #id_0-servicemember_1 to be visible",
+            "click element #id_0-servicemember_1",
             "click element #submit-next",
             "wait for element #id_1-primary_complaint to be visible",
             "click element #id_1-primary_complaint_0",
             "click element #submit-next",
             "wait for element #id_3-location_name to be visible"
           ],
-          "screenCapture": "pa11y-screenshots/page3.png"
+          "screenCapture": "pa11y-screenshots/page-3-location.png"
         },
+
         {
           "url": "http://0.0.0.0:8000/report",
           "actions": [
-            "wait for element #id_0-contact_phone to be visible",
+            "wait for element #id_0-servicemember_1 to be visible",
+            "click element #id_0-servicemember_1",
             "click element #submit-next",
             "wait for element #id_1-primary_complaint to be visible",
             "click element #id_1-primary_complaint_0",
@@ -50,17 +64,98 @@
             "wait for element #id_3-public_or_private_employer_0 to be visible",
             "click element #id_3-public_or_private_employer_0",
             "click element #id_3-employer_size_0",
-            "wait for element #id_3-location_name to be visible",
             "set field #id_3-location_name to Store",
             "set field #id_3-location_city_town to Town",
             "set field #id_3-location_state_0 to AL",
             "click element #submit-next",
-            "wait for element #id_5-protected_class to be visible",
-            "click element #id_5-protected_class_0",
-            "click element #submit-next",
-            "wait for element #id_6-violation_summary to be visible"
+            "wait for element #id_8-protected_class_0 to be visible"
           ],
-          "screenCapture": "pa11y-screenshots/page4.png"
+          "screenCapture": "pa11y-screenshots/page-4-protected-class.png"
+        },
+        
+        {
+          "url": "http://0.0.0.0:8000/report",
+          "actions": [
+            "wait for element #id_0-servicemember_1 to be visible",
+            "click element #id_0-servicemember_1",
+            "click element #submit-next",
+            "wait for element #id_1-primary_complaint to be visible",
+            "click element #id_1-primary_complaint_0",
+            "click element #submit-next",
+            "wait for element #id_3-public_or_private_employer_0 to be visible",
+            "click element #id_3-public_or_private_employer_0",
+            "click element #id_3-employer_size_0",
+            "set field #id_3-location_name to Store",
+            "set field #id_3-location_city_town to Town",
+            "set field #id_3-location_state_0 to AL",
+            "click element #submit-next",
+            "wait for element #id_8-protected_class_0 to be visible",
+            "click element #id_8-protected_class_0",
+            "click element #submit-next",
+            "wait for element #id_9-last_incident_month to be visible"
+          ],
+          "screenCapture": "pa11y-screenshots/page-5-date.png"
+        },
+        {
+          "url": "http://0.0.0.0:8000/report",
+          "actions": [
+            "wait for element #id_0-servicemember_1 to be visible",
+            "click element #id_0-servicemember_1",
+            "click element #submit-next",
+            "wait for element #id_1-primary_complaint to be visible",
+            "click element #id_1-primary_complaint_0",
+            "click element #submit-next",
+            "wait for element #id_3-public_or_private_employer_0 to be visible",
+            "click element #id_3-public_or_private_employer_0",
+            "click element #id_3-employer_size_0",
+            "set field #id_3-location_name to Store",
+            "set field #id_3-location_city_town to Town",
+            "set field #id_3-location_state_0 to AL",
+            "click element #submit-next",
+            "wait for element #id_8-protected_class_0 to be visible",
+            "click element #id_8-protected_class_0",
+            "click element #submit-next",
+            "wait for element #id_9-last_incident_month to be visible",
+            "click element #submit-next",
+            "wait for element #page-errors to be visible",
+            "set field #id_9-last_incident_month to 1",
+            "click element #submit-next",
+            "wait for element #page-errors to be visible",
+            "set field #id_9-last_incident_year to 2021",
+            "click element #submit-next",
+            "wait for element #page-errors to be visible",
+            "set field #id_9-last_incident_year to 2019",
+            "click element #submit-next",
+            "wait for element #id_10-violation_summary to be visible"
+          ],
+          "screenCapture": "pa11y-screenshots/page5-date-error.png"
+        },
+        {
+          "url": "http://0.0.0.0:8000/report",
+          "actions": [
+            "wait for element #id_0-servicemember_1 to be visible",
+            "click element #id_0-servicemember_1",
+            "click element #submit-next",
+            "wait for element #id_1-primary_complaint to be visible",
+            "click element #id_1-primary_complaint_0",
+            "click element #submit-next",
+            "wait for element #id_3-public_or_private_employer_0 to be visible",
+            "click element #id_3-public_or_private_employer_0",
+            "click element #id_3-employer_size_0",
+            "set field #id_3-location_name to Store",
+            "set field #id_3-location_city_town to Town",
+            "set field #id_3-location_state_0 to AL",
+            "click element #submit-next",
+            "wait for element #id_8-protected_class_0 to be visible",
+            "click element #id_8-protected_class_0",
+            "click element #submit-next",
+            "wait for element #id_9-last_incident_month to be visible",
+            "set field #id_9-last_incident_month to 1",
+            "set field #id_9-last_incident_year to 2020",
+            "click element #submit-next",
+            "wait for element #id_10-violation_summary to be visible"
+          ],
+          "screenCapture": "pa11y-screenshots/page6-details.png"
         },
         {
           "useIncognitoBrowserContext": true,

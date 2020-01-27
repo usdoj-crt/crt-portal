@@ -21,8 +21,28 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 
-from cts_forms.forms import Contact, Details, PrimaryReason, LocationForm, ProtectedClassForm, ElectionLocation, WorkplaceLocation
-from cts_forms.views import CRTReportWizard, show_election_form_condition, show_location_form_condition, show_workplace_form_condition
+from cts_forms.forms import (
+    Contact,
+    Details,
+    PrimaryReason,
+    LocationForm,
+    ProtectedClassForm,
+    ElectionLocation,
+    WorkplaceLocation,
+    PoliceLocation,
+    CommercialPublicLocation,
+    EducationLocation,
+    When,
+)
+from cts_forms.views import (
+    CRTReportWizard,
+    show_election_form_condition,
+    show_location_form_condition,
+    show_workplace_form_condition,
+    show_police_form_condition,
+    show_education_form_condition,
+    show_commercial_public_form_condition,
+)
 
 
 environment = os.environ.get('ENV', 'UNDEFINED')
@@ -45,14 +65,21 @@ urlpatterns = auth + [
             PrimaryReason,
             ElectionLocation,
             WorkplaceLocation,
+            PoliceLocation,
+            CommercialPublicLocation,
+            EducationLocation,
             LocationForm,
             ProtectedClassForm,
+            When,
             Details,
         ],
         condition_dict={
             '2': show_election_form_condition,
             '3': show_workplace_form_condition,
-            '4': show_location_form_condition,
+            '4': show_police_form_condition,
+            '5': show_commercial_public_form_condition,
+            '6': show_education_form_condition,
+            '7': show_location_form_condition,
         },
     ), name='crt_report_form'),
     path('', RedirectView.as_view(pattern_name='crt_report_form', permanent=False)),

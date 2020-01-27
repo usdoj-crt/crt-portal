@@ -1,5 +1,5 @@
 # Pull base image
-FROM python:3.7
+FROM python:3.8
 
 # Set environment varibles,
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -10,6 +10,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /code
 
 # Install Python dependencies
+RUN pip install --upgrade pip
 RUN pip install pipenv
 
 COPY Pipfile Pipfile.lock /code/

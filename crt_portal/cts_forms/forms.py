@@ -1,6 +1,10 @@
+from datetime import datetime
+
+from django.core.validators import ValidationError
 from django.forms import ModelForm, CheckboxInput, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
     ModelMultipleChoiceField, MultipleChoiceField
 from django.utils.translation import gettext_lazy as _
+
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtDropdown, CrtMultiSelect
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
@@ -20,8 +24,15 @@ from .model_variables import (
     WHERE_ERRORS,
     HATE_CRIMES_TRAFFICKING_CHOICES,
     PRIMARY_COMPLAINT_ERROR,
+    SERVICEMEMBER_CHOICES,
+    SERVICEMEMBER_ERROR,
+    CORRECTIONAL_FACILITY_LOCATION_CHOICES,
+    CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+    POLICE_LOCATION_ERRORS,
+    COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
+    COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
+    PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
 )
-
 from .phone_regex import phone_validation_regex
 
 import logging
@@ -47,7 +58,7 @@ class Contact(ModelForm):
         model = Report
         fields = [
             'contact_first_name', 'contact_last_name',
-            'contact_email', 'contact_phone'
+            'contact_email', 'contact_phone', 'servicemember',
         ]
         widgets = {
             'contact_first_name': TextInput(attrs={
@@ -81,7 +92,14 @@ class Contact(ModelForm):
         self.fields['contact_last_name'].label = _('Last name')
         self.fields['contact_email'].label = _('Email address')
         self.fields['contact_phone'].label = _('Phone number')
-
+        self.fields['servicemember'] = TypedChoiceField(
+            error_messages={'required': SERVICEMEMBER_ERROR},
+            widget=UsaRadioSelect(),
+            label=_('Are you now or have ever been an active duty service member?'),
+            help_text=_('If you’re reporting on behalf of someone else, please select their status.'),
+            empty_value=None,
+            choices=SERVICEMEMBER_CHOICES,
+        )
         self.question_groups = [
             QuestionGroup(
                 self,
@@ -255,17 +273,25 @@ class ElectionLocation(LocationForm):
                 ('election_details',),
                 group_name=_('What kind of election or voting activity was this related to?'),
                 optional=False
+
             )
         ] + self.question_groups
 
         self.fields['election_details'] = TypedChoiceField(
             choices=ELECTION_CHOICES,
             empty_value=None,
-            widget=UsaRadioSelect,
+            widget=UsaRadioSelect(attrs={
+                'help_text': {
+                    'federal': _('Presidential or congressional'),
+                    'state_local': _('Governor, state legislation, city position (mayor, council, local board)'),
+                    'both': _('Federal & State/local')
+                }
+            }),
             required=True,
             error_messages={
                 'required': _('Please select the type of election or voting activity.')
-            }
+            },
+            label=''
         )
 
 
@@ -321,6 +347,111 @@ class WorkplaceLocation(LocationForm):
         )
 
 
+class CommercialPublicLocation(LocationForm):
+    class Meta:
+        model = Report
+        fields = LocationForm.Meta.fields + ['commercial_or_public_place', 'other_commercial_or_public_place']
+        widgets = LocationForm.Meta.widgets
+
+    def __init__(self, *args, **kwargs):
+        LocationForm.__init__(self, *args, **kwargs)
+
+        self.name = 'CommericalPublicLocation'
+
+        self.fields['commercial_or_public_place'] = TypedChoiceField(
+            choices=COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
+            empty_value=None,
+            widget=UsaRadioSelect(attrs={
+                'help_text': COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT
+            }),
+            required=True,
+            error_messages={
+                'required': _('Please select the type of location. If none of these apply to your situation, please select "Other".')
+            }
+        )
+
+        self.fields['other_commercial_or_public_place'].help_text = _('Please describe')
+        self.fields['other_commercial_or_public_place'].widget = TextInput(
+            attrs={'class': 'usa-input word-count-10'}
+        )
+
+
+class PoliceLocation(LocationForm):
+    class Meta:
+        model = Report
+        fields = LocationForm.Meta.fields + ['inside_correctional_facility', 'correctional_facility_type']
+        widgets = LocationForm.Meta.widgets
+
+    def __init__(self, *args, **kwargs):
+        LocationForm.__init__(self, *args, **kwargs)
+
+        self.name = 'PoliceLocation'
+
+        self.fields['inside_correctional_facility'] = TypedChoiceField(
+            choices=CORRECTIONAL_FACILITY_LOCATION_CHOICES,
+            widget=UsaRadioSelect,
+            required=True,
+            error_messages={
+                'required': POLICE_LOCATION_ERRORS['facility']
+            },
+            label=''
+        )
+
+        self.fields['correctional_facility_type'] = TypedChoiceField(
+            choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+            widget=UsaRadioSelect,
+            required=False,
+            label=''
+        )
+        self.fields['correctional_facility_type'].widget.attrs['class'] = 'margin-bottom-0 padding-bottom-0 padding-left-1'
+        self.fields['correctional_facility_type'].help_text = 'What type of prison or correctional facility?'
+
+    def clean(self):
+        inside_facility = self.cleaned_data.get('inside_correctional_facility')
+        facility_type = self.cleaned_data.get('correctional_facility_type')
+
+        if inside_facility == 'inside' and facility_type is None:
+            msg = ValidationError(POLICE_LOCATION_ERRORS['facility_type'])
+            self.add_error('correctional_facility_type', msg)
+        else:
+            self.cleaned_data['correctional_facility_type'] = None
+
+        return self.cleaned_data
+
+
+class EducationLocation(LocationForm):
+    class Meta:
+        model = Report
+        fields = LocationForm.Meta.fields + ['public_or_private_school']
+        widgets = LocationForm.Meta.widgets
+
+    def __init__(self, *args, **kwargs):
+        LocationForm.__init__(self, *args, **kwargs)
+
+        self.question_groups = [
+            QuestionGroup(
+                self,
+                ('public_or_private_school',),
+                group_name=_('Did this happen at a public or a private school, educational program or activity?'),
+                help_text=_('Includes schools, educational programs, or educational activities, like training programs, sports teams, clubs, or other school-sponsored activities'),
+                optional=False,
+                ally_id='education-location-help-text'
+            ),
+        ] + self.question_groups
+
+        self.fields['public_or_private_school'] = TypedChoiceField(
+            choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
+            widget=UsaRadioSelect(attrs={
+                'aria-describedby': 'education-location-help-text'
+            }),
+            label='',
+            required=True,
+            error_messages={
+                'required': _('Please select the type of school or educational program.')
+            }
+        )
+
+
 class ProtectedClassForm(ModelForm):
     class Meta:
         model = Report
@@ -353,6 +484,77 @@ class ProtectedClassForm(ModelForm):
                 ally_id="protected-class-help-text"
             )
         ]
+
+
+class When(ModelForm):
+    class Meta:
+        model = Report
+        fields = ['last_incident_month', 'last_incident_day', 'last_incident_year']
+        widgets = {
+            'last_incident_month': TextInput(attrs={
+                'class': 'usa-input usa-input--small',
+                'required': True,
+                'type': 'number',
+            }),
+            'last_incident_day': TextInput(attrs={
+                'class': 'usa-input usa-input--small',
+                'type': 'number',
+            }),
+            'last_incident_year': EmailInput(attrs={
+                'class': 'usa-input usa-input--medium',
+                'required': True,
+                'type': 'number',
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+
+        self.fields['last_incident_month'].label = _('Month')
+        self.fields['last_incident_month'].error_messages = {
+            'required': _('Please enter a month.'),
+        }
+        self.fields['last_incident_day'].label = _('Day')
+        self.fields['last_incident_year'].label = _('Year')
+        self.fields['last_incident_year'].error_messages = {
+            'required': _('Please enter a year.'),
+        }
+
+    def clean(self):
+        """Validating more than one field at a time can't be done in the model validation"""
+        cleaned_data = super(When, self).clean()
+
+        try:
+            year = cleaned_data['last_incident_year']
+            month = cleaned_data['last_incident_month']
+            day = cleaned_data['last_incident_day'] or 1
+            test_date = datetime(year, month, day)
+            if test_date > datetime.now():
+                self.add_error('last_incident_year', ValidationError(
+                    _('Date can not be in the future.'),
+                    params={'value': test_date.strftime('%x')},
+                ))
+            if year < 100:
+                self.add_error('last_incident_year', ValidationError(
+                    _('Please enter four digits for the year.'),
+                    params={'value': test_date.strftime('%x')},
+                ))
+            if test_date < datetime(1899, 12, 31):
+                self.add_error('last_incident_year', ValidationError(
+                    _('Please enter a year after 1900.'),
+                    params={'value': test_date.strftime('%x')},
+                ))
+        except ValueError:
+            # a bit of a catch-all for all the ways people could make bad dates
+            self.add_error('last_incident_year', ValidationError(
+                _(f'Invalid date format {month}/{day}/{year}.'),
+                params={'value': f'{month}/{day}/{year}'},
+            ))
+        except KeyError:
+            # these will be caught by the built in error validation
+            return cleaned_data
+
+        return cleaned_data
 
 
 class Who(ModelForm):
