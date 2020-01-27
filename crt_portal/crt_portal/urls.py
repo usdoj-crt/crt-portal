@@ -50,7 +50,7 @@ if environment == 'PRODUCTION':
     auth = [
         re_path('admin/login/$', RedirectView.as_view(pattern_name='login')),
         re_path('accounts/login/$', RedirectView.as_view(pattern_name='login')),
-        path('oauth2/', include('django_auth_adfs.urls', name='login')),
+        path('oauth2/', include('django_auth_adfs.urls'), name='login'),
     ]
 else:
     auth = []
