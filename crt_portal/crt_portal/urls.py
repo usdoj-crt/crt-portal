@@ -48,8 +48,8 @@ from cts_forms.views import (
 environment = os.environ.get('ENV', 'UNDEFINED')
 if environment == 'PRODUCTION':
     auth = [
-        re_path('admin/login/$', RedirectView.as_view(pattern_name='oauth2/', permanent=False)),
-        re_path('accounts/login/$', RedirectView.as_view(pattern_name='oauth2/', permanent=False)),
+        re_path('admin/login/$', RedirectView.as_view('django_auth_adfs.views.OAuth2LoginView')),
+        re_path('accounts/login/$', RedirectView.as_view('django_auth_adfs.views.OAuth2LoginView')),
         path('oauth2/', include('django_auth_adfs.urls')),
     ]
 else:
