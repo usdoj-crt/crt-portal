@@ -86,3 +86,5 @@ Upload the certificates to `sso/ca_bundle.pem` in the private bucket.
 To add sso to another environment, follow the steps above and add the AUTH_RELYING_PARTY_ID and AUTH_AUDIENCE to the relevant manifest.
 
 Make sure to update the auth settings to include the new environment.
+
+See documentation for the ADFS Django package- https://django-auth-adfs.readthedocs.io/en/latest/
