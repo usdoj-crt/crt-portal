@@ -642,7 +642,7 @@ class LoginRequiredTests(TestCase):
         """Unauthenticated attempt to view all page redirects to login page."""
         response = self.client.get(reverse('crt_forms:crt-forms-index'))
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, '/accounts/login/?next=/form/view')
+        self.assertRedirects(response, '/accounts/login/?next=/form/view/')
 
     def test_view_report_details_authenticated(self):
         self.client.login(username='DELETE_USER', password=self.test_pass)
@@ -660,7 +660,7 @@ class LoginRequiredTests(TestCase):
         self.client.login(username='DELETE_USER', password='incorrect_password')  # nosec -- this code runs in test only
         response = self.client.get(reverse('crt_forms:crt-forms-index'))
         self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, '/accounts/login/?next=/form/view')
+        self.assertRedirects(response, '/accounts/login/?next=/form/view/')
 
     def test_required_user_logging(self):
         """For compliance and good forensics, check a sample of required logging events"""
