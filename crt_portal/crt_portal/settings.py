@@ -184,8 +184,8 @@ if environment == 'PRODUCTION':
     AUTH_ADFS = {
         "SERVER": AUTH_SERVER,
         "CLIENT_ID": AUTH_CLIENT_ID,
-        "RELYING_PARTY_ID": "crt-portal-django-prod.app.cloud.gov",
-        "AUDIENCE": "microsoft:identityserver:crt-portal-django-prod.app.cloud.gov",
+        "RELYING_PARTY_ID": os.environ.get('AUTH_RELYING_PARTY_ID'),
+        "AUDIENCE": os.environ.get('AUTH_AUDIENCE'),
         "CA_BUNDLE": os.path.join(BASE_DIR, 'ca_bundle.pem'),
         "CLAIM_MAPPING": {"first_name": "givenname",
                           "last_name": "surname",

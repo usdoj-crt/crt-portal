@@ -1,2 +1,1 @@
-# sets python version in cloud.gov
 python-3.8

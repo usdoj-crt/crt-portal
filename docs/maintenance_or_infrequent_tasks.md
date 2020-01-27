@@ -34,3 +34,26 @@ See example code here: https://github.com/usdoj-crt/crt-portal/pull/209/files
     - add the new page name for the form page `to all_step_names`
     - add the top-line title for the page to `ordered_step_titles`
     - add an existing or template to the `TEMPLATES` list
+
+## Single sign on
+
+Request the set up with JMD. When they get things set up on their side, they will be able to supply:
+    AUTH_CLIENT_ID
+    AUTH_SERVER
+    AUTH_USERNAME_CLAIM
+    AUTH_GROUP_CLAIM
+
+Those variables need to be set, as well as the secret key if you already have VCAPSERVICES, you will need to update it with the following command, replacing `<value` with the correct value in double quotes.
+
+    cf uups VCAP_SERVICES -p '{"SECRET_KEY":<value>,"AUTH_CLIENT_ID":<value>,"AUTH_SERVER": <value>,"AUTH_USERNAME_CLAIM":<value>,"AUTH_GROUP_CLAIM":<value>}'
+
+JMD will also be able to provide you with a certificate bundle.
+
+If it doesn't already exist in the environment, create a private bucket called `sso-creds`. See [cloud.gov S3 documentation](https://cloud.gov/docs/services/s3/) on how to do that.
+
+Upload the certificates to `sso/ca_bundle.pem` in the private bucket.
+
+To add sso to another environment, follow the steps above and add the AUTH_RELYING_PARTY_ID and AUTH_AUDIENCE to the relevant manifest.
+
+Make sure to update the auth settings to include the new environment.
+

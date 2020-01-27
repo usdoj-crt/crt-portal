@@ -7,6 +7,8 @@ applications:
   instances: 2
   env:
     ENV: PRODUCTION
+    AUTH_RELYING_PARTY_ID: "crt-portal-django-prod.app.cloud.gov"
+    AUTH_AUDIENCE: "microsoft:identityserver:crt-portal-django-prod.app.cloud.gov"
   buildpacks:
   - python_buildpack
   services:
