@@ -83,7 +83,7 @@ INSTALLED_APPS = [
     'compressor_toolkit',
     'storages',
     'formtools',
-    'django_auth_adfs',
+    # 'django_auth_adfs' in production only
     'crequest',
 ]
 
@@ -152,12 +152,12 @@ USE_L10N = True
 
 USE_TZ = True
 
-AUTHENTICATION_BACKENDS = (
-    'django_auth_adfs.backend.AdfsAuthCodeBackend',
-)
-
 # for AUTH, probably want to add stage in the future
 if environment == 'PRODUCTION':
+    INSTALLED_APPS.append('django_auth_adfs')
+    AUTHENTICATION_BACKENDS = (
+        'django_auth_adfs.backend.AdfsAuthCodeBackend',
+    )
     AUTH_CLIENT_ID = vcap['user-provided'][0]['credentials']['AUTH_CLIENT_ID']
     AUTH_SERVER = vcap['user-provided'][0]['credentials']['AUTH_SERVER']
     AUTH_USERNAME_CLAIM = vcap['user-provided'][0]['credentials']['AUTH_USERNAME_CLAIM']
@@ -180,14 +180,13 @@ if environment == 'PRODUCTION':
     with open('ca_bundle.pem', 'wb') as DATA:
         client_sso.download_file(SSO_BUCKET, 'sso/ca_bundle.pem', 'ca_bundle.pem')
 
+    # See settings reference https://django-auth-adfs.readthedocs.io/en/latest/settings_ref.html
     AUTH_ADFS = {
         "SERVER": AUTH_SERVER,
         "CLIENT_ID": AUTH_CLIENT_ID,
         "RELYING_PARTY_ID": "crt-portal-django-prod.app.cloud.gov",
-        # Make sure to read the documentation about the AUDIENCE setting
-        # when you configured the identifier as a URL!
-        "AUDIENCE": "crt-portal-django-prod.app.cloud.gov",
-        "CA_BUNDLE": os.path.join(BASE_DIR, 'cabundle.pem'),
+        "AUDIENCE": "microsoft:identityserver:crt-portal-django-prod.app.cloud.gov",
+        "CA_BUNDLE": os.path.join(BASE_DIR, 'ca_bundle.pem'),
         "CLAIM_MAPPING": {"first_name": "givenname",
                           "last_name": "surname",
                           "email": "emailaddress"},

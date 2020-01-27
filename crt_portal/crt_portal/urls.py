@@ -28,6 +28,7 @@ from cts_forms.views import CRTReportWizard, show_election_form_condition, show_
 environment = os.environ.get('ENV', 'UNDEFINED')
 if environment == 'PRODUCTION':
     auth = [
+        path('/admin/login/', RedirectView.as_view(pattern_name='oauth2/', permanent=False)),
         path('oauth2/', include('django_auth_adfs.urls')),
     ]
 else:
