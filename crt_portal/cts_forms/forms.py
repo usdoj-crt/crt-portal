@@ -6,7 +6,7 @@ from django.forms import ModelForm, CheckboxInput, ChoiceField, TypedChoiceField
 from django.utils.translation import gettext_lazy as _
 
 from .question_group import QuestionGroup
-from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtDropdown, CrtMultiSelect
+from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtDropdown, CrtMultiSelect, ComplaintSelect
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
 from .model_variables import (
     ELECTION_CHOICES,
@@ -614,3 +614,18 @@ class Filters(ModelForm):
 
         self.fields['location_state'].label = _('State')
         self.fields['location_state'].widget.attrs['list'] = 'states'
+
+
+class ComplaintActions(ModelForm):
+    class Meta:
+        model = Report
+        fields = ['assigned_section']
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+
+        self.fields['assigned_section'] = ChoiceField(
+            widget=ComplaintSelect,
+            choices=SECTION_CHOICES,
+            required=False
+        )
