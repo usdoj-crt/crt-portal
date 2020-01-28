@@ -691,7 +691,6 @@ class Validation_Form_Tests(TestCase):
         form = PoliceLocation(data=location_data)
         self.assertTrue(form.is_valid())
 
-
         location_data.update({
             'inside_correctional_facility': 'inside',
             'correctional_facility_type': None
