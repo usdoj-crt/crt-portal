@@ -164,8 +164,8 @@ COMMERCIAL_OR_PUBLIC_PLACE_CHOICES = (
 
 COMMERCIAL_PUBLIC_FRIENDLY_TEXT = {
     'place_of_worship': _('Place of worship'),
-    'store': _('Healthcare facility'),
-    'healthcare': _('Commercial'),
+    'store': _('Commercial'),
+    'healthcare': _('Healthcare facility'),
     'financial': _('Financial institution'),
     'public_space': _('Public outdoor space'),
 }
