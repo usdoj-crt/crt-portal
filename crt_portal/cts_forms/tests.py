@@ -358,6 +358,24 @@ class SectionAssignmentTests(TestCase):
         test_report2.save()
         self.assertFalse(test_report.assign_section() == 'HCE')
 
+    def test_education_routing(self):
+        disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
+
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'education'
+        data['public_or_private_school'] = 'public'
+        test_report = Report.objects.create(**data)
+        self.assertTrue(test_report.assign_section() == 'EOS')
+
+        test_report.public_or_private_school = 'private'
+        test_report.save()
+        self.assertTrue(test_report.assign_section() == 'EOS')
+
+        test_report.protected_class.add(disability[0])
+        test_report.save()
+        self.assertFalse(test_report.assign_section() == 'EOS')
+        self.assertTrue(test_report.assign_section() == 'ADM')
+
 
 class Valid_CRT_Pagnation_Tests(TestCase):
     def setUp(self):

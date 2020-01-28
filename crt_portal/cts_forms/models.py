@@ -167,5 +167,10 @@ class Report(models.Model):
         elif self.primary_complaint == 'housing':
             if 'Disability (including temporary or recovery)' not in protected_classes:
                 return 'HCE'
+        elif self.primary_complaint == 'education':
+            if self.public_or_private_school == 'public':
+                return 'EOS'
+            elif 'Disability (including temporary or recovery)' not in protected_classes:
+                return 'EOS'
 
         return 'ADM'
