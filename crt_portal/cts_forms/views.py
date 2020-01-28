@@ -15,7 +15,7 @@ from .models import Report, ProtectedClass, HateCrimesandTrafficking
 from .model_variables import PROTECTED_CLASS_CODES, PRIMARY_COMPLAINT_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
 from .page_through import pagination
 from .filters import report_filter
-from .forms import Filters
+from .forms import Filters, ComplaintActions
 
 SORT_DESC_CHAR = '-'
 
@@ -125,6 +125,9 @@ def ShowView(request, id):
     )
 
     output = {
+        'actions': ComplaintActions(initial={
+            'assigned_section': report.assigned_section
+        }),
         'crimes': crimes,
         'data': report,
         'p_class_list': p_class_list,

@@ -18,6 +18,12 @@ class CrtDropdown(ChoiceWidget):
     template_name = '../templates/forms/widgets/crt_dropdown.html'
 
 
+class ComplaintSelect(ChoiceWidget):
+    input_type = 'select'
+    template_name = '../templates/forms/widgets/complaint_select.html'
+    option_template_name = '../templates/forms/widgets/multi_select_option.html'
+
+
 class CrtMultiSelect(SelectMultiple):
     template_name = '../templates/forms/widgets/multi_select.html'
     option_template_name = '../templates/forms/widgets/multi_select_option.html'
