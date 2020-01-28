@@ -1,4 +1,5 @@
 {% load commercial_public_space_view %}
+{% load correctional_facility_view %}
 
 <div class="complaint-card complaint-card--rounded">
   <h3 class="complaint-card-heading text-uppercase">Complaint details</h3>
@@ -35,6 +36,8 @@
             Election type (federal/local): {{ data.election_details }}
           {% elif data.commercial_or_public_place %}
             {% render_commercial_public_space_view data.commercial_or_public_place data.other_commercial_or_public_place %}
+          {% elif data.inside_correctional_facility %}
+            {% render_correctional_facility_view data.inside_correctional_facility data.correctional_facility_type %}
           {% else %}
             —
           {% endif %}
