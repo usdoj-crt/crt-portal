@@ -5,6 +5,6 @@ from .views import IndexView, ShowView
 app_name = 'crt_forms'
 
 urlpatterns = [
-    path('view', IndexView, name='crt-forms-index'),
-    path('<int:id>/', ShowView, name='crt-forms-show')
+    path('view/<int:id>/', ShowView, name='crt-forms-show'),
+    path('view/', IndexView, name='crt-forms-index'),
 ]

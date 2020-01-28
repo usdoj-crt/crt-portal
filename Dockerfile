@@ -10,6 +10,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /code
 
 # Install Python dependencies
+RUN pip install --upgrade pip
 RUN pip install pipenv
 
 COPY Pipfile Pipfile.lock /code/

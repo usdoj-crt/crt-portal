@@ -6,7 +6,7 @@ applications:
   memory: 512M
   instances: 2
   env:
-    ENV: PRODUCTION
+    ENV: STAGE
     FORM_AUTOCOMPLETE_OFF: True
   buildpacks:
   - python_buildpack

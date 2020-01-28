@@ -16,11 +16,11 @@ django-storages = "*"
 psycopg2-binary = "*"
 rcssmin = "*"
 django-formtools = "*"
-django-saml2-auth = "*"
 bandit = "*"
 flake8 = "*"
 django-crequest = "*"
 testfixtures = "*"
+django-auth-adfs = "*"
 
 [requires]
 python_version = "3.8"

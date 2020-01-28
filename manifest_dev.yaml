@@ -6,12 +6,10 @@ applications:
   memory: 512M
   instances: 1
   env:
-    ENV: PRODUCTION
+    ENV: DEVELOP
   buildpacks:
   - python_buildpack
   services:
   - crt-db
   - crt-s3
   - VCAP_SERVICES
-  env:
-    ENV: PROD

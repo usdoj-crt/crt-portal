@@ -37,7 +37,7 @@ See example code here: https://github.com/usdoj-crt/crt-portal/pull/209/files
 
 ## Debugging tips
 
-### Front end 
+### Front end
 If you are trying to figure out what variables are getting passed to the template you can add the following code in any template:
 
     <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre>
@@ -48,7 +48,7 @@ SSH into a docker image so you have local database access, (your image may have 
 
     docker exec -it crt-portal_web_1 /bin/bash
 
-get into the project directory where we can run the Django shell 
+get into the project directory where we can run the Django shell
 
     cd crt_portal
     python manage.py shell
@@ -63,5 +63,28 @@ Start typing and try out code interactively.
 
 #### pdb
 The built in python debugger is good for setting traces.
-See the [pdb documentation](https://docs.python.org/3.8/library/pdb.html) for details 
+See the [pdb documentation](https://docs.python.org/3.8/library/pdb.html) for details
 
+## Single sign on
+
+Request the set up with JMD. When they get things set up on their side, they will be able to supply:
+    AUTH_CLIENT_ID
+    AUTH_SERVER
+    AUTH_USERNAME_CLAIM
+    AUTH_GROUP_CLAIM
+
+Those variables need to be set, as well as the secret key if you already have VCAPSERVICES, you will need to update it with the following command, replacing `<value` with the correct value in double quotes.
+
+    cf uups VCAP_SERVICES -p '{"SECRET_KEY":<value>,"AUTH_CLIENT_ID":<value>,"AUTH_SERVER": <value>,"AUTH_USERNAME_CLAIM":<value>,"AUTH_GROUP_CLAIM":<value>}'
+
+JMD will also be able to provide you with a certificate bundle.
+
+If it doesn't already exist in the environment, create a private bucket called `sso-creds`. See [cloud.gov S3 documentation](https://cloud.gov/docs/services/s3/) on how to do that.
+
+Upload the certificates to `sso/ca_bundle.pem` in the private bucket.
+
+To add sso to another environment, follow the steps above and add the AUTH_RELYING_PARTY_ID and AUTH_AUDIENCE to the relevant manifest.
+
+Make sure to update the auth settings to include the new environment.
+
+See documentation for the ADFS Django package- https://django-auth-adfs.readthedocs.io/en/latest/

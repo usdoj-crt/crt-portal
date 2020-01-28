@@ -13,22 +13,21 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 import os
 import json
 
+import boto3
+
 from django.utils.log import DEFAULT_LOGGING
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# If ENV is not set explicitly, assume "PROD".
-# Note that when using Docker, ENV is set to "LOCAL" by docker-compose.yml.
-# We are using Docker for local development only.
-# We are running the testing envrionment with UNDEFINED.
-# For cloud.gov we set ENV to PRODUCTION with the manifests
+# Note that when using Docker, ENV is set to "LOCAL" by docker-compose.yml. We are using Docker for local development only.
+# We are running the testing environment with UNDEFINED.
+# For cloud.gov the ENV must be set in the manifests
 environment = os.environ.get('ENV', 'UNDEFINED')
 circle = os.environ.get('CIRCLE', False)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
-
 
 if environment != 'LOCAL':
     """ This will default to prod settings and locally, setting the env
@@ -84,7 +83,7 @@ INSTALLED_APPS = [
     'compressor_toolkit',
     'storages',
     'formtools',
-    'django_saml2_auth',
+    # 'django_auth_adfs' in production only
     'crequest',
 ]
 
@@ -153,23 +152,61 @@ USE_L10N = True
 
 USE_TZ = True
 
+# for AUTH, probably want to add stage in the future
+if environment == 'PRODUCTION':
+    INSTALLED_APPS.append('django_auth_adfs')
+    AUTHENTICATION_BACKENDS = (
+        'django_auth_adfs.backend.AdfsAuthCodeBackend',
+    )
+    AUTH_CLIENT_ID = vcap['user-provided'][0]['credentials']['AUTH_CLIENT_ID']
+    AUTH_SERVER = vcap['user-provided'][0]['credentials']['AUTH_SERVER']
+    AUTH_USERNAME_CLAIM = vcap['user-provided'][0]['credentials']['AUTH_USERNAME_CLAIM']
+    AUTH_GROUP_CLAIM = vcap['user-provided'][0]['credentials']['AUTH_GROUP_CLAIM']
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.2/howto/static-files/
+    for service in vcap['s3']:
+        if service['instance_name'] == 'sso-creds':
+            # Private AWS bucket
+            sso_creds = service["credentials"]
+
+    SSO_BUCKET = sso_creds['bucket']
+    SSO_REGION = sso_creds['region']
+    client_sso = boto3.client(
+        's3',
+        SSO_REGION,
+        aws_access_key_id=sso_creds['access_key_id'],
+        aws_secret_access_key=sso_creds['secret_access_key'],
+    )
+
+    with open('ca_bundle.pem', 'wb') as DATA:
+        client_sso.download_file(SSO_BUCKET, 'sso/ca_bundle.pem', 'ca_bundle.pem')
+
+    # See settings reference https://django-auth-adfs.readthedocs.io/en/latest/settings_ref.html
+    AUTH_ADFS = {
+        "SERVER": AUTH_SERVER,
+        "CLIENT_ID": AUTH_CLIENT_ID,
+        "RELYING_PARTY_ID": os.environ.get('AUTH_RELYING_PARTY_ID'),
+        "AUDIENCE": os.environ.get('AUTH_AUDIENCE'),
+        "CA_BUNDLE": os.path.join(BASE_DIR, 'ca_bundle.pem'),
+        "CLAIM_MAPPING": {"first_name": "givenname",
+                          "last_name": "surname",
+                          "email": "emailaddress"},
+        "USERNAME_CLAIM": AUTH_USERNAME_CLAIM,
+        "GROUP_CLAIM": AUTH_GROUP_CLAIM,
+    }
+
+    # Configure django to redirect users to the right URL for login
+    LOGIN_URL = "/oauth2/login"
+    # The url where the ADFS server calls back to our app
+    LOGIN_REDIRECT_URL = "/oauth2/callback"
 
 
 if environment != 'LOCAL':
-    # Single sign on
-    SAML2_AUTH = {
-        # Metadata is required, choose either remote url or local file path
-        # [The auto(dynamic) metadata configuration URL of SAML2]
-        'METADATA_AUTO_CONF_URL': os.environ.get('METADATA_AUTO_CONF_URL'),
-        # [The metadata configuration file path]
-        'METADATA_LOCAL_FILE_PATH': os.environ.get('METADATA_LOCAL_FILE_PATH'),
-    }
+    for service in vcap['s3']:
+        if service['instance_name'] == 'crt-s3':
+            # Public AWS S3 bucket for the app
+            s3_creds = service["credentials"]
 
-    # AWS
-    s3_creds = vcap['s3'][0]["credentials"]
+    # Public AWS S3 bucket for the app
     AWS_ACCESS_KEY_ID = s3_creds["access_key_id"]
     AWS_SECRET_ACCESS_KEY = s3_creds["secret_access_key"]
     AWS_STORAGE_BUCKET_NAME = s3_creds["bucket"]
@@ -188,6 +225,8 @@ if environment != 'LOCAL':
 else:
     STATIC_URL = '/static/'
 
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/2.2/howto/static-files/
 # This is where source assets are collect from by collect static
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 # Enable for admin storage

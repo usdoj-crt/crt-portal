@@ -13,8 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import os
+
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
@@ -43,8 +45,18 @@ from cts_forms.views import (
 )
 
 
+environment = os.environ.get('ENV', 'UNDEFINED')
+if environment == 'PRODUCTION':
+    auth = [
+        re_path('admin/login/$', RedirectView.as_view(pattern_name='login')),
+        re_path('accounts/login/$', RedirectView.as_view(pattern_name='login')),
+        path('oauth2/', include('django_auth_adfs.urls'), name='login'),
+    ]
+else:
+    auth = []
+
 # add app related urls here or in cts_forms.urls
-urlpatterns = [
+urlpatterns = auth + [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('form/', include('cts_forms.urls')),
