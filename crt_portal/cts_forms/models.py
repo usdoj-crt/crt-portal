@@ -147,6 +147,9 @@ class Report(models.Model):
 
         return True
 
+    def __is_not_disabled(self, pcs):
+        return 'Disability (including temporary or recovery)' not in pcs
+
     def assign_section(self):
         """See the SectionAssignmentTests for expected behaviors"""
         protected_classes = [n.protected_class for n in self.protected_class.all()]
@@ -154,23 +157,28 @@ class Report(models.Model):
 
         if len(hatecrimes_options) > 0:
             return 'CRM'
-        elif self.primary_complaint == 'voting' and 'Disability (including temporary or recovery)' not in protected_classes:
+        elif self.primary_complaint == 'voting' and self.__is_not_disabled(protected_classes):
             return 'VOT'
         elif self.primary_complaint == 'workplace':
             if self.__has_immigration_protected_classes(protected_classes):
                 return 'IER'
-            elif 'Disability (including temporary or recovery)' not in protected_classes:
+            elif self.__is_not_disabled(protected_classes):
                 return 'ELS'
         elif self.primary_complaint == 'commercial_or_public':
-            if ('Disability (including temporary or recovery)' not in protected_classes) and (self.commercial_or_public_place != 'healthcare'):
+            if self.commercial_or_public_place == 'healthcare' and self.__is_not_disabled(protected_classes):
+                return 'SPL'
+            else:
                 return 'HCE'
         elif self.primary_complaint == 'housing':
-            if 'Disability (including temporary or recovery)' not in protected_classes:
+            if self.__is_not_disabled(protected_classes):
                 return 'HCE'
         elif self.primary_complaint == 'education':
             if self.public_or_private_school == 'public':
                 return 'EOS'
-            elif 'Disability (including temporary or recovery)' not in protected_classes:
+            elif self.__is_not_disabled(protected_classes):
                 return 'EOS'
+        elif self.primary_complaint == 'police':
+            if self.__is_not_disabled(protected_classes) and self.inside_correctional_facility == 'inside':
+                return 'SPL'
 
         return 'ADM'
