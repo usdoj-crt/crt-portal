@@ -1,3 +1,5 @@
+{% load commercial_public_space_view %}
+
 <div class="complaint-card complaint-card--rounded">
   <h3 class="complaint-card-heading text-uppercase">Complaint details</h3>
   <table class="usa-table usa-table--borderless complaint-card-table">
@@ -31,6 +33,8 @@
         <td>
           {% if data.election_details %}
             Election type (federal/local): {{ data.election_details }}
+          {% elif data.commercial_or_public_place %}
+            {% render_commercial_public_space_view data.commercial_or_public_place data.other_commercial_or_public_place %}
           {% else %}
             —
           {% endif %}

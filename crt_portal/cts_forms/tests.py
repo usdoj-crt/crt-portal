@@ -640,10 +640,36 @@ class Validation_Form_Tests(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_commercial_public_place(self):
-        form = CommercialPublicLocation(data={
-            'commercial_or_public_space': ''
+        location_data = {
+            'location_name': 'Street',
+            'location_city_town': 'Nome',
+            'location_state': 'AK',
+        }
+
+        location_data.update({
+            'commercial_or_public_place': '',
         })
+        form = CommercialPublicLocation(data=location_data)
         self.assertFalse(form.is_valid())
+
+        location_data.update({
+            'commercial_or_public_place': 'place_of_worship',
+        })
+        form = CommercialPublicLocation(data=location_data)
+        self.assertTrue(form.is_valid())
+
+        location_data.update({
+            'commercial_or_public_place': 'other',
+            'other_commercial_or_public_place': None
+        })
+        form = CommercialPublicLocation(data=location_data)
+        self.assertTrue(form.is_valid())
+
+        location_data.update({
+            'other_commercial_or_public_place': 'Home'
+        })
+        form = CommercialPublicLocation(data=location_data)
+        self.assertTrue(form.is_valid())
 
     def test_education_location(self):
         form = EducationLocation(data={
