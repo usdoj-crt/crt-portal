@@ -376,6 +376,39 @@ class SectionAssignmentTests(TestCase):
         self.assertFalse(test_report.assign_section() == 'EOS')
         self.assertTrue(test_report.assign_section() == 'ADM')
 
+    def test_SPL_routing(self):
+        disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
+
+        # Test if law enforcement and inside a prison
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'police'
+        data['inside_correctional_facility'] = 'inside'
+        test_report = Report.objects.create(**data)
+        self.assertTrue(test_report.assign_section() == 'SPL')
+
+        test_report.protected_class.add(disability[0])
+        test_report.save()
+        self.assertTrue(test_report.assign_section() != 'SPL')
+
+        test_report.protected_class.remove(disability[0])
+        test_report.inside_correctional_facility = 'outside'
+        test_report.save()
+        self.assertTrue(test_report.assign_section() == 'ADM')
+
+        test_report.primary_complaint = 'commercial_or_public'
+        test_report.commercial_or_public_place = 'healthcare'
+        test_report.save()
+        self.assertTrue(test_report.assign_section() == 'SPL')
+
+        test_report.protected_class.add(disability[0])
+        test_report.save()
+        self.assertTrue(test_report.assign_section() == 'HCE')
+
+        test_report.protected_class.remove(disability[0])
+        test_report.commercial_or_public_place = 'other'
+        test_report.save()
+        self.assertTrue(test_report.assign_section() == 'HCE')
+
 
 class Valid_CRT_Pagnation_Tests(TestCase):
     def setUp(self):
