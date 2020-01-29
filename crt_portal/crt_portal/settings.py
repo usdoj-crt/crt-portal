@@ -158,6 +158,8 @@ if environment == 'PRODUCTION':
     AUTHENTICATION_BACKENDS = (
         'django_auth_adfs.backend.AdfsAuthCodeBackend',
     )
+    MIDDLEWARE.append('django_auth_adfs.middleware.LoginRequiredMiddleware')
+
     AUTH_CLIENT_ID = vcap['user-provided'][0]['credentials']['AUTH_CLIENT_ID']
     AUTH_SERVER = vcap['user-provided'][0]['credentials']['AUTH_SERVER']
     AUTH_USERNAME_CLAIM = vcap['user-provided'][0]['credentials']['AUTH_USERNAME_CLAIM']
