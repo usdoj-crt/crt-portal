@@ -38,6 +38,8 @@
             {% render_commercial_public_space_view data.commercial_or_public_place data.other_commercial_or_public_place %}
           {% elif data.inside_correctional_facility %}
             {% render_correctional_facility_view data.inside_correctional_facility data.correctional_facility_type %}
+          {% elif data.public_or_private_school %}
+            School type: {% if data.public_or_private_school == 'not_sure' %} Not sure {% else %} {{ data.public_or_private_school|title }} {% endif %}
           {% else %}
             —
           {% endif %}
