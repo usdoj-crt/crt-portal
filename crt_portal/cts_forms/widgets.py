@@ -23,6 +23,25 @@ class ComplaintSelect(ChoiceWidget):
     template_name = '../templates/forms/widgets/complaint_select.html'
     option_template_name = '../templates/forms/widgets/multi_select_option.html'
 
+    def __init__(self, *args, **kwargs):
+        label = kwargs.pop('label', None)
+
+        ChoiceWidget.__init__(self, *args, **kwargs)
+
+        self.label = label
+
+    def label_for_widget(self):
+        return self.label
+
+    def render(self, name, value, attrs=None, renderer=None):
+        extra_context = {
+            'label': self.label_for_widget()
+        }
+        context = self.get_context(name, value, attrs)
+        context.update(extra_context)
+
+        return self._render(self.template_name, context, renderer)
+
 
 class CrtMultiSelect(SelectMultiple):
     template_name = '../templates/forms/widgets/multi_select.html'
