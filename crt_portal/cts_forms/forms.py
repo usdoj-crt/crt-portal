@@ -601,7 +601,9 @@ class Filters(ModelForm):
 
         self.fields['assigned_section'] = MultipleChoiceField(
             choices=SECTION_CHOICES,
-            widget=CrtMultiSelect,
+            widget=CrtMultiSelect(attrs={
+                'classes': 'text-uppercase'
+            }),
             required=False
         )
         self.fields['location_state'] = ChoiceField(
@@ -628,26 +630,15 @@ class ComplaintActions(ModelForm):
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['assigned_section'] = ChoiceField(
-            widget=ComplaintSelect,
+            widget=ComplaintSelect(label='Section', attrs={
+                'classes': 'text-uppercase'
+            }),
             choices=SECTION_CHOICES,
             required=False
         )
 
         self.fields['status'] = ChoiceField(
             widget=ComplaintSelect(label='Status'),
-            choices=self.__format_status_choices(),
+            choices=STATUS_CHOICES,
             required=False
         )
-
-        self.fields['assigned_section'].widget.label = 'Section'
-        self.fields['status'].widget.label = 'Status'
-
-    def __format_status_choices(self):
-        formatted_status_choices = ()
-
-        for name, choice in STATUS_CHOICES:
-            print(name, choice)
-            formatted_choice = (name.capitalize(), choice)
-            formatted_status_choices = formatted_status_choices + (formatted_choice, )
-
-        return formatted_status_choices
