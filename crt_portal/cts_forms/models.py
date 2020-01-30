@@ -180,5 +180,7 @@ class Report(models.Model):
         elif self.primary_complaint == 'police':
             if self.__is_not_disabled(protected_classes) and self.inside_correctional_facility == 'inside':
                 return 'SPL'
+            if self.__is_not_disabled(protected_classes) and self.inside_correctional_facility == 'outside':
+                return 'CRM'
 
         return 'ADM'
