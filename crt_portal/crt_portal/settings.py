@@ -194,6 +194,10 @@ if environment == 'PRODUCTION':
                           "email": "emailaddress"},
         "USERNAME_CLAIM": AUTH_USERNAME_CLAIM,
         "GROUP_CLAIM": AUTH_GROUP_CLAIM,
+        'LOGIN_EXEMPT_URLS': [
+            '/',
+            'report/',
+        ],
     }
 
     # Configure django to redirect users to the right URL for login
