@@ -157,30 +157,47 @@ class Report(models.Model):
 
         if len(hatecrimes_options) > 0:
             return 'CRM'
-        elif self.primary_complaint == 'voting' and self.__is_not_disabled(protected_classes):
-            return 'VOT'
+
+        elif self.primary_complaint == 'voting':
+            if self.__is_not_disabled(protected_classes):
+                return 'VOT'
+            else:
+                return 'DRS'
+
         elif self.primary_complaint == 'workplace':
             if self.__has_immigration_protected_classes(protected_classes):
                 return 'IER'
-            elif self.__is_not_disabled(protected_classes):
+            else:
                 return 'ELS'
+
         elif self.primary_complaint == 'commercial_or_public':
             if self.commercial_or_public_place == 'healthcare' and self.__is_not_disabled(protected_classes):
                 return 'SPL'
+            elif self.commercial_or_public_place == 'healthcare' and not self.__is_not_disabled(protected_classes):
+                return 'DRS'
             else:
                 return 'HCE'
+
         elif self.primary_complaint == 'housing':
-            if self.__is_not_disabled(protected_classes):
-                return 'HCE'
+            return 'HCE'
+
         elif self.primary_complaint == 'education':
             if self.public_or_private_school == 'public':
                 return 'EOS'
             elif self.__is_not_disabled(protected_classes):
                 return 'EOS'
+            elif self.public_or_private_school == 'private'and not self.__is_not_disabled(protected_classes):
+                return 'DRS'
+
         elif self.primary_complaint == 'police':
             if self.__is_not_disabled(protected_classes) and self.inside_correctional_facility == 'inside':
                 return 'SPL'
-            if self.__is_not_disabled(protected_classes) and self.inside_correctional_facility == 'outside':
+            elif self.__is_not_disabled(protected_classes) and self.inside_correctional_facility == 'outside':
                 return 'CRM'
+            else:
+                return 'DRS'
+
+        elif self.primary_complaint == 'something_else' and not self.__is_not_disabled(protected_classes):
+            return 'DRS'
 
         return 'ADM'
