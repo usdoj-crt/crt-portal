@@ -16,11 +16,6 @@ class Migration(migrations.Migration):
             field=models.CharField(default='anonymous', max_length=1000),
             preserve_default=False,
         ),
-        migrations.AddField(
-            model_name='report',
-            name='internal_comments',
-            field=models.ManyToManyField(blank=True, null=True, to='cts_forms.InternalHistory'),
-        ),
         migrations.AlterField(
             model_name='internalhistory',
             name='note',
