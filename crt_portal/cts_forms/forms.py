@@ -32,6 +32,7 @@ from .model_variables import (
     COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
     COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
     PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
+    STATUS_CHOICES,
 )
 from .phone_regex import phone_validation_regex
 
@@ -600,7 +601,9 @@ class Filters(ModelForm):
 
         self.fields['assigned_section'] = MultipleChoiceField(
             choices=SECTION_CHOICES,
-            widget=CrtMultiSelect,
+            widget=CrtMultiSelect(attrs={
+                'classes': 'text-uppercase'
+            }),
             required=False
         )
         self.fields['location_state'] = ChoiceField(
@@ -621,13 +624,21 @@ class Filters(ModelForm):
 class ComplaintActions(ModelForm):
     class Meta:
         model = Report
-        fields = ['assigned_section']
+        fields = ['assigned_section', 'status']
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['assigned_section'] = ChoiceField(
-            widget=ComplaintSelect,
+            widget=ComplaintSelect(label='Section', attrs={
+                'classes': 'text-uppercase'
+            }),
             choices=SECTION_CHOICES,
+            required=False
+        )
+
+        self.fields['status'] = ChoiceField(
+            widget=ComplaintSelect(label='Status'),
+            choices=STATUS_CHOICES,
             required=False
         )

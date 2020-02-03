@@ -1,13 +1,13 @@
 import urllib.parse
 import os
 
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.utils.translation import gettext_lazy as _
+from django.utils.decorators import method_decorator
 from django.http import Http404
-from django.core import serializers
-from django.conf import settings
+from django.views.generic import View
 
 from formtools.wizard.views import SessionWizardView
 
@@ -89,7 +89,7 @@ def IndexView(request):
         data.append({
             "report": report,
             "report_protected_classes": p_class_list,
-            "url": f'{report.id}/?next={all_args_encoded}'
+            "url": f'{report.id}?next={all_args_encoded}'
         })
 
     final_data = {
@@ -105,42 +105,64 @@ def IndexView(request):
     return render_to_response('forms/complaint_view/index/index.html', final_data)
 
 
-@login_required
-def ShowView(request, id):
-    report = get_object_or_404(Report.objects, id=id)
-    primary_complaint = [choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint]
-    crimes = {
-        'physical_harm': False,
-        'trafficking': False
-    }
+class ShowView(View):
+    def __serialize_data(self, request, report_id):
+        report = get_object_or_404(Report.objects, id=report_id)
+        primary_complaint = [choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint]
+        crimes = {
+            'physical_harm': False,
+            'trafficking': False
+        }
 
-    for crime in report.hatecrimes_trafficking.all():
-        for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
-            if crime.hatecrimes_trafficking_option == choice[1]:
-                crimes[choice[0]] = True
+        for crime in report.hatecrimes_trafficking.all():
+            for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
+                if crime.hatecrimes_trafficking_option == choice[1]:
+                    crimes[choice[0]] = True
 
-    p_class_list = format_protected_class(
-        report.protected_class.all().order_by('form_order'),
-        report.other_class,
-    )
+        p_class_list = format_protected_class(
+            report.protected_class.all().order_by('form_order'),
+            report.other_class,
+        )
 
-    output = {
-        'actions': ComplaintActions(initial={
-            'assigned_section': report.assigned_section
-        }),
-        'crimes': crimes,
-        'data': report,
-        'p_class_list': p_class_list,
-        'primary_complaint': primary_complaint,
-        'return_url_args': request.GET.get('next', ''),
-    }
+        output = {
+            'actions': ComplaintActions(initial={
+                'assigned_section': report.assigned_section,
+                'status': report.status
+            }),
+            'crimes': crimes,
+            'data': report,
+            'p_class_list': p_class_list,
+            'primary_complaint': primary_complaint,
+            'return_url_args': request.GET.get('next', ''),
+        }
 
-    if settings.DEBUG:
+        return output
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def get(self, request, id):
+        output = self.__serialize_data(request, id)
+
+        return render(request, 'forms/complaint_view/show/index.html', output)
+
+    def post(self, request, id):
+        record = Report.objects.filter(id=id)
+        print(request.POST.get('next'))
+        updates = {}
+        for key, value in request.POST.items():
+            if key != 'csrfmiddlewaretoken' and key != 'next':
+                updates[key] = value
+
+        record.update(**updates)
+
+        output = self.__serialize_data(request, id)
         output.update({
-            'debug_data': serializers.serialize('json', [report, ])
+            'return_url_args': request.POST.get('next', ''),
         })
 
-    return render_to_response('forms/complaint_view/show/index.html', output)
+        return render(request, 'forms/complaint_view/show/index.html', output)
 
 
 TEMPLATES = [
