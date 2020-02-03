@@ -11,7 +11,7 @@
       {% render_sortable_heading 'Contact Details' sort_state filter_state %}
       {% render_sortable_heading 'Incident Location' sort_state filter_state %}
       {% render_sortable_heading 'Summary' sort_state filter_state %}
-      {% render_sortable_heading 'Class' sort_state filter_state %}
+      {% render_sortable_heading 'Incident Date' sort_state filter_state %}
     </tr>
   </thead>
   {% if data_dict %}
@@ -60,15 +60,10 @@
             {% endwith %}
           </a>
         </td>
+
         <td>
           <a class="td-link display-block" href="{{datum.url}}">
-            {% for protected_class in datum.report_protected_classes %}
-                {% if not forloop.last %}
-                  {{ protected_class|truncatechars:50 }},<br>
-                {% else %}
-                  {{ protected_class|truncatechars:50 }}
-                {% endif %}
-            {% endfor %}
+            {{ datum.report.last_incident_month }}/{% if datum.report.last_incident_day %}{{datum.report.last_incident_day}}/{% endif %}{{ datum.report.last_incident_year }}
           </a>
         </td>
       </tr>
