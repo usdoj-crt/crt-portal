@@ -7,8 +7,6 @@ from django.core.paginator import Paginator
 from django.utils.translation import gettext_lazy as _
 from django.utils.decorators import method_decorator
 from django.http import Http404
-from django.core import serializers
-from django.conf import settings
 from django.views.generic import View
 
 from formtools.wizard.views import SessionWizardView
@@ -91,7 +89,7 @@ def IndexView(request):
         data.append({
             "report": report,
             "report_protected_classes": p_class_list,
-            "url": f'{report.id}/?next={all_args_encoded}'
+            "url": f'{report.id}?next={all_args_encoded}'
         })
 
     final_data = {
@@ -138,11 +136,6 @@ class ShowView(View):
             'return_url_args': request.GET.get('next', ''),
         }
 
-        if settings.DEBUG:
-            output.update({
-                'debug_data': serializers.serialize('json', [report, ])
-            })
-
         return output
 
     @method_decorator(login_required)
@@ -156,15 +149,19 @@ class ShowView(View):
 
     def post(self, request, id):
         record = Report.objects.filter(id=id)
-
+        print(request.POST.get('next'))
         updates = {}
         for key, value in request.POST.items():
-            if key != 'csrfmiddlewaretoken':
+            if key != 'csrfmiddlewaretoken' and key != 'next':
                 updates[key] = value
 
         record.update(**updates)
 
         output = self.__serialize_data(request, id)
+        output.update({
+            'return_url_args': request.POST.get('next', ''),
+        })
+
         return render(request, 'forms/complaint_view/show/index.html', output)
 
 

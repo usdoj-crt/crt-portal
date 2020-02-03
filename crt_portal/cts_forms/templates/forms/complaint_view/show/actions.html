@@ -9,6 +9,7 @@
     {% csrf_token %}
     <fieldset class="usa-fieldset usa-prose">
       <legend class="usa-sr-only">Complaint detail view actions</legend>
+      <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
       <div class="margin-bottom-2">
         {{ actions.assigned_section }}
       </div>
