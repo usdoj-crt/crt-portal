@@ -415,13 +415,13 @@ class SectionAssignmentTests(TestCase):
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'HCE')
 
-    def DRS_routing():
+    def DRS_routing(self):
         disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
 
         school_data = copy.deepcopy(SAMPLE_REPORT)
         school_data['primary_complaint'] = 'education'
         school_data['public_or_private_school'] = 'private'
-        test_report = Report.objects.create(**data)
+        test_report = Report.objects.create(**school_data)
         test_report.add.protected_class.add(disability[0])
         self.assertTrue(test_report.assign_section() == 'DRS')
 
