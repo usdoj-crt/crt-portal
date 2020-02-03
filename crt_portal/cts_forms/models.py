@@ -182,7 +182,7 @@ class Report(models.Model):
             return 'HCE'
 
         elif self.primary_complaint == 'education':
-            if self.public_or_private_school == 'public':
+            if self.public_or_private_school == 'public' or self.public_or_private_school == 'not_sure':
                 return 'EOS'
             elif self.__is_not_disabled(protected_classes):
                 return 'EOS'
