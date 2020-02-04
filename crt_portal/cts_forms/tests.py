@@ -143,6 +143,8 @@ class Valid_CRT_view_Tests(TestCase):
         self.user.delete()
 
     def test_incident_date(self):
+        print(self.content)
+        print(self.test_report.last_incident_day)
         self.assertTrue('1/1/2020' in self.content)
 
     def test_first_name(self):
