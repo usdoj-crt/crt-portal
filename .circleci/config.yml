@@ -268,7 +268,7 @@ workflows:
       - deploy-dev:
           requires:
             - owasp-scan-dev
-            - build_and_test
+            # - build_and_test
           filters:
             branches:
               only: add-passive-owasp-scans
