@@ -14,7 +14,6 @@ from .models import ProtectedClass, Report, HateCrimesandTrafficking
 from .model_variables import (
     PROTECTED_CLASS_CHOICES,
     PROTECTED_CLASS_ERROR,
-    PROTECTED_CLASS_CODES,
     VIOLATION_SUMMARY_ERROR,
     WHERE_ERRORS,
     PRIMARY_COMPLAINT_CHOICES,
@@ -125,6 +124,9 @@ class Valid_CRT_view_Tests(TestCase):
         for choice in PROTECTED_CLASS_CHOICES:
             ProtectedClass.objects.get_or_create(protected_class=choice)
         test_report = Report.objects.create(**SAMPLE_REPORT)
+        test_report.last_incident_day = '1'
+        test_report.last_incident_month = '1'
+        test_report.last_incident_year = '2020'
         self.protected_example = ProtectedClass.objects.get(protected_class=PROTECTED_CLASS_CHOICES[0])
         test_report.protected_class.add(self.protected_example)
         test_report.save()
@@ -140,12 +142,10 @@ class Valid_CRT_view_Tests(TestCase):
     def tearDown(self):
         self.user.delete()
 
-    def test_other_class(self):
-        self.assertTrue('test other' in self.content)
-
-    def test_class(self):
-        # uses the short hand code for display
-        self.assertTrue(PROTECTED_CLASS_CODES.get(self.protected_example.protected_class) in self.content)
+    def test_incident_date(self):
+        print(self.content)
+        print(self.test_report.last_incident_day)
+        self.assertTrue('1/1/2020' in self.content)
 
     def test_first_name(self):
         self.assertTrue(self.test_report.contact_first_name in self.content)
