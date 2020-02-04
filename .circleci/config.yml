@@ -78,33 +78,18 @@ jobs:
           path: /tmp/test-results
 # owasp scans on live sties
   owasp-scan-dev:
-    - run:
-          name: Pull owasp zap docker image
-          command: docker pull owasp/zap2docker-weekly
-    - run:
-          name: Run passive scan on dev
-          command: |
-            owasp/zap2docker-weekly zap-full-scan.py -t \
-            https://crt-portal-django-dev.app.cloud.gov/report/
-  # owasp-scan-stage:
-  #   - run:
-  #         name: Pull owasp zap docker image
-  #         command: docker pull owasp/zap2docker-weekly
-  #   - run:
-  #         name: Run passive scan on stage
-  #         command: |
-  #           zap-full-scan.py -t \
-  #           https://crt-portal-django-stage.app.cloud.gov/report/
-  # owasp-scan-prod:
-  #   - run:
-  #         name: Pull owasp zap docker image
-  #         command: docker pull owasp/zap2docker-weekly
-  #   - run:
-  #         name: Run passive scan on prod
-  #         command: |
-  #           zap-full-scan.py -t \
-  #           https://crt-portal-django-prod.app.cloud.gov/report/
-
+    machine:
+      image: circleci/classic:latest
+    steps:
+      - checkout
+      - run:
+            name: Pull owasp zap docker image
+            command: docker pull owasp/zap2docker-weekly
+      - run:
+            name: Run passive scan on dev
+            command: |
+              owasp/zap2docker-weekly zap-full-scan.py -t \
+              https://crt-portal-django-dev.app.cloud.gov/report/
 # deployments
   deploy-dev:
     working_directory: ~/code
