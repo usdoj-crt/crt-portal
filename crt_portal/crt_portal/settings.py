@@ -205,6 +205,9 @@ if environment == 'PRODUCTION':
     # The url where the ADFS server calls back to our app
     LOGIN_REDIRECT_URL = "/oauth2/callback"
 
+if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
+    SESSION_COOKIE_SECURE = True
+
 
 if environment != 'LOCAL':
     for service in vcap['s3']:
