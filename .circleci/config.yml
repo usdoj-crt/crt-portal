@@ -264,6 +264,7 @@ workflows:
   build-test-deploy:
     jobs:
       - build_and_test
+      - owasp-scan-dev
 
       - deploy-dev:
           requires:
