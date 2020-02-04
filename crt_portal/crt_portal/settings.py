@@ -207,7 +207,10 @@ if environment == 'PRODUCTION':
     LOGIN_REDIRECT_URL = "/oauth2/callback"
 
 if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
+    # headers required for security
     SESSION_COOKIE_SECURE = True
+    # If this is set to True, client-side JavaScript will not be able to access the language cookie.
+    SESSION_COOKIE_HTTPONLY = True
 
 
 if environment != 'LOCAL':
