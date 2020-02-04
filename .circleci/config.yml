@@ -88,8 +88,8 @@ jobs:
       - run:
             name: Run passive scan on dev
             command: |
-              docker run -t \
-              owasp/zap2docker-weekly zap-full-scan.py -t \
+              docker run -u zap \
+              -i owasp/zap2docker-stable zap-full-scan.py -t \
               https://crt-portal-django-dev.app.cloud.gov/report/
 # deployments
   deploy-dev:
