@@ -76,7 +76,36 @@ jobs:
           command: npm run lint:check
       - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: /tmp/test-results
+# owasp scans on live sties
+  owasp-scan-dev:
+    - run:
+          name: Pull owasp zap docker image
+          command: docker pull owasp/zap2docker-weekly
+    - run:
+          name: Run passive scan on dev
+          command: |
+            owasp/zap2docker-weekly zap-full-scan.py -t \
+            https://crt-portal-django-dev.app.cloud.gov/report/
+  # owasp-scan-stage:
+  #   - run:
+  #         name: Pull owasp zap docker image
+  #         command: docker pull owasp/zap2docker-weekly
+  #   - run:
+  #         name: Run passive scan on stage
+  #         command: |
+  #           zap-full-scan.py -t \
+  #           https://crt-portal-django-stage.app.cloud.gov/report/
+  # owasp-scan-prod:
+  #   - run:
+  #         name: Pull owasp zap docker image
+  #         command: docker pull owasp/zap2docker-weekly
+  #   - run:
+  #         name: Run passive scan on prod
+  #         command: |
+  #           zap-full-scan.py -t \
+  #           https://crt-portal-django-prod.app.cloud.gov/report/
 
+# deployments
   deploy-dev:
     working_directory: ~/code
     docker:
@@ -249,16 +278,21 @@ workflows:
   build-test-deploy:
     jobs:
       - build_and_test
+      - owasp-scan-dev
 
       - deploy-dev:
           requires:
+            - owasp-scan-dev
             - build_and_test
           filters:
             branches:
-              only: develop
+              only: add-passive-owasp-scans
+              # DO NOT MERGE this is for testing
+              # only: develop
 
       - deploy-stage:
           requires:
+            - owasp-scan-dev
             - build_and_test
           filters:
             branches:
