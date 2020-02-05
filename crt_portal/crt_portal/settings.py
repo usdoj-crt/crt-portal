@@ -212,6 +212,7 @@ SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
 # see settings options https://django-csp.readthedocs.io/en/latest/configuration.html#configuration-chapter
 CSP_DEFAULT_SRC = ("'self'")
+SESSION_COOKIE_SAMESITE = 'Strict'
 
 if environment != 'LOCAL':
     for service in vcap['s3']:
