@@ -96,6 +96,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'crequest.middleware.CrequestMiddleware',
+    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'crt_portal.urls'
@@ -205,13 +206,12 @@ if environment == 'PRODUCTION':
     # The url where the ADFS server calls back to our app
     LOGIN_REDIRECT_URL = "/oauth2/callback"
 
-
-if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
-    # headers required for security
-    SESSION_COOKIE_SECURE = True
-    # If this is set to True, client-side JavaScript will not be able to access the language cookie.
-    SESSION_COOKIE_HTTPONLY = True
-
+# headers required for security
+SESSION_COOKIE_SECURE = True
+# If this is set to True, client-side JavaScript will not be able to access the language cookie.
+SESSION_COOKIE_HTTPONLY = True
+# see settings options https://django-csp.readthedocs.io/en/latest/configuration.html#configuration-chapter
+CSP_DEFAULT_SRC = ("'self'")
 
 if environment != 'LOCAL':
     for service in vcap['s3']:
@@ -235,6 +235,7 @@ if environment != 'LOCAL':
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_DEFAULT_ACL = 'public-read'
+    CSP_DEFAULT_SRC = ("'self'", STATIC_URL)
 else:
     STATIC_URL = '/static/'
 

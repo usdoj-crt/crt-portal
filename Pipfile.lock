@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "a5a19104bcf25b6a2ef12d1410e950ae65e14a2addca421a5c9661620eed4c5c"
+            "sha256": "958f42b2930bfd60f088ef0686cfeeb4b3fc47343c633bf30c4a12e11a160035"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -26,18 +26,18 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:05f7ae180813fbf11cb7397b43b6bd29463abdc246bee58127836f1a8f6a9a2f",
-                "sha256:3480c87b530e7f41d9264a6725dda68208de2697822cf02cd3a541b001872410"
+                "sha256:25e6af364243673bacfe4bd422582f4a891e02ae433e266b03de6a6bfdd63d51",
+                "sha256:4ba878e6ea38d3821b571e29018e00f8a9ddab2678dd59433b1ecda331cf9aa6"
             ],
             "index": "pypi",
-            "version": "==1.11.9"
+            "version": "==1.11.11"
         },
         "botocore": {
             "hashes": [
-                "sha256:1909424c9544f92142c8e551888731e32a99f9c99cfe8d21fea3ec0c32981dae",
-                "sha256:e3e3c0f59dc30c86dd2116aece3bd554f8476446cf1c5770bbf5111993d676c8"
+                "sha256:5ad6f4b80f3151fc5aa940f89fb6bf2db3064bf8d3f8919f5b60f5c741054ba5",
+                "sha256:ac783a87bd90be8a4d08101bfc0d29a4b35fe0ced387f5c8bc91d01cdaa7a168"
             ],
-            "version": "==1.14.9"
+            "version": "==1.14.11"
         },
         "certifi": {
             "hashes": [
@@ -162,6 +162,14 @@
             "index": "pypi",
             "version": "==2018.5.11"
         },
+        "django-csp": {
+            "hashes": [
+                "sha256:0a38aa9618c675cbf5f5e517e20d5846a3e100ef7b307e32e7fb18c58aa47723",
+                "sha256:d9ee5a8c6442aa54854e8de627c2826786208ed38fb4ea8ced08c42332673eb1"
+            ],
+            "index": "pypi",
+            "version": "==3.6"
+        },
         "django-formtools": {
             "hashes": [
                 "sha256:304fa777b8ef9e0693ce7833f885cb89ba46b0e46fc23b01176900a93f46742f",
@@ -172,11 +180,11 @@
         },
         "django-storages": {
             "hashes": [
-                "sha256:0a9b7e620e969fb0797523695329ed223bf540bbfdf6cd163b061fc11dab2d1c",
-                "sha256:9322ab74ba6371e2e0fccc350c741686ade829e43085597b26b07ae8955a0a00"
+                "sha256:3103991c2ee8cef8a2ff096709973ffe7106183d211a79f22cf855f33533d924",
+                "sha256:a59e9923cbce7068792f75344ed7727021ee4ac20f227cf17297d0d03d141e91"
             ],
             "index": "pypi",
-            "version": "==1.8"
+            "version": "==1.9.1"
         },
         "docutils": {
             "hashes": [
@@ -415,11 +423,11 @@
         },
         "testfixtures": {
             "hashes": [
-                "sha256:8f22100d4fb841b958f64e71c8820a32dc46f57d4d7e077777b932acd87b7327",
-                "sha256:9334f64d4210b734d04abff516d6ddaab7328306a0c4c1268ce4624df51c4f6d"
+                "sha256:1ef5c8e57b75883593b21c9bd9bd5a5ce7bbd852fc71486dd3c6b913b697b046",
+                "sha256:bde48b041bfe2bf41c0da85af0d04536bed6caf79275ad1a2a2d153c79b5a839"
             ],
             "index": "pypi",
-            "version": "==6.10.3"
+            "version": "==6.11.0"
         },
         "urllib3": {
             "hashes": [
@@ -432,18 +440,18 @@
     "develop": {
         "awscli": {
             "hashes": [
-                "sha256:4c49f085fb827ca1aeba5e6e5e39f6005110a0059b5c772aeb1d51c4f33c4028",
-                "sha256:9459ac705c2a5d8724057492800c52084df714b624853eb3331087ecf8726a22"
+                "sha256:7ddb43a5423725adfabb752e21ac7d47c0b440a10128e9884f578848c2369555",
+                "sha256:e5617cb8244863566df1cb12564e439b224e88ea2270f27b28da82df093eba0a"
             ],
             "index": "pypi",
-            "version": "==1.17.9"
+            "version": "==1.17.11"
         },
         "botocore": {
             "hashes": [
-                "sha256:1909424c9544f92142c8e551888731e32a99f9c99cfe8d21fea3ec0c32981dae",
-                "sha256:e3e3c0f59dc30c86dd2116aece3bd554f8476446cf1c5770bbf5111993d676c8"
+                "sha256:5ad6f4b80f3151fc5aa940f89fb6bf2db3064bf8d3f8919f5b60f5c741054ba5",
+                "sha256:ac783a87bd90be8a4d08101bfc0d29a4b35fe0ced387f5c8bc91d01cdaa7a168"
             ],
-            "version": "==1.14.9"
+            "version": "==1.14.11"
         },
         "colorama": {
             "hashes": [
