@@ -189,6 +189,23 @@ Prettier can automatically fix JS style issues for you:
 
     npm run lint:write
 
+### Security scans
+We use OWASP ZAP for security. Here is an [intro to OWASP ZAP](https://resources.infosecinstitute.com/introduction-owasp-zap-web-application-security-assessments/#gref) that explains the tool.
+
+You can run and pull down the container to use locally:
+
+    docker pull owasp/zap2docker-weekly
+
+Run OWASP ZAP security scans with docker using the GUI:
+
+    docker run -u zap -p 8080:8080 -p 8090:8090 -i owasp/zap2docker-weekly zap-webswing.sh
+you can see the GUI at http://localhost:8080/zap/
+Do use caution when using any "attack" tests, we generally run those in sandboxed environments.
+
+Run OWASP ZAP security scans with docker using the command line. Here is an example of running a full, passive scan locally targeting the development site:
+
+    docker run -t owasp/zap2docker-stable zap-full-scan.py -t https://crt-portal-django-dev.app.cloud.gov/report/
+
 ## Browser targeting
 
 We aim to test against Interent Explorer 11 and Google Chrome on a regular basis, and test against Safari and Firefox on an occasional basis.
