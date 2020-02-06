@@ -298,7 +298,6 @@ class CRTReportWizard(SessionWizardView):
                 'wordRemainingText': _('word remaining'),
                 'wordsRemainingText': _(' words remaining'),
                 'wordLimitReachedText': _(' word limit reached'),
-                'finishSummaryText': _('Please finish your summary -- '),
             },
             'form_name': form_name
         })

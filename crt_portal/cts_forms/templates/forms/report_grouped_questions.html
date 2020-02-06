@@ -3,21 +3,17 @@
   {% include 'forms/grouped_questions.html' %}
 
 {% with field=wizard.form.servicemember %}
-  <div id='servicemember' class="margin-bottom-5">
+  <fieldset class="usa-fieldset">
     <legend class="em-text big margin-bottom-0">
       {{field.label}}
     </legend>
-    <div>
-      <label for="{{ field.id_for_label }}">
-        <em>{{ field.help_text }}</em>
-      </label>
-    {{ field }}
-    {% if field.errors %}
-      {% include "forms/snippets/error_alert.html" with errors=field.errors %}
-    {% endif %}
+    <em id="service-member-help-text">{{ field.help_text }}</em>
+    <div aria-labelledby="service-member-help-text">
+      {{ field }}
+      {% if field.errors %}
+        {% include "forms/snippets/error_alert.html" with errors=field.errors %}
+      {% endif %}
     </div>
-  </div>
+  </fieldset>
 {% endwith %}
-</fieldset>
-
 {% endblock %}
