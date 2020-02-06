@@ -241,7 +241,6 @@ if environment != 'LOCAL':
     CSP_IMG_SRC = ("'self'", STATIC_URL)
     CSP_MEDIA_SRC = ("'self'", STATIC_URL)
     CSP_FRAME_SRC = ("'self'", STATIC_URL)
-    CSP_CHILD_SRC = ("'self'", STATIC_URL)
     CSP_WORKER_SRC = ("'self'", STATIC_URL)
     CSP_FRAME_ANCESTORS = ("'self'", STATIC_URL)
 
