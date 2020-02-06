@@ -236,10 +236,14 @@ if environment != 'LOCAL':
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_DEFAULT_ACL = 'public-read'
-    CSP_DEFAULT_SRC = ("'self'", STATIC_URL)
+    CSP_DEFAULT_SRC = ("'self'")
     CSP_SCRIPT_SRC = ("'self'", STATIC_URL)
     CSP_IMG_SRC = ("'self'", STATIC_URL)
     CSP_MEDIA_SRC = ("'self'", STATIC_URL)
+    CSP_FRAME_SRC = ("'self'", STATIC_URL)
+    CSP_CHILD_SRC = ("'self'", STATIC_URL)
+    CSP_WORKER_SRC = ("'self'", STATIC_URL)
+    CSP_FRAME_ANCESTORS = ("'self'", STATIC_URL)
 
 else:
     STATIC_URL = '/static/'
