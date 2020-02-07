@@ -24,21 +24,26 @@
 
 {% block content %}
   {# Progress text for screen reader. #}
-  <span class="usa-sr-only">
-    Current step: {{ current_step_name }}. Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}.
-  </span>
   <div class="page-header-background">
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-7 tablet:grid-offset-2">
-          <div class="padding-bottom-4 padding-top-3">
-            <ol class="steps" aria-hidden="true">
+          <div class="padding-bottom-4 padding-top-3" aria-label="progress">
+            <span class="usa-sr-only">
+              Current step: {{ current_step_name }}. Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}.
+            </span>
+            <ol class="steps">
               {% for step in ordered_step_names %}
-                <li {% if step == current_step_name %}class="current"{% endif %}>
-                  <div class="step">{{ step }}</div>
+                <li class="step {% if step == current_step_name %}current{%else%}{%endif%}" {% if step == current_step_name %}aria-current="true"{%else%}aria-current="false"{% endif %}>
+                  {{ step }}
+                  {% if step != current_step_name %}
+                    <span class="usa-sr-only">
+                      {% if forloop.counter > wizard.steps.step1 %}not completed{% else %}completed{% endif %}
+                    </span>
+                  {% endif %}
                 </li>
               {% endfor %}
-            </ol>
+              </ol>
             <div class="connecting-line"></div>
           </div>
         </div>
