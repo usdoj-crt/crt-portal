@@ -33,9 +33,9 @@ logger = logging.getLogger(__name__)
 
 
 class InternalHistory(models.Model):
-    note = models.CharField(max_length=500, null=False, blank=False,)
+    note = models.CharField(max_length=1000, null=False, blank=False,)
     create_date = models.DateTimeField(auto_now_add=True)
-    # add author
+    author = models.CharField(max_length=1000, null=False, blank=False,)
 
 
 class ProtectedClass(models.Model):
@@ -112,6 +112,9 @@ class Report(models.Model):
     last_incident_year = models.PositiveIntegerField(MaxValueValidator(datetime.now().year, message="Date must not be in the future"))
     last_incident_day = models.PositiveIntegerField(MaxValueValidator(31, message='Day value too high'), null=True, blank=True)
     last_incident_month = models.PositiveIntegerField(MaxValueValidator(12, message="Month must be 12 or less"))
+
+    # Internal comments
+    internal_comments = models.ManyToManyField(InternalHistory, blank=True)
 
     @cached_property
     def last_incident_date(self):
