@@ -7,7 +7,7 @@ from crequest.middleware import CrequestMiddleware
 
 from django.contrib.auth.models import User
 from django.contrib.auth.signals import user_logged_in, user_logged_out
-from django.db.models.signals import post_save, post_delete, pre_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
 from .models import Report, ProtectedClass, InternalHistory
@@ -71,13 +71,6 @@ def user_logout(sender, **kwargs):
     userid = current_request.user.id if current_request else 'CLI'
     ip = get_client_ip(current_request) if current_request else 'CLI'
     logger.info(f'User logout: {username} {userid} @ {ip}')
-
-
-@receiver(pre_save, sender=InternalHistory)
-def add_author(sender, instance, **kwargs):
-    current_request = CrequestMiddleware.get_request()
-    author = current_request.user.username if current_request else 'anonymous'
-    instance.author = author
 
 
 @receiver(post_save, sender=Report)
