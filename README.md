@@ -204,7 +204,10 @@ Do use caution when using any "attack" tests, we generally run those in sandboxe
 
 Run OWASP ZAP security scans with docker using the command line. Here is an example of running a full, passive scan locally targeting the development site:
 
-    docker run -t owasp/zap2docker-stable zap-full-scan.py -t https://crt-portal-django-dev.app.cloud.gov/report/
+    docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-full-scan.py \
+    -t https://crt-portal-django-dev.app.cloud.gov/report/ -r testreport.html
+
+That will produce a report locally that you can view in your browser. It will give you a list of things that you should check. Sometimes there are things at the low or informational level that are false positives or are not worth the trade-offs to implement.
 
 ## Browser targeting
 
