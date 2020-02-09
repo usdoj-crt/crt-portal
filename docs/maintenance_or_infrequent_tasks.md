@@ -66,25 +66,67 @@ The built in python debugger is good for setting traces.
 See the [pdb documentation](https://docs.python.org/3.8/library/pdb.html) for details
 
 ## Single sign on
-
+#### Setting environment variables
 Request the set up with JMD. When they get things set up on their side, they will be able to supply:
     AUTH_CLIENT_ID
     AUTH_SERVER
     AUTH_USERNAME_CLAIM
     AUTH_GROUP_CLAIM
 
-Those variables need to be set, as well as the secret key if you already have VCAPSERVICES, you will need to update it with the following command, replacing `<value` with the correct value in double quotes.
+Those variables need to be set, as well as the secret key if you already have VCAPSERVICES. You can check the current settings first, in case you need to revert them with:
+
+    cf env crt-portal-django
+
+Update VCAPSERVICES it with the following command, replacing `<value` with the correct value in double quotes.
 
     cf uups VCAP_SERVICES -p '{"SECRET_KEY":<value>,"AUTH_CLIENT_ID":<value>,"AUTH_SERVER": <value>,"AUTH_USERNAME_CLAIM":<value>,"AUTH_GROUP_CLAIM":<value>}'
 
-JMD will also be able to provide you with a certificate bundle.
+You can check that it is in the environment correctly with:
 
-If it doesn't already exist in the environment, create a private bucket called `sso-creds`. See [cloud.gov S3 documentation](https://cloud.gov/docs/services/s3/) on how to do that.
+    cf env crt-portal-django
 
-Upload the certificates to `sso/ca_bundle.pem` in the private bucket.
+Note that you need to redeploy or restage for the changes to take effect.
 
-To add sso to another environment, follow the steps above and add the AUTH_RELYING_PARTY_ID and AUTH_AUDIENCE to the relevant manifest.
+The other variables to set are `AUTH_RELYING_PARTY_ID` and `AUTH_AUDIENCE` these are based on the url are not sensitive so they can be put into the manifest. See the prod and stage manifests for examples.
+
+### Adding the ca bundle to S3
+
+JMD will also be able to provide you with a certificate bundle. We will want that in a private S3 bucket.
+
+If it doesn't already exist in the environment, create a private bucket called `sso-creds`. See [cloud.gov S3 documentation](https://cloud.gov/docs/services/s3/) for more details.
+
+    cf create-service s3 basic sso-creds
+
+Then you can connect to the bucket and upload the file using the AWS command line tools [these commands](https://cloud.gov/docs/services/s3/#using-the-s3-credentials). For that script, `SERVICE_INSTANCE_NAME=sso-creds` and
+`KEY_NAME=sso-creds-key`. Some local installs may be required.
+
+Upload the certificates to `sso/ca_bundle.pem` in the private bucket. Using the AWS CLI.
+
+    aws s3 cp ./your-path-to-ca-bundle-file s3://${BUCKET_NAME}/sso/ca_bundle.pem
+
+Add `sso-creds` to the seervices part of the manifest. That will bind the bucket to the app on deploy. To add sso to another environment, follow the steps above and add the AUTH_RELYING_PARTY_ID and AUTH_AUDIENCE to the relevant manifest.
 
 Make sure to update the auth settings to include the new environment.
 
 See documentation for the ADFS Django package- https://django-auth-adfs.readthedocs.io/en/latest/
+
+### Code changes
+
+Add the environment to add auth urls condion in urls.py and adding the environment to the auth conditions of settings.py.
+
+crt_portal/crt_portal/settings.py
+
+    # for AUTH, probably want to add stage in the future
+    -if environment == 'PRODUCTION':
+    +if environment in ['PRODUCTION', 'STAGE']:
+         INSTALLED_APPS.append('django_auth_adfs')
+
+
+crt_portal/crt_portal/urls.py
+
+    environment = os.environ.get('ENV', 'UNDEFINED')
+    -if environment == 'PRODUCTION':
+    +if environment in ['PRODUCTION', 'STAGE']:
+         auth = [
+
+
