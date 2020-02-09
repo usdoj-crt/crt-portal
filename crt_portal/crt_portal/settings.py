@@ -206,13 +206,14 @@ if environment == 'PRODUCTION':
     # The url where the ADFS server calls back to our app
     LOGIN_REDIRECT_URL = "/oauth2/callback"
 
-# headers required for security
-SESSION_COOKIE_SECURE = True
-# If this is set to True, client-side JavaScript will not be able to access the language cookie.
-SESSION_COOKIE_HTTPONLY = True
-# see settings options https://django-csp.readthedocs.io/en/latest/configuration.html#configuration-chapter
-CSP_DEFAULT_SRC = ("'self'")
-SESSION_COOKIE_SAMESITE = 'Strict'
+if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
+    # headers required for security
+    SESSION_COOKIE_SECURE = True
+    # If this is set to True, client-side JavaScript will not be able to access the language cookie.
+    SESSION_COOKIE_HTTPONLY = True
+    # see settings options https://django-csp.readthedocs.io/en/latest/configuration.html#configuration-chapter
+    CSP_DEFAULT_SRC = ("'self'")
+    SESSION_COOKIE_SAMESITE = 'Strict'
 
 if environment != 'LOCAL':
     for service in vcap['s3']:
