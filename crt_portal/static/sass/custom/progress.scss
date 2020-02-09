@@ -31,7 +31,8 @@ $outline-light-gray: #D8D8D8;
 ol.steps {
   display: flex;
   justify-content: space-between;
-  list-style: none; text-align: center;
+  list-style: none;
+  text-align: center;
   counter-reset: milestones; // init counter
 
   // design
@@ -85,14 +86,17 @@ ol.steps {
 
   // current milestone
   li.current {
+    &:focus {
+      outline: 1px;
+    }
     .step {
       font-weight: bold;
     }
   }
 
   // unfinished milestone
-  li.current ~ li {
-    .step::before {
+  li.current   {
+    ~ li.step::before {
       color: black;
       background-color: white;
       box-shadow: inset 0 0 0 $circle-border-width $outline-light-gray;

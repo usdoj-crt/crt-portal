@@ -8,9 +8,12 @@ applications:
   env:
     ENV: STAGE
     FORM_AUTOCOMPLETE_OFF: True
+    AUTH_RELYING_PARTY_ID: "crt-portal-django-stage.app.cloud.gov"
+    AUTH_AUDIENCE: "microsoft:identityserver:crt-portal-django-stage.app.cloud.gov"
   buildpacks:
   - python_buildpack
   services:
   - crt-db
   - crt-s3
+  - sso-creds
   - VCAP_SERVICES
