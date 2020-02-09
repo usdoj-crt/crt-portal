@@ -206,14 +206,7 @@ if environment == 'PRODUCTION':
     # The url where the ADFS server calls back to our app
     LOGIN_REDIRECT_URL = "/oauth2/callback"
 
-if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
-    # headers required for security
-    SESSION_COOKIE_SECURE = True
-    # If this is set to True, client-side JavaScript will not be able to access the language cookie.
-    SESSION_COOKIE_HTTPONLY = True
-    # see settings options https://django-csp.readthedocs.io/en/latest/configuration.html#configuration-chapter
-    CSP_DEFAULT_SRC = ("'self'")
-    SESSION_COOKIE_SAMESITE = 'Strict'
+STATIC_URL = '/static/'
 
 if environment != 'LOCAL':
     for service in vcap['s3']:
@@ -237,6 +230,15 @@ if environment != 'LOCAL':
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_DEFAULT_ACL = 'public-read'
+
+if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
+    # headers required for security
+    SESSION_COOKIE_SECURE = True
+    # If this is set to True, client-side JavaScript will not be able to access the language cookie.
+    SESSION_COOKIE_HTTPONLY = True
+    # see settings options https://django-csp.readthedocs.io/en/latest/configuration.html#configuration-chapter
+    CSP_DEFAULT_SRC = ("'self'")
+    SESSION_COOKIE_SAMESITE = 'Strict'
     CSP_DEFAULT_SRC = ("'self'")
     CSP_SCRIPT_SRC = ("'self'", STATIC_URL)
     CSP_IMG_SRC = ("'self'", STATIC_URL)
@@ -244,9 +246,6 @@ if environment != 'LOCAL':
     CSP_FRAME_SRC = ("'self'", STATIC_URL)
     CSP_WORKER_SRC = ("'self'", STATIC_URL)
     CSP_FRAME_ANCESTORS = ("'self'", STATIC_URL)
-
-else:
-    STATIC_URL = '/static/'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
