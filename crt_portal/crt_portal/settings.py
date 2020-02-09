@@ -96,7 +96,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'crequest.middleware.CrequestMiddleware',
-    'csp.middleware.CSPMiddleware',
 ]
 
 ROOT_URLCONF = 'crt_portal.urls'
@@ -232,6 +231,7 @@ if environment != 'LOCAL':
     AWS_DEFAULT_ACL = 'public-read'
 
 if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
+    MIDDLEWARE.append('csp.middleware.CSPMiddleware')
     # headers required for security
     SESSION_COOKIE_SECURE = True
     # If this is set to True, client-side JavaScript will not be able to access the language cookie.
