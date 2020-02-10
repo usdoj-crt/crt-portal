@@ -304,7 +304,6 @@ class SectionAssignmentTests(TestCase):
         immigration = ProtectedClass.objects.get_or_create(protected_class='Immigration/citizenship status (choosing this will not share your status)')
         language = ProtectedClass.objects.get_or_create(protected_class='Language')
         origin = ProtectedClass.objects.get_or_create(protected_class='National origin (including ancestry and ethnicity)')
-        disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
 
         SAMPLE_REPORT['primary_complaint'] = 'workplace'
         test_report = Report.objects.create(**SAMPLE_REPORT)
