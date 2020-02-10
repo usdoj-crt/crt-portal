@@ -51,12 +51,11 @@
     wordLimitAlert.removeAttribute('hidden');
 
     var messageText = String(max) + translations.wordLimitReachedText;
+    wordLimitScreenReaderText.innerText = messageText;
+  }
 
-    if (wordLimitScreenReaderText.innerText === messageText) {
-      wordLimitScreenReaderText.innerText = translations.finishSummaryText + messageText;
-    } else {
-      wordLimitScreenReaderText.innerText = messageText;
-    }
+  function isA11yAssertive(el) {
+    return el.getAttribute('aria-live') === 'assertive';
   }
 
   function updateWordCount(e, max, textAreaElem) {
@@ -87,10 +86,10 @@
       onBelowLimit(wordCount, max, textAreaElem);
     }
 
-    if (wordCount >= (max * 4) / 5) {
-      wordCountArea.setAttribute('aria-live', 'assertive');
-    } else {
-      wordCountArea.setAttribute('aria-live', 'polite');
+    if (wordCount >= (max * 4) / 5 && !isA11yAssertive(wordLimitMessage)) {
+      wordLimitMessage.setAttribute('aria-live', 'assertive');
+    } else if (isA11yAssertive(wordLimitMessage)) {
+      wordLimitMessage.setAttribute('aria-live', 'polite');
     }
   }
 
