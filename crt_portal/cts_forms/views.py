@@ -4,10 +4,12 @@ import os
 from django.shortcuts import render_to_response, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.core.exceptions import PermissionDenied
 from django.utils.translation import gettext_lazy as _
 from django.utils.decorators import method_decorator
 from django.http import Http404
 from django.views.generic import View
+from django import forms
 
 from formtools.wizard.views import SessionWizardView
 
@@ -232,6 +234,41 @@ def show_location_form_condition(wizard):
 
 class CRTReportWizard(SessionWizardView):
     """Once all the sub-forms are submitted this class will clean data and save."""
+
+    # overriding the get form to add checks to the hidden field and avoid 500s
+    def get_form(self, step=None, data=None, files=None):
+        """
+        Constructs the form for a given `step`. If no `step` is defined, the
+        current step will be determined automatically.
+        The form will be initialized using the `data` argument to prefill the
+        new form. If needed, instance or queryset (for `ModelForm` or
+        `ModelFormSet`) will be added too.
+        """
+        if step is None:
+            step = self.steps.current
+        # added check to see if people are messing with the form
+        elif not step.isdigit() or int(step) > len(TEMPLATES):
+            raise PermissionDenied
+
+        form_class = self.form_list[step]
+        # prepare the kwargs for the form instance.
+        kwargs = self.get_form_kwargs(step)
+        kwargs.update({
+            'data': data,
+            'files': files,
+            'prefix': self.get_form_prefix(step, form_class),
+            'initial': self.get_form_initial(step),
+        })
+        if issubclass(form_class, (forms.ModelForm, forms.models.BaseInlineFormSet)):
+            # If the form is based on ModelForm or InlineFormSet,
+            # add instance if available and not previously set.
+            kwargs.setdefault('instance', self.get_form_instance(step))
+        elif issubclass(form_class, forms.models.BaseModelFormSet):
+            # If the form is based on ModelFormSet, add queryset if available
+            # and not previous set.
+            kwargs.setdefault('queryset', self.get_form_instance(step))
+        return form_class(**kwargs)
+
     def get_template_names(self):
         return [TEMPLATES[int(self.steps.current)]]
 
