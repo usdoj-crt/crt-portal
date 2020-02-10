@@ -356,14 +356,6 @@ class SectionAssignmentTests(TestCase):
         test_report.protected_class.add(disability[0])
         self.assertTrue(test_report.assign_section() == 'DRS')
 
-        # will confirm this change in the ticket, then can take this out
-
-        # test_report2 = Report.objects.create(**data)
-        # disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
-        # test_report2.protected_class.add(disability[0])
-        # test_report2.save()
-        # self.assertTrue(test_report.assign_section() == 'DRS')
-
     def test_education_routing(self):
         disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
 

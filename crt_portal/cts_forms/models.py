@@ -171,10 +171,10 @@ class Report(models.Model):
                 return 'ELS'
 
         elif self.primary_complaint == 'commercial_or_public':
-            if self.commercial_or_public_place == 'healthcare' and self.__is_not_disabled(protected_classes):
-                return 'SPL'
-            elif self.commercial_or_public_place == 'healthcare' and not self.__is_not_disabled(protected_classes):
+            if not self.__is_not_disabled(protected_classes):
                 return 'DRS'
+            elif self.commercial_or_public_place == 'healthcare':
+                return 'SPL'
             else:
                 return 'HCE'
 
