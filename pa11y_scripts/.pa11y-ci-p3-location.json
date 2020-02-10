@@ -9,7 +9,9 @@
         "wait for element #id_1-primary_complaint to be visible",
         "click element #id_1-primary_complaint_0",
         "click element #submit-next",
-        "wait for element #id_3-location_name to be visible"
+        "wait for element #id_2-hatecrimes_trafficking_0 to be visible",
+        "click element #submit-next",
+        "wait for element #id_4-location_name to be visible"
       ],
       "screenCapture": "pa11y-screenshots/page3-location.png"
     }

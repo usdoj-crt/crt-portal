@@ -172,6 +172,8 @@ TEMPLATES = [
     'forms/report_grouped_questions.html',
     # Primary reason
     'forms/report_primary_complaint.html',
+    # Hate crimes and trafficking
+    'forms/report_grouped_questions.html',
     # Voting + location
     'forms/report_location.html',
     # Workplace + location
@@ -291,6 +293,7 @@ class CRTReportWizard(SessionWizardView):
         all_step_names = [
             _('Contact'),
             _('Primary Issue'),
+            _('Primary Issue'),
             _('Location'),
             _('Location'),
             _('Location'),
@@ -307,6 +310,7 @@ class CRTReportWizard(SessionWizardView):
         # This title appears in large font above the question elements
         ordered_step_titles = [
             _('Contact'),
+            _('Primary issue'),
             _('Primary issue'),
             _('Location details'),
             _('Location details'),
@@ -352,9 +356,14 @@ class CRTReportWizard(SessionWizardView):
                 'page_note': _('It is important for us to know how recently this incident happened. Some civil rights violations must be reported within a certain amount of time.')
             })
         elif current_step_name == _('Primary Issue'):
-            context.update({
-                'crime_help_text2': _('Please select if any that apply to your situation (optional)'),
-            })
+            if all_step_names[int(self.steps.prev)] == current_step_name:
+                context.update({
+                    'page_note': _('Continued')
+                })
+            else:
+                context.update({
+                    'crime_help_text2': _('Please select if any that apply to your situation (optional)'),
+                })
 
         return context
 

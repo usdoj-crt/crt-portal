@@ -123,14 +123,10 @@ class PrimaryReason(ModelForm):
     class Meta:
         model = Report
         fields = [
-            'primary_complaint',
-            'hatecrimes_trafficking'
+            'primary_complaint'
         ]
         widgets = {
-            'hatecrimes_trafficking': UsaCheckboxSelectMultiple(attrs={
-                'aria-describedby': 'hatecrimes-help-text'
-            }),
-            'primary_complaint': CrtRadioArea,
+            'primary_complaint': CrtRadioArea
         }
 
     def __init__(self, *args, **kwargs):
@@ -148,6 +144,22 @@ class PrimaryReason(ModelForm):
             label=_('What is your primary reason for contacting the Civil Rights Division?'),
             help_text=_('Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.'),
         )
+
+
+class HateCrimesTrafficking(ModelForm):
+    class Meta:
+        model = Report
+        fields = [
+            'hatecrimes_trafficking'
+        ]
+        widgets = {
+            'hatecrimes_trafficking': UsaCheckboxSelectMultiple(attrs={
+                'aria-describedby': 'hatecrimes-help-text'
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['hatecrimes_trafficking'] = ModelMultipleChoiceField(
             queryset=HateCrimesandTrafficking.objects.filter(hatecrimes_trafficking_option__in=HATE_CRIMES_TRAFFICKING_CHOICES),
