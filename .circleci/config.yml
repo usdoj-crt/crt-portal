@@ -255,7 +255,8 @@ workflows:
             - build_and_test
           filters:
             branches:
-              only: develop
+              only: fix-deploy
+              # only: develop
 
       - deploy-stage:
           requires:
