@@ -80,13 +80,13 @@ jobs:
   owasp-scan-dev:
     machine:
       image: circleci/classic:latest
+    working_directory: ~/code
     steps:
       - checkout
       - run:
             name: Pull owasp zap docker image
             command: |
               docker pull owasp/zap2docker-weekly
-              docker cp .circleci/zap.conf /usr/src/app/
       - run:
             name: Run passive scan on dev
             command: |
