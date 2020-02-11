@@ -25,5 +25,5 @@
 {% block page_js %}
 {{ block.super }}
 <script src="{% static 'js/other_show_hide.js' %}"></script>
-<script>window.CRT.otherTextInputToggle()</script>
+<script nonce="{{request.csp_nonce}}">window.CRT.otherTextInputToggle()</script>
 {% endblock %}
