@@ -124,7 +124,7 @@ jobs:
             apt-get update
             apt-get install cf-cli
       - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
@@ -150,7 +150,7 @@ jobs:
       - checkout
       - restore_cache:
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
           command: |
@@ -179,7 +179,7 @@ jobs:
             apt-get update
             apt-get install cf-cli
       - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
           paths:
             - ".venv"
             - "/usr/local/bin"

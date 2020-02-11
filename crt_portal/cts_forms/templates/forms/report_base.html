@@ -115,7 +115,7 @@
 {% endblock %}
 
 {% block page_js %}
-<script>
+<script nonce="{{request.csp_nonce}}">
   (function(root) {
     root.CRT = root.CRT || {};
 
