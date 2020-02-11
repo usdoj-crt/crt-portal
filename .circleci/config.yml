@@ -270,7 +270,7 @@ workflows:
 
       - deploy-dev:
           requires:
-            - build_and_test
+            # - build_and_test
           filters:
             branches:
               only: develop
@@ -278,14 +278,14 @@ workflows:
       - deploy-stage:
           requires:
             - owasp-scan-dev
-            - build_and_test
+            # - build_and_test
           filters:
             branches:
               only: /^release.*/
 
       - deploy-prod:
           requires:
-            - build_and_test
+            # - build_and_test
           filters:
             branches:
               only: master
