@@ -90,8 +90,8 @@ jobs:
       - run:
             name: Pull owasp zap docker image
             command: |
-              docker run -it -v .circleci zap2docker-weekly
               docker pull owasp/zap2docker-weekly
+              docker run -v $(pwd)/.circle/zap.conf:/root/app/.circleci/zap.conf owasp/zap2docker-weekly
       - run:
             name: Run passive scan on dev
             command: |
