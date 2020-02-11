@@ -10,8 +10,11 @@ from django.utils.decorators import method_decorator
 from django.http import Http404
 from django.views.generic import View
 from django import forms
+from django.db.models.signals import post_save
 
 from formtools.wizard.views import SessionWizardView
+
+from actstream import action
 
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
 from .model_variables import PROTECTED_CLASS_CODES, PRIMARY_COMPLAINT_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
@@ -110,6 +113,7 @@ def IndexView(request):
 class ShowView(View):
     def __serialize_data(self, request, report_id):
         report = get_object_or_404(Report.objects, id=report_id)
+        print(report.target_actions.all())
         primary_complaint = [choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint]
         crimes = {
             'physical_harm': False,
@@ -151,13 +155,16 @@ class ShowView(View):
 
     def post(self, request, id):
         record = Report.objects.filter(id=id)
-        print(request.POST.get('next'))
         updates = {}
         for key, value in request.POST.items():
             if key != 'csrfmiddlewaretoken' and key != 'next':
                 updates[key] = value
 
         record.update(**updates)
+
+        if 'assigned_section' in updates:
+            r = Report.objects.get(id = id)
+            action.send(request.user.email, verb='update assigned section', description=updates['assigned_section'], target=r)
 
         output = self.__serialize_data(request, id)
         output.update({

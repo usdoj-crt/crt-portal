@@ -6,3 +6,8 @@ class CtsFormsConfig(AppConfig):
 
     def ready(self):
         import cts_forms.signals  # noqa
+        
+        from actstream import registry
+        registry.register(self.get_model('Report'))
+
+
