@@ -86,12 +86,12 @@ jobs:
             name: Pull owasp zap docker image
             command: |
               docker pull owasp/zap2docker-weekly
-              docker cp gen.conf /usr/src/app/
+              docker cp .circleci/zap.conf /usr/src/app/
       - run:
             name: Run passive scan on dev
             command: |
               docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-baseline.py \
-              -t https://crt-portal-django-dev.app.cloud.gov/report/ -g gen.conf
+              -t https://crt-portal-django-dev.app.cloud.gov/report/ -g .circleci/zap.conf
 # deployments
   deploy-dev:
     working_directory: ~/code
