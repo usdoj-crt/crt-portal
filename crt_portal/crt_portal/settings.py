@@ -237,7 +237,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     # If this is set to True, client-side JavaScript will not be able to access the language cookie.
     SESSION_COOKIE_HTTPONLY = True
     # see settings options https://django-csp.readthedocs.io/en/latest/configuration.html#configuration-chapter
-    CSP_DEFAULT_SRC = ("'self'")
+    CSP_DEFAULT_SRC = ("'self'", STATIC_URL)
     SESSION_COOKIE_SAMESITE = 'Strict'
     CSP_DEFAULT_SRC = ("'self'")
     CSP_SCRIPT_SRC = ("'self'", STATIC_URL)
