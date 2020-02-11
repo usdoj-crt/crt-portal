@@ -307,7 +307,7 @@ class CRTReportWizard(SessionWizardView):
         # This title appears in large font above the question elements
         ordered_step_titles = [
             _('Contact'),
-            _('What is your primary reason for contacting the Civil Rights Division?'),
+            _('Primary issue'),
             _('Location details'),
             _('Location details'),
             _('Location details'),

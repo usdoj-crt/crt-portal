@@ -145,7 +145,8 @@ class PrimaryReason(ModelForm):
             error_messages={
                 'required': PRIMARY_COMPLAINT_ERROR
             },
-            help_text=_('Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.')
+            label=_('What is your primary reason for contacting the Civil Rights Division?'),
+            help_text=_('Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.'),
         )
 
         self.fields['hatecrimes_trafficking'] = ModelMultipleChoiceField(
@@ -156,6 +157,7 @@ class PrimaryReason(ModelForm):
             required=False,
             label=_('Please select if any that apply to your situation (optional)')
         )
+
         self.question_groups = [
             QuestionGroup(
                 self,
