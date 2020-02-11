@@ -1,4 +1,4 @@
-<div class="margin-bottom-2">
+<div class="margin-bottom-4">
   <label
     for="{{ field.id_for_label }}"
     class="{{label_class}} margin-bottom-0"
@@ -10,8 +10,6 @@
     <em>{{ field.help_text }}</em>
   </p>
   {% endif %}
-</div>
-<div class="margin-bottom-4">
   {{ field }}
   {% if field.errors %}
     {% include "forms/snippets/error_alert.html" with errors=field.errors %}
