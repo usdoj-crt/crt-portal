@@ -86,7 +86,7 @@ jobs:
             name: Pull owasp zap docker image
             command: |
               docker pull owasp/zap2docker-weekly
-              COPY gen.conf /usr/src/app/
+              docker COPY gen.conf /usr/src/app/
       - run:
             name: Run passive scan on dev
             command: |
@@ -264,7 +264,8 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - build_and_test
+      # Don't merge this is just to speed testing
+      # - build_and_test
       - owasp-scan-dev
 
       - deploy-dev:
