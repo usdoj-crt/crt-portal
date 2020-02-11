@@ -83,6 +83,10 @@ jobs:
     working_directory: ~/code
     steps:
       - checkout
+      # just to speed up testing for now
+      - restore_cache:
+      # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+          key: always
       - run:
             name: Pull owasp zap docker image
             command: |
@@ -91,7 +95,7 @@ jobs:
             name: Run passive scan on dev
             command: |
               docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-baseline.py \
-              -t https://crt-portal-django-dev.app.cloud.gov/report/ -g .circleci/zap.conf
+              -t https://crt-portal-django-dev.app.cloud.gov/report/ -g code/.circleci/zap.conf
 # deployments
   deploy-dev:
     working_directory: ~/code
