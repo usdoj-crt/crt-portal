@@ -97,7 +97,7 @@ jobs:
             command: |
               docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-baseline.py \
               -t https://crt-portal-django-dev.app.cloud.gov/report/
-              -c .circleci/zap.conf -d
+              -c .circleci/zap.conf
 # deployments
   deploy-dev:
     working_directory: ~/code
