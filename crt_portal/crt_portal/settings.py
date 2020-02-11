@@ -246,6 +246,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     CSP_FRAME_SRC = ("'self'", bucket)
     CSP_WORKER_SRC = ("'self'", bucket)
     CSP_FRAME_ANCESTORS = ("'self'", bucket)
+    CSP_STYLE_SRC = ("'self'", bucket)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
