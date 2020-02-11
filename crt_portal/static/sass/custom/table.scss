@@ -1,10 +1,11 @@
 @mixin clickable-table-cell {
   color: $gray-warm-80;
   height: 100%;
-  outline: 0;
   padding: .5rem 1rem;
+  position: relative;
   text-decoration: none;
   width: 100%;
+  z-index: 1;
 }
 
 @mixin sortable-cell-icon {

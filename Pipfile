@@ -21,6 +21,8 @@ flake8 = "*"
 django-crequest = "*"
 testfixtures = "*"
 django-auth-adfs = "*"
+django-csp = "*"
+pip = "*"
 
 [requires]
 python_version = "3.8"

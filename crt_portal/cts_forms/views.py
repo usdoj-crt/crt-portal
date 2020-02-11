@@ -1,13 +1,15 @@
 import urllib.parse
 import os
 
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.core.exceptions import PermissionDenied
 from django.utils.translation import gettext_lazy as _
+from django.utils.decorators import method_decorator
 from django.http import Http404
-from django.core import serializers
-from django.conf import settings
+from django.views.generic import View
+from django import forms
 
 from formtools.wizard.views import SessionWizardView
 
@@ -89,7 +91,7 @@ def IndexView(request):
         data.append({
             "report": report,
             "report_protected_classes": p_class_list,
-            "url": f'{report.id}/?next={all_args_encoded}'
+            "url": f'{report.id}?next={all_args_encoded}'
         })
 
     final_data = {
@@ -105,42 +107,64 @@ def IndexView(request):
     return render_to_response('forms/complaint_view/index/index.html', final_data)
 
 
-@login_required
-def ShowView(request, id):
-    report = get_object_or_404(Report.objects, id=id)
-    primary_complaint = [choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint]
-    crimes = {
-        'physical_harm': False,
-        'trafficking': False
-    }
+class ShowView(View):
+    def __serialize_data(self, request, report_id):
+        report = get_object_or_404(Report.objects, id=report_id)
+        primary_complaint = [choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint]
+        crimes = {
+            'physical_harm': False,
+            'trafficking': False
+        }
 
-    for crime in report.hatecrimes_trafficking.all():
-        for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
-            if crime.hatecrimes_trafficking_option == choice[1]:
-                crimes[choice[0]] = True
+        for crime in report.hatecrimes_trafficking.all():
+            for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
+                if crime.hatecrimes_trafficking_option == choice[1]:
+                    crimes[choice[0]] = True
 
-    p_class_list = format_protected_class(
-        report.protected_class.all().order_by('form_order'),
-        report.other_class,
-    )
+        p_class_list = format_protected_class(
+            report.protected_class.all().order_by('form_order'),
+            report.other_class,
+        )
 
-    output = {
-        'actions': ComplaintActions(initial={
-            'assigned_section': report.assigned_section
-        }),
-        'crimes': crimes,
-        'data': report,
-        'p_class_list': p_class_list,
-        'primary_complaint': primary_complaint,
-        'return_url_args': request.GET.get('next', ''),
-    }
+        output = {
+            'actions': ComplaintActions(initial={
+                'assigned_section': report.assigned_section,
+                'status': report.status
+            }),
+            'crimes': crimes,
+            'data': report,
+            'p_class_list': p_class_list,
+            'primary_complaint': primary_complaint,
+            'return_url_args': request.GET.get('next', ''),
+        }
 
-    if settings.DEBUG:
+        return output
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def get(self, request, id):
+        output = self.__serialize_data(request, id)
+
+        return render(request, 'forms/complaint_view/show/index.html', output)
+
+    def post(self, request, id):
+        record = Report.objects.filter(id=id)
+        print(request.POST.get('next'))
+        updates = {}
+        for key, value in request.POST.items():
+            if key != 'csrfmiddlewaretoken' and key != 'next':
+                updates[key] = value
+
+        record.update(**updates)
+
+        output = self.__serialize_data(request, id)
         output.update({
-            'debug_data': serializers.serialize('json', [report, ])
+            'return_url_args': request.POST.get('next', ''),
         })
 
-    return render_to_response('forms/complaint_view/show/index.html', output)
+        return render(request, 'forms/complaint_view/show/index.html', output)
 
 
 TEMPLATES = [
@@ -210,6 +234,41 @@ def show_location_form_condition(wizard):
 
 class CRTReportWizard(SessionWizardView):
     """Once all the sub-forms are submitted this class will clean data and save."""
+
+    # overriding the get form to add checks to the hidden field and avoid 500s
+    def get_form(self, step=None, data=None, files=None):
+        """
+        Constructs the form for a given `step`. If no `step` is defined, the
+        current step will be determined automatically.
+        The form will be initialized using the `data` argument to prefill the
+        new form. If needed, instance or queryset (for `ModelForm` or
+        `ModelFormSet`) will be added too.
+        """
+        if step is None:
+            step = self.steps.current
+        # added check to see if people are messing with the form
+        elif not step.isdigit() or int(step) > len(TEMPLATES):
+            raise PermissionDenied
+
+        form_class = self.form_list[step]
+        # prepare the kwargs for the form instance.
+        kwargs = self.get_form_kwargs(step)
+        kwargs.update({
+            'data': data,
+            'files': files,
+            'prefix': self.get_form_prefix(step, form_class),
+            'initial': self.get_form_initial(step),
+        })
+        if issubclass(form_class, (forms.ModelForm, forms.models.BaseInlineFormSet)):
+            # If the form is based on ModelForm or InlineFormSet,
+            # add instance if available and not previously set.
+            kwargs.setdefault('instance', self.get_form_instance(step))
+        elif issubclass(form_class, forms.models.BaseModelFormSet):
+            # If the form is based on ModelFormSet, add queryset if available
+            # and not previous set.
+            kwargs.setdefault('queryset', self.get_form_instance(step))
+        return form_class(**kwargs)
+
     def get_template_names(self):
         return [TEMPLATES[int(self.steps.current)]]
 
@@ -248,7 +307,7 @@ class CRTReportWizard(SessionWizardView):
         # This title appears in large font above the question elements
         ordered_step_titles = [
             _('Contact'),
-            _('What is your primary reason for contacting the Civil Rights Division?'),
+            _('Primary issue'),
             _('Location details'),
             _('Location details'),
             _('Location details'),
@@ -276,7 +335,6 @@ class CRTReportWizard(SessionWizardView):
                 'wordRemainingText': _('word remaining'),
                 'wordsRemainingText': _(' words remaining'),
                 'wordLimitReachedText': _(' word limit reached'),
-                'finishSummaryText': _('Please finish your summary -- '),
             },
             'form_name': form_name
         })

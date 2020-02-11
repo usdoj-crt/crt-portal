@@ -32,6 +32,7 @@ from .model_variables import (
     COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
     COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
     PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
+    STATUS_CHOICES,
 )
 from .phone_regex import phone_validation_regex
 
@@ -144,7 +145,8 @@ class PrimaryReason(ModelForm):
             error_messages={
                 'required': PRIMARY_COMPLAINT_ERROR
             },
-            help_text=_('Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.')
+            label=_('What is your primary reason for contacting the Civil Rights Division?'),
+            help_text=_('Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.'),
         )
 
         self.fields['hatecrimes_trafficking'] = ModelMultipleChoiceField(
@@ -155,6 +157,7 @@ class PrimaryReason(ModelForm):
             required=False,
             label=_('Please select if any that apply to your situation (optional)')
         )
+
         self.question_groups = [
             QuestionGroup(
                 self,
@@ -584,15 +587,20 @@ class Filters(ModelForm):
         ]
         widgets = {
             'contact_first_name': TextInput(attrs={
-                'class': 'usa-input'
+                'class': 'usa-input',
+                'name': 'contact_first_name'
             }),
             'contact_last_name': TextInput(attrs={
-                'class': 'usa-input'
+                'class': 'usa-input',
+                'name': 'contact_last_name'
             }),
             'location_city_town': TextInput(attrs={
-                'class': 'usa-input'
+                'class': 'usa-input',
+                'name': 'location_city_town'
             }),
-            'location_state': CrtDropdown
+            'location_state': CrtDropdown(attrs={
+                'name': 'location_state'
+            })
         }
 
     def __init__(self, *args, **kwargs):
@@ -600,34 +608,47 @@ class Filters(ModelForm):
 
         self.fields['assigned_section'] = MultipleChoiceField(
             choices=SECTION_CHOICES,
-            widget=CrtMultiSelect,
+            widget=CrtMultiSelect(attrs={
+                'classes': 'text-uppercase',
+                'name': 'assigned_section'
+            }),
             required=False
         )
         self.fields['location_state'] = ChoiceField(
             choices=STATES_AND_TERRITORIES,
-            widget=CrtDropdown,
+            widget=CrtDropdown(attrs={
+                'name': 'location_state'
+            }),
             required=False,
         )
 
         self.fields['assigned_section'].label = _('View sections')
         self.fields['contact_first_name'].label = _('Contact first name')
         self.fields['contact_last_name'].label = _('Contact last name')
-        self.fields['location_city_town'].label = _('City')
+        self.fields['location_city_town'].label = _('Incident location city')
 
-        self.fields['location_state'].label = _('State')
+        self.fields['location_state'].label = _('Incident location state')
         self.fields['location_state'].widget.attrs['list'] = 'states'
 
 
 class ComplaintActions(ModelForm):
     class Meta:
         model = Report
-        fields = ['assigned_section']
+        fields = ['assigned_section', 'status']
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['assigned_section'] = ChoiceField(
-            widget=ComplaintSelect,
+            widget=ComplaintSelect(label='Section', attrs={
+                'classes': 'text-uppercase'
+            }),
             choices=SECTION_CHOICES,
+            required=False
+        )
+
+        self.fields['status'] = ChoiceField(
+            widget=ComplaintSelect(label='Status'),
+            choices=STATUS_CHOICES,
             required=False
         )

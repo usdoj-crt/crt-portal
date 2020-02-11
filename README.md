@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/usdoj-crt/crt-portal.svg?style=svg)](https://circleci.com/gh/usdoj-crt/crt-portal)
+
 ## Contents
 
 * [Local set up](#local-set-up)

@@ -33,9 +33,9 @@ logger = logging.getLogger(__name__)
 
 
 class InternalHistory(models.Model):
-    note = models.CharField(max_length=500, null=False, blank=False,)
+    note = models.CharField(max_length=1000, null=False, blank=False,)
     create_date = models.DateTimeField(auto_now_add=True)
-    # add author
+    author = models.CharField(max_length=1000, null=False, blank=False,)
 
 
 class ProtectedClass(models.Model):
@@ -113,6 +113,9 @@ class Report(models.Model):
     last_incident_day = models.PositiveIntegerField(MaxValueValidator(31, message='Day value too high'), null=True, blank=True)
     last_incident_month = models.PositiveIntegerField(MaxValueValidator(12, message="Month must be 12 or less"))
 
+    # Internal comments
+    internal_comments = models.ManyToManyField(InternalHistory, blank=True)
+
     @cached_property
     def last_incident_date(self):
         day = self.last_incident_day or 1
@@ -157,30 +160,47 @@ class Report(models.Model):
 
         if len(hatecrimes_options) > 0:
             return 'CRM'
-        elif self.primary_complaint == 'voting' and self.__is_not_disabled(protected_classes):
-            return 'VOT'
+
+        elif self.primary_complaint == 'voting':
+            if self.__is_not_disabled(protected_classes):
+                return 'VOT'
+            else:
+                return 'DRS'
+
         elif self.primary_complaint == 'workplace':
             if self.__has_immigration_protected_classes(protected_classes):
                 return 'IER'
-            elif self.__is_not_disabled(protected_classes):
+            else:
                 return 'ELS'
+
         elif self.primary_complaint == 'commercial_or_public':
-            if self.commercial_or_public_place == 'healthcare' and self.__is_not_disabled(protected_classes):
+            if not self.__is_not_disabled(protected_classes):
+                return 'DRS'
+            elif self.commercial_or_public_place == 'healthcare':
                 return 'SPL'
             else:
                 return 'HCE'
+
         elif self.primary_complaint == 'housing':
-            if self.__is_not_disabled(protected_classes):
-                return 'HCE'
+            return 'HCE'
+
         elif self.primary_complaint == 'education':
-            if self.public_or_private_school == 'public':
+            if self.public_or_private_school == 'public' or self.public_or_private_school == 'not_sure':
                 return 'EOS'
             elif self.__is_not_disabled(protected_classes):
                 return 'EOS'
+            elif self.public_or_private_school == 'private'and not self.__is_not_disabled(protected_classes):
+                return 'DRS'
+
         elif self.primary_complaint == 'police':
             if self.__is_not_disabled(protected_classes) and self.inside_correctional_facility == 'inside':
                 return 'SPL'
-            if self.__is_not_disabled(protected_classes) and self.inside_correctional_facility == 'outside':
+            elif self.__is_not_disabled(protected_classes) and self.inside_correctional_facility == 'outside':
                 return 'CRM'
+            else:
+                return 'DRS'
+
+        elif self.primary_complaint == 'something_else' and not self.__is_not_disabled(protected_classes):
+            return 'DRS'
 
         return 'ADM'

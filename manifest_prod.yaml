@@ -14,5 +14,6 @@ applications:
   services:
   - crt-db
   - crt-s3
+  - log-drain
   - sso-creds
   - VCAP_SERVICES
