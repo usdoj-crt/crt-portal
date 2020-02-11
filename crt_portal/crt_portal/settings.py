@@ -239,7 +239,6 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     # see settings options https://django-csp.readthedocs.io/en/latest/configuration.html#configuration-chapter
     CSP_DEFAULT_SRC = ("'self'", STATIC_URL)
     SESSION_COOKIE_SAMESITE = 'Strict'
-    CSP_DEFAULT_SRC = ("'self'")
     CSP_SCRIPT_SRC = ("'self'", STATIC_URL)
     CSP_IMG_SRC = ("'self'", STATIC_URL)
     CSP_MEDIA_SRC = ("'self'", STATIC_URL)
