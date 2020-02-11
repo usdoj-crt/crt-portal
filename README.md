@@ -190,7 +190,7 @@ Prettier can automatically fix JS style issues for you:
     npm run lint:write
 
 ### Security scans
-We use OWASP ZAP for security. Here is an [intro to OWASP ZAP](https://resources.infosecinstitute.com/introduction-owasp-zap-web-application-security-assessments/#gref) that explains the tool.
+We use OWASP ZAP for security. Here is an [intro to OWASP ZAP](https://resources.infosecinstitute.com/introduction-owasp-zap-web-application-security-assessments/#gref) that explains the tool. You can also look at the [scan configuration documentation](https://github.com/zaproxy/zaproxy/wiki/ZAP-Baseline-Scan).
 
 You can run and pull down the container to use locally:
 

@@ -84,7 +84,9 @@ jobs:
       - checkout
       - run:
             name: Pull owasp zap docker image
-            command: docker pull owasp/zap2docker-weekly
+            command: |
+              docker pull owasp/zap2docker-weekly\
+              COPY gen.conf /usr/src/app/
       - run:
             name: Run passive scan on dev
             command: |
