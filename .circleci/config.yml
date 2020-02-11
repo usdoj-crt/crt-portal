@@ -92,9 +92,10 @@ jobs:
           POSTGRES_DB: circle_test
     steps:
       - checkout
-      - restore_cache:
-      # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+      # removing as we deal with caching problem
+      # - restore_cache:
+      # # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
+      #     key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
           command: |
