@@ -83,15 +83,34 @@ jobs:
     working_directory: ~/code
     steps:
       - checkout
-      # just to speed up testing for now
-      - restore_cache:
-      # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
           key: always
       - run:
             name: Pull owasp zap docker image and run scan
             command: |
               docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-baseline.py \
               -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf
+  owasp-scan-dev:
+    machine:
+      image: circleci/classic:latest
+    working_directory: ~/code
+    steps:
+      - checkout
+      - run:
+            name: Pull owasp zap docker image and run scan
+            command: |
+              docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-baseline.py \
+              -t https://crt-portal-django-stage.app.cloud.gov/report/ -c .circleci/zap.conf
+  owasp-scan-prod:
+    machine:
+      image: circleci/classic:latest
+    working_directory: ~/code
+    steps:
+      - checkout
+      - run:
+            name: Pull owasp zap docker image and run scan
+            command: |
+              docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-baseline.py \
+              -t https://crt-portal-django-prod.app.cloud.gov/report/ -c .circleci/zap.conf
 # deployments
   deploy-dev:
     working_directory: ~/code
@@ -264,13 +283,28 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      # Don't merge this is just to speed testing
-      # - build_and_test
+      - build_and_test
+
       - owasp-scan-dev
+          filters:
+            branches:
+              only: /^release.*/
+
+      - owasp-scan-stage
+          filters:
+            branches:
+              only: master
+
+      - owasp-scan-prod
+          requires:
+            - deploy-prod
+          filters:
+            branches:
+              only: master
 
       - deploy-dev:
           requires:
-            # - build_and_test
+            - build_and_test
           filters:
             branches:
               only: develop
@@ -278,14 +312,15 @@ workflows:
       - deploy-stage:
           requires:
             - owasp-scan-dev
-            # - build_and_test
+            - build_and_test
           filters:
             branches:
               only: /^release.*/
 
       - deploy-prod:
           requires:
-            # - build_and_test
+            - owasp-scan-stage
+            - build_and_test
           filters:
             branches:
               only: master
