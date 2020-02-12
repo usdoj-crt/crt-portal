@@ -10,6 +10,8 @@
 
 * [Cloud.gov set up](#cloudgov-set-up)
 
+* [Deployment](#deployment)
+
 * [Additional documentation](#additional-documentation)
 
 * [Background notes](#background-notes)
@@ -272,7 +274,7 @@ Or change a user's password:
 
     python crt_portal/manage.py changepassword {{username}}
 
-### Subsequent deploys
+## Deployment
 
 We deploy from [CircleCI](https://circleci.com/gh/usdoj-crt). The [circle config](https://github.com/usdoj-crt/crt-portal/blob/develop/.circleci/config.yml) contains rules that will deploy the site to different environments using a set of rules.
 
