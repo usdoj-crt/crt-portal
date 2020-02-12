@@ -278,34 +278,42 @@ Or change a user's password:
 
 We deploy from [CircleCI](https://circleci.com/gh/usdoj-crt). The [circle config](https://github.com/usdoj-crt/crt-portal/blob/develop/.circleci/config.yml) contains rules that will deploy the site to different environments using a set of rules.
 
-[GitFlow](https://github.com/nvie/gitflow) is a tool that can make it easier to handle branching. On a Mac with homebrew it can be installed with `brew install git-flow`. Then, in the top level folder of the project, you will want to run `git flow init`. We are using the defaults, so you can press enter for all the set up options.
+[GitFlow](https://github.com/nvie/gitflow) is a tool that can make it easier to handle branching. On a Mac with homebrew it can be installed with: 
 
-Deployment for each environment
+    brew install git-flow 
+Then, in the top level folder of the project, you will want to run: 
+    
+    git flow init 
+We are using the defaults, so you can press enter for all the set up options. You may need to type 'master' production releases if you haven't been on the master branch yet. 
+
+### Deployment for each environment
 * The app will deploy to **dev** when the tests pass and a PR is merged into `develop`. You should do this in GitHub.
 
 * The app will deploy to **stage** when the tests pass and when we make or update a branch that starts with `release/`.
     * Make sure the develop branch is approved for deploy by the product owner
-    * Check out the development branch and do a `git pull origin develop`
+    * Look at ZenHub and see if there is anything in "Dev done" flag that for approval so those issues are in "Ready for UAT" when you make the release
+    * Check out the develop branch and do a `git pull origin develop`
     * You can create a release with the command `git flow release start <date-of-planned-relase>`
+    * Finally, push the release branch `git push origin release/<date-of-planned-relase>`
 
-* The app will deploy to prod when the tests pass and a PR is merged into `master`. You can also do this in GitHub once you confirm approval with the product owner. If there are any merge conflicts, you will want to resolve them on the staging branch first.
+* The app will deploy to **prod** when the tests pass and a PR is merged into `master`. You can also do this in GitHub once you confirm approval with the product owner. If there are any merge conflicts, you will want to resolve them on the staging branch first.
 
 When CircleCI tries to deploy two PRs back-to-back, one of them can fail. In this case, you can restart the failed deploy process by clicking the "Rerun Workflow" button.
 
 **Hot fixes** will be needed when we find urgent bugs or problems with production. This is where git-flow becomes very useful.
 To make the fix:
-    * Check out the master branch and do a `git pull origin master`
-    * Create a branch for your work with `git flow hotfix start`
-    * Commit and push your branch for PR review
+* Check out the master branch and do a `git pull origin master`
+* Create a branch for your work with `git flow hotfix start`
+* Commit and push your branch for PR review
 
 To deploy the fix:
-    * Make sure the product owner is in the loop with any errors and fixes.
-    * Approve the hotfix merge on GitHub but don't merge it.
-    * Check out the development branch and do a `git pull origin develop`
-    * Check out the release branch, if there is one, and do a `git pull origin release/name-of-release`
-    * Check out the master branch and do a `git pull origin master`
-    * Finish the hotfix with `git flow hotfix finish` This command will make sure that the fix is merged into the master, develop and release branches so your change doesn't get clobbered later.
-    * Checkout and push the develop, release and master branches. Checking to make sure the fix works and doesn't cause any unintended consequences.
+* Make sure the product owner is in the loop with any errors and fixes.
+* Approve the hotfix merge on GitHub but don't merge it.
+* Check out the development branch and do a `git pull origin develop`
+* Check out the release branch, if there is one, and do a `git pull origin release/name-of-release`
+* Check out the master branch and do a `git pull origin master`
+* Finish the hotfix with `git flow hotfix finish` This command will make sure that the fix is merged into the master, develop and release branches so your change doesn't get clobbered later.
+* Checkout and push the develop, release and master branches. Checking to make sure the fix works and doesn't cause any unintended consequences.
 
 The [git-flow cheatsheet](https://danielkummer.github.io/git-flow-cheatsheet/) is a great explainer of the git-flow tool.
 
