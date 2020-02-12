@@ -2,11 +2,11 @@ from datetime import datetime
 
 from django.core.validators import ValidationError
 from django.forms import ModelForm, CheckboxInput, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
-    ModelMultipleChoiceField, MultipleChoiceField
+    ModelMultipleChoiceField, MultipleChoiceField, Select
 from django.utils.translation import gettext_lazy as _
 
 from .question_group import QuestionGroup
-from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtDropdown, CrtMultiSelect, ComplaintSelect
+from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtMultiSelect, ComplaintSelect
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
 from .model_variables import (
     ELECTION_CHOICES,
@@ -229,8 +229,9 @@ class LocationForm(ModelForm):
                 'class': 'usa-input',
                 'aria-describedby': 'location-help-text'
             }),
-            'location_state': CrtDropdown(attrs={
-                'aria-describedby': 'location-help-text'
+            'location_state': Select(attrs={
+                'aria-describedby': 'location-help-text',
+                'class': 'usa-select'
             }),
         }
 
@@ -252,7 +253,10 @@ class LocationForm(ModelForm):
         }
         self.fields['location_state'] = ChoiceField(
             choices=STATES_AND_TERRITORIES,
-            widget=CrtDropdown,
+            widget=Select(attrs={
+                'aria-describedby': 'location-help-text',
+                'class': 'usa-select'
+            }),
             required=True,
             error_messages={
                 'required': errors['location_state']
@@ -610,8 +614,9 @@ class Filters(ModelForm):
                 'class': 'usa-input',
                 'name': 'location_city_town'
             }),
-            'location_state': CrtDropdown(attrs={
-                'name': 'location_state'
+            'location_state': Select(attrs={
+                'name': 'location_state',
+                'class': 'usa-select'
             })
         }
 
@@ -628,8 +633,9 @@ class Filters(ModelForm):
         )
         self.fields['location_state'] = ChoiceField(
             choices=STATES_AND_TERRITORIES,
-            widget=CrtDropdown(attrs={
-                'name': 'location_state'
+            widget=Select(attrs={
+                'name': 'location_state',
+                'class': 'usa-select'
             }),
             required=False,
         )

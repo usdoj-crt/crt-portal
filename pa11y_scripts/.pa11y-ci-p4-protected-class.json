@@ -16,7 +16,7 @@
         "click element #id_4-employer_size_0",
         "set field #id_4-location_name to Store",
         "set field #id_4-location_city_town to Town",
-        "set field #id_4-location_state_0 to AL",
+        "set field #id_4-location_state to AL",
         "click element #submit-next",
         "wait for element #id_9-protected_class_0 to be visible"
       ],
