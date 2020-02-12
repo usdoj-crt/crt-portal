@@ -234,6 +234,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     MIDDLEWARE.append('csp.middleware.CSPMiddleware')
     # headers required for security
     SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
     # If this is set to True, client-side JavaScript will not be able to access the language cookie.
     SESSION_COOKIE_HTTPONLY = True
     # see settings options https://django-csp.readthedocs.io/en/latest/configuration.html#configuration-chapter
