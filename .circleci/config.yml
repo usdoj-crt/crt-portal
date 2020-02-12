@@ -83,7 +83,6 @@ jobs:
     working_directory: ~/code
     steps:
       - checkout
-          key: always
       - run:
             name: Pull owasp zap docker image and run scan
             command: |
