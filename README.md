@@ -295,22 +295,23 @@ We are using the defaults, so you can press enter for all the set up options. Yo
     * Check out the develop branch and do a `git pull origin develop`
     * You can create a release with the command `git flow release start <date-of-planned-relase>`
     * Finally, push the release branch `git push origin release/<date-of-planned-relase>`
+    * Make a PR for the release branch target the master branch.
 
 * The app will deploy to **prod** when the tests pass and a PR is merged into `master`. You can also do this in GitHub once you confirm approval with the product owner. If there are any merge conflicts, you will want to resolve them on the staging branch first.
+
 
 When CircleCI tries to deploy two PRs back-to-back, one of them can fail. In this case, you can restart the failed deploy process by clicking the "Rerun Workflow" button.
 
 **Hot fixes** will be needed when we find urgent bugs or problems with production. This is where git-flow becomes very useful.
 To make the fix:
 * Check out the master branch and do a `git pull origin master`
-* Create a branch for your work with `git flow hotfix start`
+* Create a branch for your work with `git flow hotfix start <discribe-bug>`
 * Commit and push your branch for PR review
 
 To deploy the fix:
 * Make sure the product owner is in the loop with any errors and fixes.
 * Approve the hotfix merge on GitHub but don't merge it.
 * Check out the development branch and do a `git pull origin develop`
-* Check out the release branch, if there is one, and do a `git pull origin release/name-of-release`
 * Check out the master branch and do a `git pull origin master`
 * Finish the hotfix with `git flow hotfix finish` This command will make sure that the fix is merged into the master, develop and release branches so your change doesn't get clobbered later.
 * Checkout and push the develop, release and master branches. Checking to make sure the fix works and doesn't cause any unintended consequences.
