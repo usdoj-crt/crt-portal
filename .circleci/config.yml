@@ -284,17 +284,17 @@ workflows:
     jobs:
       - build_and_test
 
-      - owasp-scan-dev
+      - owasp-scan-dev:
           filters:
             branches:
               only: /^release.*/
 
-      - owasp-scan-stage
+      - owasp-scan-stage:
           filters:
             branches:
               only: master
 
-      - owasp-scan-prod
+      - owasp-scan-prod:
           requires:
             - deploy-prod
           filters:
