@@ -235,7 +235,7 @@
     var firstNameEl = formEl.querySelector('input[name="contact_first_name"');
     var lastNameEl = formEl.querySelector('input[name="contact_last_name"');
     var cityEl = formEl.querySelector('input[name="location_city_town"]');
-    var locationStateEl = formEl.querySelector('input[name="location_state"]');
+    var locationStateEl = formEl.querySelector('select[name="location_state"]');
     var activeFiltersEl = dom.getElementById('active-filters');
 
     /**

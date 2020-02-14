@@ -646,7 +646,6 @@ class Filters(ModelForm):
         self.fields['location_city_town'].label = _('Incident location city')
 
         self.fields['location_state'].label = _('Incident location state')
-        self.fields['location_state'].widget.attrs['list'] = 'states'
 
 
 class ComplaintActions(ModelForm):
