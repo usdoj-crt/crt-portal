@@ -305,7 +305,7 @@ We are using the defaults, so you can press enter for all the set up options. Yo
      * Check out the develop branch and do a `git pull origin develop`
      * Run `git flow release finish`
      * Check out the develop branch and do a `git push origin develop`
-     * Once that succedes, check out the master branch do a `git push origin master`
+     * Once that succeeds, check out the master branch do a `git push origin master`
 
 When CircleCI tries to deploy two PRs back-to-back, one of them can fail. In this case, you can restart the failed deploy process by clicking the "Rerun Workflow" button.
 
