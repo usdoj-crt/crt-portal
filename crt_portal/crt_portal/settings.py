@@ -34,9 +34,10 @@ if environment != 'LOCAL':
     to local will allow you to add the variables directly and not have
     to recreate the vacap structure."""
     vcap = json.loads(os.environ['VCAP_SERVICES'])
-
-    # SECURITY WARNING: keep the secret key used in production secret!
-    SECRET_KEY = vcap['user-provided'][0]['credentials']['SECRET_KEY']
+    for service in vcap['user-provided']:
+        if service['instance_name'] == "VCAP_SERVICES":
+            # SECURITY WARNING: keep the secret key used in production secret!
+            SECRET_KEY = service['credentials']['SECRET_KEY']
 
     db_credentials = vcap['aws-rds'][0]['credentials']
 
@@ -154,16 +155,20 @@ USE_TZ = True
 
 # for AUTH, probably want to add stage in the future
 if environment == 'PRODUCTION':
+    for service in vcap['user-provided']:
+        if service['instance_name'] == "VCAP_SERVICES":
+            # SECURITY WARNING: keep the secret key used in production secret!
+            creds = service['credentials']
+            AUTH_CLIENT_ID = creds['AUTH_CLIENT_ID']
+            AUTH_SERVER = creds['AUTH_SERVER']
+            AUTH_USERNAME_CLAIM = creds['AUTH_USERNAME_CLAIM']
+            AUTH_GROUP_CLAIM = creds['AUTH_GROUP_CLAIM']
+
     INSTALLED_APPS.append('django_auth_adfs')
     AUTHENTICATION_BACKENDS = (
         'django_auth_adfs.backend.AdfsAuthCodeBackend',
     )
     MIDDLEWARE.append('django_auth_adfs.middleware.LoginRequiredMiddleware')
-
-    AUTH_CLIENT_ID = vcap['user-provided'][0]['credentials']['AUTH_CLIENT_ID']
-    AUTH_SERVER = vcap['user-provided'][0]['credentials']['AUTH_SERVER']
-    AUTH_USERNAME_CLAIM = vcap['user-provided'][0]['credentials']['AUTH_USERNAME_CLAIM']
-    AUTH_GROUP_CLAIM = vcap['user-provided'][0]['credentials']['AUTH_GROUP_CLAIM']
 
     for service in vcap['s3']:
         if service['instance_name'] == 'sso-creds':
