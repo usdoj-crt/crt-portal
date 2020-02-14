@@ -1,5 +1,6 @@
 {% load commercial_public_space_view %}
 {% load correctional_facility_view %}
+{% load employer_info_view %}
 
 <div class="complaint-card complaint-card--rounded">
   <h3 class="complaint-card-heading text-uppercase">Complaint details</h3>
@@ -40,6 +41,8 @@
             {% render_correctional_facility_view data.inside_correctional_facility data.correctional_facility_type %}
           {% elif data.public_or_private_school %}
             School type: {% if data.public_or_private_school == 'not_sure' %} Not sure {% else %} {{ data.public_or_private_school|title }} {% endif %}
+          {% elif data.public_or_private_employer %}
+            {% render_employer_info_view data.public_or_private_employer data.employer_size %}
           {% else %}
             —
           {% endif %}

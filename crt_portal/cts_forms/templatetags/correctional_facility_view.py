@@ -7,7 +7,6 @@ register = template.Library()
 
 @register.inclusion_tag('forms/snippets/correctional_facility_view.html')
 def render_correctional_facility_view(facility, facility_type):
-    print(facility_type)
     if facility == 'outside':
         location_type = CORRECTIONAL_FACILITY_FRIENDLY_TEXT.get(facility, '—')
     else:

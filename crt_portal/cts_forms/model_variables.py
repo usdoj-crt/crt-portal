@@ -211,6 +211,14 @@ EMPLOYER_SIZE_CHOICES = (
     ('not_sure', _('I\'m not sure')),
 )
 
+EMPLOYER_FRIENDLY_TEXT = {
+    'public_employer': _('Public'),
+    'private_employer': _('Private'),
+    'not_sure': _('Not sure'),
+    '14_or_less': _('Less than 15'),
+    '15_or_more': _('15 or more'),
+}
+
 PUBLIC_OR_PRIVATE_SCHOOL_CHOICES = (
     ('public', _('Public school or educational program')),
     ('private', _('Private school or educational program')),
