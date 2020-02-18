@@ -200,8 +200,9 @@ if environment == 'PRODUCTION':
         "USERNAME_CLAIM": AUTH_USERNAME_CLAIM,
         "GROUP_CLAIM": AUTH_GROUP_CLAIM,
         'LOGIN_EXEMPT_URLS': [
-            '/',
+            '',
             'report/',
+            'robots.txt',
         ],
     }
 
@@ -254,6 +255,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     CSP_FRAME_ANCESTORS = ("'self'", bucket)
     CSP_STYLE_SRC = ("'self'", bucket)
     CSP_INCLUDE_NONCE_IN = ['script-src']
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

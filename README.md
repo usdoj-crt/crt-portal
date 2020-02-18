@@ -193,6 +193,36 @@ Prettier can automatically fix JS style issues for you:
 
     npm run lint:write
 
+### Security scans
+We use OWASP ZAP for security. Here is an [intro to OWASP ZAP](https://resources.infosecinstitute.com/introduction-owasp-zap-web-application-security-assessments/#gref) that explains the tool. You can also look at the [scan configuration documentation](https://github.com/zaproxy/zaproxy/wiki/ZAP-Baseline-Scan).
+
+You can run and pull down the container to use locally:
+
+    docker pull owasp/zap2docker-weekly
+
+Run OWASP ZAP security scans with docker using the GUI:
+
+    docker run -u zap -p 8080:8080 -p 8090:8090 -i owasp/zap2docker-weekly zap-webswing.sh
+
+you can see the GUI at http://localhost:8080/zap/
+
+Do use caution when using any "attack" tests, we generally run those in local or sandboxed environments.
+
+To stop the container, find the container id with:
+
+    docker container ls
+
+Then you can stop the container with:
+
+     docker stop <container_id>
+
+Run OWASP ZAP security scans with docker using the command line. Here is an example of running a full, passive scan locally targeting the development site:
+
+    docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-full-scan.py \
+    -t https://crt-portal-django-dev.app.cloud.gov/report/ -r testreport.html
+
+That will produce a report locally that you can view in your browser. It will give you a list of things that you should check. Sometimes there are things at the low or informational level that are false positives or are not worth the trade-offs to implement. The report will take a minute or two to generate.
+
 ## Browser targeting
 
 We aim to test against Interent Explorer 11 and Google Chrome on a regular basis, and test against Safari and Firefox on an occasional basis.

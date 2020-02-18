@@ -19,7 +19,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, TemplateView
 
 from cts_forms.forms import (
     Contact,
@@ -60,6 +60,7 @@ else:
 urlpatterns = auth + [
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),
     path('form/', include('cts_forms.urls')),
     path('report/', CRTReportWizard.as_view(
         [
