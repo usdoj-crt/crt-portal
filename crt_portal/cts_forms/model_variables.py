@@ -239,26 +239,10 @@ PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES = (
     ('not_sure', _('Not sure')),
 )
 
-RESPONDENT_TYPE_CHOICES = (
-    ('employer', _('Employer or potential employer')),
-    ('landlord', _('Landlord, leasing office, or home/rental provider')),
-    ('police_corrections_staff', _('Police, prison guard, or other corrections staff')),
-    ('other_public_official', _('Other public official (judge, voting official, or other government official)')),
-    ('school', _('Individual(s) from school or educational program (teacher, administrator, staff, or students)')),
-    ('healthcare', _('Healthcare provider or staff')),
-    ('lender', _('Bank or loaning service')),
-)
-
 WHO_FOR_CHOICES = (
     ('myself', _('I\'m reporting for myself')),
     ('another', _('I\'m reporting on behalf of another person')),
     ('undisclosed', _('I prefer not to disclose')),
-)
-
-RELATIONSHIP_CHOICES = (
-    ('parent_guardian', _('I''m a parent or guardian of the person affected')),
-    ('professional', _('I''m providing professional assistance')),
-    ('witness to the situation', _('I''m a witness to the situation')),
 )
 
 STATES_AND_TERRITORIES = (

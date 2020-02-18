@@ -14,7 +14,6 @@ from .model_variables import (
     PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
     PUBLIC_OR_PRIVATE_FACILITY_CHOICES,
     PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES,
-    RESPONDENT_TYPE_CHOICES,
     STATES_AND_TERRITORIES,
     PROTECTED_MODEL_CHOICES,
     STATUS_CHOICES,
@@ -66,6 +65,12 @@ class Report(models.Model):
         null=True,
         blank=True
     )
+    contact_address_line_1 = models.CharField(max_length=225, null=True, blank=True)
+    contact_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
+    contact_city = models.CharField(max_length=700, null=True, blank=True)
+    contact_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
+    contact_zip = models.CharField(max_length=10, null=True, blank=True)
+
     servicemember = models.CharField(max_length=4, null=False, choices=SERVICEMEMBER_CHOICES)
     # Primary Issue
     primary_complaint = models.CharField(
@@ -127,12 +132,6 @@ class Report(models.Model):
     # where form
     public_or_private_facility = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_FACILITY_CHOICES, default=None)
     public_or_private_healthcare = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES, default=None)
-    # who form
-    respondent_type = models.CharField(max_length=100, null=True, blank=True, choices=RESPONDENT_TYPE_CHOICES, default=None)
-    respondent_contact_ask = models.BooleanField(null=True)
-    respondent_name = models.CharField(max_length=225, null=True, blank=True)
-    respondent_city = models.CharField(max_length=700, null=True, blank=True)
-    respondent_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
 
     def __str__(self):
         return f'{self.create_date} {self.violation_summary}'
