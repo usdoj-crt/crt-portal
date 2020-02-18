@@ -199,6 +199,7 @@ class Details(ModelForm):
         self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
         self.fields['violation_summary'].help_text = _("Please include any details you have about time, location, or people involved with the event, names of witnesses or any materials that would support your description")
         self.fields['violation_summary'].error_messages = {'required': VIOLATION_SUMMARY_ERROR}
+        self.fields['violation_summary'].required = True
 
 
 class LocationForm(ModelForm):
@@ -254,7 +255,7 @@ class LocationForm(ModelForm):
         }
         self.fields['location_city_town'].required = True
         self.fields['location_state'] = ChoiceField(
-            choices=STATES_AND_TERRITORIES,
+            choices=(('', _(' ')),) + STATES_AND_TERRITORIES,
             widget=Select(attrs={
                 'aria-describedby': 'location-help-text',
                 'class': 'usa-select'
@@ -264,7 +265,7 @@ class LocationForm(ModelForm):
                 'required': errors['location_state']
             },
             label='State',
-            help_text="Where did this happen?"
+            help_text="Where did this happen?",
         )
         self.fields['location_state'].widget.attrs['list'] = 'states'
 
@@ -537,11 +538,13 @@ class When(ModelForm):
         self.fields['last_incident_month'].error_messages = {
             'required': _('Please enter a month.'),
         }
+        self.fields['last_incident_month'].required = True
         self.fields['last_incident_day'].label = _('Day')
         self.fields['last_incident_year'].label = _('Year')
         self.fields['last_incident_year'].error_messages = {
             'required': _('Please enter a year.'),
         }
+        self.fields['last_incident_year'].required = True
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""

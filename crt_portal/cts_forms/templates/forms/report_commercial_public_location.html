@@ -31,7 +31,7 @@
 </fieldset>
 {% block page_js %}
 <script src="{% static 'js/other_show_hide.js' %}"></script>
-<script>
+<script nonce="{{request.csp_nonce}}">
   window.CRT.otherTextInputToggle('#id_5-commercial_or_public_place .usa-radio')
 </script>
 {% endblock %}

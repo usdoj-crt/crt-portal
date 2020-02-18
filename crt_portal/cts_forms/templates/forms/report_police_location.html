@@ -22,7 +22,7 @@
     {% endif %}
   {% endwith %}
 
-  <script>
+  <script nonce="{{request.csp_nonce}}">
     var toggleWrapperEl = document.querySelector('[data-toggle="toggle"]');
     var toggleControls = Array.prototype.slice.call(
       toggleWrapperEl.querySelectorAll('[name="4-inside_correctional_facility"]')
