@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.core.validators import ValidationError
-from django.forms import ModelForm, CheckboxInput, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
+from django.forms import ModelForm, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
     ModelMultipleChoiceField, MultipleChoiceField, Select
 from django.utils.translation import gettext_lazy as _
 
@@ -10,7 +10,6 @@ from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, Cr
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
 from .model_variables import (
     ELECTION_CHOICES,
-    RESPONDENT_TYPE_CHOICES,
     PROTECTED_CLASS_CHOICES,
     PROTECTED_CLASS_ERROR,
     PRIMARY_COMPLAINT_CHOICES,
@@ -576,19 +575,6 @@ class When(ModelForm):
             return cleaned_data
 
         return cleaned_data
-
-
-class Who(ModelForm):
-    respondent_type = TypedChoiceField(
-        choices=RESPONDENT_TYPE_CHOICES, empty_value=None, widget=UsaRadioSelect, required=False
-    )
-
-    class Meta:
-        model = Report
-        fields = ['respondent_contact_ask', 'respondent_type', 'respondent_name', 'respondent_city', 'respondent_state']
-        widgets = {
-            'respondent_contact_ask': CheckboxInput,
-        }
 
 
 class Filters(ModelForm):

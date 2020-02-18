@@ -22,7 +22,6 @@ from .model_variables import (
     SERVICEMEMBER_ERROR,
 )
 from .forms import (
-    Who,
     Details,
     Contact,
     ProtectedClassForm,
@@ -42,16 +41,6 @@ class Valid_Form_Tests(TestCase):
             ProtectedClass.objects.get_or_create(protected_class=choice)
 
     """Confirms each form is valid when given valid test data."""
-
-    def test_Who_valid(self):
-        form = Who(data={
-            'respondent_contact_ask': False,
-            'respondent_type': 'employer',
-            'respondent_name': 'Max',
-            'respondent_city': 'Hometown',
-            'respondent_state': 'AK',
-        })
-        self.assertTrue(form.is_valid())
 
     def test_Details_valid(self):
         form = Details(data={
