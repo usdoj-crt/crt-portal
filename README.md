@@ -201,15 +201,25 @@ You can run and pull down the container to use locally:
 Run OWASP ZAP security scans with docker using the GUI:
 
     docker run -u zap -p 8080:8080 -p 8090:8090 -i owasp/zap2docker-weekly zap-webswing.sh
+
 you can see the GUI at http://localhost:8080/zap/
-Do use caution when using any "attack" tests, we generally run those in sandboxed environments.
+
+Do use caution when using any "attack" tests, we generally run those in local or sandboxed environments.
+
+To stop the container, find the container id with:
+
+    docker container ls
+
+Then you can stop the container with:
+
+     docker stop <container_id>
 
 Run OWASP ZAP security scans with docker using the command line. Here is an example of running a full, passive scan locally targeting the development site:
 
     docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-full-scan.py \
     -t https://crt-portal-django-dev.app.cloud.gov/report/ -r testreport.html
 
-That will produce a report locally that you can view in your browser. It will give you a list of things that you should check. Sometimes there are things at the low or informational level that are false positives or are not worth the trade-offs to implement.
+That will produce a report locally that you can view in your browser. It will give you a list of things that you should check. Sometimes there are things at the low or informational level that are false positives or are not worth the trade-offs to implement. The report will take a minute or two to generate.
 
 ## Browser targeting
 
