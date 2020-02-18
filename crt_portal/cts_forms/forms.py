@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from django.core.validators import ValidationError
-from django.forms import ModelForm, CheckboxInput, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
+from django.forms import ModelForm, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
     ModelMultipleChoiceField, MultipleChoiceField, Select
 from django.utils.translation import gettext_lazy as _
 
