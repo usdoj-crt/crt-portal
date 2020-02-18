@@ -17,6 +17,7 @@ filter_options = {
     'other_class': '__search',
     'violation_summary': '__search',
     'location_name': '__search',
+    'location_city_town': '__contains',
     'location_address_line_1': '__search',
     'location_address_line_2': '__search',
     'create_date_start': '__gte',

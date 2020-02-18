@@ -1,13 +1,15 @@
 import urllib.parse
 import os
 
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
+from django.core.exceptions import PermissionDenied
 from django.utils.translation import gettext_lazy as _
+from django.utils.decorators import method_decorator
 from django.http import Http404
-from django.core import serializers
-from django.conf import settings
+from django.views.generic import View
+from django import forms
 
 from formtools.wizard.views import SessionWizardView
 
@@ -15,9 +17,23 @@ from .models import Report, ProtectedClass, HateCrimesandTrafficking
 from .model_variables import PROTECTED_CLASS_CODES, PRIMARY_COMPLAINT_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
 from .page_through import pagination
 from .filters import report_filter
-from .forms import Filters
+from .forms import Filters, ComplaintActions
 
 SORT_DESC_CHAR = '-'
+
+
+def format_protected_class(p_class_objects, other_class):
+    p_class_list = []
+    for p_class in p_class_objects:
+        if p_class.protected_class is not None:
+            code = PROTECTED_CLASS_CODES.get(p_class.protected_class, p_class.protected_class)
+            if code != 'Other':
+                p_class_list.append(code)
+            # If this code is other but there is no other_class description, we want it to say "Other". If there is an other_class that will take the place of "Other"
+            elif other_class is None:
+                p_class_list.append(code)
+
+    return p_class_list
 
 
 @login_required
@@ -60,27 +76,22 @@ def IndexView(request):
     all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
 
     data = []
-    # formatting protected class
-    for report in requested_reports:
-        p_class_list = []
-        for p_class in report.protected_class.all().order_by('form_order'):
-            if p_class.protected_class is not None:
-                code = PROTECTED_CLASS_CODES.get(p_class.protected_class, p_class.protected_class)
-                if code != 'Other':
-                    p_class_list.append(code)
-                # If this code is other but there is no other_class description, we want it to say "Other". If there is an other_class that will take the place of "Other"
-                elif report.other_class is None:
-                    p_class_list.append(code)
 
+    for report in requested_reports:
+        p_class_list = format_protected_class(
+            report.protected_class.all().order_by('form_order'),
+            report.other_class,
+        )
         if report.other_class:
             p_class_list.append(report.other_class)
         if len(p_class_list) > 3:
             p_class_list = p_class_list[:3]
             p_class_list[2] = f'{p_class_list[2]}...'
+
         data.append({
             "report": report,
             "report_protected_classes": p_class_list,
-            "url": f'{report.id}/?next={all_args_encoded}'
+            "url": f'{report.id}?next={all_args_encoded}'
         })
 
     final_data = {
@@ -96,33 +107,64 @@ def IndexView(request):
     return render_to_response('forms/complaint_view/index/index.html', final_data)
 
 
-@login_required
-def ShowView(request, id):
-    report = get_object_or_404(Report.objects, id=id)
-    primary_complaint = [choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint]
-    crimes = {
-        'physical_harm': False,
-        'trafficking': False
-    }
+class ShowView(View):
+    def __serialize_data(self, request, report_id):
+        report = get_object_or_404(Report.objects, id=report_id)
+        primary_complaint = [choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint]
+        crimes = {
+            'physical_harm': False,
+            'trafficking': False
+        }
 
-    for crime in report.hatecrimes_trafficking.all():
-        for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
-            if crime.hatecrimes_trafficking_option == choice[1]:
-                crimes[choice[0]] = True
+        for crime in report.hatecrimes_trafficking.all():
+            for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
+                if crime.hatecrimes_trafficking_option == choice[1]:
+                    crimes[choice[0]] = True
 
-    output = {
-        'crimes': crimes,
-        'data': report,
-        'primary_complaint': primary_complaint,
-        'return_url_args': request.GET.get('next', ''),
-    }
+        p_class_list = format_protected_class(
+            report.protected_class.all().order_by('form_order'),
+            report.other_class,
+        )
 
-    if settings.DEBUG:
+        output = {
+            'actions': ComplaintActions(initial={
+                'assigned_section': report.assigned_section,
+                'status': report.status
+            }),
+            'crimes': crimes,
+            'data': report,
+            'p_class_list': p_class_list,
+            'primary_complaint': primary_complaint,
+            'return_url_args': request.GET.get('next', ''),
+        }
+
+        return output
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
+    def get(self, request, id):
+        output = self.__serialize_data(request, id)
+
+        return render(request, 'forms/complaint_view/show/index.html', output)
+
+    def post(self, request, id):
+        record = Report.objects.filter(id=id)
+        print(request.POST.get('next'))
+        updates = {}
+        for key, value in request.POST.items():
+            if key != 'csrfmiddlewaretoken' and key != 'next':
+                updates[key] = value
+
+        record.update(**updates)
+
+        output = self.__serialize_data(request, id)
         output.update({
-            'debug_data': serializers.serialize('json', [report, ])
+            'return_url_args': request.POST.get('next', ''),
         })
 
-    return render_to_response('forms/complaint_view/show/index.html', output)
+        return render(request, 'forms/complaint_view/show/index.html', output)
 
 
 TEMPLATES = [
@@ -130,34 +172,57 @@ TEMPLATES = [
     'forms/report_grouped_questions.html',
     # Primary reason
     'forms/report_primary_complaint.html',
-    # Election + location
+    # Hate crimes and trafficking
+    'forms/report_grouped_questions.html',
+    # Voting + location
     'forms/report_location.html',
     # Workplace + location
+    'forms/report_location.html',
+    # Police + location
+    'forms/report_location.html',
+    # Commercial/Public + location
+    'forms/report_location.html',
+    # Education + location
     'forms/report_location.html',
     # Location
     'forms/report_location.html',
     # Protected Class
     'forms/report_class.html',
+    # Date
+    'forms/report_date.html',
     # Details
     'forms/report_details.html',
 ]
 
-conditional_location_routings = ['voting', 'workplace']
+conditional_location_routings = ['voting', 'workplace', 'police', 'commercial_or_public', 'education']
+
+
+def is_routable_complaint(wizard, primary_complaint):
+    # try to get the cleaned data of step 1
+    cleaned_data = wizard.get_cleaned_data_for_step('1') or {'primary_complaint': 'not yet completed'}
+    if cleaned_data['primary_complaint'] == primary_complaint:
+        return True
+    return False
 
 
 def show_election_form_condition(wizard):
-    # try to get the cleaned data of step 1
-    cleaned_data = wizard.get_cleaned_data_for_step('1') or {'primary_complaint': 'not yet completed'}
-    if cleaned_data['primary_complaint'] == 'voting':
-        return True
-    return False
+    return is_routable_complaint(wizard, 'voting')
 
 
 def show_workplace_form_condition(wizard):
-    cleaned_data = wizard.get_cleaned_data_for_step('1') or {'primary_complaint': 'not yet completed'}
-    if cleaned_data['primary_complaint'] == 'workplace':
-        return True
-    return False
+    return is_routable_complaint(wizard, 'workplace')
+
+
+def show_police_form_condition(wizard):
+    return is_routable_complaint(wizard, 'police')
+
+
+def show_commercial_public_form_condition(wizard):
+    return is_routable_complaint(wizard, 'commercial_or_public')
+
+
+def show_education_form_condition(wizard):
+    return is_routable_complaint(wizard, 'education')
 
 
 def show_location_form_condition(wizard):
@@ -171,14 +236,49 @@ def show_location_form_condition(wizard):
 
 class CRTReportWizard(SessionWizardView):
     """Once all the sub-forms are submitted this class will clean data and save."""
+
+    # overriding the get form to add checks to the hidden field and avoid 500s
+    def get_form(self, step=None, data=None, files=None):
+        """
+        Constructs the form for a given `step`. If no `step` is defined, the
+        current step will be determined automatically.
+        The form will be initialized using the `data` argument to prefill the
+        new form. If needed, instance or queryset (for `ModelForm` or
+        `ModelFormSet`) will be added too.
+        """
+        if step is None:
+            step = self.steps.current
+        # added check to see if people are messing with the form
+        elif not step.isdigit() or int(step) > len(TEMPLATES):
+            raise PermissionDenied
+
+        form_class = self.form_list[step]
+        # prepare the kwargs for the form instance.
+        kwargs = self.get_form_kwargs(step)
+        kwargs.update({
+            'data': data,
+            'files': files,
+            'prefix': self.get_form_prefix(step, form_class),
+            'initial': self.get_form_initial(step),
+        })
+        if issubclass(form_class, (forms.ModelForm, forms.models.BaseInlineFormSet)):
+            # If the form is based on ModelForm or InlineFormSet,
+            # add instance if available and not previously set.
+            kwargs.setdefault('instance', self.get_form_instance(step))
+        elif issubclass(form_class, forms.models.BaseModelFormSet):
+            # If the form is based on ModelFormSet, add queryset if available
+            # and not previous set.
+            kwargs.setdefault('queryset', self.get_form_instance(step))
+        return form_class(**kwargs)
+
     def get_template_names(self):
         return [TEMPLATES[int(self.steps.current)]]
 
     def get_context_data(self, form, **kwargs):
         context = super(CRTReportWizard, self).get_context_data(form=form, **kwargs)
-
         field_errors = list(map(lambda field: field.errors, context['form']))
         page_errors = [error for field in field_errors for error in field]
+        form_name = form.name if hasattr(form, 'name') else ''
 
         # This name appears in the progress bar wizard
         ordered_step_names = [
@@ -186,16 +286,22 @@ class CRTReportWizard(SessionWizardView):
             _('Primary Issue'),
             _('Location'),
             _('Protected Class'),
+            _('Date'),
             _('Details'),
         ]
         # Name for all forms whether they are skipped or not
         all_step_names = [
             _('Contact'),
             _('Primary Issue'),
+            _('Primary Issue'),
+            _('Location'),
+            _('Location'),
+            _('Location'),
             _('Location'),
             _('Location'),
             _('Location'),
             _('Protected Class'),
+            _('Date'),
             _('Details'),
         ]
 
@@ -204,11 +310,16 @@ class CRTReportWizard(SessionWizardView):
         # This title appears in large font above the question elements
         ordered_step_titles = [
             _('Contact'),
-            _('What is your primary reason for contacting the Civil Rights Division?'),
+            _('Primary issue'),
+            _('Primary issue'),
+            _('Location details'),
+            _('Location details'),
+            _('Location details'),
             _('Location details'),
             _('Location details'),
             _('Location details'),
             _('Please provide details'),
+            _('Date'),
             _('Details'),
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]
@@ -228,8 +339,8 @@ class CRTReportWizard(SessionWizardView):
                 'wordRemainingText': _('word remaining'),
                 'wordsRemainingText': _(' words remaining'),
                 'wordLimitReachedText': _(' word limit reached'),
-                'finishSummaryText': _('Please finish your summary -- '),
             },
+            'form_name': form_name
         })
 
         if current_step_name == _('Details'):
@@ -240,10 +351,19 @@ class CRTReportWizard(SessionWizardView):
             context.update({
                 'page_note': _('Providing details on where this occurred helps us properly review your issue and get it to the right people within the Civil Rights Division.'),
             })
-        elif current_step_name == _('Primary Issue'):
+        elif current_step_name == _('Date'):
             context.update({
-                'crime_help_text2': _('Please select if any that apply to your situation (optional)'),
+                'page_note': _('It is important for us to know how recently this incident happened. Some civil rights violations must be reported within a certain amount of time.')
             })
+        elif current_step_name == _('Primary Issue'):
+            if all_step_names[int(self.steps.prev)] == current_step_name:
+                context.update({
+                    'page_note': _('Continued')
+                })
+            else:
+                context.update({
+                    'crime_help_text2': _('Please select if any that apply to your situation (optional)'),
+                })
 
         return context
 

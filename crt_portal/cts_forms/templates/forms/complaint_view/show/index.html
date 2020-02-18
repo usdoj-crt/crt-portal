@@ -44,7 +44,10 @@
     <div class="complaint-body">
       <div class="grid-container">
         <div class="grid-row grid-gap-md">
-          <div class="tablet:grid-col-8 grid-offset-2">
+          <div class="tablet:grid-col-4">
+            {% include 'forms/complaint_view/show/actions.html' %}
+          </div>
+          <div class="tablet:grid-col-8">
             {% include 'forms/complaint_view/show/correspondent_info.html' with data=data %}
             {% include 'forms/complaint_view/show/complaint_details.html' with data=data primaty_complaint=primary_complaint %}
             {% include 'forms/complaint_view/show/full_summary.html' with summary=data.violation_summary %}

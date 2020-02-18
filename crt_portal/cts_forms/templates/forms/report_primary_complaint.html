@@ -2,9 +2,7 @@
 {% block form_questions %}
   {% with primary_complaint_field=wizard.form.primary_complaint %}
     <fieldset class="usa-fieldset margin-bottom-5 question_{{primary_complaint_field.name}}">      
-      <legend
-        class="em-text margin-bottom-2"
-      >
+      <legend class="em-text margin-bottom-2">
         {{ primary_complaint_field.label }}
       </legend>
 
@@ -14,11 +12,13 @@
         </div>
       {% endif %}
 
-      {{ primary_complaint_field }}
+      <div aria-labelledby="primary-complaint-help-text">
+        {{ primary_complaint_field }}
 
-      {% if primary_complaint_field.errors %}
-        {% include "forms/snippets/error_alert.html" with errors=primary_complaint_field.errors %}
-      {% endif %}
+        {% if primary_complaint_field.errors %}
+          {% include "forms/snippets/error_alert.html" with errors=primary_complaint_field.errors %}
+        {% endif %}
+      </div>
     </fieldset>
   {% endwith %}
   {% include "forms/grouped_questions.html" %}

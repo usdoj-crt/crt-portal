@@ -24,21 +24,26 @@
 
 {% block content %}
   {# Progress text for screen reader. #}
-  <span class="usa-sr-only">
-    Current step: {{ current_step_name }}. Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}.
-  </span>
   <div class="page-header-background">
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-7 tablet:grid-offset-2">
-          <div class="padding-bottom-4 padding-top-3">
-            <ol class="steps" aria-hidden="true">
+          <div class="padding-bottom-4 padding-top-3" aria-label="progress">
+            <span class="usa-sr-only">
+              Current step: {{ current_step_name }}. Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}.
+            </span>
+            <ol class="steps">
               {% for step in ordered_step_names %}
-                <li {% if step == current_step_name %}class="current"{% endif %}>
-                  <div class="step">{{ step }}</div>
+                <li class="step {% if step == current_step_name %}current{%else%}{%endif%}" {% if step == current_step_name %}aria-current="true"{%else%}aria-current="false"{% endif %}>
+                  {{ step }}
+                  {% if step != current_step_name %}
+                    <span class="usa-sr-only">
+                      {% if forloop.counter > wizard.steps.step1 %}not completed{% else %}completed{% endif %}
+                    </span>
+                  {% endif %}
                 </li>
               {% endfor %}
-            </ol>
+              </ol>
             <div class="connecting-line"></div>
           </div>
         </div>
@@ -48,11 +53,11 @@
 
   <div class="grid-container">
     <div class="grid-row grid-gap">
-      <div class="tablet:grid-col-8 tablet:grid-offset-2">
+      <div class="tablet:grid-col-8 tablet:grid-offset-2"">
         {% if page_errors %}
-          <div id="page-errors" class="page-errors margin-top-4 margin-bottom-2">
+          <section id="page-errors" class="display-none page-errors margin-top-4 margin-bottom-2" role="alert" aria-live="assertive">
             {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
-          </div>
+          </section>
         {% endif %}
         <div class="margin-bottom-4 {% if not page_errors %}margin-top-5{% endif %}">
           <h2 class="margin-0">{{ current_step_title }}</h2>
@@ -110,15 +115,14 @@
 {% endblock %}
 
 {% block page_js %}
-<script>
+<script nonce="{{request.csp_nonce}}">
   (function(root) {
     root.CRT = root.CRT || {};
 
     root.CRT.translations = {
       wordRemainingText: "{{ word_count_text.wordRemainingText }}",
       wordsRemainingText: "{{ word_count_text.wordsRemainingText }}",
-      wordLimitReachedText: "{{ word_count_text.wordLimitReachedText }}",
-      finishSummaryText: "{{ word_count_text.finishSummaryText }}"
+      wordLimitReachedText: "{{ word_count_text.wordLimitReachedText }}"
     };
   })(window)
 </script>

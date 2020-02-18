@@ -1,12 +1,4 @@
 (function(root, dom) {
-  var SEARCH_PARAMS_WHITELIST = ['sort', 'page', 'per_page'];
-  var FILTERS_WHITELIST = ['assigned_section', 'contact_first_name', 'contact_last_name'];
-  var filterData = {
-    assigned_section: [],
-    contact_first_name: '',
-    contact_last_name: ''
-  };
-
   /**
    * Convert an array-like object to an array.
    *
@@ -25,78 +17,49 @@
    * with that query.
    *
    * Necessary because we can have multiple filters / search params
-   * with the same name, and they all need to be passed in the final query
+   * with the same name, and they all need to be passed in the final query.
+   *
+   * @param {String} queryString The query string we want to convert into an object
+   * @param {Array} paramsWhitelist The list of params accepted as search filters
+   * @returns {Object} Map of all params and their URL encoded values
    */
-  function getSearchParams(queryString) {
-    var params = {};
+  function getQueryParams(queryString, paramsWhitelist) {
+    var paramsMap = {};
     var search = new URLSearchParams(queryString);
+    var acceptedParams = (paramsWhitelist instanceof Array && paramsWhitelist) || [];
 
     search.forEach(function(value, filterName) {
-      if (SEARCH_PARAMS_WHITELIST.indexOf(filterName) >= 0) {
-        params[filterName] = params[filterName] || [];
+      if (acceptedParams.indexOf(filterName) >= 0) {
+        paramsMap[filterName] = paramsMap[filterName] || [];
 
-        if (params[filterName].indexOf(value) < 0) {
-          params[filterName].push(encodeURIComponent(value));
+        if (paramsMap[filterName].indexOf(value) < 0) {
+          paramsMap[filterName].push(encodeURIComponent(value));
         }
       }
     });
 
-    return params;
+    return paramsMap;
   }
 
-  function getFilterParams(queryString, dataStore) {
-    var search = new URLSearchParams(queryString);
+  /**
+   * Given an object of query parameters, convert them back into a string
+   * @param {Object} paramsObj An object containing initial
+   * @returns {Array} A list of URI-encoded query param strings
+   */
+  function makeQueryParams(params) {
+    var keys = Object.keys(params);
 
-    search.forEach(function(value, filterName) {
-      if (FILTERS_WHITELIST.indexOf(filterName) >= 0) {
-        dataStore[filterName] = dataStore[filterName] || [];
+    return keys.reduce(function(memo, key) {
+      var paramValue = params[key];
+      var valueAsList = paramValue instanceof Array ? paramValue : [paramValue];
 
-        if (dataStore[filterName].indexOf(value) < 0) {
-          dataStore[filterName].push(value);
-        }
-      }
-    });
-  }
-
-  function getMutiselectValues(select) {
-    var options = toArray((select && select.options) || []);
-
-    return options
-      .filter(function(option) {
-        return option.selected;
-      })
-      .map(function(selected) {
-        return selected.value;
-      });
-  }
-
-  function makeQueryParam(key, value) {
-    return key + '=' + encodeURIComponent(value);
-  }
-
-  function doSearch(form) {
-    var paramsObj = getSearchParams(root.location.search);
-    var filterKeys = Object.keys(filterData);
-    var filters = filterKeys.reduce(function(memo, key) {
-      var filter = filterData[key];
-
-      if (filter instanceof Array) {
-        filter.forEach(function(v) {
-          memo.push(makeQueryParam(key, v));
-        });
-      } else if (filter) {
-        memo.push(makeQueryParam(key, filter));
+      if (!paramValue.length) {
+        return memo;
       }
 
-      return memo;
-    }, []);
-
-    var params = Object.keys(paramsObj).reduce(function(memo, paramName) {
-      var values = paramsObj[paramName];
-
-      var paramsString = values
+      var paramsString = valueAsList
         .reduce(function(accum, value) {
-          accum.push(makeQueryParam(paramName, value));
+          accum.push(makeQueryParam(key, value));
 
           return accum;
         }, [])
@@ -106,88 +69,82 @@
 
       return memo;
     }, []);
-
-    var preparedFilters = filters.length ? '&' + filters.join('&') : '';
-    var preparedParams = params.length ? params.join('&') : '';
-    var finalQuery = '';
-
-    if (preparedFilters || preparedParams) {
-      finalQuery = '?' + preparedParams + preparedFilters;
-    }
-
-    window.location = form.action + finalQuery;
   }
 
-  function addMultiSelectBehavior(props) {
-    props.el.addEventListener('change', function(event) {
-      filterData.assigned_section = getMutiselectValues(event.target);
-    });
+  /**
+   * Build a URI-encoded query paramater
+   * @param {String} key The name of the query param
+   * @param {String} value The value of the query param
+   * @returns {String} Param in the format of {key}={value}
+   */
+  function makeQueryParam(key, value) {
+    return key + '=' + encodeURIComponent(value);
   }
 
-  function addTextInputBehavior(props) {
-    if (!props.el || !props.name) {
-      throw new Error(
-        'Component must be supplied with a valid DOM node and a `name` key corresponding to a key in the filterData object'
-      );
-    }
-
-    props.el.addEventListener('change', function(event) {
-      filterData[props.name] = event.target.value;
-    });
+  /**
+   * Concat all previous params together
+   * @param {Array} params An array of URI-encoded query param strings
+   * @returns {String} The supplies param strings joined and delimited by an ampersand
+   */
+  function finalizeQueryParams(params) {
+    return params.length ? params.join('&') : '';
   }
 
-  function filterController() {
-    var form = dom.getElementById('filters-form');
-    var activeFilters = dom.getElementById('active-filters');
+  /**
+   * filterDataModel and the mutation function below control the `model` behavior
+   * of the filters JS
+   */
 
-    function onFilterTagClick(node) {
-      var sections = filterData.assigned_section;
-      var filterName = node.getAttribute('data-filter-name');
+  var filterDataModel = {
+    assigned_section: [],
+    primary_complaint: '',
+    status: '',
+    location_state: '',
+    primary_complaint: '',
+    contact_first_name: '',
+    contact_last_name: '',
+    contact_email: '',
+    other_class: '',
+    violation_summary: '',
+    location_name: '',
+    location_address_line_1: '',
+    location_address_line_2: '',
+    location_city_town: '',
+    create_date_start: '',
+    create_date_end: '',
+    sort: '',
+    page: '',
+    per_page: ''
+  };
 
-      if (filterName === 'assigned_section') {
-        sections.splice(sections.indexOf(filterName), 1);
-        filterData.assigned_section = sections;
-      } else {
-        filterData[filterName] = '';
+  /**
+   * Mutate the current filter state with updated filter values
+   * @param {Object} state The current filter state
+   * @param {Object} updates The properties of the filter state to be updated
+   */
+  function mutateFilterDataWithUpdates(state, updates) {
+    for (var key in updates) {
+      if (state.hasOwnProperty(key)) {
+        state[key] = updates[key];
       }
-
-      doSearch(form);
     }
-
-    // Bootstrap the filterData object with existing filters, if any
-    getFilterParams(root.location.search, filterData);
-
-    addFormSubmitBehavior({
-      el: form
-    });
-    addMultiSelectBehavior({
-      el: form.querySelector('select[name="assigned_section"')
-    });
-    addTextInputBehavior({
-      el: form.querySelector('input[name="contact_first_name"'),
-      name: 'contact_first_name'
-    });
-    addTextInputBehavior({
-      el: form.querySelector('input[name="contact_last_name"'),
-      name: 'contact_last_name'
-    });
-    addActiveFiltersBehavior({
-      el: activeFilters,
-      onClick: onFilterTagClick
-    });
   }
 
-  function addFormSubmitBehavior(props) {
-    var form = props.el;
+  /**
+   * The following functions represent the 'views' for this  application —
+   * these are the components that wire up event handling behavior to
+   * specific DOM nodes.
+   *
+   * Each view takes a `props` object, which, at a minimum, accepts an `el` property, which is
+   * an instance of the DOM node we want to add interactive behavior to.
+   */
 
-    form.addEventListener('submit', function handleSubmit(event) {
-      event.preventDefault();
-
-      doSearch(form);
-    });
-  }
-
-  function addActiveFiltersBehavior(props) {
+  /**
+   * View to control filter tag behavior
+   * @param {Object} props
+   * @param {HTMLElement} props.el The DOM node this view manages
+   */
+  function filterTagView(props) {
     var filters = props.el;
     var onClickHandler = props.onClick;
 
@@ -200,5 +157,144 @@
     });
   }
 
-  window.addEventListener('DOMContentLoaded', filterController);
+  /**
+   * View to control form element
+   * @param {Object} props
+   * @param {HTMLElement} props.el The DOM node this view manages
+   */
+  function formView(props) {
+    var form = props.el;
+
+    form.addEventListener('submit', function handleSubmit(event) {
+      event.preventDefault();
+
+      formView.doSearch(form);
+    });
+  }
+
+  /**
+   * Create a query param string from our filter data model, and update the URL
+   * in the browser to perform a new search with the applied filters
+   */
+  formView.doSearch = function doSearch(form) {
+    var preparedFilters = finalizeQueryParams(makeQueryParams(filterDataModel));
+    var finalQuery = '';
+
+    if (preparedFilters) {
+      finalQuery = '?' + preparedFilters;
+    }
+
+    window.location = form.action + finalQuery;
+  };
+
+  function getMutiselectValues(select) {
+    var options = toArray((select && select.options) || []);
+
+    function isSelected(option) {
+      return option.selected;
+    }
+
+    function unwrapValue(x) {
+      return x.value;
+    }
+
+    return options.filter(isSelected).map(unwrapValue);
+  }
+  /**
+   * View to control multiselect elemeent behavior
+   * @param {Object} props
+   * @param {HTMLElement} props.el The DOM node this view manages
+   */
+  function multiSelectView(props) {
+    props.el.addEventListener('change', function(event) {
+      filterDataModel.assigned_section = getMutiselectValues(event.target);
+    });
+  }
+
+  /**
+   * View to control text input element behavior
+   * @param {Object} props
+   * @param {HTMLElement} props.el The DOM node this view manages
+   * @param {String} props.name The key in the filter data model that corresponds to the data to update
+   */
+  function textInputView(props) {
+    if (!props.el || !props.name) {
+      throw new Error(
+        'Component must be supplied with a valid DOM node and a `name` key corresponding to a key in the filterDataModel object'
+      );
+    }
+
+    props.el.addEventListener('change', function(event) {
+      filterDataModel[props.name] = event.target.value;
+    });
+  }
+
+  function filterController() {
+    var formEl = dom.getElementById('filters-form');
+    var multiSelectEl = formEl.querySelector('select[name="assigned_section"');
+    var firstNameEl = formEl.querySelector('input[name="contact_first_name"');
+    var lastNameEl = formEl.querySelector('input[name="contact_last_name"');
+    var cityEl = formEl.querySelector('input[name="location_city_town"]');
+    var locationStateEl = formEl.querySelector('input[name="location_state"]');
+    var activeFiltersEl = dom.getElementById('active-filters');
+
+    /**
+     * Update the filter data model when the user clears (clicks on) a filter tag,
+     * and perform a new search with the updated filters applied.
+     * @param {HTMLElement} node An HTML element
+     */
+    function onFilterTagClick(node) {
+      var filterName = node.getAttribute('data-filter-name');
+
+      if (filterName === 'assigned_section') {
+        var sections = filterDataModel.assigned_section;
+        var filterData = node.getAttribute('data-filter-value');
+
+        sections.splice(sections.indexOf(filterData), 1);
+        filterDataModel.assigned_section = sections;
+      } else {
+        filterDataModel[filterName] = '';
+      }
+
+      formView.doSearch(formEl);
+    }
+
+    formView({
+      el: formEl
+    });
+    multiSelectView({
+      el: multiSelectEl
+    });
+    textInputView({
+      el: firstNameEl,
+      name: 'contact_first_name'
+    });
+    textInputView({
+      el: lastNameEl,
+      name: 'contact_last_name'
+    });
+    textInputView({
+      el: cityEl,
+      name: 'location_city_town'
+    });
+    textInputView({
+      el: locationStateEl,
+      name: 'location_state'
+    });
+    filterTagView({
+      el: activeFiltersEl,
+      onClick: onFilterTagClick
+    });
+  }
+
+  // Bootstrap the filter code's data persistence and
+  // instantiate the controller that manages the UI components / views
+  function init() {
+    var filterUpdates = getQueryParams(root.location.search, Object.keys(filterDataModel));
+    mutateFilterDataWithUpdates(filterDataModel, filterUpdates);
+
+    filterController();
+  }
+
+  window.addEventListener('DOMContentLoaded', init);
 })(window, document);

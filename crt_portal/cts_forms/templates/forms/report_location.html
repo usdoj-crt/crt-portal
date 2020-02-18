@@ -1,8 +1,15 @@
 {% extends "forms/report_base.html" %}
-
+{% load static %}
 
 {% block form_questions %}
+  {% if wizard.form.name == 'PoliceLocation' %}
+    {% include "forms/report_police_location.html" with form=form %}
+  {% elif wizard.form.name == 'CommericalPublicLocation' %}
+    {% include 'forms/report_commercial_public_location.html' %}
+  {% endif %}
+
   {% include 'forms/grouped_questions.html' %}
+  
   {% with city=wizard.form.location_city_town state=wizard.form.location_state %}
     <div class="grid-row grid-gap margin-y-neg-2 margin-bottom-5">
       <div class="mobile-lg:grid-col-8">
@@ -10,7 +17,7 @@
           {{ city.label }}
         </label>
         {{ city }}
-      </div>    
+      </div>
       <div class="mobile-lg:grid-col-4">
         <label for="{{state.id_for_label}}">
           {{state.label}}

@@ -34,3 +34,99 @@ See example code here: https://github.com/usdoj-crt/crt-portal/pull/209/files
     - add the new page name for the form page `to all_step_names`
     - add the top-line title for the page to `ordered_step_titles`
     - add an existing or template to the `TEMPLATES` list
+
+## Debugging tips
+
+### Front end
+If you are trying to figure out what variables are getting passed to the template you can add the following code in any template:
+
+    <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre>
+
+### Back end
+#### Use the Django shell
+SSH into a docker image so you have local database access, (your image may have a different name)
+
+    docker exec -it crt-portal_web_1 /bin/bash
+
+get into the project directory where we can run the Django shell
+
+    cd crt_portal
+    python manage.py shell
+
+This takes you into an interactive shell it adds `>>>` to the beginning of lines
+
+import your models or whatever you are working with
+
+    from cts_forms.models import *
+
+Start typing and try out code interactively.
+
+#### pdb
+The built in python debugger is good for setting traces.
+See the [pdb documentation](https://docs.python.org/3.8/library/pdb.html) for details
+
+## Single sign on
+#### Setting environment variables
+Request the set up with JMD. When they get things set up on their side, they will be able to supply:
+    AUTH_CLIENT_ID
+    AUTH_SERVER
+    AUTH_USERNAME_CLAIM
+    AUTH_GROUP_CLAIM
+
+Those variables need to be set, as well as the secret key if you already have VCAPSERVICES. You can check the current settings first, in case you need to revert them with:
+
+    cf env crt-portal-django
+
+Update VCAPSERVICES it with the following command, replacing `<value` with the correct value in double quotes.
+
+    cf uups VCAP_SERVICES -p '{"SECRET_KEY":<value>,"AUTH_CLIENT_ID":<value>,"AUTH_SERVER": <value>,"AUTH_USERNAME_CLAIM":<value>,"AUTH_GROUP_CLAIM":<value>}'
+
+You can check that it is in the environment correctly with:
+
+    cf env crt-portal-django
+
+Note that you need to redeploy or restage for the changes to take effect.
+
+The other variables to set are `AUTH_RELYING_PARTY_ID` and `AUTH_AUDIENCE` these are based on the url are not sensitive so they can be put into the manifest. See the prod and stage manifests for examples.
+
+### Adding the ca bundle to S3
+
+JMD will also be able to provide you with a certificate bundle. We will want that in a private S3 bucket.
+
+If it doesn't already exist in the environment, create a private bucket called `sso-creds`. See [cloud.gov S3 documentation](https://cloud.gov/docs/services/s3/) for more details.
+
+    cf create-service s3 basic sso-creds
+
+Then you can connect to the bucket and upload the file using the AWS command line tools [these commands](https://cloud.gov/docs/services/s3/#using-the-s3-credentials). For that script, `SERVICE_INSTANCE_NAME=sso-creds` and
+`KEY_NAME=sso-creds-key`. Some local installs may be required.
+
+Upload the certificates to `sso/ca_bundle.pem` in the private bucket. Using the AWS CLI.
+
+    aws s3 cp ./your-path-to-ca-bundle-file s3://${BUCKET_NAME}/sso/ca_bundle.pem
+
+Add `sso-creds` to the seervices part of the manifest. That will bind the bucket to the app on deploy. To add sso to another environment, follow the steps above and add the AUTH_RELYING_PARTY_ID and AUTH_AUDIENCE to the relevant manifest.
+
+Make sure to update the auth settings to include the new environment.
+
+See documentation for the ADFS Django package- https://django-auth-adfs.readthedocs.io/en/latest/
+
+### Code changes
+
+Add the environment to add auth urls condion in urls.py and adding the environment to the auth conditions of settings.py.
+
+crt_portal/crt_portal/settings.py
+
+    # for AUTH, probably want to add stage in the future
+    -if environment == 'PRODUCTION':
+    +if environment in ['PRODUCTION', 'STAGE']:
+         INSTALLED_APPS.append('django_auth_adfs')
+
+
+crt_portal/crt_portal/urls.py
+
+    environment = os.environ.get('ENV', 'UNDEFINED')
+    -if environment == 'PRODUCTION':
+    +if environment in ['PRODUCTION', 'STAGE']:
+         auth = [
+
+
