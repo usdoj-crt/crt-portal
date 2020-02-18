@@ -13,11 +13,6 @@ class CrtRadioArea(ChoiceWidget):
     option_template_name = '../templates/forms/widgets/crt_radio_area_option.html'
 
 
-class CrtDropdown(ChoiceWidget):
-    input_type = 'select'
-    template_name = '../templates/forms/widgets/crt_dropdown.html'
-
-
 class ComplaintSelect(ChoiceWidget):
     input_type = 'select'
     template_name = '../templates/forms/widgets/complaint_select.html'
