@@ -22,7 +22,6 @@ from .model_variables import (
     SERVICEMEMBER_ERROR,
 )
 from .forms import (
-    Who,
     Details,
     Contact,
     ProtectedClassForm,
