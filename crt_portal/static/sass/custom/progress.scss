@@ -10,17 +10,17 @@ $steps-width: 100%;
 $label-font-size: .8em;
 $label-line-height: 1.25em;
 
-$counter-font-size: 1.25em;
+$counter-font-size: 13pt;
 
 $circle-diameter: 24px;
 $circle-border-width: 1px;
 $line-width: 1px;
 
-$visited-dark-blue: #1A4480;
-$outline-light-gray: #D8D8D8;
+$visited: #ffbe2e;
+$outline: white;
 
 .connecting-line {
-  border-bottom: 1px solid $outline-light-gray;
+  border-bottom: 1px solid white;
   position: relative;
   bottom: 52px;
   left: 15px;
@@ -54,7 +54,7 @@ ol.steps {
   .step {
     display: block;
     text-decoration: none;
-    color: black;
+    color: white;
   }
 
   .step::before,
@@ -78,10 +78,8 @@ ol.steps {
     height: $circle-diameter;
     line-height: $circle-diameter;
     margin: 0 auto .5em;
-
-    color: white;
-    background-color: $visited-dark-blue;
-    box-shadow: inset 0 0 0 $circle-border-width $visited-dark-blue;
+    color: $blue-warm-vivid-80;
+    background-color: $blue-warm-5;
   }
 
   // current milestone
@@ -89,17 +87,23 @@ ol.steps {
     &:focus {
       outline: 1px;
     }
-    .step {
+    &.step {
       font-weight: bold;
+
+      &::before {
+        background-color: $visited !important;
+        box-shadow: inset 0 0 0 $circle-border-width $visited;
+      }
     }
   }
 
   // unfinished milestone
   li.current   {
     ~ li.step::before {
-      color: black;
-      background-color: white;
-      box-shadow: inset 0 0 0 $circle-border-width $outline-light-gray;
+      color: white;
+      background-color: $blue-warm-vivid-80;
+      box-shadow: inset 0 0 0 $circle-border-width $outline;
+      border: 1px solid white;
     }
   }
 }

@@ -1,7 +1,25 @@
 // Header area
 
+.crt-form-header {
+  background-color: $blue-warm-vivid-80;
+  color: white;
+  min-height: 464px;
+
+  header {
+    @include u-margin-top(8);
+  }
+
+  .title {
+    font-weight: 700;
+    line-height: 3.75rem;
+  }
+
+  .doj-brand {
+    font-weight: 700;
+  }
+}
 .page-header-background {
-  background-color: $light-beige;
+
 }
 
 .page-background {
