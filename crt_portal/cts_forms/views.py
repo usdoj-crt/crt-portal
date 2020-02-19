@@ -283,26 +283,26 @@ class CRTReportWizard(SessionWizardView):
         # This name appears in the progress bar wizard
         ordered_step_names = [
             _('Contact'),
-            _('Primary Issue'),
+            _('Primary concern'),
             _('Location'),
-            _('Protected Class'),
+            _('Personal characteristics'),
             _('Date'),
-            _('Details'),
+            _('Personal description'),
         ]
         # Name for all forms whether they are skipped or not
         all_step_names = [
             _('Contact'),
-            _('Primary Issue'),
-            _('Primary Issue'),
+            _('Primary concern'),
+            _('Primary concern'),
             _('Location'),
             _('Location'),
             _('Location'),
             _('Location'),
             _('Location'),
             _('Location'),
-            _('Protected Class'),
+            _('Personal characteristics'),
             _('Date'),
-            _('Details'),
+            _('Personal description'),
         ]
 
         current_step_name = all_step_names[int(self.steps.current)]
@@ -310,17 +310,17 @@ class CRTReportWizard(SessionWizardView):
         # This title appears in large font above the question elements
         ordered_step_titles = [
             _('Contact'),
-            _('Primary issue'),
-            _('Primary issue'),
+            _('Primary concern'),
+            _('Primary concern'),
             _('Location details'),
             _('Location details'),
             _('Location details'),
             _('Location details'),
             _('Location details'),
             _('Location details'),
-            _('Please provide details'),
+            _('Personal characteristics'),
             _('Date'),
-            _('Details'),
+            _('Personal description'),
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]
         form_autocomplete_off = os.getenv('FORM_AUTOCOMPLETE_OFF', False)
