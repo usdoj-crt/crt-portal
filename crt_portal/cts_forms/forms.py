@@ -59,6 +59,8 @@ class Contact(ModelForm):
         fields = [
             'contact_first_name', 'contact_last_name',
             'contact_email', 'contact_phone', 'servicemember',
+            'contact_address_line_1', 'contact_address_line_2', 'contact_state',
+            'contact_city', 'contact_zip',
         ]
         widgets = {
             'contact_first_name': TextInput(attrs={
@@ -79,6 +81,22 @@ class Contact(ModelForm):
                 'pattern': phone_validation_regex,
                 'title': _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')
             }),
+            'contact_address_line_1': TextInput(attrs={
+                'class': 'usa-input',
+                'aria-describedby': a11y.name_id
+            }),
+            'contact_address_line_2': TextInput(attrs={
+                'class': 'usa-input',
+                'aria-describedby': a11y.name_id
+            }),
+            'contact_city': TextInput(attrs={
+                'class': 'usa-input',
+                'aria-describedby': a11y.name_id
+            }),
+            'contact_zip': TextInput(attrs={
+                'class': 'usa-input',
+                'aria-describedby': a11y.name_id
+            }),
         }
 
     def __init__(self, *args, **kwargs):
@@ -92,6 +110,17 @@ class Contact(ModelForm):
         self.fields['contact_last_name'].label = _('Last name')
         self.fields['contact_email'].label = _('Email address')
         self.fields['contact_phone'].label = _('Phone number')
+        self.fields['contact_address_line_1'].label = _('Mailing address 1')
+        self.fields['contact_address_line_2'].label = _('Mailing address 2')
+        self.fields['contact_city'].label = _('City')
+        self.fields['contact_zip'].label = _('Zip code')
+        self.fields['contact_state'] = ChoiceField(
+            choices=(("", _(' - Select - ')), ) + STATES_AND_TERRITORIES,
+            widget=Select(attrs={
+                'class': 'usa-select'
+            }),
+            label='State',
+        )
         self.fields['servicemember'] = TypedChoiceField(
             error_messages={'required': SERVICEMEMBER_ERROR},
             widget=UsaRadioSelect(),
@@ -110,7 +139,7 @@ class Contact(ModelForm):
             ),
             QuestionGroup(
                 self,
-                ('contact_email', 'contact_phone'),
+                ('contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2'),
                 group_name=_('Contact information'),
                 help_text=_('You are not required to provide contact information, but it will help us if we need to gather more information about the incident you are reporting or to respond to your submission'),
                 ally_id=a11y.contact_info_id
