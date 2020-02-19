@@ -3,88 +3,90 @@
 {% load employer_info_view %}
 
 <div class="complaint-card complaint-card--rounded">
-  <h3 class="complaint-card-heading text-uppercase">Complaint details</h3>
-  <table class="usa-table usa-table--borderless complaint-card-table">
-    <tr>
-      <th>Primary issue</th>
-      <td>
-        <strong>{{primary_complaint.0}}</strong>
-      </td>
+  <div class="complaint-card-content">
+    <h3 class="complaint-card-heading text-uppercase">Complaint details</h3>
+    <table class="usa-table usa-table--borderless complaint-card-table">
       <tr>
-        <th>Hate crime</th>
+        <th>Primary issue</th>
         <td>
-          {% if crimes.physical_harm %}
-            Yes (checked)
-          {% else %}
-            No (unchecked)
-          {% endif %}
+          <strong>{{primary_complaint.0}}</strong>
         </td>
-      </tr>
-      <tr>
-        <th>Human Trafficking</th>
-        <td>
-          {% if crimes.trafficking %}
-            Yes (checked)
-          {% else %}
-            No (unchecked)
-          {% endif %}
-        </td>
-      </tr>
-      <tr>
-        <th>Relevant Details</th>
-        <td>
-          {% if data.election_details %}
-            Election type (federal/local): {{ data.election_details }}
-          {% elif data.commercial_or_public_place %}
-            {% render_commercial_public_space_view data.commercial_or_public_place data.other_commercial_or_public_place %}
-          {% elif data.inside_correctional_facility %}
-            {% render_correctional_facility_view data.inside_correctional_facility data.correctional_facility_type %}
-          {% elif data.public_or_private_school %}
-            School type: {% if data.public_or_private_school == 'not_sure' %} Not sure {% else %} {{ data.public_or_private_school|title }} {% endif %}
-          {% elif data.public_or_private_employer %}
-            {% render_employer_info_view data.public_or_private_employer data.employer_size %}
-          {% else %}
-            —
-          {% endif %}
-        </td>
-      </tr>
-      <tr>
-        <th>Location name</th>
-        <td>{{data.location_name|default:"-"}}</td>
-      </tr>
-      <tr>
-        <th>City, State</th>
-        <td>
-          {{data.location_city_town|default:"-"}},
-          {{data.location_state|default:"-"}}
-        </td>
-      </tr>
-      <tr>
-        <th>Reported reason</th>
-        <td>
-          {% for p_class in p_class_list %}
-            {% if not forloop.last %}
-              {{p_class}},
+        <tr>
+          <th>Hate crime</th>
+          <td>
+            {% if crimes.physical_harm %}
+              Yes (checked)
             {% else %}
-              {{p_class}}
+              No (unchecked)
             {% endif %}
-          {% endfor %}
-          {% if data.other_class %}
-            <br>
-            Other: {{data.other_class}}
-          {% endif %}
-        </td>
+          </td>
+        </tr>
+        <tr>
+          <th>Human Trafficking</th>
+          <td>
+            {% if crimes.trafficking %}
+              Yes (checked)
+            {% else %}
+              No (unchecked)
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <th>Relevant Details</th>
+          <td>
+            {% if data.election_details %}
+              Election type (federal/local): {{ data.election_details }}
+            {% elif data.commercial_or_public_place %}
+              {% render_commercial_public_space_view data.commercial_or_public_place data.other_commercial_or_public_place %}
+            {% elif data.inside_correctional_facility %}
+              {% render_correctional_facility_view data.inside_correctional_facility data.correctional_facility_type %}
+            {% elif data.public_or_private_school %}
+              School type: {% if data.public_or_private_school == 'not_sure' %} Not sure {% else %} {{ data.public_or_private_school|title }} {% endif %}
+            {% elif data.public_or_private_employer %}
+              {% render_employer_info_view data.public_or_private_employer data.employer_size %}
+            {% else %}
+              —
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <th>Location name</th>
+          <td>{{data.location_name|default:"-"}}</td>
+        </tr>
+        <tr>
+          <th>City, State</th>
+          <td>
+            {{data.location_city_town|default:"-"}},
+            {{data.location_state|default:"-"}}
+          </td>
+        </tr>
+        <tr>
+          <th>Reported reason</th>
+          <td>
+            {% for p_class in p_class_list %}
+              {% if not forloop.last %}
+                {{p_class}},
+              {% else %}
+                {{p_class}}
+              {% endif %}
+            {% endfor %}
+            {% if data.other_class %}
+              <br>
+              Other: {{data.other_class}}
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <th>Service Member</th>
+          <td>{{data.servicemember|title|default:"—"}}</td>
+        </tr>
+        <tr>
+          <th>Date of incident</th>
+          <td>
+            {{ data.last_incident_month}}/{% if data.last_incident_day %}{{data.last_incident_day}}{%else%}-/{%endif%}{{data.last_incident_year}}
+          </td>
+        </tr>
       </tr>
-      <tr>
-        <th>Service Member</th>
-        <td>{{data.servicemember|title|default:"—"}}</td>
-      </tr>
-      <tr>
-        <th>Date of incident</th>
-        <td>
-          {{ data.last_incident_month}}/{% if data.last_incident_day %}{{data.last_incident_day}}{%else%}-/{%endif%}{{data.last_incident_year}}
-        </td>
-      </tr>
-    </tr>
-  </table>
+    </table>
+  </div>
 </div>

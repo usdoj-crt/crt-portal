@@ -10,7 +10,6 @@ from django.utils.decorators import method_decorator
 from django.http import Http404
 from django.views.generic import View
 from django import forms
-from django.db.models.signals import post_save
 
 from formtools.wizard.views import SessionWizardView
 
@@ -113,7 +112,6 @@ def IndexView(request):
 class ShowView(View):
     def __serialize_data(self, request, report_id):
         report = get_object_or_404(Report.objects, id=report_id)
-        print(report.target_actions.all())
         primary_complaint = [choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint]
         crimes = {
             'physical_harm': False,
@@ -135,6 +133,7 @@ class ShowView(View):
                 'assigned_section': report.assigned_section,
                 'status': report.status
             }),
+            'activity_stream': report.target_actions.all(),
             'crimes': crimes,
             'data': report,
             'p_class_list': p_class_list,
@@ -155,16 +154,25 @@ class ShowView(View):
 
     def post(self, request, id):
         record = Report.objects.filter(id=id)
+        report = record[0]
+
         updates = {}
+
         for key, value in request.POST.items():
             if key != 'csrfmiddlewaretoken' and key != 'next':
                 updates[key] = value
+                action_verb_target = ' '.join(key.split('_'))
+                action_verb = f"updated {action_verb_target}"
+                action_description = f"with value {value}"
+
+                action.send(
+                    request.user,
+                    verb=action_verb,
+                    description=action_description,
+                    target=report
+                )
 
         record.update(**updates)
-
-        if 'assigned_section' in updates:
-            r = Report.objects.get(id = id)
-            action.send(request.user.email, verb='update assigned section', description=updates['assigned_section'], target=r)
 
         output = self.__serialize_data(request, id)
         output.update({

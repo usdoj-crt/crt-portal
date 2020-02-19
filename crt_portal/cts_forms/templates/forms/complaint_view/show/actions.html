@@ -1,22 +1,24 @@
 <div class="complaint-card complaint-card--rounded">
-  <form
-    id="complaint-view-actions"
-    class="usa-form"
-    method="post"
-    action="/form/view/{{data.id}}/"
-    novalidate
-  >
-    {% csrf_token %}
-    <fieldset class="usa-fieldset usa-prose">
-      <legend class="usa-sr-only">Complaint detail view actions</legend>
-      <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
-      <div class="margin-bottom-2">
-        {{ actions.assigned_section }}
-      </div>
-      <div class="margin-bottom-2">
-        {{ actions.status }}
-      </div>
-      <button class="usa-button" type="submit">Apply changes</button>
-    </fieldset>
-  </form>
+  <div class="complaint-card-content">
+    <form
+      id="complaint-view-actions"
+      class="usa-form"
+      method="post"
+      action="/form/view/{{data.id}}/"
+      novalidate
+    >
+      {% csrf_token %}
+      <fieldset class="usa-fieldset usa-prose">
+        <legend class="usa-sr-only">Complaint detail view actions</legend>
+        <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
+        <div class="margin-bottom-2">
+          {{ actions.assigned_section }}
+        </div>
+        <div class="margin-bottom-2">
+          {{ actions.status }}
+        </div>
+        <button class="usa-button" type="submit">Apply changes</button>
+      </fieldset>
+    </form>
+  </div>
 </div>
