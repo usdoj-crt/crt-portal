@@ -15,7 +15,7 @@
 
 	</div>
 	<div class="margin-bottom-4">
-	  {{ field }}
+	  {{ field|withInputError }}
 	  {% if field.errors %}
 	    {% include "forms/snippets/error_alert.html" with errors=field.errors %}
 	  {% endif %}

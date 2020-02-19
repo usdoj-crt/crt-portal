@@ -107,6 +107,7 @@ TEMPLATES = [
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
+            'builtins': ['cts_forms.templatetags.with_input_error'],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',

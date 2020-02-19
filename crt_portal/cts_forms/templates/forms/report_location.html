@@ -16,13 +16,13 @@
         <label for="{{city.id_for_label}}">
           {{ city.label }}
         </label>
-        {{ city }}
+        {{city|withInputError}}
       </div>
       <div class="mobile-lg:grid-col-4">
         <label for="{{state.id_for_label}}">
           {{state.label}}
         </label>
-        {{ state }}
+        {{state|withInputError}}
       </div>
     </div>
     {% if city.errors %}

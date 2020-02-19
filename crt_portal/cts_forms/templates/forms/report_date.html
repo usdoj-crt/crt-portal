@@ -18,7 +18,7 @@
             <label class="usa-label" for="{{ month.id_for_label }}">
               {{ month.label }}
             </label>
-            {{ month }}
+            {{ month|withInputError }}
           </div>
           <div class="mobile-lg:grid-col-3">
             <label class="usa-label" for="{{ day.id_for_label}}">
@@ -33,7 +33,7 @@
             <label class="usa-label" for="{{ year.id_for_label }}">
               {{ year.label }}
             </label>
-            {{ year }}
+            {{ year|withInputError }}
           </div>
         </div>
       </section>
