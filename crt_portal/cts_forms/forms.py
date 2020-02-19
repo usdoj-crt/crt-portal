@@ -120,6 +120,7 @@ class Contact(ModelForm):
                 'class': 'usa-select'
             }),
             label='State',
+            required=False,
         )
         self.fields['servicemember'] = TypedChoiceField(
             error_messages={'required': SERVICEMEMBER_ERROR},
