@@ -23,7 +23,6 @@
     {% block usa_banner %}
     <div class="usa-banner">
       <div class="usa-accordion">
-
         <header class="usa-banner__header">
           <div class="usa-banner__inner">
             <div class="grid-col-auto">
@@ -67,31 +66,32 @@
     {% endblock %}
 
     {% block page_header %}{% endblock %}
+    <div class="wrapper">
+      <main id="main-content" {% block main_class %}{% endblock %}>
+        {% block content %} {% endblock %}
+      </main>
 
-    <main id="main-content" {% block main_class %}{% endblock %}>
-      {% block content %} {% endblock %}
-    </main>
-
-    {% block usa_footer %}
-    <footer class="usa-footer usa-footer--slim" role="contentinfo">
-      <div class="usa-footer__secondary-section">
-        <div class="grid-container">
-          <div class="usa-footer__logo grid-row grid-gap-2">
-            <div class="grid-col-auto">
-              <img src="{% static "img/doj-logo-footer.svg" %}"
-                  alt=""
-                  height="64" />
-            </div>
-            <div class="grid-col-auto">
-              <p class="usa-footer__logo-heading">
-                Civil Rights Division
-                <br/> U.S. Department of Justice
-              </p>
+      {% block usa_footer %}
+      <footer class="usa-footer usa-footer--slim" role="contentinfo">
+        <div class="usa-footer__secondary-section">
+          <div class="grid-container">
+            <div class="usa-footer__logo grid-row grid-gap-2">
+              <div class="grid-col-auto">
+                <img src="{% static "img/doj-logo-footer.svg" %}"
+                    alt=""
+                    height="64" />
+              </div>
+              <div class="grid-col-auto">
+                <p class="usa-footer__logo-heading">
+                  Civil Rights Division
+                  <br/> U.S. Department of Justice
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </footer>
+      </footer>
+    </div>
     {% endblock %}
   </body>
   <script src="{% static 'js/url_params_polyfill.js' %}"></script>

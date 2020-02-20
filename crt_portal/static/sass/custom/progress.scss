@@ -19,12 +19,20 @@ $line-width: 1px;
 $visited: #ffbe2e;
 $outline: white;
 
+.progress-bar {
+  padding-bottom: 3.5rem;
+}
+
 .connecting-line {
   border-bottom: 1px solid white;
   position: relative;
   bottom: 52px;
   left: 15px;
   width: 95%;
+
+  @media only screen and (max-width: 480px) {
+    width: 90%;
+  }
 }
 
 // Steps Progress Bar

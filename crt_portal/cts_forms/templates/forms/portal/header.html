@@ -1,47 +1,45 @@
 {% load static %}
-<section class="crt-form-header">
-  <header class="page-header-background flex-child">
-    <div class="grid-container-widescreen">
-      <div class="grid-row grid-gap flex-child">
-        <div class="tablet:grid-col-9 tablet:grid-offset-1">
-          <div class="doj-brand display-flex flex-align-center font-serif-lg">
-            <img
-              src="{% static "img/doj-logo-footer.svg" %}"
-              alt=""
-              height="38"
-              class="margin-right-105"
-            />
-            <span>United States Department of Justice<span>
-          </div>
-          <h1 class="padding-top-5 margin-0 title font-serif-3xl">
-            Submit a concern to the Civil Rights Division
-          </h1>
-        </div>
-      </div>
-      {# Progress text for screen reader. #}
-      <div class="grid-row grid-gap margin-top-5">
-        <div class="tablet:grid-col-10 tablet:grid-offset-1">
-          <div aria-label="progress">
-            <span class="usa-sr-only">
-              Current step: {{ current_step_name }}. Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}.
-            </span>
-            <ol class="steps">
-              {% for step in ordered_step_names %}
-                <li class="step {% if step == current_step_name %}current{%else%}{%endif%}" {% if step == current_step_name %}aria-current="true"{%else%}aria-current="false"{% endif %}>
-                  {{ step }}
-                  {% if step != current_step_name %}
-                    <span class="usa-sr-only">
-                      {% if forloop.counter > wizard.steps.step1 %}not completed{% else %}completed{% endif %}
-                    </span>
-                  {% endif %}
-                </li>
-              {% endfor %}
-              </ol>
-            <div class="connecting-line"></div>
-          </div>
-        </div>
-      </div>
 
+<header class="crt-form-header">
+  <div class="grid-container-widescreen">
+    <div class="grid-row grid-gap flex-child">
+      <div class="tablet:grid-col-9 tablet:grid-offset-1">
+        <div class="doj-brand display-flex flex-align-center font-serif-lg">
+          <img
+            src="{% static "img/doj-logo-footer.svg" %}"
+            alt=""
+            height="38"
+            class="margin-right-105"
+          />
+          <span>United States Department of Justice<span>
+        </div>
+        <h1 class="padding-top-5 padding-bottom-1 margin-0 title text-bold">
+          Submit a concern to the Civil Rights Division
+        </h1>
+      </div>
     </div>
-  </header>
-</section>
+    {# Progress text for screen reader. #}
+    <div class="grid-row grid-gap margin-top-5 progress-bar">
+      <div class="tablet:grid-col-10 tablet:grid-offset-1">
+        <div aria-label="progress">
+          <span class="usa-sr-only">
+            Current step: {{ current_step_name }}. Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}.
+          </span>
+          <ol class="steps">
+            {% for step in ordered_step_names %}
+              <li class="step {% if step == current_step_name %}current{%else%}{%endif%}" {% if step == current_step_name %}aria-current="true"{%else%}aria-current="false"{% endif %}>
+                {{ step }}
+                {% if step != current_step_name %}
+                  <span class="usa-sr-only">
+                    {% if forloop.counter > wizard.steps.step1 %}not completed{% else %}completed{% endif %}
+                  </span>
+                {% endif %}
+              </li>
+            {% endfor %}
+            </ol>
+          <div class="connecting-line"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

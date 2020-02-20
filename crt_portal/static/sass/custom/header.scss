@@ -11,17 +11,22 @@
 
   .title {
     font-weight: 700;
+    font-size: 3.7rem;
     line-height: 3.75rem;
   }
 
   .doj-brand {
     font-weight: 700;
+    margin-top: 4rem;
   }
-}
-.page-header-background {
-
 }
 
 .page-background {
   background-color: $blue-warm-5;
+}
+
+.usa-banner {
+  .usa-banner__inner {
+    max-width: 87rem !important;
+  }
 }
