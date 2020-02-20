@@ -15,13 +15,7 @@ class Migration(migrations.Migration):
     ]
 
     def load_new_text(*args, **defaults):
-        try:
-            with transaction.atomic():
-                c = HateCrimesandTrafficking.objects.filter(hatecrimes_trafficking_option='Coerced or forced to do work or perform a commercial sex act')
-                c.update(hatecrimes_trafficking_option='Coerced or forced to do work or perform a sex act in exchange for something of value')
-                logger.info('updated!!')
-        except:  # noqa
-            pass
+        pass  # noqa
 
     operations = [
         migrations.RunPython(load_new_text),
