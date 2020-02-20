@@ -1,3 +1,4 @@
+# This didn't work as expected adding the next migration to fix it.
 from django.db import migrations, models
 from cts_forms.models import HateCrimesandTrafficking
 from cts_forms.model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
@@ -20,7 +21,7 @@ class Migration(migrations.Migration):
                 c.update(hatecrimes_trafficking_option='Coerced or forced to do work or perform a sex act in exchange for something of value')
                 logger.info('updated!!')
         except:  # noqa
-            logger.info('old name for trafficking not detected')
+            pass
 
     operations = [
         migrations.RunPython(load_new_text),
