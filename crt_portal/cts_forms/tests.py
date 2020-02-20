@@ -232,7 +232,7 @@ class SectionAssignmentTests(TestCase):
         data = copy.deepcopy(SAMPLE_REPORT)
         data['primary_complaint'] = 'voting'
         test_report = Report.objects.create(**data)
-        human_trafficking = HateCrimesandTrafficking.objects.get_or_create(hatecrimes_trafficking_option='Coerced or forced to do work or perform a commercial sex act')
+        human_trafficking = HateCrimesandTrafficking.objects.get_or_create(hatecrimes_trafficking_option=HATE_CRIMES_TRAFFICKING_CHOICES[1])
         test_report.hatecrimes_trafficking.add(human_trafficking[0])
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'CRM')
