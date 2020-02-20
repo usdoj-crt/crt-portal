@@ -202,3 +202,14 @@ form#report-form {
 .complaint-multi-select {
   min-width: 140px;
 }
+
+.crt-portal-card {
+  @include u-radius('lg');
+  @include u-shadow(3);
+  background: white;
+
+  .crt-portal-card__content {
+    @include u-margin-x(7);
+    @include u-padding-y(5);
+  }
+}
