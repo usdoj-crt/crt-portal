@@ -124,16 +124,9 @@ form#report-form {
 
   .crt-radio__label_area {
     @extend .usa-radio__label;
+    margin-bottom: 0;
+    padding-left: 0;
     text-indent: 0;
-    background-color: $gray-cool-4;
-    padding: 1.5rem;
-    border: 1px solid $gray-cool-4;
-    border-radius: 5px;
-    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, .13));
-
-    &:hover {
-      background-color: $blue-warm-5;
-    }
 
     .label-text {
       position: relative;
@@ -164,6 +157,13 @@ form#report-form {
   .question_group_optional_tag {
     font-weight: lighter;
     color: $gray-warm-80;
+  }
+}
+
+.crt-hover-card {
+  &:hover {
+    background-color: $gray-cool-4;
+    cursor: pointer;
   }
 }
 
@@ -209,7 +209,7 @@ form#report-form {
   background: white;
 
   .crt-portal-card__content {
-    @include u-margin-x(7);
+    @include u-padding-x(7);
     @include u-padding-y(5);
   }
 }
