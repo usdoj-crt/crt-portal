@@ -23,6 +23,7 @@ testfixtures = "*"
 django-auth-adfs = "*"
 django-csp = "*"
 pip = "*"
+django-activity-stream = "*"
 
 [requires]
 python_version = "3.8.1"

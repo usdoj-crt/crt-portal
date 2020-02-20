@@ -19,11 +19,11 @@
 {% block main_class %} class="page-header-background"{% endblock %}
 
 {% block content %}
-  <div class="grid-container">
+  <div class="grid-container-widescreen">
     <div class="complaint-header bg-primary text-white">
-      <div class="grid-container">
+      <div class="grid-container-widescreen">
       <div class="grid-row grid-gap">
-        <div class="tablet:grid-col-6 grid-offset-2">
+        <div class="tablet:grid-col-6">
           <h2 class="text-uppercase">
             Complaint
           </h2>
@@ -32,7 +32,7 @@
             <span class="text-white">{{ data.create_date|date:'g:s a F j, Y' }}</span>
           </p>
         </div>
-        <div class="tablet:grid-col-3 tablet:grid-offset-1 text-right">
+        <div class="tablet:grid-col-3 tablet:grid-offset-3 text-right">
           <a class="usa-button usa-button--light close-record" href="/form/view{{ return_url_args }}">
             <img src="{% static "img/close-blue-50-alt.svg" %}">
             Close record
@@ -42,10 +42,11 @@
     </div>
     </div>
     <div class="complaint-body">
-      <div class="grid-container">
+      <div class="grid-container-widescreen">
         <div class="grid-row grid-gap-md">
           <div class="tablet:grid-col-4">
             {% include 'forms/complaint_view/show/actions.html' %}
+            {% include 'forms/complaint_view/show/activity_stream.html' %}
           </div>
           <div class="tablet:grid-col-8">
             {% include 'forms/complaint_view/show/correspondent_info.html' with data=data %}

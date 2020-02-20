@@ -25,10 +25,6 @@ $complaint-body-offset: calc(
 }
 
 .complaint-card {
-  @include u-margin-bottom(1);
-  @include u-padding-y(1.5);
-  @include u-padding-x(2.5);
-  
   background-color: $white;
   box-shadow: 0 1px 6px 2px rgba(0,0,0,.14);
 
@@ -49,6 +45,12 @@ $complaint-body-offset: calc(
     &--rounded {
       @include u-radius('md');
     }
+  }
+
+  .complaint-card-content  {
+    @include u-margin-bottom(1);
+    @include u-padding-y(1.5);
+    @include u-padding-x(3);
   }
 
   .complaint-card-table {
@@ -80,6 +82,40 @@ $complaint-body-offset: calc(
     tr:last-child {
       th, td {
         border: none;
+      }
+    }
+  }
+}
+
+.activity-stream {
+  
+  
+  .heading {
+    background: $blue-warm-vivid-70;
+    color: white;
+    font-size: 22px;
+    padding: 1rem;
+    padding-left: 1.5rem;
+    text-transform: uppercase;
+  }
+  .complaint-card-content {
+    max-height: 368px;
+    overflow-y: scroll;
+  }
+
+  .activity-stream-list {
+    padding-top: 1.25rem;
+
+    .activity-stream-item {
+      border-bottom: 1px solid $theme-color-base-lighter;
+      padding: .5rem 0 .5rem 0;
+
+      &:not(:first-child) {
+        margin-top: 1rem;
+      }
+
+      .date {
+        color: #aeaeab;
       }
     }
   }

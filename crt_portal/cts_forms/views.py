@@ -13,6 +13,8 @@ from django import forms
 
 from formtools.wizard.views import SessionWizardView
 
+from actstream import action
+
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
 from .model_variables import PROTECTED_CLASS_CODES, PRIMARY_COMPLAINT_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
 from .page_through import pagination
@@ -131,6 +133,7 @@ class ShowView(View):
                 'assigned_section': report.assigned_section,
                 'status': report.status
             }),
+            'activity_stream': report.target_actions.all(),
             'crimes': crimes,
             'data': report,
             'p_class_list': p_class_list,
@@ -151,11 +154,24 @@ class ShowView(View):
 
     def post(self, request, id):
         record = Report.objects.filter(id=id)
-        print(request.POST.get('next'))
+        report = record[0]
+
         updates = {}
+
+        # see custom message options https://django-activity-stream.readthedocs.io/en/latest/data.html
         for key, value in request.POST.items():
             if key != 'csrfmiddlewaretoken' and key != 'next':
                 updates[key] = value
+                action_verb_target = ' '.join(key.split('_'))
+                action_verb = f"updated {action_verb_target}"
+                action_description = f"with value {value}"
+
+                action.send(
+                    request.user,
+                    verb=action_verb,
+                    description=action_description,
+                    target=report
+                )
 
         record.update(**updates)
 
