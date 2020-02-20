@@ -502,7 +502,7 @@ class ProtectedClassForm(ModelForm):
                 self,
                 ('protected_class',),
                 group_name=_('Do you believe any of these personal characteristics influenced why you were treated this way?'),
-                help_text=_('Some civil rights laws protect people from discrimination, which include these protected classes. These are some of the most common classes that we see.'),
+                help_text=_('There are federal and state laws that protect people from discrimination based on their personal characteristics. Here is a list of the most common characteristics that are legally protected. Select any that apply to your incident.'),
                 optional=False,
                 ally_id="protected-class-help-text"
             )

@@ -79,6 +79,25 @@ HATE_CRIMES_TRAFFICKING_CHOICES = (
 # PROTECTED_CLASS_CHOICES means "PROTECTED_CLASS_FORM_CHOICES" and refers to the choices that will be displayed on the form front-end.
 # See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
 # This tuple will create the initial order, the form_order data can be directly adjusted after the initial load.
+PROTECTED_CLASS_FIELDS = [
+    # (form order, code, display name)
+    (0, 'Age', _('Age'), ),
+    (1, 'Disability', _('Disability (including temporary or recovery)'), )
+    (2, 'Family status', _('Family, marital, or parental status'), )
+    (3, 'Gender', _('Gender identity (including gender stereotypes)'), )
+    (4, 'Genetic', _('Genetic information (including family medical history)'), )
+    (5, 'Immigration', _('Immigration/citizenship status (choosing this will not share your status)'), )
+    (6, 'Language', _('Language'), )
+    (7, 'National origin', _('National origin (including ancestry and ethnicity)'), )
+    (8, 'Pregnancy', _('Pregnancy'), )
+    (9, 'Race/color', _('Race/color'), )
+    (10, 'Religion', _('Religion'), )
+    (11, 'Sex', _('Sex'), )
+    (12, 'Orientation', _('Sexual orientation'), )
+    (13, 'None', _('None of these apply to me'), )
+    (14, 'Other', _('Other'), )
+]
+
 PROTECTED_CLASS_CHOICES = (
     _('Race/color'),
     _('National origin (including ancestry and ethnicity)'),
@@ -131,7 +150,7 @@ PROTECTED_MODEL_CHOICES = (
     ('none', _('None of these apply to me')),
 )
 
-PROTECTED_CLASS_ERROR = _('Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.')
+PROTECTED_CLASS_ERROR = _('Please make a selection to continue. If none of these apply to you, please select “None of these apply to me” or "Other reason"and explain.')
 
 STATUS_CHOICES = (
     ('new', _('New')),
