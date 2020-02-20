@@ -158,6 +158,7 @@ class ShowView(View):
 
         updates = {}
 
+        # see custom message options https://django-activity-stream.readthedocs.io/en/latest/data.html
         for key, value in request.POST.items():
             if key != 'csrfmiddlewaretoken' and key != 'next':
                 updates[key] = value
