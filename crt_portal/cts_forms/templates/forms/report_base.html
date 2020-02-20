@@ -23,7 +23,7 @@
                 {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
               </section>
             {% endif %}
-            <div class="margin-bottom-4 {% if not page_errors %}margin-top-5{% endif %}">
+            <div class="margin-bottom-4">
               <h2 class="margin-0">{{ current_step_title }}</h2>
               {% if page_note %}
                 <p class="margin-top-1"><em>{{ page_note }}</em></p>
@@ -51,25 +51,24 @@
 
               {% block form_questions %}
               {% endblock %}
-
-              <div class="margin-top-5 margin-bottom-9">
-                <input id="submit-next"
-                      type="submit"
-                      value="{% trans 'Next' %}"
-                      class="usa-button" />
-                {% if wizard.steps.prev %}
-                  <button name="wizard_goto_step"
-                          type="submit"
-                          label="previous step"
-                          value="{{ wizard.steps.prev }}"
-                          class="look-like-link margin-top-2 display-block">
-                    {% trans "Back" %}
-                  </button>
-                {% endif %}
-              </div>
-            </form>
+            </div>
           </div>
-        </div>
+          <div class="margin-top-5">
+            <input id="submit-next"
+                  type="submit"
+                  value="{% trans 'Next' %}"
+                  class="usa-button" />
+            {% if wizard.steps.prev %}
+              <button name="wizard_goto_step"
+                      type="submit"
+                      label="previous step"
+                      value="{{ wizard.steps.prev }}"
+                      class="look-like-link margin-top-2 display-block">
+                {% trans "Back" %}
+              </button>
+            {% endif %}
+          </div>
+        </form>
       </div>
     </div>
   </div>

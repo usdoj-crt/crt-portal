@@ -55,13 +55,6 @@ form#report-form {
     }
   }
 
-  .look-like-link {
-    padding: 0;
-    border: none;
-    background: none;
-    text-decoration: underline;
-  }
-
   .blue-left-highlight {
     border-left: 2px solid $blue-warm-vivid-70;
     padding-left: 1rem;
@@ -126,7 +119,12 @@ form#report-form {
     @extend .usa-radio__label;
     margin-bottom: 0;
     padding-left: 0;
+    position: relative;
     text-indent: 0;
+
+    &:before {
+      position: absolute
+    }
 
     .label-text {
       position: relative;
@@ -147,7 +145,6 @@ form#report-form {
 
   input[type="radio"]:checked + .crt-radio__label_area {
     background-color: $blue-warm-5;
-    border: 1px solid $blue-warm-vivid-70;
   }
 
   .crt-checkbox__label {
@@ -157,6 +154,13 @@ form#report-form {
   .question_group_optional_tag {
     font-weight: lighter;
     color: $gray-warm-80;
+  }
+}
+
+input[type="radio"]:checked + .crt-radio__label_area {
+  background-color: $blue-warm-5;
+  .crt-hover-card {
+    background-color: $blue-warm-5;
   }
 }
 
@@ -210,6 +214,7 @@ form#report-form {
 
   .crt-portal-card__content {
     @include u-padding-x(7);
-    @include u-padding-y(5);
+    @include u-padding-bottom(6);
+    @include u-padding-top(5);
   }
 }
