@@ -81,39 +81,25 @@ HATE_CRIMES_TRAFFICKING_CHOICES = (
 # This tuple will create the initial order, the form_order data can be directly adjusted after the initial load.
 PROTECTED_CLASS_FIELDS = [
     # (form order, code, display name)
-    (0, 'Age', _('Age'), ),
-    (1, 'Disability', _('Disability (including temporary or recovery)'), )
-    (2, 'Family status', _('Family, marital, or parental status'), )
-    (3, 'Gender', _('Gender identity (including gender stereotypes)'), )
-    (4, 'Genetic', _('Genetic information (including family medical history)'), )
-    (5, 'Immigration', _('Immigration/citizenship status (choosing this will not share your status)'), )
-    (6, 'Language', _('Language'), )
-    (7, 'National origin', _('National origin (including ancestry and ethnicity)'), )
-    (8, 'Pregnancy', _('Pregnancy'), )
-    (9, 'Race/color', _('Race/color'), )
-    (10, 'Religion', _('Religion'), )
-    (11, 'Sex', _('Sex'), )
-    (12, 'Orientation', _('Sexual orientation'), )
-    (13, 'None', _('None of these apply to me'), )
-    (14, 'Other', _('Other'), )
+    (0, 'Age', _('Age')),
+    (1, 'Disability', _('Disability (including temporary or recovery)')),
+    (2, 'Family status', _('Family, marital, or parental status')),
+    (3, 'Gender', _('Gender identity (including gender stereotypes)')),
+    (4, 'Genetic', _('Genetic information (including family medical history)')),
+    (5, 'Immigration', _('Immigration/citizenship status (choosing this will not share your status)')),
+    (6, 'Language', _('Language')),
+    (7, 'National origin', _('National origin (including ancestry and ethnicity)')),
+    (8, 'Pregnancy', _('Pregnancy')),
+    (9, 'Race/color', _('Race/color')),
+    (10, 'Religion', _('Religion')),
+    (11, 'Sex', _('Sex')),
+    (12, 'Orientation', _('Sexual orientation')),
+    (13, 'None', _('None of these apply to me')),
+    (14, 'Other', _('Other')),
 ]
 
-PROTECTED_CLASS_CHOICES = (
-    _('Race/color'),
-    _('National origin (including ancestry and ethnicity)'),
-    _('Immigration/citizenship status (choosing this will not share your status)'),
-    _('Religion'),
-    _('Sex or gender identity (including gender stereotypes) or pregnancy'),
-    _('Sexual orientation'),
-    _('Disability (including temporary or recovery)'),
-    _('Language'),
-    _('Family, marriage, or parental status'),
-    _('Military status'),
-    _('Age'),
-    _('Genetic information'),
-    _('None of these apply to me'),
-    _('Other reason'),
-)
+PROTECTED_CLASS_CHOICES = [field[2] for field in PROTECTED_CLASS_FIELDS]
+# PROTECTED_MODEL_CHOICES =
 
 # used in internal CRT view display
 PROTECTED_CLASS_CODES = {
