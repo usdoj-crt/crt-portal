@@ -6,50 +6,11 @@
 {% endblock %}
 
 {% block page_header %}
-  <header class="page-header-background flex-child">
-    <div class="grid-container">
-      <div class="grid-row grid-gap flex-child">
-        <div class="tablet:grid-col-7 tablet:grid-offset-2">
-          <h1 class="padding-top-5 margin-0">
-            Contact the Department of Justice about a civil rights concern
-          </h1>
-          <div class="intro-subtitle padding-y-3">
-            If you believe you or someone else has experienced a civil rights violation, please tell us what happened
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+  {% include 'forms/portal/header.html' %}
 {% endblock %}
 
-{% block content %}
-  {# Progress text for screen reader. #}
-  <div class="page-header-background">
-    <div class="grid-container">
-      <div class="grid-row grid-gap">
-        <div class="tablet:grid-col-7 tablet:grid-offset-2">
-          <div class="padding-bottom-4 padding-top-3" aria-label="progress">
-            <span class="usa-sr-only">
-              Current step: {{ current_step_name }}. Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}.
-            </span>
-            <ol class="steps">
-              {% for step in ordered_step_names %}
-                <li class="step {% if step == current_step_name %}current{%else%}{%endif%}" {% if step == current_step_name %}aria-current="true"{%else%}aria-current="false"{% endif %}>
-                  {{ step }}
-                  {% if step != current_step_name %}
-                    <span class="usa-sr-only">
-                      {% if forloop.counter > wizard.steps.step1 %}not completed{% else %}completed{% endif %}
-                    </span>
-                  {% endif %}
-                </li>
-              {% endfor %}
-              </ol>
-            <div class="connecting-line"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  {% block content %}
+
 
   <div class="grid-container">
     <div class="grid-row grid-gap">
