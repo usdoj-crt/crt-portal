@@ -76,9 +76,9 @@ HATE_CRIMES_TRAFFICKING_CHOICES = (
     _('Coerced or forced to do work or perform a commercial sex act'),
 )
 
-# PROTECTED_CLASS_CHOICES means "PROTECTED_CLASS_FORM_CHOICES" and refers to the choices that will be displayed on the form front-end.
+
 # See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
-# This tuple will create the initial order, the form_order data can be directly adjusted after the initial load.
+# This tuple will create the form_order, then lists a short code that we use for the model value and CRT display views, then the name as it will display on the form.
 PROTECTED_CLASS_FIELDS = [
     # (form order, code, display name)
     (0, 'Age', _('Age')),
@@ -97,44 +97,16 @@ PROTECTED_CLASS_FIELDS = [
     (13, 'None', _('None of these apply to me')),
     (14, 'Other', _('Other')),
 ]
-
+# PROTECTED_CLASS_CHOICES refers to the choices that will be displayed on the form front-end.
 PROTECTED_CLASS_CHOICES = [field[2] for field in PROTECTED_CLASS_FIELDS]
-# PROTECTED_MODEL_CHOICES =
-
-# used in internal CRT view display
-PROTECTED_CLASS_CODES = {
-    'Disability (including temporary or recovery)': 'Disability',
-    'Race/color': 'Race/color',
-    'National origin (including ancestry and ethnicity)': 'National origin',
-    'Immigration/citizenship status (choosing this will not share your status)': 'Immigration',
-    'Religion': 'Religion',
-    'Sex or gender identity (including gender stereotypes) or pregnancy': 'Sex',
-    'Sexual orientation': 'Orientation',
-    'Family, marriage, or parental status': 'Family status',
-    'Military status': 'Military',
-    'Age': 'Age',
-    'Genetic information': 'Genetic',
-    'Other reason': 'Other',
-    'None of these apply to me': 'None',
-    'Language': 'Language'
-}
-
-PROTECTED_MODEL_CHOICES = (
-    ('disability', _('Disability (including temporary or recovery)')),
-    ('race', _('Race/color')),
-    ('origin', _('National origin (including ancestry and ethnicity)')),
-    ('immigration', _('Immigration/citizenship status (choosing this will not share your status)')),
-    ('religion', _('Religion')),
-    ('gender', _('Sex or gender identity (including gender stereotypes) or pregnancy')),
-    ('orientation', _('Sexual orientation')),
-    ('family', _('Family, marriage, or parental status')),
-    ('military', _('Military status')),
-    ('age', _('Age')),
-    ('genetic', _('Genetic information')),
-    ('language', _('Language')),
-    ('other', _('Other reason')),
-    ('none', _('None of these apply to me')),
+# PROTECTED_MODEL_CHOICES are the constraints added to the database for acceptable answers
+PROTECTED_MODEL_CHOICES = tuple(
+    (field[1].lower().replace(' ', '_'), field[2]) for field in PROTECTED_CLASS_FIELDS
 )
+# For CRT views
+PROTECTED_CLASS_CODES = {
+    field[2]: field[1] for field in PROTECTED_CLASS_FIELDS
+}
 
 PROTECTED_CLASS_ERROR = _('Please make a selection to continue. If none of these apply to you, please select “None of these apply to me” or "Other reason"and explain.')
 
