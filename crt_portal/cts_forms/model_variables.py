@@ -68,12 +68,12 @@ ELECTION_CHOICES = (
 
 HATE_CRIMES_TRAFFICKING_MODEL_CHOICES = (
     ('physical_harm', _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability')),
-    ('trafficking', _('Coerced or forced to do work or perform a commercial sex act')),
+    ('trafficking', _('Coerced or forced to do work or perform a sex act in exchange for something of value')),
 )
 
 HATE_CRIMES_TRAFFICKING_CHOICES = (
     _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability'),
-    _('Coerced or forced to do work or perform a commercial sex act'),
+    _('Coerced or forced to do work or perform a sex act in exchange for something of value'),
 )
 
 
