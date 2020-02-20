@@ -166,7 +166,7 @@ class HateCrimesTrafficking(ModelForm):
                 'aria-describedby': 'hatecrimes-help-text'
             }),
             required=False,
-            label=_('Please select if any that apply to your situation (optional)')
+            label=_('Please select if any apply to your concern (optional)')
         )
 
         self.question_groups = [
@@ -174,7 +174,7 @@ class HateCrimesTrafficking(ModelForm):
                 self,
                 ('hatecrimes_trafficking',),
                 group_name=_('Hate Crimes & Human Trafficking'),
-                help_text=_('Hate crimes and human trafficking are considered criminal cases and go through a different process for investigation than other civil rights cases. If we determine your situation falls into these categories after submitting your concern, we will contact you with next steps.'),
+                help_text=_('Please let us know if you would describe your concern as either a hate crime or human trafficking. This information can help us take action against these types of violations. We will contact you about the next steps. We also encourage you to contact law enforcement if you or someone else is in immediate danger.'),
                 optional=False,
                 cls="text-bold",
                 ally_id="hatecrimes-help-text"
