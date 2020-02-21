@@ -38,8 +38,9 @@ class InternalHistory(models.Model):
 
 
 class ProtectedClass(models.Model):
-    # add to be unique
     protected_class = models.CharField(max_length=100, null=True, blank=True, choices=PROTECTED_MODEL_CHOICES, unique=True)
+    # for display in the CRT views
+    code = models.CharField(max_length=100, null=True, blank=True, unique=True)
     # used for ordering the choices on the form displays
     form_order = models.IntegerField(null=True, blank=True)
 
