@@ -2,20 +2,20 @@ from django.db import migrations
 from cts_forms.models import ProtectedClass
 
 PROTECTED_CLASS_CHOICES = (
-    _('Race/color'),
-    _('National origin (including ancestry and ethnicity)'),
-    _('Immigration/citizenship status (choosing this will not share your status)'),
-    _('Religion'),
-    _('Sex or gender identity (including gender stereotypes) or pregnancy'),
-    _('Sexual orientation'),
-    _('Disability (including temporary or recovery)'),
-    _('Language'),
-    _('Family, marriage, or parental status'),
-    _('Military status'),
-    _('Age'),
-    _('Genetic information'),
-    _('None of these apply to me'),
-    _('Other reason'),
+    'Race/color',
+    'National origin (including ancestry and ethnicity)',
+    'Immigration/citizenship status (choosing this will not share your status)',
+    'Religion',
+    'Sex or gender identity (including gender stereotypes) or pregnancy',
+    'Sexual orientation',
+    'Disability (including temporary or recovery)',
+    'Language',
+    'Family, marriage, or parental status',
+    'Military status',
+    'Age',
+    'Genetic information',
+    'None of these apply to me',
+    'Other reason',
 )
 
 
