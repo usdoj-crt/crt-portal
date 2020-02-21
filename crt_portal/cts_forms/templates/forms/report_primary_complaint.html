@@ -1,4 +1,5 @@
 {% extends "forms/report_base.html" %}
+{% load static %}
 {% block form_questions %}
   {% with primary_complaint_field=wizard.form.primary_complaint %}
     <fieldset class="usa-fieldset margin-bottom-5 question_{{primary_complaint_field.name}}">      
@@ -22,4 +23,8 @@
     </fieldset>
   {% endwith %}
   {% include "forms/grouped_questions.html" %}
+{% endblock %}
+{% block page_js %}
+  {{ block.super }}
+  <script src="{% static 'js/primary_complaint.js' %}"></script>
 {% endblock %}

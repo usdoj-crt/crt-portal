@@ -159,15 +159,17 @@ form#report-form {
 
 input[type="radio"]:checked + .crt-radio__label_area {
   background-color: $blue-warm-5;
-  .crt-hover-card {
-    background-color: $blue-warm-5;
-  }
 }
+
+
 
 .crt-hover-card {
   &:hover {
     background-color: $gray-cool-4;
     cursor: pointer;
+  }
+  &.selected, &:hover.selected {
+    background-color: $blue-warm-5;
   }
 }
 
