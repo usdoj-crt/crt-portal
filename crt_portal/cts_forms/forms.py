@@ -6,7 +6,7 @@ from django.forms import ModelForm, ChoiceField, TypedChoiceField, TextInput, Em
 from django.utils.translation import gettext_lazy as _
 
 from .question_group import QuestionGroup
-from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtMultiSelect, ComplaintSelect
+from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtPrimaryIssueRadioGroup, CrtMultiSelect, ComplaintSelect
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
 from .model_variables import (
     ELECTION_CHOICES,
@@ -125,14 +125,14 @@ class PrimaryReason(ModelForm):
             'primary_complaint'
         ]
         widgets = {
-            'primary_complaint': CrtRadioArea
+            'primary_complaint': CrtPrimaryIssueRadioGroup
         }
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
         self.fields['primary_complaint'] = ChoiceField(
             choices=PRIMARY_COMPLAINT_CHOICES,
-            widget=CrtRadioArea(attrs={
+            widget=CrtPrimaryIssueRadioGroup(attrs={
                 'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                 'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
             }),

@@ -11,12 +11,12 @@ form#report-form {
 
     li {
       margin-bottom: 1.5rem;
-    }
 
-    li.primary-issue-example-li {
-      margin-left: 18px;
-      margin-bottom: 1rem;
-      list-style: disc;
+      &.primary-issue-example-li {
+        margin-left: 18px;
+        margin-bottom: 1rem;
+        list-style: disc !important;
+      }
     }
   }
 
@@ -27,8 +27,7 @@ form#report-form {
 
 // Form styles
 .usa-form {
-  max-width: 30rem !important;
-
+  max-width: 100% !important;
   ul {
     margin-left: 0;
     padding-left: 0;
@@ -123,7 +122,8 @@ form#report-form {
     text-indent: 0;
 
     &:before {
-      position: absolute
+      top: 0;
+      vertical-align: middle;
     }
 
     .label-text {

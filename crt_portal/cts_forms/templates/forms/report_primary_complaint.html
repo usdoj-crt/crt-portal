@@ -1,28 +1,31 @@
 {% extends "forms/report_base.html" %}
 {% load static %}
 {% block form_questions %}
-  {% with primary_complaint_field=wizard.form.primary_complaint %}
-    <fieldset class="usa-fieldset margin-bottom-5 question_{{primary_complaint_field.name}}">      
-      <legend class="em-text margin-bottom-2">
-        {{ primary_complaint_field.label }}
-      </legend>
-
-      {% if primary_complaint_field.help_text %}
-        <div id="primary-complaint-help-text" class="margin-bottom-4">
-          <em>{{ primary_complaint_field.help_text }}</em>
+{% with primary_complaint_field=wizard.form.primary_complaint %}
+    <div class="crt-portal-card">
+      <div class="crt-portal-card__content">
+        {{ block.super }}
+        <div id="primary-complaint-help-text">
+          <p class="em-text">
+            {{ primary_complaint_field.label }}
+          </p>
+        
+          {% if primary_complaint_field.help_text %}
+            <div>
+              <em>{{ primary_complaint_field.help_text }}</em>
+            </div>
+          {% endif %}
         </div>
-      {% endif %}
-
-      <div aria-labelledby="primary-complaint-help-text">
-        {{ primary_complaint_field }}
-
-        {% if primary_complaint_field.errors %}
-          {% include "forms/snippets/error_alert.html" with errors=primary_complaint_field.errors %}
-        {% endif %}
       </div>
-    </fieldset>
+    </div>
+    <div role="group" aria-labelledby="primary-complaint-help-text" class="question_primary_complaint">
+      {{ primary_complaint_field }}
+
+      {% if primary_complaint_field.errors %}
+        {% include "forms/snippets/error_alert.html" with errors=primary_complaint_field.errors %}
+      {% endif %}
+    </div>
   {% endwith %}
-  {% include "forms/grouped_questions.html" %}
 {% endblock %}
 {% block page_js %}
   {{ block.super }}

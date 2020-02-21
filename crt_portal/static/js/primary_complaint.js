@@ -15,11 +15,15 @@
       removeClass(card, SELECTED_CLASS);
     });
 
-    addClass(el, SELECTED_CLASS)
-  } 
+    addClass(el, SELECTED_CLASS);
+  }
 
   cards.forEach(function(el) {
     const eventTarget = el.querySelector('input[type="radio"]');
+
+    if (eventTarget.checked) {
+      handleRadioSelect(el);
+    }
 
     eventTarget.addEventListener('change', function() {
       handleRadioSelect(el);

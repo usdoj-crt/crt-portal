@@ -185,7 +185,7 @@ class ShowView(View):
 
 TEMPLATES = [
     # Contact
-    'forms/report_grouped_questions.html',
+    'forms/report_contact_info.html',
     # Primary reason
     'forms/report_primary_complaint.html',
     # Hate crimes and trafficking

@@ -9,15 +9,33 @@
   {% include 'forms/portal/header.html' %}
 {% endblock %}
 
-  {% block content %}
-
-
+{% block content %}
   <div class="grid-container">
     <div class="grid-row grid-gap">
       <div class="tablet:grid-col-8 tablet:grid-offset-2"">
         {% block page_info_card %}{% endblock %}
-        <div class="crt-portal-card">
-          <div class="crt-portal-card__content">
+        <form id="report-form"
+              class="usa-form"
+              action="/report/"
+              method="post"
+              {% if form_autocomplete_off %}autocomplete="off"{% endif %}
+              {% if form_novalidate %}novalidate{% endif %}
+        >
+          {% csrf_token %}
+          {{ wizard.management_form }}
+
+          {% if form.non_field_errors %}
+            {% include "forms/snippets/error_alert.html" with errors=form.non_field_errors %}
+          {% endif %}
+
+          {% for hidden_field in form.hidden_fields %}
+            {% if hidden_field.errors %}
+              {% include "forms/snippets/error_alert.html" with errors=hidden_field.errors %}
+            {% endif %}
+            {{ hidden_field }}
+          {% endfor %}
+
+          {% block form_questions %}
             {% if page_errors %}
               <section id="page-errors" class="display-none page-errors margin-top-4 margin-bottom-2" role="alert" aria-live="assertive">
                 {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
@@ -29,30 +47,7 @@
                 <p class="margin-top-1"><em>{{ page_note }}</em></p>
               {% endif %}
             </div>
-            <form id="report-form"
-                  class="usa-form"
-                  action="/report/"
-                  method="post"
-                  {% if form_autocomplete_off %}autocomplete="off"{% endif %}
-                  {% if form_novalidate %}novalidate{% endif %}>
-              {% csrf_token %}
-              {{ wizard.management_form }}
-
-              {% if form.non_field_errors %}
-                {% include "forms/snippets/error_alert.html" with errors=form.non_field_errors %}
-              {% endif %}
-
-              {% for hidden_field in form.hidden_fields %}
-                {% if hidden_field.errors %}
-                  {% include "forms/snippets/error_alert.html" with errors=hidden_field.errors %}
-                {% endif %}
-                {{ hidden_field }}
-              {% endfor %}
-
-              {% block form_questions %}
-              {% endblock %}
-            </div>
-          </div>
+          {% endblock %}
           <div class="margin-top-5">
             <input id="submit-next"
                   type="submit"
@@ -69,8 +64,6 @@
             {% endif %}
           </div>
         </form>
-      </div>
-    </div>
   </div>
 {% endblock %}
 
