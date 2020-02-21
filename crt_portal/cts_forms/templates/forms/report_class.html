@@ -1,25 +1,28 @@
 {% extends "forms/report_base.html" %}
 {% load static %}
 {% block form_questions %}
+  <div class="crt-portal-card">
+    <div class="crt-portal-card__content">
+      {{ block.super }}
 
-<div data-toggle>
-{% include 'forms/grouped_questions.html' %}
-{% with field=wizard.form.other_class %}
-  <div class='other-class-option' class="padding-left-4">
-    <div class="blue-left-highlight">
-      <div>
-        <label for="{{ field.id_for_label }}">{{ field.help_text }}</label>
-        {{ field }}
-        <div class="margin-top-1">
-          {% include "forms/word_counter.html" with word_limit=10 %}
+      <div data-toggle>
+      {% include 'forms/grouped_questions.html' %}
+      {% with field=wizard.form.other_class %}
+        <div class='other-class-option' class="padding-left-4">
+          <div class="blue-left-highlight">
+            <div>
+              <label for="{{ field.id_for_label }}">{{ field.help_text }}</label>
+              {{ field }}
+              <div class="margin-top-1">
+                {% include "forms/word_counter.html" with word_limit=10 %}
+              </div>
+            </div>
+          </div>
         </div>
+      {% endwith %}
       </div>
     </div>
   </div>
-{% endwith %}
-</div>
-
-<div class="margin-bottom-5"></div>
 {% endblock %}
 
 {% block page_js %}

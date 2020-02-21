@@ -11,12 +11,12 @@ form#report-form {
 
     li {
       margin-bottom: 1.5rem;
-    }
 
-    li.primary-issue-example-li {
-      margin-left: 18px;
-      margin-bottom: 1rem;
-      list-style: disc;
+      &.primary-issue-example-li {
+        margin-left: 18px;
+        margin-bottom: 1rem;
+        list-style: disc !important;
+      }
     }
   }
 
@@ -27,8 +27,7 @@ form#report-form {
 
 // Form styles
 .usa-form {
-  max-width: 30rem !important;
-
+  max-width: 100% !important;
   ul {
     margin-left: 0;
     padding-left: 0;
@@ -53,13 +52,6 @@ form#report-form {
     @media (min-width: 30em) {
       margin-top: 0;
     }
-  }
-
-  .look-like-link {
-    padding: 0;
-    border: none;
-    background: none;
-    text-decoration: underline;
   }
 
   .blue-left-highlight {
@@ -124,15 +116,14 @@ form#report-form {
 
   .crt-radio__label_area {
     @extend .usa-radio__label;
+    margin-bottom: 0;
+    padding-left: 0;
+    position: relative;
     text-indent: 0;
-    background-color: $gray-cool-4;
-    padding: 1.5rem;
-    border: 1px solid $gray-cool-4;
-    border-radius: 5px;
-    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, .13));
 
-    &:hover {
-      background-color: $blue-warm-5;
+    &:before {
+      top: 0;
+      vertical-align: middle;
     }
 
     .label-text {
@@ -154,7 +145,6 @@ form#report-form {
 
   input[type="radio"]:checked + .crt-radio__label_area {
     background-color: $blue-warm-5;
-    border: 1px solid $blue-warm-vivid-70;
   }
 
   .crt-checkbox__label {
@@ -164,6 +154,22 @@ form#report-form {
   .question_group_optional_tag {
     font-weight: lighter;
     color: $gray-warm-80;
+  }
+}
+
+input[type="radio"]:checked + .crt-radio__label_area {
+  background-color: $blue-warm-5;
+}
+
+
+
+.crt-hover-card {
+  &:hover {
+    background-color: $gray-cool-4;
+    cursor: pointer;
+  }
+  &.selected, &:hover.selected {
+    background-color: $blue-warm-5;
   }
 }
 
@@ -201,4 +207,16 @@ form#report-form {
 
 .complaint-multi-select {
   min-width: 140px;
+}
+
+.crt-portal-card {
+  @include u-radius('lg');
+  @include u-shadow(3);
+  background: white;
+
+  .crt-portal-card__content {
+    @include u-padding-x(7);
+    @include u-padding-bottom(6);
+    @include u-padding-top(5);
+  }
 }

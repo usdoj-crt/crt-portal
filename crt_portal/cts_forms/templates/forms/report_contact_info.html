@@ -1,0 +1,28 @@
+{% extends "forms/report_base.html" %}
+{% block form_questions %}
+  <div class="crt-portal-card">
+    <div class="crt-portal-card__content">
+      {{ block.super }}
+      {% include 'forms/grouped_questions.html' %}
+    </div>
+  </div>
+
+  <div class="crt-portal-card margin-top-3">
+    <div class="crt-portal-card__content">  
+      {% with field=wizard.form.servicemember %}
+        <fieldset class="usa-fieldset">
+          <legend class="em-text big margin-bottom-0">
+            {{field.label}}
+          </legend>
+          <em id="service-member-help-text">{{ field.help_text }}</em>
+          <div aria-labelledby="service-member-help-text">
+            {{ field }}
+            {% if field.errors %}
+              {% include "forms/snippets/error_alert.html" with errors=field.errors %}
+            {% endif %}
+          </div>
+        </fieldset>
+      {% endwith %}
+    </div>
+  </div>
+{% endblock %}

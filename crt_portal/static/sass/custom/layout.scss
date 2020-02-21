@@ -5,14 +5,24 @@ html, body {
   height: 100%;
 }
 
+body {
+  background-color: #f6f6f2;
+}
+
 .wrapper {
   display: flex;
   flex-direction: column;
   margin: 0;
 }
 
+header {
+  flex: 1 0 auto;
+}
+
 main {
   flex: 1 0 auto;
+  margin-top: -4rem;
+  margin-bottom: 5rem;
 }
 
 footer {
