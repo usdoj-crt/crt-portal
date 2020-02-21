@@ -141,7 +141,7 @@ class PrimaryReason(ModelForm):
                 'required': PRIMARY_COMPLAINT_ERROR
             },
             label=_('What is your primary reason for contacting the Civil Rights Division?'),
-            help_text=_('Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.'),
+            help_text=_('Select the reason that best describes your concern. Each reason lists examples of civil rights violations that may relate to your incident. In another section of this report, you will be able to describe your concern in your own words.'),
         )
 
 

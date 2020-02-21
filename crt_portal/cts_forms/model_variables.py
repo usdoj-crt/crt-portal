@@ -12,16 +12,16 @@ SERVICEMEMBER_ERROR = _('Please select a status as an active duty service member
 PRIMARY_COMPLAINT_CHOICES = (
     ('workplace', _('Workplace discrimination or other employment-related problem')),
     ('housing', _('Housing discrimination or harassment')),
-    ('education', _('Discrimination at a school, educational program, or related to receiving education')),
-    ('voting', _('Right to vote impacted')),
+    ('education', _('Discrimination at a school, educational program or service, or related to receiving education')),
+    ('voting', _('Voting rights or ability to vote blocked or affected')),
     ('police', _('Mistreated by police, law enforcement, or correctional staff (including while in prison)')),
-    ('commercial_or_public', _('Discriminated against in any other commercial location or public place')),
+    ('commercial_or_public', _('Discriminated against in a commercial location or public place')),
     ('something_else', _('Something else happened')),
 )
 
 PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT = {
-    'commercial_or_public': _('Store, restaurant, bar, hotel, place of worship, library, medical facility, bank, courthouse, government buildings, public park or street, or online'),
-    'something_else': _('You will be able to tell us more later')
+    'commercial_or_public': _('This could include a store, restaurant, bar, hotel, place of worship, library, medical facility, bank, courthouse, government building, public park or street, as well as online.'),
+    'something_else': _('The examples above reflect some but not all of the civil rights violations that we address. Select this option if you don’t see an example that applies to your situation. You will be able to tell us more later.')
 }
 
 PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
@@ -31,30 +31,30 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
         _('Inappropriately asked to provide immigration documentation'),
     ],
     'housing': [
-        _('Denied housing, a permit, or a loan'),
-        _('Harmful living conditions or lack accommodations for disability'),
-        _('Harassment by a landlord or another tenant'),
+        _('Denied housing, a permit, or a loan based on personal characteristics like race, sex, and/or having children under 18 years old'),
+        _('Denied an accommodation for a disability, including not being allowed to have a service animal'),
+        _('Harassment by a landlord or another tenant, including sexual harassment'),
     ],
     'education': [
         _('Harassment based on race, sex, national origin, disability, or religion'),
         _('Denied admission or segregated in an education program or activity'),
-        _('Denied services or accommodations for a disability or language barrier'),
+        _('Denied educational accommodations for a disability or language barrier'),
     ],
     'voting': [
-        _('Blocked from registering to vote, entering a polling place to vote, or any other voting activity'),
-        _('Lack of polling place accommodations for disability'),
-        _('Ballot tampering'),
+        _('Blocked or prevented from registering to vote, obtaining or submitting a ballot, having your ballot counted, or entering a polling place to vote'),
+        _('Denied adequate voting assistance or accommodations for a disability at a polling place'),
+        _('Restricted or prevented from participating in an election, including voting, becoming a candidate, or being elected for office'),
     ],
     'police': [
         _('Police brutality or use of excessive force, including patterns of police misconduct'),
         _('Searched and arrested under false pretenses, including racial or other discriminatory profiling'),
-        _('Denied rights, language access barriers, subjected to harmful living conditions or lack of accessible facilities'),
+        _('Denied rights while arrested or incarcerated'),
+        _('Denied access to safe living conditions or accommodations for a disability, language barrier, or religious practice while incarcerated'),
     ],
     'commercial_or_public': [
-
-        _('A location or website lacking disability accommodations'),
-        _('Denied service or entry because of a perceived personal characteristic like race, sex, or religion'),
-        _('Blocked from receiving reproductive health services'),
+        _('A physical or online location that does not provide disability accommodations'),
+        _('Denied service or entry because of a perceived personal characteristic  like race, sex, or religion'),
+        _('Threatened or harassed while seeking or receiving reproductive health services'),
     ],
     'something_else': []
 }
