@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0012_insert_protected_class_order'),
+        ('cts_forms', '0010_protectedclass_form_order'),
     ]
 
     def retrieve_or_create_options(*args, **defaults):
