@@ -19,11 +19,12 @@ class Migration(migrations.Migration):
         f.protected_class = 'Family, marital, or parental status'
         f.save()
         g = ProtectedClass.objects.get(protected_class='Genetic information')
-        g.protected_class='Genetic information (including family medical history)'
+        g.protected_class = 'Genetic information (including family medical history)'
         g.save()
         # remove form order from old object
         m = ProtectedClass.objects.get(protected_class='Military status')
         m.form_order = None
+        m.code = 'military'
         m.save()
 
         # Add code and new form order to all objects

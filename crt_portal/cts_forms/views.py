@@ -16,7 +16,7 @@ from formtools.wizard.views import SessionWizardView
 from actstream import action
 
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
-from .model_variables import PROTECTED_CLASS_CODES, PRIMARY_COMPLAINT_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
+from .model_variables import PRIMARY_COMPLAINT_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
 from .page_through import pagination
 from .filters import report_filter
 from .forms import Filters, ComplaintActions
@@ -28,7 +28,7 @@ def format_protected_class(p_class_objects, other_class):
     p_class_list = []
     for p_class in p_class_objects:
         if p_class.protected_class is not None:
-            code = PROTECTED_CLASS_CODES.get(p_class.protected_class, p_class.protected_class)
+            code = p_class.code
             if code != 'Other':
                 p_class_list.append(code)
             # If this code is other but there is no other_class description, we want it to say "Other". If there is an other_class that will take the place of "Other"

@@ -99,14 +99,10 @@ PROTECTED_CLASS_FIELDS = [
 ]
 # PROTECTED_CLASS_CHOICES refers to the choices that will be displayed on the form front-end.
 PROTECTED_CLASS_CHOICES = [field[2] for field in PROTECTED_CLASS_FIELDS]
-# PROTECTED_MODEL_CHOICES are the constraints added to the database for acceptable answers
+# PROTECTED_MODEL_CHOICES are the constraints added to the database for acceptable answers.
 PROTECTED_MODEL_CHOICES = tuple(
     (field[1].lower().replace(' ', '_'), field[2]) for field in PROTECTED_CLASS_FIELDS
 )
-# For CRT views
-PROTECTED_CLASS_CODES = {
-    field[2]: field[1] for field in PROTECTED_CLASS_FIELDS
-}
 
 PROTECTED_CLASS_ERROR = _('Please make a selection to continue. If none of these apply to you, please select “None of these apply to me” or "Other reason"and explain.')
 
