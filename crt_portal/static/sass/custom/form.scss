@@ -47,7 +47,7 @@ form#report-form {
 
   .other-class-option {
     margin-left: 2rem;
-    margin-top: -3.5rem;
+    //margin-top: -3.5rem;
 
     ul > li:last-child {
       height: 25px;
@@ -57,7 +57,7 @@ form#report-form {
   }
 
   .usa-fieldset {
-    margin-bottom: 2.5rem;
+    //margin-bottom: 2.5rem;
 
     &:last-child {
       margin-bottom: 0;
@@ -84,7 +84,13 @@ form#report-form {
   }
 
   li {
-    margin-bottom: 1.5rem;
+    > .usa-checkbox {
+      margin-bottom: 1rem;
+    }
+
+    > .usa-radio {
+      margin-bottom: 1.5rem;
+    }
 
     &:not(:first-child) {
       margin-top: 1rem;

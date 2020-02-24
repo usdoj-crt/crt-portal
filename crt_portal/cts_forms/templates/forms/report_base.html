@@ -37,7 +37,7 @@
 
           {% block form_questions %}
             {% if page_errors %}
-              <section id="page-errors" class="display-none page-errors margin-top-4 margin-bottom-2" role="alert" aria-live="assertive">
+              <section id="page-errors" class="display-none page-errors margin-bottom-2" role="alert" aria-live="assertive">
                 {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
               </section>
             {% endif %}

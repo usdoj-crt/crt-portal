@@ -571,12 +571,18 @@ class When(ModelForm):
                     params={'value': test_date.strftime('%x')},
                 ))
         except ValueError:
+            print('here')
             # a bit of a catch-all for all the ways people could make bad dates
             self.add_error('last_incident_year', ValidationError(
                 _(f'Invalid date format {month}/{day}/{year}.'),
                 params={'value': f'{month}/{day}/{year}'},
             ))
         except KeyError:
+            day = cleaned_data['last_incident_day'] or 1
+            if day > 31 or day < 1:
+                self.add_error('last_incident_day', ValidationError(
+                    _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.')
+                ))
             # these will be caught by the built in error validation
             return cleaned_data
 
