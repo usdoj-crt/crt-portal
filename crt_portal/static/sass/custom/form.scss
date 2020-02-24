@@ -13,9 +13,13 @@ form#report-form {
       margin-bottom: 1.5rem;
 
       &.primary-issue-example-li {
-        margin-left: 18px;
-        margin-bottom: 1rem;
         list-style: disc !important;
+        margin-bottom: 1rem;
+        margin-left: 18px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
       }
     }
   }
@@ -147,7 +151,6 @@ form#report-form {
     @extend .usa-radio__label;
     margin-bottom: 1rem;
     padding-left: 0;
-    position: relative;
     text-indent: 0;
 
     &:last-child {
@@ -161,8 +164,8 @@ form#report-form {
 
     .label-text {
       position: relative;
-      bottom: 40px;
-      margin-bottom: -60px;
+      bottom: 1.5rem;
+      margin-bottom: 0;
 
       ul {
         padding-inline-start: 20px;
@@ -247,7 +250,7 @@ input[type="radio"]:checked + .crt-radio__label_area {
 
     > .crt-portal-card__content {
       @include u-padding-top(4);
-      @include u-padding-bottom(4);
+      @include u-padding-bottom(1);
     }
   }
 
