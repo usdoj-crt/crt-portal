@@ -247,8 +247,8 @@ class LocationForm(ModelForm):
             'required': errors['location_name']
         }
         self.fields['location_name'].required = True
-        self.fields['location_address_line_1'].label = 'Street address 1 (Optional)'
-        self.fields['location_address_line_2'].label = 'Street address 2 (Optional)'
+        self.fields['location_address_line_1'].label = 'Street address 1'
+        self.fields['location_address_line_2'].label = 'Street address 2'
         self.fields['location_city_town'].label = 'City/town'
         self.fields['location_city_town'].error_messages = {
             'required': errors['location_city_town']

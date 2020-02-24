@@ -4,13 +4,13 @@
       {{ question_group.group_name }}
     </legend>
     {% if question_group.help_text %}
-      <p class="margin-bottom-3 margin-top-0 {{question_group.label_cls}}" id="{{question_group.ally_id}}">
+      <p class="margin-bottom-4 margin-top-0 {{question_group.label_cls}}" id="{{question_group.ally_id}}">
         <em>
           {{ question_group.help_text }}
         </em>
       </p>
     {% else %}
-      <div class="margin-bottom-3"></div>
+      <div class="margin-bottom-4"></div>
     {% endif %}
 
     {% for field in question_group %}
