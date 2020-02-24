@@ -2,9 +2,6 @@
   <fieldset class="usa-fieldset">
     <legend class="em-text">
       {{ question_group.group_name }}
-      {% if question_group.optional %}
-        <span class="question_group_optional_tag">(optional)</span>
-      {% endif %}
     </legend>
     {% if question_group.help_text %}
       <p class="margin-bottom-3 margin-top-0" id="{{question_group.ally_id}}">
