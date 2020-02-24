@@ -185,6 +185,10 @@ form#report-form {
 
   .crt-checkbox__label {
     @extend .usa-checkbox__label;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   .question_group_optional_tag {
