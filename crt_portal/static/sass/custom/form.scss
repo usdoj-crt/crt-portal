@@ -33,14 +33,34 @@ form#report-form {
     padding-left: 0;
   }
 
+  .form-group {
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
   .other-class-option {
     margin-left: 2rem;
     margin-top: -3.5rem;
 
-    ul li:last-child {
+    ul > li:last-child {
       height: 25px;
       margin-bottom: 0 !important;
       padding-bottom: 0;
+    }
+  }
+
+  .usa-fieldset {
+    margin-bottom: 2.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    ul {
+      margin-bottom: 0;
     }
   }
 
@@ -60,7 +80,15 @@ form#report-form {
   }
 
   li {
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
+
+    &:not(:first-child) {
+      margin-top: 1rem;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   .usa-input {
@@ -105,21 +133,26 @@ form#report-form {
   }
 
   .crt-radio__label_helper {
-    line-height: 1.5rem;
+    line-height: .85rem;
+    margin-bottom: 0;
 
     .label-text {
       position: relative;
-      bottom: 40px;
+      bottom: 32px;
       margin-bottom: -30px;
     }
   }
 
   .crt-radio__label_area {
     @extend .usa-radio__label;
-    margin-bottom: 0;
+    margin-bottom: 1rem;
     padding-left: 0;
     position: relative;
     text-indent: 0;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
 
     &:before {
       top: 0;

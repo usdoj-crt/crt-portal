@@ -13,8 +13,10 @@
         <fieldset class="usa-fieldset">
           <legend class="em-text big margin-bottom-0">
             {{field.label}}
-          </legend>
-          <em id="service-member-help-text">{{ field.help_text }}</em>
+          </legend> 
+          <p class="margin-bottom-3 margin-top-0" id="service-member-help-text">
+            <em>{{ field.help_text }}</em>
+          </p>
           <div aria-labelledby="service-member-help-text">
             {{ field }}
             {% if field.errors %}

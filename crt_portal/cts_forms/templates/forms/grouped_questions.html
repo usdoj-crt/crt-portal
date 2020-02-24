@@ -1,5 +1,5 @@
 {% for question_group in wizard.form.question_groups %}
-  <fieldset class="usa-fieldset margin-bottom-5">
+  <fieldset class="usa-fieldset">
     <legend class="em-text">
       {{ question_group.group_name }}
       {% if question_group.optional %}
@@ -7,13 +7,13 @@
       {% endif %}
     </legend>
     {% if question_group.help_text %}
-      <p class="margin-bottom-4 margin-top-0" id="{{question_group.ally_id}}">
+      <p class="margin-bottom-3 margin-top-0" id="{{question_group.ally_id}}">
         <em>
           {{ question_group.help_text }}
         </em>
       </p>
     {% else %}
-      <div class="margin-bottom-4"></div>
+      <div class="margin-bottom-3"></div>
     {% endif %}
 
     {% for field in question_group %}
