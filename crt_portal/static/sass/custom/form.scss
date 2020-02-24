@@ -195,17 +195,6 @@ input[type="radio"]:checked + .crt-radio__label_area {
 }
 
 
-
-.crt-hover-card {
-  &:hover {
-    background-color: $gray-cool-4;
-    cursor: pointer;
-  }
-  &.selected, &:hover.selected {
-    background-color: $blue-warm-5;
-  }
-}
-
 // Remove extra dropown error from datalist element
 [list]::-webkit-calendar-picker-indicator {
   display: none;
@@ -246,6 +235,21 @@ input[type="radio"]:checked + .crt-radio__label_area {
   @include u-radius('lg');
   @include u-shadow(3);
   background: white;
+
+  &.crt-hover-card {
+    &:hover {
+      background-color: $gray-cool-4;
+      cursor: pointer;
+    }
+    &.selected, &:hover.selected {
+      background-color: $blue-warm-5;
+    }
+
+    > .crt-portal-card__content {
+      @include u-padding-top(4);
+      @include u-padding-bottom(4);
+    }
+  }
 
   .crt-portal-card__content {
     @include u-padding-x(7);
