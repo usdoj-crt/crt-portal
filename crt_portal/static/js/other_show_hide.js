@@ -12,7 +12,13 @@
   root.CRT.otherTextInputToggle = function toggleTextInput(selector, index) {
     var parentEl = dom.querySelector('[data-toggle]');
     var selector = selector || '.usa-checkbox';
-    var options = parentEl.querySelectorAll(selector);
+
+    if (selector instanceof NodeList) {
+      var options = selector;
+    } else {
+      var options = parentEl.querySelectorAll(selector);
+    }
+
     var index = index || options.length - 1;
 
     // Wapper element for the 'other' option form control

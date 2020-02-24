@@ -47,7 +47,6 @@ form#report-form {
 
   .other-class-option {
     margin-left: 2rem;
-    //margin-top: -3.5rem;
 
     ul > li:last-child {
       height: 25px;
@@ -57,7 +56,7 @@ form#report-form {
   }
 
   .usa-fieldset {
-    //margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
 
     &:last-child {
       margin-bottom: 0;
@@ -150,6 +149,13 @@ form#report-form {
       position: relative;
       bottom: 32px;
       margin-bottom: -30px;
+    }
+
+    .radio-help-text {      
+      line-height: 1.25rem;
+      margin-top: .5rem;
+      margin-bottom: 0;
+      text-indent: 0;
     }
   }
 

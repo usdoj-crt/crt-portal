@@ -6,7 +6,7 @@
     {{ form.inside_correctional_facility }}
   </div>
   {% with field=form.correctional_facility_type %}
-    <div class="other-class-option margin-bottom-2 padding-top-2">
+    <div class="other-class-option margin-bottom-2">
       <div class="blue-left-highlight">
         <label for="{{ field.id_for_label }}">
           <b>{{ field.help_text }}</b>  
@@ -25,7 +25,7 @@
   <script nonce="{{request.csp_nonce}}">
     var toggleWrapperEl = document.querySelector('[data-toggle="toggle"]');
     var toggleControls = Array.prototype.slice.call(
-      toggleWrapperEl.querySelectorAll('[name="4-inside_correctional_facility"]')
+      toggleWrapperEl.querySelectorAll('[name$="-inside_correctional_facility"]')
     );
     var toggleShowEl = toggleControls[toggleControls.length - 1];
     var toggleableEl = document.querySelector('.other-class-option');
