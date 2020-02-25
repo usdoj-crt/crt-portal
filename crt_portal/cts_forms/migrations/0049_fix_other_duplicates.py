@@ -29,8 +29,8 @@ class Migration(migrations.Migration):
             record.protected_class.add(real_other)
 
         # remove the incorrect "other" variants
-        ProtectedClass.objects.get(protected_class='Other').delete()
         try:
+            ProtectedClass.objects.get(protected_class='Other').delete()
             ProtectedClass.objects.get(protected_class='other').delete()
         except ProtectedClass.DoesNotExist:
             pass
