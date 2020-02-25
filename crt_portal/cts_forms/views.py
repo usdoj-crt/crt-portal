@@ -164,7 +164,7 @@ class ShowView(View):
                 updates[key] = value
                 action_verb_target = ' '.join(key.split('_'))
                 action_verb = f"updated {action_verb_target}"
-                action_description = f"with value {value}"
+                action_description = f"to {value}"
 
                 action.send(
                     request.user,
