@@ -58,7 +58,7 @@ form#report-form {
   .usa-fieldset {
     margin-bottom: 1.5rem;
 
-    &:last-child {
+    &:last-child, &:only-of-type {
       margin-bottom: 0;
     }
 

@@ -523,6 +523,7 @@ class When(ModelForm):
             'last_incident_day': TextInput(attrs={
                 'class': 'usa-input usa-input--small',
                 'type': 'number',
+                'min': 0
             }),
             'last_incident_year': EmailInput(attrs={
                 'class': 'usa-input usa-input--medium',
@@ -549,11 +550,16 @@ class When(ModelForm):
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
         cleaned_data = super(When, self).clean()
+        day = cleaned_data.get('last_incident_day') or 1
+
+        if day > 31 or day < 1:
+            self.add_error('last_incident_day', ValidationError(
+                _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.')
+            ))
 
         try:
             year = cleaned_data['last_incident_year']
             month = cleaned_data['last_incident_month']
-            day = cleaned_data['last_incident_day'] or 1
             test_date = datetime(year, month, day)
             if test_date > datetime.now():
                 self.add_error('last_incident_year', ValidationError(
@@ -570,19 +576,14 @@ class When(ModelForm):
                     _('Please enter a year after 1900.'),
                     params={'value': test_date.strftime('%x')},
                 ))
-        except ValueError:
-            print('here')
+
+        except ValueError: 
             # a bit of a catch-all for all the ways people could make bad dates
             self.add_error('last_incident_year', ValidationError(
                 _(f'Invalid date format {month}/{day}/{year}.'),
                 params={'value': f'{month}/{day}/{year}'},
             ))
         except KeyError:
-            day = cleaned_data['last_incident_day'] or 1
-            if day > 31 or day < 1:
-                self.add_error('last_incident_day', ValidationError(
-                    _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.')
-                ))
             # these will be caught by the built in error validation
             return cleaned_data
 
