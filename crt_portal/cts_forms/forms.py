@@ -166,7 +166,7 @@ class HateCrimesTrafficking(ModelForm):
                 'aria-describedby': 'hatecrimes-help-text'
             }),
             required=False,
-            label=_('Please select if any apply to your concern (optional)')
+            label=_('Please select if any apply to your concern')
         )
 
         self.question_groups = [
@@ -255,7 +255,7 @@ class LocationForm(ModelForm):
         }
         self.fields['location_city_town'].required = True
         self.fields['location_state'] = ChoiceField(
-            choices=(('', _(' ')),) + STATES_AND_TERRITORIES,
+            choices=(('', _('- Select -')),) + STATES_AND_TERRITORIES,
             widget=Select(attrs={
                 'aria-describedby': 'location-help-text',
                 'class': 'usa-select'

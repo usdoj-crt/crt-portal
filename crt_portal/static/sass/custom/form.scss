@@ -89,6 +89,10 @@ form#report-form {
 
     > .usa-radio {
       margin-bottom: 1.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
     &:not(:first-child) {
