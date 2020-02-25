@@ -16,11 +16,9 @@ class Migration(migrations.Migration):
         old_other.save()
 
         # label data should be attributed to
-        real_other = ProtectedClass(
-            protected_class='Other reason',
-            form_order=14,
-            code='Other'
-        )
+        real_other = ProtectedClass.get_or_create(protected_class='Other reason')
+        real_other.form_order = 14
+        real_other.code = 'Other'
         real_other.save()
         # pull records that need to be updated
         update_records = Report.objects.filter(protected_class__protected_class__in=['other', 'Other'])
