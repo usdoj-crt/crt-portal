@@ -11,7 +11,7 @@ class Migration(migrations.Migration):
 
     def retrieve_or_create_choices(*args, **defaults):
         # remove other codes from "other" code from "Other", since codes are unique
-        old_other = ProtectedClass.objects.get(code='other')
+        old_other = ProtectedClass.objects.get(code='Other')
         old_other.code = 'old'
         old_other.save()
 
@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
         real_other = ProtectedClass(
             protected_class='Other reason',
             form_order=14,
-            code='other'
+            code='Other'
         )
         real_other.save()
         # pull records that need to be updated
@@ -29,8 +29,8 @@ class Migration(migrations.Migration):
             record.protected_class.add(real_other)
 
         # remove the incorrect "other" variants
-        try:
             ProtectedClass.objects.get(protected_class='Other').delete()
+        try:
             ProtectedClass.objects.get(protected_class='other').delete()
         except ProtectedClass.DoesNotExist:
             pass
