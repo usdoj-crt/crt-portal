@@ -1,7 +1,25 @@
 from django.db import migrations, models
 
 from cts_forms.models import ProtectedClass
-from cts_forms.model_variables import PROTECTED_CLASS_FIELDS
+# original list
+PROTECTED_CLASS_FIELDS = [
+    # (form order, code, display name)
+    (0, 'Age', 'Age'),
+    (1, 'Disability', 'Disability (including temporary or recovery)'),
+    (2, 'Family status', 'Family, marital, or parental status'),
+    (3, 'Gender', 'Gender identity (including gender stereotypes)'),
+    (4, 'Genetic', 'Genetic information (including family medical history)'),
+    (5, 'Immigration', 'Immigration/citizenship status (choosing this will not share your status)'),
+    (6, 'Language', 'Language'),
+    (7, 'National origin', 'National origin (including ancestry and ethnicity)'),
+    (8, 'Pregnancy', 'Pregnancy'),
+    (9, 'Race/color', 'Race/color'),
+    (10, 'Religion', 'Religion'),
+    (11, 'Sex', 'Sex'),
+    (12, 'Orientation', 'Sexual orientation'),
+    (13, 'None', 'None of these apply to me'),
+    (14, 'Other', 'Other'),
+]
 
 
 class Migration(migrations.Migration):

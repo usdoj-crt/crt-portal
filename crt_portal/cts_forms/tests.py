@@ -87,7 +87,7 @@ class Valid_Form_Tests(TestCase):
 
     def test_Class_valid(self):
         form = ProtectedClassForm(data={
-            'protected_class': ProtectedClass.objects.all(),
+            'protected_class': ProtectedClass.objects.filter(protected_class__in=PROTECTED_CLASS_CHOICES),
             'other_class': 'Random string under 150 characters (हिन्दी)',
         })
         self.assertTrue(form.is_valid())

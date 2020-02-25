@@ -95,7 +95,7 @@ PROTECTED_CLASS_FIELDS = [
     (11, 'Sex', _('Sex')),
     (12, 'Orientation', _('Sexual orientation')),
     (13, 'None', _('None of these apply to me')),
-    (14, 'Other', _('Other')),
+    (14, 'Other', _('Other reason')),
 ]
 # PROTECTED_CLASS_CHOICES refers to the choices that will be displayed on the form front-end.
 PROTECTED_CLASS_CHOICES = [field[2] for field in PROTECTED_CLASS_FIELDS]
