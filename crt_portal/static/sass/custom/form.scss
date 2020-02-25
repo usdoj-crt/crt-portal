@@ -13,6 +13,8 @@ form#report-form {
       margin-bottom: 1.5rem;
 
       &.primary-issue-example-li {
+        font-size: .875rem;
+        line-height: 1.3125rem;
         list-style: disc !important;
         margin-bottom: 1rem;
         margin-left: 18px;
@@ -57,6 +59,10 @@ form#report-form {
 
   .usa-fieldset {
     margin-bottom: 1.5rem;
+
+    &:last-of-type {
+      margin-top: 2.5rem;
+    }
 
     &:last-child, &:only-of-type {
       margin-bottom: 0;
@@ -201,6 +207,7 @@ form#report-form {
 
   .crt-checkbox__label {
     @extend .usa-checkbox__label;
+    line-height: 1.5rem;
 
     &:last-child {
       margin-bottom: 0;
@@ -226,8 +233,13 @@ input[type="radio"]:checked + .crt-radio__label_area {
 .form-help-text {
   color: $gray-70;
   font-size: .9rem;
+  
   // Necessary because we want to override styles applied to the p tag
   margin: .5rem 0 1rem 0 !important;
+}
+
+.group-help-text {
+  line-height: 1.625rem;
 }
 
 .usa-button--light {
@@ -244,6 +256,10 @@ input[type="radio"]:checked + .crt-radio__label_area {
     padding-right: .5rem;
     vertical-align: middle;
   }
+}
+
+.help-text {
+  line-height: 1.625rem;
 }
 
 .usa-input--error {

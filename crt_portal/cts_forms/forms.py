@@ -577,7 +577,7 @@ class When(ModelForm):
                     params={'value': test_date.strftime('%x')},
                 ))
 
-        except ValueError: 
+        except ValueError:
             # a bit of a catch-all for all the ways people could make bad dates
             self.add_error('last_incident_year', ValidationError(
                 _(f'Invalid date format {month}/{day}/{year}.'),
