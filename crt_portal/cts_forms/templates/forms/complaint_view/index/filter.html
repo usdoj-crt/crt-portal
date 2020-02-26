@@ -1,0 +1,23 @@
+{% load static %}
+<div class="crt-dropdown" data-crt-dropdown>
+  <button
+    class="title"
+    aria-controls="id_{{meta.widget.attrs.name}}-content"
+    aria-expanded="true"
+    type="button"
+  >
+    <span style="pointer-events: none;">
+      {{ meta.label }}
+      <img src="{% static 'img/intake-view-table-icons/ic_select-down.svg' %}" alt="open filter dropdown" class="icon" />
+    </span>   
+  </button>  
+  <div class="content">
+    <label for="id_{{meta.widget.attrs.name}}">
+      <span class="usa-sr-only">{{meta.label}}</span>
+    </label>
+    {{ field }}
+    <button class="usa-button margin-top-2" type="submit">
+      Apply filter
+    </button>
+  </div>
+</div>
