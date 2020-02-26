@@ -166,7 +166,7 @@ class HateCrimesTrafficking(ModelForm):
                 'aria-describedby': 'hatecrimes-help-text'
             }),
             required=False,
-            label=_('Please select if any apply to your concern (optional)')
+            label=_('Please select if any apply to your concern')
         )
 
         self.question_groups = [
@@ -176,7 +176,8 @@ class HateCrimesTrafficking(ModelForm):
                 group_name=_('Hate crimes and human trafficking'),
                 help_text=_('Please let us know if you would describe your concern as either a hate crime or human trafficking. This information can help us take action against these types of violations. We will contact you about the next steps. We also encourage you to contact law enforcement if you or someone else is in immediate danger.'),
                 optional=False,
-                cls="text-bold",
+                label_cls="margin-bottom-4",
+                help_cls="text-bold",
                 ally_id="hatecrimes-help-text"
             )
         ]
@@ -246,15 +247,15 @@ class LocationForm(ModelForm):
             'required': errors['location_name']
         }
         self.fields['location_name'].required = True
-        self.fields['location_address_line_1'].label = 'Street address 1 (Optional)'
-        self.fields['location_address_line_2'].label = 'Street address 2 (Optional)'
+        self.fields['location_address_line_1'].label = 'Street address 1'
+        self.fields['location_address_line_2'].label = 'Street address 2'
         self.fields['location_city_town'].label = 'City/town'
         self.fields['location_city_town'].error_messages = {
             'required': errors['location_city_town']
         }
         self.fields['location_city_town'].required = True
         self.fields['location_state'] = ChoiceField(
-            choices=(('', _(' ')),) + STATES_AND_TERRITORIES,
+            choices=(('', _('- Select -')),) + STATES_AND_TERRITORIES,
             widget=Select(attrs={
                 'aria-describedby': 'location-help-text',
                 'class': 'usa-select'
@@ -522,6 +523,7 @@ class When(ModelForm):
             'last_incident_day': TextInput(attrs={
                 'class': 'usa-input usa-input--small',
                 'type': 'number',
+                'min': 0
             }),
             'last_incident_year': EmailInput(attrs={
                 'class': 'usa-input usa-input--medium',
@@ -548,11 +550,16 @@ class When(ModelForm):
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
         cleaned_data = super(When, self).clean()
+        day = cleaned_data.get('last_incident_day') or 1
+
+        if day > 31 or day < 1:
+            self.add_error('last_incident_day', ValidationError(
+                _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.')
+            ))
 
         try:
             year = cleaned_data['last_incident_year']
             month = cleaned_data['last_incident_month']
-            day = cleaned_data['last_incident_day'] or 1
             test_date = datetime(year, month, day)
             if test_date > datetime.now():
                 self.add_error('last_incident_year', ValidationError(
@@ -569,6 +576,7 @@ class When(ModelForm):
                     _('Please enter a year after 1900.'),
                     params={'value': test_date.strftime('%x')},
                 ))
+
         except ValueError:
             # a bit of a catch-all for all the ways people could make bad dates
             self.add_error('last_incident_year', ValidationError(

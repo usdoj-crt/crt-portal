@@ -1,14 +1,16 @@
-<div class="margin-bottom-4">
-  <label
-    for="{{ field.id_for_label }}"
-    class="{{label_class}} margin-bottom-0"
-  >
-    {{ field.label }}
-  </label>
+<div class="form-group">
+  {% if field.label %}
+    <label
+      for="{{ field.id_for_label }}"
+      class="{{label_class}} margin-bottom-0"
+    >
+      {{ field.label }} {% if field.required != True %}<em>(Optional)</em>{% endif %}
+    </label>
+  {% endif %}
   {% if field.help_text %}
-  <p {% if ally_id%}id="{{ally_id}}"{%endif%}>
-    <em>{{ field.help_text }}</em>
-  </p>
+    <p class="margin-top-1" {% if ally_id%}id="{{ally_id}}"{%endif%}>
+      <em>{{ field.help_text }}</em>
+    </p>
   {% endif %}
   {{ field|withInputError }}
   {% if field.errors %}

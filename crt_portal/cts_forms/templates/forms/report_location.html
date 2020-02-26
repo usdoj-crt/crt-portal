@@ -14,8 +14,8 @@
 
       {% include 'forms/grouped_questions.html' %}
       
-      {% with city=wizard.form.location_city_town state=wizard.form.location_state %}
-        <div class="grid-row grid-gap margin-y-neg-2 margin-bottom-5">
+      {% with city=wizard.form.location_city_town state=wizard.form.location_state %}        
+        <div class="grid-row grid-gap margin-top-3">
           <div class="mobile-lg:grid-col-8">
             <label for="{{city.id_for_label}}">
               {{ city.label }}

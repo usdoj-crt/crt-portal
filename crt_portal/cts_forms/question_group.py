@@ -5,14 +5,15 @@ from django.forms.forms import BoundField
 
 
 class QuestionGroup(object):
-    def __init__(self, form, fields, group_name='', help_text='', ally_id='', optional=True, cls=None):
+    def __init__(self, form, fields, group_name='', help_text='', ally_id='', optional=True, label_cls=None, help_cls=None):
         self.form = form
         self.fields = fields
         self.group_name = group_name
         self.help_text = help_text
         self.optional = optional
         self.ally_id = ally_id
-        self.cls = cls
+        self.label_cls = label_cls
+        self.help_cls = help_cls
 
     def __iter__(self):
         for name in self.fields:
