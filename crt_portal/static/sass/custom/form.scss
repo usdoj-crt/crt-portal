@@ -60,7 +60,7 @@ form#report-form {
   .usa-fieldset {
     margin-bottom: 1.5rem;
 
-    &:last-of-type {
+    &:last-of-type:not(:only-of-type) {
       margin-top: 2.5rem;
     }
 
