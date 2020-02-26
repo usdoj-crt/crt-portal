@@ -590,6 +590,13 @@ class When(ModelForm):
         return cleaned_data
 
 
+# making an empty form for the review page
+class Review(ModelForm):
+    class Meta:
+        model = Report
+        fields = []
+
+
 class Filters(ModelForm):
     class Meta:
         model = Report

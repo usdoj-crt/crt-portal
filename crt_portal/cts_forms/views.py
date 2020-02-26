@@ -208,6 +208,8 @@ TEMPLATES = [
     'forms/report_date.html',
     # Details
     'forms/report_details.html',
+    # Review page
+    'forms/report_review.html',
 ]
 
 conditional_location_routings = ['voting', 'workplace', 'police', 'commercial_or_public', 'education']
@@ -304,6 +306,7 @@ class CRTReportWizard(SessionWizardView):
             _('Personal characteristics'),
             _('Date'),
             _('Personal description'),
+            _('Review and submit'),
         ]
         # Name for all forms whether they are skipped or not
         all_step_names = [
@@ -319,6 +322,7 @@ class CRTReportWizard(SessionWizardView):
             _('Personal characteristics'),
             _('Date'),
             _('Personal description'),
+            _('Review and submit'),
         ]
 
         current_step_name = all_step_names[int(self.steps.current)]
@@ -337,6 +341,7 @@ class CRTReportWizard(SessionWizardView):
             _('Personal characteristics'),
             _('Date'),
             _('Personal description'),
+            _('Review your concern'),
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]
         form_autocomplete_off = os.getenv('FORM_AUTOCOMPLETE_OFF', False)
