@@ -8,7 +8,8 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: circleci/python:3.8-node-browsers
+      # image for circleci/python:3.8.1-node-browsers with the right python
+      - image: sha256:afde6a6ffd03dc0f40dea460667a0cdbf23bc9cbe913bdad9755e40603b1a917
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
