@@ -48,9 +48,10 @@
         <p>{{ form_data_dict.primary_complaint }}</p>
 
         <h2>Hate crimes and human trafficking</h2>
-        <!-- add something for none -->
         {% for crime in form_data_dict.hatecrimes_trafficking %}
             <p>{{ crime }}</p>
+        {% empty %}
+            <p>None reported</p>
         {% endfor %}
 
     </div>
@@ -58,6 +59,7 @@
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
         <h2>{{ordered_step_names.2}}</h2>
+        <!-- TO DO pass the link to the right card -->
         <button name="wizard_goto_step" type="submit" label="edit contact step" value="2" class="usa-button usa-button--outline margin-top-2 display-block">
                 Edit this page
               </button>
@@ -73,8 +75,8 @@
 </div>
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
-        <h2>{{ordered_step_names.3}}</h2>
-        <button name="wizard_goto_step" type="submit" label="edit contact step" value="3" class="usa-button usa-button--outline margin-top-2 display-block">
+        <h2>{{ ordered_step_names.3 }}</h2>
+        <button name="wizard_goto_step" type="submit" label="edit contact step" value="9" class="usa-button usa-button--outline margin-top-2 display-block">
                 Edit this page
               </button>
         {% for characteristic in form_data_dict.protected_class %}
@@ -85,8 +87,8 @@
 </div>
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
-        <h2>{{ordered_step_names.4}}</h2>
-        <button name="wizard_goto_step" type="submit" label="edit contact step" value="4" class="usa-button usa-button--outline margin-top-2 display-block">
+        <h2>{{ ordered_step_names.4 }}</h2>
+        <button name="wizard_goto_step" type="submit" label="edit contact step" value="10" class="usa-button usa-button--outline margin-top-2 display-block">
                 Edit this page
               </button>
         <p>{{ form_data_dict.last_incident_month }}/{{ form_data_dict.last_incident_day|default:"—" }}/{{ form_data_dict.last_incident_year}}</p>
@@ -96,7 +98,7 @@
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
         <h2>{{ordered_step_names.5}}</h2>
-        <button name="wizard_goto_step" type="submit" label="edit contact step" value="5" class="usa-button usa-button--outline margin-top-2 display-block">
+        <button name="wizard_goto_step" type="submit" label="edit contact step" value="11" class="usa-button usa-button--outline margin-top-2 display-block">
                 Edit this page
               </button>
         <p>{{ form_data_dict.violation_summary }}</p>
