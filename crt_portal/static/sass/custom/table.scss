@@ -4,7 +4,10 @@ $green-cool-vivid: 'green-cool-10v';
 @mixin clickable-table-cell {
   color: $gray-warm-80;
   height: 100%;
-  padding: .5rem 1rem;
+  padding-top: .5rem;
+  padding-left: .25rem;
+  padding-bottom: .5rem;
+  padding-right: 1rem;
   position: relative;
   text-decoration: none;
   width: 100%;
@@ -38,10 +41,25 @@ $green-cool-vivid: 'green-cool-10v';
       background-color: $white;
       border-bottom: 1px solid $gray-cool-10;
       border-top: 0;
-      font-size: 12px;
-      line-height: 25.92px;
+      font-size: 1rem;
+      font-weight: 400 !important;
+      height: 4.4rem;
       position: relative;
       text-transform: uppercase;
+
+      &:last-of-type {
+        padding-right: 2rem !important;
+      }
+    }
+  }
+
+  tr {    
+    th a:first-child, td a:first-child {
+      padding-left: 1.3rem;
+    }
+
+    th a:last-child, td a:last-child {
+      padding-right: 2rem;
     }
   }
 
@@ -62,6 +80,14 @@ $green-cool-vivid: 'green-cool-10v';
       // way to remove padding from td elements in the table body
       border-left: 1px solid $white;
       vertical-align: top;
+    }
+
+    tr {
+      td:first-child {
+        .td-link {
+          padding-left: 0;
+        }
+      }
     }
 
     .td-link {
@@ -118,7 +144,6 @@ $green-cool-vivid: 'green-cool-10v';
 }
 
 .sort-cell {
-  height: 4.4rem;
   padding: 0 !important;
 
   span {
@@ -139,7 +164,6 @@ $green-cool-vivid: 'green-cool-10v';
   @include clickable-table-cell();
   align-items: center;
   display: flex;
-  justify-content: center;
   position: relative;
   vertical-align: middle;
   z-index: 1;

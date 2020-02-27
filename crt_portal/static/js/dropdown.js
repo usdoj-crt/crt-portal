@@ -65,4 +65,8 @@
       dropdown.toggle(event);
     });
   });
+
+  document.body.addEventListener('click', function(event) {
+    console.log(event.target)
+  });
 })(window);
