@@ -267,7 +267,6 @@ class LocationForm(ModelForm):
             label='State',
             help_text="Where did this happen?",
         )
-        self.fields['location_state'].widget.attrs['list'] = 'states'
 
         self.question_groups = [
             QuestionGroup(
