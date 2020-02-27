@@ -48,11 +48,14 @@
               {% endif %}
             </div>
           {% endblock %}
+
+          {% block bottom-navigation %}
           <div class="margin-top-5">
             <input id="submit-next"
                   type="submit"
                   value="{% trans 'Next' %}"
                   class="usa-button" />
+
             {% if wizard.steps.prev %}
               <button name="wizard_goto_step"
                       type="submit"
@@ -63,6 +66,7 @@
               </button>
             {% endif %}
           </div>
+          {% endblock %}
         </form>
   </div>
 {% endblock %}

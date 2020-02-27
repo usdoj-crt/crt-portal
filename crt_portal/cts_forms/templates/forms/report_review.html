@@ -1,4 +1,7 @@
 {% extends "forms/report_base.html" %}
+{% load i18n %}
+{% load static %}
+
 {% block form_questions %}
  <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
@@ -8,13 +11,13 @@
 
         <p><em>If you need to make any changes, you can go back and edit the previous pages. Please make sure your information is accurate. This allows us to respond to your report quickly.</em></p>
 
-        <input id="submit-next" type="submit" value="Submit" class="usa-button">
+        <input id="submit-next" type="submit" value="Submit concern" class="usa-button">
     </div>
 </div>
 
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
-        <h2>Contact</h2>
+        <h2>{{ordered_step_names.0}}</h2>
         <button name="wizard_goto_step" type="submit" label="edit contact step" value="0" class="usa-button usa-button--outline margin-top-2">
                 Edit this page
               </button>
@@ -36,7 +39,7 @@
 </div>
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
-        <h2>Primary concern</h2>
+        <h2>{{ordered_step_names.1}}</h2>
         <button name="wizard_goto_step" type="submit" label="edit contact step" value="1" class="usa-button usa-button--outline margin-top-2 display-block">
                 Edit this page
               </button>
@@ -47,53 +50,76 @@
         <h2>Hate crimes and human trafficking</h2>
         <!-- add something for none -->
         {% for crime in form_data_dict.hatecrimes_trafficking %}
-            {{ crime }}
+            <p>{{ crime }}</p>
         {% endfor %}
 
     </div>
 </div>
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
-        <h2>Location</h2>
+        <h2>{{ordered_step_names.2}}</h2>
         <button name="wizard_goto_step" type="submit" label="edit contact step" value="2" class="usa-button usa-button--outline margin-top-2 display-block">
                 Edit this page
               </button>
 
         <h3>Where did this happen?</h3>
-        <p>{{ 'location_address_line_1' }}</p>
-        <p>{{ 'location_address_line_2' }}</p>
-        <p>{{ 'location_city_town' }}</p>
-        <p>{{ 'location_name' }}</p>
-        <p>{{ 'location_state' }}</p>
+        <p>{{ form_data_dict.location_address_line_1 }}</p>
+        <p>{{ form_data_dict.location_address_line_2 }}</p>
+        <p>{{ form_data_dict.location_city_town }}</p>
+        <p>{{ form_data_dict.location_name }}</p>
+        <p>{{ form_data_dict.location_state }}</p>
 
     </div>
 </div>
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
-        <h2>Personal characteristics</h2>
+        <h2>{{ordered_step_names.3}}</h2>
         <button name="wizard_goto_step" type="submit" label="edit contact step" value="3" class="usa-button usa-button--outline margin-top-2 display-block">
                 Edit this page
               </button>
+        {% for characteristic in form_data_dict.protected_class %}
+            <p>{{ characteristic }}</p>
+        {% endfor %}
 
     </div>
 </div>
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
-        <h2>Date</h2>
+        <h2>{{ordered_step_names.4}}</h2>
         <button name="wizard_goto_step" type="submit" label="edit contact step" value="4" class="usa-button usa-button--outline margin-top-2 display-block">
                 Edit this page
               </button>
+        <p>{{ form_data_dict.last_incident_month }}/{{ form_data_dict.last_incident_day|default:"—" }}/{{ form_data_dict.last_incident_year}}</p>
 
     </div>
 </div>
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
-        <h2>Personal description</h2>
+        <h2>{{ordered_step_names.5}}</h2>
         <button name="wizard_goto_step" type="submit" label="edit contact step" value="5" class="usa-button usa-button--outline margin-top-2 display-block">
                 Edit this page
               </button>
-
+        <p>{{ form_data_dict.violation_summary }}</p>
     </div>
 </div>
+{% endblock %}
 
+
+{% block bottom-navigation %}
+<div class="margin-top-5">
+<input id="submit-next"
+      type="submit"
+      value="{% trans 'Submit concern' %}"
+      class="usa-button" />
+
+    {% if wizard.steps.prev %}
+      <button name="wizard_goto_step"
+              type="submit"
+              label="previous step"
+              value="{{ wizard.steps.prev }}"
+              class="look-like-link margin-top-2 display-block">
+        {% trans "Back" %}
+      </button>
+    {% endif %}
+</div>
 {% endblock %}
