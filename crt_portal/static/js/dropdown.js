@@ -10,7 +10,9 @@
 
       if (isVisible) {
         content.setAttribute('hidden', true);
+        el.classList.remove('expanded');
       } else {
+        el.classList.add('expanded');
         content.removeAttribute('hidden');
       }
       isVisible = !isVisible;
@@ -39,6 +41,7 @@
         isVisible = false;
         content.setAttribute('hidden', true);
         control.setAttribute('aria-expanded', isVisible);
+        el.classList.remove('expanded');
       }
     };
   }
