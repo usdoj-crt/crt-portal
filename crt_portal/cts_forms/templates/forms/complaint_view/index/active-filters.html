@@ -1,0 +1,29 @@
+{% load static %}
+<div id="active-filters" data-active-filters>
+  {% for key, value in filters.items %}
+    {% for item in value %}      
+      <span class="usa-sr-only">{{key}}: {{item}}</span>
+      <button
+        class="filter-control filter-tag"
+        aria-label="Remove filter {{ key}}: {{item}} from the list"
+        data-filter-name="{{key}}"
+        data-filter-value="{{item}}"
+      >
+        {% if key == 'assigned_section' %}
+          Routed
+        {% elif key == 'contact_first_name' %}
+          Contact first name
+        {% elif key == 'contact_last_name' %}
+          Contact last name
+        {% elif key == 'location_city_town' %}
+          City
+        {% elif key == 'location_state' %}
+          State
+        {% else %}
+          {{key}}
+        {% endif %}: {{item}}
+        <img src="{% static 'img/intake-view-table-icons/ic_close.svg' %}" class="icon right">
+      </button>
+    {% endfor %}
+  {% endfor %}
+</div>
