@@ -29,7 +29,11 @@
           </h2>
           <p>
             <span class="text-gold text-uppercase">Received:  </span>
-            <span class="text-white">{{ data.create_date|date:'g:s a F j, Y' }}</span>
+            <span class="text-white">{{ data.create_date|date:'g:i a F j, Y' }}</span>
+          </p>
+          <p>
+            <span class="text-gold text-uppercase">Last Updated:  </span>
+            <span class="text-white">{{ data.modified_date|date:'g:i a F j, Y' }}</span>
           </p>
         </div>
         <div class="tablet:grid-col-3 tablet:grid-offset-3 text-right">

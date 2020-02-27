@@ -10,8 +10,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 
-from .models import ProtectedClass, Report, HateCrimesandTrafficking
-from .model_variables import (
+from ..models import ProtectedClass, Report, HateCrimesandTrafficking
+from ..model_variables import (
     PROTECTED_CLASS_CHOICES,
     PROTECTED_CLASS_ERROR,
     VIOLATION_SUMMARY_ERROR,
@@ -21,7 +21,7 @@ from .model_variables import (
     HATE_CRIMES_TRAFFICKING_CHOICES,
     SERVICEMEMBER_ERROR,
 )
-from .forms import (
+from ..forms import (
     Details,
     Contact,
     ProtectedClassForm,

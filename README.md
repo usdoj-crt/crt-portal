@@ -153,7 +153,7 @@ Run unit test on **Windows**:
     ```
     python crt_portal/manage.py test cts_forms
     ```
-7. If you lucky your test will result OK or lots of error to work on!
+7. If you're lucky your tests will all pass otherwise, inspect the output to find the failing tests and errors to work on!
 
 
 Run unit test on **MAC**:
@@ -162,11 +162,13 @@ You can also run project tests using docker with:
 
     docker-compose run web python /code/crt_portal/manage.py test cts_forms
 
-This will run [tests.py](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/tests.py), where the business logic tests live. It will also run [test_all_section_assignments.py](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/test_all_section_assignments.py), a script that generates a csv in the /data folder that has the relevant permutations of form fields and runs the out put from the (section assignment function)[https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/models.py#L125]. The idea is that we can expand the spreadsheet and the script to check outcomes. Then it will be a true test, in the meantime, this is not being run as part of deploy.
+This will run all of the tests located in the [tests](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/tests) folder. where the business logic tests live.
 
-You can also run a subset of tests, for example:
+The test suite includes [test_all_section_assignments.py](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/test_all_section_assignments.py), a script that generates a csv in the `/data` folder which has the relevant permutations of form fields and runs the out put from the [section assignment function](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/models.py#L125). The idea is that we can expand the spreadsheet and the script to check outcomes. Then it will be a true test, in the meantime, this is not being run as part of deploy.
 
-    docker-compose run web python /code/crt_portal/manage.py test cts_forms.tests.Valid_Form_Tests
+You can also run a subset of tests by specifying a path to a specific test class or module. For example:
+
+    docker-compose run web python /code/crt_portal/manage.py test cts_forms.tests.test_forms.ComplaintActionTests
 
 
 For accessibility testing with Pa11y, you can run that locally, _if you have npm installed locally_ with:
@@ -308,13 +310,13 @@ Or change a user's password:
 
 We deploy from [CircleCI](https://circleci.com/gh/usdoj-crt). The [circle config](https://github.com/usdoj-crt/crt-portal/blob/develop/.circleci/config.yml) contains rules that will deploy the site to different environments using a set of rules.
 
-[GitFlow](https://github.com/nvie/gitflow) is a tool that can make it easier to handle branching. On a Mac with homebrew it can be installed with: 
+[GitFlow](https://github.com/nvie/gitflow) is a tool that can make it easier to handle branching. On a Mac with homebrew it can be installed with:
 
-    brew install git-flow 
-Then, in the top level folder of the project, you will want to run: 
-    
-    git flow init 
-We are using the defaults, so you can press enter for all the set up options. You may need to type 'master' production releases if you haven't been on the master branch yet. 
+    brew install git-flow
+Then, in the top level folder of the project, you will want to run:
+
+    git flow init
+We are using the defaults, so you can press enter for all the set up options. You may need to type 'master' production releases if you haven't been on the master branch yet.
 
 ### Deployment for each environment
 * The app will deploy to **dev** when the tests pass and a PR is merged into `develop`. You should do this in GitHub.
