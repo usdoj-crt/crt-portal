@@ -1,50 +1,30 @@
 {% load static %}
+<h2 class="section-title">Filters</h2>
 <form
   id="filters-form"
+  class="margin-bottom-3"
   method="GET"
   action="/form/view"
   novalidate
 >
   <div class="intake-filters">
-    {% include 'forms/complaint_view/index/filter.html' with meta=form.fields.assigned_section field=form.assigned_section %}
-
-    <div id="contact-first-name-filter" class="margin-right-2">
-      <label for="id_{{form.fields.contact_first_name.widget.attrs.name}}" class="usa-label margin-bottom-1">
-        <b>{{form.contact_first_name.label }}</b>
-      </label>
-      {{ form.contact_first_name }}
-    </div>
-    <div id="contact-last-name-filter" class="margin-right-2">
-      <label for="id_{{form.fields.contact_last_name.widget.attrs.name}}" class="usa-label margin-bottom-1">
-        <b>{{form.contact_last_name.label }}</b>
-      </label>
-      {{ form.contact_last_name }}
-    </div>
-    <div class="margin-right-2">
-      <label for="id_{{form.fields.location_city_town.widget.attrs.name}}" class="usa-label margin-bottom-1">
-        <b>{{form.location_city_town.label}}</b>
-      </label>
-      {{ form.location_city_town }}
-    </div>
-    <div id="location-state-filter" class="margin-right-2">
-      <label for="id_{{form.fields.location_state.widget.attrs.name}}" class="usa-label margin-bottom-1">
-        <b>{{form.location_state.label }}</b>
-      </label>
-      {{ form.location_state }}
-    </div>
-  </div>
-  <div class="margin-top-2">
-    <button type="submit" class="usa-button usa-button--primary">
-      Filter results
+    {% include 'forms/complaint_view/index/filters/section_filter.html' %}
+    {% include 'forms/complaint_view/index/filters/contact_filter.html' %}
+    {% include 'forms/complaint_view/index/filters/incident_location_filter.html' %}
+    <button class="icon-button icon-button--dark margin-left-auto">
+      <img src="{% static "img/intake-view-table-icons/ic_sliders.svg" %}" alt="" class="icon left" />
+      More filters
     </button>
   </div>
 </form>
-<div id="active-filters" class="active-filters margin-top-2">
+
+<button class="look-like-link" data-clear-filters>Clear all filters</button>
+<div id="active-filters" class="margin-top-8" data-active-filters>
   {% for key, value in filters.items %}
-    {% for item in value %}
+    {% for item in value %}      
       <span class="usa-sr-only">{{key}}: {{item}}</span>
       <button
-        class="filter-control usa-button usa-button--light margin-top-2"
+        class="filter-control filter-tag"
         aria-label="Remove filter {{ key}}: {{item}} from the list"
         data-filter-name="{{key}}"
         data-filter-value="{{item}}"
@@ -62,8 +42,7 @@
         {% else %}
           {{key}}
         {% endif %}: {{item}}
-        <div class="divider"></div>
-        <img src="{% static "img/close-blue-50-alt.svg" %}" class="filter-action">
+        <img src="{% static "img/intake-view-table-icons/ic_close.svg" %}" class="icon right">
       </button>
       {% endfor %}
   {% endfor %}

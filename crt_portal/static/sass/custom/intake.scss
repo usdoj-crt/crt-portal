@@ -61,42 +61,6 @@ $blue-warm: 'blue-warm-5';
         @include u-color($blue-warm-vivid);
       }
     }
-
-    .icon-button {
-      @include u-padding-x(2);
-      border-radius: 5px;
-      display: flex !important;
-      height: 2.5rem;
-      justify-content: center;
-    
-      .icon {
-        height: 1rem;
-        margin-right: .5rem;
-      }
-    }
-    
-    .outline-button {
-      @extend .usa-button;
-      @include u-color($blue-warm);
-      @include u-border(1px);
-      @include u-border('solid');
-      @include u-border($blue-warm);
-      background: transparent;
-
-      &.usa-button:visited {
-        @include u-color($blue-warm);
-      }
-    
-      &:hover {
-        background: transparent;
-        border-bottom: 1px solid !important;
-        box-shadow: none !important;
-      }
-    
-      .icon {
-        @include u-color($blue-warm);
-      }
-    }
   }
 
   .home-icon {
@@ -116,9 +80,14 @@ $blue-warm: 'blue-warm-5';
 
   .intake-filters {
     @include flex-container();
+    width: 100%;
     
-    button.usa-button {
-      width: 100%;
+    .crt-dropdown {
+      margin-right: 2rem;
+
+      button {
+        width: 100%;
+      }
     }
   }
 }
@@ -129,7 +98,7 @@ $blue-warm: 'blue-warm-5';
   border-radius: 3px;
   display: flex;
   min-height: 2.5rem;
-  min-width: 12rem;
+  min-width: 10rem;
   position: relative;
 
   &:focus-within {
@@ -158,7 +127,7 @@ $blue-warm: 'blue-warm-5';
     background-color: white;
     cursor: pointer;
     justify-content: center;
-    padding: 1rem;
+    padding: .5rem 1rem .5rem 1rem;
     width: 100%;
   }
 
@@ -166,11 +135,12 @@ $blue-warm: 'blue-warm-5';
     background: white;
     border-radius: 3px;
     left: 0;
+    min-width: 16rem;
     padding: 1.5rem;
     position: absolute;
     top: 100%;
     width: 100%;
-    z-index: 1;
+    z-index: 100;
   }
 
   .icon {
@@ -178,3 +148,103 @@ $blue-warm: 'blue-warm-5';
     width: 1rem;
   }
 }
+
+@mixin icon-dark {
+  @include u-color($blue-warm-vivid);
+  @include u-border($blue-warm-vivid);
+}
+
+.icon-button {
+  @include u-padding-x(2);
+  border-radius: 5px;
+  display: flex !important;
+  font-size: 1.125rem;
+  height: 2.5rem;
+  align-items: center;
+
+  &--dark {
+    @include icon-dark();
+    background-color: transparent;
+  }
+
+  .icon {
+    height: 1rem;
+    margin-right: .5rem;
+  }
+}
+
+.outline-button {
+  @extend .usa-button;
+  @include u-border(1px);
+  @include u-border('solid');
+  background: transparent;
+
+  &:hover {
+    background: transparent;
+    border-bottom: 1px solid !important;
+    box-shadow: none !important;
+  }
+
+  &--light {
+    @include u-color($blue-warm);
+    @include u-border($blue-warm);
+
+    &.usa-button:visited {
+      @include u-color($blue-warm);
+    }
+
+    .icon {
+      @include u-color($blue-warm);
+    }
+  }
+}
+
+.filter-tag {
+  @extend .outline-button;
+  @include icon-dark();
+  @include u-padding-y(1);
+  border-radius: 5px;
+  height: 2rem;
+  margin-right: 1rem;
+  padding-left: .8rem;
+  padding-right: .8rem;
+
+  .icon {
+    height: 1.3rem;
+    margin-top: -3px;
+    vertical-align: middle;
+    width: 1.3rem;
+
+    &.right {
+      margin-left: .6rem;
+    }
+
+    &.left {
+      margin-right: .6rem;
+    }
+  }
+
+  &:hover {
+    @include u-border($blue-warm-vivid);
+    @include u-color($blue-warm-vivid);
+    background: transparent;
+    border-bottom: 1px solid !important;
+    box-shadow: none !important;
+  }
+
+  &--large {
+    min-height: 2.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+}
+
+.section-title {
+  @include add-knockout-font-smoothing;
+  @include u-color($blue-warm-vivid);
+  @include u-font-family('serif');
+  font-weight: 700;
+  font-size: 1.375rem;
+  line-height: 1.6rem;
+}
+
