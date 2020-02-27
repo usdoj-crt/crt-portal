@@ -1,3 +1,6 @@
+$cyan-vivid: 'cyan-10v';
+$green-cool-vivid: 'green-cool-10v';
+
 @mixin clickable-table-cell {
   color: $gray-warm-80;
   height: 100%;
@@ -16,7 +19,7 @@
   margin-right: 5px;
   position: absolute;
   right: 5%;
-  top: 40%;
+  top: 45%;
   width: 10px;
 }
 
@@ -57,7 +60,7 @@
     td {
       // USWDS adds a lot of complicated styles, and this is the most straightforward
       // way to remove padding from td elements in the table body
-      padding: 0 !important;
+      border-left: 1px solid $white;
       vertical-align: top;
     }
 
@@ -86,12 +89,12 @@
 // Styles for complaint statuses in View All Table
 
 .status-new {
-  color: $white;
-  background-color: $blue-warm-vivid-70;
+  @include u-bg($cyan-vivid);
+  color: $gray-warm-80;
 }
 
 .status-open {
-  background-color: $gold;
+  @include u-bg($green-cool-vivid);
 }
 
 .status-closed {
@@ -115,6 +118,7 @@
 }
 
 .sort-cell {
+  height: 4.4rem;
   padding: 0 !important;
 
   span {
@@ -133,7 +137,9 @@
 
 .sort-link {
   @include clickable-table-cell();
-  display: inline-block;
+  align-items: center;
+  display: flex;
+  justify-content: center;
   position: relative;
   vertical-align: middle;
   z-index: 1;

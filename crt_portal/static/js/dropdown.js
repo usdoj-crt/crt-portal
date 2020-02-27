@@ -7,7 +7,7 @@
 
     function _toggle() {
       control.setAttribute('aria-expanded', isVisible);
-      
+
       if (isVisible) {
         content.setAttribute('hidden', true);
       } else {
@@ -56,7 +56,9 @@
         .filter(function(dropdown) {
           return dropdown.control !== event.target;
         })
-        .forEach(function(d) { d.hide() });
+        .forEach(function(d) {
+          d.hide();
+        });
       dropdown.toggle(event);
     });
   });
