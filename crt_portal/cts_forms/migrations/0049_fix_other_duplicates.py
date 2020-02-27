@@ -6,7 +6,7 @@ from cts_forms.models import Report, ProtectedClass
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0050_auto_20200226_1532'),
+        ('cts_forms', '0046_update_primary_complaint'),
     ]
 
     def retrieve_or_create_choices(*args, **defaults):
