@@ -23,8 +23,9 @@ class Migration(migrations.Migration):
         # pull records that need to be updated
         update_records = Report.objects.filter(protected_class__protected_class__in=['other', 'Other'])
         # loop through the records to add the correct relationship
-        for record in update_records:
-            record.protected_class.add(real_other)
+        if update_records.exists():
+            for record in update_records:
+                record.protected_class.add(real_other)
 
         # remove the incorrect "other" variants
         ProtectedClass.objects.get(protected_class='Other').delete()

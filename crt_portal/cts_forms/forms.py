@@ -675,3 +675,19 @@ class ComplaintActions(ModelForm):
             choices=STATUS_CHOICES,
             required=False
         )
+
+    def get_actions(self):
+        """Parse incoming changed data for activity stream entry"""
+        for field in self.changed_data:
+            yield f"updated {' '.join(field.split('_'))}", f" with value {self.cleaned_data[field]}"
+
+    def update_activity_stream(self, user):
+        """Send all actions to activity stream"""
+        from actstream import action
+        for verb, description in self.get_actions():
+            action.send(
+                user,
+                verb=verb,
+                description=description,
+                target=self.instance
+            )

@@ -13,8 +13,6 @@ from django import forms
 
 from formtools.wizard.views import SessionWizardView
 
-from actstream import action
-
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
 from .model_variables import PRIMARY_COMPLAINT_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
 from .page_through import pagination
@@ -153,27 +151,12 @@ class ShowView(View):
         return render(request, 'forms/complaint_view/show/index.html', output)
 
     def post(self, request, id):
-        record = Report.objects.filter(id=id)
-        report = record[0]
+        report = get_object_or_404(Report, id=id)
 
-        updates = {}
-
-        # see custom message options https://django-activity-stream.readthedocs.io/en/latest/data.html
-        for key, value in request.POST.items():
-            if key != 'csrfmiddlewaretoken' and key != 'next':
-                updates[key] = value
-                action_verb_target = ' '.join(key.split('_'))
-                action_verb = f"updated {action_verb_target}"
-                action_description = f"to {value}"
-
-                action.send(
-                    request.user,
-                    verb=action_verb,
-                    description=action_description,
-                    target=report
-                )
-
-        record.update(**updates)
+        form = ComplaintActions(request.POST, instance=report)
+        if form.is_valid() and form.has_changed():
+            form.update_activity_stream(request.user)
+            form.save()
 
         output = self.__serialize_data(request, id)
         output.update({
