@@ -32,7 +32,7 @@ from ..forms import (
     PoliceLocation,
     When,
 )
-from ..test_data import SAMPLE_REPORT
+from .test_data import SAMPLE_REPORT
 
 
 class Valid_Form_Tests(TestCase):
