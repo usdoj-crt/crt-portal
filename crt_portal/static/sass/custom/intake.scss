@@ -1,26 +1,16 @@
-$gold-vivid: 'gold-20v';
-$blue-warm-vivid-80: 'blue-warm-80v';
-$blue-warm-5: 'blue-warm-5';
-
-@mixin flex-container {
-  align-items: center;
-  display: flex;
-};
-
 .intake-bg {
-  @include u-bg($blue-warm-5);
+  @include u-bg($blue-warm-5-t);
 }
 
 .intake-header {
-  @include u-bg($blue-warm-vivid-80);
+  @include u-bg($blue-warm-vivid-80-t);
   @include u-padding-x(5);
   @include flex-container();
   justify-content: space-between;
   min-height: 7.9rem;
 
   .title {
-    align-items: center;
-    display: flex;
+    @include flex-container();
 
     .title-copy {
       color: $white;
@@ -39,11 +29,11 @@ $blue-warm-5: 'blue-warm-5';
     .add-record {
       @extend .usa-button;
       @include u-bg($gold-vivid);
-      @include u-color($blue-warm-vivid-80);
+      @include u-color($blue-warm-vivid-80-t);
       margin-right: 1.5rem;
 
       &.usa-button:visited {
-        @include u-color($blue-warm-vivid-80);
+        @include u-color($blue-warm-vivid-80-t);
       }
 
       &:hover {
@@ -51,19 +41,19 @@ $blue-warm-5: 'blue-warm-5';
       }
 
       > .icon {
-        @include u-color($blue-warm-vivid-80);
+        @include u-color($blue-warm-vivid-80-t);
       }
     }
   }
+}
 
-  .home-icon {
-    @include u-bg($blue-warm-5);
-    @include flex-container();
-    border-radius: 2rem;
-    justify-content: center;
-    height: 2rem;
-    width: 2rem;
-  }
+.title-icon {
+  @include u-bg($blue-warm-5-t);
+  @include flex-container();
+  border-radius: 2rem;
+  justify-content: center;
+  height: 2rem;
+  width: 2rem;
 }
 
 .intake-content {
@@ -111,7 +101,7 @@ $blue-warm-5: 'blue-warm-5';
 
   .title {
     @include flex-container();
-    @include u-color($blue-warm-vivid-80);
+    @include u-color($blue-warm-vivid-80-t);
     background-color: $white;
     border: 0;
     border-radius: 0;
@@ -145,16 +135,18 @@ $blue-warm-5: 'blue-warm-5';
 }
 
 @mixin icon-dark {
-  @include u-color($blue-warm-vivid-80);
-  @include u-border($blue-warm-vivid-80);
+  @include u-color($blue-warm-vivid-80-t);
+  @include u-border($blue-warm-vivid-80-t);
 }
 
 .icon-button {
   @include u-padding-x(2);
   @include flex-container();
   border-radius: 5px;
+  border-width: 1px;
   font-size: 1.125rem;
   height: 2.5rem;
+  text-decoration: none;
 
   &--dark {
     @include icon-dark();
@@ -172,6 +164,7 @@ $blue-warm-5: 'blue-warm-5';
   @include u-border(1px);
   @include u-border('solid');
   background: transparent;
+  text-decoration: none;
 
   &:hover {
     background: transparent;
@@ -180,15 +173,15 @@ $blue-warm-5: 'blue-warm-5';
   }
 
   &--light {
-    @include u-color($blue-warm-5);
-    @include u-border($blue-warm-5);
+    @include u-color($blue-warm-5-t);
+    @include u-border($blue-warm-5-t);
 
     &.usa-button:visited {
-      @include u-color($blue-warm-5);
+      @include u-color($blue-warm-5-t);
     }
 
     .icon {
-      @include u-color($blue-warm-5);
+      @include u-color($blue-warm-5-t);
     }
   }
 }
@@ -219,11 +212,15 @@ $blue-warm-5: 'blue-warm-5';
   }
 
   &:hover {
-    @include u-border($blue-warm-vivid-80);
-    @include u-color($blue-warm-vivid-80);
+    @include u-border($blue-warm-vivid-80-t);
+    @include u-color($blue-warm-vivid-80-t);
     background: transparent;
     border-bottom: 1px solid !important;
     box-shadow: none !important;
+  }
+
+  &:visited {
+    @include u-color($blue-warm-vivid-80-t);
   }
 
   &--large {
@@ -233,14 +230,13 @@ $blue-warm-5: 'blue-warm-5';
   }
 }
 
-.section-title {
-  @include u-color($blue-warm-vivid-80);
+.intake-section-title {
+  @include u-color($blue-warm-vivid-80-t);
   @include u-font-family('serif');
   font-weight: 700;
   font-size: 1.375rem;
   line-height: 1.6rem;
 }
-
 
 .intake-table {
   border-radius: 5px;

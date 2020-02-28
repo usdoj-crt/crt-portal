@@ -1,33 +1,26 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% load static %}
-{% block body_class %}class="intake-bg"{% endblock %}
-
-{% block main_class %} class="margin-top-5"{% endblock %}
 
 {% block content %}
   <div class="grid-container-widescreen">
-    <div>
-      <div class="grid-container-widescreen">
-      <div class="grid-row grid-gap">
-        <div class="tablet:grid-col-6">
-          <p>
-            <span class="text-gold text-uppercase">Received:  </span>
-            <span class="text-white">{{ data.create_date|date:'g:i a F j, Y' }}</span>
-          </p>
-          <p>
-            <span class="text-gold text-uppercase">Last Updated:  </span>
-            <span class="text-white">{{ data.modified_date|date:'g:i a F j, Y' }}</span>
-          </p>
-        </div>
-        <div class="tablet:grid-col-3 tablet:grid-offset-3 text-right">
-          <a class="usa-button usa-button--light close-record" href="/form/view{{ return_url_args }}">
-            <img src="{% static "img/close-blue-50-alt.svg" %}">
-            Close record
-          </a>
-        </div>
-      </div>
-    </div>
-    </div>
+    <div class="display-flex">
+    <a class="icon-button icon-button--dark" href="/form/view{{ return_url_args }}">
+      <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" class="icon">
+      Back to all
+    </a>
+  </div>
+    
+
+    <p>
+      <span class="text-gold text-uppercase">Received:  </span>
+      <span class="text-white">{{ data.create_date|date:'g:i a F j, Y' }}</span>
+    </p>
+    <p>
+      <span class="text-gold text-uppercase">Last Updated:  </span>
+      <span class="text-white">{{ data.modified_date|date:'g:i a F j, Y' }}</span>
+    </p>
+    
+      
     <div class="complaint-body">
       <div class="grid-container-widescreen">
         <div class="grid-row grid-gap-md">

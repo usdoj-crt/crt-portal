@@ -29,4 +29,8 @@
       @include u-padding-top(5);
     }
   }
+
+  .title {
+    @include flex-container();
+  }
 }

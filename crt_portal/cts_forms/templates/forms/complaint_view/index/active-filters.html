@@ -4,7 +4,7 @@
     {% for item in value %}
       <span class="usa-sr-only">{{key}}: {{item}}</span>
       <button
-        class="filter-control filter-tag"
+        class="filter-tag"
         aria-label="Remove filter {{ key}}: {{item}} from the list"
         data-filter-name="{{key}}"
         data-filter-value="{{item}}"
@@ -22,7 +22,7 @@
         {% else %}
           {{key|capfirst}}
         {% endif %}: {{item}}
-        <img src="{% static 'img/intake-view-table-icons/ic_close.svg' %}" class="icon right">
+        <img src="{% static 'img/intake-icons/ic_close.svg' %}" class="icon right">
       </button>
     {% endfor %}
   {% endfor %}
