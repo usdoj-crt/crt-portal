@@ -1,7 +1,13 @@
+$cyan-vivid: 'cyan-10v';
+$green-cool-vivid: 'green-cool-10v';
+
 @mixin clickable-table-cell {
   color: $gray-warm-80;
   height: 100%;
-  padding: .5rem 1rem;
+  padding-top: .5rem;
+  padding-left: .25rem;
+  padding-bottom: .5rem;
+  padding-right: 1rem;
   position: relative;
   text-decoration: none;
   width: 100%;
@@ -16,14 +22,13 @@
   margin-right: 5px;
   position: absolute;
   right: 5%;
-  top: 40%;
+  top: 45%;
   width: 10px;
 }
 
 .crt-table {
   @extend .usa-table;
   background: $white;
-  box-shadow: 0 1px 6px 2px rgba(0,0,0,0.14);
   font-size: 14px;
   height: 100%;
   line-height: 22px;
@@ -36,10 +41,25 @@
       background-color: $white;
       border-bottom: 1px solid $gray-cool-10;
       border-top: 0;
-      font-size: 12px;
-      line-height: 25.92px;
+      font-size: 1rem;
+      font-weight: 400 !important;
+      height: 4.4rem;
       position: relative;
       text-transform: uppercase;
+
+      &:last-of-type {
+        padding-right: 2rem !important;
+      }
+    }
+  }
+
+  tr {    
+    th a:first-child, td a:first-child {
+      padding-left: 1.3rem;
+    }
+
+    th a:last-child, td a:last-child {
+      padding-right: 2rem;
     }
   }
 
@@ -58,8 +78,16 @@
     td {
       // USWDS adds a lot of complicated styles, and this is the most straightforward
       // way to remove padding from td elements in the table body
-      padding: 0 !important;
+      border-left: 1px solid $white;
       vertical-align: top;
+    }
+
+    tr {
+      td:first-child {
+        .td-link {
+          padding-left: 0;
+        }
+      }
     }
 
     .td-link {
@@ -87,12 +115,12 @@
 // Styles for complaint statuses in View All Table
 
 .status-new {
-  color: $white;
-  background-color: $blue-warm-vivid-70;
+  @include u-bg($cyan-vivid);
+  color: $gray-warm-80;
 }
 
 .status-open {
-  background-color: $gold;
+  @include u-bg($green-cool-vivid);
 }
 
 .status-closed {
@@ -134,7 +162,8 @@
 
 .sort-link {
   @include clickable-table-cell();
-  display: inline-block;
+  align-items: center;
+  display: flex;
   position: relative;
   vertical-align: middle;
   z-index: 1;

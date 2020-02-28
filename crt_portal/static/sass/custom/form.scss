@@ -60,7 +60,7 @@ form#report-form {
   .usa-fieldset {
     margin-bottom: 1.5rem;
 
-    &:last-of-type {
+    &:last-of-type:not(:only-of-type) {
       margin-top: 2.5rem;
     }
 
@@ -273,7 +273,7 @@ input[type="radio"]:checked + .crt-radio__label_area {
 .crt-portal-card {
   @include u-radius('lg');
   @include u-shadow(3);
-  background: white;
+  background-color: $white;
 
   &.crt-hover-card {
     &:hover {
