@@ -273,7 +273,7 @@ input[type="radio"]:checked + .crt-radio__label_area {
 .crt-portal-card {
   @include u-radius('lg');
   @include u-shadow(3);
-  background: white;
+  background-color: $white;
 
   &.crt-hover-card {
     &:hover {
