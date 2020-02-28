@@ -1,31 +1,28 @@
+{% extends "forms/complaint_view/show/card.html" %}
 {% load static %}
-<div class="crt-portal-card">
-  <div class="crt-portal-card__content">
-    <div class="title">
-      <div class=title-icon">
-        <img src="{% static 'img/intake-icons/ic_home.svg' %}" alt="" class="icon" />
+{% block title %}{{title}}{% endblock %}
+{% block icon %}
+  <img src="{% static icon %}" alt="" class="icon" />
+{% endblock %}
+{% block card_content %}
+  <form
+    id="complaint-view-actions"
+    class="usa-form"
+    method="post"
+    action="/form/view/{{data.id}}/"
+    novalidate
+  >
+    {% csrf_token %}
+    <fieldset class="usa-fieldset usa-prose">
+      <legend class="usa-sr-only">Complaint detail view actions</legend>
+      <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
+      <div class="margin-bottom-2">
+        {{ actions.assigned_section }}
       </div>
-      <h2 class="intake-section-title">Actions</h2>
-    </div>
-    <form
-      id="complaint-view-actions"
-      class="usa-form"
-      method="post"
-      action="/form/view/{{data.id}}/"
-      novalidate
-    >
-      {% csrf_token %}
-      <fieldset class="usa-fieldset usa-prose">
-        <legend class="usa-sr-only">Complaint detail view actions</legend>
-        <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
-        <div class="margin-bottom-2">
-          {{ actions.assigned_section }}
-        </div>
-        <div class="margin-bottom-2">
-          {{ actions.status }}
-        </div>
-        <button class="usa-button" type="submit">Apply changes</button>
-      </fieldset>
-    </form>
-  </div>
-</div>
+      <div class="margin-bottom-2">
+        {{ actions.status }}
+      </div>
+      <button class="usa-button" type="submit">Apply changes</button>
+    </fieldset>
+  </form>
+{% endblock %}

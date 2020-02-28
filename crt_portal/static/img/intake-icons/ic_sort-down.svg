@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="6px" viewBox="0 0 10 6" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>ic_sort-down</title>
+    <desc>Created with Sketch.</desc>
+    <g id="CRT---Key-Pages" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-161.000000, -52.000000)">
+            <g id="ic_sort-down" transform="translate(156.000000, 45.000000)">
+                <rect id="Rectangle-Copy-7" x="0" y="0" width="20" height="20"></rect>
+                <g transform="translate(5.000000, 7.000000)" fill="#323A44" id="sort-down">
+                    <g>
+                        <path d="M9.31130952,0 L0.620833333,0 C0.452619048,0 0.307142857,0.0614285714 0.184285714,0.184166667 C0.0614285714,0.30702381 0,0.4525 0,0.620595238 C0,0.788690476 0.0614285714,0.934285714 0.184285714,1.05702381 L4.52952381,5.4022619 C4.6525,5.52511905 4.79797619,5.58666667 4.96607143,5.58666667 C5.13416667,5.58666667 5.2797619,5.52511905 5.4025,5.4022619 L9.7477381,1.05702381 C9.87047619,0.934285714 9.93214286,0.788690476 9.93214286,0.620595238 C9.93214286,0.4525 9.87047619,0.30702381 9.7477381,0.184166667 C9.625,0.0613095238 9.47940476,0 9.31130952,0 L9.31130952,0 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

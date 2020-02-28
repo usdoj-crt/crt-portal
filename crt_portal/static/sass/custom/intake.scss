@@ -39,10 +39,6 @@
       &:hover {
         @include u-bg($gold-vivid);
       }
-
-      > .icon {
-        @include u-color($blue-warm-vivid-80-t);
-      }
     }
   }
 }
@@ -252,4 +248,8 @@
   padding-left: 1.3rem;
   padding-right: 2rem;
   padding-top: 1.2rem;
+}
+
+.complaint-show-body {
+  margin-left: -4rem;
 }

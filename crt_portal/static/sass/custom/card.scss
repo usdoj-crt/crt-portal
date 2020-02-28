@@ -32,5 +32,16 @@
 
   .title {
     @include flex-container();
+    @include u-border($blue-warm-vivid-80-t);
+    border-width: 0;
+    border-bottom: 1px solid;
+    margin-top: .8rem;
+    margin-bottom: .8rem;
+    padding-bottom: .8rem;
+
+    h2 {
+      margin-bottom: 0;
+      margin-top: 0;
+    }
   }
 }
