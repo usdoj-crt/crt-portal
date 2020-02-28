@@ -1,3 +1,27 @@
 {% extends "base.html" %}
+{% load static %}
+{% block page_header %}
+  <header class="intake-header">
+    <div class="title">
+      <div class="home-icon">
+        <img src="{% static 'img/intake-view-table-icons/ic_home.svg' %}" alt="" class="icon" />  
+      </div>
+      
+      <h1 class="title-copy">
+        CRT Complaint Records
+      </h1>
+    </div>
+    <div class="intake-actions">
+      <a class="add-record icon-button" href="/report" label="first step" name="Create record">
+        <img src="{% static 'img/intake-view-table-icons/ic_add.svg'%}" alt="" class="icon" />
+        Add new record
+      </a>
+      <a href="/accounts/logout" class="icon-button outline-button outline-button--light">
+        <img src="{% static 'img/intake-view-table-icons/ic_settings.svg'%}" alt="" class="icon" />
+        log out
+      </a>
+    </div>
+  </header>
+{% endblock %}
 {% block usa_banner %}{% endblock %}
 {% block usa_footer %}{% endblock %}

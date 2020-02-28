@@ -61,7 +61,7 @@
     });
   }
 
-  function hasParentNode(node, targetFn, maxDepth) {
+  function hasParentNode(node, isTargetParentFn, maxDepth) {
     var max = maxDepth || 10;
     var depth = 1;
     var currNode = node.parentNode;
@@ -76,7 +76,7 @@
         break;
       }
 
-      if (targetFn(currNode)) {
+      if (isTargetParentFn(currNode)) {
         break;
       }
 

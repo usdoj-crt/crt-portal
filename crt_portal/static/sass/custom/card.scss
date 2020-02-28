@@ -1,0 +1,32 @@
+.crt-portal-card {
+  @include u-radius('lg');
+  background-color: $white;
+  box-shadow: 0 1px 6px 2px rgba(0,0,0,.14);
+
+  &.crt-hover-card {
+    &:hover {
+      background-color: $gray-cool-4;
+      cursor: pointer;
+    }
+    &.selected, &:hover.selected {
+      background-color: $blue-warm-5;
+    }
+
+    > .crt-portal-card__content {
+      @include u-padding-top(4);
+      @include u-padding-bottom(1);
+    }
+  }
+
+  &__content {
+    @include u-margin-bottom(1);
+    @include u-padding-y(1.5);
+    @include u-padding-x(3);
+
+    &--lg {
+      @include u-padding-x(7);
+      @include u-padding-bottom(6);
+      @include u-padding-top(5);
+    }
+  }
+}

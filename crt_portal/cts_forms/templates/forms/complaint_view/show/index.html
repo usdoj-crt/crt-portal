@@ -1,32 +1,15 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% load static %}
+{% block body_class %}class="intake-bg"{% endblock %}
 
-{% block page_header %}
-<header class="page-header-background margin-bottom-5">
-  <div class="grid-container">
-    <div class="grid-row flex-align-center">
-      <div class="grid-col-fill">
-        <h1>CRT Public Complaint Intake</h1>
-      </div>
-      <div class="grid-col-auto">
-        <a class="usa-button" href="/accounts/logout">Log out</a>
-      </div>
-    </div>
-  </div>
-</header>
-{% endblock %}
-
-{% block main_class %} class="page-header-background"{% endblock %}
+{% block main_class %} class="margin-top-5"{% endblock %}
 
 {% block content %}
   <div class="grid-container-widescreen">
-    <div class="complaint-header bg-primary text-white">
+    <div>
       <div class="grid-container-widescreen">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-6">
-          <h2 class="text-uppercase">
-            Complaint
-          </h2>
           <p>
             <span class="text-gold text-uppercase">Received:  </span>
             <span class="text-white">{{ data.create_date|date:'g:i a F j, Y' }}</span>
