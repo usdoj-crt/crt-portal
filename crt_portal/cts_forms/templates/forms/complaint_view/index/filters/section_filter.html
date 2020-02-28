@@ -3,9 +3,8 @@
 {% block controls %}assigned-section{% endblock %}
 {% block label %}View sections{% endblock %}
 {% block id %}assigned-section{% endblock %}
-
 {% block content %}
-  <label for="id_{{meta.widget.attrs.name}}">
+  <label for="id_{{form.fields.assigned_section.widget.attrs.name}}">
     <span class="usa-sr-only">{{form.assigned_section.label}}</span>
   </label>
   {{ form.assigned_section }}

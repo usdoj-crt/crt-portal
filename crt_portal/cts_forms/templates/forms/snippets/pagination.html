@@ -6,8 +6,8 @@
       {# Left nav arrow #}
       {% if page_format.has_previous %}
         <li class="nav-arrow">
-          <span id="page-back" class="usa-sr-only">Previous page.</span>
-          <a href="{{ page_args }}&page={{ page_format.previous_page_number }}" aria-labelledby="page-back">
+          <span id="page-back-{{placement}}" class="usa-sr-only">Previous page.</span>
+          <a href="{{ page_args }}&page={{ page_format.previous_page_number }}" aria-labelledby="page-back-{{placement}}">
             {% include "forms/snippets/nav_arrow.html" %}
           </a>
         </li>
@@ -52,8 +52,8 @@
       {# Right nav arrow #}
       {% if page_format.has_next %}
         <li class="nav-arrow">
-          <span id="page-forward" class="usa-sr-only">Next page.</span>
-          <a href="{{ page_args }}&page={{ page_format.next_page_number }}" aria-labelledby="page-forward">
+          <span id="page-forward-{{placement}}" class="usa-sr-only">Next page.</span>
+          <a href="{{ page_args }}&page={{ page_format.next_page_number }}" aria-labelledby="page-forward-{{placement}}">
             {% include "forms/snippets/nav_arrow.html" with point_right=True %}
           </a>
         </li>
