@@ -1,10 +1,11 @@
 {% load static %}
-<div class="crt-dropdown" data-crt-dropdown>
+<div class="crt-dropdown {% block classes %}{% endblock %}" data-crt-dropdown>
   <button
-    class="title"
+    class="crt-dropdown__title"
     aria-controls="{% block controls %}{% endblock %}"
     aria-expanded="true"
     type="button"
+    data-crt-dropdown-control
   >
     <span style="pointer-events: none;">
       {% block label %}{% endblock %}

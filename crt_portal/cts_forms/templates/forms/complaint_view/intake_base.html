@@ -27,3 +27,7 @@
 {% block body_class %}class="intake-bg"{% endblock %}
 {% block main_class %} class="margin-top-5"{% endblock %}
 {% block usa_footer %}{% endblock %}
+{% block page_js %}
+  {{ block.super }}
+  <script src="{% static 'js/dropdown.js' %}"></script>
+{%endblock%}

@@ -89,13 +89,17 @@
     border-bottom-right-radius: 0;
     box-shadow: 0 20px 10px hsla(0,0%,39.2%,.2);
   }
-  
+  &--stroke {
+    @include u-border($blue-warm-vivid-80-t);
+    border: 1px solid;
+  }
+
   .crt-dropdown-container {
     display: flex;
     flex-direction: column;
   }
 
-  .title {
+  &__title {
     @include flex-container();
     @include u-color($blue-warm-vivid-80-t);
     background-color: $white;
@@ -252,4 +256,11 @@
 
 .complaint-show-body {
   margin-left: -4rem;
+}
+
+.intake-label {
+  @include u-font('sans', 16);
+  @include u-color('gray-warm-80');
+  font-weight: 700;
+  font-size: 1rem;
 }

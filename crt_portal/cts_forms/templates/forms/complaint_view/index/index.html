@@ -26,6 +26,7 @@
 </div>
 {% endblock %}
 {% block page_js %}
+{{ block.super }}
 <script nonce="{{request.csp_nonce}}">
   (function(root) {
     root.CRT = root.CRT || {}
@@ -33,6 +34,5 @@
   })(window);
 </script>
 
-<script src="{% static 'js/dropdown.js' %}"></script>
 <script src="{% static 'js/complaint_view_filters.js' %}"></script>
 {% endblock %}

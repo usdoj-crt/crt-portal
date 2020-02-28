@@ -5,7 +5,7 @@
    */
   function Dropdown(el) {
     var el = el;
-    var control = el.querySelector('.title');
+    var control = el.querySelector('[data-crt-dropdown-control]');
     var content = el.querySelector('.content');
     var isVisible = true;
 
