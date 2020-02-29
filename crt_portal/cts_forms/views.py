@@ -17,7 +17,7 @@ from .models import Report, ProtectedClass, HateCrimesandTrafficking
 from .model_variables import PRIMARY_COMPLAINT_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
 from .page_through import pagination
 from .filters import report_filter
-from .forms import Filters, ComplaintActions
+from .forms import Filters, ComplaintActions, Review
 
 SORT_DESC_CHAR = '-'
 
@@ -357,7 +357,8 @@ class CRTReportWizard(SessionWizardView):
             })
         elif current_step_name == _('Date'):
             context.update({
-                'page_note': _('It is important for us to know how recently this incident happened. Some civil rights violations must be reported within a certain amount of time.')
+                'page_note': _('It is important for us to know how recently this incident happened. Some civil rights violations must be reported within a certain amount of time.'),
+                'date_question': form.date_question,
             })
         elif current_step_name == _('Primary concern'):
             if all_step_names[int(self.steps.prev)] == current_step_name:
@@ -369,7 +370,10 @@ class CRTReportWizard(SessionWizardView):
                     'crime_help_text2': _('Please select if any that apply to your situation (optional)'),
                 })
         elif current_step_name == _('Review and submit'):
-            context.update({'form_data_dict': self.get_all_cleaned_data()})
+            context.update({
+                'form_data_dict': self.get_all_cleaned_data(),
+                'question': form.question_text,
+            })
 
         return context
 
