@@ -297,10 +297,12 @@ input[type="radio"]:checked + .crt-radio__label_area {
   }
 }
 
-.float-right {
+.crt-button-right {
   float: right;
+  margin-top: 2rem;
 }
 
-.crt-portal-button-header {
-  display: flex;
+.inline-block {
+  margin: 0;
+  display: inline-block;
 }
