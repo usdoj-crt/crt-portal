@@ -289,7 +289,7 @@ class CRTReportWizard(SessionWizardView):
             _('Personal characteristics'),
             _('Date'),
             _('Personal description'),
-            _('Review and submit'),
+            _('Review'),
         ]
         # Name for all forms whether they are skipped or not
         all_step_names = [
