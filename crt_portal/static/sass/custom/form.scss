@@ -161,7 +161,7 @@ form#report-form {
       margin-bottom: -30px;
     }
 
-    .radio-help-text {      
+    .radio-help-text {
       line-height: 1.25rem;
       margin-top: .5rem;
       margin-bottom: 0;
@@ -233,7 +233,7 @@ input[type="radio"]:checked + .crt-radio__label_area {
 .form-help-text {
   color: $gray-70;
   font-size: .9rem;
-  
+
   // Necessary because we want to override styles applied to the p tag
   margin: .5rem 0 1rem 0 !important;
 }
@@ -295,4 +295,12 @@ input[type="radio"]:checked + .crt-radio__label_area {
     @include u-padding-bottom(6);
     @include u-padding-top(5);
   }
+}
+
+.float-right {
+  float: right;
+}
+
+.crt-portal-button-header {
+  display: flex;
 }

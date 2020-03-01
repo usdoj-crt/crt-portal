@@ -17,10 +17,13 @@
 
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
-        <h2>{{ordered_step_names.0}}</h2>
-        <button name="wizard_goto_step" type="submit" label="edit contact step" value="0" class="usa-button usa-button--outline margin-top-2">
-                Edit this page
-              </button>
+        <div class='crt-portal-button-header'>
+            <h2>{{ordered_step_names.0}}</h2>
+            <button name="wizard_goto_step" type="submit" label="edit contact step" value="0" class="usa-button usa-button--outline float-right margin-bottom-2">
+                    Edit this page
+                  </button>
+        </div>
+
         <h3>{{ question.contact.contact_name_title }}</h3>
 
         <h4>{{ question.contact.contact_first_name }}</h4>

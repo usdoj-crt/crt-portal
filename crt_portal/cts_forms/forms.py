@@ -592,7 +592,6 @@ class When(ModelForm):
         return cleaned_data
 
 
-# making an empty form for the review page
 class Review(ModelForm):
     question_text = {
         'contact': CONTACT_QUESTIONS,
