@@ -513,6 +513,7 @@ class ProtectedClassForm(ModelForm):
 
 class When(ModelForm):
     date_question = DATE_QUESTIONS['date_title']
+
     class Meta:
         model = Report
         fields = ['last_incident_month', 'last_incident_day', 'last_incident_year']
