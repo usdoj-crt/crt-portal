@@ -122,7 +122,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'crt_portal.wsgi.application'
 
-
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
 
@@ -256,7 +255,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     CSP_FRAME_SRC = ("'self'", bucket)
     CSP_WORKER_SRC = ("'self'", bucket)
     CSP_FRAME_ANCESTORS = ("'self'", bucket)
-    CSP_STYLE_SRC = ("'self'", bucket)
+    CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", bucket)
     CSP_INCLUDE_NONCE_IN = ['script-src']
 
 
