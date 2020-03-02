@@ -11,19 +11,17 @@
 
         <p class="padding-bottom-2"><em>If you need to make any changes, you can go back and edit the previous pages. Please make sure your information is accurate. This allows us to respond to your report quickly.</em></p>
 
-        <input id="submit-next" type="submit" value="Submit concern" class="usa-button">
+        <input id="submit-next-top" type="submit" value="Submit concern" class="usa-button">
     </div>
 </div>
 
 {% include "forms/report_data.html" with ordered_step_names=ordered_step_names question=question form_data_dict=form_data_dict %}
 
-
 {% endblock %}
-
 
 {% block bottom-navigation %}
 <div class="margin-top-5">
-<input id="submit-next"
+<input id="submit-next-bottom"
       type="submit"
       value="{% trans 'Submit concern' %}"
       class="usa-button" />
