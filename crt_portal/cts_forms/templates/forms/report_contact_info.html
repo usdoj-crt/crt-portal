@@ -1,7 +1,7 @@
 {% extends "forms/report_base.html" %}
 {% block page_info_card %}
-  <div class="crt-portal-card margin-bottom-3">
-    <div class="crt-portal-card__content padding-bottom-4">
+  <div class="crt-portal-card crt-portal-card margin-bottom-3">
+    <div class="crt-portal-card__content crt-portal-card__content--lg padding-bottom-4">
       <p class="page-form-title font-sans">
         If you believe you or someone else has experienced a civil rights violation, please tell us what happened.
       </p>
@@ -9,15 +9,15 @@
   </div>
 {% endblock %}
 {% block form_questions %}
-  <div class="crt-portal-card">
-    <div class="crt-portal-card__content">
+  <div class="crt-portal-card crt-portal-card">
+    <div class="crt-portal-card__content crt-portal-card__content--lg">
       {{ block.super }}
       {% include 'forms/grouped_questions.html' %}
     </div>
   </div>
 
-  <div class="crt-portal-card margin-top-3">
-    <div class="crt-portal-card__content">  
+  <div class="crt-portal-card crt-portal-card margin-top-3">
+    <div class="crt-portal-card__content crt-portal-card__content--lg">  
       {% with field=wizard.form.servicemember %}
         <fieldset class="usa-fieldset">
           <legend class="em-text big margin-bottom-0">

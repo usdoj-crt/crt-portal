@@ -1,115 +1,59 @@
-$twenty-percent-mult: .2;
-$complaint-header-min-height: 200px;
-$complaint-body-offset: calc(
-  -#{$twenty-percent-mult} * #{$complaint-header-min-height}
-);
 
-.complaint-header {
-  min-height: $complaint-header-min-height;
+$complaint-header-min-height: 200px;
+
+.complaint-card-table {
+  display: fixed;
   width: 100%;
 
-  & .close-record {
-    margin-right: 0;
-    // Matches h2 margin-top value
-    margin-top: 1.66rem;
-    text-decoration: none;
-
-    &:visited {
-      color: $blue-50;
-    }
-  }
-}
-
-.complaint-body {
-  transform: translateY(#{$complaint-body-offset});
-}
-
-.complaint-card {
-  background-color: $white;
-  box-shadow: 0 1px 6px 2px rgba(0,0,0,.14);
-
-  .complaint-card-heading {
-    color: $gray-warm-80;
-    margin-top: 0;
+  th {
+    color: $blue-warm-vivid-70;
+    font-size: 1rem;
+    font-weight: bold;
+    padding-right: 0;
+    width: 40%;
   }
 
-  .usa-button--outline {
-    &.complaint-card-action {
-      box-shadow: inset 0 0 0 2px $gray-60;
-      color: $gray-60;
-      font-size: .75rem;
-      padding: .5rem;
-      text-transform: uppercase;
-    }
-
-    &--rounded {
-      @include u-radius('md');
-    }
+  td {
+    padding-left: 0;
+    width: 60%;
+    white-space: normal;
+    word-wrap: break-word;
+    word-break: break-word;
   }
 
-  .complaint-card-content  {
-    @include u-margin-bottom(1);
-    @include u-padding-y(1.5);
-    @include u-padding-x(3);
+  th, td {
+    border-top: 0;
+    padding-bottom: .8rem;
   }
 
-  .complaint-card-table {
-    display: fixed;
-    width: 100%;
-
-    th {
-      color: $blue-warm-vivid-70;
-      font-size: 1rem;
-      font-weight: bold;
-      padding-right: 0;
-      text-transform: uppercase;
-      width: 40%;
-    }
-
-    td {
-      padding-left: 0;
-      width: 60%;
-      white-space: normal;
-      word-wrap: break-word;
-      word-break: break-word;
-    }
-
+  tr:last-child {
     th, td {
-      border-top: 0;
-      padding-bottom: 0;
-    }
-
-    tr:last-child {
-      th, td {
-        border: none;
-      }
+      border: none;
     }
   }
 }
 
 .activity-stream {
-  .heading {
-    background: $blue-warm-vivid-70;
-    color: white;
-    font-size: 22px;
-    padding: 1rem;
-    padding-left: 1.5rem;
-    text-transform: uppercase;
-  }
-  .complaint-card-content {
+  .crt-portal-card__content {
     max-height: 368px;
     overflow-y: scroll;
   }
 
   .activity-stream-list {
-    padding-top: 1.25rem;
-
     .activity-stream-item {
-      border-bottom: 1px solid $theme-color-base-lighter;
+      border-bottom: 1px solid #C6CACE;
       padding: .5rem 0 .5rem 0;
+
+      &:first-child {
+        padding-top: 0;
+      }
 
       &:not(:first-child) {
         margin-top: 1rem;
+      }
+
+      &:last-child {
+        border-bottom: none;
       }
 
       .date {

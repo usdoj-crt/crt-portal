@@ -1,32 +1,5 @@
 {% extends "forms/complaint_view/intake_base.html" %}
-{% block body_class %}class="intake-bg"{% endblock %}
 {% load static %}
-
-{% block page_header %}
-  <header class="intake-header">
-    <div class="title">
-      <div class="home-icon">
-        <img src="{% static 'img/intake-view-table-icons/ic_home.svg' %}" alt="" class="icon" />  
-      </div>
-      
-      <h1 class="title-copy">
-        CRT Complaint Records
-      </h1>
-    </div>
-    <div class="intake-actions">
-      <a class="add-record icon-button" href="/report" label="first step" name="Create record">
-        <img src="{% static 'img/intake-view-table-icons/ic_add.svg'%}" alt="" class="icon" />
-        Add new record
-      </a>
-      <a href="/accounts/logout" class="icon-button outline-button outline-button--light">
-        <img src="{% static 'img/intake-view-table-icons/ic_settings.svg'%}" alt="" class="icon" />
-        log out
-      </a>
-    </div>
-  </header>
-{% endblock %}
-
-{% block main_class %} class="margin-top-5"{% endblock %}
 
 {% block content %}
 <div class="intake-content">
@@ -40,7 +13,7 @@
   <div class="grid-col-auto">
     <div class="intake-table">
       <div class="intake-table-header">
-        <h2 class="section-title">Incoming records</h2>
+        <h2 class="intake-section-title">Incoming records</h2>
         <div class="margin-left-auto">
           {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args placement="top" %}
         </div>
@@ -54,6 +27,7 @@
 </div>
 {% endblock %}
 {% block page_js %}
+{{ block.super }}
 <script nonce="{{request.csp_nonce}}">
   (function(root) {
     root.CRT = root.CRT || {}
@@ -61,6 +35,5 @@
   })(window);
 </script>
 
-<script src="{% static 'js/dropdown.js' %}"></script>
 <script src="{% static 'js/complaint_view_filters.js' %}"></script>
 {% endblock %}

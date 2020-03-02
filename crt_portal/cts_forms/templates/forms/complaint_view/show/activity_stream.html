@@ -1,24 +1,23 @@
-<div class="complaint-card complaint-card--rounded">
-  <div class="activity-stream">
-    <div class="heading">
-      Activity
-    </div>
-    <div class="complaint-card-content">
-      <ul class="activity-stream-list usa-list usa-list--unstyled">
-        {% for activity in activity_stream %}
-          <li class="activity-stream-item">
-            <div class="display-flex flex-justify">
-              <b  >{{activity.actor.username}}</b>
-              <span class="date font-sans-sm flex-align-end">
-                {{ activity.timestamp|date:'n/d/y'}} {{ activity.timestamp|time}}
-              </span>
-            </div>
-            <p class="margin-top-0">
-              {{activity.verb}} {{activity.description}}
-            </p>
-          </li>    
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-</div>
+{% extends "forms/complaint_view/show/card.html" %}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+{% block icon %}
+  <img src="{% static icon %}" alt="" class="icon" />
+{% endblock %}
+{% block card_content %}
+  <ul class="activity-stream-list usa-list usa-list--unstyled">
+    {% for activity in activity_stream %}
+      <li class="activity-stream-item">
+        <div class="display-flex flex-justify">
+          <b  >{{activity.actor.username}}</b>
+          <span class="date font-sans-sm flex-align-end">
+            {{ activity.timestamp|date:'n/d/y'}} {{ activity.timestamp|time}}
+          </span>
+        </div>
+        <p class="margin-top-05">
+          {{activity.verb}} {{activity.description}}
+        </p>
+      </li>    
+    {% endfor %}
+  </ul>
+{% endblock %}

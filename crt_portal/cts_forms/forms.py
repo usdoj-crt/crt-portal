@@ -2,7 +2,7 @@ from datetime import datetime
 
 from django.core.validators import ValidationError
 from django.forms import ModelForm, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
-    ModelMultipleChoiceField, MultipleChoiceField, Select
+    ModelMultipleChoiceField, Select
 from django.utils.translation import gettext_lazy as _
 
 from .question_group import QuestionGroup
@@ -41,9 +41,11 @@ import logging
 
 logger = logging.getLogger(__name__)
 
+
 def _add_empty_choice(choices):
     """Add an empty option to list of choices"""
     return (EMPTY_CHOICE,) + choices
+
 
 class ContactA11y():
     def __init__(self):
@@ -595,18 +597,20 @@ class When(ModelForm):
 
 
 class Filters(ModelForm):
-    status = ChoiceField(choices=_add_empty_choice(STATUS_CHOICES),
-                        widget=Select(attrs={
-                                    'name': 'status',
-                                    'class': 'usa-select',
-                                })
-                        )
-    location_state = ChoiceField(choices=_add_empty_choice(STATES_AND_TERRITORIES),
-                        widget=Select(attrs={
-                                    'name': 'location_state',
-                                    'class': 'usa-select',
-                                })
-                        )
+    status = ChoiceField(
+        choices=_add_empty_choice(STATUS_CHOICES),
+        widget=Select(attrs={
+            'name': 'status',
+            'class': 'usa-select',
+        })
+    )
+    location_state = ChoiceField(
+        choices=_add_empty_choice(STATES_AND_TERRITORIES),
+        widget=Select(attrs={
+            'name': 'location_state',
+            'class': 'usa-select',
+        })
+    )
 
     class Meta:
         model = Report
@@ -645,7 +649,6 @@ class Filters(ModelForm):
                 'name': 'location_city_town'
             })
         }
-
 
 
 class ComplaintActions(ModelForm):
