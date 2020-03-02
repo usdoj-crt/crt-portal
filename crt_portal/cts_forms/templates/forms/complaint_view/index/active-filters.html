@@ -1,7 +1,7 @@
 {% load static %}
 <div id="active-filters" data-active-filters>
   {% for key, value in filters.items %}
-    {% for item in value %}      
+    {% for item in value %}
       <span class="usa-sr-only">{{key}}: {{item}}</span>
       <button
         class="filter-control filter-tag"
@@ -20,7 +20,7 @@
         {% elif key == 'location_state' %}
           State
         {% else %}
-          {{key}}
+          {{key|capfirst}}
         {% endif %}: {{item}}
         <img src="{% static 'img/intake-view-table-icons/ic_close.svg' %}" class="icon right">
       </button>
