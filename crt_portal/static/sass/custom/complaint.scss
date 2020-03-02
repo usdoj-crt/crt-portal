@@ -10,7 +10,6 @@ $complaint-header-min-height: 200px;
     font-size: 1rem;
     font-weight: bold;
     padding-right: 0;
-    text-transform: uppercase;
     width: 40%;
   }
 
@@ -24,7 +23,7 @@ $complaint-header-min-height: 200px;
 
   th, td {
     border-top: 0;
-    padding-bottom: 0;
+    padding-bottom: .8rem;
   }
 
   tr:last-child {

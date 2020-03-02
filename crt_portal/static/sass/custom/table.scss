@@ -26,6 +26,10 @@ $green-cool-vivid: 'green-cool-10v';
   width: 10px;
 }
 
+.crt-table td, .crt-table th, .usa-prose>table td, .usa-prose>table th, .usa-table td, .usa-table th {
+  border-bottom: 1px solid $gray-cool-10; 
+}
+
 .crt-table {
   @extend .usa-table;
   background: $white;
@@ -72,7 +76,11 @@ $green-cool-vivid: 'green-cool-10v';
   &.usa-table {
     tr, td, th {
       border-left: 0;
-      border-right: 0;
+      border-right: 0;      
+    }
+
+    th {
+      border: 1px solid #C6CACE !important;
     }
 
     td {
