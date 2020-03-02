@@ -1,7 +1,7 @@
 import urllib.parse
 import os
 
-from django.shortcuts import render_to_response, render, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.core.exceptions import PermissionDenied
@@ -105,7 +105,7 @@ def IndexView(request):
         'auth': 'DJFKDSFJSD'
     }
 
-    return render_to_response('forms/complaint_view/index/index.html', final_data)
+    return render(request, 'forms/complaint_view/index/index.html', final_data)
 
 
 class ShowView(View):
@@ -164,7 +164,7 @@ class ShowView(View):
             'return_url_args': request.POST.get('next', ''),
         })
 
-        return render(request, 'forms/complaint_view/show/index.html', output)
+        return render(self.request, 'forms/complaint_view/show/index.html', output)
 
 
 TEMPLATES = [
@@ -389,4 +389,4 @@ class CRTReportWizard(SessionWizardView):
         form_data_dict['protected_class'] = m2m_protected_class.values()
         form_data_dict['hatecrimes_trafficking'] = m2m_hatecrime.values()
 
-        return render_to_response('forms/confirmation.html', {'data_dict': form_data_dict})
+        return render(self.request, 'forms/confirmation.html', {'data_dict': form_data_dict})
