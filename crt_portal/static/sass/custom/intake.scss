@@ -75,7 +75,7 @@
   border-radius: 3px;
   display: flex;
   min-height: 2.5rem;
-  min-width: 10rem;
+  min-width: 6rem;
   position: relative;
 
   &:focus-within {
@@ -112,6 +112,13 @@
     padding: .5rem 1rem .5rem 1rem;
     text-align: left;
     width: 100%;
+
+    .label {
+      margin-right: 1rem;
+    }
+    * {
+      pointer-events: none;
+    }
   }
 
   .content {
@@ -129,7 +136,8 @@
   }
 
   .icon {
-    margin-left: 1rem;
+    height: 1rem;
+    margin-left: auto;
     width: 1rem;
   }
 }
@@ -253,4 +261,11 @@
   @include u-color('gray-warm-80');
   font-weight: 700;
   font-size: 1rem;
+  width: 50%;
+}
+
+.details-date-label {
+  @include u-color($blue-warm-vivid-80-t);
+  font-size: 0.875rem;
+  font-weight: 900;
 }
