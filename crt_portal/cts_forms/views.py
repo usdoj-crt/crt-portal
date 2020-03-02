@@ -28,7 +28,7 @@ from .model_variables import (
 )
 from .page_through import pagination
 from .filters import report_filter
-from .forms import Filters, ComplaintActions, Review
+from .forms import Filters, ComplaintActions
 
 SORT_DESC_CHAR = '-'
 

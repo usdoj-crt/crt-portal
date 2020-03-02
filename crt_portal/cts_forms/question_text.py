@@ -40,9 +40,8 @@ EDUCATION_QUESTION = _('Did this happen at a public or a private school, educati
 
 # Personal characteristics
 PROTECTED_CLASS_QUESTION = _('Do you believe any of these personal characteristics influenced why you were treated this way?')
-
 # Date
-DATE_QUESTIONS ={
+DATE_QUESTIONS = {
     'date_title': _('When did this happen?'),
     'last_incident_month': _('Month'),
     'last_incident_day': _('Day'),
