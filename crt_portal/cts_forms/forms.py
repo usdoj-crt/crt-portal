@@ -127,7 +127,7 @@ class Contact(ModelForm):
             QuestionGroup(
                 self,
                 ('contact_email', 'contact_phone'),
-                group_name= CONTACT_QUESTIONS['contact_title'],
+                group_name=CONTACT_QUESTIONS['contact_title'],
                 help_text=_('You are not required to provide contact information, but it will help us if we need to gather more information about the incident you are reporting or to respond to your submission'),
                 ally_id=a11y.contact_info_id
             )
@@ -397,7 +397,7 @@ class CommercialPublicLocation(LocationForm):
         self.name = 'CommericalPublicLocation'
 
         self.fields['commercial_or_public_place'] = TypedChoiceField(
-            label = PUBLIC_QUESTION,
+            label=PUBLIC_QUESTION,
             choices=COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
             empty_value=None,
             widget=UsaRadioSelect(attrs={
