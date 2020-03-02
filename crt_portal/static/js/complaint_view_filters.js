@@ -248,6 +248,7 @@
     var locationStateEl = formEl.querySelector('select[name="location_state"]');
     var activeFiltersEl = dom.querySelector('[data-active-filters]');
     var clearAllEl = dom.querySelector('[data-clear-filters]');
+    var statusEl = formEl.querySelector('select[name="status"]');
 
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
@@ -316,7 +317,10 @@
       el: activeFiltersEl,
       onClick: onFilterTagClick
     });
-
+    textInputView({
+      el: statusEl,
+      name: 'status'
+    });
     clearFiltersView({
       el: clearAllEl,
       onClick: clearAllFilters

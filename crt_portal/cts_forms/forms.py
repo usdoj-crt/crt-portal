@@ -32,13 +32,18 @@ from .model_variables import (
     COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
     PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
     STATUS_CHOICES,
+    EMPTY_CHOICE
 )
+
 from .phone_regex import phone_validation_regex
 
 import logging
 
 logger = logging.getLogger(__name__)
 
+def _add_empty_choice(choices):
+    """Add an empty option to list of choices"""
+    return (EMPTY_CHOICE,) + choices
 
 class ContactA11y():
     def __init__(self):
@@ -255,7 +260,7 @@ class LocationForm(ModelForm):
         }
         self.fields['location_city_town'].required = True
         self.fields['location_state'] = ChoiceField(
-            choices=(('', _('- Select -')),) + STATES_AND_TERRITORIES,
+            choices=_add_empty_choice(STATES_AND_TERRITORIES),
             widget=Select(attrs={
                 'aria-describedby': 'location-help-text',
                 'class': 'usa-select'
@@ -590,6 +595,19 @@ class When(ModelForm):
 
 
 class Filters(ModelForm):
+    status = ChoiceField(choices=_add_empty_choice(STATUS_CHOICES),
+                        widget=Select(attrs={
+                                    'name': 'status',
+                                    'class': 'usa-select',
+                                })
+                        )
+    location_state = ChoiceField(choices=_add_empty_choice(STATES_AND_TERRITORIES),
+                        widget=Select(attrs={
+                                    'name': 'location_state',
+                                    'class': 'usa-select',
+                                })
+                        )
+
     class Meta:
         model = Report
         fields = [
@@ -597,9 +615,23 @@ class Filters(ModelForm):
             'contact_first_name',
             'contact_last_name',
             'location_city_town',
-            'location_state'
+            'location_state',
+            'status',
         ]
+
+        labels = {
+            'assigned_section': _('View sections'),
+            'contact_first_name': _('Contact first name'),
+            'contact_last_name': _('Contact last name'),
+            'location_city_town': _('Incident location city'),
+            'location_state': _('Incident location state')
+        }
+
         widgets = {
+            'assigned_section': CrtMultiSelect(attrs={
+                'classes': 'text-uppercase',
+                'name': 'assigned_section'
+            }),
             'contact_first_name': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'contact_first_name'
@@ -611,39 +643,9 @@ class Filters(ModelForm):
             'location_city_town': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'location_city_town'
-            }),
-            'location_state': Select(attrs={
-                'name': 'location_state',
-                'class': 'usa-select'
             })
         }
 
-    def __init__(self, *args, **kwargs):
-        ModelForm.__init__(self, *args, **kwargs)
-
-        self.fields['assigned_section'] = MultipleChoiceField(
-            choices=SECTION_CHOICES,
-            widget=CrtMultiSelect(attrs={
-                'classes': 'text-uppercase',
-                'name': 'assigned_section'
-            }),
-            required=False
-        )
-        self.fields['location_state'] = ChoiceField(
-            choices=STATES_AND_TERRITORIES,
-            widget=Select(attrs={
-                'name': 'location_state',
-                'class': 'usa-select'
-            }),
-            required=False,
-        )
-
-        self.fields['assigned_section'].label = _('View sections')
-        self.fields['contact_first_name'].label = _('Contact first name')
-        self.fields['contact_last_name'].label = _('Contact last name')
-        self.fields['location_city_town'].label = _('Incident location city')
-
-        self.fields['location_state'].label = _('Incident location state')
 
 
 class ComplaintActions(ModelForm):
