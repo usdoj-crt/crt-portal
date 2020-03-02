@@ -261,7 +261,12 @@
   @include u-color('gray-warm-80');
   font-weight: 700;
   font-size: 1rem;
-  width: 50%;
+  width: 9rem;
+}
+
+.details-id {
+  margin-top: 2.3rem;
+  margin-bottom: 0;
 }
 
 .details-date-label {

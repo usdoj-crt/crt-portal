@@ -4,7 +4,7 @@
 {% block content %}      
   <div class="complaint-show-body">
     <div class="grid-container-widescreen">
-      <div class="grid-row margin-bottom-2">
+      <div class="grid-row margin-bottom-1">
         <div class="tablet:grid-col-4 grid-offset-1 padding-left-05">
           <div class="display-flex">
             <a class="outline-button outline-button--dark" href="/form/view{{ return_url_args }}">
@@ -12,8 +12,8 @@
               Back to all
             </a>
           </div>
-          <div class="display-flex flex-align-center">
-            <h2 class="margin-right-205">
+          <div class="display-flex flex-align-center details-id">
+            <h2 class="margin-right-205 margin-top-0 margin-bottom-0">
               ID: {{data.id}} 
             </h2>
             <span class="status-tag status-{{data.status}} margin-top-05">
@@ -33,7 +33,9 @@
       <div class="grid-row grid-gap-lg">
         <div class="tablet:grid-col-4 grid-offset-1">
           {% include 'forms/complaint_view/show/actions.html' with title="Actions" icon="img/intake-icons/ic_check-circle.svg" %}
-          {% include 'forms/complaint_view/show/activity_stream.html' with title="Activity" icon="img/intake-icons/ic_activity.svg" %}
+          <div class="activity-stream">
+            {% include 'forms/complaint_view/show/activity_stream.html' with title="Activity" icon="img/intake-icons/ic_activity.svg" %}
+          </div>
         </div>
         <div class="tablet:grid-col-6">
           {% include 'forms/complaint_view/show/correspondent_info.html' with data=data %}
