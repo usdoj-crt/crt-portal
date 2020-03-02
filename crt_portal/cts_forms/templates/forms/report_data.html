@@ -31,7 +31,6 @@
         <h2>{{ordered_step_names.1}}</h2>
 
         <h3>{{ question.primary_reason }}</h3>
-        <!-- TO DO: need to decode these -->
         <p>{{ form_data_dict.primary_complaint }}</p>
 
         <h2>{{ question.hatecrime_title }}</h2>
@@ -73,31 +72,26 @@
 
          {% if form_data_dict.election_details %}
             <h3>{{ question.election }}</h3>
-            <!-- TO DO: need to decode these -->
             <p>{{ form_data_dict.election_details }}</p>
 
         {% elif form_data_dict.public_or_private_employer %}
             <h3>{{ question.workplace.public_or_private_employer }}</h3>
-            <!-- TO DO: need to decode these -->
             <p>{{ form_data_dict.public_or_private_employer }}</p>
 
             <h3>{{ question.workplace.employer_size }}</h3>
-            <!-- TO DO: need to decode these -->
             <p>{{ form_data_dict.employer_size }}</p>
 
         {% elif form_data_dict.inside_correctional_facility %}
             <h3>{{ question.police.inside_correctional_facility }}</h3>
-            <!-- TO DO: need to decode these -->
             <p>{{ form_data_dict.inside_correctional_facility }}</p>
+
             {% if form_data_dict.correctional_facility_type %}
                 <h3>{{ question.police.correctional_facility_type }}</h3>
-                <!-- TO DO: need to decode these -->
                 <p>{{ form_data_dict.correctional_facility_type }}</p>
             {% endif %}
 
         {% elif form_data_dict.commercial_or_public_place %}
             <h3>{{ question.public }}</h3>
-            <!-- TO DO: need to decode these -->
             <p>{{ form_data_dict.commercial_or_public_place }}</p>
             {% if form_data_dict.other_commercial_or_public_place %}
                 <h3>{{ question.other_commercial_or_public_place }}</h3>
@@ -106,7 +100,6 @@
 
         {% elif form_data_dict.public_or_private_school %}
             <h3>{{ question.education }}</h3>
-            <!-- TO DO: need to decode these -->
             <p>{{ form_data_dict.public_or_private_school }}</p>
 
         {% endif %}

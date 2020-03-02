@@ -18,6 +18,7 @@ PRIMARY_COMPLAINT_CHOICES = (
     ('commercial_or_public', _('Discriminated against in a commercial location or public place')),
     ('something_else', _('Something else happened')),
 )
+PRIMARY_COMPLAINT_DICT = dict(PRIMARY_COMPLAINT_CHOICES)
 
 PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT = {
     'commercial_or_public': _('This could include a store, restaurant, bar, hotel, place of worship, library, medical facility, bank, courthouse, government building, public park or street, as well as online.'),
@@ -65,6 +66,7 @@ ELECTION_CHOICES = (
     ('both', _('Both')),
     ('unknown', _('I\'m not sure')),
 )
+ELECTION_DICT = dict(ELECTION_CHOICES)
 
 HATE_CRIMES_TRAFFICKING_MODEL_CHOICES = (
     ('physical_harm', _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability')),
@@ -134,6 +136,7 @@ COMMERCIAL_OR_PUBLIC_PLACE_CHOICES = (
     ('public_space', _('Public space')),
     ('other', _('Other'))
 )
+COMMERCIAL_OR_PUBLIC_PLACE_DICT = dict(COMMERCIAL_OR_PUBLIC_PLACE_CHOICES)
 
 COMMERCIAL_PUBLIC_FRIENDLY_TEXT = {
     'place_of_worship': _('Place of worship'),
@@ -156,6 +159,7 @@ CORRECTIONAL_FACILITY_LOCATION_CHOICES = (
     ('outside', _('Outside a prison or correctional facility')),
     ('inside', _('Inside a prison or correctional facility'))
 )
+CORRECTIONAL_FACILITY_LOCATION_DICT = dict(CORRECTIONAL_FACILITY_LOCATION_CHOICES)
 
 CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES = (
     ('state_local', _('State/local')),
@@ -163,6 +167,7 @@ CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES = (
     ('private', _('Private')),
     ('not_sure', _('I\'m not sure'))
 )
+CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT = dict(CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES)
 
 CORRECTIONAL_FACILITY_FRIENDLY_TEXT = {
     'outside': _('Outside of prison'),
@@ -177,12 +182,14 @@ PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES = (
     ('private_employer', _('Private employer')),
     ('not_sure', _('I\'m not sure')),
 )
+PUBLIC_OR_PRIVATE_EMPLOYER_DICT = dict(PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES)
 
 EMPLOYER_SIZE_CHOICES = (
     ('14_or_less', _('Fewer than 15 employees')),
     ('15_or_more', _('15 or more employees')),
     ('not_sure', _('I\'m not sure')),
 )
+EMPLOYER_SIZE_DICT = dict(EMPLOYER_SIZE_CHOICES)
 
 EMPLOYER_FRIENDLY_TEXT = {
     'public_employer': _('Public'),
@@ -197,6 +204,7 @@ PUBLIC_OR_PRIVATE_SCHOOL_CHOICES = (
     ('private', _('Private school or educational program')),
     ('not_sure', _('I\'m not sure')),
 )
+PUBLIC_OR_PRIVATE_SCHOOL_DICT = dict(PUBLIC_OR_PRIVATE_SCHOOL_CHOICES)
 
 PUBLIC_OR_PRIVATE_FACILITY_CHOICES = (
     ('state_local_facility', _('State or local facility')),
