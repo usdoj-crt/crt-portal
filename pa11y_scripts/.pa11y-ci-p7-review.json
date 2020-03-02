@@ -29,7 +29,7 @@
         "set field #id_11-violation_summary to test",
         "click element #submit-next"
       ],
-      "screenCapture": "pa11y-screenshots/page6-details.png"
+      "screenCapture": "pa11y-screenshots/page7-review.png"
     }
   ]
 }
