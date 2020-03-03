@@ -2,11 +2,11 @@ from datetime import datetime
 
 from django.core.validators import ValidationError
 from django.forms import ModelForm, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
-    ModelMultipleChoiceField, MultipleChoiceField, Select
+    ModelMultipleChoiceField, Select
 from django.utils.translation import gettext_lazy as _
 
 from .question_group import QuestionGroup
-from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtRadioArea, CrtMultiSelect, ComplaintSelect
+from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtPrimaryIssueRadioGroup, CrtMultiSelect, ComplaintSelect
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
 from .model_variables import (
     ELECTION_CHOICES,
@@ -32,12 +32,19 @@ from .model_variables import (
     COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
     PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
     STATUS_CHOICES,
+    EMPTY_CHOICE
 )
+
 from .phone_regex import phone_validation_regex
 
 import logging
 
 logger = logging.getLogger(__name__)
+
+
+def _add_empty_choice(choices):
+    """Add an empty option to list of choices"""
+    return (EMPTY_CHOICE,) + choices
 
 
 class ContactA11y():
@@ -140,7 +147,7 @@ class Contact(ModelForm):
             ),
             QuestionGroup(
                 self,
-                ('contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2'),
+                ('contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_city', 'contact_state', 'contact_zip'),
                 group_name=_('Contact information'),
                 help_text=_('You are not required to provide contact information, but it will help us if we need to gather more information about the incident you are reporting or to respond to your submission'),
                 ally_id=a11y.contact_info_id
@@ -155,14 +162,14 @@ class PrimaryReason(ModelForm):
             'primary_complaint'
         ]
         widgets = {
-            'primary_complaint': CrtRadioArea
+            'primary_complaint': CrtPrimaryIssueRadioGroup
         }
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
         self.fields['primary_complaint'] = ChoiceField(
             choices=PRIMARY_COMPLAINT_CHOICES,
-            widget=CrtRadioArea(attrs={
+            widget=CrtPrimaryIssueRadioGroup(attrs={
                 'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                 'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
             }),
@@ -171,7 +178,7 @@ class PrimaryReason(ModelForm):
                 'required': PRIMARY_COMPLAINT_ERROR
             },
             label=_('What is your primary reason for contacting the Civil Rights Division?'),
-            help_text=_('Please choose the option below that best fits your situation. The examples listed in each are only a sampling of related issues. You will have space to explain in detail later.'),
+            help_text=_('Select the reason that best describes your concern. Each reason lists examples of civil rights violations that may relate to your incident. In another section of this report, you will be able to describe your concern in your own words.'),
         )
 
 
@@ -196,17 +203,18 @@ class HateCrimesTrafficking(ModelForm):
                 'aria-describedby': 'hatecrimes-help-text'
             }),
             required=False,
-            label=_('Please select if any that apply to your situation (optional)')
+            label=_('Please select if any apply to your concern')
         )
 
         self.question_groups = [
             QuestionGroup(
                 self,
                 ('hatecrimes_trafficking',),
-                group_name=_('Hate Crimes & Human Trafficking'),
-                help_text=_('Hate crimes and human trafficking are considered criminal cases and go through a different process for investigation than other civil rights cases. If we determine your situation falls into these categories after submitting your concern, we will contact you with next steps.'),
+                group_name=_('Hate crimes and human trafficking'),
+                help_text=_('Please let us know if you would describe your concern as either a hate crime or human trafficking. This information can help us take action against these types of violations. We will contact you about the next steps. We also encourage you to contact law enforcement if you or someone else is in immediate danger.'),
                 optional=False,
-                cls="text-bold",
+                label_cls="margin-bottom-4",
+                help_cls="text-bold",
                 ally_id="hatecrimes-help-text"
             )
         ]
@@ -228,6 +236,7 @@ class Details(ModelForm):
         self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
         self.fields['violation_summary'].help_text = _("Please include any details you have about time, location, or people involved with the event, names of witnesses or any materials that would support your description")
         self.fields['violation_summary'].error_messages = {'required': VIOLATION_SUMMARY_ERROR}
+        self.fields['violation_summary'].required = True
 
 
 class LocationForm(ModelForm):
@@ -274,14 +283,16 @@ class LocationForm(ModelForm):
         self.fields['location_name'].error_messages = {
             'required': errors['location_name']
         }
-        self.fields['location_address_line_1'].label = 'Street address 1 (Optional)'
-        self.fields['location_address_line_2'].label = 'Street address 2 (Optional)'
+        self.fields['location_name'].required = True
+        self.fields['location_address_line_1'].label = 'Street address 1'
+        self.fields['location_address_line_2'].label = 'Street address 2'
         self.fields['location_city_town'].label = 'City/town'
         self.fields['location_city_town'].error_messages = {
             'required': errors['location_city_town']
         }
+        self.fields['location_city_town'].required = True
         self.fields['location_state'] = ChoiceField(
-            choices=STATES_AND_TERRITORIES,
+            choices=_add_empty_choice(STATES_AND_TERRITORIES),
             widget=Select(attrs={
                 'aria-describedby': 'location-help-text',
                 'class': 'usa-select'
@@ -291,9 +302,8 @@ class LocationForm(ModelForm):
                 'required': errors['location_state']
             },
             label='State',
-            help_text="Where did this happen?"
+            help_text="Where did this happen?",
         )
-        self.fields['location_state'].widget.attrs['list'] = 'states'
 
         self.question_groups = [
             QuestionGroup(
@@ -529,7 +539,7 @@ class ProtectedClassForm(ModelForm):
                 self,
                 ('protected_class',),
                 group_name=_('Do you believe any of these personal characteristics influenced why you were treated this way?'),
-                help_text=_('Some civil rights laws protect people from discrimination, which include these protected classes. These are some of the most common classes that we see.'),
+                help_text=_('There are federal and state laws that protect people from discrimination based on their personal characteristics. Here is a list of the most common characteristics that are legally protected. Select any that apply to your incident.'),
                 optional=False,
                 ally_id="protected-class-help-text"
             )
@@ -549,6 +559,7 @@ class When(ModelForm):
             'last_incident_day': TextInput(attrs={
                 'class': 'usa-input usa-input--small',
                 'type': 'number',
+                'min': 0
             }),
             'last_incident_year': EmailInput(attrs={
                 'class': 'usa-input usa-input--medium',
@@ -564,20 +575,27 @@ class When(ModelForm):
         self.fields['last_incident_month'].error_messages = {
             'required': _('Please enter a month.'),
         }
+        self.fields['last_incident_month'].required = True
         self.fields['last_incident_day'].label = _('Day')
         self.fields['last_incident_year'].label = _('Year')
         self.fields['last_incident_year'].error_messages = {
             'required': _('Please enter a year.'),
         }
+        self.fields['last_incident_year'].required = True
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
         cleaned_data = super(When, self).clean()
+        day = cleaned_data.get('last_incident_day') or 1
+
+        if day > 31 or day < 1:
+            self.add_error('last_incident_day', ValidationError(
+                _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.')
+            ))
 
         try:
             year = cleaned_data['last_incident_year']
             month = cleaned_data['last_incident_month']
-            day = cleaned_data['last_incident_day'] or 1
             test_date = datetime(year, month, day)
             if test_date > datetime.now():
                 self.add_error('last_incident_year', ValidationError(
@@ -594,6 +612,7 @@ class When(ModelForm):
                     _('Please enter a year after 1900.'),
                     params={'value': test_date.strftime('%x')},
                 ))
+
         except ValueError:
             # a bit of a catch-all for all the ways people could make bad dates
             self.add_error('last_incident_year', ValidationError(
@@ -608,6 +627,21 @@ class When(ModelForm):
 
 
 class Filters(ModelForm):
+    status = ChoiceField(
+        choices=_add_empty_choice(STATUS_CHOICES),
+        widget=Select(attrs={
+            'name': 'status',
+            'class': 'usa-select',
+        })
+    )
+    location_state = ChoiceField(
+        choices=_add_empty_choice(STATES_AND_TERRITORIES),
+        widget=Select(attrs={
+            'name': 'location_state',
+            'class': 'usa-select',
+        })
+    )
+
     class Meta:
         model = Report
         fields = [
@@ -615,9 +649,23 @@ class Filters(ModelForm):
             'contact_first_name',
             'contact_last_name',
             'location_city_town',
-            'location_state'
+            'location_state',
+            'status',
         ]
+
+        labels = {
+            'assigned_section': _('View sections'),
+            'contact_first_name': _('Contact first name'),
+            'contact_last_name': _('Contact last name'),
+            'location_city_town': _('Incident location city'),
+            'location_state': _('Incident location state')
+        }
+
         widgets = {
+            'assigned_section': CrtMultiSelect(attrs={
+                'classes': 'text-uppercase',
+                'name': 'assigned_section'
+            }),
             'contact_first_name': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'contact_first_name'
@@ -629,39 +677,8 @@ class Filters(ModelForm):
             'location_city_town': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'location_city_town'
-            }),
-            'location_state': Select(attrs={
-                'name': 'location_state',
-                'class': 'usa-select'
             })
         }
-
-    def __init__(self, *args, **kwargs):
-        ModelForm.__init__(self, *args, **kwargs)
-
-        self.fields['assigned_section'] = MultipleChoiceField(
-            choices=SECTION_CHOICES,
-            widget=CrtMultiSelect(attrs={
-                'classes': 'text-uppercase',
-                'name': 'assigned_section'
-            }),
-            required=False
-        )
-        self.fields['location_state'] = ChoiceField(
-            choices=STATES_AND_TERRITORIES,
-            widget=Select(attrs={
-                'name': 'location_state',
-                'class': 'usa-select'
-            }),
-            required=False,
-        )
-
-        self.fields['assigned_section'].label = _('View sections')
-        self.fields['contact_first_name'].label = _('Contact first name')
-        self.fields['contact_last_name'].label = _('Contact last name')
-        self.fields['location_city_town'].label = _('Incident location city')
-
-        self.fields['location_state'].label = _('Incident location state')
 
 
 class ComplaintActions(ModelForm):
@@ -685,3 +702,19 @@ class ComplaintActions(ModelForm):
             choices=STATUS_CHOICES,
             required=False
         )
+
+    def get_actions(self):
+        """Parse incoming changed data for activity stream entry"""
+        for field in self.changed_data:
+            yield f"updated {' '.join(field.split('_'))}", f" with value {self.cleaned_data[field]}"
+
+    def update_activity_stream(self, user):
+        """Send all actions to activity stream"""
+        from actstream import action
+        for verb, description in self.get_actions():
+            action.send(
+                user,
+                verb=verb,
+                description=description,
+                target=self.instance
+            )

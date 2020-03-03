@@ -4,8 +4,8 @@ import copy
 
 from django.test import TestCase
 
-from .models import Report, ProtectedClass, HateCrimesandTrafficking
-from .model_variables import PRIMARY_COMPLAINT_CHOICES, PROTECTED_CLASS_CHOICES, COMMERCIAL_OR_PUBLIC_PLACE_CHOICES, CORRECTIONAL_FACILITY_LOCATION_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES
+from ..models import Report, ProtectedClass, HateCrimesandTrafficking
+from ..model_variables import PRIMARY_COMPLAINT_CHOICES, PROTECTED_CLASS_CHOICES, COMMERCIAL_OR_PUBLIC_PLACE_CHOICES, CORRECTIONAL_FACILITY_LOCATION_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES
 from .test_data import SAMPLE_REPORT
 
 

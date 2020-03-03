@@ -11,6 +11,11 @@
     return Array.prototype.slice.call(arrayLike);
   }
 
+  // 'Box' an element in an array if it isn't one currently
+  function wrapValue(maybeUnboxed) {
+    return Array.isArray(maybeUnboxed) ? maybeUnboxed : [maybeUnboxed];
+  }
+
   /**
    * Converts a query string into an object, where the key is the
    * name of the query and the value is an array of all values associated
@@ -43,7 +48,7 @@
 
   /**
    * Given an object of query parameters, convert them back into a string
-   * @param {Object} paramsObj An object containing initial
+   * @param {Object} paramsObj The key/vslue pairs to be turned into query params
    * @returns {Array} A list of URI-encoded query param strings
    */
   function makeQueryParams(params) {
@@ -51,13 +56,13 @@
 
     return keys.reduce(function(memo, key) {
       var paramValue = params[key];
-      var valueAsList = paramValue instanceof Array ? paramValue : [paramValue];
 
-      if (!paramValue.length) {
+      if (!paramValue || !paramValue.length) {
         return memo;
       }
 
-      var paramsString = valueAsList
+      var valueToList = wrapValue(paramValue);
+      var paramsString = valueToList
         .reduce(function(accum, value) {
           accum.push(makeQueryParam(key, value));
 
@@ -84,7 +89,7 @@
   /**
    * Concat all previous params together
    * @param {Array} params An array of URI-encoded query param strings
-   * @returns {String} The supplies param strings joined and delimited by an ampersand
+   * @returns {String} The strings joined as a single ampersand-delimited string
    */
   function finalizeQueryParams(params) {
     return params.length ? params.join('&') : '';
@@ -92,10 +97,10 @@
 
   /**
    * filterDataModel and the mutation function below control the `model` behavior
-   * of the filters JS
+   * of the filters
    */
 
-  var filterDataModel = {
+  var initialFilterState = {
     assigned_section: [],
     primary_complaint: '',
     status: '',
@@ -104,7 +109,6 @@
     contact_first_name: '',
     contact_last_name: '',
     contact_email: '',
-    other_class: '',
     violation_summary: '',
     location_name: '',
     location_address_line_1: '',
@@ -116,6 +120,7 @@
     page: '',
     per_page: ''
   };
+  var filterDataModel = {};
 
   /**
    * Mutate the current filter state with updated filter values
@@ -136,7 +141,7 @@
    * specific DOM nodes.
    *
    * Each view takes a `props` object, which, at a minimum, accepts an `el` property, which is
-   * an instance of the DOM node we want to add interactive behavior to.
+   * a pointer to the DOM node we want to add interactive behavior to.
    */
 
   /**
@@ -150,7 +155,7 @@
 
     filters.addEventListener('click', function handleFilterTagClick(event) {
       var node = event.target;
-
+      console.log(node, event.currentTarget);
       if (node.tagName === 'BUTTON') {
         onClickHandler(node);
       }
@@ -187,7 +192,18 @@
     window.location = form.action + finalQuery;
   };
 
-  function getMutiselectValues(select) {
+  /**
+   * View to control multiselect element behavior
+   * @param {Object} props
+   * @param {HTMLElement} props.el The DOM node this view manages
+   */
+  function multiSelectView(props) {
+    props.el.addEventListener('change', function(event) {
+      filterDataModel[props.name] = multiSelectView.getValues(event.target);
+    });
+  }
+
+  multiSelectView.getValues = function(select) {
     var options = toArray((select && select.options) || []);
 
     function isSelected(option) {
@@ -199,17 +215,7 @@
     }
 
     return options.filter(isSelected).map(unwrapValue);
-  }
-  /**
-   * View to control multiselect elemeent behavior
-   * @param {Object} props
-   * @param {HTMLElement} props.el The DOM node this view manages
-   */
-  function multiSelectView(props) {
-    props.el.addEventListener('change', function(event) {
-      filterDataModel.assigned_section = getMutiselectValues(event.target);
-    });
-  }
+  };
 
   /**
    * View to control text input element behavior
@@ -229,6 +235,10 @@
     });
   }
 
+  function clearFiltersView(props) {
+    props.el.addEventListener('click', props.onClick);
+  }
+
   function filterController() {
     var formEl = dom.getElementById('filters-form');
     var multiSelectEl = formEl.querySelector('select[name="assigned_section"');
@@ -236,7 +246,9 @@
     var lastNameEl = formEl.querySelector('input[name="contact_last_name"');
     var cityEl = formEl.querySelector('input[name="location_city_town"]');
     var locationStateEl = formEl.querySelector('select[name="location_state"]');
-    var activeFiltersEl = dom.getElementById('active-filters');
+    var activeFiltersEl = dom.querySelector('[data-active-filters]');
+    var clearAllEl = dom.querySelector('[data-clear-filters]');
+    var statusEl = formEl.querySelector('select[name="status"]');
 
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
@@ -259,11 +271,31 @@
       formView.doSearch(formEl);
     }
 
+    function clearAllFilters() {
+      const activeFilters = toArray(activeFiltersEl.children);
+
+      var updates = activeFilters.reduce(function(updates, node) {
+        var filterName = node.getAttribute('data-filter-name');
+        var currentFilterData = filterDataModel[filterName];
+        currentFilterData = wrapValue(currentFilterData);
+
+        if (currentFilterData.length) {
+          updates[filterName] = initialFilterState[filterName];
+        }
+
+        return updates;
+      }, {});
+
+      mutateFilterDataWithUpdates(filterDataModel, updates);
+      formView.doSearch(formEl);
+    }
+
     formView({
       el: formEl
     });
     multiSelectView({
-      el: multiSelectEl
+      el: multiSelectEl,
+      name: 'assigned_section'
     });
     textInputView({
       el: firstNameEl,
@@ -285,12 +317,22 @@
       el: activeFiltersEl,
       onClick: onFilterTagClick
     });
+    textInputView({
+      el: statusEl,
+      name: 'status'
+    });
+    clearFiltersView({
+      el: clearAllEl,
+      onClick: clearAllFilters
+    });
   }
 
   // Bootstrap the filter code's data persistence and
   // instantiate the controller that manages the UI components / views
   function init() {
-    var filterUpdates = getQueryParams(root.location.search, Object.keys(filterDataModel));
+    var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
+    filterDataModel = Object.assign({}, initialFilterState);
+
     mutateFilterDataWithUpdates(filterDataModel, filterUpdates);
 
     filterController();

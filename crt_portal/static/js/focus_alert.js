@@ -11,7 +11,7 @@ function prepareErrors() {
 
 function triggerAlert() {
   /**
-   * Wrapping this call in a set timeout of zero schedules it's execution
+   * Wrapping this call in a setTimeout of zero schedules its execution
    * at the beginning of the next JS frame's call stack. I'm not exactly sure
    * why, but this allows the screen reader to see the 'error' messages.
    */

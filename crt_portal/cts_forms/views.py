@@ -1,7 +1,7 @@
 import urllib.parse
 import os
 
-from django.shortcuts import render_to_response, render, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.core.exceptions import PermissionDenied
@@ -14,7 +14,7 @@ from django import forms
 from formtools.wizard.views import SessionWizardView
 
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
-from .model_variables import PROTECTED_CLASS_CODES, PRIMARY_COMPLAINT_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
+from .model_variables import PRIMARY_COMPLAINT_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
 from .page_through import pagination
 from .filters import report_filter
 from .forms import Filters, ComplaintActions
@@ -26,7 +26,7 @@ def format_protected_class(p_class_objects, other_class):
     p_class_list = []
     for p_class in p_class_objects:
         if p_class.protected_class is not None:
-            code = PROTECTED_CLASS_CODES.get(p_class.protected_class, p_class.protected_class)
+            code = p_class.code
             if code != 'Other':
                 p_class_list.append(code)
             # If this code is other but there is no other_class description, we want it to say "Other". If there is an other_class that will take the place of "Other"
@@ -102,9 +102,10 @@ def IndexView(request):
         'sort_state': sort_state,
         'filter_state': filter_args,
         'filters': query_filters,
+        'auth': 'DJFKDSFJSD'
     }
 
-    return render_to_response('forms/complaint_view/index/index.html', final_data)
+    return render(request, 'forms/complaint_view/index/index.html', final_data)
 
 
 class ShowView(View):
@@ -131,6 +132,7 @@ class ShowView(View):
                 'assigned_section': report.assigned_section,
                 'status': report.status
             }),
+            'activity_stream': report.target_actions.all(),
             'crimes': crimes,
             'data': report,
             'p_class_list': p_class_list,
@@ -150,26 +152,24 @@ class ShowView(View):
         return render(request, 'forms/complaint_view/show/index.html', output)
 
     def post(self, request, id):
-        record = Report.objects.filter(id=id)
-        print(request.POST.get('next'))
-        updates = {}
-        for key, value in request.POST.items():
-            if key != 'csrfmiddlewaretoken' and key != 'next':
-                updates[key] = value
+        report = get_object_or_404(Report, id=id)
 
-        record.update(**updates)
+        form = ComplaintActions(request.POST, instance=report)
+        if form.is_valid() and form.has_changed():
+            form.update_activity_stream(request.user)
+            form.save()
 
         output = self.__serialize_data(request, id)
         output.update({
             'return_url_args': request.POST.get('next', ''),
         })
 
-        return render(request, 'forms/complaint_view/show/index.html', output)
+        return render(self.request, 'forms/complaint_view/show/index.html', output)
 
 
 TEMPLATES = [
     # Contact
-    'forms/report_contact.html',
+    'forms/report_contact_info.html',
     # Primary reason
     'forms/report_primary_complaint.html',
     # Hate crimes and trafficking
@@ -283,26 +283,26 @@ class CRTReportWizard(SessionWizardView):
         # This name appears in the progress bar wizard
         ordered_step_names = [
             _('Contact'),
-            _('Primary Issue'),
+            _('Primary concern'),
             _('Location'),
-            _('Protected Class'),
+            _('Personal characteristics'),
             _('Date'),
-            _('Details'),
+            _('Personal description'),
         ]
         # Name for all forms whether they are skipped or not
         all_step_names = [
             _('Contact'),
-            _('Primary Issue'),
-            _('Primary Issue'),
+            _('Primary concern'),
+            _('Primary concern'),
             _('Location'),
             _('Location'),
             _('Location'),
             _('Location'),
             _('Location'),
             _('Location'),
-            _('Protected Class'),
+            _('Personal characteristics'),
             _('Date'),
-            _('Details'),
+            _('Personal description'),
         ]
 
         current_step_name = all_step_names[int(self.steps.current)]
@@ -310,17 +310,17 @@ class CRTReportWizard(SessionWizardView):
         # This title appears in large font above the question elements
         ordered_step_titles = [
             _('Contact'),
-            _('Primary issue'),
-            _('Primary issue'),
+            _('Primary concern'),
+            _('Primary concern'),
             _('Location details'),
             _('Location details'),
             _('Location details'),
             _('Location details'),
             _('Location details'),
             _('Location details'),
-            _('Please provide details'),
+            _('Personal characteristics'),
             _('Date'),
-            _('Details'),
+            _('Personal description'),
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]
         form_autocomplete_off = os.getenv('FORM_AUTOCOMPLETE_OFF', False)
@@ -355,7 +355,7 @@ class CRTReportWizard(SessionWizardView):
             context.update({
                 'page_note': _('It is important for us to know how recently this incident happened. Some civil rights violations must be reported within a certain amount of time.')
             })
-        elif current_step_name == _('Primary Issue'):
+        elif current_step_name == _('Primary concern'):
             if all_step_names[int(self.steps.prev)] == current_step_name:
                 context.update({
                     'page_note': _('Continued')
@@ -389,4 +389,4 @@ class CRTReportWizard(SessionWizardView):
         form_data_dict['protected_class'] = m2m_protected_class.values()
         form_data_dict['hatecrimes_trafficking'] = m2m_hatecrime.values()
 
-        return render_to_response('forms/confirmation.html', {'data_dict': form_data_dict})
+        return render(self.request, 'forms/confirmation.html', {'data_dict': form_data_dict})

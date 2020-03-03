@@ -38,8 +38,9 @@ class InternalHistory(models.Model):
 
 
 class ProtectedClass(models.Model):
-    # add to be unique
     protected_class = models.CharField(max_length=100, null=True, blank=True, choices=PROTECTED_MODEL_CHOICES, unique=True)
+    # for display in the CRT views
+    code = models.CharField(max_length=100, null=True, blank=True, unique=True)
     # used for ordering the choices on the form displays
     form_order = models.IntegerField(null=True, blank=True)
 
@@ -96,6 +97,7 @@ class Report(models.Model):
     location_city_town = models.CharField(max_length=700, blank=False)
     location_state = models.CharField(max_length=100, blank=False, choices=STATES_AND_TERRITORIES)
     create_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
 
     # Incident location routing-specific fields
     election_details = models.CharField(choices=ELECTION_CHOICES, max_length=225, null=True, blank=True)

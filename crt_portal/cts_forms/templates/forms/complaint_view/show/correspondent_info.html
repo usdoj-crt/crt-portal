@@ -1,23 +1,25 @@
-<div class="complaint-card complaint-card--rounded">
-  <h3 class="complaint-card-heading text-uppercase">Correspondent information</h3>
-  <table class="usa-table usa-table--borderless complaint-card-table">
-    <tr>
-      <th>Name</th>
-      <td>
-        <strong>
-          {% with l_name=data.contact_last_name|default:"—" f_name=data.contact_first_name|default:"—" %}
-          {{ l_name }}, {{ f_name }}
-          {% endwith %}
-        </strong>
-      </td>
-    </tr>
-    <tr>
-      <th>Email</th>
-      <td>{{ data.contact_email|default:"—" }}</td>
-    </tr>
-    <tr>
-      <th>Telephone</th>
-      <td>{{ data.contact_phone|default:"—" }}</td>
-    </tr>
-  </table>
+<div class="crt-portal-card">
+  <div class="crt-portal-card__content">
+    <h3 class="complaint-card-heading text-uppercase">Correspondent information</h3>
+    <table class="usa-table usa-table--borderless complaint-card-table">
+      <tr>
+        <th>Name</th>
+        <td>
+          <strong>
+            {% with l_name=data.contact_last_name|default:"—" f_name=data.contact_first_name|default:"—" %}
+            {{ l_name }}, {{ f_name }}
+            {% endwith %}
+          </strong>
+        </td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td>{{ data.contact_email|default:"—" }}</td>
+      </tr>
+      <tr>
+        <th>Telephone</th>
+        <td>{{ data.contact_phone|default:"—" }}</td>
+      </tr>
+    </table>
+  </div>
 </div>

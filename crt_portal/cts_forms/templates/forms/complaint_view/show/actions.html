@@ -1,4 +1,10 @@
-<div class="complaint-card complaint-card--rounded">
+{% extends "forms/complaint_view/show/card.html" %}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+{% block icon %}
+  <img src="{% static icon %}" alt="" class="icon" />
+{% endblock %}
+{% block card_content %}
   <form
     id="complaint-view-actions"
     class="usa-form"
@@ -10,8 +16,11 @@
     <fieldset class="usa-fieldset usa-prose">
       <legend class="usa-sr-only">Complaint detail view actions</legend>
       <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
-      <div class="margin-bottom-2">
-        {{ actions.assigned_section }}
+      <div class="margin-bottom-2 display-flex " style="align-items: center;">
+        <label class="intake-label">
+          {{actions.fields.assigned_section.widget.label}}
+        </label>
+        {% include "forms/complaint_view/show/actions/assigned_section.html" %}
       </div>
       <div class="margin-bottom-2">
         {{ actions.status }}
@@ -19,4 +28,4 @@
       <button class="usa-button" type="submit">Apply changes</button>
     </fieldset>
   </form>
-</div>
+{% endblock %}

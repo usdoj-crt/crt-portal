@@ -86,7 +86,9 @@ INSTALLED_APPS = [
     'formtools',
     # 'django_auth_adfs' in production only
     'crequest',
+    'actstream',
 ]
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -107,6 +109,7 @@ TEMPLATES = [
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
+            'builtins': ['cts_forms.templatetags.with_input_error'],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
@@ -118,7 +121,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'crt_portal.wsgi.application'
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators
@@ -253,7 +255,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     CSP_FRAME_SRC = ("'self'", bucket)
     CSP_WORKER_SRC = ("'self'", bucket)
     CSP_FRAME_ANCESTORS = ("'self'", bucket)
-    CSP_STYLE_SRC = ("'self'", bucket)
+    CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", bucket)
     CSP_INCLUDE_NONCE_IN = ['script-src']
 
 

@@ -1,0 +1,18 @@
+{% load static %}
+<h2 class="intake-section-title">Filters</h2>
+<form
+  id="filters-form"
+  class="margin-bottom-3"
+  method="GET"
+  action="/form/view"
+  novalidate
+>
+  <div class="intake-filters">
+    {% include 'forms/complaint_view/index/filters/section_filter.html' %}
+    {% include 'forms/complaint_view/index/filters/contact_filter.html' %}
+    {% include 'forms/complaint_view/index/filters/incident_location_filter.html' %}
+    {% include 'forms/complaint_view/index/filters/status_filter.html' %}
+  </div>
+</form>
+
+<button class="look-like-link" data-clear-filters>Clear all filters</button>

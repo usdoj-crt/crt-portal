@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>ic_arrow_forward</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <polygon id="path-1" points="8 0 6.59 1.41 12.17 7 0 7 0 9 12.17 9 6.59 14.59 8 16 16 8"></polygon>
+    </defs>
+    <g id="CRT---Key-Pages" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Complaint-details-Copy" transform="translate(-164.000000, -158.000000)">
+            <g id="Group-13" transform="translate(146.000000, 146.000000)">
+                <g id="ic_arrow_forward" transform="translate(26.000000, 20.000000) scale(-1, 1) translate(-26.000000, -20.000000) translate(18.000000, 12.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <g id="Mask"></g>
+                    <g id="primary-darker" mask="url(#mask-2)" fill="#162E51">
+                        <g transform="translate(-14.000000, -27.000000)" id="Rectangle">
+                            <polygon points="0 0 64 0 64 57 0 57"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
