@@ -323,7 +323,7 @@ class CRTReportWizard(SessionWizardView):
             _('Personal characteristics'),
             _('Date'),
             _('Personal description'),
-            _('Review and submit'),
+            _('Review'),
         ]
 
         current_step_name = all_step_names[int(self.steps.current)]
@@ -362,7 +362,9 @@ class CRTReportWizard(SessionWizardView):
                 'wordsRemainingText': _(' words remaining'),
                 'wordLimitReachedText': _(' word limit reached'),
             },
-            'form_name': form_name
+            'form_name': form_name,
+            'stage_number': ordered_step_names.index(current_step_name) + 1,
+            'total_stages': len(ordered_step_names),
         })
 
         if current_step_name == _('Details'):
