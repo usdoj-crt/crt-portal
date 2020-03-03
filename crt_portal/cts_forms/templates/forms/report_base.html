@@ -12,7 +12,7 @@
 {% block content %}
   <div class="grid-container">
     <div class="grid-row grid-gap">
-      <div class="tablet:grid-col-8 tablet:grid-offset-2"">
+      <div class="tablet:grid-col-8 tablet:grid-offset-2">
         {% block page_info_card %}{% endblock %}
         <form id="report-form"
               class="usa-form"
@@ -48,11 +48,14 @@
               {% endif %}
             </div>
           {% endblock %}
+
+          {% block bottom-navigation %}
           <div class="margin-top-5">
             <input id="submit-next"
                   type="submit"
                   value="{% trans 'Next' %}"
                   class="usa-button" />
+
             {% if wizard.steps.prev %}
               <button name="wizard_goto_step"
                       type="submit"
@@ -63,6 +66,7 @@
               </button>
             {% endif %}
           </div>
+          {% endblock %}
         </form>
   </div>
 {% endblock %}

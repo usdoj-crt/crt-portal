@@ -1,0 +1,39 @@
+{% extends "forms/report_base.html" %}
+{% load i18n %}
+{% load static %}
+
+{% block form_questions %}
+ <div class="crt-portal-card">
+    <div class="crt-portal-card__content margin-bottom-3">
+        {{ block.super }}
+
+        <span class="em-text display-block margin-bottom-1">Before you submit your report, please check your responses</span>
+
+        <p class="padding-bottom-2"><em>If you need to make any changes, you can go back and edit the previous pages. Please make sure your information is accurate. This allows us to respond to your report quickly.</em></p>
+
+        <input id="submit-next-top" type="submit" value="Submit concern" class="usa-button">
+    </div>
+</div>
+
+{% include "forms/report_data.html" with ordered_step_names=ordered_step_names question=question form_data_dict=form_data_dict %}
+
+{% endblock %}
+
+{% block bottom-navigation %}
+<div class="margin-top-5">
+<input id="submit-next-bottom"
+      type="submit"
+      value="{% trans 'Submit concern' %}"
+      class="usa-button" />
+
+    {% if wizard.steps.prev %}
+      <button name="wizard_goto_step"
+              type="submit"
+              label="previous step"
+              value="{{ wizard.steps.prev }}"
+              class="look-like-link margin-top-2 display-block">
+        {% trans "Back" %}
+      </button>
+    {% endif %}
+</div>
+{% endblock %}

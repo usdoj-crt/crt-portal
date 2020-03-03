@@ -34,6 +34,7 @@ from cts_forms.forms import (
     CommercialPublicLocation,
     EducationLocation,
     When,
+    Review,
 )
 from cts_forms.views import (
     CRTReportWizard,
@@ -76,6 +77,7 @@ urlpatterns = auth + [
             ProtectedClassForm,
             When,
             Details,
+            Review,
         ],
         condition_dict={
             '3': show_election_form_condition,

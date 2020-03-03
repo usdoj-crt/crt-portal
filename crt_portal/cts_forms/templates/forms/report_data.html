@@ -1,0 +1,163 @@
+<div class="crt-portal-card">
+    <div class="crt-portal-card__content margin-bottom-3">
+        {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.0 step_value=0 %}
+
+        <h2 class="inline-block">{{ordered_step_names.0}}</h2>
+
+        <h3>{{ question.contact.contact_name_title }}</h3>
+
+        <h4>{{ question.contact.contact_first_name }}</h4>
+        <p>{{ form_data_dict.contact_first_name }}</p>
+        <h4>{{ question.contact.contact_last_name }}</h4>
+        <p>{{ form_data_dict.contact_last_name }}</p>
+
+        <h3>{{ question.contact.contact_title }}</h3>
+
+        <h4>{{ question.contact.contact_email }}</h4>
+        <p>{{ form_data_dict.contact_email }}</p>
+
+        <h4>{{ question.contact.contact_phone }}</h4>
+        <p>{{ form_data_dict.contact_phone }}</p>
+
+        <h3>{{ question.servicemember }}</h3>
+        <p>{{ form_data_dict.servicemember }}</p>
+    </div>
+</div>
+
+<div class="crt-portal-card">
+    <div class="crt-portal-card__content margin-bottom-3">
+        {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.1 step_value=1 %}
+
+        <h2>{{ordered_step_names.1}}</h2>
+
+        <h3>{{ question.primary_reason }}</h3>
+        <p>{{ form_data_dict.primary_complaint }}</p>
+
+        <h2>{{ question.hatecrime_title }}</h2>
+        <h3>{{ question.hatecrime }}</h3>
+        {% for crime in form_data_dict.hatecrimes_trafficking %}
+            <p>{{ crime }}</p>
+        {% empty %}
+            <p>None selected</p>
+        {% endfor %}
+
+    </div>
+</div>
+
+<div class="crt-portal-card">
+    <div class="crt-portal-card__content margin-bottom-3">
+        {# buttons to the right form page based on data present #}
+
+        {% if form_data_dict.election_details %}
+            {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=3 %}
+
+        {% elif form_data_dict.public_or_private_employer %}
+            {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=4 %}
+
+        {% elif form_data_dict.inside_correctional_facility %}
+            {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=5 %}
+
+        {% elif form_data_dict.commercial_or_public_place %}
+            {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=6 %}
+
+        {% elif form_data_dict.public_or_private_school %}
+            {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=7 %}
+
+        {% else %}
+            {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=2 %}
+        {% endif %}
+
+
+        <h2>{{ ordered_step_names.2 }}</h2>
+
+         {% if form_data_dict.election_details %}
+            <h3>{{ question.election }}</h3>
+            <p>{{ form_data_dict.election_details }}</p>
+
+        {% elif form_data_dict.public_or_private_employer %}
+            <h3>{{ question.workplace.public_or_private_employer }}</h3>
+            <p>{{ form_data_dict.public_or_private_employer }}</p>
+
+            <h3>{{ question.workplace.employer_size }}</h3>
+            <p>{{ form_data_dict.employer_size }}</p>
+
+        {% elif form_data_dict.inside_correctional_facility %}
+            <h3>{{ question.police.inside_correctional_facility }}</h3>
+            <p>{{ form_data_dict.inside_correctional_facility }}</p>
+
+            {% if form_data_dict.correctional_facility_type %}
+                <h3>{{ question.police.correctional_facility_type }}</h3>
+                <p>{{ form_data_dict.correctional_facility_type }}</p>
+            {% endif %}
+
+        {% elif form_data_dict.commercial_or_public_place %}
+            <h3>{{ question.public }}</h3>
+            <p>{{ form_data_dict.commercial_or_public_place }}</p>
+            {% if form_data_dict.other_commercial_or_public_place %}
+                <h3>{{ question.other_commercial_or_public_place }}</h3>
+                <p>{{ form_data_dict.other_commercial_or_public_place }}</p>
+            {% endif %}
+
+        {% elif form_data_dict.public_or_private_school %}
+            <h3>{{ question.education }}</h3>
+            <p>{{ form_data_dict.public_or_private_school }}</p>
+
+        {% endif %}
+
+        <h3>{{ question.location.location_title }}</h4>
+
+        <h4>{{ question.location.location_address_line_1 }}</h4>
+        <p>{{ form_data_dict.location_address_line_1 }}</p>
+
+        <h4>{{ question.location.location_address_line_2 }}</h4>
+        <p>{{ form_data_dict.location_address_line_2 }}</p>
+
+        <h4>{{ question.location.location_city_town }}</h4>
+        <p>{{ form_data_dict.location_city_town }}</p>
+
+        <h4>{{ question.location.location_name }}</h4>
+        <p>{{ form_data_dict.location_name }}</p>
+
+        <h4>{{ question.location.location_state }}</h4>
+        <p>{{ form_data_dict.location_state }}</p>
+
+    </div>
+</div>
+
+<div class="crt-portal-card">
+    <div class="crt-portal-card__content margin-bottom-3">
+        {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.3 step_value=9 %}
+
+        <h2>{{ ordered_step_names.3 }}</h2>
+
+        <h3>{{ question.characteristics }}</h3>
+        {% for characteristic in form_data_dict.protected_class %}
+            <p>{{ characteristic }}</p>
+        {% empty %}
+            <p>None selected</p>
+        {% endfor %}
+
+    </div>
+</div>
+
+<div class="crt-portal-card">
+    <div class="crt-portal-card__content margin-bottom-3">
+        {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.4 step_value=10 %}
+
+        <h2>{{ ordered_step_names.4 }}</h2>
+
+        <h3>{{ question.date.date_title }}</h3>
+        <p>{{ form_data_dict.last_incident_month }}/{{ form_data_dict.last_incident_day|default:"—" }}/{{ form_data_dict.last_incident_year}}</p>
+    </div>
+</div>
+
+<div class="crt-portal-card">
+    <div class="crt-portal-card__content margin-bottom-3">
+        {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.5 step_value=11 %}
+
+        <h2>{{ ordered_step_names.5 }}</h2>
+
+        <h3>{{ question.summary }}</h3>
+        <p>{{ form_data_dict.violation_summary|linebreaks }}</p>
+    </div>
+</div>

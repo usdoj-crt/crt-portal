@@ -25,14 +25,31 @@ from .model_variables import (
     PRIMARY_COMPLAINT_ERROR,
     SERVICEMEMBER_CHOICES,
     SERVICEMEMBER_ERROR,
-    CORRECTIONAL_FACILITY_LOCATION_CHOICES,
     CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+    CORRECTIONAL_FACILITY_LOCATION_CHOICES,
     POLICE_LOCATION_ERRORS,
     COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
     COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
     PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
     STATUS_CHOICES,
     EMPTY_CHOICE
+)
+
+from .question_text import (
+    CONTACT_QUESTIONS,
+    SERVICEMEMBER_QUESTION,
+    PRIMARY_REASON_QUESTION,
+    HATECRIME_TITLE,
+    HATECRIME_QUESTION,
+    LOCATION_QUESTIONS,
+    ELECTION_QUESTION,
+    WORKPLACE_QUESTIONS,
+    PUBLIC_QUESTION,
+    POLICE_QUESTIONS,
+    EDUCATION_QUESTION,
+    PROTECTED_CLASS_QUESTION,
+    DATE_QUESTIONS,
+    SUMMARY_QUESTION,
 )
 
 from .phone_regex import phone_validation_regex
@@ -95,14 +112,14 @@ class Contact(ModelForm):
 
         self.label_suffix = ''
 
-        self.fields['contact_first_name'].label = _('First name')
-        self.fields['contact_last_name'].label = _('Last name')
-        self.fields['contact_email'].label = _('Email address')
-        self.fields['contact_phone'].label = _('Phone number')
+        self.fields['contact_first_name'].label = CONTACT_QUESTIONS['contact_first_name']
+        self.fields['contact_last_name'].label = CONTACT_QUESTIONS['contact_last_name']
+        self.fields['contact_email'].label = CONTACT_QUESTIONS['contact_email']
+        self.fields['contact_phone'].label = CONTACT_QUESTIONS['contact_phone']
         self.fields['servicemember'] = TypedChoiceField(
             error_messages={'required': SERVICEMEMBER_ERROR},
             widget=UsaRadioSelect(),
-            label=_('Are you now or have ever been an active duty service member?'),
+            label=SERVICEMEMBER_QUESTION,
             help_text=_('If you’re reporting on behalf of someone else, please select their status.'),
             empty_value=None,
             choices=SERVICEMEMBER_CHOICES,
@@ -118,7 +135,7 @@ class Contact(ModelForm):
             QuestionGroup(
                 self,
                 ('contact_email', 'contact_phone'),
-                group_name=_('Contact information'),
+                group_name=CONTACT_QUESTIONS['contact_title'],
                 help_text=_('You are not required to provide contact information, but it will help us if we need to gather more information about the incident you are reporting or to respond to your submission'),
                 ally_id=a11y.contact_info_id
             )
@@ -147,7 +164,7 @@ class PrimaryReason(ModelForm):
             error_messages={
                 'required': PRIMARY_COMPLAINT_ERROR
             },
-            label=_('What is your primary reason for contacting the Civil Rights Division?'),
+            label=PRIMARY_REASON_QUESTION,
             help_text=_('Select the reason that best describes your concern. Each reason lists examples of civil rights violations that may relate to your incident. In another section of this report, you will be able to describe your concern in your own words.'),
         )
 
@@ -173,14 +190,14 @@ class HateCrimesTrafficking(ModelForm):
                 'aria-describedby': 'hatecrimes-help-text'
             }),
             required=False,
-            label=_('Please select if any apply to your concern')
+            label=HATECRIME_QUESTION,
         )
 
         self.question_groups = [
             QuestionGroup(
                 self,
                 ('hatecrimes_trafficking',),
-                group_name=_('Hate crimes and human trafficking'),
+                group_name=HATECRIME_TITLE,
                 help_text=_('Please let us know if you would describe your concern as either a hate crime or human trafficking. This information can help us take action against these types of violations. We will contact you about the next steps. We also encourage you to contact law enforcement if you or someone else is in immediate danger.'),
                 optional=False,
                 label_cls="margin-bottom-4",
@@ -202,7 +219,7 @@ class Details(ModelForm):
 
         self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
         self.label_suffix = ''
-        self.fields['violation_summary'].label = _('Tell us what happened')
+        self.fields['violation_summary'].label = SUMMARY_QUESTION
         self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
         self.fields['violation_summary'].help_text = _("Please include any details you have about time, location, or people involved with the event, names of witnesses or any materials that would support your description")
         self.fields['violation_summary'].error_messages = {'required': VIOLATION_SUMMARY_ERROR}
@@ -248,15 +265,15 @@ class LocationForm(ModelForm):
 
         errors = dict(WHERE_ERRORS)
 
-        self.fields['location_name'].label = 'Location name'
-        self.fields['location_name'].help_text = 'Examples: Name of business, school, intersection, prison, polling place, website, etc.'
+        self.fields['location_name'].label = LOCATION_QUESTIONS['location_name']
+        self.fields['location_name'].help_text = _('Examples: Name of business, school, intersection, prison, polling place, website, etc.')
         self.fields['location_name'].error_messages = {
             'required': errors['location_name']
         }
         self.fields['location_name'].required = True
-        self.fields['location_address_line_1'].label = 'Street address 1'
-        self.fields['location_address_line_2'].label = 'Street address 2'
-        self.fields['location_city_town'].label = 'City/town'
+        self.fields['location_address_line_1'].label = LOCATION_QUESTIONS['location_address_line_1']
+        self.fields['location_address_line_2'].label = LOCATION_QUESTIONS['location_address_line_2']
+        self.fields['location_city_town'].label = LOCATION_QUESTIONS['location_city_town']
         self.fields['location_city_town'].error_messages = {
             'required': errors['location_city_town']
         }
@@ -271,15 +288,15 @@ class LocationForm(ModelForm):
             error_messages={
                 'required': errors['location_state']
             },
-            label='State',
-            help_text="Where did this happen?",
+            label=LOCATION_QUESTIONS['location_state'],
+            help_text=_("Where did this happen?"),
         )
 
         self.question_groups = [
             QuestionGroup(
                 self,
                 ('location_name', 'location_address_line_1', 'location_address_line_2'),
-                group_name=_('Where did this happen?'),
+                group_name=LOCATION_QUESTIONS['location_title'],
                 help_text=_('Please be as specific as possible. We will handle this information with sensitivity.'),
                 optional=False,
                 ally_id='location-help-text'
@@ -299,7 +316,7 @@ class ElectionLocation(LocationForm):
             QuestionGroup(
                 self,
                 ('election_details',),
-                group_name=_('What kind of election or voting activity was this related to?'),
+                group_name=ELECTION_QUESTION,
                 optional=False
 
             )
@@ -338,13 +355,13 @@ class WorkplaceLocation(LocationForm):
             QuestionGroup(
                 self,
                 ('public_or_private_employer',),
-                group_name=_('Was this a public or private employer?'),
+                group_name=WORKPLACE_QUESTIONS['public_or_private_employer'],
                 optional=False
             ),
             QuestionGroup(
                 self,
                 ('employer_size',),
-                group_name=_('How large is this employer?'),
+                group_name=WORKPLACE_QUESTIONS['employer_size'],
                 optional=False
             )
         ] + self.question_groups
@@ -387,6 +404,7 @@ class CommercialPublicLocation(LocationForm):
         self.name = 'CommericalPublicLocation'
 
         self.fields['commercial_or_public_place'] = TypedChoiceField(
+            label=PUBLIC_QUESTION,
             choices=COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
             empty_value=None,
             widget=UsaRadioSelect(attrs={
@@ -397,7 +415,6 @@ class CommercialPublicLocation(LocationForm):
                 'required': _('Please select the type of location. If none of these apply to your situation, please select "Other".')
             }
         )
-
         self.fields['other_commercial_or_public_place'].help_text = _('Please describe')
         self.fields['other_commercial_or_public_place'].widget = TextInput(
             attrs={'class': 'usa-input word-count-10'}
@@ -422,7 +439,7 @@ class PoliceLocation(LocationForm):
             error_messages={
                 'required': POLICE_LOCATION_ERRORS['facility']
             },
-            label=''
+            label=POLICE_QUESTIONS['inside_correctional_facility']
         )
 
         self.fields['correctional_facility_type'] = TypedChoiceField(
@@ -432,7 +449,7 @@ class PoliceLocation(LocationForm):
             label=''
         )
         self.fields['correctional_facility_type'].widget.attrs['class'] = 'margin-bottom-0 padding-bottom-0 padding-left-1'
-        self.fields['correctional_facility_type'].help_text = 'What type of prison or correctional facility?'
+        self.fields['correctional_facility_type'].help_text = POLICE_QUESTIONS['correctional_facility_type']
 
     def clean(self):
         inside_facility = self.cleaned_data.get('inside_correctional_facility')
@@ -462,7 +479,7 @@ class EducationLocation(LocationForm):
             QuestionGroup(
                 self,
                 ('public_or_private_school',),
-                group_name=_('Did this happen at a public or a private school, educational program or activity?'),
+                group_name=EDUCATION_QUESTION,
                 help_text=_('Includes schools, educational programs, or educational activities, like training programs, sports teams, clubs, or other school-sponsored activities'),
                 optional=False,
                 ally_id='education-location-help-text'
@@ -508,7 +525,7 @@ class ProtectedClassForm(ModelForm):
             QuestionGroup(
                 self,
                 ('protected_class',),
-                group_name=_('Do you believe any of these personal characteristics influenced why you were treated this way?'),
+                group_name=PROTECTED_CLASS_QUESTION,
                 help_text=_('There are federal and state laws that protect people from discrimination based on their personal characteristics. Here is a list of the most common characteristics that are legally protected. Select any that apply to your incident.'),
                 optional=False,
                 ally_id="protected-class-help-text"
@@ -517,6 +534,8 @@ class ProtectedClassForm(ModelForm):
 
 
 class When(ModelForm):
+    date_question = DATE_QUESTIONS['date_title']
+
     class Meta:
         model = Report
         fields = ['last_incident_month', 'last_incident_day', 'last_incident_year']
@@ -541,13 +560,13 @@ class When(ModelForm):
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
 
-        self.fields['last_incident_month'].label = _('Month')
+        self.fields['last_incident_month'].label = DATE_QUESTIONS['last_incident_month']
         self.fields['last_incident_month'].error_messages = {
             'required': _('Please enter a month.'),
         }
         self.fields['last_incident_month'].required = True
-        self.fields['last_incident_day'].label = _('Day')
-        self.fields['last_incident_year'].label = _('Year')
+        self.fields['last_incident_day'].label = DATE_QUESTIONS['last_incident_day']
+        self.fields['last_incident_year'].label = DATE_QUESTIONS['last_incident_year']
         self.fields['last_incident_year'].error_messages = {
             'required': _('Please enter a year.'),
         }
@@ -594,6 +613,29 @@ class When(ModelForm):
             return cleaned_data
 
         return cleaned_data
+
+
+class Review(ModelForm):
+    question_text = {
+        'contact': CONTACT_QUESTIONS,
+        'servicemember': SERVICEMEMBER_QUESTION,
+        'primary_reason': PRIMARY_REASON_QUESTION,
+        'hatecrime_title': HATECRIME_TITLE,
+        'hatecrime': HATECRIME_QUESTION,
+        'location': LOCATION_QUESTIONS,
+        'election': ELECTION_QUESTION,
+        'workplace': WORKPLACE_QUESTIONS,
+        'public': PUBLIC_QUESTION,
+        'police': POLICE_QUESTIONS,
+        'education': EDUCATION_QUESTION,
+        'characteristics': PROTECTED_CLASS_QUESTION,
+        'date': DATE_QUESTIONS,
+        'summary': SUMMARY_QUESTION,
+    }
+
+    class Meta:
+        model = Report
+        fields = []
 
 
 class Filters(ModelForm):
