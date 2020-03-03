@@ -161,7 +161,7 @@ form#report-form {
       margin-bottom: -30px;
     }
 
-    .radio-help-text {      
+    .radio-help-text {
       line-height: 1.25rem;
       margin-top: .5rem;
       margin-bottom: 0;
@@ -233,7 +233,7 @@ input[type="radio"]:checked + .crt-radio__label_area {
 .form-help-text {
   color: $gray-70;
   font-size: .9rem;
-  
+
   // Necessary because we want to override styles applied to the p tag
   margin: .5rem 0 1rem 0 !important;
 }
@@ -268,4 +268,36 @@ input[type="radio"]:checked + .crt-radio__label_area {
 
 .complaint-multi-select {
   min-width: 140px;
+}
+
+.crt-portal-card {
+  @include u-radius('lg');
+  @include u-shadow(3);
+  background: white;
+
+  &.crt-hover-card {
+    &:hover {
+      background-color: $gray-cool-4;
+      cursor: pointer;
+    }
+    &.selected, &:hover.selected {
+      background-color: $blue-warm-5;
+    }
+
+    > .crt-portal-card__content {
+      @include u-padding-top(4);
+      @include u-padding-bottom(1);
+    }
+  }
+
+  .crt-portal-card__content {
+    @include u-padding-x(7);
+    @include u-padding-bottom(6);
+    @include u-padding-top(5);
+  }
+}
+
+.inline-block {
+  margin: 0;
+  display: inline-block;
 }

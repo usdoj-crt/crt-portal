@@ -14,7 +14,18 @@ from django import forms
 from formtools.wizard.views import SessionWizardView
 
 from .models import Report, ProtectedClass, HateCrimesandTrafficking
-from .model_variables import PRIMARY_COMPLAINT_CHOICES, HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
+from .model_variables import (
+    PRIMARY_COMPLAINT_CHOICES,
+    HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
+    PRIMARY_COMPLAINT_DICT,
+    ELECTION_DICT,
+    PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
+    EMPLOYER_SIZE_DICT,
+    CORRECTIONAL_FACILITY_LOCATION_DICT,
+    CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
+    COMMERCIAL_OR_PUBLIC_PLACE_DICT,
+    PUBLIC_OR_PRIVATE_SCHOOL_DICT,
+)
 from .page_through import pagination
 from .filters import report_filter
 from .forms import Filters, ComplaintActions
@@ -192,6 +203,8 @@ TEMPLATES = [
     'forms/report_date.html',
     # Details
     'forms/report_details.html',
+    # Review page
+    'forms/report_review.html',
 ]
 
 conditional_location_routings = ['voting', 'workplace', 'police', 'commercial_or_public', 'education']
@@ -223,6 +236,12 @@ def show_commercial_public_form_condition(wizard):
 
 def show_education_form_condition(wizard):
     return is_routable_complaint(wizard, 'education')
+
+
+def data_decode(form_data_dict, decoder_dict, value):
+    return decoder_dict.get(
+        form_data_dict.get(value)
+    )
 
 
 def show_location_form_condition(wizard):
@@ -288,6 +307,7 @@ class CRTReportWizard(SessionWizardView):
             _('Personal characteristics'),
             _('Date'),
             _('Personal description'),
+            _('Review'),
         ]
         # Name for all forms whether they are skipped or not
         all_step_names = [
@@ -303,6 +323,7 @@ class CRTReportWizard(SessionWizardView):
             _('Personal characteristics'),
             _('Date'),
             _('Personal description'),
+            _('Review and submit'),
         ]
 
         current_step_name = all_step_names[int(self.steps.current)]
@@ -321,6 +342,7 @@ class CRTReportWizard(SessionWizardView):
             _('Personal characteristics'),
             _('Date'),
             _('Personal description'),
+            _('Review your concern'),
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]
         form_autocomplete_off = os.getenv('FORM_AUTOCOMPLETE_OFF', False)
@@ -364,6 +386,38 @@ class CRTReportWizard(SessionWizardView):
                 context.update({
                     'crime_help_text2': _('Please select if any that apply to your situation (optional)'),
                 })
+        elif current_step_name == _('Review and submit'):
+            form_data_dict = self.get_all_cleaned_data()
+            # unpack values in data for display
+            form_data_dict['primary_complaint'] = data_decode(
+                form_data_dict, PRIMARY_COMPLAINT_DICT, 'primary_complaint'
+            )
+            form_data_dict['election_details'] = data_decode(
+                form_data_dict, ELECTION_DICT, 'election_details'
+            )
+            form_data_dict['public_or_private_employer'] = data_decode(
+                form_data_dict, PUBLIC_OR_PRIVATE_EMPLOYER_DICT, 'public_or_private_employer'
+            )
+            form_data_dict['employer_size'] = data_decode(
+                form_data_dict, EMPLOYER_SIZE_DICT, 'employer_size'
+            )
+            form_data_dict['inside_correctional_facility'] = data_decode(
+                form_data_dict, CORRECTIONAL_FACILITY_LOCATION_DICT, 'inside_correctional_facility'
+            )
+            form_data_dict['correctional_facility_type'] = data_decode(
+                form_data_dict, CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT, 'correctional_facility_type'
+            )
+            form_data_dict['commercial_or_public_place'] = data_decode(
+                form_data_dict, COMMERCIAL_OR_PUBLIC_PLACE_DICT, 'commercial_or_public_place'
+            )
+            form_data_dict['public_or_private_school'] = data_decode(
+                form_data_dict, PUBLIC_OR_PRIVATE_SCHOOL_DICT, 'public_or_private_school'
+            )
+
+            context.update({
+                'form_data_dict': form_data_dict,
+                'question': form.question_text,
+            })
 
         return context
 
