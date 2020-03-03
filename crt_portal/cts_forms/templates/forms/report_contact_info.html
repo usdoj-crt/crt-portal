@@ -14,23 +14,25 @@
       {{ block.super }}
       {% include 'forms/grouped_questions.html' %}
       {% with city=wizard.form.contact_city state=wizard.form.contact_state zip=wizard.form.contact_zip %}
-        <div class="grid-row grid-gap margin-y-neg-3 margin-bottom-4">
-          <div class="mobile-lg:grid-col-8">
-            <label for="{{city.id_for_label}}">
-              {{ city.label }}
-            </label>
-            {{ city }}
-          </div>
-          <div class="mobile-lg:grid-col-4">
-            <label for="{{state.id_for_label}}">
-              {{state.label}}
-            </label>
-            {{ state }}
+        <div class="padding-top-2">
+          <div class="grid-row grid-gap margin-y-neg-3 margin-top-1 margin-bottom-4">
+            <div class="mobile-lg:grid-col-8">
+              <label for="{{city.id_for_label}}">
+                {{ city.label }} <em>(Optional)</em>
+              </label>
+              {{ city }}
+            </div>
+            <div class="mobile-lg:grid-col-4">
+              <label for="{{state.id_for_label}}">
+                {{state.label}} <em>(Optional)</em>
+              </label>
+              {{ state }}
+            </div>
           </div>
         </div>
-        <div class="margin-bottom-5">
+        <div class="margin-bottom-5 margin-top-neg-1">
           <label for="{{zip.id_for_label}}">
-            {{ zip.label }}
+            {{ zip.label }} <em>(Optional)</em>
           </label>
           {{ zip }}
         </div>
