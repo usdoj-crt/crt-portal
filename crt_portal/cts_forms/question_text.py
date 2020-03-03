@@ -8,6 +8,11 @@ CONTACT_QUESTIONS = {
     'contact_last_name': _('Last name'),
     'contact_email': _('Email address'),
     'contact_phone': _('Phone number'),
+    'contact_address_line_1': _('Mailing address 1'),
+    'contact_address_line_2': _('Mailing address 2'),
+    'contact_city': _('City'),
+    'contact_zip': _('Zip code'),
+    'contact_state': _('State'),
 }
 SERVICEMEMBER_QUESTION = _('Are you now or have ever been an active duty service member?')
 # primary concern
