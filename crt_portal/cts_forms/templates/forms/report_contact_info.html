@@ -13,6 +13,30 @@
     <div class="crt-portal-card__content crt-portal-card__content--lg">
       {{ block.super }}
       {% include 'forms/grouped_questions.html' %}
+      {% with city=wizard.form.contact_city state=wizard.form.contact_state zip=wizard.form.contact_zip %}
+        <div class="grid-row grid-gap margin-y-neg-3 margin-bottom-4">
+          <div class="mobile-lg:grid-col-8">
+            <label for="{{city.id_for_label}}">
+              {{ city.label }}
+            </label>
+            {{ city }}
+          </div>
+          <div class="mobile-lg:grid-col-4">
+            <label for="{{state.id_for_label}}">
+              {{state.label}}
+            </label>
+            {{ state }}
+          </div>
+        </div>
+        <div class="margin-bottom-5">
+          <label for="{{zip.id_for_label}}">
+            {{ zip.label }}
+          </label>
+          {{ zip }}
+        </div>
+      {% endwith %}
+
+
     </div>
   </div>
 

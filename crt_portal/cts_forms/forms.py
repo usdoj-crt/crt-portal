@@ -147,7 +147,7 @@ class Contact(ModelForm):
             ),
             QuestionGroup(
                 self,
-                ('contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_city', 'contact_state', 'contact_zip'),
+                ('contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2'),
                 group_name=_('Contact information'),
                 help_text=_('You are not required to provide contact information, but it will help us if we need to gather more information about the incident you are reporting or to respond to your submission'),
                 ally_id=a11y.contact_info_id
