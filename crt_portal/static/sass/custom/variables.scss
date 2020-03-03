@@ -20,6 +20,9 @@ $gray-cool-10: #EBEBEB;
 $gray-cool-4: #F1F3F6;
 $red-vivid-60: #B51D09;
 $white: #FFFFFF;
+$gold-vivid: 'gold-20v';
+$blue-warm-vivid-80-t: 'blue-warm-80v';
+$blue-warm-5-t: 'blue-warm-5';
 
 // Typography
 
@@ -28,3 +31,8 @@ $bold: 700;
 // Breakpoints
 
 $tablet: 640px;
+
+@mixin flex-container {
+  align-items: center;
+  display: flex;
+};

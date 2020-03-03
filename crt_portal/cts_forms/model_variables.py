@@ -2,6 +2,8 @@
 
 from django.utils.translation import gettext_lazy as _
 
+EMPTY_CHOICE = ('', _('- Select -'))
+
 SERVICEMEMBER_CHOICES = (
     ('yes', _('Yes')),
     ('no', _('No')),

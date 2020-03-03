@@ -1,3 +1,5 @@
+$button-size: 1.5rem;
+
 .usa-pagination-wrapper {
   display: flex;
 }
@@ -15,14 +17,16 @@
   }
 
   li {
-    border-radius: 5px;
+    height: 2rem;
     margin: 0 2px;
+    width: 2rem;
 
     a, div, span.ellipsis {
+      border-radius: 5px;
       display: block;
-      width: 40px;
-      height: 44px;
-      line-height: 44px;
+      width: $button-size;
+      height: $button-size;
+      line-height: $button-size;
       text-align: center;
       color: $blue-warm-vivid-70;
     }
@@ -32,7 +36,9 @@
     }
 
     &.current-page {
-      background-color: $blue-warm-vivid-70;
+      div {
+        background-color: $blue-warm-vivid-70;
+      }
 
       div {
         color: $white;

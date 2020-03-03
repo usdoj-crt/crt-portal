@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="{% static "css/styles.css" %}">
     {% block head %}{% endblock %}
   </head>
-  <body>
+  <body {% block body_class %}{% endblock %}>
     <a class="usa-skipnav" href="#main-content">Skip to main content</a>
     {% block usa_banner %}
       {% include "partials/banner/usa_banner.html" %}

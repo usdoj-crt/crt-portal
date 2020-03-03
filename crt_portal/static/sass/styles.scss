@@ -26,14 +26,15 @@
 // Import app custom styles
 
 @import 'custom/variables';
+@import 'custom/card';
 @import 'custom/complaint';
 @import 'custom/alerts';
 @import 'custom/banner';
-@import 'custom/filters';
 @import 'custom/footer';
 @import 'custom/form';
 @import 'custom/header';
 @import 'custom/ie';
+@import 'custom/intake.scss';
 @import 'custom/layout';
 @import 'custom/pagination';
 @import 'custom/progress';

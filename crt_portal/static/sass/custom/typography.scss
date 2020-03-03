@@ -1,4 +1,8 @@
 // Header Styles
+h1, h2, h3, h4, h5, h6, .intake-label {
+  @include add-knockout-font-smoothing;
+}
+
 h1 {
   @include u-font('heading', '2xl');
 }
