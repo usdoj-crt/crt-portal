@@ -374,8 +374,7 @@ class CRTReportWizard(SessionWizardView):
             })
         elif current_step_name == _('Date'):
             context.update({
-                'page_note': _('It is important for us to know how recently this incident happened. Some civil rights violations must be reported within a certain amount of time.'),
-                'date_question': form.date_question,
+                'page_note': _('It is important for us to know how recently this incident happened. Some civil rights violations must be reported within a certain amount of time.')
             })
         elif current_step_name == _('Primary concern'):
             if all_step_names[int(self.steps.prev)] == current_step_name:

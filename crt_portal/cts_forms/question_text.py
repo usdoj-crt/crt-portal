@@ -6,7 +6,6 @@ CONTACT_QUESTIONS = {
     'contact_name_title': _('Your name'),
     'contact_first_name': _('First name'),
     'contact_last_name': _('Last name'),
-    'contact_info_tite': _('Contact information'),
     'contact_email': _('Email address'),
     'contact_phone': _('Phone number'),
 }
