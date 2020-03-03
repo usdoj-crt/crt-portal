@@ -388,7 +388,7 @@ class CRTReportWizard(SessionWizardView):
                 context.update({
                     'crime_help_text2': _('Please select if any that apply to your situation (optional)'),
                 })
-        elif current_step_name == _('Review and submit'):
+        elif current_step_name == _('Review'):
             form_data_dict = self.get_all_cleaned_data()
             # unpack values in data for display
             form_data_dict['primary_complaint'] = data_decode(
