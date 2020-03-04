@@ -182,8 +182,6 @@ class ProFormView(SessionWizardView):
     def get_template_names(self):
         return 'forms/pro_template.html'
 
-    # return render(self.request, 'forms/confirmation.html')
-
 
 TEMPLATES = [
     # Contact
