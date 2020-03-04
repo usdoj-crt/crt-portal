@@ -28,7 +28,7 @@ from .model_variables import (
 )
 from .page_through import pagination
 from .filters import report_filter
-from .forms import Filters, ComplaintActions
+from .forms import Filters, ComplaintActions, ProForm
 
 SORT_DESC_CHAR = '-'
 
@@ -176,6 +176,13 @@ class ShowView(View):
         })
 
         return render(self.request, 'forms/complaint_view/show/index.html', output)
+
+
+class ProFormView(SessionWizardView):
+    def get_template_names(self):
+        return 'forms/pro_template.html'
+
+    # return render(self.request, 'forms/confirmation.html')
 
 
 TEMPLATES = [

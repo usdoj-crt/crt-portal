@@ -668,6 +668,18 @@ class Review(ModelForm):
         fields = []
 
 
+class ProForm(Contact, PrimaryReason):
+
+    class Meta:
+        model = Report
+        fields = Contact.Meta.fields + PrimaryReason.Meta.fields
+        all_widgets = {}
+        widget_list = [Contact.Meta.widgets, PrimaryReason.Meta.widgets]
+        for widget in widget_list:
+            all_widgets.update(widget)
+        widgets = all_widgets
+
+
 class Filters(ModelForm):
     status = ChoiceField(
         choices=_add_empty_choice(STATUS_CHOICES),
