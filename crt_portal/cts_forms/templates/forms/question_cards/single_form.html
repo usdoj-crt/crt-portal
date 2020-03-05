@@ -1,0 +1,23 @@
+<div class="crt-portal-card crt-portal-card">
+    <div class="crt-portal-card__content crt-portal-card__content--lg">
+        <div class="form-group">
+          {% if field.label %}
+            <h3><label
+              for="{{ field.id_for_label }}"
+              class="{{label_class}} margin-bottom-0"
+            >
+              {{ field.label }} {% if field.field.required != True %}<em>(Optional)</em>{% endif %}
+            </label></h3>
+          {% endif %}
+          {% if field.help_text %}
+            <p class="margin-top-1" {% if ally_id%}id="{{ally_id}}"{%endif%}>
+              <em>{{ field.help_text }}</em>
+            </p>
+          {% endif %}
+          {{ field|withInputError }}
+          {% if field.errors %}
+            {% include "forms/snippets/error_alert.html" with errors=field.errors %}
+          {% endif %}
+        </div>
+    </div>
+</div>

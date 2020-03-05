@@ -337,7 +337,8 @@ class LocationForm(ModelForm):
 class ElectionLocation(LocationForm):
     class Meta:
         model = Report
-        fields = LocationForm.Meta.fields + ['election_details']
+        election_fields = ['election_details']
+        fields = LocationForm.Meta.fields + election_fields
         widgets = LocationForm.Meta.widgets
 
     def __init__(self, *args, **kwargs):
@@ -373,10 +374,11 @@ class ElectionLocation(LocationForm):
 class WorkplaceLocation(LocationForm):
     class Meta:
         model = Report
-        fields = LocationForm.Meta.fields + [
+        workplace_fields = [
             'public_or_private_employer',
             'employer_size'
         ]
+        fields = LocationForm.Meta.fields + workplace_fields
         widgets = LocationForm.Meta.widgets
 
     def __init__(self, *args, **kwargs):
@@ -425,7 +427,8 @@ class WorkplaceLocation(LocationForm):
 class CommercialPublicLocation(LocationForm):
     class Meta:
         model = Report
-        fields = LocationForm.Meta.fields + ['commercial_or_public_place', 'other_commercial_or_public_place']
+        commercial_fields = ['commercial_or_public_place', 'other_commercial_or_public_place']
+        fields = LocationForm.Meta.fields + commercial_fields
         widgets = LocationForm.Meta.widgets
 
     def __init__(self, *args, **kwargs):
@@ -454,7 +457,8 @@ class CommercialPublicLocation(LocationForm):
 class PoliceLocation(LocationForm):
     class Meta:
         model = Report
-        fields = LocationForm.Meta.fields + ['inside_correctional_facility', 'correctional_facility_type']
+        police_fields = ['inside_correctional_facility', 'correctional_facility_type']
+        fields = LocationForm.Meta.fields + police_fields
         widgets = LocationForm.Meta.widgets
 
     def __init__(self, *args, **kwargs):
@@ -499,7 +503,8 @@ class PoliceLocation(LocationForm):
 class EducationLocation(LocationForm):
     class Meta:
         model = Report
-        fields = LocationForm.Meta.fields + ['public_or_private_school']
+        education_fields = ['public_or_private_school']
+        fields = LocationForm.Meta.fields + education_fields
         widgets = LocationForm.Meta.widgets
 
     def __init__(self, *args, **kwargs):
@@ -668,16 +673,58 @@ class Review(ModelForm):
         fields = []
 
 
-class ProForm(Contact, PrimaryReason):
+class ProForm(
+    Contact,
+    PrimaryReason,
+    HateCrimesTrafficking,
+    ElectionLocation, # needs tempate
+    WorkplaceLocation, # needs tempate
+    CommercialPublicLocation,
+    PoliceLocation,
+    EducationLocation, # needs tempate
+    ProtectedClassForm,
+    When,
+    Details,
+):
 
     class Meta:
         model = Report
-        fields = Contact.Meta.fields + PrimaryReason.Meta.fields
+        fields = \
+            Contact.Meta.fields +\
+            PrimaryReason.Meta.fields +\
+            HateCrimesTrafficking.Meta.fields +\
+            ElectionLocation.Meta.fields +\
+            WorkplaceLocation.Meta.workplace_fields +\
+            CommercialPublicLocation.Meta.commercial_fields +\
+            PoliceLocation.Meta.police_fields +\
+            EducationLocation.Meta.education_fields +\
+            ProtectedClassForm.Meta.fields +\
+            When.Meta.fields +\
+            ['violation_summary']
         all_widgets = {}
-        widget_list = [Contact.Meta.widgets, PrimaryReason.Meta.widgets]
+
+        widget_list = [
+            Contact.Meta.widgets,
+            # replace with multi select
+            HateCrimesTrafficking.Meta.widgets,
+            # LocationForm.Meta.widgets,
+            ElectionLocation.Meta.widgets,
+            WorkplaceLocation.Meta.widgets,
+            CommercialPublicLocation.Meta.widgets,
+            PoliceLocation.Meta.widgets,
+            EducationLocation.Meta.widgets,
+            # ProtectedClassForm - doesn't have separately defined widgets
+            When.Meta.widgets,
+        ]
         for widget in widget_list:
             all_widgets.update(widget)
         widgets = all_widgets
+
+        PrimaryReason.Meta.widgets['primary_complaint'] = TypedChoiceField(
+            choices=PRIMARY_REASON_QUESTION,
+            widget=UsaRadioSelect,
+            required=True,
+        )
 
 
 class Filters(ModelForm):

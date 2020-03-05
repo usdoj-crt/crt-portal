@@ -96,6 +96,7 @@ class Report(models.Model):
     location_address_line_2 = models.CharField(max_length=225, null=True, blank=True)
     location_city_town = models.CharField(max_length=700, blank=False)
     location_state = models.CharField(max_length=100, blank=False, choices=STATES_AND_TERRITORIES)
+
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
