@@ -538,6 +538,14 @@ class ProtectedClassForm(ModelForm):
     class Meta:
         model = Report
         fields = ['protected_class', 'other_class']
+        widgets = {
+            'protected_class': UsaCheckboxSelectMultiple(attrs={
+                'aria-describedby': 'protected-class-help-text'
+            }),
+            'other_class': TextInput(
+            attrs={'class': 'usa-input word-count-10'}
+            ),
+        }
 
     # Overriding __init__ here allows us to provide initial data for 'protected_class' field
     def __init__(self, *args, **kwargs):
@@ -689,42 +697,72 @@ class ProForm(
 
     class Meta:
         model = Report
+
+        primary_complaint = TypedChoiceField(
+                error_messages={'required': PRIMARY_COMPLAINT_ERROR},
+                required=True,
+                label="",
+                choices=PRIMARY_COMPLAINT_CHOICES,
+                widget=UsaRadioSelect,
+            )
+
         fields = \
             Contact.Meta.fields +\
-            PrimaryReason.Meta.fields +\
             HateCrimesTrafficking.Meta.fields +\
-            ElectionLocation.Meta.fields +\
+            ['location_name', 'location_address_line_1', 'location_address_line_2',\
+                'location_city_town','location_state'] +\
+            ElectionLocation.Meta.election_fields +\
             WorkplaceLocation.Meta.workplace_fields +\
             CommercialPublicLocation.Meta.commercial_fields +\
             PoliceLocation.Meta.police_fields +\
             EducationLocation.Meta.education_fields +\
             ProtectedClassForm.Meta.fields +\
             When.Meta.fields +\
-            ['violation_summary']
+            ['violation_summary', 'primary_complaint']
         all_widgets = {}
 
         widget_list = [
             Contact.Meta.widgets,
             # replace with multi select
             HateCrimesTrafficking.Meta.widgets,
-            # LocationForm.Meta.widgets,
-            ElectionLocation.Meta.widgets,
-            WorkplaceLocation.Meta.widgets,
-            CommercialPublicLocation.Meta.widgets,
-            PoliceLocation.Meta.widgets,
-            EducationLocation.Meta.widgets,
-            # ProtectedClassForm - doesn't have separately defined widgets
+            # location widgets
+            {
+                'location_name': TextInput(attrs={
+                    'class': 'usa-input',
+                    'aria-describedby': 'location-help-text'
+                }),
+                'location_address_line_1': TextInput(attrs={
+                    'class': 'usa-input',
+                    'aria-describedby': 'location-help-text'
+                }),
+                'location_address_line_2': TextInput(attrs={
+                    'class': 'usa-input',
+                    'aria-describedby': 'location-help-text'
+                }),
+                'location_city_town': TextInput(attrs={
+                    'class': 'usa-input',
+                    'aria-describedby': 'location-help-text'
+                }),
+                'location_state': Select(attrs={
+                    'aria-describedby': 'location-help-text',
+                    'class': 'usa-select'
+                }),
+            },
+            {'election_details': UsaRadioSelect},
+            {'public_or_private_employer': UsaRadioSelect},
+            {'employer_size': UsaRadioSelect},
+            {'commercial_or_public_place': UsaRadioSelect},
+            {'other_commercial_or_public_place': UsaRadioSelect},
+            {'inside_correctional_facility': UsaRadioSelect},
+            {'correctional_facility_type': UsaRadioSelect},
+            {'public_or_private_school': UsaRadioSelect},
+            ProtectedClassForm.Meta.widgets,
             When.Meta.widgets,
+            {'primary_complaint': UsaRadioSelect},
         ]
         for widget in widget_list:
             all_widgets.update(widget)
         widgets = all_widgets
-
-        PrimaryReason.Meta.widgets['primary_complaint'] = TypedChoiceField(
-            choices=PRIMARY_REASON_QUESTION,
-            widget=UsaRadioSelect,
-            required=True,
-        )
 
 
 class Filters(ModelForm):

@@ -1,11 +1,17 @@
 {% extends "forms/report_base.html" %}
 
 {% block form_questions %}
+    <!-- renders correctly -->
     {% include "forms/question_cards/contact.html" %}
+    <!-- renders correctly -->
     {% include "forms/question_cards/single_form.html" with field=wizard.form.servicemember %}
-    <!-- replace with regular multiple select -->
+    <!-- replace with regular radio select -->
     {% include "forms/question_cards/single_form.html" with field=wizard.form.primary_complaint %}
+
     <!-- add location -->
+    {% include "forms/question_cards/location.html" %}
+
+
     <div class="crt-portal-card">
         <div class="crt-portal-card__content crt-portal-card__content--lg">
             {% include "forms/snippets/input.html" with field=wizard.form.election_details label_class=question_group.help_cls %}
@@ -24,9 +30,9 @@
     {% include "forms/question_cards/summary.html" with field=wizard.form.violation_summary %}
 
     <div class="crt-portal-card">
-
-
-<!--     <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre> -->
+        <div class="crt-portal-card__content crt-portal-card__content--lg">
+            <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre>
+        </div>
     </div>
 
 {% endblock %}
