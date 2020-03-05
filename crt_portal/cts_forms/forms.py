@@ -575,6 +575,7 @@ class ProtectedClassForm(ModelForm):
             )
         ]
 
+
 def date_cleaner(self, cleaned_data):
     day = cleaned_data.get('last_incident_day') or 1
 
