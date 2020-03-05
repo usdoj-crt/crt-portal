@@ -685,16 +685,15 @@ class ProForm(
     Contact,
     PrimaryReason,
     HateCrimesTrafficking,
-    ElectionLocation, # needs tempate
-    WorkplaceLocation, # needs tempate
+    ElectionLocation,
+    WorkplaceLocation,
     CommercialPublicLocation,
     PoliceLocation,
-    EducationLocation, # needs tempate
+    EducationLocation,
     ProtectedClassForm,
     When,
     Details,
 ):
-
     class Meta:
         model = Report
 
@@ -765,6 +764,11 @@ class ProForm(
         for widget in widget_list:
             all_widgets.update(widget)
         widgets = all_widgets
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+        Contact.__init__(self, *args, **kwargs)
+        When.__init__(self, *args, **kwargs)
 
 
 class Filters(ModelForm):
