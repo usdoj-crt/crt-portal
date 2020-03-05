@@ -23,7 +23,7 @@
       <div class="tablet:grid-col-10 tablet:grid-offset-1">
         <div aria-label="progress">
           <span class="usa-sr-only">
-            Current step: {{ current_step_name }}. Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}.
+            Current step: {{ current_step_name }}. Step {{ stage_number }} of {{ total_stages }}.
           </span>
           <ol class="steps">
             {% for step in ordered_step_names %}

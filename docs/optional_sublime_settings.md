@@ -31,6 +31,8 @@ sublime text
     SublimeLinter
     SublimeLinter-contrib-sass-lint
     SublimeLinter-pycodestyle
+    
+    follow instructions for pycodestyle. use "sudo pip3 install pycodestyle" as command line
 
 # Set linter setting:
 In the Sublime menu navigate to the sublime linter settings:
