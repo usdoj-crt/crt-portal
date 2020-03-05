@@ -543,7 +543,7 @@ class ProtectedClassForm(ModelForm):
                 'aria-describedby': 'protected-class-help-text'
             }),
             'other_class': TextInput(
-            attrs={'class': 'usa-input word-count-10'}
+                attrs={'class': 'usa-input word-count-10'}
             ),
         }
 
@@ -574,6 +574,46 @@ class ProtectedClassForm(ModelForm):
                 ally_id="protected-class-help-text"
             )
         ]
+
+def date_cleaner(self, cleaned_data):
+    day = cleaned_data.get('last_incident_day') or 1
+
+    if day > 31 or day < 1:
+        self.add_error('last_incident_day', ValidationError(
+            _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.')
+        ))
+
+    try:
+        year = cleaned_data['last_incident_year']
+        month = cleaned_data['last_incident_month']
+        test_date = datetime(year, month, day)
+        if test_date > datetime.now():
+            self.add_error('last_incident_year', ValidationError(
+                _('Date can not be in the future.'),
+                params={'value': test_date.strftime('%x')},
+            ))
+        if year < 100:
+            self.add_error('last_incident_year', ValidationError(
+                _('Please enter four digits for the year.'),
+                params={'value': test_date.strftime('%x')},
+            ))
+        if test_date < datetime(1899, 12, 31):
+            self.add_error('last_incident_year', ValidationError(
+                _('Please enter a year after 1900.'),
+                params={'value': test_date.strftime('%x')},
+            ))
+
+    except ValueError:
+        # a bit of a catch-all for all the ways people could make bad dates
+        self.add_error('last_incident_year', ValidationError(
+            _(f'Invalid date format {month}/{day}/{year}.'),
+            params={'value': f'{month}/{day}/{year}'},
+        ))
+    except KeyError:
+        # these will be caught by the built in error validation
+        return cleaned_data
+
+    return cleaned_data
 
 
 class When(ModelForm):
@@ -618,44 +658,7 @@ class When(ModelForm):
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
         cleaned_data = super(When, self).clean()
-        day = cleaned_data.get('last_incident_day') or 1
-
-        if day > 31 or day < 1:
-            self.add_error('last_incident_day', ValidationError(
-                _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.')
-            ))
-
-        try:
-            year = cleaned_data['last_incident_year']
-            month = cleaned_data['last_incident_month']
-            test_date = datetime(year, month, day)
-            if test_date > datetime.now():
-                self.add_error('last_incident_year', ValidationError(
-                    _('Date can not be in the future.'),
-                    params={'value': test_date.strftime('%x')},
-                ))
-            if year < 100:
-                self.add_error('last_incident_year', ValidationError(
-                    _('Please enter four digits for the year.'),
-                    params={'value': test_date.strftime('%x')},
-                ))
-            if test_date < datetime(1899, 12, 31):
-                self.add_error('last_incident_year', ValidationError(
-                    _('Please enter a year after 1900.'),
-                    params={'value': test_date.strftime('%x')},
-                ))
-
-        except ValueError:
-            # a bit of a catch-all for all the ways people could make bad dates
-            self.add_error('last_incident_year', ValidationError(
-                _(f'Invalid date format {month}/{day}/{year}.'),
-                params={'value': f'{month}/{day}/{year}'},
-            ))
-        except KeyError:
-            # these will be caught by the built in error validation
-            return cleaned_data
-
-        return cleaned_data
+        return date_cleaner(self, cleaned_data)
 
 
 class Review(ModelForm):
@@ -770,6 +773,36 @@ class ProForm(
         self.fields['last_incident_month'].label = DATE_QUESTIONS['last_incident_month']
         self.fields['last_incident_day'].label = DATE_QUESTIONS['last_incident_day']
         self.fields['last_incident_year'].label = DATE_QUESTIONS['last_incident_year']
+        self.fields['protected_class'] = ModelMultipleChoiceField(
+            error_messages={'required': PROTECTED_CLASS_ERROR},
+            required=False,
+            label="",
+            queryset=ProtectedClass.objects.filter(protected_class__in=PROTECTED_CLASS_CHOICES).order_by('form_order'),
+            widget=UsaCheckboxSelectMultiple(attrs={
+                'aria-describedby': 'protected-class-help-text'
+            }),
+        )
+        self.fields['election_details'] = TypedChoiceField(
+            choices=ELECTION_CHOICES,
+            empty_value=None,
+            widget=UsaRadioSelect,
+        )
+        self.fields['correctional_facility_type'] = TypedChoiceField(
+            choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+            widget=UsaRadioSelect,
+            required=False,
+            label=''
+        )
+        self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
+        self.label_suffix = ''
+        self.fields['violation_summary'].label = SUMMARY_QUESTION
+        self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
+        self.fields['violation_summary'].error_messages = {'required': VIOLATION_SUMMARY_ERROR}
+
+    def clean(self):
+        """Validating more than one field at a time can't be done in the model validation"""
+        cleaned_data = super(ProForm, self).clean()
+        return date_cleaner(self, cleaned_data)
 
 
 class Filters(ModelForm):

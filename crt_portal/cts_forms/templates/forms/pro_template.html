@@ -6,21 +6,24 @@
       class="usa-form"
       action=""
       method="post"
+      novalidate
 >
 {% endblock form_id %}
 
 {% block form_questions %}
 
-    {% include "forms/question_cards/contact.html" %}
+    {% include "forms/question_cards/contact.html" with card_title='Contact' %}
 
-    {% include "forms/question_cards/single_form.html" with field=wizard.form.servicemember %}
+    {% include "forms/question_cards/single_form.html" with field=wizard.form.servicemember card_title="Service Member" %}
 
-    {% include "forms/question_cards/single_form.html" with field=wizard.form.primary_complaint %}
+    {% include "forms/question_cards/single_form.html" with field=wizard.form.primary_complaint card_title="Primary Concern" %}
 
     {% include "forms/question_cards/single_form.html" with field=wizard.form.hatecrimes_trafficking %}
 
     <div class="crt-portal-card">
         <div class="crt-portal-card__content crt-portal-card__content--lg">
+            <h2>Follow up questions</h2>
+
             {% include "forms/snippets/input.html" with field=wizard.form.public_or_private_employer label_class=question_group.help_cls %}
             {% include "forms/snippets/input.html" with field=wizard.form.employer_size label_class=question_group.help_cls %}
             {% include "forms/snippets/input.html" with field=wizard.form.public_or_private_school label_class=question_group.help_cls %}
@@ -32,19 +35,12 @@
         </div>
     </div>
 
-    {% include "forms/question_cards/location.html" %}
+    {% include "forms/question_cards/location.html" with card_title="Location" %}
 
-    {% include "forms/question_cards/single_form.html" with field=wizard.form.protected_class %}
+    {% include "forms/question_cards/single_form.html" with field=wizard.form.protected_class card_title="Personal characteristics" %}
 
-    {% include "forms/question_cards/date.html" %}
+    {% include "forms/question_cards/date.html" with card_title="Date" %}
 
-    {% include "forms/question_cards/summary.html" with field=wizard.form.violation_summary %}
-
-
-    <div class="crt-portal-card">
-        <div class="crt-portal-card__content crt-portal-card__content--lg">
-            <!-- <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre> -->
-        </div>
-    </div>
+    {% include "forms/question_cards/summary.html" with field=wizard.form.violation_summary card_title="Intake summary" %}
 
 {% endblock %}

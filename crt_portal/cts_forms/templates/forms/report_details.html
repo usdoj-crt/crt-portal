@@ -1,31 +1,6 @@
 {% extends "forms/report_base.html" %}
 {% block form_questions %}
-	<div class="crt-portal-card">
-        <div class="crt-portal-card__content crt-portal-card__content--lg">
-            {{ block.super }}
-            {% for field in fields %}
 
-                <div class="margin-bottom-2">
-                <label
-                    for="{{ field.id_for_label }}"
-                    class="{{label_class}} margin-bottom-0"
-                >
-                    <span class="em-text display-block margin-bottom-1">{{ field.label }}</span>
-                {% if field.help_text %}
-                    <em>{{ field.help_text }}</em>
-                {% endif %}
-                </label>
+    {% include "forms/question_cards/summary.html" with field=wizard.form.violation_summary %}
 
-            </div>
-            <div class="margin-bottom-1">
-                {{ field|withInputError }}
-                {% if field.errors %}
-                    {% include "forms/snippets/error_alert.html" with errors=field.errors %}
-                {% endif %}
-            </div>
-
-                {% include "forms/word_counter.html" with word_limit=500 %}
-            {% endfor %}
-        </div>
-    </div>
 {% endblock %}

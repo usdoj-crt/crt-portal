@@ -1,28 +1,32 @@
-    <div class="crt-portal-card">
-        <div class="crt-portal-card__content crt-portal-card__content--lg">
-            {{ block.super }}
 
+<div class="crt-portal-card">
+    <div class="crt-portal-card__content crt-portal-card__content--lg">
+        {{ block.super }}
 
-            <div class="margin-bottom-2">
-            <label
-                for="{{ field.id_for_label }}"
-                class="{{label_class}} margin-bottom-0"
-            >
-                <span class="em-text display-block margin-bottom-1">{{ field.label }}</span>
-            {% if field.help_text %}
-                <em>{{ field.help_text }}</em>
-            {% endif %}
-            </label>
+        {% if card_title %}
+            <h2>{{ card_title }}</h2>
+        {% endif %}
 
+        <div id="primary-complaint-help-text">
+          <p class="em-text">
+            {{ field.label }}
+          </p>
+
+          {% if field.help_text %}
+            <div class="label-text">
+              <em class="help-text">
+                {{ field.help_text }}
+              </em>
+            </div>
+          {% endif %}
         </div>
-        <div class="margin-bottom-1">
-            {{ field|withInputError }}
-            {% if field.errors %}
-                {% include "forms/snippets/error_alert.html" with errors=field.errors %}
-            {% endif %}
-        </div>
 
-            {% include "forms/word_counter.html" with word_limit=500 %}
+        <div role="group" aria-labelledby="primary-complaint-help-text" class="question_primary_complaint margin-top-3">
+          {{ field }}
 
+          {% if field.errors %}
+            {% include "forms/snippets/error_alert.html" with errors=field.errors %}
+          {% endif %}
         </div>
     </div>
+</div>
