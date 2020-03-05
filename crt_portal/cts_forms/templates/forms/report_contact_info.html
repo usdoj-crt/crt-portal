@@ -10,6 +10,6 @@
 {% endblock %}
 
 {% block form_questions %}
-  {% include "forms/question_cards/contact.html" %}
+  {% include "forms/question_cards/contact.html" with card_title=current_step_title %}
   {% include "forms/question_cards/single_form.html" with field=wizard.form.servicemember %}
 {% endblock %}

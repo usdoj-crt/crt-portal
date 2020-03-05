@@ -24,18 +24,19 @@
         <div class="crt-portal-card__content crt-portal-card__content--lg">
             <h2>Follow up questions</h2>
 
-            {% include "forms/snippets/input.html" with field=wizard.form.public_or_private_employer label_class=question_group.help_cls %}
-            {% include "forms/snippets/input.html" with field=wizard.form.employer_size label_class=question_group.help_cls %}
-            {% include "forms/snippets/input.html" with field=wizard.form.public_or_private_school label_class=question_group.help_cls %}
-            {% include "forms/snippets/input.html" with field=wizard.form.election_details label_class=question_group.help_cls %}
-            {% include "forms/snippets/input.html" with field=wizard.form.inside_correctional_facility label_class=question_group.help_cls %}
-            {% include "forms/snippets/input.html" with field=wizard.form.correctional_facility_type label_class=question_group.help_cls %}
-            {% include "forms/snippets/input.html" with field=wizard.form.commercial_or_public_place label_class=question_group.help_cls %}
-            {% include "forms/snippets/input.html" with field=wizard.form.other_commercial_or_public_place label_class=question_group.help_cls %}
+            {% include "forms/question_cards/single_question.html" with field=wizard.form.public_or_private_employer label_class=question_group.help_cls %}
+            {% include "forms/question_cards/single_question.html" with field=wizard.form.employer_size label_class=question_group.help_cls %}
+            {% include "forms/question_cards/single_question.html" with field=wizard.form.public_or_private_school label_class=question_group.help_cls %}
+            {% include "forms/question_cards/single_question.html" with field=wizard.form.election_details label_class=question_group.help_cls %}
+            {% include "forms/question_cards/single_question.html" with field=wizard.form.inside_correctional_facility label_class=question_group.help_cls %}
+            {% include "forms/question_cards/single_question.html" with field=wizard.form.correctional_facility_type label_class=question_group.help_cls %}
+            {% include "forms/question_cards/single_question.html" with field=wizard.form.commercial_or_public_place label_class=question_group.help_cls %}
+            {% include "forms/question_cards/single_question.html" with field=wizard.form.other_commercial_or_public_place label_class=question_group.help_cls %}
+
         </div>
     </div>
 
-    {% include "forms/question_cards/location.html" with card_title="Location" %}
+    {% include "forms/question_cards/location.html" with card_title="Incident location" %}
 
     {% include "forms/question_cards/single_form.html" with field=wizard.form.protected_class card_title="Personal characteristics" %}
 
