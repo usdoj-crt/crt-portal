@@ -1,16 +1,16 @@
 from django.db import migrations, models
 
-from cts_forms.models import Report, ProtectedClass
-
-
 class Migration(migrations.Migration):
 
     dependencies = [
         ('cts_forms', '0046_update_primary_complaint'),
     ]
 
-    def retrieve_or_create_choices(*args, **defaults):
+    def retrieve_or_create_choices(apps, schema_editor):
         # remove other codes from "other" code from "Other", since codes are unique
+        Report = apps.get_model('cts_forms', 'Report')
+        ProtectedClass = apps.get_model('cts_forms', 'ProtectedClass')
+
         old_other = ProtectedClass.objects.get(code='Other')
         old_other.code = 'old'
         old_other.save()
@@ -23,9 +23,8 @@ class Migration(migrations.Migration):
         # pull records that need to be updated
         update_records = Report.objects.filter(protected_class__protected_class__in=['other', 'Other'])
         # loop through the records to add the correct relationship
-        if update_records.exists():
-            for record in update_records:
-                record.protected_class.add(real_other)
+        for record in update_records:
+            record.protected_class.add(real_other)
 
         # remove the incorrect "other" variants
         ProtectedClass.objects.get(protected_class='Other').delete()
