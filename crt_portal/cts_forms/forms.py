@@ -798,6 +798,12 @@ class ProForm(
         self.fields['violation_summary'].label = SUMMARY_QUESTION
         self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
         self.fields['violation_summary'].error_messages = {'required': VIOLATION_SUMMARY_ERROR}
+        self.fields['correctional_facility_type'] = TypedChoiceField(
+            choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+            widget=UsaRadioSelect,
+            required=False,
+            label=POLICE_QUESTIONS['correctional_facility_type']
+        )
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
