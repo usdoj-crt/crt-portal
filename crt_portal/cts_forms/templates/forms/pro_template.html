@@ -11,6 +11,7 @@
 {% endblock form_id %}
 
 {% block form_questions %}
+{{ block.super }}
 
     {% include "forms/question_cards/contact.html" with card_title='Contact' %}
 

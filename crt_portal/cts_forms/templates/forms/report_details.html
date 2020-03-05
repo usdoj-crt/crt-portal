@@ -1,6 +1,5 @@
 {% extends "forms/report_base.html" %}
+
 {% block form_questions %}
-
     {% include "forms/question_cards/summary.html" with field=wizard.form.violation_summary card_title=current_step_title %}
-
 {% endblock %}
