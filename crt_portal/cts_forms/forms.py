@@ -722,7 +722,6 @@ class ProForm(
         all_widgets = {}
         widget_list = [
             Contact.Meta.widgets,
-            # replace with multi select
             HateCrimesTrafficking.Meta.widgets,
             # location widgets
             {
@@ -768,7 +767,9 @@ class ProForm(
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
         Contact.__init__(self, *args, **kwargs)
-        When.__init__(self, *args, **kwargs)
+        self.fields['last_incident_month'].label = DATE_QUESTIONS['last_incident_month']
+        self.fields['last_incident_day'].label = DATE_QUESTIONS['last_incident_day']
+        self.fields['last_incident_year'].label = DATE_QUESTIONS['last_incident_year']
 
 
 class Filters(ModelForm):

@@ -183,15 +183,16 @@ class ProFormView(SessionWizardView):
         return 'forms/pro_template.html'
 
     # def get_context_data(self, form, **kwargs):
-    #     context = super(ProFormView, self).get_context_data(form=form, **kwargs)
-    #     field_errors = list(map(lambda field: field.errors, context['form']))
-    #     print(field_errors)
-    #     page_errors = [error for field in field_errors for error in field]
-    #     print(page_errors)
+    #     print(super(ProFormView, self).get_context_data(form=form, **kwargs))
+        # field_errors = list(map(lambda field: field.errors, context['form']))
+        # print(field_errors)
+        # page_errors = [error for field in field_errors for error in field]
+        # print(page_errors)
 
-    #     context.update({'field_errors': field_errors, 'page_errors': page_errors})
+        # context.update({'field_errors': field_errors, 'page_errors': page_errors})
 
     def done(self, form_list, form_dict, **kwargs):
+        print('🐍')
         form_data_dict = self.get_all_cleaned_data()
         m2m_protected_class = form_data_dict.pop('protected_class')
         m2m_hatecrime = form_data_dict.pop('hatecrimes_trafficking')
