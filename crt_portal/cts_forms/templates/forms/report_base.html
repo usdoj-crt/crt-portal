@@ -14,6 +14,7 @@
     <div class="grid-row grid-gap">
       <div class="tablet:grid-col-8 tablet:grid-offset-2">
         {% block page_info_card %}{% endblock %}
+        {% block form_id %}
         <form id="report-form"
               class="usa-form"
               action="/report/"
@@ -21,6 +22,7 @@
               {% if form_autocomplete_off %}autocomplete="off"{% endif %}
               {% if form_novalidate %}novalidate{% endif %}
         >
+        {% endblock form_id %}
           {% csrf_token %}
           {{ wizard.management_form }}
 

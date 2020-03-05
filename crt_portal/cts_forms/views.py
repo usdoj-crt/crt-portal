@@ -182,6 +182,40 @@ class ProFormView(SessionWizardView):
     def get_template_names(self):
         return 'forms/pro_template.html'
 
+    # def get_context_data(self, form, **kwargs):
+    #     context = super(ProFormView, self).get_context_data(form=form, **kwargs)
+    #     field_errors = list(map(lambda field: field.errors, context['form']))
+    #     print(field_errors)
+    #     page_errors = [error for field in field_errors for error in field]
+    #     print(page_errors)
+
+        # context.update({'field_errors': field_errors, 'page_errors': page_errors})
+
+    def done(self, form_list, form_dict, **kwargs):
+        print('-----------------::::::------------------')
+        form_data_dict = self.get_all_cleaned_data()
+        m2m_protected_class = form_data_dict.pop('protected_class')
+        m2m_hatecrime = form_data_dict.pop('hatecrimes_trafficking')
+        r = Report.objects.create(**form_data_dict)
+
+        # add a save feature for hatecrimes and trafficking question on primary reason page
+        # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
+        for protected in m2m_protected_class:
+            p = ProtectedClass.objects.get(protected_class=protected)
+            r.protected_class.add(p)
+
+        for option in m2m_hatecrime:
+            o = HateCrimesandTrafficking.objects.get(hatecrimes_trafficking_option=option)
+            r.hatecrimes_trafficking.add(o)
+
+        r.assigned_section = r.assign_section()
+        r.save()
+        # adding this back for the save page results
+        form_data_dict['protected_class'] = m2m_protected_class.values()
+        form_data_dict['hatecrimes_trafficking'] = m2m_hatecrime.values()
+
+        return render(self.request, 'forms/confirmation.html', {'data_dict': form_data_dict})
+
 
 TEMPLATES = [
     # Contact

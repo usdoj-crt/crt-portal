@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import IndexView, ShowView, ProFormView
-from .forms import ProForm
+from .forms import ProForm, Review
 
 app_name = 'crt_forms'
 

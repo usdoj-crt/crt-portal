@@ -699,18 +699,18 @@ class ProForm(
         model = Report
 
         primary_complaint = TypedChoiceField(
-                error_messages={'required': PRIMARY_COMPLAINT_ERROR},
-                required=True,
-                label="",
-                choices=PRIMARY_COMPLAINT_CHOICES,
-                widget=UsaRadioSelect,
-            )
+            error_messages={'required': PRIMARY_COMPLAINT_ERROR},
+            required=True,
+            label="",
+            choices=PRIMARY_COMPLAINT_CHOICES,
+            widget=UsaRadioSelect,
+        )
 
         fields = \
             Contact.Meta.fields +\
             HateCrimesTrafficking.Meta.fields +\
-            ['location_name', 'location_address_line_1', 'location_address_line_2',\
-                'location_city_town','location_state'] +\
+            ['location_name', 'location_address_line_1', 'location_address_line_2',
+                'location_city_town', 'location_state'] +\
             ElectionLocation.Meta.election_fields +\
             WorkplaceLocation.Meta.workplace_fields +\
             CommercialPublicLocation.Meta.commercial_fields +\
@@ -719,8 +719,8 @@ class ProForm(
             ProtectedClassForm.Meta.fields +\
             When.Meta.fields +\
             ['violation_summary', 'primary_complaint']
-        all_widgets = {}
 
+        all_widgets = {}
         widget_list = [
             Contact.Meta.widgets,
             # replace with multi select
@@ -752,7 +752,9 @@ class ProForm(
             {'public_or_private_employer': UsaRadioSelect},
             {'employer_size': UsaRadioSelect},
             {'commercial_or_public_place': UsaRadioSelect},
-            {'other_commercial_or_public_place': UsaRadioSelect},
+            {'other_commercial_or_public_place': TextInput(
+                attrs={'class': 'usa-input word-count-10'}
+            )},
             {'inside_correctional_facility': UsaRadioSelect},
             {'correctional_facility_type': UsaRadioSelect},
             {'public_or_private_school': UsaRadioSelect},

@@ -1,5 +1,14 @@
 {% extends "forms/report_base.html" %}
 
+{{ super }}
+{% block form_id %}
+<form id="report-form"
+      class="usa-form"
+      action=""
+      method="post"
+>
+{% endblock form_id %}
+
 {% block form_questions %}
     <!-- renders correctly -->
     {% include "forms/question_cards/contact.html" %}
@@ -9,8 +18,7 @@
     {% include "forms/question_cards/single_form.html" with field=wizard.form.primary_complaint %}
 
     <!-- add location -->
-    <!-- {% include "forms/question_cards/location.html" %} -->
-
+    {% include "forms/question_cards/location.html" %}
 
     <div class="crt-portal-card">
         <div class="crt-portal-card__content crt-portal-card__content--lg">
@@ -29,10 +37,11 @@
     {% include "forms/question_cards/date.html" %}
     {% include "forms/question_cards/summary.html" with field=wizard.form.violation_summary %}
 
+<!--
     <div class="crt-portal-card">
         <div class="crt-portal-card__content crt-portal-card__content--lg">
             <pre> {% filter force_escape %} {% debug %} {% endfilter %} </pre>
         </div>
-    </div>
+    </div> -->
 
 {% endblock %}
