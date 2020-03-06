@@ -208,20 +208,6 @@ PUBLIC_OR_PRIVATE_SCHOOL_CHOICES = (
 )
 PUBLIC_OR_PRIVATE_SCHOOL_DICT = dict(PUBLIC_OR_PRIVATE_SCHOOL_CHOICES)
 
-PUBLIC_OR_PRIVATE_FACILITY_CHOICES = (
-    ('state_local_facility', _('State or local facility')),
-    ('federal_facility', _('Federal facility')),
-    ('private_facility', _('Private facility')),
-    ('not_sure', _('Not sure')),
-)
-
-PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES = (
-    ('state_local_facility', _('State or local facility')),
-    ('federal_facility', _('Federal facility')),
-    ('private_facility', _('Private facility')),
-    ('not_sure', _('Not sure')),
-)
-
 WHO_FOR_CHOICES = (
     ('myself', _('I\'m reporting for myself')),
     ('another', _('I\'m reporting on behalf of another person')),
