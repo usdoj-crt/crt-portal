@@ -179,6 +179,10 @@ class ShowView(View):
 
 
 class ProFormView(SessionWizardView):
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
     def get_template_names(self):
         return 'forms/pro_template.html'
 
