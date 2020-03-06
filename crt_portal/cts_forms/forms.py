@@ -701,14 +701,6 @@ class ProForm(
     class Meta:
         model = Report
 
-        primary_complaint = TypedChoiceField(
-            error_messages={'required': PRIMARY_COMPLAINT_ERROR},
-            required=True,
-            label="",
-            choices=PRIMARY_COMPLAINT_CHOICES,
-            widget=UsaRadioSelect,
-        )
-
         fields = \
             Contact.Meta.fields +\
             HateCrimesTrafficking.Meta.fields +\
@@ -804,6 +796,13 @@ class ProForm(
             widget=UsaRadioSelect,
             required=False,
             label=POLICE_QUESTIONS['correctional_facility_type']
+        )
+        self.fields['primary_complaint'] = TypedChoiceField(
+            error_messages={'required': PRIMARY_COMPLAINT_ERROR},
+            required=True,
+            label=PRIMARY_REASON_QUESTION,
+            choices=PRIMARY_COMPLAINT_CHOICES,
+            widget=UsaRadioSelect,
         )
 
     def clean(self):
