@@ -690,7 +690,6 @@ class Review(ModelForm):
 
 class ProForm(
     Contact,
-    PrimaryReason,
     HateCrimesTrafficking,
     ElectionLocation,
     WorkplaceLocation,
@@ -699,7 +698,6 @@ class ProForm(
     EducationLocation,
     ProtectedClassForm,
     When,
-    Details,
 ):
     class Meta:
         model = Report
@@ -796,6 +794,7 @@ class ProForm(
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
+        Contact.__init__(self, *args, **kwargs)
         self.fields['intake_format'] = TypedChoiceField(
             choices=(
                 EMPTY_CHOICE,
@@ -803,10 +802,11 @@ class ProForm(
                 ('phone', 'phone'),
                 ('fax', 'fax'),
             ),
-            widget=Select,
+            widget=Select(attrs={
+                'class': 'usa-select',
+            }),
             required=False,
         )
-        Contact.__init__(self, *args, **kwargs)
         self.fields['servicemember'] = TypedChoiceField(
             choices=SERVICEMEMBER_CHOICES,
             label=SERVICEMEMBER_QUESTION,

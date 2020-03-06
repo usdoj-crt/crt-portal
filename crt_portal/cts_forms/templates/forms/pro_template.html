@@ -17,6 +17,7 @@
         <div class="crt-portal-card__content crt-portal-card__content--lg">
             <h2>Intake</h2>
             {% include "forms/question_cards/date.html" with question='CRT receipt date' month=wizard.form.crt_reciept_day day=wizard.form.crt_reciept_day year=wizard.form.crt_reciept_year %}
+
             {% include "forms/question_cards/single_question.html" with field=wizard.form.intake_format %}
         </div>
     </div>
@@ -59,7 +60,7 @@
     <div class="crt-portal-card">
         <div class="crt-portal-card__content crt-portal-card__content--lg">
             <h2>Date</h2>
-            {% include "forms/question_cards/date.html" with card_title='Date' month=wizard.form.last_incident_month day=wizard.form.last_incident_day year=wizard.form.last_incident_year help_text=wizard.form.help_text %}
+            {% include "forms/question_cards/date.html" with card_title='Date' question=wizard.form.date_question month=wizard.form.last_incident_month day=wizard.form.last_incident_day year=wizard.form.last_incident_year %}
         </div>
     </div>
 

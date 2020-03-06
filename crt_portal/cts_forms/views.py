@@ -454,7 +454,6 @@ class CRTReportWizard(SessionWizardView):
             form_data_dict['public_or_private_school'] = data_decode(
                 form_data_dict, PUBLIC_OR_PRIVATE_SCHOOL_DICT, 'public_or_private_school'
             )
-
             context.update({
                 'form_data_dict': form_data_dict,
                 'question': form.question_text,
@@ -480,7 +479,6 @@ class CRTReportWizard(SessionWizardView):
 
         r.assigned_section = r.assign_section()
         r.intake_format = 'web'
-        r.author = 'public'
         r.save()
         # adding this back for the save page results
         form_data_dict['protected_class'] = m2m_protected_class.values()
