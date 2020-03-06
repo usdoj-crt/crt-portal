@@ -1,5 +1,18 @@
 {% extends "forms/report_base.html" %}
 
 {% block form_questions %}
-  {% include "forms/question_cards/date.html" with card_title=current_step_title month=wizard.form.last_incident_month day=wizard.form.last_incident_day year=wizard.form.last_incident_year %}
+<div class="crt-portal-card">
+  <div class="crt-portal-card__content crt-portal-card__content--lg">
+    {% if page_errors %}
+      <section id="page-errors" class="display-none page-errors margin-bottom-2" role="alert" aria-live="assertive">
+          {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
+      </section>
+    {% endif %}
+
+    <h2>{{ current_step_title }}</h2>
+
+    {% include "forms/question_cards/date.html" with question=wizard.form.date_question month=wizard.form.last_incident_month day=wizard.form.last_incident_day year=wizard.form.last_incident_year help_text=wizard.form.help_text %}
+
+  </div>
+</div>
 {% endblock %}

@@ -314,3 +314,5 @@ INTAKE_FORMAT_CHOICES = (
     ('phone', 'phone'),
     ('fax', 'fax'),
 )
+
+INCIDENT_DATE_HELPTEXT = _('If this happened over a period of time or is still happening, please provide the most recent date. Please use the format MM/DD/YYYY.')

@@ -34,6 +34,7 @@ from .model_variables import (
     STATUS_CHOICES,
     EMPTY_CHOICE,
     INTAKE_FORMAT_CHOICES,
+    INCIDENT_DATE_HELPTEXT,
 )
 
 from .question_text import (
@@ -620,6 +621,7 @@ def date_cleaner(self, cleaned_data):
 
 class When(ModelForm):
     date_question = DATE_QUESTIONS['date_title']
+    help_text = INCIDENT_DATE_HELPTEXT
 
     class Meta:
         model = Report
