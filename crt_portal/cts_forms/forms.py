@@ -777,7 +777,7 @@ class ProForm(
         self.fields['protected_class'] = ModelMultipleChoiceField(
             error_messages={'required': PROTECTED_CLASS_ERROR},
             required=False,
-            label="",
+            label=PROTECTED_CLASS_QUESTION,
             queryset=ProtectedClass.objects.filter(protected_class__in=PROTECTED_CLASS_CHOICES).order_by('form_order'),
             widget=UsaCheckboxSelectMultiple(attrs={
                 'aria-describedby': 'protected-class-help-text'

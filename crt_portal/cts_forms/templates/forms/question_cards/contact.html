@@ -1,11 +1,11 @@
 <div class="crt-portal-card crt-portal-card">
   <div class="crt-portal-card__content crt-portal-card__content--lg">
-
     {% if page_errors %}
       <section id="page-errors" class="display-none page-errors margin-bottom-2" role="alert" aria-live="assertive">
         {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
       </section>
     {% endif %}
+
     <h2>{{ card_title }}</h2>
 
     {% include 'forms/grouped_questions.html' %}
