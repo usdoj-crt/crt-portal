@@ -13,6 +13,8 @@
 {% block form_questions %}
 {{ block.super }}
 
+    {% include "forms/question_cards/single_form.html" with field=wizard.form.intake_format %}
+
     {% include "forms/question_cards/contact.html" with card_title='Contact' %}
 
     {% include "forms/question_cards/single_form.html" with field=wizard.form.servicemember card_title="Service Member" %}
@@ -48,7 +50,9 @@
         </div>
     </div>
 
-    {% include "forms/question_cards/date.html" with card_title="Date" %}
+    {% include "forms/question_cards/date.html" with card_title='Date' month=wizard.form.last_incident_month day=wizard.form.last_incident_day year=wizard.form.last_incident_year %}
+
+    {% include "forms/question_cards/date.html" with card_title='CRT receipt date' month=wizard.form.crt_reciept_day day=wizard.form.crt_reciept_day year=wizard.form.crt_reciept_year %}
 
     {% include "forms/question_cards/summary.html" with field=wizard.form.violation_summary card_title="Intake summary" %}
 

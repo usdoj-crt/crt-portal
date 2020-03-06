@@ -479,6 +479,8 @@ class CRTReportWizard(SessionWizardView):
             r.hatecrimes_trafficking.add(o)
 
         r.assigned_section = r.assign_section()
+        r.intake_format = 'web'
+        r.author = 'public'
         r.save()
         # adding this back for the save page results
         form_data_dict['protected_class'] = m2m_protected_class.values()

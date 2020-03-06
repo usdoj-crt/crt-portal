@@ -32,7 +32,8 @@ from .model_variables import (
     COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
     PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
     STATUS_CHOICES,
-    EMPTY_CHOICE
+    EMPTY_CHOICE,
+    INTAKE_FORMAT_CHOICES,
 )
 
 from .question_text import (
@@ -634,7 +635,7 @@ class When(ModelForm):
                 'type': 'number',
                 'min': 0
             }),
-            'last_incident_year': EmailInput(attrs={
+            'last_incident_year': TextInput(attrs={
                 'class': 'usa-input usa-input--medium',
                 'required': True,
                 'type': 'number',
@@ -702,7 +703,9 @@ class ProForm(
         model = Report
 
         fields = \
+            ['intake_format'] +\
             Contact.Meta.fields +\
+            ['primary_complaint'] +\
             HateCrimesTrafficking.Meta.fields +\
             ['location_name', 'location_address_line_1', 'location_address_line_2',
                 'location_city_town', 'location_state'] +\
@@ -713,9 +716,11 @@ class ProForm(
             EducationLocation.Meta.education_fields +\
             ProtectedClassForm.Meta.fields +\
             When.Meta.fields +\
-            ['violation_summary', 'primary_complaint']
+            ['crt_reciept_month', 'crt_reciept_day', 'crt_reciept_year'] +\
+            ['violation_summary']
 
         all_widgets = {}
+
         widget_list = [
             Contact.Meta.widgets,
             HateCrimesTrafficking.Meta.widgets,
@@ -742,19 +747,46 @@ class ProForm(
                     'class': 'usa-select'
                 }),
             },
-            {'election_details': UsaRadioSelect},
-            {'public_or_private_employer': UsaRadioSelect},
-            {'employer_size': UsaRadioSelect},
-            {'commercial_or_public_place': UsaRadioSelect},
             {'other_commercial_or_public_place': TextInput(
                 attrs={'class': 'usa-input word-count-10'}
             )},
-            {'inside_correctional_facility': UsaRadioSelect},
-            {'correctional_facility_type': UsaRadioSelect},
-            {'public_or_private_school': UsaRadioSelect},
-            ProtectedClassForm.Meta.widgets,
             When.Meta.widgets,
-            {'primary_complaint': UsaRadioSelect},
+            {
+                'last_incident_month': TextInput(attrs={
+                    'class': 'usa-input usa-input--small',
+                    'type': 'number',
+                    'required': False,
+                }),
+                'last_incident_day': TextInput(attrs={
+                    'class': 'usa-input usa-input--small',
+                    'type': 'number',
+                    'min': 0,
+                    'required': False,
+                }),
+                'last_incident_year': TextInput(attrs={
+                    'class': 'usa-input usa-input--medium',
+                    'type': 'number',
+                    'required': False,
+                }),
+            },
+            {
+                'crt_reciept_month': TextInput(attrs={
+                    'class': 'usa-input usa-input--small',
+                    'type': 'number',
+                    'required': False,
+                }),
+                'crt_reciept_day': TextInput(attrs={
+                    'class': 'usa-input usa-input--small',
+                    'type': 'number',
+                    'min': 0,
+                    'required': False,
+                }),
+                'crt_reciept_year': TextInput(attrs={
+                    'class': 'usa-input usa-input--medium',
+                    'type': 'number',
+                    'required': False,
+                }),
+            },
         ]
         for widget in widget_list:
             all_widgets.update(widget)
@@ -762,10 +794,75 @@ class ProForm(
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
+        self.fields['intake_format'] = TypedChoiceField(
+            choices=(
+                EMPTY_CHOICE,
+                ('letter', 'letter'),
+                ('phone', 'phone'),
+                ('fax', 'fax'),
+            ),
+            widget=Select,
+            required=False,
+        )
         Contact.__init__(self, *args, **kwargs)
-        self.fields['last_incident_month'].label = DATE_QUESTIONS['last_incident_month']
-        self.fields['last_incident_day'].label = DATE_QUESTIONS['last_incident_day']
-        self.fields['last_incident_year'].label = DATE_QUESTIONS['last_incident_year']
+        self.fields['servicemember'] = TypedChoiceField(
+            choices=SERVICEMEMBER_CHOICES,
+            label=SERVICEMEMBER_QUESTION,
+            empty_value=None,
+            widget=UsaRadioSelect,
+            required=False,
+        )
+        self.fields['primary_complaint'] = TypedChoiceField(
+            choices=PRIMARY_COMPLAINT_CHOICES,
+            error_messages={'required': PRIMARY_COMPLAINT_ERROR},
+            label=PRIMARY_REASON_QUESTION,
+            widget=UsaRadioSelect,
+            required=True,
+        )
+        # hate crimes
+        self.fields['public_or_private_employer'] = TypedChoiceField(
+            choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
+            empty_value=None,
+            widget=UsaRadioSelect,
+            required=False,
+        )
+        self.fields['employer_size'] = TypedChoiceField(
+            choices=EMPLOYER_SIZE_CHOICES,
+            empty_value=None,
+            widget=UsaRadioSelect,
+            required=False,
+        )
+        self.fields['public_or_private_school'] = TypedChoiceField(
+            choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
+            empty_value=None,
+            widget=UsaRadioSelect,
+            required=False,
+        )
+        self.fields['election_details'] = TypedChoiceField(
+            choices=ELECTION_CHOICES,
+            empty_value=None,
+            widget=UsaRadioSelect,
+            required=False,
+        )
+        self.fields['inside_correctional_facility'] = TypedChoiceField(
+            choices=CORRECTIONAL_FACILITY_LOCATION_CHOICES,
+            empty_value=None,
+            widget=UsaRadioSelect,
+            required=False,
+        )
+        self.fields['correctional_facility_type'] = TypedChoiceField(
+            choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+            widget=UsaRadioSelect,
+            required=False,
+            label=POLICE_QUESTIONS['correctional_facility_type']
+        )
+        self.fields['commercial_or_public_place'] = TypedChoiceField(
+            choices=COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
+            empty_value=None,
+            widget=UsaRadioSelect,
+            required=False,
+        )
+        # incident location
         self.fields['protected_class'] = ModelMultipleChoiceField(
             error_messages={'required': PROTECTED_CLASS_ERROR},
             required=False,
@@ -775,40 +872,26 @@ class ProForm(
                 'aria-describedby': 'protected-class-help-text'
             }),
         )
-        self.fields['election_details'] = TypedChoiceField(
-            choices=ELECTION_CHOICES,
-            empty_value=None,
-            widget=UsaRadioSelect,
-        )
-        self.fields['correctional_facility_type'] = TypedChoiceField(
-            choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
-            widget=UsaRadioSelect,
-            required=False,
-            label=''
-        )
+        self.fields['last_incident_day'].label = DATE_QUESTIONS['last_incident_day']
+        self.fields['last_incident_month'].label = DATE_QUESTIONS['last_incident_month']
+        self.fields['last_incident_year'].label = DATE_QUESTIONS['last_incident_year']
+
+        self.fields['crt_reciept_day'].label = DATE_QUESTIONS['last_incident_day']
+        self.fields['crt_reciept_month'].label = DATE_QUESTIONS['last_incident_month']
+        self.fields['crt_reciept_year'].label = DATE_QUESTIONS['last_incident_year']
+
         self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
         self.label_suffix = ''
         self.fields['violation_summary'].label = SUMMARY_QUESTION
         self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
-        self.fields['violation_summary'].error_messages = {'required': VIOLATION_SUMMARY_ERROR}
-        self.fields['correctional_facility_type'] = TypedChoiceField(
-            choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
-            widget=UsaRadioSelect,
-            required=False,
-            label=POLICE_QUESTIONS['correctional_facility_type']
-        )
-        self.fields['primary_complaint'] = TypedChoiceField(
-            error_messages={'required': PRIMARY_COMPLAINT_ERROR},
-            required=True,
-            label=PRIMARY_REASON_QUESTION,
-            choices=PRIMARY_COMPLAINT_CHOICES,
-            widget=UsaRadioSelect,
-        )
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
         cleaned_data = super(ProForm, self).clean()
-        return date_cleaner(self, cleaned_data)
+        if cleaned_data['last_incident_year'] is not None and cleaned_data['last_incident_month'] is not None:
+            return date_cleaner(self, cleaned_data)
+        else:
+            return cleaned_data
 
 
 class Filters(ModelForm):
