@@ -723,6 +723,9 @@ class ProForm(
         widget_list = [
             Contact.Meta.widgets,
             HateCrimesTrafficking.Meta.widgets,
+            {'other_class': TextInput(attrs={
+                'class': 'usa-input',
+            })},
             # location widgets
             {
                 'location_name': TextInput(attrs={
@@ -747,7 +750,7 @@ class ProForm(
                 }),
             },
             {'other_commercial_or_public_place': TextInput(
-                attrs={'class': 'usa-input word-count-10'}
+                attrs={'class': 'usa-input'}
             )},
             When.Meta.widgets,
             {
@@ -885,6 +888,7 @@ class ProForm(
         self.label_suffix = ''
         self.fields['violation_summary'].label = SUMMARY_QUESTION
         self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
+        self.fields['violation_summary'].help_text = 'What did the person believe happened?'
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""

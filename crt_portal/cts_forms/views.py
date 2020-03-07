@@ -192,7 +192,30 @@ class ProFormView(SessionWizardView):
         field_errors = list(map(lambda field: field.errors, context['form']))
         page_errors = [error for field in field_errors for error in field]
 
-        context.update({'field_errors': field_errors, 'page_errors': page_errors})
+        # internal use only
+        ordered_step_names = [
+            'Intake',
+            'Contact',
+            'Service member',
+            'Primary concern',
+            'Follow up',
+            'Location',
+            'Personal characteristics',
+            'Date',
+            'Summary',
+        ]
+
+        context.update({
+            'field_errors': field_errors,
+            'page_errors': page_errors,
+            'word_count_text': {
+                'wordRemainingText': _('word remaining'),
+                'wordsRemainingText': _(' words remaining'),
+                'wordLimitReachedText': _(' word limit reached'),
+            },
+            'ordered_step_names': ordered_step_names,
+            'stage_link': True,
+        })
 
         return context
 

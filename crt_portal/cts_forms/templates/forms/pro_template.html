@@ -12,51 +12,62 @@
 
 {% block form_questions %}
 {{ block.super }}
-
-     <div class="crt-portal-card">
+    <a name="Intake"></a>
+    <div class="crt-portal-card">
         <div class="crt-portal-card__content crt-portal-card__content--lg">
+            <a name="Intake"></a>
             <h2>Intake</h2>
-            {% include "forms/question_cards/date.html" with question='CRT receipt date' month=wizard.form.crt_reciept_day day=wizard.form.crt_reciept_day year=wizard.form.crt_reciept_year %}
+            {% include "forms/question_cards/date.html" with question='CRT receipt date' month=wizard.form.crt_reciept_month day=wizard.form.crt_reciept_day year=wizard.form.crt_reciept_year %}
 
             {% include "forms/question_cards/single_question.html" with field=wizard.form.intake_format %}
         </div>
     </div>
-
+    <a name="Contact"></a>
     {% include "forms/question_cards/contact.html" with card_title='Contact' %}
 
-    {% include "forms/question_cards/single_form.html" with field=wizard.form.servicemember card_title="Service Member" %}
+    <a name="Service member"></a>
+    {% include "forms/question_cards/single_form.html" with field=wizard.form.servicemember card_title="Service member" %}
 
-    {% include "forms/question_cards/single_form.html" with field=wizard.form.primary_complaint card_title="Primary Concern" %}
+    <a name="Primary concern"></a>
+    {% include "forms/question_cards/single_form.html" with field=wizard.form.primary_complaint card_title="Primary concern" %}
 
     {% include "forms/question_cards/single_form.html" with field=wizard.form.hatecrimes_trafficking %}
 
+    <a name="Follow up"></a>
     <div class="crt-portal-card">
         <div class="crt-portal-card__content crt-portal-card__content--lg">
             <h2>Follow up questions</h2>
 
             {% include "forms/question_cards/single_question.html" with field=wizard.form.public_or_private_employer label_class=question_group.help_cls %}
+
             {% include "forms/question_cards/single_question.html" with field=wizard.form.employer_size label_class=question_group.help_cls %}
             {% include "forms/question_cards/single_question.html" with field=wizard.form.public_or_private_school label_class=question_group.help_cls %}
+
             {% include "forms/question_cards/single_question.html" with field=wizard.form.election_details label_class=question_group.help_cls %}
             {% include "forms/question_cards/single_question.html" with field=wizard.form.inside_correctional_facility label_class=question_group.help_cls %}
-            {% include "forms/question_cards/single_question.html" with field=wizard.form.correctional_facility_type label_class=question_group.help_cls %}
-            {% include "forms/question_cards/single_question.html" with field=wizard.form.commercial_or_public_place label_class=question_group.help_cls %}
-            {% include "forms/question_cards/single_question.html" with field=wizard.form.other_commercial_or_public_place label_class=question_group.help_cls %}
 
+            {% include "forms/question_cards/single_question.html" with field=wizard.form.correctional_facility_type label_class=question_group.help_cls %}
+
+            {% include "forms/question_cards/single_question.html" with field=wizard.form.commercial_or_public_place label_class=question_group.help_cls %}
+
+            {% include "forms/question_cards/single_question.html" with field=wizard.form.other_commercial_or_public_place label_class=question_group.help_cls %}
         </div>
     </div>
 
+    <a name="Location"></a>
     {% include "forms/question_cards/location.html" with card_title="Incident location" %}
 
-
+    <a name="Personal characteristics"></a>
     <div class="crt-portal-card">
         <div class="crt-portal-card__content crt-portal-card__content--lg">
             <h2>Personal characteristics</h2>
             {% include "forms/question_cards/single_question.html" with field=wizard.form.protected_class card_title="Personal characteristics" %}
+
             {% include "forms/question_cards/single_question.html" with field=wizard.form.other_class card_title="Personal characteristics" %}
         </div>
     </div>
 
+    <a name="Date"></a>
     <div class="crt-portal-card">
         <div class="crt-portal-card__content crt-portal-card__content--lg">
             <h2>Date</h2>
@@ -64,6 +75,13 @@
         </div>
     </div>
 
-    {% include "forms/question_cards/summary.html" with field=wizard.form.violation_summary card_title="Intake summary" %}
+    <a name="Summary"></a>
+      <div class="crt-portal-card">
+        <div class="crt-portal-card__content crt-portal-card__content--lg">
+            <h2>Intake summary</h2>
+            {% include "forms/question_cards/single_question.html" with field=wizard.form.violation_summary card_title="Intake summary" %}
+            {% include "forms/word_counter.html" with word_limit=500 %}
+        </div>
+    </div>
 
 {% endblock %}
