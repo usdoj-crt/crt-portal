@@ -31,6 +31,7 @@ from ..forms import (
     EducationLocation,
     PoliceLocation,
     When,
+    ProForm,
 )
 from .test_data import SAMPLE_REPORT
 
@@ -866,6 +867,17 @@ class Complaint_Update_Tests(TestCase):
         self.assertTrue(response.context['data'].assigned_section == 'VOT')
 
 
+class ProFormTest(TestCase):
+    def test_not_required_fields(self):
+        form = ProForm(data={})
+        self.assertFalse(form.is_valid())
+        self.assertEquals(
+            form.errors,
+            {'primary_complaint': ['Please select a primary reason to continue.']}
+        )
+
+
+
 class LoginRequiredTests(TestCase):
     """Please add a test for each url that is tied to a view that requires authorization/authentication."""
 
@@ -892,6 +904,10 @@ class LoginRequiredTests(TestCase):
         response = self.client.get(reverse('crt_forms:crt-forms-index'))
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/accounts/login/?next=/form/view/')
+
+        response = self.client.get(reverse('crt_forms:crt-pro-form'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/accounts/login/?next=/form/new/')
 
     def test_view_report_details_authenticated(self):
         self.client.login(username='DELETE_USER', password=self.test_pass)
@@ -920,7 +936,7 @@ class LoginRequiredTests(TestCase):
             self.user2_pk = copy.copy(self.user2.pk)
             self.user2.delete()
 
-            create = 'cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User saved: {pk} permissions: <QuerySet []> staff: False superuser: False active: True'.format(pk=self.user2_pk)
+            create = 'cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User created: {pk} permissions: <QuerySet []> staff: False superuser: False active: True'.format(pk=self.user2_pk)
             self.assertEqual(
                 cm.check_present(
                     (create)
