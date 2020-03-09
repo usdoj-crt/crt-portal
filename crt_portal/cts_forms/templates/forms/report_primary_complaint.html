@@ -2,6 +2,8 @@
 {% load static %}
 
 {% block form_questions %}
+  {{ block.super }}
+
   {% include "forms/question_cards/primary_complaint.html" with card_title=current_step_title %}
 {% endblock %}
 

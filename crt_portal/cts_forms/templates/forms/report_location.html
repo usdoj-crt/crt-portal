@@ -13,29 +13,6 @@
       {% endif %}
 
       {% include 'forms/grouped_questions.html' %}
-
-      {% with city=wizard.form.location_city_town state=wizard.form.location_state %}
-        <div class="grid-row grid-gap margin-top-3">
-          <div class="mobile-lg:grid-col-8">
-            <label for="{{city.id_for_label}}">
-              {{ city.label }}
-            </label>
-            {{city|withInputError}}
-          </div>
-          <div class="mobile-lg:grid-col-4">
-            <label for="{{state.id_for_label}}">
-              {{state.label}}
-            </label>
-            {{state|withInputError}}
-          </div>
-        </div>
-        {% if city.errors %}
-          {% include "forms/snippets/error_alert.html" with errors=city.errors %}
-        {% endif %}
-        {% if state.errors %}
-          {% include "forms/snippets/error_alert.html" with errors=state.errors %}
-        {% endif %}
-      {% endwith %}
     </div>
   </div>
 {% endblock %}

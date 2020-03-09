@@ -10,6 +10,14 @@
 {% endblock %}
 
 {% block form_questions %}
-  {% include "forms/question_cards/contact.html" with card_title=current_step_title %}
-  {% include "forms/question_cards/single_form.html" with field=wizard.form.servicemember %}
+<div class="crt-portal-card crt-portal-card">
+  <div class="crt-portal-card__content crt-portal-card__content--lg">
+    {{ block.super }}
+
+    {% include "forms/question_cards/contact.html" %}
+  </div>
+</div>
+
+{% include "forms/question_cards/single_form.html" with field=wizard.form.servicemember %}
+
 {% endblock %}
