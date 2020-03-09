@@ -6,7 +6,10 @@
               {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
             </section>
           {% endif %}
-          <h2>{{ card_title }}</h2>
+
+          {% if card_title %}
+            <h2>{{ card_title }}</h2>
+          {% endif %}
 
           {% if field.label %}
             <h3><label
