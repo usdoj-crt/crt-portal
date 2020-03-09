@@ -11,9 +11,14 @@
 {% endblock form_id %}
 
 {% block form_questions %}
-{{ block.super }}
+  <div class="crt-portal-card">
+    {% if page_errors %}
+      <section id="page-errors" class="display-none page-errors margin-bottom-2" role="alert" aria-live="assertive">
+        {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
+      </section>
+    {% endif %}
+
     <a name="Intake"></a>
-    <div class="crt-portal-card">
         <div class="crt-portal-card__content crt-portal-card__content--lg">
             <a name="Intake"></a>
             <h2>Intake</h2>
