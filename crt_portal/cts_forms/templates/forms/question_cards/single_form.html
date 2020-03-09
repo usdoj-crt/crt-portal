@@ -8,11 +8,12 @@
           {% if field.label %}
             <h3><label
               for="{{ field.id_for_label }}"
-              class="{{label_class}} margin-bottom-0"
+              class="{{label_class}}"
+              style="line-height:1.25"
             >
               {{ field.label }}
               {% if field.field.required != True %}<em>(Optional)</em>{% endif %}
-              <!-- only used on the backed for now -->
+              <!-- only used on the back end for now -->
               {% if required %} <span class="text-secondary">*required</span>{% endif %}
             </label></h3>
           {% endif %}
