@@ -40,7 +40,7 @@
 {% include "forms/question_cards/single_form.html" with field=wizard.form.servicemember card_title="Service member" %}
 
 <a name="Primary concern"></a>
-{% include "forms/question_cards/single_form.html" with field=wizard.form.primary_complaint card_title="Primary concern" %}
+{% include "forms/question_cards/single_form.html" with field=wizard.form.primary_complaint card_title="Primary concern" required=True %}
 
 {% include "forms/question_cards/single_form.html" with field=wizard.form.hatecrimes_trafficking %}
 

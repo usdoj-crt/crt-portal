@@ -7,7 +7,7 @@ from django.core.paginator import Paginator
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import gettext_lazy as _
 from django.utils.decorators import method_decorator
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.views.generic import View
 from django import forms
 
@@ -243,7 +243,7 @@ class ProFormView(SessionWizardView):
         form_data_dict['protected_class'] = m2m_protected_class.values()
         form_data_dict['hatecrimes_trafficking'] = m2m_hatecrime.values()
 
-        return render(self.request, 'forms/confirmation.html', {'data_dict': form_data_dict})
+        return HttpResponseRedirect(f'/form/view/{r.pk}')
 
 
 TEMPLATES = [
