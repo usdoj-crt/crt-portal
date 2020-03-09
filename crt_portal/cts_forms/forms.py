@@ -803,6 +803,7 @@ class ProForm(
                 ('letter', 'letter'),
                 ('phone', 'phone'),
                 ('fax', 'fax'),
+                ('email', 'email'),
             ),
             widget=Select(attrs={
                 'class': 'usa-select',
