@@ -806,7 +806,7 @@ class ProForm(
                 ('email', 'email'),
             ),
             widget=Select(attrs={
-                'class': 'usa-select',
+                'class': 'usa-select mobile-lg:grid-col-7',
             }),
             required=False,
         )
