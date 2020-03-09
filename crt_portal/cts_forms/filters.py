@@ -1,6 +1,7 @@
 # Class to handle filtering Reports by supplied query params,
 # provided they are valid filterable model properties.
 import datetime
+import re
 
 from .models import Report
 
@@ -22,6 +23,7 @@ filter_options = {
     'location_address_line_2': '__search',
     'create_date_start': '__gte',
     'create_date_end': '__lte',
+    'public_id': '__contains',
 }
 
 
@@ -48,6 +50,10 @@ def report_filter(request):
                 month = int(request.GET.getlist(field)[0][4:6])
                 day = int(request.GET.getlist(field)[0][6:])
                 kwargs[f'create_date{filter_options[field]}'] = datetime.date(year, month, day)
+
+    # removing dashes spaces etc that might interfere with search
+    if 'public_id__icontains' in kwargs:
+        kwargs['public_id__icontains'] = re.sub(r'\W+', '', kwargs['public_id__icontains'])
 
     # returns a filtered query, and a dictionary that we can use to keep track of the filters we apply
     return Report.objects.filter(**kwargs), filters

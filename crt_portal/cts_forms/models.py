@@ -125,6 +125,7 @@ class Report(models.Model):
     internal_comments = models.ManyToManyField(InternalHistory, blank=True)
 
     # Metadata
+    public_id = models.CharField(max_length=100, null=False, blank=False)
     create_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
     crt_reciept_year = models.PositiveIntegerField(MaxValueValidator(datetime.now().year), null=True, blank=True)

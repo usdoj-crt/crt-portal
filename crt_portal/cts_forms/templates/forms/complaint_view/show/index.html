@@ -1,7 +1,7 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% load static %}
 
-{% block content %}      
+{% block content %}
   <div class="complaint-show-body">
     <div class="grid-container-widescreen">
       <div class="grid-row margin-bottom-1">
@@ -14,7 +14,7 @@
           </div>
           <div class="display-flex flex-align-center details-id">
             <h2 class="margin-right-205 margin-top-0 margin-bottom-0">
-              ID: {{data.id}} 
+              ID: {{ data.public_id|slice:":-3" }}-{{ data.public_id|slice:"-3:" }}
             </h2>
             <span class="status-tag status-{{data.status}} margin-top-05">
               {{ data.status }}

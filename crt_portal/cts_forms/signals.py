@@ -2,6 +2,7 @@
 inspired by https://www.algotech.solutions/blog/python/using-django-signals-for-database-logging/
 """
 import logging
+import random
 
 from crequest.middleware import CrequestMiddleware
 
@@ -85,12 +86,19 @@ def add_author(sender, instance, **kwargs):
     instance.author = author
 
 
+def salt():
+    # adding some non-ambiguous characters to salt the public id
+    characters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    return ''.join(random.choice(characters) for x in range(3))
+
+
 @receiver(post_save, sender=Report)
 def add_author_forms(sender, instance, created, **kwargs):
     if created:
         current_request = CrequestMiddleware.get_request()
         author = current_request.user.username if current_request else 'public user'
         instance.author = author
+        instance.public_id = f'{instance.pk}' + salt()
 
 
 @receiver(post_save, sender=Report)
