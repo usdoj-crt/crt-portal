@@ -133,8 +133,6 @@ class Valid_CRT_view_Tests(TestCase):
         self.user.delete()
 
     def test_incident_date(self):
-        print(self.content)
-        print(self.test_report.last_incident_day)
         self.assertTrue('1/1/2020' in self.content)
 
     def test_first_name(self):
@@ -690,7 +688,7 @@ class Validation_Form_Tests(TestCase):
     def test_commercial_public_place(self):
         location_data = {
             'location_name': 'Street',
-            'location_city_town': 'Nome',
+            'location_city_town': 'None',
             'location_state': 'AK',
         }
 
@@ -722,7 +720,7 @@ class Validation_Form_Tests(TestCase):
     def test_correctional_facility(self):
         location_data = {
             'location_name': 'Street',
-            'location_city_town': 'Nome',
+            'location_city_town': 'None',
             'location_state': 'AK',
         }
 
@@ -858,7 +856,6 @@ class Complaint_Update_Tests(TestCase):
     def test_update_status_property(self):
         self.assertTrue(self.test_report.status == 'new')
         response = self.client.post(reverse('crt_forms:crt-forms-show', kwargs={'id': self.test_report.id}), {'status': 'open'})
-        print(response.context)
         self.assertTrue(response.context['data'].status == 'open')
 
     def test_update_assigned_section_property(self):
@@ -868,7 +865,7 @@ class Complaint_Update_Tests(TestCase):
 
 
 class ProFormTest(TestCase):
-    def test_not_required_fields(self):
+    def test_required_fields(self):
         form = ProForm(data={})
         self.assertFalse(form.is_valid())
         self.assertEquals(
@@ -876,6 +873,34 @@ class ProFormTest(TestCase):
             {'primary_complaint': ['Please select a primary reason to continue.']}
         )
 
+    def test_full_example(self):
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data.update({
+            'contact_address_line_1': '123',
+            'contact_address_line_2': 'Apt 234',
+            'contact_city': 'test',
+            'contact_state': 'CA',
+            'contact_zip': '92886',
+            'servicemember': 'no',
+            'primary_complaint': PRIMARY_COMPLAINT_CHOICES[1][0],
+            'location_address_line_1': '12',
+            'location_address_line_2': 'apt b',
+            'election_details': 'federal',
+            'inside_correctional_facility': 'inside',
+            'correctional_facility_type': 'state_local',
+            'commercial_or_public_place': 'place_of_worship',
+            'other_commercial_or_public_place': 'a castle',
+            'public_or_private_school': 'private',
+            'last_incident_year': 2020,
+            'last_incident_day': 2,
+            'last_incident_month': 2,
+            'crt_reciept_year': 2020,
+            'crt_reciept_day': 2,
+            'crt_reciept_month': 2,
+            'intake_format': 'phone',
+        })
+        form = ProForm(data=data)
+        self.assertTrue(form.is_valid())
 
 
 class LoginRequiredTests(TestCase):
