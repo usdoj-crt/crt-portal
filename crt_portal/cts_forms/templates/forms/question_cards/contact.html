@@ -3,7 +3,7 @@
 {% endif %}
 
 {% include 'forms/grouped_questions.html' %}
-{% with city=wizard.form.contact_city state=wizard.form.contact_state zip=wizard.form.contact_zip %}
+{% with city=form.contact_city state=form.contact_state zip=form.contact_zip %}
   <div class="padding-top-2">
     <div class="grid-row grid-gap margin-y-neg-3 margin-top-1 margin-bottom-4">
       <div class="mobile-lg:grid-col-8">
