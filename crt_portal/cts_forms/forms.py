@@ -894,7 +894,7 @@ class ProForm(
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
         cleaned_data = super(ProForm, self).clean()
-        if cleaned_data['last_incident_year'] is not None and cleaned_data['last_incident_month'] is not None:
+        if cleaned_data['last_incident_year'] and cleaned_data['last_incident_month']:
             return date_cleaner(self, cleaned_data)
         else:
             return cleaned_data
