@@ -11,4 +11,4 @@ class ComplaintActionTests(SimpleTestCase):
         self.form.changed_data = ['field_test']
         self.form.cleaned_data = {'field_test': 'verb'}
         actions = [action for action in self.form.get_actions()]
-        self.assertEqual(actions, [("updated field test", " with value verb")])
+        self.assertEqual(actions, [("updated field test", " to verb")])
