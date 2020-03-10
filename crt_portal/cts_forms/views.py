@@ -1,13 +1,13 @@
 import urllib.parse
 import os
 
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import gettext_lazy as _
-from django.utils.decorators import method_decorator
-from django.http import Http404, HttpResponseRedirect
+from django.http import Http404
 from django.views.generic import View
 from django import forms
 
@@ -119,7 +119,7 @@ def IndexView(request):
     return render(request, 'forms/complaint_view/index/index.html', final_data)
 
 
-class ShowView(View):
+class ShowView(LoginRequiredMixin, View):
     def __serialize_data(self, request, report_id):
         report = get_object_or_404(Report.objects, id=report_id)
         primary_complaint = [choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint]
@@ -153,10 +153,6 @@ class ShowView(View):
 
         return output
 
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
-
     def get(self, request, id):
         output = self.__serialize_data(request, id)
 
@@ -178,11 +174,30 @@ class ShowView(View):
         return render(self.request, 'forms/complaint_view/show/index.html', output)
 
 
-class ProFormView(SessionWizardView):
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
+def save_form(form_data_dict):
+    m2m_protected_class = form_data_dict.pop('protected_class')
+    m2m_hatecrime = form_data_dict.pop('hatecrimes_trafficking')
+    r = Report.objects.create(**form_data_dict)
 
+    # add a save feature for hatecrimes and trafficking question on primary reason page
+    # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
+    for protected in m2m_protected_class:
+        p = ProtectedClass.objects.get(protected_class=protected)
+        r.protected_class.add(p)
+
+    for option in m2m_hatecrime:
+        o = HateCrimesandTrafficking.objects.get(hatecrimes_trafficking_option=option)
+        r.hatecrimes_trafficking.add(o)
+
+    r.assigned_section = r.assign_section()
+    r.save()
+    # adding this back for the save page results
+    form_data_dict['protected_class'] = m2m_protected_class.values()
+    form_data_dict['hatecrimes_trafficking'] = m2m_hatecrime.values()
+    return form_data_dict, r
+
+
+class ProFormView(LoginRequiredMixin, SessionWizardView):
     def get_template_names(self):
         return 'forms/pro_template.html'
 
@@ -222,28 +237,9 @@ class ProFormView(SessionWizardView):
         return context
 
     def done(self, form_list, form_dict, **kwargs):
-        form_data_dict = self.get_all_cleaned_data()
-        m2m_protected_class = form_data_dict.pop('protected_class')
-        m2m_hatecrime = form_data_dict.pop('hatecrimes_trafficking')
-        r = Report.objects.create(**form_data_dict)
+        data, report = save_form(self.get_all_cleaned_data())
 
-        # add a save feature for hatecrimes and trafficking question on primary reason page
-        # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
-        for protected in m2m_protected_class:
-            p = ProtectedClass.objects.get(protected_class=protected)
-            r.protected_class.add(p)
-
-        for option in m2m_hatecrime:
-            o = HateCrimesandTrafficking.objects.get(hatecrimes_trafficking_option=option)
-            r.hatecrimes_trafficking.add(o)
-
-        r.assigned_section = r.assign_section()
-        r.save()
-        # adding this back for the save page results
-        form_data_dict['protected_class'] = m2m_protected_class.values()
-        form_data_dict['hatecrimes_trafficking'] = m2m_hatecrime.values()
-
-        return HttpResponseRedirect(f'/form/view/{r.pk}')
+        return redirect(reverse('crt_forms:crt-forms-show', kwargs={'id': report.pk}))
 
 
 TEMPLATES = [
@@ -492,25 +488,7 @@ class CRTReportWizard(SessionWizardView):
 
     def done(self, form_list, form_dict, **kwargs):
         form_data_dict = self.get_all_cleaned_data()
-        m2m_protected_class = form_data_dict.pop('protected_class')
-        m2m_hatecrime = form_data_dict.pop('hatecrimes_trafficking')
-        r = Report.objects.create(**form_data_dict)
+        form_data_dict['intake_format'] = 'web'
+        data, report = save_form(form_data_dict)
 
-        # add a save feature for hatecrimes and trafficking question on primary reason page
-        # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
-        for protected in m2m_protected_class:
-            p = ProtectedClass.objects.get(protected_class=protected)
-            r.protected_class.add(p)
-
-        for option in m2m_hatecrime:
-            o = HateCrimesandTrafficking.objects.get(hatecrimes_trafficking_option=option)
-            r.hatecrimes_trafficking.add(o)
-
-        r.assigned_section = r.assign_section()
-        r.intake_format = 'web'
-        r.save()
-        # adding this back for the save page results
-        form_data_dict['protected_class'] = m2m_protected_class.values()
-        form_data_dict['hatecrimes_trafficking'] = m2m_hatecrime.values()
-
-        return render(self.request, 'forms/confirmation.html', {'data_dict': form_data_dict})
+        return render(self.request, 'forms/confirmation.html', {'data_dict': data})

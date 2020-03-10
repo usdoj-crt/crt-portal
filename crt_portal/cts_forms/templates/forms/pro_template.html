@@ -1,14 +1,6 @@
 {% extends "forms/report_base.html" %}
 
 {{ super }}
-{% block form_id %}
-<form id="report-form"
-      class="usa-form"
-      action=""
-      method="post"
-      novalidate
->
-{% endblock form_id %}
 
 {% block form_questions %}
 <a name="Intake"></a>
@@ -22,9 +14,9 @@
 
         <a name="Intake"></a>
         <h2>Intake</h2>
-        {% include "forms/question_cards/date.html" with question='CRT receipt date' month=wizard.form.crt_reciept_month day=wizard.form.crt_reciept_day year=wizard.form.crt_reciept_year %}
+        {% include "forms/question_cards/date.html" with question='CRT receipt date' month=form.crt_reciept_month day=form.crt_reciept_day year=form.crt_reciept_year %}
 
-        {% include "forms/question_cards/single_question.html" with field=wizard.form.intake_format %}
+        {% include "forms/question_cards/single_question.html" with field=form.intake_format %}
     </div>
 </div>
 
@@ -37,32 +29,32 @@
 
 
 <a name="Service member"></a>
-{% include "forms/question_cards/single_form.html" with field=wizard.form.servicemember card_title="Service member" %}
+{% include "forms/question_cards/single_form.html" with field=form.servicemember card_title="Service member" %}
 
 <a name="Primary concern"></a>
-{% include "forms/question_cards/single_form.html" with field=wizard.form.primary_complaint card_title="Primary concern" required=True %}
+{% include "forms/question_cards/single_form.html" with field=form.primary_complaint card_title="Primary concern" required=True %}
 
-{% include "forms/question_cards/single_form.html" with field=wizard.form.hatecrimes_trafficking %}
+{% include "forms/question_cards/single_form.html" with field=form.hatecrimes_trafficking %}
 
 <a name="Follow up"></a>
 <div class="crt-portal-card">
     <div class="crt-portal-card__content crt-portal-card__content--lg">
         <h2>Follow up questions</h2>
 
-        {% include "forms/question_cards/single_question.html" with field=wizard.form.public_or_private_employer label_class=question_group.help_cls %}
+        {% include "forms/question_cards/single_question.html" with field=form.public_or_private_employer label_class=question_group.help_cls %}
 
-        {% include "forms/question_cards/single_question.html" with field=wizard.form.employer_size label_class=question_group.help_cls %}
-        {% include "forms/question_cards/single_question.html" with field=wizard.form.public_or_private_school label_class=question_group.help_cls %}
+        {% include "forms/question_cards/single_question.html" with field=form.employer_size label_class=question_group.help_cls %}
+        {% include "forms/question_cards/single_question.html" with field=form.public_or_private_school label_class=question_group.help_cls %}
 
-        {% include "forms/question_cards/single_question.html" with field=wizard.form.election_details label_class=question_group.help_cls %}
+        {% include "forms/question_cards/single_question.html" with field=form.election_details label_class=question_group.help_cls %}
 
-        {% include "forms/question_cards/single_question.html" with field=wizard.form.inside_correctional_facility label_class=question_group.help_cls %}
+        {% include "forms/question_cards/single_question.html" with field=form.inside_correctional_facility label_class=question_group.help_cls %}
 
-        {% include "forms/question_cards/single_question.html" with field=wizard.form.correctional_facility_type label_class=question_group.help_cls %}
+        {% include "forms/question_cards/single_question.html" with field=form.correctional_facility_type label_class=question_group.help_cls %}
 
-        {% include "forms/question_cards/single_question.html" with field=wizard.form.commercial_or_public_place label_class=question_group.help_cls %}
+        {% include "forms/question_cards/single_question.html" with field=form.commercial_or_public_place label_class=question_group.help_cls %}
 
-        {% include "forms/question_cards/single_question.html" with field=wizard.form.other_commercial_or_public_place label_class=question_group.help_cls %}
+        {% include "forms/question_cards/single_question.html" with field=form.other_commercial_or_public_place label_class=question_group.help_cls %}
     </div>
 </div>
 
@@ -73,9 +65,9 @@
 <div class="crt-portal-card">
     <div class="crt-portal-card__content crt-portal-card__content--lg">
         <h2>Personal characteristics</h2>
-        {% include "forms/question_cards/single_question.html" with field=wizard.form.protected_class card_title="Personal characteristics" %}
+        {% include "forms/question_cards/single_question.html" with field=form.protected_class card_title="Personal characteristics" %}
 
-        {% include "forms/question_cards/single_question.html" with field=wizard.form.other_class card_title="Personal characteristics" %}
+        {% include "forms/question_cards/single_question.html" with field=form.other_class card_title="Personal characteristics" %}
     </div>
 </div>
 
@@ -83,7 +75,7 @@
 <div class="crt-portal-card">
     <div class="crt-portal-card__content crt-portal-card__content--lg">
         <h2>Date</h2>
-        {% include "forms/question_cards/date.html" with card_title='Date' question=wizard.form.date_question month=wizard.form.last_incident_month day=wizard.form.last_incident_day year=wizard.form.last_incident_year %}
+        {% include "forms/question_cards/date.html" with card_title='Date' question=form.date_question month=form.last_incident_month day=form.last_incident_day year=form.last_incident_year %}
     </div>
 </div>
 
@@ -91,7 +83,7 @@
   <div class="crt-portal-card">
     <div class="crt-portal-card__content crt-portal-card__content--lg">
         <h2>Intake summary</h2>
-        {% include "forms/question_cards/single_question.html" with field=wizard.form.violation_summary card_title="Intake summary" %}
+        {% include "forms/question_cards/single_question.html" with field=form.violation_summary card_title="Intake summary" %}
         {% include "forms/word_counter.html" with word_limit=500 %}
     </div>
 </div>
