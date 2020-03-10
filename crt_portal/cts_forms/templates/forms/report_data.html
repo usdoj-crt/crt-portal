@@ -4,58 +4,66 @@
 
         <h2 class="inline-block">{{ordered_step_names.0}}</h2>
 
-        <h3>{{ question.contact.contact_name_title }}</h3>
+        <div class="question">
+            <h3>{{ question.contact.contact_name_title }}</h3>
+            <h4>{{ question.contact.contact_first_name }}</h4>
+            <p>{{ report.contact_first_name }}</p>
+            <h4>{{ question.contact.contact_last_name }}</h4>
+            <p>{{ report.contact_last_name }}</p>
+        </div>
 
-        <h4>{{ question.contact.contact_first_name }}</h4>
-        <p>{{ form_data_dict.contact_first_name }}</p>
-        <h4>{{ question.contact.contact_last_name }}</h4>
-        <p>{{ form_data_dict.contact_last_name }}</p>
-
+        <div class="question">
         <h3>{{ question.contact.contact_title }}</h3>
 
         <h4>{{ question.contact.contact_email }}</h4>
-        <p>{{ form_data_dict.contact_email }}</p>
+        <p>{{ report.contact_email }}</p>
 
         <h4>{{ question.contact.contact_phone }}</h4>
-        <p>{{ form_data_dict.contact_phone }}</p>
+        <p>{{ report.contact_phone }}</p>
 
         <h4>{{ question.contact.contact_address_line_1 }}</h4>
-        <p>{{ form_data_dict.contact_address_line_1 }}</p>
+        <p>{{ report.contact_address_line_1 }}</p>
 
         <h4>{{ question.contact.contact_address_line_2 }}</h4>
-        <p>{{ form_data_dict.contact_address_line_2 }}</p>
+        <p>{{ report.contact_address_line_2 }}</p>
 
         <h4>{{ question.contact.contact_city }}</h4>
-        <p>{{ form_data_dict.contact_city }}</p>
+        <p>{{ report.contact_city }}</p>
 
         <h4>{{ question.contact.contact_state }}</h4>
-        <p>{{ form_data_dict.contact_state }}</p>
+        <p>{{ report.get_contact_state_display }}</p>
 
         <h4>{{ question.contact.contact_zip }}</h4>
-        <p>{{ form_data_dict.contact_zip }}</p>
-
+        <p>{{ report.contact_zip }}</p>
+        </div>
         <h3>{{ question.servicemember }}</h3>
-        <p>{{ form_data_dict.servicemember }}</p>
+        <p>{{ report.get_servicemember_display }}</p>
     </div>
 </div>
 
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
-        {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.1 step_value=1 %}
 
         <h2>{{ordered_step_names.1}}</h2>
 
         <h3>{{ question.primary_reason }}</h3>
-        <p>{{ form_data_dict.primary_complaint }}</p>
+        <p>{{ report.get_primary_complaint_display }}</p>
 
-        <h2>{{ question.hatecrime_title }}</h2>
-        <h3>{{ question.hatecrime }}</h3>
-        {% for crime in form_data_dict.hatecrimes_trafficking %}
-            <p>{{ crime }}</p>
-        {% empty %}
-            <p>None selected</p>
-        {% endfor %}
-
+        <h3>{{ question.hatecrime_title }}</h3>
+        <h4>{{ question.hatecrime }}</h4>
+        {% if report.id %}
+            {% for crime in report.hatecrimes_trafficking.all %}
+                <p>{{ crime }}</p>
+            {% empty %}
+                <p>None selected</p>
+            {% endfor %}
+        {% else %}
+            {% for crime in hatecrimes %}
+                <p>{{ crime }}</p>
+            {% empty %}
+                <p>None selected</p>
+            {% endfor %}
+        {% endif %}
     </div>
 </div>
 
@@ -63,19 +71,19 @@
     <div class="crt-portal-card__content margin-bottom-3">
         {# buttons to the right form page based on data present #}
 
-        {% if form_data_dict.election_details %}
+        {% if report.election_details %}
             {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=3 %}
 
-        {% elif form_data_dict.public_or_private_employer %}
+        {% elif report.public_or_private_employer %}
             {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=4 %}
 
-        {% elif form_data_dict.inside_correctional_facility %}
+        {% elif report.inside_correctional_facility %}
             {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=5 %}
 
-        {% elif form_data_dict.commercial_or_public_place %}
+        {% elif report.commercial_or_public_place %}
             {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=6 %}
 
-        {% elif form_data_dict.public_or_private_school %}
+        {% elif report.public_or_private_school %}
             {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=7 %}
 
         {% else %}
@@ -85,56 +93,56 @@
 
         <h2>{{ ordered_step_names.2 }}</h2>
 
-         {% if form_data_dict.election_details %}
+         {% if report.election_details %}
             <h3>{{ question.election }}</h3>
-            <p>{{ form_data_dict.election_details }}</p>
+            <p>{{ report.get_election_details_display }}</p>
 
-        {% elif form_data_dict.public_or_private_employer %}
+        {% elif report.public_or_private_employer %}
             <h3>{{ question.workplace.public_or_private_employer }}</h3>
-            <p>{{ form_data_dict.public_or_private_employer }}</p>
+            <p>{{ report.get_public_or_private_employer_display }}</p>
 
             <h3>{{ question.workplace.employer_size }}</h3>
-            <p>{{ form_data_dict.employer_size }}</p>
+            <p>{{ report.get_employer_size_display }}</p>
 
-        {% elif form_data_dict.inside_correctional_facility %}
+        {% elif report.inside_correctional_facility %}
             <h3>{{ question.police.inside_correctional_facility }}</h3>
-            <p>{{ form_data_dict.inside_correctional_facility }}</p>
+            <p>{{ report.get_inside_correctional_facility_display}}</p>
 
-            {% if form_data_dict.correctional_facility_type %}
+            {% if report.correctional_facility_type %}
                 <h3>{{ question.police.correctional_facility_type }}</h3>
-                <p>{{ form_data_dict.correctional_facility_type }}</p>
+                <p>{{ report.get_correctional_facility_type_display }}</p>
             {% endif %}
 
-        {% elif form_data_dict.commercial_or_public_place %}
+        {% elif report.commercial_or_public_place %}
             <h3>{{ question.public }}</h3>
-            <p>{{ form_data_dict.commercial_or_public_place }}</p>
-            {% if form_data_dict.other_commercial_or_public_place %}
+            <p>{{ report.get_commercial_or_public_place_display }}</p>
+            {% if report.other_commercial_or_public_place %}
                 <h3>{{ question.other_commercial_or_public_place }}</h3>
-                <p>{{ form_data_dict.other_commercial_or_public_place }}</p>
+                <p>{{ report.get_other_commercial_or_public_place_display }}</p>
             {% endif %}
 
-        {% elif form_data_dict.public_or_private_school %}
+        {% elif report.public_or_private_school %}
             <h3>{{ question.education }}</h3>
-            <p>{{ form_data_dict.public_or_private_school }}</p>
+            <p>{{ report.get_public_or_private_school_display }}</p>
 
         {% endif %}
 
         <h3>{{ question.location.location_title }}</h4>
 
         <h4>{{ question.location.location_address_line_1 }}</h4>
-        <p>{{ form_data_dict.location_address_line_1 }}</p>
+        <p>{{ report.location_address_line_1 }}</p>
 
         <h4>{{ question.location.location_address_line_2 }}</h4>
-        <p>{{ form_data_dict.location_address_line_2 }}</p>
+        <p>{{ report.location_address_line_2 }}</p>
 
         <h4>{{ question.location.location_city_town }}</h4>
-        <p>{{ form_data_dict.location_city_town }}</p>
+        <p>{{ report.location_city_town }}</p>
 
         <h4>{{ question.location.location_name }}</h4>
-        <p>{{ form_data_dict.location_name }}</p>
+        <p>{{ report.location_name }}</p>
 
         <h4>{{ question.location.location_state }}</h4>
-        <p>{{ form_data_dict.location_state }}</p>
+        <p>{{ report.get_location_state_display}}</p>
 
     </div>
 </div>
@@ -146,12 +154,19 @@
         <h2>{{ ordered_step_names.3 }}</h2>
 
         <h3>{{ question.characteristics }}</h3>
-        {% for characteristic in form_data_dict.protected_class %}
-            <p>{{ characteristic }}</p>
-        {% empty %}
-            <p>None selected</p>
-        {% endfor %}
-
+        {% if report.id %}
+            {% for characteristic in report.protected_class.all %}
+                <p>{{ characteristic }}</p>
+            {% empty %}
+                <p>None selected</p>
+            {% endfor %}
+        {% else %}
+            {% for characteristic in protected_classes %}
+                <p>{{ characteristic }}</p>
+            {% empty %}
+                <p>None selected</p>
+            {% endfor %}
+        {% endif %}
     </div>
 </div>
 
@@ -162,7 +177,7 @@
         <h2>{{ ordered_step_names.4 }}</h2>
 
         <h3>{{ question.date.date_title }}</h3>
-        <p>{{ form_data_dict.last_incident_month }}/{{ form_data_dict.last_incident_day|default:"—" }}/{{ form_data_dict.last_incident_year}}</p>
+        <p>{{ report.last_incident_month }}/{{ report.last_incident_day|default:"—" }}/{{ report.last_incident_year}}</p>
     </div>
 </div>
 
@@ -173,6 +188,6 @@
         <h2>{{ ordered_step_names.5 }}</h2>
 
         <h3>{{ question.summary }}</h3>
-        <p>{{ form_data_dict.violation_summary|linebreaks }}</p>
+        <p>{{ report.violation_summary|linebreaks }}</p>
     </div>
 </div>
