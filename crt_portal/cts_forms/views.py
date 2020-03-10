@@ -1,34 +1,30 @@
-import urllib.parse
 import os
+import urllib.parse
 
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django import forms
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator
 from django.core.exceptions import PermissionDenied
-from django.utils.translation import gettext_lazy as _
+from django.core.paginator import Paginator
 from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import View
-from django import forms
-
 from formtools.wizard.views import SessionWizardView
 
-from .models import Report, ProtectedClass, HateCrimesandTrafficking
-from .model_variables import (
-    PRIMARY_COMPLAINT_CHOICES,
-    HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
-    PRIMARY_COMPLAINT_DICT,
-    ELECTION_DICT,
-    PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
-    EMPLOYER_SIZE_DICT,
-    CORRECTIONAL_FACILITY_LOCATION_DICT,
-    CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
-    COMMERCIAL_OR_PUBLIC_PLACE_DICT,
-    PUBLIC_OR_PRIVATE_SCHOOL_DICT,
-)
-from .page_through import pagination
 from .filters import report_filter
-from .forms import Filters, ComplaintActions, Contact, PrimaryReason, Review
+from .forms import ComplaintActions, Filters, Review
+from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
+                              CORRECTIONAL_FACILITY_LOCATION_DICT,
+                              CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
+                              ELECTION_DICT, EMPLOYER_SIZE_DICT,
+                              HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
+                              PRIMARY_COMPLAINT_CHOICES,
+                              PRIMARY_COMPLAINT_DICT,
+                              PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
+                              PUBLIC_OR_PRIVATE_SCHOOL_DICT)
+from .models import HateCrimesandTrafficking, ProtectedClass, Report
+from .page_through import pagination
 
 SORT_DESC_CHAR = '-'
 
@@ -321,14 +317,14 @@ class CRTReportWizard(SessionWizardView):
     """Once all the sub-forms are submitted this class will clean data and save."""
 
     ORDERED_STEP_NAMES = [
-            _('Contact'),
-            _('Primary concern'),
-            _('Location'),
-            _('Personal characteristics'),
-            _('Date'),
-            _('Personal description'),
-            _('Review'),
-        ]
+        _('Contact'),
+        _('Primary concern'),
+        _('Location'),
+        _('Personal characteristics'),
+        _('Date'),
+        _('Personal description'),
+        _('Review'),
+    ]
 
     # overriding the get form to add checks to the hidden field and avoid 500s
     def get_form(self, step=None, data=None, files=None):
@@ -498,5 +494,5 @@ class CRTReportWizard(SessionWizardView):
     def done(self, form_list, form_dict, **kwargs):
         form_data_dict = self.get_all_cleaned_data()
         _, report = save_form(form_data_dict)
-        return render(self.request, 'forms/confirmation.html', {'report': r, 'questions': Review.question_text,
+        return render(self.request, 'forms/confirmation.html', {'report': report, 'questions': Review.question_text,
                                                                 'ordered_step_names': self.ORDERED_STEP_NAMES})
