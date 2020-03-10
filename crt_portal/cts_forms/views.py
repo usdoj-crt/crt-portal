@@ -7,7 +7,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.core.exceptions import PermissionDenied
 from django.utils.translation import gettext_lazy as _
-from django.utils.decorators import method_decorator
 from django.http import Http404
 from django.views.generic import View
 from django import forms
@@ -195,7 +194,7 @@ def save_form(form_data_dict):
     # adding this back for the save page results
     form_data_dict['protected_class'] = m2m_protected_class.values()
     form_data_dict['hatecrimes_trafficking'] = m2m_hatecrime.values()
-    return form_data_dict
+    return form_data_dict, r
 
 
 class ProFormView(LoginRequiredMixin, SessionWizardView):
@@ -238,9 +237,9 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
         return context
 
     def done(self, form_list, form_dict, **kwargs):
-        save_form(self.get_all_cleaned_data())
+        data, report = save_form(self.get_all_cleaned_data())
 
-        return redirect(reverse('crt_forms:crt-forms-show', kwargs={'id': r.pk}))
+        return redirect(reverse('crt_forms:crt-forms-show', kwargs={'id': report.pk}))
 
 
 TEMPLATES = [
@@ -490,6 +489,6 @@ class CRTReportWizard(SessionWizardView):
     def done(self, form_list, form_dict, **kwargs):
         form_data_dict = self.get_all_cleaned_data()
         form_data_dict['intake_format'] = 'web'
-        final_data_dict = save_form(form_data_dict)
+        data, report = save_form(form_data_dict)
 
-        return render(self.request, 'forms/confirmation.html', {'data_dict': final_data_dict})
+        return render(self.request, 'forms/confirmation.html', {'data_dict': data})
