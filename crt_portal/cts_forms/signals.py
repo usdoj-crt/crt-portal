@@ -43,14 +43,10 @@ def format_data_message(action, current_request, instance):
 
 @receiver(post_save, sender=User)
 def save_user(sender, instance, created, **kwargs):
-    if created:
-        current_request = CrequestMiddleware.get_request()
-        message = format_user_message('created', current_request, instance)
-        logger.info(message)
-    else:
-        current_request = CrequestMiddleware.get_request()
-        message = format_user_message('saved', current_request, instance)
-        logger.info(message)
+    action = 'created' if created else 'saved'
+    current_request = CrequestMiddleware.get_request()
+    message = format_user_message(action, current_request, instance)
+    logger.info(message)
 
 
 @receiver(post_delete, sender=User)
