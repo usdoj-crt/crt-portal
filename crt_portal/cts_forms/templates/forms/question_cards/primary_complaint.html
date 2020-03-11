@@ -1,28 +1,29 @@
 {% with primary_complaint_field=form.primary_complaint %}
-  <div class="crt-portal-card">
-    <div class="crt-portal-card__content crt-portal-card__content--lg">
-      <h2>{{ card_title }}</h2>
+{% if card_title %}
+  <h2>{{ card_title }}</h2>
+{% endif %}
 
-      <div id="primary-complaint-help-text">
-        <p class="em-text">
-          {{ primary_complaint_field.label }}
-        </p>
+<div id="primary-complaint-help-text">
+  <p class="em-text">
+    {{ primary_complaint_field.label }}
+  </p>
 
-        {% if primary_complaint_field.help_text %}
-          <div class="label-text">
-            <em class="help-text">
-              {{ primary_complaint_field.help_text }}
-            </em>
-          </div>
-        {% endif %}
-      </div>
+{% if primary_complaint_field.help_text %}
+    <div class="label-text">
+      <em class="help-text">
+        {{ primary_complaint_field.help_text }}
+      </em>
     </div>
   </div>
-  <div role="group" aria-labelledby="primary-complaint-help-text" class="question_primary_complaint margin-top-3">
-    {{ primary_complaint_field }}
+</div>
+{% endif %}
 
-    {% if primary_complaint_field.errors %}
-      {% include "forms/snippets/error_alert.html" with errors=primary_complaint_field.errors %}
-    {% endif %}
-  </div>
+</div>
+<div role="group" aria-labelledby="primary-complaint-help-text" class="question_primary_complaint margin-top-3">
+  {{ primary_complaint_field }}
+
+  {% if primary_complaint_field.errors %}
+    {% include "forms/snippets/error_alert.html" with errors=primary_complaint_field.errors %}
+  {% endif %}
+</div>
 {% endwith %}
