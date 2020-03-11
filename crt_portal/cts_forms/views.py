@@ -1,34 +1,30 @@
-import urllib.parse
 import os
+import urllib.parse
 
-from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django import forms
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.paginator import Paginator
 from django.core.exceptions import PermissionDenied
-from django.utils.translation import gettext_lazy as _
+from django.core.paginator import Paginator
 from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.utils.translation import gettext_lazy as _
 from django.views.generic import View
-from django import forms
-
 from formtools.wizard.views import SessionWizardView
 
-from .models import Report, ProtectedClass, HateCrimesandTrafficking
-from .model_variables import (
-    PRIMARY_COMPLAINT_CHOICES,
-    HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
-    PRIMARY_COMPLAINT_DICT,
-    ELECTION_DICT,
-    PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
-    EMPLOYER_SIZE_DICT,
-    CORRECTIONAL_FACILITY_LOCATION_DICT,
-    CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
-    COMMERCIAL_OR_PUBLIC_PLACE_DICT,
-    PUBLIC_OR_PRIVATE_SCHOOL_DICT,
-)
-from .page_through import pagination
 from .filters import report_filter
-from .forms import Filters, ComplaintActions
+from .forms import ComplaintActions, Filters, Review
+from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
+                              CORRECTIONAL_FACILITY_LOCATION_DICT,
+                              CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
+                              ELECTION_DICT, EMPLOYER_SIZE_DICT,
+                              HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
+                              PRIMARY_COMPLAINT_CHOICES,
+                              PRIMARY_COMPLAINT_DICT,
+                              PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
+                              PUBLIC_OR_PRIVATE_SCHOOL_DICT)
+from .models import HateCrimesandTrafficking, ProtectedClass, Report
+from .page_through import pagination
 
 SORT_DESC_CHAR = '-'
 
@@ -214,7 +210,7 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
             'Service member',
             'Primary concern',
             'Follow up',
-            'Location',
+            'Incident location',
             'Personal characteristics',
             'Date',
             'Summary',
@@ -320,6 +316,16 @@ def show_location_form_condition(wizard):
 class CRTReportWizard(SessionWizardView):
     """Once all the sub-forms are submitted this class will clean data and save."""
 
+    ORDERED_STEP_NAMES = [
+        _('Contact'),
+        _('Primary concern'),
+        _('Location'),
+        _('Personal characteristics'),
+        _('Date'),
+        _('Personal description'),
+        _('Review'),
+    ]
+
     # overriding the get form to add checks to the hidden field and avoid 500s
     def get_form(self, step=None, data=None, files=None):
         """
@@ -364,15 +370,7 @@ class CRTReportWizard(SessionWizardView):
         form_name = form.name if hasattr(form, 'name') else ''
 
         # This name appears in the progress bar wizard
-        ordered_step_names = [
-            _('Contact'),
-            _('Primary concern'),
-            _('Location'),
-            _('Personal characteristics'),
-            _('Date'),
-            _('Personal description'),
-            _('Review'),
-        ]
+
         # Name for all forms whether they are skipped or not
         all_step_names = [
             _('Contact'),
@@ -412,7 +410,7 @@ class CRTReportWizard(SessionWizardView):
         form_autocomplete_off = os.getenv('FORM_AUTOCOMPLETE_OFF', False)
 
         context.update({
-            'ordered_step_names': ordered_step_names,
+            'ordered_step_names': self.ORDERED_STEP_NAMES,
             'current_step_title': current_step_title,
             'current_step_name': current_step_name,
             'page_errors': page_errors,
@@ -427,8 +425,8 @@ class CRTReportWizard(SessionWizardView):
                 'wordLimitReachedText': _(' word limit reached'),
             },
             'form_name': form_name,
-            'stage_number': ordered_step_names.index(current_step_name) + 1,
-            'total_stages': len(ordered_step_names),
+            'stage_number': self.ORDERED_STEP_NAMES.index(current_step_name) + 1,
+            'total_stages': len(self.ORDERED_STEP_NAMES),
         })
 
         if current_step_name == _('Details'):
@@ -479,8 +477,15 @@ class CRTReportWizard(SessionWizardView):
             form_data_dict['public_or_private_school'] = data_decode(
                 form_data_dict, PUBLIC_OR_PRIVATE_SCHOOL_DICT, 'public_or_private_school'
             )
+
+            # Get values for M2M fields destined for association with this Report instance
+            hatecrimes = [crime.hatecrimes_trafficking_option for crime in form_data_dict.pop('hatecrimes_trafficking')]
+            protected_class = [choice.protected_class for choice in form_data_dict.pop('protected_class')]
+
             context.update({
-                'form_data_dict': form_data_dict,
+                'report': Report(**form_data_dict),
+                'hatecrimes': hatecrimes,
+                'protected_classes': protected_class,
                 'question': form.question_text,
             })
 
@@ -488,7 +493,6 @@ class CRTReportWizard(SessionWizardView):
 
     def done(self, form_list, form_dict, **kwargs):
         form_data_dict = self.get_all_cleaned_data()
-        form_data_dict['intake_format'] = 'web'
-        data, report = save_form(form_data_dict)
-
-        return render(self.request, 'forms/confirmation.html', {'data_dict': data})
+        _, report = save_form(form_data_dict)
+        return render(self.request, 'forms/confirmation.html', {'report': report, 'questions': Review.question_text,
+                                                                'ordered_step_names': self.ORDERED_STEP_NAMES})

@@ -76,7 +76,7 @@
           ],
           "screenCapture": "pa11y-screenshots/page-4-protected-class.png"
         },
-        
+
         {
           "url": "http://0.0.0.0:8000/report",
           "actions": [

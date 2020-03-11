@@ -980,7 +980,7 @@ class ComplaintActions(ModelForm):
     def get_actions(self):
         """Parse incoming changed data for activity stream entry"""
         for field in self.changed_data:
-            yield f"updated {' '.join(field.split('_'))}", f" with value {self.cleaned_data[field]}"
+            yield f"updated {' '.join(field.split('_'))}", f" to {self.cleaned_data[field]}"
 
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
