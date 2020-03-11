@@ -136,6 +136,8 @@ The volumes are the data elements in Docker. Note that you will need to re-creat
 
 Tests run automatically with repos that are integrated with Circle CI. You can run those tests locally with the following instructions.
 
+### Unit tests
+
 Run unit test on **Windows**:
 1. Ensure docker is running
 2. Start a powershell as admin (git bash has issue running ssh console in docker)
@@ -170,17 +172,23 @@ You can also run a subset of tests by specifying a path to a specific test class
 
     docker-compose run web python /code/crt_portal/manage.py test cts_forms.tests.test_forms.ComplaintActionTests
 
+We use the unit tests for calculating code coverage. Tests will fail if code coverage is below 89%. You can run code coverage locally with:
 
+    docker-compose run web coverage run --source='.' /code/crt_portal/manage.py test cts_forms
+    docker-compose run web coverage report --fail-under=89 -m
+
+The -m will give you the line numbers in code that that are not tested by any unit tests. You can use that information to add test coverage.
+
+Please keep in mind that the quality of tests is more important than the quantity. Be on the look out for key functionality and logic that can be documented and confirmed with good tests.
+
+### Accessibility test
 For accessibility testing with Pa11y, you can run that locally, _if you have npm installed locally_ with:
 
     npm run test:a11y
 
-You can scan the code for potential python security flaws using [bandit](https://github.com/PyCQA/bandit). Run bandit manually:
+See full accessibility testing guidelines in our [A11y plan](https://github.com/usdoj-crt/crt-portal/blob/develop/docs/a11y_plan.md).
 
-    docker-compose run web bandit -r crt_portal/
-
-If there is a false positive you can add `# nosec` at the end of the line that is triggering the error. Please also add a comment that explains why that line is a false positive.
-
+### Code style tests
 You can check for Python style issues by running flake8:
 
     docker-compose run web flake8
@@ -195,8 +203,15 @@ Prettier can automatically fix JS style issues for you:
 
     npm run lint:write
 
+### Static security test
+You can scan the code for potential python security flaws using [bandit](https://github.com/PyCQA/bandit). Run bandit manually:
+
+    docker-compose run web bandit -r crt_portal/
+
+If there is a false positive you can add `# nosec` at the end of the line that is triggering the error. Please also add a comment that explains why that line is a false positive.
+
 ### Security scans
-We use OWASP ZAP for security. Here is an [intro to OWASP ZAP](https://resources.infosecinstitute.com/introduction-owasp-zap-web-application-security-assessments/#gref) that explains the tool. You can also look at the [scan configuration documentation](https://github.com/zaproxy/zaproxy/wiki/ZAP-Baseline-Scan).
+We use OWASP ZAP for security scans. Here is an [intro to OWASP ZAP](https://resources.infosecinstitute.com/introduction-owasp-zap-web-application-security-assessments/#gref) that explains the tool. You can also look at the [scan configuration documentation](https://github.com/zaproxy/zaproxy/wiki/ZAP-Baseline-Scan).
 
 You can run and pull down the container to use locally:
 
