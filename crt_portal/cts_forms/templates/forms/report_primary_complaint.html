@@ -1,16 +1,34 @@
 {% extends "forms/report_base.html" %}
 {% load static %}
-
 {% block form_questions %}
-<div class="crt-portal-card">
-  <div class="crt-portal-card__content crt-portal-card__content--lg">
-  {{ block.super }}
+{% with primary_complaint_field=wizard.form.primary_complaint %}
+    <div class="crt-portal-card">
+      <div class="crt-portal-card__content crt-portal-card__content--lg">
+        {{ block.super }}
+        <div id="primary-complaint-help-text">
+          <p class="em-text">
+            {{ primary_complaint_field.label }}
+          </p>
+        
+          {% if primary_complaint_field.help_text %}
+            <div class="label-text">
+              <em class="help-text">
+                {{ primary_complaint_field.help_text }}
+              </em>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div role="group" aria-labelledby="primary-complaint-help-text" class="question_primary_complaint margin-top-3">
+      {{ primary_complaint_field }}
 
-  {% include "forms/question_cards/primary_complaint.html" %}
-  </div>
-</div>
+      {% if primary_complaint_field.errors %}
+        {% include "forms/snippets/error_alert.html" with errors=primary_complaint_field.errors %}
+      {% endif %}
+    </div>
+  {% endwith %}
 {% endblock %}
-
 {% block page_js %}
   {{ block.super }}
   <script src="{% static 'js/primary_complaint.js' %}"></script>
