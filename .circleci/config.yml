@@ -50,7 +50,7 @@ jobs:
           name: Run unit tests & check coverage
           command: |
             pipenv run coverage run --source='.' /code/crt_portal/manage.py test cts_forms
-            pipenv run coverage report --fail-under=89 -m
+
       - run:
           name: Run bandit (Python security) tests
           command: |
