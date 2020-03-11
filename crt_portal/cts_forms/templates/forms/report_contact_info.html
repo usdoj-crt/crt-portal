@@ -8,58 +8,16 @@
     </div>
   </div>
 {% endblock %}
+
 {% block form_questions %}
-  <div class="crt-portal-card crt-portal-card">
-    <div class="crt-portal-card__content crt-portal-card__content--lg">
-      {{ block.super }}
-      {% include 'forms/grouped_questions.html' %}
-      {% with city=wizard.form.contact_city state=wizard.form.contact_state zip=wizard.form.contact_zip %}
-        <div class="padding-top-2">
-          <div class="grid-row grid-gap margin-y-neg-3 margin-top-1 margin-bottom-4">
-            <div class="mobile-lg:grid-col-8">
-              <label for="{{city.id_for_label}}">
-                {{ city.label }} <em>(Optional)</em>
-              </label>
-              {{ city }}
-            </div>
-            <div class="mobile-lg:grid-col-4">
-              <label for="{{state.id_for_label}}">
-                {{state.label}} <em>(Optional)</em>
-              </label>
-              {{ state }}
-            </div>
-          </div>
-        </div>
-        <div class="margin-bottom-5 margin-top-neg-1">
-          <label for="{{zip.id_for_label}}">
-            {{ zip.label }} <em>(Optional)</em>
-          </label>
-          {{ zip }}
-        </div>
-      {% endwith %}
+<div class="crt-portal-card crt-portal-card">
+  <div class="crt-portal-card__content crt-portal-card__content--lg">
+    {{ block.super }}
 
-
-    </div>
+    {% include "forms/question_cards/contact.html" %}
   </div>
+</div>
 
-  <div class="crt-portal-card crt-portal-card margin-top-3">
-    <div class="crt-portal-card__content crt-portal-card__content--lg">  
-      {% with field=wizard.form.servicemember %}
-        <fieldset class="usa-fieldset">
-          <legend class="em-text big margin-bottom-0">
-            {{field.label}}
-          </legend> 
-          <p class="margin-bottom-3 margin-top-0" id="service-member-help-text">
-            <em>{{ field.help_text }}</em>
-          </p>
-          <div aria-labelledby="service-member-help-text">
-            {{ field }}
-            {% if field.errors %}
-              {% include "forms/snippets/error_alert.html" with errors=field.errors %}
-            {% endif %}
-          </div>
-        </fieldset>
-      {% endwith %}
-    </div>
-  </div>
+{% include "forms/question_cards/single_form.html" with field=form.servicemember %}
+
 {% endblock %}

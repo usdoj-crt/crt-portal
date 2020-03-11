@@ -42,9 +42,10 @@ def format_data_message(action, current_request, instance):
 
 
 @receiver(post_save, sender=User)
-def save_user(sender, instance, **kwargs):
+def save_user(sender, instance, created, **kwargs):
+    action = 'created' if created else 'saved'
     current_request = CrequestMiddleware.get_request()
-    message = format_user_message('saved', current_request, instance)
+    message = format_user_message(action, current_request, instance)
     logger.info(message)
 
 
@@ -78,6 +79,14 @@ def add_author(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
     author = current_request.user.username if current_request else 'anonymous'
     instance.author = author
+
+
+@receiver(post_save, sender=Report)
+def add_author_forms(sender, instance, created, **kwargs):
+    if created:
+        current_request = CrequestMiddleware.get_request()
+        author = current_request.user.username if current_request else 'public user'
+        instance.author = author
 
 
 @receiver(post_save, sender=Report)

@@ -14,13 +14,13 @@
     <div class="grid-row grid-gap">
       <div class="tablet:grid-col-8 tablet:grid-offset-2">
         {% block page_info_card %}{% endblock %}
-        <form id="report-form"
-              class="usa-form"
-              action="/report/"
-              method="post"
-              {% if form_autocomplete_off %}autocomplete="off"{% endif %}
-              {% if form_novalidate %}novalidate{% endif %}
-        >
+          <form id="report-form"
+                class="usa-form"
+                action=""
+                method="post"
+                {% if form_autocomplete_off %}autocomplete="off"{% endif %}
+                {% if form_novalidate %}novalidate{% endif %}
+          >
           {% csrf_token %}
           {{ wizard.management_form }}
 

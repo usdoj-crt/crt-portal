@@ -1,0 +1,47 @@
+<fieldset class="usa-fieldset">
+  <legend class="em-text ">
+    {{ question }}
+  </legend>
+  {% if help_text %}
+  <p class="margin-top-0 margin-bottom-1" id="incident-date-help-text">
+    <em>
+      {{ help_text }}
+    </em>
+  </p>
+  {% endif %}
+
+  <section class="usa-memorable-date">
+    <div class="grid-row grid-gap" aria-labelledby="incident-date-help-text">
+      <div class="mobile-lg:grid-col-3">
+        <label class="usa-label" for="{{ month.id_for_label }}">
+          {{ month.label }}
+        </label>
+        {{ month|withInputError }}
+      </div>
+      <div class="mobile-lg:grid-col-3">
+        <label class="usa-label" for="{{ day.id_for_label}}">
+          {{ day.label }} <span class="usa-sr-only">optional</span>
+        </label>
+        {{ day|withInputError }}
+        <p class="margin-bottom-0 margin-top-1">
+          <em>Optional</em>
+        </p>
+      </div>
+      <div class="mobile-lg:grid-col-6">
+        <label class="usa-label" for="{{ year.id_for_label }}">
+          {{ year.label }}
+        </label>
+        {{ year|withInputError }}
+      </div>
+    </div>
+  </section>
+  {% if month.errors %}
+    {% include "forms/snippets/error_alert.html" with errors=month.errors %}
+  {% endif %}
+  {% if day.errors %}
+    {% include "forms/snippets/error_alert.html" with errors=day.errors %}
+  {% endif %}
+  {% if year.errors %}
+    {% include "forms/snippets/error_alert.html" with errors=year.errors %}
+  {% endif %}
+</fieldset>

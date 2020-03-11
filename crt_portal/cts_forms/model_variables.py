@@ -208,20 +208,6 @@ PUBLIC_OR_PRIVATE_SCHOOL_CHOICES = (
 )
 PUBLIC_OR_PRIVATE_SCHOOL_DICT = dict(PUBLIC_OR_PRIVATE_SCHOOL_CHOICES)
 
-PUBLIC_OR_PRIVATE_FACILITY_CHOICES = (
-    ('state_local_facility', _('State or local facility')),
-    ('federal_facility', _('Federal facility')),
-    ('private_facility', _('Private facility')),
-    ('not_sure', _('Not sure')),
-)
-
-PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES = (
-    ('state_local_facility', _('State or local facility')),
-    ('federal_facility', _('Federal facility')),
-    ('private_facility', _('Private facility')),
-    ('not_sure', _('Not sure')),
-)
-
 WHO_FOR_CHOICES = (
     ('myself', _('I\'m reporting for myself')),
     ('another', _('I\'m reporting on behalf of another person')),
@@ -306,3 +292,14 @@ POLICE_LOCATION_ERRORS = {
     'facility': _('Please select where this occurred'),
     'facility_type': _('Please select the type of location'),
 }
+
+# for internal use only
+INTAKE_FORMAT_CHOICES = (
+    ('web', 'web'),
+    ('letter', 'letter'),
+    ('phone', 'phone'),
+    ('fax', 'fax'),
+    ('email', 'email'),
+)
+
+INCIDENT_DATE_HELPTEXT = _('If this happened over a period of time or is still happening, please provide the most recent date. Please use the format MM/DD/YYYY.')
