@@ -3,7 +3,7 @@ import random
 
 from django.db import migrations, models
 
-from cts_forms.signals.py import salt
+from cts_forms.signals import salt
 
 
 def add_old_id(apps, schema_editor):
