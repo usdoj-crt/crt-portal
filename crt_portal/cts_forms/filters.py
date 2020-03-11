@@ -1,7 +1,6 @@
 # Class to handle filtering Reports by supplied query params,
 # provided they are valid filterable model properties.
 import datetime
-import re
 
 from .models import Report
 
