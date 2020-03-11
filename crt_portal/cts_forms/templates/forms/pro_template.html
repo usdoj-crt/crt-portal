@@ -3,89 +3,79 @@
 {{ super }}
 
 {% block form_questions %}
-<a name="Intake"></a>
 <div class="crt-portal-card">
   <div class="crt-portal-card__content crt-portal-card__content--lg">
-        {% if page_errors %}
-          <section id="page-errors" class="display-none page-errors margin-bottom-2" role="alert" aria-live="assertive">
-            {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
-          </section>
-        {% endif %}
+    {% if page_errors %}
+      <section id="page-errors" class="display-none page-errors margin-bottom-2" role="alert" aria-live="assertive">
+      {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
+      </section>
+    {% endif %}
 
-        <a name="Intake"></a>
-        <h2>Intake</h2>
-        {% include "forms/question_cards/date.html" with question='CRT receipt date' month=form.crt_reciept_month day=form.crt_reciept_day year=form.crt_reciept_year %}
+    <h2 id="Intake">Intake</h2>
+    {% include "forms/question_cards/date.html" with question='CRT receipt date' month=form.crt_reciept_month day=form.crt_reciept_day year=form.crt_reciept_year %}
 
-        {% include "forms/question_cards/single_question.html" with field=form.intake_format %}
-    </div>
+    {% include "forms/question_cards/single_question.html" with field=form.intake_format %}
+  </div>
 </div>
 
 <div class="crt-portal-card">
-    <div class="crt-portal-card__content crt-portal-card__content--lg">
-        <a name="Contact"></a>
-        {% include "forms/question_cards/contact.html" with card_title='Contact' %}
-    </div>
+  <div class="crt-portal-card__content crt-portal-card__content--lg">
+    <a name="Contact"></a>
+    {% include "forms/question_cards/contact.html" with card_title='Contact' %}
+  </div>
 </div>
 
-
-<a name="Service member"></a>
 {% include "forms/question_cards/single_form.html" with field=form.servicemember card_title="Service member" %}
 
-<a name="Primary concern"></a>
 {% include "forms/question_cards/single_form.html" with field=form.primary_complaint card_title="Primary concern" required=True %}
 
 {% include "forms/question_cards/single_form.html" with field=form.hatecrimes_trafficking %}
 
-<a name="Follow up"></a>
 <div class="crt-portal-card">
-    <div class="crt-portal-card__content crt-portal-card__content--lg">
-        <h2>Follow up questions</h2>
+  <div class="crt-portal-card__content crt-portal-card__content--lg">
+    <h2 id="Follow up">Follow up questions</h2>
 
-        {% include "forms/question_cards/single_question.html" with field=form.public_or_private_employer label_class=question_group.help_cls %}
+    {% include "forms/question_cards/single_question.html" with field=form.public_or_private_employer label_class=question_group.help_cls %}
 
-        {% include "forms/question_cards/single_question.html" with field=form.employer_size label_class=question_group.help_cls %}
-        {% include "forms/question_cards/single_question.html" with field=form.public_or_private_school label_class=question_group.help_cls %}
+    {% include "forms/question_cards/single_question.html" with field=form.employer_size label_class=question_group.help_cls %}
+    {% include "forms/question_cards/single_question.html" with field=form.public_or_private_school label_class=question_group.help_cls %}
 
-        {% include "forms/question_cards/single_question.html" with field=form.election_details label_class=question_group.help_cls %}
+    {% include "forms/question_cards/single_question.html" with field=form.election_details label_class=question_group.help_cls %}
 
-        {% include "forms/question_cards/single_question.html" with field=form.inside_correctional_facility label_class=question_group.help_cls %}
+    {% include "forms/question_cards/single_question.html" with field=form.inside_correctional_facility label_class=question_group.help_cls %}
 
-        {% include "forms/question_cards/single_question.html" with field=form.correctional_facility_type label_class=question_group.help_cls %}
+    {% include "forms/question_cards/single_question.html" with field=form.correctional_facility_type label_class=question_group.help_cls %}
 
-        {% include "forms/question_cards/single_question.html" with field=form.commercial_or_public_place label_class=question_group.help_cls %}
+    {% include "forms/question_cards/single_question.html" with field=form.commercial_or_public_place label_class=question_group.help_cls %}
 
-        {% include "forms/question_cards/single_question.html" with field=form.other_commercial_or_public_place label_class=question_group.help_cls %}
-    </div>
+    {% include "forms/question_cards/single_question.html" with field=form.other_commercial_or_public_place label_class=question_group.help_cls %}
+  </div>
 </div>
 
-<a name="Location"></a>
 {% include "forms/question_cards/location.html" with card_title="Incident location" %}
 
-<a name="Personal characteristics"></a>
 <div class="crt-portal-card">
-    <div class="crt-portal-card__content crt-portal-card__content--lg">
-        <h2>Personal characteristics</h2>
-        {% include "forms/question_cards/single_question.html" with field=form.protected_class card_title="Personal characteristics" %}
+  <div class="crt-portal-card__content crt-portal-card__content--lg">
+    <h2 id="Personal characteristics">Personal characteristics</h2>
+    {% include "forms/question_cards/single_question.html" with field=form.protected_class card_title="Personal characteristics" %}
 
-        {% include "forms/question_cards/single_question.html" with field=form.other_class card_title="Personal characteristics" %}
-    </div>
+    {% include "forms/question_cards/single_question.html" with field=form.other_class card_title="Personal characteristics" %}
+  </div>
 </div>
 
-<a name="Date"></a>
 <div class="crt-portal-card">
-    <div class="crt-portal-card__content crt-portal-card__content--lg">
-        <h2>Date</h2>
-        {% include "forms/question_cards/date.html" with card_title='Date' question=form.date_question month=form.last_incident_month day=form.last_incident_day year=form.last_incident_year %}
-    </div>
+  <div class="crt-portal-card__content crt-portal-card__content--lg">
+    <h2 id="Date">Date</h2>
+    {% include "forms/question_cards/date.html" with card_title='Date' question=form.date_question month=form.last_incident_month day=form.last_incident_day year=form.last_incident_year %}
+  </div>
 </div>
 
-<a name="Summary"></a>
-  <div class="crt-portal-card">
-    <div class="crt-portal-card__content crt-portal-card__content--lg">
-        <h2>Intake summary</h2>
-        {% include "forms/question_cards/single_question.html" with field=form.violation_summary card_title="Intake summary" %}
-        {% include "forms/word_counter.html" with word_limit=500 %}
-    </div>
+<div class="crt-portal-card">
+  <div class="crt-portal-card__content crt-portal-card__content--lg">
+    <h2 id="Summary">Intake summary</h2>
+    {% include "forms/question_cards/single_question.html" with field=form.violation_summary card_title="Intake summary" %}
+    {% include "forms/word_counter.html" with word_limit=500 %}
+  </div>
 </div>
 
 {% endblock %}

@@ -214,7 +214,7 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
             'Service member',
             'Primary concern',
             'Follow up',
-            'Location',
+            'Incident location',
             'Personal characteristics',
             'Date',
             'Summary',
