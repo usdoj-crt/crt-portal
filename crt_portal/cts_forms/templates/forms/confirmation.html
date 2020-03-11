@@ -38,7 +38,7 @@
           <h3>Please save this page for your records</h3>
           <p>Write down your record number and save or print a copy of this page for personal records.</p>
           <div class='record-number-wrapper'>
-            <img src="{% static 'img/ic_paper.svg' %}" alt="paper" class="record-number-icon margin-right-1" />
+            <div id="paper-icon-wrapper" class="margin-right-1"><img src="{% static 'img/ic_paper.svg' %}" alt="paper" /></div>
             Your record number is:
             <span class="record-number margin-left-1">{{report.id}}</span>
           </div>
@@ -52,7 +52,7 @@
   <div class="grid-container">
     <div class="tablet:grid-col-8 tablet:grid-offset-2">
 
-      <h2>What to expect</h2>
+      <h2 class='padding-top-3'>What to expect</h2>
 
       <ol class='confirmation-list'>
         <li>
