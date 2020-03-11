@@ -3,11 +3,7 @@ import random
 
 from django.db import migrations, models
 
-
-def add_salt():
-    # adding some non-ambiguous characters to salt the ids, this only needed for people asking abut their submission via phone, email or mail. There are no public automated lookups at this time. You could guess a range of IDs that might be assigned on a given day, but adding the letters adds 13,824 permutations to each of those records, so it would be labor intensive and noticeable to call in with questions if you were trying to guess at public_id that was not yours.
-    characters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-    return ''.join(random.choice(characters) for x in range(3))  # nosec
+from cts_forms.signals.py import salt
 
 
 def add_old_id(apps, schema_editor):
@@ -15,8 +11,8 @@ def add_old_id(apps, schema_editor):
     Report = apps.get_model('cts_forms', 'Report')
     old_reports = Report.objects.filter(public_id='x')
     for report in old_reports:
-        salt = add_salt()
-        report.public_id = f'{report.pk}{salt}'
+        salt_chars = salt()
+        report.public_id = f'{report.pk}{salt_chars}'
         report.save()
 
 
