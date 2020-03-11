@@ -7,9 +7,9 @@
       {{ block.super }}
 
       {% if form.name == 'PoliceLocation' %}
-        {% include "forms/report_police_location.html" with form=form %}
+        {% include "forms/question_cards/police_location.html" with form=form %}
       {% elif form.name == 'CommericalPublicLocation' %}
-        {% include 'forms/report_commercial_public_location.html' %}
+        {% include 'forms/question_cards/commercial_public_location.html' %}
       {% endif %}
 
       {% include 'forms/grouped_questions.html' %}
