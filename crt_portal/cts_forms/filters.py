@@ -51,9 +51,5 @@ def report_filter(request):
                 day = int(request.GET.getlist(field)[0][6:])
                 kwargs[f'create_date{filter_options[field]}'] = datetime.date(year, month, day)
 
-    # removing dashes spaces etc that might interfere with search
-    if 'public_id__icontains' in kwargs:
-        kwargs['public_id__icontains'] = re.sub(r'\W+', '', kwargs['public_id__icontains'])
-
     # returns a filtered query, and a dictionary that we can use to keep track of the filters we apply
     return Report.objects.filter(**kwargs), filters

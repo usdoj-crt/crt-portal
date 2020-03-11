@@ -94,7 +94,7 @@ def add_author_forms(sender, instance, created, **kwargs):
         current_request = CrequestMiddleware.get_request()
         author = current_request.user.username if current_request else 'public user'
         instance.author = author
-        instance.public_id = f'{instance.pk}' + salt()
+        instance.public_id = f'{instance.pk}-' + salt()
 
 
 @receiver(post_save, sender=Report)

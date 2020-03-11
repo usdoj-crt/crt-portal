@@ -12,7 +12,7 @@ def add_old_id(apps, schema_editor):
     old_reports = Report.objects.filter(public_id='x')
     for report in old_reports:
         salt_chars = salt()
-        report.public_id = f'{report.pk}{salt_chars}'
+        report.public_id = f'{report.pk}-{salt_chars}'
         report.save()
 
 
