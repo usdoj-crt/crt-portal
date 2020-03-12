@@ -41,7 +41,7 @@ jobs:
           name: run server for tests
           command: |
             # create pa11y_tester
-            python manage.py create_superuser --username pa11y_tester --DJANGO_SUPERUSER_PASSWORD $PA11Y_PASSWORD
+            python crt_portal/manage.py create_superuser --username pa11y_tester --DJANGO_SUPERUSER_PASSWORD $PA11Y_PASSWORD
             # runserver
             pipenv run crt_portal/manage.py runserver 8000
           background: true
