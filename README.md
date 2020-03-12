@@ -171,9 +171,18 @@ You can also run a subset of tests by specifying a path to a specific test class
     docker-compose run web python /code/crt_portal/manage.py test cts_forms.tests.test_forms.ComplaintActionTests
 
 
-For accessibility testing with Pa11y, you can run that locally, _if you have npm installed locally_ with:
+For accessibility testing with Pa11y, we generally want a test on each unique view.
+
+You can run Pa11y locally, _if you have npm installed locally_:
+
+1) If you are doing this for the first time, log into your local admin and make an account for testing at localhost:8000/admin/auth/user/add/ The user name is `pa11y_tester` password is `imposing40Karl5monomial`. **Never** make this account in the dev or staging environments. Circle testing happens in a disposable database and these are not run against live sites. (Prod doesn't use password accounts but no reason to make it there either.)
+
+
+2) run
 
     npm run test:a11y
+
+This will run all the tests, look in package.json for a listing of tests, if you want to run them individually.
 
 You can scan the code for potential python security flaws using [bandit](https://github.com/PyCQA/bandit). Run bandit manually:
 
