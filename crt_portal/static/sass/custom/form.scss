@@ -83,6 +83,12 @@ form#report-form {
     }
   }
 
+  .light-button {
+    &:hover {
+      background-color: $white;
+    }
+  }
+
   .blue-left-highlight {
     border-left: 2px solid $blue-warm-vivid-70;
     padding-left: 1rem;
