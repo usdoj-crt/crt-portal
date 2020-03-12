@@ -41,15 +41,7 @@ jobs:
           name: run server for tests
           command: |
             # create pa11y_tester
-            pipenv run crt_portal/manage.py shell
-            timeout 7
-            import os
-            from django.apps import apps
-            User = apps.get_model('user', 'User')
-            tester = User.objects.create(first_name='pa11y_tester')
-            tester.set_password(os.environ.get(PA11Y_PASSWORD))
-            tester.save()
-            exit()
+            python manage.py create_superuser --username pa11y_tester --DJANGO_SUPERUSER_PASSWORD $PA11Y_PASSWORD
             # runserver
             pipenv run crt_portal/manage.py runserver 8000
           background: true
