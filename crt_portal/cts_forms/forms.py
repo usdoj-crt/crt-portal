@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtPrimaryIssueRadioGroup, CrtMultiSelect, ComplaintSelect
-from .models import Report, ProtectedClass, HateCrimesandTrafficking
+from .models import Report, ProtectedClass, HateCrimesandTrafficking, Comment
 from .model_variables import (
     ELECTION_CHOICES,
     PROTECTED_CLASS_CHOICES,
@@ -992,3 +992,10 @@ class ComplaintActions(ModelForm):
                 description=description,
                 target=self.instance
             )
+
+
+class CommentForm(ModelForm):
+
+    class Meta:
+        model = Comment
+        fields = ['text']
