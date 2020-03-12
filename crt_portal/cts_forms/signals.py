@@ -2,6 +2,7 @@
 inspired by https://www.algotech.solutions/blog/python/using-django-signals-for-database-logging/
 """
 import logging
+import random
 
 from crequest.middleware import CrequestMiddleware
 
@@ -81,12 +82,19 @@ def add_author(sender, instance, **kwargs):
     instance.author = author
 
 
+def salt():
+    """Adding some non-ambiguous characters to salt the ids, this only needed for people asking abut their submission via phone, email or mail. There are no public automated lookups at this time. You could guess a range of IDs that might be assigned on a given day, but adding the letters adds 13,824 permutations to each of those records, so it would be labor intensive and noticeable to call in with questions if you were trying to guess at public_id that was not yours."""
+    characters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    return ''.join(random.choice(characters) for x in range(3))  # nosec
+
+
 @receiver(post_save, sender=Report)
 def add_author_forms(sender, instance, created, **kwargs):
     if created:
         current_request = CrequestMiddleware.get_request()
         author = current_request.user.username if current_request else 'public user'
         instance.author = author
+        instance.public_id = f'{instance.pk}-' + salt()
 
 
 @receiver(post_save, sender=Report)
