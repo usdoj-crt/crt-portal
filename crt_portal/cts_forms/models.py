@@ -30,10 +30,12 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-class InternalHistory(models.Model):
+class CommentAndSummary(models.Model):
     note = models.CharField(max_length=1000, null=False, blank=False,)
-    create_date = models.DateTimeField(auto_now_add=True)
     author = models.CharField(max_length=1000, null=False, blank=False,)
+    modified_date = models.DateTimeField(auto_now=True)
+    create_date = models.DateTimeField(auto_now_add=True)
+    is_summary = models.BooleanField(default=False)
 
 
 class ProtectedClass(models.Model):
@@ -122,7 +124,7 @@ class Report(models.Model):
     last_incident_month = models.PositiveIntegerField(MaxValueValidator(12, message="Month must be 12 or less"), null=True, blank=True,)
 
     # Internal comments
-    internal_comments = models.ManyToManyField(InternalHistory, blank=True)
+    internal_comments = models.ManyToManyField(CommentAndSummary, blank=True)
 
     # Metadata
     public_id = models.CharField(max_length=100, null=False, blank=False)
