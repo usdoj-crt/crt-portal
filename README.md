@@ -75,7 +75,6 @@ Now to compile the sass files into css, run:
 
 Also note, that the staticfiles folder is the destination of all static assets when you or a script runs `manage.py collectstatic` so don't make your changes there, or they will be overwritten.
 
-
 ## Running common tasks
 
 ### Migrations
@@ -182,10 +181,13 @@ The -m will give you the line numbers in code that that are not tested by any un
 Please keep in mind that the quality of tests is more important than the quantity. Be on the look out for key functionality and logic that can be documented and confirmed with good tests.
 
 ### Accessibility test
-For accessibility testing with Pa11y, you can run that locally, _if you have npm installed locally_ with:
+For accessibility testing with Pa11y, we generally want a test on each unique view. You can run Pa11y locally, _if you have npm installed locally_:
 
-    npm run test:a11y
-
+1) If you are doing this for the first time, log into your local admin and make an account for testing at localhost:8000/admin/auth/user/add/ The user name is `pa11y_tester` password is `imposing40Karl5monomial`. **Never** make this account in the dev or staging environments. Circle testing happens in a disposable database and these are not run against live sites. (Prod doesn't use password accounts but no reason to make it there either.)
+2) run
+```npm run test:a11y```
+    
+This will run all the tests, look in package.json for a listing of tests, if you want to run them individually.
 See full accessibility testing guidelines in our [A11y plan](https://github.com/usdoj-crt/crt-portal/blob/develop/docs/a11y_plan.md).
 
 ### Code style tests
