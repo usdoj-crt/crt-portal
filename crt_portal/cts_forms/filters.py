@@ -22,6 +22,7 @@ filter_options = {
     'location_address_line_2': '__search',
     'create_date_start': '__gte',
     'create_date_end': '__lte',
+    'public_id': '__contains',
 }
 
 

@@ -13,3 +13,4 @@ pa11y-screenshots/
 crt_portal/static/css/*
 data/section_assignment.csv
 .vscode
+.coverage
