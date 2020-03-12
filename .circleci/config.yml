@@ -42,6 +42,7 @@ jobs:
           command: |
             # create pa11y_tester
             pipenv run crt_portal/manage.py shell
+            timeout 7
             import os
             from django.apps import apps
             User = apps.get_model('user', 'User')
