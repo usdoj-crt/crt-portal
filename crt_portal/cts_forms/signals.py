@@ -97,15 +97,6 @@ def add_author_forms(sender, instance, created, **kwargs):
         instance.public_id = f'{instance.pk}-' + salt()
 
 
-@receiver(post_save, sender=Report)
-@receiver(post_save, sender=ProtectedClass)
-@receiver(post_save, sender=InternalHistory)
-def save_report(sender, instance, **kwargs):
-    current_request = CrequestMiddleware.get_request()
-    message = format_data_message('Data saved', current_request, instance)
-    logger.info(message)
-
-
 @receiver(post_delete, sender=Report)
 @receiver(post_delete, sender=ProtectedClass)
 @receiver(post_delete, sender=InternalHistory)
