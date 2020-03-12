@@ -40,7 +40,7 @@ jobs:
       - run:
           name: run server for tests
           command: |
-            pipenv run crt_portal/manage.py runserver 8000
+            # create pa11y_tester
             pipenv run crt_portal/manage.py shell
             import os
             from django.apps import apps
@@ -48,6 +48,9 @@ jobs:
             tester = User.objects.create(first_name='pa11y_tester')
             tester.set_password(os.environ.get(PA11Y_PASSWORD))
             tester.save()
+            exit()
+            # runserver
+            pipenv run crt_portal/manage.py runserver 8000
           background: true
       - run:
           name: Make directory for test results
