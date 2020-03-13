@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtPrimaryIssueRadioGroup, CrtMultiSelect, ComplaintSelect
-from .models import Report, ProtectedClass, HateCrimesandTrafficking
+from .models import Report, ProtectedClass, HateCrimesandTrafficking, CommentAndSummary
 from .model_variables import (
     ELECTION_CHOICES,
     PROTECTED_CLASS_CHOICES,
@@ -992,3 +992,30 @@ class ComplaintActions(ModelForm):
                 description=description,
                 target=self.instance
             )
+
+
+class CommentActions(ModelForm):
+    class Meta:
+        model = CommentAndSummary
+        fields = ['note', 'is_summary']
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+        self.fields['note'].widget.attrs['class'] = 'usa-textarea'
+        self.label_suffix = ''
+        self.fields['note'].label = 'New comment'
+        self.fields['is_summary'] = TextInput()
+
+    def get_actions(self):
+        """When any new comment is created"""
+        return f"updated {' '.join(field.split('_'))}", f" to {self.cleaned_data[field]}"
+
+    def update_activity_stream(user, report, comment):
+        """Send all actions to activity stream"""
+        from actstream import action
+        action.send(
+            user,
+            verb="",
+            description=comment,
+            target=report
+        )

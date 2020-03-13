@@ -36,6 +36,9 @@
           <div class="activity-stream">
             {% include 'forms/complaint_view/show/activity_stream.html' with title="Activity" icon="img/intake-icons/ic_activity.svg" %}
           </div>
+          <div>
+           {% include 'forms/complaint_view/show/actions/comment_summary.html' with id_name="comment" is_summary=False note=comments.note %}
+          </div>
         </div>
         <div class="tablet:grid-col-6">
           {% include 'forms/complaint_view/show/correspondent_info.html' with data=data %}

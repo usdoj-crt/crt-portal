@@ -13,7 +13,7 @@ from django.views.generic import View
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
-from .forms import ComplaintActions, Filters, Review
+from .forms import ComplaintActions, CommentActions, Filters, Review
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -23,7 +23,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PRIMARY_COMPLAINT_DICT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import HateCrimesandTrafficking, ProtectedClass, Report
+from .models import HateCrimesandTrafficking, ProtectedClass, Report, CommentAndSummary
 from .page_through import pagination
 
 SORT_DESC_CHAR = '-'
@@ -115,59 +115,79 @@ def IndexView(request):
     return render(request, 'forms/complaint_view/index/index.html', final_data)
 
 
+def serialize_data(report, request, report_id):
+    primary_complaint = [choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint]
+    crimes = {
+        'physical_harm': False,
+        'trafficking': False
+    }
+
+    for crime in report.hatecrimes_trafficking.all():
+        for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
+            if crime.hatecrimes_trafficking_option == choice[1]:
+                crimes[choice[0]] = True
+
+    p_class_list = format_protected_class(
+        report.protected_class.all().order_by('form_order'),
+        report.other_class,
+    )
+
+    output = {
+        'actions': ComplaintActions(initial={
+            'assigned_section': report.assigned_section,
+            'status': report.status
+        }),
+        'comments': CommentActions(),
+        'activity_stream': report.target_actions.all(),
+        'crimes': crimes,
+        'data': report,
+        'p_class_list': p_class_list,
+        'primary_complaint': primary_complaint,
+        'return_url_args': request.GET.get('next', ''),
+    }
+
+    return output
+
+
 class ShowView(LoginRequiredMixin, View):
-    def __serialize_data(self, request, report_id):
-        report = get_object_or_404(Report.objects, id=report_id)
-        primary_complaint = [choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint]
-        crimes = {
-            'physical_harm': False,
-            'trafficking': False
-        }
-
-        for crime in report.hatecrimes_trafficking.all():
-            for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
-                if crime.hatecrimes_trafficking_option == choice[1]:
-                    crimes[choice[0]] = True
-
-        p_class_list = format_protected_class(
-            report.protected_class.all().order_by('form_order'),
-            report.other_class,
-        )
-
-        output = {
-            'actions': ComplaintActions(initial={
-                'assigned_section': report.assigned_section,
-                'status': report.status
-            }),
-            'activity_stream': report.target_actions.all(),
-            'crimes': crimes,
-            'data': report,
-            'p_class_list': p_class_list,
-            'primary_complaint': primary_complaint,
-            'return_url_args': request.GET.get('next', ''),
-        }
-
-        return output
-
     def get(self, request, id):
-        output = self.__serialize_data(request, id)
+        report = get_object_or_404(Report, pk=id)
+        output = serialize_data(report, request, id)
 
         return render(request, 'forms/complaint_view/show/index.html', output)
 
     def post(self, request, id):
-        report = get_object_or_404(Report, id=id)
+        report = get_object_or_404(Report, pk=id)
+        action_form = ComplaintActions(request.POST, instance=report)
+        if action_form.is_valid() and action_form.has_changed():
+            action_form.update_activity_stream(request.user)
+            action_form.save()
 
-        form = ComplaintActions(request.POST, instance=report)
-        if form.is_valid() and form.has_changed():
-            form.update_activity_stream(request.user)
-            form.save()
-
-        output = self.__serialize_data(request, id)
+        output = serialize_data(report, request, id)
         output.update({
             'return_url_args': request.POST.get('next', ''),
         })
 
         return render(self.request, 'forms/complaint_view/show/index.html', output)
+
+
+@login_required
+def SaveComment(request, report_id):
+    """Can be used for saving comments or summaries for a report"""
+    if request.method == 'POST':
+        report = get_object_or_404(Report, pk=report_id)
+        comment = CommentAndSummary.objects.create(
+            note=request.POST.__getitem__('note'),
+            is_summary=request.POST.__getitem__('is_summary'),
+        )
+        report.internal_comments.add(comment)
+        CommentActions.update_activity_stream(request.user, report, comment.note)
+        output = serialize_data(report, request, report_id)
+        output.update({
+            'return_url_args': request.POST.get('next', ''),
+        })
+
+        return render(request, 'forms/complaint_view/show/index.html', output)
 
 
 def save_form(form_data_dict):
