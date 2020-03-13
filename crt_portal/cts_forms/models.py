@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 
 
 class CommentAndSummary(models.Model):
-    note = models.CharField(max_length=1000, null=False, blank=False,)
+    note = models.CharField(max_length=7000, null=False, blank=False,)
     author = models.CharField(max_length=1000, null=False, blank=False,)
     modified_date = models.DateTimeField(auto_now=True)
     create_date = models.DateTimeField(auto_now_add=True)

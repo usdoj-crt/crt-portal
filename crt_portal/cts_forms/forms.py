@@ -1,8 +1,16 @@
 from datetime import datetime
 
 from django.core.validators import ValidationError
-from django.forms import ModelForm, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
-    ModelMultipleChoiceField, Select
+from django.forms import (
+    ModelForm,
+    ChoiceField,
+    TypedChoiceField,
+    TextInput,
+    EmailInput,
+    Textarea,
+    ModelMultipleChoiceField,
+    Select,
+)
 from django.utils.translation import gettext_lazy as _
 
 from .question_group import QuestionGroup
@@ -1001,9 +1009,12 @@ class CommentActions(ModelForm):
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
-        self.fields['note'].widget.attrs['class'] = 'usa-textarea'
-        self.label_suffix = ''
-        self.fields['note'].label = 'New comment'
+        self.fields['note'].widget = Textarea(
+            attrs={
+                'class': 'usa-textarea',
+                'label': 'New comment',
+            },
+        )
         self.fields['is_summary'] = TextInput()
 
     def get_actions(self):
