@@ -1017,10 +1017,6 @@ class CommentActions(ModelForm):
         )
         self.fields['is_summary'] = TextInput()
 
-    def get_actions(self):
-        """When any new comment is created"""
-        return f"updated {' '.join(field.split('_'))}", f" to {self.cleaned_data[field]}"
-
     def update_activity_stream(user, report, comment):
         """Send all actions to activity stream"""
         from actstream import action

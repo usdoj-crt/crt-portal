@@ -6,7 +6,7 @@ from django.test.client import Client
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-from ..forms import ComplaintActions, CommentActions
+from ..forms import ComplaintActions
 from ..models import Report, CommentAndSummary
 from .test_data import SAMPLE_REPORT
 
