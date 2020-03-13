@@ -951,7 +951,6 @@ class LoginRequiredTests(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/accounts/login/?next=/form/comment/report/1/')
 
-
     def test_view_report_details_authenticated(self):
         self.client.login(username='DELETE_USER', password=self.test_pass)
         response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id}))
