@@ -10,6 +10,8 @@
 
 * [Cloud.gov set up](#cloudgov-set-up)
 
+* [Deployment](#deployment)
+
 * [Additional documentation](#additional-documentation)
 
 * [Background notes](#background-notes)
@@ -151,7 +153,7 @@ Run unit test on **Windows**:
     ```
     python crt_portal/manage.py test cts_forms
     ```
-7. If you lucky your test will result OK or lots of error to work on!
+7. If you're lucky your tests will all pass otherwise, inspect the output to find the failing tests and errors to work on!
 
 
 Run unit test on **MAC**:
@@ -160,11 +162,13 @@ You can also run project tests using docker with:
 
     docker-compose run web python /code/crt_portal/manage.py test cts_forms
 
-This will run [tests.py](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/tests.py), where the business logic tests live. It will also run [test_all_section_assignments.py](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/test_all_section_assignments.py), a script that generates a csv in the /data folder that has the relevant permutations of form fields and runs the out put from the (section assignment function)[https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/models.py#L125]. The idea is that we can expand the spreadsheet and the script to check outcomes. Then it will be a true test, in the meantime, this is not being run as part of deploy.
+This will run all of the tests located in the [tests](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/tests) folder. where the business logic tests live.
 
-You can also run a subset of tests, for example:
+The test suite includes [test_all_section_assignments.py](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/test_all_section_assignments.py), a script that generates a csv in the `/data` folder which has the relevant permutations of form fields and runs the out put from the [section assignment function](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/models.py#L125). The idea is that we can expand the spreadsheet and the script to check outcomes. Then it will be a true test, in the meantime, this is not being run as part of deploy.
 
-    docker-compose run web python /code/crt_portal/manage.py test cts_forms.tests.Valid_Form_Tests
+You can also run a subset of tests by specifying a path to a specific test class or module. For example:
+
+    docker-compose run web python /code/crt_portal/manage.py test cts_forms.tests.test_forms.ComplaintActionTests
 
 
 For accessibility testing with Pa11y, you can run that locally, _if you have npm installed locally_ with:
@@ -190,6 +194,36 @@ You can check for JS style issues by running Prettier:
 Prettier can automatically fix JS style issues for you:
 
     npm run lint:write
+
+### Security scans
+We use OWASP ZAP for security. Here is an [intro to OWASP ZAP](https://resources.infosecinstitute.com/introduction-owasp-zap-web-application-security-assessments/#gref) that explains the tool. You can also look at the [scan configuration documentation](https://github.com/zaproxy/zaproxy/wiki/ZAP-Baseline-Scan).
+
+You can run and pull down the container to use locally:
+
+    docker pull owasp/zap2docker-weekly
+
+Run OWASP ZAP security scans with docker using the GUI:
+
+    docker run -u zap -p 8080:8080 -p 8090:8090 -i owasp/zap2docker-weekly zap-webswing.sh
+
+you can see the GUI at http://localhost:8080/zap/
+
+Do use caution when using any "attack" tests, we generally run those in local or sandboxed environments.
+
+To stop the container, find the container id with:
+
+    docker container ls
+
+Then you can stop the container with:
+
+     docker stop <container_id>
+
+Run OWASP ZAP security scans with docker using the command line. Here is an example of running a full, passive scan locally targeting the development site:
+
+    docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-full-scan.py \
+    -t https://crt-portal-django-dev.app.cloud.gov/report/ -r testreport.html
+
+That will produce a report locally that you can view in your browser. It will give you a list of things that you should check. Sometimes there are things at the low or informational level that are false positives or are not worth the trade-offs to implement. The report will take a minute or two to generate.
 
 ## Browser targeting
 
@@ -272,15 +306,57 @@ Or change a user's password:
 
     python crt_portal/manage.py changepassword {{username}}
 
-### Subsequent deploys
+## Deployment
 
-We deploy from CircleCI.
+We deploy from [CircleCI](https://circleci.com/gh/usdoj-crt). The [circle config](https://github.com/usdoj-crt/crt-portal/blob/develop/.circleci/config.yml) contains rules that will deploy the site to different environments using a set of rules.
 
-* The app will deploy to dev when the tests pass and a PR is merged into `develop`.
-* The app will deploy to staging when the tests pass and when we make or update a branch that starts with `release/`.
-* The app will deploy to prod when the tests pass and a PR is merged into `master`.
+[GitFlow](https://github.com/nvie/gitflow) is a tool that can make it easier to handle branching. On a Mac with homebrew it can be installed with:
+
+    brew install git-flow
+Then, in the top level folder of the project, you will want to run:
+
+    git flow init
+We are using the defaults, so you can press enter for all the set up options. You may need to type 'master' production releases if you haven't been on the master branch yet.
+
+### Deployment for each environment
+* The app will deploy to **dev** when the tests pass and a PR is merged into `develop`. You should do this in GitHub.
+
+* The app will deploy to **stage** when the tests pass and when we make or update a branch that starts with `release/`.
+    * Make sure the develop branch is approved for deploy by the product owner
+    * Look at ZenHub and see if there is anything in "Dev done" flag that for approval so those issues are in "Ready for UAT" when you make the release
+    * Check out the develop branch and do a `git pull origin develop`
+    * You can create a release with the command `git flow release start <date-of-planned-relase>`
+    * Finally, push the release branch `git push origin release/<date-of-planned-relase>`
+
+* The app will deploy to **prod** when the tests pass and a PR is merged into `master`. You can also do this in GitHub once you confirm approval with the product owner. If there are any merge conflicts, you will want to resolve them on the staging branch first.
+    * If have not been any PRs directly to the release branch you can merge in GitHub
+    * If there are PRs to the release branch merge with gitflow:
+     * Approve the relese on GitHub
+     * Check out the release branch and do a `git pull origin release/<name-of-release>`
+     * Check out the master branch and do a `git pull origin master`
+     * Check out the develop branch and do a `git pull origin develop`
+     * Run `git flow release finish`
+     * Check out the develop branch and do a `git push origin develop`
+     * Once that succeeds, check out the master branch do a `git push origin master`
 
 When CircleCI tries to deploy two PRs back-to-back, one of them can fail. In this case, you can restart the failed deploy process by clicking the "Rerun Workflow" button.
+
+**Hot fixes** will be needed when we find urgent bugs or problems with production. This is where git-flow becomes very useful.
+To make the fix:
+    * Check out the master branch and do a `git pull origin master`
+    * Create a branch for your work with `git flow hotfix start`
+    * Commit and push your branch for PR review
+
+To deploy the fix:
+    * Make sure the product owner is in the loop with any errors and fixes.
+    * Approve the hotfix merge on GitHub but don't merge it.
+    * Check out the development branch and do a `git pull origin develop`
+    * Check out the release branch, if there is one, and do a `git pull origin release/name-of-release`
+    * Check out the master branch and do a `git pull origin master`
+    * Finish the hotfix with `git flow hotfix finish` This command will make sure that the fix is merged into the master, develop and release branches so your change doesn't get clobbered later.
+    * Checkout and push the develop, release and master branches. Checking to make sure the fix works and doesn't cause any unintended consequences.
+
+The [git-flow cheatsheet](https://danielkummer.github.io/git-flow-cheatsheet/) is a great explainer of the git-flow tool.
 
 ## Additional documentation
 

@@ -6,76 +6,21 @@
 {% endblock %}
 
 {% block page_header %}
-  <header class="page-header-background flex-child">
-    <div class="grid-container">
-      <div class="grid-row grid-gap flex-child">
-        <div class="tablet:grid-col-7 tablet:grid-offset-2">
-          <h1 class="padding-top-5 margin-0">
-            Contact the Department of Justice about a civil rights concern
-          </h1>
-          <div class="intro-subtitle padding-y-3">
-            If you believe you or someone else has experienced a civil rights violation, please tell us what happened
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+  {% include 'forms/portal/header.html' %}
 {% endblock %}
 
 {% block content %}
-  {# Progress text for screen reader. #}
-  <div class="page-header-background">
-    <div class="grid-container">
-      <div class="grid-row grid-gap">
-        <div class="tablet:grid-col-7 tablet:grid-offset-2">
-          <div class="padding-bottom-4 padding-top-3" aria-label="progress">
-            <span class="usa-sr-only">
-              Current step: {{ current_step_name }}. Step {{ wizard.steps.step1 }} of {{ wizard.steps.count }}.
-            </span>
-            <ol class="steps">
-              {% for step in ordered_step_names %}
-                <li class="step {% if step == current_step_name %}current{%else%}{%endif%}" {% if step == current_step_name %}aria-current="true"{%else%}aria-current="false"{% endif %}>
-                  {{ step }}
-                  {% if step != current_step_name %}
-                    <span class="usa-sr-only">
-                      {% if forloop.counter > wizard.steps.step1 %}not completed{% else %}completed{% endif %}
-                    </span>
-                  {% endif %}
-                </li>
-              {% endfor %}
-              </ol>
-            <div class="connecting-line"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <div class="grid-container">
     <div class="grid-row grid-gap">
-      <div class="tablet:grid-col-8 tablet:grid-offset-2"">
-        {% if page_errors %}
-          <section id="page-errors" class="display-none page-errors margin-top-4 margin-bottom-2" role="alert" aria-live="assertive">
-            {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
-          </section>
-        {% endif %}
-        <div class="margin-bottom-4 {% if not page_errors %}margin-top-5{% endif %}">
-          <h2 class="margin-0">{{ current_step_title }}</h2>
-          {% if page_note %}
-            <p class="margin-top-1"><em>{{ page_note }}</em></p>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-
-    <div class="grid-row grid-gap">
-      <div class="tablet:grid-col-7 tablet:grid-offset-2">
+      <div class="tablet:grid-col-8 tablet:grid-offset-2">
+        {% block page_info_card %}{% endblock %}
         <form id="report-form"
               class="usa-form"
               action="/report/"
               method="post"
               {% if form_autocomplete_off %}autocomplete="off"{% endif %}
-              {% if form_novalidate %}novalidate{% endif %}>
+              {% if form_novalidate %}novalidate{% endif %}
+        >
           {% csrf_token %}
           {{ wizard.management_form }}
 
@@ -91,13 +36,26 @@
           {% endfor %}
 
           {% block form_questions %}
+            {% if page_errors %}
+              <section id="page-errors" class="display-none page-errors margin-bottom-2" role="alert" aria-live="assertive">
+                {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
+              </section>
+            {% endif %}
+            <div class="margin-bottom-4">
+              <h2 class="margin-0">{{ current_step_title }}</h2>
+              {% if page_note %}
+                <p class="margin-top-1"><em>{{ page_note }}</em></p>
+              {% endif %}
+            </div>
           {% endblock %}
 
-          <div class="margin-top-5 margin-bottom-9">
+          {% block bottom-navigation %}
+          <div class="margin-top-5">
             <input id="submit-next"
-                   type="submit"
-                   value="{% trans 'Next' %}"
-                   class="usa-button" />
+                  type="submit"
+                  value="{% trans 'Next' %}"
+                  class="usa-button" />
+
             {% if wizard.steps.prev %}
               <button name="wizard_goto_step"
                       type="submit"
@@ -108,9 +66,8 @@
               </button>
             {% endif %}
           </div>
+          {% endblock %}
         </form>
-      </div>
-    </div>
   </div>
 {% endblock %}
 

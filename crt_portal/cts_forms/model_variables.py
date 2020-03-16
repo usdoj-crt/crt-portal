@@ -2,6 +2,8 @@
 
 from django.utils.translation import gettext_lazy as _
 
+EMPTY_CHOICE = ('', _('- Select -'))
+
 SERVICEMEMBER_CHOICES = (
     ('yes', _('Yes')),
     ('no', _('No')),
@@ -12,16 +14,17 @@ SERVICEMEMBER_ERROR = _('Please select a status as an active duty service member
 PRIMARY_COMPLAINT_CHOICES = (
     ('workplace', _('Workplace discrimination or other employment-related problem')),
     ('housing', _('Housing discrimination or harassment')),
-    ('education', _('Discrimination at a school, educational program, or related to receiving education')),
-    ('voting', _('Right to vote impacted')),
+    ('education', _('Discrimination at a school, educational program or service, or related to receiving education')),
+    ('voting', _('Voting rights or ability to vote blocked or affected')),
     ('police', _('Mistreated by police, law enforcement, or correctional staff (including while in prison)')),
-    ('commercial_or_public', _('Discriminated against in any other commercial location or public place')),
+    ('commercial_or_public', _('Discriminated against in a commercial location or public place')),
     ('something_else', _('Something else happened')),
 )
+PRIMARY_COMPLAINT_DICT = dict(PRIMARY_COMPLAINT_CHOICES)
 
 PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT = {
-    'commercial_or_public': _('Store, restaurant, bar, hotel, place of worship, library, medical facility, bank, courthouse, government buildings, public park or street, or online'),
-    'something_else': _('You will be able to tell us more later')
+    'commercial_or_public': _('This could include a store, restaurant, bar, hotel, place of worship, library, medical facility, bank, courthouse, government building, public park or street, as well as online.'),
+    'something_else': _('The examples above reflect some but not all of the civil rights violations that we address. Select this option if you don’t see an example that applies to your situation. You will be able to tell us more later.')
 }
 
 PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
@@ -31,30 +34,30 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
         _('Inappropriately asked to provide immigration documentation'),
     ],
     'housing': [
-        _('Denied housing, a permit, or a loan'),
-        _('Harmful living conditions or lack accommodations for disability'),
-        _('Harassment by a landlord or another tenant'),
+        _('Denied housing, a permit, or a loan based on personal characteristics like race, sex, and/or having children under 18 years old'),
+        _('Denied an accommodation for a disability, including not being allowed to have a service animal'),
+        _('Harassment by a landlord or another tenant, including sexual harassment'),
     ],
     'education': [
         _('Harassment based on race, sex, national origin, disability, or religion'),
         _('Denied admission or segregated in an education program or activity'),
-        _('Denied services or accommodations for a disability or language barrier'),
+        _('Denied educational accommodations for a disability or language barrier'),
     ],
     'voting': [
-        _('Blocked from registering to vote, entering a polling place to vote, or any other voting activity'),
-        _('Lack of polling place accommodations for disability'),
-        _('Ballot tampering'),
+        _('Blocked or prevented from registering to vote, obtaining or submitting a ballot, having your ballot counted, or entering a polling place to vote'),
+        _('Denied adequate voting assistance or accommodations for a disability at a polling place'),
+        _('Restricted or prevented from participating in an election, including voting, becoming a candidate, or being elected for office'),
     ],
     'police': [
         _('Police brutality or use of excessive force, including patterns of police misconduct'),
         _('Searched and arrested under false pretenses, including racial or other discriminatory profiling'),
-        _('Denied rights, language access barriers, subjected to harmful living conditions or lack of accessible facilities'),
+        _('Denied rights while arrested or incarcerated'),
+        _('Denied access to safe living conditions or accommodations for a disability, language barrier, or religious practice while incarcerated'),
     ],
     'commercial_or_public': [
-
-        _('A location or website lacking disability accommodations'),
-        _('Denied service or entry because of a perceived personal characteristic like race, sex, or religion'),
-        _('Blocked from receiving reproductive health services'),
+        _('A physical or online location that does not provide disability accommodations'),
+        _('Denied service or entry because of a perceived personal characteristic  like race, sex, or religion'),
+        _('Threatened or harassed while seeking or receiving reproductive health services'),
     ],
     'something_else': []
 }
@@ -65,73 +68,47 @@ ELECTION_CHOICES = (
     ('both', _('Both')),
     ('unknown', _('I\'m not sure')),
 )
+ELECTION_DICT = dict(ELECTION_CHOICES)
 
 HATE_CRIMES_TRAFFICKING_MODEL_CHOICES = (
     ('physical_harm', _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability')),
-    ('trafficking', _('Coerced or forced to do work or perform a commercial sex act')),
+    ('trafficking', _('Coerced or forced to do work or perform a sex act in exchange for something of value')),
 )
 
 HATE_CRIMES_TRAFFICKING_CHOICES = (
     _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability'),
-    _('Coerced or forced to do work or perform a commercial sex act'),
+    _('Coerced or forced to do work or perform a sex act in exchange for something of value'),
 )
 
-# PROTECTED_CLASS_CHOICES means "PROTECTED_CLASS_FORM_CHOICES" and refers to the choices that will be displayed on the form front-end.
+
 # See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
-# This tuple will create the initial order, the form_order data can be directly adjusted after the initial load.
-PROTECTED_CLASS_CHOICES = (
-    _('Race/color'),
-    _('National origin (including ancestry and ethnicity)'),
-    _('Immigration/citizenship status (choosing this will not share your status)'),
-    _('Religion'),
-    _('Sex or gender identity (including gender stereotypes) or pregnancy'),
-    _('Sexual orientation'),
-    _('Disability (including temporary or recovery)'),
-    _('Language'),
-    _('Family, marriage, or parental status'),
-    _('Military status'),
-    _('Age'),
-    _('Genetic information'),
-    _('None of these apply to me'),
-    _('Other reason'),
+# This tuple will create the form_order, then lists a short code that we use for the model value and CRT display views, then the name as it will display on the form.
+PROTECTED_CLASS_FIELDS = [
+    # (form order, code, display name)
+    (0, 'Age', _('Age')),
+    (1, 'Disability', _('Disability (including temporary or recovery)')),
+    (2, 'Family status', _('Family, marital, or parental status')),
+    (3, 'Gender', _('Gender identity (including gender stereotypes)')),
+    (4, 'Genetic', _('Genetic information (including family medical history)')),
+    (5, 'Immigration', _('Immigration/citizenship status (choosing this will not share your status)')),
+    (6, 'Language', _('Language')),
+    (7, 'National origin', _('National origin (including ancestry and ethnicity)')),
+    (8, 'Pregnancy', _('Pregnancy')),
+    (9, 'Race/color', _('Race/color')),
+    (10, 'Religion', _('Religion')),
+    (11, 'Sex', _('Sex')),
+    (12, 'Orientation', _('Sexual orientation')),
+    (13, 'None', _('None of these apply to me')),
+    (14, 'Other', _('Other reason')),
+]
+# PROTECTED_CLASS_CHOICES refers to the choices that will be displayed on the form front-end.
+PROTECTED_CLASS_CHOICES = [field[2] for field in PROTECTED_CLASS_FIELDS]
+# PROTECTED_MODEL_CHOICES are the constraints added to the database for acceptable answers.
+PROTECTED_MODEL_CHOICES = tuple(
+    (field[1].lower().replace(' ', '_'), field[2]) for field in PROTECTED_CLASS_FIELDS
 )
 
-# used in internal CRT view display
-PROTECTED_CLASS_CODES = {
-    'Disability (including temporary or recovery)': 'Disability',
-    'Race/color': 'Race/color',
-    'National origin (including ancestry and ethnicity)': 'National origin',
-    'Immigration/citizenship status (choosing this will not share your status)': 'Immigration',
-    'Religion': 'Religion',
-    'Sex or gender identity (including gender stereotypes) or pregnancy': 'Sex',
-    'Sexual orientation': 'Orientation',
-    'Family, marriage, or parental status': 'Family status',
-    'Military status': 'Military',
-    'Age': 'Age',
-    'Genetic information': 'Genetic',
-    'Other reason': 'Other',
-    'None of these apply to me': 'None',
-    'Language': 'Language'
-}
-
-PROTECTED_MODEL_CHOICES = (
-    ('disability', _('Disability (including temporary or recovery)')),
-    ('race', _('Race/color')),
-    ('origin', _('National origin (including ancestry and ethnicity)')),
-    ('immigration', _('Immigration/citizenship status (choosing this will not share your status)')),
-    ('religion', _('Religion')),
-    ('gender', _('Sex or gender identity (including gender stereotypes) or pregnancy')),
-    ('orientation', _('Sexual orientation')),
-    ('family', _('Family, marriage, or parental status')),
-    ('military', _('Military status')),
-    ('age', _('Age')),
-    ('genetic', _('Genetic information')),
-    ('language', _('Language')),
-    ('other', _('Other reason')),
-    ('none', _('None of these apply to me')),
-)
-
-PROTECTED_CLASS_ERROR = _('Please make a selection to continue. If none of these apply to your situation, please select "Other reason" and explain.')
+PROTECTED_CLASS_ERROR = _('Please make a selection to continue. If none of these apply to you, please select “None of these apply to me” or "Other reason"and explain.')
 
 STATUS_CHOICES = (
     ('new', _('New')),
@@ -161,6 +138,7 @@ COMMERCIAL_OR_PUBLIC_PLACE_CHOICES = (
     ('public_space', _('Public space')),
     ('other', _('Other'))
 )
+COMMERCIAL_OR_PUBLIC_PLACE_DICT = dict(COMMERCIAL_OR_PUBLIC_PLACE_CHOICES)
 
 COMMERCIAL_PUBLIC_FRIENDLY_TEXT = {
     'place_of_worship': _('Place of worship'),
@@ -183,6 +161,7 @@ CORRECTIONAL_FACILITY_LOCATION_CHOICES = (
     ('outside', _('Outside a prison or correctional facility')),
     ('inside', _('Inside a prison or correctional facility'))
 )
+CORRECTIONAL_FACILITY_LOCATION_DICT = dict(CORRECTIONAL_FACILITY_LOCATION_CHOICES)
 
 CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES = (
     ('state_local', _('State/local')),
@@ -190,6 +169,7 @@ CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES = (
     ('private', _('Private')),
     ('not_sure', _('I\'m not sure'))
 )
+CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT = dict(CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES)
 
 CORRECTIONAL_FACILITY_FRIENDLY_TEXT = {
     'outside': _('Outside of prison'),
@@ -204,18 +184,29 @@ PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES = (
     ('private_employer', _('Private employer')),
     ('not_sure', _('I\'m not sure')),
 )
+PUBLIC_OR_PRIVATE_EMPLOYER_DICT = dict(PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES)
 
 EMPLOYER_SIZE_CHOICES = (
     ('14_or_less', _('Fewer than 15 employees')),
     ('15_or_more', _('15 or more employees')),
     ('not_sure', _('I\'m not sure')),
 )
+EMPLOYER_SIZE_DICT = dict(EMPLOYER_SIZE_CHOICES)
+
+EMPLOYER_FRIENDLY_TEXT = {
+    'public_employer': _('Public'),
+    'private_employer': _('Private'),
+    'not_sure': _('Not sure'),
+    '14_or_less': _('Less than 15'),
+    '15_or_more': _('15 or more'),
+}
 
 PUBLIC_OR_PRIVATE_SCHOOL_CHOICES = (
     ('public', _('Public school or educational program')),
     ('private', _('Private school or educational program')),
     ('not_sure', _('I\'m not sure')),
 )
+PUBLIC_OR_PRIVATE_SCHOOL_DICT = dict(PUBLIC_OR_PRIVATE_SCHOOL_CHOICES)
 
 PUBLIC_OR_PRIVATE_FACILITY_CHOICES = (
     ('state_local_facility', _('State or local facility')),
@@ -231,26 +222,10 @@ PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES = (
     ('not_sure', _('Not sure')),
 )
 
-RESPONDENT_TYPE_CHOICES = (
-    ('employer', _('Employer or potential employer')),
-    ('landlord', _('Landlord, leasing office, or home/rental provider')),
-    ('police_corrections_staff', _('Police, prison guard, or other corrections staff')),
-    ('other_public_official', _('Other public official (judge, voting official, or other government official)')),
-    ('school', _('Individual(s) from school or educational program (teacher, administrator, staff, or students)')),
-    ('healthcare', _('Healthcare provider or staff')),
-    ('lender', _('Bank or loaning service')),
-)
-
 WHO_FOR_CHOICES = (
     ('myself', _('I\'m reporting for myself')),
     ('another', _('I\'m reporting on behalf of another person')),
     ('undisclosed', _('I prefer not to disclose')),
-)
-
-RELATIONSHIP_CHOICES = (
-    ('parent_guardian', _('I''m a parent or guardian of the person affected')),
-    ('professional', _('I''m providing professional assistance')),
-    ('witness to the situation', _('I''m a witness to the situation')),
 )
 
 STATES_AND_TERRITORIES = (

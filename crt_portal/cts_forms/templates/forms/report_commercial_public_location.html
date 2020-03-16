@@ -3,12 +3,12 @@
 
 <fieldset class="usa-fieldset margin-bottom-4">
   <legend class="em-text">
-    {% trans "Please choose the location that best describes your situation" %}
+    {{ form.commercial_or_public_place.label }}
   </legend>
   <div data-toggle>
     {{ form.commercial_or_public_place }}
-    {% with field=form.other_commercial_or_public_place %}    
-    <div class='other-class-option padding-top-1'>
+    {% with field=form.other_commercial_or_public_place %}
+    <div class='other-class-option margin-top-2'>
       <div class="blue-left-highlight">
         <div>
           <label for="{{ field.id_for_label }}">
@@ -31,7 +31,7 @@
 </fieldset>
 {% block page_js %}
 <script src="{% static 'js/other_show_hide.js' %}"></script>
-<script>
-  window.CRT.otherTextInputToggle('#id_5-commercial_or_public_place .usa-radio')
+<script nonce="{{request.csp_nonce}}">
+  window.CRT.otherTextInputToggle('#id_6-commercial_or_public_place .usa-radio')
 </script>
 {% endblock %}

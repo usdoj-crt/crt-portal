@@ -1,0 +1,11 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block classes %}crt-dropdown--stroke{% endblock %}
+{% block controls %}assigned-section{% endblock %}
+{% block label %}
+  {{actions.initial.assigned_section}}
+{% endblock %}
+{% block id %}assigned-section{% endblock %}
+{%block content %}
+  {{ actions.assigned_section }}
+{%endblock%}

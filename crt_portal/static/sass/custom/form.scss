@@ -11,12 +11,18 @@ form#report-form {
 
     li {
       margin-bottom: 1.5rem;
-    }
 
-    li.primary-issue-example-li {
-      margin-left: 18px;
-      margin-bottom: 1rem;
-      list-style: disc;
+      &.primary-issue-example-li {
+        font-size: .875rem;
+        line-height: 1.3125rem;
+        list-style: disc !important;
+        margin-bottom: 1rem;
+        margin-left: 18px;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
     }
   }
 
@@ -27,21 +33,43 @@ form#report-form {
 
 // Form styles
 .usa-form {
-  max-width: 30rem !important;
-
+  max-width: 100% !important;
   ul {
     margin-left: 0;
     padding-left: 0;
   }
 
+  .form-group {
+    margin-bottom: 1.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
   .other-class-option {
     margin-left: 2rem;
-    margin-top: -3.5rem;
 
-    ul li:last-child {
+    ul > li:last-child {
       height: 25px;
       margin-bottom: 0 !important;
       padding-bottom: 0;
+    }
+  }
+
+  .usa-fieldset {
+    margin-bottom: 1.5rem;
+
+    &:last-of-type:not(:only-of-type) {
+      margin-top: 2.5rem;
+    }
+
+    &:last-child, &:only-of-type {
+      margin-bottom: 0;
+    }
+
+    ul {
+      margin-bottom: 0;
     }
   }
 
@@ -55,20 +83,31 @@ form#report-form {
     }
   }
 
-  .look-like-link {
-    padding: 0;
-    border: none;
-    background: none;
-    text-decoration: underline;
-  }
-
   .blue-left-highlight {
     border-left: 2px solid $blue-warm-vivid-70;
     padding-left: 1rem;
   }
 
   li {
-    margin-bottom: 1rem;
+    > .usa-checkbox {
+      margin-bottom: 1rem;
+    }
+
+    > .usa-radio {
+      margin-bottom: 1.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    &:not(:first-child) {
+      margin-top: 1rem;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   .usa-input {
@@ -113,32 +152,42 @@ form#report-form {
   }
 
   .crt-radio__label_helper {
-    line-height: 1.5rem;
+    line-height: .85rem;
+    margin-bottom: 0;
 
     .label-text {
       position: relative;
-      bottom: 40px;
+      bottom: 32px;
       margin-bottom: -30px;
+    }
+
+    .radio-help-text {
+      line-height: 1.25rem;
+      margin-top: .5rem;
+      margin-bottom: 0;
+      text-indent: 0;
     }
   }
 
   .crt-radio__label_area {
     @extend .usa-radio__label;
+    margin-bottom: 1rem;
+    padding-left: 0;
     text-indent: 0;
-    background-color: $gray-cool-4;
-    padding: 1.5rem;
-    border: 1px solid $gray-cool-4;
-    border-radius: 5px;
-    filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, .13));
 
-    &:hover {
-      background-color: $blue-warm-5;
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:before {
+      top: 0;
+      vertical-align: middle;
     }
 
     .label-text {
       position: relative;
-      bottom: 40px;
-      margin-bottom: -60px;
+      bottom: 1.5rem;
+      margin-bottom: 0;
 
       ul {
         padding-inline-start: 20px;
@@ -154,11 +203,15 @@ form#report-form {
 
   input[type="radio"]:checked + .crt-radio__label_area {
     background-color: $blue-warm-5;
-    border: 1px solid $blue-warm-vivid-70;
   }
 
   .crt-checkbox__label {
     @extend .usa-checkbox__label;
+    line-height: 1.5rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 
   .question_group_optional_tag {
@@ -166,6 +219,11 @@ form#report-form {
     color: $gray-warm-80;
   }
 }
+
+input[type="radio"]:checked + .crt-radio__label_area {
+  background-color: $blue-warm-5;
+}
+
 
 // Remove extra dropown error from datalist element
 [list]::-webkit-calendar-picker-indicator {
@@ -175,8 +233,13 @@ form#report-form {
 .form-help-text {
   color: $gray-70;
   font-size: .9rem;
+
   // Necessary because we want to override styles applied to the p tag
   margin: .5rem 0 1rem 0 !important;
+}
+
+.group-help-text {
+  line-height: 1.625rem;
 }
 
 .usa-button--light {
@@ -195,6 +258,46 @@ form#report-form {
   }
 }
 
+.help-text {
+  line-height: 1.625rem;
+}
+
+.usa-input--error {
+  border: .25rem solid #d63e04;
+}
+
 .complaint-multi-select {
   min-width: 140px;
+}
+
+.crt-portal-card {
+  @include u-radius('lg');
+  @include u-shadow(3);
+  background: white;
+
+  &.crt-hover-card {
+    &:hover {
+      background-color: $gray-cool-4;
+      cursor: pointer;
+    }
+    &.selected, &:hover.selected {
+      background-color: $blue-warm-5;
+    }
+
+    > .crt-portal-card__content {
+      @include u-padding-top(4);
+      @include u-padding-bottom(1);
+    }
+  }
+
+  .crt-portal-card__content {
+    @include u-padding-x(7);
+    @include u-padding-bottom(6);
+    @include u-padding-top(5);
+  }
+}
+
+.inline-block {
+  margin: 0;
+  display: inline-block;
 }

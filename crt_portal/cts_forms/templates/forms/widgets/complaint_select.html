@@ -1,6 +1,3 @@
-<label for="{{widget.attrs.id}}" class="text-uppercase text-bold">
-  {{ label }}
-</label>
 <select id="{{widget.attrs.id}}" name="{{widget.name}}" class="usa-select text-bold {{widget.attrs.classes}}">
   {% for group_name, group_choices, group_index in widget.optgroups %}
     {% for option in group_choices %}

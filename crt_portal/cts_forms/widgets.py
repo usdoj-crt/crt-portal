@@ -7,15 +7,10 @@ class UsaRadioSelect(ChoiceWidget):
     option_template_name = '../templates/forms/widgets/usa_radio_option.html'
 
 
-class CrtRadioArea(ChoiceWidget):
+class CrtPrimaryIssueRadioGroup(ChoiceWidget):
     input_type = 'radio'
-    template_name = 'django/forms/widgets/radio.html'
+    template_name = '../templates/forms/widgets/multiple_inputs.html'
     option_template_name = '../templates/forms/widgets/crt_radio_area_option.html'
-
-
-class CrtDropdown(ChoiceWidget):
-    input_type = 'select'
-    template_name = '../templates/forms/widgets/crt_dropdown.html'
 
 
 class ComplaintSelect(ChoiceWidget):

@@ -10,8 +10,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 
-from .models import ProtectedClass, Report, HateCrimesandTrafficking
-from .model_variables import (
+from ..models import ProtectedClass, Report, HateCrimesandTrafficking
+from ..model_variables import (
     PROTECTED_CLASS_CHOICES,
     PROTECTED_CLASS_ERROR,
     VIOLATION_SUMMARY_ERROR,
@@ -21,8 +21,7 @@ from .model_variables import (
     HATE_CRIMES_TRAFFICKING_CHOICES,
     SERVICEMEMBER_ERROR,
 )
-from .forms import (
-    Who,
+from ..forms import (
     Details,
     Contact,
     ProtectedClassForm,
@@ -42,16 +41,6 @@ class Valid_Form_Tests(TestCase):
             ProtectedClass.objects.get_or_create(protected_class=choice)
 
     """Confirms each form is valid when given valid test data."""
-
-    def test_Who_valid(self):
-        form = Who(data={
-            'respondent_contact_ask': False,
-            'respondent_type': 'employer',
-            'respondent_name': 'Max',
-            'respondent_city': 'Hometown',
-            'respondent_state': 'AK',
-        })
-        self.assertTrue(form.is_valid())
 
     def test_Details_valid(self):
         form = Details(data={
@@ -98,7 +87,7 @@ class Valid_Form_Tests(TestCase):
 
     def test_Class_valid(self):
         form = ProtectedClassForm(data={
-            'protected_class': ProtectedClass.objects.all(),
+            'protected_class': ProtectedClass.objects.filter(protected_class__in=PROTECTED_CLASS_CHOICES),
             'other_class': 'Random string under 150 characters (हिन्दी)',
         })
         self.assertTrue(form.is_valid())
@@ -243,7 +232,7 @@ class SectionAssignmentTests(TestCase):
         data = copy.deepcopy(SAMPLE_REPORT)
         data['primary_complaint'] = 'voting'
         test_report = Report.objects.create(**data)
-        human_trafficking = HateCrimesandTrafficking.objects.get_or_create(hatecrimes_trafficking_option='Coerced or forced to do work or perform a commercial sex act')
+        human_trafficking = HateCrimesandTrafficking.objects.get_or_create(hatecrimes_trafficking_option=HATE_CRIMES_TRAFFICKING_CHOICES[1])
         test_report.hatecrimes_trafficking.add(human_trafficking[0])
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'CRM')

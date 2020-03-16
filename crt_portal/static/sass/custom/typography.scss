@@ -1,4 +1,8 @@
 // Header Styles
+h1, h2, h3, h4, h5, h6, .intake-label {
+  @include add-knockout-font-smoothing;
+}
+
 h1 {
   @include u-font('heading', '2xl');
 }
@@ -23,6 +27,13 @@ h3 {
   margin-bottom: 0.5rem;
 }
 
+.look-like-link {
+  padding: 0;
+  border: none;
+  background: none;
+  text-decoration: underline;
+}
+
 .usa-prose {
   p {
     margin-top: .5rem;
@@ -38,4 +49,11 @@ h3 {
 
 .align-center {
   text-align: center;
+}
+
+.page-form-title {
+  font-size: 1.375rem;
+  font-weight: 100;
+  line-height: 2.065rem;
+  margin: 0;
 }

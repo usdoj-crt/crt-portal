@@ -4,6 +4,7 @@ $yellow: #FEE685;
 $gold: #FFBE2E;
 $light-beige: #F6F6F2;
 $blue-warm-vivid-70: #1A4480;
+$blue-warm-vivid-80: #162e51;
 $blue-warm-5: #ECF1F7;
 $blue-50: #2378C3;
 $blue-vivid-40: #2491FF;
@@ -19,6 +20,9 @@ $gray-cool-10: #EBEBEB;
 $gray-cool-4: #F1F3F6;
 $red-vivid-60: #B51D09;
 $white: #FFFFFF;
+$gold-vivid: 'gold-20v';
+$blue-warm-vivid-80-t: 'blue-warm-80v';
+$blue-warm-5-t: 'blue-warm-5';
 
 // Typography
 
@@ -27,3 +31,8 @@ $bold: 700;
 // Breakpoints
 
 $tablet: 640px;
+
+@mixin flex-container {
+  align-items: center;
+  display: flex;
+};

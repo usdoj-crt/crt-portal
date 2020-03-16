@@ -1,15 +1,15 @@
 <fieldset class="usa-fieldset margin-bottom-4">
   <legend class="em-text">
-    Where did this take place?
+    {{ form.inside_correctional_facility.label }}
   </legend>
   <div data-toggle="toggle">
     {{ form.inside_correctional_facility }}
   </div>
   {% with field=form.correctional_facility_type %}
-    <div class="other-class-option margin-bottom-2 padding-top-2">
+    <div class="other-class-option margin-bottom-2">
       <div class="blue-left-highlight">
         <label for="{{ field.id_for_label }}">
-          <b>{{ field.help_text }}</b>  
+          <b>{{ field.help_text }}</b>
         </label>
         {{ field }}
       </div>
@@ -22,10 +22,10 @@
     {% endif %}
   {% endwith %}
 
-  <script>
+  <script nonce="{{request.csp_nonce}}">
     var toggleWrapperEl = document.querySelector('[data-toggle="toggle"]');
     var toggleControls = Array.prototype.slice.call(
-      toggleWrapperEl.querySelectorAll('[name="4-inside_correctional_facility"]')
+      toggleWrapperEl.querySelectorAll('[name$="-inside_correctional_facility"]')
     );
     var toggleShowEl = toggleControls[toggleControls.length - 1];
     var toggleableEl = document.querySelector('.other-class-option');
