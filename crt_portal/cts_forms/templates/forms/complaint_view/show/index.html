@@ -13,7 +13,7 @@
             </a>
           </div>
           <div class="display-flex flex-align-center details-id">
-            <h2 class="margin-right-205 margin-top-0 margin-bottom-0">
+            <h2 class="margin-right-205 margin-top-0 margin-bottom-0 backend-blue">
               ID: {{ data.public_id }}
             </h2>
             <span class="status-tag status-{{data.status}} margin-top-05">
@@ -21,12 +21,12 @@
             </span>
           </div>
           <p>
-            <span class="details-date-label text-uppercase">Received: </span>
-            <span>{{ data.create_date|date:'g:i a F j, Y' }}</span>
+            <span class="details-date-label text-uppercase backend-blue">Received: </span>
+            <span class="backend-blue">{{ data.create_date|date:'g:i a F j, Y' }}</span>
           </p>
           <p>
-            <span class="details-date-label text-uppercase">Last Updated: </span>
-            <span>{{ data.modified_date|date:'g:i a F j, Y' }}</span>
+            <span class="details-date-label text-uppercase backend-blue">Last Updated: </span>
+            <span class="backend-blue">{{ data.modified_date|date:'g:i a F j, Y' }}</span>
           </p>
         </div>
       </div>

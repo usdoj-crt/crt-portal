@@ -64,5 +64,9 @@ $complaint-header-min-height: 200px;
 }
 
 .bold {
-  font-weight: 700 !important;
+  font-weight: bold;
+}
+
+.backend-blue {
+   @include u-color($blue-warm-vivid-80-t);
 }
