@@ -1012,9 +1012,9 @@ class CommentActions(ModelForm):
         self.fields['note'].widget = Textarea(
             attrs={
                 'class': 'usa-textarea',
-                'label': 'New comment',
             },
         )
+        self.fields['note'].label = 'New comment'
         self.fields['is_summary'] = TextInput()
 
     def update_activity_stream(user, report, comment):
