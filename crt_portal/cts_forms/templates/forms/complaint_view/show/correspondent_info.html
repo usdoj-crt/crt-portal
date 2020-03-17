@@ -17,9 +17,21 @@
         <td>{{ data.contact_email|default:"—" }}</td>
       </tr>
       <tr>
-        <th>Telephone</th>
+        <th>Phone</th>
         <td>{{ data.contact_phone|default:"—" }}</td>
       </tr>
+      <tr>
+        <th>Address</th>
+        <td>{{ data.contact_address_line_1|default:"—" }}
+          <br>
+            {{ data.contact_address_line_2|default:"—" }}
+          <br>
+            {{ data.contact_city|default:"—" }},
+            {{ data.contact_state|default:"—" }},
+            {{ data.contact_zip|default:"—" }}
+
+        </td>
+     </tr>
     </table>
   </div>
 </div>
