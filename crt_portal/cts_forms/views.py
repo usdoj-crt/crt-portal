@@ -177,7 +177,6 @@ class SaveCommentView(LoginRequiredMixin, FormView):
 
     def post(self, request, report_id):
         report = get_object_or_404(Report, pk=report_id)
-        comment_form = CommentActions(request.POST, instance=report)
         if request.POST.__getitem__('note'):
             comment = CommentAndSummary.objects.create(
                 note=request.POST.__getitem__('note'),
