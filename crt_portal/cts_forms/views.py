@@ -9,7 +9,7 @@ from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import View
+from django.views.generic import View, FormView
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
@@ -171,22 +171,24 @@ class ShowView(LoginRequiredMixin, View):
         return render(self.request, 'forms/complaint_view/show/index.html', output)
 
 
-@login_required
-def SaveComment(request, report_id):
+class SaveCommentView(LoginRequiredMixin, FormView):
     """Can be used for saving comments or summaries for a report"""
-    if request.method == 'POST':
+    form_class = CommentActions
+
+    def post(self, request, report_id):
         report = get_object_or_404(Report, pk=report_id)
-        comment = CommentAndSummary.objects.create(
-            note=request.POST.__getitem__('note'),
-            is_summary=request.POST.__getitem__('is_summary'),
-        )
-        report.internal_comments.add(comment)
-        CommentActions.update_activity_stream(request.user, report, comment.note)
+        comment_form = CommentActions(request.POST, instance=report)
+        if request.POST.__getitem__('note'):
+            comment = CommentAndSummary.objects.create(
+                note=request.POST.__getitem__('note'),
+                is_summary=request.POST.__getitem__('is_summary'),
+            )
+            report.internal_comments.add(comment)
+            CommentActions.update_activity_stream(request.user, report, comment.note)
         output = serialize_data(report, request, report_id)
         output.update({
             'return_url_args': request.POST.get('next', ''),
         })
-
         return render(request, 'forms/complaint_view/show/index.html', output)
 
 

@@ -4,7 +4,7 @@
       id="comment-actions-{{ id_name }}"
       class="usa-form"
       method="post"
-      action="/form/comment/report/{{ data.pk }}/"
+      action="{% url 'crt_forms:save-report-comment' report_id=data.pk %}"
       novalidate
     >
       {% csrf_token %}
@@ -20,7 +20,7 @@
           </label>
           {{ comments.note }}
         </div>
-        <button class="usa-button" type="submit">Send</button>
+        <button aria-label="send new comment" class="usa-button" type="submit">Send</button>
       </fieldset>
     </form>
   </div>

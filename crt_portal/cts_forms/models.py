@@ -124,7 +124,7 @@ class Report(models.Model):
     last_incident_month = models.PositiveIntegerField(MaxValueValidator(12, message="Month must be 12 or less"), null=True, blank=True,)
 
     # Internal comments
-    internal_comments = models.ManyToManyField(CommentAndSummary, blank=True)
+    internal_comments = models.ManyToManyField(CommentAndSummary)
 
     # Metadata
     public_id = models.CharField(max_length=100, null=False, blank=False)
