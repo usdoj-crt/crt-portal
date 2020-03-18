@@ -579,27 +579,21 @@ class ProtectedClassForm(ModelForm):
 
 def date_cleaner(self, cleaned_data):
     day = cleaned_data.get('last_incident_day') or 1
-
-    if day > 31 or day < 1:
-        self.add_error('last_incident_day', ValidationError(
-            _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.')
-        ))
+    year = cleaned_data['last_incident_year']
+    month = cleaned_data['last_incident_month']
 
     try:
-        year = cleaned_data['last_incident_year']
-        month = cleaned_data['last_incident_month']
-        test_date = datetime(year, month, day)
-        if test_date > datetime.now():
+        """This should give the most specific error message, if the date doesn't render for reasons other than what we are checking for, it will give the generic error."""
+        if day > 31 or day < 1:
+            self.add_error('last_incident_day', ValidationError(
+                _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.')
+            ))
+        elif datetime(year, month, day) > datetime.now():
             self.add_error('last_incident_year', ValidationError(
                 _('Date can not be in the future.'),
                 params={'value': test_date.strftime('%x')},
             ))
-        if year < 100:
-            self.add_error('last_incident_year', ValidationError(
-                _('Please enter four digits for the year.'),
-                params={'value': test_date.strftime('%x')},
-            ))
-        if test_date < datetime(1899, 12, 31):
+        elif datetime(year, month, day) < datetime(1899, 12, 31):
             self.add_error('last_incident_year', ValidationError(
                 _('Please enter a year after 1900.'),
                 params={'value': test_date.strftime('%x')},
