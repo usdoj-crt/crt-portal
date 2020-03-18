@@ -185,8 +185,7 @@ PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES = (
     ('private_employer', _('Private employer')),
     ('not_sure', _('I\'m not sure')),
 )
-PUBLIC_OR_PRIVATE_EMPLOYER_DICT = dict(PUBLIC_OR_PRIVATE_EMPLOYE
-    R_CHOICES)
+PUBLIC_OR_PRIVATE_EMPLOYER_DICT = dict(PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES)
 PUBLIC_OR_PRIVATE_EMPLOYER_ERROR = _('Please select what type of employer this is.')
 
 EMPLOYER_SIZE_CHOICES = (

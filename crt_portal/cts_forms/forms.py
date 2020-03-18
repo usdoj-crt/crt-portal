@@ -591,23 +591,23 @@ def date_cleaner(self, cleaned_data):
         """This should give the most specific error message, if the date doesn't render for reasons other than what we are checking for, it will give the generic error."""
         if day > 31 or day < 1:
             self.add_error('last_incident_day', ValidationError(
-                DATE_ERRORS.['month_invalid'],
+                DATE_ERRORS['month_invalid'],
             ))
         elif datetime(year, month, day) > datetime.now():
             self.add_error('last_incident_year', ValidationError(
-                DATE_ERRORS.['no_future'],
+                DATE_ERRORS['no_future'],
                 params={'value': test_date.strftime('%x')},
             ))
         elif datetime(year, month, day) < datetime(1899, 12, 31):
             self.add_error('last_incident_year', ValidationError(
-                DATE_ERRORS.['no_past'],
+                DATE_ERRORS['no_past'],
                 params={'value': test_date.strftime('%x')},
             ))
 
     except ValueError:
         # a bit of a catch-all for all the ways people could make bad dates
         self.add_error('last_incident_year', ValidationError(
-            DATE_ERRORS.['not_valid'],
+            DATE_ERRORS['not_valid'],
             params={'value': f'{month}/{day}/{year}'},
         ))
     except KeyError:
