@@ -108,7 +108,7 @@ PROTECTED_MODEL_CHOICES = tuple(
     (field[1].lower().replace(' ', '_'), field[2]) for field in PROTECTED_CLASS_FIELDS
 )
 
-PROTECTED_CLASS_ERROR = _('Please make a selection to continue. If none of these apply to you, please select “None of these apply to me” or "Other reason"and explain.')
+PROTECTED_CLASS_ERROR = _('Please make a selection to continue. If none of these apply to your situation, please select “None of these apply to me” or "Other reason"and explain.')
 
 STATUS_CHOICES = (
     ('new', _('New')),
