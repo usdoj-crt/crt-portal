@@ -31,6 +31,14 @@ form#report-form {
   }
 }
 
+.report-form-li-bullets {
+  @extend .report-form !optional;
+  li {
+    list-style: unset;
+    margin-left: 4rem;
+  }
+}
+
 // Form styles
 .usa-form {
   max-width: 100% !important;

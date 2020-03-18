@@ -51,6 +51,7 @@ from .question_text import (
     PROTECTED_CLASS_QUESTION,
     DATE_QUESTIONS,
     SUMMARY_QUESTION,
+    SUMMARY_HELPTEXT,
 )
 
 from .phone_regex import phone_validation_regex
@@ -252,7 +253,7 @@ class Details(ModelForm):
         self.label_suffix = ''
         self.fields['violation_summary'].label = SUMMARY_QUESTION
         self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
-        self.fields['violation_summary'].help_text = _("Please include any details you have about time, location, or people involved with the event, names of witnesses or any materials that would support your description")
+        self.fields['violation_summary'].help_text = SUMMARY_HELPTEXT
         self.fields['violation_summary'].error_messages = {'required': VIOLATION_SUMMARY_ERROR}
         self.fields['violation_summary'].required = True
 

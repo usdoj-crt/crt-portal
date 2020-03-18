@@ -53,4 +53,11 @@ DATE_QUESTIONS = {
 }
 
 # Personal description
-SUMMARY_QUESTION = _('Tell us what happened')
+SUMMARY_QUESTION = _('In your own words, describe what happened')
+SUMMARY_HELPTEXT = {
+    'title': 'Please share details like:',
+    'examples': [
+        'Time;',
+        'Names of people involved including witnesses if there are any; and',
+        'Any supporting materials (please list and describe them).'],
+}
