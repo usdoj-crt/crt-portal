@@ -139,6 +139,7 @@ COMMERCIAL_OR_PUBLIC_PLACE_CHOICES = (
     ('other', _('Other'))
 )
 COMMERCIAL_OR_PUBLIC_PLACE_DICT = dict(COMMERCIAL_OR_PUBLIC_PLACE_CHOICES)
+COMMERCIAL_OR_PUBLIC_ERROR = _('Please select the type of location. If none of these apply to your situation, please select "Other".')
 
 COMMERCIAL_PUBLIC_FRIENDLY_TEXT = {
     'place_of_worship': _('Place of worship'),
@@ -184,7 +185,9 @@ PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES = (
     ('private_employer', _('Private employer')),
     ('not_sure', _('I\'m not sure')),
 )
-PUBLIC_OR_PRIVATE_EMPLOYER_DICT = dict(PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES)
+PUBLIC_OR_PRIVATE_EMPLOYER_DICT = dict(PUBLIC_OR_PRIVATE_EMPLOYE
+    R_CHOICES)
+PUBLIC_OR_PRIVATE_EMPLOYER_ERROR = _('Please select what type of employer this is.')
 
 EMPLOYER_SIZE_CHOICES = (
     ('14_or_less', _('Fewer than 15 employees')),
@@ -192,6 +195,7 @@ EMPLOYER_SIZE_CHOICES = (
     ('not_sure', _('I\'m not sure')),
 )
 EMPLOYER_SIZE_DICT = dict(EMPLOYER_SIZE_CHOICES)
+EMPLOYER_SIZE_ERROR = _('Please select how large the employer is.')
 
 EMPLOYER_FRIENDLY_TEXT = {
     'public_employer': _('Public'),
@@ -303,3 +307,14 @@ INTAKE_FORMAT_CHOICES = (
 )
 
 INCIDENT_DATE_HELPTEXT = _('If this happened over a period of time or is still happening, please provide the most recent date. Please use the format MM/DD/YYYY.')
+
+DATE_ERRORS ={
+    'month_required': _('Please enter a month.'),
+    'month_invalid': _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.'),
+    'year_required': _('Please enter a year.'),
+    'no_future': _('Date can not be in the future.'),
+    'no_past': _('Please enter a year after 1900.'),
+    'not_valid': _('Please enter a valid date format. Use format MM/DD/YYYY.'),
+}
+
+VOTING_ERROR = _('Please select the type of election or voting activity.')
