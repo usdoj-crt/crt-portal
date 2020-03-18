@@ -72,7 +72,7 @@ ELECTION_DICT = dict(ELECTION_CHOICES)
 
 HATE_CRIMES_TRAFFICKING_MODEL_CHOICES = (
     ('physical_harm', _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability')),
-    ('trafficking', _('Coerced or forced to do work or perform a sex act in exchange for something of value')),
+    ('trafficking', _('Threatened, forced, and held against your will for the purposes of performing work or commercial sex acts. This could include threats of physical harm, withholding promised wages, or being held under a false work contract')),
 )
 
 HATE_CRIMES_TRAFFICKING_CHOICES = (

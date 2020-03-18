@@ -216,7 +216,7 @@ class HateCrimesTrafficking(ModelForm):
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['hatecrimes_trafficking'] = ModelMultipleChoiceField(
-            queryset=HateCrimesandTrafficking.objects.filter(hatecrimes_trafficking_option__in=HATE_CRIMES_TRAFFICKING_CHOICES),
+            queryset=HateCrimesandTrafficking.objects.all(),
             widget=UsaCheckboxSelectMultiple(attrs={
                 'aria-describedby': 'hatecrimes-help-text'
             }),
