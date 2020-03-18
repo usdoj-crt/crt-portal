@@ -293,7 +293,6 @@ class LocationForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
-
         errors = dict(WHERE_ERRORS)
 
         self.fields['location_name'].label = LOCATION_QUESTIONS['location_name']
@@ -333,6 +332,7 @@ class LocationForm(ModelForm):
                 ally_id='location-help-text'
             ),
         ]
+        self.page_note = _('Please tell us the city, state, and name of the location where this incident took place. This ensures your concern is reviewed by the right people within the Civil Rights Division.')
 
 
 class ElectionLocation(LocationForm):
