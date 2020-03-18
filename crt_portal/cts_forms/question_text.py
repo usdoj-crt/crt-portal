@@ -37,7 +37,7 @@ WORKPLACE_QUESTIONS = {
 }
 PUBLIC_QUESTION = _('Please choose the location that best describes your situation')
 POLICE_QUESTIONS = {
-    'inside_correctional_facility': _('Where did this take place?'),
+    'inside_correctional_facility': _('Did this happen while in custody or incarcerated?'),
     'correctional_facility_type': _('What type of prison or correctional facility?')
 }
 EDUCATION_QUESTION = _('Did this happen at a public or a private school, educational program or activity?')

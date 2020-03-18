@@ -154,8 +154,8 @@ COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT = {
 }
 
 CORRECTIONAL_FACILITY_LOCATION_CHOICES = (
-    ('outside', _('Outside a prison or correctional facility')),
-    ('inside', _('Inside a prison or correctional facility'))
+    ('outside', _('no')),
+    ('inside', _('yes'))
 )
 CORRECTIONAL_FACILITY_LOCATION_DICT = dict(CORRECTIONAL_FACILITY_LOCATION_CHOICES)
 
