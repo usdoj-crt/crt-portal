@@ -666,7 +666,7 @@ class When(ModelForm):
             'required': _('Please enter a year.'),
         }
         self.fields['last_incident_year'].required = True
-        self.page_note = _('It is important for us to know how recently this incident happened. Some civil rights violations must be reported within a certain amount of time.')
+        self.page_note = _('It is important for us to know how recently this incident happened so we can take the appropriate action. If this happened over a period of time or is still happening, please provide the most recent date.')
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
