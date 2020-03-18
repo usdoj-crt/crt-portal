@@ -236,6 +236,7 @@ class HateCrimesTrafficking(ModelForm):
                 ally_id="hatecrimes-help-text"
             )
         ]
+        self.page_note = _('Continued')
 
 
 class Details(ModelForm):
@@ -255,6 +256,7 @@ class Details(ModelForm):
         self.fields['violation_summary'].help_text = _("Please include any details you have about time, location, or people involved with the event, names of witnesses or any materials that would support your description")
         self.fields['violation_summary'].error_messages = {'required': VIOLATION_SUMMARY_ERROR}
         self.fields['violation_summary'].required = True
+        self.page_note = _('Continued')
 
 
 class LocationForm(ModelForm):
@@ -657,6 +659,7 @@ class When(ModelForm):
             'required': _('Please enter a year.'),
         }
         self.fields['last_incident_year'].required = True
+        self.page_note = _('It is important for us to know how recently this incident happened. Some civil rights violations must be reported within a certain amount of time.')
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
