@@ -43,8 +43,8 @@
             {% endif %}
             <div class="margin-bottom-4">
               <h2 class="margin-0">{{ current_step_title }}</h2>
-              {% if page_note %}
-                <p class="margin-top-1"><em>{{ page_note }}</em></p>
+              {% if form.page_note %}
+                <p class="margin-top-1"><em>{{ form.page_note }}</em></p>
               {% endif %}
             </div>
           {% endblock %}

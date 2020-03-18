@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 # contact
 CONTACT_QUESTIONS = {
     'contact_title': _('Contact information'),
+    'contact_help_text': _('You are not required to provide your name or contact information. If you want to remain anonymous, leave this section blank. If you choose to provide your contact information, we will only use it to respond to your submission.'),
     'contact_name_title': _('Your name'),
     'contact_first_name': _('First name'),
     'contact_last_name': _('Last name'),
@@ -35,7 +36,7 @@ WORKPLACE_QUESTIONS = {
     'public_or_private_employer': _('Was this a public or private employer?'),
     'employer_size': _('How large is this employer?'),
 }
-PUBLIC_QUESTION = _('Please choose the location that best describes your situation')
+PUBLIC_QUESTION = _('Please choose the type of location that best describes where the incident happened')
 POLICE_QUESTIONS = {
     'inside_correctional_facility': _('Where did this take place?'),
     'correctional_facility_type': _('What type of prison or correctional facility?')
@@ -53,4 +54,11 @@ DATE_QUESTIONS = {
 }
 
 # Personal description
-SUMMARY_QUESTION = _('Tell us what happened')
+SUMMARY_QUESTION = _('In your own words, describe what happened')
+SUMMARY_HELPTEXT = {
+    'title': 'Please share details like:',
+    'examples': [
+        'Time;',
+        'Names of people involved including witnesses if there are any; and',
+        'Any supporting materials (please list and describe them).'],
+}

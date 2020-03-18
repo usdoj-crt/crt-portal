@@ -315,5 +315,6 @@ DATE_ERRORS ={
     'no_past': _('Please enter a year after 1900.'),
     'not_valid': _('Please enter a valid date format. Use format MM/DD/YYYY.'),
 }
+INCIDENT_DATE_HELPTEXT = _('You must enter a month and year. Please use the format MM/DD/YYYY.')
 
 VOTING_ERROR = _('Please select the type of election or voting activity.')
