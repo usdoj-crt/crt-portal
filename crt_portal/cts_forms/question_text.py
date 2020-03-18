@@ -3,6 +3,7 @@ from django.utils.translation import gettext_lazy as _
 # contact
 CONTACT_QUESTIONS = {
     'contact_title': _('Contact information'),
+    'contact_help_text': _('You are not required to provide your name or contact information. If you want to remain anonymous, leave this section blank. If you choose to provide your contact information, we will only use it to respond to your submission.'),
     'contact_name_title': _('Your name'),
     'contact_first_name': _('First name'),
     'contact_last_name': _('Last name'),
