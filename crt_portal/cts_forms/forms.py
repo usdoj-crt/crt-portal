@@ -329,7 +329,6 @@ class LocationForm(ModelForm):
                 self,
                 ('location_name', 'location_address_line_1', 'location_address_line_2'),
                 group_name=LOCATION_QUESTIONS['location_title'],
-                help_text=_('Please be as specific as possible. We will handle this information with sensitivity.'),
                 optional=False,
                 ally_id='location-help-text'
             ),
@@ -405,8 +404,8 @@ class WorkplaceLocation(LocationForm):
             choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
             widget=UsaRadioSelect(attrs={
                 'help_text': {
-                    'public_employer': _('Funded by the government like a post office, fire department, courthouse, DMV, or public school. This could be at the local, state, or federal level'),
-                    'private_employer': _('Businesses or non-profits not funded by the government such as retail stores, banks, or restaurants')
+                    'public_employer': _('Public employers include organizations funded by the government like the military, post office, fire department, courthouse, DMV, or public school. This could be at the local or state level.'),
+                    'private_employer': _('Private employers are business or non-profits not funded by the government such as retail stores, banks, or restaurants.')
                 }
             }),
             required=True,

@@ -35,7 +35,7 @@ WORKPLACE_QUESTIONS = {
     'public_or_private_employer': _('Was this a public or private employer?'),
     'employer_size': _('How large is this employer?'),
 }
-PUBLIC_QUESTION = _('Please choose the location that best describes your situation')
+PUBLIC_QUESTION = _('Please choose the type of location that best describes where the incident happened')
 POLICE_QUESTIONS = {
     'inside_correctional_facility': _('Where did this take place?'),
     'correctional_facility_type': _('What type of prison or correctional facility?')
