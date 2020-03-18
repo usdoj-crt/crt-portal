@@ -1,13 +1,21 @@
 from datetime import datetime
 
 from django.core.validators import ValidationError
-from django.forms import ModelForm, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
-    ModelMultipleChoiceField, Select
+from django.forms import (
+    ModelForm,
+    ChoiceField,
+    TypedChoiceField,
+    TextInput,
+    EmailInput,
+    Textarea,
+    ModelMultipleChoiceField,
+    Select,
+)
 from django.utils.translation import gettext_lazy as _
 
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtPrimaryIssueRadioGroup, CrtMultiSelect, ComplaintSelect
-from .models import Report, ProtectedClass, HateCrimesandTrafficking
+from .models import Report, ProtectedClass, HateCrimesandTrafficking, CommentAndSummary
 from .model_variables import (
     ELECTION_CHOICES,
     PROTECTED_CLASS_CHOICES,
@@ -992,3 +1000,29 @@ class ComplaintActions(ModelForm):
                 description=description,
                 target=self.instance
             )
+
+
+class CommentActions(ModelForm):
+    class Meta:
+        model = CommentAndSummary
+        fields = ['note', 'is_summary']
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+        self.fields['note'].widget = Textarea(
+            attrs={
+                'class': 'usa-textarea',
+            },
+        )
+        self.fields['note'].label = 'New comment'
+        self.fields['is_summary'] = TextInput()
+
+    def update_activity_stream(user, report, comment):
+        """Send all actions to activity stream"""
+        from actstream import action
+        action.send(
+            user,
+            verb="",
+            description=comment,
+            target=report
+        )

@@ -15,9 +15,9 @@
           </span>
         </div>
         <p class="margin-top-05">
-          {{activity.verb}} {{activity.description}}
+          {{activity.verb}} {{activity.description|linebreaks}}
         </p>
-      </li>    
+      </li>
     {% endfor %}
   </ul>
 {% endblock %}
