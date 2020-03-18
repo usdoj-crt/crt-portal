@@ -159,18 +159,18 @@ class Contact(ModelForm):
             QuestionGroup(
                 self,
                 ('contact_first_name', 'contact_last_name'),
-                group_name=_('Your name'),
-                help_text=_('Leave the fields blank if you\'d like to file anonymously'),
-                ally_id=a11y.name_id
+                group_name=CONTACT_QUESTIONS['contact_name_title'],
+                ally_id=a11y.name_id,
             ),
             QuestionGroup(
                 self,
                 ('contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2'),
                 group_name=CONTACT_QUESTIONS['contact_title'],
-                help_text=_('You are not required to provide contact information, but it will help us if we need to gather more information about the incident you are reporting or to respond to your submission'),
-                ally_id=a11y.contact_info_id
+                ally_id=a11y.contact_info_id,
             )
         ]
+        self.help_text = CONTACT_QUESTIONS['contact_help_text'],
+        self.lede_text = _('If you believe you or someone else has experienced a civil rights violation, please tell us what happened.')
 
 
 class PrimaryReason(ModelForm):
