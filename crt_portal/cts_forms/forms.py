@@ -244,6 +244,7 @@ class HateCrimesTrafficking(ModelForm):
                 ally_id="hatecrimes-help-text"
             )
         ]
+        self.page_note = _('Continued')
 
 
 class Details(ModelForm):
@@ -263,6 +264,7 @@ class Details(ModelForm):
         self.fields['violation_summary'].help_text = _("Please include any details you have about time, location, or people involved with the event, names of witnesses or any materials that would support your description")
         self.fields['violation_summary'].error_messages = {'required': VIOLATION_SUMMARY_ERROR}
         self.fields['violation_summary'].required = True
+        self.page_note = _('Continued')
 
 
 class LocationForm(ModelForm):
@@ -301,7 +303,6 @@ class LocationForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
-
         errors = dict(WHERE_ERRORS)
 
         self.fields['location_name'].label = LOCATION_QUESTIONS['location_name']
@@ -336,11 +337,11 @@ class LocationForm(ModelForm):
                 self,
                 ('location_name', 'location_address_line_1', 'location_address_line_2'),
                 group_name=LOCATION_QUESTIONS['location_title'],
-                help_text=_('Please be as specific as possible. We will handle this information with sensitivity.'),
                 optional=False,
                 ally_id='location-help-text'
             ),
         ]
+        self.page_note = _('Please tell us the city, state, and name of the location where this incident took place. This ensures your concern is reviewed by the right people within the Civil Rights Division.')
 
 
 class ElectionLocation(LocationForm):
@@ -411,8 +412,8 @@ class WorkplaceLocation(LocationForm):
             choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
             widget=UsaRadioSelect(attrs={
                 'help_text': {
-                    'public_employer': _('Funded by the government like a post office, fire department, courthouse, DMV, or public school. This could be at the local, state, or federal level'),
-                    'private_employer': _('Businesses or non-profits not funded by the government such as retail stores, banks, or restaurants')
+                    'public_employer': _('Public employers include organizations funded by the government like the military, post office, fire department, courthouse, DMV, or public school. This could be at the local or state level.'),
+                    'private_employer': _('Private employers are business or non-profits not funded by the government such as retail stores, banks, or restaurants.')
                 }
             }),
             required=True,
@@ -665,6 +666,7 @@ class When(ModelForm):
             'required': _('Please enter a year.'),
         }
         self.fields['last_incident_year'].required = True
+        self.page_note = _('It is important for us to know how recently this incident happened. Some civil rights violations must be reported within a certain amount of time.')
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
