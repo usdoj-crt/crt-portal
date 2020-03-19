@@ -1,13 +1,21 @@
 from datetime import datetime
 
 from django.core.validators import ValidationError
-from django.forms import ModelForm, ChoiceField, TypedChoiceField, TextInput, EmailInput, \
-    ModelMultipleChoiceField, Select
+from django.forms import (
+    ModelForm,
+    ChoiceField,
+    TypedChoiceField,
+    TextInput,
+    EmailInput,
+    Textarea,
+    ModelMultipleChoiceField,
+    Select,
+)
 from django.utils.translation import gettext_lazy as _
 
 from .question_group import QuestionGroup
 from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtPrimaryIssueRadioGroup, CrtMultiSelect, ComplaintSelect
-from .models import Report, ProtectedClass, HateCrimesandTrafficking
+from .models import Report, ProtectedClass, HateCrimesandTrafficking, CommentAndSummary
 from .model_variables import (
     ELECTION_CHOICES,
     PROTECTED_CLASS_CHOICES,
@@ -21,7 +29,6 @@ from .model_variables import (
     STATES_AND_TERRITORIES,
     VIOLATION_SUMMARY_ERROR,
     WHERE_ERRORS,
-    HATE_CRIMES_TRAFFICKING_CHOICES,
     PRIMARY_COMPLAINT_ERROR,
     SERVICEMEMBER_CHOICES,
     SERVICEMEMBER_ERROR,
@@ -56,6 +63,7 @@ from .question_text import (
     PROTECTED_CLASS_QUESTION,
     DATE_QUESTIONS,
     SUMMARY_QUESTION,
+    SUMMARY_HELPTEXT,
 )
 
 from .phone_regex import phone_validation_regex
@@ -164,18 +172,18 @@ class Contact(ModelForm):
             QuestionGroup(
                 self,
                 ('contact_first_name', 'contact_last_name'),
-                group_name=_('Your name'),
-                help_text=_('Leave the fields blank if you\'d like to file anonymously'),
-                ally_id=a11y.name_id
+                group_name=CONTACT_QUESTIONS['contact_name_title'],
+                ally_id=a11y.name_id,
             ),
             QuestionGroup(
                 self,
                 ('contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2'),
                 group_name=CONTACT_QUESTIONS['contact_title'],
-                help_text=_('You are not required to provide contact information, but it will help us if we need to gather more information about the incident you are reporting or to respond to your submission'),
-                ally_id=a11y.contact_info_id
+                ally_id=a11y.contact_info_id,
             )
         ]
+        self.help_text = CONTACT_QUESTIONS['contact_help_text'],
+        self.lede_text = _('If you believe you or someone else has experienced a civil rights violation, please tell us what happened.')
 
 
 class PrimaryReason(ModelForm):
@@ -221,7 +229,7 @@ class HateCrimesTrafficking(ModelForm):
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['hatecrimes_trafficking'] = ModelMultipleChoiceField(
-            queryset=HateCrimesandTrafficking.objects.filter(hatecrimes_trafficking_option__in=HATE_CRIMES_TRAFFICKING_CHOICES),
+            queryset=HateCrimesandTrafficking.objects.all(),
             widget=UsaCheckboxSelectMultiple(attrs={
                 'aria-describedby': 'hatecrimes-help-text'
             }),
@@ -241,6 +249,7 @@ class HateCrimesTrafficking(ModelForm):
                 ally_id="hatecrimes-help-text"
             )
         ]
+        self.page_note = _('Continued')
 
 
 class Details(ModelForm):
@@ -257,9 +266,10 @@ class Details(ModelForm):
         self.label_suffix = ''
         self.fields['violation_summary'].label = SUMMARY_QUESTION
         self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
-        self.fields['violation_summary'].help_text = _("Please include any details you have about time, location, or people involved with the event, names of witnesses or any materials that would support your description")
+        self.fields['violation_summary'].help_text = SUMMARY_HELPTEXT
         self.fields['violation_summary'].error_messages = {'required': VIOLATION_SUMMARY_ERROR}
         self.fields['violation_summary'].required = True
+        self.page_note = _('Continued')
 
 
 class LocationForm(ModelForm):
@@ -298,7 +308,6 @@ class LocationForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
-
         errors = dict(WHERE_ERRORS)
 
         self.fields['location_name'].label = LOCATION_QUESTIONS['location_name']
@@ -333,11 +342,11 @@ class LocationForm(ModelForm):
                 self,
                 ('location_name', 'location_address_line_1', 'location_address_line_2'),
                 group_name=LOCATION_QUESTIONS['location_title'],
-                help_text=_('Please be as specific as possible. We will handle this information with sensitivity.'),
                 optional=False,
                 ally_id='location-help-text'
             ),
         ]
+        self.page_note = _('Please tell us the city, state, and name of the location where this incident took place. This ensures your concern is reviewed by the right people within the Civil Rights Division.')
 
 
 class ElectionLocation(LocationForm):
@@ -408,8 +417,8 @@ class WorkplaceLocation(LocationForm):
             choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
             widget=UsaRadioSelect(attrs={
                 'help_text': {
-                    'public_employer': _('Funded by the government like a post office, fire department, courthouse, DMV, or public school. This could be at the local, state, or federal level'),
-                    'private_employer': _('Businesses or non-profits not funded by the government such as retail stores, banks, or restaurants')
+                    'public_employer': _('Public employers include organizations funded by the government like the military, post office, fire department, courthouse, DMV, or public school. This could be at the local or state level.'),
+                    'private_employer': _('Private employers are business or non-profits not funded by the government such as retail stores, banks, or restaurants.')
                 }
             }),
             required=True,
@@ -656,6 +665,7 @@ class When(ModelForm):
             'required': DATE_ERRORS['year_required'],
         }
         self.fields['last_incident_year'].required = True
+        self.page_note = _('It is important for us to know how recently this incident happened so we can take the appropriate action. If this happened over a period of time or is still happening, please provide the most recent date.')
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
@@ -991,3 +1001,29 @@ class ComplaintActions(ModelForm):
                 description=description,
                 target=self.instance
             )
+
+
+class CommentActions(ModelForm):
+    class Meta:
+        model = CommentAndSummary
+        fields = ['note', 'is_summary']
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+        self.fields['note'].widget = Textarea(
+            attrs={
+                'class': 'usa-textarea',
+            },
+        )
+        self.fields['note'].label = 'New comment'
+        self.fields['is_summary'] = TextInput()
+
+    def update_activity_stream(user, report, comment):
+        """Send all actions to activity stream"""
+        from actstream import action
+        action.send(
+            user,
+            verb="",
+            description=comment,
+            target=report
+        )

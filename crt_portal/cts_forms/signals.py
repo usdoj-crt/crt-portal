@@ -11,7 +11,7 @@ from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
 
-from .models import Report, ProtectedClass, InternalHistory
+from .models import Report, ProtectedClass, CommentAndSummary
 
 logger = logging.getLogger(__name__)
 
@@ -75,7 +75,7 @@ def user_logout(sender, **kwargs):
     logger.info(f'User logout: {username} {userid} @ {ip}')
 
 
-@receiver(pre_save, sender=InternalHistory)
+@receiver(pre_save, sender=CommentAndSummary)
 def add_author(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
     author = current_request.user.username if current_request else 'anonymous'
@@ -97,18 +97,9 @@ def add_author_forms(sender, instance, created, **kwargs):
         instance.public_id = f'{instance.pk}-' + salt()
 
 
-@receiver(post_save, sender=Report)
-@receiver(post_save, sender=ProtectedClass)
-@receiver(post_save, sender=InternalHistory)
-def save_report(sender, instance, **kwargs):
-    current_request = CrequestMiddleware.get_request()
-    message = format_data_message('Data saved', current_request, instance)
-    logger.info(message)
-
-
 @receiver(post_delete, sender=Report)
 @receiver(post_delete, sender=ProtectedClass)
-@receiver(post_delete, sender=InternalHistory)
+@receiver(post_delete, sender=CommentAndSummary)
 def delete_report(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
     message = str(format_data_message('DATA DELETED', current_request, instance))

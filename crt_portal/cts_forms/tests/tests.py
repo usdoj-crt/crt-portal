@@ -934,6 +934,23 @@ class LoginRequiredTests(TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, '/accounts/login/?next=/form/new/')
 
+        response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': 1}))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/accounts/login/?next=/form/view/1/')
+
+        response = self.response = self.client.post(
+            reverse(
+                'crt_forms:save-report-comment',
+                kwargs={'report_id': 1}
+            ),
+            {
+                'is_summary': False,
+                'note': 'hello',
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/accounts/login/?next=/form/comment/report/1/')
+
     def test_view_report_details_authenticated(self):
         self.client.login(username='DELETE_USER', password=self.test_pass)
         response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id}))

@@ -72,14 +72,10 @@ ELECTION_DICT = dict(ELECTION_CHOICES)
 
 HATE_CRIMES_TRAFFICKING_MODEL_CHOICES = (
     ('physical_harm', _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability')),
-    ('trafficking', _('Coerced or forced to do work or perform a sex act in exchange for something of value')),
+    ('trafficking', _('Threatened, forced, and held against your will for the purposes of performing work or commercial sex acts. This could include threats of physical harm, withholding promised wages, or being held under a false work contract')),
 )
 
-HATE_CRIMES_TRAFFICKING_CHOICES = (
-    _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability'),
-    _('Coerced or forced to do work or perform a sex act in exchange for something of value'),
-)
-
+HATE_CRIMES_TRAFFICKING_CHOICES = [choice[1] for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES]
 
 # See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
 # This tuple will create the form_order, then lists a short code that we use for the model value and CRT display views, then the name as it will display on the form.
@@ -159,8 +155,8 @@ COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT = {
 }
 
 CORRECTIONAL_FACILITY_LOCATION_CHOICES = (
-    ('outside', _('Outside a prison or correctional facility')),
-    ('inside', _('Inside a prison or correctional facility'))
+    ('outside', _('no')),
+    ('inside', _('yes'))
 )
 CORRECTIONAL_FACILITY_LOCATION_DICT = dict(CORRECTIONAL_FACILITY_LOCATION_CHOICES)
 
@@ -305,7 +301,7 @@ INTAKE_FORMAT_CHOICES = (
     ('email', 'email'),
 )
 
-INCIDENT_DATE_HELPTEXT = _('If this happened over a period of time or is still happening, please provide the most recent date. Please use the format MM/DD/YYYY.')
+INCIDENT_DATE_HELPTEXT = _('You must enter a month and year. Please use the format MM/DD/YYYY.')
 
 DATE_ERRORS ={
     'month_required': _('Please enter a month.'),

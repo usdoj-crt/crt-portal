@@ -12,7 +12,12 @@
 				>
 					<span class="em-text display-block margin-bottom-1">{{ field.label }}</span>
 				{% if field.help_text %}
-					<em>{{ field.help_text }}</em>
+					<em>{{ field.help_text.title }}</em>
+					<ul class="question_primary_complaint">
+					{% for example in field.help_text.examples %}
+						<li class="primary-issue-example-li margin-left-4"><em>{{ example }}</em></li>
+					{% endfor %}
+					</ul>
 				{% endif %}
 				</label>
 
