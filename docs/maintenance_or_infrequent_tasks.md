@@ -127,3 +127,17 @@ crt_portal/crt_portal/urls.py
          auth = [
 
 
+# Load testing
+
+We use [locust](https://docs.locust.io/en/stable/what-is-locust.html) for load testing. We don't have this kind of testing automated as part of our release at this time.
+
+The scripts won't work on single sign on, I recommend you upgrade staging to have the same DBs and number of instances and do the test on staging without single sign on.
+
+Create an unique username and password in staging so that the script can test internal views. Add those values as variables locally that can be accessed as    `LOAD_TESTER` and `LOAD_PASSWORD`.
+
+
+
+
+
+After the test is done, delete the user you made for testing.
+

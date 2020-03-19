@@ -25,6 +25,10 @@ django-csp = "*"
 pip = "*"
 django-activity-stream = "*"
 coverage = "*"
+locust = "*"
 
 [requires]
 python_version = "3.8.1"
+
+[pipenv]
+allow_prereleases = true
