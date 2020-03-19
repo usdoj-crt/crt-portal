@@ -592,12 +592,13 @@ class ProtectedClassForm(ModelForm):
 
 
 def date_cleaner(self, cleaned_data):
-    day = cleaned_data.get('last_incident_day') or 1
-    year = cleaned_data['last_incident_year']
-    month = cleaned_data['last_incident_month']
-
+    """This should give the most specific error message, if the date doesn't render for reasons other than what we are checking for, it will give the generic error."""
     try:
-        """This should give the most specific error message, if the date doesn't render for reasons other than what we are checking for, it will give the generic error."""
+        # If these are required they will be caught by the key error
+        day = cleaned_data.get('last_incident_day') or 1
+        year = cleaned_data['last_incident_year']
+        month = cleaned_data['last_incident_month']
+        # custom messages
         if day > 31 or day < 1:
             self.add_error('last_incident_day', ValidationError(
                 DATE_ERRORS['month_invalid'],
@@ -605,22 +606,22 @@ def date_cleaner(self, cleaned_data):
         elif datetime(year, month, day) > datetime.now():
             self.add_error('last_incident_year', ValidationError(
                 DATE_ERRORS['no_future'],
-                params={'value': test_date.strftime('%x')},
+                params={'value': datetime(year, month, day).strftime('%x')},
             ))
         elif datetime(year, month, day) < datetime(1899, 12, 31):
             self.add_error('last_incident_year', ValidationError(
                 DATE_ERRORS['no_past'],
-                params={'value': test_date.strftime('%x')},
+                params={'value': datetime(year, month, day).strftime('%x')},
             ))
 
     except ValueError:
-        # a bit of a catch-all for all the ways people could make bad dates
+        # a bit of a catch-all for all the ways people could make invalid dates
         self.add_error('last_incident_year', ValidationError(
             DATE_ERRORS['not_valid'],
             params={'value': f'{month}/{day}/{year}'},
         ))
     except KeyError:
-        # these will be caught by the built in error validation
+        # these required errors will be caught by the built in error validation
         return cleaned_data
 
     return cleaned_data
