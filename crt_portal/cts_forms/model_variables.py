@@ -303,7 +303,7 @@ INTAKE_FORMAT_CHOICES = (
 
 INCIDENT_DATE_HELPTEXT = _('You must enter a month and year. Please use the format MM/DD/YYYY.')
 
-DATE_ERRORS ={
+DATE_ERRORS = {
     'month_required': _('Please enter a month.'),
     'month_invalid': _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.'),
     'year_required': _('Please enter a year.'),
