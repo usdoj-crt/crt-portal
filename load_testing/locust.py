@@ -4,7 +4,7 @@ import random
 from locust import HttpLocust, TaskSet, between
 from faker import Faker
 
-from load_test_data import SAMPLE_REPORT, SECTIONS, STATUSES, STATES, TEST_NAMES
+from load_test_data import SAMPLE_PRO_FORM, SECTIONS, STATUSES, STATES, TEST_NAMES
 
 fake = Faker()
 
@@ -82,8 +82,8 @@ def pro_form(l):
     response = l.client.get('/form/new/')
     csrftoken = response.cookies['csrftoken']
     l.client.post(
-        f'/form/comment/report/1/',
-        SAMPLE_REPORT,
+        f'/form/new/',
+        SAMPLE_PRO_FORM,
         headers={
             'X-CSRFToken': csrftoken,
             'Referer': l.client.base_url,
@@ -102,8 +102,9 @@ class UserBehavior(TaskSet):
         index: 2,
         random_searches: 2,
         comment: 1,
-        report: 1,
         view_details: 1,
+        pro_form: 3,
+        report: 1,
     }
 
     def on_start(self):
