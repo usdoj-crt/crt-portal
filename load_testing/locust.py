@@ -4,7 +4,7 @@ import random
 from locust import HttpLocust, TaskSet, between
 from faker import Faker
 
-from load_test_data import SECTIONS, STATUSES, STATES, TEST_NAMES, random_pro_form, random_form
+from load_test_data import SECTIONS, STATUSES, STATES, TEST_NAMES, random_form
 
 fake = Faker()
 
@@ -27,7 +27,7 @@ def login(l):
 
 
 def logout(l):
-    response = l.client.get('/accounts/logout/')
+    l.client.get('/accounts/logout/')
 
 
 def index(l):
@@ -62,7 +62,7 @@ def random_searches(l):
 
 
 def view_details(l):
-    response = l.client.get('/form/view/1/')
+    l.client.get('/form/view/1/')
 
 
 def comment(l):
@@ -81,10 +81,10 @@ def comment(l):
 def pro_form(l):
     response = l.client.get('/form/new/')
     csrftoken = response.cookies['csrftoken']
-    sample = random_pro_form()
-    post_form = l.client.post(
+    data = random_form(0, 0, csrftoken, 'pro')
+    l.client.post(
         f'/form/new/',
-        sample,
+        data,
         headers={
             'X-CSRFToken': csrftoken,
             'Referer': l.client.base_url,
@@ -100,7 +100,7 @@ def get_report(l):
     index = 0
 
     for step in [0, 1, 2, 8, 9, 10, 11, 12]:
-        data = random_form(step, index, csrftoken)
+        data = random_form(step, index, csrftoken, 'multi-step')
         response = l.client.post(
             f'/report/',
             data,
@@ -120,8 +120,6 @@ def get_report(l):
 
 
 class UserBehavior(TaskSet):
-    # want to start with low increments so we know the report exists
-    report_number = 0
     tasks = {
         index: 2,
         random_searches: 2,

@@ -17,7 +17,7 @@ STATES = [
 TEST_NAMES = ['Liam', 'Charlotte', 'Oliver', 'Amelia', 'Emilia', 'Theodore', 'Violet', 'Declan', 'Aria']
 
 
-def random_form(step, index, csrftoken):
+def random_form(step, index, csrftoken, form):
     data = [
         {
             '0-contact_first_name': random.choice(TEST_NAMES),
@@ -67,47 +67,27 @@ def random_form(step, index, csrftoken):
         # review page
         {},
     ]
-    form = {'crt_report_wizard-current_step': step, 'csrfmiddlewaretoken': csrftoken}
-    form.update(data[index])
-    return(form)
 
+    if form == 'multi-step':
+        form = {'crt_report_wizard-current_step': step, 'csrfmiddlewaretoken': csrftoken}
+        form.update(data[index])
+        return form
 
-def random_pro_form():
-    form = {'pro_form_view-current_step': 0}
-
-    return {
-        'pro_form_view-current_step': 0,
-        '0-other_class': "test other",
-        '0-contact_first_name': random.choice(TEST_NAMES),
-        '0-contact_last_name': random.choice(TEST_NAMES),
-        '0-contact_email': fake.ascii_email(),
-        '0-contact_phone': fake.phone_number(),
-        '0-violation_summary': fake.text(),
-        '0-last_incident_month': random.choice(range(1, 12)),
-        '0-last_incident_year': random.choice(range(2017, 2019)),
-        '0-location_name': random.choice(TEST_NAMES),
-        '0-location_city_town': random.choice(TEST_NAMES),
-        '0-location_state': random.choice(STATES),
-        '0-contact_address_line_1': fake.street_address(),
-        '0-contact_address_line_2': fake.secondary_address(),
-        '0-contact_city': random.choice(TEST_NAMES),
-        '0-contact_state': random.choice(STATES),
-        '0-contact_zip': fake.zipcode(),
-        '0-servicemember': random.choice(['yes', 'no']),
-        '0-primary_complaint': 'police',
-        '0-location_address_line_1': fake.street_address(),
-        '0-location_address_line_2': fake.secondary_address(),
-        '0-election_details': 'federal',
-        '0-inside_correctional_facility': 'inside',
-        '0-correctional_facility_type': 'state_local',
-        '0-commercial_or_public_place': 'place_of_worship',
-        '0-other_commercial_or_public_place': 'a castle',
-        '0-public_or_private_school': 'private',
-        '0-last_incident_year': 2020,
-        '0-last_incident_day': 31,
-        '0-last_incident_month': 1,
-        '0-crt_reciept_year': 2020,
-        '0-crt_reciept_day': 2,
-        '0-crt_reciept_month': 2,
-        '0-intake_format': 'phone',
-    }
+    if form == 'pro':
+        form = {
+            'pro_form_view-current_step': 0,
+            'csrfmiddlewaretoken': csrftoken,
+            '0-election_details': 'federal',
+            '0-inside_correctional_facility': 'inside',
+            '0-correctional_facility_type': 'state_local',
+            '0-commercial_or_public_place': 'place_of_worship',
+            '0-other_commercial_or_public_place': 'a castle',
+            '0-public_or_private_school': 'private',
+            '0-crt_reciept_day': random.choice(range(1, 28)),
+            '0-crt_reciept_month': random.choice(range(1, 12)),
+            '0-crt_reciept_year': random.choice([2019, 2018, 2017]),
+            '0-intake_format': random.choice(['phone', 'fax', 'email', 'letter']),
+        }
+        for datum in data:
+            form.update(datum)
+        return form
