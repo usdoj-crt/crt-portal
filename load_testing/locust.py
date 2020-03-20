@@ -13,7 +13,9 @@ def login(l):
 
 
 def logout(l):
-    l.client.post("/accounts/logout/", {"username": load_tester, "password": load_password})
+    response = l.client.get('/accounts/logout/')
+    csrftoken = response.cookies['csrftoken']
+    l.client.post("/accounts/logout/", {"username": load_tester, "password": load_password}, headers={'X-CSRFToken': csrftoken})
 
 
 def index(l):
