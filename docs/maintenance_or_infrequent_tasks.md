@@ -131,7 +131,7 @@ crt_portal/crt_portal/urls.py
 
 We use [locust](https://docs.locust.io/en/stable/what-is-locust.html) for load testing. We don't have this kind of testing automated as part of our release at this time.
 
-The scripts won't work on single sign on, I recommend you upgrade staging to have the same DBs and number of instances and do the test on staging without single sign on.
+The scripts won't work on single sign on, I recommend you upgrade staging to have the same DBs and number of instances and do the test on staging without single sign on. Before you do a test on a live site reach out to cloud.gov at support@cloud.gov to give them a heads up, and check that the test will be held at a good time.
 
 Create an unique username and password in staging so that the script can test internal views. Add those values as variables locally that can be accessed as    `LOAD_TESTER` and `LOAD_PASSWORD`.
 
@@ -140,7 +140,7 @@ If you want to run it locally, and you have set up pipenv you can run it with:
     pipenv shell
     locust -f load_testing/locust.py
 
-Then you can see the locust interface at [http://localhost:8089/](http://localhost:8089/)
+Then, you can see the locust interface at [http://localhost:8089/](http://localhost:8089/). From there, you can set the base url, how many users you want to simulate and how quickly those users can log on.
 
 After the test is done, delete the user you made for testing.
 
