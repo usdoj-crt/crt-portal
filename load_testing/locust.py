@@ -4,7 +4,7 @@ import random
 from locust import HttpLocust, TaskSet, between
 from faker import Faker
 
-from load_test_data import SECTIONS, STATUSES, STATES, TEST_NAMES, random_pro_form
+from load_test_data import SECTIONS, STATUSES, STATES, TEST_NAMES, random_pro_form, random_form
 
 fake = Faker()
 
@@ -82,7 +82,6 @@ def pro_form(l):
     response = l.client.get('/form/new/')
     csrftoken = response.cookies['csrftoken']
     sample = random_pro_form()
-    print(sample)
     post_form = l.client.post(
         f'/form/new/',
         sample,
@@ -93,8 +92,31 @@ def pro_form(l):
     )
 
 
-def report(l):
-    l.client.get("/report")
+def get_report(l):
+    response = l.client.get('/report/')
+    csrftoken = response.cookies['csrftoken']
+    sessionid = response.cookies['sessionid']
+    # page 1 response
+    index = 0
+
+    for step in [0, 1, 2, 8, 9, 10, 11, 12]:
+        data = random_form(step, index, csrftoken)
+        response = l.client.post(
+            f'/report/',
+            data,
+            headers={
+                'X-CSRFToken': csrftoken,
+                'Referer': l.client.base_url,
+                'sessionid': sessionid,
+            },
+        )
+
+        # the confirmation page won't have a cookie
+        if 'csrftoken' in response.cookies:
+            csrftoken = response.cookies['csrftoken']
+            sessionid = response.cookies['sessionid']
+
+        index += 1
 
 
 class UserBehavior(TaskSet):
@@ -106,7 +128,8 @@ class UserBehavior(TaskSet):
         comment: 1,
         view_details: 1,
         pro_form: 3,
-        report: 1,
+        get_report: 10,
+
     }
 
     def on_start(self):

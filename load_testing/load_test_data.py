@@ -17,7 +17,64 @@ STATES = [
 TEST_NAMES = ['Liam', 'Charlotte', 'Oliver', 'Amelia', 'Emilia', 'Theodore', 'Violet', 'Declan', 'Aria']
 
 
+def random_form(step, index, csrftoken):
+    data = [
+        {
+            '0-contact_first_name': random.choice(TEST_NAMES),
+            '0-contact_last_name': random.choice(TEST_NAMES),
+            '0-contact_email': fake.ascii_email(),
+            '0-contact_phone': fake.phone_number(),
+            '0-contact_address_line_1': fake.street_address(),
+            '0-contact_address_line_2': fake.secondary_address(),
+            '0-contact_city': random.choice(TEST_NAMES),
+            '0-contact_state': random.choice(STATES),
+            '0-contact_zip': fake.zipcode(),
+            '0-servicemember': random.choice(['yes', 'no']),
+        },
+        {
+            f'{step}-primary_complaint': 'something_else',
+        },
+        # ids may be different in different environments
+        {
+            f'{step}-hatecrimes_trafficking': 1,
+            f'{step}-hatecrimes_trafficking': 2,
+        },
+        {
+            f'{step}-location_name': random.choice(TEST_NAMES),
+            f'{step}-location_address_line_1': fake.street_address(),
+            f'{step}-location_address_line_2': fake.secondary_address(),
+            f'{step}-location_name': random.choice(TEST_NAMES),
+            f'{step}-location_city_town': random.choice(TEST_NAMES),
+            f'{step}-location_state': random.choice(STATES),
+        },
+        # these ids appear in my local and prod
+        {
+            f'{step}-protected_class': 16,
+            f'{step}-protected_class': 7,
+            f'{step}-protected_class': 15,
+            f'{step}-protected_class': 6,
+            f'{step}-protected_class': 4,
+            f'{step}-other_class': random.choice(TEST_NAMES),
+        },
+        {
+            f'{step}-last_incident_year': random.choice([2019, 2018, 2017]),
+            f'{step}-last_incident_day': random.choice(range(1, 29)),
+            f'{step}-last_incident_month': random.choice(range(1, 12)),
+        },
+        {
+            f'{step}-violation_summary': fake.text(),
+        },
+        # review page
+        {},
+    ]
+    form = {'crt_report_wizard-current_step': step, 'csrfmiddlewaretoken': csrftoken}
+    form.update(data[index])
+    return(form)
+
+
 def random_pro_form():
+    form = {'pro_form_view-current_step': 0}
+
     return {
         'pro_form_view-current_step': 0,
         '0-other_class': "test other",
@@ -36,7 +93,7 @@ def random_pro_form():
         '0-contact_city': random.choice(TEST_NAMES),
         '0-contact_state': random.choice(STATES),
         '0-contact_zip': fake.zipcode(),
-        '0-servicemember': 'no',
+        '0-servicemember': random.choice(['yes', 'no']),
         '0-primary_complaint': 'police',
         '0-location_address_line_1': fake.street_address(),
         '0-location_address_line_2': fake.secondary_address(),
