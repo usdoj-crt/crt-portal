@@ -26,6 +26,7 @@ pip = "*"
 django-activity-stream = "*"
 coverage = "*"
 locust = "*"
+faker = "*"
 
 [requires]
 python_version = "3.8.1"
