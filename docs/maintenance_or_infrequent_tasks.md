@@ -135,9 +135,18 @@ The scripts won't work on single sign on, I recommend you upgrade staging to hav
 
 Create an unique username and password in staging so that the script can test internal views. Add those values as variables locally that can be accessed as    `LOAD_TESTER` and `LOAD_PASSWORD`.
 
+If you want to run it locally, and you have set up pipenv you can run it with:
 
+    pipenv shell
+    locust -f load_testing/locust.py
 
-
+Then you can see the locust interface at [http://localhost:8089/](http://localhost:8089/)
 
 After the test is done, delete the user you made for testing.
+
+# pipenv
+
+    pipenv install
+
+    pipenv shell
 
