@@ -1,11 +1,13 @@
 {% load static %}
+{% load get_field_label %}
+
 <div id="active-filters" data-active-filters>
   {% for key, value in filters.items %}
     {% for item in value %}
       <span class="usa-sr-only">{{key}}: {{item}}</span>
       <button
         class="filter-tag"
-        aria-label="Remove filter {{ key}}: {{item}} from the list"
+        aria-label="Remove filter {{'Report'|get_field_label:key}}: {{item}} from the list"
         data-filter-name="{{key}}"
         data-filter-value="{{item}}"
       >
