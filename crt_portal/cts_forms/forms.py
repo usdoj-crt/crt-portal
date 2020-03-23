@@ -912,19 +912,18 @@ class ProForm(
 
 class Filters(ModelForm):
     status = ChoiceField(
+        required=False,
         choices=_add_empty_choice(STATUS_CHOICES),
         widget=Select(attrs={
             'name': 'status',
             'class': 'usa-select',
         })
     )
-    location_state = ChoiceField(
-        choices=_add_empty_choice(STATES_AND_TERRITORIES),
-        widget=Select(attrs={
-            'name': 'location_state',
-            'class': 'usa-select',
-        })
-    )
+    location_state = ChoiceField(required=False,
+                                 choices=_add_empty_choice(STATES_AND_TERRITORIES),
+                                 widget=Select(attrs={
+                                     'name': 'location_state',
+                                     'class': 'usa-select'}))
 
     class Meta:
         model = Report
