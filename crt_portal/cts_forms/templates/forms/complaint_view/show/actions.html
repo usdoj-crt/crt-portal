@@ -23,6 +23,9 @@
         {% include "forms/complaint_view/show/actions/assigned_section.html" %}
       </div>
       <div class="margin-bottom-2">
+        <label class="intake-label">
+          {{actions.fields.status.widget.label}}
+        </label>
         {{ actions.status }}
       </div>
       <button class="usa-button" type="submit">Apply changes</button>
