@@ -134,7 +134,6 @@ def serialize_data(report, request, report_id):
 
     summary_query = report.internal_comments.filter(is_summary=True).order_by('-modified_date')
     if len(summary_query) > 0:
-        print("8888888888888")
         summary = summary_query[0].note
     else:
         summary = None
