@@ -99,6 +99,7 @@ def IndexView(request):
             "report": report,
             "report_protected_classes": p_class_list,
             "url": f'{report.id}?next={all_args_encoded}'
+
         })
 
     final_data = {
@@ -132,6 +133,13 @@ def serialize_data(report, request, report_id):
         report.other_class,
     )
 
+    summary_query = report.internal_comments.filter(is_summary=True).order_by('-modified_date')
+    if len(summary_query) > 0:
+        print("8888888888888")
+        summary = summary_query[0].note
+    else:
+        summary = None
+
     output = {
         'actions': ComplaintActions(initial={
             'assigned_section': report.assigned_section,
@@ -144,6 +152,7 @@ def serialize_data(report, request, report_id):
         'p_class_list': p_class_list,
         'primary_complaint': primary_complaint,
         'return_url_args': request.GET.get('next', ''),
+        'summary': summary,
     }
 
     return output

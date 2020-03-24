@@ -1,27 +1,23 @@
-<div class="crt-portal-card">
-  <div class="crt-portal-card__content">
-    <form
-      id="comment-actions-{{ id_name }}"
-      class="usa-form"
-      method="post"
-      action="{% url 'crt_forms:save-report-comment' report_id=data.pk %}"
-      novalidate
-    >
-      {% csrf_token %}
-      <fieldset class="usa-fieldset usa-prose">
+<form
+  id="comment-actions-{{ id_name }}"
+  class="usa-form"
+  method="post"
+  action="{% url 'crt_forms:save-report-comment' report_id=data.pk %}"
+  novalidate
+>
+  {% csrf_token %}
+  <fieldset class="usa-fieldset usa-prose">
 
-        <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
-        <input type="hidden" value="{{ is_summary }}" name="is_summary" id="is_summary-{{ id_name }}" />
-        <input type="hidden" value="{{ data.pk }}" name="report_id" id="report_id-{{ id_name }}" />
+    <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
+    <input type="hidden" value="{{ is_summary }}" name="is_summary" id="is_summary-{{ id_name }}" />
+    <input type="hidden" value="{{ data.pk }}" name="report_id" id="report_id-{{ id_name }}" />
 
-        <div class="margin-bottom-2">
-          <label class="bold backend-blue">
-            {{ comments.note.label }}
-          </label>
-          {{ comments.note }}
-        </div>
-        <button aria-label="send new comment" class="usa-button" type="submit">Send</button>
-      </fieldset>
-    </form>
-  </div>
-</div>
+    <div class="margin-bottom-2">
+      <label class="bold backend-blue">
+        {{ label }}
+      </label>
+      {{ comments.note }}
+    </div>
+    <button aria-label="send new comment" class="usa-button" type="submit">{{ button_text }}</button>
+  </fieldset>
+</form>

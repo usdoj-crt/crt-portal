@@ -58,7 +58,7 @@
   .intake-filters {
     @include flex-container();
     width: 100%;
-    
+
     .crt-dropdown {
       margin-right: 2rem;
 
@@ -124,7 +124,7 @@
   .content {
     background: $white;
     border-radius: 3px;
-    border-top-left-radius: 0px;    
+    border-top-left-radius: 0px;
     box-shadow: 0 15px 10px hsla(0,0%,39.2%,.2);
     left: 0;
     min-width: 16rem;
@@ -270,7 +270,13 @@
 }
 
 .details-date-label {
-  @include u-color($blue-warm-vivid-80-t);
+  @include u-color('gray-warm-80');
   font-size: 0.875rem;
   font-weight: 900;
+}
+
+.blue-background{
+  @include u-bg($blue-warm-5-t);
+  padding: 1rem;
+
 }
