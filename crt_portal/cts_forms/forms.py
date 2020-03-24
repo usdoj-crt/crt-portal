@@ -41,6 +41,11 @@ from .model_variables import (
     STATUS_CHOICES,
     EMPTY_CHOICE,
     INCIDENT_DATE_HELPTEXT,
+    DATE_ERRORS,
+    VOTING_ERROR,
+    EMPLOYER_SIZE_ERROR,
+    PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
+    COMMERCIAL_OR_PUBLIC_ERROR,
 )
 
 from .question_text import (
@@ -375,7 +380,7 @@ class ElectionLocation(LocationForm):
             }),
             required=True,
             error_messages={
-                'required': _('Please select the type of election or voting activity.')
+                'required': VOTING_ERROR
             },
             label=''
         )
@@ -418,7 +423,7 @@ class WorkplaceLocation(LocationForm):
             }),
             required=True,
             error_messages={
-                'required': _('Please select what type of employer this is.')
+                'required': PUBLIC_OR_PRIVATE_EMPLOYER_ERROR
             },
             label=''
         )
@@ -428,7 +433,7 @@ class WorkplaceLocation(LocationForm):
             widget=UsaRadioSelect,
             required=True,
             error_messages={
-                'required': _('Please select how large the employer is.')
+                'required': EMPLOYER_SIZE_ERROR
             },
             label=''
         )
@@ -455,7 +460,7 @@ class CommercialPublicLocation(LocationForm):
             }),
             required=True,
             error_messages={
-                'required': _('Please select the type of location. If none of these apply to your situation, please select "Other".')
+                'required': COMMERCIAL_OR_PUBLIC_ERROR
             }
         )
         self.fields['other_commercial_or_public_place'].help_text = _('Please describe')
@@ -587,41 +592,36 @@ class ProtectedClassForm(ModelForm):
 
 
 def date_cleaner(self, cleaned_data):
-    day = cleaned_data.get('last_incident_day') or 1
-
-    if day > 31 or day < 1:
-        self.add_error('last_incident_day', ValidationError(
-            _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.')
-        ))
-
+    """This should give the most specific error message, if the date doesn't render for reasons other than what we are checking for, it will give the generic error."""
     try:
+        # If these are required they will be caught by the key error
+        day = cleaned_data.get('last_incident_day') or 1
         year = cleaned_data['last_incident_year']
         month = cleaned_data['last_incident_month']
-        test_date = datetime(year, month, day)
-        if test_date > datetime.now():
-            self.add_error('last_incident_year', ValidationError(
-                _('Date can not be in the future.'),
-                params={'value': test_date.strftime('%x')},
+        # custom messages
+        if day > 31 or day < 1:
+            self.add_error('last_incident_day', ValidationError(
+                DATE_ERRORS['month_invalid'],
             ))
-        if year < 100:
+        elif datetime(year, month, day) > datetime.now():
             self.add_error('last_incident_year', ValidationError(
-                _('Please enter four digits for the year.'),
-                params={'value': test_date.strftime('%x')},
+                DATE_ERRORS['no_future'],
+                params={'value': datetime(year, month, day).strftime('%x')},
             ))
-        if test_date < datetime(1899, 12, 31):
+        elif datetime(year, month, day) < datetime(1899, 12, 31):
             self.add_error('last_incident_year', ValidationError(
-                _('Please enter a year after 1900.'),
-                params={'value': test_date.strftime('%x')},
+                DATE_ERRORS['no_past'],
+                params={'value': datetime(year, month, day).strftime('%x')},
             ))
 
     except ValueError:
-        # a bit of a catch-all for all the ways people could make bad dates
+        # a bit of a catch-all for all the ways people could make invalid dates
         self.add_error('last_incident_year', ValidationError(
-            _(f'Invalid date format {month}/{day}/{year}.'),
+            DATE_ERRORS['not_valid'],
             params={'value': f'{month}/{day}/{year}'},
         ))
     except KeyError:
-        # these will be caught by the built in error validation
+        # these required errors will be caught by the built in error validation
         return cleaned_data
 
     return cleaned_data
@@ -657,13 +657,13 @@ class When(ModelForm):
 
         self.fields['last_incident_month'].label = DATE_QUESTIONS['last_incident_month']
         self.fields['last_incident_month'].error_messages = {
-            'required': _('Please enter a month.'),
+            'required': DATE_ERRORS['month_required'],
         }
         self.fields['last_incident_month'].required = True
         self.fields['last_incident_day'].label = DATE_QUESTIONS['last_incident_day']
         self.fields['last_incident_year'].label = DATE_QUESTIONS['last_incident_year']
         self.fields['last_incident_year'].error_messages = {
-            'required': _('Please enter a year.'),
+            'required': DATE_ERRORS['year_required'],
         }
         self.fields['last_incident_year'].required = True
         self.page_note = _('It is important for us to know how recently this incident happened so we can take the appropriate action. If this happened over a period of time or is still happening, please provide the most recent date.')
