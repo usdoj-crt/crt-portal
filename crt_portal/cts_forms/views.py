@@ -110,7 +110,6 @@ def IndexView(request):
         'sort_state': sort_state,
         'filter_state': filter_args,
         'filters': query_filters,
-        'auth': 'DJFKDSFJSD'
     }
 
     return render(request, 'forms/complaint_view/index/index.html', final_data)
