@@ -135,7 +135,9 @@ def serialize_data(report, request, report_id):
     output = {
         'actions': ComplaintActions(initial={
             'assigned_section': report.assigned_section,
-            'status': report.status
+            'status': report.status,
+            'primary_statute': report.primary_statute,
+            'district': report.district,
         }),
         'comments': CommentActions(),
         'activity_stream': report.target_actions.all(),
@@ -207,6 +209,7 @@ def save_form(form_data_dict):
         r.hatecrimes_trafficking.add(o)
 
     r.assigned_section = r.assign_section()
+    r.district = r.assign_district()
     r.save()
     # adding this back for the save page results
     form_data_dict['protected_class'] = m2m_protected_class.values()

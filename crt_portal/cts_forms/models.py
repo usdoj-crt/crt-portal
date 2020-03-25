@@ -23,6 +23,8 @@ from .model_variables import (
     CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
     COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
     INTAKE_FORMAT_CHOICES,
+    DISTRICT_CHOICES,
+    STATUTE_CHOICES,
 )
 
 import logging
@@ -54,6 +56,16 @@ class HateCrimesandTrafficking(models.Model):
 
     def __str__(self):
         return self.hatecrimes_trafficking_option
+
+
+class JudicialDistrict(models.Model):
+    zipcode = models.CharField(max_length=700, null=True, blank=True)
+    city = models.CharField(max_length=700, null=True, blank=True)
+    county = models.CharField(max_length=700, null=True, blank=True)
+    state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
+    district_number = models.SmallIntegerField(null=True, blank=True)
+    district_letter = models.CharField(max_length=2, null=True, blank=True)
+    district = models.CharField(max_length=7)
 
 
 class Report(models.Model):
@@ -125,6 +137,9 @@ class Report(models.Model):
 
     # Internal comments
     internal_comments = models.ManyToManyField(CommentAndSummary)
+    # Internal codes
+    district = models.CharField(max_length=7, null=True, blank=True, choices=DISTRICT_CHOICES)
+    primary_statute = models.CharField(max_length=7, null=True, blank=True, choices=STATUTE_CHOICES)
 
     # Metadata
     public_id = models.CharField(max_length=100, null=False, blank=False)
@@ -224,3 +239,12 @@ class Report(models.Model):
             return 'DRS'
 
         return 'ADM'
+
+    def assign_district(self):
+        if self.location_city_town and self.location_state:
+            city = self.location_city_town.upper().strip()
+            district_query = JudicialDistrict.objects.filter(city=city, state=self.location_state)
+            if len(district_query) > 0:
+                return district_query[0].district
+
+        return None

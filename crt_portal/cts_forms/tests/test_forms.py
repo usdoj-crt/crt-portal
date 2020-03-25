@@ -22,6 +22,17 @@ class ComplaintActionTests(SimpleTestCase):
         self.assertEqual(actions, [("updated field test", " to verb")])
 
 
+class ActionTests(TestCase):
+    def test_valid(self):
+        form = ComplaintActions(data={
+            'assigned_section': 'ADM',
+            'status': 'new',
+            'primary_statute': '144',
+            'district': '1',
+        })
+        self.assertTrue(form.is_valid())
+
+
 class CommentActionTests(TestCase):
     def setUp(self):
         self.client = Client()
