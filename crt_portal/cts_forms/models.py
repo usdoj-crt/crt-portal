@@ -56,6 +56,15 @@ class HateCrimesandTrafficking(models.Model):
         return self.hatecrimes_trafficking_option
 
 
+class JudicialDistrict(models.Model):
+    zipcode = models.CharField(max_length=700, null=True, blank=True)
+    city = models.CharField(max_length=700, null=True, blank=True)
+    county = models.CharField(max_length=700, null=True, blank=True)
+    state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
+    district_number = models.SmallIntegerField(null=True, blank=True)
+    district_letter = models.CharField(max_length=2, null=True, blank=True)
+
+
 class Report(models.Model):
     # Contact
     contact_first_name = models.CharField(max_length=225, null=True, blank=True)
@@ -116,6 +125,9 @@ class Report(models.Model):
     other_commercial_or_public_place = models.CharField(max_length=150, blank=True, null=True, default=None)
 
     # Education location
+    district_number = models.SmallIntegerField(null=True, blank=True)
+    district_letter = models.CharField(max_length=2, null=True, blank=True)
+
     public_or_private_school = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, default=None)
 
     # Incident date
@@ -224,3 +236,7 @@ class Report(models.Model):
             return 'DRS'
 
         return 'ADM'
+
+    def assign_judicial_district(self):
+
+        return(None)
