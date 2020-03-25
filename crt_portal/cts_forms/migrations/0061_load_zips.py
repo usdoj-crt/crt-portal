@@ -1,6 +1,9 @@
+import os
+
 from csv import DictReader
 from django.db import migrations
-from .models import JudicialDistrict
+
+circle = os.environ.get('CIRCLE', False)
 
 
 class Migration(migrations.Migration):
@@ -12,13 +15,16 @@ class Migration(migrations.Migration):
     def load_zip_data(*args, **defaults):
         with open('data/zip_codes_by_district.csv', newline='') as csvfile:
             csvreader = csv.DictReader(csvfile, delimiter=' ', quotechar='|')
-            for row in csvreader:
-                JudicialDistrict.create(
-                    zipcode=row['ZIPCODE'],
-                    city=row['CITY'],
-                    state=row['STATE'],
-                    county=row['COUNTY'],
-                )
+            JudicialDistrict = apps.get_model('cts_forms', 'JudicialDistrict')
+            # this takes too long and is not needed for tests
+            if not circle:
+                for row in csvreader:
+                    JudicialDistrict.create(
+                        zipcode=row['ZIPCODE'],
+                        city=row['CITY'],
+                        state=row['STATE'],
+                        county=row['COUNTY'],
+                    )
 
     operations = [
         migrations.RunPython(load_zip_data),
