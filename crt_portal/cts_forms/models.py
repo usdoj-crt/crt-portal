@@ -24,6 +24,7 @@ from .model_variables import (
     COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
     INTAKE_FORMAT_CHOICES,
     DISTRICT_CHOICES,
+    STATUTE_CHOICES,
 )
 
 import logging
@@ -138,6 +139,7 @@ class Report(models.Model):
     internal_comments = models.ManyToManyField(CommentAndSummary)
     # Internal codes
     district = models.CharField(max_length=7, null=True, blank=True, choices=DISTRICT_CHOICES)
+    primary_statute = models.CharField(max_length=7, null=True, blank=True, choices=STATUTE_CHOICES)
 
     # Metadata
     public_id = models.CharField(max_length=100, null=False, blank=False)

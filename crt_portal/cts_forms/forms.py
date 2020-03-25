@@ -47,6 +47,7 @@ from .model_variables import (
     PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
     COMMERCIAL_OR_PUBLIC_ERROR,
     DISTRICT_CHOICES,
+    STATUTE_CHOICES,
 )
 
 from .question_text import (
@@ -969,7 +970,7 @@ class Filters(ModelForm):
 class ComplaintActions(ModelForm):
     class Meta:
         model = Report
-        fields = ['assigned_section', 'status', 'district']
+        fields = ['assigned_section', 'status', 'primary_statute', 'district']
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
@@ -988,9 +989,15 @@ class ComplaintActions(ModelForm):
             required=False
         )
 
+        self.fields['primary_statute'] = ChoiceField(
+            widget=ComplaintSelect(label='Primary statute'),
+            choices=_add_empty_choice(STATUTE_CHOICES),
+            required=False
+        )
+
         self.fields['district'] = ChoiceField(
-            widget=ComplaintSelect(label='Judicial District'),
-            choices=DISTRICT_CHOICES,
+            widget=ComplaintSelect(label='Judicial district'),
+            choices=_add_empty_choice(DISTRICT_CHOICES),
             required=False
         )
 

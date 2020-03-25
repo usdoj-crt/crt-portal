@@ -136,6 +136,7 @@ def serialize_data(report, request, report_id):
         'actions': ComplaintActions(initial={
             'assigned_section': report.assigned_section,
             'status': report.status,
+            'primary_statute': report.primary_statute,
             'district': report.district,
         }),
         'comments': CommentActions(),
