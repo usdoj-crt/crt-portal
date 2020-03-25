@@ -125,9 +125,6 @@ class Report(models.Model):
     other_commercial_or_public_place = models.CharField(max_length=150, blank=True, null=True, default=None)
 
     # Education location
-    district_number = models.SmallIntegerField(null=True, blank=True)
-    district_letter = models.CharField(max_length=2, null=True, blank=True)
-
     public_or_private_school = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, default=None)
 
     # Incident date
@@ -137,6 +134,9 @@ class Report(models.Model):
 
     # Internal comments
     internal_comments = models.ManyToManyField(CommentAndSummary)
+    # Internal codes
+    district_number = models.SmallIntegerField(null=True, blank=True)
+    district_letter = models.CharField(max_length=2, null=True, blank=True)
 
     # Metadata
     public_id = models.CharField(max_length=100, null=False, blank=False)

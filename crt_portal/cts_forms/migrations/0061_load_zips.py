@@ -24,6 +24,8 @@ class Migration(migrations.Migration):
                         city=row['CITY'],
                         state=row['STATE'],
                         county=row['COUNTY'],
+                        district_number=row['DISTRICT_NUMBER'],
+                        disrtict_letter=row['DISTRICT_LETTER']
                     )
 
     operations = [
