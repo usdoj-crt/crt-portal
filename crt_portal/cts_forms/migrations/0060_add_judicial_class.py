@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0017_auto_20191118_1943'),
+        ('cts_forms', '0059_merge_20200318_2236'),
     ]
 
     operations = [
