@@ -977,26 +977,39 @@ class ComplaintActions(ModelForm):
 
         self.fields['assigned_section'] = ChoiceField(
             widget=ComplaintSelect(label='Section', attrs={
-                'classes': 'text-uppercase'
+                'classes': 'text-uppercase crt-dropdown__data'
             }),
             choices=SECTION_CHOICES,
             required=False
         )
-
         self.fields['status'] = ChoiceField(
-            widget=ComplaintSelect(label='Status'),
+            widget=ComplaintSelect(
+                label='Status',
+                attrs={
+                    'classes': 'crt-dropdown__data',
+                },
+
+            ),
             choices=STATUS_CHOICES,
             required=False
         )
-
         self.fields['primary_statute'] = ChoiceField(
-            widget=ComplaintSelect(label='Primary statute'),
+            widget=ComplaintSelect(
+                label='Primary statute',
+                attrs={
+                    'classes': 'text-uppercase crt-dropdown__data',
+                },
+            ),
             choices=_add_empty_choice(STATUTE_CHOICES),
             required=False
         )
-
         self.fields['district'] = ChoiceField(
-            widget=ComplaintSelect(label='Judicial district'),
+            widget=ComplaintSelect(
+                label='Judicial district',
+                attrs={
+                    'classes': 'text-uppercase crt-dropdown__data',
+                },
+            ),
             choices=_add_empty_choice(DISTRICT_CHOICES),
             required=False
         )
