@@ -23,13 +23,13 @@ class ComplaintActionTests(SimpleTestCase):
 
 
 class ActionTests(TestCase):
-    def test_valid():
-        form = ComplaintActions(
+    def test_valid(self):
+        form = ComplaintActions(data={
             'assigned_section': 'ADM',
             'status': 'new',
             'primary_statute': '144',
             'district': '1',
-        )
+        })
         self.assertTrue(form.is_valid())
 
 
