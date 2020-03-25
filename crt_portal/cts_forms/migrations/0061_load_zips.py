@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
 
     def load_zip_data(*args, **defaults):
         with open('data/zip_codes_by_district.csv', newline='') as csvfile:
-            csvreader = csv.DictReader(csvfile, delimiter=' ', quotechar='|')
+            csvreader = DictReader(csvfile, delimiter=' ', quotechar='|')
             JudicialDistrict = apps.get_model('cts_forms', 'JudicialDistrict')
             # this takes too long and is not needed for tests
             if not circle:
