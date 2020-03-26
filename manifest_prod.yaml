@@ -3,8 +3,8 @@ applications:
 - name: crt-portal-django
   routes:
   - route: crt-portal-django-prod.app.cloud.gov
-  memory: 512M
-  instances: 2
+  memory: 1G
+  instances: 4
   env:
     ENV: PRODUCTION
     AUTH_RELYING_PARTY_ID: "crt-portal-django-prod.app.cloud.gov"
