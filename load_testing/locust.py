@@ -121,20 +121,20 @@ def get_report(l):
 
 class UserBehavior(TaskSet):
     tasks = {
-        index: 2,
-        random_searches: 2,
-        comment: 1,
-        view_details: 1,
-        pro_form: 3,
+        # index: 2,
+        # random_searches: 2,
+        # comment: 1,
+        # view_details: 1,
+        # pro_form: 3,
         get_report: 10,
 
     }
 
-    def on_start(self):
-        login(self)
+    # def on_start(self):
+    #     login(self)
 
-    def on_stop(self):
-        logout(self)
+    # def on_stop(self):
+    #     logout(self)
 
 
 class WebsiteUser(HttpLocust):
