@@ -1,5 +1,6 @@
 import os
 import random
+import time
 
 from locust import HttpLocust, TaskSet, between
 from faker import Faker
@@ -117,6 +118,7 @@ def get_report(l):
             sessionid = response.cookies['sessionid']
 
         index += 1
+        time.sleep(.5)
 
 
 class UserBehavior(TaskSet):
@@ -126,7 +128,7 @@ class UserBehavior(TaskSet):
         # comment: 1,
         # view_details: 1,
         # pro_form: 3,
-        get_report: 10,
+        get_report: 1,
 
     }
 
