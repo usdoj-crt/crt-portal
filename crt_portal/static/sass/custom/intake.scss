@@ -69,6 +69,13 @@
   }
 }
 
+.usa-select {
+  @include u-radius('md');
+  @include u-border(2px, 'gray-cool-40');
+  background-image: url(../img/intake-icons/ic_chevron-down.svg);
+  background-size: 15px;
+}
+
 .crt-dropdown {
   align-items: center;
   background: $white;
@@ -93,7 +100,6 @@
     @include u-border($blue-warm-vivid-80-t);
     border: 1px solid;
   }
-
   .crt-dropdown-container {
     display: flex;
     flex-direction: column;
@@ -256,9 +262,23 @@
   margin-left: -4rem;
 }
 
+#complaint-view-actions {
+  .crt-dropdown {
+    &.crt-dropdown__shrink-to-contents select {
+      width: auto;
+      flex-basis: auto;
+      min-width: 33%; // Don't get super shrinky; affects usability
+    }
+    select {
+      flex-basis: 60%; // label flex-basis is 40% for total of 100%
+    }
+  }
+}
+
 .intake-label {
   @include u-font('sans', 16);
   @include u-color('gray-warm-80');
+  flex-basis: 40%; // select flex-basis is 60% for total of 100%
   font-weight: 700;
   font-size: 1rem;
   width: 9rem;
