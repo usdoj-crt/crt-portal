@@ -11,12 +11,12 @@
 
 {% block card_content %}
   <div class=blue-background>
-  {% if summary %}
-    <p class="bold backend-blue">Summary</p>
-    {{ summary }}
-  {% else %}
-    {% include 'forms/complaint_view/show/actions/comment_summary.html' with id_name="summary" is_summary=True note='comments.note' button_text='Save' label='Summary' %}
-  {% endif %}
+
+  <p class="bold backend-blue">Summary</p>
+  {{ summary }}
+  <br>
+  {% include 'forms/complaint_view/show/actions/comment_summary.html' with id_name="summary" is_summary=True note=comments.note button_text='Save' label='Summary' comment_id=comment_id %}
+
   </div>
 
   <table class="usa-table usa-table--borderless complaint-card-table">
