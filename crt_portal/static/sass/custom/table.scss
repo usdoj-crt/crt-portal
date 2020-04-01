@@ -30,6 +30,10 @@ $green-cool-vivid: 'green-cool-10v';
   border-bottom: 1px solid $gray-cool-10;
 }
 
+.crt-xscroll {
+  overflow-x: scroll;
+}
+
 .crt-table {
   @extend .usa-table;
   background: $white;
