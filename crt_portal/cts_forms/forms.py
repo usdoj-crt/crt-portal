@@ -46,6 +46,8 @@ from .model_variables import (
     EMPLOYER_SIZE_ERROR,
     PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
     COMMERCIAL_OR_PUBLIC_ERROR,
+    DISTRICT_CHOICES,
+    STATUTE_CHOICES,
 )
 
 from .question_text import (
@@ -912,19 +914,18 @@ class ProForm(
 
 class Filters(ModelForm):
     status = ChoiceField(
+        required=False,
         choices=_add_empty_choice(STATUS_CHOICES),
         widget=Select(attrs={
             'name': 'status',
             'class': 'usa-select',
         })
     )
-    location_state = ChoiceField(
-        choices=_add_empty_choice(STATES_AND_TERRITORIES),
-        widget=Select(attrs={
-            'name': 'location_state',
-            'class': 'usa-select',
-        })
-    )
+    location_state = ChoiceField(required=False,
+                                 choices=_add_empty_choice(STATES_AND_TERRITORIES),
+                                 widget=Select(attrs={
+                                     'name': 'location_state',
+                                     'class': 'usa-select'}))
 
     class Meta:
         model = Report
@@ -968,22 +969,47 @@ class Filters(ModelForm):
 class ComplaintActions(ModelForm):
     class Meta:
         model = Report
-        fields = ['assigned_section', 'status']
+        fields = ['assigned_section', 'status', 'primary_statute', 'district']
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['assigned_section'] = ChoiceField(
             widget=ComplaintSelect(label='Section', attrs={
-                'classes': 'text-uppercase'
+                'classes': 'text-uppercase crt-dropdown__data'
             }),
             choices=SECTION_CHOICES,
             required=False
         )
-
         self.fields['status'] = ChoiceField(
-            widget=ComplaintSelect(label='Status'),
+            widget=ComplaintSelect(
+                label='Status',
+                attrs={
+                    'classes': 'crt-dropdown__data',
+                },
+
+            ),
             choices=STATUS_CHOICES,
+            required=False
+        )
+        self.fields['primary_statute'] = ChoiceField(
+            widget=ComplaintSelect(
+                label='Primary statute',
+                attrs={
+                    'classes': 'text-uppercase crt-dropdown__data',
+                },
+            ),
+            choices=_add_empty_choice(STATUTE_CHOICES),
+            required=False
+        )
+        self.fields['district'] = ChoiceField(
+            widget=ComplaintSelect(
+                label='Judicial district',
+                attrs={
+                    'classes': 'text-uppercase crt-dropdown__data',
+                },
+            ),
+            choices=_add_empty_choice(DISTRICT_CHOICES),
             required=False
         )
 
