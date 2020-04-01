@@ -1,9 +1,10 @@
+import logging
 import os
-
 from csv import DictReader
+
+from django.conf import settings
 from django.db import migrations, models
 
-import logging
 logger = logging.getLogger(__name__)
 
 circle = os.environ.get('CIRCLE', False)
@@ -16,7 +17,8 @@ class Migration(migrations.Migration):
     ]
 
     def load_zip_data(apps, schema_editor):
-        with open('data/zip_codes_by_district.csv') as csvfile:
+        csv_path = os.path.join(settings.BASE_DIR, '..', 'data/zip_codes_by_district.csv')
+        with open(csv_path) as csvfile:
             csvreader = DictReader(csvfile)
             JudicialDistrict = apps.get_model('cts_forms', 'JudicialDistrict')
             # this takes too long and is not needed for tests
