@@ -90,3 +90,8 @@ urlpatterns = auth + [
     ), name='crt_report_form'),
     path('', RedirectView.as_view(pattern_name='crt_report_form', permanent=False)),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+handler400 = 'cts_forms.views.error'
+handler403 = 'cts_forms.views.error'
+handler404 = 'cts_forms.views.error'
+handler500 = 'cts_forms.views.error'

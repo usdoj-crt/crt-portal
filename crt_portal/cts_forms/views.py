@@ -29,6 +29,11 @@ from .page_through import pagination
 SORT_DESC_CHAR = '-'
 
 
+def errors(request, exception=None):
+    return HttpResponse('Error handler content', status=403)
+
+
+
 def format_protected_class(p_class_objects, other_class):
     p_class_list = []
     for p_class in p_class_objects:
