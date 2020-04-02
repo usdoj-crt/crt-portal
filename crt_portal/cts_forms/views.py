@@ -113,6 +113,17 @@ def error_503(request, exception=None):
     )
 
 
+def csrf_failure(request, reason=""):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': "Invalid or missing security cookie",
+            'message': _("Your browser couldn't create secure cookie"),
+            'helptext': _("We use security cookies to protect your information from attackers. Make sure you allow cookies for this site. Having the page open for long periods can can also cause this problem. If you know cookies are allowed and you are having this issue, try going to this page in new browser tab or window. That will make you a new security cookie and should resolve the problem.")
+        }
+    )
+
+
 def format_protected_class(p_class_objects, other_class):
     p_class_list = []
     for p_class in p_class_objects:
