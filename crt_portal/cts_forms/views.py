@@ -29,6 +29,90 @@ from .page_through import pagination
 SORT_DESC_CHAR = '-'
 
 
+def error_400(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 400,
+            'message': _("Bad request"),
+            'helptext': _("It seems your browser is not responding properly. Try refreshing this page.")
+        },
+        status=400
+    )
+
+
+def error_403(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 403,
+            'message': _("Unauthorized"),
+            'helptext': _("This page is off limits to unauthorized users.")
+        },
+        status=403
+    )
+
+
+def error_404(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 404,
+            'message': _("We can't find the page you are looking for"),
+            'helptext': _("Try retuning to the previous page")
+        },
+        status=404
+    )
+
+
+def error_500(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 500,
+            'message': _("There's a problem loading this page"),
+            'helptext': _("There's a technical problem loading this page. Try reloading this page or going to another page. If that doesn't work, try again later.")
+        },
+        status=500
+    )
+
+
+def error_501(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 501,
+            'message': _("Not implemented"),
+            'helptext': _("There seems to be a problem with this request. Try reloading the page.")
+        },
+        status=501
+    )
+
+
+def error_502(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 502,
+            'message': _("Bad gateway"),
+            'helptext': _("This problem is due to poor IP communication between back-end computers, possibly including the Web server at the site you are trying to visit. Before analyzing this problem, you should clear your browser cache completely. You may have a problem with your internal internet connection or firewall.")
+        },
+        status=502
+    )
+
+
+def error_503(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 503,
+            'message': _("Service Unavailable"),
+            'helptext': _("Our web server is either closed for repair / upgrades or is rebooting. Please try again later.")
+        },
+        status=503
+    )
+
+
 def format_protected_class(p_class_objects, other_class):
     p_class_list = []
     for p_class in p_class_objects:
