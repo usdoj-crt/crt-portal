@@ -1045,12 +1045,12 @@ class CommentActions(ModelForm):
         self.fields['note'].label = 'New comment'
         self.fields['is_summary'] = TextInput()
 
-    def update_activity_stream(user, report, comment):
+    def update_activity_stream(user, report, comment, verb):
         """Send all actions to activity stream"""
         from actstream import action
         action.send(
             user,
-            verb="",
+            verb=verb,
             description=comment,
             target=report
         )

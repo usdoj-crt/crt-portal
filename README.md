@@ -186,7 +186,7 @@ For accessibility testing with Pa11y, we generally want a test on each unique vi
 1) If you are doing this for the first time, log into your local admin and make an account for testing at localhost:8000/admin/auth/user/add/ The user name is `pa11y_tester` password is `imposing40Karl5monomial`. **Never** make this account in the dev or staging environments. Circle testing happens in a disposable database and these are not run against live sites. (Prod doesn't use password accounts but no reason to make it there either.)
 2) run
 ```npm run test:a11y```
-    
+
 This will run all the tests, look in package.json for a listing of tests, if you want to run them individually.
 See full accessibility testing guidelines in our [A11y plan](https://github.com/usdoj-crt/crt-portal/blob/develop/docs/a11y_plan.md).
 
@@ -262,6 +262,14 @@ Create postgres DB and S3 with development settings:
 
     cf create-service aws-rds shared-psql crt-db
     cf create-service s3 basic-public crt-s3
+
+Or, for prod use the following production settings:
+
+    cf create-service aws-rds medium-psql-redundant crt-db
+    cf create-service s3 basic-public crt-s3
+    cf create-service s3 basic sso-creds
+
+The medium-psql-redundant instance will provide a more resilient database approved for production and sso-creds is a private bucket used for authentication- see more details on that in the [single sign on docs](https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#single-sign-on).
 
 Store environment variables
 
