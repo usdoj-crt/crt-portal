@@ -2,6 +2,7 @@
 inspired by https://www.algotech.solutions/blog/python/using-django-signals-for-database-logging/
 """
 import logging
+import random
 
 from crequest.middleware import CrequestMiddleware
 
@@ -10,7 +11,7 @@ from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
 
-from .models import Report, ProtectedClass, InternalHistory
+from .models import Report, ProtectedClass, CommentAndSummary
 
 logger = logging.getLogger(__name__)
 
@@ -42,9 +43,10 @@ def format_data_message(action, current_request, instance):
 
 
 @receiver(post_save, sender=User)
-def save_user(sender, instance, **kwargs):
+def save_user(sender, instance, created, **kwargs):
+    action = 'created' if created else 'saved'
     current_request = CrequestMiddleware.get_request()
-    message = format_user_message('saved', current_request, instance)
+    message = format_user_message(action, current_request, instance)
     logger.info(message)
 
 
@@ -73,25 +75,31 @@ def user_logout(sender, **kwargs):
     logger.info(f'User logout: {username} {userid} @ {ip}')
 
 
-@receiver(pre_save, sender=InternalHistory)
+@receiver(pre_save, sender=CommentAndSummary)
 def add_author(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
     author = current_request.user.username if current_request else 'anonymous'
     instance.author = author
 
 
+def salt():
+    """Adding some non-ambiguous characters to salt the ids, this only needed for people asking abut their submission via phone, email or mail. There are no public automated lookups at this time. You could guess a range of IDs that might be assigned on a given day, but adding the letters adds 13,824 permutations to each of those records, so it would be labor intensive and noticeable to call in with questions if you were trying to guess at public_id that was not yours."""
+    characters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    return ''.join(random.choice(characters) for x in range(3))  # nosec
+
+
 @receiver(post_save, sender=Report)
-@receiver(post_save, sender=ProtectedClass)
-@receiver(post_save, sender=InternalHistory)
-def save_report(sender, instance, **kwargs):
-    current_request = CrequestMiddleware.get_request()
-    message = format_data_message('Data saved', current_request, instance)
-    logger.info(message)
+def add_author_forms(sender, instance, created, **kwargs):
+    if created:
+        current_request = CrequestMiddleware.get_request()
+        author = current_request.user.username if current_request else 'public user'
+        instance.author = author
+        instance.public_id = f'{instance.pk}-' + salt()
 
 
 @receiver(post_delete, sender=Report)
 @receiver(post_delete, sender=ProtectedClass)
-@receiver(post_delete, sender=InternalHistory)
+@receiver(post_delete, sender=CommentAndSummary)
 def delete_report(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
     message = str(format_data_message('DATA DELETED', current_request, instance))

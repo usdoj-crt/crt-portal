@@ -49,6 +49,7 @@ form#report-form {
 
   .other-class-option {
     margin-left: 2rem;
+    padding-top: 2.5rem;
 
     ul > li:last-child {
       height: 25px;
@@ -80,6 +81,12 @@ form#report-form {
 
     @media (min-width: 30em) {
       margin-top: 0;
+    }
+  }
+
+  .light-button {
+    &:hover {
+      background-color: $white;
     }
   }
 

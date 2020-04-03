@@ -72,14 +72,10 @@ ELECTION_DICT = dict(ELECTION_CHOICES)
 
 HATE_CRIMES_TRAFFICKING_MODEL_CHOICES = (
     ('physical_harm', _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability')),
-    ('trafficking', _('Coerced or forced to do work or perform a sex act in exchange for something of value')),
+    ('trafficking', _('Threatened, forced, and held against your will for the purposes of performing work or commercial sex acts. This could include threats of physical harm, withholding promised wages, or being held under a false work contract')),
 )
 
-HATE_CRIMES_TRAFFICKING_CHOICES = (
-    _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability'),
-    _('Coerced or forced to do work or perform a sex act in exchange for something of value'),
-)
-
+HATE_CRIMES_TRAFFICKING_CHOICES = [choice[1] for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES]
 
 # See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
 # This tuple will create the form_order, then lists a short code that we use for the model value and CRT display views, then the name as it will display on the form.
@@ -108,7 +104,7 @@ PROTECTED_MODEL_CHOICES = tuple(
     (field[1].lower().replace(' ', '_'), field[2]) for field in PROTECTED_CLASS_FIELDS
 )
 
-PROTECTED_CLASS_ERROR = _('Please make a selection to continue. If none of these apply to you, please select “None of these apply to me” or "Other reason"and explain.')
+PROTECTED_CLASS_ERROR = _('Please make a selection to continue. If none of these apply to your situation, please select “None of these apply to me” or "Other reason"and explain.')
 
 STATUS_CHOICES = (
     ('new', _('New')),
@@ -139,6 +135,7 @@ COMMERCIAL_OR_PUBLIC_PLACE_CHOICES = (
     ('other', _('Other'))
 )
 COMMERCIAL_OR_PUBLIC_PLACE_DICT = dict(COMMERCIAL_OR_PUBLIC_PLACE_CHOICES)
+COMMERCIAL_OR_PUBLIC_ERROR = _('Please select the type of location. If none of these apply to your situation, please select "Other".')
 
 COMMERCIAL_PUBLIC_FRIENDLY_TEXT = {
     'place_of_worship': _('Place of worship'),
@@ -150,7 +147,7 @@ COMMERCIAL_PUBLIC_FRIENDLY_TEXT = {
 
 COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT = {
     'place_of_worship': _('Church, synagogue, temple, religious community center'),
-    'store': _('Store, restaurant, bar, hotel, theate'),
+    'store': _('Store, restaurant, bar, hotel, theater'),
     'healthcare': _('Hospital or clinic (including inpatient and outpatient programs), reproductive care clinic, state developmental institution, nursing home'),
     'financial': _('Bank, credit union, loan services'),
     'public_space': _('Park, sidewalk, street, other public buildings (courthouse, DMV, city library)'),
@@ -158,8 +155,8 @@ COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT = {
 }
 
 CORRECTIONAL_FACILITY_LOCATION_CHOICES = (
-    ('outside', _('Outside a prison or correctional facility')),
-    ('inside', _('Inside a prison or correctional facility'))
+    ('outside', _('no')),
+    ('inside', _('yes'))
 )
 CORRECTIONAL_FACILITY_LOCATION_DICT = dict(CORRECTIONAL_FACILITY_LOCATION_CHOICES)
 
@@ -185,6 +182,7 @@ PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES = (
     ('not_sure', _('I\'m not sure')),
 )
 PUBLIC_OR_PRIVATE_EMPLOYER_DICT = dict(PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES)
+PUBLIC_OR_PRIVATE_EMPLOYER_ERROR = _('Please select what type of employer this is.')
 
 EMPLOYER_SIZE_CHOICES = (
     ('14_or_less', _('Fewer than 15 employees')),
@@ -192,6 +190,7 @@ EMPLOYER_SIZE_CHOICES = (
     ('not_sure', _('I\'m not sure')),
 )
 EMPLOYER_SIZE_DICT = dict(EMPLOYER_SIZE_CHOICES)
+EMPLOYER_SIZE_ERROR = _('Please select how large the employer is.')
 
 EMPLOYER_FRIENDLY_TEXT = {
     'public_employer': _('Public'),
@@ -207,20 +206,6 @@ PUBLIC_OR_PRIVATE_SCHOOL_CHOICES = (
     ('not_sure', _('I\'m not sure')),
 )
 PUBLIC_OR_PRIVATE_SCHOOL_DICT = dict(PUBLIC_OR_PRIVATE_SCHOOL_CHOICES)
-
-PUBLIC_OR_PRIVATE_FACILITY_CHOICES = (
-    ('state_local_facility', _('State or local facility')),
-    ('federal_facility', _('Federal facility')),
-    ('private_facility', _('Private facility')),
-    ('not_sure', _('Not sure')),
-)
-
-PUBLIC_OR_PRIVATE_HEALTHCARE_CHOICES = (
-    ('state_local_facility', _('State or local facility')),
-    ('federal_facility', _('Federal facility')),
-    ('private_facility', _('Private facility')),
-    ('not_sure', _('Not sure')),
-)
 
 WHO_FOR_CHOICES = (
     ('myself', _('I\'m reporting for myself')),
@@ -306,3 +291,60 @@ POLICE_LOCATION_ERRORS = {
     'facility': _('Please select where this occurred'),
     'facility_type': _('Please select the type of location'),
 }
+
+# for internal use only
+INTAKE_FORMAT_CHOICES = (
+    ('web', 'web'),
+    ('letter', 'letter'),
+    ('phone', 'phone'),
+    ('fax', 'fax'),
+    ('email', 'email'),
+)
+
+INCIDENT_DATE_HELPTEXT = _('You must enter a month and year. Please use the format MM/DD/YYYY.')
+
+DATE_ERRORS = {
+    'month_required': _('Please enter a month.'),
+    'month_invalid': _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.'),
+    'year_required': _('Please enter a year.'),
+    'no_future': _('Date can not be in the future.'),
+    'no_past': _('Please enter a year after 1900.'),
+    'not_valid': _('Please enter a valid date format. Use format MM/DD/YYYY.'),
+}
+INCIDENT_DATE_HELPTEXT = _('You must enter a month and year. Please use the format MM/DD/YYYY.')
+
+VOTING_ERROR = _('Please select the type of election or voting activity.')
+
+DISTRICT_CHOICES = (
+    ('1', '1'), ('2', '2'), ('3', '3'), ('6', '6'), ('8', '8'),
+    ('9', '9'), ('10', '10'), ('11', '11'), ('11E', '11E'), ('12', '12'),
+    ('12C', '12C'), ('13', '13'), ('14', '14'), ('15', '15'), ('16', '16'),
+    ('17', '17'), ('17M', '17M'), ('18', '18'), ('19', '19'), ('19M', '19M'),
+    ('20', '20'), ('21', '21'), ('22', '22'), ('23', '23'), ('24', '24'),
+    ('25', '25'), ('26', '26'), ('26S', '26S'), ('27', '27'), ('28', '28'),
+    ('29', '29'), ('30', '30'), ('31', '31'), ('32', '32'), ('32M', '32M'),
+    ('33', '33'), ('34', '34'), ('35', '35'), ('36', '36'), ('37', '37'),
+    ('38', '38'), ('39', '39'), ('40', '40'), ('41', '41'), ('42', '42'),
+    ('43', '43'), ('44', '44'), ('45', '45'), ('46', '46'), ('47', '47'),
+    ('48', '48'), ('49', '49'), ('50', '50'), ('51', '51'), ('52', '52'),
+    ('53', '53'), ('54', '54'), ('54M', '54M'), ('55', '55'), ('55 ', '55 '),
+    ('56', '56'), ('57', '57'), ('58', '58'), ('59', '59'), ('59N', '59N'),
+    ('60', '60'), ('61', '61'), ('62', '62'), ('63', '63'), ('64', '64'),
+    ('66', '66'), ('67', '67'), ('69', '69'), ('70', '70'), ('71', '71'),
+    ('72', '72'), ('73', '73'), ('74', '74'), ('75', '75'), ('76', '76'),
+    ('77', '77'), ('78', '78'), ('79', '79'), ('80', '80'), ('81', '81'),
+    ('82', '82'), ('83', '83'), ('84', '84'), ('85', '85'), ('86', '86'),
+    ('87', '87'),
+)
+
+STATUTE_CHOICES = (
+    ('144', '144'), ('145', '145'), ('166', '166'), ('167', '167'),
+    ('168', '168'), ('169', '169'), ('170', '170'), ('170-USE', '170-USE'),
+    ('171', '171'), ('175', '175'), ('187', '187'), ('188', '188'),
+    ('197', '197'), ('198', '198'), ('202', '202'), ('204', '204'),
+    ('205', '205'), ('206', '206'), ('207', '207'), ('208', '208'),
+    ('210', '210'), ('216', '216'), ('217', '217'), ('218', '218'),
+    ('219', '219'), ('220', '220'), ('230', '230'), ('259', '259'),
+    ('300', '300'), ('39', '39'), ('50', '50'), ('502', '502'), ('504', '504'),
+    ('508', '508'), ('595', '595'),
+)

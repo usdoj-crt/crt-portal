@@ -1,9 +1,12 @@
 {% load static %}
+{% load i18n %}
+{% trans "United States Department of Justice" as DOJ %}
+{% trans "Contact the Department of Justice to report a civil rights concern" as intro_text %}
 
 <header class="crt-form-header">
   <div class="grid-container">
     <div class="grid-row grid-gap flex-child">
-      <div class="tablet:grid-col-9 tablet:grid-offset-1">
+      <div class="tablet:grid-col-10 tablet:grid-offset-1">
         <div class="doj-brand display-flex flex-align-center font-serif-lg">
           <img
             src="{% static "img/doj-logo-footer.svg" %}"
@@ -11,10 +14,10 @@
             height="38"
             class="margin-right-105"
           />
-          <span>United States Department of Justice<span>
+          <span class='bold'>{{ DOJ }}<span>
         </div>
         <h1 class="padding-top-2 padding-bottom-1 margin-0 title">
-          Submit a concern to the Civil Rights Division
+          {{ intro_text }}
         </h1>
       </div>
     </div>
@@ -28,7 +31,14 @@
           <ol class="steps">
             {% for step in ordered_step_names %}
               <li class="step {% if step == current_step_name %}current{%else%}{%endif%}" {% if step == current_step_name %}aria-current="true"{%else%}aria-current="false"{% endif %}>
-                {{ step }}
+
+                {% if stage_link %}
+                  <a href="#{{ step }}" class="text-base-lightest" style='text-decoration: none;'>{{ step }}</a>
+                {% else%}
+                  {{ step }}
+                {% endif %}
+
+
                 {% if step != current_step_name %}
                   <span class="usa-sr-only">
                     {% if forloop.counter > wizard.steps.step1 %}not completed{% else %}completed{% endif %}

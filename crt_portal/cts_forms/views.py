@@ -1,34 +1,30 @@
-import urllib.parse
 import os
+import urllib.parse
 
-from django.shortcuts import render, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
-from django.core.exceptions import PermissionDenied
-from django.utils.translation import gettext_lazy as _
-from django.utils.decorators import method_decorator
-from django.http import Http404
-from django.views.generic import View
 from django import forms
-
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
+from django.core.paginator import Paginator
+from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import View, FormView
 from formtools.wizard.views import SessionWizardView
 
-from .models import Report, ProtectedClass, HateCrimesandTrafficking
-from .model_variables import (
-    PRIMARY_COMPLAINT_CHOICES,
-    HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
-    PRIMARY_COMPLAINT_DICT,
-    ELECTION_DICT,
-    PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
-    EMPLOYER_SIZE_DICT,
-    CORRECTIONAL_FACILITY_LOCATION_DICT,
-    CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
-    COMMERCIAL_OR_PUBLIC_PLACE_DICT,
-    PUBLIC_OR_PRIVATE_SCHOOL_DICT,
-)
-from .page_through import pagination
 from .filters import report_filter
-from .forms import Filters, ComplaintActions
+from .forms import ComplaintActions, CommentActions, Filters, Review
+from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
+                              CORRECTIONAL_FACILITY_LOCATION_DICT,
+                              CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
+                              ELECTION_DICT, EMPLOYER_SIZE_DICT,
+                              HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
+                              PRIMARY_COMPLAINT_CHOICES,
+                              PRIMARY_COMPLAINT_DICT,
+                              PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
+                              PUBLIC_OR_PRIVATE_SCHOOL_DICT)
+from .models import HateCrimesandTrafficking, ProtectedClass, Report, CommentAndSummary
+from .page_through import pagination
 
 SORT_DESC_CHAR = '-'
 
@@ -119,63 +115,151 @@ def IndexView(request):
     return render(request, 'forms/complaint_view/index/index.html', final_data)
 
 
-class ShowView(View):
-    def __serialize_data(self, request, report_id):
-        report = get_object_or_404(Report.objects, id=report_id)
-        primary_complaint = [choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint]
-        crimes = {
-            'physical_harm': False,
-            'trafficking': False
-        }
+def serialize_data(report, request, report_id):
+    primary_complaint = [choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint]
+    crimes = {
+        'physical_harm': False,
+        'trafficking': False
+    }
 
-        for crime in report.hatecrimes_trafficking.all():
-            for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
-                if crime.hatecrimes_trafficking_option == choice[1]:
-                    crimes[choice[0]] = True
+    for crime in report.hatecrimes_trafficking.all():
+        for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
+            if crime.hatecrimes_trafficking_option == choice[1]:
+                crimes[choice[0]] = True
 
-        p_class_list = format_protected_class(
-            report.protected_class.all().order_by('form_order'),
-            report.other_class,
-        )
+    p_class_list = format_protected_class(
+        report.protected_class.all().order_by('form_order'),
+        report.other_class,
+    )
 
-        output = {
-            'actions': ComplaintActions(initial={
-                'assigned_section': report.assigned_section,
-                'status': report.status
-            }),
-            'activity_stream': report.target_actions.all(),
-            'crimes': crimes,
-            'data': report,
-            'p_class_list': p_class_list,
-            'primary_complaint': primary_complaint,
-            'return_url_args': request.GET.get('next', ''),
-        }
+    output = {
+        'actions': ComplaintActions(initial={
+            'assigned_section': report.assigned_section,
+            'status': report.status,
+            'primary_statute': report.primary_statute,
+            'district': report.district,
+        }),
+        'comments': CommentActions(),
+        'activity_stream': report.target_actions.all(),
+        'crimes': crimes,
+        'data': report,
+        'p_class_list': p_class_list,
+        'primary_complaint': primary_complaint,
+        'return_url_args': request.GET.get('next', ''),
+    }
 
-        return output
+    return output
 
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super().dispatch(*args, **kwargs)
 
+class ShowView(LoginRequiredMixin, View):
     def get(self, request, id):
-        output = self.__serialize_data(request, id)
+        report = get_object_or_404(Report, pk=id)
+        output = serialize_data(report, request, id)
 
         return render(request, 'forms/complaint_view/show/index.html', output)
 
     def post(self, request, id):
-        report = get_object_or_404(Report, id=id)
+        report = get_object_or_404(Report, pk=id)
+        action_form = ComplaintActions(request.POST, instance=report)
+        if action_form.is_valid() and action_form.has_changed():
+            action_form.update_activity_stream(request.user)
+            action_form.save()
 
-        form = ComplaintActions(request.POST, instance=report)
-        if form.is_valid() and form.has_changed():
-            form.update_activity_stream(request.user)
-            form.save()
-
-        output = self.__serialize_data(request, id)
+        output = serialize_data(report, request, id)
         output.update({
             'return_url_args': request.POST.get('next', ''),
         })
 
         return render(self.request, 'forms/complaint_view/show/index.html', output)
+
+
+class SaveCommentView(LoginRequiredMixin, FormView):
+    """Can be used for saving comments or summaries for a report"""
+    form_class = CommentActions
+
+    def post(self, request, report_id):
+        report = get_object_or_404(Report, pk=report_id)
+        if request.POST.__getitem__('note'):
+            comment = CommentAndSummary.objects.create(
+                note=request.POST.__getitem__('note'),
+                is_summary=request.POST.__getitem__('is_summary'),
+            )
+            report.internal_comments.add(comment)
+            CommentActions.update_activity_stream(request.user, report, comment.note)
+        output = serialize_data(report, request, report_id)
+        output.update({
+            'return_url_args': request.POST.get('next', ''),
+        })
+        return render(request, 'forms/complaint_view/show/index.html', output)
+
+
+def save_form(form_data_dict):
+    m2m_protected_class = form_data_dict.pop('protected_class')
+    m2m_hatecrime = form_data_dict.pop('hatecrimes_trafficking')
+    r = Report.objects.create(**form_data_dict)
+
+    # add a save feature for hatecrimes and trafficking question on primary reason page
+    # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
+    for protected in m2m_protected_class:
+        p = ProtectedClass.objects.get(protected_class=protected)
+        r.protected_class.add(p)
+
+    for option in m2m_hatecrime:
+        o = HateCrimesandTrafficking.objects.get(hatecrimes_trafficking_option=option)
+        r.hatecrimes_trafficking.add(o)
+
+    r.assigned_section = r.assign_section()
+    r.district = r.assign_district()
+    r.save()
+    # adding this back for the save page results
+    form_data_dict['protected_class'] = m2m_protected_class.values()
+    form_data_dict['hatecrimes_trafficking'] = m2m_hatecrime.values()
+    return form_data_dict, r
+
+
+class ProFormView(LoginRequiredMixin, SessionWizardView):
+    def get_template_names(self):
+        return 'forms/pro_template.html'
+
+    def get_context_data(self, form, **kwargs):
+        context = super().get_context_data(form=form, **kwargs)
+
+        field_errors = list(map(lambda field: field.errors, context['form']))
+        page_errors = [error for field in field_errors for error in field]
+
+        # internal use only
+        ordered_step_names = [
+            'Intake',
+            'Contact',
+            'Service member',
+            'Primary concern',
+            'Follow up',
+            'Incident location',
+            'Personal characteristics',
+            'Date',
+            'Summary',
+        ]
+
+        context.update({
+            'field_errors': field_errors,
+            'page_errors': page_errors,
+            'num_page_errors': len(list(page_errors)),
+            'page_errors_desc': ','.join([f'"{error_desc}"' for error_desc in page_errors]),
+            'word_count_text': {
+                'wordRemainingText': _('word remaining'),
+                'wordsRemainingText': _(' words remaining'),
+                'wordLimitReachedText': _(' word limit reached'),
+            },
+            'ordered_step_names': ordered_step_names,
+            'stage_link': True,
+        })
+
+        return context
+
+    def done(self, form_list, form_dict, **kwargs):
+        data, report = save_form(self.get_all_cleaned_data())
+
+        return redirect(reverse('crt_forms:crt-forms-show', kwargs={'id': report.pk}))
 
 
 TEMPLATES = [
@@ -256,6 +340,16 @@ def show_location_form_condition(wizard):
 class CRTReportWizard(SessionWizardView):
     """Once all the sub-forms are submitted this class will clean data and save."""
 
+    ORDERED_STEP_NAMES = [
+        _('Contact'),
+        _('Primary concern'),
+        _('Location'),
+        _('Personal characteristics'),
+        _('Date'),
+        _('Personal description'),
+        _('Review'),
+    ]
+
     # overriding the get form to add checks to the hidden field and avoid 500s
     def get_form(self, step=None, data=None, files=None):
         """
@@ -300,15 +394,7 @@ class CRTReportWizard(SessionWizardView):
         form_name = form.name if hasattr(form, 'name') else ''
 
         # This name appears in the progress bar wizard
-        ordered_step_names = [
-            _('Contact'),
-            _('Primary concern'),
-            _('Location'),
-            _('Personal characteristics'),
-            _('Date'),
-            _('Personal description'),
-            _('Review'),
-        ]
+
         # Name for all forms whether they are skipped or not
         all_step_names = [
             _('Contact'),
@@ -348,7 +434,7 @@ class CRTReportWizard(SessionWizardView):
         form_autocomplete_off = os.getenv('FORM_AUTOCOMPLETE_OFF', False)
 
         context.update({
-            'ordered_step_names': ordered_step_names,
+            'ordered_step_names': self.ORDERED_STEP_NAMES,
             'current_step_title': current_step_title,
             'current_step_name': current_step_name,
             'page_errors': page_errors,
@@ -363,28 +449,12 @@ class CRTReportWizard(SessionWizardView):
                 'wordLimitReachedText': _(' word limit reached'),
             },
             'form_name': form_name,
-            'stage_number': ordered_step_names.index(current_step_name) + 1,
-            'total_stages': len(ordered_step_names),
+            'stage_number': self.ORDERED_STEP_NAMES.index(current_step_name) + 1,
+            'total_stages': len(self.ORDERED_STEP_NAMES),
         })
 
-        if current_step_name == _('Details'):
-            context.update({
-                'page_note': _('Continued'),
-            })
-        elif current_step_name == _('Location'):
-            context.update({
-                'page_note': _('Providing details on where this occurred helps us properly review your issue and get it to the right people within the Civil Rights Division.'),
-            })
-        elif current_step_name == _('Date'):
-            context.update({
-                'page_note': _('It is important for us to know how recently this incident happened. Some civil rights violations must be reported within a certain amount of time.')
-            })
-        elif current_step_name == _('Primary concern'):
-            if all_step_names[int(self.steps.prev)] == current_step_name:
-                context.update({
-                    'page_note': _('Continued')
-                })
-            else:
+        if current_step_name == _('Primary concern'):
+            if all_step_names[int(self.steps.prev)] != current_step_name:
                 context.update({
                     'crime_help_text2': _('Please select if any that apply to your situation (optional)'),
                 })
@@ -416,8 +486,14 @@ class CRTReportWizard(SessionWizardView):
                 form_data_dict, PUBLIC_OR_PRIVATE_SCHOOL_DICT, 'public_or_private_school'
             )
 
+            # Get values for M2M fields destined for association with this Report instance
+            hatecrimes = [crime.hatecrimes_trafficking_option for crime in form_data_dict.pop('hatecrimes_trafficking')]
+            protected_class = [choice.protected_class for choice in form_data_dict.pop('protected_class')]
+
             context.update({
-                'form_data_dict': form_data_dict,
+                'report': Report(**form_data_dict),
+                'hatecrimes': hatecrimes,
+                'protected_classes': protected_class,
                 'question': form.question_text,
             })
 
@@ -425,24 +501,6 @@ class CRTReportWizard(SessionWizardView):
 
     def done(self, form_list, form_dict, **kwargs):
         form_data_dict = self.get_all_cleaned_data()
-        m2m_protected_class = form_data_dict.pop('protected_class')
-        m2m_hatecrime = form_data_dict.pop('hatecrimes_trafficking')
-        r = Report.objects.create(**form_data_dict)
-
-        # add a save feature for hatecrimes and trafficking question on primary reason page
-        # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
-        for protected in m2m_protected_class:
-            p = ProtectedClass.objects.get(protected_class=protected)
-            r.protected_class.add(p)
-
-        for option in m2m_hatecrime:
-            o = HateCrimesandTrafficking.objects.get(hatecrimes_trafficking_option=option)
-            r.hatecrimes_trafficking.add(o)
-
-        r.assigned_section = r.assign_section()
-        r.save()
-        # adding this back for the save page results
-        form_data_dict['protected_class'] = m2m_protected_class.values()
-        form_data_dict['hatecrimes_trafficking'] = m2m_hatecrime.values()
-
-        return render(self.request, 'forms/confirmation.html', {'data_dict': form_data_dict})
+        _, report = save_form(form_data_dict)
+        return render(self.request, 'forms/confirmation.html', {'report': report, 'questions': Review.question_text,
+                                                                'ordered_step_names': self.ORDERED_STEP_NAMES})

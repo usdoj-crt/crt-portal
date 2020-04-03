@@ -18,12 +18,27 @@
       <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
       <div class="margin-bottom-2 display-flex " style="align-items: center;">
         <label class="intake-label">
-          {{actions.fields.assigned_section.widget.label}}
+          {{ actions.fields.assigned_section.widget.label }}
         </label>
-        {% include "forms/complaint_view/show/actions/assigned_section.html" %}
+        {{ actions.assigned_section }}
       </div>
-      <div class="margin-bottom-2">
+      <div class="margin-bottom-2 crt-dropdown">
+        <label class="intake-label">
+          {{ actions.fields.status.widget.label }}
+        </label>
         {{ actions.status }}
+      </div>
+      <div class="margin-bottom-2 crt-dropdown">
+        <label class="intake-label">
+          {{ actions.fields.primary_statute.widget.label }}
+        </label>
+        {{ actions.primary_statute }}
+      </div>
+      <div class="margin-bottom-2 crt-dropdown" >
+        <label class="intake-label">
+          {{ actions.fields.district.widget.label }}
+        </label>
+        {{ actions.district }}
       </div>
       <button class="usa-button" type="submit">Apply changes</button>
     </fieldset>
