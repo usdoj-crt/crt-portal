@@ -1,0 +1,13 @@
+.button--edit {
+  @include u-font-size('body', 'sm');
+  float: right;
+  &:before {
+    @include u-margin-right(10px);
+    background-image: url(../img/ic_edit.svg);
+    background-repeat: none;
+    content: '';
+    height: 12px;
+    width: 12px;
+    display: inline-block;
+  }
+}
