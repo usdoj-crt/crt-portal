@@ -11,3 +11,14 @@
     display: inline-block;
   }
 }
+
+.button--cancel {
+  @include u-color('secondary-dark');
+  @include u-margin-left(0.5rem);
+  &:hover,
+  &:active,
+  &:focus {
+    @include u-color('secondary');
+    background-color: transparent !important;
+  }
+}

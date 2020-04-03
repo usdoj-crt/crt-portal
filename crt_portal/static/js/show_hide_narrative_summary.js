@@ -29,6 +29,7 @@
   var summaryForm = document.getElementById('comment-actions-summary');
   var summaryInput = summaryForm.getElementsByTagName('textarea')[0];
   var saveButton = summaryForm.getElementsByTagName('button')[0];
+  var cancelButton = summaryForm.getElementsByClassName('button--cancel')[0];
 
   /* disable the save button on page load because there are no changes to save yet */
   saveButton.setAttribute('disabled', 'true');
@@ -36,6 +37,7 @@
   /* check to see if there's text in the summary box before making the save button active */
   summaryInput.addEventListener('input', setButtonDisabled);
   saveButton.addEventListener('click', hideSummaryForm);
+  cancelButton.addEventListener('click', hideSummaryForm);
 
   if (summary.childElementCount > 0) {
     addShowFormHandler();

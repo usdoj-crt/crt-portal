@@ -15,5 +15,9 @@
       {{ comment_box }}
     </div>
     <button aria-label="{{ button_aria_label }}" class="usa-button" type="submit">{{ button_text }}</button>
+    {% if show_cancel %}
+      <button class="usa-button usa-button--unstyled button--cancel" type="button">Cancel</button>
+    {% endif %}
+    
   </fieldset>
 </form>
