@@ -230,8 +230,12 @@ def serialize_data(report, request, report_id):
     summary_query = report.internal_comments.filter(is_summary=True).order_by('-modified_date')
     if len(summary_query) > 0:
         summary = summary_query[0]
+        summary_box = CommentActions(
+            initial={'note': summary.note}
+        )
     else:
         summary = None
+        summary_box = CommentActions()
 
     output = {
         'actions': ComplaintActions(initial={
@@ -241,6 +245,7 @@ def serialize_data(report, request, report_id):
             'district': report.district,
         }),
         'comments': CommentActions(),
+        'summary_box': summary_box,
         'activity_stream': report.target_actions.all(),
         'crimes': crimes,
         'data': report,

@@ -44,7 +44,7 @@
       </div>
       <div class="tablet:grid-col-6">
         {% include 'forms/complaint_view/show/correspondent_info.html' with data=data %}
-        {% include 'forms/complaint_view/show/complaint_details.html' with data=data primaty_complaint=primary_complaint summary=summary comment_box=comments.note %}
+        {% include 'forms/complaint_view/show/complaint_details.html' with data=data primaty_complaint=primary_complaint summary=summary comment_box=summary_box.note %}
         {% include 'forms/complaint_view/show/full_summary.html' with summary=data.violation_summary %}
       </div>
     </div>
