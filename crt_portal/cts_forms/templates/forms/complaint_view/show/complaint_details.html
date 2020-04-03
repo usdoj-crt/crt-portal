@@ -10,17 +10,17 @@
 {% endblock %}
 
 {% block card_content %}
-<div class=blue-background>
+<div class="blue-background usa-prose">
   <div id="current-summary">
     {% if summary %}
-    <label class="bold backend-blue">
+    <label class="bold backend-blue" for="current-summary-text">
       Summary
     </label>
-    <div>
+    <button aria-label="edit summary" class="usa-button usa-button--unstyled button--edit" type="button">Edit</button>
+    <div id="current-summary-text">
       {{ summary.note }}
     </div>
     <br>
-    <button aria-label="edit summary" class="usa-button" type="button">Edit</button>
     {% endif %}
   </div>
 
