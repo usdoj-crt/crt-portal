@@ -71,7 +71,7 @@ def error_500(request, exception=None):
         'forms/errors.html', {
             'status': 500,
             'message': _("There's a problem loading this page"),
-            'helptext': _("There's a technical problem loading this page. Try reloading this page or going to another page. If that doesn't work, try again later.")
+            'helptext': _("There's a technical problem loading this page. Try refreshing this page or going to another page. If that doesn't work, try again later.")
         },
         status=500
     )
@@ -83,7 +83,7 @@ def error_501(request, exception=None):
         'forms/errors.html', {
             'status': 501,
             'message': _("Not implemented"),
-            'helptext': _("There seems to be a problem with this request. Try reloading the page.")
+            'helptext': _("There seems to be a problem with this request. Try refreshing the page.")
         },
         status=501
     )
@@ -95,7 +95,7 @@ def error_502(request, exception=None):
         'forms/errors.html', {
             'status': 502,
             'message': _("Bad gateway"),
-            'helptext': _("This problem is due to poor IP communication between back-end computers, possibly including the Web server at the site you are trying to visit. Before analyzing this problem, you should clear your browser cache completely. You may have a problem with your internal internet connection or firewall.")
+            'helptext': _("This problem is due to poor IP communication between back-end computers, possibly including our web server. Try clearing your browser cache completely. You may have a problem with your internal internet connection or firewall.")
         },
         status=502
     )
@@ -107,7 +107,7 @@ def error_503(request, exception=None):
         'forms/errors.html', {
             'status': 503,
             'message': _("Service Unavailable"),
-            'helptext': _("Our web server is either closed for repair / upgrades or is rebooting. Please try again later.")
+            'helptext': _("Our web server is either closed for repair, upgrades or is rebooting. Please try again later.")
         },
         status=503
     )
@@ -119,7 +119,7 @@ def csrf_failure(request, reason=""):
         'forms/errors.html', {
             'status': "Problem with security cookie",
             'message': _("Your browser couldn't create secure cookie"),
-            'helptext': _("We use security cookies to protect your information from attackers. Make sure you allow cookies for this site. Having the page open for long periods can can also cause this problem. If you know cookies are allowed and you are having this issue, try going to this page in new browser tab or window. That will make you a new security cookie and should resolve the problem.")
+            'helptext': _("We use security cookies to protect your information from attackers. Make sure you allow cookies for this site. Having the page open for long periods can also cause this problem. If you know cookies are allowed and you are having this issue, try going to this page in new browser tab or window. That will make you a new security cookie and should resolve the problem.")
         }
     )
 
