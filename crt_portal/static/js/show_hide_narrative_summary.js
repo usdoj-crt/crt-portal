@@ -17,7 +17,7 @@
   function setButtonDisabled() {
     if (summaryInput.value.length > 0 && saveButton.hasAttribute('disabled')) {
       saveButton.removeAttribute('disabled');
-    } else {
+    } else if (summaryInput.value.length === 0 && !saveButton.hasAttribute('disabled')) {
       saveButton.setAttribute('disabled', true);
     }
   }
