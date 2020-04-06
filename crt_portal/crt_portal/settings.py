@@ -24,7 +24,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # We are running the testing environment with UNDEFINED.
 # For cloud.gov the ENV must be set in the manifests
 environment = os.environ.get('ENV', 'UNDEFINED')
-circle = os.environ.get('CIRCLE', False)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/

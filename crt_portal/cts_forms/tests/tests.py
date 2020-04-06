@@ -174,6 +174,8 @@ class Complaint_Show_View_404(TestCase):
     def test_404_on_non_existant_record(self):
         response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': '1'}))
         self.assertEqual(response.status_code, 404)
+        # test for custom message
+        self.assertTrue("We can&#39;t find the page you are looking for" in str(response.content))
 
 
 class Complaint_Show_View_Valid(TestCase):

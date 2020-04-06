@@ -1,13 +1,24 @@
 import logging
 import os
 from csv import DictReader
+from pathlib import Path
+
 
 from django.conf import settings
 from django.db import migrations, models
 
 logger = logging.getLogger(__name__)
 
-circle = os.environ.get('CIRCLE', False)
+
+lockfile = os.path.join(
+    settings.BASE_DIR,
+    'NO_ZIP.txt'
+)
+# don't want to load all zip_codes for circle or local testing
+if Path(lockfile).is_file():
+    load_zips = False
+else:
+    load_zips = True
 
 
 class Migration(migrations.Migration):
@@ -22,7 +33,9 @@ class Migration(migrations.Migration):
             csvreader = DictReader(csvfile)
             JudicialDistrict = apps.get_model('cts_forms', 'JudicialDistrict')
             # this takes too long and is not needed for tests
-            if not circle:
+
+            if load_zips is True:
+                logger.info('Loading zip codes...')
                 for row in csvreader:
                     district = str(row['DISTRICT_NUMBER']) + str(row['DISTRICT_LETTER'])
                     JudicialDistrict.objects.create(
@@ -34,6 +47,8 @@ class Migration(migrations.Migration):
                         district_letter=row['DISTRICT_LETTER'],
                         district=district
                     )
+            else:
+                logger.info('Skipping zip code import')
 
     operations = [
         migrations.RunPython(load_zip_data),
