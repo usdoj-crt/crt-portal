@@ -1,4 +1,4 @@
-(function () {
+(function() {
   function showSummaryForm() {
     summaryForm.classList.remove('display-none');
     summary.classList.add('display-none');
@@ -25,7 +25,7 @@
   function setSummaryInputHeight() {
     /* we're not interested in shrinking the box, just in growing it */
     if (parseInt(summaryInput.style.height) < summaryInput.scrollHeight) {
-      summaryInput.style.height = (summaryInput.scrollHeight + 16) + 'px';
+      summaryInput.style.height = summaryInput.scrollHeight + 16 + 'px';
     }
   }
 
@@ -48,7 +48,7 @@
     /* set the form's initial height to the height of the existing summary */
     var summaryText = document.getElementById('current-summary-text');
     /* 16 offsets the padding of the input (0.5rem or 8px top and bottom); otherwise short text is cut off */
-    summaryInput.style.height = (summaryText.scrollHeight + 16) + 'px';
+    summaryInput.style.height = summaryText.scrollHeight + 16 + 'px';
   } else {
     summaryInput.style.height = '2.5rem';
   }
