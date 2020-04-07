@@ -22,6 +22,10 @@
     }
   }
 
+  function setSummaryInputHeight() {
+    summaryInput.style.height = summaryInput.scrollHeight + 'px';
+  }
+
   /* created as an empty element and populated if a summary exists */
   var summary = document.getElementById('current-summary');
 
@@ -36,6 +40,13 @@
 
   /* check to see if there's text in the summary box before making the save button active */
   summaryInput.addEventListener('input', setButtonDisabled);
+  if (summary) {
+    /* set the form's initial height to the height of the existing summary */
+    summaryInput.style.height = summary.scrollHeight + 'px';
+  } 
+
+  /* grow the form to the height of the text */
+  summaryInput.addEventListener('input', setSummaryInputHeight);
   saveButton.addEventListener('click', hideSummaryForm);
   cancelButton.addEventListener('click', hideSummaryForm);
 

@@ -76,3 +76,7 @@ $complaint-header-min-height: 200px;
   @include u-margin-top(0.5rem);
   @include u-margin-right(3rem);
 }
+
+.edit-summary textarea {
+  min-height: 2.5rem; // we set the height dynamically with JS, so we need to make sure it isn't tiny when there's nothing in the form yet
+}
