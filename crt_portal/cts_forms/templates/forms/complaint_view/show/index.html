@@ -23,6 +23,17 @@
         <p>
           <span class="details-date-label text-uppercase backend-blue">Received: </span>
           <span class="backend-blue">{{ data.create_date|date:'g:i a F j, Y' }}</span>
+          {% if data.intake_format == 'web' %}
+            <img src="{% static "img/intake-icons/ic_web.svg" %}" class="icon">
+          {% elif data.intake_format == 'email' %}
+            <img src="{% static "img/intake-icons/ic_email.svg" %}" class="icon">
+          {% elif data.intake_format == 'letter' %}
+            <img src="{% static "img/intake-icons/ic_letter.svg" %}" class="icon">
+          {% elif data.intake_format == 'phone' %}
+            <img src="{% static "img/intake-icons/ic_contact.svg" %}" class="icon">
+          {% elif data.intake_format == 'fax' %}
+            <img src="{% static "img/intake-icons/ic_fax.svg" %}" class="icon">
+          {% endif %}
         </p>
         <p>
           <span class="details-date-label text-uppercase backend-blue">Last Updated: </span>

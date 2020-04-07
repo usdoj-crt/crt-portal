@@ -238,6 +238,7 @@ def save_form(form_data_dict):
 
     r.assigned_section = r.assign_section()
     r.district = r.assign_district()
+    r.intake_format = 'web'
     r.save()
     # adding this back for the save page results
     form_data_dict['protected_class'] = m2m_protected_class.values()
