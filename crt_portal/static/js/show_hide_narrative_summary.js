@@ -44,11 +44,13 @@
   /* check to see if there's text in the summary box before making the save button active */
   summaryInput.addEventListener('input', setButtonDisabled);
 
-  if (summary) {
+  if (summary.childElementCount > 0) {
     /* set the form's initial height to the height of the existing summary */
     var summaryText = document.getElementById('current-summary-text');
     /* 16 offsets the padding of the input (0.5rem or 8px top and bottom); otherwise short text is cut off */
     summaryInput.style.height = (summaryText.scrollHeight + 16) + 'px';
+  } else {
+    summaryInput.style.height = '2.5rem';
   }
 
   /* grow the form to the height of the text */
