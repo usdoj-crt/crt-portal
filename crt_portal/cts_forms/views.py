@@ -132,7 +132,7 @@ def serialize_data(report, request, report_id):
         report.other_class,
     )
 
-    summary = report.get_summary()
+    summary = report.get_summary
     if summary:
         summary_box = CommentActions(
             initial={'note': summary.note}

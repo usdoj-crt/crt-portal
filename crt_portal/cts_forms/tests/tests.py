@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 
-from ..models import ProtectedClass, Report, HateCrimesandTrafficking
+from ..models import ProtectedClass, Report, HateCrimesandTrafficking, CommentAndSummary
 from ..model_variables import (
     PROTECTED_CLASS_CHOICES,
     PROTECTED_CLASS_ERROR,
@@ -148,8 +148,14 @@ class Valid_CRT_view_Tests(TestCase):
         self.assertTrue(self.test_report.contact_phone in self.content)
 
     def test_violation_summary(self):
-        # formatting the summary is done in the template
-        self.assertTrue(self.test_report.violation_summary[:119] in self.content)
+        """Report table renders internal summary"""
+        summary_text = "Internal summary test"
+        summary = CommentAndSummary(is_summary=True, note=summary_text)
+        summary.save()
+        self.test_report.internal_comments.add(summary)
+
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        self.assertContains(response, summary_text)
 
     def test_incident_location(self):
         self.assertTrue(self.test_report.location_city_town in self.content)
