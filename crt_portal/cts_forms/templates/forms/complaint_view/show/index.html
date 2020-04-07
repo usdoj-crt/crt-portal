@@ -26,15 +26,15 @@
             <span class="backend-blue">{{ data.create_date|date:'g:i a F j, Y' }}</span>
           </span>
           {% if data.intake_format == 'web' %}
-            <img src="{% static "img/intake-icons/ic_web.svg" %}" class="icon margin-left-2" alt="">
+            <img src="{% static "img/intake-icons/ic_web.svg" %}" class="icon margin-left-2" alt="from the public web form">
           {% elif data.intake_format == 'email' %}
-            <img src="{% static "img/intake-icons/ic_email.svg" %}" class="icon margin-left-2" alt="">
+            <img src="{% static "img/intake-icons/ic_email.svg" %}" class="icon margin-left-2" alt="from email">
           {% elif data.intake_format == 'letter' %}
-            <img src="{% static "img/intake-icons/ic_letter.svg" %}" class="icon margin-left-2" alt="">
+            <img src="{% static "img/intake-icons/ic_letter.svg" %}" class="icon margin-left-2" alt="from a letter">
           {% elif data.intake_format == 'phone' %}
-            <img src="{% static "img/intake-icons/ic_contact.svg" %}" class="icon margin-left-2" alt="">
+            <img src="{% static "img/intake-icons/ic_contact.svg" %}" class="icon margin-left-2" alt="from phone">
           {% elif data.intake_format == 'fax' %}
-            <img src="{% static "img/intake-icons/ic_fax.svg" %}" class="icon margin-left-2" alt="">
+            <img src="{% static "img/intake-icons/ic_fax.svg" %}" class="icon margin-left-2" alt="from fax">
           {% endif %}
         </p class="display-flex">
         <p>
