@@ -280,6 +280,7 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
             },
             'ordered_step_names': ordered_step_names,
             'stage_link': True,
+            'submit_button': True,
         })
 
         return context
