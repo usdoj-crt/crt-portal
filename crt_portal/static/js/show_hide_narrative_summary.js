@@ -23,7 +23,10 @@
   }
 
   function setSummaryInputHeight() {
-    summaryInput.style.height = summaryInput.scrollHeight + 'px';
+    /* we're not interested in shrinking the box, just in growing it */
+    if (parseInt(summaryInput.style.height) < summaryInput.scrollHeight) {
+      summaryInput.style.height = (summaryInput.scrollHeight + 16) + 'px';
+    }
   }
 
   /* created as an empty element and populated if a summary exists */
@@ -40,10 +43,13 @@
 
   /* check to see if there's text in the summary box before making the save button active */
   summaryInput.addEventListener('input', setButtonDisabled);
+
   if (summary) {
     /* set the form's initial height to the height of the existing summary */
-    summaryInput.style.height = summary.scrollHeight + 'px';
-  } 
+    var summaryText = document.getElementById('current-summary-text');
+    /* 16 offsets the padding of the input (0.5rem or 8px top and bottom); otherwise short text is cut off */
+    summaryInput.style.height = (summaryText.scrollHeight + 16) + 'px';
+  }
 
   /* grow the form to the height of the text */
   summaryInput.addEventListener('input', setSummaryInputHeight);
