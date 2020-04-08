@@ -155,6 +155,7 @@ class Contact(ModelForm):
         self.fields['contact_city'].label = CONTACT_QUESTIONS['contact_city']
         self.fields['contact_zip'].label = CONTACT_QUESTIONS['contact_zip']
         self.fields['contact_state'] = ChoiceField(
+            # Translators: this is the default- blank options for a drop-down menu where a user chooses a state
             choices=(("", _(' - Select - ')), ) + STATES_AND_TERRITORIES,
             widget=Select(attrs={
                 'class': 'usa-select'
@@ -166,6 +167,7 @@ class Contact(ModelForm):
             error_messages={'required': SERVICEMEMBER_ERROR},
             widget=UsaRadioSelect(),
             label=SERVICEMEMBER_QUESTION,
+            # Translators: This is help text for the question asking if someone is a service member
             help_text=_('If you’re reporting on behalf of someone else, please select their status.'),
             empty_value=None,
             choices=SERVICEMEMBER_CHOICES,
@@ -251,6 +253,7 @@ class HateCrimesTrafficking(ModelForm):
                 ally_id="hatecrimes-help-text"
             )
         ]
+        # Translators: notes that this page is the same form step as the page before
         self.page_note = _('Continued')
 
 
@@ -465,6 +468,7 @@ class CommercialPublicLocation(LocationForm):
                 'required': COMMERCIAL_OR_PUBLIC_ERROR
             }
         )
+        # Translators: describe the "other" option for commercial or public place question
         self.fields['other_commercial_or_public_place'].help_text = _('Please describe')
         self.fields['other_commercial_or_public_place'].widget = TextInput(
             attrs={'class': 'usa-input word-count-10'}
@@ -576,6 +580,7 @@ class ProtectedClassForm(ModelForm):
                 'aria-describedby': 'protected-class-help-text'
             }),
         )
+        # Translators: This is to explain an "other" choice for personal characteristics
         self.fields['other_class'].help_text = _('Please describe "Other reason"')
         self.fields['other_class'].widget = TextInput(
             attrs={'class': 'usa-input word-count-10'}
@@ -939,6 +944,7 @@ class Filters(ModelForm):
         ]
 
         labels = {
+            # Translators: CRT sections
             'assigned_section': _('View sections'),
             'contact_first_name': _('Contact first name'),
             'contact_last_name': _('Contact last name'),

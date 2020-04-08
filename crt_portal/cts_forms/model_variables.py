@@ -2,6 +2,7 @@
 
 from django.utils.translation import gettext_lazy as _
 
+# Translators: This is used as a an empty selection default for drop down menus
 EMPTY_CHOICE = ('', _('- Select -'))
 
 SERVICEMEMBER_CHOICES = (
@@ -56,7 +57,7 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
     ],
     'commercial_or_public': [
         _('A physical or online location that does not provide disability accommodations'),
-        _('Denied service or entry because of a perceived personal characteristic  like race, sex, or religion'),
+        _('Denied service or entry because of a perceived personal characteristic like race, sex, or religion'),
         _('Threatened or harassed while seeking or receiving reproductive health services'),
     ],
     'something_else': []
@@ -65,6 +66,7 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
 ELECTION_CHOICES = (
     ('federal', _('Federal')),
     ('state_local', _('State or local')),
+    # Translators: Both state, federal and local elections
     ('both', _('Both')),
     ('unknown', _('I\'m not sure')),
 )
