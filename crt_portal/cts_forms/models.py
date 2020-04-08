@@ -25,6 +25,7 @@ from .model_variables import (
     INTAKE_FORMAT_CHOICES,
     DISTRICT_CHOICES,
     STATUTE_CHOICES,
+    DATE_ERRORS,
 )
 
 import logging
@@ -131,9 +132,9 @@ class Report(models.Model):
     public_or_private_school = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, default=None)
 
     # Incident date
-    last_incident_year = models.PositiveIntegerField(MaxValueValidator(datetime.now().year, message="Date must not be in the future"), null=True, blank=True)
-    last_incident_day = models.PositiveIntegerField(MaxValueValidator(31, message='Day value too high'), null=True, blank=True)
-    last_incident_month = models.PositiveIntegerField(MaxValueValidator(12, message="Month must be 12 or less"), null=True, blank=True,)
+    last_incident_year = models.PositiveIntegerField(MaxValueValidator(datetime.now().year, message=DATE_ERRORS.no_future), null=True, blank=True)
+    last_incident_day = models.PositiveIntegerField(MaxValueValidator(31, message=DATE_ERRORS.day_invalid), null=True, blank=True)
+    last_incident_month = models.PositiveIntegerField(MaxValueValidator(12, message=DATE_ERRORS.month_invalid), null=True, blank=True,)
 
     # Internal comments
     internal_comments = models.ManyToManyField(CommentAndSummary)

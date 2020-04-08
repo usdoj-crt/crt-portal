@@ -207,12 +207,6 @@ PUBLIC_OR_PRIVATE_SCHOOL_CHOICES = (
 )
 PUBLIC_OR_PRIVATE_SCHOOL_DICT = dict(PUBLIC_OR_PRIVATE_SCHOOL_CHOICES)
 
-WHO_FOR_CHOICES = (
-    ('myself', _('I\'m reporting for myself')),
-    ('another', _('I\'m reporting on behalf of another person')),
-    ('undisclosed', _('I prefer not to disclose')),
-)
-
 STATES_AND_TERRITORIES = (
     ('AL', _('Alabama')),
     ('AK', _('Alaska')),
@@ -305,7 +299,8 @@ INCIDENT_DATE_HELPTEXT = _('You must enter a month and year. Please use the form
 
 DATE_ERRORS = {
     'month_required': _('Please enter a month.'),
-    'month_invalid': _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.'),
+    'month_invalid': _('Please enter a valid month. Month must be between 1 and 12.'),
+    'day_invalid': _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.'),
     'year_required': _('Please enter a year.'),
     'no_future': _('Date can not be in the future.'),
     'no_past': _('Please enter a year after 1900.'),
@@ -315,6 +310,7 @@ INCIDENT_DATE_HELPTEXT = _('You must enter a month and year. Please use the form
 
 VOTING_ERROR = _('Please select the type of election or voting activity.')
 
+# for internal use only
 DISTRICT_CHOICES = (
     ('1', '1'), ('2', '2'), ('3', '3'), ('6', '6'), ('8', '8'),
     ('9', '9'), ('10', '10'), ('11', '11'), ('11E', '11E'), ('12', '12'),
@@ -337,6 +333,7 @@ DISTRICT_CHOICES = (
     ('87', '87'),
 )
 
+# for internal use only
 STATUTE_CHOICES = (
     ('144', '144'), ('145', '145'), ('166', '166'), ('167', '167'),
     ('168', '168'), ('169', '169'), ('170', '170'), ('170-USE', '170-USE'),

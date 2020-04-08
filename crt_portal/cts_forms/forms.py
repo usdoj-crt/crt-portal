@@ -603,7 +603,7 @@ def date_cleaner(self, cleaned_data):
         # custom messages
         if day > 31 or day < 1:
             self.add_error('last_incident_day', ValidationError(
-                DATE_ERRORS['month_invalid'],
+                DATE_ERRORS['day_invalid'],
             ))
         elif datetime(year, month, day) > datetime.now():
             self.add_error('last_incident_year', ValidationError(
