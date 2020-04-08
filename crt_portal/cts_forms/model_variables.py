@@ -45,9 +45,8 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
         _('Denied educational accommodations for a disability or language barrier'),
     ],
     'voting': [
-        _('Blocked or prevented from registering to vote, obtaining or submitting a ballot, having your ballot counted, or entering a polling place to vote'),
-        _('Denied adequate voting assistance or accommodations for a disability at a polling place'),
-        _('Restricted or prevented from participating in an election, including voting, becoming a candidate, or being elected for office'),
+        _('Obstacles to your ability to register to vote, obtain or cast a ballot, receive adequate assistance in voting, cast a ballot on accessible machine if necessary, have your ballot counted; or become a candidate'),
+        _('The method by which candidates for a particular office are elected'),
     ],
     'police': [
         _('Police brutality or use of excessive force, including patterns of police misconduct'),
