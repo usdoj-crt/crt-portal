@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-08 20:14+0000\n"
+"POT-Creation-Date: 2020-04-08 21:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -269,83 +269,90 @@ msgstr ""
 
 #: crt_portal/cts_forms/model_variables.py:48
 msgid ""
-"Obstacles to your ability to register to vote, obtain or cast a ballot, "
-"receive adequate assistance in voting, cast a ballot on accessible machine "
-"if necessary, have your ballot counted; or become a candidate"
+"Obstacles to registering to vote, obtaining or submitting a ballot, having "
+"your ballot counted, or entering a polling place to vote"
 msgstr ""
 
 #: crt_portal/cts_forms/model_variables.py:49
-msgid "The method by which candidates for a particular office are elected"
+msgid ""
+"Denied adequate voting assistance or accommodations for a disability at a "
+"polling place"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:52
+#: crt_portal/cts_forms/model_variables.py:50
+msgid ""
+"Restricted or prevented from participating in an election, including voting, "
+"becoming a candidate, or being elected for office"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:53
 msgid ""
 "Police brutality or use of excessive force, including patterns of police "
 "misconduct"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:53
+#: crt_portal/cts_forms/model_variables.py:54
 msgid ""
 "Searched and arrested under false pretenses, including racial or other "
 "discriminatory profiling"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:54
+#: crt_portal/cts_forms/model_variables.py:55
 msgid "Denied rights while arrested or incarcerated"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:55
+#: crt_portal/cts_forms/model_variables.py:56
 msgid ""
 "Denied access to safe living conditions or accommodations for a disability, "
 "language barrier, or religious practice while incarcerated"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:58
+#: crt_portal/cts_forms/model_variables.py:59
 msgid ""
 "A physical or online location that does not provide disability accommodations"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:59
+#: crt_portal/cts_forms/model_variables.py:60
 msgid ""
 "Denied service or entry because of a perceived personal characteristic like "
 "race, sex, or religion"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:60
+#: crt_portal/cts_forms/model_variables.py:61
 msgid ""
 "Threatened or harassed while seeking or receiving reproductive health "
 "services"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:66
-#: crt_portal/cts_forms/model_variables.py:166
+#: crt_portal/cts_forms/model_variables.py:67
+#: crt_portal/cts_forms/model_variables.py:167
 msgid "Federal"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:67
+#: crt_portal/cts_forms/model_variables.py:68
 msgid "State or local"
 msgstr ""
 
 #. Translators: Both state, federal and local elections
-#: crt_portal/cts_forms/model_variables.py:69
+#: crt_portal/cts_forms/model_variables.py:70
 msgid "Both"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:70
-#: crt_portal/cts_forms/model_variables.py:168
-#: crt_portal/cts_forms/model_variables.py:183
-#: crt_portal/cts_forms/model_variables.py:191
-#: crt_portal/cts_forms/model_variables.py:207
+#: crt_portal/cts_forms/model_variables.py:71
+#: crt_portal/cts_forms/model_variables.py:169
+#: crt_portal/cts_forms/model_variables.py:184
+#: crt_portal/cts_forms/model_variables.py:192
+#: crt_portal/cts_forms/model_variables.py:208
 msgid "I'm not sure"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:75
+#: crt_portal/cts_forms/model_variables.py:76
 msgid ""
 "Physical harm or threats of violence based on race, color, national origin, "
 "religion, gender, sexual orientation, gender identity, or disability"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:76
+#: crt_portal/cts_forms/model_variables.py:77
 msgid ""
 "Threatened, forced, and held against your will for the purposes of "
 "performing work or commercial sex acts. This could include threats of "
@@ -353,591 +360,591 @@ msgid ""
 "contract"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:85
+#: crt_portal/cts_forms/model_variables.py:86
 msgid "Age"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:86
+#: crt_portal/cts_forms/model_variables.py:87
 msgid "Disability (including temporary or recovery)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:87
+#: crt_portal/cts_forms/model_variables.py:88
 msgid "Family, marital, or parental status"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:88
+#: crt_portal/cts_forms/model_variables.py:89
 msgid "Gender identity (including gender stereotypes)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:89
+#: crt_portal/cts_forms/model_variables.py:90
 msgid "Genetic information (including family medical history)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:90
+#: crt_portal/cts_forms/model_variables.py:91
 msgid ""
 "Immigration/citizenship status (choosing this will not share your status)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:91
+#: crt_portal/cts_forms/model_variables.py:92
 msgid "Language"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:92
+#: crt_portal/cts_forms/model_variables.py:93
 msgid "National origin (including ancestry and ethnicity)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:93
+#: crt_portal/cts_forms/model_variables.py:94
 msgid "Pregnancy"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:94
+#: crt_portal/cts_forms/model_variables.py:95
 msgid "Race/color"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:95
+#: crt_portal/cts_forms/model_variables.py:96
 msgid "Religion"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:96
+#: crt_portal/cts_forms/model_variables.py:97
 msgid "Sex"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:97
+#: crt_portal/cts_forms/model_variables.py:98
 msgid "Sexual orientation"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:98
+#: crt_portal/cts_forms/model_variables.py:99
 msgid "None of these apply to me"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:99
+#: crt_portal/cts_forms/model_variables.py:100
 msgid "Other reason"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:108
+#: crt_portal/cts_forms/model_variables.py:109
 msgid ""
 "Please make a selection to continue. If none of these apply to your "
 "situation, please select “None of these apply to me” or \"Other reason\"and "
 "explain."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:111
+#: crt_portal/cts_forms/model_variables.py:112
 msgid "New"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:112
+#: crt_portal/cts_forms/model_variables.py:113
 msgid "Open"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:113
+#: crt_portal/cts_forms/model_variables.py:114
 msgid "Closed"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:117
+#: crt_portal/cts_forms/model_variables.py:118
 msgid "Administrative"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:118
+#: crt_portal/cts_forms/model_variables.py:119
 msgid "Appellate"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:119
+#: crt_portal/cts_forms/model_variables.py:120
 msgid "Criminal"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:120
+#: crt_portal/cts_forms/model_variables.py:121
 msgid "Disability"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:121
+#: crt_portal/cts_forms/model_variables.py:122
 msgid "Employment Litigation Services"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:122
+#: crt_portal/cts_forms/model_variables.py:123
 msgid "Education"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:123
+#: crt_portal/cts_forms/model_variables.py:124
 msgid "Federal Coordination and Compliance"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:124
+#: crt_portal/cts_forms/model_variables.py:125
 msgid "Housing"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:125
+#: crt_portal/cts_forms/model_variables.py:126
 msgid "Immigrant and Employee Rights"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:126
+#: crt_portal/cts_forms/model_variables.py:127
 msgid "Special Litigation"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:127
+#: crt_portal/cts_forms/model_variables.py:128
 msgid "Voting"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:131
+#: crt_portal/cts_forms/model_variables.py:132
 msgid "Place of worship or about a place of worship"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:132
-msgid "Commercial or retail building"
-msgstr ""
-
 #: crt_portal/cts_forms/model_variables.py:133
-#: crt_portal/cts_forms/model_variables.py:144
-msgid "Healthcare facility"
+msgid "Commercial or retail building"
 msgstr ""
 
 #: crt_portal/cts_forms/model_variables.py:134
 #: crt_portal/cts_forms/model_variables.py:145
-msgid "Financial institution"
+msgid "Healthcare facility"
 msgstr ""
 
 #: crt_portal/cts_forms/model_variables.py:135
-msgid "Public space"
+#: crt_portal/cts_forms/model_variables.py:146
+msgid "Financial institution"
 msgstr ""
 
 #: crt_portal/cts_forms/model_variables.py:136
+msgid "Public space"
+msgstr ""
+
+#: crt_portal/cts_forms/model_variables.py:137
 msgid "Other"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:139
+#: crt_portal/cts_forms/model_variables.py:140
 msgid ""
 "Please select the type of location. If none of these apply to your "
 "situation, please select \"Other\"."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:142
+#: crt_portal/cts_forms/model_variables.py:143
 msgid "Place of worship"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:143
+#: crt_portal/cts_forms/model_variables.py:144
 msgid "Commercial"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:146
+#: crt_portal/cts_forms/model_variables.py:147
 msgid "Public outdoor space"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:150
+#: crt_portal/cts_forms/model_variables.py:151
 msgid "Church, synagogue, temple, religious community center"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:151
+#: crt_portal/cts_forms/model_variables.py:152
 msgid "Store, restaurant, bar, hotel, theater"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:152
+#: crt_portal/cts_forms/model_variables.py:153
 msgid ""
 "Hospital or clinic (including inpatient and outpatient programs), "
 "reproductive care clinic, state developmental institution, nursing home"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:153
+#: crt_portal/cts_forms/model_variables.py:154
 msgid "Bank, credit union, loan services"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:154
+#: crt_portal/cts_forms/model_variables.py:155
 msgid ""
 "Park, sidewalk, street, other public buildings (courthouse, DMV, city "
 "library)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:159
+#: crt_portal/cts_forms/model_variables.py:160
 msgid "no"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:160
+#: crt_portal/cts_forms/model_variables.py:161
 msgid "yes"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:165
+#: crt_portal/cts_forms/model_variables.py:166
 msgid "State/local"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:167
-#: crt_portal/cts_forms/model_variables.py:198
+#: crt_portal/cts_forms/model_variables.py:168
+#: crt_portal/cts_forms/model_variables.py:199
 msgid "Private"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:173
+#: crt_portal/cts_forms/model_variables.py:174
 msgid "Outside of prison"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:175
+#: crt_portal/cts_forms/model_variables.py:176
 msgid "Prison (Federal)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:176
+#: crt_portal/cts_forms/model_variables.py:177
 msgid "Prison (Private)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:177
+#: crt_portal/cts_forms/model_variables.py:178
 msgid "Prison (I'm not sure)"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:181
+#: crt_portal/cts_forms/model_variables.py:182
 msgid "Public employer"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:182
+#: crt_portal/cts_forms/model_variables.py:183
 msgid "Private employer"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:186
+#: crt_portal/cts_forms/model_variables.py:187
 msgid "Please select what type of employer this is."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:189
+#: crt_portal/cts_forms/model_variables.py:190
 msgid "Fewer than 15 employees"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:190
+#: crt_portal/cts_forms/model_variables.py:191
 msgid "15 or more employees"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:194
+#: crt_portal/cts_forms/model_variables.py:195
 msgid "Please select how large the employer is."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:197
+#: crt_portal/cts_forms/model_variables.py:198
 msgid "Public"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:199
+#: crt_portal/cts_forms/model_variables.py:200
 msgid "Not sure"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:200
+#: crt_portal/cts_forms/model_variables.py:201
 msgid "Less than 15"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:201
+#: crt_portal/cts_forms/model_variables.py:202
 msgid "15 or more"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:205
+#: crt_portal/cts_forms/model_variables.py:206
 msgid "Public school or educational program"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:206
+#: crt_portal/cts_forms/model_variables.py:207
 msgid "Private school or educational program"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:212
+#: crt_portal/cts_forms/model_variables.py:213
 msgid "Alabama"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:213
+#: crt_portal/cts_forms/model_variables.py:214
 msgid "Alaska"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:214
+#: crt_portal/cts_forms/model_variables.py:215
 msgid "Arizona"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:215
+#: crt_portal/cts_forms/model_variables.py:216
 msgid "Arkansas"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:216
+#: crt_portal/cts_forms/model_variables.py:217
 msgid "California"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:217
+#: crt_portal/cts_forms/model_variables.py:218
 msgid "Colorado"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:218
+#: crt_portal/cts_forms/model_variables.py:219
 msgid "Connecticut"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:219
+#: crt_portal/cts_forms/model_variables.py:220
 msgid "Delaware"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:220
+#: crt_portal/cts_forms/model_variables.py:221
 msgid "District of Columbia"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:221
+#: crt_portal/cts_forms/model_variables.py:222
 msgid "Florida"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:222
+#: crt_portal/cts_forms/model_variables.py:223
 msgid "Georgia"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:223
+#: crt_portal/cts_forms/model_variables.py:224
 msgid "Hawaii"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:224
+#: crt_portal/cts_forms/model_variables.py:225
 msgid "Idaho"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:225
+#: crt_portal/cts_forms/model_variables.py:226
 msgid "Illinois"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:226
+#: crt_portal/cts_forms/model_variables.py:227
 msgid "Indiana"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:227
+#: crt_portal/cts_forms/model_variables.py:228
 msgid "Iowa"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:228
+#: crt_portal/cts_forms/model_variables.py:229
 msgid "Kansas"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:229
+#: crt_portal/cts_forms/model_variables.py:230
 msgid "Kentucky"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:230
+#: crt_portal/cts_forms/model_variables.py:231
 msgid "Louisiana"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:231
+#: crt_portal/cts_forms/model_variables.py:232
 msgid "Maine"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:232
+#: crt_portal/cts_forms/model_variables.py:233
 msgid "Maryland"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:233
+#: crt_portal/cts_forms/model_variables.py:234
 msgid "Massachusetts"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:234
+#: crt_portal/cts_forms/model_variables.py:235
 msgid "Michigan"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:235
+#: crt_portal/cts_forms/model_variables.py:236
 msgid "Minnesota"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:236
+#: crt_portal/cts_forms/model_variables.py:237
 msgid "Mississippi"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:237
+#: crt_portal/cts_forms/model_variables.py:238
 msgid "Missouri"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:238
+#: crt_portal/cts_forms/model_variables.py:239
 msgid "Montana"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:239
+#: crt_portal/cts_forms/model_variables.py:240
 msgid "Nebraska"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:240
+#: crt_portal/cts_forms/model_variables.py:241
 msgid "Nevada"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:241
+#: crt_portal/cts_forms/model_variables.py:242
 msgid "New Hampshire"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:242
+#: crt_portal/cts_forms/model_variables.py:243
 msgid "New Jersey"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:243
+#: crt_portal/cts_forms/model_variables.py:244
 msgid "New Mexico"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:244
+#: crt_portal/cts_forms/model_variables.py:245
 msgid "New York"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:245
+#: crt_portal/cts_forms/model_variables.py:246
 msgid "North Carolina"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:246
+#: crt_portal/cts_forms/model_variables.py:247
 msgid "North Dakota"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:247
+#: crt_portal/cts_forms/model_variables.py:248
 msgid "Ohio"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:248
+#: crt_portal/cts_forms/model_variables.py:249
 msgid "Oklahoma"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:249
+#: crt_portal/cts_forms/model_variables.py:250
 msgid "Oregon"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:250
+#: crt_portal/cts_forms/model_variables.py:251
 msgid "Pennsylvania"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:251
+#: crt_portal/cts_forms/model_variables.py:252
 msgid "Rhode Island"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:252
+#: crt_portal/cts_forms/model_variables.py:253
 msgid "South Carolina"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:253
+#: crt_portal/cts_forms/model_variables.py:254
 msgid "South Dakota"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:254
+#: crt_portal/cts_forms/model_variables.py:255
 msgid "Tennessee"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:255
+#: crt_portal/cts_forms/model_variables.py:256
 msgid "Texas"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:256
+#: crt_portal/cts_forms/model_variables.py:257
 msgid "Utah"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:257
+#: crt_portal/cts_forms/model_variables.py:258
 msgid "Vermont"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:258
+#: crt_portal/cts_forms/model_variables.py:259
 msgid "Virginia"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:259
+#: crt_portal/cts_forms/model_variables.py:260
 msgid "Washington"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:260
+#: crt_portal/cts_forms/model_variables.py:261
 msgid "West Virginia"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:261
+#: crt_portal/cts_forms/model_variables.py:262
 msgid "Wisconsin"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:262
+#: crt_portal/cts_forms/model_variables.py:263
 msgid "Wyoming"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:263
+#: crt_portal/cts_forms/model_variables.py:264
 msgid "American Samoa"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:264
+#: crt_portal/cts_forms/model_variables.py:265
 msgid "Guam"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:265
+#: crt_portal/cts_forms/model_variables.py:266
 msgid "Northern Mariana Islands"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:266
+#: crt_portal/cts_forms/model_variables.py:267
 msgid "Puerto Rico"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:267
+#: crt_portal/cts_forms/model_variables.py:268
 msgid "Virgin Islands"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:268
+#: crt_portal/cts_forms/model_variables.py:269
 msgid "Armed Forces Africa"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:269
+#: crt_portal/cts_forms/model_variables.py:270
 msgid "Armed Forces Americas"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:270
+#: crt_portal/cts_forms/model_variables.py:271
 msgid "Armed Forces Canada"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:271
+#: crt_portal/cts_forms/model_variables.py:272
 msgid "Armed Forces Europe"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:272
+#: crt_portal/cts_forms/model_variables.py:273
 msgid "Armed Forces Middle East"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:273
+#: crt_portal/cts_forms/model_variables.py:274
 msgid "Armed Forces Pacific"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:276
+#: crt_portal/cts_forms/model_variables.py:277
 msgid "Please provide description to continue"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:277
+#: crt_portal/cts_forms/model_variables.py:278
 msgid "Please select a primary reason to continue."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:280
+#: crt_portal/cts_forms/model_variables.py:281
 msgid "Please enter the name of the location where this took place."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:281
+#: crt_portal/cts_forms/model_variables.py:282
 msgid "Please enter the city or town where this took place."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:282
+#: crt_portal/cts_forms/model_variables.py:283
 msgid "Please select the state where this took place."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:286
+#: crt_portal/cts_forms/model_variables.py:287
 msgid "Please select where this occurred"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:287
+#: crt_portal/cts_forms/model_variables.py:288
 msgid "Please select the type of location"
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:299
-#: crt_portal/cts_forms/model_variables.py:310
+#: crt_portal/cts_forms/model_variables.py:300
+#: crt_portal/cts_forms/model_variables.py:311
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:302
+#: crt_portal/cts_forms/model_variables.py:303
 msgid "Please enter a month."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:303
+#: crt_portal/cts_forms/model_variables.py:304
 msgid "Please enter a valid month. Month must be between 1 and 12."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:304
+#: crt_portal/cts_forms/model_variables.py:305
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:305
+#: crt_portal/cts_forms/model_variables.py:306
 msgid "Please enter a year."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:306
+#: crt_portal/cts_forms/model_variables.py:307
 msgid "Date can not be in the future."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:307
+#: crt_portal/cts_forms/model_variables.py:308
 msgid "Please enter a year after 1900."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:308
+#: crt_portal/cts_forms/model_variables.py:309
 msgid "Please enter a valid date format. Use format MM/DD/YYYY."
 msgstr ""
 
-#: crt_portal/cts_forms/model_variables.py:312
+#: crt_portal/cts_forms/model_variables.py:313
 msgid "Please select the type of election or voting activity."
 msgstr ""
 
