@@ -147,9 +147,7 @@ class Valid_CRT_view_Tests(TestCase):
     def test_phone(self):
         self.assertTrue(self.test_report.contact_phone in self.content)
 
-    def test_violation_summary(self):
-        # formatting the summary is done in the template
-        self.assertTrue(self.test_report.violation_summary[:59] in self.content)
+    def test_summary(self):
         """Report table renders internal summary"""
         summary_text = "Internal summary test"
         summary = CommentAndSummary(is_summary=True, note=summary_text)
