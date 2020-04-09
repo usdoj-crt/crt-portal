@@ -24,7 +24,7 @@
     {# Progress text for screen reader. #}
     <div class="grid-row grid-gap margin-top-5 progress-bar">
       <div class="tablet:grid-col-10 tablet:grid-offset-1">
-        <div aria-label="progress">
+        <div aria-label="{% trans "progress" %}">
           <span class="usa-sr-only">
             {% blocktrans with current_step_name=current_step_name stage_number=stage_number %}
               Current step: {{ current_step_name }}. Step {{ stage_number }} of {{ total_stages }}.

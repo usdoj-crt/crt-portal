@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-08 21:14+0000\n"
+"POT-Creation-Date: 2020-04-09 16:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,23 +142,23 @@ msgid ""
 msgstr ""
 
 #. Translators: CRT sections
-#: crt_portal/cts_forms/forms.py:948
+#: crt_portal/cts_forms/forms.py:949
 msgid "View sections"
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:949
+#: crt_portal/cts_forms/forms.py:950
 msgid "Contact first name"
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:950
+#: crt_portal/cts_forms/forms.py:951
 msgid "Contact last name"
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:951
+#: crt_portal/cts_forms/forms.py:952
 msgid "Incident location city"
 msgstr ""
 
-#: crt_portal/cts_forms/forms.py:952
+#: crt_portal/cts_forms/forms.py:953
 msgid "Incident location state"
 msgstr ""
 
@@ -1312,6 +1312,10 @@ msgstr ""
 msgid "Contact the Department of Justice to report a civil rights concern"
 msgstr ""
 
+#: crt_portal/cts_forms/templates/forms/portal/header.html:27
+msgid "progress"
+msgstr ""
+
 #: crt_portal/cts_forms/templates/forms/portal/header.html:29
 #, python-format
 msgid ""
@@ -1351,6 +1355,11 @@ msgstr ""
 
 #: crt_portal/cts_forms/templates/forms/report_base.html:59
 msgid "Next"
+msgstr ""
+
+#: crt_portal/cts_forms/templates/forms/report_base.html:66
+#: crt_portal/cts_forms/templates/forms/report_review.html:32
+msgid "previous step"
 msgstr ""
 
 #: crt_portal/cts_forms/templates/forms/report_base.html:69

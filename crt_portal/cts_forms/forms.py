@@ -715,6 +715,7 @@ class ProForm(
     ProtectedClassForm,
     When,
 ):
+    """This form is for CRT only for complaints that come from other sources than the public web form"""
     class Meta:
         model = Report
 
