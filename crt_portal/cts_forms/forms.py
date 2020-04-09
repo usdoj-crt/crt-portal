@@ -922,12 +922,23 @@ class Filters(ModelForm):
             'class': 'usa-select',
         })
     )
-    location_state = ChoiceField(required=False,
-                                 choices=_add_empty_choice(STATES_AND_TERRITORIES),
-                                 widget=Select(attrs={
-                                     'name': 'location_state',
-                                     'class': 'usa-select'}))
-    summary = CharField(widget=TextInput(attrs={'class': 'usa-input'}))
+    location_state = ChoiceField(
+        required=False,
+        choices=_add_empty_choice(STATES_AND_TERRITORIES),
+        widget=Select(attrs={
+            'name': 'location_state',
+            'class': 'usa-select'
+        })
+    )
+    summary = CharField(
+        widget=TextInput(
+            attrs={
+                'class': 'usa-input',
+                'name': 'summary',
+            },
+        ),
+        required=False,
+    )
 
     class Meta:
         model = Report
