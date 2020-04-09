@@ -1,9 +1,11 @@
 {% extends "forms/report_base.html" %}
+{% load i18n %}
+
 {% block page_info_card %}
   <div class="crt-portal-card crt-portal-card margin-bottom-3">
     <div class="crt-portal-card__content crt-portal-card__content--lg padding-bottom-4">
       <p class="page-form-title font-sans">
-        If you believe you or someone else has experienced a civil rights violation, please tell us what happened.
+        {% trans "If you believe you or someone else has experienced a civil rights violation, please tell us what happened." %}
       </p>
     </div>
   </div>

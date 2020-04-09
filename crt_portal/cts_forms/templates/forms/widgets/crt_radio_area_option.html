@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <input type="radio"
       name="{{ widget.name }}"
       {% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}
@@ -21,7 +23,7 @@
         {% if widget.value == reason %}
           {% if examples %}
             <div class="examples-title margin-top-2">
-              Examples:
+              {% trans "Examples:" %}
             </div>
             <ul class="margin-top-1" role="presentation">
               {% for example in examples %}

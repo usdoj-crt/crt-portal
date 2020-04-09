@@ -2,6 +2,7 @@
 
 from django.utils.translation import gettext_lazy as _
 
+# Translators: This is used as a an empty selection default for drop down menus
 EMPTY_CHOICE = ('', _('- Select -'))
 
 SERVICEMEMBER_CHOICES = (
@@ -44,7 +45,7 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
         _('Denied educational accommodations for a disability or language barrier'),
     ],
     'voting': [
-        _('Blocked or prevented from registering to vote, obtaining or submitting a ballot, having your ballot counted, or entering a polling place to vote'),
+        _('Obstacles to registering to vote, obtaining or submitting a ballot, having your ballot counted, or entering a polling place to vote'),
         _('Denied adequate voting assistance or accommodations for a disability at a polling place'),
         _('Restricted or prevented from participating in an election, including voting, becoming a candidate, or being elected for office'),
     ],
@@ -56,7 +57,7 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
     ],
     'commercial_or_public': [
         _('A physical or online location that does not provide disability accommodations'),
-        _('Denied service or entry because of a perceived personal characteristic  like race, sex, or religion'),
+        _('Denied service or entry because of a perceived personal characteristic like race, sex, or religion'),
         _('Threatened or harassed while seeking or receiving reproductive health services'),
     ],
     'something_else': []
@@ -65,6 +66,7 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
 ELECTION_CHOICES = (
     ('federal', _('Federal')),
     ('state_local', _('State or local')),
+    # Translators: Both state, federal and local elections
     ('both', _('Both')),
     ('unknown', _('I\'m not sure')),
 )
@@ -207,12 +209,6 @@ PUBLIC_OR_PRIVATE_SCHOOL_CHOICES = (
 )
 PUBLIC_OR_PRIVATE_SCHOOL_DICT = dict(PUBLIC_OR_PRIVATE_SCHOOL_CHOICES)
 
-WHO_FOR_CHOICES = (
-    ('myself', _('I\'m reporting for myself')),
-    ('another', _('I\'m reporting on behalf of another person')),
-    ('undisclosed', _('I prefer not to disclose')),
-)
-
 STATES_AND_TERRITORIES = (
     ('AL', _('Alabama')),
     ('AK', _('Alaska')),
@@ -305,7 +301,8 @@ INCIDENT_DATE_HELPTEXT = _('You must enter a month and year. Please use the form
 
 DATE_ERRORS = {
     'month_required': _('Please enter a month.'),
-    'month_invalid': _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.'),
+    'month_invalid': _('Please enter a valid month. Month must be between 1 and 12.'),
+    'day_invalid': _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.'),
     'year_required': _('Please enter a year.'),
     'no_future': _('Date can not be in the future.'),
     'no_past': _('Please enter a year after 1900.'),
@@ -315,6 +312,7 @@ INCIDENT_DATE_HELPTEXT = _('You must enter a month and year. Please use the form
 
 VOTING_ERROR = _('Please select the type of election or voting activity.')
 
+# for internal use only
 DISTRICT_CHOICES = (
     ('1', '1'), ('2', '2'), ('3', '3'), ('6', '6'), ('8', '8'),
     ('9', '9'), ('10', '10'), ('11', '11'), ('11E', '11E'), ('12', '12'),
@@ -337,6 +335,7 @@ DISTRICT_CHOICES = (
     ('87', '87'),
 )
 
+# for internal use only
 STATUTE_CHOICES = (
     ('144', '144'), ('145', '145'), ('166', '166'), ('167', '167'),
     ('168', '168'), ('169', '169'), ('170', '170'), ('170-USE', '170-USE'),

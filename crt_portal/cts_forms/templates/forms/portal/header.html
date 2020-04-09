@@ -24,9 +24,11 @@
     {# Progress text for screen reader. #}
     <div class="grid-row grid-gap margin-top-5 progress-bar">
       <div class="tablet:grid-col-10 tablet:grid-offset-1">
-        <div aria-label="progress">
+        <div aria-label="{% trans "progress" %}">
           <span class="usa-sr-only">
-            Current step: {{ current_step_name }}. Step {{ stage_number }} of {{ total_stages }}.
+            {% blocktrans with current_step_name=current_step_name stage_number=stage_number %}
+              Current step: {{ current_step_name }}. Step {{ stage_number }} of {{ total_stages }}.
+            {% endblocktrans %}
           </span>
           <ol class="steps">
             {% for step in ordered_step_names %}
@@ -41,7 +43,11 @@
 
                 {% if step != current_step_name %}
                   <span class="usa-sr-only">
-                    {% if forloop.counter > wizard.steps.step1 %}not completed{% else %}completed{% endif %}
+                    {% if forloop.counter > wizard.steps.step1 %}
+                      {% trans "not completed" %}
+                    {% else %}
+                      {% trans "completed" %}
+                    {% endif %}
                   </span>
                 {% endif %}
               </li>

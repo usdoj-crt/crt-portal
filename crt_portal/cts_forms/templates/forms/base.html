@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 {% load with_input_error %}
 <!DOCTYPE html>
 <html lang="en">
@@ -10,9 +11,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% if wizard.steps.step1 and current_step_name %}
-      <title>Step {{ stage_number }}: {{ current_step_name }} - Contact the Civil Rights Division - Department of Justice</title>
+      <title>{% blocktrans with stage_number=stage_number current_step_name=current_step_name %}
+        Step {{ stage_number }}: {{ current_step_name }} - Contact the Civil Rights Division - Department of Justice
+      {% endblocktrans %}</title>
     {% else %}
-      <title>Contact the Civil Rights Division - Department of Justice</title>
+      <title>{% trans "Contact the Civil Rights Division - Department of Justice" %}</title>
     {% endif %}
 
     <link rel="icon" href="{% static "img/us_flag_small.png" %}">
@@ -21,7 +24,7 @@
   </head>
 
   <body>
-    <a class="usa-skipnav" href="#main-content">Skip to main content</a>
+    <a class="usa-skipnav" href="#main-content">{% trans "Skip to main content" %}</a>
     {% block usa_banner %}
     <div class="usa-banner">
       <div class="usa-accordion">
@@ -31,11 +34,11 @@
               <img class="usa-banner__header-flag" src="{% static "img/us_flag_small.png" %}" alt="U.S. flag">
             </div>
             <div class="grid-col-fill tablet:grid-col-auto">
-              <p class="usa-banner__header-text">An official website of the United States government</p>
-              <p class="usa-banner__header-action" aria-hidden="true">Here’s how you know</p>
+              <p class="usa-banner__header-text">{% trans "An official website of the United States government" %}</p>
+              <p class="usa-banner__header-action" aria-hidden="true">{% trans "Here’s how you know" %}</p>
             </div>
             <button class="usa-accordion__button usa-banner__button" aria-expanded="false" aria-controls="gov-banner">
-              <span class="usa-banner__button-text">Here’s how you know</span>
+              <span class="usa-banner__button-text">{% trans "Here’s how you know" %}</span>
             </button>
           </div>
         </header>
@@ -45,8 +48,8 @@
               <img class="usa-banner__icon usa-media-block__img" src="{% static "img/icon-dot-gov.svg" %}" alt="Dot gov">
               <div class="usa-media-block__body">
                 <p>
-                  <strong>The .gov means it’s official.</strong>
-                  <br> Federal government websites often end in .gov or .mil. Before sharing sensitive information, make sure you’re on a federal government site.
+                  <strong>{% trans "The .gov means it’s official." %}</strong>
+                  <br>{% trans "Federal government websites often end in .gov or .mil. Before sharing sensitive information, make sure you’re on a federal government site." %}
                 </p>
               </div>
             </div>
@@ -54,8 +57,8 @@
               <img class="usa-banner__icon usa-media-block__img" src="{% static "img/icon-https.svg" %}" alt="Https">
                 <div class="usa-media-block__body">
                   <p>
-                    <strong>The site is secure.</strong>
-                    <br> The <strong>https://</strong> ensures that you are connecting to the official website and that any information you provide is encrypted and transmitted securely.
+                    <strong>{% trans "The site is secure." %}</strong>
+                    <br>{% trans "The <strong>https://</strong> ensures that you are connecting to the official website and that any information you provide is encrypted and transmitted securely." %}
                   </p>
                 </div>
               </div>
@@ -84,8 +87,8 @@
               </div>
               <div class="grid-col-auto">
                 <p class="usa-footer__logo-heading">
-                  Civil Rights Division
-                  <br/> U.S. Department of Justice
+                  {% trans "Civil Rights Division %}
+                  <br/>{% trans "U.S. Department of Justice" %}
                 </p>
               </div>
             </div>

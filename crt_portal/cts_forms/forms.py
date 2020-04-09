@@ -155,6 +155,7 @@ class Contact(ModelForm):
         self.fields['contact_city'].label = CONTACT_QUESTIONS['contact_city']
         self.fields['contact_zip'].label = CONTACT_QUESTIONS['contact_zip']
         self.fields['contact_state'] = ChoiceField(
+            # Translators: this is the default- blank options for a drop-down menu where a user chooses a state
             choices=(("", _(' - Select - ')), ) + STATES_AND_TERRITORIES,
             widget=Select(attrs={
                 'class': 'usa-select'
@@ -166,6 +167,7 @@ class Contact(ModelForm):
             error_messages={'required': SERVICEMEMBER_ERROR},
             widget=UsaRadioSelect(),
             label=SERVICEMEMBER_QUESTION,
+            # Translators: This is help text for the question asking if someone is a service member
             help_text=_('If you’re reporting on behalf of someone else, please select their status.'),
             empty_value=None,
             choices=SERVICEMEMBER_CHOICES,
@@ -251,6 +253,7 @@ class HateCrimesTrafficking(ModelForm):
                 ally_id="hatecrimes-help-text"
             )
         ]
+        # Translators: notes that this page is the same form step as the page before
         self.page_note = _('Continued')
 
 
@@ -465,6 +468,7 @@ class CommercialPublicLocation(LocationForm):
                 'required': COMMERCIAL_OR_PUBLIC_ERROR
             }
         )
+        # Translators: describe the "other" option for commercial or public place question
         self.fields['other_commercial_or_public_place'].help_text = _('Please describe')
         self.fields['other_commercial_or_public_place'].widget = TextInput(
             attrs={'class': 'usa-input word-count-10'}
@@ -576,6 +580,7 @@ class ProtectedClassForm(ModelForm):
                 'aria-describedby': 'protected-class-help-text'
             }),
         )
+        # Translators: This is to explain an "other" choice for personal characteristics
         self.fields['other_class'].help_text = _('Please describe "Other reason"')
         self.fields['other_class'].widget = TextInput(
             attrs={'class': 'usa-input word-count-10'}
@@ -603,7 +608,7 @@ def date_cleaner(self, cleaned_data):
         # custom messages
         if day > 31 or day < 1:
             self.add_error('last_incident_day', ValidationError(
-                DATE_ERRORS['month_invalid'],
+                DATE_ERRORS['day_invalid'],
             ))
         elif datetime(year, month, day) > datetime.now():
             self.add_error('last_incident_year', ValidationError(
@@ -710,6 +715,7 @@ class ProForm(
     ProtectedClassForm,
     When,
 ):
+    """This form is for CRT only for complaints that come from other sources than the public web form"""
     class Meta:
         model = Report
 
@@ -901,7 +907,7 @@ class ProForm(
         self.label_suffix = ''
         self.fields['violation_summary'].label = SUMMARY_QUESTION
         self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
-        self.fields['violation_summary'].help_text = 'What did the person believe happened?'
+        self.fields['violation_summary'].help_text = _('What did the person believe happened?')
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
@@ -939,6 +945,7 @@ class Filters(ModelForm):
         ]
 
         labels = {
+            # Translators: CRT sections
             'assigned_section': _('View sections'),
             'contact_first_name': _('Contact first name'),
             'contact_last_name': _('Contact last name'),
