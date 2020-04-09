@@ -1,6 +1,7 @@
 from django import template
-from ..model_variables import COMMERCIAL_PUBLIC_FRIENDLY_TEXT
+from django.utils.translation import gettext_lazy as _
 
+from ..model_variables import COMMERCIAL_PUBLIC_FRIENDLY_TEXT
 
 register = template.Library()
 
@@ -13,7 +14,7 @@ def render_commercial_public_space_view(location, type):
         location_type = COMMERCIAL_PUBLIC_FRIENDLY_TEXT.get(location, '—')
     else:
         location_type = type
-        other_text = 'Other'
+        other_text = _('Other')
 
     return {
         'location_type': location_type,

@@ -907,7 +907,7 @@ class ProForm(
         self.label_suffix = ''
         self.fields['violation_summary'].label = SUMMARY_QUESTION
         self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
-        self.fields['violation_summary'].help_text = 'What did the person believe happened?'
+        self.fields['violation_summary'].help_text = _('What did the person believe happened?')
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
