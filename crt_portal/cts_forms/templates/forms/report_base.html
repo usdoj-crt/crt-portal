@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load static %}
+
+{% block page_title %}
+  {% if wizard.steps.step1 and current_step_name %}
+    <title>Step {{ wizard.steps.step1 }}: {{ current_step_name }} - Contact the Civil Rights Division - Department of Justice</title>
+  {% else %}
+    <title>Contact the Civil Rights Division - Department of Justice</title>
+  {% endif %}
+{% endblock %}
+
 {% block head %}
   {{ wizard.form.media }}
 {% endblock %}

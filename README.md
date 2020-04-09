@@ -180,11 +180,18 @@ The -m will give you the line numbers in code that that are not tested by any un
 
 Please keep in mind that the quality of tests is more important than the quantity. Be on the look out for key functionality and logic that can be documented and confirmed with good tests.
 
+To speed up your tests, after you have migrated your database at least once, you can run:
+
+    docker-compose run web python /code/crt_portal/manage.py test --settings=crt_portal.test_settings cts_forms
+
+That will create a file locally that tells your machine to not load zip codes on migration. These are not needed for tests and take a while.
+
 ### Accessibility test
 For accessibility testing with Pa11y, we generally want a test on each unique view. You can run Pa11y locally, _if you have npm installed locally_:
 
 1) If you are doing this for the first time, log into your local admin and make an account for testing at localhost:8000/admin/auth/user/add/ The user name is `pa11y_tester` password is `imposing40Karl5monomial`. **Never** make this account in the dev or staging environments. Circle testing happens in a disposable database and these are not run against live sites. (Prod doesn't use password accounts but no reason to make it there either.)
-2) run
+2) Run `export PA11Y_PASSWORD=imposing40Karl5monomial` in the command line.
+3) run
 ```npm run test:a11y```
 
 This will run all the tests, look in package.json for a listing of tests, if you want to run them individually.

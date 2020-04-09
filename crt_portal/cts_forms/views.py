@@ -29,6 +29,101 @@ from .page_through import pagination
 SORT_DESC_CHAR = '-'
 
 
+def error_400(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 400,
+            'message': _("Bad request"),
+            'helptext': _("It seems your browser is not responding properly. Try refreshing this page.")
+        },
+        status=400
+    )
+
+
+def error_403(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 403,
+            'message': _("Unauthorized"),
+            'helptext': _("This page is off limits to unauthorized users.")
+        },
+        status=403
+    )
+
+
+def error_404(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 404,
+            'message': _("We can't find the page you are looking for"),
+            'helptext': _("Try retuning to the previous page")
+        },
+        status=404
+    )
+
+
+def error_500(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 500,
+            'message': _("There's a problem loading this page"),
+            'helptext': _("There's a technical problem loading this page. Try refreshing this page or going to another page. If that doesn't work, try again later.")
+        },
+        status=500
+    )
+
+
+def error_501(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 501,
+            'message': _("Not implemented"),
+            'helptext': _("There seems to be a problem with this request. Try refreshing the page.")
+        },
+        status=501
+    )
+
+
+def error_502(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 502,
+            'message': _("Bad gateway"),
+            'helptext': _("This problem is due to poor IP communication between back-end computers, possibly including our web server. Try clearing your browser cache completely. You may have a problem with your internal internet connection or firewall.")
+        },
+        status=502
+    )
+
+
+def error_503(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 503,
+            'message': _("Service Unavailable"),
+            'helptext': _("Our web server is either closed for repair, upgrades or is rebooting. Please try again later.")
+        },
+        status=503
+    )
+
+
+def csrf_failure(request, reason=""):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': "Problem with security cookie",
+            'message': _("Your browser couldn't create a secure cookie"),
+            'helptext': _("We use security cookies to protect your information from attackers. Make sure you allow cookies for this site. Having the page open for long periods can also cause this problem. If you know cookies are allowed and you are having this issue, try going to this page in new browser tab or window. That will make you a new security cookie and should resolve the problem.")
+        }
+    )
+
+
 def format_protected_class(p_class_objects, other_class):
     p_class_list = []
     for p_class in p_class_objects:
@@ -132,14 +227,12 @@ def serialize_data(report, request, report_id):
         report.other_class,
     )
 
-    summary_query = report.internal_comments.filter(is_summary=True).order_by('-modified_date')
-    if len(summary_query) > 0:
-        summary = summary_query[0]
+    summary = report.get_summary
+    if summary:
         summary_box = CommentActions(
             initial={'note': summary.note}
         )
     else:
-        summary = None
         summary_box = CommentActions()
 
     output = {
@@ -238,6 +331,7 @@ def save_form(form_data_dict):
 
     r.assigned_section = r.assign_section()
     r.district = r.assign_district()
+    r.intake_format = 'web'
     r.save()
     # adding this back for the save page results
     form_data_dict['protected_class'] = m2m_protected_class.values()
