@@ -15,7 +15,6 @@
 .button--cancel {
   @include u-color('secondary-dark');
   margin-left: 0.5rem;
-  @include u-margin-left(0.5rem);
   &:hover,
   &:active,
   &:focus {
