@@ -2,7 +2,7 @@
   @include u-font-size('body', 'sm');
   float: right;
   &:before {
-    @include u-margin-right(10px);
+    margin-right: 10px;
     background-image: url(../img/ic_edit.svg);
     background-repeat: none;
     content: '';
@@ -14,6 +14,7 @@
 
 .button--cancel {
   @include u-color('secondary-dark');
+  margin-left: 0.5rem;
   @include u-margin-left(0.5rem);
   &:hover,
   &:active,
