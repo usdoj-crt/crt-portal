@@ -194,6 +194,7 @@ def IndexView(request):
             "report": report,
             "report_protected_classes": p_class_list,
             "url": f'{report.id}?next={all_args_encoded}'
+
         })
 
     final_data = {
@@ -204,7 +205,6 @@ def IndexView(request):
         'sort_state': sort_state,
         'filter_state': filter_args,
         'filters': query_filters,
-        'auth': 'DJFKDSFJSD'
     }
 
     return render(request, 'forms/complaint_view/index/index.html', final_data)
@@ -227,6 +227,16 @@ def serialize_data(report, request, report_id):
         report.other_class,
     )
 
+    summary_query = report.internal_comments.filter(is_summary=True).order_by('-modified_date')
+    if len(summary_query) > 0:
+        summary = summary_query[0]
+        summary_box = CommentActions(
+            initial={'note': summary.note}
+        )
+    else:
+        summary = None
+        summary_box = CommentActions()
+
     output = {
         'actions': ComplaintActions(initial={
             'assigned_section': report.assigned_section,
@@ -235,12 +245,14 @@ def serialize_data(report, request, report_id):
             'district': report.district,
         }),
         'comments': CommentActions(),
+        'summary_box': summary_box,
         'activity_stream': report.target_actions.all(),
         'crimes': crimes,
         'data': report,
         'p_class_list': p_class_list,
         'primary_complaint': primary_complaint,
         'return_url_args': request.GET.get('next', ''),
+        'summary': summary,
     }
 
     return output
@@ -274,13 +286,29 @@ class SaveCommentView(LoginRequiredMixin, FormView):
 
     def post(self, request, report_id):
         report = get_object_or_404(Report, pk=report_id)
-        if request.POST.__getitem__('note'):
+        comment_id = request.POST.get('comment_id')
+        note = request.POST.__getitem__('note')
+        is_summary = request.POST.__getitem__('is_summary') == 'True'
+        if comment_id is not None:
+            comment = get_object_or_404(CommentAndSummary, pk=comment_id)
+            comment.note = note
+            comment.save()
+            if is_summary is True:
+                verb = 'Updated summary: '
+            else:
+                verb = 'Updated comment: '
+        else:
             comment = CommentAndSummary.objects.create(
-                note=request.POST.__getitem__('note'),
-                is_summary=request.POST.__getitem__('is_summary'),
+                note=note,
+                is_summary=is_summary,
             )
             report.internal_comments.add(comment)
-            CommentActions.update_activity_stream(request.user, report, comment.note)
+            if comment.is_summary is True:
+                verb = 'Added summary: '
+            else:
+                verb = ''
+        CommentActions.update_activity_stream(request.user, report, comment.note, verb)
+
         output = serialize_data(report, request, report_id)
         output.update({
             'return_url_args': request.POST.get('next', ''),
@@ -347,6 +375,7 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
             },
             'ordered_step_names': ordered_step_names,
             'stage_link': True,
+            'submit_button': True,
         })
 
         return context
@@ -597,5 +626,10 @@ class CRTReportWizard(SessionWizardView):
     def done(self, form_list, form_dict, **kwargs):
         form_data_dict = self.get_all_cleaned_data()
         _, report = save_form(form_data_dict)
-        return render(self.request, 'forms/confirmation.html', {'report': report, 'questions': Review.question_text,
-                                                                'ordered_step_names': self.ORDERED_STEP_NAMES})
+        return render(
+            self.request, 'forms/confirmation.html',
+            {
+                'report': report, 'questions': Review.question_text,
+                'ordered_step_names': self.ORDERED_STEP_NAMES
+            },
+        )
