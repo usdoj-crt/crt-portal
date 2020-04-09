@@ -132,14 +132,12 @@ def serialize_data(report, request, report_id):
         report.other_class,
     )
 
-    summary_query = report.internal_comments.filter(is_summary=True).order_by('-modified_date')
-    if len(summary_query) > 0:
-        summary = summary_query[0]
+    summary = report.get_summary
+    if summary:
         summary_box = CommentActions(
             initial={'note': summary.note}
         )
     else:
-        summary = None
         summary_box = CommentActions()
 
     output = {
