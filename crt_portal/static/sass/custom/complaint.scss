@@ -73,6 +73,11 @@ $complaint-header-min-height: 200px;
 }
 
 #current-summary-text {
-  @include u-margin-top(0.5rem);
-  @include u-margin-right(3rem);
+  margin-top: 0.5rem;
+  margin-right: 3rem;
+}
+
+.activity-stream-list.usa-list,
+.usa-prose #current-summary-text {
+  line-height: 1.4; // USWDS override
 }
