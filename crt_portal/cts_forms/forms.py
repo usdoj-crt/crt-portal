@@ -10,6 +10,7 @@ from django.forms import (
     Textarea,
     ModelMultipleChoiceField,
     Select,
+    CharField,
 )
 from django.utils.translation import gettext_lazy as _
 
@@ -926,6 +927,7 @@ class Filters(ModelForm):
                                  widget=Select(attrs={
                                      'name': 'location_state',
                                      'class': 'usa-select'}))
+    summary = CharField(widget=TextInput(attrs={'class': 'usa-input'}))
 
     class Meta:
         model = Report
