@@ -4,9 +4,9 @@ $green-cool-vivid: 'green-cool-10v';
 @mixin clickable-table-cell {
   color: $gray-warm-80;
   height: 100%;
-  padding-top: .5rem;
-  padding-left: .25rem;
-  padding-bottom: .5rem;
+  padding-top: 0.5rem;
+  padding-left: 0.25rem;
+  padding-bottom: 0.5rem;
   padding-right: 1rem;
   position: relative;
   text-decoration: none;
@@ -19,14 +19,18 @@ $green-cool-vivid: 'green-cool-10v';
   display: block;
   font-size: 12px;
   height: 6px;
-  margin-right: 5px;
   position: absolute;
   right: 5%;
   top: 45%;
   width: 10px;
 }
 
-.crt-table td, .crt-table th, .usa-prose>table td, .usa-prose>table th, .usa-table td, .usa-table th {
+.crt-table td,
+.crt-table th,
+.usa-prose > table td,
+.usa-prose > table th,
+.usa-table td,
+.usa-table th {
   border-bottom: 1px solid $gray-cool-10;
 }
 
@@ -47,6 +51,9 @@ $green-cool-vivid: 'green-cool-10v';
   thead {
     th {
       background-color: $white;
+      border-top: 0 !important;
+      border-left: 0 !important;
+      border-right: 0 !important; //override the .usa-table extension
       border-bottom: 1px solid $gray-cool-10;
       border-top: 0;
       font-size: 1rem;
@@ -62,12 +69,14 @@ $green-cool-vivid: 'green-cool-10v';
   }
 
   tr {
-    th a:first-child, td a:first-child {
+    th a:first-child,
+    td a:first-child {
       padding-left: 1.3rem;
     }
 
-    th a:last-child, td a:last-child {
-      padding-right: 2rem;
+    th a:last-child,
+    td a:last-child {
+      padding-right: 1.2rem;
     }
   }
 
@@ -78,13 +87,15 @@ $green-cool-vivid: 'green-cool-10v';
   }
 
   &.usa-table {
-    tr, td, th {
+    tr,
+    td,
+    th {
       border-left: 0;
       border-right: 0;
     }
 
     th {
-      border: 1px solid #C6CACE !important;
+      border-bottom: 1px solid #c6cace;
     }
 
     td {
@@ -150,7 +161,7 @@ $green-cool-vivid: 'green-cool-10v';
 
 .tr--hover {
   &:hover {
-    box-shadow: 0 1px 6px 2px rgba(0,0,0,0.14);
+    box-shadow: 0 1px 6px 2px rgba(0, 0, 0, 0.14);
     transform: scale(1);
   }
 }
@@ -160,7 +171,6 @@ $green-cool-vivid: 'green-cool-10v';
 
   span {
     margin-right: 20px;
-    white-space: nowrap;
   }
 }
 
@@ -169,7 +179,7 @@ $green-cool-vivid: 'green-cool-10v';
 }
 
 .table-message {
-  box-shadow: 0 5px 5px 2px rgba(0,0,0,.09)
+  box-shadow: 0 5px 5px 2px rgba(0, 0, 0, 0.09);
 }
 
 .sort-link {
@@ -180,18 +190,17 @@ $green-cool-vivid: 'green-cool-10v';
   vertical-align: middle;
   z-index: 1;
 
-
   &.sort-up {
     &:after {
       @include sortable-cell-icon();
-      background: url("/static/img/sort-up.svg");
+      background: url('/static/img/sort-up.svg');
     }
   }
 
   &.sort-down {
     &:after {
       @include sortable-cell-icon();
-      background: url("/static/img/sort-down.svg");
+      background: url('/static/img/sort-down.svg');
     }
   }
 }
