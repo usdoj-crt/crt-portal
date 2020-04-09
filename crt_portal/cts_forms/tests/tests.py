@@ -149,7 +149,7 @@ class Valid_CRT_view_Tests(TestCase):
 
     def test_violation_summary(self):
         # formatting the summary is done in the template
-        self.assertTrue(self.test_report.violation_summary[:119] in self.content)
+        self.assertTrue(self.test_report.violation_summary[:59] in self.content)
 
     def test_incident_location(self):
         self.assertTrue(self.test_report.location_city_town in self.content)
