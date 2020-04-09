@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
             JudicialDistrict = apps.get_model('cts_forms', 'JudicialDistrict')
             response = fetch_file()
             lines = response['Body'].read().decode('ascii').split("\n")
-            for row in csv.DictReader(lines, delimiter=','):
+            for row in DictReader(lines, delimiter=','):
                 district = str(row['DISTRICT_NUMBER']) + str(row['DISTRICT_LETTER'])
                 JudicialDistrict.objects.create(
                     zipcode=row['ZIPCODE'],
