@@ -56,7 +56,7 @@
         <td>
           <a class="td-link display-block" href="{{datum.url}}">
             {% with summary=datum.report.violation_summary|default:"—" %}
-              {{ summary|truncatechars:120 }}
+              {{ summary|truncatechars:60 }}
             {% endwith %}
           </a>
         </td>
