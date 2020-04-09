@@ -511,6 +511,13 @@ class CRT_FILTER_Tests(TestCase):
         test_report.assigned_section = test_report.assign_section()
         test_report.save()
 
+        summary = CommentAndSummary.objects.create(
+            note="service animal",
+            is_summary=True,
+        )
+
+        test_report.internal_comments.add(comment)
+
         self.client = Client()
         # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
         self.test_pass = secrets.token_hex(32)
@@ -618,6 +625,16 @@ class CRT_FILTER_Tests(TestCase):
     def test_state_filter(self):
         state_filter = 'location_state=OH'
         response = self.client.get(f'{self.url_base}?{state_filter}')
+        reports = response.context['data_dict']
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, 1)
+
+    def test_summary_filter(self):
+        """This is a many to may field so it works differently than the other searches. Also checking stemming"""
+        summary_filter = 'summay=service animals'
+        response = self.client.get(f'{self.url_base}?{summary_filter}')
         reports = response.context['data_dict']
 
         report_len = len(reports)
