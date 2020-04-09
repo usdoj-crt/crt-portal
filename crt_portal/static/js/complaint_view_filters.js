@@ -250,7 +250,7 @@
     var activeFiltersEl = dom.querySelector('[data-active-filters]');
     var clearAllEl = dom.querySelector('[data-clear-filters]');
     var statusEl = formEl.querySelector('select[name="status"]');
-    var summaryEl = formEl.querySelector('select[name="summary"]');
+    var summaryEl = formEl.querySelector('input[name="summary"]');
 
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
