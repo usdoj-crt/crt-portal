@@ -1,0 +1,24 @@
+.button--edit {
+  @include u-font-size('body', 'sm');
+  float: right;
+  &:before {
+    margin-right: 10px;
+    background-image: url(../img/ic_edit.svg);
+    background-repeat: none;
+    content: '';
+    height: 12px;
+    width: 12px;
+    display: inline-block;
+  }
+}
+
+.button--cancel {
+  @include u-color('secondary-dark');
+  margin-left: 0.5rem;
+  &:hover,
+  &:active,
+  &:focus {
+    @include u-color('secondary');
+    background-color: transparent !important;
+  }
+}

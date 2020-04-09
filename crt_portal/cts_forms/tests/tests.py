@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 
-from ..models import ProtectedClass, Report, HateCrimesandTrafficking
+from ..models import ProtectedClass, Report, HateCrimesandTrafficking, CommentAndSummary
 from ..model_variables import (
     PROTECTED_CLASS_CHOICES,
     PROTECTED_CLASS_ERROR,
@@ -150,6 +150,14 @@ class Valid_CRT_view_Tests(TestCase):
     def test_violation_summary(self):
         # formatting the summary is done in the template
         self.assertTrue(self.test_report.violation_summary[:59] in self.content)
+        """Report table renders internal summary"""
+        summary_text = "Internal summary test"
+        summary = CommentAndSummary(is_summary=True, note=summary_text)
+        summary.save()
+        self.test_report.internal_comments.add(summary)
+
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        self.assertContains(response, summary_text)
 
     def test_incident_location(self):
         self.assertTrue(self.test_report.location_city_town in self.content)
@@ -174,6 +182,8 @@ class Complaint_Show_View_404(TestCase):
     def test_404_on_non_existant_record(self):
         response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': '1'}))
         self.assertEqual(response.status_code, 404)
+        # test for custom message
+        self.assertTrue("We can&#39;t find the page you are looking for" in str(response.content))
 
 
 class Complaint_Show_View_Valid(TestCase):

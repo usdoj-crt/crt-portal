@@ -4,6 +4,7 @@
 {% block icon %}
 <img src="{% static icon %}" alt="" class="icon" />
 {% endblock %}
+
 {% block card_content %}
 <form id="complaint-view-actions" class="usa-form" method="post" action="/form/view/{{data.id}}/" novalidate>
   {% csrf_token %}

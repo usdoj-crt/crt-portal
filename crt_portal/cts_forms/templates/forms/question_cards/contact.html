@@ -1,3 +1,5 @@
+{% load i18n %}
+
 {% if card_title %}
   <h2>{{ card_title }}</h2>
 {% endif %}
@@ -8,13 +10,13 @@
     <div class="grid-row grid-gap margin-y-neg-3 margin-top-1 margin-bottom-4">
       <div class="mobile-lg:grid-col-8">
         <label for="{{city.id_for_label}}">
-          {{ city.label }} <em>(Optional)</em>
+          {{ city.label }} <em>{% trans "(Optional)" %}</em>
         </label>
         {{ city }}
       </div>
       <div class="mobile-lg:grid-col-4">
         <label for="{{state.id_for_label}}">
-          {{state.label}} <em>(Optional)</em>
+          {{state.label}} <em>{% trans "(Optional)" %}</em>
         </label>
         {{ state }}
       </div>
@@ -22,7 +24,7 @@
   </div>
   <div class="margin-bottom-5 margin-top-neg-1">
     <label for="{{zip.id_for_label}}">
-      {{ zip.label }} <em>(Optional)</em>
+      {{ zip.label }} <em>{% trans "(Optional)" %}</em>
     </label>
     {{ zip }}
   </div>

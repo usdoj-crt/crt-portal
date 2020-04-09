@@ -24,7 +24,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # We are running the testing environment with UNDEFINED.
 # For cloud.gov the ENV must be set in the manifests
 environment = os.environ.get('ENV', 'UNDEFINED')
-circle = os.environ.get('CIRCLE', False)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -147,7 +146,7 @@ LOGIN_REDIRECT_URL = '/'
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/New_York'
 
 USE_I18N = True
 
@@ -290,6 +289,9 @@ COMPRESS_PRECOMPILERS = (
 
 # would like to add this before public release
 COMPRESS_ENABLED = False
+
+# adding better messaging
+CSRF_FAILURE_VIEW = 'cts_forms.views.csrf_failure'
 
 # disable logging filters
 DEFAULT_LOGGING['handlers']['console']['filters'] = []

@@ -2,3 +2,4 @@ docker-compose.yml
 Dockerfile
 *.env
 *.DS_Store
+crt_portal/NO_ZIP.txt

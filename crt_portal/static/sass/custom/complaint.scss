@@ -1,4 +1,3 @@
-
 $complaint-header-min-height: 200px;
 
 .complaint-card-table {
@@ -21,13 +20,15 @@ $complaint-header-min-height: 200px;
     word-break: break-word;
   }
 
-  th, td {
+  th,
+  td {
     border-top: 0;
-    padding-bottom: .8rem;
+    padding-bottom: 0.8rem;
   }
 
   tr:last-child {
-    th, td {
+    th,
+    td {
       border: none;
     }
   }
@@ -41,8 +42,8 @@ $complaint-header-min-height: 200px;
 
   .activity-stream-list {
     .activity-stream-item {
-      border-bottom: 1px solid #C6CACE;
-      padding: .5rem 0 .5rem 0;
+      border-bottom: 1px solid #c6cace;
+      padding: 0.5rem 0 0.5rem 0;
 
       &:first-child {
         padding-top: 0;
@@ -68,5 +69,15 @@ $complaint-header-min-height: 200px;
 }
 
 .backend-blue {
-   @include u-color($blue-warm-vivid-80-t);
+  @include u-color($blue-warm-vivid-80-t);
+}
+
+#current-summary-text {
+  margin-top: 0.5rem;
+  margin-right: 3rem;
+}
+
+.activity-stream-list.usa-list,
+.usa-prose #current-summary-text {
+  line-height: 1.4; // USWDS override
 }
