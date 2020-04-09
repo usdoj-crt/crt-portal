@@ -24,7 +24,7 @@ else:
     load_zips = True
 
 
-def fetch_file():
+def fetch_file():  # pragma: no cover
     # no credentials needed to pull from the public bucket
     s3 = boto3.resource('s3', config=Config(signature_version=UNSIGNED), region_name='us-gov-west-1')
     # this is a public link in the dev s3 bucket
@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
         ('cts_forms', '0061_adjust_district_model'),
     ]
 
-    def load_zip_data(apps, schema_editor):
+    def load_zip_data(apps, schema_editor):  # pragma: no cover
         """This loads all the zip code mappings into the database. It also takes over a minute and is not needed for tests"""
         if load_zips is True:
             JudicialDistrict = apps.get_model('cts_forms', 'JudicialDistrict')
