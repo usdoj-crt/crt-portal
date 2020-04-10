@@ -33,6 +33,7 @@ from ..forms import (
     When,
     ProForm,
 )
+from ..views import save_form
 from .test_data import SAMPLE_REPORT
 
 
@@ -890,17 +891,9 @@ class Complaint_Update_Tests(TestCase):
 
 
 class ProFormTest(TestCase):
-    def test_required_fields(self):
-        form = ProForm(data={})
-        self.assertFalse(form.is_valid())
-        self.assertEquals(
-            form.errors,
-            {'primary_complaint': ['Please select a primary reason to continue.']}
-        )
-
-    def test_full_example(self):
+    def setUp(self):
         data = copy.deepcopy(SAMPLE_REPORT)
-        data.update({
+        self.data = data.update({
             'contact_address_line_1': '123',
             'contact_address_line_2': 'Apt 234',
             'contact_city': 'test',
@@ -924,8 +917,35 @@ class ProFormTest(TestCase):
             'crt_reciept_month': 2,
             'intake_format': 'phone',
         })
-        form = ProForm(data=data)
+
+    def test_required_fields(self):
+        form = ProForm(data={})
+        self.assertFalse(form.is_valid())
+        self.assertEquals(
+            form.errors,
+            {'primary_complaint': ['Please select a primary reason to continue.']}
+        )
+
+    def test_full_example(self):
+        form = ProForm(data=self.data)
         self.assertTrue(form.is_valid())
+
+
+class TestIntakeFormat(TestCase):
+    def setUp(self):
+        self.form_data_dict = copy.deepcopy(SAMPLE_REPORT)
+        self.form_data_dict['protected_class'] = ProtectedClass.objects.none()
+        self.form_data_dict['hatecrimes_trafficking'] = HateCrimesandTrafficking.objects.none()
+
+    def test_intake_save_web(self):
+        data, saved_object = save_form(self.form_data_dict, intake_format='web')
+        self.assertEquals(saved_object.intake_format, 'web')
+
+    def test_intake_save_ProForm(self):
+        form_data_dict = copy.deepcopy(self.form_data_dict)
+        form_data_dict['intake_format'] = 'phone'
+        data, saved_object = save_form(form_data_dict)
+        self.assertEquals(saved_object.intake_format, 'phone')
 
 
 class LoginRequiredTests(TestCase):
