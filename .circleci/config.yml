@@ -31,7 +31,7 @@ jobs:
           command: |
             pip install -U pip && pip install pipenv && \
             pip install pipenv
-            pipenv install --system --dev
+            pipenv install --dev --system
             pipenv run crt_portal/manage.py migrate
           paths:
             - ".venv"

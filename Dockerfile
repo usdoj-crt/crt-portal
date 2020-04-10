@@ -14,7 +14,7 @@ RUN pip install --upgrade pip
 RUN pip install pipenv
 
 COPY Pipfile Pipfile.lock /code/
-RUN pipenv install --system --dev
+RUN pipenv install --dev --system
 
 # Install Node and npm dependencies
 RUN \
