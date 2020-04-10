@@ -19,13 +19,13 @@
       get isVisible() {
         return isVisible;
       },
-      hide() {
+      hide: function() {
         isVisible = false;
         content.setAttribute('hidden', !isVisible);
         control.setAttribute('aria-expanded', isVisible);
         el.classList.remove('expanded');
       },
-      show() {
+      show: function() {
         isVisible = true;
         content.removeAttribute('hidden');
         control.setAttribute('aria-expanded', isVisible);
@@ -104,16 +104,22 @@
      * dropdowns
      **/
     var node = hasParentNode(event.target, function(n) {
-      return n.classList.contains('crt-dropdown');
+      for (i = 0; i < n.classList.length; i++) {
+        if (n.classList[i].indexOf('crt-dropdown') === -1) {
+          return false;
+        } else {
+          return true;
+        }
+      }
     });
 
     if (!node) {
       closeAllDropdowns();
     } else {
       // A node here indicates that the click event happened within a dropdown
-      var maybeDropdown = dropdowns.find(function(dropdown) {
+      var maybeDropdown = dropdowns.filter(function(dropdown) {
         return dropdown.control === event.target;
-      });
+      })[0];
 
       dropdownToggle(maybeDropdown);
     }

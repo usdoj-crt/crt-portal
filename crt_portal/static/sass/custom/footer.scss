@@ -1,4 +1,7 @@
 // Footer Styles
+footer {
+  width: 100%; // IE11 fix
+}
 .usa-footer__logo-heading {
 //  @include h4
   color: white;
