@@ -315,7 +315,6 @@ class SaveCommentView(LoginRequiredMixin, FormView):
 
 
 def save_form(form_data_dict, **kwargs):
-    print(form_data_dict)
     m2m_protected_class = form_data_dict.pop('protected_class')
     m2m_hatecrime = form_data_dict.pop('hatecrimes_trafficking')
     r = Report.objects.create(**form_data_dict)
