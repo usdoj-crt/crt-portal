@@ -17,7 +17,7 @@ PRIMARY_COMPLAINT_CHOICES = (
     ('housing', _('Housing discrimination or harassment')),
     ('education', _('Discrimination at a school, educational program or service, or related to receiving education')),
     ('voting', _('Voting rights or ability to vote blocked or affected')),
-    ('police', _('Mistreated by police, law enforcement, or correctional staff (including while in prison)')),
+    ('police', _('Mistreated by police, or correctional staff (including while in prison)')),
     ('commercial_or_public', _('Discriminated against in a commercial location or public place')),
     ('something_else', _('Something else happened')),
 )

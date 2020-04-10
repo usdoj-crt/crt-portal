@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-09 16:56+0000\n"
+"POT-Creation-Date: 2020-04-09 21:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -141,6 +141,10 @@ msgid ""
 "still happening, please provide the most recent date."
 msgstr ""
 
+#: crt_portal/cts_forms/forms.py:910
+msgid "What did the person believe happened?"
+msgstr ""
+
 #. Translators: CRT sections
 #: crt_portal/cts_forms/forms.py:949
 msgid "View sections"
@@ -198,9 +202,7 @@ msgid "Voting rights or ability to vote blocked or affected"
 msgstr ""
 
 #: crt_portal/cts_forms/model_variables.py:20
-msgid ""
-"Mistreated by police, law enforcement, or correctional staff (including "
-"while in prison)"
+msgid "Mistreated by police, or correctional staff (including while in prison)"
 msgstr ""
 
 #: crt_portal/cts_forms/model_variables.py:21
@@ -507,6 +509,7 @@ msgid "Public space"
 msgstr ""
 
 #: crt_portal/cts_forms/model_variables.py:137
+#: crt_portal/cts_forms/templatetags/commercial_public_space_view.py:17
 msgid "Other"
 msgstr ""
 
@@ -1349,20 +1352,20 @@ msgstr ""
 msgid "required"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/report_base.html:57
+#: crt_portal/cts_forms/templates/forms/report_base.html:66
 msgid "Submit"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/report_base.html:59
+#: crt_portal/cts_forms/templates/forms/report_base.html:68
 msgid "Next"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/report_base.html:66
+#: crt_portal/cts_forms/templates/forms/report_base.html:75
 #: crt_portal/cts_forms/templates/forms/report_review.html:32
 msgid "previous step"
 msgstr ""
 
-#: crt_portal/cts_forms/templates/forms/report_base.html:69
+#: crt_portal/cts_forms/templates/forms/report_base.html:78
 #: crt_portal/cts_forms/templates/forms/report_review.html:35
 msgid "Back"
 msgstr ""
@@ -1403,66 +1406,144 @@ msgid ""
 "        "
 msgstr ""
 
-#: crt_portal/cts_forms/views.py:277 crt_portal/cts_forms/views.py:476
+#: crt_portal/cts_forms/views.py:37
+msgid "Bad request"
+msgstr ""
+
+#: crt_portal/cts_forms/views.py:38
+msgid ""
+"It seems your browser is not responding properly. Try refreshing this page."
+msgstr ""
+
+#: crt_portal/cts_forms/views.py:49
+msgid "Unauthorized"
+msgstr ""
+
+#: crt_portal/cts_forms/views.py:50
+msgid "This page is off limits to unauthorized users."
+msgstr ""
+
+#: crt_portal/cts_forms/views.py:61
+msgid "We can't find the page you are looking for"
+msgstr ""
+
+#: crt_portal/cts_forms/views.py:62
+msgid "Try retuning to the previous page"
+msgstr ""
+
+#: crt_portal/cts_forms/views.py:73
+msgid "There's a problem loading this page"
+msgstr ""
+
+#: crt_portal/cts_forms/views.py:74
+msgid ""
+"There's a technical problem loading this page. Try refreshing this page or "
+"going to another page. If that doesn't work, try again later."
+msgstr ""
+
+#: crt_portal/cts_forms/views.py:85
+msgid "Not implemented"
+msgstr ""
+
+#: crt_portal/cts_forms/views.py:86
+msgid "There seems to be a problem with this request. Try refreshing the page."
+msgstr ""
+
+#: crt_portal/cts_forms/views.py:97
+msgid "Bad gateway"
+msgstr ""
+
+#: crt_portal/cts_forms/views.py:98
+msgid ""
+"This problem is due to poor IP communication between back-end computers, "
+"possibly including our web server. Try clearing your browser cache "
+"completely. You may have a problem with your internal internet connection or "
+"firewall."
+msgstr ""
+
+#: crt_portal/cts_forms/views.py:109
+msgid "Service Unavailable"
+msgstr ""
+
+#: crt_portal/cts_forms/views.py:110
+msgid ""
+"Our web server is either closed for repair, upgrades or is rebooting. Please "
+"try again later."
+msgstr ""
+
+#: crt_portal/cts_forms/views.py:121
+msgid "Your browser couldn't create a secure cookie"
+msgstr ""
+
+#: crt_portal/cts_forms/views.py:122
+msgid ""
+"We use security cookies to protect your information from attackers. Make "
+"sure you allow cookies for this site. Having the page open for long periods "
+"can also cause this problem. If you know cookies are allowed and you are "
+"having this issue, try going to this page in new browser tab or window. That "
+"will make you a new security cookie and should resolve the problem."
+msgstr ""
+
+#: crt_portal/cts_forms/views.py:371 crt_portal/cts_forms/views.py:570
 msgid "word remaining"
 msgstr ""
 
-#: crt_portal/cts_forms/views.py:278 crt_portal/cts_forms/views.py:477
+#: crt_portal/cts_forms/views.py:372 crt_portal/cts_forms/views.py:571
 msgid " words remaining"
 msgstr ""
 
-#: crt_portal/cts_forms/views.py:279 crt_portal/cts_forms/views.py:478
+#: crt_portal/cts_forms/views.py:373 crt_portal/cts_forms/views.py:572
 msgid " word limit reached"
 msgstr ""
 
-#: crt_portal/cts_forms/views.py:373 crt_portal/cts_forms/views.py:429
-#: crt_portal/cts_forms/views.py:448
+#: crt_portal/cts_forms/views.py:467 crt_portal/cts_forms/views.py:523
+#: crt_portal/cts_forms/views.py:542
 msgid "Contact"
 msgstr ""
 
-#: crt_portal/cts_forms/views.py:374 crt_portal/cts_forms/views.py:430
-#: crt_portal/cts_forms/views.py:431 crt_portal/cts_forms/views.py:449
-#: crt_portal/cts_forms/views.py:450 crt_portal/cts_forms/views.py:485
+#: crt_portal/cts_forms/views.py:468 crt_portal/cts_forms/views.py:524
+#: crt_portal/cts_forms/views.py:525 crt_portal/cts_forms/views.py:543
+#: crt_portal/cts_forms/views.py:544 crt_portal/cts_forms/views.py:579
 msgid "Primary concern"
 msgstr ""
 
-#: crt_portal/cts_forms/views.py:375 crt_portal/cts_forms/views.py:432
-#: crt_portal/cts_forms/views.py:433 crt_portal/cts_forms/views.py:434
-#: crt_portal/cts_forms/views.py:435 crt_portal/cts_forms/views.py:436
-#: crt_portal/cts_forms/views.py:437
+#: crt_portal/cts_forms/views.py:469 crt_portal/cts_forms/views.py:526
+#: crt_portal/cts_forms/views.py:527 crt_portal/cts_forms/views.py:528
+#: crt_portal/cts_forms/views.py:529 crt_portal/cts_forms/views.py:530
+#: crt_portal/cts_forms/views.py:531
 msgid "Location"
 msgstr ""
 
-#: crt_portal/cts_forms/views.py:376 crt_portal/cts_forms/views.py:438
-#: crt_portal/cts_forms/views.py:457
+#: crt_portal/cts_forms/views.py:470 crt_portal/cts_forms/views.py:532
+#: crt_portal/cts_forms/views.py:551
 msgid "Personal characteristics"
 msgstr ""
 
-#: crt_portal/cts_forms/views.py:377 crt_portal/cts_forms/views.py:439
-#: crt_portal/cts_forms/views.py:458
+#: crt_portal/cts_forms/views.py:471 crt_portal/cts_forms/views.py:533
+#: crt_portal/cts_forms/views.py:552
 msgid "Date"
 msgstr ""
 
-#: crt_portal/cts_forms/views.py:378 crt_portal/cts_forms/views.py:440
-#: crt_portal/cts_forms/views.py:459
+#: crt_portal/cts_forms/views.py:472 crt_portal/cts_forms/views.py:534
+#: crt_portal/cts_forms/views.py:553
 msgid "Personal description"
 msgstr ""
 
-#: crt_portal/cts_forms/views.py:379 crt_portal/cts_forms/views.py:441
-#: crt_portal/cts_forms/views.py:490
+#: crt_portal/cts_forms/views.py:473 crt_portal/cts_forms/views.py:535
+#: crt_portal/cts_forms/views.py:584
 msgid "Review"
 msgstr ""
 
-#: crt_portal/cts_forms/views.py:451 crt_portal/cts_forms/views.py:452
-#: crt_portal/cts_forms/views.py:453 crt_portal/cts_forms/views.py:454
-#: crt_portal/cts_forms/views.py:455 crt_portal/cts_forms/views.py:456
+#: crt_portal/cts_forms/views.py:545 crt_portal/cts_forms/views.py:546
+#: crt_portal/cts_forms/views.py:547 crt_portal/cts_forms/views.py:548
+#: crt_portal/cts_forms/views.py:549 crt_portal/cts_forms/views.py:550
 msgid "Location details"
 msgstr ""
 
-#: crt_portal/cts_forms/views.py:460
+#: crt_portal/cts_forms/views.py:554
 msgid "Review your concern"
 msgstr ""
 
-#: crt_portal/cts_forms/views.py:488
+#: crt_portal/cts_forms/views.py:582
 msgid "Please select if any that apply to your situation (optional)"
 msgstr ""
