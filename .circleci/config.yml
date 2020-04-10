@@ -24,19 +24,15 @@ jobs:
       - run:
           name: Node install, generate CSS
           command: |
-            npm install
+            npm ci
             node node_modules/gulp/bin/gulp build-sass
       - run:
           name: Python install with pipenv then migrate the database
           command: |
-            pip install -U pip && pip install pipenv && \
+            pip install -U pip
             pip install pipenv
-            pipenv install --dev --system
+            pipenv install --dev
             pipenv run crt_portal/manage.py migrate
-          paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.8/site-packages"
       - run:
           name: run server for tests
           command: |
@@ -143,7 +139,7 @@ jobs:
           # database will be migrated in cloud.gov
           name: Python install with pipenv
           command: |
-            pip install -U pip && pip install pipenv && \
+            pip install -U pip
             pip install pipenv
             pipenv install
       - run:
@@ -153,12 +149,12 @@ jobs:
             echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
             apt-get update
             apt-get install cf-cli
-      - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
-          key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
-          paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.8/site-packages"
+      # - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
+      #     key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+      #     paths:
+      #       - ".venv"
+      #       - "/usr/local/bin"
+      #       - "/usr/local/lib/python3.8/site-packages"
       - run:
           name: Deploy to dev
           command: |
@@ -198,7 +194,7 @@ jobs:
           # database will be migrated in cloud.gov
           name: Python install with pipenv
           command: |
-            pip install -U pip && pip install pipenv && \
+            pip install -U pip
             pip install pipenv
             pipenv install
       - run:
@@ -254,7 +250,7 @@ jobs:
           # database will be migrated in cloud.gov
           name: Python install with pipenv
           command: |
-            pip install -U pip && pip install pipenv && \
+            pip install -U pip
             pip install pipenv
             pipenv install
       - run:
