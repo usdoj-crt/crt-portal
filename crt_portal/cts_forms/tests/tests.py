@@ -892,8 +892,8 @@ class Complaint_Update_Tests(TestCase):
 
 class ProFormTest(TestCase):
     def setUp(self):
-        data = copy.deepcopy(SAMPLE_REPORT)
-        self.data = data.update({
+        data_sample = copy.deepcopy(SAMPLE_REPORT)
+        data_sample.update({
             'contact_address_line_1': '123',
             'contact_address_line_2': 'Apt 234',
             'contact_city': 'test',
@@ -917,6 +917,7 @@ class ProFormTest(TestCase):
             'crt_reciept_month': 2,
             'intake_format': 'phone',
         })
+        self.data = data_sample
 
     def test_required_fields(self):
         form = ProForm(data={})
