@@ -116,6 +116,7 @@
     location_city_town: '',
     create_date_start: '',
     create_date_end: '',
+    summary: '',
     sort: '',
     page: '',
     per_page: ''
@@ -249,6 +250,7 @@
     var activeFiltersEl = dom.querySelector('[data-active-filters]');
     var clearAllEl = dom.querySelector('[data-clear-filters]');
     var statusEl = formEl.querySelector('select[name="status"]');
+    var summaryEl = formEl.querySelector('input[name="summary"]');
 
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
@@ -320,6 +322,10 @@
     textInputView({
       el: statusEl,
       name: 'status'
+    });
+    textInputView({
+      el: summaryEl,
+      name: 'summary'
     });
     clearFiltersView({
       el: clearAllEl,

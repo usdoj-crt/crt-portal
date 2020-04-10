@@ -23,6 +23,7 @@ filter_options = {
     'create_date_start': '__gte',
     'create_date_end': '__lte',
     'public_id': '__contains',
+    'summary': 'summary',
 }
 
 
@@ -49,6 +50,10 @@ def report_filter(request):
                 month = int(request.GET.getlist(field)[0][4:6])
                 day = int(request.GET.getlist(field)[0][6:])
                 kwargs[f'create_date{filter_options[field]}'] = datetime.date(year, month, day)
+            elif filter_options[field] == 'summary':
+                # assumes summaries are edited so there is only one per report - that is current behavior
+                kwargs['internal_comments__note__search'] = request.GET.getlist(field)[0]
+                kwargs['internal_comments__is_summary'] = True
 
     # returns a filtered query, and a dictionary that we can use to keep track of the filters we apply
     return Report.objects.filter(**kwargs), filters

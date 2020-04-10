@@ -626,6 +626,23 @@ class CRT_FILTER_Tests(TestCase):
 
         self.assertEquals(report_len, 1)
 
+    def test_summary_filter(self):
+        """This is a many to may field so it works differently than the other searches. Also checking stemming"""
+        summary = CommentAndSummary.objects.create(
+            note="service animal",
+            is_summary=True,
+        )
+        test_report = Report.objects.all()[0]
+        test_report.internal_comments.add(summary)
+
+        summary_filter = 'summary=service animals'
+        response = self.client.get(f'{self.url_base}?{summary_filter}')
+        reports = response.context['data_dict']
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, 1)
+
 
 class Validation_Form_Tests(TestCase):
     """Confirming validation on the server level, required fields etc"""

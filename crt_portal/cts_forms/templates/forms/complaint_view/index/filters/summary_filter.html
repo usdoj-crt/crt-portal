@@ -1,0 +1,14 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block controls %}summary{% endblock %}
+{% block label %}Summary{% endblock %}
+{% block id %}summary{% endblock %}
+{% block content %}
+  <label for="id_summary">
+    <span class="usa-sr-only">summary</span>
+  </label>
+   {{ form.summary }}
+  <button class="usa-button margin-top-2" type="submit">
+    Filter results
+  </button>
+{% endblock %}
