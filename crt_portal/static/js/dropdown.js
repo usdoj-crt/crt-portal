@@ -8,7 +8,7 @@
     var control = el.querySelector('[data-crt-dropdown-control]');
     var content = el.querySelector('.content');
     var isVisible = true;
-    
+
     return {
       get el() {
         return el;
@@ -104,12 +104,12 @@
      * dropdowns
      **/
     var node = hasParentNode(event.target, function(n) {
-      for (i=0; i < n.classList.length; i++) {
-       if (n.classList[i].indexOf('crt-dropdown') === -1){
-         return false;
-       } else {
-         return true;
-       }
+      for (i = 0; i < n.classList.length; i++) {
+        if (n.classList[i].indexOf('crt-dropdown') === -1) {
+          return false;
+        } else {
+          return true;
+        }
       }
     });
 
