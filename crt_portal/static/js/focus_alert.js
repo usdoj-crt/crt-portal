@@ -4,18 +4,15 @@ function prepareErrors() {
   var errors = document.getElementsByClassName('usa-input--error');
   // add focus to first error
   if(errors.length > 0){
+    // add focus to the first error
     var first_error = errors[0]
     first_error.focus()
+    // read first error message
+    var error_message = document.getElementsByClassName('usa-alert__body')[0]
+    error_message.setAttribute("role", "alert");
+    error_message.setAttribute("aria-live", "assertive")
+    console.log(error_message)
   }
-
-  var pageErrors = document.getElementById('page-errors');
-  if (!pageErrors) {
-    return;
-  }
-
-  // Page level errors begin hidden, and are revealed once the DOM has loaded
-  // This makes screen readers think a new element has been inserted into the page.
-  pageErrors.classList.remove('display-none');
 }
 
 function triggerAlert() {
