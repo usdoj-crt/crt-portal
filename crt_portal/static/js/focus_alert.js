@@ -1,4 +1,13 @@
 function prepareErrors() {
+
+  // Find elements with class'usa-input--error'
+  var errors = document.getElementsByClassName('usa-input--error');
+  // add focus to first error
+  if(errors.length > 0){
+    var first_error = errors[0]
+    first_error.focus()
+  }
+
   var pageErrors = document.getElementById('page-errors');
   if (!pageErrors) {
     return;
