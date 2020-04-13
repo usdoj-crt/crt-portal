@@ -331,7 +331,10 @@
   // instantiate the controller that manages the UI components / views
   function init() {
     var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
-    filterDataModel = Object.assign({}, initialFilterState);
+    debugger;
+    Object.keys(initialFilterState).forEach(function(key) {
+      filterDataModel[key] = initialFilterState[key];
+    });
 
     mutateFilterDataWithUpdates(filterDataModel, filterUpdates);
 
