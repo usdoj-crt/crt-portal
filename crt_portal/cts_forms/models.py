@@ -4,6 +4,7 @@ from datetime import datetime
 from django.db import models
 from django.core.validators import RegexValidator, MaxValueValidator
 from django.utils.functional import cached_property
+from django.contrib.auth import get_user_model
 
 from .phone_regex import phone_validation_regex
 
@@ -26,12 +27,13 @@ from .model_variables import (
     DISTRICT_CHOICES,
     STATUTE_CHOICES,
     DATE_ERRORS,
+    PUBLIC_USER
 )
 
 import logging
 
 logger = logging.getLogger(__name__)
-
+User = get_user_model()
 
 class CommentAndSummary(models.Model):
     note = models.CharField(max_length=7000, null=False, blank=False,)
@@ -250,7 +252,14 @@ class Report(models.Model):
 
         return None
 
-    @property
+
     def get_summary(self):
         """Return most recent summary provided by an intake specialist"""
         return self.internal_comments.filter(is_summary=True).order_by('-modified_date').first()
+
+    @property
+    def author_user(self):
+        """Return User object for non-public users"""
+        if self.author == PUBLIC_USER:
+            return None
+        return User.objects.get(username=self.author)
