@@ -252,7 +252,7 @@ class Report(models.Model):
 
         return None
 
-
+    @property
     def get_summary(self):
         """Return most recent summary provided by an intake specialist"""
         return self.internal_comments.filter(is_summary=True).order_by('-modified_date').first()
