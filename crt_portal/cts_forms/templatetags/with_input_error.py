@@ -2,8 +2,7 @@ from django import template
 
 register = template.Library()
 
-
-input_types = ['text', 'number', 'select']
+input_types = ['text', 'number', 'select', 'radio']
 
 
 def is_textarea(widget):
