@@ -366,7 +366,6 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
             'field_errors': field_errors,
             'page_errors': page_errors,
             'num_page_errors': len(list(page_errors)),
-            'page_errors_desc': ','.join([f'"{error_desc}"' for error_desc in page_errors]),
             'word_count_text': {
                 'wordRemainingText': _('word remaining'),
                 'wordsRemainingText': _(' words remaining'),
