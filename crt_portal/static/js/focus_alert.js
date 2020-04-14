@@ -1,30 +1,29 @@
 // Overwrites native 'firstElementChild' prototype.
 // Adds Document & DocumentFragment support for IE9 & Safari.
-;(function(constructor) {
-    if (constructor &&
-        constructor.prototype &&
-        constructor.prototype.firstElementChild == null) {
-        Object.defineProperty(constructor.prototype, 'firstElementChild', {
-            get: function() {
-                var node, nodes = this.childNodes, i = 0;
-                while (node = nodes[i++]) {
-                    if (node.nodeType === 1) {
-                        return node;
-                    }
-                }
-                return null;
-            }
-        });
-    }
+(function(constructor) {
+  if (constructor && constructor.prototype && constructor.prototype.firstElementChild == null) {
+    Object.defineProperty(constructor.prototype, 'firstElementChild', {
+      get: function() {
+        var node,
+          nodes = this.childNodes,
+          i = 0;
+        while ((node = nodes[i++])) {
+          if (node.nodeType === 1) {
+            return node;
+          }
+        }
+        return null;
+      }
+    });
+  }
 })(window.Node || window.Element);
 
-
 function find_focusable(element) {
-  if (element.nodeName == "INPUT" || element.nodeName == "TEXTAREA") {
+  if (element.nodeName == 'INPUT' || element.nodeName == 'TEXTAREA') {
     return element;
   } else {
     var element = element.firstElementChild;
-    return find_focusable(element)
+    return find_focusable(element);
   }
 }
 
