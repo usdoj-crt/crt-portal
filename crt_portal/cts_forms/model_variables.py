@@ -306,7 +306,7 @@ DATE_ERRORS = {
     'year_required': _('Please enter a year.'),
     'no_future': _('Date can not be in the future.'),
     'no_past': _('Please enter a year after 1900.'),
-    'not_valid': _('Please enter a valid date format. Use format MM/DD/YYYY.'),
+    'not_valid': _('Please enter a valid date. Use format MM/DD/YYYY.'),
 }
 INCIDENT_DATE_HELPTEXT = _('You must enter a month and year. Please use the format MM/DD/YYYY.')
 
