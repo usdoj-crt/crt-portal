@@ -93,7 +93,10 @@ def salt():
 def add_author_forms(sender, instance, created, **kwargs):
     if created:
         current_request = CrequestMiddleware.get_request()
-        author = current_request.user.username if current_request else PUBLIC_USER
+        if current_request:
+            author = current_request.user.username or PUBLIC_USER
+        else:
+            author = PUBLIC_USER
         instance.author = author
         instance.public_id = f'{instance.pk}-' + salt()
 
