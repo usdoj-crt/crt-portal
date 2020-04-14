@@ -314,7 +314,7 @@ class SaveCommentView(LoginRequiredMixin, FormView):
         return render(request, 'forms/complaint_view/show/index.html', output)
 
 
-def save_form(form_data_dict):
+def save_form(form_data_dict, **kwargs):
     m2m_protected_class = form_data_dict.pop('protected_class')
     m2m_hatecrime = form_data_dict.pop('hatecrimes_trafficking')
     r = Report.objects.create(**form_data_dict)
@@ -331,7 +331,8 @@ def save_form(form_data_dict):
 
     r.assigned_section = r.assign_section()
     r.district = r.assign_district()
-    r.intake_format = 'web'
+    if kwargs.get('intake_format'):
+        r.intake_format = kwargs.get('intake_format')
     r.save()
     # adding this back for the save page results
     form_data_dict['protected_class'] = m2m_protected_class.values()
@@ -624,7 +625,7 @@ class CRTReportWizard(SessionWizardView):
 
     def done(self, form_list, form_dict, **kwargs):
         form_data_dict = self.get_all_cleaned_data()
-        _, report = save_form(form_data_dict)
+        _, report = save_form(form_data_dict, intake_format='web')
         return render(
             self.request, 'forms/confirmation.html',
             {
