@@ -10,7 +10,6 @@ function prepareErrors() {
     var error_message = document.getElementsByClassName('usa-alert__body')[0];
     error_message.setAttribute('role', 'alert');
     error_message.setAttribute('aria-live', 'assertive');
-    console.log(error_message);
   }
 }
 
