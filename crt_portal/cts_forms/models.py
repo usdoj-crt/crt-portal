@@ -35,6 +35,7 @@ import logging
 logger = logging.getLogger(__name__)
 User = get_user_model()
 
+
 class CommentAndSummary(models.Model):
     note = models.CharField(max_length=7000, null=False, blank=False,)
     author = models.CharField(max_length=1000, null=False, blank=False,)
