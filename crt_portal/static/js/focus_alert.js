@@ -1,17 +1,16 @@
 function prepareErrors() {
-
   // Find elements with class'usa-input--error'
   var errors = document.getElementsByClassName('usa-input--error');
   // add focus to first error
-  if(errors.length > 0){
+  if (errors.length > 0) {
     // add focus to the first error
-    var first_error = errors[0]
-    first_error.focus()
+    var first_error = errors[0];
+    first_error.focus();
     // read first error message
-    var error_message = document.getElementsByClassName('usa-alert__body')[0]
-    error_message.setAttribute("role", "alert");
-    error_message.setAttribute("aria-live", "assertive")
-    console.log(error_message)
+    var error_message = document.getElementsByClassName('usa-alert__body')[0];
+    error_message.setAttribute('role', 'alert');
+    error_message.setAttribute('aria-live', 'assertive');
+    console.log(error_message);
   }
 }
 
