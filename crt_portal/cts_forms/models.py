@@ -257,10 +257,3 @@ class Report(models.Model):
     def get_summary(self):
         """Return most recent summary provided by an intake specialist"""
         return self.internal_comments.filter(is_summary=True).order_by('-modified_date').first()
-
-    @property
-    def author_user(self):
-        """Return User object for non-public users"""
-        if self.author == PUBLIC_USER:
-            return None
-        return User.objects.get(username=self.author)

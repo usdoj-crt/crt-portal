@@ -9,7 +9,7 @@
     {% for activity in activity_stream %}
       <li class="activity-stream-item">
         <div class="display-flex flex-justify">
-          <b  >{{activity.actor.username}}</b>
+          <b>{{activity.actor.username}}</b>
           <span class="date font-sans-sm flex-align-end">
             {{ activity.timestamp|date:'n/d/y'}} {{ activity.timestamp|time}}
           </span>
@@ -21,7 +21,7 @@
     {% endfor %}
     <li class="activity-stream-item">
       <div class="display-flex flex-justify">
-        <b>{% firstof data.author_user.email data.author  %}</b>
+        <b>{{ data.author }}</b>
         <span class="date font-sans-sm flex-align-end">
          {{ data.create_date|date:'n/d/y'}} {{ data.create_date|time}}
         </span>
