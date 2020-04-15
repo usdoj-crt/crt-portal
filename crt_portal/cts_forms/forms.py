@@ -1034,6 +1034,7 @@ class CommentActions(ModelForm):
         self.fields['note'].widget = Textarea(
             attrs={
                 'class': 'usa-textarea',
+                'id': 'id_note-comment',
             },
         )
         self.fields['note'].label = 'New comment'
@@ -1047,4 +1048,16 @@ class CommentActions(ModelForm):
             verb=verb,
             description=comment,
             target=report
+        )
+
+
+class SummaryField(CommentActions):
+    """Need to override the html id since it is on the same page as the comment form"""
+    def __init__(self, *args, **kwargs):
+        CommentActions.__init__(self, *args, **kwargs)
+        self.fields['note'].widget = Textarea(
+            attrs={
+                'class': 'usa-textarea',
+                'id': 'id_note-summary',
+            },
         )

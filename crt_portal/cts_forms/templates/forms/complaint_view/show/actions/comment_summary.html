@@ -1,7 +1,8 @@
 <form id="comment-actions-{{ id_name }}" class="usa-form" method="post"
   action="{% url 'crt_forms:save-report-comment' report_id=data.pk %}" novalidate>
   {% csrf_token %}
-  <fieldset class="usa-fieldset usa-prose">
+  <fieldset name="fieldset-{{ id_name }}" class="usa-fieldset usa-prose">
+    <legend class="usa-sr-only">Submit a {{ id_name }}</legend>
     <input type="hidden" value="{{ return_url_args }}" name="next" id="next-{{ id_name }}" />
     <input type="hidden" value="{{ is_summary }}" name="is_summary" id="is_summary-{{ id_name }}" />
     <input type="hidden" value="{{ data.pk }}" name="report_id" id="report_id-{{ id_name }}" />
@@ -9,7 +10,7 @@
       <input type="hidden" value="{{ comment.pk }}" name="comment_id" id="comment_id-{{ comment.pk }}" />
     {% endif %}
     <div class="margin-bottom-2">
-      <label for="id_note" class="bold backend-blue">
+      <label for="id_note-{{ id_name }}" class="bold backend-blue">
         {{ label }}
       </label>
       {{ comment_box }}
