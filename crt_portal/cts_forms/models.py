@@ -4,6 +4,7 @@ from datetime import datetime
 from django.db import models
 from django.core.validators import RegexValidator, MaxValueValidator
 from django.utils.functional import cached_property
+from django.contrib.auth import get_user_model
 
 from .phone_regex import phone_validation_regex
 
@@ -25,12 +26,13 @@ from .model_variables import (
     INTAKE_FORMAT_CHOICES,
     DISTRICT_CHOICES,
     STATUTE_CHOICES,
-    DATE_ERRORS,
+    DATE_ERRORS
 )
 
 import logging
 
 logger = logging.getLogger(__name__)
+User = get_user_model()
 
 
 class CommentAndSummary(models.Model):
