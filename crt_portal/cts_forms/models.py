@@ -26,8 +26,7 @@ from .model_variables import (
     INTAKE_FORMAT_CHOICES,
     DISTRICT_CHOICES,
     STATUTE_CHOICES,
-    DATE_ERRORS,
-    PUBLIC_USER
+    DATE_ERRORS
 )
 
 import logging
