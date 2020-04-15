@@ -359,6 +359,8 @@ We are using the defaults, so you can press enter for all the set up options. Yo
     * Check out the develop branch and do a `git pull origin develop`
     * You can create a release with the command `git flow release start <date-of-planned-relase>`
     * Finally, push the release branch `git push origin release/<date-of-planned-relase>`
+    * Create a PR from github repository for the newly pushed branch
+    * Ensure base is master while creating the PR
 
 * The app will deploy to **prod** when the tests pass and a PR is merged into `master`. You can also do this in GitHub once you confirm approval with the product owner. If there are any merge conflicts, you will want to resolve them on the staging branch first.
     * If have not been any PRs directly to the release branch you can merge in GitHub
