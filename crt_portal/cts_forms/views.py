@@ -13,7 +13,7 @@ from django.views.generic import View, FormView
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
-from .forms import ComplaintActions, CommentActions, Filters, Review
+from .forms import ComplaintActions, CommentActions, SummaryField, Filters, Review
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -229,11 +229,11 @@ def serialize_data(report, request, report_id):
 
     summary = report.get_summary
     if summary:
-        summary_box = CommentActions(
-            initial={'note': summary.note}
+        summary_box = SummaryField(
+            initial={'note': summary.note},
         )
     else:
-        summary_box = CommentActions()
+        summary_box = SummaryField()
 
     output = {
         'actions': ComplaintActions(initial={

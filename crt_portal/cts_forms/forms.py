@@ -81,21 +81,8 @@ def _add_empty_choice(choices):
     return (EMPTY_CHOICE,) + choices
 
 
-class ContactA11y():
-    def __init__(self):
-        self.name_a11y_id = 'contact_name'
-        self.contact_a11y_id = 'contact_info'
-
-    def name_id(self):
-        return self.name_a11y_id
-
-    def contact_info_id(self):
-        return self.contact_a11y_id
-
-
 class Contact(ModelForm):
     class Meta:
-        a11y = ContactA11y()
         model = Report
         fields = [
             'contact_first_name', 'contact_last_name',
@@ -106,45 +93,34 @@ class Contact(ModelForm):
         widgets = {
             'contact_first_name': TextInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.name_id
             }),
             'contact_last_name': TextInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.name_id
             }),
             'contact_email': EmailInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.contact_info_id
             }),
             'contact_phone': TextInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.contact_info_id,
                 'pattern': phone_validation_regex,
                 'title': _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')
             }),
             'contact_address_line_1': TextInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.name_id
             }),
             'contact_address_line_2': TextInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.name_id
             }),
             'contact_city': TextInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.name_id
             }),
             'contact_zip': TextInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.name_id
             }),
         }
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
-
-        a11y = ContactA11y()
-
         self.label_suffix = ''
 
         self.fields['contact_first_name'].label = CONTACT_QUESTIONS['contact_first_name']
@@ -178,13 +154,11 @@ class Contact(ModelForm):
                 self,
                 ('contact_first_name', 'contact_last_name'),
                 group_name=CONTACT_QUESTIONS['contact_name_title'],
-                ally_id=a11y.name_id,
             ),
             QuestionGroup(
                 self,
                 ('contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2'),
                 group_name=CONTACT_QUESTIONS['contact_title'],
-                ally_id=a11y.contact_info_id,
             )
         ]
         self.help_text = CONTACT_QUESTIONS['contact_help_text'],
@@ -1060,6 +1034,7 @@ class CommentActions(ModelForm):
         self.fields['note'].widget = Textarea(
             attrs={
                 'class': 'usa-textarea',
+                'id': 'id_note-comment',
             },
         )
         self.fields['note'].label = 'New comment'
@@ -1073,4 +1048,16 @@ class CommentActions(ModelForm):
             verb=verb,
             description=comment,
             target=report
+        )
+
+
+class SummaryField(CommentActions):
+    """Need to override the html id since it is on the same page as the comment form"""
+    def __init__(self, *args, **kwargs):
+        CommentActions.__init__(self, *args, **kwargs)
+        self.fields['note'].widget = Textarea(
+            attrs={
+                'class': 'usa-textarea',
+                'id': 'id_note-summary',
+            },
         )
