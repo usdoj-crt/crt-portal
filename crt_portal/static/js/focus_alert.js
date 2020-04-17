@@ -29,7 +29,7 @@ function find_focusable(element) {
 
 function prepareErrors() {
   // Find elements with class'usa-input--error'
-  var errors = document.getElementsByClassName('usa-input--error');
+  var errors = document.getElementsByClassName('error-focus');
   // add focus to first error
   if (errors.length > 0) {
     // add focus to the first error

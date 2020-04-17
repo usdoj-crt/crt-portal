@@ -2,7 +2,7 @@ from django import template
 
 register = template.Library()
 
-input_types = ['text', 'number', 'select', 'radio']
+text_input_types = ['text', 'number', 'select']
 
 
 def is_textarea(widget):
@@ -10,11 +10,15 @@ def is_textarea(widget):
 
 
 @register.filter(name='withInputError')
-def with_input_error(field, arg='usa-input--error'):
+def with_input_error(field):
     widget = field.field.widget
 
-    if bool(field.errors) and (is_textarea(widget) or widget.input_type in input_types):
+    if bool(field.errors) and (is_textarea(widget) or widget.input_type in text_input_types):
         css_classes = widget.attrs.get('class', None)
-        return field.as_widget(attrs={'class': f"{arg} {css_classes}"})
+        return field.as_widget(attrs={'class': f"usa-input--error error-focus {css_classes}"})
+
+    if bool(field.errors) and widget.input_type in ['radio', 'checkbox']:
+        css_classes = widget.attrs.get('class', None)
+        return field.as_widget(attrs={'class': f"error-focus {css_classes}"})
 
     return field
