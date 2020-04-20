@@ -118,7 +118,6 @@
     create_date_end: '',
     summary: '',
     public_id: '',
-    public_id: '',
     sort: '',
     page: '',
     per_page: ''
