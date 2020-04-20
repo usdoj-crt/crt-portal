@@ -117,6 +117,8 @@
     create_date_start: '',
     create_date_end: '',
     summary: '',
+    public_id: '',
+    public_id: '',
     sort: '',
     page: '',
     per_page: ''
@@ -251,7 +253,7 @@
     var clearAllEl = dom.querySelector('[data-clear-filters]');
     var statusEl = formEl.querySelector('select[name="status"]');
     var summaryEl = formEl.querySelector('input[name="summary"]');
-
+    var complaintIDEl = formEl.querySelector('input[name="public_id"');
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
      * and perform a new search with the updated filters applied.
@@ -326,6 +328,10 @@
     textInputView({
       el: summaryEl,
       name: 'summary'
+    });
+    textInputView({
+      el: complaintIDEl,
+      name: 'public_id'
     });
     clearFiltersView({
       el: clearAllEl,
