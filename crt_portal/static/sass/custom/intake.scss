@@ -69,10 +69,7 @@
 }
 
 .usa-select {
-  @include u-radius('md');
-  @include u-border(2px, 'gray-cool-40');
-  background-image: url(../img/intake-icons/ic_chevron-down.svg);
-  background-size: 15px;
+  border-radius: 3px;
 }
 
 .crt-dropdown {
@@ -124,6 +121,10 @@
     * {
       pointer-events: none;
     }
+  }
+  select {
+    background-image: url(../img/intake-icons/ic_chevron-down.svg);
+    background-size: 15px;
   }
 
   .content {

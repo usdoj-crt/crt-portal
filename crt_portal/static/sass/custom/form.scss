@@ -4,6 +4,11 @@
 // that we'd prefer not to have bulleted, like
 // radio buttons; so remove list item bullets by default.
 form#report-form {
+  .question-header {
+    margin-top: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+
   .question_primary_complaint {
     ul {
       padding-left: 0;
@@ -13,7 +18,7 @@ form#report-form {
       margin-bottom: 1.5rem;
 
       &.primary-issue-example-li {
-        font-size: .875rem;
+        font-size: 0.875rem;
         line-height: 1.3125rem;
         list-style: disc !important;
         margin-bottom: 1rem;
@@ -41,9 +46,19 @@ form#report-form {
 
   .form-group {
     margin-bottom: 1.5rem;
+    > h3 {
+      margin-top: 0;
+    }
 
+    // removes margin on the last .form-group element and also from the last group of form elements
     &:last-child {
       margin-bottom: 0;
+    }
+    ul,
+    input {
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 
@@ -59,14 +74,10 @@ form#report-form {
   }
 
   .usa-fieldset {
-    margin-bottom: 1.5rem;
-
-    &:last-of-type:not(:only-of-type) {
-      margin-top: 2.5rem;
-    }
-
-    &:last-child, &:only-of-type {
-      margin-bottom: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    .usa-fieldset {
+      margin-top: 1.5rem;
     }
 
     ul {
@@ -118,10 +129,7 @@ form#report-form {
   }
 
   .usa-input {
-    @media screen and (min-width: $tablet) {
-      width: 320px;
-    }
-
+    border-radius: 3px;
     &:focus {
       outline-offset: 0;
       border: 1px solid $blue-vivid-40;
@@ -133,25 +141,26 @@ form#report-form {
     height: 15rem;
 
     &:focus {
-      outline: .125rem solid $blue-vivid-40;
+      outline: 0.125rem solid $blue-vivid-40;
       outline-offset: 0;
       border: 1px solid $blue-vivid-40;
     }
 
     &.bg-gold-outline {
-      outline: .125rem solid $gold;
+      outline: 0.125rem solid $gold;
       outline-offset: 0;
       border: 1px solid $gold;
     }
 
     &.bg-gold-outline:focus {
-      outline: .125rem solid $gold;
+      outline: 0.125rem solid $gold;
       outline-offset: 0;
-      border: .125rem solid $gold;
+      border: 0.125rem solid $gold;
     }
   }
 
-  .usa-checkbox__input, .usa-radio__input {
+  .usa-checkbox__input,
+  .usa-radio__input {
     // Display HTML5 error messages on hidden inputs:
     // https://stackoverflow.com/questions/49687229/display-html5-error-message-validation-on-hidden-radio-checkbox
     left: 45px;
@@ -159,7 +168,7 @@ form#report-form {
   }
 
   .crt-radio__label_helper {
-    line-height: .85rem;
+    line-height: 0.85rem;
     margin-bottom: 0;
 
     .label-text {
@@ -170,7 +179,7 @@ form#report-form {
 
     .radio-help-text {
       line-height: 1.25rem;
-      margin-top: .5rem;
+      margin-top: 0.5rem;
       margin-bottom: 0;
       text-indent: 0;
     }
@@ -208,7 +217,7 @@ form#report-form {
     }
   }
 
-  input[type="radio"]:checked + .crt-radio__label_area {
+  input[type='radio']:checked + .crt-radio__label_area {
     background-color: $blue-warm-5;
   }
 
@@ -227,10 +236,9 @@ form#report-form {
   }
 }
 
-input[type="radio"]:checked + .crt-radio__label_area {
+input[type='radio']:checked + .crt-radio__label_area {
   background-color: $blue-warm-5;
 }
-
 
 // Remove extra dropown error from datalist element
 [list]::-webkit-calendar-picker-indicator {
@@ -239,10 +247,10 @@ input[type="radio"]:checked + .crt-radio__label_area {
 
 .form-help-text {
   color: $gray-70;
-  font-size: .9rem;
+  font-size: 0.9rem;
 
   // Necessary because we want to override styles applied to the p tag
-  margin: .5rem 0 1rem 0 !important;
+  margin: 0.5rem 0 1rem 0 !important;
 }
 
 .group-help-text {
@@ -260,7 +268,7 @@ input[type="radio"]:checked + .crt-radio__label_area {
 
   img {
     margin-top: -2px;
-    padding-right: .5rem;
+    padding-right: 0.5rem;
     vertical-align: middle;
   }
 }
@@ -270,7 +278,7 @@ input[type="radio"]:checked + .crt-radio__label_area {
 }
 
 .usa-input--error {
-  border: .25rem solid #d63e04;
+  border: 0.25rem solid #d63e04;
 }
 
 .complaint-multi-select {
@@ -287,7 +295,8 @@ input[type="radio"]:checked + .crt-radio__label_area {
       background-color: $gray-cool-4;
       cursor: pointer;
     }
-    &.selected, &:hover.selected {
+    &.selected,
+    &:hover.selected {
       background-color: $blue-warm-5;
     }
 
@@ -307,4 +316,14 @@ input[type="radio"]:checked + .crt-radio__label_area {
 .inline-block {
   margin: 0;
   display: inline-block;
+}
+
+.grid-gap div:last-child {
+  margin-right: 0;
+}
+
+@media screen and (max-width: 480px) {
+  .usa-form .usa-input[id*='contact_phone'] {
+    max-width: 80%;
+  }
 }

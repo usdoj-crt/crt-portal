@@ -6,15 +6,16 @@
 
 {% include 'forms/grouped_questions.html' %}
 {% with city=form.contact_city state=form.contact_state zip=form.contact_zip %}
-  <div class="padding-top-2">
-    <div class="grid-row grid-gap margin-y-neg-3 margin-top-1 margin-bottom-4">
-      <div class="mobile-lg:grid-col-8">
+<div class="grid-row">
+  <div class="margin-top-3 mobile-lg:grid-col-9">
+    <div class="grid-row margin-top-1 margin-bottom-4">
+      <div class="mobile-lg:grid-col-6">
         <label for="{{city.id_for_label}}">
           {{ city.label }} <em>{% trans "(Optional)" %}</em>
         </label>
         {{ city }}
       </div>
-      <div class="mobile-lg:grid-col-4">
+      <div class="mobile-lg:grid-col-5 mobile-lg:grid-offset-1">
         <label for="{{state.id_for_label}}">
           {{state.label}} <em>{% trans "(Optional)" %}</em>
         </label>
@@ -22,10 +23,13 @@
       </div>
     </div>
   </div>
-  <div class="margin-bottom-5 margin-top-neg-1">
-    <label for="{{zip.id_for_label}}">
-      {{ zip.label }} <em>{% trans "(Optional)" %}</em>
-    </label>
-    {{ zip }}
+  <div class="grid-row margin-top-neg-1">
+    <div class="mobile-lg:grid-col-6">
+      <label for="{{zip.id_for_label}}">
+        {{ zip.label }} <em>{% trans "(Optional)" %}</em>
+      </label>
+      {{ zip }}
+    </div>
   </div>
+</div>
 {% endwith %}
