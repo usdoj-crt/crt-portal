@@ -1,6 +1,11 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% load static %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static "css/accessible-autocomplete.min.css" %}" />
+{% endblock head %}
+
+
 {% block content %}
 <div class="complaint-show-body">
   <div class="grid-container-widescreen">
@@ -63,4 +68,15 @@
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block page_js %}
+<script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
+<script>
+  accessibleAutocomplete.enhanceSelectElement({
+  defaultValue: '',
+  selectElement: document.querySelector('#id_assigned_to')
+});
+</script>de
+
 {% endblock %}
