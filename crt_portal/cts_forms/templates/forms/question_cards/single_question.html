@@ -1,4 +1,5 @@
-<div class="form-group">
+<div class="form-group"{% if hidden == True %} style="display:none" id="div-{{ field.id_for_label }}">
+{% else %}>{% endif %}
   {% if field.label %}
     <h3><label
       for="{{ field.id_for_label }}"
