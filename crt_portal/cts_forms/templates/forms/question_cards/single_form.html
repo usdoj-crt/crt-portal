@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <div class="crt-portal-card crt-portal-card">
     <div class="crt-portal-card__content crt-portal-card__content--lg">
         <div class="form-group">
@@ -12,9 +14,9 @@
               style="line-height:1.25"
             >
               {{ field.label }}
-              {% if field.field.required != True %}<em>(Optional)</em>{% endif %}
+              {% if field.field.required != True %}<em>{% trans "(Optional)" %}</em>{% endif %}
               <!-- only used on the back end for now -->
-              {% if required %} <span class="text-secondary">*required</span>{% endif %}
+              {% if required %} <span class="text-secondary">*{% trans "required" %}</span>{% endif %}
             </label></h3>
           {% endif %}
           {% if field.help_text %}

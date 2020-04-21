@@ -5,6 +5,12 @@ verify_ssl = true
 
 [dev-packages]
 awscli = "*"
+bandit = "*"
+flake8 = "*"
+testfixtures = "*"
+coverage = "*"
+locust = "*"
+faker = "*"
 
 [packages]
 django = "~=2.2"
@@ -16,15 +22,14 @@ django-storages = "*"
 psycopg2-binary = "*"
 rcssmin = "*"
 django-formtools = "*"
-bandit = "*"
-flake8 = "*"
 django-crequest = "*"
-testfixtures = "*"
 django-auth-adfs = "*"
 django-csp = "*"
 pip = "*"
 django-activity-stream = "*"
-coverage = "*"
 
 [requires]
 python_version = "3.8.1"
+
+[pipenv]
+allow_prereleases = true

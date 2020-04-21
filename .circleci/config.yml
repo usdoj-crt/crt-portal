@@ -24,19 +24,15 @@ jobs:
       - run:
           name: Node install, generate CSS
           command: |
-            npm install
+            npm ci
             node node_modules/gulp/bin/gulp build-sass
       - run:
           name: Python install with pipenv then migrate the database
           command: |
-            pip install -U pip && pip install pipenv && \
+            pip install -U pip
             pip install pipenv
-            pipenv install
+            pipenv install --dev
             pipenv run crt_portal/manage.py migrate
-          paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.8/site-packages"
       - run:
           name: run server for tests
           command: |
@@ -52,7 +48,7 @@ jobs:
       - run:
           name: Run unit tests & check coverage
           command: |
-            pipenv run coverage run --source='crt_portal' crt_portal/manage.py test cts_forms
+            pipenv run coverage run --source='crt_portal' crt_portal/manage.py test --settings=crt_portal.test_settings cts_forms
             pipenv run coverage report --fail-under=89 -m
       - run:
           name: Run bandit (Python security) tests
@@ -137,13 +133,13 @@ jobs:
             apt-get install -yqq nodejs yarn && \
             npm i -g npm@^6 && \
             rm -rf /var/lib/apt/lists/*
-            npm install
+            npm ci --production
             node node_modules/gulp/bin/gulp build-sass
       - run:
           # database will be migrated in cloud.gov
           name: Python install with pipenv
           command: |
-            pip install -U pip && pip install pipenv && \
+            pip install -U pip
             pip install pipenv
             pipenv install
       - run:
@@ -153,12 +149,12 @@ jobs:
             echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
             apt-get update
             apt-get install cf-cli
-      - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
-          key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
-          paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.8/site-packages"
+      # - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
+      #     key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+      #     paths:
+      #       - ".venv"
+      #       - "/usr/local/bin"
+      #       - "/usr/local/lib/python3.8/site-packages"
       - run:
           name: Deploy to dev
           command: |
@@ -192,13 +188,13 @@ jobs:
             apt-get install -yqq nodejs yarn && \
             npm i -g npm@^6 && \
             rm -rf /var/lib/apt/lists/*
-            npm install
+            npm ci --production
             node node_modules/gulp/bin/gulp build-sass
       - run:
           # database will be migrated in cloud.gov
           name: Python install with pipenv
           command: |
-            pip install -U pip && pip install pipenv && \
+            pip install -U pip
             pip install pipenv
             pipenv install
       - run:
@@ -248,13 +244,13 @@ jobs:
             apt-get install -yqq nodejs yarn && \
             npm i -g npm@^6 && \
             rm -rf /var/lib/apt/lists/*
-            npm install
+            npm ci --production
             node node_modules/gulp/bin/gulp build-sass
       - run:
           # database will be migrated in cloud.gov
           name: Python install with pipenv
           command: |
-            pip install -U pip && pip install pipenv && \
+            pip install -U pip
             pip install pipenv
             pipenv install
       - run:

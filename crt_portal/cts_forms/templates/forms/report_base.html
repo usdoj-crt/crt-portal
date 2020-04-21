@@ -1,6 +1,15 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load static %}
+
+{% block page_title %}
+  {% if wizard.steps.step1 and current_step_name %}
+    <title>Step {{ wizard.steps.step1 }}: {{ current_step_name }} - Contact the Civil Rights Division - Department of Justice</title>
+  {% else %}
+    <title>Contact the Civil Rights Division - Department of Justice</title>
+  {% endif %}
+{% endblock %}
+
 {% block head %}
   {{ wizard.form.media }}
 {% endblock %}
@@ -37,7 +46,7 @@
 
           {% block form_questions %}
             {% if page_errors %}
-              <section id="page-errors" class="display-none page-errors margin-bottom-2" role="alert" aria-live="assertive">
+              <section id="page-errors" class="page-errors margin-bottom-2" role="alert" aria-live="assertive">
                 {{ num_page_errors }} error{{ num_page_errors|pluralize }}: {{ page_errors_desc }}
               </section>
             {% endif %}
@@ -53,13 +62,17 @@
           <div class="margin-top-5">
             <input id="submit-next"
                   type="submit"
-                  value="{% trans 'Next' %}"
+                  value={% if submit_button %}
+                          "{% trans 'Submit' %}"
+                        {% else %}
+                          "{% trans 'Next' %}"
+                        {% endif %}
                   class="usa-button" />
 
             {% if wizard.steps.prev %}
               <button name="wizard_goto_step"
                       type="submit"
-                      label="previous step"
+                      label="{% trans "previous step" %}"
                       value="{{ wizard.steps.prev }}"
                       class="look-like-link margin-top-2 display-block">
                 {% trans "Back" %}

@@ -29,6 +29,101 @@ from .page_through import pagination
 SORT_DESC_CHAR = '-'
 
 
+def error_400(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 400,
+            'message': _("Bad request"),
+            'helptext': _("It seems your browser is not responding properly. Try refreshing this page.")
+        },
+        status=400
+    )
+
+
+def error_403(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 403,
+            'message': _("Unauthorized"),
+            'helptext': _("This page is off limits to unauthorized users.")
+        },
+        status=403
+    )
+
+
+def error_404(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 404,
+            'message': _("We can't find the page you are looking for"),
+            'helptext': _("Try returning to the previous page")
+        },
+        status=404
+    )
+
+
+def error_500(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 500,
+            'message': _("There's a problem loading this page"),
+            'helptext': _("There's a technical problem loading this page. Try refreshing this page or going to another page. If that doesn't work, try again later.")
+        },
+        status=500
+    )
+
+
+def error_501(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 501,
+            'message': _("Not implemented"),
+            'helptext': _("There seems to be a problem with this request. Try refreshing the page.")
+        },
+        status=501
+    )
+
+
+def error_502(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 502,
+            'message': _("Bad gateway"),
+            'helptext': _("This problem is due to poor IP communication between back-end computers, possibly including our web server. Try clearing your browser cache completely. You may have a problem with your internal internet connection or firewall.")
+        },
+        status=502
+    )
+
+
+def error_503(request, exception=None):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': 503,
+            'message': _("Service Unavailable"),
+            'helptext': _("Our web server is either closed for repair, upgrades or is rebooting. Please try again later.")
+        },
+        status=503
+    )
+
+
+def csrf_failure(request, reason=""):
+    return render(
+        request,
+        'forms/errors.html', {
+            'status': "Problem with security cookie",
+            'message': _("Your browser couldn't create a secure cookie"),
+            'helptext': _("We use security cookies to protect your information from attackers. Make sure you allow cookies for this site. Having the page open for long periods can also cause this problem. If you know cookies are allowed and you are having this issue, try going to this page in new browser tab or window. That will make you a new security cookie and should resolve the problem.")
+        }
+    )
+
+
 def format_protected_class(p_class_objects, other_class):
     p_class_list = []
     for p_class in p_class_objects:
@@ -99,6 +194,7 @@ def IndexView(request):
             "report": report,
             "report_protected_classes": p_class_list,
             "url": f'{report.id}?next={all_args_encoded}'
+
         })
 
     final_data = {
@@ -109,7 +205,6 @@ def IndexView(request):
         'sort_state': sort_state,
         'filter_state': filter_args,
         'filters': query_filters,
-        'auth': 'DJFKDSFJSD'
     }
 
     return render(request, 'forms/complaint_view/index/index.html', final_data)
@@ -132,6 +227,14 @@ def serialize_data(report, request, report_id):
         report.other_class,
     )
 
+    summary = report.get_summary
+    if summary:
+        summary_box = CommentActions(
+            initial={'note': summary.note}
+        )
+    else:
+        summary_box = CommentActions()
+
     output = {
         'actions': ComplaintActions(initial={
             'assigned_section': report.assigned_section,
@@ -140,12 +243,14 @@ def serialize_data(report, request, report_id):
             'district': report.district,
         }),
         'comments': CommentActions(),
+        'summary_box': summary_box,
         'activity_stream': report.target_actions.all(),
         'crimes': crimes,
         'data': report,
         'p_class_list': p_class_list,
         'primary_complaint': primary_complaint,
         'return_url_args': request.GET.get('next', ''),
+        'summary': summary,
     }
 
     return output
@@ -179,13 +284,29 @@ class SaveCommentView(LoginRequiredMixin, FormView):
 
     def post(self, request, report_id):
         report = get_object_or_404(Report, pk=report_id)
-        if request.POST.__getitem__('note'):
+        comment_id = request.POST.get('comment_id')
+        note = request.POST.__getitem__('note')
+        is_summary = request.POST.__getitem__('is_summary') == 'True'
+        if comment_id is not None:
+            comment = get_object_or_404(CommentAndSummary, pk=comment_id)
+            comment.note = note
+            comment.save()
+            if is_summary is True:
+                verb = 'Updated summary: '
+            else:
+                verb = 'Updated comment: '
+        else:
             comment = CommentAndSummary.objects.create(
-                note=request.POST.__getitem__('note'),
-                is_summary=request.POST.__getitem__('is_summary'),
+                note=note,
+                is_summary=is_summary,
             )
             report.internal_comments.add(comment)
-            CommentActions.update_activity_stream(request.user, report, comment.note)
+            if comment.is_summary is True:
+                verb = 'Added summary: '
+            else:
+                verb = ''
+        CommentActions.update_activity_stream(request.user, report, comment.note, verb)
+
         output = serialize_data(report, request, report_id)
         output.update({
             'return_url_args': request.POST.get('next', ''),
@@ -193,7 +314,7 @@ class SaveCommentView(LoginRequiredMixin, FormView):
         return render(request, 'forms/complaint_view/show/index.html', output)
 
 
-def save_form(form_data_dict):
+def save_form(form_data_dict, **kwargs):
     m2m_protected_class = form_data_dict.pop('protected_class')
     m2m_hatecrime = form_data_dict.pop('hatecrimes_trafficking')
     r = Report.objects.create(**form_data_dict)
@@ -210,6 +331,8 @@ def save_form(form_data_dict):
 
     r.assigned_section = r.assign_section()
     r.district = r.assign_district()
+    if kwargs.get('intake_format'):
+        r.intake_format = kwargs.get('intake_format')
     r.save()
     # adding this back for the save page results
     form_data_dict['protected_class'] = m2m_protected_class.values()
@@ -252,6 +375,7 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
             },
             'ordered_step_names': ordered_step_names,
             'stage_link': True,
+            'submit_button': True,
         })
 
         return context
@@ -501,6 +625,11 @@ class CRTReportWizard(SessionWizardView):
 
     def done(self, form_list, form_dict, **kwargs):
         form_data_dict = self.get_all_cleaned_data()
-        _, report = save_form(form_data_dict)
-        return render(self.request, 'forms/confirmation.html', {'report': report, 'questions': Review.question_text,
-                                                                'ordered_step_names': self.ORDERED_STEP_NAMES})
+        _, report = save_form(form_data_dict, intake_format='web')
+        return render(
+            self.request, 'forms/confirmation.html',
+            {
+                'report': report, 'questions': Review.question_text,
+                'ordered_step_names': self.ORDERED_STEP_NAMES
+            },
+        )

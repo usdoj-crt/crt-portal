@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 
-from ..models import ProtectedClass, Report, HateCrimesandTrafficking
+from ..models import ProtectedClass, Report, HateCrimesandTrafficking, CommentAndSummary
 from ..model_variables import (
     PROTECTED_CLASS_CHOICES,
     PROTECTED_CLASS_ERROR,
@@ -33,6 +33,7 @@ from ..forms import (
     When,
     ProForm,
 )
+from ..views import save_form
 from .test_data import SAMPLE_REPORT
 
 
@@ -147,9 +148,15 @@ class Valid_CRT_view_Tests(TestCase):
     def test_phone(self):
         self.assertTrue(self.test_report.contact_phone in self.content)
 
-    def test_violation_summary(self):
-        # formatting the summary is done in the template
-        self.assertTrue(self.test_report.violation_summary[:119] in self.content)
+    def test_summary(self):
+        """Report table renders internal summary"""
+        summary_text = "Internal summary test"
+        summary = CommentAndSummary(is_summary=True, note=summary_text)
+        summary.save()
+        self.test_report.internal_comments.add(summary)
+
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        self.assertContains(response, summary_text)
 
     def test_incident_location(self):
         self.assertTrue(self.test_report.location_city_town in self.content)
@@ -174,6 +181,8 @@ class Complaint_Show_View_404(TestCase):
     def test_404_on_non_existant_record(self):
         response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': '1'}))
         self.assertEqual(response.status_code, 404)
+        # test for custom message
+        self.assertTrue("We can&#39;t find the page you are looking for" in str(response.content))
 
 
 class Complaint_Show_View_Valid(TestCase):
@@ -618,6 +627,23 @@ class CRT_FILTER_Tests(TestCase):
 
         self.assertEquals(report_len, 1)
 
+    def test_summary_filter(self):
+        """This is a many to may field so it works differently than the other searches. Also checking stemming"""
+        summary = CommentAndSummary.objects.create(
+            note="service animal",
+            is_summary=True,
+        )
+        test_report = Report.objects.all()[0]
+        test_report.internal_comments.add(summary)
+
+        summary_filter = 'summary=service animals'
+        response = self.client.get(f'{self.url_base}?{summary_filter}')
+        reports = response.context['data_dict']
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, 1)
+
 
 class Validation_Form_Tests(TestCase):
     """Confirming validation on the server level, required fields etc"""
@@ -865,17 +891,9 @@ class Complaint_Update_Tests(TestCase):
 
 
 class ProFormTest(TestCase):
-    def test_required_fields(self):
-        form = ProForm(data={})
-        self.assertFalse(form.is_valid())
-        self.assertEquals(
-            form.errors,
-            {'primary_complaint': ['Please select a primary reason to continue.']}
-        )
-
-    def test_full_example(self):
-        data = copy.deepcopy(SAMPLE_REPORT)
-        data.update({
+    def setUp(self):
+        data_sample = copy.deepcopy(SAMPLE_REPORT)
+        data_sample.update({
             'contact_address_line_1': '123',
             'contact_address_line_2': 'Apt 234',
             'contact_city': 'test',
@@ -899,8 +917,36 @@ class ProFormTest(TestCase):
             'crt_reciept_month': 2,
             'intake_format': 'phone',
         })
-        form = ProForm(data=data)
+        self.data = data_sample
+
+    def test_required_fields(self):
+        form = ProForm(data={})
+        self.assertFalse(form.is_valid())
+        self.assertEquals(
+            form.errors,
+            {'primary_complaint': ['Please select a primary reason to continue.']}
+        )
+
+    def test_full_example(self):
+        form = ProForm(data=self.data)
         self.assertTrue(form.is_valid())
+
+
+class TestIntakeFormat(TestCase):
+    def setUp(self):
+        self.form_data_dict = copy.deepcopy(SAMPLE_REPORT)
+        self.form_data_dict['protected_class'] = ProtectedClass.objects.none()
+        self.form_data_dict['hatecrimes_trafficking'] = HateCrimesandTrafficking.objects.none()
+
+    def test_intake_save_web(self):
+        data, saved_object = save_form(self.form_data_dict, intake_format='web')
+        self.assertEquals(saved_object.intake_format, 'web')
+
+    def test_intake_save_ProForm(self):
+        form_data_dict = copy.deepcopy(self.form_data_dict)
+        form_data_dict['intake_format'] = 'phone'
+        data, saved_object = save_form(form_data_dict)
+        self.assertEquals(saved_object.intake_format, 'phone')
 
 
 class LoginRequiredTests(TestCase):

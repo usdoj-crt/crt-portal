@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <fieldset class="usa-fieldset">
   <legend class="em-text ">
     {{ question }}
@@ -20,7 +22,7 @@
       </div>
       <div class="mobile-lg:grid-col-3">
         <label class="usa-label" for="{{ day.id_for_label}}">
-          {{ day.label }} <span class="usa-sr-only">optional</span>
+          {{ day.label }} <span class="usa-sr-only">{% trans "(optional)" %}</span>
         </label>
         {{ day|withInputError }}
       </div>

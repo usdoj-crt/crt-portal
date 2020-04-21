@@ -1,6 +1,6 @@
 {% load sortable_table_heading %}
 {% load static %}
-
+<div class="crt-xscroll">
 <table class="usa-table crt-table sort-table">
   <thead>
     <tr>
@@ -55,8 +55,8 @@
         </td>
         <td>
           <a class="td-link display-block" href="{{datum.url}}">
-            {% with summary=datum.report.violation_summary|default:"—" %}
-              {{ summary|truncatechars:120 }}
+            {% with summary=datum.report.get_summary %}
+              {{ summary.note|default:"—"|truncatechars:60 }}
             {% endwith %}
           </a>
         </td>
@@ -71,7 +71,7 @@
     </tbody>
   {% endif %}
 </table>
-
+</div>
 
 {% if not data_dict %}
 <div class="crt-portal-card table-message">

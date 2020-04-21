@@ -14,3 +14,4 @@ crt_portal/static/css/*
 data/section_assignment.csv
 .vscode
 .coverage
+crt_portal/NO_ZIP.txt

@@ -72,3 +72,20 @@ class CommentActionTests(TestCase):
         )
         content = str(response.content)
         self.assertTrue(self.note in content)
+
+    def test_edit_summary(self):
+        comment_id = CommentAndSummary.objects.get(note=self.note).pk
+        update = 'updated note'
+        response = self.client.post(
+            reverse(
+                'crt_forms:save-report-comment',
+                kwargs={'report_id': self.pk}
+            ),
+            {
+                'is_summary': False,
+                'note': update,
+                'comment_id': comment_id,
+            },
+        )
+        content = str(response.content)
+        self.assertTrue('updated note' in content)
