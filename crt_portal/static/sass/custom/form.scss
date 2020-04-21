@@ -21,9 +21,13 @@ form#report-form {
         font-size: 0.875rem;
         line-height: 1.3125rem;
         list-style: disc !important;
-        margin-bottom: 1rem;
+        margin-bottom: 0;
         margin-left: 18px;
+        margin-top: 0.5rem;
 
+        &:first-child {
+          margin-top: 0;
+        }
         &:last-child {
           margin-bottom: 0;
         }
@@ -213,6 +217,7 @@ form#report-form {
         text-transform: uppercase;
         font-weight: bold;
         color: $gray-70;
+        @include u-font('body', 3);
       }
     }
   }
