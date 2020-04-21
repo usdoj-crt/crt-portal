@@ -15,26 +15,30 @@
       {% include 'forms/grouped_questions.html' %}
 
       {% with city=form.location_city_town state=form.location_state %}
-        <div class="grid-row grid-gap margin-top-3">
-          <div class="mobile-lg:grid-col-8">
-            <label for="{{city.id_for_label}}">
-              {{ city.label }}
-            </label>
-            {{city|withInputError}}
-          </div>
-          <div class="mobile-lg:grid-col-4">
-            <label for="{{state.id_for_label}}">
-              {{state.label}}
-            </label>
-            {{state|withInputError}}
+        <div class="grid-row">
+          <div class="margin-top-3 mobile-lg:grid-col-9">            
+            <div class="grid-row margin-top-1 margin-bottom-4">
+              <div class="mobile-lg:grid-col-6">
+                <label for="{{city.id_for_label}}">
+                  {{ city.label }}
+                </label>
+                {{city|withInputError}}
+              </div>
+              <div class="mobile-lg:grid-col-5 mobile-lg:grid-offset-1">
+                <label for="{{state.id_for_label}}">
+                  {{state.label}}
+                </label>
+                {{state|withInputError}}
+              </div>
+            </div>
+            {% if city.errors %}
+              {% include "forms/snippets/error_alert.html" with errors=city.errors %}
+            {% endif %}
+            {% if state.errors %}
+              {% include "forms/snippets/error_alert.html" with errors=state.errors %}
+            {% endif %}
           </div>
         </div>
-        {% if city.errors %}
-          {% include "forms/snippets/error_alert.html" with errors=city.errors %}
-        {% endif %}
-        {% if state.errors %}
-          {% include "forms/snippets/error_alert.html" with errors=state.errors %}
-        {% endif %}
       {% endwith %}
     </div>
   </div>
