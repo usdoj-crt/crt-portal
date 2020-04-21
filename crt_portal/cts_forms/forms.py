@@ -941,7 +941,7 @@ class Filters(ModelForm):
 
 class ComplaintActions(ModelForm):
     assigned_to = UserChoiceField(queryset=User.objects.filter(is_active=True),
-                                  label=_("Assigned to"))
+                                  label=_("Assigned to"), required=False)
     assigned_to.widget.attrs.update({'class': 'usa-select text-bold text-uppercase crt-dropdown__data'})
 
     class Meta:
