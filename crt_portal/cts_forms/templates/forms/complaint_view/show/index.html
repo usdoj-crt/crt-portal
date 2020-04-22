@@ -28,16 +28,20 @@
             <span class="usa-sr-only"> from {{ data.intake_format }}</span>
             {% endif %}
           </span>
-          {% if data.intake_format == 'web' %}
-            <img src="{% static "img/intake-icons/ic_web.svg" %}" class="icon margin-left-2" alt="from the public web form">
-          {% elif data.intake_format == 'email' %}
-            <img src="{% static "img/intake-icons/ic_email.svg" %}" class="icon margin-left-2" alt="from email">
-          {% elif data.intake_format == 'letter' %}
-            <img src="{% static "img/intake-icons/ic_letter.svg" %}" class="icon margin-left-2" alt="from a letter">
-          {% elif data.intake_format == 'phone' %}
-            <img src="{% static "img/intake-icons/ic_contact.svg" %}" class="icon margin-left-2" alt="from phone">
-          {% elif data.intake_format == 'fax' %}
-            <img src="{% static "img/intake-icons/ic_fax.svg" %}" class="icon margin-left-2" alt="from fax">
+          {% if data.intake_format %}
+            <div class="tooltip"><span class="tooltiptext">from {{ data.intake_format }}</div>
+            {% if data.intake_format == 'web' %}
+              <img src="{% static "img/intake-icons/ic_web.svg" %}" class="icon margin-left-2" alt="from web">
+            {% elif data.intake_format == 'email' %}
+              <img src="{% static "img/intake-icons/ic_email.svg" %}" class="icon margin-left-2" alt="from email">
+            {% elif data.intake_format == 'letter' %}
+              <img src="{% static "img/intake-icons/ic_letter.svg" %}" class="icon margin-left-2" alt="from a letter">
+            {% elif data.intake_format == 'phone' %}
+              <img src="{% static "img/intake-icons/ic_contact.svg" %}" class="icon margin-left-2" alt="from phone">
+            {% elif data.intake_format == 'fax' %}
+              <img src="{% static "img/intake-icons/ic_fax.svg" %}" class="icon margin-left-2" alt="from fax">
+            {% endif %}
+          </div>
           {% endif %}
         </p class="display-flex">
         <p>
@@ -67,3 +71,8 @@
   </div>
 </div>
 {% endblock %}
+
+{% block page_js %}
+{{ block.super }}
+<script src="{% static 'js/show_hide_narrative_summary.js' %}"></script>
+{%endblock%}
