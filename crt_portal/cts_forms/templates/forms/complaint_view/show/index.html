@@ -48,6 +48,15 @@
           <span class="backend-blue">{{ data.modified_date|date:'g:i a F j, Y' }}</span>
         </p>
       </div>
+      <div class="tablet:grid-col-6">
+        {% if messages %}
+          <ul class="messages">
+              {% for message in messages %}
+              <li role="alert" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+              {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
     </div>
     <div class="grid-row grid-gap-lg">
       <div class="tablet:grid-col-4 grid-offset-1">

@@ -2,6 +2,7 @@ import os
 import urllib.parse
 
 from django import forms
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
@@ -9,11 +10,12 @@ from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import View, FormView
+from django.views.generic import FormView, View
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
-from .forms import ComplaintActions, CommentActions, SummaryField, Filters, Review
+from .forms import (CommentActions, ComplaintActions, Filters, Review,
+                    SummaryField)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -23,7 +25,8 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PRIMARY_COMPLAINT_DICT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import HateCrimesandTrafficking, ProtectedClass, Report, CommentAndSummary
+from .models import (CommentAndSummary, HateCrimesandTrafficking,
+                     ProtectedClass, Report)
 from .page_through import pagination
 
 SORT_DESC_CHAR = '-'
@@ -269,6 +272,7 @@ class ShowView(LoginRequiredMixin, View):
         if action_form.is_valid() and action_form.has_changed():
             action_form.update_activity_stream(request.user)
             action_form.save()
+            messages.add_message(request, messages.SUCCESS, self.update_message(action_form))
 
         output = serialize_data(report, request, id)
         output.update({
@@ -276,6 +280,17 @@ class ShowView(LoginRequiredMixin, View):
         })
 
         return render(self.request, 'forms/complaint_view/show/index.html', output)
+
+    def update_message(self, form):
+        updated_fields = [form[field].label for field in form.changed_data]
+        if len(updated_fields) == 1:
+            message = f"Successfully updated {updated_fields[0]}"
+        else:
+            fields = ', '.join(updated_fields[:-1])
+            fields += f', and {updated_fields[-1]}'
+            message = f"Successfully updated {fields}"
+
+        return message
 
 
 class SaveCommentView(LoginRequiredMixin, FormView):
