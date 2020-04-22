@@ -268,7 +268,8 @@
       flex-basis: auto;
       min-width: 33%; // Don't get super shrinky; affects usability
     }
-    select {
+    select,
+    label[for='id_assigned_to'] + div {
       flex-basis: 60%; // label flex-basis is 40% for total of 100%
     }
   }
@@ -297,4 +298,8 @@
 .blue-background {
   @include u-bg($blue-warm-5-t);
   padding: 1rem;
+}
+
+.autocomplete__input {
+  border: 1px solid $blue-warm-vivid-80-t;
 }
