@@ -16,9 +16,7 @@
           <h2 class="margin-right-205 margin-top-0 margin-bottom-0 backend-blue">
             ID: {{ data.public_id }}
           </h2>
-          <span class="status-tag status-{{data.status}} margin-top-05">
-            {{ data.status }}
-          </span>
+          <span class="status-tag status-{{data.status}} margin-top-05">{{ data.status }}</span>
         </div>
         <p class="display-flex">
           <span>
@@ -29,7 +27,8 @@
             {% endif %}
           </span>
           {% if data.intake_format %}
-            <div class="tooltip"><span class="tooltiptext">from {{ data.intake_format }}</div>
+            <span class="tooltip">
+              <span class="tooltiptext backend-blue">from {{ data.intake_format }}</span>
             {% if data.intake_format == 'web' %}
               <img src="{% static "img/intake-icons/ic_web.svg" %}" class="icon margin-left-2" alt="from web">
             {% elif data.intake_format == 'email' %}
@@ -41,10 +40,10 @@
             {% elif data.intake_format == 'fax' %}
               <img src="{% static "img/intake-icons/ic_fax.svg" %}" class="icon margin-left-2" alt="from fax">
             {% endif %}
-          </div>
+            </span>
           {% endif %}
-        </p class="display-flex">
-        <p>
+        </p>
+        <p class="display-flex">
           <span class="details-date-label text-uppercase backend-blue">Last Updated: </span>
           <span class="backend-blue">{{ data.modified_date|date:'g:i a F j, Y' }}</span>
         </p>

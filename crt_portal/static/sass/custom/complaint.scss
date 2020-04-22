@@ -81,3 +81,28 @@ $complaint-header-min-height: 200px;
 .usa-prose #current-summary-text {
   line-height: 1.4; // USWDS override
 }
+
+/* Tooltip container */
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 8rem;
+  text-align: left;
+  padding: .3rem 0;
+  padding-left: 2.4rem;
+  border-radius: .3rem;
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  padding-top: 0rem;
+  color:$blue-warm-vivid-80-t;
+}
