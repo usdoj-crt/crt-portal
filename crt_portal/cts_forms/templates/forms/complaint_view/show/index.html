@@ -24,6 +24,9 @@
           <span>
             <span class="details-date-label text-uppercase backend-blue">Received: </span>
             <span class="backend-blue">{{ data.create_date|date:'g:i a F j, Y' }}</span>
+            {% if data.intake_format %}
+            <span class="usa-sr-only"> from {{ data.intake_format }}</span>
+            {% endif %}
           </span>
           {% if data.intake_format == 'web' %}
             <img src="{% static "img/intake-icons/ic_web.svg" %}" class="icon margin-left-2" alt="from the public web form">
