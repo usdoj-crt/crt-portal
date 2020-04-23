@@ -1,6 +1,8 @@
-<form id="contact-edit-form" class="usa-form display-none" method="post">
+<form id="contact-edit-form" class="usa-form {% if not contact_form.errors %}display-none{% endif %}" method="post" novalidate>
     {% csrf_token %}
-    {{contact_form}}
-    <button aria-label="update contact details" class="usa-button" disabled type="submit">Save</button>
+    {% for field in contact_form %}
+        {% include "forms/snippets/input.html" with field=field %}
+    {% endfor %}
+    <button aria-label="update contact details" class="usa-button" disabled type="submit" name="type" value="contact-info">Save</button>
     <button class="usa-button usa-button--unstyled button--cancel" type="button">Cancel</button>
 </form>

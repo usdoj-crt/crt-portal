@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block card_content %}
-  <div id="contact-info">
+  <div id="contact-info" {% if contact_form.errors %}class="display-none"{% endif %}>
     <table class="usa-table usa-table--borderless complaint-card-table">
       <tr>
         <th>Name</th>

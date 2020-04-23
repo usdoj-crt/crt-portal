@@ -239,12 +239,7 @@ def serialize_data(report, request, report_id):
         summary_box = SummaryField()
 
     output = {
-        'actions': ComplaintActions(initial={
-            'assigned_section': report.assigned_section,
-            'status': report.status,
-            'primary_statute': report.primary_statute,
-            'district': report.district,
-        }),
+        'actions': ComplaintActions(instance=report),
         'comments': CommentActions(),
         'summary_box': summary_box,
         'activity_stream': report.target_actions.all(),
@@ -268,19 +263,32 @@ class ShowView(LoginRequiredMixin, View):
         return render(request, 'forms/complaint_view/show/index.html', output)
 
     def post(self, request, id):
+        """Handle both action and contact edit forms"""
         report = get_object_or_404(Report, pk=id)
-        action_form = ComplaintActions(request.POST, instance=report)
-        if action_form.is_valid() and action_form.has_changed():
-            action_form.update_activity_stream(request.user)
-            action_form.save()
-            messages.add_message(request, messages.SUCCESS, self.update_success_message(action_form))
+        form_type = request.POST.get('type')
+        if form_type == 'contact-info':
+            form = ContactEditForm(request.POST, instance=report)
+        elif form_type == 'complaint-action':
+            form = ComplaintActions(request.POST, instance=report)
 
-        output = serialize_data(report, request, id)
-        output.update({
-            'return_url_args': request.POST.get('next', ''),
-        })
+        if form.is_valid() and form.has_changed():
+            form.save()
+            if form_type == 'contact-info':
+                messages.add_message(request, messages.SUCCESS, "Successfully updated contact information.")
+            else:
+                form.update_activity_stream(request.user)
+                messages.add_message(request, messages.SUCCESS, self.update_success_message(form))
+            return redirect(report.get_absolute_url())
+        else:
+            output = serialize_data(report, request, id)
+            # Add form with errors to context
+            if form_type == 'contact-info':
+                output.update({'contact_form': form})
+                messages.add_message(request, messages.ERROR, "Failed to update contact details")
+            else:
+                output.update['actions'] = form
 
-        return render(self.request, 'forms/complaint_view/show/index.html', output)
+            return render(request, 'forms/complaint_view/show/index.html', output)
 
     def update_success_message(self, form):
         """Prepare update success message for rendering in template"""
