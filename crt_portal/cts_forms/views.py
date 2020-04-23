@@ -272,7 +272,7 @@ class ShowView(LoginRequiredMixin, View):
         if action_form.is_valid() and action_form.has_changed():
             action_form.update_activity_stream(request.user)
             action_form.save()
-            messages.add_message(request, messages.SUCCESS, self.update_message(action_form))
+            messages.add_message(request, messages.SUCCESS, self.update_success_message(action_form))
 
         output = serialize_data(report, request, id)
         output.update({
@@ -281,8 +281,9 @@ class ShowView(LoginRequiredMixin, View):
 
         return render(self.request, 'forms/complaint_view/show/index.html', output)
 
-    def update_message(self, form):
-        updated_fields = [form[field].label for field in form.changed_data]
+    def update_success_message(self, form):
+        """Prepare update success message for rendering in template"""
+        updated_fields = [form[field].field.widget.label for field in form.changed_data]
         if len(updated_fields) == 1:
             message = f"Successfully updated {updated_fields[0]}"
         else:
@@ -307,9 +308,9 @@ class SaveCommentView(LoginRequiredMixin, FormView):
             comment.note = note
             comment.save()
             if is_summary is True:
-                verb = 'Updated summary: '
+                verb = 'Updated summary '
             else:
-                verb = 'Updated comment: '
+                verb = 'Updated comment '
         else:
             comment = CommentAndSummary.objects.create(
                 note=note,
@@ -317,10 +318,11 @@ class SaveCommentView(LoginRequiredMixin, FormView):
             )
             report.internal_comments.add(comment)
             if comment.is_summary is True:
-                verb = 'Added summary: '
+                verb = 'Added a summary '
             else:
-                verb = ''
+                verb = 'Added a comment '
         CommentActions.update_activity_stream(request.user, report, comment.note, verb)
+        messages.add_message(request, messages.SUCCESS, f'Successfully {verb.lower()}')
 
         output = serialize_data(report, request, report_id)
         output.update({
