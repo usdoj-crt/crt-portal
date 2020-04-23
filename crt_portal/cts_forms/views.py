@@ -15,7 +15,7 @@ from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
 from .forms import (CommentActions, ComplaintActions, Filters, Review,
-                    SummaryField)
+                    SummaryField, ContactEditForm)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -263,7 +263,8 @@ class ShowView(LoginRequiredMixin, View):
     def get(self, request, id):
         report = get_object_or_404(Report, pk=id)
         output = serialize_data(report, request, id)
-
+        contact_form = ContactEditForm(instance=report)
+        output.update({'contact_form': contact_form})
         return render(request, 'forms/complaint_view/show/index.html', output)
 
     def post(self, request, id):

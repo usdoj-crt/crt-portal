@@ -1067,3 +1067,52 @@ class SummaryField(CommentActions):
                 'id': 'id_note-summary',
             },
         )
+
+
+class ContactEditForm(ModelForm):
+    contact_state = ChoiceField(
+        choices=(("", _(' - Select - ')), ) + STATES_AND_TERRITORIES,
+        widget=Select(attrs={
+            'class': 'usa-select'
+        }),
+        label=CONTACT_QUESTIONS['contact_state'],
+        required=False,
+    )
+
+    class Meta:
+        model = Report
+        fields = [
+            'contact_first_name', 'contact_last_name',
+            'contact_email', 'contact_phone', 'contact_address_line_1',
+            'contact_address_line_2', 'contact_state',
+            'contact_city', 'contact_zip',
+        ]
+
+        widgets = {
+            'contact_first_name': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_last_name': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_email': EmailInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_phone': TextInput(attrs={
+                'class': 'usa-input',
+                'pattern': phone_validation_regex,
+                'title': _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')
+            }),
+            'contact_address_line_1': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_address_line_2': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_city': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_zip': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+        }
