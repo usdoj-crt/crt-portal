@@ -8,7 +8,7 @@
 {% with city=form.contact_city state=form.contact_state zip=form.contact_zip %}
 <div class="grid-row">
   <div class="margin-top-3 mobile-lg:grid-col-9">
-    <div class="grid-row margin-top-1 margin-bottom-4">
+    <div class="grid-row margin-bottom-4">
       <div class="mobile-lg:grid-col-6">
         <label for="{{city.id_for_label}}">
           {{ city.label }} <em>{% trans "(Optional)" %}</em>
