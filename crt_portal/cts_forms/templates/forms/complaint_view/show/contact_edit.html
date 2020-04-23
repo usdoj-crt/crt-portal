@@ -1,0 +1,6 @@
+<form id="contact-edit-form" class="usa-form display-none" method="post">
+    {% csrf_token %}
+    {{contact_form}}
+    <button aria-label="update contact details" class="usa-button" disabled type="submit">Save</button>
+    <button class="usa-button usa-button--unstyled button--cancel" type="button">Cancel</button>
+</form>

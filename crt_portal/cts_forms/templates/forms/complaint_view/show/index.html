@@ -67,7 +67,7 @@
       </div>
       <div class="tablet:grid-col-6">
         {% include 'forms/complaint_view/show/correspondent_info.html' with data=data %}
-        {% include 'forms/complaint_view/show/complaint_details.html' with data=data primaty_complaint=primary_complaint summary=summary comment_box=summary_box.note %}
+      {% include 'forms/complaint_view/show/complaint_details.html' with data=data primaty_complaint=primary_complaint summary=summary comment_box=summary_box.note %}
         {% include 'forms/complaint_view/show/description.html' with description=data.violation_summary %}
       </div>
     </div>
@@ -78,4 +78,5 @@
 {% block page_js %}
 {{ block.super }}
 <script src="{% static 'js/show_hide_narrative_summary.js' %}"></script>
+<script src="{% static 'js/edit_contact_info.js' %}"></script>
 {%endblock%}
