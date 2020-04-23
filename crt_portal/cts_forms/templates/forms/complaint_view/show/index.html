@@ -49,13 +49,8 @@
         </p>
       </div>
       <div class="tablet:grid-col-6">
-        {% if messages %}
-          <ul class="messages">
-              {% for message in messages %}
-              <li role="alert" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-              {% endfor %}
-          </ul>
-        {% endif %}
+        {% include 'partials/messages.html' %}
+
       </div>
     </div>
     <div class="grid-row grid-gap-lg">
