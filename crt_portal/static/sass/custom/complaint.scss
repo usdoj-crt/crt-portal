@@ -107,6 +107,7 @@ $complaint-header-min-height: 200px;
   color:$blue-warm-vivid-80-t;
 }
 
+// Messages rendering
 ul.messages {
   border-style: solid;
   border-radius: 5px;
@@ -116,4 +117,8 @@ ul.messages {
   list-style: none;
   margin-top: 0px;
   padding: 1rem;
+}
+
+h2.messages {
+  margin-top: 0px;
 }

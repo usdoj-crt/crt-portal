@@ -285,11 +285,11 @@ class ShowView(LoginRequiredMixin, View):
         """Prepare update success message for rendering in template"""
         updated_fields = [form[field].field.widget.label for field in form.changed_data]
         if len(updated_fields) == 1:
-            message = f"Successfully updated {updated_fields[0]}"
+            message = f"Successfully updated {updated_fields[0]}."
         else:
             fields = ', '.join(updated_fields[:-1])
             fields += f', and {updated_fields[-1]}'
-            message = f"Successfully updated {fields}"
+            message = f"Successfully updated {fields}."
 
         return message
 
