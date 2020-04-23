@@ -281,9 +281,9 @@ class ShowView(LoginRequiredMixin, View):
             # Add form with errors to context
             if form_type == 'contact-info':
                 output.update({'contact_form': form})
-                messages.add_message(request, messages.ERROR, "Failed to update contact details")
             else:
                 output['actions'] = form
+            messages.add_message(request, messages.ERROR, form.FAIL_MESSAGE)
 
             return render(request, 'forms/complaint_view/show/index.html', output)
 

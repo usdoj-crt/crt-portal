@@ -987,6 +987,8 @@ class Filters(ModelForm):
 
 
 class ComplaintActions(ModelForm, ActivityStreamUpdater):
+    FAIL_MESSAGE = "Failed to update complaint."
+
     class Meta:
         model = Report
         fields = ['assigned_section', 'status', 'primary_statute', 'district']
@@ -1086,6 +1088,8 @@ class SummaryField(CommentActions):
 
 class ContactEditForm(ModelForm, ActivityStreamUpdater):
     SUCCESS_MESSAGE = "Successfully updated contact information."
+    FAIL_MESSAGE = "Failed to update contact details."
+
     contact_state = ChoiceField(
         choices=(("", _(' - Select - ')), ) + STATES_AND_TERRITORIES,
         widget=Select(attrs={
