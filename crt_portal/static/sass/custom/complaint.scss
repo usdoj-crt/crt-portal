@@ -113,10 +113,11 @@ ul.messages {
   border-radius: 5px;
   border-width: 1px;
   font-size: 1.125rem;
-  border-color: #162e51;
+  border-color: $blue-warm-vivid-80;
   list-style: none;
   margin-top: 0px;
   padding: 1rem;
+  color: $blue-warm-vivid-80;
 }
 
 h2.messages {
