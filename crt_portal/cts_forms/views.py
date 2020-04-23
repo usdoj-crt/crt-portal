@@ -288,8 +288,6 @@ class ShowView(LoginRequiredMixin, View):
             return render(request, 'forms/complaint_view/show/index.html', output)
 
 
-
-
 class SaveCommentView(LoginRequiredMixin, FormView):
     """Can be used for saving comments or summaries for a report"""
     form_class = CommentActions
