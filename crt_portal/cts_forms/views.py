@@ -299,36 +299,36 @@ class SaveCommentView(LoginRequiredMixin, FormView):
     form_class = CommentActions
 
     def post(self, request, report_id):
+        """Update or create inbound comment"""
         report = get_object_or_404(Report, pk=report_id)
         comment_id = request.POST.get('comment_id')
-        note = request.POST.__getitem__('note')
-        is_summary = request.POST.__getitem__('is_summary') == 'True'
-        if comment_id is not None:
-            comment = get_object_or_404(CommentAndSummary, pk=comment_id)
-            comment.note = note
-            comment.save()
-            if is_summary is True:
-                verb = 'Updated summary '
-            else:
-                verb = 'Updated comment '
+        if comment_id:
+            instance = get_object_or_404(CommentAndSummary, id=comment_id)
         else:
-            comment = CommentAndSummary.objects.create(
-                note=note,
-                is_summary=is_summary,
-            )
-            report.internal_comments.add(comment)
-            if comment.is_summary is True:
-                verb = 'Added a summary '
-            else:
-                verb = 'Added a comment '
-        CommentActions.update_activity_stream(request.user, report, comment.note, verb)
-        messages.add_message(request, messages.SUCCESS, f'Successfully {verb.lower()}')
+            instance = None
 
-        output = serialize_data(report, request, report_id)
-        output.update({
-            'return_url_args': request.POST.get('next', ''),
-        })
-        return render(request, 'forms/complaint_view/show/index.html', output)
+        comment_form = CommentActions(request.POST, instance=instance)
+
+        if comment_form.is_valid() and comment_form.has_changed():
+            comment = comment_form.save()
+            report.internal_comments.add(comment)
+            if comment.is_summary:
+                verb = 'Updated summary: ' if instance else 'Added summary: '
+            else:
+                # If not a summary, this is a comment
+                verb = 'Updated comment: ' if instance else 'Added comment: '
+
+            messages.add_message(request, messages.SUCCESS, f'Successfully {verb[:-2].lower()}.')
+            comment_form.update_activity_stream(request.user, report, verb)
+
+            return redirect(report.get_absolute_url())
+        else:
+            # TODO handle form validation failures
+            output = serialize_data(report, request, report_id)
+            output.update({
+                'return_url_args': request.POST.get('next', ''),
+            })
+            return render(request, 'forms/complaint_view/show/index.html', output)
 
 
 def save_form(form_data_dict, **kwargs):
