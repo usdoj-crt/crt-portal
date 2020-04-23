@@ -304,7 +304,7 @@ DATE_ERRORS = {
     'month_invalid': _('Please enter a valid month. Month must be between 1 and 12.'),
     'day_invalid': _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.'),
     'year_required': _('Please enter a year.'),
-    'no_future': _('Date can not be in the future.'),
+    'no_future': _('Date cannot be in the future.'),
     'no_past': _('Please enter a year after 1900.'),
     'not_valid': _('Please enter a valid date. Use format MM/DD/YYYY.'),
 }
