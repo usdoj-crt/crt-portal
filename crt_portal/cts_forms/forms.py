@@ -81,6 +81,26 @@ def _add_empty_choice(choices):
     return (EMPTY_CHOICE,) + choices
 
 
+class ActivityStreamUpdater(object):
+    """Utility functions to update activity stream for all changed fields"""
+
+    def get_actions(self):
+        """Parse incoming changed data for activity stream entry"""
+        for field in self.changed_data:
+            yield f"updated {' '.join(field.split('_'))}", f" to {self.cleaned_data[field]}"
+
+    def update_activity_stream(self, user):
+        """Send all actions to activity stream"""
+        from actstream import action
+        for verb, description in self.get_actions():
+            action.send(
+                user,
+                verb=verb,
+                description=description,
+                target=self.instance
+            )
+
+
 class Contact(ModelForm):
     class Meta:
         model = Report
@@ -966,7 +986,7 @@ class Filters(ModelForm):
         }
 
 
-class ComplaintActions(ModelForm):
+class ComplaintActions(ModelForm, ActivityStreamUpdater):
     class Meta:
         model = Report
         fields = ['assigned_section', 'status', 'primary_statute', 'district']
@@ -1013,21 +1033,16 @@ class ComplaintActions(ModelForm):
             required=False
         )
 
-    def get_actions(self):
-        """Parse incoming changed data for activity stream entry"""
-        for field in self.changed_data:
-            yield f"updated {' '.join(field.split('_'))}", f" to {self.cleaned_data[field]}"
-
-    def update_activity_stream(self, user):
-        """Send all actions to activity stream"""
-        from actstream import action
-        for verb, description in self.get_actions():
-            action.send(
-                user,
-                verb=verb,
-                description=description,
-                target=self.instance
-            )
+    def success_message(self):
+        """Prepare update success message for rendering in template"""
+        updated_fields = [self.fields[field].widget.label for field in self.changed_data]
+        if len(updated_fields) == 1:
+            message = f"Successfully updated {updated_fields[0]}."
+        else:
+            fields = ', '.join(updated_fields[:-1])
+            fields += f', and {updated_fields[-1]}'
+            message = f"Successfully updated {fields}."
+        return message
 
 
 class CommentActions(ModelForm):
@@ -1069,7 +1084,8 @@ class SummaryField(CommentActions):
         )
 
 
-class ContactEditForm(ModelForm):
+class ContactEditForm(ModelForm, ActivityStreamUpdater):
+    SUCCESS_MESSAGE = "Successfully updated contact information."
     contact_state = ChoiceField(
         choices=(("", _(' - Select - ')), ) + STATES_AND_TERRITORIES,
         widget=Select(attrs={
@@ -1116,3 +1132,6 @@ class ContactEditForm(ModelForm):
                 'class': 'usa-input',
             }),
         }
+
+    def success_message(self):
+        return self.SUCCESS_MESSAGE

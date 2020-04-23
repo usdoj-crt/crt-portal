@@ -273,11 +273,8 @@ class ShowView(LoginRequiredMixin, View):
 
         if form.is_valid() and form.has_changed():
             form.save()
-            if form_type == 'contact-info':
-                messages.add_message(request, messages.SUCCESS, "Successfully updated contact information.")
-            else:
-                form.update_activity_stream(request.user)
-                messages.add_message(request, messages.SUCCESS, self.update_success_message(form))
+            form.update_activity_stream(request.user)
+            messages.add_message(request, messages.SUCCESS, form.success_message())
             return redirect(report.get_absolute_url())
         else:
             output = serialize_data(report, request, id)
@@ -286,21 +283,11 @@ class ShowView(LoginRequiredMixin, View):
                 output.update({'contact_form': form})
                 messages.add_message(request, messages.ERROR, "Failed to update contact details")
             else:
-                output.update['actions'] = form
+                output['actions'] = form
 
             return render(request, 'forms/complaint_view/show/index.html', output)
 
-    def update_success_message(self, form):
-        """Prepare update success message for rendering in template"""
-        updated_fields = [form[field].field.widget.label for field in form.changed_data]
-        if len(updated_fields) == 1:
-            message = f"Successfully updated {updated_fields[0]}."
-        else:
-            fields = ', '.join(updated_fields[:-1])
-            fields += f', and {updated_fields[-1]}'
-            message = f"Successfully updated {fields}."
 
-        return message
 
 
 class SaveCommentView(LoginRequiredMixin, FormView):
