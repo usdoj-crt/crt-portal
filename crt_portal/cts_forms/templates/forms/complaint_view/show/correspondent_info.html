@@ -1,40 +1,50 @@
 {% extends "forms/complaint_view/show/card.html" %}
 {% load static %}
-{% block title %}Correspondent information{% endblock %}
+{% block title %}
+  Correspondent information
+  <button aria-label="edit contact information" id="edit-contact-info-btn"
+          class="usa-button usa-button--unstyled button--edit margin-left-3" type="button">Edit</button>
+{% endblock %}
 {% block icon %}
   <img src="{% static "img/intake-icons/ic_contact.svg" %}" alt="" class="icon" />
 {% endblock %}
 
 {% block card_content %}
-  <table class="usa-table usa-table--borderless complaint-card-table">
-    <tr>
-      <th>Name</th>
-      <td>
-        <strong>
-          {% with l_name=data.contact_last_name|default:"—" f_name=data.contact_first_name|default:"—" %}
-          {{ l_name }}, {{ f_name }}
-          {% endwith %}
-        </strong>
-      </td>
+  <div id="contact-info" {% if contact_form.errors %}class="display-none"{% endif %}>
+    <table class="usa-table usa-table--borderless complaint-card-table">
+      <tr>
+        <th>Name</th>
+        <td>
+          <strong>
+            {% with l_name=data.contact_last_name|default:"—" f_name=data.contact_first_name|default:"—" %}
+            {{ l_name }}, {{ f_name }}
+            {% endwith %}
+          </strong>
+        </td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td>{{ data.contact_email|default:"—" }}</td>
+      </tr>
+      <tr>
+        <th>Phone</th>
+        <td>{{ data.contact_phone|default:"—" }}</td>
+      </tr>
+      <tr>
+        <th>Address</th>
+        <td>{{ data.contact_address_line_1|default:"—" }}
+          <br>
+            {{ data.contact_address_line_2|default:"—" }}
+          <br>
+            {{ data.contact_city|default:"—" }},
+            {{ data.contact_state|default:"—" }},
+            {{ data.contact_zip|default:"—" }}
+        </td>
     </tr>
-    <tr>
-      <th>Email</th>
-      <td>{{ data.contact_email|default:"—" }}</td>
-    </tr>
-    <tr>
-      <th>Phone</th>
-      <td>{{ data.contact_phone|default:"—" }}</td>
-    </tr>
-    <tr>
-      <th>Address</th>
-      <td>{{ data.contact_address_line_1|default:"—" }}
-        <br>
-          {{ data.contact_address_line_2|default:"—" }}
-        <br>
-          {{ data.contact_city|default:"—" }},
-          {{ data.contact_state|default:"—" }},
-          {{ data.contact_zip|default:"—" }}
-      </td>
-   </tr>
-  </table>
+    </table>
+  </div>
+
+  <div class="edit-contact">
+    {% include 'forms/complaint_view/show/contact_edit.html' %}
+  </div>
 {% endblock %}

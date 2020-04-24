@@ -859,6 +859,7 @@ class ContactValidationTests(TestCase):
 
 
 class Complaint_Update_Tests(TestCase):
+
     def setUp(self):
         test_report = Report.objects.create(**SAMPLE_REPORT)
         test_report.contact_first_name = 'Foobert'
@@ -875,17 +876,22 @@ class Complaint_Update_Tests(TestCase):
         self.test_pass = secrets.token_hex(32)
         self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
+        self.form_data = {'type': 'complaint-action'}
+
+        self.url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.test_report.id})
 
     def tearDown(self):
         self.user.delete()
 
     def test_update_status_property(self):
+        self.form_data.update({'status': 'open'})
         self.assertTrue(self.test_report.status == 'new')
-        response = self.client.post(reverse('crt_forms:crt-forms-show', kwargs={'id': self.test_report.id}), {'status': 'open'})
+        response = self.client.post(self.url, self.form_data, follow=True)
         self.assertTrue(response.context['data'].status == 'open')
 
     def test_update_assigned_section_property(self):
-        response = self.client.post(reverse('crt_forms:crt-forms-show', kwargs={'id': self.test_report.id}), {'assigned_section': 'VOT'})
+        self.form_data.update({'assigned_section': 'VOT'})
+        response = self.client.post(self.url, self.form_data, follow=True)
 
         self.assertTrue(response.context['data'].assigned_section == 'VOT')
 
