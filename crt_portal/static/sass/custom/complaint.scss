@@ -106,3 +106,20 @@ $complaint-header-min-height: 200px;
   padding-top: 0rem;
   color:$blue-warm-vivid-80-t;
 }
+
+// Messages rendering
+ul.messages {
+  border-style: solid;
+  border-radius: 5px;
+  border-width: 1px;
+  font-size: 1.125rem;
+  border-color: $blue-warm-vivid-80;
+  list-style: none;
+  margin-top: 0px;
+  padding: 1rem;
+  color: $blue-warm-vivid-80;
+}
+
+h2.messages {
+  margin-top: 0px;
+}
