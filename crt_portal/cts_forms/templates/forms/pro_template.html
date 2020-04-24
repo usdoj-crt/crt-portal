@@ -3,6 +3,10 @@
 
 {{ super }}
 
+{% block page_header %}
+  {% include 'forms/portal/header.html' with intro_text="Create a new report" %}
+{% endblock %}
+
 {% block form_questions %}
 <div class="crt-portal-card">
   <div class="crt-portal-card__content crt-portal-card__content--lg">
