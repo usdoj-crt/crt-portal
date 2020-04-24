@@ -1,7 +1,8 @@
 // Sticky Footer (IE 10/11)
 // Based on: https://codepen.io/dezertdezine/pen/zKjggy
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -18,7 +19,7 @@ header {
 
 main {
   flex: 1 0 auto;
-  margin-top: -4rem;
+  margin-top: -3.5rem;
   margin-bottom: 5rem;
 }
 
@@ -45,7 +46,8 @@ footer {
     }
 
     @media only screen and (max-width: 90em) {
-      .grid-col-3, .grid-col-9 {
+      .grid-col-3,
+      .grid-col-9 {
         width: 100%;
       }
     }
