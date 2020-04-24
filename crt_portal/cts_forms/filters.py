@@ -23,6 +23,7 @@ filter_options = {
     'create_date_start': '__gte',
     'create_date_end': '__lte',
     'public_id': '__contains',
+    'assigned_to': 'foreign_key',
     'summary': 'summary',
 }
 
@@ -54,6 +55,9 @@ def report_filter(request):
                 # assumes summaries are edited so there is only one per report - that is current behavior
                 kwargs['internal_comments__note__search'] = request.GET.getlist(field)[0]
                 kwargs['internal_comments__is_summary'] = True
+            elif filter_options[field] == 'foreign_key':
+                # assumes assigned_to but could add logic for other foreign keys in the future
+                kwargs['assigned_to__pk__in'] = request.GET.getlist(field)
 
     # returns a filtered query, and a dictionary that we can use to keep track of the filters we apply
     return Report.objects.filter(**kwargs), filters
