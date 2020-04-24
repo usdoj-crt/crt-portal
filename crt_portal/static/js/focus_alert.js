@@ -42,7 +42,7 @@ function prepareErrors() {
   }
 
   var alerts = document.getElementsByClassName('update-status');
-  for(let i = 0 ; i < alerts.length; i++) {
+  for (let i = 0; i < alerts.length; i++) {
     let alert = alerts[i];
     alert.setAttribute('role', 'alert');
     alert.setAttribute('aria-live', 'assertive');
