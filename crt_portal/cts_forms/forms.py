@@ -55,11 +55,6 @@ def _add_empty_choice(choices):
     return (EMPTY_CHOICE,) + choices
 
 
-class UserChoiceField(ModelChoiceField):
-    def label_from_instance(self, obj):
-        return f"{obj.last_name}, {obj.first_name}"
-
-
 class Contact(ModelForm):
     class Meta:
         model = Report
@@ -940,8 +935,8 @@ class Filters(ModelForm):
 
 
 class ComplaintActions(ModelForm):
-    assigned_to = UserChoiceField(queryset=User.objects.filter(is_active=True),
-                                  label=_("Assigned to"), required=False)
+    assigned_to = ModelChoiceField(queryset=User.objects.filter(is_active=True),
+                                   label=_("Assigned to"), required=False)
     assigned_to.widget.attrs.update({'class': 'usa-select text-bold text-uppercase crt-dropdown__data'})
 
     class Meta:
