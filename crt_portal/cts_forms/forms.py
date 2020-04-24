@@ -963,7 +963,6 @@ class Filters(ModelForm):
 class ComplaintActions(ModelForm, ActivityStreamUpdater):
     assigned_to = ModelChoiceField(queryset=User.objects.filter(is_active=True),
                                    label=_("Assigned to"), required=False)
-    assigned_to.widget.attrs.update({'class': 'usa-select text-bold text-uppercase crt-dropdown__data'})
 
     class Meta:
         model = Report
@@ -973,9 +972,10 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['assigned_section'] = ChoiceField(
-            widget=ComplaintSelect(label='Section', attrs={
-                'classes': 'text-uppercase crt-dropdown__data'
-            }),
+            widget=ComplaintSelect(
+                label='Section',
+                attrs={'class': 'usa-select text-bold text-uppercase crt-dropdown__data'},
+            ),
             choices=SECTION_CHOICES,
             required=False
         )
@@ -1010,6 +1010,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             choices=_add_empty_choice(DISTRICT_CHOICES),
             required=False
         )
+        self.fields['assigned_to'].widget.label = 'Assigned to'
 
     def success_message(self):
         """Prepare update success message for rendering in template"""
@@ -1021,6 +1022,22 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             fields += f', and {updated_fields[-1]}'
             message = f"Successfully updated {fields}."
         return message
+
+    def get_actions(self):
+        """Parse incoming changed data for activity stream entry"""
+        for field in self.changed_data:
+            yield f"updated {' '.join(field.split('_'))}", f" to {self.cleaned_data[field]}"
+
+    def update_activity_stream(self, user):
+        """Send all actions to activity stream"""
+        from actstream import action
+        for verb, description in self.get_actions():
+            action.send(
+                user,
+                verb=verb,
+                description=description,
+                target=self.instance
+            )
 
 
 class CommentActions(ModelForm):
