@@ -21,6 +21,8 @@
           City
         {% elif key == 'location_state' %}
           State
+        {% elif key == 'public_id' %}
+          Complaint ID
         {% else %}
           {{key|capfirst}}
         {% endif %}: {{item}}
