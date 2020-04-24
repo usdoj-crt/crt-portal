@@ -2,7 +2,7 @@
 <h2 class="messages">
     <ul class="messages blue-background usa-prose" >
         {% for message in messages %}
-            <li role="alert" {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            <li class="update-status{% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</li>
         {% endfor %}
     </ul>
 </h2>

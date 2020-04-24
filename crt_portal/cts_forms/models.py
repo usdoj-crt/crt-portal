@@ -153,6 +153,7 @@ class Report(models.Model):
     crt_reciept_month = models.PositiveIntegerField(MaxValueValidator(12), null=True, blank=True)
     intake_format = models.CharField(max_length=100, null=True, default=None, choices=INTAKE_FORMAT_CHOICES)
     author = models.CharField(max_length=1000, null=True, blank=True)
+    assigned_to = models.ForeignKey(User, blank=True, null=True, related_name="assigned_complaints", on_delete=models.CASCADE)
 
     @cached_property
     def last_incident_date(self):

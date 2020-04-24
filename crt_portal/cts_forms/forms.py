@@ -1,79 +1,53 @@
+import logging
 from datetime import datetime
 
+from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
-from django.forms import (
-    ModelForm,
-    ChoiceField,
-    TypedChoiceField,
-    TextInput,
-    EmailInput,
-    Textarea,
-    ModelMultipleChoiceField,
-    Select,
-    CharField,
-)
+from django.forms import (CharField, ChoiceField, EmailInput, ModelChoiceField,
+                          ModelForm, ModelMultipleChoiceField, Select,
+                          Textarea, TextInput, TypedChoiceField)
 from django.utils.translation import gettext_lazy as _
 
-from .question_group import QuestionGroup
-from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtPrimaryIssueRadioGroup, CrtMultiSelect, ComplaintSelect
-from .models import Report, ProtectedClass, HateCrimesandTrafficking, CommentAndSummary
-from .model_variables import (
-    ELECTION_CHOICES,
-    PROTECTED_CLASS_CHOICES,
-    PROTECTED_CLASS_ERROR,
-    PRIMARY_COMPLAINT_CHOICES,
-    PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
-    PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
-    PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
-    EMPLOYER_SIZE_CHOICES,
-    SECTION_CHOICES,
-    STATES_AND_TERRITORIES,
-    VIOLATION_SUMMARY_ERROR,
-    WHERE_ERRORS,
-    PRIMARY_COMPLAINT_ERROR,
-    SERVICEMEMBER_CHOICES,
-    SERVICEMEMBER_ERROR,
-    CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
-    CORRECTIONAL_FACILITY_LOCATION_CHOICES,
-    POLICE_LOCATION_ERRORS,
-    COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
-    COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
-    PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
-    STATUS_CHOICES,
-    EMPTY_CHOICE,
-    INCIDENT_DATE_HELPTEXT,
-    DATE_ERRORS,
-    VOTING_ERROR,
-    EMPLOYER_SIZE_ERROR,
-    PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
-    COMMERCIAL_OR_PUBLIC_ERROR,
-    DISTRICT_CHOICES,
-    STATUTE_CHOICES,
-)
-
-from .question_text import (
-    CONTACT_QUESTIONS,
-    SERVICEMEMBER_QUESTION,
-    PRIMARY_REASON_QUESTION,
-    HATECRIME_TITLE,
-    HATECRIME_QUESTION,
-    LOCATION_QUESTIONS,
-    ELECTION_QUESTION,
-    WORKPLACE_QUESTIONS,
-    PUBLIC_QUESTION,
-    POLICE_QUESTIONS,
-    EDUCATION_QUESTION,
-    PROTECTED_CLASS_QUESTION,
-    DATE_QUESTIONS,
-    SUMMARY_QUESTION,
-    SUMMARY_HELPTEXT,
-)
-
+from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
+                              COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
+                              COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
+                              CORRECTIONAL_FACILITY_LOCATION_CHOICES,
+                              CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+                              DATE_ERRORS, DISTRICT_CHOICES, ELECTION_CHOICES,
+                              EMPLOYER_SIZE_CHOICES, EMPLOYER_SIZE_ERROR,
+                              EMPTY_CHOICE, INCIDENT_DATE_HELPTEXT,
+                              POLICE_LOCATION_ERRORS,
+                              PRIMARY_COMPLAINT_CHOICES,
+                              PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
+                              PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+                              PRIMARY_COMPLAINT_ERROR, PROTECTED_CLASS_CHOICES,
+                              PROTECTED_CLASS_ERROR,
+                              PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
+                              PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
+                              PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
+                              SECTION_CHOICES, SERVICEMEMBER_CHOICES,
+                              SERVICEMEMBER_ERROR, STATES_AND_TERRITORIES,
+                              STATUS_CHOICES, STATUTE_CHOICES,
+                              VIOLATION_SUMMARY_ERROR, VOTING_ERROR,
+                              WHERE_ERRORS)
+from .models import (CommentAndSummary, HateCrimesandTrafficking,
+                     ProtectedClass, Report)
 from .phone_regex import phone_validation_regex
-
-import logging
+from .question_group import QuestionGroup
+from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
+                            EDUCATION_QUESTION, ELECTION_QUESTION,
+                            HATECRIME_QUESTION, HATECRIME_TITLE,
+                            LOCATION_QUESTIONS, POLICE_QUESTIONS,
+                            PRIMARY_REASON_QUESTION, PROTECTED_CLASS_QUESTION,
+                            PUBLIC_QUESTION, SERVICEMEMBER_QUESTION,
+                            SUMMARY_HELPTEXT, SUMMARY_QUESTION,
+                            WORKPLACE_QUESTIONS)
+from .widgets import (ComplaintSelect, CrtMultiSelect,
+                      CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
+                      UsaRadioSelect)
 
 logger = logging.getLogger(__name__)
+User = get_user_model()
 
 
 def _add_empty_choice(choices):
@@ -987,11 +961,13 @@ class Filters(ModelForm):
 
 
 class ComplaintActions(ModelForm, ActivityStreamUpdater):
-    FAIL_MESSAGE = "Failed to update complaint."
+    assigned_to = ModelChoiceField(queryset=User.objects.filter(is_active=True),
+                                   label=_("Assigned to"), required=False)
+    assigned_to.widget.attrs.update({'class': 'usa-select text-bold text-uppercase crt-dropdown__data'})
 
     class Meta:
         model = Report
-        fields = ['assigned_section', 'status', 'primary_statute', 'district']
+        fields = ['assigned_section', 'status', 'primary_statute', 'district', 'assigned_to']
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
