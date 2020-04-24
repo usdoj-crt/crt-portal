@@ -15,7 +15,7 @@ class ContactInfoUpdateTests(TestCase):
         self.test_report = Report.objects.create(**SAMPLE_REPORT)
         self.client = Client()
         self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', '')
-        self.client.login(username='DELETE_USER', password='')
+        self.client.login(username='DELETE_USER', password='')  # nosec
         self.form_data = {'type': 'contact-info'}
 
         self.url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.test_report.id})
