@@ -1093,7 +1093,7 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
     contact_state = ChoiceField(
         choices=(("", _(' - Select - ')), ) + STATES_AND_TERRITORIES,
         widget=Select(attrs={
-            'class': 'usa-select'
+            'class': 'usa-input usa-select'
         }),
         label=CONTACT_QUESTIONS['contact_state'],
         required=False,
