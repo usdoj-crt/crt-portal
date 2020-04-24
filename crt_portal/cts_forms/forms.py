@@ -943,7 +943,6 @@ class Filters(ModelForm):
 class ComplaintActions(ModelForm):
     assigned_to = ModelChoiceField(queryset=User.objects.filter(is_active=True),
                                    label=_("Assigned to"), required=False)
-    assigned_to.widget.attrs.update({'class': 'usa-select text-bold text-uppercase crt-dropdown__data'})
 
     class Meta:
         model = Report
@@ -953,9 +952,10 @@ class ComplaintActions(ModelForm):
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['assigned_section'] = ChoiceField(
-            widget=ComplaintSelect(label='Section', attrs={
-                'classes': 'text-uppercase crt-dropdown__data'
-            }),
+            widget=ComplaintSelect(
+                label='Section',
+                attrs={'class': 'usa-select text-bold text-uppercase crt-dropdown__data'},
+            ),
             choices=SECTION_CHOICES,
             required=False
         )
@@ -990,6 +990,8 @@ class ComplaintActions(ModelForm):
             choices=_add_empty_choice(DISTRICT_CHOICES),
             required=False
         )
+
+        self.fields['assigned_to'].widget.label = 'Assigned to'
 
     def get_actions(self):
         """Parse incoming changed data for activity stream entry"""
