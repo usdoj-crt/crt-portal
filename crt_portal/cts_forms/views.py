@@ -239,12 +239,7 @@ def serialize_data(report, request, report_id):
         summary_box = SummaryField()
 
     output = {
-        'actions': ComplaintActions(initial={
-            'assigned_section': report.assigned_section,
-            'status': report.status,
-            'primary_statute': report.primary_statute,
-            'district': report.district,
-        }),
+        'actions': ComplaintActions(instance=report),
         'comments': CommentActions(),
         'summary_box': summary_box,
         'activity_stream': report.target_actions.all(),

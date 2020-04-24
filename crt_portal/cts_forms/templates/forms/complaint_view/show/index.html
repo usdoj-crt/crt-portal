@@ -1,6 +1,11 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% load static %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static "css/accessible-autocomplete.min.css" %}" />
+{% endblock head %}
+
+
 {% block content %}
 <div class="complaint-show-body">
   <div class="grid-container-widescreen">
@@ -67,7 +72,7 @@
       </div>
       <div class="tablet:grid-col-6">
         {% include 'forms/complaint_view/show/correspondent_info.html' with data=data %}
-        {% include 'forms/complaint_view/show/complaint_details.html' with data=data primaty_complaint=primary_complaint summary=summary comment_box=summary_box.note %}
+        {% include 'forms/complaint_view/show/complaint_details.html' with data=data primary_complaint=primary_complaint summary=summary comment_box=summary_box.note %}
         {% include 'forms/complaint_view/show/description.html' with description=data.violation_summary %}
       </div>
     </div>
@@ -78,4 +83,12 @@
 {% block page_js %}
 {{ block.super }}
 <script src="{% static 'js/show_hide_narrative_summary.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
+
+<script>
+  accessibleAutocomplete.enhanceSelectElement({
+  defaultValue: '',
+  selectElement: document.querySelector('#id_assigned_to')
+});
+</script>
 {%endblock%}
