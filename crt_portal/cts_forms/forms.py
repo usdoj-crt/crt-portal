@@ -908,6 +908,7 @@ class Filters(ModelForm):
             'location_city_town',
             'location_state',
             'status',
+            'public_id',
         ]
 
         labels = {
@@ -916,7 +917,8 @@ class Filters(ModelForm):
             'contact_first_name': _('Contact first name'),
             'contact_last_name': _('Contact last name'),
             'location_city_town': _('Incident location city'),
-            'location_state': _('Incident location state')
+            'location_state': _('Incident location state'),
+            'public_id': _('Complaint ID')
         }
 
         widgets = {
@@ -935,6 +937,10 @@ class Filters(ModelForm):
             'location_city_town': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'location_city_town'
+            }),
+            'public_id': TextInput(attrs={
+                'class': 'usa-input',
+                'name': 'public_id'
             })
         }
 
