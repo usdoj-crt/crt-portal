@@ -32,8 +32,6 @@
   var initialState = Array.from(new FormData(contactForm), e => e[1]).join(',');
 
   contactForm.addEventListener('input', setButtonDisabled);
-
-  saveButton.addEventListener('click', hideContactForm);
   cancelButton.addEventListener('click', hideContactForm);
 
   addShowFormHandler();
