@@ -6,6 +6,7 @@
 <header class="crt-form-header">
   <div class="grid-container">
     <div class="grid-row grid-gap flex-child">
+      
       <div class="tablet:grid-col-10 tablet:grid-offset-1">
         <div class="doj-brand display-flex flex-align-center font-serif-lg">
           <img
@@ -20,6 +21,7 @@
         </h1>
       </div>
     </div>
+    {% if total_stages > 0 %}
     {# Progress text for screen reader. #}
     <div class="grid-row grid-gap margin-top-5 progress-bar">
       <div class="tablet:grid-col-10 tablet:grid-offset-1">
@@ -32,7 +34,6 @@
           <ol class="steps">
             {% for step in ordered_step_names %}
               <li class="step {% if step == current_step_name %}current{%else%}{%endif%}" {% if step == current_step_name %}aria-current="true"{%else%}aria-current="false"{% endif %}>
-
                 {% if stage_link %}
                   <a href="#{{ step }}" class="text-base-lightest" style='text-decoration: none;'>{{ step }}</a>
                 {% else%}
@@ -56,5 +57,6 @@
         </div>
       </div>
     </div>
+    {% endif %}
   </div>
 </header>

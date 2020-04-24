@@ -3,7 +3,7 @@
 .crt-form-header {
   background-color: $blue-warm-vivid-80;
   color: white;
-  min-height: 464px;
+  padding-bottom: 6rem;
 
   header {
     @include u-margin-top(8);
