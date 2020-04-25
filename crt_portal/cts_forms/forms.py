@@ -905,18 +905,23 @@ class Filters(ModelForm):
         })
     )
     summary = CharField(
+        required=False,
         widget=TextInput(
             attrs={
                 'class': 'usa-input',
                 'name': 'summary',
             },
         ),
-        required=False,
     )
     assigned_to = ModelChoiceField(
+        required=False,
         queryset=User.objects.filter(is_active=True),
         label=_("Assigned to"),
-        required=False
+        # switch with type ahead
+        widget=Select(attrs={
+            'name': 'assigned_to',
+            'class': 'usa-select'
+        })
     )
 
     class Meta:
@@ -928,6 +933,7 @@ class Filters(ModelForm):
             'location_city_town',
             'location_state',
             'status',
+            'assigned_to',
             'public_id',
         ]
 
