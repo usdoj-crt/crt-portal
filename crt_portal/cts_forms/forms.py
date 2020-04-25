@@ -913,6 +913,11 @@ class Filters(ModelForm):
         ),
         required=False,
     )
+    assigned_to = ModelChoiceField(
+        queryset=User.objects.filter(is_active=True),
+        label=_("Assigned to"),
+        required=False
+    )
 
     class Meta:
         model = Report
@@ -933,7 +938,8 @@ class Filters(ModelForm):
             'contact_last_name': _('Contact last name'),
             'location_city_town': _('Incident location city'),
             'location_state': _('Incident location state'),
-            'public_id': _('Complaint ID')
+            'assigned_to': _('Assignee'),
+            'public_id': _('Complaint ID'),
         }
 
         widgets = {
@@ -961,8 +967,11 @@ class Filters(ModelForm):
 
 
 class ComplaintActions(ModelForm, ActivityStreamUpdater):
-    assigned_to = ModelChoiceField(queryset=User.objects.filter(is_active=True),
-                                   label=_("Assigned to"), required=False)
+    assigned_to = ModelChoiceField(
+        queryset=User.objects.filter(is_active=True),
+        label=_("Assigned to"),
+        required=False
+    )
 
     class Meta:
         model = Report
