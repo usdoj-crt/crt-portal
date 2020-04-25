@@ -333,7 +333,7 @@
     });
     textInputView({
       el: assigneeEl,
-      name: 'assigned_to',
+      name: 'assigned_to'
     });
     textInputView({
       el: complaintIDEl,
