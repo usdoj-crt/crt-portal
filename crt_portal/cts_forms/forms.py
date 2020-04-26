@@ -904,6 +904,14 @@ class Filters(ModelForm):
             'class': 'usa-select'
         })
     )
+    primary_statute = ChoiceField(
+        required=False,
+        choices=_add_empty_choice(STATUTE_CHOICES),
+        widget=Select(attrs={
+            'name': 'primary_statute',
+            'class': 'usa-select'
+        })
+    )
     summary = CharField(
         widget=TextInput(
             attrs={
@@ -924,6 +932,7 @@ class Filters(ModelForm):
             'location_state',
             'status',
             'public_id',
+            'primary_statute',
         ]
 
         labels = {
@@ -933,7 +942,8 @@ class Filters(ModelForm):
             'contact_last_name': _('Contact last name'),
             'location_city_town': _('Incident location city'),
             'location_state': _('Incident location state'),
-            'public_id': _('Complaint ID')
+            'public_id': _('Complaint ID'),
+            'primary_statute': _('Statute')
         }
 
         widgets = {

@@ -118,6 +118,7 @@
     create_date_end: '',
     summary: '',
     public_id: '',
+    primary_statute: '',
     sort: '',
     page: '',
     per_page: ''
@@ -253,6 +254,7 @@
     var statusEl = formEl.querySelector('select[name="status"]');
     var summaryEl = formEl.querySelector('input[name="summary"]');
     var complaintIDEl = formEl.querySelector('input[name="public_id"');
+    var statuteEl = formEl.querySelector('select[name="primary_statute"]');
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
      * and perform a new search with the updated filters applied.
@@ -331,6 +333,10 @@
     textInputView({
       el: complaintIDEl,
       name: 'public_id'
+    });
+    textInputView({
+      el: statuteEl,
+      name: 'primary_statute'
     });
     clearFiltersView({
       el: clearAllEl,

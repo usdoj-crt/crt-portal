@@ -23,6 +23,8 @@
           State
         {% elif key == 'public_id' %}
           Complaint ID
+        {% elif key == 'primary_statute' %}
+          Statute
         {% else %}
           {{key|capfirst}}
         {% endif %}: {{item}}
