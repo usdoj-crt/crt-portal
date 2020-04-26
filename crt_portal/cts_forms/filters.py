@@ -23,6 +23,7 @@ filter_options = {
     'create_date_start': '__gte',
     'create_date_end': '__lte',
     'public_id': '__contains',
+    'primary_statute': '__in',
     'summary': 'summary',
 }
 
