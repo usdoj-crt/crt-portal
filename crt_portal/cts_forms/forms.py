@@ -1028,7 +1028,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
                 description=description,
                 target=self.instance
             )
- 
+
     def success_message(self):
         """Prepare update success message for rendering in template"""
         updated_fields = [self.fields[field].widget.label for field in self.changed_data]
@@ -1039,7 +1039,6 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             fields += f', and {updated_fields[-1]}'
             message = f"Successfully updated {fields}."
         return message
-
 
 
 class CommentActions(ModelForm):
