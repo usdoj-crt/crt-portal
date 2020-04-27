@@ -55,6 +55,26 @@ def _add_empty_choice(choices):
     return (EMPTY_CHOICE,) + choices
 
 
+class ActivityStreamUpdater(object):
+    """Utility functions to update activity stream for all changed fields"""
+
+    def get_actions(self):
+        """Parse incoming changed data for activity stream entry"""
+        for field in self.changed_data:
+            yield f"updated {' '.join(field.split('_'))}", f" to {self.cleaned_data[field]}"
+
+    def update_activity_stream(self, user):
+        """Send all actions to activity stream"""
+        from actstream import action
+        for verb, description in self.get_actions():
+            action.send(
+                user,
+                verb=verb,
+                description=description,
+                target=self.instance
+            )
+
+
 class Contact(ModelForm):
     class Meta:
         model = Report
@@ -940,7 +960,7 @@ class Filters(ModelForm):
         }
 
 
-class ComplaintActions(ModelForm):
+class ComplaintActions(ModelForm, ActivityStreamUpdater):
     assigned_to = ModelChoiceField(queryset=User.objects.filter(is_active=True),
                                    label=_("Assigned to"), required=False)
 
@@ -1008,6 +1028,18 @@ class ComplaintActions(ModelForm):
                 description=description,
                 target=self.instance
             )
+ 
+    def success_message(self):
+        """Prepare update success message for rendering in template"""
+        updated_fields = [self.fields[field].widget.label for field in self.changed_data]
+        if len(updated_fields) == 1:
+            message = f"Successfully updated {updated_fields[0]}."
+        else:
+            fields = ', '.join(updated_fields[:-1])
+            fields += f', and {updated_fields[-1]}'
+            message = f"Successfully updated {fields}."
+        return message
+
 
 
 class CommentActions(ModelForm):
@@ -1047,3 +1079,58 @@ class SummaryField(CommentActions):
                 'id': 'id_note-summary',
             },
         )
+
+
+class ContactEditForm(ModelForm, ActivityStreamUpdater):
+    SUCCESS_MESSAGE = "Successfully updated contact information."
+    FAIL_MESSAGE = "Failed to update contact details."
+
+    contact_state = ChoiceField(
+        choices=(("", _(' - Select - ')), ) + STATES_AND_TERRITORIES,
+        widget=Select(attrs={
+            'class': 'usa-input usa-select'
+        }),
+        label=CONTACT_QUESTIONS['contact_state'],
+        required=False,
+    )
+
+    class Meta:
+        model = Report
+        fields = [
+            'contact_first_name', 'contact_last_name',
+            'contact_email', 'contact_phone', 'contact_address_line_1',
+            'contact_address_line_2', 'contact_state',
+            'contact_city', 'contact_zip',
+        ]
+
+        widgets = {
+            'contact_first_name': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_last_name': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_email': EmailInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_phone': TextInput(attrs={
+                'class': 'usa-input',
+                'pattern': phone_validation_regex,
+                'title': _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')
+            }),
+            'contact_address_line_1': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_address_line_2': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_city': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_zip': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+        }
+
+    def success_message(self):
+        return self.SUCCESS_MESSAGE

@@ -15,7 +15,7 @@ from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
 from .forms import (CommentActions, ComplaintActions, Filters, Review,
-                    SummaryField)
+                    SummaryField, ContactEditForm)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -258,35 +258,34 @@ class ShowView(LoginRequiredMixin, View):
     def get(self, request, id):
         report = get_object_or_404(Report, pk=id)
         output = serialize_data(report, request, id)
-
+        contact_form = ContactEditForm(instance=report)
+        output.update({'contact_form': contact_form})
         return render(request, 'forms/complaint_view/show/index.html', output)
 
     def post(self, request, id):
+        """Handle both action and contact edit forms"""
         report = get_object_or_404(Report, pk=id)
-        action_form = ComplaintActions(request.POST, instance=report)
-        if action_form.is_valid() and action_form.has_changed():
-            action_form.update_activity_stream(request.user)
-            action_form.save()
-            messages.add_message(request, messages.SUCCESS, self.update_success_message(action_form))
+        form_type = request.POST.get('type')
+        if form_type == 'contact-info':
+            form = ContactEditForm(request.POST, instance=report)
+        elif form_type == 'complaint-action':
+            form = ComplaintActions(request.POST, instance=report)
 
-        output = serialize_data(report, request, id)
-        output.update({
-            'return_url_args': request.POST.get('next', ''),
-        })
-
-        return render(self.request, 'forms/complaint_view/show/index.html', output)
-
-    def update_success_message(self, form):
-        """Prepare update success message for rendering in template"""
-        updated_fields = [form[field].field.widget.label for field in form.changed_data]
-        if len(updated_fields) == 1:
-            message = f"Successfully updated {updated_fields[0]}."
+        if form.is_valid() and form.has_changed():
+            form.save()
+            form.update_activity_stream(request.user)
+            messages.add_message(request, messages.SUCCESS, form.success_message())
+            return redirect(report.get_absolute_url())
         else:
-            fields = ', '.join(updated_fields[:-1])
-            fields += f', and {updated_fields[-1]}'
-            message = f"Successfully updated {fields}."
+            output = serialize_data(report, request, id)
+            # Add form with errors to context
+            if form_type == 'contact-info':
+                output.update({'contact_form': form})
+            else:
+                output['actions'] = form
+            messages.add_message(request, messages.ERROR, form.FAIL_MESSAGE)
 
-        return message
+            return render(request, 'forms/complaint_view/show/index.html', output)
 
 
 class SaveCommentView(LoginRequiredMixin, FormView):
