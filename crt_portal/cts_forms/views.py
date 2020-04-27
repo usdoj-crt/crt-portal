@@ -307,10 +307,10 @@ class SaveCommentView(LoginRequiredMixin, FormView):
             comment = comment_form.save()
             report.internal_comments.add(comment)
             if comment.is_summary:
-                verb = 'Updated summary: ' if instance else 'Added summary: '
+                verb = 'updated summary: ' if instance else 'added summary: '
             else:
                 # If not a summary, this is a comment
-                verb = 'Updated comment: ' if instance else 'Added comment: '
+                verb = 'updated comment: ' if instance else 'added comment: '
 
             messages.add_message(request, messages.SUCCESS, f'Successfully {verb[:-2].lower()}.')
             comment_form.update_activity_stream(request.user, report, verb)
