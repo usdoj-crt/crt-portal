@@ -913,13 +913,24 @@ class Filters(ModelForm):
         })
     )
     summary = CharField(
+        required=False,
         widget=TextInput(
             attrs={
                 'class': 'usa-input',
                 'name': 'summary',
             },
         ),
+    )
+    assigned_to = ModelChoiceField(
         required=False,
+        queryset=User.objects.filter(is_active=True),
+        label=_("Assigned to"),
+        to_field_name='username',
+        # switch with type ahead
+        widget=Select(attrs={
+            'name': 'assigned_to',
+            'class': 'usa-select'
+        })
     )
 
     class Meta:
@@ -931,6 +942,7 @@ class Filters(ModelForm):
             'location_city_town',
             'location_state',
             'status',
+            'assigned_to',
             'public_id',
             'primary_statute',
         ]
@@ -942,8 +954,9 @@ class Filters(ModelForm):
             'contact_last_name': _('Contact last name'),
             'location_city_town': _('Incident location city'),
             'location_state': _('Incident location state'),
+            'assigned_to': _('Assignee'),
             'public_id': _('Complaint ID'),
-            'primary_statute': _('Statute')
+            'primary_statute': _('Statute'),
         }
 
         widgets = {
@@ -971,9 +984,11 @@ class Filters(ModelForm):
 
 
 class ComplaintActions(ModelForm, ActivityStreamUpdater):
-    assigned_to = ModelChoiceField(queryset=User.objects.filter(is_active=True),
-                                   label=_("Assigned to"), required=False)
-    assigned_to.widget.attrs.update({'class': 'usa-select text-bold text-uppercase crt-dropdown__data'})
+    assigned_to = ModelChoiceField(
+        queryset=User.objects.filter(is_active=True),
+        label=_("Assigned to"),
+        required=False
+    )
 
     class Meta:
         model = Report
@@ -983,9 +998,10 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['assigned_section'] = ChoiceField(
-            widget=ComplaintSelect(label='Section', attrs={
-                'classes': 'text-uppercase crt-dropdown__data'
-            }),
+            widget=ComplaintSelect(
+                label='Section',
+                attrs={'class': 'usa-select text-bold text-uppercase crt-dropdown__data'},
+            ),
             choices=SECTION_CHOICES,
             required=False
         )
@@ -1020,6 +1036,25 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             choices=_add_empty_choice(DISTRICT_CHOICES),
             required=False
         )
+        self.fields['assigned_to'].widget.label = 'Assigned to'
+
+        self.fields['assigned_to'].widget.label = 'Assigned to'
+
+    def get_actions(self):
+        """Parse incoming changed data for activity stream entry"""
+        for field in self.changed_data:
+            yield f"updated {' '.join(field.split('_'))}", f" to {self.cleaned_data[field]}"
+
+    def update_activity_stream(self, user):
+        """Send all actions to activity stream"""
+        from actstream import action
+        for verb, description in self.get_actions():
+            action.send(
+                user,
+                verb=verb,
+                description=description,
+                target=self.instance
+            )
 
     def success_message(self):
         """Prepare update success message for rendering in template"""

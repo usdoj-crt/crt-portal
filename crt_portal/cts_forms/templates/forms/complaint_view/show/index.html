@@ -86,7 +86,7 @@
 <script src="{% static 'js/show_hide_narrative_summary.js' %}"></script>
 <script src="{% static 'js/edit_contact_info.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
-<script>
+<script nonce="{{request.csp_nonce}}">
   accessibleAutocomplete.enhanceSelectElement({
   defaultValue: '',
   selectElement: document.querySelector('#id_assigned_to')

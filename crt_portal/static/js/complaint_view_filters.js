@@ -117,6 +117,7 @@
     create_date_start: '',
     create_date_end: '',
     summary: '',
+    assigned_to: '',
     public_id: '',
     primary_statute: '',
     sort: '',
@@ -253,6 +254,8 @@
     var clearAllEl = dom.querySelector('[data-clear-filters]');
     var statusEl = formEl.querySelector('select[name="status"]');
     var summaryEl = formEl.querySelector('input[name="summary"]');
+    // this might need to be updated for multiselect
+    var assigneeEl = formEl.querySelector('select[name="assigned_to"]');
     var complaintIDEl = formEl.querySelector('input[name="public_id"');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
     /**
@@ -329,6 +332,10 @@
     textInputView({
       el: summaryEl,
       name: 'summary'
+    });
+    textInputView({
+      el: assigneeEl,
+      name: 'assigned_to'
     });
     textInputView({
       el: complaintIDEl,
