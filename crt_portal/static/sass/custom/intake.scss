@@ -57,9 +57,12 @@
   .intake-filters {
     @include flex-container();
     width: 100%;
+    flex-wrap: wrap;
+    white-space: normal;
 
     .crt-dropdown {
       margin-right: 2rem;
+      margin-bottom: 2rem;
 
       button {
         width: 100%;

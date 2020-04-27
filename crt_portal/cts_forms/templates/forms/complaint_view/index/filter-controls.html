@@ -2,7 +2,6 @@
 <h2 class="intake-section-title">Filters</h2>
 <form
   id="filters-form"
-  class="margin-bottom-3"
   method="GET"
   action="/form/view"
   novalidate
@@ -15,6 +14,7 @@
     {% include 'forms/complaint_view/index/filters/summary_filter.html' %}
     {% include 'forms/complaint_view/index/filters/assignee.html' %}
     {% include 'forms/complaint_view/index/filters/public_id_filter.html' %}
+    {% include 'forms/complaint_view/index/filters/primary_statute_filter.html' %}
   </div>
 </form>
 
