@@ -1057,22 +1057,6 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             message = f"Successfully updated {fields}."
         return message
 
-    def get_actions(self):
-        """Parse incoming changed data for activity stream entry"""
-        for field in self.changed_data:
-            yield f"updated {' '.join(field.split('_'))}", f" to {self.cleaned_data[field]}"
-
-    def update_activity_stream(self, user):
-        """Send all actions to activity stream"""
-        from actstream import action
-        for verb, description in self.get_actions():
-            action.send(
-                user,
-                verb=verb,
-                description=description,
-                target=self.instance
-            )
-
 
 class CommentActions(ModelForm):
     class Meta:
