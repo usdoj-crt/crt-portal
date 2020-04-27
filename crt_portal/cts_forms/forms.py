@@ -905,13 +905,24 @@ class Filters(ModelForm):
         })
     )
     summary = CharField(
+        required=False,
         widget=TextInput(
             attrs={
                 'class': 'usa-input',
                 'name': 'summary',
             },
         ),
+    )
+    assigned_to = ModelChoiceField(
         required=False,
+        queryset=User.objects.filter(is_active=True),
+        label=_("Assigned to"),
+        to_field_name='username',
+        # switch with type ahead
+        widget=Select(attrs={
+            'name': 'assigned_to',
+            'class': 'usa-select'
+        })
     )
 
     class Meta:
@@ -923,6 +934,7 @@ class Filters(ModelForm):
             'location_city_town',
             'location_state',
             'status',
+            'assigned_to',
             'public_id',
         ]
 
@@ -933,7 +945,8 @@ class Filters(ModelForm):
             'contact_last_name': _('Contact last name'),
             'location_city_town': _('Incident location city'),
             'location_state': _('Incident location state'),
-            'public_id': _('Complaint ID')
+            'assigned_to': _('Assignee'),
+            'public_id': _('Complaint ID'),
         }
 
         widgets = {
@@ -961,8 +974,11 @@ class Filters(ModelForm):
 
 
 class ComplaintActions(ModelForm, ActivityStreamUpdater):
-    assigned_to = ModelChoiceField(queryset=User.objects.filter(is_active=True),
-                                   label=_("Assigned to"), required=False)
+    assigned_to = ModelChoiceField(
+        queryset=User.objects.filter(is_active=True),
+        label=_("Assigned to"),
+        required=False
+    )
 
     class Meta:
         model = Report
@@ -1010,6 +1026,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             choices=_add_empty_choice(DISTRICT_CHOICES),
             required=False
         )
+        self.fields['assigned_to'].widget.label = 'Assigned to'
 
         self.fields['assigned_to'].widget.label = 'Assigned to'
 
