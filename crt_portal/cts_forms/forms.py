@@ -1028,6 +1028,24 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         )
         self.fields['assigned_to'].widget.label = 'Assigned to'
 
+        self.fields['assigned_to'].widget.label = 'Assigned to'
+
+    def get_actions(self):
+        """Parse incoming changed data for activity stream entry"""
+        for field in self.changed_data:
+            yield f"updated {' '.join(field.split('_'))}", f" to {self.cleaned_data[field]}"
+
+    def update_activity_stream(self, user):
+        """Send all actions to activity stream"""
+        from actstream import action
+        for verb, description in self.get_actions():
+            action.send(
+                user,
+                verb=verb,
+                description=description,
+                target=self.instance
+            )
+
     def success_message(self):
         """Prepare update success message for rendering in template"""
         updated_fields = [self.fields[field].widget.label for field in self.changed_data]
