@@ -917,6 +917,7 @@ class Filters(ModelForm):
         required=False,
         queryset=User.objects.filter(is_active=True),
         label=_("Assigned to"),
+        to_field_name='username',
         # switch with type ahead
         widget=Select(attrs={
             'name': 'assigned_to',

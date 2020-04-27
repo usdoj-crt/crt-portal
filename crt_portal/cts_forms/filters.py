@@ -57,7 +57,7 @@ def report_filter(request):
                 kwargs['internal_comments__is_summary'] = True
             elif filter_options[field] == 'foreign_key':
                 # assumes assigned_to but could add logic for other foreign keys in the future
-                kwargs['assigned_to__pk__in'] = request.GET.getlist(field)
+                kwargs['assigned_to__username__in'] = request.GET.getlist(field)
 
     # returns a filtered query, and a dictionary that we can use to keep track of the filters we apply
     return Report.objects.filter(**kwargs), filters
