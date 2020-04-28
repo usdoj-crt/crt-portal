@@ -2,6 +2,7 @@ import os
 import urllib.parse
 
 from django import forms
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
@@ -9,11 +10,12 @@ from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import View, FormView
+from django.views.generic import FormView, View
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
-from .forms import ComplaintActions, CommentActions, SummaryField, Filters, Review
+from .forms import (CommentActions, ComplaintActions, Filters, Review,
+                    SummaryField, ContactEditForm)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -23,7 +25,8 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PRIMARY_COMPLAINT_DICT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import HateCrimesandTrafficking, ProtectedClass, Report, CommentAndSummary
+from .models import (CommentAndSummary, HateCrimesandTrafficking,
+                     ProtectedClass, Report)
 from .page_through import pagination
 
 SORT_DESC_CHAR = '-'
@@ -236,12 +239,7 @@ def serialize_data(report, request, report_id):
         summary_box = SummaryField()
 
     output = {
-        'actions': ComplaintActions(initial={
-            'assigned_section': report.assigned_section,
-            'status': report.status,
-            'primary_statute': report.primary_statute,
-            'district': report.district,
-        }),
+        'actions': ComplaintActions(instance=report),
         'comments': CommentActions(),
         'summary_box': summary_box,
         'activity_stream': report.target_actions.all(),
@@ -260,22 +258,34 @@ class ShowView(LoginRequiredMixin, View):
     def get(self, request, id):
         report = get_object_or_404(Report, pk=id)
         output = serialize_data(report, request, id)
-
+        contact_form = ContactEditForm(instance=report)
+        output.update({'contact_form': contact_form})
         return render(request, 'forms/complaint_view/show/index.html', output)
 
     def post(self, request, id):
+        """Handle both action and contact edit forms"""
         report = get_object_or_404(Report, pk=id)
-        action_form = ComplaintActions(request.POST, instance=report)
-        if action_form.is_valid() and action_form.has_changed():
-            action_form.update_activity_stream(request.user)
-            action_form.save()
+        form_type = request.POST.get('type')
+        if form_type == 'contact-info':
+            form = ContactEditForm(request.POST, instance=report)
+        elif form_type == 'complaint-action':
+            form = ComplaintActions(request.POST, instance=report)
 
-        output = serialize_data(report, request, id)
-        output.update({
-            'return_url_args': request.POST.get('next', ''),
-        })
+        if form.is_valid() and form.has_changed():
+            form.save()
+            form.update_activity_stream(request.user)
+            messages.add_message(request, messages.SUCCESS, form.success_message())
+            return redirect(report.get_absolute_url())
+        else:
+            output = serialize_data(report, request, id)
+            # Add form with errors to context
+            if form_type == 'contact-info':
+                output.update({'contact_form': form})
+            else:
+                output['actions'] = form
+            messages.add_message(request, messages.ERROR, form.FAIL_MESSAGE)
 
-        return render(self.request, 'forms/complaint_view/show/index.html', output)
+            return render(request, 'forms/complaint_view/show/index.html', output)
 
 
 class SaveCommentView(LoginRequiredMixin, FormView):
@@ -283,35 +293,36 @@ class SaveCommentView(LoginRequiredMixin, FormView):
     form_class = CommentActions
 
     def post(self, request, report_id):
+        """Update or create inbound comment"""
         report = get_object_or_404(Report, pk=report_id)
         comment_id = request.POST.get('comment_id')
-        note = request.POST.__getitem__('note')
-        is_summary = request.POST.__getitem__('is_summary') == 'True'
-        if comment_id is not None:
-            comment = get_object_or_404(CommentAndSummary, pk=comment_id)
-            comment.note = note
-            comment.save()
-            if is_summary is True:
-                verb = 'Updated summary: '
-            else:
-                verb = 'Updated comment: '
+        if comment_id:
+            instance = get_object_or_404(CommentAndSummary, id=comment_id)
         else:
-            comment = CommentAndSummary.objects.create(
-                note=note,
-                is_summary=is_summary,
-            )
-            report.internal_comments.add(comment)
-            if comment.is_summary is True:
-                verb = 'Added summary: '
-            else:
-                verb = ''
-        CommentActions.update_activity_stream(request.user, report, comment.note, verb)
+            instance = None
 
-        output = serialize_data(report, request, report_id)
-        output.update({
-            'return_url_args': request.POST.get('next', ''),
-        })
-        return render(request, 'forms/complaint_view/show/index.html', output)
+        comment_form = CommentActions(request.POST, instance=instance)
+
+        if comment_form.is_valid() and comment_form.has_changed():
+            comment = comment_form.save()
+            report.internal_comments.add(comment)
+            if comment.is_summary:
+                verb = 'Updated summary: ' if instance else 'Added summary: '
+            else:
+                # If not a summary, this is a comment
+                verb = 'Updated comment: ' if instance else 'Added comment: '
+
+            messages.add_message(request, messages.SUCCESS, f'Successfully {verb[:-2].lower()}.')
+            comment_form.update_activity_stream(request.user, report, verb)
+
+            return redirect(report.get_absolute_url())
+        else:
+            # TODO handle form validation failures
+            output = serialize_data(report, request, report_id)
+            output.update({
+                'return_url_args': request.POST.get('next', ''),
+            })
+            return render(request, 'forms/complaint_view/show/index.html', output)
 
 
 def save_form(form_data_dict, **kwargs):
@@ -356,7 +367,6 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
             'Contact',
             'Service member',
             'Primary concern',
-            'Follow up',
             'Incident location',
             'Personal characteristics',
             'Date',

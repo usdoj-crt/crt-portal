@@ -35,7 +35,13 @@
       </label>
       {{ actions.district }}
     </div>
-    <button id="submit-apply-changes" class="usa-button" type="submit">Apply changes</button>
+    <div class="margin-bottom-2 crt-dropdown">
+      <label for="id_assigned_to" class="intake-label">
+        {{ actions.fields.assigned_to.label }}
+      </label>
+      {{ actions.assigned_to }}
+    </div>
+    <button id="submit-apply-changes" class="usa-button" type="submit" name='type' value='complaint-action'>Apply changes</button>
   </fieldset>
 </form>
 {% endblock %}

@@ -1,6 +1,11 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% load static %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static "css/accessible-autocomplete.min.css" %}" />
+{% endblock head %}
+
+
 {% block content %}
 <div class="complaint-show-body">
   <div class="grid-container-widescreen">
@@ -16,31 +21,40 @@
           <h2 class="margin-right-205 margin-top-0 margin-bottom-0 backend-blue">
             ID: {{ data.public_id }}
           </h2>
-          <span class="status-tag status-{{data.status}} margin-top-05">
-            {{ data.status }}
-          </span>
+          <span class="status-tag status-{{data.status}} margin-top-05">{{ data.status }}</span>
         </div>
         <p class="display-flex">
           <span>
             <span class="details-date-label text-uppercase backend-blue">Received: </span>
             <span class="backend-blue">{{ data.create_date|date:'g:i a F j, Y' }}</span>
+            {% if data.intake_format %}
+            <span class="usa-sr-only"> from {{ data.intake_format }}</span>
+            {% endif %}
           </span>
-          {% if data.intake_format == 'web' %}
-            <img src="{% static "img/intake-icons/ic_web.svg" %}" class="icon margin-left-2" alt="from the public web form">
-          {% elif data.intake_format == 'email' %}
-            <img src="{% static "img/intake-icons/ic_email.svg" %}" class="icon margin-left-2" alt="from email">
-          {% elif data.intake_format == 'letter' %}
-            <img src="{% static "img/intake-icons/ic_letter.svg" %}" class="icon margin-left-2" alt="from a letter">
-          {% elif data.intake_format == 'phone' %}
-            <img src="{% static "img/intake-icons/ic_contact.svg" %}" class="icon margin-left-2" alt="from phone">
-          {% elif data.intake_format == 'fax' %}
-            <img src="{% static "img/intake-icons/ic_fax.svg" %}" class="icon margin-left-2" alt="from fax">
+          {% if data.intake_format %}
+            <span class="tooltip">
+              <span class="tooltiptext backend-blue">from {{ data.intake_format }}</span>
+            {% if data.intake_format == 'web' %}
+              <img src="{% static "img/intake-icons/ic_web.svg" %}" class="icon margin-left-2" alt="from web">
+            {% elif data.intake_format == 'email' %}
+              <img src="{% static "img/intake-icons/ic_email.svg" %}" class="icon margin-left-2" alt="from email">
+            {% elif data.intake_format == 'letter' %}
+              <img src="{% static "img/intake-icons/ic_letter.svg" %}" class="icon margin-left-2" alt="from a letter">
+            {% elif data.intake_format == 'phone' %}
+              <img src="{% static "img/intake-icons/ic_contact.svg" %}" class="icon margin-left-2" alt="from phone">
+            {% elif data.intake_format == 'fax' %}
+              <img src="{% static "img/intake-icons/ic_fax.svg" %}" class="icon margin-left-2" alt="from fax">
+            {% endif %}
+            </span>
           {% endif %}
-        </p class="display-flex">
-        <p>
+        </p>
+        <p class="display-flex">
           <span class="details-date-label text-uppercase backend-blue">Last Updated: </span>
           <span class="backend-blue">{{ data.modified_date|date:'g:i a F j, Y' }}</span>
         </p>
+      </div>
+      <div class="tablet:grid-col-6">
+        {% include 'partials/messages.html' %}
       </div>
     </div>
     <div class="grid-row grid-gap-lg">
@@ -57,7 +71,9 @@
       </div>
       <div class="tablet:grid-col-6">
         {% include 'forms/complaint_view/show/correspondent_info.html' with data=data %}
-        {% include 'forms/complaint_view/show/complaint_details.html' with data=data primaty_complaint=primary_complaint summary=summary comment_box=summary_box.note %}
+
+        {% include 'forms/complaint_view/show/complaint_details.html' with data=data primary_complaint=primary_complaint summary=summary comment_box=summary_box.note %}
+
         {% include 'forms/complaint_view/show/description.html' with description=data.violation_summary %}
       </div>
     </div>
@@ -69,4 +85,12 @@
 {{ block.super }}
 <script src="{% static 'js/details_status.js' %}"></script>
 <script src="{% static 'js/show_hide_narrative_summary.js' %}"></script>
+<script src="{% static 'js/edit_contact_info.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
+<script nonce="{{request.csp_nonce}}">
+  accessibleAutocomplete.enhanceSelectElement({
+  defaultValue: '',
+  selectElement: document.querySelector('#id_assigned_to')
+});
+</script>
 {%endblock%}

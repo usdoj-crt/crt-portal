@@ -5,7 +5,7 @@ from django.db import models
 from django.core.validators import RegexValidator, MaxValueValidator
 from django.utils.functional import cached_property
 from django.contrib.auth import get_user_model
-
+from django.urls import reverse
 from .phone_regex import phone_validation_regex
 
 from .model_variables import (
@@ -153,6 +153,7 @@ class Report(models.Model):
     crt_reciept_month = models.PositiveIntegerField(MaxValueValidator(12), null=True, blank=True)
     intake_format = models.CharField(max_length=100, null=True, default=None, choices=INTAKE_FORMAT_CHOICES)
     author = models.CharField(max_length=1000, null=True, blank=True)
+    assigned_to = models.ForeignKey(User, blank=True, null=True, related_name="assigned_complaints", on_delete=models.CASCADE)
 
     @cached_property
     def last_incident_date(self):
@@ -227,7 +228,7 @@ class Report(models.Model):
                 return 'EOS'
             elif self.__is_not_disabled(protected_classes):
                 return 'EOS'
-            elif self.public_or_private_school == 'private'and not self.__is_not_disabled(protected_classes):
+            elif self.public_or_private_school == 'private' and not self.__is_not_disabled(protected_classes):
                 return 'DRS'
 
         elif self.primary_complaint == 'police':
@@ -256,3 +257,6 @@ class Report(models.Model):
     def get_summary(self):
         """Return most recent summary provided by an intake specialist"""
         return self.internal_comments.filter(is_summary=True).order_by('-modified_date').first()
+
+    def get_absolute_url(self):
+        return reverse('crt_forms:crt-forms-show', kwargs={"id": self.id})
