@@ -85,5 +85,17 @@
 
 {% block page_js %}
 {{ super }}
-    <script src="{% static 'js/pro_form_show_hide.js' %}"></script>
+<script nounce="{{request.csp_nonce}}">
+  (function(root) {
+    root.CRT = root.CRT || {};
+
+    root.CRT.translations = {
+      wordRemainingText: "word remaining",
+      wordsRemainingText: " words remaining",
+      wordLimitReachedText: " word limit reached"
+    };
+  })(window)
+</script>
+<script src="{% static 'js/pro_form_show_hide.js' %}"></script>
+<script src="{% static 'js/word_count.js' %}"></script>
 {% endblock %}
