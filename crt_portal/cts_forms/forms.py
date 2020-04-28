@@ -961,7 +961,7 @@ class Filters(ModelForm):
 
         widgets = {
             'assigned_section': CrtMultiSelect(attrs={
-                'classes': 'text-uppercase',
+                'class': 'text-uppercase',
                 'name': 'assigned_section'
             }),
             'contact_first_name': TextInput(attrs={
@@ -1009,7 +1009,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             widget=ComplaintSelect(
                 label='Status',
                 attrs={
-                    'classes': 'crt-dropdown__data',
+                    'class': 'crt-dropdown__data',
                 },
 
             ),
@@ -1020,7 +1020,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             widget=ComplaintSelect(
                 label='Primary statute',
                 attrs={
-                    'classes': 'text-uppercase crt-dropdown__data',
+                    'class': 'text-uppercase crt-dropdown__data',
                 },
             ),
             choices=_add_empty_choice(STATUTE_CHOICES),
@@ -1030,7 +1030,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             widget=ComplaintSelect(
                 label='Judicial district',
                 attrs={
-                    'classes': 'text-uppercase crt-dropdown__data',
+                    'class': 'text-uppercase crt-dropdown__data',
                 },
             ),
             choices=_add_empty_choice(DISTRICT_CHOICES),
