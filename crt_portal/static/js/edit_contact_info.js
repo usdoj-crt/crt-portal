@@ -34,14 +34,26 @@
     }
   }
 
+  function addFormUpdateEvents(form) {
+    // Generate listenable events for all form inputs, using `change` for IE11 support
+    for (var i = 0; i < form.elements.length; i++) {
+      var field = form.elements[i];
+      if (field.nodeName == 'INPUT') {
+        field.addEventListener('input', setButtonDisabled);
+      } else if (field.nodeName == 'SELECT') {
+        field.addEventListener('change', setButtonDisabled);
+      }
+    }
+  }
+
   var contactInfo = document.getElementById('contact-info');
   var contactForm = document.getElementById('contact-edit-form');
   var saveButton = contactForm.getElementsByTagName('button')[0];
   var cancelButton = contactForm.getElementsByClassName('button--cancel')[0];
 
   var initialState = getFormState(contactForm);
-  contactForm.addEventListener('input', setButtonDisabled);
-  cancelButton.addEventListener('click', hideContactForm);
 
+  addFormUpdateEvents(contactForm);
+  cancelButton.addEventListener('click', hideContactForm);
   addShowFormHandler();
 })();
