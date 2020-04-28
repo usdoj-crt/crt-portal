@@ -1,0 +1,37 @@
+{% load static %}
+{% load i18n %}
+{# Progress text for screen reader. #}
+<div class="grid-row grid-gap progress-bar">
+  <div class="tablet:grid-col-10 tablet:grid-offset-1">
+    <div aria-label="{% trans "progress" %}">
+      <span class="usa-sr-only">
+        {% blocktrans with current_step_name=current_step_name stage_number=stage_number %}
+          Current step: {{ current_step_name }}. Step {{ stage_number }} of {{ total_stages }}.
+        {% endblocktrans %}
+      </span>
+      <ol class="steps">
+        {% for step in ordered_step_names %}
+          <li class="step {% if step == current_step_name %}current{%else%}{%endif%}" {% if step == current_step_name %}aria-current="true"{%else%}aria-current="false"{% endif %}>
+            {% if stage_link %}
+              <a href="#{{ step|slugify }}" class="text-base-lightest" style='text-decoration: none;'>{{ step }}</a>
+            {% else%}
+              {{ step }}
+            {% endif %}
+
+
+            {% if step != current_step_name %}
+              <span class="usa-sr-only">
+                {% if forloop.counter > wizard.steps.step1 %}
+                  {% trans "not completed" %}
+                {% else %}
+                  {% trans "completed" %}
+                {% endif %}
+              </span>
+            {% endif %}
+          </li>
+        {% endfor %}
+        </ol>
+      <div class="connecting-line"></div>
+    </div>
+  </div>
+</div>

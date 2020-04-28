@@ -20,6 +20,7 @@ $visited: #ffbe2e;
 $outline: white;
 
 .progress-bar {
+  @include u-margin-top(5);
   padding-bottom: 1rem;
 }
 

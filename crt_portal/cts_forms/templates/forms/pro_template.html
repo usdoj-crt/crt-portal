@@ -4,7 +4,7 @@
 {{ super }}
 
 {% block page_header %}
-  {% include 'forms/portal/header.html' with intro_text="Create a new report" %}
+  {% include 'forms/complaint_view/intake_header.html' with title_text="CRT Public Complaint Intake" progress_bar=True%}
 {% endblock %}
 
 {% block form_questions %}
@@ -16,7 +16,7 @@
       </section>
     {% endif %}
 
-    <h2 id="Intake">Intake</h2>
+    <h2 id="intake">Intake</h2>
     {% include "forms/question_cards/date.html" with question='CRT receipt date' month=form.crt_reciept_month day=form.crt_reciept_day year=form.crt_reciept_year %}
 
     {% include "forms/question_cards/single_question.html" with field=form.intake_format %}
@@ -25,7 +25,7 @@
 
 <div class="crt-portal-card">
   <div class="crt-portal-card__content crt-portal-card__content--lg">
-    <a name="Contact"></a>
+    <a name="contact"></a>
     {% include "forms/question_cards/contact.html" with card_title='Contact' %}
   </div>
 </div>
@@ -38,7 +38,7 @@
 
 <div class="crt-portal-card">
   <div class="crt-portal-card__content crt-portal-card__content--lg">
-    <h2 id="Follow up">Follow up questions</h2>
+    <h2 id="follow-up">Follow up questions</h2>
 
     {% include "forms/question_cards/single_question.html" with field=form.public_or_private_employer label_class=question_group.help_cls %}
 
@@ -61,7 +61,7 @@
 
 <div class="crt-portal-card">
   <div class="crt-portal-card__content crt-portal-card__content--lg">
-    <h2 id="Personal characteristics">Personal characteristics</h2>
+    <h2 id="personal-characteristics">Personal characteristics</h2>
     {% include "forms/question_cards/single_question.html" with field=form.protected_class card_title="Personal characteristics" %}
 
     {% include "forms/question_cards/single_question.html" with field=form.other_class card_title="Personal characteristics" %}
@@ -70,14 +70,14 @@
 
 <div class="crt-portal-card">
   <div class="crt-portal-card__content crt-portal-card__content--lg">
-    <h2 id="Date">Date</h2>
+    <h2 id="date">Date</h2>
     {% include "forms/question_cards/date.html" with card_title='Date' question=form.date_question month=form.last_incident_month day=form.last_incident_day year=form.last_incident_year %}
   </div>
 </div>
 
 <div class="crt-portal-card">
   <div class="crt-portal-card__content crt-portal-card__content--lg">
-    <h2 id="Summary">Intake summary</h2>
+    <h2 id="summary">Intake summary</h2>
     {% include "forms/question_cards/single_question.html" with field=form.violation_summary card_title="Intake summary" %}
     {% include "forms/word_counter.html" with word_limit=500 %}
   </div>
