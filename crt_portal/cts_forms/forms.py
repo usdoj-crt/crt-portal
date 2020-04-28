@@ -1038,8 +1038,6 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         )
         self.fields['assigned_to'].widget.label = 'Assigned to'
 
-        self.fields['assigned_to'].widget.label = 'Assigned to'
-
     def get_actions(self):
         """Parse incoming changed data for activity stream entry"""
         for field in self.changed_data:
