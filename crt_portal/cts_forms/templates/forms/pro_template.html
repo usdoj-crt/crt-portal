@@ -1,6 +1,6 @@
 {# not on public pages #}
 {% extends "forms/report_base.html" %}
-
+{% load static %}
 {{ super }}
 
 {% block page_header %}
@@ -83,4 +83,8 @@
   </div>
 </div>
 
+{% endblock %}
+{% block page_js %}
+{{ block.super }}
+<script src="{% static 'js/progress-bar.js' %}"></script>
 {% endblock %}
