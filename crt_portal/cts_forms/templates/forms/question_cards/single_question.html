@@ -1,3 +1,5 @@
+{% load i18n %}
+
 <div class="form-group"{% if hidden %} style="display:none" id="div-{{ field.id_for_label }}"{% endif %}>
   {% if field.label %}
     <h3><label
@@ -5,6 +7,8 @@
       class="{{label_class}} margin-bottom-0"
     >
       {{ field.label }} {% if not field.field.required %}<em>(Optional)</em>{% endif %}
+      <!-- only used on the back end for now -->
+      {% if required %} <span class="text-secondary">*{% trans "required" %}</span>{% endif %}
     </label></h3>
   {% endif %}
   {% if field.help_text %}
