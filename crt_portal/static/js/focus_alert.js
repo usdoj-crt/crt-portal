@@ -1,12 +1,52 @@
+// Overwrites native 'firstElementChild' prototype.
+// Adds Document & DocumentFragment support for IE9 & Safari.
+(function(constructor) {
+  if (constructor && constructor.prototype && constructor.prototype.firstElementChild == null) {
+    Object.defineProperty(constructor.prototype, 'firstElementChild', {
+      get: function() {
+        var node,
+          nodes = this.childNodes,
+          i = 0;
+        while ((node = nodes[i++])) {
+          if (node.nodeType === 1) {
+            return node;
+          }
+        }
+        return null;
+      }
+    });
+  }
+})(window.Node || window.Element);
+
+function find_focusable(element) {
+  if (element.nodeName == 'INPUT' || element.nodeName == 'TEXTAREA') {
+    return element;
+  } else {
+    var element = element.firstElementChild;
+    return find_focusable(element);
+  }
+}
+
 function prepareErrors() {
-  var pageErrors = document.getElementById('page-errors');
-  if (!pageErrors) {
-    return;
+  // Find elements with class'usa-input--error'
+  var errors = document.getElementsByClassName('error-focus');
+  // add focus to first error
+  if (errors.length > 0) {
+    // add focus to the first error
+    var first_error = errors[0];
+    find_focusable(first_error).focus();
+    // read first error message
+    var error_message = document.getElementsByClassName('usa-alert__body')[0];
+    error_message.setAttribute('role', 'alert');
+    error_message.setAttribute('aria-live', 'assertive');
   }
 
-  // Page level errors begin hidden, and are revealed once the DOM has loaded
-  // This makes screen readers think a new element has been inserted into the page.
-  pageErrors.classList.remove('display-none');
+  var alerts = document.getElementsByClassName('update-status');
+  for (let i = 0; i < alerts.length; i++) {
+    let alert = alerts[i];
+    alert.setAttribute('role', 'alert');
+    alert.setAttribute('aria-live', 'assertive');
+  }
 }
 
 function triggerAlert() {

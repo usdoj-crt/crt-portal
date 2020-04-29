@@ -33,6 +33,7 @@ from ..forms import (
     When,
     ProForm,
 )
+from ..views import save_form
 from .test_data import SAMPLE_REPORT
 
 
@@ -858,6 +859,7 @@ class ContactValidationTests(TestCase):
 
 
 class Complaint_Update_Tests(TestCase):
+
     def setUp(self):
         test_report = Report.objects.create(**SAMPLE_REPORT)
         test_report.contact_first_name = 'Foobert'
@@ -874,33 +876,30 @@ class Complaint_Update_Tests(TestCase):
         self.test_pass = secrets.token_hex(32)
         self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
+        self.form_data = {'type': 'complaint-action'}
+
+        self.url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.test_report.id})
 
     def tearDown(self):
         self.user.delete()
 
     def test_update_status_property(self):
+        self.form_data.update({'status': 'open'})
         self.assertTrue(self.test_report.status == 'new')
-        response = self.client.post(reverse('crt_forms:crt-forms-show', kwargs={'id': self.test_report.id}), {'status': 'open'})
+        response = self.client.post(self.url, self.form_data, follow=True)
         self.assertTrue(response.context['data'].status == 'open')
 
     def test_update_assigned_section_property(self):
-        response = self.client.post(reverse('crt_forms:crt-forms-show', kwargs={'id': self.test_report.id}), {'assigned_section': 'VOT'})
+        self.form_data.update({'assigned_section': 'VOT'})
+        response = self.client.post(self.url, self.form_data, follow=True)
 
         self.assertTrue(response.context['data'].assigned_section == 'VOT')
 
 
 class ProFormTest(TestCase):
-    def test_required_fields(self):
-        form = ProForm(data={})
-        self.assertFalse(form.is_valid())
-        self.assertEquals(
-            form.errors,
-            {'primary_complaint': ['Please select a primary reason to continue.']}
-        )
-
-    def test_full_example(self):
-        data = copy.deepcopy(SAMPLE_REPORT)
-        data.update({
+    def setUp(self):
+        data_sample = copy.deepcopy(SAMPLE_REPORT)
+        data_sample.update({
             'contact_address_line_1': '123',
             'contact_address_line_2': 'Apt 234',
             'contact_city': 'test',
@@ -924,8 +923,36 @@ class ProFormTest(TestCase):
             'crt_reciept_month': 2,
             'intake_format': 'phone',
         })
-        form = ProForm(data=data)
+        self.data = data_sample
+
+    def test_required_fields(self):
+        form = ProForm(data={})
+        self.assertFalse(form.is_valid())
+        self.assertEquals(
+            form.errors,
+            {'primary_complaint': ['Please select a primary reason to continue.']}
+        )
+
+    def test_full_example(self):
+        form = ProForm(data=self.data)
         self.assertTrue(form.is_valid())
+
+
+class TestIntakeFormat(TestCase):
+    def setUp(self):
+        self.form_data_dict = copy.deepcopy(SAMPLE_REPORT)
+        self.form_data_dict['protected_class'] = ProtectedClass.objects.none()
+        self.form_data_dict['hatecrimes_trafficking'] = HateCrimesandTrafficking.objects.none()
+
+    def test_intake_save_web(self):
+        data, saved_object = save_form(self.form_data_dict, intake_format='web')
+        self.assertEquals(saved_object.intake_format, 'web')
+
+    def test_intake_save_ProForm(self):
+        form_data_dict = copy.deepcopy(self.form_data_dict)
+        form_data_dict['intake_format'] = 'phone'
+        data, saved_object = save_form(form_data_dict)
+        self.assertEquals(saved_object.intake_format, 'phone')
 
 
 class LoginRequiredTests(TestCase):
