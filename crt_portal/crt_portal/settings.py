@@ -245,6 +245,7 @@ if environment != 'LOCAL':
 
 if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     MIDDLEWARE.append('csp.middleware.CSPMiddleware')
+    bucket = f"{STATIC_URL}"
     allowed_sources = (
         "'self'",
         bucket,
@@ -258,7 +259,6 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     # If this is set to True, client-side JavaScript will not be able to access the language cookie.
     SESSION_COOKIE_HTTPONLY = True
     # see settings options https://django-csp.readthedocs.io/en/latest/configuration.html#configuration-chapter
-    bucket = f"{STATIC_URL}"
     CSP_DEFAULT_SRC = allowed_sources
     SESSION_COOKIE_SAMESITE = 'Strict'
     CSP_SCRIPT_SRC = allowed_sources
