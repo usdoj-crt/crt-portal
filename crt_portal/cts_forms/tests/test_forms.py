@@ -53,19 +53,20 @@ class CommentActionTests(TestCase):
                 'is_summary': False,
                 'note': self.note,
             },
+            follow=True
         )
 
     def test_post(self):
         """A logged in user can post a comment"""
         self.assertEquals(self.response.status_code, 200)
 
-    def test_creates_commment(self):
+    def test_creates_comment(self):
         """A comment is created and associated with the right report"""
         comment_id = CommentAndSummary.objects.get(note=self.note).pk
         report = Report.objects.filter(internal_comments__pk=comment_id)[0]
         self.assertEquals(report.pk, self.pk)
 
-    def test_adds_commment_to_activity(self):
+    def test_adds_comment_to_activity(self):
         """The comment shows up in the report's activity log"""
         response = self.client.get(
             reverse('crt_forms:crt-forms-show', kwargs={'id': self.pk})
@@ -86,6 +87,7 @@ class CommentActionTests(TestCase):
                 'note': update,
                 'comment_id': comment_id,
             },
+            follow=True
         )
         content = str(response.content)
         self.assertTrue('updated note' in content)
