@@ -26,7 +26,7 @@ msgstr "Si usted incluye un número de teléfono, compruebe que contenga entre 7
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
 #: crt_portal/cts_forms/forms.py:159
 msgid " - Select - "
-msgstr - Elija -
+msgstr " - Elija - "
 
 #. Translators: This is help text for the question asking if someone is a service member
 #: crt_portal/cts_forms/forms.py:171
@@ -428,7 +428,7 @@ msgid ""
 "Please make a selection to continue. If none of these apply to your "
 "situation, please select “None of these apply to me” or \"Other reason\"and "
 "explain."
-msgstr "Elija una opción para continuar. Si ninguna se aplica a su situación, elija "Ninguna de estas opciones se aplica a mí" u \"Otro motivo\" y proporcione una explicación."
+msgstr "Elija una opción para continuar. Si ninguna se aplica a su situación, elija \"Ninguna de estas opciones se aplica a mí\" u \"Otro motivo\" y proporcione una explicación."
 
 #: crt_portal/cts_forms/model_variables.py:112
 msgid "New"
@@ -517,7 +517,7 @@ msgstr "Otro"
 msgid ""
 "Please select the type of location. If none of these apply to your "
 "situation, please select \"Other\"."
-msgstr "Favor de elegir el tipo de localización. Si ninguno de estos se aplica a su situación, elija \"Otro\"
+msgstr "Favor de elegir el tipo de localización. Si ninguno de estos se aplica a su situación, elija \"Otro\""
 
 #: crt_portal/cts_forms/model_variables.py:143
 msgid "Place of worship"
@@ -586,7 +586,7 @@ msgstr "Cárcel (Privada)"
 
 #: crt_portal/cts_forms/model_variables.py:178
 msgid "Prison (I'm not sure)"
-msgstr "Cárcel (No estoy seguro/a)
+msgstr "Cárcel (No estoy seguro/a)"
 
 #: crt_portal/cts_forms/model_variables.py:182
 msgid "Public employer"
@@ -1116,7 +1116,11 @@ msgid ""
 "        Step %(stage_number)s: %(current_step_name)s - Contact the Civil "
 "Rights Division - Department of Justice\n"
 "      "
-msgstr "\n" Step %(stage_number)s: %(current_step_name)s - Comuníquese con la División de Derechos Civiles - Departamento de Justicia\n"
+msgstr ""
+"\n"
+"        Step %(stage_number)s: %(current_step_name)s - Comuníquese con la "
+"División de Derechos Civiles - Departamento de Justicia\n"
+"      "
 
 #: crt_portal/cts_forms/templates/forms/base.html:18
 msgid "Contact the Civil Rights Division - Department of Justice"
@@ -1327,8 +1331,10 @@ msgid ""
 "              Current step: %(current_step_name)s. Step %(stage_number)s of "
 "%(total_stages)s.\n"
 "            "
-msgstr
+msgstr ""
+"\n"
 "              Paso actual: %(current_step_name)s. Paso %(stage_number)s de %(total_stages)s.\n"
+"            "
 
 #: crt_portal/cts_forms/templates/forms/portal/header.html:47
 msgid "not completed"
@@ -1397,7 +1403,10 @@ msgid ""
 "\n"
 "    %(word_limit)s word limit.\n"
 "  "
-msgstr "\n %(word_limit)s límite de palabras.\n"
+msgstr ""
+"\n"
+"   %(word_limit)s límite de palabras.\n"
+"  "
 
 #: crt_portal/cts_forms/templates/forms/word_counter.html:16
 #: crt_portal/cts_forms/templates/forms/word_counter.html:21
@@ -1406,7 +1415,10 @@ msgid ""
 "\n"
 "          %(word_limit)s word limit reached\n"
 "        "
-msgstr "\n %(word_limit)s límite de palabras alcanzado\n"
+msgstr ""
+"\n"
+"          %(word_limit)s límite de palabras alcanzado\n"
+"        "
 
 #: crt_portal/cts_forms/views.py:37
 msgid "Bad request"
@@ -1471,7 +1483,7 @@ msgstr "Servicio no disponible"
 msgid ""
 "Our web server is either closed for repair, upgrades or is rebooting. Please "
 "try again later."
-msgstr Nuestro servidor de web está cerrado para unos arreglos, actualizaciones o se está reinicializando. Se ruega que lo intente nuevamente más tarde.""
+msgstr "Nuestro servidor de web está cerrado para unos arreglos, actualizaciones o se está reinicializando. Se ruega que lo intente nuevamente más tarde."
 
 #: crt_portal/cts_forms/views.py:121
 msgid "Your browser couldn't create a secure cookie"
