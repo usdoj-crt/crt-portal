@@ -3,6 +3,16 @@ from django.apps import apps
 from django.core.exceptions import FieldDoesNotExist
 register = template.Library()
 
+variable_rename = {
+    'assigned_section': 'Routed',
+    'contact_first_name': 'Contact first name',
+    'contact_last_name': 'Contact last name',
+    'location_city_town':'City',
+    'location_state': 'State',
+    'assigned_to': 'Assignee',
+    'public_id': 'Complaint ID',
+    'primary_statute': 'Statute',
+}
 
 @register.filter(name='get_field_label')
 def get_field_label(value, arg):
@@ -16,4 +26,5 @@ def get_field_label(value, arg):
         field = model._meta.get_field(arg)
     except FieldDoesNotExist:
         return arg.replace('_', ' ')
-    return field.verbose_name
+
+    return variable_rename.get(field.name, field.verbose_name)
