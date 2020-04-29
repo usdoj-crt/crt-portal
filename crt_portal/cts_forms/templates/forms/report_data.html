@@ -1,3 +1,4 @@
+{% load i18n %}
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
         {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.0 step_value=0 %}
@@ -53,15 +54,15 @@
         <h4>{{ question.hatecrime }}</h4>
         {% if report.id %}
             {% for crime in report.hatecrimes_trafficking.all %}
-                <p>{{ crime }}</p>
+                <p>{% trans crime.hatecrimes_trafficking_option %}</p>
             {% empty %}
-                <p>None selected</p>
+                <p>{% trans 'None selected' %}</p>
             {% endfor %}
         {% else %}
             {% for crime in hatecrimes %}
-                <p>{{ crime }}</p>
+                <p>{% trans crime.hatecrimes_trafficking_option %}</p>
             {% empty %}
-                <p>None selected</p>
+                <p>{% trans 'None selected' %}</p>
             {% endfor %}
         {% endif %}
     </div>
@@ -156,15 +157,15 @@
         <h3>{{ question.characteristics }}</h3>
         {% if report.id %}
             {% for characteristic in report.protected_class.all %}
-                <p>{{ characteristic }}</p>
+                <p>{% trans characteristic.protected_class %}</p>
             {% empty %}
-                <p>None selected</p>
+                <p>{% trans 'None selected' %}</p>
             {% endfor %}
         {% else %}
             {% for characteristic in protected_classes %}
-                <p>{{ characteristic }}</p>
+                <p>{% trans characteristic.protected_class %}</p>
             {% empty %}
-                <p>None selected</p>
+                <p>{% trans 'None selected' %}</p>
             {% endfor %}
         {% endif %}
     </div>
