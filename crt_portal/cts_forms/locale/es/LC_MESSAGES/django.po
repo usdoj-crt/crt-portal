@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-29 19:40+0000\n"
+"POT-Creation-Date: 2020-04-29 19:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1293,10 +1293,12 @@ msgid "Here’s how you know"
 msgstr "Así es como lo sabe"
 
 #: templates/forms/base.html:51
+#: templates/partials/banner/usa_banner_content.html:7
 msgid "The .gov means it’s official."
 msgstr "El .gov significa que es oficial."
 
 #: templates/forms/base.html:52
+#: templates/partials/banner/usa_banner_content.html:8
 msgid ""
 "Federal government websites often end in .gov or .mil. Before sharing "
 "sensitive information, make sure you’re on a federal government site."
@@ -1306,10 +1308,12 @@ msgstr ""
 "gobierno federal."
 
 #: templates/forms/base.html:60
+#: templates/partials/banner/usa_banner_content.html:16
 msgid "The site is secure."
 msgstr "Este sitio es seguro."
 
 #: templates/forms/base.html:61
+#: templates/partials/banner/usa_banner_content.html:17
 msgid ""
 "The <strong>https://</strong> ensures that you are connecting to the "
 "official website and that any information you provide is encrypted and "
@@ -1624,41 +1628,6 @@ msgstr ""
 "\n"
 "          %(word_limit)s límite de palabras alcanzado\n"
 "        "
-
-#: templates/partials/banner/usa_banner_content.html:6
-#, fuzzy
-#| msgid ""
-#| "Federal government websites often end in .gov or .mil. Before sharing "
-#| "sensitive information, make sure you’re on a federal government site."
-msgid ""
-"\n"
-"      <strong>The .gov means it’s official.</strong>\n"
-"      <br>Federal government websites often end in .gov or .mil. Before "
-"sharing sensitive information, make sure you’re on a federal government "
-"site.\n"
-"      "
-msgstr ""
-"Las páginas web federales suelen acabar en .gov o .mil. Antes de compartir "
-"información confidencial, compruebe que se encuentra en un sitio del "
-"gobierno federal."
-
-#: templates/partials/banner/usa_banner_content.html:16
-#, fuzzy
-#| msgid ""
-#| "The <strong>https://</strong> ensures that you are connecting to the "
-#| "official website and that any information you provide is encrypted and "
-#| "transmitted securely."
-msgid ""
-"\n"
-"      <strong>The site is secure.</strong>\n"
-"      <br> The <strong>https://</strong> ensures that you are connecting to "
-"the official website and that any information you provide is encrypted and "
-"transmitted securely.\n"
-"      "
-msgstr ""
-"El <strong>https://</strong> asegura que usted se ha conectado al sitio web "
-"oficial y que cualquier información que usted presente sea encriptada y "
-"transmitida de manera segura."
 
 #: views.py:40
 msgid "Bad request"
