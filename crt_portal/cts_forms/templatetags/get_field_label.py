@@ -7,12 +7,13 @@ variable_rename = {
     'assigned_section': 'Routed',
     'contact_first_name': 'Contact first name',
     'contact_last_name': 'Contact last name',
-    'location_city_town':'City',
+    'location_city_town': 'City',
     'location_state': 'State',
     'assigned_to': 'Assignee',
     'public_id': 'Complaint ID',
     'primary_statute': 'Statute',
 }
+
 
 @register.filter(name='get_field_label')
 def get_field_label(value, arg):
