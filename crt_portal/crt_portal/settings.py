@@ -57,10 +57,10 @@ if environment != 'LOCAL':
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+# production hosts are specified later
 ALLOWED_HOSTS = [
     'crt-portal.app.cloud.gov',
     'crt-portal-django.app.cloud.gov',
-    'crt-portal-django-prod.app.cloud.gov',
     'crt-portal-django-stage.app.cloud.gov',
     'crt-portal-django-dev.app.cloud.gov',
 ]
@@ -212,6 +212,12 @@ if environment == 'PRODUCTION':
     # The url where the ADFS server calls back to our app
     LOGIN_REDIRECT_URL = "/oauth2/callback"
 
+    ALLOWED_HOSTS = [
+        'civilrights.justice.gov'
+        'www.civilrights.justice.gov',
+        'crt-portal-django-prod.app.cloud.gov',
+    ]
+
 STATIC_URL = '/static/'
 
 if environment != 'LOCAL':
@@ -239,6 +245,13 @@ if environment != 'LOCAL':
 
 if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     MIDDLEWARE.append('csp.middleware.CSPMiddleware')
+    bucket = f"{STATIC_URL}"
+    allowed_sources = (
+        "'self'",
+        bucket,
+        'www.civilrights.justice.gov',
+        'civilrights.justice.gov',
+    )
     # headers required for security
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
@@ -246,18 +259,22 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     # If this is set to True, client-side JavaScript will not be able to access the language cookie.
     SESSION_COOKIE_HTTPONLY = True
     # see settings options https://django-csp.readthedocs.io/en/latest/configuration.html#configuration-chapter
-    bucket = f"{STATIC_URL}"
-    CSP_DEFAULT_SRC = ("'self'", bucket)
+    CSP_DEFAULT_SRC = allowed_sources
     SESSION_COOKIE_SAMESITE = 'Strict'
-    CSP_SCRIPT_SRC = ("'self'", bucket)
-    CSP_IMG_SRC = ("'self'", bucket)
-    CSP_MEDIA_SRC = ("'self'", bucket)
-    CSP_FRAME_SRC = ("'self'", bucket)
-    CSP_WORKER_SRC = ("'self'", bucket)
-    CSP_FRAME_ANCESTORS = ("'self'", bucket)
-    CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", bucket)
+    CSP_SCRIPT_SRC = allowed_sources
+    CSP_IMG_SRC = allowed_sources
+    CSP_MEDIA_SRC = allowed_sources
+    CSP_FRAME_SRC = allowed_sources
+    CSP_WORKER_SRC = allowed_sources
+    CSP_FRAME_ANCESTORS = allowed_sources
+    CSP_STYLE_SRC = (
+        "'self'",
+        bucket,
+        'www.civilrights.justice.gov',
+        'civilrights.justice.gov',
+        "'unsafe-inline'"
+    )
     CSP_INCLUDE_NONCE_IN = ['script-src']
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
