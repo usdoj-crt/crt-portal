@@ -61,7 +61,7 @@ class ActivityStreamUpdater(object):
     def get_actions(self):
         """Parse incoming changed data for activity stream entry"""
         for field in self.changed_data:
-            yield f"updated {' '.join(field.split('_'))}:", f"from {self.initial[field]} to {self.cleaned_data[field]}"
+            yield f"{' '.join(field.split('_')).capitalize()}:", f'Updated from "{self.initial[field]}" to "{self.cleaned_data[field]}"'
 
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
@@ -1043,7 +1043,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
     def get_actions(self):
         """Parse incoming changed data for activity stream entry"""
         for field in self.changed_data:
-            yield f"updated {' '.join(field.split('_'))}:", f"from {self.initial[field]} to {self.cleaned_data[field]}"
+            yield f"{' '.join(field.split('_')).capitalize()}:", f'Updated from "{self.initial[field]}" to "{self.cleaned_data[field]}"'
 
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
