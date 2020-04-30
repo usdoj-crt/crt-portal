@@ -40,28 +40,6 @@ function prepareErrors() {
     error_message.setAttribute('role', 'alert');
     error_message.setAttribute('aria-live', 'assertive');
   }
-  // activate aria live elements for screen reader
-  var alerts = document.getElementsByClassName('update-status');
-  for (let i = 0; i < alerts.length; i++) {
-    let alert = alerts[i];
-    var region = document.getElementById('status-update');
-    var alertText = alert.textContent;
-    var message = document.createElement('p');
-    var node = document.createTextNode(alertText);
-    message.appendChild(node);
-    message.setAttribute('role', 'alert');
-    message.setAttribute('class', 'usa-sr-only');
-    message.setAttribute(
-      'id',
-      Math.random()
-        .toString(36)
-        .substring(2, 15) +
-        Math.random()
-          .toString(36)
-          .substring(2, 15)
-    );
-    region.appendChild(message);
-  }
 }
 
 function triggerAlert() {
