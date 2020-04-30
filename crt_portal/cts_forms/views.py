@@ -333,12 +333,10 @@ def save_form(form_data_dict, **kwargs):
     # add a save feature for hatecrimes and trafficking question on primary reason page
     # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
     for protected in m2m_protected_class:
-        p = ProtectedClass.objects.get(protected_class=protected)
-        r.protected_class.add(p)
+        r.protected_class.add(protected)
 
     for option in m2m_hatecrime:
-        o = HateCrimesandTrafficking.objects.get(hatecrimes_trafficking_option=option)
-        r.hatecrimes_trafficking.add(o)
+        r.hatecrimes_trafficking.add(option)
 
     r.assigned_section = r.assign_section()
     r.district = r.assign_district()
@@ -619,14 +617,10 @@ class CRTReportWizard(SessionWizardView):
                 form_data_dict, PUBLIC_OR_PRIVATE_SCHOOL_DICT, 'public_or_private_school'
             )
 
-            # Get values for M2M fields destined for association with this Report instance
-            hatecrimes = [crime.hatecrimes_trafficking_option for crime in form_data_dict.pop('hatecrimes_trafficking')]
-            protected_class = [choice.protected_class for choice in form_data_dict.pop('protected_class')]
-
             context.update({
                 'report': Report(**form_data_dict),
-                'hatecrimes': hatecrimes,
-                'protected_classes': protected_class,
+                'hatecrimes': form_data_dict.pop('hatecrimes_trafficking'),
+                'protected_classes': form_data_dict.pop('protected_class'),
                 'question': form.question_text,
             })
 

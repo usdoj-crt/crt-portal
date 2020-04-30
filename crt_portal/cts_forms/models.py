@@ -51,14 +51,14 @@ class ProtectedClass(models.Model):
     form_order = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return f'{self.protected_class}'
+        return self.get_protected_class_display()
 
 
 class HateCrimesandTrafficking(models.Model):
     hatecrimes_trafficking_option = models.CharField(max_length=500, null=True, blank=True, choices=HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, unique=True)
 
     def __str__(self):
-        return self.hatecrimes_trafficking_option
+        return self.get_hatecrimes_trafficking_option_display()
 
 
 class JudicialDistrict(models.Model):
