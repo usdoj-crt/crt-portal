@@ -54,13 +54,13 @@
         <h4>{{ question.hatecrime }}</h4>
         {% if report.id %}
             {% for crime in report.hatecrimes_trafficking.all %}
-                <p>{% trans crime.hatecrimes_trafficking_option %}</p>
+                <p>{{crime}}</p>
             {% empty %}
                 <p>{% trans 'None selected' %}</p>
             {% endfor %}
         {% else %}
             {% for crime in hatecrimes %}
-                <p>{% trans crime.hatecrimes_trafficking_option %}</p>
+                <p>{{crime}}</p>
             {% empty %}
                 <p>{% trans 'None selected' %}</p>
             {% endfor %}
@@ -157,13 +157,13 @@
         <h3>{{ question.characteristics }}</h3>
         {% if report.id %}
             {% for characteristic in report.protected_class.all %}
-                <p>{% trans characteristic.protected_class %}</p>
+                <p>{{ characteristic }}</p>
             {% empty %}
                 <p>{% trans 'None selected' %}</p>
             {% endfor %}
         {% else %}
             {% for characteristic in protected_classes %}
-                <p>{% trans characteristic.protected_class %}</p>
+                <p>{{characteristic}}</p>
             {% empty %}
                 <p>{% trans 'None selected' %}</p>
             {% endfor %}
