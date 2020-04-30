@@ -44,15 +44,23 @@ function prepareErrors() {
   var alerts = document.getElementsByClassName('update-status');
   for (let i = 0; i < alerts.length; i++) {
     let alert = alerts[i];
-    var region = document.getElementById('status-update')
+    var region = document.getElementById('status-update');
     var alertText = alert.textContent;
-    var message = document.createElement("p");
+    var message = document.createElement('p');
     var node = document.createTextNode(alertText);
     message.appendChild(node);
     message.setAttribute('role', 'alert');
     message.setAttribute('class', 'usa-sr-only');
-    message.setAttribute('id', Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15));
-    region.appendChild(message)
+    message.setAttribute(
+      'id',
+      Math.random()
+        .toString(36)
+        .substring(2, 15) +
+        Math.random()
+          .toString(36)
+          .substring(2, 15)
+    );
+    region.appendChild(message);
   }
 }
 
