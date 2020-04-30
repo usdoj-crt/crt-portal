@@ -1,79 +1,53 @@
+import logging
 from datetime import datetime
 
+from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
-from django.forms import (
-    ModelForm,
-    ChoiceField,
-    TypedChoiceField,
-    TextInput,
-    EmailInput,
-    Textarea,
-    ModelMultipleChoiceField,
-    Select,
-    CharField,
-)
+from django.forms import (CharField, ChoiceField, EmailInput, ModelChoiceField,
+                          ModelForm, ModelMultipleChoiceField, Select,
+                          Textarea, TextInput, TypedChoiceField)
 from django.utils.translation import gettext_lazy as _
 
-from .question_group import QuestionGroup
-from .widgets import UsaRadioSelect, UsaCheckboxSelectMultiple, CrtPrimaryIssueRadioGroup, CrtMultiSelect, ComplaintSelect
-from .models import Report, ProtectedClass, HateCrimesandTrafficking, CommentAndSummary
-from .model_variables import (
-    ELECTION_CHOICES,
-    PROTECTED_CLASS_CHOICES,
-    PROTECTED_CLASS_ERROR,
-    PRIMARY_COMPLAINT_CHOICES,
-    PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
-    PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
-    PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
-    EMPLOYER_SIZE_CHOICES,
-    SECTION_CHOICES,
-    STATES_AND_TERRITORIES,
-    VIOLATION_SUMMARY_ERROR,
-    WHERE_ERRORS,
-    PRIMARY_COMPLAINT_ERROR,
-    SERVICEMEMBER_CHOICES,
-    SERVICEMEMBER_ERROR,
-    CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
-    CORRECTIONAL_FACILITY_LOCATION_CHOICES,
-    POLICE_LOCATION_ERRORS,
-    COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
-    COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
-    PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
-    STATUS_CHOICES,
-    EMPTY_CHOICE,
-    INCIDENT_DATE_HELPTEXT,
-    DATE_ERRORS,
-    VOTING_ERROR,
-    EMPLOYER_SIZE_ERROR,
-    PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
-    COMMERCIAL_OR_PUBLIC_ERROR,
-    DISTRICT_CHOICES,
-    STATUTE_CHOICES,
-)
-
-from .question_text import (
-    CONTACT_QUESTIONS,
-    SERVICEMEMBER_QUESTION,
-    PRIMARY_REASON_QUESTION,
-    HATECRIME_TITLE,
-    HATECRIME_QUESTION,
-    LOCATION_QUESTIONS,
-    ELECTION_QUESTION,
-    WORKPLACE_QUESTIONS,
-    PUBLIC_QUESTION,
-    POLICE_QUESTIONS,
-    EDUCATION_QUESTION,
-    PROTECTED_CLASS_QUESTION,
-    DATE_QUESTIONS,
-    SUMMARY_QUESTION,
-    SUMMARY_HELPTEXT,
-)
-
+from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
+                              COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
+                              COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
+                              CORRECTIONAL_FACILITY_LOCATION_CHOICES,
+                              CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+                              DATE_ERRORS, DISTRICT_CHOICES, ELECTION_CHOICES,
+                              EMPLOYER_SIZE_CHOICES, EMPLOYER_SIZE_ERROR,
+                              EMPTY_CHOICE, INCIDENT_DATE_HELPTEXT,
+                              POLICE_LOCATION_ERRORS,
+                              PRIMARY_COMPLAINT_CHOICES,
+                              PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
+                              PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+                              PRIMARY_COMPLAINT_ERROR, PROTECTED_CLASS_CHOICES,
+                              PROTECTED_CLASS_ERROR,
+                              PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
+                              PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
+                              PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
+                              SECTION_CHOICES, SERVICEMEMBER_CHOICES,
+                              SERVICEMEMBER_ERROR, STATES_AND_TERRITORIES,
+                              STATUS_CHOICES, STATUTE_CHOICES,
+                              VIOLATION_SUMMARY_ERROR, VOTING_ERROR,
+                              WHERE_ERRORS)
+from .models import (CommentAndSummary, HateCrimesandTrafficking,
+                     ProtectedClass, Report)
 from .phone_regex import phone_validation_regex
-
-import logging
+from .question_group import QuestionGroup
+from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
+                            EDUCATION_QUESTION, ELECTION_QUESTION,
+                            HATECRIME_QUESTION, HATECRIME_TITLE,
+                            LOCATION_QUESTIONS, POLICE_QUESTIONS,
+                            PRIMARY_REASON_QUESTION, PROTECTED_CLASS_QUESTION,
+                            PUBLIC_QUESTION, SERVICEMEMBER_QUESTION,
+                            SUMMARY_HELPTEXT, SUMMARY_QUESTION,
+                            WORKPLACE_QUESTIONS)
+from .widgets import (ComplaintSelect, CrtMultiSelect,
+                      CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
+                      UsaRadioSelect)
 
 logger = logging.getLogger(__name__)
+User = get_user_model()
 
 
 def _add_empty_choice(choices):
@@ -81,21 +55,28 @@ def _add_empty_choice(choices):
     return (EMPTY_CHOICE,) + choices
 
 
-class ContactA11y():
-    def __init__(self):
-        self.name_a11y_id = 'contact_name'
-        self.contact_a11y_id = 'contact_info'
+class ActivityStreamUpdater(object):
+    """Utility functions to update activity stream for all changed fields"""
 
-    def name_id(self):
-        return self.name_a11y_id
+    def get_actions(self):
+        """Parse incoming changed data for activity stream entry"""
+        for field in self.changed_data:
+            yield f"updated {' '.join(field.split('_'))}", f" to {self.cleaned_data[field]}"
 
-    def contact_info_id(self):
-        return self.contact_a11y_id
+    def update_activity_stream(self, user):
+        """Send all actions to activity stream"""
+        from actstream import action
+        for verb, description in self.get_actions():
+            action.send(
+                user,
+                verb=verb,
+                description=description,
+                target=self.instance
+            )
 
 
 class Contact(ModelForm):
     class Meta:
-        a11y = ContactA11y()
         model = Report
         fields = [
             'contact_first_name', 'contact_last_name',
@@ -106,45 +87,34 @@ class Contact(ModelForm):
         widgets = {
             'contact_first_name': TextInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.name_id
             }),
             'contact_last_name': TextInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.name_id
             }),
             'contact_email': EmailInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.contact_info_id
             }),
             'contact_phone': TextInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.contact_info_id,
                 'pattern': phone_validation_regex,
                 'title': _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')
             }),
             'contact_address_line_1': TextInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.name_id
             }),
             'contact_address_line_2': TextInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.name_id
             }),
             'contact_city': TextInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.name_id
             }),
             'contact_zip': TextInput(attrs={
                 'class': 'usa-input',
-                'aria-describedby': a11y.name_id
             }),
         }
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
-
-        a11y = ContactA11y()
-
         self.label_suffix = ''
 
         self.fields['contact_first_name'].label = CONTACT_QUESTIONS['contact_first_name']
@@ -178,13 +148,11 @@ class Contact(ModelForm):
                 self,
                 ('contact_first_name', 'contact_last_name'),
                 group_name=CONTACT_QUESTIONS['contact_name_title'],
-                ally_id=a11y.name_id,
             ),
             QuestionGroup(
                 self,
                 ('contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2'),
                 group_name=CONTACT_QUESTIONS['contact_title'],
-                ally_id=a11y.contact_info_id,
             )
         ]
         self.help_text = CONTACT_QUESTIONS['contact_help_text'],
@@ -936,14 +904,33 @@ class Filters(ModelForm):
             'class': 'usa-select'
         })
     )
+    primary_statute = ChoiceField(
+        required=False,
+        choices=_add_empty_choice(STATUTE_CHOICES),
+        widget=Select(attrs={
+            'name': 'primary_statute',
+            'class': 'usa-select'
+        })
+    )
     summary = CharField(
+        required=False,
         widget=TextInput(
             attrs={
                 'class': 'usa-input',
                 'name': 'summary',
             },
         ),
+    )
+    assigned_to = ModelChoiceField(
         required=False,
+        queryset=User.objects.filter(is_active=True),
+        label=_("Assigned to"),
+        to_field_name='username',
+        # switch with type ahead
+        widget=Select(attrs={
+            'name': 'assigned_to',
+            'class': 'usa-select'
+        })
     )
 
     class Meta:
@@ -955,6 +942,9 @@ class Filters(ModelForm):
             'location_city_town',
             'location_state',
             'status',
+            'assigned_to',
+            'public_id',
+            'primary_statute',
         ]
 
         labels = {
@@ -963,12 +953,15 @@ class Filters(ModelForm):
             'contact_first_name': _('Contact first name'),
             'contact_last_name': _('Contact last name'),
             'location_city_town': _('Incident location city'),
-            'location_state': _('Incident location state')
+            'location_state': _('Incident location state'),
+            'assigned_to': _('Assignee'),
+            'public_id': _('Complaint ID'),
+            'primary_statute': _('Statute'),
         }
 
         widgets = {
             'assigned_section': CrtMultiSelect(attrs={
-                'classes': 'text-uppercase',
+                'class': 'text-uppercase',
                 'name': 'assigned_section'
             }),
             'contact_first_name': TextInput(attrs={
@@ -982,22 +975,33 @@ class Filters(ModelForm):
             'location_city_town': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'location_city_town'
+            }),
+            'public_id': TextInput(attrs={
+                'class': 'usa-input',
+                'name': 'public_id'
             })
         }
 
 
-class ComplaintActions(ModelForm):
+class ComplaintActions(ModelForm, ActivityStreamUpdater):
+    assigned_to = ModelChoiceField(
+        queryset=User.objects.filter(is_active=True),
+        label=_("Assigned to"),
+        required=False
+    )
+
     class Meta:
         model = Report
-        fields = ['assigned_section', 'status', 'primary_statute', 'district']
+        fields = ['assigned_section', 'status', 'primary_statute', 'district', 'assigned_to']
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['assigned_section'] = ChoiceField(
-            widget=ComplaintSelect(label='Section', attrs={
-                'classes': 'text-uppercase crt-dropdown__data'
-            }),
+            widget=ComplaintSelect(
+                label='Section',
+                attrs={'class': 'usa-select text-bold text-uppercase crt-dropdown__data'},
+            ),
             choices=SECTION_CHOICES,
             required=False
         )
@@ -1005,7 +1009,7 @@ class ComplaintActions(ModelForm):
             widget=ComplaintSelect(
                 label='Status',
                 attrs={
-                    'classes': 'crt-dropdown__data',
+                    'class': 'crt-dropdown__data',
                 },
 
             ),
@@ -1016,7 +1020,7 @@ class ComplaintActions(ModelForm):
             widget=ComplaintSelect(
                 label='Primary statute',
                 attrs={
-                    'classes': 'text-uppercase crt-dropdown__data',
+                    'class': 'text-uppercase crt-dropdown__data',
                 },
             ),
             choices=_add_empty_choice(STATUTE_CHOICES),
@@ -1026,12 +1030,13 @@ class ComplaintActions(ModelForm):
             widget=ComplaintSelect(
                 label='Judicial district',
                 attrs={
-                    'classes': 'text-uppercase crt-dropdown__data',
+                    'class': 'text-uppercase crt-dropdown__data',
                 },
             ),
             choices=_add_empty_choice(DISTRICT_CHOICES),
             required=False
         )
+        self.fields['assigned_to'].widget.label = 'Assigned to'
 
     def get_actions(self):
         """Parse incoming changed data for activity stream entry"""
@@ -1049,6 +1054,17 @@ class ComplaintActions(ModelForm):
                 target=self.instance
             )
 
+    def success_message(self):
+        """Prepare update success message for rendering in template"""
+        updated_fields = [self.fields[field].widget.label for field in self.changed_data]
+        if len(updated_fields) == 1:
+            message = f"Successfully updated {updated_fields[0]}."
+        else:
+            fields = ', '.join(updated_fields[:-1])
+            fields += f', and {updated_fields[-1]}'
+            message = f"Successfully updated {fields}."
+        return message
+
 
 class CommentActions(ModelForm):
     class Meta:
@@ -1060,17 +1076,85 @@ class CommentActions(ModelForm):
         self.fields['note'].widget = Textarea(
             attrs={
                 'class': 'usa-textarea',
+                'id': 'id_note-comment',
             },
         )
         self.fields['note'].label = 'New comment'
-        self.fields['is_summary'] = TextInput()
+        self.fields['is_summary'] = CharField()
 
-    def update_activity_stream(user, report, comment, verb):
+    def update_activity_stream(self, user, report, verb):
         """Send all actions to activity stream"""
         from actstream import action
         action.send(
             user,
             verb=verb,
-            description=comment,
+            description=self.instance.note,
             target=report
         )
+
+
+class SummaryField(CommentActions):
+    """Need to override the html id since it is on the same page as the comment form"""
+    def __init__(self, *args, **kwargs):
+        CommentActions.__init__(self, *args, **kwargs)
+        self.fields['note'].widget = Textarea(
+            attrs={
+                'class': 'usa-textarea',
+                'id': 'id_note-summary',
+            },
+        )
+
+
+class ContactEditForm(ModelForm, ActivityStreamUpdater):
+    SUCCESS_MESSAGE = "Successfully updated contact information."
+    FAIL_MESSAGE = "Failed to update contact details."
+
+    contact_state = ChoiceField(
+        choices=(("", _(' - Select - ')), ) + STATES_AND_TERRITORIES,
+        widget=Select(attrs={
+            'class': 'usa-input usa-select'
+        }),
+        label=CONTACT_QUESTIONS['contact_state'],
+        required=False,
+    )
+
+    class Meta:
+        model = Report
+        fields = [
+            'contact_first_name', 'contact_last_name',
+            'contact_email', 'contact_phone', 'contact_address_line_1',
+            'contact_address_line_2', 'contact_state',
+            'contact_city', 'contact_zip',
+        ]
+
+        widgets = {
+            'contact_first_name': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_last_name': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_email': EmailInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_phone': TextInput(attrs={
+                'class': 'usa-input',
+                'pattern': phone_validation_regex,
+                'title': _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')
+            }),
+            'contact_address_line_1': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_address_line_2': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_city': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'contact_zip': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+        }
+
+    def success_message(self):
+        return self.SUCCESS_MESSAGE

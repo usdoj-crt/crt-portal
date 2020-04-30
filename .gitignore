@@ -10,7 +10,9 @@ node_modules/
 staticfiles/
 pa11y-screenshots/
 # auto-generated files
-crt_portal/static/css/*
+crt_portal/static/css/compiled/*
+crt_portal/static/css/styles.css
+crt_portal/static/css/styles.css.map
 data/section_assignment.csv
 .vscode
 .coverage

@@ -1,0 +1,9 @@
+{% if messages %}
+<h2 class="messages">
+    <ul class="messages blue-background usa-prose" >
+        {% for message in messages %}
+            <li class="update-status{% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</li>
+        {% endfor %}
+    </ul>
+</h2>
+{% endif %}

@@ -1,7 +1,11 @@
 {# not on public pages #}
 {% extends "forms/report_base.html" %}
-
+{% load static %}
 {{ super }}
+
+{% block page_header %}
+  {% include 'forms/complaint_view/intake_header.html' with title_text="CRT Public Complaint Intake" progress_bar=True%}
+{% endblock %}
 
 {% block form_questions %}
 <div class="crt-portal-card">
@@ -12,7 +16,7 @@
       </section>
     {% endif %}
 
-    <h2 id="Intake">Intake</h2>
+    <h2 id="intake">Intake</h2>
     {% include "forms/question_cards/date.html" with question='CRT receipt date' month=form.crt_reciept_month day=form.crt_reciept_day year=form.crt_reciept_year %}
 
     {% include "forms/question_cards/single_question.html" with field=form.intake_format %}
@@ -21,43 +25,44 @@
 
 <div class="crt-portal-card">
   <div class="crt-portal-card__content crt-portal-card__content--lg">
-    <a name="Contact"></a>
+    <a name="contact"></a>
     {% include "forms/question_cards/contact.html" with card_title='Contact' %}
   </div>
 </div>
 
 {% include "forms/question_cards/single_form.html" with field=form.servicemember card_title="Service member" %}
 
-{% include "forms/question_cards/single_form.html" with field=form.primary_complaint card_title="Primary concern" required=True %}
+<div class="crt-portal-card">
+  <div class="crt-portal-card__content crt-portal-card__content--lg">
+    <h2 id="primary-concern">Primary concern</h2>
+    {% include "forms/question_cards/single_question.html" with field=form.primary_complaint required=True %}
+
+    {# Optional questions: #}
+
+    {% include "forms/question_cards/single_question.html" with hidden=True field=form.public_or_private_employer label_class=question_group.help_cls %}
+
+    {% include "forms/question_cards/single_question.html" with hidden=True field=form.employer_size label_class=question_group.help_cls %}
+
+    {% include "forms/question_cards/single_question.html" with hidden=True field=form.public_or_private_school label_class=question_group.help_cls %}
+
+    {% include "forms/question_cards/single_question.html" with hidden=True field=form.inside_correctional_facility label_class=question_group.help_cls %}
+
+    {% include "forms/question_cards/single_question.html" with hidden=True field=form.correctional_facility_type label_class=question_group.help_cls %}
+
+    {% include "forms/question_cards/single_question.html" with hidden=True field=form.commercial_or_public_place label_class=question_group.help_cls %}
+
+    {% include "forms/question_cards/single_question.html" with hidden=True field=form.other_commercial_or_public_place label_class=question_group.help_cls %}
+  </div>
+</div>
 
 {% include "forms/question_cards/single_form.html" with field=form.hatecrimes_trafficking %}
 
-<div class="crt-portal-card">
-  <div class="crt-portal-card__content crt-portal-card__content--lg">
-    <h2 id="Follow up">Follow up questions</h2>
-
-    {% include "forms/question_cards/single_question.html" with field=form.public_or_private_employer label_class=question_group.help_cls %}
-
-    {% include "forms/question_cards/single_question.html" with field=form.employer_size label_class=question_group.help_cls %}
-    {% include "forms/question_cards/single_question.html" with field=form.public_or_private_school label_class=question_group.help_cls %}
-
-    {% include "forms/question_cards/single_question.html" with field=form.election_details label_class=question_group.help_cls %}
-
-    {% include "forms/question_cards/single_question.html" with field=form.inside_correctional_facility label_class=question_group.help_cls %}
-
-    {% include "forms/question_cards/single_question.html" with field=form.correctional_facility_type label_class=question_group.help_cls %}
-
-    {% include "forms/question_cards/single_question.html" with field=form.commercial_or_public_place label_class=question_group.help_cls %}
-
-    {% include "forms/question_cards/single_question.html" with field=form.other_commercial_or_public_place label_class=question_group.help_cls %}
-  </div>
-</div>
 
 {% include "forms/question_cards/location.html" with card_title="Incident location" %}
 
 <div class="crt-portal-card">
   <div class="crt-portal-card__content crt-portal-card__content--lg">
-    <h2 id="Personal characteristics">Personal characteristics</h2>
+    <h2 id="personal-characteristics">Personal characteristics</h2>
     {% include "forms/question_cards/single_question.html" with field=form.protected_class card_title="Personal characteristics" %}
 
     {% include "forms/question_cards/single_question.html" with field=form.other_class card_title="Personal characteristics" %}
@@ -66,17 +71,35 @@
 
 <div class="crt-portal-card">
   <div class="crt-portal-card__content crt-portal-card__content--lg">
-    <h2 id="Date">Date</h2>
+    <h2 id="date">Date</h2>
     {% include "forms/question_cards/date.html" with card_title='Date' question=form.date_question month=form.last_incident_month day=form.last_incident_day year=form.last_incident_year %}
   </div>
 </div>
 
 <div class="crt-portal-card">
   <div class="crt-portal-card__content crt-portal-card__content--lg">
-    <h2 id="Summary">Intake summary</h2>
+    <h2 id="summary">Intake summary</h2>
     {% include "forms/question_cards/single_question.html" with field=form.violation_summary card_title="Intake summary" %}
     {% include "forms/word_counter.html" with word_limit=500 %}
   </div>
 </div>
 
+{% endblock %}
+
+{% block page_js %}
+{{ super }}
+<script nonce="{{request.csp_nonce}}">
+  (function(root) {
+    root.CRT = root.CRT || {};
+
+    root.CRT.translations = {
+      wordRemainingText: "word remaining",
+      wordsRemainingText: " words remaining",
+      wordLimitReachedText: " word limit reached"
+    };
+  })(window)
+</script>
+<script src="{% static 'js/pro_form_show_hide.js' %}"></script>
+<script src="{% static 'js/word_count.js' %}"></script>
+<script src="{% static 'js/progress-bar.js' %}"></script>
 {% endblock %}
