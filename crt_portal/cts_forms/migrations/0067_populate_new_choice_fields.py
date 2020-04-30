@@ -33,7 +33,14 @@ class Migration(migrations.Migration):
 
 
     def reverse(apps, schema_editor):
-        pass
+        """Empty the values places in `value`"""
+        for hc in HateCrimesandTrafficking.objects.all():
+            hc.value = ''
+            hc.save
+
+        for pc in ProtectedClass.objects.all():
+            pc.value = ''
+            pc.save()
 
     operations = [
         migrations.RunPython(forward),

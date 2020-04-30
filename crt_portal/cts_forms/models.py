@@ -45,6 +45,7 @@ class CommentAndSummary(models.Model):
 
 class ProtectedClass(models.Model):
     protected_class = models.CharField(max_length=100, null=True, blank=True, choices=PROTECTED_MODEL_CHOICES, unique=True)
+    value = models.CharField(max_length=100, blank=True, choices=PROTECTED_MODEL_CHOICES, unique=True)
     # for display in the CRT views
     code = models.CharField(max_length=100, null=True, blank=True, unique=True)
     # used for ordering the choices on the form displays
@@ -56,6 +57,7 @@ class ProtectedClass(models.Model):
 
 class HateCrimesandTrafficking(models.Model):
     hatecrimes_trafficking_option = models.CharField(max_length=500, null=True, blank=True, choices=HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, unique=True)
+    value = models.CharField(max_length=500, blank=True, choices=HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, unique=True)
 
     def __str__(self):
         return self.get_hatecrimes_trafficking_option_display()
