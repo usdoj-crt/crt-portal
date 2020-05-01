@@ -8,37 +8,37 @@
         <div class="question">
             <h3>{{ question.contact.contact_name_title }}</h3>
             <h4>{{ question.contact.contact_first_name }}</h4>
-            <p>{{ report.contact_first_name }}</p>
+            <p>{{ report.contact_first_name|default:"-" }}</p>
             <h4>{{ question.contact.contact_last_name }}</h4>
-            <p>{{ report.contact_last_name }}</p>
+            <p>{{ report.contact_last_name|default:"-" }}</p>
         </div>
 
         <div class="question">
         <h3>{{ question.contact.contact_title }}</h3>
 
         <h4>{{ question.contact.contact_email }}</h4>
-        <p>{{ report.contact_email }}</p>
+        <p>{{ report.contact_email|default:"-" }}</p>
 
         <h4>{{ question.contact.contact_phone }}</h4>
-        <p>{{ report.contact_phone }}</p>
+        <p>{{ report.contact_phone|default:"-" }}</p>
 
         <h4>{{ question.contact.contact_address_line_1 }}</h4>
-        <p>{{ report.contact_address_line_1 }}</p>
+        <p>{{ report.contact_address_line_1|default:"-" }}</p>
 
         <h4>{{ question.contact.contact_address_line_2 }}</h4>
-        <p>{{ report.contact_address_line_2 }}</p>
+        <p>{{ report.contact_address_line_2|default:"-" }}</p>
 
         <h4>{{ question.contact.contact_city }}</h4>
-        <p>{{ report.contact_city }}</p>
+        <p>{{ report.contact_city|default:"-" }}</p>
 
         <h4>{{ question.contact.contact_state }}</h4>
-        <p>{{ report.get_contact_state_display }}</p>
+        <p>{{ report.get_contact_state_display|default:"-" }}</p>
 
         <h4>{{ question.contact.contact_zip }}</h4>
-        <p>{{ report.contact_zip }}</p>
+        <p>{{ report.contact_zip|default:"-" }}</p>
         </div>
         <h3>{{ question.servicemember }}</h3>
-        <p>{{ report.get_servicemember_display }}</p>
+        <p>{{ report.get_servicemember_display|default:"-" }}</p>
     </div>
 </div>
 
@@ -96,54 +96,54 @@
 
          {% if report.election_details %}
             <h3>{{ question.election }}</h3>
-            <p>{{ report.get_election_details_display }}</p>
+            <p>{{ report.get_election_details_display|default:"-" }}</p>
 
         {% elif report.public_or_private_employer %}
             <h3>{{ question.workplace.public_or_private_employer }}</h3>
-            <p>{{ report.get_public_or_private_employer_display }}</p>
+            <p>{{ report.get_public_or_private_employer_display|default:"-" }}</p>
 
             <h3>{{ question.workplace.employer_size }}</h3>
-            <p>{{ report.get_employer_size_display }}</p>
+            <p>{{ report.get_employer_size_display|default:"-" }}</p>
 
         {% elif report.inside_correctional_facility %}
             <h3>{{ question.police.inside_correctional_facility }}</h3>
-            <p>{{ report.get_inside_correctional_facility_display}}</p>
+            <p>{{ report.get_inside_correctional_facility_display|default:"-" }}</p>
 
             {% if report.correctional_facility_type %}
                 <h3>{{ question.police.correctional_facility_type }}</h3>
-                <p>{{ report.get_correctional_facility_type_display }}</p>
+                <p>{{ report.get_correctional_facility_type_display|default:"-" }}</p>
             {% endif %}
 
         {% elif report.commercial_or_public_place %}
             <h3>{{ question.public }}</h3>
-            <p>{{ report.get_commercial_or_public_place_display }}</p>
+            <p>{{ report.get_commercial_or_public_place_display|default:"-" }}</p>
             {% if report.other_commercial_or_public_place %}
                 <h3>{{ question.other_commercial_or_public_place }}</h3>
-                <p>{{ report.get_other_commercial_or_public_place_display }}</p>
+                <p>{{ report.get_other_commercial_or_public_place_display|default:"-" }}</p>
             {% endif %}
 
         {% elif report.public_or_private_school %}
             <h3>{{ question.education }}</h3>
-            <p>{{ report.get_public_or_private_school_display }}</p>
+            <p>{{ report.get_public_or_private_school_display|default:"-" }}</p>
 
         {% endif %}
 
         <h3>{{ question.location.location_title }}</h4>
 
         <h4>{{ question.location.location_address_line_1 }}</h4>
-        <p>{{ report.location_address_line_1 }}</p>
+        <p>{{ report.location_address_line_1|default:"-" }}</p>
 
         <h4>{{ question.location.location_address_line_2 }}</h4>
-        <p>{{ report.location_address_line_2 }}</p>
+        <p>{{ report.location_address_line_2|default:"-" }}</p>
 
         <h4>{{ question.location.location_city_town }}</h4>
-        <p>{{ report.location_city_town }}</p>
+        <p>{{ report.location_city_town|default:"-" }}</p>
 
         <h4>{{ question.location.location_name }}</h4>
-        <p>{{ report.location_name }}</p>
+        <p>{{ report.location_name|default:"-" }}</p>
 
         <h4>{{ question.location.location_state }}</h4>
-        <p>{{ report.get_location_state_display}}</p>
+        <p>{{ report.get_location_state_display|default:"-"}}</p>
 
     </div>
 </div>
