@@ -9,7 +9,7 @@ from cts_forms.model_variables import (HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0066_auto_20200430_1400'),
+        ('cts_forms', '0066_add_new_choicefields'),
     ]
 
     def forward(apps, schema_editor):

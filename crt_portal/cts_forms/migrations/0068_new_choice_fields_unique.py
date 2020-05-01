@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0067_auto_20200430_1400'),
+        ('cts_forms', '0067_populate_new_choice_fields'),
     ]
 
     operations = [
