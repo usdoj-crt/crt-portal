@@ -52,7 +52,7 @@ class ProtectedClass(models.Model):
     form_order = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return self.get_protected_class_display()
+        return self.get_value_display()
 
 
 class HateCrimesandTrafficking(models.Model):
@@ -60,7 +60,7 @@ class HateCrimesandTrafficking(models.Model):
     value = models.CharField(max_length=500, blank=True, choices=HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, unique=True)
 
     def __str__(self):
-        return self.get_hatecrimes_trafficking_option_display()
+        return self.get_value_display()
 
 
 class JudicialDistrict(models.Model):
@@ -180,9 +180,9 @@ class Report(models.Model):
 
     def __has_immigration_protected_classes(self, pcs):
         immigration_classes = [
-            'Immigration/citizenship status (choosing this will not share your status)',
-            'National origin (including ancestry and ethnicity)',
-            'Language'
+            'immigration',
+            'national_origin',
+            'language'
         ]
         is_not_included = set(pcs).isdisjoint(set(immigration_classes))
 
@@ -192,12 +192,12 @@ class Report(models.Model):
         return True
 
     def __is_not_disabled(self, pcs):
-        return 'Disability (including temporary or recovery)' not in pcs
+        return 'disability' not in pcs
 
     def assign_section(self):
         """See the SectionAssignmentTests for expected behaviors"""
-        protected_classes = [n.protected_class for n in self.protected_class.all()]
-        hatecrimes_options = [n.hatecrimes_trafficking_option for n in self.hatecrimes_trafficking.all()]
+        protected_classes = [pc.value for pc in self.protected_class.all()]
+        hatecrimes_options = [hc.value for hc in self.hatecrimes_trafficking.all()]
 
         if len(hatecrimes_options) > 0:
             return 'CRM'
