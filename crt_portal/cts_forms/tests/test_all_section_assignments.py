@@ -23,7 +23,7 @@ def load_expected_assignment():
 
 
 def write_and_check(self, writer, expected, actual, row):
-    line = writer.writerow(row)
+    writer.writerow(row)
     record = ''.join(row.values())
     actual.add(record)
     self.assertTrue(record in expected)
