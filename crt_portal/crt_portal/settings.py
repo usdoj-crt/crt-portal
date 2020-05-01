@@ -255,6 +255,13 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     # headers required for security
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
+    CSRF_TRUSTED_ORIGINS = [
+        'civilrights.justice.gov',
+        'www.civilrights.justice.gov',
+        'crt-portal-django-prod.app.cloud.gov',
+        'crt-portal-django-stage.app.cloud.gov',
+        'crt-portal-django-dev.app.cloud.gov',
+    ]
     X_FRAME_OPTIONS = "DENY"
     # If this is set to True, client-side JavaScript will not be able to access the language cookie.
     SESSION_COOKIE_HTTPONLY = True
