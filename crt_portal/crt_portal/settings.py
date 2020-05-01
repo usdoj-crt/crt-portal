@@ -213,7 +213,7 @@ if environment == 'PRODUCTION':
     LOGIN_REDIRECT_URL = "/oauth2/callback"
 
     ALLOWED_HOSTS = [
-        'civilrights.justice.gov'
+        'civilrights.justice.gov',
         'www.civilrights.justice.gov',
         'crt-portal-django-prod.app.cloud.gov',
     ]
