@@ -165,7 +165,7 @@ You can also run project tests using docker with:
 
 This will run all of the tests located in the [tests](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/tests) folder. where the business logic tests live.
 
-The test suite includes [test_all_section_assignments.py](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/test_all_section_assignments.py), a script that generates a csv in the `/data` folder which has the relevant permutations of form fields and runs the out put from the [section assignment function](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/models.py#L125). The idea is that we can expand the spreadsheet and the script to check outcomes. Then it will be a true test, in the meantime, this is not being run as part of deploy.
+The test suite includes [test_all_section_assignments.py](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/test_all_section_assignments.py), a script that generates a csv in the `/data` folder which has the relevant permutations of form fields and runs the out put from the [section assignment function](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/models.py#L125). If you are updating section assignments, you will want to edit the csv in data/section_assignment_expected.csv to what the new assignment should be. Additionally, if there are new factors to consider for routing, you will want to add those factors to the test so that they are accounted for in the expected and actual csvs.
 
 You can also run a subset of tests by specifying a path to a specific test class or module. For example:
 
