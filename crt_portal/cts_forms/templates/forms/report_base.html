@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load static %}
+{% load summary_error_count_message %}
 
 {% block page_title %}
   {% if wizard.steps.step1 and current_step_name %}
@@ -47,7 +48,7 @@
           {% block form_questions %}
             {% if page_errors %}
               <section id="page-errors" class="page-errors margin-bottom-2" role="alert" aria-live="assertive">
-                {{ num_page_errors }} error{{ num_page_errors|pluralize }} found
+                {{ num_page_errors|summary_error_count_message }}
               </section>
             {% endif %}
             <div class="margin-bottom-4">
