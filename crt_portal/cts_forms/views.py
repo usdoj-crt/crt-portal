@@ -308,6 +308,7 @@ class SaveCommentView(LoginRequiredMixin, FormView):
             report.internal_comments.add(comment)
             if comment.is_summary:
                 verb = 'Updated summary: ' if instance else 'Added summary: '
+
             else:
                 # If not a summary, this is a comment
                 verb = 'Updated comment: ' if instance else 'Added comment: '
