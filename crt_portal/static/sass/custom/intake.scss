@@ -209,6 +209,11 @@
     @include u-color($blue-warm-5-t);
     @include u-border($blue-warm-5-t);
 
+    &:hover {
+      @include u-color($blue-warm-5-t);
+      @include u-border($blue-warm-5-t);
+    }
+
     &.usa-button:visited {
       @include u-color($blue-warm-5-t);
     }

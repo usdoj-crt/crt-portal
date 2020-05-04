@@ -6,13 +6,11 @@
     {{ form.inside_correctional_facility }}
   </div>
   {% with field=form.correctional_facility_type %}
-    <div class="other-class-option margin-bottom-2">
-      <div class="blue-left-highlight">
-        <label for="{{ field.id_for_label }}">
-          <b>{{ field.help_text }}</b>
-        </label>
-        {{ field }}
-      </div>
+    <div class="other-class-option">
+      <label for="{{ field.id_for_label }}">
+        <b>{{ field.help_text }}</b>
+      </label>
+      {{ field }}
     </div>
     {% if field.errors %}
       {% include "forms/snippets/error_alert.html" with errors=field.errors %}
