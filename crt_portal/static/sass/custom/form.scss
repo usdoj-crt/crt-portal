@@ -99,7 +99,11 @@ form#report-form {
       margin-bottom: 0;
     }
   }
-
+  .usa-radio__input:checked + .usa-radio__label::before,
+  .usa-checkbox__input:checked + .usa-checkbox__label::before {
+    background-color: $blue-warm-vivid-80;
+    box-shadow: 0 0 0 2px $blue-warm-vivid-80, inset 0 0 0 2px #fff;
+  }
   .usa-button {
     &:hover {
       background-color: $blue-50;
@@ -245,10 +249,6 @@ form#report-form {
     font-weight: lighter;
     color: $gray-warm-80;
   }
-}
-
-input[type='radio']:checked + .crt-radio__label_area {
-  background-color: $blue-warm-5;
 }
 
 // Remove extra dropown error from datalist element
