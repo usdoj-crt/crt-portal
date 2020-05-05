@@ -1,5 +1,6 @@
 {% extends "forms/report_base.html" %}
 {% load static %}
+{% load i18n %}
 
 {% block form_questions %}
   <div class="crt-portal-card">
@@ -16,17 +17,17 @@
 
       {% with city=form.location_city_town state=form.location_state %}
         <div class="grid-row">
-          <div class="margin-top-3 mobile-lg:grid-col-9">            
+          <div class="margin-top-3 mobile-lg:grid-col-9">
             <div class="grid-row margin-bottom-4">
               <div class="mobile-lg:grid-col-6">
                 <label for="{{city.id_for_label}}">
-                  {{ city.label }}
+                  {{ city.label }}{% if city.field.required %}<span class="field-required">{% trans "required" %}</span>{% endif %}
                 </label>
                 {{city|withInputError}}
               </div>
               <div class="mobile-lg:grid-col-5 mobile-lg:grid-offset-1">
                 <label for="{{state.id_for_label}}">
-                  {{state.label}}
+                  {{state.label}}{% if state.field.required %}<span class="field-required">{% trans "required" %}</span>{% endif %}
                 </label>
                 {{state|withInputError}}
               </div>
