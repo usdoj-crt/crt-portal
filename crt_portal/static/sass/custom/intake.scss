@@ -46,6 +46,7 @@
   @include u-bg($blue-warm-vivid-80-t);
   @include u-padding-top(3);
   position: sticky;
+  width: 100%;
   top: 0;
   z-index: 99;
   + main {

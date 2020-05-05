@@ -15,10 +15,12 @@
     } catch (err) {
       console.log(err);
     }
-    return supportsScroll;
+    // return supportsScroll;
+    return false; // JUST FOR TESTING, DUDE
   }
 
   if (supportsSmoothScroll() == true) {
+    // enable smooth scroll with position:sticky header for browsers that support it
     var offsetHeight = document
       .getElementsByClassName('intake-header--progress-bar')[0]
       .getBoundingClientRect().height;
@@ -39,5 +41,16 @@
         smoothScroll(el);
       });
     }
+  } else {
+    // if browser doesn't support scrolling and position: sticky, use position: fixed instead
+    var bar = document.getElementsByClassName('intake-header--progress-bar')[0];
+    var barOffset = bar.getBoundingClientRect().top;
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset >= barOffset) {
+        bar.style.position = 'fixed';
+      } else {
+        bar.style.position = 'relative'; // un-stick it when page is scrolled all the way up
+      }
+    });
   }
 })(window);
