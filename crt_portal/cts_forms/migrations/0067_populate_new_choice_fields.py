@@ -51,12 +51,12 @@ class Migration(migrations.Migration):
         for pc in ProtectedClass.objects.all():
             try:
                 pc.value = pc_labels[pc.protected_class]
+
             except KeyError:
                 # These are legacy instances for which we have no value available
                 # we'll slugify their `current protected_class`
-                hc.value = slugify(pc.protected_class)
+                pc.value = slugify(pc.protected_class)
             pc.save()
-
 
     def reverse(apps, schema_editor):
         """Empty the values places in `value`"""
