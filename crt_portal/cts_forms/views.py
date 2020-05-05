@@ -275,7 +275,8 @@ class ShowView(LoginRequiredMixin, View):
             form.save()
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())
-            return redirect(report.get_absolute_url())
+            url = report.get_absolute_url()
+            return redirect(f"{url}#status-update")
         else:
             output = serialize_data(report, request, id)
             # Add form with errors to context
@@ -283,7 +284,12 @@ class ShowView(LoginRequiredMixin, View):
                 output.update({'contact_form': form})
             else:
                 output['actions'] = form
-            messages.add_message(request, messages.ERROR, form.FAIL_MESSAGE)
+            try:
+                fail_message = form.FAIL_MESSAGE
+            except AttributeError:
+                fail_message = 'No updates applied'
+
+            messages.add_message(request, messages.ERROR, fail_message)
 
             return render(request, 'forms/complaint_view/show/index.html', output)
 
@@ -316,7 +322,8 @@ class SaveCommentView(LoginRequiredMixin, FormView):
             messages.add_message(request, messages.SUCCESS, f'Successfully {verb[:-2].lower()}.')
             comment_form.update_activity_stream(request.user, report, verb)
 
-            return redirect(report.get_absolute_url())
+            url = report.get_absolute_url()
+            return redirect(f"{url}#status-update")
         else:
             # TODO handle form validation failures
             output = serialize_data(report, request, report_id)
