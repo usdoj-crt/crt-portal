@@ -15,7 +15,11 @@ class Migration(migrations.Migration):
     def forward(apps, schema_editor):
         """
         Set value field of existing HateCrimesandTrafficking and ProtectedClass instances
-        to those matching their labels set in orignal field
+        to those matching their labels set in original field
+
+        This migration is expected to fail and no changes saved if _any_
+        existing HateCrimesandTrafficking or ProtectedClass instance cannot
+        be updated
         """
         HateCrimesandTrafficking = apps.get_model('cts_forms', 'HateCrimesandTrafficking')
         ProtectedClass = apps.get_model('cts_forms', 'ProtectedClass')
@@ -23,7 +27,11 @@ class Migration(migrations.Migration):
         hc_labels = {label: value for value, label in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES}
 
         for hc in HateCrimesandTrafficking.objects.all():
-            hc.value = hc_labels[hc.hatecrimes_trafficking_option]
+            try:
+                hc.value = hc_labels[hc.hatecrimes_trafficking_option]
+            except KeyError:
+                # Live instances may have punctuation, try to match without
+                hc.value = hc_labels[hc.hatecrimes_trafficking_option[:-1]]
             hc.save()
 
         pc_labels = {label: value for value, label in PROTECTED_MODEL_CHOICES}
@@ -34,6 +42,8 @@ class Migration(migrations.Migration):
 
     def reverse(apps, schema_editor):
         """Empty the values places in `value`"""
+        HateCrimesandTrafficking = apps.get_model('cts_forms', 'HateCrimesandTrafficking')
+        ProtectedClass = apps.get_model('cts_forms', 'ProtectedClass')
         for hc in HateCrimesandTrafficking.objects.all():
             hc.value = ''
             hc.save
@@ -43,5 +53,5 @@ class Migration(migrations.Migration):
             pc.save()
 
     operations = [
-        migrations.RunPython(forward),
+        migrations.RunPython(forward, reverse_code=reverse),
     ]
