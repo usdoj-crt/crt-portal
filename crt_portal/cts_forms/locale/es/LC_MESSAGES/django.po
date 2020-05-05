@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-29 19:49+0000\n"
+"POT-Creation-Date: 2020-05-01 02:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:100 forms.py:1143
+#: forms.py:99 forms.py:1142
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
@@ -28,19 +28,19 @@ msgstr ""
 "de país."
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:130 forms.py:1113
+#: forms.py:129 forms.py:1112
 msgid " - Select - "
 msgstr " - Elija - "
 
 #. Translators: This is help text for the question asking if someone is a service member
-#: forms.py:142
+#: forms.py:141
 msgid ""
 "If you’re reporting on behalf of someone else, please select their status."
 msgstr ""
 "Si usted está presentando la querella en nombre de otra persona, elija el "
 "estatus de tal persona."
 
-#: forms.py:159 templates/forms/report_contact_info.html:8
+#: forms.py:158 templates/forms/report_contact_info.html:8
 msgid ""
 "If you believe you or someone else has experienced a civil rights violation, "
 "please tell us what happened."
@@ -48,7 +48,7 @@ msgstr ""
 "Si usted cree que usted u otra persona ha sido víctima de una vulneración de "
 "sus derechos civiles, cuéntenos lo que pasó."
 
-#: forms.py:185
+#: forms.py:184
 msgid ""
 "Select the reason that best describes your concern. Each reason lists "
 "examples of civil rights violations that may relate to your incident. In "
@@ -60,7 +60,7 @@ msgstr ""
 "su caso. En otra sección de este informe, tendrá la oportunidad de describir "
 "su preocupación en sus propias palabras."
 
-#: forms.py:218
+#: forms.py:217
 msgid ""
 "Please let us know if you would describe your concern as either a hate crime "
 "or human trafficking. This information can help us take action against these "
@@ -75,11 +75,11 @@ msgstr ""
 "autoridades policiales si usted u otra persona está en peligro inmediato."
 
 #. Translators: notes that this page is the same form step as the page before
-#: forms.py:226 forms.py:246
+#: forms.py:225 forms.py:245
 msgid "Continued"
 msgstr "Continuado"
 
-#: forms.py:288
+#: forms.py:287
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
@@ -87,11 +87,11 @@ msgstr ""
 "Ejemplos: Nombre de la empresa, escuela, intersección, cárcel, sede de "
 "votación, página web, etc."
 
-#: forms.py:311 question_text.py:27
+#: forms.py:310 question_text.py:27
 msgid "Where did this happen?"
 msgstr "¿Dónde sucedió esto?"
 
-#: forms.py:323
+#: forms.py:322
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your concern is reviewed by the right people within "
@@ -101,22 +101,22 @@ msgstr ""
 "incidente. Esto asegura que su motivo de preocupación sea revisado por las "
 "personas indicadas dentro de la División de Derechos Civiles."
 
-#: forms.py:350
+#: forms.py:349
 msgid "Presidential or congressional"
 msgstr "Presidencial o del Congreso"
 
-#: forms.py:351
+#: forms.py:350
 msgid ""
 "Governor, state legislation, city position (mayor, council, local board)"
 msgstr ""
 "Gobernador, legislación estatal, puesto municipal (alcalde, consejo, junta "
 "local)"
 
-#: forms.py:352
+#: forms.py:351
 msgid "Federal & State/local"
 msgstr "Federal y estatal/local"
 
-#: forms.py:394
+#: forms.py:393
 msgid ""
 "Public employers include organizations funded by the government like the "
 "military, post office, fire department, courthouse, DMV, or public school. "
@@ -127,7 +127,7 @@ msgstr ""
 "juzgados, departamentos de vehículos motorizados o escuelas públicas. Esto "
 "podría ser al nivel local o estatal."
 
-#: forms.py:395
+#: forms.py:394
 msgid ""
 "Private employers are business or non-profits not funded by the government "
 "such as retail stores, banks, or restaurants."
@@ -137,11 +137,11 @@ msgstr ""
 "bancos o restaurantes."
 
 #. Translators: describe the "other" option for commercial or public place question
-#: forms.py:441
+#: forms.py:440
 msgid "Please describe"
 msgstr "Favor de describirlo"
 
-#: forms.py:508
+#: forms.py:507
 msgid ""
 "Includes schools, educational programs, or educational activities, like "
 "training programs, sports teams, clubs, or other school-sponsored activities"
@@ -150,16 +150,16 @@ msgstr ""
 "programas de capacitación, equipos deportivos, clubes u otras actividades "
 "patrocinadas por una escuela."
 
-#: forms.py:522
+#: forms.py:521
 msgid "Please select the type of school or educational program."
 msgstr "Elija el tipo de escuela o programa educativo."
 
 #. Translators: This is to explain an "other" choice for personal characteristics
-#: forms.py:553
+#: forms.py:552
 msgid "Please describe \"Other reason\""
 msgstr "Favor de describir \"Otro motivo\""
 
-#: forms.py:563
+#: forms.py:562
 msgid ""
 "There are federal and state laws that protect people from discrimination "
 "based on their personal characteristics. Here is a list of the most common "
@@ -171,7 +171,7 @@ msgstr ""
 "lista de las características más comunes que están legalmente protegidas. "
 "Elija cualquiera que se aplique a su incidente."
 
-#: forms.py:645
+#: forms.py:644
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -181,44 +181,44 @@ msgstr ""
 "tomar las medidas apropiadas. Si sucedió a lo largo de un período de tiempo "
 "o todavía está sucediendo, favor de indicar la fecha más reciente."
 
-#: forms.py:879
+#: forms.py:878
 msgid "What did the person believe happened?"
 msgstr "¿Qué cree la persona que ocurrió?"
 
-#: forms.py:927 forms.py:989
+#: forms.py:926 forms.py:988
 msgid "Assigned to"
 msgstr ""
 
 #. Translators: CRT sections
-#: forms.py:952
+#: forms.py:951
 msgid "View sections"
 msgstr "Ver las secciones"
 
-#: forms.py:953
+#: forms.py:952
 msgid "Contact first name"
 msgstr "Nombres del contacto"
 
-#: forms.py:954
+#: forms.py:953
 msgid "Contact last name"
 msgstr "Apellidos del contacto"
 
-#: forms.py:955
+#: forms.py:954
 msgid "Incident location city"
 msgstr "Ciudad en que ocurrió el incidente"
 
-#: forms.py:956
+#: forms.py:955
 msgid "Incident location state"
 msgstr "Estado en que ocurrió el incidente"
 
-#: forms.py:957
+#: forms.py:956
 msgid "Assignee"
 msgstr ""
 
-#: forms.py:958
+#: forms.py:957
 msgid "Complaint ID"
 msgstr ""
 
-#: forms.py:959
+#: forms.py:958
 #, fuzzy
 #| msgid "State"
 msgid "Statute"
@@ -1244,26 +1244,26 @@ msgstr ""
 msgid "Any supporting materials (please list and describe them)."
 msgstr "Cualquier material de apoyo (haga una lista y describa cada artículo)."
 
-#: templates/base.html:13
+#: templates/base.html:14
 #, fuzzy
 #| msgid "Contact the Civil Rights Division - Department of Justice"
 msgid "Civil Rights Division - Department of Justice"
 msgstr ""
 "Comuníquese con la División de Derechos Civiles - Departamento de Justicia"
 
-#: templates/base.html:21 templates/forms/base.html:27
+#: templates/base.html:22 templates/forms/base.html:29
 msgid "Skip to main content"
 msgstr "Pasar directamente al contenido principal"
 
-#: templates/base.html:44
+#: templates/base.html:45
 msgid "Civil Rights Division"
-msgstr ""
+msgstr "Comuníquese con la División de Derechos Civiles"
 
-#: templates/base.html:45 templates/forms/base.html:91
+#: templates/base.html:46 templates/forms/base.html:93
 msgid "U.S. Department of Justice"
 msgstr "Departamento de Justicia de los EE. UU."
 
-#: templates/forms/base.html:14
+#: templates/forms/base.html:16
 #, python-format
 msgid ""
 "\n"
@@ -1276,28 +1276,28 @@ msgstr ""
 "División de Derechos Civiles - Departamento de Justicia\n"
 "      "
 
-#: templates/forms/base.html:18
+#: templates/forms/base.html:20
 msgid "Contact the Civil Rights Division - Department of Justice"
 msgstr ""
 "Comuníquese con la División de Derechos Civiles - Departamento de Justicia"
 
-#: templates/forms/base.html:37
+#: templates/forms/base.html:39
 #: templates/partials/banner/usa_banner_header.html:9
 msgid "An official website of the United States government"
 msgstr "Una página web oficial del Gobierno de los Estados Unidos"
 
-#: templates/forms/base.html:38 templates/forms/base.html:41
+#: templates/forms/base.html:40 templates/forms/base.html:43
 #: templates/partials/banner/usa_banner_header.html:10
 #: templates/partials/banner/usa_banner_header.html:13
 msgid "Here’s how you know"
 msgstr "Así es como lo sabe"
 
-#: templates/forms/base.html:51
+#: templates/forms/base.html:53
 #: templates/partials/banner/usa_banner_content.html:7
 msgid "The .gov means it’s official."
 msgstr "El .gov significa que es oficial."
 
-#: templates/forms/base.html:52
+#: templates/forms/base.html:54
 #: templates/partials/banner/usa_banner_content.html:8
 msgid ""
 "Federal government websites often end in .gov or .mil. Before sharing "
@@ -1307,12 +1307,12 @@ msgstr ""
 "información confidencial, compruebe que se encuentra en un sitio del "
 "gobierno federal."
 
-#: templates/forms/base.html:60
+#: templates/forms/base.html:62
 #: templates/partials/banner/usa_banner_content.html:16
 msgid "The site is secure."
 msgstr "Este sitio es seguro."
 
-#: templates/forms/base.html:61
+#: templates/forms/base.html:63
 #: templates/partials/banner/usa_banner_content.html:17
 msgid ""
 "The <strong>https://</strong> ensures that you are connecting to the "
@@ -1560,19 +1560,19 @@ msgstr "(optativo)"
 msgid "required"
 msgstr "(obligatorio)"
 
-#: templates/forms/report_base.html:66
+#: templates/forms/report_base.html:67
 msgid "Submit"
 msgstr "Entregar"
 
-#: templates/forms/report_base.html:68
+#: templates/forms/report_base.html:69
 msgid "Next"
 msgstr "Siguiente"
 
-#: templates/forms/report_base.html:75 templates/forms/report_review.html:32
+#: templates/forms/report_base.html:76 templates/forms/report_review.html:32
 msgid "previous step"
 msgstr "paso previo"
 
-#: templates/forms/report_base.html:78 templates/forms/report_review.html:35
+#: templates/forms/report_base.html:79 templates/forms/report_review.html:35
 msgid "Back"
 msgstr "Volver"
 
@@ -1629,38 +1629,45 @@ msgstr ""
 "          %(word_limit)s límite de palabras alcanzado\n"
 "        "
 
-#: views.py:40
+#: templatetags/summary_error_count_message.py:13
+#, python-brace-format
+msgid "{count} error found"
+msgid_plural "{count} errors found"
+msgstr[0] ""
+msgstr[1] ""
+
+#: views.py:39
 msgid "Bad request"
 msgstr "Solicitud incorrecta"
 
-#: views.py:41
+#: views.py:40
 msgid ""
 "It seems your browser is not responding properly. Try refreshing this page."
 msgstr ""
 "Parece que su navegador no está respondiendo de manera adecuada. Intente "
 "actualizar esta página."
 
-#: views.py:52
+#: views.py:51
 msgid "Unauthorized"
 msgstr "No autorizado"
 
-#: views.py:53
+#: views.py:52
 msgid "This page is off limits to unauthorized users."
 msgstr "Usuario no autorizados no podrán acceder a esta página"
 
-#: views.py:64
+#: views.py:63
 msgid "We can't find the page you are looking for"
 msgstr "No encontramos la página que usted está buscando"
 
-#: views.py:65
+#: views.py:64
 msgid "Try returning to the previous page"
 msgstr "Intente volver a la página anterior"
 
-#: views.py:76
+#: views.py:75
 msgid "There's a problem loading this page"
 msgstr "Hay un problema para cargar esta página"
 
-#: views.py:77
+#: views.py:76
 msgid ""
 "There's a technical problem loading this page. Try refreshing this page or "
 "going to another page. If that doesn't work, try again later."
@@ -1668,20 +1675,20 @@ msgstr ""
 "Hay un problema técnico para cargar esta página. Intente actualizar esta "
 "página o ir a otra página. Si eso no funciona, intente más tarde."
 
-#: views.py:88
+#: views.py:87
 msgid "Not implemented"
 msgstr "No implementado"
 
-#: views.py:89
+#: views.py:88
 msgid "There seems to be a problem with this request. Try refreshing the page."
 msgstr ""
 "Parece que hay un problema con esta solicitud. Intente actualizar la página."
 
-#: views.py:100
+#: views.py:99
 msgid "Bad gateway"
 msgstr "Portal incorrecto"
 
-#: views.py:101
+#: views.py:100
 msgid ""
 "This problem is due to poor IP communication between back-end computers, "
 "possibly including our web server. Try clearing your browser cache "
@@ -1693,11 +1700,11 @@ msgstr ""
 "borrar completamente el caché de su navegador. Puede que haya algún problema "
 "con su conexión interna a Internet o su cortafuegos."
 
-#: views.py:112
+#: views.py:111
 msgid "Service Unavailable"
 msgstr "Servicio no disponible"
 
-#: views.py:113
+#: views.py:112
 msgid ""
 "Our web server is either closed for repair, upgrades or is rebooting. Please "
 "try again later."
@@ -1705,11 +1712,11 @@ msgstr ""
 "Nuestro servidor de web está cerrado para unos arreglos, actualizaciones o "
 "se está reinicializando. Se ruega que lo intente nuevamente más tarde."
 
-#: views.py:124
+#: views.py:123
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Su navegador no pudo crear una cookie segura"
 
-#: views.py:125
+#: views.py:124
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
@@ -1723,57 +1730,57 @@ msgstr ""
 "acceder a esta página en otra pestaña o ventana en su navegador Eso le "
 "creará otra cookie de seguridad y debería resolver el problema."
 
-#: views.py:381 views.py:580
+#: views.py:378 views.py:577
 msgid "word remaining"
 msgstr "palabra restante"
 
-#: views.py:382 views.py:581
+#: views.py:379 views.py:578
 msgid " words remaining"
 msgstr "palabras restantes"
 
-#: views.py:383 views.py:582
+#: views.py:380 views.py:579
 msgid " word limit reached"
 msgstr "límite de palabras alcanzado"
 
-#: views.py:477 views.py:533 views.py:552
+#: views.py:474 views.py:530 views.py:549
 msgid "Contact"
 msgstr "Contacto"
 
-#: views.py:478 views.py:534 views.py:535 views.py:553 views.py:554
-#: views.py:589
+#: views.py:475 views.py:531 views.py:532 views.py:550 views.py:551
+#: views.py:586
 msgid "Primary concern"
 msgstr "Motivo principal de preocupación"
 
-#: views.py:479 views.py:536 views.py:537 views.py:538 views.py:539
-#: views.py:540 views.py:541
+#: views.py:476 views.py:533 views.py:534 views.py:535 views.py:536
+#: views.py:537 views.py:538
 msgid "Location"
 msgstr "Lugar"
 
-#: views.py:480 views.py:542 views.py:561
+#: views.py:477 views.py:539 views.py:558
 msgid "Personal characteristics"
 msgstr "Características personales"
 
-#: views.py:481 views.py:543 views.py:562
+#: views.py:478 views.py:540 views.py:559
 msgid "Date"
 msgstr "Fecha"
 
-#: views.py:482 views.py:544 views.py:563
+#: views.py:479 views.py:541 views.py:560
 msgid "Personal description"
 msgstr "Descripción personal"
 
-#: views.py:483 views.py:545 views.py:594
+#: views.py:480 views.py:542 views.py:591
 msgid "Review"
 msgstr "Repasar"
 
-#: views.py:555 views.py:556 views.py:557 views.py:558 views.py:559
-#: views.py:560
+#: views.py:552 views.py:553 views.py:554 views.py:555 views.py:556
+#: views.py:557
 msgid "Location details"
 msgstr "Datos de lugar"
 
-#: views.py:564
+#: views.py:561
 msgid "Review your concern"
 msgstr "Repase su motivo de preocupación"
 
-#: views.py:592
+#: views.py:589
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "Favor de elegir esta opción si"
