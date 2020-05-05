@@ -1,35 +1,28 @@
 """All models need to be added to signals.py for proper logging."""
+import logging
 from datetime import datetime
 
-from django.db import models
-from django.core.validators import RegexValidator, MaxValueValidator
-from django.utils.functional import cached_property
 from django.contrib.auth import get_user_model
+from django.core.validators import MaxValueValidator, RegexValidator
+from django.db import models
 from django.urls import reverse
+from django.utils.functional import cached_property
+
+from .managers import ActiveProtectedClassChoiceManager
+from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
+                              CORRECTIONAL_FACILITY_LOCATION_CHOICES,
+                              CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+                              DATE_ERRORS, DISTRICT_CHOICES, ELECTION_CHOICES,
+                              EMPLOYER_SIZE_CHOICES,
+                              HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
+                              INTAKE_FORMAT_CHOICES, PRIMARY_COMPLAINT_CHOICES,
+                              PROTECTED_MODEL_CHOICES,
+                              PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
+                              PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
+                              SECTION_CHOICES, SERVICEMEMBER_CHOICES,
+                              STATES_AND_TERRITORIES, STATUS_CHOICES,
+                              STATUTE_CHOICES)
 from .phone_regex import phone_validation_regex
-
-from .model_variables import (
-    PRIMARY_COMPLAINT_CHOICES,
-    PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
-    EMPLOYER_SIZE_CHOICES,
-    PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
-    STATES_AND_TERRITORIES,
-    PROTECTED_MODEL_CHOICES,
-    STATUS_CHOICES,
-    SECTION_CHOICES,
-    ELECTION_CHOICES,
-    HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
-    SERVICEMEMBER_CHOICES,
-    CORRECTIONAL_FACILITY_LOCATION_CHOICES,
-    CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
-    COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
-    INTAKE_FORMAT_CHOICES,
-    DISTRICT_CHOICES,
-    STATUTE_CHOICES,
-    DATE_ERRORS
-)
-
-import logging
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -50,6 +43,9 @@ class ProtectedClass(models.Model):
     code = models.CharField(max_length=100, null=True, blank=True, unique=True)
     # used for ordering the choices on the form displays
     form_order = models.IntegerField(null=True, blank=True)
+
+    objects = models.Manager()
+    active_choices = ActiveProtectedClassChoiceManager()
 
     def __str__(self):
         return self.get_value_display()

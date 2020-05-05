@@ -543,7 +543,7 @@ class ProtectedClassForm(ModelForm):
             error_messages={'required': PROTECTED_CLASS_ERROR},
             required=True,
             label="",
-            queryset=ProtectedClass.objects.all().order_by('form_order'),
+            queryset=ProtectedClass.active_choices.all().order_by('form_order'),
             widget=UsaCheckboxSelectMultiple(attrs={
                 'aria-describedby': 'protected-class-help-text'
             }),
@@ -858,7 +858,7 @@ class ProForm(
             error_messages={'required': PROTECTED_CLASS_ERROR},
             required=False,
             label=PROTECTED_CLASS_QUESTION,
-            queryset=ProtectedClass.objects.all().order_by('form_order'),
+            queryset=ProtectedClass.active_choices.all().order_by('form_order'),
             widget=UsaCheckboxSelectMultiple(attrs={
                 'aria-describedby': 'protected-class-help-text'
             }),
