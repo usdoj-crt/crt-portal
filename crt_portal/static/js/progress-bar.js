@@ -5,7 +5,8 @@
   var steps = document.getElementsByClassName('step');
   function smoothScroll(el) {
     el.preventDefault();
-    var scrollToSection = document.getElementById(el.target.attributes.href.nodeValue.slice(1));
+    var anchor = el.target.getElementsByTagName('a')[0];
+    var scrollToSection = document.getElementById(anchor.attributes.href.nodeValue.slice(1));
     var targetTop = scrollToSection.getBoundingClientRect().top;
     var totalOffset = targetTop - offsetHeight - 40; // 40px == padding on card, so title doesn't abut header
     window.scroll({
