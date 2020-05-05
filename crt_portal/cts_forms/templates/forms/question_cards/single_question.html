@@ -2,10 +2,7 @@
 
 <div
   class="form-group"
-  {%
-  if
-  hidden
-  %}
+  {% if hidden %}
   style="display:none"
   id="div-{{ field.id_for_label }}"
   {%
