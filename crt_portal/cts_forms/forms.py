@@ -20,8 +20,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
-                              PRIMARY_COMPLAINT_ERROR, PROTECTED_CLASS_CHOICES,
-                              PROTECTED_CLASS_ERROR,
+                              PRIMARY_COMPLAINT_ERROR, PROTECTED_CLASS_ERROR,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
@@ -544,7 +543,7 @@ class ProtectedClassForm(ModelForm):
             error_messages={'required': PROTECTED_CLASS_ERROR},
             required=True,
             label="",
-            queryset=ProtectedClass.objects.filter(protected_class__in=PROTECTED_CLASS_CHOICES).order_by('form_order'),
+            queryset=ProtectedClass.active_choices.all().order_by('form_order'),
             widget=UsaCheckboxSelectMultiple(attrs={
                 'aria-describedby': 'protected-class-help-text'
             }),
@@ -859,7 +858,7 @@ class ProForm(
             error_messages={'required': PROTECTED_CLASS_ERROR},
             required=False,
             label=PROTECTED_CLASS_QUESTION,
-            queryset=ProtectedClass.objects.filter(protected_class__in=PROTECTED_CLASS_CHOICES).order_by('form_order'),
+            queryset=ProtectedClass.active_choices.all().order_by('form_order'),
             widget=UsaCheckboxSelectMultiple(attrs={
                 'aria-describedby': 'protected-class-help-text'
             }),

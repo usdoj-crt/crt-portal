@@ -59,6 +59,7 @@ else:
 
 # add app related urls here or in cts_forms.urls
 urlpatterns = auth + [
+    path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),

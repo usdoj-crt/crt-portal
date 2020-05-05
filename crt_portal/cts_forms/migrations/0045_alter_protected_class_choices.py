@@ -1,6 +1,5 @@
 from django.db import migrations, models
 
-from cts_forms.models import ProtectedClass
 # original list
 PROTECTED_CLASS_FIELDS = [
     # (form order, code, display name)
@@ -28,7 +27,8 @@ class Migration(migrations.Migration):
         ('cts_forms', '0044_update_protected_class'),
     ]
 
-    def retrieve_or_create_choices(*args, **defaults):
+    def retrieve_or_create_choices(apps, schema_editor):
+        ProtectedClass = apps.get_model('cts_forms', 'ProtectedClass')
         try:
             # rename an existing objects
             g = ProtectedClass.objects.get(protected_class='Sex or gender identity (including gender stereotypes) or pregnancy')

@@ -1,6 +1,8 @@
 {% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{LANGUAGE_CODE}}">
  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% block page_title %}
-      <title>Civil Rights Division - Department of Justice</title>
+      <title>{% trans "Civil Rights Division - Department of Justice" %}</title>
     {% endblock %}
 
     <link rel="icon" href="{% static "img/us_flag_small.png" %}">
@@ -17,7 +19,7 @@
     {% block head %}{% endblock %}
   </head>
   <body {% block body_class %}{% endblock %}>
-    <a class="usa-skipnav" href="#main-content">Skip to main content</a>
+    <a class="usa-skipnav" href="#main-content">{% trans "Skip to main content" %}</a>
     {% block usa_banner %}
       {% include "partials/banner/usa_banner.html" %}
     {% endblock %}
@@ -40,9 +42,14 @@
             </div>
             <div class="grid-col-auto">
               <p class="usa-footer__logo-heading">
-                Civil Rights Division
-                <br/> U.S. Department of Justice
+                {% trans "Civil Rights Division" %}
+                <br/> {% trans "U.S. Department of Justice" %}
               </p>
+            </div>
+            <div class="grid-col-auto">
+              <p class="usa-footer__logo-heading">
+                {% include 'partials/i8n.html' %}
+            </p>
             </div>
           </div>
         </div>

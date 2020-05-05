@@ -1,7 +1,7 @@
-{# not on public pages #}
+{% load i18n %}
 
 {% if not hide_edit_button %}
     <button name="wizard_goto_step" type="submit" aria-label="edit {{ step_name }} step" value="{{ step_value }}" class="usa-button usa-button--outline light-button margin-top-2" style="float:right; margin-top:2rem; margin-bottom:2rem;">
-                        Edit this page
+                        {% trans 'Edit this page' %}
     </button>
 {% endif %}

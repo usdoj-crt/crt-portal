@@ -14,8 +14,8 @@ from django.views.generic import FormView, View
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
-from .forms import (CommentActions, ComplaintActions, Filters, Review,
-                    SummaryField, ContactEditForm)
+from .forms import (CommentActions, ComplaintActions, ContactEditForm, Filters,
+                    Review, SummaryField)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -25,8 +25,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PRIMARY_COMPLAINT_DICT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import (CommentAndSummary, HateCrimesandTrafficking,
-                     ProtectedClass, Report)
+from .models import CommentAndSummary, Report
 from .page_through import pagination
 
 SORT_DESC_CHAR = '-'
@@ -130,7 +129,7 @@ def csrf_failure(request, reason=""):
 def format_protected_class(p_class_objects, other_class):
     p_class_list = []
     for p_class in p_class_objects:
-        if p_class.protected_class is not None:
+        if p_class.value:
             code = p_class.code
             if code != 'Other':
                 p_class_list.append(code)
@@ -222,7 +221,7 @@ def serialize_data(report, request, report_id):
 
     for crime in report.hatecrimes_trafficking.all():
         for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
-            if crime.hatecrimes_trafficking_option == choice[1]:
+            if crime.value == choice[0]:
                 crimes[choice[0]] = True
 
     p_class_list = format_protected_class(
@@ -341,12 +340,10 @@ def save_form(form_data_dict, **kwargs):
     # add a save feature for hatecrimes and trafficking question on primary reason page
     # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
     for protected in m2m_protected_class:
-        p = ProtectedClass.objects.get(protected_class=protected)
-        r.protected_class.add(p)
+        r.protected_class.add(protected)
 
     for option in m2m_hatecrime:
-        o = HateCrimesandTrafficking.objects.get(hatecrimes_trafficking_option=option)
-        r.hatecrimes_trafficking.add(o)
+        r.hatecrimes_trafficking.add(option)
 
     r.assigned_section = r.assign_section()
     r.district = r.assign_district()
@@ -627,15 +624,11 @@ class CRTReportWizard(SessionWizardView):
                 form_data_dict, PUBLIC_OR_PRIVATE_SCHOOL_DICT, 'public_or_private_school'
             )
 
-            # Get values for M2M fields destined for association with this Report instance
-            hatecrimes = [crime.hatecrimes_trafficking_option for crime in form_data_dict.pop('hatecrimes_trafficking')]
-            protected_class = [choice.protected_class for choice in form_data_dict.pop('protected_class')]
-
             context.update({
+                'hatecrimes': form_data_dict.pop('hatecrimes_trafficking'),
+                'protected_classes': form_data_dict.pop('protected_class'),
                 'report': Report(**form_data_dict),
-                'hatecrimes': hatecrimes,
-                'protected_classes': protected_class,
-                'question': form.question_text,
+                'question': form.question_text
             })
 
         return context
