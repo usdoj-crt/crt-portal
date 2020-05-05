@@ -142,6 +142,10 @@
       pointer-events: none;
     }
   }
+  select {
+    background-image: url(../img/intake-icons/ic_chevron-down.svg);
+    background-size: 15px;
+  }
 
   .content {
     background: $white;
@@ -204,6 +208,11 @@
   &--light {
     @include u-color($blue-warm-5-t);
     @include u-border($blue-warm-5-t);
+
+    &:hover {
+      @include u-color($blue-warm-5-t);
+      @include u-border($blue-warm-5-t);
+    }
 
     &.usa-button:visited {
       @include u-color($blue-warm-5-t);
@@ -329,7 +338,7 @@
     padding: 0.5rem;
     &.autocomplete__input--focused {
       box-shadow: inset 0 0 0 1px;
-      outline: .125rem solid $blue-vivid-40;
+      outline: 0.125rem solid $blue-vivid-40;
       outline-offset: 0;
     }
   }

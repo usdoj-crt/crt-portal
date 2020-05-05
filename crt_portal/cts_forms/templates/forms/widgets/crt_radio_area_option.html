@@ -14,7 +14,7 @@
     {% if widget.value != None %}
       {% for reason, helptext in widget.attrs.choices_to_helptext.items %}
         {% if widget.value == reason %}
-          <em class="margin-top-1 help-text">{{ helptext }}</em>
+          <p class="help-text__small">{{ helptext }}</p>
         {% endif %}
       {% endfor %}
     {% endif %}

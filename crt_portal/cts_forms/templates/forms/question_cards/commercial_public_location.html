@@ -1,37 +1,30 @@
-{% load i18n %}
-{% load static %}
+{% load i18n %} {% load static %}
 
 <fieldset class="usa-fieldset margin-bottom-4">
   <legend class="em-text">
     {{ form.commercial_or_public_place.label }}
   </legend>
   <div data-toggle>
-    {{ form.commercial_or_public_place }}
-    {% with field=form.other_commercial_or_public_place %}
-    <div class='other-class-option margin-top-2'>
-      <div class="blue-left-highlight">
-        <div>
-          <label for="{{ field.id_for_label }}">
-            <em>
-              {{ field.help_text }}
-            </em>
-          </label>
-          {{ field }}
-          <div class="margin-top-1">
-            {% include "forms/word_counter.html" with word_limit=10 %}
-          </div>
-        </div>
+    {{ form.commercial_or_public_place }} {% with field=form.other_commercial_or_public_place %}
+    <div class="other-class-option">
+      <label for="{{ field.id_for_label }}">
+        <em>
+          {{ field.help_text }}
+        </em>
+      </label>
+      {{ field }}
+      <div class="margin-top-1">
+        {% include "forms/word_counter.html" with word_limit=10 %}
       </div>
     </div>
-  {% endwith %}
+    {% endwith %}
   </div>
-  {% if form.commercial_or_public_place.errors %}
-    {% include "forms/snippets/error_alert.html" with errors=form.commercial_or_public_place.errors %}
-  {% endif %}
+  {% if form.commercial_or_public_place.errors %} {% include "forms/snippets/error_alert.html" with
+  errors=form.commercial_or_public_place.errors %} {% endif %}
 </fieldset>
 {% block page_js %}
 <script src="{% static 'js/other_show_hide.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
-  window.CRT.otherTextInputToggle('#id_6-commercial_or_public_place .usa-radio')
+  window.CRT.otherTextInputToggle('#id_6-commercial_or_public_place .other-class-option');
 </script>
 {% endblock %}
