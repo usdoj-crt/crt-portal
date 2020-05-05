@@ -16,7 +16,7 @@
 {% endblock %}
 
 {% block page_header %}
-  {% include 'forms/portal/header.html' %}
+  {% include 'forms/portal/header.html' with intro_text="Contact the Department of Justice to report a civil rights concern" %}
 {% endblock %}
 
 {% block content %}
@@ -51,10 +51,10 @@
                 {{ num_page_errors|summary_error_count_message }}
               </section>
             {% endif %}
-            <div class="margin-bottom-4">
+            <div>
               <h2 class="margin-0">{{ current_step_title }}</h2>
               {% if form.page_note %}
-                <p class="margin-top-1"><em>{{ form.page_note }}</em></p>
+                <p class="help-text">{{ form.page_note }}</p>
               {% endif %}
             </div>
           {% endblock %}

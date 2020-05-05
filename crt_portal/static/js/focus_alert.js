@@ -40,13 +40,6 @@ function prepareErrors() {
     error_message.setAttribute('role', 'alert');
     error_message.setAttribute('aria-live', 'assertive');
   }
-
-  var alerts = document.getElementsByClassName('update-status');
-  for (let i = 0; i < alerts.length; i++) {
-    let alert = alerts[i];
-    alert.setAttribute('role', 'alert');
-    alert.setAttribute('aria-live', 'assertive');
-  }
 }
 
 function triggerAlert() {

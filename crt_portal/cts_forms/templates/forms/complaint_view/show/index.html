@@ -1,6 +1,10 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% load static %}
 
+{% block page_title %}
+ <title>CRT Complaint Records{% for message in messages %} - {{ message }}{% endfor %}</title>
+{% endblock %}
+
 {% block head %}
 <link rel="stylesheet" href="{% static "css/accessible-autocomplete.min.css" %}" />
 {% endblock head %}
@@ -53,7 +57,7 @@
           <span class="backend-blue">{{ data.modified_date|date:'g:i a F j, Y' }}</span>
         </p>
       </div>
-      <div class="tablet:grid-col-6">
+      <div id="status-update" class="tablet:grid-col-6">
         {% include 'partials/messages.html' %}
       </div>
     </div>

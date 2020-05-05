@@ -157,8 +157,8 @@ COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT = {
 }
 
 CORRECTIONAL_FACILITY_LOCATION_CHOICES = (
-    ('outside', _('no')),
-    ('inside', _('yes'))
+    ('outside', _('No')),
+    ('inside', _('Yes'))
 )
 CORRECTIONAL_FACILITY_LOCATION_DICT = dict(CORRECTIONAL_FACILITY_LOCATION_CHOICES)
 

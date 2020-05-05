@@ -1,3 +1,8 @@
+button,
+.usa-button {
+  background-color: $blue-warm-vivid-80;
+}
+
 .button--edit {
   @include u-font-size('body', 'sm');
   float: right;

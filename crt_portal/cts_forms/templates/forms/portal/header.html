@@ -1,11 +1,11 @@
 {% load static %}
 {% load i18n %}
 {% trans "United States Department of Justice" as DOJ %}
-{% trans "Contact the Department of Justice to report a civil rights concern" as intro_text %}
 
 <header class="crt-form-header">
   <div class="grid-container">
     <div class="grid-row grid-gap flex-child">
+
       <div class="tablet:grid-col-10 tablet:grid-offset-1">
         <div class="doj-brand display-flex flex-align-center font-serif-lg">
           <img
@@ -16,49 +16,12 @@
           <span class='bold'>{{ DOJ }}<span>
         </div>
         <h1 class="padding-top-2 padding-bottom-1 margin-0 title">
-          {{ intro_text }}
+          {% blocktrans %}
+            {{ intro_text }}
+          {% endblocktrans %}
         </h1>
       </div>
     </div>
-    {# Progress text for screen reader. #}
-    <div class="grid-row grid-gap margin-top-5 progress-bar">
-      <div class="tablet:grid-col-10 tablet:grid-offset-1">
-        <div aria-label="{% trans "progress" %}">
-          <span class="usa-sr-only">
-            {% blocktrans with current_step_name=current_step_name stage_number=stage_number %}
-              Current step: {{ current_step_name }}. Step {{ stage_number }} of {{ total_stages }}.
-            {% endblocktrans %}
-          </span>
-          <ol class="steps">
-            {% for step in ordered_step_names %}
-              <li class="step {% if step == current_step_name %}current{%else%}{%endif%}" {% if step == current_step_name %}aria-current="true"{%else%}aria-current="false"{% endif %}>
-
-                {% if stage_link %}
-                  <a href="#{{ step }}" class="text-base-lightest" style='text-decoration: none;'>{{ step }}</a>
-                {% else%}
-                  {{ step }}
-                {% endif %}
-
-
-                {% if step != current_step_name %}
-                  <span class="usa-sr-only">
-                    {% if forloop.counter > wizard.steps.step1 %}
-                      {% trans "not completed" %}
-                    {% else %}
-                      {% trans "completed" %}
-                    {% endif %}
-                  </span>
-                {% endif %}
-              </li>
-            {% endfor %}
-            </ol>
-          {# need some styling to get the progress bar in the right place for Spanish #}
-          {% get_language_info for LANGUAGE_CODE as lang %}
-          {% if lang.code == 'en' %}
-            <div class="connecting-line"></div>
-          {% endif %}
-        </div>
-      </div>
-    </div>
+    {% include 'forms/portal/progress-bar.html' %}
   </div>
 </header>

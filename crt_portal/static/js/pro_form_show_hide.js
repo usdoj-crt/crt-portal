@@ -21,28 +21,28 @@
     // show
     if (primary_complaint_id in predicate_target_mapping) {
       var targets = predicate_target_mapping[primary_complaint_id];
-      targets.forEach(function(question_id) {
-        var target = document.getElementById(question_id);
+      for (i = 0; i < targets.length; i++) {
+        var target = document.getElementById(targets[i]);
         target.style.display = 'block';
-      });
+      }
     }
     // hide
     Object.keys(predicate_target_mapping).forEach(function(primary_id) {
       if (primary_complaint_id != primary_id) {
         var targets = predicate_target_mapping[primary_id];
-        targets.forEach(function(question_id) {
-          var target = document.getElementById(question_id);
+        for (i = 0; i < targets.length; i++) {
+          var target = document.getElementById(targets[i]);
           target.style.display = 'none';
-        });
+        }
       }
     });
   }
 
   // add listeners
   var primary_issues = document.querySelectorAll('*[id^="id_0-primary_complaint_"]');
-  primary_issues.forEach(function(radio_element) {
-    radio_element.addEventListener('click', toggleFollowUpQuestions);
-  });
+  for (i = 0; i < primary_issues.length; i++) {
+    primary_issues[i].addEventListener('click', toggleFollowUpQuestions);
+  }
 
   return root;
 })(window, document);

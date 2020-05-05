@@ -9,13 +9,11 @@
       {% include 'forms/grouped_questions.html' %}
       {% with field=form.other_class %}
         <div class='other-class-option' class="padding-left-4">
-          <div class="blue-left-highlight">
-            <div>
-              <label for="{{ field.id_for_label }}">{{ field.help_text }}</label>
-              {{ field }}
-              <div class="margin-top-1">
-                {% include "forms/word_counter.html" with word_limit=10 %}
-              </div>
+          <div>
+            <label for="{{ field.id_for_label }}">{{ field.help_text }}</label>
+            {{ field }}
+            <div class="margin-top-1">
+              {% include "forms/word_counter.html" with word_limit=10 %}
             </div>
           </div>
         </div>
