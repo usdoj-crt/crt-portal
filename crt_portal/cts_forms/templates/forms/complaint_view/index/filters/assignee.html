@@ -1,0 +1,14 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block controls %}assigned_to{% endblock %}
+{% block label %}Assignee{% endblock %}
+{% block id %}assigned_to{% endblock %}
+{% block content %}
+   <label for="id_assigned_to">
+    <span class="usa-sr-only">assignee</span>
+    {{ form.assigned_to }}
+   </label>
+  <button class="usa-button margin-top-2" type="submit">
+    Filter results
+  </button>
+{% endblock %}

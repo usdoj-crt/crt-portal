@@ -9,7 +9,7 @@
           <p class="em-text">
             {{ primary_complaint_field.label }}
           </p>
-        
+
           {% if primary_complaint_field.help_text %}
             <div class="label-text">
               <em class="help-text">
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div role="group" aria-labelledby="primary-complaint-help-text" class="question_primary_complaint margin-top-3">
-      {{ primary_complaint_field }}
+      {{ primary_complaint_field|withInputError }}
 
       {% if primary_complaint_field.errors %}
         {% include "forms/snippets/error_alert.html" with errors=primary_complaint_field.errors %}

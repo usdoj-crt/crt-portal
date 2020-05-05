@@ -1,0 +1,17 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block controls %}primary-statute{% endblock %}
+{% block label %}Statute{% endblock %}
+{% block id %}primary-statute{% endblock %}
+
+{% block content %}
+  <div id="primary-statute-filter">
+    <label for="id_{{form.fields.primary_statute.widget.attrs.name}}" class="usa-label margin-bottom-1">
+      <b>{{form.primary_statute.label }}</b>
+    </label>
+    {{ form.primary_statute }}
+  </div>
+  <button class="usa-button margin-top-2" type="submit">
+    Filter results
+  </button>
+{% endblock %}
