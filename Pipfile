@@ -29,7 +29,7 @@ pip = "*"
 django-activity-stream = "*"
 
 [requires]
-python_version = "3.8.1"
+python_version = "3.8.2"
 
 [pipenv]
 allow_prereleases = true

@@ -49,7 +49,7 @@ const FONTS_DEST = './crt_portal/static/fonts';
 const JS_DEST = './crt_portal/static/js';
 
 // Compiled CSS destination
-const CSS_DEST = './crt_portal/static/css';
+const CSS_DEST = './crt_portal/static/css/compiled';
 
 /*
 ----------------------------------------

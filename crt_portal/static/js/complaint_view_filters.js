@@ -117,6 +117,9 @@
     create_date_start: '',
     create_date_end: '',
     summary: '',
+    assigned_to: '',
+    public_id: '',
+    primary_statute: '',
     sort: '',
     page: '',
     per_page: ''
@@ -251,7 +254,10 @@
     var clearAllEl = dom.querySelector('[data-clear-filters]');
     var statusEl = formEl.querySelector('select[name="status"]');
     var summaryEl = formEl.querySelector('input[name="summary"]');
-
+    // this might need to be updated for multiselect
+    var assigneeEl = formEl.querySelector('select[name="assigned_to"]');
+    var complaintIDEl = formEl.querySelector('input[name="public_id"');
+    var statuteEl = formEl.querySelector('select[name="primary_statute"]');
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
      * and perform a new search with the updated filters applied.
@@ -326,6 +332,18 @@
     textInputView({
       el: summaryEl,
       name: 'summary'
+    });
+    textInputView({
+      el: assigneeEl,
+      name: 'assigned_to'
+    });
+    textInputView({
+      el: complaintIDEl,
+      name: 'public_id'
+    });
+    textInputView({
+      el: statuteEl,
+      name: 'primary_statute'
     });
     clearFiltersView({
       el: clearAllEl,
