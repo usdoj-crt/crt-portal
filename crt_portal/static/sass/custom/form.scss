@@ -95,6 +95,10 @@ form#report-form {
       margin-top: 1.5rem;
     }
 
+    &:last-of-type:not(:only-of-type) {
+      margin-top: 2.5rem;
+    }
+
     ul {
       margin-bottom: 0;
     }
@@ -115,6 +119,7 @@ form#report-form {
   }
 
   .light-button {
+    background-color: transparent;
     &:hover {
       background-color: $white;
     }
