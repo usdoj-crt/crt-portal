@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-01 02:16+0000\n"
+"POT-Creation-Date: 2020-05-06 16:21+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -229,11 +229,11 @@ msgstr "Estado"
 msgid "- Select -"
 msgstr "- Elija -"
 
-#: model_variables.py:9
+#: model_variables.py:9 model_variables.py:161
 msgid "Yes"
 msgstr "Sí"
 
-#: model_variables.py:10
+#: model_variables.py:10 model_variables.py:160
 msgid "No"
 msgstr "No"
 
@@ -669,14 +669,6 @@ msgid ""
 msgstr ""
 "Parque, acera, calle, otros edificios comerciales (juzgado, Departamento de "
 "Vehículos Motorizados, biblioteca municipal)"
-
-#: model_variables.py:160
-msgid "no"
-msgstr "no"
-
-#: model_variables.py:161
-msgid "yes"
-msgstr "sí"
 
 #: model_variables.py:166
 msgid "State/local"
@@ -1255,7 +1247,7 @@ msgstr ""
 msgid "Skip to main content"
 msgstr "Pasar directamente al contenido principal"
 
-#: templates/base.html:45
+#: templates/base.html:45 templates/forms/base.html:92
 msgid "Civil Rights Division"
 msgstr "Comuníquese con la División de Derechos Civiles"
 
@@ -1276,7 +1268,7 @@ msgstr ""
 "División de Derechos Civiles - Departamento de Justicia\n"
 "      "
 
-#: templates/forms/base.html:20
+#: templates/forms/base.html:20 templates/forms/report_base.html:14
 msgid "Contact the Civil Rights Division - Department of Justice"
 msgstr ""
 "Comuníquese con la División de Derechos Civiles - Departamento de Justicia"
@@ -1513,40 +1505,39 @@ msgstr ""
 msgid "Your submission"
 msgstr "Su entrega"
 
-#: templates/forms/portal/header.html:4
-msgid "Contact the Department of Justice to report a civil rights concern"
-msgstr ""
-"Para informar de un motivo de preocupación relacionado con derechos civiles, "
-"comuníquese con el Departamento de Justicia"
-
-#: templates/forms/portal/header.html:26
+#: templates/forms/portal/progress-bar.html:6
 msgid "progress"
 msgstr "progreso"
 
-#: templates/forms/portal/header.html:28
-#, python-format
+#: templates/forms/portal/progress-bar.html:8
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "              Current step: %(current_step_name)s. Step %(stage_number)s "
+#| "of %(total_stages)s.\n"
+#| "            "
 msgid ""
 "\n"
-"              Current step: %(current_step_name)s. Step %(stage_number)s of "
+"          Current step: %(current_step_name)s. Step %(stage_number)s of "
 "%(total_stages)s.\n"
-"            "
+"        "
 msgstr ""
 "\n"
 "              Paso actual: %(current_step_name)s. Paso %(stage_number)s de "
 "%(total_stages)s.\n"
 "            "
 
-#: templates/forms/portal/header.html:46
+#: templates/forms/portal/progress-bar.html:25
 msgid "not completed"
 msgstr "no completado"
 
-#: templates/forms/portal/header.html:48
+#: templates/forms/portal/progress-bar.html:27
 msgid "completed"
 msgstr "completado"
 
-#: templates/forms/question_cards/contact.html:13
-#: templates/forms/question_cards/contact.html:19
-#: templates/forms/question_cards/contact.html:27
+#: templates/forms/question_cards/contact.html:14
+#: templates/forms/question_cards/contact.html:20
+#: templates/forms/question_cards/contact.html:29
 #: templates/forms/question_cards/single_form.html:17
 #: templates/forms/snippets/input.html:9
 msgid "(Optional)"
@@ -1557,22 +1548,47 @@ msgid "(optional)"
 msgstr "(optativo)"
 
 #: templates/forms/question_cards/single_form.html:19
+#: templates/forms/question_cards/single_question.html:15
 msgid "required"
 msgstr "(obligatorio)"
 
-#: templates/forms/report_base.html:67
+#: templates/forms/report_base.html:9
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "        Step %(stage_number)s: %(current_step_name)s - Contact the Civil "
+#| "Rights Division - Department of Justice\n"
+#| "      "
+msgid ""
+"\n"
+"          Step %(stage_number)s: %(current_step_name)s - Contact the Civil "
+"Rights Division - Department of Justice\n"
+"        "
+msgstr ""
+"\n"
+"        Step %(stage_number)s: %(current_step_name)s - Comuníquese con la "
+"División de Derechos Civiles - Departamento de Justicia\n"
+"      "
+
+#: templates/forms/report_base.html:23
+msgid "Contact the Department of Justice to report a civil rights concern"
+msgstr ""
+"Para informar de un motivo de preocupación relacionado con derechos civiles, "
+"comuníquese con el Departamento de Justicia"
+
+#: templates/forms/report_base.html:72
 msgid "Submit"
 msgstr "Entregar"
 
-#: templates/forms/report_base.html:69
+#: templates/forms/report_base.html:74
 msgid "Next"
 msgstr "Siguiente"
 
-#: templates/forms/report_base.html:76 templates/forms/report_review.html:32
+#: templates/forms/report_base.html:81 templates/forms/report_review.html:32
 msgid "previous step"
 msgstr "paso previo"
 
-#: templates/forms/report_base.html:79 templates/forms/report_review.html:35
+#: templates/forms/report_base.html:84 templates/forms/report_review.html:35
 msgid "Back"
 msgstr "Volver"
 
@@ -1730,57 +1746,77 @@ msgstr ""
 "acceder a esta página en otra pestaña o ventana en su navegador Eso le "
 "creará otra cookie de seguridad y debería resolver el problema."
 
-#: views.py:378 views.py:577
+#: views.py:386 views.py:585
 msgid "word remaining"
 msgstr "palabra restante"
 
-#: views.py:379 views.py:578
+#: views.py:387 views.py:586
 msgid " words remaining"
 msgstr "palabras restantes"
 
-#: views.py:380 views.py:579
+#: views.py:388 views.py:587
 msgid " word limit reached"
 msgstr "límite de palabras alcanzado"
 
-#: views.py:474 views.py:530 views.py:549
+#: views.py:482 views.py:538 views.py:557
 msgid "Contact"
 msgstr "Contacto"
 
-#: views.py:475 views.py:531 views.py:532 views.py:550 views.py:551
-#: views.py:586
+#: views.py:483 views.py:539 views.py:540 views.py:558 views.py:559
+#: views.py:594
 msgid "Primary concern"
 msgstr "Motivo principal de preocupación"
 
-#: views.py:476 views.py:533 views.py:534 views.py:535 views.py:536
-#: views.py:537 views.py:538
+#: views.py:484 views.py:541 views.py:542 views.py:543 views.py:544
+#: views.py:545 views.py:546
 msgid "Location"
 msgstr "Lugar"
 
-#: views.py:477 views.py:539 views.py:558
+#: views.py:485 views.py:547 views.py:566
 msgid "Personal characteristics"
 msgstr "Características personales"
 
-#: views.py:478 views.py:540 views.py:559
+#: views.py:486 views.py:548 views.py:567
 msgid "Date"
 msgstr "Fecha"
 
-#: views.py:479 views.py:541 views.py:560
+#: views.py:487 views.py:549 views.py:568
 msgid "Personal description"
 msgstr "Descripción personal"
 
-#: views.py:480 views.py:542 views.py:591
+#: views.py:488 views.py:550 views.py:599
 msgid "Review"
 msgstr "Repasar"
 
-#: views.py:552 views.py:553 views.py:554 views.py:555 views.py:556
-#: views.py:557
+#: views.py:560 views.py:561 views.py:562 views.py:563 views.py:564
+#: views.py:565
 msgid "Location details"
 msgstr "Datos de lugar"
 
-#: views.py:561
+#: views.py:569
 msgid "Review your concern"
 msgstr "Repase su motivo de preocupación"
 
-#: views.py:589
+#: views.py:597
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "Favor de elegir esta opción si"
+
+#, fuzzy
+#~| msgid ""
+#~| "\n"
+#~| "          %(word_limit)s word limit reached\n"
+#~| "        "
+#~ msgid ""
+#~ "\n"
+#~ "            %(intro_text)s\n"
+#~ "          "
+#~ msgstr ""
+#~ "\n"
+#~ "          %(word_limit)s límite de palabras alcanzado\n"
+#~ "        "
+
+#~ msgid "no"
+#~ msgstr "no"
+
+#~ msgid "yes"
+#~ msgstr "sí"
