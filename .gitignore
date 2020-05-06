@@ -17,3 +17,4 @@ data/section_assignment.csv
 .vscode
 .coverage
 crt_portal/NO_ZIP.txt
+*.mo
