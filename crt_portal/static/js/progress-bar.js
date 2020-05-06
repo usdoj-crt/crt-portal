@@ -15,8 +15,7 @@
     } catch (err) {
       console.log(err);
     }
-    // return supportsScroll;
-    return false; // JUST FOR TESTING, DUDE
+    return supportsScroll;
   }
 
   if (supportsSmoothScroll() == true) {
@@ -43,8 +42,9 @@
     }
   } else {
     // if browser doesn't support scrolling and position: sticky, use position: fixed instead
+    var header = document.getElementsByClassName('intake-header')[0];
+    var barOffset = header.getBoundingClientRect().height;
     var bar = document.getElementsByClassName('intake-header--progress-bar')[0];
-    var barOffset = bar.getBoundingClientRect().top;
     window.addEventListener('scroll', function() {
       if (window.pageYOffset >= barOffset) {
         bar.style.position = 'fixed';
