@@ -11,6 +11,7 @@ applications:
     AUTH_RELYING_PARTY_ID: "crt-portal-django-stage.app.cloud.gov"
     AUTH_AUDIENCE: "microsoft:identityserver:crt-portal-django-stage.app.cloud.gov"
   buildpacks:
+  - https://github.com/cloudfoundry/apt-buildpack
   - python_buildpack
   services:
   - crt-db
