@@ -2,7 +2,7 @@
   @include u-radius('lg');
   background-color: $white;
   box-shadow: 0 1px 6px 2px rgba(0, 0, 0, 0.14);
-  margin: 24px 0;
+  margin: 2.5rem 0;
 
   // provides styled for a hoverable card, use in primary issue page
   &.crt-hover-card {
