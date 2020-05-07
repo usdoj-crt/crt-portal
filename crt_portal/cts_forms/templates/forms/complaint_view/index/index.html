@@ -1,6 +1,10 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% load static %}
 
+{% block head %}
+  <link rel="stylesheet" href="{% static "css/accessible-autocomplete.min.css" %}" />
+{% endblock head %}
+
 {% block content %}
 <div class="intake-content">
   {% include "forms/complaint_view/index/filter-controls.html" with filters=filters form=form %}
