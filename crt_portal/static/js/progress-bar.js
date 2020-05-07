@@ -15,8 +15,7 @@
     } catch (err) {
       console.log(err);
     }
-    // return supportsScroll;
-    return false; // JUST FOR TESTING, DUDE
+    return supportsScroll;
   }
 
   if (supportsSmoothScroll() == true) {
@@ -43,8 +42,11 @@
     }
   } else {
     // if browser doesn't support scrolling and position: sticky, use position: fixed instead
+    var header = document.getElementsByClassName('intake-header')[0];
+    var barOffset = header.getBoundingClientRect().height;
     var bar = document.getElementsByClassName('intake-header--progress-bar')[0];
-    var barOffset = bar.getBoundingClientRect().top;
+    var cards = document.getElementsByClassName('crt-portal-card');
+
     window.addEventListener('scroll', function() {
       if (window.pageYOffset >= barOffset) {
         bar.style.position = 'fixed';
@@ -52,5 +54,10 @@
         bar.style.position = 'relative'; // un-stick it when page is scrolled all the way up
       }
     });
+
+    // add the class that keeps the card title from getting hidden under the fixed header
+    for (i = 0; i < cards.length; i++) {
+      cards[i].className = cards[i].className + ' crt-portal-card--space-for-header';
+    }
   }
 })(window);

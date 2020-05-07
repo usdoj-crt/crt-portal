@@ -57,6 +57,16 @@
   }
 }
 
+// Fix for IE and Edge, which rely on .intake-header--progress-bar being position: fixed (applied via progress-bar.js).
+// This prevents the progress bar from covering up the card header when a target is clicked on.
+// Class is inserted into markup automatically if necessary in progress-bar.js.
+.crt-portal-card--space-for-header h2::before {
+  display: block;
+  content: '';
+  height: 150px;
+  margin: -150px 0 0;
+}
+
 .title-icon {
   @include u-bg($blue-warm-5-t);
   @include flex-container();

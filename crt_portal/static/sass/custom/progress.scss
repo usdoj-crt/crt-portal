@@ -64,17 +64,21 @@ ol.steps {
     display: block;
     text-decoration: none;
     color: white;
+
+    a {
+      display: block;
+    }
   }
 
-  .step::before,
-  .step::after {
+  .step a::before,
+  .step a::after {
     display: block;
     font-size: $counter-font-size;
     box-sizing: border-box;
   }
 
   // circle
-  .step::before {
+  .step a::before {
     border-radius: 50%;
     text-decoration: none;
 
@@ -99,7 +103,7 @@ ol.steps {
     &.step {
       font-weight: bold;
 
-      &::before {
+      a::before {
         background-color: $visited !important;
         box-shadow: inset 0 0 0 $circle-border-width $visited;
       }
@@ -108,7 +112,7 @@ ol.steps {
 
   // unfinished milestone
   li.current {
-    ~ li.step::before {
+    ~ li.step a::before {
       color: white;
       background-color: $blue-warm-vivid-80;
       box-shadow: inset 0 0 0 $circle-border-width $outline;
