@@ -3,8 +3,9 @@ from datetime import datetime
 
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
-from django.forms import (CharField, ChoiceField, EmailInput, ModelChoiceField,
-                          ModelForm, ModelMultipleChoiceField, Select,
+from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
+                          EmailInput, ModelChoiceField, ModelForm,
+                          ModelMultipleChoiceField, Select, SelectMultiple,
                           Textarea, TextInput, TypedChoiceField)
 from django.utils.translation import gettext_lazy as _
 
@@ -51,6 +52,8 @@ User = get_user_model()
 
 def _add_empty_choice(choices):
     """Add an empty option to list of choices"""
+    if isinstance(choices, list):
+        choices = tuple(choices)
     return (EMPTY_CHOICE,) + choices
 
 
@@ -60,7 +63,13 @@ class ActivityStreamUpdater(object):
     def get_actions(self):
         """Parse incoming changed data for activity stream entry"""
         for field in self.changed_data:
-            yield f"{' '.join(field.split('_')).capitalize()}:", f'Updated from "{self.initial[field]}" to "{self.cleaned_data[field]}"'
+            initial = self.initial[field]
+            new = self.cleaned_data[field]
+            if isinstance(initial, list):
+                initial = ', '.join([str(x) for x in initial])
+                new = ', '.join([str(x) for x in new])
+
+            yield f"{' '.join(field.split('_')).capitalize()}:", f'Updated from "{initial}" to "{new}"'
 
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
@@ -871,11 +880,12 @@ class ProForm(
         self.fields['crt_reciept_month'].label = DATE_QUESTIONS['last_incident_month']
         self.fields['crt_reciept_year'].label = DATE_QUESTIONS['last_incident_year']
 
-        self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
-        self.label_suffix = ''
-        self.fields['violation_summary'].label = SUMMARY_QUESTION
-        self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
-        self.fields['violation_summary'].help_text = _('What did the person believe happened?')
+        if 'violation_summary' in self.fields:
+            self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
+            self.label_suffix = ''
+            self.fields['violation_summary'].label = SUMMARY_QUESTION
+            self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
+            self.fields['violation_summary'].help_text = _('What did the person believe happened?')
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
@@ -1168,3 +1178,45 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
+
+
+class ReportEditForm(ProForm, ActivityStreamUpdater):
+    FAIL_MESSAGE = "Failed to update complaint details."
+
+    hatecrime = BooleanField(required=False, widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'}))
+    trafficking = BooleanField(required=False, widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'}))
+
+    class Meta(ProForm.Meta):
+        exclude = ['intake_format', 'violation_summary']
+
+    def success_message(self):
+        """Prepare update success message for rendering in template"""
+        updated_fields = [field for field in self.changed_data]
+        if len(updated_fields) == 1:
+            message = f"Successfully updated {updated_fields[0]}."
+        else:
+            fields = ', '.join(updated_fields[:-1])
+            fields += f', and {updated_fields[-1]}'
+            message = f"Successfully updated {fields}."
+        return message
+
+    def _set_to_select_widget(self, field):
+        """Set the passed 'field's widget to Select and add an empty choice"""
+        self.fields[field].widget = Select(choices=_add_empty_choice(self.fields[field].choices), attrs={'class': 'usa-select'})
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        # required
+        self.fields['primary_complaint'].widget = Select(choices=self.fields['primary_complaint'].choices, attrs={'class': 'usa-select'})
+        self.fields['protected_class'].widget = SelectMultiple(choices=self.fields['protected_class'].choices, attrs={'class': 'height-10 width-mobile'})
+        self.fields['servicemember'].widget = Select(choices=self.fields['servicemember'].choices, attrs={'class': 'usa-select'})
+
+        # primary_complaint dependents, optional
+        self._set_to_select_widget('public_or_private_school')
+        self._set_to_select_widget('public_or_private_employer')
+        self._set_to_select_widget('employer_size')
+        self._set_to_select_widget('election_details')
+        self._set_to_select_widget('inside_correctional_facility')
+        self._set_to_select_widget('correctional_facility_type')
+        self._set_to_select_widget('commercial_or_public_place')

@@ -15,7 +15,7 @@ from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
 from .forms import (CommentActions, ComplaintActions, ContactEditForm, Filters,
-                    Review, SummaryField)
+                    ReportEditForm, Review, SummaryField)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -259,7 +259,9 @@ class ShowView(LoginRequiredMixin, View):
         report = get_object_or_404(Report, pk=id)
         output = serialize_data(report, request, id)
         contact_form = ContactEditForm(instance=report)
-        output.update({'contact_form': contact_form})
+        details_form = ReportEditForm(instance=report)
+
+        output.update({'contact_form': contact_form, 'details_form': details_form})
         return render(request, 'forms/complaint_view/show/index.html', output)
 
     def post(self, request, id):
@@ -270,6 +272,8 @@ class ShowView(LoginRequiredMixin, View):
             form = ContactEditForm(request.POST, instance=report)
         elif form_type == 'complaint-action':
             form = ComplaintActions(request.POST, instance=report)
+        elif form_type == 'details-edit':
+            form = ReportEditForm(request.POST, instance=report)
 
         if form.is_valid() and form.has_changed():
             form.save()
@@ -282,6 +286,8 @@ class ShowView(LoginRequiredMixin, View):
             # Add form with errors to context
             if form_type == 'contact-info':
                 output.update({'contact_form': form})
+            elif form_type == 'details-edit':
+                output['details_form'] = form
             else:
                 output['actions'] = form
             try:
