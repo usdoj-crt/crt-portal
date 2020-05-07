@@ -215,7 +215,7 @@ class HateCrimesTrafficking(ModelForm):
                 ('hatecrimes_trafficking',),
                 group_name=HATECRIME_TITLE,
                 help_text=_('Please let us know if you would describe your concern as either a hate crime or human trafficking. This information can help us take action against these types of violations. We will contact you about the next steps. We also encourage you to contact law enforcement if you or someone else is in immediate danger.'),
-                optional=False,
+                optional=True,
                 label_cls="margin-bottom-4",
                 help_cls="text-bold",
                 ally_id="hatecrimes-help-text"

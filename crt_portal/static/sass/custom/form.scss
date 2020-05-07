@@ -364,3 +364,26 @@ select.usa-input--error {
     max-width: 80%;
   }
 }
+
+.field-required {
+  font-size: 1rem;
+  font-weight: normal;
+  font-style: italic;
+  color: $gray-50;
+
+  &::before {
+    content: "*";
+    font-weight: bold;
+    margin-left: 0.3rem;
+    color: $red-vivid-60;
+  }
+
+  &--group {
+    @extend .field-required;
+
+    &::before {
+      @extend .field-required::before;
+      margin-left: 0.5rem;
+    }
+  }
+}

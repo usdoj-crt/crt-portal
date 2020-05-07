@@ -13,10 +13,7 @@
               class="{{label_class}}"
               style="line-height:1.25"
             >
-              {{ field.label }}
-              {% if field.field.required != True %}<em>{% trans "(Optional)" %}</em>{% endif %}
-              <!-- only used on the back end for now -->
-              {% if required %} <span class="text-secondary">*{% trans "required" %}</span>{% endif %}
+              {{ field.label }}{% if field.field.required %}<span class="field-required">{% trans "required" %}</span>{% endif %}
             </label></h3>
           {% endif %}
           {% if field.help_text %}

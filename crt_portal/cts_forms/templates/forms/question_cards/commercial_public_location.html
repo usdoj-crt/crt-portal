@@ -2,7 +2,7 @@
 
 <fieldset class="usa-fieldset margin-bottom-4">
   <legend class="em-text">
-    {{ form.commercial_or_public_place.label }}
+    {{ form.commercial_or_public_place.label }}{% if not question_group.optional %}<span class="field-required--group">{% trans "required" %}</span>{% endif %}
   </legend>
   <div data-toggle>
     {{ form.commercial_or_public_place }} {% with field=form.other_commercial_or_public_place %}
@@ -19,8 +19,9 @@
     </div>
     {% endwith %}
   </div>
-  {% if form.commercial_or_public_place.errors %} {% include "forms/snippets/error_alert.html" with
-  errors=form.commercial_or_public_place.errors %} {% endif %}
+  {% if form.commercial_or_public_place.errors %}
+  {% include "forms/snippets/error_alert.html" with errors=form.commercial_or_public_place.errors %}
+  {% endif %}
 </fieldset>
 {% block page_js %}
 <script src="{% static 'js/other_show_hide.js' %}"></script>

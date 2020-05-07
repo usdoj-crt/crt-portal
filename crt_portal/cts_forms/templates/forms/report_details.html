@@ -1,4 +1,5 @@
 {% extends "forms/report_base.html" %}
+{% load i18n %}
 {% block form_questions %}
 	<div class="crt-portal-card">
 		<div class="crt-portal-card__content crt-portal-card__content--lg">
@@ -10,7 +11,7 @@
 					for="{{ field.id_for_label }}"
 					class="{{label_class}} margin-bottom-0"
 				>
-					<span class="em-text display-block margin-bottom-1">{{ field.label }}</span>
+					<span class="em-text display-block margin-bottom-1">{{ field.label }}{% if not question_group.optional %}<span class="field-required--group">{% trans "required" %}</span>{% endif %}</span>
 				{% if field.help_text %}
 					<em>{{ field.help_text.title }}</em>
 					<ul class="question_primary_complaint">
