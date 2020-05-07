@@ -254,7 +254,7 @@
     var clearAllEl = dom.querySelector('[data-clear-filters]');
     var statusEl = formEl.querySelector('select[name="status"]');
     var summaryEl = formEl.querySelector('input[name="summary"]');
-    var assigneeEl = formEl.querySelector('select[name="assigned_to"]');
+    var assigneeEl = formEl.querySelector('#id_assigned_to');
     var complaintIDEl = formEl.querySelector('input[name="public_id"');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
     /**
