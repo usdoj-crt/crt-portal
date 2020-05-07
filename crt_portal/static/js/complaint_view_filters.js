@@ -258,6 +258,7 @@
     var assigneeEl = formEl.querySelector('select[name="assigned_to"]');
     var complaintIDEl = formEl.querySelector('input[name="public_id"');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
+    var personalDescriptionEl = formEl.querySelector('input[name="violation_summary"]');
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
      * and perform a new search with the updated filters applied.
@@ -344,6 +345,10 @@
     textInputView({
       el: statuteEl,
       name: 'primary_statute'
+    });
+    textInputView({
+      el: personalDescriptionEl,
+      name: 'violation_summary'
     });
     clearFiltersView({
       el: clearAllEl,

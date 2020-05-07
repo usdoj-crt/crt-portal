@@ -12,6 +12,7 @@ variable_rename = {
     'assigned_to': 'Assignee',
     'public_id': 'Complaint ID',
     'primary_statute': 'Statute',
+    'violation_summary': 'Personal description',
 }
 
 
