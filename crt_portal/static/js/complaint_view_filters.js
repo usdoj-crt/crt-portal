@@ -254,7 +254,6 @@
     var clearAllEl = dom.querySelector('[data-clear-filters]');
     var statusEl = formEl.querySelector('select[name="status"]');
     var summaryEl = formEl.querySelector('input[name="summary"]');
-    // this might need to be updated for multiselect
     var assigneeEl = formEl.querySelector('select[name="assigned_to"]');
     var complaintIDEl = formEl.querySelector('input[name="public_id"');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
