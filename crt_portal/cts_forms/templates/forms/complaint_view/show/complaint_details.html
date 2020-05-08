@@ -37,7 +37,7 @@
     {% csrf_token %}
     <table class="usa-table usa-table--borderless complaint-card-table">
       <tr>
-        <th><label for="{{details_form.id_for_label}}">Primary issue</label></th>
+        <th><label for="{{details_form.primary_complaint.id_for_label}}">Primary issue</label></th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
             {{primary_complaint.0}}
