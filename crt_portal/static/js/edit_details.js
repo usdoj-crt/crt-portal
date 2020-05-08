@@ -43,7 +43,6 @@
 
   function addShowFormHandler() {
     var editButton = document.getElementById('edit-details-btn');
-    console.log(editButton);
     editButton.addEventListener('click', showForm);
   }
 
@@ -51,8 +50,13 @@
     //  Serialize form values into a comma delimited string
     var serializedForm = new Array();
     for (var i = 0; i < form.elements.length; i++) {
-      var field = form.elements[i];
-      serializedForm.push(field.value);
+      var field = form.elements[i]
+      if (field.type != 'checkbox') {
+        serializedForm.push(field.value);
+      }
+      else {
+        serializedForm.push(field.checked);
+      }
     }
     return serializedForm.join(',');
   }
