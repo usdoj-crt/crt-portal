@@ -84,9 +84,14 @@ form#report-form {
   }
 
   .usa-fieldset {
-    margin-top: 2.5rem;
+    margin-top: 0;
+    margin-bottom: 0;
     .usa-fieldset {
       margin-top: 1.5rem;
+    }
+
+    &:not(:first-child) {
+      margin-top: 2.5rem;
     }
 
     ul {
