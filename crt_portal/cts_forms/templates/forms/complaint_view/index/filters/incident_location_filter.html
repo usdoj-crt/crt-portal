@@ -5,8 +5,14 @@
 {% block id %}incident-locations{% endblock %}
 
 {% block content %}
+  <div id="location-name-filter">
+    <label for="id_{{form.fields.location_name.widget.attrs.name}}" class="margin-bottom-1">
+      <b>{{form.location_name.label}}</b>
+    </label>
+    {{ form.location_name }}
+  </div>
   <div id="location-city-filter">
-    <label for="id_{{form.fields.location_city_town.widget.attrs.name}}" class="margin-bottom-1">
+    <label for="id_{{form.fields.location_city_town.widget.attrs.name}}" class="usa-label margin-bottom-1">
       <b>{{form.location_city_town.label}}</b>
     </label>
     {{ form.location_city_town }}

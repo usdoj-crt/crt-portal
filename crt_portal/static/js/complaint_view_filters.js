@@ -248,7 +248,8 @@
     var multiSelectEl = formEl.querySelector('select[name="assigned_section"');
     var firstNameEl = formEl.querySelector('input[name="contact_first_name"');
     var lastNameEl = formEl.querySelector('input[name="contact_last_name"');
-    var cityEl = formEl.querySelector('input[name="location_city_town"]');
+    var locationCityEl = formEl.querySelector('input[name="location_city_town"]');
+    var locationNameEl = formEl.querySelector('input[name="location_name"]');
     var locationStateEl = formEl.querySelector('select[name="location_state"]');
     var activeFiltersEl = dom.querySelector('[data-active-filters]');
     var clearAllEl = dom.querySelector('[data-clear-filters]');
@@ -313,8 +314,12 @@
       name: 'contact_last_name'
     });
     textInputView({
-      el: cityEl,
+      el: locationCityEl,
       name: 'location_city_town'
+    });
+    textInputView({
+      el: locationNameEl,
+      name: 'location_name'
     });
     textInputView({
       el: locationStateEl,

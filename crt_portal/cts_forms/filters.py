@@ -16,7 +16,7 @@ filter_options = {
     'contact_email': '__search',
     'other_class': '__search',
     'violation_summary': '__search',
-    'location_name': '__search',
+    'location_name': '__contains',
     'location_city_town': '__contains',
     'location_address_line_1': '__search',
     'location_address_line_2': '__search',
