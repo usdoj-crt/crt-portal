@@ -10,7 +10,6 @@ filter_options = {
     'primary_complaint': '__in',
     'status': '__in',
     'location_state': '__in',
-    'primary_complaint': '__in',
     'contact_first_name': '__contains',
     'contact_last_name': '__contains',
     'contact_email': '__search',

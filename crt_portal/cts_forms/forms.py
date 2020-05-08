@@ -944,6 +944,7 @@ class Filters(ModelForm):
             'assigned_to',
             'public_id',
             'primary_statute',
+            'violation_summary',
         ]
 
         labels = {
@@ -957,6 +958,7 @@ class Filters(ModelForm):
             'assigned_to': _('Assignee'),
             'public_id': _('Complaint ID'),
             'primary_statute': _('Statute'),
+            'violation_summary': _('Personal description'),
         }
 
         widgets = {
@@ -983,7 +985,11 @@ class Filters(ModelForm):
             'public_id': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'public_id'
-            })
+            }),
+            'violation_summary': TextInput(attrs={
+                'class': 'usa-input',
+                'name': 'violation_summary'
+            }),
         }
 
 
