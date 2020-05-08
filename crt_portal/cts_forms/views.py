@@ -255,6 +255,8 @@ def serialize_data(report, request, report_id):
 
 
 class ShowView(LoginRequiredMixin, View):
+    forms = {'contact_form': ContactEditForm, 'actions': ComplaintActions, 'details_form': ReportEditForm}
+
     def get(self, request, id):
         report = get_object_or_404(Report, pk=id)
         output = serialize_data(report, request, id)
@@ -264,16 +266,18 @@ class ShowView(LoginRequiredMixin, View):
         output.update({'contact_form': contact_form, 'details_form': details_form})
         return render(request, 'forms/complaint_view/show/index.html', output)
 
-    def post(self, request, id):
-        """Handle both action and contact edit forms"""
-        report = get_object_or_404(Report, pk=id)
+    def get_form(self, request, report):
         form_type = request.POST.get('type')
-        if form_type == 'contact-info':
-            form = ContactEditForm(request.POST, instance=report)
-        elif form_type == 'complaint-action':
-            form = ComplaintActions(request.POST, instance=report)
-        elif form_type == 'details-edit':
-            form = ReportEditForm(request.POST, instance=report)
+        return self.forms[form_type](request.POST, instance=report), form_type
+
+    def post(self, request, id):
+        """
+        Multiple forms are provided on the page
+        Accept only the submitted form and discard any other inbound changes
+        """
+        report = get_object_or_404(Report, pk=id)
+
+        form, inbound_form_type = self.get_form(request, report)
 
         if form.is_valid() and form.has_changed():
             form.save()
@@ -283,13 +287,11 @@ class ShowView(LoginRequiredMixin, View):
             return redirect(f"{url}#status-update")
         else:
             output = serialize_data(report, request, id)
-            # Add form with errors to context
-            if form_type == 'contact-info':
-                output.update({'contact_form': form})
-            elif form_type == 'details-edit':
-                output['details_form'] = form
-            else:
-                output['actions'] = form
+            output.update({inbound_form_type: form})
+            # provide new forms for those not submitted
+            for form_type, form in self.forms.items():
+                if form_type != inbound_form_type:
+                    output.update({form_type: form(instance=report)})
             try:
                 fail_message = form.FAIL_MESSAGE
             except AttributeError:

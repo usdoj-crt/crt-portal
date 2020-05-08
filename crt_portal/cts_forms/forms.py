@@ -3,6 +3,8 @@ from datetime import datetime
 
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
+from django.utils.functional import cached_property
+
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           EmailInput, ModelChoiceField, ModelForm,
                           ModelMultipleChoiceField, Select, SelectMultiple,
@@ -63,13 +65,17 @@ class ActivityStreamUpdater(object):
     def get_actions(self):
         """Parse incoming changed data for activity stream entry"""
         for field in self.changed_data:
-            initial = self.initial[field]
-            new = self.cleaned_data[field]
-            if isinstance(initial, list):
-                initial = ', '.join([str(x) for x in initial])
-                new = ', '.join([str(x) for x in new])
+            try:
+                initial = self.initial[field]
+                new = self.cleaned_data[field]
+                if isinstance(initial, list):
+                    initial = ', '.join([str(x) for x in initial])
+                    new = ', '.join([str(x) for x in new])
 
-            yield f"{' '.join(field.split('_')).capitalize()}:", f'Updated from "{initial}" to "{new}"'
+                yield f"{' '.join(field.split('_')).capitalize()}:", f'Updated from "{initial}" to "{new}"'
+            except KeyError:
+                # Initial value not found for field, not present on model, not a change to be tracked
+                pass
 
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
@@ -623,6 +629,7 @@ class When(ModelForm):
                 'class': 'usa-input usa-input--small',
                 'required': True,
                 'type': 'number',
+                'label': DATE_QUESTIONS['last_incident_month']
             }),
             'last_incident_day': TextInput(attrs={
                 'class': 'usa-input usa-input--small',
@@ -1182,30 +1189,28 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
 
 class ReportEditForm(ProForm, ActivityStreamUpdater):
     FAIL_MESSAGE = "Failed to update complaint details."
+    SUCCESS_MESSAGE = "Successfully updated complaint details."
 
     hatecrime = BooleanField(required=False, widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'}))
     trafficking = BooleanField(required=False, widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'}))
 
     class Meta(ProForm.Meta):
-        exclude = ['intake_format', 'violation_summary']
+        exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name',
+            'contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_state',
+            'contact_city', 'contact_zip']
 
     def success_message(self):
-        """Prepare update success message for rendering in template"""
-        updated_fields = [field for field in self.changed_data]
-        if len(updated_fields) == 1:
-            message = f"Successfully updated {updated_fields[0]}."
-        else:
-            fields = ', '.join(updated_fields[:-1])
-            fields += f', and {updated_fields[-1]}'
-            message = f"Successfully updated {fields}."
-        return message
+        return self.SUCCESS_MESSAGE
 
     def _set_to_select_widget(self, field):
-        """Set the passed 'field's widget to Select and add an empty choice"""
+        """Set the provided 'field's widget to Select and add an empty choice"""
         self.fields[field].widget = Select(choices=_add_empty_choice(self.fields[field].choices), attrs={'class': 'usa-select'})
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        ModelForm.__init__(self, *args, **kwargs)
+
+        self.fields['hatecrime'].initial = self.instance.hatecrimes_trafficking.filter(value='physical_harm').exists()
+        self.fields['trafficking'].initial = self.instance.hatecrimes_trafficking.filter(value='trafficking').exists()
 
         # required
         self.fields['primary_complaint'].widget = Select(choices=self.fields['primary_complaint'].choices, attrs={'class': 'usa-select'})
@@ -1220,3 +1225,28 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         self._set_to_select_widget('inside_correctional_facility')
         self._set_to_select_widget('correctional_facility_type')
         self._set_to_select_widget('commercial_or_public_place')
+
+        # date field labels
+        self.fields['last_incident_day'].label = DATE_QUESTIONS['last_incident_day']
+        self.fields['last_incident_month'].label = DATE_QUESTIONS['last_incident_month']
+        self.fields['last_incident_year'].label = DATE_QUESTIONS['last_incident_year']
+
+    @cached_property
+    def changed_data(self):
+        changed_data = super().changed_data
+        # If hatecrime or trafficking field was changed, so was hatecrimes_trafficking
+        if set(changed_data).intersection({'hatecrime', 'trafficking'}) and 'hatecrimes_trafficking' not in changed_data:
+            changed_data.append('hatecrimes_trafficking')
+        return changed_data
+
+    def clean(self):
+        """Convert intermediary fields rendered as checkboxes to model's M2M field"""
+        cleaned_data = super().clean()
+        crimes = []
+        if cleaned_data['hatecrime']:
+            crimes.append(HateCrimesandTrafficking.objects.get(value='physical_harm'))
+        if cleaned_data['trafficking']:
+            crimes.append(HateCrimesandTrafficking.objects.get(value='trafficking'))
+        cleaned_data['hatecrimes_trafficking'] = crimes
+
+        return cleaned_data
