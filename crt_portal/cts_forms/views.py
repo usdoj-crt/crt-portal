@@ -566,7 +566,7 @@ class CRTReportWizard(SessionWizardView):
             _('Personal characteristics'),
             _('Date'),
             _('Personal description'),
-            _('Review your concern'),
+            _('Review your report'),
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]
         form_autocomplete_off = os.getenv('FORM_AUTOCOMPLETE_OFF', False)

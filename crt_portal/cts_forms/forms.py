@@ -319,7 +319,7 @@ class LocationForm(ModelForm):
                 ally_id='location-help-text'
             ),
         ]
-        self.page_note = _('Please tell us the city, state, and name of the location where this incident took place. This ensures your concern is reviewed by the right people within the Civil Rights Division.')
+        self.page_note = _('Please tell us the city, state, and name of the location where this incident took place. This ensures your report is reviewed by the right people within the Civil Rights Division.')
 
 
 class ElectionLocation(LocationForm):
