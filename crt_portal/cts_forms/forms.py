@@ -1011,6 +1011,7 @@ class Filters(ModelForm):
 
 
 class ComplaintActions(ModelForm, ActivityStreamUpdater):
+    CONTEXT_KEY = 'actions'
     assigned_to = ModelChoiceField(
         queryset=User.objects.filter(is_active=True),
         label=_("Assigned to"),
@@ -1133,6 +1134,7 @@ class SummaryField(CommentActions):
 
 
 class ContactEditForm(ModelForm, ActivityStreamUpdater):
+    CONTEXT_KEY = 'contact_form'
     SUCCESS_MESSAGE = "Successfully updated contact information."
     FAIL_MESSAGE = "Failed to update contact details."
 
@@ -1188,6 +1190,7 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
 
 
 class ReportEditForm(ProForm, ActivityStreamUpdater):
+    CONTEXT_KEY = "details_form"
     FAIL_MESSAGE = "Failed to update complaint details."
     SUCCESS_MESSAGE = "Successfully updated complaint details."
 
@@ -1196,8 +1199,8 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
 
     class Meta(ProForm.Meta):
         exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name',
-            'contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_state',
-            'contact_city', 'contact_zip']
+                   'contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_state',
+                   'contact_city', 'contact_zip']
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
@@ -1207,12 +1210,13 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         self.fields[field].widget = Select(choices=_add_empty_choice(self.fields[field].choices), attrs={'class': 'usa-select'})
 
     def __init__(self, *args, **kwargs):
+        # Don't need all of the __init__ from ProForm
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['hatecrime'].initial = self.instance.hatecrimes_trafficking.filter(value='physical_harm').exists()
         self.fields['trafficking'].initial = self.instance.hatecrimes_trafficking.filter(value='trafficking').exists()
 
-        # required
+        # required fields
         self.fields['primary_complaint'].widget = Select(choices=self.fields['primary_complaint'].choices, attrs={'class': 'usa-select'})
         self.fields['protected_class'].widget = SelectMultiple(choices=self.fields['protected_class'].choices, attrs={'class': 'height-10 width-mobile'})
         self.fields['servicemember'].widget = Select(choices=self.fields['servicemember'].choices, attrs={'class': 'usa-select'})

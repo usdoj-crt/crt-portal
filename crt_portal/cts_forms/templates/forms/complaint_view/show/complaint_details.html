@@ -189,7 +189,7 @@
             class="usa-button {% if not details_form.errors %}display-none{% endif %}"
             disabled
             type="submit"
-            name="type" value="details_form">
+            name="type" value="{{details_form.CONTEXT_KEY}}">
             Save
     </button>
     <button id='details-edit-cancel'

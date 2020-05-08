@@ -255,7 +255,7 @@ def serialize_data(report, request, report_id):
 
 
 class ShowView(LoginRequiredMixin, View):
-    forms = {'contact_form': ContactEditForm, 'actions': ComplaintActions, 'details_form': ReportEditForm}
+    forms = {form.CONTEXT_KEY: form for form in [ContactEditForm, ComplaintActions, ReportEditForm]}
 
     def get(self, request, id):
         report = get_object_or_404(Report, pk=id)
@@ -288,16 +288,16 @@ class ShowView(LoginRequiredMixin, View):
         else:
             output = serialize_data(report, request, id)
             output.update({inbound_form_type: form})
-            # provide new forms for those not submitted
-            for form_type, form in self.forms.items():
-                if form_type != inbound_form_type:
-                    output.update({form_type: form(instance=report)})
             try:
                 fail_message = form.FAIL_MESSAGE
             except AttributeError:
                 fail_message = 'No updates applied'
-
             messages.add_message(request, messages.ERROR, fail_message)
+
+            # provide new forms for those not submitted
+            for form_type, form in self.forms.items():
+                if form_type != inbound_form_type:
+                    output.update({form_type: form(instance=report)})
 
             return render(request, 'forms/complaint_view/show/index.html', output)
 
