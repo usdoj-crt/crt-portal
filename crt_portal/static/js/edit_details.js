@@ -1,4 +1,5 @@
 (function() {
+
   function showForm() {
     var showThese = document.querySelectorAll('.details-edit');
     var hideThese = document.querySelectorAll('.details');
@@ -72,6 +73,10 @@
   }
 
   function addFormUpdateEvents(form) {
+    // Show follow-up fields if any
+    var primaryComplaint = document.getElementById("id_primary_complaint");
+    showFollowUpQuestions(primaryComplaint.value);
+
     // Generate listenable events for all form inputs, using `change` for IE11 support
     for (var i = 0; i < form.elements.length; i++) {
       var field = form.elements[i];
