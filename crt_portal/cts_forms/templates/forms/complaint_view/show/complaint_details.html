@@ -39,7 +39,7 @@
       <tr>
         <th>Primary issue</th>
         <td>
-          <div class="details">
+          <div class="details {% if details_form.errors %}display-none{% endif %}">
             {{primary_complaint.0}}
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
@@ -189,7 +189,7 @@
             class="usa-button {% if not details_form.errors %}display-none{% endif %}"
             disabled
             type="submit"
-            name="type" value="details-edit">
+            name="type" value="details_form">
             Save
     </button>
     <button id='details-edit-cancel'
