@@ -8,7 +8,11 @@ footer {
   }
 }
 
-.usa-footer__logo {
+.usa-footer__icon {
+  padding-right: 0 !important;
+}
+
+.usa-footer__logo-section {
   margin-bottom: 2em;
 }
 
@@ -20,7 +24,7 @@ footer {
   font-weight: normal;
 }
 
-.usa-footer__header {
+.usa-footer__heading {
   font-size: 1.5em;
   font-weight: bold;
   margin-bottom: 1em;
