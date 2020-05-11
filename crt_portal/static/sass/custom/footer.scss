@@ -23,6 +23,11 @@ footer {
 .usa-footer__links {
   display: flex;
   flex-direction: column;
+  margin-bottom: 2em;
+
+  p {
+    margin: 0;
+  }
 
   a {
     margin-bottom: 1em;
@@ -35,6 +40,6 @@ footer {
   a {
     color: white;
     text-decoration: none;
-    text-transform: uppercase;
+    // text-transform: uppercase;
   }
 }

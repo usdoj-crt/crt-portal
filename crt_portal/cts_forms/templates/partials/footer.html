@@ -1,5 +1,7 @@
+{% load i18n %}
+
 <div class="grid-container">
-  <div class="grid-row grid-gap">
+  <div class="grid-row">
 
     <div class="grid-col-6">
       <div class="usa-footer__header">
@@ -8,16 +10,16 @@
 
       <div class="grid-row grid-gap">
         <div class="grid-col-12 usa-footer__links">
-          <span>U.S. Department of Justice</span>
-          <span>Civil Rights Division</span>
-          <span>950 Pennsylvania Avenue, NW</span>
-          <span>Office of the Assistant Attorney General</span>
-          <span>Washington, D.C. 20530-0001</span>
+          <p>U.S. Department of Justice</p>
+          <p>Civil Rights Division</p>
+          <p>950 Pennsylvania Avenue, NW</p>
+          <p>Office of the Assistant Attorney General</p>
+          <p>Washington, D.C. 20530-0001</p>
         </div>
 
         <div class="grid-col-12 usa-footer__links">
           <a href="tel:202-514-4609">(202) 514-4609</a>
-          <span>Telephone Device for the Deaf</span>
+          <p>Telephone Device for the Deaf</p>
           <a href="tel:202-514-4609">(202) 514-4609</a>
         </div>
       </div>
@@ -30,22 +32,46 @@
 
       <div class="grid-row grid-gap">
         <div class="grid-col-6 usa-footer__links">
-          <a href="https://www.justice.gov/crt/about">About the division</a>
-          <a href="#">Your Rights</a>
-          <a href="https://civilrights.justice.gov">Report a violation</a>
-          <a href="#">Already submitted?</a>
-          <a href="#">En Español</a>
-          <!-- <div class="usa-footer__logo-heading">
-               {% include 'partials/i8n.html' %}
-               </div> -->
+          <a href="https://www.justice.gov/crt/about">
+            {% trans "About the division" %}
+          </a>
+          <a href="#">
+            {% trans "Your Rights" %}
+          </a>
+          <a href="https://civilrights.justice.gov">
+            {% trans "Report a violation" %}
+          </a>
+          <a href="#">
+            {% trans "Already submitted?" %}
+          </a>
+          <a href="#">
+            {% trans "Privacy policy" %}
+          </a>
+          <a href="https://www.justice.gov/">
+            Justice.gov
+          </a>
+          {% include 'partials/i8n.html' %}
         </div>
 
         <div class="grid-col-6 usa-footer__links">
-          <a href="#">Privacy policy</a>
-          <a href="https://www.justice.gov/oip">FOIA</a>
-          <a href="https://www.justice.gov/accessibility/accessibility-information">Accessibility</a>
-          <a href="https://www.justice.gov/">Justice.gov</a>
-          <a href="https://oig.justice.gov/">Office of the Inspector General</a>
+          <a href="https://www.justice.gov/oip">
+            {% trans "FOIA" %}
+          </a>
+          <a href="https://www.justice.gov/accessibility/accessibility-information">
+            {% trans "Accessibility" %}
+          </a>
+          <a href="https://oig.justice.gov/">
+            {% trans "Office of the Inspector General" %}
+          </a>
+          <a href="https://www.justice.gov/doj/budget-and-performance">
+            {% trans "Budget and performance" %}
+          </a>
+          <a href="https://www.usa.gov/">
+            USA.gov
+          </a>
+          <a href="https://www.usa.gov/espanol/">
+            USAGov en Español
+          </a>
         </div>
       </div>
 
