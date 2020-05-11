@@ -1,13 +1,40 @@
 // Footer Styles
 footer {
   width: 100%; // IE11 fix
-}
-.usa-footer__logo-heading {
-//  @include h4
   color: white;
+}
+
+.usa-footer__logo {
+  margin-bottom: 2em;
+}
+
+.usa-footer__logo-subheading {
+  margin-bottom: 0;
+}
+
+.usa-footer__logo-heading {
   font-weight: normal;
+}
+
+.usa-footer__header {
+  font-size: 1.5em;
+}
+
+.usa-footer__links {
+  display: flex;
+  flex-direction: column;
+
+  a {
+    margin-bottom: 1em;
+  }
 }
 
 .usa-footer__secondary-section {
   background-color: #2E2E2A;
+
+  a {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
 }
