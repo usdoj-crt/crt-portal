@@ -66,6 +66,7 @@ class ActivityStreamUpdater(object):
         """Parse incoming changed data for activity stream entry"""
         for field in self.changed_data:
             try:
+                # TODO? Add display values to activity stream
                 initial = self.initial[field]
                 new = self.cleaned_data[field]
                 if isinstance(initial, list):
@@ -1198,6 +1199,9 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
     trafficking = BooleanField(required=False, widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'}))
 
     class Meta(ProForm.Meta):
+        """
+        Extend ProForm to capture field definitions from component forms, excluding those which should not be editable here
+        """
         exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name',
                    'contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_state',
                    'contact_city', 'contact_zip']
@@ -1214,7 +1218,9 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         )
 
     def __init__(self, *args, **kwargs):
-        # Don't need all of the __init__ from ProForm
+        """
+        Proform initializes all component forms, we'll skip that and define only the fields need for this form
+        """
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['hatecrime'].initial = self.instance.hatecrimes_trafficking.filter(value='physical_harm').exists()
