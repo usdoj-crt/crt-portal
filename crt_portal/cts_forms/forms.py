@@ -315,7 +315,7 @@ class LocationForm(ModelForm):
                 self,
                 ('location_name', 'location_address_line_1', 'location_address_line_2'),
                 group_name=LOCATION_QUESTIONS['location_title'],
-                optional=False,
+                optional=True,  # a11y: only some fields here are required
                 ally_id='location-help-text'
             ),
         ]
