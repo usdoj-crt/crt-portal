@@ -1206,9 +1206,9 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         return self.SUCCESS_MESSAGE
 
     def _set_to_select_widget(self, field):
-        """Set the provided 'field's widget to Select and add an empty choice"""
+        """Set the provided 'field's widget to Select"""
         self.fields[field] = TypedChoiceField(
-            choices=_add_empty_choice(self.fields[field].choices),
+            choices=self.fields[field].choices,
             widget=Select(attrs={'class': 'usa-select'}),
             required=False,
         )
