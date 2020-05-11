@@ -1289,5 +1289,3 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
 
         cleaned_data = self.clean_dependent_fields(cleaned_data)
         return cleaned_data
-
-

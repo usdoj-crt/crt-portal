@@ -9,6 +9,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.core.exceptions import SuspiciousOperation
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import FormView, View
 from formtools.wizard.views import SessionWizardView
@@ -268,6 +269,8 @@ class ShowView(LoginRequiredMixin, View):
 
     def get_form(self, request, report):
         form_type = request.POST.get('type')
+        if not form_type:
+            raise SuspiciousOperation("Invalid form data")
         return self.forms[form_type](request.POST, instance=report), form_type
 
     def post(self, request, id):
