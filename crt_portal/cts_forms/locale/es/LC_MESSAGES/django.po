@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-11 16:40+0000\n"
+"POT-Creation-Date: 2020-05-11 21:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -193,51 +193,6 @@ msgstr "¿Qué cree la persona que ocurrió?"
 #: forms.py:926 forms.py:999
 msgid "Assigned to"
 msgstr ""
-
-#. Translators: CRT sections
-#: forms.py:952
-msgid "View sections"
-msgstr "Ver las secciones"
-
-#: forms.py:953
-msgid "Contact first name"
-msgstr "Nombres del contacto"
-
-#: forms.py:954
-msgid "Contact last name"
-msgstr "Apellidos del contacto"
-
-#: forms.py:955
-msgid "Incident location city"
-msgstr "Ciudad en que ocurrió el incidente"
-
-#: forms.py:956
-#, fuzzy
-#| msgid "Incident location state"
-msgid "Incident location name"
-msgstr "Estado en que ocurrió el incidente"
-
-#: forms.py:957
-msgid "Incident location state"
-msgstr "Estado en que ocurrió el incidente"
-
-#: forms.py:958
-msgid "Assignee"
-msgstr ""
-
-#: forms.py:959
-msgid "Complaint ID"
-msgstr ""
-
-#: forms.py:960
-#, fuzzy
-#| msgid "State"
-msgid "Statute"
-msgstr "Estado"
-
-#: forms.py:961 views.py:487 views.py:549 views.py:568
-msgid "Personal description"
-msgstr "Descripción personal"
 
 #. Translators: This is used as a an empty selection default for drop down menus
 #: model_variables.py:6
@@ -1560,12 +1515,7 @@ msgid "progress"
 msgstr "progreso"
 
 #: templates/forms/portal/progress-bar.html:8
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "              Current step: %(current_step_name)s. Step %(stage_number)s "
-#| "of %(total_stages)s.\n"
-#| "            "
+#, python-format
 msgid ""
 "\n"
 "          Current step: %(current_step_name)s. Step %(stage_number)s of "
@@ -1586,12 +1536,7 @@ msgid "completed"
 msgstr "completado"
 
 #: templates/forms/report_base.html:9
-#, fuzzy, python-format
-#| msgid ""
-#| "\n"
-#| "        Step %(stage_number)s: %(current_step_name)s - Contact the Civil "
-#| "Rights Division - Department of Justice\n"
-#| "      "
+#, python-format
 msgid ""
 "\n"
 "          Step %(stage_number)s: %(current_step_name)s - Contact the Civil "
@@ -1817,6 +1762,10 @@ msgstr "Características personales"
 msgid "Date"
 msgstr "Fecha"
 
+#: views.py:487 views.py:549 views.py:568
+msgid "Personal description"
+msgstr "Descripción personal"
+
 #: views.py:488 views.py:550 views.py:599
 msgid "Review"
 msgstr "Repasar"
@@ -1836,7 +1785,33 @@ msgstr "Revisamos su informe"
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "Favor de elegir esta opción si"
 
+
 # Previous translations no longer in use #
+#~ msgid "View sections"
+#~ msgstr "Ver las secciones"
+
+#~ msgid "Contact first name"
+#~ msgstr "Nombres del contacto"
+
+#~ msgid "Contact last name"
+#~ msgstr "Apellidos del contacto"
+
+#~ msgid "Incident location city"
+#~ msgstr "Ciudad en que ocurrió el incidente"
+
+#, fuzzy
+#~| msgid "Incident location state"
+#~ msgid "Incident location name"
+#~ msgstr "Estado en que ocurrió el incidente"
+
+#~ msgid "Incident location state"
+#~ msgstr "Estado en que ocurrió el incidente"
+
+#, fuzzy
+#~| msgid "State"
+#~ msgid "Statute"
+#~ msgstr "Estado"
+
 #~ msgid ""
 #~ "<strong>If we are able to respond, we will contact you within 4 weeks "
 #~ "using the contact information you provided</strong> in this report."

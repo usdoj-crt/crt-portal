@@ -948,17 +948,17 @@ class Filters(ModelForm):
         ]
 
         labels = {
-            # Translators: CRT sections
-            'assigned_section': _('View sections'),
-            'contact_first_name': _('Contact first name'),
-            'contact_last_name': _('Contact last name'),
-            'location_city_town': _('Incident location city'),
-            'location_name': _('Incident location name'),
-            'location_state': _('Incident location state'),
-            'assigned_to': _('Assignee'),
-            'public_id': _('Complaint ID'),
-            'primary_statute': _('Statute'),
-            'violation_summary': _('Personal description'),
+            # These are CRT view only
+            'assigned_section': 'View sections',
+            'contact_first_name': 'Contact first name',
+            'contact_last_name': 'Contact last name',
+            'location_city_town': 'Incident location city',
+            'location_name': 'Incident location name',
+            'location_state': 'Incident location state',
+            'assigned_to': 'Assignee',
+            'public_id': 'Complaint ID',
+            'primary_statute': 'Statute',
+            'violation_summary': 'Personal description',
         }
 
         widgets = {
