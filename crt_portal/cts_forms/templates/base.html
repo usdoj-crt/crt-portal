@@ -31,26 +31,28 @@
     </main>
 
     {% block usa_footer %}
-      <footer class="usa-footer usa-footer--slim">
-        <div class="usa-footer__secondary-section">
-          <div class="grid-container usa-footer__logo">
-            <div class="grid-row grid-gap-2">
-              <div class="grid-col-auto">
-                <img src="{% static "img/doj-logo-footer.svg" %}" alt="" height="64" />
-              </div>
-              <div class="grid-col-auto">
-                <p class="usa-footer__logo-subheading">
-                  {% trans "U.S. Department of Justice" %}
-                </p>
-                <p class="usa-footer__logo-heading">
-                  {% trans "Civil Rights Division" %}
-                </p>
-              </div>
+    <footer class="usa-footer usa-footer--slim">
+      <div class="usa-footer__secondary-section">
+        <div class="grid-container usa-footer__logo">
+          <div class="grid-row grid-gap-2">
+            <div class="grid-col-auto">
+              <img src="{% static "img/doj-logo-footer.svg" %}"
+                   alt=""
+                   height="64" />
+            </div>
+            <div class="grid-col-auto">
+              <p class="usa-footer__logo-subheading">
+                {% trans "U.S. Department of Justice" %}
+              </p>
+              <p class="usa-footer__logo-heading">
+                {% trans "Civil Rights Division" %}
+              </p>
             </div>
           </div>
-          {% include "partials/footer.html" %}
         </div>
-      </footer>
+      {% include "partials/footer.html" %}
+      </div>
+    </footer>
     {% endblock %}
     <script src="{% static 'js/url_params_polyfill.js' %}"></script>
     <script src="{% static 'js/uswds.min.js' %}"></script>

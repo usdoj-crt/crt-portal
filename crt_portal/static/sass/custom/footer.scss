@@ -2,6 +2,10 @@
 footer {
   width: 100%; // IE11 fix
   color: white;
+
+  select, input {
+    color: black;
+  }
 }
 
 .usa-footer__logo {
@@ -18,6 +22,8 @@ footer {
 
 .usa-footer__header {
   font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 1em;
 }
 
 .usa-footer__links {
@@ -40,6 +46,5 @@ footer {
   a {
     color: white;
     text-decoration: none;
-    // text-transform: uppercase;
   }
 }
