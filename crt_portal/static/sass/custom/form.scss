@@ -5,6 +5,7 @@
 // radio buttons; so remove list item bullets by default.
 form#report-form {
   .question-header {
+    width: 100%; // IE11 fix
     margin-top: 2.5rem;
     margin-bottom: 1.5rem;
     + .help-text,
