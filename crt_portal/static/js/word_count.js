@@ -113,7 +113,9 @@
 
   // Add listeners only to word-limited elements
   const wordLimitedElements = Array.from(textAreaElem500).concat(Array.from(textAreaElem10));
-  wordLimitedElements.forEach(element => element.addEventListener('keyup', listenWordCount));
+  wordLimitedElements.forEach(function(element) {
+    element.addEventListener('keyup', listenWordCount);
+  });
 
   // Fire `updateWordCount()` on page load because textarea may have
   // some initial content; for example if the user fills in the textarea,
