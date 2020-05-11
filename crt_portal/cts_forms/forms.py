@@ -1245,7 +1245,31 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         # If hatecrime or trafficking field was changed, so was hatecrimes_trafficking
         if set(changed_data).intersection({'hatecrime', 'trafficking'}) and 'hatecrimes_trafficking' not in changed_data:
             changed_data.append('hatecrimes_trafficking')
+
+        # If we're changing primary complaint, we may also need to update dependent fields
+        if 'primary_complaint' in changed_data:
+            original = self.instance.primary_complaint
+            if original in Report.PRIMARY_COMPLAINT_DEPENDENT_FIELDS.keys():
+                for field in Report.PRIMARY_COMPLAINT_DEPENDENT_FIELDS[original]:
+                    # If there's an initial value, we're setting it to None
+                    # in the last step of processing, self.clean()
+                    # Add to changed_data here so the instance is aware of
+                    # the modification
+                    if self[field].initial:
+                        changed_data.append(field)
+
         return changed_data
+
+    def clean_dependent_fields(self, cleaned_data):
+        """
+        If primary complaint is changed, set any dependent fields associated with initial value to None
+        """
+        if 'primary_complaint' in self.changed_data:
+            original = self.instance.primary_complaint
+            if original in Report.PRIMARY_COMPLAINT_DEPENDENT_FIELDS.keys():
+                for field in Report.PRIMARY_COMPLAINT_DEPENDENT_FIELDS[original]:
+                    cleaned_data[field] = ""
+        return cleaned_data
 
     def clean(self):
         """Convert intermediary fields rendered as checkboxes to model's M2M field"""
@@ -1257,4 +1281,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
             crimes.append(HateCrimesandTrafficking.objects.get(value='trafficking'))
         cleaned_data['hatecrimes_trafficking'] = crimes
 
+        cleaned_data = self.clean_dependent_fields(cleaned_data)
         return cleaned_data
+
+

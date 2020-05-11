@@ -70,6 +70,14 @@ class JudicialDistrict(models.Model):
 
 
 class Report(models.Model):
+    PRIMARY_COMPLAINT_DEPENDENT_FIELDS = {
+        'workplace': ['public_or_private_employer', 'employer_size'],
+        'voting': ['election_details'],
+        'education': ['public_or_private_school'],
+        'police': ['inside_correctional_facility', 'correctional_facility_type'],
+        'commercial_or_public': ['commercial_or_public_place', 'other_commercial_or_public_place']
+    }
+
     # Contact
     contact_first_name = models.CharField(max_length=225, null=True, blank=True)
     contact_last_name = models.CharField(max_length=225, null=True, blank=True)
