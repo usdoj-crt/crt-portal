@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-06 16:21+0000\n"
+"POT-Creation-Date: 2020-05-11 16:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:99 forms.py:1142
+#: forms.py:99 forms.py:1153
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
@@ -28,7 +28,7 @@ msgstr ""
 "de país."
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:129 forms.py:1112
+#: forms.py:129 forms.py:1123
 msgid " - Select - "
 msgstr " - Elija - "
 
@@ -92,9 +92,14 @@ msgid "Where did this happen?"
 msgstr "¿Dónde sucedió esto?"
 
 #: forms.py:322
+#, fuzzy
+#| msgid ""
+#| "Please tell us the city, state, and name of the location where this "
+#| "incident took place. This ensures your concern is reviewed by the right "
+#| "people within the Civil Rights Division."
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
-"took place. This ensures your concern is reviewed by the right people within "
+"took place. This ensures your report is reviewed by the right people within "
 "the Civil Rights Division."
 msgstr ""
 "Indique la ciudad, el estado y el nombre del lugar donde sucedió este "
@@ -185,44 +190,54 @@ msgstr ""
 msgid "What did the person believe happened?"
 msgstr "¿Qué cree la persona que ocurrió?"
 
-#: forms.py:926 forms.py:988
+#: forms.py:926 forms.py:999
 msgid "Assigned to"
 msgstr ""
 
 #. Translators: CRT sections
-#: forms.py:951
+#: forms.py:952
 msgid "View sections"
 msgstr "Ver las secciones"
 
-#: forms.py:952
+#: forms.py:953
 msgid "Contact first name"
 msgstr "Nombres del contacto"
 
-#: forms.py:953
+#: forms.py:954
 msgid "Contact last name"
 msgstr "Apellidos del contacto"
 
-#: forms.py:954
+#: forms.py:955
 msgid "Incident location city"
 msgstr "Ciudad en que ocurrió el incidente"
 
-#: forms.py:955
+#: forms.py:956
+#, fuzzy
+#| msgid "Incident location state"
+msgid "Incident location name"
+msgstr "Estado en que ocurrió el incidente"
+
+#: forms.py:957
 msgid "Incident location state"
 msgstr "Estado en que ocurrió el incidente"
 
-#: forms.py:956
+#: forms.py:958
 msgid "Assignee"
 msgstr ""
 
-#: forms.py:957
+#: forms.py:959
 msgid "Complaint ID"
 msgstr ""
 
-#: forms.py:958
+#: forms.py:960
 #, fuzzy
 #| msgid "State"
 msgid "Statute"
 msgstr "Estado"
+
+#: forms.py:961 views.py:487 views.py:549 views.py:568
+msgid "Personal description"
+msgstr "Descripción personal"
 
 #. Translators: This is used as a an empty selection default for drop down menus
 #: model_variables.py:6
@@ -1018,7 +1033,7 @@ msgstr "Elija dónde esto sucedió"
 msgid "Please select the type of location"
 msgstr "Elija el tipo de lugar"
 
-#: model_variables.py:300 model_variables.py:311
+#: model_variables.py:300
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr ""
 "Debe introducir un mes y un año. Favor de seguir el formato MM/DD/AAAA."
@@ -1058,7 +1073,7 @@ msgstr "Introduzca un año después de 1900"
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
 msgstr "Introduzca un formato de fecha válido. Utilice el formato MM/DD/AAAA."
 
-#: model_variables.py:313
+#: model_variables.py:312
 msgid "Please select the type of election or voting activity."
 msgstr "Elija el tipo de elecciones o actividad relacionada con el voto"
 
@@ -1134,7 +1149,9 @@ msgid "Hate crimes and human trafficking"
 msgstr "Delitos de odio y trata de personas"
 
 #: question_text.py:23
-msgid "Please select if any apply to your concern"
+#, fuzzy
+#| msgid "Please select if any apply to your concern"
+msgid "Please select if any apply to your report"
 msgstr "Indique si alguna se aplica a su preocupación"
 
 #: question_text.py:28
@@ -1320,7 +1337,9 @@ msgid "United States Department of Justice"
 msgstr "Departamento de Justicia de los Estados Unidos"
 
 #: templates/forms/confirmation.html:15
-msgid "Thank you for submitting a concern to the Civil Rights Division."
+#, fuzzy
+#| msgid "Thank you for submitting a concern to the Civil Rights Division."
+msgid "Thank you for submitting a report to the Civil Rights Division."
 msgstr ""
 "Gracias por informar a la División de Derechos Civiles de su motivo de "
 "preocupación."
@@ -1354,10 +1373,15 @@ msgid "We review your report"
 msgstr "Revisamos su informe"
 
 #: templates/forms/confirmation.html:67
+#, fuzzy
+#| msgid ""
+#| "Our specialists in the Civil Rights Division carefully read every report "
+#| "to identify civil rights violations, spot trends, and determine if we "
+#| "have authority to help with your concern."
 msgid ""
 "Our specialists in the Civil Rights Division carefully read every report to "
 "identify civil rights violations, spot trends, and determine if we have "
-"authority to help with your concern."
+"authority to help with your report."
 msgstr ""
 "Nuestros especialistas en la División de Derechos Civiles leen cada informe "
 "detenidamente para identificar cualquier vulneración de derechos civiles y "
@@ -1381,26 +1405,39 @@ msgstr ""
 "de la competencia legal del Departamento de Justicia."
 
 #: templates/forms/confirmation.html:82
+#, fuzzy
+#| msgid ""
+#| "<strong>Collect more information</strong> before we can look into your "
+#| "concern."
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
-"concern."
+"report."
 msgstr ""
 "<strong>Recopilar datos adicionales </strong> antes de investigar su motivo "
 "de preocupación."
 
 #: templates/forms/confirmation.html:83
+#, fuzzy
+#| msgid ""
+#| "<strong>Recommend another government agency</strong> that can properly "
+#| "look into your concern. If so, we’ll let you know."
 msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
-"into your concern. If so, we’ll let you know."
+"into your report. If so, we’ll let you know."
 msgstr ""
 "<strong>Recomendar a otro organismo gubernamental</strong> que podría "
 "investigar su motivo de preocupación de manera apropiada. De ser así, se lo "
 "avisaremos."
 
 #: templates/forms/confirmation.html:86
+#, fuzzy
+#| msgid ""
+#| "In some cases, we may determine that we don’t have legal authority to "
+#| "handle your concern and will recommend that you seek help from a private "
+#| "lawyer or local legal aid organization."
 msgid ""
 "In some cases, we may determine that we don’t have legal authority to handle "
-"your concern and will recommend that you seek help from a private lawyer or "
+"your report and will recommend that you seek help from a private lawyer or "
 "local legal aid organization."
 msgstr ""
 "En algunos casos, puede que determinemos que no es de nuestra competencia "
@@ -1433,12 +1470,12 @@ msgstr ""
 
 #: templates/forms/confirmation.html:109
 msgid ""
-"<strong>If we are able to respond, we will contact you within 4 weeks using "
-"the contact information you provided</strong> in this report."
+"<strong>If we are able to respond, we will contact you using the contact "
+"information you provided in this report. Depending on the type of report, "
+"response times can vary. If you need to reach us about your report, please "
+"refer to your report number when contacting us. This is how we keep track of "
+"your submission.</strong>"
 msgstr ""
-"<strong>SI podemos contestar, nos comunicaremos con usted dentro de 4 "
-"semanas mediante los datos de contacto que usted proporcionó</strong> en "
-"este informe."
 
 #: templates/forms/confirmation.html:117
 msgid "What you can do next"
@@ -1505,6 +1542,19 @@ msgstr ""
 msgid "Your submission"
 msgstr "Su entrega"
 
+#: templates/forms/grouped_questions.html:6
+#: templates/forms/question_cards/commercial_public_location.html:5
+#: templates/forms/question_cards/police_location.html:4
+#: templates/forms/question_cards/single_form.html:16
+#: templates/forms/question_cards/single_question.html:13
+#: templates/forms/report_details.html:14
+#: templates/forms/report_location.html:24
+#: templates/forms/report_location.html:30
+#: templates/forms/report_primary_complaint.html:11
+#: templates/forms/snippets/input.html:9
+msgid "required"
+msgstr "(obligatorio)"
+
 #: templates/forms/portal/progress-bar.html:6
 msgid "progress"
 msgstr "progreso"
@@ -1535,23 +1585,6 @@ msgstr "no completado"
 msgid "completed"
 msgstr "completado"
 
-#: templates/forms/question_cards/contact.html:14
-#: templates/forms/question_cards/contact.html:20
-#: templates/forms/question_cards/contact.html:29
-#: templates/forms/question_cards/single_form.html:17
-#: templates/forms/snippets/input.html:9
-msgid "(Optional)"
-msgstr "(Optativo)"
-
-#: templates/forms/question_cards/date.html:25
-msgid "(optional)"
-msgstr "(optativo)"
-
-#: templates/forms/question_cards/single_form.html:19
-#: templates/forms/question_cards/single_question.html:15
-msgid "required"
-msgstr "(obligatorio)"
-
 #: templates/forms/report_base.html:9
 #, fuzzy, python-format
 #| msgid ""
@@ -1571,7 +1604,9 @@ msgstr ""
 "      "
 
 #: templates/forms/report_base.html:23
-msgid "Contact the Department of Justice to report a civil rights concern"
+#, fuzzy
+#| msgid "Contact the Department of Justice to report a civil rights concern"
+msgid "Contact the Department of Justice to report a civil rights violation"
 msgstr ""
 "Para informar de un motivo de preocupación relacionado con derechos civiles, "
 "comuníquese con el Departamento de Justicia"
@@ -1612,7 +1647,9 @@ msgstr ""
 "responder a su informe rápido."
 
 #: templates/forms/report_review.html:14 templates/forms/report_review.html:26
-msgid "Submit concern"
+#, fuzzy
+#| msgid "Submit concern"
+msgid "Submit report"
 msgstr "Someter su motivo de preocupación"
 
 #: templates/forms/snippets/preview_button.html:5
@@ -1780,10 +1817,6 @@ msgstr "Características personales"
 msgid "Date"
 msgstr "Fecha"
 
-#: views.py:487 views.py:549 views.py:568
-msgid "Personal description"
-msgstr "Descripción personal"
-
 #: views.py:488 views.py:550 views.py:599
 msgid "Review"
 msgstr "Repasar"
@@ -1794,12 +1827,32 @@ msgid "Location details"
 msgstr "Datos de lugar"
 
 #: views.py:569
-msgid "Review your concern"
-msgstr "Repase su motivo de preocupación"
+#, fuzzy
+#| msgid "We review your report"
+msgid "Review your report"
+msgstr "Revisamos su informe"
 
 #: views.py:597
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "Favor de elegir esta opción si"
+
+# Previous translations no longer in use #
+#~ msgid ""
+#~ "<strong>If we are able to respond, we will contact you within 4 weeks "
+#~ "using the contact information you provided</strong> in this report."
+#~ msgstr ""
+#~ "<strong>SI podemos contestar, nos comunicaremos con usted dentro de 4 "
+#~ "semanas mediante los datos de contacto que usted proporcionó</strong> en "
+#~ "este informe."
+
+#~ msgid "(Optional)"
+#~ msgstr "(Optativo)"
+
+#~ msgid "(optional)"
+#~ msgstr "(optativo)"
+
+#~ msgid "Review your concern"
+#~ msgstr "Repase su motivo de preocupación"
 
 #, fuzzy
 #~| msgid ""
