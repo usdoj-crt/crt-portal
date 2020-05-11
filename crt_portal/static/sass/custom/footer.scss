@@ -13,15 +13,18 @@ footer {
 }
 
 .usa-footer__logo-section {
+  margin-top: 1em;
   margin-bottom: 2em;
 }
 
-.usa-footer__logo-subheading {
-  margin-bottom: 0;
+.usa-footer__logo-heading {
+  font-size: 2em;
+  font-weight: bold;
 }
 
-.usa-footer__logo-heading {
-  font-weight: normal;
+.usa-footer__logo-subheading {
+  @extend .usa-footer__logo-heading;
+  font-size: 1em;
 }
 
 .usa-footer__heading {
