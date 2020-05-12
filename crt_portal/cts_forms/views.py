@@ -279,9 +279,7 @@ class ShowView(LoginRequiredMixin, View):
         Accept only the submitted form and discard any other inbound changes
         """
         report = get_object_or_404(Report, pk=id)
-
         form, inbound_form_type = self.get_form(request, report)
-
         if form.is_valid() and form.has_changed():
             form.save()
             form.update_activity_stream(request.user)
@@ -291,6 +289,7 @@ class ShowView(LoginRequiredMixin, View):
         else:
             output = serialize_data(report, request, id)
             output.update({inbound_form_type: form})
+
             try:
                 fail_message = form.FAIL_MESSAGE
             except AttributeError:

@@ -109,4 +109,5 @@ class ReportEditShowViewTests(TestCase):
 
         form_data = {'type': ReportEditForm.CONTEXT_KEY, 'last_incident_month': 99, 'contact_email': 'test@'}
         response = self.client.post(self.url, form_data, follow=True)
-        self.assertTrue(response.context['contact_form'].initial['contact_email'] != initial)
+
+        self.assertEqual(response.context['contact_form'].initial['contact_email'], initial)

@@ -8,7 +8,7 @@ from django.utils.functional import cached_property
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           EmailInput, ModelChoiceField, ModelForm,
                           ModelMultipleChoiceField, Select, SelectMultiple,
-                          Textarea, TextInput, TypedChoiceField)
+                          Textarea, TextInput, TypedChoiceField, MultipleHiddenInput)
 from django.utils.translation import gettext_lazy as _
 
 from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
@@ -1223,6 +1223,8 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         """
         ModelForm.__init__(self, *args, **kwargs)
 
+        #  We're handling hatecrimes_trafficking with separate boolean fields, render report field as hidden
+        self.fields['hatecrimes_trafficking'].widget = MultipleHiddenInput()
         self.fields['hatecrime'].initial = self.instance.hatecrimes_trafficking.filter(value='physical_harm').exists()
         self.fields['trafficking'].initial = self.instance.hatecrimes_trafficking.filter(value='trafficking').exists()
 
@@ -1248,8 +1250,11 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
     @cached_property
     def changed_data(self):
         changed_data = super().changed_data
+
         # If hatecrime or trafficking field was changed, so was hatecrimes_trafficking
-        if set(changed_data).intersection({'hatecrime', 'trafficking'}) and 'hatecrimes_trafficking' not in changed_data:
+        if 'hatecrime' in changed_data:
+            changed_data.append('hatecrimes_trafficking')
+        if 'trafficking' in changed_data and 'hatecrimes_trafficking' not in changed_data:
             changed_data.append('hatecrimes_trafficking')
 
         # If we're changing primary complaint, we may also need to update dependent fields
@@ -1281,11 +1286,13 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         """Convert intermediary fields rendered as checkboxes to model's M2M field"""
         cleaned_data = super().clean()
         crimes = []
+
         if cleaned_data['hatecrime']:
             crimes.append(HateCrimesandTrafficking.objects.get(value='physical_harm'))
+
         if cleaned_data['trafficking']:
             crimes.append(HateCrimesandTrafficking.objects.get(value='trafficking'))
+
         cleaned_data['hatecrimes_trafficking'] = crimes
 
-        cleaned_data = self.clean_dependent_fields(cleaned_data)
-        return cleaned_data
+        return self.clean_dependent_fields(cleaned_data)

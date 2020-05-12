@@ -35,6 +35,7 @@
 <div class="report-details">
   <form id="details-edit-form" class="usa-form " method="post" novalidate>
     {% csrf_token %}
+    {{details_form.hatecrimes_trafficking}}
     <table class="usa-table usa-table--borderless complaint-card-table">
       <tr>
         <th><label for="{{details_form.primary_complaint.id_for_label}}">Primary issue</label></th>
