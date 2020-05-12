@@ -61,5 +61,8 @@
     <script src="{% static 'js/focus_alert.js' %}"></script>
     <script src="{% static 'js/clear_error_class.js' %}"></script>
     {% block page_js %}{% endblock %}
+    {% block analytics %}
+    <script async="async" id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOJ&amp;sp=find&amp;yt=true"></script>
+    {% endblock %}
   </body>
 </html>
