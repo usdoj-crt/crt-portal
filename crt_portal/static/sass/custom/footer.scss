@@ -1,13 +1,65 @@
 // Footer Styles
 footer {
   width: 100%; // IE11 fix
-}
-.usa-footer__logo-heading {
-//  @include h4
   color: white;
-  font-weight: normal;
+
+  select, input {
+    color: black;
+  }
+}
+
+.usa-footer__icon {
+  padding-right: 0 !important;
+}
+
+.usa-footer__logo-section {
+  margin-top: 1em;
+  margin-bottom: 2em;
+}
+
+.usa-footer__logo-heading {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+.usa-footer__logo-subheading {
+  @extend .usa-footer__logo-heading;
+  font-size: 1em;
+}
+
+.usa-footer__heading {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+
+.usa-footer__separator {
+  margin-top: 1em;
+  border: 2px solid $gold;
+  border-radius: 2px;
+  width: 25px;
+}
+
+.usa-footer__links {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2em;
+
+  p {
+    margin: 0;
+  }
+
+  a {
+    text-transform: uppercase;
+    margin-bottom: 1em;
+  }
 }
 
 .usa-footer__secondary-section {
   background-color: #2E2E2A;
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
 }

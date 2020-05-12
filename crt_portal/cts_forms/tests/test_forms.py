@@ -1,26 +1,15 @@
 """Back end forms"""
 import secrets
 
-from django.test import SimpleTestCase, TestCase
+from django.contrib.auth.models import User
+from django.test import TestCase
 from django.test.client import Client
 from django.urls import reverse
-from django.contrib.auth.models import User
 
-from ..forms import ComplaintActions
-from ..models import Report, CommentAndSummary
+from ..forms import ComplaintActions, ReportEditForm
+from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES
+from ..models import CommentAndSummary, Report, HateCrimesandTrafficking
 from .test_data import SAMPLE_REPORT
-
-
-class ComplaintActionTests(SimpleTestCase):
-    def setUp(self):
-        self.form = ComplaintActions()
-
-    def test_get_actions_returns_verb_and_description_for_each_changed_field(self):
-        self.form.initial['assigned_section'] = 'old'
-        self.form.changed_data = ['assigned_section']
-        self.form.cleaned_data = {'assigned_section': 'verb'}
-        actions = [action for action in self.form.get_actions()]
-        self.assertEqual(actions, [('Assigned section:', 'Updated from "old" to "verb"')])
 
 
 class ActionTests(TestCase):
@@ -92,3 +81,69 @@ class CommentActionTests(TestCase):
         )
         content = str(response.content)
         self.assertTrue('updated note' in content)
+
+
+class ReportEditFormTests(TestCase):
+    def setUp(self):
+        self.report_data = SAMPLE_REPORT.copy()
+        self.report_data.update({'primary_complaint': 'workplace',
+                                 'public_or_private_employer': PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES[0][0]})
+        self.report = Report.objects.create(**self.report_data)
+
+    def test_changed_data_hatecrime(self):
+        """If our hatecrime boolean was changed, hatecrimetrafficking must be in changed_data"""
+        data = self.report_data.copy()
+        data.update({'hatecrime': True})
+        form = ReportEditForm(data, instance=self.report)
+        self.assertTrue(form.is_valid())
+        self.assertTrue('hatecrimes_trafficking' in form.changed_data)
+
+    def test_changed_data_trafficking(self):
+        """If our trafficking boolean was changed, hatecrimetrafficking must be in changed_data"""
+        data = self.report_data.copy()
+        data.update({'trafficking': True})
+        form = ReportEditForm(data, instance=self.report)
+        self.assertTrue(form.is_valid())
+        self.assertTrue('hatecrimes_trafficking' in form.changed_data)
+
+    def test_clean_hatecrime_trafficking_empty(self):
+        """On final clean, hatecrimetrafficking must be set to combined values of hatecrime and trafficking booleans"""
+        hatecrime, _ = HateCrimesandTrafficking.objects.get_or_create(value='physical_harm')
+        trafficking, _ = HateCrimesandTrafficking.objects.get_or_create(value='trafficking')
+
+        data = self.report_data.copy()
+        data.update({'trafficking': False, 'hatecrime': False})
+        form = ReportEditForm(data, instance=self.report)
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data['hatecrimes_trafficking'], [])
+
+        data.update({'trafficking': True, 'hatecrime': False})
+        form = ReportEditForm(data, instance=self.report)
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data['hatecrimes_trafficking'], [trafficking])
+
+        data.update({'trafficking': False, 'hatecrime': True})
+        form = ReportEditForm(data, instance=self.report)
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data['hatecrimes_trafficking'], [hatecrime])
+
+        data.update({'trafficking': True, 'hatecrime': True})
+        form = ReportEditForm(data, instance=self.report)
+        self.assertTrue(form.is_valid())
+        self.assertEqual(form.cleaned_data['hatecrimes_trafficking'], [hatecrime, trafficking])
+
+    def test_clean_dependent_fields(self):
+        """
+        On clean, dependent fields of non-selected primary_complaint are set to ""
+        Only fields previously containing values are included in changed_data
+        """
+        data = self.report_data.copy()
+        new_primary_complaint = 'housing'
+        data.update({'primary_complaint': new_primary_complaint})
+        form = ReportEditForm(data, instance=self.report)
+
+        self.assertTrue(form.is_valid())
+        self.assertTrue('public_or_private_employer' in form.changed_data)
+        self.assertTrue('employer_size' not in form.changed_data)
+        for field in Report.PRIMARY_COMPLAINT_DEPENDENT_FIELDS['workplace']:
+            self.assertTrue(form.cleaned_data[field] == "")

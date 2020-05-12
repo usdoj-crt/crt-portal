@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+{% load get_env %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html lang="{{LANGUAGE_CODE}}">
@@ -33,7 +34,7 @@
     {% block usa_footer %}
     <footer class="usa-footer usa-footer--slim">
       <div class="usa-footer__secondary-section">
-        <div class="grid-container">
+        <div class="grid-container usa-footer__logo-section">
           <div class="usa-footer__logo grid-row grid-gap-2">
             <div class="grid-col-auto">
               <img src="{% static "img/doj-logo-footer.svg" %}"
@@ -41,18 +42,16 @@
                    height="64" />
             </div>
             <div class="grid-col-auto">
+              <p class="usa-footer__logo-subheading">
+                {% trans "U.S. Department of Justice" %}
+              </p>
               <p class="usa-footer__logo-heading">
                 {% trans "Civil Rights Division" %}
-                <br/> {% trans "U.S. Department of Justice" %}
               </p>
-            </div>
-            <div class="grid-col-auto">
-              <p class="usa-footer__logo-heading">
-                {% include 'partials/i8n.html' %}
-            </p>
             </div>
           </div>
         </div>
+      {% include "partials/footer.html" %}
       </div>
     </footer>
     {% endblock %}
@@ -61,5 +60,12 @@
     <script src="{% static 'js/focus_alert.js' %}"></script>
     <script src="{% static 'js/clear_error_class.js' %}"></script>
     {% block page_js %}{% endblock %}
+
+    {% block analytics %}
+    {% environment as env %}
+    {% if env == "PRODUCTION" %}
+      <script async="async" id="_fed_an_ua_tag" src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=DOJ&amp;sp=find&amp;subagency=crt"></script>
+    {% endif %}
+    {% endblock %}
   </body>
 </html>

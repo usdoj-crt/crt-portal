@@ -3,9 +3,12 @@ from datetime import datetime
 
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
-from django.forms import (CharField, ChoiceField, EmailInput, ModelChoiceField,
-                          ModelForm, ModelMultipleChoiceField, Select,
-                          Textarea, TextInput, TypedChoiceField)
+from django.utils.functional import cached_property
+
+from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
+                          EmailInput, ModelChoiceField, ModelForm,
+                          ModelMultipleChoiceField, Select, SelectMultiple,
+                          Textarea, TextInput, TypedChoiceField, MultipleHiddenInput)
 from django.utils.translation import gettext_lazy as _
 
 from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
@@ -51,6 +54,8 @@ User = get_user_model()
 
 def _add_empty_choice(choices):
     """Add an empty option to list of choices"""
+    if isinstance(choices, list):
+        choices = tuple(choices)
     return (EMPTY_CHOICE,) + choices
 
 
@@ -60,7 +65,18 @@ class ActivityStreamUpdater(object):
     def get_actions(self):
         """Parse incoming changed data for activity stream entry"""
         for field in self.changed_data:
-            yield f"{' '.join(field.split('_')).capitalize()}:", f'Updated from "{self.initial[field]}" to "{self.cleaned_data[field]}"'
+            try:
+                # TODO? Add display values to activity stream
+                initial = self.initial[field]
+                new = self.cleaned_data[field]
+                if isinstance(initial, list):
+                    initial = ', '.join([str(x) for x in initial])
+                    new = ', '.join([str(x) for x in new])
+
+                yield f"{' '.join(field.split('_')).capitalize()}:", f'Updated from "{initial}" to "{new}"'
+            except KeyError:
+                # Initial value not found for field, not present on model, not a change to be tracked
+                pass
 
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
@@ -315,7 +331,7 @@ class LocationForm(ModelForm):
                 self,
                 ('location_name', 'location_address_line_1', 'location_address_line_2'),
                 group_name=LOCATION_QUESTIONS['location_title'],
-                optional=False,
+                optional=True,  # a11y: only some fields here are required
                 ally_id='location-help-text'
             ),
         ]
@@ -614,6 +630,7 @@ class When(ModelForm):
                 'class': 'usa-input usa-input--small',
                 'required': True,
                 'type': 'number',
+                'label': DATE_QUESTIONS['last_incident_month']
             }),
             'last_incident_day': TextInput(attrs={
                 'class': 'usa-input usa-input--small',
@@ -871,11 +888,12 @@ class ProForm(
         self.fields['crt_reciept_month'].label = DATE_QUESTIONS['last_incident_month']
         self.fields['crt_reciept_year'].label = DATE_QUESTIONS['last_incident_year']
 
-        self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
-        self.label_suffix = ''
-        self.fields['violation_summary'].label = SUMMARY_QUESTION
-        self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
-        self.fields['violation_summary'].help_text = _('What did the person believe happened?')
+        if 'violation_summary' in self.fields:
+            self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
+            self.label_suffix = ''
+            self.fields['violation_summary'].label = SUMMARY_QUESTION
+            self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
+            self.fields['violation_summary'].help_text = _('What did the person believe happened?')
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
@@ -994,6 +1012,7 @@ class Filters(ModelForm):
 
 
 class ComplaintActions(ModelForm, ActivityStreamUpdater):
+    CONTEXT_KEY = 'actions'
     assigned_to = ModelChoiceField(
         queryset=User.objects.filter(is_active=True),
         label=_("Assigned to"),
@@ -1116,6 +1135,7 @@ class SummaryField(CommentActions):
 
 
 class ContactEditForm(ModelForm, ActivityStreamUpdater):
+    CONTEXT_KEY = 'contact_form'
     SUCCESS_MESSAGE = "Successfully updated contact information."
     FAIL_MESSAGE = "Failed to update contact details."
 
@@ -1168,3 +1188,114 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
+
+
+class ReportEditForm(ProForm, ActivityStreamUpdater):
+    CONTEXT_KEY = "details_form"
+    FAIL_MESSAGE = "Failed to update complaint details."
+    SUCCESS_MESSAGE = "Successfully updated complaint details."
+
+    hatecrime = BooleanField(required=False, widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'}))
+    trafficking = BooleanField(required=False, widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'}))
+
+    class Meta(ProForm.Meta):
+        """
+        Extend ProForm to capture field definitions from component forms, excluding those which should not be editable here
+        """
+        exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name',
+                   'contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_state',
+                   'contact_city', 'contact_zip', 'crt_reciept_day', 'crt_reciept_month', 'crt_reciept_year']
+
+    def success_message(self):
+        return self.SUCCESS_MESSAGE
+
+    def _set_to_select_widget(self, field):
+        """Set the provided 'field's widget to Select"""
+        self.fields[field] = TypedChoiceField(
+            choices=self.fields[field].choices,
+            widget=Select(attrs={'class': 'usa-select'}),
+            required=False,
+        )
+
+    def __init__(self, *args, **kwargs):
+        """
+        Proform initializes all component forms, we'll skip that and define only the fields need for this form
+        """
+        ModelForm.__init__(self, *args, **kwargs)
+
+        #  We're handling hatecrimes_trafficking with separate boolean fields, render report field as hidden
+        self.fields['hatecrimes_trafficking'].widget = MultipleHiddenInput()
+        self.fields['hatecrime'].initial = self.instance.hatecrimes_trafficking.filter(value='physical_harm').exists()
+        self.fields['trafficking'].initial = self.instance.hatecrimes_trafficking.filter(value='trafficking').exists()
+
+        # required fields
+        self.fields['primary_complaint'].widget = Select(choices=self.fields['primary_complaint'].choices, attrs={'class': 'usa-select'})
+        self.fields['protected_class'].widget = SelectMultiple(choices=self.fields['protected_class'].choices, attrs={'class': 'height-10 width-mobile'})
+        self.fields['servicemember'].widget = Select(choices=self.fields['servicemember'].choices, attrs={'class': 'usa-select'})
+
+        # primary_complaint dependents, optional
+        self._set_to_select_widget('public_or_private_school')
+        self._set_to_select_widget('public_or_private_employer')
+        self._set_to_select_widget('employer_size')
+        self._set_to_select_widget('election_details')
+        self._set_to_select_widget('inside_correctional_facility')
+        self._set_to_select_widget('correctional_facility_type')
+        self._set_to_select_widget('commercial_or_public_place')
+
+        # date fields
+        self.fields['last_incident_day'].label = DATE_QUESTIONS['last_incident_day']
+        self.fields['last_incident_month'].label = DATE_QUESTIONS['last_incident_month']
+        self.fields['last_incident_year'].label = DATE_QUESTIONS['last_incident_year']
+        self.fields['last_incident_day'].widget.required = False
+        self.fields['last_incident_month'].widget.required = False
+        self.fields['last_incident_year'].widget.required = False
+
+    @cached_property
+    def changed_data(self):
+        changed_data = super().changed_data
+
+        # If hatecrime or trafficking field was changed, so was hatecrimes_trafficking
+        if 'hatecrime' in changed_data:
+            changed_data.append('hatecrimes_trafficking')
+        if 'trafficking' in changed_data and 'hatecrimes_trafficking' not in changed_data:
+            changed_data.append('hatecrimes_trafficking')
+
+        # If we're changing primary complaint, we may also need to update dependent fields
+        if 'primary_complaint' in changed_data:
+            original = self.instance.primary_complaint
+            if original in Report.PRIMARY_COMPLAINT_DEPENDENT_FIELDS.keys():
+                for field in Report.PRIMARY_COMPLAINT_DEPENDENT_FIELDS[original]:
+                    # If there's an initial value, we're setting it to None
+                    # in the last step of processing, self.clean()
+                    # Add to changed_data here so the instance is aware of
+                    # the modification
+                    if self[field].initial:
+                        changed_data.append(field)
+
+        return changed_data
+
+    def clean_dependent_fields(self, cleaned_data):
+        """
+        If primary complaint is changed, set any dependent fields associated with initial value to None
+        """
+        if 'primary_complaint' in self.changed_data:
+            original = self.instance.primary_complaint
+            if original in Report.PRIMARY_COMPLAINT_DEPENDENT_FIELDS.keys():
+                for field in Report.PRIMARY_COMPLAINT_DEPENDENT_FIELDS[original]:
+                    cleaned_data[field] = ""
+        return cleaned_data
+
+    def clean(self):
+        """Convert intermediary fields rendered as checkboxes to model's M2M field"""
+        cleaned_data = super().clean()
+        crimes = []
+
+        if cleaned_data['hatecrime']:
+            crimes.append(HateCrimesandTrafficking.objects.get(value='physical_harm'))
+
+        if cleaned_data['trafficking']:
+            crimes.append(HateCrimesandTrafficking.objects.get(value='trafficking'))
+
+        cleaned_data['hatecrimes_trafficking'] = crimes
+
+        return self.clean_dependent_fields(cleaned_data)

@@ -3,8 +3,10 @@
 // Django wraps lot of elements in <li> by default
 // that we'd prefer not to have bulleted, like
 // radio buttons; so remove list item bullets by default.
+form#details-edit-form,
 form#report-form {
   .question-header {
+    width: 100%; // IE11 fix
     margin-top: 2.5rem;
     margin-bottom: 1.5rem;
     + .help-text,
