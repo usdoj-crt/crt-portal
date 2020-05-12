@@ -1,5 +1,4 @@
 (function() {
-
   function showForm() {
     var showThese = document.querySelectorAll('.details-edit');
     var hideThese = document.querySelectorAll('.details');
@@ -13,13 +12,13 @@
     }
 
     // Show follow-up fields if any
-    var primaryComplaint = document.getElementById("id_primary_complaint");
+    var primaryComplaint = document.getElementById('id_primary_complaint');
     showFollowUpQuestions(primaryComplaint.value);
 
     // reveal Buttons
     var buttons = detailsForm.getElementsByTagName('button');
     for (var i = 0; i < buttons.length; i++) {
-        buttons[i].classList.remove('display-none');
+      buttons[i].classList.remove('display-none');
     }
   }
 
@@ -38,7 +37,7 @@
     // Hide Buttons
     var buttons = detailsForm.getElementsByTagName('button');
     for (var i = 0; i < buttons.length; i++) {
-        buttons[i].classList.add('display-none');
+      buttons[i].classList.add('display-none');
     }
   }
 
@@ -51,11 +50,10 @@
     //  Serialize form values into a comma delimited string
     var serializedForm = new Array();
     for (var i = 0; i < form.elements.length; i++) {
-      var field = form.elements[i]
+      var field = form.elements[i];
       if (field.type != 'checkbox') {
         serializedForm.push(field.value);
-      }
-      else {
+      } else {
         serializedForm.push(field.checked);
       }
     }
@@ -74,7 +72,7 @@
 
   function addFormUpdateEvents(form) {
     // Show follow-up fields if any
-    var primaryComplaint = document.getElementById("id_primary_complaint");
+    var primaryComplaint = document.getElementById('id_primary_complaint');
     showFollowUpQuestions(primaryComplaint.value);
 
     // Generate listenable events for all form inputs, using `change` for IE11 support
@@ -138,7 +136,7 @@
   }
 
   function toggleFollowUpQuestions(event) {
-    showFollowUpQuestions(event.target.value)
+    showFollowUpQuestions(event.target.value);
   }
 
   var detailsInfo = document.getElementById('report-details');

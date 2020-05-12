@@ -180,7 +180,7 @@
           {{ data.last_incident_month}}/{% if data.last_incident_day %}{{data.last_incident_day}}{%else%}-{%endif%}/{{data.last_incident_year}}
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
-            {% include "forms/question_cards/date.html" with card_title='Date' month=details_form.last_incident_month day=details_form.last_incident_day year=details_form.last_incident_year %}
+            {% include "forms/snippets/date_components.html" with month=details_form.last_incident_month day=details_form.last_incident_day year=details_form.last_incident_year  %}
           </div>
         </td>
       </tr>
