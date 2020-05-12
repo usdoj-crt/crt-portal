@@ -6,7 +6,7 @@
         <h2 class="margin-top-0">{{ordered_step_names.0}}</h2>
 
         <div class="question">
-            <h3>{{ question.contact.contact_name_title }}</h3>
+            <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.contact.contact_name_title }}</h3>
             <h4>{{ question.contact.contact_first_name }}</h4>
             <p>{{ report.contact_first_name|default:"-" }}</p>
             <h4>{{ question.contact.contact_last_name }}</h4>
@@ -14,7 +14,7 @@
         </div>
 
         <div class="question">
-        <h3>{{ question.contact.contact_title }}</h3>
+        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.contact.contact_title }}</h3>
 
         <h4>{{ question.contact.contact_email }}</h4>
         <p>{{ report.contact_email|default:"-" }}</p>
@@ -37,7 +37,7 @@
         <h4>{{ question.contact.contact_zip }}</h4>
         <p>{{ report.contact_zip|default:"-" }}</p>
         </div>
-        <h3>{{ question.servicemember }}</h3>
+        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.servicemember }}</h3>
         <p>{{ report.get_servicemember_display|default:"-" }}</p>
     </div>
 </div>
@@ -48,10 +48,10 @@
 
         <h2 class="margin-top-0">{{ordered_step_names.1}}</h2>
 
-        <h3>{{ question.primary_reason }}</h3>
+        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.primary_reason }}</h3>
         <p>{{ report.get_primary_complaint_display }}</p>
 
-        <h3>{{ question.hatecrime_title }}</h3>
+        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.hatecrime_title }}</h3>
         <h4>{{ question.hatecrime }}</h4>
         {% if report.id %}
             {% for crime in report.hatecrimes_trafficking.all %}
@@ -96,40 +96,40 @@
         <h2 class="margin-top-0">{{ ordered_step_names.2 }}</h2>
 
          {% if report.election_details %}
-            <h3>{{ question.election }}</h3>
+            <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.election }}</h3>
             <p>{{ report.get_election_details_display|default:"-" }}</p>
 
         {% elif report.public_or_private_employer %}
-            <h3>{{ question.workplace.public_or_private_employer }}</h3>
+            <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.workplace.public_or_private_employer }}</h3>
             <p>{{ report.get_public_or_private_employer_display|default:"-" }}</p>
 
-            <h3>{{ question.workplace.employer_size }}</h3>
+            <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.workplace.employer_size }}</h3>
             <p>{{ report.get_employer_size_display|default:"-" }}</p>
 
         {% elif report.inside_correctional_facility %}
-            <h3>{{ question.police.inside_correctional_facility }}</h3>
+            <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.police.inside_correctional_facility }}</h3>
             <p>{{ report.get_inside_correctional_facility_display|default:"-" }}</p>
 
             {% if report.correctional_facility_type %}
-                <h3>{{ question.police.correctional_facility_type }}</h3>
+                <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.police.correctional_facility_type }}</h3>
                 <p>{{ report.get_correctional_facility_type_display|default:"-" }}</p>
             {% endif %}
 
         {% elif report.commercial_or_public_place %}
-            <h3>{{ question.public }}</h3>
+            <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.public }}</h3>
             <p>{{ report.get_commercial_or_public_place_display|default:"-" }}</p>
             {% if report.other_commercial_or_public_place %}
-                <h3>{{ question.other_commercial_or_public_place }}</h3>
+                <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.other_commercial_or_public_place }}</h3>
                 <p>{{ report.get_other_commercial_or_public_place_display|default:"-" }}</p>
             {% endif %}
 
         {% elif report.public_or_private_school %}
-            <h3>{{ question.education }}</h3>
+            <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.education }}</h3>
             <p>{{ report.get_public_or_private_school_display|default:"-" }}</p>
 
         {% endif %}
 
-        <h3>{{ question.location.location_title }}</h3>
+        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.location.location_title }}</h3>
 
         <h4>{{ question.location.location_address_line_1 }}</h4>
         <p>{{ report.location_address_line_1|default:"-" }}</p>
@@ -155,7 +155,7 @@
 
         <h2 class="margin-top-0">{{ ordered_step_names.3 }}</h2>
 
-        <h3>{{ question.characteristics }}</h3>
+        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.characteristics }}</h3>
         {% if report.id %}
             {% for characteristic in report.protected_class.all %}
                 <p>{{ characteristic }}</p>
@@ -178,7 +178,7 @@
 
         <h2 class="margin-top-0">{{ ordered_step_names.4 }}</h2>
 
-        <h3>{{ question.date.date_title }}</h3>
+        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.date.date_title }}</h3>
         <p>{{ report.last_incident_month }}/{{ report.last_incident_day|default:"—" }}/{{ report.last_incident_year}}</p>
     </div>
 </div>
@@ -189,7 +189,7 @@
 
         <h2 class="margin-top-0">{{ ordered_step_names.5 }}</h2>
 
-        <h3>{{ question.summary }}</h3>
+        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.summary }}</h3>
         <p>{{ report.violation_summary|linebreaks }}</p>
     </div>
 </div>
