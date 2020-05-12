@@ -26,8 +26,9 @@ h3 {
   @include u-text('blue-warm-80v');
 }
 
-a {
-  $color: blue-warm-vivid-80;
+a,
+a:visited {
+  color: $blue-warm-vivid-80;
 }
 
 .em-text {
