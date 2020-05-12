@@ -9,7 +9,8 @@
 
   &__content {
     @include u-margin-left(5);
-    @include u-margin-bottom(1);
+    @include u-margin-top(5);
+    @include u-margin-bottom(5);
     @include u-padding-y(1.5);
     @include u-padding-x(3);
     flex-direction: column;
@@ -37,9 +38,14 @@
     @include u-color($blue-warm-vivid-80-t);
     @include flex-container();
     background-color: $blue-warm-5;
+    h2 {
+      margin-top: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
   }
 
   h3 {
+    margin-top: 0;
     @include u-color($blue-warm-vivid-80-t);
   }
 }
