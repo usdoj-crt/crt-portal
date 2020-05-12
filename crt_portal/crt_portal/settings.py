@@ -267,7 +267,13 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     # see settings options https://django-csp.readthedocs.io/en/latest/configuration.html#configuration-chapter
     CSP_DEFAULT_SRC = allowed_sources
     SESSION_COOKIE_SAMESITE = 'Strict'
-    CSP_SCRIPT_SRC = allowed_sources
+    CSP_SCRIPT_SRC = (
+        "'self'",
+        bucket,
+        'www.civilrights.justice.gov',
+        'civilrights.justice.gov',
+        'https://dap.digitalgov.gov',
+    )
     CSP_IMG_SRC = allowed_sources
     CSP_MEDIA_SRC = allowed_sources
     CSP_FRAME_SRC = allowed_sources
