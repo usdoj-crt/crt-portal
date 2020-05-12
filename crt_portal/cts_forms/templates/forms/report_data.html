@@ -3,7 +3,7 @@
     <div class="crt-portal-card__content margin-bottom-3">
         {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.0 step_value=0 %}
 
-        <h2 class="inline-block">{{ordered_step_names.0}}</h2>
+        <h2 class="margin-top-0">{{ordered_step_names.0}}</h2>
 
         <div class="question">
             <h3>{{ question.contact.contact_name_title }}</h3>
@@ -45,7 +45,7 @@
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
 
-        <h2>{{ordered_step_names.1}}</h2>
+        <h2 class="margin-top-0">{{ordered_step_names.1}}</h2>
 
         <h3>{{ question.primary_reason }}</h3>
         <p>{{ report.get_primary_complaint_display }}</p>
@@ -92,7 +92,7 @@
         {% endif %}
 
 
-        <h2>{{ ordered_step_names.2 }}</h2>
+        <h2 class="margin-top-0">{{ ordered_step_names.2 }}</h2>
 
          {% if report.election_details %}
             <h3>{{ question.election }}</h3>
@@ -128,7 +128,7 @@
 
         {% endif %}
 
-        <h3>{{ question.location.location_title }}</h4>
+        <h3>{{ question.location.location_title }}</h3>
 
         <h4>{{ question.location.location_address_line_1 }}</h4>
         <p>{{ report.location_address_line_1|default:"-" }}</p>
@@ -152,7 +152,7 @@
     <div class="crt-portal-card__content margin-bottom-3">
         {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.3 step_value=9 %}
 
-        <h2>{{ ordered_step_names.3 }}</h2>
+        <h2 class="margin-top-0">{{ ordered_step_names.3 }}</h2>
 
         <h3>{{ question.characteristics }}</h3>
         {% if report.id %}
@@ -175,7 +175,7 @@
     <div class="crt-portal-card__content margin-bottom-3">
         {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.4 step_value=10 %}
 
-        <h2>{{ ordered_step_names.4 }}</h2>
+        <h2 class="margin-top-0">{{ ordered_step_names.4 }}</h2>
 
         <h3>{{ question.date.date_title }}</h3>
         <p>{{ report.last_incident_month }}/{{ report.last_incident_day|default:"—" }}/{{ report.last_incident_year}}</p>
@@ -186,7 +186,7 @@
     <div class="crt-portal-card__content margin-bottom-3">
         {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.5 step_value=11 %}
 
-        <h2>{{ ordered_step_names.5 }}</h2>
+        <h2 class="margin-top-0">{{ ordered_step_names.5 }}</h2>
 
         <h3>{{ question.summary }}</h3>
         <p>{{ report.violation_summary|linebreaks }}</p>
