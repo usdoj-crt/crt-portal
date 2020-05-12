@@ -7,17 +7,17 @@ form#details-edit-form,
 form#report-form {
   .question-header {
     width: 100%; // IE11 fix
-    margin-top: 2.5rem;
+    margin-top: 0;
     margin-bottom: 1.5rem;
     + .help-text,
     + .help-text__small,
     + p {
-      margin-top: -1.5rem; // to match other help text margins
+      margin-top: -1rem; // to match other help text margins
     }
   }
 
   fieldset:first-of-type .question-header {
-    margin-top: 0;
+    margin-top: 2.5rem;
   }
 
   .question_primary_complaint {
@@ -91,14 +91,14 @@ form#report-form {
   }
 
   .usa-fieldset {
-    margin-top: 0;
+    margin-top: 2.5rem;
     margin-bottom: 0;
     .usa-fieldset {
       margin-top: 1.5rem;
     }
 
-    &:last-of-type:not(:only-of-type) {
-      margin-top: 2.5rem;
+    &:first-of-type {
+      margin-top: 0;
     }
 
     ul {
@@ -130,6 +130,9 @@ form#report-form {
   li {
     > .usa-checkbox {
       margin-bottom: 1rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
     > .usa-radio {
@@ -398,5 +401,11 @@ select.usa-input--error {
       @extend .field-required::before;
       margin-left: 0.5rem;
     }
+  }
+}
+
+.usa-memorable-date {
+  input {
+    margin-right: 1rem;
   }
 }

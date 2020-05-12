@@ -6,10 +6,8 @@
       {{ question_group.group_name }}{% if not question_group.optional %}<span class="field-required--group">{% trans "required" %}</span>{% endif %}
     </legend>
     {% if question_group.help_text %}
-      <p class="margin-bottom-4 margin-top-0 {{question_group.label_cls}}" id="{{question_group.ally_id}}">
-        <em class="help-text">
-          {{ question_group.help_text }}
-        </em>
+      <p class="help-text {% if question_group.label_cls %}{{question_group.label_cls}}{% endif %}" id="{{question_group.ally_id}}">
+        {{ question_group.help_text }}
       </p>
     {% endif %}
 
