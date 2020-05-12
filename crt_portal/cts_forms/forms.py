@@ -1204,7 +1204,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         """
         exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name',
                    'contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_state',
-                   'contact_city', 'contact_zip']
+                   'contact_city', 'contact_zip', 'crt_reciept_day', 'crt_reciept_month', 'crt_reciept_year']
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
