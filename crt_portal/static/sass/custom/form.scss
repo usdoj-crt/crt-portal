@@ -79,7 +79,7 @@ form#report-form {
     margin-left: 2rem;
     margin-top: 1.5rem;
     padding-left: 1rem;
-    border-left: 2px solid $blue-warm-vivid-70;
+    border-left: 2px solid $blue-warm-vivid-80;
 
     ul > li:last-child {
       height: 25px;
@@ -302,14 +302,25 @@ form#report-form {
   font-style: italic;
   margin-top: 0.5rem;
   margin-bottom: 1.5rem;
+
   + fieldset legend {
     padding-top: 0;
   }
 }
 
+// no margin when the only thing or last thing on the card is the help text -- see "something else" in "primary concern"
+.crt-portal-card__content {
+  > div:last-child,
+  > label:last-child {
+    .help-text:last-child,
+    .help-text__small:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
 // pattern for page intro text
 h2 + .help-text {
-  margin-top: 0;
   margin-bottom: 2rem;
 }
 
@@ -359,8 +370,8 @@ select.usa-input--error {
   margin-right: 0;
 }
 
-@media screen and (max-width: 480px) {
-  .usa-form .usa-input[id*='contact_phone'] {
+@media screen and (min-width: 480px) {
+  .usa-form input[id*='-contact_phone'] {
     max-width: 80%;
   }
 }
@@ -372,7 +383,7 @@ select.usa-input--error {
   color: $gray-50;
 
   &::before {
-    content: "*";
+    content: '*';
     font-weight: bold;
     margin-left: 0.3rem;
     color: $red-vivid-60;
