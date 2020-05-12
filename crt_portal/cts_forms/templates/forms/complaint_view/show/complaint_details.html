@@ -5,6 +5,10 @@
 {% load static %}
 
 {% block title %}Reported Complaint{% endblock %}
+{% block extra_title %}
+<button aria-label="edit report details" id="edit-details-btn" class="usa-button usa-button--unstyled button--edit margin-left-auto" type="button">Edit</button>
+{% endblock %}
+
 {% block icon %}
 <img src="{% static "img/intake-icons/ic_folder.svg" %}" alt="icon" class="icon" />
 {% endblock %}
@@ -28,88 +32,172 @@
   </div>
 </div>
 
-<table class="usa-table usa-table--borderless complaint-card-table">
-  <tr>
-    <th>Primary issue</th>
-    <td>
-      {{primary_complaint.0}}
-    </td>
-  <tr>
-    <th>Hate crime</th>
-    <td>
-      {% if crimes.physical_harm %}
-      Yes (checked)
-      {% else %}
-      No (unchecked)
-      {% endif %}
-    </td>
-  </tr>
-  <tr>
-    <th>Human Trafficking</th>
-    <td>
-      {% if crimes.trafficking %}
-      Yes (checked)
-      {% else %}
-      No (unchecked)
-      {% endif %}
-    </td>
-  </tr>
-  <tr>
-    <th>Relevant Details</th>
-    <td>
-      {% if data.election_details %}
-      Election type (federal/local): {{ data.election_details }}
-      {% elif data.commercial_or_public_place %}
-      {% render_commercial_public_space_view data.commercial_or_public_place data.other_commercial_or_public_place %}
-      {% elif data.inside_correctional_facility %}
-      {% render_correctional_facility_view data.inside_correctional_facility data.correctional_facility_type %}
-      {% elif data.public_or_private_school %}
-      School type: {% if data.public_or_private_school == 'not_sure' %} Not sure {% else %}
-      {{ data.public_or_private_school|title }} {% endif %}
-      {% elif data.public_or_private_employer %}
-      {% render_employer_info_view data.public_or_private_employer data.employer_size %}
-      {% else %}
-      —
-      {% endif %}
-    </td>
-  </tr>
-  <tr>
-    <th>Location name</th>
-    <td>{{data.location_name|default:"-"}}</td>
-  </tr>
-  <tr>
-    <th>City, State</th>
-    <td>
-      {{data.location_city_town|default:"-"}},
-      {{data.location_state|default:"-"}}
-    </td>
-  </tr>
-  <tr>
-    <th>Reported reason</th>
-    <td>
-      {% for p_class in p_class_list %}
-      {% if not forloop.last %}
-      {{p_class}},
-      {% else %}
-      {{p_class}}
-      {% endif %}
-      {% endfor %}
-      {% if data.other_class %}
-      <br>
-      Other: {{data.other_class}}
-      {% endif %}
-    </td>
-  </tr>
-  <tr>
-    <th>Service Member</th>
-    <td>{{data.servicemember|title|default:"—"}}</td>
-  </tr>
-  <tr>
-    <th>Date of incident</th>
-    <td>
-      {{ data.last_incident_month}}/{% if data.last_incident_day %}{{data.last_incident_day}}{%else%}-{%endif%}/{{data.last_incident_year}}
-    </td>
-  </tr>
-  </tr>
-</table>
+<div class="report-details">
+  <form id="details-edit-form" class="usa-form " method="post" novalidate>
+    {% csrf_token %}
+    {{details_form.hatecrimes_trafficking}}
+    <table class="usa-table usa-table--borderless complaint-card-table">
+      <tr>
+        <th><label for="{{details_form.primary_complaint.id_for_label}}">Primary issue</label></th>
+        <td>
+          <div class="details {% if details_form.errors %}display-none{% endif %}">
+            {{primary_complaint.0}}
+          </div>
+          <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
+            {{details_form.primary_complaint}}
+          </div>
+        </td>
+      <tr>
+        <th>Hate crime</th>
+        <td>
+          <div class="details {% if details_form.errors %}display-none{% endif %}">
+            {% if crimes.physical_harm %}
+            Yes (checked)
+            {% else %}
+            No (unchecked)
+            {% endif %}
+          </div>
+          <div class="details-edit usa-checkbox {% if not details_form.errors %}display-none{% endif %}">
+            {{details_form.hatecrime}}
+            <label for="{{details_form.hatecrime.id_for_label}}" class="crt-checkbox__label">Yes</label>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>Human Trafficking</th>
+        <td>
+          <div class="details {% if details_form.errors %}display-none{% endif %}">
+            {% if crimes.trafficking %}
+            Yes (checked)
+            {% else %}
+            No (unchecked)
+            {% endif %}
+          </div>
+          <div class="details-edit usa-checkbox {% if not details_form.errors %}display-none{% endif %}">
+            {{details_form.trafficking}}
+            <label for="{{details_form.trafficking.id_for_label}}" class="crt-checkbox__label">Yes</label>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>Relevant Details</th>
+        <td>
+          <div class="details {% if details_form.errors %}display-none{% endif %}">
+            {% if data.election_details %}
+              Election type (federal/local): {{ data.election_details }}
+            {% elif data.commercial_or_public_place %}
+              {% render_commercial_public_space_view data.commercial_or_public_place data.other_commercial_or_public_place %}
+            {% elif data.inside_correctional_facility %}
+              {% render_correctional_facility_view data.inside_correctional_facility data.correctional_facility_type %}
+            {% elif data.public_or_private_school %}
+              School type: {% if data.public_or_private_school == 'not_sure' %} Not sure {% else %}
+              {{ data.public_or_private_school|title }} {% endif %}
+            {% elif data.public_or_private_employer %}
+              {% render_employer_info_view data.public_or_private_employer data.employer_size %}
+            {% else %}
+              —
+            {% endif %}
+          </div>
+          <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
+            {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.election_details hidden=True %}
+
+            {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.commercial_or_public_place hidden=True %}
+            {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.other_commercial_or_public_place hidden=True %}
+
+            {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.inside_correctional_facility hidden=True %}
+            {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.correctional_facility_type hidden=True%}
+
+            {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.public_or_private_school hidden=True %}
+
+            {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.public_or_private_employer hidden=True %}
+            {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.employer_size hidden=True %}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th><label for="{{details_form.location_name.id_for_label}}">Location name</label></th>
+        <td>
+          <div class="details {% if details_form.errors %}display-none{% endif %}">
+            {{data.location_name|default:"-"}}
+          </div>
+          <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
+            {{details_form.location_name}}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>City, State</th>
+        <td>
+          <div class="details {% if details_form.errors %}display-none{% endif %}">
+            {{data.location_city_town|default:"-"}},
+            {{data.location_state|default:"-"}}
+          </div>
+          <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
+            {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.location_city_town %}
+            {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.location_state %}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th><label for="{{details_form.protected_class.id_for_label}}">Reported reason</label></th>
+        <td>
+          <div class="details {% if details_form.errors %}display-none{% endif %}">
+            {% for p_class in p_class_list %}
+              {% if not forloop.last %}
+                {{p_class}},
+              {% else %}
+                {{p_class}}
+              {% endif %}
+            {% endfor %}
+            {% if data.other_class %}
+              <br>
+              Other: {{data.other_class}}
+            {% endif %}
+          </div>
+          <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
+            {{details_form.protected_class}}
+
+            <label for="{{details_form.other_class.id_for_label}}">{{details_form.other_class.label}}</label>
+            {{details_form.other_class}}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th><label for="{{details_form.servicemember.id_for_label}}">Service Member</label></th>
+          <td>
+            <div class="details {% if details_form.errors %}display-none{% endif %}">
+              {{data.servicemember|title|default:"—"}}
+            </div>
+            <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
+              {{details_form.servicemember}}
+            </div>
+          </td>
+      </tr>
+      <tr>
+        <th>Date of incident</th>
+        <td>
+          <div class="details {% if details_form.errors %}display-none{% endif %}">
+          {{ data.last_incident_month|default:"-"}}/{{data.last_incident_day|default:"-"}}/{{data.last_incident_year|default:"-"}}
+          </div>
+          <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
+            {% include "forms/snippets/date_components.html" with month=details_form.last_incident_month day=details_form.last_incident_day year=details_form.last_incident_year  %}
+          </div>
+        </td>
+      </tr>
+      </tr>
+    </table>
+    <button aria-label="update contact details"
+            class="usa-button {% if not details_form.errors %}display-none{% endif %}"
+            disabled
+            type="submit"
+            name="type" value="{{details_form.CONTEXT_KEY}}">
+            Save
+    </button>
+    <button id='details-edit-cancel'
+            class="usa-button usa-button--unstyled button--cancel {% if not details_form.errors %}display-none{% endif %}"
+            type="button">
+            Cancel
+    </button>
+  </form>
+  </div>
 {% endblock %}
