@@ -1242,10 +1242,13 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         self._set_to_select_widget('correctional_facility_type')
         self._set_to_select_widget('commercial_or_public_place')
 
-        # date field labels
+        # date fields
         self.fields['last_incident_day'].label = DATE_QUESTIONS['last_incident_day']
         self.fields['last_incident_month'].label = DATE_QUESTIONS['last_incident_month']
         self.fields['last_incident_year'].label = DATE_QUESTIONS['last_incident_year']
+        self.fields['last_incident_day'].widget.required = False
+        self.fields['last_incident_month'].widget.required = False
+        self.fields['last_incident_year'].widget.required = False
 
     @cached_property
     def changed_data(self):
