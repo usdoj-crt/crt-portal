@@ -11,7 +11,7 @@ from testfixtures import LogCapture
 
 from ..forms import (CommercialPublicLocation, Contact, Details,
                      EducationLocation, LocationForm, PoliceLocation,
-                     PrimaryReason, ProForm, ProtectedClassForm, When)
+                     PrimaryReason, ProForm, ProtectedClassForm, When, ComplaintActions)
 from ..model_variables import (HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
                                PRIMARY_COMPLAINT_CHOICES,
                                PRIMARY_COMPLAINT_ERROR, PROTECTED_CLASS_ERROR,
@@ -862,7 +862,7 @@ class Complaint_Update_Tests(TestCase):
         self.test_pass = secrets.token_hex(32)
         self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
-        self.form_data = {'type': 'complaint-action'}
+        self.form_data = {'type': ComplaintActions.CONTEXT_KEY}
 
         self.url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.test_report.id})
 
