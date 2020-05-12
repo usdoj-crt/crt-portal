@@ -177,7 +177,7 @@
         <th>Date of incident</th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
-          {{ data.last_incident_month}}/{% if data.last_incident_day %}{{data.last_incident_day}}{%else%}-{%endif%}/{{data.last_incident_year}}
+          {{ data.last_incident_month|default:"-"}}/{{data.last_incident_day|default:"-"}}/{{data.last_incident_year|default:"-"}}
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
             {% include "forms/snippets/date_components.html" with month=details_form.last_incident_month day=details_form.last_incident_day year=details_form.last_incident_year  %}
