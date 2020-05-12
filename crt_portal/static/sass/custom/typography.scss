@@ -26,6 +26,10 @@ h3 {
   @include u-text('blue-warm-80v');
 }
 
+a {
+  $color: blue-warm-vivid-80;
+}
+
 .em-text {
   color: $blue-warm-vivid-80;
   font-weight: bold;

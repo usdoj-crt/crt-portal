@@ -10,8 +10,7 @@
   &__content {
     @include u-margin-left(5);
     @include u-margin-top(5);
-    @include u-margin-bottom(5);
-    @include u-padding-y(1.5);
+    @include u-padding-bottom(5);
     @include u-padding-x(3);
     flex-direction: column;
 
@@ -50,6 +49,11 @@
   }
 }
 
+section hr {
+  @include u-margin-top(5);
+  border-bottom: 1px solid $blue-warm-vivid-80;
+}
+
 .record-number-wrapper {
   align-content: center;
   @include flex-container();
@@ -71,6 +75,7 @@
 
 section.what-to-expect {
   @include u-bg($blue-warm-5-t);
+  @include u-margin-top(5);
   padding-bottom: 14rem;
 
   .title {
@@ -81,18 +86,28 @@ section.what-to-expect {
   h2 {
     @include u-color($blue-warm-vivid-80-t);
     @include u-font-family('serif');
+    @include u-padding-top(5);
     font-size: 2.75rem;
-    margin-bottom: 1rem;
-  }
-  h2:first {
-    padding-top: 1rem;
+    margin-bottom: 2.5rem;
+    margin-top: 0;
   }
 
   ol.confirmation-list {
     padding-left: 0;
     margin-left: 0;
+    margin-top: -0.5rem;
     list-style-position: inside;
     list-style: none;
+    li {
+      @include u-margin-top(5);
+      div {
+        margin-top: 0;
+        h3 {
+          margin-top: 0;
+          margin-bottom: 1.5rem;
+        }
+      }
+    }
   }
 
   ul.confirmation-list {
@@ -106,12 +121,13 @@ section.what-to-expect {
   }
 
   .title-icon-blue {
+    margin-bottom: 1.5rem;
     background-color: $blue-warm-vivid-80;
     @include flex-container();
     border-radius: 2rem;
     justify-content: center;
-    min-height: 25px;
-    min-width: 25px;
+    min-height: 32px;
+    min-width: 32px;
     color: white;
     @include u-font-family('serif');
   }
