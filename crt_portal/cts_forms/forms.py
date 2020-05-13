@@ -1324,3 +1324,4 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
                 report.internal_comments.add(summary)
             self.summary_created = created
             self.summary = summary
+        return report
