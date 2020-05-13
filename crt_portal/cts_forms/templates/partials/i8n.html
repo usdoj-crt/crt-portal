@@ -1,16 +1,15 @@
 {% load i18n %}
-<form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+<form action="{% url 'set_language' %}" method="post" class="usa-form">{% csrf_token %}
     <input name="next" type="hidden" value="{{ redirect_to }}">
-    <select id="i8n_select" name="language">
+    <select class="usa-select" id="i8n_select" name="language" aria-label="select language">
         {% get_current_language as LANGUAGE_CODE %}
         {% get_available_languages as LANGUAGES %}
         {% get_language_info_list for LANGUAGES as languages %}
         {% for language in languages %}
             <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
-                {{ language.name_local }} ({{ language.code }})
+                {{ language.name_local }}
             </option>
         {% endfor %}
     </select>
-    <label for="i8n_select">Language</label>
     <input type="submit" value="Go">
 </form>
