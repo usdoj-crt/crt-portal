@@ -104,6 +104,7 @@ footer {
     background-color: $gold;
     color: black;
     margin-top: 0;
+    max-width: 10em;
   }
 
   .i8n-submit {
@@ -112,6 +113,7 @@ footer {
     background-color: #2e2e2a;
     border: 1px solid white;
     width: 50%;
+    max-width: 4em;
 
     &:hover {
       background-color: white !important;
