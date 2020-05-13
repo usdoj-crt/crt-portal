@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static %}
 
 <div class="grid-container">
   <div class="grid-row">
@@ -11,6 +12,7 @@
 
       <div class="grid-row grid-gap">
         <div class="grid-col-1 usa-footer__icon">
+          <img src="{% static "img/mail.svg" %}" alt="mail" class="icon">
         </div>
         <div class="grid-col-11 usa-footer__links">
           <p>U.S. Department of Justice</p>
@@ -21,6 +23,7 @@
         </div>
 
         <div class="grid-col-1 usa-footer__icon">
+          <img src="{% static "img/phone.svg" %}" alt="phone" class="icon">
         </div>
         <div class="grid-col-11 usa-footer__links">
           <a href="tel:202-514-4609">(202) 514-4609</a>
@@ -29,6 +32,7 @@
         </div>
 
         <div class="grid-col-1 usa-footer__icon">
+          <img src="{% static "img/globe-language.svg" %}" alt="language" class="icon">
         </div>
         <div class="grid-col-11 usa-footer__links">
           {% include 'partials/i8n.html' %}
