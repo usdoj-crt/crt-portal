@@ -17,6 +17,12 @@ footer {
 .usa-footer__section {
   display: flex;
   flex-direction: row;
+  margin-bottom: 24px;
+
+  &:last-child {
+    margin-top: 8px;
+    align-items: center;
+  }
 }
 
 .usa-footer__icon {
@@ -55,14 +61,6 @@ footer {
 .usa-footer__links {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
-
-  @include at-media(mobile) {
-    // on mobile, we want the links to appear to be in one section
-    &:nth-last-child(2) {
-      margin-bottom: 0;
-    }
-  }
 
   p {
     margin: 0;
@@ -84,22 +82,26 @@ footer {
   }
 }
 
-#i8n_select {
-  width: 50%;
-  background-color: $gold;
-  color: black;
-  margin-top: 0;
-}
+.i8n-section {
+  display: flex;
+  align-items: center;
 
-.i8n-submit {
-  margin-left: 1em;
-  margin-top: 0 !important;
-  background-color: #2e2e2a;
-  border: 1px solid white;
-  width: 50%;
+  #i8n_select {
+    background-color: $gold;
+    color: black;
+    margin-top: 0;
+  }
 
-  &:hover {
-    background-color: white !important;
-    color: #2e2e2a;
+  .i8n-submit {
+    margin-left: 1em;
+    margin-top: 0 !important;
+    background-color: #2e2e2a;
+    border: 1px solid white;
+    width: 50%;
+
+    &:hover {
+      background-color: white !important;
+      color: #2e2e2a;
+    }
   }
 }

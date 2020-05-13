@@ -1,7 +1,7 @@
 {% load i18n %}
 <form action="{% url 'set_language' %}" method="post" class="usa-form">{% csrf_token %}
   <input name="next" type="hidden" value="{{ redirect_to }}">
-  <div class="display-flex">
+  <div class="i8n-section">
     <select class="usa-select" id="i8n_select" name="language" aria-label="select language">
       {% get_current_language as LANGUAGE_CODE %}
       {% get_available_languages as LANGUAGES %}
