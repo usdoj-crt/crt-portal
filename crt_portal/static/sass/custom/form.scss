@@ -8,12 +8,6 @@ form#report-form {
   .question-header {
     width: 100%; // IE11 fix
     margin-top: 2.5rem;
-    margin-bottom: 1.5rem;
-    + .help-text,
-    + .help-text__small,
-    + p {
-      margin-top: -1.5rem; // to match other help text margins
-    }
   }
 
   fieldset:first-of-type .question-header {
@@ -91,14 +85,14 @@ form#report-form {
   }
 
   .usa-fieldset {
-    margin-top: 0;
+    margin-top: 2.5rem;
     margin-bottom: 0;
     .usa-fieldset {
       margin-top: 1.5rem;
     }
 
-    &:last-of-type:not(:only-of-type) {
-      margin-top: 2.5rem;
+    &:first-of-type {
+      margin-top: 0;
     }
 
     ul {
