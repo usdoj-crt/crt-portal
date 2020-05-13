@@ -14,36 +14,36 @@ footer {
   flex-direction: column;
 
   @include at-media-max(desktop) {
-    margin-bottom: 40px;
+    margin-bottom: 2.5rem;
   }
 }
 
 .usa-footer__section {
   display: flex;
   flex-direction: row;
-  margin-bottom: 24px;
+  margin-bottom: 1.5rem;
 
   &:last-child {
-    margin-top: 8px;
+    margin-top: 0.5rem;
     align-items: center;
   }
 }
 
 .usa-footer__icon {
-  margin-right: 24px;
+  margin-right: 1.5rem;
 }
 
 .usa-footer__logo-section {
-  margin-top: 1.25em;
-  margin-bottom: 2.5em;
+  margin-top: 1.25rem;
+  margin-bottom: 2.5rem;
 }
 
 .usa-footer__logo-heading {
-  font-size: 2em;
+  font-size: 2rem;
   font-weight: bold;
 
   @include at-media-max(desktop) {
-    font-size: 22px;
+    font-size: 1.38rem;
   }
 }
 
@@ -62,7 +62,7 @@ footer {
 }
 
 .usa-footer__separator {
-  margin-top: 16px;
+  margin-top: 1rem;
   border: 2px solid $gold;
   border-radius: 2px;
   width: 25px;
