@@ -107,6 +107,7 @@ footer {
     margin-top: 0 !important;
     background-color: #2e2e2a;
     border: 1px solid white;
+    width: 100%; // IE11 fix
 
     &:hover {
       background-color: white !important;
