@@ -82,6 +82,10 @@ footer {
   }
 }
 
+.usa-footer__language {
+  width: 100%; // IE11 fix
+}
+
 .usa-footer__secondary-section {
   background-color: #2e2e2a;
 
@@ -107,7 +111,7 @@ footer {
     margin-top: 0 !important;
     background-color: #2e2e2a;
     border: 1px solid white;
-    width: 100%; // IE11 fix
+    width: 50%;
 
     &:hover {
       background-color: white !important;
