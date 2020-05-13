@@ -1015,7 +1015,8 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
     CONTEXT_KEY = 'actions'
     assigned_to = ModelChoiceField(
         queryset=User.objects.filter(is_active=True),
-        label=_("Assigned to"),
+        # crt view only
+        label="Assigned to",
         required=False
     )
 

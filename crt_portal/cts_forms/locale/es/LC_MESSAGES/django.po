@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-12 22:25+0000\n"
+"POT-Creation-Date: 2020-05-13 01:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: forms.py:115 forms.py:1173
+#: forms.py:115 forms.py:1174
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
@@ -28,7 +28,7 @@ msgstr ""
 "de país."
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:145 forms.py:1143
+#: forms.py:145 forms.py:1144
 msgid " - Select - "
 msgstr " - Elija - "
 
@@ -190,7 +190,7 @@ msgstr ""
 msgid "What did the person believe happened?"
 msgstr "¿Qué cree la persona que ocurrió?"
 
-#: forms.py:944 forms.py:1018
+#: forms.py:944
 msgid "Assigned to"
 msgstr ""
 
@@ -1049,7 +1049,7 @@ msgstr ""
 "proporcionar sus datos de contacto, solamente los utilizaremos para "
 "responder a su presentación."
 
-#: question_text.py:7
+#: question_text.py:7 templates/forms/report_data.html:10
 msgid "Your name"
 msgstr "Su nombre"
 
@@ -1306,16 +1306,14 @@ msgid "Report successfully submitted"
 msgstr "Su informe se ha entregado con éxito"
 
 #: templates/forms/confirmation.html:37
-msgid "Please save this page for your records"
-msgstr "Se le ruega que guarde esta página para sus registros"
+msgid "Please save your record number for tracking."
+msgstr ""
 
 #: templates/forms/confirmation.html:38
 msgid ""
-"Write down your record number and save or print a copy of this page for "
-"personal records."
+"If you want a copy of this report for your personal records, save or print a "
+"copy of this page."
 msgstr ""
-"Anote su número de registro y guarde o imprima una copia de esta página para "
-"sus registros personales."
 
 #: templates/forms/confirmation.html:41
 msgid "Your record number is:"
@@ -1574,8 +1572,16 @@ msgstr "paso previo"
 msgid "Back"
 msgstr "Volver"
 
-#: templates/forms/report_data.html:59 templates/forms/report_data.html:65
-#: templates/forms/report_data.html:162 templates/forms/report_data.html:168
+#
+#
+#: templates/forms/report_data.html:23 templates/forms/report_data.html:126
+#, fuzzy
+#| msgid "Email address"
+msgid "Address"
+msgstr "Dirección de correo electrónico"
+
+#: templates/forms/report_data.html:49 templates/forms/report_data.html:55
+#: templates/forms/report_data.html:145 templates/forms/report_data.html:151
 msgid "None selected"
 msgstr ""
 
@@ -1628,6 +1634,22 @@ msgstr ""
 "\n"
 "          %(word_limit)s límite de palabras alcanzado\n"
 "        "
+
+#: templates/partials/footer.html:8 views.py:493 views.py:549 views.py:568
+msgid "Contact"
+msgstr "Contacto"
+
+#: templates/partials/footer.html:27
+msgid "Telephone Device for the Deaf"
+msgstr ""
+
+#: templates/partials/footer.html:28
+msgid "(TTY)"
+msgstr ""
+
+#: templates/partials/footer.html:35
+msgid "Links"
+msgstr ""
 
 #: templates/partials/footer.html:42
 msgid "About the division"
@@ -1774,10 +1796,6 @@ msgstr "palabras restantes"
 msgid " word limit reached"
 msgstr "límite de palabras alcanzado"
 
-#: views.py:493 views.py:549 views.py:568
-msgid "Contact"
-msgstr "Contacto"
-
 #: views.py:494 views.py:550 views.py:551 views.py:569 views.py:570
 #: views.py:605
 msgid "Primary concern"
@@ -1820,6 +1838,16 @@ msgid "Please select if any that apply to your situation (optional)"
 msgstr "Favor de elegir esta opción si"
 
 # Previous translations no longer in use #
+#~ msgid "Please save this page for your records"
+#~ msgstr "Se le ruega que guarde esta página para sus registros"
+
+#~ msgid ""
+#~ "Write down your record number and save or print a copy of this page for "
+#~ "personal records."
+#~ msgstr ""
+#~ "Anote su número de registro y guarde o imprima una copia de esta página "
+#~ "para sus registros personales."
+
 #~ msgid "View sections"
 #~ msgstr "Ver las secciones"
 
