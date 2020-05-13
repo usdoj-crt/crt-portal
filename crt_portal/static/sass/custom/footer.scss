@@ -70,4 +70,16 @@ footer {
   width: 50%;
   background-color: $gold;
   color: black;
+  margin-top: 0;
+}
+
+.i8n-submit {
+  margin-left: 1em;
+  background-color: #2e2e2a;
+  border: 1px solid white;
+
+  &:hover {
+    background-color: white !important;
+    color: #2e2e2a;
+  }
 }
