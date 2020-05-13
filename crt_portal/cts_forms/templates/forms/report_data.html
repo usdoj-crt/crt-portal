@@ -7,35 +7,24 @@
 
         <div class="question">
             <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.contact.contact_name_title }}</h3>
-            <h4>{{ question.contact.contact_first_name }}</h4>
-            <p>{{ report.contact_first_name|default:"-" }}</p>
-            <h4>{{ question.contact.contact_last_name }}</h4>
-            <p>{{ report.contact_last_name|default:"-" }}</p>
+            <h4>{% trans "Your name" %}</h4>
+            <p>{{ report.contact_first_name|default:"-" }} {{ report.contact_last_name|default:"-" }}</p>
         </div>
 
         <div class="question">
-        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.contact.contact_title }}</h3>
+          <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.contact.contact_title }}</h3>
 
-        <h4>{{ question.contact.contact_email }}</h4>
-        <p>{{ report.contact_email|default:"-" }}</p>
+          <h4>{{ question.contact.contact_email }}</h4>
+          <p>{{ report.contact_email|default:"-" }}</p>
 
-        <h4>{{ question.contact.contact_phone }}</h4>
-        <p>{{ report.contact_phone|default:"-" }}</p>
+          <h4>{{ question.contact.contact_phone }}</h4>
+          <p>{{ report.contact_phone|default:"-" }}</p>
 
-        <h4>{{ question.contact.contact_address_line_1 }}</h4>
-        <p>{{ report.contact_address_line_1|default:"-" }}</p>
+          <h4>{% trans "Address" %}</h4>
+          <p>{{ report.contact_address_line_1|default:"-" }}</p>
+          <p>{{ report.contact_address_line_2|default:"-" }}</p>
+          <p>{{ report.contact_city|default:"-" }} {{ report.get_contact_state_display|default:"-" }} {{ report.contact_zip|default:"-" }}</p>
 
-        <h4>{{ question.contact.contact_address_line_2 }}</h4>
-        <p>{{ report.contact_address_line_2|default:"-" }}</p>
-
-        <h4>{{ question.contact.contact_city }}</h4>
-        <p>{{ report.contact_city|default:"-" }}</p>
-
-        <h4>{{ question.contact.contact_state }}</h4>
-        <p>{{ report.get_contact_state_display|default:"-" }}</p>
-
-        <h4>{{ question.contact.contact_zip }}</h4>
-        <p>{{ report.contact_zip|default:"-" }}</p>
         </div>
         <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.servicemember }}</h3>
         <p>{{ report.get_servicemember_display|default:"-" }}</p>
@@ -43,108 +32,101 @@
 </div>
 
 <div class="crt-portal-card">
-    <div class="crt-portal-card__content margin-bottom-3">
-       {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.1 step_value=1 %}
+  <div class="crt-portal-card__content margin-bottom-3">
+    {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.1 step_value=1 %}
 
-        <h2 class="margin-top-0">{{ordered_step_names.1}}</h2>
+    <h2 class="margin-top-0">{{ordered_step_names.1}}</h2>
 
-        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.primary_reason }}</h3>
-        <p>{{ report.get_primary_complaint_display }}</p>
+    <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.primary_reason }}</h3>
+    <p>{{ report.get_primary_complaint_display }}</p>
 
-        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.hatecrime_title }}</h3>
-        <h4>{{ question.hatecrime }}</h4>
-        {% if report.id %}
-            {% for crime in report.hatecrimes_trafficking.all %}
-                <p>{{crime}}</p>
-            {% empty %}
-                <p>{% trans 'None selected' %}</p>
-            {% endfor %}
-        {% else %}
-            {% for crime in hatecrimes %}
-                <p>{{crime}}</p>
-            {% empty %}
-                <p>{% trans 'None selected' %}</p>
-            {% endfor %}
-        {% endif %}
-    </div>
+    <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.hatecrime_title }}</h3>
+    <h4>{{ question.hatecrime }}</h4>
+    {% if report.id %}
+      {% for crime in report.hatecrimes_trafficking.all %}
+        <p>{{crime}}</p>
+      {% empty %}
+        <p>{% trans 'None selected' %}</p>
+      {% endfor %}
+    {% else %}
+      {% for crime in hatecrimes %}
+        <p>{{crime}}</p>
+      {% empty %}
+        <p>{% trans 'None selected' %}</p>
+      {% endfor %}
+    {% endif %}
+  </div>
 </div>
 
 <div class="crt-portal-card">
-    <div class="crt-portal-card__content margin-bottom-3">
-        {# buttons to the right form page based on data present #}
+  <div class="crt-portal-card__content margin-bottom-3">
+    {# buttons to the right form page based on data present #}
 
-        {% if report.election_details %}
-            {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=3 %}
+    {% if report.election_details %}
+      {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=3 %}
 
-        {% elif report.public_or_private_employer %}
-            {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=4 %}
+    {% elif report.public_or_private_employer %}
+      {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=4 %}
 
-        {% elif report.inside_correctional_facility %}
-            {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=5 %}
+    {% elif report.inside_correctional_facility %}
+      {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=5 %}
 
-        {% elif report.commercial_or_public_place %}
-            {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=6 %}
+    {% elif report.commercial_or_public_place %}
+      {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=6 %}
 
-        {% elif report.public_or_private_school %}
-            {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=7 %}
+    {% elif report.public_or_private_school %}
+      {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=7 %}
 
-        {% else %}
-            {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=2 %}
-        {% endif %}
+    {% else %}
+      {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=2 %}
+    {% endif %}
 
 
-        <h2 class="margin-top-0">{{ ordered_step_names.2 }}</h2>
+    <h2 class="margin-top-0">{{ ordered_step_names.2 }}</h2>
 
-         {% if report.election_details %}
-            <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.election }}</h3>
-            <p>{{ report.get_election_details_display|default:"-" }}</p>
+    {% if report.election_details %}
+      <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.election }}</h3>
+      <p>{{ report.get_election_details_display|default:"-" }}</p>
 
-        {% elif report.public_or_private_employer %}
-            <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.workplace.public_or_private_employer }}</h3>
-            <p>{{ report.get_public_or_private_employer_display|default:"-" }}</p>
+    {% elif report.public_or_private_employer %}
+      <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.workplace.public_or_private_employer }}</h3>
+      <p>{{ report.get_public_or_private_employer_display|default:"-" }}</p>
 
-            <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.workplace.employer_size }}</h3>
-            <p>{{ report.get_employer_size_display|default:"-" }}</p>
+      <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.workplace.employer_size }}</h3>
+      <p>{{ report.get_employer_size_display|default:"-" }}</p>
 
-        {% elif report.inside_correctional_facility %}
-            <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.police.inside_correctional_facility }}</h3>
-            <p>{{ report.get_inside_correctional_facility_display|default:"-" }}</p>
+    {% elif report.inside_correctional_facility %}
+      <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.police.inside_correctional_facility }}</h3>
+      <p>{{ report.get_inside_correctional_facility_display|default:"-" }}</p>
 
-            {% if report.correctional_facility_type %}
-                <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.police.correctional_facility_type }}</h3>
-                <p>{{ report.get_correctional_facility_type_display|default:"-" }}</p>
-            {% endif %}
+      {% if report.correctional_facility_type %}
+        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.police.correctional_facility_type }}</h3>
+        <p>{{ report.get_correctional_facility_type_display|default:"-" }}</p>
+      {% endif %}
 
-        {% elif report.commercial_or_public_place %}
-            <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.public }}</h3>
-            <p>{{ report.get_commercial_or_public_place_display|default:"-" }}</p>
-            {% if report.other_commercial_or_public_place %}
-                <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.other_commercial_or_public_place }}</h3>
-                <p>{{ report.get_other_commercial_or_public_place_display|default:"-" }}</p>
-            {% endif %}
+    {% elif report.commercial_or_public_place %}
+      <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.public }}</h3>
+      <p>{{ report.get_commercial_or_public_place_display|default:"-" }}</p>
+      {% if report.other_commercial_or_public_place %}
+        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.other_commercial_or_public_place }}</h3>
+        <p>{{ report.get_other_commercial_or_public_place_display|default:"-" }}</p>
+      {% endif %}
 
-        {% elif report.public_or_private_school %}
-            <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.education }}</h3>
-            <p>{{ report.get_public_or_private_school_display|default:"-" }}</p>
+    {% elif report.public_or_private_school %}
+      <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.education }}</h3>
+      <p>{{ report.get_public_or_private_school_display|default:"-" }}</p>
 
-        {% endif %}
+    {% endif %}
 
-        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.location.location_title }}</h3>
-
-        <h4>{{ question.location.location_address_line_1 }}</h4>
-        <p>{{ report.location_address_line_1|default:"-" }}</p>
-
-        <h4>{{ question.location.location_address_line_2 }}</h4>
-        <p>{{ report.location_address_line_2|default:"-" }}</p>
-
-        <h4>{{ question.location.location_city_town }}</h4>
-        <p>{{ report.location_city_town|default:"-" }}</p>
+    <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.location.location_title }}</h3>
 
         <h4>{{ question.location.location_name }}</h4>
         <p>{{ report.location_name|default:"-" }}</p>
 
-        <h4>{{ question.location.location_state }}</h4>
-        <p>{{ report.get_location_state_display|default:"-"}}</p>
+        <h4>{% trans "Address" %}</h4>
+        <p>{{ report.location_address_line_1|default:"-" }}</p>
+        <p>{{ report.location_address_line_2|default:"-" }}</p>
+        <p>{{ report.location_city_town|default:"-" }} {{ report.get_location_state_display|default:"-"}}</p>
 
     </div>
 </div>
