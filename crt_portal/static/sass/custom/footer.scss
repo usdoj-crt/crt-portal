@@ -47,6 +47,13 @@ footer {
   flex-direction: column;
   margin-bottom: 20px;
 
+  @include at-media(mobile) {
+    // on mobile, we want the links to appear to be in one section
+    &:nth-last-child(2) {
+      margin-bottom: 0;
+    }
+  }
+
   p {
     margin: 0;
   }
@@ -76,8 +83,10 @@ footer {
 
 .i8n-submit {
   margin-left: 1em;
+  margin-top: 0 !important;
   background-color: #2e2e2a;
   border: 1px solid white;
+  width: 50%;
 
   &:hover {
     background-color: white !important;
