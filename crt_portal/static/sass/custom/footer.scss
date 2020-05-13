@@ -12,6 +12,10 @@ footer {
 .usa-footer__contact {
   display: flex;
   flex-direction: column;
+
+  @include at-media-max(desktop) {
+    margin-bottom: 40px;
+  }
 }
 
 .usa-footer__section {
@@ -37,11 +41,17 @@ footer {
 .usa-footer__logo-heading {
   font-size: 2em;
   font-weight: bold;
+
+  @include at-media-max(desktop) {
+    font-size: 22px;
+  }
 }
 
 .usa-footer__logo-subheading {
-  @extend .usa-footer__logo-heading;
+  font-weight: bold;
   font-size: 1em;
+  margin: 0;
+  @include u-font-family('serif');
 }
 
 .usa-footer__heading {
@@ -97,7 +107,6 @@ footer {
     margin-top: 0 !important;
     background-color: #2e2e2a;
     border: 1px solid white;
-    width: 50%;
 
     &:hover {
       background-color: white !important;
