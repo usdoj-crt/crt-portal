@@ -10,32 +10,39 @@
         <div class="usa-footer__separator"></div>
       </div>
 
-      <div class="grid-row grid-gap">
-        <div class="grid-col-1 usa-footer__icon">
-          <img src="{% static "img/mail.svg" %}" alt="mail" class="icon">
-        </div>
-        <div class="grid-col-11 usa-footer__links">
-          <p>U.S. Department of Justice</p>
-          <p>Civil Rights Division</p>
-          <p>950 Pennsylvania Avenue, NW</p>
-          <p>Office of the Assistant Attorney General</p>
-          <p>Washington, D.C. 20530-0001</p>
-        </div>
-
-        <div class="grid-col-1 usa-footer__icon">
-          <img src="{% static "img/phone.svg" %}" alt="phone" class="icon">
-        </div>
-        <div class="grid-col-11 usa-footer__links">
-          <a href="tel:202-514-4609">(202) 514-4609</a>
-          <p>Telephone Device for the Deaf</p>
-          <p>(TTY) <a href="tel:202-514-0716">(202) 514-0716</a></p>
+      <div class="usa-footer__contact">
+        <div class="usa-footer__section">
+          <div class="usa-footer__icon">
+            <img src="{% static "img/mail.svg" %}" alt="mail" class="icon">
+          </div>
+          <div class="usa-footer__links">
+            <p>U.S. Department of Justice</p>
+            <p>Civil Rights Division</p>
+            <p>950 Pennsylvania Avenue, NW</p>
+            <p>Office of the Assistant Attorney General</p>
+            <p>Washington, D.C. 20530-0001</p>
+          </div>
         </div>
 
-        <div class="grid-col-1 usa-footer__icon">
-          <img src="{% static "img/globe-language.svg" %}" alt="language" class="icon">
+        <div class="usa-footer__section">
+          <div class="usa-footer__icon">
+            <img src="{% static "img/phone.svg" %}" alt="phone" class="icon">
+          </div>
+          <div class="usa-footer__links">
+            <a href="tel:202-514-4609">(202) 514-4609</a>
+            <p>Telephone Device for the Deaf</p>
+            <p>(TTY) <a href="tel:202-514-0716">(202) 514-0716</a></p>
+          </div>
         </div>
-        <div class="grid-col-11 usa-footer__links">
-          {% include 'partials/i8n.html' %}
+
+
+        <div class="usa-footer__section">
+          <div class="usa-footer__icon">
+            <img src="{% static "img/globe-language.svg" %}" alt="language" class="icon">
+          </div>
+          <div class="usa-footer__links">
+            {% include 'partials/i8n.html' %}
+          </div>
         </div>
       </div>
     </div>

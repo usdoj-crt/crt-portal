@@ -9,8 +9,18 @@ footer {
   }
 }
 
+.usa-footer__contact {
+  display: flex;
+  flex-direction: column;
+}
+
+.usa-footer__section {
+  display: flex;
+  flex-direction: row;
+}
+
 .usa-footer__icon {
-  padding-right: 0 !important;
+  margin-right: 24px;
 }
 
 .usa-footer__logo-section {
