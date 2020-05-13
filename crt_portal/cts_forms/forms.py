@@ -1301,7 +1301,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         super().update_activity_stream(user)
         if 'summary' in self.changed_data:
             action.send(
-                self.request.user,
+                user,
                 verb='Added summary: ' if self.summary_created else 'Updated summary: ',
                 description=self.summary.note,
                 target=self.instance
