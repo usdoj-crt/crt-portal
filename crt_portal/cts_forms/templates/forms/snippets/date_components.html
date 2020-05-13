@@ -1,5 +1,5 @@
 <section class="usa-memorable-date">
-    <div class="grid-row grid-gap" {% if help_text %}aria-labelledby="incident-date-help-text"{% endif %}>
+    <div class="grid-row" {% if help_text %}aria-labelledby="incident-date-help-text"{% endif %}>
         <div class="mobile-lg:grid-col-3">
             <label class="usa-label" for="{{ month.id_for_label }}">
                 {{ month.label }}{% if required %}<span class="text-secondary-dark">*</span>{% endif %}
@@ -12,7 +12,7 @@
             </label>
             {{ day|withInputError }}
         </div>
-        <div class="mobile-lg:grid-col-6">
+        <div class="mobile-lg:grid-col-5">
             <label class="usa-label" for="{{ year.id_for_label }}">
                 {{ year.label }}{% if required %}<span class="text-secondary-dark">*</span>{% endif %}
             </label>

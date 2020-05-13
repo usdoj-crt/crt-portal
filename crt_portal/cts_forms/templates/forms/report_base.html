@@ -56,12 +56,10 @@
                 {{ num_page_errors|summary_error_count_message }}
               </section>
             {% endif %}
-            <div>
-              <h2 class="margin-0">{{ current_step_title }}</h2>
-              {% if form.page_note %}
-                <p class="help-text">{{ form.page_note }}</p>
-              {% endif %}
-            </div>
+            <h2 class="margin-0">{{ current_step_title }}</h2>
+            {% if form.page_note %}
+              <p class="help-text">{{ form.page_note }}</p>
+            {% endif %}
           {% endblock %}
 
           {% block bottom-navigation %}

@@ -7,7 +7,13 @@ form#details-edit-form,
 form#report-form {
   .question-header {
     width: 100%; // IE11 fix
-    margin-top: 2.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+    + .help-text,
+    + .help-text__small,
+    + p {
+      margin-top: -1rem; // to match other help text margins
+    }
   }
 
   fieldset:first-of-type .question-header {
@@ -43,6 +49,18 @@ form#report-form {
   li {
     list-style: none;
   }
+
+  // patterns for page intro text
+  h2 {
+    + .help-text {
+      margin-bottom: 2rem;
+    }
+    // question headers sometimes abut page headers, which makes them the first-of-type and thus they lose their margin,
+    // but when they immediately follow page headers they need the standard question-header spacing
+    + div[data-toggle] fieldset:first-of-type .question-header {
+      margin-top: 2.5rem;
+    }
+  }
 }
 
 // Form styles
@@ -75,7 +93,7 @@ form#report-form {
     margin-left: 2rem;
     margin-top: 1.5rem;
     padding-left: 1rem;
-    border-left: 2px solid $blue-warm-vivid-70;
+    border-left: 2px solid $blue-warm-vivid-80;
 
     ul > li:last-child {
       height: 25px;
@@ -124,6 +142,9 @@ form#report-form {
   li {
     > .usa-checkbox {
       margin-bottom: 1rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
     > .usa-radio {
@@ -298,15 +319,21 @@ form#report-form {
   font-style: italic;
   margin-top: 0.5rem;
   margin-bottom: 1.5rem;
+
   + fieldset legend {
     padding-top: 0;
   }
 }
 
-// pattern for page intro text
-h2 + .help-text {
-  margin-top: 0;
-  margin-bottom: 2rem;
+// no margin when the only thing or last thing on the card is the help text -- see "something else" in "primary concern"
+.crt-portal-card__content {
+  > div:last-child,
+  > label:last-child {
+    .help-text:last-child,
+    .help-text__small:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
 .usa-input--error,
@@ -355,8 +382,8 @@ select.usa-input--error {
   margin-right: 0;
 }
 
-@media screen and (max-width: 480px) {
-  .usa-form .usa-input[id*='contact_phone'] {
+@media screen and (min-width: 480px) {
+  .usa-form input[id*='-contact_phone'] {
     max-width: 80%;
   }
 }
@@ -368,7 +395,7 @@ select.usa-input--error {
   color: $gray-50;
 
   &::before {
-    content: "*";
+    content: '*';
     font-weight: bold;
     margin-left: 0.3rem;
     color: $red-vivid-60;
@@ -381,5 +408,11 @@ select.usa-input--error {
       @extend .field-required::before;
       margin-left: 0.5rem;
     }
+  }
+}
+
+.usa-memorable-date {
+  input {
+    margin-right: 1rem;
   }
 }

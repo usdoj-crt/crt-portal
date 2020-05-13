@@ -3,7 +3,8 @@ footer {
   width: 100%; // IE11 fix
   color: white;
 
-  select, input {
+  select,
+  input {
     color: black;
   }
 }
@@ -56,9 +57,10 @@ footer {
 }
 
 .usa-footer__secondary-section {
-  background-color: #2E2E2A;
+  background-color: #2e2e2a;
 
-  a {
+  a,
+  a:visited {
     color: white;
     text-decoration: none;
   }
