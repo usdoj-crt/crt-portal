@@ -1,14 +1,16 @@
 import logging
 from datetime import datetime
 
+from actstream import action
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
-from django.utils.functional import cached_property
-
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
-                          EmailInput, ModelChoiceField, ModelForm,
-                          ModelMultipleChoiceField, Select, SelectMultiple,
-                          Textarea, TextInput, TypedChoiceField, MultipleHiddenInput)
+                          EmailInput, HiddenInput, IntegerField,
+                          ModelChoiceField, ModelForm,
+                          ModelMultipleChoiceField, MultipleHiddenInput,
+                          Select, SelectMultiple, Textarea, TextInput,
+                          TypedChoiceField)
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
@@ -80,7 +82,6 @@ class ActivityStreamUpdater(object):
 
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
-        from actstream import action
         for verb, description in self.get_actions():
             action.send(
                 user,
@@ -1074,7 +1075,6 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
 
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
-        from actstream import action
         for verb, description in self.get_actions():
             action.send(
                 user,
@@ -1098,7 +1098,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
 class CommentActions(ModelForm):
     class Meta:
         model = CommentAndSummary
-        fields = ['note', 'is_summary']
+        fields = ['note']
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
@@ -1109,28 +1109,14 @@ class CommentActions(ModelForm):
             },
         )
         self.fields['note'].label = 'New comment'
-        self.fields['is_summary'] = CharField()
 
     def update_activity_stream(self, user, report, verb):
         """Send all actions to activity stream"""
-        from actstream import action
         action.send(
             user,
             verb=verb,
             description=self.instance.note,
             target=report
-        )
-
-
-class SummaryField(CommentActions):
-    """Need to override the html id since it is on the same page as the comment form"""
-    def __init__(self, *args, **kwargs):
-        CommentActions.__init__(self, *args, **kwargs)
-        self.fields['note'].widget = Textarea(
-            attrs={
-                'class': 'usa-textarea',
-                'id': 'id_note-summary',
-            },
         )
 
 
@@ -1198,6 +1184,10 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
     hatecrime = BooleanField(required=False, widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'}))
     trafficking = BooleanField(required=False, widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'}))
 
+    # Summary fields
+    summary = CharField(required=False, strip=True, widget=Textarea(attrs={'class': 'usa-textarea'}))
+    summary_id = IntegerField(required=False, widget=HiddenInput())
+
     class Meta(ProForm.Meta):
         """
         Extend ProForm to capture field definitions from component forms, excluding those which should not be editable here
@@ -1250,6 +1240,12 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         self.fields['last_incident_month'].widget.required = False
         self.fields['last_incident_year'].widget.required = False
 
+        # Summary fields
+        summary = self.instance.get_summary
+        if summary:
+            self.fields['summary'].initial = summary.note
+            self.fields['summary_id'].initial = summary.pk
+
     @cached_property
     def changed_data(self):
         changed_data = super().changed_data
@@ -1299,3 +1295,33 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         cleaned_data['hatecrimes_trafficking'] = crimes
 
         return self.clean_dependent_fields(cleaned_data)
+
+    def update_activity_stream(self, user):
+        """Generate activity log entry for summary if it was updated"""
+        super().update_activity_stream(user)
+        if 'summary' in self.changed_data:
+            action.send(
+                user,
+                verb='Added summary: ' if self.summary_created else 'Updated summary: ',
+                description=self.summary.note,
+                target=self.instance
+            )
+
+    def save(self, user=None, commit=True):
+        """
+        If `summary` has changed, update or create the necessary CommentAndSummary
+        """
+        report = super().save(commit=True)
+        if 'summary' in self.changed_data:
+            summary_id = self.cleaned_data.get('summary_id')
+            summary = self.cleaned_data.get('summary')
+            summary_data = {'note': summary, 'author': user, 'is_summary': True}
+            if summary_id:
+                summary, created = CommentAndSummary.objects.update_or_create(id=summary_id, defaults=summary_data)
+            else:
+                summary = CommentAndSummary.objects.create(**summary_data)
+                created = True
+                report.internal_comments.add(summary)
+            self.summary_created = created
+            self.summary = summary
+        return report

@@ -27,7 +27,12 @@
     var showThese = document.querySelectorAll('.details');
 
     for (var i = 0; i < hideThese.length; i++) {
-      hideThese[i].classList.add('display-none');
+      // This allows us to conditionally prevent hiding of elements
+      // Such as the complaint summary field when there is none existing
+      var element = hideThese[i];
+      if (!element.classList.contains('always-display')) {
+        element.classList.add('display-none');
+      }
     }
 
     for (var i = 0; i < showThese.length; i++) {
@@ -37,7 +42,10 @@
     // Hide Buttons
     var buttons = detailsForm.getElementsByTagName('button');
     for (var i = 0; i < buttons.length; i++) {
-      buttons[i].classList.add('display-none');
+      var element = buttons[i];
+      if (!element.classList.contains('always-display')) {
+        element.classList.add('display-none');
+      }
     }
   }
 
@@ -78,7 +86,7 @@
     // Generate listenable events for all form inputs, using `change` for IE11 support
     for (var i = 0; i < form.elements.length; i++) {
       var field = form.elements[i];
-      if (field.nodeName == 'INPUT') {
+      if (field.nodeName == 'INPUT' || field.nodeName == 'TEXTAREA') {
         field.addEventListener('input', setButtonDisabled);
       } else if (field.nodeName == 'SELECT') {
         field.addEventListener('change', setButtonDisabled);
@@ -143,7 +151,7 @@
   var detailsForm = document.getElementById('details-edit-form');
   var saveButton = detailsForm.getElementsByTagName('button')[0];
   var cancelButton = detailsForm.getElementsByClassName('button--cancel')[0];
-  var primaryIssues = document.querySelector('#id_primary_complaint');
+  var primaryIssues = document.getElementById('id_primary_complaint');
 
   // add listeners
   primaryIssues.addEventListener('change', toggleFollowUpQuestions);
