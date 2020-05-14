@@ -242,10 +242,10 @@ Then you can stop the container with:
 
      docker stop <container_id>
 
-Run OWASP ZAP security scans with docker using the command line. Here is an example of running a full, passive scan locally targeting the development site:
+Run OWASP ZAP security scans with docker using the command line. Here is an example of running the baseline, passive scan locally targeting the development site:
 
-    docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-full-scan.py \
-    -t https://crt-portal-django-dev.app.cloud.gov/report/ -r testreport.html
+    docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-baseline.py \
+    -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf -z -config rules.cookie.ignorelist=django_language
 
 That will produce a report locally that you can view in your browser. It will give you a list of things that you should check. Sometimes there are things at the low or informational level that are false positives or are not worth the trade-offs to implement. The report will take a minute or two to generate.
 
