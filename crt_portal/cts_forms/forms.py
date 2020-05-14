@@ -348,15 +348,6 @@ class ElectionLocation(LocationForm):
 
     def __init__(self, *args, **kwargs):
         LocationForm.__init__(self, *args, **kwargs)
-        self.question_groups = [
-            QuestionGroup(
-                self,
-                ('election_details',),
-                group_name=ELECTION_QUESTION,
-                optional=False
-
-            )
-        ] + self.question_groups
 
         self.fields['election_details'] = TypedChoiceField(
             choices=ELECTION_CHOICES,
