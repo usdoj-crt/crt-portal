@@ -5,7 +5,7 @@
   <div class="crt-portal-card__content crt-portal-card__content--lg">
     {{ block.super }}
 
-    {% include "forms/question_cards/date.html" with question=form.date_question month=form.last_incident_month day=form.last_incident_day year=form.last_incident_year help_text=form.help_text %}
+    {% include "forms/question_cards/date.html" with required=True question=form.date_question month=form.last_incident_month day=form.last_incident_day year=form.last_incident_year help_text=form.help_text %}
 
   </div>
 </div>
