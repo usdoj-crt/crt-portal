@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-15 01:11+0000\n"
+"POT-Creation-Date: 2020-05-15 02:34+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1523,19 +1523,38 @@ msgstr ""
 "Para informar de un motivo de preocupación relacionado con derechos civiles, "
 "comuníquese con el Departamento de Justicia"
 
-#: templates/forms/report_base.html:70
+#: templates/forms/report_base.html:56
+#, python-format
+msgid ""
+"\n"
+"                  1 error found\n"
+"                "
+msgid_plural ""
+"\n"
+"                  %(counter)s errors found\n"
+"                "
+msgstr[0] ""
+"\n"
+"                  1 error encontrado\n"
+"                "
+msgstr[1] ""
+"\n"
+"                  %(counter)s errores encontrados\n"
+"                "
+
+#: templates/forms/report_base.html:74
 msgid "Submit"
 msgstr "Entregar"
 
-#: templates/forms/report_base.html:72
+#: templates/forms/report_base.html:76
 msgid "Next"
 msgstr "Siguiente"
 
-#: templates/forms/report_base.html:79 templates/forms/report_review.html:32
+#: templates/forms/report_base.html:83 templates/forms/report_review.html:32
 msgid "previous step"
 msgstr "paso previo"
 
-#: templates/forms/report_base.html:82 templates/forms/report_review.html:35
+#: templates/forms/report_base.html:86 templates/forms/report_review.html:35
 msgid "Back"
 msgstr "Volver"
 
@@ -1643,14 +1662,6 @@ msgstr "Oficina del Inspector General"
 #: templates/partials/footer.html:84
 msgid "Budget and performance"
 msgstr "Presupuesto y rendimiento"
-
-### not working
-#: templatetags/summary_error_count_message.py:13
-#, python-brace-format
-msgid "{count} error found"
-msgid_plural "{count} errors found"
-msgstr[0] "{count} error encontrado"
-msgstr[1] "{count} errores encontrados"
 
 #: views.py:39
 msgid "Bad request"

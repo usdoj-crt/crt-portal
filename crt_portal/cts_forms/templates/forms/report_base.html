@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load static %}
-{% load summary_error_count_message %}
 
 {% block page_title %}
   {% if wizard.steps.step1 and current_step_name %}
@@ -53,7 +52,11 @@
           {% block form_questions %}
             {% if page_errors %}
               <section id="page-errors" class="page-errors margin-bottom-2" role="alert" aria-live="assertive">
-                {{ num_page_errors|summary_error_count_message }}
+                {% blocktrans count counter=num_page_errors %}
+                  1 error found
+                {% plural %}
+                  {{counter}} errors found
+                {% endblocktrans %}
               </section>
             {% endif %}
             <h2 class="margin-0">{{ current_step_title }}</h2>
