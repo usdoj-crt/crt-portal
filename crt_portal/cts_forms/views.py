@@ -279,7 +279,7 @@ class ShowView(LoginRequiredMixin, View):
             if (report.district != report.assign_district()) and \
                     # district can be overwritten in the drop down
                     ('district' not in form.changed_data ) and\
-                    # if there was a location change but no new match for district, don't override distict
+                    # if there was a location change but no new match for district, don't override
                     (report.assign_district() not in [None, '']):
                 initial = report.district
                 report.district = report.assign_district()
