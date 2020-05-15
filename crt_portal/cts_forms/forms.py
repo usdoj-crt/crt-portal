@@ -1151,7 +1151,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         """
         Extend ProForm to capture field definitions from component forms, excluding those which should not be editable here
         """
-        exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name',
+        exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name', 'election_details',
                    'contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_state',
                    'contact_city', 'contact_zip', 'crt_reciept_day', 'crt_reciept_month', 'crt_reciept_year']
 
