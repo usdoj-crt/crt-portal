@@ -1,67 +1,85 @@
 {% load i18n %}
+{% load static %}
 
 <div class="grid-container">
   <div class="grid-row">
 
-    <div class="grid-col-6">
+    <div class="tablet:grid-col-5 grid-col-12">
       <div class="usa-footer__heading usa-footer__logo-heading">
         Contact
         <div class="usa-footer__separator"></div>
       </div>
 
-      <div class="grid-row grid-gap">
-        <div class="grid-col-1 usa-footer__icon">
-        </div>
-        <div class="grid-col-11 usa-footer__links">
-          <p>U.S. Department of Justice</p>
-          <p>Civil Rights Division</p>
-          <p>950 Pennsylvania Avenue, NW</p>
-          <p>Office of the Assistant Attorney General</p>
-          <p>Washington, D.C. 20530-0001</p>
+      <div class="usa-footer__contact">
+        <div class="usa-footer__section">
+          <div class="usa-footer__icon">
+            <img src="{% static "img/mail.svg" %}" alt="mail" class="icon">
+          </div>
+          <div class="usa-footer__links">
+            <p>U.S. Department of Justice</p>
+            <p>Civil Rights Division</p>
+            <p>950 Pennsylvania Avenue, NW</p>
+            <p>Office of the Assistant Attorney General</p>
+            <p>Washington, D.C. 20530-0001</p>
+          </div>
         </div>
 
-        <div class="grid-col-1 usa-footer__icon">
+        <div class="usa-footer__section">
+          <div class="usa-footer__icon">
+            <img src="{% static "img/phone.svg" %}" alt="phone" class="icon">
+          </div>
+          <div class="usa-footer__links">
+            <a href="tel:202-514-4609">(202) 514-4609</a>
+            <p>Telephone Device for the Deaf</p>
+            <p>(TTY) <a href="tel:202-514-0716">(202) 514-0716</a></p>
+          </div>
         </div>
-        <div class="grid-col-11 usa-footer__links">
-          <a href="tel:202-514-4609">(202) 514-4609</a>
-          <p>Telephone Device for the Deaf</p>
-          <p>(TTY) <a href="tel:202-514-0716">(202) 514-0716</a></p>
+
+
+        <div class="usa-footer__section">
+          <div class="usa-footer__icon display-flex">
+            <img src="{% static "img/globe-language.svg" %}" alt="language" class="icon">
+          </div>
+          <div class="usa-footer__links usa-footer__language">
+            {% include 'partials/i8n.html' %}
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="grid-col-6">
+    <div class="tablet:grid-col-1"></div>
+
+    <div class="tablet:grid-col-6 grid-col-12">
       <div class="usa-footer__heading usa-footer__logo-heading">
         Links
         <div class="usa-footer__separator"></div>
       </div>
 
       <div class="grid-row grid-gap">
-        <div class="grid-col-6 usa-footer__links">
+        <div class="tablet:grid-col-6 grid-col-12 usa-footer__links">
           <a href="https://www.justice.gov/crt/about">
             {% trans "About the division" %}
           </a>
           <a href="https://civilrights.justice.gov">
             {% trans "Report a violation" %}
           </a>
-          <a href="https://justice.gov/crt/privacy-policy" target="_blank">
+          <a href="https://justice.gov/crt/privacy-policy">
             {% trans "Privacy policy" %}
           </a>
-          <a href="https://www.justice.gov/">
-            Justice.gov
-          </a>
-          {% include 'partials/i8n.html' %}
-        </div>
-
-        <div class="grid-col-6 usa-footer__links">
           <a href="https://www.justice.gov/oip">
             {% trans "FOIA" %}
           </a>
           <a href="https://www.justice.gov/accessibility/accessibility-information">
             {% trans "Accessibility" %}
           </a>
+        </div>
+
+        <div class="tablet:grid-col-6 grid-col-12 usa-footer__links">
+          <a href="https://www.justice.gov/crt">
+            Justice.gov/CRT
+          </a>
           <a href="https://oig.justice.gov/">
-            {% trans "Office of the Inspector General" %}
+            {% trans "Office of Inspector General" %}
           </a>
           <a href="https://www.justice.gov/doj/budget-and-performance">
             {% trans "Budget and performance" %}
