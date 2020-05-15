@@ -92,18 +92,13 @@ msgid "Where did this happen?"
 msgstr "¿Dónde sucedió esto?"
 
 #: forms.py:339
-#, fuzzy
-#| msgid ""
-#| "Please tell us the city, state, and name of the location where this "
-#| "incident took place. This ensures your concern is reviewed by the right "
-#| "people within the Civil Rights Division."
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your report is reviewed by the right people within "
 "the Civil Rights Division."
 msgstr ""
 "Indique la ciudad, el estado y el nombre del lugar donde sucedió este "
-"incidente. Esto asegura que su motivo de preocupación sea revisado por las "
+"incidente. Esto asegura que su reporte sea revisado por las "
 "personas indicadas dentro de la División de Derechos Civiles."
 
 #: forms.py:366
@@ -229,10 +224,8 @@ msgstr ""
 "relacionado con la recepción de educación"
 
 #: model_variables.py:19
-#, fuzzy
-#| msgid "Voting rights or ability to vote blocked or affected"
 msgid "Voting rights or ability to vote affected"
-msgstr "Derechos al voto o una posibilidad de votar bloqueada o afectada"
+msgstr "Derecho al voto o la posibilidad de votar bloqueada o afectada"
 
 #: model_variables.py:20
 msgid "Mistreated by police, or correctional staff (including while in prison)"
@@ -506,7 +499,7 @@ msgstr "Otro motivo"
 #: model_variables.py:109
 msgid ""
 "Please make a selection to continue. If none of these apply to your "
-"situation, please select “None of these apply to me” or \"Other reason\"and "
+"situation, please select \"None of these apply to me\" or \"Other reason\"and "
 "explain."
 msgstr ""
 "Elija una opción para continuar. Si ninguna se aplica a su situación, elija "
@@ -1025,10 +1018,8 @@ msgid "Please enter a year after 1900."
 msgstr "Introduzca un año después de 1900"
 
 #: model_variables.py:309
-#, fuzzy
-#| msgid "Please enter a valid date format. Use format MM/DD/YYYY."
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
-msgstr "Introduzca un formato de fecha válido. Utilice el formato MM/DD/AAAA."
+msgstr "Introduzca una fecha válida. Utilice el formato MM/DD/AAAA."
 
 #: model_variables.py:312
 msgid "Please select the type of election or voting activity."
@@ -1106,10 +1097,8 @@ msgid "Hate crimes and human trafficking"
 msgstr "Delitos de odio y trata de personas"
 
 #: question_text.py:23
-#, fuzzy
-#| msgid "Please select if any apply to your concern"
 msgid "Please select if any apply to your report"
-msgstr "Indique si alguna se aplica a su preocupación"
+msgstr "Indique si alguna se aplica a su reporte"
 
 #: question_text.py:28
 msgid "Location name"
@@ -1211,11 +1200,9 @@ msgid "Any supporting materials (please list and describe them)."
 msgstr "Cualquier material de apoyo (haga una lista y describa cada artículo)."
 
 #: templates/base.html:15
-#, fuzzy
-#| msgid "Contact the Civil Rights Division - Department of Justice"
 msgid "Civil Rights Division - Department of Justice"
 msgstr ""
-"Comuníquese con la División de Derechos Civiles - Departamento de Justicia"
+"La División de Derechos Civiles - Departamento de Justicia"
 
 #: templates/base.html:23 templates/forms/base.html:29
 msgid "Skip to main content"
@@ -1294,12 +1281,9 @@ msgid "United States Department of Justice"
 msgstr "Departamento de Justicia de los Estados Unidos"
 
 #: templates/forms/confirmation.html:15
-#, fuzzy
-#| msgid "Thank you for submitting a concern to the Civil Rights Division."
 msgid "Thank you for submitting a report to the Civil Rights Division."
 msgstr ""
-"Gracias por informar a la División de Derechos Civiles de su motivo de "
-"preocupación."
+"Gracias por someter su reporte a la División de Derechos Civiles"
 
 #: templates/forms/confirmation.html:32
 msgid "Report successfully submitted"
@@ -1307,13 +1291,13 @@ msgstr "Su informe se ha entregado con éxito"
 
 #: templates/forms/confirmation.html:37
 msgid "Please save your record number for tracking."
-msgstr ""
+msgstr "Guarde su número de registro para propósitos de seguimiento."
 
 #: templates/forms/confirmation.html:38
 msgid ""
 "If you want a copy of this report for your personal records, save or print a "
 "copy of this page."
-msgstr ""
+msgstr "Si desea una copia de este informe para sus registros personales, guarde o imprima un copia de esta página."
 
 #: templates/forms/confirmation.html:41
 msgid "Your record number is:"
@@ -1328,20 +1312,15 @@ msgid "We review your report"
 msgstr "Revisamos su informe"
 
 #: templates/forms/confirmation.html:67
-#, fuzzy
-#| msgid ""
-#| "Our specialists in the Civil Rights Division carefully read every report "
-#| "to identify civil rights violations, spot trends, and determine if we "
-#| "have authority to help with your concern."
 msgid ""
 "Our specialists in the Civil Rights Division carefully read every report to "
 "identify civil rights violations, spot trends, and determine if we have "
 "authority to help with your report."
 msgstr ""
-"Nuestros especialistas en la División de Derechos Civiles leen cada informe "
+"Nuestros especialistas en la División de Derechos Civiles leen cada reporte"
 "detenidamente para identificar cualquier vulneración de derechos civiles y "
 "pautas existentes, así como para determinar si sería de nuestra competencia "
-"ayudarle con su motivo de preocupación."
+"ayudarle con el motivo de su reporte."
 
 #: templates/forms/confirmation.html:76
 msgid "Our specialists determine the next step"
@@ -1360,43 +1339,27 @@ msgstr ""
 "de la competencia legal del Departamento de Justicia."
 
 #: templates/forms/confirmation.html:82
-#, fuzzy
-#| msgid ""
-#| "<strong>Collect more information</strong> before we can look into your "
-#| "concern."
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
 "report."
-msgstr ""
-"<strong>Recopilar datos adicionales </strong> antes de investigar su motivo "
-"de preocupación."
+msgstr "<strong>Recopilar datos adicionales </strong> antes de investigar su reporte."
 
 #: templates/forms/confirmation.html:83
-#, fuzzy
-#| msgid ""
-#| "<strong>Recommend another government agency</strong> that can properly "
-#| "look into your concern. If so, we’ll let you know."
 msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
 "into your report. If so, we’ll let you know."
 msgstr ""
 "<strong>Recomendar a otro organismo gubernamental</strong> que podría "
-"investigar su motivo de preocupación de manera apropiada. De ser así, se lo "
-"avisaremos."
+"investigar su reporte de manera apropiada. De ser así, le avisaremos."
 
 #: templates/forms/confirmation.html:86
-#, fuzzy
-#| msgid ""
-#| "In some cases, we may determine that we don’t have legal authority to "
-#| "handle your concern and will recommend that you seek help from a private "
-#| "lawyer or local legal aid organization."
 msgid ""
 "In some cases, we may determine that we don’t have legal authority to handle "
 "your report and will recommend that you seek help from a private lawyer or "
 "local legal aid organization."
 msgstr ""
 "En algunos casos, puede que determinemos que no es de nuestra competencia "
-"legal ocuparnos de su motivo de preocupación y recomendaremos que recurra a "
+"legal ocuparnos de su reporte y recomendaremos que recurra a "
 "un abogado privado u organización local de asistencia legal."
 
 #: templates/forms/confirmation.html:96
@@ -1583,7 +1546,7 @@ msgstr "Dirección de correo electrónico"
 #: templates/forms/report_data.html:49 templates/forms/report_data.html:55
 #: templates/forms/report_data.html:145 templates/forms/report_data.html:151
 msgid "None selected"
-msgstr ""
+msgstr "Ninguna selección hecha"
 
 #: templates/forms/report_review.html:10
 msgid "Before you submit your report, please check your responses"
@@ -1600,14 +1563,12 @@ msgstr ""
 "responder a su informe rápido."
 
 #: templates/forms/report_review.html:14 templates/forms/report_review.html:26
-#, fuzzy
-#| msgid "Submit concern"
 msgid "Submit report"
-msgstr "Someter su motivo de preocupación"
+msgstr "Someter su reporte"
 
 #: templates/forms/snippets/preview_button.html:5
 msgid "Edit this page"
-msgstr ""
+msgstr "editar la página"
 
 #: templates/forms/widgets/crt_radio_area_option.html:26
 msgid "Examples:"
@@ -1641,54 +1602,50 @@ msgstr "Contacto"
 
 #: templates/partials/footer.html:33
 msgid "Telephone Device for the Deaf"
-msgstr ""
+msgstr "Dispositivo telefónico para sordos"
 
 #: templates/partials/footer.html:34
 msgid "(TTY)"
-msgstr ""
+msgstr "Teletipo (TTY por sus siglas en inglés)"
 
 #: templates/partials/footer.html:53
 msgid "Links"
-msgstr ""
+msgstr "Enlaces"
 
 #: templates/partials/footer.html:60
 msgid "About the division"
-msgstr ""
+msgstr "Acerca de la División"
 
 #: templates/partials/footer.html:63
 msgid "Report a violation"
-msgstr ""
+msgstr "Reporte una vulneración"
 
 #: templates/partials/footer.html:66
-#, fuzzy
-#| msgid "Private employer"
 msgid "Privacy policy"
-msgstr "Empleador privado"
+msgstr "Política de privacidad"
 
 #: templates/partials/footer.html:69
 msgid "FOIA"
-msgstr ""
+msgstr "Ley de libertad de información (FOIA por sus siglas en inglés)"
 
 #: templates/partials/footer.html:72
-#, fuzzy
-#| msgid "Disability"
 msgid "Accessibility"
-msgstr "Discapacidad"
+msgstr "Accesibilidad"
 
 #: templates/partials/footer.html:81
 msgid "Office of Inspector General"
-msgstr ""
+msgstr "Oficina del Inspector General"
 
 #: templates/partials/footer.html:84
 msgid "Budget and performance"
-msgstr ""
+msgstr "Presupuesto y rendimiento"
 
 #: templatetags/summary_error_count_message.py:13
 #, python-brace-format
 msgid "{count} error found"
 msgid_plural "{count} errors found"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "error encontrado"
+msgstr[1] "errores encontrados"
 
 #: views.py:39
 msgid "Bad request"
