@@ -79,7 +79,7 @@ jobs:
             name: Pull owasp zap docker image and run scan
             command: |
               docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-baseline.py \
-              -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf
+              -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf -z "-config rules.cookie.ignorelist=django_language"
   owasp-scan-stage:
     machine:
       image: circleci/classic:latest
@@ -90,7 +90,7 @@ jobs:
             name: Pull owasp zap docker image and run scan
             command: |
               docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-baseline.py \
-              -t https://crt-portal-django-stage.app.cloud.gov/report/ -c .circleci/zap.conf
+              -t https://crt-portal-django-stage.app.cloud.gov/report/ -c .circleci/zap.conf -z "-config rules.cookie.ignorelist=django_language"
   owasp-scan-prod:
     machine:
       image: circleci/classic:latest
@@ -101,7 +101,7 @@ jobs:
             name: Pull owasp zap docker image and run scan
             command: |
               docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-baseline.py \
-              -t https://crt-portal-django-prod.app.cloud.gov/report/ -c .circleci/zap.conf
+              -t https://crt-portal-django-prod.app.cloud.gov/report/ -c .circleci/zap.conf -z "-config rules.cookie.ignorelist=django_language"
 # deployments
   deploy-dev:
     working_directory: ~/code

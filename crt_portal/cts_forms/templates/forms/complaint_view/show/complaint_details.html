@@ -103,8 +103,6 @@
             {% endif %}
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
-            {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.election_details hidden=True %}
-
             {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.commercial_or_public_place hidden=True %}
             {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.other_commercial_or_public_place hidden=True %}
 
