@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-15 00:11+0000\n"
+"POT-Creation-Date: 2020-05-15 01:11+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,8 +98,8 @@ msgid ""
 "the Civil Rights Division."
 msgstr ""
 "Indique la ciudad, el estado y el nombre del lugar donde sucedió este "
-"incidente. Esto asegura que su reporte sea revisado por las "
-"personas indicadas dentro de la División de Derechos Civiles."
+"incidente. Esto asegura que su reporte sea revisado por las personas "
+"indicadas dentro de la División de Derechos Civiles."
 
 #: forms.py:366
 msgid "Presidential or congressional"
@@ -497,9 +497,14 @@ msgid "Other reason"
 msgstr "Otro motivo"
 
 #: model_variables.py:109
+#, fuzzy
+#| msgid ""
+#| "Please make a selection to continue. If none of these apply to your "
+#| "situation, please select \"None of these apply to me\" or \"Other reason"
+#| "\"and explain."
 msgid ""
 "Please make a selection to continue. If none of these apply to your "
-"situation, please select \"None of these apply to me\" or \"Other reason\"and "
+"situation, please select “None of these apply to me” or \"Other reason\"and "
 "explain."
 msgstr ""
 "Elija una opción para continuar. Si ninguna se aplica a su situación, elija "
@@ -1201,8 +1206,7 @@ msgstr "Cualquier material de apoyo (haga una lista y describa cada artículo)."
 
 #: templates/base.html:15
 msgid "Civil Rights Division - Department of Justice"
-msgstr ""
-"La División de Derechos Civiles - Departamento de Justicia"
+msgstr "La División de Derechos Civiles - Departamento de Justicia"
 
 #: templates/base.html:23 templates/forms/base.html:29
 msgid "Skip to main content"
@@ -1282,8 +1286,7 @@ msgstr "Departamento de Justicia de los Estados Unidos"
 
 #: templates/forms/confirmation.html:15
 msgid "Thank you for submitting a report to the Civil Rights Division."
-msgstr ""
-"Gracias por someter su reporte a la División de Derechos Civiles"
+msgstr "Gracias por someter su reporte a la División de Derechos Civiles"
 
 #: templates/forms/confirmation.html:32
 msgid "Report successfully submitted"
@@ -1297,7 +1300,9 @@ msgstr "Guarde su número de registro para propósitos de seguimiento."
 msgid ""
 "If you want a copy of this report for your personal records, save or print a "
 "copy of this page."
-msgstr "Si desea una copia de este informe para sus registros personales, guarde o imprima un copia de esta página."
+msgstr ""
+"Si desea una copia de este informe para sus registros personales, guarde o "
+"imprima un copia de esta página."
 
 #: templates/forms/confirmation.html:41
 msgid "Your record number is:"
@@ -1317,10 +1322,10 @@ msgid ""
 "identify civil rights violations, spot trends, and determine if we have "
 "authority to help with your report."
 msgstr ""
-"Nuestros especialistas en la División de Derechos Civiles leen cada reporte"
-"detenidamente para identificar cualquier vulneración de derechos civiles y "
-"pautas existentes, así como para determinar si sería de nuestra competencia "
-"ayudarle con el motivo de su reporte."
+"Nuestros especialistas en la División de Derechos Civiles leen cada "
+"reportedetenidamente para identificar cualquier vulneración de derechos "
+"civiles y pautas existentes, así como para determinar si sería de nuestra "
+"competencia ayudarle con el motivo de su reporte."
 
 #: templates/forms/confirmation.html:76
 msgid "Our specialists determine the next step"
@@ -1342,7 +1347,8 @@ msgstr ""
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
 "report."
-msgstr "<strong>Recopilar datos adicionales </strong> antes de investigar su reporte."
+msgstr ""
+"<strong>Recopilar datos adicionales </strong> antes de investigar su reporte."
 
 #: templates/forms/confirmation.html:83
 msgid ""
@@ -1359,8 +1365,8 @@ msgid ""
 "local legal aid organization."
 msgstr ""
 "En algunos casos, puede que determinemos que no es de nuestra competencia "
-"legal ocuparnos de su reporte y recomendaremos que recurra a "
-"un abogado privado u organización local de asistencia legal."
+"legal ocuparnos de su reporte y recomendaremos que recurra a un abogado "
+"privado u organización local de asistencia legal."
 
 #: templates/forms/confirmation.html:96
 msgid "When possible, we will follow up with you"
@@ -1512,8 +1518,6 @@ msgstr ""
 "      "
 
 #: templates/forms/report_base.html:23
-#, fuzzy
-#| msgid "Contact the Department of Justice to report a civil rights concern"
 msgid "Contact the Department of Justice to report a civil rights violation"
 msgstr ""
 "Para informar de un motivo de preocupación relacionado con derechos civiles, "
@@ -1640,12 +1644,13 @@ msgstr "Oficina del Inspector General"
 msgid "Budget and performance"
 msgstr "Presupuesto y rendimiento"
 
+### not working
 #: templatetags/summary_error_count_message.py:13
 #, python-brace-format
 msgid "{count} error found"
 msgid_plural "{count} errors found"
-msgstr[0] "error encontrado"
-msgstr[1] "errores encontrados"
+msgstr[0] "{count} error encontrado"
+msgstr[1] "{count} errores encontrados"
 
 #: views.py:39
 msgid "Bad request"
