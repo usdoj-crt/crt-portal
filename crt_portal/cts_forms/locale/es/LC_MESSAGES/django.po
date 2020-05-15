@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-15 02:34+0000\n"
+"POT-Creation-Date: 2020-05-15 18:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -225,7 +225,7 @@ msgstr ""
 
 #: model_variables.py:19
 msgid "Voting rights or ability to vote affected"
-msgstr "Derecho al voto o la posibilidad de votar bloqueada o afectada"
+msgstr "Derecho al voto o la posibilidad de votar afectada"
 
 #: model_variables.py:20
 msgid "Mistreated by police, or correctional staff (including while in prison)"
@@ -1233,7 +1233,7 @@ msgstr ""
 "División de Derechos Civiles - Departamento de Justicia\n"
 "      "
 
-#: templates/forms/base.html:20 templates/forms/report_base.html:14
+#: templates/forms/base.html:20 templates/forms/report_base.html:13
 msgid "Contact the Civil Rights Division - Department of Justice"
 msgstr ""
 "Comuníquese con la División de Derechos Civiles - Departamento de Justicia"
@@ -1504,7 +1504,7 @@ msgstr "no completado"
 msgid "completed"
 msgstr "completado"
 
-#: templates/forms/report_base.html:9
+#: templates/forms/report_base.html:8
 #, python-format
 msgid ""
 "\n"
@@ -1517,13 +1517,13 @@ msgstr ""
 "División de Derechos Civiles - Departamento de Justicia\n"
 "      "
 
-#: templates/forms/report_base.html:23
+#: templates/forms/report_base.html:22
 msgid "Contact the Department of Justice to report a civil rights violation"
 msgstr ""
 "Para informar de un motivo de preocupación relacionado con derechos civiles, "
 "comuníquese con el Departamento de Justicia"
 
-#: templates/forms/report_base.html:56
+#: templates/forms/report_base.html:55
 #, python-format
 msgid ""
 "\n"
@@ -1542,29 +1542,25 @@ msgstr[1] ""
 "                  %(counter)s errores encontrados\n"
 "                "
 
-#: templates/forms/report_base.html:74
+#: templates/forms/report_base.html:73
 msgid "Submit"
 msgstr "Entregar"
 
-#: templates/forms/report_base.html:76
+#: templates/forms/report_base.html:75
 msgid "Next"
 msgstr "Siguiente"
 
-#: templates/forms/report_base.html:83 templates/forms/report_review.html:32
+#: templates/forms/report_base.html:82 templates/forms/report_review.html:32
 msgid "previous step"
 msgstr "paso previo"
 
-#: templates/forms/report_base.html:86 templates/forms/report_review.html:35
+#: templates/forms/report_base.html:85 templates/forms/report_review.html:35
 msgid "Back"
 msgstr "Volver"
 
-#
-#
 #: templates/forms/report_data.html:23 templates/forms/report_data.html:126
-#, fuzzy
-#| msgid "Email address"
 msgid "Address"
-msgstr "Dirección de correo electrónico"
+msgstr "Dirección física"
 
 #: templates/forms/report_data.html:49 templates/forms/report_data.html:55
 #: templates/forms/report_data.html:145 templates/forms/report_data.html:151
