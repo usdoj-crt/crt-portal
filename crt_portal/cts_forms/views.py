@@ -278,14 +278,14 @@ class ShowView(LoginRequiredMixin, View):
             # If the incident location changes, update the district.
             # District can be overwritten in the drop down.
             # If there was a location change but no new match for district, don't override.
-            if (report.district != report.assign_district()) and \
-                    ('district' not in form.changed_data) and \
-                    (report.assign_district() not in [None, '']):
-                initial = report.district
-                report.district = report.assign_district()
-                report.save()
-                description = f'Updated from "{initial}" to "{report.district}"'
-                add_activity(request.user, "district", description, report)
+            if 'district' not in form.changed_data:
+                current_district = report.district
+                assigned_district = report.assign_district()
+                if assigned_district and current_district != assigned_district:
+                    report.district = assigned_district
+                    report.save()
+                    description = f'Updated from "{current_district}" to "{report.district}"'
+                    add_activity(request.user, "district", description, report)
 
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())
