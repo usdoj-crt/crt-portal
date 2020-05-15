@@ -157,6 +157,9 @@
     background-image: url(../../img/intake-icons/ic_chevron-down.svg);
     background-size: 15px;
   }
+  select.complaint-multi-select {
+    background-image: none;
+  }
 
   .content {
     background: $white;
