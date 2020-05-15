@@ -15,7 +15,7 @@ from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
 from .forms import (CommentActions, ComplaintActions, ContactEditForm, Filters,
-                    ReportEditForm, Review)
+                    ReportEditForm, Review, add_activity)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -273,9 +273,13 @@ class ShowView(LoginRequiredMixin, View):
         form, inbound_form_type = self.get_form(request, report)
         if form.is_valid() and form.has_changed():
             form.save()
+            # district and location are on different forms
             if report.district != report.assign_district():
+                initial = report.district
                 report.district = report.assign_district()
                 report.save()
+                description = f'Updated from "{initial}" to "{report.district}"'
+                add_activity(request.user, "district", description, report)
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())
             url = report.get_absolute_url()

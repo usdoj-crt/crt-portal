@@ -61,6 +61,15 @@ def _add_empty_choice(choices):
     return (EMPTY_CHOICE,) + choices
 
 
+def add_activity(user, verb, description, instance):
+    action.send(
+        user,
+        verb=verb,
+        description=description,
+        target=instance
+    )
+
+
 class ActivityStreamUpdater(object):
     """Utility functions to update activity stream for all changed fields"""
 
@@ -83,12 +92,7 @@ class ActivityStreamUpdater(object):
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
         for verb, description in self.get_actions():
-            action.send(
-                user,
-                verb=verb,
-                description=description,
-                target=self.instance
-            )
+            add_activity(user, verb, description, self.instance)
 
 
 class Contact(ModelForm):
