@@ -23,7 +23,7 @@
           <h4>{% trans "Address" %}</h4>
           <p>{{ report.contact_address_line_1|default:"-" }}</p>
           <p>{{ report.contact_address_line_2|default:"-" }}</p>
-          <p>{{ report.contact_city|default:"-" }} {{ report.get_contact_state_display|default:"-" }} {{ report.contact_zip|default:"-" }}</p>
+          <p>{{ report.contact_city|default:"-" }}, {{ report.get_contact_state_display|default:"-" }} {{ report.contact_zip|default:"-" }}</p>
 
         </div>
         <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.servicemember }}</h3>
@@ -126,7 +126,7 @@
         <h4>{% trans "Address" %}</h4>
         <p>{{ report.location_address_line_1|default:"-" }}</p>
         <p>{{ report.location_address_line_2|default:"-" }}</p>
-        <p>{{ report.location_city_town|default:"-" }} {{ report.get_location_state_display|default:"-"}}</p>
+        <p>{{ report.location_city_town|default:"-" }}, {{ report.get_location_state_display|default:"-"}}</p>
 
     </div>
 </div>
