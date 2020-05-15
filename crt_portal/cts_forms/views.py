@@ -275,11 +275,11 @@ class ShowView(LoginRequiredMixin, View):
             form.save()
 
             # district and location are on different forms so handled here.
-            # If the incident location changes, update the district
+            # If the incident location changes, update the district.
+            # District can be overwritten in the drop down.
+            # If there was a location change but no new match for district, don't override.
             if (report.district != report.assign_district()) and \
-                    # district can be overwritten in the drop down
-                    ('district' not in form.changed_data ) and\
-                    # if there was a location change but no new match for district, don't override
+                    ('district' not in form.changed_data ) and \
                     (report.assign_district() not in [None, '']):
                 initial = report.district
                 report.district = report.assign_district()
