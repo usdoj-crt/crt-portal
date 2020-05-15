@@ -273,6 +273,9 @@ class ShowView(LoginRequiredMixin, View):
         form, inbound_form_type = self.get_form(request, report)
         if form.is_valid() and form.has_changed():
             form.save()
+            if report.district != report.assign_district():
+                report.district = report.assign_district()
+                report.save()
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())
             url = report.get_absolute_url()
