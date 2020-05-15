@@ -1,0 +1,318 @@
+{
+  "urls": [
+    {
+      "url": "http://127.0.0.1:8000/report",
+      "actions": [
+        "set field #i8n_select to es",
+        "click element #language-select",
+        "wait for element #id_0-contact_phone to be visible"
+      ],
+      "screenCapture": "pa11y-screenshots/es-page1-contact.png"
+    },
+    {
+      "url": "http://127.0.0.1:8000/report",
+      "actions": [
+        "set field #i8n_select to es",
+        "click element #language-select",
+        "wait for element #id_0-servicemember_0 to be visible",
+        "click element #submit-next",
+        "wait for element #page-errors to be visible"
+      ],
+      "screenCapture": "pa11y-screenshots/es-page1-error.png"
+    },
+    {
+      "url": "http://127.0.0.1:8000/report",
+      "actions": [
+        "set field #i8n_select to es",
+        "click element #language-select",
+        "wait for element #id_0-servicemember to be visible",
+        "click element #id_0-servicemember_0",
+        "click element #submit-next",
+        "wait for element #id_1-primary_complaint to be visible",
+        "click element #submit-next",
+        "wait for element #page-errors to be visible"
+      ],
+      "screenCapture": "pa11y-screenshots/es-page2-error.png"
+    },
+    {
+      "url": "http://127.0.0.1:8000/report",
+      "actions": [
+        "set field #i8n_select to es",
+        "click element #language-select",
+        "wait for element #id_0-servicemember to be visible",
+        "click element #id_0-servicemember_0",
+        "click element #submit-next",
+        "wait for element #id_1-primary_complaint to be visible"
+      ],
+      "screenCapture": "pa11y-screenshots/es-page2-primary-issue.png"
+    },
+     {
+      "url": "http://127.0.0.1:8000/report",
+      "actions": [
+        "set field #i8n_select to es",
+        "click element #language-select",
+        "wait for element #id_0-servicemember_1 to be visible",
+        "click element #id_0-servicemember_1",
+        "click element #submit-next",
+        "wait for element #id_1-primary_complaint to be visible",
+        "click element #id_1-primary_complaint_0",
+        "click element #submit-next",
+        "wait for element #id_2-hatecrimes_trafficking_0 to be visible"
+      ],
+      "screenCapture": "pa11y-screenshots/es-page3-hatecrime.png"
+    },
+    {
+      "url": "http://127.0.0.1:8000/report",
+      "actions": [
+        "set field #i8n_select to es",
+        "click element #language-select",
+        "wait for element #id_0-servicemember_0 to be visible",
+        "click element #id_0-servicemember_0",
+        "click element #submit-next",
+        "wait for element #id_1-primary_complaint to be visible",
+        "click element #id_1-primary_complaint_5",
+        "click element #submit-next",
+        "wait for element #id_2-hatecrimes_trafficking_0 to be visible",
+        "click element #submit-next",
+        "wait for element #id_6-commercial_or_public_place_5 to be visible",
+        "click element #id_6-commercial_or_public_place_5"
+      ],
+      "screenCapture": "pa11y-screenshots/es-page3-location-commercial.png"
+    },
+    {
+      "url": "http://127.0.0.1:8000/report",
+      "actions": [
+        "set field #i8n_select to es",
+        "click element #language-select",
+        "wait for element #id_0-servicemember_0 to be visible",
+        "click element #id_0-servicemember_0",
+        "click element #submit-next",
+        "wait for element #id_1-primary_complaint to be visible",
+        "click element #id_1-primary_complaint_2",
+        "click element #submit-next",
+        "wait for element #id_2-hatecrimes_trafficking_0 to be visible",
+        "click element #submit-next",
+        "wait for element #id_7-public_or_private_school_0 to be visible"
+      ],
+      "screenCapture": "pa11y-screenshots/es-page3-location-education.png"
+    },
+    {
+      "url": "http://127.0.0.1:8000/report",
+      "actions": [
+        "set field #i8n_select to es",
+        "click element #language-select",
+        "wait for element #id_0-servicemember_0 to be visible",
+        "click element #id_0-servicemember_0",
+        "click element #submit-next",
+        "wait for element #id_1-primary_complaint to be visible",
+        "click element #id_1-primary_complaint_4",
+        "click element #submit-next",
+        "wait for element #id_2-hatecrimes_trafficking_0 to be visible",
+        "click element #submit-next",
+        "wait for element #id_5-inside_correctional_facility_0 to be visible"
+      ],
+      "screenCapture": "pa11y-screenshots/es-page3-location-police.png"
+    },
+    {
+      "url": "http://127.0.0.1:8000/report",
+      "actions": [
+        "set field #i8n_select to es",
+        "click element #language-select",
+        "wait for element #id_0-servicemember_0 to be visible",
+        "click element #id_0-servicemember_0",
+        "click element #submit-next",
+        "wait for element #id_1-primary_complaint_0 to be visible",
+        "click element #id_1-primary_complaint_0",
+        "click element #submit-next",
+        "wait for element #id_2-hatecrimes_trafficking_0 to be visible",
+        "click element #submit-next",
+        "wait for element #id_4-employer_size_0 to be visible"
+      ],
+      "screenCapture": "pa11y-screenshots/es-page3-location-workplace.png"
+    },
+    {
+      "url": "http://127.0.0.1:8000/report",
+      "actions": [
+        "set field #i8n_select to es",
+        "click element #language-select",
+        "wait for element #id_0-servicemember_1 to be visible",
+        "click element #id_0-servicemember_1",
+        "click element #submit-next",
+        "wait for element #id_1-primary_complaint to be visible",
+        "click element #id_1-primary_complaint_0",
+        "click element #submit-next",
+        "wait for element #id_2-hatecrimes_trafficking_0 to be visible",
+        "click element #submit-next",
+        "wait for element #id_4-public_or_private_employer_0 to be visible",
+        "click element #id_4-public_or_private_employer_0",
+        "click element #id_4-employer_size_0",
+        "set field #id_4-location_name to Store",
+        "set field #id_4-location_city_town to Town",
+        "set field #id_4-location_state to AL",
+        "click element #submit-next",
+        "wait for element #id_9-protected_class_0 to be visible"
+      ],
+      "screenCapture": "pa11y-screenshots/es-page4-protected-class.png"
+    },
+    {
+      "url": "http://127.0.0.1:8000/report",
+      "actions": [
+        "set field #i8n_select to es",
+        "click element #language-select",
+        "wait for element #id_0-servicemember_1 to be visible",
+        "click element #id_0-servicemember_1",
+        "click element #submit-next",
+        "wait for element #id_1-primary_complaint to be visible",
+        "click element #id_1-primary_complaint_0",
+        "click element #submit-next",
+        "wait for element #id_2-hatecrimes_trafficking_0 to be visible",
+        "click element #submit-next",
+        "wait for element #id_4-public_or_private_employer_0 to be visible",
+        "click element #id_4-public_or_private_employer_0",
+        "click element #id_4-employer_size_0",
+        "set field #id_4-location_name to Store",
+        "set field #id_4-location_city_town to Town",
+        "set field #id_4-location_state to AL",
+        "click element #submit-next",
+        "wait for element #id_9-protected_class_0 to be visible",
+        "click element #id_9-protected_class_0",
+        "click element #submit-next",
+        "wait for element #id_10-last_incident_month to be visible"
+      ],
+      "screenCapture": "pa11y-screenshots/es-page4-date.png"
+    },
+    {
+      "url": "http://127.0.0.1:8000/report",
+      "actions": [
+        "set field #i8n_select to es",
+        "click element #language-select",
+        "wait for element #id_0-servicemember_1 to be visible",
+        "click element #id_0-servicemember_1",
+        "click element #submit-next",
+        "wait for element #id_1-primary_complaint to be visible",
+        "click element #id_1-primary_complaint_0",
+        "click element #submit-next",
+        "wait for element #id_2-hatecrimes_trafficking_0 to be visible",
+        "click element #submit-next",
+        "wait for element #id_4-public_or_private_employer_0 to be visible",
+        "click element #id_4-public_or_private_employer_0",
+        "click element #id_4-employer_size_0",
+        "set field #id_4-location_name to Store",
+        "set field #id_4-location_city_town to Town",
+        "set field #id_4-location_state to AL",
+        "click element #submit-next",
+        "wait for element #id_9-protected_class_0 to be visible",
+        "click element #id_9-protected_class_0",
+        "click element #submit-next",
+        "wait for element #id_10-last_incident_month to be visible",
+        "click element #submit-next",
+        "wait for element #page-errors to be visible",
+        "set field #id_10-last_incident_month to 1",
+        "click element #submit-next",
+        "wait for element #page-errors to be visible",
+        "set field #id_10-last_incident_year to 2021",
+        "click element #submit-next",
+        "wait for element #page-errors to be visible"
+      ],
+      "screenCapture": "pa11y-screenshots/es-page5-date-error.png"
+    },
+    {
+      "url": "http://127.0.0.1:8000/report",
+      "actions": [
+        "set field #i8n_select to es",
+        "click element #language-select",
+        "wait for element #id_0-servicemember_1 to be visible",
+        "click element #id_0-servicemember_1",
+        "click element #submit-next",
+        "wait for element #id_1-primary_complaint to be visible",
+        "click element #id_1-primary_complaint_0",
+        "click element #submit-next",
+        "wait for element #id_2-hatecrimes_trafficking_0 to be visible",
+        "click element #submit-next",
+        "wait for element #id_4-public_or_private_employer_0 to be visible",
+        "click element #id_4-public_or_private_employer_0",
+        "click element #id_4-employer_size_0",
+        "set field #id_4-location_name to Store",
+        "set field #id_4-location_city_town to Town",
+        "set field #id_4-location_state to AL",
+        "click element #submit-next",
+        "wait for element #id_9-protected_class_0 to be visible",
+        "click element #id_9-protected_class_0",
+        "click element #submit-next",
+        "wait for element #id_10-last_incident_month to be visible",
+        "set field #id_10-last_incident_month to 1",
+        "set field #id_10-last_incident_year to 2020",
+        "click element #submit-next",
+        "wait for element #id_11-violation_summary to be visible"
+      ],
+      "screenCapture": "pa11y-screenshots/es-page6-details.png"
+    },
+    {
+      "url": "http://127.0.0.1:8000/report",
+      "actions": [
+        "set field #i8n_select to es",
+        "click element #language-select",
+        "wait for element #id_0-servicemember_1 to be visible",
+        "click element #id_0-servicemember_1",
+        "click element #submit-next",
+        "wait for element #id_1-primary_complaint to be visible",
+        "click element #id_1-primary_complaint_0",
+        "click element #submit-next",
+        "wait for element #id_2-hatecrimes_trafficking_0 to be visible",
+        "click element #submit-next",
+        "wait for element #id_4-public_or_private_employer_0 to be visible",
+        "click element #id_4-public_or_private_employer_0",
+        "click element #id_4-employer_size_0",
+        "set field #id_4-location_name to Store",
+        "set field #id_4-location_city_town to Town",
+        "set field #id_4-location_state to AL",
+        "click element #submit-next",
+        "wait for element #id_9-protected_class_0 to be visible",
+        "click element #id_9-protected_class_0",
+        "click element #submit-next",
+        "wait for element #id_10-last_incident_month to be visible",
+        "set field #id_10-last_incident_month to 1",
+        "set field #id_10-last_incident_year to 2020",
+        "click element #submit-next",
+        "wait for element #id_11-violation_summary to be visible",
+        "set field #id_11-violation_summary to test",
+        "click element #submit-next"
+      ],
+      "screenCapture": "pa11y-screenshots/es-page7-review.png"
+    },
+    {
+      "url": "http://127.0.0.1:8000/report",
+      "actions": [
+        "set field #i8n_select to es",
+        "click element #language-select",
+        "wait for element #id_0-servicemember_1 to be visible",
+        "click element #id_0-servicemember_1",
+        "click element #submit-next",
+        "wait for element #id_1-primary_complaint to be visible",
+        "click element #id_1-primary_complaint_0",
+        "click element #submit-next",
+        "wait for element #id_2-hatecrimes_trafficking_0 to be visible",
+        "click element #submit-next",
+        "wait for element #id_4-public_or_private_employer_0 to be visible",
+        "click element #id_4-public_or_private_employer_0",
+        "click element #id_4-employer_size_0",
+        "set field #id_4-location_name to Store",
+        "set field #id_4-location_city_town to Town",
+        "set field #id_4-location_state to AL",
+        "click element #submit-next",
+        "wait for element #id_9-protected_class_0 to be visible",
+        "click element #id_9-protected_class_0",
+        "click element #submit-next",
+        "wait for element #id_10-last_incident_month to be visible",
+        "set field #id_10-last_incident_month to 1",
+        "set field #id_10-last_incident_year to 2020",
+        "click element #submit-next",
+        "wait for element #id_11-violation_summary to be visible",
+        "set field #id_11-violation_summary to test",
+        "click element #submit-next",
+        "click element #submit-next-top"
+      ],
+      "screenCapture": "pa11y-screenshots/es-page8-confirmation.png"
+    }
+  ]
+}

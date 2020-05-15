@@ -339,7 +339,7 @@ class LocationForm(ModelForm):
                 ally_id='location-help-text'
             ),
         ]
-        self.page_note = _('Please tell us the city, state, and name of the location where this incident took place. This ensures your concern is reviewed by the right people within the Civil Rights Division.')
+        self.page_note = _('Please tell us the city, state, and name of the location where this incident took place. This ensures your report is reviewed by the right people within the Civil Rights Division.')
 
 
 class ElectionLocation(LocationForm):
@@ -930,17 +930,17 @@ class Filters(ModelForm):
         ]
 
         labels = {
-            # Translators: CRT sections
-            'assigned_section': _('View sections'),
-            'contact_first_name': _('Contact first name'),
-            'contact_last_name': _('Contact last name'),
-            'location_city_town': _('Incident location city'),
-            'location_name': _('Incident location name'),
-            'location_state': _('Incident location state'),
-            'assigned_to': _('Assignee'),
-            'public_id': _('Complaint ID'),
-            'primary_statute': _('Statute'),
-            'violation_summary': _('Personal description'),
+            # These are CRT view only
+            'assigned_section': 'View sections',
+            'contact_first_name': 'Contact first name',
+            'contact_last_name': 'Contact last name',
+            'location_city_town': 'Incident location city',
+            'location_name': 'Incident location name',
+            'location_state': 'Incident location state',
+            'assigned_to': 'Assignee',
+            'public_id': 'Complaint ID',
+            'primary_statute': 'Statute',
+            'violation_summary': 'Personal description',
         }
 
         widgets = {
@@ -979,7 +979,8 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
     CONTEXT_KEY = 'actions'
     assigned_to = ModelChoiceField(
         queryset=User.objects.filter(is_active=True),
-        label=_("Assigned to"),
+        # crt view only
+        label="Assigned to",
         required=False
     )
 

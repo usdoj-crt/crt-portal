@@ -20,7 +20,7 @@ SERVICEMEMBER_QUESTION = _('Are you now or have ever been an active duty service
 PRIMARY_REASON_QUESTION = _('What is your primary reason for contacting the Civil Rights Division?')
 # hatecrime
 HATECRIME_TITLE = _('Hate crimes and human trafficking')
-HATECRIME_QUESTION = _('Please select if any apply to your concern')
+HATECRIME_QUESTION = _('Please select if any apply to your report')
 
 # Location
 LOCATION_QUESTIONS = {
