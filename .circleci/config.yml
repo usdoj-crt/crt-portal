@@ -280,9 +280,7 @@ workflows:
       - owasp-scan-dev:
           filters:
             branches:
-              # don't merge
-              only: fix-lang-cookie
-              # only: /^release.*/
+              only: /^release.*/
 
       - owasp-scan-stage:
           filters:
