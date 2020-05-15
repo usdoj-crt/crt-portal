@@ -106,7 +106,6 @@
     var allOptionalFields = [
       'public_or_private_employer',
       'employer_size',
-      'election_details',
       'public_or_private_school',
       'inside_correctional_facility',
       'correctional_facility_type',
@@ -116,7 +115,6 @@
 
     var followupMapping = {
       workplace: ['public_or_private_employer', 'employer_size'],
-      voting: ['election_details'],
       education: ['public_or_private_school'],
       police: ['inside_correctional_facility', 'correctional_facility_type'],
       commercial_or_public: ['commercial_or_public_place', 'other_commercial_or_public_place']

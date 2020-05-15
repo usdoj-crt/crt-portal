@@ -18,7 +18,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
                               CORRECTIONAL_FACILITY_LOCATION_CHOICES,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
-                              DATE_ERRORS, DISTRICT_CHOICES, ELECTION_CHOICES,
+                              DATE_ERRORS, DISTRICT_CHOICES,
                               EMPLOYER_SIZE_CHOICES, EMPLOYER_SIZE_ERROR,
                               EMPTY_CHOICE, INCIDENT_DATE_HELPTEXT,
                               POLICE_LOCATION_ERRORS,
@@ -32,8 +32,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               SECTION_CHOICES, SERVICEMEMBER_CHOICES,
                               SERVICEMEMBER_ERROR, STATES_AND_TERRITORIES,
                               STATUS_CHOICES, STATUTE_CHOICES,
-                              VIOLATION_SUMMARY_ERROR, VOTING_ERROR,
-                              WHERE_ERRORS)
+                              VIOLATION_SUMMARY_ERROR, WHERE_ERRORS)
 from .models import (CommentAndSummary, HateCrimesandTrafficking,
                      ProtectedClass, Report)
 from .phone_regex import phone_validation_regex
@@ -340,40 +339,7 @@ class LocationForm(ModelForm):
 
 
 class ElectionLocation(LocationForm):
-    class Meta:
-        model = Report
-        election_fields = ['election_details']
-        fields = LocationForm.Meta.fields + election_fields
-        widgets = LocationForm.Meta.widgets
-
-    def __init__(self, *args, **kwargs):
-        LocationForm.__init__(self, *args, **kwargs)
-        self.question_groups = [
-            QuestionGroup(
-                self,
-                ('election_details',),
-                group_name=ELECTION_QUESTION,
-                optional=False
-
-            )
-        ] + self.question_groups
-
-        self.fields['election_details'] = TypedChoiceField(
-            choices=ELECTION_CHOICES,
-            empty_value=None,
-            widget=UsaRadioSelect(attrs={
-                'help_text': {
-                    'federal': _('Presidential or congressional'),
-                    'state_local': _('Governor, state legislation, city position (mayor, council, local board)'),
-                    'both': _('Federal & State/local')
-                }
-            }),
-            required=True,
-            error_messages={
-                'required': VOTING_ERROR
-            },
-            label=''
-        )
+    pass
 
 
 class WorkplaceLocation(LocationForm):
@@ -712,7 +678,6 @@ class ProForm(
             HateCrimesTrafficking.Meta.fields +\
             ['location_name', 'location_address_line_1', 'location_address_line_2',
                 'location_city_town', 'location_state'] +\
-            ElectionLocation.Meta.election_fields +\
             WorkplaceLocation.Meta.workplace_fields +\
             CommercialPublicLocation.Meta.commercial_fields +\
             PoliceLocation.Meta.police_fields +\
@@ -843,12 +808,6 @@ class ProForm(
         )
         self.fields['public_or_private_school'] = TypedChoiceField(
             choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
-            empty_value=None,
-            widget=UsaRadioSelect,
-            required=False,
-        )
-        self.fields['election_details'] = TypedChoiceField(
-            choices=ELECTION_CHOICES,
             empty_value=None,
             widget=UsaRadioSelect,
             required=False,
@@ -1192,7 +1151,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         """
         Extend ProForm to capture field definitions from component forms, excluding those which should not be editable here
         """
-        exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name',
+        exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name', 'election_details',
                    'contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_state',
                    'contact_city', 'contact_zip', 'crt_reciept_day', 'crt_reciept_month', 'crt_reciept_year']
 
@@ -1227,7 +1186,6 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         self._set_to_select_widget('public_or_private_school')
         self._set_to_select_widget('public_or_private_employer')
         self._set_to_select_widget('employer_size')
-        self._set_to_select_widget('election_details')
         self._set_to_select_widget('inside_correctional_facility')
         self._set_to_select_widget('correctional_facility_type')
         self._set_to_select_widget('commercial_or_public_place')
