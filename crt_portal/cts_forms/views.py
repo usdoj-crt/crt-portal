@@ -273,13 +273,20 @@ class ShowView(LoginRequiredMixin, View):
         form, inbound_form_type = self.get_form(request, report)
         if form.is_valid() and form.has_changed():
             form.save()
-            # district and location are on different forms
-            if report.district != report.assign_district():
+
+            # district and location are on different forms so handled here.
+            # If the incident location changes, update the district
+            if (report.district != report.assign_district()) and \
+                    # district can be overwritten in the drop down
+                    ('district' not in form.changed_data ) and\
+                    # if there was a location change but no new match for district, don't override distict
+                    (report.assign_district() not in [None, '']):
                 initial = report.district
                 report.district = report.assign_district()
                 report.save()
                 description = f'Updated from "{initial}" to "{report.district}"'
                 add_activity(request.user, "district", description, report)
+
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())
             url = report.get_absolute_url()
