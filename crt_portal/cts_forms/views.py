@@ -15,7 +15,7 @@ from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
 from .forms import (CommentActions, ComplaintActions, ContactEditForm, Filters,
-                    ReportEditForm, Review)
+                    ReportEditForm, Review, add_activity)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -272,7 +272,21 @@ class ShowView(LoginRequiredMixin, View):
 
         form, inbound_form_type = self.get_form(request, report)
         if form.is_valid() and form.has_changed():
-            form.save()
+            report = form.save(commit=False)
+
+            # district and location are on different forms so handled here.
+            # If the incident location changes, update the district.
+            # District can be overwritten in the drop down.
+            # If there was a location change but no new match for district, don't override.
+            if 'district' not in form.changed_data:
+                current_district = report.district
+                assigned_district = report.assign_district()
+                if assigned_district and current_district != assigned_district:
+                    report.district = assigned_district
+                    description = f'Updated from "{current_district}" to "{report.district}"'
+                    add_activity(request.user, "District:", description, report)
+
+            report.save()
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())
             url = report.get_absolute_url()
