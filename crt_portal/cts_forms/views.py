@@ -5,18 +5,17 @@ from django import forms
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render, reverse
-from django.core.exceptions import SuspiciousOperation
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import FormView, View
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
 from .forms import (CommentActions, ComplaintActions, ContactEditForm, Filters,
-                    ReportEditForm, Review, SummaryField)
+                    ReportEditForm, Review)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -231,25 +230,16 @@ def serialize_data(report, request, report_id):
         report.other_class,
     )
 
-    summary = report.get_summary
-    if summary:
-        summary_box = SummaryField(
-            initial={'note': summary.note},
-        )
-    else:
-        summary_box = SummaryField()
-
     output = {
         'actions': ComplaintActions(instance=report),
         'comments': CommentActions(),
-        'summary_box': summary_box,
         'activity_stream': report.target_actions.all(),
         'crimes': crimes,
         'data': report,
         'p_class_list': p_class_list,
         'primary_complaint': primary_complaint,
         'return_url_args': request.GET.get('next', ''),
-        'summary': summary,
+        'summary': report.get_summary,
     }
 
     return output
@@ -279,6 +269,7 @@ class ShowView(LoginRequiredMixin, View):
         Accept only the submitted form and discard any other inbound changes
         """
         report = get_object_or_404(Report, pk=id)
+
         form, inbound_form_type = self.get_form(request, report)
         if form.is_valid() and form.has_changed():
             form.save()
@@ -322,12 +313,7 @@ class SaveCommentView(LoginRequiredMixin, FormView):
         if comment_form.is_valid() and comment_form.has_changed():
             comment = comment_form.save()
             report.internal_comments.add(comment)
-            if comment.is_summary:
-                verb = 'Updated summary: ' if instance else 'Added summary: '
-
-            else:
-                # If not a summary, this is a comment
-                verb = 'Updated comment: ' if instance else 'Added comment: '
+            verb = 'Updated comment: ' if instance else 'Added comment: '
 
             messages.add_message(request, messages.SUCCESS, f'Successfully {verb[:-2].lower()}.')
             comment_form.update_activity_stream(request.user, report, verb)

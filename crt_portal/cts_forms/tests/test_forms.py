@@ -147,3 +147,44 @@ class ReportEditFormTests(TestCase):
         self.assertTrue('employer_size' not in form.changed_data)
         for field in Report.PRIMARY_COMPLAINT_DEPENDENT_FIELDS['workplace']:
             self.assertTrue(form.cleaned_data[field] == "")
+
+    def test_summary_can_be_created(self):
+        """
+        Saving of a valid form instance creates an associated
+        CommentAndSummary object w/ is_summary is True
+        """
+        data = self.report_data.copy()
+        new_summary = 'summarized'
+        data.update({'summary': new_summary})
+        form = ReportEditForm(data, instance=self.report)
+
+        self.assertTrue(form.is_valid())
+        self.assertTrue('summary' in form.changed_data)
+
+        form.save()
+        self.report.refresh_from_db()
+        self.assertEqual(self.report.get_summary.note, new_summary)
+
+    def test_summary_can_be_updated(self):
+        """
+        Saving of a valid form instance updates the associated
+        CommentAndSummary object w/ is_summary is True
+        """
+        # Create and add a summary to our test report
+        summary, _ = CommentAndSummary.objects.get_or_create(note='summary', is_summary=True)
+        self.report.internal_comments.add(summary)
+
+        data = self.report_data.copy()
+        new_summary = 'newest summary'
+        data.update({'summary': new_summary, 'summary_id': summary.id})
+        form = ReportEditForm(data, instance=self.report)
+
+        self.assertTrue(form.is_valid())
+        self.assertTrue('summary' in form.changed_data)
+
+        form.save()
+
+        self.report.refresh_from_db()
+        summary.refresh_from_db()
+        self.assertEqual(self.report.get_summary.note, new_summary)
+        self.assertEqual(summary.note, new_summary)
