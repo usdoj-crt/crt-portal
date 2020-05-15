@@ -113,11 +113,11 @@ Important commands to use during internationalization (i18n):
 
 When you run `makemessages`, Django will search through .py, .txt, and .html files to find strings marked for translation. Django finds these strings through the `gettext` function or its lazy-loading equivalent (in Python) or the `trans` function (in HTML). This adds the marked strings to `.po` files where translators will do their work.
 
-    docker-compose run web django-admin makemessages -l es
+    docker-compose run -w /code/crt_portal/cts_forms web django-admin makemessages -l es
 
 After the strings translated, the translation can be compiled back to Django-readable `.mo` files using run `compilemessages`:
 
-    docker-compose run web django-admin compilemessages
+    docker-compose run -w /code/crt_portal/cts_forms web django-admin compilemessages
 
 ### Hard reset with a fresh database
 

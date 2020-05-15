@@ -18,7 +18,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
                               CORRECTIONAL_FACILITY_LOCATION_CHOICES,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
-                              DATE_ERRORS, DISTRICT_CHOICES, ELECTION_CHOICES,
+                              DATE_ERRORS, DISTRICT_CHOICES,
                               EMPLOYER_SIZE_CHOICES, EMPLOYER_SIZE_ERROR,
                               EMPTY_CHOICE, INCIDENT_DATE_HELPTEXT,
                               POLICE_LOCATION_ERRORS,
@@ -32,8 +32,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               SECTION_CHOICES, SERVICEMEMBER_CHOICES,
                               SERVICEMEMBER_ERROR, STATES_AND_TERRITORIES,
                               STATUS_CHOICES, STATUTE_CHOICES,
-                              VIOLATION_SUMMARY_ERROR, VOTING_ERROR,
-                              WHERE_ERRORS)
+                              VIOLATION_SUMMARY_ERROR, WHERE_ERRORS)
 from .models import (CommentAndSummary, HateCrimesandTrafficking,
                      ProtectedClass, Report)
 from .phone_regex import phone_validation_regex
@@ -61,6 +60,15 @@ def _add_empty_choice(choices):
     return (EMPTY_CHOICE,) + choices
 
 
+def add_activity(user, verb, description, instance):
+    action.send(
+        user,
+        verb=verb,
+        description=description,
+        target=instance
+    )
+
+
 class ActivityStreamUpdater(object):
     """Utility functions to update activity stream for all changed fields"""
 
@@ -83,12 +91,7 @@ class ActivityStreamUpdater(object):
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
         for verb, description in self.get_actions():
-            action.send(
-                user,
-                verb=verb,
-                description=description,
-                target=self.instance
-            )
+            add_activity(user, verb, description, self.instance)
 
 
 class Contact(ModelForm):
@@ -336,44 +339,11 @@ class LocationForm(ModelForm):
                 ally_id='location-help-text'
             ),
         ]
-        self.page_note = _('Please tell us the city, state, and name of the location where this incident took place. This ensures your concern is reviewed by the right people within the Civil Rights Division.')
+        self.page_note = _('Please tell us the city, state, and name of the location where this incident took place. This ensures your report is reviewed by the right people within the Civil Rights Division.')
 
 
 class ElectionLocation(LocationForm):
-    class Meta:
-        model = Report
-        election_fields = ['election_details']
-        fields = LocationForm.Meta.fields + election_fields
-        widgets = LocationForm.Meta.widgets
-
-    def __init__(self, *args, **kwargs):
-        LocationForm.__init__(self, *args, **kwargs)
-        self.question_groups = [
-            QuestionGroup(
-                self,
-                ('election_details',),
-                group_name=ELECTION_QUESTION,
-                optional=False
-
-            )
-        ] + self.question_groups
-
-        self.fields['election_details'] = TypedChoiceField(
-            choices=ELECTION_CHOICES,
-            empty_value=None,
-            widget=UsaRadioSelect(attrs={
-                'help_text': {
-                    'federal': _('Presidential or congressional'),
-                    'state_local': _('Governor, state legislation, city position (mayor, council, local board)'),
-                    'both': _('Federal & State/local')
-                }
-            }),
-            required=True,
-            error_messages={
-                'required': VOTING_ERROR
-            },
-            label=''
-        )
+    pass
 
 
 class WorkplaceLocation(LocationForm):
@@ -712,7 +682,6 @@ class ProForm(
             HateCrimesTrafficking.Meta.fields +\
             ['location_name', 'location_address_line_1', 'location_address_line_2',
                 'location_city_town', 'location_state'] +\
-            ElectionLocation.Meta.election_fields +\
             WorkplaceLocation.Meta.workplace_fields +\
             CommercialPublicLocation.Meta.commercial_fields +\
             PoliceLocation.Meta.police_fields +\
@@ -847,12 +816,6 @@ class ProForm(
             widget=UsaRadioSelect,
             required=False,
         )
-        self.fields['election_details'] = TypedChoiceField(
-            choices=ELECTION_CHOICES,
-            empty_value=None,
-            widget=UsaRadioSelect,
-            required=False,
-        )
         self.fields['inside_correctional_facility'] = TypedChoiceField(
             choices=CORRECTIONAL_FACILITY_LOCATION_CHOICES,
             empty_value=None,
@@ -967,17 +930,17 @@ class Filters(ModelForm):
         ]
 
         labels = {
-            # Translators: CRT sections
-            'assigned_section': _('View sections'),
-            'contact_first_name': _('Contact first name'),
-            'contact_last_name': _('Contact last name'),
-            'location_city_town': _('Incident location city'),
-            'location_name': _('Incident location name'),
-            'location_state': _('Incident location state'),
-            'assigned_to': _('Assignee'),
-            'public_id': _('Complaint ID'),
-            'primary_statute': _('Statute'),
-            'violation_summary': _('Personal description'),
+            # These are CRT view only
+            'assigned_section': 'View sections',
+            'contact_first_name': 'Contact first name',
+            'contact_last_name': 'Contact last name',
+            'location_city_town': 'Incident location city',
+            'location_name': 'Incident location name',
+            'location_state': 'Incident location state',
+            'assigned_to': 'Assignee',
+            'public_id': 'Complaint ID',
+            'primary_statute': 'Statute',
+            'violation_summary': 'Personal description',
         }
 
         widgets = {
@@ -1016,7 +979,8 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
     CONTEXT_KEY = 'actions'
     assigned_to = ModelChoiceField(
         queryset=User.objects.filter(is_active=True),
-        label=_("Assigned to"),
+        # crt view only
+        label="Assigned to",
         required=False
     )
 
@@ -1192,7 +1156,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         """
         Extend ProForm to capture field definitions from component forms, excluding those which should not be editable here
         """
-        exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name',
+        exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name', 'election_details',
                    'contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_state',
                    'contact_city', 'contact_zip', 'crt_reciept_day', 'crt_reciept_month', 'crt_reciept_year']
 
@@ -1227,7 +1191,6 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         self._set_to_select_widget('public_or_private_school')
         self._set_to_select_widget('public_or_private_employer')
         self._set_to_select_widget('employer_size')
-        self._set_to_select_widget('election_details')
         self._set_to_select_widget('inside_correctional_facility')
         self._set_to_select_widget('correctional_facility_type')
         self._set_to_select_widget('commercial_or_public_place')
