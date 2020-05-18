@@ -4,7 +4,7 @@
 {% load i18n %}
 
 {% block page_header %}
-  <header class="crt-form-header">
+  <header class="crt-landing--header">
     <div class="grid-container">
       <div class="grid-row grid-gap flex-child">
         <div class="tablet:grid-col-9">
@@ -27,12 +27,12 @@
           </div>
         </div>
 
-        <div class="tablet:grid-col-3 doj-menu">
+        <div class="tablet:grid-col-3 crt-landing--menu">
           <ul>
-            <li>About the Division</li>
-            <li>Your rights</li>
-            <li>Report a violation</li>
-            <li>Contact</li>
+            <li><a href="#">About the Division</li></a></li>
+            <li><a href="#">Your rights</a></li>
+            <li><a href="#">Report a violation</a></li>
+            <li><a href="#">Contact</a></li>
           </ul>
         </div>
       </div>
@@ -43,18 +43,21 @@
 {% block main_class %} class="margin-top-5"{% endblock %}
 
 {% block content %}
-  <div class="grid-container">
-
-    <div class="crt-landing--hero grid-row grid-gap">
-      <h1>{% trans "Have you or someone you know experienced unlawful discrimination?" %}</h1>
-      <p>
-        <strong>{% trans "The Civil Rights Division may be able to help." %}</strong>
-        {% trans "We enforce federal laws that protect you from discrimination based on your race, color, national origin, disability status, sex, religion, familial status, and more." %}
-      </p>
-      <a class="usa-button" href="{% url 'crt_report_form' %}">{% trans "Start a report" %}</a>
+  <div class="grid-container crt-landing--hero">
+    <div class="grid-row grid-gap">
+      <div class="tablet:grid-col-8">
+        <h1>{% trans "Have you or someone you know experienced unlawful discrimination?" %}</h1>
+        <p>
+          <strong>{% trans "The Civil Rights Division may be able to help." %}</strong>
+          {% trans "We enforce federal laws that protect you from discrimination based on your race, color, national origin, disability status, sex, religion, familial status, and more." %}
+        </p>
+        <a class="usa-button" href="{% url 'crt_report_form' %}">{% trans "Start a report" %}</a>
+      </div>
     </div>
+  </div>
 
-    <div class="crt-landing--emergency grid-row grid-gap">
+  <div class="grid-container crt-landing--emergency">
+    <div class="grid-row grid-gap">
       <div class="tablet:grid-col-9">
         <p>
           {% trans "If you are in danger, contact" %} <a href="tel:911">9-1-1</a>
@@ -64,7 +67,7 @@
         <p>
           {% trans "If you or someone else is in immediate danger" %}
           <a href="tel:911">
-            {% trans 'please contact 9-1-1 or local police' %}
+            {% trans 'please contact 9-1-1 or local police.' %}
           </a>
         </p>
       </div>
@@ -72,13 +75,15 @@
         <p>
           {% trans "If you are reporting misconduct by law enforcement," %}
           <a href="#">
-            {% trans "call the FBI's tip line" %}
+            {% trans "call the FBI's tip line." %}
           </a>
         </p>
       </div>
     </div>
+  </div>
 
-    <div class="crt-landing--description grid-row grid-gap">
+  <div class="grid-container crt-landing--description">
+    <div class="grid-row grid-gap">
       <h1>{% trans "We uphold the civil and constitutional rights of" %} <em>{% trans "all people in America." %}</em></h1>
     </div>
   </div>

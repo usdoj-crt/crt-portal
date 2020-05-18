@@ -1,0 +1,28 @@
+.crt-landing--header {
+  background-color: $blue-warm-vivid-80;
+  color: white;
+
+  a {
+    color: white;
+    text-decoration: none;
+
+    &:hover {
+      border-bottom: 1px solid white;
+    }
+  }
+}
+
+.crt-landing--hero {
+  margin-bottom: 2rem;
+}
+
+.crt-landing--emergency {
+  background-color: $blue-warm-vivid-80;
+  color: white;
+
+  a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none
+  }
+}
