@@ -8,6 +8,22 @@
 .crt-landing--header {
   background-color: $blue-warm-vivid-80;
   color: white;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  .grid-container {
+    padding: 0;
+  }
+
+  ul {
+    display: flex;
+  }
+
+  li {
+    list-style: none;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+  }
 
   a {
     color: white;
@@ -16,6 +32,22 @@
     &:hover {
       border-bottom: 1px solid white;
     }
+  }
+
+  .crt-landing--menu {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  .crt-landing--logo_subheading {
+    @extend .usa-footer__logo-subheading;
+    font-size: 0.8em;
+  }
+
+  .crt-landing--logo_heading {
+    @extend .usa-footer__logo-heading;
+    font-size: 1.2em;
   }
 }
 
