@@ -72,17 +72,13 @@
           <p class="crt-landing--emergency_contact">
             <em>
               {% trans "If you or someone else is in immediate danger, " %}
-              <a href="tel:911">
-                {% trans 'please call 9-1-1 or local police.' %}
-              </a>
+              <a href="tel:911">{% trans 'please call 9-1-1 or local police.' %}</a>
             </em>
           </p>
           <p class="crt-landing--emergency_contact">
             <em>
               {% trans "If you are reporting misconduct by law enforcement" %}
-              <a href="#">
-                {% trans "call the FBI's tip line." %}
-              </a>
+              <a href="#">{% trans "call the FBI's tip line." %}</a>
             </em>
           </p>
         </div>
@@ -96,25 +92,32 @@
         <div class="tablet:grid-col-12">
           <h1>{% trans "We uphold the civil and constitutional rights of" %} <em>{% trans "all people in America." %}</em></h1>
           <div class="crt-landing--separator"></div>
-          <p>{% trans "We protect your rights through:" %}</p>
+          <p class="crt-landing--largetext">{% trans "We protect your rights through:" %}</p>
           <div class="grid-row grid-gap">
             <div class="tablet:grid-col-4">
               <p class="crt-landing--subheader">{% trans "Enforcement" %}</p>
               <div class="crt-landing--smallseparator"></div>
               <p class="crt-landing--largetext">{% trans "We sue or prosecute those who violate civil rights laws." %}</p>
-              <p>{% trans "You can help us do this work by reporting a possible civil rights violation through our" %} <a href="{% url 'crt_report_form' %}">{% trans "online form" %}</a>.
-              </p>
             </div>
             <div class="tablet:grid-col-4">
               <p class="crt-landing--subheader">{% trans "Education" %}</p>
               <div class="crt-landing--smallseparator"></div>
               <p class="crt-landing--largetext">{% trans "We help the public understand how to comply with these laws." %}</p>
-              <p>{% trans "We speak at conferences and public events, produce technical assistance materials, and post information online about our past cases." %}</p>
             </div>
             <div class="tablet:grid-col-4">
               <p class="crt-landing--subheader">{% trans "Coordination" %}</p>
               <div class="crt-landing--smallseparator"></div>
               <p class="crt-landing--largetext">{% trans "We help the entire federal government work together to enforce these laws." %}</p>
+            </div>
+          </div>
+          <div class="grid-row grid-gap">
+            <div class="tablet:grid-col-4">
+              <p>{% trans "You can help us do this work by reporting a possible civil rights violation through our" %} <a href="{% url 'crt_report_form' %}">{% trans "online form" %}</a>.</p>
+            </div>
+            <div class="tablet:grid-col-4">
+              <p>{% trans "We speak at conferences and public events, produce technical assistance materials, and post information online about our past cases." %}</p>
+            </div>
+            <div class="tablet:grid-col-4">
               <p>{% trans "We regularly meet with other agencies to promote a consistent, unified response to civil rights issues facing the country." %}</p>
             </div>
           </div>
@@ -129,12 +132,27 @@
         <div class="tablet:grid-col-8">
           <h1>{% trans "Understanding your rights" %}</h1>
           <div class="crt-landing--separator"></div>
-          <p>
+          <p class="crt-landing--largetext">
             {% trans "Civil rights laws can protect you from unlawful discrimination, harassment, or abuse in a variety of settings like" %}
-            {% trans "housing, the workplace, school, voting, business, healthcare, public spaces" %}
+            <span class="crt-landing--largetext crt-landing--rights_categories">
+              {% trans "housing, the workplace, school, voting, business, healthcare, public spaces," %}
+            </span>
             {% trans "and more." %}
           </p>
-          <p>
+          <p class="crt-landing--mediumtext">
+            {% trans "If you have been" %}
+            <span class="crt-landing--rights_categories">
+              {% trans "mistreated by law enforcement" %}
+            </span>
+            {% trans "(including while incarcerated), believe you have been a victim of a" %}
+            <span class="crt-landing--rights_categories">
+              {% trans "hate crime," %}
+            </span>
+            {% trans "or a victim of " %}
+            <span class="crt-landing--rights_categories">
+              {% trans "human trafficking" %}
+            </span>
+            {% trans ", we can help get you to the right place." %}
           </p>
         </div>
       </div>

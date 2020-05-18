@@ -106,11 +106,19 @@
   color: white;
   padding-top: 2rem;
   padding-bottom: 2rem;
+
+  &_categories {
+    color: $gold;
+  }
 }
 
 .crt-landing--largetext {
   font-size: 1.4rem;
   line-height: 2rem;
+}
+
+.crt-landing--mediumtext {
+  font-size: 1.2rem;
 }
 
 .crt-landing--subheader {
