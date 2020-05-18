@@ -57,7 +57,11 @@
                 {% plural %}
                   {{counter}} errors found
                 {% endblocktrans %}
+
+                {% block extra_errors %}
+                {% endblock extra_errors %}
               </section>
+
             {% endif %}
             <h2 class="margin-0">{{ current_step_title }}</h2>
             {% if form.page_note %}

@@ -1,12 +1,36 @@
 {% extends "forms/report_base.html" %}
+{% load i18n %}
 {% load static %}
+
+{% block extra_errors %}
+  <ul>
+    {% for field in form %}
+      {% if field.errors %}
+        {{field.label}}
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endblock %}
+
 {% block form_questions %}
   <div class="crt-portal-card crt-portal-card">
     <div class="crt-portal-card__content crt-portal-card__content--lg">
       {{ block.super }}
 
       <div data-toggle>
-      {% include 'forms/grouped_questions.html' %}
+        <fieldset class="usa-fieldset">
+          <legend class="em-text question-header">
+            {{form.protected_class.label}}<span class="field-required--group">{% trans "required" %}</span>
+          </legend>
+          <p class="help-text" id="protected-class-help-text">
+            {{form.protected_class.help_text}}
+          </p>
+          {% if form.protected_class.errors %}
+            {% include "forms/snippets/error_alert.html" with errors=form.protected_class.errors %}
+          {% endif %}
+          {{ form.protected_class }}
+        </fieldset>
+
       {% with field=form.other_class %}
         <div class='other-class-option' class="padding-left-4">
           <div>

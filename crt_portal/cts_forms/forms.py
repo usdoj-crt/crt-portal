@@ -529,7 +529,8 @@ class ProtectedClassForm(ModelForm):
         self.fields['protected_class'] = ModelMultipleChoiceField(
             error_messages={'required': PROTECTED_CLASS_ERROR},
             required=True,
-            label="",
+            label=PROTECTED_CLASS_QUESTION,
+            help_text=_('There are federal and state laws that protect people from discrimination based on their personal characteristics. Here is a list of the most common characteristics that are legally protected. Select any that apply to your incident.'),
             queryset=ProtectedClass.active_choices.all().order_by('form_order'),
             widget=UsaCheckboxSelectMultiple(attrs={
                 'aria-describedby': 'protected-class-help-text'
@@ -540,17 +541,6 @@ class ProtectedClassForm(ModelForm):
         self.fields['other_class'].widget = TextInput(
             attrs={'class': 'usa-input word-count-10'}
         )
-
-        self.question_groups = [
-            QuestionGroup(
-                self,
-                ('protected_class',),
-                group_name=PROTECTED_CLASS_QUESTION,
-                help_text=_('There are federal and state laws that protect people from discrimination based on their personal characteristics. Here is a list of the most common characteristics that are legally protected. Select any that apply to your incident.'),
-                optional=False,
-                ally_id="protected-class-help-text"
-            )
-        ]
 
 
 def date_cleaner(self, cleaned_data):
