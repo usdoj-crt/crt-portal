@@ -35,6 +35,10 @@
       @include u-padding-bottom(6);
       @include u-padding-top(5);
     }
+
+    h2 {
+      margin-bottom: 2rem;
+    }
   }
 
   .title {
