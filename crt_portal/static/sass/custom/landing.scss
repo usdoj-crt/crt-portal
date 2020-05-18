@@ -1,3 +1,10 @@
+.crt-landing--separator {
+  margin-top: 1rem;
+  border: 2px solid $gold;
+  border-radius: 2px;
+  width: 50px;
+}
+
 .crt-landing--header {
   background-color: $blue-warm-vivid-80;
   color: white;
@@ -13,16 +20,42 @@
 }
 
 .crt-landing--hero {
-  margin-bottom: 2rem;
+  color: $blue-warm-vivid-80;
+  margin-bottom: 2rem; // temporary
 }
 
 .crt-landing--emergency {
   background-color: $blue-warm-vivid-80;
   color: white;
+  text-align: center;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
 
-  a {
-    color: white;
+  &_header {
+    @include u-font-family('serif');
+    font-size: 1.2rem;
     font-weight: bold;
-    text-decoration: none
+    color: $gold;
+    margin-top: 0.5rem;
+
+    a {
+      color: $gold;
+      font-weight: bold;
+      text-decoration: none
+    }
   }
+
+  &_contact {
+    margin: 0.5rem;
+
+    a {
+      color: white;
+      font-weight: bold;
+      text-decoration: none
+    }
+  }
+}
+
+.crt-landing--description {
+  color: $blue-warm-vivid-80;
 }
