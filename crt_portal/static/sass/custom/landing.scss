@@ -5,6 +5,13 @@
   width: 50px;
 }
 
+.crt-landing--smallseparator {
+  margin-top: 1rem;
+  border: 2px solid $blue-warm-vivid-80;
+  border-radius: 2px;
+  width: 25px;
+}
+
 .crt-landing--header {
   background-color: $blue-warm-vivid-80;
   color: white;
@@ -90,4 +97,24 @@
 
 .crt-landing--description {
   color: $blue-warm-vivid-80;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.crt-landing--rights {
+  background-color: $blue-warm-vivid-80;
+  color: white;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.crt-landing--largetext {
+  font-size: 1.4rem;
+  line-height: 2rem;
+}
+
+.crt-landing--subheader {
+  @include u-font-family('serif');
+  font-size: 1.5rem;
+  font-weight: bold;
 }

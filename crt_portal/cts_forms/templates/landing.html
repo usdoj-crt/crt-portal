@@ -49,7 +49,7 @@
         <div class="tablet:grid-col-8">
           <h1>{% trans "Have you or someone you know experienced unlawful discrimination?" %}</h1>
           <div class="crt-landing--separator"></div>
-          <p>
+          <p class="crt-landing--largetext">
             <strong>{% trans "The Civil Rights Division may be able to help." %}</strong>
             {% trans "We enforce federal laws that protect you from discrimination based on your race, color, national origin, disability status, sex, religion, familial status, and more." %}
           </p>
@@ -73,7 +73,7 @@
             <em>
               {% trans "If you or someone else is in immediate danger, " %}
               <a href="tel:911">
-                {% trans 'please contact 9-1-1 or local police.' %}
+                {% trans 'please call 9-1-1 or local police.' %}
               </a>
             </em>
           </p>
@@ -96,8 +96,49 @@
         <div class="tablet:grid-col-12">
           <h1>{% trans "We uphold the civil and constitutional rights of" %} <em>{% trans "all people in America." %}</em></h1>
           <div class="crt-landing--separator"></div>
+          <p>{% trans "We protect your rights through:" %}</p>
+          <div class="grid-row grid-gap">
+            <div class="tablet:grid-col-4">
+              <p class="crt-landing--subheader">{% trans "Enforcement" %}</p>
+              <div class="crt-landing--smallseparator"></div>
+              <p class="crt-landing--largetext">{% trans "We sue or prosecute those who violate civil rights laws." %}</p>
+              <p>{% trans "You can help us do this work by reporting a possible civil rights violation through our" %} <a href="{% url 'crt_report_form' %}">{% trans "online form" %}</a>.
+              </p>
+            </div>
+            <div class="tablet:grid-col-4">
+              <p class="crt-landing--subheader">{% trans "Education" %}</p>
+              <div class="crt-landing--smallseparator"></div>
+              <p class="crt-landing--largetext">{% trans "We help the public understand how to comply with these laws." %}</p>
+              <p>{% trans "We speak at conferences and public events, produce technical assistance materials, and post information online about our past cases." %}</p>
+            </div>
+            <div class="tablet:grid-col-4">
+              <p class="crt-landing--subheader">{% trans "Coordination" %}</p>
+              <div class="crt-landing--smallseparator"></div>
+              <p class="crt-landing--largetext">{% trans "We help the entire federal government work together to enforce these laws." %}</p>
+              <p>{% trans "We regularly meet with other agencies to promote a consistent, unified response to civil rights issues facing the country." %}</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <div class="crt-landing--rights">
+    <div class="grid-container">
+      <div class="grid-row grid-gap">
+        <div class="tablet:grid-col-8">
+          <h1>{% trans "Understanding your rights" %}</h1>
+          <div class="crt-landing--separator"></div>
+          <p>
+            {% trans "Civil rights laws can protect you from unlawful discrimination, harassment, or abuse in a variety of settings like" %}
+            {% trans "housing, the workplace, school, voting, business, healthcare, public spaces" %}
+            {% trans "and more." %}
+          </p>
+          <p>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
 {% endblock %}
