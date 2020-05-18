@@ -10,7 +10,7 @@ from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import FormView, View
+from django.views.generic import FormView, View, TemplateView
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
@@ -484,6 +484,14 @@ def show_location_form_condition(wizard):
     if not cleaned_data['primary_complaint'] in conditional_location_routings:
         return True
     return False
+
+
+class LandingPageView(TemplateView):
+    template_name = "landing.html"
+
+    def get_context_data(self, **kwargs):
+        context = dict()
+        return context
 
 
 class CRTReportWizard(SessionWizardView):

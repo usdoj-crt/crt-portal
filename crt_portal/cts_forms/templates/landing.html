@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load i18n %}
+
+{% block page_header %}
+  <div class="grid-container">
+    <div class="grid-row grid-gap">
+      <h1>{% trans "Have you or someone you know experienced unlawful discrimination?" %}</h1>
+      <a class="usa-button" href="{% url 'crt_report_form' %}">{% trans "Start a report" %}</a>
+    </div>
+  </div>
+{% endblock %}
+
+{% block main_class %} class="margin-top-5"{% endblock %}
+
+{% block content %}
+  <div class="grid-container">
+    <div class="grid-row grid-gap">
+      <h2>{% trans "We uphold the civil and constitutional rights of" %} <em>{% trans "all people in America." %}</em></h2>
+    </div>
+  </div>
+{% endblock %}
