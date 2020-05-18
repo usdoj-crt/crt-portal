@@ -65,20 +65,18 @@
         <div class="tablet:grid-col-12">
           <img src="{% static "img/phone.svg" %}" alt="phone" class="icon">
           <p class="crt-landing--emergency_header">
-            {% trans "If you are in danger, contact" %} <a href="tel:911">9-1-1</a>
+            {% trans 'If you are in danger, contact <a href="tel:911">9-1-1</a>' %}
           </p>
         </div>
         <div class="tablet:grid-col-12">
           <p class="crt-landing--emergency_contact">
             <em>
-              {% trans "If you or someone else is in immediate danger, " %}
-              <a href="tel:911">{% trans 'please call 9-1-1 or local police.' %}</a>
+              {% trans 'If you or someone else is in immediate danger, <a href="tel:911">please call 9-1-1 or local police.</a>' %}
             </em>
           </p>
           <p class="crt-landing--emergency_contact">
             <em>
-              {% trans "If you are reporting misconduct by law enforcement" %}
-              <a href="#">{% trans "call the FBI's tip line." %}</a>
+              {% trans 'If you are reporting misconduct by law enforcement <a href="#">call the FBI\'s tip line</a>.' %}
             </em>
           </p>
         </div>
@@ -90,7 +88,7 @@
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-12">
-          <h1>{% trans "We uphold the civil and constitutional rights of" %} <em>{% trans "all people in America." %}</em></h1>
+          <h1>{% trans "We uphold the civil and constitutional rights of <em>all people in America</em>." %}</h1>
           <div class="crt-landing--separator"></div>
           <p class="crt-landing--largetext">{% trans "We protect your rights through:" %}</p>
           <div class="grid-row grid-gap">
@@ -133,27 +131,22 @@
           <h1>{% trans "Understanding your rights" %}</h1>
           <div class="crt-landing--separator"></div>
           <p class="crt-landing--largetext">
-            {% trans "Civil rights laws can protect you from unlawful discrimination, harassment, or abuse in a variety of settings like" %}
-            <span class="crt-landing--largetext crt-landing--rights_categories">
-              {% trans "housing, the workplace, school, voting, business, healthcare, public spaces," %}
-            </span>
-            {% trans "and more." %}
+            {% trans 'Civil rights laws can protect you from unlawful discrimination, harassment, or abuse in a variety of settings like <span class="crt-landing--largetext crt-landing--rights_categories">housing, the workplace, school, voting, business, healthcare, public spaces</span>, and more.' %}
           </p>
           <p class="crt-landing--mediumtext">
-            {% trans "If you have been" %}
-            <span class="crt-landing--rights_categories">
-              {% trans "mistreated by law enforcement" %}
-            </span>
-            {% trans "(including while incarcerated), believe you have been a victim of a" %}
-            <span class="crt-landing--rights_categories">
-              {% trans "hate crime," %}
-            </span>
-            {% trans "or a victim of " %}
-            <span class="crt-landing--rights_categories">
-              {% trans "human trafficking" %}
-            </span>
-            {% trans ", we can help get you to the right place." %}
+            {% trans 'If you have been <span class="crt-landing--rights_categories">mistreated by law enforcement</span> (including while incarcerated), believe you have been a victim of a <span class="crt-landing--rights_categories">hate crime</span>, or a victim of <span class="crt-landing--rights_categories">human trafficking</span>, we can help get you to the right place.' %}
           </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="crt-landing--list">
+    <div class="grid-container">
+      <div class="grid-row grid-gap">
+        <div class="tablet:grid-col-8">
+          <h2>{% trans "Common civil rights violations" %}</h2>
+          <div class="crt-landing--separator"></div>
         </div>
       </div>
     </div>
