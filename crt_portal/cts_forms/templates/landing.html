@@ -1,22 +1,85 @@
 {% extends "base.html" %}
 
+{% load static %}
 {% load i18n %}
 
 {% block page_header %}
-  <div class="grid-container">
-    <div class="grid-row grid-gap">
-      <h1>{% trans "Have you or someone you know experienced unlawful discrimination?" %}</h1>
-      <a class="usa-button" href="{% url 'crt_report_form' %}">{% trans "Start a report" %}</a>
+  <header class="crt-form-header">
+    <div class="grid-container">
+      <div class="grid-row grid-gap flex-child">
+        <div class="tablet:grid-col-9">
+          <div class="grid-container usa-footer__logo-section">
+            <div class="usa-footer__logo grid-row grid-gap-2">
+              <div class="grid-col-auto">
+                <img src="{% static "img/doj-logo-footer.svg" %}"
+                     alt=""
+                     height="64" />
+              </div>
+              <div class="grid-col-auto">
+                <p class="usa-footer__logo-subheading">
+                  {% trans "U.S. Department of Justice" %}
+                </p>
+                <p class="usa-footer__logo-heading">
+                  {% trans "Civil Rights Division" %}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tablet:grid-col-3 doj-menu">
+          <ul>
+            <li>About the Division</li>
+            <li>Your rights</li>
+            <li>Report a violation</li>
+            <li>Contact</li>
+          </ul>
+        </div>
+      </div>
     </div>
-  </div>
+  </header>
 {% endblock %}
 
 {% block main_class %} class="margin-top-5"{% endblock %}
 
 {% block content %}
   <div class="grid-container">
-    <div class="grid-row grid-gap">
-      <h2>{% trans "We uphold the civil and constitutional rights of" %} <em>{% trans "all people in America." %}</em></h2>
+
+    <div class="crt-landing--hero grid-row grid-gap">
+      <h1>{% trans "Have you or someone you know experienced unlawful discrimination?" %}</h1>
+      <p>
+        <strong>{% trans "The Civil Rights Division may be able to help." %}</strong>
+        {% trans "We enforce federal laws that protect you from discrimination based on your race, color, national origin, disability status, sex, religion, familial status, and more." %}
+      </p>
+      <a class="usa-button" href="{% url 'crt_report_form' %}">{% trans "Start a report" %}</a>
+    </div>
+
+    <div class="crt-landing--emergency grid-row grid-gap">
+      <div class="tablet:grid-col-9">
+        <p>
+          {% trans "If you are in danger, contact" %} <a href="tel:911">9-1-1</a>
+        </p>
+      </div>
+      <div class="tablet:grid-col-9">
+        <p>
+          {% trans "If you or someone else is in immediate danger" %}
+          <a href="tel:911">
+            {% trans 'please contact 9-1-1 or local police' %}
+          </a>
+        </p>
+      </div>
+      <div class="tablet:grid-col-9">
+        <p>
+          {% trans "If you are reporting misconduct by law enforcement," %}
+          <a href="#">
+            {% trans "call the FBI's tip line" %}
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="crt-landing--description grid-row grid-gap">
+      <h1>{% trans "We uphold the civil and constitutional rights of" %} <em>{% trans "all people in America." %}</em></h1>
     </div>
   </div>
 {% endblock %}
