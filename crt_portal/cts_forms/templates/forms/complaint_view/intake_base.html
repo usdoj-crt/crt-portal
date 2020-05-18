@@ -2,27 +2,7 @@
 {% load static %}
 {% block usa_banner %}{% endblock %}
 {% block page_header %}
-<header class="intake-header">
-  <div class="title">
-    <div class="title-icon">
-      <img src="{% static 'img/intake-icons/ic_home.svg' %}" alt="" class="icon" />
-    </div>
-
-    <h1 class="title-copy">
-      CRT Complaint Records
-    </h1>
-  </div>
-  <div class="intake-actions">
-    <a class="add-record" href="/form/new/" label="create record" name="Create record">
-      <img src="{% static 'img/intake-icons/ic_add.svg'%}" alt="" class="icon" />
-      Add new record
-    </a>
-    <a href="/accounts/logout" class="outline-button outline-button--light">
-      <img src="{% static 'img/intake-icons/ic_settings.svg'%}" alt="" class="icon" />
-      log out
-    </a>
-  </div>
-</header>
+  {% include 'forms/complaint_view/intake_header.html' with title_text="CRT Complaint Records" %}
 {% endblock %}
 {% block body_class %}class="intake-bg"{% endblock %}
 {% block main_class %} class="margin-top-5"{% endblock %}
@@ -31,3 +11,5 @@
 {{ block.super }}
 <script src="{% static 'js/dropdown.js' %}"></script>
 {%endblock%}
+{# no google analytics on backend #}
+{% block analytics %}{% endblock %}

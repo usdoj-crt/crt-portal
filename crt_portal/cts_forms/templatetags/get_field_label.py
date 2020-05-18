@@ -8,10 +8,12 @@ variable_rename = {
     'contact_first_name': 'Contact first name',
     'contact_last_name': 'Contact last name',
     'location_city_town': 'City',
+    'location_name': 'Location name',
     'location_state': 'State',
     'assigned_to': 'Assignee',
     'public_id': 'Complaint ID',
     'primary_statute': 'Statute',
+    'violation_summary': 'Personal description',
 }
 
 

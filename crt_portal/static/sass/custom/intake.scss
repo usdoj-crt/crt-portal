@@ -42,6 +42,31 @@
   }
 }
 
+.intake-header--progress-bar {
+  @include u-bg($blue-warm-vivid-80-t);
+  @include u-padding-top(3);
+  position: sticky;
+  width: 100%;
+  top: 0;
+  z-index: 99;
+  + main {
+    @include u-margin-top(3);
+  }
+  .progress-bar {
+    margin-top: 0; //override setting in progress.scss
+  }
+}
+
+// Fix for IE and Edge, which rely on .intake-header--progress-bar being position: fixed (applied via progress-bar.js).
+// This prevents the progress bar from covering up the card header when a target is clicked on.
+// Class is inserted into markup automatically if necessary in progress-bar.js.
+.crt-portal-card--space-for-header h2::before {
+  display: block;
+  content: '';
+  height: 150px;
+  margin: -150px 0 0;
+}
+
 .title-icon {
   @include u-bg($blue-warm-5-t);
   @include flex-container();
@@ -128,6 +153,13 @@
       pointer-events: none;
     }
   }
+  select {
+    background-image: url(../../img/intake-icons/ic_chevron-down.svg);
+    background-size: 15px;
+  }
+  select.complaint-multi-select {
+    background-image: none;
+  }
 
   .content {
     background: $white;
@@ -190,6 +222,11 @@
   &--light {
     @include u-color($blue-warm-5-t);
     @include u-border($blue-warm-5-t);
+
+    &:hover {
+      @include u-color($blue-warm-5-t);
+      @include u-border($blue-warm-5-t);
+    }
 
     &.usa-button:visited {
       @include u-color($blue-warm-5-t);
@@ -315,7 +352,7 @@
     padding: 0.5rem;
     &.autocomplete__input--focused {
       box-shadow: inset 0 0 0 1px;
-      outline: .125rem solid $blue-vivid-40;
+      outline: 0.125rem solid $blue-vivid-40;
       outline-offset: 0;
     }
   }

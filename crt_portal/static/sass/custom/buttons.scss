@@ -1,4 +1,10 @@
+button,
+.usa-button {
+  background-color: $blue-warm-vivid-80;
+}
+
 .button--edit {
+  background-color: transparent;
   @include u-font-size('body', 'sm');
   float: right;
   &:before {
@@ -13,6 +19,7 @@
 }
 
 .button--cancel {
+  background-color: transparent;
   @include u-color('secondary-dark');
   margin-left: 0.5rem;
   &:hover,

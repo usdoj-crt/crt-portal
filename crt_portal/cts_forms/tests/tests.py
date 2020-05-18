@@ -1,46 +1,32 @@
+import copy
 import secrets
 from datetime import date, timedelta
-import copy
 
-from testfixtures import LogCapture
-
-from django.test import TestCase
-from django.test.client import Client
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.test import TestCase
+from django.test.client import Client
 from django.urls import reverse
+from testfixtures import LogCapture
 
-from ..models import ProtectedClass, Report, HateCrimesandTrafficking, CommentAndSummary
-from ..model_variables import (
-    PROTECTED_CLASS_CHOICES,
-    PROTECTED_CLASS_ERROR,
-    VIOLATION_SUMMARY_ERROR,
-    WHERE_ERRORS,
-    PRIMARY_COMPLAINT_CHOICES,
-    PRIMARY_COMPLAINT_ERROR,
-    HATE_CRIMES_TRAFFICKING_CHOICES,
-    SERVICEMEMBER_ERROR,
-)
-from ..forms import (
-    Details,
-    Contact,
-    ProtectedClassForm,
-    LocationForm,
-    PrimaryReason,
-    CommercialPublicLocation,
-    EducationLocation,
-    PoliceLocation,
-    When,
-    ProForm,
-)
+from ..forms import (CommercialPublicLocation, Contact, Details,
+                     EducationLocation, LocationForm, PoliceLocation,
+                     PrimaryReason, ProForm, ProtectedClassForm, When, ComplaintActions)
+from ..model_variables import (HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
+                               PRIMARY_COMPLAINT_CHOICES,
+                               PRIMARY_COMPLAINT_ERROR, PROTECTED_CLASS_ERROR,
+                               PROTECTED_MODEL_CHOICES, SERVICEMEMBER_ERROR,
+                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS)
+from ..models import (CommentAndSummary, HateCrimesandTrafficking,
+                      ProtectedClass, Report)
 from ..views import save_form
 from .test_data import SAMPLE_REPORT
 
 
 class Valid_Form_Tests(TestCase):
     def setUp(self):
-        for choice in PROTECTED_CLASS_CHOICES:
-            ProtectedClass.objects.get_or_create(protected_class=choice)
+        for choice, label in PROTECTED_MODEL_CHOICES:
+            ProtectedClass.objects.get_or_create(value=choice)
 
     """Confirms each form is valid when given valid test data."""
 
@@ -88,8 +74,8 @@ class Valid_Form_Tests(TestCase):
         )
 
     def test_Class_valid(self):
-        form = ProtectedClassForm(data={
-            'protected_class': ProtectedClass.objects.filter(protected_class__in=PROTECTED_CLASS_CHOICES),
+        form = ProtectedClassForm({
+            'protected_class': ProtectedClass.active_choices.all(),
             'other_class': 'Random string under 150 characters (हिन्दी)',
         })
         self.assertTrue(form.is_valid())
@@ -112,13 +98,13 @@ class Valid_Form_Tests(TestCase):
 
 class Valid_CRT_view_Tests(TestCase):
     def setUp(self):
-        for choice in PROTECTED_CLASS_CHOICES:
-            ProtectedClass.objects.get_or_create(protected_class=choice)
+        for choice, label in PROTECTED_MODEL_CHOICES:
+            ProtectedClass.objects.get_or_create(value=choice)
         test_report = Report.objects.create(**SAMPLE_REPORT)
         test_report.last_incident_day = '1'
         test_report.last_incident_month = '1'
         test_report.last_incident_year = '2020'
-        self.protected_example = ProtectedClass.objects.get(protected_class=PROTECTED_CLASS_CHOICES[0])
+        self.protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[0][0])
         test_report.protected_class.add(self.protected_example)
         test_report.save()
         self.test_report = test_report
@@ -192,14 +178,14 @@ class Complaint_Show_View_Valid(TestCase):
 
         test_report = Report.objects.create(**SAMPLE_REPORT)
 
-        for choice in PROTECTED_CLASS_CHOICES:
-            pc = ProtectedClass.objects.get_or_create(protected_class=choice)
-            test_report.protected_class.add(pc[0])
+        for choice in PROTECTED_MODEL_CHOICES:
+            pc = ProtectedClass.objects.get_or_create(value=choice[0])[0]
+            test_report.protected_class.add(pc)
             test_report.save()
 
-        for choice in HATE_CRIMES_TRAFFICKING_CHOICES:
-            hct = HateCrimesandTrafficking.objects.get_or_create(hatecrimes_trafficking_option=choice)
-            test_report.hatecrimes_trafficking.add(hct[0])
+        for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
+            hct = HateCrimesandTrafficking.objects.get_or_create(value=choice[0])[0]
+            test_report.hatecrimes_trafficking.add(hct)
             test_report.save()
 
         self.client = Client()
@@ -240,7 +226,7 @@ class SectionAssignmentTests(TestCase):
         data = copy.deepcopy(SAMPLE_REPORT)
         data['primary_complaint'] = 'voting'
         test_report = Report.objects.create(**data)
-        human_trafficking = HateCrimesandTrafficking.objects.get_or_create(hatecrimes_trafficking_option=HATE_CRIMES_TRAFFICKING_CHOICES[1])
+        human_trafficking = HateCrimesandTrafficking.objects.get_or_create(value=HATE_CRIMES_TRAFFICKING_MODEL_CHOICES[0][0])
         test_report.hatecrimes_trafficking.add(human_trafficking[0])
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'CRM')
@@ -250,9 +236,9 @@ class SectionAssignmentTests(TestCase):
         data['primary_complaint'] = 'voting'
         test_report = Report.objects.create(**data)
         test_report = Report.objects.create(**SAMPLE_REPORT)
-        disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
+        disability = ProtectedClass.objects.get_or_create(value='disability')
         test_report.protected_class.add(disability[0])
-        human_trafficking = HateCrimesandTrafficking.objects.get_or_create(hatecrimes_trafficking_option='Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability')
+        human_trafficking = HateCrimesandTrafficking.objects.get_or_create(value='physical_harm')
         test_report.hatecrimes_trafficking.add(human_trafficking[0])
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'CRM')
@@ -266,7 +252,7 @@ class SectionAssignmentTests(TestCase):
         data = copy.deepcopy(SAMPLE_REPORT)
         data['primary_complaint'] = 'voting'
         test_report = Report.objects.create(**data)
-        disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
+        disability = ProtectedClass.objects.get_or_create(value='disability')
         test_report.protected_class.add(disability[0])
         test_report.save()
         self.assertTrue(test_report.assign_section() != 'CRM')
@@ -290,7 +276,7 @@ class SectionAssignmentTests(TestCase):
 
         data = copy.deepcopy(SAMPLE_REPORT)
         SAMPLE_REPORT['primary_complaint'] = 'workplace'
-        disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
+        disability = ProtectedClass.objects.get_or_create(value='disability')
         test_report.protected_class.add(disability[0])
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'ELS')
@@ -298,9 +284,9 @@ class SectionAssignmentTests(TestCase):
     def test_IER_routing(self):
         # If the report contains any of the first three Protected Classes here,
         # route to IER
-        immigration = ProtectedClass.objects.get_or_create(protected_class='Immigration/citizenship status (choosing this will not share your status)')
-        language = ProtectedClass.objects.get_or_create(protected_class='Language')
-        origin = ProtectedClass.objects.get_or_create(protected_class='National origin (including ancestry and ethnicity)')
+        immigration = ProtectedClass.objects.get_or_create(value='immigration')
+        language = ProtectedClass.objects.get_or_create(value='language')
+        origin = ProtectedClass.objects.get_or_create(value='national_origin')
 
         SAMPLE_REPORT['primary_complaint'] = 'workplace'
         test_report = Report.objects.create(**SAMPLE_REPORT)
@@ -336,7 +322,7 @@ class SectionAssignmentTests(TestCase):
         self.assertTrue(test_report.assign_section() == 'HCE')
 
     def test_EOS_routing(self):
-        disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
+        disability = ProtectedClass.objects.get_or_create(value='disability')
 
         data = copy.deepcopy(SAMPLE_REPORT)
         data['primary_complaint'] = 'education'
@@ -367,7 +353,7 @@ class SectionAssignmentTests(TestCase):
         self.assertTrue(test_report.assign_section() == 'SPL')
 
     def test_DRS_routing(self):
-        disability = ProtectedClass.objects.get_or_create(protected_class='Disability (including temporary or recovery)')
+        disability = ProtectedClass.objects.get_or_create(value='disability')
 
         school_data = copy.deepcopy(SAMPLE_REPORT)
         school_data['primary_complaint'] = 'education'
@@ -415,8 +401,8 @@ class SectionAssignmentTests(TestCase):
 
 class Valid_CRT_Pagnation_Tests(TestCase):
     def setUp(self):
-        for choice in PROTECTED_CLASS_CHOICES:
-            pc = ProtectedClass.objects.get_or_create(protected_class=choice)
+        for choice, label in PROTECTED_MODEL_CHOICES:
+            pc = ProtectedClass.objects.get_or_create(value=choice)
             test_report = Report.objects.create(**SAMPLE_REPORT)
             test_report.protected_class.add(pc[0])
             test_report.save()
@@ -434,7 +420,7 @@ class Valid_CRT_Pagnation_Tests(TestCase):
 
     def test_total_pages(self):
         # we are making a test record for each protected class
-        num_records = len(PROTECTED_CLASS_CHOICES)
+        num_records = len(PROTECTED_MODEL_CHOICES)
         self.assertTrue(f'{num_records} of {num_records} records' in self.content)
 
     def test_paging(self):
@@ -447,7 +433,7 @@ class Valid_CRT_Pagnation_Tests(TestCase):
         self.assertTrue('Go to page 5.' in content)
         self.assertTrue('Current page, page 6.' in content)
         self.assertTrue('Go to page 7.' in content)
-        self.assertTrue(f'Go to page {len(PROTECTED_CLASS_CHOICES)}.' in content)
+        self.assertTrue(f'Go to page {len(PROTECTED_MODEL_CHOICES)}.' in content)
         # link generation, update with sorting etc. as we add
         self.assertTrue('href="?per_page=1' in content)
         self.assertTrue('sort=assigned_section' in content)
@@ -679,14 +665,14 @@ class Validation_Form_Tests(TestCase):
             'last_incident_month': 5,
             'last_incident_day': 5,
         })
-        self.assertTrue(f'<ul class="errorlist"><li>Please enter a year' in str(form.errors))
+        self.assertTrue('<ul class="errorlist"><li>Please enter a year' in str(form.errors))
 
     def test_required_month(self):
         form = When(data={
             'last_incident_year': 2019,
             'last_incident_day': 5,
         })
-        self.assertTrue(f'<ul class="errorlist"><li>Please enter a month' in str(form.errors))
+        self.assertTrue('<ul class="errorlist"><li>Please enter a month' in str(form.errors))
 
     def test_NOT_required_day(self):
         form = When(data={
@@ -876,7 +862,7 @@ class Complaint_Update_Tests(TestCase):
         self.test_pass = secrets.token_hex(32)
         self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
-        self.form_data = {'type': 'complaint-action'}
+        self.form_data = {'type': ComplaintActions.CONTEXT_KEY}
 
         self.url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.test_report.id})
 

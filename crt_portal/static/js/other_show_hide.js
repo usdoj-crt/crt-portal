@@ -21,7 +21,7 @@
 
     var index = index || options.length - 1;
 
-    // Wapper element for the 'other' option form control
+    // Wrapper element for the 'other' option form control
     var otherOptionEl = options[index];
     // The actual checkbox or radio button the user will interact with
     var otherOptionFormEl = otherOptionEl.querySelector('[class$="__input"]');

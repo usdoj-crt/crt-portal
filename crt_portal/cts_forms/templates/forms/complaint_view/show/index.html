@@ -1,6 +1,10 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% load static %}
 
+{% block page_title %}
+ <title>CRT Complaint Records{% for message in messages %} - {{ message }}{% endfor %}</title>
+{% endblock %}
+
 {% block head %}
 <link rel="stylesheet" href="{% static "css/accessible-autocomplete.min.css" %}" />
 {% endblock head %}
@@ -53,11 +57,11 @@
           <span class="backend-blue">{{ data.modified_date|date:'g:i a F j, Y' }}</span>
         </p>
       </div>
-      <div class="tablet:grid-col-6">
+      <div id="status-update" class="tablet:grid-col-6">
         {% include 'partials/messages.html' %}
       </div>
     </div>
-    <div class="grid-row grid-gap-lg">
+    <div class="grid-row grid-gap-4">
       <div class="tablet:grid-col-4 grid-offset-1">
         {% include 'forms/complaint_view/show/actions.html' with title="Actions" icon="img/intake-icons/ic_check-circle.svg" %}
         <div class="activity-stream">
@@ -72,7 +76,7 @@
       <div class="tablet:grid-col-6">
         {% include 'forms/complaint_view/show/correspondent_info.html' with data=data %}
 
-        {% include 'forms/complaint_view/show/complaint_details.html' with data=data primary_complaint=primary_complaint summary=summary comment_box=summary_box.note %}
+        {% include 'forms/complaint_view/show/complaint_details.html' with data=data primary_complaint=primary_complaint summary=summary %}
 
         {% include 'forms/complaint_view/show/description.html' with description=data.violation_summary %}
       </div>
@@ -83,8 +87,8 @@
 
 {% block page_js %}
 {{ block.super }}
-<script src="{% static 'js/show_hide_narrative_summary.js' %}"></script>
 <script src="{% static 'js/edit_contact_info.js' %}"></script>
+<script src="{% static 'js/edit_details.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
   accessibleAutocomplete.enhanceSelectElement({

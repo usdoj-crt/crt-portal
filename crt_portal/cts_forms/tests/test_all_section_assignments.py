@@ -12,12 +12,31 @@ from .test_data import SAMPLE_REPORT
 fieldnames = ['section_assignment_actual', 'primary_complaint', 'protected_class', 'hate_crimes_trafficking', 'place', 'facility', 'school']
 
 
-class Ultimate_Section_Assignment_Test(TestCase):
+def load_expected_assignment():
+    expected_assignments = set()
+    with open('data/section_assignment_expected.csv', 'r') as csv_expected:
+        reader = csv.reader(csv_expected)
+        for line in reader:
+            record = ''.join(line)
+            expected_assignments.add(record)
+    return expected_assignments
 
+
+def write_and_check(self, writer, expected, actual, row):
+    writer.writerow(row)
+    record = ''.join(row.values())
+    actual.add(record)
+    self.assertTrue(record in expected)
+
+
+class Ultimate_Section_Assignment_Test(TestCase):
     def test_all_assignments(self):
+        expected = load_expected_assignment()
+        actual = set()
+
         with open('data/section_assignment.csv', 'w', newline='') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer.writerow({
+            write_and_check(self, writer, expected, actual, {
                 'section_assignment_actual': 'Section assignment',
                 'primary_complaint': 'Primary complaint',
                 'protected_class': 'Protected class',
@@ -39,10 +58,10 @@ class Ultimate_Section_Assignment_Test(TestCase):
                         test_report.protected_class.add(class_object[0])
                         # without hate crimes
                         section_no_hc = test_report.assign_section()
-                        writer.writerow({
+                        write_and_check(self, writer, expected, actual, {
                             'section_assignment_actual': section_no_hc,
                             'primary_complaint': primary[0],
-                            'protected_class': protected_class,
+                            'protected_class': str(protected_class),
                             'hate_crimes_trafficking': 'none',
                             'place': 'n/a',
                             'facility': 'n/a',
@@ -55,10 +74,10 @@ class Ultimate_Section_Assignment_Test(TestCase):
                     test_report.hatecrimes_trafficking.add(crime_object[1])
                     test_report.save()
                     section = test_report.assign_section()
-                    writer.writerow({
+                    write_and_check(self, writer, expected, actual, {
                         'section_assignment_actual': section,
                         'primary_complaint': primary[0],
-                        'protected_class': protected_class,
+                        'protected_class': str(protected_class),
                         'hate_crimes_trafficking': "hate crimes and trafficking",
                         'place': 'n/a',
                         'facility': 'n/a',
@@ -74,10 +93,10 @@ class Ultimate_Section_Assignment_Test(TestCase):
                             test_report.protected_class.add(class_object[0])
                             # without hate crimes
                             section_no_hc = test_report.assign_section()
-                            writer.writerow({
+                            write_and_check(self, writer, expected, actual, {
                                 'section_assignment_actual': section_no_hc,
                                 'primary_complaint': primary[0],
-                                'protected_class': protected_class,
+                                'protected_class': str(protected_class),
                                 'hate_crimes_trafficking': 'none',
                                 'place': place[0],
                                 'facility': 'n/a',
@@ -90,10 +109,10 @@ class Ultimate_Section_Assignment_Test(TestCase):
                             test_report = Report.objects.create(**data)
                             test_report.protected_class.add(class_object[0])
                             section_facility = test_report.assign_section()
-                            writer.writerow({
+                            write_and_check(self, writer, expected, actual, {
                                 'section_assignment_actual': section_facility,
                                 'primary_complaint': primary[0],
-                                'protected_class': protected_class,
+                                'protected_class': str(protected_class),
                                 'hate_crimes_trafficking': 'none',
                                 'place': 'n/a',
                                 'facility': facility[0],
@@ -106,12 +125,18 @@ class Ultimate_Section_Assignment_Test(TestCase):
                             test_report = Report.objects.create(**data)
                             test_report.protected_class.add(class_object[0])
                             section_facility = test_report.assign_section()
-                            writer.writerow({
+                            write_and_check(self, writer, expected, actual, {
                                 'section_assignment_actual': section_facility,
                                 'primary_complaint': primary[0],
-                                'protected_class': protected_class,
+                                'protected_class': str(protected_class),
                                 'hate_crimes_trafficking': 'none',
                                 'place': 'n/a',
                                 'facility': 'n/a',
                                 'school': school[0],
                             })
+        # exists in actual but not expected
+        not_in_test = actual.difference(expected)
+        self.assertEqual(len(not_in_test), 0)
+        # exists in expected but not actual
+        missing_value = expected.difference(actual)
+        self.assertEqual(len(missing_value), 0)

@@ -16,7 +16,7 @@ PRIMARY_COMPLAINT_CHOICES = (
     ('workplace', _('Workplace discrimination or other employment-related problem')),
     ('housing', _('Housing discrimination or harassment')),
     ('education', _('Discrimination at a school, educational program or service, or related to receiving education')),
-    ('voting', _('Voting rights or ability to vote blocked or affected')),
+    ('voting', _('Voting rights or ability to vote affected')),
     ('police', _('Mistreated by police, or correctional staff (including while in prison)')),
     ('commercial_or_public', _('Discriminated against in a commercial location or public place')),
     ('something_else', _('Something else happened')),
@@ -157,8 +157,8 @@ COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT = {
 }
 
 CORRECTIONAL_FACILITY_LOCATION_CHOICES = (
-    ('outside', _('no')),
-    ('inside', _('yes'))
+    ('outside', _('No')),
+    ('inside', _('Yes'))
 )
 CORRECTIONAL_FACILITY_LOCATION_DICT = dict(CORRECTIONAL_FACILITY_LOCATION_CHOICES)
 
@@ -308,7 +308,6 @@ DATE_ERRORS = {
     'no_past': _('Please enter a year after 1900.'),
     'not_valid': _('Please enter a valid date. Use format MM/DD/YYYY.'),
 }
-INCIDENT_DATE_HELPTEXT = _('You must enter a month and year. Please use the format MM/DD/YYYY.')
 
 VOTING_ERROR = _('Please select the type of election or voting activity.')
 

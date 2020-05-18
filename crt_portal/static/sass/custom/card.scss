@@ -1,7 +1,12 @@
 .crt-portal-card {
   @include u-radius('lg');
   background-color: $white;
-  box-shadow: 0 1px 6px 2px rgba(0,0,0,.14);
+  box-shadow: 0 1px 6px 2px rgba(0, 0, 0, 0.14);
+  margin: 24px 0;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
 
   // provides styled for a hoverable card, use in primary issue page
   &.crt-hover-card {
@@ -9,7 +14,8 @@
       background-color: $gray-cool-4;
       cursor: pointer;
     }
-    &.selected, &:hover.selected {
+    &.selected,
+    &:hover.selected {
       background-color: $blue-warm-5;
     }
 
@@ -36,11 +42,16 @@
     @include u-border($blue-warm-vivid-80-t);
     border-width: 0;
     border-bottom: 1px solid;
-    margin-top: .8rem;
-    margin-bottom: .8rem;
-    padding-bottom: .8rem;
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.8rem;
 
-    h1, h2, h3, h4, h5, h6 {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       margin-bottom: 0;
       margin-top: 0;
     }

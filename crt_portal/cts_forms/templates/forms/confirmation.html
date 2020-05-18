@@ -12,7 +12,7 @@
           <span>{% trans "United States Department of Justice" %}<span>
         </div>
         <h1 class="padding-top-2 padding-bottom-1 margin-0 title">
-          {% trans "Thank you for submitting a concern to the Civil Rights Division." %}
+          {% trans "Thank you for submitting a report to the Civil Rights Division." %}
         </h1>
       </div>
     </div>
@@ -34,8 +34,8 @@
       </div>
     </div>
       <div class="crt-success-card__content">
-          <h3>{% trans "Please save this page for your records" %}</h3>
-          <p>{% trans "Write down your record number and save or print a copy of this page for personal records." %}</p>
+          <h3 class="intake-section-title">{% trans "Please save your record number for tracking." %}</h3>
+          <p>{% trans "If you want a copy of this report for your personal records, save or print a copy of this page." %}</p>
           <div class='record-number-wrapper'>
             <div id="paper-icon-wrapper" class="margin-right-1"><img src="{% static 'img/ic_paper.svg' %}" alt="paper" /></div>
             {% trans "Your record number is:" %}
@@ -51,7 +51,7 @@
   <div class="grid-container">
     <div class="tablet:grid-col-8 tablet:grid-offset-2">
 
-      <h2 class='padding-top-3'>{% trans "What to expect" %}</h2>
+      <h2>{% trans "What to expect" %}</h2>
 
       <ol class='confirmation-list'>
         <li>
@@ -64,7 +64,7 @@
             </h3>
           </div>
           <div class='confirmation-content padding-left-6'>
-          {% trans "Our specialists in the Civil Rights Division carefully read every report to identify civil rights violations, spot trends, and determine if we have authority to help with your concern." %}
+          {% trans "Our specialists in the Civil Rights Division carefully read every report to identify civil rights violations, spot trends, and determine if we have authority to help with your report." %}
           </div>
         </li>
 
@@ -79,11 +79,11 @@
             {% trans "We may decide to:" %}
             <ul class="confirmation-list">
               <li>{% trans "<strong>Open an investigation</strong> or take some other action within the legal authority of the Justice Department." %}</li>
-                <li>{% trans "<strong>Collect more information</strong> before we can look into your concern." %}</li>
-                <li>{% trans "<strong>Recommend another government agency</strong> that can properly look into your concern. If so, we’ll let you know." %}
+                <li>{% trans "<strong>Collect more information</strong> before we can look into your report." %}</li>
+                <li>{% trans "<strong>Recommend another government agency</strong> that can properly look into your report. If so, we’ll let you know." %}
                 </li>
             </ul>
-            <p>{% trans "In some cases, we may determine that we don’t have legal authority to handle your concern and will recommend that you seek help from a private lawyer or local legal aid organization." %}</p>
+            <p>{% trans "In some cases, we may determine that we don’t have legal authority to handle your report and will recommend that you seek help from a private lawyer or local legal aid organization." %}</p>
           </div>
         </li>
 
@@ -106,7 +106,11 @@
                 {% trans "We’re receiving and actively reviewing many requests at the same time." %}
               </li>
             </ul>
-            <p>{% trans "<strong>If we are able to respond, we will contact you within 4 weeks using the contact information you provided</strong> in this report." %}</p>
+            <!-- working on translation -->
+            {% get_current_language as LANGUAGE_CODE %}
+            {% if LANGUAGE_CODE == "en" %}
+              <p>{% trans "<strong>If we are able to respond, we will contact you using the contact information you provided in this report. Depending on the type of report, response times can vary. If you need to reach us about your report, please refer to your report number when contacting us. This is how we keep track of your submission.</strong>" %}</p>
+            {% endif %}
           </div>
         </li>
       </ol>

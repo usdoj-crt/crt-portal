@@ -1,5 +1,6 @@
 {% extends "forms/report_base.html" %}
 {% load static %}
+{% load i18n %}
 {% block form_questions %}
 {% with primary_complaint_field=wizard.form.primary_complaint %}
     <div class="crt-portal-card">
@@ -7,7 +8,7 @@
         {{ block.super }}
         <div id="primary-complaint-help-text">
           <p class="em-text">
-            {{ primary_complaint_field.label }}
+            {{ primary_complaint_field.label }}{% if not question_group.optional %}<span class="field-required--group">{% trans "required" %}</span>{% endif %}
           </p>
 
           {% if primary_complaint_field.help_text %}

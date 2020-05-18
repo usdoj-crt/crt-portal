@@ -1,35 +1,28 @@
 """All models need to be added to signals.py for proper logging."""
+import logging
 from datetime import datetime
 
-from django.db import models
-from django.core.validators import RegexValidator, MaxValueValidator
-from django.utils.functional import cached_property
 from django.contrib.auth import get_user_model
+from django.core.validators import MaxValueValidator, RegexValidator
+from django.db import models
 from django.urls import reverse
+from django.utils.functional import cached_property
+
+from .managers import ActiveProtectedClassChoiceManager
+from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
+                              CORRECTIONAL_FACILITY_LOCATION_CHOICES,
+                              CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+                              DATE_ERRORS, DISTRICT_CHOICES, ELECTION_CHOICES,
+                              EMPLOYER_SIZE_CHOICES,
+                              HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
+                              INTAKE_FORMAT_CHOICES, PRIMARY_COMPLAINT_CHOICES,
+                              PROTECTED_MODEL_CHOICES,
+                              PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
+                              PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
+                              SECTION_CHOICES, SERVICEMEMBER_CHOICES,
+                              STATES_AND_TERRITORIES, STATUS_CHOICES,
+                              STATUTE_CHOICES)
 from .phone_regex import phone_validation_regex
-
-from .model_variables import (
-    PRIMARY_COMPLAINT_CHOICES,
-    PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
-    EMPLOYER_SIZE_CHOICES,
-    PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
-    STATES_AND_TERRITORIES,
-    PROTECTED_MODEL_CHOICES,
-    STATUS_CHOICES,
-    SECTION_CHOICES,
-    ELECTION_CHOICES,
-    HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
-    SERVICEMEMBER_CHOICES,
-    CORRECTIONAL_FACILITY_LOCATION_CHOICES,
-    CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
-    COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
-    INTAKE_FORMAT_CHOICES,
-    DISTRICT_CHOICES,
-    STATUTE_CHOICES,
-    DATE_ERRORS
-)
-
-import logging
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -45,20 +38,25 @@ class CommentAndSummary(models.Model):
 
 class ProtectedClass(models.Model):
     protected_class = models.CharField(max_length=100, null=True, blank=True, choices=PROTECTED_MODEL_CHOICES, unique=True)
+    value = models.CharField(max_length=100, blank=True, choices=PROTECTED_MODEL_CHOICES, unique=True)
     # for display in the CRT views
     code = models.CharField(max_length=100, null=True, blank=True, unique=True)
     # used for ordering the choices on the form displays
     form_order = models.IntegerField(null=True, blank=True)
 
+    objects = models.Manager()
+    active_choices = ActiveProtectedClassChoiceManager()
+
     def __str__(self):
-        return f'{self.protected_class}'
+        return self.get_value_display()
 
 
 class HateCrimesandTrafficking(models.Model):
     hatecrimes_trafficking_option = models.CharField(max_length=500, null=True, blank=True, choices=HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, unique=True)
+    value = models.CharField(max_length=500, blank=True, choices=HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, unique=True)
 
     def __str__(self):
-        return self.hatecrimes_trafficking_option
+        return self.get_value_display()
 
 
 class JudicialDistrict(models.Model):
@@ -72,6 +70,13 @@ class JudicialDistrict(models.Model):
 
 
 class Report(models.Model):
+    PRIMARY_COMPLAINT_DEPENDENT_FIELDS = {
+        'workplace': ['public_or_private_employer', 'employer_size'],
+        'education': ['public_or_private_school'],
+        'police': ['inside_correctional_facility', 'correctional_facility_type'],
+        'commercial_or_public': ['commercial_or_public_place', 'other_commercial_or_public_place']
+    }
+
     # Contact
     contact_first_name = models.CharField(max_length=225, null=True, blank=True)
     contact_last_name = models.CharField(max_length=225, null=True, blank=True)
@@ -119,19 +124,19 @@ class Report(models.Model):
 
     # Incident location routing-specific fields
     election_details = models.CharField(max_length=225, null=True, blank=True, default=None, choices=ELECTION_CHOICES)
-    public_or_private_employer = models.CharField(max_length=100, null=True, default=None, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES)
-    employer_size = models.CharField(max_length=100, null=True, default=None, choices=EMPLOYER_SIZE_CHOICES)
+    public_or_private_employer = models.CharField(max_length=100, null=True, blank=True, default=None, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES)
+    employer_size = models.CharField(max_length=100, null=True, blank=True, default=None, choices=EMPLOYER_SIZE_CHOICES)
 
     # By law
     inside_correctional_facility = models.CharField(max_length=255, null=True, blank=True, default=None, choices=CORRECTIONAL_FACILITY_LOCATION_CHOICES)
     correctional_facility_type = models.CharField(max_length=50, null=True, blank=True, default=None, choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES)
 
     # Commercial or public space
-    commercial_or_public_place = models.CharField(max_length=225, choices=COMMERCIAL_OR_PUBLIC_PLACE_CHOICES, null=True, default=None)
+    commercial_or_public_place = models.CharField(max_length=225, choices=COMMERCIAL_OR_PUBLIC_PLACE_CHOICES, null=True, blank=True, default=None)
     other_commercial_or_public_place = models.CharField(max_length=150, blank=True, null=True, default=None)
 
     # Education location
-    public_or_private_school = models.CharField(max_length=100, null=True, choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, default=None)
+    public_or_private_school = models.CharField(max_length=100, null=True, blank=True, choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, default=None)
 
     # Incident date
     last_incident_year = models.PositiveIntegerField(MaxValueValidator(datetime.now().year, message=DATE_ERRORS['no_future']), null=True, blank=True)
@@ -178,9 +183,9 @@ class Report(models.Model):
 
     def __has_immigration_protected_classes(self, pcs):
         immigration_classes = [
-            'Immigration/citizenship status (choosing this will not share your status)',
-            'National origin (including ancestry and ethnicity)',
-            'Language'
+            'immigration',
+            'national_origin',
+            'language'
         ]
         is_not_included = set(pcs).isdisjoint(set(immigration_classes))
 
@@ -190,12 +195,12 @@ class Report(models.Model):
         return True
 
     def __is_not_disabled(self, pcs):
-        return 'Disability (including temporary or recovery)' not in pcs
+        return 'disability' not in pcs
 
     def assign_section(self):
         """See the SectionAssignmentTests for expected behaviors"""
-        protected_classes = [n.protected_class for n in self.protected_class.all()]
-        hatecrimes_options = [n.hatecrimes_trafficking_option for n in self.hatecrimes_trafficking.all()]
+        protected_classes = [pc.value for pc in self.protected_class.all()]
+        hatecrimes_options = [hc.value for hc in self.hatecrimes_trafficking.all()]
 
         if len(hatecrimes_options) > 0:
             return 'CRM'

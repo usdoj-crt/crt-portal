@@ -113,11 +113,11 @@ Important commands to use during internationalization (i18n):
 
 When you run `makemessages`, Django will search through .py, .txt, and .html files to find strings marked for translation. Django finds these strings through the `gettext` function or its lazy-loading equivalent (in Python) or the `trans` function (in HTML). This adds the marked strings to `.po` files where translators will do their work.
 
-    docker-compose run web django-admin makemessages -l es
+    docker-compose run -w /code/crt_portal/cts_forms web django-admin makemessages -l es
 
 After the strings translated, the translation can be compiled back to Django-readable `.mo` files using run `compilemessages`:
 
-    docker-compose run web django-admin compilemessages
+    docker-compose run -w /code/crt_portal/cts_forms web django-admin compilemessages
 
 ### Hard reset with a fresh database
 
@@ -165,7 +165,7 @@ You can also run project tests using docker with:
 
 This will run all of the tests located in the [tests](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/tests) folder. where the business logic tests live.
 
-The test suite includes [test_all_section_assignments.py](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/test_all_section_assignments.py), a script that generates a csv in the `/data` folder which has the relevant permutations of form fields and runs the out put from the [section assignment function](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/models.py#L125). The idea is that we can expand the spreadsheet and the script to check outcomes. Then it will be a true test, in the meantime, this is not being run as part of deploy.
+The test suite includes [test_all_section_assignments.py](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/test_all_section_assignments.py), a script that generates a csv in the `/data` folder which has the relevant permutations of form fields and runs the out put from the [section assignment function](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/models.py#L125). If you are updating section assignments, you will want to edit the csv in data/section_assignment_expected.csv to what the new assignment should be. Additionally, if there are new factors to consider for routing, you will want to add those factors to the test so that they are accounted for.
 
 You can also run a subset of tests by specifying a path to a specific test class or module. For example:
 
@@ -242,10 +242,10 @@ Then you can stop the container with:
 
      docker stop <container_id>
 
-Run OWASP ZAP security scans with docker using the command line. Here is an example of running a full, passive scan locally targeting the development site:
+Run OWASP ZAP security scans with docker using the command line. Here is an example of running the baseline, passive scan locally targeting the development site:
 
-    docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-full-scan.py \
-    -t https://crt-portal-django-dev.app.cloud.gov/report/ -r testreport.html
+    docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-baseline.py \
+    -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf -z "-config rules.cookie.ignorelist=django_language"
 
 That will produce a report locally that you can view in your browser. It will give you a list of things that you should check. Sometimes there are things at the low or informational level that are false positives or are not worth the trade-offs to implement. The report will take a minute or two to generate.
 

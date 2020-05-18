@@ -5,7 +5,7 @@ from django import forms
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render, reverse
@@ -14,8 +14,8 @@ from django.views.generic import FormView, View
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
-from .forms import (CommentActions, ComplaintActions, Filters, Review,
-                    SummaryField, ContactEditForm)
+from .forms import (CommentActions, ComplaintActions, ContactEditForm, Filters,
+                    ReportEditForm, Review, add_activity)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -25,8 +25,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PRIMARY_COMPLAINT_DICT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import (CommentAndSummary, HateCrimesandTrafficking,
-                     ProtectedClass, Report)
+from .models import CommentAndSummary, Report
 from .page_through import pagination
 
 SORT_DESC_CHAR = '-'
@@ -123,14 +122,15 @@ def csrf_failure(request, reason=""):
             'status': "Problem with security cookie",
             'message': _("Your browser couldn't create a secure cookie"),
             'helptext': _("We use security cookies to protect your information from attackers. Make sure you allow cookies for this site. Having the page open for long periods can also cause this problem. If you know cookies are allowed and you are having this issue, try going to this page in new browser tab or window. That will make you a new security cookie and should resolve the problem.")
-        }
+        },
+        status=403
     )
 
 
 def format_protected_class(p_class_objects, other_class):
     p_class_list = []
     for p_class in p_class_objects:
-        if p_class.protected_class is not None:
+        if p_class.value:
             code = p_class.code
             if code != 'Other':
                 p_class_list.append(code)
@@ -222,7 +222,7 @@ def serialize_data(report, request, report_id):
 
     for crime in report.hatecrimes_trafficking.all():
         for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
-            if crime.hatecrimes_trafficking_option == choice[1]:
+            if crime.value == choice[0]:
                 crimes[choice[0]] = True
 
     p_class_list = format_protected_class(
@@ -230,60 +230,81 @@ def serialize_data(report, request, report_id):
         report.other_class,
     )
 
-    summary = report.get_summary
-    if summary:
-        summary_box = SummaryField(
-            initial={'note': summary.note},
-        )
-    else:
-        summary_box = SummaryField()
-
     output = {
         'actions': ComplaintActions(instance=report),
         'comments': CommentActions(),
-        'summary_box': summary_box,
         'activity_stream': report.target_actions.all(),
         'crimes': crimes,
         'data': report,
         'p_class_list': p_class_list,
         'primary_complaint': primary_complaint,
         'return_url_args': request.GET.get('next', ''),
-        'summary': summary,
+        'summary': report.get_summary,
     }
 
     return output
 
 
 class ShowView(LoginRequiredMixin, View):
+    forms = {form.CONTEXT_KEY: form for form in [ContactEditForm, ComplaintActions, ReportEditForm]}
+
     def get(self, request, id):
         report = get_object_or_404(Report, pk=id)
         output = serialize_data(report, request, id)
         contact_form = ContactEditForm(instance=report)
-        output.update({'contact_form': contact_form})
+        details_form = ReportEditForm(instance=report)
+
+        output.update({'contact_form': contact_form, 'details_form': details_form})
         return render(request, 'forms/complaint_view/show/index.html', output)
 
-    def post(self, request, id):
-        """Handle both action and contact edit forms"""
-        report = get_object_or_404(Report, pk=id)
+    def get_form(self, request, report):
         form_type = request.POST.get('type')
-        if form_type == 'contact-info':
-            form = ContactEditForm(request.POST, instance=report)
-        elif form_type == 'complaint-action':
-            form = ComplaintActions(request.POST, instance=report)
+        if not form_type:
+            raise SuspiciousOperation("Invalid form data")
+        return self.forms[form_type](request.POST, instance=report), form_type
 
+    def post(self, request, id):
+        """
+        Multiple forms are provided on the page
+        Accept only the submitted form and discard any other inbound changes
+        """
+        report = get_object_or_404(Report, pk=id)
+
+        form, inbound_form_type = self.get_form(request, report)
         if form.is_valid() and form.has_changed():
-            form.save()
+            report = form.save(commit=False)
+
+            # district and location are on different forms so handled here.
+            # If the incident location changes, update the district.
+            # District can be overwritten in the drop down.
+            # If there was a location change but no new match for district, don't override.
+            if 'district' not in form.changed_data:
+                current_district = report.district
+                assigned_district = report.assign_district()
+                if assigned_district and current_district != assigned_district:
+                    report.district = assigned_district
+                    description = f'Updated from "{current_district}" to "{report.district}"'
+                    add_activity(request.user, "District:", description, report)
+
+            report.save()
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())
-            return redirect(report.get_absolute_url())
+            url = report.get_absolute_url()
+            return redirect(f"{url}#status-update")
         else:
             output = serialize_data(report, request, id)
-            # Add form with errors to context
-            if form_type == 'contact-info':
-                output.update({'contact_form': form})
-            else:
-                output['actions'] = form
-            messages.add_message(request, messages.ERROR, form.FAIL_MESSAGE)
+            output.update({inbound_form_type: form})
+
+            try:
+                fail_message = form.FAIL_MESSAGE
+            except AttributeError:
+                fail_message = 'No updates applied'
+            messages.add_message(request, messages.ERROR, fail_message)
+
+            # provide new forms for those not submitted
+            for form_type, form in self.forms.items():
+                if form_type != inbound_form_type:
+                    output.update({form_type: form(instance=report)})
 
             return render(request, 'forms/complaint_view/show/index.html', output)
 
@@ -306,16 +327,13 @@ class SaveCommentView(LoginRequiredMixin, FormView):
         if comment_form.is_valid() and comment_form.has_changed():
             comment = comment_form.save()
             report.internal_comments.add(comment)
-            if comment.is_summary:
-                verb = 'Updated summary: ' if instance else 'Added summary: '
-            else:
-                # If not a summary, this is a comment
-                verb = 'Updated comment: ' if instance else 'Added comment: '
+            verb = 'Updated comment: ' if instance else 'Added comment: '
 
             messages.add_message(request, messages.SUCCESS, f'Successfully {verb[:-2].lower()}.')
             comment_form.update_activity_stream(request.user, report, verb)
 
-            return redirect(report.get_absolute_url())
+            url = report.get_absolute_url()
+            return redirect(f"{url}#status-update")
         else:
             # TODO handle form validation failures
             output = serialize_data(report, request, report_id)
@@ -333,12 +351,10 @@ def save_form(form_data_dict, **kwargs):
     # add a save feature for hatecrimes and trafficking question on primary reason page
     # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
     for protected in m2m_protected_class:
-        p = ProtectedClass.objects.get(protected_class=protected)
-        r.protected_class.add(p)
+        r.protected_class.add(protected)
 
     for option in m2m_hatecrime:
-        o = HateCrimesandTrafficking.objects.get(hatecrimes_trafficking_option=option)
-        r.hatecrimes_trafficking.add(o)
+        r.hatecrimes_trafficking.add(option)
 
     r.assigned_section = r.assign_section()
     r.district = r.assign_district()
@@ -561,7 +577,7 @@ class CRTReportWizard(SessionWizardView):
             _('Personal characteristics'),
             _('Date'),
             _('Personal description'),
-            _('Review your concern'),
+            _('Review your report'),
         ]
         current_step_title = ordered_step_titles[int(self.steps.current)]
         form_autocomplete_off = os.getenv('FORM_AUTOCOMPLETE_OFF', False)
@@ -619,15 +635,11 @@ class CRTReportWizard(SessionWizardView):
                 form_data_dict, PUBLIC_OR_PRIVATE_SCHOOL_DICT, 'public_or_private_school'
             )
 
-            # Get values for M2M fields destined for association with this Report instance
-            hatecrimes = [crime.hatecrimes_trafficking_option for crime in form_data_dict.pop('hatecrimes_trafficking')]
-            protected_class = [choice.protected_class for choice in form_data_dict.pop('protected_class')]
-
             context.update({
+                'hatecrimes': form_data_dict.pop('hatecrimes_trafficking'),
+                'protected_classes': form_data_dict.pop('protected_class'),
                 'report': Report(**form_data_dict),
-                'hatecrimes': hatecrimes,
-                'protected_classes': protected_class,
-                'question': form.question_text,
+                'question': form.question_text
             })
 
         return context

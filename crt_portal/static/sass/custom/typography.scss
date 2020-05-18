@@ -1,5 +1,11 @@
 // Header Styles
-h1, h2, h3, h4, h5, h6, .intake-label {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.intake-label {
   @include add-knockout-font-smoothing;
 }
 
@@ -17,11 +23,16 @@ h2 {
 }
 
 h3 {
-  @include u-text('primary-dark');
+  @include u-text('blue-warm-80v');
+}
+
+a,
+a:visited {
+  color: $blue-warm-vivid-80;
 }
 
 .em-text {
-  color: $blue-warm-vivid-70;
+  color: $blue-warm-vivid-80;
   font-weight: bold;
   font-size: 1.22rem;
   margin-bottom: 0.5rem;
@@ -36,7 +47,7 @@ h3 {
 
 .usa-prose {
   p {
-    margin-top: .5rem;
+    margin-top: 0.5rem;
   }
 
   .form-label {

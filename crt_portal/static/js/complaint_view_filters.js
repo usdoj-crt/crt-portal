@@ -248,16 +248,17 @@
     var multiSelectEl = formEl.querySelector('select[name="assigned_section"');
     var firstNameEl = formEl.querySelector('input[name="contact_first_name"');
     var lastNameEl = formEl.querySelector('input[name="contact_last_name"');
-    var cityEl = formEl.querySelector('input[name="location_city_town"]');
+    var locationCityEl = formEl.querySelector('input[name="location_city_town"]');
+    var locationNameEl = formEl.querySelector('input[name="location_name"]');
     var locationStateEl = formEl.querySelector('select[name="location_state"]');
     var activeFiltersEl = dom.querySelector('[data-active-filters]');
     var clearAllEl = dom.querySelector('[data-clear-filters]');
     var statusEl = formEl.querySelector('select[name="status"]');
     var summaryEl = formEl.querySelector('input[name="summary"]');
-    // this might need to be updated for multiselect
-    var assigneeEl = formEl.querySelector('select[name="assigned_to"]');
+    var assigneeEl = formEl.querySelector('#id_assigned_to');
     var complaintIDEl = formEl.querySelector('input[name="public_id"');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
+    var personalDescriptionEl = formEl.querySelector('input[name="violation_summary"]');
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
      * and perform a new search with the updated filters applied.
@@ -314,8 +315,12 @@
       name: 'contact_last_name'
     });
     textInputView({
-      el: cityEl,
+      el: locationCityEl,
       name: 'location_city_town'
+    });
+    textInputView({
+      el: locationNameEl,
+      name: 'location_name'
     });
     textInputView({
       el: locationStateEl,
@@ -344,6 +349,10 @@
     textInputView({
       el: statuteEl,
       name: 'primary_statute'
+    });
+    textInputView({
+      el: personalDescriptionEl,
+      name: 'violation_summary'
     });
     clearFiltersView({
       el: clearAllEl,

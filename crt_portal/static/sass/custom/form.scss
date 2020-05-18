@@ -3,7 +3,23 @@
 // Django wraps lot of elements in <li> by default
 // that we'd prefer not to have bulleted, like
 // radio buttons; so remove list item bullets by default.
+form#details-edit-form,
 form#report-form {
+  .question-header {
+    width: 100%; // IE11 fix
+    margin-top: 0.5rem;
+    margin-bottom: 1.5rem;
+    + .help-text,
+    + .help-text__small,
+    + p {
+      margin-top: -1rem; // to match other help text margins
+    }
+  }
+
+  fieldset:first-of-type .question-header {
+    margin-top: 0;
+  }
+
   .question_primary_complaint {
     ul {
       padding-left: 0;
@@ -13,12 +29,16 @@ form#report-form {
       margin-bottom: 1.5rem;
 
       &.primary-issue-example-li {
-        font-size: .875rem;
+        font-size: 0.875rem;
         line-height: 1.3125rem;
         list-style: disc !important;
-        margin-bottom: 1rem;
+        margin-bottom: 0;
         margin-left: 18px;
+        margin-top: 0.5rem;
 
+        &:first-child {
+          margin-top: 0;
+        }
         &:last-child {
           margin-bottom: 0;
         }
@@ -28,6 +48,18 @@ form#report-form {
 
   li {
     list-style: none;
+  }
+
+  // patterns for page intro text
+  h2 {
+    + .help-text {
+      margin-bottom: 2rem;
+    }
+    // question headers sometimes abut page headers, which makes them the first-of-type and thus they lose their margin,
+    // but when they immediately follow page headers they need the standard question-header spacing
+    + div[data-toggle] fieldset:first-of-type .question-header {
+      margin-top: 2.5rem;
+    }
   }
 }
 
@@ -41,15 +73,27 @@ form#report-form {
 
   .form-group {
     margin-bottom: 1.5rem;
+    > h3 {
+      margin-top: 0;
+    }
 
+    // removes margin on the last .form-group element and also from the last group of form elements
     &:last-child {
       margin-bottom: 0;
+    }
+    ul,
+    input {
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 
   .other-class-option {
     margin-left: 2rem;
-    padding-top: 2.5rem;
+    margin-top: 1.5rem;
+    padding-left: 1rem;
+    border-left: 2px solid $blue-warm-vivid-80;
 
     ul > li:last-child {
       height: 25px;
@@ -59,21 +103,25 @@ form#report-form {
   }
 
   .usa-fieldset {
-    margin-bottom: 1.5rem;
-
-    &:last-of-type:not(:only-of-type) {
-      margin-top: 2.5rem;
+    margin-top: 2.5rem;
+    margin-bottom: 0;
+    .usa-fieldset {
+      margin-top: 1.5rem;
     }
 
-    &:last-child, &:only-of-type {
-      margin-bottom: 0;
+    &:first-of-type {
+      margin-top: 0;
     }
 
     ul {
       margin-bottom: 0;
     }
   }
-
+  .usa-radio__input:checked + .usa-radio__label::before,
+  .usa-checkbox__input:checked + .usa-checkbox__label::before {
+    background-color: $blue-warm-vivid-80;
+    box-shadow: 0 0 0 2px $blue-warm-vivid-80, inset 0 0 0 2px #fff;
+  }
   .usa-button {
     &:hover {
       background-color: $blue-50;
@@ -85,19 +133,18 @@ form#report-form {
   }
 
   .light-button {
+    background-color: transparent;
     &:hover {
       background-color: $white;
     }
   }
 
-  .blue-left-highlight {
-    border-left: 2px solid $blue-warm-vivid-70;
-    padding-left: 1rem;
-  }
-
   li {
     > .usa-checkbox {
       margin-bottom: 1rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
     > .usa-radio {
@@ -118,10 +165,7 @@ form#report-form {
   }
 
   .usa-input {
-    @media screen and (min-width: $tablet) {
-      width: 320px;
-    }
-
+    border-radius: 3px;
     &:focus {
       outline-offset: 0;
       border: 1px solid $blue-vivid-40;
@@ -133,25 +177,26 @@ form#report-form {
     height: 15rem;
 
     &:focus {
-      outline: .125rem solid $blue-vivid-40;
+      outline: 0.125rem solid $blue-vivid-40;
       outline-offset: 0;
       border: 1px solid $blue-vivid-40;
     }
 
     &.bg-gold-outline {
-      outline: .125rem solid $gold;
+      outline: 0.125rem solid $gold;
       outline-offset: 0;
       border: 1px solid $gold;
     }
 
     &.bg-gold-outline:focus {
-      outline: .125rem solid $gold;
+      outline: 0.125rem solid $gold;
       outline-offset: 0;
-      border: .125rem solid $gold;
+      border: 0.125rem solid $gold;
     }
   }
 
-  .usa-checkbox__input, .usa-radio__input {
+  .usa-checkbox__input,
+  .usa-radio__input {
     // Display HTML5 error messages on hidden inputs:
     // https://stackoverflow.com/questions/49687229/display-html5-error-message-validation-on-hidden-radio-checkbox
     left: 45px;
@@ -159,7 +204,7 @@ form#report-form {
   }
 
   .crt-radio__label_helper {
-    line-height: .85rem;
+    line-height: 0.85rem;
     margin-bottom: 0;
 
     .label-text {
@@ -170,7 +215,7 @@ form#report-form {
 
     .radio-help-text {
       line-height: 1.25rem;
-      margin-top: .5rem;
+      margin-top: 0.5rem;
       margin-bottom: 0;
       text-indent: 0;
     }
@@ -204,11 +249,12 @@ form#report-form {
         text-transform: uppercase;
         font-weight: bold;
         color: $gray-70;
+        @include u-font('body', 3);
       }
     }
   }
 
-  input[type="radio"]:checked + .crt-radio__label_area {
+  input[type='radio']:checked + .crt-radio__label_area {
     background-color: $blue-warm-5;
   }
 
@@ -227,11 +273,6 @@ form#report-form {
   }
 }
 
-input[type="radio"]:checked + .crt-radio__label_area {
-  background-color: $blue-warm-5;
-}
-
-
 // Remove extra dropown error from datalist element
 [list]::-webkit-calendar-picker-indicator {
   display: none;
@@ -239,10 +280,10 @@ input[type="radio"]:checked + .crt-radio__label_area {
 
 .form-help-text {
   color: $gray-70;
-  font-size: .9rem;
+  font-size: 0.9rem;
 
   // Necessary because we want to override styles applied to the p tag
-  margin: .5rem 0 1rem 0 !important;
+  margin: 0.5rem 0 1rem 0 !important;
 }
 
 .group-help-text {
@@ -260,7 +301,7 @@ input[type="radio"]:checked + .crt-radio__label_area {
 
   img {
     margin-top: -2px;
-    padding-right: .5rem;
+    padding-right: 0.5rem;
     vertical-align: middle;
   }
 }
@@ -269,9 +310,35 @@ input[type="radio"]:checked + .crt-radio__label_area {
   line-height: 1.625rem;
 }
 
+.help-text__small {
+  @include u-font('body', 'xs');
+}
+
+.help-text,
+.help-text__small {
+  font-style: italic;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
+
+  + fieldset legend {
+    padding-top: 0;
+  }
+}
+
+// no margin when the only thing or last thing on the card is the help text -- see "something else" in "primary concern"
+.crt-portal-card__content {
+  > div:last-child,
+  > label:last-child {
+    .help-text:last-child,
+    .help-text__small:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
 .usa-input--error,
 select.usa-input--error {
-  border: .25rem solid $red-vivid-60;
+  border: 0.25rem solid $red-vivid-60;
 }
 
 .complaint-multi-select {
@@ -288,7 +355,8 @@ select.usa-input--error {
       background-color: $gray-cool-4;
       cursor: pointer;
     }
-    &.selected, &:hover.selected {
+    &.selected,
+    &:hover.selected {
       background-color: $blue-warm-5;
     }
 
@@ -308,4 +376,43 @@ select.usa-input--error {
 .inline-block {
   margin: 0;
   display: inline-block;
+}
+
+.grid-gap div:last-child {
+  margin-right: 0;
+}
+
+@media screen and (min-width: 480px) {
+  .usa-form input[id*='-contact_phone'] {
+    max-width: 80%;
+  }
+}
+
+.field-required {
+  font-size: 1rem;
+  font-weight: normal;
+  font-style: italic;
+  color: $gray-50;
+
+  &::before {
+    content: '*';
+    font-weight: bold;
+    margin-left: 0.3rem;
+    color: $red-vivid-60;
+  }
+
+  &--group {
+    @extend .field-required;
+
+    &::before {
+      @extend .field-required::before;
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+.usa-memorable-date {
+  input {
+    margin-right: 1rem;
+  }
 }

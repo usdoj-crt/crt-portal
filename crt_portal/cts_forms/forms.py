@@ -1,11 +1,16 @@
 import logging
 from datetime import datetime
 
+from actstream import action
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
-from django.forms import (CharField, ChoiceField, EmailInput, ModelChoiceField,
-                          ModelForm, ModelMultipleChoiceField, Select,
-                          Textarea, TextInput, TypedChoiceField)
+from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
+                          EmailInput, HiddenInput, IntegerField,
+                          ModelChoiceField, ModelForm,
+                          ModelMultipleChoiceField, MultipleHiddenInput,
+                          Select, SelectMultiple, Textarea, TextInput,
+                          TypedChoiceField)
+from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 
 from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
@@ -13,23 +18,21 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
                               CORRECTIONAL_FACILITY_LOCATION_CHOICES,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
-                              DATE_ERRORS, DISTRICT_CHOICES, ELECTION_CHOICES,
+                              DATE_ERRORS, DISTRICT_CHOICES,
                               EMPLOYER_SIZE_CHOICES, EMPLOYER_SIZE_ERROR,
                               EMPTY_CHOICE, INCIDENT_DATE_HELPTEXT,
                               POLICE_LOCATION_ERRORS,
                               PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
-                              PRIMARY_COMPLAINT_ERROR, PROTECTED_CLASS_CHOICES,
-                              PROTECTED_CLASS_ERROR,
+                              PRIMARY_COMPLAINT_ERROR, PROTECTED_CLASS_ERROR,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
                               SECTION_CHOICES, SERVICEMEMBER_CHOICES,
                               SERVICEMEMBER_ERROR, STATES_AND_TERRITORIES,
                               STATUS_CHOICES, STATUTE_CHOICES,
-                              VIOLATION_SUMMARY_ERROR, VOTING_ERROR,
-                              WHERE_ERRORS)
+                              VIOLATION_SUMMARY_ERROR, WHERE_ERRORS)
 from .models import (CommentAndSummary, HateCrimesandTrafficking,
                      ProtectedClass, Report)
 from .phone_regex import phone_validation_regex
@@ -52,7 +55,18 @@ User = get_user_model()
 
 def _add_empty_choice(choices):
     """Add an empty option to list of choices"""
+    if isinstance(choices, list):
+        choices = tuple(choices)
     return (EMPTY_CHOICE,) + choices
+
+
+def add_activity(user, verb, description, instance):
+    action.send(
+        user,
+        verb=verb,
+        description=description,
+        target=instance
+    )
 
 
 class ActivityStreamUpdater(object):
@@ -61,18 +75,23 @@ class ActivityStreamUpdater(object):
     def get_actions(self):
         """Parse incoming changed data for activity stream entry"""
         for field in self.changed_data:
-            yield f"updated {' '.join(field.split('_'))}", f" to {self.cleaned_data[field]}"
+            try:
+                # TODO? Add display values to activity stream
+                initial = self.initial[field]
+                new = self.cleaned_data[field]
+                if isinstance(initial, list):
+                    initial = ', '.join([str(x) for x in initial])
+                    new = ', '.join([str(x) for x in new])
+
+                yield f"{' '.join(field.split('_')).capitalize()}:", f'Updated from "{initial}" to "{new}"'
+            except KeyError:
+                # Initial value not found for field, not present on model, not a change to be tracked
+                pass
 
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
-        from actstream import action
         for verb, description in self.get_actions():
-            action.send(
-                user,
-                verb=verb,
-                description=description,
-                target=self.instance
-            )
+            add_activity(user, verb, description, self.instance)
 
 
 class Contact(ModelForm):
@@ -216,7 +235,7 @@ class HateCrimesTrafficking(ModelForm):
                 ('hatecrimes_trafficking',),
                 group_name=HATECRIME_TITLE,
                 help_text=_('Please let us know if you would describe your concern as either a hate crime or human trafficking. This information can help us take action against these types of violations. We will contact you about the next steps. We also encourage you to contact law enforcement if you or someone else is in immediate danger.'),
-                optional=False,
+                optional=True,
                 label_cls="margin-bottom-4",
                 help_cls="text-bold",
                 ally_id="hatecrimes-help-text"
@@ -316,48 +335,15 @@ class LocationForm(ModelForm):
                 self,
                 ('location_name', 'location_address_line_1', 'location_address_line_2'),
                 group_name=LOCATION_QUESTIONS['location_title'],
-                optional=False,
+                optional=True,  # a11y: only some fields here are required
                 ally_id='location-help-text'
             ),
         ]
-        self.page_note = _('Please tell us the city, state, and name of the location where this incident took place. This ensures your concern is reviewed by the right people within the Civil Rights Division.')
+        self.page_note = _('Please tell us the city, state, and name of the location where this incident took place. This ensures your report is reviewed by the right people within the Civil Rights Division.')
 
 
 class ElectionLocation(LocationForm):
-    class Meta:
-        model = Report
-        election_fields = ['election_details']
-        fields = LocationForm.Meta.fields + election_fields
-        widgets = LocationForm.Meta.widgets
-
-    def __init__(self, *args, **kwargs):
-        LocationForm.__init__(self, *args, **kwargs)
-        self.question_groups = [
-            QuestionGroup(
-                self,
-                ('election_details',),
-                group_name=ELECTION_QUESTION,
-                optional=False
-
-            )
-        ] + self.question_groups
-
-        self.fields['election_details'] = TypedChoiceField(
-            choices=ELECTION_CHOICES,
-            empty_value=None,
-            widget=UsaRadioSelect(attrs={
-                'help_text': {
-                    'federal': _('Presidential or congressional'),
-                    'state_local': _('Governor, state legislation, city position (mayor, council, local board)'),
-                    'both': _('Federal & State/local')
-                }
-            }),
-            required=True,
-            error_messages={
-                'required': VOTING_ERROR
-            },
-            label=''
-        )
+    pass
 
 
 class WorkplaceLocation(LocationForm):
@@ -544,7 +530,7 @@ class ProtectedClassForm(ModelForm):
             error_messages={'required': PROTECTED_CLASS_ERROR},
             required=True,
             label="",
-            queryset=ProtectedClass.objects.filter(protected_class__in=PROTECTED_CLASS_CHOICES).order_by('form_order'),
+            queryset=ProtectedClass.active_choices.all().order_by('form_order'),
             widget=UsaCheckboxSelectMultiple(attrs={
                 'aria-describedby': 'protected-class-help-text'
             }),
@@ -615,6 +601,7 @@ class When(ModelForm):
                 'class': 'usa-input usa-input--small',
                 'required': True,
                 'type': 'number',
+                'label': DATE_QUESTIONS['last_incident_month']
             }),
             'last_incident_day': TextInput(attrs={
                 'class': 'usa-input usa-input--small',
@@ -695,7 +682,6 @@ class ProForm(
             HateCrimesTrafficking.Meta.fields +\
             ['location_name', 'location_address_line_1', 'location_address_line_2',
                 'location_city_town', 'location_state'] +\
-            ElectionLocation.Meta.election_fields +\
             WorkplaceLocation.Meta.workplace_fields +\
             CommercialPublicLocation.Meta.commercial_fields +\
             PoliceLocation.Meta.police_fields +\
@@ -830,12 +816,6 @@ class ProForm(
             widget=UsaRadioSelect,
             required=False,
         )
-        self.fields['election_details'] = TypedChoiceField(
-            choices=ELECTION_CHOICES,
-            empty_value=None,
-            widget=UsaRadioSelect,
-            required=False,
-        )
         self.fields['inside_correctional_facility'] = TypedChoiceField(
             choices=CORRECTIONAL_FACILITY_LOCATION_CHOICES,
             empty_value=None,
@@ -859,7 +839,7 @@ class ProForm(
             error_messages={'required': PROTECTED_CLASS_ERROR},
             required=False,
             label=PROTECTED_CLASS_QUESTION,
-            queryset=ProtectedClass.objects.filter(protected_class__in=PROTECTED_CLASS_CHOICES).order_by('form_order'),
+            queryset=ProtectedClass.active_choices.all().order_by('form_order'),
             widget=UsaCheckboxSelectMultiple(attrs={
                 'aria-describedby': 'protected-class-help-text'
             }),
@@ -872,11 +852,12 @@ class ProForm(
         self.fields['crt_reciept_month'].label = DATE_QUESTIONS['last_incident_month']
         self.fields['crt_reciept_year'].label = DATE_QUESTIONS['last_incident_year']
 
-        self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
-        self.label_suffix = ''
-        self.fields['violation_summary'].label = SUMMARY_QUESTION
-        self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
-        self.fields['violation_summary'].help_text = _('What did the person believe happened?')
+        if 'violation_summary' in self.fields:
+            self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
+            self.label_suffix = ''
+            self.fields['violation_summary'].label = SUMMARY_QUESTION
+            self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
+            self.fields['violation_summary'].help_text = _('What did the person believe happened?')
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
@@ -926,10 +907,9 @@ class Filters(ModelForm):
         queryset=User.objects.filter(is_active=True),
         label=_("Assigned to"),
         to_field_name='username',
-        # switch with type ahead
         widget=Select(attrs={
             'name': 'assigned_to',
-            'class': 'usa-select'
+            'class': 'usa-input'
         })
     )
 
@@ -940,23 +920,27 @@ class Filters(ModelForm):
             'contact_first_name',
             'contact_last_name',
             'location_city_town',
+            'location_name',
             'location_state',
             'status',
             'assigned_to',
             'public_id',
             'primary_statute',
+            'violation_summary',
         ]
 
         labels = {
-            # Translators: CRT sections
-            'assigned_section': _('View sections'),
-            'contact_first_name': _('Contact first name'),
-            'contact_last_name': _('Contact last name'),
-            'location_city_town': _('Incident location city'),
-            'location_state': _('Incident location state'),
-            'assigned_to': _('Assignee'),
-            'public_id': _('Complaint ID'),
-            'primary_statute': _('Statute'),
+            # These are CRT view only
+            'assigned_section': 'View sections',
+            'contact_first_name': 'Contact first name',
+            'contact_last_name': 'Contact last name',
+            'location_city_town': 'Incident location city',
+            'location_name': 'Incident location name',
+            'location_state': 'Incident location state',
+            'assigned_to': 'Assignee',
+            'public_id': 'Complaint ID',
+            'primary_statute': 'Statute',
+            'violation_summary': 'Personal description',
         }
 
         widgets = {
@@ -976,17 +960,27 @@ class Filters(ModelForm):
                 'class': 'usa-input',
                 'name': 'location_city_town'
             }),
+            'location_name': TextInput(attrs={
+                'class': 'usa-input',
+                'name': 'location_name'
+            }),
             'public_id': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'public_id'
-            })
+            }),
+            'violation_summary': TextInput(attrs={
+                'class': 'usa-input',
+                'name': 'violation_summary'
+            }),
         }
 
 
 class ComplaintActions(ModelForm, ActivityStreamUpdater):
+    CONTEXT_KEY = 'actions'
     assigned_to = ModelChoiceField(
         queryset=User.objects.filter(is_active=True),
-        label=_("Assigned to"),
+        # crt view only
+        label="Assigned to",
         required=False
     )
 
@@ -1041,11 +1035,10 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
     def get_actions(self):
         """Parse incoming changed data for activity stream entry"""
         for field in self.changed_data:
-            yield f"updated {' '.join(field.split('_'))}", f" to {self.cleaned_data[field]}"
+            yield f"{' '.join(field.split('_')).capitalize()}:", f'Updated from "{self.initial[field]}" to "{self.cleaned_data[field]}"'
 
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
-        from actstream import action
         for verb, description in self.get_actions():
             action.send(
                 user,
@@ -1069,7 +1062,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
 class CommentActions(ModelForm):
     class Meta:
         model = CommentAndSummary
-        fields = ['note', 'is_summary']
+        fields = ['note']
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
@@ -1080,11 +1073,9 @@ class CommentActions(ModelForm):
             },
         )
         self.fields['note'].label = 'New comment'
-        self.fields['is_summary'] = CharField()
 
     def update_activity_stream(self, user, report, verb):
         """Send all actions to activity stream"""
-        from actstream import action
         action.send(
             user,
             verb=verb,
@@ -1093,19 +1084,8 @@ class CommentActions(ModelForm):
         )
 
 
-class SummaryField(CommentActions):
-    """Need to override the html id since it is on the same page as the comment form"""
-    def __init__(self, *args, **kwargs):
-        CommentActions.__init__(self, *args, **kwargs)
-        self.fields['note'].widget = Textarea(
-            attrs={
-                'class': 'usa-textarea',
-                'id': 'id_note-summary',
-            },
-        )
-
-
 class ContactEditForm(ModelForm, ActivityStreamUpdater):
+    CONTEXT_KEY = 'contact_form'
     SUCCESS_MESSAGE = "Successfully updated contact information."
     FAIL_MESSAGE = "Failed to update contact details."
 
@@ -1158,3 +1138,153 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
+
+
+class ReportEditForm(ProForm, ActivityStreamUpdater):
+    CONTEXT_KEY = "details_form"
+    FAIL_MESSAGE = "Failed to update complaint details."
+    SUCCESS_MESSAGE = "Successfully updated complaint details."
+
+    hatecrime = BooleanField(required=False, widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'}))
+    trafficking = BooleanField(required=False, widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'}))
+
+    # Summary fields
+    summary = CharField(required=False, strip=True, widget=Textarea(attrs={'class': 'usa-textarea'}))
+    summary_id = IntegerField(required=False, widget=HiddenInput())
+
+    class Meta(ProForm.Meta):
+        """
+        Extend ProForm to capture field definitions from component forms, excluding those which should not be editable here
+        """
+        exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name', 'election_details',
+                   'contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_state',
+                   'contact_city', 'contact_zip', 'crt_reciept_day', 'crt_reciept_month', 'crt_reciept_year']
+
+    def success_message(self):
+        return self.SUCCESS_MESSAGE
+
+    def _set_to_select_widget(self, field):
+        """Set the provided 'field's widget to Select"""
+        self.fields[field] = TypedChoiceField(
+            choices=self.fields[field].choices,
+            widget=Select(attrs={'class': 'usa-select'}),
+            required=False,
+        )
+
+    def __init__(self, *args, **kwargs):
+        """
+        Proform initializes all component forms, we'll skip that and define only the fields need for this form
+        """
+        ModelForm.__init__(self, *args, **kwargs)
+
+        #  We're handling hatecrimes_trafficking with separate boolean fields, render report field as hidden
+        self.fields['hatecrimes_trafficking'].widget = MultipleHiddenInput()
+        self.fields['hatecrime'].initial = self.instance.hatecrimes_trafficking.filter(value='physical_harm').exists()
+        self.fields['trafficking'].initial = self.instance.hatecrimes_trafficking.filter(value='trafficking').exists()
+
+        # required fields
+        self.fields['primary_complaint'].widget = Select(choices=self.fields['primary_complaint'].choices, attrs={'class': 'usa-select'})
+        self.fields['protected_class'].widget = SelectMultiple(choices=self.fields['protected_class'].choices, attrs={'class': 'height-10 width-mobile'})
+        self.fields['servicemember'].widget = Select(choices=self.fields['servicemember'].choices, attrs={'class': 'usa-select'})
+
+        # primary_complaint dependents, optional
+        self._set_to_select_widget('public_or_private_school')
+        self._set_to_select_widget('public_or_private_employer')
+        self._set_to_select_widget('employer_size')
+        self._set_to_select_widget('inside_correctional_facility')
+        self._set_to_select_widget('correctional_facility_type')
+        self._set_to_select_widget('commercial_or_public_place')
+
+        # date fields
+        self.fields['last_incident_day'].label = DATE_QUESTIONS['last_incident_day']
+        self.fields['last_incident_month'].label = DATE_QUESTIONS['last_incident_month']
+        self.fields['last_incident_year'].label = DATE_QUESTIONS['last_incident_year']
+        self.fields['last_incident_day'].widget.required = False
+        self.fields['last_incident_month'].widget.required = False
+        self.fields['last_incident_year'].widget.required = False
+
+        # Summary fields
+        summary = self.instance.get_summary
+        if summary:
+            self.fields['summary'].initial = summary.note
+            self.fields['summary_id'].initial = summary.pk
+
+    @cached_property
+    def changed_data(self):
+        changed_data = super().changed_data
+
+        # If hatecrime or trafficking field was changed, so was hatecrimes_trafficking
+        if 'hatecrime' in changed_data:
+            changed_data.append('hatecrimes_trafficking')
+        if 'trafficking' in changed_data and 'hatecrimes_trafficking' not in changed_data:
+            changed_data.append('hatecrimes_trafficking')
+
+        # If we're changing primary complaint, we may also need to update dependent fields
+        if 'primary_complaint' in changed_data:
+            original = self.instance.primary_complaint
+            if original in Report.PRIMARY_COMPLAINT_DEPENDENT_FIELDS.keys():
+                for field in Report.PRIMARY_COMPLAINT_DEPENDENT_FIELDS[original]:
+                    # If there's an initial value, we're setting it to None
+                    # in the last step of processing, self.clean()
+                    # Add to changed_data here so the instance is aware of
+                    # the modification
+                    if self[field].initial:
+                        changed_data.append(field)
+
+        return changed_data
+
+    def clean_dependent_fields(self, cleaned_data):
+        """
+        If primary complaint is changed, set any dependent fields associated with initial value to None
+        """
+        if 'primary_complaint' in self.changed_data:
+            original = self.instance.primary_complaint
+            if original in Report.PRIMARY_COMPLAINT_DEPENDENT_FIELDS.keys():
+                for field in Report.PRIMARY_COMPLAINT_DEPENDENT_FIELDS[original]:
+                    cleaned_data[field] = ""
+        return cleaned_data
+
+    def clean(self):
+        """Convert intermediary fields rendered as checkboxes to model's M2M field"""
+        cleaned_data = super().clean()
+        crimes = []
+
+        if cleaned_data['hatecrime']:
+            crimes.append(HateCrimesandTrafficking.objects.get(value='physical_harm'))
+
+        if cleaned_data['trafficking']:
+            crimes.append(HateCrimesandTrafficking.objects.get(value='trafficking'))
+
+        cleaned_data['hatecrimes_trafficking'] = crimes
+
+        return self.clean_dependent_fields(cleaned_data)
+
+    def update_activity_stream(self, user):
+        """Generate activity log entry for summary if it was updated"""
+        super().update_activity_stream(user)
+        if 'summary' in self.changed_data:
+            action.send(
+                user,
+                verb='Added summary: ' if self.summary_created else 'Updated summary: ',
+                description=self.summary.note,
+                target=self.instance
+            )
+
+    def save(self, user=None, commit=True):
+        """
+        If `summary` has changed, update or create the necessary CommentAndSummary
+        """
+        report = super().save(commit=True)
+        if 'summary' in self.changed_data:
+            summary_id = self.cleaned_data.get('summary_id')
+            summary = self.cleaned_data.get('summary')
+            summary_data = {'note': summary, 'author': user, 'is_summary': True}
+            if summary_id:
+                summary, created = CommentAndSummary.objects.update_or_create(id=summary_id, defaults=summary_data)
+            else:
+                summary = CommentAndSummary.objects.create(**summary_data)
+                created = True
+                report.internal_comments.add(summary)
+            self.summary_created = created
+            self.summary = summary
+        return report
