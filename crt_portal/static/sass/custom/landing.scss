@@ -1,3 +1,12 @@
+.crt-landing--section {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  h2 {
+    @include u-font-family('serif');
+  }
+}
+
 .crt-landing--separator {
   margin-top: 1rem;
   border: 2px solid $gold;
@@ -67,8 +76,6 @@
   background-color: $blue-warm-vivid-80;
   color: white;
   text-align: center;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
 
   &_header {
     @include u-font-family('serif');
@@ -104,8 +111,6 @@
 .crt-landing--rights {
   background-color: $blue-warm-vivid-80;
   color: white;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
 
   &_categories {
     color: $gold;
@@ -130,8 +135,6 @@
 .crt-landing--list {
   background-color: $blue-warm-5;
   color: $blue-warm-vivid-80;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
 
   .crt-landing--divider {
     border-left: 1px solid $blue-warm-vivid-80;

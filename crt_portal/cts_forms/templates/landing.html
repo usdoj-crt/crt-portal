@@ -43,7 +43,7 @@
 {% block main_class %} class="margin-top-5 margin-bottom-0"{% endblock %}
 
 {% block content %}
-  <div class="crt-landing--hero">
+  <div class="crt-landing--section crt-landing--hero">
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-8">
@@ -59,7 +59,7 @@
     </div>
   </div>
 
-  <div class="crt-landing--emergency">
+  <div class="crt-landing--section crt-landing--emergency">
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-12">
@@ -84,7 +84,7 @@
     </div>
   </div>
 
-  <div class="crt-landing--description">
+  <div class="crt-landing--section crt-landing--description">
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-12">
@@ -124,7 +124,7 @@
     </div>
   </div>
 
-  <div class="crt-landing--rights">
+  <div class="crt-landing--section crt-landing--rights">
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-8">
@@ -141,7 +141,7 @@
     </div>
   </div>
 
-  <div class="crt-landing--list">
+  <div class="crt-landing--section crt-landing--list">
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-12">
@@ -175,8 +175,7 @@
     </div>
   </div>
 
-
-  <div class="crt-landing--how_to_report">
+  <div class="crt-landing--section crt-landing--how_to_report">
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-12">
@@ -216,19 +215,23 @@
     </div>
   </div>
 
-  <div class="crt-landing--submit">
+  <div class="crt-landing--section crt-landing--submit">
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-8">
           <h2>{% trans "Think you or someone you know has experienced a civil rights violation?" %}</h2>
           <a class="usa-button" href="{% url 'crt_report_form' %}">{% trans "Submit a report" %}</a>
+        </div>
+      </div>
+      <div class="grid-row grid-gap">
+        <div class="tablet:grid-col-6">
           <p><em>{% trans 'The preferred and fastest way is the online form, but if you cannot access the online form, you can <a href="#">call</a> to submit a complaint or <a href="#">reach us by mail</a>.' %}</em></p>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="crt-landing--already_submitted">
+  <div class="crt-landing--section crt-landing--already_submitted">
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-6">
