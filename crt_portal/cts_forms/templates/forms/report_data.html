@@ -41,7 +41,6 @@
     <p>{{ report.get_primary_complaint_display }}</p>
 
     <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.hatecrime_title }}</h3>
-    <h4>{{ question.hatecrime }}</h4>
     {% if report.id %}
       {% for crime in report.hatecrimes_trafficking.all %}
         <p>{{crime}}</p>
