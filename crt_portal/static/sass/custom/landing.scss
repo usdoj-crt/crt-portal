@@ -30,6 +30,10 @@
   color: $blue-warm-vivid-80;
 }
 
+.crt-landing--pale {
+  color: $blue-warm-vivid-80;
+}
+
 .crt-landing--separator {
   margin-top: 1rem;
   border: 2px solid $gold;
@@ -88,7 +92,6 @@
 }
 
 .crt-landing--hero {
-  color: $blue-warm-vivid-80;
   padding-bottom: 2rem; // temporary
 }
 
@@ -121,7 +124,6 @@
 }
 
 .crt-landing--description {
-  color: $blue-warm-vivid-80;
 }
 
 .crt-landing--rights {
@@ -131,7 +133,7 @@
 }
 
 .crt-landing--largetext {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   line-height: 2rem;
 }
 
@@ -163,6 +165,9 @@
 }
 
 .crt-landing--how_to_report {
+  h2 {
+    font-size: 1.4rem;
+  }
 }
 
 .crt-landing--submit {
@@ -172,5 +177,11 @@
 }
 
 .crt-landing--already_submitted {
-  color: $blue-warm-vivid-80;
+}
+
+.crt-landing--card {
+  @extend .crt-portal-card;
+  a {
+    font-weight: bold;
+  }
 }
