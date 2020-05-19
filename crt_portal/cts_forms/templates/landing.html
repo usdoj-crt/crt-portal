@@ -146,9 +146,23 @@
           <div class="crt-landing--separator"></div>
           <div class="grid-row grid-gap">
             <div class="tablet:grid-col-8">
-              <p class="crt-landing--largetext">
-                {% trans "Choose from this list to see examples." %}
-              </p>
+              <p class="crt-landing--largetext">{% trans "Choose from this list to see examples." %}</p>
+
+              <select id="crt-landing--examples" class="usa-select" name="examples" aria-label="select example">
+                {% for key, value in choices.items %}
+                  <option value="{{ key }}" data-helptext="{{ value.helptext }}" data-examples="{{ value.examples }}">
+                    {{ value.description }}
+                  </option>
+                {% endfor %}
+              </select>
+              <div class="crt-landing--example">
+                <div id="crt-landing--choice_helptext">
+                  {{ choices.workplace.helptext }}
+                </div>
+                <div id="crt-landing--choice_examples">
+                  {{ choices.workplace.examples }}
+                </div>
+              </div>
             </div>
             <div class="tablet:grid-col-4 crt-landing--divider">
               <h3>{% trans "Protected characteristics" %}</h3>
@@ -253,4 +267,26 @@
     </div>
   </div>
 
+{% endblock %}
+
+{% block page_js %}
+  <script nonce="{{request.csp_nonce}}">
+   (function() {
+     var dropdown = document.querySelector("select#crt-landing--examples");
+     var helptext_field = document.querySelector("#crt-landing--choice_helptext");
+     var examples_field = document.querySelector("#crt-landing--choice_examples");
+     dropdown.addEventListener("change", function(event) {
+       let el = event.target.options[event.target.selectedIndex];
+       let helptext = el.dataset.helptext;
+       helptext_field.innerText = helptext || "";
+       let examples = el.dataset.examples;
+
+
+       if (examples) {
+         examples_field.innerText = examples || "";
+
+       }
+     });
+   })();
+  </script>
 {% endblock %}

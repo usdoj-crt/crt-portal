@@ -21,7 +21,9 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
                               ELECTION_DICT, EMPLOYER_SIZE_DICT,
                               HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
-                              PRIMARY_COMPLAINT_CHOICES,
+                              PRIMARY_COMPLAINT_DICT,
+                              PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+                              PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PRIMARY_COMPLAINT_DICT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
@@ -490,8 +492,15 @@ class LandingPageView(TemplateView):
     template_name = "landing.html"
 
     def get_context_data(self, **kwargs):
-        context = dict()
-        return context
+        choices = {
+            key: {
+                'description': description,
+                'helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT.get(key, ''),
+                'examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES.get(key, [])
+            }
+            for key, description in PRIMARY_COMPLAINT_DICT.items()
+        }
+        return {'choices': choices}
 
 
 class CRTReportWizard(SessionWizardView):
