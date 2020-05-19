@@ -1,3 +1,5 @@
+$arrow-height: 20px;
+
 .crt-landing--section {
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -173,6 +175,8 @@
 }
 
 .crt-landing--list {
+  padding-top: calc(2rem - #{$arrow-height});
+
   .crt-landing--divider {
     border-left: 1px solid $blue-warm-vivid-80;
   }
@@ -194,6 +198,8 @@
 }
 
 .crt-landing--submit {
+  padding-top: calc(2rem - #{$arrow-height});
+
   h2 {
     margin-bottom: 1rem;
   }
@@ -214,5 +220,5 @@
   height: 0;
   border-left: 50px solid transparent;
   border-right: 50px solid transparent;
-  border-top: 20px solid $blue-warm-vivid-80;
+  border-top: $arrow-height solid $blue-warm-vivid-80;
 }
