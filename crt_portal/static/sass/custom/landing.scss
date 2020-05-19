@@ -194,6 +194,31 @@ $arrow-height: 20px;
     @include u-shadow(3);
     height: 5rem;
     white-space: pre-wrap;
+    padding: 1rem;
+  }
+
+  .crt-landing--example {
+    @include u-radius-bottom('lg');
+    @include u-shadow(3);
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+    background-color: white;
+    min-height: 20rem;
+
+    #crt-landing--choice_helptext {
+      font-style: italic;
+      padding-right: 1rem;
+    }
+
+    #crt-landing--choice_examples p {
+      margin-top: 1.5rem;
+      padding-right: 1rem;
+    }
+
+    #crt-landing--example_header {
+      text-transform: uppercase;
+      font-weight: bold;
+    }
   }
 }
 
@@ -245,29 +270,6 @@ $arrow-height: 20px;
   border-left: 50px solid transparent;
   border-right: 50px solid transparent;
   border-top: $arrow-height solid $blue-warm-vivid-80;
-}
-
-.crt-landing--example {
-  @include u-radius('lg');
-  @include u-shadow(3);
-  margin-left: 1rem;
-  background-color: white;
-  min-height: 20rem;
-
-  #crt-landing--choice_helptext {
-    font-style: italic;
-    padding-right: 1rem;
-  }
-
-  #crt-landing--choice_examples p {
-    margin-top: 1.5rem;
-    padding-right: 1rem;
-  }
-
-  #crt-landing--example_header {
-    text-transform: uppercase;
-    font-weight: bold;
-  }
 }
 
 .crt-landing--similar_situation {
