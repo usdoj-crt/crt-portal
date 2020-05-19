@@ -96,26 +96,18 @@
               <p class="crt-landing--subheader">{% trans "Enforcement" %}</p>
               <div class="crt-landing--smallseparator"></div>
               <p class="crt-landing--largetext">{% trans "We sue or prosecute those who violate civil rights laws." %}</p>
+              <p>{% trans "You can help us do this work by reporting a possible civil rights violation through our" %} <a href="{% url 'crt_report_form' %}">{% trans "online form" %}</a>.</p>
             </div>
             <div class="tablet:grid-col-4">
               <p class="crt-landing--subheader">{% trans "Education" %}</p>
               <div class="crt-landing--smallseparator"></div>
               <p class="crt-landing--largetext">{% trans "We help the public understand how to comply with these laws." %}</p>
+              <p>{% trans "We speak at conferences and public events, produce technical assistance materials, and post information online about our past cases." %}</p>
             </div>
             <div class="tablet:grid-col-4">
               <p class="crt-landing--subheader">{% trans "Coordination" %}</p>
               <div class="crt-landing--smallseparator"></div>
               <p class="crt-landing--largetext">{% trans "We help the entire federal government work together to enforce these laws." %}</p>
-            </div>
-          </div>
-          <div class="grid-row grid-gap">
-            <div class="tablet:grid-col-4">
-              <p>{% trans "You can help us do this work by reporting a possible civil rights violation through our" %} <a href="{% url 'crt_report_form' %}">{% trans "online form" %}</a>.</p>
-            </div>
-            <div class="tablet:grid-col-4">
-              <p>{% trans "We speak at conferences and public events, produce technical assistance materials, and post information online about our past cases." %}</p>
-            </div>
-            <div class="tablet:grid-col-4">
               <p>{% trans "We regularly meet with other agencies to promote a consistent, unified response to civil rights issues facing the country." %}</p>
             </div>
           </div>
@@ -196,23 +188,15 @@
           <div class="grid-row grid-gap">
             <div class="tablet:grid-col-3">
               <h2>{% trans "Report using our online form." %}</h2>
+              <p class="crt-landing--text">{% trans "By completing the online form, you can provide the details we need to understand what happened. You will receive a confirmation number and your report is immediately sent to our staff for review." %}</p>
             </div>
             <div class="tablet:grid-offset-1 tablet:grid-col-3">
               <h2>{% trans "We review your report." %}</h2>
+              <p class="crt-landing--text">{% trans "Teams that specialize in handling your type of issue will review it. If it needs to be forwarded to another team or agency, we will connect your complaint to the right group." %}</p>
             </div>
             <div class="tablet:grid-offset-1 tablet:grid-col-3">
               <h2>{% trans "We determine next steps and get back to you." %}</h2>
-            </div>
-            <div class="grid-row grid-gap">
-              <div class="tablet:grid-col-3">
-                <p class="crt-landing--text">{% trans "By completing the online form, you can provide the details we need to understand what happened. You will receive a confirmation number and your report is immediately sent to our staff for review." %}</p>
-              </div>
-              <div class="tablet:grid-offset-1 tablet:grid-col-3">
-                <p class="crt-landing--text">{% trans "Teams that specialize in handling your type of issue will review it. If it needs to be forwarded to another team or agency, we will connect your complaint to the right group." %}</p>
-              </div>
-              <div class="tablet:grid-offset-1 tablet:grid-col-3">
-                <p class="crt-landing--text">{% trans "Possible outcomes include: following up for more information, starting a mediation or investigation, or directing you to another organization for further help." %}</p>
-              </div>
+              <p class="crt-landing--text">{% trans "Possible outcomes include: following up for more information, starting a mediation or investigation, or directing you to another organization for further help." %}</p>
             </div>
           </div>
         </div>
