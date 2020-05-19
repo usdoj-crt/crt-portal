@@ -21,6 +21,7 @@ PRIMARY_REASON_QUESTION = _('What is your primary reason for contacting the Civi
 # hatecrime
 HATECRIME_TITLE = _('Hate crimes and human trafficking')
 HATECRIME_QUESTION = _('Please select if any apply to your report')
+HATECRIME_HELP_TEXT = _('Please let us know if you would describe your concern as either a hate crime or human trafficking. This information can help us take action against these types of violations. We will contact you about the next steps. We also encourage you to contact law enforcement if you or someone else is in immediate danger.')
 
 # Location
 LOCATION_QUESTIONS = {

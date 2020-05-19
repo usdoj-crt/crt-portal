@@ -32,7 +32,8 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               SECTION_CHOICES, SERVICEMEMBER_CHOICES,
                               SERVICEMEMBER_ERROR, STATES_AND_TERRITORIES,
                               STATUS_CHOICES, STATUTE_CHOICES,
-                              VIOLATION_SUMMARY_ERROR, WHERE_ERRORS)
+                              VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
+                              HATE_CRIME_CHOICES)
 from .models import (CommentAndSummary, HateCrimesandTrafficking,
                      ProtectedClass, Report)
 from .phone_regex import phone_validation_regex
@@ -44,7 +45,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             PRIMARY_REASON_QUESTION, PROTECTED_CLASS_QUESTION,
                             PUBLIC_QUESTION, SERVICEMEMBER_QUESTION,
                             SUMMARY_HELPTEXT, SUMMARY_QUESTION,
-                            WORKPLACE_QUESTIONS)
+                            WORKPLACE_QUESTIONS, HATECRIME_HELP_TEXT)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
                       CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
                       UsaRadioSelect)
@@ -204,43 +205,26 @@ class PrimaryReason(ModelForm):
             help_text=_('Select the reason that best describes your concern. Each reason lists examples of civil rights violations that may relate to your incident. In another section of this report, you will be able to describe your concern in your own words.'),
         )
 
-
+# update name
 class HateCrimesTrafficking(ModelForm):
     class Meta:
         model = Report
         fields = [
-            'hatecrimes_trafficking'
+            'hate_crime'
         ]
-        widgets = {
-            'hatecrimes_trafficking': UsaCheckboxSelectMultiple(attrs={
-                'aria-describedby': 'hatecrimes-help-text'
-            }),
-        }
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
 
-        self.fields['hatecrimes_trafficking'] = ModelMultipleChoiceField(
-            queryset=HateCrimesandTrafficking.objects.all(),
-            widget=UsaCheckboxSelectMultiple(attrs={
-                'aria-describedby': 'hatecrimes-help-text'
-            }),
-            required=False,
+        self.fields['hate_crime'] = TypedChoiceField(
+            choices=HATE_CRIME_CHOICES,
             label=HATECRIME_QUESTION,
+            help_text=HATECRIME_HELP_TEXT,
+            empty_value=None,
+            widget=UsaRadioSelect,
+            required=False,
         )
 
-        self.question_groups = [
-            QuestionGroup(
-                self,
-                ('hatecrimes_trafficking',),
-                group_name=HATECRIME_TITLE,
-                help_text=_('Please let us know if you would describe your concern as either a hate crime or human trafficking. This information can help us take action against these types of violations. We will contact you about the next steps. We also encourage you to contact law enforcement if you or someone else is in immediate danger.'),
-                optional=True,
-                label_cls="margin-bottom-4",
-                help_cls="text-bold",
-                ally_id="hatecrimes-help-text"
-            )
-        ]
         # Translators: notes that this page is the same form step as the page before
         self.page_note = _('Continued')
 
@@ -679,7 +663,7 @@ class ProForm(
             ['intake_format'] +\
             Contact.Meta.fields +\
             ['primary_complaint'] +\
-            HateCrimesTrafficking.Meta.fields +\
+            ['hate_crime'] +\
             ['location_name', 'location_address_line_1', 'location_address_line_2',
                 'location_city_town', 'location_state'] +\
             WorkplaceLocation.Meta.workplace_fields +\
@@ -695,10 +679,7 @@ class ProForm(
 
         widget_list = [
             Contact.Meta.widgets,
-            HateCrimesTrafficking.Meta.widgets,
-            {'other_class': TextInput(attrs={
-                'class': 'usa-input',
-            })},
+            # check on hate crime widget inheritance on the pro form
             # location widgets
             {
                 'location_name': TextInput(attrs={

@@ -1,0 +1,10 @@
+{% extends "forms/report_base.html" %}
+{% load i18n %}
+
+{% block form_questions %}
+
+{% include "forms/question_cards/single_form.html" with field=form.hate_crime %}
+
+<p>add redirect here</p>
+
+{% endblock %}

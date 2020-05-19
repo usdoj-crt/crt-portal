@@ -12,12 +12,11 @@ from testfixtures import LogCapture
 from ..forms import (CommercialPublicLocation, Contact, Details,
                      EducationLocation, LocationForm, PoliceLocation,
                      PrimaryReason, ProForm, ProtectedClassForm, When, ComplaintActions)
-from ..model_variables import (HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
-                               PRIMARY_COMPLAINT_CHOICES,
+from ..model_variables import (PRIMARY_COMPLAINT_CHOICES,
                                PRIMARY_COMPLAINT_ERROR, PROTECTED_CLASS_ERROR,
                                PROTECTED_MODEL_CHOICES, SERVICEMEMBER_ERROR,
                                VIOLATION_SUMMARY_ERROR, WHERE_ERRORS)
-from ..models import (CommentAndSummary, HateCrimesandTrafficking,
+from ..models import (CommentAndSummary,
                       ProtectedClass, Report)
 from ..views import save_form
 from .test_data import SAMPLE_REPORT
@@ -80,12 +79,13 @@ class Valid_Form_Tests(TestCase):
         })
         self.assertTrue(form.is_valid())
 
-    def test_Primary_reason_valid(self):
-        form = PrimaryReason(data={
-            'hatecrimes_trafficking': HateCrimesandTrafficking.objects.all(),
-            'primary_complaint': PRIMARY_COMPLAINT_CHOICES[0][0],
-        })
-        self.assertTrue(form.is_valid())
+    # update once form is going
+    # def test_Primary_reason_valid(self):
+    #     form = PrimaryReason(data={
+    #         'hatecrimes_trafficking': HateCrimesandTrafficking.objects.all(),
+    #         'primary_complaint': PRIMARY_COMPLAINT_CHOICES[0][0],
+    #     })
+    #     self.assertTrue(form.is_valid())
 
     def test_When_vaild(self):
         form = When(data={
@@ -183,10 +183,11 @@ class Complaint_Show_View_Valid(TestCase):
             test_report.protected_class.add(pc)
             test_report.save()
 
-        for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
-            hct = HateCrimesandTrafficking.objects.get_or_create(value=choice[0])[0]
-            test_report.hatecrimes_trafficking.add(hct)
-            test_report.save()
+        # update
+        # for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
+        #     hct = HateCrimesandTrafficking.objects.get_or_create(value=choice[0])[0]
+        #     test_report.hatecrimes_trafficking.add(hct)
+        #     test_report.save()
 
         self.client = Client()
         self.test_pass = secrets.token_hex(32)
@@ -225,21 +226,19 @@ class SectionAssignmentTests(TestCase):
         # All human trafficking goes to CRM.
         data = copy.deepcopy(SAMPLE_REPORT)
         data['primary_complaint'] = 'voting'
+        data['hate_crime'] = 'yes'
         test_report = Report.objects.create(**data)
-        human_trafficking = HateCrimesandTrafficking.objects.get_or_create(value=HATE_CRIMES_TRAFFICKING_MODEL_CHOICES[0][0])
-        test_report.hatecrimes_trafficking.add(human_trafficking[0])
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'CRM')
 
-        # All hate crime goes to CRM.
+        # All hate crime goes to CRM overrides other exceptions
         data = copy.deepcopy(SAMPLE_REPORT)
         data['primary_complaint'] = 'voting'
+        data['hate_crime'] = 'yes'
         test_report = Report.objects.create(**data)
         test_report = Report.objects.create(**SAMPLE_REPORT)
         disability = ProtectedClass.objects.get_or_create(value='disability')
         test_report.protected_class.add(disability[0])
-        human_trafficking = HateCrimesandTrafficking.objects.get_or_create(value='physical_harm')
-        test_report.hatecrimes_trafficking.add(human_trafficking[0])
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'CRM')
 
@@ -649,7 +648,7 @@ class Validation_Form_Tests(TestCase):
 
     def test_required_primary_reason_hatecrime(self):
         form = PrimaryReason(data={
-            'hatecrimes_trafficking_set': None,
+            # 'hatecrimes_trafficking_set': None,
             'primary_complaint': '',
         })
         # ensure Hatecrime is not in error list
@@ -928,7 +927,7 @@ class TestIntakeFormat(TestCase):
     def setUp(self):
         self.form_data_dict = copy.deepcopy(SAMPLE_REPORT)
         self.form_data_dict['protected_class'] = ProtectedClass.objects.none()
-        self.form_data_dict['hatecrimes_trafficking'] = HateCrimesandTrafficking.objects.none()
+        # self.form_data_dict['hatecrimes_trafficking'] = HateCrimesandTrafficking.objects.none()
 
     def test_intake_save_web(self):
         data, saved_object = save_form(self.form_data_dict, intake_format='web')
