@@ -19,6 +19,10 @@
   li {
     margin-bottom: 1rem;
   }
+
+  p.crt-landing--text, ul.crt-landing--text {
+    line-height: 1.5rem;
+  }
 }
 
 .crt-landing--blue {
@@ -136,9 +140,18 @@
 }
 
 .crt-landing--rights {
+  h1 {
+    font-size: 2.3rem;
+  }
 
   .crt-landing--rights_text {
     font-size: 1.6rem;
+    line-height: 2.2rem;
+  }
+
+  .crt-landing--mediumtext {
+    font-size: 1.2rem;
+    line-height: 1.7rem;
   }
 
   &_categories {
@@ -149,10 +162,6 @@
 .crt-landing--largetext {
   font-size: 1.4rem;
   line-height: 2rem;
-}
-
-.crt-landing--mediumtext {
-  font-size: 1.2rem;
 }
 
 .crt-landing--subheader {
