@@ -3,6 +3,7 @@
   padding-bottom: 2rem;
 
   h1 {
+    font-size: 2.9rem;
     margin-bottom: 0;
   }
 
@@ -124,9 +125,22 @@
 }
 
 .crt-landing--description {
+  a {
+    font-weight: bold;
+  }
+
+  .crt-landing--description_rights {
+    font-size: 2rem;
+    margin-top: 1rem;
+  }
 }
 
 .crt-landing--rights {
+
+  .crt-landing--rights_text {
+    font-size: 1.6rem;
+  }
+
   &_categories {
     color: $gold;
   }
