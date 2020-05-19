@@ -193,7 +193,28 @@ $arrow-height: 20px;
 
 .crt-landing--how_to_report {
   h2 {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
+    margin-top: 0;
+  }
+
+  .crt-landing--icon_gold {
+    @include flex-container();
+    border-radius: 2rem;
+    justify-content: center;
+    min-height: 32px;
+    min-width: 32px;
+    width: 32px;
+    height: 32px;
+    color: $blue-warm-vivid-80;
+    @include u-font-family('serif');
+    background-color: $gold;
+    margin-right: 1rem;
+  }
+
+  .crt-landing--reporting_column {
+    display: flex;
+    flex-direction: row;
+    margin-top: 1rem;
   }
 }
 
