@@ -336,7 +336,8 @@ class LocationForm(ModelForm):
                 ('location_name', 'location_address_line_1', 'location_address_line_2'),
                 group_name=LOCATION_QUESTIONS['location_title'],
                 optional=True,  # a11y: only some fields here are required
-                ally_id='location-help-text'
+                ally_id='location-help-text',
+                extra_validation_fields=('location_city_town', 'location_state')
             ),
         ]
         self.page_note = _('Please tell us the city, state, and name of the location where this incident took place. This ensures your report is reviewed by the right people within the Civil Rights Division.')

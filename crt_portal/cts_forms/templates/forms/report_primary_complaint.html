@@ -2,14 +2,6 @@
 {% load static %}
 {% load i18n %}
 
-{% block extra_errors %}
-  <ul>
-    {% for field in form %}
-      <li>{{field.label}}</li>
-    {% endfor %}
-  </ul>
-{% endblock %}
-
 {% block form_questions %}
   {% with primary_complaint_field=wizard.form.primary_complaint %}
     <div class="crt-portal-card">

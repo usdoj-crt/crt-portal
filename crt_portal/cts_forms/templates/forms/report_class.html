@@ -2,15 +2,6 @@
 {% load i18n %}
 {% load static %}
 
-{% block extra_errors %}
-  <ul>
-    {% for field in form %}
-      {% if field.errors %}
-        {{field.label}}
-      {% endif %}
-    {% endfor %}
-  </ul>
-{% endblock %}
 
 {% block form_questions %}
   <div class="crt-portal-card crt-portal-card">

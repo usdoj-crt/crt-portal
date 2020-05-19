@@ -416,3 +416,14 @@ select.usa-input--error {
     margin-right: 1rem;
   }
 }
+
+#page-errors {
+  .error-summary {
+  margin-block-start: 0px;
+    li {
+      font-weight: normal;
+      margin-bottom: 0px;
+      margin-top: 0px;
+    }
+  }
+}
