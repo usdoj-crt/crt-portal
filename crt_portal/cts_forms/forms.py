@@ -224,7 +224,6 @@ class HateCrimesTrafficking(ModelForm):
             widget=UsaRadioSelect,
             required=False,
         )
-
         # Translators: notes that this page is the same form step as the page before
         self.page_note = _('Continued')
 
@@ -646,7 +645,6 @@ class Review(ModelForm):
 
 class ProForm(
     Contact,
-    HateCrimesTrafficking,
     ElectionLocation,
     WorkplaceLocation,
     CommercialPublicLocation,
@@ -679,7 +677,6 @@ class ProForm(
 
         widget_list = [
             Contact.Meta.widgets,
-            # check on hate crime widget inheritance on the pro form
             # location widgets
             {
                 'location_name': TextInput(attrs={
@@ -778,7 +775,13 @@ class ProForm(
             widget=UsaRadioSelect,
             required=True,
         )
-        # hate crimes
+        self.fields['hate_crime'] = TypedChoiceField(
+            choices=HATE_CRIME_CHOICES,
+            label=HATECRIME_QUESTION,
+            empty_value=None,
+            widget=UsaRadioSelect,
+            required=False,
+        )
         self.fields['public_or_private_employer'] = TypedChoiceField(
             choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
             empty_value=None,
