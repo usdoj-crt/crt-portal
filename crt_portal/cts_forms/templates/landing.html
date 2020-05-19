@@ -150,19 +150,37 @@
 
               <select id="crt-landing--examples" class="usa-select" name="examples" aria-label="select example">
                 {% for key, value in choices.items %}
-                  <option value="{{ key }}" data-helptext="{{ value.helptext }}" data-examples="{{ value.examples }}">
+                  <option value="{{ key }}"
+                          {% if value.helptext %}data-helptext="{{ value.helptext }}"{% endif %}
+                          data-examplecount="{{ value.examples | length }}"
+                          {% for example in value.examples %}
+                          data-example{{ forloop.counter0 }}="{{ example }}"
+                          {% endfor %}
+                  >
                     {{ value.description }}
                   </option>
                 {% endfor %}
               </select>
-              <div class="crt-landing--example">
-                <div id="crt-landing--choice_helptext">
-                  {{ choices.workplace.helptext }}
-                </div>
-                <div id="crt-landing--choice_examples">
-                  {{ choices.workplace.examples }}
+              <div class="crt-landing--example_section">
+                <div class="crt-landing--example">
+                  <p>
+                    <div id="crt-landing--choice_helptext">
+                      {{ choices.workplace.helptext }}
+                    </div>
+                  </p>
+                  <p class="crt-landing--example_header">
+                    Examples
+                  </p>
+                  <div id="crt-landing--choice_examples">
+                    {% for example in choices.workplace.examples %}
+                      <p>{{ example }}</p>
+                    {% endfor %}
+                  </div>
                 </div>
               </div>
+              <p>
+                If you think you've experienced a similar situation, please see <a href="#">how to report a civil rights violation.</a>
+              </p>
             </div>
             <div class="tablet:grid-col-4 crt-landing--divider">
               <h3>{% trans "Protected characteristics" %}</h3>
@@ -270,21 +288,20 @@
 {% endblock %}
 
 {% block page_js %}
-  <script nonce="{{request.csp_nonce}}">
+  <script nonce="{{ request.csp_nonce }}">
    (function() {
-     var dropdown = document.querySelector("select#crt-landing--examples");
-     var helptext_field = document.querySelector("#crt-landing--choice_helptext");
-     var examples_field = document.querySelector("#crt-landing--choice_examples");
+     var dropdown = document.getElementById("crt-landing--examples");
+     var helptext_field = document.getElementById("crt-landing--choice_helptext");
+     var examples_field = document.getElementById("crt-landing--choice_examples");
      dropdown.addEventListener("change", function(event) {
        let el = event.target.options[event.target.selectedIndex];
        let helptext = el.dataset.helptext;
        helptext_field.innerText = helptext || "";
-       let examples = el.dataset.examples;
-
-
-       if (examples) {
-         examples_field.innerText = examples || "";
-
+       let length = el.dataset.examplecount;
+       examples_field.innerText = "";
+       for (var i = 0; i < length; i++) {
+         var example = el.dataset["example" + i];
+         examples_field.innerHTML += "<p>" + example + "</p>";
        }
      });
    })();

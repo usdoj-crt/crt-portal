@@ -222,3 +222,13 @@ $arrow-height: 20px;
   border-right: 50px solid transparent;
   border-top: $arrow-height solid $blue-warm-vivid-80;
 }
+
+.crt-landing--example_section {
+  margin-left: 1rem;
+  background-color: white;
+
+  .crt-landing--example_header {
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+}
