@@ -16,12 +16,13 @@ CONTACT_QUESTIONS = {
     'contact_state': _('State'),
 }
 SERVICEMEMBER_QUESTION = _('Are you now or have ever been an active duty service member?')
+
 # primary concern
 PRIMARY_REASON_QUESTION = _('What is your primary reason for contacting the Civil Rights Division?')
 # hatecrime
-HATECRIME_TITLE = _('Hate crimes and human trafficking')
-HATECRIME_QUESTION = _('Please select if any apply to your report')
-HATECRIME_HELP_TEXT = _('Please let us know if you would describe your concern as either a hate crime or human trafficking. This information can help us take action against these types of violations. We will contact you about the next steps. We also encourage you to contact law enforcement if you or someone else is in immediate danger.')
+HATECRIME_TITLE = _('Primary Issue')
+HATECRIME_QUESTION = _('Does your situation involve physical harm or threats of violence?')
+HATECRIME_HELP_TEXT = _('To be considered a hate crime, the physical harm or threats of violence must be based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability.')
 
 # Location
 LOCATION_QUESTIONS = {

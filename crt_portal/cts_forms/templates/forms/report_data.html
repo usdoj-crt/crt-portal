@@ -40,9 +40,10 @@
     <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.primary_reason }}</h3>
     <p>{{ report.get_primary_complaint_display }}</p>
 
-    <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.hatecrime_title }}</h3>
-    <h4>{{ question.hatecrime }}</h4>
-    <p>{{ report.hate_crime|default:"-" }}</p>
+    <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.hatecrime }}</h3>
+    {% with report.hate_crime|default:"-" as hate %}
+    <p>{{ hate|title }}</p>
+    {% endwith %}
   </div>
 </div>
 
