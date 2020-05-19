@@ -342,6 +342,31 @@ class LocationForm(ModelForm):
         ]
         self.page_note = _('Please tell us the city, state, and name of the location where this incident took place. This ensures your report is reviewed by the right people within the Civil Rights Division.')
 
+    def summary_error_questions(self):
+        """
+        Return a list of questions which contain fields with errors
+
+        First check all defined question groups
+        Then check any fields defined outside of questions groups
+        that have not already been evaluated as part of a question group
+        """
+        questions = []
+        checked_fields = set()
+
+        for group in self.question_groups:
+            if group.errors():
+                questions.append(group.group_name)
+            [checked_fields.add(field) for field in group.fields]
+            if group.extra_validation_fields:
+                [checked_fields.add(field) for field in group.extra_validation_fields]
+
+        for field in self.fields:
+            if field not in checked_fields and self[field].errors:
+                questions.append(self[field].label)
+                checked_fields.add(field)
+
+        return questions
+
 
 class ElectionLocation(LocationForm):
     pass
