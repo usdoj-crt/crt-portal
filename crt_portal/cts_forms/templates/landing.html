@@ -148,7 +148,7 @@
             <div class="tablet:grid-col-8">
               <p class="crt-landing--largetext">{% trans "Choose from this list to see examples." %}</p>
 
-              <select id="crt-landing--examples" class="usa-select" name="examples" aria-label="select example">
+              <select id="crt-landing--examples" class="usa-select crt-landing--blue crt-landing--large_select" name="examples" aria-label="select example">
                 {% for key, value in choices.items %}
                   <option value="{{ key }}"
                           {% if value.helptext %}data-helptext="{{ value.helptext }}"{% endif %}

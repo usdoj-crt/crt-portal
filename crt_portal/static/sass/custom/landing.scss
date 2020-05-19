@@ -189,6 +189,12 @@ $arrow-height: 20px;
       font-style: italic;
     }
   }
+
+  .crt-landing--large_select {
+    @include u-shadow(3);
+    height: 5rem;
+    white-space: pre-wrap;
+  }
 }
 
 .crt-landing--how_to_report {
@@ -224,9 +230,6 @@ $arrow-height: 20px;
   h2 {
     margin-bottom: 1rem;
   }
-}
-
-.crt-landing--already_submitted {
 }
 
 .crt-landing--card {
