@@ -51,22 +51,30 @@
             {{details_form.primary_complaint}}
           </div>
         </td>
+      {# showing old data with hate crimes #}
+      {% if crimes.physical_harm or crimes.trafficking %}
       <tr>
         <th>Hate crime</th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
-            {% if crimes.physical_harm %}
-            Yes (checked)
+            {# show new hate crime field if it exists #}
+            {% if data.hate_crime%}
+              {{ data.hate_crime|title }}
             {% else %}
-            No (unchecked)
+              {% if crimes.physical_harm %}
+              Yes (checked)
+              {% else %}
+              No (unchecked)
+              {% endif %}
             {% endif %}
           </div>
-          <div class="details-edit usa-checkbox {% if not details_form.errors %}display-none{% endif %}">
-            {{details_form.hatecrime}}
-            <label for="{{details_form.hatecrime.id_for_label}}" class="crt-checkbox__label">Yes</label>
+          <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
+              {# edit the new data field for updates #}
+              {{details_form.hate_crime}}
           </div>
         </td>
       </tr>
+      {# showing old data with trafficking #}
       <tr>
         <th>Human Trafficking</th>
         <td>
@@ -77,12 +85,31 @@
             No (unchecked)
             {% endif %}
           </div>
-          <div class="details-edit usa-checkbox {% if not details_form.errors %}display-none{% endif %}">
-            {{details_form.trafficking}}
-            <label for="{{details_form.trafficking.id_for_label}}" class="crt-checkbox__label">Yes</label>
+          <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
+              {% if crimes.trafficking %}
+              Yes (checked)
+              {% else %}
+              No (unchecked)
+              {% endif %}
+              [This field is no longer in use and cannot be edited]
           </div>
         </td>
       </tr>
+      {% endif %}
+      {# current version of hate crimes. This will also show "no" responses from earlier forms #}
+      {% if not crimes.trafficking and not crimes.physical_harm %}
+      <tr>
+        <th><label for="{{details_form.hate_crime.id_for_label}}">Hate crime</label></th>
+          <td>
+            <div class="details {% if details_form.errors %}display-none{% endif %}">
+              {{data.hate_crime|title|default:"—"}}
+            </div>
+            <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
+              {{details_form.hate_crime}}
+            </div>
+          </td>
+      </tr>
+      {% endif %}
       <tr>
         <th>Relevant Details</th>
         <td>

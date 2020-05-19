@@ -1129,7 +1129,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
     CONTEXT_KEY = "details_form"
     FAIL_MESSAGE = "Failed to update complaint details."
     SUCCESS_MESSAGE = "Successfully updated complaint details."
-
+    # Keeping these for archival data
     hatecrime = BooleanField(required=False, widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'}))
     trafficking = BooleanField(required=False, widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'}))
 
@@ -1162,8 +1162,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         """
         ModelForm.__init__(self, *args, **kwargs)
 
-        #  We're handling hatecrimes_trafficking with separate boolean fields, render report field as hidden
-        self.fields['hatecrimes_trafficking'].widget = MultipleHiddenInput()
+        #  We're handling old hatecrimes_trafficking data with separate boolean fields
         self.fields['hatecrime'].initial = self.instance.hatecrimes_trafficking.filter(value='physical_harm').exists()
         self.fields['trafficking'].initial = self.instance.hatecrimes_trafficking.filter(value='trafficking').exists()
 
@@ -1198,12 +1197,6 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
     def changed_data(self):
         changed_data = super().changed_data
 
-        # If hatecrime or trafficking field was changed, so was hatecrimes_trafficking
-        if 'hatecrime' in changed_data:
-            changed_data.append('hatecrimes_trafficking')
-        if 'trafficking' in changed_data and 'hatecrimes_trafficking' not in changed_data:
-            changed_data.append('hatecrimes_trafficking')
-
         # If we're changing primary complaint, we may also need to update dependent fields
         if 'primary_complaint' in changed_data:
             original = self.instance.primary_complaint
@@ -1228,21 +1221,6 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
                 for field in Report.PRIMARY_COMPLAINT_DEPENDENT_FIELDS[original]:
                     cleaned_data[field] = ""
         return cleaned_data
-
-    def clean(self):
-        """Convert intermediary fields rendered as checkboxes to model's M2M field"""
-        cleaned_data = super().clean()
-        crimes = []
-
-        if cleaned_data['hatecrime']:
-            crimes.append(HateCrimesandTrafficking.objects.get(value='physical_harm'))
-
-        if cleaned_data['trafficking']:
-            crimes.append(HateCrimesandTrafficking.objects.get(value='trafficking'))
-
-        cleaned_data['hatecrimes_trafficking'] = crimes
-
-        return self.clean_dependent_fields(cleaned_data)
 
     def update_activity_stream(self, user):
         """Generate activity log entry for summary if it was updated"""
