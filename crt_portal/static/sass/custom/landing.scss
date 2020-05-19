@@ -208,3 +208,11 @@
     font-weight: bold;
   }
 }
+
+.crt-landing--arrow {
+  width: 100px;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-top: 20px solid $blue-warm-vivid-80;
+}
