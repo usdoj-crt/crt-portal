@@ -126,3 +126,24 @@
   font-size: 1.5rem;
   font-weight: bold;
 }
+
+.crt-landing--list {
+  background-color: $blue-warm-5;
+  color: $blue-warm-vivid-80;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+
+  .crt-landing--divider {
+    border-left: 1px solid $blue-warm-vivid-80;
+  }
+
+  li {
+    font-weight: bold;
+    margin-bottom: 1rem;
+
+    .crt-landing--protected {
+      font-weight: normal;
+      font-style: italic;
+    }
+  }
+}
