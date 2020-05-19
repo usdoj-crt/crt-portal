@@ -161,26 +161,32 @@
                   </option>
                 {% endfor %}
               </select>
-              <div class="crt-landing--example_section">
-                <div class="crt-landing--example">
+              <div class="grid-row grid-gap">
+                <div class="tablet:grid-col-9 crt-landing--example">
                   <p>
-                    <div id="crt-landing--choice_helptext">
+                    <div id="crt-landing--choice_helptext" class="crt-landing--text">
                       {{ choices.workplace.helptext }}
                     </div>
                   </p>
-                  <p class="crt-landing--example_header">
+                  <p id="crt-landing--example_header">
                     Examples
                   </p>
-                  <div id="crt-landing--choice_examples">
+                  <div id="crt-landing--choice_examples" class="crt-landing--text">
                     {% for example in choices.workplace.examples %}
                       <p>{{ example }}</p>
                     {% endfor %}
                   </div>
                 </div>
               </div>
-              <p>
-                If you think you've experienced a similar situation, please see <a href="#">how to report a civil rights violation.</a>
-              </p>
+              <div class="grid-row grid-gap">
+                <div class="tablet:grid-col-9">
+                  <p class="crt-landing--similar_situation">
+                    <em>
+                      If you think you've experienced a similar situation, please see <a href="#crt-landing--reporting">how to report a civil rights violation.</a>
+                    </em>
+                  </p>
+                </div>
+              </div>
             </div>
             <div class="tablet:grid-col-4 crt-landing--divider">
               <h3>{% trans "Protected characteristics" %}</h3>
@@ -204,7 +210,7 @@
     </div>
   </div>
 
-  <div class="crt-landing--section crt-landing--how_to_report crt-landing--blue">
+  <div id="crt-landing--reporting" class="crt-landing--section crt-landing--how_to_report crt-landing--blue">
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-12">
@@ -293,12 +299,14 @@
      var dropdown = document.getElementById("crt-landing--examples");
      var helptext_field = document.getElementById("crt-landing--choice_helptext");
      var examples_field = document.getElementById("crt-landing--choice_examples");
+     var example_header = document.getElementById("crt-landing--example_header");
      dropdown.addEventListener("change", function(event) {
        let el = event.target.options[event.target.selectedIndex];
        let helptext = el.dataset.helptext;
        helptext_field.innerText = helptext || "";
-       let length = el.dataset.examplecount;
        examples_field.innerText = "";
+       let length = el.dataset.examplecount;
+       example_header.style.visibility = length == 0 ? "hidden" : "visible";
        for (var i = 0; i < length; i++) {
          var example = el.dataset["example" + i];
          examples_field.innerHTML += "<p>" + example + "</p>";

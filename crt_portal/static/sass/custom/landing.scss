@@ -223,12 +223,33 @@ $arrow-height: 20px;
   border-top: $arrow-height solid $blue-warm-vivid-80;
 }
 
-.crt-landing--example_section {
+.crt-landing--example {
+  @include u-radius('lg');
+  @include u-shadow(3);
   margin-left: 1rem;
   background-color: white;
+  min-height: 20rem;
 
-  .crt-landing--example_header {
+  #crt-landing--choice_helptext {
+    font-style: italic;
+    padding-right: 1rem;
+  }
+
+  #crt-landing--choice_examples p {
+    margin-top: 1.5rem;
+    padding-right: 1rem;
+  }
+
+  #crt-landing--example_header {
     text-transform: uppercase;
+    font-weight: bold;
+  }
+}
+
+.crt-landing--similar_situation {
+  margin-top: 2rem;
+
+  a {
     font-weight: bold;
   }
 }
