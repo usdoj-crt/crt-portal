@@ -778,6 +778,7 @@ class ProForm(
         self.fields['hate_crime'] = TypedChoiceField(
             choices=HATE_CRIME_CHOICES,
             label=HATECRIME_QUESTION,
+            help_text=HATECRIME_HELP_TEXT,
             empty_value=None,
             widget=UsaRadioSelect,
             required=False,
