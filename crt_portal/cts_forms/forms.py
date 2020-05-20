@@ -508,9 +508,7 @@ class ProtectedClassForm(ModelForm):
         model = Report
         fields = ['protected_class', 'other_class']
         widgets = {
-            'protected_class': UsaCheckboxSelectMultiple(attrs={
-                'aria-describedby': 'protected-class-help-text'
-            }),
+            'protected_class': UsaCheckboxSelectMultiple(),
             'other_class': TextInput(
                 attrs={'class': 'usa-input word-count-10'}
             ),
@@ -524,9 +522,7 @@ class ProtectedClassForm(ModelForm):
             required=True,
             label="",
             queryset=ProtectedClass.active_choices.all().order_by('form_order'),
-            widget=UsaCheckboxSelectMultiple(attrs={
-                'aria-describedby': 'protected-class-help-text'
-            }),
+            widget=UsaCheckboxSelectMultiple(),
         )
         # Translators: This is to explain an "other" choice for personal characteristics
         self.fields['other_class'].help_text = _('Please describe "Other reason"')
@@ -540,9 +536,7 @@ class ProtectedClassForm(ModelForm):
                 ('protected_class',),
                 group_name=PROTECTED_CLASS_QUESTION,
                 help_text=_('There are federal and state laws that protect people from discrimination based on their personal characteristics. Here is a list of the most common characteristics that are legally protected. Select any that apply to your incident.'),
-                optional=False,
-                ally_id="protected-class-help-text"
-            )
+                optional=False)
         ]
 
 
