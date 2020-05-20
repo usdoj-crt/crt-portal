@@ -24,3 +24,7 @@
 
 
 {% endblock %}
+{% block page_js %}
+  {{ super }}
+  <script src="{% static 'js/bold_phrase.js' %}"></script>
+{% endblock %}
