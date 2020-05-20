@@ -281,23 +281,18 @@ class LocationForm(ModelForm):
 
         widgets = {
             'location_name': TextInput(attrs={
-                'class': 'usa-input',
-                'aria-describedby': 'location-help-text'
+                'class': 'usa-input'
             }),
             'location_address_line_1': TextInput(attrs={
-                'class': 'usa-input',
-                'aria-describedby': 'location-help-text'
+                'class': 'usa-input'
             }),
             'location_address_line_2': TextInput(attrs={
-                'class': 'usa-input',
-                'aria-describedby': 'location-help-text'
+                'class': 'usa-input'
             }),
             'location_city_town': TextInput(attrs={
-                'class': 'usa-input',
-                'aria-describedby': 'location-help-text'
+                'class': 'usa-input'
             }),
             'location_state': Select(attrs={
-                'aria-describedby': 'location-help-text',
                 'class': 'usa-select'
             }),
         }
@@ -322,7 +317,6 @@ class LocationForm(ModelForm):
         self.fields['location_state'] = ChoiceField(
             choices=_add_empty_choice(STATES_AND_TERRITORIES),
             widget=Select(attrs={
-                'aria-describedby': 'location-help-text',
                 'class': 'usa-select'
             }),
             required=True,
@@ -339,7 +333,6 @@ class LocationForm(ModelForm):
                 ('location_name', 'location_address_line_1', 'location_address_line_2'),
                 group_name=LOCATION_QUESTIONS['location_title'],
                 optional=True,  # a11y: only some fields here are required
-                ally_id='location-help-text'
             ),
         ]
         self.page_note = _('Please tell us the city, state, and name of the location where this incident took place. This ensures your report is reviewed by the right people within the Civil Rights Division.')
@@ -496,15 +489,12 @@ class EducationLocation(LocationForm):
                 group_name=EDUCATION_QUESTION,
                 help_text=_('Includes schools, educational programs, or educational activities, like training programs, sports teams, clubs, or other school-sponsored activities'),
                 optional=False,
-                ally_id='education-location-help-text'
             ),
         ] + self.question_groups
 
         self.fields['public_or_private_school'] = TypedChoiceField(
             choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
-            widget=UsaRadioSelect(attrs={
-                'aria-describedby': 'education-location-help-text'
-            }),
+            widget=UsaRadioSelect(),
             label='',
             required=True,
             error_messages={
@@ -705,23 +695,18 @@ class ProForm(
             # location widgets
             {
                 'location_name': TextInput(attrs={
-                    'class': 'usa-input',
-                    'aria-describedby': 'location-help-text'
+                    'class': 'usa-input'
                 }),
                 'location_address_line_1': TextInput(attrs={
-                    'class': 'usa-input',
-                    'aria-describedby': 'location-help-text'
+                    'class': 'usa-input'
                 }),
                 'location_address_line_2': TextInput(attrs={
-                    'class': 'usa-input',
-                    'aria-describedby': 'location-help-text'
+                    'class': 'usa-input'
                 }),
                 'location_city_town': TextInput(attrs={
-                    'class': 'usa-input',
-                    'aria-describedby': 'location-help-text'
+                    'class': 'usa-input'
                 }),
                 'location_state': Select(attrs={
-                    'aria-describedby': 'location-help-text',
                     'class': 'usa-select'
                 }),
             },
