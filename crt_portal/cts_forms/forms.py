@@ -40,12 +40,12 @@ from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             EDUCATION_QUESTION, ELECTION_QUESTION,
-                            HATECRIME_QUESTION, HATECRIME_TITLE,
+                            HATE_CRIME_QUESTION, HATE_CRIME_TITLE,
                             LOCATION_QUESTIONS, POLICE_QUESTIONS,
                             PRIMARY_REASON_QUESTION, PROTECTED_CLASS_QUESTION,
                             PUBLIC_QUESTION, SERVICEMEMBER_QUESTION,
                             SUMMARY_HELPTEXT, SUMMARY_QUESTION,
-                            WORKPLACE_QUESTIONS, HATECRIME_HELP_TEXT)
+                            WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
                       CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
                       UsaRadioSelect)
@@ -206,7 +206,7 @@ class PrimaryReason(ModelForm):
         )
 
 
-class HateCrimesTrafficking(ModelForm):
+class HateCrimes(ModelForm):
     class Meta:
         model = Report
         fields = [
@@ -218,8 +218,8 @@ class HateCrimesTrafficking(ModelForm):
 
         self.fields['hate_crime'] = TypedChoiceField(
             choices=HATE_CRIME_CHOICES,
-            label=HATECRIME_QUESTION,
-            help_text=HATECRIME_HELP_TEXT,
+            label=HATE_CRIME_QUESTION,
+            help_text=HATE_CRIME_HELP_TEXT,
             empty_value=None,
             widget=UsaRadioSelect,
             required=False,
@@ -625,8 +625,8 @@ class Review(ModelForm):
         'contact': CONTACT_QUESTIONS,
         'servicemember': SERVICEMEMBER_QUESTION,
         'primary_reason': PRIMARY_REASON_QUESTION,
-        'hatecrime_title': HATECRIME_TITLE,
-        'hatecrime': HATECRIME_QUESTION,
+        'hate_crime_title': HATE_CRIME_TITLE,
+        'hate_crime': HATE_CRIME_QUESTION,
         'location': LOCATION_QUESTIONS,
         'election': ELECTION_QUESTION,
         'workplace': WORKPLACE_QUESTIONS,
@@ -777,8 +777,8 @@ class ProForm(
         )
         self.fields['hate_crime'] = TypedChoiceField(
             choices=HATE_CRIME_CHOICES,
-            label=HATECRIME_QUESTION,
-            help_text=HATECRIME_HELP_TEXT,
+            label=HATE_CRIME_QUESTION,
+            help_text=HATE_CRIME_HELP_TEXT,
             empty_value=None,
             widget=UsaRadioSelect,
             required=False,

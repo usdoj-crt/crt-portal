@@ -9,7 +9,7 @@ from django.test.client import Client
 from django.urls import reverse
 from testfixtures import LogCapture
 
-from ..forms import (CommercialPublicLocation, Contact, Details, HateCrimesTrafficking,
+from ..forms import (CommercialPublicLocation, Contact, Details, HateCrimes,
                      EducationLocation, LocationForm, PoliceLocation,
                      PrimaryReason, ProForm, ProtectedClassForm, When, ComplaintActions)
 from ..model_variables import (PRIMARY_COMPLAINT_CHOICES,
@@ -86,7 +86,7 @@ class Valid_Form_Tests(TestCase):
         self.assertTrue(form.is_valid())
 
     def test_hate_crimes_valad(self):
-        form = HateCrimesTrafficking(data={
+        form = HateCrimes(data={
             'hate_crime': 'yes',
         })
         self.assertTrue(form.is_valid())
@@ -922,7 +922,6 @@ class TestIntakeFormat(TestCase):
     def setUp(self):
         self.form_data_dict = copy.deepcopy(SAMPLE_REPORT)
         self.form_data_dict['protected_class'] = ProtectedClass.objects.none()
-        # self.form_data_dict['hatecrimes_trafficking'] = HateCrimesandTrafficking.objects.none()
 
     def test_intake_save_web(self):
         data, saved_object = save_form(self.form_data_dict, intake_format='web')

@@ -25,7 +25,7 @@ from cts_forms.forms import (
     Contact,
     Details,
     PrimaryReason,
-    HateCrimesTrafficking,
+    HateCrimes,
     LocationForm,
     ProtectedClassForm,
     ElectionLocation,
@@ -68,7 +68,7 @@ urlpatterns = auth + [
         [
             Contact,
             PrimaryReason,
-            HateCrimesTrafficking,
+            HateCrimes,
             ElectionLocation,
             WorkplaceLocation,
             PoliceLocation,

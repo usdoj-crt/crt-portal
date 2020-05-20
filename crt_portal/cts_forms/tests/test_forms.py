@@ -90,8 +90,7 @@ class ReportEditFormTests(TestCase):
                                  'public_or_private_employer': PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES[0][0]})
         self.report = Report.objects.create(**self.report_data)
 
-    def test_changed_data_hatecrime(self):
-        """If our hatecrime boolean was changed, hatecrimetrafficking must be in changed_data"""
+    def test_changed_data_hate_crime(self):
         data = self.report_data.copy()
         data.update({'hate_crime': 'yes'})
         form = ReportEditForm(data, instance=self.report)

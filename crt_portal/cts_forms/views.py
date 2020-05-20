@@ -220,6 +220,7 @@ def serialize_data(report, request, report_id):
         'trafficking': False
     }
 
+    # for archival data
     for crime in report.hatecrimes_trafficking.all():
         for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
             if crime.value == choice[0]:
@@ -347,7 +348,6 @@ def save_form(form_data_dict, **kwargs):
     m2m_protected_class = form_data_dict.pop('protected_class')
     r = Report.objects.create(**form_data_dict)
 
-    # add a save feature for hatecrimes and trafficking question on primary reason page
     # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
     for protected in m2m_protected_class:
         r.protected_class.add(protected)
