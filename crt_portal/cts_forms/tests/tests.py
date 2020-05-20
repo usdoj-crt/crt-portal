@@ -79,7 +79,6 @@ class Valid_Form_Tests(TestCase):
         })
         self.assertTrue(form.is_valid())
 
-
     def test_Primary_reason_valid(self):
         form = PrimaryReason(data={
             'primary_complaint': PRIMARY_COMPLAINT_CHOICES[0][0],

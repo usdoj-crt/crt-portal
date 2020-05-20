@@ -7,7 +7,7 @@ from django.core.validators import ValidationError
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           EmailInput, HiddenInput, IntegerField,
                           ModelChoiceField, ModelForm,
-                          ModelMultipleChoiceField, MultipleHiddenInput,
+                          ModelMultipleChoiceField,
                           Select, SelectMultiple, Textarea, TextInput,
                           TypedChoiceField)
 from django.utils.functional import cached_property
@@ -34,7 +34,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               STATUS_CHOICES, STATUTE_CHOICES,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES)
-from .models import (CommentAndSummary, HateCrimesandTrafficking,
+from .models import (CommentAndSummary,
                      ProtectedClass, Report)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
@@ -205,7 +205,7 @@ class PrimaryReason(ModelForm):
             help_text=_('Select the reason that best describes your concern. Each reason lists examples of civil rights violations that may relate to your incident. In another section of this report, you will be able to describe your concern in your own words.'),
         )
 
-# update name
+
 class HateCrimesTrafficking(ModelForm):
     class Meta:
         model = Report

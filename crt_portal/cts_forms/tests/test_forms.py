@@ -8,7 +8,7 @@ from django.urls import reverse
 
 from ..forms import ComplaintActions, ReportEditForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES
-from ..models import CommentAndSummary, Report, HateCrimesandTrafficking
+from ..models import CommentAndSummary, Report
 from .test_data import SAMPLE_REPORT
 
 
