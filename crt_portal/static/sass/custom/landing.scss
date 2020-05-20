@@ -99,7 +99,7 @@ $arrow-height: 20px;
 }
 
 .crt-landing--hero {
-  padding-bottom: 2rem; // temporary
+  padding-bottom: 10rem;
 }
 
 .crt-landing--emergency {
@@ -194,6 +194,8 @@ $arrow-height: 20px;
     @include u-shadow(3);
     height: 5rem;
     white-space: pre-wrap;
+    overflow-wrap: break-word;
+    word-wrap: break-word; // backwards compat
     padding: 1rem;
   }
 
