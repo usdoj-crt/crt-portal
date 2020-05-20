@@ -299,7 +299,7 @@ workflows:
             - build_and_test
           filters:
             branches:
-              only: develop
+              only: landing-page-layout
 
       - deploy-stage:
           requires:
