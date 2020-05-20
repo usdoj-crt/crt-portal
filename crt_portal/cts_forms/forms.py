@@ -16,6 +16,7 @@ from django.utils.translation import gettext_lazy as _
 from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
                               COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
+                              CONTACT_PHONE_INVALID_MESSAGE,
                               CORRECTIONAL_FACILITY_LOCATION_CHOICES,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
                               DATE_ERRORS, DISTRICT_CHOICES,
@@ -117,7 +118,7 @@ class Contact(ModelForm):
             'contact_phone': TextInput(attrs={
                 'class': 'usa-input',
                 'pattern': phone_validation_regex,
-                'title': _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')
+                'title': CONTACT_PHONE_INVALID_MESSAGE
             }),
             'contact_address_line_1': TextInput(attrs={
                 'class': 'usa-input',
@@ -141,6 +142,8 @@ class Contact(ModelForm):
         self.fields['contact_last_name'].label = CONTACT_QUESTIONS['contact_last_name']
         self.fields['contact_email'].label = CONTACT_QUESTIONS['contact_email']
         self.fields['contact_phone'].label = CONTACT_QUESTIONS['contact_phone']
+        self.fields['contact_phone'].error_messages = {'invalid': CONTACT_PHONE_INVALID_MESSAGE}
+
         self.fields['contact_address_line_1'].label = CONTACT_QUESTIONS['contact_address_line_1']
         self.fields['contact_address_line_2'].label = CONTACT_QUESTIONS['contact_address_line_2']
         self.fields['contact_city'].label = CONTACT_QUESTIONS['contact_city']
@@ -1105,7 +1108,7 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
             'contact_phone': TextInput(attrs={
                 'class': 'usa-input',
                 'pattern': phone_validation_regex,
-                'title': _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')
+                'title': CONTACT_PHONE_INVALID_MESSAGE
             }),
             'contact_address_line_1': TextInput(attrs={
                 'class': 'usa-input',
@@ -1120,6 +1123,11 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
                 'class': 'usa-input',
             }),
         }
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+
+        self.fields['contact_phone'].error_messages = {'invalid': CONTACT_PHONE_INVALID_MESSAGE}
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
