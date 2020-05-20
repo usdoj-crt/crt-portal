@@ -9,10 +9,11 @@ from django.test.client import Client
 from django.urls import reverse
 from testfixtures import LogCapture
 
-from ..forms import (CommercialPublicLocation, Contact, Details,
-                     EducationLocation, LocationForm, PoliceLocation,
-                     PrimaryReason, ProForm, ProtectedClassForm, When, ComplaintActions)
-from ..model_variables import (HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
+from ..forms import (CommercialPublicLocation, ComplaintActions, Contact,
+                     Details, EducationLocation, LocationForm, PoliceLocation,
+                     PrimaryReason, ProForm, ProtectedClassForm, When)
+from ..model_variables import (CONTACT_PHONE_INVALID_MESSAGE,
+                               HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
                                PRIMARY_COMPLAINT_CHOICES,
                                PRIMARY_COMPLAINT_ERROR, PROTECTED_CLASS_ERROR,
                                PROTECTED_MODEL_CHOICES, SERVICEMEMBER_ERROR,
@@ -801,7 +802,7 @@ class ContactValidationTests(TestCase):
         self.assertFalse(form.is_valid())
         self.assertEquals(
             form.errors,
-            {'contact_phone': ['Enter a valid value.']}
+            {'contact_phone': [CONTACT_PHONE_INVALID_MESSAGE]}
         )
 
     def test_phone_too_short(self):
@@ -814,7 +815,7 @@ class ContactValidationTests(TestCase):
             phone.full_clean()
         except ValidationError as err:
             phone_error_message = err.message_dict['contact_phone']
-            self.assertTrue(phone_error_message == ['Enter a valid value.'])
+            self.assertTrue(phone_error_message == [CONTACT_PHONE_INVALID_MESSAGE])
 
     def test_international_phone(self):
         phone = Report(

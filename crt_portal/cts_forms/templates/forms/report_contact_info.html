@@ -21,6 +21,7 @@
   </div>
 </div>
 
-{% include "forms/question_cards/single_form.html" with field=form.servicemember %}
-
+  <div role="group" aria-labelledby="servicemember-help-text">
+    {% include "forms/question_cards/single_form.html" with field=form.servicemember ally_id="servicemember-help-text" %}
+  </div>
 {% endblock %}

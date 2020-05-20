@@ -10,6 +10,7 @@ from django.utils.functional import cached_property
 
 from .managers import ActiveProtectedClassChoiceManager
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
+                              CONTACT_PHONE_INVALID_MESSAGE,
                               CORRECTIONAL_FACILITY_LOCATION_CHOICES,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
                               DATE_ERRORS, DISTRICT_CHOICES, ELECTION_CHOICES,
@@ -82,7 +83,7 @@ class Report(models.Model):
     contact_last_name = models.CharField(max_length=225, null=True, blank=True)
     contact_email = models.EmailField(null=True, blank=True)
     contact_phone = models.CharField(
-        validators=[RegexValidator(phone_validation_regex)],
+        validators=[RegexValidator(phone_validation_regex, message=CONTACT_PHONE_INVALID_MESSAGE)],
         max_length=225,
         null=True,
         blank=True

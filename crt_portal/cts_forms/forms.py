@@ -16,6 +16,7 @@ from django.utils.translation import gettext_lazy as _
 from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
                               COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
+                              CONTACT_PHONE_INVALID_MESSAGE,
                               CORRECTIONAL_FACILITY_LOCATION_CHOICES,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
                               DATE_ERRORS, DISTRICT_CHOICES,
@@ -116,7 +117,7 @@ class Contact(ModelForm):
             'contact_phone': TextInput(attrs={
                 'class': 'usa-input',
                 'pattern': phone_validation_regex,
-                'title': _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')
+                'title': CONTACT_PHONE_INVALID_MESSAGE
             }),
             'contact_address_line_1': TextInput(attrs={
                 'class': 'usa-input',
@@ -140,6 +141,8 @@ class Contact(ModelForm):
         self.fields['contact_last_name'].label = CONTACT_QUESTIONS['contact_last_name']
         self.fields['contact_email'].label = CONTACT_QUESTIONS['contact_email']
         self.fields['contact_phone'].label = CONTACT_QUESTIONS['contact_phone']
+        self.fields['contact_phone'].error_messages = {'invalid': CONTACT_PHONE_INVALID_MESSAGE}
+
         self.fields['contact_address_line_1'].label = CONTACT_QUESTIONS['contact_address_line_1']
         self.fields['contact_address_line_2'].label = CONTACT_QUESTIONS['contact_address_line_2']
         self.fields['contact_city'].label = CONTACT_QUESTIONS['contact_city']
@@ -278,23 +281,18 @@ class LocationForm(ModelForm):
 
         widgets = {
             'location_name': TextInput(attrs={
-                'class': 'usa-input',
-                'aria-describedby': 'location-help-text'
+                'class': 'usa-input'
             }),
             'location_address_line_1': TextInput(attrs={
-                'class': 'usa-input',
-                'aria-describedby': 'location-help-text'
+                'class': 'usa-input'
             }),
             'location_address_line_2': TextInput(attrs={
-                'class': 'usa-input',
-                'aria-describedby': 'location-help-text'
+                'class': 'usa-input'
             }),
             'location_city_town': TextInput(attrs={
-                'class': 'usa-input',
-                'aria-describedby': 'location-help-text'
+                'class': 'usa-input'
             }),
             'location_state': Select(attrs={
-                'aria-describedby': 'location-help-text',
                 'class': 'usa-select'
             }),
         }
@@ -319,7 +317,6 @@ class LocationForm(ModelForm):
         self.fields['location_state'] = ChoiceField(
             choices=_add_empty_choice(STATES_AND_TERRITORIES),
             widget=Select(attrs={
-                'aria-describedby': 'location-help-text',
                 'class': 'usa-select'
             }),
             required=True,
@@ -336,7 +333,6 @@ class LocationForm(ModelForm):
                 ('location_name', 'location_address_line_1', 'location_address_line_2'),
                 group_name=LOCATION_QUESTIONS['location_title'],
                 optional=True,  # a11y: only some fields here are required
-                ally_id='location-help-text',
                 extra_validation_fields=('location_city_town', 'location_state')
             ),
         ]
@@ -519,15 +515,12 @@ class EducationLocation(LocationForm):
                 group_name=EDUCATION_QUESTION,
                 help_text=_('Includes schools, educational programs, or educational activities, like training programs, sports teams, clubs, or other school-sponsored activities'),
                 optional=False,
-                ally_id='education-location-help-text'
             ),
         ] + self.question_groups
 
         self.fields['public_or_private_school'] = TypedChoiceField(
             choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
-            widget=UsaRadioSelect(attrs={
-                'aria-describedby': 'education-location-help-text'
-            }),
+            widget=UsaRadioSelect(),
             label='',
             required=True,
             error_messages={
@@ -541,9 +534,7 @@ class ProtectedClassForm(ModelForm):
         model = Report
         fields = ['protected_class', 'other_class']
         widgets = {
-            'protected_class': UsaCheckboxSelectMultiple(attrs={
-                'aria-describedby': 'protected-class-help-text'
-            }),
+            'protected_class': UsaCheckboxSelectMultiple(),
             'other_class': TextInput(
                 attrs={'class': 'usa-input word-count-10'}
             ),
@@ -558,9 +549,7 @@ class ProtectedClassForm(ModelForm):
             label=PROTECTED_CLASS_QUESTION,
             help_text=_('There are federal and state laws that protect people from discrimination based on their personal characteristics. Here is a list of the most common characteristics that are legally protected. Select any that apply to your incident.'),
             queryset=ProtectedClass.active_choices.all().order_by('form_order'),
-            widget=UsaCheckboxSelectMultiple(attrs={
-                'aria-describedby': 'protected-class-help-text'
-            }),
+            widget=UsaCheckboxSelectMultiple(),
         )
         # Translators: This is to explain an "other" choice for personal characteristics
         self.fields['other_class'].help_text = _('Please describe "Other reason"')
@@ -718,23 +707,18 @@ class ProForm(
             # location widgets
             {
                 'location_name': TextInput(attrs={
-                    'class': 'usa-input',
-                    'aria-describedby': 'location-help-text'
+                    'class': 'usa-input'
                 }),
                 'location_address_line_1': TextInput(attrs={
-                    'class': 'usa-input',
-                    'aria-describedby': 'location-help-text'
+                    'class': 'usa-input'
                 }),
                 'location_address_line_2': TextInput(attrs={
-                    'class': 'usa-input',
-                    'aria-describedby': 'location-help-text'
+                    'class': 'usa-input'
                 }),
                 'location_city_town': TextInput(attrs={
-                    'class': 'usa-input',
-                    'aria-describedby': 'location-help-text'
+                    'class': 'usa-input'
                 }),
                 'location_state': Select(attrs={
-                    'aria-describedby': 'location-help-text',
                     'class': 'usa-select'
                 }),
             },
@@ -1136,7 +1120,7 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
             'contact_phone': TextInput(attrs={
                 'class': 'usa-input',
                 'pattern': phone_validation_regex,
-                'title': _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')
+                'title': CONTACT_PHONE_INVALID_MESSAGE
             }),
             'contact_address_line_1': TextInput(attrs={
                 'class': 'usa-input',
@@ -1151,6 +1135,11 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
                 'class': 'usa-input',
             }),
         }
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+
+        self.fields['contact_phone'].error_messages = {'invalid': CONTACT_PHONE_INVALID_MESSAGE}
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
