@@ -9,7 +9,7 @@ from django.test.client import Client
 from django.urls import reverse
 from testfixtures import LogCapture
 
-from ..forms import (CommercialPublicLocation, Contact, Details,
+from ..forms import (CommercialPublicLocation, Contact, Details, HateCrimesTrafficking,
                      EducationLocation, LocationForm, PoliceLocation,
                      PrimaryReason, ProForm, ProtectedClassForm, When, ComplaintActions)
 from ..model_variables import (PRIMARY_COMPLAINT_CHOICES,
@@ -79,13 +79,18 @@ class Valid_Form_Tests(TestCase):
         })
         self.assertTrue(form.is_valid())
 
-    # update once form is going
-    # def test_Primary_reason_valid(self):
-    #     form = PrimaryReason(data={
-    #         'hatecrimes_trafficking': HateCrimesandTrafficking.objects.all(),
-    #         'primary_complaint': PRIMARY_COMPLAINT_CHOICES[0][0],
-    #     })
-    #     self.assertTrue(form.is_valid())
+
+    def test_Primary_reason_valid(self):
+        form = PrimaryReason(data={
+            'primary_complaint': PRIMARY_COMPLAINT_CHOICES[0][0],
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_hate_crimes_valad(self):
+        form = HateCrimesTrafficking(data={
+            'hate_crime': 'yes',
+        })
+        self.assertTrue(form.is_valid())
 
     def test_When_vaild(self):
         form = When(data={
@@ -173,21 +178,17 @@ class Complaint_Show_View_404(TestCase):
 
 class Complaint_Show_View_Valid(TestCase):
     def setUp(self):
-        SAMPLE_REPORT['primary_complaint'] = 'voting'
-        SAMPLE_REPORT['election_details'] = 'federal'
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'voting'
+        data['election_details'] = 'federal'
+        data['hate_crime'] = 'yes'
 
-        test_report = Report.objects.create(**SAMPLE_REPORT)
+        test_report = Report.objects.create(**data)
 
         for choice in PROTECTED_MODEL_CHOICES:
             pc = ProtectedClass.objects.get_or_create(value=choice[0])[0]
             test_report.protected_class.add(pc)
             test_report.save()
-
-        # update
-        # for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
-        #     hct = HateCrimesandTrafficking.objects.get_or_create(value=choice[0])[0]
-        #     test_report.hatecrimes_trafficking.add(hct)
-        #     test_report.save()
 
         self.client = Client()
         self.test_pass = secrets.token_hex(32)
@@ -211,8 +212,7 @@ class Complaint_Show_View_Valid(TestCase):
         pc = PRIMARY_COMPLAINT_CHOICES[3][1]
         self.assertTrue(str(pc) in self.content)
         self.assertTrue('Election type (federal/local): federal' in self.content)
-        self.assertTrue(self.context['crimes']['physical_harm'])
-        self.assertTrue(self.context['crimes']['trafficking'])
+        self.assertTrue(self.test_report.hate_crime in self.content)
         self.assertTrue(self.test_report.location_name in self.content)
         self.assertTrue(self.test_report.location_city_town in self.content)
         self.assertTrue(self.test_report.location_state in self.content)
@@ -236,7 +236,6 @@ class SectionAssignmentTests(TestCase):
         data['primary_complaint'] = 'voting'
         data['hate_crime'] = 'yes'
         test_report = Report.objects.create(**data)
-        test_report = Report.objects.create(**SAMPLE_REPORT)
         disability = ProtectedClass.objects.get_or_create(value='disability')
         test_report.protected_class.add(disability[0])
         test_report.save()
@@ -646,13 +645,10 @@ class Validation_Form_Tests(TestCase):
         })
         self.assertTrue(f'<ul class="errorlist"><li>{VIOLATION_SUMMARY_ERROR}' in str(form.errors))
 
-    def test_required_primary_reason_hatecrime(self):
+    def test_required_primary_reason(self):
         form = PrimaryReason(data={
-            # 'hatecrimes_trafficking_set': None,
             'primary_complaint': '',
         })
-        # ensure Hatecrime is not in error list
-        self.assertFalse('hatecrimes_trafficking<ul class="errorlist"><li>' in str(form.errors))
         self.assertTrue(f'<ul class="errorlist"><li>{PRIMARY_COMPLAINT_ERROR}' in str(form.errors))
 
     def test_required_servicemember(self):

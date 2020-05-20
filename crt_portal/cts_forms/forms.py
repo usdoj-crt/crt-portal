@@ -1222,6 +1222,10 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
                     cleaned_data[field] = ""
         return cleaned_data
 
+    def clean(self):
+        cleaned_data = super().clean()
+        return self.clean_dependent_fields(cleaned_data)
+
     def update_activity_stream(self, user):
         """Generate activity log entry for summary if it was updated"""
         super().update_activity_stream(user)
