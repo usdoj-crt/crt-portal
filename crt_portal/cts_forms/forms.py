@@ -482,7 +482,7 @@ class PoliceLocation(LocationForm):
             choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
             widget=UsaRadioSelect,
             required=False,
-            label=''
+            label=POLICE_QUESTIONS['correctional_facility_type']
         )
         self.fields['correctional_facility_type'].widget.attrs['class'] = 'margin-bottom-0 padding-bottom-0 padding-left-1'
         self.fields['correctional_facility_type'].help_text = POLICE_QUESTIONS['correctional_facility_type']
