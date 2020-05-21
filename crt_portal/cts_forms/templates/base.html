@@ -74,6 +74,8 @@
       {% include "partials/footer.html" %}
       </div>
 
+      {% block footer_extra %}
+      {% endblock footer_extra %}
     </footer>
     {% endblock %}
     <script src="{% static 'js/url_params_polyfill.js' %}"></script>

@@ -104,6 +104,12 @@
   </div>
 {% endblock %}
 
+{% block footer_extra %}
+<div style="background-color: #162e51; color: white; padding-top: 2em; border-top: 1px solid #454545">
+  {% include "partials/policy.html" %}
+</div>
+{% endblock footer_extra %}
+
 {% block page_js %}
 <script nonce="{{request.csp_nonce}}">
   (function(root) {
