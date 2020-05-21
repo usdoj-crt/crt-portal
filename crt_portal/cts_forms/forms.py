@@ -333,9 +333,35 @@ class LocationForm(ModelForm):
                 ('location_name', 'location_address_line_1', 'location_address_line_2'),
                 group_name=LOCATION_QUESTIONS['location_title'],
                 optional=True,  # a11y: only some fields here are required
+                extra_validation_fields=('location_city_town', 'location_state')
             ),
         ]
         self.page_note = _('Please tell us the city, state, and name of the location where this incident took place. This ensures your report is reviewed by the right people within the Civil Rights Division.')
+
+    def summary_error_questions(self):
+        """
+        Return a list of questions which contain fields with errors
+
+        First check all defined question groups
+        Then check any fields defined outside of questions groups
+        that have not already been evaluated as part of a question group
+        """
+        questions = []
+        checked_fields = set()
+
+        for group in self.question_groups:
+            if group.errors():
+                questions.append(group.group_name)
+            [checked_fields.add(field) for field in group.fields]
+            if group.extra_validation_fields:
+                [checked_fields.add(field) for field in group.extra_validation_fields]
+
+        for field in self.fields:
+            if field not in checked_fields and self[field].errors:
+                questions.append(self[field].label)
+                checked_fields.add(field)
+
+        return questions
 
 
 class ElectionLocation(LocationForm):
@@ -452,7 +478,7 @@ class PoliceLocation(LocationForm):
             choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
             widget=UsaRadioSelect,
             required=False,
-            label=''
+            label=POLICE_QUESTIONS['correctional_facility_type']
         )
         self.fields['correctional_facility_type'].widget.attrs['class'] = 'margin-bottom-0 padding-bottom-0 padding-left-1'
         self.fields['correctional_facility_type'].help_text = POLICE_QUESTIONS['correctional_facility_type']
@@ -520,7 +546,8 @@ class ProtectedClassForm(ModelForm):
         self.fields['protected_class'] = ModelMultipleChoiceField(
             error_messages={'required': PROTECTED_CLASS_ERROR},
             required=True,
-            label="",
+            label=PROTECTED_CLASS_QUESTION,
+            help_text=_('There are federal and state laws that protect people from discrimination based on their personal characteristics. Here is a list of the most common characteristics that are legally protected. Select any that apply to your incident.'),
             queryset=ProtectedClass.active_choices.all().order_by('form_order'),
             widget=UsaCheckboxSelectMultiple(),
         )
@@ -529,15 +556,6 @@ class ProtectedClassForm(ModelForm):
         self.fields['other_class'].widget = TextInput(
             attrs={'class': 'usa-input word-count-10'}
         )
-
-        self.question_groups = [
-            QuestionGroup(
-                self,
-                ('protected_class',),
-                group_name=PROTECTED_CLASS_QUESTION,
-                help_text=_('There are federal and state laws that protect people from discrimination based on their personal characteristics. Here is a list of the most common characteristics that are legally protected. Select any that apply to your incident.'),
-                optional=False)
-        ]
 
 
 def date_cleaner(self, cleaned_data):

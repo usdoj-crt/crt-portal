@@ -2,6 +2,15 @@
 {% load static %}
 {% load i18n %}
 
+
+{% block extra_errors %}
+  <ul class="error-summary">
+  {% for question in form.summary_error_questions %}
+      <li>{{question}}</li>
+  {% endfor %}
+  </ul>
+{% endblock %}
+
 {% block form_questions %}
   <div class="crt-portal-card">
     <div class="crt-portal-card__content crt-portal-card__content--lg">
