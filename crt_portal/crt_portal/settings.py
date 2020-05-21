@@ -209,7 +209,6 @@ if environment == 'PRODUCTION':
         'LOGIN_EXEMPT_URLS': [
             '',
             'report/',
-            'robots.txt',
         ],
     }
 
