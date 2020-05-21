@@ -1035,7 +1035,11 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
     def get_actions(self):
         """Parse incoming changed data for activity stream entry"""
         for field in self.changed_data:
-            yield f"{' '.join(field.split('_')).capitalize()}:", f'Updated from "{self.initial[field]}" to "{self.cleaned_data[field]}"'
+            name = ' '.join(field.split('_')).capitalize()
+            # rename primary statute if applicable
+            if field == 'primary_statute':
+                name = 'Primary classification'
+            yield f"{name}:", f'Updated from "{self.initial[field]}" to "{self.cleaned_data[field]}"'
 
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
