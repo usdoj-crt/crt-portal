@@ -43,6 +43,7 @@ ol.steps {
   list-style: none;
   text-align: center;
   counter-reset: milestones; // init counter
+  height: 62px;
 
   // design
   width: $steps-width;
