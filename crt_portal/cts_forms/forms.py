@@ -886,6 +886,7 @@ class Filters(ModelForm):
     )
     primary_statute = ChoiceField(
         required=False,
+        label=_("Primary classification"),
         choices=_add_empty_choice(STATUTE_CHOICES),
         widget=Select(attrs={
             'name': 'primary_statute',
@@ -938,7 +939,7 @@ class Filters(ModelForm):
             'location_state': 'Incident location state',
             'assigned_to': 'Assignee',
             'public_id': 'Complaint ID',
-            'primary_statute': 'Statute',
+            'primary_statute': 'Primary classification',
             'violation_summary': 'Personal description',
         }
 
@@ -1011,7 +1012,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         )
         self.fields['primary_statute'] = ChoiceField(
             widget=ComplaintSelect(
-                label='Primary statute',
+                label='Primary classification',
                 attrs={
                     'class': 'text-uppercase crt-dropdown__data',
                 },
