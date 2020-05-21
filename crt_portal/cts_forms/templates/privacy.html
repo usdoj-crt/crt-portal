@@ -3,84 +3,108 @@
 {% load static %}
 {% load i18n %}
 
-
-{% block main_class %} class="margin-top-0 margin-bottom-0"{% endblock %}
+{% block page_title %}
+<title>{% trans "Civil Rights Division - Department of Justice - Privacy Policy" %}</title>
+{% endblock %}
 
 {% block content %}
-  <div class="crt-landing--section crt-landing--pale">
+<div class="crt-landing--section crt-landing--pale crt-privacy">
     <div class="grid-container">
-      <div class="grid-row grid-gap">
-        <div class="tablet:grid-col-4">
-            <ul>
-                <li>Privacy Act Statement</li>
-                <li>Your information</li>
-                <li>Our Statutes</li>
-            </ul>
-        </div>
-        <div class="tablet:grid-col-8">
-            <h1>{% trans "Privacy Act Statement" %}</h1>
-            <div class="crt-landing--separator"></div>
-                <p class="crt-landing--largetext">
+        <div class="grid-row grid-gap">
+            <div class="tablet:grid-col-4">
+                <ul class="usa-sidenav privacy-nav">
+                    <li class="usa-sidenav__item">
+                        <a href="#privacy-act-statement" class="usa-current">{% trans "Privacy Act Statement" %}</a>
+                    </li>
+                    <li class="usa-sidenav__item">
+                        <a href="#your-information">{% trans "Your information" %}</a>
+                    </li>
+                    <li class="usa-sidenav__item">
+                        <a href="#our-statutes">{% trans "Our Statutes" %}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="tablet:grid-col-8">
+                <h1 id="privacy-act-statement">{% trans "Privacy Act Statement" %}</h1>
+                <div class="crt-landing--separator"></div>
+                <p class="font-body-lg">
                     {% trans "The information you provide through this form will help the Department of Justice’s Civil Rights Division (“us,” “we”) enforce the federal civil rights statutes within its authority." %}
                 </p>
-                <p class="crt-landing--largetext">
+                <p class="font-body-md">
                     {% trans "In addition to our enforcement efforts, we may use the information you provide on this form for certain routine purposes. These include sharing with:" %}
                 </p>
-                <ul>
+                <ul class="privacy-policy-list">{% blocktrans %}
                     <li>
-                        {% trans "a court, magistrate, or administrative tribunal, including disclosures to opposing counsel in the course of settlement negotiations;" %}
+                        a court, magistrate, or administrative tribunal, including disclosures to opposing counsel in
+                        the course of settlement negotiations;
                     </li>
                     <li>
-                        {% trans "a Member of Congress submitting a request involving an individual, to whom the record pertains, when the individual has requested assistance from the Member with respect to the subject matter of the record." %}
+                        a Member of Congress submitting a request involving an individual, to whom the record pertains,
+                        when the individual has requested assistance from the Member with respect to the subject matter
+                        of the record.
                     </li>
                     <li>
-                        {% trans "a contractor with the Department of Justice who needs access to the information in order to perform a contract. Recipients of information shall be required to comply with the requirements of the Privacy Act of 1974, as amended, pursuant to 5 U.S.C. 552a(m)." %}
+                        a contractor with the Department of Justice who needs access to the information in order to
+                        perform a contract. Recipients of information shall be required to comply with the requirements
+                        of the Privacy Act of 1974, as amended, pursuant to 5 U.S.C. 552a(m).
                     </li>
 
                     <li>
-                        {% trans "a Federal, State, or local law enforcement agency, if we become aware of a violation or potential violation of law or regulation outside the scope of our jurisdiction." %}
+                        a Federal, State, or local law enforcement agency, if we become aware of a violation or
+                        potential violation of law or regulation outside the scope of our jurisdiction.
                     </li>
+                    {% endblocktrans %}
                 </ul>
                 <p>
                     {% trans "For a complete list of routine agency uses, please consult the following:" %}
-                    <ul>
+                    <ul class="privacy-policy-list">
                         <li>66 Fed. Reg. 29992 (6-04-2001)</li>
                         <li>66 Fed. Reg. 34743 (6-29-2001)</li>
                         <li>67 Fed. Reg. 65598 (10-25-2002)</li>
                         <li>82 Fed. Reg. 24147 (5-25-2017)</li>
                     </ul>
                 </p>
-          </div>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 
-  <div class="crt-landing--section crt-landing--pale">
+<div class="crt-landing--section crt-landing--pale crt-privacy">
     <div class="grid-container">
         <div class="grid-row grid-gap">
-            <div class="tablet:grid-col-8 grid-offset-4">
-                <h2>{% trans "You should also know that:" %}</h2>
+            <div class="tablet:grid-col-4">
+            </div>
+            <div class="tablet:grid-col-8">
+                <h2 id="your-information">{% trans "You should also know that:" %}</h2>
                 <div class="crt-landing--separator"></div>
-                <ul>{% blocktrans %}
+                <ul class="privacy-policy-list">{% blocktrans %}
                     <li>Any information you provide to us through this form is voluntary;</li>
-                    <li>If you choose not to provide the information we ask for on this form, we may not be able to evaluate or take action based on your report.</li>
-                    <li>We will treat the information you provide on this form confidentially, to the extent we are allowed by the Freedom of Information Act (5 U.S.C. 552) and the Privacy Act (5 U.S.C. 552a).</li>
+                    <li>If you choose not to provide the information we ask for on this form, we may not be able to
+                        evaluate or take action based on your report.</li>
+                    <li>We will treat the information you provide on this form confidentially, to the extent we are
+                        allowed by the Freedom of Information Act (5 U.S.C. 552) and the Privacy Act (5 U.S.C. 552a).
+                    </li>
                     {% endblocktrans %}
                 </ul>
             </div>
         </div>
+        <a class="float-right" href="#">{% trans 'Return to top' %}</a>
     </div>
-  </div>
+</div>
 
-  <div class="crt-landing--section crt-landing--lightblue">
+<div class="crt-landing--section crt-landing--pale crt-privacy">
     <div class="grid-container">
         <div class="grid-row grid-gap">
-            <div class="tablet:grid-col-8 grid-offset-4">
-                <h2>{% trans "We are authorized to collect this information pursuant to the following statutes:" %}</h2>
+            <div class="tablet:grid-col-4">
+            </div>
+            <div class="tablet:grid-col-8">
+                <h2 id="our-statutes">
+                    {% trans "We are authorized to collect this information pursuant to the following statutes:" %}</h2>
                 <div class="crt-landing--separator"></div>
-                <ul>{% blocktrans %}
+                <ul class="privacy-policy-list">{% blocktrans %}
                     <li>Official Misconduct, 18 U.S.C. §§ 241, 242</li>
-                    <li>The Matthew Shepard and James Byrd, Jr., Hate Crimes Prevention Act of 2009, 18 U.S. Code § 249, et seq.</li>
+                    <li>The Matthew Shepard and James Byrd, Jr., Hate Crimes Prevention Act of 2009, 18 U.S. Code § 249,
+                        et seq.</li>
                     <li>Federally Protected Activities, 18 U.S.C. § 245</li>
                     <li>Criminal Interference with Right to Fair Housing, 18 U.S.C. § 3631</li>
                     <li>Damage to Religious Property, 18 U.S.C. § 247</li>
@@ -89,9 +113,11 @@
                             <li>18 U.S.C. § 1581 (Peonage)</li>
                             <li>18 U.S.C. § 1584 (Involuntary Servitude)</li>
                             <li>18 U.S.C. § 1589 (Forced Labor)</li>
-                            <li>18 U.S.C. § 1590 (Trafficking with Respect to Peonage, Slavery, Involuntary Servitude, or Forced Labor)</li>
+                            <li>18 U.S.C. § 1590 (Trafficking with Respect to Peonage, Slavery, Involuntary Servitude,
+                                or Forced Labor)</li>
                             <li>18 U.S.C. § 1591 (Sex Trafficking of Children or by Force, Fraud, or Coercion)</li>
-                            <li>18 U.S.C. § 1592 (Unlawful Conduct with Respect to Documents in Furtherance of Trafficking, Peonage, Slavery, Involuntary Servitude, or Forced Labor)</li>
+                            <li>18 U.S.C. § 1592 (Unlawful Conduct with Respect to Documents in Furtherance of
+                                Trafficking, Peonage, Slavery, Involuntary Servitude, or Forced Labor)</li>
                             <li>18 U.S.C. § 1593 (Mandatory Restitution)</li>
                             <li>18 U.S.C. § 1594 (Attempt and Forfeiture)</li>
                             <li>18 U.S.C. § 1595 (Private Right of Action)</li>
@@ -102,9 +128,10 @@
                     <li>Freedom of Access to Clinic Entrances Act (FACE), 18 U.S.C. § 248</li>
                     <li>Criminal Protection for Voting Rights, 18 U.S.C. § 594</li>
                     <li>Americans with Disabilities Act, Titles I-III, 42 U.S.C. § 126, et seq.</li>
-                    <li>Rehabilitation Act of 1973,  29 U.S.C. § 701, et seq.</li>
+                    <li>Rehabilitation Act of 1973, 29 U.S.C. § 701, et seq.</li>
                     <li>Civil Rights Act of 1964, Titles II, IV, VI, VII</li>
-                    <li>Uniformed Services Employment and Reemployment Rights Act (USERRA), 38 U.S.C. § 4301, et seq.</li>
+                    <li>Uniformed Services Employment and Reemployment Rights Act (USERRA), 38 U.S.C. § 4301, et seq.
+                    </li>
                     <li>Equal Education Opportunities Act of 1974 (EEOA), 20 USC § 1701, et seq.</li>
                     <li>Individuals with Disabilities in Education Act (IDEA), 20 USC § 1400, et seq.</li>
                     <li>Education Amendments of 1972, Title IX, 20 U.S.C. § 1681, et seq.</li>
@@ -117,20 +144,17 @@
                     <li>Violent Crime Control and Law Enforcement Act, 36 U.S.C. 12601, et seq.</li>
                     <li>Omnibus Crime and Safe Streets Act, 34 U.S.C. § 10101, et seq.</li>
                     <li>Voting Rights Act, 52 U.S.C. § 10101, et seq.</li>
-                    <li>Voting Accessibility for the Elderly and Handicapped Act,  42 U.S.C. § 1973ee, et seq.</li>
-                    <li>Uniformed and Overseas Citizens Absentee Voting Act (UOCAVA),  52 U.S.C. 20310, et seq.</li>
-                    <li>National Voter Registration Act (NVRA),  52 U.S.C. § 20501, et seq.</li>
+                    <li>Voting Accessibility for the Elderly and Handicapped Act, 42 U.S.C. § 1973ee, et seq.</li>
+                    <li>Uniformed and Overseas Citizens Absentee Voting Act (UOCAVA), 52 U.S.C. 20310, et seq.</li>
+                    <li>National Voter Registration Act (NVRA), 52 U.S.C. § 20501, et seq.</li>
                     <li>Genetic Information Nondiscrimination Act (GINA), Title II, 42 U.S.C. § 21f</li>
-                    <li>Help America Vote Act (HAVA),  52 U.S.C. § 20901, et seq.</li>
+                    <li>Help America Vote Act (HAVA), 52 U.S.C. § 20901, et seq.</li>
                     <li>Civil Rights Acts of 1870, 1957, 1960, & 1964</li>
                     {% endblocktrans %}
                 </ul>
             </div>
         </div>
+        <a class="float-right" href="#">{% trans "Return to top" %}</a>
     </div>
-  </div>
-
-{% endblock %}
-
-{% block page_js %}
+</div>
 {% endblock %}
