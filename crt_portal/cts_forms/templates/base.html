@@ -25,6 +25,26 @@
       {% include "partials/banner/usa_banner.html" %}
     {% endblock %}
 
+    {% environment as env %}
+    {% if env != "PRODUCTION" %}
+      <div class="crt-header--warning-pii">
+        <div class="grid-container">
+          <div class="grid-row grid-gap">
+            <div class="grid-col-12">
+              <div class="usa-alert usa-alert--warning">
+                <div class="usa-alert__body">
+                  <h1 class="usa-alert__heading">Test site</h1>
+                  <p class="usa-alert__text">
+                    This is a test site. Do not enter PII.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+
     {% block page_header %}{% endblock %}
 
     <main id="main-content" {% block main_class %}{% endblock %}>
