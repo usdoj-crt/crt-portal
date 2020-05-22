@@ -265,7 +265,6 @@ class Details(ModelForm):
         self.fields['violation_summary'].help_text = SUMMARY_HELPTEXT
         self.fields['violation_summary'].error_messages = {'required': VIOLATION_SUMMARY_ERROR}
         self.fields['violation_summary'].required = True
-        self.page_note = _('Continued')
 
 
 class LocationForm(ModelForm):
@@ -887,6 +886,7 @@ class Filters(ModelForm):
     )
     primary_statute = ChoiceField(
         required=False,
+        label=_("Primary classification"),
         choices=_add_empty_choice(STATUTE_CHOICES),
         widget=Select(attrs={
             'name': 'primary_statute',
@@ -939,7 +939,7 @@ class Filters(ModelForm):
             'location_state': 'Incident location state',
             'assigned_to': 'Assignee',
             'public_id': 'Complaint ID',
-            'primary_statute': 'Statute',
+            'primary_statute': 'Primary classification',
             'violation_summary': 'Personal description',
         }
 
@@ -1012,7 +1012,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         )
         self.fields['primary_statute'] = ChoiceField(
             widget=ComplaintSelect(
-                label='Primary statute',
+                label='Primary classification',
                 attrs={
                     'class': 'text-uppercase crt-dropdown__data',
                 },
@@ -1035,7 +1035,11 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
     def get_actions(self):
         """Parse incoming changed data for activity stream entry"""
         for field in self.changed_data:
-            yield f"{' '.join(field.split('_')).capitalize()}:", f'Updated from "{self.initial[field]}" to "{self.cleaned_data[field]}"'
+            name = ' '.join(field.split('_')).capitalize()
+            # rename primary statute if applicable
+            if field == 'primary_statute':
+                name = 'Primary classification'
+            yield f"{name}:", f'Updated from "{self.initial[field]}" to "{self.cleaned_data[field]}"'
 
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
