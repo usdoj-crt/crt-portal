@@ -72,7 +72,7 @@ ol.steps {
       padding-top: $circle-diameter + 6.5px;
     }
 
-    .step--text {
+    .step-text {
       @include at-media-max(desktop) {
         display: none;
       }
