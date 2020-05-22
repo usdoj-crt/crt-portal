@@ -6,6 +6,7 @@ $arrow-height: 20px;
 
   h1 {
     font-size: 2.9rem;
+    margin-top: 1rem;
     margin-bottom: 0;
   }
 
@@ -46,7 +47,8 @@ $arrow-height: 20px;
 }
 
 .crt-landing--separator {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
   border: 2px solid $gold;
   border-radius: 2px;
   width: 50px;
@@ -169,6 +171,7 @@ $arrow-height: 20px;
 }
 
 .crt-landing--largetext {
+  margin-top: 0;
   font-size: 1.4rem;
   line-height: 2rem;
 }
