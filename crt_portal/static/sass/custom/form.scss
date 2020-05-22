@@ -136,6 +136,7 @@ form#report-form {
   }
 
   .light-button {
+    color: $blue-warm-vivid-80;
     background-color: transparent;
     &:hover {
       background-color: $white;
@@ -430,5 +431,16 @@ select.usa-input--error {
 .usa-memorable-date {
   input {
     margin-right: 1rem;
+  }
+}
+
+#page-errors {
+  .error-summary {
+  margin-block-start: 0px;
+    li {
+      font-weight: normal;
+      margin-bottom: 0px;
+      margin-top: 0px;
+    }
   }
 }

@@ -3,16 +3,16 @@
     <div class="crt-portal-card__content margin-bottom-3">
         {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.0 step_value=0 %}
 
-        <h2 class="margin-top-0">{{ordered_step_names.0}}</h2>
+        <h2 class="margin-top-0 margin-bottom-0">{{ordered_step_names.0}}</h2>
 
         <div class="question">
-            <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.contact.contact_name_title }}</h3>
+          <h3 class="crt-portal-card__subheader">{{ question.contact.contact_name_title }}</h3>
             <h4>{% trans "Your name" %}</h4>
             <p>{{ report.contact_first_name|default:"-" }} {{ report.contact_last_name|default:"-" }}</p>
         </div>
 
         <div class="question">
-          <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.contact.contact_title }}</h3>
+          <h3 class="crt-portal-card__subheader">{{ question.contact.contact_title }}</h3>
 
           <h4>{{ question.contact.contact_email }}</h4>
           <p>{{ report.contact_email|default:"-" }}</p>
@@ -23,10 +23,10 @@
           <h4>{% trans "Address" %}</h4>
           <p>{{ report.contact_address_line_1|default:"-" }}</p>
           <p>{{ report.contact_address_line_2|default:"-" }}</p>
-          <p>{{ report.contact_city|default:"-" }} {{ report.get_contact_state_display|default:"-" }} {{ report.contact_zip|default:"-" }}</p>
+          <p>{{ report.contact_city|default:"-" }}, {{ report.get_contact_state_display|default:"-" }} {{ report.contact_zip|default:"-" }}</p>
 
         </div>
-        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.servicemember }}</h3>
+        <h3 class="crt-portal-card__subheader">{{ question.servicemember }}</h3>
         <p>{{ report.get_servicemember_display|default:"-" }}</p>
     </div>
 </div>
@@ -37,10 +37,10 @@
 
     <h2 class="margin-top-0">{{ordered_step_names.1}}</h2>
 
-    <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.primary_reason }}</h3>
+    <h3 class="crt-portal-card__subheader">{{ question.primary_reason }}</h3>
     <p>{{ report.get_primary_complaint_display }}</p>
 
-    <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.hate_crime }}</h3>
+    <h3 class="crt-portal-card__subheader">{{ question.hate_crime }}</h3>
     {% with report.hate_crime|default:"-" as hate %}
     <p>{{ hate|title }}</p>
     {% endwith %}
@@ -74,40 +74,40 @@
     <h2 class="margin-top-0">{{ ordered_step_names.2 }}</h2>
 
     {% if report.election_details %}
-      <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.election }}</h3>
+      <h3 class="crt-portal-card__subheader">{{ question.election }}</h3>
       <p>{{ report.get_election_details_display|default:"-" }}</p>
 
     {% elif report.public_or_private_employer %}
-      <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.workplace.public_or_private_employer }}</h3>
+      <h3 class="crt-portal-card__subheader">{{ question.workplace.public_or_private_employer }}</h3>
       <p>{{ report.get_public_or_private_employer_display|default:"-" }}</p>
 
-      <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.workplace.employer_size }}</h3>
+      <h3 class="crt-portal-card__subheader">{{ question.workplace.employer_size }}</h3>
       <p>{{ report.get_employer_size_display|default:"-" }}</p>
 
     {% elif report.inside_correctional_facility %}
-      <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.police.inside_correctional_facility }}</h3>
+      <h3 class="crt-portal-card__subheader">{{ question.police.inside_correctional_facility }}</h3>
       <p>{{ report.get_inside_correctional_facility_display|default:"-" }}</p>
 
       {% if report.correctional_facility_type %}
-        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.police.correctional_facility_type }}</h3>
+        <h3 class="crt-portal-card__subheader">{{ question.police.correctional_facility_type }}</h3>
         <p>{{ report.get_correctional_facility_type_display|default:"-" }}</p>
       {% endif %}
 
     {% elif report.commercial_or_public_place %}
-      <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.public }}</h3>
+      <h3 class="crt-portal-card__subheader">{{ question.public }}</h3>
       <p>{{ report.get_commercial_or_public_place_display|default:"-" }}</p>
       {% if report.other_commercial_or_public_place %}
-        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.other_commercial_or_public_place }}</h3>
+        <h3 class="crt-portal-card__subheader">{{ question.other_commercial_or_public_place }}</h3>
         <p>{{ report.get_other_commercial_or_public_place_display|default:"-" }}</p>
       {% endif %}
 
     {% elif report.public_or_private_school %}
-      <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.education }}</h3>
+      <h3 class="crt-portal-card__subheader">{{ question.education }}</h3>
       <p>{{ report.get_public_or_private_school_display|default:"-" }}</p>
 
     {% endif %}
 
-    <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.location.location_title }}</h3>
+    <h3 class="crt-portal-card__subheader">{{ question.location.location_title }}</h3>
 
         <h4>{{ question.location.location_name }}</h4>
         <p>{{ report.location_name|default:"-" }}</p>
@@ -115,7 +115,7 @@
         <h4>{% trans "Address" %}</h4>
         <p>{{ report.location_address_line_1|default:"-" }}</p>
         <p>{{ report.location_address_line_2|default:"-" }}</p>
-        <p>{{ report.location_city_town|default:"-" }} {{ report.get_location_state_display|default:"-"}}</p>
+        <p>{{ report.location_city_town|default:"-" }}, {{ report.get_location_state_display|default:"-"}}</p>
 
     </div>
 </div>
@@ -126,7 +126,7 @@
 
         <h2 class="margin-top-0">{{ ordered_step_names.3 }}</h2>
 
-        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.characteristics }}</h3>
+        <h3 class="crt-portal-card__subheader">{{ question.characteristics }}</h3>
         {% if report.id %}
             {% for characteristic in report.protected_class.all %}
                 <p>{{ characteristic }}</p>
@@ -149,7 +149,7 @@
 
         <h2 class="margin-top-0">{{ ordered_step_names.4 }}</h2>
 
-        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.date.date_title }}</h3>
+        <h3 class="crt-portal-card__subheader">{{ question.date.date_title }}</h3>
         <p>{{ report.last_incident_month }}/{{ report.last_incident_day|default:"—" }}/{{ report.last_incident_year}}</p>
     </div>
 </div>
@@ -160,7 +160,7 @@
 
         <h2 class="margin-top-0">{{ ordered_step_names.5 }}</h2>
 
-        <h3 class="border-bottom border-base-lighter padding-bottom-05">{{ question.summary }}</h3>
+        <h3 class="crt-portal-card__subheader">{{ question.summary }}</h3>
         <p>{{ report.violation_summary|linebreaks }}</p>
     </div>
 </div>

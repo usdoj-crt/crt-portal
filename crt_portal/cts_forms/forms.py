@@ -264,23 +264,18 @@ class LocationForm(ModelForm):
 
         widgets = {
             'location_name': TextInput(attrs={
-                'class': 'usa-input',
-                'aria-describedby': 'location-help-text'
+                'class': 'usa-input'
             }),
             'location_address_line_1': TextInput(attrs={
-                'class': 'usa-input',
-                'aria-describedby': 'location-help-text'
+                'class': 'usa-input'
             }),
             'location_address_line_2': TextInput(attrs={
-                'class': 'usa-input',
-                'aria-describedby': 'location-help-text'
+                'class': 'usa-input'
             }),
             'location_city_town': TextInput(attrs={
-                'class': 'usa-input',
-                'aria-describedby': 'location-help-text'
+                'class': 'usa-input'
             }),
             'location_state': Select(attrs={
-                'aria-describedby': 'location-help-text',
                 'class': 'usa-select'
             }),
         }
@@ -305,7 +300,6 @@ class LocationForm(ModelForm):
         self.fields['location_state'] = ChoiceField(
             choices=_add_empty_choice(STATES_AND_TERRITORIES),
             widget=Select(attrs={
-                'aria-describedby': 'location-help-text',
                 'class': 'usa-select'
             }),
             required=True,
@@ -322,10 +316,35 @@ class LocationForm(ModelForm):
                 ('location_name', 'location_address_line_1', 'location_address_line_2'),
                 group_name=LOCATION_QUESTIONS['location_title'],
                 optional=True,  # a11y: only some fields here are required
-                ally_id='location-help-text'
+                extra_validation_fields=('location_city_town', 'location_state')
             ),
         ]
         self.page_note = _('Please tell us the city, state, and name of the location where this incident took place. This ensures your report is reviewed by the right people within the Civil Rights Division.')
+
+    def summary_error_questions(self):
+        """
+        Return a list of questions which contain fields with errors
+
+        First check all defined question groups
+        Then check any fields defined outside of questions groups
+        that have not already been evaluated as part of a question group
+        """
+        questions = []
+        checked_fields = set()
+
+        for group in self.question_groups:
+            if group.errors():
+                questions.append(group.group_name)
+            [checked_fields.add(field) for field in group.fields]
+            if group.extra_validation_fields:
+                [checked_fields.add(field) for field in group.extra_validation_fields]
+
+        for field in self.fields:
+            if field not in checked_fields and self[field].errors:
+                questions.append(self[field].label)
+                checked_fields.add(field)
+
+        return questions
 
 
 class ElectionLocation(LocationForm):
@@ -442,7 +461,7 @@ class PoliceLocation(LocationForm):
             choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
             widget=UsaRadioSelect,
             required=False,
-            label=''
+            label=POLICE_QUESTIONS['correctional_facility_type']
         )
         self.fields['correctional_facility_type'].widget.attrs['class'] = 'margin-bottom-0 padding-bottom-0 padding-left-1'
         self.fields['correctional_facility_type'].help_text = POLICE_QUESTIONS['correctional_facility_type']
@@ -479,15 +498,12 @@ class EducationLocation(LocationForm):
                 group_name=EDUCATION_QUESTION,
                 help_text=_('Includes schools, educational programs, or educational activities, like training programs, sports teams, clubs, or other school-sponsored activities'),
                 optional=False,
-                ally_id='education-location-help-text'
             ),
         ] + self.question_groups
 
         self.fields['public_or_private_school'] = TypedChoiceField(
             choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
-            widget=UsaRadioSelect(attrs={
-                'aria-describedby': 'education-location-help-text'
-            }),
+            widget=UsaRadioSelect(),
             label='',
             required=True,
             error_messages={
@@ -501,9 +517,7 @@ class ProtectedClassForm(ModelForm):
         model = Report
         fields = ['protected_class', 'other_class']
         widgets = {
-            'protected_class': UsaCheckboxSelectMultiple(attrs={
-                'aria-describedby': 'protected-class-help-text'
-            }),
+            'protected_class': UsaCheckboxSelectMultiple(),
             'other_class': TextInput(
                 attrs={'class': 'usa-input word-count-10'}
             ),
@@ -515,28 +529,16 @@ class ProtectedClassForm(ModelForm):
         self.fields['protected_class'] = ModelMultipleChoiceField(
             error_messages={'required': PROTECTED_CLASS_ERROR},
             required=True,
-            label="",
+            label=PROTECTED_CLASS_QUESTION,
+            help_text=_('There are federal and state laws that protect people from discrimination based on their personal characteristics. Here is a list of the most common characteristics that are legally protected. Select any that apply to your incident.'),
             queryset=ProtectedClass.active_choices.all().order_by('form_order'),
-            widget=UsaCheckboxSelectMultiple(attrs={
-                'aria-describedby': 'protected-class-help-text'
-            }),
+            widget=UsaCheckboxSelectMultiple(),
         )
         # Translators: This is to explain an "other" choice for personal characteristics
         self.fields['other_class'].help_text = _('Please describe "Other reason"')
         self.fields['other_class'].widget = TextInput(
             attrs={'class': 'usa-input word-count-10'}
         )
-
-        self.question_groups = [
-            QuestionGroup(
-                self,
-                ('protected_class',),
-                group_name=PROTECTED_CLASS_QUESTION,
-                help_text=_('There are federal and state laws that protect people from discrimination based on their personal characteristics. Here is a list of the most common characteristics that are legally protected. Select any that apply to your incident.'),
-                optional=False,
-                ally_id="protected-class-help-text"
-            )
-        ]
 
 
 def date_cleaner(self, cleaned_data):
@@ -683,23 +685,18 @@ class ProForm(
             # location widgets
             {
                 'location_name': TextInput(attrs={
-                    'class': 'usa-input',
-                    'aria-describedby': 'location-help-text'
+                    'class': 'usa-input'
                 }),
                 'location_address_line_1': TextInput(attrs={
-                    'class': 'usa-input',
-                    'aria-describedby': 'location-help-text'
+                    'class': 'usa-input'
                 }),
                 'location_address_line_2': TextInput(attrs={
-                    'class': 'usa-input',
-                    'aria-describedby': 'location-help-text'
+                    'class': 'usa-input'
                 }),
                 'location_city_town': TextInput(attrs={
-                    'class': 'usa-input',
-                    'aria-describedby': 'location-help-text'
+                    'class': 'usa-input'
                 }),
                 'location_state': Select(attrs={
-                    'aria-describedby': 'location-help-text',
                     'class': 'usa-select'
                 }),
             },

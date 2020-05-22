@@ -1,5 +1,11 @@
 {% extends "forms/report_base.html" %}
 
+{% block extra_errors %}
+  <ul>
+      <li>{{form.date_question}}</li>
+  </ul>
+{% endblock %}
+
 {% block form_questions %}
 <div class="crt-portal-card">
   <div class="crt-portal-card__content crt-portal-card__content--lg">
