@@ -30,6 +30,9 @@ $arrow-height: 20px;
 
 .crt-button--large {
   color: $white !important;
+  font-weight: bold !important;
+  margin-top: 0.5rem;
+  padding: 1rem 2rem;
 }
 
 .crt-landing--blue {
@@ -105,7 +108,7 @@ $arrow-height: 20px;
 }
 
 .crt-landing--hero {
-  padding-bottom: 10rem;
+  padding-bottom: 15rem;
   background-image: url(../../img/landing-page-hero.png);
   background-repeat: no-repeat;
   background-size: cover;
@@ -172,6 +175,7 @@ $arrow-height: 20px;
 
 .crt-landing--largetext {
   margin-top: 0;
+  margin-bottom: 1.5rem;
   font-size: 1.4rem;
   line-height: 2rem;
 }
