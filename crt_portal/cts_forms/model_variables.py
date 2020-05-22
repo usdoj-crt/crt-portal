@@ -72,12 +72,18 @@ ELECTION_CHOICES = (
 )
 ELECTION_DICT = dict(ELECTION_CHOICES)
 
+# preserving archival data
 HATE_CRIMES_TRAFFICKING_MODEL_CHOICES = (
     ('physical_harm', _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability')),
     ('trafficking', _('Threatened, forced, and held against your will for the purposes of performing work or commercial sex acts. This could include threats of physical harm, withholding promised wages, or being held under a false work contract')),
 )
-
 HATE_CRIMES_TRAFFICKING_CHOICES = [choice[1] for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES]
+
+# This it the one in use
+HATE_CRIME_CHOICES = (
+    ('yes', _('Yes')),
+    ('no', _('No')),
+)
 
 # See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
 # This tuple will create the form_order, then lists a short code that we use for the model value and CRT display views, then the name as it will display on the form.

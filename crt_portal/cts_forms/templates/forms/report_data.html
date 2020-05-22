@@ -40,21 +40,10 @@
     <h3 class="crt-portal-card__subheader">{{ question.primary_reason }}</h3>
     <p>{{ report.get_primary_complaint_display }}</p>
 
-    <h3 class="crt-portal-card__subheader">{{ question.hatecrime_title }}</h3>
-    <h4>{{ question.hatecrime }}</h4>
-    {% if report.id %}
-      {% for crime in report.hatecrimes_trafficking.all %}
-        <p>{{crime}}</p>
-      {% empty %}
-        <p>{% trans 'None selected' %}</p>
-      {% endfor %}
-    {% else %}
-      {% for crime in hatecrimes %}
-        <p>{{crime}}</p>
-      {% empty %}
-        <p>{% trans 'None selected' %}</p>
-      {% endfor %}
-    {% endif %}
+    <h3 class="crt-portal-card__subheader">{{ question.hate_crime }}</h3>
+    {% with report.hate_crime|default:"-" as hate %}
+    <p>{{ hate|title }}</p>
+    {% endwith %}
   </div>
 </div>
 

@@ -8,7 +8,7 @@ from django.urls import reverse
 
 from ..forms import ComplaintActions, ReportEditForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES
-from ..models import CommentAndSummary, Report, HateCrimesandTrafficking
+from ..models import CommentAndSummary, Report
 from .test_data import SAMPLE_REPORT
 
 
@@ -90,47 +90,12 @@ class ReportEditFormTests(TestCase):
                                  'public_or_private_employer': PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES[0][0]})
         self.report = Report.objects.create(**self.report_data)
 
-    def test_changed_data_hatecrime(self):
-        """If our hatecrime boolean was changed, hatecrimetrafficking must be in changed_data"""
+    def test_changed_data_hate_crime(self):
         data = self.report_data.copy()
-        data.update({'hatecrime': True})
+        data.update({'hate_crime': 'yes'})
         form = ReportEditForm(data, instance=self.report)
         self.assertTrue(form.is_valid())
-        self.assertTrue('hatecrimes_trafficking' in form.changed_data)
-
-    def test_changed_data_trafficking(self):
-        """If our trafficking boolean was changed, hatecrimetrafficking must be in changed_data"""
-        data = self.report_data.copy()
-        data.update({'trafficking': True})
-        form = ReportEditForm(data, instance=self.report)
-        self.assertTrue(form.is_valid())
-        self.assertTrue('hatecrimes_trafficking' in form.changed_data)
-
-    def test_clean_hatecrime_trafficking_empty(self):
-        """On final clean, hatecrimetrafficking must be set to combined values of hatecrime and trafficking booleans"""
-        hatecrime, _ = HateCrimesandTrafficking.objects.get_or_create(value='physical_harm')
-        trafficking, _ = HateCrimesandTrafficking.objects.get_or_create(value='trafficking')
-
-        data = self.report_data.copy()
-        data.update({'trafficking': False, 'hatecrime': False})
-        form = ReportEditForm(data, instance=self.report)
-        self.assertTrue(form.is_valid())
-        self.assertEqual(form.cleaned_data['hatecrimes_trafficking'], [])
-
-        data.update({'trafficking': True, 'hatecrime': False})
-        form = ReportEditForm(data, instance=self.report)
-        self.assertTrue(form.is_valid())
-        self.assertEqual(form.cleaned_data['hatecrimes_trafficking'], [trafficking])
-
-        data.update({'trafficking': False, 'hatecrime': True})
-        form = ReportEditForm(data, instance=self.report)
-        self.assertTrue(form.is_valid())
-        self.assertEqual(form.cleaned_data['hatecrimes_trafficking'], [hatecrime])
-
-        data.update({'trafficking': True, 'hatecrime': True})
-        form = ReportEditForm(data, instance=self.report)
-        self.assertTrue(form.is_valid())
-        self.assertEqual(form.cleaned_data['hatecrimes_trafficking'], [hatecrime, trafficking])
+        self.assertTrue('hate_crime' in form.changed_data)
 
     def test_clean_dependent_fields(self):
         """

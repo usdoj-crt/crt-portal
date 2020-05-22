@@ -1,331 +1,331 @@
-Section assignment,Primary complaint,Protected class,Hate crimes or trafficking,Place,Facility,School
-ELS,workplace,Age,none,n/a,n/a,n/a
-CRM,workplace,Age,hate crimes and trafficking,n/a,n/a,n/a
-HCE,housing,Age,none,n/a,n/a,n/a
-CRM,housing,Age,hate crimes and trafficking,n/a,n/a,n/a
-CRM,education,Age,hate crimes and trafficking,n/a,n/a,n/a
-EOS,education,Age,none,n/a,n/a,public
-EOS,education,Age,none,n/a,n/a,private
-EOS,education,Age,none,n/a,n/a,not_sure
-VOT,voting,Age,none,n/a,n/a,n/a
-CRM,voting,Age,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Age,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Age,none,n/a,outside,n/a
-SPL,police,Age,none,n/a,inside,n/a
-CRM,commercial_or_public,Age,hate crimes and trafficking,n/a,n/a,n/a
-HCE,commercial_or_public,Age,none,place_of_worship,n/a,n/a
-HCE,commercial_or_public,Age,none,store,n/a,n/a
-SPL,commercial_or_public,Age,none,healthcare,n/a,n/a
-HCE,commercial_or_public,Age,none,financial,n/a,n/a
-HCE,commercial_or_public,Age,none,public_space,n/a,n/a
-HCE,commercial_or_public,Age,none,other,n/a,n/a
-ADM,something_else,Age,none,n/a,n/a,n/a
-CRM,something_else,Age,hate crimes and trafficking,n/a,n/a,n/a
-ELS,workplace,Disability (including temporary or recovery),none,n/a,n/a,n/a
-CRM,workplace,Disability (including temporary or recovery),hate crimes and trafficking,n/a,n/a,n/a
-HCE,housing,Disability (including temporary or recovery),none,n/a,n/a,n/a
-CRM,housing,Disability (including temporary or recovery),hate crimes and trafficking,n/a,n/a,n/a
-CRM,education,Disability (including temporary or recovery),hate crimes and trafficking,n/a,n/a,n/a
-EOS,education,Disability (including temporary or recovery),none,n/a,n/a,public
-DRS,education,Disability (including temporary or recovery),none,n/a,n/a,private
-EOS,education,Disability (including temporary or recovery),none,n/a,n/a,not_sure
-DRS,voting,Disability (including temporary or recovery),none,n/a,n/a,n/a
-CRM,voting,Disability (including temporary or recovery),hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Disability (including temporary or recovery),hate crimes and trafficking,n/a,n/a,n/a
-DRS,police,Disability (including temporary or recovery),none,n/a,outside,n/a
-DRS,police,Disability (including temporary or recovery),none,n/a,inside,n/a
-CRM,commercial_or_public,Disability (including temporary or recovery),hate crimes and trafficking,n/a,n/a,n/a
-DRS,commercial_or_public,Disability (including temporary or recovery),none,place_of_worship,n/a,n/a
-DRS,commercial_or_public,Disability (including temporary or recovery),none,store,n/a,n/a
-DRS,commercial_or_public,Disability (including temporary or recovery),none,healthcare,n/a,n/a
-DRS,commercial_or_public,Disability (including temporary or recovery),none,financial,n/a,n/a
-DRS,commercial_or_public,Disability (including temporary or recovery),none,public_space,n/a,n/a
-DRS,commercial_or_public,Disability (including temporary or recovery),none,other,n/a,n/a
-DRS,something_else,Disability (including temporary or recovery),none,n/a,n/a,n/a
-CRM,something_else,Disability (including temporary or recovery),hate crimes and trafficking,n/a,n/a,n/a
-ELS,workplace,"Family, marital, or parental status",none,n/a,n/a,n/a
-CRM,workplace,"Family, marital, or parental status",hate crimes and trafficking,n/a,n/a,n/a
-HCE,housing,"Family, marital, or parental status",none,n/a,n/a,n/a
-CRM,housing,"Family, marital, or parental status",hate crimes and trafficking,n/a,n/a,n/a
-CRM,education,"Family, marital, or parental status",hate crimes and trafficking,n/a,n/a,n/a
-EOS,education,"Family, marital, or parental status",none,n/a,n/a,public
-EOS,education,"Family, marital, or parental status",none,n/a,n/a,private
-EOS,education,"Family, marital, or parental status",none,n/a,n/a,not_sure
-VOT,voting,"Family, marital, or parental status",none,n/a,n/a,n/a
-CRM,voting,"Family, marital, or parental status",hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,"Family, marital, or parental status",hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,"Family, marital, or parental status",none,n/a,outside,n/a
-SPL,police,"Family, marital, or parental status",none,n/a,inside,n/a
-CRM,commercial_or_public,"Family, marital, or parental status",hate crimes and trafficking,n/a,n/a,n/a
-HCE,commercial_or_public,"Family, marital, or parental status",none,place_of_worship,n/a,n/a
-HCE,commercial_or_public,"Family, marital, or parental status",none,store,n/a,n/a
-SPL,commercial_or_public,"Family, marital, or parental status",none,healthcare,n/a,n/a
-HCE,commercial_or_public,"Family, marital, or parental status",none,financial,n/a,n/a
-HCE,commercial_or_public,"Family, marital, or parental status",none,public_space,n/a,n/a
-HCE,commercial_or_public,"Family, marital, or parental status",none,other,n/a,n/a
-ADM,something_else,"Family, marital, or parental status",none,n/a,n/a,n/a
-CRM,something_else,"Family, marital, or parental status",hate crimes and trafficking,n/a,n/a,n/a
-ELS,workplace,Gender identity (including gender stereotypes),none,n/a,n/a,n/a
-CRM,workplace,Gender identity (including gender stereotypes),hate crimes and trafficking,n/a,n/a,n/a
-HCE,housing,Gender identity (including gender stereotypes),none,n/a,n/a,n/a
-CRM,housing,Gender identity (including gender stereotypes),hate crimes and trafficking,n/a,n/a,n/a
-CRM,education,Gender identity (including gender stereotypes),hate crimes and trafficking,n/a,n/a,n/a
-EOS,education,Gender identity (including gender stereotypes),none,n/a,n/a,public
-EOS,education,Gender identity (including gender stereotypes),none,n/a,n/a,private
-EOS,education,Gender identity (including gender stereotypes),none,n/a,n/a,not_sure
-VOT,voting,Gender identity (including gender stereotypes),none,n/a,n/a,n/a
-CRM,voting,Gender identity (including gender stereotypes),hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Gender identity (including gender stereotypes),hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Gender identity (including gender stereotypes),none,n/a,outside,n/a
-SPL,police,Gender identity (including gender stereotypes),none,n/a,inside,n/a
-CRM,commercial_or_public,Gender identity (including gender stereotypes),hate crimes and trafficking,n/a,n/a,n/a
-HCE,commercial_or_public,Gender identity (including gender stereotypes),none,place_of_worship,n/a,n/a
-HCE,commercial_or_public,Gender identity (including gender stereotypes),none,store,n/a,n/a
-SPL,commercial_or_public,Gender identity (including gender stereotypes),none,healthcare,n/a,n/a
-HCE,commercial_or_public,Gender identity (including gender stereotypes),none,financial,n/a,n/a
-HCE,commercial_or_public,Gender identity (including gender stereotypes),none,public_space,n/a,n/a
-HCE,commercial_or_public,Gender identity (including gender stereotypes),none,other,n/a,n/a
-ADM,something_else,Gender identity (including gender stereotypes),none,n/a,n/a,n/a
-CRM,something_else,Gender identity (including gender stereotypes),hate crimes and trafficking,n/a,n/a,n/a
-ELS,workplace,Genetic information (including family medical history),none,n/a,n/a,n/a
-CRM,workplace,Genetic information (including family medical history),hate crimes and trafficking,n/a,n/a,n/a
-HCE,housing,Genetic information (including family medical history),none,n/a,n/a,n/a
-CRM,housing,Genetic information (including family medical history),hate crimes and trafficking,n/a,n/a,n/a
-CRM,education,Genetic information (including family medical history),hate crimes and trafficking,n/a,n/a,n/a
-EOS,education,Genetic information (including family medical history),none,n/a,n/a,public
-EOS,education,Genetic information (including family medical history),none,n/a,n/a,private
-EOS,education,Genetic information (including family medical history),none,n/a,n/a,not_sure
-VOT,voting,Genetic information (including family medical history),none,n/a,n/a,n/a
-CRM,voting,Genetic information (including family medical history),hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Genetic information (including family medical history),hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Genetic information (including family medical history),none,n/a,outside,n/a
-SPL,police,Genetic information (including family medical history),none,n/a,inside,n/a
-CRM,commercial_or_public,Genetic information (including family medical history),hate crimes and trafficking,n/a,n/a,n/a
-HCE,commercial_or_public,Genetic information (including family medical history),none,place_of_worship,n/a,n/a
-HCE,commercial_or_public,Genetic information (including family medical history),none,store,n/a,n/a
-SPL,commercial_or_public,Genetic information (including family medical history),none,healthcare,n/a,n/a
-HCE,commercial_or_public,Genetic information (including family medical history),none,financial,n/a,n/a
-HCE,commercial_or_public,Genetic information (including family medical history),none,public_space,n/a,n/a
-HCE,commercial_or_public,Genetic information (including family medical history),none,other,n/a,n/a
-ADM,something_else,Genetic information (including family medical history),none,n/a,n/a,n/a
-CRM,something_else,Genetic information (including family medical history),hate crimes and trafficking,n/a,n/a,n/a
-IER,workplace,Immigration/citizenship status (choosing this will not share your status),none,n/a,n/a,n/a
-CRM,workplace,Immigration/citizenship status (choosing this will not share your status),hate crimes and trafficking,n/a,n/a,n/a
-HCE,housing,Immigration/citizenship status (choosing this will not share your status),none,n/a,n/a,n/a
-CRM,housing,Immigration/citizenship status (choosing this will not share your status),hate crimes and trafficking,n/a,n/a,n/a
-CRM,education,Immigration/citizenship status (choosing this will not share your status),hate crimes and trafficking,n/a,n/a,n/a
-EOS,education,Immigration/citizenship status (choosing this will not share your status),none,n/a,n/a,public
-EOS,education,Immigration/citizenship status (choosing this will not share your status),none,n/a,n/a,private
-EOS,education,Immigration/citizenship status (choosing this will not share your status),none,n/a,n/a,not_sure
-VOT,voting,Immigration/citizenship status (choosing this will not share your status),none,n/a,n/a,n/a
-CRM,voting,Immigration/citizenship status (choosing this will not share your status),hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Immigration/citizenship status (choosing this will not share your status),hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Immigration/citizenship status (choosing this will not share your status),none,n/a,outside,n/a
-SPL,police,Immigration/citizenship status (choosing this will not share your status),none,n/a,inside,n/a
-CRM,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),hate crimes and trafficking,n/a,n/a,n/a
-HCE,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),none,place_of_worship,n/a,n/a
-HCE,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),none,store,n/a,n/a
-SPL,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),none,healthcare,n/a,n/a
-HCE,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),none,financial,n/a,n/a
-HCE,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),none,public_space,n/a,n/a
-HCE,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),none,other,n/a,n/a
-ADM,something_else,Immigration/citizenship status (choosing this will not share your status),none,n/a,n/a,n/a
-CRM,something_else,Immigration/citizenship status (choosing this will not share your status),hate crimes and trafficking,n/a,n/a,n/a
-IER,workplace,Language,none,n/a,n/a,n/a
-CRM,workplace,Language,hate crimes and trafficking,n/a,n/a,n/a
-HCE,housing,Language,none,n/a,n/a,n/a
-CRM,housing,Language,hate crimes and trafficking,n/a,n/a,n/a
-CRM,education,Language,hate crimes and trafficking,n/a,n/a,n/a
-EOS,education,Language,none,n/a,n/a,public
-EOS,education,Language,none,n/a,n/a,private
-EOS,education,Language,none,n/a,n/a,not_sure
-VOT,voting,Language,none,n/a,n/a,n/a
-CRM,voting,Language,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Language,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Language,none,n/a,outside,n/a
-SPL,police,Language,none,n/a,inside,n/a
-CRM,commercial_or_public,Language,hate crimes and trafficking,n/a,n/a,n/a
-HCE,commercial_or_public,Language,none,place_of_worship,n/a,n/a
-HCE,commercial_or_public,Language,none,store,n/a,n/a
-SPL,commercial_or_public,Language,none,healthcare,n/a,n/a
-HCE,commercial_or_public,Language,none,financial,n/a,n/a
-HCE,commercial_or_public,Language,none,public_space,n/a,n/a
-HCE,commercial_or_public,Language,none,other,n/a,n/a
-ADM,something_else,Language,none,n/a,n/a,n/a
-CRM,something_else,Language,hate crimes and trafficking,n/a,n/a,n/a
-IER,workplace,National origin (including ancestry and ethnicity),none,n/a,n/a,n/a
-CRM,workplace,National origin (including ancestry and ethnicity),hate crimes and trafficking,n/a,n/a,n/a
-HCE,housing,National origin (including ancestry and ethnicity),none,n/a,n/a,n/a
-CRM,housing,National origin (including ancestry and ethnicity),hate crimes and trafficking,n/a,n/a,n/a
-CRM,education,National origin (including ancestry and ethnicity),hate crimes and trafficking,n/a,n/a,n/a
-EOS,education,National origin (including ancestry and ethnicity),none,n/a,n/a,public
-EOS,education,National origin (including ancestry and ethnicity),none,n/a,n/a,private
-EOS,education,National origin (including ancestry and ethnicity),none,n/a,n/a,not_sure
-VOT,voting,National origin (including ancestry and ethnicity),none,n/a,n/a,n/a
-CRM,voting,National origin (including ancestry and ethnicity),hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,National origin (including ancestry and ethnicity),hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,National origin (including ancestry and ethnicity),none,n/a,outside,n/a
-SPL,police,National origin (including ancestry and ethnicity),none,n/a,inside,n/a
-CRM,commercial_or_public,National origin (including ancestry and ethnicity),hate crimes and trafficking,n/a,n/a,n/a
-HCE,commercial_or_public,National origin (including ancestry and ethnicity),none,place_of_worship,n/a,n/a
-HCE,commercial_or_public,National origin (including ancestry and ethnicity),none,store,n/a,n/a
-SPL,commercial_or_public,National origin (including ancestry and ethnicity),none,healthcare,n/a,n/a
-HCE,commercial_or_public,National origin (including ancestry and ethnicity),none,financial,n/a,n/a
-HCE,commercial_or_public,National origin (including ancestry and ethnicity),none,public_space,n/a,n/a
-HCE,commercial_or_public,National origin (including ancestry and ethnicity),none,other,n/a,n/a
-ADM,something_else,National origin (including ancestry and ethnicity),none,n/a,n/a,n/a
-CRM,something_else,National origin (including ancestry and ethnicity),hate crimes and trafficking,n/a,n/a,n/a
-ELS,workplace,Pregnancy,none,n/a,n/a,n/a
-CRM,workplace,Pregnancy,hate crimes and trafficking,n/a,n/a,n/a
-HCE,housing,Pregnancy,none,n/a,n/a,n/a
-CRM,housing,Pregnancy,hate crimes and trafficking,n/a,n/a,n/a
-CRM,education,Pregnancy,hate crimes and trafficking,n/a,n/a,n/a
-EOS,education,Pregnancy,none,n/a,n/a,public
-EOS,education,Pregnancy,none,n/a,n/a,private
-EOS,education,Pregnancy,none,n/a,n/a,not_sure
-VOT,voting,Pregnancy,none,n/a,n/a,n/a
-CRM,voting,Pregnancy,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Pregnancy,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Pregnancy,none,n/a,outside,n/a
-SPL,police,Pregnancy,none,n/a,inside,n/a
-CRM,commercial_or_public,Pregnancy,hate crimes and trafficking,n/a,n/a,n/a
-HCE,commercial_or_public,Pregnancy,none,place_of_worship,n/a,n/a
-HCE,commercial_or_public,Pregnancy,none,store,n/a,n/a
-SPL,commercial_or_public,Pregnancy,none,healthcare,n/a,n/a
-HCE,commercial_or_public,Pregnancy,none,financial,n/a,n/a
-HCE,commercial_or_public,Pregnancy,none,public_space,n/a,n/a
-HCE,commercial_or_public,Pregnancy,none,other,n/a,n/a
-ADM,something_else,Pregnancy,none,n/a,n/a,n/a
-CRM,something_else,Pregnancy,hate crimes and trafficking,n/a,n/a,n/a
-ELS,workplace,Race/color,none,n/a,n/a,n/a
-CRM,workplace,Race/color,hate crimes and trafficking,n/a,n/a,n/a
-HCE,housing,Race/color,none,n/a,n/a,n/a
-CRM,housing,Race/color,hate crimes and trafficking,n/a,n/a,n/a
-CRM,education,Race/color,hate crimes and trafficking,n/a,n/a,n/a
-EOS,education,Race/color,none,n/a,n/a,public
-EOS,education,Race/color,none,n/a,n/a,private
-EOS,education,Race/color,none,n/a,n/a,not_sure
-VOT,voting,Race/color,none,n/a,n/a,n/a
-CRM,voting,Race/color,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Race/color,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Race/color,none,n/a,outside,n/a
-SPL,police,Race/color,none,n/a,inside,n/a
-CRM,commercial_or_public,Race/color,hate crimes and trafficking,n/a,n/a,n/a
-HCE,commercial_or_public,Race/color,none,place_of_worship,n/a,n/a
-HCE,commercial_or_public,Race/color,none,store,n/a,n/a
-SPL,commercial_or_public,Race/color,none,healthcare,n/a,n/a
-HCE,commercial_or_public,Race/color,none,financial,n/a,n/a
-HCE,commercial_or_public,Race/color,none,public_space,n/a,n/a
-HCE,commercial_or_public,Race/color,none,other,n/a,n/a
-ADM,something_else,Race/color,none,n/a,n/a,n/a
-CRM,something_else,Race/color,hate crimes and trafficking,n/a,n/a,n/a
-ELS,workplace,Religion,none,n/a,n/a,n/a
-CRM,workplace,Religion,hate crimes and trafficking,n/a,n/a,n/a
-HCE,housing,Religion,none,n/a,n/a,n/a
-CRM,housing,Religion,hate crimes and trafficking,n/a,n/a,n/a
-CRM,education,Religion,hate crimes and trafficking,n/a,n/a,n/a
-EOS,education,Religion,none,n/a,n/a,public
-EOS,education,Religion,none,n/a,n/a,private
-EOS,education,Religion,none,n/a,n/a,not_sure
-VOT,voting,Religion,none,n/a,n/a,n/a
-CRM,voting,Religion,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Religion,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Religion,none,n/a,outside,n/a
-SPL,police,Religion,none,n/a,inside,n/a
-CRM,commercial_or_public,Religion,hate crimes and trafficking,n/a,n/a,n/a
-HCE,commercial_or_public,Religion,none,place_of_worship,n/a,n/a
-HCE,commercial_or_public,Religion,none,store,n/a,n/a
-SPL,commercial_or_public,Religion,none,healthcare,n/a,n/a
-HCE,commercial_or_public,Religion,none,financial,n/a,n/a
-HCE,commercial_or_public,Religion,none,public_space,n/a,n/a
-HCE,commercial_or_public,Religion,none,other,n/a,n/a
-ADM,something_else,Religion,none,n/a,n/a,n/a
-CRM,something_else,Religion,hate crimes and trafficking,n/a,n/a,n/a
-ELS,workplace,Sex,none,n/a,n/a,n/a
-CRM,workplace,Sex,hate crimes and trafficking,n/a,n/a,n/a
-HCE,housing,Sex,none,n/a,n/a,n/a
-CRM,housing,Sex,hate crimes and trafficking,n/a,n/a,n/a
-CRM,education,Sex,hate crimes and trafficking,n/a,n/a,n/a
-EOS,education,Sex,none,n/a,n/a,public
-EOS,education,Sex,none,n/a,n/a,private
-EOS,education,Sex,none,n/a,n/a,not_sure
-VOT,voting,Sex,none,n/a,n/a,n/a
-CRM,voting,Sex,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Sex,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Sex,none,n/a,outside,n/a
-SPL,police,Sex,none,n/a,inside,n/a
-CRM,commercial_or_public,Sex,hate crimes and trafficking,n/a,n/a,n/a
-HCE,commercial_or_public,Sex,none,place_of_worship,n/a,n/a
-HCE,commercial_or_public,Sex,none,store,n/a,n/a
-SPL,commercial_or_public,Sex,none,healthcare,n/a,n/a
-HCE,commercial_or_public,Sex,none,financial,n/a,n/a
-HCE,commercial_or_public,Sex,none,public_space,n/a,n/a
-HCE,commercial_or_public,Sex,none,other,n/a,n/a
-ADM,something_else,Sex,none,n/a,n/a,n/a
-CRM,something_else,Sex,hate crimes and trafficking,n/a,n/a,n/a
-ELS,workplace,Sexual orientation,none,n/a,n/a,n/a
-CRM,workplace,Sexual orientation,hate crimes and trafficking,n/a,n/a,n/a
-HCE,housing,Sexual orientation,none,n/a,n/a,n/a
-CRM,housing,Sexual orientation,hate crimes and trafficking,n/a,n/a,n/a
-CRM,education,Sexual orientation,hate crimes and trafficking,n/a,n/a,n/a
-EOS,education,Sexual orientation,none,n/a,n/a,public
-EOS,education,Sexual orientation,none,n/a,n/a,private
-EOS,education,Sexual orientation,none,n/a,n/a,not_sure
-VOT,voting,Sexual orientation,none,n/a,n/a,n/a
-CRM,voting,Sexual orientation,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Sexual orientation,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Sexual orientation,none,n/a,outside,n/a
-SPL,police,Sexual orientation,none,n/a,inside,n/a
-CRM,commercial_or_public,Sexual orientation,hate crimes and trafficking,n/a,n/a,n/a
-HCE,commercial_or_public,Sexual orientation,none,place_of_worship,n/a,n/a
-HCE,commercial_or_public,Sexual orientation,none,store,n/a,n/a
-SPL,commercial_or_public,Sexual orientation,none,healthcare,n/a,n/a
-HCE,commercial_or_public,Sexual orientation,none,financial,n/a,n/a
-HCE,commercial_or_public,Sexual orientation,none,public_space,n/a,n/a
-HCE,commercial_or_public,Sexual orientation,none,other,n/a,n/a
-ADM,something_else,Sexual orientation,none,n/a,n/a,n/a
-CRM,something_else,Sexual orientation,hate crimes and trafficking,n/a,n/a,n/a
-ELS,workplace,None of these apply to me,none,n/a,n/a,n/a
-CRM,workplace,None of these apply to me,hate crimes and trafficking,n/a,n/a,n/a
-HCE,housing,None of these apply to me,none,n/a,n/a,n/a
-CRM,housing,None of these apply to me,hate crimes and trafficking,n/a,n/a,n/a
-CRM,education,None of these apply to me,hate crimes and trafficking,n/a,n/a,n/a
-EOS,education,None of these apply to me,none,n/a,n/a,public
-EOS,education,None of these apply to me,none,n/a,n/a,private
-EOS,education,None of these apply to me,none,n/a,n/a,not_sure
-VOT,voting,None of these apply to me,none,n/a,n/a,n/a
-CRM,voting,None of these apply to me,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,None of these apply to me,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,None of these apply to me,none,n/a,outside,n/a
-SPL,police,None of these apply to me,none,n/a,inside,n/a
-CRM,commercial_or_public,None of these apply to me,hate crimes and trafficking,n/a,n/a,n/a
-HCE,commercial_or_public,None of these apply to me,none,place_of_worship,n/a,n/a
-HCE,commercial_or_public,None of these apply to me,none,store,n/a,n/a
-SPL,commercial_or_public,None of these apply to me,none,healthcare,n/a,n/a
-HCE,commercial_or_public,None of these apply to me,none,financial,n/a,n/a
-HCE,commercial_or_public,None of these apply to me,none,public_space,n/a,n/a
-HCE,commercial_or_public,None of these apply to me,none,other,n/a,n/a
-ADM,something_else,None of these apply to me,none,n/a,n/a,n/a
-CRM,something_else,None of these apply to me,hate crimes and trafficking,n/a,n/a,n/a
-ELS,workplace,Other reason,none,n/a,n/a,n/a
-CRM,workplace,Other reason,hate crimes and trafficking,n/a,n/a,n/a
-HCE,housing,Other reason,none,n/a,n/a,n/a
-CRM,housing,Other reason,hate crimes and trafficking,n/a,n/a,n/a
-CRM,education,Other reason,hate crimes and trafficking,n/a,n/a,n/a
-EOS,education,Other reason,none,n/a,n/a,public
-EOS,education,Other reason,none,n/a,n/a,private
-EOS,education,Other reason,none,n/a,n/a,not_sure
-VOT,voting,Other reason,none,n/a,n/a,n/a
-CRM,voting,Other reason,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Other reason,hate crimes and trafficking,n/a,n/a,n/a
-CRM,police,Other reason,none,n/a,outside,n/a
-SPL,police,Other reason,none,n/a,inside,n/a
-CRM,commercial_or_public,Other reason,hate crimes and trafficking,n/a,n/a,n/a
-HCE,commercial_or_public,Other reason,none,place_of_worship,n/a,n/a
-HCE,commercial_or_public,Other reason,none,store,n/a,n/a
-SPL,commercial_or_public,Other reason,none,healthcare,n/a,n/a
-HCE,commercial_or_public,Other reason,none,financial,n/a,n/a
-HCE,commercial_or_public,Other reason,none,public_space,n/a,n/a
-HCE,commercial_or_public,Other reason,none,other,n/a,n/a
-ADM,something_else,Other reason,none,n/a,n/a,n/a
-CRM,something_else,Other reason,hate crimes and trafficking,n/a,n/a,n/a
+Section assignment,Primary complaint,Protected class,Hate crime,Place,Facility,School
+CRM,workplace,Age,yes,n/a,n/a,n/a
+CRM,housing,Age,yes,n/a,n/a,n/a
+CRM,education,Age,yes,n/a,n/a,n/a
+CRM,voting,Age,yes,n/a,n/a,n/a
+CRM,police,Age,yes,n/a,n/a,n/a
+CRM,commercial_or_public,Age,yes,n/a,n/a,n/a
+CRM,something_else,Age,yes,n/a,n/a,n/a
+CRM,workplace,Disability (including temporary or recovery),yes,n/a,n/a,n/a
+CRM,housing,Disability (including temporary or recovery),yes,n/a,n/a,n/a
+CRM,education,Disability (including temporary or recovery),yes,n/a,n/a,n/a
+CRM,voting,Disability (including temporary or recovery),yes,n/a,n/a,n/a
+CRM,police,Disability (including temporary or recovery),yes,n/a,n/a,n/a
+CRM,commercial_or_public,Disability (including temporary or recovery),yes,n/a,n/a,n/a
+CRM,something_else,Disability (including temporary or recovery),yes,n/a,n/a,n/a
+CRM,workplace,"Family, marital, or parental status",yes,n/a,n/a,n/a
+CRM,housing,"Family, marital, or parental status",yes,n/a,n/a,n/a
+CRM,education,"Family, marital, or parental status",yes,n/a,n/a,n/a
+CRM,voting,"Family, marital, or parental status",yes,n/a,n/a,n/a
+CRM,police,"Family, marital, or parental status",yes,n/a,n/a,n/a
+CRM,commercial_or_public,"Family, marital, or parental status",yes,n/a,n/a,n/a
+CRM,something_else,"Family, marital, or parental status",yes,n/a,n/a,n/a
+CRM,workplace,Gender identity (including gender stereotypes),yes,n/a,n/a,n/a
+CRM,housing,Gender identity (including gender stereotypes),yes,n/a,n/a,n/a
+CRM,education,Gender identity (including gender stereotypes),yes,n/a,n/a,n/a
+CRM,voting,Gender identity (including gender stereotypes),yes,n/a,n/a,n/a
+CRM,police,Gender identity (including gender stereotypes),yes,n/a,n/a,n/a
+CRM,commercial_or_public,Gender identity (including gender stereotypes),yes,n/a,n/a,n/a
+CRM,something_else,Gender identity (including gender stereotypes),yes,n/a,n/a,n/a
+CRM,workplace,Genetic information (including family medical history),yes,n/a,n/a,n/a
+CRM,housing,Genetic information (including family medical history),yes,n/a,n/a,n/a
+CRM,education,Genetic information (including family medical history),yes,n/a,n/a,n/a
+CRM,voting,Genetic information (including family medical history),yes,n/a,n/a,n/a
+CRM,police,Genetic information (including family medical history),yes,n/a,n/a,n/a
+CRM,commercial_or_public,Genetic information (including family medical history),yes,n/a,n/a,n/a
+CRM,something_else,Genetic information (including family medical history),yes,n/a,n/a,n/a
+CRM,workplace,Immigration/citizenship status (choosing this will not share your status),yes,n/a,n/a,n/a
+CRM,housing,Immigration/citizenship status (choosing this will not share your status),yes,n/a,n/a,n/a
+CRM,education,Immigration/citizenship status (choosing this will not share your status),yes,n/a,n/a,n/a
+CRM,voting,Immigration/citizenship status (choosing this will not share your status),yes,n/a,n/a,n/a
+CRM,police,Immigration/citizenship status (choosing this will not share your status),yes,n/a,n/a,n/a
+CRM,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),yes,n/a,n/a,n/a
+CRM,something_else,Immigration/citizenship status (choosing this will not share your status),yes,n/a,n/a,n/a
+CRM,workplace,Language,yes,n/a,n/a,n/a
+CRM,housing,Language,yes,n/a,n/a,n/a
+CRM,education,Language,yes,n/a,n/a,n/a
+CRM,voting,Language,yes,n/a,n/a,n/a
+CRM,police,Language,yes,n/a,n/a,n/a
+CRM,commercial_or_public,Language,yes,n/a,n/a,n/a
+CRM,something_else,Language,yes,n/a,n/a,n/a
+CRM,workplace,National origin (including ancestry and ethnicity),yes,n/a,n/a,n/a
+CRM,housing,National origin (including ancestry and ethnicity),yes,n/a,n/a,n/a
+CRM,education,National origin (including ancestry and ethnicity),yes,n/a,n/a,n/a
+CRM,voting,National origin (including ancestry and ethnicity),yes,n/a,n/a,n/a
+CRM,police,National origin (including ancestry and ethnicity),yes,n/a,n/a,n/a
+CRM,commercial_or_public,National origin (including ancestry and ethnicity),yes,n/a,n/a,n/a
+CRM,something_else,National origin (including ancestry and ethnicity),yes,n/a,n/a,n/a
+CRM,workplace,Pregnancy,yes,n/a,n/a,n/a
+CRM,housing,Pregnancy,yes,n/a,n/a,n/a
+CRM,education,Pregnancy,yes,n/a,n/a,n/a
+CRM,voting,Pregnancy,yes,n/a,n/a,n/a
+CRM,police,Pregnancy,yes,n/a,n/a,n/a
+CRM,commercial_or_public,Pregnancy,yes,n/a,n/a,n/a
+CRM,something_else,Pregnancy,yes,n/a,n/a,n/a
+CRM,workplace,Race/color,yes,n/a,n/a,n/a
+CRM,housing,Race/color,yes,n/a,n/a,n/a
+CRM,education,Race/color,yes,n/a,n/a,n/a
+CRM,voting,Race/color,yes,n/a,n/a,n/a
+CRM,police,Race/color,yes,n/a,n/a,n/a
+CRM,commercial_or_public,Race/color,yes,n/a,n/a,n/a
+CRM,something_else,Race/color,yes,n/a,n/a,n/a
+CRM,workplace,Religion,yes,n/a,n/a,n/a
+CRM,housing,Religion,yes,n/a,n/a,n/a
+CRM,education,Religion,yes,n/a,n/a,n/a
+CRM,voting,Religion,yes,n/a,n/a,n/a
+CRM,police,Religion,yes,n/a,n/a,n/a
+CRM,commercial_or_public,Religion,yes,n/a,n/a,n/a
+CRM,something_else,Religion,yes,n/a,n/a,n/a
+CRM,workplace,Sex,yes,n/a,n/a,n/a
+CRM,housing,Sex,yes,n/a,n/a,n/a
+CRM,education,Sex,yes,n/a,n/a,n/a
+CRM,voting,Sex,yes,n/a,n/a,n/a
+CRM,police,Sex,yes,n/a,n/a,n/a
+CRM,commercial_or_public,Sex,yes,n/a,n/a,n/a
+CRM,something_else,Sex,yes,n/a,n/a,n/a
+CRM,workplace,Sexual orientation,yes,n/a,n/a,n/a
+CRM,housing,Sexual orientation,yes,n/a,n/a,n/a
+CRM,education,Sexual orientation,yes,n/a,n/a,n/a
+CRM,voting,Sexual orientation,yes,n/a,n/a,n/a
+CRM,police,Sexual orientation,yes,n/a,n/a,n/a
+CRM,commercial_or_public,Sexual orientation,yes,n/a,n/a,n/a
+CRM,something_else,Sexual orientation,yes,n/a,n/a,n/a
+CRM,workplace,None of these apply to me,yes,n/a,n/a,n/a
+CRM,housing,None of these apply to me,yes,n/a,n/a,n/a
+CRM,education,None of these apply to me,yes,n/a,n/a,n/a
+CRM,voting,None of these apply to me,yes,n/a,n/a,n/a
+CRM,police,None of these apply to me,yes,n/a,n/a,n/a
+CRM,commercial_or_public,None of these apply to me,yes,n/a,n/a,n/a
+CRM,something_else,None of these apply to me,yes,n/a,n/a,n/a
+CRM,workplace,Other reason,yes,n/a,n/a,n/a
+CRM,housing,Other reason,yes,n/a,n/a,n/a
+CRM,education,Other reason,yes,n/a,n/a,n/a
+CRM,voting,Other reason,yes,n/a,n/a,n/a
+CRM,police,Other reason,yes,n/a,n/a,n/a
+CRM,commercial_or_public,Other reason,yes,n/a,n/a,n/a
+CRM,something_else,Other reason,yes,n/a,n/a,n/a
+ELS,workplace,Age,no,n/a,n/a,n/a
+HCE,housing,Age,no,n/a,n/a,n/a
+EOS,education,Age,no,n/a,n/a,public
+EOS,education,Age,no,n/a,n/a,private
+EOS,education,Age,no,n/a,n/a,not_sure
+VOT,voting,Age,no,n/a,n/a,n/a
+CRM,police,Age,no,n/a,outside,n/a
+SPL,police,Age,no,n/a,inside,n/a
+HCE,commercial_or_public,Age,no,place_of_worship,n/a,n/a
+HCE,commercial_or_public,Age,no,store,n/a,n/a
+SPL,commercial_or_public,Age,no,healthcare,n/a,n/a
+HCE,commercial_or_public,Age,no,financial,n/a,n/a
+HCE,commercial_or_public,Age,no,public_space,n/a,n/a
+HCE,commercial_or_public,Age,no,other,n/a,n/a
+ADM,something_else,Age,no,n/a,n/a,n/a
+ELS,workplace,Disability (including temporary or recovery),no,n/a,n/a,n/a
+HCE,housing,Disability (including temporary or recovery),no,n/a,n/a,n/a
+EOS,education,Disability (including temporary or recovery),no,n/a,n/a,public
+DRS,education,Disability (including temporary or recovery),no,n/a,n/a,private
+EOS,education,Disability (including temporary or recovery),no,n/a,n/a,not_sure
+DRS,voting,Disability (including temporary or recovery),no,n/a,n/a,n/a
+DRS,police,Disability (including temporary or recovery),no,n/a,outside,n/a
+DRS,police,Disability (including temporary or recovery),no,n/a,inside,n/a
+DRS,commercial_or_public,Disability (including temporary or recovery),no,place_of_worship,n/a,n/a
+DRS,commercial_or_public,Disability (including temporary or recovery),no,store,n/a,n/a
+DRS,commercial_or_public,Disability (including temporary or recovery),no,healthcare,n/a,n/a
+DRS,commercial_or_public,Disability (including temporary or recovery),no,financial,n/a,n/a
+DRS,commercial_or_public,Disability (including temporary or recovery),no,public_space,n/a,n/a
+DRS,commercial_or_public,Disability (including temporary or recovery),no,other,n/a,n/a
+DRS,something_else,Disability (including temporary or recovery),no,n/a,n/a,n/a
+ELS,workplace,"Family, marital, or parental status",no,n/a,n/a,n/a
+HCE,housing,"Family, marital, or parental status",no,n/a,n/a,n/a
+EOS,education,"Family, marital, or parental status",no,n/a,n/a,public
+EOS,education,"Family, marital, or parental status",no,n/a,n/a,private
+EOS,education,"Family, marital, or parental status",no,n/a,n/a,not_sure
+VOT,voting,"Family, marital, or parental status",no,n/a,n/a,n/a
+CRM,police,"Family, marital, or parental status",no,n/a,outside,n/a
+SPL,police,"Family, marital, or parental status",no,n/a,inside,n/a
+HCE,commercial_or_public,"Family, marital, or parental status",no,place_of_worship,n/a,n/a
+HCE,commercial_or_public,"Family, marital, or parental status",no,store,n/a,n/a
+SPL,commercial_or_public,"Family, marital, or parental status",no,healthcare,n/a,n/a
+HCE,commercial_or_public,"Family, marital, or parental status",no,financial,n/a,n/a
+HCE,commercial_or_public,"Family, marital, or parental status",no,public_space,n/a,n/a
+HCE,commercial_or_public,"Family, marital, or parental status",no,other,n/a,n/a
+ADM,something_else,"Family, marital, or parental status",no,n/a,n/a,n/a
+ELS,workplace,Gender identity (including gender stereotypes),no,n/a,n/a,n/a
+HCE,housing,Gender identity (including gender stereotypes),no,n/a,n/a,n/a
+EOS,education,Gender identity (including gender stereotypes),no,n/a,n/a,public
+EOS,education,Gender identity (including gender stereotypes),no,n/a,n/a,private
+EOS,education,Gender identity (including gender stereotypes),no,n/a,n/a,not_sure
+VOT,voting,Gender identity (including gender stereotypes),no,n/a,n/a,n/a
+CRM,police,Gender identity (including gender stereotypes),no,n/a,outside,n/a
+SPL,police,Gender identity (including gender stereotypes),no,n/a,inside,n/a
+HCE,commercial_or_public,Gender identity (including gender stereotypes),no,place_of_worship,n/a,n/a
+HCE,commercial_or_public,Gender identity (including gender stereotypes),no,store,n/a,n/a
+SPL,commercial_or_public,Gender identity (including gender stereotypes),no,healthcare,n/a,n/a
+HCE,commercial_or_public,Gender identity (including gender stereotypes),no,financial,n/a,n/a
+HCE,commercial_or_public,Gender identity (including gender stereotypes),no,public_space,n/a,n/a
+HCE,commercial_or_public,Gender identity (including gender stereotypes),no,other,n/a,n/a
+ADM,something_else,Gender identity (including gender stereotypes),no,n/a,n/a,n/a
+ELS,workplace,Genetic information (including family medical history),no,n/a,n/a,n/a
+HCE,housing,Genetic information (including family medical history),no,n/a,n/a,n/a
+EOS,education,Genetic information (including family medical history),no,n/a,n/a,public
+EOS,education,Genetic information (including family medical history),no,n/a,n/a,private
+EOS,education,Genetic information (including family medical history),no,n/a,n/a,not_sure
+VOT,voting,Genetic information (including family medical history),no,n/a,n/a,n/a
+CRM,police,Genetic information (including family medical history),no,n/a,outside,n/a
+SPL,police,Genetic information (including family medical history),no,n/a,inside,n/a
+HCE,commercial_or_public,Genetic information (including family medical history),no,place_of_worship,n/a,n/a
+HCE,commercial_or_public,Genetic information (including family medical history),no,store,n/a,n/a
+SPL,commercial_or_public,Genetic information (including family medical history),no,healthcare,n/a,n/a
+HCE,commercial_or_public,Genetic information (including family medical history),no,financial,n/a,n/a
+HCE,commercial_or_public,Genetic information (including family medical history),no,public_space,n/a,n/a
+HCE,commercial_or_public,Genetic information (including family medical history),no,other,n/a,n/a
+ADM,something_else,Genetic information (including family medical history),no,n/a,n/a,n/a
+IER,workplace,Immigration/citizenship status (choosing this will not share your status),no,n/a,n/a,n/a
+HCE,housing,Immigration/citizenship status (choosing this will not share your status),no,n/a,n/a,n/a
+EOS,education,Immigration/citizenship status (choosing this will not share your status),no,n/a,n/a,public
+EOS,education,Immigration/citizenship status (choosing this will not share your status),no,n/a,n/a,private
+EOS,education,Immigration/citizenship status (choosing this will not share your status),no,n/a,n/a,not_sure
+VOT,voting,Immigration/citizenship status (choosing this will not share your status),no,n/a,n/a,n/a
+CRM,police,Immigration/citizenship status (choosing this will not share your status),no,n/a,outside,n/a
+SPL,police,Immigration/citizenship status (choosing this will not share your status),no,n/a,inside,n/a
+HCE,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),no,place_of_worship,n/a,n/a
+HCE,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),no,store,n/a,n/a
+SPL,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),no,healthcare,n/a,n/a
+HCE,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),no,financial,n/a,n/a
+HCE,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),no,public_space,n/a,n/a
+HCE,commercial_or_public,Immigration/citizenship status (choosing this will not share your status),no,other,n/a,n/a
+ADM,something_else,Immigration/citizenship status (choosing this will not share your status),no,n/a,n/a,n/a
+IER,workplace,Language,no,n/a,n/a,n/a
+HCE,housing,Language,no,n/a,n/a,n/a
+EOS,education,Language,no,n/a,n/a,public
+EOS,education,Language,no,n/a,n/a,private
+EOS,education,Language,no,n/a,n/a,not_sure
+VOT,voting,Language,no,n/a,n/a,n/a
+CRM,police,Language,no,n/a,outside,n/a
+SPL,police,Language,no,n/a,inside,n/a
+HCE,commercial_or_public,Language,no,place_of_worship,n/a,n/a
+HCE,commercial_or_public,Language,no,store,n/a,n/a
+SPL,commercial_or_public,Language,no,healthcare,n/a,n/a
+HCE,commercial_or_public,Language,no,financial,n/a,n/a
+HCE,commercial_or_public,Language,no,public_space,n/a,n/a
+HCE,commercial_or_public,Language,no,other,n/a,n/a
+ADM,something_else,Language,no,n/a,n/a,n/a
+IER,workplace,National origin (including ancestry and ethnicity),no,n/a,n/a,n/a
+HCE,housing,National origin (including ancestry and ethnicity),no,n/a,n/a,n/a
+EOS,education,National origin (including ancestry and ethnicity),no,n/a,n/a,public
+EOS,education,National origin (including ancestry and ethnicity),no,n/a,n/a,private
+EOS,education,National origin (including ancestry and ethnicity),no,n/a,n/a,not_sure
+VOT,voting,National origin (including ancestry and ethnicity),no,n/a,n/a,n/a
+CRM,police,National origin (including ancestry and ethnicity),no,n/a,outside,n/a
+SPL,police,National origin (including ancestry and ethnicity),no,n/a,inside,n/a
+HCE,commercial_or_public,National origin (including ancestry and ethnicity),no,place_of_worship,n/a,n/a
+HCE,commercial_or_public,National origin (including ancestry and ethnicity),no,store,n/a,n/a
+SPL,commercial_or_public,National origin (including ancestry and ethnicity),no,healthcare,n/a,n/a
+HCE,commercial_or_public,National origin (including ancestry and ethnicity),no,financial,n/a,n/a
+HCE,commercial_or_public,National origin (including ancestry and ethnicity),no,public_space,n/a,n/a
+HCE,commercial_or_public,National origin (including ancestry and ethnicity),no,other,n/a,n/a
+ADM,something_else,National origin (including ancestry and ethnicity),no,n/a,n/a,n/a
+ELS,workplace,Pregnancy,no,n/a,n/a,n/a
+HCE,housing,Pregnancy,no,n/a,n/a,n/a
+EOS,education,Pregnancy,no,n/a,n/a,public
+EOS,education,Pregnancy,no,n/a,n/a,private
+EOS,education,Pregnancy,no,n/a,n/a,not_sure
+VOT,voting,Pregnancy,no,n/a,n/a,n/a
+CRM,police,Pregnancy,no,n/a,outside,n/a
+SPL,police,Pregnancy,no,n/a,inside,n/a
+HCE,commercial_or_public,Pregnancy,no,place_of_worship,n/a,n/a
+HCE,commercial_or_public,Pregnancy,no,store,n/a,n/a
+SPL,commercial_or_public,Pregnancy,no,healthcare,n/a,n/a
+HCE,commercial_or_public,Pregnancy,no,financial,n/a,n/a
+HCE,commercial_or_public,Pregnancy,no,public_space,n/a,n/a
+HCE,commercial_or_public,Pregnancy,no,other,n/a,n/a
+ADM,something_else,Pregnancy,no,n/a,n/a,n/a
+ELS,workplace,Race/color,no,n/a,n/a,n/a
+HCE,housing,Race/color,no,n/a,n/a,n/a
+EOS,education,Race/color,no,n/a,n/a,public
+EOS,education,Race/color,no,n/a,n/a,private
+EOS,education,Race/color,no,n/a,n/a,not_sure
+VOT,voting,Race/color,no,n/a,n/a,n/a
+CRM,police,Race/color,no,n/a,outside,n/a
+SPL,police,Race/color,no,n/a,inside,n/a
+HCE,commercial_or_public,Race/color,no,place_of_worship,n/a,n/a
+HCE,commercial_or_public,Race/color,no,store,n/a,n/a
+SPL,commercial_or_public,Race/color,no,healthcare,n/a,n/a
+HCE,commercial_or_public,Race/color,no,financial,n/a,n/a
+HCE,commercial_or_public,Race/color,no,public_space,n/a,n/a
+HCE,commercial_or_public,Race/color,no,other,n/a,n/a
+ADM,something_else,Race/color,no,n/a,n/a,n/a
+ELS,workplace,Religion,no,n/a,n/a,n/a
+HCE,housing,Religion,no,n/a,n/a,n/a
+EOS,education,Religion,no,n/a,n/a,public
+EOS,education,Religion,no,n/a,n/a,private
+EOS,education,Religion,no,n/a,n/a,not_sure
+VOT,voting,Religion,no,n/a,n/a,n/a
+CRM,police,Religion,no,n/a,outside,n/a
+SPL,police,Religion,no,n/a,inside,n/a
+HCE,commercial_or_public,Religion,no,place_of_worship,n/a,n/a
+HCE,commercial_or_public,Religion,no,store,n/a,n/a
+SPL,commercial_or_public,Religion,no,healthcare,n/a,n/a
+HCE,commercial_or_public,Religion,no,financial,n/a,n/a
+HCE,commercial_or_public,Religion,no,public_space,n/a,n/a
+HCE,commercial_or_public,Religion,no,other,n/a,n/a
+ADM,something_else,Religion,no,n/a,n/a,n/a
+ELS,workplace,Sex,no,n/a,n/a,n/a
+HCE,housing,Sex,no,n/a,n/a,n/a
+EOS,education,Sex,no,n/a,n/a,public
+EOS,education,Sex,no,n/a,n/a,private
+EOS,education,Sex,no,n/a,n/a,not_sure
+VOT,voting,Sex,no,n/a,n/a,n/a
+CRM,police,Sex,no,n/a,outside,n/a
+SPL,police,Sex,no,n/a,inside,n/a
+HCE,commercial_or_public,Sex,no,place_of_worship,n/a,n/a
+HCE,commercial_or_public,Sex,no,store,n/a,n/a
+SPL,commercial_or_public,Sex,no,healthcare,n/a,n/a
+HCE,commercial_or_public,Sex,no,financial,n/a,n/a
+HCE,commercial_or_public,Sex,no,public_space,n/a,n/a
+HCE,commercial_or_public,Sex,no,other,n/a,n/a
+ADM,something_else,Sex,no,n/a,n/a,n/a
+ELS,workplace,Sexual orientation,no,n/a,n/a,n/a
+HCE,housing,Sexual orientation,no,n/a,n/a,n/a
+EOS,education,Sexual orientation,no,n/a,n/a,public
+EOS,education,Sexual orientation,no,n/a,n/a,private
+EOS,education,Sexual orientation,no,n/a,n/a,not_sure
+VOT,voting,Sexual orientation,no,n/a,n/a,n/a
+CRM,police,Sexual orientation,no,n/a,outside,n/a
+SPL,police,Sexual orientation,no,n/a,inside,n/a
+HCE,commercial_or_public,Sexual orientation,no,place_of_worship,n/a,n/a
+HCE,commercial_or_public,Sexual orientation,no,store,n/a,n/a
+SPL,commercial_or_public,Sexual orientation,no,healthcare,n/a,n/a
+HCE,commercial_or_public,Sexual orientation,no,financial,n/a,n/a
+HCE,commercial_or_public,Sexual orientation,no,public_space,n/a,n/a
+HCE,commercial_or_public,Sexual orientation,no,other,n/a,n/a
+ADM,something_else,Sexual orientation,no,n/a,n/a,n/a
+ELS,workplace,None of these apply to me,no,n/a,n/a,n/a
+HCE,housing,None of these apply to me,no,n/a,n/a,n/a
+EOS,education,None of these apply to me,no,n/a,n/a,public
+EOS,education,None of these apply to me,no,n/a,n/a,private
+EOS,education,None of these apply to me,no,n/a,n/a,not_sure
+VOT,voting,None of these apply to me,no,n/a,n/a,n/a
+CRM,police,None of these apply to me,no,n/a,outside,n/a
+SPL,police,None of these apply to me,no,n/a,inside,n/a
+HCE,commercial_or_public,None of these apply to me,no,place_of_worship,n/a,n/a
+HCE,commercial_or_public,None of these apply to me,no,store,n/a,n/a
+SPL,commercial_or_public,None of these apply to me,no,healthcare,n/a,n/a
+HCE,commercial_or_public,None of these apply to me,no,financial,n/a,n/a
+HCE,commercial_or_public,None of these apply to me,no,public_space,n/a,n/a
+HCE,commercial_or_public,None of these apply to me,no,other,n/a,n/a
+ADM,something_else,None of these apply to me,no,n/a,n/a,n/a
+ELS,workplace,Other reason,no,n/a,n/a,n/a
+HCE,housing,Other reason,no,n/a,n/a,n/a
+EOS,education,Other reason,no,n/a,n/a,public
+EOS,education,Other reason,no,n/a,n/a,private
+EOS,education,Other reason,no,n/a,n/a,not_sure
+VOT,voting,Other reason,no,n/a,n/a,n/a
+CRM,police,Other reason,no,n/a,outside,n/a
+SPL,police,Other reason,no,n/a,inside,n/a
+HCE,commercial_or_public,Other reason,no,place_of_worship,n/a,n/a
+HCE,commercial_or_public,Other reason,no,store,n/a,n/a
+SPL,commercial_or_public,Other reason,no,healthcare,n/a,n/a
+HCE,commercial_or_public,Other reason,no,financial,n/a,n/a
+HCE,commercial_or_public,Other reason,no,public_space,n/a,n/a
+HCE,commercial_or_public,Other reason,no,other,n/a,n/a
+ADM,something_else,Other reason,no,n/a,n/a,n/a

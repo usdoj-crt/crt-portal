@@ -7,7 +7,7 @@ from django.core.validators import ValidationError
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           EmailInput, HiddenInput, IntegerField,
                           ModelChoiceField, ModelForm,
-                          ModelMultipleChoiceField, MultipleHiddenInput,
+                          ModelMultipleChoiceField,
                           Select, SelectMultiple, Textarea, TextInput,
                           TypedChoiceField)
 from django.utils.functional import cached_property
@@ -33,19 +33,20 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               SECTION_CHOICES, SERVICEMEMBER_CHOICES,
                               SERVICEMEMBER_ERROR, STATES_AND_TERRITORIES,
                               STATUS_CHOICES, STATUTE_CHOICES,
-                              VIOLATION_SUMMARY_ERROR, WHERE_ERRORS)
-from .models import (CommentAndSummary, HateCrimesandTrafficking,
+                              VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
+                              HATE_CRIME_CHOICES)
+from .models import (CommentAndSummary,
                      ProtectedClass, Report)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             EDUCATION_QUESTION, ELECTION_QUESTION,
-                            HATECRIME_QUESTION, HATECRIME_TITLE,
+                            HATE_CRIME_QUESTION, HATE_CRIME_TITLE,
                             LOCATION_QUESTIONS, POLICE_QUESTIONS,
                             PRIMARY_REASON_QUESTION, PROTECTED_CLASS_QUESTION,
                             PUBLIC_QUESTION, SERVICEMEMBER_QUESTION,
                             SUMMARY_HELPTEXT, SUMMARY_QUESTION,
-                            WORKPLACE_QUESTIONS)
+                            WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
                       CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
                       UsaRadioSelect)
@@ -208,42 +209,24 @@ class PrimaryReason(ModelForm):
         )
 
 
-class HateCrimesTrafficking(ModelForm):
+class HateCrimes(ModelForm):
     class Meta:
         model = Report
         fields = [
-            'hatecrimes_trafficking'
+            'hate_crime'
         ]
-        widgets = {
-            'hatecrimes_trafficking': UsaCheckboxSelectMultiple(attrs={
-                'aria-describedby': 'hatecrimes-help-text'
-            }),
-        }
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
 
-        self.fields['hatecrimes_trafficking'] = ModelMultipleChoiceField(
-            queryset=HateCrimesandTrafficking.objects.all(),
-            widget=UsaCheckboxSelectMultiple(attrs={
-                'aria-describedby': 'hatecrimes-help-text'
-            }),
+        self.fields['hate_crime'] = TypedChoiceField(
+            choices=HATE_CRIME_CHOICES,
+            label=HATE_CRIME_QUESTION,
+            help_text=HATE_CRIME_HELP_TEXT,
+            empty_value=None,
+            widget=UsaRadioSelect,
             required=False,
-            label=HATECRIME_QUESTION,
         )
-
-        self.question_groups = [
-            QuestionGroup(
-                self,
-                ('hatecrimes_trafficking',),
-                group_name=HATECRIME_TITLE,
-                help_text=_('Please let us know if you would describe your concern as either a hate crime or human trafficking. This information can help us take action against these types of violations. We will contact you about the next steps. We also encourage you to contact law enforcement if you or someone else is in immediate danger.'),
-                optional=True,
-                label_cls="margin-bottom-4",
-                help_cls="text-bold",
-                ally_id="hatecrimes-help-text"
-            )
-        ]
         # Translators: notes that this page is the same form step as the page before
         self.page_note = _('Continued')
 
@@ -646,8 +629,8 @@ class Review(ModelForm):
         'contact': CONTACT_QUESTIONS,
         'servicemember': SERVICEMEMBER_QUESTION,
         'primary_reason': PRIMARY_REASON_QUESTION,
-        'hatecrime_title': HATECRIME_TITLE,
-        'hatecrime': HATECRIME_QUESTION,
+        'hate_crime_title': HATE_CRIME_TITLE,
+        'hate_crime': HATE_CRIME_QUESTION,
         'location': LOCATION_QUESTIONS,
         'election': ELECTION_QUESTION,
         'workplace': WORKPLACE_QUESTIONS,
@@ -666,7 +649,6 @@ class Review(ModelForm):
 
 class ProForm(
     Contact,
-    HateCrimesTrafficking,
     ElectionLocation,
     WorkplaceLocation,
     CommercialPublicLocation,
@@ -683,7 +665,7 @@ class ProForm(
             ['intake_format'] +\
             Contact.Meta.fields +\
             ['primary_complaint'] +\
-            HateCrimesTrafficking.Meta.fields +\
+            ['hate_crime'] +\
             ['location_name', 'location_address_line_1', 'location_address_line_2',
                 'location_city_town', 'location_state'] +\
             WorkplaceLocation.Meta.workplace_fields +\
@@ -699,10 +681,6 @@ class ProForm(
 
         widget_list = [
             Contact.Meta.widgets,
-            HateCrimesTrafficking.Meta.widgets,
-            {'other_class': TextInput(attrs={
-                'class': 'usa-input',
-            })},
             # location widgets
             {
                 'location_name': TextInput(attrs={
@@ -796,7 +774,14 @@ class ProForm(
             widget=UsaRadioSelect,
             required=True,
         )
-        # hate crimes
+        self.fields['hate_crime'] = TypedChoiceField(
+            choices=HATE_CRIME_CHOICES,
+            label=HATE_CRIME_QUESTION,
+            help_text=HATE_CRIME_HELP_TEXT,
+            empty_value=None,
+            widget=UsaRadioSelect,
+            required=False,
+        )
         self.fields['public_or_private_employer'] = TypedChoiceField(
             choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
             empty_value=None,
@@ -1153,7 +1138,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
     CONTEXT_KEY = "details_form"
     FAIL_MESSAGE = "Failed to update complaint details."
     SUCCESS_MESSAGE = "Successfully updated complaint details."
-
+    # Keeping these for archival data
     hatecrime = BooleanField(required=False, widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'}))
     trafficking = BooleanField(required=False, widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'}))
 
@@ -1186,8 +1171,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         """
         ModelForm.__init__(self, *args, **kwargs)
 
-        #  We're handling hatecrimes_trafficking with separate boolean fields, render report field as hidden
-        self.fields['hatecrimes_trafficking'].widget = MultipleHiddenInput()
+        #  We're handling old hatecrimes_trafficking data with separate boolean fields
         self.fields['hatecrime'].initial = self.instance.hatecrimes_trafficking.filter(value='physical_harm').exists()
         self.fields['trafficking'].initial = self.instance.hatecrimes_trafficking.filter(value='trafficking').exists()
 
@@ -1222,12 +1206,6 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
     def changed_data(self):
         changed_data = super().changed_data
 
-        # If hatecrime or trafficking field was changed, so was hatecrimes_trafficking
-        if 'hatecrime' in changed_data:
-            changed_data.append('hatecrimes_trafficking')
-        if 'trafficking' in changed_data and 'hatecrimes_trafficking' not in changed_data:
-            changed_data.append('hatecrimes_trafficking')
-
         # If we're changing primary complaint, we may also need to update dependent fields
         if 'primary_complaint' in changed_data:
             original = self.instance.primary_complaint
@@ -1254,18 +1232,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         return cleaned_data
 
     def clean(self):
-        """Convert intermediary fields rendered as checkboxes to model's M2M field"""
         cleaned_data = super().clean()
-        crimes = []
-
-        if cleaned_data['hatecrime']:
-            crimes.append(HateCrimesandTrafficking.objects.get(value='physical_harm'))
-
-        if cleaned_data['trafficking']:
-            crimes.append(HateCrimesandTrafficking.objects.get(value='trafficking'))
-
-        cleaned_data['hatecrimes_trafficking'] = crimes
-
         return self.clean_dependent_fields(cleaned_data)
 
     def update_activity_stream(self, user):
