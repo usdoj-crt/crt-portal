@@ -37,6 +37,7 @@ from cts_forms.forms import (
     Review,
 )
 from cts_forms.views import (
+    LandingPageView,
     CRTReportWizard,
     show_election_form_condition,
     show_location_form_condition,
@@ -88,7 +89,7 @@ urlpatterns = auth + [
             '8': show_location_form_condition,
         },
     ), name='crt_report_form'),
-    path('', RedirectView.as_view(pattern_name='crt_report_form', permanent=False)),
+    path('', LandingPageView.as_view(), name='crt_landing_page'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler400 = 'cts_forms.views.error_400'

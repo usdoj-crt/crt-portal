@@ -10,7 +10,7 @@ from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import FormView, View
+from django.views.generic import FormView, View, TemplateView
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
@@ -21,8 +21,10 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
                               ELECTION_DICT, EMPLOYER_SIZE_DICT,
                               HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
-                              PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_DICT,
+                              PRIMARY_COMPLAINT_CHOICES,
+                              PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+                              PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
 from .models import CommentAndSummary, Report
@@ -484,6 +486,21 @@ def show_location_form_condition(wizard):
     if not cleaned_data['primary_complaint'] in conditional_location_routings:
         return True
     return False
+
+
+class LandingPageView(TemplateView):
+    template_name = "landing.html"
+
+    def get_context_data(self, **kwargs):
+        choices = {
+            key: {
+                'description': description,
+                'helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT.get(key, ''),
+                'examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES.get(key, [])
+            }
+            for key, description in PRIMARY_COMPLAINT_DICT.items()
+        }
+        return {'choices': choices}
 
 
 class CRTReportWizard(SessionWizardView):
