@@ -12,11 +12,13 @@
       <ol class="steps">
         {% for step in ordered_step_names %}
           <li class="step {% if step == current_step_name %}current{%else%}{%endif%}" {% if step == current_step_name %}aria-current="true"{%else%}aria-current="false"{% endif %}>
-            {% if stage_link %}
-              <a href="#{{ step|slugify }}" class="text-base-lightest" style='text-decoration: none;'>{{ step }}</a>
-            {% else%}
-              {{ step }}
-            {% endif %}
+            <div class="step--text">
+              {% if stage_link %}
+                <a href="#{{ step|slugify }}" class="text-base-lightest" style='text-decoration: none;'>{{ step }}</a>
+              {% else%}
+                {{ step }}
+              {% endif %}
+            </div>
 
 
             {% if step != current_step_name %}
