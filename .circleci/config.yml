@@ -293,20 +293,13 @@ workflows:
           filters:
             branches:
               only: master
-      # DON'T MERGE
-      # - deploy-dev:
-      #     requires:
-      #       - build_and_test
-      #     filters:
-      #       branches:
-      #         only: develop
 
       - deploy-dev:
           requires:
             - build_and_test
           filters:
             branches:
-              only: touchpoint-link-on-confirm-page
+              only: develop
 
       - deploy-stage:
           requires:
