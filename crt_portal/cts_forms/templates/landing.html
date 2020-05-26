@@ -146,43 +146,53 @@
           <div class="crt-landing--separator"></div>
           <div class="grid-row grid-gap">
             <div class="tablet:grid-col-7">
-              <p class="crt-landing--largetext">{% trans "Choose from this list to see examples." %}</p>
+                  <p class="crt-landing--largetext">{% trans "Choose from this list to see examples." %}</p>
 
-              <select id="crt-landing--examples" class="usa-select crt-landing--blue crt-landing--large_select" name="examples" aria-label="select example">
-                {% for key, value in choices.items %}
-                  <option value="{{ key }}"
-                          data-examplecount="{{ value.examples | length }}"
-                          {% for example in value.examples %}
-                          data-example{{ forloop.counter0 }}="{{ example }}"
-                          {% endfor %}
-                  >
-                    {{ value.description }}
-                  </option>
-                {% endfor %}
-              </select>
-              <div class="grid-row grid-gap">
-                <div class="tablet:grid-col-10 crt-landing--example">
-                  <p class="crt-landing--example_header">
-                    Examples
-                  </p>
-                  <div id="crt-landing--choice_examples" class="crt-landing--text">
-                    {% for example in choices.workplace.examples %}
-                      <p>{{ example }}</p>
-                    {% endfor %}
+                  <ul class="usa-nav__primary usa-accordion crt-landing--blue">
+                    <li class="usa-nav__primary-item">
+                      <button class="usa-accordion__button usa-nav__link usa-current" aria-expanded="false" aria-controls="crt-landing--examples">
+                        <span>Current section</span>
+                      </button>
+                      <ul id="crt-landing--examples" class="usa-nav__submenu">
+                        {% for key, value in choices.items %}
+                          <li
+                            id="crt-landing--example-{{ key }}"
+                            class="usa-nav__submenu-item"
+                            data-examplecount="{{ value.examples | length }}"
+                            {% for example in value.examples %}
+                              data-example{{ forloop.counter0 }}="{{ example }}"
+                            {% endfor %}
+                          >
+                            <a href="javascript:displayExample('{{ key }}')" class="">
+                              {{ value.description }}
+                            </a>
+                          </li>
+                        {% endfor %}
+                      </ul>
+                    </li>
+                  </ul>
+
+                  <div class="crt-landing--example">
+                    <p class="crt-landing--example_header">
+                      Examples
+                    </p>
+                    <div id="crt-landing--choice_examples" class="crt-landing--text">
+                      {% for example in choices.workplace.examples %}
+                        <p>{{ example }}</p>
+                      {% endfor %}
+                    </div>
                   </div>
-                </div>
-              </div>
-              <div class="grid-row grid-gap">
-                <div class="tablet:grid-col-9">
-                  <p class="crt-landing--similar_situation">
-                    <em>
-                      If you think you've experienced a similar situation, please see <a href="#crt-landing--reporting">how to report a civil rights violation.</a>
-                    </em>
-                  </p>
-                </div>
-              </div>
+                  <div class="grid-row grid-gap">
+                    <div class="tablet:grid-col-9">
+                      <p class="crt-landing--similar_situation">
+                        <em>
+                          If you think you've experienced a similar situation, please see <a href="#crt-landing--reporting">how to report a civil rights violation.</a>
+                        </em>
+                      </p>
+                    </div>
+                  </div>
             </div>
-            <div class="tablet:grid-col-4 crt-landing--divider">
+            <div class="tablet:grid-offset-1 tablet:grid-col-4 crt-landing--divider">
               <h3>{% trans "Protected characteristics" %}</h3>
               <p>{% trans "These are the most common characteristics that are legally protected." %}</p>
               <ul class="crt-landing--text">
@@ -299,18 +309,15 @@
 
 {% block page_js %}
   <script nonce="{{ request.csp_nonce }}">
-   (function() {
-     var dropdown = document.getElementById("crt-landing--examples");
+   function displayExample(key) {
      var examples_field = document.getElementById("crt-landing--choice_examples");
-     dropdown.addEventListener("change", function(event) {
-       let el = event.target.options[event.target.selectedIndex];
-       examples_field.innerText = "";
-       let length = el.dataset.examplecount;
-       for (var i = 0; i < length; i++) {
-         var example = el.dataset["example" + i];
-         examples_field.innerHTML += "<p>" + example + "</p>";
-       }
-     });
-   })();
+     var el = document.getElementById("crt-landing--example-" + key);
+     examples_field.innerText = "";
+     let length = el.dataset.examplecount;
+     for (var i = 0; i < length; i++) {
+       var example = el.dataset["example" + i];
+       examples_field.innerHTML += "<p>" + example + "</p>";
+     }
+   };
   </script>
 {% endblock %}
