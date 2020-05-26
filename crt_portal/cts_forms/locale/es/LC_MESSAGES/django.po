@@ -2004,13 +2004,17 @@ msgstr "Ley de libertad de información (FOIA por sus siglas en inglés)"
 msgid "Accessibility"
 msgstr "Accesibilidad"
 
-#: templates/partials/footer.html:80
+#: templates/partials/footer.html:83
 msgid "Office of Inspector General"
 msgstr "Oficina del Inspector General"
 
-#: templates/partials/footer.html:83
+#: templates/partials/footer.html:86
 msgid "Budget and performance"
 msgstr "Presupuesto y rendimiento"
+
+#: templates/partials/footer.html:89
+msgid "Office of Legal policies and Disclaimers"
+msgstr ""
 
 #: templates/privacy.html:7
 #, fuzzy
