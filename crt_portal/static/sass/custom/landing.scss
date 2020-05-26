@@ -206,12 +206,22 @@ $arrow-height: 24px;
     margin-top: 2rem;
   }
 
+  h3 {
+    margin-top: 0;
+  }
+
   div.grid-container {
     padding-bottom: 1rem;
   }
 
   .crt-landing--divider {
     border-left: 1px solid $blue-warm-vivid-80;
+    padding-left: 2rem !important;
+  }
+
+  ul {
+    padding-left: 1rem;
+    margin-bottom: 0;
   }
 
   li {
@@ -220,6 +230,10 @@ $arrow-height: 24px;
     .crt-landing--protected {
       font-weight: normal;
       font-style: italic;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 
