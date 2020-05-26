@@ -259,6 +259,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         bucket,
         'www.civilrights.justice.gov',
         'civilrights.justice.gov',
+        'https://touchpoints.app.cloud.gov',
     )
     # headers required for security
     SESSION_COOKIE_SECURE = True
