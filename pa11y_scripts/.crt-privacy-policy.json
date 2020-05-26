@@ -1,0 +1,11 @@
+{
+    "urls": [
+      {
+        "url": "http://127.0.0.1:8000/privacy-policy",
+        "actions": [
+          "wait for element #privacy-act-statement to be visible"
+        ],
+        "screenCapture": "pa11y-screenshots/crt-privacy-policy.png"
+      }
+    ]
+  }

@@ -207,8 +207,11 @@ if environment == 'PRODUCTION':
         "USERNAME_CLAIM": AUTH_USERNAME_CLAIM,
         "GROUP_CLAIM": AUTH_GROUP_CLAIM,
         'LOGIN_EXEMPT_URLS': [
-            '',
-            'report/',
+            '^$',
+            '^report',
+            '^robots.txt',
+            '^privacy-policy',
+            '^i8n',
         ],
     }
 

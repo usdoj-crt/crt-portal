@@ -15,38 +15,24 @@ Including another URLconf
 """
 import os
 
-from django.contrib import admin
-from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
-from django.views.generic import RedirectView
+from django.contrib import admin
+from django.urls import include, path, re_path
+from django.views.generic import RedirectView, TemplateView
 
-from cts_forms.forms import (
-    Contact,
-    Details,
-    PrimaryReason,
-    HateCrimes,
-    LocationForm,
-    ProtectedClassForm,
-    ElectionLocation,
-    WorkplaceLocation,
-    PoliceLocation,
-    CommercialPublicLocation,
-    EducationLocation,
-    When,
-    Review,
-)
-from cts_forms.views import (
-    LandingPageView,
-    CRTReportWizard,
-    show_election_form_condition,
-    show_location_form_condition,
-    show_workplace_form_condition,
-    show_police_form_condition,
-    show_education_form_condition,
-    show_commercial_public_form_condition,
-)
-
+from cts_forms.forms import (CommercialPublicLocation, Contact, Details,
+                             EducationLocation, ElectionLocation, HateCrimes,
+                             LocationForm, PoliceLocation, PrimaryReason,
+                             ProtectedClassForm, Review, When,
+                             WorkplaceLocation)
+from cts_forms.views import (CRTReportWizard, LandingPageView,
+                             show_commercial_public_form_condition,
+                             show_education_form_condition,
+                             show_election_form_condition,
+                             show_location_form_condition,
+                             show_police_form_condition,
+                             show_workplace_form_condition)
 
 environment = os.environ.get('ENV', 'UNDEFINED')
 if environment == 'PRODUCTION':
@@ -89,6 +75,7 @@ urlpatterns = auth + [
             '8': show_location_form_condition,
         },
     ), name='crt_report_form'),
+    path('privacy-policy', TemplateView.as_view(template_name="privacy.html"), name='privacy_policy'),
     path('', LandingPageView.as_view(), name='crt_landing_page'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
