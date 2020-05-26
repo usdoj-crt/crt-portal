@@ -254,17 +254,12 @@ $arrow-height: 24px;
     background-color: white;
     min-height: 20rem;
 
-    #crt-landing--choice_helptext {
-      font-style: italic;
-      padding-right: 1rem;
-    }
-
     #crt-landing--choice_examples p {
       margin-top: 1.5rem;
       padding-right: 1rem;
     }
 
-    #crt-landing--example_header {
+    .crt-landing--example_header {
       text-transform: uppercase;
       font-weight: bold;
     }

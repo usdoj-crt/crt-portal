@@ -23,7 +23,6 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
                               PRIMARY_COMPLAINT_DICT,
                               PRIMARY_COMPLAINT_CHOICES,
-                              PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
@@ -490,7 +489,6 @@ class LandingPageView(TemplateView):
         choices = {
             key: {
                 'description': description,
-                'helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT.get(key, ''),
                 'examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES.get(key, [])
             }
             for key, description in PRIMARY_COMPLAINT_DICT.items()

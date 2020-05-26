@@ -151,7 +151,6 @@
               <select id="crt-landing--examples" class="usa-select crt-landing--blue crt-landing--large_select" name="examples" aria-label="select example">
                 {% for key, value in choices.items %}
                   <option value="{{ key }}"
-                          {% if value.helptext %}data-helptext="{{ value.helptext }}"{% endif %}
                           data-examplecount="{{ value.examples | length }}"
                           {% for example in value.examples %}
                           data-example{{ forloop.counter0 }}="{{ example }}"
@@ -162,13 +161,8 @@
                 {% endfor %}
               </select>
               <div class="grid-row grid-gap">
-                <div class="tablet:grid-col-9 crt-landing--example">
-                  <p>
-                    <div id="crt-landing--choice_helptext" class="crt-landing--text">
-                      {{ choices.workplace.helptext }}
-                    </div>
-                  </p>
-                  <p id="crt-landing--example_header">
+                <div class="tablet:grid-col-10 crt-landing--example">
+                  <p class="crt-landing--example_header">
                     Examples
                   </p>
                   <div id="crt-landing--choice_examples" class="crt-landing--text">
@@ -307,16 +301,11 @@
   <script nonce="{{ request.csp_nonce }}">
    (function() {
      var dropdown = document.getElementById("crt-landing--examples");
-     var helptext_field = document.getElementById("crt-landing--choice_helptext");
      var examples_field = document.getElementById("crt-landing--choice_examples");
-     var example_header = document.getElementById("crt-landing--example_header");
      dropdown.addEventListener("change", function(event) {
        let el = event.target.options[event.target.selectedIndex];
-       let helptext = el.dataset.helptext;
-       helptext_field.innerText = helptext || "";
        examples_field.innerText = "";
        let length = el.dataset.examplecount;
-       example_header.style.visibility = length == 0 ? "hidden" : "visible";
        for (var i = 0; i < length; i++) {
          var example = el.dataset["example" + i];
          examples_field.innerHTML += "<p>" + example + "</p>";
