@@ -278,6 +278,15 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'https://www.google-analytics.com',
         'https://touchpoints.app.cloud.gov',
     )
+    CSP_CONNECT_SRC = (
+        "'self'",
+        bucket,
+        'www.civilrights.justice.gov',
+        'civilrights.justice.gov',
+        'https://dap.digitalgov.gov',
+        'https://www.google-analytics.com',
+        'https://touchpoints.app.cloud.gov',
+    )
     CSP_IMG_SRC = allowed_sources
     CSP_MEDIA_SRC = allowed_sources
     CSP_FRAME_SRC = allowed_sources
