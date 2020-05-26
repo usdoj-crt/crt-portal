@@ -29,9 +29,9 @@
 
         <div class="tablet:grid-col-8 crt-landing--menu">
           <ul>
-            <li><a href="#">About the Division</li></a></li>
-            <li><a href="#">Your rights</a></li>
-            <li><a href="#">Report a violation</a></li>
+            <li><a href="#about-the-division">About the Division</li></a></li>
+            <li><a href="#your-rights">Your rights</a></li>
+            <li><a href="#report-a-violation">Report a violation</a></li>
             <li><a href="#">Contact</a></li>
           </ul>
         </div>
@@ -88,7 +88,7 @@
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-12">
-          <h1>{% trans "We uphold the civil and constitutional rights of <em>all people in the United States</em>." %}</h1>
+          <h1 id="about-the-division">{% trans "We uphold the civil and constitutional rights of <em>all people in the United States</em>." %}</h1>
           <div class="crt-landing--separator"></div>
           <p class="crt-landing--description_rights">{% trans "We protect your rights through:" %}</p>
           <div class="grid-row grid-gap">
@@ -120,7 +120,7 @@
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-8">
-          <h1>{% trans "Understanding your rights" %}</h1>
+          <h1 id="your-rights">{% trans "Understanding your rights" %}</h1>
           <div class="crt-landing--separator"></div>
           <p class="crt-landing--rights_text">
             {% trans 'Civil rights laws can protect you from unlawful discrimination, harassment, or abuse in a variety of settings like <span class="crt-landing--rights_text crt-landing--rights_categories">housing, the workplace, school, voting, business, healthcare, public spaces</span>, and more.' %}
@@ -214,7 +214,7 @@
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-12">
-          <h1>{% trans "How to report a civil rights violation" %}</h1>
+          <h1 id="report-a-violation">{% trans "How to report a civil rights violation" %}</h1>
           <div class="crt-landing--separator"></div>
         </div>
         <div class="tablet:grid-col-9">
