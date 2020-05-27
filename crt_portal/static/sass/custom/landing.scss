@@ -167,6 +167,10 @@ $arrow-height: 24px;
     margin-top: 1rem;
     margin-bottom: 2.5rem;
   }
+
+  .crt-landing--columns {
+    min-height: 6rem;
+  }
 }
 
 .crt-landing--rights {
@@ -355,6 +359,10 @@ $arrow-height: 24px;
     display: flex;
     flex-direction: row;
     margin-top: 1rem;
+
+    h2 {
+      min-height: 5rem;
+    }
   }
 }
 
