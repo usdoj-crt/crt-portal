@@ -2013,8 +2013,8 @@ msgid "Budget and performance"
 msgstr "Presupuesto y rendimiento"
 
 #: templates/partials/footer.html:89
-msgid "Office of Legal policies and Disclaimers"
-msgstr ""
+msgid "Legal policies and Disclaimers"
+msgstr "Politicas Legales y Descargos de Responsabilidades"
 
 #: templates/privacy.html:7
 #, fuzzy
