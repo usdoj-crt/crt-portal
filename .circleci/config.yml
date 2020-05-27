@@ -34,14 +34,6 @@ jobs:
             pipenv install --dev
             pipenv run crt_portal/manage.py migrate
       - run:
-          name: run server for tests
-          command: |
-            # create pa11y_tester
-            echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_user('pa11y_tester', 'admin@myproject.com', '$PA11Y_PASSWORD')" | pipenv run crt_portal/manage.py shell
-            # runserver
-            pipenv run crt_portal/manage.py runserver 8000
-          background: true
-      - run:
           name: Run unit tests & check coverage
           command: |
             pipenv run coverage run --source='crt_portal' crt_portal/manage.py test --settings=crt_portal.test_settings cts_forms
@@ -54,6 +46,14 @@ jobs:
           name: Run flake8 test for Python code style
           command: |
             pipenv run flake8
+      - run:
+          name: run server for tests
+          command: |
+            # create pa11y_tester
+            echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_user('pa11y_tester', 'admin@myproject.com', '$PA11Y_PASSWORD')" | pipenv run crt_portal/manage.py shell
+            # runserver
+            pipenv run crt_portal/manage.py runserver 8000
+          background: true
       - run:
           name: Run pa11y-ci accessibility check
           command: |
