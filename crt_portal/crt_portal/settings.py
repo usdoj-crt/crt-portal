@@ -29,7 +29,7 @@ environment = os.environ.get('ENV', 'UNDEFINED')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-if environment not in ['LOCAL', 'UNDEFINED']:
+if environment != 'LOCAL':
     """ This will default to prod settings and locally, setting the env
     to local will allow you to add the variables directly and not have
     to recreate the vacap structure."""
