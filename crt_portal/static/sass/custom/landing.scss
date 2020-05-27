@@ -240,13 +240,28 @@ $arrow-height: 24px;
   .crt-landing--large_select {
     @include u-radius('md');
     @include u-shadow(3);
+    padding-right: 1rem;
+
+    li {
+      width: 100%;
+    }
 
     button {
-      height: 5rem;
       font-size: 1.4rem;
       line-height: 1.7rem;
       font-weight: normal;
       color: white;
+
+      // caret adjustments
+      background-size: 1.5rem !important;
+      width: 100%;
+      height: 100%;
+      &[aria-expanded=false] {
+        background-image: url(../../img/angle-arrow-down-white.svg) !important;
+        &:hover {
+          background-image: url(../../img/angle-arrow-down-primary.svg) !important;
+        }
+      }
     }
   }
 
@@ -254,13 +269,16 @@ $arrow-height: 24px;
     width: 80%;
 
     li {
+      @include u-radius('md');
       margin: 0;
       padding: 0.5rem;
       font-weight: normal;
       line-height: 1.2rem;
+      cursor: pointer;
 
       &:hover {
-        background-color: red !important;
+        color: $blue-warm-vivid-80;
+        background-color: white !important;
       }
     }
   }
