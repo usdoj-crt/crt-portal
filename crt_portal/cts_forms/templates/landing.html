@@ -159,7 +159,7 @@
                       <li
                         id="crt-landing--example-{{ key }}"
                         class="usa-nav__submenu-item"
-                        onclick="javascript:displayExample('{{ key }}')"
+                        data-key="{{ key }}"
                         data-examplecount="{{ value.examples | length }}"
                         data-description="{{ value.description }}"
                         {% for example in value.examples %}
