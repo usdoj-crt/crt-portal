@@ -29,7 +29,7 @@ environment = os.environ.get('ENV', 'UNDEFINED')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
-if environment != 'LOCAL':
+if environment not in ['LOCAL', 'UNDEFINED']:
     """ This will default to prod settings and locally, setting the env
     to local will allow you to add the variables directly and not have
     to recreate the vacap structure."""
@@ -228,7 +228,7 @@ if environment == 'PRODUCTION':
 
 STATIC_URL = '/static/'
 
-if environment != 'LOCAL':
+if environment not in ['LOCAL', 'UNDEFINED']:
     for service in vcap['s3']:
         if service['instance_name'] == 'crt-s3':
             # Public AWS S3 bucket for the app
