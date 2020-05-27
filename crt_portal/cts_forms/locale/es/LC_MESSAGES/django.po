@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-26 16:01+0000\n"
+"POT-Creation-Date: 2020-05-27 01:39+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1076,26 +1076,23 @@ msgstr ""
 #, fuzzy
 #| msgid "Primary concern"
 msgid "Primary Issue"
-msgstr "Motivo principal de preocupación"
+msgstr "Problema principal"
 
 #: question_text.py:24
 msgid "Does your situation involve physical harm or threats of violence?"
-msgstr ""
+msgstr "¿Su situación conlleva daño físico o amenazas de violencia?"
 
 #: question_text.py:25
-#, fuzzy
-#| msgid ""
-#| "Physical harm or threats of violence based on race, color, national "
-#| "origin, religion, gender, sexual orientation, gender identity, or "
-#| "disability"
+
 msgid ""
 "To be considered a hate crime, the physical harm or threats of violence must "
 "be based on race, color, national origin, religion, gender, sexual "
 "orientation, gender identity, or disability."
 msgstr ""
-"Daño físico o amenazas de violencia por motivos de raza, color de piel, "
-"origen nacional, religión, género, orientación sexual, identidad de género o "
-"discapacidad"
+"Para ser considerado un delito de odio, el daño físico o las amenazas de "
+"violencia tienen que ser basados en la raza, el color de piel, el origen "
+"nacional, la religión, el género, la orientación sexual, la identidad de "
+"género o la discapacidad."
 
 #: question_text.py:30
 msgid "Location name"
@@ -1569,17 +1566,19 @@ msgstr "Ninguna selección hecha"
 #: templates/forms/report_hate_crime.html:13
 #: templates/forms/report_hate_crime.html:18
 msgid "Were you forced to work against your will?"
-msgstr ""
+msgstr "¿Le obligaron a trabajar en contra de su voluntad?"
 
 #: templates/forms/report_hate_crime.html:16
 msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
 msgstr ""
+"La trata de personas incluye ser forzado o coaccionado a hacer trabajo, "
+"o forzado o coaccionado a participar en actos sexuales por algo de valor."
 
 #: templates/forms/report_hate_crime.html:18
 msgid "Get help from the National Human Trafficking Hotline"
-msgstr ""
+msgstr "Reciba ayuda de lal Línea Nacional Contra la Trata de Personas"
 
 #: templates/forms/report_review.html:10
 msgid "Before you submit your report, please check your responses"
@@ -2015,6 +2014,70 @@ msgstr "Presupuesto y rendimiento"
 #: templates/partials/footer.html:89
 msgid "Legal policies and Disclaimers"
 msgstr "Politicas Legales y Descargos de Responsabilidades"
+
+#: templates/partials/policy.html:9
+msgid "Privacy Policy"
+msgstr "Política de privacidad"
+
+#: templates/partials/policy.html:16
+#, python-format
+msgid ""
+"\n"
+"            The purpose of this form is to allow the public to submit civil "
+"rights complaints to the Department of Justice, thereby allowing us to "
+"enforce over thirty <a class=\"privacy-footer\" href="
+"\"%(privacy_policy_url)s#our-statutes\">civil rights statutes</a> within our "
+"authority. These statutes authorize us to collect this information.  You "
+"should know that any information you provide through this form is voluntary, "
+"yet failure to provide some of the information might limit the Department’s "
+"ability to pursue your claim. We may use this information for certain "
+"routine uses, including sharing this information under certain circumstances "
+"with:\n"
+"            "
+msgstr ""
+"\n"
+"            El propósito de este formulario es permitir que el público "
+"presente querellas de derechos civiles ante el Departamento de Justicia, lo "
+"que nos permite hacer cumplir más de treinta <a class=\"privacy-footer\"href=\" "
+"\"%(privacy_policy_url)s#our-statutes\">leyes de derechos civiles</a> "
+"dentro de nuestra autoridad. Estas leyes nos autorizan a "
+"recopilar esta información. Debe saber que cualquier información que "
+"proporcione a través de este formulario es voluntaria, pero la falta de "
+"información puede limitar la capacidad del Departamento para procesar su "
+"reclamo. Podemos usar esta información para ciertos usos rutinarios, "
+"incluyendo compartir esta información bajo ciertas circunstancias "
+"con:            "
+
+#: templates/partials/policy.html:20
+msgid "contractors who work with us, if they need it to perform a contract;"
+msgstr ""
+"contratistas que trabajan con nosotros, si lo necesitan para celebrar un "
+"contrato;"
+
+#: templates/partials/policy.html:21
+msgid ""
+"a court, magistrate, or administrative tribunal, as well as opposing counsel "
+"during settlement negotiations and/or litigation;"
+msgstr ""
+"un tribunal, magistrado o tribunal administrativo, así como abogados "
+"opositores durante negociaciones de resolución y / o litigio;"
+
+#: templates/partials/policy.html:22
+msgid "Members of Congress;"
+msgstr "Miembros del Congreso;"
+
+#: templates/partials/policy.html:23
+msgid "Federal, state, or local law enforcement agencies."
+msgstr "Agencias federales, estatales o locales de cumplimiento de la ley."
+
+#: templates/partials/policy.html:27
+#, python-format
+msgid ""
+"You can find our complete <a class=\"privacy-footer\" href="
+"\"%(privacy_policy_url)s\">Privacy Policy here</a>."
+msgstr ""
+"Puede encontrar nuestra <a class=\"privacy-footer\" href="
+"\"\"%(privacy_policy_url)s\">Política de privacidad completa aquí.</a>"
 
 #: templates/privacy.html:7
 #, fuzzy
