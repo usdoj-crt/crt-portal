@@ -238,21 +238,41 @@ $arrow-height: 24px;
   }
 
   .crt-landing--large_select {
+    @include u-radius('md');
     @include u-shadow(3);
-    height: 5rem;
-    white-space: pre-wrap;
-    overflow-wrap: break-word;
-    word-wrap: break-word; // backwards compat
-    padding: 1rem;
+
+    button {
+      height: 5rem;
+      font-size: 1.4rem;
+      line-height: 1.7rem;
+      font-weight: normal;
+      color: white;
+    }
+  }
+
+  #crt-landing--examples {
+    width: 80%;
+
+    li {
+      margin: 0;
+      padding: 0.5rem;
+      font-weight: normal;
+      line-height: 1.2rem;
+
+      &:hover {
+        background-color: red !important;
+      }
+    }
   }
 
   .crt-landing--example {
     @include u-radius-bottom('lg');
     @include u-shadow(3);
-    margin-left: 1.5rem;
-    margin-right: 1.5rem;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
     background-color: white;
     min-height: 20rem;
+    padding: 1.5rem 1rem;
 
     #crt-landing--choice_examples p {
       margin-top: 1.5rem;
@@ -260,6 +280,7 @@ $arrow-height: 24px;
     }
 
     .crt-landing--example_header {
+      margin-top: 0;
       text-transform: uppercase;
       font-weight: bold;
     }
