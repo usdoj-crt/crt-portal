@@ -247,10 +247,11 @@ $arrow-height: 24px;
     }
 
     button {
-      font-size: 1.4rem;
-      line-height: 1.7rem;
+      font-size: 1.2rem;
+      line-height: 1.5rem;
       font-weight: normal;
       color: white;
+      min-height: 5rem;
 
       // caret adjustments
       background-size: 1.5rem !important;
@@ -266,19 +267,23 @@ $arrow-height: 24px;
   }
 
   #crt-landing--examples {
-    width: 80%;
+    width: 90%;
+    padding: 0;
+    background: white;
+    @include u-shadow(3);
 
     li {
-      @include u-radius('md');
-      margin: 0;
-      padding: 0.5rem;
+      margin: 0.3rem 0;
+      padding: 0.5rem 1rem;
       font-weight: normal;
       line-height: 1.2rem;
       cursor: pointer;
+      color: $blue-warm-vivid-80;
+      background: white;
 
       &:hover {
         color: $blue-warm-vivid-80;
-        background-color: white !important;
+        background: $blue-warm-10 !important;
       }
     }
   }
@@ -286,8 +291,6 @@ $arrow-height: 24px;
   .crt-landing--example {
     @include u-radius-bottom('lg');
     @include u-shadow(3);
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
     background-color: white;
     min-height: 20rem;
     padding: 1.5rem 1rem;
