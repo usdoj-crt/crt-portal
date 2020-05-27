@@ -309,6 +309,15 @@
 
 {% block page_js %}
   <script nonce="{{ request.csp_nonce }}">
+   var examples = document.getElementById("crt-landing--examples");
+   var items = examples.getElementsByClassName("usa-nav__submenu-item");
+   for (var i = 0; i < items.length; i++) {
+     var item = items[i];
+     item.onclick = function (el) {
+       var key = el.target.dataset["key"];
+       displayExample(key);
+     }
+   }
    function displayExample(key) {
      var examples_field = document.getElementById("crt-landing--choice_examples");
      var option_field = document.getElementById("crt-landing--example_option");
