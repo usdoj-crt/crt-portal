@@ -17,7 +17,7 @@ PRIMARY_COMPLAINT_CHOICES = (
     ('housing', _('Housing discrimination or harassment')),
     ('education', _('Discrimination at a school, educational program or service, or related to receiving education')),
     ('voting', _('Voting rights or ability to vote affected')),
-    ('police', _('Mistreated by police, or correctional staff (including while in prison)')),
+    ('police', _('Mistreated by police, correctional staff, or inmates')),
     ('commercial_or_public', _('Discriminated against in a commercial location or public place')),
     ('something_else', _('Something else happened')),
 )
@@ -25,7 +25,8 @@ PRIMARY_COMPLAINT_DICT = dict(PRIMARY_COMPLAINT_CHOICES)
 
 PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT = {
     'commercial_or_public': _('This could include a store, restaurant, bar, hotel, place of worship, library, medical facility, bank, courthouse, government building, public park or street, as well as online.'),
-    'something_else': _('The examples above reflect some but not all of the civil rights violations that we address. Select this option if you don’t see an example that applies to your situation. You will be able to tell us more later.')
+    'something_else': _('The examples above reflect some but not all of the civil rights violations that we address. Select this option if you don’t see an example that applies to your situation. You will be able to tell us more later.'),
+    'police': _('(Including while in prison)')
 }
 
 PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
