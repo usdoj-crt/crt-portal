@@ -26,6 +26,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # For cloud.gov the ENV must be set in the manifests
 environment = os.environ.get('ENV', 'UNDEFINED')
 
+# Running in CircleCI
+CI = os.environ.get('CI', False)
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -357,3 +360,8 @@ LOGGING = {
 
 if environment == 'LOCAL':
     from .local_settings import *  # noqa: F401,F403
+
+# If we're running in CI, set Debug to True in order
+# to serve staticfiles for pa11y tests
+if CI:
+    DEBUG = True
