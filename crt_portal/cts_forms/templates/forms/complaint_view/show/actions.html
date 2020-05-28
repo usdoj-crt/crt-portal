@@ -39,6 +39,9 @@
       <label for="id_assigned_to" class="intake-label">
         {{ actions.fields.assigned_to.label }}
       </label>
+      <label for="id_assigned_to-select">
+        <span class="usa-sr-only">assignee</span>
+      </label>
       {{ actions.assigned_to }}
     </div>
     <button class="usa-button" type="submit" name='type' value='{{actions.CONTEXT_KEY}}'>Apply changes</button>
