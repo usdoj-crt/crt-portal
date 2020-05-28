@@ -10,7 +10,7 @@ $arrow-height: 24px;
     margin-bottom: 0;
     line-height: 1.33;
 
-    @include at-media-max(desktop) {
+    @include at-media-max(mobile-lg) {
       font-size: 2rem;
     }
   }
@@ -235,7 +235,7 @@ $arrow-height: 24px;
 
   .crt-landing--description_rights {
     font-size: 2rem;
-    @include at-media-max(desktop) {
+    @include at-media-max(mobile-lg) {
       font-size: 1.5rem;
     }
     margin-top: 1rem;
