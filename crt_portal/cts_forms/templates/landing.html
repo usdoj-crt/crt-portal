@@ -5,38 +5,65 @@
 
 {% block page_header %}
   <header class="crt-landing--header crt-landing--blue">
-    <div class="grid-container">
-      <div class="grid-row grid-gap">
-        <div class="tablet:grid-col-4">
-          <div class="grid-container crt-landing--logo_section">
-            <div class="usa-footer__logo grid-row grid-gap-2">
-              <div class="grid-col-auto">
-                <img src="{% static "img/doj-logo-footer.svg" %}"
-                     alt=""
-                     height="48" />
-              </div>
-              <div class="grid-col-auto">
-                <p class="crt-landing--logo_subheading">
-                  {% trans "U.S. Department of Justice" %}
-                </p>
-                <p class="crt-landing--logo_heading">
-                  {% trans "Civil Rights Division" %}
-                </p>
-              </div>
-            </div>
+    <div class="crt-landing--header_section">
+      <div class="grid-container crt-landing--logo_section">
+        <div class="usa-footer__logo grid-row grid-gap-2">
+          <div class="grid-col-auto">
+            <img src="{% static "img/doj-logo-footer.svg" %}"
+                 alt=""
+                 height="48" />
+          </div>
+          <div class="grid-col-auto">
+            <p class="crt-landing--logo_subheading">
+              {% trans "U.S. Department of Justice" %}
+            </p>
+            <p class="crt-landing--logo_heading">
+              {% trans "Civil Rights Division" %}
+            </p>
           </div>
         </div>
+      </div>
 
-        <div class="tablet:grid-col-8 crt-landing--menu">
-          <ul>
-            <li><a href="#about-the-division">{% trans "About the Division" %}</li></a></li>
-            <li><a href="#your-rights">{% trans "Your rights" %}</a></li>
-            <li><a href="#report-a-violation">{% trans "Report a violation" %}</a></li>
-            <li><a href="#already-submitted">{% trans "Already Submitted?" %}</a></li>
-            <li><a href="/#contact-footer">{% trans "Contact" %}</a></li>
-          </ul>
+      <div class="crt-menu--section grid-col-auto">
+        <div class="usa-nav-container">
+          <div class="crt-menu--navbar">
+            <button class="crt-menu--mobile usa-menu-btn">Menu</button>
+          </div>
+          <div class="usa-nav">
+            <button class="usa-nav__close">
+              <img src="{% static "img/close.svg" %}" alt="close">
+            </button>
+            <ul class="usa-nav__primary usa-accordion">
+              <li class="usa-nav__primary-item">
+                <a class="crt-landing--menu_link" href="/#about-the-division">
+                  {% trans "About the Division" %}
+                </a>
+              </li>
+              <li class="usa-nav__primary-item">
+                <a class="crt-landing--menu_link" href="/#your-rights">
+                  {% trans "Your rights" %}
+                </a>
+              </li>
+              <li class="usa-nav__primary-item">
+                <a class="crt-landing--menu_link" href="/#report-a-violation">
+                  {% trans "Report a violation" %}
+                </a>
+              </li>
+              <li class="usa-nav__primary-item">
+                <a class="crt-landing--menu_link" href="/#already-submitted">
+                  {% trans "Already Submitted?" %}
+                </a>
+              </li>
+              <li class="usa-nav__primary-item">
+                <a class="crt-landing--menu_link" href="/#contact-crt">
+                  {% trans "Contact" %}
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
+
     </div>
   </header>
 {% endblock %}
@@ -64,7 +91,7 @@
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-12">
-          <img src="{% static "img/phone.svg" %}" alt="phone" class="icon">
+          <img src="{% static "img/ic_phone-circle.svg" %}" alt="phone" class="icon">
           <p class="crt-landing--emergency_header">
             {% trans 'If you are in danger, contact <a href="tel:911">9-1-1</a>' %}
           </p>
@@ -77,7 +104,7 @@
           </p>
           <p class="crt-landing--emergency_contact">
             <em>
-              {% trans 'If you are reporting misconduct by law enforcement or believe you have experienced a hate crime, please <a href="https://www.fbi.gov/tips">contact the FBI</a>.' %}
+              {% trans 'If you are reporting misconduct by law enforcement or believe you have experienced a hate crime, please <a class="crt-external--link" href="https://www.fbi.gov/tips">contact the FBI</a>.' %}
             </em>
           </p>
         </div>
@@ -97,19 +124,19 @@
               <p class="crt-landing--subheader">{% trans "Enforcement" %}</p>
               <div class="crt-landing--separator_sub"></div>
               <p class="crt-landing--columns crt-landing--largetext">{% trans "We sue or prosecute those who violate civil rights laws." %}</p>
-              <p>{% trans "You can help us do this work by reporting a possible civil rights violation through our" %} <a href="{% url 'crt_report_form' %}">{% trans "online form" %}</a>.</p>
+              <p class="crt-landing--smalltext">{% trans "You can help us do this work by reporting a possible civil rights violation through our" %} <a href="{% url 'crt_report_form' %}">{% trans "online form" %}</a>.</p>
             </div>
             <div class="tablet:grid-col-4">
               <p class="crt-landing--subheader">{% trans "Education" %}</p>
               <div class="crt-landing--separator_sub"></div>
               <p class="crt-landing--columns crt-landing--largetext">{% trans "We help the public understand how to comply with these laws." %}</p>
-              <p>{% trans "We do this through public speaking, technical assistance, and more." %}</p>
+              <p class="crt-landing--smalltext">{% trans "We do this through public speaking, technical assistance, and more." %}</p>
             </div>
             <div class="tablet:grid-col-4">
               <p class="crt-landing--subheader">{% trans "Coordination" %}</p>
               <div class="crt-landing--separator_sub"></div>
               <p class="crt-landing--columns crt-landing--largetext">{% trans "We help the entire federal government work together to enforce these laws." %}</p>
-              <p>{% trans "Our teams work with other agencies to promote a consistent approach to civil rights laws." %}</p>
+              <p class="crt-landing--smalltext">{% trans "Our teams work with other agencies to promote a consistent approach to civil rights laws." %}</p>
             </div>
           </div>
         </div>
@@ -194,7 +221,10 @@
               </div>
             </div>
             <div class="tablet:grid-offset-1 tablet:grid-col-4 crt-landing--divider">
-              <h3>{% trans "Protected by civil rights laws" %}</h3>
+              <div class="crt-header--icon_group">
+                <img src="{% static "img/ic_personcheck-circle.svg" %}" alt="person" class="icon  crt-header--icon">
+                <h3>{% trans "Protected by civil rights laws" %}</h3>
+              </div>
               <p>{% trans "These are the most common characteristics that are legally protected." %}</p>
               <ul class="crt-landing--text">
                 <li>{% trans 'Race/color' %}</li>
@@ -228,8 +258,8 @@
           </p>
         </div>
         <div class="tablet:grid-col-12">
-          <div class="grid-row">
-            <div class="tablet:grid-col-3">
+          <div class="grid-row grid-gap">
+            <div class="tablet:grid-col-4">
               <div class="crt-landing--reporting_column">
                 <div class="crt-landing--icon_gold">1</div>
                 <div>
@@ -238,7 +268,7 @@
                 </div>
               </div>
             </div>
-            <div class="tablet:grid-col-3 tablet:grid-offset-1">
+            <div class="tablet:grid-col-4">
               <div class="crt-landing--reporting_column">
                 <div class="crt-landing--icon_gold">2</div>
                 <div>
@@ -247,7 +277,7 @@
                 </div>
               </div>
             </div>
-            <div class="tablet:grid-col-3 tablet:grid-offset-1">
+            <div class="tablet:grid-col-4">
               <div class="crt-landing--reporting_column">
                 <div class="crt-landing--icon_gold">3</div>
                 <div>
@@ -302,10 +332,13 @@
           <p class="crt-landing--text">{% trans "If we are able to respond, we will contact you using the contact information you provided in this report. Depending on the type of report, response times can vary. If you need to reach us about your report, please refer to your report number when contacting us. This is how we keep track of your submission." %}</p>
         </div>
         <div class="tablet:grid-offset-1 tablet:grid-col-5 crt-landing--card">
-          <h3>{% trans "Need urgent legal help?" %}</h3>
-          <p class="crt-landing--text">{% trans "Due to the amount of complaints we receive, it can take several weeks for us to respond to your issue. Local legal aid officers or lawyers in your area may be able to quickly respond to or help with your concern if you need help sooner." %}</p>
-          <p class="crt-landing--text">{% trans 'Contact Legal Service Corporation at <a href="https://lsc.gov/find-legal-aid">lsc.gov/find-legal-aid</a> or call <a href="tel:202-295-1500">(202) 295-1500</a>.' %}</p>
-          <p class="crt-landing--text">{% trans 'Or visit <a href="http://www.findlegalhelp.org/">www.findlegalhelp.org</a> or call <a href="tel:800-285-2221">(800) 285-2221</a> to find a lawyer through the American Bar Association.' %}</p>
+          <div class="crt-header--icon_group">
+            <img src="{% static "img/clock.svg" %}" alt="help" class="icon crt-header--icon">
+            <h3>{% trans "Need urgent legal help?" %}</h3>
+          </div>
+          <p class="crt-landing--text">{% trans "Local legal aid offices or lawyers in your area may be able to quickly respond to or help with your concern." %}</p>
+          <p class="crt-landing--text">{% trans 'Contact Legal Service Corporation at <a class="crt-external--link" href="https://lsc.gov/find-legal-aid">lsc.gov/find-legal-aid</a> or call <a href="tel:202-295-1500">(202) 295-1500</a>.' %}</p>
+          <p class="crt-landing--text">{% trans 'Or visit <a class="crt-external--link" href="http://www.findlegalhelp.org/">www.findlegalhelp.org</a> or call <a href="tel:800-285-2221">(800) 285-2221</a> to find a lawyer through the American Bar Association.' %}</p>
         </div>
       </div>
     </div>

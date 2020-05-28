@@ -492,7 +492,7 @@ class LandingPageView(TemplateView):
                 'examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES.get(key, [])
             }
             for key, description in PRIMARY_COMPLAINT_DICT.items()
-            if key != 'something_else'
+            if key != 'something_else'  # exclude because this choice has no examples
         }
         return {'choices': choices}
 
