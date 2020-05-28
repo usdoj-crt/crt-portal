@@ -98,10 +98,14 @@ $arrow-height: 24px;
     }
   }
 
-  .crt-landing--menu {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
+  .crt-landing--menu_link {
+    color: white !important;
+    font-weight: normal !important;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0 !important;
+    &:hover {
+      font-weight: bold !important;
+    }
   }
 
   .crt-landing--logo_subheading {
