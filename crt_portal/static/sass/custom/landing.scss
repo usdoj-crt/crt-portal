@@ -8,6 +8,7 @@ $arrow-height: 24px;
     font-size: 2.9rem;
     margin-top: 1rem;
     margin-bottom: 0;
+    line-height: 1.33;
   }
 
   h2 {
@@ -25,7 +26,7 @@ $arrow-height: 24px;
   }
 
   p.crt-landing--text, ul.crt-landing--text {
-    line-height: 1.5rem;
+    line-height: 1.5;
   }
 }
 
@@ -185,7 +186,7 @@ $arrow-height: 24px;
 
   &_header {
     @include u-font-family('serif');
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: bold;
     color: $gold;
     margin-top: 1rem;
@@ -230,6 +231,10 @@ $arrow-height: 24px;
       min-height: unset;
     }
   }
+
+  .crt-landing--smalltext {
+    line-height: 1.625;
+  }
 }
 
 .crt-landing--rights {
@@ -239,13 +244,13 @@ $arrow-height: 24px;
 
   .crt-landing--rights_text {
     font-size: 1.6rem;
-    line-height: 2.2rem;
+    line-height: 1.4;
     margin-bottom: 2rem;
   }
 
   .crt-landing--mediumtext {
     font-size: 1.2rem;
-    line-height: 1.7rem;
+    line-height: 1.5;
     margin-bottom: 1rem;
   }
 
@@ -258,7 +263,7 @@ $arrow-height: 24px;
   margin-top: 0;
   margin-bottom: 1.5rem;
   font-size: 1.4rem;
-  line-height: 2rem;
+  line-height: 1.5;
 }
 
 .crt-landing--subheader {
@@ -321,11 +326,10 @@ $arrow-height: 24px;
     button {
       padding: 1rem 1.5rem !important;
       font-size: 1.2rem;
-      line-height: 1.5rem;
+      line-height: 1.3;
       font-weight: normal;
       color: white;
       min-height: 5rem;
-      background: $blue-warm-vivid-80;
 
       // caret adjustments -- in many cases overriding the USWDS defaults
       background-repeat: no-repeat !important;
@@ -363,10 +367,9 @@ $arrow-height: 24px;
       margin: 0.3rem 0;
       padding: 0.5rem 1rem;
       font-weight: normal;
-      line-height: 1.2rem;
+      line-height: 1.5;
       cursor: pointer;
       color: $blue-warm-vivid-80;
-      background: white;
 
       &:hover {
         color: $blue-warm-vivid-80;
