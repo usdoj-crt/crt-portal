@@ -214,6 +214,9 @@ $arrow-height: 24px;
 
   .crt-landing--columns {
     min-height: 6rem;
+    @include at-media-max(desktop) {
+      min-height: unset;
+    }
   }
 }
 
@@ -407,6 +410,9 @@ $arrow-height: 24px;
 
     h2 {
       min-height: 3rem;
+      @include at-media-max(desktop) {
+        min-height: unset;
+      }
     }
   }
 }
