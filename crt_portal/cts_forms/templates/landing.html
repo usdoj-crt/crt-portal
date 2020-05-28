@@ -353,8 +353,11 @@
    for (var i = 0; i < items.length; i++) {
      var item = items[i];
      item.onclick = function (el) {
-       var key = el.target.dataset["key"];
-       displayExample(key);
+       if (el.target.hasOwnProperty("dataset")) {
+         var key = el.target.dataset["key"];
+         displayExample(key);
+       }
+       el.preventDefault();
      }
    }
    function displayExample(key) {
