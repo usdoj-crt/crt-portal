@@ -193,6 +193,11 @@ $arrow-height: 24px;
       color: white;
       font-weight: bold;
     }
+
+    .crt-external--link:after {
+      padding-left: 0.25rem;
+      content: url(../../img/ic_external-link-white.svg);
+    }
   }
 }
 
@@ -422,6 +427,11 @@ $arrow-height: 24px;
 .crt-landing--already_submitted {
   h2 {
     margin-top: 1rem;
+  }
+
+  .crt-external--link:after {
+    padding-left: 0.25rem;
+    content: url(../../img/ic_external-link-blue.svg);
   }
 }
 
