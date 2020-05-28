@@ -85,6 +85,17 @@ $arrow-height: 24px;
 
   .grid-container {
     padding: 0;
+    margin: 0;
+  }
+
+  .crt-landing--header_section {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 0 1rem 0 5rem;
+    @include at-media-max(desktop) {
+      padding: 0 1rem 0 0;
+    }
   }
 
   ul {
