@@ -9,6 +9,10 @@ $arrow-height: 24px;
     margin-top: 1rem;
     margin-bottom: 0;
     line-height: 1.33;
+
+    @include at-media-max(desktop) {
+      font-size: 2rem;
+    }
   }
 
   h2 {
@@ -221,6 +225,9 @@ $arrow-height: 24px;
 
   .crt-landing--description_rights {
     font-size: 2rem;
+    @include at-media-max(desktop) {
+      font-size: 1.5rem;
+    }
     margin-top: 1rem;
     margin-bottom: 2.5rem;
   }
