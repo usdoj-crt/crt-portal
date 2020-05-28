@@ -144,6 +144,15 @@ $arrow-height: 24px;
   background-repeat: no-repeat;
   background-size: cover;
 
+  @include at-media-max(desktop) {
+    background-image: url(../../img/landing-page-hero-mobile.png);
+    color: white;
+    .crt-button--large {
+      background: $gold;
+      color: black !important;
+    }
+  }
+
   h1 {
     margin-top: 0.5rem;
   }
