@@ -194,7 +194,7 @@
                           data-example{{ forloop.counter0 }}="{{ example }}"
                         {% endfor %}
                       >
-                        {{ value.description }}
+                        <a href="#">{{ value.description }}</a>
                       </li>
                     {% endfor %}
                   </ul>
@@ -353,8 +353,14 @@
    for (var i = 0; i < items.length; i++) {
      var item = items[i];
      item.onclick = function (el) {
-       var key = el.target.dataset["key"];
+       var target = el.target;
+       if (!el.target.dataset.hasOwnProperty("key")) {
+         // user clicked on the link; obtain the parent element.
+         target = el.target.parentElement;
+       }
+       var key = target.dataset["key"];
        displayExample(key);
+       el.preventDefault();
      }
    }
    function displayExample(key) {

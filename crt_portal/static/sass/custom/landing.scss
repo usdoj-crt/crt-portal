@@ -353,6 +353,10 @@ $arrow-height: 24px;
       &[aria-expanded=true] {
         background-image: url(../../img/angle-arrow-up-white.svg) !important;
       }
+
+      &:hover {
+        background-color: $blue-warm-vivid-80 !important;
+      }
     }
   }
 
@@ -373,10 +377,19 @@ $arrow-height: 24px;
     li {
       margin: 0.3rem 0;
       padding: 0.5rem 1rem;
+      cursor: pointer;
+
+      &:hover {
+        color: $blue-warm-vivid-80;
+        background: $blue-warm-10 !important;
+      }
+    }
+
+    a {
+      color: $blue-warm-vivid-80;
       font-weight: normal;
       line-height: 1.5;
-      cursor: pointer;
-      color: $blue-warm-vivid-80;
+      text-decoration: none;
 
       &:hover {
         color: $blue-warm-vivid-80;

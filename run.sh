@@ -8,6 +8,7 @@ python /code/crt_portal/manage.py migrate
 echo generate css...
 npm install
 node node_modules/gulp/bin/gulp build-sass
+node node_modules/gulp/bin/gulp watch-sass &
 
 echo collect static assets...
 python /code/crt_portal/manage.py collectstatic --noinput
