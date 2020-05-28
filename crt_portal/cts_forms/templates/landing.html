@@ -29,9 +29,10 @@
 
         <div class="tablet:grid-col-8 crt-landing--menu">
           <ul>
-            <li><a href="https://www.justice.gov/crt/about">{% trans "About the Division" %}</li></a></li>
-            <li><a href="/#crt-landing--your-rights">{% trans "Your rights" %}</a></li>
-            <li><a href="https://civilrights.justice.gov">{% trans "Report a violation" %}</a></li>
+            <li><a href="#about-the-division">{% trans "About the Division" %}</li></a></li>
+            <li><a href="#your-rights">{% trans "Your rights" %}</a></li>
+            <li><a href="#report-a-violation">{% trans "Report a violation" %}</a></li>
+            <li><a href="#already-submitted">{% trans "Already Submitted?" %}</a></li>
             <li><a href="/#contact-footer">{% trans "Contact" %}</a></li>
           </ul>
         </div>
@@ -53,7 +54,7 @@
             <strong>{% trans "The Civil Rights Division may be able to help." %}</strong>
             {% trans "We enforce federal laws that protect you from discrimination based on your race, color, national origin, disability status, sex, religion, familial status, and more." %}
           </p>
-          <a class="usa-button" href="{% url 'crt_report_form' %}">{% trans "Start a report" %}</a>
+          <a class="usa-button usa-button--big crt-button--large" href="{% url 'crt_report_form' %}">{% trans "Start a report" %}</a>
         </div>
       </div>
     </div>
@@ -88,26 +89,26 @@
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-12">
-          <h1>{% trans "We uphold the civil and constitutional rights of <em>all people in America</em>." %}</h1>
+          <h1 id="about-the-division">{% trans "We uphold the civil and constitutional rights of <em>all people in the United States</em>." %}</h1>
           <div class="crt-landing--separator"></div>
           <p class="crt-landing--description_rights">{% trans "We protect your rights through:" %}</p>
           <div class="grid-row grid-gap">
             <div class="tablet:grid-col-4">
               <p class="crt-landing--subheader">{% trans "Enforcement" %}</p>
-              <div class="crt-landing--smallseparator"></div>
-              <p class="crt-landing--largetext">{% trans "We sue or prosecute those who violate civil rights laws." %}</p>
+              <div class="crt-landing--separator_sub"></div>
+              <p class="crt-landing--columns crt-landing--largetext">{% trans "We sue or prosecute those who violate civil rights laws." %}</p>
               <p>{% trans "You can help us do this work by reporting a possible civil rights violation through our" %} <a href="{% url 'crt_report_form' %}">{% trans "online form" %}</a>.</p>
             </div>
             <div class="tablet:grid-col-4">
               <p class="crt-landing--subheader">{% trans "Education" %}</p>
-              <div class="crt-landing--smallseparator"></div>
-              <p class="crt-landing--largetext">{% trans "We help the public understand how to comply with these laws." %}</p>
+              <div class="crt-landing--separator_sub"></div>
+              <p class="crt-landing--columns crt-landing--largetext">{% trans "We help the public understand how to comply with these laws." %}</p>
               <p>{% trans "We do this through public speaking, technical assistance, and more." %}</p>
             </div>
             <div class="tablet:grid-col-4">
               <p class="crt-landing--subheader">{% trans "Coordination" %}</p>
-              <div class="crt-landing--smallseparator"></div>
-              <p class="crt-landing--largetext">{% trans "We help the entire federal government work together to enforce these laws." %}</p>
+              <div class="crt-landing--separator_sub"></div>
+              <p class="crt-landing--columns crt-landing--largetext">{% trans "We help the entire federal government work together to enforce these laws." %}</p>
               <p>{% trans "Our teams work with other agencies to promote a consistent approach to civil rights laws." %}</p>
             </div>
           </div>
@@ -120,7 +121,7 @@
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-8">
-          <h1>{% trans "Understanding your rights" %}</h1>
+          <h1 id="your-rights">{% trans "Understanding your rights" %}</h1>
           <div class="crt-landing--separator"></div>
           <p class="crt-landing--rights_text">
             {% trans 'Civil rights laws can protect you from unlawful discrimination, harassment, or abuse in a variety of settings like <span class="crt-landing--rights_text crt-landing--rights_categories">housing, the workplace, school, voting, business, healthcare, public spaces</span>, and more.' %}
@@ -143,39 +144,43 @@
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-12">
           <h2>{% trans "Common civil rights violations" %}</h2>
-          <div class="crt-landing--separator"></div>
+          <div class="crt-landing--separator_small"></div>
           <div class="grid-row grid-gap">
-            <div class="tablet:grid-col-8">
+            <div class="tablet:grid-col-7">
               <p class="crt-landing--largetext">{% trans "Choose from this list to see examples." %}</p>
-
-              <select id="crt-landing--examples" class="usa-select crt-landing--blue crt-landing--large_select" name="examples" aria-label="select example">
-                {% for key, value in choices.items %}
-                  <option value="{{ key }}"
-                          {% if value.helptext %}data-helptext="{{ value.helptext }}"{% endif %}
-                          data-examplecount="{{ value.examples | length }}"
-                          {% for example in value.examples %}
-                          data-example{{ forloop.counter0 }}="{{ example }}"
-                          {% endfor %}
-                  >
-                    {{ value.description }}
-                  </option>
-                {% endfor %}
-              </select>
-              <div class="grid-row grid-gap">
-                <div class="tablet:grid-col-9 crt-landing--example">
-                  <p>
-                    <div id="crt-landing--choice_helptext" class="crt-landing--text">
-                      {{ choices.workplace.helptext }}
+              <ul class="usa-nav__primary usa-accordion crt-landing--blue crt-landing--large_select">
+                <li>
+                  <button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="crt-landing--examples" aria-label="select example">
+                    <div id="crt-landing--example_option">
+                      {{ choices.workplace.description }}
                     </div>
-                  </p>
-                  <p id="crt-landing--example_header">
-                    Examples
-                  </p>
-                  <div id="crt-landing--choice_examples" class="crt-landing--text">
-                    {% for example in choices.workplace.examples %}
-                      <p>{{ example }}</p>
+                  </button>
+                  <ul id="crt-landing--examples" class="usa-nav__submenu" hidden>
+                    {% for key, value in choices.items %}
+                      <li
+                        id="crt-landing--example-{{ key }}"
+                        class="usa-nav__submenu-item"
+                        data-key="{{ key }}"
+                        data-examplecount="{{ value.examples | length }}"
+                        data-description="{{ value.description }}"
+                        {% for example in value.examples %}
+                          data-example{{ forloop.counter0 }}="{{ example }}"
+                        {% endfor %}
+                      >
+                        {{ value.description }}
+                      </li>
                     {% endfor %}
-                  </div>
+                  </ul>
+                </li>
+              </ul>
+              <div class="crt-landing--example">
+                <p class="crt-landing--example_header">
+                  {% trans "Examples" %}
+                </p>
+                <div id="crt-landing--choice_examples" class="crt-landing--text">
+                  {% for example in choices.workplace.examples %}
+                    <p>{{ example }}</p>
+                  {% endfor %}
                 </div>
               </div>
               <div class="grid-row grid-gap">
@@ -188,7 +193,7 @@
                 </div>
               </div>
             </div>
-            <div class="tablet:grid-col-4 crt-landing--divider">
+            <div class="tablet:grid-offset-1 tablet:grid-col-4 crt-landing--divider">
               <h3>{% trans "Protected by civil rights laws" %}</h3>
               <p>{% trans "These are the most common characteristics that are legally protected." %}</p>
               <ul class="crt-landing--text">
@@ -214,8 +219,8 @@
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-12">
-          <h1>{% trans "How to report a civil rights violation" %}</h1>
-          <div class="crt-landing--separator"></div>
+          <h1 id="report-a-violation">{% trans "How to report a civil rights violation" %}</h1>
+          <div class="crt-landing--separator_small"></div>
         </div>
         <div class="tablet:grid-col-9">
           <p class="crt-landing--largetext">
@@ -282,8 +287,8 @@
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-12">
-          <h2>{% trans "Already submitted a report?" %}</h2>
-          <div class="crt-landing--separator"></div>
+          <h2 id="already-submitted">{% trans "Already submitted a report?" %}</h2>
+          <div class="crt-landing--separator_small"></div>
           <p class="crt-landing--largetext">
             {% trans "Here's what to expect." %}
           </p>
@@ -296,7 +301,7 @@
           </ul>
           <p class="crt-landing--text">{% trans "If we are able to respond, we will contact you using the contact information you provided in this report. Depending on the type of report, response times can vary. If you need to reach us about your report, please refer to your report number when contacting us. This is how we keep track of your submission." %}</p>
         </div>
-        <div class="tablet:grid-offset-1 tablet:grid-col-4 crt-landing--card">
+        <div class="tablet:grid-offset-1 tablet:grid-col-5 crt-landing--card">
           <h3>{% trans "Need urgent legal help?" %}</h3>
           <p class="crt-landing--text">{% trans "Due to the amount of complaints we receive, it can take several weeks for us to respond to your issue. Local legal aid officers or lawyers in your area may be able to quickly respond to or help with your concern if you need help sooner." %}</p>
           <p class="crt-landing--text">{% trans 'Contact Legal Service Corporation at <a href="https://lsc.gov/find-legal-aid">lsc.gov/find-legal-aid</a> or call <a href="tel:202-295-1500">(202) 295-1500</a>.' %}</p>
@@ -310,23 +315,26 @@
 
 {% block page_js %}
   <script nonce="{{ request.csp_nonce }}">
-   (function() {
-     var dropdown = document.getElementById("crt-landing--examples");
-     var helptext_field = document.getElementById("crt-landing--choice_helptext");
+   var examples = document.getElementById("crt-landing--examples");
+   var items = examples.getElementsByClassName("usa-nav__submenu-item");
+   for (var i = 0; i < items.length; i++) {
+     var item = items[i];
+     item.onclick = function (el) {
+       var key = el.target.dataset["key"];
+       displayExample(key);
+     }
+   }
+   function displayExample(key) {
      var examples_field = document.getElementById("crt-landing--choice_examples");
-     var example_header = document.getElementById("crt-landing--example_header");
-     dropdown.addEventListener("change", function(event) {
-       let el = event.target.options[event.target.selectedIndex];
-       let helptext = el.dataset.helptext;
-       helptext_field.innerText = helptext || "";
-       examples_field.innerText = "";
-       let length = el.dataset.examplecount;
-       example_header.style.visibility = length == 0 ? "hidden" : "visible";
-       for (var i = 0; i < length; i++) {
-         var example = el.dataset["example" + i];
-         examples_field.innerHTML += "<p>" + example + "</p>";
-       }
-     });
-   })();
+     var option_field = document.getElementById("crt-landing--example_option");
+     var el = document.getElementById("crt-landing--example-" + key);
+     option_field.innerHTML = el.dataset["description"];
+     let length = el.dataset.examplecount;
+     examples_field.innerHTML = "";
+     for (var i = 0; i < length; i++) {
+       var example = el.dataset["example" + i];
+       examples_field.innerHTML += "<p>" + example + "</p>";
+     }
+   };
   </script>
 {% endblock %}
