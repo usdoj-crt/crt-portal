@@ -106,11 +106,7 @@
                 {% trans "We’re receiving and actively reviewing many requests at the same time." %}
               </li>
             </ul>
-            <!-- working on translation -->
-            {% get_current_language as LANGUAGE_CODE %}
-            {% if LANGUAGE_CODE == "en" %}
-              <p>{% trans "<strong>If we are able to respond, we will contact you using the contact information you provided in this report. Depending on the type of report, response times can vary. If you need to reach us about your report, please refer to your report number when contacting us. This is how we keep track of your submission.</strong>" %}</p>
-            {% endif %}
+              <p><strong>{% trans "If we are able to respond, we will contact you using the contact information you provided in this report. Depending on the type of report, response times can vary. If you need to reach us about your report, please refer to your report number when contacting us. This is how we keep track of your submission." %}<strong></p>
           </div>
         </li>
       </ol>
@@ -171,6 +167,13 @@
 
 {% endblock %}
 
+{% block footer_extra %}
+<div style="background-color: #162e51; color: white; padding-top: 2em; border-top: 1px solid #454545">
+  {% include "partials/policy.html" %}
+</div>
+{% endblock footer_extra %}
+  
 {% block page_js %}
   <script src="https://touchpoints.app.cloud.gov/touchpoints/a24aeb5e/js" async></script>
 {% endblock %}
+  
