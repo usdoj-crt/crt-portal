@@ -28,41 +28,43 @@
         </div>
 
         {% block menu %}
-          <div class="usa-nav-container">
-            <div class="usa-navbar">
-              <button class="usa-menu-btn">Menu</button>
-            </div>
-            <div class="usa-nav">
-              <button class="usa-nav__close">
-                <img src="{% static "img/close.svg" %}" alt="close">
-              </button>
-              <ul class="usa-nav__primary usa-accordion">
-                <li class="usa-nav__primary-item">
-                  <a class="crt-landing--menu_link" href="#about-the-division">
-                    {% trans "About the Division" %}
-                  </a>
-                </li>
-                <li class="usa-nav__primary-item">
-                  <a class="crt-landing--menu_link" href="#your-rights">
-                    {% trans "Your rights" %}
-                  </a>
-                </li>
-                <li class="usa-nav__primary-item">
-                  <a class="crt-landing--menu_link" href="#report-a-violation">
-                    {% trans "Report a violation" %}
-                  </a>
-                </li>
-                <li class="usa-nav__primary-item">
-                  <a class="crt-landing--menu_link" href="#already-submitted">
-                    {% trans "Already Submitted?" %}
-                  </a>
-                </li>
-                <li class="usa-nav__primary-item">
-                  <a class="crt-landing--menu_link" href="#contact-crt">
-                    {% trans "Contact" %}
-                  </a>
-                </li>
-              </ul>
+          <div class="crt-menu--section grid-col-auto">
+            <div class="usa-nav-container">
+              <div class="crt-menu--navbar">
+                <button class="crt-menu--mobile usa-menu-btn">Menu</button>
+              </div>
+              <div class="usa-nav">
+                <button class="usa-nav__close">
+                  <img src="{% static "img/close.svg" %}" alt="close">
+                </button>
+                <ul class="usa-nav__primary usa-accordion">
+                  <li class="usa-nav__primary-item">
+                    <a class="crt-landing--menu_link" href="#about-the-division">
+                      {% trans "About the Division" %}
+                    </a>
+                  </li>
+                  <li class="usa-nav__primary-item">
+                    <a class="crt-landing--menu_link" href="#your-rights">
+                      {% trans "Your rights" %}
+                    </a>
+                  </li>
+                  <li class="usa-nav__primary-item">
+                    <a class="crt-landing--menu_link" href="#report-a-violation">
+                      {% trans "Report a violation" %}
+                    </a>
+                  </li>
+                  <li class="usa-nav__primary-item">
+                    <a class="crt-landing--menu_link" href="#already-submitted">
+                      {% trans "Already Submitted?" %}
+                    </a>
+                  </li>
+                  <li class="usa-nav__primary-item">
+                    <a class="crt-landing--menu_link" href="#contact-crt">
+                      {% trans "Contact" %}
+                    </a>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         {% endblock %}

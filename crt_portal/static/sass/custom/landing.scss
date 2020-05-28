@@ -98,6 +98,25 @@ $arrow-height: 24px;
     }
   }
 
+  .crt-menu--section {
+    margin-top: 0.1rem;
+    padding-right: 0;
+  }
+
+  .crt-menu--navbar {
+    @extend .usa-navbar;
+    border-bottom: 0 !important;
+  }
+
+  .crt-menu--mobile {
+    @include u-radius('md');
+    padding: 0.25rem 0.5rem;
+    text-transform: unset;
+    background: $blue-warm-5;
+    color: $blue-warm-vivid-80;
+    max-height: 2rem;
+  }
+
   .crt-landing--menu_link {
     color: white !important;
     font-weight: normal !important;
