@@ -172,6 +172,7 @@ $arrow-height: 24px;
   background-image: url(../../img/landing-page-hero.png);
   background-repeat: no-repeat;
   background-size: cover;
+  background-position: right;
 
   @include at-media-max(desktop) {
     background-image: url(../../img/landing-page-hero-mobile.png);
