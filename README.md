@@ -378,17 +378,21 @@ When CircleCI tries to deploy two PRs back-to-back, one of them can fail. In thi
 **Hot fixes** will be needed when we find urgent bugs or problems with production. This is where git-flow becomes very useful.
 To make the fix:
    * Check out the master branch and do a `git pull origin master`
-   * Create a branch for your work with `git flow hotfix start`
-   * Commit and push your branch for PR review
+   * Create a branch for your work with `git flow hotfix start <name-your-hotfix>`
+       * This will make a new branch based on the master branch with the naming convention `hotfix/name-of-hotfix`
+   * Commit and push your branch, make a PR that targets the master branch for review
 
 To deploy the fix:
    * Make sure the product owner is in the loop with any errors and fixes.
-   * Approve the hotfix merge on GitHub but don't merge it.
-   * Check out the development branch and do a `git pull origin develop`
-   * Check out the release branch, if there is one, and do a `git pull origin release/name-of-release`
-   * Check out the master branch and do a `git pull origin master`
-   * Finish the hotfix with `git flow hotfix finish` This command will make sure that the fix is merged into the master, develop and release branches so your change doesn't get clobbered later.
-   * Checkout and push the develop, release and master branches. Checking to make sure the fix works and doesn't cause any unintended consequences.
+   * The reviewer can test the change locally to do the review. once the reviewer is happy with it: 
+   * Make sure your branches are up to date
+       * Check out the development branch and do a `git pull origin develop`
+       * Check out the master branch and do a `git pull origin master`
+   * Finish the hotfix with `git flow hotfix finish` This command will make sure that the fix is merged into the master and develop branches. Making sure the change is in both places, means you can test it on dev and your change won't get clobbered later.
+   * Push to the develop branch, that now has the fix to trigger a deploy to the dev enviornment
+   * Check that the update deployed correctly.
+   * Once sastisfied, go to GitHub to approve and merge the PR
+   * That will trigger a new build with the fix. Check that the fix worked 
 
 The [git-flow cheatsheet](https://danielkummer.github.io/git-flow-cheatsheet/) is a great explainer of the git-flow tool.
 
