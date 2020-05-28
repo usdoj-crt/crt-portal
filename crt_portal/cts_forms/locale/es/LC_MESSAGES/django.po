@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-28 13:24+0000\n"
+"POT-Creation-Date: 2020-05-28 15:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1188,20 +1188,31 @@ msgstr ""
 msgid "Any supporting materials (please list and describe them)."
 msgstr "Cualquier material de apoyo (haga una lista y describa cada artículo)."
 
-#: templates/base.html:15
+#: templates/base.html:22 templates/base.html:40
 msgid "Civil Rights Division - Department of Justice"
 msgstr "La División de Derechos Civiles - Departamento de Justicia"
 
-#: templates/base.html:23 templates/forms/base.html:28
+#  Meta tag description of site
+#: templates/base.html:28
+msgid ""
+"Have you or someone you know experienced unlawful discrimination? The Civil "
+"Rights Division may be able to help. Civil rights laws can protect you from "
+"unlawful discrimination, harassment, or abuse in a variety of settings like "
+"housing, the workplace, school, voting, businesses, healthcare, public "
+"spaces, and more."
+msgstr ""
+
+
+#: templates/base.html:48 templates/forms/base.html:28
 msgid "Skip to main content"
 msgstr "Pasar directamente al contenido principal"
 
-#: templates/base.html:66 templates/forms/base.html:92
+#: templates/base.html:91 templates/forms/base.html:92
 #: templates/landing.html:18
 msgid "U.S. Department of Justice"
 msgstr "Departamento de Justicia de los EE. UU."
 
-#: templates/base.html:69 templates/forms/base.html:91
+#: templates/base.html:94 templates/forms/base.html:91
 #: templates/landing.html:21
 msgid "Civil Rights Division"
 msgstr "Comuníquese con la División de Derechos Civiles"
@@ -2100,25 +2111,25 @@ msgstr ""
 "Puede encontrar nuestra <a class=\"privacy-footer\" href="
 "\"%(privacy_policy_url)s\">Política de privacidad completa aquí.</a>"
 
-#: templates/privacy.html:7
+#: templates/privacy.html:7 templates/privacy.html:13
 msgid "Civil Rights Division - Department of Justice - Privacy Policy"
 msgstr ""
 "La División de Derechos Civiles - Departamento de Justicia - Política de "
 "privacidad"
 
-#: templates/privacy.html:17 templates/privacy.html:28
+#: templates/privacy.html:23 templates/privacy.html:34
 msgid "Privacy Act Statement"
 msgstr "Declaración sobre la ley de Privacidad"
 
-#: templates/privacy.html:20
+#: templates/privacy.html:26
 msgid "Your information"
 msgstr "Su información"
 
-#: templates/privacy.html:23
+#: templates/privacy.html:29
 msgid "Our Statutes"
 msgstr "Nosotros leyes"
 
-#: templates/privacy.html:31
+#: templates/privacy.html:37
 msgid ""
 "The information you provide through this form will help the Department of "
 "Justice’s Civil Rights Division (“us,” “we”) enforce the federal civil "
@@ -2128,7 +2139,7 @@ msgstr ""
 "División de Derechos Civiles del Departamento de Justicia (nosotros, nos) a "
 "hacer cumplir las leyes federales de derechos civiles de su competencia."
 
-#: templates/privacy.html:34
+#: templates/privacy.html:40
 msgid ""
 "In addition to our enforcement efforts, we may use the information you "
 "provide on this form for certain routine purposes. These include sharing "
@@ -2138,7 +2149,7 @@ msgstr ""
 "información que proporciona en este formulario para ciertos fines "
 "rutinarios. Estos incluyen compartirla con:"
 
-#: templates/privacy.html:36
+#: templates/privacy.html:42
 msgid ""
 "\n"
 "                    <li>\n"
@@ -2197,16 +2208,16 @@ msgstr ""
 "                    </li>\n"
 "                    "
 
-#: templates/privacy.html:59
+#: templates/privacy.html:65
 msgid ""
 "For a complete list of routine agency uses, please consult the following:"
 msgstr "Para una lista completa de usos agenciales rutinarios, véanse:"
 
-#: templates/privacy.html:78
+#: templates/privacy.html:84
 msgid "You should also know that:"
 msgstr "Por otra parte, se le avisa que:"
 
-#: templates/privacy.html:80
+#: templates/privacy.html:86
 msgid ""
 "\n"
 "                    <li>Any information you provide to us through this form "
@@ -2236,11 +2247,11 @@ msgstr ""
 "                    "
 
 # don't have this
-#: templates/privacy.html:91 templates/privacy.html:157
+#: templates/privacy.html:97 templates/privacy.html:163
 msgid "Return to top"
 msgstr ""
 
-#: templates/privacy.html:102
+#: templates/privacy.html:108
 msgid ""
 "We are authorized to collect this information pursuant to the following "
 "statutes:"
@@ -2248,7 +2259,7 @@ msgstr ""
 "En virtud de los siguientes estatutos, estamos autorizados para recopilar "
 "estos datos:"
 
-#: templates/privacy.html:104
+#: templates/privacy.html:110
 msgid ""
 "\n"
 "                    <li>Official Misconduct, 18 U.S.C. §§ 241, 242</li>\n"
