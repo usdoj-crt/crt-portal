@@ -171,12 +171,13 @@ $arrow-height: 24px;
   background-image: url(../../img/landing-page-hero.png);
   background-repeat: no-repeat;
   background-size: 100%;
-  min-height: 600px;
   background-position: bottom;
+  min-height: 750px;
 
   @include at-media-max(mobile-lg) {
     background-image: url(../../img/landing-page-hero-mobile.png);
     color: white;
+    min-height: 600px;
     .crt-button--large {
       background: $gold;
       color: black !important;
@@ -186,6 +187,7 @@ $arrow-height: 24px;
   @include at-media-max(desktop) {
     background-image: url(../../img/landing-page-hero-tablet.png);
     background-position: bottom;
+    min-height: 600px;
   }
 
   h1 {
