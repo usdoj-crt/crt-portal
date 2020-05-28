@@ -51,7 +51,7 @@
               </li>
               <li class="usa-nav__primary-item">
                 <a class="crt-landing--menu_link" href="/#already-submitted">
-                  {% trans "Already Submitted?" %}
+                  {% trans "Already submitted?" %}
                 </a>
               </li>
               <li class="usa-nav__primary-item">
@@ -81,7 +81,7 @@
             <strong>{% trans "The Civil Rights Division may be able to help." %}</strong>
             {% trans "We enforce federal laws that protect you from discrimination based on your race, color, national origin, disability status, sex, religion, familial status, and more." %}
           </p>
-          <a class="usa-button usa-button--big crt-button--large" href="{% url 'crt_report_form' %}">{% trans "Start a report" %}</a>
+          <a class="usa-button usa-button--big crt-button--large" href="#report-a-violation">{% trans "Start a report" %}</a>
         </div>
       </div>
     </div>
@@ -90,13 +90,13 @@
   <div class="crt-landing--section crt-landing--emergency crt-landing--blue">
     <div class="grid-container">
       <div class="grid-row grid-gap">
-        <div class="tablet:grid-col-12">
+        <div class="tablet:grid-offset-2 tablet:grid-col-8">
           <img src="{% static "img/ic_phone-circle.svg" %}" alt="phone" class="icon">
           <p class="crt-landing--emergency_header">
             {% trans 'If you are in danger, contact <a href="tel:911">9-1-1</a>' %}
           </p>
         </div>
-        <div class="tablet:grid-col-12">
+        <div class="tablet:grid-offset-2 tablet:grid-col-8">
           <p class="crt-landing--emergency_contact">
             <em>
               {% trans 'If you or someone else is in immediate danger, <a href="tel:911">please call 9-1-1 or local police.</a>' %}
@@ -225,12 +225,12 @@
                 <img src="{% static "img/ic_personcheck-circle.svg" %}" alt="person" class="icon  crt-header--icon">
                 <h3>{% trans "Protected by civil rights laws" %}</h3>
               </div>
-              <p>{% trans "These are the most common characteristics that are legally protected." %}</p>
+              <p class="crt-landing--text">{% trans "These are the most common characteristics that are legally protected." %}</p>
               <ul class="crt-landing--text">
                 <li>{% trans 'Race/color' %}</li>
                 <li>{% trans 'Disability <span class="crt-landing--protected">including temporary or in recovery</span>' %}</li>
                 <li>{% trans 'Religion' %}</li>
-                <li>{% trans 'Sex, gender identity, and sexual orientation <span class="crt-landing--protected">including gender stereotypes</span>' %}</li>
+                <li>{% trans 'Sex, gender identity, and sexual orientation' %}</li>
                 <li>{% trans 'Immigration/citizenship status' %}</li>
                 <li>{% trans 'Language and national origin <span class="crt-landing--protected">including ancestry and ethnicity</span>' %}</li>
                 <li>{% trans 'Family, marital, or parental status <span class="crt-landing--protected">including pregnancy</span>' %}</li>

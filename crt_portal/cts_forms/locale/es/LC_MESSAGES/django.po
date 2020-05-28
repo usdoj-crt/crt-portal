@@ -1835,11 +1835,9 @@ msgstr ""
 
 #: templates/landing.html:233
 msgid ""
-"Sex, gender identity, and sexual orientation <span class=\"crt-landing--"
-"protected\">including gender stereotypes</span>"
+"Sex, gender identity, and sexual orientation"
 msgstr ""
-"Género, identidad de género y orientación sexual <span class=\"crt-landing--"
-"protected\">Incluye estereotipos de género</span>"
+"Género, identidad de género y orientación sexual"
 
 #: templates/landing.html:234
 msgid "Immigration/citizenship status"

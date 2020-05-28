@@ -37,6 +37,10 @@ $arrow-height: 24px;
 .crt-header--icon_group {
   display: flex;
 
+  h3 {
+    font-size: 1rem;
+  }
+
   .crt-header--icon {
     padding-right: 0.5rem;
   }
@@ -164,18 +168,24 @@ $arrow-height: 24px;
 }
 
 .crt-landing--hero {
-  padding-bottom: 15rem;
   background-image: url(../../img/landing-page-hero.png);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100%;
+  min-height: 600px;
+  background-position: bottom;
 
-  @include at-media-max(desktop) {
+  @include at-media-max(mobile-lg) {
     background-image: url(../../img/landing-page-hero-mobile.png);
     color: white;
     .crt-button--large {
       background: $gold;
       color: black !important;
     }
+  }
+
+  @include at-media-max(desktop) {
+    background-image: url(../../img/landing-page-hero-tablet.png);
+    background-position: bottom;
   }
 
   h1 {
@@ -245,10 +255,6 @@ $arrow-height: 24px;
 }
 
 .crt-landing--rights {
-  h1 {
-    font-size: 2.3rem;
-  }
-
   .crt-landing--rights_text {
     font-size: 1.6rem;
     line-height: 1.4;
@@ -304,7 +310,12 @@ $arrow-height: 24px;
 
   ul {
     padding-left: 1rem;
+    margin-top: 1.5rem;
     margin-bottom: 0;
+  }
+
+  .crt-landing--text {
+    font-size: 0.9rem;
   }
 
   li {
@@ -369,14 +380,17 @@ $arrow-height: 24px;
     background: white;
     @include u-shadow(3);
 
-    width: 90%;
+    width: calc(100% - 2rem);
     @include at-media-max(desktop) {
       width: 100%;
     }
+    margin-top: 0;
 
     li {
-      margin: 0.3rem 0;
-      padding: 0.5rem 1rem;
+      margin: 0.5rem 0;
+      padding: 0.5rem 1.5rem;
+      font-weight: normal;
+      line-height: 1.5;
       cursor: pointer;
 
       &:hover {
@@ -403,7 +417,7 @@ $arrow-height: 24px;
     @include u-shadow(3);
     background-color: white;
     min-height: 20rem;
-    padding: 1.5rem 1rem;
+    padding: 2.5rem;
 
     #crt-landing--choice_examples p {
       margin-top: 1.5rem;
@@ -481,7 +495,7 @@ $arrow-height: 24px;
   a {
     font-weight: bold;
   }
-  margin-bottom: 1rem;
+  padding: 1.5rem 2rem !important;
 }
 
 .crt-landing--arrow {
