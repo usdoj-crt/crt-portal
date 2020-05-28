@@ -192,11 +192,8 @@ msgid "Voting rights or ability to vote affected"
 msgstr "Derecho al voto o la posibilidad de votar afectada"
 
 #: model_variables.py:20
-#, fuzzy
-#| msgid ""
-#| "Mistreated by police, or correctional staff (including while in prison)"
 msgid "Mistreated by police, correctional staff, or inmates"
-msgstr ""
+msgstr "Maltrato por la policía, personal de instituciones correccionales o reclusos"
 
 #: model_variables.py:21
 msgid "Discriminated against in a commercial location or public place"
