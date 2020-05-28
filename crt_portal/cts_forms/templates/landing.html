@@ -104,7 +104,7 @@
           </p>
           <p class="crt-landing--emergency_contact">
             <em>
-              {% trans 'If you are reporting misconduct by law enforcement <a class="crt-external--link" href="https://www.fbi.gov/tips">call the FBI\'s tip line</a>.' %}
+              {% trans 'If you are reporting misconduct by law enforcement or believe you have experienced a hate crime, please <a class="crt-external--link" href="https://www.fbi.gov/tips">contact the FBI</a>.' %}
             </em>
           </p>
         </div>
@@ -130,13 +130,13 @@
               <p class="crt-landing--subheader">{% trans "Education" %}</p>
               <div class="crt-landing--separator_sub"></div>
               <p class="crt-landing--columns crt-landing--largetext">{% trans "We help the public understand how to comply with these laws." %}</p>
-              <p class="crt-landing--smalltext">{% trans "We speak at conferences and public events, produce technical assistance materials, and post information online about our past cases." %}</p>
+              <p class="crt-landing--smalltext">{% trans "We do this through public speaking, technical assistance, and more." %}</p>
             </div>
             <div class="tablet:grid-col-4">
               <p class="crt-landing--subheader">{% trans "Coordination" %}</p>
               <div class="crt-landing--separator_sub"></div>
               <p class="crt-landing--columns crt-landing--largetext">{% trans "We help the entire federal government work together to enforce these laws." %}</p>
-              <p class="crt-landing--smalltext">{% trans "We regularly meet with other agencies to promote a consistent, unified response to civil rights issues facing the country." %}</p>
+              <p class="crt-landing--smalltext">{% trans "Our teams work with other agencies to promote a consistent approach to civil rights laws." %}</p>
             </div>
           </div>
         </div>
@@ -144,7 +144,7 @@
     </div>
   </div>
 
-  <div class="crt-landing--section crt-landing--rights crt-landing--blue">
+  <div id="crt-landing--your-rights" class="crt-landing--section crt-landing--rights crt-landing--blue">
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-8">
@@ -214,7 +214,7 @@
                 <div class="tablet:grid-col-9">
                   <p class="crt-landing--similar_situation">
                     <em>
-                      {% trans 'If you think you\'ve experienced a similar situation, please see <a href="#crt-landing--reporting">how to report a civil rights violation.</a>' %}
+                      {% blocktrans %}If you think you’ve experienced a similar situation, learn <a href="#crt-landing--reporting">how to file a civil rights violation</a>.{% endblocktrans %}
                     </em>
                   </p>
                 </div>
@@ -223,7 +223,7 @@
             <div class="tablet:grid-offset-1 tablet:grid-col-4 crt-landing--divider">
               <div class="crt-header--icon_group">
                 <img src="{% static "img/ic_personcheck-circle.svg" %}" alt="person" class="icon  crt-header--icon">
-                <h3>{% trans "Protected characteristics" %}</h3>
+                <h3>{% trans "Protected by civil rights laws" %}</h3>
               </div>
               <p>{% trans "These are the most common characteristics that are legally protected." %}</p>
               <ul class="crt-landing--text">
@@ -301,8 +301,13 @@
     <div class="grid-container">
       <div class="grid-row grid-gap">
         <div class="tablet:grid-col-8">
-          <h2>{% trans "Think you or someone you know has experienced a civil rights violation?" %}</h2>
+          <h2>{% trans "Have you or someone you know experienced a civil rights violation?" %}</h2>
           <a class="usa-button usa-button--big crt-button--large" href="{% url 'crt_report_form' %}">{% trans "Submit a report" %}</a>
+        </div>
+      </div>
+      <div class="grid-row grid-gap">
+        <div class="tablet:grid-col-6">
+          <p class="crt-landing--text"><em>{% trans 'If you cannot access the online form, you can <a href="#phone-footer">call</a> to submit a complaint or send in a complaint by <a href="#address-footer">mail</a>.' %}</em></p>
         </div>
       </div>
     </div>
@@ -331,7 +336,7 @@
             <img src="{% static "img/clock.svg" %}" alt="help" class="icon crt-header--icon">
             <h3>{% trans "Need urgent legal help?" %}</h3>
           </div>
-          <p class="crt-landing--text">{% trans "Due to the amount of complaints we receive, it can take several weeks for us to respond to your issue. Local legal aid officers or lawyers in your area may be able to quickly respond to or help with your concern if you need help sooner." %}</p>
+          <p class="crt-landing--text">{% trans "Local legal aid offices or lawyers in your area may be able to quickly respond to or help with your concern." %}</p>
           <p class="crt-landing--text">{% trans 'Contact Legal Service Corporation at <a class="crt-external--link" href="https://lsc.gov/find-legal-aid">lsc.gov/find-legal-aid</a> or call <a href="tel:202-295-1500">(202) 295-1500</a>.' %}</p>
           <p class="crt-landing--text">{% trans 'Or visit <a class="crt-external--link" href="http://www.findlegalhelp.org/">www.findlegalhelp.org</a> or call <a href="tel:800-285-2221">(800) 285-2221</a> to find a lawyer through the American Bar Association.' %}</p>
         </div>
