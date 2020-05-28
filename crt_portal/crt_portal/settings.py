@@ -262,6 +262,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         bucket,
         'www.civilrights.justice.gov',
         'civilrights.justice.gov',
+        'https://touchpoints.app.cloud.gov',
     )
     # headers required for security
     SESSION_COOKIE_SECURE = True
@@ -278,7 +279,17 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'www.civilrights.justice.gov',
         'civilrights.justice.gov',
         'https://dap.digitalgov.gov',
-        'https://www.google-analytics.com'
+        'https://www.google-analytics.com',
+        'https://touchpoints.app.cloud.gov',
+    )
+    CSP_CONNECT_SRC = (
+        "'self'",
+        bucket,
+        'www.civilrights.justice.gov',
+        'civilrights.justice.gov',
+        'https://dap.digitalgov.gov',
+        'https://www.google-analytics.com',
+        'https://touchpoints.app.cloud.gov',
     )
     CSP_IMG_SRC = allowed_sources
     CSP_MEDIA_SRC = allowed_sources
