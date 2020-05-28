@@ -92,14 +92,10 @@ $arrow-height: 24px;
     display: flex;
     justify-content: space-between;
 
-    padding: 0 1rem 0 5rem;
+    padding: 0 1rem 0 6rem;
     @include at-media-max(desktop) {
-      padding: 0 1rem 0 0;
+      padding: 0 1rem;
     }
-  }
-
-  ul {
-    display: flex;
   }
 
   li {
@@ -136,6 +132,7 @@ $arrow-height: 24px;
     max-height: 2rem;
   }
 
+  // again overriding USWDS defaults
   .crt-landing--menu_link {
     color: white !important;
     font-weight: normal !important;
@@ -143,6 +140,10 @@ $arrow-height: 24px;
     padding: 0.5rem 0 !important;
     &:hover {
       font-weight: bold !important;
+    }
+
+    @include at-media-max(desktop) {
+      color: black !important;
     }
   }
 
