@@ -245,10 +245,6 @@ $arrow-height: 24px;
 }
 
 .crt-landing--rights {
-  h1 {
-    font-size: 2.3rem;
-  }
-
   .crt-landing--rights_text {
     font-size: 1.6rem;
     line-height: 1.4;
@@ -376,7 +372,9 @@ $arrow-height: 24px;
 
     li {
       margin: 0.3rem 0;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.5rem;
+      font-weight: normal;
+      line-height: 1.5;
       cursor: pointer;
 
       &:hover {
@@ -403,7 +401,7 @@ $arrow-height: 24px;
     @include u-shadow(3);
     background-color: white;
     min-height: 20rem;
-    padding: 1.5rem 1rem;
+    padding: 2.5rem;
 
     #crt-landing--choice_examples p {
       margin-top: 1.5rem;
