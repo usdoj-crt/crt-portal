@@ -168,11 +168,11 @@ $arrow-height: 24px;
 }
 
 .crt-landing--hero {
-  padding-bottom: 15rem;
   background-image: url(../../img/landing-page-hero.png);
   background-repeat: no-repeat;
-  background-size: cover;
-  background-position: right;
+  background-size: 100%;
+  min-height: 600px;
+  background-position: bottom;
 
   @include at-media-max(mobile-lg) {
     background-image: url(../../img/landing-page-hero-mobile.png);
