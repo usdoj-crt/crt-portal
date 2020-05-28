@@ -29,6 +29,14 @@ $arrow-height: 24px;
   }
 }
 
+.crt-header--icon_group {
+  display: flex;
+
+  .crt-header--icon {
+    padding-right: 0.5rem;
+  }
+}
+
 .crt-button--large {
   color: $white !important;
   font-weight: bold !important;
@@ -249,7 +257,8 @@ $arrow-height: 24px;
   }
 
   h3 {
-    margin-top: 0;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
   }
 
   div.grid-container {
