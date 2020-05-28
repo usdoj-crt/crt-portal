@@ -375,13 +375,14 @@ $arrow-height: 24px;
     background: white;
     @include u-shadow(3);
 
-    width: 90%;
+    width: calc(100% - 2rem);
     @include at-media-max(desktop) {
       width: 100%;
     }
+    margin-top: 0;
 
     li {
-      margin: 0.3rem 0;
+      margin: 0.5rem 0;
       padding: 0.5rem 1.5rem;
       font-weight: normal;
       line-height: 1.5;
