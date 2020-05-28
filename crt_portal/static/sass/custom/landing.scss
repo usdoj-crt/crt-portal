@@ -353,6 +353,10 @@ $arrow-height: 24px;
       &[aria-expanded=true] {
         background-image: url(../../img/angle-arrow-up-white.svg) !important;
       }
+
+      &:hover {
+        background-color: $blue-warm-vivid-80 !important;
+      }
     }
   }
 
@@ -386,6 +390,11 @@ $arrow-height: 24px;
       font-weight: normal;
       line-height: 1.5;
       text-decoration: none;
+
+      &:hover {
+        color: $blue-warm-vivid-80;
+        background: $blue-warm-10 !important;
+      }
     }
   }
 
