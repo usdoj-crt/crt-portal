@@ -10,7 +10,7 @@ $arrow-height: 24px;
     margin-bottom: 0;
     line-height: 1.33;
 
-    @include at-media-max(desktop) {
+    @include at-media-max(mobile-lg) {
       font-size: 2rem;
     }
   }
@@ -171,12 +171,13 @@ $arrow-height: 24px;
   background-image: url(../../img/landing-page-hero.png);
   background-repeat: no-repeat;
   background-size: 100%;
-  min-height: 600px;
   background-position: bottom;
+  min-height: 750px;
 
   @include at-media-max(mobile-lg) {
     background-image: url(../../img/landing-page-hero-mobile.png);
     color: white;
+    min-height: 600px;
     .crt-button--large {
       background: $gold;
       color: black !important;
@@ -186,6 +187,7 @@ $arrow-height: 24px;
   @include at-media-max(desktop) {
     background-image: url(../../img/landing-page-hero-tablet.png);
     background-position: bottom;
+    min-height: 600px;
   }
 
   h1 {
@@ -235,7 +237,7 @@ $arrow-height: 24px;
 
   .crt-landing--description_rights {
     font-size: 2rem;
-    @include at-media-max(desktop) {
+    @include at-media-max(mobile-lg) {
       font-size: 1.5rem;
     }
     margin-top: 1rem;
@@ -482,6 +484,10 @@ $arrow-height: 24px;
 .crt-landing--already_submitted {
   h2 {
     margin-top: 1rem;
+  }
+
+  h3 {
+    font-size: 1.5rem;
   }
 
   .crt-external--link:after {
