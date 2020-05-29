@@ -37,11 +37,12 @@ class CommentActionTests(TestCase):
         self.response = self.client.post(
             reverse(
                 'crt_forms:save-report-comment',
-                kwargs={'report_id': self.pk}
+                kwargs={'report_id': self.pk},
             ),
             {
                 'is_summary': False,
                 'note': self.note,
+                'next': '?per_page=15',
             },
             follow=True
         )
@@ -49,6 +50,10 @@ class CommentActionTests(TestCase):
     def test_post(self):
         """A logged in user can post a comment"""
         self.assertEquals(self.response.status_code, 200)
+
+    def test_retain_query(self):
+        """if the user came to the page with query parameters, keep them for the back to all button."""
+        self.assertTrue('?per_page=15' in str(self.response.content))
 
     def test_creates_comment(self):
         """A comment is created and associated with the right report"""
@@ -59,7 +64,9 @@ class CommentActionTests(TestCase):
     def test_adds_comment_to_activity(self):
         """The comment shows up in the report's activity log"""
         response = self.client.get(
-            reverse('crt_forms:crt-forms-show', kwargs={'id': self.pk})
+            reverse(
+                'crt_forms:crt-forms-show',
+                kwargs={'id': self.pk}),
         )
         content = str(response.content)
         self.assertTrue(self.note in content)
@@ -70,7 +77,7 @@ class CommentActionTests(TestCase):
         response = self.client.post(
             reverse(
                 'crt_forms:save-report-comment',
-                kwargs={'report_id': self.pk}
+                kwargs={'report_id': self.pk},
             ),
             {
                 'is_summary': False,

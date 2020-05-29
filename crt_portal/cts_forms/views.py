@@ -298,10 +298,9 @@ class ShowView(LoginRequiredMixin, View):
             report.save()
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())
-            return_url_args = request.GET.get('next', ''),
-
             #  preserve the query that got the user to this page
-            next_page = urllib.parse.quote(request.POST['next'])
+            return_url_args = request.POST.get('next', '')
+            next_page = urllib.parse.quote(return_url_args)
             url = f'{report.get_absolute_url()}?next={next_page}'
             return redirect(url)
         else:
@@ -345,8 +344,10 @@ class SaveCommentView(LoginRequiredMixin, FormView):
             messages.add_message(request, messages.SUCCESS, f'Successfully {verb[:-2].lower()}.')
             comment_form.update_activity_stream(request.user, report, verb)
 
-            next_page = urllib.parse.quote(request.POST['next'])
-            url = f'{report.get_absolute_url()}#status-update?next={next_page}'
+            #  preserve the query that got the user to this page
+            return_url_args = request.POST.get('next', '')
+            next_page = urllib.parse.quote(return_url_args)
+            url = f'{report.get_absolute_url()}?next={next_page}'
             return redirect(url)
         else:
             # TODO handle form validation failures
