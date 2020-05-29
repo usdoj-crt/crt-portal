@@ -256,7 +256,14 @@ class ShowView(LoginRequiredMixin, View):
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)
 
-        output.update({'contact_form': contact_form, 'details_form': details_form})
+        output.update({
+            'contact_form': contact_form,
+            'details_form': details_form,
+        })
+        output.update({
+            'next': request.POST.get('next', ''),
+        })
+
         return render(request, 'forms/complaint_view/show/index.html', output)
 
     def get_form(self, request, report):
@@ -291,8 +298,12 @@ class ShowView(LoginRequiredMixin, View):
             report.save()
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())
-            url = report.get_absolute_url()
-            return redirect(f"{url}#status-update")
+            return_url_args = request.GET.get('next', ''),
+
+            #  preserve the query that got the user to this page
+            next_page = urllib.parse.quote(request.POST['next'])
+            url = f'{report.get_absolute_url()}?next={next_page}'
+            return redirect(url)
         else:
             output = serialize_data(report, request, id)
             output.update({inbound_form_type: form})
@@ -334,14 +345,16 @@ class SaveCommentView(LoginRequiredMixin, FormView):
             messages.add_message(request, messages.SUCCESS, f'Successfully {verb[:-2].lower()}.')
             comment_form.update_activity_stream(request.user, report, verb)
 
-            url = report.get_absolute_url()
-            return redirect(f"{url}#status-update")
+            next_page = urllib.parse.quote(request.POST['next'])
+            url = f'{report.get_absolute_url()}#status-update?next={next_page}'
+            return redirect(url)
         else:
             # TODO handle form validation failures
             output = serialize_data(report, request, report_id)
             output.update({
                 'return_url_args': request.POST.get('next', ''),
             })
+
             return render(request, 'forms/complaint_view/show/index.html', output)
 
 

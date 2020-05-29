@@ -1,5 +1,6 @@
 <form id="contact-edit-form" class="usa-form {% if not contact_form.errors %}display-none{% endif %}" method="post" novalidate>
     {% csrf_token %}
+    <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
     {% for field in contact_form %}
         {% include "forms/snippets/input.html" with field=field %}
     {% endfor %}
