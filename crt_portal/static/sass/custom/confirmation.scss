@@ -161,6 +161,11 @@ section.what-to-expect {
       margin-top: -0.015rem; // Merriweather numerals have a dropped baseline and don't sit in the center of the circle naturally
     }
   }
+
+  .external-link:after {
+    padding-left: 0.25rem;
+    content: url(../../img/ic_external-link-blue.svg);
+  }
 }
 
 section.submission {
