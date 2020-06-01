@@ -285,3 +285,13 @@ class Trends(models.Model):
         """This model is tied to a view created from migration 73"""
         managed = False
         db_table = 'trends'
+
+
+class ResponseTemplate(models.Model):
+    title = models.CharField(max_length=100, null=False, blank=False,)
+    description = models.CharField(max_length=100, null=False, blank=False,)
+    template = models.TextField(null=False, blank=False,)
+
+    # name
+    # complaint id
+    # salutation (first and last, first or last, "Dear friend")

@@ -237,6 +237,18 @@
     }
   }
 
+  &--blue {
+    @include u-color($blue-warm-vivid-80-t);
+    @include u-bg($blue-warm-10-t);
+    font-weight: normal;
+    border: 0;
+
+    &:hover {
+      @include u-color($blue-warm-10-t);
+      background: $blue-warm-vivid-70 !important;
+    }
+  }
+
   &--dark {
     @include icon-dark();
   }
@@ -322,6 +334,14 @@
   font-weight: 700;
   font-size: 1rem;
   width: 9rem;
+}
+
+.intake-section {
+  margin: 2rem 0;
+
+  .icon {
+    width: initial;
+  }
 }
 
 .details-id {

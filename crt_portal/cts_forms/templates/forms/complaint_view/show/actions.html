@@ -44,6 +44,7 @@
       </label>
       {{ actions.assigned_to }}
     </div>
+    {% include 'forms/complaint_view/show/response_template.html' %}
     <button class="usa-button" type="submit" name='type' value='{{actions.CONTEXT_KEY}}'>Apply changes</button>
   </fieldset>
 </form>
