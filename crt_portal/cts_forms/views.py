@@ -681,7 +681,6 @@ class TrendView(LoginRequiredMixin, TemplateView):
     template_name = "forms/complaint_view/trends.html"
 
     def get_context_data(self, **kwargs):
-        print (Trends.objects.all())
         return {
             'this_week': Trends.objects.filter(record_type='this_week'),
             'last_week': Trends.objects.filter(record_type='last_week'),
