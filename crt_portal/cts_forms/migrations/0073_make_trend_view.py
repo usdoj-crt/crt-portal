@@ -19,7 +19,7 @@ CREATE VIEW trends AS
         word,
         ndoc as document_count,
         nentry as word_count,
-        date_trunc('week', CURRENT_TIMESTAMP) as start_date,
+        date_trunc('week', CURRENT_TIMESTAMP - interval '1 week') as start_date,
         CURRENT_TIMESTAMP as end_date,
         'this_week' as record_type,
         row_number() OVER (PARTITION BY true) as id
@@ -27,8 +27,9 @@ CREATE VIEW trends AS
         SELECT to_tsvector('english_simple', violation_summary)
         FROM cts_forms_report
         where
-            (create_date >= date_trunc('week', CURRENT_TIMESTAMP))
+            (create_date >= date_trunc('week', CURRENT_TIMESTAMP - interval '1 week'))
     $$)
+    ORDER BY document_count DESC
     LIMIT  10)
     UNION
     -- get last week's data
@@ -36,19 +37,19 @@ CREATE VIEW trends AS
         word,
         ndoc as document_count,
         nentry as word_count,
-        date_trunc('week', CURRENT_TIMESTAMP - interval '1 week') as start_date,
-        date_trunc('week', CURRENT_TIMESTAMP) as end_date,
+        date_trunc('week', CURRENT_TIMESTAMP - interval '2 week') as start_date,
+        date_trunc('week', CURRENT_TIMESTAMP - interval '1 week') as end_date,
         'last_week' as record_type,
         row_number() OVER (PARTITION BY true) as id
     FROM ts_stat($$
         SELECT to_tsvector('english_simple', violation_summary)
         FROM cts_forms_report
         WHERE (
-            create_date >= date_trunc('week', CURRENT_TIMESTAMP - interval '1 week') and
-            create_date < date_trunc('week', CURRENT_TIMESTAMP)
+            create_date >= date_trunc('week', CURRENT_TIMESTAMP - interval '2 week') and
+            create_date < date_trunc('week', CURRENT_TIMESTAMP - interval '1 week')
         )
     $$)
-    ORDER  BY ndoc DESC
+    ORDER BY document_count DESC
     LIMIT  10)
     UNION
     -- get last 4 weeks
@@ -64,11 +65,10 @@ CREATE VIEW trends AS
         SELECT to_tsvector('english_simple', violation_summary)
         FROM cts_forms_report
         WHERE (
-            create_date >= date_trunc('week', CURRENT_TIMESTAMP - interval '4 week') and
-            create_date < date_trunc('week', CURRENT_TIMESTAMP)
+            create_date >= date_trunc('week', CURRENT_TIMESTAMP - interval '4 week')
         )
     $$)
-    ORDER BY ndoc DESC
+    ORDER BY document_count DESC
     LIMIT  10)
     UNION
     -- get this year
@@ -85,7 +85,7 @@ CREATE VIEW trends AS
         FROM cts_forms_report
         WHERE (create_date >= date_trunc('year', CURRENT_TIMESTAMP))
     $$)
-    ORDER BY ndoc DESC
+    ORDER BY document_count DESC
     LIMIT  10)
     ORDER BY start_date, document_count DESC
 ;

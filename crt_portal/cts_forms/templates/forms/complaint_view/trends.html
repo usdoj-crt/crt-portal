@@ -30,7 +30,11 @@
       <div class="crt-portal-card__content">
         <h2>This year</h2>
         {% include 'forms/snippets/trend_table.html' with trend=year label='Top words for this year' date_id="year-start"%}
-
+      </div>
+    </div>
+    <div class="crt-portal-card">
+      <div class="crt-portal-card__content">
+        <h3>Methodology</h3>
         <p>Document count is the number of complaints that the word appears in. Word count is the total number of times that word appears.</p>
         <p>The data is based on creation dates. Time periods start on Sunday, except for year. The cutoff is midnight GMT.</p>
       </div>
