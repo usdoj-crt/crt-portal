@@ -260,9 +260,6 @@ class ShowView(LoginRequiredMixin, View):
             'contact_form': contact_form,
             'details_form': details_form,
         })
-        output.update({
-            'next': request.POST.get('next', ''),
-        })
 
         return render(request, 'forms/complaint_view/show/index.html', output)
 
