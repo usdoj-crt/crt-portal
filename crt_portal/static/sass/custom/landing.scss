@@ -222,11 +222,6 @@ $arrow-height: 24px;
       color: white;
       font-weight: bold;
     }
-
-    .crt-external--link:after {
-      padding-left: 0.25rem;
-      content: url(../../img/ic_external-link-white.svg);
-    }
   }
 }
 
@@ -488,11 +483,6 @@ $arrow-height: 24px;
 
   h3 {
     font-size: 1.5rem;
-  }
-
-  .crt-external--link:after {
-    padding-left: 0.25rem;
-    content: url(../../img/ic_external-link-blue.svg);
   }
 }
 
