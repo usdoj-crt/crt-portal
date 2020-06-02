@@ -17,11 +17,13 @@
       }
     };
     modal.removeAttribute("hidden");
+    document.body.classList.add("is-modal");
   }
 
   function closeModal() {
     document.onkeydown = previous_onkeydown;
     modal.setAttribute("hidden", "hidden");
+    document.body.classList.remove("is-modal");
   }
 
   var contact = document.getElementById("contact_complainant");
