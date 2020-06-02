@@ -26,7 +26,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import CommentAndSummary, Report, Trends
+from .models import CommentAndSummary, Report, Trends, ResponseTemplate
 from .page_through import pagination
 
 SORT_DESC_CHAR = '-'
@@ -232,6 +232,8 @@ def serialize_data(report, request, report_id):
         report.other_class,
     )
 
+    templates = ResponseTemplate.objects.all()
+
     output = {
         'actions': ComplaintActions(instance=report),
         'comments': CommentActions(),
@@ -242,6 +244,7 @@ def serialize_data(report, request, report_id):
         'primary_complaint': primary_complaint,
         'return_url_args': request.GET.get('next', ''),
         'summary': report.get_summary,
+        'templates': templates,
     }
 
     return output

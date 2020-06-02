@@ -292,6 +292,10 @@ class ResponseTemplate(models.Model):
     description = models.CharField(max_length=100, null=False, blank=False,)
     template = models.TextField(null=False, blank=False,)
 
+    @staticmethod
+    def allowed_report_fields():
+        return ['addressee', 'date_of_intake', 'record_locator']
+
     # name
     # complaint id
     # salutation (first and last, first or last, "Dear friend")

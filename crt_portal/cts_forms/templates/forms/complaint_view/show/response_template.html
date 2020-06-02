@@ -14,7 +14,8 @@
         <p>Contact complainant</p>
       </div>
       <div class="modal-form">
-        <textarea rows="10" cols="80"></textarea>
+        {{templates|length}}
+        <textarea rows="10" cols="80">{{data|pprint}}</textarea>
       </div>
       <div class="modal-footer">
         <a id="intake_template_cancel" href="#">Cancel</a>
