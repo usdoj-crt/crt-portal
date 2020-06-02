@@ -7,6 +7,7 @@ from django.core.validators import MaxValueValidator, RegexValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
+from django.template import Context, Template
 
 from .managers import ActiveProtectedClassChoiceManager
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
@@ -268,6 +269,16 @@ class Report(models.Model):
         """Return most recent summary provided by an intake specialist"""
         return self.internal_comments.filter(is_summary=True).order_by('-modified_date').first()
 
+    @property
+    def addressee(self):
+        if self.contact_first_name:
+            if self.contact_last_name:
+                return f"{self.contact_first_name} {self.contact_last_name}"
+            return self.contact_first_name
+        if self.contact_last_name:
+            return self.contact_last_name
+        return "sir/madam"
+
     def get_absolute_url(self):
         return reverse('crt_forms:crt-forms-show', kwargs={"id": self.id})
 
@@ -292,10 +303,12 @@ class ResponseTemplate(models.Model):
     description = models.CharField(max_length=100, null=False, blank=False,)
     template = models.TextField(null=False, blank=False,)
 
-    @staticmethod
-    def allowed_report_fields():
-        return ['addressee', 'date_of_intake', 'record_locator']
-
-    # name
-    # complaint id
-    # salutation (first and last, first or last, "Dear friend")
+    def render(self, report):
+        template = Template(self.template)
+        # we only allow a small subset of report fields
+        context = Context({
+            'addressee': report.addressee,
+            'date_of_intake': report.create_date,
+            'record_locator': report.public_id,
+        })
+        return template.render(context)

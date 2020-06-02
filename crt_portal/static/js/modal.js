@@ -39,4 +39,14 @@
     event.preventDefault();
     closeModal();
   };
+
+  var options = document.getElementById("intake_select");
+  var letter = document.getElementById("intake_letter");
+  var description = document.getElementById("intake_description");
+  options.onchange = function(event) {
+    event.preventDefault();
+    var option = event.target.options[event.target.selectedIndex];
+    description.innerHTML = option.dataset["description"];
+    letter.innerHTML = option.dataset["content"];
+  };
 })();

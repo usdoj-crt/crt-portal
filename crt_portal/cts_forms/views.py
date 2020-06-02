@@ -232,7 +232,14 @@ def serialize_data(report, request, report_id):
         report.other_class,
     )
 
-    templates = ResponseTemplate.objects.all()
+    templates = [
+        {
+            'title': template.title,
+            'description': template.description,
+            'content': template.render(report),
+        }
+        for template in ResponseTemplate.objects.all()
+    ]
 
     output = {
         'actions': ComplaintActions(instance=report),

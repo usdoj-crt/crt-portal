@@ -14,8 +14,26 @@
         <p>Contact complainant</p>
       </div>
       <div class="modal-form">
-        {{templates|length}}
-        <textarea rows="10" cols="80">{{data|pprint}}</textarea>
+
+        <p id="intake_description">
+        </p>
+        <select id="intake_select" class="usa-select" name="response_template" aria-label="select response template">
+          <option
+            value="none"
+            data-description=""
+            data-content=""
+          >(select a response template)</option>
+          {% for template in templates %}
+            <option
+              value="{{ template.title | slugify }}"
+              data-description="{{ template.description }}"
+              data-content="{{ template.content }}"
+            >
+              {{ template.title }}
+            </option>
+          {% endfor %}
+        </select>
+        <textarea id="intake_letter" rows="10" cols="80"></textarea>
       </div>
       <div class="modal-footer">
         <a id="intake_template_cancel" href="#">Cancel</a>
