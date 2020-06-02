@@ -1,8 +1,24 @@
 {% load static %}
 
 <div class="intake-section">
-  <button class="outline-button outline-button--blue" type="submit" name='type' value='{{actions.CONTEXT_KEY}}'>
+  <button class="outline-button outline-button--blue" id="contact_complainant">
     <img src="{% static "img/intake-icons/ic_email.svg" %}" class="icon" alt="from email">
     Contact complainant
   </button>
+</div>
+
+<div id="intake_template" hidden>
+  <div class="modal-wrapper intake-template--modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <p>Contact complainant</p>
+      </div>
+      <div class="modal-form">
+        <textarea rows="10" cols="80"></textarea>
+      </div>
+      <div class="modal-footer">
+        <a id="intake_template_cancel" href="#">Cancel</a>
+      </div>
+    </div>
+  </div>
 </div>
