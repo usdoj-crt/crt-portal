@@ -92,9 +92,9 @@
 <script src="{% static 'js/modal.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
- accessibleAutocomplete.enhanceSelectElement({
-   defaultValue: '',
-   selectElement: document.querySelector('#id_assigned_to')
- });
+  accessibleAutocomplete.enhanceSelectElement({
+  defaultValue: '',
+  selectElement: document.querySelector('#id_assigned_to')
+});
 </script>
 {%endblock%}

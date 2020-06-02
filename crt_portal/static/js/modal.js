@@ -40,13 +40,24 @@
     closeModal();
   };
 
+  var copy = document.getElementById("intake_copy");
+  copy.onclick = function(event) {
+    event.preventDefault();
+  };
+
   var options = document.getElementById("intake_select");
   var letter = document.getElementById("intake_letter");
   var description = document.getElementById("intake_description");
   options.onchange = function(event) {
     event.preventDefault();
-    var option = event.target.options[event.target.selectedIndex];
+    var index = event.target.selectedIndex;
+    var option = event.target.options[index];
     description.innerHTML = option.dataset["description"];
     letter.innerHTML = option.dataset["content"];
+    if (index >= 1) {
+      copy.removeAttribute("disabled");
+    } else {
+      copy.setAttribute("disabled", "disabled");
+    }
   };
 })();
