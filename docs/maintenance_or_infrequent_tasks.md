@@ -226,12 +226,12 @@ For dev and staging, you can change the bindigs manually and restage. (It's a bi
 
 9) Confirm app is working
 Go to the site, log out, log back in, make a distinctive sample record.
-
+```
     # Connect to the new db using pgcli
     cf connect-to-service crt-portal-django crt-db
     # Look for you sample. For this one I made the description 'TESTING_NEW_DB 5/24'
     select * from cts_forms_report where violation_summary='TESTING_NEW_DB 5/24'
-
+```
 10) Clean up
 Delete back up file from your local
 Delete crt-db-old from cloud.gov
