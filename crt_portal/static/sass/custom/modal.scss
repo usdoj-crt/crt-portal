@@ -56,7 +56,7 @@ body.is-modal {
   }
 
   textarea {
-    padding: 1rem 0;
+    padding: 0 1rem;
     width: 100%;
     height: 80%;
     @include u-radius('md');
