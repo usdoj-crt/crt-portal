@@ -8,6 +8,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.template import Context, Template
+from django.utils.html import escape
 
 from .managers import ActiveProtectedClassChoiceManager
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
@@ -311,4 +312,7 @@ class ResponseTemplate(models.Model):
             'date_of_intake': report.create_date,
             'record_locator': report.public_id,
         })
-        return template.render(context)
+        return escape(template.render(context))
+
+    def __str__(self):
+        return self.description
