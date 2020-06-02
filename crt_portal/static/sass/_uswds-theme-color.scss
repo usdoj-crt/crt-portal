@@ -24,20 +24,20 @@ Theme palette colors
 */
 
 // Base colors
-$theme-color-base-family:           'gray';
+$theme-color-base-family:           'gray'; // gray-cool
 $theme-color-base-lightest:         'gray-5';
-$theme-color-base-lighter:          'gray-warm-10';
-$theme-color-base-light:            'gray-30';
-$theme-color-base:                  'gray-50';
+$theme-color-base-lighter:          'gray-warm-10'; // gray-cool-10
+$theme-color-base-light:            'gray-30'; // gray-cool-30
+$theme-color-base:                  'gray-50'; // gray-cool-50
 $theme-color-base-dark:             'gray-cool-60';
-$theme-color-base-darker:           'gray-70';
+$theme-color-base-darker:           'gray-70'; // gray-cool-70
 $theme-color-base-darkest:          'gray-90';
 $theme-color-base-ink:              'gray-warm-80';
 
 // Primary colors
 $theme-color-primary-family:        'blue';
-$theme-color-primary-lightest:      'blue-warm-5';
-$theme-color-primary-lighter:       'blue-warm-10';
+$theme-color-primary-lightest:      'blue-warm-5'; // false
+$theme-color-primary-lighter:       'blue-warm-10'; // blue-10
 $theme-color-primary-light:         false; // 'blue-30'
 $theme-color-primary:               'blue-warm-70v';
 $theme-color-primary-vivid:         false; // 'blue-warm-60v'
