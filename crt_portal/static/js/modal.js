@@ -43,10 +43,6 @@
   };
 
   var copy = document.getElementById('intake_copy');
-  copy.onclick = function(event) {
-    event.preventDefault();
-  };
-
   var options = document.getElementById('intake_select');
   var letter = document.getElementById('intake_letter');
   var description = document.getElementById('intake_description');
@@ -61,5 +57,19 @@
     } else {
       copy.setAttribute('disabled', 'disabled');
     }
+  };
+
+  copy.onclick = function(event) {
+    event.preventDefault();
+    const el = document.createElement('textarea');
+    el.value = letter.value;
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    el.select();
+    el.setSelectionRange(0, 99999); // mobile
+    document.execCommand('copy');
+    document.body.removeChild(el);
   };
 })();
