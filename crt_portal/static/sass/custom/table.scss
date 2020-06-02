@@ -2,7 +2,7 @@ $cyan-vivid: 'cyan-10v';
 $green-cool-vivid: 'green-cool-10v';
 
 @mixin clickable-table-cell {
-  color: $gray-warm-80;
+  color: color($theme-color-base-ink);
   height: 100%;
   padding-top: 0.5rem;
   padding-left: 0.25rem;
@@ -31,7 +31,7 @@ $green-cool-vivid: 'green-cool-10v';
 .usa-prose > table th,
 .usa-table td,
 .usa-table th {
-  border-bottom: 1px solid $gray-cool-10;
+  border-bottom: 1px solid color($theme-color-base-lighter);
 }
 
 .crt-xscroll {
@@ -40,7 +40,7 @@ $green-cool-vivid: 'green-cool-10v';
 
 .crt-table {
   @extend .usa-table;
-  background: $white;
+  background: color('white');
   font-size: 14px;
   height: 100%;
   line-height: 22px;
@@ -50,11 +50,11 @@ $green-cool-vivid: 'green-cool-10v';
 
   thead {
     th {
-      background-color: $white;
+      background-color: color('white');
       border-top: 0 !important;
       border-left: 0 !important;
       border-right: 0 !important; //override the .usa-table extension
-      border-bottom: 1px solid $gray-cool-10;
+      border-bottom: 1px solid color($theme-color-base-lighter);
       border-top: 0;
       font-size: 1rem;
       font-weight: 400 !important;
@@ -82,7 +82,9 @@ $green-cool-vivid: 'green-cool-10v';
 
   tr.stripe {
     td {
-      background-color: $gray-2;
+      background-color: color(
+        'gray-2'
+      ); // USWDS system token: https://designsystem.digital.gov/design-tokens/color/system-tokens/
     }
   }
 
@@ -101,7 +103,7 @@ $green-cool-vivid: 'green-cool-10v';
     td {
       // USWDS adds a lot of complicated styles, and this is the most straightforward
       // way to remove padding from td elements in the table body
-      border-left: 1px solid $white;
+      border-left: 1px solid color('white');
       vertical-align: top;
     }
 
@@ -120,7 +122,7 @@ $green-cool-vivid: 'green-cool-10v';
 
   tbody {
     td {
-      border-bottom: 1px solid $gray-cool-10;
+      border-bottom: 1px solid color($theme-color-base-lighter);
     }
 
     tr:last-child {
@@ -139,7 +141,7 @@ $green-cool-vivid: 'green-cool-10v';
 
 .status-new {
   @include u-bg($cyan-vivid);
-  color: $gray-warm-80;
+  color: color($theme-color-base-ink);
 }
 
 .status-open {
@@ -147,7 +149,7 @@ $green-cool-vivid: 'green-cool-10v';
 }
 
 .status-closed {
-  background-color: $gray-warm-10;
+  background-color: color($theme-color-base-lighter);
 }
 
 .status-tag {

@@ -23,12 +23,12 @@ h2 {
 }
 
 h3 {
-  @include u-text('blue-warm-80v');
+  @include u-text($theme-color-primary-darker);
 }
 
 a,
 a:visited {
-  color: $blue-warm-vivid-80;
+  color: color($theme-color-primary-darker);
 }
 
 p {
@@ -44,7 +44,7 @@ p {
 }
 
 .em-text {
-  color: $blue-warm-vivid-80;
+  color: color($theme-color-primary-darker);
   font-weight: bold;
   font-size: 1.22rem;
   margin-bottom: 0.5rem;

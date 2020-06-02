@@ -25,7 +25,8 @@
 // -------------------------------------
 // Import app custom styles
 
-@import 'custom/variables';
+// layout needs to be first
+@import 'custom/layout';
 @import 'custom/card';
 @import 'custom/complaint';
 @import 'custom/alerts';
@@ -36,7 +37,6 @@
 @import 'custom/header';
 @import 'custom/ie';
 @import 'custom/intake.scss';
-@import 'custom/layout';
 @import 'custom/pagination';
 @import 'custom/progress';
 @import 'custom/skipnav';

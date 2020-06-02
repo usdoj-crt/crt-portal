@@ -96,7 +96,7 @@ form#report-form {
     margin-left: 2rem;
     margin-top: 1.5rem;
     padding-left: 1rem;
-    border-left: 2px solid $blue-warm-vivid-80;
+    border-left: 2px solid color($theme-color-primary-darker);
 
     ul > li:last-child {
       height: 25px;
@@ -122,12 +122,12 @@ form#report-form {
   }
   .usa-radio__input:checked + .usa-radio__label::before,
   .usa-checkbox__input:checked + .usa-checkbox__label::before {
-    background-color: $blue-warm-vivid-80;
-    box-shadow: 0 0 0 2px $blue-warm-vivid-80, inset 0 0 0 2px #fff;
+    background-color: color($theme-color-primary-darker);
+    box-shadow: 0 0 0 2px color($theme-color-primary-darker), inset 0 0 0 2px #fff;
   }
   .usa-button {
     &:hover {
-      background-color: $blue-50;
+      background-color: color('blue-50');
     }
 
     @media (min-width: 30em) {
@@ -136,10 +136,10 @@ form#report-form {
   }
 
   .light-button {
-    color: $blue-warm-vivid-80;
+    color: color($theme-color-primary-darker);
     background-color: transparent;
     &:hover {
-      background-color: $white;
+      background-color: color('white');
     }
   }
 
@@ -172,7 +172,7 @@ form#report-form {
     border-radius: 3px;
     &:focus {
       outline-offset: 0;
-      border: 1px solid $blue-vivid-40;
+      border: 1px solid color($theme-focus-color);
     }
   }
 
@@ -181,21 +181,21 @@ form#report-form {
     height: 15rem;
 
     &:focus {
-      outline: 0.125rem solid $blue-vivid-40;
+      outline: 0.125rem solid color($theme-focus-color);
       outline-offset: 0;
-      border: 1px solid $blue-vivid-40;
+      border: 1px solid color($theme-focus-color);
     }
 
     &.bg-gold-outline {
-      outline: 0.125rem solid $gold;
+      outline: 0.125rem solid color($theme-color-warning);
       outline-offset: 0;
-      border: 1px solid $gold;
+      border: 1px solid color($theme-color-warning);
     }
 
     &.bg-gold-outline:focus {
-      outline: 0.125rem solid $gold;
+      outline: 0.125rem solid color($theme-color-warning);
       outline-offset: 0;
-      border: 0.125rem solid $gold;
+      border: 0.125rem solid color($theme-color-warning);
     }
   }
 
@@ -252,14 +252,14 @@ form#report-form {
       .examples-title {
         text-transform: uppercase;
         font-weight: bold;
-        color: $gray-70;
+        color: color($theme-color-base-darker);
         @include u-font('body', 3);
       }
     }
   }
 
   input[type='radio']:checked + .crt-radio__label_area {
-    background-color: $blue-warm-5;
+    background-color: color($theme-color-primary-lightest);
   }
 
   .crt-checkbox__label {
@@ -273,7 +273,7 @@ form#report-form {
 
   .question_group_optional_tag {
     font-weight: lighter;
-    color: $gray-warm-80;
+    color: color($theme-color-base-ink);
   }
 }
 
@@ -283,7 +283,7 @@ form#report-form {
 }
 
 .form-help-text {
-  color: $gray-70;
+  color: color($theme-color-base-darker);
   font-size: 0.9rem;
 
   // Necessary because we want to override styles applied to the p tag
@@ -297,10 +297,10 @@ form#report-form {
 a.usa-button {
   text-decoration: none;
   font-weight: normal;
-  @include u-text('blue-warm-80v');
+  @include u-text($theme-color-primary-darker);
   &:hover,
   &:visited {
-    @include u-text('blue-warm-80v');
+    @include u-text($theme-color-primary-darker);
   }
   img {
     margin-left: 0.5rem;
@@ -308,12 +308,12 @@ a.usa-button {
 }
 
 .usa-button--light {
-  background-color: $light-beige;
-  color: $blue-50;
+  background-color: color('gray-warm-3');
+  color: color('blue-50');
 
   &:hover {
-    background-color: #f2f2f2;
-    color: $blue-50;
+    background-color: color('gray-warm-5');
+    color: color('blue-50');
   }
 
   img {
@@ -355,7 +355,7 @@ a.usa-button {
 
 .usa-input--error,
 select.usa-input--error {
-  border: 0.25rem solid $red-vivid-60;
+  border: 0.25rem solid color($theme-color-secondary-dark);
 }
 
 .complaint-multi-select {
@@ -365,16 +365,18 @@ select.usa-input--error {
 .crt-portal-card {
   @include u-radius('lg');
   @include u-shadow(3);
-  background: white;
+  background: color('white');
 
   &.crt-hover-card {
     &:hover {
-      background-color: $gray-cool-4;
+      background-color: color(
+        'gray-cool-4'
+      ); // USWDS system design token: https://designsystem.digital.gov/design-tokens/color/system-tokens/
       cursor: pointer;
     }
     &.selected,
     &:hover.selected {
-      background-color: $blue-warm-5;
+      background-color: color($theme-color-primary-lightest);
     }
 
     > .crt-portal-card__content {
@@ -409,13 +411,13 @@ select.usa-input--error {
   font-size: 1rem;
   font-weight: normal;
   font-style: italic;
-  color: $gray-50;
+  color: color($theme-color-base);
 
   &::before {
     content: '*';
     font-weight: bold;
     margin-left: 0.3rem;
-    color: $red-vivid-60;
+    color: color($theme-color-secondary-dark);
   }
 
   &--group {
@@ -436,7 +438,7 @@ select.usa-input--error {
 
 #page-errors {
   .error-summary {
-  margin-block-start: 0px;
+    margin-block-start: 0px;
     li {
       font-weight: normal;
       margin-bottom: 0px;

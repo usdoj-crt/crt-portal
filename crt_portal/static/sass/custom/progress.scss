@@ -16,8 +16,8 @@ $circle-diameter: 24px;
 $circle-border-width: 1px;
 $line-width: 1px;
 
-$visited: #ffbe2e;
-$outline: white;
+$visited: color($theme-color-warning);
+$outline: color('white');
 
 .progress-bar {
   @include u-margin-top(5);
@@ -25,7 +25,7 @@ $outline: white;
 }
 
 .connecting-line {
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid color('white');
   position: relative;
   bottom: 52px;
   left: 35px;
@@ -64,7 +64,7 @@ ol.steps {
   .step {
     display: block;
     text-decoration: none;
-    color: white;
+    color: color('white');
 
     a {
       display: block;
@@ -100,8 +100,8 @@ ol.steps {
     height: $circle-diameter;
     line-height: $circle-diameter - 1px; // the font size is 13px and line-height is 24, which doesn't divide evenly and looks wonky
     margin: 0 auto 0.5em;
-    color: $blue-warm-vivid-80;
-    background-color: $blue-warm-5;
+    color: color($theme-color-primary-darker);
+    background-color: color($theme-color-primary-lightest);
   }
 
   // current milestone
@@ -122,8 +122,8 @@ ol.steps {
   // unfinished milestone
   li.current {
     ~ li.step::before {
-      color: white;
-      background-color: $blue-warm-vivid-80;
+      color: color('white');
+      background-color: color($theme-color-primary-darker);
       box-shadow: inset 0 0 0 $circle-border-width $outline;
     }
   }

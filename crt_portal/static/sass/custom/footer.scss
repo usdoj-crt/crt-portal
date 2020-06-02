@@ -1,7 +1,7 @@
 // Footer Styles
 footer {
   width: 100%; // IE11 fix
-  color: white;
+  color: color('white');
 
   select,
   input {
@@ -63,7 +63,7 @@ footer {
 
 .usa-footer__separator {
   margin-top: 1rem;
-  border: 2px solid $gold;
+  border: 2px solid color($theme-color-warning);
   border-radius: 2px;
   width: 25px;
 }
@@ -92,7 +92,7 @@ footer {
 
   a,
   a:visited {
-    color: white;
+    color: color('white');
     text-decoration: none;
   }
 }
@@ -102,7 +102,7 @@ footer {
   align-items: center;
 
   #i8n_select {
-    background-color: $gold;
+    @include u-bg($theme-color-warning);
     color: black;
     margin-top: 0;
     max-width: 10em;
@@ -112,12 +112,12 @@ footer {
     margin-left: 1em;
     margin-top: 0 !important;
     background-color: #2e2e2a;
-    border: 1px solid white;
+    border: 1px solid color('white');
     width: 50%;
     max-width: 4em;
 
     &:hover {
-      background-color: white !important;
+      background-color: color('white') !important;
       color: #2e2e2a;
     }
   }
@@ -125,6 +125,6 @@ footer {
 
 a.privacy-footer,
 a.privacy-footer:visited {
-    color: white;
-    text-transform: none;
+  color: color('white');
+  text-transform: none;
 }

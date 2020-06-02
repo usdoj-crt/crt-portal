@@ -4,7 +4,7 @@
 
 .crt-success-card {
   @include u-radius('lg');
-  background-color: $white;
+  background-color: color('white');
   box-shadow: 0 1px 6px 2px rgba(0, 0, 0, 0.14);
   margin-bottom: 3.5rem;
 
@@ -28,7 +28,7 @@
   .title-wrapper {
     @include u-margin-x('auto');
     @include flex-container();
-    @include u-bg($blue-warm-5-t);
+    @include u-bg($theme-color-primary-lightest);
     justify-content: center;
     align-content: center;
 
@@ -38,9 +38,9 @@
   }
 
   .title {
-    @include u-color($blue-warm-vivid-80-t);
+    color: color($theme-color-primary-darker);
     @include flex-container();
-    background-color: $blue-warm-5;
+    background-color: color($theme-color-primary-lightest);
     h2 {
       margin-top: 2.5rem;
       margin-bottom: 2.5rem;
@@ -49,13 +49,13 @@
 
   h3 {
     margin-top: 0;
-    @include u-color($blue-warm-vivid-80-t);
+    color: color($theme-color-primary-darker);
   }
 }
 
 section hr {
   @include u-margin-top(5);
-  border-bottom: 1px solid $blue-warm-vivid-80;
+  border-bottom: 1px solid color($theme-color-primary-darker);
 }
 
 .record-number-wrapper {
@@ -66,14 +66,14 @@ section hr {
   #paper-icon-wrapper {
     @include flex-container();
     justify-content: center;
-    background-color: $blue-warm-5;
+    background-color: color($theme-color-primary-lightest);
     height: 25px;
     width: 25px;
     border-radius: 2rem;
   }
 
   .record-number {
-    background-color: $blue-warm-5;
+    background-color: color($theme-color-primary-lightest);
     font-weight: bold;
     font-size: 1.38rem; //22px
   }
@@ -88,7 +88,7 @@ section hr {
 }
 
 section.what-to-expect {
-  @include u-bg($blue-warm-5-t);
+  @include u-bg($theme-color-primary-lightest);
   @include u-margin-top(5);
   padding-bottom: 14rem;
 
@@ -98,7 +98,7 @@ section.what-to-expect {
   }
 
   h2 {
-    @include u-color($blue-warm-vivid-80-t);
+    color: color($theme-color-primary-darker);
     @include u-font-family('serif');
     @include u-padding-top(5);
     font-size: 2.75rem;
@@ -148,13 +148,13 @@ section.what-to-expect {
   .title-icon-blue {
     align-self: flex-start;
     margin-bottom: 1.5rem;
-    background-color: $blue-warm-vivid-80;
+    background-color: color($theme-color-primary-darker);
     @include flex-container();
     border-radius: 2rem;
     justify-content: center;
     min-height: 32px;
     min-width: 32px;
-    color: white;
+    color: color('white');
     @include u-font-family('serif');
 
     span {
@@ -168,7 +168,7 @@ section.submission {
 
   #submission {
     .submission-title {
-      @include u-color($blue-warm-vivid-80-t);
+      color: color($theme-color-primary-darker);
       @include u-font-family('serif');
       font-size: 2.75rem;
     }

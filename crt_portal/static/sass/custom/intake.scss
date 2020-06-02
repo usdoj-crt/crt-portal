@@ -1,9 +1,9 @@
 .intake-bg {
-  @include u-bg($blue-warm-5-t);
+  @include u-bg($theme-color-primary-lightest);
 }
 
 .intake-header {
-  @include u-bg($blue-warm-vivid-80-t);
+  @include u-bg($theme-color-primary-darker);
   @include u-padding-x(5);
   @include flex-container();
   justify-content: space-between;
@@ -13,7 +13,7 @@
     @include flex-container();
 
     .title-copy {
-      color: $white;
+      color: color('white');
       font-size: 1.375rem;
       font-weight: 400;
       line-height: 3.75rem;
@@ -27,23 +27,23 @@
 
     .add-record {
       @extend .crt-button;
-      @include u-color($blue-warm-vivid-80-t);
-      background: $gold !important;
+      color: color($theme-color-primary-darker);
+      background: color($theme-color-warning) !important;
       margin-right: 1.5rem;
 
       &.usa-button:visited {
-        @include u-color($blue-warm-vivid-80-t);
+        color: color($theme-color-primary-darker);
       }
 
       &:hover {
-        background: $gold-vivid !important;
+        background: color($theme-color-warning-light) !important;
       }
     }
   }
 }
 
 .intake-header--progress-bar {
-  @include u-bg($blue-warm-vivid-80-t);
+  @include u-bg($theme-color-primary-darker);
   @include u-padding-top(3);
   position: sticky;
   width: 100%;
@@ -68,7 +68,7 @@
 }
 
 .title-icon {
-  @include u-bg($blue-warm-5-t);
+  @include u-bg($theme-color-primary-lightest);
   @include flex-container();
   border-radius: 2rem;
   justify-content: center;
@@ -97,7 +97,7 @@
 }
 
 .usa-select {
-  @include u-border(1px, $blue-warm-vivid-80-t);
+  @include u-border(1px, $theme-color-primary-darker);
   border-radius: 3px;
   background-image: url(../../img/intake-icons/ic_chevron-down.svg);
   background-size: 15px;
@@ -105,7 +105,7 @@
 
 .crt-dropdown {
   align-items: center;
-  background: $white;
+  background: color('white');
   border-radius: 3px;
   display: flex;
   min-height: 2.5rem;
@@ -124,7 +124,7 @@
     box-shadow: 0 20px 10px hsla(0, 0%, 39.2%, 0.2);
   }
   &--stroke {
-    @include u-border($blue-warm-vivid-80-t);
+    @include u-border($theme-color-primary-darker);
     border: 1px solid;
   }
   .crt-dropdown-container {
@@ -134,8 +134,8 @@
 
   &__title {
     @include flex-container();
-    @include u-color($blue-warm-vivid-80-t);
-    background-color: $white;
+    color: color($theme-color-primary-darker);
+    background-color: color('white');
     border: 0;
     border-radius: 0;
     box-shadow: none;
@@ -162,7 +162,7 @@
   }
 
   .content {
-    background: $white;
+    background: color('white');
     border-radius: 3px;
     border-top-left-radius: 0px;
     box-shadow: 0 15px 10px hsla(0, 0%, 39.2%, 0.2);
@@ -183,8 +183,8 @@
 }
 
 @mixin icon-dark {
-  @include u-color($blue-warm-vivid-80-t);
-  @include u-border($blue-warm-vivid-80-t);
+  color: color($theme-color-primary-darker);
+  @include u-border($theme-color-primary-darker);
 }
 
 .crt-button {
@@ -208,32 +208,32 @@
   @include u-border('solid');
 
   &:hover {
-    @include u-border($blue-warm-vivid-80-t);
-    @include u-color($blue-warm-vivid-80-t);
+    @include u-border($theme-color-primary-darker);
+    color: color($theme-color-primary-darker);
     background: transparent;
     border: 1px solid !important;
     box-shadow: none !important;
   }
 
   &:visited {
-    @include u-color($blue-warm-vivid-80-t);
+    color: color($theme-color-primary-darker);
   }
 
   &--light {
-    @include u-color($blue-warm-5-t);
-    @include u-border($blue-warm-5-t);
+    @include u-color($theme-color-primary-lightest);
+    @include u-border($theme-color-primary-lightest);
 
     &:hover {
-      @include u-color($blue-warm-5-t);
-      @include u-border($blue-warm-5-t);
+      @include u-color($theme-color-primary-lightest);
+      @include u-border($theme-color-primary-lightest);
     }
 
     &.usa-button:visited {
-      @include u-color($blue-warm-5-t);
+      @include u-color($theme-color-primary-lightest);
     }
 
     .icon {
-      @include u-color($blue-warm-5-t);
+      @include u-color($theme-color-primary-lightest);
     }
   }
 
@@ -274,7 +274,7 @@
 }
 
 .intake-section-title {
-  @include u-color($blue-warm-vivid-80-t);
+  color: color($theme-color-primary-darker);
   @include u-font-family('serif');
   font-weight: 700;
   font-size: 1.375rem;
@@ -287,7 +287,7 @@
 }
 
 .intake-table-header {
-  @include u-bg('blue-warm-10');
+  @include u-bg($theme-color-primary-lighter);
 
   display: flex;
   border-radius: 5px 5px;
@@ -317,7 +317,7 @@
 
 .intake-label {
   @include u-font('sans', 16);
-  @include u-color('gray-warm-80');
+  color: color($theme-color-base-ink);
   flex-basis: 40%; // select flex-basis is 60% for total of 100%
   font-weight: 700;
   font-size: 1rem;
@@ -330,13 +330,13 @@
 }
 
 .details-date-label {
-  @include u-color('gray-warm-80');
+  color: color($theme-color-base-ink);
   font-size: 0.875rem;
   font-weight: 900;
 }
 
 .blue-background {
-  @include u-bg($blue-warm-5-t);
+  @include u-bg($theme-color-primary-lightest);
   padding: 1rem;
 }
 
@@ -345,14 +345,14 @@
   .autocomplete__input,
   .autocomplete__hint {
     @include u-font('body', 5);
-    @include u-border(1px, 'solid', 'blue-warm-80v', '!important');
+    @include u-border(1px, 'solid', $theme-color-primary-darker, '!important');
     font-weight: bold;
     border-radius: 3px;
     margin-top: 0.5rem;
     padding: 0.5rem;
     &.autocomplete__input--focused {
       box-shadow: inset 0 0 0 1px;
-      outline: 0.125rem solid $blue-vivid-40;
+      outline: 0.125rem solid color($theme-focus-color);
       outline-offset: 0;
     }
   }
@@ -363,13 +363,13 @@
     padding: 10px;
     &.autocomplete__option--focused,
     &:hover {
-      @include u-bg($blue-warm-5-t);
-      @include u-text('blue-warm-80v');
+      @include u-bg($theme-color-primary-lightest);
+      @include u-text($theme-color-primary-darker);
     }
   }
 
   .autocomplete__menu {
-    @include u-border(1px, 'solid', 'blue-warm-80v', '!important');
+    @include u-border(1px, 'solid', $theme-color-primary-darker, '!important');
     position: absolute;
     width: 100%;
     border-radius: 3px;
