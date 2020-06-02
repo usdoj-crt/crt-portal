@@ -309,7 +309,7 @@ class ResponseTemplate(models.Model):
         # we only allow a small subset of report fields
         context = Context({
             'addressee': report.addressee,
-            'date_of_intake': report.create_date,
+            'date_of_intake': report.create_date.strftime('%B %d, %Y'),
             'record_locator': report.public_id,
         })
         return escape(template.render(context))
