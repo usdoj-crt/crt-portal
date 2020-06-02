@@ -11,11 +11,11 @@
   <div class="modal-wrapper intake-template--modal">
     <div class="modal-content">
       <div class="modal-header">
-        <p>Contact complainant</p>
+        <h1>Contact complainant</h1>
       </div>
       <div class="modal-form">
-
-        <p id="intake_description">
+        <p class="intake-template--description">
+          <strong id="intake_description"></strong>
         </p>
         <select id="intake_select" class="usa-select" name="response_template" aria-label="select response template">
           <option
@@ -33,10 +33,12 @@
             </option>
           {% endfor %}
         </select>
-        <textarea id="intake_letter" rows="10" cols="80"></textarea>
-      </div>
-      <div class="modal-footer">
-        <a id="intake_template_cancel" href="#">Cancel</a>
+        <div class="intake-template--content">
+          <textarea id="intake_letter" rows="10" cols="80"></textarea>
+        </div>
+        <div class="modal-footer">
+          <a id="intake_template_cancel" href="#">Cancel</a>
+        </div>
       </div>
     </div>
   </div>

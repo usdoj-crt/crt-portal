@@ -4,7 +4,6 @@
   var modal = document.getElementById("intake_template");
 
   function openModal() {
-    modal.removeAttribute("hidden");
     document.onkeydown = function(event) {
       event = event || window.event;
       var isEscape = false;
@@ -17,11 +16,12 @@
         closeModal();
       }
     };
+    modal.removeAttribute("hidden");
   }
 
   function closeModal() {
-    modal.setAttribute("hidden", "hidden");
     document.onkeydown = previous_onkeydown;
+    modal.setAttribute("hidden", "hidden");
   }
 
   var contact = document.getElementById("contact_complainant");
