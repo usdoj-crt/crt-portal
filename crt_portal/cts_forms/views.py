@@ -10,7 +10,7 @@ from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import FormView, View
+from django.views.generic import FormView, View, TemplateView
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
@@ -21,8 +21,9 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
                               ELECTION_DICT, EMPLOYER_SIZE_DICT,
                               HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
-                              PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_DICT,
+                              PRIMARY_COMPLAINT_CHOICES,
+                              PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
 from .models import CommentAndSummary, Report
@@ -220,6 +221,7 @@ def serialize_data(report, request, report_id):
         'trafficking': False
     }
 
+    # for archival data
     for crime in report.hatecrimes_trafficking.all():
         for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
             if crime.value == choice[0]:
@@ -345,16 +347,11 @@ class SaveCommentView(LoginRequiredMixin, FormView):
 
 def save_form(form_data_dict, **kwargs):
     m2m_protected_class = form_data_dict.pop('protected_class')
-    m2m_hatecrime = form_data_dict.pop('hatecrimes_trafficking')
     r = Report.objects.create(**form_data_dict)
 
-    # add a save feature for hatecrimes and trafficking question on primary reason page
     # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
     for protected in m2m_protected_class:
         r.protected_class.add(protected)
-
-    for option in m2m_hatecrime:
-        r.hatecrimes_trafficking.add(option)
 
     r.assigned_section = r.assign_section()
     r.district = r.assign_district()
@@ -363,7 +360,6 @@ def save_form(form_data_dict, **kwargs):
     r.save()
     # adding this back for the save page results
     form_data_dict['protected_class'] = m2m_protected_class.values()
-    form_data_dict['hatecrimes_trafficking'] = m2m_hatecrime.values()
     return form_data_dict, r
 
 
@@ -416,8 +412,8 @@ TEMPLATES = [
     'forms/report_contact_info.html',
     # Primary reason
     'forms/report_primary_complaint.html',
-    # Hate crimes and trafficking
-    'forms/report_grouped_questions.html',
+    # Hate crimes
+    'forms/report_hate_crime.html',
     # Voting + location
     'forms/report_location.html',
     # Workplace + location
@@ -484,6 +480,21 @@ def show_location_form_condition(wizard):
     if not cleaned_data['primary_complaint'] in conditional_location_routings:
         return True
     return False
+
+
+class LandingPageView(TemplateView):
+    template_name = "landing.html"
+
+    def get_context_data(self, **kwargs):
+        choices = {
+            key: {
+                'description': description,
+                'examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES.get(key, [])
+            }
+            for key, description in PRIMARY_COMPLAINT_DICT.items()
+            if key != 'something_else'  # exclude because this choice has no examples
+        }
+        return {'choices': choices}
 
 
 class CRTReportWizard(SessionWizardView):
@@ -636,7 +647,6 @@ class CRTReportWizard(SessionWizardView):
             )
 
             context.update({
-                'hatecrimes': form_data_dict.pop('hatecrimes_trafficking'),
                 'protected_classes': form_data_dict.pop('protected_class'),
                 'report': Report(**form_data_dict),
                 'question': form.question_text

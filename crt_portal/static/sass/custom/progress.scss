@@ -43,6 +43,7 @@ ol.steps {
   list-style: none;
   text-align: center;
   counter-reset: milestones; // init counter
+  height: 62px;
 
   // design
   width: $steps-width;
@@ -69,6 +70,12 @@ ol.steps {
       display: block;
       margin-top: -($circle-diameter + 6.5px); // 6.5px == size of 0.5em bottom margin on step circle
       padding-top: $circle-diameter + 6.5px;
+    }
+
+    .step-text {
+      @include at-media-max(desktop) {
+        display: none;
+      }
     }
   }
 

@@ -17,7 +17,7 @@ PRIMARY_COMPLAINT_CHOICES = (
     ('housing', _('Housing discrimination or harassment')),
     ('education', _('Discrimination at a school, educational program or service, or related to receiving education')),
     ('voting', _('Voting rights or ability to vote affected')),
-    ('police', _('Mistreated by police, or correctional staff (including while in prison)')),
+    ('police', _('Mistreated by police, correctional staff, or inmates')),
     ('commercial_or_public', _('Discriminated against in a commercial location or public place')),
     ('something_else', _('Something else happened')),
 )
@@ -25,7 +25,8 @@ PRIMARY_COMPLAINT_DICT = dict(PRIMARY_COMPLAINT_CHOICES)
 
 PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT = {
     'commercial_or_public': _('This could include a store, restaurant, bar, hotel, place of worship, library, medical facility, bank, courthouse, government building, public park or street, as well as online.'),
-    'something_else': _('The examples above reflect some but not all of the civil rights violations that we address. Select this option if you don’t see an example that applies to your situation. You will be able to tell us more later.')
+    'something_else': _('The examples above reflect some but not all of the civil rights violations that we address. Select this option if you don’t see an example that applies to your situation. You will be able to tell us more later.'),
+    'police': _('(Including while in prison)')
 }
 
 PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
@@ -72,12 +73,18 @@ ELECTION_CHOICES = (
 )
 ELECTION_DICT = dict(ELECTION_CHOICES)
 
+# preserving archival data
 HATE_CRIMES_TRAFFICKING_MODEL_CHOICES = (
     ('physical_harm', _('Physical harm or threats of violence based on race, color, national origin, religion, gender, sexual orientation, gender identity, or disability')),
     ('trafficking', _('Threatened, forced, and held against your will for the purposes of performing work or commercial sex acts. This could include threats of physical harm, withholding promised wages, or being held under a false work contract')),
 )
-
 HATE_CRIMES_TRAFFICKING_CHOICES = [choice[1] for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES]
+
+# This it the one in use
+HATE_CRIME_CHOICES = (
+    ('yes', _('Yes')),
+    ('no', _('No')),
+)
 
 # See protected maintenance docs: https://github.com/usdoj-crt/crt-portal/blob/develop/docs/maintenance_or_infrequent_tasks.md#change-protected-class-options
 # This tuple will create the form_order, then lists a short code that we use for the model value and CRT display views, then the name as it will display on the form.
@@ -348,3 +355,5 @@ STATUTE_CHOICES = (
 )
 
 PUBLIC_USER = 'public user'
+
+CONTACT_PHONE_INVALID_MESSAGE = _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')

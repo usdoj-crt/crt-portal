@@ -26,6 +26,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # For cloud.gov the ENV must be set in the manifests
 environment = os.environ.get('ENV', 'UNDEFINED')
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = os.environ.get('DEBUG', False)
+
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -53,10 +57,6 @@ if environment != 'LOCAL':
             'PORT': '',
         }
     }
-
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
 
 # production hosts are specified later
 ALLOWED_HOSTS = [
@@ -207,9 +207,11 @@ if environment == 'PRODUCTION':
         "USERNAME_CLAIM": AUTH_USERNAME_CLAIM,
         "GROUP_CLAIM": AUTH_GROUP_CLAIM,
         'LOGIN_EXEMPT_URLS': [
-            '',
-            'report/',
-            'robots.txt',
+            '^$',
+            '^report',
+            '^robots.txt',
+            '^privacy-policy',
+            '^i8n',
         ],
     }
 
@@ -226,7 +228,7 @@ if environment == 'PRODUCTION':
 
 STATIC_URL = '/static/'
 
-if environment != 'LOCAL':
+if environment not in ['LOCAL', 'UNDEFINED']:
     for service in vcap['s3']:
         if service['instance_name'] == 'crt-s3':
             # Public AWS S3 bucket for the app
@@ -257,6 +259,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         bucket,
         'www.civilrights.justice.gov',
         'civilrights.justice.gov',
+        'https://touchpoints.app.cloud.gov',
     )
     # headers required for security
     SESSION_COOKIE_SECURE = True
@@ -273,7 +276,17 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'www.civilrights.justice.gov',
         'civilrights.justice.gov',
         'https://dap.digitalgov.gov',
-        'https://www.google-analytics.com'
+        'https://www.google-analytics.com',
+        'https://touchpoints.app.cloud.gov',
+    )
+    CSP_CONNECT_SRC = (
+        "'self'",
+        bucket,
+        'www.civilrights.justice.gov',
+        'civilrights.justice.gov',
+        'https://dap.digitalgov.gov',
+        'https://www.google-analytics.com',
+        'https://touchpoints.app.cloud.gov',
     )
     CSP_IMG_SRC = allowed_sources
     CSP_MEDIA_SRC = allowed_sources

@@ -12,7 +12,7 @@ variable_rename = {
     'location_state': 'State',
     'assigned_to': 'Assignee',
     'public_id': 'Complaint ID',
-    'primary_statute': 'Statute',
+    'primary_statute': 'Classification',
     'violation_summary': 'Personal description',
 }
 

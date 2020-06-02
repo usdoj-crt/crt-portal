@@ -36,10 +36,14 @@
       <div class="crt-success-card__content">
           <h3 class="intake-section-title">{% trans "Please save your record number for tracking." %}</h3>
           <p>{% trans "If you want a copy of this report for your personal records, save or print a copy of this page." %}</p>
-          <div class='record-number-wrapper'>
-            <div id="paper-icon-wrapper" class="margin-right-1"><img src="{% static 'img/ic_paper.svg' %}" alt="paper" /></div>
-            {% trans "Your record number is:" %}
-            <span class="record-number margin-left-1">{{report.public_id}}</span>
+          <div class="record-number-wrapper">
+            <div class="record-number-note">
+              <div id="paper-icon-wrapper" class="margin-right-1"><img src="{% static 'img/ic_paper.svg' %}" alt="paper" /></div>
+              {% trans "Your record number is:" %}
+            </div>
+            <div>
+              <span class="record-number margin-left-1">{{report.public_id}}</span>
+            </div>
           </div>
       </div>
     </div>
@@ -106,11 +110,7 @@
                 {% trans "We’re receiving and actively reviewing many requests at the same time." %}
               </li>
             </ul>
-            <!-- working on translation -->
-            {% get_current_language as LANGUAGE_CODE %}
-            {% if LANGUAGE_CODE == "en" %}
-              <p>{% trans "<strong>If we are able to respond, we will contact you using the contact information you provided in this report. Depending on the type of report, response times can vary. If you need to reach us about your report, please refer to your report number when contacting us. This is how we keep track of your submission.</strong>" %}</p>
-            {% endif %}
+              <p>{% trans "If we are able to respond, we will contact you using the contact information you provided in this report. Depending on the type of report, response times can vary. If you need to reach us about your report, please refer to your report number when contacting us. This is how we keep track of your submission." %}</p>
           </div>
         </li>
       </ol>
@@ -130,7 +130,7 @@
             </h3>
           </div>
           <div class='confirmation-content padding-left-5'>
-            {% trans "Legal aid offices or members of lawyer associations in your state may be able to help you with your issue." %}"
+            {% trans "Legal aid offices or members of lawyer associations in your state may be able to help you with your issue." %}
             <ul class="confirmation-list">
               <li>
                 {% trans 'American Bar Association, visit <a href="http://www.findlegalhelp.org">www.findlegalhelp.org</a> or call <a href="tel:800-285-2221">(800) 285-2221</a>' %}
@@ -170,3 +170,14 @@
 </section>
 
 {% endblock %}
+
+{% block footer_extra %}
+<div style="background-color: #162e51; color: white; padding-top: 2em; border-top: 1px solid #454545">
+  {% include "partials/policy.html" %}
+</div>
+{% endblock footer_extra %}
+  
+{% block page_js %}
+  <script src="https://touchpoints.app.cloud.gov/touchpoints/a24aeb5e/js" async></script>
+{% endblock %}
+  

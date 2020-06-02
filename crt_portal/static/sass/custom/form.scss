@@ -87,6 +87,9 @@ form#report-form {
         margin-bottom: 0;
       }
     }
+    &.top-margin {
+      margin-top: 2.5rem;
+    }
   }
 
   .other-class-option {
@@ -133,6 +136,7 @@ form#report-form {
   }
 
   .light-button {
+    color: $blue-warm-vivid-80;
     background-color: transparent;
     &:hover {
       background-color: $white;
@@ -290,6 +294,19 @@ form#report-form {
   line-height: 1.625rem;
 }
 
+a.usa-button {
+  text-decoration: none;
+  font-weight: normal;
+  @include u-text('blue-warm-80v');
+  &:hover,
+  &:visited {
+    @include u-text('blue-warm-80v');
+  }
+  img {
+    margin-left: 0.5rem;
+  }
+}
+
 .usa-button--light {
   background-color: $light-beige;
   color: $blue-50;
@@ -414,5 +431,16 @@ select.usa-input--error {
 .usa-memorable-date {
   input {
     margin-right: 1rem;
+  }
+}
+
+#page-errors {
+  .error-summary {
+  margin-block-start: 0px;
+    li {
+      font-weight: normal;
+      margin-bottom: 0px;
+      margin-top: 0px;
+    }
   }
 }

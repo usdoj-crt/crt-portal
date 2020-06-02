@@ -8,8 +8,7 @@
  <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    {# Asking search engines not to index our site while we're in development mode. #}
-    <meta name="robots" content="noindex">
+    <link rel="canonical" href="https://civilrights.justice.gov{{ request.path }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     {% if wizard.steps.step1 and current_step_name %}

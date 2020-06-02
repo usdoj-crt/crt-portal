@@ -5,7 +5,7 @@
 {% block page_title %}
   {% if wizard.steps.step1 and current_step_name %}
     <title>
-        {% blocktrans with stage_number=wizard.steps.step1 current_step_name=current_step_name %}
+        {% blocktrans with stage_number=stage_number current_step_name=current_step_name %}
           Step {{ stage_number }}: {{ current_step_name }} - Contact the Civil Rights Division - Department of Justice
         {% endblocktrans %}
     </title>
@@ -57,7 +57,18 @@
                 {% plural %}
                   {{counter}} errors found
                 {% endblocktrans %}
+
+                {% block extra_errors %}
+                  <ul class="error-summary">
+                    {% for field in form %}
+                      {% if field.errors %}
+                        <li>{{field.label}}</li>
+                      {% endif %}
+                    {% endfor %}
+                  </ul>
+                {% endblock extra_errors %}
               </section>
+
             {% endif %}
             <h2 class="margin-0">{{ current_step_title }}</h2>
             {% if form.page_note %}
@@ -92,6 +103,12 @@
     </div>
   </div>
 {% endblock %}
+
+{% block footer_extra %}
+<div style="background-color: #162e51; color: white; padding-top: 2em; border-top: 1px solid #454545">
+  {% include "partials/policy.html" %}
+</div>
+{% endblock footer_extra %}
 
 {% block page_js %}
 <script nonce="{{request.csp_nonce}}">

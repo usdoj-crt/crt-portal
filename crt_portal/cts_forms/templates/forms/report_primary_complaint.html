@@ -1,13 +1,14 @@
 {% extends "forms/report_base.html" %}
 {% load static %}
 {% load i18n %}
+
 {% block form_questions %}
-{% with primary_complaint_field=wizard.form.primary_complaint %}
+  {% with primary_complaint_field=wizard.form.primary_complaint %}
     <div class="crt-portal-card">
       <div class="crt-portal-card__content crt-portal-card__content--lg">
         {{ block.super }}
-        <div id="primary-complaint-help-text">
-          <p class="em-text">
+        <div>
+          <p id="primary-complaint-help-text" class="em-text" id="primary-complaint-help-text">
             {{ primary_complaint_field.label }}{% if not question_group.optional %}<span class="field-required--group">{% trans "required" %}</span>{% endif %}
           </p>
 
@@ -21,15 +22,16 @@
         </div>
       </div>
     </div>
+
+    {% if primary_complaint_field.errors %}
+      {% include "forms/snippets/error_alert.html" with errors=primary_complaint_field.errors %}
+    {% endif %}
     <div role="group" aria-labelledby="primary-complaint-help-text" class="question_primary_complaint margin-top-3">
       {{ primary_complaint_field|withInputError }}
-
-      {% if primary_complaint_field.errors %}
-        {% include "forms/snippets/error_alert.html" with errors=primary_complaint_field.errors %}
-      {% endif %}
     </div>
   {% endwith %}
 {% endblock %}
+
 {% block page_js %}
   {{ block.super }}
   <script src="{% static 'js/primary_complaint.js' %}"></script>

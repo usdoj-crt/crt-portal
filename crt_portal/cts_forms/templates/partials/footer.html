@@ -5,17 +5,17 @@
   <div class="grid-row">
 
     <div class="tablet:grid-col-5 grid-col-12">
-      <div class="usa-footer__heading usa-footer__logo-heading">
+      <div id="contact-footer" class="usa-footer__heading usa-footer__logo-heading">
         {% trans 'Contact' %}
         <div class="usa-footer__separator"></div>
       </div>
 
-      <div class="usa-footer__contact">
+      <div id="contact-crt" class="usa-footer__contact">
         <div class="usa-footer__section">
           <div class="usa-footer__icon">
             <img src="{% static "img/mail.svg" %}" alt="mail" class="icon">
           </div>
-          <div class="usa-footer__links">
+          <div id="address-footer" class="usa-footer__links">
             <p>U.S. Department of Justice</p>
             <p>Civil Rights Division</p>
             <p>950 Pennsylvania Avenue, NW</p>
@@ -27,7 +27,7 @@
           <div class="usa-footer__icon">
             <img src="{% static "img/phone.svg" %}" alt="phone" class="icon">
           </div>
-          <div class="usa-footer__links">
+          <div id="phone-footer" class="usa-footer__links">
             <a href="tel:202-514-3847">(202) 514-3847</a>
             <p>{% trans 'Telephone Device for the Deaf' %}</p>
             <p>{% trans '(TTY)' %}<a href="tel:202-514-0716">(202) 514-0716</a></p>
@@ -61,7 +61,7 @@
           <a href="https://civilrights.justice.gov">
             {% trans "Report a violation" %}
           </a>
-          <a href="https://justice.gov/crt/privacy-policy">
+          <a href="{% url 'privacy_policy' %}">
             {% trans "Privacy policy" %}
           </a>
           <a href="https://www.justice.gov/oip">
@@ -69,6 +69,9 @@
           </a>
           <a href="https://www.justice.gov/accessibility/accessibility-information">
             {% trans "Accessibility" %}
+          </a>
+          <a href="https://www.justice.gov">
+            justice.gov
           </a>
         </div>
 
@@ -81,6 +84,9 @@
           </a>
           <a href="https://www.justice.gov/doj/budget-and-performance">
             {% trans "Budget and performance" %}
+          </a>
+          <a href="https://www.justice.gov/legalpolicies">
+            {% trans "Legal policies and Disclaimers" %}
           </a>
           <a href="https://www.usa.gov/">
             USA.gov

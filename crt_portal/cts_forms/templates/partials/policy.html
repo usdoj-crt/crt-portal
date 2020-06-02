@@ -1,27 +1,30 @@
 {% load i18n %}
+{% url 'privacy_policy' as privacy_policy_url %}
 
 <div class="grid-container">
   <div class="grid-row">
 
     <div class="grid-col-12">
       <div class="usa-footer__heading usa-footer__logo-heading">
-        Privacy Policy
+        {% trans "Privacy Policy" %}
         <div class="usa-footer__separator"></div>
       </div>
 
       <div class="grid-row grid-gap">
         <div class="grid-col-9 usa-footer__links" style="font-size: 14px">
           <p style="margin-bottom: 1em">
-            The purpose of this form is to allow the public to submit civil rights complaints to the Department of Justice, thereby allowing us to enforce over thirty civil rights statutes within our authority. <a style="color: white; text-transform: none" href="https://www.justice.gov/crt/privacy-policy">These statutes</a> authorize us to collect this information.  You should know that any information you provide through this form is voluntary, yet failure to provide some of the information might limit the Department’s ability to pursue your claim. We may use this information for certain routine uses, including sharing this information under certain circumstances with:
+            {% blocktrans %}
+            The purpose of this form is to allow the public to submit civil rights complaints to the Department of Justice, thereby allowing us to enforce over thirty <a class="privacy-footer" href="{{privacy_policy_url}}#our-statutes">civil rights statutes</a> within our authority. These statutes authorize us to collect this information.  You should know that any information you provide through this form is voluntary, yet failure to provide some of the information might limit the Department’s ability to pursue your claim. We may use this information for certain routine uses, including sharing this information under certain circumstances with:
+            {% endblocktrans %}
             <ul>
-              <li>contractors who work with us, if they need it to perform a contract;</li>
-              <li>a court, magistrate, or administrative tribunal, as well as opposing counsel during settlement negotiations and/or litigation;</li>
-              <li>Members of Congress;</li>
-              <li>Federal, state, or local law enforcement agencies.</li>
+              <li>{% trans "contractors who work with us, if they need it to perform a contract;" %}</li>
+              <li>{% trans "a court, magistrate, or administrative tribunal, as well as opposing counsel during settlement negotiations and/or litigation;" %}</li>
+              <li>{% trans "Members of Congress;" %}</li>
+              <li>{% trans "Federal, state, or local law enforcement agencies." %}</li>
             </ul>
           </p>
 
-          <p style="margin-bottom: 2em">You can find our complete Privacy Policy <a style="color: white; text-transform: none" href="https://www.justice.gov/crt/privacy-policy">here</a>.</p>
+          <p style="margin-bottom: 2em">{% blocktrans %}You can find our complete <a class="privacy-footer" href="{{privacy_policy_url}}">Privacy Policy here</a>.{% endblocktrans %}</p>
         </div>
       </div>
 

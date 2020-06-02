@@ -5,11 +5,36 @@
 <!DOCTYPE html>
 <html lang="{{LANGUAGE_CODE}}">
  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    {# Asking search engines not to index our site while we're in development mode. #}
-    <meta name="robots" content="noindex">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+
+    {% block meta %}
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+      <link rel="canonical" href="https://civilrights.justice.gov{{ request.path }}">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <meta property="og:url" content="https://civilrights.justice.gov{{ request.path }}" />
+      <meta property="og:type" content="website" />
+
+      {% block meta_title %}
+        {% trans 'Civil Rights Division - Department of Justice' as meta_title %}
+        <meta property="og:title" content="{{meta_title}}" />
+        <meta property="name" content="{{meta_title}}" />
+      {% endblock meta_title %}
+
+      {% block meta_description %}
+        {% trans 'Have you or someone you know experienced unlawful discrimination? The Civil Rights Division may be able to help. Civil rights laws can protect you from unlawful discrimination, harassment, or abuse in a variety of settings like housing, the workplace, school, voting, businesses, healthcare, public spaces, and more.' as meta_description %}
+        <meta property="og:description" content="{{meta_description}}" />
+        <meta property="description" content="{{meta_description}}" />
+      {% endblock meta_description %}
+
+      <meta property="og:image" content="{% static 'img/facebook-og.png' %}" />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:image" content="{% static 'img/twitter-card.png' %}" />
+
+    {% endblock meta %}
 
     {% block page_title %}
       <title>{% trans "Civil Rights Division - Department of Justice" %}</title>
@@ -24,6 +49,26 @@
     {% block usa_banner %}
       {% include "partials/banner/usa_banner.html" %}
     {% endblock %}
+
+    {% environment as env %}
+    {% if env != "PRODUCTION" %}
+      <div class="crt-header--warning-pii">
+        <div class="grid-container">
+          <div class="grid-row grid-gap">
+            <div class="grid-col-12">
+              <div class="usa-alert usa-alert--warning">
+                <div class="usa-alert__body">
+                  <h1 class="usa-alert__heading">Test site</h1>
+                  <p class="usa-alert__text">
+                    This is a test site. Do not enter PII.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endif %}
 
     {% block page_header %}{% endblock %}
 
@@ -54,10 +99,8 @@
       {% include "partials/footer.html" %}
       </div>
 
-      {% comment %}temporary policy page{% endcomment %}
-      <div style="background-color: #162e51; color: white; padding-top: 2em; border-top: 1px solid #454545">
-        {% include "partials/policy.html" %}
-      </div>
+      {% block footer_extra %}
+      {% endblock footer_extra %}
     </footer>
     {% endblock %}
     <script src="{% static 'js/url_params_polyfill.js' %}"></script>

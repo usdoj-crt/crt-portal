@@ -9,15 +9,15 @@ from django.test.client import Client
 from django.urls import reverse
 from testfixtures import LogCapture
 
-from ..forms import (CommercialPublicLocation, Contact, Details,
-                     EducationLocation, LocationForm, PoliceLocation,
-                     PrimaryReason, ProForm, ProtectedClassForm, When, ComplaintActions)
-from ..model_variables import (HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
+from ..forms import (CommercialPublicLocation, ComplaintActions, Contact,
+                     Details, EducationLocation, LocationForm, PoliceLocation,
+                     PrimaryReason, ProForm, ProtectedClassForm, When, HateCrimes)
+from ..model_variables import (CONTACT_PHONE_INVALID_MESSAGE,
                                PRIMARY_COMPLAINT_CHOICES,
                                PRIMARY_COMPLAINT_ERROR, PROTECTED_CLASS_ERROR,
                                PROTECTED_MODEL_CHOICES, SERVICEMEMBER_ERROR,
                                VIOLATION_SUMMARY_ERROR, WHERE_ERRORS)
-from ..models import (CommentAndSummary, HateCrimesandTrafficking,
+from ..models import (CommentAndSummary,
                       ProtectedClass, Report)
 from ..views import save_form
 from .test_data import SAMPLE_REPORT
@@ -82,8 +82,13 @@ class Valid_Form_Tests(TestCase):
 
     def test_Primary_reason_valid(self):
         form = PrimaryReason(data={
-            'hatecrimes_trafficking': HateCrimesandTrafficking.objects.all(),
             'primary_complaint': PRIMARY_COMPLAINT_CHOICES[0][0],
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_hate_crimes_valad(self):
+        form = HateCrimes(data={
+            'hate_crime': 'yes',
         })
         self.assertTrue(form.is_valid())
 
@@ -173,19 +178,16 @@ class Complaint_Show_View_404(TestCase):
 
 class Complaint_Show_View_Valid(TestCase):
     def setUp(self):
-        SAMPLE_REPORT['primary_complaint'] = 'voting'
-        SAMPLE_REPORT['election_details'] = 'federal'
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'voting'
+        data['election_details'] = 'federal'
+        data['hate_crime'] = 'yes'
 
-        test_report = Report.objects.create(**SAMPLE_REPORT)
+        test_report = Report.objects.create(**data)
 
         for choice in PROTECTED_MODEL_CHOICES:
             pc = ProtectedClass.objects.get_or_create(value=choice[0])[0]
             test_report.protected_class.add(pc)
-            test_report.save()
-
-        for choice in HATE_CRIMES_TRAFFICKING_MODEL_CHOICES:
-            hct = HateCrimesandTrafficking.objects.get_or_create(value=choice[0])[0]
-            test_report.hatecrimes_trafficking.add(hct)
             test_report.save()
 
         self.client = Client()
@@ -210,8 +212,7 @@ class Complaint_Show_View_Valid(TestCase):
         pc = PRIMARY_COMPLAINT_CHOICES[3][1]
         self.assertTrue(str(pc) in self.content)
         self.assertTrue('Election type (federal/local): federal' in self.content)
-        self.assertTrue(self.context['crimes']['physical_harm'])
-        self.assertTrue(self.context['crimes']['trafficking'])
+        self.assertTrue(self.test_report.hate_crime in self.content)
         self.assertTrue(self.test_report.location_name in self.content)
         self.assertTrue(self.test_report.location_city_town in self.content)
         self.assertTrue(self.test_report.location_state in self.content)
@@ -225,21 +226,18 @@ class SectionAssignmentTests(TestCase):
         # All human trafficking goes to CRM.
         data = copy.deepcopy(SAMPLE_REPORT)
         data['primary_complaint'] = 'voting'
+        data['hate_crime'] = 'yes'
         test_report = Report.objects.create(**data)
-        human_trafficking = HateCrimesandTrafficking.objects.get_or_create(value=HATE_CRIMES_TRAFFICKING_MODEL_CHOICES[0][0])
-        test_report.hatecrimes_trafficking.add(human_trafficking[0])
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'CRM')
 
-        # All hate crime goes to CRM.
+        # All hate crime goes to CRM overrides other exceptions
         data = copy.deepcopy(SAMPLE_REPORT)
         data['primary_complaint'] = 'voting'
+        data['hate_crime'] = 'yes'
         test_report = Report.objects.create(**data)
-        test_report = Report.objects.create(**SAMPLE_REPORT)
         disability = ProtectedClass.objects.get_or_create(value='disability')
         test_report.protected_class.add(disability[0])
-        human_trafficking = HateCrimesandTrafficking.objects.get_or_create(value='physical_harm')
-        test_report.hatecrimes_trafficking.add(human_trafficking[0])
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'CRM')
 
@@ -647,13 +645,10 @@ class Validation_Form_Tests(TestCase):
         })
         self.assertTrue(f'<ul class="errorlist"><li>{VIOLATION_SUMMARY_ERROR}' in str(form.errors))
 
-    def test_required_primary_reason_hatecrime(self):
+    def test_required_primary_reason(self):
         form = PrimaryReason(data={
-            'hatecrimes_trafficking_set': None,
             'primary_complaint': '',
         })
-        # ensure Hatecrime is not in error list
-        self.assertFalse('hatecrimes_trafficking<ul class="errorlist"><li>' in str(form.errors))
         self.assertTrue(f'<ul class="errorlist"><li>{PRIMARY_COMPLAINT_ERROR}' in str(form.errors))
 
     def test_required_servicemember(self):
@@ -801,7 +796,7 @@ class ContactValidationTests(TestCase):
         self.assertFalse(form.is_valid())
         self.assertEquals(
             form.errors,
-            {'contact_phone': ['Enter a valid value.']}
+            {'contact_phone': [CONTACT_PHONE_INVALID_MESSAGE]}
         )
 
     def test_phone_too_short(self):
@@ -814,7 +809,7 @@ class ContactValidationTests(TestCase):
             phone.full_clean()
         except ValidationError as err:
             phone_error_message = err.message_dict['contact_phone']
-            self.assertTrue(phone_error_message == ['Enter a valid value.'])
+            self.assertTrue(phone_error_message == [CONTACT_PHONE_INVALID_MESSAGE])
 
     def test_international_phone(self):
         phone = Report(
@@ -928,7 +923,6 @@ class TestIntakeFormat(TestCase):
     def setUp(self):
         self.form_data_dict = copy.deepcopy(SAMPLE_REPORT)
         self.form_data_dict['protected_class'] = ProtectedClass.objects.none()
-        self.form_data_dict['hatecrimes_trafficking'] = HateCrimesandTrafficking.objects.none()
 
     def test_intake_save_web(self):
         data, saved_object = save_form(self.form_data_dict, intake_format='web')

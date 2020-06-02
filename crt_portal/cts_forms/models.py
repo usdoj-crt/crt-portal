@@ -10,11 +10,12 @@ from django.utils.functional import cached_property
 
 from .managers import ActiveProtectedClassChoiceManager
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
+                              CONTACT_PHONE_INVALID_MESSAGE,
                               CORRECTIONAL_FACILITY_LOCATION_CHOICES,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
                               DATE_ERRORS, DISTRICT_CHOICES, ELECTION_CHOICES,
                               EMPLOYER_SIZE_CHOICES,
-                              HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
+                              HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, HATE_CRIME_CHOICES,
                               INTAKE_FORMAT_CHOICES, PRIMARY_COMPLAINT_CHOICES,
                               PROTECTED_MODEL_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
@@ -51,6 +52,7 @@ class ProtectedClass(models.Model):
         return self.get_value_display()
 
 
+# Not in use- but need to preserving historical data
 class HateCrimesandTrafficking(models.Model):
     hatecrimes_trafficking_option = models.CharField(max_length=500, null=True, blank=True, choices=HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, unique=True)
     value = models.CharField(max_length=500, blank=True, choices=HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, unique=True)
@@ -82,7 +84,7 @@ class Report(models.Model):
     contact_last_name = models.CharField(max_length=225, null=True, blank=True)
     contact_email = models.EmailField(null=True, blank=True)
     contact_phone = models.CharField(
-        validators=[RegexValidator(phone_validation_regex)],
+        validators=[RegexValidator(phone_validation_regex, message=CONTACT_PHONE_INVALID_MESSAGE)],
         max_length=225,
         null=True,
         blank=True
@@ -102,7 +104,8 @@ class Report(models.Model):
         default='',
         blank=False
     )
-    hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, blank=True)
+
+    hate_crime = models.CharField(max_length=4, null=True, blank=True, choices=HATE_CRIME_CHOICES)
 
     # Protected Class
     # See docs for notes on updating these values:
@@ -160,6 +163,9 @@ class Report(models.Model):
     author = models.CharField(max_length=1000, null=True, blank=True)
     assigned_to = models.ForeignKey(User, blank=True, null=True, related_name="assigned_complaints", on_delete=models.CASCADE)
 
+    # Not in use- but need to preserving historical data
+    hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, blank=True)
+
     @cached_property
     def last_incident_date(self):
         try:
@@ -200,9 +206,8 @@ class Report(models.Model):
     def assign_section(self):
         """See the SectionAssignmentTests for expected behaviors"""
         protected_classes = [pc.value for pc in self.protected_class.all()]
-        hatecrimes_options = [hc.value for hc in self.hatecrimes_trafficking.all()]
 
-        if len(hatecrimes_options) > 0:
+        if self.hate_crime == 'yes':
             return 'CRM'
 
         elif self.primary_complaint == 'voting':
