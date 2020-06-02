@@ -60,6 +60,7 @@ Your record number was {{ record_locator }}.
 What you can do:
 
 We are not determining that your report lacks merit. Your issue may still be actionable by others - your state bar association or local legal aid office may be able to help.
+
 To find a local office:
 
 American Bar Association
@@ -84,6 +85,11 @@ Civil Rights Division
     )
 
 
+def remove_templates(apps, schema_editor):
+    ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
+    ResponseTemplate.objects.all().delete()
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -91,5 +97,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(add_templates),
+        migrations.RunPython(add_templates, remove_templates),
     ]

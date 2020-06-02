@@ -300,7 +300,7 @@ class Trends(models.Model):
 
 
 class ResponseTemplate(models.Model):
-    title = models.CharField(max_length=100, null=False, blank=False,)
+    title = models.CharField(max_length=100, null=False, blank=False, unique=True,)
     description = models.CharField(max_length=100, null=False, blank=False,)
     template = models.TextField(null=False, blank=False,)
 
