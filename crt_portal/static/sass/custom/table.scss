@@ -97,7 +97,7 @@ $green-cool-vivid: 'green-cool-10v';
     }
 
     th {
-      border-bottom: 1px solid #c6cace;
+      border-bottom: 1px solid color('gray-cool-20'); // USWDS system color design token: https://designsystem.digital.gov/design-tokens/color/system-tokens/
     }
 
     td {

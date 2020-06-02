@@ -123,7 +123,7 @@ form#report-form {
   .usa-radio__input:checked + .usa-radio__label::before,
   .usa-checkbox__input:checked + .usa-checkbox__label::before {
     background-color: color($theme-color-primary-darker);
-    box-shadow: 0 0 0 2px color($theme-color-primary-darker), inset 0 0 0 2px #fff;
+    box-shadow: 0 0 0 2px color($theme-color-primary-darker), inset 0 0 0 2px color('white');
   }
   .usa-button {
     &:hover {

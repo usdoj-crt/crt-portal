@@ -42,7 +42,7 @@ $complaint-header-min-height: 200px;
 
   .activity-stream-list {
     .activity-stream-item {
-      border-bottom: 1px solid #c6cace;
+      border-bottom: 1px solid color('gray-cool-20'); // USWDS system color design token: https://designsystem.digital.gov/design-tokens/color/system-tokens/
       padding: 0.5rem 0 0.5rem 0;
 
       &:first-child {

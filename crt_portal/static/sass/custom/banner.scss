@@ -1,7 +1,7 @@
 // USA Gov Banner Customization
 
 .usa-banner {
-  background-color: #2e2e2a;
+  background-color: color($theme-color-base-ink);
 
   .usa-banner__header-text,
   .usa-media-block__body {
@@ -9,7 +9,7 @@
 
     // Touchpoints footer styling
     [id='fba-modal-dialog'] & {
-      color: #1b1b1b;
+      color: color($theme-color-base-darkest);
     }
   }
 
