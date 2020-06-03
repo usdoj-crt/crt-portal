@@ -79,6 +79,7 @@
     // hidden cannot be a CSS transition.
     window.setTimeout(function() {
       notification.setAttribute('hidden', 'hidden');
+      notification.classList.remove('fade-out');
     }, 1000);
   };
 })();
