@@ -2,8 +2,10 @@
   var previous_onkeydown = document.onkeydown;
 
   var modal = document.getElementById('intake_template');
+  var notification = document.getElementById('response_copied_notification');
 
   function openModal() {
+    notification.setAttribute('hidden', 'hidden');
     document.onkeydown = function(event) {
       event = event || window.event;
       var isEscape = false;
@@ -71,5 +73,7 @@
     el.setSelectionRange(0, 99999); // mobile
     document.execCommand('copy');
     document.body.removeChild(el);
+    closeModal();
+    notification.removeAttribute('hidden');
   };
 })();
