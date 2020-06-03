@@ -62,6 +62,7 @@
   };
 
   copy.onclick = function(event) {
+    notification.removeAttribute('hidden');
     event.preventDefault();
     const el = document.createElement('textarea');
     el.value = letter.value;
@@ -74,6 +75,10 @@
     document.execCommand('copy');
     document.body.removeChild(el);
     closeModal();
-    notification.removeAttribute('hidden');
+    notification.classList.add('fade-out');
+    // hidden cannot be a CSS transition.
+    window.setTimeout(function() {
+      notification.setAttribute('hidden', 'hidden');
+    }, 1000);
   };
 })();
