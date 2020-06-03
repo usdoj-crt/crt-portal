@@ -212,7 +212,6 @@ if environment == 'PRODUCTION':
             '^robots.txt',
             '^privacy-policy',
             '^i8n',
-            '^i8n\/setlang',
         ],
     }
 
