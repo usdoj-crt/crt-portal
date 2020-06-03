@@ -36,10 +36,14 @@
       <div class="crt-success-card__content">
           <h3 class="intake-section-title">{% trans "Please save your record number for tracking." %}</h3>
           <p>{% trans "If you want a copy of this report for your personal records, save or print a copy of this page." %}</p>
-          <div class='record-number-wrapper'>
-            <div id="paper-icon-wrapper" class="margin-right-1"><img src="{% static 'img/ic_paper.svg' %}" alt="paper" /></div>
-            {% trans "Your record number is:" %}
-            <span class="record-number margin-left-1">{{report.public_id}}</span>
+          <div class="record-number-wrapper">
+            <div class="record-number-note">
+              <div id="paper-icon-wrapper" class="margin-right-1"><img src="{% static 'img/ic_paper.svg' %}" alt="paper" /></div>
+              {% trans "Your record number is:" %}
+            </div>
+            <div>
+              <span class="record-number margin-left-1">{{report.public_id}}</span>
+            </div>
           </div>
       </div>
     </div>
