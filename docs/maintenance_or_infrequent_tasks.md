@@ -125,7 +125,15 @@ crt_portal/crt_portal/urls.py
     -if environment == 'PRODUCTION':
     +if environment in ['PRODUCTION', 'STAGE']:
          auth = [
+         
+    ...
 
+    ALLOWED_HOSTS = [
+        'civilrights.justice.gov',
+        'www.civilrights.justice.gov',
+        'crt-portal-django-prod.app.cloud.gov',
+        'crt-portal-django-stage.app.cloud.gov',
+    ]
 
 # Load testing
 
