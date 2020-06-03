@@ -35,7 +35,7 @@ from cts_forms.views import (CRTReportWizard, LandingPageView,
                              show_workplace_form_condition)
 
 environment = os.environ.get('ENV', 'UNDEFINED')
-if environment == 'PRODUCTION':
+if environment in ['PRODUCTION', 'STAGE']:
     auth = [
         re_path('admin/login/$', RedirectView.as_view(pattern_name='login')),
         re_path('accounts/login/$', RedirectView.as_view(pattern_name='login')),

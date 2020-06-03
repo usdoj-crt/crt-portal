@@ -160,7 +160,7 @@ USE_L10N = True
 USE_TZ = True
 
 # for AUTH, probably want to add stage in the future
-if environment == 'PRODUCTION':
+if environment in ['PRODUCTION', 'STAGE']:
     for service in vcap['user-provided']:
         if service['instance_name'] == "VCAP_SERVICES":
             # SECURITY WARNING: keep the secret key used in production secret!
