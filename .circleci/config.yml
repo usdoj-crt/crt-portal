@@ -298,14 +298,15 @@ workflows:
           filters:
             branches:
               only: develop
-
+      # DON'T MERGE
       - deploy-stage:
-          requires:
-            - owasp-scan-dev
-            - build_and_test
+          # requires:
+            # - owasp-scan-dev
+            # - build_and_test
           filters:
             branches:
-              only: /^release.*/
+              only: deploy-release
+              # only: /^release.*/
 
       - deploy-prod:
           requires:
