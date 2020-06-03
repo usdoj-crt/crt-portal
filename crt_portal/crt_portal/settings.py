@@ -223,6 +223,7 @@ if environment in ['PRODUCTION', 'STAGE']:
         'civilrights.justice.gov',
         'www.civilrights.justice.gov',
         'crt-portal-django-prod.app.cloud.gov',
+        'crt-portal-django-stage.app.cloud.gov',
     ]
 
 STATIC_URL = '/static/'
