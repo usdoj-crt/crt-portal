@@ -9,7 +9,7 @@ def add_templates(apps, schema_editor):
         title='Non-Actionable',
         description='Form Response for Non-Actionable',
         template="""
-Dear {{ addressee }}
+Dear {{ addressee }},
 
 You contacted the Department of Justice on {{ date_of_intake }}. After careful review of what you submitted, we have decided not to take any further action on your complaint.
 
