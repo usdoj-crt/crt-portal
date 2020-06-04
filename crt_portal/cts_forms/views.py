@@ -26,7 +26,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import CommentAndSummary, Report
+from .models import CommentAndSummary, Report, Trends
 from .page_through import pagination
 
 SORT_DESC_CHAR = '-'
@@ -675,3 +675,15 @@ class CRTReportWizard(SessionWizardView):
                 'ordered_step_names': self.ORDERED_STEP_NAMES
             },
         )
+
+
+class TrendView(LoginRequiredMixin, TemplateView):
+    template_name = "forms/complaint_view/trends.html"
+
+    def get_context_data(self, **kwargs):
+        return {
+            'this_week': Trends.objects.filter(record_type='this_week'),
+            'last_week': Trends.objects.filter(record_type='last_week'),
+            'four_weeks': Trends.objects.filter(record_type='four_weeks'),
+            'year': Trends.objects.filter(record_type='year'),
+        }

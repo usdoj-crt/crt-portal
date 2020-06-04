@@ -270,3 +270,18 @@ class Report(models.Model):
 
     def get_absolute_url(self):
         return reverse('crt_forms:crt-forms-show', kwargs={"id": self.id})
+
+
+class Trends(models.Model):
+    """see the top 10 non-stop words from violation summary """
+    word = models.TextField()
+    document_count = models.IntegerField()
+    word_count = models.IntegerField()
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    record_type = models.TextField()
+
+    class Meta:
+        """This model is tied to a view created from migration 73"""
+        managed = False
+        db_table = 'trends'
