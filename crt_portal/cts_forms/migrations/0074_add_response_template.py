@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0073_make_trend_view.py'),
+        ('cts_forms', '0073_make_trend_view'),
     ]
 
     operations = [
