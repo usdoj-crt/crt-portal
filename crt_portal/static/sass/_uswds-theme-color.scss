@@ -26,7 +26,7 @@ Theme palette colors
 // Base colors
 $theme-color-base-family:           'gray'; // gray-cool
 $theme-color-base-lightest:         'gray-5';
-$theme-color-base-lighter:          'gray-warm-10'; // gray-cool-10
+$theme-color-base-lighter:          'gray-cool-10';
 $theme-color-base-light:            'gray-30'; // gray-cool-30
 $theme-color-base:                  'gray-50'; // gray-cool-50
 $theme-color-base-dark:             'gray-cool-60';
@@ -129,5 +129,5 @@ General colors
 // Links
 $theme-link-color:             'primary';
 $theme-link-visited-color:     'primary';
-$theme-link-hover-color:       'primary-dark';
+$theme-link-hover-color:       'blue-50';
 $theme-link-active-color:      'primary-darker';

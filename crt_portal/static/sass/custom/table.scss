@@ -1,6 +1,3 @@
-$cyan-vivid: 'cyan-10v';
-$green-cool-vivid: 'green-cool-10v';
-
 @mixin clickable-table-cell {
   color: color($theme-color-base-ink);
   height: 100%;
@@ -140,12 +137,12 @@ $green-cool-vivid: 'green-cool-10v';
 // Styles for complaint statuses in View All Table
 
 .status-new {
-  @include u-bg($cyan-vivid);
+  @include u-bg('cyan-10v');
   color: color($theme-color-base-ink);
 }
 
 .status-open {
-  @include u-bg($green-cool-vivid);
+  @include u-bg('green-cool-10v');
 }
 
 .status-closed {
