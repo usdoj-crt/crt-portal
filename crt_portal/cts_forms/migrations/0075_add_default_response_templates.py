@@ -93,7 +93,7 @@ def remove_templates(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0073_auto_20200602_1404'),
+        ('cts_forms', '0074_add_response_template.py'),
     ]
 
     operations = [
