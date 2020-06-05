@@ -317,13 +317,15 @@ workflows:
             branches:
               only: develop
 
+      # DON'T MERGE THIS
       - deploy-stage:
-          requires:
-            - owasp-scan-dev
-            - build_and_test
+          # requires:
+          #   - owasp-scan-dev
+          #   - build_and_test
           filters:
             branches:
-              only: /^release.*/
+              # only: /^release.*/
+              only: stage-sso-test
 
       - deploy-prod:
           requires:
