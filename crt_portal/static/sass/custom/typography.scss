@@ -14,43 +14,53 @@ h6,
 // https://designsystem.digital.gov/design-tokens/typesetting/overview/
 h1,
 .h1 {
-  font-size: $theme-h2-display-font-size;
+  font-size: $theme-heading-font-size-lg;
   line-height: 1.3;
+  @include at-media-max(mobile-lg) {
+    font-size: $theme-heading-font-size-lg-mobile;
+  }
 }
 
 .h1__display {
-  font-size: $theme-h1-display-font-size !important;
+  font-size: $theme-heading-font-size-xl !important;
   font-family: family('heading');
   font-weight: 600;
   line-height: 1.3;
   color: color($theme-color-primary-darker);
+  @include at-media-max(mobile-lg) {
+    font-size: $theme-heading-font-size-lg;
+  }
 }
 
 h2,
 .h2 {
-  font-size: $theme-h3-display-font-size !important;
+  font-size: $theme-heading-font-size-md !important;
   line-height: 1.5;
   @include at-media-max(mobile-lg) {
-    font-size: 1.5rem;
+    font-size: $theme-heading-font-size-md-mobile;
+    line-height: 1.3;
   }
 }
 
 .h2__display {
-  font-size: $theme-h2-display-font-size !important;
+  font-size: $theme-heading-font-size-lg !important;
   font-family: family('heading');
   font-weight: 600;
   line-height: 1.3;
   color: color($theme-color-primary-darker);
+  @include at-media-max(mobile-lg) {
+    font-size: $theme-heading-font-size-lg-mobile;
+  }
 }
 
 h3,
 .h3 {
-  font-size: $theme-h4-display-font-size;
+  font-size: $theme-heading-font-size-sm;
   line-height: 1.5;
 }
 
 .h3__display {
-  font-size: $theme-h3-display-font-size !important;
+  font-size: $theme-heading-font-size-md !important;
   font-family: family('heading');
   font-weight: 600;
   line-height: 1.5;
@@ -58,8 +68,9 @@ h3,
 }
 
 // no default styles defined for regular h4s
+
 .h4__display {
-  font-size: $theme-h4-display-font-size !important;
+  font-size: $theme-heading-font-size-sm !important;
   font-family: family('heading');
   font-weight: 600;
   line-height: 1.5;

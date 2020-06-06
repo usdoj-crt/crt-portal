@@ -409,8 +409,6 @@ $arrow-height: 24px;
     min-width: 32px;
     width: 32px;
     height: 32px;
-    color: color($theme-color-primary-darker);
-    @include u-font-family('serif');
     background-color: color($theme-color-warning);
     margin-right: 1rem;
   }

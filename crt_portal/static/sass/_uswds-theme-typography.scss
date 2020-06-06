@@ -414,10 +414,12 @@ $theme-small-font-size:            '2xs'; // we can use THIS variable because we
 $theme-display-font-size:          '3xl'; // not used
 
 // Headings -- display -- note that these are not USWDS-native variables
-$theme-h1-display-font-size:       2.8125rem; // 45px
-$theme-h2-display-font-size:       2rem; // 32px
-$theme-h3-display-font-size:       1.375rem; // 22px
-$theme-h4-display-font-size:       1rem; // 16px
+$theme-heading-font-size-xl:       2.8125rem; // 45px
+$theme-heading-font-size-lg:       2rem; // 32px
+$theme-heading-font-size-md:       1.375rem; // 22px
+$theme-heading-font-size-sm:       1rem; // 16px
+$theme-heading-font-size-lg-mobile:1.5rem; // 24px -- used for mobile headers only
+$theme-heading-font-size-md-mobile:1.25rem; // 20px -- used for mobile headers only
 
 // Text and prose
 $theme-text-measure-narrow:        1;
