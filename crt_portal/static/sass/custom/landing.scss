@@ -217,7 +217,8 @@ $arrow-height: 24px;
     font-weight: bold;
   }
 
-  .crt-landing--description_rights {
+  .crt-landing--description__rights {
+    @include text--heading__large();
     margin-top: 1rem;
     margin-bottom: 2.5rem;
   }
@@ -232,10 +233,11 @@ $arrow-height: 24px;
 
 .crt-landing--rights {
   .crt-landing--rights_text {
+    @include text--heading__large();
     margin-bottom: 2rem;
   }
 
-  .crt-landing--mediumtext {
+  .crt-landing--largetext {
     margin-bottom: 1rem;
   }
 
@@ -245,8 +247,13 @@ $arrow-height: 24px;
 }
 
 .crt-landing--largetext {
+  @include text--heading__medium();
   margin-top: 0;
   margin-bottom: 1.5rem;
+}
+
+.crt-landing--smalltext {
+  @include text--body-copy__small();
 }
 
 .crt-landing--subheader {
@@ -397,7 +404,6 @@ $arrow-height: 24px;
 
 .crt-landing--how_to_report {
   h2 {
-    font-size: 1.2rem;
     margin-top: 0;
   }
 
@@ -436,6 +442,7 @@ $arrow-height: 24px;
   }
 
   p.crt-landing--text {
+    @include text--body-copy__small();
     margin-bottom: 0;
   }
 }
