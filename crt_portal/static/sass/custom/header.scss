@@ -9,8 +9,13 @@
     @include u-margin-top(8);
   }
 
+  h1 {
+    font-weight: $theme-font-weight-normal;
+    color: color('white');
+  }
+
   .doj-brand {
-    font-size: 1.125rem;
+    font-size: $theme-text-font-size-lg;
     margin-top: 4rem;
     img {
       height: 38px;

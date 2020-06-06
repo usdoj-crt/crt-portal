@@ -323,17 +323,8 @@ a.usa-button {
   }
 }
 
-.help-text {
-  line-height: 1.625rem;
-}
-
-.help-text__small {
-  @include u-font('body', 'xs');
-}
-
 .help-text,
 .help-text__small {
-  font-style: italic;
   margin-top: 0.5rem;
   margin-bottom: 1.5rem;
 

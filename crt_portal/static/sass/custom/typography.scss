@@ -62,14 +62,6 @@ h3,
   color: color($theme-color-primary-darker);
 }
 
-.heading--weight__normal {
-  font-weight: weight($theme-font-weight-normal);
-}
-
-.heading--weight__light {
-  font-weight: weight($theme-font-weight-light);
-}
-
 p,
 li {
   @include text--body-copy__medium();
@@ -87,12 +79,34 @@ a:visited {
   color: color('white');
 }
 
+/***********************************************
+Usage-specific typography rules
+***********************************************/
+.question-header {
+  @include text--heading__medium();
+  font-weight: $theme-font-weight-bold;
+  color: color($theme-color-primary-darker);
+}
+
+.help-text {
+  line-height: $theme-body-copy-line-height;
+}
+
+.help-text__small {
+  @include text--body-copy__xsmall();
+}
+
 .usa-radio__label .label-text p {
   line-height: 0.85; //inherit from USWDS
   &.help-text,
   &.help-text__small {
     line-height: $theme-body-copy-line-height;
   }
+}
+
+.help-text,
+.help-text__small {
+  font-style: italic;
 }
 
 .look-like-link {
@@ -113,10 +127,6 @@ a:visited {
     margin-top: 0;
     max-width: 68ex;
   }
-}
-
-.align-center {
-  text-align: center;
 }
 
 .page-form-title {
