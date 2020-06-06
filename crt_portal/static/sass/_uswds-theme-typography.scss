@@ -410,15 +410,14 @@ $theme-h4-font-size:               'sm';
 $theme-h5-font-size:               'xs';
 $theme-h6-font-size:               '3xs';
 $theme-heading-line-height:        3;
-$theme-small-font-size:            '2xs';
+$theme-small-font-size:            '2xs'; // we can use THIS variable because we're applying it to Public Sans, which doesn't get magically resized. Sigh.
 $theme-display-font-size:          '3xl'; // not used
 
-// Headings -- display
+// Headings -- display -- note that these are not USWDS-native variables
 $theme-h1-display-font-size:       2.8125rem; // 45px
 $theme-h2-display-font-size:       2rem; // 32px
-$theme-h3-display-font-size:       1.375; // 22px
+$theme-h3-display-font-size:       1.375rem; // 22px
 $theme-h4-display-font-size:       1rem; // 16px
-$theme-heading-display-line-height: 3;
 
 // Text and prose
 $theme-text-measure-narrow:        1;

@@ -5,7 +5,6 @@ $arrow-height: 24px;
   padding-bottom: 2.5rem;
 
   h1 {
-    font-size: 2.9rem;
     margin-top: 1rem;
     margin-bottom: 0;
     line-height: 1.33;
@@ -16,22 +15,12 @@ $arrow-height: 24px;
   }
 
   h2 {
-    @include u-font-family('serif');
     margin-top: 1.5rem;
     margin-bottom: 0;
   }
 
-  h3 {
-    @include u-font-family('serif');
-  }
-
   li {
     margin-bottom: 1rem;
-  }
-
-  p.crt-landing--text,
-  ul.crt-landing--text {
-    line-height: 1.5;
   }
 }
 
@@ -202,9 +191,6 @@ $arrow-height: 24px;
   text-align: center;
 
   &_header {
-    @include u-font-family('serif');
-    font-size: 1.3rem;
-    font-weight: bold;
     color: color($theme-color-warning);
     margin-top: 1rem;
     margin-bottom: 0.5rem;
@@ -232,10 +218,6 @@ $arrow-height: 24px;
   }
 
   .crt-landing--description_rights {
-    font-size: 2rem;
-    @include at-media-max(mobile-lg) {
-      font-size: 1.5rem;
-    }
     margin-top: 1rem;
     margin-bottom: 2.5rem;
   }
@@ -246,22 +228,14 @@ $arrow-height: 24px;
       min-height: unset;
     }
   }
-
-  .crt-landing--smalltext {
-    line-height: 1.625;
-  }
 }
 
 .crt-landing--rights {
   .crt-landing--rights_text {
-    font-size: 1.6rem;
-    line-height: 1.4;
     margin-bottom: 2rem;
   }
 
   .crt-landing--mediumtext {
-    font-size: 1.2rem;
-    line-height: 1.5;
     margin-bottom: 1rem;
   }
 
@@ -273,14 +247,9 @@ $arrow-height: 24px;
 .crt-landing--largetext {
   margin-top: 0;
   margin-bottom: 1.5rem;
-  font-size: 1.4rem;
-  line-height: 1.5;
 }
 
 .crt-landing--subheader {
-  @include u-font-family('serif');
-  font-size: 1.5rem;
-  font-weight: bold;
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
@@ -310,10 +279,6 @@ $arrow-height: 24px;
     padding-left: 1rem;
     margin-top: 1.5rem;
     margin-bottom: 0;
-  }
-
-  .crt-landing--text {
-    font-size: 0.9rem;
   }
 
   li {
