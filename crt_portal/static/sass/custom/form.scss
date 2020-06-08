@@ -332,17 +332,6 @@ a.usa-button {
   }
 }
 
-// no margin when the only thing or last thing on the card is the help text -- see "something else" in "primary concern"
-.crt-portal-card__content {
-  > div:last-child,
-  > label:last-child {
-    .help-text:last-child,
-    .help-text__small:last-child {
-      margin-bottom: 0;
-    }
-  }
-}
-
 .usa-input--error,
 select.usa-input--error {
   border: 0.25rem solid color($theme-color-secondary-dark);
@@ -350,36 +339,6 @@ select.usa-input--error {
 
 .complaint-multi-select {
   min-width: 140px;
-}
-
-.crt-portal-card {
-  @include u-radius('lg');
-  @include u-shadow(3);
-  background: color('white');
-
-  &.crt-hover-card {
-    &:hover {
-      background-color: color(
-        'gray-cool-4'
-      ); // USWDS system design token: https://designsystem.digital.gov/design-tokens/color/system-tokens/
-      cursor: pointer;
-    }
-    &.selected,
-    &:hover.selected {
-      background-color: color($theme-color-primary-lightest);
-    }
-
-    > .crt-portal-card__content {
-      @include u-padding-top(4);
-      @include u-padding-bottom(1);
-    }
-  }
-
-  .crt-portal-card__content {
-    @include u-padding-x(7);
-    @include u-padding-bottom(6);
-    @include u-padding-top(5);
-  }
 }
 
 .inline-block {

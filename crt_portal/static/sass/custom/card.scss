@@ -38,8 +38,19 @@
       @include u-padding-top(5);
     }
 
+    // no margin when the only thing or last thing on the card is the help text
+    // example: "something else" in "primary concern"
+    > div:last-child,
+    > label:last-child {
+      .help-text:last-child,
+      .help-text__small:last-child {
+        margin-bottom: 0;
+      }
+    }
+    // card header
     h2 {
-      margin-bottom: 2rem;
+      margin-top: 0;
+      margin-bottom: $spacer-4x;
     }
   }
 
