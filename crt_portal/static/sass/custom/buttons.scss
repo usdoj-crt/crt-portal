@@ -5,7 +5,7 @@ button,
 
 .button--edit {
   background-color: transparent;
-  @include u-font-size('body', 'sm');
+  @include text--body-copy__medium();
   float: right;
   &:before {
     margin-right: 10px;

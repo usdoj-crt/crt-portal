@@ -82,8 +82,16 @@ a:visited {
 /***********************************************
 Usage-specific typography rules
 ***********************************************/
-.question-header {
+.question--header,
+.intake-section-title {
   @include text--heading__medium();
+  font-weight: $theme-font-weight-bold;
+  color: color($theme-color-primary-darker);
+}
+
+.question--label,
+.crt-portal-card__subheader {
+  @include text--body-copy__large();
   font-weight: $theme-font-weight-bold;
   color: color($theme-color-primary-darker);
 }
@@ -93,7 +101,7 @@ Usage-specific typography rules
 }
 
 .help-text__small {
-  @include text--body-copy__xsmall();
+  @include text--body-copy__small();
 }
 
 .usa-radio__label .label-text p {

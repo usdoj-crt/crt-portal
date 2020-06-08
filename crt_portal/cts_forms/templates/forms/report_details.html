@@ -11,7 +11,7 @@
 					for="{{ field.id_for_label }}"
 					class="{{label_class}} margin-bottom-0"
 				>
-					<span class="h2 display-block margin-bottom-1">{{ field.label }}{% if not question_group.optional %}<span class="field-required--group">{% trans "required" %}</span>{% endif %}</span>
+					<span class="question--header display-block margin-bottom-1">{{ field.label }}{% if not question_group.optional %}<span class="field-required--group">{% trans "required" %}</span>{% endif %}</span>
 				{% if field.help_text %}
 					<em>{{ field.help_text.title }}</em>
 					<ul class="question_primary_complaint">

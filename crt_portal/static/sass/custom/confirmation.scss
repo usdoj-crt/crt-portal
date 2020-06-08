@@ -1,7 +1,3 @@
-.confirmation-header {
-  @extend .crt-form-header;
-}
-
 .crt-success-card {
   @include u-radius('lg');
   background-color: color('white');
@@ -59,9 +55,9 @@ section hr {
 }
 
 .record-number-wrapper {
+  @include text--heading__medium();
   align-content: center;
   @include flex-container();
-  font-size: 1.38rem; //22px
 
   #paper-icon-wrapper {
     @include flex-container();
@@ -73,15 +69,14 @@ section hr {
   }
 
   .record-number {
+    @include text--heading__medium();
     background-color: color($theme-color-primary-lightest);
     font-weight: bold;
-    font-size: 1.38rem; //22px
   }
 }
 
 .confirmation-content p,
 .confirmation-content li {
-  line-height: 1.625;
   @media screen and (min-width: 480px) {
     max-width: 85%;
   }
@@ -98,10 +93,7 @@ section.what-to-expect {
   }
 
   h2 {
-    color: color($theme-color-primary-darker);
-    @include u-font-family('serif');
     @include u-padding-top(5);
-    font-size: 2.75rem;
     margin-bottom: 2.5rem;
     margin-top: 0;
   }
@@ -167,12 +159,6 @@ section.submission {
   margin-top: -15rem;
 
   #submission {
-    .submission-title {
-      color: color($theme-color-primary-darker);
-      @include u-font-family('serif');
-      font-size: 2.75rem;
-    }
-
     h3 {
       border-bottom: solid rgba(0, 0, 0, 0.1) thin;
     }
