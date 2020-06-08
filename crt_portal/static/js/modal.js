@@ -63,7 +63,6 @@
 
   copy.onclick = function(event) {
     notification.removeAttribute('hidden');
-    event.preventDefault();
     const el = document.createElement('textarea');
     el.value = letter.value;
     el.setAttribute('readonly', '');
@@ -74,12 +73,5 @@
     el.setSelectionRange(0, 99999); // mobile
     document.execCommand('copy');
     document.body.removeChild(el);
-    closeModal();
-    notification.classList.add('fade-out');
-    // hidden cannot be a CSS transition.
-    window.setTimeout(function() {
-      notification.setAttribute('hidden', 'hidden');
-      notification.classList.remove('fade-out');
-    }, 1000);
   };
 })();

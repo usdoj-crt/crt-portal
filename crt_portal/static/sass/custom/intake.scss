@@ -394,14 +394,8 @@
   padding: 0;
   margin-bottom: 1rem;
   background-image: none;
-  opacity: 1;
-  transition: opacity 1s linear;
 
   .usa-alert__body {
     padding-left: 2rem;
-  }
-
-  &.fade-out {
-    opacity: 0;
   }
 }

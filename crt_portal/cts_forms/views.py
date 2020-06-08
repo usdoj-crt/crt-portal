@@ -14,8 +14,9 @@ from django.views.generic import FormView, View, TemplateView
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
-from .forms import (CommentActions, ComplaintActions, ContactEditForm, Filters,
-                    ReportEditForm, Review, add_activity)
+from .forms import (CommentActions, ComplaintActions, TemplateActions,
+                    ContactEditForm, Filters, ReportEditForm, Review,
+                    add_activity)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -232,17 +233,9 @@ def serialize_data(report, request, report_id):
         report.other_class,
     )
 
-    templates = [
-        {
-            'title': template.title,
-            'description': template.description,
-            'content': template.render(report),
-        }
-        for template in ResponseTemplate.objects.all()
-    ]
-
     output = {
         'actions': ComplaintActions(instance=report),
+        'templates': TemplateActions(instance=report),
         'comments': CommentActions(),
         'activity_stream': report.target_actions.all(),
         'crimes': crimes,
@@ -251,14 +244,16 @@ def serialize_data(report, request, report_id):
         'primary_complaint': primary_complaint,
         'return_url_args': request.GET.get('next', ''),
         'summary': report.get_summary,
-        'templates': templates,
     }
 
     return output
 
 
 class ShowView(LoginRequiredMixin, View):
-    forms = {form.CONTEXT_KEY: form for form in [ContactEditForm, ComplaintActions, ReportEditForm]}
+    forms = {
+        form.CONTEXT_KEY: form
+        for form in [ContactEditForm, ComplaintActions, ReportEditForm, TemplateActions]
+    }
 
     def get(self, request, id):
         report = get_object_or_404(Report, pk=id)
@@ -285,6 +280,8 @@ class ShowView(LoginRequiredMixin, View):
         Accept only the submitted form and discard any other inbound changes
         """
         report = get_object_or_404(Report, pk=id)
+
+        print(request.POST)
 
         form, inbound_form_type = self.get_form(request, report)
         if form.is_valid() and form.has_changed():

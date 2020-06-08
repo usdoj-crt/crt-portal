@@ -23,7 +23,7 @@
           >(select a response template)</option>
           {% for template in templates %}
             <option
-              value="{{ template.title | slugify }}"
+              value="{{ template.title }}"
               data-description="{{ template.description }}"
               data-content="{{ template.content }}"
             >
@@ -35,10 +35,16 @@
           <textarea disabled id="intake_letter" rows="10" cols="80"></textarea>
         </div>
         <div class="modal-footer">
-          <button disabled id="intake_copy" class="usa-button">Copy</button>
+          <button disabled id="intake_copy" class="usa-button" type="submit" name="type" value="{{templates.CONTEXT_KEY}}">Copy</button>
           <a id="intake_template_cancel" href="#">Cancel</a>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div hidden id="response_copied_notification" class="usa-alert usa-alert--info">
+  <div class="usa-alert__body">
+    <p class="usa-alert__text">Response template copied</p>
   </div>
 </div>

@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           EmailInput, HiddenInput, IntegerField,
-                          ModelChoiceField, ModelForm,
+                          ModelChoiceField, ModelForm, Form,
                           ModelMultipleChoiceField,
                           Select, SelectMultiple, Textarea, TextInput,
                           TypedChoiceField)
@@ -36,7 +36,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report)
+                     ProtectedClass, Report, ResponseTemplate)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -961,6 +961,26 @@ class Filters(ModelForm):
                 'name': 'violation_summary'
             }),
         }
+
+
+class TemplateActions(Form, ActivityStreamUpdater):
+    CONTEXT_KEY = 'templates'
+    templates = ModelChoiceField(
+        queryset=ResponseTemplate.objects.all(),
+        required=False
+    )
+
+    def __init__(self, *args, **kwargs):
+        report = kwargs.pop('instance')
+        Form.__init__(self, *args, **kwargs)
+        templates = [
+            {
+                'title': template.title,
+                'description': template.description,
+                'content': template.render(report),
+            }
+            for template in ResponseTemplate.objects.all()
+        ]
 
 
 class ComplaintActions(ModelForm, ActivityStreamUpdater):
