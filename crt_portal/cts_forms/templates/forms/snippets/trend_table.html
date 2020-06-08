@@ -1,0 +1,25 @@
+
+<p id="{{ date_id }}">Start date {{ trend.0.start_date|date:'F j, Y' }}</p>
+<table aria-label="{{ label }}" aria-describedby="{{ date_id }}" class="usa-table usa-table--borderless">
+  <thead>
+    <tr>
+      <th>Word</th>
+      <th>Document count</th>
+      <th>Word count</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for record in trend %}
+      <tr>
+        <td><a aria-label="see matching records" href="{% url 'crt_forms:crt-forms-index' %}?violation_summary={{ record.word }}&create_date_start={{  trend.0.start_date|date:'Ymd' }}
+        {% if date_id == '#last-week-start' %}
+          &create_date_end={{ trend.0.end_date|date:'Ymd' }}
+        {% endif %}">
+          {{ record.word }}
+        </a></td>
+        <td>{{ record.document_count }}</td>
+        <td>{{ record.word_count }}</td>
+      <tr>
+  {% endfor %}
+  </tbody>
+</table>

@@ -115,24 +115,26 @@ PROTECTED_MODEL_CHOICES = tuple(
 
 PROTECTED_CLASS_ERROR = _('Please make a selection to continue. If none of these apply to your situation, please select “None of these apply to me” or "Other reason"and explain.')
 
+# CRT views only
 STATUS_CHOICES = (
-    ('new', _('New')),
-    ('open', _('Open')),
-    ('closed', _('Closed')),
+    ('new', 'New'),
+    ('open', 'Open'),
+    ('closed', 'Closed'),
 )
 
+# CRT views only
 SECTION_CHOICES = (
-    ('ADM', _('Administrative')),
-    ('APP', _('Appellate')),
-    ('CRM', _('Criminal')),
-    ('DRS', _('Disability')),
-    ('ELS', _('Employment Litigation Services')),
-    ('EOS', _('Education')),
-    ('FCS', _('Federal Coordination and Compliance')),
-    ('HCE', _('Housing')),
-    ('IER', _('Immigrant and Employee Rights')),
-    ('SPL', _('Special Litigation')),
-    ('VOT', _('Voting')),
+    ('ADM', 'Administrative'),
+    ('APP', 'Appellate'),
+    ('CRM', 'Criminal'),
+    ('DRS', 'Disability'),
+    ('ELS', 'Employment Litigation Services'),
+    ('EOS', 'Education'),
+    ('FCS', 'Federal Coordination and Compliance'),
+    ('HCE', 'Housing'),
+    ('IER', 'Immigrant and Employee Rights'),
+    ('SPL', 'Special Litigation'),
+    ('VOT', 'Voting'),
 )
 
 COMMERCIAL_OR_PUBLIC_PLACE_CHOICES = (
@@ -201,12 +203,13 @@ EMPLOYER_SIZE_CHOICES = (
 EMPLOYER_SIZE_DICT = dict(EMPLOYER_SIZE_CHOICES)
 EMPLOYER_SIZE_ERROR = _('Please select how large the employer is.')
 
+# CRT views only
 EMPLOYER_FRIENDLY_TEXT = {
-    'public_employer': _('Public'),
-    'private_employer': _('Private'),
-    'not_sure': _('Not sure'),
-    '14_or_less': _('Less than 15'),
-    '15_or_more': _('15 or more'),
+    'public_employer': 'Public',
+    'private_employer': 'Private',
+    'not_sure': 'Not sure',
+    '14_or_less': 'Less than 15',
+    '15_or_more': '15 or more',
 }
 
 PUBLIC_OR_PRIVATE_SCHOOL_CHOICES = (
