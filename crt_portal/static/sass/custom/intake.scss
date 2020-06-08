@@ -13,10 +13,9 @@
     @include flex-container();
 
     .title-copy {
+      @include text--heading__medium();
       color: color('white');
-      font-size: 1.375rem;
       font-weight: 400;
-      line-height: 3.75rem;
       margin-left: 0.8rem;
     }
   }
@@ -140,7 +139,7 @@
     border-radius: 0;
     box-shadow: none;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: $theme-text-font-size-md;
     justify-content: center;
     padding: 0.5rem 1rem 0.5rem 1rem;
     text-align: left;
@@ -193,7 +192,7 @@
   background: transparent;
   border-radius: 5px;
   border-width: 1px;
-  font-size: 1.125rem;
+  font-size: $theme-text-font-size-lg;
   height: 2.5rem;
   text-decoration: none;
 
@@ -274,7 +273,7 @@
   @include icon-dark();
   @include u-padding-y(1);
   @include u-padding-x(1.5);
-  font-size: 1rem;
+  font-size: $theme-text-font-size-md;
   height: 2rem;
   margin-right: 1rem;
 
@@ -283,14 +282,6 @@
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
   }
-}
-
-.intake-section-title {
-  color: color($theme-color-primary-darker);
-  @include u-font-family('serif');
-  font-weight: 700;
-  font-size: 1.375rem;
-  line-height: 1.6rem;
 }
 
 .intake-table {
@@ -332,7 +323,7 @@
   color: color($theme-color-base-ink);
   flex-basis: 40%; // select flex-basis is 60% for total of 100%
   font-weight: 700;
-  font-size: 1rem;
+  font-size: $theme-text-font-size-md;
   width: 9rem;
 }
 
@@ -351,7 +342,7 @@
 
 .details-date-label {
   color: color($theme-color-base-ink);
-  font-size: 0.875rem;
+  font-size: $theme-text-font-size-sm;
   font-weight: 900;
 }
 

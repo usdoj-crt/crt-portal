@@ -5,42 +5,23 @@ $arrow-height: 24px;
   padding-bottom: 2.5rem;
 
   h1 {
-    font-size: 2.9rem;
     margin-top: 1rem;
     margin-bottom: 0;
     line-height: 1.33;
-
-    @include at-media-max(mobile-lg) {
-      font-size: 2rem;
-    }
   }
 
   h2 {
-    @include u-font-family('serif');
     margin-top: 1.5rem;
     margin-bottom: 0;
-  }
-
-  h3 {
-    @include u-font-family('serif');
   }
 
   li {
     margin-bottom: 1rem;
   }
-
-  p.crt-landing--text,
-  ul.crt-landing--text {
-    line-height: 1.5;
-  }
 }
 
 .crt-header--icon_group {
   display: flex;
-
-  h3 {
-    font-size: 1rem;
-  }
 
   .crt-header--icon {
     padding-right: 0.5rem;
@@ -159,12 +140,12 @@ $arrow-height: 24px;
 
   .crt-landing--logo_subheading {
     @extend .usa-footer__logo-subheading;
-    font-size: 0.8em;
+    font-size: $theme-text-font-size-sm;
   }
 
   .crt-landing--logo_heading {
     @extend .usa-footer__logo-heading;
-    font-size: 1.2em;
+    font-size: $theme-heading-font-size-md;
   }
 }
 
@@ -179,6 +160,9 @@ $arrow-height: 24px;
     background-image: url(../../img/landing-page-hero-mobile.png);
     color: color('white');
     min-height: 600px;
+    .h1__display {
+      color: color('white');
+    }
     .crt-button--large {
       background: color($theme-color-warning);
       color: black !important;
@@ -202,9 +186,6 @@ $arrow-height: 24px;
   text-align: center;
 
   &_header {
-    @include u-font-family('serif');
-    font-size: 1.3rem;
-    font-weight: bold;
     color: color($theme-color-warning);
     margin-top: 1rem;
     margin-bottom: 0.5rem;
@@ -231,11 +212,8 @@ $arrow-height: 24px;
     font-weight: bold;
   }
 
-  .crt-landing--description_rights {
-    font-size: 2rem;
-    @include at-media-max(mobile-lg) {
-      font-size: 1.5rem;
-    }
+  .crt-landing--description__rights {
+    @include text--heading__large();
     margin-top: 1rem;
     margin-bottom: 2.5rem;
   }
@@ -246,22 +224,15 @@ $arrow-height: 24px;
       min-height: unset;
     }
   }
-
-  .crt-landing--smalltext {
-    line-height: 1.625;
-  }
 }
 
 .crt-landing--rights {
   .crt-landing--rights_text {
-    font-size: 1.6rem;
-    line-height: 1.4;
+    @include text--heading__large();
     margin-bottom: 2rem;
   }
 
-  .crt-landing--mediumtext {
-    font-size: 1.2rem;
-    line-height: 1.5;
+  .crt-landing--largetext {
     margin-bottom: 1rem;
   }
 
@@ -271,16 +242,16 @@ $arrow-height: 24px;
 }
 
 .crt-landing--largetext {
+  @include text--heading__medium();
   margin-top: 0;
   margin-bottom: 1.5rem;
-  font-size: 1.4rem;
-  line-height: 1.5;
+}
+
+.crt-landing--smalltext {
+  @include text--body-copy__small();
 }
 
 .crt-landing--subheader {
-  @include u-font-family('serif');
-  font-size: 1.5rem;
-  font-weight: bold;
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
@@ -312,10 +283,6 @@ $arrow-height: 24px;
     margin-bottom: 0;
   }
 
-  .crt-landing--text {
-    font-size: 0.9rem;
-  }
-
   li {
     font-weight: bold;
 
@@ -341,7 +308,7 @@ $arrow-height: 24px;
 
     button {
       padding: 1rem 1.5rem !important;
-      font-size: 1.2rem;
+      font-size: $theme-heading-font-size-md;
       line-height: 1.3;
       font-weight: normal;
       color: color('white');
@@ -432,7 +399,6 @@ $arrow-height: 24px;
 
 .crt-landing--how_to_report {
   h2 {
-    font-size: 1.2rem;
     margin-top: 0;
   }
 
@@ -444,8 +410,6 @@ $arrow-height: 24px;
     min-width: 32px;
     width: 32px;
     height: 32px;
-    color: color($theme-color-primary-darker);
-    @include u-font-family('serif');
     background-color: color($theme-color-warning);
     margin-right: 1rem;
   }
@@ -473,6 +437,7 @@ $arrow-height: 24px;
   }
 
   p.crt-landing--text {
+    @include text--body-copy__small();
     margin-bottom: 0;
   }
 }
@@ -480,10 +445,6 @@ $arrow-height: 24px;
 .crt-landing--already_submitted {
   h2 {
     margin-top: 1rem;
-  }
-
-  h3 {
-    font-size: 1.5rem;
   }
 }
 

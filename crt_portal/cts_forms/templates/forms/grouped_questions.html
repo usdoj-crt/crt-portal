@@ -2,7 +2,7 @@
 
 {% for question_group in wizard.form.question_groups %}
   <fieldset class="usa-fieldset">
-    <legend class="em-text question-header">
+    <legend class="question--header">
       {{ question_group.group_name }}{% if not question_group.optional %}<span class="field-required--group">{% trans "required" %}</span>{% endif %}
     </legend>
     {% if question_group.help_text %}

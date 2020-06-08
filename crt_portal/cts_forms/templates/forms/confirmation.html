@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block page_header %}
-<header class="confirmation-header">
+<header class="crt-form-header">
   <div class="grid-container">
     <div class="grid-row grid-gap flex-child">
       <div class="tablet:grid-col-9 tablet:grid-offset-1">
@@ -11,7 +11,7 @@
           <img src="{% static "img/doj-logo-footer.svg" %}" alt="" height="38" class="margin-right-105" />
           <span>{% trans "United States Department of Justice" %}<span>
         </div>
-        <h1 class="padding-top-2 padding-bottom-1 margin-0 title">
+        <h1 class="h1__display padding-top-2 padding-bottom-1 margin-0">
           {% trans "Thank you for submitting a report to the Civil Rights Division." %}
         </h1>
       </div>
@@ -28,13 +28,13 @@
       <div class="title radius-top-md">
         <div class="title-wrapper">
           <img src="{% static 'img/ic_successconfirmation.svg' %}" alt="check mark in circle" class="icon" />
-          <h2>
+          <h2 class="h1">
             {% trans "Report successfully submitted" %}
           </h2>
       </div>
     </div>
       <div class="crt-success-card__content">
-          <h3 class="intake-section-title">{% trans "Please save your record number for tracking." %}</h3>
+          <h3 class="h3__display">{% trans "Please save your record number for tracking." %}</h3>
           <p>{% trans "If you want a copy of this report for your personal records, save or print a copy of this page." %}</p>
           <div class="record-number-wrapper">
             <div class="record-number-note">
@@ -55,7 +55,7 @@
   <div class="grid-container">
     <div class="tablet:grid-col-8 tablet:grid-offset-2">
 
-      <h2>{% trans "What to expect" %}</h2>
+      <h2 class="h1__display">{% trans "What to expect" %}</h2>
 
       <ol class='confirmation-list'>
         <li>
@@ -124,7 +124,7 @@
     </div>
 
     <div class="tablet:grid-col-8 tablet:grid-offset-2">
-      <h2>{% trans "What you can do next" %}</h2>
+      <h2 class="h1__display">{% trans "What you can do next" %}</h2>
       <ol class='confirmation-list'>
         <li>
           <div class="title">
@@ -171,7 +171,7 @@
 <section class="submission">
   <div id="submission" class="grid-container">
     <div class="submission-content tablet:grid-col-8 tablet:grid-offset-2">
-        <h2 class='submission-title'>{% trans "Your submission" %}</h2>
+        <h2 class='h1__display'>{% trans "Your submission" %}</h2>
         {% include "forms/report_data.html" with ordered_step_names=ordered_step_names question=questions hide_edit_button=True %}
     </div>
   </div>

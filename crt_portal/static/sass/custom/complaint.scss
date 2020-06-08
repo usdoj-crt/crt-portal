@@ -6,7 +6,7 @@ $complaint-header-min-height: 200px;
 
   th {
     color: color($theme-color-base-ink);
-    font-size: 1rem;
+    @include text--body-copy__medium();
     font-weight: bold;
     padding-right: 0;
     width: 40%;
@@ -109,10 +109,10 @@ $complaint-header-min-height: 200px;
 
 // Messages rendering
 ul.messages {
+  @include text--body-copy__large();
   border-style: solid;
   border-radius: 5px;
   border-width: 1px;
-  font-size: 1.125rem;
   border-color: color($theme-color-primary-darker);
   list-style: none;
   margin-top: 0px;

@@ -12,9 +12,9 @@
 }
 
 @mixin sortable-cell-icon {
+  @include text--body-copy__xsmall();
   content: ' ';
   display: block;
-  font-size: 12px;
   height: 6px;
   position: absolute;
   right: 5%;
@@ -37,10 +37,9 @@
 
 .crt-table {
   @extend .usa-table;
+  @include text--body-copy__small();
   background: color('white');
-  font-size: 14px;
   height: 100%;
-  line-height: 22px;
   margin-bottom: 0;
   margin-top: 0;
   width: 100%;
@@ -53,7 +52,7 @@
       border-right: 0 !important; //override the .usa-table extension
       border-bottom: 1px solid color($theme-color-base-lighter);
       border-top: 0;
-      font-size: 1rem;
+      font-size: $theme-text-font-size-md;
       font-weight: 400 !important;
       height: 4.4rem;
       position: relative;

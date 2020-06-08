@@ -5,7 +5,7 @@
 // radio buttons; so remove list item bullets by default.
 form#details-edit-form,
 form#report-form {
-  .question-header {
+  .question--header {
     width: 100%; // IE11 fix
     margin-top: 0.5rem;
     margin-bottom: 1.5rem;
@@ -16,7 +16,7 @@ form#report-form {
     }
   }
 
-  fieldset:first-of-type .question-header {
+  fieldset:first-of-type .question--header {
     margin-top: 0;
   }
 
@@ -29,8 +29,7 @@ form#report-form {
       margin-bottom: 1.5rem;
 
       &.primary-issue-example-li {
-        font-size: 0.875rem;
-        line-height: 1.3125rem;
+        @include text--body-copy__small();
         list-style: disc !important;
         margin-bottom: 0;
         margin-left: 18px;
@@ -56,8 +55,8 @@ form#report-form {
       margin-bottom: 2rem;
     }
     // question headers sometimes abut page headers, which makes them the first-of-type and thus they lose their margin,
-    // but when they immediately follow page headers they need the standard question-header spacing
-    + div[data-toggle] fieldset:first-of-type .question-header {
+    // but when they immediately follow page headers they need the standard question--header spacing
+    + div[data-toggle] fieldset:first-of-type .question--header {
       margin-top: 2.5rem;
     }
   }
@@ -250,10 +249,10 @@ form#report-form {
       }
 
       .examples-title {
+        @include text--body-copy__small();
         text-transform: uppercase;
         font-weight: bold;
         color: color($theme-color-base-darker);
-        @include u-font('body', 3);
       }
     }
   }
@@ -283,8 +282,8 @@ form#report-form {
 }
 
 .form-help-text {
+  @include text--body-copy__small();
   color: color($theme-color-base-darker);
-  font-size: 0.9rem;
 
   // Necessary because we want to override styles applied to the p tag
   margin: 0.5rem 0 1rem 0 !important;
@@ -323,17 +322,8 @@ a.usa-button {
   }
 }
 
-.help-text {
-  line-height: 1.625rem;
-}
-
-.help-text__small {
-  @include u-font('body', 'xs');
-}
-
 .help-text,
 .help-text__small {
-  font-style: italic;
   margin-top: 0.5rem;
   margin-bottom: 1.5rem;
 
@@ -408,7 +398,7 @@ select.usa-input--error {
 }
 
 .field-required {
-  font-size: 1rem;
+  @include text--body-copy__medium();
   font-weight: normal;
   font-style: italic;
   color: color($theme-color-base);

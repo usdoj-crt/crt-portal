@@ -39,23 +39,19 @@ footer {
 }
 
 .usa-footer__logo-heading {
-  font-size: 2rem;
+  @include text--heading__large();
   font-weight: bold;
-
-  @include at-media-max(desktop) {
-    font-size: 1.38rem;
-  }
 }
 
 .usa-footer__logo-subheading {
+  @include text--heading__small();
   font-weight: bold;
-  font-size: 1em;
   margin: 0;
   @include u-font-family('serif');
 }
 
 .usa-footer__heading {
-  font-size: 1.5em;
+  @include text--heading__medium();
   font-weight: bold;
   margin-top: 0;
   margin-bottom: 1em;
@@ -69,7 +65,7 @@ footer {
 }
 
 .usa-footer__links {
-  font-size: 14px;
+  @include text--body-copy__small();
   display: flex;
   flex-direction: column;
 
