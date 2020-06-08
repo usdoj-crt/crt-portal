@@ -1,6 +1,6 @@
 button,
 .usa-button {
-  background-color: $blue-warm-vivid-80;
+  background-color: color($theme-color-primary-darker);
 }
 
 .button--edit {
@@ -31,5 +31,5 @@ button,
 }
 
 button#login {
-  color: white;
+  color: color('white');
 }

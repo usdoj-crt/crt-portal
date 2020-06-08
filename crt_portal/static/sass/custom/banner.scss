@@ -1,23 +1,24 @@
 // USA Gov Banner Customization
 
 .usa-banner {
-  background-color: #2E2E2A;
+  background-color: color($theme-color-base-ink);
 
   .usa-banner__header-text,
   .usa-media-block__body {
-    color: white;
+    color: color('white');
 
     // Touchpoints footer styling
-    [id=fba-modal-dialog] & {
-     color: #1b1b1b;
+    [id='fba-modal-dialog'] & {
+      color: color($theme-color-base-darkest);
     }
   }
 
-  .usa-banner__button, .usa-banner__header-action {
-    color: $gold;
+  .usa-banner__button,
+  .usa-banner__header-action {
+    color: color($theme-color-warning);
 
     &:hover {
-      color: $yellow;
+      color: color($theme-color-warning-light);
     }
   }
 }
