@@ -38,10 +38,10 @@ body.is-modal {
 // specific modal instances
 .intake-template--modal {
   h1 {
-    color: $blue-warm-vivid-80;
+    color: color($theme-color-primary-darker);
     margin-top: 0;
     font-size: 2rem;
-    border-bottom: 1px solid $blue-warm-vivid-80;
+    border-bottom: 1px solid color($theme-color-primary-darker);
   }
 
   .intake-template--description {
