@@ -160,6 +160,9 @@ $arrow-height: 24px;
     background-image: url(../../img/landing-page-hero-mobile.png);
     color: color('white');
     min-height: 600px;
+    .h1__display {
+      color: color('white');
+    }
     .crt-button--large {
       background: color($theme-color-warning);
       color: black !important;
