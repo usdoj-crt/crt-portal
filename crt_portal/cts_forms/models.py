@@ -7,6 +7,8 @@ from django.core.validators import MaxValueValidator, RegexValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
+from django.template import Context, Template
+from django.utils.html import escape
 
 from .managers import ActiveProtectedClassChoiceManager
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
@@ -268,5 +270,51 @@ class Report(models.Model):
         """Return most recent summary provided by an intake specialist"""
         return self.internal_comments.filter(is_summary=True).order_by('-modified_date').first()
 
+    @property
+    def addressee(self):
+        if self.contact_first_name:
+            if self.contact_last_name:
+                return f"{self.contact_first_name} {self.contact_last_name}"
+            return self.contact_first_name
+        if self.contact_last_name:
+            return self.contact_last_name
+        return "sir/madam"
+
     def get_absolute_url(self):
         return reverse('crt_forms:crt-forms-show', kwargs={"id": self.id})
+
+
+class Trends(models.Model):
+    """see the top 10 non-stop words from violation summary """
+    word = models.TextField()
+    document_count = models.IntegerField()
+    word_count = models.IntegerField()
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    record_type = models.TextField()
+
+    class Meta:
+        """This model is tied to a view created from migration 73"""
+        managed = False
+        db_table = 'trends'
+
+
+class ResponseTemplate(models.Model):
+    title = models.CharField(max_length=100, null=False, blank=False, unique=True,)
+    description = models.CharField(max_length=100, null=False, blank=False,)
+    template = models.TextField(null=False, blank=False,)
+
+    def render(self, report):
+        today = datetime.today()
+        template = Template(self.template)
+        # we only allow a small subset of report fields
+        context = Context({
+            'addressee': report.addressee,
+            'date_of_intake': report.create_date.strftime('%B %d, %Y'),
+            'record_locator': report.public_id,
+            'outgoing_date': today.strftime('%B %d, %Y'),  # required for paper mail
+        })
+        return escape(template.render(context))
+
+    def __str__(self):
+        return self.description

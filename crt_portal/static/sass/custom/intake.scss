@@ -236,6 +236,18 @@
     }
   }
 
+  &--blue {
+    @include u-color($theme-color-primary-darker);
+    @include u-bg($theme-color-primary-lighter);
+    font-weight: normal;
+    border: 0;
+
+    &:hover {
+      @include u-color($theme-color-primary-lighter);
+      background: $theme-color-primary-dark !important;
+    }
+  }
+
   &--dark {
     @include icon-dark();
   }
@@ -315,6 +327,14 @@
   width: 9rem;
 }
 
+.intake-section {
+  margin: 2rem 0;
+
+  .icon {
+    width: initial;
+  }
+}
+
 .details-id {
   margin-top: 2.3rem;
   margin-bottom: 0;
@@ -367,5 +387,21 @@
     font-weight: bold;
     margin-top: 5px;
     box-shadow: 0 15px 10px hsla(0, 0%, 39.2%, 0.2);
+  }
+}
+
+#response_copied_notification {
+  padding: 0;
+  margin-bottom: 1rem;
+  background-image: none;
+  opacity: 1;
+  transition: opacity 1s linear;
+
+  .usa-alert__body {
+    padding-left: 2rem;
+  }
+
+  &.fade-out {
+    opacity: 0;
   }
 }

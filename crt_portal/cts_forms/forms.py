@@ -85,6 +85,7 @@ class ActivityStreamUpdater(object):
                     initial = ', '.join([str(x) for x in initial])
                     new = ', '.join([str(x) for x in new])
 
+                # CRT views only
                 yield f"{' '.join(field.split('_')).capitalize()}:", f'Updated from "{initial}" to "{new}"'
             except KeyError:
                 # Initial value not found for field, not present on model, not a change to be tracked
@@ -747,6 +748,7 @@ class ProForm(
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
         Contact.__init__(self, *args, **kwargs)
+        # CRT views only
         self.fields['intake_format'] = TypedChoiceField(
             choices=(
                 EMPTY_CHOICE,
@@ -841,7 +843,8 @@ class ProForm(
             self.label_suffix = ''
             self.fields['violation_summary'].label = SUMMARY_QUESTION
             self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
-            self.fields['violation_summary'].help_text = _('What did the person believe happened?')
+            # CRT view only
+            self.fields['violation_summary'].help_text = 'What did the person believe happened?'
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""

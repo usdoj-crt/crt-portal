@@ -26,6 +26,7 @@
     "test:a11y-view": "pa11y-ci --config pa11y_scripts/.crt-view.json",
     "test:a11y-crt-new": "pa11y-ci --config pa11y_scripts/.crt-new.json",
     "test:a11y-crt-details": "pa11y-ci --config pa11y_scripts/.crt-details.json",
+    "test:a11y-crt-trends": "pa11y-ci --config pa11y_scripts/.crt-trends.json",
     "test:a11y-crt-privacy": "pa11y-ci --config pa11y_scripts/.crt-privacy-policy.json",
     "test:a11y-crt-landing": "pa11y-ci --config pa11y_scripts/.crt-landing.json",
 
