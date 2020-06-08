@@ -211,7 +211,7 @@ if environment == 'PRODUCTION':
             '^report',
             '^robots.txt',
             '^privacy-policy',
-            '^i8n',
+            '^i18n',
         ],
     }
 
@@ -260,6 +260,8 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'www.civilrights.justice.gov',
         'civilrights.justice.gov',
         'https://touchpoints.app.cloud.gov',
+        'https://dap.digitalgov.gov',
+        'https://www.google-analytics.com',
     )
     # headers required for security
     SESSION_COOKIE_SECURE = True
