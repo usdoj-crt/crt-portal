@@ -2,10 +2,8 @@
   var previous_onkeydown = document.onkeydown;
 
   var modal = document.getElementById('intake_template');
-  var notification = document.getElementById('response_copied_notification');
 
   function openModal() {
-    notification.setAttribute('hidden', 'hidden');
     document.onkeydown = function(event) {
       event = event || window.event;
       var isEscape = false;
@@ -52,8 +50,8 @@
     event.preventDefault();
     var index = event.target.selectedIndex;
     var option = event.target.options[index];
-    description.innerHTML = option.dataset['description'];
-    letter.innerHTML = option.dataset['content'];
+    description.innerHTML = option.dataset['description'] || "(select a response template)";
+    letter.innerHTML = option.dataset['content'] || '';
     if (index >= 1) {
       copy.removeAttribute('disabled');
     } else {
@@ -62,7 +60,6 @@
   };
 
   copy.onclick = function(event) {
-    notification.removeAttribute('hidden');
     const el = document.createElement('textarea');
     el.value = letter.value;
     el.setAttribute('readonly', '');

@@ -49,7 +49,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
                       CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
-                      UsaRadioSelect)
+                      UsaRadioSelect, DataAttributesSelect)
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -965,22 +965,25 @@ class Filters(ModelForm):
 
 class TemplateActions(Form, ActivityStreamUpdater):
     CONTEXT_KEY = 'templates'
-    templates = ModelChoiceField(
-        queryset=ResponseTemplate.objects.all(),
-        required=False
-    )
 
     def __init__(self, *args, **kwargs):
         report = kwargs.pop('instance')
         Form.__init__(self, *args, **kwargs)
-        templates = [
-            {
-                'title': template.title,
+        # set up select options with dataset attributes
+        data = {
+            template.id: {
                 'description': template.description,
                 'content': template.render(report),
             }
             for template in ResponseTemplate.objects.all()
-        ]
+        }
+        attrs = {"class": "usa-select", "id": "intake_select"}
+        self.fields['templates'] = ModelChoiceField(
+            queryset=ResponseTemplate.objects.all(),
+            empty_label="(no template chosen)",
+            widget=DataAttributesSelect(data=data, attrs=attrs),
+            required=False,
+        )
 
 
 class ComplaintActions(ModelForm, ActivityStreamUpdater):

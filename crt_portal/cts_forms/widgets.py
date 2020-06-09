@@ -69,3 +69,20 @@ class UsaCheckboxSelectMultiple(ChoiceWidget):
         if index is None:
             return ''
         return super().id_for_label(id_, index)
+
+
+class DataAttributesSelect(ChoiceWidget):
+    input_type = 'select'
+    template_name = 'django/forms/widgets/select.html'
+    option_template_name = 'django/forms/widgets/select_option.html'
+
+    def __init__(self, attrs=None, choices=(), data={}):
+        super().__init__(attrs, choices)
+        self.data = data
+
+    def create_option(self, name, value, label, selected, index, **kwargs):
+        option = super().create_option(name, value, label, selected, index, **kwargs)
+        data_attributes = self.data.get(value, {})
+        for key, value in data_attributes.items():
+            option['attrs'][f"data-{key}"] = value
+        return option

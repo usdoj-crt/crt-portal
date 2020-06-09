@@ -272,13 +272,13 @@ class Report(models.Model):
 
     @property
     def addressee(self):
-        if self.contact_first_name:
-            if self.contact_last_name:
-                return f"{self.contact_first_name} {self.contact_last_name}"
-            return self.contact_first_name
-        if self.contact_last_name:
-            return self.contact_last_name
-        return "sir/madam"
+        salutation = "Dear"
+        name = self.contact_first_name or self.contact_last_name
+        if name:
+            if self.contact_first_name and self.contact_last_name:
+                return f"{salutation} {self.contact_first_name} {self.contact_last_name}"
+            return f"{salutation} {name}"
+        return "Thank you for your report"
 
     def get_absolute_url(self):
         return reverse('crt_forms:crt-forms-show', kwargs={"id": self.id})
@@ -317,4 +317,4 @@ class ResponseTemplate(models.Model):
         return escape(template.render(context))
 
     def __str__(self):
-        return self.description
+        return self.title

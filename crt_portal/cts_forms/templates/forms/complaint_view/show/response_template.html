@@ -15,22 +15,7 @@
         <p class="intake-template--description">
           <strong id="intake_description">(no template chosen)</strong>
         </p>
-        <select id="intake_select" class="usa-select" name="response_template" aria-label="select response template">
-          <option
-            value="none"
-            data-description="(no template chosen)"
-            data-content=""
-          >(select a response template)</option>
-          {% for template in templates %}
-            <option
-              value="{{ template.title }}"
-              data-description="{{ template.description }}"
-              data-content="{{ template.content }}"
-            >
-              {{ template.title }}
-            </option>
-          {% endfor %}
-        </select>
+        {{ templates }}
         <div class="intake-template--content">
           <textarea disabled id="intake_letter" rows="10" cols="80"></textarea>
         </div>
@@ -40,11 +25,5 @@
         </div>
       </div>
     </div>
-  </div>
-</div>
-
-<div hidden id="response_copied_notification" class="usa-alert usa-alert--info">
-  <div class="usa-alert__body">
-    <p class="usa-alert__text">Response template copied</p>
   </div>
 </div>

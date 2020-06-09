@@ -27,7 +27,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import CommentAndSummary, Report, Trends, ResponseTemplate
+from .models import CommentAndSummary, Report, Trends
 from .page_through import pagination
 
 SORT_DESC_CHAR = '-'
