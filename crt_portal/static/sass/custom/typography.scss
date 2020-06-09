@@ -114,7 +114,12 @@ Usage-specific typography rules
 
 .help-text,
 .help-text__small {
+  margin-top: units($spacer-1x);
   font-style: italic;
+
+  + fieldset legend {
+    padding-top: 0;
+  }
 }
 
 .look-like-link {

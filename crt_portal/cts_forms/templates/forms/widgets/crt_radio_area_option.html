@@ -7,8 +7,8 @@
       {% include "django/forms/widgets/attrs.html" %} />
 <label class="crt-radio__label_area"
       {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>
-  <div class="label-text padding-left-5">
-    <h3 class="question--label margin-top-0 margin-bottom-1">
+  <div class="label-text">
+    <h3 class="question--label">
       {{ widget.label }}<span class="usa-sr-only">.</span>
     </h3>
     {% if widget.value != None %}
@@ -25,7 +25,7 @@
             <div class="examples-title margin-top-2">
               {% trans "Examples:" %}
             </div>
-            <ul class="margin-top-1" role="presentation">
+            <ul class="examples" role="presentation">
               {% for example in examples %}
                 <li class="primary-issue-example-li" role="listitem">
                   {{ example }}<span class="usa-sr-only">.</span>

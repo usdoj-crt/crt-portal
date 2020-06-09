@@ -7,12 +7,13 @@ form#details-edit-form,
 form#report-form {
   .question--header {
     width: 100%; // IE11 fix
-    margin-top: 0.5rem;
-    margin-bottom: 1.5rem;
+    // margin-top: 0.5rem;
+    // margin-bottom: units($spacer-3x);
+    margin: 0;
     + .help-text,
     + .help-text__small,
     + p {
-      margin-top: -1rem; // to match other help text margins
+      // margin-top: -1rem; // to match other help text margins
     }
   }
 
@@ -26,14 +27,14 @@ form#report-form {
     }
 
     li {
-      margin-bottom: 1.5rem;
+      margin-bottom: units($spacer-3x);
 
       &.primary-issue-example-li {
         @include text--body-copy__small();
         list-style: disc !important;
         margin-bottom: 0;
         margin-left: 18px;
-        margin-top: 0.5rem;
+        margin-top: units($spacer-half);
 
         &:first-child {
           margin-top: 0;
@@ -52,12 +53,18 @@ form#report-form {
   // patterns for page intro text
   h2 {
     + .help-text {
-      margin-bottom: 2rem;
+      margin-bottom: units($spacer-4x);
+    }
+    &.question--label + .help-text {
+      margin-bottom: units($spacer-3x);
+    }
+    + .question--header {
+      margin-top: units($spacer-4x);
     }
     // question headers sometimes abut page headers, which makes them the first-of-type and thus they lose their margin,
     // but when they immediately follow page headers they need the standard question--header spacing
     + div[data-toggle] fieldset:first-of-type .question--header {
-      margin-top: 2.5rem;
+      margin-top: units($spacer-5x);
     }
   }
 }
@@ -241,8 +248,14 @@ form#report-form {
 
     .label-text {
       position: relative;
-      bottom: 1.5rem;
+      bottom: units($spacer-3x);
       margin-bottom: 0;
+
+      .question--label {
+        margin-top: 0;
+        margin-bottom: units($spacer-1x);
+        padding-left: units($spacer-5x);
+      }
 
       ul {
         padding-inline-start: 20px;
@@ -253,6 +266,18 @@ form#report-form {
         text-transform: uppercase;
         font-weight: bold;
         color: color($theme-color-base-darker);
+      }
+
+      .examples {
+        margin-top: units($spacer-1x);
+      }
+
+      @include at-media('mobile-lg') {
+        .help-text__small,
+        .examples-title,
+        ul.examples {
+          padding-left: units($spacer-5x) !important;
+        }
       }
     }
   }
@@ -319,16 +344,6 @@ a.usa-button {
     margin-top: -2px;
     padding-right: 0.5rem;
     vertical-align: middle;
-  }
-}
-
-.help-text,
-.help-text__small {
-  margin-top: 0.5rem;
-  margin-bottom: 1.5rem;
-
-  + fieldset legend {
-    padding-top: 0;
   }
 }
 
