@@ -202,8 +202,8 @@
                 </li>
               </ul>
               <div class="crt-landing--example">
-                <p id="crt-landing--choice_helptext">
-                </p>
+                <div id="crt-landing--choice_helptext">
+                </div>
                 <p class="crt-landing--example_header">
                   {% trans "Examples" %}
                 </p>
@@ -371,8 +371,13 @@
      var helptext_field = document.getElementById("crt-landing--choice_helptext");
      var option_field = document.getElementById("crt-landing--example_option");
      var el = document.getElementById("crt-landing--example-" + key);
+     var helptext = el.dataset["helptext"];
+     if (helptext) {
+       helptext_field.innerHTML = "<p>" + helptext + "</p>";
+     } else {
+       helptext_field.innerHTML = "";
+     }
      option_field.innerHTML = el.dataset["description"];
-     helptext_field.innerHTML = el.dataset["helptext"];
      let length = el.dataset.examplecount;
      examples_field.innerHTML = "";
      for (var i = 0; i < length; i++) {
