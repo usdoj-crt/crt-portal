@@ -14,6 +14,7 @@
 
     .title-copy {
       @include text--heading__medium();
+      font-family: family('heading');
       color: color('white');
       font-weight: 400;
       margin-left: 0.8rem;
@@ -53,7 +54,17 @@
   }
   .progress-bar {
     margin-top: 0; //override setting in progress.scss
+    a,
+    a:visited {
+      color: color($theme-color-primary-lightest);
+    }
   }
+}
+
+#service-member + h3 {
+  @include text--heading__medium();
+  font-weight: $theme-font-weight-bold;
+  color: color($theme-color-primary-darker);
 }
 
 // Fix for IE and Edge, which rely on .intake-header--progress-bar being position: fixed (applied via progress-bar.js).

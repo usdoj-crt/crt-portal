@@ -158,8 +158,8 @@ $arrow-height: 24px;
 
   @include at-media-max(mobile-lg) {
     background-image: url(../../img/landing-page-hero-mobile.png);
-    color: color('white');
     min-height: 600px;
+    color: color('white');
     .h1__display {
       color: color('white');
     }

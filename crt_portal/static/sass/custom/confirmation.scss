@@ -92,8 +92,18 @@ section hr {
 
 .confirmation-content p,
 .confirmation-content li {
+  margin-top: 0;
   @media screen and (min-width: 480px) {
     max-width: 85%;
+  }
+}
+
+.question {
+  h4 {
+    margin-bottom: 0;
+  }
+  p {
+    margin-top: units($spacer-half);
   }
 }
 
