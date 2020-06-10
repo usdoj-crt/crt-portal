@@ -89,6 +89,10 @@ Usage-specific typography rules
   color: color($theme-color-primary-darker);
 }
 
+.intake-section-title {
+  font-family: family('heading');
+}
+
 .question--label,
 .crt-portal-card__subheader {
   @include text--body-copy__large();
@@ -115,10 +119,26 @@ Usage-specific typography rules
 .help-text,
 .help-text__small {
   margin-top: units($spacer-1x);
+  margin-bottom: 0;
   font-style: italic;
 
   + fieldset legend {
     padding-top: 0;
+  }
+
+  + input,
+  + .usa-input,
+  + textarea,
+  + .usa-textarea {
+    margin-top: units($spacer-2x);
+  }
+
+  + input[type='submit'] {
+    margin-top: units($spacer-3x);
+  }
+
+  + ul {
+    margin-top: units($spacer-3x);
   }
 }
 

@@ -58,14 +58,26 @@ form#report-form {
     &.question--label + .help-text {
       margin-bottom: units($spacer-3x);
     }
-    + .question--header {
+    // Personal Description has an odd markup pattern where the question header is nested within a label
+    + .question--header,
+    + label .question--header {
       margin-top: units($spacer-4x);
     }
     // question headers sometimes abut page headers, which makes them the first-of-type and thus they lose their margin,
     // but when they immediately follow page headers they need the standard question--header spacing
+    // Personal Characteristics page is an example of this
     + div[data-toggle] fieldset:first-of-type .question--header {
-      margin-top: units($spacer-5x);
+      margin-top: units($spacer-4x);
     }
+  }
+}
+
+// patterns for some question formats
+.question--header {
+  // data-toggle == yes/no radio buttons
+  + div[data-toggle],
+  + .form-group {
+    margin-top: units($spacer-3x);
   }
 }
 
@@ -77,6 +89,12 @@ form#report-form {
     padding-left: 0;
   }
 
+  .help-text__small {
+    + ul,
+    + .usa-button {
+      margin-top: units($spacer-3x);
+    }
+  }
   .form-group {
     margin-bottom: 1.5rem;
     > h3 {
@@ -223,10 +241,7 @@ form#report-form {
       margin-bottom: -30px;
     }
 
-    .radio-help-text {
-      line-height: 1.25rem;
-      margin-top: 0.5rem;
-      margin-bottom: 0;
+    .help-text--radio {
       text-indent: 0;
     }
   }
