@@ -977,7 +977,11 @@ class ResponseActions(Form, ActivityStreamUpdater):
             }
             for template in ResponseTemplate.objects.all()
         }
-        attrs = {"class": "usa-select", "id": "intake_select"}
+        attrs = {
+            "id": "intake_select",
+            "class": "usa-select",
+            "aria-label": "template selection"
+        }
         self.fields['templates'] = ModelChoiceField(
             queryset=ResponseTemplate.objects.all(),
             empty_label="(no template chosen)",
