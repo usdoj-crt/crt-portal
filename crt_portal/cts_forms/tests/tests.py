@@ -496,6 +496,7 @@ class CRT_FILTER_Tests(TestCase):
         test_report.location_city_town = 'Cleveland'
         test_report.location_state = 'OH'
         test_report.assigned_section = test_report.assign_section()
+        test_report.servicemember = 'yes'
         test_report.save()
 
         self.client = Client()
@@ -627,6 +628,16 @@ class CRT_FILTER_Tests(TestCase):
         report_len = len(reports)
 
         self.assertEquals(report_len, 1)
+
+    def test_servicemember_filter(self):
+        servicemember_filter = 'servicemember=yes'
+        response = self.client.get(f'{self.url_base}?{servicemember_filter}')
+        reports = response.context['data_dict']
+        expected_reports = Report.objects.filter(servicemember='yes').count()
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, expected_reports)
 
 
 class Validation_Form_Tests(TestCase):

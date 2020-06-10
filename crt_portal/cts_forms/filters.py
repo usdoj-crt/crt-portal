@@ -25,6 +25,8 @@ filter_options = {
     'primary_statute': '__in',
     'assigned_to': 'foreign_key',
     'summary': 'summary',
+    'servicemember': 'eq',
+
 }
 
 
@@ -58,6 +60,8 @@ def report_filter(request):
             elif filter_options[field] == 'foreign_key':
                 # assumes assigned_to but could add logic for other foreign keys in the future
                 kwargs['assigned_to__username__in'] = request.GET.getlist(field)
+            elif filter_options[field] == 'eq':
+                kwargs[field] = request.GET.getlist(field)[0]
 
     # returns a filtered query, and a dictionary that we can use to keep track of the filters we apply
     return Report.objects.filter(**kwargs), filters
