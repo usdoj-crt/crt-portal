@@ -281,8 +281,6 @@ class ShowView(LoginRequiredMixin, View):
         """
         report = get_object_or_404(Report, pk=id)
 
-        print(request.POST)
-
         form, inbound_form_type = self.get_form(request, report)
         if form.is_valid() and form.has_changed():
             report = form.save(commit=False)

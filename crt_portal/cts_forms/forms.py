@@ -967,13 +967,13 @@ class TemplateActions(Form, ActivityStreamUpdater):
     CONTEXT_KEY = 'templates'
 
     def __init__(self, *args, **kwargs):
-        report = kwargs.pop('instance')
+        self.report = kwargs.pop('instance')
         Form.__init__(self, *args, **kwargs)
         # set up select options with dataset attributes
         data = {
             template.id: {
                 'description': template.description,
-                'content': template.render(report),
+                'content': template.render(self.report),
             }
             for template in ResponseTemplate.objects.all()
         }
@@ -984,6 +984,26 @@ class TemplateActions(Form, ActivityStreamUpdater):
             widget=DataAttributesSelect(data=data, attrs=attrs),
             required=False,
         )
+
+    def save(self, commit=False):
+        """
+        We are not actually saving anything here, but instead hooking into
+        the CRT form so that we can log template actions such as
+        printing and copying. Eventually we will want to add email
+        integration functionality here.
+        """
+        return self.report
+
+    def update_activity_stream(self, user):
+        action = "Copied"
+        template = self.cleaned_data['templates'].title
+        description = f"{action} '{template}' template"
+        add_activity(user, f"Contacted complainant:", description, self.report)
+
+    def success_message(self):
+        action = "Copied"
+        template = self.cleaned_data['templates'].title
+        return f"{action} '{template}' template"
 
 
 class ComplaintActions(ModelForm, ActivityStreamUpdater):
