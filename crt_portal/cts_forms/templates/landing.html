@@ -190,6 +190,7 @@
                         data-key="{{ key }}"
                         data-examplecount="{{ value.examples | length }}"
                         data-description="{{ value.description }}"
+                        data-helptext="{{ value.helptext }}"
                         {% for example in value.examples %}
                           data-example{{ forloop.counter0 }}="{{ example }}"
                         {% endfor %}
@@ -201,6 +202,8 @@
                 </li>
               </ul>
               <div class="crt-landing--example">
+                <p id="crt-landing--choice_helptext">
+                </p>
                 <p class="crt-landing--example_header">
                   {% trans "Examples" %}
                 </p>
@@ -365,9 +368,11 @@
    }
    function displayExample(key) {
      var examples_field = document.getElementById("crt-landing--choice_examples");
+     var helptext_field = document.getElementById("crt-landing--choice_helptext");
      var option_field = document.getElementById("crt-landing--example_option");
      var el = document.getElementById("crt-landing--example-" + key);
      option_field.innerHTML = el.dataset["description"];
+     helptext_field.innerHTML = el.dataset["helptext"];
      let length = el.dataset.examplecount;
      examples_field.innerHTML = "";
      for (var i = 0; i < length; i++) {
