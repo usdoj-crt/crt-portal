@@ -14,7 +14,7 @@ from django.views.generic import FormView, View, TemplateView
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
-from .forms import (CommentActions, ComplaintActions, TemplateActions,
+from .forms import (CommentActions, ComplaintActions, ResponseActions,
                     ContactEditForm, Filters, ReportEditForm, Review,
                     add_activity)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
@@ -235,7 +235,7 @@ def serialize_data(report, request, report_id):
 
     output = {
         'actions': ComplaintActions(instance=report),
-        'templates': TemplateActions(instance=report),
+        'responses': ResponseActions(instance=report),
         'comments': CommentActions(),
         'activity_stream': report.target_actions.all(),
         'crimes': crimes,
@@ -252,7 +252,7 @@ def serialize_data(report, request, report_id):
 class ShowView(LoginRequiredMixin, View):
     forms = {
         form.CONTEXT_KEY: form
-        for form in [ContactEditForm, ComplaintActions, ReportEditForm, TemplateActions]
+        for form in [ContactEditForm, ComplaintActions, ReportEditForm, ResponseActions]
     }
 
     def get(self, request, id):

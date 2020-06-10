@@ -963,8 +963,8 @@ class Filters(ModelForm):
         }
 
 
-class TemplateActions(Form, ActivityStreamUpdater):
-    CONTEXT_KEY = 'templates'
+class ResponseActions(Form, ActivityStreamUpdater):
+    CONTEXT_KEY = 'responses'
 
     def __init__(self, *args, **kwargs):
         self.report = kwargs.pop('instance')
