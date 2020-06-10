@@ -404,6 +404,13 @@ $arrow-height: 24px;
       padding-right: 1rem;
     }
 
+    #crt-landing--humantrafficking a {
+      font-size: 0.9rem;
+      font-style: italic;
+      background-color: color('white');
+      margin-top: 0.5rem;
+    }
+
     .crt-landing--example_header {
       margin-top: 0;
       text-transform: uppercase;

@@ -212,6 +212,11 @@
                     <p>{{ example }}</p>
                   {% endfor %}
                 </div>
+                <div hidden id="crt-landing--humantrafficking">
+                  <a class="usa-button usa-button--outline light-button" aria-label="{% trans "Were you forced to work against your will?" %} {% trans "Get help from the National Human Trafficking Hotline" %}" href=" https://humantraffickinghotline.org/">{% trans "Get help from the National Human Trafficking Hotline" %}
+                    <img src="{% static 'img/external_link.svg'%}" alt="external link" class="icon" />
+                  </a>
+                </div>
               </div>
               <div class="grid-row grid-gap">
                 <div class="tablet:grid-col-9">
@@ -370,12 +375,18 @@
      var examples_field = document.getElementById("crt-landing--choice_examples");
      var helptext_field = document.getElementById("crt-landing--choice_helptext");
      var option_field = document.getElementById("crt-landing--example_option");
+     var trafficking_button = document.getElementById("crt-landing--humantrafficking");
      var el = document.getElementById("crt-landing--example-" + key);
      var helptext = el.dataset["helptext"];
      if (helptext) {
        helptext_field.innerHTML = "<p>" + helptext + "</p>";
      } else {
        helptext_field.innerHTML = "";
+     }
+     if (key === "human_trafficking") {
+       trafficking_button.removeAttribute('hidden');
+     } else {
+       trafficking_button.setAttribute('hidden', 'hidden');
      }
      option_field.innerHTML = el.dataset["description"];
      let length = el.dataset.examplecount;
