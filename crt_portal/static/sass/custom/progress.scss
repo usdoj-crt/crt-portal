@@ -31,8 +31,8 @@ $outline: color('white');
   left: 35px;
   width: 90%;
 
-  @media only screen and (max-width: 480px) {
-    width: 90%;
+  @include at-media-max('tablet') {
+    width: 85%;
   }
 }
 
