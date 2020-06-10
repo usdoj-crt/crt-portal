@@ -32,6 +32,12 @@
     @include u-padding-y(1.5);
     @include u-padding-x(3);
 
+    &--sm {
+      @include u-padding-top(3);
+      @include u-padding-x(4);
+      @include u-padding-bottom(5);
+    }
+
     &--lg {
       @include u-padding-x(7);
       @include u-padding-bottom(6);
