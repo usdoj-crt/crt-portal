@@ -7,12 +7,13 @@ form#details-edit-form,
 form#report-form {
   .question--header {
     width: 100%; // IE11 fix
-    margin-top: 0.5rem;
-    margin-bottom: 1.5rem;
+    // margin-top: 0.5rem;
+    // margin-bottom: units($spacer-3x);
+    margin: 0;
     + .help-text,
     + .help-text__small,
     + p {
-      margin-top: -1rem; // to match other help text margins
+      // margin-top: -1rem; // to match other help text margins
     }
   }
 
@@ -26,14 +27,14 @@ form#report-form {
     }
 
     li {
-      margin-bottom: 1.5rem;
+      margin-bottom: units($spacer-3x);
 
       &.primary-issue-example-li {
         @include text--body-copy__small();
         list-style: disc !important;
         margin-bottom: 0;
         margin-left: 18px;
-        margin-top: 0.5rem;
+        margin-top: units($spacer-half);
 
         &:first-child {
           margin-top: 0;
@@ -52,13 +53,31 @@ form#report-form {
   // patterns for page intro text
   h2 {
     + .help-text {
-      margin-bottom: 2rem;
+      margin-bottom: units($spacer-4x);
+    }
+    &.question--label + .help-text {
+      margin-bottom: units($spacer-3x);
+    }
+    // Personal Description has an odd markup pattern where the question header is nested within a label
+    + .question--header,
+    + label .question--header {
+      margin-top: units($spacer-4x);
     }
     // question headers sometimes abut page headers, which makes them the first-of-type and thus they lose their margin,
     // but when they immediately follow page headers they need the standard question--header spacing
+    // Personal Characteristics page is an example of this
     + div[data-toggle] fieldset:first-of-type .question--header {
-      margin-top: 2.5rem;
+      margin-top: units($spacer-4x);
     }
+  }
+}
+
+// patterns for some question formats
+.question--header {
+  // data-toggle == yes/no radio buttons
+  + div[data-toggle],
+  + .form-group {
+    margin-top: units($spacer-3x);
   }
 }
 
@@ -70,6 +89,12 @@ form#report-form {
     padding-left: 0;
   }
 
+  .help-text__small {
+    + ul,
+    + .usa-button {
+      margin-top: units($spacer-3x);
+    }
+  }
   .form-group {
     margin-bottom: 1.5rem;
     > h3 {
@@ -216,10 +241,7 @@ form#report-form {
       margin-bottom: -30px;
     }
 
-    .radio-help-text {
-      line-height: 1.25rem;
-      margin-top: 0.5rem;
-      margin-bottom: 0;
+    .help-text--radio {
       text-indent: 0;
     }
   }
@@ -241,8 +263,14 @@ form#report-form {
 
     .label-text {
       position: relative;
-      bottom: 1.5rem;
+      bottom: units($spacer-3x);
       margin-bottom: 0;
+
+      .question--label {
+        margin-top: 0;
+        margin-bottom: units($spacer-1x);
+        padding-left: units($spacer-5x);
+      }
 
       ul {
         padding-inline-start: 20px;
@@ -253,6 +281,18 @@ form#report-form {
         text-transform: uppercase;
         font-weight: bold;
         color: color($theme-color-base-darker);
+      }
+
+      .examples {
+        margin-top: units($spacer-1x);
+      }
+
+      @include at-media('mobile-lg') {
+        .help-text__small,
+        .examples-title,
+        ul.examples {
+          padding-left: units($spacer-5x) !important;
+        }
       }
     }
   }
@@ -322,27 +362,6 @@ a.usa-button {
   }
 }
 
-.help-text,
-.help-text__small {
-  margin-top: 0.5rem;
-  margin-bottom: 1.5rem;
-
-  + fieldset legend {
-    padding-top: 0;
-  }
-}
-
-// no margin when the only thing or last thing on the card is the help text -- see "something else" in "primary concern"
-.crt-portal-card__content {
-  > div:last-child,
-  > label:last-child {
-    .help-text:last-child,
-    .help-text__small:last-child {
-      margin-bottom: 0;
-    }
-  }
-}
-
 .usa-input--error,
 select.usa-input--error {
   border: 0.25rem solid color($theme-color-secondary-dark);
@@ -350,36 +369,6 @@ select.usa-input--error {
 
 .complaint-multi-select {
   min-width: 140px;
-}
-
-.crt-portal-card {
-  @include u-radius('lg');
-  @include u-shadow(3);
-  background: color('white');
-
-  &.crt-hover-card {
-    &:hover {
-      background-color: color(
-        'gray-cool-4'
-      ); // USWDS system design token: https://designsystem.digital.gov/design-tokens/color/system-tokens/
-      cursor: pointer;
-    }
-    &.selected,
-    &:hover.selected {
-      background-color: color($theme-color-primary-lightest);
-    }
-
-    > .crt-portal-card__content {
-      @include u-padding-top(4);
-      @include u-padding-bottom(1);
-    }
-  }
-
-  .crt-portal-card__content {
-    @include u-padding-x(7);
-    @include u-padding-bottom(6);
-    @include u-padding-top(5);
-  }
 }
 
 .inline-block {

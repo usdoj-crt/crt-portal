@@ -1,33 +1,34 @@
 <div class="crt-portal-card">
   <div class="crt-portal-card__content crt-portal-card__content--lg">
-    <h2 id="{{ card_title|slugify }}">{{ card_title }}</h2>
+    <h2 class="h1" id="{{ card_title|slugify }}">{{ card_title }}</h2>
+    <div class="margin-top-3">
+      {% include 'forms/snippets/input.html' with field=form.location_name %}
+      {% include 'forms/snippets/input.html' with field=form.location_address_line_1 %}
+      {% include 'forms/snippets/input.html' with field=form.location_address_line_2 %}
 
-    {% include 'forms/snippets/input.html' with field=form.location_name %}
-    {% include 'forms/snippets/input.html' with field=form.location_address_line_1 %}
-    {% include 'forms/snippets/input.html' with field=form.location_address_line_2 %}
 
-
-    {% with city=form.location_city_town state=form.location_state %}
-      <div class="grid-row grid-gap margin-top-3">
-        <div class="mobile-lg:grid-col-8">
-          <label for="{{city.id_for_label}}">
-            {{ city.label }}
-          </label>
-          {{city|withInputError}}
+      {% with city=form.location_city_town state=form.location_state %}
+        <div class="grid-row grid-gap margin-top-3">
+          <div class="mobile-lg:grid-col-8">
+            <label for="{{city.id_for_label}}">
+              {{ city.label }}
+            </label>
+            {{city|withInputError}}
+          </div>
+          <div class="mobile-lg:grid-col-4">
+            <label for="{{state.id_for_label}}">
+              {{state.label}}
+            </label>
+            {{state|withInputError}}
+          </div>
         </div>
-        <div class="mobile-lg:grid-col-4">
-          <label for="{{state.id_for_label}}">
-            {{state.label}}
-          </label>
-          {{state|withInputError}}
-        </div>
-      </div>
-      {% if city.errors %}
-        {% include "forms/snippets/error_alert.html" with errors=city.errors %}
-      {% endif %}
-      {% if state.errors %}
-        {% include "forms/snippets/error_alert.html" with errors=state.errors %}
-      {% endif %}
-    {% endwith %}
+        {% if city.errors %}
+          {% include "forms/snippets/error_alert.html" with errors=city.errors %}
+        {% endif %}
+        {% if state.errors %}
+          {% include "forms/snippets/error_alert.html" with errors=state.errors %}
+        {% endif %}
+      {% endwith %}
+    </div>
   </div>
 </div>

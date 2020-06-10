@@ -158,8 +158,8 @@ $arrow-height: 24px;
 
   @include at-media-max(mobile-lg) {
     background-image: url(../../img/landing-page-hero-mobile.png);
-    color: color('white');
     min-height: 600px;
+    color: color('white');
     .h1__display {
       color: color('white');
     }
@@ -274,7 +274,16 @@ $arrow-height: 24px;
 
   .crt-landing--divider {
     border-left: 1px solid color($theme-color-primary-darker);
-    padding-left: 2rem !important;
+    padding-left: units($spacer-4x) !important;
+    @include at-media-max('mobile-lg') {
+      border-left: none;
+      border-top: 1px solid color($theme-color-primary-darker);
+      padding-left: 0;
+      margin-top: units($spacer-2x);
+      margin-right: units($spacer-1x);
+      margin-left: units($spacer-1x);
+      padding-top: units($spacer-3x);
+    }
   }
 
   ul {
