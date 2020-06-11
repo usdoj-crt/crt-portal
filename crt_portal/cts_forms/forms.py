@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           EmailInput, HiddenInput, IntegerField,
-                          ModelChoiceField, ModelForm,
+                          ModelChoiceField, ModelForm, Form,
                           ModelMultipleChoiceField,
                           Select, SelectMultiple, Textarea, TextInput,
                           TypedChoiceField)
@@ -36,7 +36,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report)
+                     ProtectedClass, Report, ResponseTemplate)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -49,7 +49,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
                       CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
-                      UsaRadioSelect)
+                      UsaRadioSelect, DataAttributesSelect)
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -961,6 +961,53 @@ class Filters(ModelForm):
                 'name': 'violation_summary'
             }),
         }
+
+
+class ResponseActions(Form, ActivityStreamUpdater):
+    CONTEXT_KEY = 'responses'
+
+    def __init__(self, *args, **kwargs):
+        self.report = kwargs.pop('instance')
+        Form.__init__(self, *args, **kwargs)
+        # set up select options with dataset attributes
+        data = {
+            template.id: {
+                'description': template.description,
+                'content': template.render(self.report),
+            }
+            for template in ResponseTemplate.objects.all()
+        }
+        attrs = {
+            "id": "intake_select",
+            "class": "usa-select",
+            "aria-label": "template selection"
+        }
+        self.fields['templates'] = ModelChoiceField(
+            queryset=ResponseTemplate.objects.all(),
+            empty_label="(no template chosen)",
+            widget=DataAttributesSelect(data=data, attrs=attrs),
+            required=False,
+        )
+
+    def save(self, commit=False):
+        """
+        We are not actually saving anything here, but instead hooking into
+        the CRT form so that we can log template actions such as
+        printing and copying. Eventually we will want to add email
+        integration functionality here.
+        """
+        return self.report
+
+    def update_activity_stream(self, user):
+        action = "Copied"
+        template = self.cleaned_data['templates'].title
+        description = f"{action} '{template}' template"
+        add_activity(user, "Contacted complainant:", description, self.report)
+
+    def success_message(self):
+        action = "Copied"
+        template = self.cleaned_data['templates'].title
+        return f"{action} '{template}' template"
 
 
 class ComplaintActions(ModelForm, ActivityStreamUpdater):

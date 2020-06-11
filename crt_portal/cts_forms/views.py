@@ -14,8 +14,9 @@ from django.views.generic import FormView, View, TemplateView
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
-from .forms import (CommentActions, ComplaintActions, ContactEditForm, Filters,
-                    ReportEditForm, Review, add_activity)
+from .forms import (CommentActions, ComplaintActions, ResponseActions,
+                    ContactEditForm, Filters, ReportEditForm, Review,
+                    add_activity)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -30,7 +31,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import CommentAndSummary, Report, Trends, ResponseTemplate
+from .models import CommentAndSummary, Report, Trends
 from .page_through import pagination
 
 SORT_DESC_CHAR = '-'
@@ -236,17 +237,9 @@ def serialize_data(report, request, report_id):
         report.other_class,
     )
 
-    templates = [
-        {
-            'title': template.title,
-            'description': template.description,
-            'content': template.render(report),
-        }
-        for template in ResponseTemplate.objects.all()
-    ]
-
     output = {
         'actions': ComplaintActions(instance=report),
+        'responses': ResponseActions(instance=report),
         'comments': CommentActions(),
         'activity_stream': report.target_actions.all(),
         'crimes': crimes,
@@ -255,14 +248,16 @@ def serialize_data(report, request, report_id):
         'primary_complaint': primary_complaint,
         'return_url_args': request.GET.get('next', ''),
         'summary': report.get_summary,
-        'templates': templates,
     }
 
     return output
 
 
 class ShowView(LoginRequiredMixin, View):
-    forms = {form.CONTEXT_KEY: form for form in [ContactEditForm, ComplaintActions, ReportEditForm]}
+    forms = {
+        form.CONTEXT_KEY: form
+        for form in [ContactEditForm, ComplaintActions, ReportEditForm, ResponseActions]
+    }
 
     def get(self, request, id):
         report = get_object_or_404(Report, pk=id)

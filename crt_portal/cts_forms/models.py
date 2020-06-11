@@ -317,4 +317,4 @@ class ResponseTemplate(models.Model):
         return escape(template.render(context))
 
     def __str__(self):
-        return self.description
+        return self.title
