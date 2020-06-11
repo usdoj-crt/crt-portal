@@ -172,11 +172,13 @@
   </div>
   <div class="crt-landing--section crt-landing--list crt-landing--lightblue">
     <div class="grid-container">
-      <div class="grid-row grid-gap">
+      <div class="grid-row">
+        <div class="tablet:grid-col-7">
+          <h2 class="h2__display">{% trans "Choose from this list to see example civil rights violations:" %}</h2>
+        </div>
         <div class="tablet:grid-col-12">
           <div class="grid-row grid-gap">
             <div class="tablet:grid-col-7">
-              <h2 class="h2__display">{% trans "Choose from this list to see example civil rights violations:" %}</h2>
               <ul class="usa-nav__primary usa-accordion crt-landing--blue crt-landing--large_select">
                 <li>
                   <button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="crt-landing--examples" aria-label="select example">
@@ -230,24 +232,26 @@
                 </div>
               </div>
             </div>
-            <div class="tablet:grid-offset-1 tablet:grid-col-4 crt-landing--divider">
-              <div class="crt-header--icon_group">
-                <img src="{% static "img/ic_personcheck-circle.svg" %}" alt="person" class="icon  crt-header--icon">
-                <h3 class="h4__display">{% trans "Protected by civil rights laws" %}</h3>
+            <div class="tablet:grid-offset-1 tablet:grid-col-4">
+              <div class="crt-landing--divider">
+                <div class="crt-header--icon_group">
+                  <img src="{% static "img/ic_personcheck-circle.svg" %}" alt="person" class="icon  crt-header--icon">
+                  <h3 class="h4__display">{% trans "Protected by civil rights laws" %}</h3>
+                </div>
+                <p class="crt-landing--smalltext">{% trans "These are the most common characteristics that are legally protected." %}</p>
+                <ul>
+                  <li class="crt-landing--smalltext">{% trans 'Race/color' %}</li>
+                  <li class="crt-landing--smalltext">{% trans 'Disability <span class="crt-landing--protected">including temporary or in recovery</span>' %}</li>
+                  <li class="crt-landing--smalltext">{% trans 'Religion' %}</li>
+                  <li class="crt-landing--smalltext">{% trans 'Sex, gender identity, and sexual orientation' %}</li>
+                  <li class="crt-landing--smalltext">{% trans 'Immigration/citizenship status' %}</li>
+                  <li class="crt-landing--smalltext">{% trans 'Language and national origin <span class="crt-landing--protected">including ancestry and ethnicity</span>' %}</li>
+                  <li class="crt-landing--smalltext">{% trans 'Family, marital, or parental status <span class="crt-landing--protected">including pregnancy</span>' %}</li>
+                  <li class="crt-landing--smalltext">{% trans 'Age' %}</li>
+                  <li class="crt-landing--smalltext">{% trans 'Genetic identification' %}</li>
+                  <li class="crt-landing--smalltext">{% trans 'Servicemember status' %}</li>
+                </ul>
               </div>
-              <p class="crt-landing--smalltext">{% trans "These are the most common characteristics that are legally protected." %}</p>
-              <ul>
-                <li class="crt-landing--smalltext">{% trans 'Race/color' %}</li>
-                <li class="crt-landing--smalltext">{% trans 'Disability <span class="crt-landing--protected">including temporary or in recovery</span>' %}</li>
-                <li class="crt-landing--smalltext">{% trans 'Religion' %}</li>
-                <li class="crt-landing--smalltext">{% trans 'Sex, gender identity, and sexual orientation' %}</li>
-                <li class="crt-landing--smalltext">{% trans 'Immigration/citizenship status' %}</li>
-                <li class="crt-landing--smalltext">{% trans 'Language and national origin <span class="crt-landing--protected">including ancestry and ethnicity</span>' %}</li>
-                <li class="crt-landing--smalltext">{% trans 'Family, marital, or parental status <span class="crt-landing--protected">including pregnancy</span>' %}</li>
-                <li class="crt-landing--smalltext">{% trans 'Age' %}</li>
-                <li class="crt-landing--smalltext">{% trans 'Genetic identification' %}</li>
-                <li class="crt-landing--smalltext">{% trans 'Servicemember status' %}</li>
-              </ul>
             </div>
           </div>
         </div>

@@ -178,7 +178,7 @@ $arrow-height: 24px;
   @include at-media(desktop) {
     background-image: url(../../img/landing-page-hero-tablet.png);
     background-position: bottom;
-    min-height: 900px;
+    min-height: 850px;
   }
 
   h1 {
@@ -281,6 +281,7 @@ $arrow-height: 24px;
   .crt-landing--divider {
     border-left: 1px solid color($theme-color-primary-darker);
     padding-left: units($spacer-4x) !important;
+    margin-top: units($spacer-5x);
     @include at-media-max('mobile-lg') {
       border-left: none;
       border-top: 1px solid color($theme-color-primary-darker);
