@@ -1942,11 +1942,6 @@ msgid "Submit a report"
 msgstr "Presentar un informe"
 
 #: templates/landing.html:320
-#, fuzzy
-#| msgid ""
-#| "If you cannot access the online form, you can <a href=\"#phone-footer"
-#| "\">call</a> to submit a complaint or send in a complaint by <a href="
-#| "\"#address-footer\">mail</a>."
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
@@ -2002,12 +1997,12 @@ msgstr ""
 
 #: templates/landing.html:350
 msgid ""
-"Contact Legal Service Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
+"Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
 "aid\" class=\"external-link--blue\" href=\"https://www.lsc.gov/find-legal-aid"
 "\">lsc.gov/find-legal-aid</a> or call <a href=\"tel:202-295-1500\">(202) "
 "295-1500</a>."
 msgstr ""
-"Comuníquese con Legal Service Corporation [Corporación de Servicios Legales] "
+"Comuníquese con Legal Services Corporation [Corporación de Servicios Legales] "
 "en <a class=\"crt-external--link\" href=\"https://lsc.gov/find-legal-aid"
 "\">lsc.gov/find-legal-aid</a> o llame al <a href=\"tel:202-295-1500\">(202) "
 "295-1500</a>."
