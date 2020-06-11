@@ -24,6 +24,10 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PRIMARY_COMPLAINT_DICT,
                               PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
+                              PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+                              LANDING_COMPLAINT_DICT,
+                              LANDING_COMPLAINT_CHOICES_TO_EXAMPLES,
+                              LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
 from .models import CommentAndSummary, Report, Trends, ResponseTemplate
@@ -507,12 +511,25 @@ class LandingPageView(TemplateView):
     template_name = "landing.html"
 
     def get_context_data(self, **kwargs):
+        all_complaints = {
+            **PRIMARY_COMPLAINT_DICT,
+            **LANDING_COMPLAINT_DICT,
+        }
+        all_examples = {
+            **PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
+            **LANDING_COMPLAINT_CHOICES_TO_EXAMPLES,
+        }
+        all_helptext = {
+            **PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+            **LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
+        }
         choices = {
             key: {
                 'description': description,
-                'examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES.get(key, [])
+                'examples': all_examples.get(key, []),
+                'helptext': all_helptext.get(key, ''),
             }
-            for key, description in PRIMARY_COMPLAINT_DICT.items()
+            for key, description in all_complaints.items()
             if key != 'something_else'  # exclude because this choice has no examples
         }
         return {'choices': choices}
