@@ -1002,7 +1002,7 @@ class ResponseActions(Form, ActivityStreamUpdater):
         action = "Copied"
         template = self.cleaned_data['templates'].title
         description = f"{action} '{template}' template"
-        add_activity(user, f"Contacted complainant:", description, self.report)
+        add_activity(user, "Contacted complainant:", description, self.report)
 
     def success_message(self):
         action = "Copied"
