@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-11 03:48+0000\n"
+"POT-Creation-Date: 2020-06-11 20:07+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:154 forms.py:1085
+#: forms.py:154 forms.py:1132
 msgid " - Select - "
 msgstr " - Elija - "
 
@@ -1012,7 +1012,7 @@ msgstr ""
 "proporcionar sus datos de contacto, solamente los utilizaremos para "
 "responder a su presentación."
 
-#: question_text.py:7 templates/forms/report_data.html:10
+#: question_text.py:7 templates/forms/report_data.html:12
 msgid "Your name"
 msgstr "Su nombre"
 
@@ -1562,11 +1562,11 @@ msgstr "paso previo"
 msgid "Back"
 msgstr "Volver"
 
-#: templates/forms/report_data.html:23 templates/forms/report_data.html:115
+#: templates/forms/report_data.html:25 templates/forms/report_data.html:120
 msgid "Address"
 msgstr "Dirección física"
 
-#: templates/forms/report_data.html:134 templates/forms/report_data.html:140
+#: templates/forms/report_data.html:141 templates/forms/report_data.html:147
 msgid "None selected"
 msgstr "Ninguna selección hecha"
 
@@ -1643,7 +1643,7 @@ msgstr "Acerca de la División"
 msgid "Your rights"
 msgstr "Sus derechos"
 
-#: templates/landing.html:49 templates/partials/footer.html:62
+#: templates/landing.html:49 templates/partials/footer.html:63
 msgid "Report a violation"
 msgstr "Informe sobre una vulneración"
 
@@ -1651,8 +1651,8 @@ msgstr "Informe sobre una vulneración"
 msgid "Already submitted?"
 msgstr "¿Ya nos informó de una vulneración?"
 
-#: templates/landing.html:59 templates/partials/footer.html:9 views.py:542
-#: views.py:598 views.py:617
+#: templates/landing.html:59 templates/partials/footer.html:9 views.py:537
+#: views.py:593 views.py:612
 msgid "Contact"
 msgstr "Contacto"
 
@@ -1952,8 +1952,8 @@ msgid ""
 "\"#address-footer\">mail</a>."
 msgstr ""
 "Si usted no puede acceder al formulario virtual, puede <a href=\"#phone-"
-"footer\">llamar</a> a para presentar una querella o bien puede presentar una "
-"querella por <a href=\"#address-footer\">correo ordinario</a>."
+"footer\">llamar</a> para reportar una vulneración o bien puede reportar una "
+"vulneración por <a href=\"#address-footer\">correo ordinario</a>."
 
 #: templates/landing.html:330
 msgid "Already submitted a report?"
@@ -2024,42 +2024,46 @@ msgstr ""
 "del Colegio de Abogados Estadounidense. "
 
 #: templates/partials/footer.html:32
+msgid "(toll-free)"
+msgstr "(gratis)"
+
+#: templates/partials/footer.html:33
 msgid "Telephone Device for the Deaf"
 msgstr "Dispositivo telefónico para sordos"
 
-#: templates/partials/footer.html:33
+#: templates/partials/footer.html:34
 msgid "(TTY)"
 msgstr "Teletipo (TTY por sus siglas en inglés)"
 
-#: templates/partials/footer.html:52
+#: templates/partials/footer.html:53
 msgid "Links"
 msgstr "Enlaces"
 
-#: templates/partials/footer.html:59
+#: templates/partials/footer.html:60
 msgid "About the division"
 msgstr "Acerca de la División"
 
-#: templates/partials/footer.html:65
+#: templates/partials/footer.html:66
 msgid "Privacy policy"
 msgstr "Política de privacidad"
 
-#: templates/partials/footer.html:68
+#: templates/partials/footer.html:69
 msgid "FOIA"
 msgstr "Ley de libertad de información (FOIA por sus siglas en inglés)"
 
-#: templates/partials/footer.html:71
+#: templates/partials/footer.html:72
 msgid "Accessibility"
 msgstr "Accesibilidad"
 
-#: templates/partials/footer.html:83
+#: templates/partials/footer.html:84
 msgid "Office of Inspector General"
 msgstr "Oficina del Inspector General"
 
-#: templates/partials/footer.html:86
+#: templates/partials/footer.html:87
 msgid "Budget and performance"
 msgstr "Presupuesto y rendimiento"
 
-#: templates/partials/footer.html:89
+#: templates/partials/footer.html:90
 msgid "Legal policies and Disclaimers"
 msgstr "Politicas Legales y Descargos de Responsabilidades"
 
@@ -2482,38 +2486,38 @@ msgstr ""
 "1964</li>\n"
 "                    "
 
-#: views.py:44
+#: views.py:45
 msgid "Bad request"
 msgstr "Solicitud incorrecta"
 
-#: views.py:45
+#: views.py:46
 msgid ""
 "It seems your browser is not responding properly. Try refreshing this page."
 msgstr ""
 "Parece que su navegador no está respondiendo de manera adecuada. Intente "
 "actualizar esta página."
 
-#: views.py:56
+#: views.py:57
 msgid "Unauthorized"
 msgstr "No autorizado"
 
-#: views.py:57
+#: views.py:58
 msgid "This page is off limits to unauthorized users."
 msgstr "Usuario no autorizados no podrán acceder a esta página"
 
-#: views.py:68
+#: views.py:69
 msgid "We can't find the page you are looking for"
 msgstr "No encontramos la página que usted está buscando"
 
-#: views.py:69
+#: views.py:70
 msgid "Try returning to the previous page"
 msgstr "Intente volver a la página anterior"
 
-#: views.py:80
+#: views.py:81
 msgid "There's a problem loading this page"
 msgstr "Hay un problema para cargar esta página"
 
-#: views.py:81
+#: views.py:82
 msgid ""
 "There's a technical problem loading this page. Try refreshing this page or "
 "going to another page. If that doesn't work, try again later."
@@ -2521,20 +2525,20 @@ msgstr ""
 "Hay un problema técnico para cargar esta página. Intente actualizar esta "
 "página o ir a otra página. Si eso no funciona, intente más tarde."
 
-#: views.py:92
+#: views.py:93
 msgid "Not implemented"
 msgstr "No implementado"
 
-#: views.py:93
+#: views.py:94
 msgid "There seems to be a problem with this request. Try refreshing the page."
 msgstr ""
 "Parece que hay un problema con esta solicitud. Intente actualizar la página."
 
-#: views.py:104
+#: views.py:105
 msgid "Bad gateway"
 msgstr "Portal incorrecto"
 
-#: views.py:105
+#: views.py:106
 msgid ""
 "This problem is due to poor IP communication between back-end computers, "
 "possibly including our web server. Try clearing your browser cache "
@@ -2546,11 +2550,11 @@ msgstr ""
 "borrar completamente el caché de su navegador. Puede que haya algún problema "
 "con su conexión interna a Internet o su cortafuegos."
 
-#: views.py:116
+#: views.py:117
 msgid "Service Unavailable"
 msgstr "Servicio no disponible"
 
-#: views.py:117
+#: views.py:118
 msgid ""
 "Our web server is either closed for repair, upgrades or is rebooting. Please "
 "try again later."
@@ -2558,11 +2562,11 @@ msgstr ""
 "Nuestro servidor de web está cerrado para unos arreglos, actualizaciones o "
 "se está reinicializando. Se ruega que lo intente nuevamente más tarde."
 
-#: views.py:128
+#: views.py:129
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Su navegador no pudo crear una cookie segura"
 
-#: views.py:129
+#: views.py:130
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
@@ -2576,54 +2580,54 @@ msgstr ""
 "acceder a esta página en otra pestaña o ventana en su navegador. Eso le "
 "creará otra cookie de seguridad y debería resolver el problema."
 
-#: views.py:418 views.py:645
+#: views.py:413 views.py:640
 msgid "word remaining"
 msgstr "palabra restante"
 
-#: views.py:419 views.py:646
+#: views.py:414 views.py:641
 msgid " words remaining"
 msgstr "palabras restantes"
 
-#: views.py:420 views.py:647
+#: views.py:415 views.py:642
 msgid " word limit reached"
 msgstr "límite de palabras alcanzado"
 
-#: views.py:543 views.py:599 views.py:600 views.py:618 views.py:619
-#: views.py:654
+#: views.py:538 views.py:594 views.py:595 views.py:613 views.py:614
+#: views.py:649
 msgid "Primary concern"
 msgstr "Motivo principal de preocupación"
 
-#: views.py:544 views.py:601 views.py:602 views.py:603 views.py:604
-#: views.py:605 views.py:606
+#: views.py:539 views.py:596 views.py:597 views.py:598 views.py:599
+#: views.py:600 views.py:601
 msgid "Location"
 msgstr "Lugar"
 
-#: views.py:545 views.py:607 views.py:626
+#: views.py:540 views.py:602 views.py:621
 msgid "Personal characteristics"
 msgstr "Características personales"
 
-#: views.py:546 views.py:608 views.py:627
+#: views.py:541 views.py:603 views.py:622
 msgid "Date"
 msgstr "Fecha"
 
-#: views.py:547 views.py:609 views.py:628
+#: views.py:542 views.py:604 views.py:623
 msgid "Personal description"
 msgstr "Descripción personal"
 
-#: views.py:548 views.py:610 views.py:659
+#: views.py:543 views.py:605 views.py:654
 msgid "Review"
 msgstr "Repasar"
 
-#: views.py:620 views.py:621 views.py:622 views.py:623 views.py:624
-#: views.py:625
+#: views.py:615 views.py:616 views.py:617 views.py:618 views.py:619
+#: views.py:620
 msgid "Location details"
 msgstr "Datos de lugar"
 
-#: views.py:629
+#: views.py:624
 msgid "Review your report"
 msgstr "Revise su informe"
 
-#: views.py:657
+#: views.py:652
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "Favor de elegir esta opción si"
 
