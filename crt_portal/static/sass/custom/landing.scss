@@ -169,6 +169,9 @@ $arrow-height: 24px;
       background: color($theme-color-warning);
       color: black !important;
     }
+    a, a:visited {
+      color: white;
+    }
   }
 
   @include at-media-max(desktop) {
