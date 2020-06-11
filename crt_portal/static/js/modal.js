@@ -50,7 +50,7 @@
     event.preventDefault();
     var index = event.target.selectedIndex;
     var option = event.target.options[index];
-    description.innerHTML = option.dataset['description'] || "(select a response template)";
+    description.innerHTML = option.dataset['description'] || '(select a response template)';
     letter.innerHTML = option.dataset['content'] || '';
     if (index >= 1) {
       copy.removeAttribute('disabled');
