@@ -63,7 +63,7 @@
 
         <td>
           <a class="td-link display-block" href="{{datum.url}}">
-            {{ datum.report.last_incident_month }}/{% if datum.report.last_incident_day %}{{datum.report.last_incident_day}}{%else%}-{% endif %}/{{ datum.report.last_incident_year }}
+            {{ datum.report.last_incident_month|default:"-" }}/{{datum.report.last_incident_day|default:"-"}}/{{ datum.report.last_incident_year|default:"-" }}
           </a>
         </td>
       </tr>
