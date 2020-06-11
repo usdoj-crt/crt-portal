@@ -1,7 +1,9 @@
 {% load i18n %}
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
+      <div class="button--review">
         {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.0 step_value=0 %}
+      </div>
 
         <h2 class="h1 margin-top-0 margin-bottom-0">{{ordered_step_names.0}}</h2>
 
@@ -33,7 +35,9 @@
 
 <div class="crt-portal-card">
   <div class="crt-portal-card__content margin-bottom-3">
+    <div class="button--review">
     {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.1 step_value=1 %}
+    </div>
 
     <h2 class="h1 margin-top-0">{{ordered_step_names.1}}</h2>
 
@@ -51,6 +55,7 @@
   <div class="crt-portal-card__content margin-bottom-3">
     {# buttons to the right form page based on data present #}
 
+    <div class="button--review">
     {% if report.election_details %}
       {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=3 %}
 
@@ -68,8 +73,8 @@
 
     {% else %}
       {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=2 %}
-    {% endif %}
-
+  {% endif %}
+  </div>
 
     <h2 class="h1 margin-top-0">{{ ordered_step_names.2 }}</h2>
 
@@ -122,7 +127,9 @@
 
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
+      <div class="button--review">
         {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.3 step_value=9 %}
+      </div>
 
         <h2 class="h1 margin-top-0">{{ ordered_step_names.3 }}</h2>
 
@@ -145,8 +152,9 @@
 
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
+      <div class="button--review">
         {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.4 step_value=10 %}
-
+      </div>
         <h2 class="h1 margin-top-0">{{ ordered_step_names.4 }}</h2>
 
         <h3 class="crt-portal-card__subheader">{{ question.date.date_title }}</h3>
@@ -156,8 +164,9 @@
 
 <div class="crt-portal-card">
     <div class="crt-portal-card__content margin-bottom-3">
+      <div class="button--review">
         {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.5 step_value=11 %}
-
+      </div>
         <h2 class="h1 margin-top-0">{{ ordered_step_names.5 }}</h2>
 
         <h3 class="crt-portal-card__subheader">{{ question.summary }}</h3>
