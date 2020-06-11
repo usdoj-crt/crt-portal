@@ -156,7 +156,7 @@ $arrow-height: 24px;
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: bottom;
-  min-height: 750px;
+  min-height: 800px;
 
   @include at-media-max(mobile-lg) {
     background-image: url(../../img/landing-page-hero-mobile.png);
@@ -169,15 +169,16 @@ $arrow-height: 24px;
       background: color($theme-color-warning);
       color: black !important;
     }
-    a, a:visited {
+    a,
+    a:visited {
       color: white;
     }
   }
 
-  @include at-media-max(desktop) {
+  @include at-media(desktop) {
     background-image: url(../../img/landing-page-hero-tablet.png);
     background-position: bottom;
-    min-height: 600px;
+    min-height: 900px;
   }
 
   h1 {
