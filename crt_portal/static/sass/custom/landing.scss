@@ -54,6 +54,7 @@ $arrow-height: 24px;
   margin-bottom: 1.5rem;
   border: 2px solid color($theme-color-warning);
   border-radius: 2px;
+  background: color($theme-color-warning);
   width: 50px;
 }
 
@@ -64,6 +65,7 @@ $arrow-height: 24px;
 }
 
 .crt-landing--separator_sub {
+  background: $theme-color-primary-darker;
   border: 2px solid color($theme-color-primary-darker);
   border-radius: 2px;
   width: 25px;
@@ -391,11 +393,24 @@ $arrow-height: 24px;
     @include u-shadow(3);
     background-color: color('white');
     min-height: 20rem;
-    padding: 2.5rem;
+    padding: 2rem 3.5rem 2.5rem 3.5rem;
+
+    #crt-landing--choice_helptext p {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
 
     #crt-landing--choice_examples p {
       margin-top: 1.5rem;
       padding-right: 1rem;
+    }
+
+    #crt-landing--humantrafficking a {
+      font-size: 0.9rem;
+      font-style: italic;
+      background-color: color('white');
+      margin-top: 0.5rem;
     }
 
     .crt-landing--example_header {

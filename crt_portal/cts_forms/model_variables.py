@@ -23,10 +23,20 @@ PRIMARY_COMPLAINT_CHOICES = (
 )
 PRIMARY_COMPLAINT_DICT = dict(PRIMARY_COMPLAINT_CHOICES)
 
+LANDING_COMPLAINT_CHOICES = (
+    ('hate_crime', _('Victim of a hate crime')),
+    ('human_trafficking', _('Victim of human trafficking')),
+)
+LANDING_COMPLAINT_DICT = dict(LANDING_COMPLAINT_CHOICES)
+
 PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT = {
     'commercial_or_public': _('This could include a store, restaurant, bar, hotel, place of worship, library, medical facility, bank, courthouse, government building, public park or street, as well as online.'),
     'something_else': _('The examples above reflect some but not all of the civil rights violations that we address. Select this option if you don’t see an example that applies to your situation. You will be able to tell us more later.'),
     'police': _('(Including while in prison)')
+}
+LANDING_COMPLAINT_CHOICES_TO_HELPTEXT = {
+    'hate_crime': _('To potentially be a hate crime, the situation must include physical harm, or attempts to cause harm with a dangerous weapon, because of race, color, national origin, religion, gender, sexual orientation, gender identity, or disability.  Threats of force or physical harm because of race, color, religion or national origin are also potential hate crimes.'),
+    'human_trafficking': _('Human trafficking is when someone is forced into labor or sex work for profit. This can happen in many types of work that include, for example: agriculture, domestic work, restaurants, cleaning services, and sex work.')
 }
 
 PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
@@ -62,6 +72,16 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
         _('Threatened or harassed while seeking or receiving reproductive health services'),
     ],
     'something_else': []
+}
+LANDING_COMPLAINT_CHOICES_TO_EXAMPLES = {
+    'hate_crime': [
+        _('Physical attack causing injury, or an attempt to cause injury with a dangerous weapon, because of the above characteristics'),
+        _('Attacks, threats of violence, or destruction of property at place of worship (ie: shooting, arson, bombing, smashing windows, writing slurs)'),
+    ],
+    'human_trafficking': [
+        _('Coerced into working through threats of harm or deportation, psychological manipulation, debt manipulation, document confiscation, or confinement'),
+        _('Forced into sex work for profit through physical abuse or assault, sexual abuse or assault, other threats of harm, or confinement'),
+    ]
 }
 
 ELECTION_CHOICES = (
