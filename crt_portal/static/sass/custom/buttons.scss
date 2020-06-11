@@ -40,9 +40,4 @@ button#login {
     position: relative; // won't change display of card but will allow absolute positioning of button
     padding-bottom: units($spacer-6x); // to accommodate button
   }
-  button[name='wizard_goto_step'] {
-    position: absolute;
-    width: 88%;
-    bottom: units($spacer-3x);
-  }
 }
