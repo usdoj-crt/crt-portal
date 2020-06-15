@@ -76,8 +76,13 @@
   };
 
   print.onclick = function(event) {
+    const el = document.createElement('p');
+    el.classList.add('intake-letter-preview');
+    el.append(letter.value);
+    document.body.appendChild(el);
     window.print();
+    document.body.removeChild(el);
     event.preventDefault();
-    // closeModal();
+    closeModal();
   };
 })();
