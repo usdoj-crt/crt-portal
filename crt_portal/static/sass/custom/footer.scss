@@ -143,3 +143,14 @@ footer {
     text-transform: none;
   }
 }
+
+.usa-footer__attribution {
+  margin: 1rem 0;
+  &-names {
+    margin: 1rem 0;
+  }
+  p {
+    margin: 0.1rem 0;
+    font-size: 0.9rem;
+  }
+}
