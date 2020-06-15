@@ -82,7 +82,6 @@
     document.body.appendChild(el);
     window.print();
     document.body.removeChild(el);
-    event.preventDefault();
     closeModal();
   };
 })();

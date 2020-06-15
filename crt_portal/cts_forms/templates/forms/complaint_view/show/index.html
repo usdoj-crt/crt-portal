@@ -85,6 +85,10 @@
 </div>
 {% endblock %}
 
+{% block usa_footer %}
+  {% include 'forms/complaint_view/show/response_template.html' %}
+{% endblock %}
+
 {% block page_js %}
 {{ block.super }}
 <script src="{% static 'js/edit_contact_info.js' %}"></script>

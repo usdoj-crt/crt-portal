@@ -1,6 +1,6 @@
 {% load static %}
 
-<form class="usa-form" method="post" action="/form/view/{{data.id}}/contact" novalidate>
+<form class="usa-form" method="post" action="{% url 'crt_forms:crt-forms-response' id=data.id %}" novalidate>
   {% csrf_token %}
   <div id="intake_template" hidden>
     <div class="modal-wrapper intake-template--modal">
