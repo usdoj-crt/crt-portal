@@ -29,9 +29,8 @@
 
   &__content {
     @include u-margin-bottom(1);
-    @include u-padding-x(7);
-    @include u-padding-bottom(6);
-    @include u-padding-top(5);
+    @include u-padding-y(1.5);
+    @include u-padding-x(3);
 
     &--sm {
       @include u-padding-top(3);
