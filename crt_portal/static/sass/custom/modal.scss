@@ -2,6 +2,13 @@
 body.is-modal {
   height: 100vw;
   overflow-y: hidden;
+
+  @media print {
+    main {
+      display: none;
+    }
+    overflow: auto;
+  }
 }
 
 .modal-wrapper {
@@ -26,6 +33,11 @@ body.is-modal {
     @include u-radius('md');
     @include u-shadow(3);
     min-height: 40rem; // a11y: don't collapse modal
+
+    @media print {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   .modal-form {
@@ -57,10 +69,18 @@ body.is-modal {
     flex-grow: 1;
   }
 
-  textarea {
+  #intake_letter {
     padding: 0 1rem;
     width: 100%;
     height: 80%;
     @include u-radius('md');
+
+    @media print {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+    }
   }
 }

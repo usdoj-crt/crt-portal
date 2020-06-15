@@ -1,29 +1,28 @@
 {% load static %}
 
-<button class="outline-button outline-button--blue" id="contact_complainant">
-  <img src="{% static "img/intake-icons/ic_email.svg" %}" class="icon" alt="from email">
-  Contact complainant
-</button>
-
-<div id="intake_template" hidden>
-  <div class="modal-wrapper intake-template--modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1>Contact complainant</h1>
-      </div>
-      <div class="modal-form">
-        <p class="intake-template--description">
-          <strong id="intake_description">(no template chosen)</strong>
-        </p>
-        {{ responses.templates }}
-        <div class="intake-template--content">
-          <textarea disabled aria-label="intake letter" id="intake_letter" rows="10" cols="80"></textarea>
+<form class="usa-form" method="post" action="/form/view/{{data.id}}/contact" novalidate>
+  {% csrf_token %}
+  <div id="intake_template" hidden>
+    <div class="modal-wrapper intake-template--modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1>Contact complainant</h1>
         </div>
-        <div class="modal-footer">
-          <button disabled id="intake_copy" class="usa-button" type="submit" name="type" value="{{ responses.CONTEXT_KEY }}">Copy</button>
-          <a id="intake_template_cancel" href="#">Cancel</a>
+        <div class="modal-form">
+          <p class="intake-template--description">
+            <strong id="intake_description">(no template chosen)</strong>
+          </p>
+          {{ responses.templates }}
+          <div class="intake-template--content">
+            <textarea disabled aria-label="intake letter" id="intake_letter" rows="10" cols="80"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button disabled id="intake_copy" class="usa-button" type="submit" name="type" value="copy">Copy</button>
+            <button disabled id="intake_print" class="usa-button" type="submit" name="type" value="print">Print</button>
+            <a id="intake_template_cancel" href="#">Cancel</a>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+</form>
