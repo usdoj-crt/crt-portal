@@ -24,7 +24,7 @@ def get_newrelic_key():
     Retrieve new relic license key from VCAP_SERVICES
     """
     environment = os.environ.get('ENV', 'UNDEFINED')
-    if environment != 'LOCAL':
+    if environment in ['STAGE', 'DEVELOP', 'PRODUCTION']:
         vcap = json.loads(os.environ['VCAP_SERVICES'])
         for service in vcap['user-provided']:
             if service['instance_name'] == "VCAP_SERVICES":
