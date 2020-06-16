@@ -47,7 +47,7 @@ jobs:
             pip install pipenv
             pipenv install --dev
             pipenv run crt_portal/manage.py migrate
-    - save_cache:
+      - save_cache:
           paths:
             - /home/circleci/code/.venv # this path depends on where pipenv creates a virtualenv
           key: pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
