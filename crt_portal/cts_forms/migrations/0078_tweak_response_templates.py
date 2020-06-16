@@ -85,7 +85,7 @@ Civil Rights Division
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0075_add_default_response_templates'),
+        ('cts_forms', '0077_report_add_date_closed'),
     ]
 
     operations = [
