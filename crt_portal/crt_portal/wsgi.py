@@ -20,7 +20,7 @@ logger = logging.getLogger(__name__)
 
 def get_newrelic_key():
     """
-    If we're not running locally,
+    If we're in the cloud,
     Retrieve new relic license key from VCAP_SERVICES
     """
     environment = os.environ.get('ENV', 'UNDEFINED')
