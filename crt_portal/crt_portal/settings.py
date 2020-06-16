@@ -36,7 +36,7 @@ if environment != 'LOCAL':
     """ This will default to prod settings and locally, setting the env
     to local will allow you to add the variables directly and not have
     to recreate the vacap structure."""
-    vcap = json.loads(os.environ.get['VCAP_SERVICES'])
+    vcap = json.loads(os.environ['VCAP_SERVICES'])
     for service in vcap['user-provided']:
         if service['instance_name'] == "VCAP_SERVICES":
             # SECURITY WARNING: keep the secret key used in production secret!
