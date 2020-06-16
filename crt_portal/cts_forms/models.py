@@ -274,12 +274,11 @@ class Report(models.Model):
     @property
     def addressee(self):
         if self.contact_first_name:
+            salutation = 'Dear'
             if self.contact_last_name:
-                return f"{self.contact_first_name} {self.contact_last_name}"
-            return self.contact_first_name
-        if self.contact_last_name:
-            return self.contact_last_name
-        return "sir/madam"
+                return f"{salutation} {self.contact_first_name} {self.contact_last_name}"
+            return f"{salutation} {self.contact_first_name}"
+        return "Thank you for your report"
 
     def get_absolute_url(self):
         return reverse('crt_forms:crt-forms-show', kwargs={"id": self.id})
