@@ -260,7 +260,6 @@ class ResponseView(LoginRequiredMixin, View):
         form = ResponseActions(request.POST, instance=report)
 
         if form.is_valid() and form.has_changed():
-
             template_name = form.cleaned_data['templates'].title
             button_type = request.POST['type']
             action = "Copied" if button_type == "copy" else "Printed"
@@ -268,13 +267,11 @@ class ResponseView(LoginRequiredMixin, View):
             add_activity(request.user, "Contacted complainant:", description, report)
             messages.add_message(request, messages.SUCCESS, description)
 
-            # preserve the query that got the user to this page
-            return_url_args = request.POST.get('next', '')
-            next_page = urllib.parse.quote(return_url_args)
-            url = f'{report.get_absolute_url()}?next={next_page}'
-            return redirect(url)
-
-        return render(request, 'forms/complaint_view/show/index.html', output)
+        # preserve the query that got the user to this page
+        return_url_args = request.POST.get('next', '')
+        next_page = urllib.parse.quote(return_url_args)
+        url = f'{report.get_absolute_url()}?next={next_page}'
+        return redirect(url)
 
 
 class ShowView(LoginRequiredMixin, View):
