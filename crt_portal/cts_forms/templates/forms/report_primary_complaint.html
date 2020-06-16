@@ -7,19 +7,15 @@
     <div class="crt-portal-card">
       <div class="crt-portal-card__content crt-portal-card__content--lg">
         {{ block.super }}
-        <div>
-          <p id="primary-complaint-help-text" class="em-text" id="primary-complaint-help-text">
-            {{ primary_complaint_field.label }}{% if not question_group.optional %}<span class="field-required--group">{% trans "required" %}</span>{% endif %}
-          </p>
+        <p class="question--header" id="primary-complaint-help-text">
+          {{ primary_complaint_field.label }}{% if not question_group.optional %}<span class="field-required--group">{% trans "required" %}</span>{% endif %}
+        </p>
 
-          {% if primary_complaint_field.help_text %}
-            <div class="label-text">
-              <em class="help-text">
-                {{ primary_complaint_field.help_text }}
-              </em>
-            </div>
-          {% endif %}
-        </div>
+        {% if primary_complaint_field.help_text %}
+          <div class="help-text">
+            {{ primary_complaint_field.help_text }}
+          </div>
+        {% endif %}
       </div>
     </div>
 

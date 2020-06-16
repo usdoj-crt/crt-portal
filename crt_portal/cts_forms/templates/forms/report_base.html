@@ -70,7 +70,7 @@
               </section>
 
             {% endif %}
-            <h2 class="margin-0">{{ current_step_title }}</h2>
+            <h2 class="h1">{{ current_step_title }}</h2>
             {% if form.page_note %}
               <p class="help-text">{{ form.page_note }}</p>
             {% endif %}
@@ -105,7 +105,7 @@
 {% endblock %}
 
 {% block footer_extra %}
-<div style="background-color: #162e51; color: white; padding-top: 2em; border-top: 1px solid #454545">
+<div class="privacy-footer">
   {% include "partials/policy.html" %}
 </div>
 {% endblock footer_extra %}

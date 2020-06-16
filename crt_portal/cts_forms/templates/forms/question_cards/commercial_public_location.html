@@ -1,7 +1,7 @@
 {% load i18n %} {% load static %}
 
 <fieldset class="usa-fieldset margin-bottom-4">
-  <legend class="em-text">
+  <legend class="question--header">
     {{ form.commercial_or_public_place.label }}{% if not question_group.optional %}<span class="field-required--group">{% trans "required" %}</span>{% endif %}
   </legend>
   <div data-toggle>

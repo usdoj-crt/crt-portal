@@ -4,12 +4,12 @@
 
 {% block form_questions %}
  <div class="crt-portal-card">
-    <div class="crt-portal-card__content margin-bottom-3">
+    <div class="crt-portal-card__content crt-portal-card__content--lg margin-bottom-3">
         {{ block.super }}
 
-        <span class="em-text display-block margin-bottom-1">{% trans "Before you submit your report, please check your responses" %}</span>
+        <h3 class="question--header display-block margin-bottom-1">{% trans "Before you submit your report, please check your responses" %}</h3>
 
-        <p class="help-text padding-bottom-1">{% trans "If you need to make any changes, you can go back and edit the previous pages. Please make sure your information is accurate. This allows us to respond to your report quickly." %}</p>
+        <p class="help-text">{% trans "If you need to make any changes, you can go back and edit the previous pages. Please make sure your information is accurate. This allows us to respond to your report quickly." %}</p>
 
         <input id="submit-next-top" type="submit" value="{% trans 'Submit report' %}" class="usa-button">
     </div>

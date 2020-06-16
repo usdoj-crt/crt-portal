@@ -1,11 +1,11 @@
 button,
 .usa-button {
-  background-color: $blue-warm-vivid-80;
+  background-color: color($theme-color-primary-darker);
 }
 
 .button--edit {
   background-color: transparent;
-  @include u-font-size('body', 'sm');
+  @include text--body-copy__medium();
   float: right;
   &:before {
     margin-right: 10px;
@@ -31,5 +31,18 @@ button,
 }
 
 button#login {
-  color: white;
+  color: color('white');
+}
+
+// glue the review page edit buttons to the bottom of the card on mobile
+@include at-media-max('mobile-lg') {
+  .crt-portal-card__content {
+    position: relative; // won't change display of card but will allow absolute positioning of button
+    padding-bottom: units($spacer-6x); // to accommodate button
+  }
+  .button--review {
+    position: absolute;
+    width: 88%;
+    bottom: units($spacer-3x);
+  }
 }

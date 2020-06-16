@@ -84,8 +84,8 @@ def add_author(sender, instance, **kwargs):
 
 
 def salt():
-    """Adding some non-ambiguous characters to salt the ids, this only needed for people asking abut their submission via phone, email or mail. There are no public automated lookups at this time. You could guess a range of IDs that might be assigned on a given day, but adding the letters adds 13,824 permutations to each of those records, so it would be labor intensive and noticeable to call in with questions if you were trying to guess at public_id that was not yours."""
-    characters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    """Adding some non-ambiguous characters to salt the ids, this only needed for people asking abut their submission via phone, email or mail. There are no public automated lookups at this time. You could guess a range of IDs that might be assigned on a given day, but adding the letters adds 8,000 permutations to each of those records, so it would be labor intensive and noticeable to call in with questions if you were trying to guess at public_id that was not yours."""
+    characters = ['B', 'C', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'M', 'N', 'P', 'Q', 'R', 'S', 'T', 'V', 'W', 'X', 'Z']
     return ''.join(random.choice(characters) for x in range(3))  # nosec
 
 

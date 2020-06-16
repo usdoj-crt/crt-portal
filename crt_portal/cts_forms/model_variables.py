@@ -23,10 +23,20 @@ PRIMARY_COMPLAINT_CHOICES = (
 )
 PRIMARY_COMPLAINT_DICT = dict(PRIMARY_COMPLAINT_CHOICES)
 
+LANDING_COMPLAINT_CHOICES = (
+    ('hate_crime', _('Victim of a hate crime')),
+    ('human_trafficking', _('Victim of human trafficking')),
+)
+LANDING_COMPLAINT_DICT = dict(LANDING_COMPLAINT_CHOICES)
+
 PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT = {
     'commercial_or_public': _('This could include a store, restaurant, bar, hotel, place of worship, library, medical facility, bank, courthouse, government building, public park or street, as well as online.'),
     'something_else': _('The examples above reflect some but not all of the civil rights violations that we address. Select this option if you don’t see an example that applies to your situation. You will be able to tell us more later.'),
     'police': _('(Including while in prison)')
+}
+LANDING_COMPLAINT_CHOICES_TO_HELPTEXT = {
+    'hate_crime': _('To potentially be a hate crime, the situation must include physical harm, or attempts to cause harm with a dangerous weapon, because of race, color, national origin, religion, gender, sexual orientation, gender identity, or disability.  Threats of force or physical harm because of race, color, religion or national origin are also potential hate crimes.'),
+    'human_trafficking': _('Human trafficking is when someone is forced into labor or sex work for profit. This can happen in many types of work that include, for example: agriculture, domestic work, restaurants, cleaning services, and sex work.')
 }
 
 PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
@@ -62,6 +72,16 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
         _('Threatened or harassed while seeking or receiving reproductive health services'),
     ],
     'something_else': []
+}
+LANDING_COMPLAINT_CHOICES_TO_EXAMPLES = {
+    'hate_crime': [
+        _('Physical attack causing injury, or an attempt to cause injury with a dangerous weapon, because of the above characteristics'),
+        _('Attacks, threats of violence, or destruction of property at place of worship (ie: shooting, arson, bombing, smashing windows, writing slurs)'),
+    ],
+    'human_trafficking': [
+        _('Coerced into working through threats of harm or deportation, psychological manipulation, debt manipulation, document confiscation, or confinement'),
+        _('Forced into sex work for profit through physical abuse or assault, sexual abuse or assault, other threats of harm, or confinement'),
+    ]
 }
 
 ELECTION_CHOICES = (
@@ -115,24 +135,26 @@ PROTECTED_MODEL_CHOICES = tuple(
 
 PROTECTED_CLASS_ERROR = _('Please make a selection to continue. If none of these apply to your situation, please select “None of these apply to me” or "Other reason"and explain.')
 
+# CRT views only
 STATUS_CHOICES = (
-    ('new', _('New')),
-    ('open', _('Open')),
-    ('closed', _('Closed')),
+    ('new', 'New'),
+    ('open', 'Open'),
+    ('closed', 'Closed'),
 )
 
+# CRT views only
 SECTION_CHOICES = (
-    ('ADM', _('Administrative')),
-    ('APP', _('Appellate')),
-    ('CRM', _('Criminal')),
-    ('DRS', _('Disability')),
-    ('ELS', _('Employment Litigation Services')),
-    ('EOS', _('Education')),
-    ('FCS', _('Federal Coordination and Compliance')),
-    ('HCE', _('Housing')),
-    ('IER', _('Immigrant and Employee Rights')),
-    ('SPL', _('Special Litigation')),
-    ('VOT', _('Voting')),
+    ('ADM', 'Administrative'),
+    ('APP', 'Appellate'),
+    ('CRM', 'Criminal'),
+    ('DRS', 'Disability'),
+    ('ELS', 'Employment Litigation Services'),
+    ('EOS', 'Education'),
+    ('FCS', 'Federal Coordination and Compliance'),
+    ('HCE', 'Housing'),
+    ('IER', 'Immigrant and Employee Rights'),
+    ('SPL', 'Special Litigation'),
+    ('VOT', 'Voting'),
 )
 
 COMMERCIAL_OR_PUBLIC_PLACE_CHOICES = (
@@ -201,12 +223,13 @@ EMPLOYER_SIZE_CHOICES = (
 EMPLOYER_SIZE_DICT = dict(EMPLOYER_SIZE_CHOICES)
 EMPLOYER_SIZE_ERROR = _('Please select how large the employer is.')
 
+# CRT views only
 EMPLOYER_FRIENDLY_TEXT = {
-    'public_employer': _('Public'),
-    'private_employer': _('Private'),
-    'not_sure': _('Not sure'),
-    '14_or_less': _('Less than 15'),
-    '15_or_more': _('15 or more'),
+    'public_employer': 'Public',
+    'private_employer': 'Private',
+    'not_sure': 'Not sure',
+    '14_or_less': 'Less than 15',
+    '15_or_more': '15 or more',
 }
 
 PUBLIC_OR_PRIVATE_SCHOOL_CHOICES = (

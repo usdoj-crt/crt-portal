@@ -1,35 +1,40 @@
 {% load i18n %}
 
 {% if card_title %}
-  <h2 id='contact'>{{ card_title }}</h2>
+  <h2 class="h1" id='contact'>{{ card_title }}</h2>
 {% endif %}
-
-{% include 'forms/grouped_questions.html' %}
-{% with city=form.contact_city state=form.contact_state zip=form.contact_zip %}
-<div class="grid-row">
-  <div class="margin-top-3 mobile-lg:grid-col-9">
-    <div class="grid-row">
-      <div class="mobile-lg:grid-col-6 form-group">
-        <label for="{{city.id_for_label}}">
-          {{ city.label }}
-        </label>
-        {{ city }}
-      </div>
-      <div class="mobile-lg:grid-col-5 mobile-lg:grid-offset-1">
-        <label for="{{state.id_for_label}}">
-          {{state.label}}
-        </label>
-        {{ state }}
-      </div>
-    </div>
-  </div>
+{% if card_title %}
+  <div class="margin-top-3">
+{% endif %}
+  {% include 'forms/grouped_questions.html' %}
+  {% with city=form.contact_city state=form.contact_state zip=form.contact_zip %}
   <div class="grid-row">
-    <div class="mobile-lg:grid-col-8">
-      <label for="{{zip.id_for_label}}">
-        {{ zip.label }}
-      </label>
-      {{ zip }}
+    <div class="margin-top-3 mobile-lg:grid-col-9">
+      <div class="grid-row">
+        <div class="mobile-lg:grid-col-6 form-group">
+          <label for="{{city.id_for_label}}">
+            {{ city.label }}
+          </label>
+          {{ city }}
+        </div>
+        <div class="mobile-lg:grid-col-5 mobile-lg:grid-offset-1">
+          <label for="{{state.id_for_label}}">
+            {{state.label}}
+          </label>
+          {{ state }}
+        </div>
+      </div>
+    </div>
+    <div class="grid-row">
+      <div class="mobile-lg:grid-col-8">
+        <label for="{{zip.id_for_label}}">
+          {{ zip.label }}
+        </label>
+        {{ zip }}
+      </div>
     </div>
   </div>
-</div>
-{% endwith %}
+  {% endwith %}
+{% if card_title %}
+  </div>
+{% endif %}

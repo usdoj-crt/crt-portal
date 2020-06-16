@@ -1,0 +1,45 @@
+{% extends "forms/complaint_view/intake_base.html" %}
+
+{%block content %}
+<div class="complaint-show-body">
+  <div class="grid-container">
+    <div class="display-flex flex-align-center details-id">
+      <h2 class="margin-right-205 margin-top-0 margin-bottom-0 backend-blue">
+        Trends
+      </h2>
+    </div>
+    <div class="crt-portal-card">
+      <div class="crt-portal-card__content">
+        <h2>This week</h2>
+        {% include 'forms/snippets/trend_table.html' with trend=this_week label='Top words for this week' date_id="#week-start" %}
+      </div>
+    </div>
+    <div class="crt-portal-card">
+      <div class="crt-portal-card__content">
+        <h2>Last week</h2>
+        {% include 'forms/snippets/trend_table.html' with trend=last_week label='Top words for last week' date_id="#last-week-start"%}
+      </div>
+    </div>
+    <div class="crt-portal-card">
+      <div class="crt-portal-card__content">
+        <h2>Past four weeks</h2>
+        {% include 'forms/snippets/trend_table.html' with trend=four_weeks label='Top words for the past four weeks' date_id="#four-weeks-start"%}
+      </div>
+    </div>
+    <div class="crt-portal-card">
+      <div class="crt-portal-card__content">
+        <h2>This year</h2>
+        {% include 'forms/snippets/trend_table.html' with trend=year label='Top words for this year' date_id="year-start"%}
+      </div>
+    </div>
+    <div class="crt-portal-card">
+      <div class="crt-portal-card__content">
+        <h3>Methodology</h3>
+        <p>Document count is the number of complaints that the word appears in. Word count is the total number of times that word appears.</p>
+        <p>The data is based on creation dates. Time periods start on Sunday, except for year. The cutoff is midnight GMT.</p>
+        <p>There my be variations in the document count and search results. For the search, results will be shown for variations on a word, so "pet" and "pets" will show up on the view all table if you search for "pet" or "pets" in the description. The counts on this page are using exact word matches, so "pet" and "pets" will be counted separately. Capitalization is not a factor when searching or counting so searching "Pet" will not be different than "pet". The counts for this page are also optimized for English characters.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
