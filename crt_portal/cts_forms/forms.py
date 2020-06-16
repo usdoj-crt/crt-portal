@@ -1011,6 +1011,7 @@ class ResponseActions(Form, ActivityStreamUpdater):
 
 
 class ComplaintActions(ModelForm, ActivityStreamUpdater):
+    report_closed = False
     CONTEXT_KEY = 'actions'
     assigned_to = ModelChoiceField(
         queryset=User.objects.filter(is_active=True),
@@ -1068,13 +1069,18 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         self.fields['assigned_to'].widget.label = 'Assigned to'
 
     def get_actions(self):
-        """Parse incoming changed data for activity stream entry"""
+        """
+        Parse incoming changed data for activity stream entry
+        If report has been closed, emit action for activity log
+        """
         for field in self.changed_data:
             name = ' '.join(field.split('_')).capitalize()
             # rename primary statute if applicable
             if field == 'primary_statute':
                 name = 'Primary classification'
             yield f"{name}:", f'Updated from "{self.initial[field]}" to "{self.cleaned_data[field]}"'
+        if self.report_closed:
+            yield "Report closed and Assignee removed", f"Date closed updated to {self.instance.crt_date_closed.strftime('%m/%d/%y %H:%M:%M %p')}"
 
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
@@ -1096,6 +1102,16 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             fields += f', and {updated_fields[-1]}'
             message = f"Successfully updated {fields}."
         return message
+
+    def save(self, commit=True):
+        """If report.status is `closed`, set assigned_to to None"""
+        report = super().save(commit=False)
+        if report.closed:
+            report.closeout_report()
+            self.report_closed = True
+        if commit:
+            report.save()
+        return report
 
 
 class CommentActions(ModelForm):

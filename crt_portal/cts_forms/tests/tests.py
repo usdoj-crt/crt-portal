@@ -887,6 +887,17 @@ class Complaint_Update_Tests(TestCase):
 
         self.assertTrue(response.context['data'].assigned_section == 'VOT')
 
+    def test_if_status_closed_assignee_must_be_empty(self):
+        """If status is closed, existing assignee must be removed"""
+        self.test_report.assigned_to = self.user
+        self.test_report.save()
+
+        self.form_data.update({'status': 'closed'})
+        self.client.post(self.url, self.form_data, follow=True)
+
+        self.test_report.refresh_from_db()
+        self.assertIsNone(self.test_report.assigned_to)
+
 
 class ProFormTest(TestCase):
     def setUp(self):
