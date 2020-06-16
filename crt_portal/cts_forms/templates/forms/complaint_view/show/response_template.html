@@ -1,7 +1,8 @@
 {% load static %}
 
-<form class="usa-form" method="post" action="{% url 'crt_forms:crt-forms-response' id=data.id %}" novalidate>
+<form class="usa-form" method="post" action="{% url 'crt_forms:crt-forms-response' id=data.id %}">
   {% csrf_token %}
+  <input type="hidden" value="{{ return_url_args }}" name="next" id="modal_next" />
   <div id="intake_template" hidden>
     <div class="modal-wrapper intake-template--modal">
       <div class="modal-content">

@@ -268,7 +268,6 @@ class ResponseView(LoginRequiredMixin, View):
             add_activity(request.user, "Contacted complainant:", description, report)
             messages.add_message(request, messages.SUCCESS, description)
 
-            # TODO check
             # preserve the query that got the user to this page
             return_url_args = request.POST.get('next', '')
             next_page = urllib.parse.quote(return_url_args)
