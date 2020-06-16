@@ -32,12 +32,13 @@ DEBUG = os.environ.get('DEBUG', False)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
+CONFIGURE_FROM_VCAP = environment in ['STAGE', 'DEVELOP', "PRODUCTION"]
 
-if environment != 'LOCAL':
+if CONFIGURE_FROM_VCAP:
     """ This will default to prod settings and locally, setting the env
     to local will allow you to add the variables directly and not have
-    to recreate the vacap structure."""
-    vcap = json.loads(os.environ['VCAP_SERVICES'])
+    to recreate the vcap structure."""
+    vcap = json.loads(os.environ.get['VCAP_SERVICES'], None)
     for service in vcap['user-provided']:
         if service['instance_name'] == "VCAP_SERVICES":
             # SECURITY WARNING: keep the secret key used in production secret!
