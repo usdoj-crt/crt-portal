@@ -43,6 +43,7 @@
   };
 
   var copy = document.getElementById('intake_copy');
+  var print = document.getElementById('intake_print');
   var options = document.getElementById('intake_select');
   var letter = document.getElementById('intake_letter');
   var description = document.getElementById('intake_description');
@@ -54,8 +55,10 @@
     letter.innerHTML = option.dataset['content'] || '';
     if (index >= 1) {
       copy.removeAttribute('disabled');
+      print.removeAttribute('disabled');
     } else {
       copy.setAttribute('disabled', 'disabled');
+      print.setAttribute('disabled', 'disabled');
     }
   };
 
@@ -70,5 +73,15 @@
     el.setSelectionRange(0, 99999); // mobile
     document.execCommand('copy');
     document.body.removeChild(el);
+  };
+
+  print.onclick = function(event) {
+    const el = document.createElement('p');
+    el.classList.add('intake-letter-preview');
+    el.append(letter.value);
+    document.body.appendChild(el);
+    window.print();
+    document.body.removeChild(el);
+    closeModal();
   };
 })();
