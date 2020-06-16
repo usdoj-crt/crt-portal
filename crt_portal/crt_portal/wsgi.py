@@ -28,7 +28,6 @@ def get_newrelic_key():
         vcap = json.loads(os.environ['VCAP_SERVICES'])
         for service in vcap['user-provided']:
             if service['instance_name'] == "VCAP_SERVICES":
-                # SECURITY WARNING: keep the secret key used in production secret!
                 return service['credentials']['NEW_RELIC_LICENSE_KEY']
 
 
