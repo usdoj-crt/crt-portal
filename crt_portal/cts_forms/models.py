@@ -164,7 +164,7 @@ class Report(models.Model):
     intake_format = models.CharField(max_length=100, null=True, default=None, choices=INTAKE_FORMAT_CHOICES)
     author = models.CharField(max_length=1000, null=True, blank=True)
     assigned_to = models.ForeignKey(User, blank=True, null=True, related_name="assigned_complaints", on_delete=models.CASCADE)
-    crt_date_closed = models.DateTimeField(blank=True, null=True, help_text="The Date this report's status was most recently set to \"Closed\"")
+    closed_date = models.DateTimeField(blank=True, null=True, help_text="The Date this report's status was most recently set to \"Closed\"")
 
     # Not in use- but need to preserving historical data
     hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, blank=True)
@@ -292,7 +292,7 @@ class Report(models.Model):
         Remove assignee and record date of call
         """
         self.assigned_to = None
-        self.crt_date_closed = datetime.now()
+        self.closed_date = datetime.now()
 
 
 class Trends(models.Model):

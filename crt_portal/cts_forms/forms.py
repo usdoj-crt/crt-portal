@@ -1059,7 +1059,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
                 name = 'Primary classification'
             yield f"{name}:", f'Updated from "{self.initial[field]}" to "{self.cleaned_data[field]}"'
         if self.report_closed:
-            yield "Report closed and Assignee removed", f"Date closed updated to {self.instance.crt_date_closed.strftime('%m/%d/%y %H:%M:%M %p')}"
+            yield "Report closed and Assignee removed", f"Date closed updated to {self.instance.closed_date.strftime('%m/%d/%y %H:%M:%M %p')}"
 
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
