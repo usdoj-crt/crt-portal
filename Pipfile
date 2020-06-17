@@ -27,6 +27,7 @@ django-auth-adfs = "*"
 django-csp = "*"
 pip = "*"
 django-activity-stream = "*"
+newrelic = "*"
 
 [requires]
 python_version = "3.8.2"
