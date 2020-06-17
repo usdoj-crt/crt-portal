@@ -85,6 +85,12 @@ footer {
     text-decoration: underline;
   }
 }
+.usa-footer__language_assistance {
+  a,
+  img {
+    vertical-align: middle;
+  }
+}
 
 .usa-footer__language {
   width: 100%; // IE11 fix
