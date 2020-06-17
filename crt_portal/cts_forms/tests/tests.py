@@ -497,6 +497,7 @@ class CRT_FILTER_Tests(TestCase):
         test_report.location_state = 'OH'
         test_report.assigned_section = test_report.assign_section()
         test_report.servicemember = 'yes'
+        test_report.hate_crime = 'yes'
         test_report.save()
 
         self.client = Client()
@@ -634,6 +635,16 @@ class CRT_FILTER_Tests(TestCase):
         response = self.client.get(f'{self.url_base}?{servicemember_filter}')
         reports = response.context['data_dict']
         expected_reports = Report.objects.filter(servicemember='yes').count()
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, expected_reports)
+
+    def test_hatecrime_filter(self):
+        filter_ = 'hate_crime=yes'
+        response = self.client.get(f'{self.url_base}?{filter_}')
+        reports = response.context['data_dict']
+        expected_reports = Report.objects.filter(hate_crime='yes').count()
 
         report_len = len(reports)
 
