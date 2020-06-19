@@ -145,12 +145,15 @@ footer {
 }
 
 .usa-footer__attribution {
-  margin: 1rem 0;
+  background-color: color('gray-warm-90');
+  color: color('white');
+  padding: 2.5rem 0;
+
   &-names {
-    margin: 1rem 0;
+    margin: 0.5rem 0;
   }
   p {
-    margin: 0.1rem 0;
-    font-size: 0.9rem;
+    @include text--body-copy__small();
+    margin: 0;
   }
 }
