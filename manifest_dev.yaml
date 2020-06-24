@@ -8,8 +8,9 @@ applications:
   env:
     ENV: DEVELOP
     NEW_RELIC_CONFIG_FILE: /root/code/newrelic.ini
-    NEW_RELIC_ENV: dev
+    NEW_RELIC_ENVIRONMENT: dev
     NEW_RELIC_LOG: stdout
+    NEW_RELIC_APP_NAME: CRT PORTAL (dev)
   buildpacks:
   - https://github.com/cloudfoundry/apt-buildpack
   - python_buildpack
