@@ -12,7 +12,8 @@ applications:
     AUTH_RELYING_PARTY_ID: "crt-portal-django-prod.app.cloud.gov"
     AUTH_AUDIENCE: "microsoft:identityserver:crt-portal-django-prod.app.cloud.gov"
     NEW_RELIC_CONFIG_FILE: /home/vcap/app/newrelic.ini
-    NEW_RELIC_ENV: production
+    NEW_RELIC_ENVIRONMENT: production
+    NEW_RELIC_APP_NAME: CRT PORTAL (prod)
     NEW_RELIC_LOG: stdout
   buildpacks:
   - https://github.com/cloudfoundry/apt-buildpack
