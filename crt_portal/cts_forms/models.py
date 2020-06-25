@@ -315,16 +315,26 @@ class ResponseTemplate(models.Model):
     description = models.CharField(max_length=100, null=False, blank=False,)
     template = models.TextField(null=False, blank=False,)
 
-    def render(self, report):
+    def available_report_fields(self, report):
+        """
+        Only permit a small subset of report fields
+        """
         today = datetime.today()
-        template = Template(self.template)
-        # we only allow a small subset of report fields
-        context = Context({
+        return Context({
             'addressee': report.addressee,
             'date_of_intake': report.create_date.strftime('%B %d, %Y'),
             'record_locator': report.public_id,
             'outgoing_date': today.strftime('%B %d, %Y'),  # required for paper mail
         })
+
+    def render_subject(self, report):
+        template = Template(self.description)
+        context = self.available_report_fields(report)
+        return escape(template.render(context))
+
+    def render_body(self, report):
+        template = Template(self.template)
+        context = self.available_report_fields(report)
         return escape(template.render(context))
 
     def __str__(self):
