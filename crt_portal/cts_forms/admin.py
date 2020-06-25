@@ -1,10 +1,15 @@
 import csv
+import logging
 
 from django.contrib import admin
 from django.http import StreamingHttpResponse
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking,
                      ProtectedClass, Report, ResponseTemplate)
+from .signals import get_client_ip
+
+
+logger = logging.getLogger(__name__)
 
 
 class Echo:
@@ -16,17 +21,29 @@ class Echo:
         return value
 
 
+def format_export_message(request, records):
+    """Log user and # of records exported"""
+    ip = get_client_ip(request) if request else 'CLI'
+    username = request.user.username if request else 'CLI'
+    userid = request.user.id if request else 'CLI'
+    return f'ADMIN ACTION by: {username} {userid} @ {ip}. Exported {records} reports as csv.'
+
+
 def export_as_csv(modeladmin, request, queryset):
-    """Stream all fields of selected reports as CSV"""
+    """
+    Stream all fields of selected reports as CSV
+    Log all use
+    """
     pseudo_buffer = Echo()
-    writer = csv.writer(pseudo_buffer)
+    writer = csv.writer(pseudo_buffer, quoting=csv.QUOTE_ALL)
     headers = [field.name for field in Report._meta.fields]
     rows = [headers]
     for report in queryset:
         rows.append([getattr(report, field) for field in headers])
     response = StreamingHttpResponse((writer.writerow(row) for row in rows),
                                      content_type="text/csv")
-    response['Content-Disposition'] = 'attachment; filename="somefilename.csv"'
+    response['Content-Disposition'] = 'attachment; filename="report_export.csv"'
+    logger.info(format_export_message(request, len(rows) - 1))
     return response
 export_as_csv.allowed_permissions = ('view',)  # noqa
 
