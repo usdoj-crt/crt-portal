@@ -312,8 +312,8 @@ class Trends(models.Model):
 
 class ResponseTemplate(models.Model):
     title = models.CharField(max_length=100, null=False, blank=False, unique=True,)
-    description = models.CharField(max_length=100, null=False, blank=False,)
-    template = models.TextField(null=False, blank=False,)
+    subject = models.CharField(max_length=100, null=False, blank=False,)
+    body  = models.TextField(null=False, blank=False,)
 
     def available_report_fields(self, report):
         """
@@ -328,12 +328,12 @@ class ResponseTemplate(models.Model):
         })
 
     def render_subject(self, report):
-        template = Template(self.description)
+        template = Template(self.subject)
         context = self.available_report_fields(report)
         return escape(template.render(context))
 
     def render_body(self, report):
-        template = Template(self.template)
+        template = Template(self.body)
         context = self.available_report_fields(report)
         return escape(template.render(context))
 
