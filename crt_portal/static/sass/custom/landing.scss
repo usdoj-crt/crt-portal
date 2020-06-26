@@ -5,41 +5,23 @@ $arrow-height: 24px;
   padding-bottom: 2.5rem;
 
   h1 {
-    font-size: 2.9rem;
     margin-top: 1rem;
     margin-bottom: 0;
     line-height: 1.33;
-
-    @include at-media-max(mobile-lg) {
-      font-size: 2rem;
-    }
   }
 
   h2 {
-    @include u-font-family('serif');
     margin-top: 1.5rem;
     margin-bottom: 0;
-  }
-
-  h3 {
-    @include u-font-family('serif');
   }
 
   li {
     margin-bottom: 1rem;
   }
-
-  p.crt-landing--text, ul.crt-landing--text {
-    line-height: 1.5;
-  }
 }
 
 .crt-header--icon_group {
   display: flex;
-
-  h3 {
-    font-size: 1rem;
-  }
 
   .crt-header--icon {
     padding-right: 0.5rem;
@@ -47,31 +29,32 @@ $arrow-height: 24px;
 }
 
 .crt-button--large {
-  color: $white !important;
+  color: color('white') !important;
   font-weight: bold !important;
   margin-top: 0.5rem;
   padding: 1rem 2rem;
 }
 
 .crt-landing--blue {
-  background-color: $blue-warm-vivid-80;
-  color: white;
+  background-color: color($theme-color-primary-darker);
+  color: color('white');
 }
 
 .crt-landing--lightblue {
-  background-color: $blue-warm-5;
-  color: $blue-warm-vivid-80;
+  background-color: #e9eef5; // custom color to match background of hero image
+  color: color($theme-color-primary-darker);
 }
 
 .crt-landing--pale {
-  color: $blue-warm-vivid-80;
+  color: color($theme-color-primary-darker);
 }
 
 .crt-landing--separator {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
-  border: 2px solid $gold;
+  border: 2px solid color($theme-color-warning);
   border-radius: 2px;
+  background: color($theme-color-warning);
   width: 50px;
 }
 
@@ -82,7 +65,8 @@ $arrow-height: 24px;
 }
 
 .crt-landing--separator_sub {
-  border: 2px solid $blue-warm-vivid-80;
+  background: $theme-color-primary-darker;
+  border: 2px solid color($theme-color-primary-darker);
   border-radius: 2px;
   width: 25px;
   margin-bottom: 1rem;
@@ -114,11 +98,11 @@ $arrow-height: 24px;
   }
 
   a {
-    color: white;
+    color: color('white');
     text-decoration: none;
 
     &:hover {
-      border-bottom: 1px solid white;
+      border-bottom: 1px solid color('white');
     }
   }
 
@@ -136,8 +120,8 @@ $arrow-height: 24px;
     @include u-radius('md');
     padding: 0.25rem 0.5rem;
     text-transform: unset;
-    background: $blue-warm-5;
-    color: $blue-warm-vivid-80;
+    background: color($theme-color-primary-lightest);
+    color: color($theme-color-primary-darker);
     max-height: 2rem;
   }
 
@@ -158,12 +142,12 @@ $arrow-height: 24px;
 
   .crt-landing--logo_subheading {
     @extend .usa-footer__logo-subheading;
-    font-size: 0.8em;
+    font-size: $theme-text-font-size-sm;
   }
 
   .crt-landing--logo_heading {
     @extend .usa-footer__logo-heading;
-    font-size: 1.2em;
+    font-size: $theme-heading-font-size-md;
   }
 }
 
@@ -172,22 +156,31 @@ $arrow-height: 24px;
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: bottom;
-  min-height: 750px;
+  min-height: 800px;
 
   @include at-media-max(mobile-lg) {
     background-image: url(../../img/landing-page-hero-mobile.png);
-    color: white;
+    background-size: cover; // avoid unsightly mobile gap
+    background-color: #436eac;
     min-height: 600px;
+    color: color('white');
+    .h1__display {
+      color: color('white');
+    }
     .crt-button--large {
-      background: $gold;
+      background: color($theme-color-warning);
       color: black !important;
+    }
+    a,
+    a:visited {
+      color: white;
     }
   }
 
-  @include at-media-max(desktop) {
+  @include at-media(desktop) {
     background-image: url(../../img/landing-page-hero-tablet.png);
     background-position: bottom;
-    min-height: 600px;
+    min-height: 850px;
   }
 
   h1 {
@@ -201,17 +194,14 @@ $arrow-height: 24px;
   text-align: center;
 
   &_header {
-    @include u-font-family('serif');
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: $gold;
+    color: color($theme-color-warning);
     margin-top: 1rem;
     margin-bottom: 0.5rem;
 
     a {
-      color: $gold;
+      color: color($theme-color-warning);
       font-weight: bold;
-      text-decoration: none
+      text-decoration: none;
     }
   }
 
@@ -219,7 +209,7 @@ $arrow-height: 24px;
     margin: 0.5rem;
 
     a {
-      color: white;
+      color: color('white');
       font-weight: bold;
     }
   }
@@ -230,11 +220,8 @@ $arrow-height: 24px;
     font-weight: bold;
   }
 
-  .crt-landing--description_rights {
-    font-size: 2rem;
-    @include at-media-max(mobile-lg) {
-      font-size: 1.5rem;
-    }
+  .crt-landing--description__rights {
+    @include text--heading__large();
     margin-top: 1rem;
     margin-bottom: 2.5rem;
   }
@@ -245,41 +232,34 @@ $arrow-height: 24px;
       min-height: unset;
     }
   }
-
-  .crt-landing--smalltext {
-    line-height: 1.625;
-  }
 }
 
 .crt-landing--rights {
   .crt-landing--rights_text {
-    font-size: 1.6rem;
-    line-height: 1.4;
+    @include text--heading__large();
     margin-bottom: 2rem;
   }
 
-  .crt-landing--mediumtext {
-    font-size: 1.2rem;
-    line-height: 1.5;
+  .crt-landing--largetext {
     margin-bottom: 1rem;
   }
 
   &_categories {
-    color: $gold;
+    color: color($theme-color-warning);
   }
 }
 
 .crt-landing--largetext {
+  @include text--heading__medium();
   margin-top: 0;
   margin-bottom: 1.5rem;
-  font-size: 1.4rem;
-  line-height: 1.5;
+}
+
+.crt-landing--smalltext {
+  @include text--body-copy__small();
 }
 
 .crt-landing--subheader {
-  @include u-font-family('serif');
-  font-size: 1.5rem;
-  font-weight: bold;
   margin-top: 0;
   margin-bottom: 0.5rem;
 }
@@ -301,18 +281,24 @@ $arrow-height: 24px;
   }
 
   .crt-landing--divider {
-    border-left: 1px solid $blue-warm-vivid-80;
-    padding-left: 2rem !important;
+    border-left: 1px solid color($theme-color-primary-darker);
+    padding-left: units($spacer-4x) !important;
+    margin-top: units($spacer-5x);
+    @include at-media-max('mobile-lg') {
+      border-left: none;
+      border-top: 1px solid color($theme-color-primary-darker);
+      padding-left: 0;
+      margin-top: units($spacer-2x);
+      margin-right: units($spacer-1x);
+      margin-left: units($spacer-1x);
+      padding-top: units($spacer-3x);
+    }
   }
 
   ul {
     padding-left: 1rem;
     margin-top: 1.5rem;
     margin-bottom: 0;
-  }
-
-  .crt-landing--text {
-    font-size: 0.9rem;
   }
 
   li {
@@ -340,10 +326,10 @@ $arrow-height: 24px;
 
     button {
       padding: 1rem 1.5rem !important;
-      font-size: 1.2rem;
+      font-size: $theme-heading-font-size-md;
       line-height: 1.3;
       font-weight: normal;
-      color: white;
+      color: color('white');
       min-height: 5rem;
 
       // caret adjustments -- in many cases overriding the USWDS defaults
@@ -352,18 +338,18 @@ $arrow-height: 24px;
       background-size: 1.5rem !important;
       width: 100%;
       height: 100%;
-      &[aria-expanded=false] {
+      &[aria-expanded='false'] {
         background-image: url(../../img/angle-arrow-down-white.svg) !important;
         &:hover {
           background-image: url(../../img/angle-arrow-down-primary.svg) !important;
         }
       }
-      &[aria-expanded=true] {
+      &[aria-expanded='true'] {
         background-image: url(../../img/angle-arrow-up-white.svg) !important;
       }
 
       &:hover {
-        background-color: $blue-warm-vivid-80 !important;
+        background-color: color($theme-color-primary-darker) !important;
       }
     }
   }
@@ -374,7 +360,7 @@ $arrow-height: 24px;
 
   #crt-landing--examples {
     padding: 0;
-    background: white;
+    background: color('white');
     @include u-shadow(3);
 
     width: calc(100% - 2rem);
@@ -391,20 +377,20 @@ $arrow-height: 24px;
       cursor: pointer;
 
       &:hover {
-        color: $blue-warm-vivid-80;
-        background: $blue-warm-10 !important;
+        color: color($theme-color-primary-darker);
+        background: color($theme-color-primary-lighter) !important;
       }
     }
 
     a {
-      color: $blue-warm-vivid-80;
+      color: color($theme-color-primary-darker);
       font-weight: normal;
       line-height: 1.5;
       text-decoration: none;
 
       &:hover {
-        color: $blue-warm-vivid-80;
-        background: $blue-warm-10 !important;
+        color: color($theme-color-primary-darker);
+        background: color($theme-color-primary-lighter) !important;
       }
     }
   }
@@ -412,13 +398,26 @@ $arrow-height: 24px;
   .crt-landing--example {
     @include u-radius-bottom('lg');
     @include u-shadow(3);
-    background-color: white;
+    background-color: color('white');
     min-height: 20rem;
-    padding: 2.5rem;
+    padding: 2rem 3.5rem 2.5rem 3.5rem;
+
+    #crt-landing--choice_helptext p {
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      font-style: italic;
+    }
 
     #crt-landing--choice_examples p {
       margin-top: 1.5rem;
       padding-right: 1rem;
+    }
+
+    #crt-landing--humantrafficking a {
+      font-size: 0.9rem;
+      font-style: italic;
+      background-color: color('white');
+      margin-top: 0.5rem;
     }
 
     .crt-landing--example_header {
@@ -431,7 +430,6 @@ $arrow-height: 24px;
 
 .crt-landing--how_to_report {
   h2 {
-    font-size: 1.2rem;
     margin-top: 0;
   }
 
@@ -443,9 +441,7 @@ $arrow-height: 24px;
     min-width: 32px;
     width: 32px;
     height: 32px;
-    color: $blue-warm-vivid-80;
-    @include u-font-family('serif');
-    background-color: $gold;
+    background-color: color($theme-color-warning);
     margin-right: 1rem;
   }
 
@@ -472,6 +468,7 @@ $arrow-height: 24px;
   }
 
   p.crt-landing--text {
+    @include text--body-copy__small();
     margin-bottom: 0;
   }
 }
@@ -479,10 +476,6 @@ $arrow-height: 24px;
 .crt-landing--already_submitted {
   h2 {
     margin-top: 1rem;
-  }
-
-  h3 {
-    font-size: 1.5rem;
   }
 }
 
@@ -499,7 +492,7 @@ $arrow-height: 24px;
   height: 0;
   border-left: 50px solid transparent;
   border-right: 50px solid transparent;
-  border-top: $arrow-height solid $blue-warm-vivid-80;
+  border-top: $arrow-height solid color($theme-color-primary-darker);
 }
 
 .crt-landing--similar_situation {

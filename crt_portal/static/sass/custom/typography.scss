@@ -1,4 +1,6 @@
-// Header Styles
+/******************************************
+Heading and body type styles
+******************************************/
 h1,
 h2,
 h3,
@@ -9,45 +11,135 @@ h6,
   @include add-knockout-font-smoothing;
 }
 
-h1 {
-  @include u-font('heading', '2xl');
+// NOTE: We're overriding the USWDS declarations for heading tags here because
+// we want to avoid the normalization that happens with the font tokens:
+// https://designsystem.digital.gov/design-tokens/typesetting/overview/
+h1,
+.h1 {
+  @include text--heading__large();
+  font-weight: $theme-font-weight-bold;
 }
 
-h2 {
-  @include u-font('body', 'xl');
+.h1__display {
+  @include text--heading__xlarge();
+  font-family: family('heading');
+  font-weight: $theme-font-weight-bold;
+  color: color($theme-color-primary-darker);
 }
 
-.intro-subtitle {
-  @include u-font('body', 'lg');
-  @include u-line-height('alt', 5);
+h2,
+.h2 {
+  @include text--heading__medium();
+  font-weight: $theme-font-weight-bold;
 }
 
-h3 {
-  @include u-text('blue-warm-80v');
+.h2__display {
+  @include text--heading__large();
+  font-family: family('heading');
+  font-weight: $theme-font-weight-bold;
+  color: color($theme-color-primary-darker);
+}
+
+h3,
+.h3 {
+  @include text--heading__small();
+  font-weight: $theme-font-weight-bold;
+}
+
+.h3__display {
+  @include text--heading__medium();
+  font-family: family('heading');
+  font-weight: $theme-font-weight-bold;
+  color: color($theme-color-primary-darker);
+}
+
+// no default styles defined for regular h4s
+
+.h4__display {
+  @include text--heading__small();
+  font-family: family('heading');
+  font-weight: $theme-font-weight-bold;
+  color: color($theme-color-primary-darker);
+}
+
+p,
+li {
+  @include text--body-copy__medium();
 }
 
 a,
 a:visited {
-  color: $blue-warm-vivid-80;
+  color: color($theme-link-color);
+  &:hover {
+    color: color($theme-link-hover-color);
+  }
 }
 
-p {
-  line-height: 1.625;
+.text__reverse {
+  color: color('white');
+}
+
+/***********************************************
+Usage-specific typography rules
+***********************************************/
+.question--header,
+.intake-section-title {
+  @include text--heading__medium();
+  font-weight: $theme-font-weight-bold;
+  color: color($theme-color-primary-darker);
+}
+
+.intake-section-title {
+  font-family: family('heading');
+}
+
+.question--label,
+.crt-portal-card__subheader {
+  @include text--body-copy__large();
+  font-weight: $theme-font-weight-bold;
+  color: color($theme-color-primary-darker);
+}
+
+.help-text {
+  line-height: $theme-body-copy-line-height;
+}
+
+.help-text__small {
+  @include text--body-copy__small();
 }
 
 .usa-radio__label .label-text p {
   line-height: 0.85; //inherit from USWDS
   &.help-text,
   &.help-text__small {
-    line-height: 1.625;
+    line-height: $theme-body-copy-line-height;
   }
 }
 
-.em-text {
-  color: $blue-warm-vivid-80;
-  font-weight: bold;
-  font-size: 1.22rem;
-  margin-bottom: 0.5rem;
+.help-text,
+.help-text__small {
+  margin-top: units($spacer-1x);
+  margin-bottom: 0;
+  font-style: italic;
+
+  + fieldset legend {
+    padding-top: 0;
+  }
+
+  + input,
+  + .usa-input,
+  + textarea,
+  + .usa-textarea {
+    margin-top: units($spacer-2x);
+  }
+
+  + input[type='submit'] {
+    margin-top: units($spacer-3x);
+  }
+
+  + ul {
+    margin-top: units($spacer-3x);
+  }
 }
 
 .look-like-link {
@@ -60,24 +152,18 @@ p {
 .usa-prose {
   p {
     margin-top: 0.5rem;
-    line-height: 1.625;
   }
 
   .form-label {
-    line-height: 1.625;
+    line-height: $theme-body-copy-line-height;
     margin-bottom: 0;
     margin-top: 0;
     max-width: 68ex;
   }
 }
 
-.align-center {
-  text-align: center;
-}
-
 .page-form-title {
-  font-size: 1.375rem;
+  @include text--heading__medium();
   font-weight: 100;
-  line-height: 2.065rem;
   margin: 0;
 }

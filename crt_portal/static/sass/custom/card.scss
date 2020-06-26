@@ -1,8 +1,8 @@
 .crt-portal-card {
   @include u-radius('lg');
-  background-color: $white;
+  background-color: color('white');
   box-shadow: 0 1px 6px 2px rgba(0, 0, 0, 0.14);
-  margin: 24px 0;
+  margin: units($spacer-3x) 0;
 
   &:first-of-type {
     margin-top: 0;
@@ -11,12 +11,14 @@
   // provides styled for a hoverable card, use in primary issue page
   &.crt-hover-card {
     &:hover {
-      background-color: $gray-cool-4;
+      background-color: color(
+        'gray-cool-4'
+      ); // USWDS system design token: https://designsystem.digital.gov/design-tokens/color/system-tokens/
       cursor: pointer;
     }
     &.selected,
     &:hover.selected {
-      background-color: $blue-warm-5;
+      background-color: color($theme-color-primary-lightest);
     }
 
     > .crt-portal-card__content {
@@ -30,20 +32,43 @@
     @include u-padding-y(1.5);
     @include u-padding-x(3);
 
+    &--sm {
+      @include u-padding-top(3);
+      @include u-padding-x(4);
+      @include u-padding-bottom(5);
+      @include at-media-max(mobile-lg) {
+        @include u-padding(3);
+      }
+    }
+
     &--lg {
       @include u-padding-x(7);
       @include u-padding-bottom(6);
       @include u-padding-top(5);
+      @include at-media-max(mobile-lg) {
+        @include u-padding(3);
+      }
     }
 
+    // no margin when the only thing or last thing on the card is the help text
+    // example: "something else" in "primary concern"
+    > div:last-child,
+    > label:last-child {
+      .help-text:last-child,
+      .help-text__small:last-child {
+        margin-bottom: 0;
+      }
+    }
+    // card header
     h2 {
-      margin-bottom: 2rem;
+      margin-top: 0;
+      margin-bottom: 0;
     }
   }
 
   .title {
     @include flex-container();
-    @include u-border($blue-warm-vivid-80-t);
+    border-color: color($theme-color-primary-darker);
     border-width: 0;
     border-bottom: 1px solid;
     margin-top: 0.8rem;
@@ -62,8 +87,8 @@
   }
 
   h3.crt-portal-card__subheader {
-    padding-bottom: .25rem;
-    border-bottom: 1px solid $gray-warm-10;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid color($theme-color-base-lighter);
     margin-top: 1.5rem;
     margin-bottom: 0;
   }

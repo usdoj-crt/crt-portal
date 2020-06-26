@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           EmailInput, HiddenInput, IntegerField,
-                          ModelChoiceField, ModelForm,
+                          ModelChoiceField, ModelForm, Form,
                           ModelMultipleChoiceField,
                           Select, SelectMultiple, Textarea, TextInput,
                           TypedChoiceField)
@@ -36,7 +36,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report)
+                     ProtectedClass, Report, ResponseTemplate)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -49,7 +49,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
                       CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
-                      UsaRadioSelect)
+                      UsaRadioSelect, DataAttributesSelect)
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -85,6 +85,7 @@ class ActivityStreamUpdater(object):
                     initial = ', '.join([str(x) for x in initial])
                     new = ', '.join([str(x) for x in new])
 
+                # CRT views only
                 yield f"{' '.join(field.split('_')).capitalize()}:", f'Updated from "{initial}" to "{new}"'
             except KeyError:
                 # Initial value not found for field, not present on model, not a change to be tracked
@@ -747,6 +748,7 @@ class ProForm(
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
         Contact.__init__(self, *args, **kwargs)
+        # CRT views only
         self.fields['intake_format'] = TypedChoiceField(
             choices=(
                 EMPTY_CHOICE,
@@ -841,7 +843,8 @@ class ProForm(
             self.label_suffix = ''
             self.fields['violation_summary'].label = SUMMARY_QUESTION
             self.fields['violation_summary'].widget.attrs['aria-describedby'] = 'details-help-text'
-            self.fields['violation_summary'].help_text = _('What did the person believe happened?')
+            # CRT view only
+            self.fields['violation_summary'].help_text = 'What did the person believe happened?'
 
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
@@ -960,7 +963,34 @@ class Filters(ModelForm):
         }
 
 
+class ResponseActions(Form):
+
+    def __init__(self, *args, **kwargs):
+        self.report = kwargs.pop('instance')
+        Form.__init__(self, *args, **kwargs)
+        # set up select options with dataset attributes
+        data = {
+            template.id: {
+                'description': template.description,
+                'content': template.render(self.report),
+            }
+            for template in ResponseTemplate.objects.all()
+        }
+        attrs = {
+            "id": "intake_select",
+            "class": "usa-select",
+            "aria-label": "template selection"
+        }
+        self.fields['templates'] = ModelChoiceField(
+            queryset=ResponseTemplate.objects.all(),
+            empty_label="(no template chosen)",
+            widget=DataAttributesSelect(data=data, attrs=attrs),
+            required=False,
+        )
+
+
 class ComplaintActions(ModelForm, ActivityStreamUpdater):
+    report_closed = False
     CONTEXT_KEY = 'actions'
     assigned_to = ModelChoiceField(
         queryset=User.objects.filter(is_active=True),
@@ -1018,13 +1048,18 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         self.fields['assigned_to'].widget.label = 'Assigned to'
 
     def get_actions(self):
-        """Parse incoming changed data for activity stream entry"""
+        """
+        Parse incoming changed data for activity stream entry
+        If report has been closed, emit action for activity log
+        """
         for field in self.changed_data:
             name = ' '.join(field.split('_')).capitalize()
             # rename primary statute if applicable
             if field == 'primary_statute':
                 name = 'Primary classification'
             yield f"{name}:", f'Updated from "{self.initial[field]}" to "{self.cleaned_data[field]}"'
+        if self.report_closed:
+            yield "Report closed and Assignee removed", f"Date closed updated to {self.instance.closed_date.strftime('%m/%d/%y %H:%M:%M %p')}"
 
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
@@ -1046,6 +1081,16 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             fields += f', and {updated_fields[-1]}'
             message = f"Successfully updated {fields}."
         return message
+
+    def save(self, commit=True):
+        """If report.status is `closed`, set assigned_to to None"""
+        report = super().save(commit=False)
+        if report.closed:
+            report.closeout_report()
+            self.report_closed = True
+        if commit:
+            report.save()
+        return report
 
 
 class CommentActions(ModelForm):
@@ -1152,7 +1197,8 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         """
         exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name', 'election_details',
                    'contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_state',
-                   'contact_city', 'contact_zip', 'crt_reciept_day', 'crt_reciept_month', 'crt_reciept_year']
+                   'contact_city', 'contact_zip', 'crt_reciept_day', 'crt_reciept_month', 'crt_reciept_year',
+                   'location_address_line_1', 'location_address_line_2']
 
     def success_message(self):
         return self.SUCCESS_MESSAGE

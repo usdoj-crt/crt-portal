@@ -496,6 +496,8 @@ class CRT_FILTER_Tests(TestCase):
         test_report.location_city_town = 'Cleveland'
         test_report.location_state = 'OH'
         test_report.assigned_section = test_report.assign_section()
+        test_report.servicemember = 'yes'
+        test_report.hate_crime = 'yes'
         test_report.save()
 
         self.client = Client()
@@ -627,6 +629,26 @@ class CRT_FILTER_Tests(TestCase):
         report_len = len(reports)
 
         self.assertEquals(report_len, 1)
+
+    def test_servicemember_filter(self):
+        servicemember_filter = 'servicemember=yes'
+        response = self.client.get(f'{self.url_base}?{servicemember_filter}')
+        reports = response.context['data_dict']
+        expected_reports = Report.objects.filter(servicemember='yes').count()
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, expected_reports)
+
+    def test_hatecrime_filter(self):
+        filter_ = 'hate_crime=yes'
+        response = self.client.get(f'{self.url_base}?{filter_}')
+        reports = response.context['data_dict']
+        expected_reports = Report.objects.filter(hate_crime='yes').count()
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, expected_reports)
 
 
 class Validation_Form_Tests(TestCase):
@@ -875,6 +897,17 @@ class Complaint_Update_Tests(TestCase):
         response = self.client.post(self.url, self.form_data, follow=True)
 
         self.assertTrue(response.context['data'].assigned_section == 'VOT')
+
+    def test_if_status_closed_assignee_must_be_empty(self):
+        """If status is closed, existing assignee must be removed"""
+        self.test_report.assigned_to = self.user
+        self.test_report.save()
+
+        self.form_data.update({'status': 'closed'})
+        self.client.post(self.url, self.form_data, follow=True)
+
+        self.test_report.refresh_from_db()
+        self.assertIsNone(self.test_report.assigned_to)
 
 
 class ProFormTest(TestCase):

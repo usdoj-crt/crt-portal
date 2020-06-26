@@ -21,14 +21,29 @@ filter_options = {
     'location_address_line_2': '__search',
     'create_date_start': '__gte',
     'create_date_end': '__lte',
+    'closed_date_start': '__gte',
+    'closed_date_end': '__lte',
+    'modified_date_start': '__gte',
+    'modified_date_end': '__lte',
     'public_id': '__contains',
     'primary_statute': '__in',
     'assigned_to': 'foreign_key',
     'summary': 'summary',
+    'servicemember': 'eq',
+    'hate_crime': 'eq',
 }
 
 
 # Populate query with valid filterable fields
+
+def _get_date_field_from_param(field):
+    """
+    Return model field by truncating the filter preposition
+    which follows the last occurrence of `_`
+    """
+    return field[:field.rfind('_')]
+
+
 def report_filter(request):
     kwargs = {}
     filters = {}
@@ -45,12 +60,13 @@ def report_filter(request):
                 kwargs[f'{field}__search'] = request.GET.getlist(field)[0]
             elif filter_options[field] == '__contains':
                 kwargs[f'{field}__icontains'] = request.GET.getlist(field)[0]
-            elif field.startswith('create_date'):
-                # filters by a start date or an end date expects ddmmyyyy
+            elif 'date' in field:
+                # filters by a start date or an end date expects YYYYMMDD
+                field_name = _get_date_field_from_param(field)
                 year = int(request.GET.getlist(field)[0][:4])
                 month = int(request.GET.getlist(field)[0][4:6])
                 day = int(request.GET.getlist(field)[0][6:])
-                kwargs[f'create_date{filter_options[field]}'] = datetime.date(year, month, day)
+                kwargs[f'{field_name}{filter_options[field]}'] = datetime.date(year, month, day)
             elif filter_options[field] == 'summary':
                 # assumes summaries are edited so there is only one per report - that is current behavior
                 kwargs['internal_comments__note__search'] = request.GET.getlist(field)[0]
@@ -58,6 +74,8 @@ def report_filter(request):
             elif filter_options[field] == 'foreign_key':
                 # assumes assigned_to but could add logic for other foreign keys in the future
                 kwargs['assigned_to__username__in'] = request.GET.getlist(field)
+            elif filter_options[field] == 'eq':
+                kwargs[field] = request.GET.getlist(field)[0]
 
     # returns a filtered query, and a dictionary that we can use to keep track of the filters we apply
     return Report.objects.filter(**kwargs), filters

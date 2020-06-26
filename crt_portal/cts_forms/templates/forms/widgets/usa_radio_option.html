@@ -12,8 +12,8 @@
     {% if widget.attrs.help_text %}
       {% with help_text=widget.attrs.help_text|get_dict_item:widget.value %}
       {% if help_text %}
-        <p class="radio-help-text">
-          <em class="margin-top-1">{{ help_text }}</em>
+        <p class="help-text--radio help-text__small">
+          {{ help_text }}
         </p>
       {% endif %}
       {% endwith %}

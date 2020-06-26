@@ -1,0 +1,87 @@
+// prevent scrolling when modal is open
+body.is-modal {
+  height: 100vw;
+  overflow-y: hidden;
+
+  @media print {
+    main, header, .crt-header--warning-pii {
+      display: none;
+    }
+  }
+}
+
+.modal-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  overflow-y: auto; // a11y: allow scroll for zoomed in modal
+
+  @media print {
+    display: none;
+  }
+
+  .modal-content {
+    position: relative;
+    background: white;
+    width: 80%;
+    height: 60%;
+    padding: 2rem;
+    @include u-radius('md');
+    @include u-shadow(3);
+    min-height: 40rem; // a11y: don't collapse modal
+  }
+
+  .modal-form {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 4rem);
+  }
+}
+
+// specific modal instances
+.intake-template--modal {
+  h1 {
+    color: color($theme-color-primary-darker);
+    margin-top: 0;
+    font-size: 2rem;
+    border-bottom: 1px solid color($theme-color-primary-darker);
+  }
+
+  .intake-template--description {
+    min-height: 2rem;
+  }
+
+  #intake_select {
+    width: 50%;
+    margin-bottom: 2rem;
+  }
+
+  .intake-template--content {
+    flex-grow: 1;
+  }
+
+  #intake_letter {
+    padding: 0 1rem;
+    width: 100%;
+    height: 80%;
+    @include u-radius('md');
+  }
+}
+
+.intake-letter-preview {
+  @media print {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    white-space: pre-wrap;
+  }
+}

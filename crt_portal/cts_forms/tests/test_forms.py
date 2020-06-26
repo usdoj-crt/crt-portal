@@ -5,11 +5,12 @@ from django.contrib.auth.models import User
 from django.test import TestCase
 from django.test.client import Client
 from django.urls import reverse
+from django.utils.html import escape
 
 from ..forms import ComplaintActions, ReportEditForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES
-from ..models import CommentAndSummary, Report
-from .test_data import SAMPLE_REPORT
+from ..models import CommentAndSummary, Report, ResponseTemplate
+from .test_data import SAMPLE_REPORT, SAMPLE_RESPONSE_TEMPLATE
 
 
 class ActionTests(TestCase):
@@ -160,3 +161,72 @@ class ReportEditFormTests(TestCase):
         summary.refresh_from_db()
         self.assertEqual(self.report.get_summary.note, new_summary)
         self.assertEqual(summary.note, new_summary)
+
+    def test_location_address_not_replaced(self):
+        data = self.report_data.copy()
+        data.update({
+            'location_address_line_1': 'location address 1',
+            'location_address_line_2': 'location address 2',
+        })
+        report = Report.objects.create(**data)
+        form = ReportEditForm(data, instance=report)
+        self.assertTrue(form.is_valid())
+        fields = form.clean()
+        self.assertFalse('location_address_line_1' in fields)
+        self.assertFalse('location_address_line_2' in fields)
+
+
+class ResponseActionTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        self.report = Report.objects.create(**SAMPLE_REPORT)
+        self.template = ResponseTemplate.objects.create(**SAMPLE_RESPONSE_TEMPLATE)
+
+    def post_template_action(self, what):
+        response = self.client.post(
+            reverse(
+                'crt_forms:crt-forms-response',
+                kwargs={'id': self.report.id},
+            ),
+            {
+                'templates': self.template.id,
+                'type': what,
+                'next': '?per_page=15',
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        return str(response.content)
+
+    def test_response_action_print(self):
+        content = self.post_template_action('print')
+        # verify that next QP is preserved and activity log shows up
+        self.assertTrue('?per_page=15' in content)
+        self.assertTrue('Contacted complainant:' in content)
+        self.assertTrue(escape(f"Printed '{self.template.title}' template") in content)
+
+    def test_response_action_copy(self):
+        content = self.post_template_action('copy')
+        # verify that next QP is preserved and activity log shows up
+        self.assertTrue('?per_page=15' in content)
+        self.assertTrue('Contacted complainant:' in content)
+        self.assertTrue(escape(f"Copied '{self.template.title}' template") in content)
+
+    def test_response_action_blank_submit(self):
+        response = self.client.post(
+            reverse(
+                'crt_forms:crt-forms-response',
+                kwargs={'id': self.report.id},
+            ),
+            {
+                'next': '?per_page=15',
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        content = str(response.content)
+        self.assertTrue('?per_page=15' in content)
+        self.assertFalse('Contacted complainant:' in content)

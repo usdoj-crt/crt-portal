@@ -1,22 +1,21 @@
 // Header area
 
 .crt-form-header {
-  background-color: $blue-warm-vivid-80;
-  color: white;
+  background-color: color($theme-color-primary-darker);
+  color: color('white');
   padding-bottom: 6rem;
 
   header {
     @include u-margin-top(8);
   }
 
-  .title {
-    font-size: 2.8125rem;
-    font-weight: 400;
-    line-height: 3.75rem;
+  h1 {
+    font-weight: $theme-font-weight-normal;
+    color: color('white');
   }
 
   .doj-brand {
-    font-size: 1.125rem;
+    font-size: $theme-text-font-size-lg;
     margin-top: 4rem;
     img {
       height: 38px;
@@ -26,7 +25,7 @@
 }
 
 .page-background {
-  background-color: $blue-warm-5;
+  background-color: color($theme-color-primary-lightest);
 }
 
 .usa-banner {
@@ -37,6 +36,6 @@
 
 .crt-header--warning-pii {
   width: 100%;
-  background-color: $blue-warm-vivid-80;
+  background-color: color($theme-color-primary-darker);
   padding-top: 1rem;
 }

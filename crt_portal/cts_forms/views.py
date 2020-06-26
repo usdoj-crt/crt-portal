@@ -14,8 +14,9 @@ from django.views.generic import FormView, View, TemplateView
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
-from .forms import (CommentActions, ComplaintActions, ContactEditForm, Filters,
-                    ReportEditForm, Review, add_activity)
+from .forms import (CommentActions, ComplaintActions, ResponseActions,
+                    ContactEditForm, Filters, ReportEditForm, Review,
+                    add_activity)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -24,9 +25,13 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PRIMARY_COMPLAINT_DICT,
                               PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
+                              PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+                              LANDING_COMPLAINT_DICT,
+                              LANDING_COMPLAINT_CHOICES_TO_EXAMPLES,
+                              LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import CommentAndSummary, Report
+from .models import CommentAndSummary, Report, Trends
 from .page_through import pagination
 
 SORT_DESC_CHAR = '-'
@@ -234,6 +239,7 @@ def serialize_data(report, request, report_id):
 
     output = {
         'actions': ComplaintActions(instance=report),
+        'responses': ResponseActions(instance=report),
         'comments': CommentActions(),
         'activity_stream': report.target_actions.all(),
         'crimes': crimes,
@@ -247,8 +253,32 @@ def serialize_data(report, request, report_id):
     return output
 
 
+class ResponseView(LoginRequiredMixin, View):
+
+    def post(self, request, id):
+        report = get_object_or_404(Report, pk=id)
+        form = ResponseActions(request.POST, instance=report)
+
+        if form.is_valid() and form.has_changed():
+            template_name = form.cleaned_data['templates'].title
+            button_type = request.POST['type']
+            action = "Copied" if button_type == "copy" else "Printed"
+            description = f"{action} '{template_name}' template"
+            add_activity(request.user, "Contacted complainant:", description, report)
+            messages.add_message(request, messages.SUCCESS, description)
+
+        # preserve the query that got the user to this page
+        return_url_args = request.POST.get('next', '')
+        next_page = urllib.parse.quote(return_url_args)
+        url = f'{report.get_absolute_url()}?next={next_page}'
+        return redirect(url)
+
+
 class ShowView(LoginRequiredMixin, View):
-    forms = {form.CONTEXT_KEY: form for form in [ContactEditForm, ComplaintActions, ReportEditForm]}
+    forms = {
+        form.CONTEXT_KEY: form
+        for form in [ContactEditForm, ComplaintActions, ReportEditForm]
+    }
 
     def get(self, request, id):
         report = get_object_or_404(Report, pk=id)
@@ -497,12 +527,25 @@ class LandingPageView(TemplateView):
     template_name = "landing.html"
 
     def get_context_data(self, **kwargs):
+        all_complaints = {
+            **PRIMARY_COMPLAINT_DICT,
+            **LANDING_COMPLAINT_DICT,
+        }
+        all_examples = {
+            **PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
+            **LANDING_COMPLAINT_CHOICES_TO_EXAMPLES,
+        }
+        all_helptext = {
+            **PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
+            **LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
+        }
         choices = {
             key: {
                 'description': description,
-                'examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES.get(key, [])
+                'examples': all_examples.get(key, []),
+                'helptext': all_helptext.get(key, ''),
             }
-            for key, description in PRIMARY_COMPLAINT_DICT.items()
+            for key, description in all_complaints.items()
             if key != 'something_else'  # exclude because this choice has no examples
         }
         return {'choices': choices}
@@ -675,3 +718,15 @@ class CRTReportWizard(SessionWizardView):
                 'ordered_step_names': self.ORDERED_STEP_NAMES
             },
         )
+
+
+class TrendView(LoginRequiredMixin, TemplateView):
+    template_name = "forms/complaint_view/trends.html"
+
+    def get_context_data(self, **kwargs):
+        return {
+            'this_week': Trends.objects.filter(record_type='this_week'),
+            'last_week': Trends.objects.filter(record_type='last_week'),
+            'four_weeks': Trends.objects.filter(record_type='four_weeks'),
+            'year': Trends.objects.filter(record_type='year'),
+        }

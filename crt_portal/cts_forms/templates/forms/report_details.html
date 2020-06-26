@@ -6,29 +6,27 @@
 			{{ block.super }}
 			{% for field in wizard.form.visible_fields %}
 
-				<div class="margin-bottom-2">
 				<label
 					for="{{ field.id_for_label }}"
-					class="{{label_class}} margin-bottom-0"
+					class="{% if label_class %}{{label_class}}{% endif %}"
 				>
-					<span class="em-text display-block margin-bottom-1">{{ field.label }}{% if not question_group.optional %}<span class="field-required--group">{% trans "required" %}</span>{% endif %}</span>
-				{% if field.help_text %}
-					<em>{{ field.help_text.title }}</em>
-					<ul class="question_primary_complaint">
-					{% for example in field.help_text.examples %}
-						<li class="primary-issue-example-li margin-left-4"><em>{{ example }}</em></li>
-					{% endfor %}
-					</ul>
-				{% endif %}
+          <span class="question--header display-block">{{ field.label }}{% if not question_group.optional %}<span class="field-required--group">{% trans "required" %}</span>{% endif %}</span>
+          <span class="help-text display-block margin-bottom-2">
+          {% if field.help_text %}
+            {{ field.help_text.title }}
+            <ul class="question_primary_complaint">
+            {% for example in field.help_text.examples %}
+              <li class="primary-issue-example-li margin-left-4"><em>{{ example }}</em></li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+          </span>
 				</label>
 
-			</div>
-			<div class="margin-bottom-1">
 				{{ field|withInputError }}
 				{% if field.errors %}
 					{% include "forms/snippets/error_alert.html" with errors=field.errors %}
 				{% endif %}
-			</div>
 
 				{% include "forms/word_counter.html" with word_limit=500 %}
 			{% endfor %}

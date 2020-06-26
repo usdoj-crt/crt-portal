@@ -4,14 +4,14 @@
     <div class="crt-portal-card__content crt-portal-card__content--lg">
         <div class="form-group">
           {% if card_title %}
-            <h2 id="{{ card_title|slugify }}" {% if field.help_text %}class="margin-bottom-0"{% endif %}>{{ card_title }}</h2>
+            <h2 class="h1" id="{{ card_title|slugify }}" {% if field.help_text %}class="margin-bottom-0"{% endif %}>{{ card_title }}</h2>
           {% endif %}
-
+          
           {% if field.label %}
-            <h3 {% if field.help_text %}class="margin-bottom-0"{% endif %}><label
+            <h3 {% if field.help_text %}class="question--label margin-bottom-0"{% endif %}><label
               for="{{ field.id_for_label }}"
-              class="{{label_class}}"
-              style="line-height:1.25"
+              class="{{label_class}}{%if card_title %}margin-top-3 display-block{% endif %}"
+              style="line-height:1.25;"
             >
               {{ field.label }}{% if field.field.required %}<span class="field-required">{% trans "required" %}</span>{% endif %}
             </label></h3>

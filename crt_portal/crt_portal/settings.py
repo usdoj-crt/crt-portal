@@ -29,7 +29,6 @@ environment = os.environ.get('ENV', 'UNDEFINED')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -211,7 +210,7 @@ if environment == 'PRODUCTION':
             '^report',
             '^robots.txt',
             '^privacy-policy',
-            '^i8n',
+            '^i18n',
         ],
     }
 
@@ -260,6 +259,8 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'www.civilrights.justice.gov',
         'civilrights.justice.gov',
         'https://touchpoints.app.cloud.gov',
+        'https://dap.digitalgov.gov',
+        'https://www.google-analytics.com',
     )
     # headers required for security
     SESSION_COOKIE_SECURE = True

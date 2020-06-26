@@ -16,7 +16,7 @@
     <div class="grid-row margin-bottom-1">
       <div class="tablet:grid-col-4 grid-offset-1 padding-left-05">
         <div class="display-flex">
-          <a class="outline-button outline-button--dark" href="/form/view{{ return_url_args }}">
+          <a class="outline-button outline-button--dark" href="{% url 'crt_forms:crt-forms-index' %}{{ return_url_args }}">
             <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" alt="back arrow" class="icon">
             Back to all
           </a>
@@ -85,10 +85,15 @@
 </div>
 {% endblock %}
 
+{% block usa_footer %}
+  {% include 'forms/complaint_view/show/response_template.html' %}
+{% endblock %}
+
 {% block page_js %}
 {{ block.super }}
 <script src="{% static 'js/edit_contact_info.js' %}"></script>
 <script src="{% static 'js/edit_details.js' %}"></script>
+<script src="{% static 'js/modal.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
   accessibleAutocomplete.enhanceSelectElement({

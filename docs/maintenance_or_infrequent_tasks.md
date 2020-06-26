@@ -1,4 +1,5 @@
 # Maintenance or infrequent tasks
+[:arrow_left: Back to Documentation](../docs)
 
 ## Change protected class options
 
@@ -74,9 +75,9 @@ Those variables need to be set, as well as the secret key if you already have VC
 
     cf env crt-portal-django
 
-Update VCAPSERVICES it with the following command, replacing `<value` with the correct value in double quotes.
+Update VCAP_SERVICES it with the following command, replacing `<value` with the correct value in double quotes.
 
-    cf uups VCAP_SERVICES -p '{"SECRET_KEY":<value>,"AUTH_CLIENT_ID":<value>,"AUTH_SERVER": <value>,"AUTH_USERNAME_CLAIM":<value>,"AUTH_GROUP_CLAIM":<value>}'
+    cf uups VCAP_SERVICES -p '{"SECRET_KEY":<value>,"AUTH_CLIENT_ID":<value>,"AUTH_SERVER": <value>,"AUTH_USERNAME_CLAIM":<value>,"AUTH_GROUP_CLAIM":<value>, "NEW_RELIC_LICENSE_KEY":<value>}'
 
 You can check that it is in the environment correctly with:
 
@@ -126,6 +127,14 @@ crt_portal/crt_portal/urls.py
     +if environment in ['PRODUCTION', 'STAGE']:
          auth = [
 
+    ...
+
+    ALLOWED_HOSTS = [
+        'civilrights.justice.gov',
+        'www.civilrights.justice.gov',
+        'crt-portal-django-prod.app.cloud.gov',
+        'crt-portal-django-stage.app.cloud.gov',
+    ]
 
 # Load testing
 
@@ -226,12 +235,45 @@ For dev and staging, you can change the bindigs manually and restage. (It's a bi
 
 9) Confirm app is working
 Go to the site, log out, log back in, make a distinctive sample record.
-
-    # Connect to the new db using pgcli
-    cf connect-to-service crt-portal-django crt-db
-    # Look for you sample. For this one I made the description 'TESTING_NEW_DB 5/24'
-    select * from cts_forms_report where violation_summary='TESTING_NEW_DB 5/24'
-
+```
+# Connect to the new db using pgcli
+cf connect-to-service crt-portal-django crt-db
+# Look for you sample. For this one I made the description 'TESTING_NEW_DB 5/24'
+select * from cts_forms_report where violation_summary='TESTING_NEW_DB 5/24'
+```
 10) Clean up
 Delete back up file from your local
 Delete crt-db-old from cloud.gov
+
+# Dependency management
+
+Dependencies are installed on each deploy of the application as part of the build process in CircleCI
+
+Our dependencies are defined within the repository, changes to should follow the same branching strategy and development process
+as any code changes.
+
+In local development with Docker, you will need to rebuild your containers after updating dependencies with:
+
+```shell
+docker-compose build
+```
+
+## Python
+
+We use [Pipenv] to manage development and production python dependencies.
+
+With pipenv installed locally, you can update development and production dependencies with the following:
+
+```shell
+pipenv update --dev
+```
+
+To update dependencies from within the `web` docker container, the approach is slightly different.
+
+```sh
+docker-compose run web pipenv update --dev
+```
+
+Either approach will result in an updated `Pipfile.lock` files located in your local copy of the codebase, ready for commit and submission of a pull request.
+
+[Pipenv]: https://docs.pipenv.org/

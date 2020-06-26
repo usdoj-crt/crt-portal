@@ -91,3 +91,17 @@ $theme-site-max-width:              'desktop';
 $theme-site-margins-breakpoint:     'desktop';
 $theme-site-margins-width:          4;
 $theme-site-margins-mobile-width:   2;
+
+// Custom spacing variables
+// Use with the units() function, ex, units($spacer-unit-2x)
+$spacer-half:                       '05'; // 0.25rem / 4px
+$spacer-1x:                         1;    // 0.5rem  / 8px
+$spacer-2x:                         2;    // 1rem    / 16px
+$spacer-3x:                         3;    // 1.5rem  / 24px
+$spacer-4x:                         4;    // 2rem    / 32px
+$spacer-5x:                         5;    // 2.5rem  / 40px
+$spacer-6x:                         6;    // 3rem    / 48px
+$spacer-7x:                         7;    // 3.5rem  / 56px
+$spacer-8x:                         8;    // 4rem    / 64px
+$spacer-9x:                         9;    // 4.5rem  / 72px
+$spacer-12x:                        5rem; // 5rem    / 96px - not defined in USWDS tokens

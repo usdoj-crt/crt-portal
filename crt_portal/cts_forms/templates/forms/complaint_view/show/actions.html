@@ -44,6 +44,12 @@
       </label>
       {{ actions.assigned_to }}
     </div>
+    <div class="intake-section">
+      <button class="outline-button outline-button--blue" id="contact_complainant">
+        <img src="{% static "img/intake-icons/ic_email.svg" %}" class="icon" alt="from email">
+        Contact complainant
+      </button>
+    </div>
     <button class="usa-button" type="submit" name='type' value='{{actions.CONTEXT_KEY}}'>Apply changes</button>
   </fieldset>
 </form>

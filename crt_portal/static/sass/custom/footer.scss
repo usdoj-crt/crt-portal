@@ -1,7 +1,7 @@
 // Footer Styles
 footer {
   width: 100%; // IE11 fix
-  color: white;
+  color: color('white');
 
   select,
   input {
@@ -23,9 +23,8 @@ footer {
   flex-direction: row;
   margin-bottom: 1.5rem;
 
-  &:last-child {
-    margin-top: 0.5rem;
-    align-items: center;
+  .usa-footer__icon__language {
+    margin-top: 10px;
   }
 }
 
@@ -39,23 +38,19 @@ footer {
 }
 
 .usa-footer__logo-heading {
-  font-size: 2rem;
+  @include text--heading__large();
   font-weight: bold;
-
-  @include at-media-max(desktop) {
-    font-size: 1.38rem;
-  }
 }
 
 .usa-footer__logo-subheading {
+  @include text--heading__small();
   font-weight: bold;
-  font-size: 1em;
   margin: 0;
   @include u-font-family('serif');
 }
 
 .usa-footer__heading {
-  font-size: 1.5em;
+  @include text--heading__medium();
   font-weight: bold;
   margin-top: 0;
   margin-bottom: 1em;
@@ -63,13 +58,14 @@ footer {
 
 .usa-footer__separator {
   margin-top: 1rem;
-  border: 2px solid $gold;
+  border: 2px solid color($theme-color-warning);
   border-radius: 2px;
+  background: color($theme-color-warning);
   width: 25px;
 }
 
 .usa-footer__links {
-  font-size: 14px;
+  @include text--body-copy__small();
   display: flex;
   flex-direction: column;
 
@@ -83,16 +79,29 @@ footer {
   }
 }
 
+.usa-footer__links.usa-footer__language {
+  a {
+    text-transform: none;
+    text-decoration: underline;
+  }
+}
+.usa-footer__language_assistance {
+  a,
+  img {
+    vertical-align: middle;
+  }
+}
+
 .usa-footer__language {
   width: 100%; // IE11 fix
 }
 
 .usa-footer__secondary-section {
-  background-color: #2e2e2a;
+  background-color: color($theme-color-base-ink);
 
   a,
   a:visited {
-    color: white;
+    color: color('white');
     text-decoration: none;
   }
 }
@@ -102,8 +111,8 @@ footer {
   align-items: center;
 
   #i8n_select {
-    background-color: $gold;
-    color: black;
+    @include u-bg($theme-color-warning);
+    color: color('black');
     margin-top: 0;
     max-width: 10em;
   }
@@ -111,20 +120,40 @@ footer {
   .i8n-submit {
     margin-left: 1em;
     margin-top: 0 !important;
-    background-color: #2e2e2a;
-    border: 1px solid white;
+    background-color: color($theme-color-base-ink);
+    border: 1px solid color('white');
     width: 50%;
     max-width: 4em;
 
     &:hover {
-      background-color: white !important;
-      color: #2e2e2a;
+      background-color: color('white') !important;
+      color: color($theme-color-base-ink);
     }
   }
 }
 
-a.privacy-footer,
-a.privacy-footer:visited {
-    color: white;
+.privacy-footer {
+  background-color: color($theme-color-primary-darker);
+  color: color('white');
+  padding-top: 2em;
+  border-top: 1px solid color($theme-color-base-darker);
+  a,
+  a:visited {
+    color: color('white');
     text-transform: none;
+  }
+}
+
+.usa-footer__attribution {
+  background-color: color('gray-warm-90');
+  color: color('white');
+  padding: 2.5rem 0;
+
+  &-names {
+    margin: 0.5rem 0;
+  }
+  p {
+    @include text--body-copy__small();
+    margin: 0;
+  }
 }
