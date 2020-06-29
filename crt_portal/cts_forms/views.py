@@ -253,10 +253,31 @@ def serialize_data(report, request, report_id):
     return output
 
 
+class ResponseView(LoginRequiredMixin, View):
+
+    def post(self, request, id):
+        report = get_object_or_404(Report, pk=id)
+        form = ResponseActions(request.POST, instance=report)
+
+        if form.is_valid() and form.has_changed():
+            template_name = form.cleaned_data['templates'].title
+            button_type = request.POST['type']
+            action = "Copied" if button_type == "copy" else "Printed"
+            description = f"{action} '{template_name}' template"
+            add_activity(request.user, "Contacted complainant:", description, report)
+            messages.add_message(request, messages.SUCCESS, description)
+
+        # preserve the query that got the user to this page
+        return_url_args = request.POST.get('next', '')
+        next_page = urllib.parse.quote(return_url_args)
+        url = f'{report.get_absolute_url()}?next={next_page}'
+        return redirect(url)
+
+
 class ShowView(LoginRequiredMixin, View):
     forms = {
         form.CONTEXT_KEY: form
-        for form in [ContactEditForm, ComplaintActions, ReportEditForm, ResponseActions]
+        for form in [ContactEditForm, ComplaintActions, ReportEditForm]
     }
 
     def get(self, request, id):

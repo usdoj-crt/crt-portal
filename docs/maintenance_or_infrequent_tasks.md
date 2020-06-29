@@ -75,9 +75,9 @@ Those variables need to be set, as well as the secret key if you already have VC
 
     cf env crt-portal-django
 
-Update VCAPSERVICES it with the following command, replacing `<value` with the correct value in double quotes.
+Update VCAP_SERVICES it with the following command, replacing `<value` with the correct value in double quotes.
 
-    cf uups VCAP_SERVICES -p '{"SECRET_KEY":<value>,"AUTH_CLIENT_ID":<value>,"AUTH_SERVER": <value>,"AUTH_USERNAME_CLAIM":<value>,"AUTH_GROUP_CLAIM":<value>}'
+    cf uups VCAP_SERVICES -p '{"SECRET_KEY":<value>,"AUTH_CLIENT_ID":<value>,"AUTH_SERVER": <value>,"AUTH_USERNAME_CLAIM":<value>,"AUTH_GROUP_CLAIM":<value>, "NEW_RELIC_LICENSE_KEY":<value>}'
 
 You can check that it is in the environment correctly with:
 

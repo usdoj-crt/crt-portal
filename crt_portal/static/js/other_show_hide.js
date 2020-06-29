@@ -43,7 +43,10 @@
     }
 
     parentEl.addEventListener('click', toggleOtherOptionTextInput);
-    otherOptionTextEl.setAttribute('hidden', '');
+
+    if (!otherOptionFormEl.checked) {
+      otherOptionTextEl.setAttribute('hidden', '');
+    }
   };
 
   return root;

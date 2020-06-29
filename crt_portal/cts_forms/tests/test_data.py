@@ -11,3 +11,9 @@ SAMPLE_REPORT = {
     'location_city_town': 'Yosemite Valley',
     'location_state': 'CA',
 }
+
+SAMPLE_RESPONSE_TEMPLATE = {
+    'title': 'test',
+    'description': 'test data',
+    'template': 'test template with record {{ record_locator }}',
+}
