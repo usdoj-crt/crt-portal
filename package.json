@@ -29,21 +29,14 @@
     "test:a11y-crt-trends": "pa11y-ci --config pa11y_scripts/.crt-trends.json",
     "test:a11y-crt-privacy": "pa11y-ci --config pa11y_scripts/.crt-privacy-policy.json",
     "test:a11y-crt-landing": "pa11y-ci --config pa11y_scripts/.crt-landing.json",
-
     "test:a11y": "echo 1 && pa11y-ci --config pa11y_scripts/.p1-contact.json && echo 1-error && pa11y-ci --config pa11y_scripts/.p1-error.json && echo 2 && pa11y-ci --config pa11y_scripts/.p2-primary-issue.json && echo 2-error && pa11y-ci --config pa11y_scripts/.p2-error.json && echo 3-hatecrime && pa11y-ci --config pa11y_scripts/.p3-hatecrime.json && echo 3-commercial && pa11y-ci --config pa11y_scripts/.p3-location-commercial.json && echo 3-education && pa11y-ci --config pa11y_scripts/.p3-location-education.json && echo 3-police && pa11y-ci --config pa11y_scripts/.p3-location-police.json && echo 3-workplace && pa11y-ci --config pa11y_scripts/.p3-location-workplace.json && echo 4 && pa11y-ci --config pa11y_scripts/.p4-protected-class.json && echo 5 && pa11y-ci --config pa11y_scripts/.p5-date.json && echo 5-error && pa11y-ci --config pa11y_scripts/.p5-errors.json && echo 6 && pa11y-ci --config pa11y_scripts/.p6-details.json && echo 7 && pa11y-ci --config pa11y_scripts/.p7-review && echo 8  && pa11y-ci --config pa11y_scripts/.p8-confirmation && echo crt-view && pa11y-ci --config pa11y_scripts/.crt-view.json && echo crt-new && pa11y-ci --config pa11y_scripts/.crt-new.json && echo privacy && pa11y-ci --config pa11y_scripts/.crt-privacy-policy.json && echo landing && pa11y-ci --config pa11y_scripts/.crt-landing.json"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "gulp": "^4.0.2",
-    "gulp-postcss": "^8.0.0",
+    "css-mqpacker": "^7.0.0",
     "cssnano": "^4.1.10",
-    "url-search-params-polyfill": "^7.0.1",
-    "autoprefixer": "^9.7.4",
     "gulp-rename": "^1.4.0",
-    "gulp-replace": "^1.0.0",
-    "gulp-sass": "^4.0.2",
-    "gulp-sourcemaps": "^2.6.5",
     "path": "^0.12.7",
     "postcss-cli": "^6.1.3",
     "uswds": "2.0.3",
@@ -51,13 +44,24 @@
     "css-mqpacker": "^7.0.0"
   },
   "devDependencies": {
+    "autoprefixer": "^9.8.4",
     "babel-preset-es2015": "^6.24.1",
     "babelify": "^7.3.0",
     "browserify": "^14.4.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^7.0.1",
     "gulp-notify": "^3.2.0",
+    "gulp-postcss": "^8.0.0",
+    "gulp-replace": "^1.0.0",
+    "gulp-sass": "^4.1.0",
+    "gulp-sourcemaps": "^2.6.5",
     "node-sass": "^4.13.1",
     "pa11y": "^5.3.0",
     "pa11y-ci": "^2.3.0",
-    "prettier": "1.18.2"
+    "postcss-csso": "^4.0.0",
+    "prettier": "1.18.2",
+    "sass": "^1.26.9",
+    "uswds": "^2.7.1",
+    "uswds-gulp": "github:uswds/uswds-gulp#5e32f1b99279a6e50ad875e66cc4cb77b456c390"
   }
 }
