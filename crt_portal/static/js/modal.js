@@ -64,7 +64,7 @@
 
   copy.onclick = function(event) {
     const el = document.createElement('textarea');
-    el.value = letter.value;
+    el.value = description.innerText + '\n\n' + letter.value;
     el.setAttribute('readonly', '');
     el.style.position = 'absolute';
     el.style.left = '-9999px';
