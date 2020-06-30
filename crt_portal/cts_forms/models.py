@@ -320,11 +320,13 @@ class ResponseTemplate(models.Model):
         Only permit a small subset of report fields
         """
         today = datetime.today()
+        section_choices = dict(SECTION_CHOICES)
         return Context({
             'addressee': report.addressee,
             'date_of_intake': report.create_date.strftime('%B %d, %Y'),
             'record_locator': report.public_id,
             'outgoing_date': today.strftime('%B %d, %Y'),  # required for paper mail
+            'section_name': section_choices.get(report.assigned_section, "no section"),
         })
 
     def render_subject(self, report):
