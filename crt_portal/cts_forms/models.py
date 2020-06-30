@@ -24,7 +24,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
                               SECTION_CHOICES, SERVICEMEMBER_CHOICES,
                               STATES_AND_TERRITORIES, STATUS_CHOICES,
-                              STATUTE_CHOICES)
+                              STATUTE_CHOICES, CLOSED_STATUS)
 from .phone_regex import phone_validation_regex
 
 logger = logging.getLogger(__name__)
@@ -164,6 +164,7 @@ class Report(models.Model):
     intake_format = models.CharField(max_length=100, null=True, default=None, choices=INTAKE_FORMAT_CHOICES)
     author = models.CharField(max_length=1000, null=True, blank=True)
     assigned_to = models.ForeignKey(User, blank=True, null=True, related_name="assigned_complaints", on_delete=models.CASCADE)
+    closed_date = models.DateTimeField(blank=True, null=True, help_text="The Date this report's status was most recently set to \"Closed\"")
 
     # Not in use- but need to preserving historical data
     hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, blank=True)
@@ -273,15 +274,25 @@ class Report(models.Model):
     @property
     def addressee(self):
         if self.contact_first_name:
+            salutation = 'Dear'
             if self.contact_last_name:
-                return f"{self.contact_first_name} {self.contact_last_name}"
-            return self.contact_first_name
-        if self.contact_last_name:
-            return self.contact_last_name
-        return "sir/madam"
+                return f"{salutation} {self.contact_first_name} {self.contact_last_name}"
+            return f"{salutation} {self.contact_first_name}"
+        return "Thank you for your report"
 
     def get_absolute_url(self):
         return reverse('crt_forms:crt-forms-show', kwargs={"id": self.id})
+
+    @cached_property
+    def closed(self):
+        return self.status == CLOSED_STATUS
+
+    def closeout_report(self):
+        """
+        Remove assignee and record date of call
+        """
+        self.assigned_to = None
+        self.closed_date = datetime.now()
 
 
 class Trends(models.Model):

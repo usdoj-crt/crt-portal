@@ -23,9 +23,8 @@ footer {
   flex-direction: row;
   margin-bottom: 1.5rem;
 
-  &:last-child {
-    margin-top: 0.5rem;
-    align-items: center;
+  .usa-footer__icon__language {
+    margin-top: 10px;
   }
 }
 
@@ -77,6 +76,19 @@ footer {
   a {
     text-transform: uppercase;
     margin-bottom: 1.5em;
+  }
+}
+
+.usa-footer__links.usa-footer__language {
+  a {
+    text-transform: none;
+    text-decoration: underline;
+  }
+}
+.usa-footer__language_assistance {
+  a,
+  img {
+    vertical-align: middle;
   }
 }
 

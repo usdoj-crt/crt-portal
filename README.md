@@ -384,7 +384,7 @@ To make the fix:
 
 To deploy the fix:
    * Make sure the product owner is in the loop with any errors and fixes.
-   * The reviewer can test the change locally to do the review. once the reviewer is happy with it: 
+   * The reviewer can test the change locally to do the review. once the reviewer is happy with it:
    * Make sure your branches are up to date
        * Check out the development branch and do a `git pull origin develop`
        * Check out the master branch and do a `git pull origin master`
@@ -392,17 +392,19 @@ To deploy the fix:
    * Push to the develop branch, that now has the fix to trigger a deploy to the dev enviornment
    * Check that the update deployed correctly.
    * Once sastisfied, go to GitHub to approve and merge the PR
-   * That will trigger a new build with the fix. Check that the fix worked 
+   * That will trigger a new build with the fix. Check that the fix worked
 
 The [git-flow cheatsheet](https://danielkummer.github.io/git-flow-cheatsheet/) is a great explainer of the git-flow tool.
 
 ## Additional documentation
 
 For more technical documentation see the [docs](https://github.com/usdoj-crt/crt-portal/tree/develop/docs)
-    - A11y testing plan
-    - Branching strategy
-    - Maintenance or infrequent tasks
-    - Pull request instructions
+
+- [A11y testing plan](./docs/a11y_plan.md)
+- [Branching strategy](./docs/Branching_strategy.md)
+- [Maintenance or infrequent tasks](./docs/maintenance_or_infrequent_tasks.md)
+- [Pull request instructions](./docs/pull_requests.md)
+- [Monitoring](./docs/monitoring.md)
 
 ### Adjust form autocomplete per-instance
 

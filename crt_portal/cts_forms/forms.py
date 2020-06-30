@@ -963,8 +963,7 @@ class Filters(ModelForm):
         }
 
 
-class ResponseActions(Form, ActivityStreamUpdater):
-    CONTEXT_KEY = 'responses'
+class ResponseActions(Form):
 
     def __init__(self, *args, **kwargs):
         self.report = kwargs.pop('instance')
@@ -989,28 +988,9 @@ class ResponseActions(Form, ActivityStreamUpdater):
             required=False,
         )
 
-    def save(self, commit=False):
-        """
-        We are not actually saving anything here, but instead hooking into
-        the CRT form so that we can log template actions such as
-        printing and copying. Eventually we will want to add email
-        integration functionality here.
-        """
-        return self.report
-
-    def update_activity_stream(self, user):
-        action = "Copied"
-        template = self.cleaned_data['templates'].title
-        description = f"{action} '{template}' template"
-        add_activity(user, "Contacted complainant:", description, self.report)
-
-    def success_message(self):
-        action = "Copied"
-        template = self.cleaned_data['templates'].title
-        return f"{action} '{template}' template"
-
 
 class ComplaintActions(ModelForm, ActivityStreamUpdater):
+    report_closed = False
     CONTEXT_KEY = 'actions'
     assigned_to = ModelChoiceField(
         queryset=User.objects.filter(is_active=True),
@@ -1068,13 +1048,18 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         self.fields['assigned_to'].widget.label = 'Assigned to'
 
     def get_actions(self):
-        """Parse incoming changed data for activity stream entry"""
+        """
+        Parse incoming changed data for activity stream entry
+        If report has been closed, emit action for activity log
+        """
         for field in self.changed_data:
             name = ' '.join(field.split('_')).capitalize()
             # rename primary statute if applicable
             if field == 'primary_statute':
                 name = 'Primary classification'
             yield f"{name}:", f'Updated from "{self.initial[field]}" to "{self.cleaned_data[field]}"'
+        if self.report_closed:
+            yield "Report closed and Assignee removed", f"Date closed updated to {self.instance.closed_date.strftime('%m/%d/%y %H:%M:%M %p')}"
 
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
@@ -1096,6 +1081,16 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             fields += f', and {updated_fields[-1]}'
             message = f"Successfully updated {fields}."
         return message
+
+    def save(self, commit=True):
+        """If report.status is `closed`, set assigned_to to None"""
+        report = super().save(commit=False)
+        if report.closed:
+            report.closeout_report()
+            self.report_closed = True
+        if commit:
+            report.save()
+        return report
 
 
 class CommentActions(ModelForm):
