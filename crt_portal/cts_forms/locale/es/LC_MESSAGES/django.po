@@ -1183,8 +1183,8 @@ msgid "Any supporting materials (please list and describe them)."
 msgstr "Cualquier material de apoyo (haga una lista y describa cada artículo)."
 
 #: templates/base.html:22 templates/base.html:40
-msgid "Civil Rights Division - Department of Justice"
-msgstr "La División de Derechos Civiles - Departamento de Justicia"
+msgid "Contact the Civil Rights Division | Department of Justice"
+msgstr "La División de Derechos Civiles | Departamento de Justicia"
 
 #  Meta tag description of site
 #: templates/base.html:28
