@@ -14,6 +14,6 @@ SAMPLE_REPORT = {
 
 SAMPLE_RESPONSE_TEMPLATE = {
     'title': 'test',
-    'description': 'test data',
-    'template': 'test template with record {{ record_locator }}',
+    'subject': 'test data with record {{ record_locator }}',
+    'body': 'test template with record {{ record_locator }}',
 }

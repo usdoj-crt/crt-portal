@@ -971,8 +971,8 @@ class ResponseActions(Form):
         # set up select options with dataset attributes
         data = {
             template.id: {
-                'description': template.description,
-                'content': template.render(self.report),
+                'description': template.render_subject(self.report),
+                'content': template.render_body(self.report),
             }
             for template in ResponseTemplate.objects.all()
         }
