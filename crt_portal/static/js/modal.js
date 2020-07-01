@@ -2,6 +2,7 @@
   var previous_onkeydown = document.onkeydown;
 
   var modal = document.getElementById('intake_template');
+  var options = document.getElementById('intake_select');
 
   function openModal() {
     document.onkeydown = function(event) {
@@ -17,6 +18,7 @@
       }
     };
     modal.removeAttribute('hidden');
+    options.focus();
     document.body.classList.add('is-modal');
   }
 
@@ -44,7 +46,6 @@
 
   var copy = document.getElementById('intake_copy');
   var print = document.getElementById('intake_print');
-  var options = document.getElementById('intake_select');
   var letter = document.getElementById('intake_letter');
   var description = document.getElementById('intake_description');
   options.onchange = function(event) {
