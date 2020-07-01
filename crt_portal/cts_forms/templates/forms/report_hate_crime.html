@@ -21,10 +21,19 @@
     </div>
   </div>
 </div>
-
-
 {% endblock %}
+
+{% block usa_footer %}
+  <div id="modal_hatecrime_link">
+  </div>
+{% endblock %}
+
 {% block page_js %}
   {{ super }}
   <script src="{% static 'js/bold_phrase.js' %}"></script>
+  <script nonce="{{request.csp_nonce}}">
+   (function(root) {
+     // bring up modal if applicable
+   })(window)
+  </script>
 {% endblock %}
