@@ -63,10 +63,13 @@
        span.href = link.href;
        span.innerText = link.href;
        root.CRT.openModal(modal_el);
+       // set timeout for redirect
+       setTimeout(function() {
+         window.location.href = link.href;
+       }, 5000);
      }
      var cancel_modal = document.getElementById('external-link--cancel');
      root.CRT.cancelModal(modal_el, cancel_modal);
-     console.log('TODO: set timer for 5 seconds');
    })(window)
   </script>
 {% endblock %}
