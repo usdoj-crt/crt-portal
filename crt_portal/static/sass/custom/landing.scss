@@ -349,7 +349,7 @@ $arrow-height: 24px;
       }
 
       &:hover {
-        background-color: color($theme-color-primary-darker) !important;
+        background-color: color($theme-link-hover-color) !important;
       }
     }
   }
@@ -378,7 +378,6 @@ $arrow-height: 24px;
 
       &:hover {
         color: color($theme-color-primary-darker);
-        background: color($theme-color-primary-lighter) !important;
       }
     }
 
