@@ -24,18 +24,24 @@
 {% endblock %}
 
 {% block usa_footer %}
-  <div id="external-link--modal">
-    <h3>You are now leaving the Department of Justice website.</h3>
-    <div>
-      <p>You will automatically be redirected to:
-        <span id="external-link--address">
-        </span>
-      </p>
-      <p>
-        The Department of Justice does not endorse the organizations or views represented by this site and takes no responsibility for, and exercises no control over, the accuracy, accessibility, copyright or trademark compliance or legality of the material contained on this site.
-      </p>
+  <div id="external-link--modal" hidden>
+    <div class="modal-wrapper intake-template--modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1>You are now leaving the Department of Justice website.</h1>
+        </div>
+        <div class="modal-form">
+          <p>You will automatically be redirected to:</p>
+          <span id="external-link--address"></span>
+          <p>
+            The Department of Justice does not endorse the organizations or views represented by this site and takes no responsibility for, and exercises no control over, the accuracy, accessibility, copyright or trademark compliance or legality of the material contained on this site.
+          </p>
+          <div class="modal-footer">
+            <a id="external-link--cancel" href="#" class="usa-button usa-button--outline light-button">Back</a>
+          </div>
+        </div>
+      </div>
     </div>
-    <a id="external-link--cancel" class="usa-button usa-button--outline light-button">Back</a>
   </div>
 {% endblock %}
 
@@ -46,10 +52,11 @@
   <script nonce="{{request.csp_nonce}}">
    (function(root) {
      var modal_el = document.getElementById('external-link--modal');
+     var span = document.getElementById('external-link--address');
      var link = document.querySelector('.external-link--popup');
      link.onclick = function(event) {
        event.preventDefault();
-       // TODO replace span
+       span.innerText = link.href;
        root.CRT.openModal(modal_el);
      }
      var cancel_modal = document.getElementById('external-link--cancel');
