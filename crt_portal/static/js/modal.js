@@ -18,8 +18,10 @@
     };
     modal_el.removeAttribute('hidden');
     // get first input in this modal so we can focus on it
-    // options.focus();
-    console.log('TODO: focus');
+    var focusee = modal_el.querySelector('input') ||
+        modal_el.querySelector('select') || // needed for form letters
+        modal_el.querySelector('a'); // focus on cancel button if nothing else matches
+    focusee.focus();
     dom.body.classList.add('is-modal');
   };
 
