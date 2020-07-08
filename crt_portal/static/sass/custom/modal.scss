@@ -35,10 +35,18 @@ body.is-modal {
   }
 
   .modal-content--small {
-    width: 60%;
-    height: 30%;
-    min-height: 30rem; // a11y: don't collapse modal
-    padding: 3rem;
+    @include at-media-max(mobile-lg) {
+      width: 90%;
+      padding: 1rem;
+    }
+    @include at-media-max(tablet) {
+      width: 75%;
+      padding: 2rem;
+    }
+    @include at-media(desktop) {
+      width: 64%;
+      padding: 3rem;
+    }
   }
 
   .modal-content--large {
