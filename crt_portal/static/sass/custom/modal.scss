@@ -105,11 +105,14 @@ body.is-modal {
   }
 
   .external-link--disclaimer {
-    margin-bottom: 2rem;
     font-style: italic;
   }
 
   #external-link--cancel {
     margin-left: 0;
+  }
+
+  .modal-footer {
+    margin-top: auto;
   }
 }
