@@ -77,7 +77,7 @@ footer {
     text-transform: uppercase;
     margin-bottom: 1.5em;
     &:hover {
-      color:color($theme-link-dark-hover-color);
+      color:color($theme-link-dark-hover-color) !important;
     }
     }
 }
@@ -94,7 +94,7 @@ footer {
     vertical-align: middle;
   }
   a:hover {
-    color:color($theme-link-dark-hover-color);
+    color:color($theme-link-dark-hover-color) !important;
   }
 }
 
