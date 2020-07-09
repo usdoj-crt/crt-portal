@@ -35,13 +35,11 @@ body.is-modal {
   }
 
   .modal-content--small {
-    @include at-media-max(mobile-lg) {
-      width: 90%;
-      padding: 1rem;
-    }
-    @include at-media-max(desktop) {
-      width: 75%;
-      padding: 3rem;
+    width: 90%;
+    padding: 1rem;
+    @include at-media(tablet) {
+      width: 85%;
+      padding: 2rem;
     }
     @include at-media(desktop) {
       width: 75%;
