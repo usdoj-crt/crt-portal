@@ -57,6 +57,7 @@
      var modal_el = document.getElementById('external-link--modal');
      var span = document.getElementById('external-link--address');
      var link = document.querySelector('.external-link--popup');
+     var redirect;
      link.onclick = function(event) {
        event.preventDefault();
        // display the actual redirect link
@@ -64,8 +65,12 @@
        span.innerText = link.href;
        root.CRT.openModal(modal_el);
        // set timeout for redirect
-       setTimeout(function() {
-         window.location.href = link.href;
+       clearTimeout(redirect);
+       redirect = setTimeout(function() {
+         // only redirect if modal is still visible
+         if (modal_el.getAttribute('hidden') === null) {
+           window.location.href = link.href;
+         }
        }, 5000);
      }
      var cancel_modal = document.getElementById('external-link--cancel');
