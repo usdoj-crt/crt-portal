@@ -30,12 +30,28 @@ body.is-modal {
   .modal-content {
     position: relative;
     background: white;
-    width: 80%;
-    height: 60%;
-    padding: 2rem;
     @include u-radius('md');
     @include u-shadow(3);
+  }
+
+  .modal-content--small {
+    width: 90%;
+    padding: 1rem;
+    @include at-media(tablet) {
+      width: 85%;
+      padding: 2rem;
+    }
+    @include at-media(desktop) {
+      width: 75%;
+      padding: 3rem;
+    }
+  }
+
+  .modal-content--large {
+    width: 80%;
+    height: 60%;
     min-height: 40rem; // a11y: don't collapse modal
+    padding: 2rem;
   }
 
   .modal-form {
@@ -83,5 +99,25 @@ body.is-modal {
     height: 100%;
     width: 100%;
     white-space: pre-wrap;
+  }
+}
+
+#external-link--modal {
+  h1 {
+    margin: 0;
+  }
+
+  .external-link--disclaimer {
+    font-style: italic;
+    font-size: $theme-text-font-size-sm;
+    margin-top: 0.5rem;
+  }
+
+  #external-link--cancel {
+    margin-left: 0;
+  }
+
+  .modal-footer {
+    margin-top: auto;
   }
 }

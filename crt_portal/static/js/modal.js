@@ -1,11 +1,10 @@
-(function() {
-  var previous_onkeydown = document.onkeydown;
+(function(root, dom) {
+  root.CRT = root.CRT || {};
 
-  var modal = document.getElementById('intake_template');
-  var options = document.getElementById('intake_select');
+  var previous_onkeydown = dom.onkeydown;
 
-  function openModal() {
-    document.onkeydown = function(event) {
+  root.CRT.openModal = function(modal_el) {
+    dom.onkeydown = function(event) {
       event = event || window.event;
       var isEscape = false;
       if ('key' in event) {
@@ -14,75 +13,31 @@
         isEscape = event.keyCode === 27;
       }
       if (isEscape) {
-        closeModal();
+        root.CRT.closeModal(modal_el);
       }
     };
-    modal.removeAttribute('hidden');
-    options.focus();
-    document.body.classList.add('is-modal');
-  }
-
-  function closeModal() {
-    document.onkeydown = previous_onkeydown;
-    modal.setAttribute('hidden', 'hidden');
-    document.body.classList.remove('is-modal');
-  }
-
-  var contact = document.getElementById('contact_complainant');
-  contact.onclick = function(event) {
-    event.preventDefault();
-    if (modal.getAttribute('hidden') !== null) {
-      openModal();
-    } else {
-      closeModal();
-    }
+    modal_el.removeAttribute('hidden');
+    // get first input in this modal so we can focus on it
+    var focusee =
+      modal_el.querySelector('input') ||
+      modal_el.querySelector('select') || // needed for form letters
+      modal_el.querySelector('a'); // focus on cancel button if nothing else matches
+    focusee.focus();
+    dom.body.classList.add('is-modal');
   };
 
-  var cancel_modal = document.getElementById('intake_template_cancel');
-  cancel_modal.onclick = function(event) {
-    event.preventDefault();
-    closeModal();
+  root.CRT.closeModal = function(modal_el) {
+    dom.onkeydown = previous_onkeydown;
+    modal_el.setAttribute('hidden', 'hidden');
+    dom.body.classList.remove('is-modal');
   };
 
-  var copy = document.getElementById('intake_copy');
-  var print = document.getElementById('intake_print');
-  var letter = document.getElementById('intake_letter');
-  var description = document.getElementById('intake_description');
-  options.onchange = function(event) {
-    event.preventDefault();
-    var index = event.target.selectedIndex;
-    var option = event.target.options[index];
-    description.innerHTML = option.dataset['description'] || '(select a response template)';
-    letter.innerHTML = option.dataset['content'] || '';
-    if (index >= 1) {
-      copy.removeAttribute('disabled');
-      print.removeAttribute('disabled');
-    } else {
-      copy.setAttribute('disabled', 'disabled');
-      print.setAttribute('disabled', 'disabled');
-    }
+  root.CRT.cancelModal = function(modal_el, cancel_el) {
+    var dismissModal = function(event) {
+      event.preventDefault();
+      root.CRT.closeModal(modal_el);
+    };
+    cancel_el.addEventListener('click', dismissModal);
+    cancel_el.addEventListener('keydown', dismissModal);
   };
-
-  copy.onclick = function(event) {
-    const el = document.createElement('textarea');
-    el.value = description.innerText + '\n\n' + letter.value;
-    el.setAttribute('readonly', '');
-    el.style.position = 'absolute';
-    el.style.left = '-9999px';
-    document.body.appendChild(el);
-    el.select();
-    el.setSelectionRange(0, 99999); // mobile
-    document.execCommand('copy');
-    document.body.removeChild(el);
-  };
-
-  print.onclick = function(event) {
-    const el = document.createElement('p');
-    el.classList.add('intake-letter-preview');
-    el.append(letter.value);
-    document.body.appendChild(el);
-    window.print();
-    document.body.removeChild(el);
-    closeModal();
-  };
-})();
+})(window, document);
