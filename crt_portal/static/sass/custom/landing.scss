@@ -18,6 +18,16 @@ $arrow-height: 24px;
   li {
     margin-bottom: 1rem;
   }
+
+  &.crt-landing--description {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  
+  &.crt-landing--reporting{
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
 }
 
 .crt-header--icon_group {
@@ -223,7 +233,7 @@ $arrow-height: 24px;
   .crt-landing--description__rights {
     @include text--heading__large();
     margin-top: 1rem;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
   }
 
   .crt-landing--columns {
@@ -232,6 +242,11 @@ $arrow-height: 24px;
       min-height: unset;
     }
   }
+}
+
+.crt_landing--section_item{
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .crt-landing--rights {
