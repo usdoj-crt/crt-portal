@@ -11,7 +11,7 @@ SPACE=$3
 # login to the right place
 cf api https://api.fr.cloud.gov;
 cf auth  $CRT_USERNAME  $CRT_PASSWORD;
-cf target -o doj-crtportal-prototyping -s $SPACE;
+cf target -o doj-crtportal -s $SPACE;
 
 
 # Deploy a new app called crt-portal-django-venerable, if that builds correctly, delete the old app and rename crt-portal-django-venerable to crt-portal-django
