@@ -2,7 +2,7 @@
   var modal = document.getElementById('intake_template');
 
   var contact = document.getElementById('contact_complainant');
-  contact.onclick = function(event) {
+  var showModal = function(event) {
     event.preventDefault();
     if (modal.getAttribute('hidden') !== null) {
       root.CRT.openModal(modal);
@@ -10,6 +10,8 @@
       root.CRT.closeModal(modal);
     }
   };
+  contact.addEventListener('click', showModal);
+  contact.addEventListener('keydown', showModal);
 
   var cancel_modal = document.getElementById('intake_template_cancel');
   root.CRT.cancelModal(modal, cancel_modal);
@@ -34,7 +36,7 @@
     }
   };
 
-  copy.onclick = function(event) {
+  var copyContents = function(event) {
     const el = document.createElement('textarea');
     el.value = description.innerText + '\n\n' + letter.value;
     el.setAttribute('readonly', '');
@@ -46,8 +48,9 @@
     document.execCommand('copy');
     document.body.removeChild(el);
   };
+  copy.addEventListener('click', copyContents);
 
-  print.onclick = function(event) {
+  var printContents = function(event) {
     const el = document.createElement('p');
     el.classList.add('intake-letter-preview');
     el.append(letter.value);
@@ -56,4 +59,5 @@
     document.body.removeChild(el);
     root.CRT.closeModal(modal);
   };
+  print.addEventListener('click', printContents);
 })(window);

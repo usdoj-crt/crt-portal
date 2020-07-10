@@ -33,9 +33,11 @@
   };
 
   root.CRT.cancelModal = function(modal_el, cancel_el) {
-    cancel_el.onclick = function(event) {
+    var dismissModal = function(event) {
       event.preventDefault();
       root.CRT.closeModal(modal_el);
     };
+    cancel_el.addEventListener('click', dismissModal);
+    cancel_el.addEventListener('keydown', dismissModal);
   };
 })(window, document);
