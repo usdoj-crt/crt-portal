@@ -13,12 +13,12 @@ class Migration(migrations.Migration):
     def remove_assignee(apps, schema_editor):
         # get all reports
         reports = apps.get_model('cts_forms', 'Report')
-        june30 = datetime(2020, 6, 30)
+        july1 = datetime(2020, 7, 1)
 
         for report in reports.objects.all():
             # remove assignee for report closed date is before june 30 2020,
             if report.closed_date is not None:
-                if report.closed_date > june30:
+                if report.closed_date < july1:
                     report.assigned_to = None
                     report.save()
     operations = [
