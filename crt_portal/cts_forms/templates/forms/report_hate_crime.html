@@ -28,19 +28,22 @@
     <div class="modal-wrapper">
       <div class="modal-content modal-content--small">
         <div class="modal-header">
-          <h1 class="h2__display">You are now leaving the Department of Justice website.</h1>
+          <h1 class="h2__display">
+            {% trans "You are now leaving the Department of Justice website." %}
+          </h1>
         </div>
         <div class="modal-form">
-          <p>You will automatically be redirected to:
+          <p>
+            {% trans "You will automatically be redirected to:" %}
             <span>
               <a id="external-link--address" href="#"></a>
             </span>
           </p>
           <p class="external-link--disclaimer">
-            The Department of Justice does not endorse the organizations or views represented by this site and takes no responsibility for, and exercises no control over, the accuracy, accessibility, copyright or trademark compliance or legality of the material contained on this site.
+            {% trans "The Department of Justice does not endorse the organizations or views represented by this site and takes no responsibility for, and exercises no control over, the accuracy, accessibility, copyright or trademark compliance or legality of the material contained on this site." %}
           </p>
           <div class="modal-footer">
-            <a id="external-link--cancel" href="#" class="usa-button usa-button--outline button--cancel light-button">Back</a>
+            <a id="external-link--cancel" href="#" class="usa-button usa-button--outline button--cancel light-button">{% trans "Back" %}</a>
           </div>
         </div>
       </div>
@@ -71,7 +74,7 @@
          if (modal_el.getAttribute('hidden') === null) {
            window.location.href = link.href;
          }
-       }, 5000);
+       }, 20000);
      }
      var cancel_modal = document.getElementById('external-link--cancel');
      root.CRT.cancelModal(modal_el, cancel_modal);
