@@ -44,6 +44,7 @@
           </p>
           <div class="modal-footer">
             <a id="external-link--cancel" href="#" class="usa-button usa-button--outline button--cancel light-button">{% trans "Back" %}</a>
+            <a id="external-link--continue" href="#" class="usa-button button--continue">{% trans "Continue" %}</a>
           </div>
         </div>
       </div>
@@ -75,9 +76,14 @@
            window.location.href = link.href;
          }
        }, 20000);
-     }
+     };
      var cancel_modal = document.getElementById('external-link--cancel');
      root.CRT.cancelModal(modal_el, cancel_modal);
+     var continue_button = document.getElementById('external-link--continue');
+     continue_button.onclick = function(event) {
+       event.preventDefault();
+       window.location.href = link.href;
+     };
    })(window)
   </script>
 {% endblock %}

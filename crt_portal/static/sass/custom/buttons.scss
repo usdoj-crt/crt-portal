@@ -30,8 +30,8 @@ button,
   }
 }
 
-button#login {
-  color: color('white');
+.button--continue, button#login {
+  color: color('white') !important;
 }
 
 // glue the review page edit buttons to the bottom of the card on mobile
