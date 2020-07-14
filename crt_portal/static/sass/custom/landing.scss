@@ -203,8 +203,8 @@ $arrow-height: 24px;
       font-weight: bold;
       text-decoration: none;
       &:hover {
-        color:color($theme-link-dark-hover-color);
-      }  
+        color:color($theme-link-dark-hover-color) !important;
+      }
     }
   }
 
@@ -215,8 +215,8 @@ $arrow-height: 24px;
       color: color('white');
       font-weight: bold;
       &:hover {
-        color:color($theme-link-dark-hover-color);
-      }  
+        color:color($theme-link-dark-hover-color) !important;
+      }
     }
   }
 }
