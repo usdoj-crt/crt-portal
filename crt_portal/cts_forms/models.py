@@ -38,6 +38,9 @@ class CommentAndSummary(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     is_summary = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name_plural = 'Comments and summaries'
+
 
 class ProtectedClass(models.Model):
     protected_class = models.CharField(max_length=100, null=True, blank=True, choices=PROTECTED_MODEL_CHOICES, unique=True)
@@ -53,6 +56,9 @@ class ProtectedClass(models.Model):
     def __str__(self):
         return self.get_value_display()
 
+    class Meta:
+        verbose_name_plural = 'Protected classes'
+
 
 # Not in use- but need to preserving historical data
 class HateCrimesandTrafficking(models.Model):
@@ -61,6 +67,10 @@ class HateCrimesandTrafficking(models.Model):
 
     def __str__(self):
         return self.get_value_display()
+
+    class Meta:
+        verbose_name = 'Hate crime and trafficking'
+        verbose_name_plural = 'Hate crimes and trafficking'
 
 
 class JudicialDistrict(models.Model):
@@ -312,19 +322,31 @@ class Trends(models.Model):
 
 class ResponseTemplate(models.Model):
     title = models.CharField(max_length=100, null=False, blank=False, unique=True,)
-    description = models.CharField(max_length=100, null=False, blank=False,)
-    template = models.TextField(null=False, blank=False,)
+    subject = models.CharField(max_length=100, null=False, blank=False,)
+    body = models.TextField(null=False, blank=False,)
 
-    def render(self, report):
+    def available_report_fields(self, report):
+        """
+        Only permit a small subset of report fields
+        """
         today = datetime.today()
-        template = Template(self.template)
-        # we only allow a small subset of report fields
-        context = Context({
+        section_choices = dict(SECTION_CHOICES)
+        return Context({
             'addressee': report.addressee,
             'date_of_intake': report.create_date.strftime('%B %d, %Y'),
             'record_locator': report.public_id,
             'outgoing_date': today.strftime('%B %d, %Y'),  # required for paper mail
+            'section_name': section_choices.get(report.assigned_section, "no section"),
         })
+
+    def render_subject(self, report):
+        template = Template(self.subject)
+        context = self.available_report_fields(report)
+        return escape(template.render(context))
+
+    def render_body(self, report):
+        template = Template(self.body)
+        context = self.available_report_fields(report)
         return escape(template.render(context))
 
     def __str__(self):
