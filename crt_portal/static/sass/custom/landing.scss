@@ -143,13 +143,20 @@ $arrow-height: 24px;
   .crt-landing--logo_subheading {
     @extend .usa-footer__logo-subheading;
     font-size: $theme-text-font-size-sm;
+    @media screen and (max-width: 400px) {
+      font-size: 10px;
+    }
   }
 
   .crt-landing--logo_heading {
     @extend .usa-footer__logo-heading;
     font-size: $theme-heading-font-size-md;
+    @media screen and (max-width: 400px) {
+      font-size: $theme-text-font-size-sm;
+    }
   }
-}
+
+  }
 
 .crt-landing--hero {
   background-image: url(../../img/landing-page-hero.png);
@@ -204,7 +211,7 @@ $arrow-height: 24px;
       text-decoration: none;
       &:hover {
         color:color($theme-link-dark-hover-color);
-      }  
+      }
     }
   }
 
@@ -216,7 +223,7 @@ $arrow-height: 24px;
       font-weight: bold;
       &:hover {
         color:color($theme-link-dark-hover-color);
-      }  
+      }
     }
   }
 }
