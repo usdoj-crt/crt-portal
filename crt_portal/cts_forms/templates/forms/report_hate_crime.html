@@ -15,16 +15,66 @@
       <p class="help-text__small">
         {% trans "Human trafficking includes being forced or coerced to do work, or forced or coerced to engage in sex acts for something of value." %}
       </p>
-        <a class="usa-button usa-button--outline light-button" aria-label="{% trans "Were you forced to work against your will?" %} {% trans "Get help from the National Human Trafficking Hotline" %}" href=" https://humantraffickinghotline.org/">{% trans "Get help from the National Human Trafficking Hotline" %}
-          <img src="{% static 'img/external_link.svg'%}" alt="external link" class="icon" />
-        </a>
+      <a class="usa-button usa-button--outline light-button external-link--popup" aria-label="{% trans "Were you forced to work against your will?" %} {% trans "Get help from the National Human Trafficking Hotline" %}" href=" https://humantraffickinghotline.org/">{% trans "Get help from the National Human Trafficking Hotline" %}
+        <img src="{% static 'img/external_link.svg'%}" alt="external link" class="icon" />
+      </a>
     </div>
   </div>
 </div>
-
-
 {% endblock %}
+
+{% block usa_footer %}
+  <div id="external-link--modal" hidden>
+    <div class="modal-wrapper">
+      <div class="modal-content modal-content--small">
+        <div class="modal-header">
+          <h1 class="h2__display">You are now leaving the Department of Justice website.</h1>
+        </div>
+        <div class="modal-form">
+          <p>You will automatically be redirected to:
+            <span>
+              <a id="external-link--address" href="#"></a>
+            </span>
+          </p>
+          <p class="external-link--disclaimer">
+            The Department of Justice does not endorse the organizations or views represented by this site and takes no responsibility for, and exercises no control over, the accuracy, accessibility, copyright or trademark compliance or legality of the material contained on this site.
+          </p>
+          <div class="modal-footer">
+            <a id="external-link--cancel" href="#" class="usa-button usa-button--outline button--cancel light-button">Back</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
 {% block page_js %}
   {{ super }}
   <script src="{% static 'js/bold_phrase.js' %}"></script>
+  <script src="{% static 'js/modal.js' %}"></script>
+  <script nonce="{{request.csp_nonce}}">
+   (function(root) {
+     var modal_el = document.getElementById('external-link--modal');
+     var span = document.getElementById('external-link--address');
+     var link = document.querySelector('.external-link--popup');
+     var redirect;
+     link.onclick = function(event) {
+       event.preventDefault();
+       // display the actual redirect link
+       span.href = link.href;
+       span.innerText = link.href;
+       root.CRT.openModal(modal_el);
+       // set timeout for redirect
+       clearTimeout(redirect);
+       redirect = setTimeout(function() {
+         // only redirect if modal is still visible
+         if (modal_el.getAttribute('hidden') === null) {
+           window.location.href = link.href;
+         }
+       }, 5000);
+     }
+     var cancel_modal = document.getElementById('external-link--cancel');
+     root.CRT.cancelModal(modal_el, cancel_modal);
+   })(window)
+  </script>
 {% endblock %}
