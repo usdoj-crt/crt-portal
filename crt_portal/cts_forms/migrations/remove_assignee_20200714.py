@@ -8,7 +8,7 @@ import pytz
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', 'initial-load-report-data'),
+        ('cts_forms', 'remove-aassignee-iss613-migration'),
     ]
 
     def remove_assignee(apps, schema_editor):
