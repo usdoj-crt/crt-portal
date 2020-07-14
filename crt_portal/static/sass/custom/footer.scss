@@ -76,7 +76,10 @@ footer {
   a {
     text-transform: uppercase;
     margin-bottom: 1.5em;
-  }
+    &:hover {
+      color:color($theme-link-dark-hover-color) !important;
+    }
+    }
 }
 
 .usa-footer__links.usa-footer__language {
@@ -89,6 +92,9 @@ footer {
   a,
   img {
     vertical-align: middle;
+  }
+  a:hover {
+    color:color($theme-link-dark-hover-color) !important;
   }
 }
 
