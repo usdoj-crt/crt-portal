@@ -38,6 +38,9 @@ class CommentAndSummary(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     is_summary = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name_plural = 'Comments and summaries'
+
 
 class ProtectedClass(models.Model):
     protected_class = models.CharField(max_length=100, null=True, blank=True, choices=PROTECTED_MODEL_CHOICES, unique=True)
@@ -53,6 +56,9 @@ class ProtectedClass(models.Model):
     def __str__(self):
         return self.get_value_display()
 
+    class Meta:
+        verbose_name_plural = 'Protected classes'
+
 
 # Not in use- but need to preserving historical data
 class HateCrimesandTrafficking(models.Model):
@@ -61,6 +67,10 @@ class HateCrimesandTrafficking(models.Model):
 
     def __str__(self):
         return self.get_value_display()
+
+    class Meta:
+        verbose_name = 'Hate crime and trafficking'
+        verbose_name_plural = 'Hate crimes and trafficking'
 
 
 class JudicialDistrict(models.Model):

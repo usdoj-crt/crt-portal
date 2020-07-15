@@ -202,6 +202,9 @@ $arrow-height: 24px;
       color: color($theme-color-warning);
       font-weight: bold;
       text-decoration: none;
+      &:hover {
+        color:color($theme-link-dark-hover-color) !important;
+      }
     }
   }
 
@@ -211,6 +214,9 @@ $arrow-height: 24px;
     a {
       color: color('white');
       font-weight: bold;
+      &:hover {
+        color:color($theme-link-dark-hover-color) !important;
+      }
     }
   }
 }
@@ -331,11 +337,13 @@ $arrow-height: 24px;
       font-weight: normal;
       color: color('white');
       min-height: 5rem;
+      border-radius: 4px;
 
       // caret adjustments -- in many cases overriding the USWDS defaults
       background-repeat: no-repeat !important;
       background-position: right 1.5rem center !important;
       background-size: 1.5rem !important;
+      background-color: color($theme-color-primary-darker);
       width: 100%;
       height: 100%;
       &[aria-expanded='false'] {
@@ -346,10 +354,13 @@ $arrow-height: 24px;
       }
       &[aria-expanded='true'] {
         background-image: url(../../img/angle-arrow-up-white.svg) !important;
+        &:hover {
+          background-image: url(../../img/angle-arrow-up-primary.svg) !important;
+        }
       }
 
       &:hover {
-        background-color: color($theme-color-primary-darker) !important;
+        background-color: color($theme-link-hover-color) !important;
       }
     }
   }
@@ -378,7 +389,6 @@ $arrow-height: 24px;
 
       &:hover {
         color: color($theme-color-primary-darker);
-        background: color($theme-color-primary-lighter) !important;
       }
     }
 
