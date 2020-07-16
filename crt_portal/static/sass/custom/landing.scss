@@ -295,16 +295,20 @@ $arrow-height: 24px;
 
   .crt-landing--divider {
     border-left: 1px solid color($theme-color-primary-darker);
-    padding-left: units($spacer-4x) !important;
+  //  padding-left: units($spacer-4x) !important;
     margin-top: units($spacer-5x);
     @include at-media-max('mobile-lg') {
       border-left: none;
       border-top: 1px solid color($theme-color-primary-darker);
-      padding-left: 0;
-      margin-top: units($spacer-2x);
-      margin-right: units($spacer-1x);
-      margin-left: units($spacer-1x);
+      // padding-left: 0px;
+      width: "100%";
+      //margin-top: units($spacer-2x);
+      // margin-right: units($spacer-1x);
+      // margin-left: units($spacer-1x);
       padding-top: units($spacer-3x);
+    }
+    @include at-media('desktop'){
+       padding-left: units($spacer-4x) !important;
     }
   }
 
