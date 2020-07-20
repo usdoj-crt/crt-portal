@@ -11,6 +11,11 @@
     @include u-padding-x(3);
     flex-direction: column;
 
+    @include at-media-max(mobile-lg){
+      margin: 0;
+      padding: 1.5rem;
+    }
+
     &--lg {
       @include u-padding-x(7);
       @include u-padding-bottom(6);
@@ -28,9 +33,12 @@
     justify-content: center;
     align-content: center;
     padding: 0 1rem;
+    @include at-media-max(mobile-lg){
+      padding: 0 1.5rem;
+    }
 
     .icon {
-      margin-right: 10px;
+      margin-right: 8px;
       @include at-media-max(mobile-lg){
         padding-bottom: 1.5rem;
       }
@@ -44,6 +52,10 @@
     h2 {
       margin-top: 2.5rem;
       margin-bottom: 2.5rem;
+      @include at-media-max(mobile-lg){
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
     }
   }
 
