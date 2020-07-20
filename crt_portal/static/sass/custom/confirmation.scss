@@ -11,7 +11,7 @@
     @include u-padding-x(3);
     flex-direction: column;
 
-    @include at-media-max(mobile-lg){
+    @include at-media-max(tablet){
       margin: 0;
       padding: 1.5rem;
     }
@@ -33,13 +33,14 @@
     justify-content: center;
     align-content: center;
     padding: 0 1rem;
-    @include at-media-max(mobile-lg){
+    @include at-media-max(tablet){
       padding: 0 1.5rem;
+      border-radius: 0.5rem;
     }
 
     .icon {
       margin-right: 8px;
-      @include at-media-max(mobile-lg){
+      @include at-media-max(tablet){
         padding-bottom: 1.5rem;
       }
     }
@@ -52,7 +53,7 @@
     h2 {
       margin-top: 2.5rem;
       margin-bottom: 2.5rem;
-      @include at-media-max(mobile-lg){
+      @include at-media-max(tablet){
         margin-top: 1.5rem;
         margin-bottom: 1.5rem;
       }
