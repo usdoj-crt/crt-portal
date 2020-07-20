@@ -42,7 +42,10 @@ button#login {
   }
   .button--review {
     position: absolute;
-    width: 88%;
+    width: 84%;
     bottom: units($spacer-3x);
+    button{
+      margin: 0;
+    }
   }
 }
