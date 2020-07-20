@@ -5,12 +5,14 @@
   method="GET"
   action="/form/view"
   novalidate
->
+> 
+  <div class="intake-filters">
+    {% include 'forms/complaint_view/index/filters/combo_status_filter.html' %}
+  </div>
   <div class="intake-filters">
     {% include 'forms/complaint_view/index/filters/section_filter.html' %}
     {% include 'forms/complaint_view/index/filters/contact_filter.html' %}
     {% include 'forms/complaint_view/index/filters/incident_location_filter.html' %}
-    {% include 'forms/complaint_view/index/filters/status_filter.html' %}
     {% include 'forms/complaint_view/index/filters/summary_filter.html' %}
     {% include 'forms/complaint_view/index/filters/assignee.html' %}
     {% include 'forms/complaint_view/index/filters/public_id_filter.html' %}

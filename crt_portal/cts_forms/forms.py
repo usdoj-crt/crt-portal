@@ -7,7 +7,7 @@ from django.core.validators import ValidationError
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           EmailInput, HiddenInput, IntegerField,
                           ModelChoiceField, ModelForm, Form,
-                          ModelMultipleChoiceField,
+                          ModelMultipleChoiceField, MultipleChoiceField,
                           Select, SelectMultiple, Textarea, TextInput,
                           TypedChoiceField)
 from django.utils.functional import cached_property
@@ -1014,16 +1014,21 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             choices=SECTION_CHOICES,
             required=False
         )
-        self.fields['status'] = ChoiceField(
-            widget=ComplaintSelect(
-                label='Status',
-                attrs={
-                    'class': 'crt-dropdown__data',
-                },
-
-            ),
+        #self.fields['status'] = ChoiceField(
+        #    widget=ComplaintSelect(
+        #        label='Status',
+        #        attrs={
+        #            'class': 'crt-dropdown__data',
+        #        },
+        #    ),
+        #    choices=STATUS_CHOICES,
+        #    required=False
+        #)
+        self.fields['status'] = MultipleChoiceField(
+            required=False,
+            label='FooBar',
             choices=STATUS_CHOICES,
-            required=False
+            #widget=UsaCheckboxSelectMultiple(),
         )
         self.fields['primary_statute'] = ChoiceField(
             widget=ComplaintSelect(

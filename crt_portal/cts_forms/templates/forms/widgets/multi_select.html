@@ -1,7 +1,7 @@
 <select class="complaint-multi-select {{widget.attrs.class}}" multiple name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
   {% for group_name, group_choices, group_index in widget.optgroups %}
     {% if group_name %}
-      <optgroup label="{{ group_name }}">
+      <optgroup label="{{ group_name }} TEST">
     {% endif %}
     {% for option in group_choices %}
       {% include option.template_name with option=option %}{% endfor %}
