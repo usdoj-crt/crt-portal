@@ -9,6 +9,7 @@ form#report-form {
     width: 100%; // IE11 fix
     // margin-top: 0.5rem;
     // margin-bottom: units($spacer-3x);
+    padding-top: 32px;
     margin: 0;
     + .help-text,
     + .help-text__small,
