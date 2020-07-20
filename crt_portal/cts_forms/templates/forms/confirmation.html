@@ -168,6 +168,15 @@
   </div>
 </section>
 
+<section class="submission">
+  <div id="submission" class="grid-container">
+    <div class="submission-content tablet:grid-col-8 tablet:grid-offset-2">
+        <h2 class='h1__display'>{% trans "Your submission" %}</h2>
+        {% include "forms/report_data.html" with ordered_step_names=ordered_step_names question=questions hide_edit_button=True %}
+    </div>
+  </div>
+</section>
+
 {% endblock %}
 
 {% block footer_extra %}

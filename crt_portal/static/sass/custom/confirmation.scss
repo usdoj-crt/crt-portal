@@ -110,7 +110,7 @@ section hr {
 section.what-to-expect {
   @include u-bg($theme-color-primary-lightest);
   @include u-margin-top(5);
-  padding-bottom: 4rem;
+  padding-bottom: 14rem;
 
   .title {
     @include flex-container();
