@@ -901,6 +901,15 @@ class Filters(ModelForm):
         })
     )
 
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+        self.fields['status'] = MultipleChoiceField(
+            required=False,
+            label='status foobar',
+            choices=STATUS_CHOICES,
+            widget=UsaCheckboxSelectMultiple(),
+        )
+
     class Meta:
         model = Report
         fields = [
