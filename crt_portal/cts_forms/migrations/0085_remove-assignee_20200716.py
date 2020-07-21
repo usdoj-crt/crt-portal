@@ -5,6 +5,7 @@ from datetime import datetime
 import pytz
 from actstream import action
 from django.contrib.auth import get_user_model
+from actstream import registry
 
 
 class Migration(migrations.Migration):
@@ -21,7 +22,8 @@ class Migration(migrations.Migration):
         # // Assuming that first user is the root user or superuser.
         # superuser = User.objects.all().order_by('id')[0]
         superuser = User.objects.get(pk=1)
-
+        # Register Report to be streamed
+        registry.register(reports)
         timezone = pytz.timezone("UTC")
         july1 = timezone.localize(datetime(2020, 7, 1))
         for report in reports.objects.all():
@@ -33,7 +35,8 @@ class Migration(migrations.Migration):
                     report.save()
                     # Add the closed activity to activity stream
                     action.send(superuser, verb='Assignee Removed: ',
-                                description='Removed assignee for closed record before July 1, 2020')
+                                description='Removed assignee for closed record before July 1, 2020',
+                                target=report)
 
     operations = [
         migrations.RunPython(remove_assignee),
