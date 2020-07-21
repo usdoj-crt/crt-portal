@@ -10,7 +10,7 @@ from django.contrib.auth import get_user_model
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0082_merge_20200702_1434'),
+        ('cts_forms', '0084_form_template_standardization'),
     ]
 
     def remove_assignee(apps, schema_editor):
