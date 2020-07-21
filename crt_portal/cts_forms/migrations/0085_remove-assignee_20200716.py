@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
         User = get_user_model()
         userlist = User.objects.all().order_by('id')
         # // Assuming that first user is the root user or superuser. If there are on users, create a dummy one
-        if not userlist:
+        if len(userlist) > 0:
             superuser = userlist[0]
         else:
             superuser = User.objects.create_user('migration_user')
