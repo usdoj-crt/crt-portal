@@ -20,8 +20,8 @@ class Migration(migrations.Migration):
         # user = apps.get_model('cts_forms', 'User')
         User = get_user_model()
         # // Assuming that first user is the root user or superuser.
-        # superuser = User.objects.all().order_by('id')[0]
-        superuser = User.objects.get(pk=1)
+        superuser = User.objects.all().order_by('id')[0]
+        # superuser = User.objects.get(pk=1)
         # Register Report to be streamed
         registry.register(reports)
         timezone = pytz.timezone("UTC")
