@@ -1,8 +1,15 @@
 $arrow-height: 24px;
 
 .crt-landing--section {
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+
+  @include at-media-max(mobile-lg) {
+    &.crt-landing--emergency {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+  }
 
   h1 {
     margin-top: 1rem;
@@ -11,24 +18,15 @@ $arrow-height: 24px;
   }
 
   h2 {
-    margin-top: 1.5rem;
+    margin-top: 0;
     margin-bottom: 0;
+    @include at-media(tablet) {
+      margin-top: 1.5rem;
+    }
   }
 
   li {
     margin-bottom: 1rem;
-  }
-
-  @include at-media-max(mobile-lg) {
-      padding-top: 3rem;
-      padding-bottom: 3rem;
-      &.crt-landing--lightblue{
-        padding-top: 0;
-      }
-      &.crt-landing--emergency {
-        padding-top: 1.5rem;
-        padding-bottom: 1.5rem;
-      }
   }
 }
 
@@ -55,6 +53,10 @@ $arrow-height: 24px;
 .crt-landing--lightblue {
   background-color: #e9eef5; // custom color to match background of hero image
   color: color($theme-color-primary-darker);
+
+  & + .crt-landing--lightblue{
+    padding-top: 0;
+  }
 }
 
 .crt-landing--pale {
@@ -186,7 +188,6 @@ $arrow-height: 24px;
     a,
     a:visited {
       color: white;
-      margin-top: 0;
     }
   }
 
@@ -237,12 +238,7 @@ $arrow-height: 24px;
     @include text--heading__large();
     margin-top: 1rem;
     margin-bottom: 2.5rem;
-  }
-
-  @include at-media-max(mobile-lg) {
-    .crt-landing--description__rights {
-      @include text--heading__large();
-      margin-top: 1rem;
+    @include at-media-max(mobile-lg) {
       margin-bottom: 2rem;
     }
   }
@@ -255,9 +251,12 @@ $arrow-height: 24px;
   }
 }
 
-.crt_landing--section_item{
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
+.crt-landing--section__item{
+  &:not(:last-child){
+    @include at-media-max(mobile-lg) {
+      margin-bottom: 40px;
+    }
+  }
 }
 
 .crt-landing--rights {
@@ -488,6 +487,9 @@ $arrow-height: 24px;
     display: flex;
     flex-direction: row;
     margin-top: 1rem;
+    @include at-media-max(mobile-lg) {
+      margin-top: 0;
+    }
 
     h2 {
       min-height: 3rem;
@@ -517,18 +519,6 @@ $arrow-height: 24px;
     .crt-button--large {
       margin-top: 0;
     }
-  }
-}
-
-.crt-landing--already_submitted {
-  h2 {
-    margin-top: 1rem;
-  }
-}
-
-@include at-media-max(mobile-lg) {
-  #crt-landing--submitted_paragraph {
-    margin-top: 0;;
   }
 }
 
