@@ -19,8 +19,13 @@ class Migration(migrations.Migration):
         reports = apps.get_model('cts_forms', 'Report')
         # user = apps.get_model('cts_forms', 'User')
         User = get_user_model()
-        # // Assuming that first user is the root user or superuser.
-        superuser = User.objects.all().order_by('id')[0]
+        userlist = User.objects.all().order_by('id')
+        # // Assuming that first user is the root user or superuser. If there are on users, create a dummy one
+        if not userlist:
+            superuser = userlist[0]
+        else:
+            superuser = User.objects.create_user('migration_user')
+
         # superuser = User.objects.get(pk=1)
         # Register Report to be streamed
         registry.register(reports)
