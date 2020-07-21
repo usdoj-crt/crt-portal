@@ -453,7 +453,7 @@ $theme-body-copy-line-height:      1.625;
 
 @mixin text--body-copy__medium {
   font-size: $theme-text-font-size-md;
-  line-height: 1.625;
+  line-height: $theme-body-copy-line-height;
 }
 
 @mixin text--body-copy__large {
