@@ -348,15 +348,9 @@ $arrow-height: 24px;
       height: 100%;
       &[aria-expanded='false'] {
         background-image: url(../../img/angle-arrow-down-white.svg) !important;
-        &:hover {
-          background-image: url(../../img/angle-arrow-down-primary.svg) !important;
-        }
       }
       &[aria-expanded='true'] {
         background-image: url(../../img/angle-arrow-up-white.svg) !important;
-        &:hover {
-          background-image: url(../../img/angle-arrow-up-primary.svg) !important;
-        }
       }
 
       &:hover {
