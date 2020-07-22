@@ -122,7 +122,9 @@
     primary_statute: '',
     sort: '',
     page: '',
-    per_page: ''
+    per_page: '',
+    servicemember: '',
+    hate_crime: ''
   };
   var filterDataModel = {};
 

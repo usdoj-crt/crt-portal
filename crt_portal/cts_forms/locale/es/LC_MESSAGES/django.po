@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-01 19:49+0000\n"
+"POT-Creation-Date: 2020-06-19 21:12+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1182,9 +1182,11 @@ msgstr ""
 msgid "Any supporting materials (please list and describe them)."
 msgstr "Cualquier material de apoyo (haga una lista y describa cada artículo)."
 
-#: templates/base.html:22 templates/base.html:40
-msgid "Civil Rights Division - Department of Justice"
-msgstr "La División de Derechos Civiles - Departamento de Justicia"
+#: templates/base.html:22 templates/base.html:40 templates/forms/base.html:19
+#: templates/forms/report_base.html:13
+msgid "Contact the Civil Rights Division | Department of Justice"
+msgstr ""
+"Comuníquese con la División de Derechos Civiles | Departamento de Justicia"
 
 #  Meta tag description of site
 #: templates/base.html:28
@@ -1216,22 +1218,22 @@ msgid "Civil Rights Division"
 msgstr "División de Derechos Civiles"
 
 #: templates/forms/base.html:15
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "        Step %(stage_number)s: %(current_step_name)s - Contact the Civil "
+#| "Rights Division | Department of Justice\n"
+#| "      "
 msgid ""
 "\n"
 "        Step %(stage_number)s: %(current_step_name)s - Contact the Civil "
-"Rights Division - Department of Justice\n"
+"Rights Division | Department of Justice\n"
 "      "
 msgstr ""
 "\n"
 "        Step %(stage_number)s: %(current_step_name)s - Comuníquese con la "
 "División de Derechos Civiles - Departamento de Justicia\n"
 "      "
-
-#: templates/forms/base.html:19 templates/forms/report_base.html:13
-msgid "Contact the Civil Rights Division - Department of Justice"
-msgstr ""
-"Comuníquese con la División de Derechos Civiles - Departamento de Justicia"
 
 #: templates/forms/base.html:38
 #: templates/partials/banner/usa_banner_header.html:9
@@ -1509,16 +1511,21 @@ msgid "completed"
 msgstr "completado"
 
 #: templates/forms/report_base.html:8
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "          Step %(stage_number)s: %(current_step_name)s - Contact the "
+#| "Civil Rights Division | Department of Justice\n"
+#| "        "
 msgid ""
 "\n"
 "          Step %(stage_number)s: %(current_step_name)s - Contact the Civil "
-"Rights Division - Department of Justice\n"
+"Rights Division | Department of Justice\n"
 "        "
 msgstr ""
 "\n"
 "        Step %(stage_number)s: %(current_step_name)s - Comuníquese con la "
-"División de Derechos Civiles - Departamento de Justicia\n"
+"División de Derechos Civiles | Departamento de Justicia\n"
 "      "
 
 #: templates/forms/report_base.html:22

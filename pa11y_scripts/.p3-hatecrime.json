@@ -11,7 +11,9 @@
         "click element #id_1-primary_complaint_0",
         "wait for element #submit-next to be visible",
         "click element #submit-next",
-        "wait for element #id_2-hate_crime_0 to be visible"
+        "wait for element #id_2-hate_crime_0 to be visible",
+        "click element .external-link--popup",
+        "wait for element #external-link--modal to be visible"
       ],
       "screenCapture": "pa11y-screenshots/page3-hatecrime.png"
     }
