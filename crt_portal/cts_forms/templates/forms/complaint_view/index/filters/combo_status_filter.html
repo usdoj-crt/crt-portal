@@ -2,9 +2,5 @@
 
 {% block content %}
 <!--Used to test combo_status_filter template-->
-  <div class="usa-checkbox">
-    <input class="usa-checkbox__input" id="{{form.fields.status.widget.attrs.name}}" type="checkbox" name="{{form.status.label}}" value="{{form.status.label}}" checked/>
-    <label class="usa-checkbox__label" for="id_{{form.fields.status.widget.attrs.name}}"></label>
-  </div>
   {{ form.status }}
 {% endblock %}
