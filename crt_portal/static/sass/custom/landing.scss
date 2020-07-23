@@ -144,7 +144,7 @@ $arrow-height: 24px;
     @extend .usa-footer__logo-subheading;
     font-size: $theme-text-font-size-sm;
     @media screen and (max-width: 400px) {
-      font-size: 10px;
+      @include text--body-copy__xsmall();
     }
   }
 
