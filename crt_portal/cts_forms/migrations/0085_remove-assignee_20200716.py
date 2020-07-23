@@ -15,34 +15,29 @@ class Migration(migrations.Migration):
     ]
 
     def remove_assignee(apps, schema_editor):
-        # get all reports
-        reports = apps.get_model('cts_forms', 'Report')
-        # user = apps.get_model('cts_forms', 'User')
         User = get_user_model()
         userlist = User.objects.all().order_by('id')
         # // Assuming that first user is the root user or superuser. If there are on users, create a dummy one
         if len(userlist) > 0:
             superuser = userlist[0]
-        else:
-            superuser = User.objects.create_user('migration_user')
-
-        # superuser = User.objects.get(pk=1)
-        # Register Report to be streamed
-        registry.register(reports)
-        timezone = pytz.timezone("UTC")
-        july1 = timezone.localize(datetime(2020, 7, 1))
-        for report in reports.objects.all():
-            # remove assignee for report closed date is before june 30 2020,
-            if report.closed_date is not None:
-                print(report.closed_date)
-                if report.closed_date < july1:
-                    report.assigned_to = None
-                    report.save()
-                    # Add the closed activity to activity stream
-                    action.send(superuser, verb='Assignee Removed: ',
-                                description='Removed assignee for closed record before July 1, 2020',
-                                target=report)
-
+            # get all reports
+            reports = apps.get_model('cts_forms', 'Report')
+            # superuser = User.objects.get(pk=1)
+            # Register Report to be streamed
+            registry.register(reports)
+            timezone = pytz.timezone("UTC")
+            july1 = timezone.localize(datetime(2020, 7, 1))
+            for report in reports.objects.all():
+                # remove assignee for report closed date is before june 30 2020,
+                if report.closed_date is not None:
+                    print(report.closed_date)
+                    if report.closed_date < july1:
+                        report.assigned_to = None
+                        report.save()
+                        # Add the closed activity to activity stream
+                        action.send(superuser, verb='Assignee Removed: ',
+                                    description='Removed assignee for closed record before July 1, 2020',
+                                    target=report)
     operations = [
         migrations.RunPython(remove_assignee),
     ]
