@@ -8,7 +8,7 @@
        {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}
 >
   <div class="label-text margin-top-2">
-    <p class="margin-top-0 margin-bottom-0" style="text-indent: 0px;">{{ widget.label }}</p>
+    <p class="margin-top-0 margin-bottom-0 radio-text-indent">{{ widget.label }}</p>
     {% if widget.attrs.help_text %}
       {% with help_text=widget.attrs.help_text|get_dict_item:widget.value %}
       {% if help_text %}

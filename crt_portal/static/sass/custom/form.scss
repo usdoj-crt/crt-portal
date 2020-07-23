@@ -317,6 +317,9 @@ form#report-form {
   }
 }
 
+.radio-text-indent {
+  text-indent: 0px;
+}
 // Remove extra dropown error from datalist element
 [list]::-webkit-calendar-picker-indicator {
   display: none;
