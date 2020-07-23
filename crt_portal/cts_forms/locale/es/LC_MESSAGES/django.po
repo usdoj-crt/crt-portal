@@ -1461,11 +1461,11 @@ msgstr "Busque ayuda inmediata si está usted en peligro"
 msgid ""
 "If you reported an incident where you or someone else has experienced or is "
 "still experiencing physical harm or violence, or are in immediate danger, "
-"please call <a href=\"tel:911\">9-1-1</a> and contact the police."
+"please call <a href=\"tel:911\">911</a> and contact the police."
 msgstr ""
 "Si usted informó de un incidente en el cual usted u otra persona fue o sigue "
 "siendo víctima de daños corporales o violencia o si está en peligro "
-"inmediato, llame a <a href=\"tel:911\">9-1-1</a> para comunicarse con la "
+"inmediato, llame a <a href=\"tel:911\">911</a> para comunicarse con la "
 "policía."
 
 #: templates/forms/confirmation.html:174
