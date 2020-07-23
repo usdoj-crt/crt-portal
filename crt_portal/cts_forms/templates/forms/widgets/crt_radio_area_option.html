@@ -11,7 +11,6 @@
     <h3 class="question--label">
       {{ widget.label }}<span class="usa-sr-only">.</span>
     </h3>
-    <hr>
     {% if widget.value != None %}
       {% for reason, helptext in widget.attrs.choices_to_helptext.items %}
         {% if widget.value == reason %}
