@@ -827,7 +827,9 @@ class ProForm(
             required=False,
             label=PROTECTED_CLASS_QUESTION,
             queryset=ProtectedClass.active_choices.all().order_by('form_order'),
-            widget=UsaCheckboxSelectMultiple(),
+            widget=UsaCheckboxSelectMultiple(attrs={
+                'aria-describedby': 'protected-class-help-text'
+            }),
         )
         self.fields['last_incident_day'].label = DATE_QUESTIONS['last_incident_day']
         self.fields['last_incident_month'].label = DATE_QUESTIONS['last_incident_month']
@@ -900,17 +902,6 @@ class Filters(ModelForm):
         })
     )
 
-    def __init__(self, *args, **kwargs):
-        ModelForm.__init__(self, *args, **kwargs)
-        self.fields['assigned_section'] = ModelMultipleChoiceField(
-            required=False,
-            label='assigned_section',
-            queryset=SECTION_CHOICES,
-            widget=UsaCheckboxSelectMultiple(attrs={
-                'aria-describedby': 'protected-class-help-text'
-            }),
-        )
-
     class Meta:
         model = Report
         fields = [
@@ -941,6 +932,10 @@ class Filters(ModelForm):
             'violation_summary': 'Personal description',
         }
         widgets = {
+            'assigned_section': CrtMultiSelect(attrs={
+                'class': 'text-uppercase',
+                'name': 'assigned_section'
+            }),
             'contact_first_name': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'contact_first_name'
