@@ -1602,7 +1602,7 @@ msgstr "Está saliendo del sitio web del Departamento de Justicia."
 
 #: templates/forms/report_hate_crime.html:37
 msgid "You will automatically be redirected to:"
-msgstr ""
+msgstr "Será redirigido automáticamente a:"
 
 #: templates/forms/report_hate_crime.html:43
 msgid ""
