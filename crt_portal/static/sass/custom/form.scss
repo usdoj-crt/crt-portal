@@ -18,6 +18,13 @@ form#report-form {
     }
   }
 
+  .zip--code--margin {
+    margin-top: 0;
+    @include at-media-max(mobile-lg){
+      margin-top: 1.5rem;
+    }
+  }
+
   fieldset:first-of-type .question--header {
     margin-top: 0;
   }
@@ -272,6 +279,7 @@ form#report-form {
         margin-bottom: units($spacer-1x);
         padding-left: units($spacer-5x);
         border-bottom: 1px solid color($theme-color-base-lighter);
+        padding-bottom: .5rem;
       }
 
       ul {
