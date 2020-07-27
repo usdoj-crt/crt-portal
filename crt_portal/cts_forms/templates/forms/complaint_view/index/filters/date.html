@@ -1,0 +1,12 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+{% block controls %}date{% endblock %}
+{% block label %}Date{% endblock %}
+{% block id %}date{% endblock %}
+
+{% block content %}
+  <div id="recd-date-filter">
+    <label for="id_{{form.fields.received_from_date.widget.attrs.name}}" class="margin-bottom-1">{{ form.received_date }}</label>
+    {{ form.crt_reciept_day }} {{ form.crt_reciept_month }} {{ form.crt_reciept_year }}
+  </div>
+
+{% endblock %}

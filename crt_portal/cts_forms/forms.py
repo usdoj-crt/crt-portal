@@ -12,6 +12,7 @@ from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           TypedChoiceField)
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+from django.forms.widgets import CheckboxSelectMultiple
 
 from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
@@ -930,7 +931,6 @@ class Filters(ModelForm):
             'primary_statute': 'Primary classification',
             'violation_summary': 'Personal description',
         }
-
         widgets = {
             'assigned_section': CrtMultiSelect(attrs={
                 'class': 'text-uppercase',
