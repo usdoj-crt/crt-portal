@@ -29,7 +29,6 @@ class Migration(migrations.Migration):
             for report in reports.objects.all():
                 # remove assignee for report closed date is before june 30 2020,
                 if report.closed_date is not None:
-                    print(report.closed_date)
                     if report.closed_date < july1:
                         report.assigned_to = None
                         report.save()
