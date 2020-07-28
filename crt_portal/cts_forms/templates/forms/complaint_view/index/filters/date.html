@@ -1,0 +1,27 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+{% block controls %}date{% endblock %}
+{% block label %}Date{% endblock %}
+{% block id %}date{% endblock %}
+
+{% block content %}
+<div class="usa-date-range-picker" id="create-date-filter">
+    <div class="usa-form-group">
+      <label for="id_{{form.fields.create_date.widget.attrs.name}}" class="usa-label" for="create-date-start">Created Date Range</label>      
+      {{ form.create_date }} 
+    </div>
+
+    <div class="usa-form-group">
+      <label class="usa-label" id="event-date-end-label" for="event-date-end">Event end date</label>
+      <div class="usa-hint" id="event-date-end-hint">mm/dd/yyyy</div>
+      <div class="usa-date-picker">
+        <input class="usa-input" id="event-date-end" name="event-date-end" type="text" aria-describedby="event-date-end-label event-date-end-hint">
+      </div>
+    </div>
+</div>
+
+<!--  <div id="create-date-filter">
+    <label for="id_{{form.fields.create_date.widget.attrs.name}}" class="margin-bottom-1">{{ form.labels.create_date.value }}</label>
+    {{ form.create_date }} 
+  </div>
+-->
+{% endblock %}

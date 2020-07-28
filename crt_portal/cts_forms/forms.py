@@ -915,6 +915,7 @@ class Filters(ModelForm):
             'public_id',
             'primary_statute',
             'violation_summary',
+            'create_date',
         ]
 
         labels = {
@@ -929,9 +930,14 @@ class Filters(ModelForm):
             'public_id': 'Complaint ID',
             'primary_statute': 'Primary classification',
             'violation_summary': 'Personal description',
+            'create_date': _('Created Date'),
         }
 
         widgets = {
+            'create_date': DateInput(attrs={
+                'format': '%Y/%m/%d',
+                'name': 'Created Date',
+            }),
             'assigned_section': CrtMultiSelect(attrs={
                 'class': 'text-uppercase',
                 'name': 'assigned_section'
@@ -960,6 +966,11 @@ class Filters(ModelForm):
                 'class': 'usa-input',
                 'name': 'violation_summary'
             }),
+        }
+        error_messages = {
+            'create_date': {
+                'in_future': _("Create date cannot be in the future."),
+            },
         }
 
 
@@ -1310,3 +1321,8 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
             self.summary_created = created
             self.summary = summary
         return report
+
+
+class DateFilterForm(Form):
+    dateStart = DateField(required=False)
+    dateEnd = DateField(required=False)

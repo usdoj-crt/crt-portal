@@ -7,6 +7,7 @@ from django.core.validators import MaxValueValidator, RegexValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
+from django.utils import timezone
 from django.template import Context, Template
 from django.utils.html import escape
 
@@ -166,8 +167,10 @@ class Report(models.Model):
 
     # Metadata
     public_id = models.CharField(max_length=100, null=False, blank=False)
-    create_date = models.DateTimeField(auto_now_add=True)
-    modified_date = models.DateTimeField(auto_now=True)
+    # create_date = models.DateTimeField(auto_now_add=True)
+    create_date = models.DateTimeField(default=timezone.now)
+    # modified_date = models.DateTimeField(auto_now=True)
+    modified_date = models.DateTimeField(default=timezone.now)
     crt_reciept_year = models.PositiveIntegerField(MaxValueValidator(datetime.now().year), null=True, blank=True)
     crt_reciept_day = models.PositiveIntegerField(MaxValueValidator(31), null=True, blank=True)
     crt_reciept_month = models.PositiveIntegerField(MaxValueValidator(12), null=True, blank=True)

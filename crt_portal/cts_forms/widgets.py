@@ -1,4 +1,4 @@
-from django.forms.widgets import ChoiceWidget, SelectMultiple
+from django.forms.widgets import ChoiceWidget, SelectMultiple, CheckboxSelectMultiple, DateInput
 
 
 class UsaRadioSelect(ChoiceWidget):
@@ -86,3 +86,8 @@ class DataAttributesSelect(ChoiceWidget):
         for key, value in data_attributes.items():
             option['attrs'][f"data-{key}"] = value
         return option
+
+
+class CRTDateField(DateInput):
+    input_type = 'text',
+    template_name = '../templates/forms/widgets/crt_date_entry.html'

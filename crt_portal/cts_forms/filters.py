@@ -76,6 +76,9 @@ def report_filter(request):
                 kwargs['assigned_to__username__in'] = request.GET.getlist(field)
             elif filter_options[field] == 'eq':
                 kwargs[field] = request.GET.getlist(field)[0]
+            elif filter_options[field] == '__gte':
+                kwargs[field] = request.GET.getlist(field)
 
+        print(kwargs)
     # returns a filtered query, and a dictionary that we can use to keep track of the filters we apply
     return Report.objects.filter(**kwargs), filters
