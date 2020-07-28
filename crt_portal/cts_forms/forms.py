@@ -4,7 +4,7 @@ from datetime import datetime
 from actstream import action
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
-from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
+from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField, DateField, DateInput,
                           EmailInput, HiddenInput, IntegerField,
                           ModelChoiceField, ModelForm, Form,
                           ModelMultipleChoiceField,
@@ -857,6 +857,10 @@ class ProForm(
 
 
 class Filters(ModelForm):
+    modified_date = DateField(
+        required=False,
+        widget=DateInput(format='%Y/%m/%d'),
+    )
     status = ChoiceField(
         required=False,
         choices=_add_empty_choice(STATUS_CHOICES),
@@ -916,6 +920,7 @@ class Filters(ModelForm):
             'public_id',
             'primary_statute',
             'violation_summary',
+            'modified_date',
         ]
 
         labels = {
@@ -930,6 +935,7 @@ class Filters(ModelForm):
             'public_id': 'Complaint ID',
             'primary_statute': 'Primary classification',
             'violation_summary': 'Personal description',
+            'modified_date': _('Modified Date'),
         }
         widgets = {
             'assigned_section': CrtMultiSelect(attrs={
@@ -960,6 +966,11 @@ class Filters(ModelForm):
                 'class': 'usa-input',
                 'name': 'violation_summary'
             }),
+        }
+        error_messages = {
+            'modified_date': {
+                'in_future': _("Create date cannot be in the future."),
+            },
         }
 
 
