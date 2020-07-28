@@ -856,13 +856,12 @@ class ProForm(
 
 
 class Filters(ModelForm):
-    status = ChoiceField(
-        required=False,
-        choices=_add_empty_choice(STATUS_CHOICES),
-        widget=Select(attrs={
-            'name': 'status',
-            'class': 'usa-select',
-        })
+    status = MultipleChoiceField(
+            initial=(('new', 'New'),('open', 'Open')),
+            required=False,
+            label='status',
+            choices=STATUS_CHOICES,
+            widget=UsaCheckboxSelectMultiple(),
     )
     location_state = ChoiceField(
         required=False,
@@ -903,12 +902,6 @@ class Filters(ModelForm):
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
-        self.fields['status'] = MultipleChoiceField(
-            required=False,
-            label='status',
-            choices=STATUS_CHOICES,
-            widget=UsaCheckboxSelectMultiple(),
-        )
 
     class Meta:
         model = Report

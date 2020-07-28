@@ -195,6 +195,20 @@
 
     window.location = form.action + finalQuery;
   };
+  // function defaultStatusValues(){
+  //   var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
+  //     Object.keys(initialFilterState).forEach(function(key) {
+  //       filterDataModel[key] = initialFilterState[key];
+  //     });
+
+
+  //   filterUpdates.status = ['new','open']
+
+  //   console.log(filterUpdates);
+  //   mutateFilterDataWithUpdates(filterDataModel, filterUpdates);
+
+  //   formView.doSearch(dom.getElementById('filters-form'));
+  // }
 
   /**
    * View to control multiselect element behavior
@@ -231,12 +245,19 @@
 
   checkBoxView.getValues = function(el){
     if(el.checked) {
+      var status = filterDataModel.status;
+      if(status && status.includes('none')) {
+        status.splice(status.indexOf('none', 1));
+      }
       filterDataModel[event.target.name].push(el.value);
       return el.value;
     }
     else{
       var index = filterDataModel[event.target.name].indexOf(el.value)
       filterDataModel[event.target.name].splice(index, 1);
+      if(filterDataModel.status.length === 0){
+        filterDataModel.status.push('none');
+      }
       return el.value;
     } 
   };
@@ -273,7 +294,6 @@
     var locationStateEl = formEl.querySelector('select[name="location_state"]');
     var activeFiltersEl = dom.querySelector('[data-active-filters]');
     var clearAllEl = dom.querySelector('[data-clear-filters]');
-    // var statusEl = formEl.querySelector('select[name="status"]');
     var statusEl = dom.getElementsByName('status');
     var summaryEl = formEl.querySelector('input[name="summary"]');
     var assigneeEl = formEl.querySelector('#id_assigned_to');
@@ -317,6 +337,9 @@
 
         if (currentFilterData.length) {
           updates[filterName] = initialFilterState[filterName];
+          if(filterName == 'status') {
+            updates[filterName] = ['none']
+          }
         }
 
         return updates;
@@ -357,10 +380,6 @@
       el: activeFiltersEl,
       onClick: onFilterTagClick
     });
-    // textInputView({
-    //   el: statusEl,
-    //   name: 'status'
-    // });
     checkBoxView({
       el: statusEl,
       name: 'status'
@@ -394,11 +413,19 @@
   // Bootstrap the filter code's data persistence and
   // instantiate the controller that manages the UI components / views
   function init() {
+    if(root.location.search === ''){
+      root.location.search = '?status=new&status=open';
+    }
     var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
+
     Object.keys(initialFilterState).forEach(function(key) {
       filterDataModel[key] = initialFilterState[key];
     });
 
+
+    // filterUpdates.status = ['new','open']
+
+    console.log(filterUpdates);
     mutateFilterDataWithUpdates(filterDataModel, filterUpdates);
 
     filterController();
