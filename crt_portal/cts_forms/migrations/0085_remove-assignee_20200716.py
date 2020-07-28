@@ -14,6 +14,9 @@ class Migration(migrations.Migration):
         ('cts_forms', '0084_form_template_standardization'),
     ]
 
+    def unremove_assignee(apps, schema_editor):
+        pass
+
     def remove_assignee(apps, schema_editor):
         User = get_user_model()
         userlist = User.objects.all().order_by('id')
@@ -37,5 +40,5 @@ class Migration(migrations.Migration):
                                     description='Removed assignee for closed record before July 1, 2020',
                                     target=report)
     operations = [
-        migrations.RunPython(remove_assignee),
+        migrations.RunPython(remove_assignee, unremove_assignee),
     ]
