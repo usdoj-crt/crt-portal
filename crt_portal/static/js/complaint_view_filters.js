@@ -226,21 +226,20 @@
   function checkBoxView(props) {
     props.el.forEach(function(element) {
       element.addEventListener('change', function(event) {
-        checkBoxView.getValues(event.target)
+        checkBoxView.getValues(event.target);
       });
     });
-  };
+  }
 
-  checkBoxView.getValues = function(el){
-    if(el.checked) {
+  checkBoxView.getValues = function(el) {
+    if (el.checked) {
       filterDataModel[event.target.name].push(el.value);
       return el.value;
-    }
-    else{
-      var index = filterDataModel[event.target.name].indexOf(el.value)
+    } else {
+      var index = filterDataModel[event.target.name].indexOf(el.value);
       filterDataModel[event.target.name].splice(index, 1);
       return el.value;
-    } 
+    }
   };
 
   /**
@@ -295,7 +294,7 @@
 
         sections.splice(sections.indexOf(filterData), 1);
         filterDataModel.assigned_section = sections;
-      } else if (filterName === 'status'){
+      } else if (filterName === 'status') {
         var status = filterDataModel.status;
         var filterData = node.getAttribute('data-filter-value');
 
@@ -360,7 +359,7 @@
     checkBoxView({
       el: statusEl,
       name: 'status'
-    })
+    });
     textInputView({
       el: summaryEl,
       name: 'summary'
@@ -390,7 +389,7 @@
   // Bootstrap the filter code's data persistence and
   // instantiate the controller that manages the UI components / views
   function init() {
-    if(root.location.search === ''){
+    if (root.location.search === '') {
       root.location.search = '?status=new&status=open&no_status=false';
     }
     var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
