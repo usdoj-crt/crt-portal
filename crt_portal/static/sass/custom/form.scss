@@ -4,7 +4,8 @@
 // that we'd prefer not to have bulleted, like
 // radio buttons; so remove list item bullets by default.
 form#details-edit-form,
-form#report-form {
+form#report-form,
+form#filters-form {
   .question--header {
     width: 100%; // IE11 fix
     // margin-top: 0.5rem;

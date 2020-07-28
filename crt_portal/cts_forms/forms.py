@@ -905,7 +905,7 @@ class Filters(ModelForm):
         ModelForm.__init__(self, *args, **kwargs)
         self.fields['status'] = MultipleChoiceField(
             required=False,
-            label='status foobar',
+            label='status',
             choices=STATUS_CHOICES,
             widget=UsaCheckboxSelectMultiple(),
         )
@@ -1023,21 +1023,15 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             choices=SECTION_CHOICES,
             required=False
         )
-        #self.fields['status'] = ChoiceField(
-        #    widget=ComplaintSelect(
-        #        label='Status',
-        #        attrs={
-        #            'class': 'crt-dropdown__data',
-        #        },
-        #    ),
-        #    choices=STATUS_CHOICES,
-        #    required=False
-        #)
-        self.fields['status'] = MultipleChoiceField(
-            required=False,
-            label='FooBar',
-            choices=STATUS_CHOICES,
-            #widget=UsaCheckboxSelectMultiple(),
+        self.fields['status'] = ChoiceField(
+           widget=ComplaintSelect(
+               label='Status',
+               attrs={
+                   'class': 'crt-dropdown__data',
+               },
+           ),
+           choices=STATUS_CHOICES,
+           required=False
         )
         self.fields['primary_statute'] = ChoiceField(
             widget=ComplaintSelect(
