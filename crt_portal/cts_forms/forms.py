@@ -857,11 +857,11 @@ class ProForm(
 
 class Filters(ModelForm):
     status = MultipleChoiceField(
-            initial=(('new', 'New'),('open', 'Open')),
-            required=False,
-            label='status',
-            choices=STATUS_CHOICES,
-            widget=UsaCheckboxSelectMultiple(),
+        initial=(('new', 'New'), ('open', 'Open')),
+        required=False,
+        label='status',
+        choices=STATUS_CHOICES,
+        widget=UsaCheckboxSelectMultiple(),
     )
     location_state = ChoiceField(
         required=False,
@@ -1011,20 +1011,22 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         self.fields['assigned_section'] = ChoiceField(
             widget=ComplaintSelect(
                 label='Section',
-                attrs={'class': 'usa-select text-bold text-uppercase crt-dropdown__data'},
+                attrs={
+                    'class': 'usa-select text-bold text-uppercase crt-dropdown__data'
+                },
             ),
             choices=SECTION_CHOICES,
             required=False
         )
         self.fields['status'] = ChoiceField(
-           widget=ComplaintSelect(
-               label='Status',
-               attrs={
-                   'class': 'crt-dropdown__data',
-               },
-           ),
-           choices=STATUS_CHOICES,
-           required=False
+            widget=ComplaintSelect(
+                label='Status',
+                attrs={
+                    'class': 'crt-dropdown__data',
+                },
+            ),
+            choices=STATUS_CHOICES,
+            required=False
         )
         self.fields['primary_statute'] = ChoiceField(
             widget=ComplaintSelect(
