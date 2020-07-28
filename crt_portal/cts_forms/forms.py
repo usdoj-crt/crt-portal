@@ -888,6 +888,7 @@ class Filters(ModelForm):
             attrs={
                 'class': 'usa-input',
                 'name': 'summary',
+                'placeholder': 'CRT summary'
             },
         ),
     )
@@ -956,11 +957,13 @@ class Filters(ModelForm):
             }),
             'public_id': TextInput(attrs={
                 'class': 'usa-input',
-                'name': 'public_id'
+                'name': 'public_id',
+                'placeholder': 'ID'
+
             }),
             'violation_summary': TextInput(attrs={
                 'class': 'usa-input',
-                'name': 'violation_summary'
+                'name': 'violation_summary',
             }),
         }
 
