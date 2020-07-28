@@ -123,6 +123,8 @@
     sort: '',
     page: '',
     per_page: '',
+    servicemember: '',
+    hate_crime: ''
   };
   var filterDataModel = {};
 

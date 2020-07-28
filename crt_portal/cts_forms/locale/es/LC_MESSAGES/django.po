@@ -1182,9 +1182,11 @@ msgstr ""
 msgid "Any supporting materials (please list and describe them)."
 msgstr "Cualquier material de apoyo (haga una lista y describa cada artículo)."
 
-#: templates/base.html:22 templates/base.html:40
-msgid "Civil Rights Division - Department of Justice"
-msgstr "La División de Derechos Civiles - Departamento de Justicia"
+#: templates/base.html:22 templates/base.html:40 templates/forms/base.html:19
+#: templates/forms/report_base.html:13
+msgid "Contact the Civil Rights Division | Department of Justice"
+msgstr ""
+"Comuníquese con la División de Derechos Civiles | Departamento de Justicia"
 
 #  Meta tag description of site
 #: templates/base.html:28
@@ -1216,22 +1218,22 @@ msgid "Civil Rights Division"
 msgstr "División de Derechos Civiles"
 
 #: templates/forms/base.html:15
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "        Step %(stage_number)s: %(current_step_name)s - Contact the Civil "
+#| "Rights Division | Department of Justice\n"
+#| "      "
 msgid ""
 "\n"
 "        Step %(stage_number)s: %(current_step_name)s - Contact the Civil "
-"Rights Division - Department of Justice\n"
+"Rights Division | Department of Justice\n"
 "      "
 msgstr ""
 "\n"
 "        Step %(stage_number)s: %(current_step_name)s - Comuníquese con la "
 "División de Derechos Civiles - Departamento de Justicia\n"
 "      "
-
-#: templates/forms/base.html:19 templates/forms/report_base.html:13
-msgid "Contact the Civil Rights Division - Department of Justice"
-msgstr ""
-"Comuníquese con la División de Derechos Civiles - Departamento de Justicia"
 
 #: templates/forms/base.html:38
 #: templates/partials/banner/usa_banner_header.html:9
@@ -1509,16 +1511,21 @@ msgid "completed"
 msgstr "completado"
 
 #: templates/forms/report_base.html:8
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "          Step %(stage_number)s: %(current_step_name)s - Contact the "
+#| "Civil Rights Division | Department of Justice\n"
+#| "        "
 msgid ""
 "\n"
 "          Step %(stage_number)s: %(current_step_name)s - Contact the Civil "
-"Rights Division - Department of Justice\n"
+"Rights Division | Department of Justice\n"
 "        "
 msgstr ""
 "\n"
 "        Step %(stage_number)s: %(current_step_name)s - Comuníquese con la "
-"División de Derechos Civiles - Departamento de Justicia\n"
+"División de Derechos Civiles | Departamento de Justicia\n"
 "      "
 
 #: templates/forms/report_base.html:22
@@ -2027,6 +2034,10 @@ msgstr ""
 "\"tel:800-285-2221\">(800) 285-2221</a> para localizar a un abogado a través "
 "del Colegio de Abogados Estadounidense. "
 
+#: templates/landing.html:371
+msgid "Image attributions"
+msgstr ""
+
 #: templates/partials/footer.html:32
 msgid "(toll-free)"
 msgstr "(gratis)"
@@ -2289,7 +2300,7 @@ msgstr ""
 "                    "
 
 # don't have this
-#: templates/privacy.html:97 templates/privacy.html:163
+#: templates/privacy.html:97 templates/privacy.html:168
 msgid "Return to top"
 msgstr "Volver al principio"
 
@@ -2493,6 +2504,25 @@ msgstr ""
 "                    <li>Leyes de Derechos Civiles de 1870, 1957, 1960 y "
 "1964</li>\n"
 "                    "
+
+#: templates/privacy.html:162
+msgid ""
+"\n"
+"                The full list of routine uses for this correspondence can be "
+"found in the System of Records Notice titled, JUSTICE/CRT – 001, \"Central "
+"Civil Rights Division Index File and Associated Records\", 68 Fed. Reg. "
+"47610, 611 (8-11-2003); 70 Fed. Reg. 43904 (7-29-2005); 72 Fed. Reg. 3410 "
+"(1-25-2007) (rescinded by 82 FR 24147); 82 Fed. Reg. 24147 (5-25-2017).\n"
+"                "
+msgstr ""
+"\n"
+"                La lista de usos rutinarios para esta correspondencia se "
+"encuentra en la Notificación del Sistema de Registros bajo el título JUSTICE/"
+"CRT – 001, \"Central Civil Rights Division Index File and Associated Records"
+"\", 68 Reg. Fed. 47610, 611 (11-8-2003); 70 Reg. Fed. 43904 (29-7-2005); 72 "
+"Reg. Fed. 3410 (25-1-2007) (rescindido por 82 FR 24147); 82 Reg. Fed. 24147 "
+"(25-5-2017).\n"
+"                "
 
 #: views.py:45
 msgid "Bad request"
