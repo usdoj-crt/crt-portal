@@ -122,7 +122,7 @@
     primary_statute: '',
     sort: '',
     page: '',
-    per_page: ''
+    per_page: '',
   };
   var filterDataModel = {};
 
@@ -195,20 +195,6 @@
 
     window.location = form.action + finalQuery;
   };
-  // function defaultStatusValues(){
-  //   var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
-  //     Object.keys(initialFilterState).forEach(function(key) {
-  //       filterDataModel[key] = initialFilterState[key];
-  //     });
-
-
-  //   filterUpdates.status = ['new','open']
-
-  //   console.log(filterUpdates);
-  //   mutateFilterDataWithUpdates(filterDataModel, filterUpdates);
-
-  //   formView.doSearch(dom.getElementById('filters-form'));
-  // }
 
   /**
    * View to control multiselect element behavior
@@ -245,19 +231,12 @@
 
   checkBoxView.getValues = function(el){
     if(el.checked) {
-      var status = filterDataModel.status;
-      if(status && status.includes('none')) {
-        status.splice(status.indexOf('none', 1));
-      }
       filterDataModel[event.target.name].push(el.value);
       return el.value;
     }
     else{
       var index = filterDataModel[event.target.name].indexOf(el.value)
       filterDataModel[event.target.name].splice(index, 1);
-      if(filterDataModel.status.length === 0){
-        filterDataModel.status.push('none');
-      }
       return el.value;
     } 
   };
@@ -334,12 +313,8 @@
         var filterName = node.getAttribute('data-filter-name');
         var currentFilterData = filterDataModel[filterName];
         currentFilterData = wrapValue(currentFilterData);
-
         if (currentFilterData.length) {
           updates[filterName] = initialFilterState[filterName];
-          if(filterName == 'status') {
-            updates[filterName] = ['none']
-          }
         }
 
         return updates;
@@ -414,7 +389,7 @@
   // instantiate the controller that manages the UI components / views
   function init() {
     if(root.location.search === ''){
-      root.location.search = '?status=new&status=open';
+      root.location.search = '?status=new&status=open&no_status=false';
     }
     var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
 
@@ -422,10 +397,6 @@
       filterDataModel[key] = initialFilterState[key];
     });
 
-
-    // filterUpdates.status = ['new','open']
-
-    console.log(filterUpdates);
     mutateFilterDataWithUpdates(filterDataModel, filterUpdates);
 
     filterController();
