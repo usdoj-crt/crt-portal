@@ -10,12 +10,8 @@
       <div class="usa-date-picker">
         <label for="id_{{form.create_date_start.name}}" class="usa-label" for="{{form.create_date_start.name}}">From:</label>
         {{ form.create_date_start}}
-        <input class="usa-input" id="id_{{form.create_date_start.name}}" name="create_date_start" type="date" 
-          aria-describedby="event-date-end-label event-date-end-hint" placeholder="from" >
         <label for="id_{{form.create_date_end.name}}" class="usa-label" for="form.create_date_end.name">To:</label>
         {{ form.create_date_end}}
-        <input class="usa-input" id="id_{{form.create_date_end.name}}" name="create_date_end" type="date" 
-          aria-describedby="event-date-end-label event-date-end-hint" placeholder="to" >
       </div>
     </div>
     <button class="usa-button margin-top-2" type="submit">Apply Dates</button>
