@@ -900,19 +900,21 @@ class Filters(ModelForm):
             'class': 'usa-input'
         })
     )
-    create_date_start = DateField(
+    create_date_start = CharField(
         required=False,
         label="From:",
         widget=DateInput(attrs={
-            'input_type': 'date',
+            'class': 'datepicker',
+            'format': '%m/%d/%Y',
             'name': 'create_date_start',
         }),
     )
-    create_date_end = DateField(
+    create_date_end = CharField(
         required=False,
         label="To:",
         widget=DateInput(attrs={
-            'input_type': 'date',
+            'class': 'datepicker',
+            'format': '%m/%d/%Y',
             'name': 'create_date_end',
         }),
     )

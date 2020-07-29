@@ -9,9 +9,11 @@
       <label class="usa-label" for="date_range_filter">Created Date Range</label>
       <div class="usa-date-picker">
         <label for="id_{{form.create_date_start.name}}" class="usa-label" for="{{form.create_date_start.name}}">From:</label>
-        {{ form.create_date_start}}
-        <label for="id_{{form.create_date_end.name}}" class="usa-label" for="form.create_date_end.name">To:</label>
-        {{ form.create_date_end}}
+        <input type="date" name="create_date_start" class="usa-input" format="%Y/%m/%d" id="id_create_date_start" 
+          aria-describedby="event-date-start-label event-date-start-hint" placeholder="from">
+        <label for="id_{{form.create_date_end.name}}" class="usa-label" for="{{form.create_date_end.name}}">To:</label>
+        <input type="date" name="create_date_end" class="usa-input" format="%Y/%m/%d" id="id_create_date_end" 
+          aria-describedby="event-date-end-label event-date-end-hint" placeholder="from">
       </div>
     </div>
     <button class="usa-button margin-top-2" type="submit">Apply Dates</button>

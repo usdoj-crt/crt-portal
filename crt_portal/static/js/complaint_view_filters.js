@@ -190,11 +190,9 @@
   formView.doSearch = function doSearch(form) {
     var preparedFilters = finalizeQueryParams(makeQueryParams(filterDataModel));
     var finalQuery = '';
-
     if (preparedFilters) {
       finalQuery = '?' + preparedFilters;
     }
-
     window.location = form.action + finalQuery;
   };
 
@@ -381,7 +379,6 @@
     });
 
     mutateFilterDataWithUpdates(filterDataModel, filterUpdates);
-    console.log(filterDataModel);
 
     filterController();
   }

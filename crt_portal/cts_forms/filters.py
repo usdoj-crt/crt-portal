@@ -1,6 +1,7 @@
 # Class to handle filtering Reports by supplied query params,
 # provided they are valid filterable model properties.
 import datetime
+import urllib.parse
 
 from .models import Report
 
@@ -62,10 +63,31 @@ def report_filter(request):
                 kwargs[f'{field}__icontains'] = request.GET.getlist(field)[0]
             elif 'date' in field:
                 # filters by a start date or an end date expects YYYYMMDD
+                # year = int(request.GET.getlist(field)[0][:4])
+                # month = int(request.GET.getlist(field)[0][4:6])
+                # day = int(request.GET.getlist(field)[0][6:])
+                # filters by a start date or an end date expects yyyy-mm-dd, or yyyy-mm, or yyyy
                 field_name = _get_date_field_from_param(field)
-                year = int(request.GET.getlist(field)[0][:4])
-                month = int(request.GET.getlist(field)[0][4:6])
-                day = int(request.GET.getlist(field)[0][6:])
+                encodedDate = request.GET.getlist(field)[0]
+                decodedDate = urllib.parse.unquote(encodedDate)
+                print(decodedDate)
+                tokens = decodedDate.split('-')
+                """
+                Set the date value to full date is supplied, or to just month and year, or just year
+                Default to Jan, 1, 2020
+                """
+                day = 1
+                month = 1
+                year = 2020
+                if len(tokens) == 3:
+                    year = int(tokens[0])
+                    month = int(tokens[1])
+                    day = int(tokens[2])
+                elif len(tokens) == 2:
+                    year = int(tokens[0])
+                    month = int(tokens[1])
+                elif len(tokens) == 1:
+                    year = int(tokens[0])
                 kwargs[f'{field_name}{filter_options[field]}'] = datetime.date(year, month, day)
             elif filter_options[field] == 'summary':
                 # assumes summaries are edited so there is only one per report - that is current behavior
@@ -78,8 +100,7 @@ def report_filter(request):
                 kwargs[field] = request.GET.getlist(field)[0]
             elif filter_options[field] == '__gte':
                 kwargs[field] = request.GET.getlist(field)
-
-    print(kwargs)
+            print(kwargs)
 
     # returns a filtered query, and a dictionary that we can use to keep track of the filters we apply
     return Report.objects.filter(**kwargs), filters
