@@ -167,10 +167,8 @@ class Report(models.Model):
 
     # Metadata
     public_id = models.CharField(max_length=100, null=False, blank=False)
-    # create_date = models.DateTimeField(auto_now_add=True)
-    create_date = models.DateTimeField(default=timezone.now)
-    # modified_date = models.DateTimeField(auto_now=True)
-    modified_date = models.DateTimeField(default=timezone.now)
+    create_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
     crt_reciept_year = models.PositiveIntegerField(MaxValueValidator(datetime.now().year), null=True, blank=True)
     crt_reciept_day = models.PositiveIntegerField(MaxValueValidator(31), null=True, blank=True)
     crt_reciept_month = models.PositiveIntegerField(MaxValueValidator(12), null=True, blank=True)
