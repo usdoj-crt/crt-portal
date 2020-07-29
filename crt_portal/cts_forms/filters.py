@@ -47,9 +47,9 @@ def _get_date_field_from_param(field):
 def report_filter(request):
     kwargs = {}
     filters = {}
+    print(request.GET)
     for field in filter_options.keys():
         filter_list = request.GET.getlist(field)
-
         if len(filter_list) > 0:
             filters[field] = request.GET.getlist(field)
             if filter_options[field] == '__in':
@@ -79,6 +79,7 @@ def report_filter(request):
             elif filter_options[field] == '__gte':
                 kwargs[field] = request.GET.getlist(field)
 
-        print(kwargs)
+    print(kwargs)
+
     # returns a filtered query, and a dictionary that we can use to keep track of the filters we apply
     return Report.objects.filter(**kwargs), filters

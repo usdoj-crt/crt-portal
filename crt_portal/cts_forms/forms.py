@@ -4,7 +4,7 @@ from datetime import datetime
 from actstream import action
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
-from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
+from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField, DateField, DateInput,
                           EmailInput, HiddenInput, IntegerField,
                           ModelChoiceField, ModelForm, Form,
                           ModelMultipleChoiceField,
@@ -900,6 +900,22 @@ class Filters(ModelForm):
             'class': 'usa-input'
         })
     )
+    create_date_start = DateField(
+        required=False,
+        label="From:",
+        widget=DateInput(attrs={
+            'input_type': 'date',
+            'name': 'create_date_start',
+        }),
+    )
+    create_date_end = DateField(
+        required=False,
+        label="To:",
+        widget=DateInput(attrs={
+            'input_type': 'date',
+            'name': 'create_date_end',
+        }),
+    )
 
     class Meta:
         model = Report
@@ -915,7 +931,6 @@ class Filters(ModelForm):
             'public_id',
             'primary_statute',
             'violation_summary',
-            'create_date',
         ]
 
         labels = {
@@ -930,14 +945,11 @@ class Filters(ModelForm):
             'public_id': 'Complaint ID',
             'primary_statute': 'Primary classification',
             'violation_summary': 'Personal description',
-            'create_date': _('Created Date'),
+            'create_date_start': _('Created Date Start'),
+            'create_date_end': _('Created Date End'),
         }
 
         widgets = {
-            'create_date': DateInput(attrs={
-                'format': '%Y/%m/%d',
-                'name': 'Created Date',
-            }),
             'assigned_section': CrtMultiSelect(attrs={
                 'class': 'text-uppercase',
                 'name': 'assigned_section'
@@ -1323,6 +1335,12 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         return report
 
 
-class DateFilterForm(Form):
-    dateStart = DateField(required=False)
-    dateEnd = DateField(required=False)
+# class DateFilterForm(ModelForm):
+#     class Meta:
+#         model = Report
+#         fields = ['create_date']
+
+
+# class DateFormRaw(Form):
+#     create_date = DateField(required=False, label='Start Range', widget=DateInput)
+#     dateEnd = DateField(required=False, label='End Range', widget=DateInput)

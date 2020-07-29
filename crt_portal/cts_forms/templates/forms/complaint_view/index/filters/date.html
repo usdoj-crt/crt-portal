@@ -4,24 +4,20 @@
 {% block id %}date{% endblock %}
 
 {% block content %}
-<div class="usa-date-range-picker" id="create-date-filter">
+<div class="usa-date-range-picker">
     <div class="usa-form-group">
-      <label for="id_{{form.fields.create_date.widget.attrs.name}}" class="usa-label" for="create-date-start">Created Date Range</label>      
-      {{ form.create_date }} 
-    </div>
-
-    <div class="usa-form-group">
-      <label class="usa-label" id="event-date-end-label" for="event-date-end">Event end date</label>
-      <div class="usa-hint" id="event-date-end-hint">mm/dd/yyyy</div>
+      <label class="usa-label" for="date_range_filter">Created Date Range</label>
       <div class="usa-date-picker">
-        <input class="usa-input" id="event-date-end" name="event-date-end" type="text" aria-describedby="event-date-end-label event-date-end-hint">
+        <label for="id_{{form.create_date_start.name}}" class="usa-label" for="{{form.create_date_start.name}}">From:</label>
+        {{ form.create_date_start}}
+        <input class="usa-input" id="id_{{form.create_date_start.name}}" name="create_date_start" type="date" 
+          aria-describedby="event-date-end-label event-date-end-hint" placeholder="from" >
+        <label for="id_{{form.create_date_end.name}}" class="usa-label" for="form.create_date_end.name">To:</label>
+        {{ form.create_date_end}}
+        <input class="usa-input" id="id_{{form.create_date_end.name}}" name="create_date_end" type="date" 
+          aria-describedby="event-date-end-label event-date-end-hint" placeholder="to" >
       </div>
     </div>
+    <button class="usa-button margin-top-2" type="submit">Apply Dates</button>
 </div>
-
-<!--  <div id="create-date-filter">
-    <label for="id_{{form.fields.create_date.widget.attrs.name}}" class="margin-bottom-1">{{ form.labels.create_date.value }}</label>
-    {{ form.create_date }} 
-  </div>
--->
 {% endblock %}
