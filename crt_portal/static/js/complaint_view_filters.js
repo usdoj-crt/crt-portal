@@ -124,7 +124,8 @@
     page: '',
     per_page: '',
     servicemember: '',
-    hate_crime: ''
+    hate_crime: '',
+    no_status: ''
   };
   var filterDataModel = {};
 
