@@ -377,6 +377,10 @@ select.usa-input--error {
   display: inline-block;
 }
 
+.id_input {
+  max-width: 10rem;
+}
+
 .grid-gap div:last-child {
   margin-right: 0;
 }
