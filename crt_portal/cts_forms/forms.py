@@ -855,6 +855,11 @@ class ProForm(
             return cleaned_data
 
 
+class CrtDateInput(DateInput):
+    input_type = 'date'
+    format = '%Y-%m-%d',
+
+
 class Filters(ModelForm):
     status = ChoiceField(
         required=False,
@@ -900,21 +905,19 @@ class Filters(ModelForm):
             'class': 'usa-input'
         })
     )
-    create_date_start = CharField(
+    create_date_start = DateField(
         required=False,
         label="From:",
-        widget=DateInput(attrs={
-            'class': 'datepicker',
-            'format': '%m/%d/%Y',
+        widget=CrtDateInput(attrs={
+            'class': 'usa-input',
             'name': 'create_date_start',
         }),
     )
-    create_date_end = CharField(
+    create_date_end = DateField(
         required=False,
         label="To:",
-        widget=DateInput(attrs={
-            'class': 'datepicker',
-            'format': '%m/%d/%Y',
+        widget=CrtDateInput(attrs={
+            'class': 'usa-input',
             'name': 'create_date_end',
         }),
     )
@@ -1335,14 +1338,3 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
             self.summary_created = created
             self.summary = summary
         return report
-
-
-# class DateFilterForm(ModelForm):
-#     class Meta:
-#         model = Report
-#         fields = ['create_date']
-
-
-# class DateFormRaw(Form):
-#     create_date = DateField(required=False, label='Start Range', widget=DateInput)
-#     dateEnd = DateField(required=False, label='End Range', widget=DateInput)
