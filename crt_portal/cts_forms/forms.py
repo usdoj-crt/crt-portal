@@ -858,7 +858,6 @@ class ProForm(
 
 class Filters(ModelForm):
     status = MultipleChoiceField(
-        initial=(('new', 'New'), ('open', 'Open')),
         required=False,
         label='status',
         choices=STATUS_CHOICES,
@@ -891,15 +890,11 @@ class Filters(ModelForm):
             },
         ),
     )
-    assigned_to = ModelChoiceField(
+    assigned_to = ModelMultipleChoiceField(
         required=False,
         queryset=User.objects.filter(is_active=True),
-        label=_("Assigned to"),
+        label='_("Assigned to")',
         to_field_name='username',
-        widget=Select(attrs={
-            'name': 'assigned_to',
-            'class': 'usa-input'
-        })
     )
     create_date_start = DateField(
         required=False,
@@ -957,8 +952,7 @@ class Filters(ModelForm):
         }
 
         widgets = {
-            'assigned_section': CrtMultiSelect(attrs={
-                'class': 'text-uppercase',
+            'assigned_section': UsaCheckboxSelectMultiple(attrs={
                 'name': 'assigned_section'
             }),
             'contact_first_name': TextInput(attrs={

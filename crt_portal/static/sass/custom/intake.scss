@@ -292,6 +292,18 @@
   }
 }
 
+form#section-filter-form {
+  .crt-dropdown {
+    background-color: color($theme-color-primary-darker);
+    border-bottom: 1px solid color('white');
+    margin-right: 1rem;
+    &__title {
+      color: color('white');
+      background-color: color($theme-color-primary-darker);
+    }
+  }
+}
+
 .outline-button {
   @extend .crt-button;
   @include u-border('solid');
