@@ -893,7 +893,7 @@ class Filters(ModelForm):
     assigned_to = ModelMultipleChoiceField(
         required=False,
         queryset=User.objects.filter(is_active=True),
-        label='_("Assigned to")',
+        label="Assigned to",
         to_field_name='username',
     )
     create_date_start = DateField(
