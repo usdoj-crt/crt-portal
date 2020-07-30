@@ -1,4 +1,4 @@
-(function (root, dom) {
+(function(root, dom) {
   /**
    * Convert an array-like object to an array.
    *
@@ -33,7 +33,7 @@
     var search = new URLSearchParams(queryString);
     var acceptedParams = (paramsWhitelist instanceof Array && paramsWhitelist) || [];
 
-    search.forEach(function (value, filterName) {
+    search.forEach(function(value, filterName) {
       if (acceptedParams.indexOf(filterName) >= 0) {
         paramsMap[filterName] = paramsMap[filterName] || [];
 
@@ -54,7 +54,7 @@
   function makeQueryParams(params) {
     var keys = Object.keys(params);
 
-    return keys.reduce(function (memo, key) {
+    return keys.reduce(function(memo, key) {
       var paramValue = params[key];
 
       if (!paramValue || !paramValue.length) {
@@ -63,7 +63,7 @@
 
       var valueToList = wrapValue(paramValue);
       var paramsString = valueToList
-        .reduce(function (accum, value) {
+        .reduce(function(accum, value) {
           accum.push(makeQueryParam(key, value));
 
           return accum;
@@ -202,12 +202,12 @@
    * @param {HTMLElement} props.el The DOM node this view manages
    */
   function multiSelectView(props) {
-    props.el.addEventListener('change', function (event) {
+    props.el.addEventListener('change', function(event) {
       filterDataModel[props.name] = multiSelectView.getValues(event.target);
     });
   }
 
-  multiSelectView.getValues = function (select) {
+  multiSelectView.getValues = function(select) {
     var options = toArray((select && select.options) || []);
 
     function isSelected(option) {
@@ -234,7 +234,7 @@
       );
     }
 
-    props.el.addEventListener('change', function (event) {
+    props.el.addEventListener('change', function(event) {
       filterDataModel[props.name] = event.target.value;
     });
   }
@@ -285,7 +285,7 @@
     function clearAllFilters() {
       const activeFilters = toArray(activeFiltersEl.children);
 
-      var updates = activeFilters.reduce(function (updates, node) {
+      var updates = activeFilters.reduce(function(updates, node) {
         var filterName = node.getAttribute('data-filter-name');
         var currentFilterData = filterDataModel[filterName];
         currentFilterData = wrapValue(currentFilterData);
@@ -374,7 +374,7 @@
   // instantiate the controller that manages the UI components / views
   function init() {
     var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
-    Object.keys(initialFilterState).forEach(function (key) {
+    Object.keys(initialFilterState).forEach(function(key) {
       filterDataModel[key] = initialFilterState[key];
     });
 
