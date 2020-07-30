@@ -900,9 +900,6 @@ class Filters(ModelForm):
         })
     )
 
-    def __init__(self, *args, **kwargs):
-        ModelForm.__init__(self, *args, **kwargs)
-
     class Meta:
         model = Report
         fields = [
@@ -1011,9 +1008,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         self.fields['assigned_section'] = ChoiceField(
             widget=ComplaintSelect(
                 label='Section',
-                attrs={
-                    'class': 'usa-select text-bold text-uppercase crt-dropdown__data'
-                },
+                attrs={'class': 'usa-select text-bold text-uppercase crt-dropdown__data'},
             ),
             choices=SECTION_CHOICES,
             required=False

@@ -235,11 +235,9 @@
   checkBoxView.getValues = function(el) {
     if (el.checked) {
       filterDataModel[event.target.name].push(el.value);
-      return el.value;
     } else {
       var index = filterDataModel[event.target.name].indexOf(el.value);
       filterDataModel[event.target.name].splice(index, 1);
-      return el.value;
     }
   };
 
