@@ -9,7 +9,9 @@
       {{ title_text }}
     </h1>
   </div>
+
   <div class="intake-actions">
+    {% include 'forms/complaint_view/index/filters/checkbox_section_filter.html' %}
     <a class="add-record" href="/form/new/" label="create record" name="Create record">
       <img src="{% static 'img/intake-icons/ic_add.svg'%}" alt="" class="icon" />
       Add new record

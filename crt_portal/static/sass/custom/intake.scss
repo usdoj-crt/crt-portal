@@ -102,11 +102,12 @@
       @include flex-container();
       flex-wrap: wrap;
       white-space: normal;
-  
+
       li {
         margin: 0.5rem;
       }
-      + .usa-button {
+
+      +.usa-button {
         margin-left: 2rem;
       }
     }
@@ -231,6 +232,18 @@
   .icon {
     height: 1rem;
     margin-right: 0.5rem;
+  }
+}
+
+form#section-filter-form {
+  .crt-dropdown {
+    background-color: color($theme-color-primary-darker);
+    border-bottom: 1px solid color('white');
+    margin-right: 1rem;
+    &__title {
+      color: color('white');
+      background-color: color($theme-color-primary-darker);
+    }
   }
 }
 

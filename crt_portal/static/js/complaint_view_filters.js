@@ -234,7 +234,14 @@
 
   checkBoxView.getValues = function(el) {
     if (el.checked) {
-      filterDataModel[event.target.name].push(el.value);
+      if (event.target.name == 'assigned_section' && el.value == 'all') {
+        var sectionEL = dom.getElementsByName('assigned_section');
+        var sectionVal = Array.from(sectionEL).map(x => x.value);
+        sectionVal.splice(sectionVal.indexOf('all'), 1);
+        filterDataModel[event.target.name] = sectionVal;
+      } else {
+        filterDataModel[event.target.name].push(el.value);
+      }
       return el.value;
     } else {
       var index = filterDataModel[event.target.name].indexOf(el.value);
@@ -267,7 +274,8 @@
 
   function filterController() {
     var formEl = dom.getElementById('filters-form');
-    var multiSelectEl = formEl.querySelector('select[name="assigned_section"');
+    var sectionFormEl = dom.getElementById('section-filter-form');
+    var multiSelectEl = dom.getElementsByName('assigned_section');
     var firstNameEl = formEl.querySelector('input[name="contact_first_name"');
     var lastNameEl = formEl.querySelector('input[name="contact_last_name"');
     var locationCityEl = formEl.querySelector('input[name="location_city_town"]');
@@ -329,7 +337,10 @@
     formView({
       el: formEl
     });
-    multiSelectView({
+    formView({
+      el: sectionFormEl
+    });
+    checkBoxView({
       el: multiSelectEl,
       name: 'assigned_section'
     });
