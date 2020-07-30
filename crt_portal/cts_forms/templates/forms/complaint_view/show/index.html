@@ -9,6 +9,9 @@
 <link rel="stylesheet" href="{% static "css/accessible-autocomplete.min.css" %}" />
 {% endblock head %}
 
+{% block page_header %}
+{% include 'forms/complaint_view/intake_header.html' with title_text="CRT Complaint Records"  %}
+{% endblock %}
 
 {% block content %}
 <div class="complaint-show-body">
