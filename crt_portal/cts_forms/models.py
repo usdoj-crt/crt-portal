@@ -7,7 +7,6 @@ from django.core.validators import MaxValueValidator, RegexValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
-from django.utils import timezone
 from django.template import Context, Template
 from django.utils.html import escape
 

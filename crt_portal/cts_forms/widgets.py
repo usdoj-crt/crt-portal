@@ -1,4 +1,4 @@
-from django.forms.widgets import ChoiceWidget, SelectMultiple, CheckboxSelectMultiple, DateInput
+from django.forms.widgets import ChoiceWidget, SelectMultiple, DateInput
 
 
 class UsaRadioSelect(ChoiceWidget):
