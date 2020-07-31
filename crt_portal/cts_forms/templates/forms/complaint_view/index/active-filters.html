@@ -11,7 +11,7 @@
         data-filter-name="{{key}}"
         data-filter-value="{{item}}"
       >
-        {{ 'Report'|get_field_label:key }}: {{item}}
+        {{ 'Report'|get_field_label:key|capfirst }}: {{item}}
         <img src="{% static 'img/intake-icons/ic_close.svg' %}" class="icon right">
       </button>
     {% endfor %}

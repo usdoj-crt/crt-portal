@@ -43,6 +43,11 @@ class CrtMultiSelect(SelectMultiple):
     option_template_name = '../templates/forms/widgets/multi_select_option.html'
 
 
+class CrtDateInput(DateInput):
+    input_type = 'date'
+    # template_name = '../templates/forms/widgets/crt_date_entry.html'
+
+
 # Overrides Django CheckboxSelectMultiple:
 # https://docs.djangoproject.com/en/2.2/ref/forms/widgets/#checkboxselectmultiple
 class UsaCheckboxSelectMultiple(ChoiceWidget):

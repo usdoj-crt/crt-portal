@@ -49,7 +49,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
                       CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
-                      UsaRadioSelect, DataAttributesSelect)
+                      UsaRadioSelect, DataAttributesSelect, CrtDateInput)
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -855,11 +855,6 @@ class ProForm(
             return cleaned_data
 
 
-class CrtDateInput(DateInput):
-    input_type = 'date'
-    format = '%Y-%m-%d',
-
-
 class Filters(ModelForm):
     status = ChoiceField(
         required=False,
@@ -908,17 +903,23 @@ class Filters(ModelForm):
     create_date_start = DateField(
         required=False,
         label="From:",
-        widget=CrtDateInput(attrs={
-            'class': 'usa-input',
+        input_formats=('%Y-%m-%d'),
+        widget=DateInput(format='%Y-%m-%d', attrs={
+            'class': 'datepicker usa-input',
             'name': 'create_date_start',
+            'min': '2020-01-01',
+            'format': '%Y-%m-%d',
         }),
     )
     create_date_end = DateField(
         required=False,
         label="To:",
-        widget=CrtDateInput(attrs={
-            'class': 'usa-input',
+        input_formats=('%m-%d-%Y'),
+        widget=DateInput(format='%m-%d-%Y', attrs={
+            'class': 'datepicker usa-input',
             'name': 'create_date_end',
+            'min': '2020-01-01',
+            'format': '%m-%d-%Y',
         }),
     )
 
@@ -950,8 +951,8 @@ class Filters(ModelForm):
             'public_id': 'Complaint ID',
             'primary_statute': 'Primary classification',
             'violation_summary': 'Personal description',
-            'create_date_start': _('Created Date Start'),
-            'create_date_end': _('Created Date End'),
+            'create_date_start': 'Created Date Start',
+            'create_date_end': 'Created Date End',
         }
 
         widgets = {
@@ -1276,7 +1277,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
             self.fields['summary'].initial = summary.note
             self.fields['summary_id'].initial = summary.pk
 
-    @cached_property
+    @ cached_property
     def changed_data(self):
         changed_data = super().changed_data
 

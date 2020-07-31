@@ -5,15 +5,13 @@
 
 {% block content %}
 <div class="usa-date-range-picker">
-    <div class="usa-form-group">
-      <label class="usa-label" for="date_range_filter">Submission Date</label>
+      <label class="usa-label margin-bottom-1" for="date_range_filter"><b>Submission Date</b></label>
       <div class="usa-date-picker">
         <label for="id_{{form.create_date_start.name}}" class="usa-label" for="{{form.create_date_start.name}}">From:</label>
         {{ form.create_date_start }}
         <label for="id_{{form.create_date_end.name}}" class="usa-label" for="{{form.create_date_end.name}}">To:</label>
         {{ form.create_date_end }}
+        <button class="usa-button margin-top-2" type="submit">Apply Dates</button>
       </div>
-    </div>
-    <button class="usa-button margin-top-2" type="submit">Apply Dates</button>
 </div>
 {% endblock %}
