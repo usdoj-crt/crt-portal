@@ -103,6 +103,9 @@ section hr {
     @include text--heading__medium();
     background-color: color($theme-color-primary-lightest);
     font-weight: bold;
+    @include at-media-max(mobile-lg) {
+      margin: 2rem;
+    }
   }
 }
 
