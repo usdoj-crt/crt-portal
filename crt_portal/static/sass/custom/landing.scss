@@ -348,7 +348,7 @@ $arrow-height: 24px;
       // caret adjustments -- in many cases overriding the USWDS defaults
       background-repeat: no-repeat !important;
       background-position: right 1.5rem center !important;
-      @include at-media-max (mobile-lg){
+      @include at-media-max (tablet-lg){
         background-position: right 1.5rem top 1.25rem !important;
       }
       background-size: 1.5rem !important;
