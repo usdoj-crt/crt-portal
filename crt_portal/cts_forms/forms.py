@@ -49,7 +49,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
                       CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
-                      UsaRadioSelect, DataAttributesSelect)
+                      UsaRadioSelect, DataAttributesSelect, CrtDateInput)
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -914,12 +914,12 @@ class Filters(ModelForm):
     create_date_end = DateField(
         required=False,
         label="To:",
-        input_formats=('%m-%d-%Y'),
-        widget=DateInput(format='%m-%d-%Y', attrs={
+        input_formats=('%Y-%m-%d'),
+        widget=DateInput(format='%Y-%m-%d', attrs={
             'class': 'datepicker usa-input',
             'name': 'create_date_end',
             'min': '2020-01-01',
-            'format': '%m-%d-%Y',
+            'format': '%Y-%m-%d',
         }),
     )
 

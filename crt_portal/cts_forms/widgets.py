@@ -45,7 +45,17 @@ class CrtMultiSelect(SelectMultiple):
 
 class CrtDateInput(DateInput):
     input_type = 'date'
-    # template_name = '../templates/forms/widgets/crt_date_entry.html'
+    template_name = '../templates/forms/widgets/crt_date_entry.html'
+
+    def get_context(self, name, value, attrs):
+        datepicker_id = 'datepicker_{name}'.format(name=name)
+        if attrs is None:
+            attrs = dict()
+        attrs['data-target'] = '#{id}'.format(id=datepicker_id)
+        attrs['class'] = 'form-control datepicker-input'
+        context = super().get_context(name, value, attrs)
+        context['widget']['datepicker_id'] = datepicker_id
+        return context
 
 
 # Overrides Django CheckboxSelectMultiple:
