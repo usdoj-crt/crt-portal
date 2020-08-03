@@ -225,11 +225,11 @@
   };
 
   function checkBoxView(props) {
-    props.el.forEach(function(element) {
-      element.addEventListener('change', function(event) {
+    for (var i = 0; i < props.el.length; i++) {
+      props.el[i].addEventListener('change', function(event) {
         checkBoxView.getValues(event.target);
       });
-    });
+    }
   }
 
   checkBoxView.getValues = function(el) {
