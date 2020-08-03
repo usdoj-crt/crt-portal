@@ -98,16 +98,19 @@
     flex-wrap: wrap;
     white-space: normal;
 
-    ul {
-      @include flex-container();
-      flex-wrap: wrap;
-      white-space: normal;
-  
-      li {
-        margin: 0.5rem;
-      }
-      + .usa-button {
-        margin-left: 2rem;
+    &.intake-checkbox {
+      ul {
+        @include flex-container();
+        flex-wrap: wrap;
+        white-space: normal;
+
+        li {
+          margin: 0.5rem;
+        }
+
+        +.usa-button {
+          margin-left: 2rem;
+        }
       }
     }
 
