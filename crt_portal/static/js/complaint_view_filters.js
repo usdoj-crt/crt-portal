@@ -304,10 +304,7 @@
     formView({
       el: formEl
     });
-    // multiSelectView({
-    //   el: multiSelectEl,
-    //   name: 'assigned_section'
-    // });
+
     textInputView({
       el: firstNameEl,
       name: 'contact_first_name'
@@ -332,30 +329,17 @@
       el: activeFiltersEl,
       onClick: onFilterTagClick
     });
-    // textInputView({
-    //   el: statusEl,
-    //   name: 'status'
-    // });
+
     textInputView({
       el: summaryEl,
       name: 'summary'
     });
-    // textInputView({
-    //   el: assigneeEl,
-    //   name: 'assigned_to'
-    // });
+
     textInputView({
       el: complaintIDEl,
       name: 'public_id'
     });
-    // textInputView({
-    //   el: statuteEl,
-    //   name: 'primary_statute'
-    // });
-    // textInputView({
-    //   el: personalDescriptionEl,
-    //   name: 'violation_summary'
-    // });
+
     clearFiltersView({
       el: clearAllEl,
       onClick: clearAllFilters

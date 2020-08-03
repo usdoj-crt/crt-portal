@@ -4,7 +4,7 @@
 {% block id %}date{% endblock %}
 
 {% block content %}
-  <div id="recd-date-filter">
+  <div id="recd-date-filter" class="padding-right-2">
     <label for="id_{{form.fields.received_from_date.widget.attrs.name}}" class="margin-bottom-1">{{ form.received_date }}</label>
     {{ form.crt_reciept_day }} {{ form.crt_reciept_month }} {{ form.crt_reciept_year }}
   </div>

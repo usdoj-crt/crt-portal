@@ -98,11 +98,15 @@
 
     .crt-dropdown {
       margin-right: 2rem;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
+      margin-top: 1rem;
 
       button {
         width: 100%;
       }
+    }
+    .crt-dropdown:last-of-type{
+      margin-top: 0rem;
     }
   }
 }
