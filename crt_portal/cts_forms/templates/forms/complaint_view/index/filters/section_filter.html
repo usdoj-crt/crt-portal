@@ -4,7 +4,7 @@
 {% block label %}{{form.assigned_section.label|title}}{% endblock %}
 {% block id %}assigned-section{% endblock %}option.selected
 {% block content %}
-  <form id="filters-form" method="GET" action="/form/view" novalidate>
+  <form id="filters-form-header" method="GET" action="/form/view" novalidate>
     <label for="id_{{form.fields.assigned_section.widget.attrs.name}}">
       <span class="usa-sr-only">{{form.assigned_section.label}}</span>
     </label>
