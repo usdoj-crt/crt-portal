@@ -9,8 +9,11 @@
   >
     <span class="label">{% block label %}{% endblock %}</span>
     <img src="{% static 'img/intake-icons/ic_select-down.svg' %}" alt="open filter dropdown" class="icon" />
-  </button>  
-  <div class="content" id="{%block id %}{% endblock %}">
+  </button>
+  <div class="content">
     {% block content %}{% endblock %}
+    <button class="usa-button margin-top-2"  id="{%block id %}{% endblock %}" type="submit">
+      Filter results
+    </button>
   </div>
 </div>

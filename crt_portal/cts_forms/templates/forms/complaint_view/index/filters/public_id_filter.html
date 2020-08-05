@@ -1,17 +1,7 @@
-{% extends "forms/complaint_view/index/filter.html" %}
-
-{% block controls %}public-id{% endblock %}
-{% block label %}Complaint ID{% endblock %}
-{% block id %}public-id{% endblock %}
+{% extends "forms/complaint_view/index/filter-no-dropdown.html" %}
 
 {% block content %}
-  <div id="public-id-filter">
-    <label for="id_{{form.fields.public_id.widget.attrs.name}}" class="margin-bottom-1">
-      <b>{{form.public_id.label }}</b>
-    </label>
+  <div id="public-id-filter" class="padding-right-2 id_input">
     {{ form.public_id }}
   </div>
-  <button class="usa-button margin-top-2" type="submit">
-    Filter results
-  </button>
 {% endblock %}

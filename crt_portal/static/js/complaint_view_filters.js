@@ -53,7 +53,6 @@
    */
   function makeQueryParams(params) {
     var keys = Object.keys(params);
-
     return keys.reduce(function(memo, key) {
       var paramValue = params[key];
 
@@ -327,10 +326,7 @@
     formView({
       el: formEl
     });
-    multiSelectView({
-      el: multiSelectEl,
-      name: 'assigned_section'
-    });
+
     textInputView({
       el: firstNameEl,
       name: 'contact_first_name'
@@ -355,34 +351,20 @@
       el: activeFiltersEl,
       onClick: onFilterTagClick
     });
-    checkBoxView({
-      el: statusEl,
-      name: 'status'
-    });
     textInputView({
       el: summaryEl,
       name: 'summary'
     });
-    textInputView({
-      el: assigneeEl,
-      name: 'assigned_to'
-    });
+
     textInputView({
       el: complaintIDEl,
       name: 'public_id'
     });
-    textInputView({
-      el: statuteEl,
-      name: 'primary_statute'
-    });
-    textInputView({
-      el: personalDescriptionEl,
-      name: 'violation_summary'
-    });
+
     clearFiltersView({
       el: clearAllEl,
       onClick: clearAllFilters
-    });
+    })
   }
 
   // Bootstrap the filter code's data persistence and
