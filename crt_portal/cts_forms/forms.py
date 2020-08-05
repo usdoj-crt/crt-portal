@@ -4,7 +4,7 @@ from datetime import datetime
 from actstream import action
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
-from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField, DateField, DateInput,
+from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField, DateField,
                           EmailInput, HiddenInput, IntegerField,
                           ModelChoiceField, ModelForm, Form,
                           ModelMultipleChoiceField, MultipleChoiceField,
