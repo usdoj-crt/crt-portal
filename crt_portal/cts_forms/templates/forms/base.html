@@ -13,10 +13,10 @@
 
     {% if wizard.steps.step1 and current_step_name %}
       <title>{% blocktrans with stage_number=stage_number current_step_name=current_step_name %}
-        Step {{ stage_number }}: {{ current_step_name }} - Contact the Civil Rights Division - Department of Justice
+        Step {{ stage_number }}: {{ current_step_name }} - Contact the Civil Rights Division | Department of Justice
       {% endblocktrans %}</title>
     {% else %}
-      <title>{% trans "Contact the Civil Rights Division - Department of Justice" %}</title>
+      <title>{% trans "Contact the Civil Rights Division | Department of Justice" %}</title>
     {% endif %}
 
     <link rel="icon" href="{% static "img/favicon.png" %}">

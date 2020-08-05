@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 21:12+0000\n"
+"POT-Creation-Date: 2020-08-04 21:22+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:154 forms.py:1127
+#: forms.py:154 forms.py:1125
 msgid " - Select - "
 msgstr " - Elija - "
 
@@ -141,11 +141,11 @@ msgstr ""
 "tomar las medidas apropiadas. Si sucedió a lo largo de un período de tiempo "
 "o todavía está sucediendo, favor de indicar la fecha más reciente."
 
-#: forms.py:877
+#: forms.py:876
 msgid "Primary classification"
 msgstr "Clasificación principal"
 
-#: forms.py:896
+#: forms.py:895
 msgid "Assigned to"
 msgstr "Asignado a"
 
@@ -1182,9 +1182,11 @@ msgstr ""
 msgid "Any supporting materials (please list and describe them)."
 msgstr "Cualquier material de apoyo (haga una lista y describa cada artículo)."
 
-#: templates/base.html:22 templates/base.html:40
-msgid "Civil Rights Division - Department of Justice"
-msgstr "La División de Derechos Civiles - Departamento de Justicia"
+#: templates/base.html:22 templates/base.html:40 templates/forms/base.html:19
+#: templates/forms/report_base.html:13
+msgid "Contact the Civil Rights Division | Department of Justice"
+msgstr ""
+"Comuníquese con la División de Derechos Civiles | Departamento de Justicia"
 
 #  Meta tag description of site
 #: templates/base.html:28
@@ -1216,22 +1218,22 @@ msgid "Civil Rights Division"
 msgstr "División de Derechos Civiles"
 
 #: templates/forms/base.html:15
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "        Step %(stage_number)s: %(current_step_name)s - Contact the Civil "
+#| "Rights Division | Department of Justice\n"
+#| "      "
 msgid ""
 "\n"
 "        Step %(stage_number)s: %(current_step_name)s - Contact the Civil "
-"Rights Division - Department of Justice\n"
+"Rights Division | Department of Justice\n"
 "      "
 msgstr ""
 "\n"
 "        Step %(stage_number)s: %(current_step_name)s - Comuníquese con la "
 "División de Derechos Civiles - Departamento de Justicia\n"
 "      "
-
-#: templates/forms/base.html:19 templates/forms/report_base.html:13
-msgid "Contact the Civil Rights Division - Department of Justice"
-msgstr ""
-"Comuníquese con la División de Derechos Civiles - Departamento de Justicia"
 
 #: templates/forms/base.html:38
 #: templates/partials/banner/usa_banner_header.html:9
@@ -1456,14 +1458,19 @@ msgid "Get help immediately if you are in danger"
 msgstr "Busque ayuda inmediata si está usted en peligro"
 
 #: templates/forms/confirmation.html:161
+#, fuzzy
+#| msgid ""
+#| "If you reported an incident where you or someone else has experienced or "
+#| "is still experiencing physical harm or violence, or are in immediate "
+#| "danger, please call <a href=\"tel:911\">911</a> and contact the police."
 msgid ""
 "If you reported an incident where you or someone else has experienced or is "
 "still experiencing physical harm or violence, or are in immediate danger, "
-"please call <a href=\"tel:911\">9-1-1</a> and contact the police."
+"please call <a href=\"tel:911\">911</a> and contact the police."
 msgstr ""
 "Si usted informó de un incidente en el cual usted u otra persona fue o sigue "
 "siendo víctima de daños corporales o violencia o si está en peligro "
-"inmediato, llame a <a href=\"tel:911\">9-1-1</a> para comunicarse con la "
+"inmediato, llame a <a href=\"tel:911\">911</a> para comunicarse con la "
 "policía."
 
 #: templates/forms/confirmation.html:174
@@ -1509,16 +1516,21 @@ msgid "completed"
 msgstr "completado"
 
 #: templates/forms/report_base.html:8
-#, python-format
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "          Step %(stage_number)s: %(current_step_name)s - Contact the "
+#| "Civil Rights Division | Department of Justice\n"
+#| "        "
 msgid ""
 "\n"
 "          Step %(stage_number)s: %(current_step_name)s - Contact the Civil "
-"Rights Division - Department of Justice\n"
+"Rights Division | Department of Justice\n"
 "        "
 msgstr ""
 "\n"
 "        Step %(stage_number)s: %(current_step_name)s - Comuníquese con la "
-"División de Derechos Civiles - Departamento de Justicia\n"
+"División de Derechos Civiles | Departamento de Justicia\n"
 "      "
 
 #: templates/forms/report_base.html:22
@@ -1558,7 +1570,9 @@ msgstr "Siguiente"
 msgid "previous step"
 msgstr "paso previo"
 
-#: templates/forms/report_base.html:96 templates/forms/report_review.html:35
+#: templates/forms/report_base.html:96
+#: templates/forms/report_hate_crime.html:46
+#: templates/forms/report_review.html:35
 msgid "Back"
 msgstr "Volver"
 
@@ -1586,6 +1600,32 @@ msgstr ""
 #: templates/forms/report_hate_crime.html:18 templates/landing.html:222
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "Reciba ayuda de la Línea Nacional contra la Trata de Personas"
+
+#: templates/forms/report_hate_crime.html:32
+msgid "You are now leaving the Department of Justice website."
+msgstr "Está saliendo del sitio web del Departamento de Justicia."
+
+#: templates/forms/report_hate_crime.html:37
+msgid "You will automatically be redirected to:"
+msgstr "Será redirigido automáticamente a:"
+
+#: templates/forms/report_hate_crime.html:43
+msgid ""
+"The Department of Justice does not endorse the organizations or views "
+"represented by this site and takes no responsibility for, and exercises no "
+"control over, the accuracy, accessibility, copyright or trademark compliance "
+"or legality of the material contained on this site."
+msgstr ""
+"El Departamento de Justicia no respalda las organizaciones o los puntos de "
+"vista representados por este sitio y no se responsabiliza ni ejerce control "
+"sobre la precisión, la accesibilidad, el cumplimiento con los derechos de "
+"autor o marca registrada o la legalidad del material contenido en este sitio."
+
+#: templates/forms/report_hate_crime.html:47
+#, fuzzy
+#| msgid "Continued"
+msgid "Continue"
+msgstr "Continúe"
 
 #: templates/forms/report_review.html:10
 msgid "Before you submit your report, please check your responses"
@@ -1651,8 +1691,8 @@ msgstr "Informe sobre una vulneración"
 msgid "Already submitted?"
 msgstr "¿Ya nos informó de una vulneración?"
 
-#: templates/landing.html:59 templates/partials/footer.html:9 views.py:558
-#: views.py:614 views.py:633
+#: templates/landing.html:59 templates/partials/footer.html:9 views.py:561
+#: views.py:617 views.py:636
 msgid "Contact"
 msgstr "Contacto"
 
@@ -1695,17 +1735,16 @@ msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
 msgstr "o aprenda más sobre <a href=\"#your-rights\">sus derechos</a>"
 
 #: templates/landing.html:102
-msgid "If you are in danger, contact <a href=\"tel:911\">9-1-1</a>"
-msgstr ""
-"Si usted se encuentra en peligro, llame al <a href=\"tel:911\">9-1-1</a>"
+msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
+msgstr "Si usted se encuentra en peligro, llame al <a href=\"tel:911\">911</a>"
 
 #: templates/landing.html:108
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
-"call 9-1-1 or local police.</a>"
+"call 911 or local police.</a>"
 msgstr ""
 "Si usted u otra persona se encuentra en peligro, <a href=\"tel:911\">llame "
-"al 9-1-1 o a la policía local.</a>"
+"al 911 o a la policía local.</a>"
 
 #: templates/landing.html:113
 msgid ""
@@ -2027,6 +2066,10 @@ msgstr ""
 "\"tel:800-285-2221\">(800) 285-2221</a> para localizar a un abogado a través "
 "del Colegio de Abogados Estadounidense. "
 
+#: templates/landing.html:371
+msgid "Image attributions"
+msgstr ""
+
 #: templates/partials/footer.html:32
 msgid "(toll-free)"
 msgstr "(gratis)"
@@ -2289,7 +2332,7 @@ msgstr ""
 "                    "
 
 # don't have this
-#: templates/privacy.html:97 templates/privacy.html:163
+#: templates/privacy.html:97 templates/privacy.html:168
 msgid "Return to top"
 msgstr "Volver al principio"
 
@@ -2494,38 +2537,57 @@ msgstr ""
 "1964</li>\n"
 "                    "
 
-#: views.py:45
+#: templates/privacy.html:162
+msgid ""
+"\n"
+"                The full list of routine uses for this correspondence can be "
+"found in the System of Records Notice titled, JUSTICE/CRT – 001, \"Central "
+"Civil Rights Division Index File and Associated Records\", 68 Fed. Reg. "
+"47610, 611 (8-11-2003); 70 Fed. Reg. 43904 (7-29-2005); 72 Fed. Reg. 3410 "
+"(1-25-2007) (rescinded by 82 FR 24147); 82 Fed. Reg. 24147 (5-25-2017).\n"
+"                "
+msgstr ""
+"\n"
+"                La lista de usos rutinarios para esta correspondencia se "
+"encuentra en la Notificación del Sistema de Registros bajo el título JUSTICE/"
+"CRT – 001, \"Central Civil Rights Division Index File and Associated Records"
+"\", 68 Reg. Fed. 47610, 611 (11-8-2003); 70 Reg. Fed. 43904 (29-7-2005); 72 "
+"Reg. Fed. 3410 (25-1-2007) (rescindido por 82 FR 24147); 82 Reg. Fed. 24147 "
+"(25-5-2017).\n"
+"                "
+
+#: views.py:47
 msgid "Bad request"
 msgstr "Solicitud incorrecta"
 
-#: views.py:46
+#: views.py:48
 msgid ""
 "It seems your browser is not responding properly. Try refreshing this page."
 msgstr ""
 "Parece que su navegador no está respondiendo de manera adecuada. Intente "
 "actualizar esta página."
 
-#: views.py:57
+#: views.py:59
 msgid "Unauthorized"
 msgstr "No autorizado"
 
-#: views.py:58
+#: views.py:60
 msgid "This page is off limits to unauthorized users."
 msgstr "Usuario no autorizados no podrán acceder a esta página"
 
-#: views.py:69
+#: views.py:71
 msgid "We can't find the page you are looking for"
 msgstr "No encontramos la página que usted está buscando"
 
-#: views.py:70
+#: views.py:72
 msgid "Try returning to the previous page"
 msgstr "Intente volver a la página anterior"
 
-#: views.py:81
+#: views.py:83
 msgid "There's a problem loading this page"
 msgstr "Hay un problema para cargar esta página"
 
-#: views.py:82
+#: views.py:84
 msgid ""
 "There's a technical problem loading this page. Try refreshing this page or "
 "going to another page. If that doesn't work, try again later."
@@ -2533,20 +2595,20 @@ msgstr ""
 "Hay un problema técnico para cargar esta página. Intente actualizar esta "
 "página o ir a otra página. Si eso no funciona, intente más tarde."
 
-#: views.py:93
+#: views.py:95
 msgid "Not implemented"
 msgstr "No implementado"
 
-#: views.py:94
+#: views.py:96
 msgid "There seems to be a problem with this request. Try refreshing the page."
 msgstr ""
 "Parece que hay un problema con esta solicitud. Intente actualizar la página."
 
-#: views.py:105
+#: views.py:107
 msgid "Bad gateway"
 msgstr "Portal incorrecto"
 
-#: views.py:106
+#: views.py:108
 msgid ""
 "This problem is due to poor IP communication between back-end computers, "
 "possibly including our web server. Try clearing your browser cache "
@@ -2558,11 +2620,11 @@ msgstr ""
 "borrar completamente el caché de su navegador. Puede que haya algún problema "
 "con su conexión interna a Internet o su cortafuegos."
 
-#: views.py:117
+#: views.py:119
 msgid "Service Unavailable"
 msgstr "Servicio no disponible"
 
-#: views.py:118
+#: views.py:120
 msgid ""
 "Our web server is either closed for repair, upgrades or is rebooting. Please "
 "try again later."
@@ -2570,11 +2632,11 @@ msgstr ""
 "Nuestro servidor de web está cerrado para unos arreglos, actualizaciones o "
 "se está reinicializando. Se ruega que lo intente nuevamente más tarde."
 
-#: views.py:129
+#: views.py:131
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Su navegador no pudo crear una cookie segura"
 
-#: views.py:130
+#: views.py:132
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
@@ -2588,54 +2650,54 @@ msgstr ""
 "acceder a esta página en otra pestaña o ventana en su navegador. Eso le "
 "creará otra cookie de seguridad y debería resolver el problema."
 
-#: views.py:434 views.py:661
+#: views.py:436 views.py:664
 msgid "word remaining"
 msgstr "palabra restante"
 
-#: views.py:435 views.py:662
+#: views.py:437 views.py:665
 msgid " words remaining"
 msgstr "palabras restantes"
 
-#: views.py:436 views.py:663
+#: views.py:438 views.py:666
 msgid " word limit reached"
 msgstr "límite de palabras alcanzado"
 
-#: views.py:559 views.py:615 views.py:616 views.py:634 views.py:635
-#: views.py:670
+#: views.py:562 views.py:618 views.py:619 views.py:637 views.py:638
+#: views.py:673
 msgid "Primary concern"
 msgstr "Motivo principal de preocupación"
 
-#: views.py:560 views.py:617 views.py:618 views.py:619 views.py:620
-#: views.py:621 views.py:622
+#: views.py:563 views.py:620 views.py:621 views.py:622 views.py:623
+#: views.py:624 views.py:625
 msgid "Location"
 msgstr "Lugar"
 
-#: views.py:561 views.py:623 views.py:642
+#: views.py:564 views.py:626 views.py:645
 msgid "Personal characteristics"
 msgstr "Características personales"
 
-#: views.py:562 views.py:624 views.py:643
+#: views.py:565 views.py:627 views.py:646
 msgid "Date"
 msgstr "Fecha"
 
-#: views.py:563 views.py:625 views.py:644
+#: views.py:566 views.py:628 views.py:647
 msgid "Personal description"
 msgstr "Descripción personal"
 
-#: views.py:564 views.py:626 views.py:675
+#: views.py:567 views.py:629 views.py:678
 msgid "Review"
 msgstr "Repasar"
 
-#: views.py:636 views.py:637 views.py:638 views.py:639 views.py:640
-#: views.py:641
+#: views.py:639 views.py:640 views.py:641 views.py:642 views.py:643
+#: views.py:644
 msgid "Location details"
 msgstr "Datos de lugar"
 
-#: views.py:645
+#: views.py:648
 msgid "Review your report"
 msgstr "Revise su informe"
 
-#: views.py:673
+#: views.py:676
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "Favor de elegir esta opción si"
 

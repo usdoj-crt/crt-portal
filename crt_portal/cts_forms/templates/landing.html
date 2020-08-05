@@ -99,13 +99,13 @@
         <div class="tablet:grid-offset-2 tablet:grid-col-8">
           <img src="{% static "img/ic_phone-circle.svg" %}" alt="phone" class="icon">
           <p class="h3__display crt-landing--emergency_header">
-            {% trans 'If you are in danger, contact <a href="tel:911">9-1-1</a>' %}
+            {% trans 'If you are in danger, contact <a href="tel:911">911</a>' %}
           </p>
         </div>
         <div class="tablet:grid-offset-2 tablet:grid-col-8">
           <p class="crt-landing--emergency_contact">
             <em>
-              {% trans 'If you or someone else is in immediate danger, <a href="tel:911">please call 9-1-1 or local police.</a>' %}
+              {% trans 'If you or someone else is in immediate danger, <a href="tel:911">please call 911 or local police.</a>' %}
             </em>
           </p>
           <p class="crt-landing--emergency_contact">
@@ -132,7 +132,7 @@
               <p class="crt-landing--columns crt-landing--largetext">{% trans "We sue or prosecute individuals and organizations who violate civil rights laws." %}</p>
               <p>{% trans "You can help us do this work by reporting a possible civil rights violation through our" %} <a href="{% url 'crt_report_form' %}">{% trans "online form" %}</a>.</p>
             </div>
-            <div class="tablet:grid-col-4 crt-landing--section__item">
+          <div class="tablet:grid-col-4 crt-landing--section__item">
               <p class="h3__display crt-landing--subheader">{% trans "Education" %}</p>
               <div class="crt-landing--separator_sub"></div>
               <p class="crt-landing--columns crt-landing--largetext">{% trans "We help the public understand how to comply with these laws." %}</p>
@@ -181,7 +181,7 @@
         <div class="tablet:grid-col-12">
           <div class="grid-row grid-gap">
             <div class="tablet:grid-col-7">
-              <ul class="usa-nav__primary usa-accordion crt-landing--blue crt-landing--large_select">
+              <ul class="usa-nav__primary usa-accordion crt-landing--large_select">
                 <li>
                   <button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="crt-landing--examples" aria-label="select example">
                     <div id="crt-landing--example_option">

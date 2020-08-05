@@ -358,9 +358,16 @@ We are using the defaults, so you can press enter for all the set up options. Yo
     * Look at ZenHub and see if there is anything in "Dev done" flag that for approval so those issues are in "Ready for UAT" when you make the release
     * Check out the develop branch and do a `git pull origin develop`
     * You can create a release with the command `git flow release start <date-of-planned-relase>`
-    * Finally, push the release branch `git push origin release/<date-of-planned-relase>`
+    * Finally, push the release branch `git push origin release/<date-of-planned-release>`
     * Create a PR from github repository for the newly pushed branch
     * Ensure base is master while creating the PR
+
+* The app will re-deploy to **stage** if a new PR is merged into a `release/` branch. We do not do this often, but sometimes we want to get fixes in staging before the next release. You should do this in GitHub.
+    * Make sure we understand why the PR is updating **stage** instead of going through the normal process -- there should be a good reason as to why.
+    * Verify that the PR has a `release/<date-of-planned-release>` branch as a base branch
+    * If all looks good, merge the PR via Github "merge" button
+    * Verify that tests pass and that the deploy to **stage** succeeded on [CircleCI](https://circleci.com/gh/usdoj-crt).
+    * Note: the developer will be responsible for cherry picking or otherwise merging these staging changes back to **dev**.
 
 * The app will deploy to **prod** when the tests pass and a PR is merged into `master`. You can also do this in GitHub once you confirm approval with the product owner. If there are any merge conflicts, you will want to resolve them on the staging branch first.
     * If have not been any PRs directly to the release branch you can merge in GitHub
