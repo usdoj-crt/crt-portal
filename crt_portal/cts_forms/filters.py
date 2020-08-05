@@ -65,11 +65,11 @@ def report_filter(request):
                 field_name = _get_date_field_from_param(field)
                 encodedDate = request.GET.getlist(field)[0]
                 decodedDate = urllib.parse.unquote(encodedDate)
-                dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
-                # if the year is before 2020, set it to 2020 because there is no data prior to 2020
-                year2020 = datetime.strptime("2020", "%Y")
-                if dateObj < year2020:
-                    dateObj = year2020
+                try:
+                    dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
+                except ValueError:
+                    # if the date is invalid, set it to 2020 because there is no data prior to 2020
+                    dateObj = datetime.strptime("2020", "%Y")
                 kwargs[f'{field_name}{filter_options[field]}'] = dateObj
             elif filter_options[field] == 'summary':
                 # assumes summaries are edited so there is only one per report - that is current behavior

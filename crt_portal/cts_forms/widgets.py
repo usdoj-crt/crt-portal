@@ -51,8 +51,8 @@ class CrtDateInput(DateInput):
         datepicker_id = 'datepicker_{name}'.format(name=name)
         if attrs is None:
             attrs = dict()
-        attrs['data-target'] = '#{id}'.format(id=datepicker_id)
-        attrs['class'] = 'form-control datepicker-input'
+        attrs['data-target'] = f"#{datepicker_id}"
+        attrs['class'] = 'form-control datepicker-input usa-input'
         context = super().get_context(name, value, attrs)
         context['widget']['datepicker_id'] = datepicker_id
         return context
