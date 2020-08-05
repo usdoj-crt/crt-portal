@@ -49,11 +49,14 @@
   width: 100%;
   top: 0;
   z-index: 99;
-  + main {
+
+  +main {
     @include u-margin-top(3);
   }
+
   .progress-bar {
     margin-top: 0; //override setting in progress.scss
+
     a,
     a:visited {
       color: color($theme-color-primary-lightest);
@@ -61,7 +64,7 @@
   }
 }
 
-#service-member + h3 {
+#service-member+h3 {
   @include text--heading__medium();
   font-weight: $theme-font-weight-bold;
   color: color($theme-color-primary-darker);
@@ -95,6 +98,22 @@
     flex-wrap: wrap;
     white-space: normal;
     align-items: baseline;
+
+    &.intake-checkbox {
+      ul {
+        @include flex-container();
+        flex-wrap: wrap;
+        white-space: normal;
+
+        li {
+          margin: 0.5rem;
+        }
+
+        +.usa-button {
+          margin-left: 2rem;
+        }
+      }
+    }
 
     .crt-dropdown {
       margin-right: 2rem;
@@ -138,10 +157,12 @@
     border-bottom-right-radius: 0;
     box-shadow: 0 20px 10px hsla(0, 0%, 39.2%, 0.2);
   }
+
   &--stroke {
     @include u-border($theme-color-primary-darker);
     border: 1px solid;
   }
+
   .crt-dropdown-container {
     display: flex;
     flex-direction: column;
@@ -164,14 +185,17 @@
     .label {
       margin-right: 1rem;
     }
+
     * {
       pointer-events: none;
     }
   }
+
   select {
     background-image: url(../../img/intake-icons/ic_chevron-down.svg);
     background-size: 15px;
   }
+
   select.complaint-multi-select {
     background-image: none;
   }
@@ -327,8 +351,9 @@
       flex-basis: auto;
       min-width: 33%; // Don't get super shrinky; affects usability
     }
+
     select,
-    label[for='id_assigned_to'] + div {
+    label[for='id_assigned_to']+div {
       flex-basis: 60%; // label flex-basis is 40% for total of 100%
     }
   }
@@ -369,6 +394,7 @@
 
 // Autocomplete styles; overrides native library styles
 .autocomplete__wrapper {
+
   .autocomplete__input,
   .autocomplete__hint {
     @include u-font('body', 5);
@@ -377,6 +403,7 @@
     border-radius: 3px;
     margin-top: 0.5rem;
     padding: 0.5rem;
+
     &.autocomplete__input--focused {
       box-shadow: inset 0 0 0 1px;
       outline: 0.125rem solid color($theme-focus-color);
@@ -388,6 +415,7 @@
     @include u-font('body', 5);
     margin-top: 0 !important;
     padding: 10px;
+
     &.autocomplete__option--focused,
     &:hover {
       @include u-bg($theme-color-primary-lightest);

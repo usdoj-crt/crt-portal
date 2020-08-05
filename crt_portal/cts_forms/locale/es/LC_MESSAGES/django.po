@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-19 21:12+0000\n"
+"POT-Creation-Date: 2020-07-13 22:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1461,11 +1461,11 @@ msgstr "Busque ayuda inmediata si está usted en peligro"
 msgid ""
 "If you reported an incident where you or someone else has experienced or is "
 "still experiencing physical harm or violence, or are in immediate danger, "
-"please call <a href=\"tel:911\">9-1-1</a> and contact the police."
+"please call <a href=\"tel:911\">911</a> and contact the police."
 msgstr ""
 "Si usted informó de un incidente en el cual usted u otra persona fue o sigue "
 "siendo víctima de daños corporales o violencia o si está en peligro "
-"inmediato, llame a <a href=\"tel:911\">9-1-1</a> para comunicarse con la "
+"inmediato, llame a <a href=\"tel:911\">911</a> para comunicarse con la "
 "policía."
 
 #: templates/forms/confirmation.html:174
@@ -1565,7 +1565,9 @@ msgstr "Siguiente"
 msgid "previous step"
 msgstr "paso previo"
 
-#: templates/forms/report_base.html:96 templates/forms/report_review.html:35
+#: templates/forms/report_base.html:96
+#: templates/forms/report_hate_crime.html:46
+#: templates/forms/report_review.html:35
 msgid "Back"
 msgstr "Volver"
 
@@ -1593,6 +1595,26 @@ msgstr ""
 #: templates/forms/report_hate_crime.html:18 templates/landing.html:222
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "Reciba ayuda de la Línea Nacional contra la Trata de Personas"
+
+#: templates/forms/report_hate_crime.html:32
+msgid "You are now leaving the Department of Justice website."
+msgstr "Está saliendo del sitio web del Departamento de Justicia."
+
+#: templates/forms/report_hate_crime.html:37
+msgid "You will automatically be redirected to:"
+msgstr "Será redirigido automáticamente a:"
+
+#: templates/forms/report_hate_crime.html:43
+msgid ""
+"The Department of Justice does not endorse the organizations or views "
+"represented by this site and takes no responsibility for, and exercises no "
+"control over, the accuracy, accessibility, copyright or trademark compliance "
+"or legality of the material contained on this site."
+msgstr ""
+"El Departamento de Justicia no respalda las organizaciones o los puntos de "
+"vista representados por este sitio y no se responsabiliza ni ejerce control "
+"sobre la precisión, la accesibilidad, el cumplimiento con los derechos de "
+"autor o marca registrada o la legalidad del material contenido en este sitio."
 
 #: templates/forms/report_review.html:10
 msgid "Before you submit your report, please check your responses"
@@ -1702,17 +1724,17 @@ msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
 msgstr "o aprenda más sobre <a href=\"#your-rights\">sus derechos</a>"
 
 #: templates/landing.html:102
-msgid "If you are in danger, contact <a href=\"tel:911\">9-1-1</a>"
+msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
 msgstr ""
-"Si usted se encuentra en peligro, llame al <a href=\"tel:911\">9-1-1</a>"
+"Si usted se encuentra en peligro, llame al <a href=\"tel:911\">911</a>"
 
 #: templates/landing.html:108
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
-"call 9-1-1 or local police.</a>"
+"call 911 or local police.</a>"
 msgstr ""
 "Si usted u otra persona se encuentra en peligro, <a href=\"tel:911\">llame "
-"al 9-1-1 o a la policía local.</a>"
+"al 911 o a la policía local.</a>"
 
 #: templates/landing.html:113
 msgid ""

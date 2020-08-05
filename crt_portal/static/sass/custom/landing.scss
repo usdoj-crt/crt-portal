@@ -143,13 +143,20 @@ $arrow-height: 24px;
   .crt-landing--logo_subheading {
     @extend .usa-footer__logo-subheading;
     font-size: $theme-text-font-size-sm;
+    @media screen and (max-width: 400px) {
+      @include text--body-copy__xsmall();
+    }
   }
 
   .crt-landing--logo_heading {
     @extend .usa-footer__logo-heading;
     font-size: $theme-heading-font-size-md;
+    @media screen and (max-width: 400px) {
+      font-size: $theme-text-font-size-sm;
+    }
   }
-}
+
+  }
 
 .crt-landing--hero {
   background-image: url(../../img/landing-page-hero.png);
@@ -287,18 +294,17 @@ $arrow-height: 24px;
   }
 
   .crt-landing--divider {
-    border-left: 1px solid color($theme-color-primary-darker);
-    padding-left: units($spacer-4x) !important;
     margin-top: units($spacer-5x);
-    @include at-media-max('mobile-lg') {
+    padding-left: units($spacer-4x) !important;
+    border-top: none;
+    border-left: 1px solid color($theme-color-primary-darker);
+    @include at-media-max(tablet) {
       border-left: none;
       border-top: 1px solid color($theme-color-primary-darker);
-      padding-left: 0;
-      margin-top: units($spacer-2x);
-      margin-right: units($spacer-1x);
-      margin-left: units($spacer-1x);
       padding-top: units($spacer-3x);
+      padding-left: 0rem !important;
     }
+
   }
 
   ul {
@@ -342,21 +348,18 @@ $arrow-height: 24px;
       // caret adjustments -- in many cases overriding the USWDS defaults
       background-repeat: no-repeat !important;
       background-position: right 1.5rem center !important;
+      @include at-media-max (tablet-lg){
+        background-position: right 1.5rem top 1.25rem !important;
+      }
       background-size: 1.5rem !important;
       background-color: color($theme-color-primary-darker);
       width: 100%;
       height: 100%;
       &[aria-expanded='false'] {
         background-image: url(../../img/angle-arrow-down-white.svg) !important;
-        &:hover {
-          background-image: url(../../img/angle-arrow-down-primary.svg) !important;
-        }
       }
       &[aria-expanded='true'] {
         background-image: url(../../img/angle-arrow-up-white.svg) !important;
-        &:hover {
-          background-image: url(../../img/angle-arrow-up-primary.svg) !important;
-        }
       }
 
       &:hover {
@@ -411,6 +414,10 @@ $arrow-height: 24px;
     background-color: color('white');
     min-height: 20rem;
     padding: 2rem 3.5rem 2.5rem 3.5rem;
+    @media screen and (max-width: 600px) {
+      padding: 2rem 1.5rem 2.5rem 1.5rem;
+    }
+
 
     #crt-landing--choice_helptext p {
       margin-top: 0;
