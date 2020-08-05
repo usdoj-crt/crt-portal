@@ -5,12 +5,15 @@
   method="GET"
   action="/form/view"
   novalidate
->
+> 
+  <div class="usa-form intake-filters intake-checkbox">
+    {% include 'forms/complaint_view/index/filters/checkbox_status_filter.html' %}
+    <button class="usa-button " type="submit">Apply Filters</button>
+  </div>
   <div class="intake-filters">
     {% include 'forms/complaint_view/index/filters/section_filter.html' %}
     {% include 'forms/complaint_view/index/filters/contact_filter.html' %}
     {% include 'forms/complaint_view/index/filters/incident_location_filter.html' %}
-    {% include 'forms/complaint_view/index/filters/status_filter.html' %}
     {% include 'forms/complaint_view/index/filters/summary_filter.html' %}
     {% include 'forms/complaint_view/index/filters/date.html' %}
     {% include 'forms/complaint_view/index/filters/assignee.html' %}

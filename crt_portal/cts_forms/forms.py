@@ -7,7 +7,7 @@ from django.core.validators import ValidationError
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField, DateField, DateInput,
                           EmailInput, HiddenInput, IntegerField,
                           ModelChoiceField, ModelForm, Form,
-                          ModelMultipleChoiceField,
+                          ModelMultipleChoiceField, MultipleChoiceField,
                           Select, SelectMultiple, Textarea, TextInput,
                           TypedChoiceField)
 from django.utils.functional import cached_property
@@ -856,13 +856,12 @@ class ProForm(
 
 
 class Filters(ModelForm):
-    status = ChoiceField(
+    status = MultipleChoiceField(
+        initial=(('new', 'New'), ('open', 'Open')),
         required=False,
-        choices=_add_empty_choice(STATUS_CHOICES),
-        widget=Select(attrs={
-            'name': 'status',
-            'class': 'usa-select',
-        })
+        label='status',
+        choices=STATUS_CHOICES,
+        widget=UsaCheckboxSelectMultiple(),
     )
     location_state = ChoiceField(
         required=False,
@@ -1049,7 +1048,6 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
                 attrs={
                     'class': 'crt-dropdown__data',
                 },
-
             ),
             choices=STATUS_CHOICES,
             required=False
