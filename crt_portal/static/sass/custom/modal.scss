@@ -103,6 +103,8 @@ body.is-modal {
 }
 
 #external-link--modal {
+  color: color($theme-color-primary-darker);
+
   h1 {
     margin: 0;
   }
