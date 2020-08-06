@@ -86,7 +86,7 @@
             <strong>{% trans "If you believe your civil rights, or someone else’s, have been violated, submit a report using our online form." %}</strong>
           </p>
           <a class="usa-button usa-button--big crt-button--large" href="#report-a-violation">{% trans "Start a report" %}</a>
-         <p class="text-italic">{% trans 'or learn more about <a href="#your-rights">your rights</a>' %}</p>
+          <p class="text-italic">{% trans 'or learn more about <a href="#your-rights">your rights</a>' %}</p>
 
         </div>
       </div>
@@ -353,8 +353,8 @@
             <h3 class="h3__display">{% trans "Need urgent legal help?" %}</h3>
           </div>
           <p>{% trans "Due to the amount of reports we receive, it can take several weeks for us to respond to your issue. Local legal aid offices or lawyers in your area may be able to quickly respond to or help with your concern" %}</p>
-          <p>{% trans 'Contact Legal Services Corporation at <a aria-label="www.lsc.gov/find-legal-aid" class="external-link--blue" href="https://www.lsc.gov/find-legal-aid">lsc.gov/find-legal-aid</a> or call <a href="tel:202-295-1500">(202) 295-1500</a>.' %}</p>
-          <p>{% trans 'Or visit <a class="external-link--blue" aria-label="www.findlegalhelp.org" href="http://www.findlegalhelp.org/">www.findlegalhelp.org</a> or call <a href="tel:800-285-2221">(800) 285-2221</a> to find a lawyer through the American Bar Association.' %}</p>
+          <p>{% trans 'Contact Legal Services Corporation at <a aria-label="www.lsc.gov/find-legal-aid" class="external-link--blue external-link--popup" href="https://www.lsc.gov/find-legal-aid">lsc.gov/find-legal-aid</a> or call <a href="tel:202-295-1500">(202) 295-1500</a>.' %}</p>
+          <p>{% trans 'Or visit <a class="external-link--blue external-link--popup" aria-label="www.findlegalhelp.org" href="http://www.findlegalhelp.org/">www.findlegalhelp.org</a> or call <a href="tel:800-285-2221">(800) 285-2221</a> to find a lawyer through the American Bar Association.' %}</p>
         </div>
       </div>
     </div>
@@ -376,6 +376,33 @@
             <p>Flickr: Kelly Johnson Revolutionary Photography, The U.S. National Archives</p>
             <p>Wikimedia Commons Public Domain</p>
             <p>Cover art by Aviva Oskow</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="external-link--modal" hidden>
+    <div class="modal-wrapper" role="dialog" aria-modal="true" aria-describedby="modal_dialog_header">
+      <div class="modal-content modal-content--small">
+        <div class="modal-header">
+          <h1 id="modal_dialog_header" class="h2__display">
+            {% trans "You are now leaving the Department of Justice website." %}
+          </h1>
+        </div>
+        <div class="modal-form">
+          <p>
+            {% trans "You will automatically be redirected to:" %}
+            <span>
+              <a id="external-link--address" href="#"></a>
+            </span>
+          </p>
+          <p class="external-link--disclaimer">
+            {% trans "The Department of Justice does not endorse the organizations or views represented by this site and takes no responsibility for, and exercises no control over, the accuracy, accessibility, copyright or trademark compliance or legality of the material contained on this site." %}
+          </p>
+          <div class="modal-footer">
+            <a id="external-link--cancel" href="#" class="usa-button usa-button--outline button--cancel light-button">{% trans "Back" %}</a>
+            <a id="external-link--continue" href="#" class="usa-button button--continue">{% trans "Continue" %}</a>
           </div>
         </div>
       </div>
@@ -426,4 +453,6 @@
      }
    };
   </script>
+  <script src="{% static 'js/modal.js' %}"></script>
+  <script src="{% static 'js/redirect-modal.js' %}"></script>
 {% endblock %}
