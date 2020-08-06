@@ -1273,7 +1273,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
             self.fields['summary'].initial = summary.note
             self.fields['summary_id'].initial = summary.pk
 
-    @ cached_property
+    @cached_property
     def changed_data(self):
         changed_data = super().changed_data
 
