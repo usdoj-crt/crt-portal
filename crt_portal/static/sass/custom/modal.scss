@@ -116,7 +116,13 @@ body.is-modal {
   }
 
   #external-link--cancel {
-    margin-left: 0;
+      margin-left: 0;
+  }
+
+  #external-link--continue {
+    @include at-media-max(mobile-lg) {
+      margin-top: 1rem;
+    }
   }
 
   .modal-footer {
