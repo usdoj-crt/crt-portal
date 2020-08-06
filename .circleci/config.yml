@@ -6,7 +6,7 @@ jobs:
   checkout_code:
     working_directory: ~/code
     docker:
-      - image: circleci/python:3.8.5-node-browsers
+      - image: circleci/python:3.8.5
     steps:
       - checkout
       - save_cache:
@@ -16,7 +16,7 @@ jobs:
   install_dependencies:
     working_directory: ~/code
     docker:
-      - image: circleci/python:3.8.2-node-browsers
+      - image: circleci/python:3.8.2-node
     steps:
       - restore_cache:
           keys:
@@ -45,7 +45,7 @@ jobs:
   test_and_coverage:
     working_directory: ~/code
     docker:
-      - image: circleci/python:3.8.2-node-browsers
+      - image: circleci/python:3.8.2
         environment:
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -75,7 +75,7 @@ jobs:
   bandit:
     working_directory: ~/code
     docker:
-      - image: circleci/python:3.8.2-node-browsers
+      - image: circleci/python:3.8.2
         environment:
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -94,7 +94,7 @@ jobs:
   flake8:
     working_directory: ~/code
     docker:
-      - image: circleci/python:3.8.2-node-browsers
+      - image: circleci/python:3.8.2
         environment:
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -113,7 +113,7 @@ jobs:
   prettier:
     working_directory: ~/code
     docker:
-      - image: circleci/python:3.8.2-node-browsers
+      - image: circleci/python:3.8.2-node
         environment:
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -142,6 +142,9 @@ jobs:
     steps:
       - restore_cache:
           keys:
+            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
             - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
             - pip-packages-v1-{{ .Branch }}-
             - pip-packages-v1-
@@ -154,11 +157,13 @@ jobs:
           name: Build frontend resources
           command: node node_modules/gulp/bin/gulp build-sass
       - run:
+          name: migrate db for tests
+          command: pipenv run crt_portal/manage.py migrate
+      - run:
           name: run server for tests
           environment:
             DEBUG: true
           command: |
-            pipenv run crt_portal/manage.py migrate
             # create pa11y_tester
             echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_user('pa11y_tester', 'admin@myproject.com', '$PA11Y_PASSWORD')" | pipenv run crt_portal/manage.py shell
             # runserver
