@@ -9,8 +9,7 @@
     link.onclick = function(event) {
       event.preventDefault();
       // display the actual redirect link
-      span.href = link.href;
-      span.innerText = link.href;
+      span.innerHTML = '<a href="' + link.href + '">' + link.href + "</a>";
       root.CRT.openModal(modal_el);
       // set timeout for redirect
       clearTimeout(redirect);
