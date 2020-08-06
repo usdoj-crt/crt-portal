@@ -3,12 +3,50 @@
 # Set deployment variables in CircleCI as environment variables
 version: 2
 jobs:
-  build_and_test:
+  checkout_code:
     working_directory: ~/code
     docker:
-      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: circleci/python:3.8.5-node
-        environment: # environment variables for primary container
+      - image: circleci/python:3.8.5-node-browsers
+    steps:
+      - checkout
+      - save_cache:
+          key: v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - ~/code
+  install_dependencies:
+    working_directory: ~/code
+    docker:
+      - image: circleci/python:3.8.2-node-browsers
+    steps:
+      - restore_cache:
+          keys:
+            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-v1-{{ .Branch }}-
+            - node-v1-
+      - restore_cache:
+          keys:
+            - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - pip-packages-v1-{{ .Branch }}-
+            - pip-packages-v1-
+      - run:
+          name: Node install
+          command: npm ci
+      - save_cache:
+          paths:
+            - /home/circleci/code/node_modules/
+          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      - save_cache:
+          paths:
+            - /home/circleci/code/.venv
+          key: pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+  test_and_coverage:
+    working_directory: ~/code
+    docker:
+      - image: circleci/python:3.8.2-node-browsers
+        environment:
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
       - image: postgres:10.1-alpine
@@ -16,49 +54,77 @@ jobs:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
     steps:
-      - checkout
+      - restore_cache:
+          keys:
+            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
       - restore_cache:
           keys:
             - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
             - node-v1-{{ .Branch }}-
             - node-v1-
-      - run:
-          name: Node install
-          command: |
-            npm ci
-      - save_cache:
-          paths:
-            - /home/circleci/code/node_modules/
-          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - restore_cache:
           keys:
             - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
             - pip-packages-v1-{{ .Branch }}-
             - pip-packages-v1-
       - run:
-          name: Python install with pipenv then migrate the database
-          command: |
-            pip install -U pip
-            pip install pipenv
-            pipenv install --dev
-            pipenv run crt_portal/manage.py migrate
-      - save_cache:
-          paths:
-            - /home/circleci/code/.venv
-          key: pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-      - run:
           name: Run unit tests & check coverage
           command: |
             pipenv run coverage run --source='crt_portal' crt_portal/manage.py test --settings=crt_portal.test_settings cts_forms
             pipenv run coverage report --fail-under=85 -m
+  bandit:
+    working_directory: ~/code
+    docker:
+      - image: circleci/python:3.8.2-node-browsers
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+    steps:
+      - restore_cache:
+          keys:
+            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - pip-packages-v1-{{ .Branch }}-
+            - pip-packages-v1-
       - run:
           name: Run bandit (Python security) tests
           command: |
             pipenv run bandit -r crt_portal/
+  flake8:
+    working_directory: ~/code
+    docker:
+      - image: circleci/python:3.8.2-node-browsers
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+    steps:
+      - restore_cache:
+          keys:
+            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - pip-packages-v1-{{ .Branch }}-
+            - pip-packages-v1-
       - run:
           name: Run flake8 test for Python code style
           command: |
             pipenv run flake8
+  prettier:
+    working_directory: ~/code
+    docker:
+      - image: circleci/python:3.8.2-node-browsers
+        environment:
+          PIPENV_VENV_IN_PROJECT: true
+    steps:
+      - restore_cache:
+          keys:
+            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          keys:
+            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-v1-{{ .Branch }}-
+            - node-v1-
       - run:
           name: Run prettier code formatting check
           command: npm run lint:check
@@ -74,11 +140,25 @@ jobs:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
     steps:
+      - restore_cache:
+          keys:
+            - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - pip-packages-v1-{{ .Branch }}-
+            - pip-packages-v1-
+      - restore_cache:
+          keys:
+            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-v1-{{ .Branch }}-
+            - node-v1-
+      - run:
+          name: Build frontend resources
+          command: node node_modules/gulp/bin/gulp build-sass
       - run:
           name: run server for tests
           environment:
             DEBUG: true
           command: |
+            pipenv run crt_portal/manage.py migrate
             # create pa11y_tester
             echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_user('pa11y_tester', 'admin@myproject.com', '$PA11Y_PASSWORD')" | pipenv run crt_portal/manage.py shell
             # runserver
@@ -299,10 +379,25 @@ workflows:
   version: 2
   build-test-deploy:
     jobs:
-      - build_and_test
+      - checkout_code
+      - install_dependencies:
+          requires:
+            - checkout_code
+      - test_and_coverage:
+          requires:
+            - install_dependencies
+      - bandit:
+          requires:
+            - install_dependencies
+      - flake8:
+          requires:
+            - install_dependencies
+      - prettier:
+          requires:
+            - install_dependencies
       - pa11y:
           requires:
-            - build_and_test
+            - install_dependencies
 
       - owasp-scan-dev:
           filters:
@@ -323,7 +418,11 @@ workflows:
 
       - deploy-dev:
           requires:
-            - build_and_test
+            - test_and_coverage
+            - bandit
+            - flake8
+            - prettier
+            - pa11y
           filters:
             branches:
               only: develop
@@ -331,7 +430,11 @@ workflows:
       - deploy-stage:
           requires:
             - owasp-scan-dev
-            - build_and_test
+            - test_and_coverage
+            - bandit
+            - flake8
+            - prettier
+            - pa11y
           filters:
             branches:
               only: /^release.*/
@@ -339,7 +442,11 @@ workflows:
       - deploy-prod:
           requires:
             - owasp-scan-stage
-            - build_and_test
+            - test_and_coverage
+            - bandit
+            - flake8
+            - prettier
+            - pa11y
           filters:
             branches:
               only: master
