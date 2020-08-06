@@ -3,6 +3,7 @@
   var modal_el = document.getElementById('external-link--modal');
   var span = document.getElementById('external-link--address');
   var links = document.querySelectorAll('.external-link--popup');
+  var continue_button = document.getElementById('external-link--continue');
   var redirect;
   links.forEach(function(link) {
     link.onclick = function(event) {
@@ -19,13 +20,14 @@
           window.location.href = link.href;
         }
       }, 20000);
+
+      // set up "continue" button to immediately redirect
+      continue_button.onclick = function(event) {
+        event.preventDefault();
+        window.location.href = link.href;
+      };
     };
   });
   var cancel_modal = document.getElementById('external-link--cancel');
   root.CRT.cancelModal(modal_el, cancel_modal);
-  var continue_button = document.getElementById('external-link--continue');
-  continue_button.onclick = function(event) {
-    event.preventDefault();
-    window.location.href = link.href;
-  };
 })(window);
