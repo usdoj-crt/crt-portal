@@ -5,12 +5,12 @@
   var links = document.querySelectorAll('.external-link--popup');
   var continue_button = document.getElementById('external-link--continue');
   var redirect;
-  for(var i = 0; i < links.length; i++) {
+  for (var i = 0; i < links.length; i++) {
     var link = links[i];
     link.onclick = function(event) {
       event.preventDefault();
       // display the actual redirect link
-      span.innerHTML = '<a href="' + link.href + '">' + link.href + "</a>";
+      span.innerHTML = '<a href="' + link.href + '">' + link.href + '</a>';
       root.CRT.openModal(modal_el);
       // set timeout for redirect
       clearTimeout(redirect);
