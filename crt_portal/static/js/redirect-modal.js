@@ -5,7 +5,8 @@
   var links = document.querySelectorAll('.external-link--popup');
   var continue_button = document.getElementById('external-link--continue');
   var redirect;
-  links.forEach(function(link) {
+  for(var i = 0; i < links.length; i++) {
+    var link = links[i];
     link.onclick = function(event) {
       event.preventDefault();
       // display the actual redirect link
@@ -26,7 +27,7 @@
         window.location.href = link.href;
       };
     };
-  });
+  }
   var cancel_modal = document.getElementById('external-link--cancel');
   root.CRT.cancelModal(modal_el, cancel_modal);
 })(window);
