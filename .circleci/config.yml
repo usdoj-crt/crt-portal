@@ -74,37 +74,6 @@ jobs:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
     steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-            - node-v1-{{ .Branch }}-
-            - node-v1-
-      - run:
-          name: Node install, generate CSS
-          command: |
-            npm ci
-            node node_modules/gulp/bin/gulp build-sass
-      - save_cache:
-          paths:
-            - /home/circleci/code/node_modules/
-          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      - restore_cache:
-          keys:
-            - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-            - pip-packages-v1-{{ .Branch }}-
-            - pip-packages-v1-
-      - run:
-          name: Python install with pipenv then migrate the database
-          command: |
-            pip install -U pip
-            pip install pipenv
-            pipenv install --dev
-            pipenv run crt_portal/manage.py migrate
-      - save_cache:
-          paths:
-            - /home/circleci/code/.venv
-          key: pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           name: run server for tests
           environment:
@@ -331,7 +300,9 @@ workflows:
   build-test-deploy:
     jobs:
       - build_and_test
-      - pa11y
+      - pa11y:
+          requires:
+            - build_and_test
 
       - owasp-scan-dev:
           filters:
