@@ -9,15 +9,10 @@
         "set field #id_password to imposing40Karl5monomial",
         "click #login",
         "wait for path to be /form/view/",
+        "screen capture pa11y-screenshots/crt-view-step1.png",
         "wait for element #assigned_to to be visible",
         "click element #submitted-sort",
-        "wait for path to be /form/view/",
-        "click element #date",
-        "wait for element #id_create_date_start to be visible",
-        "set field #id_create_date_start to 2020-01-01",
-        "wait for element #id_create_date_end to be visible",
-        "set field #id_create_date_end to 2020-07-01",
-        "click #id_apply_dates"
+        "wait for path to be /form/view/"
       ],
       "screenCapture": "pa11y-screenshots/crt-sort-view.png"
     }
