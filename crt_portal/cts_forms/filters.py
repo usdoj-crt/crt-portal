@@ -2,8 +2,11 @@
 # provided they are valid filterable model properties.
 from datetime import datetime
 import urllib.parse
+import logging
 
 from .models import Report
+
+logger = logging.getLogger(__name__)
 
 # To add a new filter option for Reports, add the field name and expected filter behavior
 filter_options = {
@@ -67,10 +70,10 @@ def report_filter(request):
                 decodedDate = urllib.parse.unquote(encodedDate)
                 try:
                     dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
+                    kwargs[f'{field_name}{filter_options[field]}'] = dateObj
                 except ValueError:
-                    # if the date is invalid, set it to 2020 because there is no data prior to 2020
-                    dateObj = datetime.strptime("2020", "%Y")
-                kwargs[f'{field_name}{filter_options[field]}'] = dateObj
+                    # if the date is invalid, we ignore it.
+                    continue
             elif filter_options[field] == 'summary':
                 # assumes summaries are edited so there is only one per report - that is current behavior
                 kwargs['internal_comments__note__search'] = request.GET.getlist(field)[0]
