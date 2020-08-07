@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils.decorators import method_decorator
 from django.views.generic import FormView, View, TemplateView
-from django.views.decorators.cache import cache_control
+from django.views.decorators.cache import never_cache
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
@@ -553,7 +553,7 @@ class LandingPageView(TemplateView):
         return {'choices': choices}
 
 
-@method_decorator(cache_control(private=True), name='dispatch')
+@method_decorator(never_cache, name='dispatch')
 class CRTReportWizard(SessionWizardView):
     """Once all the sub-forms are submitted this class will clean data and save."""
 
