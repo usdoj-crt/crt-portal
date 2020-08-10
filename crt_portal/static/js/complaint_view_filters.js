@@ -364,7 +364,7 @@
     clearFiltersView({
       el: clearAllEl,
       onClick: clearAllFilters
-    })
+    });
   }
 
   // Bootstrap the filter code's data persistence and
