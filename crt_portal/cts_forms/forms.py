@@ -906,7 +906,8 @@ class Filters(ModelForm):
         widget=CrtDateInput(attrs={
             'class': 'usa-input',
             'name': 'create_date_start',
-            'min': '2020-01-01',
+            'min': '2019-01-01',
+            'placeholder': 'yyyy-mm-dd',
         }),
     )
     create_date_end = DateField(
@@ -916,7 +917,8 @@ class Filters(ModelForm):
         widget=CrtDateInput(attrs={
             'class': 'usa-input',
             'name': 'create_date_end',
-            'min': '2020-01-01',
+            'min': '2019-01-01',
+            'placeholder': 'yyyy-mm-dd',
         }),
     )
 
