@@ -1,8 +1,9 @@
 {% extends "forms/complaint_view/index/filter-no-dropdown.html" %}
 
 {% block content %}
-  <label for="contact-last-name-filter"></label>
-    <div id="contact-last-name-filter" class="padding-right-2">
-    {{ form.contact_last_name }}
-    </div>
+  <div id="contact-last-name-filter" class="padding-right-2">
+    <label for="contact-last-name-filter">
+      {{ form.contact_last_name }}
+    </label>
+  </div>
 {% endblock %}

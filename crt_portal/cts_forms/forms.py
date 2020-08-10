@@ -939,7 +939,8 @@ class Filters(ModelForm):
             'contact_first_name': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'contact_first_name',
-                'placeholder': 'Contact First Name'
+                'placeholder': 'Contact First Name',
+                'id': 'id_contact_first_name'
             }),
             'contact_last_name': TextInput(attrs={
                 'class': 'usa-input',
