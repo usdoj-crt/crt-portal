@@ -18,18 +18,6 @@ $arrow-height: 24px;
   li {
     margin-bottom: 1rem;
   }
-
-  @include at-media-max(mobile-lg) {
-      padding-top: 3rem;
-      padding-bottom: 3rem;
-      &.crt-landing--lightblue{
-        padding-top: 0;
-      }
-      &.crt-landing--emergency {
-        padding-top: 1.5rem;
-        padding-bottom: 1.5rem;
-      }
-  }
 }
 
 .crt-header--icon_group {
@@ -155,13 +143,20 @@ $arrow-height: 24px;
   .crt-landing--logo_subheading {
     @extend .usa-footer__logo-subheading;
     font-size: $theme-text-font-size-sm;
+    @media screen and (max-width: 400px) {
+      @include text--body-copy__xsmall();
+    }
   }
 
   .crt-landing--logo_heading {
     @extend .usa-footer__logo-heading;
     font-size: $theme-heading-font-size-md;
+    @media screen and (max-width: 400px) {
+      font-size: $theme-text-font-size-sm;
+    }
   }
-}
+
+  }
 
 .crt-landing--hero {
   background-image: url(../../img/landing-page-hero.png);
@@ -186,7 +181,6 @@ $arrow-height: 24px;
     a,
     a:visited {
       color: white;
-      margin-top: 0;
     }
   }
 
@@ -245,14 +239,6 @@ $arrow-height: 24px;
     margin-bottom: 2.5rem;
   }
 
-  @include at-media-max(mobile-lg) {
-    .crt-landing--description__rights {
-      @include text--heading__large();
-      margin-top: 1rem;
-      margin-bottom: 2rem;
-    }
-  }
-
   .crt-landing--columns {
     min-height: 6rem;
     @include at-media-max(desktop) {
@@ -261,18 +247,10 @@ $arrow-height: 24px;
   }
 }
 
-.crt_landing--section_item{
-  margin-top: 2.5rem;
-  margin-bottom: 2.5rem;
-}
-
 .crt-landing--rights {
   .crt-landing--rights_text {
     @include text--heading__large();
     margin-bottom: 2rem;
-    @include at-media-max(mobile-lg){
-      margin-bottom: 1.5rem;
-    }
   }
 
   .crt-landing--largetext {
@@ -316,16 +294,17 @@ $arrow-height: 24px;
   }
 
   .crt-landing--divider {
-    border-left: 1px solid color($theme-color-primary-darker);
-    padding-left: units($spacer-4x) !important;
     margin-top: units($spacer-5x);
-    @include at-media-max(mobile-lg) {
+    padding-left: units($spacer-4x) !important;
+    border-top: none;
+    border-left: 1px solid color($theme-color-primary-darker);
+    @include at-media-max(tablet) {
       border-left: none;
       border-top: 1px solid color($theme-color-primary-darker);
-      padding-left: 0 !important;
-      padding-top: 1.5rem;
-      margin: 0;
+      padding-top: units($spacer-3x);
+      padding-left: 0rem !important;
     }
+
   }
 
   ul {
@@ -352,9 +331,6 @@ $arrow-height: 24px;
     @include u-shadow(3);
     margin-top: 2.5rem;
     padding: 0;
-    @include at-media-max(mobile-lg){
-      margin-top: 2rem;
-    }
 
     li {
       width: 100%;
@@ -372,6 +348,9 @@ $arrow-height: 24px;
       // caret adjustments -- in many cases overriding the USWDS defaults
       background-repeat: no-repeat !important;
       background-position: right 1.5rem center !important;
+      @include at-media-max (tablet-lg){
+        background-position: right 1.5rem top 1.25rem !important;
+      }
       background-size: 1.5rem !important;
       background-color: color($theme-color-primary-darker);
       width: 100%;
@@ -435,9 +414,10 @@ $arrow-height: 24px;
     background-color: color('white');
     min-height: 20rem;
     padding: 2rem 3.5rem 2.5rem 3.5rem;
-    @include at-media-max(mobile-lg) {
-      padding: 1.5rem;
+    @media screen and (max-width: 600px) {
+      padding: 2rem 1.5rem 2.5rem 1.5rem;
     }
+
 
     #crt-landing--choice_helptext p {
       margin-top: 0;
@@ -468,12 +448,6 @@ $arrow-height: 24px;
 .crt-landing--how_to_report {
   h2 {
     margin-top: 0;
-  }
-
-  @include at-media-max(mobile-lg) {
-     .crt-landing--largetext{
-      margin-bottom: 2rem;
-    }
   }
 
   .crt-landing--icon_gold {
@@ -508,19 +482,11 @@ $arrow-height: 24px;
   h2 {
     margin-top: 2rem;
     margin-bottom: 1rem;
-    @include at-media-max(mobile-lg) {
-      margin-bottom: 2rem;
-    }
   }
 
   p.crt-landing--text {
     @include text--body-copy__small();
     margin-bottom: 0;
-  }
-  @include at-media-max(mobile-lg) {
-    .crt-button--large {
-      margin-top: 0;
-    }
   }
 }
 
@@ -530,22 +496,12 @@ $arrow-height: 24px;
   }
 }
 
-@include at-media-max(mobile-lg) {
-  #crt-landing--submitted_paragraph {
-    margin-top: 0;;
-  }
-}
-
 .crt-landing--card {
   @extend .crt-portal-card;
   a {
     font-weight: bold;
   }
   padding: 1.5rem 2rem !important;
-  @include at-media-max(mobile-lg) {
-    margin-top: 2.5rem;
-    padding: 1.5rem !important;
-  }
 }
 
 .crt-landing--arrow {
@@ -558,10 +514,6 @@ $arrow-height: 24px;
 
 .crt-landing--similar_situation {
   margin-top: 2rem;
-
-  @include at-media-max(mobile-lg) {
-    margin: 1.5rem 0;
-  }
 
   a {
     font-weight: bold;
