@@ -43,7 +43,7 @@ def export_as_csv(modeladmin, request, queryset):
     for report in queryset:
         row = [getattr(report, field) for field in non_m2m_fields]
         # Add protected_class M2M field
-        row.append('; '.join([pc.code for pc in report.protected_class.all()]))
+        row.append('; '.join([str(pc) for pc in report.protected_class.all()]))
         rows.append(row)
 
     response = StreamingHttpResponse((writer.writerow(row) for row in rows),
