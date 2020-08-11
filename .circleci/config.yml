@@ -1,6 +1,13 @@
 # Python CircleCI 2.0 configuration file
 # Circle docs https://circleci.com/docs/2.0/language-python/
 # Set deployment variables in CircleCI as environment variables
+cf-docker-image: &CF_DOCKER_IMAGE
+  docker:
+    - image:
+      environment:
+        - TZ=America/New_York
+        - CF_API: https://api.fr.cloud.gov
+
 version: 2
 jobs:
   checkout_code:
@@ -213,168 +220,30 @@ jobs:
               -t https://civilrights.justice.gov/report/ -c .circleci/zap.conf -z "-config rules.cookie.ignorelist=django_language"
 # deployments
   deploy-dev:
+    <<: *CF_DOCKER_IMAGE
     working_directory: ~/code
-    docker:
-      # standard docker python image
-      - image: python:3.8.5
-        environment: # environment variables for primary container
-          PIPENV_VENV_IN_PROJECT: true
-          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
-        environment:
-          POSTGRES_USER: root
-          POSTGRES_DB: circle_test
     steps:
       - checkout
-      # removing as we deal with caching problem
-      # - restore_cache:
-      # # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-      #     key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
-      - run:
-          name: Node install
-          command: |
-            echo "deb https://deb.nodesource.com/node_12.x stretch main" > /etc/apt/sources.list.d/nodesource.list && \
-            wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-            echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
-            wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-            apt-get update && \
-            apt-get install -yqq nodejs yarn && \
-            npm i -g npm@^6 && \
-            rm -rf /var/lib/apt/lists/*
-            npm ci --production
-            node node_modules/gulp/bin/gulp build-sass
-      - run:
-          # database will be migrated in cloud.gov
-          name: Python install with pipenv
-          command: |
-            pip install -U pip
-            pip install pipenv
-            pipenv install
-      - run:
-          name: Install cloud foundry deploy tools
-          command: |
-            wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
-            echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-            apt-get update
-            apt-get install cf-cli
-      # - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
-      #     key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
-      #     paths:
-      #       - ".venv"
-      #       - "/usr/local/bin"
-      #       - "/usr/local/lib/python3.8/site-packages"
       - run:
           name: Deploy to dev
           command: |
               ./blue-green-deploy.sh $CRT_USERNAME_DEV $CRT_PASSWORD_DEV dev
 
   deploy-stage:
+    <<: *CF_DOCKER_IMAGE
     working_directory: ~/code
-    docker:
-      - image: python:3.8.5
-        environment: # environment variables for primary container
-          PIPENV_VENV_IN_PROJECT: true
-          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
-        environment:
-          POSTGRES_USER: root
-          POSTGRES_DB: circle_test
     steps:
       - checkout
-      - restore_cache:
-      # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
-      - run:
-          name: Node install
-          command: |
-            echo "deb https://deb.nodesource.com/node_12.x stretch main" > /etc/apt/sources.list.d/nodesource.list && \
-            wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-            echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
-            wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-            apt-get update && \
-            apt-get install -yqq nodejs yarn && \
-            npm i -g npm@^6 && \
-            rm -rf /var/lib/apt/lists/*
-            npm ci --production
-            node node_modules/gulp/bin/gulp build-sass
-      - run:
-          # database will be migrated in cloud.gov
-          name: Python install with pipenv
-          command: |
-            pip install -U pip
-            pip install pipenv
-            pipenv install
-      - run:
-          name: Install cloud foundry deploy tools
-          command: |
-            wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
-            echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-            apt-get update
-            apt-get install cf-cli
-      - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
-          key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
-          paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.8/site-packages"
       - run:
           name: Deploy to stage
           command: |
             ./blue-green-deploy.sh $CRT_USERNAME_STAGE $CRT_PASSWORD_STAGE staging
 
   deploy-prod:
+    <<: *CF_DOCKER_IMAGE
     working_directory: ~/code
-    docker:
-      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: python:3.8.5
-        environment: # environment variables for primary container
-          PIPENV_VENV_IN_PROJECT: true
-          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
-        environment:
-          POSTGRES_USER: root
-          POSTGRES_DB: circle_test
     steps:
       - checkout
-      - restore_cache:
-      # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
-      - run:
-          name: Node install
-          command: |
-            echo "deb https://deb.nodesource.com/node_12.x stretch main" > /etc/apt/sources.list.d/nodesource.list && \
-            wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-            echo "deb https://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list && \
-            wget -qO- https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-            apt-get update && \
-            apt-get install -yqq nodejs yarn && \
-            npm i -g npm@^6 && \
-            rm -rf /var/lib/apt/lists/*
-            npm ci --production
-            node node_modules/gulp/bin/gulp build-sass
-      - run:
-          # database will be migrated in cloud.gov
-          name: Python install with pipenv
-          command: |
-            pip install -U pip
-            pip install pipenv
-            pipenv install
-      - run:
-          name: Install cloud foundry deploy tools
-          command: |
-            wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
-            echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-            apt-get update
-            apt-get install cf-cli
-      - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
-          paths:
-            - ".venv"
-            - "/usr/local/bin"
-            - "/usr/local/lib/python3.8/site-packages"
       - run:
           name: Deploy to production
           command: |
