@@ -103,7 +103,7 @@
   var initialFilterState = {
     assigned_section: [],
     primary_complaint: '',
-    status: '',
+    status: [],
     location_state: '',
     primary_complaint: '',
     contact_first_name: '',
@@ -124,7 +124,8 @@
     page: '',
     per_page: '',
     servicemember: '',
-    hate_crime: ''
+    hate_crime: '',
+    no_status: ''
   };
   var filterDataModel = {};
 
@@ -223,6 +224,23 @@
     return options.filter(isSelected).map(unwrapValue);
   };
 
+  function checkBoxView(props) {
+    for (var i = 0; i < props.el.length; i++) {
+      props.el[i].addEventListener('change', function(event) {
+        checkBoxView.getValues(event.target);
+      });
+    }
+  }
+
+  checkBoxView.getValues = function(el) {
+    if (el.checked) {
+      filterDataModel[event.target.name].push(el.value);
+    } else {
+      var index = filterDataModel[event.target.name].indexOf(el.value);
+      filterDataModel[event.target.name].splice(index, 1);
+    }
+  };
+
   /**
    * View to control text input element behavior
    * @param {Object} props
@@ -255,7 +273,7 @@
     var locationStateEl = formEl.querySelector('select[name="location_state"]');
     var activeFiltersEl = dom.querySelector('[data-active-filters]');
     var clearAllEl = dom.querySelector('[data-clear-filters]');
-    var statusEl = formEl.querySelector('select[name="status"]');
+    var statusEl = dom.getElementsByName('status');
     var summaryEl = formEl.querySelector('input[name="summary"]');
     var assigneeEl = formEl.querySelector('#id_assigned_to');
     var complaintIDEl = formEl.querySelector('input[name="public_id"');
@@ -275,6 +293,12 @@
 
         sections.splice(sections.indexOf(filterData), 1);
         filterDataModel.assigned_section = sections;
+      } else if (filterName === 'status') {
+        var status = filterDataModel.status;
+        var filterData = node.getAttribute('data-filter-value');
+
+        status.splice(status.indexOf(filterData), 1);
+        filterDataModel.status = status;
       } else {
         filterDataModel[filterName] = '';
       }
@@ -289,7 +313,6 @@
         var filterName = node.getAttribute('data-filter-name');
         var currentFilterData = filterDataModel[filterName];
         currentFilterData = wrapValue(currentFilterData);
-
         if (currentFilterData.length) {
           updates[filterName] = initialFilterState[filterName];
         }
@@ -332,7 +355,7 @@
       el: activeFiltersEl,
       onClick: onFilterTagClick
     });
-    textInputView({
+    checkBoxView({
       el: statusEl,
       name: 'status'
     });
@@ -365,7 +388,11 @@
   // Bootstrap the filter code's data persistence and
   // instantiate the controller that manages the UI components / views
   function init() {
+    if (root.location.search === '') {
+      root.location.search = '?status=new&status=open&no_status=false';
+    }
     var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
+
     Object.keys(initialFilterState).forEach(function(key) {
       filterDataModel[key] = initialFilterState[key];
     });
