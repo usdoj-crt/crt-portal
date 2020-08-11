@@ -3,7 +3,7 @@
 # Set deployment variables in CircleCI as environment variables
 cf-docker-image: &CF_DOCKER_IMAGE
   docker:
-    - image:
+    - image: 18fgsa/cloud-foundry-cli
       environment:
         - TZ=America/New_York
         - CF_API: https://api.fr.cloud.gov
