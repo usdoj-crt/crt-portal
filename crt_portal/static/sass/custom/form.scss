@@ -6,25 +6,19 @@
 form#details-edit-form,
 form#report-form,
 form#filters-form {
-.question--header {
-  width: 100%; // IE11 fix
-  // margin-top: 0.5rem;
-  // margin-bottom: units($spacer-3x);
-  padding-top: 32px;
-  margin: 0;
-  + .help-text,
-  + .help-text__small,
-  + p {
-    // margin-top: -1rem; // to match other help text margins
+  .question--header {
+    width: 100%; // IE11 fix
+    margin: 0;
   }
 }
 
-.zip--code--margin {
-  margin-top: 0;
-  @include at-media-max(mobile-lg){
-    margin-top: 1.5rem;
+
+  .zip--code--margin {
+    margin-top: 0;
+    @include at-media-max(mobile-lg) {
+      margin-top: 1.5rem;
+    }
   }
-}
 
 fieldset:first-of-type .question--header {
   margin-top: 0;
