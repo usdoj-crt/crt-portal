@@ -79,26 +79,7 @@ jobs:
           command: |
             pipenv run coverage run --source='crt_portal' crt_portal/manage.py test --settings=crt_portal.test_settings cts_forms
             pipenv run coverage report --fail-under=85 -m
-  bandit:
-    working_directory: ~/code
-    docker:
-      - image: circleci/python:3.8.2
-        environment:
-          PIPENV_VENV_IN_PROJECT: true
-    steps:
-      - restore_cache:
-          keys:
-            - v1-repo-{{ .Environment.CIRCLE_SHA1 }}
-      - restore_cache:
-          keys:
-            - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-            - pip-packages-v1-{{ .Branch }}-
-            - pip-packages-v1-
-      - run:
-          name: Run bandit (Python security) tests
-          command: |
-            pipenv run bandit -r crt_portal/
-  flake8:
+  python_linting:
     working_directory: ~/code
     docker:
       - image: circleci/python:3.8.2
@@ -117,6 +98,11 @@ jobs:
           name: Run flake8 test for Python code style
           command: |
             pipenv run flake8
+      - run:
+          name: Run bandit (Python security) tests
+          command: |
+            pipenv run bandit -r crt_portal/
+
   prettier:
     working_directory: ~/code
     docker:
@@ -260,10 +246,7 @@ workflows:
       - test_and_coverage:
           requires:
             - install_dependencies
-      - bandit:
-          requires:
-            - install_dependencies
-      - flake8:
+      - python_linting:
           requires:
             - install_dependencies
       - prettier:
@@ -293,8 +276,7 @@ workflows:
       - deploy-dev:
           requires:
             - test_and_coverage
-            - bandit
-            - flake8
+            - python_linting
             - prettier
             - pa11y
           filters:
@@ -305,8 +287,7 @@ workflows:
           requires:
             - owasp-scan-dev
             - test_and_coverage
-            - bandit
-            - flake8
+            - python_linting
             - prettier
             - pa11y
           filters:
@@ -317,8 +298,7 @@ workflows:
           requires:
             - owasp-scan-stage
             - test_and_coverage
-            - bandit
-            - flake8
+            - python_linting
             - prettier
             - pa11y
           filters:
