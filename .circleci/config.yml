@@ -23,7 +23,7 @@ jobs:
   install_dependencies:
     working_directory: ~/code
     docker:
-      - image: circleci/python:3.8.2-node
+      - image: circleci/python:3.8.5-node
     steps:
       - restore_cache:
           keys:
@@ -41,6 +41,9 @@ jobs:
       - run:
           name: Node install
           command: npm ci
+      -run:
+        name: Python dependency install
+        command: pipenv install --dev
       - save_cache:
           paths:
             - /home/circleci/code/node_modules/
@@ -52,7 +55,7 @@ jobs:
   test_and_coverage:
     working_directory: ~/code
     docker:
-      - image: circleci/python:3.8.2
+      - image: circleci/python:3.8.5
         environment:
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -82,7 +85,7 @@ jobs:
   python_linting:
     working_directory: ~/code
     docker:
-      - image: circleci/python:3.8.2
+      - image: circleci/python:3.8.5
         environment:
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -106,7 +109,7 @@ jobs:
   prettier:
     working_directory: ~/code
     docker:
-      - image: circleci/python:3.8.2-node
+      - image: circleci/python:3.8.5-node
         environment:
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -124,7 +127,7 @@ jobs:
   pa11y:
     working_directory: ~/code
     docker:
-      - image: circleci/python:3.8.2-node-browsers
+      - image: circleci/python:3.8.5-node-browsers
         environment:
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
