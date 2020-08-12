@@ -18,8 +18,12 @@ $arrow-height: 24px;
   }
 
   h2 {
-    margin-top: 0;
+    margin-top: 1.5rem;
     margin-bottom: 0;
+
+    @include at-media-max(mobile-lg) {
+      margin-top: 0;
+    }
   }
 
   li {
@@ -309,6 +313,10 @@ $arrow-height: 24px;
 
   h2 {
     margin-top: 2rem;
+
+    @include at-media-max(mobile-lg) {
+      margin-top: 2rem;
+    }
   }
 
   h3 {
@@ -481,10 +489,6 @@ $arrow-height: 24px;
 }
 
 .crt-landing--how_to_report {
-  h2 {
-    margin-top: 0;
-  }
-
   .crt-landing--largetext {
     @include at-media-max(mobile-lg) {
       margin-bottom: 2rem;
@@ -507,13 +511,16 @@ $arrow-height: 24px;
     display: flex;
     flex-direction: row;
     margin-top: 1rem;
+
     @include at-media-max(mobile-lg) {
       margin-top: 0;
     }
 
     h2 {
       min-height: 3rem;
+
       @include at-media-max(desktop) {
+        margin-top: 0;
         min-height: unset;
       }
     }
@@ -526,7 +533,9 @@ $arrow-height: 24px;
   h2 {
     margin-top: 2rem;
     margin-bottom: 1rem;
+
     @include at-media-max(mobile-lg) {
+      margin-top: 2rem;
       margin-bottom: 2rem;
     }
   }
