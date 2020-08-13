@@ -1,8 +1,12 @@
 # Class to handle filtering Reports by supplied query params,
 # provided they are valid filterable model properties.
-import datetime
+from datetime import datetime
+import urllib.parse
+import logging
 
 from .models import Report
+
+logger = logging.getLogger(__name__)
 
 # To add a new filter option for Reports, add the field name and expected filter behavior
 filter_options = {
@@ -49,7 +53,6 @@ def report_filter(request):
     filters = {}
     for field in filter_options.keys():
         filter_list = request.GET.getlist(field)
-
         if len(filter_list) > 0:
             filters[field] = request.GET.getlist(field)
             if filter_options[field] == '__in':
@@ -61,12 +64,16 @@ def report_filter(request):
             elif filter_options[field] == '__contains':
                 kwargs[f'{field}__icontains'] = request.GET.getlist(field)[0]
             elif 'date' in field:
-                # filters by a start date or an end date expects YYYYMMDD
+                # filters by a start date or an end date expects yyyy-mm-dd
                 field_name = _get_date_field_from_param(field)
-                year = int(request.GET.getlist(field)[0][:4])
-                month = int(request.GET.getlist(field)[0][4:6])
-                day = int(request.GET.getlist(field)[0][6:])
-                kwargs[f'{field_name}{filter_options[field]}'] = datetime.date(year, month, day)
+                encodedDate = request.GET.getlist(field)[0]
+                decodedDate = urllib.parse.unquote(encodedDate)
+                try:
+                    dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
+                    kwargs[f'{field_name}{filter_options[field]}'] = dateObj
+                except ValueError:
+                    # if the date is invalid, we ignore it.
+                    continue
             elif filter_options[field] == 'summary':
                 # assumes summaries are edited so there is only one per report - that is current behavior
                 kwargs['internal_comments__note__search'] = request.GET.getlist(field)[0]
@@ -76,6 +83,7 @@ def report_filter(request):
                 kwargs['assigned_to__username__in'] = request.GET.getlist(field)
             elif filter_options[field] == 'eq':
                 kwargs[field] = request.GET.getlist(field)[0]
-
+            elif filter_options[field] == '__gte':
+                kwargs[field] = request.GET.getlist(field)
     # returns a filtered query, and a dictionary that we can use to keep track of the filters we apply
     return Report.objects.filter(**kwargs), filters

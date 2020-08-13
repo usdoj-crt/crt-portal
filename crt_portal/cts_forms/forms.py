@@ -4,7 +4,7 @@ from datetime import datetime
 from actstream import action
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
-from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
+from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField, DateField,
                           EmailInput, HiddenInput, IntegerField,
                           ModelChoiceField, ModelForm, Form,
                           ModelMultipleChoiceField, MultipleChoiceField,
@@ -49,7 +49,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
                       CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
-                      UsaRadioSelect, DataAttributesSelect)
+                      UsaRadioSelect, DataAttributesSelect, CrtDateInput)
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -899,6 +899,28 @@ class Filters(ModelForm):
             'class': 'usa-input'
         })
     )
+    create_date_start = DateField(
+        required=False,
+        label="From:",
+        input_formats=('%Y-%m-%d'),
+        widget=CrtDateInput(attrs={
+            'class': 'usa-input',
+            'name': 'create_date_start',
+            'min': '2019-01-01',
+            'placeholder': 'yyyy-mm-dd',
+        }),
+    )
+    create_date_end = DateField(
+        required=False,
+        label="To:",
+        input_formats=('%Y-%m-%d'),
+        widget=CrtDateInput(attrs={
+            'class': 'usa-input',
+            'name': 'create_date_end',
+            'min': '2019-01-01',
+            'placeholder': 'yyyy-mm-dd',
+        }),
+    )
 
     class Meta:
         model = Report
@@ -928,6 +950,8 @@ class Filters(ModelForm):
             'public_id': 'Complaint ID',
             'primary_statute': 'Primary classification',
             'violation_summary': 'Personal description',
+            'create_date_start': 'Created Date Start',
+            'create_date_end': 'Created Date End',
         }
 
         widgets = {
@@ -959,6 +983,11 @@ class Filters(ModelForm):
                 'class': 'usa-input',
                 'name': 'violation_summary'
             }),
+        }
+        error_messages = {
+            'create_date': {
+                'in_future': _("Create date cannot be in the future."),
+            },
         }
 
 
