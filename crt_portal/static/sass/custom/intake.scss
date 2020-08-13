@@ -143,7 +143,7 @@
         width: 19rem;
       }
     }
-
+    
     .crt-dropdown {
       margin-right: 1rem;
       margin-bottom: 2rem;
@@ -295,12 +295,31 @@
 form#section-filter-form {
   .crt-dropdown {
     background-color: color($theme-color-primary-darker);
-    border-bottom: 1px solid color('white');
+    border-bottom: 2px solid color('white');
     margin-right: 1rem;
+    border-radius: 0;
+    
     &__title {
       color: color('white');
       background-color: color($theme-color-primary-darker);
     }
+
+    &.expanded {
+      img {
+        background-image: url(../../img/intake-icons/ic_select-down.svg);
+      }
+
+      .crt-section_dropdown {
+        color: color($theme-color-primary-darker);
+        background-color: color('white');
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+    }
+  }
+
+  .content {
+    min-width: 12rem;
   }
 }
 
