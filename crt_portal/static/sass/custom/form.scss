@@ -10,8 +10,6 @@ form#filters-form {
     width: 100%; // IE11 fix
     margin: 0;
   }
-}
-
 
   .zip--code--margin {
     margin-top: 0;
@@ -20,421 +18,416 @@ form#filters-form {
     }
   }
 
-fieldset:first-of-type .question--header {
-  margin-top: 0;
-}
-
-.question_primary_complaint {
-  ul {
-    padding-left: 0;
+  fieldset:first-of-type .question--header {
+    margin-top: 0;
   }
 
-  li {
-    margin-bottom: units($spacer-3x);
+  .question_primary_complaint {
+    ul {
+      padding-left: 0;
+    }
 
-    &.primary-issue-example-li {
-      @include text--body-copy__small();
-      list-style: disc !important;
-      margin-bottom: 0;
-      margin-left: 18px;
-      margin-top: units($spacer-half);
+    li {
+      margin-bottom: units($spacer-3x);
 
-      &:first-child {
-        margin-top: 0;
-      }
-      &:last-child {
+      &.primary-issue-example-li {
+        @include text--body-copy__small();
+        list-style: disc !important;
         margin-bottom: 0;
+        margin-left: 18px;
+        margin-top: units($spacer-half);
+
+        &:first-child {
+          margin-top: 0;
+        }
+        &:last-child {
+          margin-bottom: 0;
+        }
       }
     }
   }
-}
 
-li {
-  list-style: none;
-}
+  li {
+    list-style: none;
+  }
 
-// patterns for page intro text
-h2 {
-  + .help-text {
-    margin-bottom: units($spacer-4x);
+  // patterns for page intro text
+  h2 {
+    + .help-text {
+      margin-bottom: units($spacer-4x);
+    }
+    &.question--label + .help-text {
+      margin-bottom: units($spacer-3x);
+    }
+    // Personal Description has an odd markup pattern where the question header is nested within a label
+    + .question--header,
+    + label .question--header {
+      margin-top: units($spacer-4x);
+    }
+    // question headers sometimes abut page headers, which makes them the first-of-type and thus they lose their margin,
+    // but when they immediately follow page headers they need the standard question--header spacing
+    // Personal Characteristics page is an example of this
+    + div[data-toggle] fieldset:first-of-type .question--header {
+      margin-top: units($spacer-4x);
+    }
   }
-  &.question--label + .help-text {
-    margin-bottom: units($spacer-3x);
-  }
-  // Personal Description has an odd markup pattern where the question header is nested within a label
-  + .question--header,
-  + label .question--header {
-    margin-top: units($spacer-4x);
-  }
-  // question headers sometimes abut page headers, which makes them the first-of-type and thus they lose their margin,
-  // but when they immediately follow page headers they need the standard question--header spacing
-  // Personal Characteristics page is an example of this
-  + div[data-toggle] fieldset:first-of-type .question--header {
-    margin-top: units($spacer-4x);
-  }
-}
 }
 
 // patterns for some question formats
 .question--header {
-// data-toggle == yes/no radio buttons
-+ div[data-toggle],
-+ .form-group {
-  margin-top: units($spacer-3x);
-}
+  // data-toggle == yes/no radio buttons
+  + div[data-toggle],
+  + .form-group {
+    margin-top: units($spacer-3x);
+  }
 }
 
 // Form styles
 .usa-form {
-max-width: 100% !important;
-ul {
-  margin-left: 0;
-  padding-left: 0;
-}
-
-.help-text__small {
-  + ul,
-  + .usa-button {
-    margin-top: units($spacer-3x);
-  }
-}
-.form-group {
-  margin-bottom: 1.5rem;
-  > h3 {
-    margin-top: 0;
-  }
-
-  // removes margin on the last .form-group element and also from the last group of form elements
-  &:last-child {
-    margin-bottom: 0;
-  }
-  ul,
-  input {
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-  &.top-margin {
-    margin-top: 2.5rem;
-  }
-}
-
-.other-class-option {
-  margin-left: 2rem;
-  margin-top: 1.5rem;
-  padding-left: 1rem;
-  border-left: 2px solid color($theme-color-primary-darker);
-
-  ul > li:last-child {
-    height: 25px;
-    margin-bottom: 0 !important;
-    padding-bottom: 0;
-  }
-}
-
-.usa-fieldset {
-  margin-top: 2.5rem;
-  margin-bottom: 0;
-  .usa-fieldset {
-    margin-top: 1.5rem;
-  }
-
-  &:first-of-type {
-    margin-top: 0;
-  }
-
+  max-width: 100% !important;
   ul {
-    margin-bottom: 0;
-  }
-}
-.usa-radio__input:checked + .usa-radio__label::before,
-.usa-checkbox__input:checked + .usa-checkbox__label::before {
-  background-color: color($theme-color-primary-darker);
-  box-shadow: 0 0 0 2px color($theme-color-primary-darker), inset 0 0 0 2px color('white');
-}
-.usa-button {
-  &:hover {
-    background-color: color('blue-50');
+    margin-left: 0;
+    padding-left: 0;
   }
 
-  @media (min-width: 30em) {
-    margin-top: 0;
-  }
-}
-
-.light-button {
-  color: color($theme-color-primary-darker);
-  background-color: transparent;
-  &:hover {
-    background-color: color('white');
-  }
-}
-
-li {
-  > .usa-checkbox {
-    margin-bottom: 1rem;
-    &:last-child {
-      margin-bottom: 0;
+  .help-text__small {
+    + ul,
+    + .usa-button {
+      margin-top: units($spacer-3x);
     }
   }
-
-  > .usa-radio {
+  .form-group {
     margin-bottom: 1.5rem;
+    > h3 {
+      margin-top: 0;
+    }
 
+    // removes margin on the last .form-group element and also from the last group of form elements
     &:last-child {
       margin-bottom: 0;
     }
+    ul,
+    input {
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    &.top-margin {
+      margin-top: 2.5rem;
+    }
   }
 
-  &:not(:first-child) {
-    margin-top: 1rem;
+  .other-class-option {
+    margin-left: 2rem;
+    margin-top: 1.5rem;
+    padding-left: 1rem;
+    border-left: 2px solid color($theme-color-primary-darker);
+
+    ul > li:last-child {
+      height: 25px;
+      margin-bottom: 0 !important;
+      padding-bottom: 0;
+    }
   }
 
-  &:last-child {
+  .usa-fieldset {
+    margin-top: 2.5rem;
     margin-bottom: 0;
-  }
-}
+    .usa-fieldset {
+      margin-top: 1.5rem;
+    }
 
-.usa-input {
-  border-radius: 3px;
-  &:focus {
-    outline-offset: 0;
-    border: 1px solid color($theme-focus-color);
-  }
-}
-
-textarea.usa-textarea {
-  resize: none;
-  height: 15rem;
-
-  &:focus {
-    outline: 0.125rem solid color($theme-focus-color);
-    outline-offset: 0;
-    border: 1px solid color($theme-focus-color);
-  }
-
-  &.bg-gold-outline {
-    outline: 0.125rem solid color($theme-color-warning);
-    outline-offset: 0;
-    border: 1px solid color($theme-color-warning);
-  }
-
-  &.bg-gold-outline:focus {
-    outline: 0.125rem solid color($theme-color-warning);
-    outline-offset: 0;
-    border: 0.125rem solid color($theme-color-warning);
-  }
-}
-
-.usa-checkbox__input,
-.usa-radio__input {
-  // Display HTML5 error messages on hidden inputs:
-  // https://stackoverflow.com/questions/49687229/display-html5-error-message-validation-on-hidden-radio-checkbox
-  left: 45px;
-  opacity: 0;
-}
-
-.crt-radio__label_helper {
-  line-height: 0.85rem;
-  margin-bottom: 0;
-
-  .label-text {
-    position: relative;
-    bottom: 32px;
-    margin-bottom: -30px;
-  }
-
-  .help-text--radio {
-    text-indent: 0;
-  }
-}
-
-.crt-radio__label_area {
-  @extend .usa-radio__label;
-  margin-bottom: 1rem;
-  padding-left: 0;
-  text-indent: 0;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  &:before {
-    top: 0;
-    vertical-align: middle;
-  }
-
-  .label-text {
-    position: relative;
-    bottom: units($spacer-3x);
-    margin-bottom: 0;
-
-    .question--label {
+    &:first-of-type {
       margin-top: 0;
-      margin-bottom: units($spacer-1x);
-      padding-left: units($spacer-5x);
-      border-bottom: 1px solid color($theme-color-base-lighter);
-      padding-bottom: .5rem;
     }
 
     ul {
-      padding-inline-start: 20px;
+      margin-bottom: 0;
+    }
+  }
+  .usa-radio__input:checked + .usa-radio__label::before,
+  .usa-checkbox__input:checked + .usa-checkbox__label::before {
+    background-color: color($theme-color-primary-darker);
+    box-shadow: 0 0 0 2px color($theme-color-primary-darker), inset 0 0 0 2px color('white');
+  }
+  .usa-button {
+    &:hover {
+      background-color: color('blue-50');
     }
 
-    .examples-title {
-      @include text--body-copy__small();
-      text-transform: uppercase;
-      font-weight: bold;
-      color: color($theme-color-base-darker);
+    @media (min-width: 30em) {
+      margin-top: 0;
+    }
+  }
+
+  .light-button {
+    color: color($theme-color-primary-darker);
+    background-color: transparent;
+    &:hover {
+      background-color: color('white');
+    }
+  }
+
+  li {
+    > .usa-checkbox {
+      margin-bottom: 1rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
-    .examples {
-      margin-top: units($spacer-1x);
+    > .usa-radio {
+      margin-bottom: 1.5rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
 
-    @include at-media('mobile-lg') {
-      .help-text__small,
-      .examples-title,
-      ul.examples {
-        padding-left: units($spacer-5x) !important;
+    &:not(:first-child) {
+      margin-top: 1rem;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .usa-input {
+    border-radius: 3px;
+    &:focus {
+      outline-offset: 0;
+      border: 1px solid color($theme-focus-color);
+    }
+  }
+
+  textarea.usa-textarea {
+    resize: none;
+    height: 15rem;
+
+    &:focus {
+      outline: 0.125rem solid color($theme-focus-color);
+      outline-offset: 0;
+      border: 1px solid color($theme-focus-color);
+    }
+
+    &.bg-gold-outline {
+      outline: 0.125rem solid color($theme-color-warning);
+      outline-offset: 0;
+      border: 1px solid color($theme-color-warning);
+    }
+
+    &.bg-gold-outline:focus {
+      outline: 0.125rem solid color($theme-color-warning);
+      outline-offset: 0;
+      border: 0.125rem solid color($theme-color-warning);
+    }
+  }
+
+  .usa-checkbox__input,
+  .usa-radio__input {
+    // Display HTML5 error messages on hidden inputs:
+    // https://stackoverflow.com/questions/49687229/display-html5-error-message-validation-on-hidden-radio-checkbox
+    left: 45px;
+    opacity: 0;
+  }
+
+  .crt-radio__label_helper {
+    line-height: 0.85rem;
+    margin-bottom: 0;
+
+    .label-text {
+      position: relative;
+      bottom: 32px;
+      margin-bottom: -30px;
+    }
+
+    .help-text--radio {
+      text-indent: 0;
+    }
+  }
+
+  .crt-radio__label_area {
+    @extend .usa-radio__label;
+    margin-bottom: 1rem;
+    padding-left: 0;
+    text-indent: 0;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &:before {
+      top: 0;
+      vertical-align: middle;
+    }
+
+    .label-text {
+      position: relative;
+      bottom: units($spacer-3x);
+      margin-bottom: 0;
+
+      .question--label {
+        margin-top: 0;
+        margin-bottom: units($spacer-1x);
+        padding-left: units($spacer-5x);
+        border-bottom: 1px solid color($theme-color-base-lighter);
+        padding-bottom: 0.5rem;
+      }
+
+      ul {
+        padding-inline-start: 20px;
+      }
+
+      .examples-title {
+        @include text--body-copy__small();
+        text-transform: uppercase;
+        font-weight: bold;
+        color: color($theme-color-base-darker);
+      }
+
+      .examples {
+        margin-top: units($spacer-1x);
+      }
+
+      @include at-media('mobile-lg') {
+        .help-text__small,
+        .examples-title,
+        ul.examples {
+          padding-left: units($spacer-5x) !important;
+        }
       }
     }
   }
-}
 
-input[type='radio']:checked + .crt-radio__label_area {
-  background-color: color($theme-color-primary-lightest);
-}
+  input[type='radio']:checked + .crt-radio__label_area {
+    background-color: color($theme-color-primary-lightest);
+  }
 
-.crt-checkbox__label {
-  @extend .usa-checkbox__label;
-  line-height: 1.5rem;
+  .crt-checkbox__label {
+    @extend .usa-checkbox__label;
+    line-height: 1.5rem;
 
-  &:last-child {
-    margin-bottom: 0;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .question_group_optional_tag {
+    font-weight: lighter;
+    color: color($theme-color-base-ink);
   }
 }
 
-.question_group_optional_tag {
-  font-weight: lighter;
-  color: color($theme-color-base-ink);
-}
-}
-
 .radio-text-indent {
-text-indent: 0px;
+  text-indent: 0px;
 }
 // Remove extra dropown error from datalist element
 [list]::-webkit-calendar-picker-indicator {
-display: none;
+  display: none;
 }
 
 .form-help-text {
-@include text--body-copy__small();
-color: color($theme-color-base-darker);
+  @include text--body-copy__small();
+  color: color($theme-color-base-darker);
 
-// Necessary because we want to override styles applied to the p tag
-margin: 0.5rem 0 1rem 0 !important;
+  // Necessary because we want to override styles applied to the p tag
+  margin: 0.5rem 0 1rem 0 !important;
 }
 
 .group-help-text {
-line-height: 1.625rem;
+  line-height: 1.625rem;
 }
 
 a.usa-button {
-text-decoration: none;
-font-weight: normal;
-@include u-text($theme-color-primary-darker);
-&:hover,
-&:visited {
+  text-decoration: none;
+  font-weight: normal;
   @include u-text($theme-color-primary-darker);
-}
-img {
-  margin-left: 0.5rem;
-}
+  &:hover,
+  &:visited {
+    @include u-text($theme-color-primary-darker);
+  }
+  img {
+    margin-left: 0.5rem;
+  }
 }
 
 .usa-button--light {
-background-color: color('gray-warm-3');
-color: color('blue-50');
-
-&:hover {
-  background-color: color('gray-warm-5');
+  background-color: color('gray-warm-3');
   color: color('blue-50');
-}
 
-img {
-  margin-top: -2px;
-  padding-right: 0.5rem;
-  vertical-align: middle;
-}
+  &:hover {
+    background-color: color('gray-warm-5');
+    color: color('blue-50');
+  }
+
+  img {
+    margin-top: -2px;
+    padding-right: 0.5rem;
+    vertical-align: middle;
+  }
 }
 
 .usa-input--error,
 select.usa-input--error {
-border: 0.25rem solid color($theme-color-secondary-dark);
+  border: 0.25rem solid color($theme-color-secondary-dark);
 }
 
 .complaint-multi-select {
-height: 25px;
-width: 25px;
+  min-width: 140px;
 }
 
 .inline-block {
-margin: 0;
-display: inline-block;
-}
-
-.id_input {
-max-width: 10rem;
+  margin: 0;
+  display: inline-block;
 }
 
 .grid-gap div:last-child {
-margin-right: 0;
+  margin-right: 0;
 }
 
 @media screen and (min-width: 480px) {
-.usa-form input[id*='-contact_phone'] {
-  max-width: 80%;
-}
+  .usa-form input[id*='-contact_phone'] {
+    max-width: 80%;
+  }
 }
 
 .field-required {
-@include text--body-copy__medium();
-font-weight: normal;
-font-style: italic;
-color: color($theme-color-base);
-
-&::before {
-  content: '*';
-  font-weight: bold;
-  margin-left: 0.3rem;
-  color: color($theme-color-secondary-dark);
-}
-
-&--group {
-  @extend .field-required;
+  @include text--body-copy__medium();
+  font-weight: normal;
+  font-style: italic;
+  color: color($theme-color-base);
 
   &::before {
-    @extend .field-required::before;
-    margin-left: 0.5rem;
+    content: '*';
+    font-weight: bold;
+    margin-left: 0.3rem;
+    color: color($theme-color-secondary-dark);
   }
-}
+
+  &--group {
+    @extend .field-required;
+
+    &::before {
+      @extend .field-required::before;
+      margin-left: 0.5rem;
+    }
+  }
 }
 
 .usa-memorable-date {
-input {
-  margin-right: 1rem;
-}
+  input {
+    margin-right: 1rem;
+  }
 }
 
 #page-errors {
-.error-summary {
-  margin-block-start: 0px;
-  li {
-    font-weight: normal;
-    margin-bottom: 0px;
-    margin-top: 0px;
+  .error-summary {
+    margin-block-start: 0px;
+    li {
+      font-weight: normal;
+      margin-bottom: 0px;
+      margin-top: 0px;
+    }
   }
-}
 }
