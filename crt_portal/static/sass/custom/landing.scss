@@ -518,9 +518,9 @@ $arrow-height: 24px;
 
     h2 {
       min-height: 3rem;
-
+      margin-top: 0;
+      
       @include at-media-max(desktop) {
-        margin-top: 0;
         min-height: unset;
       }
     }
