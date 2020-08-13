@@ -888,11 +888,37 @@ class Filters(ModelForm):
             },
         ),
     )
-    assigned_to = ModelMultipleChoiceField(
+    assigned_to = ModelChoiceField(
         required=False,
         queryset=User.objects.filter(is_active=True),
-        label="Assigned to",
+        label=_("Assigned to"),
         to_field_name='username',
+        widget=Select(attrs={
+            'name': 'assigned_to',
+            'class': 'usa-input'
+        })
+    )
+
+    SECTION_CHOICES_WITHOUT_LABEL = (
+        ('ADM', 'ADM'),
+        ('APP', 'APP'),
+        ('CRM', 'CRM'),
+        ('DRS', 'DRS'),
+        ('ELS', 'ELS'),
+        ('EOS', 'EOS'),
+        ('FCS', 'FCS'),
+        ('HCE', 'HCE'),
+        ('IER', 'IER'),
+        ('SPL', 'SPL'),
+        ('VOT', 'VOT'),
+    )
+
+    assigned_section = MultipleChoiceField(
+        required=False,
+        choices=SECTION_CHOICES_WITHOUT_LABEL,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'assigned_section'
+        })
     )
 
     def __init__(self, *args, **kwargs):
@@ -929,9 +955,6 @@ class Filters(ModelForm):
         }
 
         widgets = {
-            'assigned_section': UsaCheckboxSelectMultiple(attrs={
-                'name': 'assigned_section'
-            }),
             'contact_first_name': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'contact_first_name'
