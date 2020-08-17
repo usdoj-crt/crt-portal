@@ -1,8 +1,15 @@
 $arrow-height: 24px;
 
 .crt-landing--section {
-  padding-top: 2.5rem;
-  padding-bottom: 2.5rem;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+
+  @include at-media-max(mobile-lg) {
+    &.crt-landing--emergency {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+  }
 
   h1 {
     margin-top: 1rem;
@@ -13,6 +20,10 @@ $arrow-height: 24px;
   h2 {
     margin-top: 1.5rem;
     margin-bottom: 0;
+
+    @include at-media-max(mobile-lg) {
+      margin-top: 0;
+    }
   }
 
   li {
@@ -43,6 +54,10 @@ $arrow-height: 24px;
 .crt-landing--lightblue {
   background-color: #e9eef5; // custom color to match background of hero image
   color: color($theme-color-primary-darker);
+
+  & + .crt-landing--lightblue {
+    padding-top: 0;
+  }
 }
 
 .crt-landing--pale {
@@ -143,13 +158,20 @@ $arrow-height: 24px;
   .crt-landing--logo_subheading {
     @extend .usa-footer__logo-subheading;
     font-size: $theme-text-font-size-sm;
+    @media screen and (max-width: 400px) {
+      @include text--body-copy__xsmall();
+    }
   }
 
   .crt-landing--logo_heading {
     @extend .usa-footer__logo-heading;
     font-size: $theme-heading-font-size-md;
+    @media screen and (max-width: 400px) {
+      font-size: $theme-text-font-size-sm;
+    }
   }
-}
+
+  }
 
 .crt-landing--hero {
   background-image: url(../../img/landing-page-hero.png);
@@ -170,6 +192,7 @@ $arrow-height: 24px;
     .crt-button--large {
       background: color($theme-color-warning);
       color: black !important;
+      margin-top: 0;
     }
     a,
     a:visited {
@@ -204,7 +227,7 @@ $arrow-height: 24px;
       text-decoration: none;
       &:hover {
         color:color($theme-link-dark-hover-color) !important;
-      }  
+      }
     }
   }
 
@@ -216,7 +239,7 @@ $arrow-height: 24px;
       font-weight: bold;
       &:hover {
         color:color($theme-link-dark-hover-color) !important;
-      }  
+      }
     }
   }
 }
@@ -230,6 +253,9 @@ $arrow-height: 24px;
     @include text--heading__large();
     margin-top: 1rem;
     margin-bottom: 2.5rem;
+    @include at-media-max(mobile-lg) {
+      margin-bottom: 2rem;
+    }
   }
 
   .crt-landing--columns {
@@ -240,10 +266,22 @@ $arrow-height: 24px;
   }
 }
 
+.crt-landing--section__item {
+  &:not(:last-child){
+    @include at-media-max(mobile-lg) {
+      margin-bottom: 2.5rem;
+    }
+  }
+}
+
 .crt-landing--rights {
   .crt-landing--rights_text {
     @include text--heading__large();
     margin-bottom: 2rem;
+
+    @include at-media-max(mobile-lg) {
+      margin-bottom: 1.5rem;
+    }
   }
 
   .crt-landing--largetext {
@@ -275,6 +313,10 @@ $arrow-height: 24px;
 
   h2 {
     margin-top: 2rem;
+
+    @include at-media-max(mobile-lg) {
+      margin-top: 2rem;
+    }
   }
 
   h3 {
@@ -284,21 +326,24 @@ $arrow-height: 24px;
 
   div.grid-container {
     padding-bottom: 1rem;
+    @include at-media-max(mobile-lg) {
+      padding-bottom: 0;
+    }
   }
 
   .crt-landing--divider {
-    border-left: 1px solid color($theme-color-primary-darker);
-    padding-left: units($spacer-4x) !important;
     margin-top: units($spacer-5x);
-    @include at-media-max('mobile-lg') {
+    padding-left: units($spacer-4x) !important;
+    border-top: none;
+    border-left: 1px solid color($theme-color-primary-darker);
+    @include at-media-max(mobile-lg) {
       border-left: none;
       border-top: 1px solid color($theme-color-primary-darker);
-      padding-left: 0;
-      margin-top: units($spacer-2x);
-      margin-right: units($spacer-1x);
-      margin-left: units($spacer-1x);
+      margin-top: 1.5rem;
       padding-top: units($spacer-3x);
+      padding-left: 0rem !important;
     }
+
   }
 
   ul {
@@ -326,6 +371,10 @@ $arrow-height: 24px;
     margin-top: 2.5rem;
     padding: 0;
 
+    @include at-media-max(mobile-lg) {
+      margin-top: 2rem;
+    }
+
     li {
       width: 100%;
     }
@@ -337,25 +386,27 @@ $arrow-height: 24px;
       font-weight: normal;
       color: color('white');
       min-height: 5rem;
+      border-radius: 4px;
 
       // caret adjustments -- in many cases overriding the USWDS defaults
       background-repeat: no-repeat !important;
       background-position: right 1.5rem center !important;
+      @include at-media-max (tablet-lg){
+        background-position: right 1.5rem top 1.25rem !important;
+      }
       background-size: 1.5rem !important;
+      background-color: color($theme-color-primary-darker);
       width: 100%;
       height: 100%;
       &[aria-expanded='false'] {
         background-image: url(../../img/angle-arrow-down-white.svg) !important;
-        &:hover {
-          background-image: url(../../img/angle-arrow-down-primary.svg) !important;
-        }
       }
       &[aria-expanded='true'] {
         background-image: url(../../img/angle-arrow-up-white.svg) !important;
       }
 
       &:hover {
-        background-color: color($theme-color-primary-darker) !important;
+        background-color: color($theme-link-hover-color) !important;
       }
     }
   }
@@ -384,7 +435,6 @@ $arrow-height: 24px;
 
       &:hover {
         color: color($theme-color-primary-darker);
-        background: color($theme-color-primary-lighter) !important;
       }
     }
 
@@ -407,6 +457,10 @@ $arrow-height: 24px;
     background-color: color('white');
     min-height: 20rem;
     padding: 2rem 3.5rem 2.5rem 3.5rem;
+    
+    @include at-media-max(mobile-lg) {
+      padding: 1.5rem;
+    }
 
     #crt-landing--choice_helptext p {
       margin-top: 0;
@@ -435,8 +489,10 @@ $arrow-height: 24px;
 }
 
 .crt-landing--how_to_report {
-  h2 {
-    margin-top: 0;
+  .crt-landing--largetext {
+    @include at-media-max(mobile-lg) {
+      margin-bottom: 2rem;
+    }
   }
 
   .crt-landing--icon_gold {
@@ -456,8 +512,14 @@ $arrow-height: 24px;
     flex-direction: row;
     margin-top: 1rem;
 
+    @include at-media-max(mobile-lg) {
+      margin-top: 0;
+    }
+
     h2 {
       min-height: 3rem;
+      margin-top: 0;
+      
       @include at-media-max(desktop) {
         min-height: unset;
       }
@@ -471,6 +533,11 @@ $arrow-height: 24px;
   h2 {
     margin-top: 2rem;
     margin-bottom: 1rem;
+
+    @include at-media-max(mobile-lg) {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
   }
 
   p.crt-landing--text {
@@ -482,6 +549,12 @@ $arrow-height: 24px;
 .crt-landing--already_submitted {
   h2 {
     margin-top: 1rem;
+  }
+  
+  .crt-landing--card {
+    @include at-media-max(mobile-lg) {
+      padding: 1.5rem !important
+    }
   }
 }
 
@@ -503,6 +576,11 @@ $arrow-height: 24px;
 
 .crt-landing--similar_situation {
   margin-top: 2rem;
+
+  @include at-media-max(mobile-lg) {
+    margin-top: 1.5rem;
+    margin-bottom: 0;
+  }
 
   a {
     font-weight: bold;
