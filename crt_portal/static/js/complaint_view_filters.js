@@ -326,7 +326,10 @@
     formView({
       el: formEl
     });
-
+    multiSelectView({
+      el: multiSelectEl,
+      name: 'assigned_section'
+    });
     textInputView({
       el: firstNameEl,
       name: 'contact_first_name'
@@ -351,16 +354,18 @@
       el: activeFiltersEl,
       onClick: onFilterTagClick
     });
+    checkBoxView({
+      el: statusEl,
+      name: 'status'
+    });
     textInputView({
       el: summaryEl,
       name: 'summary'
     });
-
     textInputView({
       el: complaintIDEl,
       name: 'public_id'
     });
-
     clearFiltersView({
       el: clearAllEl,
       onClick: clearAllFilters
