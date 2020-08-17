@@ -4,28 +4,27 @@ from datetime import datetime
 
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, RegexValidator
-from django.db import connection, models
-from django.template import Context, Template
+from django.db import models
 from django.urls import reverse
 from django.utils.functional import cached_property
+from django.template import Context, Template
 from django.utils.html import escape
 
 from .managers import ActiveProtectedClassChoiceManager
-from .model_variables import (CLOSED_STATUS,
-                              COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
+from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
                               CONTACT_PHONE_INVALID_MESSAGE,
                               CORRECTIONAL_FACILITY_LOCATION_CHOICES,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
                               DATE_ERRORS, DISTRICT_CHOICES, ELECTION_CHOICES,
-                              EMPLOYER_SIZE_CHOICES, HATE_CRIME_CHOICES,
-                              HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
+                              EMPLOYER_SIZE_CHOICES,
+                              HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, HATE_CRIME_CHOICES,
                               INTAKE_FORMAT_CHOICES, PRIMARY_COMPLAINT_CHOICES,
                               PROTECTED_MODEL_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
                               SECTION_CHOICES, SERVICEMEMBER_CHOICES,
                               STATES_AND_TERRITORIES, STATUS_CHOICES,
-                              STATUTE_CHOICES)
+                              STATUTE_CHOICES, CLOSED_STATUS)
 from .phone_regex import phone_validation_regex
 
 logger = logging.getLogger(__name__)
@@ -319,13 +318,6 @@ class Trends(models.Model):
         """This model is tied to a view created from migration 73"""
         managed = False
         db_table = 'trends'
-
-    @staticmethod
-    def refresh_view():
-        logger.info("Refreshing Trends view...")
-        with connection.cursor() as cursor:
-            cursor.execute("REFRESH MATERIALIZED VIEW trends;")
-        logger.info("Trends view refreshed")
 
 
 class ResponseTemplate(models.Model):

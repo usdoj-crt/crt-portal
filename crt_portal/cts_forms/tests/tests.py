@@ -539,16 +539,16 @@ class CRT_FILTER_Tests(TestCase):
         yesterday = date.today() - timedelta(days=1)
         tomorrow = date.today() + timedelta(days=1)
 
-        url_start_yesterday = f"{self.url_base}?create_date_start={yesterday.strftime('%Y-%m-%d')}"
+        url_start_yesterday = f"{self.url_base}?create_date_start={yesterday.strftime('%Y%m%d')}"
         start_yesterday_response = self.client.get(url_start_yesterday).context['data_dict']
 
-        url_start_tomorrow = f"{self.url_base}?create_date_start={tomorrow.strftime('%Y-%m-%d')}"
+        url_start_tomorrow = f"{self.url_base}?create_date_start={tomorrow.strftime('%Y%m%d')}"
         start_tomorrow_response = self.client.get(url_start_tomorrow).context['data_dict']
 
-        url_end_yesterday = f"{self.url_base}?create_date_end={yesterday.strftime('%Y-%m-%d')}"
+        url_end_yesterday = f"{self.url_base}?create_date_end={yesterday.strftime('%Y%m%d')}"
         end_yesterday_response = self.client.get(url_end_yesterday).context['data_dict']
 
-        url_end_tomorrow = f"{self.url_base}?create_date_end={tomorrow.strftime('%Y-%m-%d')}"
+        url_end_tomorrow = f"{self.url_base}?create_date_end={tomorrow.strftime('%Y%m%d')}"
         end_tomorrow_response = self.client.get(url_end_tomorrow).context['data_dict']
 
         # sanity check
@@ -653,7 +653,6 @@ class CRT_FILTER_Tests(TestCase):
 
 class Validation_Form_Tests(TestCase):
     """Confirming validation on the server level, required fields etc"""
-
     def test_required_protected_class(self):
         form = ProtectedClassForm(data={
             'other_class': '',

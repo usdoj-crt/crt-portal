@@ -90,14 +90,8 @@ def salt():
 
 
 @receiver(post_save, sender=Report)
-def post_report_create(sender, instance, created, **kwargs):
-    """
-    Upon creation of a new Report we
-        * log the assigned ID
-        * assign author and public_id values
-    """
+def add_author_forms(sender, instance, created, **kwargs):
     if created:
-        logger.info(f'REPORT CREATED: #{instance.id}')
         current_request = CrequestMiddleware.get_request()
         if current_request:
             author = current_request.user.username or PUBLIC_USER

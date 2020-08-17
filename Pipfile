@@ -30,7 +30,7 @@ django-activity-stream = "*"
 newrelic = "*"
 
 [requires]
-python_version = "3.8.5"
+python_version = "3.8.2"
 
 [pipenv]
 allow_prereleases = true

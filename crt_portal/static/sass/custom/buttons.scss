@@ -30,8 +30,8 @@ button,
   }
 }
 
-.button--continue, button#login {
-  color: color('white') !important;
+button#login {
+  color: color('white');
 }
 
 // glue the review page edit buttons to the bottom of the card on mobile
@@ -42,10 +42,7 @@ button,
   }
   .button--review {
     position: absolute;
-    width: 84%;
+    width: 88%;
     bottom: units($spacer-3x);
-    button{
-      margin: 0;
-    }
   }
 }

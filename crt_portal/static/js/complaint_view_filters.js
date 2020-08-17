@@ -103,7 +103,7 @@
   var initialFilterState = {
     assigned_section: [],
     primary_complaint: '',
-    status: [],
+    status: '',
     location_state: '',
     primary_complaint: '',
     contact_first_name: '',
@@ -124,8 +124,7 @@
     page: '',
     per_page: '',
     servicemember: '',
-    hate_crime: '',
-    no_status: ''
+    hate_crime: ''
   };
   var filterDataModel = {};
 
@@ -191,9 +190,11 @@
   formView.doSearch = function doSearch(form) {
     var preparedFilters = finalizeQueryParams(makeQueryParams(filterDataModel));
     var finalQuery = '';
+
     if (preparedFilters) {
       finalQuery = '?' + preparedFilters;
     }
+
     window.location = form.action + finalQuery;
   };
 
@@ -220,23 +221,6 @@
     }
 
     return options.filter(isSelected).map(unwrapValue);
-  };
-
-  function checkBoxView(props) {
-    for (var i = 0; i < props.el.length; i++) {
-      props.el[i].addEventListener('change', function(event) {
-        checkBoxView.getValues(event.target);
-      });
-    }
-  }
-
-  checkBoxView.getValues = function(el) {
-    if (el.checked) {
-      filterDataModel[event.target.name].push(el.value);
-    } else {
-      var index = filterDataModel[event.target.name].indexOf(el.value);
-      filterDataModel[event.target.name].splice(index, 1);
-    }
   };
 
   /**
@@ -271,10 +255,8 @@
     var locationStateEl = formEl.querySelector('select[name="location_state"]');
     var activeFiltersEl = dom.querySelector('[data-active-filters]');
     var clearAllEl = dom.querySelector('[data-clear-filters]');
-    var statusEl = dom.getElementsByName('status');
+    var statusEl = formEl.querySelector('select[name="status"]');
     var summaryEl = formEl.querySelector('input[name="summary"]');
-    var createdatestartEl = formEl.querySelector('input[name="create_date_start');
-    var createdateendEl = formEl.querySelector('input[name="create_date_end');
     var assigneeEl = formEl.querySelector('#id_assigned_to');
     var complaintIDEl = formEl.querySelector('input[name="public_id"');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
@@ -293,12 +275,6 @@
 
         sections.splice(sections.indexOf(filterData), 1);
         filterDataModel.assigned_section = sections;
-      } else if (filterName === 'status') {
-        var status = filterDataModel.status;
-        var filterData = node.getAttribute('data-filter-value');
-
-        status.splice(status.indexOf(filterData), 1);
-        filterDataModel.status = status;
       } else {
         filterDataModel[filterName] = '';
       }
@@ -313,6 +289,7 @@
         var filterName = node.getAttribute('data-filter-name');
         var currentFilterData = filterDataModel[filterName];
         currentFilterData = wrapValue(currentFilterData);
+
         if (currentFilterData.length) {
           updates[filterName] = initialFilterState[filterName];
         }
@@ -355,21 +332,13 @@
       el: activeFiltersEl,
       onClick: onFilterTagClick
     });
-    checkBoxView({
+    textInputView({
       el: statusEl,
       name: 'status'
     });
     textInputView({
       el: summaryEl,
       name: 'summary'
-    });
-    textInputView({
-      el: createdatestartEl,
-      name: 'create_date_start'
-    });
-    textInputView({
-      el: createdateendEl,
-      name: 'create_date_end'
     });
     textInputView({
       el: assigneeEl,
@@ -396,11 +365,7 @@
   // Bootstrap the filter code's data persistence and
   // instantiate the controller that manages the UI components / views
   function init() {
-    if (root.location.search === '') {
-      root.location.search = '?status=new&status=open&no_status=false';
-    }
     var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
-
     Object.keys(initialFilterState).forEach(function(key) {
       filterDataModel[key] = initialFilterState[key];
     });

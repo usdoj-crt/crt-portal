@@ -155,19 +155,13 @@
         </td>
       </tr>
       <tr>
-        <th>Address</th>
+        <th>City, State</th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
-            {{ data.location_address_line_1|default:"—" }}
-            <br>
-            {{ data.location_address_line_2|default:"—" }}
-            <br>
             {{data.location_city_town|default:"-"}},
             {{data.location_state|default:"-"}}
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
-            {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.location_address_line_1 %}
-            {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.location_address_line_2 %}
             {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.location_city_town %}
             {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.location_state %}
           </div>

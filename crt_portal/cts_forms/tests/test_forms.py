@@ -162,29 +162,18 @@ class ReportEditFormTests(TestCase):
         self.assertEqual(self.report.get_summary.note, new_summary)
         self.assertEqual(summary.note, new_summary)
 
-    def test_location_address_can_be_updated(self):
+    def test_location_address_not_replaced(self):
         data = self.report_data.copy()
-
-        # Initialize our report with these addresses
         data.update({
             'location_address_line_1': 'location address 1',
             'location_address_line_2': 'location address 2',
         })
         report = Report.objects.create(**data)
-
-        # Update our location address lines for a Form instance
-        data.update({
-            'location_address_line_1': 'NEW address 1',
-            'location_address_line_2': 'NEW address 2',
-        })
         form = ReportEditForm(data, instance=report)
         self.assertTrue(form.is_valid())
-
-        form.save()
-        report.refresh_from_db()
-
-        self.assertEqual(report.location_address_line_1, 'NEW address 1')
-        self.assertEqual(report.location_address_line_2, 'NEW address 2')
+        fields = form.clean()
+        self.assertFalse('location_address_line_1' in fields)
+        self.assertFalse('location_address_line_2' in fields)
 
 
 class ResponseActionTests(TestCase):

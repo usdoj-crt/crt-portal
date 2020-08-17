@@ -4,17 +4,16 @@
 // that we'd prefer not to have bulleted, like
 // radio buttons; so remove list item bullets by default.
 form#details-edit-form,
-form#report-form,
-form#filters-form {
+form#report-form {
   .question--header {
     width: 100%; // IE11 fix
+    // margin-top: 0.5rem;
+    // margin-bottom: units($spacer-3x);
     margin: 0;
-  }
-
-  .zip--code--margin {
-    margin-top: 0;
-    @include at-media-max(mobile-lg) {
-      margin-top: 1.5rem;
+    + .help-text,
+    + .help-text__small,
+    + p {
+      // margin-top: -1rem; // to match other help text margins
     }
   }
 
@@ -271,8 +270,6 @@ form#filters-form {
         margin-top: 0;
         margin-bottom: units($spacer-1x);
         padding-left: units($spacer-5x);
-        border-bottom: 1px solid color($theme-color-base-lighter);
-        padding-bottom: 0.5rem;
       }
 
       ul {
@@ -319,9 +316,6 @@ form#filters-form {
   }
 }
 
-.radio-text-indent {
-  text-indent: 0px;
-}
 // Remove extra dropown error from datalist element
 [list]::-webkit-calendar-picker-indicator {
   display: none;

@@ -8,7 +8,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: circleci/python:3.8.5-node-browsers
+      - image: circleci/python:3.8.2-node-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -117,13 +117,13 @@ jobs:
             name: Pull owasp zap docker image and run scan
             command: |
               docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-baseline.py \
-              -t https://civilrights.justice.gov/report/ -c .circleci/zap.conf -z "-config rules.cookie.ignorelist=django_language"
+              -t https://crt-portal-django-prod.app.cloud.gov/report/ -c .circleci/zap.conf -z "-config rules.cookie.ignorelist=django_language"
 # deployments
   deploy-dev:
     working_directory: ~/code
     docker:
       # standard docker python image
-      - image: python:3.8.5
+      - image: python:3.8.2
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -179,7 +179,7 @@ jobs:
   deploy-stage:
     working_directory: ~/code
     docker:
-      - image: python:3.8.5
+      - image: python:3.8.2
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -235,7 +235,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: python:3.8.5
+      - image: python:3.8.2
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable

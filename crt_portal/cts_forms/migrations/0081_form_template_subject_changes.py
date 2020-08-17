@@ -16,12 +16,6 @@ def tweak_templates(apps, schema_editor):
     nocapacity.save()
 
 
-def untweak_templates(apps, schema_editor):
-    # don't prevent unmigrations. if we want to undo these tweaks,
-    # best to unmigrate to 0074 and then migrate up to 0080.
-    pass
-
-
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -29,5 +23,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(tweak_templates, untweak_templates),
+        migrations.RunPython(tweak_templates),
     ]

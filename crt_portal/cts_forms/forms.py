@@ -4,10 +4,10 @@ from datetime import datetime
 from actstream import action
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
-from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField, DateField,
+from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           EmailInput, HiddenInput, IntegerField,
                           ModelChoiceField, ModelForm, Form,
-                          ModelMultipleChoiceField, MultipleChoiceField,
+                          ModelMultipleChoiceField,
                           Select, SelectMultiple, Textarea, TextInput,
                           TypedChoiceField)
 from django.utils.functional import cached_property
@@ -49,7 +49,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
                       CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
-                      UsaRadioSelect, DataAttributesSelect, CrtDateInput)
+                      UsaRadioSelect, DataAttributesSelect)
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -856,12 +856,13 @@ class ProForm(
 
 
 class Filters(ModelForm):
-    status = MultipleChoiceField(
-        initial=(('new', 'New'), ('open', 'Open')),
+    status = ChoiceField(
         required=False,
-        label='status',
-        choices=STATUS_CHOICES,
-        widget=UsaCheckboxSelectMultiple(),
+        choices=_add_empty_choice(STATUS_CHOICES),
+        widget=Select(attrs={
+            'name': 'status',
+            'class': 'usa-select',
+        })
     )
     location_state = ChoiceField(
         required=False,
@@ -899,28 +900,6 @@ class Filters(ModelForm):
             'class': 'usa-input'
         })
     )
-    create_date_start = DateField(
-        required=False,
-        label="From:",
-        input_formats=('%Y-%m-%d'),
-        widget=CrtDateInput(attrs={
-            'class': 'usa-input',
-            'name': 'create_date_start',
-            'min': '2019-01-01',
-            'placeholder': 'yyyy-mm-dd',
-        }),
-    )
-    create_date_end = DateField(
-        required=False,
-        label="To:",
-        input_formats=('%Y-%m-%d'),
-        widget=CrtDateInput(attrs={
-            'class': 'usa-input',
-            'name': 'create_date_end',
-            'min': '2019-01-01',
-            'placeholder': 'yyyy-mm-dd',
-        }),
-    )
 
     class Meta:
         model = Report
@@ -950,8 +929,6 @@ class Filters(ModelForm):
             'public_id': 'Complaint ID',
             'primary_statute': 'Primary classification',
             'violation_summary': 'Personal description',
-            'create_date_start': 'Created Date Start',
-            'create_date_end': 'Created Date End',
         }
 
         widgets = {
@@ -983,11 +960,6 @@ class Filters(ModelForm):
                 'class': 'usa-input',
                 'name': 'violation_summary'
             }),
-        }
-        error_messages = {
-            'create_date': {
-                'in_future': _("Create date cannot be in the future."),
-            },
         }
 
 
@@ -1048,6 +1020,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
                 attrs={
                     'class': 'crt-dropdown__data',
                 },
+
             ),
             choices=STATUS_CHOICES,
             required=False
@@ -1224,7 +1197,8 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         """
         exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name', 'election_details',
                    'contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_state',
-                   'contact_city', 'contact_zip', 'crt_reciept_day', 'crt_reciept_month', 'crt_reciept_year']
+                   'contact_city', 'contact_zip', 'crt_reciept_day', 'crt_reciept_month', 'crt_reciept_year',
+                   'location_address_line_1', 'location_address_line_2']
 
     def success_message(self):
         return self.SUCCESS_MESSAGE

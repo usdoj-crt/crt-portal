@@ -5,13 +5,12 @@
     aria-controls="{% block controls %}{% endblock %}"
     aria-expanded="true"
     type="button"
-    id="{%block id %}{% endblock %}"
     data-crt-dropdown-control
   >
     <span class="label">{% block label %}{% endblock %}</span>
     <img src="{% static 'img/intake-icons/ic_select-down.svg' %}" alt="open filter dropdown" class="icon" />
   </button>  
-  <div class="content">
+  <div class="content" id="{%block id %}{% endblock %}">
     {% block content %}{% endblock %}
   </div>
 </div>
