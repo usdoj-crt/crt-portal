@@ -32,17 +32,5 @@
 {% endblock %}
 {% block page_js %}
 {{ block.super }}
-<script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
-<script nonce="{{request.csp_nonce}}">
-  (function(root) {
-    root.CRT = root.CRT || {}
-    root.CRT.pageArgs = "{{ page_args }}"
-  })(window);
-  accessibleAutocomplete.enhanceSelectElement({
-    defaultValue: '',
-    selectElement: document.querySelector('#id_assigned_to')
-  });
-</script>
-
 <script src="{% static 'js/complaint_view_filters.js' %}"></script>
 {% endblock %}

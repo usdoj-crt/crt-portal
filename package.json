@@ -24,6 +24,7 @@
     "test:a11y-7": "pa11y-ci --config pa11y_scripts/.p7-review",
     "test:a11y-8": "pa11y-ci --config pa11y_scripts/.p8-confirmation",
     "test:a11y-view": "pa11y-ci --config pa11y_scripts/.crt-view.json",
+    "test:a11y-view-text-input-filters": "pa11y-ci --config pa11y_scripts/.crt-view-text-input-filters.json",
     "test:a11y-view-date": "pa11y-ci --config pa11y_scripts/.crt-view-date.json",
     "test:a11y-crt-new": "pa11y-ci --config pa11y_scripts/.crt-new.json",
     "test:a11y-crt-details": "pa11y-ci --config pa11y_scripts/.crt-details.json",

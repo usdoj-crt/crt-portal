@@ -18,7 +18,7 @@
                 "wait for element #id_create_date_end to be visible",
                 "set field #id_create_date_end to 2020-07-01",
                 "screen capture pa11y-screenshots/crt-view-date-step4.png",
-                "click #id_apply_dates",
+                "click #apply-filters-button",
                 "wait for path to be /form/view/"
             ],
             "screenCapture": "pa11y-screenshots/crt-sort-view-date-final.png"

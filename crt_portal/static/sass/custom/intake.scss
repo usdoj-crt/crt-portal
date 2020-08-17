@@ -97,6 +97,7 @@
     width: 100%;
     flex-wrap: wrap;
     white-space: normal;
+    align-items: baseline;
 
     &.intake-checkbox {
       ul {
@@ -114,13 +115,43 @@
       }
     }
 
+    .crt-textbox {
+      input {
+        border: none;
+      }
+
+      input[name='contact_first_name'] {
+        max-width: 12rem;
+      }
+
+      input[name='contact_last_name'] {
+        max-width: 12rem;
+      }
+
+      input[name='public_id'] {
+        max-width: 7rem;
+      }
+
+      &.summary_input {
+        width: 19rem;
+      }
+    }
+
     .crt-dropdown {
-      margin-right: 2rem;
+      margin-right: 1rem;
       margin-bottom: 2rem;
 
       button {
         width: 100%;
       }
+    }
+
+    .crt-dropdown:last-of-type {
+      margin-top: 0rem;
+    }
+
+    .usa-button {
+      margin-bottom: 2rem;
     }
   }
 }

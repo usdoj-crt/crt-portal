@@ -53,7 +53,6 @@
    */
   function makeQueryParams(params) {
     var keys = Object.keys(params);
-
     return keys.reduce(function(memo, key) {
       var paramValue = params[key];
 
@@ -372,20 +371,8 @@
       name: 'create_date_end'
     });
     textInputView({
-      el: assigneeEl,
-      name: 'assigned_to'
-    });
-    textInputView({
       el: complaintIDEl,
       name: 'public_id'
-    });
-    textInputView({
-      el: statuteEl,
-      name: 'primary_statute'
-    });
-    textInputView({
-      el: personalDescriptionEl,
-      name: 'violation_summary'
     });
     clearFiltersView({
       el: clearAllEl,

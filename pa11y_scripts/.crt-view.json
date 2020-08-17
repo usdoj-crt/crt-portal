@@ -10,7 +10,7 @@
         "click #login",
         "wait for path to be /form/view/",
         "screen capture pa11y-screenshots/crt-view-step1.png",
-        "wait for element #assigned_to to be visible",
+        "wait for element #id_public_id to be visible",
         "click element #submitted-sort",
         "wait for path to be /form/view/"
       ],
