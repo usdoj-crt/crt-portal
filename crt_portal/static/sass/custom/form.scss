@@ -152,7 +152,7 @@ form#filters-form {
   }
   .usa-button {
     &:hover {
-      background-color: color('blue-50');
+      background-color: color($theme-link-hover-color);
     }
 
     @media (min-width: 30em) {
@@ -354,11 +354,11 @@ a.usa-button {
 
 .usa-button--light {
   background-color: color('gray-warm-3');
-  color: color('blue-50');
+  color: color($theme-link-hover-color);
 
   &:hover {
     background-color: color('gray-warm-5');
-    color: color('blue-50');
+    color: color($theme-link-hover-color);
   }
 
   img {
