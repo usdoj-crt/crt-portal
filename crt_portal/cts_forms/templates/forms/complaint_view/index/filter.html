@@ -1,4 +1,4 @@
-{% load static %}
+  {% load static %}
 <div class="crt-dropdown {% block classes %}{% endblock %}" data-crt-dropdown>
   <button
     class="crt-dropdown__title"
@@ -10,11 +10,8 @@
   >
     <span class="label">{% block label %}{% endblock %}</span>
     <img src="{% static 'img/intake-icons/ic_select-down.svg' %}" alt="open filter dropdown" class="icon" />
-  </button>
+  </button>  
   <div class="content">
     {% block content %}{% endblock %}
-    <button class="usa-button margin-top-2"  id="{%block id %}{% endblock %}" type="submit">
-      Filter results
-    </button>
   </div>
 </div>

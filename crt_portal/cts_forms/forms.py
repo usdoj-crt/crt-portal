@@ -886,7 +886,8 @@ class Filters(ModelForm):
             attrs={
                 'class': 'usa-input',
                 'name': 'summary',
-                'placeholder': 'CRT summary'
+                'placeholder': 'CRT summary',
+                'aria-label': 'Complaint Summary'
             },
         ),
     )
@@ -964,12 +965,14 @@ class Filters(ModelForm):
                 'class': 'usa-input',
                 'name': 'contact_first_name',
                 'placeholder': 'Contact First Name',
-                'id': 'id_contact_first_name'
+                'id': 'id_contact_first_name',
+                'aria-label': 'Contact First Name'
             }),
             'contact_last_name': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'contact_last_name',
-                'placeholder': 'Contact Last Name'
+                'placeholder': 'Contact Last Name',
+                'aria-label': 'Contact Last Name'
             }),
             'location_city_town': TextInput(attrs={
                 'class': 'usa-input',
@@ -982,7 +985,8 @@ class Filters(ModelForm):
             'public_id': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'public_id',
-                'placeholder': 'ID'
+                'placeholder': 'ID',
+                'aria-label': 'CRT Public ID'
             }),
             'violation_summary': TextInput(attrs={
                 'class': 'usa-input',
