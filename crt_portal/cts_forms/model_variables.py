@@ -69,7 +69,6 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
     'commercial_or_public': [
         _('A physical or online location that does not provide disability accommodations'),
         _('Denied service or entry because of a perceived personal characteristic like race, sex, or religion'),
-        _('Threatened or harassed while seeking or receiving reproductive health services'),
     ],
     'something_else': []
 }

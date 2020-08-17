@@ -2,4 +2,8 @@
   background-color: color(
     'cyan-50'
   ); // USWDS system color token: https://designsystem.digital.gov/design-tokens/color/system-tokens/
+  color: color('white');
+  &:hover {
+    color: color('white');
+  }
 }
