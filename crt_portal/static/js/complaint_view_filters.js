@@ -103,7 +103,7 @@
     assigned_section: [],
     primary_complaint: '',
     status: [],
-    location_state: '',
+    location_state: [],
     primary_complaint: '',
     contact_first_name: '',
     contact_last_name: '',
@@ -267,7 +267,7 @@
     var lastNameEl = formEl.querySelector('input[name="contact_last_name"');
     var locationCityEl = formEl.querySelector('input[name="location_city_town"]');
     var locationNameEl = formEl.querySelector('input[name="location_name"]');
-    var locationStateEl = formEl.querySelector('select[name="location_state"]');
+    var locationStateEl = dom.getElementsByName('location_state');
     var activeFiltersEl = dom.querySelector('[data-active-filters]');
     var clearAllEl = dom.querySelector('[data-clear-filters]');
     var statusEl = dom.getElementsByName('status');
@@ -288,16 +288,19 @@
 
       if (filterName === 'assigned_section') {
         var sections = filterDataModel.assigned_section;
-        var filterData = node.getAttribute('data-filter-value');
-
-        sections.splice(sections.indexOf(filterData), 1);
+        var sectionData = node.getAttribute('data-filter-value');
+        sections.splice(sections.indexOf(sectionData), 1);
         filterDataModel.assigned_section = sections;
       } else if (filterName === 'status') {
         var status = filterDataModel.status;
-        var filterData = node.getAttribute('data-filter-value');
-
-        status.splice(status.indexOf(filterData), 1);
+        var statusData = node.getAttribute('data-filter-value');
+        status.splice(status.indexOf(statusData), 1);
         filterDataModel.status = status;
+      } else if (filterName === 'location_state') {
+        var states = filterDataModel.location_state;
+        var stateData = node.getAttribute('data-filter-value');
+        states.splice(states.indexOf(stateData), 1);
+        filterDataModel.location_state = states;
       } else {
         filterDataModel[filterName] = '';
       }
@@ -346,7 +349,7 @@
       el: locationNameEl,
       name: 'location_name'
     });
-    textInputView({
+    checkBoxView({
       el: locationStateEl,
       name: 'location_state'
     });
