@@ -44,6 +44,10 @@ $arrow-height: 24px;
   font-weight: bold !important;
   margin-top: 0.5rem;
   padding: 1rem 2rem;
+
+  &:hover {
+    background: color($theme-link-hover-color);
+  }
 }
 
 .crt-landing--blue {
