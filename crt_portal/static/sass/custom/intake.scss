@@ -150,6 +150,23 @@
       margin-top: 0rem;
     }
 
+    .location-state--container {
+      @include u-border(1px, $theme-color-primary-darker);
+      height: 8rem;
+      overflow-y: auto;
+
+      ul {
+        padding: 0;
+        margin: 0.25rem;
+      }
+
+      // TODO investigate why this isn't enabled by default
+      .usa-checkbox__input {
+        position: relative;
+        left: 0;
+      }
+    }
+
     .usa-button {
       margin-bottom: 2rem;
     }
