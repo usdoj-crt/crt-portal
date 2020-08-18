@@ -204,8 +204,8 @@ $arrow-height: 24px;
     }
   }
 
-  @include at-media(desktop) {
-    background-image: url(../../img/landing-page-hero-tablet.png);
+  @include at-media-max(desktop) {
+    background-image: url(../../img/landing-page-hero-tablet.jpg);
     background-position: bottom;
     min-height: 850px;
   }
