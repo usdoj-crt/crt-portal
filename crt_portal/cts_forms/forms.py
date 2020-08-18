@@ -866,10 +866,10 @@ class Filters(ModelForm):
     location_state = ChoiceField(
         required=False,
         choices=_add_empty_choice(STATES_AND_TERRITORIES),
-        widget=Select(attrs={
+        widget=CrtMultiSelect(attrs={
             'name': 'location_state',
-            'class': 'usa-select'
-        })
+            'class': 'usa-select text-uppercase',
+        }),
     )
     primary_statute = ChoiceField(
         required=False,
