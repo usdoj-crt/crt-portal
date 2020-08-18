@@ -5,6 +5,7 @@ from django.db import migrations
 
 def tweak_subject_lines(apps, schema_editor):
     # add "the" as a prefix
+    ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
     common_subject = "Response: Your Civil Rights Division Report - {{ record_locator }} from the {{ section_name }} Section"
     templates = ResponseTemplate.objects.filter(subject__icontains='from {{ section_name }}')
     for template in templates:
@@ -21,7 +22,7 @@ def untweak_subject_lines(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0086_materialize_trends_view'),
+        ('cts_forms', '0087_expand_form_subject_length'),
     ]
 
     operations = [
