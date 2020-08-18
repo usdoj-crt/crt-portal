@@ -286,21 +286,14 @@
     function onFilterTagClick(node) {
       var filterName = node.getAttribute('data-filter-name');
 
-      if (filterName === 'assigned_section') {
-        var sections = filterDataModel.assigned_section;
-        var sectionData = node.getAttribute('data-filter-value');
-        sections.splice(sections.indexOf(sectionData), 1);
-        filterDataModel.assigned_section = sections;
-      } else if (filterName === 'status') {
-        var status = filterDataModel.status;
-        var statusData = node.getAttribute('data-filter-value');
-        status.splice(status.indexOf(statusData), 1);
-        filterDataModel.status = status;
-      } else if (filterName === 'location_state') {
-        var states = filterDataModel.location_state;
-        var stateData = node.getAttribute('data-filter-value');
-        states.splice(states.indexOf(stateData), 1);
-        filterDataModel.location_state = states;
+      // see if we have to process multiple select elements first
+      var multiSelectElements = ['assigned_section', 'status', 'location_state'];
+      var filterIndex = multiSelectElements.indexOf(filterName);
+      if (filterIndex !== -1) {
+        var selections = filterDataModel[filterName];
+        var selectionData = node.getAttribute('data-filter-value');
+        selections.splice(selections.indexOf(selectionData), 1);
+        filterDataModel[filterName] = selections;
       } else {
         filterDataModel[filterName] = '';
       }
