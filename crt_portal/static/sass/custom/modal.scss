@@ -117,6 +117,9 @@ body.is-modal {
 
   #external-link--cancel {
     margin-left: 0;
+    &:focus {
+      color: color($theme-color-primary-darker) !important;
+    }
   }
 
   #external-link--continue {
