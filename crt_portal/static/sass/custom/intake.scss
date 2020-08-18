@@ -295,18 +295,29 @@
 form#section-filter-form {
   .crt-dropdown {
     background-color: color($theme-color-primary-darker);
-    border-bottom: 2px solid color('white');
+    border-bottom: 4px solid color($theme-color-warning);
     margin-right: 1rem;
     border-radius: 0;
     
-    &__title {
-      color: color('white');
+    &__title {    
+      color: color($theme-color-warning);
       background-color: color($theme-color-primary-darker);
     }
 
+    .crt-section_dropdown{
+      padding: .5rem;
+    }
+
+    .icon {
+      background-image: url(../../img/intake-icons/ic_select-down_gold.svg);
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
+    }
+
     &.expanded {
-      img {
-        background-image: url(../../img/intake-icons/ic_select-down.svg);
+      .icon {
+        background-image: url(../../img/intake-icons/ic_select-up.svg);
       }
 
       .crt-section_dropdown {
