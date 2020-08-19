@@ -22,15 +22,29 @@
                 Back to all
               </a>
             </div>
-            <div class="display-flex flex-align-center">
-              {{ filter_index|default:0 }} of {{ filter_count|default:0 }} records
-              <div class="filter-prev">
-                <img src="{% static "img/intake-icons/ic_chevron-left.svg" %}" alt="previous" class="icon">
+            {% if filter_count %}
+              <div class="display-flex flex-align-center">
+                {{ filter_current }} of {{ filter_count }} records
+                <div class="nav-filter--button">
+                  {% if filter_previous %}
+                    <a href="{% url 'crt_forms:crt-forms-show' id=filter_previous %}{{ filter_query }}">
+                      <img src="{% static "img/intake-icons/ic_chevron-left.svg" %}" alt="previous" class="icon">
+                    </a>
+                  {% else %}
+                    <img src="{% static "img/intake-icons/ic_chevron-left.svg" %}" alt="previous" class="icon">
+                  {% endif %}
+                </div>
+                <div class="nav-filter--button">
+                  {% if filter_next %}
+                    <a href="{% url 'crt_forms:crt-forms-show' id=filter_next %}{{ filter_query }}">
+                      <img src="{% static "img/intake-icons/ic_chevron-right.svg" %}" alt="next" class="icon">
+                    </a>
+                  {% else %}
+                    <img src="{% static "img/intake-icons/ic_chevron-right.svg" %}" alt="next" class="icon">
+                  {% endif %}
+                </div>
               </div>
-              <div class="filter-next">
-                <img src="{% static "img/intake-icons/ic_chevron-right.svg" %}" alt="next" class="icon">
-              </div>
-            </div>
+            {% endif %}
           </div>
       </div>
       <div class="tablet:grid-col-4 grid-offset-1 padding-left-05">

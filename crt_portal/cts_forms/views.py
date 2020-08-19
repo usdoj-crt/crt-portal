@@ -288,6 +288,9 @@ class ShowView(LoginRequiredMixin, View):
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)
         return_url_args = request.GET.get('next', '')
+
+        # if we are filtering, allow the user to navigate through the
+        # filtered reports.
         if return_url_args:
             querydict = QueryDict(return_url_args)
             report_query, _ = report_filter(querydict)
@@ -297,14 +300,16 @@ class ShowView(LoginRequiredMixin, View):
 
             # silently fail if the current id is not in the filter.
             if id in requested_ids:
-                index = requested_ids.index(id) + 1
-                previous_id = requested_ids[index - 1] if index > 1 else None
+                index = requested_ids.index(id)
+                previous_id = requested_ids[index - 1] if index > 0 else None
                 next_id = requested_ids[index + 1] if index < len(requested_ids) - 1 else None
+                next_page = urllib.parse.quote(return_url_args)
                 output.update({
                     'filter_count': report_query.count(),
-                    'filter_index': index,
+                    'filter_current': index + 1,
                     'filter_previous': previous_id,
                     'filter_next': next_id,
+                    'filter_query': f'?next={next_page}',
                 })
 
         output.update({
