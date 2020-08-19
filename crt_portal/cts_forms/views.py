@@ -290,11 +290,22 @@ class ShowView(LoginRequiredMixin, View):
         return_url_args = request.GET.get('next', '')
         if return_url_args:
             querydict = QueryDict(return_url_args)
-            report_query, query_filters = report_filter(querydict)
-            # TODO index and prev/next
-            output.update({
-                'filter_count': report_query.count(),
-            })
+            report_query, _ = report_filter(querydict)
+            sort = querydict.getlist('sort', ['-create_date'])
+            requested_query = report_query.order_by(*sort)
+            requested_ids = list(requested_query.values_list('id', flat=True))
+
+            # silently fail if the current id is not in the filter.
+            if id in requested_ids:
+                index = requested_ids.index(id) + 1
+                previous_id = requested_ids[index - 1] if index > 1 else None
+                next_id = requested_ids[index + 1] if index < len(requested_ids) - 1 else None
+                output.update({
+                    'filter_count': report_query.count(),
+                    'filter_index': index,
+                    'filter_previous': previous_id,
+                    'filter_next': next_id,
+                })
 
         output.update({
             'contact_form': contact_form,
