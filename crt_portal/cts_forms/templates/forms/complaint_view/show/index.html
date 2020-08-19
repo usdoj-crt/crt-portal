@@ -25,25 +25,25 @@
             {% if filter_count %}
               <div class="display-flex flex-align-center">
                 {{ filter_current }} of {{ filter_count }} records
-                <div class="nav-filter--button">
+                <div class="nav-arrow nav-filter--button">
                   {% if filter_previous %}
                     <a href="{% url 'crt_forms:crt-forms-show' id=filter_previous %}{{ filter_query }}">
-                      <img src="{% static "img/intake-icons/ic_chevron-left.svg" %}" alt="previous" class="icon">
+                      {% include "forms/snippets/nav_arrow.html" %}
                     </a>
                   {% else %}
-                    <div class="nav-filter--disabled">
-                      <img src="{% static "img/intake-icons/ic_chevron-left-disabled.svg" %}" alt="previous" class="icon">
+                    <div class="disabled-nav">
+                      {% include "forms/snippets/nav_arrow.html" %}
                     </div>
                   {% endif %}
                 </div>
-                <div class="nav-filter--button">
+                <div class="nav-arrow nav-filter--button">
                   {% if filter_next %}
                     <a href="{% url 'crt_forms:crt-forms-show' id=filter_next %}{{ filter_query }}">
-                      <img src="{% static "img/intake-icons/ic_chevron-right.svg" %}" alt="next" class="icon">
+                      {% include "forms/snippets/nav_arrow.html" with point_right=True %}
                     </a>
                   {% else %}
-                    <div class="nav-filter--disabled">
-                      <img src="{% static "img/intake-icons/ic_chevron-right-disabled.svg" %}" alt="next" class="icon">
+                    <div class="disabled-nav">
+                      {% include "forms/snippets/nav_arrow.html" with point_right=True %}
                     </div>
                   {% endif %}
                 </div>
