@@ -103,7 +103,7 @@
     assigned_section: [],
     primary_complaint: '',
     status: [],
-    location_state: '',
+    location_state: [],
     primary_complaint: '',
     contact_first_name: '',
     contact_last_name: '',
@@ -267,7 +267,7 @@
     var lastNameEl = formEl.querySelector('input[name="contact_last_name"');
     var locationCityEl = formEl.querySelector('input[name="location_city_town"]');
     var locationNameEl = formEl.querySelector('input[name="location_name"]');
-    var locationStateEl = formEl.querySelector('select[name="location_state"]');
+    var locationStateEl = dom.getElementsByName('location_state');
     var activeFiltersEl = dom.querySelector('[data-active-filters]');
     var clearAllEl = dom.querySelector('[data-clear-filters]');
     var statusEl = dom.getElementsByName('status');
@@ -286,18 +286,14 @@
     function onFilterTagClick(node) {
       var filterName = node.getAttribute('data-filter-name');
 
-      if (filterName === 'assigned_section') {
-        var sections = filterDataModel.assigned_section;
-        var filterData = node.getAttribute('data-filter-value');
-
-        sections.splice(sections.indexOf(filterData), 1);
-        filterDataModel.assigned_section = sections;
-      } else if (filterName === 'status') {
-        var status = filterDataModel.status;
-        var filterData = node.getAttribute('data-filter-value');
-
-        status.splice(status.indexOf(filterData), 1);
-        filterDataModel.status = status;
+      // see if we have to process multiple select elements first
+      var multiSelectElements = ['assigned_section', 'status', 'location_state'];
+      var filterIndex = multiSelectElements.indexOf(filterName);
+      if (filterIndex !== -1) {
+        var selections = filterDataModel[filterName];
+        var selectionData = node.getAttribute('data-filter-value');
+        selections.splice(selections.indexOf(selectionData), 1);
+        filterDataModel[filterName] = selections;
       } else {
         filterDataModel[filterName] = '';
       }
@@ -346,7 +342,7 @@
       el: locationNameEl,
       name: 'location_name'
     });
-    textInputView({
+    checkBoxView({
       el: locationStateEl,
       name: 'location_state'
     });

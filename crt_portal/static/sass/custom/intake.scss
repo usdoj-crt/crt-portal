@@ -150,6 +150,23 @@
       margin-top: 0rem;
     }
 
+    .location-state--container {
+      @include u-border(1px, $theme-color-primary-darker);
+      height: 12rem;
+      overflow-y: scroll;
+      position: relative;
+
+      ul {
+        padding: 0;
+        margin: 0.5rem;
+
+        .crt-checkbox__label::before {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+    }
+
     .usa-button {
       margin-bottom: 2rem;
     }

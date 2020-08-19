@@ -863,13 +863,12 @@ class Filters(ModelForm):
         choices=STATUS_CHOICES,
         widget=UsaCheckboxSelectMultiple(),
     )
-    location_state = ChoiceField(
+    location_state = MultipleChoiceField(
         required=False,
-        choices=_add_empty_choice(STATES_AND_TERRITORIES),
-        widget=Select(attrs={
+        choices=STATES_AND_TERRITORIES,
+        widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'location_state',
-            'class': 'usa-select'
-        })
+        }),
     )
     primary_statute = ChoiceField(
         required=False,
