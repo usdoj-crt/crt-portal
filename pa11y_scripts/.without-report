@@ -1,0 +1,24 @@
+{
+    "urls": [{
+            "url": "http://127.0.0.1:8000/",
+            "screenCapture": "pa11y-screenshots/crt-landing-view.png"
+        },
+        {
+            "url": "http://127.0.0.1:8000/",
+            "actions": [
+                "wait for url to be http://127.0.0.1:8000/",
+                "click #crt-landing--example_option",
+                "wait for element #crt-landing--example-workplace to be visible"
+            ],
+            "screenCapture": "pa11y-screenshots/crt-landing-dropdown.png"
+        },
+        {
+            "url": "http://127.0.0.1:8000/report",
+            "screenCapture": "pa11y-screenshots/page1-contact.png"
+        },
+        {
+            "url": "http://127.0.0.1:8000/privacy-policy",
+            "screenCapture": "pa11y-screenshots/crt-privacy-policy.png"
+        }
+    ]
+}
