@@ -863,7 +863,7 @@ class Filters(ModelForm):
         choices=STATUS_CHOICES,
         widget=UsaCheckboxSelectMultiple(),
     )
-    location_state = ChoiceField(
+    location_state = MultipleChoiceField(
         required=False,
         choices=STATES_AND_TERRITORIES,
         widget=UsaCheckboxSelectMultiple(attrs={
