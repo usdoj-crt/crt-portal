@@ -392,6 +392,15 @@
 
 .complaint-show-body {
   margin-left: -4rem;
+
+  .nav-filter--button {
+    margin-left: 1rem;
+
+    a {
+      @include u-border(1px, 'solid', $theme-color-primary-darker);
+      padding: 0.25rem 0.5rem;
+    }
+  }
 }
 
 #complaint-view-actions {
