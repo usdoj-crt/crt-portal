@@ -31,7 +31,9 @@
                       <img src="{% static "img/intake-icons/ic_chevron-left.svg" %}" alt="previous" class="icon">
                     </a>
                   {% else %}
-                    <img src="{% static "img/intake-icons/ic_chevron-left.svg" %}" alt="previous" class="icon">
+                    <div class="nav-filter--disabled">
+                      <img src="{% static "img/intake-icons/ic_chevron-left-disabled.svg" %}" alt="previous" class="icon">
+                    </div>
                   {% endif %}
                 </div>
                 <div class="nav-filter--button">
@@ -40,7 +42,9 @@
                       <img src="{% static "img/intake-icons/ic_chevron-right.svg" %}" alt="next" class="icon">
                     </a>
                   {% else %}
-                    <img src="{% static "img/intake-icons/ic_chevron-right.svg" %}" alt="next" class="icon">
+                    <div class="nav-filter--disabled">
+                      <img src="{% static "img/intake-icons/ic_chevron-right-disabled.svg" %}" alt="next" class="icon">
+                    </div>
                   {% endif %}
                 </div>
               </div>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="15px" viewBox="0 0 10 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>ic_chevron-right</title>
+    <desc>Created with Sketch.</desc>
+    <g id="CRT---Key-Pages" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-252.000000, -48.000000)">
+            <g id="ic_chevron-right" transform="translate(246.000000, 45.000000)">
+                <rect id="Rectangle-Copy-9" transform="translate(10.000000, 10.000000) rotate(-90.000000) translate(-10.000000, -10.000000) " x="0" y="0" width="20" height="20"></rect>
+                <path d="M3.66789322,5.92958172 C4.02837718,5.55471191 4.59560824,5.52587577 4.98789944,5.8430733 L5.08210678,5.92958172 L10.375,11.4328809 L15.6678932,5.92958172 C16.0283772,5.55471191 16.5956082,5.52587577 16.9878994,5.8430733 L17.0821068,5.92958172 C17.4425907,6.30445154 17.4703203,6.89431911 17.1652954,7.3022655 L17.0821068,7.40023238 L10.375,14.375 L3.66789322,7.40023238 C3.27736893,6.99412341 3.27736893,6.33569069 3.66789322,5.92958172 Z" id="Path-3-Copy-14" fill="#c9c9c9" fill-rule="nonzero" transform="translate(10.375000, 10.000000) rotate(-90.000000) translate(-10.375000, -10.000000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>
