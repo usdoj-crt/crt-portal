@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
-from django.http import Http404
+from django.http import Http404, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils.decorators import method_decorator
@@ -151,7 +151,7 @@ def format_protected_class(p_class_objects, other_class):
 
 @login_required
 def IndexView(request):
-    report_query, query_filters = report_filter(request)
+    report_query, query_filters = report_filter(request.GET)
 
     # Sort data based on request from params, default to `created_date` of complaint
     sort = request.GET.getlist('sort', ['-create_date'])
@@ -287,6 +287,14 @@ class ShowView(LoginRequiredMixin, View):
         output = serialize_data(report, request, id)
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)
+        return_url_args = request.GET.get('next', '')
+        if return_url_args:
+            querydict = QueryDict(return_url_args)
+            report_query, query_filters = report_filter(querydict)
+            # TODO index and prev/next
+            output.update({
+                'filter_count': report_query.count(),
+            })
 
         output.update({
             'contact_form': contact_form,
