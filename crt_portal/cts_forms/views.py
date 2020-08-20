@@ -149,6 +149,36 @@ def format_protected_class(p_class_objects, other_class):
     return p_class_list
 
 
+def preserve_query_parameters(report, querydict):
+    """
+    Given a report and submission, preserve the `next` and `index`
+    query parameters as these are essential to maintaining the current
+    filter navigation.
+    """
+    return_url_args = querydict.get('next', '')
+    next_page = urllib.parse.quote(return_url_args)
+    index = querydict.get('index', '')
+
+    # if we are filtering, allow the user to navigate through the
+    # filtered reports by keeping the index query param up-to-date.
+    if return_url_args:
+        querydict = QueryDict(return_url_args)
+        report_query, _ = report_filter(querydict)
+        sort = querydict.getlist('sort', ['-create_date'])
+        requested_query = report_query.order_by(*sort)
+        requested_ids = list(requested_query.values_list('id', flat=True))
+
+        try:
+            index = requested_ids.index(report.id)
+        except ValueError:
+            # rely on the previous index, if any. this will happen if
+            # changes to the report cause the report to move out of
+            # the filtered list.
+            pass
+
+    return f'{report.get_absolute_url()}?next={next_page}&index={index}'
+
+
 @login_required
 def IndexView(request):
     report_query, query_filters = report_filter(request.GET)
@@ -249,6 +279,7 @@ def serialize_data(report, request, report_id):
         'p_class_list': p_class_list,
         'primary_complaint': primary_complaint,
         'return_url_args': request.GET.get('next', ''),
+        'index': request.GET.get('index', ''),
         'summary': report.get_summary,
     }
 
@@ -269,10 +300,7 @@ class ResponseView(LoginRequiredMixin, View):
             add_activity(request.user, "Contacted complainant:", description, report)
             messages.add_message(request, messages.SUCCESS, description)
 
-        # preserve the query that got the user to this page
-        return_url_args = request.POST.get('next', '')
-        next_page = urllib.parse.quote(return_url_args)
-        url = f'{report.get_absolute_url()}?next={next_page}'
+        url = preserve_query_parameters(report, request.POST)
         return redirect(url)
 
 
@@ -305,7 +333,9 @@ class ShowView(LoginRequiredMixin, View):
 
             # obtain the index from either the location of this id in
             # the filter or the query parameter. We prefer the direct
-            # index as this can be more accurate.
+            # index as this can be more accurate. The index QP is
+            # really only used when modifications to the current
+            # report make the report "fall" out of the filter.
             try:
                 index = requested_ids.index(id)
             except ValueError:
@@ -323,7 +353,8 @@ class ShowView(LoginRequiredMixin, View):
                     'filter_current': index + 1,
                     'filter_previous': previous_id,
                     'filter_next': next_id,
-                    'filter_query': f'?next={next_query}',
+                    'filter_previous_query': f'?next={next_query}&index={index - 1}',
+                    'filter_next_query': f'?next={next_query}&index={index + 1}',
                 })
 
         output.update({
@@ -365,10 +396,8 @@ class ShowView(LoginRequiredMixin, View):
             report.save()
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())
-            #  preserve the query that got the user to this page
-            return_url_args = request.POST.get('next', '')
-            next_page = urllib.parse.quote(return_url_args)
-            url = f'{report.get_absolute_url()}?next={next_page}'
+
+            url = preserve_query_parameters(report, request.POST)
             return redirect(url)
         else:
             output = serialize_data(report, request, id)
@@ -411,16 +440,14 @@ class SaveCommentView(LoginRequiredMixin, FormView):
             messages.add_message(request, messages.SUCCESS, f'Successfully {verb[:-2].lower()}.')
             comment_form.update_activity_stream(request.user, report, verb)
 
-            #  preserve the query that got the user to this page
-            return_url_args = request.POST.get('next', '')
-            next_page = urllib.parse.quote(return_url_args)
-            url = f'{report.get_absolute_url()}?next={next_page}'
+            url = preserve_query_parameters(report, request.POST)
             return redirect(url)
         else:
             # TODO handle form validation failures
             output = serialize_data(report, request, report_id)
             output.update({
                 'return_url_args': request.POST.get('next', ''),
+                'index': request.POST.get('index', ''),
             })
 
             return render(request, 'forms/complaint_view/show/index.html', output)
