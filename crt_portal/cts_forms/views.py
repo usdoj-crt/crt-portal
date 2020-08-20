@@ -190,7 +190,8 @@ def IndexView(request):
 
     data = []
 
-    for report in requested_reports:
+    paginated_offset = page_format['page_range_start'] - 1
+    for index, report in enumerate(requested_reports):
         p_class_list = format_protected_class(
             report.protected_class.all().order_by('form_order'),
             report.other_class,
@@ -204,8 +205,7 @@ def IndexView(request):
         data.append({
             "report": report,
             "report_protected_classes": p_class_list,
-            "url": f'{report.id}?next={all_args_encoded}'
-
+            "url": f'{report.id}?next={all_args_encoded}&index={paginated_offset+index}',
         })
 
     final_data = {
@@ -294,22 +294,36 @@ class ShowView(LoginRequiredMixin, View):
         if return_url_args:
             querydict = QueryDict(return_url_args)
             report_query, _ = report_filter(querydict)
+            output.update({
+                'filter_count': report_query.count(),
+            })
+
+            # obtain the current filtered report ids
             sort = querydict.getlist('sort', ['-create_date'])
             requested_query = report_query.order_by(*sort)
             requested_ids = list(requested_query.values_list('id', flat=True))
 
-            # silently fail if the current id is not in the filter.
-            if id in requested_ids:
+            # obtain the index from either the location of this id in
+            # the filter or the query parameter. We prefer the direct
+            # index as this can be more accurate.
+            try:
                 index = requested_ids.index(id)
+            except ValueError:
+                index = int(request.GET['index']) if 'index' in request.GET else None
+
+            # silently fail if we cannot figure out our index in the
+            # filter list. note that we still want to show the filter
+            # count in this case as we are still filtering by some
+            # criteria.
+            if index is not None:
                 previous_id = requested_ids[index - 1] if index > 0 else None
                 next_id = requested_ids[index + 1] if index < len(requested_ids) - 1 else None
-                next_page = urllib.parse.quote(return_url_args)
+                next_query = urllib.parse.quote(return_url_args)
                 output.update({
-                    'filter_count': report_query.count(),
                     'filter_current': index + 1,
                     'filter_previous': previous_id,
                     'filter_next': next_id,
-                    'filter_query': f'?next={next_page}',
+                    'filter_query': f'?next={next_query}',
                 })
 
         output.update({

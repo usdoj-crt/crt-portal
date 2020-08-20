@@ -24,7 +24,7 @@
             </div>
             {% if filter_count %}
               <div class="display-flex flex-align-center">
-                {{ filter_current }} of {{ filter_count }} records
+                {{ filter_current|default:"N/A" }} of {{ filter_count }} records
                 <div class="nav-arrow nav-filter--button">
                   {% if filter_previous %}
                     <a href="{% url 'crt_forms:crt-forms-show' id=filter_previous %}{{ filter_query }}">
