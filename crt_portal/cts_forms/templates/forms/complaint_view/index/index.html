@@ -33,4 +33,11 @@
 {% block page_js %}
 {{ block.super }}
 <script src="{% static 'js/complaint_view_filters.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
+<script nonce="{{request.csp_nonce}}">
+  accessibleAutocomplete.enhanceSelectElement({
+  defaultValue: '',
+  selectElement: document.querySelector('#id_assigned_to')
+});
+</script>
 {% endblock %}
