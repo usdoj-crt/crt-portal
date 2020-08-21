@@ -167,12 +167,11 @@ def preserve_query_parameters(report, querydict):
         sort = querydict.getlist('sort', ['-create_date'])
         requested_query = report_query.order_by(*sort)
         requested_ids = list(requested_query.values_list('id', flat=True))
-
         try:
             index = requested_ids.index(report.id)
         except ValueError:
-            # rely on the previous index, if any. this will happen if
-            # changes to the report cause the report to move out of
+            # rely on the index query param, if any. this will happen
+            # if changes to the report cause the report to move out of
             # the filtered list.
             pass
 
@@ -316,46 +315,40 @@ class ShowView(LoginRequiredMixin, View):
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)
         return_url_args = request.GET.get('next', '')
+        index = request.GET.get('index', None)
 
         # if we are filtering, allow the user to navigate through the
         # filtered reports.
-        if return_url_args:
+        if return_url_args and index is not None:
             querydict = QueryDict(return_url_args)
             report_query, _ = report_filter(querydict)
-            output.update({
-                'filter_count': report_query.count(),
-            })
-
-            # obtain the current filtered report ids
             sort = querydict.getlist('sort', ['-create_date'])
             requested_query = report_query.order_by(*sort)
             requested_ids = list(requested_query.values_list('id', flat=True))
 
-            # obtain the index from either the location of this id in
-            # the filter or the query parameter. We prefer the direct
-            # index as this can be more accurate. The index QP is
-            # really only used when modifications to the current
-            # report make the report "fall" out of the filter.
-            try:
-                index = requested_ids.index(id)
-            except ValueError:
-                index = int(request.GET['index']) if 'index' in request.GET else None
-
-            # silently fail if we cannot figure out our index in the
-            # filter list. note that we still want to show the filter
-            # count in this case as we are still filtering by some
-            # criteria.
-            if index is not None:
-                previous_id = requested_ids[index - 1] if index > 0 else None
-                next_id = requested_ids[index + 1] if index < len(requested_ids) - 1 else None
-                next_query = urllib.parse.quote(return_url_args)
+            index = int(index)
+            if report.id in requested_ids:
+                # override in case user input an invalid index
+                index = requested_ids.index(report.id)
                 output.update({
                     'filter_current': index + 1,
-                    'filter_previous': previous_id,
-                    'filter_next': next_id,
-                    'filter_previous_query': f'?next={next_query}&index={index - 1}',
-                    'filter_next_query': f'?next={next_query}&index={index + 1}',
                 })
+            else:
+                # this report is no longer in the filter, but we want
+                # to move backwards so that the previously next report
+                # becomes the actual next report.
+                index -= 1
+
+            previous_id = requested_ids[index - 1] if index > 0 else None
+            next_id = requested_ids[index + 1] if index < len(requested_ids) - 1 else None
+            next_query = urllib.parse.quote(return_url_args)
+            output.update({
+                'filter_count': report_query.count(),
+                'filter_previous': previous_id,
+                'filter_next': next_id,
+                'filter_previous_query': f'?next={next_query}&index={index - 1}',
+                'filter_next_query': f'?next={next_query}&index={index + 1}',
+            })
 
         output.update({
             'contact_form': contact_form,
