@@ -231,10 +231,7 @@
   checkBoxView.getValues = function(el) {
     if (el.checked) {
       if (event.target.name == 'assigned_section' && el.value == 'all') {
-        var sectionEL = dom.getElementsByName('assigned_section');
-        var sectionVal = Array.from(sectionEL).map(x => x.value);
-        sectionVal.splice(sectionVal.indexOf('all'), 1);
-        filterDataModel[event.target.name] = sectionVal;
+        filterDataModel[event.target.name] = [];
       } else {
         filterDataModel[event.target.name].push(el.value);
       }
