@@ -234,7 +234,7 @@ def IndexView(request):
         data.append({
             "report": report,
             "report_protected_classes": p_class_list,
-            "url": f'{report.id}?next={all_args_encoded}&index={paginated_offset+index}',
+            "url": f'{report.id}?next={all_args_encoded}&index={paginated_offset + index}',
         })
 
     final_data = {
