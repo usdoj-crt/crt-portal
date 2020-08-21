@@ -48,7 +48,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             PUBLIC_QUESTION, SERVICEMEMBER_QUESTION,
                             SUMMARY_HELPTEXT, SUMMARY_QUESTION,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT)
-from .widgets import (ComplaintSelect, CrtMultiSelect,
+from .widgets import (ComplaintSelect,
                       CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
                       UsaRadioSelect, DataAttributesSelect, CrtDateInput)
 
