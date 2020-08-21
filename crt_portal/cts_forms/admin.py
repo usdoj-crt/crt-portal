@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.http import StreamingHttpResponse
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking,
-                     ProtectedClass, Report, ResponseTemplate)
+                     ProtectedClass, Report, ResponseTemplate, Profile)
 from .signals import get_client_ip
 
 
@@ -76,3 +76,4 @@ admin.site.register(Report, ReportAdmin)
 admin.site.register(ProtectedClass)
 admin.site.register(HateCrimesandTrafficking)
 admin.site.register(ResponseTemplate)
+admin.site.register(Profile)
