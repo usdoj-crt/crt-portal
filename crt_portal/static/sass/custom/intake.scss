@@ -392,28 +392,6 @@
 
 .complaint-show-body {
   margin-left: -4rem;
-
-  .nav-filter--button {
-    margin-left: 1rem;
-
-    a {
-      @include u-border(1px, 'solid', $theme-color-primary-darker);
-      padding: 0.25rem 0.5rem;
-    }
-
-    svg.point-right {
-      transform: rotate(180deg);
-    }
-
-    .disabled-nav {
-      padding: 0.25rem 0.5rem;
-      .nav-arrow-svg {
-        g > g > path {
-          fill: color($theme-color-base-light);
-        }
-      }
-    }
-  }
 }
 
 #complaint-view-actions {
