@@ -1,7 +1,6 @@
 """Back end forms"""
 import secrets
 import urllib.parse
-from random import choice
 
 from django.contrib.auth.models import User
 from django.test import TestCase
@@ -259,8 +258,9 @@ class FormNavigationTests(TestCase):
             report.save()
         # generate random reports that belong to other sections
         reports = [Report.objects.create(**SAMPLE_REPORT) for _ in range(7)]
-        for report in reports:
-            report.assigned_section = choice(['CRM', 'DRS', 'ELS', 'EOS'])
+        sections = ['CRM', 'DRS', 'ELS', 'EOS']
+        for index, report in enumerate(reports):
+            report.assigned_section = sections[index % len(sections)]
             report.save()
 
     def test_basic_navigation(self):
