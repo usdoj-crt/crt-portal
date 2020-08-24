@@ -161,7 +161,6 @@
 
     filters.addEventListener('click', function handleFilterTagClick(event) {
       var node = event.target;
-      console.log(node, event.currentTarget);
       if (node.tagName === 'BUTTON') {
         onClickHandler(node);
       }
