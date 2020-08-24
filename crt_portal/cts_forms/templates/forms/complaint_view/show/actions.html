@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block card_content %}
-<form id="complaint-view-actions" class="usa-form" method="post" action="/form/view/{{data.id}}/" novalidate>
+<form id="complaint-view-actions" class="usa-form" method="post" action="/form/view/{{data.id}}/?next={{ return_url_args|urlencode }}&index={{ index }}" novalidate>
   {% csrf_token %}
   <fieldset name="view-actions" class="usa-fieldset usa-prose">
     <legend class="usa-sr-only">Complaint detail view actions</legend>
