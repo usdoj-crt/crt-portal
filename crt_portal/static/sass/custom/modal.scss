@@ -99,6 +99,25 @@ body.is-modal {
   }
 }
 
+.print-report--modal {
+  // TODO refactor css with .intake-template--modal
+  h1 {
+    color: color($theme-color-primary-darker);
+    margin-top: 0;
+    font-size: 2rem;
+    border-bottom: 1px solid color($theme-color-primary-darker);
+  }
+
+  .print-report--content {
+    flex-grow: 1;
+  }
+
+  ul {
+    list-style-type: none;
+    margin-left: 1rem;
+  }
+}
+
 .intake-letter-preview {
   @media print {
     position: absolute;

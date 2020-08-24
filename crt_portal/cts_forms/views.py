@@ -346,6 +346,26 @@ class ResponseView(LoginRequiredMixin, View):
         return redirect(url)
 
 
+class PrintView(LoginRequiredMixin, View):
+
+    def post(self, request, id):
+        report = get_object_or_404(Report, pk=id)
+        form = PrintActions(request.POST)
+
+        if form.is_valid():
+            options = form.cleaned_data['options']
+            all_options = ', '.join(options)
+            description = f"Selected {all_options}"
+            add_activity(request.user, "Printed report", description, report)
+            messages.add_message(request, messages.SUCCESS, description)
+
+        # preserve the query that got the user to this page
+        return_url_args = request.POST.get('next', '')
+        next_page = urllib.parse.quote(return_url_args)
+        url = f'{report.get_absolute_url()}?next={next_page}'
+        return redirect(url)
+
+
 class ShowView(LoginRequiredMixin, View):
     forms = {
         form.CONTEXT_KEY: form
