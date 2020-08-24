@@ -382,6 +382,10 @@
       el: complaintIDEl,
       name: 'public_id'
     });
+    textInputView({
+      el: statuteEl,
+      name: 'primary_statute'
+    });
     clearFiltersView({
       el: clearAllEl,
       onClick: clearAllFilters
