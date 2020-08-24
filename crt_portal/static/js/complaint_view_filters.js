@@ -359,6 +359,14 @@
       name: 'summary'
     });
     textInputView({
+      el: assigneeEl,
+      name: 'assigned_to'
+    });
+    textInputView({
+      el: personalDescriptionEl,
+      name: 'violation_summary'
+    });
+    textInputView({
       el: createdatestartEl,
       name: 'create_date_start'
     });
@@ -369,6 +377,10 @@
     textInputView({
       el: complaintIDEl,
       name: 'public_id'
+    });
+    textInputView({
+      el: statuteEl,
+      name: 'primary_statute'
     });
     clearFiltersView({
       el: clearAllEl,

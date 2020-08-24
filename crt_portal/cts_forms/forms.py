@@ -989,7 +989,9 @@ class Filters(ModelForm):
             }),
             'violation_summary': TextInput(attrs={
                 'class': 'usa-input',
-                'name': 'violation_summary'
+                'name': 'violation_summary',
+                'placeholder': 'Personal Description',
+                'aria-label': 'Personal Description'
             }),
         }
         error_messages = {

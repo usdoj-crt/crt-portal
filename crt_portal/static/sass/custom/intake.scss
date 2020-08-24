@@ -99,6 +99,10 @@
     white-space: normal;
     align-items: baseline;
 
+    @include at-media(desktop-lg) {
+      padding-right: 4rem;
+    }
+
     &.intake-checkbox {
       ul {
         @include flex-container();
@@ -116,6 +120,9 @@
     }
 
     .crt-textbox {
+      margin-right: 1rem;
+      margin-bottom: 2rem;
+
       input {
         border: none;
       }
