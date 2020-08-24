@@ -17,8 +17,8 @@ from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
 from .forms import (CommentActions, ComplaintActions, ResponseActions,
-                    ContactEditForm, Filters, ReportEditForm, Review,
-                    add_activity)
+                    PrintActions, ContactEditForm, Filters,
+                    ReportEditForm, Review, add_activity)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -314,6 +314,7 @@ def serialize_data(report, request, report_id):
         'actions': ComplaintActions(instance=report),
         'responses': ResponseActions(instance=report),
         'comments': CommentActions(),
+        'print_options': PrintActions(),
         'activity_stream': report.target_actions.all(),
         'crimes': crimes,
         'data': report,

@@ -16,4 +16,7 @@
   var cancel_modal = document.getElementById('print_report_cancel');
   root.CRT.cancelModal(modal, cancel_modal);
 
+  // TODO
+  // if no options are clicked, disable print button
+
 })(window);
