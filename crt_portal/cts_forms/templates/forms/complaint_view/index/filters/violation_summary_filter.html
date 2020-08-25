@@ -1,15 +1,13 @@
-{% extends "forms/complaint_view/index/filter.html" %}
+{% extends "forms/complaint_view/index/filter-no-dropdown.html" %}
 
 {% block controls %}personal-description{% endblock %}
 {% block label %}Personal Description{% endblock %}
 {% block id %}personal-description{% endblock %}
+{% block classes %}summary_input{% endblock %}
 
 {% block content %}
   <label for="id_{{form.fields.violation_summary.widget.attrs.name}}">
     <span class="usa-sr-only">personal description</span>
   </label>
   {{ form.violation_summary }}
-  <button class="usa-button margin-top-2" type="submit">
-    Filter results
-  </button>
 {% endblock %}

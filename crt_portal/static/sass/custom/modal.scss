@@ -117,6 +117,15 @@ body.is-modal {
 
   #external-link--cancel {
     margin-left: 0;
+    &:focus {
+      color: color($theme-color-primary-darker) !important;
+    }
+  }
+
+  #external-link--continue {
+    @include at-media-max(mobile-lg) {
+      margin-top: 1rem;
+    }
   }
 
   #external-link--continue {

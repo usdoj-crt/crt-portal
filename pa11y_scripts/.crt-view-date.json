@@ -1,0 +1,27 @@
+{
+    "urls": [
+        {
+            "useIncognitoBrowserContext": true,
+            "url": "http://127.0.0.1:8000/form/view/",
+            "actions": [
+                "wait for url to be http://127.0.0.1:8000/accounts/login/?next=/form/view/",
+                "set field #id_username to pa11y_tester",
+                "set field #id_password to imposing40Karl5monomial",
+                "click element #login",
+                "wait for path to be /form/view/",
+                "screen capture pa11y-screenshots/crt-view-date-step1.png",
+                "click element #date",
+                "screen capture pa11y-screenshots/crt-view-date-step2.png",
+                "wait for element #id_create_date_start to be visible",
+                "set field #id_create_date_start to 2020-01-01",
+                "screen capture pa11y-screenshots/crt-view-date-step3.png",
+                "wait for element #id_create_date_end to be visible",
+                "set field #id_create_date_end to 2020-07-01",
+                "screen capture pa11y-screenshots/crt-view-date-step4.png",
+                "click #apply-filters-button",
+                "wait for path to be /form/view/"
+            ],
+            "screenCapture": "pa11y-screenshots/crt-sort-view-date-final.png"
+        }
+    ]
+}

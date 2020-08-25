@@ -15,6 +15,7 @@
 ### Reviewer
 
 + [ ] If this is a story, run locally and check to make sure all Acceptance Criteria are met. (If any criteria are unclear, ask about them.)
++ [ ] Re-check for [accessibility](/docs/a11y_plan.md).
 + [ ] [Tests pass](https://github.com/USDOJ/crt-portal/#tests).
 
 ## Notes for reviewer:

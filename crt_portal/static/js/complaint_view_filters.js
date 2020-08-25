@@ -53,7 +53,6 @@
    */
   function makeQueryParams(params) {
     var keys = Object.keys(params);
-
     return keys.reduce(function(memo, key) {
       var paramValue = params[key];
 
@@ -191,11 +190,9 @@
   formView.doSearch = function doSearch(form) {
     var preparedFilters = finalizeQueryParams(makeQueryParams(filterDataModel));
     var finalQuery = '';
-
     if (preparedFilters) {
       finalQuery = '?' + preparedFilters;
     }
-
     window.location = form.action + finalQuery;
   };
 
@@ -275,6 +272,8 @@
     var clearAllEl = dom.querySelector('[data-clear-filters]');
     var statusEl = dom.getElementsByName('status');
     var summaryEl = formEl.querySelector('input[name="summary"]');
+    var createdatestartEl = formEl.querySelector('input[name="create_date_start');
+    var createdateendEl = formEl.querySelector('input[name="create_date_end');
     var assigneeEl = formEl.querySelector('#id_assigned_to');
     var complaintIDEl = formEl.querySelector('input[name="public_id"');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
@@ -368,16 +367,24 @@
       name: 'assigned_to'
     });
     textInputView({
+      el: personalDescriptionEl,
+      name: 'violation_summary'
+    });
+    textInputView({
+      el: createdatestartEl,
+      name: 'create_date_start'
+    });
+    textInputView({
+      el: createdateendEl,
+      name: 'create_date_end'
+    });
+    textInputView({
       el: complaintIDEl,
       name: 'public_id'
     });
     textInputView({
       el: statuteEl,
       name: 'primary_statute'
-    });
-    textInputView({
-      el: personalDescriptionEl,
-      name: 'violation_summary'
     });
     clearFiltersView({
       el: clearAllEl,

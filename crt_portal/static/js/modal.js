@@ -2,6 +2,8 @@
   root.CRT = root.CRT || {};
 
   var previous_onkeydown = dom.onkeydown;
+  var focusable_elements =
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
   root.CRT.openModal = function(modal_el) {
     dom.onkeydown = function(event) {
@@ -15,14 +17,35 @@
       if (isEscape) {
         root.CRT.closeModal(modal_el);
       }
+      var isTab = false;
+      if ('key' in event) {
+        isTab = event.key === 'Tab';
+      } else {
+        isTab = event.keyCode === 9;
+      }
+      if (isTab) {
+        var first = modal_el.querySelectorAll(focusable_elements)[0];
+        var focusable_content = modal_el.querySelectorAll(focusable_elements);
+        var last = focusable_content[focusable_content.length - 1];
+        if (event.shiftKey) {
+          // browse clickable elements moving backwards
+          if (document.activeElement === first) {
+            last.focus();
+            event.preventDefault();
+          }
+        } else {
+          // browse clickable elements moving forwards
+          if (document.activeElement === last) {
+            first.focus();
+            event.preventDefault();
+          }
+        }
+      }
     };
     modal_el.removeAttribute('hidden');
     // get first input in this modal so we can focus on it
-    var focusee =
-      modal_el.querySelector('input') ||
-      modal_el.querySelector('select') || // needed for form letters
-      modal_el.querySelector('a'); // focus on cancel button if nothing else matches
-    focusee.focus();
+    var first = modal_el.querySelectorAll(focusable_elements)[0];
+    first.focus();
     dom.body.classList.add('is-modal');
   };
 
@@ -38,6 +61,5 @@
       root.CRT.closeModal(modal_el);
     };
     cancel_el.addEventListener('click', dismissModal);
-    cancel_el.addEventListener('keydown', dismissModal);
   };
 })(window, document);

@@ -4,7 +4,7 @@ from datetime import datetime
 from actstream import action
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
-from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
+from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField, DateField,
                           EmailInput, HiddenInput, IntegerField,
                           ModelChoiceField, ModelForm, Form,
                           ModelMultipleChoiceField, MultipleChoiceField,
@@ -49,7 +49,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
                       CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
-                      UsaRadioSelect, DataAttributesSelect)
+                      UsaRadioSelect, DataAttributesSelect, CrtDateInput)
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -886,6 +886,8 @@ class Filters(ModelForm):
             attrs={
                 'class': 'usa-input',
                 'name': 'summary',
+                'placeholder': 'CRT summary',
+                'aria-label': 'Complaint Summary'
             },
         ),
     )
@@ -898,6 +900,28 @@ class Filters(ModelForm):
             'name': 'assigned_to',
             'class': 'usa-input'
         })
+    )
+    create_date_start = DateField(
+        required=False,
+        label="From:",
+        input_formats=('%Y-%m-%d'),
+        widget=CrtDateInput(attrs={
+            'class': 'usa-input',
+            'name': 'create_date_start',
+            'min': '2019-01-01',
+            'placeholder': 'yyyy-mm-dd',
+        }),
+    )
+    create_date_end = DateField(
+        required=False,
+        label="To:",
+        input_formats=('%Y-%m-%d'),
+        widget=CrtDateInput(attrs={
+            'class': 'usa-input',
+            'name': 'create_date_end',
+            'min': '2019-01-01',
+            'placeholder': 'yyyy-mm-dd',
+        }),
     )
 
     class Meta:
@@ -928,6 +952,8 @@ class Filters(ModelForm):
             'public_id': 'Complaint ID',
             'primary_statute': 'Primary classification',
             'violation_summary': 'Personal description',
+            'create_date_start': 'Created Date Start',
+            'create_date_end': 'Created Date End',
         }
 
         widgets = {
@@ -937,11 +963,16 @@ class Filters(ModelForm):
             }),
             'contact_first_name': TextInput(attrs={
                 'class': 'usa-input',
-                'name': 'contact_first_name'
+                'name': 'contact_first_name',
+                'placeholder': 'Contact First Name',
+                'id': 'id_contact_first_name',
+                'aria-label': 'Contact First Name'
             }),
             'contact_last_name': TextInput(attrs={
                 'class': 'usa-input',
-                'name': 'contact_last_name'
+                'name': 'contact_last_name',
+                'placeholder': 'Contact Last Name',
+                'aria-label': 'Contact Last Name'
             }),
             'location_city_town': TextInput(attrs={
                 'class': 'usa-input',
@@ -953,12 +984,21 @@ class Filters(ModelForm):
             }),
             'public_id': TextInput(attrs={
                 'class': 'usa-input',
-                'name': 'public_id'
+                'name': 'public_id',
+                'placeholder': 'ID',
+                'aria-label': 'CRT Public ID'
             }),
             'violation_summary': TextInput(attrs={
                 'class': 'usa-input',
-                'name': 'violation_summary'
+                'name': 'violation_summary',
+                'placeholder': 'Personal Description',
+                'aria-label': 'Personal Description'
             }),
+        }
+        error_messages = {
+            'create_date': {
+                'in_future': _("Create date cannot be in the future."),
+            },
         }
 
 
@@ -1195,8 +1235,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         """
         exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name', 'election_details',
                    'contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_state',
-                   'contact_city', 'contact_zip', 'crt_reciept_day', 'crt_reciept_month', 'crt_reciept_year',
-                   'location_address_line_1', 'location_address_line_2']
+                   'contact_city', 'contact_zip', 'crt_reciept_day', 'crt_reciept_month', 'crt_reciept_year']
 
     def success_message(self):
         return self.SUCCESS_MESSAGE

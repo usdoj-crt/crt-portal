@@ -330,7 +330,7 @@ class Trends(models.Model):
 
 class ResponseTemplate(models.Model):
     title = models.CharField(max_length=100, null=False, blank=False, unique=True,)
-    subject = models.CharField(max_length=100, null=False, blank=False,)
+    subject = models.CharField(max_length=150, null=False, blank=False,)
     body = models.TextField(null=False, blank=False,)
 
     def available_report_fields(self, report):

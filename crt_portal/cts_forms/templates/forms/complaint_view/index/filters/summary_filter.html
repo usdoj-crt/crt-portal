@@ -1,14 +1,10 @@
-{% extends "forms/complaint_view/index/filter.html" %}
+{% extends "forms/complaint_view/index/filter-no-dropdown.html" %}
 
-{% block controls %}summary{% endblock %}
-{% block label %}Summary{% endblock %}
-{% block id %}summary{% endblock %}
+{% block classes %}summary_input{% endblock %}
 {% block content %}
-  <label for="id_summary">
-    <span class="usa-sr-only">summary</span>
-  </label>
-   {{ form.summary }}
-  <button class="usa-button margin-top-2" type="submit">
-    Filter results
-  </button>
+  <div id="id-summary" >
+    <label for="id-summary">
+      {{ form.summary }}
+    </label>
+  </div>
 {% endblock %}

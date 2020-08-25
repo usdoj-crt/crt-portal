@@ -1,23 +1,9 @@
-{% extends "forms/complaint_view/index/filter.html" %}
-
-{% block controls %}contact-name{% endblock %}
-{% block label %}Contact{% endblock %}
-{% block id %}contact-name{% endblock %}
+{% extends "forms/complaint_view/index/filter-no-dropdown.html" %}
 
 {% block content %}
-  <div id="contact-first-name-filter">
-    <label for="id_{{form.fields.contact_first_name.widget.attrs.name}}" class="margin-bottom-1">
-      <b>{{form.contact_first_name.label }}</b>
-    </label>
-    {{ form.contact_first_name }}
-  </div>
-  <div id="contact-last-name-filter">
-    <label for="id_{{form.fields.contact_last_name.widget.attrs.name}}" class="usa-label margin-bottom-1">
-      <b>{{form.contact_last_name.label }}</b>
-    </label>
-    {{ form.contact_last_name }}
-  </div>
-  <button class="usa-button margin-top-2" type="submit">
-    Filter results
-  </button>
+    <div id="contact-first-name-filter" >
+      <label for="id_contact_first_name">
+        {{ form.contact_first_name }}
+      </label>
+    </div>
 {% endblock %}

@@ -1,0 +1,17 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+{% block controls %}date{% endblock %}
+{% block label %}Date{% endblock %}
+{% block id %}date{% endblock %}
+
+{% block content %}
+<div class="usa-date-range-picker">
+  <label class="margin-bottom-1" for="date_range_filter"><b>Submission Date</b></label>
+  <div class="usa-date-picker">
+    <label for="id_{{form.create_date_start.name}}" class="usa-label"
+      for="{{form.create_date_start.name}}">From:</label>
+    {{ form.create_date_start }}
+    <label for="id_{{form.create_date_end.name}}" class="usa-label" for="{{form.create_date_end.name}}">To:</label>
+    {{ form.create_date_end }}
+  </div>
+</div>
+{% endblock %}
