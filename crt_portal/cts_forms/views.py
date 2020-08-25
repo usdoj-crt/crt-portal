@@ -323,6 +323,9 @@ def serialize_data(report, request, report_id):
         'return_url_args': request.GET.get('next', ''),
         'index': request.GET.get('index', ''),
         'summary': report.get_summary,
+        # for print media consumption
+        'print_actions': report.target_actions.exclude(verb__contains='comment:'),
+        'print_comments': report.target_actions.filter(verb__contains='comment:')
     }
 
     return output
