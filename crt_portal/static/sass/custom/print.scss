@@ -3,6 +3,7 @@
     background-color: color('white');
   }
 
+  // TODO check to make sure this doesn't impact confirmation page
   header.intake-header,
   .complaint-navigation,
   .crt-action-card,
@@ -15,21 +16,48 @@
     margin: 0;
   }
 
-  .complaint-page {
-    flex-direction: column-reverse; // make activity log last
-  }
-  .complaint-information {
-    @include grid-col(12);
-    @include grid-offset(0);
-  }
-  .complaint-actions {
-    @include grid-col(12);
-    @include grid-offset(0);
-  }
+  .complaint-show-body {
+    .title-icon, .usa-button {
+      display: none;
+    }
 
-  .activity-stream .crt-portal-card__content {
-    max-height: none;
-    overflow-y: visible;
+    .complaint-page {
+      flex-direction: column-reverse; // make activity log last
+    }
+    .complaint-information {
+      @include grid-col(11);
+      @include grid-offset(1);
+    }
+    .complaint-actions {
+      @include grid-col(11);
+      @include grid-offset(1);
+    }
+
+    .crt-portal-card {
+      box-shadow: unset;
+    }
+
+    .crt-portal-card__content {
+      padding: 0;
+    }
+
+    .complaint-card-heading, [for=current-summary-text] {
+      // below does not work: can only @extend from within same directive
+      // @extend .intake-section-title;
+      @include text--heading__medium();
+      font-family: family('heading');
+      font-weight: $theme-font-weight-bold;
+      color: color($theme-color-primary-darker);
+      text-transform: none;
+
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid;
+    }
+
+    .activity-stream .crt-portal-card__content {
+      max-height: none;
+      overflow-y: visible;
+    }
   }
 }
 
