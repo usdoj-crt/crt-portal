@@ -11,8 +11,20 @@
     display: none;
   }
 
-  .crt-portal-card {
+  #main-content, .details-id {
+    margin: 0;
+  }
 
+  .complaint-page {
+    flex-direction: column-reverse; // make activity log last
+  }
+  .complaint-information {
+    @include grid-col(12);
+    @include grid-offset(0);
+  }
+  .complaint-actions {
+    @include grid-col(12);
+    @include grid-offset(0);
   }
 
   .activity-stream .crt-portal-card__content {
