@@ -1,6 +1,23 @@
 @media print {
-  header.intake-header, .crt-header--warning-pii {
+  .intake-bg {
+    background-color: color('white');
+  }
+
+  header.intake-header,
+  .complaint-navigation,
+  .crt-action-card,
+  .crt-comment-new,
+  .crt-header--warning-pii {
     display: none;
+  }
+
+  .crt-portal-card {
+
+  }
+
+  .activity-stream .crt-portal-card__content {
+    max-height: none;
+    overflow-y: visible;
   }
 }
 

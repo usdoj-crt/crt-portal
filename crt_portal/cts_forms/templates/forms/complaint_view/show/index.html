@@ -2,11 +2,11 @@
 {% load static %}
 
 {% block page_title %}
- <title>CRT Complaint Records{% for message in messages %} - {{ message }}{% endfor %}</title>
+  <title>CRT Complaint Records{% for message in messages %} - {{ message }}{% endfor %}</title>
 {% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static "css/accessible-autocomplete.min.css" %}" />
+  <link rel="stylesheet" href="{% static "css/accessible-autocomplete.min.css" %}" />
 {% endblock head %}
 
 
@@ -15,7 +15,7 @@
     <div class="grid-container-widescreen">
       <div class="grid-row margin-bottom-1">
         <div class="tablet:grid-col-10 grid-offset-1 padding-left-05">
-          <div class="display-flex flex-row flex-justify">
+          <div class="complaint-navigation display-flex flex-row flex-justify">
             <div class="display-flex">
               <a class="outline-button outline-button--dark" href="{% url 'crt_forms:crt-forms-index' %}{{ return_url_args }}">
                 <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" alt="back arrow" class="icon">
@@ -90,19 +90,19 @@
         {% include 'partials/messages.html' %}
       </div>
     </div>
-    <div class="grid-row grid-gap-4">
+    <div class="complaint-actions grid-row grid-gap-4">
       <div class="tablet:grid-col-4 grid-offset-1">
         {% include 'forms/complaint_view/show/actions.html' with title="Actions" icon="img/intake-icons/ic_check-circle.svg" %}
         <div class="activity-stream">
           {% include 'forms/complaint_view/show/activity_stream.html' with title="Activity" icon="img/intake-icons/ic_activity.svg" %}
         </div>
-        <div class="crt-portal-card">
+        <div class="crt-portal-card crt-comment-new">
           <div class="crt-portal-card__content">
             {% include 'forms/complaint_view/show/actions/comment_summary.html' with id_name="comment" is_summary=False button_text='Save' button_aria_label='save comment' label='New comment' comment_box=comments.note %}
           </div>
         </div>
       </div>
-      <div class="tablet:grid-col-6">
+      <div class="tablet:grid-col-6 mobile-lg:grid-offset-1">
         {% include 'forms/complaint_view/show/correspondent_info.html' with data=data %}
 
         {% include 'forms/complaint_view/show/complaint_details.html' with data=data primary_complaint=primary_complaint summary=summary %}
