@@ -1,0 +1,18 @@
+@media print {
+  header.intake-header, .crt-header--warning-pii {
+    display: none;
+  }
+}
+
+.activity-stream-list {
+  display: block;
+  @media print {
+    display: none;
+  }
+  &.activity-stream-print {
+    display: none;
+    @media print {
+      display: block;
+    }
+  }
+}
