@@ -65,7 +65,7 @@
 }
 
 // print-only cards
-.crt-actions-card, .crt-comments-card, .crt-summary-card {
+.crt-activities-card, .crt-comments-card, .crt-summary-card {
   display: none;
   @media print {
     display: block;
