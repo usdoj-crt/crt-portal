@@ -178,14 +178,14 @@ $arrow-height: 24px;
   }
 
 .crt-landing--hero {
-  background-image: url(../../img/landing-page-hero.png);
+  background-image: url(../../img/landing-page-hero.jpeg);
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: bottom;
   min-height: 800px;
 
   @include at-media-max(mobile-lg) {
-    background-image: url(../../img/landing-page-hero-mobile.png);
+    background-image: url(../../img/landing-page-hero-mobile.jpeg);
     background-size: cover; // avoid unsightly mobile gap
     background-color: #436eac;
     min-height: 600px;
@@ -461,7 +461,7 @@ $arrow-height: 24px;
     background-color: color('white');
     min-height: 20rem;
     padding: 2rem 3.5rem 2.5rem 3.5rem;
-    
+
     @include at-media-max(mobile-lg) {
       padding: 1.5rem;
     }
@@ -523,7 +523,7 @@ $arrow-height: 24px;
     h2 {
       min-height: 3rem;
       margin-top: 0;
-      
+
       @include at-media-max(desktop) {
         min-height: unset;
       }
@@ -554,7 +554,7 @@ $arrow-height: 24px;
   h2 {
     margin-top: 1rem;
   }
-  
+
   .crt-landing--card {
     @include at-media-max(mobile-lg) {
       padding: 1.5rem !important
