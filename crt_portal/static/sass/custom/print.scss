@@ -4,10 +4,13 @@
   }
 
   // TODO check to make sure this doesn't impact confirmation page
+  // TODO hide messages
   header.intake-header,
   .complaint-navigation,
   .crt-action-card,
   .crt-comment-new,
+  .crt-current-summary,
+  .activity-stream, // TODO
   .crt-header--warning-pii {
     display: none;
   }
@@ -22,7 +25,7 @@
     }
 
     .complaint-page {
-      flex-direction: column-reverse; // make activity log last
+      flex-direction: column-reverse; // make activity section last
     }
     .complaint-information {
       @include grid-col(11);
@@ -41,7 +44,7 @@
       padding: 0;
     }
 
-    .complaint-card-heading, [for=current-summary-text] {
+    .complaint-card-heading {
       // below does not work: can only @extend from within same directive
       // @extend .intake-section-title;
       @include text--heading__medium();

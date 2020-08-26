@@ -11,15 +11,4 @@
     {% endfor %}
     {% include 'forms/complaint_view/show/activity_stream_created.html' %}
   </ul>
-  {# for print media consumption #}
-  <ul class="activity-stream-print activity-stream-list usa-list usa-list--unstyled">
-    {% for action in print_actions %}
-      {% include 'forms/complaint_view/show/activity_stream_item.html' with activity=action %}
-    {% endfor %}
-    {% include 'forms/complaint_view/show/activity_stream_created.html' %}
-  </ul>
-  <ul class="activity-stream-print activity-stream-list usa-list usa-list--unstyled">
-    {% for comment in print_comments %}
-      {% include 'forms/complaint_view/show/activity_stream_item.html' with activity=comment %}    {% endfor %}
-  </ul>
 {% endblock %}

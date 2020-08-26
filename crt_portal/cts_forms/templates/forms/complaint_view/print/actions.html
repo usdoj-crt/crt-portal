@@ -1,0 +1,25 @@
+{% extends "forms/complaint_view/show/card.html" %}
+{% load commercial_public_space_view %}
+{% load correctional_facility_view %}
+{% load employer_info_view %}
+{% load static %}
+
+{% block title %}Actions{% endblock %}
+{% block extra_title %}
+  <button aria-label="edit report details" id="edit-details-btn" class="usa-button usa-button--unstyled button--edit margin-left-auto" type="button">Edit</button>
+{% endblock %}
+
+{% block icon %}
+  <img src="{% static "img/intake-icons/ic_folder.svg" %}" alt="icon" class="icon" />
+{% endblock %}
+
+{% block card_content %}
+
+  <ul class="activity-stream-print activity-stream-list usa-list usa-list--unstyled">
+    {% for action in activity %}
+      {% include 'forms/complaint_view/show/activity_stream_item.html' with activity=action %}
+    {% endfor %}
+    {% include 'forms/complaint_view/show/activity_stream_created.html' %}
+  </ul>
+
+{% endblock %}
