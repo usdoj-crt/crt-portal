@@ -11,6 +11,7 @@
   .crt-comment-new,
   .crt-current-summary,
   .activity-stream, // TODO
+  .report-details-label,
   .crt-header--warning-pii {
     display: none;
   }
@@ -65,7 +66,11 @@
 }
 
 // print-only cards
-.crt-activities-card, .crt-comments-card, .crt-summary-card {
+.crt-activities-card,
+.crt-comments-card,
+.crt-summary-card,
+// and question columns
+.report-print-question {
   display: none;
   @media print {
     display: block;
