@@ -149,7 +149,7 @@ def format_protected_class(p_class_objects, other_class):
     return p_class_list
 
 
-def preserve_query_parameters(report, querydict):
+def preserve_filter_parameters(report, querydict):
     """
     Given a report and submission, preserve the `next` and `index`
     query parameters as these are essential to maintaining the current
@@ -159,8 +159,6 @@ def preserve_query_parameters(report, querydict):
     next_page = urllib.parse.quote(return_url_args)
     index = querydict.get('index', '')
 
-    # if we are filtering, allow the user to navigate through the
-    # filtered reports by keeping the index query param up-to-date.
     if return_url_args:
         querydict = QueryDict(return_url_args)
         report_query, _ = report_filter(querydict)
@@ -176,6 +174,50 @@ def preserve_query_parameters(report, querydict):
             pass
 
     return f'{report.get_absolute_url()}?next={next_page}&index={index}'
+
+
+def setup_filter_parameters(report, querydict):
+    """
+    If we have the `next` and `index` query parameters, then update
+    the filter count, previous query, and next query so that filter
+    navigation can continue apace.
+    """
+    output = {}
+    return_url_args = querydict.get('next', '')
+    index = querydict.get('index', None)
+
+    if return_url_args and index is not None:
+        querydict = QueryDict(return_url_args)
+        report_query, _ = report_filter(querydict)
+        sort = querydict.getlist('sort', ['-create_date'])
+        requested_query = report_query.order_by(*sort)
+        requested_ids = list(requested_query.values_list('id', flat=True))
+
+        index = int(index)
+        if report.id in requested_ids:
+            # override in case user input an invalid index
+            index = requested_ids.index(report.id)
+            output.update({
+                'filter_current': index + 1,
+            })
+        else:
+            # this report is no longer in the filter, but we want
+            # to move backwards so that the previously next report
+            # becomes the actual next report.
+            index -= 1
+
+        previous_id = requested_ids[index - 1] if index > 0 else None
+        next_id = requested_ids[index + 1] if index < len(requested_ids) - 1 else None
+        next_query = urllib.parse.quote(return_url_args)
+        output.update({
+            'filter_count': report_query.count(),
+            'filter_previous': previous_id,
+            'filter_next': next_id,
+            'filter_previous_query': f'?next={next_query}&index={index - 1}',
+            'filter_next_query': f'?next={next_query}&index={index + 1}',
+        })
+
+    return output
 
 
 @login_required
@@ -299,7 +341,7 @@ class ResponseView(LoginRequiredMixin, View):
             add_activity(request.user, "Contacted complainant:", description, report)
             messages.add_message(request, messages.SUCCESS, description)
 
-        url = preserve_query_parameters(report, request.POST)
+        url = preserve_filter_parameters(report, request.POST)
         return redirect(url)
 
 
@@ -314,47 +356,12 @@ class ShowView(LoginRequiredMixin, View):
         output = serialize_data(report, request, id)
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)
-        return_url_args = request.GET.get('next', '')
-        index = request.GET.get('index', None)
-
-        # if we are filtering, allow the user to navigate through the
-        # filtered reports.
-        if return_url_args and index is not None:
-            querydict = QueryDict(return_url_args)
-            report_query, _ = report_filter(querydict)
-            sort = querydict.getlist('sort', ['-create_date'])
-            requested_query = report_query.order_by(*sort)
-            requested_ids = list(requested_query.values_list('id', flat=True))
-
-            index = int(index)
-            if report.id in requested_ids:
-                # override in case user input an invalid index
-                index = requested_ids.index(report.id)
-                output.update({
-                    'filter_current': index + 1,
-                })
-            else:
-                # this report is no longer in the filter, but we want
-                # to move backwards so that the previously next report
-                # becomes the actual next report.
-                index -= 1
-
-            previous_id = requested_ids[index - 1] if index > 0 else None
-            next_id = requested_ids[index + 1] if index < len(requested_ids) - 1 else None
-            next_query = urllib.parse.quote(return_url_args)
-            output.update({
-                'filter_count': report_query.count(),
-                'filter_previous': previous_id,
-                'filter_next': next_id,
-                'filter_previous_query': f'?next={next_query}&index={index - 1}',
-                'filter_next_query': f'?next={next_query}&index={index + 1}',
-            })
-
+        filter_output = setup_filter_parameters(report, request.GET)
         output.update({
             'contact_form': contact_form,
             'details_form': details_form,
+            **filter_output,
         })
-
         return render(request, 'forms/complaint_view/show/index.html', output)
 
     def get_form(self, request, report):
@@ -390,11 +397,12 @@ class ShowView(LoginRequiredMixin, View):
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())
 
-            url = preserve_query_parameters(report, request.POST)
+            url = preserve_filter_parameters(report, request.POST)
             return redirect(url)
         else:
             output = serialize_data(report, request, id)
-            output.update({inbound_form_type: form})
+            filter_output = setup_filter_parameters(report, request.POST)
+            output.update({inbound_form_type: form, **filter_output})
 
             try:
                 fail_message = form.FAIL_MESSAGE
@@ -433,14 +441,16 @@ class SaveCommentView(LoginRequiredMixin, FormView):
             messages.add_message(request, messages.SUCCESS, f'Successfully {verb[:-2].lower()}.')
             comment_form.update_activity_stream(request.user, report, verb)
 
-            url = preserve_query_parameters(report, request.POST)
+            url = preserve_filter_parameters(report, request.POST)
             return redirect(url)
         else:
             # TODO handle form validation failures
             output = serialize_data(report, request, report_id)
+            filter_output = setup_filter_parameters(report, request.POST)
             output.update({
                 'return_url_args': request.POST.get('next', ''),
                 'index': request.POST.get('index', ''),
+                **filter_output,
             })
 
             return render(request, 'forms/complaint_view/show/index.html', output)
