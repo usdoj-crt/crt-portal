@@ -6,11 +6,12 @@
 {% endblock %}
 
 {% block card_content %}
-<form id="complaint-view-actions" class="usa-form" method="post" action="/form/view/{{data.id}}/" novalidate>
+<form id="complaint-view-actions" class="usa-form" method="post" action="/form/view/{{data.id}}/?next={{ return_url_args|urlencode }}&index={{ index }}" novalidate>
   {% csrf_token %}
   <fieldset name="view-actions" class="usa-fieldset usa-prose">
     <legend class="usa-sr-only">Complaint detail view actions</legend>
     <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
+    <input type="hidden" value="{{ index }}" name="index" id="index" />
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
       <label for="id_assigned_section" class="intake-label">
         {{ actions.fields.assigned_section.widget.label }}

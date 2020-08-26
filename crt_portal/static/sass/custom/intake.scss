@@ -426,7 +426,7 @@
   }
 }
 
-.details-id {
+.details-id, ul.messages {
   margin-top: 2.3rem;
   margin-bottom: 0;
 }
@@ -435,6 +435,8 @@
   color: color($theme-color-base-ink);
   font-size: $theme-text-font-size-sm;
   font-weight: 900;
+  align-self: flex-end;
+  padding-right: 0.25rem;
 }
 
 .blue-background {
