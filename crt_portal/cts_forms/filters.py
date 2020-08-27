@@ -48,25 +48,25 @@ def _get_date_field_from_param(field):
     return field[:field.rfind('_')]
 
 
-def report_filter(request):
+def report_filter(querydict):
     kwargs = {}
     filters = {}
     for field in filter_options.keys():
-        filter_list = request.GET.getlist(field)
+        filter_list = querydict.getlist(field)
         if len(filter_list) > 0:
-            filters[field] = request.GET.getlist(field)
+            filters[field] = querydict.getlist(field)
             if filter_options[field] == '__in':
                 # works for one or more options with exact matches
-                kwargs[f'{field}__in'] = request.GET.getlist(field)
+                kwargs[f'{field}__in'] = querydict.getlist(field)
             elif filter_options[field] == '__search':
                 # takes one phrase
-                kwargs[f'{field}__search'] = request.GET.getlist(field)[0]
+                kwargs[f'{field}__search'] = querydict.getlist(field)[0]
             elif filter_options[field] == '__contains':
-                kwargs[f'{field}__icontains'] = request.GET.getlist(field)[0]
+                kwargs[f'{field}__icontains'] = querydict.getlist(field)[0]
             elif 'date' in field:
                 # filters by a start date or an end date expects yyyy-mm-dd
                 field_name = _get_date_field_from_param(field)
-                encodedDate = request.GET.getlist(field)[0]
+                encodedDate = querydict.getlist(field)[0]
                 decodedDate = urllib.parse.unquote(encodedDate)
                 try:
                     dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
@@ -76,14 +76,14 @@ def report_filter(request):
                     continue
             elif filter_options[field] == 'summary':
                 # assumes summaries are edited so there is only one per report - that is current behavior
-                kwargs['internal_comments__note__search'] = request.GET.getlist(field)[0]
+                kwargs['internal_comments__note__search'] = querydict.getlist(field)[0]
                 kwargs['internal_comments__is_summary'] = True
             elif filter_options[field] == 'foreign_key':
                 # assumes assigned_to but could add logic for other foreign keys in the future
-                kwargs['assigned_to__username__in'] = request.GET.getlist(field)
+                kwargs['assigned_to__username__in'] = querydict.getlist(field)
             elif filter_options[field] == 'eq':
-                kwargs[field] = request.GET.getlist(field)[0]
+                kwargs[field] = querydict.getlist(field)[0]
             elif filter_options[field] == '__gte':
-                kwargs[field] = request.GET.getlist(field)
+                kwargs[field] = querydict.getlist(field)
     # returns a filtered query, and a dictionary that we can use to keep track of the filters we apply
     return Report.objects.filter(**kwargs), filters

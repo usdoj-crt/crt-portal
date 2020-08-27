@@ -4,6 +4,7 @@
   <fieldset name="fieldset-{{ id_name }}" class="usa-fieldset usa-prose">
     <legend class="usa-sr-only">Submit a {{ id_name }}</legend>
     <input type="hidden" value="{{ return_url_args }}" name="next" id="next-{{ id_name }}" />
+    <input type="hidden" value="{{ index }}" name="index" id="index-{{ id_name }}" />
     <input type="hidden" value="{{ is_summary }}" name="is_summary" id="is_summary-{{ id_name }}" />
     <input type="hidden" value="{{ data.pk }}" name="report_id" id="report_id-{{ id_name }}" />
     {% if comment.pk %}

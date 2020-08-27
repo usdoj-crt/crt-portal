@@ -1,5 +1,6 @@
 """Back end forms"""
 import secrets
+import urllib.parse
 
 from django.contrib.auth.models import User
 from django.test import TestCase
@@ -241,3 +242,82 @@ class ResponseActionTests(TestCase):
         content = str(response.content)
         self.assertTrue('?per_page=15' in content)
         self.assertFalse('Contacted complainant:' in content)
+
+
+class FormNavigationTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        self.reports = [Report.objects.create(**SAMPLE_REPORT) for _ in range(3)]
+        # generate three reports that belong to a specific section
+        self.filter_section = 'ADM'
+        for report in self.reports:
+            report.assigned_section = self.filter_section
+            report.save()
+        # generate random reports that belong to other sections
+        reports = [Report.objects.create(**SAMPLE_REPORT) for _ in range(7)]
+        sections = ['CRM', 'DRS', 'ELS', 'EOS']
+        for index, report in enumerate(reports):
+            report.assigned_section = sections[index % len(sections)]
+            report.save()
+
+    def test_basic_navigation(self):
+        first = self.reports[-1]
+        response = self.client.get(
+            reverse('crt_forms:crt-forms-show', kwargs={'id': first.id}),
+            {
+                'next': f'?per_page=15&assigned_section={self.filter_section}',
+                'index': '0',
+            },
+        )
+        self.assertEquals(response.status_code, 200)
+        content = str(response.content)
+        self.assertTrue('1 of 3 records' in content)
+        url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.reports[1].id})
+        next_qp = urllib.parse.quote('?per_page=15&assigned_section=ADM')
+        self.assertTrue(escape(f"{url}?next={next_qp}&index=1") in content)
+        self.assertEquals(content.count('complaint-nav'), 2)
+        self.assertEquals(content.count('disabled-nav'), 1)
+
+    def test_invalid_index_navigation(self):
+        second = self.reports[1]
+        response = self.client.get(
+            reverse('crt_forms:crt-forms-show', kwargs={'id': second.id}),
+            {
+                'next': f'?per_page=15&assigned_section={self.filter_section}',
+                'index': '5000',
+            },
+        )
+        self.assertEquals(response.status_code, 200)
+        content = str(response.content)
+        self.assertTrue('2 of 3 records' in content)
+        url1 = reverse('crt_forms:crt-forms-show', kwargs={'id': self.reports[2].id})
+        url2 = reverse('crt_forms:crt-forms-show', kwargs={'id': self.reports[0].id})
+        next_qp = urllib.parse.quote('?per_page=15&assigned_section=ADM')
+        self.assertTrue(escape(f"{url1}?next={next_qp}&index=0") in content)
+        self.assertTrue(escape(f"{url2}?next={next_qp}&index=2") in content)
+        self.assertEquals(content.count('complaint-nav'), 2)
+        self.assertEquals(content.count('disabled-nav'), 0)
+
+    def test_report_out_of_query_filter(self):
+        second = self.reports[1]
+        response = self.client.post(
+            reverse('crt_forms:crt-forms-show', kwargs={'id': second.id}),
+            {
+                'next': f'?per_page=15&assigned_section={self.filter_section}',
+                'index': '1',
+                'type': ComplaintActions.CONTEXT_KEY,
+                'assigned_section': 'DRS',
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        content = str(response.content)
+        self.assertTrue('N/A of 2 records' in content)
+        url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.reports[0].id})
+        next_qp = urllib.parse.quote('?per_page=15&assigned_section=ADM')
+        self.assertTrue(escape(f"{url}?next={next_qp}&index=1") in content)
+        self.assertEquals(content.count('complaint-nav'), 2)
+        self.assertEquals(content.count('disabled-nav'), 1)
