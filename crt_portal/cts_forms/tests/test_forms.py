@@ -348,9 +348,9 @@ class PrintActionTests(TestCase):
         return str(response.content)
 
     def test_response_action_print(self):
-        options = ['correspondent', 'comments']
+        options = ['correspondent', 'actions']
         content = self.post_print_action(options)
         # verify that next QP is preserved and activity log shows up
         self.assertTrue('?per_page=15' in content)
         self.assertTrue('Printed report' in content)
-        self.assertTrue(escape(f"Selected correspondent, comments") in content)
+        self.assertTrue(escape('Selected correspondent, actions') in content)

@@ -387,5 +387,5 @@ PRINT_CHOICES = (
     ('description', 'Personal Description'),
     ('activity', 'Activity'),
     ('summary', 'Summary'),
-    ('comments', 'Comments'),
+    ('actions', 'Actions'),
 )
