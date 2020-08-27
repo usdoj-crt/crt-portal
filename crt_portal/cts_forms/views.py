@@ -363,10 +363,7 @@ class PrintView(LoginRequiredMixin, View):
             add_activity(request.user, "Printed report", description, report)
             messages.add_message(request, messages.SUCCESS, description)
 
-        # preserve the query that got the user to this page
-        return_url_args = request.POST.get('next', '')
-        next_page = urllib.parse.quote(return_url_args)
-        url = f'{report.get_absolute_url()}?next={next_page}'
+        url = preserve_filter_parameters(report, request.POST)
         return redirect(url)
 
 

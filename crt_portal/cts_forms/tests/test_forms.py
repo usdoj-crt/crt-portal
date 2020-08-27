@@ -321,3 +321,36 @@ class FormNavigationTests(TestCase):
         self.assertTrue(escape(f"{url}?next={next_qp}&index=1") in content)
         self.assertEquals(content.count('complaint-nav'), 2)
         self.assertEquals(content.count('disabled-nav'), 1)
+
+
+class PrintActionTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        self.report = Report.objects.create(**SAMPLE_REPORT)
+
+    def post_print_action(self, options):
+        response = self.client.post(
+            reverse(
+                'crt_forms:crt-forms-print',
+                kwargs={'id': self.report.id},
+            ),
+            {
+                'options': options,
+                'next': '?per_page=15',
+                'index': '22',
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        return str(response.content)
+
+    def test_response_action_print(self):
+        options = ['correspondent', 'comments']
+        content = self.post_print_action(options)
+        # verify that next QP is preserved and activity log shows up
+        self.assertTrue('?per_page=15' in content)
+        self.assertTrue('Printed report' in content)
+        self.assertTrue(escape(f"Selected correspondent, comments") in content)
