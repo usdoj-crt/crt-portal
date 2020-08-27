@@ -381,6 +381,10 @@ class ShowView(LoginRequiredMixin, View):
         if form.is_valid() and form.has_changed():
             report = form.save(commit=False)
 
+            # Reset Assignee and Status if assigned_section is changed
+            if 'assigned_section' in form.changed_data:
+                report.status_assignee_reset()
+
             # district and location are on different forms so handled here.
             # If the incident location changes, update the district.
             # District can be overwritten in the drop down.
