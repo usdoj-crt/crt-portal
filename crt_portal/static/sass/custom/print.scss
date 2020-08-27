@@ -3,15 +3,27 @@
     background-color: color('white');
   }
 
-  // TODO check to make sure this doesn't impact confirmation page
-  // TODO hide messages
+  // selectively hide page elements that we don't want to be visible
+  // when printing.
+  // - hide the header.
   header.intake-header,
+  // - do not show any status messages, if any.
+  #status-update,
+  // - hide complaint filter navigation.
   .complaint-navigation,
+  // - hide the actions form card.
   .crt-action-card,
+  // - hide the "new comment" card.
   .crt-comment-new,
+  // - hide the current summary (embedded in the details form) as we
+  //   have a separate print-only summary section.
   .crt-current-summary,
-  .activity-stream, // TODO
+  // - hide the activity stream section, since we have separate
+  //   print-only actions and comments sections.
+  .activity-stream,
+  // - we want to show report questions instead.
   .report-details-label,
+  // - always hide the warning banner.
   .crt-header--warning-pii {
     display: none;
   }
@@ -45,6 +57,7 @@
       padding: 0;
     }
 
+    // simulate personal description card to look like its own section.
     .complaint-card-heading {
       // below does not work: can only @extend from within same directive
       // @extend .intake-section-title;

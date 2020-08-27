@@ -4,7 +4,7 @@ body.is-modal {
   overflow-y: hidden;
 
   @media print {
-    main, header, .crt-header--warning-pii {
+    main, header {
       display: none;
     }
   }
@@ -62,21 +62,26 @@ body.is-modal {
     }
   }
 
+  .modal-main {
+    flex-grow: 1;
+  }
+
   .modal-form {
     display: flex;
     flex-direction: column;
     height: calc(100% - 4rem);
   }
-}
 
-// specific modal instances
-.intake-template--modal {
-  h1 {
+  h1:not(.h2__display) {
     color: color($theme-color-primary-darker);
     margin-top: 0;
     font-size: 2rem;
     border-bottom: 1px solid color($theme-color-primary-darker);
   }
+}
+
+// specific modal instances
+.intake-template--modal {
 
   .intake-template--description {
     min-height: 2rem;
@@ -85,10 +90,6 @@ body.is-modal {
   #intake_select {
     width: 50%;
     margin-bottom: 2rem;
-  }
-
-  .intake-template--content {
-    flex-grow: 1;
   }
 
   #intake_letter {
@@ -100,18 +101,6 @@ body.is-modal {
 }
 
 .print-report--modal {
-  // TODO refactor css with .intake-template--modal
-  h1 {
-    color: color($theme-color-primary-darker);
-    margin-top: 0;
-    font-size: 2rem;
-    border-bottom: 1px solid color($theme-color-primary-darker);
-  }
-
-  .print-report--content {
-    flex-grow: 1;
-  }
-
   ul {
     list-style-type: none;
     margin-left: 1rem;
