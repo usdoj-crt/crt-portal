@@ -45,7 +45,7 @@
       <tr>
         <th>
           <div class="report-print-question">
-            What is your primary reason for contacting the Civil Rights Division?
+            {{ questions.primary_reason }}
           </div>
           <label class="report-details-label" for="{{details_form.primary_complaint.id_for_label}}">Primary issue</label>
         </th>
@@ -62,7 +62,7 @@
       <tr>
         <th>
           <div class="report-print-question">
-            What is your primary reason for contacting the Civil Rights Division?
+            {{ questions.hate_crime }}
           </div>
           <div class="report-details-label">
             Hate crime
@@ -121,7 +121,7 @@
       <tr>
         <th>
           <div class="report-print-question">
-            ???
+            {{ questions.hate_crime }}
           </div>
           <label class="report-details-label" for="{{details_form.hate_crime.id_for_label}}">Hate crime</label>
         </th>
@@ -138,7 +138,23 @@
       <tr>
         <th>
           <div class="report-print-question">
-            ???
+            {% if data.election_details %}
+              {{ questions.election }}
+            {% elif data.commercial_or_public_place %}
+              {{ questions.public }}
+            {% elif data.inside_correctional_facility %}
+              {% for question in questions.police.values %}
+                {{ question }}<br>
+              {% endfor %}
+            {% elif data.public_or_private_school %}
+              {{ questions.education }}
+            {% elif data.public_or_private_employer %}
+              {% for question in questions.workplace.values %}
+                {{ question }}<br>
+              {% endfor %}
+            {% else %}
+              —
+            {% endif %}
           </div>
           <div class="report-details-label">
             Relevant Details
@@ -178,7 +194,7 @@
       <tr>
         <th>
           <div class="report-print-question">
-            ???
+            {{ questions.location.location_name }}
           </div>
           <label class="report-details-label" for="{{details_form.location_name.id_for_label}}">Location name</label>
         </th>
@@ -194,7 +210,7 @@
       <tr>
         <th>
           <div class="report-print-question">
-            ???
+            {{ questions.location.location_title }}
           </div>
           <div class="report-details-label">
             Address
@@ -220,7 +236,7 @@
       <tr>
         <th>
           <div class="report-print-question">
-            ???
+            {{ questions.characteristics }}
           </div>
           <label class="report-details-label" for="{{details_form.protected_class.id_for_label}}">Reported reason</label>
         </th>
@@ -249,7 +265,7 @@
       <tr>
         <th>
           <div class="report-print-question">
-            ???
+            {{ questions.servicemember }}
           </div>
           <label class="report-details-label" for="{{details_form.servicemember.id_for_label}}">Service Member</label>
         </th>
@@ -265,7 +281,7 @@
       <tr>
         <th>
           <div class="report-print-question">
-            ???
+            {{ questions.date.date_title }}
           </div>
           <div class="report-details-label">
             Date of incident

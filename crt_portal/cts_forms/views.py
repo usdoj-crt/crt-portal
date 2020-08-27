@@ -325,7 +325,8 @@ def serialize_data(report, request, report_id):
         'summary': report.get_summary,
         # for print media consumption
         'print_actions': report.target_actions.exclude(verb__contains='comment:'),
-        'print_comments': report.target_actions.filter(verb__contains='comment:')
+        'print_comments': report.target_actions.filter(verb__contains='comment:'),
+        'questions': Review.question_text,
     }
 
     return output
@@ -809,7 +810,8 @@ class CRTReportWizard(SessionWizardView):
         return render(
             self.request, 'forms/confirmation.html',
             {
-                'report': report, 'questions': Review.question_text,
+                'report': report,
+                'questions': Review.question_text,
                 'ordered_step_names': self.ORDERED_STEP_NAMES
             },
         )
