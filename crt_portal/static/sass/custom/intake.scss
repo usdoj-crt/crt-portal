@@ -50,7 +50,7 @@
   top: 0;
   z-index: 99;
 
-  +main {
+  + main {
     @include u-margin-top(3);
   }
 
@@ -64,7 +64,7 @@
   }
 }
 
-#service-member+h3 {
+#service-member + h3 {
   @include text--heading__medium();
   font-weight: $theme-font-weight-bold;
   color: color($theme-color-primary-darker);
@@ -113,7 +113,7 @@
           margin: 0.5rem;
         }
 
-        +.usa-button {
+        + .usa-button {
           margin-left: 2rem;
         }
       }
@@ -396,14 +396,39 @@
 
 #complaint-view-actions {
   .crt-dropdown {
-    &.crt-dropdown__shrink-to-contents select {
-      width: auto;
-      flex-basis: auto;
-      min-width: 33%; // Don't get super shrinky; affects usability
+    &.crt-dropdown__shrink-to-contents {
+      select {
+        flex-basis: 30%;
+      }
+      .help-text {
+        flex-basis: 30%;
+        font-size: $theme-text-font-size-xs;
+        padding-left: 0.5rem;
+
+        &::before {
+          height: 1rem;
+          width: 1rem;
+          content: '';
+          display: block;
+          margin: auto;
+          background-image: url(../../img/ic_help-circle-dark.svg);
+          background-repeat: no-repeat;
+          background-position: center;
+        }
+
+        &.usa-button {
+          background-color: transparent;
+        }
+
+        span {
+          display: block;
+          text-align: center;
+        }
+      }
     }
 
     select,
-    label[for='id_assigned_to']+div {
+    label[for='id_assigned_to'] + div {
       flex-basis: 60%; // label flex-basis is 40% for total of 100%
     }
   }
@@ -426,7 +451,8 @@
   }
 }
 
-.details-id, ul.messages {
+.details-id,
+ul.messages {
   margin-top: 2.3rem;
   margin-bottom: 0;
 }
@@ -446,7 +472,6 @@
 
 // Autocomplete styles; overrides native library styles
 .autocomplete__wrapper {
-
   .autocomplete__input,
   .autocomplete__hint {
     @include u-font('body', 5);
