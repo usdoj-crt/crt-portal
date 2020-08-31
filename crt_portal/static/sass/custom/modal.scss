@@ -72,6 +72,14 @@ body.is-modal {
     height: calc(100% - 4rem);
   }
 
+  .modal-guide {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 4rem);
+    overflow-y: scroll;
+    border-bottom: 1px solid color($theme-color-primary-darker);
+  }
+
   h1:not(.h2__display) {
     color: color($theme-color-primary-darker);
     margin-top: 0;
@@ -81,8 +89,8 @@ body.is-modal {
 }
 
 // specific modal instances
-.intake-template--modal {
-
+.intake-template--modal,
+.routing-guide--modal {
   .intake-template--description {
     min-height: 2rem;
   }
