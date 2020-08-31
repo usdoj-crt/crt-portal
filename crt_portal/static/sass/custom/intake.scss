@@ -97,7 +97,7 @@
     width: 100%;
     flex-wrap: wrap;
     white-space: normal;
-    align-items: baseline;
+    align-items: center;
 
     @include at-media(desktop-lg) {
       padding-right: 4rem;
@@ -125,6 +125,7 @@
 
       input {
         border: none;
+        margin-top: 0;
       }
 
       input[name='contact_first_name'] {
