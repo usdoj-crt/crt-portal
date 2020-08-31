@@ -1,6 +1,7 @@
 {% extends "forms/complaint_view/show/card.html" %}
 {% load static %}
 {% block title %}{{title}}{% endblock %}
+{% block extra_classes %}crt-action-card{% endblock %}
 {% block icon %}
 <img src="{% static icon %}" alt="" class="icon" />
 {% endblock %}
@@ -49,6 +50,10 @@
       <button class="outline-button outline-button--blue" id="contact_complainant">
         <img src="{% static "img/intake-icons/ic_email.svg" %}" class="icon" alt="from email">
         Contact complainant
+      </button>
+      <button class="outline-button outline-button--blue" id="printout_report">
+        <img src="{% static "img/intake-icons/ic_fax.svg" %}" class="icon" alt="printer">
+        Print
       </button>
     </div>
     <button class="usa-button" type="submit" name='type' value='{{actions.CONTEXT_KEY}}'>Apply changes</button>

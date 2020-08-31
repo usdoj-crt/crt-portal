@@ -17,8 +17,8 @@ from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
 from .forms import (CommentActions, ComplaintActions, ResponseActions,
-                    ContactEditForm, Filters, ReportEditForm, Review,
-                    add_activity)
+                    PrintActions, ContactEditForm, Filters,
+                    ReportEditForm, Review, add_activity)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -314,6 +314,7 @@ def serialize_data(report, request, report_id):
         'actions': ComplaintActions(instance=report),
         'responses': ResponseActions(instance=report),
         'comments': CommentActions(),
+        'print_options': PrintActions(),
         'activity_stream': report.target_actions.all(),
         'crimes': crimes,
         'data': report,
@@ -322,6 +323,10 @@ def serialize_data(report, request, report_id):
         'return_url_args': request.GET.get('next', ''),
         'index': request.GET.get('index', ''),
         'summary': report.get_summary,
+        # for print media consumption
+        'print_actions': report.target_actions.exclude(verb__contains='comment:'),
+        'print_comments': report.target_actions.filter(verb__contains='comment:'),
+        'questions': Review.question_text,
     }
 
     return output
@@ -339,6 +344,23 @@ class ResponseView(LoginRequiredMixin, View):
             action = "Copied" if button_type == "copy" else "Printed"
             description = f"{action} '{template_name}' template"
             add_activity(request.user, "Contacted complainant:", description, report)
+            messages.add_message(request, messages.SUCCESS, description)
+
+        url = preserve_filter_parameters(report, request.POST)
+        return redirect(url)
+
+
+class PrintView(LoginRequiredMixin, View):
+
+    def post(self, request, id):
+        report = get_object_or_404(Report, pk=id)
+        form = PrintActions(request.POST)
+
+        if form.is_valid():
+            options = form.cleaned_data['options']
+            all_options = ', '.join(options)
+            description = f"Selected {all_options}"
+            add_activity(request.user, "Printed report", description, report)
             messages.add_message(request, messages.SUCCESS, description)
 
         url = preserve_filter_parameters(report, request.POST)
@@ -789,7 +811,8 @@ class CRTReportWizard(SessionWizardView):
         return render(
             self.request, 'forms/confirmation.html',
             {
-                'report': report, 'questions': Review.question_text,
+                'report': report,
+                'questions': Review.question_text,
                 'ordered_step_names': self.ORDERED_STEP_NAMES
             },
         )

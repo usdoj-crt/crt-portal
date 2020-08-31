@@ -1,0 +1,91 @@
+@media print {
+  .intake-bg {
+    background-color: color('white');
+  }
+
+  // selectively hide page elements that we don't want to be visible
+  // when printing.
+  // - hide the header.
+  header.intake-header,
+  // - do not show any status messages, if any.
+  #status-update,
+  // - hide complaint filter navigation.
+  .complaint-filter-navigation,
+  // - hide the actions form card.
+  .crt-action-card,
+  // - hide the "new comment" card.
+  .crt-comment-new,
+  // - hide the current summary (embedded in the details form) as we
+  //   have a separate print-only summary section.
+  .crt-current-summary,
+  // - hide the activity stream section, since we have separate
+  //   print-only actions and comments sections.
+  .activity-stream,
+  // - we want to show report questions instead.
+  .report-details-label,
+  // - always hide the warning banner.
+  .crt-header--warning-pii {
+    display: none;
+  }
+
+  #main-content, .details-id {
+    margin: 0;
+  }
+
+  .complaint-show-body {
+    .title-icon, .usa-button {
+      display: none;
+    }
+
+    .complaint-page {
+      flex-direction: column-reverse; // make activity section last
+    }
+    .complaint-information {
+      @include grid-col(11);
+      @include grid-offset(1);
+    }
+    .complaint-actions {
+      @include grid-col(11);
+      @include grid-offset(1);
+    }
+
+    .crt-portal-card {
+      box-shadow: unset;
+    }
+
+    .crt-portal-card__content {
+      padding: 0;
+    }
+
+    // simulate personal description card to look like its own section.
+    .complaint-card-heading {
+      // below does not work: can only @extend from within same directive
+      // @extend .intake-section-title;
+      @include text--heading__medium();
+      font-family: family('heading');
+      font-weight: $theme-font-weight-bold;
+      color: color($theme-color-primary-darker);
+      text-transform: none;
+
+      padding-bottom: 0.8rem;
+      border-bottom: 1px solid;
+    }
+
+    .activity-stream .crt-portal-card__content {
+      max-height: none;
+      overflow-y: visible;
+    }
+  }
+}
+
+// print-only cards
+.crt-activities-card,
+.crt-comments-card,
+.crt-summary-card,
+// and question columns
+.report-print-question {
+  display: none;
+  @media print {
+    display: block;
+  }
+}

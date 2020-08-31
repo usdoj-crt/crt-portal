@@ -15,7 +15,7 @@
     <div class="grid-container-widescreen">
       <div class="grid-row margin-bottom-1">
         <div class="tablet:grid-col-10 grid-offset-1 padding-left-05">
-          <div class="display-flex flex-row flex-justify">
+          <div class="complaint-filter-navigation display-flex flex-row flex-justify">
             <div class="display-flex">
               <a class="outline-button outline-button--dark" href="{% url 'crt_forms:crt-forms-index' %}{{ return_url_args }}">
                 <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" alt="back arrow" class="icon">
@@ -90,19 +90,24 @@
         {% include 'partials/messages.html' %}
       </div>
     </div>
-    <div class="grid-row grid-gap-4">
-      <div class="tablet:grid-col-4 grid-offset-1">
+    <div class="complaint-page grid-row grid-gap-4">
+      <div class="complaint-actions tablet:grid-col-4 grid-offset-1">
         {% include 'forms/complaint_view/show/actions.html' with title="Actions" icon="img/intake-icons/ic_check-circle.svg" %}
         <div class="activity-stream">
           {% include 'forms/complaint_view/show/activity_stream.html' with title="Activity" icon="img/intake-icons/ic_activity.svg" %}
         </div>
-        <div class="crt-portal-card">
+        <div class="crt-portal-card crt-comment-new">
           <div class="crt-portal-card__content">
             {% include 'forms/complaint_view/show/actions/comment_summary.html' with id_name="comment" is_summary=False button_text='Save' button_aria_label='save comment' label='New comment' comment_box=comments.note %}
           </div>
         </div>
+        {% include 'forms/complaint_view/print/comments.html' with activity=print_comments %}
+
+        {% include 'forms/complaint_view/print/summary.html' with summary=summary %}
+
+        {% include 'forms/complaint_view/print/activities.html' with activity=print_actions %}
       </div>
-      <div class="tablet:grid-col-6">
+      <div class="complaint-information tablet:grid-col-6">
         {% include 'forms/complaint_view/show/correspondent_info.html' with data=data %}
 
         {% include 'forms/complaint_view/show/complaint_details.html' with data=data primary_complaint=primary_complaint summary=summary %}
@@ -116,6 +121,7 @@
 
 {% block usa_footer %}
   {% include 'forms/complaint_view/show/response_template.html' %}
+  {% include 'forms/complaint_view/show/print_report.html' %}
 {% endblock %}
 
 {% block page_js %}
@@ -124,6 +130,7 @@
 <script src="{% static 'js/edit_details.js' %}"></script>
 <script src="{% static 'js/modal.js' %}"></script>
 <script src="{% static 'js/form_letter.js' %}"></script>
+<script src="{% static 'js/print_report.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
   accessibleAutocomplete.enhanceSelectElement({

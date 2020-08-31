@@ -1,0 +1,11 @@
+<li class="activity-stream-item">
+  <div class="display-flex flex-justify">
+    <b>{{ data.author }}</b>
+    <span class="date font-sans-sm flex-align-end">
+      {{ data.create_date|date:'n/d/y'}} {{ data.create_date|time}}
+    </span>
+  </div>
+  <p class="margin-top-05">
+    Created record from {{data.get_intake_format_display}}
+  </p>
+</li>

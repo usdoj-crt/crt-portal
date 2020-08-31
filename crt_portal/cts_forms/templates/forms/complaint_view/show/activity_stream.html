@@ -7,28 +7,8 @@
 {% block card_content %}
   <ul class="activity-stream-list usa-list usa-list--unstyled">
     {% for activity in activity_stream %}
-      <li class="activity-stream-item">
-        <div class="display-flex flex-justify">
-          <b>{{ activity.actor.username }}</b>
-          <span class="date font-sans-sm flex-align-end">
-            {{ activity.timestamp|date:'n/d/y' }} {{ activity.timestamp|time }}
-          </span>
-        </div>
-        <p class="margin-top-05">
-          {{ activity.verb }}{{ activity.description|linebreaks }}
-        </p>
-      </li>
+      {% include 'forms/complaint_view/show/activity_stream_item.html' with activity=activity %}
     {% endfor %}
-    <li class="activity-stream-item">
-      <div class="display-flex flex-justify">
-        <b>{{ data.author }}</b>
-        <span class="date font-sans-sm flex-align-end">
-         {{ data.create_date|date:'n/d/y'}} {{ data.create_date|time}}
-        </span>
-      </div>
-      <p class="margin-top-05">
-        Created record from {{data.get_intake_format_display}}
-      </p>
-    </li>
+    {% include 'forms/complaint_view/show/activity_stream_created.html' %}
   </ul>
 {% endblock %}

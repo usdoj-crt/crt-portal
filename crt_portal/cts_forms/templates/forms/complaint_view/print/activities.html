@@ -1,0 +1,15 @@
+{% extends "forms/complaint_view/show/card.html" %}
+
+{% block extra_classes %}crt-activities-card{% endblock %}
+{% block title %}Activity{% endblock %}
+
+{% block card_content %}
+
+  <ul class="activity-stream-print activity-stream-list usa-list usa-list--unstyled">
+    {% for action in activity %}
+      {% include 'forms/complaint_view/show/activity_stream_item.html' with activity=action %}
+    {% endfor %}
+    {% include 'forms/complaint_view/show/activity_stream_created.html' %}
+  </ul>
+
+{% endblock %}

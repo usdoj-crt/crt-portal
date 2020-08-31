@@ -26,7 +26,8 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
-                              PRIMARY_COMPLAINT_ERROR, PROTECTED_CLASS_ERROR,
+                              PRIMARY_COMPLAINT_ERROR, PRINT_CHOICES,
+                              PROTECTED_CLASS_ERROR,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
@@ -1153,6 +1154,18 @@ class CommentActions(ModelForm):
             description=self.instance.note,
             target=report
         )
+
+
+class PrintActions(Form):
+    CONTEXT_KEY = 'print_actions'
+
+    options = MultipleChoiceField(
+        initial=('correspondent', 'issue', 'description',),
+        required=False,
+        label='options',
+        choices=PRINT_CHOICES,
+        widget=UsaCheckboxSelectMultiple(),
+    )
 
 
 class ContactEditForm(ModelForm, ActivityStreamUpdater):
