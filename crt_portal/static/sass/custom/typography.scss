@@ -47,8 +47,7 @@ h3,
 }
 
 .h3__display {
-  font-size: $theme-heading-font-size-md;
-  line-height: 1.5;
+  @include text--heading__medium();
   font-family: family('heading');
   font-weight: $theme-font-weight-bold;
   color: color($theme-color-primary-darker);

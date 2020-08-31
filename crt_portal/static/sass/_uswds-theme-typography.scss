@@ -469,10 +469,6 @@ $theme-body-copy-line-height:      1.625;
 @mixin text--heading__medium {
   font-size: $theme-heading-font-size-md;
   line-height: 1.5;
-  @include at-media-max(mobile-lg) {
-    font-size: $theme-heading-font-size-md-mobile;
-    line-height: 1.3;
-  }
 }
 
 @mixin text--heading__large {
