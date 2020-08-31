@@ -24,6 +24,13 @@
         <meta property="name" content="{{meta_title}}" />
       {% endblock meta_title %}
 
+      {% block meta_analytics %}
+        {% environment as env %}
+        {% if env == "PRODUCTION" %}
+          <meta name="google-site-verification" content="UA2qkRn7lIwEkydkzZG2yZEykhLDmEqn8hibqT8105A" />
+        {% endif %}
+      {% endblock %}
+
       {% block meta_description %}
         {% trans 'Have you or someone you know experienced unlawful discrimination? The Civil Rights Division may be able to help. Civil rights laws can protect you from unlawful discrimination, harassment, or abuse in a variety of settings like housing, the workplace, school, voting, businesses, healthcare, public spaces, and more.' as meta_description %}
         <meta property="og:description" content="{{meta_description}}" />
