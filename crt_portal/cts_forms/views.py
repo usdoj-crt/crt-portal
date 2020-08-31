@@ -470,10 +470,18 @@ class SaveCommentView(LoginRequiredMixin, FormView):
             url = preserve_filter_parameters(report, request.POST)
             return redirect(url)
         else:
-            # TODO handle form validation failures
+            for key in comment_form.errors:
+                errors = '; '.join(comment_form.errors[key])
+                error_message = f'Could not save comment: {errors}'
+                messages.add_message(request, messages.ERROR, error_message)
+
             output = serialize_data(report, request, report_id)
             filter_output = setup_filter_parameters(report, request.POST)
+            contact_form = ContactEditForm(instance=report)
+            details_form = ReportEditForm(instance=report)
             output.update({
+                'contact_form': contact_form,
+                'details_form': details_form,
                 'return_url_args': request.POST.get('next', ''),
                 'index': request.POST.get('index', ''),
                 **filter_output,
