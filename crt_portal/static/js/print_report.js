@@ -48,7 +48,6 @@
 
   var report = document.getElementById('printout_report');
   report.addEventListener('click', showModal);
-  report.addEventListener('keydown', showModal);
 
   var cancel_modal = document.getElementById('print_report_cancel');
   root.CRT.cancelModal(modal, cancel_modal);
