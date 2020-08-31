@@ -1138,6 +1138,7 @@ class CommentActions(ModelForm):
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
+        self.fields['note'].max_length = 7000
         self.fields['note'].widget = Textarea(
             attrs={
                 'class': 'usa-textarea',
