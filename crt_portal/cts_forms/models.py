@@ -1,6 +1,7 @@
 """All models need to be added to signals.py for proper logging."""
 import logging
 from datetime import datetime
+from babel.dates import format_date
 
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, RegexValidator
@@ -348,9 +349,11 @@ class ResponseTemplate(models.Model):
         section_choices = dict(SECTION_CHOICES)
         return Context({
             'addressee': report.addressee,
-            'date_of_intake': report.create_date.strftime('%B %d, %Y'),
+            'date_of_intake': format_date(report.create_date, locale='en_US'),
+            'date_of_intake_es': format_date(report.create_date, locale='es_ES'),
             'record_locator': report.public_id,
-            'outgoing_date': today.strftime('%B %d, %Y'),  # required for paper mail
+            'outgoing_date': format_date(today, locale='en_US'),  # required for paper mail
+            'outgoing_date_es': format_date(today, locale='es_ES'),  # required for paper mail
             'section_name': section_choices.get(report.assigned_section, "no section"),
         })
 

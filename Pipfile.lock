@@ -16,6 +16,14 @@
         ]
     },
     "default": {
+        "babel": {
+            "hashes": [
+                "sha256:1aac2ae2d0d8ea368fa90906567f5c08463d98ade155c0c4bfedd6a0f7160e38",
+                "sha256:d670ea0b10f8b723672d3a6abeb87b565b244da220d76b4dba1b66269ec152d4"
+            ],
+            "index": "pypi",
+            "version": "==2.8.0"
+        },
         "boto3": {
             "hashes": [
                 "sha256:a88d486dcbc80c3e180d811707b366f7b178cf293e0746ae3c00c24a07deac92",
