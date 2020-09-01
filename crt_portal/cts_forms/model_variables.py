@@ -157,6 +157,21 @@ SECTION_CHOICES = (
     ('VOT', 'Voting'),
 )
 
+# Used for intake Global Section filter
+SECTION_CHOICES_WITHOUT_LABEL = (
+    ('ADM', 'ADM'),
+    ('APP', 'APP'),
+    ('CRM', 'CRM'),
+    ('DRS', 'DRS'),
+    ('ELS', 'ELS'),
+    ('EOS', 'EOS'),
+    ('FCS', 'FCS'),
+    ('HCE', 'HCE'),
+    ('IER', 'IER'),
+    ('SPL', 'SPL'),
+    ('VOT', 'VOT'),
+)
+
 COMMERCIAL_OR_PUBLIC_PLACE_CHOICES = (
     ('place_of_worship', _('Place of worship or about a place of worship')),
     ('store', _('Commercial or retail building')),

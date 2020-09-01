@@ -31,7 +31,8 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
-                              SECTION_CHOICES, SERVICEMEMBER_CHOICES,
+                              SECTION_CHOICES, SECTION_CHOICES_WITHOUT_LABEL,
+                              SERVICEMEMBER_CHOICES,
                               SERVICEMEMBER_ERROR, STATES_AND_TERRITORIES,
                               STATUS_CHOICES, STATUTE_CHOICES,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
@@ -899,20 +900,6 @@ class Filters(ModelForm):
             'name': 'assigned_to',
             'class': 'usa-input'
         })
-    )
-
-    SECTION_CHOICES_WITHOUT_LABEL = (
-        ('ADM', 'ADM'),
-        ('APP', 'APP'),
-        ('CRM', 'CRM'),
-        ('DRS', 'DRS'),
-        ('ELS', 'ELS'),
-        ('EOS', 'EOS'),
-        ('FCS', 'FCS'),
-        ('HCE', 'HCE'),
-        ('IER', 'IER'),
-        ('SPL', 'SPL'),
-        ('VOT', 'VOT'),
     )
 
     assigned_section = MultipleChoiceField(
