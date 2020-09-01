@@ -96,6 +96,10 @@ body.is-modal {
     min-height: 40rem; // a11y: don't collapse modal
     padding: 2rem;
   }
+
+  .modal-footer {
+    margin-top: 0.5rem;
+  }
 }
 
 .intake-template--modal {
