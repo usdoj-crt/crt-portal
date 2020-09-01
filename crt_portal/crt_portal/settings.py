@@ -261,6 +261,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'https://touchpoints.app.cloud.gov',
         'https://dap.digitalgov.gov',
         'https://www.google-analytics.com',
+        'https://www.googletagmanager.com/',
     )
     # headers required for security
     SESSION_COOKIE_SECURE = True
@@ -279,6 +280,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'https://dap.digitalgov.gov',
         'https://www.google-analytics.com',
         'https://touchpoints.app.cloud.gov',
+        'https://www.googletagmanager.com/',
     )
     CSP_CONNECT_SRC = (
         "'self'",
@@ -288,6 +290,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'https://dap.digitalgov.gov',
         'https://www.google-analytics.com',
         'https://touchpoints.app.cloud.gov',
+        'https://www.googletagmanager.com/',
     )
     CSP_IMG_SRC = allowed_sources
     CSP_MEDIA_SRC = allowed_sources
