@@ -1135,6 +1135,11 @@ class CommentActions(ModelForm):
     class Meta:
         model = CommentAndSummary
         fields = ['note']
+        error_messages = {
+            'note': {
+                'required': _('Comment cannot be empty'),
+            },
+        }
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
