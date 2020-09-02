@@ -347,6 +347,8 @@ class ResponseTemplate(models.Model):
         """
         today = datetime.today()
         section_choices = dict(SECTION_CHOICES)
+        # TODO addressee needs to be in spanish as well
+        # TODO section names too -- grab from translation file?
         return Context({
             'addressee': report.addressee,
             'date_of_intake': format_date(report.create_date, locale='en_US'),
