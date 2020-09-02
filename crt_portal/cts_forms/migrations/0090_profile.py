@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('cts_forms', '0084_form_template_standardization'),
+        ('cts_forms', '0089_crm-referral-to-fbi'),
     ]
 
     operations = [
