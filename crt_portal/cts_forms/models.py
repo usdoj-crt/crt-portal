@@ -33,6 +33,7 @@ from .phone_regex import phone_validation_regex
 logger = logging.getLogger(__name__)
 User = get_user_model()
 
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     intake_filters = models.TextField(max_length=500, blank=True)
@@ -45,7 +46,6 @@ class Profile(models.Model):
     @receiver(post_save, sender=User)
     def save_user_profile(sender, instance, **kwargs):
         instance.profile.save()
-
 
 
 class CommentAndSummary(models.Model):
