@@ -361,13 +361,13 @@ class ResponseTemplate(models.Model):
         return Context({
             'record_locator': report.public_id,
             'addressee': report.addressee,
-            'date_of_intake': format_date(report.create_date, locale='en_US'),
+            'date_of_intake': format_date(report.create_date, format='long', locale='en_US'),
             'outgoing_date': format_date(today, locale='en_US'),  # required for paper mail
             'section_name': section_choices.get(report.assigned_section, "no section"),
             # spanish translations
             'es': {
                 'addressee': report.addressee_es,
-                'date_of_intake': format_date(report.create_date, locale='es_ES'),
+                'date_of_intake': format_date(report.create_date, format='long', locale='es_ES'),
                 'outgoing_date': format_date(today, locale='es_ES'),
                 'section_name': section_choices_es.get(report.assigned_section, "no section"),
             }
