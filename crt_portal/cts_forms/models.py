@@ -9,6 +9,8 @@ from django.template import Context, Template
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.html import escape
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from .managers import ActiveProtectedClassChoiceManager
 from .model_variables import (CLOSED_STATUS,
@@ -30,6 +32,20 @@ from .phone_regex import phone_validation_regex
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    intake_filters = models.TextField(max_length=500, blank=True)
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
+
 
 
 class CommentAndSummary(models.Model):

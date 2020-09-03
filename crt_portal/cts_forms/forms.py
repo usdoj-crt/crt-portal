@@ -31,6 +31,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
+                              SECTION_CHOICES_WITHOUT_LABEL,
                               SECTION_CHOICES, SERVICEMEMBER_CHOICES,
                               SERVICEMEMBER_ERROR, STATES_AND_TERRITORIES,
                               STATUS_CHOICES, STATUTE_CHOICES,
@@ -899,6 +900,13 @@ class Filters(ModelForm):
         widget=Select(attrs={
             'name': 'assigned_to',
             'class': 'usa-input'
+        })
+    )
+    assigned_section = MultipleChoiceField(
+        required=False,
+        choices=SECTION_CHOICES_WITHOUT_LABEL,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'assigned_section'
         })
     )
     create_date_start = DateField(

@@ -293,6 +293,48 @@
   }
 }
 
+form#section-filter-form {
+  .crt-dropdown {
+    background-color: color($theme-color-primary-darker);
+    border-bottom: 4px solid color($theme-color-warning);
+    margin-right: 1rem;
+    border-radius: 0;
+
+    &__title {    
+      color: color($theme-color-warning);
+      background-color: color($theme-color-primary-darker);
+    }
+
+    .crt-section_dropdown{
+      padding: .5rem;
+    }
+
+    .icon {
+      background-image: url(../../img/intake-icons/ic_select-down_gold.svg);
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: contain;
+    }
+
+    &.expanded {
+      .icon {
+        background-image: url(../../img/intake-icons/ic_select-up.svg);
+      }
+
+      .crt-section_dropdown {
+        color: color($theme-color-primary-darker);
+        background-color: color('white');
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+      }
+    }
+  }
+
+  .content {
+    min-width: 12rem;
+  }
+}
+
 .outline-button {
   @extend .crt-button;
   @include u-border('solid');
