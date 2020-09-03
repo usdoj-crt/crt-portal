@@ -115,6 +115,21 @@
       @include clickable-table-cell();
     }
 
+    .td-toggle {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+
+      img {
+        max-width: unset;
+      }
+
+      .rotate {
+        transform: rotate(90deg);
+        transition-duration: 120ms;
+      }
+    }
+
     .td-quickview {
       font-weight: bold;
       text-transform: uppercase;
@@ -123,8 +138,9 @@
 
     .td-summary {
       height: 4rem;
-      max-height: 4rem;
+      max-height: 10rem;
       overflow-y: auto;
+      resize: vertical;
 
       p:first-child {
         margin-top: 0;

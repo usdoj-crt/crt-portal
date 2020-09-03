@@ -20,7 +20,9 @@
     {% for datum in data_dict %}
       <tr class="tr-status-{{ datum.report.status }} tr--hover{% cycle ' stripe' '' %}">
         <td>
-          &gt;
+          <a class="td-toggle display-flex" href="#">
+            <img src="{% static "img/intake-icons/ic_chevron-right.svg" %}" alt="toggle" class="icon">
+          </a>
         </td>
         <td>
           <a class="td-link display-block" href="{{datum.url}}">
@@ -62,7 +64,6 @@
             {% endwith %}
           </a>
         </td>
-
         <td>
           <a class="td-link display-block" href="{{datum.url}}">
             {{ datum.report.last_incident_month|default:"-" }}/{{datum.report.last_incident_day|default:"-"}}/{{ datum.report.last_incident_year|default:"-" }}
