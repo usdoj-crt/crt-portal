@@ -1008,12 +1008,13 @@ class ResponseActions(Form):
         self.report = kwargs.pop('instance')
         Form.__init__(self, *args, **kwargs)
         # set up select options with dataset attributes
+        templates = ResponseTemplate.objects.order_by('title')
         data = {
             template.id: {
                 'description': template.render_subject(self.report),
                 'content': template.render_body(self.report),
             }
-            for template in ResponseTemplate.objects.all()
+            for template in templates
         }
         attrs = {
             "id": "intake_select",
@@ -1021,7 +1022,7 @@ class ResponseActions(Form):
             "aria-label": "template selection"
         }
         self.fields['templates'] = ModelChoiceField(
-            queryset=ResponseTemplate.objects.all(),
+            queryset=templates,
             empty_label="(no template chosen)",
             widget=DataAttributesSelect(data=data, attrs=attrs),
             required=False,
