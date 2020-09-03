@@ -5,13 +5,14 @@ from django.db import migrations
 
 def add_spanish_templates(apps, schema_editor):
     ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
+    subject = 'Respuesta: Su informe de la División de Derechos Civiles - {{ record_locator }} de la Sección {{ es.section_name }}'
     ResponseTemplate.objects.create(
         title='CRT - Non-Actionable (Spanish)',
-        subject='',
+        subject=subject,
         body="""
-Estimado/a {{ addressee }}:
+{{ es.addressee }}:
 
-Usted se comunicó con el Departamento de Justicia el {{ date_of_intake_es }}. Tras revisar detenidamente su presentación, decidimos no tomar medidas adicionales en lo que se refiere a su querella.
+Usted se comunicó con el Departamento de Justicia el {{ es.date_of_intake}}. Tras revisar detenidamente su presentación, decidimos no tomar medidas adicionales en lo que se refiere a su querella.
 
 Lo que hicimos:
 
@@ -44,11 +45,11 @@ División de Derechos Civiles
         """)
     ResponseTemplate.objects.create(
         title='CRT - No Capacity (Spanish)',
-        subject='',
+        subject=subject,
         body="""
-Estimado/a {{ addressee }}:
+{{ es.addressee }}:
 
-Usted se comunicó con el Departamento de Justicia el {{ date_of_intake_es }}. Tras revisar detenidamente su presentación, decidimos no tomar medidas adicionales en lo que se refiere a su querella.
+Usted se comunicó con el Departamento de Justicia el {{ es.date_of_intake }}. Tras revisar detenidamente su presentación, decidimos no tomar medidas adicionales en lo que se refiere a su querella.
 
 Lo que hicimos:
 
@@ -82,11 +83,11 @@ División de Derechos Civiles
         """)
     ResponseTemplate.objects.create(
         title='CRT - Comments & Opinions (Spanish)',
-        subject='',
+        subject=subject,
         body="""
-Estimado/a {{ addressee }}:
+{{ es.addressee }}:
 
-Usted se comunicó con el Departamento de Justicia el {{ date_of_intake_es }}. Su número de registro es {{ record_locator }}.
+Usted se comunicó con el Departamento de Justicia el {{ es.date_of_intake }}. Su número de registro es {{ record_locator }}.
 
 Agradecemos su interés y el tiempo que ha dedicado a escribirnos para expresar su perspectiva. Queremos que sepa que la información que usted nos brindó recibirá la consideración apropiada.
 
@@ -97,11 +98,11 @@ División de Derechos Civiles
         """)
     ResponseTemplate.objects.create(
         title='CRT - Request for Agency Review (Spanish)',
-        subject='',
+        subject=subject,
         body="""
-Estimado/a {{ addressee }}:
+{{ es.addressee }}:
 
-Usted se comunicó con el Departamento de Justicia el {{ date_of_intake_es }}. Esta carta se escribe en respuesta a su reporte.
+Usted se comunicó con el Departamento de Justicia el {{ es.date_of_intake }}. Esta carta se escribe en respuesta a su reporte.
 
 Lo que hicimos:
 
@@ -156,11 +157,11 @@ División de Derechos Civiles
         """)
     ResponseTemplate.objects.create(
         title='HCE - Referral for Housing/Lending/Public Accommodation (Spanish)',
-        subject='',
+        subject=subject,
         body="""
-Estimado/a {{ addressee }}:
+{{ es.addressee }}:
 
-Usted se comunicó con el Departamento de Justicia el {{ date_of_intake_es }}.
+Usted se comunicó con el Departamento de Justicia el {{ es.date_of_intake }}.
 
 Lo que hicimos:
 
@@ -367,11 +368,11 @@ División de Derechos Civiles
         """)
     ResponseTemplate.objects.create(
         title='SPL - Referral for PREA Issues (Spanish)',
-        subject='',
+        subject=subject,
         body="""
-Estimado/a {{ addressee }}:
+{{ addressee }}:
 
-Usted se comunicó con el Departamento de Justicia el {{ date_of_intake_es }}. Con base en nuestro repaso hasta la fecha, quisiéramos avisarle que tal vez quiera comunicarse con el Coordinador de la PREA [Ley contra la Violación en las Cárceles] de su estado.
+Usted se comunicó con el Departamento de Justicia el {{ es.date_of_intake }}. Con base en nuestro repaso hasta la fecha, quisiéramos avisarle que tal vez quiera comunicarse con el Coordinador de la PREA [Ley contra la Violación en las Cárceles] de su estado.
 
 Lo que hicimos:
 
