@@ -114,6 +114,22 @@
     .td-link {
       @include clickable-table-cell();
     }
+
+    .td-quickview {
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .td-summary {
+      height: 4rem;
+      max-height: 4rem;
+      overflow-y: auto;
+
+      p:first-child {
+        margin-top: 0;
+      }
+    }
   }
 
   tbody {

@@ -32,6 +32,7 @@
 {% endblock %}
 {% block page_js %}
 {{ block.super }}
+<script src="{% static 'js/complaint_quick_view.js' %}"></script>
 <script src="{% static 'js/complaint_view_filters.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
