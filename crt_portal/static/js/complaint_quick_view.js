@@ -1,13 +1,18 @@
 (function(root, dom) {
-  var toggles = dom.querySelectorAll('.td-toggle');
+  var toggles = dom.querySelectorAll('a.td-toggle');
   for (var i = 0; i < toggles.length; i++) {
     var toggle = toggles[i];
     toggle.onclick = function(event) {
-      var target = event.target;
-      if (target.classList.contains('rotate')) {
-        target.classList.remove('rotate');
+      var target = event.currentTarget;
+      var id = target.dataset["id"];
+      var image = target.children[0];
+      var row = dom.getElementById("tr-additional-" + id);
+      if (image.classList.contains('rotate')) {
+        image.classList.remove('rotate');
+        row.setAttribute('hidden', '');
       } else {
-        target.classList.add('rotate');
+        image.classList.add('rotate');
+        row.removeAttribute('hidden');
       }
       event.preventDefault();
     };

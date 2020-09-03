@@ -20,7 +20,7 @@
     {% for datum in data_dict %}
       <tr class="tr-status-{{ datum.report.status }} tr--hover{% cycle ' stripe' '' %}">
         <td>
-          <a class="td-toggle display-flex" href="#">
+          <a data-id="{{ datum.report.id }}" class="td-toggle display-flex" href="#">
             <img src="{% static "img/intake-icons/ic_chevron-right.svg" %}" alt="toggle" class="icon">
           </a>
         </td>
@@ -71,7 +71,7 @@
         </td>
       </tr>
       {# this row is hidden by default #}
-      <tr>
+      <tr id="tr-additional-{{ datum.report.id }}" hidden>
         <td></td>
         <td colspan="2">
           <div class="td-quickview">
