@@ -4,9 +4,9 @@
     var toggle = toggles[i];
     toggle.onclick = function(event) {
       var target = event.currentTarget;
-      var id = target.dataset["id"];
+      var id = target.dataset['id'];
       var image = target.children[0];
-      var row = dom.getElementById("tr-additional-" + id);
+      var row = dom.getElementById('tr-additional-' + id);
       if (image.classList.contains('rotate')) {
         image.classList.remove('rotate');
         row.setAttribute('hidden', '');
