@@ -11,7 +11,6 @@
     }
   };
   contact.addEventListener('click', showModal);
-  contact.addEventListener('keydown', showModal);
 
   var cancel_modal = document.getElementById('intake_template_cancel');
   root.CRT.cancelModal(modal, cancel_modal);
