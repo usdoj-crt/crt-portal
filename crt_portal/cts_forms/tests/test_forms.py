@@ -91,6 +91,25 @@ class CommentActionTests(TestCase):
         content = str(response.content)
         self.assertTrue('updated note' in content)
 
+    def test_comment_overflow(self):
+        comment_id = CommentAndSummary.objects.get(note=self.note).pk
+        too_many_words = 'la la la ' * 2500
+        response = self.client.post(
+            reverse(
+                'crt_forms:save-report-comment',
+                kwargs={'report_id': self.pk},
+            ),
+            {
+                'is_summary': False,
+                'note': too_many_words,
+                'comment_id': comment_id,
+            },
+            follow=True
+        )
+        content = str(response.content)
+        self.assertTrue('Could not save comment' in content)
+        self.assertEquals(response.status_code, 200)
+
 
 class ReportEditFormTests(TestCase):
     def setUp(self):

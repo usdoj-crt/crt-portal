@@ -122,4 +122,8 @@ ul.messages {
 
 h2.messages {
   margin-top: 0px;
+
+  li.error {
+    color: color($theme-color-secondary-dark);
+  }
 }
