@@ -415,7 +415,7 @@ def remove_spanish_templates(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0089_crm-referral-to-fbi'),
+        ('cts_forms', '0090_district_add_65_and_90'),
     ]
 
     operations = [
