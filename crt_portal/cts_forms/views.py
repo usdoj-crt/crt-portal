@@ -18,7 +18,7 @@ from formtools.wizard.views import SessionWizardView
 from .filters import report_filter
 from .forms import (CommentActions, ComplaintActions, ResponseActions,
                     PrintActions, ContactEditForm, Filters,
-                    ReportEditForm, Review, add_activity)
+                    ReportEditForm, Review, add_activity, Profiles)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -243,6 +243,9 @@ def IndexView(request):
     page_args = f'?per_page={per_page}'
     filter_args = ''
 
+    global_section_filter = request.user.profile.intake_filters
+    query_filters['assigned_section'] = global_section_filter.split('|')
+
     for query_item in query_filters.keys():
         arg = query_item
         for item in query_filters[query_item]:
@@ -281,6 +284,7 @@ def IndexView(request):
 
     final_data = {
         'form': Filters(request.GET),
+        'profileForm': Profiles(),
         'data_dict': data,
         'page_format': page_format,
         'page_args': page_args,
@@ -330,6 +334,16 @@ def serialize_data(report, request, report_id):
     }
 
     return output
+
+
+class UpdateProfile(LoginRequiredMixin, FormView):
+    """Can be used for updating section filter for a profile"""
+    form_class = Profiles
+
+    def post(self, request):
+        """Update or create Profile"""
+
+        return render(request, 'forms/complaint_view/index/index.html')
 
 
 class ResponseView(LoginRequiredMixin, View):

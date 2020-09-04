@@ -38,7 +38,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ResponseTemplate)
+                     ProtectedClass, Report, ResponseTemplate, Profile)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -49,7 +49,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             PUBLIC_QUESTION, SERVICEMEMBER_QUESTION,
                             SUMMARY_HELPTEXT, SUMMARY_QUESTION,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT)
-from .widgets import (ComplaintSelect, CrtMultiSelect,
+from .widgets import (ComplaintSelect,
                       CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
                       UsaRadioSelect, DataAttributesSelect, CrtDateInput)
 
@@ -857,6 +857,27 @@ class ProForm(
             return cleaned_data
 
 
+class Profiles(ModelForm):
+    assigned_section = MultipleChoiceField(
+        required=False,
+        choices=SECTION_CHOICES_WITHOUT_LABEL,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'assigned_section'
+        })
+    )
+
+    class Meta:
+        model = Profile
+        fields = [
+            'assigned_section'
+        ]
+
+        labels = {
+            # These are CRT view only
+            'assigned_section': 'View sections'
+        }
+
+
 class Filters(ModelForm):
     status = MultipleChoiceField(
         initial=(('new', 'New'), ('open', 'Open')),
@@ -902,13 +923,6 @@ class Filters(ModelForm):
             'class': 'usa-input'
         })
     )
-    assigned_section = MultipleChoiceField(
-        required=False,
-        choices=SECTION_CHOICES_WITHOUT_LABEL,
-        widget=UsaCheckboxSelectMultiple(attrs={
-            'name': 'assigned_section'
-        })
-    )
     create_date_start = DateField(
         required=False,
         label="From:",
@@ -935,7 +949,6 @@ class Filters(ModelForm):
     class Meta:
         model = Report
         fields = [
-            'assigned_section',
             'contact_first_name',
             'contact_last_name',
             'location_city_town',
@@ -950,7 +963,6 @@ class Filters(ModelForm):
 
         labels = {
             # These are CRT view only
-            'assigned_section': 'View sections',
             'contact_first_name': 'Contact first name',
             'contact_last_name': 'Contact last name',
             'location_city_town': 'Incident location city',
@@ -965,10 +977,6 @@ class Filters(ModelForm):
         }
 
         widgets = {
-            'assigned_section': CrtMultiSelect(attrs={
-                'class': 'text-uppercase',
-                'name': 'assigned_section'
-            }),
             'contact_first_name': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'contact_first_name',
