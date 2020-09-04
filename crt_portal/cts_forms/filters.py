@@ -18,7 +18,7 @@ filter_options = {
     'contact_last_name': '__contains',
     'contact_email': '__search',
     'other_class': '__search',
-    'violation_summary': '__search',
+    'violation_summary': 'violation_summary',
     'location_name': '__contains',
     'location_city_town': '__contains',
     'location_address_line_1': '__search',
@@ -53,6 +53,7 @@ def report_filter(querydict):
     filters = {}
     for field in filter_options.keys():
         filter_list = querydict.getlist(field)
+
         if len(filter_list) > 0:
             filters[field] = querydict.getlist(field)
             if filter_options[field] == '__in':
@@ -85,5 +86,8 @@ def report_filter(querydict):
                 kwargs[field] = querydict.getlist(field)[0]
             elif filter_options[field] == '__gte':
                 kwargs[field] = querydict.getlist(field)
+            elif filter_options[field] == 'violation_summary':
+                kwargs[field] = querydict.getlist(field)
+
     # returns a filtered query, and a dictionary that we can use to keep track of the filters we apply
     return Report.objects.filter(**kwargs), filters
