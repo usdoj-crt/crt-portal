@@ -4,6 +4,7 @@
 <table class="usa-table crt-table sort-table">
   <thead>
     <tr>
+      <th></th>
       {% render_sortable_heading 'Status' sort_state filter_state %}
       {% render_sortable_heading 'Routed' sort_state filter_state %}
       {% render_sortable_heading 'Submitted' sort_state filter_state %}
@@ -18,6 +19,11 @@
     <tbody>
     {% for datum in data_dict %}
       <tr class="tr-status-{{ datum.report.status }} tr--hover{% cycle ' stripe' '' %}">
+        <td>
+          <a data-id="{{ datum.report.id }}" class="td-toggle display-flex" href="#">
+            <img src="{% static "img/intake-icons/ic_chevron-right.svg" %}" alt="show additional information in a new row" class="icon">
+          </a>
+        </td>
         <td>
           <a class="td-link display-block" href="{{datum.url}}">
             <span class="status-tag status-{{ datum.report.status }}">
@@ -58,12 +64,40 @@
             {% endwith %}
           </a>
         </td>
-
         <td>
           <a class="td-link display-block" href="{{datum.url}}">
             {{ datum.report.last_incident_month|default:"-" }}/{{datum.report.last_incident_day|default:"-"}}/{{ datum.report.last_incident_year|default:"-" }}
           </a>
         </td>
+      </tr>
+      {# this row is hidden by default #}
+      <tr id="tr-additional-{{ datum.report.id }}" hidden>
+        <td></td>
+        <td colspan="2">
+          <div class="td-quickview">
+            Contact
+          </div>
+          <div class="display-flex flex-column">
+            <span>
+              {{ datum.report.contact_last_name|default:"-" }} {{ datum.report.contact_first_name|default:"-" }}
+            </span>
+            <span>
+              {{ datum.report.contact_email|default:"-" }}
+            </span>
+            <span>
+              {{ datum.report.contact_phone|default:"-" }}
+            </span>
+          </div>
+        </td>
+        <td colspan="4">
+          <div class="td-quickview">
+            Summary
+          </div>
+          <div class="td-summary">
+            {{ datum.report.violation_summary|linebreaks|default:"-" }}
+          </div>
+        </td>
+        <td colspan="2"></td>
       </tr>
     {% endfor %}
     </tbody>
