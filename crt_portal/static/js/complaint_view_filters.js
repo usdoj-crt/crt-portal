@@ -266,7 +266,6 @@
 
   function filterController() {
     var formEl = dom.getElementById('filters-form');
-    var sectionFormEl = dom.getElementById('cts-forms-profile');
     var multiSelectEl = dom.getElementsByName('assigned_section');
     var firstNameEl = formEl.querySelector('input[name="contact_first_name"');
     var lastNameEl = formEl.querySelector('input[name="contact_last_name"');
@@ -326,9 +325,6 @@
 
     formView({
       el: formEl
-    });
-    formView({
-      el: sectionFormEl
     });
     checkBoxView({
       el: multiSelectEl,
