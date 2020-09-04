@@ -241,21 +241,25 @@ def IndexView(request):
     sort_state = {}
     # make sure the links for this page have the same paging, sorting, filtering etc.
     page_args = f'?per_page={per_page}'
-    filter_args = ''
 
+    # process filter query params
+    filter_args = ''
     for query_item in query_filters.keys():
         arg = query_item
         for item in query_filters[query_item]:
             filter_args = filter_args + f'&{arg}={item}'
+    page_args += filter_args
 
+    # process sort query params
+    sort_args = ''
     for sort_item in sort:
         if sort_item[0] == SORT_DESC_CHAR:
             sort_state.update({sort_item[1::]: True})
         else:
             sort_state.update({sort_item: False})
 
-        # all query params except info about what page we are on
-        page_args = page_args + f'&sort={sort_item}{filter_args}'
+        sort_args += f'&sort={sort_item}'
+    page_args += sort_args
 
     all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
 
