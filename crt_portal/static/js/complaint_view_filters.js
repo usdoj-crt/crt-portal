@@ -286,7 +286,12 @@
       var filterName = node.getAttribute('data-filter-name');
 
       // see if we have to process multiple select elements first
-      var multiSelectElements = ['assigned_section', 'status', 'location_state', 'violation_summary'];
+      var multiSelectElements = [
+        'assigned_section',
+        'status',
+        'location_state',
+        'violation_summary'
+      ];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {
         var selections = filterDataModel[filterName];
