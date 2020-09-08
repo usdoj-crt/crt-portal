@@ -60,7 +60,7 @@ SUMMARY_QUESTION = _('In your own words, describe what happened')
 SUMMARY_HELPTEXT = {
     'title': _('Please share details like:'),
     'examples': [
-        _('Time;'),
-        _('Names of people involved including witnesses if there are any; and'),
+        _('Time'),
+        _('Names of people involved including witnesses if there are any'),
         _('Any supporting materials (please list and describe them).')],
 }
