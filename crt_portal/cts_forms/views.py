@@ -343,7 +343,8 @@ class UpdateProfile(LoginRequiredMixin, FormView):
     def post(self, request):
         """Update or create Profile"""
 
-        return render(request, 'forms/complaint_view/index/index.html')
+        """redirects back to /form/view but all filter params are not perserved. """
+        return redirect('/form/view')
 
 
 class ResponseView(LoginRequiredMixin, View):
