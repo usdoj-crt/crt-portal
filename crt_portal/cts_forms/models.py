@@ -36,6 +36,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     intake_filters = models.TextField(max_length=500, blank=True)
 
+    def __str__(self):
+        return self.intake_filters
+
 
 class CommentAndSummary(models.Model):
     note = models.CharField(max_length=7000, null=False, blank=False,)
