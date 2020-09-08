@@ -305,6 +305,13 @@ class Report(models.Model):
         self.assigned_to = None
         self.closed_date = datetime.now()
 
+    def status_assignee_reset(self):
+        """
+        Remove assignee and update status to new
+        """
+        self.assigned_to = None
+        self.status = 'new'
+
 
 class Trends(models.Model):
     """see the top 10 non-stop words from violation summary """

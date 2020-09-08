@@ -26,7 +26,8 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
-                              PRIMARY_COMPLAINT_ERROR, PROTECTED_CLASS_ERROR,
+                              PRIMARY_COMPLAINT_ERROR, PRINT_CHOICES,
+                              PROTECTED_CLASS_ERROR,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
@@ -863,13 +864,12 @@ class Filters(ModelForm):
         choices=STATUS_CHOICES,
         widget=UsaCheckboxSelectMultiple(),
     )
-    location_state = ChoiceField(
+    location_state = MultipleChoiceField(
         required=False,
-        choices=_add_empty_choice(STATES_AND_TERRITORIES),
-        widget=Select(attrs={
+        choices=STATES_AND_TERRITORIES,
+        widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'location_state',
-            'class': 'usa-select'
-        })
+        }),
     )
     primary_statute = ChoiceField(
         required=False,
@@ -1135,9 +1135,15 @@ class CommentActions(ModelForm):
     class Meta:
         model = CommentAndSummary
         fields = ['note']
+        error_messages = {
+            'note': {
+                'required': _('Comment cannot be empty'),
+            },
+        }
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
+        self.fields['note'].max_length = 7000
         self.fields['note'].widget = Textarea(
             attrs={
                 'class': 'usa-textarea',
@@ -1154,6 +1160,18 @@ class CommentActions(ModelForm):
             description=self.instance.note,
             target=report
         )
+
+
+class PrintActions(Form):
+    CONTEXT_KEY = 'print_actions'
+
+    options = MultipleChoiceField(
+        initial=('correspondent', 'issue', 'description',),
+        required=False,
+        label='options',
+        choices=PRINT_CHOICES,
+        widget=UsaCheckboxSelectMultiple(),
+    )
 
 
 class ContactEditForm(ModelForm, ActivityStreamUpdater):

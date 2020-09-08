@@ -871,7 +871,7 @@ class Complaint_Update_Tests(TestCase):
         test_report.location_city_town = 'Cleveland'
         test_report.location_state = 'OH'
         test_report.assigned_section = test_report.assign_section()
-        test_report.status = 'new'
+        test_report.status = 'open'
         test_report.save()
 
         self.test_report = test_report
@@ -888,10 +888,10 @@ class Complaint_Update_Tests(TestCase):
         self.user.delete()
 
     def test_update_status_property(self):
-        self.form_data.update({'status': 'open'})
-        self.assertTrue(self.test_report.status == 'new')
+        self.form_data.update({'status': 'new'})
+        self.assertTrue(self.test_report.status == 'open')
         response = self.client.post(self.url, self.form_data, follow=True)
-        self.assertTrue(response.context['data'].status == 'open')
+        self.assertTrue(response.context['data'].status == 'new')
 
     def test_update_assigned_section_property(self):
         self.form_data.update({'assigned_section': 'VOT'})

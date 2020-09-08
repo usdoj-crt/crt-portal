@@ -1,0 +1,10 @@
+{% extends "forms/complaint_view/show/card.html" %}
+
+{% block extra_classes %}crt-summary-card{% endblock %}
+{% block title %}Summary{% endblock %}
+
+{% block card_content %}
+
+  {{ summary.note | default:"Not given" | linebreaks }}
+
+{% endblock %}

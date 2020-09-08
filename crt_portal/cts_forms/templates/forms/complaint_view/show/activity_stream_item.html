@@ -1,0 +1,11 @@
+<li class="activity-stream-item">
+  <div class="display-flex flex-justify">
+    <b>{{ activity.actor.username }}</b>
+    <span class="date font-sans-sm flex-align-end">
+      {{ activity.timestamp|date:'n/d/y' }} {{ activity.timestamp|time }}
+    </span>
+  </div>
+  <p class="margin-top-05">
+    {{ activity.verb }}{{ activity.description|linebreaks }}
+  </p>
+</li>

@@ -110,7 +110,7 @@ See documentation for the ADFS Django package- https://django-auth-adfs.readthed
 
 ### Code changes
 
-Add the environment to add auth urls condion in urls.py and adding the environment to the auth conditions of settings.py.
+Add the environment to add auth urls condition in urls.py and adding the environment to the auth conditions of settings.py.
 
 crt_portal/crt_portal/settings.py
 
@@ -277,3 +277,22 @@ docker-compose run web pipenv update --dev
 Either approach will result in an updated `Pipfile.lock` files located in your local copy of the codebase, ready for commit and submission of a pull request.
 
 [Pipenv]: https://docs.pipenv.org/
+
+
+## Periodic tasks
+
+We use Django management commands to execute periodic maintenance, refresh, or other code as necessary.
+
+The [CloudFoundry CLI's run-task](https://docs.cloudfoundry.org/devguide/using-tasks.html) command can be used to submit these for execution manually.
+
+Here's an example of executing the `refresh_trends` management command.
+
+```bash
+# Authenticate and target the desired space (dev, staging, or prod)
+# Then, submit a task to run the `refresh_trends` management command with:
+cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends
+```
+
+Your local output of executing the above command will reflect success or failure of the task's submission.
+
+Output, if any, of the command being executed will be be available in the application logs.

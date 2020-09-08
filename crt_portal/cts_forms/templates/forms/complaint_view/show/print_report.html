@@ -1,0 +1,26 @@
+{% load static %}
+
+<form class="usa-form" method="post" action="{% url 'crt_forms:crt-forms-print' id=data.id %}">
+  {% csrf_token %}
+  <input type="hidden" value="{{ return_url_args }}" name="next" id="modal_next" />
+  <input type="hidden" value="{{ index }}" name="index" id="index" />
+  <div id="print_report" hidden>
+    <div class="modal-wrapper print-report--modal">
+      <div class="modal-content modal-content--large">
+        <div class="modal-header">
+          <h1>Print</h1>
+        </div>
+        <div class="modal-form">
+          <p>Please select the following options for printing:</p>
+          <div class="modal-main">
+            {{ print_options.options }}
+          </div>
+          <div class="modal-footer">
+            <button id="do_print_report" class="usa-button" type="submit" name="type" value="print">Print</button>
+            <a id="print_report_cancel" href="#">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

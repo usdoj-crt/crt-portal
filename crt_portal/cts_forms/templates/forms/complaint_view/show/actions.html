@@ -1,21 +1,26 @@
 {% extends "forms/complaint_view/show/card.html" %}
 {% load static %}
 {% block title %}{{title}}{% endblock %}
+{% block extra_classes %}crt-action-card{% endblock %}
 {% block icon %}
 <img src="{% static icon %}" alt="" class="icon" />
 {% endblock %}
 
 {% block card_content %}
-<form id="complaint-view-actions" class="usa-form" method="post" action="/form/view/{{data.id}}/" novalidate>
+<form id="complaint-view-actions" class="usa-form" method="post" action="/form/view/{{data.id}}/?next={{ return_url_args|urlencode }}&index={{ index }}" novalidate>
   {% csrf_token %}
   <fieldset name="view-actions" class="usa-fieldset usa-prose">
     <legend class="usa-sr-only">Complaint detail view actions</legend>
     <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
+    <input type="hidden" value="{{ index }}" name="index" id="index" />
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
       <label for="id_assigned_section" class="intake-label">
         {{ actions.fields.assigned_section.widget.label }}
       </label>
       {{ actions.assigned_section }}
+      <button class="help-text usa-button usa-button--unstyled" id="routing-guide-toggle">
+        <span>rerouting guide</span>
+      </button>
     </div>
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
       <label for="id_status" class="intake-label">
@@ -49,8 +54,15 @@
         <img src="{% static "img/intake-icons/ic_email.svg" %}" class="icon" alt="from email">
         Contact complainant
       </button>
+      <button class="outline-button outline-button--blue" id="printout_report">
+        <img src="{% static "img/intake-icons/ic_fax.svg" %}" class="icon" alt="printer">
+        Print
+      </button>
     </div>
     <button class="usa-button" type="submit" name='type' value='{{actions.CONTEXT_KEY}}'>Apply changes</button>
   </fieldset>
 </form>
+
+{% include "partials/routing-guide.html" %}
+
 {% endblock %}

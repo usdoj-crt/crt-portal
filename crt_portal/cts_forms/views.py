@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
-from django.http import Http404
+from django.http import Http404, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.translation import gettext_lazy as _
 from django.utils.decorators import method_decorator
@@ -17,8 +17,8 @@ from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
 from .forms import (CommentActions, ComplaintActions, ResponseActions,
-                    ContactEditForm, Filters, ReportEditForm, Review,
-                    add_activity)
+                    PrintActions, ContactEditForm, Filters,
+                    ReportEditForm, Review, add_activity)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -149,9 +149,80 @@ def format_protected_class(p_class_objects, other_class):
     return p_class_list
 
 
+def preserve_filter_parameters(report, querydict):
+    """
+    Given a report and submission, preserve the `next` and `index`
+    query parameters as these are essential to maintaining the current
+    filter navigation.
+    """
+    return_url_args = querydict.get('next', '')
+    next_page = urllib.parse.quote(return_url_args)
+    index = querydict.get('index', '')
+
+    if return_url_args:
+        querydict = QueryDict(return_url_args)
+        report_query, _ = report_filter(querydict)
+        sort = querydict.getlist('sort', ['-create_date'])
+        requested_query = report_query.order_by(*sort)
+        requested_ids = list(requested_query.values_list('id', flat=True))
+        try:
+            index = requested_ids.index(report.id)
+        except ValueError:
+            # rely on the index query param, if any. this will happen
+            # if changes to the report cause the report to move out of
+            # the filtered list.
+            pass
+
+    return f'{report.get_absolute_url()}?next={next_page}&index={index}'
+
+
+def setup_filter_parameters(report, querydict):
+    """
+    If we have the `next` and `index` query parameters, then update
+    the filter count, previous query, and next query so that filter
+    navigation can continue apace.
+    """
+    output = {}
+    return_url_args = querydict.get('next', '')
+    index = querydict.get('index', None)
+
+    if return_url_args and index is not None:
+        querydict = QueryDict(return_url_args)
+        report_query, _ = report_filter(querydict)
+        sort = querydict.getlist('sort', ['-create_date'])
+        requested_query = report_query.order_by(*sort)
+        requested_ids = list(requested_query.values_list('id', flat=True))
+
+        index = int(index)
+        if report.id in requested_ids:
+            # override in case user input an invalid index
+            index = requested_ids.index(report.id)
+            output.update({
+                'filter_current': index + 1,
+            })
+        else:
+            # this report is no longer in the filter, but we want
+            # to move backwards so that the previously next report
+            # becomes the actual next report.
+            index -= 1
+
+        previous_id = requested_ids[index - 1] if index > 0 else None
+        next_id = requested_ids[index + 1] if index < len(requested_ids) - 1 else None
+        next_query = urllib.parse.quote(return_url_args)
+        output.update({
+            'filter_count': report_query.count(),
+            'filter_previous': previous_id,
+            'filter_next': next_id,
+            'filter_previous_query': f'?next={next_query}&index={index - 1}',
+            'filter_next_query': f'?next={next_query}&index={index + 1}',
+        })
+
+    return output
+
+
 @login_required
 def IndexView(request):
-    report_query, query_filters = report_filter(request)
+    report_query, query_filters = report_filter(request.GET)
 
     # Sort data based on request from params, default to `created_date` of complaint
     sort = request.GET.getlist('sort', ['-create_date'])
@@ -190,7 +261,8 @@ def IndexView(request):
 
     data = []
 
-    for report in requested_reports:
+    paginated_offset = page_format['page_range_start'] - 1
+    for index, report in enumerate(requested_reports):
         p_class_list = format_protected_class(
             report.protected_class.all().order_by('form_order'),
             report.other_class,
@@ -204,8 +276,7 @@ def IndexView(request):
         data.append({
             "report": report,
             "report_protected_classes": p_class_list,
-            "url": f'{report.id}?next={all_args_encoded}'
-
+            "url": f'{report.id}?next={all_args_encoded}&index={paginated_offset + index}',
         })
 
     final_data = {
@@ -243,13 +314,19 @@ def serialize_data(report, request, report_id):
         'actions': ComplaintActions(instance=report),
         'responses': ResponseActions(instance=report),
         'comments': CommentActions(),
+        'print_options': PrintActions(),
         'activity_stream': report.target_actions.all(),
         'crimes': crimes,
         'data': report,
         'p_class_list': p_class_list,
         'primary_complaint': primary_complaint,
         'return_url_args': request.GET.get('next', ''),
+        'index': request.GET.get('index', ''),
         'summary': report.get_summary,
+        # for print media consumption
+        'print_actions': report.target_actions.exclude(verb__contains='comment:'),
+        'print_comments': report.target_actions.filter(verb__contains='comment:'),
+        'questions': Review.question_text,
     }
 
     return output
@@ -269,10 +346,24 @@ class ResponseView(LoginRequiredMixin, View):
             add_activity(request.user, "Contacted complainant:", description, report)
             messages.add_message(request, messages.SUCCESS, description)
 
-        # preserve the query that got the user to this page
-        return_url_args = request.POST.get('next', '')
-        next_page = urllib.parse.quote(return_url_args)
-        url = f'{report.get_absolute_url()}?next={next_page}'
+        url = preserve_filter_parameters(report, request.POST)
+        return redirect(url)
+
+
+class PrintView(LoginRequiredMixin, View):
+
+    def post(self, request, id):
+        report = get_object_or_404(Report, pk=id)
+        form = PrintActions(request.POST)
+
+        if form.is_valid():
+            options = form.cleaned_data['options']
+            all_options = ', '.join(options)
+            description = f"Selected {all_options}"
+            add_activity(request.user, "Printed report", description, report)
+            messages.add_message(request, messages.SUCCESS, description)
+
+        url = preserve_filter_parameters(report, request.POST)
         return redirect(url)
 
 
@@ -287,12 +378,12 @@ class ShowView(LoginRequiredMixin, View):
         output = serialize_data(report, request, id)
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)
-
+        filter_output = setup_filter_parameters(report, request.GET)
         output.update({
             'contact_form': contact_form,
             'details_form': details_form,
+            **filter_output,
         })
-
         return render(request, 'forms/complaint_view/show/index.html', output)
 
     def get_form(self, request, report):
@@ -312,6 +403,10 @@ class ShowView(LoginRequiredMixin, View):
         if form.is_valid() and form.has_changed():
             report = form.save(commit=False)
 
+            # Reset Assignee and Status if assigned_section is changed
+            if 'assigned_section' in form.changed_data:
+                report.status_assignee_reset()
+
             # district and location are on different forms so handled here.
             # If the incident location changes, update the district.
             # District can be overwritten in the drop down.
@@ -327,14 +422,13 @@ class ShowView(LoginRequiredMixin, View):
             report.save()
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())
-            #  preserve the query that got the user to this page
-            return_url_args = request.POST.get('next', '')
-            next_page = urllib.parse.quote(return_url_args)
-            url = f'{report.get_absolute_url()}?next={next_page}'
+
+            url = preserve_filter_parameters(report, request.POST)
             return redirect(url)
         else:
             output = serialize_data(report, request, id)
-            output.update({inbound_form_type: form})
+            filter_output = setup_filter_parameters(report, request.POST)
+            output.update({inbound_form_type: form, **filter_output})
 
             try:
                 fail_message = form.FAIL_MESSAGE
@@ -373,16 +467,24 @@ class SaveCommentView(LoginRequiredMixin, FormView):
             messages.add_message(request, messages.SUCCESS, f'Successfully {verb[:-2].lower()}.')
             comment_form.update_activity_stream(request.user, report, verb)
 
-            #  preserve the query that got the user to this page
-            return_url_args = request.POST.get('next', '')
-            next_page = urllib.parse.quote(return_url_args)
-            url = f'{report.get_absolute_url()}?next={next_page}'
+            url = preserve_filter_parameters(report, request.POST)
             return redirect(url)
         else:
-            # TODO handle form validation failures
+            for key in comment_form.errors:
+                errors = '; '.join(comment_form.errors[key])
+                error_message = f'Could not save comment: {errors}'
+                messages.add_message(request, messages.ERROR, error_message)
+
             output = serialize_data(report, request, report_id)
+            filter_output = setup_filter_parameters(report, request.POST)
+            contact_form = ContactEditForm(instance=report)
+            details_form = ReportEditForm(instance=report)
             output.update({
+                'contact_form': contact_form,
+                'details_form': details_form,
                 'return_url_args': request.POST.get('next', ''),
+                'index': request.POST.get('index', ''),
+                **filter_output,
             })
 
             return render(request, 'forms/complaint_view/show/index.html', output)
@@ -717,7 +819,8 @@ class CRTReportWizard(SessionWizardView):
         return render(
             self.request, 'forms/confirmation.html',
             {
-                'report': report, 'questions': Review.question_text,
+                'report': report,
+                'questions': Review.question_text,
                 'ordered_step_names': self.ORDERED_STEP_NAMES
             },
         )

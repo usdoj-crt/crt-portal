@@ -21,6 +21,8 @@
     <label for="id_{{form.fields.location_state.widget.attrs.name}}" class="usa-label margin-bottom-1">
       <b>{{form.location_state.label }}</b>
     </label>
-    {{ form.location_state }}
+    <div class="location-state--container">
+      {{ form.location_state }}
+    </div>
   </div>
 {% endblock %}

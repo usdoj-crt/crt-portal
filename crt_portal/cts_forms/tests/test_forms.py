@@ -1,5 +1,6 @@
 """Back end forms"""
 import secrets
+import urllib.parse
 
 from django.contrib.auth.models import User
 from django.test import TestCase
@@ -89,6 +90,25 @@ class CommentActionTests(TestCase):
         )
         content = str(response.content)
         self.assertTrue('updated note' in content)
+
+    def test_comment_overflow(self):
+        comment_id = CommentAndSummary.objects.get(note=self.note).pk
+        too_many_words = 'la la la ' * 2500
+        response = self.client.post(
+            reverse(
+                'crt_forms:save-report-comment',
+                kwargs={'report_id': self.pk},
+            ),
+            {
+                'is_summary': False,
+                'note': too_many_words,
+                'comment_id': comment_id,
+            },
+            follow=True
+        )
+        content = str(response.content)
+        self.assertTrue('Could not save comment' in content)
+        self.assertEquals(response.status_code, 200)
 
 
 class ReportEditFormTests(TestCase):
@@ -241,3 +261,115 @@ class ResponseActionTests(TestCase):
         content = str(response.content)
         self.assertTrue('?per_page=15' in content)
         self.assertFalse('Contacted complainant:' in content)
+
+
+class FormNavigationTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        self.reports = [Report.objects.create(**SAMPLE_REPORT) for _ in range(3)]
+        # generate three reports that belong to a specific section
+        self.filter_section = 'ADM'
+        for report in self.reports:
+            report.assigned_section = self.filter_section
+            report.save()
+        # generate random reports that belong to other sections
+        reports = [Report.objects.create(**SAMPLE_REPORT) for _ in range(7)]
+        sections = ['CRM', 'DRS', 'ELS', 'EOS']
+        for index, report in enumerate(reports):
+            report.assigned_section = sections[index % len(sections)]
+            report.save()
+
+    def test_basic_navigation(self):
+        first = self.reports[-1]
+        response = self.client.get(
+            reverse('crt_forms:crt-forms-show', kwargs={'id': first.id}),
+            {
+                'next': f'?per_page=15&assigned_section={self.filter_section}',
+                'index': '0',
+            },
+        )
+        self.assertEquals(response.status_code, 200)
+        content = str(response.content)
+        self.assertTrue('1 of 3 records' in content)
+        url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.reports[1].id})
+        next_qp = urllib.parse.quote('?per_page=15&assigned_section=ADM')
+        self.assertTrue(escape(f"{url}?next={next_qp}&index=1") in content)
+        self.assertEquals(content.count('complaint-nav'), 2)
+        self.assertEquals(content.count('disabled-nav'), 1)
+
+    def test_invalid_index_navigation(self):
+        second = self.reports[1]
+        response = self.client.get(
+            reverse('crt_forms:crt-forms-show', kwargs={'id': second.id}),
+            {
+                'next': f'?per_page=15&assigned_section={self.filter_section}',
+                'index': '5000',
+            },
+        )
+        self.assertEquals(response.status_code, 200)
+        content = str(response.content)
+        self.assertTrue('2 of 3 records' in content)
+        url1 = reverse('crt_forms:crt-forms-show', kwargs={'id': self.reports[2].id})
+        url2 = reverse('crt_forms:crt-forms-show', kwargs={'id': self.reports[0].id})
+        next_qp = urllib.parse.quote('?per_page=15&assigned_section=ADM')
+        self.assertTrue(escape(f"{url1}?next={next_qp}&index=0") in content)
+        self.assertTrue(escape(f"{url2}?next={next_qp}&index=2") in content)
+        self.assertEquals(content.count('complaint-nav'), 2)
+        self.assertEquals(content.count('disabled-nav'), 0)
+
+    def test_report_out_of_query_filter(self):
+        second = self.reports[1]
+        response = self.client.post(
+            reverse('crt_forms:crt-forms-show', kwargs={'id': second.id}),
+            {
+                'next': f'?per_page=15&assigned_section={self.filter_section}',
+                'index': '1',
+                'type': ComplaintActions.CONTEXT_KEY,
+                'assigned_section': 'DRS',
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        content = str(response.content)
+        self.assertTrue('N/A of 2 records' in content)
+        url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.reports[0].id})
+        next_qp = urllib.parse.quote('?per_page=15&assigned_section=ADM')
+        self.assertTrue(escape(f"{url}?next={next_qp}&index=1") in content)
+        self.assertEquals(content.count('complaint-nav'), 2)
+        self.assertEquals(content.count('disabled-nav'), 1)
+
+
+class PrintActionTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        self.report = Report.objects.create(**SAMPLE_REPORT)
+
+    def post_print_action(self, options):
+        response = self.client.post(
+            reverse(
+                'crt_forms:crt-forms-print',
+                kwargs={'id': self.report.id},
+            ),
+            {
+                'options': options,
+                'next': '?per_page=15',
+                'index': '22',
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        return str(response.content)
+
+    def test_response_action_print(self):
+        options = ['correspondent', 'actions']
+        content = self.post_print_action(options)
+        # verify that next QP is preserved and activity log shows up
+        self.assertTrue('?per_page=15' in content)
+        self.assertTrue('Printed report' in content)
+        self.assertTrue(escape('Selected correspondent, actions') in content)

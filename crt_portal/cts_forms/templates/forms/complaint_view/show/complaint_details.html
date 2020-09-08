@@ -8,6 +8,7 @@
 {% block extra_title %}
 <button aria-label="edit report details" id="edit-details-btn" class="usa-button usa-button--unstyled button--edit margin-left-auto" type="button">Edit</button>
 {% endblock %}
+{% block extra_classes %}crt-report-card{% endblock %}
 
 {% block icon %}
 <img src="{% static "img/intake-icons/ic_folder.svg" %}" alt="icon" class="icon" />
@@ -16,7 +17,7 @@
 {% block card_content %}
 <form id="details-edit-form" class="usa-form " method="post" novalidate>
 
-<div class="blue-background usa-prose">
+<div class="crt-current-summary blue-background usa-prose">
   <div id="current-summary" class="details">
     {% if summary %}
     <label class="bold backend-blue" for="current-summary-text">
@@ -40,9 +41,15 @@
 <div class="report-details">
     {% csrf_token %}
     <input type="hidden" value="{{ return_url_args }}" name="next" id="next-{{ id_name }}" />
+    <input type="hidden" value="{{ index }}" name="index" id="index-{{ id_name }}" />
     <table class="usa-table usa-table--borderless complaint-card-table">
       <tr>
-        <th><label for="{{details_form.primary_complaint.id_for_label}}">Primary issue</label></th>
+        <th>
+          <div class="report-print-question">
+            {{ questions.primary_reason }}
+          </div>
+          <label class="report-details-label" for="{{details_form.primary_complaint.id_for_label}}">Primary issue</label>
+        </th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
             {{primary_complaint.0}}
@@ -54,7 +61,14 @@
       {# showing old data with hate crimes #}
       {% if crimes.physical_harm or crimes.trafficking %}
       <tr>
-        <th>Hate crime</th>
+        <th>
+          <div class="report-print-question">
+            {{ questions.hate_crime }}
+          </div>
+          <div class="report-details-label">
+            Hate crime
+          </div>
+        </th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
             {# show new hate crime field if it exists #}
@@ -76,7 +90,14 @@
       </tr>
       {# showing old data with trafficking #}
       <tr>
-        <th>Human Trafficking</th>
+        <th>
+          <div class="report-print-question">
+            Human Trafficking
+          </div>
+          <div class="report-details-label">
+            Human Trafficking
+          </div>
+        </th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
             {% if crimes.trafficking %}
@@ -99,7 +120,12 @@
       {# current version of hate crimes. This will also show "no" responses from earlier forms #}
       {% if not crimes.trafficking and not crimes.physical_harm %}
       <tr>
-        <th><label for="{{details_form.hate_crime.id_for_label}}">Hate crime</label></th>
+        <th>
+          <div class="report-print-question">
+            {{ questions.hate_crime }}
+          </div>
+          <label class="report-details-label" for="{{details_form.hate_crime.id_for_label}}">Hate crime</label>
+        </th>
           <td>
             <div class="details {% if details_form.errors %}display-none{% endif %}">
               {{data.hate_crime|title|default:"—"}}
@@ -111,7 +137,30 @@
       </tr>
       {% endif %}
       <tr>
-        <th>Relevant Details</th>
+        <th>
+          <div class="report-print-question">
+            {% if data.election_details %}
+              {{ questions.election }}
+            {% elif data.commercial_or_public_place %}
+              {{ questions.public }}
+            {% elif data.inside_correctional_facility %}
+              {% for question in questions.police.values %}
+                {{ question }}<br>
+              {% endfor %}
+            {% elif data.public_or_private_school %}
+              {{ questions.education }}
+            {% elif data.public_or_private_employer %}
+              {% for question in questions.workplace.values %}
+                {{ question }}<br>
+              {% endfor %}
+            {% else %}
+              —
+            {% endif %}
+          </div>
+          <div class="report-details-label">
+            Relevant Details
+          </div>
+        </th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
             {% if data.election_details %}
@@ -144,7 +193,12 @@
         </td>
       </tr>
       <tr>
-        <th><label for="{{details_form.location_name.id_for_label}}">Location name</label></th>
+        <th>
+          <div class="report-print-question">
+            {{ questions.location.location_name }}
+          </div>
+          <label class="report-details-label" for="{{details_form.location_name.id_for_label}}">Location name</label>
+        </th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
             {{data.location_name|default:"-"}}
@@ -155,7 +209,14 @@
         </td>
       </tr>
       <tr>
-        <th>Address</th>
+        <th>
+          <div class="report-print-question">
+            {{ questions.location.location_title }}
+          </div>
+          <div class="report-details-label">
+            Address
+          </div>
+        </th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
             {{ data.location_address_line_1|default:"—" }}
@@ -174,7 +235,12 @@
         </td>
       </tr>
       <tr>
-        <th><label for="{{details_form.protected_class.id_for_label}}">Reported reason</label></th>
+        <th>
+          <div class="report-print-question">
+            {{ questions.characteristics }}
+          </div>
+          <label class="report-details-label" for="{{details_form.protected_class.id_for_label}}">Reported reason</label>
+        </th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
             {% for p_class in p_class_list %}
@@ -198,7 +264,12 @@
         </td>
       </tr>
       <tr>
-        <th><label for="{{details_form.servicemember.id_for_label}}">Service Member</label></th>
+        <th>
+          <div class="report-print-question">
+            {{ questions.servicemember }}
+          </div>
+          <label class="report-details-label" for="{{details_form.servicemember.id_for_label}}">Service Member</label>
+        </th>
           <td>
             <div class="details {% if details_form.errors %}display-none{% endif %}">
               {{data.servicemember|title|default:"—"}}
@@ -209,7 +280,14 @@
           </td>
       </tr>
       <tr>
-        <th>Date of incident</th>
+        <th>
+          <div class="report-print-question">
+            {{ questions.date.date_title }}
+          </div>
+          <div class="report-details-label">
+            Date of incident
+          </div>
+        </th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
           {{ data.last_incident_month|default:"-"}}/{{data.last_incident_day|default:"-"}}/{{data.last_incident_year|default:"-"}}

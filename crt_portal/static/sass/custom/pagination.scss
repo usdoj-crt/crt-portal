@@ -32,8 +32,8 @@ $button-size: 1.5rem;
       color: color($theme-color-primary-darker);
     }
 
-    &:hover:not(.disabled-nav) {
-      background: color($theme-color-primary-lighter);
+    &.complaint-nav a {
+      @include u-border(1px, 'solid', $theme-color-primary-darker);
     }
 
     &.current-page {
