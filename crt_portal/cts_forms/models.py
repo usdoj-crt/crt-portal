@@ -32,6 +32,11 @@ logger = logging.getLogger(__name__)
 User = get_user_model()
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    intake_filters = models.TextField(max_length=500, blank=True)
+
+
 class CommentAndSummary(models.Model):
     note = models.CharField(max_length=7000, null=False, blank=False,)
     author = models.CharField(max_length=1000, null=False, blank=False,)
