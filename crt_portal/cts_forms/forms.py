@@ -856,7 +856,7 @@ class ProForm(
             return cleaned_data
 
 
-class Profiles(ModelForm):
+class ProfileForm(ModelForm):
     intake_filters = MultipleChoiceField(
         required=False,
         choices=SECTION_CHOICES,
