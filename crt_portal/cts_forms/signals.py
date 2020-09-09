@@ -11,7 +11,7 @@ from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
 
-from .models import Report, ProtectedClass, CommentAndSummary
+from .models import Report, ProtectedClass, CommentAndSummary, Profile
 from .model_variables import PUBLIC_USER
 
 logger = logging.getLogger(__name__)
@@ -114,3 +114,9 @@ def delete_report(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
     message = str(format_data_message('DATA DELETED', current_request, instance))
     logger.info(message)
+
+
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
