@@ -28,6 +28,7 @@ django-csp = "*"
 pip = "*"
 django-activity-stream = "*"
 newrelic = "*"
+babel = "*"
 
 [requires]
 python_version = "3.8.5"

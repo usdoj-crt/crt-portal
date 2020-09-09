@@ -156,6 +156,21 @@ SECTION_CHOICES = (
     ('SPL', 'Special Litigation'),
     ('VOT', 'Voting'),
 )
+# for form letter translations only. Note that these choices
+# technically differ from section choices since they have "de" (of).
+SECTION_CHOICES_ES = (
+    ('ADM', 'Administrativa'),
+    ('APP', 'de Apelación'),
+    ('CRM', 'Penal'),
+    ('DRS', 'de Derechos en Razón a Discapacidad'),
+    ('ELS', 'de Litigios Laborales'),
+    ('EOS', 'de Oportunidades Educativas'),
+    ('FCS', 'de Coordinación y Cumplimiento Federal'),
+    ('HCE', 'de Coordinación y Cumplimiento Federal'),
+    ('IER', 'de Derechos de Inmigrantes y Empleados'),
+    ('SPL', 'de Litigios Especiales'),
+    ('VOT', 'de Votación'),
+)
 
 COMMERCIAL_OR_PUBLIC_PLACE_CHOICES = (
     ('place_of_worship', _('Place of worship or about a place of worship')),
