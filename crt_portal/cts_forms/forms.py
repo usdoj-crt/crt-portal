@@ -37,7 +37,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ResponseTemplate)
+                     ProtectedClass, Report, ResponseTemplate, Profile)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -854,6 +854,26 @@ class ProForm(
             return date_cleaner(self, cleaned_data)
         else:
             return cleaned_data
+
+
+class Profiles(ModelForm):
+    intake_filters = MultipleChoiceField(
+        required=False,
+        choices=SECTION_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'intake_filters'
+        })
+    )
+
+    class Meta:
+        model = Profile
+        fields = [
+            'intake_filters'
+        ]
+
+        labels = {
+            'intake_filters': 'View sections'
+        }
 
 
 class Filters(ModelForm):
