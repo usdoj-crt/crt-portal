@@ -62,5 +62,5 @@ SUMMARY_HELPTEXT = {
     'examples': [
         _('Time'),
         _('Names of people involved including witnesses if there are any'),
-        _('Any supporting materials (please list and describe them).')],
+        _('Any supporting materials (please list and describe them)')],
 }

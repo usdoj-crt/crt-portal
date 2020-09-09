@@ -1161,18 +1161,18 @@ msgid "Please share details like:"
 msgstr "Comparta detalles como:"
 
 #: question_text.py:63
-msgid "Time;"
-msgstr "hora,"
+msgid "Time"
+msgstr "hora"
 
 #: question_text.py:64
-msgid "Names of people involved including witnesses if there are any; and"
+msgid "Names of people involved including witnesses if there are any"
 msgstr ""
 "los nombres de las personas involucradas, incluyendo a testigos, si los "
-"hubiera y"
+"hubiera"
 
 #: question_text.py:65
-msgid "Any supporting materials (please list and describe them)."
-msgstr "Cualquier material de apoyo (haga una lista y describa cada artículo)."
+msgid "Any supporting materials (please list and describe them)"
+msgstr "Cualquier material de apoyo (haga una lista y describa cada artículo)"
 
 #: templates/base.html:22 templates/base.html:40 templates/forms/base.html:19
 #: templates/forms/report_base.html:13
