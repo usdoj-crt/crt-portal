@@ -11,7 +11,7 @@ from testfixtures import LogCapture
 
 from ..forms import (CommercialPublicLocation, ComplaintActions, Contact,
                      Details, EducationLocation, LocationForm, PoliceLocation,
-                     PrimaryReason, ProForm, ProtectedClassForm, When, HateCrimes)
+                     PrimaryReason, ProForm, ProtectedClassForm, When, HateCrimes, ProfileForm)
 from ..model_variables import (CONTACT_PHONE_INVALID_MESSAGE,
                                PRIMARY_COMPLAINT_CHOICES,
                                PRIMARY_COMPLAINT_ERROR, PROTECTED_CLASS_ERROR,
@@ -97,6 +97,12 @@ class Valid_Form_Tests(TestCase):
             'last_incident_year': 2019,
             'last_incident_month': 5,
             'last_incident_day': 5,
+        })
+        self.assertTrue(form.is_valid())
+
+    def test_profile_update_valid(self):
+        form = ProfileForm(data={
+            'intake_filters': 'THIS is A test'
         })
         self.assertTrue(form.is_valid())
 

@@ -17,7 +17,7 @@ from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
 from .forms import (CommentActions, ComplaintActions, ResponseActions,
-                    PrintActions, ContactEditForm, Filters,
+                    PrintActions, ContactEditForm, Filters, ProfileForm,
                     ReportEditForm, Review, add_activity)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
@@ -33,7 +33,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import CommentAndSummary, Report, Trends
+from .models import CommentAndSummary, Report, Trends, Profile
 from .page_through import pagination
 
 SORT_DESC_CHAR = '-'
@@ -334,6 +334,32 @@ def serialize_data(report, request, report_id):
     }
 
     return output
+
+
+class UpdateProfile(LoginRequiredMixin, FormView):
+    """Can be used for updating section filter for a profile"""
+    form_class = ProfileForm
+
+    def post(self, request):
+        """Update or create Profile"""
+        user_prof = request.user.profile
+        user_prof.user
+        intake_filter = request.Post.get('intake_filters')
+
+        profile_form = ProfileForm(request.POST)
+
+        if profile_form.is_valid() and profile_form.has_changed():
+            """Save Data in database"""
+            user_prof.object.update_or_create(
+                user=request.user,
+                defaults={'intake_filters': intake_filter}
+            )
+
+        else:
+            """Log Error Message"""
+
+        """redirects back to /form/view but all filter params are not perserved. """
+        return redirect('/form/view')
 
 
 class ResponseView(LoginRequiredMixin, View):
