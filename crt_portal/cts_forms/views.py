@@ -336,27 +336,31 @@ def serialize_data(report, request, report_id):
     return output
 
 
-class UpdateProfile(LoginRequiredMixin, FormView):
+class ProfileView(LoginRequiredMixin, FormView):
     """Can be used for updating section filter for a profile"""
     form_class = ProfileForm
 
     def post(self, request):
         """Update or create Profile"""
-        user_prof = request.user.profile
-        user_prof.user
-        intake_filter = request.Post.get('intake_filters')
+        user = request.user
+        intake_filter = request.POST.get('intake_filters')
 
-        profile_form = ProfileForm(request.POST)
+        if intake_filter:
+            instance = get_object_or_404(Profile, id=user.id)
+        else:
+            instance = None
+
+        profile_form = ProfileForm(request.POST, instance=instance)
 
         if profile_form.is_valid() and profile_form.has_changed():
             """Save Data in database"""
-            user_prof.object.update_or_create(
-                user=request.user,
-                defaults={'intake_filters': intake_filter}
-            )
+            intake_filter = profile_form.save()
 
         else:
             """Log Error Message"""
+            for key in profile_form.errors:
+                errors = '; '.join(profile_form.errors[key])
+                profile_form = f'Could not save profile: {errors}'
 
         """redirects back to /form/view but all filter params are not perserved. """
         return redirect('/form/view')
