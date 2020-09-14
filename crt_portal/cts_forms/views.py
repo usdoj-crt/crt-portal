@@ -1,6 +1,5 @@
 import os
 import urllib.parse
-import logging
 
 from django import forms
 from django.contrib import messages
@@ -34,10 +33,9 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import CommentAndSummary, Report, Trends, Profile
+from .models import CommentAndSummary, Report, Trends
 from .page_through import pagination
 
-logger = logging.getLogger(__name__)
 SORT_DESC_CHAR = '-'
 
 
@@ -344,19 +342,15 @@ class ProfileView(LoginRequiredMixin, FormView):
 
     def post(self, request):
         """Update or create Profile"""
-        user = request.user
-        intake_filter = request.POST.get('intake_filters')
-
-        if intake_filter:
-            instance = get_object_or_404(Profile, id=user.id)
+        if request.user.profile:
+            instance = request.user.profile
         else:
             instance = None
 
         profile_form = ProfileForm(request.POST, instance=instance)
-
         if profile_form.is_valid() and profile_form.has_changed():
             """Save Data in database"""
-            intake_filter = profile_form.save()
+            profile_form.save()
             messages.add_message(request, messages.SUCCESS, 'Successfully Saved Profile')
 
             """redirects back to /form/view but all filter params are not perserved. """

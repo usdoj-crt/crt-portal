@@ -1,4 +1,5 @@
 
+import logging
 from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import User
@@ -8,6 +9,9 @@ from ..models import Report, Profile
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
 from ..forms import ContactEditForm, ReportEditForm
 from .test_data import SAMPLE_REPORT
+
+
+logger = logging.getLogger(__name__)
 
 
 class ProfileViewTests(TestCase):
@@ -33,8 +37,7 @@ class ProfileViewTests(TestCase):
         self.form_data.update({'intake_filters': new_intake_filters})
         self.client.post(self.url, self.form_data, follow=True)
         self.test_profile.refresh_from_db()
-        old_intake_filters = self.test_profile.intake_filters
-        self.assertEqual(old_intake_filters, str(new_intake_filters))
+        self.assertEqual(self.test_profile.intake_filters, str(new_intake_filters))
 
 
 class ContactInfoUpdateTests(TestCase):
