@@ -1,6 +1,5 @@
 import copy
 import secrets
-import logging
 from datetime import date, timedelta
 
 from django.contrib.auth.models import User
@@ -22,8 +21,6 @@ from ..models import (CommentAndSummary,
                       ProtectedClass, Report)
 from ..views import save_form
 from .test_data import SAMPLE_REPORT
-
-logger = logging.getLogger(__name__)
 
 
 class Valid_Form_Tests(TestCase):
@@ -107,10 +104,6 @@ class Valid_Form_Tests(TestCase):
         form = ProfileForm(data={
             'intake_filters': ['VOT', 'ADM']
         })
-        logger.info('Logging Form Errors::')
-        for key in form.errors:
-            logger.info(form.errors[key])
-
         self.assertTrue(form.is_valid())
 
 

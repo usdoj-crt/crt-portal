@@ -1,5 +1,6 @@
 import os
 import urllib.parse
+import logging
 
 from django import forms
 from django.contrib import messages
@@ -36,6 +37,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
 from .models import CommentAndSummary, Report, Trends, Profile
 from .page_through import pagination
 
+logger = logging.getLogger(__name__)
 SORT_DESC_CHAR = '-'
 
 
@@ -355,15 +357,86 @@ class ProfileView(LoginRequiredMixin, FormView):
         if profile_form.is_valid() and profile_form.has_changed():
             """Save Data in database"""
             intake_filter = profile_form.save()
+            messages.add_message(request, messages.SUCCESS, 'Successfully Saved Profile')
 
+            """redirects back to /form/view but all filter params are not perserved. """
+            return redirect('/form/view')
         else:
-            """Log Error Message"""
+            """Write Errors into messages and return invalid profile_form back to IndexView"""
             for key in profile_form.errors:
                 errors = '; '.join(profile_form.errors[key])
-                profile_form = f'Could not save profile: {errors}'
+                error_msg = f'Could not save profile: {errors}'
+                messages.add_message(request, messages.ERROR, error_msg)
 
-        """redirects back to /form/view but all filter params are not perserved. """
-        return redirect('/form/view')
+            # Placeholder to represent requested Get params.
+            report_query, query_filters = report_filter(request.GET)
+
+            # Sort data based on request from params, default to `created_date` of complaint
+            sort = ['-create_date']
+            per_page = 15
+            page = 1
+
+            requested_reports = report_query.order_by(*sort)
+            paginator = Paginator(requested_reports, per_page)
+            requested_reports, page_format = pagination(paginator, page, per_page)
+
+            sort_state = {}
+            # make sure the links for this page have the same paging, sorting, filtering etc.
+            page_args = f'?per_page={per_page}'
+
+            # process filter query params
+            filter_args = ''
+            for query_item in query_filters.keys():
+                arg = query_item
+                for item in query_filters[query_item]:
+                    filter_args = filter_args + f'&{arg}={item}'
+            page_args += filter_args
+
+            # process sort query params
+            sort_args = ''
+            for sort_item in sort:
+                if sort_item[0] == SORT_DESC_CHAR:
+                    sort_state.update({sort_item[1::]: True})
+                else:
+                    sort_state.update({sort_item: False})
+
+                sort_args += f'&sort={sort_item}'
+            page_args += sort_args
+
+            all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
+
+            data = []
+
+            paginated_offset = page_format['page_range_start'] - 1
+            for index, report in enumerate(requested_reports):
+                p_class_list = format_protected_class(
+                    report.protected_class.all().order_by('form_order'),
+                    report.other_class,
+                )
+                if report.other_class:
+                    p_class_list.append(report.other_class)
+                if len(p_class_list) > 3:
+                    p_class_list = p_class_list[:3]
+                    p_class_list[2] = f'{p_class_list[2]}...'
+
+                data.append({
+                    "report": report,
+                    "report_protected_classes": p_class_list,
+                    "url": f'{report.id}?next={all_args_encoded}&index={paginated_offset + index}',
+                })
+
+            final_data = {
+                'form': Filters(request.GET),
+                'profileForm': profile_form,
+                'data_dict': data,
+                'page_format': page_format,
+                'page_args': page_args,
+                'sort_state': sort_state,
+                'filter_state': filter_args,
+                'filters': query_filters,
+            }
+
+            return render(request, 'forms/complaint_view/index/index.html', final_data)
 
 
 class ResponseView(LoginRequiredMixin, View):

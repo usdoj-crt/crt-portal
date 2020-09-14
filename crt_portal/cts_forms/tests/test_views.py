@@ -1,5 +1,4 @@
 
-import logging
 from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import User
@@ -7,10 +6,8 @@ from django.urls import reverse
 
 from ..models import Report, Profile
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
-from ..forms import ContactEditForm, ReportEditForm, ProfileForm
+from ..forms import ContactEditForm, ReportEditForm
 from .test_data import SAMPLE_REPORT
-
-logger = logging.getLogger(__name__)
 
 
 class ProfileViewTests(TestCase):
@@ -23,12 +20,9 @@ class ProfileViewTests(TestCase):
             'user_id': self.user.id
         }
         self.test_profile = Profile.objects.create(**sample_profile)
-        logger.info(self.test_profile)
         self.client.login(username='DELETE_USER', password='')  # nosec
         self.form_data = {'type': 'profile_form'}
-
         self.url = reverse('crt_forms:cts-forms-profile')
-        logger.info(self.url)
 
     def tearDown(self):
         self.user.delete()
@@ -37,16 +31,10 @@ class ProfileViewTests(TestCase):
         """Profile create on successfull POST"""
         new_intake_filters = ['VOT', 'ADM']
         self.form_data.update({'intake_filters': new_intake_filters})
-        logger.info(self.form_data)
-        #response = self.client.post(self.url, self.form_data, follow=True)
-
-        logger.info('Logging Form Errors::')
-        #logger.info(response.context['intake_filters'])
-        #self.assertTrue(response.context['data'].intake_filters == new_intake_filters)
-
+        self.client.post(self.url, self.form_data, follow=True)
         self.test_profile.refresh_from_db()
-        logger.info(self.test_profile)
-        self.assertEqual(self.test_profile, new_intake_filters)
+        old_intake_filters = self.test_profile.intake_filters
+        self.assertEqual(old_intake_filters, str(new_intake_filters))
 
 
 class ContactInfoUpdateTests(TestCase):
