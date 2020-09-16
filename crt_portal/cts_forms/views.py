@@ -341,12 +341,9 @@ class ProfileView(LoginRequiredMixin, FormView):
     """Can be used for updating section filter for a profile"""
     form_class = ProfileForm
 
-    def has_related_profile(self, user):
-        return hasattr(user, 'profile') and user.profile is not None
-
     def post(self, request):
         """Update or create Profile"""
-        if hasattr(request.user, 'profile') and request.user.profile is not None:
+        if hasattr(request.user, 'profile'):
             instance = request.user.profile
         else:
             instance = Profile()
