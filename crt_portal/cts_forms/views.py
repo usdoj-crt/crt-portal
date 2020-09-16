@@ -221,7 +221,7 @@ def setup_filter_parameters(report, querydict):
 
 
 @login_required
-def IndexView(request):
+def index_view(request):
     report_query, query_filters = report_filter(request.GET)
 
     # Sort data based on request from params, default to `created_date` of complaint
