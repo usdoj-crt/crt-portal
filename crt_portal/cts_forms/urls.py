@@ -13,6 +13,7 @@ urlpatterns = [
     path('view/<int:id>/print', PrintView.as_view(), name='crt-forms-print'),
     path('view/', index_view, name='crt-forms-index'),
     path('new/', ProFormView.as_view([ProForm]), name='crt-pro-form'),
+    path('actions/', ShowView.as_view(), name='crt-forms-actions'),
     path('comment/report/<int:report_id>/', SaveCommentView.as_view(), name='save-report-comment'),
     path('trends/', TrendView.as_view(), name='trends'),
 ]

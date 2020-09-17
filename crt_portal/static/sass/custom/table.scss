@@ -115,6 +115,10 @@
       @include clickable-table-cell();
     }
 
+    .td-checkbox {
+      padding: 1rem 0;
+    }
+
     .td-toggle {
       width: auto;
       height: auto;
