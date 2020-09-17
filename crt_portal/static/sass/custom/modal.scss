@@ -164,6 +164,12 @@ body.is-modal {
     }
   }
 
+  #external-link--continue {
+    @include at-media-max(mobile-lg) {
+      margin-top: 1rem;
+    }
+  }
+
   .modal-footer {
     margin-top: auto;
   }
