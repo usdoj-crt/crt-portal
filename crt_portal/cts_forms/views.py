@@ -452,10 +452,15 @@ class ShowView(LoginRequiredMixin, View):
 class ActionsView(LoginRequiredMixin, FormView):
 
     def get(self, request):
-        return_url_args = request.GET.get('next', '');
+        return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
+        selected_all = request.GET.get('all', '') == 'all'
+        ids = request.GET.getlist('actions')
+
         output = {
             'return_url_args': return_url_args,
+            'selected_all': selected_all,
+            'ids': ids,
         }
         return render(request, 'forms/complaint_view/actions/index.html', output)
 
