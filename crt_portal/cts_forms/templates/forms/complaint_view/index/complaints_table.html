@@ -133,6 +133,18 @@
       {% endif %}
     </table>
   </div>
+
+  <div class="selection-action-notification" hidden>
+    <div class="display-flex">
+      <img src="{% static 'img/ic_successconfirmation.svg' %}" alt="action available on selection" class="icon">
+      <h2>
+        <span id="selection-action-count">1 record</span> selected
+      </h2>
+      <div class="selection-submit">
+        <button type="submit" id="actions" label="actions" class="usa-button">Actions</button>
+      </div>
+    </div>
+  </div>
 </form>
 
 {% if not data_dict %}

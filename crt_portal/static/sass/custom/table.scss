@@ -249,3 +249,22 @@
   display: flex;
   flex-wrap: wrap;
 }
+
+.selection-action-notification {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+
+  background-color: color($theme-color-primary-light);
+  border-left: 5px solid color($theme-color-primary);
+
+  img, h2 {
+    margin-left: 2rem;
+  }
+
+  .selection-submit {
+    margin: 1rem 2rem;
+  }
+}
