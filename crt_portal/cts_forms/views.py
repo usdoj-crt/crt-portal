@@ -291,6 +291,7 @@ def index_view(request):
         'sort_state': sort_state,
         'filter_state': filter_args,
         'filters': query_filters,
+        'return_url_args': all_args_encoded,
     }
 
     return render(request, 'forms/complaint_view/index/index.html', final_data)
@@ -446,6 +447,20 @@ class ShowView(LoginRequiredMixin, View):
                     output.update({form_type: form(instance=report)})
 
             return render(request, 'forms/complaint_view/show/index.html', output)
+
+
+class ActionsView(LoginRequiredMixin, FormView):
+
+    def get(self, request):
+        return_url_args = request.GET.get('next', '');
+        return_url_args = urllib.parse.unquote(return_url_args)
+        output = {
+            'return_url_args': return_url_args,
+        }
+        return render(request, 'forms/complaint_view/actions/index.html', output)
+
+    def post(self, request):
+        pass
 
 
 class SaveCommentView(LoginRequiredMixin, FormView):

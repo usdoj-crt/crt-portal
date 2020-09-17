@@ -1,0 +1,41 @@
+{% extends "forms/complaint_view/intake_base.html" %}
+
+{% load static %}
+
+{% block page_title %}
+  <title>CRT Complaint Records - Actions</title>
+{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static "css/accessible-autocomplete.min.css" %}" />
+{% endblock head %}
+
+{% block content %}
+  <div class="complaint-show-body">
+    <div class="grid-container-widescreen">
+      <div class="grid-row margin-bottom-1">
+        <div class="tablet:grid-col-10 grid-offset-1 padding-left-05">
+          <div class="complaint-filter-navigation display-flex flex-row flex-justify">
+            <div class="display-flex">
+              <a class="outline-button outline-button--dark" href="{% url 'crt_forms:crt-forms-index' %}{{ return_url_args }}">
+                <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" alt="back arrow" class="icon">
+                Back to all
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block page_js %}
+  {{ block.super }}
+  <script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
+  <script nonce="{{request.csp_nonce}}">
+   accessibleAutocomplete.enhanceSelectElement({
+     defaultValue: '',
+     selectElement: document.querySelector('#id_assigned_to')
+   });
+  </script>
+{%endblock%}

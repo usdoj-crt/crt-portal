@@ -1,10 +1,11 @@
 {% load sortable_table_heading %}
 {% load static %}
 <form class="usa-form"
-      method="post"
+      method="get"
       action="{% url 'crt_forms:crt-forms-actions' %}"
       novalidate
 >
+  {% csrf_token %}
   <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
 
   <div class="crt-xscroll">
