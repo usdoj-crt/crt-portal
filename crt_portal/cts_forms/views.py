@@ -186,6 +186,9 @@ def setup_filter_parameters(report, querydict):
     return_url_args = querydict.get('next', '')
     index = querydict.get('index', None)
 
+    if index == '':
+        index = None
+
     if return_url_args and index is not None:
         querydict = QueryDict(return_url_args)
         report_query, _ = report_filter(querydict)
