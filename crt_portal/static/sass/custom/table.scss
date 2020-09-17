@@ -78,9 +78,15 @@
 
   tr.stripe {
     td {
-      background-color: color(
-        'gray-2'
-      ); // USWDS system token: https://designsystem.digital.gov/design-tokens/color/system-tokens/
+      background-color: color('gray-2');
+      border-left: 1px solid color('gray-2');
+    }
+  }
+
+  tr.selected {
+    td {
+      background-color: color($theme-color-primary-lighter);
+      border-left: 1px solid color($theme-color-primary-lighter);
     }
   }
 
