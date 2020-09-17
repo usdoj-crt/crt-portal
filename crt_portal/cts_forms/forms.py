@@ -875,6 +875,19 @@ class ProfileForm(ModelForm):
             'intake_filters': 'View sections'
         }
 
+    def clean_filters(self, cleaned_data):
+        """
+        Clean intake_filters by removing list markup
+        """
+        if 'intake_filters' in self.changed_data:
+            new_filter = self.cleaned_data['intake_filters']
+            new_filter = str(new_filter).strip('[').strip(']').replace("'", '').replace(' ', '')
+            return self.cleaned_data
+
+    def clean(self):
+        cleaned_data = super().clean()
+        return self.clean_filters(cleaned_data)
+
 
 class Filters(ModelForm):
     status = MultipleChoiceField(
