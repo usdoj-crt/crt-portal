@@ -34,7 +34,6 @@
       var checkbox = all_checkboxes[i];
       if (checkbox.checked !== checked) {
         checkbox.click(); // trigger onclick function
-        update_record_count();
       }
     }
   };

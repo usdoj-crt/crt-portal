@@ -15,6 +15,9 @@
     <form class="usa-form" method="post" novalidate>
       {% csrf_token %}
 
+      <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
+      <input type="hidden" value="{{ ids }}" name="ids" id="ids" />
+
       {{ assign_form }}
 
       <button class="usa-button"
@@ -29,7 +32,8 @@
         <button class="usa-button button--warning display-flex align-center"
                 type="submit"
                 disabled
-                name="all_ids"
+                name="all"
+                value="all"
         >
           Apply changes to {{ all_ids_count }} records
         </button>

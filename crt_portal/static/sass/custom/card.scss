@@ -98,4 +98,9 @@
   button {
     margin-top: 1rem !important;
   }
+
+  ul.errorlist {
+    color: color($theme-color-secondary);
+    list-style-type: none;
+  }
 }

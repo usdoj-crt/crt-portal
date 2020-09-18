@@ -451,17 +451,22 @@ class ShowView(LoginRequiredMixin, View):
 
 class ActionsView(LoginRequiredMixin, FormView):
 
+    def reconstruct_query(self, next_qp):
+        """
+        reconstruct the query filter on the previous page using the next
+        query parameter. note that if next is empty, the resulting
+        query will return all records.
+        """
+        querydict = QueryDict(next_qp)
+        report_query, _ = report_filter(querydict)
+        sort = querydict.getlist('sort', ['-create_date'])
+        return report_query.order_by(*sort)
+
     def get(self, request):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
 
-        # reconstruct the query filter on the previous page using the
-        # next query parameter. note that if next is empty, the
-        # resulting query will return all records.
-        querydict = QueryDict(return_url_args)
-        report_query, _ = report_filter(querydict)
-        sort = querydict.getlist('sort', ['-create_date'])
-        requested_query = report_query.order_by(*sort)
+        requested_query = self.reconstruct_query(return_url_args)
         all_ids_count = requested_query.count()
 
         ids = request.GET.getlist('id')
@@ -476,6 +481,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         output = {
             'return_url_args': return_url_args,
             'selected_all': selected_all,
+            'ids': ','.join(ids),
             'ids_count': ids_count,
             'all_ids_count': all_ids_count,
             'assign_form': assign_form,
@@ -483,7 +489,41 @@ class ActionsView(LoginRequiredMixin, FormView):
         return render(request, 'forms/complaint_view/actions/index.html', output)
 
     def post(self, request):
-        pass
+        assign_form = BulkAssign(request.POST)
+        selected_all = request.POST.get('all', '') == 'all'
+        ids = request.POST.get('ids', '').split(',')
+
+        if assign_form.is_valid():
+            assignee = assign_form["assigned_to"]
+            test = request.POST.get('assigned_to', '')
+
+            if selected_all:
+                requested_query = self.reconstruct_query(return_url_args)
+            else:
+                pass
+
+            raise hell
+
+        else:
+            for key in assign_form.errors:
+                errors = '; '.join(assign_form.errors[key])
+                error_message = f'Could not bulk assign: {errors}'
+                messages.add_message(request, messages.ERROR, error_message)
+
+            return_url_args = request.POST.get('next', '')
+            requested_query = self.reconstruct_query(return_url_args)
+            all_ids_count = requested_query.count()
+            ids_count = len(ids)
+
+            output = {
+                'return_url_args': return_url_args,
+                'selected_all': selected_all,
+                'ids': ids,
+                'ids_count': ids_count,
+                'all_ids_count': all_ids_count,
+                'assign_form': assign_form,
+            }
+            return render(request, 'forms/complaint_view/actions/index.html', output)
 
 
 class SaveCommentView(LoginRequiredMixin, FormView):

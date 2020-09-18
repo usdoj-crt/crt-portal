@@ -13,6 +13,7 @@
 {% block content %}
   <div class="complaint-show-body">
     <div class="grid-container-widescreen">
+
       <div class="grid-row margin-bottom-1">
         <div class="tablet:grid-col-10 grid-offset-1 padding-left-05">
           <div class="complaint-filter-navigation display-flex flex-row flex-justify">
@@ -24,6 +25,9 @@
             </div>
           </div>
         </div>
+        <div id="status-update" class="tablet:grid-col-6 grid-offset-1 padding-left-05">
+          {% include 'partials/messages.html' %}
+        </div>
       </div>
 
       <div class="tablet:grid-col-4 grid-offset-1 padding-left-05">
@@ -32,10 +36,6 @@
             Update multiple records
           </h1>
         </div>
-      </div>
-
-      <div id="status-update" class="tablet:grid-col-6">
-        {% include 'partials/messages.html' %}
       </div>
 
       <div class="complaint-page grid-row grid-gap-4">
