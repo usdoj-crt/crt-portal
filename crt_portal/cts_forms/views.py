@@ -16,9 +16,9 @@ from django.views.decorators.cache import never_cache
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
-from .forms import (CommentActions, ComplaintActions, ResponseActions,
-                    PrintActions, ContactEditForm, Filters,
-                    ReportEditForm, Review, add_activity)
+from .forms import (BulkAssign, CommentActions, ComplaintActions,
+                    ResponseActions, PrintActions, ContactEditForm,
+                    Filters, ReportEditForm, Review, add_activity)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -452,15 +452,27 @@ class ShowView(LoginRequiredMixin, View):
 class ActionsView(LoginRequiredMixin, FormView):
 
     def get(self, request):
+        all_ids_count = 0
         return_url_args = request.GET.get('next', '')
-        return_url_args = urllib.parse.unquote(return_url_args)
+        # TODO what to do if next is not present?
+        if return_url_args:
+            return_url_args = urllib.parse.unquote(return_url_args)
+            querydict = QueryDict(return_url_args)
+            report_query, _ = report_filter(querydict)
+            sort = querydict.getlist('sort', ['-create_date'])
+            requested_query = report_query.order_by(*sort)
+            all_ids_count = requested_query.count()
+
         selected_all = request.GET.get('all', '') == 'all'
-        ids = request.GET.getlist('actions')
+        ids = request.GET.getlist('id')
+        assign_form = BulkAssign()
 
         output = {
             'return_url_args': return_url_args,
             'selected_all': selected_all,
             'ids': ids,
+            'all_ids_count': all_ids_count,
+            'assign_form': assign_form,
         }
         return render(request, 'forms/complaint_view/actions/index.html', output)
 

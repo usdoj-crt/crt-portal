@@ -1,0 +1,37 @@
+{% extends "forms/complaint_view/show/card.html" %}
+
+{% load static %}
+
+{% block title %}Bulk assign{% endblock %}
+
+{% block extra_classes %}crt-actions-card{% endblock %}
+
+{% block icon %}
+  <img src="{% static "img/ic_personcheck-circle.svg" %}" alt="icon" class="icon" />
+{% endblock %}
+
+{% block card_content %}
+  <form class="usa-form" method="post" novalidate>
+    {% csrf_token %}
+
+    {{ assign_form }}
+
+    <button class="usa-button"
+            disabled
+            type="submit"
+            name="selected_ids"
+    >
+      Apply changes to {{ ids | length }} records
+    </button>
+
+    {% if selected_all %}
+      <button class="usa-button button--warning display-flex align-center"
+              type="submit"
+              disabled
+              name="all_ids"
+      >
+        Apply changes to {{ all_ids_count }} records
+      </button>
+    {% endif %}
+  </form>
+{% endblock %}

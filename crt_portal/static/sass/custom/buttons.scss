@@ -3,6 +3,19 @@ button,
   background-color: color($theme-color-primary-darker);
 }
 
+.button--warning {
+  background-color: color($theme-color-secondary);
+  &:before {
+    // background-image: url(../../img/ic_edit.svg);
+    background-image: url(../../img/alerts/warning.svg);
+    background-repeat: no-repeat;
+    content: '';
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+  }
+}
+
 .button--edit {
   background-color: transparent;
   @include text--body-copy__medium();
@@ -10,7 +23,7 @@ button,
   &:before {
     margin-right: 10px;
     background-image: url(../../img/ic_edit.svg);
-    background-repeat: none;
+    background-repeat: no-repeat;
     content: '';
     height: 12px;
     width: 12px;

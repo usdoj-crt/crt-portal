@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block page_title %}
-  <title>CRT Complaint Records - Actions</title>
+  <title>CRT Complaint Records - Update multiple records</title>
 {% endblock %}
 
 {% block head %}
@@ -26,20 +26,21 @@
         </div>
       </div>
 
+      <div class="tablet:grid-col-4 grid-offset-1 padding-left-05">
+        <div class="display-flex flex-align-center">
+          <h1 class="h2__display backend-blue">
+            Update multiple records
+          </h1>
+        </div>
+      </div>
+
+      <div id="status-update" class="tablet:grid-col-6">
+        {% include 'partials/messages.html' %}
+      </div>
+
       <div class="complaint-page grid-row grid-gap-4">
         <div class="complaint-actions tablet:grid-col-4 grid-offset-1">
-        <p>
-          {{ ids | length }} complaints are chosen for assignment. Choose who you want to assign them to:
-        </p>
-
-        IDs:
-        <ul>
-          {% for id in ids %}
-            <li>{{ id }}</li>
-          {% endfor %}
-        </ul>
-
-        All IDs chosen? {{ selected_all }}
+          {% include 'forms/complaint_view/actions/bulk_assign.html' %}
         </div>
       </div>
     </div>
