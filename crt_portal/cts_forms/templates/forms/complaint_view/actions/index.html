@@ -53,7 +53,14 @@
   <script nonce="{{request.csp_nonce}}">
    accessibleAutocomplete.enhanceSelectElement({
      defaultValue: '',
-     selectElement: document.querySelector('#id_assigned_to')
+     selectElement: document.querySelector('#id_assigned_to'),
+     onConfirm: function() {
+       var buttons = document.querySelectorAll(".usa-button");
+       for(var i = 0; i < buttons.length; i++) {
+         var button = buttons[i];
+         button.removeAttribute('disabled');
+       }
+     }
    });
   </script>
 {%endblock%}

@@ -6,13 +6,17 @@ button,
 .button--warning {
   background-color: color($theme-color-secondary);
   &:before {
-    // background-image: url(../../img/ic_edit.svg);
+    margin-right: 10px;
     background-image: url(../../img/alerts/warning.svg);
+    background-size: cover;
     background-repeat: no-repeat;
     content: '';
-    width: 20px;
+    width: 30px;
     height: 20px;
     display: inline-block;
+  }
+  &:hover {
+    background-color: color($theme-color-secondary-dark) !important;
   }
 }
 
