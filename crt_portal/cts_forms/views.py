@@ -481,7 +481,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         output = {
             'return_url_args': return_url_args,
             'selected_all': selected_all,
-            'ids': ','.join(ids),
+            'ids': ','.join([id for id in ids]),
             'ids_count': ids_count,
             'all_ids_count': all_ids_count,
             'assign_form': assign_form,
@@ -514,6 +514,9 @@ class ActionsView(LoginRequiredMixin, FormView):
             requested_query = self.reconstruct_query(return_url_args)
             all_ids_count = requested_query.count()
             ids_count = len(ids)
+
+            # preserve the selected all for initial submission
+            selected_all = request.POST.get('all', '') and all_ids_count != ids_count
 
             output = {
                 'return_url_args': return_url_args,
