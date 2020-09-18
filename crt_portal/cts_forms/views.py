@@ -452,25 +452,31 @@ class ShowView(LoginRequiredMixin, View):
 class ActionsView(LoginRequiredMixin, FormView):
 
     def get(self, request):
-        all_ids_count = 0
         return_url_args = request.GET.get('next', '')
-        # TODO what to do if next is not present?
-        if return_url_args:
-            return_url_args = urllib.parse.unquote(return_url_args)
-            querydict = QueryDict(return_url_args)
-            report_query, _ = report_filter(querydict)
-            sort = querydict.getlist('sort', ['-create_date'])
-            requested_query = report_query.order_by(*sort)
-            all_ids_count = requested_query.count()
+        return_url_args = urllib.parse.unquote(return_url_args)
 
-        selected_all = request.GET.get('all', '') == 'all'
+        # reconstruct the query filter on the previous page using the
+        # next query parameter. note that if next is empty, the
+        # resulting query will return all records.
+        querydict = QueryDict(return_url_args)
+        report_query, _ = report_filter(querydict)
+        sort = querydict.getlist('sort', ['-create_date'])
+        requested_query = report_query.order_by(*sort)
+        all_ids_count = requested_query.count()
+
         ids = request.GET.getlist('id')
+        ids_count = len(ids)
         assign_form = BulkAssign()
+
+        # the select all option only applies if 1. user hits the
+        # select all button and 2. we have more records in the query
+        # than the ids passed in
+        selected_all = request.GET.get('all', '') == 'all' and all_ids_count != ids_count
 
         output = {
             'return_url_args': return_url_args,
             'selected_all': selected_all,
-            'ids': ids,
+            'ids_count': ids_count,
             'all_ids_count': all_ids_count,
             'assign_form': assign_form,
         }
