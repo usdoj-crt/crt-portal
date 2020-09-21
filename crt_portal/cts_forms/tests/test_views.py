@@ -37,7 +37,7 @@ class ProfileViewTests(TestCase):
         self.form_data.update({'intake_filters': new_intake_filters})
         self.client.post(self.url, self.form_data, follow=True)
         self.test_profile.refresh_from_db()
-        self.assertEqual(self.test_profile.intake_filters, str(new_intake_filters))
+        self.assertEqual(self.test_profile.intake_filters, 'VOT,ADM')
 
 
 class ContactInfoUpdateTests(TestCase):

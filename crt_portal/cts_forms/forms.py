@@ -31,6 +31,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
+                              SECTION_CHOICES_WITHOUT_LABELS,
                               SECTION_CHOICES, SERVICEMEMBER_CHOICES,
                               SERVICEMEMBER_ERROR, STATES_AND_TERRITORIES,
                               STATUS_CHOICES, STATUTE_CHOICES,
@@ -859,7 +860,7 @@ class ProForm(
 class ProfileForm(ModelForm):
     intake_filters = MultipleChoiceField(
         required=False,
-        choices=SECTION_CHOICES,
+        choices=SECTION_CHOICES_WITHOUT_LABELS,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'intake_filters'
         })
@@ -882,6 +883,7 @@ class ProfileForm(ModelForm):
         if 'intake_filters' in self.changed_data:
             new_filter = self.cleaned_data['intake_filters']
             new_filter = str(new_filter).strip('[').strip(']').replace("'", '').replace(' ', '')
+            self.cleaned_data['intake_filters'] = new_filter
             return self.cleaned_data
 
     def clean(self):

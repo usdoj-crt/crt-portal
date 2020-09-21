@@ -222,6 +222,16 @@ def setup_filter_parameters(report, querydict):
 
 @login_required
 def IndexView(request):
+    profile_form = ProfileForm()
+
+    # Check for Profile object, then add filter to request
+    if hasattr(request.user, 'profile') and request.user.profile.intake_filters:
+        request.GET = request.GET.copy()
+        request.GET.setlist('assigned_section', request.user.profile.intake_filters.split(','))
+
+        # Retreive ProfileForm intake_filters or return POST ProfileForm
+        profile_form.fields['intake_filters'].initial = request.user.profile.intake_filters.split(',')
+
     report_query, query_filters = report_filter(request.GET)
 
     # Sort data based on request from params, default to `created_date` of complaint
@@ -285,7 +295,7 @@ def IndexView(request):
 
     final_data = {
         'form': Filters(request.GET),
-        'profileForm': ProfileForm(request.POST),
+        'profileForm': profile_form,
         'data_dict': data,
         'page_format': page_format,
         'page_args': page_args,
@@ -340,6 +350,7 @@ def serialize_data(report, request, report_id):
 class ProfileView(LoginRequiredMixin, FormView):
     """Can be used for updating section filter for a profile"""
     form_class = ProfileForm
+    template_nmae = 'forms/complaint_view/index/index.html'
 
     def post(self, request):
         """Update or create Profile"""
@@ -363,7 +374,7 @@ class ProfileView(LoginRequiredMixin, FormView):
                 errors = '; '.join(profile_form.errors[key])
                 error_msg = f'Could not save profile: {errors}'
                 messages.add_message(request, messages.ERROR, error_msg)
-            return IndexView(request)
+            return redirect('/form/view')
 
 
 class ResponseView(LoginRequiredMixin, View):
