@@ -72,5 +72,26 @@
        }
      }
    });
+
+   var show_warning_section = document.getElementById('show_warning_section');
+   show_warning_section.onclick = function(event) {
+     event.preventDefault();
+     var assign = document.getElementById('assign_section');
+     var section = document.getElementById('warning_section');
+     var assignee = document.getElementById('warning_section_assignee');
+     var selectElement = document.getElementById('id_assigned_to');
+     assign.setAttribute('hidden', 'hidden');
+     section.removeAttribute('hidden');
+     assignee.innerText = selectElement.value;
+   };
+
+   var cancel_warning_section = document.getElementById('cancel_warning_section');
+   cancel_warning_section.onclick = function(event) {
+     event.preventDefault();
+     var assign = document.getElementById('assign_section');
+     var section = document.getElementById('warning_section');
+     assign.removeAttribute('hidden');
+     section.setAttribute('hidden', 'hidden');
+   }
   </script>
 {% endblock %}

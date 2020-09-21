@@ -19,25 +19,43 @@
       <input type="hidden" value="{{ ids }}" name="ids" id="ids" />
       <input type="hidden" value="{{ selected_all }}" name="all" id="all" />
 
-      {{ assign_form }}
+      <div id="assign_section">
+        {{ assign_form }}
 
-      <button class="usa-button"
-              disabled
-              type="submit"
-              name="selected_ids"
-      >
-        Apply changes to {{ ids_count }} records
-      </button>
+        <button class="usa-button"
+                disabled
+                type="submit"
+                name="selected_ids"
+        >
+          Apply changes to {{ ids_count }} records
+        </button>
+
+        {% if selected_all %}
+          <button class="usa-button button--warning display-flex align-center"
+                  id="show_warning_section"
+                  disabled
+          >
+            Apply changes to {{ all_ids_count }} records
+          </button>
+        {% endif %}
+      </div>
 
       {% if selected_all %}
-        <button class="usa-button button--warning display-flex align-center"
-                type="submit"
-                disabled
-                name="all"
-                value="all"
-        >
-          Apply changes to {{ all_ids_count }} records
-        </button>
+        <div id="warning_section" hidden>
+          <p>
+            Are you sure you want to assign {{ all_ids_count }} records to <span id="warning_section_assignee"></span>?
+          </p>
+          <button class="usa-button button--warning display-flex align-center"
+                  name="all"
+                  value="all"
+                  type="submit">
+            Yes
+          </button>
+          <button class="usa-button"
+                  id="cancel_warning_section">
+            No
+          </button>
+        </div>
       {% endif %}
     </form>
   {% else %}
