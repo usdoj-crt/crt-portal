@@ -490,19 +490,28 @@ class ActionsView(LoginRequiredMixin, FormView):
 
     def post(self, request):
         assign_form = BulkAssign(request.POST)
+        return_url_args = request.POST.get('next', '')
         selected_all = request.POST.get('all', '') == 'all'
         ids = request.POST.get('ids', '').split(',')
 
         if assign_form.is_valid():
-            assignee = assign_form["assigned_to"]
-            test = request.POST.get('assigned_to', '')
-
+            assignee = assign_form.cleaned_data['assigned_to']
+            requested_query = None
             if selected_all:
                 requested_query = self.reconstruct_query(return_url_args)
             else:
-                pass
+                requested_query = Report.objects.filter(pk__in=ids)
 
-            raise hell
+            number = requested_query.update(assigned_to=assignee)
+
+            description = f"{number} reports have been assigned to {assignee}"
+            messages.add_message(request, messages.SUCCESS, description)
+
+            # TODO
+            # add_activity(request.user, "Printed report", description, report)
+
+            url = reverse('crt_forms:crt-forms-index')
+            return redirect(f"{url}{return_url_args}")
 
         else:
             for key in assign_form.errors:
@@ -510,7 +519,6 @@ class ActionsView(LoginRequiredMixin, FormView):
                 error_message = f'Could not bulk assign: {errors}'
                 messages.add_message(request, messages.ERROR, error_message)
 
-            return_url_args = request.POST.get('next', '')
             requested_query = self.reconstruct_query(return_url_args)
             all_ids_count = requested_query.count()
             ids_count = len(ids)
