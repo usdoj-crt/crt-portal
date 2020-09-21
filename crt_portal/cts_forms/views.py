@@ -527,8 +527,8 @@ class ActionsView(LoginRequiredMixin, FormView):
             all_ids_count = requested_query.count()
             ids_count = len(ids)
 
-            # preserve the selected all for initial submission
-            selected_all = request.POST.get('all', '') and all_ids_count != ids_count
+            # further refine selected_all to ensure < 15 items don't show up.
+            selected_all = selected_all and all_ids_count != ids_count
 
             output = {
                 'return_url_args': return_url_args,
