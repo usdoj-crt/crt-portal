@@ -1,5 +1,6 @@
 import os
 import urllib.parse
+import logging
 
 from django import forms
 from django.contrib import messages
@@ -35,6 +36,8 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
 from .models import CommentAndSummary, Report, Trends
 from .page_through import pagination
+
+logger = logging.getLogger(__name__)
 
 SORT_DESC_CHAR = '-'
 
@@ -513,6 +516,9 @@ class ActionsView(LoginRequiredMixin, FormView):
 
             description = f"{number} reports have been assigned to {assignee}"
             messages.add_message(request, messages.SUCCESS, description)
+
+            # log this action for an audit trail.
+            logger.info(f'Bulk updating {number} requests by {request.user} to {assignee}')
 
             url = reverse('crt_forms:crt-forms-index')
             return redirect(f"{url}{return_url_args}")
