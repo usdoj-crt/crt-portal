@@ -502,13 +502,17 @@ class ActionsView(LoginRequiredMixin, FormView):
             else:
                 requested_query = Report.objects.filter(pk__in=ids)
 
+            # update activity log _before_ we update the assignee so
+            # that we have access to the original assignee
+            for report in requested_query:
+                original = report.assigned_to or "None"
+                description = f'Updated from "{original}" to "{assignee}"'
+                add_activity(request.user, "Assigned to:", description, report)
+
             number = requested_query.update(assigned_to=assignee)
 
             description = f"{number} reports have been assigned to {assignee}"
             messages.add_message(request, messages.SUCCESS, description)
-
-            # TODO
-            # add_activity(request.user, "Printed report", description, report)
 
             url = reverse('crt_forms:crt-forms-index')
             return redirect(f"{url}{return_url_args}")
