@@ -23,7 +23,6 @@
 
   var assign_section = document.getElementById('assign_section');
   var warning_section = document.getElementById('warning_section');
-
   var show_warning_section = document.getElementById('show_warning_section');
   show_warning_section.onclick = function(event) {
     event.preventDefault();
