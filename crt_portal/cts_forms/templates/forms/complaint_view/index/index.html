@@ -7,6 +7,9 @@
 
 {% block content %}
 <div class="intake-content">
+  <div id="status-update" class="grid-col-auto">
+    {% include 'partials/messages.html' %}
+  </div>
   {% include "forms/complaint_view/index/filter-controls.html" with filters=filters form=form %}
   <div class="display-flex margin-top-8">
     {% include "forms/complaint_view/index/active-filters.html" %}
