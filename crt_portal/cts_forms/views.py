@@ -223,14 +223,14 @@ def setup_filter_parameters(report, querydict):
 @login_required
 def IndexView(request):
     profile_form = ProfileForm()
-
     # Check for Profile object, then add filter to request
     if hasattr(request.user, 'profile') and request.user.profile.intake_filters:
         request.GET = request.GET.copy()
         request.GET.setlist('assigned_section', request.user.profile.intake_filters.split(','))
 
-        # Retreive ProfileForm intake_filters or return POST ProfileForm
-        profile_form.fields['intake_filters'].initial = request.user.profile.intake_filters.split(',')
+        # Retreive ProfileForm intake_filters
+        data = {'intake_filters': request.user.profile.intake_filters.split(',')}
+        profile_form = ProfileForm(data)
 
     report_query, query_filters = report_filter(request.GET)
 
@@ -350,7 +350,6 @@ def serialize_data(report, request, report_id):
 class ProfileView(LoginRequiredMixin, FormView):
     """Can be used for updating section filter for a profile"""
     form_class = ProfileForm
-    template_nmae = 'forms/complaint_view/index/index.html'
 
     def post(self, request):
         """Update or create Profile"""
@@ -367,14 +366,14 @@ class ProfileView(LoginRequiredMixin, FormView):
             messages.add_message(request, messages.SUCCESS, 'Successfully Saved Profile')
 
             """redirects back to /form/view but all filter params are not perserved. """
-            return redirect('/form/view')
+            return redirect(reverse('crt_forms:crt-forms-index'))
         else:
             """Write Errors into messages and return invalid profile_form back to IndexView"""
             for key in profile_form.errors:
                 errors = '; '.join(profile_form.errors[key])
                 error_msg = f'Could not save profile: {errors}'
                 messages.add_message(request, messages.ERROR, error_msg)
-            return redirect('/form/view')
+            return redirect(reverse('crt_forms:crt-forms-index'))
 
 
 class ResponseView(LoginRequiredMixin, View):
