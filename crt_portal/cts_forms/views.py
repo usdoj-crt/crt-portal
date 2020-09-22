@@ -483,7 +483,7 @@ class ActionsView(LoginRequiredMixin, FormView):
 
         output = {
             'return_url_args': return_url_args,
-            'selected_all': selected_all,
+            'selected_all': 'all' if selected_all else '',
             'ids': ','.join([id for id in ids]),
             'ids_count': ids_count,
             'all_ids_count': all_ids_count,
@@ -538,7 +538,7 @@ class ActionsView(LoginRequiredMixin, FormView):
 
             output = {
                 'return_url_args': return_url_args,
-                'selected_all': selected_all,
+                'selected_all': 'all' if selected_all else '',
                 'ids': ids,
                 'ids_count': ids_count,
                 'all_ids_count': all_ids_count,

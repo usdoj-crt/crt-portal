@@ -373,3 +373,50 @@ class PrintActionTests(TestCase):
         self.assertTrue('?per_page=15' in content)
         self.assertTrue('Printed report' in content)
         self.assertTrue(escape('Selected correspondent, actions') in content)
+
+
+class BulkAssignTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        self.reports = [Report.objects.create(**SAMPLE_REPORT) for _ in range(16)]
+
+    def get(self, ids, all_ids=False):
+        params = {
+            'next': '?per_page=15&status=open&something=else',
+            'id': ids,
+        }
+        if all_ids:
+            params['all'] = 'all'
+        response = self.client.get(reverse('crt_forms:crt-forms-actions'), params)
+        self.assertEquals(response.status_code, 200)
+        return response
+
+    def test_get_with_ids(self):
+        ids = [report.id for report in self.reports[3:5]]
+        response = self.get(ids)
+        content = str(response.content)
+        # verify that all hidden inputs are present with correct values
+        next_qp = escape("?per_page=15&status=open&something=else")
+        id_str = ",".join([str(id) for id in ids])
+        self.assertTrue(f'value="{next_qp}" name="next"' in content)
+        self.assertTrue(f'value="{id_str}" name="ids"' in content)
+        # bulk assign all options should not show up
+        self.assertTrue('value="" name="all"' in content)
+        self.assertFalse("button--warning" in content)
+
+    def test_get_with_all(self):
+        ids = [report.id for report in self.reports]
+        response = self.get(ids, all_ids=True)
+        content = str(response.content)
+        # verify that all hidden inputs are present with correct values
+        next_qp = escape("?per_page=15&status=open&something=else")
+        id_str = ",".join([str(id) for id in ids])
+        self.assertTrue(f'value="{next_qp}" name="next"' in content)
+        self.assertTrue(f'value="{id_str}" name="ids"' in content)
+        # bulk assign all options should show up
+        self.assertTrue('value="all" name="all"' in content)
+        self.assertTrue("button--warning" in content)
+        self.assertTrue(f"Apply changes to {len(ids)} records" in content)
