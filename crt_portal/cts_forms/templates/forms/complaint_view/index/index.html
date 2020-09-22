@@ -5,6 +5,10 @@
   <link rel="stylesheet" href="{% static "css/accessible-autocomplete.min.css" %}" />
 {% endblock head %}
 
+{% block page_header %}
+{% include 'forms/complaint_view/intake_filters_header.html' with title_text="CRT Complaint Records" profileForm=profileForm  %}
+{% endblock %}
+
 {% block content %}
 <div class="intake-content">
   {% include "forms/complaint_view/index/filter-controls.html" with filters=filters form=form %}

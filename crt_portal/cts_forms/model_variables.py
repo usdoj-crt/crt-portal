@@ -157,6 +157,9 @@ SECTION_CHOICES = (
     ('VOT', 'Voting'),
 )
 
+# CRT view global section filter
+SECTION_CHOICES_WITHOUT_LABELS = tuple([(key[0], key[0]) for key in SECTION_CHOICES])
+
 COMMERCIAL_OR_PUBLIC_PLACE_CHOICES = (
     ('place_of_worship', _('Place of worship or about a place of worship')),
     ('store', _('Commercial or retail building')),
