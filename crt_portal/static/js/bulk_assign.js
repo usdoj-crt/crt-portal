@@ -27,10 +27,12 @@
   show_warning_section.onclick = function(event) {
     event.preventDefault();
     var assignee = document.getElementById('warning_section_assignee');
-    var selectElement = document.getElementById('id_assigned_to');
+    var actualSelectElement = document.getElementById('id_assigned_to-select');
     assign_section.setAttribute('hidden', 'hidden');
     warning_section.removeAttribute('hidden');
-    assignee.innerText = selectElement.value;
+    // work around a bug: if user removes an auto complete field, the
+    // selected item is still present, so pull from the actual selection
+    assignee.innerText = actualSelectElement.selectedOptions[0].text;
   };
 
   var cancel_warning_section = document.getElementById('cancel_warning_section');
