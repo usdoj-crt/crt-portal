@@ -156,6 +156,21 @@ SECTION_CHOICES = (
     ('SPL', 'Special Litigation'),
     ('VOT', 'Voting'),
 )
+# for form letter translations only. Note that these choices
+# technically differ from section choices since they have "de" (of).
+SECTION_CHOICES_ES = (
+    ('ADM', 'Administrativa'),
+    ('APP', 'de Apelación'),
+    ('CRM', 'Penal'),
+    ('DRS', 'de Derechos en Razón a Discapacidad'),
+    ('ELS', 'de Litigios Laborales'),
+    ('EOS', 'de Oportunidades Educativas'),
+    ('FCS', 'de Coordinación y Cumplimiento Federal'),
+    ('HCE', 'de Coordinación y Cumplimiento Federal'),
+    ('IER', 'de Derechos de Inmigrantes y Empleados'),
+    ('SPL', 'de Litigios Especiales'),
+    ('VOT', 'de Votación'),
+)
 
 COMMERCIAL_OR_PUBLIC_PLACE_CHOICES = (
     ('place_of_worship', _('Place of worship or about a place of worship')),
@@ -357,11 +372,11 @@ DISTRICT_CHOICES = (
     ('53', '53'), ('54', '54'), ('54M', '54M'), ('55', '55'), ('55 ', '55 '),
     ('56', '56'), ('57', '57'), ('58', '58'), ('59', '59'), ('59N', '59N'),
     ('60', '60'), ('61', '61'), ('62', '62'), ('63', '63'), ('64', '64'),
-    ('66', '66'), ('67', '67'), ('69', '69'), ('70', '70'), ('71', '71'),
-    ('72', '72'), ('73', '73'), ('74', '74'), ('75', '75'), ('76', '76'),
-    ('77', '77'), ('78', '78'), ('79', '79'), ('80', '80'), ('81', '81'),
-    ('82', '82'), ('83', '83'), ('84', '84'), ('85', '85'), ('86', '86'),
-    ('87', '87'),
+    ('65', '65'), ('66', '66'), ('67', '67'), ('69', '69'), ('70', '70'),
+    ('71', '71'), ('72', '72'), ('73', '73'), ('74', '74'), ('75', '75'),
+    ('76', '76'), ('77', '77'), ('78', '78'), ('79', '79'), ('80', '80'),
+    ('81', '81'), ('82', '82'), ('83', '83'), ('84', '84'), ('85', '85'),
+    ('86', '86'), ('87', '87'), ('90', '90')
 )
 
 # for internal use only

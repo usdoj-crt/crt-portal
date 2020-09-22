@@ -108,7 +108,7 @@
     contact_first_name: '',
     contact_last_name: '',
     contact_email: '',
-    violation_summary: '',
+    violation_summary: [],
     location_name: '',
     location_address_line_1: '',
     location_address_line_2: '',
@@ -286,7 +286,12 @@
       var filterName = node.getAttribute('data-filter-name');
 
       // see if we have to process multiple select elements first
-      var multiSelectElements = ['assigned_section', 'status', 'location_state'];
+      var multiSelectElements = [
+        'assigned_section',
+        'status',
+        'location_state',
+        'violation_summary'
+      ];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {
         var selections = filterDataModel[filterName];

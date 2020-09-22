@@ -1,6 +1,7 @@
 """All models need to be added to signals.py for proper logging."""
 import logging
 from datetime import datetime
+from babel.dates import format_date
 
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, RegexValidator
@@ -23,7 +24,8 @@ from .model_variables import (CLOSED_STATUS,
                               PROTECTED_MODEL_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
-                              SECTION_CHOICES, SERVICEMEMBER_CHOICES,
+                              SECTION_CHOICES, SECTION_CHOICES_ES,
+                              SERVICEMEMBER_CHOICES,
                               STATES_AND_TERRITORIES, STATUS_CHOICES,
                               STATUTE_CHOICES)
 from .phone_regex import phone_validation_regex
@@ -291,6 +293,15 @@ class Report(models.Model):
             return f"{salutation} {self.contact_first_name}"
         return "Thank you for your report"
 
+    @property
+    def addressee_es(self):
+        if self.contact_first_name:
+            salutation = 'Estimado/a'
+            if self.contact_last_name:
+                return f"{salutation} {self.contact_first_name} {self.contact_last_name}"
+            return f"{salutation} {self.contact_first_name}"
+        return "Gracias por su informe"
+
     def get_absolute_url(self):
         return reverse('crt_forms:crt-forms-show', kwargs={"id": self.id})
 
@@ -346,12 +357,20 @@ class ResponseTemplate(models.Model):
         """
         today = datetime.today()
         section_choices = dict(SECTION_CHOICES)
+        section_choices_es = dict(SECTION_CHOICES_ES)
         return Context({
-            'addressee': report.addressee,
-            'date_of_intake': report.create_date.strftime('%B %d, %Y'),
             'record_locator': report.public_id,
-            'outgoing_date': today.strftime('%B %d, %Y'),  # required for paper mail
+            'addressee': report.addressee,
+            'date_of_intake': format_date(report.create_date, format='long', locale='en_US'),
+            'outgoing_date': format_date(today, locale='en_US'),  # required for paper mail
             'section_name': section_choices.get(report.assigned_section, "no section"),
+            # spanish translations
+            'es': {
+                'addressee': report.addressee_es,
+                'date_of_intake': format_date(report.create_date, format='long', locale='es_ES'),
+                'outgoing_date': format_date(today, locale='es_ES'),
+                'section_name': section_choices_es.get(report.assigned_section, "no section"),
+            }
         })
 
     def render_subject(self, report):

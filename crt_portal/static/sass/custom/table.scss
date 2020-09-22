@@ -114,6 +114,38 @@
     .td-link {
       @include clickable-table-cell();
     }
+
+    .td-toggle {
+      width: auto;
+      height: auto;
+      padding: 1rem 0;
+
+      img {
+        max-width: unset;
+      }
+
+      .rotate {
+        transform: rotate(90deg);
+        transition-duration: 120ms;
+      }
+    }
+
+    .td-quickview {
+      font-weight: bold;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .td-summary {
+      height: 4rem;
+      max-height: 10rem;
+      overflow-y: auto;
+      resize: vertical;
+
+      p:first-child {
+        margin-top: 0;
+      }
+    }
   }
 
   tbody {

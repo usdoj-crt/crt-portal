@@ -1,8 +1,10 @@
 # Class to handle filtering Reports by supplied query params,
 # provided they are valid filterable model properties.
-from datetime import datetime
-import urllib.parse
 import logging
+import urllib.parse
+from datetime import datetime
+
+from django.contrib.postgres.search import SearchQuery, SearchVector
 
 from .models import Report
 
@@ -18,7 +20,7 @@ filter_options = {
     'contact_last_name': '__contains',
     'contact_email': '__search',
     'other_class': '__search',
-    'violation_summary': '__search',
+    'violation_summary': 'violation_summary',
     'location_name': '__contains',
     'location_city_town': '__contains',
     'location_address_line_1': '__search',
@@ -51,8 +53,10 @@ def _get_date_field_from_param(field):
 def report_filter(querydict):
     kwargs = {}
     filters = {}
+    qs = Report.objects.filter()
     for field in filter_options.keys():
         filter_list = querydict.getlist(field)
+
         if len(filter_list) > 0:
             filters[field] = querydict.getlist(field)
             if filter_options[field] == '__in':
@@ -85,5 +89,16 @@ def report_filter(querydict):
                 kwargs[field] = querydict.getlist(field)[0]
             elif filter_options[field] == '__gte':
                 kwargs[field] = querydict.getlist(field)
-    # returns a filtered query, and a dictionary that we can use to keep track of the filters we apply
-    return Report.objects.filter(**kwargs), filters
+            elif filter_options[field] == 'violation_summary':
+                combined_or_search = _combine_term_searches_with_or(filter_list)
+                qs = qs.annotate(search=SearchVector('violation_summary')).filter(search=combined_or_search)
+    qs = qs.filter(**kwargs)
+    return qs, filters
+
+
+def _combine_term_searches_with_or(terms):
+    """Create a CombinedSearchQuery of all received search terms"""
+    combined_search = SearchQuery(terms.pop())
+    for term in terms:
+        combined_search = combined_search | SearchQuery(term)
+    return combined_search

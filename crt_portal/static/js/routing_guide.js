@@ -11,7 +11,6 @@
     }
   };
   toggle.addEventListener('click', showModal);
-  toggle.addEventListener('keydown', showModal);
 
   var cancel_modal = document.getElementById('routing_guide_close');
   root.CRT.cancelModal(modal, cancel_modal);
