@@ -32,7 +32,8 @@
     warning_section.removeAttribute('hidden');
     // work around a bug: if user removes an auto complete field, the
     // selected item is still present, so pull from the actual selection
-    assignee.innerText = actualSelectElement.selectedOptions[0].text;
+    var index = actualSelectElement.selectedIndex;
+    assignee.innerText = actualSelectElement.options[index].text;
   };
 
   var cancel_warning_section = document.getElementById('cancel_warning_section');
