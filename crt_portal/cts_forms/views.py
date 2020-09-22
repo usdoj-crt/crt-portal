@@ -363,17 +363,8 @@ class ProfileView(LoginRequiredMixin, FormView):
         if profile_form.is_valid() and profile_form.has_changed():
             """Save Data in database"""
             profile_form.save()
-            messages.add_message(request, messages.SUCCESS, 'Successfully Saved Profile')
-
-            """redirects back to /form/view but all filter params are not perserved. """
-            return redirect(reverse('crt_forms:crt-forms-index'))
-        else:
-            """Write Errors into messages and return invalid profile_form back to IndexView"""
-            for key in profile_form.errors:
-                errors = '; '.join(profile_form.errors[key])
-                error_msg = f'Could not save profile: {errors}'
-                messages.add_message(request, messages.ERROR, error_msg)
-            return redirect(reverse('crt_forms:crt-forms-index'))
+        """redirects back to /form/view but all filter params are not perserved. """
+        return redirect(reverse('crt_forms:crt-forms-index'))
 
 
 class ResponseView(LoginRequiredMixin, View):
