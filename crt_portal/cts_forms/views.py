@@ -514,7 +514,7 @@ class ActionsView(LoginRequiredMixin, FormView):
 
             number = requested_query.update(assigned_to=assignee)
 
-            description = f"{number} reports have been assigned to {assignee}"
+            description = f"{number} records have been assigned to {assignee}"
             messages.add_message(request, messages.SUCCESS, description)
 
             # log this action for an audit trail.
