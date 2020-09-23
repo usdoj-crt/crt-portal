@@ -421,7 +421,7 @@ class BulkAssignTests(TestCase):
         self.assertTrue("button--warning" in content)
         self.assertTrue(f"Apply changes to {len(ids)} records" in content)
 
-    def post(self, user_id, ids, all_ids=False):
+    def post(self, user_id, ids, all_ids=False, confirm=False):
         params = {
             'next': '?per_page=15',
             'ids': ','.join([str(id) for id in ids]),
@@ -429,6 +429,8 @@ class BulkAssignTests(TestCase):
         }
         if all_ids:
             params['all'] = 'all'
+        if confirm:
+            params['confirm_all'] = 'confirm_all'
         response = self.client.post(reverse('crt_forms:crt-forms-actions'), params, follow=True)
         self.assertEquals(response.status_code, 200)
         return response
@@ -456,10 +458,24 @@ class BulkAssignTests(TestCase):
             self.assertEquals(last_activity.description, 'Updated from "None" to "DELETE_USER"')
             self.assertEquals(last_activity.actor, user)
 
+    def test_post_with_ids_and_all(self):
+        ids = [report.id for report in self.reports[3:5]]
+        user = User.objects.get(username='DELETE_USER')
+        response = self.post(user.id, ids, all_ids=True, confirm=False)
+        content = str(response.content)
+        self.assertTrue('2 records have been assigned to DELETE_USER' in content)
+        self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
+        for report_id in ids:
+            report = Report.objects.get(id=report_id)
+            last_activity = list(report.target_actions.all())[-1]
+            self.assertEquals(last_activity.verb, "Assigned to:")
+            self.assertEquals(last_activity.description, 'Updated from "None" to "DELETE_USER"')
+            self.assertEquals(last_activity.actor, user)
+
     def test_post_with_all(self):
         ids = [report.id for report in self.reports]
         user = User.objects.get(username='DELETE_USER')
-        response = self.post(user.id, ids, all_ids=True)
+        response = self.post(user.id, ids, all_ids=True, confirm=True)
         content = str(response.content)
         self.assertTrue('16 records have been assigned to DELETE_USER' in content)
         self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
