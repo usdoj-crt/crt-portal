@@ -399,3 +399,6 @@ workflows:
     triggers:
       - schedule:
           cron: "0 0 * * *" # run past midnight every night
+          filters:
+            branches:
+              only: /^release.*/
