@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('cts_forms', '0090_district_add_65_and_90'),
+        ('cts_forms', '0091_spanish_form_letters'),
     ]
 
     operations = [
