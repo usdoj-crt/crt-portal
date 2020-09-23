@@ -100,7 +100,6 @@
    */
 
   var initialFilterState = {
-    assigned_section: [],
     primary_complaint: '',
     status: [],
     location_state: [],
@@ -261,7 +260,6 @@
 
   function filterController() {
     var formEl = dom.getElementById('filters-form');
-    var multiSelectEl = formEl.querySelector('select[name="assigned_section"');
     var firstNameEl = formEl.querySelector('input[name="contact_first_name"');
     var lastNameEl = formEl.querySelector('input[name="contact_last_name"');
     var locationCityEl = formEl.querySelector('input[name="location_city_town"]');
@@ -286,12 +284,7 @@
       var filterName = node.getAttribute('data-filter-name');
 
       // see if we have to process multiple select elements first
-      var multiSelectElements = [
-        'assigned_section',
-        'status',
-        'location_state',
-        'violation_summary'
-      ];
+      var multiSelectElements = ['status', 'location_state', 'violation_summary'];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {
         var selections = filterDataModel[filterName];
@@ -325,10 +318,6 @@
 
     formView({
       el: formEl
-    });
-    multiSelectView({
-      el: multiSelectEl,
-      name: 'assigned_section'
     });
     textInputView({
       el: firstNameEl,
