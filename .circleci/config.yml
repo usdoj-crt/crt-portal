@@ -306,13 +306,17 @@ jobs:
         environment:
           - CF_SPACE: prod
     steps:
+      # Install cloud foundry tools
       - *install-cf7
+      # login into cloud.gov
       - run:
           name: Login to cloud.gov Production
           command: cf login -u ${CRT_USERNAME_PROD} -p ${CRT_PASSWORD_PROD} -o doj-crtportal -s ${CF_SPACE}
+      # Refresh the trend view once logged in to cloud.gov
       - run:
           name: Refresh trends view
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends
+      # Clear expired sessions from portal sessions table
       - run:
           name: clearsessions management command
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions
@@ -325,13 +329,17 @@ jobs:
         environment:
           - CF_SPACE: staging
     steps:
+      # Install cloud foundry tools
       - *install-cf7
+      # login to Staging Cloud.gov environment
       - run:
           name: Login to cloud.gov Staging
-          command: cf login -u ${CRT_USERNAME_PROD} -p ${CRT_PASSWORD_PROD} -o doj-crtportal -s ${CF_SPACE}
+          command: cf login -u ${CRT_USERNAME_STAGE} -p ${CRT_PASSWORD_STAGE} -o doj-crtportal -s ${CF_SPACE}
+      # Refresh the trend view in staging
       - run:
           name: Refresh trends view
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends
+      # Clear expired sessions in staging session table
       - run:
           name: clearsessions management command
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions
@@ -382,3 +390,12 @@ workflows:
           filters:
             branches:
               only: master
+  # Scheduled maintenance jobs for portal
+  periodic-tasks:
+    jobs:
+      - staging-maintenance-tasks #run the staging jobs only
+      ## prod-maintenance-tasks
+      ## ^^ uncomment above if production use same schedule as staging to perform the maintenance tasks or create new workflow 'periodic-tasks-prod' with different triggers schedule.
+    triggers:
+      - schedule:
+          cron: "0 0 * * *" # run past midnight every night
