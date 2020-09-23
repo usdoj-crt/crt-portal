@@ -344,7 +344,7 @@ jobs:
           name: clearsessions management command
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions
 
-dev-maintenance-tasks:
+  dev-maintenance-tasks:
     docker:
       # Use CircleCI convenience base image since we only need
       # CloudFoundry CLI
