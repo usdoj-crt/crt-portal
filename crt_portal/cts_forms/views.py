@@ -500,7 +500,6 @@ class ActionsView(LoginRequiredMixin, FormView):
 
         if assign_form.is_valid():
             assignee = assign_form.cleaned_data['assigned_to']
-            requested_query = None
             if confirm_all:
                 requested_query = self.reconstruct_query(return_url_args)
             else:

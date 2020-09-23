@@ -12,6 +12,7 @@
     }
   }
 
+  var select_all_checkboxes = dom.getElementById('checkbox-all');
   var all_checkboxes = dom.querySelectorAll('td input.usa-checkbox__input');
   for (var i = 0; i < all_checkboxes.length; i++) {
     var checkbox = all_checkboxes[i];
@@ -22,12 +23,14 @@
         parent.classList.add('selected');
       } else {
         parent.classList.remove('selected');
+        if (select_all_checkboxes.checked) {
+          select_all_checkboxes.checked = false;
+        }
       }
       update_record_count();
     };
   }
 
-  var select_all_checkboxes = dom.getElementById('checkbox-all');
   select_all_checkboxes.onclick = function(event) {
     var checked = event.target.checked;
     for (var i = 0; i < all_checkboxes.length; i++) {
