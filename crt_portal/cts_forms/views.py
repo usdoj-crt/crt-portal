@@ -495,12 +495,13 @@ class ActionsView(LoginRequiredMixin, FormView):
         assign_form = BulkAssign(request.POST)
         return_url_args = request.POST.get('next', '')
         selected_all = request.POST.get('all', '') == 'all'
+        confirm_all = request.POST.get('confirm_all', '') == 'confirm_all'
         ids = request.POST.get('ids', '').split(',')
 
         if assign_form.is_valid():
             assignee = assign_form.cleaned_data['assigned_to']
             requested_query = None
-            if selected_all:
+            if confirm_all:
                 requested_query = self.reconstruct_query(return_url_args)
             else:
                 requested_query = Report.objects.filter(pk__in=ids)
