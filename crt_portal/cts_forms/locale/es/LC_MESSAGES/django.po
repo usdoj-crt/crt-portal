@@ -299,13 +299,6 @@ msgstr ""
 "Hostigamiento por parte de un propietario u otro inquilino, lo que incluye "
 "el acoso sexual"
 
-#: model_variables.py:52
-msgid ""
-"Challenges with terminating a lease due to military status change"
-msgstr ""
-"Retos con la rescisión de un contrato de arrendamiento debido a "
-"un cambio de estatus militar"
-
 #: model_variables.py:54
 msgid "Harassment based on race, sex, national origin, disability, or religion"
 msgstr ""
