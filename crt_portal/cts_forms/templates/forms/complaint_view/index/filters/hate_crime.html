@@ -6,10 +6,10 @@
 
 {% block content %}
   <div id="hate_crime-filter">
-    <label for="id_{{ form.fields.hate_crime.widget.attrs.name }}" class="usa-label margin-bottom-1">
+    <label for="id_{{ form.fields.hate_crime.widget.attrs.name }}" class="usa-label margin-top-0 margin-bottom-1">
       <b>{{ form.hate_crime.label }}</b>
     </label>
-    <div class="location-state--container">
+    <div class="multicheckboxes-container multicheckboxes-yesno">
       {{ form.hate_crime }}
     </div>
   </div>

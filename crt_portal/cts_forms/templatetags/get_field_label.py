@@ -5,7 +5,6 @@ register = template.Library()
 
 variable_rename = {
     'status': 'Status',
-    'summary': 'Summary',
     'assigned_section': 'Routed',
     'contact_first_name': 'Contact first name',
     'contact_last_name': 'Contact last name',
@@ -33,6 +32,8 @@ def get_field_label(value, arg):
         model = apps.get_model('cts_forms', value)
         field = model._meta.get_field(arg)
     except FieldDoesNotExist:
+        if arg == 'summary':
+            return 'Summary'  # report.internal_comments
         return arg.replace('_', ' ')
 
     return variable_rename.get(field.name, field.verbose_name)

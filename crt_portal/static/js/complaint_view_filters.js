@@ -290,7 +290,7 @@
         'status',
         'location_state',
         'violation_summary',
-        'primary_issue'
+        'primary_complaint'
       ];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {

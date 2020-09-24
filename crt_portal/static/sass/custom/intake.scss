@@ -158,7 +158,11 @@
       margin-top: 0rem;
     }
 
-    .location-state--container {
+    .primary-issue {
+      width: 20rem;
+    }
+
+    .multicheckboxes-container {
       @include u-border(1px, $theme-color-primary-darker);
       height: 12rem;
       overflow-y: scroll;
@@ -173,6 +177,11 @@
           height: 1rem;
         }
       }
+    }
+
+    .multicheckboxes-yesno {
+      height: auto;
+      overflow-y: hidden;
     }
 
     .usa-button {
@@ -433,6 +442,7 @@ form#cts-forms-profile {
   font-size: $theme-text-font-size-md;
   height: 2rem;
   margin-right: 1rem;
+  margin-bottom: 1rem;
 
   &--large {
     min-height: 2.5rem;
