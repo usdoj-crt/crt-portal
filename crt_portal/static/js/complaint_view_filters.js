@@ -396,6 +396,17 @@
     mutateFilterDataWithUpdates(filterDataModel, filterUpdates);
 
     filterController();
+
+    var toggle_filters = dom.getElementById('toggle-filters');
+    toggle_filters.onclick = function(event) {
+      var extra_filters = dom.getElementById('extra-filters');
+      if (extra_filters.hasAttribute('hidden')) {
+        extra_filters.removeAttribute('hidden');
+      } else {
+        extra_filters.setAttribute('hidden', '');
+      }
+      event.preventDefault();
+    };
   }
 
   window.addEventListener('DOMContentLoaded', init);
