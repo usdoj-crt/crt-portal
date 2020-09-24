@@ -1203,6 +1203,14 @@ class PrintActions(Form):
     )
 
 
+class BulkAssign(Form, ActivityStreamUpdater):
+    assigned_to = ModelChoiceField(
+        queryset=User.objects.filter(is_active=True),
+        label="Assigned to",
+        required=True
+    )
+
+
 class ContactEditForm(ModelForm, ActivityStreamUpdater):
     CONTEXT_KEY = 'contact_form'
     SUCCESS_MESSAGE = "Successfully updated contact information."

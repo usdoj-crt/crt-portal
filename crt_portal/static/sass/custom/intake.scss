@@ -511,6 +511,14 @@ ul.messages {
   margin-bottom: 0;
 }
 
+.intake-content {
+  // reverse padding if we are on the incoming records table
+  ul.messages {
+    margin-top: 0;
+    margin-bottom: 2.3rem;
+  }
+}
+
 .details-date-label {
   color: color($theme-color-base-ink);
   font-size: $theme-text-font-size-sm;

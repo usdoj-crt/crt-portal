@@ -104,7 +104,10 @@
      * dropdowns
      **/
     var node = hasParentNode(event.target, function(n) {
-      for (i = 0; i < n.classList.length; i++) {
+      if (!n.classList) {
+        return false;
+      }
+      for (var i = 0; i < n.classList.length; i++) {
         if (n.classList[i].indexOf('crt-dropdown') === -1) {
           return false;
         } else {
