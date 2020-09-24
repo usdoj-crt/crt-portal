@@ -400,10 +400,13 @@
     var toggle_filters = dom.getElementById('toggle-filters');
     toggle_filters.onclick = function(event) {
       var extra_filters = dom.getElementById('extra-filters');
+      var target = event.target;
       if (extra_filters.hasAttribute('hidden')) {
         extra_filters.removeAttribute('hidden');
+        target.innerText = 'less';
       } else {
         extra_filters.setAttribute('hidden', '');
+        target.innerText = 'more';
       }
       event.preventDefault();
     };
