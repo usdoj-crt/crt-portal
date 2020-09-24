@@ -124,7 +124,7 @@
     sort: '',
     page: '',
     per_page: '',
-    no_status: '',
+    no_status: ''
   };
   var filterDataModel = {};
 
@@ -296,7 +296,7 @@
         'violation_summary',
         'primary_complaint',
         'intake_format',
-        'commercial_or_public_place',
+        'commercial_or_public_place'
       ];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {
