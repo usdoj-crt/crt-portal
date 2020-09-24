@@ -19,7 +19,8 @@ from formtools.wizard.views import SessionWizardView
 from .filters import report_filter
 from .forms import (BulkAssign, CommentActions, ComplaintActions,
                     ResponseActions, PrintActions, ContactEditForm,
-                    Filters, ReportEditForm, Review, add_activity)
+                    Filters, ReportEditForm, Review, add_activity,
+                    ProfileForm)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -34,7 +35,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import CommentAndSummary, Report, Trends
+from .models import CommentAndSummary, Report, Trends, Profile
 from .page_through import pagination
 
 logger = logging.getLogger(__name__)
@@ -228,6 +229,17 @@ def setup_filter_parameters(report, querydict):
 
 @login_required
 def index_view(request):
+    profile_form = ProfileForm()
+    # Check for Profile object, then add filter to request
+    if hasattr(request.user, 'profile') and request.user.profile.intake_filters:
+        request.GET = request.GET.copy()
+        global_section_filter = request.user.profile.intake_filters.split(',')
+        request.GET.setlist('assigned_section', global_section_filter)
+
+        # Retreive ProfileForm intake_filters
+        data = {'intake_filters': global_section_filter}
+        profile_form = ProfileForm(data)
+
     report_query, query_filters = report_filter(request.GET)
 
     # Sort data based on request from params, default to `created_date` of complaint
@@ -291,6 +303,7 @@ def index_view(request):
 
     final_data = {
         'form': Filters(request.GET),
+        'profile_form': profile_form,
         'data_dict': data,
         'page_format': page_format,
         'page_args': page_args,
@@ -341,6 +354,26 @@ def serialize_data(report, request, report_id):
     }
 
     return output
+
+
+class ProfileView(LoginRequiredMixin, FormView):
+    # Can be used for updating section filter for a profile
+    form_class = ProfileForm
+
+    def post(self, request):
+        # Update or create Profile
+        if hasattr(request.user, 'profile'):
+            instance = request.user.profile
+        else:
+            instance = Profile()
+            instance.user = request.user
+
+        profile_form = ProfileForm(request.POST, instance=instance)
+        if profile_form.is_valid() and profile_form.has_changed():
+            # Save Data in database
+            profile_form.save()
+        # redirects back to /form/view but all filter params are not perserved.
+        return redirect(reverse('crt_forms:crt-forms-index'))
 
 
 class ResponseView(LoginRequiredMixin, View):
