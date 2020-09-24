@@ -37,6 +37,7 @@ filter_options = {
     'summary': 'summary',
     'servicemember': 'eq',
     'hate_crime': 'eq',
+    'intake_format': '__in',  # TODO rename to intake_type
 }
 
 

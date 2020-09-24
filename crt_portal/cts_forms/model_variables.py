@@ -349,11 +349,11 @@ POLICE_LOCATION_ERRORS = {
 
 # for internal use only
 INTAKE_FORMAT_CHOICES = (
-    ('web', 'web'),
-    ('letter', 'letter'),
-    ('phone', 'phone'),
-    ('fax', 'fax'),
-    ('email', 'email'),
+    ('web', 'Web'),
+    ('letter', 'Letter'),
+    ('phone', 'Phone'),
+    ('fax', 'Fax'),
+    ('email', 'Email'),
 )
 
 INCIDENT_DATE_HELPTEXT = _('You must enter a month and year. Please use the format MM/DD/YYYY.')

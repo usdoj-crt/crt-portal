@@ -18,6 +18,7 @@ variable_rename = {
     'primary_complaint': 'Primary issue',
     'servicemember': 'Servicemember',
     'hate_crime': 'Hate crime',
+    'intake_format': 'Intake type',
 }
 
 

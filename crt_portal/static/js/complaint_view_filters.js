@@ -117,11 +117,12 @@
     assigned_to: '',
     public_id: '',
     primary_statute: '',
+    intake_format: [],
+    servicemember: [],
+    hate_crime: [],
     sort: '',
     page: '',
     per_page: '',
-    servicemember: [],
-    hate_crime: [],
     no_status: '',
   };
   var filterDataModel = {};
@@ -275,6 +276,7 @@
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
     var personalDescriptionEl = formEl.querySelector('input[name="violation_summary"]');
     var primaryIssueEl = dom.getElementsByName('primary_complaint');
+    var intakeFormatEl = dom.getElementsByName('intake_format');
     var hateCrimeEl = dom.getElementsByName('hate_crime');
     var servicememberEl = dom.getElementsByName('servicemember');
     /**
@@ -290,7 +292,8 @@
         'status',
         'location_state',
         'violation_summary',
-        'primary_complaint'
+        'primary_complaint',
+        'intake_format',
       ];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {
@@ -389,6 +392,10 @@
     checkBoxView({
       el: primaryIssueEl,
       name: 'primary_complaint'
+    });
+    checkBoxView({
+      el: intakeFormatEl,
+      name: 'intake_format'
     });
     checkBoxView({
       el: hateCrimeEl,

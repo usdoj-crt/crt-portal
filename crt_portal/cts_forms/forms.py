@@ -22,6 +22,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               DATE_ERRORS, DISTRICT_CHOICES,
                               EMPLOYER_SIZE_CHOICES, EMPLOYER_SIZE_ERROR,
                               EMPTY_CHOICE, INCIDENT_DATE_HELPTEXT,
+                              INTAKE_FORMAT_CHOICES,
                               POLICE_LOCATION_ERRORS,
                               PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
@@ -969,7 +970,6 @@ class Filters(ModelForm):
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'hate_crime',
         }),
-        label='Hate Crime',
     )
     servicemember = MultipleChoiceField(
         required=False,
@@ -977,9 +977,14 @@ class Filters(ModelForm):
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'servicemember',
         }),
-        label='Servicemember',
     )
-    # intake_type
+    intake_format = MultipleChoiceField(
+        required=False,
+        choices=INTAKE_FORMAT_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'intake_format',
+        }),
+    )
 
     class Meta:
         model = Report
@@ -996,7 +1001,9 @@ class Filters(ModelForm):
             'primary_statute',
             'violation_summary',
             'primary_complaint',
+            'hate_crime',
             'servicemember',
+            'intake_format',
         ]
 
         labels = {
