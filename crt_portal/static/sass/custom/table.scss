@@ -78,9 +78,15 @@
 
   tr.stripe {
     td {
-      background-color: color(
-        'gray-2'
-      ); // USWDS system token: https://designsystem.digital.gov/design-tokens/color/system-tokens/
+      background-color: color('gray-2');
+      border-left: 1px solid color('gray-2');
+    }
+  }
+
+  tr.selected {
+    td {
+      background-color: color($theme-color-primary-lighter);
+      border-left: 1px solid color($theme-color-primary-lighter);
     }
   }
 
@@ -113,6 +119,10 @@
 
     .td-link {
       @include clickable-table-cell();
+    }
+
+    .td-checkbox {
+      padding: 1rem 0;
     }
 
     .td-toggle {
@@ -238,4 +248,23 @@
 #active-filters {
   display: flex;
   flex-wrap: wrap;
+}
+
+.selection-action-notification {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  z-index: 100;
+
+  background-color: color($theme-color-primary-light);
+  border-left: 5px solid color($theme-color-primary);
+
+  img, h2 {
+    margin-left: 2rem;
+  }
+
+  .selection-submit {
+    margin: 1rem 2rem;
+  }
 }
