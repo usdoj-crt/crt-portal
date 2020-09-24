@@ -19,6 +19,7 @@ variable_rename = {
     'servicemember': 'Servicemember',
     'hate_crime': 'Hate crime',
     'intake_format': 'Intake type',
+    'commercial_or_public_place': 'Relevant details',
 }
 
 

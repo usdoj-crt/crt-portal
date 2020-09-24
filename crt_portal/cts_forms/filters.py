@@ -38,6 +38,7 @@ filter_options = {
     'servicemember': 'eq',
     'hate_crime': 'eq',
     'intake_format': '__in',  # TODO rename to intake_type
+    'commercial_or_public_place': '__in',  # TODO
 }
 
 

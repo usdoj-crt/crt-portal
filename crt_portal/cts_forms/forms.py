@@ -963,7 +963,13 @@ class Filters(ModelForm):
         label='Primary Issue',
     )
     # reported_reason
-    # relevant_details
+    commercial_or_public_place = MultipleChoiceField(
+        required=False,
+        choices=COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'relevant_details',
+        }),
+    )
     hate_crime = MultipleChoiceField(
         required=False,
         choices=(('yes', 'Yes'),),
@@ -1001,6 +1007,7 @@ class Filters(ModelForm):
             'primary_statute',
             'violation_summary',
             'primary_complaint',
+            'commercial_or_public_place',
             'hate_crime',
             'servicemember',
             'intake_format',

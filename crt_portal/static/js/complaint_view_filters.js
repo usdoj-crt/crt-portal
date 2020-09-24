@@ -117,6 +117,7 @@
     assigned_to: '',
     public_id: '',
     primary_statute: '',
+    commercial_or_public_place: [],
     intake_format: [],
     servicemember: [],
     hate_crime: [],
@@ -276,6 +277,7 @@
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
     var personalDescriptionEl = formEl.querySelector('input[name="violation_summary"]');
     var primaryIssueEl = dom.getElementsByName('primary_complaint');
+    var relevantDetailsEl = dom.getElementsByName('commercial_or_public_place');
     var intakeFormatEl = dom.getElementsByName('intake_format');
     var hateCrimeEl = dom.getElementsByName('hate_crime');
     var servicememberEl = dom.getElementsByName('servicemember');
@@ -294,6 +296,7 @@
         'violation_summary',
         'primary_complaint',
         'intake_format',
+        'commercial_or_public_place',
       ];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {
@@ -392,6 +395,10 @@
     checkBoxView({
       el: primaryIssueEl,
       name: 'primary_complaint'
+    });
+    checkBoxView({
+      el: relevantDetailsEl,
+      name: 'commercial_or_public_place'
     });
     checkBoxView({
       el: intakeFormatEl,
