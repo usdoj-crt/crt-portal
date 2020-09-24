@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 # To add a new filter option for Reports, add the field name and expected filter behavior
 filter_options = {
     'assigned_section': '__in',
-    'primary_complaint': '__in',
+    'primary_complaint': '__in',  # TODO rename to primary_issue
     'status': '__in',
     'location_state': '__in',
     'contact_first_name': '__contains',

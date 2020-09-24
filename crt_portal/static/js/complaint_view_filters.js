@@ -100,10 +100,9 @@
    */
 
   var initialFilterState = {
-    primary_complaint: '',
     status: [],
     location_state: [],
-    primary_complaint: '',
+    primary_complaint: [],
     contact_first_name: '',
     contact_last_name: '',
     contact_email: '',
@@ -123,7 +122,7 @@
     per_page: '',
     servicemember: '',
     hate_crime: '',
-    no_status: ''
+    no_status: '',
   };
   var filterDataModel = {};
 
@@ -275,6 +274,7 @@
     var complaintIDEl = formEl.querySelector('input[name="public_id"');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
     var personalDescriptionEl = formEl.querySelector('input[name="violation_summary"]');
+    var primaryIssueEl = dom.getElementsByName('primary_complaint');
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
      * and perform a new search with the updated filters applied.
@@ -284,7 +284,12 @@
       var filterName = node.getAttribute('data-filter-name');
 
       // see if we have to process multiple select elements first
-      var multiSelectElements = ['status', 'location_state', 'violation_summary'];
+      var multiSelectElements = [
+        'status',
+        'location_state',
+        'violation_summary',
+        'primary_issue'
+      ];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {
         var selections = filterDataModel[filterName];
@@ -378,6 +383,10 @@
     clearFiltersView({
       el: clearAllEl,
       onClick: clearAllFilters
+    });
+    checkBoxView({
+      el: primaryIssueEl,
+      name: 'primary_complaint'
     });
   }
 

@@ -26,7 +26,9 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
-                              PRIMARY_COMPLAINT_ERROR, PRINT_CHOICES,
+                              PRIMARY_COMPLAINT_ERROR,
+                              PRIMARY_COMPLAINT_PROFORM_CHOICES,
+                              PRINT_CHOICES,
                               PROTECTED_CLASS_ERROR,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
@@ -951,6 +953,14 @@ class Filters(ModelForm):
             'placeholder': 'yyyy-mm-dd',
         }),
     )
+    primary_complaint = MultipleChoiceField(
+        required=False,
+        choices=PRIMARY_COMPLAINT_PROFORM_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'primary_issue',
+        }),
+        label='Primary Issue',
+    )
 
     class Meta:
         model = Report
@@ -966,6 +976,7 @@ class Filters(ModelForm):
             'public_id',
             'primary_statute',
             'violation_summary',
+            'primary_complaint',
         ]
 
         labels = {

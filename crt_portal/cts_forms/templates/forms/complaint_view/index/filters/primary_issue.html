@@ -1,0 +1,16 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block controls %}primary-issue{% endblock %}
+{% block label %}Primary Issue{% endblock %}
+{% block id %}primary-issues{% endblock %}
+
+{% block content %}
+  <div id="primary-complaint-filter">
+    <label for="id_{{ form.fields.primary_complaint.widget.attrs.name }}" class="usa-label margin-bottom-1">
+      <b>{{ form.primary_complaint.label }}</b>
+    </label>
+    <div class="location-state--container">
+      {{ form.primary_complaint }}
+    </div>
+  </div>
+{% endblock %}

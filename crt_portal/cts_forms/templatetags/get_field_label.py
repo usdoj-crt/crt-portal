@@ -14,6 +14,7 @@ variable_rename = {
     'public_id': 'Complaint ID',
     'primary_statute': 'Classification',
     'violation_summary': 'Personal description',
+    'primary_complaint': 'Primary Issue',
 }
 
 
