@@ -229,10 +229,11 @@ def index_view(request):
     # Check for Profile object, then add filter to request
     if hasattr(request.user, 'profile') and request.user.profile.intake_filters:
         request.GET = request.GET.copy()
-        request.GET.setlist('assigned_section', request.user.profile.intake_filters.split(','))
+        global_section_filter = request.user.profile.intake_filters.split(',')
+        request.GET.setlist('assigned_section', global_section_filter)
 
         # Retreive ProfileForm intake_filters
-        data = {'intake_filters': request.user.profile.intake_filters.split(',')}
+        data = {'intake_filters': global_section_filter}
         profile_form = ProfileForm(data)
 
     report_query, query_filters = report_filter(request.GET)
@@ -298,7 +299,7 @@ def index_view(request):
 
     final_data = {
         'form': Filters(request.GET),
-        'profileForm': profile_form,
+        'profile_form': profile_form,
         'data_dict': data,
         'page_format': page_format,
         'page_args': page_args,
@@ -351,11 +352,11 @@ def serialize_data(report, request, report_id):
 
 
 class ProfileView(LoginRequiredMixin, FormView):
-    """Can be used for updating section filter for a profile"""
+    # Can be used for updating section filter for a profile
     form_class = ProfileForm
 
     def post(self, request):
-        """Update or create Profile"""
+        # Update or create Profile
         if hasattr(request.user, 'profile'):
             instance = request.user.profile
         else:
@@ -364,9 +365,9 @@ class ProfileView(LoginRequiredMixin, FormView):
 
         profile_form = ProfileForm(request.POST, instance=instance)
         if profile_form.is_valid() and profile_form.has_changed():
-            """Save Data in database"""
+            # Save Data in database
             profile_form.save()
-        """redirects back to /form/view but all filter params are not perserved. """
+        # redirects back to /form/view but all filter params are not perserved.
         return redirect(reverse('crt_forms:crt-forms-index'))
 
 

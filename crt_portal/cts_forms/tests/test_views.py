@@ -1,5 +1,4 @@
 
-import logging
 from django.test import TestCase
 from django.test.client import Client
 from django.contrib.auth.models import User
@@ -9,9 +8,6 @@ from ..models import Report, Profile
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
 from ..forms import ContactEditForm, ReportEditForm
 from .test_data import SAMPLE_REPORT
-
-
-logger = logging.getLogger(__name__)
 
 
 class ProfileViewTests(TestCase):

@@ -877,10 +877,8 @@ class ProfileForm(ModelForm):
         }
 
     def clean_intake_filters(self):
-        """
-        Clean intake_filters by removing list markup
-        """
-        if 'intake_filters' in self.changed_data:
+        # Clean intake_filters by removing list markup
+        if 'intake_filters' in self.cleaned_data:
             new_filter = self.cleaned_data['intake_filters']
             new_filter = str(new_filter).strip('[').strip(']').replace("'", '').replace(' ', '')
             return new_filter

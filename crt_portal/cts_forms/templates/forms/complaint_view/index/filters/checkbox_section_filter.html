@@ -10,10 +10,10 @@ action="{% url 'crt_forms:cts-forms-profile' %}" novalidate>
       <span  alt="open filter dropdown" class="icon" />
     </button>
     <div class="content" id="assigned-section">
-      <label for="id_{{profileForm.fields.intake_filters.widget.attrs.name}}">
-        <span class="usa-sr-only">{{profileForm.intake_filters.label}}</span>
+      <label for="id_{{profile_form.fields.intake_filters.widget.attrs.name}}">
+        <span class="usa-sr-only">{{profile_form.intake_filters.label}}</span>
       </label>
-      {{ profileForm.intake_filters }}
+      {{ profile_form.intake_filters }}
       <button class="usa-button margin-top-2" type="submit">
         Update view
       </button>
