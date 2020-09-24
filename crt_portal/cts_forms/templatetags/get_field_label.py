@@ -4,6 +4,8 @@ from django.core.exceptions import FieldDoesNotExist
 register = template.Library()
 
 variable_rename = {
+    'status': 'Status',
+    'summary': 'Summary',
     'assigned_section': 'Routed',
     'contact_first_name': 'Contact first name',
     'contact_last_name': 'Contact last name',
@@ -14,7 +16,9 @@ variable_rename = {
     'public_id': 'Complaint ID',
     'primary_statute': 'Classification',
     'violation_summary': 'Personal description',
-    'primary_complaint': 'Primary Issue',
+    'primary_complaint': 'Primary issue',
+    'servicemember': 'Servicemember',
+    'hate_crime': 'Hate crime',
 }
 
 

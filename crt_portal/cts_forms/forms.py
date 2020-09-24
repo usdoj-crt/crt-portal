@@ -961,6 +961,25 @@ class Filters(ModelForm):
         }),
         label='Primary Issue',
     )
+    # reported_reason
+    # relevant_details
+    hate_crime = MultipleChoiceField(
+        required=False,
+        choices=(('yes', 'Yes'),),
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'hate_crime',
+        }),
+        label='Hate Crime',
+    )
+    servicemember = MultipleChoiceField(
+        required=False,
+        choices=(('yes', 'Yes'),),
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'servicemember',
+        }),
+        label='Servicemember',
+    )
+    # intake_type
 
     class Meta:
         model = Report
@@ -977,6 +996,7 @@ class Filters(ModelForm):
             'primary_statute',
             'violation_summary',
             'primary_complaint',
+            'servicemember',
         ]
 
         labels = {

@@ -120,8 +120,8 @@
     sort: '',
     page: '',
     per_page: '',
-    servicemember: '',
-    hate_crime: '',
+    servicemember: [],
+    hate_crime: [],
     no_status: '',
   };
   var filterDataModel = {};
@@ -275,6 +275,8 @@
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
     var personalDescriptionEl = formEl.querySelector('input[name="violation_summary"]');
     var primaryIssueEl = dom.getElementsByName('primary_complaint');
+    var hateCrimeEl = dom.getElementsByName('hate_crime');
+    var servicememberEl = dom.getElementsByName('servicemember');
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
      * and perform a new search with the updated filters applied.
@@ -387,6 +389,14 @@
     checkBoxView({
       el: primaryIssueEl,
       name: 'primary_complaint'
+    });
+    checkBoxView({
+      el: hateCrimeEl,
+      name: 'hate_crime'
+    });
+    checkBoxView({
+      el: servicememberEl,
+      name: 'servicemember'
     });
   }
 
