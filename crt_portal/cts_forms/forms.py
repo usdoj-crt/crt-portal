@@ -918,7 +918,8 @@ class Filters(ModelForm):
         choices=_add_empty_choice(STATUTE_CHOICES),
         widget=Select(attrs={
             'name': 'primary_statute',
-            'class': 'usa-select'
+            'class': 'usa-select',
+            'aria-label': 'Primary Classification'
         })
     )
     summary = CharField(
