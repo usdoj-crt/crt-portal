@@ -31,6 +31,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               PRIMARY_COMPLAINT_PROFORM_CHOICES,
                               PRINT_CHOICES,
                               PROTECTED_CLASS_ERROR,
+                              PROTECTED_MODEL_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
@@ -962,7 +963,13 @@ class Filters(ModelForm):
         }),
         label='Primary Issue',
     )
-    # reported_reason
+    reported_reason = MultipleChoiceField(
+        required=False,
+        choices=PROTECTED_MODEL_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'reported_reason',
+        }),
+    )
     commercial_or_public_place = MultipleChoiceField(
         required=False,
         choices=COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
