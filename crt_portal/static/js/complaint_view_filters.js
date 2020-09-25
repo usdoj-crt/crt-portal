@@ -299,7 +299,7 @@
         'primary_complaint',
         'intake_format',
         'commercial_or_public_place',
-        'reported_reason',
+        'reported_reason'
       ];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {

@@ -20,9 +20,6 @@ variable_rename = {
     'hate_crime': 'Hate crime',
     'intake_format': 'Intake type',
     'commercial_or_public_place': 'Relevant details',
-}
-
-m2m_variable_rename = {
     'reported_reason': 'Reported reason',
     'summary': 'Summary',
 }
@@ -39,8 +36,6 @@ def get_field_label(value, arg):
         model = apps.get_model('cts_forms', value)
         field = model._meta.get_field(arg)
     except FieldDoesNotExist:
-        if arg in m2m_variable_rename:
-            return m2m_variable_rename[arg]
-        return arg.replace('_', ' ')
+        return variable_rename.get(arg, arg.replace('_', ' '))
 
     return variable_rename.get(field.name, field.verbose_name)
