@@ -888,6 +888,15 @@ class ProfileForm(ModelForm):
             return new_filter
 
 
+def reported_reason_proform():
+    """
+    Strip parentheses from the value description.
+    """
+    for (key, value) in PROTECTED_MODEL_CHOICES:
+        new_value = value[:value.find('(') - 1] if '(' in value else value
+        yield (key, new_value)
+
+
 class Filters(ModelForm):
     status = MultipleChoiceField(
         initial=(('new', 'New'), ('open', 'Open')),
@@ -965,7 +974,7 @@ class Filters(ModelForm):
     )
     reported_reason = MultipleChoiceField(
         required=False,
-        choices=PROTECTED_MODEL_CHOICES,
+        choices=reported_reason_proform,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'reported_reason',
         }),
