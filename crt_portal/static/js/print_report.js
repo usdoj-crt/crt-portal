@@ -4,9 +4,9 @@
     id_options_0: '.crt-correspondent-card',
     id_options_1: '.crt-report-card',
     id_options_2: '.crt-description-card',
-    id_options_3: '.crt-comments-card',
+    id_options_3: '.crt-activities-card',
     id_options_4: '.crt-summary-card',
-    id_options_5: '.crt-activities-card'
+    id_options_5: '.crt-comments-card'
   };
 
   var modal = document.getElementById('print_report');

@@ -8,6 +8,8 @@
   <ul class="activity-stream-print activity-stream-list usa-list usa-list--unstyled">
     {% for comment in print_comments %}
       {% include 'forms/complaint_view/show/activity_stream_item.html' with activity=comment %}
+    {% empty %}
+      No actions.
     {% endfor %}
   </ul>
 
