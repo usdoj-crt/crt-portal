@@ -101,11 +101,11 @@
             {% include 'forms/complaint_view/show/actions/comment_summary.html' with id_name="comment" is_summary=False button_text='Save' button_aria_label='save comment' label='New comment' comment_box=comments.note %}
           </div>
         </div>
-        {% include 'forms/complaint_view/print/comments.html' with activity=print_comments %}
+        {% include 'forms/complaint_view/print/activities.html' with activity=print_actions %}
 
         {% include 'forms/complaint_view/print/summary.html' with summary=summary %}
 
-        {% include 'forms/complaint_view/print/activities.html' with activity=print_actions %}
+        {% include 'forms/complaint_view/print/comments.html' with activity=print_comments %}
       </div>
       <div class="complaint-information tablet:grid-col-6">
         {% include 'forms/complaint_view/show/correspondent_info.html' with data=data %}
