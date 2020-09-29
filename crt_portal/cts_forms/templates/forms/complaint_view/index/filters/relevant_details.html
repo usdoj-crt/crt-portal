@@ -1,0 +1,12 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block classes %}relevant-details{% endblock %}
+{% block controls %}relevant_details{% endblock %}
+{% block label %}Relevant Details{% endblock %}
+{% block id %}relevant-details{% endblock %}
+
+{% block content %}
+  <div id="relevant_details-filter" class="multicheckboxes-container">
+    {{ form.commercial_or_public_place }}
+  </div>
+{% endblock %}

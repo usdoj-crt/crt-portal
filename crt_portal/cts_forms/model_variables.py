@@ -23,6 +23,16 @@ PRIMARY_COMPLAINT_CHOICES = (
 )
 PRIMARY_COMPLAINT_DICT = dict(PRIMARY_COMPLAINT_CHOICES)
 
+PRIMARY_COMPLAINT_PROFORM_CHOICES = (
+    ('workplace', 'Workplace Discrimination'),
+    ('housing', 'Housing Discrimination'),
+    ('education', 'Education Discrimination'),
+    ('voting', 'Voting Discrimination'),
+    ('police', 'Police / Correctional Misconduct'),
+    ('commercial_or_public', 'Commercial / Public Discrimination'),
+    ('something_else', 'Something else'),
+)
+
 LANDING_COMPLAINT_CHOICES = (
     ('hate_crime', _('Victim of a hate crime')),
     ('human_trafficking', _('Victim of human trafficking')),
@@ -339,11 +349,11 @@ POLICE_LOCATION_ERRORS = {
 
 # for internal use only
 INTAKE_FORMAT_CHOICES = (
-    ('web', 'web'),
-    ('letter', 'letter'),
-    ('phone', 'phone'),
-    ('fax', 'fax'),
-    ('email', 'email'),
+    ('web', 'Web'),
+    ('letter', 'Letter'),
+    ('phone', 'Phone'),
+    ('fax', 'Fax'),
+    ('email', 'Email'),
 )
 
 INCIDENT_DATE_HELPTEXT = _('You must enter a month and year. Please use the format MM/DD/YYYY.')

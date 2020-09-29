@@ -141,7 +141,7 @@
       }
 
       &.summary_input {
-        width: 19rem;
+        width: 17rem;
       }
     }
 
@@ -158,9 +158,21 @@
       margin-top: 0rem;
     }
 
-    .location-state--container {
+    .primary-issue {
+      width: 20rem;
+    }
+
+    .reported-reason {
+      width: 18rem;
+    }
+
+    .relevant-details {
+      width: 18rem;
+    }
+
+    .multicheckboxes-container {
       @include u-border(1px, $theme-color-primary-darker);
-      height: 12rem;
+      height: 13rem; // just enough to accommodate 5 checkboxes
       overflow-y: scroll;
       position: relative;
 
@@ -175,8 +187,31 @@
       }
     }
 
+    .multicheckboxes-yesno {
+      height: auto;
+      overflow-y: hidden;
+    }
+
     .usa-button {
       margin-bottom: 2rem;
+    }
+
+    #toggle-filters {
+      font-size: 1rem;
+      text-transform: uppercase;
+      &:hover {
+        background: color($theme-color-primary-light);
+      }
+      &:before {
+        margin-right: 10px;
+        background-image: url(../../img/intake-icons/ic_sliders.svg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        content: '';
+        width: 20px;
+        height: 20px;
+        display: inline-block;
+      }
     }
   }
 }
@@ -415,6 +450,7 @@ form#cts-forms-profile {
   font-size: $theme-text-font-size-md;
   height: 2rem;
   margin-right: 1rem;
+  margin-bottom: 1rem;
 
   &--large {
     min-height: 2.5rem;

@@ -37,6 +37,9 @@ filter_options = {
     'summary': 'summary',
     'servicemember': 'eq',
     'hate_crime': 'eq',
+    'intake_format': '__in',
+    'commercial_or_public_place': '__in',
+    'reported_reason': 'reported_reason',
 }
 
 
@@ -82,6 +85,9 @@ def report_filter(querydict):
                 # assumes summaries are edited so there is only one per report - that is current behavior
                 kwargs['internal_comments__note__search'] = querydict.getlist(field)[0]
                 kwargs['internal_comments__is_summary'] = True
+            elif filter_options[field] == 'reported_reason':
+                reasons = querydict.getlist(field)
+                kwargs['protected_class__value__in'] = reasons
             elif filter_options[field] == 'foreign_key':
                 # assumes assigned_to but could add logic for other foreign keys in the future
                 kwargs['assigned_to__username__in'] = querydict.getlist(field)
