@@ -514,8 +514,18 @@ form#cts-forms-profile {
     }
 
     select,
-    label[for='id_assigned_to'] + div {
+    label[for='id_assigned_to-select'] + div {
       flex-basis: 60%; // label flex-basis is 40% for total of 100%
+    }
+  }
+
+  .crt-textarea {
+    display: flex;
+    align-items: baseline;
+    textarea {
+      flex-basis: 60%;
+      height: auto;
+      border-radius: 3px;
     }
   }
 }

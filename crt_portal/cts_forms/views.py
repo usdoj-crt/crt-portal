@@ -516,6 +516,8 @@ class ActionsView(LoginRequiredMixin, FormView):
 
         ids = request.GET.getlist('id')
         ids_count = len(ids)
+
+        # TODO adjust form: prefill field if all records are the same
         bulk_actions_form = BulkActions()
 
         # the select all option only applies if 1. user hits the
@@ -569,7 +571,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         else:
             for key in bulk_actions_form.errors:
                 errors = '; '.join(bulk_actions_form.errors[key])
-                error_message = f'Could not bulk update: {errors}'
+                error_message = f'Could not bulk update {key}: {errors}'
                 messages.add_message(request, messages.ERROR, error_message)
 
             requested_query = self.reconstruct_query(return_url_args)

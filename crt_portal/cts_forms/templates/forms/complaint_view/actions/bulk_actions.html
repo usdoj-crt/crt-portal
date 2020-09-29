@@ -1,5 +1,6 @@
 {% extends "forms/complaint_view/show/card.html" %}
 
+{% load i18n %}
 {% load static %}
 
 {% block title %}Update multiple records{% endblock %}
@@ -54,15 +55,16 @@
           </label>
           {{ bulk_actions_form.assigned_to }}
         </div>
-        <div class="margin-bottom-2">
+        <div class="margin-bottom-2 crt-textarea">
           <label for="id_summary" class="intake-label">
             {{ bulk_actions_form.summary.label }}
           </label>
           {{ bulk_actions_form.summary }}
         </div>
-        <div class="margin-bottom-2">
+        <div class="margin-bottom-2 crt-textarea">
           <label for="id_comment" class="intake-label">
             {{ bulk_actions_form.comment.label }}
+            <span class="field-required">{% trans "required" %}</span>
           </label>
           {{ bulk_actions_form.comment}}
         </div>
