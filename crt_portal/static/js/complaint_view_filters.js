@@ -137,7 +137,10 @@
   function mutateFilterDataWithUpdates(state, updates) {
     for (var key in updates) {
       if (state.hasOwnProperty(key)) {
-        state[key] = updates[key];
+        var decoded_keys = updates[key].map(function(elem) {
+          return decodeURIComponent(elem);
+        });
+        state[key] = decoded_keys;
       }
     }
   }
