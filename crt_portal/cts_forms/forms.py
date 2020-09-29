@@ -1262,7 +1262,7 @@ class PrintActions(Form):
     )
 
 
-class BulkAssign(Form, ActivityStreamUpdater):
+class BulkActions(Form, ActivityStreamUpdater):
     assigned_to = ModelChoiceField(
         queryset=User.objects.filter(is_active=True),
         label="Assigned to",

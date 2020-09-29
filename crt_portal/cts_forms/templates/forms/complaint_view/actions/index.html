@@ -40,7 +40,7 @@
 
       <div class="complaint-page grid-row grid-gap-4">
         <div class="complaint-actions tablet:grid-col-4 grid-offset-1">
-          {% include 'forms/complaint_view/actions/bulk_assign.html' %}
+          {% include 'forms/complaint_view/actions/bulk_actions.html' %}
         </div>
       </div>
     </div>
@@ -50,5 +50,5 @@
 {% block page_js %}
   {{ block.super }}
   <script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
-  <script src="{% static 'js/bulk_assign.js' %}"></script>
+  <script src="{% static 'js/bulk_actions.js' %}"></script>
 {% endblock %}

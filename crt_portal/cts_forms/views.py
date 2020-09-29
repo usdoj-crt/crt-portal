@@ -17,7 +17,7 @@ from django.views.decorators.cache import never_cache
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
-from .forms import (BulkAssign, CommentActions, ComplaintActions,
+from .forms import (BulkActions, CommentActions, ComplaintActions,
                     ResponseActions, PrintActions, ContactEditForm,
                     Filters, ReportEditForm, Review, add_activity,
                     ProfileForm)
@@ -516,7 +516,7 @@ class ActionsView(LoginRequiredMixin, FormView):
 
         ids = request.GET.getlist('id')
         ids_count = len(ids)
-        assign_form = BulkAssign()
+        assign_form = BulkActions()
 
         # the select all option only applies if 1. user hits the
         # select all button and 2. we have more records in the query
@@ -535,7 +535,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         return render(request, 'forms/complaint_view/actions/index.html', output)
 
     def post(self, request):
-        assign_form = BulkAssign(request.POST)
+        assign_form = BulkActions(request.POST)
         return_url_args = request.POST.get('next', '')
         selected_all = request.POST.get('all', '') == 'all'
         confirm_all = request.POST.get('confirm_all', '') == 'confirm_all'

@@ -375,7 +375,7 @@ class PrintActionTests(TestCase):
         self.assertTrue(escape('Selected correspondent, activity') in content)
 
 
-class BulkAssignTests(TestCase):
+class BulkActionTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.test_pass = secrets.token_hex(32)
