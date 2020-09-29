@@ -23,18 +23,43 @@
 
   var assign_section = document.getElementById('assign_section');
   var warning_section = document.getElementById('warning_section');
+  var warning_count_partial = document.getElementById('warning_count_partial');
+  var warning_count_all = document.getElementById('warning_count_all');
+  var confirm_button = document.getElementById('confirm_button');
+
+  var update_warning = function(is_partial) {
+    var assignee = document.getElementById('warning_section_assignee');
+    var actualSelectElement = document.getElementById('id_assigned_to-select');
+    assign_section.setAttribute('hidden', 'hidden');
+    warning_section.removeAttribute('hidden');
+    if (is_partial) {
+      warning_count_all.setAttribute('hidden', 'hidden');
+      warning_count_partial.removeAttribute('hidden');
+      confirm_button.setAttribute('value', 'none');
+    } else {
+      warning_count_all.removeAttribute('hidden');
+      warning_count_partial.setAttribute('hidden', 'hidden');
+      confirm_button.setAttribute('value', 'confirm_all');
+    }
+    // work around a bug: if user removes an auto complete field, the
+    // selected item is still present, so pull from the actual selection
+    var index = actualSelectElement.selectedIndex;
+    assignee.innerText = actualSelectElement.options[index].text;
+  };
+
   var show_warning_section = document.getElementById('show_warning_section');
   if (show_warning_section) {
     show_warning_section.onclick = function(event) {
       event.preventDefault();
-      var assignee = document.getElementById('warning_section_assignee');
-      var actualSelectElement = document.getElementById('id_assigned_to-select');
-      assign_section.setAttribute('hidden', 'hidden');
-      warning_section.removeAttribute('hidden');
-      // work around a bug: if user removes an auto complete field, the
-      // selected item is still present, so pull from the actual selection
-      var index = actualSelectElement.selectedIndex;
-      assignee.innerText = actualSelectElement.options[index].text;
+      update_warning(false);
+    };
+  }
+
+  var show_warning_section_partial = document.getElementById('show_warning_section_partial');
+  if (show_warning_section_partial) {
+    show_warning_section_partial.onclick = function(event) {
+      event.preventDefault();
+      update_warning(true);
     };
   }
 

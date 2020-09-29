@@ -22,7 +22,8 @@
       <div id="assign_section">
         {{ assign_form }}
 
-        <button class="usa-button"
+        <button class="usa-button{% if show_warning %} button--warning display-flex align-center{% endif %}"
+                {% if show_warning %}id="show_warning_section_partial"{% endif %}
                 disabled
                 type="submit"
                 name="selected_ids"
@@ -40,12 +41,16 @@
         {% endif %}
       </div>
 
-      {% if selected_all %}
+      {% if display_warning or selected_all %}
         <div id="warning_section" hidden>
           <p>
-            Are you sure you want to assign {{ all_ids_count }} records to <span id="warning_section_assignee"></span>?
+            Are you sure you want to assign
+            <span id="warning_count_all">{{ all_ids_count }}</span>
+            <span id="warning_count_partial">{{ ids_count }}</span>
+            records to <span id="warning_section_assignee"></span>?
           </p>
           <button class="usa-button button--warning display-flex align-center"
+                  id="confirm_button"
                   name="confirm_all"
                   value="confirm_all"
                   type="submit">
