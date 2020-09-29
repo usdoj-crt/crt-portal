@@ -21,7 +21,7 @@
     }
   });
 
-  var assign_section = document.getElementById('assign_section');
+  var assign_section = document.getElementById('bulk_actions_section');
   var warning_section = document.getElementById('warning_section');
   var warning_count_partial = document.getElementById('warning_count_partial');
   var warning_count_all = document.getElementById('warning_count_all');

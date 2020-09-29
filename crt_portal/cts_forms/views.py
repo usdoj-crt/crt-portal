@@ -516,7 +516,7 @@ class ActionsView(LoginRequiredMixin, FormView):
 
         ids = request.GET.getlist('id')
         ids_count = len(ids)
-        assign_form = BulkActions()
+        bulk_actions_form = BulkActions()
 
         # the select all option only applies if 1. user hits the
         # select all button and 2. we have more records in the query
@@ -530,19 +530,19 @@ class ActionsView(LoginRequiredMixin, FormView):
             'ids_count': ids_count,
             'show_warning': ids_count > 15,
             'all_ids_count': all_ids_count,
-            'assign_form': assign_form,
+            'bulk_actions_form': bulk_actions_form,
         }
         return render(request, 'forms/complaint_view/actions/index.html', output)
 
     def post(self, request):
-        assign_form = BulkActions(request.POST)
+        bulk_actions_form = BulkActions(request.POST)
         return_url_args = request.POST.get('next', '')
         selected_all = request.POST.get('all', '') == 'all'
         confirm_all = request.POST.get('confirm_all', '') == 'confirm_all'
         ids = request.POST.get('ids', '').split(',')
 
-        if assign_form.is_valid():
-            assignee = assign_form.cleaned_data['assigned_to']
+        if bulk_actions_form.is_valid():
+            assignee = bulk_actions_form.cleaned_data['assigned_to']
             if confirm_all:
                 requested_query = self.reconstruct_query(return_url_args)
             else:
@@ -567,9 +567,9 @@ class ActionsView(LoginRequiredMixin, FormView):
             return redirect(f"{url}{return_url_args}")
 
         else:
-            for key in assign_form.errors:
-                errors = '; '.join(assign_form.errors[key])
-                error_message = f'Could not bulk assign: {errors}'
+            for key in bulk_actions_form.errors:
+                errors = '; '.join(bulk_actions_form.errors[key])
+                error_message = f'Could not bulk update: {errors}'
                 messages.add_message(request, messages.ERROR, error_message)
 
             requested_query = self.reconstruct_query(return_url_args)
@@ -586,7 +586,7 @@ class ActionsView(LoginRequiredMixin, FormView):
                 'ids_count': ids_count,
                 'show_warning': ids_count > 15,
                 'all_ids_count': all_ids_count,
-                'assign_form': assign_form,
+                'bulk_actions_form': bulk_actions_form,
             }
             return render(request, 'forms/complaint_view/actions/index.html', output)
 

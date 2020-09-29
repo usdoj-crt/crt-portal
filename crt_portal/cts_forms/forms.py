@@ -1296,8 +1296,24 @@ class BulkActions(Form, ActivityStreamUpdater):
     )
     assigned_to = ModelChoiceField(
         queryset=User.objects.filter(is_active=True),
-        label="Assigned to",
+        label='Assigned to',
         required=True
+    )
+    summary = CharField(
+        required=False,
+        label='CRT Summary',
+        widget=TextInput(
+            attrs={
+                'class': 'usa-input',
+                'aria-label': 'Complaint Summary'
+            },
+        ),
+    )
+    comment = CharField(
+        required=True,
+        widget=TextInput(
+            attrs={'class': 'usa-input'},
+        ),
     )
 
 

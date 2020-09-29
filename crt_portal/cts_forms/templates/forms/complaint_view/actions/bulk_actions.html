@@ -7,7 +7,7 @@
 {% block extra_classes %}crt-actions-card{% endblock %}
 
 {% block icon %}
-  <img src="{% static "img/ic_personcheck-circle.svg" %}" alt="icon" class="icon" />
+  <img src="{% static "img/intake-icons/ic_check-circle.svg" %}" alt="icon" class="icon" />
 {% endblock %}
 
 {% block card_content %}
@@ -19,8 +19,53 @@
       <input type="hidden" value="{{ ids }}" name="ids" id="ids" />
       <input type="hidden" value="{{ selected_all }}" name="all" id="all" />
 
-      <div id="assign_section">
-        {{ assign_form }}
+      <div id="bulk_actions_section">
+
+        <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
+          <label for="id_assigned_section" class="intake-label">
+            {{ bulk_actions_form.assigned_section.label }}
+          </label>
+          {{ bulk_actions_form.assigned_section }}
+        </div>
+        <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
+          <label for="id_status" class="intake-label">
+            {{ bulk_actions_form.status.label }}
+          </label>
+          {{ bulk_actions_form.status }}
+        </div>
+        <div class="margin-bottom-2 crt-dropdown">
+          <label for="id_primary_statute" class="intake-label">
+            {{ bulk_actions_form.primary_statute.label }}
+          </label>
+          {{ bulk_actions_form.primary_statute }}
+        </div>
+        <div class="margin-bottom-2 crt-dropdown">
+          <label for="id_district" class="intake-label">
+            {{ bulk_actions_form.district.label }}
+          </label>
+          {{ bulk_actions_form.district }}
+        </div>
+        <div class="margin-bottom-2 crt-dropdown">
+          <label for="id_assigned_to" class="intake-label">
+            {{ bulk_actions_form.assigned_to.label }}
+          </label>
+          <label for="id_assigned_to-select">
+            <span class="usa-sr-only">assignee</span>
+          </label>
+          {{ bulk_actions_form.assigned_to }}
+        </div>
+        <div class="margin-bottom-2">
+          <label for="id_summary" class="intake-label">
+            {{ bulk_actions_form.summary.label }}
+          </label>
+          {{ bulk_actions_form.summary }}
+        </div>
+        <div class="margin-bottom-2">
+          <label for="id_comment" class="intake-label">
+            {{ bulk_actions_form.comment.label }}
+          </label>
+          {{ bulk_actions_form.comment}}
+        </div>
 
         <button class="usa-button{% if show_warning %} button--warning display-flex align-center{% endif %}"
                 {% if show_warning %}id="show_warning_section_partial"{% endif %}
