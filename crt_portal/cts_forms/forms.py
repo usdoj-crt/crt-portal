@@ -1263,6 +1263,37 @@ class PrintActions(Form):
 
 
 class BulkActions(Form, ActivityStreamUpdater):
+    assigned_section = ChoiceField(
+        label='Section',
+        widget=ComplaintSelect(
+            attrs={'class': 'usa-select text-bold text-uppercase crt-dropdown__data'},
+        ),
+        choices=SECTION_CHOICES,
+        required=False
+    )
+    status = ChoiceField(
+        widget=ComplaintSelect(
+            attrs={'class': 'crt-dropdown__data'},
+        ),
+        choices=STATUS_CHOICES,
+        required=False
+    )
+    primary_statute = ChoiceField(
+        label='Primary classification',
+        widget=ComplaintSelect(
+            attrs={'class': 'text-uppercase crt-dropdown__data'},
+        ),
+        choices=_add_empty_choice(STATUTE_CHOICES),
+        required=False
+    )
+    district = ChoiceField(
+        label='Judicial district',
+        widget=ComplaintSelect(
+            attrs={'class': 'text-uppercase crt-dropdown__data'},
+        ),
+        choices=_add_empty_choice(DISTRICT_CHOICES),
+        required=False
+    )
     assigned_to = ModelChoiceField(
         queryset=User.objects.filter(is_active=True),
         label="Assigned to",
