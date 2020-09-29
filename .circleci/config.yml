@@ -356,7 +356,7 @@ jobs:
       - *install-cf7
       # login to Cloud.gov dev space
       - run:
-          name: Login to cloud.gov Staging
+          name: Login to cloud.gov Dev
           command: cf login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s ${CF_SPACE}
       # Run common tasks (e.g. refresh trends, clear expired sessions)
       - *run-common-tasks
