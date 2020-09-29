@@ -44,6 +44,7 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
         _('Fired, not hired, or demoted for reasons unrelated to job performance or qualifications'),
         _('Retaliated against for reporting discrimination'),
         _('Inappropriately asked to provide immigration documentation'),
+        _('Denied reemployment or fired based on military service'),
     ],
     'housing': [
         _('Denied housing, a permit, or a loan based on personal characteristics like race, sex, and/or having children under 18 years old'),
