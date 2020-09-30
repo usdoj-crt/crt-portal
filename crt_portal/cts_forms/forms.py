@@ -1301,7 +1301,7 @@ class BulkActions(Form, ActivityStreamUpdater):
     )
     summary = CharField(
         required=False,
-        max_length = 7000,
+        max_length=7000,
         label='CRT Summary',
         widget=Textarea(
             attrs={
@@ -1313,7 +1313,7 @@ class BulkActions(Form, ActivityStreamUpdater):
     )
     comment = CharField(
         required=True,
-        max_length = 7000,
+        max_length=7000,
         widget=Textarea(
             attrs={
                 'rows': 3,
