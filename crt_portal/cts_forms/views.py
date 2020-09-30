@@ -581,7 +581,7 @@ class ActionsView(LoginRequiredMixin, FormView):
                     report.internal_comments.add(comment)
                     add_activity(request.user, 'Added summary: ', summary_string, report)
 
-            number = requested_query.update(**updated_data)
+            number = requested_query.update(**updated_data) if updated_data else len(requested_query)
 
             description = bulk_actions_form.get_update_description()
             message = f'{number} records have been updated: {description}'

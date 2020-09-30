@@ -1345,7 +1345,7 @@ class BulkActions(Form, ActivityStreamUpdater):
             descriptions.append(description)
         if len(descriptions) > 1:
             descriptions[-1] = f'and {descriptions[-1]}'
-        return ', '.join(descriptions)
+        return ', '.join(descriptions) or 'comment added'
 
     def get_actions(self, report):
         """
