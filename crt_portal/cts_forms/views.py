@@ -517,8 +517,6 @@ class ActionsView(LoginRequiredMixin, FormView):
         ids = request.GET.getlist('id')
         ids_count = len(ids)
 
-        # TODO ids are not printed out when re-submitted
-        # TODO adjust form: prefill field if all records are the same
         bulk_actions_form = BulkActions()
 
         # the select all option only applies if 1. user hits the
@@ -609,7 +607,7 @@ class ActionsView(LoginRequiredMixin, FormView):
             output = {
                 'return_url_args': return_url_args,
                 'selected_all': 'all' if selected_all else '',
-                'ids': ids,
+                'ids': ','.join([id for id in ids]),
                 'ids_count': ids_count,
                 'show_warning': ids_count > 15,
                 'all_ids_count': all_ids_count,
