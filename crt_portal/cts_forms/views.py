@@ -522,6 +522,7 @@ class ActionsView(LoginRequiredMixin, FormView):
             'selected_all': 'all' if selected_all else '',
             'ids': ','.join([id for id in ids]),
             'ids_count': ids_count,
+            'show_warning': ids_count > 15,
             'all_ids_count': all_ids_count,
             'assign_form': assign_form,
         }
@@ -577,6 +578,7 @@ class ActionsView(LoginRequiredMixin, FormView):
                 'selected_all': 'all' if selected_all else '',
                 'ids': ids,
                 'ids_count': ids_count,
+                'show_warning': ids_count > 15,
                 'all_ids_count': all_ids_count,
                 'assign_form': assign_form,
             }
