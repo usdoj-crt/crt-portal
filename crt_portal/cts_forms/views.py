@@ -517,7 +517,6 @@ class ActionsView(LoginRequiredMixin, FormView):
         ids = request.GET.getlist('id')
         ids_count = len(ids)
 
-        # TODO form submission needs to be enabled
         # TODO ids are not printed out when re-submitted
         # TODO adjust form: prefill field if all records are the same
         bulk_actions_form = BulkActions()
