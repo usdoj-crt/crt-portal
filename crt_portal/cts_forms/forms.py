@@ -1268,14 +1268,14 @@ class BulkActions(Form, ActivityStreamUpdater):
         widget=ComplaintSelect(
             attrs={'class': 'usa-select text-bold text-uppercase crt-dropdown__data'},
         ),
-        choices=SECTION_CHOICES,
+        choices=_add_empty_choice(SECTION_CHOICES),
         required=False
     )
     status = ChoiceField(
         widget=ComplaintSelect(
             attrs={'class': 'crt-dropdown__data'},
         ),
-        choices=STATUS_CHOICES,
+        choices=_add_empty_choice(STATUS_CHOICES),
         required=False
     )
     primary_statute = ChoiceField(
@@ -1319,6 +1319,31 @@ class BulkActions(Form, ActivityStreamUpdater):
             },
         ),
     )
+
+    def get_updates(self):
+        return {field: self.cleaned_data[field] for field in self.changed_data}
+
+    def get_update_description(self):
+        """
+        Given a submitted form, emit a textual description of what was updated.
+        """
+        labels = {key: self.fields[key].label or key for key in self.changed_data}
+        labels.pop('comment', None)  # required, so we can omit
+        default_string = '{what} set to {item}'
+        custom_strings = {
+            'assigned to': 'assigned to {item}',
+            'crt summary': 'summary updated',
+        }
+        descriptions = []
+        for (key, value) in labels.items():
+            what = value.lower()
+            item = self.cleaned_data[key]
+            string = custom_strings.get(what, default_string)
+            description = string.format(**{'what': what, 'item': item})
+            descriptions.append(description)
+        if len(descriptions) > 1:
+            descriptions[-1] = f'and {descriptions[-1]}'
+        return ', '.join(descriptions)
 
 
 class ContactEditForm(ModelForm, ActivityStreamUpdater):

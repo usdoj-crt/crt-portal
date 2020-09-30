@@ -544,26 +544,65 @@ class ActionsView(LoginRequiredMixin, FormView):
         ids = request.POST.get('ids', '').split(',')
 
         if bulk_actions_form.is_valid():
-            assignee = bulk_actions_form.cleaned_data['assigned_to']
             if confirm_all:
                 requested_query = self.reconstruct_query(return_url_args)
             else:
                 requested_query = Report.objects.filter(pk__in=ids)
 
-            # update activity log _before_ we update the assignee so
-            # that we have access to the original assignee
-            for report in requested_query:
-                original = report.assigned_to or "None"
-                description = f'Updated from "{original}" to "{assignee}"'
-                add_activity(request.user, "Assigned to:", description, report)
+            updated_data = bulk_actions_form.get_updates()
+            comment_string = updated_data.pop('comment', None)
+            summary_string = updated_data.pop('summary', None)
 
-            number = requested_query.update(assigned_to=assignee)
+            # update activity log _before_ we update fields so
+            # that we still have access to the original field
+            # # TODO
+            # bulk_actions_form.update_activity_log()
 
-            description = f"{number} records have been assigned to {assignee}"
-            messages.add_message(request, messages.SUCCESS, description)
+            # for report in requested_query:
+            #     original = report.assigned_to or "None"
+            #     description = f'Updated from "{original}" to "{assignee}"'
+            #     add_activity(request.user, "Assigned to:", description, report)
+
+            if comment_string:
+                kwargs = {
+                    'is_summary': False,
+                    'note': comment_string,
+                    'author': request.user.username,
+                }
+                comment = CommentAndSummary.objects.create(**kwargs)
+                for report in requested_query:
+                    report.internal_comments.add(comment)
+                # TODO update activity log
+                # verb = 'Added comment: '
+                # comment_form.update_activity_stream(request.user, report, verb)
+                # action.send(
+                #     user,
+                #     verb=verb,
+                #     description=self.instance.note,
+                #     target=report
+                # )
+
+            if summary_string:
+                kwargs = {
+                    'is_summary': True,
+                    'note': summary_string,
+                    'author': request.user.username,
+                }
+                comment = CommentAndSummary.objects.create(**kwargs)
+                for report in requested_query:
+                    report.internal_comments.add(comment)
+                # TODO update activity log
+
+            number = requested_query.update(**updated_data)
+
+            # TODO # Reset Assignee and Status if assigned_section is changed
+
+            description = bulk_actions_form.get_update_description()
+            message = f'{number} records have been updated: {description}'
+            messages.add_message(request, messages.SUCCESS, message)
 
             # log this action for an audit trail.
-            logger.info(f'Bulk updating {number} requests by {request.user} to {assignee}')
+            logger.info(f'Bulk updating {number} requests by {request.user}: {description}')
 
             url = reverse('crt_forms:crt-forms-index')
             return redirect(f"{url}{return_url_args}")
