@@ -517,6 +517,8 @@ class ActionsView(LoginRequiredMixin, FormView):
         ids = request.GET.getlist('id')
         ids_count = len(ids)
 
+        # TODO form submission needs to be enabled
+        # TODO ids are not printed out when re-submitted
         # TODO adjust form: prefill field if all records are the same
         bulk_actions_form = BulkActions()
 
@@ -555,13 +557,8 @@ class ActionsView(LoginRequiredMixin, FormView):
 
             # update activity log _before_ we update fields so
             # that we still have access to the original field
-            # # TODO
-            # bulk_actions_form.update_activity_log()
-
-            # for report in requested_query:
-            #     original = report.assigned_to or "None"
-            #     description = f'Updated from "{original}" to "{assignee}"'
-            #     add_activity(request.user, "Assigned to:", description, report)
+            for report in requested_query:
+                bulk_actions_form.update_activity_stream(request.user, report)
 
             if comment_string:
                 kwargs = {
@@ -572,15 +569,7 @@ class ActionsView(LoginRequiredMixin, FormView):
                 comment = CommentAndSummary.objects.create(**kwargs)
                 for report in requested_query:
                     report.internal_comments.add(comment)
-                # TODO update activity log
-                # verb = 'Added comment: '
-                # comment_form.update_activity_stream(request.user, report, verb)
-                # action.send(
-                #     user,
-                #     verb=verb,
-                #     description=self.instance.note,
-                #     target=report
-                # )
+                    add_activity(request.user, 'Added comment: ', comment_string, report)
 
             if summary_string:
                 kwargs = {
@@ -591,11 +580,9 @@ class ActionsView(LoginRequiredMixin, FormView):
                 comment = CommentAndSummary.objects.create(**kwargs)
                 for report in requested_query:
                     report.internal_comments.add(comment)
-                # TODO update activity log
+                    add_activity(request.user, 'Added summary: ', summary_string, report)
 
             number = requested_query.update(**updated_data)
-
-            # TODO # Reset Assignee and Status if assigned_section is changed
 
             description = bulk_actions_form.get_update_description()
             message = f'{number} records have been updated: {description}'

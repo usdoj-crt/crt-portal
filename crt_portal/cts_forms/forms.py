@@ -1345,6 +1345,28 @@ class BulkActions(Form, ActivityStreamUpdater):
             descriptions[-1] = f'and {descriptions[-1]}'
         return ', '.join(descriptions)
 
+    def get_actions(self, report):
+        """
+        Parse incoming changed data for activity stream entry (tweaked for
+        bulk update)
+        """
+        for field in self.changed_data:
+            name = ' '.join(field.split('_')).capitalize()
+            # rename primary statute if applicable
+            if field == 'primary_statute':
+                name = 'Primary classification'
+            if field in ['summary', 'comment']:
+                continue
+            initial = getattr(report, field, 'None')
+            yield f"{name}:", f'Updated from "{initial}" to "{self.cleaned_data[field]}"'
+
+    def update_activity_stream(self, user, report):
+        """
+        Send all actions to activity stream (tweaked for bulk update)
+        """
+        for verb, description in self.get_actions(report):
+            add_activity(user, verb, description, report)
+
 
 class ContactEditForm(ModelForm, ActivityStreamUpdater):
     CONTEXT_KEY = 'contact_form'
