@@ -17,8 +17,10 @@
     {% endif %}
 
     <h2 class="h1" id="intake">Intake</h2>
-    <div class="margin-top-3">
+    <div class="margin-top-3 crt-portal_date_inputs_btn">
       {% include "forms/question_cards/date.html" with question='CRT receipt date' month=form.crt_reciept_month day=form.crt_reciept_day year=form.crt_reciept_year required=False %}
+      <button id="today-reciept-btn" name="today-reciept-date" label="autofill reciept date"
+        class="look-like-link autofill_today_btn" type="button">Today</button>
     </div>
     <div class="margin-top-4">
       {% include "forms/question_cards/single_question.html" with field=form.intake_format %}
@@ -76,8 +78,12 @@
 <div class="crt-portal-card">
   <div class="crt-portal-card__content crt-portal-card__content--lg">
     <h2 class="h1" id="date">Date</h2>
-    <div class="margin-top-3">
+    <div class="margin-top-3 crt-portal_date_inputs_btn">
       {% include "forms/question_cards/date.html" with card_title='Date' question=form.date_question month=form.last_incident_month day=form.last_incident_day year=form.last_incident_year required=False %}
+      <button id="today-complaint-btn" name="today-complaint-date" label="autofill complaint date"
+        class="look-like-link autofill_today_btn" type="button">
+        Today
+      </button>
     </div>
   </div>
 </div>
@@ -108,6 +114,7 @@
   })(window)
 </script>
 <script src="{% static 'js/pro_form_show_hide.js' %}"></script>
+<script src="{% static 'js/autofill_todays_date.js' %}"></script>
 <script src="{% static 'js/word_count.js' %}"></script>
 <script src="{% static 'js/progress-bar.js' %}"></script>
 {% endblock %}
