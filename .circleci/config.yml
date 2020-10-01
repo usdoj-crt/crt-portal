@@ -12,18 +12,6 @@ install-cf7: &install-cf7
       rm cf7.deb
       cf7 api https://api.fr.cloud.gov
 
-run-common-tasks: &run-common-tasks
-# these common tasks run on all spaces: dev, staging and prod
-  steps:
-    - run:
-      # Refresh the materialized view table for trends
-        name: Refresh trends view
-        command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends
-      # Clear expired sessions in session table
-    - run:
-        name: Clear expired sessoins
-        command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions
-
 version: 2
 jobs:
   build_and_test: # runs not using Workflows must have a `build` job as entry point
@@ -325,7 +313,14 @@ jobs:
           name: Login to cloud.gov Production
           command: cf login -u ${CRT_USERNAME_PROD} -p ${CRT_PASSWORD_PROD} -o doj-crtportal -s ${CF_SPACE}
       # Run common tasks (e.g. refresh trends, clear expired sessions)
-      - *run-common-tasks
+      - run:
+      # Refresh the materialized view table for trends
+        name: Refresh trends view in prod
+        command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends
+      # Clear expired sessions in session table
+      - run:
+        name: Clear expired sessoins in prod
+        command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions
 
   staging-maintenance-tasks:
     docker:
@@ -342,7 +337,14 @@ jobs:
           name: Login to cloud.gov Staging
           command: cf login -u ${CRT_USERNAME_STAGE} -p ${CRT_PASSWORD_STAGE} -o doj-crtportal -s ${CF_SPACE}
       # Run common tasks (e.g. refresh trends, clear expired sessions)
-      - *run-common-tasks
+      - run:
+      # Refresh the materialized view table for trends
+        name: Refresh trends view in staging
+        command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends
+      # Clear expired sessions in session table
+      - run:
+        name: Clear expired sessoins in staging
+        command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions
 
   dev-maintenance-tasks:
     docker:
@@ -359,7 +361,14 @@ jobs:
           name: Login to cloud.gov Dev
           command: cf login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s ${CF_SPACE}
       # Run common tasks (e.g. refresh trends, clear expired sessions)
-      - *run-common-tasks
+      - run:
+      # Refresh the materialized view table for trends
+        name: Refresh trends view in dev
+        command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends
+      # Clear expired sessions in session table
+      - run:
+        name: Clear expired sessoins dev
+        command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions
 
 workflows:
   version: 2
