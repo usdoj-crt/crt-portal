@@ -213,9 +213,15 @@ def setup_filter_parameters(report, querydict):
             # becomes the actual next report.
             index -= 1
 
-        previous_id = requested_ids[index - 1] if index > 0 else None
-        next_id = requested_ids[index + 1] if index < len(requested_ids) - 1 else None
-        next_query = urllib.parse.quote(return_url_args)
+        try:
+            previous_id = requested_ids[index - 1] if index > 0 else None
+            next_id = requested_ids[index + 1] if index < len(requested_ids) - 1 else None
+            next_query = urllib.parse.quote(return_url_args)
+        except IndexError:
+            # When we cannot determine the next report page we are
+            # removing the next button.
+            return {}
+
         output.update({
             'filter_count': report_query.count(),
             'filter_previous': previous_id,
