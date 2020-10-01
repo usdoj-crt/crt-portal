@@ -2,7 +2,7 @@
   root.CRT = root.CRT || {};
 
   function autofillTodaysDate(event) {
-    inputEL = event.target.parentElement.getElementsByTagName('input');
+    var inputEL = event.target.parentElement.getElementsByTagName('input');
     var today = new Date();
     var day = today.getDate(),
       month = today.getMonth() + 1,
