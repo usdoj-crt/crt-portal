@@ -755,14 +755,14 @@ class ProForm(
         ModelForm.__init__(self, *args, **kwargs)
         Contact.__init__(self, *args, **kwargs)
         # CRT views only
-        self.fields['intake_format'] = MultipleChoiceField(
+        self.fields['intake_format'] = ChoiceField(
             choices=(
                 ('letter', 'letter'),
                 ('phone', 'phone'),
                 ('fax', 'fax'),
                 ('email', 'email'),
             ),
-            widget=UsaCheckboxSelectMultiple(attrs={
+            widget=UsaRadioSelect(attrs={
                 'name': 'reported_reason',
             }),
             required=False,
