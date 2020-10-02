@@ -762,9 +762,7 @@ class ProForm(
                 ('fax', 'fax'),
                 ('email', 'email'),
             ),
-            widget=UsaRadioSelect(attrs={
-                'name': 'reported_reason',
-            }),
+            widget=UsaRadioSelect,
             required=False,
         )
         self.fields['servicemember'] = TypedChoiceField(
