@@ -755,16 +755,15 @@ class ProForm(
         ModelForm.__init__(self, *args, **kwargs)
         Contact.__init__(self, *args, **kwargs)
         # CRT views only
-        self.fields['intake_format'] = TypedChoiceField(
+        self.fields['intake_format'] = MultipleChoiceField(
             choices=(
-                EMPTY_CHOICE,
                 ('letter', 'letter'),
                 ('phone', 'phone'),
                 ('fax', 'fax'),
                 ('email', 'email'),
             ),
-            widget=Select(attrs={
-                'class': 'usa-select mobile-lg:grid-col-7',
+            widget=UsaCheckboxSelectMultiple(attrs={
+                'name': 'reported_reason',
             }),
             required=False,
         )
