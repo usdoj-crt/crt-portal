@@ -308,15 +308,15 @@ jobs:
     steps:
       # Install cloud foundry tools
       - *install-cf7
-      # login into cloud.gov
+      # login into cloud.gov prod space
       - run:
           name: Login to cloud.gov Production
           command: cf login -u ${CRT_USERNAME_PROD} -p ${CRT_PASSWORD_PROD} -o doj-crtportal -s ${CF_SPACE}
-      # Refresh the trend view once logged in to cloud.gov
+      # Refresh the trend view in staging
       - run:
           name: Refresh trends view
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends
-      # Clear expired sessions from portal sessions table
+      # Clear expired sessions in staging session table
       - run:
           name: clearsessions management command
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions
@@ -331,7 +331,7 @@ jobs:
     steps:
       # Install cloud foundry tools
       - *install-cf7
-      # login to Staging Cloud.gov environment
+      # login to Staging Cloud.gov space
       - run:
           name: Login to cloud.gov Staging
           command: cf login -u ${CRT_USERNAME_STAGE} -p ${CRT_PASSWORD_STAGE} -o doj-crtportal -s ${CF_SPACE}
@@ -354,9 +354,9 @@ jobs:
     steps:
       # Install cloud foundry tools
       - *install-cf7
-      # login to Staging Cloud.gov environment
+      # login to Cloud.gov dev space
       - run:
-          name: Login to cloud.gov Staging
+          name: Login to cloud.gov Dev
           command: cf login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s ${CF_SPACE}
       # Refresh the trend view in staging
       - run:
@@ -412,14 +412,37 @@ workflows:
           filters:
             branches:
               only: master
+
   # Scheduled maintenance jobs for portal
+  # Dev scheduled jobs
   periodic-tasks-dev:
     jobs:
-      - dev-maintenance-tasks #run the development env jobs only
-
+      - dev-maintenance-tasks #run on dev
     triggers:
       - schedule:
-          cron: "0 0 * * *" # run past midnight every night
+          cron: "0 0 * * *" # run past 8pm every night EST
           filters:
             branches:
               only: develop
+
+  # Staging scheduled jobs
+  periodic-tasks-staging:
+    jobs:
+      - staging-maintenance-tasks #run on stage
+    triggers:
+      - schedule:
+          cron: "0 4 * * *" # run past midnight every night EST
+          filters:
+            branches:
+              only: /^release.*/
+
+  # prod scheduled jobs
+  periodic-tasks-prod:
+    jobs:
+      - prod-maintenance-tasks #run on prod
+    triggers:
+      - schedule:
+          cron: "0 4 * * *" # run past midnight every night EST
+          filters:
+            branches:
+              only: master
