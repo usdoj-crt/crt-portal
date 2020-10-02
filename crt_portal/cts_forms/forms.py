@@ -755,17 +755,14 @@ class ProForm(
         ModelForm.__init__(self, *args, **kwargs)
         Contact.__init__(self, *args, **kwargs)
         # CRT views only
-        self.fields['intake_format'] = TypedChoiceField(
+        self.fields['intake_format'] = ChoiceField(
             choices=(
-                EMPTY_CHOICE,
                 ('letter', 'letter'),
                 ('phone', 'phone'),
                 ('fax', 'fax'),
                 ('email', 'email'),
             ),
-            widget=Select(attrs={
-                'class': 'usa-select mobile-lg:grid-col-7',
-            }),
+            widget=UsaRadioSelect,
             required=False,
         )
         self.fields['servicemember'] = TypedChoiceField(

@@ -17,6 +17,9 @@
   <p class="help-text__small" {% if ally_id%}id="{{ally_id}}" {%endif%}>
     <em>{{ field.help_text }}</em>
   </p>
-  {% endif %} {{ field|withInputError }} {% if field.errors %} {% include
-  "forms/snippets/error_alert.html" with errors=field.errors %} {% endif %}
+  {% endif %} 
+  {{ field | withInputError }} 
+    {% if field.errors %} 
+      {% include "forms/snippets/error_alert.html" with errors=field.errors %} 
+    {% endif %}
 </div>
