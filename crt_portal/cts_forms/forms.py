@@ -1395,13 +1395,19 @@ class BulkActions(Form, ActivityStreamUpdater):
 
         if summary_string:
             kwargs = {
-                'is_summary': True,
                 'note': summary_string,
                 'author': user.username,
             }
-            comment = CommentAndSummary.objects.create(**kwargs)
+            # update the pre-existing summary if extant
             for report in reports:
-                report.internal_comments.add(comment)
+                summary = report.get_summary
+                if summary:
+                    summary.note = kwargs['note']
+                    summary.author = kwargs['author']
+                    summary.save()
+                else:
+                    summary = CommentAndSummary.objects.create(is_summary=True, **kwargs)
+                    report.internal_comments.add(summary)
                 add_activity(user, 'Added summary: ', summary_string, report)
 
         updated_number = reports.update(**updated_data)
