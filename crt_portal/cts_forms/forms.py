@@ -1388,8 +1388,8 @@ class BulkActions(Form, ActivityStreamUpdater):
                 'note': comment_string,
                 'author': user.username,
             }
-            comment = CommentAndSummary.objects.create(**kwargs)
             for report in reports:
+                comment = CommentAndSummary.objects.create(**kwargs)
                 report.internal_comments.add(comment)
                 add_activity(user, 'Added comment: ', comment_string, report)
 
