@@ -61,11 +61,11 @@ logger = logging.getLogger(__name__)
 User = get_user_model()
 
 
-def _add_empty_choice(choices):
+def _add_empty_choice(choices, default_string=EMPTY_CHOICE):
     """Add an empty option to list of choices"""
     if isinstance(choices, list):
         choices = tuple(choices)
-    return (EMPTY_CHOICE,) + choices
+    return (('', default_string),) + choices
 
 
 def add_activity(user, verb, description, instance):
@@ -756,12 +756,12 @@ class ProForm(
         Contact.__init__(self, *args, **kwargs)
         # CRT views only
         self.fields['intake_format'] = ChoiceField(
-            choices=(
+            choices=_add_empty_choice((
                 ('letter', 'letter'),
                 ('phone', 'phone'),
                 ('fax', 'fax'),
                 ('email', 'email'),
-            ),
+            )),
             widget=UsaRadioSelect,
             required=False,
         )
@@ -1263,19 +1263,20 @@ class PrintActions(Form):
 
 
 class BulkActions(Form, ActivityStreamUpdater):
+
     assigned_section = ChoiceField(
         label='Section',
         widget=ComplaintSelect(
             attrs={'class': 'usa-select text-bold text-uppercase crt-dropdown__data'},
         ),
-        choices=_add_empty_choice(SECTION_CHOICES),
+        choices=_add_empty_choice(SECTION_CHOICES, default_string='Multiple'),
         required=False
     )
     status = ChoiceField(
         widget=ComplaintSelect(
             attrs={'class': 'crt-dropdown__data'},
         ),
-        choices=_add_empty_choice(STATUS_CHOICES),
+        choices=_add_empty_choice(STATUS_CHOICES, default_string='Multiple'),
         required=False
     )
     primary_statute = ChoiceField(
@@ -1283,7 +1284,7 @@ class BulkActions(Form, ActivityStreamUpdater):
         widget=ComplaintSelect(
             attrs={'class': 'text-uppercase crt-dropdown__data'},
         ),
-        choices=_add_empty_choice(STATUTE_CHOICES),
+        choices=_add_empty_choice(STATUTE_CHOICES, default_string='Multiple'),
         required=False
     )
     district = ChoiceField(
@@ -1291,7 +1292,7 @@ class BulkActions(Form, ActivityStreamUpdater):
         widget=ComplaintSelect(
             attrs={'class': 'text-uppercase crt-dropdown__data'},
         ),
-        choices=_add_empty_choice(DISTRICT_CHOICES),
+        choices=_add_empty_choice(DISTRICT_CHOICES, default_string='Multiple'),
         required=False
     )
     assigned_to = ModelChoiceField(
