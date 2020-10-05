@@ -548,39 +548,7 @@ class ActionsView(LoginRequiredMixin, FormView):
             else:
                 requested_query = Report.objects.filter(pk__in=ids)
 
-            updated_data = bulk_actions_form.get_updates()
-            comment_string = updated_data.pop('comment', None)
-            summary_string = updated_data.pop('summary', None)
-
-            # update activity log _before_ we update fields so
-            # that we still have access to the original field
-            for report in requested_query:
-                bulk_actions_form.update_activity_stream(request.user, report)
-
-            if comment_string:
-                kwargs = {
-                    'is_summary': False,
-                    'note': comment_string,
-                    'author': request.user.username,
-                }
-                comment = CommentAndSummary.objects.create(**kwargs)
-                for report in requested_query:
-                    report.internal_comments.add(comment)
-                    add_activity(request.user, 'Added comment: ', comment_string, report)
-
-            if summary_string:
-                kwargs = {
-                    'is_summary': True,
-                    'note': summary_string,
-                    'author': request.user.username,
-                }
-                comment = CommentAndSummary.objects.create(**kwargs)
-                for report in requested_query:
-                    report.internal_comments.add(comment)
-                    add_activity(request.user, 'Added summary: ', summary_string, report)
-
-            number = requested_query.update(**updated_data) if updated_data else len(requested_query)
-
+            number = bulk_actions_form.update(requested_query, request.user)
             description = bulk_actions_form.get_update_description()
             message = f'{number} records have been updated: {description}'
             messages.add_message(request, messages.SUCCESS, message)

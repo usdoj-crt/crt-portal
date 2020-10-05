@@ -1369,6 +1369,44 @@ class BulkActions(Form, ActivityStreamUpdater):
         for verb, description in self.get_actions(report):
             add_activity(user, verb, description, report)
 
+    def update(self, reports, user):
+        """
+        Bulk update given reports and update activity log for each report
+        """
+        updated_data = self.get_updates()
+        comment_string = updated_data.pop('comment', None)
+        summary_string = updated_data.pop('summary', None)
+
+        # update activity log _before_ we update fields so
+        # that we still have access to the original field
+        for report in reports:
+            self.update_activity_stream(user, report)
+
+        if comment_string:
+            kwargs = {
+                'is_summary': False,
+                'note': comment_string,
+                'author': user.username,
+            }
+            comment = CommentAndSummary.objects.create(**kwargs)
+            for report in reports:
+                report.internal_comments.add(comment)
+                add_activity(user, 'Added comment: ', comment_string, report)
+
+        if summary_string:
+            kwargs = {
+                'is_summary': True,
+                'note': summary_string,
+                'author': user.username,
+            }
+            comment = CommentAndSummary.objects.create(**kwargs)
+            for report in reports:
+                report.internal_comments.add(comment)
+                add_activity(user, 'Added summary: ', summary_string, report)
+
+        updated_number = reports.update(**updated_data)
+        return updated_number or len(reports)  # sometimes only a comment is added
+
 
 class ContactEditForm(ModelForm, ActivityStreamUpdater):
     CONTEXT_KEY = 'contact_form'
