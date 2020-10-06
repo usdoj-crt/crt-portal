@@ -367,9 +367,121 @@ class PrintActionTests(TestCase):
         return str(response.content)
 
     def test_response_action_print(self):
-        options = ['correspondent', 'actions']
+        options = ['correspondent', 'activity']
         content = self.post_print_action(options)
         # verify that next QP is preserved and activity log shows up
         self.assertTrue('?per_page=15' in content)
         self.assertTrue('Printed report' in content)
-        self.assertTrue(escape('Selected correspondent, actions') in content)
+        self.assertTrue(escape('Selected correspondent, activity') in content)
+
+
+class BulkAssignTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        self.reports = [Report.objects.create(**SAMPLE_REPORT) for _ in range(16)]
+
+    def get(self, ids, all_ids=False):
+        params = {
+            'next': '?per_page=15&status=open&something=else',
+            'id': ids,
+        }
+        if all_ids:
+            params['all'] = 'all'
+        response = self.client.get(reverse('crt_forms:crt-forms-actions'), params)
+        self.assertEquals(response.status_code, 200)
+        return response
+
+    def test_get_with_ids(self):
+        ids = [report.id for report in self.reports[3:5]]
+        response = self.get(ids)
+        content = str(response.content)
+        # verify that all hidden inputs are present with correct values
+        next_qp = escape("?per_page=15&status=open&something=else")
+        id_str = ",".join([str(id) for id in ids])
+        self.assertTrue(f'value="{next_qp}" name="next"' in content)
+        self.assertTrue(f'value="{id_str}" name="ids"' in content)
+        # bulk assign all options should not show up
+        self.assertTrue('value="" name="all"' in content)
+        self.assertFalse("button--warning" in content)
+
+    def test_get_with_all(self):
+        ids = [report.id for report in self.reports]
+        response = self.get(ids, all_ids=True)
+        content = str(response.content)
+        # verify that all hidden inputs are present with correct values
+        next_qp = escape("?per_page=15&status=open&something=else")
+        id_str = ",".join([str(id) for id in ids])
+        self.assertTrue(f'value="{next_qp}" name="next"' in content)
+        self.assertTrue(f'value="{id_str}" name="ids"' in content)
+        # bulk assign all options should show up
+        self.assertTrue('value="all" name="all"' in content)
+        self.assertTrue("button--warning" in content)
+        self.assertTrue(f"Apply changes to {len(ids)} records" in content)
+
+    def post(self, user_id, ids, all_ids=False, confirm=False):
+        params = {
+            'next': '?per_page=15',
+            'ids': ','.join([str(id) for id in ids]),
+            'assigned_to': user_id,
+        }
+        if all_ids:
+            params['all'] = 'all'
+        if confirm:
+            params['confirm_all'] = 'confirm_all'
+        response = self.client.post(reverse('crt_forms:crt-forms-actions'), params, follow=True)
+        self.assertEquals(response.status_code, 200)
+        return response
+
+    def test_post_with_blank_and_invalid_user(self):
+        ids = [report.id for report in self.reports[3:5]]
+        response = self.post('', ids)
+        content = str(response.content)
+        self.assertTrue('Could not bulk assign: This field is required.' in content)
+        response = self.post('invalid', ids)
+        content = str(response.content)
+        self.assertTrue('Could not bulk assign: Select a valid choice. That choice is not one of the available choices.' in content)
+
+    def test_post_with_ids(self):
+        ids = [report.id for report in self.reports[3:5]]
+        user = User.objects.get(username='DELETE_USER')
+        response = self.post(user.id, ids)
+        content = str(response.content)
+        self.assertTrue('2 records have been assigned to DELETE_USER' in content)
+        self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
+        for report_id in ids:
+            report = Report.objects.get(id=report_id)
+            last_activity = list(report.target_actions.all())[-1]
+            self.assertEquals(last_activity.verb, "Assigned to:")
+            self.assertEquals(last_activity.description, 'Updated from "None" to "DELETE_USER"')
+            self.assertEquals(last_activity.actor, user)
+
+    def test_post_with_ids_and_all(self):
+        ids = [report.id for report in self.reports[3:5]]
+        user = User.objects.get(username='DELETE_USER')
+        response = self.post(user.id, ids, all_ids=True, confirm=False)
+        content = str(response.content)
+        self.assertTrue('2 records have been assigned to DELETE_USER' in content)
+        self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
+        for report_id in ids:
+            report = Report.objects.get(id=report_id)
+            last_activity = list(report.target_actions.all())[-1]
+            self.assertEquals(last_activity.verb, "Assigned to:")
+            self.assertEquals(last_activity.description, 'Updated from "None" to "DELETE_USER"')
+            self.assertEquals(last_activity.actor, user)
+
+    def test_post_with_all(self):
+        ids = [report.id for report in self.reports]
+        user = User.objects.get(username='DELETE_USER')
+        response = self.post(user.id, ids, all_ids=True, confirm=True)
+        content = str(response.content)
+        self.assertTrue('16 records have been assigned to DELETE_USER' in content)
+        self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
+        for report_id in ids:
+            report = Report.objects.get(id=report_id)
+            last_activity = list(report.target_actions.all())[-1]
+            self.assertEquals(last_activity.verb, "Assigned to:")
+            self.assertEquals(last_activity.description, 'Updated from "None" to "DELETE_USER"')
+            self.assertEquals(last_activity.actor, user)

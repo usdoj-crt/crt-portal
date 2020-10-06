@@ -100,11 +100,9 @@
    */
 
   var initialFilterState = {
-    assigned_section: [],
-    primary_complaint: '',
     status: [],
     location_state: [],
-    primary_complaint: '',
+    primary_complaint: [],
     contact_first_name: '',
     contact_last_name: '',
     contact_email: '',
@@ -119,11 +117,14 @@
     assigned_to: '',
     public_id: '',
     primary_statute: '',
+    reported_reason: [],
+    commercial_or_public_place: [],
+    intake_format: [],
+    servicemember: [],
+    hate_crime: [],
     sort: '',
     page: '',
     per_page: '',
-    servicemember: '',
-    hate_crime: '',
     no_status: ''
   };
   var filterDataModel = {};
@@ -136,7 +137,10 @@
   function mutateFilterDataWithUpdates(state, updates) {
     for (var key in updates) {
       if (state.hasOwnProperty(key)) {
-        state[key] = updates[key];
+        var decoded_keys = updates[key].map(function(elem) {
+          return decodeURIComponent(elem);
+        });
+        state[key] = decoded_keys;
       }
     }
   }
@@ -261,7 +265,6 @@
 
   function filterController() {
     var formEl = dom.getElementById('filters-form');
-    var multiSelectEl = formEl.querySelector('select[name="assigned_section"');
     var firstNameEl = formEl.querySelector('input[name="contact_first_name"');
     var lastNameEl = formEl.querySelector('input[name="contact_last_name"');
     var locationCityEl = formEl.querySelector('input[name="location_city_town"]');
@@ -277,6 +280,12 @@
     var complaintIDEl = formEl.querySelector('input[name="public_id"');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
     var personalDescriptionEl = formEl.querySelector('input[name="violation_summary"]');
+    var primaryIssueEl = dom.getElementsByName('primary_complaint');
+    var reportedReasonEl = dom.getElementsByName('reported_reason');
+    var relevantDetailsEl = dom.getElementsByName('commercial_or_public_place');
+    var intakeFormatEl = dom.getElementsByName('intake_format');
+    var hateCrimeEl = dom.getElementsByName('hate_crime');
+    var servicememberEl = dom.getElementsByName('servicemember');
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
      * and perform a new search with the updated filters applied.
@@ -287,10 +296,13 @@
 
       // see if we have to process multiple select elements first
       var multiSelectElements = [
-        'assigned_section',
         'status',
         'location_state',
-        'violation_summary'
+        'violation_summary',
+        'primary_complaint',
+        'intake_format',
+        'commercial_or_public_place',
+        'reported_reason'
       ];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {
@@ -325,10 +337,6 @@
 
     formView({
       el: formEl
-    });
-    multiSelectView({
-      el: multiSelectEl,
-      name: 'assigned_section'
     });
     textInputView({
       el: firstNameEl,
@@ -390,6 +398,30 @@
       el: clearAllEl,
       onClick: clearAllFilters
     });
+    checkBoxView({
+      el: primaryIssueEl,
+      name: 'primary_complaint'
+    });
+    checkBoxView({
+      el: reportedReasonEl,
+      name: 'reported_reason'
+    });
+    checkBoxView({
+      el: relevantDetailsEl,
+      name: 'commercial_or_public_place'
+    });
+    checkBoxView({
+      el: intakeFormatEl,
+      name: 'intake_format'
+    });
+    checkBoxView({
+      el: hateCrimeEl,
+      name: 'hate_crime'
+    });
+    checkBoxView({
+      el: servicememberEl,
+      name: 'servicemember'
+    });
   }
 
   // Bootstrap the filter code's data persistence and
@@ -407,6 +439,20 @@
     mutateFilterDataWithUpdates(filterDataModel, filterUpdates);
 
     filterController();
+
+    var toggle_filters = dom.getElementById('toggle-filters');
+    toggle_filters.onclick = function(event) {
+      var extra_filters = dom.getElementById('extra-filters');
+      var target = event.target;
+      if (extra_filters.hasAttribute('hidden')) {
+        extra_filters.removeAttribute('hidden');
+        target.innerText = 'less';
+      } else {
+        extra_filters.setAttribute('hidden', '');
+        target.innerText = 'more';
+      }
+      event.preventDefault();
+    };
   }
 
   window.addEventListener('DOMContentLoaded', init);

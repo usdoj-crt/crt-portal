@@ -93,3 +93,14 @@
     margin-bottom: 0;
   }
 }
+
+.crt-actions-card {
+  button {
+    margin-top: 1rem !important;
+  }
+
+  ul.errorlist {
+    color: color($theme-color-secondary);
+    list-style-type: none;
+  }
+}

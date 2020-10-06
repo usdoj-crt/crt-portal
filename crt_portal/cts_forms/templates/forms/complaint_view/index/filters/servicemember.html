@@ -1,0 +1,11 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block controls %}servicemember{% endblock %}
+{% block label %}Service Member{% endblock %}
+{% block id %}service-member{% endblock %}
+
+{% block content %}
+  <div id="servicemember-filter" class="multicheckboxes-container multicheckboxes-yesno">
+    {{ form.servicemember }}
+  </div>
+{% endblock %}

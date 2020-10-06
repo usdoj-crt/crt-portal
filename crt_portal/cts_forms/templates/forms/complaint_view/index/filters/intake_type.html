@@ -1,0 +1,11 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block controls %}intake_type{% endblock %}
+{% block label %}Intake Type{% endblock %}
+{% block id %}intake-type{% endblock %}
+
+{% block content %}
+  <div id="intake_type-filter" class="multicheckboxes-container">
+    {{ form.intake_format }}
+  </div>
+{% endblock %}

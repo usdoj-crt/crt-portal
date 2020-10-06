@@ -1,5 +1,6 @@
 import os
 import urllib.parse
+import logging
 
 from django import forms
 from django.contrib import messages
@@ -16,9 +17,10 @@ from django.views.decorators.cache import never_cache
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
-from .forms import (CommentActions, ComplaintActions, ResponseActions,
-                    PrintActions, ContactEditForm, Filters,
-                    ReportEditForm, Review, add_activity)
+from .forms import (BulkAssign, CommentActions, ComplaintActions,
+                    ResponseActions, PrintActions, ContactEditForm,
+                    Filters, ReportEditForm, Review, add_activity,
+                    ProfileForm)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -33,8 +35,10 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import CommentAndSummary, Report, Trends
+from .models import CommentAndSummary, Report, Trends, Profile
 from .page_through import pagination
+
+logger = logging.getLogger(__name__)
 
 SORT_DESC_CHAR = '-'
 
@@ -224,7 +228,18 @@ def setup_filter_parameters(report, querydict):
 
 
 @login_required
-def IndexView(request):
+def index_view(request):
+    profile_form = ProfileForm()
+    # Check for Profile object, then add filter to request
+    if hasattr(request.user, 'profile') and request.user.profile.intake_filters:
+        request.GET = request.GET.copy()
+        global_section_filter = request.user.profile.intake_filters.split(',')
+        request.GET.setlist('assigned_section', global_section_filter)
+
+        # Retreive ProfileForm intake_filters
+        data = {'intake_filters': global_section_filter}
+        profile_form = ProfileForm(data)
+
     report_query, query_filters = report_filter(request.GET)
 
     # Sort data based on request from params, default to `created_date` of complaint
@@ -288,12 +303,14 @@ def IndexView(request):
 
     final_data = {
         'form': Filters(request.GET),
+        'profile_form': profile_form,
         'data_dict': data,
         'page_format': page_format,
         'page_args': page_args,
         'sort_state': sort_state,
         'filter_state': filter_args,
         'filters': query_filters,
+        'return_url_args': all_args_encoded,
     }
 
     return render(request, 'forms/complaint_view/index/index.html', final_data)
@@ -337,6 +354,26 @@ def serialize_data(report, request, report_id):
     }
 
     return output
+
+
+class ProfileView(LoginRequiredMixin, FormView):
+    # Can be used for updating section filter for a profile
+    form_class = ProfileForm
+
+    def post(self, request):
+        # Update or create Profile
+        if hasattr(request.user, 'profile'):
+            instance = request.user.profile
+        else:
+            instance = Profile()
+            instance.user = request.user
+
+        profile_form = ProfileForm(request.POST, instance=instance)
+        if profile_form.is_valid() and profile_form.has_changed():
+            # Save Data in database
+            profile_form.save()
+        # redirects back to /form/view but all filter params are not perserved.
+        return redirect(reverse('crt_forms:crt-forms-index'))
 
 
 class ResponseView(LoginRequiredMixin, View):
@@ -449,6 +486,101 @@ class ShowView(LoginRequiredMixin, View):
                     output.update({form_type: form(instance=report)})
 
             return render(request, 'forms/complaint_view/show/index.html', output)
+
+
+class ActionsView(LoginRequiredMixin, FormView):
+
+    def reconstruct_query(self, next_qp):
+        """
+        reconstruct the query filter on the previous page using the next
+        query parameter. note that if next is empty, the resulting
+        query will return all records.
+        """
+        querydict = QueryDict(next_qp)
+        report_query, _ = report_filter(querydict)
+        sort = querydict.getlist('sort', ['-create_date'])
+        return report_query.order_by(*sort)
+
+    def get(self, request):
+        return_url_args = request.GET.get('next', '')
+        return_url_args = urllib.parse.unquote(return_url_args)
+
+        requested_query = self.reconstruct_query(return_url_args)
+        all_ids_count = requested_query.count()
+
+        ids = request.GET.getlist('id')
+        ids_count = len(ids)
+        assign_form = BulkAssign()
+
+        # the select all option only applies if 1. user hits the
+        # select all button and 2. we have more records in the query
+        # than the ids passed in
+        selected_all = request.GET.get('all', '') == 'all' and all_ids_count != ids_count
+
+        output = {
+            'return_url_args': return_url_args,
+            'selected_all': 'all' if selected_all else '',
+            'ids': ','.join([id for id in ids]),
+            'ids_count': ids_count,
+            'all_ids_count': all_ids_count,
+            'assign_form': assign_form,
+        }
+        return render(request, 'forms/complaint_view/actions/index.html', output)
+
+    def post(self, request):
+        assign_form = BulkAssign(request.POST)
+        return_url_args = request.POST.get('next', '')
+        selected_all = request.POST.get('all', '') == 'all'
+        confirm_all = request.POST.get('confirm_all', '') == 'confirm_all'
+        ids = request.POST.get('ids', '').split(',')
+
+        if assign_form.is_valid():
+            assignee = assign_form.cleaned_data['assigned_to']
+            if confirm_all:
+                requested_query = self.reconstruct_query(return_url_args)
+            else:
+                requested_query = Report.objects.filter(pk__in=ids)
+
+            # update activity log _before_ we update the assignee so
+            # that we have access to the original assignee
+            for report in requested_query:
+                original = report.assigned_to or "None"
+                description = f'Updated from "{original}" to "{assignee}"'
+                add_activity(request.user, "Assigned to:", description, report)
+
+            number = requested_query.update(assigned_to=assignee)
+
+            description = f"{number} records have been assigned to {assignee}"
+            messages.add_message(request, messages.SUCCESS, description)
+
+            # log this action for an audit trail.
+            logger.info(f'Bulk updating {number} requests by {request.user} to {assignee}')
+
+            url = reverse('crt_forms:crt-forms-index')
+            return redirect(f"{url}{return_url_args}")
+
+        else:
+            for key in assign_form.errors:
+                errors = '; '.join(assign_form.errors[key])
+                error_message = f'Could not bulk assign: {errors}'
+                messages.add_message(request, messages.ERROR, error_message)
+
+            requested_query = self.reconstruct_query(return_url_args)
+            all_ids_count = requested_query.count()
+            ids_count = len(ids)
+
+            # further refine selected_all to ensure < 15 items don't show up.
+            selected_all = selected_all and all_ids_count != ids_count
+
+            output = {
+                'return_url_args': return_url_args,
+                'selected_all': 'all' if selected_all else '',
+                'ids': ids,
+                'ids_count': ids_count,
+                'all_ids_count': all_ids_count,
+                'assign_form': assign_form,
+            }
+            return render(request, 'forms/complaint_view/actions/index.html', output)
 
 
 class SaveCommentView(LoginRequiredMixin, FormView):

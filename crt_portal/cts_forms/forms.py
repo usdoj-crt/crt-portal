@@ -22,22 +22,27 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               DATE_ERRORS, DISTRICT_CHOICES,
                               EMPLOYER_SIZE_CHOICES, EMPLOYER_SIZE_ERROR,
                               EMPTY_CHOICE, INCIDENT_DATE_HELPTEXT,
+                              INTAKE_FORMAT_CHOICES,
                               POLICE_LOCATION_ERRORS,
                               PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
-                              PRIMARY_COMPLAINT_ERROR, PRINT_CHOICES,
+                              PRIMARY_COMPLAINT_ERROR,
+                              PRIMARY_COMPLAINT_PROFORM_CHOICES,
+                              PRINT_CHOICES,
                               PROTECTED_CLASS_ERROR,
+                              PROTECTED_MODEL_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
+                              SECTION_CHOICES_WITHOUT_LABELS,
                               SECTION_CHOICES, SERVICEMEMBER_CHOICES,
                               SERVICEMEMBER_ERROR, STATES_AND_TERRITORIES,
                               STATUS_CHOICES, STATUTE_CHOICES,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ResponseTemplate)
+                     ProtectedClass, Report, ResponseTemplate, Profile)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -856,6 +861,42 @@ class ProForm(
             return cleaned_data
 
 
+class ProfileForm(ModelForm):
+    intake_filters = MultipleChoiceField(
+        required=False,
+        choices=SECTION_CHOICES_WITHOUT_LABELS,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'intake_filters'
+        })
+    )
+
+    class Meta:
+        model = Profile
+        fields = [
+            'intake_filters'
+        ]
+
+        labels = {
+            'intake_filters': 'View sections'
+        }
+
+    def clean_intake_filters(self):
+        # Clean intake_filters by removing list markup
+        if 'intake_filters' in self.cleaned_data:
+            new_filter = self.cleaned_data['intake_filters']
+            new_filter = str(new_filter).strip('[').strip(']').replace("'", '').replace(' ', '')
+            return new_filter
+
+
+def reported_reason_proform():
+    """
+    Strip parentheses from the value description.
+    """
+    for (key, value) in PROTECTED_MODEL_CHOICES:
+        new_value = value[:value.find('(') - 1] if '(' in value else value
+        yield (key, new_value)
+
+
 class Filters(ModelForm):
     status = MultipleChoiceField(
         initial=(('new', 'New'), ('open', 'Open')),
@@ -877,7 +918,8 @@ class Filters(ModelForm):
         choices=_add_empty_choice(STATUTE_CHOICES),
         widget=Select(attrs={
             'name': 'primary_statute',
-            'class': 'usa-select'
+            'class': 'usa-select',
+            'aria-label': 'Primary Classification'
         })
     )
     summary = CharField(
@@ -923,6 +965,49 @@ class Filters(ModelForm):
             'placeholder': 'yyyy-mm-dd',
         }),
     )
+    primary_complaint = MultipleChoiceField(
+        required=False,
+        choices=PRIMARY_COMPLAINT_PROFORM_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'primary_issue',
+        }),
+        label='Primary Issue',
+    )
+    reported_reason = MultipleChoiceField(
+        required=False,
+        choices=reported_reason_proform,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'reported_reason',
+        }),
+    )
+    commercial_or_public_place = MultipleChoiceField(
+        required=False,
+        choices=COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'relevant_details',
+        }),
+    )
+    hate_crime = MultipleChoiceField(
+        required=False,
+        choices=(('yes', 'Yes'),),
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'hate_crime',
+        }),
+    )
+    servicemember = MultipleChoiceField(
+        required=False,
+        choices=(('yes', 'Yes'),),
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'servicemember',
+        }),
+    )
+    intake_format = MultipleChoiceField(
+        required=False,
+        choices=INTAKE_FORMAT_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'intake_format',
+        }),
+    )
 
     class Meta:
         model = Report
@@ -938,6 +1023,11 @@ class Filters(ModelForm):
             'public_id',
             'primary_statute',
             'violation_summary',
+            'primary_complaint',
+            'commercial_or_public_place',
+            'hate_crime',
+            'servicemember',
+            'intake_format',
         ]
 
         labels = {
@@ -1172,6 +1262,14 @@ class PrintActions(Form):
         label='options',
         choices=PRINT_CHOICES,
         widget=UsaCheckboxSelectMultiple(),
+    )
+
+
+class BulkAssign(Form, ActivityStreamUpdater):
+    assigned_to = ModelChoiceField(
+        queryset=User.objects.filter(is_active=True),
+        label="Assigned to",
+        required=True
     )
 
 
