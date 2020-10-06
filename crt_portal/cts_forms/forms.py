@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 
 from actstream import action
 from django.contrib.auth import get_user_model
@@ -1409,6 +1409,8 @@ class BulkActions(Form, ActivityStreamUpdater):
                     report.internal_comments.add(summary)
                 add_activity(user, 'Added summary: ', summary_string, report)
 
+        if updated_data:
+            updated_data['modified_date'] = datetime.now(timezone.utc)
         updated_number = reports.update(**updated_data)
         return updated_number or len(reports)  # sometimes only a comment is added
 
