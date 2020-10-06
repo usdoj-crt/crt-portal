@@ -550,7 +550,8 @@ class ActionsView(LoginRequiredMixin, FormView):
 
             number = bulk_actions_form.update(requested_query, request.user)
             description = bulk_actions_form.get_update_description()
-            message = f'{number} records have been updated: {description}'
+            plural = 's have' if number > 1 else ' has'
+            message = f'{number} record{plural} been updated: {description}'
             messages.add_message(request, messages.SUCCESS, message)
 
             # log this action for an audit trail.

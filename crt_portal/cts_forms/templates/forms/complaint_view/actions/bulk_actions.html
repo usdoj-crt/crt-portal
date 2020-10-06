@@ -75,7 +75,7 @@
                 type="submit"
                 name="selected_ids"
         >
-          Apply changes to {{ ids_count }} records
+          Apply changes to {{ ids_count }} record{{ ids_count|pluralize:"s" }}
         </button>
 
         {% if selected_all %}
@@ -83,7 +83,7 @@
                   id="show_warning_section"
                   disabled
           >
-            Apply changes to {{ all_ids_count }} records
+            Apply changes to {{ all_ids_count }} record{{ all_ids_count|pluralize:"s" }}
           </button>
         {% endif %}
       </div>
