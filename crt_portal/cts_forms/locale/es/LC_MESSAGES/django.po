@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-24 16:58+0000\n"
+"POT-Creation-Date: 2020-10-07 20:44+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:155 forms.py:1184
+#: forms.py:156 forms.py:1220
 msgid " - Select - "
 msgstr " - Elija - "
 
 #. Translators: This is help text for the question asking if someone is a service member
-#: forms.py:167
+#: forms.py:168
 msgid ""
 "If you’re reporting on behalf of someone else, please select their status."
 msgstr ""
 "Si usted está presentando la querella en nombre de otra persona, elija el "
 "estatus de tal persona."
 
-#: forms.py:184 templates/forms/report_contact_info.html:8
+#: forms.py:185 templates/forms/report_contact_info.html:8
 msgid ""
 "If you believe you or someone else has experienced a civil rights violation, "
 "please tell us what happened."
@@ -37,7 +37,7 @@ msgstr ""
 "Si usted cree que usted u otra persona ha sido víctima de una vulneración de "
 "sus derechos civiles, cuéntenos lo que pasó."
 
-#: forms.py:210
+#: forms.py:211
 msgid ""
 "Select the reason that best describes your concern. Each reason lists "
 "examples of civil rights violations that may relate to your incident. In "
@@ -50,11 +50,11 @@ msgstr ""
 "su preocupación en sus propias palabras."
 
 #. Translators: notes that this page is the same form step as the page before
-#: forms.py:233
+#: forms.py:234
 msgid "Continued"
 msgstr "Continuado"
 
-#: forms.py:289
+#: forms.py:290
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
@@ -62,11 +62,11 @@ msgstr ""
 "Ejemplos: Nombre de la empresa, escuela, intersección, cárcel, sede de "
 "votación, página web, etc."
 
-#: forms.py:311 question_text.py:29
+#: forms.py:312 question_text.py:29
 msgid "Where did this happen?"
 msgstr "¿Dónde sucedió esto?"
 
-#: forms.py:323
+#: forms.py:324
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your report is reviewed by the right people within "
@@ -76,7 +76,7 @@ msgstr ""
 "incidente. Esto asegura que su informe sea revisado por las personas "
 "indicadas dentro de la División de Derechos Civiles."
 
-#: forms.py:386
+#: forms.py:387
 msgid ""
 "Public employers include organizations funded by the government like the "
 "military, post office, fire department, courthouse, DMV, or public school. "
@@ -87,7 +87,7 @@ msgstr ""
 "juzgados, departamentos de vehículos motorizados o escuelas públicas. Esto "
 "podría ser al nivel local o estatal."
 
-#: forms.py:387
+#: forms.py:388
 msgid ""
 "Private employers are business or non-profits not funded by the government "
 "such as retail stores, banks, or restaurants."
@@ -97,11 +97,11 @@ msgstr ""
 "bancos o restaurantes."
 
 #. Translators: describe the "other" option for commercial or public place question
-#: forms.py:433
+#: forms.py:434
 msgid "Please describe"
 msgstr "Favor de describirlo"
 
-#: forms.py:500
+#: forms.py:501
 msgid ""
 "Includes schools, educational programs, or educational activities, like "
 "training programs, sports teams, clubs, or other school-sponsored activities"
@@ -110,11 +110,11 @@ msgstr ""
 "programas de capacitación, equipos deportivos, clubes u otras actividades "
 "patrocinadas por una escuela."
 
-#: forms.py:511
+#: forms.py:512
 msgid "Please select the type of school or educational program."
 msgstr "Elija el tipo de escuela o programa educativo."
 
-#: forms.py:534
+#: forms.py:535
 msgid ""
 "There are federal and state laws that protect people from discrimination "
 "based on their personal characteristics. Here is a list of the most common "
@@ -127,11 +127,11 @@ msgstr ""
 "Elija cualquiera que se aplique a su incidente."
 
 #. Translators: This is to explain an "other" choice for personal characteristics
-#: forms.py:539
+#: forms.py:540
 msgid "Please describe \"Other reason\""
 msgstr "Favor de describir \"Otro motivo\""
 
-#: forms.py:621
+#: forms.py:622
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -141,21 +141,21 @@ msgstr ""
 "tomar las medidas apropiadas. Si sucedió a lo largo de un período de tiempo "
 "o todavía está sucediendo, favor de indicar la fecha más reciente."
 
-#: forms.py:876
+#: forms.py:904
 msgid "Primary classification"
 msgstr "Clasificación principal"
 
-#: forms.py:897
+#: forms.py:925
 msgid "Assigned to"
 msgstr "Asignado a"
 
-#: forms.py:1000
+#: forms.py:1028
 #, fuzzy
 #| msgid "Date can not be in the future."
 msgid "Create date cannot be in the future."
 msgstr "La fecha no puede ser en el futuro."
 
-#: forms.py:1141
+#: forms.py:1169
 msgid "Comment cannot be empty"
 msgstr ""
 
@@ -164,11 +164,11 @@ msgstr ""
 msgid "- Select -"
 msgstr "- Elija -"
 
-#: model_variables.py:9 model_variables.py:105 model_variables.py:206
+#: model_variables.py:9 model_variables.py:105 model_variables.py:209
 msgid "Yes"
 msgstr "Sí"
 
-#: model_variables.py:10 model_variables.py:106 model_variables.py:205
+#: model_variables.py:10 model_variables.py:106 model_variables.py:208
 msgid "No"
 msgstr "No"
 
@@ -433,7 +433,7 @@ msgstr ""
 "Obligado al trabajo sexual mediante a cambio de dinero mediante el abuso "
 "físico o acoso, otras amenazas de daño o el confiamiento."
 
-#: model_variables.py:88 model_variables.py:212
+#: model_variables.py:88 model_variables.py:215
 msgid "Federal"
 msgstr "Federal"
 
@@ -446,8 +446,8 @@ msgstr "Estatal o local"
 msgid "Both"
 msgstr "Ambas"
 
-#: model_variables.py:92 model_variables.py:214 model_variables.py:229
-#: model_variables.py:237 model_variables.py:254
+#: model_variables.py:92 model_variables.py:217 model_variables.py:232
+#: model_variables.py:240 model_variables.py:257
 msgid "I'm not sure"
 msgstr "No estoy seguro/a"
 
@@ -477,7 +477,9 @@ msgid "Age"
 msgstr "Edad"
 
 #: model_variables.py:114
-msgid "Disability (including temporary or recovery)"
+msgid ""
+"Disability (including temporary or recovered, and including HIV and drug "
+"addiction)"
 msgstr ""
 "Discapacidad (lo que incluye discapacidades temporales o la recuperación de "
 "una discapacidad)"
@@ -547,31 +549,31 @@ msgstr ""
 "\"Ninguna de estas opciones se aplica a mí\" u \"Otro motivo\" y proporcione "
 "una explicación."
 
-#: model_variables.py:177
+#: model_variables.py:180
 msgid "Place of worship or about a place of worship"
 msgstr "Lugar de culto o acerca de un lugar de culto"
 
-#: model_variables.py:178
+#: model_variables.py:181
 msgid "Commercial or retail building"
 msgstr "Edificio comercial o de tiendas de venta al por menor"
 
-#: model_variables.py:179 model_variables.py:190
+#: model_variables.py:182 model_variables.py:193
 msgid "Healthcare facility"
 msgstr "Centro de atención médica"
 
-#: model_variables.py:180 model_variables.py:191
+#: model_variables.py:183 model_variables.py:194
 msgid "Financial institution"
 msgstr "Institución financiera"
 
-#: model_variables.py:181
+#: model_variables.py:184
 msgid "Public space"
 msgstr "Lugar público"
 
-#: model_variables.py:182 templatetags/commercial_public_space_view.py:17
+#: model_variables.py:185 templatetags/commercial_public_space_view.py:17
 msgid "Other"
 msgstr "Otro"
 
-#: model_variables.py:185
+#: model_variables.py:188
 msgid ""
 "Please select the type of location. If none of these apply to your "
 "situation, please select \"Other\"."
@@ -579,27 +581,27 @@ msgstr ""
 "Favor de elegir el tipo de localización. Si ninguno de estos se aplica a su "
 "situación, elija \"Otro\""
 
-#: model_variables.py:188
+#: model_variables.py:191
 msgid "Place of worship"
 msgstr "Lugar de culto"
 
-#: model_variables.py:189
+#: model_variables.py:192
 msgid "Commercial"
 msgstr "Comercial"
 
-#: model_variables.py:192
+#: model_variables.py:195
 msgid "Public outdoor space"
 msgstr "Lugar público al aire libre"
 
-#: model_variables.py:196
+#: model_variables.py:199
 msgid "Church, synagogue, temple, religious community center"
 msgstr "Iglesia, sinagoga, templo, centro religioso comunitario"
 
-#: model_variables.py:197
+#: model_variables.py:200
 msgid "Store, restaurant, bar, hotel, theater"
 msgstr "Tienda, restaurante, bar, hotel, teatro"
 
-#: model_variables.py:198
+#: model_variables.py:201
 msgid ""
 "Hospital or clinic (including inpatient and outpatient programs), "
 "reproductive care clinic, state developmental institution, nursing home"
@@ -608,11 +610,11 @@ msgstr ""
 "clínica de servicios de salud reproductiva, institución estatal de "
 "desarrollo, residencia de tercera edad"
 
-#: model_variables.py:199
+#: model_variables.py:202
 msgid "Bank, credit union, loan services"
 msgstr "Servicios de préstamo, cooperativa de crédito y bancarios"
 
-#: model_variables.py:200
+#: model_variables.py:203
 msgid ""
 "Park, sidewalk, street, other public buildings (courthouse, DMV, city "
 "library)"
@@ -620,353 +622,353 @@ msgstr ""
 "Parque, acera, calle, otros edificios comerciales (juzgado, Departamento de "
 "Vehículos Motorizados, biblioteca municipal)"
 
-#: model_variables.py:211
+#: model_variables.py:214
 msgid "State/local"
 msgstr "Estatal/local"
 
-#: model_variables.py:213
+#: model_variables.py:216
 msgid "Private"
 msgstr "Privado"
 
-#: model_variables.py:219
+#: model_variables.py:222
 msgid "Outside of prison"
 msgstr "Fuera de la cárcel"
 
-#: model_variables.py:221
+#: model_variables.py:224
 msgid "Prison (Federal)"
 msgstr "Cárcel (Federal)"
 
-#: model_variables.py:222
+#: model_variables.py:225
 msgid "Prison (Private)"
 msgstr "Cárcel (Privada)"
 
-#: model_variables.py:223
+#: model_variables.py:226
 msgid "Prison (I'm not sure)"
 msgstr "Cárcel (No estoy seguro/a)"
 
-#: model_variables.py:227
+#: model_variables.py:230
 msgid "Public employer"
 msgstr "Empleador público"
 
-#: model_variables.py:228
+#: model_variables.py:231
 msgid "Private employer"
 msgstr "Empleador privado"
 
-#: model_variables.py:232
+#: model_variables.py:235
 msgid "Please select what type of employer this is."
 msgstr "Elija el tipo de empleador del que se trata."
 
-#: model_variables.py:235
+#: model_variables.py:238
 msgid "Fewer than 15 employees"
 msgstr "Menos de 15 empleados"
 
-#: model_variables.py:236
+#: model_variables.py:239
 msgid "15 or more employees"
 msgstr "15 empleados o más"
 
-#: model_variables.py:240
+#: model_variables.py:243
 msgid "Please select how large the employer is."
 msgstr "Indique el tamaño del empleador"
 
-#: model_variables.py:252
+#: model_variables.py:255
 msgid "Public school or educational program"
 msgstr "Escuela pública o programa educativo"
 
-#: model_variables.py:253
+#: model_variables.py:256
 msgid "Private school or educational program"
 msgstr "Escuela privada o programa educativo"
 
-#: model_variables.py:259
+#: model_variables.py:262
 msgid "Alabama"
 msgstr "Alabama"
 
-#: model_variables.py:260
+#: model_variables.py:263
 msgid "Alaska"
 msgstr "Alaska"
 
-#: model_variables.py:261
+#: model_variables.py:264
 msgid "Arizona"
 msgstr "Arizona"
 
-#: model_variables.py:262
+#: model_variables.py:265
 msgid "Arkansas"
 msgstr "Arkansas"
 
-#: model_variables.py:263
+#: model_variables.py:266
 msgid "California"
 msgstr "California"
 
-#: model_variables.py:264
+#: model_variables.py:267
 msgid "Colorado"
 msgstr "Colorado"
 
-#: model_variables.py:265
+#: model_variables.py:268
 msgid "Connecticut"
 msgstr "Connecticut"
 
-#: model_variables.py:266
+#: model_variables.py:269
 msgid "Delaware"
 msgstr "Delaware"
 
-#: model_variables.py:267
+#: model_variables.py:270
 msgid "District of Columbia"
 msgstr "District of Columbia"
 
-#: model_variables.py:268
+#: model_variables.py:271
 msgid "Florida"
 msgstr "Florida"
 
-#: model_variables.py:269
+#: model_variables.py:272
 msgid "Georgia"
 msgstr "Georgia"
 
-#: model_variables.py:270
+#: model_variables.py:273
 msgid "Hawaii"
 msgstr "Hawaii"
 
-#: model_variables.py:271
+#: model_variables.py:274
 msgid "Idaho"
 msgstr "Idaho"
 
-#: model_variables.py:272
+#: model_variables.py:275
 msgid "Illinois"
 msgstr "Illinois"
 
-#: model_variables.py:273
+#: model_variables.py:276
 msgid "Indiana"
 msgstr "Indiana"
 
-#: model_variables.py:274
+#: model_variables.py:277
 msgid "Iowa"
 msgstr "Iowa"
 
-#: model_variables.py:275
+#: model_variables.py:278
 msgid "Kansas"
 msgstr "Kansas"
 
-#: model_variables.py:276
+#: model_variables.py:279
 msgid "Kentucky"
 msgstr "Kentucky"
 
-#: model_variables.py:277
+#: model_variables.py:280
 msgid "Louisiana"
 msgstr "Louisiana"
 
-#: model_variables.py:278
+#: model_variables.py:281
 msgid "Maine"
 msgstr "Maine"
 
-#: model_variables.py:279
+#: model_variables.py:282
 msgid "Maryland"
 msgstr "Maryland"
 
-#: model_variables.py:280
+#: model_variables.py:283
 msgid "Massachusetts"
 msgstr "Massachusetts"
 
-#: model_variables.py:281
+#: model_variables.py:284
 msgid "Michigan"
 msgstr "Michigan"
 
-#: model_variables.py:282
+#: model_variables.py:285
 msgid "Minnesota"
 msgstr "Minnesota"
 
-#: model_variables.py:283
+#: model_variables.py:286
 msgid "Mississippi"
 msgstr "Mississippi"
 
-#: model_variables.py:284
+#: model_variables.py:287
 msgid "Missouri"
 msgstr "Missouri"
 
-#: model_variables.py:285
+#: model_variables.py:288
 msgid "Montana"
 msgstr "Montana"
 
-#: model_variables.py:286
+#: model_variables.py:289
 msgid "Nebraska"
 msgstr "Nebraska"
 
-#: model_variables.py:287
+#: model_variables.py:290
 msgid "Nevada"
 msgstr "Nevada"
 
-#: model_variables.py:288
+#: model_variables.py:291
 msgid "New Hampshire"
 msgstr "New Hampshire"
 
-#: model_variables.py:289
+#: model_variables.py:292
 msgid "New Jersey"
 msgstr "New Jersey"
 
-#: model_variables.py:290
+#: model_variables.py:293
 msgid "New Mexico"
 msgstr "New México"
 
-#: model_variables.py:291
+#: model_variables.py:294
 msgid "New York"
 msgstr "New York"
 
-#: model_variables.py:292
+#: model_variables.py:295
 msgid "North Carolina"
 msgstr "North Carolina"
 
-#: model_variables.py:293
+#: model_variables.py:296
 msgid "North Dakota"
 msgstr "North Dakota"
 
-#: model_variables.py:294
+#: model_variables.py:297
 msgid "Ohio"
 msgstr "Ohio"
 
-#: model_variables.py:295
+#: model_variables.py:298
 msgid "Oklahoma"
 msgstr "Oklahoma"
 
-#: model_variables.py:296
+#: model_variables.py:299
 msgid "Oregon"
 msgstr "Oregón"
 
-#: model_variables.py:297
+#: model_variables.py:300
 msgid "Pennsylvania"
 msgstr "Pennsylvania"
 
-#: model_variables.py:298
+#: model_variables.py:301
 msgid "Rhode Island"
 msgstr "Rhode Island"
 
-#: model_variables.py:299
+#: model_variables.py:302
 msgid "South Carolina"
 msgstr "South Carolina"
 
-#: model_variables.py:300
+#: model_variables.py:303
 msgid "South Dakota"
 msgstr "South Dakota"
 
-#: model_variables.py:301
+#: model_variables.py:304
 msgid "Tennessee"
 msgstr "Tennessee"
 
-#: model_variables.py:302
+#: model_variables.py:305
 msgid "Texas"
 msgstr "Texas"
 
-#: model_variables.py:303
+#: model_variables.py:306
 msgid "Utah"
 msgstr "Utah"
 
-#: model_variables.py:304
+#: model_variables.py:307
 msgid "Vermont"
 msgstr "Vermont"
 
-#: model_variables.py:305
+#: model_variables.py:308
 msgid "Virginia"
 msgstr "Virginia"
 
-#: model_variables.py:306
+#: model_variables.py:309
 msgid "Washington"
 msgstr "Washington"
 
-#: model_variables.py:307
+#: model_variables.py:310
 msgid "West Virginia"
 msgstr "West Virginia"
 
-#: model_variables.py:308
+#: model_variables.py:311
 msgid "Wisconsin"
 msgstr "Wisconsin"
 
-#: model_variables.py:309
+#: model_variables.py:312
 msgid "Wyoming"
 msgstr "Wyoming"
 
-#: model_variables.py:310
+#: model_variables.py:313
 msgid "American Samoa"
 msgstr "American Samoa"
 
-#: model_variables.py:311
+#: model_variables.py:314
 msgid "Guam"
 msgstr "Guam"
 
-#: model_variables.py:312
+#: model_variables.py:315
 msgid "Northern Mariana Islands"
 msgstr "Northern Mariana Islands"
 
-#: model_variables.py:313
+#: model_variables.py:316
 msgid "Puerto Rico"
 msgstr "Puerto Rico"
 
-#: model_variables.py:314
+#: model_variables.py:317
 msgid "Virgin Islands"
 msgstr "Virgin Islands"
 
-#: model_variables.py:315
+#: model_variables.py:318
 msgid "Armed Forces Africa"
 msgstr "Armed Forces Africa"
 
-#: model_variables.py:316
+#: model_variables.py:319
 msgid "Armed Forces Americas"
 msgstr "Armed Forces Americas"
 
-#: model_variables.py:317
+#: model_variables.py:320
 msgid "Armed Forces Canada"
 msgstr "Armed Forces Canada"
 
-#: model_variables.py:318
+#: model_variables.py:321
 msgid "Armed Forces Europe"
 msgstr "Armed Forces Europe"
 
-#: model_variables.py:319
+#: model_variables.py:322
 msgid "Armed Forces Middle East"
 msgstr "Armed Forces Middle East"
 
-#: model_variables.py:320
+#: model_variables.py:323
 msgid "Armed Forces Pacific"
 msgstr "Armed Forces Pacific"
 
-#: model_variables.py:323
+#: model_variables.py:326
 msgid "Please provide description to continue"
 msgstr "Para continuar, proporcione una descripción"
 
-#: model_variables.py:324
+#: model_variables.py:327
 msgid "Please select a primary reason to continue."
 msgstr "Para continuar, elija un motivo principal."
 
-#: model_variables.py:327
+#: model_variables.py:330
 msgid "Please enter the name of the location where this took place."
 msgstr "Introduzca el nombre del lugar dónde esto sucedió."
 
-#: model_variables.py:328
+#: model_variables.py:331
 msgid "Please enter the city or town where this took place."
 msgstr "Introduzca el nombre de la ciudad o el pueblo dónde esto sucedió."
 
-#: model_variables.py:329
+#: model_variables.py:332
 msgid "Please select the state where this took place."
 msgstr "Elija el estado dónde esto sucedió."
 
-#: model_variables.py:333
+#: model_variables.py:336
 msgid "Please select where this occurred"
 msgstr "Elija dónde esto sucedió"
 
-#: model_variables.py:334
+#: model_variables.py:337
 msgid "Please select the type of location"
 msgstr "Elija el tipo de lugar"
 
-#: model_variables.py:346
+#: model_variables.py:349
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr ""
 "Debe introducir un mes y un año. Favor de seguir el formato MM/DD/AAAA."
 
-#: model_variables.py:349
+#: model_variables.py:352
 msgid "Please enter a month."
 msgstr "Introduzca un mes."
 
-#: model_variables.py:350
+#: model_variables.py:353
 msgid "Please enter a valid month. Month must be between 1 and 12."
 msgstr ""
 "Introduzca un mes válido. El mes tiene que caer entre las cifras 1 y 12."
 
-#: model_variables.py:351
+#: model_variables.py:354
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
@@ -974,27 +976,27 @@ msgstr ""
 "Introduzca un día válido del mes. El día tiene que caer entre el 1 y el "
 "último día del mes."
 
-#: model_variables.py:352
+#: model_variables.py:355
 msgid "Please enter a year."
 msgstr "Introduzca el año."
 
-#: model_variables.py:353
+#: model_variables.py:356
 msgid "Date can not be in the future."
 msgstr "La fecha no puede ser en el futuro."
 
-#: model_variables.py:354
+#: model_variables.py:357
 msgid "Please enter a year after 1900."
 msgstr "Introduzca un año después de 1900"
 
-#: model_variables.py:355
+#: model_variables.py:358
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
 msgstr "Introduzca una fecha válida. Utilice el formato MM/DD/AAAA."
 
-#: model_variables.py:358
+#: model_variables.py:361
 msgid "Please select the type of election or voting activity."
 msgstr "Elija el tipo de elecciones o actividad relacionada con el voto"
 
-#: model_variables.py:398
+#: model_variables.py:401
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
@@ -1673,8 +1675,8 @@ msgstr "Informe sobre una vulneración"
 msgid "Already submitted?"
 msgstr "¿Ya nos informó de una vulneración?"
 
-#: templates/landing.html:59 templates/partials/footer.html:9 views.py:670
-#: views.py:726 views.py:745
+#: templates/landing.html:59 templates/partials/footer.html:9 views.py:802
+#: views.py:858 views.py:877
 msgid "Contact"
 msgstr "Contacto"
 
@@ -2562,38 +2564,38 @@ msgstr ""
 "(25-5-2017).\n"
 "                "
 
-#: views.py:47
+#: views.py:51
 msgid "Bad request"
 msgstr "Solicitud incorrecta"
 
-#: views.py:48
+#: views.py:52
 msgid ""
 "It seems your browser is not responding properly. Try refreshing this page."
 msgstr ""
 "Parece que su navegador no está respondiendo de manera adecuada. Intente "
 "actualizar esta página."
 
-#: views.py:59
+#: views.py:63
 msgid "Unauthorized"
 msgstr "No autorizado"
 
-#: views.py:60
+#: views.py:64
 msgid "This page is off limits to unauthorized users."
 msgstr "Usuario no autorizados no podrán acceder a esta página"
 
-#: views.py:71
+#: views.py:75
 msgid "We can't find the page you are looking for"
 msgstr "No encontramos la página que usted está buscando"
 
-#: views.py:72
+#: views.py:76
 msgid "Try returning to the previous page"
 msgstr "Intente volver a la página anterior"
 
-#: views.py:83
+#: views.py:87
 msgid "There's a problem loading this page"
 msgstr "Hay un problema para cargar esta página"
 
-#: views.py:84
+#: views.py:88
 msgid ""
 "There's a technical problem loading this page. Try refreshing this page or "
 "going to another page. If that doesn't work, try again later."
@@ -2601,20 +2603,20 @@ msgstr ""
 "Hay un problema técnico para cargar esta página. Intente actualizar esta "
 "página o ir a otra página. Si eso no funciona, intente más tarde."
 
-#: views.py:95
+#: views.py:99
 msgid "Not implemented"
 msgstr "No implementado"
 
-#: views.py:96
+#: views.py:100
 msgid "There seems to be a problem with this request. Try refreshing the page."
 msgstr ""
 "Parece que hay un problema con esta solicitud. Intente actualizar la página."
 
-#: views.py:107
+#: views.py:111
 msgid "Bad gateway"
 msgstr "Portal incorrecto"
 
-#: views.py:108
+#: views.py:112
 msgid ""
 "This problem is due to poor IP communication between back-end computers, "
 "possibly including our web server. Try clearing your browser cache "
@@ -2626,11 +2628,11 @@ msgstr ""
 "borrar completamente el caché de su navegador. Puede que haya algún problema "
 "con su conexión interna a Internet o su cortafuegos."
 
-#: views.py:119
+#: views.py:123
 msgid "Service Unavailable"
 msgstr "Servicio no disponible"
 
-#: views.py:120
+#: views.py:124
 msgid ""
 "Our web server is either closed for repair, upgrades or is rebooting. Please "
 "try again later."
@@ -2638,11 +2640,11 @@ msgstr ""
 "Nuestro servidor de web está cerrado para unos arreglos, actualizaciones o "
 "se está reinicializando. Se ruega que lo intente nuevamente más tarde."
 
-#: views.py:131
+#: views.py:135
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Su navegador no pudo crear una cookie segura"
 
-#: views.py:132
+#: views.py:136
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
@@ -2656,54 +2658,54 @@ msgstr ""
 "acceder a esta página en otra pestaña o ventana en su navegador. Eso le "
 "creará otra cookie de seguridad y debería resolver el problema."
 
-#: views.py:545 views.py:773
+#: views.py:677 views.py:905
 msgid "word remaining"
 msgstr "palabra restante"
 
-#: views.py:546 views.py:774
+#: views.py:678 views.py:906
 msgid " words remaining"
 msgstr "palabras restantes"
 
-#: views.py:547 views.py:775
+#: views.py:679 views.py:907
 msgid " word limit reached"
 msgstr "límite de palabras alcanzado"
 
-#: views.py:671 views.py:727 views.py:728 views.py:746 views.py:747
-#: views.py:782
+#: views.py:803 views.py:859 views.py:860 views.py:878 views.py:879
+#: views.py:914
 msgid "Primary concern"
 msgstr "Motivo principal de preocupación"
 
-#: views.py:672 views.py:729 views.py:730 views.py:731 views.py:732
-#: views.py:733 views.py:734
+#: views.py:804 views.py:861 views.py:862 views.py:863 views.py:864
+#: views.py:865 views.py:866
 msgid "Location"
 msgstr "Lugar"
 
-#: views.py:673 views.py:735 views.py:754
+#: views.py:805 views.py:867 views.py:886
 msgid "Personal characteristics"
 msgstr "Características personales"
 
-#: views.py:674 views.py:736 views.py:755
+#: views.py:806 views.py:868 views.py:887
 msgid "Date"
 msgstr "Fecha"
 
-#: views.py:675 views.py:737 views.py:756
+#: views.py:807 views.py:869 views.py:888
 msgid "Personal description"
 msgstr "Descripción personal"
 
-#: views.py:676 views.py:738 views.py:787
+#: views.py:808 views.py:870 views.py:919
 msgid "Review"
 msgstr "Repasar"
 
-#: views.py:748 views.py:749 views.py:750 views.py:751 views.py:752
-#: views.py:753
+#: views.py:880 views.py:881 views.py:882 views.py:883 views.py:884
+#: views.py:885
 msgid "Location details"
 msgstr "Datos de lugar"
 
-#: views.py:757
+#: views.py:889
 msgid "Review your report"
 msgstr "Revise su informe"
 
-#: views.py:785
+#: views.py:917
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "Favor de elegir esta opción si"
 
