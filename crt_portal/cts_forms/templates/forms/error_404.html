@@ -3,17 +3,15 @@
 {% load static %}
 
 {% block page_header %}
-<header class="confirmation-header">
+<header class="confirmation-header crt-landing--blue padding-bottom-6">
   <div class="grid-container">
     <div class="grid-row grid-gap flex-child">
       <div class="tablet:grid-col-9 tablet:grid-offset-1">
         <div class="doj-brand display-flex flex-align-center font-serif-lg">
-          <img src="{% static "img/doj-logo-footer.svg" %}" alt="" height="38" class="margin-right-105" />
+          <img src="{% static "img/doj-logo-footer.svg" %}" alt="" height="55" class="margin-right-105" />
           <span>United States Department of Justice<span>
+          <div>Civil Rights Division</div>
         </div>
-        <h1 class="padding-top-2 padding-bottom-1 margin-0 title">
-          Civil Rights Division
-        </h1>
       </div>
     </div>
   </div>
@@ -26,13 +24,13 @@
   <div class="tablet:grid-col-8 tablet:grid-offset-2">
     <div class="crt-success-card">
       <div class="crt-success-card__content">
-          <h2>404 | Page not found <img src="{% static 'img/alerts/error-red.svg' %}" alt="Error indicator with exclamation mark in red circle" width="50px" height="50px" class="padding-top-3"></h2>
+          <h1>404 | Page not found <img src="{% static 'img/alerts/error-red.svg' %}" alt="Error indicator with exclamation mark in red circle" width="50px" height="50px" class="padding-top-3"></h1>
           <h3>We can't find the page you are looking for</h3>  
           <p>Try one of these links:</p>
-          <div class="padding-left-1"><a href="../report/">File a complaint</a></div>
-          <div class="padding-left-1"><a href="mailto:Ask.CRT@crt.usdoj.gov">email</a>, <a href="../#contact-crt">phone or mail</a></div>
-          <div class="padding-left-1"><a href="../#about-the-division">About the Civil Rights Division</a></div>
-          <p>if you or someone else is in immediate danger, please call 911 or your local police.</p>
+          <div class="padding-left-2"><a href="https://civilrights.justice.gov/report/">File a complaint</a></div>
+          <div class="padding-left-2"><a href="mailto:Ask.CRT@crt.usdoj.gov">Contact us by email</a>, <a href="https://civilrights.justice.gov/#contact-crt">phone or mail</a></div>
+          <div class="padding-left-2"><a href="https://civilrights.justice.gov/ #about-the-division">About the Civil Rights Division</a></div>
+          <p>If you or someone else is in immediate danger, please call 911 or your local police.</p>
       </div>
       </div>
     </div>
