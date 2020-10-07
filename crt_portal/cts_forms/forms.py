@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 
 from actstream import action
 from django.contrib.auth import get_user_model
@@ -1262,12 +1262,157 @@ class PrintActions(Form):
     )
 
 
-class BulkAssign(Form, ActivityStreamUpdater):
+class BulkActions(Form, ActivityStreamUpdater):
+    assigned_section = ChoiceField(
+        label='Section',
+        widget=ComplaintSelect(
+            attrs={'class': 'usa-select text-bold text-uppercase crt-dropdown__data'},
+        ),
+        choices=_add_empty_choice(SECTION_CHOICES),
+        required=False
+    )
+    status = ChoiceField(
+        widget=ComplaintSelect(
+            attrs={'class': 'crt-dropdown__data'},
+        ),
+        choices=_add_empty_choice(STATUS_CHOICES),
+        required=False
+    )
+    primary_statute = ChoiceField(
+        label='Primary classification',
+        widget=ComplaintSelect(
+            attrs={'class': 'text-uppercase crt-dropdown__data'},
+        ),
+        choices=_add_empty_choice(STATUTE_CHOICES),
+        required=False
+    )
+    district = ChoiceField(
+        label='Judicial district',
+        widget=ComplaintSelect(
+            attrs={'class': 'text-uppercase crt-dropdown__data'},
+        ),
+        choices=_add_empty_choice(DISTRICT_CHOICES),
+        required=False
+    )
     assigned_to = ModelChoiceField(
         queryset=User.objects.filter(is_active=True),
-        label="Assigned to",
-        required=True
+        label='Assigned to',
+        required=False
     )
+    summary = CharField(
+        required=False,
+        max_length=7000,
+        label='CRT Summary',
+        widget=Textarea(
+            attrs={
+                'rows': 3,
+                'class': 'usa-textarea',
+                'aria-label': 'Complaint Summary'
+            },
+        ),
+    )
+    comment = CharField(
+        required=True,
+        max_length=7000,
+        widget=Textarea(
+            attrs={
+                'rows': 3,
+                'class': 'usa-textarea',
+            },
+        ),
+    )
+
+    def get_updates(self):
+        return {field: self.cleaned_data[field] for field in self.changed_data}
+
+    def get_update_description(self):
+        """
+        Given a submitted form, emit a textual description of what was updated.
+        """
+        labels = {key: self.fields[key].label or key for key in self.changed_data}
+        labels.pop('comment', None)  # required, so we can omit
+        default_string = '{what} set to {item}'
+        custom_strings = {
+            'assigned to': 'assigned to {item}',
+            'crt summary': 'summary updated',
+        }
+        descriptions = []
+        for (key, value) in labels.items():
+            what = value.lower()
+            item = self.cleaned_data[key]
+            string = custom_strings.get(what, default_string)
+            description = string.format(**{'what': what, 'item': item})
+            descriptions.append(description)
+        if len(descriptions) > 1:
+            descriptions[-1] = f'and {descriptions[-1]}'
+        return ', '.join(descriptions) or 'comment added'
+
+    def get_actions(self, report):
+        """
+        Parse incoming changed data for activity stream entry (tweaked for
+        bulk update)
+        """
+        for field in self.changed_data:
+            name = ' '.join(field.split('_')).capitalize()
+            # rename primary statute if applicable
+            if field == 'primary_statute':
+                name = 'Primary classification'
+            if field in ['summary', 'comment']:
+                continue
+            initial = getattr(report, field, 'None')
+            yield f"{name}:", f'Updated from "{initial}" to "{self.cleaned_data[field]}"'
+
+    def update_activity_stream(self, user, report):
+        """
+        Send all actions to activity stream (tweaked for bulk update)
+        """
+        for verb, description in self.get_actions(report):
+            add_activity(user, verb, description, report)
+
+    def update(self, reports, user):
+        """
+        Bulk update given reports and update activity log for each report
+        """
+        updated_data = self.get_updates()
+        comment_string = updated_data.pop('comment', None)
+        summary_string = updated_data.pop('summary', None)
+
+        # update activity log _before_ we update fields so
+        # that we still have access to the original field
+        for report in reports:
+            self.update_activity_stream(user, report)
+
+        if comment_string:
+            kwargs = {
+                'is_summary': False,
+                'note': comment_string,
+                'author': user.username,
+            }
+            for report in reports:
+                comment = CommentAndSummary.objects.create(**kwargs)
+                report.internal_comments.add(comment)
+                add_activity(user, 'Added comment: ', comment_string, report)
+
+        if summary_string:
+            kwargs = {
+                'is_summary': True,
+                'note': summary_string,
+                'author': user.username,
+            }
+            # update the pre-existing summary if extant
+            for report in reports:
+                summary = report.get_summary
+                if summary:
+                    CommentAndSummary.objects.update_or_create(id=summary.id, defaults=kwargs)
+                else:
+                    summary = CommentAndSummary.objects.create(**kwargs)
+                    report.internal_comments.add(summary)
+                add_activity(user, 'Added summary: ', summary_string, report)
+
+        if updated_data:
+            updated_data['modified_date'] = datetime.now(timezone.utc)
+        updated_number = reports.update(**updated_data)
+        return updated_number or len(reports)  # sometimes only a comment is added
 
 
 class ContactEditForm(ModelForm, ActivityStreamUpdater):

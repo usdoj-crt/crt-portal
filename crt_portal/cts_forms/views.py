@@ -17,7 +17,7 @@ from django.views.decorators.cache import never_cache
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
-from .forms import (BulkAssign, CommentActions, ComplaintActions,
+from .forms import (BulkActions, CommentActions, ComplaintActions,
                     ResponseActions, PrintActions, ContactEditForm,
                     Filters, ReportEditForm, Review, add_activity,
                     ProfileForm)
@@ -516,7 +516,8 @@ class ActionsView(LoginRequiredMixin, FormView):
 
         ids = request.GET.getlist('id')
         ids_count = len(ids)
-        assign_form = BulkAssign()
+
+        bulk_actions_form = BulkActions()
 
         # the select all option only applies if 1. user hits the
         # select all button and 2. we have more records in the query
@@ -530,46 +531,39 @@ class ActionsView(LoginRequiredMixin, FormView):
             'ids_count': ids_count,
             'show_warning': ids_count > 15,
             'all_ids_count': all_ids_count,
-            'assign_form': assign_form,
+            'bulk_actions_form': bulk_actions_form,
         }
         return render(request, 'forms/complaint_view/actions/index.html', output)
 
     def post(self, request):
-        assign_form = BulkAssign(request.POST)
+        bulk_actions_form = BulkActions(request.POST)
         return_url_args = request.POST.get('next', '')
         selected_all = request.POST.get('all', '') == 'all'
         confirm_all = request.POST.get('confirm_all', '') == 'confirm_all'
         ids = request.POST.get('ids', '').split(',')
 
-        if assign_form.is_valid():
-            assignee = assign_form.cleaned_data['assigned_to']
+        if bulk_actions_form.is_valid():
             if confirm_all:
                 requested_query = self.reconstruct_query(return_url_args)
             else:
                 requested_query = Report.objects.filter(pk__in=ids)
 
-            # update activity log _before_ we update the assignee so
-            # that we have access to the original assignee
-            for report in requested_query:
-                original = report.assigned_to or "None"
-                description = f'Updated from "{original}" to "{assignee}"'
-                add_activity(request.user, "Assigned to:", description, report)
-
-            number = requested_query.update(assigned_to=assignee)
-
-            description = f"{number} records have been assigned to {assignee}"
-            messages.add_message(request, messages.SUCCESS, description)
+            number = bulk_actions_form.update(requested_query, request.user)
+            description = bulk_actions_form.get_update_description()
+            plural = 's have' if number > 1 else ' has'
+            message = f'{number} record{plural} been updated: {description}'
+            messages.add_message(request, messages.SUCCESS, message)
 
             # log this action for an audit trail.
-            logger.info(f'Bulk updating {number} requests by {request.user} to {assignee}')
+            logger.info(f'Bulk updating {number} requests by {request.user}: {description}')
 
             url = reverse('crt_forms:crt-forms-index')
             return redirect(f"{url}{return_url_args}")
 
         else:
-            for key in assign_form.errors:
-                errors = '; '.join(assign_form.errors[key])
-                error_message = f'Could not bulk assign: {errors}'
+            for key in bulk_actions_form.errors:
+                errors = '; '.join(bulk_actions_form.errors[key])
+                error_message = f'Could not bulk update {key}: {errors}'
                 messages.add_message(request, messages.ERROR, error_message)
 
             requested_query = self.reconstruct_query(return_url_args)
@@ -582,11 +576,11 @@ class ActionsView(LoginRequiredMixin, FormView):
             output = {
                 'return_url_args': return_url_args,
                 'selected_all': 'all' if selected_all else '',
-                'ids': ids,
+                'ids': ','.join([id for id in ids]),
                 'ids_count': ids_count,
                 'show_warning': ids_count > 15,
                 'all_ids_count': all_ids_count,
-                'assign_form': assign_form,
+                'bulk_actions_form': bulk_actions_form,
             }
             return render(request, 'forms/complaint_view/actions/index.html', output)
 
