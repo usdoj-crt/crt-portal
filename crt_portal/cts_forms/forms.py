@@ -756,12 +756,12 @@ class ProForm(
         Contact.__init__(self, *args, **kwargs)
         # CRT views only
         self.fields['intake_format'] = ChoiceField(
-            choices=_add_empty_choice((
+            choices=(
                 ('letter', 'letter'),
                 ('phone', 'phone'),
                 ('fax', 'fax'),
                 ('email', 'email'),
-            )),
+            ),
             widget=UsaRadioSelect,
             required=False,
         )
