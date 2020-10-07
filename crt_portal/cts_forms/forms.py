@@ -1327,9 +1327,8 @@ class BulkActions(Form, ActivityStreamUpdater):
         Form.__init__(self)
         keys = ['assigned_section', 'status', 'primary_statute', 'district']
         values = query.values_list(*keys)
-        initial_values = list(zip(*values))
-        for index, key in enumerate(keys):
-            initial = initial_values[index]
+        initial_values = zip(*values)
+        for key, initial in zip(keys, initial_values):
             if len(set(initial)) == 1:
                 self.fields[key].initial = initial[0]
 
