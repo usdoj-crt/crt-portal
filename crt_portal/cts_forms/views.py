@@ -546,7 +546,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         else:
             requested_query = Report.objects.filter(pk__in=ids)
 
-        bulk_actions_form = BulkActions(request.POST, requested_query)
+        bulk_actions_form = BulkActions(requested_query, request.POST)
 
         if bulk_actions_form.is_valid():
             number = bulk_actions_form.update(requested_query, request.user)

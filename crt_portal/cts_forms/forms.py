@@ -1263,7 +1263,6 @@ class PrintActions(Form):
 
 
 class BulkActions(Form, ActivityStreamUpdater):
-
     assigned_section = ChoiceField(
         label='Section',
         widget=ComplaintSelect(
@@ -1323,8 +1322,8 @@ class BulkActions(Form, ActivityStreamUpdater):
         ),
     )
 
-    def __init__(self, query):
-        Form.__init__(self)
+    def __init__(self, query, *args, **kwargs):
+        Form.__init__(self, *args, **kwargs)
         keys = ['assigned_section', 'status', 'primary_statute', 'district']
         values = query.values_list(*keys)
         initial_values = zip(*values)
@@ -1351,7 +1350,7 @@ class BulkActions(Form, ActivityStreamUpdater):
             what = value.lower()
             item = self.cleaned_data[key]
             string = custom_strings.get(what, default_string)
-            description = string.format(**{'what': what, 'item': item})
+            description = string.format(**{'what': what, 'item': item or "''"})
             descriptions.append(description)
         if len(descriptions) > 1:
             descriptions[-1] = f'and {descriptions[-1]}'

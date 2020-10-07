@@ -453,7 +453,7 @@ class BulkActionTests(TestCase):
     def test_post_with_ids(self):
         ids = [report.id for report in self.reports[3:5]]
         user = User.objects.get(username='DELETE_USER')
-        response = self.post(ids, assigned_to=user.id, comment='a comment')
+        response = self.post(ids, assigned_to=user.id, comment='a comment', assigned_section='ADM', status='new')
         content = str(response.content)
         self.assertTrue('2 records have been updated: assigned to DELETE_USER' in content)
         self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
@@ -467,7 +467,7 @@ class BulkActionTests(TestCase):
     def test_post_with_ids_and_all(self):
         ids = [report.id for report in self.reports[3:5]]
         user = User.objects.get(username='DELETE_USER')
-        response = self.post(ids, all_ids=True, confirm=False, status='closed', comment='a comment')
+        response = self.post(ids, all_ids=True, confirm=False, status='closed', comment='a comment', assigned_section='ADM')
         content = str(response.content)
         self.assertTrue('2 records have been updated: status set to closed' in content)
         self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
@@ -481,7 +481,7 @@ class BulkActionTests(TestCase):
     def test_post_with_all(self):
         ids = [report.id for report in self.reports]
         user = User.objects.get(username='DELETE_USER')
-        response = self.post(ids, all_ids=True, confirm=True, summary='summary', comment='a comment')
+        response = self.post(ids, all_ids=True, confirm=True, summary='summary', comment='a comment', assigned_section='ADM', status='new')
         content = str(response.content)
         self.assertTrue('16 records have been updated: summary updated' in content)
         self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
