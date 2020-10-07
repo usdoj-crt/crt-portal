@@ -3,7 +3,7 @@ from django.http import QueryDict
 from django.test import SimpleTestCase, TestCase
 
 from ..filters import report_filter
-from ..models import Report
+from ..models import Report, ProtectedClass
 from .test_data import SAMPLE_REPORT
 
 
@@ -17,11 +17,16 @@ class FilterTests(SimpleTestCase):
 
 class ReportFilterTests(TestCase):
     def setUp(self):
+        age = ProtectedClass.objects.get(value='age')
+        gender = ProtectedClass.objects.get(value='gender')
         test_data = SAMPLE_REPORT.copy()
         test_data['violation_summary'] = 'plane'
-        Report.objects.create(**test_data)
+        r1 = Report.objects.create(**test_data)
+        r1.protected_class.add(age)
         test_data['violation_summary'] = 'truck'
-        Report.objects.create(**test_data)
+        r2 = Report.objects.create(**test_data)
+        r2.protected_class.add(age)
+        r2.protected_class.add(gender)
 
     def test_no_filters(self):
         """Returns all reports when no filters provided"""
@@ -37,3 +42,10 @@ class ReportFilterTests(TestCase):
 
         reports, _ = report_filter(QueryDict('violation_summary=plane&violation_summary=truck'))
         self.assertEquals(reports.count(), 2)
+
+    def test_reported_reason(self):
+        reports, _ = report_filter(QueryDict('reported_reason=age'))
+        self.assertEquals(reports.count(), 2)
+
+        reports, _ = report_filter(QueryDict('reported_reason=gender&reported_reason=language'))
+        self.assertEquals(reports.count(), 1)

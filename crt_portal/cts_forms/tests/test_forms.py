@@ -367,15 +367,15 @@ class PrintActionTests(TestCase):
         return str(response.content)
 
     def test_response_action_print(self):
-        options = ['correspondent', 'actions']
+        options = ['correspondent', 'activity']
         content = self.post_print_action(options)
         # verify that next QP is preserved and activity log shows up
         self.assertTrue('?per_page=15' in content)
         self.assertTrue('Printed report' in content)
-        self.assertTrue(escape('Selected correspondent, actions') in content)
+        self.assertTrue(escape('Selected correspondent, activity') in content)
 
 
-class BulkAssignTests(TestCase):
+class BulkActionTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.test_pass = secrets.token_hex(32)
@@ -421,11 +421,11 @@ class BulkAssignTests(TestCase):
         self.assertTrue("button--warning" in content)
         self.assertTrue(f"Apply changes to {len(ids)} records" in content)
 
-    def post(self, user_id, ids, all_ids=False, confirm=False):
+    def post(self, ids, all_ids=False, confirm=False, **extra):
         params = {
             'next': '?per_page=15',
             'ids': ','.join([str(id) for id in ids]),
-            'assigned_to': user_id,
+            **extra,
         }
         if all_ids:
             params['all'] = 'all'
@@ -435,21 +435,27 @@ class BulkAssignTests(TestCase):
         self.assertEquals(response.status_code, 200)
         return response
 
-    def test_post_with_blank_and_invalid_user(self):
+    def test_post_with_invalid_user(self):
         ids = [report.id for report in self.reports[3:5]]
-        response = self.post('', ids)
+        response = self.post(ids, assigned_to='invalid', comment='a comment')
         content = str(response.content)
-        self.assertTrue('Could not bulk assign: This field is required.' in content)
-        response = self.post('invalid', ids)
+        self.assertTrue('Could not bulk update assigned_to: Select a valid choice.' in content)
+
+    def test_post_with_blank_and_invalid_comment(self):
+        ids = [report.id for report in self.reports[3:5]]
+        response = self.post(ids, comment='')
         content = str(response.content)
-        self.assertTrue('Could not bulk assign: Select a valid choice. That choice is not one of the available choices.' in content)
+        self.assertTrue('Could not bulk update comment: This field is required.' in content)
+        response = self.post(ids, comment='a' * 7001)
+        content = str(response.content)
+        self.assertTrue('Could not bulk update comment: Ensure this value has at most 7000 characters (it has 7001).' in content)
 
     def test_post_with_ids(self):
         ids = [report.id for report in self.reports[3:5]]
         user = User.objects.get(username='DELETE_USER')
-        response = self.post(user.id, ids)
+        response = self.post(ids, assigned_to=user.id, comment='a comment')
         content = str(response.content)
-        self.assertTrue('2 records have been assigned to DELETE_USER' in content)
+        self.assertTrue('2 records have been updated: assigned to DELETE_USER' in content)
         self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
         for report_id in ids:
             report = Report.objects.get(id=report_id)
@@ -461,27 +467,27 @@ class BulkAssignTests(TestCase):
     def test_post_with_ids_and_all(self):
         ids = [report.id for report in self.reports[3:5]]
         user = User.objects.get(username='DELETE_USER')
-        response = self.post(user.id, ids, all_ids=True, confirm=False)
+        response = self.post(ids, all_ids=True, confirm=False, status='closed', comment='a comment')
         content = str(response.content)
-        self.assertTrue('2 records have been assigned to DELETE_USER' in content)
+        self.assertTrue('2 records have been updated: status set to closed' in content)
         self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
         for report_id in ids:
             report = Report.objects.get(id=report_id)
             last_activity = list(report.target_actions.all())[-1]
-            self.assertEquals(last_activity.verb, "Assigned to:")
-            self.assertEquals(last_activity.description, 'Updated from "None" to "DELETE_USER"')
+            self.assertEquals(last_activity.verb, "Status:")
+            self.assertEquals(last_activity.description, 'Updated from "new" to "closed"')
             self.assertEquals(last_activity.actor, user)
 
     def test_post_with_all(self):
         ids = [report.id for report in self.reports]
         user = User.objects.get(username='DELETE_USER')
-        response = self.post(user.id, ids, all_ids=True, confirm=True)
+        response = self.post(ids, all_ids=True, confirm=True, summary='summary', comment='a comment')
         content = str(response.content)
-        self.assertTrue('16 records have been assigned to DELETE_USER' in content)
+        self.assertTrue('16 records have been updated: summary updated' in content)
         self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
         for report_id in ids:
             report = Report.objects.get(id=report_id)
             last_activity = list(report.target_actions.all())[-1]
-            self.assertEquals(last_activity.verb, "Assigned to:")
-            self.assertEquals(last_activity.description, 'Updated from "None" to "DELETE_USER"')
+            self.assertEquals(last_activity.verb, "Added comment: ")
+            self.assertEquals(last_activity.description, 'a comment')
             self.assertEquals(last_activity.actor, user)

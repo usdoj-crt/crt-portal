@@ -1,0 +1,12 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block classes %}reported-reason{% endblock %}
+{% block controls %}reported_reason{% endblock %}
+{% block label %}Reported Reason{% endblock %}
+{% block id %}reported-reason{% endblock %}
+
+{% block content %}
+  <div id="reported_reason-filter" class="multicheckboxes-container">
+    {{ form.reported_reason }}
+  </div>
+{% endblock %}

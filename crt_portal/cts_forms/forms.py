@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 
 from actstream import action
 from django.contrib.auth import get_user_model
@@ -22,12 +22,16 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               DATE_ERRORS, DISTRICT_CHOICES,
                               EMPLOYER_SIZE_CHOICES, EMPLOYER_SIZE_ERROR,
                               EMPTY_CHOICE, INCIDENT_DATE_HELPTEXT,
+                              INTAKE_FORMAT_CHOICES,
                               POLICE_LOCATION_ERRORS,
                               PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
-                              PRIMARY_COMPLAINT_ERROR, PRINT_CHOICES,
+                              PRIMARY_COMPLAINT_ERROR,
+                              PRIMARY_COMPLAINT_PROFORM_CHOICES,
+                              PRINT_CHOICES,
                               PROTECTED_CLASS_ERROR,
+                              PROTECTED_MODEL_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
@@ -751,17 +755,14 @@ class ProForm(
         ModelForm.__init__(self, *args, **kwargs)
         Contact.__init__(self, *args, **kwargs)
         # CRT views only
-        self.fields['intake_format'] = TypedChoiceField(
+        self.fields['intake_format'] = ChoiceField(
             choices=(
-                EMPTY_CHOICE,
                 ('letter', 'letter'),
                 ('phone', 'phone'),
                 ('fax', 'fax'),
                 ('email', 'email'),
             ),
-            widget=Select(attrs={
-                'class': 'usa-select mobile-lg:grid-col-7',
-            }),
+            widget=UsaRadioSelect,
             required=False,
         )
         self.fields['servicemember'] = TypedChoiceField(
@@ -884,6 +885,15 @@ class ProfileForm(ModelForm):
             return new_filter
 
 
+def reported_reason_proform():
+    """
+    Strip parentheses from the value description.
+    """
+    for (key, value) in PROTECTED_MODEL_CHOICES:
+        new_value = value[:value.find('(') - 1] if '(' in value else value
+        yield (key, new_value)
+
+
 class Filters(ModelForm):
     status = MultipleChoiceField(
         initial=(('new', 'New'), ('open', 'Open')),
@@ -905,7 +915,8 @@ class Filters(ModelForm):
         choices=_add_empty_choice(STATUTE_CHOICES),
         widget=Select(attrs={
             'name': 'primary_statute',
-            'class': 'usa-select'
+            'class': 'usa-select',
+            'aria-label': 'Primary Classification'
         })
     )
     summary = CharField(
@@ -951,6 +962,49 @@ class Filters(ModelForm):
             'placeholder': 'yyyy-mm-dd',
         }),
     )
+    primary_complaint = MultipleChoiceField(
+        required=False,
+        choices=PRIMARY_COMPLAINT_PROFORM_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'primary_issue',
+        }),
+        label='Primary Issue',
+    )
+    reported_reason = MultipleChoiceField(
+        required=False,
+        choices=reported_reason_proform,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'reported_reason',
+        }),
+    )
+    commercial_or_public_place = MultipleChoiceField(
+        required=False,
+        choices=COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'relevant_details',
+        }),
+    )
+    hate_crime = MultipleChoiceField(
+        required=False,
+        choices=(('yes', 'Yes'),),
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'hate_crime',
+        }),
+    )
+    servicemember = MultipleChoiceField(
+        required=False,
+        choices=(('yes', 'Yes'),),
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'servicemember',
+        }),
+    )
+    intake_format = MultipleChoiceField(
+        required=False,
+        choices=INTAKE_FORMAT_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'intake_format',
+        }),
+    )
 
     class Meta:
         model = Report
@@ -966,6 +1020,11 @@ class Filters(ModelForm):
             'public_id',
             'primary_statute',
             'violation_summary',
+            'primary_complaint',
+            'commercial_or_public_place',
+            'hate_crime',
+            'servicemember',
+            'intake_format',
         ]
 
         labels = {
@@ -1203,12 +1262,157 @@ class PrintActions(Form):
     )
 
 
-class BulkAssign(Form, ActivityStreamUpdater):
+class BulkActions(Form, ActivityStreamUpdater):
+    assigned_section = ChoiceField(
+        label='Section',
+        widget=ComplaintSelect(
+            attrs={'class': 'usa-select text-bold text-uppercase crt-dropdown__data'},
+        ),
+        choices=_add_empty_choice(SECTION_CHOICES),
+        required=False
+    )
+    status = ChoiceField(
+        widget=ComplaintSelect(
+            attrs={'class': 'crt-dropdown__data'},
+        ),
+        choices=_add_empty_choice(STATUS_CHOICES),
+        required=False
+    )
+    primary_statute = ChoiceField(
+        label='Primary classification',
+        widget=ComplaintSelect(
+            attrs={'class': 'text-uppercase crt-dropdown__data'},
+        ),
+        choices=_add_empty_choice(STATUTE_CHOICES),
+        required=False
+    )
+    district = ChoiceField(
+        label='Judicial district',
+        widget=ComplaintSelect(
+            attrs={'class': 'text-uppercase crt-dropdown__data'},
+        ),
+        choices=_add_empty_choice(DISTRICT_CHOICES),
+        required=False
+    )
     assigned_to = ModelChoiceField(
         queryset=User.objects.filter(is_active=True),
-        label="Assigned to",
-        required=True
+        label='Assigned to',
+        required=False
     )
+    summary = CharField(
+        required=False,
+        max_length=7000,
+        label='CRT Summary',
+        widget=Textarea(
+            attrs={
+                'rows': 3,
+                'class': 'usa-textarea',
+                'aria-label': 'Complaint Summary'
+            },
+        ),
+    )
+    comment = CharField(
+        required=True,
+        max_length=7000,
+        widget=Textarea(
+            attrs={
+                'rows': 3,
+                'class': 'usa-textarea',
+            },
+        ),
+    )
+
+    def get_updates(self):
+        return {field: self.cleaned_data[field] for field in self.changed_data}
+
+    def get_update_description(self):
+        """
+        Given a submitted form, emit a textual description of what was updated.
+        """
+        labels = {key: self.fields[key].label or key for key in self.changed_data}
+        labels.pop('comment', None)  # required, so we can omit
+        default_string = '{what} set to {item}'
+        custom_strings = {
+            'assigned to': 'assigned to {item}',
+            'crt summary': 'summary updated',
+        }
+        descriptions = []
+        for (key, value) in labels.items():
+            what = value.lower()
+            item = self.cleaned_data[key]
+            string = custom_strings.get(what, default_string)
+            description = string.format(**{'what': what, 'item': item})
+            descriptions.append(description)
+        if len(descriptions) > 1:
+            descriptions[-1] = f'and {descriptions[-1]}'
+        return ', '.join(descriptions) or 'comment added'
+
+    def get_actions(self, report):
+        """
+        Parse incoming changed data for activity stream entry (tweaked for
+        bulk update)
+        """
+        for field in self.changed_data:
+            name = ' '.join(field.split('_')).capitalize()
+            # rename primary statute if applicable
+            if field == 'primary_statute':
+                name = 'Primary classification'
+            if field in ['summary', 'comment']:
+                continue
+            initial = getattr(report, field, 'None')
+            yield f"{name}:", f'Updated from "{initial}" to "{self.cleaned_data[field]}"'
+
+    def update_activity_stream(self, user, report):
+        """
+        Send all actions to activity stream (tweaked for bulk update)
+        """
+        for verb, description in self.get_actions(report):
+            add_activity(user, verb, description, report)
+
+    def update(self, reports, user):
+        """
+        Bulk update given reports and update activity log for each report
+        """
+        updated_data = self.get_updates()
+        comment_string = updated_data.pop('comment', None)
+        summary_string = updated_data.pop('summary', None)
+
+        # update activity log _before_ we update fields so
+        # that we still have access to the original field
+        for report in reports:
+            self.update_activity_stream(user, report)
+
+        if comment_string:
+            kwargs = {
+                'is_summary': False,
+                'note': comment_string,
+                'author': user.username,
+            }
+            for report in reports:
+                comment = CommentAndSummary.objects.create(**kwargs)
+                report.internal_comments.add(comment)
+                add_activity(user, 'Added comment: ', comment_string, report)
+
+        if summary_string:
+            kwargs = {
+                'is_summary': True,
+                'note': summary_string,
+                'author': user.username,
+            }
+            # update the pre-existing summary if extant
+            for report in reports:
+                summary = report.get_summary
+                if summary:
+                    CommentAndSummary.objects.update_or_create(id=summary.id, defaults=kwargs)
+                else:
+                    summary = CommentAndSummary.objects.create(**kwargs)
+                    report.internal_comments.add(summary)
+                add_activity(user, 'Added summary: ', summary_string, report)
+
+        if updated_data:
+            updated_data['modified_date'] = datetime.now(timezone.utc)
+        updated_number = reports.update(**updated_data)
+        return updated_number or len(reports)  # sometimes only a comment is added
 
 
 class ContactEditForm(ModelForm, ActivityStreamUpdater):

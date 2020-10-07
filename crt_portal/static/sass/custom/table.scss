@@ -250,6 +250,13 @@
   flex-wrap: wrap;
 }
 
+.intake-pagination {
+  display: flex;
+  align-self: flex-end;
+  justify-content: flex-end;
+  min-width: 12rem;
+}
+
 .selection-action-notification {
   position: fixed;
   width: 100%;

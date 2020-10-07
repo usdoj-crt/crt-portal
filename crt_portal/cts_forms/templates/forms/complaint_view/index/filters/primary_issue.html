@@ -1,0 +1,12 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block classes %}primary-issue{% endblock %}
+{% block controls %}primary-issue{% endblock %}
+{% block label %}Primary Issue{% endblock %}
+{% block id %}primary-issues{% endblock %}
+
+{% block content %}
+  <div id="primary-complaint-filter" class="multicheckboxes-container">
+    {{ form.primary_complaint }}
+  </div>
+{% endblock %}
