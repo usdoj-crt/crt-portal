@@ -1323,6 +1323,16 @@ class BulkActions(Form, ActivityStreamUpdater):
         ),
     )
 
+    def __init__(self, query):
+        Form.__init__(self)
+        keys = ['assigned_section', 'status', 'primary_statute', 'district']
+        values = query.values_list(*keys)
+        initial_values = list(zip(*values))
+        for index, key in enumerate(keys):
+            initial = initial_values[index]
+            if len(set(initial)) == 1:
+                self.fields[key].initial = initial[0]
+
     def get_updates(self):
         return {field: self.cleaned_data[field] for field in self.changed_data}
 

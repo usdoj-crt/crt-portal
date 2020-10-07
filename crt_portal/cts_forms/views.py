@@ -517,7 +517,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         ids = request.GET.getlist('id')
         ids_count = len(ids)
 
-        bulk_actions_form = BulkActions()
+        bulk_actions_form = BulkActions(requested_query)
 
         # the select all option only applies if 1. user hits the
         # select all button and 2. we have more records in the query
@@ -536,18 +536,19 @@ class ActionsView(LoginRequiredMixin, FormView):
         return render(request, 'forms/complaint_view/actions/index.html', output)
 
     def post(self, request):
-        bulk_actions_form = BulkActions(request.POST)
         return_url_args = request.POST.get('next', '')
         selected_all = request.POST.get('all', '') == 'all'
         confirm_all = request.POST.get('confirm_all', '') == 'confirm_all'
         ids = request.POST.get('ids', '').split(',')
 
-        if bulk_actions_form.is_valid():
-            if confirm_all:
-                requested_query = self.reconstruct_query(return_url_args)
-            else:
-                requested_query = Report.objects.filter(pk__in=ids)
+        if confirm_all:
+            requested_query = self.reconstruct_query(return_url_args)
+        else:
+            requested_query = Report.objects.filter(pk__in=ids)
 
+        bulk_actions_form = BulkActions(request.POST, requested_query)
+
+        if bulk_actions_form.is_valid():
             number = bulk_actions_form.update(requested_query, request.user)
             description = bulk_actions_form.get_update_description()
             plural = 's have' if number > 1 else ' has'
@@ -566,7 +567,6 @@ class ActionsView(LoginRequiredMixin, FormView):
                 error_message = f'Could not bulk update {key}: {errors}'
                 messages.add_message(request, messages.ERROR, error_message)
 
-            requested_query = self.reconstruct_query(return_url_args)
             all_ids_count = requested_query.count()
             ids_count = len(ids)
 
