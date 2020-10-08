@@ -492,6 +492,7 @@ class BulkActionsTests(TestCase):
             self.assertEquals(last_activity.description, 'a comment')
             self.assertEquals(last_activity.actor, user)
 
+
 class BulkActionsFormTests(TestCase):
     def test_bulk_actions_initial_empty(self):
         queryset = Report.objects.all()
