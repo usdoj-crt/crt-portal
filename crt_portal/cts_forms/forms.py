@@ -1263,7 +1263,7 @@ class PrintActions(Form):
 
 
 class BulkActionsForm(Form, ActivityStreamUpdater):
-    EMPTY_CHOICE ='Multiple'
+    EMPTY_CHOICE = 'Multiple'
     assigned_section = ChoiceField(
         label='Section',
         widget=ComplaintSelect(
