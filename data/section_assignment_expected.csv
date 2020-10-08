@@ -6,13 +6,14 @@ CRM,voting,Age,yes,n/a,n/a,n/a
 CRM,police,Age,yes,n/a,n/a,n/a
 CRM,commercial_or_public,Age,yes,n/a,n/a,n/a
 CRM,something_else,Age,yes,n/a,n/a,n/a
-CRM,workplace,Disability (including temporary or recovery),yes,n/a,n/a,n/a
-CRM,housing,Disability (including temporary or recovery),yes,n/a,n/a,n/a
-CRM,education,Disability (including temporary or recovery),yes,n/a,n/a,n/a
-CRM,voting,Disability (including temporary or recovery),yes,n/a,n/a,n/a
-CRM,police,Disability (including temporary or recovery),yes,n/a,n/a,n/a
-CRM,commercial_or_public,Disability (including temporary or recovery),yes,n/a,n/a,n/a
-CRM,something_else,Disability (including temporary or recovery),yes,n/a,n/a,n/a
+CRM,workplace,"Disability (including temporary or recovered, and including HIV and drug addiction)",yes,n/a,n/a,n/a
+CRM,housing,"Disability (including temporary or recovered, and including HIV and drug addiction)",yes,n/a,n/a,n/a
+CRM,education,"Disability (including temporary or recovered, and including HIV and drug addiction)",yes,n/a,n/a,n/a
+CRM,voting,"Disability (including temporary or recovered, and including HIV and drug addiction)",yes,n/a,n/a,n/a
+CRM,police,"Disability (including temporary or recovered, and including HIV and drug addiction)",yes,n/a,n/a,n/a
+CRM,police,"Disability (including temporary or recovered, and including HIV and drug addiction)",no,n/a,outside,n/a
+CRM,commercial_or_public,"Disability (including temporary or recovered, and including HIV and drug addiction)",yes,n/a,n/a,n/a
+CRM,something_else,"Disability (including temporary or recovered, and including HIV and drug addiction)",yes,n/a,n/a,n/a
 CRM,workplace,"Family, marital, or parental status",yes,n/a,n/a,n/a
 CRM,housing,"Family, marital, or parental status",yes,n/a,n/a,n/a
 CRM,education,"Family, marital, or parental status",yes,n/a,n/a,n/a
@@ -119,21 +120,20 @@ HCE,commercial_or_public,Age,no,financial,n/a,n/a
 HCE,commercial_or_public,Age,no,public_space,n/a,n/a
 HCE,commercial_or_public,Age,no,other,n/a,n/a
 ADM,something_else,Age,no,n/a,n/a,n/a
-ELS,workplace,Disability (including temporary or recovery),no,n/a,n/a,n/a
-HCE,housing,Disability (including temporary or recovery),no,n/a,n/a,n/a
-EOS,education,Disability (including temporary or recovery),no,n/a,n/a,public
-DRS,education,Disability (including temporary or recovery),no,n/a,n/a,private
-EOS,education,Disability (including temporary or recovery),no,n/a,n/a,not_sure
-DRS,voting,Disability (including temporary or recovery),no,n/a,n/a,n/a
-DRS,police,Disability (including temporary or recovery),no,n/a,outside,n/a
-DRS,police,Disability (including temporary or recovery),no,n/a,inside,n/a
-DRS,commercial_or_public,Disability (including temporary or recovery),no,place_of_worship,n/a,n/a
-DRS,commercial_or_public,Disability (including temporary or recovery),no,store,n/a,n/a
-DRS,commercial_or_public,Disability (including temporary or recovery),no,healthcare,n/a,n/a
-DRS,commercial_or_public,Disability (including temporary or recovery),no,financial,n/a,n/a
-DRS,commercial_or_public,Disability (including temporary or recovery),no,public_space,n/a,n/a
-DRS,commercial_or_public,Disability (including temporary or recovery),no,other,n/a,n/a
-DRS,something_else,Disability (including temporary or recovery),no,n/a,n/a,n/a
+ADM,something_else,"Disability (including temporary or recovered, and including HIV and drug addiction)",no,n/a,n/a,n/a
+SPL,police,"Disability (including temporary or recovered, and including HIV and drug addiction)",no,n/a,inside,n/a
+SPL,commercial_or_public,"Disability (including temporary or recovered, and including HIV and drug addiction)",no,healthcare,n/a,n/a
+ELS,workplace,"Disability (including temporary or recovered, and including HIV and drug addiction)",no,n/a,n/a,n/a
+HCE,housing,"Disability (including temporary or recovered, and including HIV and drug addiction)",no,n/a,n/a,n/a
+HCE,commercial_or_public,"Disability (including temporary or recovered, and including HIV and drug addiction)",no,place_of_worship,n/a,n/a
+HCE,commercial_or_public,"Disability (including temporary or recovered, and including HIV and drug addiction)",no,store,n/a,n/a
+HCE,commercial_or_public,"Disability (including temporary or recovered, and including HIV and drug addiction)",no,financial,n/a,n/a
+HCE,commercial_or_public,"Disability (including temporary or recovered, and including HIV and drug addiction)",no,public_space,n/a,n/a
+HCE,commercial_or_public,"Disability (including temporary or recovered, and including HIV and drug addiction)",no,other,n/a,n/a
+EOS,education,"Disability (including temporary or recovered, and including HIV and drug addiction)",no,n/a,n/a,public
+EOS,education,"Disability (including temporary or recovered, and including HIV and drug addiction)",no,n/a,n/a,private
+EOS,education,"Disability (including temporary or recovered, and including HIV and drug addiction)",no,n/a,n/a,not_sure
+VOT,voting,"Disability (including temporary or recovered, and including HIV and drug addiction)",no,n/a,n/a,n/a
 ELS,workplace,"Family, marital, or parental status",no,n/a,n/a,n/a
 HCE,housing,"Family, marital, or parental status",no,n/a,n/a,n/a
 EOS,education,"Family, marital, or parental status",no,n/a,n/a,public
