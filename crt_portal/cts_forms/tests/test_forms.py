@@ -8,7 +8,7 @@ from django.test.client import Client
 from django.urls import reverse
 from django.utils.html import escape
 
-from ..forms import ComplaintActions, ReportEditForm
+from ..forms import ComplaintActions, ReportEditForm, BulkActionsForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES
 from ..models import CommentAndSummary, Report, ResponseTemplate
 from .test_data import SAMPLE_REPORT, SAMPLE_RESPONSE_TEMPLATE
@@ -375,7 +375,7 @@ class PrintActionTests(TestCase):
         self.assertTrue(escape('Selected correspondent, activity') in content)
 
 
-class BulkActionTests(TestCase):
+class BulkActionsTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.test_pass = secrets.token_hex(32)
@@ -491,3 +491,16 @@ class BulkActionTests(TestCase):
             self.assertEquals(last_activity.verb, "Added comment: ")
             self.assertEquals(last_activity.description, 'a comment')
             self.assertEquals(last_activity.actor, user)
+
+class BulkActionsFormTests(TestCase):
+    def test_bulk_actions_initial_empty(self):
+        queryset = Report.objects.all()
+        result = list(BulkActionsForm.get_initial_values(queryset, []))
+        self.assertEquals(result, [])
+
+    def test_bulk_actions_initial(self):
+        [Report.objects.create(**SAMPLE_REPORT) for _ in range(4)]
+        queryset = Report.objects.all()
+        keys = ['assigned_section', 'status', 'id']
+        result = list(BulkActionsForm.get_initial_values(queryset, keys))
+        self.assertEquals(result, [('assigned_section', 'ADM'), ('status', 'new')])

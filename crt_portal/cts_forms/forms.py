@@ -1323,14 +1323,24 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         ),
     )
 
-    def __init__(self, query, *args, **kwargs):
-        Form.__init__(self, *args, **kwargs)
-        keys = ['assigned_section', 'status', 'primary_statute', 'district']
-        values = query.values_list(*keys)
+    def get_initial_values(record_query, keys):
+        """
+        Given a record query and a list of keys, determine if a key has a
+        singular value within that query. Used to set initial fields
+        for bulk update forms.
+        """
+        values = record_query.values_list(*keys)
         initial_values = zip(*values)
         for key, initial in zip(keys, initial_values):
             if len(set(initial)) == 1:
-                self.fields[key].initial = initial[0]
+                yield key, initial[0]
+
+    def __init__(self, query, *args, **kwargs):
+        Form.__init__(self, *args, **kwargs)
+        # set initial values if applicable
+        keys = ['assigned_section', 'status', 'primary_statute', 'district']
+        for key, initial_value in BulkActionsForm.get_initial_values(query, keys):
+            self.fields[key].initial = initial_value
 
     def get_updates(self):
         return {field: self.cleaned_data[field] for field in self.changed_data}
