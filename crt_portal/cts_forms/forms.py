@@ -1333,7 +1333,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         # we will have difficulty getting distinct results.
         query = record_query.order_by()
         for key in keys:
-            values = query.order_by().values_list(key, flat=True).distinct()
+            values = query.values_list(key, flat=True).distinct()
             if values.count() == 1:
                 yield key, values[0]
 
