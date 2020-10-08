@@ -1263,19 +1263,20 @@ class PrintActions(Form):
 
 
 class BulkActionsForm(Form, ActivityStreamUpdater):
+    EMPTY_CHOICE ='Multiple'
     assigned_section = ChoiceField(
         label='Section',
         widget=ComplaintSelect(
             attrs={'class': 'usa-select text-bold text-uppercase crt-dropdown__data'},
         ),
-        choices=_add_empty_choice(SECTION_CHOICES, default_string='Multiple'),
+        choices=_add_empty_choice(SECTION_CHOICES, default_string=EMPTY_CHOICE),
         required=False
     )
     status = ChoiceField(
         widget=ComplaintSelect(
             attrs={'class': 'crt-dropdown__data'},
         ),
-        choices=_add_empty_choice(STATUS_CHOICES, default_string='Multiple'),
+        choices=_add_empty_choice(STATUS_CHOICES, default_string=EMPTY_CHOICE),
         required=False
     )
     primary_statute = ChoiceField(
@@ -1283,7 +1284,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         widget=ComplaintSelect(
             attrs={'class': 'text-uppercase crt-dropdown__data'},
         ),
-        choices=_add_empty_choice(STATUTE_CHOICES, default_string='Multiple'),
+        choices=_add_empty_choice(STATUTE_CHOICES, default_string=EMPTY_CHOICE),
         required=False
     )
     district = ChoiceField(
@@ -1291,7 +1292,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         widget=ComplaintSelect(
             attrs={'class': 'text-uppercase crt-dropdown__data'},
         ),
-        choices=_add_empty_choice(DISTRICT_CHOICES, default_string='Multiple'),
+        choices=_add_empty_choice(DISTRICT_CHOICES, default_string=EMPTY_CHOICE),
         required=False
     )
     assigned_to = ModelChoiceField(
