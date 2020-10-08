@@ -1329,11 +1329,10 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         singular value within that query. Used to set initial fields
         for bulk update forms.
         """
-        values = record_query.values_list(*keys)
-        initial_values = zip(*values)
-        for key, initial in zip(keys, initial_values):
-            if len(set(initial)) == 1:
-                yield key, initial[0]
+        for key in keys:
+            values = record_query.values_list(key, flat=True)
+            if len(set(values)) == 1:
+                yield key, values[0]
 
     def __init__(self, query, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
