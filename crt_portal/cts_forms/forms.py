@@ -1262,7 +1262,7 @@ class PrintActions(Form):
     )
 
 
-class BulkActions(Form, ActivityStreamUpdater):
+class BulkActionsForm(Form, ActivityStreamUpdater):
     assigned_section = ChoiceField(
         label='Section',
         widget=ComplaintSelect(

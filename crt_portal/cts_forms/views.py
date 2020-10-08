@@ -17,7 +17,7 @@ from django.views.decorators.cache import never_cache
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
-from .forms import (BulkActions, CommentActions, ComplaintActions,
+from .forms import (BulkActionsForm, CommentActions, ComplaintActions,
                     ResponseActions, PrintActions, ContactEditForm,
                     Filters, ReportEditForm, Review, add_activity,
                     ProfileForm)
@@ -517,7 +517,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         ids = request.GET.getlist('id')
         ids_count = len(ids)
 
-        bulk_actions_form = BulkActions(requested_query)
+        bulk_actions_form = BulkActionsForm(requested_query)
 
         # the select all option only applies if 1. user hits the
         # select all button and 2. we have more records in the query
@@ -546,7 +546,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         else:
             requested_query = Report.objects.filter(pk__in=ids)
 
-        bulk_actions_form = BulkActions(requested_query, request.POST)
+        bulk_actions_form = BulkActionsForm(requested_query, request.POST)
 
         if bulk_actions_form.is_valid():
             number = bulk_actions_form.update(requested_query, request.user)
