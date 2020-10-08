@@ -1158,7 +1158,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
                     'class': 'text-uppercase crt-dropdown__data',
                 },
             ),
-            choices=_add_empty_choice(STATUTE_CHOICES),
+            choices=_add_empty_choice(STATUTE_CHOICES, default_string=''),
             required=False
         )
         self.fields['district'] = ChoiceField(
@@ -1168,7 +1168,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
                     'class': 'text-uppercase crt-dropdown__data',
                 },
             ),
-            choices=_add_empty_choice(DISTRICT_CHOICES),
+            choices=_add_empty_choice(DISTRICT_CHOICES, default_string=''),
             required=False
         )
         self.fields['assigned_to'].widget.label = 'Assigned to'
