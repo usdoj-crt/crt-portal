@@ -511,18 +511,23 @@ class ActionsView(LoginRequiredMixin, FormView):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
 
-        requested_query = self.reconstruct_query(return_url_args)
-        all_ids_count = requested_query.count()
-
         ids = request.GET.getlist('id')
-        ids_count = len(ids)
-
-        bulk_actions_form = BulkActionsForm(requested_query)
-
         # the select all option only applies if 1. user hits the
         # select all button and 2. we have more records in the query
         # than the ids passed in
-        selected_all = request.GET.get('all', '') == 'all' and all_ids_count != ids_count
+        selected_all = request.GET.get('all', '') == 'all'
+
+        if selected_all:
+            requested_query = self.reconstruct_query(return_url_args)
+        else:
+            requested_query = Report.objects.filter(pk__in=ids)
+
+        bulk_actions_form = BulkActionsForm(requested_query)
+        all_ids_count = requested_query.count()
+        ids_count = len(ids)
+
+        # further refine selected_all to ensure < 15 items don't show up.
+        selected_all = selected_all and all_ids_count != ids_count
 
         output = {
             'return_url_args': return_url_args,
