@@ -3,7 +3,7 @@
 from django.utils.translation import gettext_lazy as _
 
 # Translators: This is used as a an empty selection default for drop down menus
-EMPTY_CHOICE = ('', _('- Select -'))
+EMPTY_CHOICE = _('- Select -')
 
 SERVICEMEMBER_CHOICES = (
     ('yes', _('Yes')),

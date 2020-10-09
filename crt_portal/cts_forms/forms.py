@@ -61,11 +61,11 @@ logger = logging.getLogger(__name__)
 User = get_user_model()
 
 
-def _add_empty_choice(choices):
+def _add_empty_choice(choices, default_string=EMPTY_CHOICE):
     """Add an empty option to list of choices"""
     if isinstance(choices, list):
         choices = tuple(choices)
-    return (EMPTY_CHOICE,) + choices
+    return (('', default_string),) + choices
 
 
 def add_activity(user, verb, description, instance):
@@ -1158,7 +1158,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
                     'class': 'text-uppercase crt-dropdown__data',
                 },
             ),
-            choices=_add_empty_choice(STATUTE_CHOICES),
+            choices=_add_empty_choice(STATUTE_CHOICES, default_string=''),
             required=False
         )
         self.fields['district'] = ChoiceField(
@@ -1168,7 +1168,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
                     'class': 'text-uppercase crt-dropdown__data',
                 },
             ),
-            choices=_add_empty_choice(DISTRICT_CHOICES),
+            choices=_add_empty_choice(DISTRICT_CHOICES, default_string=''),
             required=False
         )
         self.fields['assigned_to'].widget.label = 'Assigned to'
@@ -1262,20 +1262,21 @@ class PrintActions(Form):
     )
 
 
-class BulkActions(Form, ActivityStreamUpdater):
+class BulkActionsForm(Form, ActivityStreamUpdater):
+    EMPTY_CHOICE = 'Multiple'
     assigned_section = ChoiceField(
         label='Section',
         widget=ComplaintSelect(
             attrs={'class': 'usa-select text-bold text-uppercase crt-dropdown__data'},
         ),
-        choices=_add_empty_choice(SECTION_CHOICES),
+        choices=_add_empty_choice(SECTION_CHOICES, default_string=EMPTY_CHOICE),
         required=False
     )
     status = ChoiceField(
         widget=ComplaintSelect(
             attrs={'class': 'crt-dropdown__data'},
         ),
-        choices=_add_empty_choice(STATUS_CHOICES),
+        choices=_add_empty_choice(STATUS_CHOICES, default_string=EMPTY_CHOICE),
         required=False
     )
     primary_statute = ChoiceField(
@@ -1283,7 +1284,7 @@ class BulkActions(Form, ActivityStreamUpdater):
         widget=ComplaintSelect(
             attrs={'class': 'text-uppercase crt-dropdown__data'},
         ),
-        choices=_add_empty_choice(STATUTE_CHOICES),
+        choices=_add_empty_choice(STATUTE_CHOICES, default_string=EMPTY_CHOICE),
         required=False
     )
     district = ChoiceField(
@@ -1291,7 +1292,7 @@ class BulkActions(Form, ActivityStreamUpdater):
         widget=ComplaintSelect(
             attrs={'class': 'text-uppercase crt-dropdown__data'},
         ),
-        choices=_add_empty_choice(DISTRICT_CHOICES),
+        choices=_add_empty_choice(DISTRICT_CHOICES, default_string=EMPTY_CHOICE),
         required=False
     )
     assigned_to = ModelChoiceField(
@@ -1322,6 +1323,27 @@ class BulkActions(Form, ActivityStreamUpdater):
         ),
     )
 
+    def get_initial_values(record_query, keys):
+        """
+        Given a record query and a list of keys, determine if a key has a
+        singular value within that query. Used to set initial fields
+        for bulk update forms.
+        """
+        # make sure the queryset does not order by anything, otherwise
+        # we will have difficulty getting distinct results.
+        query = record_query.order_by()
+        for key in keys:
+            values = query.values_list(key, flat=True).distinct()
+            if values.count() == 1:
+                yield key, values[0]
+
+    def __init__(self, query, *args, **kwargs):
+        Form.__init__(self, *args, **kwargs)
+        # set initial values if applicable
+        keys = ['assigned_section', 'status', 'primary_statute', 'district']
+        for key, initial_value in BulkActionsForm.get_initial_values(query, keys):
+            self.fields[key].initial = initial_value
+
     def get_updates(self):
         return {field: self.cleaned_data[field] for field in self.changed_data}
 
@@ -1341,7 +1363,7 @@ class BulkActions(Form, ActivityStreamUpdater):
             what = value.lower()
             item = self.cleaned_data[key]
             string = custom_strings.get(what, default_string)
-            description = string.format(**{'what': what, 'item': item})
+            description = string.format(**{'what': what, 'item': item or "''"})
             descriptions.append(description)
         if len(descriptions) > 1:
             descriptions[-1] = f'and {descriptions[-1]}'

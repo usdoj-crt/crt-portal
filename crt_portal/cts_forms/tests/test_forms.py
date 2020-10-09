@@ -8,7 +8,7 @@ from django.test.client import Client
 from django.urls import reverse
 from django.utils.html import escape
 
-from ..forms import ComplaintActions, ReportEditForm
+from ..forms import ComplaintActions, ReportEditForm, BulkActionsForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES
 from ..models import CommentAndSummary, Report, ResponseTemplate
 from .test_data import SAMPLE_REPORT, SAMPLE_RESPONSE_TEMPLATE
@@ -375,7 +375,7 @@ class PrintActionTests(TestCase):
         self.assertTrue(escape('Selected correspondent, activity') in content)
 
 
-class BulkActionTests(TestCase):
+class BulkActionsTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.test_pass = secrets.token_hex(32)
@@ -453,7 +453,7 @@ class BulkActionTests(TestCase):
     def test_post_with_ids(self):
         ids = [report.id for report in self.reports[3:5]]
         user = User.objects.get(username='DELETE_USER')
-        response = self.post(ids, assigned_to=user.id, comment='a comment')
+        response = self.post(ids, assigned_to=user.id, comment='a comment', assigned_section='ADM', status='new')
         content = str(response.content)
         self.assertTrue('2 records have been updated: assigned to DELETE_USER' in content)
         self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
@@ -467,7 +467,7 @@ class BulkActionTests(TestCase):
     def test_post_with_ids_and_all(self):
         ids = [report.id for report in self.reports[3:5]]
         user = User.objects.get(username='DELETE_USER')
-        response = self.post(ids, all_ids=True, confirm=False, status='closed', comment='a comment')
+        response = self.post(ids, all_ids=True, confirm=False, status='closed', comment='a comment', assigned_section='ADM')
         content = str(response.content)
         self.assertTrue('2 records have been updated: status set to closed' in content)
         self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
@@ -481,7 +481,7 @@ class BulkActionTests(TestCase):
     def test_post_with_all(self):
         ids = [report.id for report in self.reports]
         user = User.objects.get(username='DELETE_USER')
-        response = self.post(ids, all_ids=True, confirm=True, summary='summary', comment='a comment')
+        response = self.post(ids, all_ids=True, confirm=True, summary='summary', comment='a comment', assigned_section='ADM', status='new')
         content = str(response.content)
         self.assertTrue('16 records have been updated: summary updated' in content)
         self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
@@ -491,3 +491,17 @@ class BulkActionTests(TestCase):
             self.assertEquals(last_activity.verb, "Added comment: ")
             self.assertEquals(last_activity.description, 'a comment')
             self.assertEquals(last_activity.actor, user)
+
+
+class BulkActionsFormTests(TestCase):
+    def test_bulk_actions_initial_empty(self):
+        queryset = Report.objects.all()
+        result = list(BulkActionsForm.get_initial_values(queryset, []))
+        self.assertEquals(result, [])
+
+    def test_bulk_actions_initial(self):
+        [Report.objects.create(**SAMPLE_REPORT) for _ in range(4)]
+        queryset = Report.objects.all()
+        keys = ['assigned_section', 'status', 'id']
+        result = list(BulkActionsForm.get_initial_values(queryset, keys))
+        self.assertEquals(result, [('assigned_section', 'ADM'), ('status', 'new')])
