@@ -3,17 +3,17 @@
 {% load static %}
 
 {% block page_header %}
-<header class="confirmation-header">
+<header class="confirmation-header crt-landing--blue padding-bottom-10">
   <div class="grid-container">
     <div class="grid-row grid-gap flex-child">
       <div class="tablet:grid-col-9 tablet:grid-offset-1">
         <div class="doj-brand display-flex flex-align-center font-serif-lg">
-          <img src="{% static "img/doj-logo-footer.svg" %}" alt="" height="38" class="margin-right-105" />
-          <span>United States Department of Justice<span>
+          <img src="{% static "img/doj-logo-footer.svg" %}" alt="US DOJ logo" height="55" class="margin-right-105" />
+          <div>
+            <span>{% trans 'U.S. Department of Justice' %}</span>
+            <div>{% trans 'Civil Rights Division' %}</div>
+          </div>
         </div>
-        <h1 class="padding-top-2 padding-bottom-1 margin-0 title">
-          Civil Rights Division
-        </h1>
       </div>
     </div>
   </div>
@@ -23,16 +23,45 @@
 {% block content %}
 <section class="grid-container">
   <div class="grid-row">
-  <div class="tablet:grid-col-8 tablet:grid-offset-2">
-    <div class="crt-success-card">
-      <div class="crt-success-card__content">
-          <h2>{{ status }}<img src="{% static 'img/alerts/error-red.svg' %}" alt="Error indicator with exclamation mark in red circle" width="50px" height="50px" class="padding-top-3"></h2>
-          <h3>{{ message }}</h3>
-          <p>{{ helptext }}</p>
+    <div class="tablet:grid-col-8 tablet:grid-offset-2">
+      <div class="crt-error-card">
+        <div class="crt-error-card__content">
+          <div class="display-flex flex-column padding-bottom-3">
+            <h1 class=".h1__display">{{ status }}</h1>
+            <span>{{ message }}</span>
+            <span class="help-text__small">{{ helptext }}</span>
           </div>
+          <h2 class="error-subheading">If you need to contact us immediately, you can reach us by:</h2>
+          <div class="crt-error-box">
+            <img src="{% static "img/at-sign.svg" %}" />
+            <span>
+              <li>{% trans 'Email' %} : <a href="mailto:Ask.CRT@crt.usdoj.gov">ask.CRT@crt.usdoj.gov</a></li>
+            </span>
+          </div>
+          <div class="crt-error-box">
+            <img src="{% static "img/phone_70.svg" %}" />
+            <span class="display-flex flex-column">
+              <li>(202) 514-0716</li>
+              <li>{% trans 'Telephone Device for the Deaf' %}</li>
+              <li>{% trans '(TTY)' %} (202) 514-0716</li>
+            </span>
+          </div>
+          <div class="crt-error-box">
+            <img src="{% static "img/mail_70.svg" %}" />
+            <span class="display-flex flex-column">
+              <li>{% trans 'U.S. Department of Justice' %}</li>
+              <li>{% trans 'Civil Rights Division' %}</li>
+              <li>950 Pennsylvannia Avenue, NW</li>
+              <li>Washington, D.C. 20530-0001</li>
+            </span>
+          </div>
+          <h2 class="error-subheading">Other information</h2>
+          <p><a href="https://civilrights.justice.gov/report">File a complaint</a><p>
+          <p><a href="https://civilrights.justice.gov/#about-the-division">{% trans 'About the Civil Rights Division' %}</a><p>
+          <p>{% trans 'If you or someone else is in immediate danger, <a href="tel:911">please call 911 or local police.</a>' %}</p>
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </section>
 {% endblock %}
