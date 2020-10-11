@@ -12,6 +12,7 @@ from ..forms import ComplaintActions, ReportEditForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES
 from ..models import CommentAndSummary, Report, ResponseTemplate
 from .test_data import SAMPLE_REPORT, SAMPLE_RESPONSE_TEMPLATE
+from .test_data import SAMPLE_REPORT, SAMPLE_RESPONSE_TEMPLATE, SAMPLE_COMPLAINT
 
 
 class ActionTests(TestCase):
@@ -109,6 +110,18 @@ class CommentActionTests(TestCase):
         content = str(response.content)
         self.assertTrue('Could not save comment' in content)
         self.assertEquals(response.status_code, 200)
+
+class ComplaintActionsTests(TestCase):    
+    def setUp(self):
+        self.complaint_data = SAMPLE_COMPLAINT.copy()
+        self.complaint = Report.objects.create(**self.complaint_data)
+    
+    def test_changed_data_assigned_section(self):
+        data = self.complaint_data.copy()
+        data.update({'assigned_section': 'APP'})
+        form = ComplaintActions(data, instance=self.complaint)
+        self.assertTrue(form.is_valid())
+        self.assertTrue('assigned_section' in form.changed_data)
 
 
 class ReportEditFormTests(TestCase):

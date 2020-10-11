@@ -17,3 +17,10 @@ SAMPLE_RESPONSE_TEMPLATE = {
     'subject': 'test data with record {{ record_locator }}',
     'body': 'test template with record {{ record_locator }}',
 }
+
+SAMPLE_COMPLAINT = {
+    'assigned_section': 'ADM',
+    'status': 'new',
+    'primary_statute': '144',
+    'district': '1'
+}
