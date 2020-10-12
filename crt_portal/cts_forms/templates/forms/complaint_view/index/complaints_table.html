@@ -126,7 +126,22 @@
                   {{ datum.report.violation_summary|linebreaks|default:"-" }}
                 </div>
               </td>
-              <td colspan="2"></td>
+              <td>
+                <div class="td-quickview">
+                  Location Name
+                </div>
+                <div class="td-summary">
+                  {{ datum.report.location_name|default:"-" }}
+                </div>
+              </td>
+              <td>
+                <div class="td-quickview">
+                  Complaint ID
+                </div>
+                <div class="td-summary">
+                  {{ datum.report.public_id|default:"-" }}
+                </div>
+              </td>
             </tr>
           {% endfor %}
         </tbody>
