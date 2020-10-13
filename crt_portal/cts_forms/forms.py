@@ -1290,7 +1290,10 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
     district = ChoiceField(
         label='Judicial district',
         widget=ComplaintSelect(
-            attrs={'class': 'text-uppercase crt-dropdown__data'},
+            attrs={
+                'class': 'text-uppercase crt-dropdown__data',
+                'disabled': 'disabled'
+            },
         ),
         choices=_add_empty_choice(DISTRICT_CHOICES, default_string=EMPTY_CHOICE),
         required=False
