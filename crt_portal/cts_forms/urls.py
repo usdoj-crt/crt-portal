@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import (ActionsView, index_view, error_404, ShowView, ProFormView,
+from .views import (ActionsView, index_view, ShowView, ProFormView,
                     SaveCommentView, TrendView, ResponseView,
                     PrintView, ProfileView)
 from .forms import ProForm
@@ -18,5 +18,4 @@ urlpatterns = [
     path('actions/', ActionsView.as_view(), name='crt-forms-actions'),
     path('comment/report/<int:report_id>/', SaveCommentView.as_view(), name='save-report-comment'),
     path('trends/', TrendView.as_view(), name='trends'),
-    path('errors/', error_404, name='errors'),
 ]

@@ -72,8 +72,7 @@ def error_404(request, exception=None):
         request,
         'forms/errors.html', {
             'status': '404 | Page not found ',
-            'message': _("We can't find the page you are looking for"),
-            'helptext': _("Try returning to the previous page")
+            'message': _("We can't find the page you are looking for")
         },
         status=404
     )
