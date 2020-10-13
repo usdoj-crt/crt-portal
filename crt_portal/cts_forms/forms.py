@@ -1345,13 +1345,19 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
             self.fields[key].initial = initial_value
 
     def get_updates(self):
-        return {field: self.cleaned_data[field] for field in self.changed_data}
+        updates = {field: self.cleaned_data[field] for field in self.changed_data}
+        # if section is changed, override assignee and status
+        # explicitly, even if they are set by the user.
+        if 'assigned_section' in updates:
+            updates['assigned_to'] = ''
+            updates['status'] = 'new'
+        return updates
 
     def get_update_description(self):
         """
         Given a submitted form, emit a textual description of what was updated.
         """
-        labels = {key: self.fields[key].label or key for key in self.changed_data}
+        labels = {key: self.fields[key].label or key for key in self.get_updates()}
         labels.pop('comment', None)  # required, so we can omit
         default_string = '{what} set to {item}'
         custom_strings = {
