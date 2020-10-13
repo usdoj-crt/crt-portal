@@ -1357,7 +1357,8 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         """
         Given a submitted form, emit a textual description of what was updated.
         """
-        labels = {key: self.fields[key].label or key for key in self.get_updates()}
+        updates = self.get_updates()
+        labels = {key: self.fields[key].label or key for key in updates}
         labels.pop('comment', None)  # required, so we can omit
         default_string = '{what} set to {item}'
         custom_strings = {
@@ -1367,7 +1368,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         descriptions = []
         for (key, value) in labels.items():
             what = value.lower()
-            item = self.cleaned_data[key]
+            item = updates[key]
             string = custom_strings.get(what, default_string)
             description = string.format(**{'what': what, 'item': item or "''"})
             descriptions.append(description)
@@ -1380,7 +1381,8 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         Parse incoming changed data for activity stream entry (tweaked for
         bulk update)
         """
-        for field in self.changed_data:
+        updates = self.get_updates()
+        for field in updates:
             name = ' '.join(field.split('_')).capitalize()
             # rename primary statute if applicable
             if field == 'primary_statute':
@@ -1388,7 +1390,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
             if field in ['summary', 'comment']:
                 continue
             initial = getattr(report, field, 'None')
-            yield f"{name}:", f'Updated from "{initial}" to "{self.cleaned_data[field]}"'
+            yield f"{name}:", f'Updated from "{initial}" to "{updates[field]}"'
 
     def update_activity_stream(self, user, report):
         """
