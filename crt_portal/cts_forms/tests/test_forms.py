@@ -118,10 +118,15 @@ class ComplaintActionsTests(TestCase):
     
     def test_changed_data_assigned_section(self):
         data = self.complaint_data.copy()
-        data.update({'assigned_section': 'APP'})
+        old_assigned_section = data['assigned_section']
+        new_assigned_section = 'APP'
+        data.update({'assigned_section': new_assigned_section})
         form = ComplaintActions(data, instance=self.complaint)
         self.assertTrue(form.is_valid())
         self.assertTrue('assigned_section' in form.changed_data)
+        for verb, description in form.get_actions():
+            self.assertTrue("Assigned section:" == verb)
+            self.assertTrue(f'Updated from "{old_assigned_section}" to "{new_assigned_section}"' == description)
 
 
 class ReportEditFormTests(TestCase):
