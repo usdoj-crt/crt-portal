@@ -71,7 +71,7 @@ def error_404(request, exception=None):
     return render(
         request,
         'forms/errors.html', {
-            'status': '404 | Page not found ',
+            'status': _("404 | Page not found"),
             'message': _("We can't find the page you are looking for")
         },
         status=404
