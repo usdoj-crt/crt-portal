@@ -452,8 +452,7 @@ class BulkActionsTests(TestCase):
 
     def test_post_with_ids(self):
         ids = [report.id for report in self.reports[3:5]]
-        user = User.objects.get(username='DELETE_USER')
-        response = self.post(ids, assigned_to=user.id, comment='a comment', assigned_section='ADM', status='new')
+        response = self.post(ids, assigned_to=self.user.id, comment='a comment', assigned_section='ADM', status='new')
         content = str(response.content)
         self.assertTrue('2 records have been updated: assigned to DELETE_USER' in content)
         self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
@@ -462,12 +461,11 @@ class BulkActionsTests(TestCase):
             last_activity = list(report.target_actions.all())[-1]
             self.assertEquals(last_activity.verb, "Assigned to:")
             self.assertEquals(last_activity.description, 'Updated from "None" to "DELETE_USER"')
-            self.assertEquals(last_activity.actor, user)
+            self.assertEquals(last_activity.actor, self.user)
 
     def test_post_with_section_status_and_assignee(self):
         ids = [report.id for report in self.reports[3:5]]
-        user = User.objects.get(username='DELETE_USER')
-        response = self.post(ids, assigned_to=user.id, comment='a comment', assigned_section='VOT', status='closed')
+        response = self.post(ids, assigned_to=self.user.id, comment='a comment', assigned_section='VOT', status='closed')
         content = str(response.content)
         self.assertTrue(escape("2 records have been updated: section set to VOT, status set to new, and assigned to ''") in content)
         self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
@@ -476,11 +474,10 @@ class BulkActionsTests(TestCase):
             last_activity = list(report.target_actions.all())[-1]
             self.assertEquals(last_activity.verb, "Assigned section:")
             self.assertEquals(last_activity.description, 'Updated from "ADM" to "VOT"')
-            self.assertEquals(last_activity.actor, user)
+            self.assertEquals(last_activity.actor, self.user)
 
     def test_post_with_ids_and_all(self):
         ids = [report.id for report in self.reports[3:5]]
-        user = User.objects.get(username='DELETE_USER')
         response = self.post(ids, all_ids=True, confirm=False, status='closed', comment='a comment', assigned_section='ADM')
         content = str(response.content)
         self.assertTrue('2 records have been updated: status set to closed' in content)
@@ -490,11 +487,10 @@ class BulkActionsTests(TestCase):
             last_activity = list(report.target_actions.all())[-1]
             self.assertEquals(last_activity.verb, "Status:")
             self.assertEquals(last_activity.description, 'Updated from "new" to "closed"')
-            self.assertEquals(last_activity.actor, user)
+            self.assertEquals(last_activity.actor, self.user)
 
     def test_post_with_all(self):
         ids = [report.id for report in self.reports]
-        user = User.objects.get(username='DELETE_USER')
         response = self.post(ids, all_ids=True, confirm=True, summary='summary', comment='a comment', assigned_section='ADM', status='new')
         content = str(response.content)
         self.assertTrue('16 records have been updated: summary updated' in content)
@@ -504,7 +500,7 @@ class BulkActionsTests(TestCase):
             last_activity = list(report.target_actions.all())[-1]
             self.assertEquals(last_activity.verb, "Added comment: ")
             self.assertEquals(last_activity.description, 'a comment')
-            self.assertEquals(last_activity.actor, user)
+            self.assertEquals(last_activity.actor, self.user)
 
 
 class BulkActionsFormTests(TestCase):
