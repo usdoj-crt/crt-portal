@@ -1354,6 +1354,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         if 'assigned_section' in updates:
             updates['assigned_to'] = ''
             updates['status'] = 'new'
+        updates.pop('district', None)  # district is currently disabled (read-only)
         return updates
 
     def get_update_description(self):
