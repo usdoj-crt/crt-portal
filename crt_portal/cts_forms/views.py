@@ -82,9 +82,9 @@ def error_500(request, exception=None):
     return render(
         request,
         'forms/errors.html', {
-            'status': 500,
-            'message': _("There's a problem loading this page"),
-            'helptext': _("There's a technical problem loading this page. Try refreshing this page or going to another page. If that doesn't work, try again later.")
+            'status': "We're sorry, something went wrong",
+            'message': "We hope to fix this issue shortly",
+            'helptext': "Error: 500"
         },
         status=500
     )
