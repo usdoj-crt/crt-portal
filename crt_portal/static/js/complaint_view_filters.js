@@ -144,9 +144,7 @@
 
   function decodeFormData(data) {
     if (Array.isArray(data)) {
-      return data.map(function(x) {
-        return decodeURIComponent(x);
-      });
+      return data.map(decodeURIComponent);
     }
     return decodeURIComponent(data);
   }
