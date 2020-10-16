@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-16 14:59+0000\n"
+"POT-Creation-Date: 2020-10-16 16:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1223,14 +1223,12 @@ msgid "Skip to main content"
 msgstr "Pasar directamente al contenido principal"
 
 #: templates/base.html:98 templates/forms/base.html:92
-#: templates/forms/errors.html:13 templates/forms/errors.html:53
-#: templates/landing.html:18
+#: templates/forms/errors.html:13 templates/landing.html:18
 msgid "U.S. Department of Justice"
 msgstr "Departamento de Justicia de los EE. UU."
 
 #: templates/base.html:101 templates/forms/base.html:91
-#: templates/forms/errors.html:14 templates/forms/errors.html:54
-#: templates/landing.html:21
+#: templates/forms/errors.html:14 templates/landing.html:21
 msgid "Civil Rights Division"
 msgstr "División de Derechos Civiles"
 
@@ -1511,7 +1509,9 @@ msgstr "Su entrega"
 
 #: templates/forms/errors.html:34
 msgid "If you need to contact us immediately, you can reach us by:"
-msgstr "Intente pinchar en alguno de estos enlaces:"
+msgstr ""
+"Si usted necesita comunicarse con nosotros urgentemente, lo puede hacer "
+"mediante los siguientes modos:"
 
 #: templates/forms/errors.html:38
 msgid "Email"
@@ -1519,7 +1519,7 @@ msgstr ""
 
 #: templates/forms/errors.html:45 templates/partials/footer.html:32
 msgid "(toll-free)"
-msgstr "(gratis)"
+msgstr "(línea gratuita)"
 
 #: templates/forms/errors.html:46 templates/partials/footer.html:33
 msgid "Telephone Device for the Deaf"
