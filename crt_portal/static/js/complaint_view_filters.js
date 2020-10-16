@@ -135,14 +135,20 @@
    * @param {Object} updates The properties of the filter state to be updated
    */
   function mutateFilterDataWithUpdates(state, updates) {
-    for (var key in updates) {
+    for (const [key, value] of Object.entries(updates)) {
       if (state.hasOwnProperty(key)) {
-        var decoded_keys = updates[key].map(function(elem) {
-          return decodeURIComponent(elem);
-        });
-        state[key] = decoded_keys;
+        state[key] = decodeFormData(value);
       }
     }
+  }
+
+  function decodeFormData(data) {
+    if (Array.isArray(data)) {
+      return data.map(function(x) {
+        return decodeURIComponent(x);
+      });
+    }
+    return decodeURIComponent(data);
   }
 
   /**
