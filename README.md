@@ -251,7 +251,9 @@ That will produce a report locally that you can view in your browser. It will gi
 
 ## Browser targeting
 
-We aim to test against Interent Explorer 11 and Google Chrome on a regular basis, and test against Safari and Firefox on an occasional basis.
+For the general public facing pages, we regularly test against Microsoft Edge, Internet Explorer 11, and Google Chrome, and occasionally test against Safari and Firefox.
+
+For the staff-only pages, we only support the Microsoft Edge and Google Chrome browsers. Internet Explorer 11 will _not_ work.
 
 ## cloud.gov set up
 You only need to get the services stood up and configure the S3 bucket once.
