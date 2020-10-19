@@ -1290,7 +1290,10 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
     district = ChoiceField(
         label='Judicial district',
         widget=ComplaintSelect(
-            attrs={'class': 'text-uppercase crt-dropdown__data'},
+            attrs={
+                'class': 'text-uppercase crt-dropdown__data',
+                'disabled': 'disabled'
+            },
         ),
         choices=_add_empty_choice(DISTRICT_CHOICES, default_string=EMPTY_CHOICE),
         required=False
@@ -1345,13 +1348,21 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
             self.fields[key].initial = initial_value
 
     def get_updates(self):
-        return {field: self.cleaned_data[field] for field in self.changed_data}
+        updates = {field: self.cleaned_data[field] for field in self.changed_data}
+        # if section is changed, override assignee and status
+        # explicitly, even if they are set by the user.
+        if 'assigned_section' in updates:
+            updates['assigned_to'] = ''
+            updates['status'] = 'new'
+        updates.pop('district', None)  # district is currently disabled (read-only)
+        return updates
 
     def get_update_description(self):
         """
         Given a submitted form, emit a textual description of what was updated.
         """
-        labels = {key: self.fields[key].label or key for key in self.changed_data}
+        updates = self.get_updates()
+        labels = {key: self.fields[key].label or key for key in updates}
         labels.pop('comment', None)  # required, so we can omit
         default_string = '{what} set to {item}'
         custom_strings = {
@@ -1361,7 +1372,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         descriptions = []
         for (key, value) in labels.items():
             what = value.lower()
-            item = self.cleaned_data[key]
+            item = updates[key]
             string = custom_strings.get(what, default_string)
             description = string.format(**{'what': what, 'item': item or "''"})
             descriptions.append(description)
@@ -1374,7 +1385,8 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         Parse incoming changed data for activity stream entry (tweaked for
         bulk update)
         """
-        for field in self.changed_data:
+        updates = self.get_updates()
+        for field in updates:
             name = ' '.join(field.split('_')).capitalize()
             # rename primary statute if applicable
             if field == 'primary_statute':
@@ -1382,7 +1394,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
             if field in ['summary', 'comment']:
                 continue
             initial = getattr(report, field, 'None')
-            yield f"{name}:", f'Updated from "{initial}" to "{self.cleaned_data[field]}"'
+            yield f"{name}:", f'Updated from "{initial}" to "{updates[field]}"'
 
     def update_activity_stream(self, user, report):
         """
