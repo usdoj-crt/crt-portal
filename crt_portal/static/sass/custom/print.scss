@@ -14,6 +14,10 @@
   // - hide the actions form card.
   .crt-action-card,
   // - hide the "new comment" card.
+  .crt-actions-card,
+  // - hide the bulk print card.
+  .bulk-print-link,
+  // - hide the "print all" on the bulk actions page.
   .crt-comment-new,
   // - hide the current summary (embedded in the details form) as we
   //   have a separate print-only summary section.
@@ -76,12 +80,19 @@
       overflow-y: visible;
     }
   }
+
+  .bulk-print-report {
+    display: block;
+    page-break-after: always;
+  }
 }
 
 // print-only cards
 .crt-activities-card,
 .crt-comments-card,
 .crt-summary-card,
+// bulk-print reports
+.bulk-print-reports,
 // and question columns
 .report-print-question {
   display: none;

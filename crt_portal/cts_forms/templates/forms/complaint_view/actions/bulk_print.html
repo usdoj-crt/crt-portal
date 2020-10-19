@@ -8,7 +8,7 @@
 </span>
 
 {% if print_reports.count < 100 %}
-  <div class="bulk-print-reports">
+  <div class="bulk-print-reports display-none">
     {% for report in print_reports %}
       <div class="bulk-print-report">
         {% include 'forms/complaint_view/show/correspondent_info.html' with data=report %}
