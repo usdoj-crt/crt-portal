@@ -21,6 +21,7 @@ from .model_variables import (CLOSED_STATUS,
                               EMPLOYER_SIZE_CHOICES, HATE_CRIME_CHOICES,
                               HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
                               INTAKE_FORMAT_CHOICES, PRIMARY_COMPLAINT_CHOICES,
+                              PRIMARY_COMPLAINT_DICT,
                               PROTECTED_MODEL_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
@@ -316,6 +317,9 @@ class Report(models.Model):
     @cached_property
     def closed(self):
         return self.status == CLOSED_STATUS
+
+    def primary_complaint_description(self):
+        return PRIMARY_COMPLAINT_DICT.get(self.primary_complaint, None)
 
     def activity(self):
         return self.target_actions.exclude(verb__contains='comment:')

@@ -310,7 +310,6 @@ def index_view(request):
 
 
 def serialize_data(report, request, report_id):
-    primary_complaint = [choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint]
     crimes = {
         'physical_harm': False,
         'trafficking': False
@@ -336,7 +335,7 @@ def serialize_data(report, request, report_id):
         'crimes': crimes,
         'data': report,
         'p_class_list': p_class_list,
-        'primary_complaint': primary_complaint,
+        'primary_complaint': report.primary_complaint_description,
         'return_url_args': request.GET.get('next', ''),
         'index': request.GET.get('index', ''),
         'summary': report.get_summary,
@@ -524,6 +523,7 @@ class ActionsView(LoginRequiredMixin, FormView):
             'all_ids_count': all_ids_count,
             'bulk_actions_form': bulk_actions_form,
             'print_reports': requested_query.order_by('id'),
+            'questions': Review.question_text,
         }
         return render(request, 'forms/complaint_view/actions/index.html', output)
 
@@ -577,6 +577,7 @@ class ActionsView(LoginRequiredMixin, FormView):
                 'all_ids_count': all_ids_count,
                 'bulk_actions_form': bulk_actions_form,
                 'print_reports': requested_query.order_by('id'),
+                'questions': Review.question_text,
             }
             return render(request, 'forms/complaint_view/actions/index.html', output)
 

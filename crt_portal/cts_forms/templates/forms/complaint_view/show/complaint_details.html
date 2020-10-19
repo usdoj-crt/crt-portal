@@ -52,7 +52,7 @@
         </th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
-            {{primary_complaint.0}}
+            {{primary_complaint}}
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
             {{details_form.primary_complaint}}
@@ -293,7 +293,9 @@
           {{ data.last_incident_month|default:"-"}}/{{data.last_incident_day|default:"-"}}/{{data.last_incident_year|default:"-"}}
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
-            {% include "forms/snippets/date_components.html" with month=details_form.last_incident_month day=details_form.last_incident_day year=details_form.last_incident_year  %}
+            {% if not print_only %}
+              {% include "forms/snippets/date_components.html" with month=details_form.last_incident_month day=details_form.last_incident_day year=details_form.last_incident_year  %}
+            {% endif %}
           </div>
         </td>
       </tr>
