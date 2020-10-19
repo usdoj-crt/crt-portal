@@ -341,8 +341,7 @@ def serialize_data(report, request, report_id):
         'index': request.GET.get('index', ''),
         'summary': report.get_summary,
         # for print media consumption
-        'print_actions': report.target_actions.exclude(verb__contains='comment:'),
-        'print_comments': report.target_actions.filter(verb__contains='comment:'),
+        'print_actions': report.activity(),
         'questions': Review.question_text,
     }
 
@@ -524,6 +523,7 @@ class ActionsView(LoginRequiredMixin, FormView):
             'show_warning': ids_count > 15,
             'all_ids_count': all_ids_count,
             'bulk_actions_form': bulk_actions_form,
+            'print_reports': requested_query.order_by('id'),
         }
         return render(request, 'forms/complaint_view/actions/index.html', output)
 
@@ -576,6 +576,7 @@ class ActionsView(LoginRequiredMixin, FormView):
                 'show_warning': ids_count > 15,
                 'all_ids_count': all_ids_count,
                 'bulk_actions_form': bulk_actions_form,
+                'print_reports': requested_query.order_by('id'),
             }
             return render(request, 'forms/complaint_view/actions/index.html', output)
 

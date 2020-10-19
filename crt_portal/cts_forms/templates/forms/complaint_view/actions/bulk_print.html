@@ -1,0 +1,22 @@
+{% load static %}
+
+<span>
+  <a href="#" class="bulk-print-link" {% if print_reports|length <= 100 %}disabled="disabled"{% endif %}>
+    <img src="{% static "img/intake-icons/ic_fax.svg" %}" alt="icon" class="icon" />
+    Print all
+  </a>
+</span>
+
+{% if print_reports|length <= 100 %}
+  <div class="bulk-print-reports">
+    {% for report in print_reports %}
+      <div class="bulk-print-report">
+        {% include 'forms/complaint_view/show/correspondent_info.html' with data=report %}
+        {#% include 'forms/complaint_view/show/complaint_details.html' with data=report primary_complaint=primary_complaint summary=report.get_summary %#}
+        {% include 'forms/complaint_view/show/description.html' with description=report.violation_summary %}
+        {% include 'forms/complaint_view/print/activities.html' with activity=report.activity %}
+        {% include 'forms/complaint_view/print/summary.html' with summary=report.get_summary %}
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
