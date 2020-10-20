@@ -122,7 +122,7 @@ HATE_CRIME_CHOICES = (
 PROTECTED_CLASS_FIELDS = [
     # (form order, code, display name)
     (0, 'Age', _('Age')),
-    (1, 'Disability', _('Disability (including temporary or recovered, and including HIV and drug addiction)')),
+    (1, 'Disability', _('Disability (including temporary or recovered and including HIV and drug addiction)')),
     (2, 'Family status', _('Family, marital, or parental status')),
     (3, 'Gender', _('Gender identity (including gender stereotypes)')),
     (4, 'Genetic', _('Genetic information (including family medical history)')),
