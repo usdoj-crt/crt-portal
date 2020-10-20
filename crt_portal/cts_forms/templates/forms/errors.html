@@ -29,7 +29,7 @@
           <div class="display-flex flex-column padding-bottom-3">
             <h1 class=".h1__display">{% block error_heading %}We're sorry, something went wrong{% endblock %}</h1>
             <span class="crt-error_message">{% block error_message %}We hope to fix this issue shortly{% endblock %}</span>
-            <span class="help-text__small">{{ helptext }}</span>
+            <span class="help-text__small">{% block error_helptext %}Error: {{ status }}{% endblock %}</span>
           </div>
           <h2 class="error-subheading">{% trans 'If you need to contact us immediately, you can reach us by:' %}</h2>
           <div class="crt-error-box">
