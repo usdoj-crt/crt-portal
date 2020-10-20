@@ -1,9 +1,11 @@
 {% load static %}
 
+{% if not no_form %}
 <form class="usa-form" method="post" action="{% url 'crt_forms:crt-forms-print' id=data.id %}">
   {% csrf_token %}
   <input type="hidden" value="{{ return_url_args }}" name="next" id="modal_next" />
   <input type="hidden" value="{{ index }}" name="index" id="index" />
+{% endif %}
   <div id="print_report" hidden>
     <div class="modal-wrapper print-report--modal">
       <div class="modal-content modal-content--large">
@@ -23,4 +25,6 @@
       </div>
     </div>
   </div>
+{% if not no_form %}
 </form>
+{% endif %}

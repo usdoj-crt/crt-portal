@@ -522,6 +522,7 @@ class ActionsView(LoginRequiredMixin, FormView):
             'all_ids_count': all_ids_count,
             'bulk_actions_form': bulk_actions_form,
             'print_reports': requested_query.order_by('id'),
+            'print_options': PrintActions(),
             'questions': Review.question_text,
         }
         return render(request, 'forms/complaint_view/actions/index.html', output)
@@ -576,6 +577,7 @@ class ActionsView(LoginRequiredMixin, FormView):
                 'all_ids_count': all_ids_count,
                 'bulk_actions_form': bulk_actions_form,
                 'print_reports': requested_query.order_by('id'),
+                'print_options': PrintActions(),
                 'questions': Review.question_text,
             }
             return render(request, 'forms/complaint_view/actions/index.html', output)

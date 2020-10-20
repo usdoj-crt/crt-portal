@@ -42,8 +42,13 @@
   </div>
 {% endblock %}
 
+{% block usa_footer %}
+  {% include 'forms/complaint_view/show/print_report.html' with no_form=True %}
+{% endblock %}
+
 {% block page_js %}
   {{ block.super }}
   <script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
   <script src="{% static 'js/bulk_actions.js' %}"></script>
+  <script src="{% static 'js/print_reports.js' %}"></script>
 {% endblock %}
