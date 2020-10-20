@@ -27,8 +27,8 @@
       <div class="crt-error-card">
         <div class="crt-error-card__content">
           <div class="display-flex flex-column padding-bottom-3">
-            <h1 class=".h1__display">{{ status }}</h1>
-            <span>{{ message }}</span>
+            <h1 class=".h1__display">{% block error_heading %}We're sorry, something went wrong{% endblock %}</h1>
+            <span class="crt-error_message">{% block error_message %}We hope to fix this issue shortly{% endblock %}</span>
             <span class="help-text__small">{{ helptext }}</span>
           </div>
           <h2 class="error-subheading">If you need to contact us immediately, you can reach us by:</h2>

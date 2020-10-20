@@ -70,7 +70,7 @@ def error_403(request, exception=None):
 def error_404(request, exception=None):
     return render(
         request,
-        'forms/errors.html', {
+        'forms/errors_404.html', {
             'status': '404 | Page not found ',
             'message': _("We can't find the page you are looking for")
         },
@@ -82,9 +82,7 @@ def error_500(request, exception=None):
     return render(
         request,
         'forms/errors.html', {
-            'status': "We're sorry, something went wrong",
-            'message': "We hope to fix this issue shortly",
-            'helptext': "Error: 500"
+            'helptext': 'Error: 500'
         },
         status=500
     )
