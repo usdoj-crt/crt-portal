@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-13 16:08+0000\n"
+"POT-Creation-Date: 2020-10-16 16:49+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1223,14 +1223,12 @@ msgid "Skip to main content"
 msgstr "Pasar directamente al contenido principal"
 
 #: templates/base.html:98 templates/forms/base.html:92
-#: templates/forms/errors.html:13 templates/forms/errors.html:52
-#: templates/landing.html:18
+#: templates/forms/errors.html:13 templates/landing.html:18
 msgid "U.S. Department of Justice"
 msgstr "Departamento de Justicia de los EE. UU."
 
 #: templates/base.html:101 templates/forms/base.html:91
-#: templates/forms/errors.html:14 templates/forms/errors.html:53
-#: templates/landing.html:21
+#: templates/forms/errors.html:14 templates/landing.html:21
 msgid "Civil Rights Division"
 msgstr "División de Derechos Civiles"
 
@@ -1509,23 +1507,41 @@ msgstr ""
 msgid "Your submission"
 msgstr "Su entrega"
 
+#: templates/forms/errors.html:34
+msgid "If you need to contact us immediately, you can reach us by:"
+msgstr ""
+"Si usted necesita comunicarse con nosotros urgentemente, lo puede hacer "
+"mediante los siguientes modos:"
+
 #: templates/forms/errors.html:38
 msgid "Email"
 msgstr ""
 
-#: templates/forms/errors.html:45 templates/partials/footer.html:33
+#: templates/forms/errors.html:45 templates/partials/footer.html:32
+msgid "(toll-free)"
+msgstr "(línea gratuita)"
+
+#: templates/forms/errors.html:46 templates/partials/footer.html:33
 msgid "Telephone Device for the Deaf"
 msgstr "Dispositivo telefónico para sordos"
 
-#: templates/forms/errors.html:46 templates/partials/footer.html:34
+#: templates/forms/errors.html:47 templates/partials/footer.html:34
 msgid "(TTY)"
 msgstr "Teletipo (TTY por sus siglas en inglés)"
 
-#: templates/forms/errors.html:60 templates/landing.html:125
+#: templates/forms/errors.html:59
+msgid "Other information"
+msgstr "Información adicional"
+
+#: templates/forms/errors.html:60
+msgid "File a complaint"
+msgstr "Presentar una querella"
+
+#: templates/forms/errors.html:61 templates/landing.html:125
 msgid "About the Civil Rights Division"
 msgstr "Acerca de la División de Derechos Civiles"
 
-#: templates/forms/errors.html:61 templates/landing.html:108
+#: templates/forms/errors.html:62 templates/landing.html:108
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
@@ -1707,8 +1723,8 @@ msgstr "Informe sobre una vulneración"
 msgid "Already submitted?"
 msgstr "¿Ya nos informó de una vulneración?"
 
-#: templates/landing.html:59 templates/partials/footer.html:9 views.py:809
-#: views.py:865 views.py:884
+#: templates/landing.html:59 templates/partials/footer.html:9 views.py:808
+#: views.py:864 views.py:883
 msgid "Contact"
 msgstr "Contacto"
 
@@ -2073,10 +2089,6 @@ msgstr ""
 #: templates/landing.html:371
 msgid "Image attributions"
 msgstr ""
-
-#: templates/partials/footer.html:32
-msgid "(toll-free)"
-msgstr "(gratis)"
 
 #: templates/partials/footer.html:47
 msgid "Availability of Language Assistance Services"
@@ -2595,19 +2607,19 @@ msgstr "No autorizado"
 msgid "This page is off limits to unauthorized users."
 msgstr "Usuario no autorizados no podrán acceder a esta página"
 
+#: views.py:74
+msgid "404 | Page not found"
+msgstr "404 | Página no encontrada"
+
 #: views.py:75
 msgid "We can't find the page you are looking for"
 msgstr "No encontramos la página que usted está buscando"
 
-#: views.py:76
-msgid "Try returning to the previous page"
-msgstr "Intente volver a la página anterior"
-
-#: views.py:87
+#: views.py:86
 msgid "There's a problem loading this page"
 msgstr "Hay un problema para cargar esta página"
 
-#: views.py:88
+#: views.py:87
 msgid ""
 "There's a technical problem loading this page. Try refreshing this page or "
 "going to another page. If that doesn't work, try again later."
@@ -2615,20 +2627,20 @@ msgstr ""
 "Hay un problema técnico para cargar esta página. Intente actualizar esta "
 "página o ir a otra página. Si eso no funciona, intente más tarde."
 
-#: views.py:99
+#: views.py:98
 msgid "Not implemented"
 msgstr "No implementado"
 
-#: views.py:100
+#: views.py:99
 msgid "There seems to be a problem with this request. Try refreshing the page."
 msgstr ""
 "Parece que hay un problema con esta solicitud. Intente actualizar la página."
 
-#: views.py:111
+#: views.py:110
 msgid "Bad gateway"
 msgstr "Portal incorrecto"
 
-#: views.py:112
+#: views.py:111
 msgid ""
 "This problem is due to poor IP communication between back-end computers, "
 "possibly including our web server. Try clearing your browser cache "
@@ -2640,11 +2652,11 @@ msgstr ""
 "borrar completamente el caché de su navegador. Puede que haya algún problema "
 "con su conexión interna a Internet o su cortafuegos."
 
-#: views.py:123
+#: views.py:122
 msgid "Service Unavailable"
 msgstr "Servicio no disponible"
 
-#: views.py:124
+#: views.py:123
 msgid ""
 "Our web server is either closed for repair, upgrades or is rebooting. Please "
 "try again later."
@@ -2652,11 +2664,11 @@ msgstr ""
 "Nuestro servidor de web está cerrado para unos arreglos, actualizaciones o "
 "se está reinicializando. Se ruega que lo intente nuevamente más tarde."
 
-#: views.py:135
+#: views.py:134
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Su navegador no pudo crear una cookie segura"
 
-#: views.py:136
+#: views.py:135
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
@@ -2670,56 +2682,59 @@ msgstr ""
 "acceder a esta página en otra pestaña o ventana en su navegador. Eso le "
 "creará otra cookie de seguridad y debería resolver el problema."
 
-#: views.py:684 views.py:912
+#: views.py:683 views.py:911
 msgid "word remaining"
 msgstr "palabra restante"
 
-#: views.py:685 views.py:913
+#: views.py:684 views.py:912
 msgid " words remaining"
 msgstr "palabras restantes"
 
-#: views.py:686 views.py:914
+#: views.py:685 views.py:913
 msgid " word limit reached"
 msgstr "límite de palabras alcanzado"
 
-#: views.py:810 views.py:866 views.py:867 views.py:885 views.py:886
-#: views.py:921
+#: views.py:809 views.py:865 views.py:866 views.py:884 views.py:885
+#: views.py:920
 msgid "Primary concern"
 msgstr "Motivo principal de preocupación"
 
-#: views.py:811 views.py:868 views.py:869 views.py:870 views.py:871
-#: views.py:872 views.py:873
+#: views.py:810 views.py:867 views.py:868 views.py:869 views.py:870
+#: views.py:871 views.py:872
 msgid "Location"
 msgstr "Lugar"
 
-#: views.py:812 views.py:874 views.py:893
+#: views.py:811 views.py:873 views.py:892
 msgid "Personal characteristics"
 msgstr "Características personales"
 
-#: views.py:813 views.py:875 views.py:894
+#: views.py:812 views.py:874 views.py:893
 msgid "Date"
 msgstr "Fecha"
 
-#: views.py:814 views.py:876 views.py:895
+#: views.py:813 views.py:875 views.py:894
 msgid "Personal description"
 msgstr "Descripción personal"
 
-#: views.py:815 views.py:877 views.py:926
+#: views.py:814 views.py:876 views.py:925
 msgid "Review"
 msgstr "Repasar"
 
-#: views.py:887 views.py:888 views.py:889 views.py:890 views.py:891
-#: views.py:892
+#: views.py:886 views.py:887 views.py:888 views.py:889 views.py:890
+#: views.py:891
 msgid "Location details"
 msgstr "Datos de lugar"
 
-#: views.py:896
+#: views.py:895
 msgid "Review your report"
 msgstr "Revise su informe"
 
-#: views.py:924
+#: views.py:923
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "Favor de elegir esta opción si"
+
+#~ msgid "Try returning to the previous page"
+#~ msgstr "Intente volver a la página anterior"
 
 #~ msgid "Have you or someone you know experienced unlawful discrimination?"
 #~ msgstr ""
