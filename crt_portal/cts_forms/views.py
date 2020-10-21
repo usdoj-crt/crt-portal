@@ -550,6 +550,9 @@ class ActionsView(LoginRequiredMixin, FormView):
         else:
             requested_query = Report.objects.filter(pk__in=ids)
 
+        if requested_query.count() > 500:
+            raise PermissionDenied
+
         bulk_actions_form = BulkActionsForm(requested_query, request.POST)
 
         if bulk_actions_form.is_valid():

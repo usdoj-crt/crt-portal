@@ -79,12 +79,18 @@
         </button>
 
         {% if selected_all %}
-          <button class="usa-button button--warning display-flex align-center"
-                  id="show_warning_section"
-                  disabled
-          >
-            Apply changes to {{ all_ids_count }} record{{ all_ids_count|pluralize:"s" }}
-          </button>
+          {% if all_ids_count <= 500 %}
+            <button class="usa-button button--warning display-flex align-center"
+                    id="show_warning_section"
+                    disabled
+            >
+              Apply changes to {{ all_ids_count }} record{{ all_ids_count|pluralize:"s" }}
+            </button>
+          {% else %}
+            <p>
+              Maximum records for bulk change is capped at 500. Please return to the <a href="{% url 'crt_forms:crt-forms-index' %}{{ return_url_args }}">View All Table</a> and adjust your filters.
+            </p>
+          {% endif %}
         {% endif %}
       </div>
 
