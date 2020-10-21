@@ -73,4 +73,17 @@
       warning_section.setAttribute('hidden', 'hidden');
     };
   }
+
+  var assigned_section = document.getElementById('id_assigned_section');
+  var section_initial_value = assigned_section.value;
+  assigned_section.onchange = function(event) {
+    var status = document.getElementById('id_status');
+    status.value = 'new';
+    status.setAttribute('disabled', 'disabled');
+    var selectElement = document.getElementById('id_assigned_to');
+    selectElement.value = '';
+    selectElement.setAttribute('disabled', 'disabled');
+    var actualSelectElement = document.getElementById('id_assigned_to-select');
+    actualSelectElement.value = '';
+  };
 })(window, document);
