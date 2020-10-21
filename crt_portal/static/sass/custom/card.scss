@@ -105,4 +105,10 @@
     color: color($theme-color-secondary);
     list-style-type: none;
   }
+
+  input, select {
+    &[disabled=disabled] {
+      cursor: not-allowed;
+    }
+  }
 }

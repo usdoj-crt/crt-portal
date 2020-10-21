@@ -75,11 +75,12 @@
   }
 
   var assigned_section = document.getElementById('id_assigned_section');
-  var section_initial_value = assigned_section.value;
   assigned_section.onchange = function(event) {
     var status = document.getElementById('id_status');
     status.value = 'new';
     status.setAttribute('disabled', 'disabled');
+    var primaryStatute = document.getElementById('id_primary_statute');
+    primaryStatute.setAttribute('disabled', 'disabled');
     var selectElement = document.getElementById('id_assigned_to');
     selectElement.value = '';
     selectElement.setAttribute('disabled', 'disabled');
