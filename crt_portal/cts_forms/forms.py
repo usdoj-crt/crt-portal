@@ -1357,6 +1357,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         # if section is changed, override assignee and status
         # explicitly, even if they are set by the user.
         if 'assigned_section' in updates:
+            updates['primary_statute'] = ''
             updates['assigned_to'] = ''
             updates['status'] = 'new'
         updates.pop('district', None)  # district is currently disabled (read-only)
