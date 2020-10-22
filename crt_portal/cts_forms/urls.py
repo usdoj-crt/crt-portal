@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import (ActionsView, index_view, ShowView, ProFormView,
                     SaveCommentView, TrendView, ResponseView,
-                    PrintView, ProfileView)
+                    PrintView, ProfileView, CRTReportWizard)
 from .forms import ProForm
 
 app_name = 'crt_forms'
@@ -18,4 +18,5 @@ urlpatterns = [
     path('actions/', ActionsView.as_view(), name='crt-forms-actions'),
     path('comment/report/<int:report_id>/', SaveCommentView.as_view(), name='save-report-comment'),
     path('trends/', TrendView.as_view(), name='trends'),
+    path('report_maintenance/', CRTReportWizard.get, name='report-maintenance'),
 ]
