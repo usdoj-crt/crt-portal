@@ -28,6 +28,17 @@
           </label>
           {{ bulk_actions_form.assigned_section }}
         </div>
+        <p>
+          Please know that any change to <code>Section</code> will make the following fields uneditable:</p>
+        <ul class="bulk-helptext-list">
+          <li>Status</li>
+          <li>Primary Classification</li>
+          <li>Judicial District</li>
+          <li>Assigned To</li>
+        </ul>
+        <p>
+          If you need to edit these fields, please press the 'Back to All' button to the left. If you have additional questions, please contact <a href="mailto:randy.abramson@usdoj.gov">randy.abramson@usdoj.gov</a> or <a href="mailto:bill.laughman@usdoj.gov">bill.laughman@usdoj.gov</a>
+        </p>
         <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
           <label for="id_status" class="intake-label">
             {{ bulk_actions_form.status.label }}

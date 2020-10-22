@@ -111,4 +111,11 @@
       cursor: not-allowed;
     }
   }
+
+  .bulk-helptext-list {
+    li {
+      margin: 0 !important;
+      list-style-position: inside;
+    }
+  }
 }
