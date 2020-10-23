@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-16 16:49+0000\n"
+"POT-Creation-Date: 2020-10-23 15:32+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:160 forms.py:1446
+#: forms.py:160 forms.py:1458
 msgid " - Select - "
 msgstr " - Elija - "
 
@@ -1507,6 +1507,14 @@ msgstr ""
 msgid "Your submission"
 msgstr "Su entrega"
 
+#: templates/forms/errors.html:30
+msgid "We're sorry, something went wrong"
+msgstr "Lo siento, se ha producido un error"
+
+#: templates/forms/errors.html:31
+msgid "We hope to fix this issue shortly"
+msgstr "Esperamos tenerlo arreglado en breve"
+
 #: templates/forms/errors.html:34
 msgid "If you need to contact us immediately, you can reach us by:"
 msgstr ""
@@ -1723,8 +1731,8 @@ msgstr "Informe sobre una vulneración"
 msgid "Already submitted?"
 msgstr "¿Ya nos informó de una vulneración?"
 
-#: templates/landing.html:59 templates/partials/footer.html:9 views.py:808
-#: views.py:864 views.py:883
+#: templates/landing.html:59 templates/partials/footer.html:9 views.py:796
+#: views.py:852 views.py:871
 msgid "Contact"
 msgstr "Contacto"
 
@@ -2588,87 +2596,19 @@ msgstr ""
 "(25-5-2017).\n"
 "                "
 
-#: views.py:51
-msgid "Bad request"
-msgstr "Solicitud incorrecta"
-
-#: views.py:52
-msgid ""
-"It seems your browser is not responding properly. Try refreshing this page."
-msgstr ""
-"Parece que su navegador no está respondiendo de manera adecuada. Intente "
-"actualizar esta página."
-
-#: views.py:63
-msgid "Unauthorized"
-msgstr "No autorizado"
-
-#: views.py:64
-msgid "This page is off limits to unauthorized users."
-msgstr "Usuario no autorizados no podrán acceder a esta página"
-
-#: views.py:74
+#: views.py:70
 msgid "404 | Page not found"
 msgstr "404 | Página no encontrada"
 
-#: views.py:75
+#: views.py:71
 msgid "We can't find the page you are looking for"
 msgstr "No encontramos la página que usted está buscando"
 
-#: views.py:86
-msgid "There's a problem loading this page"
-msgstr "Hay un problema para cargar esta página"
-
-#: views.py:87
-msgid ""
-"There's a technical problem loading this page. Try refreshing this page or "
-"going to another page. If that doesn't work, try again later."
-msgstr ""
-"Hay un problema técnico para cargar esta página. Intente actualizar esta "
-"página o ir a otra página. Si eso no funciona, intente más tarde."
-
-#: views.py:98
-msgid "Not implemented"
-msgstr "No implementado"
-
-#: views.py:99
-msgid "There seems to be a problem with this request. Try refreshing the page."
-msgstr ""
-"Parece que hay un problema con esta solicitud. Intente actualizar la página."
-
-#: views.py:110
-msgid "Bad gateway"
-msgstr "Portal incorrecto"
-
-#: views.py:111
-msgid ""
-"This problem is due to poor IP communication between back-end computers, "
-"possibly including our web server. Try clearing your browser cache "
-"completely. You may have a problem with your internal internet connection or "
-"firewall."
-msgstr ""
-"Este problema se debe a una falta de comunicación IP entre las computadoras "
-"back end, lo que posiblemente incluye nuestro servidor de web. Intente "
-"borrar completamente el caché de su navegador. Puede que haya algún problema "
-"con su conexión interna a Internet o su cortafuegos."
-
 #: views.py:122
-msgid "Service Unavailable"
-msgstr "Servicio no disponible"
-
-#: views.py:123
-msgid ""
-"Our web server is either closed for repair, upgrades or is rebooting. Please "
-"try again later."
-msgstr ""
-"Nuestro servidor de web está cerrado para unos arreglos, actualizaciones o "
-"se está reinicializando. Se ruega que lo intente nuevamente más tarde."
-
-#: views.py:134
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Su navegador no pudo crear una cookie segura"
 
-#: views.py:135
+#: views.py:123
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
@@ -2682,56 +2622,115 @@ msgstr ""
 "acceder a esta página en otra pestaña o ventana en su navegador. Eso le "
 "creará otra cookie de seguridad y debería resolver el problema."
 
-#: views.py:683 views.py:911
+#: views.py:671 views.py:899
 msgid "word remaining"
 msgstr "palabra restante"
 
-#: views.py:684 views.py:912
+#: views.py:672 views.py:900
 msgid " words remaining"
 msgstr "palabras restantes"
 
-#: views.py:685 views.py:913
+#: views.py:673 views.py:901
 msgid " word limit reached"
 msgstr "límite de palabras alcanzado"
 
-#: views.py:809 views.py:865 views.py:866 views.py:884 views.py:885
-#: views.py:920
+#: views.py:797 views.py:853 views.py:854 views.py:872 views.py:873
+#: views.py:908
 msgid "Primary concern"
 msgstr "Motivo principal de preocupación"
 
-#: views.py:810 views.py:867 views.py:868 views.py:869 views.py:870
-#: views.py:871 views.py:872
+#: views.py:798 views.py:855 views.py:856 views.py:857 views.py:858
+#: views.py:859 views.py:860
 msgid "Location"
 msgstr "Lugar"
 
-#: views.py:811 views.py:873 views.py:892
+#: views.py:799 views.py:861 views.py:880
 msgid "Personal characteristics"
 msgstr "Características personales"
 
-#: views.py:812 views.py:874 views.py:893
+#: views.py:800 views.py:862 views.py:881
 msgid "Date"
 msgstr "Fecha"
 
-#: views.py:813 views.py:875 views.py:894
+#: views.py:801 views.py:863 views.py:882
 msgid "Personal description"
 msgstr "Descripción personal"
 
-#: views.py:814 views.py:876 views.py:925
+#: views.py:802 views.py:864 views.py:913
 msgid "Review"
 msgstr "Repasar"
 
-#: views.py:886 views.py:887 views.py:888 views.py:889 views.py:890
-#: views.py:891
+#: views.py:874 views.py:875 views.py:876 views.py:877 views.py:878
+#: views.py:879
 msgid "Location details"
 msgstr "Datos de lugar"
 
-#: views.py:895
+#: views.py:883
 msgid "Review your report"
 msgstr "Revise su informe"
 
-#: views.py:923
+#: views.py:911
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "Favor de elegir esta opción si"
+
+#~ msgid "Bad request"
+#~ msgstr "Solicitud incorrecta"
+
+#~ msgid ""
+#~ "It seems your browser is not responding properly. Try refreshing this "
+#~ "page."
+#~ msgstr ""
+#~ "Parece que su navegador no está respondiendo de manera adecuada. Intente "
+#~ "actualizar esta página."
+
+#~ msgid "Unauthorized"
+#~ msgstr "No autorizado"
+
+#~ msgid "This page is off limits to unauthorized users."
+#~ msgstr "Usuario no autorizados no podrán acceder a esta página"
+
+#~ msgid "There's a problem loading this page"
+#~ msgstr "Hay un problema para cargar esta página"
+
+#~ msgid ""
+#~ "There's a technical problem loading this page. Try refreshing this page "
+#~ "or going to another page. If that doesn't work, try again later."
+#~ msgstr ""
+#~ "Hay un problema técnico para cargar esta página. Intente actualizar esta "
+#~ "página o ir a otra página. Si eso no funciona, intente más tarde."
+
+#~ msgid "Not implemented"
+#~ msgstr "No implementado"
+
+#~ msgid ""
+#~ "There seems to be a problem with this request. Try refreshing the page."
+#~ msgstr ""
+#~ "Parece que hay un problema con esta solicitud. Intente actualizar la "
+#~ "página."
+
+#~ msgid "Bad gateway"
+#~ msgstr "Portal incorrecto"
+
+#~ msgid ""
+#~ "This problem is due to poor IP communication between back-end computers, "
+#~ "possibly including our web server. Try clearing your browser cache "
+#~ "completely. You may have a problem with your internal internet connection "
+#~ "or firewall."
+#~ msgstr ""
+#~ "Este problema se debe a una falta de comunicación IP entre las "
+#~ "computadoras back end, lo que posiblemente incluye nuestro servidor de "
+#~ "web. Intente borrar completamente el caché de su navegador. Puede que "
+#~ "haya algún problema con su conexión interna a Internet o su cortafuegos."
+
+#~ msgid "Service Unavailable"
+#~ msgstr "Servicio no disponible"
+
+#~ msgid ""
+#~ "Our web server is either closed for repair, upgrades or is rebooting. "
+#~ "Please try again later."
+#~ msgstr ""
+#~ "Nuestro servidor de web está cerrado para unos arreglos, actualizaciones "
+#~ "o se está reinicializando. Se ruega que lo intente nuevamente más tarde."
 
 #~ msgid "Try returning to the previous page"
 #~ msgstr "Intente volver a la página anterior"
