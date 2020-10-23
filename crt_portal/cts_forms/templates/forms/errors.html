@@ -27,9 +27,9 @@
       <div class="crt-error-card">
         <div class="crt-error-card__content">
           <div class="display-flex flex-column padding-bottom-3">
-            <h1 class=".h1__display">{{ status }}</h1>
-            <span>{{ message }}</span>
-            <span class="help-text__small">{{ helptext }}</span>
+            <h1 class=".h1__display">{% block error_heading %}{% trans "We're sorry, something went wrong" %}{% endblock %}</h1>
+            <span class="crt-error_message">{% block error_message %}{% trans "We hope to fix this issue shortly" %}{% endblock %}</span>
+            <span class="help-text__small">{% block error_helptext %}{%trans "Error: " %}{{ status }}{% endblock %}</span>
           </div>
           <h2 class="error-subheading">{% trans 'If you need to contact us immediately, you can reach us by:' %}</h2>
           <div class="crt-error-box">
@@ -57,8 +57,8 @@
             </span>
           </div>
           <h2 class="error-subheading">{% trans 'Other information' %}</h2>
-          <p><a href="https://civilrights.justice.gov/report">{%trans 'File a complaint' %}</a><p>
-          <p><a href="https://civilrights.justice.gov/#about-the-division">{% trans 'About the Civil Rights Division' %}</a><p>
+          <p><a href="https://civilrights.justice.gov/report">{%trans 'File a complaint' %}</a></p>
+          <p><a href="https://civilrights.justice.gov/#about-the-division">{% trans 'About the Civil Rights Division' %}</a></p>
           <p>{% trans 'If you or someone else is in immediate danger, <a href="tel:911">please call 911 or local police.</a>' %}</p>
         </div>
       </div>
