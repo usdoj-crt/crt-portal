@@ -89,4 +89,7 @@
     var actualSelectElement = document.getElementById('id_assigned_to-select');
     actualSelectElement.value = '';
   };
+
+  // disable "Multiple" selection for section
+  assigned_section.options[0].setAttribute('disabled', 'disabled');
 })(window, document);
