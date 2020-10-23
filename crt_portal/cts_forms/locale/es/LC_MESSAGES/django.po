@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 15:32+0000\n"
+"POT-Creation-Date: 2020-10-23 17:09+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:160 forms.py:1458
+#: forms.py:160 forms.py:1464
 msgid " - Select - "
 msgstr " - Elija - "
 
@@ -1292,7 +1292,7 @@ msgstr ""
 "oficial y que cualquier información que usted presente sea encriptada y "
 "transmitida de manera segura."
 
-#: templates/forms/complaint_view/actions/bulk_actions.html:67
+#: templates/forms/complaint_view/actions/bulk_actions.html:78
 #: templates/forms/grouped_questions.html:6
 #: templates/forms/question_cards/commercial_public_location.html:5
 #: templates/forms/question_cards/police_location.html:4
@@ -1515,6 +1515,10 @@ msgstr "Lo siento, se ha producido un error"
 msgid "We hope to fix this issue shortly"
 msgstr "Esperamos tenerlo arreglado en breve"
 
+#: templates/forms/errors.html:32
+msgid "Error: "
+msgstr "Error: "
+
 #: templates/forms/errors.html:34
 msgid "If you need to contact us immediately, you can reach us by:"
 msgstr ""
@@ -1731,8 +1735,8 @@ msgstr "Informe sobre una vulneración"
 msgid "Already submitted?"
 msgstr "¿Ya nos informó de una vulneración?"
 
-#: templates/landing.html:59 templates/partials/footer.html:9 views.py:796
-#: views.py:852 views.py:871
+#: templates/landing.html:59 templates/partials/footer.html:9 views.py:799
+#: views.py:855 views.py:874
 msgid "Contact"
 msgstr "Contacto"
 
@@ -2622,54 +2626,54 @@ msgstr ""
 "acceder a esta página en otra pestaña o ventana en su navegador. Eso le "
 "creará otra cookie de seguridad y debería resolver el problema."
 
-#: views.py:671 views.py:899
+#: views.py:674 views.py:902
 msgid "word remaining"
 msgstr "palabra restante"
 
-#: views.py:672 views.py:900
+#: views.py:675 views.py:903
 msgid " words remaining"
 msgstr "palabras restantes"
 
-#: views.py:673 views.py:901
+#: views.py:676 views.py:904
 msgid " word limit reached"
 msgstr "límite de palabras alcanzado"
 
-#: views.py:797 views.py:853 views.py:854 views.py:872 views.py:873
-#: views.py:908
+#: views.py:800 views.py:856 views.py:857 views.py:875 views.py:876
+#: views.py:911
 msgid "Primary concern"
 msgstr "Motivo principal de preocupación"
 
-#: views.py:798 views.py:855 views.py:856 views.py:857 views.py:858
-#: views.py:859 views.py:860
+#: views.py:801 views.py:858 views.py:859 views.py:860 views.py:861
+#: views.py:862 views.py:863
 msgid "Location"
 msgstr "Lugar"
 
-#: views.py:799 views.py:861 views.py:880
+#: views.py:802 views.py:864 views.py:883
 msgid "Personal characteristics"
 msgstr "Características personales"
 
-#: views.py:800 views.py:862 views.py:881
+#: views.py:803 views.py:865 views.py:884
 msgid "Date"
 msgstr "Fecha"
 
-#: views.py:801 views.py:863 views.py:882
+#: views.py:804 views.py:866 views.py:885
 msgid "Personal description"
 msgstr "Descripción personal"
 
-#: views.py:802 views.py:864 views.py:913
+#: views.py:805 views.py:867 views.py:916
 msgid "Review"
 msgstr "Repasar"
 
-#: views.py:874 views.py:875 views.py:876 views.py:877 views.py:878
-#: views.py:879
+#: views.py:877 views.py:878 views.py:879 views.py:880 views.py:881
+#: views.py:882
 msgid "Location details"
 msgstr "Datos de lugar"
 
-#: views.py:883
+#: views.py:886
 msgid "Review your report"
 msgstr "Revise su informe"
 
-#: views.py:911
+#: views.py:914
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "Favor de elegir esta opción si"
 
