@@ -483,11 +483,11 @@ msgstr "Edad"
 
 #: model_variables.py:125
 msgid ""
-"Disability (including temporary or recovered, and including HIV and drug "
+"Disability (including temporary or recovered and including HIV and drug "
 "addiction)"
 msgstr ""
-"Discapacidad (incluyendo temporal o recuperada, e incluyendo VIH y adicción "
-"a las drogas)"
+"Discapacidad (incluyendo temporal o recuperada e incluyendo VIH y adicción a "
+"las drogas)"
 
 #: model_variables.py:126
 msgid "Family, marital, or parental status"

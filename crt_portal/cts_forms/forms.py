@@ -1349,9 +1349,15 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
 
     def get_updates(self):
         updates = {field: self.cleaned_data[field] for field in self.changed_data}
+        # do not allow any fields to be unset. this may happen if the
+        # user selects "Multiple".
+        for key in ['assigned_section', 'status', 'primary_statute']:
+            if key in updates and not updates[key]:
+                updates.pop(key)
         # if section is changed, override assignee and status
         # explicitly, even if they are set by the user.
         if 'assigned_section' in updates:
+            updates['primary_statute'] = ''
             updates['assigned_to'] = ''
             updates['status'] = 'new'
         updates.pop('district', None)  # district is currently disabled (read-only)
