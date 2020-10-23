@@ -1,12 +1,12 @@
 
-from django.test import TestCase
-from django.test.client import Client
 from django.contrib.auth.models import User
+from django.test import TestCase, override_settings
+from django.test.client import Client
 from django.urls import reverse
 
-from ..models import Report, Profile
-from ..model_variables import PRIMARY_COMPLAINT_CHOICES
 from ..forms import ContactEditForm, ReportEditForm
+from ..model_variables import PRIMARY_COMPLAINT_CHOICES
+from ..models import Profile, Report
 from .test_data import SAMPLE_REPORT
 
 
@@ -137,3 +137,19 @@ class ReportEditShowViewTests(TestCase):
         response = self.client.post(self.url, form_data, follow=True)
 
         self.assertEqual(response.context['contact_form'].initial['contact_email'], initial)
+
+
+class CRTReportWizardTests(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.url = reverse('crt_report_form')
+
+    @override_settings(MAINTENANCE_MODE=True)
+    def test_returns_503_when_maintenance_mode_true(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 503)
+
+    def test_returns_200_when_maintenance_mode_false(self):
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)

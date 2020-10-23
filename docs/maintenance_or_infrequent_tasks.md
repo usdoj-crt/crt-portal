@@ -279,7 +279,7 @@ Either approach will result in an updated `Pipfile.lock` files located in your l
 [Pipenv]: https://docs.pipenv.org/
 
 
-## Periodic tasks
+# Periodic tasks
 
 We use Django management commands to execute periodic maintenance, refresh, or other code as necessary.
 
@@ -296,3 +296,35 @@ cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" -
 Your local output of executing the above command will reflect success or failure of the task's submission.
 
 Output, if any, of the command being executed will be be available in the application logs.
+
+
+
+# Maintenance Mode
+
+We use an environment variable, `MAINTENANCE_MODE`, to run the application with altered functionality.
+
+To **enable** maintenance mode, we need to set the `MAINTENANCE_MODE` environment variable to `True` and restart all running instances.
+
+> **NOTE**: Cloud Foundry [CLI Version 7](https://docs.cloudfoundry.org/cf-cli/v7.html) is required to use `--strategy rolling`
+
+
+```shell
+cf target -s {target environment}
+cf set-env crt-portal-django MAINTENANCE_MODE True
+cf restart crt-portal-django --strategy rolling
+```
+
+To **disable** maintenance mode and return the application to normal operations, remove the `MAINTENANCE_MODE` variable from the desired environment and restart all running instances.
+
+```shell
+cf target -s {target environment}
+cf unset-env crt-portal-django MAINTENANCE_MODE
+cf restart crt-portal-django --strategy rolling
+```
+
+## A list of modified functionality when operating in maintenance mode
+
+URL | Method | Normal | Maintenance mode
+----|--------|--------|--------
+/report/| GET | Render report form | Render 503 maintenance page
+

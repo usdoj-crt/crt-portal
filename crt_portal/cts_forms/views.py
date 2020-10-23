@@ -1,8 +1,9 @@
+import logging
 import os
 import urllib.parse
-import logging
 
 from django import forms
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -10,32 +11,31 @@ from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
 from django.http import Http404, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
-from django.utils.translation import gettext_lazy as _
 from django.utils.decorators import method_decorator
-from django.views.generic import FormView, View, TemplateView
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import never_cache
+from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
 from .forms import (BulkActionsForm, CommentActions, ComplaintActions,
-                    ResponseActions, PrintActions, ContactEditForm,
-                    Filters, ReportEditForm, Review, add_activity,
-                    ProfileForm)
+                    ContactEditForm, Filters, PrintActions, ProfileForm,
+                    ReportEditForm, ResponseActions, Review, add_activity)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
                               ELECTION_DICT, EMPLOYER_SIZE_DICT,
                               HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
-                              PRIMARY_COMPLAINT_DICT,
+                              LANDING_COMPLAINT_CHOICES_TO_EXAMPLES,
+                              LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
+                              LANDING_COMPLAINT_DICT,
                               PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
-                              LANDING_COMPLAINT_DICT,
-                              LANDING_COMPLAINT_CHOICES_TO_EXAMPLES,
-                              LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
+                              PRIMARY_COMPLAINT_DICT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import CommentAndSummary, Report, Trends, Profile
+from .models import CommentAndSummary, Profile, Report, Trends
 from .page_through import pagination
 
 logger = logging.getLogger(__name__)
@@ -804,6 +804,11 @@ class CRTReportWizard(SessionWizardView):
         _('Personal description'),
         _('Review'),
     ]
+
+    def get(self, request):
+        if settings.MAINTENANCE_MODE:
+            return render(self.request, 'forms/report_maintenance.html', status=503)
+        return super().get(request)
 
     # overriding the get form to add checks to the hidden field and avoid 500s
     def get_form(self, step=None, data=None, files=None):

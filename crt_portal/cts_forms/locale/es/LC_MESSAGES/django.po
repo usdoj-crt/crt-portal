@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-23 17:09+0000\n"
+"POT-Creation-Date: 2020-10-23 20:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1223,12 +1223,14 @@ msgid "Skip to main content"
 msgstr "Pasar directamente al contenido principal"
 
 #: templates/base.html:98 templates/forms/base.html:92
-#: templates/forms/errors.html:13 templates/landing.html:18
+#: templates/forms/errors.html:13 templates/forms/report_maintenance.html:13
+#: templates/landing.html:18
 msgid "U.S. Department of Justice"
 msgstr "Departamento de Justicia de los EE. UU."
 
 #: templates/base.html:101 templates/forms/base.html:91
-#: templates/forms/errors.html:14 templates/landing.html:21
+#: templates/forms/errors.html:14 templates/forms/report_maintenance.html:14
+#: templates/landing.html:21
 msgid "Civil Rights Division"
 msgstr "División de Derechos Civiles"
 
@@ -1519,29 +1521,32 @@ msgstr "Esperamos tenerlo arreglado en breve"
 msgid "Error: "
 msgstr "Error: "
 
-#: templates/forms/errors.html:34
+#: templates/forms/errors.html:34 templates/forms/report_maintenance.html:33
 msgid "If you need to contact us immediately, you can reach us by:"
 msgstr ""
 "Si usted necesita comunicarse con nosotros urgentemente, lo puede hacer "
 "mediante los siguientes modos:"
 
-#: templates/forms/errors.html:38
+#: templates/forms/errors.html:38 templates/forms/report_maintenance.html:38
 msgid "Email"
 msgstr ""
 
-#: templates/forms/errors.html:45 templates/partials/footer.html:32
+#: templates/forms/errors.html:45 templates/forms/report_maintenance.html:47
+#: templates/partials/footer.html:32
 msgid "(toll-free)"
 msgstr "(línea gratuita)"
 
-#: templates/forms/errors.html:46 templates/partials/footer.html:33
+#: templates/forms/errors.html:46 templates/forms/report_maintenance.html:48
+#: templates/partials/footer.html:33
 msgid "Telephone Device for the Deaf"
 msgstr "Dispositivo telefónico para sordos"
 
-#: templates/forms/errors.html:47 templates/partials/footer.html:34
+#: templates/forms/errors.html:47 templates/forms/report_maintenance.html:49
+#: templates/partials/footer.html:34
 msgid "(TTY)"
 msgstr "Teletipo (TTY por sus siglas en inglés)"
 
-#: templates/forms/errors.html:59
+#: templates/forms/errors.html:59 templates/forms/report_maintenance.html:64
 msgid "Other information"
 msgstr "Información adicional"
 
@@ -1549,11 +1554,13 @@ msgstr "Información adicional"
 msgid "File a complaint"
 msgstr "Presentar una querella"
 
-#: templates/forms/errors.html:61 templates/landing.html:125
+#: templates/forms/errors.html:61 templates/forms/report_maintenance.html:66
+#: templates/landing.html:125
 msgid "About the Civil Rights Division"
 msgstr "Acerca de la División de Derechos Civiles"
 
-#: templates/forms/errors.html:62 templates/landing.html:108
+#: templates/forms/errors.html:62 templates/forms/report_maintenance.html:69
+#: templates/landing.html:108
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
@@ -1671,6 +1678,18 @@ msgstr ""
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "Reciba ayuda de la Línea Nacional contra la Trata de Personas"
 
+#: templates/forms/report_maintenance.html:30
+msgid "This page is currently down for maintenance."
+msgstr "Esta página está actualmente desactivada por razones de mantenimiento."
+
+#: templates/forms/report_maintenance.html:31
+msgid ""
+"We expect to be back shortly. We recommend checking back to report a civil "
+"rights violation."
+msgstr ""
+"Esperamos volver a activarla en breve. Le recomendamos que vuelva más tarde "
+"para informarnos de una vulneración de derechos civiles."
+
 #: templates/forms/report_review.html:10
 msgid "Before you submit your report, please check your responses"
 msgstr "Antes de entregar su informe, favor de comprobar sus respuestas"
@@ -1736,7 +1755,7 @@ msgid "Already submitted?"
 msgstr "¿Ya nos informó de una vulneración?"
 
 #: templates/landing.html:59 templates/partials/footer.html:9 views.py:799
-#: views.py:855 views.py:874
+#: views.py:860 views.py:879
 msgid "Contact"
 msgstr "Contacto"
 
@@ -2626,54 +2645,54 @@ msgstr ""
 "acceder a esta página en otra pestaña o ventana en su navegador. Eso le "
 "creará otra cookie de seguridad y debería resolver el problema."
 
-#: views.py:674 views.py:902
+#: views.py:674 views.py:907
 msgid "word remaining"
 msgstr "palabra restante"
 
-#: views.py:675 views.py:903
+#: views.py:675 views.py:908
 msgid " words remaining"
 msgstr "palabras restantes"
 
-#: views.py:676 views.py:904
+#: views.py:676 views.py:909
 msgid " word limit reached"
 msgstr "límite de palabras alcanzado"
 
-#: views.py:800 views.py:856 views.py:857 views.py:875 views.py:876
-#: views.py:911
+#: views.py:800 views.py:861 views.py:862 views.py:880 views.py:881
+#: views.py:916
 msgid "Primary concern"
 msgstr "Motivo principal de preocupación"
 
-#: views.py:801 views.py:858 views.py:859 views.py:860 views.py:861
-#: views.py:862 views.py:863
+#: views.py:801 views.py:863 views.py:864 views.py:865 views.py:866
+#: views.py:867 views.py:868
 msgid "Location"
 msgstr "Lugar"
 
-#: views.py:802 views.py:864 views.py:883
+#: views.py:802 views.py:869 views.py:888
 msgid "Personal characteristics"
 msgstr "Características personales"
 
-#: views.py:803 views.py:865 views.py:884
+#: views.py:803 views.py:870 views.py:889
 msgid "Date"
 msgstr "Fecha"
 
-#: views.py:804 views.py:866 views.py:885
+#: views.py:804 views.py:871 views.py:890
 msgid "Personal description"
 msgstr "Descripción personal"
 
-#: views.py:805 views.py:867 views.py:916
+#: views.py:805 views.py:872 views.py:921
 msgid "Review"
 msgstr "Repasar"
 
-#: views.py:877 views.py:878 views.py:879 views.py:880 views.py:881
-#: views.py:882
+#: views.py:882 views.py:883 views.py:884 views.py:885 views.py:886
+#: views.py:887
 msgid "Location details"
 msgstr "Datos de lugar"
 
-#: views.py:886
+#: views.py:891
 msgid "Review your report"
 msgstr "Revise su informe"
 
-#: views.py:914
+#: views.py:919
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "Favor de elegir esta opción si"
 
