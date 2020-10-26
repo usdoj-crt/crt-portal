@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>ic_successconfirmation</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M15.9538462,2.2099995 C15.9538462,2.4699995 15.8230769,2.7299995 15.6923077,2.8599995 L8.23846154,10.2699995 L6.8,11.6999995 C6.66923077,11.8299995 6.40769231,11.9599995 6.14615385,11.9599995 C5.88461538,11.9599995 5.62307692,11.8299995 5.49230769,11.6999995 L4.05384615,10.2699995 L0.392307692,6.6299995 C0.261538462,6.4999995 0.130769231,6.2399995 0.130769231,5.9799995 C0.130769231,5.7199995 0.261538462,5.4599995 0.392307692,5.3299995 L1.83076923,3.8999995 C1.96153846,3.7699995 2.22307692,3.6399995 2.48461538,3.6399995 C2.74615385,3.6399995 3.00769231,3.7699995 3.13846154,3.8999995 L6.14615385,6.8899995 L12.8153846,0.259999504 C12.9461538,0.129999504 13.2076923,-4.95910172e-07 13.4692308,-4.95910172e-07 C13.7307692,-4.95910172e-07 13.9923077,0.129999504 14.1230769,0.259999504 L15.5615385,1.6899995 C15.8230769,1.8199995 15.9538462,1.9499995 15.9538462,2.2099995 L15.9538462,2.2099995 Z" id="path-1"></path>
+    </defs>
+    <g id="Public---Key-Pages" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ic_successconfirmation" transform="translate(1.000000, 1.000000)">
+            <path d="M17,-1 C7.0588745,-1 -1,7.0588745 -1,17 C-1,26.9411255 7.0588745,35 17,35 C26.9411255,35 35,26.9411255 35,17 C35,7.0588745 26.9411255,-1 17,-1 Z M17,1 C25.836556,1 33,8.163444 33,17 C33,25.836556 25.836556,33 17,33 C8.163444,33 1,25.836556 1,17 C1,8.163444 8.163444,1 17,1 Z" id="Oval" fill="#FFFFFF" fill-rule="nonzero"></path>
+            <g id="Icons/checkmark--white" transform="translate(9.000000, 11.000000)">
+                <g id="Icons/_masters/checkmark" transform="translate(0.000000, -0.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="color" fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <g id="primary-darker" mask="url(#mask-2)" fill="#FFFFFF" fill-rule="evenodd">
+                        <g transform="translate(-5.230769, -7.800000)" id="Rectangle">
+                            <polygon points="0 0 28.7692308 0 28.7692308 27.3 0 27.3"></polygon>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

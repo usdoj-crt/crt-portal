@@ -264,8 +264,8 @@
   bottom: 0;
   z-index: 100;
 
-  background-color: color($theme-color-primary-light);
-  border-left: 5px solid color($theme-color-primary);
+  color: color('white');
+  background-color: color($theme-color-primary-darker);
 
   img, h2 {
     margin-left: 2rem;
@@ -273,5 +273,13 @@
 
   .selection-submit {
     margin: 1rem 2rem;
+
+    button#actions {
+      color: color($theme-color-primary-darker);
+      background-color: color($theme-color-primary-lighter);
+      &:hover {
+        background-color: color($theme-link-dark-hover-color);
+      }
+    }
   }
 }
