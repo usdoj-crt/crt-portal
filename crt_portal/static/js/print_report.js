@@ -20,9 +20,11 @@
         for (var option_id in option_mapping_to_section) {
           var el = document.getElementById(option_id);
           var classname = option_mapping_to_section[option_id];
-          var section = complaint_page.querySelector(classname);
+          var sections = complaint_page.querySelectorAll(classname);
           if (!el.checked) {
-            section.setAttribute('hidden', 'hidden');
+            sections.forEach(function(section) {
+              section.setAttribute('hidden', 'hidden');
+            });
           }
         }
       };
@@ -30,9 +32,11 @@
         for (var option_id in option_mapping_to_section) {
           var el = document.getElementById(option_id);
           var classname = option_mapping_to_section[option_id];
-          var section = complaint_page.querySelector(classname);
+          var sections = complaint_page.querySelectorAll(classname);
           if (!el.checked) {
-            section.removeAttribute('hidden');
+            sections.forEach(function(section) {
+              section.removeAttribute('hidden');
+            });
           }
         }
       };
