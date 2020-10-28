@@ -1,7 +1,7 @@
 {% load static %}
 
 <span>
-  <a href="#" class="bulk-print-link" {% if print_reports.count > 100 %}disabled="disabled"{% endif %}>
+  <a href="#" id="printout_report" class="bulk-print-link" {% if print_reports.count > 100 %}disabled="disabled"{% endif %}>
     <img src="{% static "img/intake-icons/ic_printer.svg" %}" alt="icon" class="icon" />
     Print all
   </a>
