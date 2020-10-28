@@ -5,315 +5,195 @@
 {% load static %}
 
 {% block title %}Reported Complaint{% endblock %}
-{% block extra_title %}
-  <button aria-label="edit report details" id="edit-details-btn" class="usa-button usa-button--unstyled button--edit margin-left-auto" type="button">Edit</button>
-{% endblock %}
 {% block extra_classes %}crt-report-card{% endblock %}
 
-{% block icon %}
-  <img src="{% static "img/intake-icons/ic_folder.svg" %}" alt="icon" class="icon" />
-{% endblock %}
-
 {% block card_content %}
-  <form id="details-edit-form" class="usa-form " method="post" novalidate>
-
-    <div class="crt-current-summary blue-background usa-prose">
-      <div id="current-summary" class="details">
-        {% if summary %}
-          <label class="bold backend-blue" for="current-summary-text">
-            Summary
-          </label>
-          <div id="current-summary-text" >
-            {{ summary.note | linebreaks }}
+  <div class="report-details">
+    <table class="usa-table usa-table--borderless complaint-card-table">
+      <tr>
+        <th>
+          <div class="report-print-question">
+            {{ questions.primary_reason }}
           </div>
+        </th>
+        <td>
+          <div class="details">
+            {{primary_complaint}}
+          </div>
+        </td>
+        {# showing old data with hate crimes #}
+        {% if crimes.physical_harm or crimes.trafficking %}
+          <tr>
+            <th>
+              <div class="report-print-question">
+                {{ questions.hate_crime }}
+              </div>
+            </th>
+            <td>
+              <div class="details">
+                {# show new hate crime field if it exists #}
+                {% if data.hate_crime%}
+                  {{ data.hate_crime|title }}
+                {% else %}
+                  {% if crimes.physical_harm %}
+                    Yes (checked)
+                  {% else %}
+                    No (unchecked)
+                  {% endif %}
+                {% endif %}
+              </div>
+            </td>
+          </tr>
+          {# showing old data with trafficking #}
+          <tr>
+            <th>
+              <div class="report-print-question">
+                Human Trafficking
+              </div>
+            </th>
+            <td>
+              <div class="details">
+                {% if crimes.trafficking %}
+                  Yes (checked)
+                {% else %}
+                  No (unchecked)
+                {% endif %}
+              </div>
+            </td>
+          </tr>
         {% endif %}
-      </div>
-
-      <div id="report-summary" class="details-edit {% if summary %}display-none{% else %}always-display{% endif %}">
-        <label for="{{details_form.summary.id_for_label}}" class="bold backend-blue">
-          {{details_form.summary.label}}
-        </label>
-        {{details_form.summary}}
-        {{details_form.summary_id}}
-      </div>
-    </div>
-
-    <div class="report-details">
-      {% csrf_token %}
-      <input type="hidden" value="{{ return_url_args }}" name="next" id="next-{{ id_name }}" />
-      <input type="hidden" value="{{ index }}" name="index" id="index-{{ id_name }}" />
-      <table class="usa-table usa-table--borderless complaint-card-table">
+        {# current version of hate crimes. This will also show "no" responses from earlier forms #}
+        {% if not crimes.trafficking and not crimes.physical_harm %}
+          <tr>
+            <th>
+              <div class="report-print-question">
+                {{ questions.hate_crime }}
+              </div>
+            </th>
+            <td>
+              <div class="details">
+                {{data.hate_crime|title|default:"—"}}
+              </div>
+            </td>
+          </tr>
+        {% endif %}
         <tr>
           <th>
             <div class="report-print-question">
-              {{ questions.primary_reason }}
+              {% if data.election_details %}
+                {{ questions.election }}
+              {% elif data.commercial_or_public_place %}
+                {{ questions.public }}
+              {% elif data.inside_correctional_facility %}
+                {% for question in questions.police.values %}
+                  {{ question }}<br>
+                {% endfor %}
+              {% elif data.public_or_private_school %}
+                {{ questions.education }}
+              {% elif data.public_or_private_employer %}
+                {% for question in questions.workplace.values %}
+                  {{ question }}<br>
+                {% endfor %}
+              {% else %}
+                —
+              {% endif %}
             </div>
-            <label class="report-details-label" for="{{details_form.primary_complaint.id_for_label}}">Primary issue</label>
           </th>
           <td>
-            <div class="details {% if details_form.errors %}display-none{% endif %}">
-              {{primary_complaint}}
-            </div>
-            <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
-              {{details_form.primary_complaint}}
+            <div class="details">
+              {% if data.election_details %}
+                Election type (federal/local): {{ data.election_details }}
+              {% elif data.commercial_or_public_place %}
+                {% render_commercial_public_space_view data.commercial_or_public_place data.other_commercial_or_public_place %}
+              {% elif data.inside_correctional_facility %}
+                {% render_correctional_facility_view data.inside_correctional_facility data.correctional_facility_type %}
+              {% elif data.public_or_private_school %}
+                School type: {% if data.public_or_private_school == 'not_sure' %} Not sure {% else %}
+                {{ data.public_or_private_school|title }} {% endif %}
+              {% elif data.public_or_private_employer %}
+                {% render_employer_info_view data.public_or_private_employer data.employer_size %}
+              {% else %}
+                —
+              {% endif %}
             </div>
           </td>
-          {# showing old data with hate crimes #}
-          {% if crimes.physical_harm or crimes.trafficking %}
-            <tr>
-              <th>
-                <div class="report-print-question">
-                  {{ questions.hate_crime }}
-                </div>
-                <div class="report-details-label">
-                  Hate crime
-                </div>
-              </th>
-              <td>
-                <div class="details {% if details_form.errors %}display-none{% endif %}">
-                  {# show new hate crime field if it exists #}
-                  {% if data.hate_crime%}
-                    {{ data.hate_crime|title }}
-                  {% else %}
-                    {% if crimes.physical_harm %}
-                      Yes (checked)
-                    {% else %}
-                      No (unchecked)
-                    {% endif %}
-                  {% endif %}
-                </div>
-                <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
-                  {# edit the new data field for updates #}
-                  {{details_form.hate_crime}}
-                </div>
-              </td>
-            </tr>
-            {# showing old data with trafficking #}
-            <tr>
-              <th>
-                <div class="report-print-question">
-                  Human Trafficking
-                </div>
-                <div class="report-details-label">
-                  Human Trafficking
-                </div>
-              </th>
-              <td>
-                <div class="details {% if details_form.errors %}display-none{% endif %}">
-                  {% if crimes.trafficking %}
-                    Yes (checked)
-                  {% else %}
-                    No (unchecked)
-                  {% endif %}
-                </div>
-                <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
-                  {% if crimes.trafficking %}
-                    Yes (checked)
-                  {% else %}
-                    No (unchecked)
-                  {% endif %}
-                  [This field is no longer in use and cannot be edited]
-                </div>
-              </td>
-            </tr>
-          {% endif %}
-          {# current version of hate crimes. This will also show "no" responses from earlier forms #}
-          {% if not crimes.trafficking and not crimes.physical_harm %}
-            <tr>
-              <th>
-                <div class="report-print-question">
-                  {{ questions.hate_crime }}
-                </div>
-                <label class="report-details-label" for="{{details_form.hate_crime.id_for_label}}">Hate crime</label>
-              </th>
-              <td>
-                <div class="details {% if details_form.errors %}display-none{% endif %}">
-                  {{data.hate_crime|title|default:"—"}}
-                </div>
-                <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
-                  {{details_form.hate_crime}}
-                </div>
-              </td>
-            </tr>
-          {% endif %}
-          <tr>
-            <th>
-              <div class="report-print-question">
-                {% if data.election_details %}
-                  {{ questions.election }}
-                {% elif data.commercial_or_public_place %}
-                  {{ questions.public }}
-                {% elif data.inside_correctional_facility %}
-                  {% for question in questions.police.values %}
-                    {{ question }}<br>
-                  {% endfor %}
-                {% elif data.public_or_private_school %}
-                  {{ questions.education }}
-                {% elif data.public_or_private_employer %}
-                  {% for question in questions.workplace.values %}
-                    {{ question }}<br>
-                  {% endfor %}
-                {% else %}
-                  —
-                {% endif %}
-              </div>
-              <div class="report-details-label">
-                Relevant Details
-              </div>
-            </th>
-            <td>
-              <div class="details {% if details_form.errors %}display-none{% endif %}">
-                {% if data.election_details %}
-                  Election type (federal/local): {{ data.election_details }}
-                {% elif data.commercial_or_public_place %}
-                  {% render_commercial_public_space_view data.commercial_or_public_place data.other_commercial_or_public_place %}
-                {% elif data.inside_correctional_facility %}
-                  {% render_correctional_facility_view data.inside_correctional_facility data.correctional_facility_type %}
-                {% elif data.public_or_private_school %}
-                  School type: {% if data.public_or_private_school == 'not_sure' %} Not sure {% else %}
-                  {{ data.public_or_private_school|title }} {% endif %}
-                {% elif data.public_or_private_employer %}
-                  {% render_employer_info_view data.public_or_private_employer data.employer_size %}
-                {% else %}
-                  —
-                {% endif %}
-              </div>
-              <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
-                {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.commercial_or_public_place hidden=True %}
-                {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.other_commercial_or_public_place hidden=True %}
-
-                {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.inside_correctional_facility hidden=True %}
-                {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.correctional_facility_type hidden=True%}
-
-                {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.public_or_private_school hidden=True %}
-
-                {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.public_or_private_employer hidden=True %}
-                {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.employer_size hidden=True %}
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th>
-              <div class="report-print-question">
-                {{ questions.location.location_name }}
-              </div>
-              <label class="report-details-label" for="{{details_form.location_name.id_for_label}}">Location name</label>
-            </th>
-            <td>
-              <div class="details {% if details_form.errors %}display-none{% endif %}">
-                {{data.location_name|default:"-"}}
-              </div>
-              <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
-                {{details_form.location_name}}
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th>
-              <div class="report-print-question">
-                {{ questions.location.location_title }}
-              </div>
-              <div class="report-details-label">
-                Address
-              </div>
-            </th>
-            <td>
-              <div class="details {% if details_form.errors %}display-none{% endif %}">
-                {{ data.location_address_line_1|default:"—" }}
-                <br>
-                {{ data.location_address_line_2|default:"—" }}
-                <br>
-                {{data.location_city_town|default:"-"}},
-                {{data.location_state|default:"-"}}
-              </div>
-              <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
-                {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.location_address_line_1 %}
-                {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.location_address_line_2 %}
-                {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.location_city_town %}
-                {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.location_state %}
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th>
-              <div class="report-print-question">
-                {{ questions.characteristics }}
-              </div>
-              <label class="report-details-label" for="{{details_form.protected_class.id_for_label}}">Reported reason</label>
-            </th>
-            <td>
-              <div class="details {% if details_form.errors %}display-none{% endif %}">
-                {% for p_class in p_class_list %}
-                  {% if not forloop.last %}
-                    {{p_class}},
-                  {% else %}
-                    {{p_class}}
-                  {% endif %}
-                {% endfor %}
-                {% if data.other_class %}
-                  <br>
-                  Other: {{data.other_class}}
-                {% endif %}
-              </div>
-              <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
-                {{details_form.protected_class}}
-
-                <label for="{{details_form.other_class.id_for_label}}">{{details_form.other_class.label}}</label>
-                {{details_form.other_class}}
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th>
-              <div class="report-print-question">
-                {{ questions.servicemember }}
-              </div>
-              <label class="report-details-label" for="{{details_form.servicemember.id_for_label}}">Service Member</label>
-            </th>
-            <td>
-              <div class="details {% if details_form.errors %}display-none{% endif %}">
-                {{data.servicemember|title|default:"—"}}
-              </div>
-              <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
-                {{details_form.servicemember}}
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <th>
-              <div class="report-print-question">
-                {{ questions.date.date_title }}
-              </div>
-              <div class="report-details-label">
-                Date of incident
-              </div>
-            </th>
-            <td>
-              <div class="details {% if details_form.errors %}display-none{% endif %}">
-                {{ data.last_incident_month|default:"-"}}/{{data.last_incident_day|default:"-"}}/{{data.last_incident_year|default:"-"}}
-              </div>
-              <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
-                {% if not print_only %}
-                  {% include "forms/snippets/date_components.html" with month=details_form.last_incident_month day=details_form.last_incident_day year=details_form.last_incident_year  %}
-                {% endif %}
-              </div>
-            </td>
-          </tr>
         </tr>
-      </table>
-      <button aria-label="update complaint details"
-              class="usa-button {% if not details_form.errors and summary %}display-none{% endif %} {% if not summary %}always-display{% endif %}"
-              disabled
-              type="submit"
-              name="type" value="{{details_form.CONTEXT_KEY}}">
-        Save
-      </button>
-      <button id='details-edit-cancel'
-              class="usa-button usa-button--unstyled button--cancel {% if not details_form.errors %}display-none{% endif %}"
-              type="button">
-        Cancel
-      </button>
-    </div>
-  </form>
-
+        <tr>
+          <th>
+            <div class="report-print-question">
+              {{ questions.location.location_name }}
+            </div>
+          </th>
+          <td>
+            <div class="details">
+              {{data.location_name|default:"-"}}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <div class="report-print-question">
+              {{ questions.location.location_title }}
+            </div>
+          </th>
+          <td>
+            <div class="details">
+              {{ data.location_address_line_1|default:"—" }}
+              <br>
+              {{ data.location_address_line_2|default:"—" }}
+              <br>
+              {{data.location_city_town|default:"-"}},
+              {{data.location_state|default:"-"}}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <div class="report-print-question">
+              {{ questions.characteristics }}
+            </div>
+          </th>
+          <td>
+            <div class="details">
+              {% for p_class in p_class_list %}
+                {% if not forloop.last %}
+                  {{p_class}},
+                {% else %}
+                  {{p_class}}
+                {% endif %}
+              {% endfor %}
+              {% if data.other_class %}
+                <br>
+                Other: {{data.other_class}}
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <div class="report-print-question">
+              {{ questions.servicemember }}
+            </div>
+          </th>
+          <td>
+            <div class="details">
+              {{data.servicemember|title|default:"—"}}
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>
+            <div class="report-print-question">
+              {{ questions.date.date_title }}
+            </div>
+          </th>
+          <td>
+            <div class="details">
+              {{ data.last_incident_month|default:"-"}}/{{data.last_incident_day|default:"-"}}/{{data.last_incident_year|default:"-"}}
+            </div>
+          </td>
+        </tr>
+      </tr>
+    </table>
+  </div>
 {% endblock %}
