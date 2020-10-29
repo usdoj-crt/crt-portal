@@ -482,9 +482,10 @@ form#cts-forms-profile {
 .complaint-actions {
   .bulk-print-link {
     text-decoration: none;
-    &[disabled=disabled] {
-      @include u-text($theme-color-base-dark);
-    }
+  }
+  .bulk-print-disabled {
+    @include u-text($theme-color-base-dark);
+    cursor: not-allowed;
   }
 }
 
