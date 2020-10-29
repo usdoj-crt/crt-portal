@@ -200,7 +200,7 @@
       font-size: 1rem;
       text-transform: uppercase;
       &:hover {
-        background: color($theme-color-primary-light);
+        background: color($theme-color-primary-lighter);
       }
       &:before {
         margin-right: 10px;
@@ -479,7 +479,7 @@ form#cts-forms-profile {
   margin-left: -4rem;
 }
 
-#complaint-view-actions {
+#complaint-view-actions, #bulk_actions_section {
   .crt-dropdown {
     &.crt-dropdown__shrink-to-contents {
       select {
@@ -514,8 +514,18 @@ form#cts-forms-profile {
     }
 
     select,
-    label[for='id_assigned_to'] + div {
+    label[for='id_assigned_to-select'] + div {
       flex-basis: 60%; // label flex-basis is 40% for total of 100%
+    }
+  }
+
+  .crt-textarea {
+    display: flex;
+    align-items: baseline;
+    textarea {
+      flex-basis: 60%;
+      height: auto;
+      border-radius: 3px;
     }
   }
 }

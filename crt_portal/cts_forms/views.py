@@ -1,8 +1,9 @@
+import logging
 import os
 import urllib.parse
-import logging
 
 from django import forms
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -10,32 +11,31 @@ from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
 from django.http import Http404, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
-from django.utils.translation import gettext_lazy as _
 from django.utils.decorators import method_decorator
-from django.views.generic import FormView, View, TemplateView
+from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import never_cache
+from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
 
 from .filters import report_filter
-from .forms import (BulkAssign, CommentActions, ComplaintActions,
-                    ResponseActions, PrintActions, ContactEditForm,
-                    Filters, ReportEditForm, Review, add_activity,
-                    ProfileForm)
+from .forms import (BulkActionsForm, CommentActions, ComplaintActions,
+                    ContactEditForm, Filters, PrintActions, ProfileForm,
+                    ReportEditForm, ResponseActions, Review, add_activity)
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
                               ELECTION_DICT, EMPLOYER_SIZE_DICT,
                               HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
-                              PRIMARY_COMPLAINT_DICT,
+                              LANDING_COMPLAINT_CHOICES_TO_EXAMPLES,
+                              LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
+                              LANDING_COMPLAINT_DICT,
                               PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
-                              LANDING_COMPLAINT_DICT,
-                              LANDING_COMPLAINT_CHOICES_TO_EXAMPLES,
-                              LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
+                              PRIMARY_COMPLAINT_DICT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import CommentAndSummary, Report, Trends, Profile
+from .models import CommentAndSummary, Profile, Report, Trends
 from .page_through import pagination
 
 logger = logging.getLogger(__name__)
@@ -48,8 +48,6 @@ def error_400(request, exception=None):
         request,
         'forms/errors.html', {
             'status': 400,
-            'message': _("Bad request"),
-            'helptext': _("It seems your browser is not responding properly. Try refreshing this page.")
         },
         status=400
     )
@@ -60,8 +58,6 @@ def error_403(request, exception=None):
         request,
         'forms/errors.html', {
             'status': 403,
-            'message': _("Unauthorized"),
-            'helptext': _("This page is off limits to unauthorized users.")
         },
         status=403
     )
@@ -70,10 +66,9 @@ def error_403(request, exception=None):
 def error_404(request, exception=None):
     return render(
         request,
-        'forms/errors.html', {
-            'status': 404,
-            'message': _("We can't find the page you are looking for"),
-            'helptext': _("Try returning to the previous page")
+        'forms/errors_heading.html', {
+            'status': _("404 | Page not found"),
+            'message': _("We can't find the page you are looking for")
         },
         status=404
     )
@@ -83,9 +78,7 @@ def error_500(request, exception=None):
     return render(
         request,
         'forms/errors.html', {
-            'status': 500,
-            'message': _("There's a problem loading this page"),
-            'helptext': _("There's a technical problem loading this page. Try refreshing this page or going to another page. If that doesn't work, try again later.")
+            'status': 500
         },
         status=500
     )
@@ -96,8 +89,6 @@ def error_501(request, exception=None):
         request,
         'forms/errors.html', {
             'status': 501,
-            'message': _("Not implemented"),
-            'helptext': _("There seems to be a problem with this request. Try refreshing the page.")
         },
         status=501
     )
@@ -108,8 +99,6 @@ def error_502(request, exception=None):
         request,
         'forms/errors.html', {
             'status': 502,
-            'message': _("Bad gateway"),
-            'helptext': _("This problem is due to poor IP communication between back-end computers, possibly including our web server. Try clearing your browser cache completely. You may have a problem with your internal internet connection or firewall.")
         },
         status=502
     )
@@ -120,8 +109,6 @@ def error_503(request, exception=None):
         request,
         'forms/errors.html', {
             'status': 503,
-            'message': _("Service Unavailable"),
-            'helptext': _("Our web server is either closed for repair, upgrades or is rebooting. Please try again later.")
         },
         status=503
     )
@@ -130,7 +117,7 @@ def error_503(request, exception=None):
 def csrf_failure(request, reason=""):
     return render(
         request,
-        'forms/errors.html', {
+        'forms/errors_heading.html', {
             'status': "Problem with security cookie",
             'message': _("Your browser couldn't create a secure cookie"),
             'helptext': _("We use security cookies to protect your information from attackers. Make sure you allow cookies for this site. Having the page open for long periods can also cause this problem. If you know cookies are allowed and you are having this issue, try going to this page in new browser tab or window. That will make you a new security cookie and should resolve the problem.")
@@ -213,9 +200,15 @@ def setup_filter_parameters(report, querydict):
             # becomes the actual next report.
             index -= 1
 
-        previous_id = requested_ids[index - 1] if index > 0 else None
-        next_id = requested_ids[index + 1] if index < len(requested_ids) - 1 else None
-        next_query = urllib.parse.quote(return_url_args)
+        try:
+            previous_id = requested_ids[index - 1] if index > 0 else None
+            next_id = requested_ids[index + 1] if index < len(requested_ids) - 1 else None
+            next_query = urllib.parse.quote(return_url_args)
+        except IndexError:
+            # When we cannot determine the next report page we are
+            # removing the next button.
+            return {}
+
         output.update({
             'filter_count': report_query.count(),
             'filter_previous': previous_id,
@@ -505,67 +498,70 @@ class ActionsView(LoginRequiredMixin, FormView):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
 
-        requested_query = self.reconstruct_query(return_url_args)
-        all_ids_count = requested_query.count()
-
         ids = request.GET.getlist('id')
-        ids_count = len(ids)
-        assign_form = BulkAssign()
-
         # the select all option only applies if 1. user hits the
         # select all button and 2. we have more records in the query
         # than the ids passed in
-        selected_all = request.GET.get('all', '') == 'all' and all_ids_count != ids_count
+        selected_all = request.GET.get('all', '') == 'all'
+
+        if selected_all:
+            requested_query = self.reconstruct_query(return_url_args)
+        else:
+            requested_query = Report.objects.filter(pk__in=ids)
+
+        bulk_actions_form = BulkActionsForm(requested_query)
+        all_ids_count = requested_query.count()
+        ids_count = len(ids)
+
+        # further refine selected_all to ensure < 15 items don't show up.
+        selected_all = selected_all and all_ids_count != ids_count
 
         output = {
             'return_url_args': return_url_args,
             'selected_all': 'all' if selected_all else '',
             'ids': ','.join([id for id in ids]),
             'ids_count': ids_count,
+            'show_warning': ids_count > 15,
             'all_ids_count': all_ids_count,
-            'assign_form': assign_form,
+            'bulk_actions_form': bulk_actions_form,
         }
         return render(request, 'forms/complaint_view/actions/index.html', output)
 
     def post(self, request):
-        assign_form = BulkAssign(request.POST)
         return_url_args = request.POST.get('next', '')
         selected_all = request.POST.get('all', '') == 'all'
         confirm_all = request.POST.get('confirm_all', '') == 'confirm_all'
         ids = request.POST.get('ids', '').split(',')
 
-        if assign_form.is_valid():
-            assignee = assign_form.cleaned_data['assigned_to']
-            if confirm_all:
-                requested_query = self.reconstruct_query(return_url_args)
-            else:
-                requested_query = Report.objects.filter(pk__in=ids)
+        if confirm_all:
+            requested_query = self.reconstruct_query(return_url_args)
+        else:
+            requested_query = Report.objects.filter(pk__in=ids)
 
-            # update activity log _before_ we update the assignee so
-            # that we have access to the original assignee
-            for report in requested_query:
-                original = report.assigned_to or "None"
-                description = f'Updated from "{original}" to "{assignee}"'
-                add_activity(request.user, "Assigned to:", description, report)
+        if requested_query.count() > 500:
+            raise PermissionDenied
 
-            number = requested_query.update(assigned_to=assignee)
+        bulk_actions_form = BulkActionsForm(requested_query, request.POST)
 
-            description = f"{number} records have been assigned to {assignee}"
-            messages.add_message(request, messages.SUCCESS, description)
+        if bulk_actions_form.is_valid():
+            number = bulk_actions_form.update(requested_query, request.user)
+            description = bulk_actions_form.get_update_description()
+            plural = 's have' if number > 1 else ' has'
+            message = f'{number} record{plural} been updated: {description}'
+            messages.add_message(request, messages.SUCCESS, message)
 
             # log this action for an audit trail.
-            logger.info(f'Bulk updating {number} requests by {request.user} to {assignee}')
+            logger.info(f'Bulk updating {number} requests by {request.user}: {description}')
 
             url = reverse('crt_forms:crt-forms-index')
             return redirect(f"{url}{return_url_args}")
 
         else:
-            for key in assign_form.errors:
-                errors = '; '.join(assign_form.errors[key])
-                error_message = f'Could not bulk assign: {errors}'
+            for key in bulk_actions_form.errors:
+                errors = '; '.join(bulk_actions_form.errors[key])
+                error_message = f'Could not bulk update {key}: {errors}'
                 messages.add_message(request, messages.ERROR, error_message)
 
-            requested_query = self.reconstruct_query(return_url_args)
             all_ids_count = requested_query.count()
             ids_count = len(ids)
 
@@ -575,10 +571,11 @@ class ActionsView(LoginRequiredMixin, FormView):
             output = {
                 'return_url_args': return_url_args,
                 'selected_all': 'all' if selected_all else '',
-                'ids': ids,
+                'ids': ','.join([id for id in ids]),
                 'ids_count': ids_count,
+                'show_warning': ids_count > 15,
                 'all_ids_count': all_ids_count,
-                'assign_form': assign_form,
+                'bulk_actions_form': bulk_actions_form,
             }
             return render(request, 'forms/complaint_view/actions/index.html', output)
 
@@ -807,6 +804,11 @@ class CRTReportWizard(SessionWizardView):
         _('Personal description'),
         _('Review'),
     ]
+
+    def get(self, request):
+        if settings.MAINTENANCE_MODE:
+            return render(self.request, 'forms/report_maintenance.html', status=503)
+        return super().get(request)
 
     # overriding the get form to add checks to the hidden field and avoid 500s
     def get_form(self, step=None, data=None, files=None):

@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime
+from datetime import datetime, timezone
 
 from actstream import action
 from django.contrib.auth import get_user_model
@@ -61,11 +61,11 @@ logger = logging.getLogger(__name__)
 User = get_user_model()
 
 
-def _add_empty_choice(choices):
+def _add_empty_choice(choices, default_string=EMPTY_CHOICE):
     """Add an empty option to list of choices"""
     if isinstance(choices, list):
         choices = tuple(choices)
-    return (EMPTY_CHOICE,) + choices
+    return (('', default_string),) + choices
 
 
 def add_activity(user, verb, description, instance):
@@ -755,17 +755,14 @@ class ProForm(
         ModelForm.__init__(self, *args, **kwargs)
         Contact.__init__(self, *args, **kwargs)
         # CRT views only
-        self.fields['intake_format'] = TypedChoiceField(
+        self.fields['intake_format'] = ChoiceField(
             choices=(
-                EMPTY_CHOICE,
                 ('letter', 'letter'),
                 ('phone', 'phone'),
                 ('fax', 'fax'),
                 ('email', 'email'),
             ),
-            widget=Select(attrs={
-                'class': 'usa-select mobile-lg:grid-col-7',
-            }),
+            widget=UsaRadioSelect,
             required=False,
         )
         self.fields['servicemember'] = TypedChoiceField(
@@ -1161,7 +1158,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
                     'class': 'text-uppercase crt-dropdown__data',
                 },
             ),
-            choices=_add_empty_choice(STATUTE_CHOICES),
+            choices=_add_empty_choice(STATUTE_CHOICES, default_string=''),
             required=False
         )
         self.fields['district'] = ChoiceField(
@@ -1171,7 +1168,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
                     'class': 'text-uppercase crt-dropdown__data',
                 },
             ),
-            choices=_add_empty_choice(DISTRICT_CHOICES),
+            choices=_add_empty_choice(DISTRICT_CHOICES, default_string=''),
             required=False
         )
         self.fields['assigned_to'].widget.label = 'Assigned to'
@@ -1265,12 +1262,197 @@ class PrintActions(Form):
     )
 
 
-class BulkAssign(Form, ActivityStreamUpdater):
+class BulkActionsForm(Form, ActivityStreamUpdater):
+    EMPTY_CHOICE = 'Multiple'
+    assigned_section = ChoiceField(
+        label='Section',
+        widget=ComplaintSelect(
+            attrs={'class': 'usa-select text-bold text-uppercase crt-dropdown__data'},
+        ),
+        choices=_add_empty_choice(SECTION_CHOICES, default_string=EMPTY_CHOICE),
+        required=False
+    )
+    status = ChoiceField(
+        widget=ComplaintSelect(
+            attrs={'class': 'crt-dropdown__data'},
+        ),
+        choices=_add_empty_choice(STATUS_CHOICES, default_string=EMPTY_CHOICE),
+        required=False
+    )
+    primary_statute = ChoiceField(
+        label='Primary classification',
+        widget=ComplaintSelect(
+            attrs={'class': 'text-uppercase crt-dropdown__data'},
+        ),
+        choices=_add_empty_choice(STATUTE_CHOICES, default_string=EMPTY_CHOICE),
+        required=False
+    )
+    district = ChoiceField(
+        label='Judicial district',
+        widget=ComplaintSelect(
+            attrs={
+                'class': 'text-uppercase crt-dropdown__data',
+                'disabled': 'disabled'
+            },
+        ),
+        choices=_add_empty_choice(DISTRICT_CHOICES, default_string=EMPTY_CHOICE),
+        required=False
+    )
     assigned_to = ModelChoiceField(
         queryset=User.objects.filter(is_active=True),
-        label="Assigned to",
-        required=True
+        label='Assigned to',
+        required=False
     )
+    summary = CharField(
+        required=False,
+        max_length=7000,
+        label='CRT Summary',
+        widget=Textarea(
+            attrs={
+                'rows': 3,
+                'class': 'usa-textarea',
+                'aria-label': 'Complaint Summary'
+            },
+        ),
+    )
+    comment = CharField(
+        required=True,
+        max_length=7000,
+        widget=Textarea(
+            attrs={
+                'rows': 3,
+                'class': 'usa-textarea',
+            },
+        ),
+    )
+
+    def get_initial_values(record_query, keys):
+        """
+        Given a record query and a list of keys, determine if a key has a
+        singular value within that query. Used to set initial fields
+        for bulk update forms.
+        """
+        # make sure the queryset does not order by anything, otherwise
+        # we will have difficulty getting distinct results.
+        query = record_query.order_by()
+        for key in keys:
+            values = query.values_list(key, flat=True).distinct()
+            if values.count() == 1:
+                yield key, values[0]
+
+    def __init__(self, query, *args, **kwargs):
+        Form.__init__(self, *args, **kwargs)
+        # set initial values if applicable
+        keys = ['assigned_section', 'status', 'primary_statute', 'district']
+        for key, initial_value in BulkActionsForm.get_initial_values(query, keys):
+            self.fields[key].initial = initial_value
+
+    def get_updates(self):
+        updates = {field: self.cleaned_data[field] for field in self.changed_data}
+        # do not allow any fields to be unset. this may happen if the
+        # user selects "Multiple".
+        for key in ['assigned_section', 'status', 'primary_statute']:
+            if key in updates and not updates[key]:
+                updates.pop(key)
+        # if section is changed, override assignee and status
+        # explicitly, even if they are set by the user.
+        if 'assigned_section' in updates:
+            updates['primary_statute'] = ''
+            updates['assigned_to'] = ''
+            updates['status'] = 'new'
+        updates.pop('district', None)  # district is currently disabled (read-only)
+        return updates
+
+    def get_update_description(self):
+        """
+        Given a submitted form, emit a textual description of what was updated.
+        """
+        updates = self.get_updates()
+        labels = {key: self.fields[key].label or key for key in updates}
+        labels.pop('comment', None)  # required, so we can omit
+        default_string = '{what} set to {item}'
+        custom_strings = {
+            'assigned to': 'assigned to {item}',
+            'crt summary': 'summary updated',
+        }
+        descriptions = []
+        for (key, value) in labels.items():
+            what = value.lower()
+            item = updates[key]
+            string = custom_strings.get(what, default_string)
+            description = string.format(**{'what': what, 'item': item or "''"})
+            descriptions.append(description)
+        if len(descriptions) > 1:
+            descriptions[-1] = f'and {descriptions[-1]}'
+        return ', '.join(descriptions) or 'comment added'
+
+    def get_actions(self, report):
+        """
+        Parse incoming changed data for activity stream entry (tweaked for
+        bulk update)
+        """
+        updates = self.get_updates()
+        for field in updates:
+            name = ' '.join(field.split('_')).capitalize()
+            # rename primary statute if applicable
+            if field == 'primary_statute':
+                name = 'Primary classification'
+            if field in ['summary', 'comment']:
+                continue
+            initial = getattr(report, field, 'None')
+            yield f"{name}:", f'Updated from "{initial}" to "{updates[field]}"'
+
+    def update_activity_stream(self, user, report):
+        """
+        Send all actions to activity stream (tweaked for bulk update)
+        """
+        for verb, description in self.get_actions(report):
+            add_activity(user, verb, description, report)
+
+    def update(self, reports, user):
+        """
+        Bulk update given reports and update activity log for each report
+        """
+        updated_data = self.get_updates()
+        comment_string = updated_data.pop('comment', None)
+        summary_string = updated_data.pop('summary', None)
+
+        # update activity log _before_ we update fields so
+        # that we still have access to the original field
+        for report in reports:
+            self.update_activity_stream(user, report)
+
+        if comment_string:
+            kwargs = {
+                'is_summary': False,
+                'note': comment_string,
+                'author': user.username,
+            }
+            for report in reports:
+                comment = CommentAndSummary.objects.create(**kwargs)
+                report.internal_comments.add(comment)
+                add_activity(user, 'Added comment: ', comment_string, report)
+
+        if summary_string:
+            kwargs = {
+                'is_summary': True,
+                'note': summary_string,
+                'author': user.username,
+            }
+            # update the pre-existing summary if extant
+            for report in reports:
+                summary = report.get_summary
+                if summary:
+                    CommentAndSummary.objects.update_or_create(id=summary.id, defaults=kwargs)
+                else:
+                    summary = CommentAndSummary.objects.create(**kwargs)
+                    report.internal_comments.add(summary)
+                add_activity(user, 'Added summary: ', summary_string, report)
+
+        if updated_data:
+            updated_data['modified_date'] = datetime.now(timezone.utc)
+        updated_number = reports.update(**updated_data)
+        return updated_number or len(reports)  # sometimes only a comment is added
 
 
 class ContactEditForm(ModelForm, ActivityStreamUpdater):

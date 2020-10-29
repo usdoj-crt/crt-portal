@@ -95,6 +95,8 @@
 }
 
 .crt-actions-card {
+  margin-top: 1rem !important;
+
   button {
     margin-top: 1rem !important;
   }
@@ -102,5 +104,18 @@
   ul.errorlist {
     color: color($theme-color-secondary);
     list-style-type: none;
+  }
+
+  input, select {
+    &[disabled=disabled] {
+      cursor: not-allowed;
+    }
+  }
+
+  .bulk-helptext-list {
+    li {
+      margin: 0 !important;
+      list-style-position: inside;
+    }
   }
 }
