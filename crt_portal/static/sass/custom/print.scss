@@ -15,15 +15,17 @@
   .crt-action-card,
   // - hide the "new comment" card.
   .crt-actions-card,
+  // - hide the "reported complaint" card.
+  .crt-complaint-card,
   // - hide the bulk print card.
-  .bulk-print-link,
-  // - hide the "print all" on the bulk actions page.
   .crt-comment-new,
   // - hide the current summary (embedded in the details form) as we
   //   have a separate print-only summary section.
   .crt-current-summary,
   // - hide the activity stream section, since we have separate
   //   print-only actions and comments sections.
+  .bulk-print-link,
+  // - hide the "print all" on the bulk actions page.
   .activity-stream,
   // - we want to show report questions instead.
   .report-details-label,
@@ -91,10 +93,9 @@
 .crt-activities-card,
 .crt-comments-card,
 .crt-summary-card,
+.crt-report-card,
 // bulk-print reports
-.bulk-print-reports,
-// and question columns
-.report-print-question {
+.bulk-print-reports {
   display: none;
   @media print {
     display: block;

@@ -1,8 +1,8 @@
 {% extends "forms/complaint_view/show/card.html" %}
+
 {% load commercial_public_space_view %}
 {% load correctional_facility_view %}
 {% load employer_info_view %}
-{% load static %}
 
 {% block title %}Reported Complaint{% endblock %}
 {% block extra_classes %}crt-report-card{% endblock %}
@@ -12,53 +12,41 @@
     <table class="usa-table usa-table--borderless complaint-card-table">
       <tr>
         <th>
-          <div class="report-print-question">
-            {{ questions.primary_reason }}
-          </div>
+          {{ questions.primary_reason }}
         </th>
         <td>
-          <div class="details">
-            {{ data.primary_complaint_description }}
-          </div>
+          {{ data.primary_complaint_description }}
         </td>
         {# showing old data with hate crimes #}
         {% if crimes.physical_harm or crimes.trafficking %}
           <tr>
             <th>
-              <div class="report-print-question">
-                {{ questions.hate_crime }}
-              </div>
+              {{ questions.hate_crime }}
             </th>
             <td>
-              <div class="details">
-                {# show new hate crime field if it exists #}
-                {% if data.hate_crime%}
-                  {{ data.hate_crime|title }}
+              {# show new hate crime field if it exists #}
+              {% if data.hate_crime%}
+                {{ data.hate_crime|title }}
+              {% else %}
+                {% if crimes.physical_harm %}
+                  Yes (checked)
                 {% else %}
-                  {% if crimes.physical_harm %}
-                    Yes (checked)
-                  {% else %}
-                    No (unchecked)
-                  {% endif %}
+                  No (unchecked)
                 {% endif %}
-              </div>
+              {% endif %}
             </td>
           </tr>
           {# showing old data with trafficking #}
           <tr>
             <th>
-              <div class="report-print-question">
-                Human Trafficking
-              </div>
+              Human Trafficking
             </th>
             <td>
-              <div class="details">
-                {% if crimes.trafficking %}
-                  Yes (checked)
-                {% else %}
-                  No (unchecked)
-                {% endif %}
-              </div>
+              {% if crimes.trafficking %}
+                Yes (checked)
+              {% else %}
+                No (unchecked)
+              {% endif %}
             </td>
           </tr>
         {% endif %}
@@ -66,131 +54,103 @@
         {% if not crimes.trafficking and not crimes.physical_harm %}
           <tr>
             <th>
-              <div class="report-print-question">
-                {{ questions.hate_crime }}
-              </div>
+              {{ questions.hate_crime }}
             </th>
             <td>
-              <div class="details">
-                {{data.hate_crime|title|default:"—"}}
-              </div>
+              {{data.hate_crime|title|default:"—"}}
             </td>
           </tr>
         {% endif %}
         <tr>
           <th>
-            <div class="report-print-question">
-              {% if data.election_details %}
-                {{ questions.election }}
-              {% elif data.commercial_or_public_place %}
-                {{ questions.public }}
-              {% elif data.inside_correctional_facility %}
-                {% for question in questions.police.values %}
-                  {{ question }}<br>
-                {% endfor %}
-              {% elif data.public_or_private_school %}
-                {{ questions.education }}
-              {% elif data.public_or_private_employer %}
-                {% for question in questions.workplace.values %}
-                  {{ question }}<br>
-                {% endfor %}
-              {% else %}
-                —
-              {% endif %}
-            </div>
-          </th>
-          <td>
-            <div class="details">
-              {% if data.election_details %}
-                Election type (federal/local): {{ data.election_details }}
-              {% elif data.commercial_or_public_place %}
-                {% render_commercial_public_space_view data.commercial_or_public_place data.other_commercial_or_public_place %}
-              {% elif data.inside_correctional_facility %}
-                {% render_correctional_facility_view data.inside_correctional_facility data.correctional_facility_type %}
-              {% elif data.public_or_private_school %}
-                School type: {% if data.public_or_private_school == 'not_sure' %} Not sure {% else %}
-                {{ data.public_or_private_school|title }} {% endif %}
-              {% elif data.public_or_private_employer %}
-                {% render_employer_info_view data.public_or_private_employer data.employer_size %}
-              {% else %}
-                —
-              {% endif %}
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th>
-            <div class="report-print-question">
-              {{ questions.location.location_name }}
-            </div>
-          </th>
-          <td>
-            <div class="details">
-              {{data.location_name|default:"-"}}
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th>
-            <div class="report-print-question">
-              {{ questions.location.location_title }}
-            </div>
-          </th>
-          <td>
-            <div class="details">
-              {{ data.location_address_line_1|default:"—" }}
-              <br>
-              {{ data.location_address_line_2|default:"—" }}
-              <br>
-              {{data.location_city_town|default:"-"}},
-              {{data.location_state|default:"-"}}
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <th>
-            <div class="report-print-question">
-              {{ questions.characteristics }}
-            </div>
-          </th>
-          <td>
-            <div class="details">
-              {% for p_class in p_class_list %}
-                {% if not forloop.last %}
-                  {{p_class}},
-                {% else %}
-                  {{p_class}}
-                {% endif %}
+            {% if data.election_details %}
+              {{ questions.election }}
+            {% elif data.commercial_or_public_place %}
+              {{ questions.public }}
+            {% elif data.inside_correctional_facility %}
+              {% for question in questions.police.values %}
+                {{ question }}<br>
               {% endfor %}
-              {% if data.other_class %}
-                <br>
-                Other: {{data.other_class}}
+            {% elif data.public_or_private_school %}
+              {{ questions.education }}
+            {% elif data.public_or_private_employer %}
+              {% for question in questions.workplace.values %}
+                {{ question }}<br>
+              {% endfor %}
+            {% else %}
+              —
+            {% endif %}
+          </th>
+          <td>
+            {% if data.election_details %}
+              Election type (federal/local): {{ data.election_details }}
+            {% elif data.commercial_or_public_place %}
+              {% render_commercial_public_space_view data.commercial_or_public_place data.other_commercial_or_public_place %}
+            {% elif data.inside_correctional_facility %}
+              {% render_correctional_facility_view data.inside_correctional_facility data.correctional_facility_type %}
+            {% elif data.public_or_private_school %}
+              School type: {% if data.public_or_private_school == 'not_sure' %} Not sure {% else %}
+              {{ data.public_or_private_school|title }} {% endif %}
+            {% elif data.public_or_private_employer %}
+              {% render_employer_info_view data.public_or_private_employer data.employer_size %}
+            {% else %}
+              —
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            {{ questions.location.location_name }}
+          </th>
+          <td>
+            {{data.location_name|default:"-"}}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            {{ questions.location.location_title }}
+          </th>
+          <td>
+            {{ data.location_address_line_1|default:"—" }}
+            <br>
+            {{ data.location_address_line_2|default:"—" }}
+            <br>
+            {{data.location_city_town|default:"-"}},
+            {{data.location_state|default:"-"}}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            {{ questions.characteristics }}
+          </th>
+          <td>
+            {% for p_class in p_class_list %}
+              {% if not forloop.last %}
+                {{p_class}},
+              {% else %}
+                {{p_class}}
               {% endif %}
-            </div>
+            {% endfor %}
+            {% if data.other_class %}
+              <br>
+              Other: {{data.other_class}}
+            {% endif %}
           </td>
         </tr>
         <tr>
           <th>
-            <div class="report-print-question">
-              {{ questions.servicemember }}
-            </div>
+            {{ questions.servicemember }}
           </th>
           <td>
-            <div class="details">
-              {{data.servicemember|title|default:"—"}}
-            </div>
+            {{data.servicemember|title|default:"—"}}
           </td>
         </tr>
         <tr>
           <th>
-            <div class="report-print-question">
-              {{ questions.date.date_title }}
-            </div>
+            {{ questions.date.date_title }}
           </th>
           <td>
-            <div class="details">
-              {{ data.last_incident_month|default:"-"}}/{{data.last_incident_day|default:"-"}}/{{data.last_incident_year|default:"-"}}
-            </div>
+            {{ data.last_incident_month|default:"-"}}/{{data.last_incident_day|default:"-"}}/{{data.last_incident_year|default:"-"}}
           </td>
         </tr>
       </tr>
