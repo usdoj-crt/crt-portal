@@ -334,7 +334,6 @@ def serialize_data(report, request, report_id):
         'crimes': crimes,
         'data': report,
         'p_class_list': p_class_list,
-        'primary_complaint': report.primary_complaint_description,
         'return_url_args': request.GET.get('next', ''),
         'index': request.GET.get('index', ''),
         'summary': report.get_summary,

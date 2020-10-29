@@ -12,7 +12,7 @@
     {% for report in print_reports %}
       <div class="bulk-print-report">
         {% include 'forms/complaint_view/show/correspondent_info.html' with data=report disable_edit=True %}
-        {% include 'forms/complaint_view/print/complaint_details.html' with data=report primary_complaint=report.primary_complaint_description summary=report.get_summary %}
+        {% include 'forms/complaint_view/print/complaint_details.html' with data=report questions=questions %}
         {% include 'forms/complaint_view/show/description.html' with description=report.violation_summary %}
         {% include 'forms/complaint_view/print/activities.html' with activity=report.activity %}
         {% include 'forms/complaint_view/print/summary.html' with summary=report.get_summary %}

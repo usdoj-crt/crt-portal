@@ -52,7 +52,7 @@
         </th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
-            {{primary_complaint}}
+            {{ data.primary_complaint_description }}
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
             {{details_form.primary_complaint}}

@@ -108,7 +108,7 @@
       <div class="complaint-information tablet:grid-col-6">
         {% include 'forms/complaint_view/show/correspondent_info.html' with data=data %}
 
-        {% include 'forms/complaint_view/show/complaint_details.html' with data=data primary_complaint=primary_complaint summary=summary %}
+        {% include 'forms/complaint_view/show/complaint_details.html' with data=data summary=summary %}
 
         {% include 'forms/complaint_view/show/description.html' with description=data.violation_summary %}
       </div>
