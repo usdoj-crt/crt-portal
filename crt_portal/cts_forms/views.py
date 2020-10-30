@@ -215,7 +215,7 @@ def setup_filter_parameters(report, querydict):
             return {}
 
         output.update({
-            'filter_count': report_query.count(),
+            'filter_count': requested_query.count(),
             'filter_previous': previous_id,
             'filter_next': next_id,
             'filter_previous_query': f'?next={next_query}&index={index - 1}',
