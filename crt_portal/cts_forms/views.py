@@ -391,18 +391,25 @@ class ResponseView(LoginRequiredMixin, View):
 
 class PrintView(LoginRequiredMixin, View):
 
-    def post(self, request, id):
-        report = get_object_or_404(Report, pk=id)
+    def post(self, request, id=None):
+        ids = request.POST.get('ids', '').split(',') if not id else [id]
+        reports = Report.objects.filter(id__in=ids)
         form = PrintActions(request.POST)
 
         if form.is_valid():
             options = form.cleaned_data['options']
             all_options = ', '.join(options)
             description = f"Selected {all_options}"
-            add_activity(request.user, "Printed report", description, report)
+            for report in reports:
+                add_activity(request.user, "Printed report", description, report)
             messages.add_message(request, messages.SUCCESS, description)
 
-        url = preserve_filter_parameters(report, request.POST)
+        if id:
+            url = preserve_filter_parameters(report, request.POST)
+        else:
+            return_url_args = request.POST.get('modal_next', '')
+            url = reverse('crt_forms:crt-forms-index')
+            url = f"{url}{return_url_args}"
         return redirect(url)
 
 
@@ -515,7 +522,7 @@ class ActionsView(LoginRequiredMixin, FormView):
             'show_warning': ids_count > 15,
             'all_ids_count': all_ids_count,
             'bulk_actions_form': bulk_actions_form,
-            'print_reports': requested_query.order_by('id')[:100],
+            'print_reports': requested_query.order_by('id'),
             'print_options': PrintActions(),
             'questions': Review.question_text,
         }

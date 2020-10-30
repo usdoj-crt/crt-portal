@@ -1,10 +1,19 @@
 {% load static %}
 
-<form class="usa-form" {% if not disable_submit %}method="post" action="{% url 'crt_forms:crt-forms-print' id=data.id %}"{% endif %}>
-  {% if not disable_submit %}
-    {% csrf_token %}
-    <input type="hidden" value="{{ return_url_args }}" name="next" id="modal_next" />
+<form class="usa-form"
+      method="post"
+      {% if single_print %}
+      action="{% url 'crt_forms:crt-forms-print' id=data.id %}"
+      {% else %}
+      action="{% url 'crt_forms:crt-forms-print' %}"
+      {% endif %}
+>
+  {% csrf_token %}
+  <input type="hidden" value="{{ return_url_args }}" name="modal_next" id="modal_next" />
+  {% if single_print %}
     <input type="hidden" value="{{ index }}" name="index" id="index" />
+  {% else %}
+    <input type="hidden" value="{{ ids }}" name="ids" id="ids" />
   {% endif %}
   <div id="print_report" hidden>
     <div class="modal-wrapper print-report--modal">

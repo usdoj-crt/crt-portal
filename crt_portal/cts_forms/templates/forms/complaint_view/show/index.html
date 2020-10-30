@@ -86,7 +86,7 @@
 
 {% block usa_footer %}
   {% include 'forms/complaint_view/show/response_template.html' %}
-  {% include 'forms/complaint_view/show/print_report.html' %}
+  {% include 'forms/complaint_view/show/print_report.html' with single_print=True %}
 {% endblock %}
 
 {% block page_js %}
