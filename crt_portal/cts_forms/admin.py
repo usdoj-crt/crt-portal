@@ -32,18 +32,20 @@ def format_export_message(request, records):
 def export_as_csv(modeladmin, request, queryset):
     """
     Stream all non-related fields
-    and the protected_class M2M of selected reports as CSV
+    and the protected_class and summary M2M of selected reports as CSV
     Log all use
     """
     pseudo_buffer = Echo()
     writer = csv.writer(pseudo_buffer, quoting=csv.QUOTE_ALL)
     non_m2m_fields = [field.name for field in Report._meta.fields]
-    headers = non_m2m_fields + ['protected_class']
+    headers = non_m2m_fields + ['protected_class', 'summary']
     rows = [headers]
     for report in queryset:
         row = [getattr(report, field) for field in non_m2m_fields]
         # Add protected_class M2M field
         row.append('; '.join([str(pc) for pc in report.protected_class.all()]))
+        # Add summary M2M field
+        row.append('| '.join([s.note for s in report.internal_comments.all() if s.is_summary is True]))
         rows.append(row)
 
     response = StreamingHttpResponse((writer.writerow(row) for row in rows),
