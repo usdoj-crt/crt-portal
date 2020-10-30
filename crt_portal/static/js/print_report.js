@@ -74,10 +74,5 @@
     dom.body.classList.remove('is-modal');
     modal.setAttribute('hidden', 'hidden');
     root.print();
-    // bulk print does not have an form submission.
-    var form = modal.parentNode;
-    if (!form.hasAttribute('method')) {
-      event.preventDefault();
-    }
   };
 })(window, document);
