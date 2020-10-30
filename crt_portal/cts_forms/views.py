@@ -139,6 +139,18 @@ def format_protected_class(p_class_objects, other_class):
     return p_class_list
 
 
+def reconstruct_query(next_qp):
+    """
+    reconstruct the query filter on the previous page using the next
+    query parameter. note that if next is empty, the resulting query
+    will return all records.
+    """
+    querydict = QueryDict(next_qp)
+    report_query, _ = report_filter(querydict)
+    sort = querydict.getlist('sort', ['-create_date'])
+    return report_query.order_by(*sort)
+
+
 def preserve_filter_parameters(report, querydict):
     """
     Given a report and submission, preserve the `next` and `index`
@@ -150,10 +162,7 @@ def preserve_filter_parameters(report, querydict):
     index = querydict.get('index', '')
 
     if return_url_args:
-        querydict = QueryDict(return_url_args)
-        report_query, _ = report_filter(querydict)
-        sort = querydict.getlist('sort', ['-create_date'])
-        requested_query = report_query.order_by(*sort)
+        requested_query = reconstruct_query(return_url_args)
         requested_ids = list(requested_query.values_list('id', flat=True))
         try:
             index = requested_ids.index(report.id)
@@ -180,10 +189,7 @@ def setup_filter_parameters(report, querydict):
         index = None
 
     if return_url_args and index is not None:
-        querydict = QueryDict(return_url_args)
-        report_query, _ = report_filter(querydict)
-        sort = querydict.getlist('sort', ['-create_date'])
-        requested_query = report_query.order_by(*sort)
+        requested_query = reconstruct_query(return_url_args)
         requested_ids = list(requested_query.values_list('id', flat=True))
 
         index = int(index)
@@ -479,17 +485,6 @@ class ShowView(LoginRequiredMixin, View):
 
 class ActionsView(LoginRequiredMixin, FormView):
 
-    def reconstruct_query(self, next_qp):
-        """
-        reconstruct the query filter on the previous page using the next
-        query parameter. note that if next is empty, the resulting
-        query will return all records.
-        """
-        querydict = QueryDict(next_qp)
-        report_query, _ = report_filter(querydict)
-        sort = querydict.getlist('sort', ['-create_date'])
-        return report_query.order_by(*sort)
-
     def get(self, request):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
@@ -501,7 +496,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         selected_all = request.GET.get('all', '') == 'all'
 
         if selected_all:
-            requested_query = self.reconstruct_query(return_url_args)
+            requested_query = reconstruct_query(return_url_args)
         else:
             requested_query = Report.objects.filter(pk__in=ids)
 
@@ -520,7 +515,7 @@ class ActionsView(LoginRequiredMixin, FormView):
             'show_warning': ids_count > 15,
             'all_ids_count': all_ids_count,
             'bulk_actions_form': bulk_actions_form,
-            'print_reports': requested_query.order_by('id'),
+            'print_reports': requested_query.order_by('id')[:100],
             'print_options': PrintActions(),
             'questions': Review.question_text,
         }
@@ -533,7 +528,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         ids = request.POST.get('ids', '').split(',')
 
         if confirm_all:
-            requested_query = self.reconstruct_query(return_url_args)
+            requested_query = reconstruct_query(return_url_args)
         else:
             requested_query = Report.objects.filter(pk__in=ids)
 
