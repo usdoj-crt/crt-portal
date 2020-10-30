@@ -53,6 +53,17 @@ def _get_date_field_from_param(field):
     return field[:field.rfind('_')]
 
 
+def _change_datetime_to_end_of_day(dateObj, field):
+    """
+    Takes a datetime and field param to ensure an end_date
+    field has time moved to end of day (23:59:59)
+    """
+    if 'end' in field:
+        return dateObj.replace(hour=23, minute=59, second=59)
+    else:
+        return dateObj
+
+
 def report_filter(querydict):
     kwargs = {}
     filters = {}
@@ -77,6 +88,7 @@ def report_filter(querydict):
                 decodedDate = urllib.parse.unquote(encodedDate)
                 try:
                     dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
+                    dateObj = _change_datetime_to_end_of_day(dateObj, field)
                     kwargs[f'{field_name}{filter_options[field]}'] = dateObj
                 except ValueError:
                     # if the date is invalid, we ignore it.
