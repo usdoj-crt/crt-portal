@@ -1,10 +1,6 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% load static %}
 
-{% block head %}
-  <link rel="stylesheet" href="{% static "css/accessible-autocomplete.min.css" %}" />
-{% endblock head %}
-
 {% block page_header %}
 {% include 'forms/complaint_view/intake_filters_header.html' with title_text="CRT Complaint Records" profile_form=profile_form  %}
 {% endblock %}
@@ -42,11 +38,7 @@
 <script src="{% static 'js/complaint_quick_view.js' %}"></script>
 <script src="{% static 'js/complaint_view_filters.js' %}"></script>
 <script src="{% static 'js/complaint_actions.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
-  accessibleAutocomplete.enhanceSelectElement({
-  defaultValue: '',
-  selectElement: document.querySelector('#id_assigned_to')
-});
+ // TODO '#id_assigned_to'
 </script>
 {% endblock %}

@@ -588,47 +588,6 @@ ul.messages {
   padding: 1rem;
 }
 
-// Autocomplete styles; overrides native library styles
-.autocomplete__wrapper {
-  .autocomplete__input,
-  .autocomplete__hint {
-    @include u-font('body', 5);
-    @include u-border(1px, 'solid', $theme-color-primary-darker, '!important');
-    font-weight: bold;
-    border-radius: 3px;
-    margin-top: 0.5rem;
-    padding: 0.5rem;
-
-    &.autocomplete__input--focused {
-      box-shadow: inset 0 0 0 1px;
-      outline: 0.125rem solid color($theme-focus-color);
-      outline-offset: 0;
-    }
-  }
-
-  .autocomplete__option {
-    @include u-font('body', 5);
-    margin-top: 0 !important;
-    padding: 10px;
-
-    &.autocomplete__option--focused,
-    &:hover {
-      @include u-bg($theme-color-primary-lightest);
-      @include u-text($theme-color-primary-darker);
-    }
-  }
-
-  .autocomplete__menu {
-    @include u-border(1px, 'solid', $theme-color-primary-darker, '!important');
-    position: absolute;
-    width: 100%;
-    border-radius: 3px;
-    font-weight: bold;
-    margin-top: 5px;
-    box-shadow: 0 15px 10px hsla(0, 0%, 39.2%, 0.2);
-  }
-}
-
 #response_copied_notification {
   padding: 0;
   margin-bottom: 1rem;

@@ -1,20 +1,5 @@
 (function(root, dom) {
-  accessibleAutocomplete.enhanceSelectElement({
-    defaultValue: '',
-    selectElement: document.querySelector('#id_assigned_to'),
-    onConfirm: function(what) {
-      // work around a bug in the accessible autocomplete library
-      var actualSelectElement = document.getElementById('id_assigned_to-select');
-      var options = actualSelectElement.options;
-      for (var i = 0; i < options.length; i++) {
-        var option = options[i];
-        if (option.text === what) {
-          actualSelectElement.value = option.value;
-          break;
-        }
-      }
-    }
-  });
+  // TODO: '#id_assigned_to'
 
   var comment_field = document.getElementById('id_comment');
   comment_field.oninput = function(event) {

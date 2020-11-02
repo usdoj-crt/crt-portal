@@ -5,11 +5,6 @@
  <title>CRT Complaint Records{% for message in messages %} - {{ message }}{% endfor %}</title>
 {% endblock %}
 
-{% block head %}
-<link rel="stylesheet" href="{% static "css/accessible-autocomplete.min.css" %}" />
-{% endblock head %}
-
-
 {% block content %}
   <div class="complaint-show-body">
     <div class="grid-container-widescreen">
@@ -97,11 +92,7 @@
 <script src="{% static 'js/form_letter.js' %}"></script>
 <script src="{% static 'js/print_report.js' %}"></script>
 <script src="{% static 'js/routing_guide.js' %}"></script>
-<script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
-  accessibleAutocomplete.enhanceSelectElement({
-  defaultValue: '',
-  selectElement: document.querySelector('#id_assigned_to')
-});
+ // TODO '#id_assigned_to'
 </script>
 {%endblock%}

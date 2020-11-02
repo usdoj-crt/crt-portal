@@ -6,10 +6,6 @@
   <title>CRT Complaint Records - Update multiple records</title>
 {% endblock %}
 
-{% block head %}
-  <link rel="stylesheet" href="{% static "css/accessible-autocomplete.min.css" %}" />
-{% endblock head %}
-
 {% block content %}
   <div class="complaint-show-body">
     <div class="grid-container-widescreen">
@@ -48,7 +44,6 @@
 
 {% block page_js %}
   {{ block.super }}
-  <script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
   <script src="{% static 'js/bulk_actions.js' %}"></script>
   <script src="{% static 'js/modal.js' %}"></script>
   <script src="{% static 'js/print_report.js' %}"></script>
