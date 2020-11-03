@@ -175,7 +175,7 @@ if environment == 'PRODUCTION':
     AUTHENTICATION_BACKENDS = (
         'django_auth_adfs.backend.AdfsAuthCodeBackend',
     )
-    MIDDLEWARE.append('django_auth_adfs.middleware.LoginRequiredMiddleware')
+    MIDDLEWARE.append('crt_portal.middleware.CRTLoginRequiredMiddleware')
 
     for service in vcap['s3']:
         if service['instance_name'] == 'sso-creds':
