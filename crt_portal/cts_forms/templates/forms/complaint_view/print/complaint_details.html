@@ -15,7 +15,7 @@
           {{ questions.primary_reason }}
         </th>
         <td>
-          {{ data.primary_complaint_description }}
+          {{ data.get_primary_complaint_display }}
         </td>
         {# showing old data with hate crimes #}
         {% if crimes.physical_harm or crimes.trafficking %}

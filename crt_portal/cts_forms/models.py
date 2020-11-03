@@ -318,9 +318,6 @@ class Report(models.Model):
     def closed(self):
         return self.status == CLOSED_STATUS
 
-    def primary_complaint_description(self):
-        return PRIMARY_COMPLAINT_DICT.get(self.primary_complaint, None)
-
     def activity(self):
         return self.target_actions.exclude(verb__contains='comment:')
 

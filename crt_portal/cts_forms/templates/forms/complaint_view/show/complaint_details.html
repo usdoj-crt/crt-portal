@@ -47,7 +47,7 @@
         <th><label for="{{details_form.primary_complaint.id_for_label}}">Primary issue</label></th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
-            {{ data.primary_complaint_description }}
+            {{ data.get_primary_complaint_display }}
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
             {{details_form.primary_complaint}}
