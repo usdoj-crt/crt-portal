@@ -45,7 +45,7 @@
       {% block meta_description %}
         {% trans 'Have you or someone you know experienced unlawful discrimination? The Civil Rights Division may be able to help. Civil rights laws can protect you from unlawful discrimination, harassment, or abuse in a variety of settings like housing, the workplace, school, voting, businesses, healthcare, public spaces, and more.' as meta_description %}
         <meta property="og:description" content="{{meta_description}}" />
-        <meta property="description" content="{{meta_description}}" />
+        <meta name="description" content="{{meta_description}}" />
       {% endblock meta_description %}
 
       <meta property="og:image" content="{% static 'img/facebook-og.png' %}" />
