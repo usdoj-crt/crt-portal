@@ -1,32 +1,21 @@
 {% load static %}
 
-{% if print_reports.count <= 100 %}
-  <span>
-    <a href="#" id="printout_report" class="bulk-print-link">
-      <img src="{% static "img/intake-icons/ic_printer.svg" %}" alt="printer" class="icon" />
-      Print all {{ print_reports.count }} reports
-    </a>
-  </span>
-
-  <div class="bulk-print-reports display-none">
-    {% for report in print_reports %}
-      <div class="bulk-print-report">
-        {% include 'forms/complaint_view/show/header.html' with data=report %}
-        {% include 'forms/complaint_view/show/correspondent_info.html' with data=report disable_edit=True %}
-        {% include 'forms/complaint_view/print/complaint_details.html' with data=report questions=questions %}
-        {% include 'forms/complaint_view/show/description.html' with description=report.violation_summary %}
-        {% include 'forms/complaint_view/print/activities.html' with activity=report.activity %}
-        {% include 'forms/complaint_view/print/summary.html' with summary=report.get_summary %}
-      </div>
-    {% endfor %}
-  </div>
-{% else %}
-  <span class="bulk-print-disabled">
+<span>
+  <a href="#" id="printout_report" class="bulk-print-link">
     <img src="{% static "img/intake-icons/ic_printer.svg" %}" alt="printer" class="icon" />
     Print all
-  </span>
-  <p>
-    <img width="20" height="20" src="{% static "/img/alerts/warning.svg" %}" alt="warning" class="icon" />
-    The maximum number of records for this function is 100.
-  </p>
-{% endif %}
+  </a>
+</span>
+
+<div class="bulk-print-reports display-none">
+  {% for report in print_reports|slice:":100" %}
+    <div class="bulk-print-report{% if forloop.counter < ids_count %} bulk-print-report-subset{% endif %}">
+      {% include 'forms/complaint_view/show/header.html' with data=report %}
+      {% include 'forms/complaint_view/show/correspondent_info.html' with data=report disable_edit=True %}
+      {% include 'forms/complaint_view/print/complaint_details.html' with data=report questions=questions %}
+      {% include 'forms/complaint_view/show/description.html' with description=report.violation_summary %}
+      {% include 'forms/complaint_view/print/activities.html' with activity=report.activity %}
+      {% include 'forms/complaint_view/print/summary.html' with summary=report.get_summary %}
+    </div>
+  {% endfor %}
+</div>

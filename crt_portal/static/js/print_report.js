@@ -56,23 +56,29 @@
   root.CRT.cancelModal(modal, cancel_modal);
 
   // if no options are clicked, disable the print button.
-  var print_button = document.getElementById('do_print_report');
+  var print_buttons = document.querySelectorAll('.print-report');
   for (var option_id in option_mapping_to_section) {
     var el = document.getElementById(option_id);
     el.onclick = function(event) {
       var selected = modal.querySelectorAll('input[type=checkbox]:checked');
-      if (selected.length == 0) {
-        print_button.setAttribute('disabled', 'disabled');
-      } else {
-        print_button.removeAttribute('disabled');
+      for (var i = 0; i<print_buttons.length; i++) {
+        var print_button = print_buttons[i];
+        if (selected.length == 0) {
+          print_button.setAttribute('disabled', 'disabled');
+        } else {
+          print_button.removeAttribute('disabled');
+        }
       }
     };
   }
 
-  print_button.onclick = function(event) {
-    // hide the modal lest we print the modal itself.
-    dom.body.classList.remove('is-modal');
-    modal.setAttribute('hidden', 'hidden');
-    root.print();
-  };
+  for (var i = 0; i<print_buttons.length; i++) {
+    var print_button = print_buttons[i];
+    print_button.onclick = function(event) {
+      // hide the modal lest we print the modal itself.
+      dom.body.classList.remove('is-modal');
+      modal.setAttribute('hidden', 'hidden');
+      root.print();
+    };
+  }
 })(window, document);
