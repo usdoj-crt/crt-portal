@@ -21,6 +21,9 @@
       height: 38px;
       width: 38px;
     }
+    @include at-media-max(mobile-lg) {
+      margin-top: 1rem;
+    }
   }
 }
 
