@@ -16,10 +16,13 @@
 
   .doj-brand {
     font-size: $theme-text-font-size-lg;
-    margin-top: 1rem;
+    margin-top: 4rem;
     img {
       height: 38px;
       width: 38px;
+    }
+    @include at-media-max(mobile-lg) {
+      margin-top: 1rem;
     }
   }
 }
