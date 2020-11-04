@@ -392,9 +392,15 @@ class ResponseView(LoginRequiredMixin, View):
 class PrintView(LoginRequiredMixin, View):
 
     def post(self, request, id=None):
-        ids = request.POST.get('ids', '').split(',') if not id else [id]
-        reports = Report.objects.filter(id__in=ids)
         form = PrintActions(request.POST)
+
+        return_url_args = request.POST.get('modal_next', '')
+        print_all = request.POST.get('print_all', None)
+        if print_all:
+            reports = reconstruct_query(return_url_args)
+        else:
+            ids = request.POST.get('ids', '').split(',') if not id else [id]
+            reports = Report.objects.filter(id__in=ids)
 
         if form.is_valid():
             options = form.cleaned_data['options']
@@ -402,12 +408,12 @@ class PrintView(LoginRequiredMixin, View):
             description = f"Selected {all_options}"
             for report in reports:
                 add_activity(request.user, "Printed report", description, report)
+            description += f" for {reports.count()} reports"
             messages.add_message(request, messages.SUCCESS, description)
 
         if id:
             url = preserve_filter_parameters(report, request.POST)
         else:
-            return_url_args = request.POST.get('modal_next', '')
             url = reverse('crt_forms:crt-forms-index')
             url = f"{url}{return_url_args}"
         return redirect(url)
