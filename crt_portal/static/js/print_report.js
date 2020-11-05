@@ -61,7 +61,7 @@
     var el = document.getElementById(option_id);
     el.onclick = function(event) {
       var selected = modal.querySelectorAll('input[type=checkbox]:checked');
-      for (var i = 0; i<print_buttons.length; i++) {
+      for (var i = 0; i < print_buttons.length; i++) {
         var print_button = print_buttons[i];
         if (selected.length == 0) {
           print_button.setAttribute('disabled', 'disabled');
@@ -72,7 +72,7 @@
     };
   }
 
-  for (var i = 0; i<print_buttons.length; i++) {
+  for (var i = 0; i < print_buttons.length; i++) {
     var print_button = print_buttons[i];
     print_button.onclick = function(event) {
       // hide the modal lest we print the modal itself.
