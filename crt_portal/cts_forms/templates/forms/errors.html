@@ -27,43 +27,55 @@
       <div class="crt-error-card">
         <div class="crt-error-card__content">
           <div class="display-flex flex-column padding-bottom-3">
-            <h1 class=".h1__display">{% block error_heading %}{% trans "We're sorry, something went wrong" %}{% endblock %}</h1>
-            <span class="crt-error_message">{% block error_message %}{% trans "We hope to fix this issue shortly" %}{% endblock %}</span>
-            <span class="help-text__small">{% block error_helptext %}{%trans "Error: " %}{{ status }}{% endblock %}</span>
+            <h1 class=".h1__display">
+              {% block error_heading %}{% trans "We're sorry, something went wrong" %}{% endblock %}</h1>
+            <span
+              class="crt-error_message">{% block error_message %}{% trans "We hope to fix this issue shortly" %}{% endblock %}</span>
+            <span
+              class="help-text__small">{% block error_helptext %}{%trans "Error: " %}{{ status }}{% endblock %}</span>
           </div>
           <h2 class="error-subheading">{% trans 'If you need to contact us immediately, you can reach us by:' %}</h2>
           <div class="crt-error-box">
-            <img src="{% static "img/at-sign.svg" %}" />
+            <img src="{% static "img/at-sign.svg" %}" alt="Email" />
             <span>
-              <li>{% trans 'Email' %} : <a href="mailto:Ask.CRT@crt.usdoj.gov">ask.CRT@crt.usdoj.gov</a></li>
+              <ul>
+                <li>{% trans 'Email' %} : <a href="mailto:Ask.CRT@crt.usdoj.gov">ask.CRT@crt.usdoj.gov</a></li>
+              </ul>
             </span>
           </div>
           <div class="crt-error-box">
-            <img src="{% static "img/phone_70.svg" %}" />
+            <img src="{% static "img/phone_70.svg" %}" alt='Phone' />
             <span class="display-flex flex-column">
-              <li><a href="tel:202-514-3847">(202) 514-3847</a></li>
-              <li><a href="tel:1-855-856-1247">1-855-856-1247</a> {% trans '(toll-free)' %}</li>
-              <li>{% trans 'Telephone Device for the Deaf' %}</li>
-              <li>{% trans '(TTY)' %} <a href="tel:202-514-0716">(202) 514-0716</a></li>
+              <ul>
+                <li><a href="tel:202-514-3847">(202) 514-3847</a></li>
+                <li><a href="tel:1-855-856-1247">1-855-856-1247</a> {% trans '(toll-free)' %}</li>
+                <li>{% trans 'Telephone Device for the Deaf' %}</li>
+                <li>{% trans '(TTY)' %} <a href="tel:202-514-0716">(202) 514-0716</a></li>
+              </ul>
             </span>
           </div>
           <div class="crt-error-box">
-            <img src="{% static "img/mail_70.svg" %}" />
+            <img src="{% static "img/mail_70.svg" %}" alt="Mail" />
             <span class="display-flex flex-column">
-              <li>U.S. Department of Justice</li>
-              <li>Civil Rights Division</li>
-              <li>950 Pennsylvania Avenue, NW</li>
-              <li>Washington, D.C. 20530-0001</li>
+              <ul>
+                <li>U.S. Department of Justice</li>
+                <li>Civil Rights Division</li>
+                <li>950 Pennsylvania Avenue, NW</li>
+                <li>Washington, D.C. 20530-0001</li>
+              </ul>
             </span>
           </div>
           <h2 class="error-subheading">{% trans 'Other information' %}</h2>
           <p><a href="https://civilrights.justice.gov/report">{%trans 'File a complaint' %}</a></p>
-          <p><a href="https://civilrights.justice.gov/#about-the-division">{% trans 'About the Civil Rights Division' %}</a></p>
-          <p>{% trans 'If you or someone else is in immediate danger, <a href="tel:911">please call 911 or local police.</a>' %}</p>
+          <p><a
+              href="https://civilrights.justice.gov/#about-the-division">{% trans 'About the Civil Rights Division' %}</a>
+          </p>
+          <p>
+            {% trans 'If you or someone else is in immediate danger, <a href="tel:911">please call 911 or local police.</a>' %}
+          </p>
         </div>
       </div>
     </div>
   </div>
 </section>
 {% endblock %}
-
