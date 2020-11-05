@@ -9,7 +9,7 @@
 
 <div class="bulk-print-reports display-none">
   {% for report in print_reports|slice:":100" %}
-    <div class="bulk-print-report{% if forloop.counter < ids_count %} bulk-print-report-subset{% endif %}">
+    <div class="bulk-print-report{% if forloop.counter > ids_count %} bulk-print-report-extra{% endif %}">
       {% include 'forms/complaint_view/show/header.html' with data=report %}
       {% include 'forms/complaint_view/show/correspondent_info.html' with data=report disable_edit=True %}
       {% include 'forms/complaint_view/print/complaint_details.html' with data=report questions=questions %}
