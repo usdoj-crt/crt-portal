@@ -15,24 +15,23 @@ Including another URLconf
 """
 import os
 
-from django.conf import settings
-from django.conf.urls.static import static
-from django.contrib import admin
-from django.urls import include, path, re_path
-from django.views.generic import RedirectView, TemplateView
-
 from cts_forms.forms import (CommercialPublicLocation, Contact, Details,
                              EducationLocation, ElectionLocation, HateCrimes,
                              LocationForm, PoliceLocation, PrimaryReason,
                              ProtectedClassForm, Review, When,
                              WorkplaceLocation)
-from cts_forms.views import (CRTReportWizard, LandingPageView,
-                             show_commercial_public_form_condition,
+from cts_forms.views import (CRTReportWizard, LandingPageView, error_404,
+                             error_500, show_commercial_public_form_condition,
                              show_education_form_condition,
                              show_election_form_condition,
                              show_location_form_condition,
                              show_police_form_condition,
                              show_workplace_form_condition)
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import include, path, re_path
+from django.views.generic import RedirectView, TemplateView
 
 environment = os.environ.get('ENV', 'UNDEFINED')
 if environment == 'PRODUCTION':
@@ -86,3 +85,9 @@ handler500 = 'cts_forms.views.error_500'
 handler501 = 'cts_forms.views.error_501'
 handler502 = 'cts_forms.views.error_502'
 handler503 = 'cts_forms.views.error_503'
+
+if settings.DEBUG:
+    urlpatterns += [
+        path('errors/404', error_404),
+        path('errors/500', error_500),
+    ]
