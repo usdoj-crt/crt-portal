@@ -523,8 +523,7 @@ form#cts-forms-profile {
       }
     }
 
-    select,
-    label[for='id_assigned_to-select'] + div {
+    select {
       flex-basis: 60%; // label flex-basis is 40% for total of 100%
     }
   }
@@ -586,6 +585,48 @@ ul.messages {
 .blue-background {
   @include u-bg($theme-color-primary-lightest);
   padding: 1rem;
+}
+
+.aria-autocomplete__wrapper {
+  p.aria-autocomplete__sr-announcements {
+    // do not show number of completions
+    display: none;
+  }
+
+  input {
+    @extend .usa-input;
+    flex-basis: 60%;
+  }
+
+  ul.aria-autocomplete__list {
+    @include u-border(1px, 'solid', $theme-color-primary-darker, '!important');
+    position: absolute;
+    width: 60%;
+    border-radius: 3px;
+    font-weight: bold;
+    margin-top: 5px;
+    box-shadow: 0 15px 10px hsla(0, 0%, 39.2%, 0.2);
+
+    li {
+      @include u-font('body', 5);
+      @include u-bg('white');
+      margin-top: 0 !important;
+      padding: 10px;
+      list-style: none;
+
+      &:nth-child(odd) {
+        @include u-bg($theme-color-base-lightest);
+      }
+      &:not(:last-child) {
+        border-bottom: 1px solid color($theme-color-primary-darker);
+      }
+
+      &:hover {
+        @include u-bg($theme-color-primary-lightest);
+        @include u-text($theme-color-primary-darker);
+      }
+    }
+  }
 }
 
 #response_copied_notification {
