@@ -349,8 +349,10 @@ class PrintActionTests(TestCase):
         self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
         self.report = Report.objects.create(**SAMPLE_REPORT)
+        Report.objects.create(**SAMPLE_REPORT)
 
-    def post_print_action(self, options):
+    def test_response_action_print(self):
+        options = ['correspondent', 'activity']
         response = self.client.post(
             reverse(
                 'crt_forms:crt-forms-print',
@@ -364,15 +366,45 @@ class PrintActionTests(TestCase):
             follow=True
         )
         self.assertEquals(response.status_code, 200)
-        return str(response.content)
-
-    def test_response_action_print(self):
-        options = ['correspondent', 'activity']
-        content = self.post_print_action(options)
+        content = str(response.content)
         # verify that next QP is preserved and activity log shows up
         self.assertTrue('?per_page=15' in content)
         self.assertTrue('Printed report' in content)
         self.assertTrue(escape('Selected correspondent, activity') in content)
+
+    def test_response_action_print_with_ids(self):
+        options = ['issue', 'summary']
+        response = self.client.post(
+            reverse(
+                'crt_forms:crt-forms-print',
+            ),
+            {
+                'ids': [self.report.id],
+                'options': options,
+                'modal_next': '?per_page=15',
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        content = str(response.content)
+        self.assertTrue(escape('Selected issue, summary for 1 reports') in content)
+
+    def test_response_action_print_all(self):
+        options = ['activity', 'issue']
+        response = self.client.post(
+            reverse(
+                'crt_forms:crt-forms-print',
+            ),
+            {
+                'print_all': True,
+                'options': options,
+                'modal_next': '?per_page=15',
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        content = str(response.content)
+        self.assertTrue(escape('Selected activity, issue for 2 reports') in content)
 
 
 class BulkActionsTests(TestCase):
