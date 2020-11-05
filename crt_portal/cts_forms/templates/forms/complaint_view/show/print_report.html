@@ -28,7 +28,7 @@
           </div>
           <div class="modal-footer">
             <button class="usa-button print-report-button" type="submit" name="type" value="print">Print{% if not single_print %} {{ ids_count }} reports{% endif %}</button>
-            {% if not single_print %}
+            {% if not single_print and selected_all %}
               <button class="usa-button print-report-button" type="submit" name="type" value="print_all" {% if print_reports.count > 100 %}disabled="disabled"{% endif %}>Print all {{ print_reports.count }} reports</button>
               {% if print_reports.count > 100 %}
                 <p>
