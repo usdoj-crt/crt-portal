@@ -1,0 +1,159 @@
+{% extends "forms/complaint_view/show/card.html" %}
+
+{% load commercial_public_space_view %}
+{% load correctional_facility_view %}
+{% load employer_info_view %}
+
+{% block title %}Reported Complaint{% endblock %}
+{% block extra_classes %}crt-report-card{% endblock %}
+
+{% block card_content %}
+  <div class="report-details">
+    <table class="usa-table usa-table--borderless complaint-card-table">
+      <tr>
+        <th>
+          {{ questions.primary_reason }}
+        </th>
+        <td>
+          {{ data.get_primary_complaint_display }}
+        </td>
+        {# showing old data with hate crimes #}
+        {% if crimes.physical_harm or crimes.trafficking %}
+          <tr>
+            <th>
+              {{ questions.hate_crime }}
+            </th>
+            <td>
+              {# show new hate crime field if it exists #}
+              {% if data.hate_crime%}
+                {{ data.hate_crime|title }}
+              {% else %}
+                {% if crimes.physical_harm %}
+                  Yes (checked)
+                {% else %}
+                  No (unchecked)
+                {% endif %}
+              {% endif %}
+            </td>
+          </tr>
+          {# showing old data with trafficking #}
+          <tr>
+            <th>
+              Human Trafficking
+            </th>
+            <td>
+              {% if crimes.trafficking %}
+                Yes (checked)
+              {% else %}
+                No (unchecked)
+              {% endif %}
+            </td>
+          </tr>
+        {% endif %}
+        {# current version of hate crimes. This will also show "no" responses from earlier forms #}
+        {% if not crimes.trafficking and not crimes.physical_harm %}
+          <tr>
+            <th>
+              {{ questions.hate_crime }}
+            </th>
+            <td>
+              {{data.hate_crime|title|default:"—"}}
+            </td>
+          </tr>
+        {% endif %}
+        <tr>
+          <th>
+            {% if data.election_details %}
+              {{ questions.election }}
+            {% elif data.commercial_or_public_place %}
+              {{ questions.public }}
+            {% elif data.inside_correctional_facility %}
+              {% for question in questions.police.values %}
+                {{ question }}<br>
+              {% endfor %}
+            {% elif data.public_or_private_school %}
+              {{ questions.education }}
+            {% elif data.public_or_private_employer %}
+              {% for question in questions.workplace.values %}
+                {{ question }}<br>
+              {% endfor %}
+            {% else %}
+              —
+            {% endif %}
+          </th>
+          <td>
+            {% if data.election_details %}
+              Election type (federal/local): {{ data.election_details }}
+            {% elif data.commercial_or_public_place %}
+              {% render_commercial_public_space_view data.commercial_or_public_place data.other_commercial_or_public_place %}
+            {% elif data.inside_correctional_facility %}
+              {% render_correctional_facility_view data.inside_correctional_facility data.correctional_facility_type %}
+            {% elif data.public_or_private_school %}
+              School type: {% if data.public_or_private_school == 'not_sure' %} Not sure {% else %}
+              {{ data.public_or_private_school|title }} {% endif %}
+            {% elif data.public_or_private_employer %}
+              {% render_employer_info_view data.public_or_private_employer data.employer_size %}
+            {% else %}
+              —
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            {{ questions.location.location_name }}
+          </th>
+          <td>
+            {{data.location_name|default:"-"}}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            {{ questions.location.location_title }}
+          </th>
+          <td>
+            {{ data.location_address_line_1|default:"—" }}
+            <br>
+            {{ data.location_address_line_2|default:"—" }}
+            <br>
+            {{data.location_city_town|default:"-"}},
+            {{data.location_state|default:"-"}}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            {{ questions.characteristics }}
+          </th>
+          <td>
+            {% for p_class in p_class_list %}
+              {% if not forloop.last %}
+                {{p_class}},
+              {% else %}
+                {{p_class}}
+              {% endif %}
+            {% endfor %}
+            {% if data.other_class %}
+              <br>
+              Other: {{data.other_class}}
+            {% endif %}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            {{ questions.servicemember }}
+          </th>
+          <td>
+            {{data.servicemember|title|default:"—"}}
+          </td>
+        </tr>
+        <tr>
+          <th>
+            {{ questions.date.date_title }}
+          </th>
+          <td>
+            {{ data.last_incident_month|default:"-"}}/{{data.last_incident_day|default:"-"}}/{{data.last_incident_year|default:"-"}}
+          </td>
+        </tr>
+      </tr>
+    </table>
+  </div>
+{% endblock %}

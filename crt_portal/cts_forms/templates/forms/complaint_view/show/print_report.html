@@ -1,9 +1,20 @@
 {% load static %}
 
-<form class="usa-form" method="post" action="{% url 'crt_forms:crt-forms-print' id=data.id %}">
+<form class="usa-form"
+      method="post"
+      {% if single_print %}
+      action="{% url 'crt_forms:crt-forms-print' id=data.id %}"
+      {% else %}
+      action="{% url 'crt_forms:crt-forms-print' %}"
+      {% endif %}
+>
   {% csrf_token %}
-  <input type="hidden" value="{{ return_url_args }}" name="next" id="modal_next" />
-  <input type="hidden" value="{{ index }}" name="index" id="index" />
+  <input type="hidden" value="{{ return_url_args }}" name="modal_next" id="modal_next" />
+  {% if single_print %}
+    <input type="hidden" value="{{ index }}" name="index" id="index" />
+  {% else %}
+    <input type="hidden" value="{{ ids }}" name="ids" id="ids" />
+  {% endif %}
   <div id="print_report" hidden>
     <div class="modal-wrapper print-report--modal">
       <div class="modal-content modal-content--large">
@@ -16,7 +27,16 @@
             {{ print_options.options }}
           </div>
           <div class="modal-footer">
-            <button id="do_print_report" class="usa-button" type="submit" name="type" value="print">Print</button>
+            <button class="usa-button print-report-button" type="submit" name="type" value="print">Print{% if not single_print %} {{ ids_count }} reports{% endif %}</button>
+            {% if not single_print and selected_all %}
+              <button class="usa-button print-report-button" type="submit" name="type" value="print_all" {% if print_reports.count > 100 %}disabled="disabled"{% endif %}>Print all {{ print_reports.count }} reports</button>
+              {% if print_reports.count > 100 %}
+                <p>
+                  <img width="20" height="20" src="{% static "/img/alerts/warning.svg" %}" alt="warning" class="icon" />
+                  The maximum number of records for this function is 100.
+                </p>
+              {% endif %}
+            {% endif %}
             <a id="print_report_cancel" href="#">Cancel</a>
           </div>
         </div>

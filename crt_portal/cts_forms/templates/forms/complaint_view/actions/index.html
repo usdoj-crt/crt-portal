@@ -34,13 +34,22 @@
         <div class="complaint-actions tablet:grid-col-5 grid-offset-1">
           {% include 'forms/complaint_view/actions/bulk_actions.html' %}
         </div>
+        <div class="complaint-actions tablet:grid-col-5 margin-top-2">
+          {% include 'forms/complaint_view/actions/bulk_print.html' with reports=print_reports %}
+        </div>
       </div>
     </div>
   </div>
+{% endblock %}
+
+{% block usa_footer %}
+  {% include 'forms/complaint_view/show/print_report.html' with single_print=False %}
 {% endblock %}
 
 {% block page_js %}
   {{ block.super }}
   <script type="text/javascript" src="{% static 'js/accessible-autocomplete.min.js' %}"></script>
   <script src="{% static 'js/bulk_actions.js' %}"></script>
+  <script src="{% static 'js/modal.js' %}"></script>
+  <script src="{% static 'js/print_report.js' %}"></script>
 {% endblock %}

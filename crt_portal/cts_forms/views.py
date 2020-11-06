@@ -29,7 +29,6 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               LANDING_COMPLAINT_CHOICES_TO_EXAMPLES,
                               LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
                               LANDING_COMPLAINT_DICT,
-                              PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
                               PRIMARY_COMPLAINT_DICT,
@@ -140,6 +139,18 @@ def format_protected_class(p_class_objects, other_class):
     return p_class_list
 
 
+def reconstruct_query(next_qp):
+    """
+    reconstruct the query filter on the previous page using the next
+    query parameter. note that if next is empty, the resulting query
+    will return all records.
+    """
+    querydict = QueryDict(next_qp)
+    report_query, _ = report_filter(querydict)
+    sort = querydict.getlist('sort', ['-create_date'])
+    return report_query.order_by(*sort)
+
+
 def preserve_filter_parameters(report, querydict):
     """
     Given a report and submission, preserve the `next` and `index`
@@ -151,10 +162,7 @@ def preserve_filter_parameters(report, querydict):
     index = querydict.get('index', '')
 
     if return_url_args:
-        querydict = QueryDict(return_url_args)
-        report_query, _ = report_filter(querydict)
-        sort = querydict.getlist('sort', ['-create_date'])
-        requested_query = report_query.order_by(*sort)
+        requested_query = reconstruct_query(return_url_args)
         requested_ids = list(requested_query.values_list('id', flat=True))
         try:
             index = requested_ids.index(report.id)
@@ -181,10 +189,7 @@ def setup_filter_parameters(report, querydict):
         index = None
 
     if return_url_args and index is not None:
-        querydict = QueryDict(return_url_args)
-        report_query, _ = report_filter(querydict)
-        sort = querydict.getlist('sort', ['-create_date'])
-        requested_query = report_query.order_by(*sort)
+        requested_query = reconstruct_query(return_url_args)
         requested_ids = list(requested_query.values_list('id', flat=True))
 
         index = int(index)
@@ -210,7 +215,7 @@ def setup_filter_parameters(report, querydict):
             return {}
 
         output.update({
-            'filter_count': report_query.count(),
+            'filter_count': requested_query.count(),
             'filter_previous': previous_id,
             'filter_next': next_id,
             'filter_previous_query': f'?next={next_query}&index={index - 1}',
@@ -310,7 +315,6 @@ def index_view(request):
 
 
 def serialize_data(report, request, report_id):
-    primary_complaint = [choice[1] for choice in PRIMARY_COMPLAINT_CHOICES if choice[0] == report.primary_complaint]
     crimes = {
         'physical_harm': False,
         'trafficking': False
@@ -336,13 +340,11 @@ def serialize_data(report, request, report_id):
         'crimes': crimes,
         'data': report,
         'p_class_list': p_class_list,
-        'primary_complaint': primary_complaint,
         'return_url_args': request.GET.get('next', ''),
         'index': request.GET.get('index', ''),
         'summary': report.get_summary,
         # for print media consumption
-        'print_actions': report.target_actions.exclude(verb__contains='comment:'),
-        'print_comments': report.target_actions.filter(verb__contains='comment:'),
+        'print_actions': report.activity(),
         'questions': Review.question_text,
     }
 
@@ -389,18 +391,31 @@ class ResponseView(LoginRequiredMixin, View):
 
 class PrintView(LoginRequiredMixin, View):
 
-    def post(self, request, id):
-        report = get_object_or_404(Report, pk=id)
+    def post(self, request, id=None):
         form = PrintActions(request.POST)
+
+        return_url_args = request.POST.get('modal_next', '')
+        print_all = request.POST.get('print_all', None)
+        if print_all:
+            reports = reconstruct_query(return_url_args)
+        else:
+            ids = request.POST.get('ids', '').split(',') if not id else [id]
+            reports = Report.objects.filter(id__in=ids)
 
         if form.is_valid():
             options = form.cleaned_data['options']
             all_options = ', '.join(options)
             description = f"Selected {all_options}"
-            add_activity(request.user, "Printed report", description, report)
+            for report in reports:
+                add_activity(request.user, "Printed report", description, report)
+            description += f" for {reports.count()} reports"
             messages.add_message(request, messages.SUCCESS, description)
 
-        url = preserve_filter_parameters(report, request.POST)
+        if id:
+            url = preserve_filter_parameters(report, request.POST)
+        else:
+            url = reverse('crt_forms:crt-forms-index')
+            url = f"{url}{return_url_args}"
         return redirect(url)
 
 
@@ -483,17 +498,6 @@ class ShowView(LoginRequiredMixin, View):
 
 class ActionsView(LoginRequiredMixin, FormView):
 
-    def reconstruct_query(self, next_qp):
-        """
-        reconstruct the query filter on the previous page using the next
-        query parameter. note that if next is empty, the resulting
-        query will return all records.
-        """
-        querydict = QueryDict(next_qp)
-        report_query, _ = report_filter(querydict)
-        sort = querydict.getlist('sort', ['-create_date'])
-        return report_query.order_by(*sort)
-
     def get(self, request):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
@@ -505,7 +509,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         selected_all = request.GET.get('all', '') == 'all'
 
         if selected_all:
-            requested_query = self.reconstruct_query(return_url_args)
+            requested_query = reconstruct_query(return_url_args)
         else:
             requested_query = Report.objects.filter(pk__in=ids)
 
@@ -524,6 +528,9 @@ class ActionsView(LoginRequiredMixin, FormView):
             'show_warning': ids_count > 15,
             'all_ids_count': all_ids_count,
             'bulk_actions_form': bulk_actions_form,
+            'print_reports': requested_query.order_by('id'),
+            'print_options': PrintActions(),
+            'questions': Review.question_text,
         }
         return render(request, 'forms/complaint_view/actions/index.html', output)
 
@@ -534,7 +541,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         ids = request.POST.get('ids', '').split(',')
 
         if confirm_all:
-            requested_query = self.reconstruct_query(return_url_args)
+            requested_query = reconstruct_query(return_url_args)
         else:
             requested_query = Report.objects.filter(pk__in=ids)
 
@@ -576,6 +583,9 @@ class ActionsView(LoginRequiredMixin, FormView):
                 'show_warning': ids_count > 15,
                 'all_ids_count': all_ids_count,
                 'bulk_actions_form': bulk_actions_form,
+                'print_reports': requested_query.order_by('id'),
+                'print_options': PrintActions(),
+                'questions': Review.question_text,
             }
             return render(request, 'forms/complaint_view/actions/index.html', output)
 
