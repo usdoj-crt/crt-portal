@@ -16,7 +16,6 @@ from .test_data import SAMPLE_REPORT, SAMPLE_RESPONSE_TEMPLATE
 
 class ActionTests(TestCase):
     def setUp(self):
-        self.client = Client()
         self.test_pass = secrets.token_hex(32)
 
         self.user1 = User.objects.create_user('USER_1', 'user1@example.com', self.test_pass)
