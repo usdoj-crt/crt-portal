@@ -21,10 +21,6 @@ class ActionTests(TestCase):
         self.user1 = User.objects.create_user('USER_1', 'user1@example.com', self.test_pass)
         self.user2 = User.objects.create_user('USER_2', 'user2@example.com', self.test_pass)
 
-        self.report = Report.objects.create(**SAMPLE_REPORT)
-        self.report.assigned_to = self.user1
-        self.report.save()
-
     def test_valid(self):
         form = ComplaintActions(data={
             'assigned_section': 'ADM',
