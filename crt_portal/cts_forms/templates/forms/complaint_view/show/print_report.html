@@ -32,7 +32,7 @@
               <button class="usa-button print-report-button" type="submit" name="type" value="print_all" {% if print_reports.count > 100 %}disabled="disabled"{% endif %}>Print all {{ print_reports.count }} reports</button>
               {% if print_reports.count > 100 %}
                 <p>
-                  <img width="20" height="20" src="{% static "/img/alerts/warning.svg" %}" alt="warning" class="icon" />
+                  <img width="20" height="20" src="{% static 'img/alerts/warning.svg' %}" alt="warning" class="icon" />
                   The maximum number of records for this function is 100.
                 </p>
               {% endif %}
