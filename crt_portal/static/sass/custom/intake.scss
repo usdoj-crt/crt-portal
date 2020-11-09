@@ -596,6 +596,7 @@ ul.messages {
   input {
     @extend .usa-input;
     flex-basis: 60%;
+    font-weight: bold;
   }
 
   ul.aria-autocomplete__list {

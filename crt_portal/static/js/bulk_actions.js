@@ -68,6 +68,7 @@
     var primaryStatute = document.getElementById('id_primary_statute');
     primaryStatute.value = original_statute_value;
     primaryStatute.setAttribute('disabled', 'disabled');
+    // TODO
     var selectElement = document.getElementById('id_assigned_to');
     selectElement.value = '';
     selectElement.setAttribute('disabled', 'disabled');
