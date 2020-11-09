@@ -508,10 +508,11 @@ class ActionsView(LoginRequiredMixin, FormView):
         # than the ids passed in
         selected_all = request.GET.get('all', '') == 'all'
 
+        subset_query = None
+        requested_query = Report.objects.filter(pk__in=ids)
         if selected_all:
+            subset_query = requested_query
             requested_query = reconstruct_query(return_url_args)
-        else:
-            requested_query = Report.objects.filter(pk__in=ids)
 
         bulk_actions_form = BulkActionsForm(requested_query)
         all_ids_count = requested_query.count()
@@ -528,7 +529,8 @@ class ActionsView(LoginRequiredMixin, FormView):
             'show_warning': ids_count > 15,
             'all_ids_count': all_ids_count,
             'bulk_actions_form': bulk_actions_form,
-            'print_reports': requested_query.order_by('id'),
+            'print_reports_subset': subset_query,
+            'print_reports': requested_query,
             'print_options': PrintActions(),
             'questions': Review.question_text,
         }
@@ -540,10 +542,11 @@ class ActionsView(LoginRequiredMixin, FormView):
         confirm_all = request.POST.get('confirm_all', '') == 'confirm_all'
         ids = request.POST.get('ids', '').split(',')
 
+        subset_query = None
+        requested_query = Report.objects.filter(pk__in=ids)
         if confirm_all:
+            subset_query = requested_query
             requested_query = reconstruct_query(return_url_args)
-        else:
-            requested_query = Report.objects.filter(pk__in=ids)
 
         if requested_query.count() > 500:
             raise PermissionDenied
@@ -583,7 +586,8 @@ class ActionsView(LoginRequiredMixin, FormView):
                 'show_warning': ids_count > 15,
                 'all_ids_count': all_ids_count,
                 'bulk_actions_form': bulk_actions_form,
-                'print_reports': requested_query.order_by('id'),
+                'print_reports_subset': subset_query,
+                'print_reports': requested_query,
                 'print_options': PrintActions(),
                 'questions': Review.question_text,
             }
