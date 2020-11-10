@@ -11,6 +11,7 @@ testfixtures = "*"
 coverage = "*"
 locust = "*"
 faker = "*"
+factory-boy = "*"
 
 [packages]
 django = "~=2.2"
@@ -29,6 +30,7 @@ pip = "*"
 django-activity-stream = "*"
 newrelic = "*"
 babel = "*"
+recordlinkage = "*"
 
 [requires]
 python_version = "3.8.5"
