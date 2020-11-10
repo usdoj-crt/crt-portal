@@ -553,7 +553,6 @@ class BulkActionsFormTests(TestCase):
         # the activity stream (get_action) should only report fields that actually change as a result
         Report.objects.create(**SAMPLE_REPORT)
         queryset = Report.objects.all()
-        keys = ['assigned_section', 'status', 'id']
         form = BulkActionsForm(queryset, {
             'assigned_section': 'APP',
             'comment': 'this is a comment'
@@ -582,7 +581,6 @@ class BulkActionsFormTests(TestCase):
         report.save()
 
         queryset = Report.objects.all()
-        keys = ['assigned_section', 'status', 'id']
         form = BulkActionsForm(queryset, {
             'assigned_section': 'APP',
             'comment': 'this is a comment'
