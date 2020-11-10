@@ -1360,6 +1360,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
             updates['primary_statute'] = ''
             updates['assigned_to'] = ''
             updates['status'] = 'new'
+
         updates.pop('district', None)  # district is currently disabled (read-only)
         return updates
 
@@ -1400,7 +1401,15 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
             if field in ['summary', 'comment']:
                 continue
             initial = getattr(report, field, 'None')
-            yield f"{name}:", f'Updated from "{initial}" to "{updates[field]}"'
+
+            def field_changed(old, new):
+                # if both are Falsy, nothing actually changed (None ~= "")
+                if not old and not new:
+                    return False
+                return old != new
+
+            if field_changed(initial, updates[field]):
+                yield f"{name}:", f'Updated from "{initial}" to "{updates[field]}"'
 
     def update_activity_stream(self, user, report):
         """
