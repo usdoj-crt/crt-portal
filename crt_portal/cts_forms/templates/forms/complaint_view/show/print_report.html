@@ -28,24 +28,15 @@
           </div>
           <div class="modal-footer">
             <button class="usa-button print-report-button" type="submit" name="type" value="print">
-              Print
-              {% if not single_print %}
-                {% if ids_count > 100 %}
-                  100
-                {% else %}
-                  {{ ids_count }}
-                {% endif %}
-                reports
+              {% if single_print %}
+                Print
+              {% else %}
+                Print {% if ids_count > 100 %}100{% else %}{{ ids_count }}{% endif %} reports
               {% endif %}
             </button>
             {% if not single_print and selected_all %}
               <button class="usa-button print-report-button" type="submit" name="type" value="print_all">
-                Print
-                {% if print_reports.count > 100 %}
-                  first 100
-                {% else %}
-                  all {{ print_reports.count }}
-                {% endif %} reports
+                Print {% if print_reports.count > 100 %}first 100{% else %}all {{ print_reports.count }}{% endif %} reports
               </button>
               {% if print_reports.count > 100 %}
                 <p>
