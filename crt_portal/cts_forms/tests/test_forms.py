@@ -465,8 +465,8 @@ class BulkActionsTests(TestCase):
         content = str(response.content)
         id_str = ",".join([str(id) for id in ids])
         self.assertTrue(f'value="{id_str}" name="ids"' in content)
-        self.assertTrue("Print 8 reports" in content);
-        self.assertTrue("Print all 16 reports" in content);
+        self.assertTrue("Print 8 reports" in content)
+        self.assertTrue("Print all 16 reports" in content)
         self.assertEqual(content.count('bulk-print-report-extra'), 8)
         # we selected the second page; make sure the first report
         # is marked as "extra" (for print all)
@@ -554,6 +554,7 @@ class BulkActionsTests(TestCase):
             self.assertEquals(last_activity.verb, "Added comment: ")
             self.assertEquals(last_activity.description, 'a comment')
             self.assertEquals(last_activity.actor, self.user)
+
 
 class BulkActionsFormTests(TestCase):
     def test_bulk_actions_initial_empty(self):
