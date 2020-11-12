@@ -1,5 +1,6 @@
 (function(root, dom) {
-  // TODO: '#id_assigned_to'
+  var select = document.getElementById('id_assigned_to');
+  AriaAutocomplete(select, {});
 
   var comment_field = document.getElementById('id_comment');
   comment_field.oninput = function(event) {
@@ -68,12 +69,12 @@
     var primaryStatute = document.getElementById('id_primary_statute');
     primaryStatute.value = original_statute_value;
     primaryStatute.setAttribute('disabled', 'disabled');
-    // TODO
     var selectElement = document.getElementById('id_assigned_to');
     selectElement.value = '';
     selectElement.setAttribute('disabled', 'disabled');
-    var actualSelectElement = document.getElementById('id_assigned_to-select');
+    var actualSelectElement = document.getElementById('id_assigned_toaria-autocomplete-1-input');
     actualSelectElement.value = '';
+    actualSelectElement.setAttribute('disabled', 'disabled');
   };
 
   // disable "Multiple" selection for section

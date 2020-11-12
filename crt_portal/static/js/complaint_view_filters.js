@@ -280,7 +280,6 @@
     var summaryEl = formEl.querySelector('input[name="summary"]');
     var createdatestartEl = formEl.querySelector('input[name="create_date_start');
     var createdateendEl = formEl.querySelector('input[name="create_date_end');
-    // TODO
     var assigneeEl = formEl.querySelector('#id_assigned_to');
     var complaintIDEl = formEl.querySelector('input[name="public_id"');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
