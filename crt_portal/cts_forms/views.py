@@ -528,7 +528,7 @@ class ActionsView(LoginRequiredMixin, FormView):
             'show_warning': ids_count > 15,
             'all_ids_count': all_ids_count,
             'bulk_actions_form': bulk_actions_form,
-            'print_reports': requested_query.order_by('id'),
+            'print_reports': requested_query,
             'print_options': PrintActions(),
             'questions': Review.question_text,
         }
@@ -583,7 +583,7 @@ class ActionsView(LoginRequiredMixin, FormView):
                 'show_warning': ids_count > 15,
                 'all_ids_count': all_ids_count,
                 'bulk_actions_form': bulk_actions_form,
-                'print_reports': requested_query.order_by('id'),
+                'print_reports': requested_query,
                 'print_options': PrintActions(),
                 'questions': Review.question_text,
             }
