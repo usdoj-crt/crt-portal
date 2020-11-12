@@ -547,3 +547,56 @@ class BulkActionsFormTests(TestCase):
         keys = ['assigned_section', 'status', 'id']
         result = list(BulkActionsForm.get_initial_values(queryset, keys))
         self.assertEquals(result, [('assigned_section', 'ADM'), ('status', 'new')])
+
+    def test_bulk_actions_change_section(self):
+        # changing the section resets primary_status, assigned_to, and status
+        # the activity stream (get_action) should only report fields that actually change as a result
+        Report.objects.create(**SAMPLE_REPORT)
+        queryset = Report.objects.all()
+        form = BulkActionsForm(queryset, {
+            'assigned_section': 'APP',
+            'comment': 'this is a comment'
+        })
+        self.assertTrue(form.is_valid())
+
+        updates = form.get_updates()
+        self.assertEqual(updates['assigned_section'], 'APP')
+        self.assertEqual(updates['primary_statute'], '')
+        self.assertEqual(updates['assigned_to'], '')
+        self.assertEqual(updates['status'], 'new')
+
+        # the only action in the activity stream should be the section change
+        expected_actions = [
+            ('Assigned section:', 'Updated from "ADM" to "APP"')
+        ]
+        for action in form.get_actions(queryset.first()):
+            self.assertTrue(action in expected_actions)
+
+    def test_bulk_actions_change_section_resets_user(self):
+        # changing the section resets primary_status, assigned_to, and status
+        # the activity stream (get_action) should only report fields that actually change as a result
+        user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', secrets.token_hex(32))
+        report = Report.objects.create(**SAMPLE_REPORT)
+        report.assigned_to = user
+        report.save()
+
+        queryset = Report.objects.all()
+        form = BulkActionsForm(queryset, {
+            'assigned_section': 'APP',
+            'comment': 'this is a comment'
+        })
+        self.assertTrue(form.is_valid())
+
+        updates = form.get_updates()
+        self.assertEqual(updates['assigned_section'], 'APP')
+        self.assertEqual(updates['primary_statute'], '')
+        self.assertEqual(updates['assigned_to'], '')
+        self.assertEqual(updates['status'], 'new')
+
+        # actions should include the section and assigned_to
+        expected_actions = [
+            ('Assigned to:', f'Updated from "{user.username}" to ""'),
+            ('Assigned section:', 'Updated from "ADM" to "APP"')
+        ]
+        for action in form.get_actions(queryset.first()):
+            self.assertTrue(action in expected_actions)
