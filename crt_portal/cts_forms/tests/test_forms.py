@@ -534,6 +534,12 @@ class BulkActionsTests(TestCase):
             self.assertEquals(last_activity.description, 'a comment')
             self.assertEquals(last_activity.actor, self.user)
 
+    def test_post_second_page(self):
+        raise hell
+
+    def test_per_page(self):
+        raise hell
+
 
 class BulkActionsFormTests(TestCase):
     def test_bulk_actions_initial_empty(self):
