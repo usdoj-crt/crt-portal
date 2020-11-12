@@ -94,10 +94,7 @@
 <script src="{% static 'js/routing_guide.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/aria-autocomplete-1.2.3.min.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
- // TODO '#id_assigned_to'
  var select = document.getElementById('id_assigned_to');
- console.log(select);
  AriaAutocomplete(select, {});
- /* new Autocomplete("#id_assigned_to", {}); */
 </script>
 {%endblock%}
