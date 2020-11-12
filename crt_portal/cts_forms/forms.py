@@ -1392,6 +1392,13 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         Parse incoming changed data for activity stream entry (tweaked for
         bulk update)
         """
+
+        def field_changed(old, new):
+            # if both are Falsy, nothing actually changed (None ~= "")
+            if not old and not new:
+                return False
+            return old != new
+
         updates = self.get_updates()
         for field in updates:
             name = ' '.join(field.split('_')).capitalize()
@@ -1401,12 +1408,6 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
             if field in ['summary', 'comment']:
                 continue
             initial = getattr(report, field, 'None')
-
-            def field_changed(old, new):
-                # if both are Falsy, nothing actually changed (None ~= "")
-                if not old and not new:
-                    return False
-                return old != new
 
             if field_changed(initial, updates[field]):
                 yield f"{name}:", f'Updated from "{initial}" to "{updates[field]}"'
