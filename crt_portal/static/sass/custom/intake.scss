@@ -587,6 +587,10 @@ ul.messages {
   padding: 1rem;
 }
 
+#id_assigned_toaria-autocomplete-1-wrapper {
+  flex-basis: 60%;
+}
+
 .aria-autocomplete__wrapper {
   p.aria-autocomplete__sr-announcements {
     // do not show number of completions
@@ -595,7 +599,6 @@ ul.messages {
 
   input {
     @extend .usa-input;
-    flex-basis: 60%;
     font-weight: bold;
   }
 
