@@ -1,8 +1,7 @@
-import os
-
 from django import template
 
 register = template.Library()
+
 
 @register.filter(name='multiselect_summary')
 def multiselect_summary(selections, default_text):
