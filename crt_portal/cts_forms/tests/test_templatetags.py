@@ -4,7 +4,7 @@ from django.test import TestCase
 
 class MultiselectSummaryTest(TestCase):
     TEMPLATE = Template('{% load multiselect_summary %} {{ selected|multiselect_summary:"default text" }} ')
-  
+
     def test_none_selected(self):
         rendered = self.TEMPLATE.render(Context({"selected": ""}))
         self.assertIn("default text", rendered)
