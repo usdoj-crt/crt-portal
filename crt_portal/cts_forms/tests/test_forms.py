@@ -61,17 +61,22 @@ class ActionTests(TestCase):
                 'status': 'new',
                 'primary_statute': '144',
                 'district': '1',
+                'assigned_to': None,
             },
             data={
                 'assigned_section': 'ADM',
                 'status': 'new',
                 'primary_statute': '144',
                 'district': '1',
-                'assigned_to': None,
+                'assigned_to': self.user2.pk,
             }
         )
 
         self.assertTrue(form.is_valid())
+
+        # Running the code to check error. No output to test.
+        for action in form.get_actions():
+            pass
 
 
 class CommentActionTests(TestCase):
