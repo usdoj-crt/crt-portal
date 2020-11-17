@@ -1101,9 +1101,10 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             # fix bug where id was showing up instead of user name
             if field == 'assigned_to':
                 if original is None:
-                    yield f"{name}:", f'To "{changed}"'
-            original = User.objects.get(id=original)
-            yield f"{name}:", f'Updated from "{original}" to "{changed}"'
+                    yield f"{name}:", f'"{changed}"'
+                else:
+                    original = User.objects.get(id=original)
+                    yield f"{name}:", f'Updated from "{original}" to "{changed}"'
         if self.report_closed:
             yield "Report closed and Assignee removed", f"Date closed updated to {self.instance.closed_date.strftime('%m/%d/%y %H:%M:%M %p')}"
 

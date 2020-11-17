@@ -54,6 +54,25 @@ class ActionTests(TestCase):
             self.assertEqual(action[0], 'Assigned to:')
             self.assertEqual(action[1], f'Updated from "{self.user1.username}" to "{self.user2.username}"')
 
+    def test_user_new_assignment(self):
+        form = ComplaintActions(
+            initial={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+            },
+            data={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': None,
+            }
+        )
+
+        self.assertTrue(form.is_valid())
+
 
 class CommentActionTests(TestCase):
     def setUp(self):
