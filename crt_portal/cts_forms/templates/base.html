@@ -1,6 +1,7 @@
 {% load static %}
 {% load i18n %}
 {% load get_env %}
+{% load compress %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html lang="{{LANGUAGE_CODE}}">
@@ -133,11 +134,13 @@
       {% endblock footer_extra %}
     </footer>
     {% endblock %}
+    {% compress js %}
     <script src="{% static 'js/url_params_polyfill.js' %}"></script>
     <script src="{% static 'js/uswds.min.js' %}"></script>
     <script src="{% static 'js/focus_alert.js' %}"></script>
     <script src="{% static 'js/clear_error_class.js' %}"></script>
     {% block page_js %}{% endblock %}
+    {% endcompress %}
 
     {% block analytics %}
     {% environment as env %}
