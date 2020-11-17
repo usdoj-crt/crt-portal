@@ -76,7 +76,8 @@ class ActionTests(TestCase):
 
         # Running the code to check error. No output to test.
         for action in form.get_actions():
-            pass
+            self.assertEqual(action[0], 'Assigned to:')
+            self.assertEqual(action[1], f'"{self.user2.username}"')
 
 
 class CommentActionTests(TestCase):
