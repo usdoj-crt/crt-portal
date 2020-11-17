@@ -370,7 +370,7 @@ class PrintActionTests(TestCase):
         # verify that next QP is preserved and activity log shows up
         self.assertTrue('?per_page=15' in content)
         self.assertTrue('Printed report' in content)
-        self.assertTrue(escape('Selected correspondent, activity') in content)
+        self.assertTrue(escape('Printed correspondent, activity') in content)
 
     def test_response_action_print_with_ids(self):
         options = ['issue', 'summary']
@@ -387,7 +387,7 @@ class PrintActionTests(TestCase):
         )
         self.assertEquals(response.status_code, 200)
         content = str(response.content)
-        self.assertTrue(escape('Selected issue, summary for 1 reports') in content)
+        self.assertTrue(escape('Printed issue, summary for 1 reports') in content)
 
     def test_response_action_print_all(self):
         options = ['activity', 'issue']
@@ -396,7 +396,7 @@ class PrintActionTests(TestCase):
                 'crt_forms:crt-forms-print',
             ),
             {
-                'print_all': True,
+                'type': 'print_all',
                 'options': options,
                 'modal_next': '?per_page=15',
             },
@@ -404,7 +404,7 @@ class PrintActionTests(TestCase):
         )
         self.assertEquals(response.status_code, 200)
         content = str(response.content)
-        self.assertTrue(escape('Selected activity, issue for 2 reports') in content)
+        self.assertTrue(escape('Printed activity, issue for 2 reports') in content)
 
 
 class BulkActionsTests(TestCase):

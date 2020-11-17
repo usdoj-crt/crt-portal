@@ -395,7 +395,7 @@ class PrintView(LoginRequiredMixin, View):
         form = PrintActions(request.POST)
 
         return_url_args = request.POST.get('modal_next', '')
-        print_all = request.POST.get('print_all', None)
+        print_all = request.POST.get('type', None) == 'print_all'
         if print_all:
             reports = reconstruct_query(return_url_args)
         else:
@@ -405,10 +405,11 @@ class PrintView(LoginRequiredMixin, View):
         if form.is_valid():
             options = form.cleaned_data['options']
             all_options = ', '.join(options)
-            description = f"Selected {all_options}"
+            description = f"Printed {all_options}"
             for report in reports:
                 add_activity(request.user, "Printed report", description, report)
-            description += f" for {reports.count()} reports"
+            count = min(reports.count(), 100)
+            description += f" for {count} reports"
             messages.add_message(request, messages.SUCCESS, description)
 
         if id:
