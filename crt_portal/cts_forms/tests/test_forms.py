@@ -453,6 +453,27 @@ class BulkActionsTests(TestCase):
         self.assertTrue("button--warning" in content)
         self.assertTrue(f"Apply changes to {len(ids)} records" in content)
 
+    def test_get_with_all_second_page(self):
+        ids = [report.id for report in self.reports[8:]]
+        params = {
+            'next': '?per_page=8',
+            'id': ids,
+            'all': 'all',
+        }
+        response = self.client.get(reverse('crt_forms:crt-forms-actions'), params)
+        self.assertEquals(response.status_code, 200)
+        content = str(response.content)
+        id_str = ",".join([str(id) for id in ids])
+        self.assertTrue(f'value="{id_str}" name="ids"' in content)
+        self.assertTrue("Print 8 reports" in content)
+        self.assertTrue("Print all 16 reports" in content)
+        self.assertEqual(content.count('bulk-print-report-extra'), 8)
+        # we selected the second page; make sure the first report
+        # is marked as "extra" (for print all)
+        first_all = content.index('<div class="bulk-print-report bulk-print-report-extra">')
+        first_id = content.index('<div class="bulk-print-report">')
+        self.assertTrue(first_all > first_id)
+
     def post(self, ids, all_ids=False, confirm=False, **extra):
         params = {
             'next': '?per_page=15',
