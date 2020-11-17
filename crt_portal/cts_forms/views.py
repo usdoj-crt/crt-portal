@@ -380,7 +380,12 @@ class ResponseView(LoginRequiredMixin, View):
         if form.is_valid() and form.has_changed():
             template_name = form.cleaned_data['templates'].title
             button_type = request.POST['type']
-            action = "Copied" if button_type == "copy" else "Printed"
+            actions = {
+                'send': 'Emailed',
+                'copy': 'Copied',
+                'print': 'Printed'
+            }
+            action = actions[button_type]
             description = f"{action} '{template_name}' template"
             add_activity(request.user, "Contacted complainant:", description, report)
             messages.add_message(request, messages.SUCCESS, description)
