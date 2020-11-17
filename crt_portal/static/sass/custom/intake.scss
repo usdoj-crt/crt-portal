@@ -523,8 +523,7 @@ form#cts-forms-profile {
       }
     }
 
-    select,
-    label[for='id_assigned_to-select'] + div {
+    select {
       flex-basis: 60%; // label flex-basis is 40% for total of 100%
     }
   }
@@ -588,44 +587,49 @@ ul.messages {
   padding: 1rem;
 }
 
-// Autocomplete styles; overrides native library styles
-.autocomplete__wrapper {
-  .autocomplete__input,
-  .autocomplete__hint {
-    @include u-font('body', 5);
-    @include u-border(1px, 'solid', $theme-color-primary-darker, '!important');
+#id_assigned_toaria-autocomplete-1-wrapper {
+  flex-basis: 60%;
+}
+
+.aria-autocomplete__wrapper {
+  p.aria-autocomplete__sr-announcements {
+    // do not show number of completions
+    display: none;
+  }
+
+  input {
+    @extend .usa-input;
     font-weight: bold;
-    border-radius: 3px;
-    margin-top: 0.5rem;
-    padding: 0.5rem;
-
-    &.autocomplete__input--focused {
-      box-shadow: inset 0 0 0 1px;
-      outline: 0.125rem solid color($theme-focus-color);
-      outline-offset: 0;
-    }
   }
 
-  .autocomplete__option {
-    @include u-font('body', 5);
-    margin-top: 0 !important;
-    padding: 10px;
-
-    &.autocomplete__option--focused,
-    &:hover {
-      @include u-bg($theme-color-primary-lightest);
-      @include u-text($theme-color-primary-darker);
-    }
-  }
-
-  .autocomplete__menu {
+  ul.aria-autocomplete__list {
     @include u-border(1px, 'solid', $theme-color-primary-darker, '!important');
     position: absolute;
-    width: 100%;
+    width: 60%;
     border-radius: 3px;
     font-weight: bold;
-    margin-top: 5px;
+    margin-top: 0;
     box-shadow: 0 15px 10px hsla(0, 0%, 39.2%, 0.2);
+
+    li {
+      @include u-font('body', 5);
+      @include u-bg('white');
+      margin-top: 0 !important;
+      padding: 10px;
+      list-style: none;
+
+      &:nth-child(odd) {
+        @include u-bg($theme-color-base-lightest);
+      }
+      &:not(:last-child) {
+        border-bottom: 1px solid color($theme-color-primary-darker);
+      }
+
+      &:hover {
+        @include u-bg($theme-color-primary-lightest);
+        @include u-text($theme-color-primary-darker);
+      }
+    }
   }
 }
 
