@@ -15,6 +15,12 @@ from .test_data import SAMPLE_REPORT, SAMPLE_RESPONSE_TEMPLATE
 
 
 class ActionTests(TestCase):
+    def setUp(self):
+        self.test_pass = secrets.token_hex(32)
+
+        self.user1 = User.objects.create_user('USER_1', 'user1@example.com', self.test_pass)
+        self.user2 = User.objects.create_user('USER_2', 'user2@example.com', self.test_pass)
+
     def test_valid(self):
         form = ComplaintActions(data={
             'assigned_section': 'ADM',
@@ -23,6 +29,55 @@ class ActionTests(TestCase):
             'district': '1',
         })
         self.assertTrue(form.is_valid())
+
+    def test_user_assignment(self):
+        form = ComplaintActions(
+            initial={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': self.user1.pk
+            },
+            data={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': self.user2.pk
+            }
+        )
+
+        self.assertTrue(form.is_valid())
+
+        for action in form.get_actions():
+            self.assertEqual(action[0], 'Assigned to:')
+            self.assertEqual(action[1], f'Updated from "{self.user1.username}" to "{self.user2.username}"')
+
+    def test_user_new_assignment(self):
+        form = ComplaintActions(
+            initial={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': None,
+            },
+            data={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': self.user2.pk,
+            }
+        )
+
+        self.assertTrue(form.is_valid())
+
+        # Running the code to check error.
+        for action in form.get_actions():
+            self.assertEqual(action[0], 'Assigned to:')
+            self.assertEqual(action[1], f'"{self.user2.username}"')
 
 
 class CommentActionTests(TestCase):
