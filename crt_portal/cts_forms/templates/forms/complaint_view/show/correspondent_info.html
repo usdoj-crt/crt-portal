@@ -46,7 +46,9 @@ class="usa-button usa-button--unstyled button--edit margin-left-auto" type="butt
     </table>
   </div>
 
-  <div class="edit-contact">
-    {% include 'forms/complaint_view/show/contact_edit.html' %}
-  </div>
+  {% if not disable_edit %}
+    <div class="edit-contact">
+      {% include 'forms/complaint_view/show/contact_edit.html' %}
+    </div>
+  {% endif %}
 {% endblock %}

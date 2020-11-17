@@ -317,6 +317,9 @@ class Report(models.Model):
     def closed(self):
         return self.status == CLOSED_STATUS
 
+    def activity(self):
+        return self.target_actions.exclude(verb__contains='comment:')
+
     def closeout_report(self):
         """
         Remove assignee and record date of call

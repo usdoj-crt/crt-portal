@@ -479,6 +479,16 @@ form#cts-forms-profile {
   margin-left: -4rem;
 }
 
+.complaint-actions {
+  .bulk-print-link {
+    text-decoration: none;
+  }
+  .bulk-print-disabled {
+    @include u-text($theme-color-base-dark);
+    cursor: not-allowed;
+  }
+}
+
 #complaint-view-actions, #bulk_actions_section {
   .crt-dropdown {
     &.crt-dropdown__shrink-to-contents {

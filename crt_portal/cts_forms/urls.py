@@ -16,6 +16,7 @@ urlpatterns = [
     path('view/update-profile', ProfileView.as_view(), name='cts-forms-profile'),
     path('new/', ProFormView.as_view([ProForm]), name='crt-pro-form'),
     path('actions/', ActionsView.as_view(), name='crt-forms-actions'),
+    path('actions/print', PrintView.as_view(), name='crt-forms-print'),
     path('comment/report/<int:report_id>/', SaveCommentView.as_view(), name='save-report-comment'),
     path('trends/', TrendView.as_view(), name='trends'),
 ]

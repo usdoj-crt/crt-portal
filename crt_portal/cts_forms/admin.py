@@ -2,14 +2,17 @@ import csv
 import logging
 
 from django.contrib import admin
+from django.core.paginator import Paginator
 from django.http import StreamingHttpResponse
+from django.db.models import Prefetch
 
-from .models import (CommentAndSummary, HateCrimesandTrafficking,
-                     ProtectedClass, Report, ResponseTemplate, Profile)
+from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
+                     ProtectedClass, Report, ResponseTemplate)
 from .signals import get_client_ip
 
-
 logger = logging.getLogger(__name__)
+
+REPORT_FIELDS = [field.name for field in Report._meta.fields]
 
 
 class Echo:
@@ -29,27 +32,59 @@ def format_export_message(request, records):
     return f'ADMIN ACTION by: {username} {userid} @ {ip}. Exported {records} reports as csv.'
 
 
+def iter_queryset(queryset, headers):
+    """
+    The iterator provided by queryset.iterator isn't adequate here
+
+    We add headers to our output
+
+    We also need to traverse M2M relationships for at least 1 field
+    and want tos use prefetch_related to avoid a query for each instance
+    queryset.iterator ignores `prefetch_related` so instead we paginate
+    through the queryset to reduce the number of total queries required
+    """
+    yield headers
+    paginator = Paginator(queryset, 2000)
+    for i in range(paginator.num_pages):
+        yield from paginator.get_page(i + 1)
+
+
+def _serialize_report_export(data):
+    """
+    Customize the rendering of protected_class and summary instances
+    while rendering headers as-is
+    """
+    if isinstance(data, Report):
+        row = [getattr(data, field) for field in REPORT_FIELDS]
+        row.append('; '.join([str(pc) for pc in data.protected_class.all()]))
+        if data.internal_summary:
+            # incoming summaries are sorted by descending modified_date the first is the most recent
+            row.append(data.internal_summary[0].note)
+        return row
+    return data
+
+
 def export_as_csv(modeladmin, request, queryset):
     """
-    Stream all non-related fields
-    and the protected_class M2M of selected reports as CSV
+    Stream all non-related fields,
+    protected_class M2M,
+    and latest summary from CommentAndSummary M2M of selected reports as a CSV
     Log all use
     """
-    pseudo_buffer = Echo()
-    writer = csv.writer(pseudo_buffer, quoting=csv.QUOTE_ALL)
-    non_m2m_fields = [field.name for field in Report._meta.fields]
-    headers = non_m2m_fields + ['protected_class']
-    rows = [headers]
-    for report in queryset:
-        row = [getattr(report, field) for field in non_m2m_fields]
-        # Add protected_class M2M field
-        row.append('; '.join([str(pc) for pc in report.protected_class.all()]))
-        rows.append(row)
+    writer = csv.writer(Echo(), quoting=csv.QUOTE_ALL)
+    headers = REPORT_FIELDS + ['protected_class', 'internal_summary']
 
-    response = StreamingHttpResponse((writer.writerow(row) for row in rows),
+    summaries = CommentAndSummary.objects.filter(is_summary=True).order_by('-modified_date')
+    queryset = queryset.prefetch_related('protected_class',
+                                         Prefetch('internal_comments', queryset=summaries, to_attr='internal_summary')
+                                         ).order_by('id')
+    iterator = iter_queryset(queryset, headers)
+
+    response = StreamingHttpResponse((writer.writerow(_serialize_report_export(report)) for report in iterator),
                                      content_type="text/csv")
     response['Content-Disposition'] = 'attachment; filename="report_export.csv"'
-    logger.info(format_export_message(request, len(rows) - 1))
+
+    logger.info(format_export_message(request, queryset.count()))
     return response
 export_as_csv.allowed_permissions = ('view',)  # noqa
 
