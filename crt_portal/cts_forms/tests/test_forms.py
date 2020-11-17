@@ -74,7 +74,7 @@ class ActionTests(TestCase):
 
         self.assertTrue(form.is_valid())
 
-        # Running the code to check error. No output to test.
+        # Running the code to check error.
         for action in form.get_actions():
             self.assertEqual(action[0], 'Assigned to:')
             self.assertEqual(action[1], f'"{self.user2.username}"')
