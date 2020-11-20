@@ -250,6 +250,7 @@ if environment not in ['LOCAL', 'UNDEFINED']:
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_DEFAULT_ACL = 'public-read'
+    AWS_IS_GZIPPED = True
 
 if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     MIDDLEWARE.append('csp.middleware.CSPMiddleware')
