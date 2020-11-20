@@ -24,6 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # We are running the testing environment with UNDEFINED.
 # For cloud.gov the ENV must be set in the manifests
 environment = os.environ.get('ENV', 'UNDEFINED')
+USE_LOCALSTACK = os.environ.get('USE_LOCALSTACK', None)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
@@ -370,6 +371,9 @@ LOGGING = {
         },
     },
 }
+
+if USE_LOCALSTACK:
+    from .localstack_settings import *  # noqa: F401,F403
 
 if environment == 'LOCAL':
     from .local_settings import *  # noqa: F401,F403

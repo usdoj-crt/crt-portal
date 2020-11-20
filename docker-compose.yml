@@ -10,6 +10,7 @@ services:
       - ENV=LOCAL
       - SECRET_KEY=${SECRET_KEY}
       - FORM_AUTOCOMPLETE_OFF=False
+      # - USE_LOCALSTACK=True
     build: .
     command: /code/run.sh
     volumes:
@@ -18,6 +19,17 @@ services:
       - 8000:8000
     depends_on:
       - db
-
+  localstack:
+    container_name: "localstack_main"
+    image: localstack/localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=s3
+      # - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - "localstack-vol:/tmp/localstack"
 volumes:
   postgres_data:
+  localstack-vol:
