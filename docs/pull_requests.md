@@ -9,20 +9,23 @@ Push your local branch to the repo
 
 Once you feel like you are ready for review
 - Add any instructions or dependencies if needed to run the change
+- Proactively call out any new functionality that may not be consistent across environments
+- In cases where review and/or testing is not straightforward, provide additional detail or instructions to reviewers.
 - Remove [WIP] from the title
 - Assign a reviewer in GitHub
 
 ## For PR review
 Once you are assigned as a reviewer
 - Look over the files and make sure the code makes sense to you
-- Make sure the code has documentation you that will be helpful for people maintaining the app in the future who may have less context
+- Make sure the code has documentation that will be helpful for people maintaining the app in the future who may have less context
 - Make sure any changes in how the app runs are reflected in the README.md file
 - Look for anything that might make the app harder to maintain, if there is a chance to simplify the code make a note of it to discuss with the author
+- Look for any changes that depend on environment. Make sure that the behavior is well understood and explicitly called out by the author in the PR description
 - Run the code locally
 - If it is is for deployment, deploy the code
 - If it is for logic, test the logic locally (and make sure there is an appropriate test)
-- If it is a front end task, make sure renders as expected
-- Make sure tests pass
+- If it is a front end task, make sure it renders as expected
+- Make sure all tests pass
 - Think critically about any security concerns the PR may introduce. (Have those discussions off of GitHub.)
 - We are not looking for perfection, we are looking for a solid base to iterate on. Things need to be secure and usable, but we can always make things better later.
 
