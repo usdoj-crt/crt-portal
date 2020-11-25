@@ -20,7 +20,7 @@ Once you are assigned as a reviewer
 - Make sure the code has documentation that will be helpful for people maintaining the app in the future who may have less context
 - Make sure any changes in how the app runs are reflected in the README.md file
 - Look for anything that might make the app harder to maintain, if there is a chance to simplify the code make a note of it to discuss with the author
-- Look for any changes that are depend on environment. Make sure that the behavior is well understood and explicitly called out by the author in the PR description
+- Look for any changes that depend on environment. Make sure that the behavior is well understood and explicitly called out by the author in the PR description
 - Run the code locally
 - If it is is for deployment, deploy the code
 - If it is for logic, test the logic locally (and make sure there is an appropriate test)
