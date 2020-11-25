@@ -60,6 +60,8 @@ def _serialize_report_export(data):
         if data.internal_summary:
             # incoming summaries are sorted by descending modified_date the first is the most recent
             row.append(data.internal_summary[0].note)
+        else:
+            row.append('')
         return row
     return data
 
