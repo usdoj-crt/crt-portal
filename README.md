@@ -161,7 +161,7 @@ Run unit test on **MAC**:
 
 You can also run project tests using docker with:
 
-    docker-compose run web python /code/crt_portal/manage.py test cts_forms
+    docker-compose run web python /code/crt_portal/manage.py test cts_forms --parallel
 
 This will run all of the tests located in the [tests](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/cts_forms/tests) folder. where the business logic tests live.
 
@@ -169,18 +169,18 @@ The test suite includes [test_all_section_assignments.py](https://github.com/usd
 
 You can also run a subset of tests by specifying a path to a specific test class or module. For example:
 
-    docker-compose run web python /code/crt_portal/manage.py test cts_forms.tests.test_forms.ComplaintActionTests
+    docker-compose run web python /code/crt_portal/manage.py test cts_forms.tests.test_forms.ComplaintActionTests --parallel
 
 We use the unit tests for calculating code coverage. Tests will fail if code coverage is below 89%. You can run code coverage locally with:
 
-    docker-compose run web coverage run --source='.' /code/crt_portal/manage.py test cts_forms
+    docker-compose run web coverage run --source='.' /code/crt_portal/manage.py test cts_forms --parallel
     docker-compose run web coverage report --fail-under=89 -m
 
 The -m will give you the line numbers in code that that are not tested by any unit tests. You can use that information to add test coverage.
 
 Please keep in mind that the quality of tests is more important than the quantity. Be on the look out for key functionality and logic that can be documented and confirmed with good tests.
 
-To speed up your tests, after you have migrated your database at least once, you can run:
+🏃‍♀️🏃‍♂️ To speed up your tests, after you have migrated your database at least once, you can run:
 
     docker-compose run web python /code/crt_portal/manage.py test --settings=crt_portal.test_settings cts_forms
 

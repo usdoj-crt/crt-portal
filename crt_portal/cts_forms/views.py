@@ -380,7 +380,12 @@ class ResponseView(LoginRequiredMixin, View):
         if form.is_valid() and form.has_changed():
             template_name = form.cleaned_data['templates'].title
             button_type = request.POST['type']
-            action = "Copied" if button_type == "copy" else "Printed"
+            actions = {
+                'send': 'Emailed',
+                'copy': 'Copied',
+                'print': 'Printed'
+            }
+            action = actions[button_type]
             description = f"{action} '{template_name}' template"
             add_activity(request.user, "Contacted complainant:", description, report)
             messages.add_message(request, messages.SUCCESS, description)
@@ -395,7 +400,7 @@ class PrintView(LoginRequiredMixin, View):
         form = PrintActions(request.POST)
 
         return_url_args = request.POST.get('modal_next', '')
-        print_all = request.POST.get('print_all', None)
+        print_all = request.POST.get('type', None) == 'print_all'
         if print_all:
             reports = reconstruct_query(return_url_args)
         else:
@@ -405,10 +410,11 @@ class PrintView(LoginRequiredMixin, View):
         if form.is_valid():
             options = form.cleaned_data['options']
             all_options = ', '.join(options)
-            description = f"Selected {all_options}"
+            description = f"Printed {all_options}"
             for report in reports:
                 add_activity(request.user, "Printed report", description, report)
-            description += f" for {reports.count()} reports"
+            count = min(reports.count(), 100)
+            description += f" for {count} reports"
             messages.add_message(request, messages.SUCCESS, description)
 
         if id:
@@ -523,12 +529,13 @@ class ActionsView(LoginRequiredMixin, FormView):
         output = {
             'return_url_args': return_url_args,
             'selected_all': 'all' if selected_all else '',
-            'ids': ','.join([id for id in ids]),
+            'ids': ','.join(ids),
             'ids_count': ids_count,
             'show_warning': ids_count > 15,
             'all_ids_count': all_ids_count,
             'bulk_actions_form': bulk_actions_form,
-            'print_reports': requested_query.order_by('id'),
+            'print_ids': list(map(int, ids)),
+            'print_reports': requested_query,
             'print_options': PrintActions(),
             'questions': Review.question_text,
         }
@@ -578,12 +585,13 @@ class ActionsView(LoginRequiredMixin, FormView):
             output = {
                 'return_url_args': return_url_args,
                 'selected_all': 'all' if selected_all else '',
-                'ids': ','.join([id for id in ids]),
+                'ids': ','.join(ids),
                 'ids_count': ids_count,
                 'show_warning': ids_count > 15,
                 'all_ids_count': all_ids_count,
                 'bulk_actions_form': bulk_actions_form,
-                'print_reports': requested_query.order_by('id'),
+                'print_ids': list(map(int, ids)),
+                'print_reports': requested_query,
                 'print_options': PrintActions(),
                 'questions': Review.question_text,
             }

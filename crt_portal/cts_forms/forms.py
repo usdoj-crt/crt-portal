@@ -1183,7 +1183,15 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             # rename primary statute if applicable
             if field == 'primary_statute':
                 name = 'Primary classification'
-            yield f"{name}:", f'Updated from "{self.initial[field]}" to "{self.cleaned_data[field]}"'
+            original = self.initial[field]
+            changed = self.cleaned_data[field]
+            # fix bug where id was showing up instead of user name
+            if field == 'assigned_to':
+                if original is None:
+                    yield f"{name}:", f'"{changed}"'
+                else:
+                    original = User.objects.get(id=original)
+                    yield f"{name}:", f'Updated from "{original}" to "{changed}"'
         if self.report_closed:
             yield "Report closed and Assignee removed", f"Date closed updated to {self.instance.closed_date.strftime('%m/%d/%y %H:%M:%M %p')}"
 
@@ -1360,6 +1368,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
             updates['primary_statute'] = ''
             updates['assigned_to'] = ''
             updates['status'] = 'new'
+
         updates.pop('district', None)  # district is currently disabled (read-only)
         return updates
 
@@ -1391,6 +1400,13 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         Parse incoming changed data for activity stream entry (tweaked for
         bulk update)
         """
+
+        def field_changed(old, new):
+            # if both are Falsy, nothing actually changed (None ~= "")
+            if not old and not new:
+                return False
+            return old != new
+
         updates = self.get_updates()
         for field in updates:
             name = ' '.join(field.split('_')).capitalize()
@@ -1400,7 +1416,9 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
             if field in ['summary', 'comment']:
                 continue
             initial = getattr(report, field, 'None')
-            yield f"{name}:", f'Updated from "{initial}" to "{updates[field]}"'
+
+            if field_changed(initial, updates[field]):
+                yield f"{name}:", f'Updated from "{initial}" to "{updates[field]}"'
 
     def update_activity_stream(self, user, report):
         """

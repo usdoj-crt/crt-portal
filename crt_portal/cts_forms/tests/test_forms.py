@@ -15,6 +15,12 @@ from .test_data import SAMPLE_REPORT, SAMPLE_RESPONSE_TEMPLATE
 
 
 class ActionTests(TestCase):
+    def setUp(self):
+        self.test_pass = secrets.token_hex(32)
+
+        self.user1 = User.objects.create_user('USER_1', 'user1@example.com', self.test_pass)
+        self.user2 = User.objects.create_user('USER_2', 'user2@example.com', self.test_pass)
+
     def test_valid(self):
         form = ComplaintActions(data={
             'assigned_section': 'ADM',
@@ -23,6 +29,55 @@ class ActionTests(TestCase):
             'district': '1',
         })
         self.assertTrue(form.is_valid())
+
+    def test_user_assignment(self):
+        form = ComplaintActions(
+            initial={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': self.user1.pk
+            },
+            data={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': self.user2.pk
+            }
+        )
+
+        self.assertTrue(form.is_valid())
+
+        for action in form.get_actions():
+            self.assertEqual(action[0], 'Assigned to:')
+            self.assertEqual(action[1], f'Updated from "{self.user1.username}" to "{self.user2.username}"')
+
+    def test_user_new_assignment(self):
+        form = ComplaintActions(
+            initial={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': None,
+            },
+            data={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': self.user2.pk,
+            }
+        )
+
+        self.assertTrue(form.is_valid())
+
+        # Running the code to check error.
+        for action in form.get_actions():
+            self.assertEqual(action[0], 'Assigned to:')
+            self.assertEqual(action[1], f'"{self.user2.username}"')
 
 
 class CommentActionTests(TestCase):
@@ -370,7 +425,7 @@ class PrintActionTests(TestCase):
         # verify that next QP is preserved and activity log shows up
         self.assertTrue('?per_page=15' in content)
         self.assertTrue('Printed report' in content)
-        self.assertTrue(escape('Selected correspondent, activity') in content)
+        self.assertTrue(escape('Printed correspondent, activity') in content)
 
     def test_response_action_print_with_ids(self):
         options = ['issue', 'summary']
@@ -387,7 +442,7 @@ class PrintActionTests(TestCase):
         )
         self.assertEquals(response.status_code, 200)
         content = str(response.content)
-        self.assertTrue(escape('Selected issue, summary for 1 reports') in content)
+        self.assertTrue(escape('Printed issue, summary for 1 reports') in content)
 
     def test_response_action_print_all(self):
         options = ['activity', 'issue']
@@ -396,7 +451,7 @@ class PrintActionTests(TestCase):
                 'crt_forms:crt-forms-print',
             ),
             {
-                'print_all': True,
+                'type': 'print_all',
                 'options': options,
                 'modal_next': '?per_page=15',
             },
@@ -404,7 +459,7 @@ class PrintActionTests(TestCase):
         )
         self.assertEquals(response.status_code, 200)
         content = str(response.content)
-        self.assertTrue(escape('Selected activity, issue for 2 reports') in content)
+        self.assertTrue(escape('Printed activity, issue for 2 reports') in content)
 
 
 class BulkActionsTests(TestCase):
@@ -452,6 +507,27 @@ class BulkActionsTests(TestCase):
         self.assertTrue('value="all" name="all"' in content)
         self.assertTrue("button--warning" in content)
         self.assertTrue(f"Apply changes to {len(ids)} records" in content)
+
+    def test_get_with_all_second_page(self):
+        ids = [report.id for report in self.reports[8:]]
+        params = {
+            'next': '?per_page=8',
+            'id': ids,
+            'all': 'all',
+        }
+        response = self.client.get(reverse('crt_forms:crt-forms-actions'), params)
+        self.assertEquals(response.status_code, 200)
+        content = str(response.content)
+        id_str = ",".join([str(id) for id in ids])
+        self.assertTrue(f'value="{id_str}" name="ids"' in content)
+        self.assertTrue("Print 8 reports" in content)
+        self.assertTrue("Print all 16 reports" in content)
+        self.assertEqual(content.count('bulk-print-report-extra'), 8)
+        # we selected the second page; make sure the first report
+        # is marked as "extra" (for print all)
+        first_all = content.index('<div class="bulk-print-report bulk-print-report-extra">')
+        first_id = content.index('<div class="bulk-print-report">')
+        self.assertTrue(first_all > first_id)
 
     def post(self, ids, all_ids=False, confirm=False, **extra):
         params = {
@@ -547,3 +623,56 @@ class BulkActionsFormTests(TestCase):
         keys = ['assigned_section', 'status', 'id']
         result = list(BulkActionsForm.get_initial_values(queryset, keys))
         self.assertEquals(result, [('assigned_section', 'ADM'), ('status', 'new')])
+
+    def test_bulk_actions_change_section(self):
+        # changing the section resets primary_status, assigned_to, and status
+        # the activity stream (get_action) should only report fields that actually change as a result
+        Report.objects.create(**SAMPLE_REPORT)
+        queryset = Report.objects.all()
+        form = BulkActionsForm(queryset, {
+            'assigned_section': 'APP',
+            'comment': 'this is a comment'
+        })
+        self.assertTrue(form.is_valid())
+
+        updates = form.get_updates()
+        self.assertEqual(updates['assigned_section'], 'APP')
+        self.assertEqual(updates['primary_statute'], '')
+        self.assertEqual(updates['assigned_to'], '')
+        self.assertEqual(updates['status'], 'new')
+
+        # the only action in the activity stream should be the section change
+        expected_actions = [
+            ('Assigned section:', 'Updated from "ADM" to "APP"')
+        ]
+        for action in form.get_actions(queryset.first()):
+            self.assertTrue(action in expected_actions)
+
+    def test_bulk_actions_change_section_resets_user(self):
+        # changing the section resets primary_status, assigned_to, and status
+        # the activity stream (get_action) should only report fields that actually change as a result
+        user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', secrets.token_hex(32))
+        report = Report.objects.create(**SAMPLE_REPORT)
+        report.assigned_to = user
+        report.save()
+
+        queryset = Report.objects.all()
+        form = BulkActionsForm(queryset, {
+            'assigned_section': 'APP',
+            'comment': 'this is a comment'
+        })
+        self.assertTrue(form.is_valid())
+
+        updates = form.get_updates()
+        self.assertEqual(updates['assigned_section'], 'APP')
+        self.assertEqual(updates['primary_statute'], '')
+        self.assertEqual(updates['assigned_to'], '')
+        self.assertEqual(updates['status'], 'new')
+
+        # actions should include the section and assigned_to
+        expected_actions = [
+            ('Assigned to:', f'Updated from "{user.username}" to ""'),
+            ('Assigned section:', 'Updated from "ADM" to "APP"')
+        ]
+        for action in form.get_actions(queryset.first()):
+            self.assertTrue(action in expected_actions)
