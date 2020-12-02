@@ -231,10 +231,7 @@ class Report(models.Model):
         """See the SectionAssignmentTests for expected behaviors"""
         protected_classes = [pc.value for pc in self.protected_class.all()]
 
-        if self.hate_crime == 'yes':
-            return 'CRM'
-
-        elif self.primary_complaint == 'voting':
+        if self.primary_complaint == 'voting':
             if self.__is_not_disabled(protected_classes):
                 return 'VOT'
             else:
