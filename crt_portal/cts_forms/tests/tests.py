@@ -229,24 +229,6 @@ class Complaint_Show_View_Valid(TestCase):
 
 class SectionAssignmentTests(TestCase):
     def test_CRM_routing(self):
-        # All human trafficking goes to CRM.
-        data = copy.deepcopy(SAMPLE_REPORT)
-        data['primary_complaint'] = 'voting'
-        data['hate_crime'] = 'yes'
-        test_report = Report.objects.create(**data)
-        test_report.save()
-        self.assertTrue(test_report.assign_section() == 'CRM')
-
-        # All hate crime goes to CRM overrides other exceptions
-        data = copy.deepcopy(SAMPLE_REPORT)
-        data['primary_complaint'] = 'voting'
-        data['hate_crime'] = 'yes'
-        test_report = Report.objects.create(**data)
-        disability = ProtectedClass.objects.get_or_create(value='disability')
-        test_report.protected_class.add(disability[0])
-        test_report.save()
-        self.assertTrue(test_report.assign_section() == 'CRM')
-
         data = copy.deepcopy(SAMPLE_REPORT)
         data['primary_complaint'] = 'police'
         data['inside_correctional_facility'] = 'outside'
