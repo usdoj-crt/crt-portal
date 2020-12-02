@@ -74,10 +74,35 @@ class ActionTests(TestCase):
 
         self.assertTrue(form.is_valid())
 
-        # Running the code to check error.
-        for action in form.get_actions():
-            self.assertEqual(action[0], 'Assigned to:')
-            self.assertEqual(action[1], f'"{self.user2.username}"')
+        self.assertTrue(form.is_valid())
+        actions = list(form.get_actions())
+        self.assertTrue(actions)
+        self.assertEqual(actions[0], (f'Assigned to: "{self.user2.username}"')
+        self.assertEqual(actions[1], (f'Updated from "None" to "{self.user2.username}"'))
+
+    def test_section_change(self):
+        """Changes to section are recorded in activity log"""
+        form = ComplaintActions(
+            initial={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': self.user1.pk
+            },
+            data={
+                'assigned_section': 'VOT',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': self.user1.pk
+            }
+        )
+
+        self.assertTrue(form.is_valid())
+        actions = list(form.get_actions())
+        self.assertTrue(actions)
+        self.assertEqual(actions[0], ('Assigned section:', 'Updated from "ADM" to "VOT"'))
 
 
 class CommentActionTests(TestCase):
