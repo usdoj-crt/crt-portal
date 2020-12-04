@@ -13,9 +13,7 @@ USWDS SASS GULPFILE
 
 var autoprefixer  = require('autoprefixer');
 var autoprefixerOptions = require('./node_modules/uswds-gulp/config/browsers');
-var cssnano       = require('cssnano');
 var gulp          = require('gulp');
-var mqpacker      = require('css-mqpacker');
 var path          = require('path');
 var pkg           = require('./node_modules/uswds/package.json');
 var postcss       = require('gulp-postcss');
@@ -81,10 +79,6 @@ gulp.task('build-sass', function(done) {
   var plugins = [
     // Autoprefix
     autoprefixer(autoprefixerOptions),
-    // Pack media queries
-    mqpacker({ sort: true }),
-    // Minify
-    cssnano(({ autoprefixer: { browsers: autoprefixerOptions }}))
   ];
   return gulp.src([
       `${PROJECT_SASS_SRC}/*.scss`
