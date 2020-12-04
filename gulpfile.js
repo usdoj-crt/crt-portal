@@ -23,8 +23,6 @@ var rename        = require('gulp-rename');
 var replace       = require('gulp-replace');
 var sass          = require('gulp-sass');
 var sourcemaps    = require('gulp-sourcemaps');
-var fingerprint   = require('gulp-fingerprint');
-var rev           = require('gulp-rev');
 var uswds         = require('./node_modules/uswds-gulp/config/uswds');
 
 /*
@@ -52,9 +50,6 @@ const JS_DEST = './crt_portal/static/js';
 
 // Compiled CSS destination
 const CSS_DEST = './crt_portal/static/css/compiled';
-
-// Manifest destination (for fingerprinting)
-const MANIFEST_DEST = CSS_DEST + '/rev-manifest.json';
 
 /*
 ----------------------------------------
@@ -108,8 +103,6 @@ gulp.task('build-sass', function(done) {
     ))
     .pipe(postcss(plugins))
     .pipe(sourcemaps.write('.'))
-    .pipe(rev(MANIFEST_DEST))
-    .pipe(fingerprint(MANIFEST_DEST, {}))
     .pipe(gulp.dest(`${CSS_DEST}`));
 });
 
