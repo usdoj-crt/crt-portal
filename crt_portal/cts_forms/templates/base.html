@@ -60,7 +60,10 @@
     {% endblock %}
 
     <link rel="icon" href="{% static "img/favicon.png" %}">
+
+    {% compress css %}
     <link rel="stylesheet" href="{% static "css/compiled/styles.css" %}">
+    {% endcompress %}
 
     {% block head %}{% endblock %}
   </head>
