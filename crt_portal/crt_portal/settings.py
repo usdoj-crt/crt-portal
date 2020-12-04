@@ -353,8 +353,6 @@ COMPRESS_PRECOMPILERS = (
     ('css', 'compressor_toolkit.precompilers.SCSSCompiler'),
 )
 
-COMPRESS_ENABLED = True
-
 # adding better messaging
 CSRF_FAILURE_VIEW = 'cts_forms.views.csrf_failure'
 
