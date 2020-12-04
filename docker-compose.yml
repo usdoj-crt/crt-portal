@@ -18,6 +18,12 @@ services:
       - 8000:8000
     depends_on:
       - db
+  playwright:
+    build:
+      context: .
+      dockerfile: docker/playwright/Dockerfile
+    volumes:
+      - .:/code
 
 volumes:
   postgres_data:
