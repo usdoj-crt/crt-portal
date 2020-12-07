@@ -249,6 +249,13 @@ Run OWASP ZAP security scans with docker using the command line. Here is an exam
 
 That will produce a report locally that you can view in your browser. It will give you a list of things that you should check. Sometimes there are things at the low or informational level that are false positives or are not worth the trade-offs to implement. The report will take a minute or two to generate.
 
+### End-to-End tests
+
+We're using [Playwright](https://github.com/microsoft/playwright-python) for automated end-to-end testing. Currently this test suite is run locally by developers with the following command.
+
+    pipenv run python crt_portal/cts_forms/tests/integration/report_submission.py
+
+As we build out our end-to-end test suite it will be further automated and integrated into our CI/CD pipeline.
 ## Browser targeting
 
 For the general public facing pages, we regularly test against Microsoft Edge, Internet Explorer 11, and Google Chrome, and occasionally test against Safari and Firefox.

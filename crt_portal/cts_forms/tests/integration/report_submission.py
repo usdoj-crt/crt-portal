@@ -4,8 +4,12 @@ from playwright import sync_playwright
 TARGET = "http://localhost:8000"
 
 
-def run(playwright):
-    browser = playwright.chromium.launch(headless=True)
+def run(browser):
+    """
+    Complete entire Report submission workflow
+    filling all required fields with valid input
+    and not editing on review step
+    """
     context = browser.newContext()
 
     # Open new page
@@ -20,8 +24,6 @@ def run(playwright):
     page.click("text=\"Submit a report\"")
     assert page.url == f'{live_server_url}/report/'
     assert page.title() == "Step 1: Contact - Contact the Civil Rights Division | Department of Justice"
-
-    # assert page.title == "Step 1: Contact - Contact the Civil Rights Division | Department of Justice"
 
     # Click input[name="0-contact_first_name"]
     page.click("input[name=\"0-contact_first_name\"]")
@@ -158,5 +160,8 @@ def run(playwright):
     assert page.title() == "Contact the Civil Rights Division | Department of Justice"
 
 
-with sync_playwright() as playwright:
-    run(playwright)
+with sync_playwright() as p:
+    for browser_type in [p.chromium]:
+        browser = browser_type.launch()
+        run(browser)
+        browser.close()
