@@ -1,10 +1,11 @@
 
 import pytest
 
+
 @pytest.mark.only_browser("chromium")
 def test_report_complete_and_valid_submission(page):
     page.goto("/report")
-    assert page.title() == "Step 1: Contact - Contact the Civil Rights Division | Department of Justice"
+    assert page.title() == "Step 1: Contact - Contact the Civil Rights Division | Department of Justice"  # nosec
 
     # Click input[name="0-contact_first_name"]
     page.click("input[name=\"0-contact_first_name\"]")
@@ -60,7 +61,7 @@ def test_report_complete_and_valid_submission(page):
     # Go to https://crt-portal-django-dev.app.cloud.gov/report/
     page.click("#submit-next")
 
-    assert page.title() == "Step 2: Primary concern - Contact the Civil Rights Division | Department of Justice"
+    assert page.title() == "Step 2: Primary concern - Contact the Civil Rights Division | Department of Justice"  # nosec
     # Check voting
     page.check("#id_1-primary_complaint_0")
 
@@ -69,7 +70,7 @@ def test_report_complete_and_valid_submission(page):
 
     # Click input[type="submit"]
     page.click("input[type=\"submit\"]")
-    assert page.title() == "Step 2: Primary concern - Contact the Civil Rights Division | Department of Justice"
+    assert page.title() == "Step 2: Primary concern - Contact the Civil Rights Division | Department of Justice"  # nosec
 
     # Check NOT hatecrime
     page.check("//li[normalize-space(.)='No']/input[normalize-space(@type)='radio' and normalize-space(@name)='2-hate_crime']")
@@ -79,7 +80,7 @@ def test_report_complete_and_valid_submission(page):
 
     # Click input[type="submit"]
     page.click("input[type=\"submit\"]")
-    assert page.title() == "Step 3: Location - Contact the Civil Rights Division | Department of Justice"
+    assert page.title() == "Step 3: Location - Contact the Civil Rights Division | Department of Justice"  # nosec
 
     # Click input[name="3-location_name"]
     page.click("input[name=\"3-location_name\"]")
@@ -98,14 +99,14 @@ def test_report_complete_and_valid_submission(page):
 
     # Click input[type="submit"]
     page.click("input[type=\"submit\"]")
-    assert page.title() == "Step 4: Personal characteristics - Contact the Civil Rights Division | Department of Justice"
+    assert page.title() == "Step 4: Personal characteristics - Contact the Civil Rights Division | Department of Justice"  # nosec
 
     # Check AGE
     page.check("#id_9-protected_class_0")
 
     # Click input[type="submit"]
     page.click("input[type=\"submit\"]")
-    assert page.title() == "Step 5: Date - Contact the Civil Rights Division | Department of Justice"
+    assert page.title() == "Step 5: Date - Contact the Civil Rights Division | Department of Justice"  # nosec
 
     # Click input[name="10-last_incident_month"]
     page.click("input[name=\"10-last_incident_month\"]")
@@ -124,7 +125,7 @@ def test_report_complete_and_valid_submission(page):
 
     # Click input[type="submit"]
     page.click("input[type=\"submit\"]")
-    assert page.title() == "Step 6: Personal description - Contact the Civil Rights Division | Department of Justice"
+    assert page.title() == "Step 6: Personal description - Contact the Civil Rights Division | Department of Justice"  # nosec
 
     # Click textarea[name="11-violation_summary"]
     page.click("textarea[name=\"11-violation_summary\"]")
@@ -134,8 +135,8 @@ def test_report_complete_and_valid_submission(page):
 
     # Click input[type="submit"]
     page.click("input[type=\"submit\"]")
-    assert page.title() == "Step 7: Review - Contact the Civil Rights Division | Department of Justice"
+    assert page.title() == "Step 7: Review - Contact the Civil Rights Division | Department of Justice"  # nosec
 
     # Click input[type="submit"]
     page.click("input[type=\"submit\"]")
-    assert page.title() == "Contact the Civil Rights Division | Department of Justice"
+    assert page.title() == "Contact the Civil Rights Division | Department of Justice"  # nosec
