@@ -12,6 +12,7 @@ coverage = "*"
 locust = "*"
 faker = "*"
 playwright = "*"
+pytest-playwright = "*"
 
 [packages]
 django = "~=2.2"

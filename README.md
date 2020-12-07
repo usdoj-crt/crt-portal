@@ -253,7 +253,7 @@ That will produce a report locally that you can view in your browser. It will gi
 
 We're using [Playwright](https://github.com/microsoft/playwright-python) for automated end-to-end testing. Currently this test suite is run locally by developers with the following command.
 
-    pipenv run python crt_portal/cts_forms/tests/integration/report_submission.py
+    pipenv run pytest crt_portal/cts_forms/tests/integration/report_submission.py --base-url=http://localhost:8000
 
 As we build out our end-to-end test suite it will be further automated and integrated into our CI/CD pipeline.
 ## Browser targeting

@@ -1,28 +1,9 @@
-from playwright import sync_playwright
 
+import pytest
 
-TARGET = "http://localhost:8000"
-
-
-def run(browser):
-    """
-    Complete entire Report submission workflow
-    filling all required fields with valid input
-    and not editing on review step
-    """
-    context = browser.newContext()
-
-    # Open new page
-    page = context.newPage()
-    live_server_url = TARGET
-    page.goto(f'{live_server_url}/#report-a-violation')
-    # Click text="Start a report"
-    page.click("text=\"Start a report\"")
-    assert page.url == f'{live_server_url}/#report-a-violation'
-
-    # Click text="Submit a report"
-    page.click("text=\"Submit a report\"")
-    assert page.url == f'{live_server_url}/report/'
+@pytest.mark.only_browser("chromium")
+def test_report_complete_and_valid_submission(page):
+    page.goto("/report")
     assert page.title() == "Step 1: Contact - Contact the Civil Rights Division | Department of Justice"
 
     # Click input[name="0-contact_first_name"]
@@ -158,10 +139,3 @@ def run(browser):
     # Click input[type="submit"]
     page.click("input[type=\"submit\"]")
     assert page.title() == "Contact the Civil Rights Division | Department of Justice"
-
-
-with sync_playwright() as p:
-    for browser_type in [p.chromium]:
-        browser = browser_type.launch()
-        run(browser)
-        browser.close()
