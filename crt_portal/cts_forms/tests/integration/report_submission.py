@@ -11,13 +11,13 @@ def test_report_complete_and_valid_submission(page):
     page.click("input[name=\"0-contact_first_name\"]")
 
     # Fill input[name="0-contact_first_name"]
-    page.fill("input[name=\"0-contact_first_name\"]", "Joe")
+    page.fill("input[name=\"0-contact_first_name\"]", "Testing")
 
     # Press Tab
     page.press("input[name=\"0-contact_first_name\"]", "Tab")
 
     # Fill input[name="0-contact_last_name"]
-    page.fill("input[name=\"0-contact_last_name\"]", "K")
+    page.fill("input[name=\"0-contact_last_name\"]", "Tester")
 
     # Press Tab
     page.press("input[name=\"0-contact_last_name\"]", "Tab")
@@ -29,7 +29,7 @@ def test_report_complete_and_valid_submission(page):
     page.click("input[name=\"0-contact_email\"]")
 
     # Fill input[name="0-contact_email"]
-    page.fill("input[name=\"0-contact_email\"]", "testing@test.edu")
+    page.fill("input[name=\"0-contact_email\"]", "testing@test.test")
 
     # Click input[name="0-contact_phone"]
     page.click("input[name=\"0-contact_phone\"]")
