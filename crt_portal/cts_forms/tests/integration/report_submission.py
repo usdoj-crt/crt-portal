@@ -1,7 +1,7 @@
 from playwright import sync_playwright
 
 
-TARGET = "http://web:8000"
+TARGET = "http://localhost:8000"
 
 
 def run(playwright):
