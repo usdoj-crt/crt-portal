@@ -189,7 +189,10 @@
 {% endblock footer_extra %}
 
 {% block page_js %}
-  <script src="https://touchpoints.app.cloud.gov/touchpoints/a24aeb5e/js" async></script>
   <script src="{% static 'js/modal.js' %}"></script>
   <script src="{% static 'js/redirect-modal.js' %}"></script>
+{% endblock %}
+
+{% block touchpoint_js %}
+  <script src="https://touchpoints.app.cloud.gov/touchpoints/a24aeb5e/js" async></script>
 {% endblock %}

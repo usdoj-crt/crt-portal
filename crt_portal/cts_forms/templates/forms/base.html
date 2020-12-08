@@ -110,4 +110,7 @@
   <script src="{% static 'js/focus_alert.js' %}"></script>
   {% block page_js %}{% endblock %}
   {% endcompress %}
+
+  {# do not compress #}
+  {% block touchpoint_js %}{% endblock %}
 </html>
