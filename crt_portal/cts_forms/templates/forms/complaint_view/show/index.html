@@ -95,6 +95,9 @@
 <script type="text/javascript" src="{% static 'js/aria-autocomplete-1.2.3.min.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
  var select = document.getElementById('id_assigned_to');
- AriaAutocomplete(select, {});
+ AriaAutocomplete(select, {
+   minLength: 0,
+   maxResults: 5
+ });
 </script>
 {%endblock%}

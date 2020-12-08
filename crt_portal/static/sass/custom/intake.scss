@@ -607,7 +607,6 @@ ul.messages {
     position: absolute;
     width: 60%;
     border-radius: 3px;
-    font-weight: bold;
     margin-top: 0;
     box-shadow: 0 15px 10px hsla(0, 0%, 39.2%, 0.2);
 
@@ -626,6 +625,7 @@ ul.messages {
       }
 
       &:hover {
+        font-weight: bold;
         @include u-bg($theme-color-primary-lightest);
         @include u-text($theme-color-primary-darker);
       }
