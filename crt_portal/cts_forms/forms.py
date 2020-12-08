@@ -932,7 +932,7 @@ class Filters(ModelForm):
     )
     assigned_to = ModelChoiceField(
         required=False,
-        queryset=User.objects.filter(is_active=True),
+        queryset=User.objects.filter(is_active=True).order_by('username'),
         label=_("Assigned to"),
         to_field_name='username',
         widget=Select(attrs={
@@ -1120,7 +1120,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
     report_closed = False
     CONTEXT_KEY = 'actions'
     assigned_to = ModelChoiceField(
-        queryset=User.objects.filter(is_active=True),
+        queryset=User.objects.filter(is_active=True).order_by('username'),
         # crt view only
         label="Assigned to",
         required=False
@@ -1307,7 +1307,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         required=False
     )
     assigned_to = ModelChoiceField(
-        queryset=User.objects.filter(is_active=True),
+        queryset=User.objects.filter(is_active=True).order_by('username'),
         label='Assigned to',
         required=False
     )
