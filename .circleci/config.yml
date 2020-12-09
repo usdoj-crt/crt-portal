@@ -58,10 +58,14 @@ jobs:
             pip install pipenv
             pipenv install --dev
             pipenv run crt_portal/manage.py migrate
+            pipenv run python -m playwright install
       - save_cache:
           paths:
             - /home/circleci/code/.venv # this path depends on where pipenv creates a virtualenv
           key: pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+      - run:
+          name: Run prettier code formatting check
+          command: npm run lint:check
       - run:
           name: Run unit tests & check coverage
           command: |
@@ -93,8 +97,9 @@ jobs:
       - store_artifacts:
           path: ./pa11y-screenshots
       - run:
-          name: Run prettier code formatting check
-          command: npm run lint:check
+          name: E2E tests
+          command: pipenv run pytest crt_portal/cts_forms/tests/integration/report_submission.py --base-url=http://127.0.0.1:8000
+
 # owasp scans on live sties
   owasp-scan-dev:
     machine:
