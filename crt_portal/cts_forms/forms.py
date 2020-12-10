@@ -1133,6 +1133,14 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         label="Assigned to",
         required=False
     )
+    referred = BooleanField(
+        required=False,
+        label='Referred',
+        widget=CheckboxInput(attrs={
+            'label': 'referred',
+            # 'class': 'usa-checkbox__input'
+        })
+    )
 
     class Meta:
         model = Report
@@ -1216,7 +1224,12 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
 
     def success_message(self):
         """Prepare update success message for rendering in template"""
-        updated_fields = [self.fields[field].widget.label for field in self.changed_data]
+        def get_label(field):
+            field = self.fields[field]
+            if hasattr(field.widget, 'label'):
+                return field.widget.label
+            return field.label
+        updated_fields = [get_label(field) for field in self.changed_data]
         if len(updated_fields) == 1:
             message = f"Successfully updated {updated_fields[0]}."
         else:
@@ -1226,11 +1239,18 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         return message
 
     def save(self, commit=True):
-        """If report.status is `closed`, set assigned_to to None"""
+        """
+        If report.status is `closed`, set assigned_to to None.
+        If this report was referred, set the section.
+        """
         report = super().save(commit=False)
         if report.closed:
             report.closeout_report()
             self.report_closed = True
+        if report.referred:
+            report.referral_section = report.assigned_section
+        elif report.referral_section:
+            report.referral_section = ''
         if commit:
             report.save()
         return report
