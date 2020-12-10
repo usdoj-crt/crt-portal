@@ -190,6 +190,10 @@ class Report(models.Model):
     # Not in use- but need to preserving historical data
     hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, blank=True)
 
+    # referrals
+    referred = models.BooleanField(default=False)
+    referral_section = models.TextField(choices=SECTION_CHOICES, blank=True)
+
     @cached_property
     def last_incident_date(self):
         try:
