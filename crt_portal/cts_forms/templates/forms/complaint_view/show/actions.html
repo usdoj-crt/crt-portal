@@ -49,6 +49,12 @@
       </label>
       {{ actions.assigned_to }}
     </div>
+    <div class="margin-bottom-2 crt-dropdown">
+      <label for="id_referred" class="intake-label">
+        {{ actions.fields.referred.label }}
+      </label>
+      {{ actions.referred }}
+    </div>
     <div class="intake-section">
       <button class="outline-button outline-button--blue" id="contact_complainant">
         <img src="{% static "img/intake-icons/ic_email.svg" %}" class="icon" alt="from email">

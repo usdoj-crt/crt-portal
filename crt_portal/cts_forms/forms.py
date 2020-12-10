@@ -1136,7 +1136,8 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
 
     class Meta:
         model = Report
-        fields = ['assigned_section', 'status', 'primary_statute', 'district', 'assigned_to']
+        fields = ['assigned_section', 'status', 'primary_statute',
+                  'district', 'assigned_to', 'referred']
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
