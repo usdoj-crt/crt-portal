@@ -102,6 +102,7 @@
       </div>
     </div>
   </div>
+{% include "partials/unsupported-browser-modal.html" %}
 {% endblock %}
 
 {% block footer_extra %}
@@ -123,4 +124,17 @@
   })(window)
 </script>
 <script src="{% static 'js/word_count.js' %}"></script>
+<script src="{% static 'js/modal.js' %}"></script>
+<script src="{% static 'js/unsupported_browsers.js' %}"></script>
+<script>
+  (function(root) {
+    if (root.CRT.isUnsupportedBrowser()) {
+      var modal = document.getElementById('unsupported_browser_modal');
+      root.CRT.openModal(modal);
+
+      var close_el = document.getElementById('ub_close');
+      root.CRT.cancelModal(modal, close_el);
+    }
+  })(window);
+</script>
 {% endblock %}
