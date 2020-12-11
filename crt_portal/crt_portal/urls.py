@@ -21,7 +21,8 @@ from cts_forms.forms import (CommercialPublicLocation, Contact, Details,
                              ProtectedClassForm, Review, When,
                              WorkplaceLocation)
 from cts_forms.views import (CRTReportWizard, LandingPageView, error_404,
-                             error_500, show_commercial_public_form_condition,
+                             error_422, error_500,
+                             show_commercial_public_form_condition,
                              show_education_form_condition,
                              show_election_form_condition,
                              show_location_form_condition,
@@ -89,5 +90,7 @@ handler503 = 'cts_forms.views.error_503'
 if settings.DEBUG:
     urlpatterns += [
         path('errors/404', error_404),
+        path('errors/422', error_422),
+
         path('errors/500', error_500),
     ]
