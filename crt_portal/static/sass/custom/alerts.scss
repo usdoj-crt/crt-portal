@@ -13,30 +13,3 @@
   background-image: url(../../img/alerts/word-count-alert.svg),
     linear-gradient(transparent, transparent);
 }
-
-#unsupported_browser_modal .modal-content.modal-content--small {
-  padding: 0;
-
-  .usa-alert.usa-alert--warning {
-    background-image: url(../../img/alerts/warning-yellow.svg),
-      linear-gradient(transparent, transparent);
-    background-size: 24px 24px;
-    padding-left: 0;
-  }
-  
-  .usa-alert__text {
-    display: inline-block;
-    padding-bottom: 1rem;
-
-    .crt-button {
-      color: #2e2e2a;
-      background-color: transparent;
-      text-decoration: underline;
-      padding: 0px;
-
-      .icon {
-        margin-left: 0px;
-      }
-    }
-  }
-}
