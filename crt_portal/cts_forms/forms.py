@@ -1136,10 +1136,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
     referred = BooleanField(
         required=False,
         label='Referred',
-        widget=CheckboxInput(attrs={
-            'label': 'referred',
-            # 'class': 'usa-checkbox__input'
-        })
+        widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'})
     )
 
     class Meta:
