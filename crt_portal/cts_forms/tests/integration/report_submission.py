@@ -28,9 +28,6 @@ def test_error_if_form_refreshed(page, base_url):
     assert response.status == 422
     assert "We're sorry, something went wrong" in response.text()
 
-    # # First h1 on page is our test banner
-    # assert page.querySelectorAll('h1')[1].innerText() == "We're sorry, something went wrong"
-
 
 @pytest.mark.only_browser("chromium")
 def test_report_complete_and_valid_submission(page):

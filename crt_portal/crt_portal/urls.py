@@ -91,6 +91,5 @@ if settings.DEBUG:
     urlpatterns += [
         path('errors/404', error_404),
         path('errors/422', error_422),
-
         path('errors/500', error_500),
     ]
