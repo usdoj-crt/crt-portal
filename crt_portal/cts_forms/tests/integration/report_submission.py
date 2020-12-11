@@ -20,7 +20,7 @@ def test_error_if_form_refreshed(page, base_url):
     new_tab.goto(f"{base_url}/report")
 
     # Now try and progress on original tab where we're still on step #2
-    assert page.title() == "Step 2: Primary concern - Contact the Civil Rights Division | Department of Justice"  # nosec
+    assert page.title() == "Step 2: Primary concern - Contact the Civil Rights Division | Department of Justice"
     page.check("#id_1-primary_complaint_0")
     response = next_step()
 
@@ -37,7 +37,7 @@ def test_report_complete_and_valid_submission(page):
             page.click('input[type="submit"]')
 
     page.goto("/report")
-    assert page.title() == "Step 1: Contact - Contact the Civil Rights Division | Department of Justice"  # nosec
+    assert page.title() == "Step 1: Contact - Contact the Civil Rights Division | Department of Justice"
 
     # Fill input[name="0-contact_first_name"]
     page.fill("input[name='0-contact_first_name']", "Testing")
@@ -68,21 +68,21 @@ def test_report_complete_and_valid_submission(page):
 
     # Go to step 2
     next_step()
-    assert page.title() == "Step 2: Primary concern - Contact the Civil Rights Division | Department of Justice"  # nosec
+    assert page.title() == "Step 2: Primary concern - Contact the Civil Rights Division | Department of Justice"
 
     # Check voting
     page.check("#id_1-primary_complaint_0")
 
     # Go to step 2-2
     next_step()
-    assert page.title() == "Step 2: Primary concern - Contact the Civil Rights Division | Department of Justice"  # nosec
+    assert page.title() == "Step 2: Primary concern - Contact the Civil Rights Division | Department of Justice"
 
     # Check NOT hatecrime
     page.check("#id_2-hate_crime_1")
 
     # Go to step 3
     next_step()
-    assert page.title() == "Step 3: Location - Contact the Civil Rights Division | Department of Justice"  # nosec
+    assert page.title() == "Step 3: Location - Contact the Civil Rights Division | Department of Justice"
 
     # Fill input[name="3-location_name"]
     page.fill("input[name='3-location_name']", "Test store")
@@ -95,14 +95,14 @@ def test_report_complete_and_valid_submission(page):
 
     # Go to step 4
     next_step()
-    assert page.title() == "Step 4: Personal characteristics - Contact the Civil Rights Division | Department of Justice"  # nosec
+    assert page.title() == "Step 4: Personal characteristics - Contact the Civil Rights Division | Department of Justice"
 
     # Check AGE
     page.check("#id_9-protected_class_0")
 
     # Go to step 5
     next_step()
-    assert page.title() == "Step 5: Date - Contact the Civil Rights Division | Department of Justice"  # nosec
+    assert page.title() == "Step 5: Date - Contact the Civil Rights Division | Department of Justice"
 
     # Fill input[name="10-last_incident_month"]
     page.fill("input[name='10-last_incident_month']", "1")
@@ -112,15 +112,15 @@ def test_report_complete_and_valid_submission(page):
 
     # Go to step 6
     next_step()
-    assert page.title() == "Step 6: Personal description - Contact the Civil Rights Division | Department of Justice"  # nosec
+    assert page.title() == "Step 6: Personal description - Contact the Civil Rights Division | Department of Justice"
 
     # Fill textarea[name="11-violation_summary"]
     page.fill("textarea[name='11-violation_summary']", "Test report submission")
 
     # Go to step 7
     next_step()
-    assert page.title() == "Step 7: Review - Contact the Civil Rights Division | Department of Justice"  # nosec
+    assert page.title() == "Step 7: Review - Contact the Civil Rights Division | Department of Justice"
 
     # Complete submission
     next_step()
-    assert page.title() == "Contact the Civil Rights Division | Department of Justice"  # nosec
+    assert page.title() == "Contact the Civil Rights Division | Department of Justice"
