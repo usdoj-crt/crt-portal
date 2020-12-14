@@ -1,5 +1,6 @@
 import pytest
 
+
 @pytest.fixture(scope="function")
 def browser_context_args(browser_context_args):
     return {
@@ -13,6 +14,6 @@ def test_unsupported_browser_modal_visible(page):
 
     page.goto("/report")
 
-    page.waitForSelector("text=NOTICE: Your mobile browser is not compatible with this form", 
-        state='visible', 
-        timeout=3000)
+    page.waitForSelector("text=NOTICE: Your mobile browser is not compatible with this form",
+                         state='visible',
+                         timeout=3000)
