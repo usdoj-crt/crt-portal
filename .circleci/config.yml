@@ -98,7 +98,7 @@ jobs:
           path: ./pa11y-screenshots
       - run:
           name: E2E tests
-          command: pipenv run pytest crt_portal/cts_forms/tests/integration/report_submission.py --base-url=http://127.0.0.1:8000
+          command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=http://127.0.0.1:8000
 
 # owasp scans on live sties
   owasp-scan-dev:
