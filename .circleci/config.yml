@@ -74,7 +74,7 @@ jobs:
       - run:
           name: Run bandit (Python security) tests
           command: |
-            pipenv run bandit -r crt_portal/
+            pipenv run bandit -r crt_portal/ --exclude cts_forms/tests
       - run:
           name: Run flake8 test for Python code style
           command: |

@@ -73,6 +73,14 @@ def error_404(request, exception=None):
     )
 
 
+def error_422(request):
+    return render(
+        request,
+        'forms/error_422.html',
+        status=422
+    )
+
+
 def error_500(request, exception=None):
     return render(
         request,
@@ -822,6 +830,24 @@ class CRTReportWizard(SessionWizardView):
         _('Personal description'),
         _('Review'),
     ]
+
+    def form_refreshed(self):
+        """
+        True if the form and associated session data have been refreshed and cleared
+        which invalidates the submission and requires a user to restart the form.
+        """
+        form_current_step = self.request.POST.get('crt_report_wizard-current_step', None)
+        return (form_current_step != self.steps.current and self.storage.current_step is not None)
+
+    def post(self, *args, **kwargs):
+        """
+        Prior to handling the inbound request, check for and handle
+        session data which has been cleared while someone is progressing through
+        the form
+        """
+        if self.form_refreshed():
+            return error_422(self.request)
+        return super().post(*args, **kwargs)
 
     def get(self, request):
         if settings.MAINTENANCE_MODE:
