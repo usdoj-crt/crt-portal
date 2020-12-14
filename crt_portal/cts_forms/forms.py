@@ -1025,6 +1025,7 @@ class Filters(ModelForm):
             'hate_crime',
             'servicemember',
             'intake_format',
+            'contact_email',
         ]
 
         labels = {
@@ -1041,6 +1042,7 @@ class Filters(ModelForm):
             'violation_summary': 'Personal description',
             'create_date_start': 'Created Date Start',
             'create_date_end': 'Created Date End',
+            'contact_email': 'Contact email',
         }
 
         widgets = {
@@ -1080,6 +1082,12 @@ class Filters(ModelForm):
                 'name': 'violation_summary',
                 'placeholder': 'Personal Description',
                 'aria-label': 'Personal Description'
+            }),
+            'contact_email': EmailInput(attrs={
+                'class': 'usa-input',
+                'name': 'contact_email',
+                'placeholder': 'Contact Email',
+                'aria-label': 'Contact Email', 
             }),
         }
         error_messages = {
