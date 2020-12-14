@@ -104,6 +104,30 @@ class ActionTests(TestCase):
         self.assertTrue(actions)
         self.assertEqual(actions[0], ('Assigned section:', 'Updated from "ADM" to "VOT"'))
 
+    def test_referral(self):
+        form = ComplaintActions(
+            initial={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': None,
+                'referred': False,
+            },
+            data={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': None,
+                'referred': True,
+            }
+        )
+        self.assertTrue(form.is_valid())
+        actions = list(form.get_actions())
+        self.assertTrue(actions)
+        self.assertEqual(actions[0], ('Referred:', f'Updated from "False" to "True"'))
+
 
 class CommentActionTests(TestCase):
     def setUp(self):
