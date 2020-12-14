@@ -16,7 +16,6 @@ import os
 import boto3
 from django.utils.log import DEFAULT_LOGGING
 from django.utils.translation import gettext_lazy as _
-from django.contrib.staticfiles.storage import ManifestFilesMixin
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -231,21 +230,6 @@ STATIC_URL = '/static/'
 
 if environment not in ['LOCAL', 'UNDEFINED']:
 
-    # this import will throw errors if SECRET_KEY is not set yet in a
-    # local environment (we import local_settings at the end)
-    from storages.backends.s3boto3 import S3Boto3Storage
-
-    class ManifestS3FilesStorage(ManifestFilesMixin, S3Boto3Storage):
-        def read_manifest(self):
-            """
-            Work around a bug where S3Boto3Storage throws IOError but
-            ManifestFilesMixin expects FileNotFound.
-            """
-            try:
-                return super(ManifestS3FilesStorage, self).read_manifest()
-            except IOError:
-                return None
-
     for service in vcap['s3']:
         if service['instance_name'] == 'crt-s3':
             # Public AWS S3 bucket for the app
@@ -264,7 +248,7 @@ if environment not in ['LOCAL', 'UNDEFINED']:
     AWS_LOCATION = 'static'
     AWS_QUERYSTRING_AUTH = False
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
-    STATICFILES_STORAGE = 'ManifestS3FilesStorage'
+    STATICFILES_STORAGE = 'crt_portal.storage.ManifestS3FilesStorage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_DEFAULT_ACL = 'public-read'
     AWS_IS_GZIPPED = True
