@@ -229,7 +229,6 @@ if environment == 'PRODUCTION':
 STATIC_URL = '/static/'
 
 if environment not in ['LOCAL', 'UNDEFINED']:
-
     for service in vcap['s3']:
         if service['instance_name'] == 'crt-s3':
             # Public AWS S3 bucket for the app
@@ -248,7 +247,7 @@ if environment not in ['LOCAL', 'UNDEFINED']:
     AWS_LOCATION = 'static'
     AWS_QUERYSTRING_AUTH = False
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
-    STATICFILES_STORAGE = 'crt_portal.storage.ManifestS3FilesStorage'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_DEFAULT_ACL = 'public-read'
     AWS_IS_GZIPPED = True
@@ -336,6 +335,9 @@ COMPRESS_PRECOMPILERS = (
     ('module', 'compressor_toolkit.precompilers.ES6Compiler'),
     ('css', 'compressor_toolkit.precompilers.SCSSCompiler'),
 )
+
+# would like to add this before public release
+COMPRESS_ENABLED = False
 
 # adding better messaging
 CSRF_FAILURE_VIEW = 'cts_forms.views.csrf_failure'

@@ -1,7 +1,6 @@
 {% load static %}
 {% load i18n %}
 {% load with_input_error %}
-{% load compress %}
 {% get_current_language as LANGUAGE_CODE %}
 
 <!DOCTYPE html>
@@ -21,11 +20,7 @@
     {% endif %}
 
     <link rel="icon" href="{% static "img/favicon.png" %}">
-
-    {% compress css %}
     <link rel="stylesheet" href="{% static "css/compiled/styles.css" %}">
-    {% endcompress %}
-
     {% block head %}{% endblock %}
   </head>
 
@@ -104,13 +99,8 @@
     </div>
     {% endblock %}
   </body>
-  {% compress js %}
   <script src="{% static 'js/url_params_polyfill.js' %}"></script>
   <script src="{% static 'js/uswds.min.js' %}"></script>
   <script src="{% static 'js/focus_alert.js' %}"></script>
   {% block page_js %}{% endblock %}
-  {% endcompress %}
-
-  {# do not compress #}
-  {% block touchpoints_js %}{% endblock %}
 </html>
