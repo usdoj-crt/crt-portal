@@ -1087,7 +1087,7 @@ class Filters(ModelForm):
                 'class': 'usa-input',
                 'name': 'contact_email',
                 'placeholder': 'Contact Email',
-                'aria-label': 'Contact Email', 
+                'aria-label': 'Contact Email',
             }),
         }
         error_messages = {
