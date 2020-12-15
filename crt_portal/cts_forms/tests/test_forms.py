@@ -432,7 +432,7 @@ class FormNavigationTests(TestCase):
         response = self.client.post(
             reverse('crt_forms:crt-forms-show', kwargs={'id': first.id}),
             {
-                'next': f'?per_page=15&contact_email=SomeoneElse@usa.gov',
+                'next': '?per_page=15&contact_email=SomeoneElse@usa.gov',
                 'index': '1',
                 'type': ComplaintActions.CONTEXT_KEY,
             },
@@ -440,6 +440,7 @@ class FormNavigationTests(TestCase):
         )
         self.assertEquals(response.status_code, 200)
         self.assertTrue('N/A of 5 records' in str(response.content))
+
 
 class PrintActionTests(TestCase):
     def setUp(self):
