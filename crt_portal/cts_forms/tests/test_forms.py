@@ -361,6 +361,12 @@ class FormNavigationTests(TestCase):
         for index, report in enumerate(reports):
             report.assigned_section = sections[index % len(sections)]
             report.save()
+        # generate random reports associated with a different email address
+        reports = [Report.objects.create(**SAMPLE_REPORT) for _ in range(5)]
+        for report in reports:
+            report.assigned_section = 'VOT'
+            report.contact_email = 'SomeoneElse@usa.gov'
+            report.save()
 
     def test_basic_navigation(self):
         first = self.reports[-1]
@@ -421,6 +427,19 @@ class FormNavigationTests(TestCase):
         self.assertEquals(content.count('complaint-nav'), 2)
         self.assertEquals(content.count('disabled-nav'), 1)
 
+    def test_email_filtering(self):
+        first = self.reports[-1]
+        response = self.client.post(
+            reverse('crt_forms:crt-forms-show', kwargs={'id': first.id}),
+            {
+                'next': f'?per_page=15&contact_email=SomeoneElse@usa.gov',
+                'index': '1',
+                'type': ComplaintActions.CONTEXT_KEY,
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('N/A of 5 records' in str(response.content))
 
 class PrintActionTests(TestCase):
     def setUp(self):
