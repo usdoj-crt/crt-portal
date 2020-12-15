@@ -361,12 +361,6 @@ class FormNavigationTests(TestCase):
         for index, report in enumerate(reports):
             report.assigned_section = sections[index % len(sections)]
             report.save()
-        # generate random reports associated with a different email address
-        reports = [Report.objects.create(**SAMPLE_REPORT) for _ in range(5)]
-        for report in reports:
-            report.assigned_section = 'VOT'
-            report.contact_email = 'SomeoneElse@usa.gov'
-            report.save()
 
     def test_basic_navigation(self):
         first = self.reports[-1]
@@ -428,6 +422,13 @@ class FormNavigationTests(TestCase):
         self.assertEquals(content.count('disabled-nav'), 1)
 
     def test_email_filtering(self):
+        # generate random reports associated with a different email address
+        reports = [Report.objects.create(**SAMPLE_REPORT) for _ in range(5)]
+        for report in reports:
+            report.assigned_section = 'VOT'
+            report.contact_email = 'SomeoneElse@usa.gov'
+            report.save()
+
         first = self.reports[-1]
         response = self.client.post(
             reverse('crt_forms:crt-forms-show', kwargs={'id': first.id}),
