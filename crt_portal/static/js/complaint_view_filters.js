@@ -431,7 +431,7 @@
     textInputView({
       el: contactEmailEl,
       name: 'contact_email'
-    })
+    });
   }
 
   // Bootstrap the filter code's data persistence and
