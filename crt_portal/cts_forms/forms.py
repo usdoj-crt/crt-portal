@@ -1086,7 +1086,7 @@ class Filters(ModelForm):
             'contact_email': EmailInput(attrs={
                 'class': 'usa-input',
                 'name': 'contact_email',
-                'placeholder': 'Email',
+                'placeholder': 'Contact Email',
                 'aria-label': 'Email',
             }),
         }
