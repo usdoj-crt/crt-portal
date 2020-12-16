@@ -722,3 +722,44 @@ class BulkActionsFormTests(TestCase):
         ]
         for action in form.get_actions(queryset.first()):
             self.assertTrue(action in expected_actions)
+
+
+class FiltersFormTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+
+        self.email1 = 'email1@usa.gov'
+        self.email2 = 'email2@usa.gov'
+        reports_email_1 = [Report.objects.create(**SAMPLE_REPORT) for _ in range(3)]
+        for report in reports_email_1:
+            report.contact_email = self.email1
+            report.save()
+        
+        # generate reports for a different email address
+        reports_email_2 = [Report.objects.create(**SAMPLE_REPORT) for _ in range(5)]
+        for report in reports_email_2:
+            report.contact_email = self.email2
+            report.save()
+
+        # generate reports with no email address
+        reports_email_none = [Report.objects.create(**SAMPLE_REPORT) for _ in range(8)]
+        for report in reports_email_none:
+            report.contact_email = None
+            report.save()
+
+    def test_basic_navigation(self):
+        response = self.client.get(reverse('crt_forms:crt-forms-index'), {})
+        self.assertEquals(response.status_code, 200)
+
+        for row in response.context['data_dict']:
+            if row['report'].contact_email == self.email1:
+                self.assertEqual(row['email_report_count'], 3)
+            elif row['report'].contact_email == self.email2:
+                self.assertEqual(row['email_report_count'], 5)
+            elif row['report'].contact_email is None:
+                self.assertEqual(row['email_report_count'], 8)
+
+
