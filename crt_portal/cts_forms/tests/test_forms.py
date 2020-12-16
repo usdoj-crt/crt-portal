@@ -760,4 +760,4 @@ class FiltersFormTests(TestCase):
             elif row['report'].contact_email == self.email2:
                 self.assertEqual(row['email_report_count'], 5)
             elif row['report'].contact_email is None:
-                self.assertEqual(row['email_report_count'], 8)
+                self.assertEqual(row['email_report_count'], None)

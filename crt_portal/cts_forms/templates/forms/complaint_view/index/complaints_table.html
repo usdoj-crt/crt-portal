@@ -63,7 +63,9 @@
               </td>
               <td>
                 <a class="td-link display-block" href="{{datum.url}}">
-                  {{ datum.email_report_count }}
+                  {% with count=datum.email_report_count|default:"—" %}
+                    {{ count }}
+                  {% endwith %}
                 </a>
               </td>
               <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.assigned_section }}</a></td>
