@@ -209,7 +209,7 @@ class Report(models.Model):
         return date
 
     def __str__(self):
-        return f'{self.create_date} {self.violation_summary}'
+        return self.public_id
 
     def __has_immigration_protected_classes(self, pcs):
         immigration_classes = [
