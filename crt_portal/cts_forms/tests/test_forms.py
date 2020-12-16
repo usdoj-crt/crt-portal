@@ -737,7 +737,7 @@ class FiltersFormTests(TestCase):
         for report in reports_email_1:
             report.contact_email = self.email1
             report.save()
-        
+
         # generate reports for a different email address
         reports_email_2 = [Report.objects.create(**SAMPLE_REPORT) for _ in range(5)]
         for report in reports_email_2:
@@ -761,5 +761,3 @@ class FiltersFormTests(TestCase):
                 self.assertEqual(row['email_report_count'], 5)
             elif row['report'].contact_email is None:
                 self.assertEqual(row['email_report_count'], 8)
-
-
