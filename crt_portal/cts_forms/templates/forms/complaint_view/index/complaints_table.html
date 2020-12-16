@@ -24,6 +24,7 @@
           </th>
           <th></th>
           {% render_sortable_heading 'Status' sort_state filter_state %}
+          {% render_sortable_heading 'Total #' sort_state filter_state nowrap=True %}
           {% render_sortable_heading 'Routed' sort_state filter_state %}
           {% render_sortable_heading 'Submitted' sort_state filter_state %}
           {% render_sortable_heading 'Contact Name' sort_state filter_state %}
@@ -58,6 +59,11 @@
                   <span class="status-tag status-{{ datum.report.status }}">
                     {{ datum.report.status }}
                   </span>
+                </a>
+              </td>
+              <td>
+                <a class="td-link display-block" href="{{datum.url}}">
+                  {{ datum.email_report_count }}
                 </a>
               </td>
               <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.assigned_section }}</a></td>

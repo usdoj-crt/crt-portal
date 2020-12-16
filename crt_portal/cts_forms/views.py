@@ -301,8 +301,11 @@ def index_view(request):
             p_class_list = p_class_list[:3]
             p_class_list[2] = f'{p_class_list[2]}...'
 
+        email_report_count = Report.objects.filter(contact_email=report.contact_email).count()
+
         data.append({
             "report": report,
+            "email_report_count": email_report_count,
             "report_protected_classes": p_class_list,
             "url": f'{report.id}?next={all_args_encoded}&index={paginated_offset + index}',
         })
