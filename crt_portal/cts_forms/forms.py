@@ -1135,7 +1135,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
     )
     referred = BooleanField(
         required=False,
-        label='Referred',
+        label='Secondary Review',
         widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'})
     )
 
@@ -1197,6 +1197,9 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             # rename primary statute if applicable
             if field == 'primary_statute':
                 name = 'Primary classification'
+            # rename referred if applicable
+            if field == 'referred':
+                name = 'Secondary review'
             original = self.initial[field]
             changed = self.cleaned_data[field]
             # fix bug where id was showing up instead of user name

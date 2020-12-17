@@ -126,7 +126,7 @@ class ActionTests(TestCase):
         self.assertTrue(form.is_valid())
         actions = list(form.get_actions())
         self.assertTrue(actions)
-        self.assertEqual(actions[0], ('Referred:', f'Updated from "False" to "True"'))
+        self.assertEqual(actions[0], ('Secondary review:', f'Updated from "False" to "True"'))
 
 
 class CommentActionTests(TestCase):
