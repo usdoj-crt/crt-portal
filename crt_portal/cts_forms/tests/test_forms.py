@@ -126,7 +126,7 @@ class ActionTests(TestCase):
         self.assertTrue(form.is_valid())
         actions = list(form.get_actions())
         self.assertTrue(actions)
-        self.assertEqual(actions[0], ('Secondary review:', f'Updated from "False" to "True"'))
+        self.assertEqual(actions[0], ('Secondary review:', 'Updated from "False" to "True"'))
 
 
 class CommentActionTests(TestCase):
@@ -530,6 +530,49 @@ class PrintActionTests(TestCase):
         self.assertEquals(response.status_code, 200)
         content = str(response.content)
         self.assertTrue(escape('Printed activity, issue for 2 reports') in content)
+
+
+class ReportActionTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        self.report = Report.objects.create(**SAMPLE_REPORT, assigned_section='ADM')
+
+    def referral_section_checked(self):
+        self.assertEquals(self.report.referral_section, '')
+        url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
+        params = {
+            'type': 'actions',
+            'referred': 'on',
+        }
+        response = self.client.post(url, params, follow=True)
+        content = str(response.content)
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('Secondary review:' in content)
+        self.assertTrue(escape('Updated from "False" to "True"') in content)
+        self.report.refresh_from_db()
+        self.assertTrue(self.report.referred)
+        self.assertEquals(self.report.referral_section, 'ADM')
+
+    def referral_section_unchecked(self):
+        self.report.referred = True;
+        self.report.referral_section = 'ADM'
+        self.report.save()
+        url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
+        params = {
+            'type': 'actions',
+            'referred': '',
+        }
+        response = self.client.post(url, params, follow=True)
+        content = str(response.content)
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('Secondary review:' in content)
+        self.assertTrue(escape('Updated from "True" to "False"') in content)
+        self.report.refresh_from_db()
+        self.assertFalse(self.report.referred)
+        self.assertEquals(self.report.referral_section, '')
 
 
 class BulkActionsTests(TestCase):
