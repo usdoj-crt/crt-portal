@@ -1,7 +1,7 @@
 import csv
 import logging
 
-from actstream.models import Action
+from actstream.models import Action, Follow
 from django.contrib import admin
 from django.core.paginator import Paginator
 from django.db.models import Prefetch
@@ -145,6 +145,7 @@ class ReportAdmin(ReadOnlyModelAdmin):
 
 class ActionAdmin(ReadOnlyModelAdmin):
     """Read-only admin for browsing and exporting raw activity log entries"""
+    search_fields = ['description']
     date_hierarchy = 'timestamp'
     list_display = ('timestamp', 'actor', 'verb', 'description', 'target')
     list_editable = ('verb',)
@@ -163,4 +164,5 @@ admin.site.register(Profile)
 
 # Activity stream already registers an Admin for Action, we want to replace it
 admin.site.unregister(Action)
+admin.site.unregister(Follow)
 admin.site.register(Action, ActionAdmin)
