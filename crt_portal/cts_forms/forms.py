@@ -1136,7 +1136,10 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
     referred = BooleanField(
         required=False,
         label='Secondary Review',
-        widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'})
+        widget=CheckboxInput(attrs={
+            'class': 'usa-checkbox__input',
+            'aria-label': 'Secondary Review',
+        })
     )
 
     class Meta:
