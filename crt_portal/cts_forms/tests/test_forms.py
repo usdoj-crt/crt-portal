@@ -557,7 +557,7 @@ class ReportActionTests(TestCase):
         self.assertEquals(self.report.referral_section, 'ADM')
 
     def referral_section_unchecked(self):
-        self.report.referred = True;
+        self.report.referred = True
         self.report.referral_section = 'ADM'
         self.report.save()
         url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
