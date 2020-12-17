@@ -307,6 +307,13 @@
   }
 }
 
+.crt-checkbox {
+  @extend .crt-dropdown;
+  .crt-checkbox__label {
+    padding-left: 0;
+  }
+}
+
 @mixin icon-dark {
   color: color($theme-color-primary-darker);
   @include u-border($theme-color-primary-darker);
