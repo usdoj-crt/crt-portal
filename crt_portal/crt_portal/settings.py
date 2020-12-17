@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+    'actstream',
     'cts_forms',
     'compressor',
     'compressor_toolkit',
@@ -86,7 +87,6 @@ INSTALLED_APPS = [
     'formtools',
     # 'django_auth_adfs' in production only
     'crequest',
-    'actstream',
 ]
 SITE_ID = 1
 
