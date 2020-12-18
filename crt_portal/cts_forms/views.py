@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
-from django.db.models import Count
+from django.db.models import Count, F
 from django.http import Http404, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.decorators import method_decorator
@@ -35,7 +35,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PRIMARY_COMPLAINT_DICT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import CommentAndSummary, Profile, Report, Trends
+from .models import CommentAndSummary, EmailReportCount, Profile, Report, Trends
 from .page_through import pagination
 
 logger = logging.getLogger(__name__)
@@ -255,11 +255,12 @@ def index_view(request):
     page = request.GET.get('page', 1)
 
     # Validate requested sort params
-    report_fields = [f.name for f in Report._meta.fields]
-    if all(elem.replace("-", '') in report_fields for elem in sort) is False:
+    valid_fields = [f.name for f in Report._meta.fields] + [f.name for f in EmailReportCount._meta.fields]
+    if all(elem.replace("-", '') in valid_fields for elem in sort) is False:
         raise Http404(f'Invalid sort request: {sort}')
 
-    requested_reports = report_query.order_by(*sort)
+    with_email_counts = report_query.annotate(email_count=F('email_report_count__email_count'))
+    requested_reports = with_email_counts.order_by(*sort)
     paginator = Paginator(requested_reports, per_page)
     requested_reports, page_format = pagination(paginator, page, per_page)
 
