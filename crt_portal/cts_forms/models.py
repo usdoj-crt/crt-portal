@@ -331,6 +331,7 @@ class Report(models.Model):
         self.assigned_to = None
         self.status = 'new'
 
+
 class EmailReportCount(models.Model):
     report = models.OneToOneField(Report, primary_key=True, on_delete=models.CASCADE, related_name='email_report_count')
     email_count = models.IntegerField()
@@ -338,6 +339,7 @@ class EmailReportCount(models.Model):
     class Meta:
         managed = False
         db_table = 'email_report_count'
+
 
 class Trends(models.Model):
     """see the top 10 non-stop words from violation summary """
