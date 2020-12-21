@@ -595,6 +595,7 @@ ul.messages {
 }
 
 #id_assigned_toaria-autocomplete-1-wrapper {
+  @include u-z('top');
   flex-basis: 60%;
 }
 
