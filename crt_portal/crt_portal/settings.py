@@ -348,10 +348,12 @@ DEFAULT_LOGGING['handlers']['console']['filters'] = []
 LOGGING = {
     'disable_existing_loggers': False,
     'version': 1,
+    "formatters": {"json": {"()": "pythonjsonlogger.jsonlogger.JsonFormatter"}},
     'handlers': {
         'console': {
             # logging handler that outputs log messages to terminal
             'class': 'logging.StreamHandler',
+            "formatter": "json",
             'level': 'INFO',  # message level to be written to console
         },
     },
