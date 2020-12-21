@@ -259,8 +259,15 @@ def index_view(request):
     if all(elem.replace("-", '') in valid_fields for elem in sort) is False:
         raise Http404(f'Invalid sort request: {sort}')
 
-    with_email_counts = report_query.annotate(email_count=F('email_report_count__email_count'))
-    requested_reports = with_email_counts.order_by(*sort)
+    requested_reports = report_query.annotate(email_count=F('email_report_count__email_count'))
+
+    # apply the sort items individually so that we can push nulls to the back
+    for sort_item in sort:
+        if sort_item[0] == SORT_DESC_CHAR:
+            requested_reports = requested_reports.order_by(F(sort_item[1::]).desc(nulls_last=True))
+        else:
+            requested_reports = requested_reports.order_by(F(sort_item).asc(nulls_last=True))
+   
     paginator = Paginator(requested_reports, per_page)
     requested_reports, page_format = pagination(paginator, page, per_page)
 
