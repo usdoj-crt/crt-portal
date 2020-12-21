@@ -289,9 +289,6 @@ def index_view(request):
 
     all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
 
-    emails_in_reports_on_this_page = [r.contact_email for r in requested_reports]
-    emails_counts = Report.objects.filter(contact_email__in=emails_in_reports_on_this_page).values('contact_email').annotate(total=Count('contact_email'))
-
     data = []
 
     paginated_offset = page_format['page_range_start'] - 1
@@ -308,7 +305,6 @@ def index_view(request):
 
         data.append({
             "report": report,
-            "email_report_count": next((e['total'] for e in emails_counts if e['contact_email'] == report.contact_email), None),
             "report_protected_classes": p_class_list,
             "url": f'{report.id}?next={all_args_encoded}&index={paginated_offset + index}',
         })
