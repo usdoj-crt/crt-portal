@@ -778,7 +778,7 @@ class FiltersFormTests(TestCase):
                 self.assertEqual(row['report'].email_count, 3)
             else:
                 self.assertEqual(row['report'].email_count, None)
-            
+
     def test_email_report_count_sorting_asc(self):
         query_kwargs = {'sort': 'email_count'}
         base_url = reverse('crt_forms:crt-forms-index')

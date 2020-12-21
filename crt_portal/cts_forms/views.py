@@ -9,7 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
-from django.db.models import Count, F
+from django.db.models import F
 from django.http import Http404, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.decorators import method_decorator
@@ -263,11 +263,12 @@ def index_view(request):
 
     # apply the sort items individually so that we can push nulls to the back
     for sort_item in sort:
+        nulls_last = 'email_count' in sort_item
         if sort_item[0] == SORT_DESC_CHAR:
-            requested_reports = requested_reports.order_by(F(sort_item[1::]).desc(nulls_last=True))
+            requested_reports = requested_reports.order_by(F(sort_item[1::]).desc(nulls_last=nulls_last))
         else:
-            requested_reports = requested_reports.order_by(F(sort_item).asc(nulls_last=True))
-   
+            requested_reports = requested_reports.order_by(F(sort_item).asc(nulls_last=nulls_last))
+
     paginator = Paginator(requested_reports, per_page)
     requested_reports, page_format = pagination(paginator, page, per_page)
 
