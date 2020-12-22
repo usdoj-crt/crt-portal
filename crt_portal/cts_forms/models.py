@@ -333,10 +333,12 @@ class Report(models.Model):
 
 
 class EmailReportCount(models.Model):
+    """see the total number of reports that are associated with the contact_email for each report"""
     report = models.OneToOneField(Report, primary_key=True, on_delete=models.CASCADE, related_name='email_report_count')
     email_count = models.IntegerField()
 
     class Meta:
+        """This model is tied to a view created from migration 93"""
         managed = False
         db_table = 'email_report_count'
 
