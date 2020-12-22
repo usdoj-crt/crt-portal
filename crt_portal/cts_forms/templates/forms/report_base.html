@@ -126,7 +126,7 @@
 <script src="{% static 'js/word_count.js' %}"></script>
 <script src="{% static 'js/modal.js' %}"></script>
 <script src="{% static 'js/unsupported_browsers.js' %}"></script>
-<script>
+<script nonce="{{request.csp_nonce}}">
   (function(root) {
     if (root.CRT.isUnsupportedBrowser()) {
       var modal = document.getElementById('unsupported_browser_modal');
