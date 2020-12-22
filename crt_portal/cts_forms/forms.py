@@ -1133,10 +1133,19 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         label="Assigned to",
         required=False
     )
+    referred = BooleanField(
+        required=False,
+        label='Secondary Review',
+        widget=CheckboxInput(attrs={
+            'class': 'usa-checkbox__input',
+            'aria-label': 'Secondary Review',
+        })
+    )
 
     class Meta:
         model = Report
-        fields = ['assigned_section', 'status', 'primary_statute', 'district', 'assigned_to']
+        fields = ['assigned_section', 'status', 'primary_statute',
+                  'district', 'assigned_to', 'referred']
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
@@ -1191,6 +1200,9 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             # rename primary statute if applicable
             if field == 'primary_statute':
                 name = 'Primary classification'
+            # rename referred if applicable
+            if field == 'referred':
+                name = 'Secondary review'
             original = self.initial[field]
             changed = self.cleaned_data[field]
             # fix bug where id was showing up instead of user name
@@ -1215,7 +1227,12 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
 
     def success_message(self):
         """Prepare update success message for rendering in template"""
-        updated_fields = [self.fields[field].widget.label for field in self.changed_data]
+        def get_label(field):
+            field = self.fields[field]
+            if hasattr(field.widget, 'label'):
+                return field.widget.label
+            return field.label
+        updated_fields = [get_label(field) for field in self.changed_data]
         if len(updated_fields) == 1:
             message = f"Successfully updated {updated_fields[0]}."
         else:
@@ -1225,11 +1242,18 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         return message
 
     def save(self, commit=True):
-        """If report.status is `closed`, set assigned_to to None"""
+        """
+        If report.status is `closed`, set assigned_to to None.
+        If this report was referred, set the section.
+        """
         report = super().save(commit=False)
         if report.closed:
             report.closeout_report()
             self.report_closed = True
+        if report.referred:
+            report.referral_section = report.assigned_section
+        elif report.referral_section:
+            report.referral_section = ''
         if commit:
             report.save()
         return report
