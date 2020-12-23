@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0092_profile'),
+        ('cts_forms', '0093_referral'),
     ]
 
     operations = [
