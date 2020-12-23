@@ -155,27 +155,6 @@ jobs:
           name: E2E tests
           command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=https://crt-portal-django-stage.app.cloud.gov
 
-  e2e-test-prod:
-    description: Runs E2E tests against prod
-    working_directory: ~/code
-    docker:
-      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: circleci/python:3.8.5-node-browsers
-        environment: # environment variables for primary container
-          PIPENV_VENV_IN_PROJECT: true
-          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
-        environment:
-          POSTGRES_USER: root
-          POSTGRES_DB: circle_test
-    steps:
-      - checkout
-      - *install-python-dev-dependencies
-      - run:
-          name: E2E tests
-          command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=https://civilrights.justice.gov
-
 # owasp scans on live sties
   owasp-scan-dev:
     machine:
@@ -492,13 +471,6 @@ workflows:
           filters:
             branches:
               only: /^release.*/
-
-      - e2e-test-prod:
-          requires:
-            - deploy-prod
-          filters:
-            branches:
-              only: master
 
   # Scheduled maintenance jobs for portal
   # Dev scheduled jobs
