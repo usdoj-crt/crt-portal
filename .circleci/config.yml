@@ -191,6 +191,9 @@ jobs:
           name: Deploy to dev
           command: |
               ./blue-green-deploy.sh $CRT_USERNAME_DEV $CRT_PASSWORD_DEV dev
+      - run:
+          name: Post-deploy E2E tests
+          command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=https://crt-portal-django-dev.app.cloud.gov
 
   deploy-stage:
     working_directory: ~/code
@@ -246,6 +249,9 @@ jobs:
           name: Deploy to stage
           command: |
             ./blue-green-deploy.sh $CRT_USERNAME_STAGE $CRT_PASSWORD_STAGE staging
+      - run:
+          name: Post-deploy E2E tests
+          command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=https://crt-portal-django-stage.app.cloud.gov
 
   deploy-prod:
     working_directory: ~/code
