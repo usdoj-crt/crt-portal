@@ -113,6 +113,69 @@ jobs:
           name: E2E tests
           command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=http://127.0.0.1:8000
 
+  e2e-test-dev:
+    description: Runs E2E tests against dev
+    working_directory: ~/code
+    docker:
+      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
+      - image: circleci/python:3.8.5-node-browsers
+        environment: # environment variables for primary container
+          PIPENV_VENV_IN_PROJECT: true
+          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
+      - image: postgres:10.1-alpine
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle_test
+    steps:
+      - checkout
+      - *install-python-dev-dependencies
+      - run:
+          name: E2E tests
+          command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=https://crt-portal-django-dev.app.cloud.gov
+
+  e2e-test-stage:
+    description: Runs E2E tests against stage
+    working_directory: ~/code
+    docker:
+      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
+      - image: circleci/python:3.8.5-node-browsers
+        environment: # environment variables for primary container
+          PIPENV_VENV_IN_PROJECT: true
+          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
+      - image: postgres:10.1-alpine
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle_test
+    steps:
+      - checkout
+      - *install-python-dev-dependencies
+      - run:
+          name: E2E tests
+          command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=https://crt-portal-django-stage.app.cloud.gov
+
+  e2e-test-prod:
+    description: Runs E2E tests against prod
+    working_directory: ~/code
+    docker:
+      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
+      - image: circleci/python:3.8.5-node-browsers
+        environment: # environment variables for primary container
+          PIPENV_VENV_IN_PROJECT: true
+          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
+      - image: postgres:10.1-alpine
+        environment:
+          POSTGRES_USER: root
+          POSTGRES_DB: circle_test
+    steps:
+      - checkout
+      - *install-python-dev-dependencies
+      - run:
+          name: E2E tests
+          command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=https://civilrights.justice.gov
+
 # owasp scans on live sties
   owasp-scan-dev:
     machine:
@@ -199,11 +262,6 @@ jobs:
           name: Deploy to dev
           command: |
               ./blue-green-deploy.sh $CRT_USERNAME_DEV $CRT_PASSWORD_DEV dev
-      # install dev dependencies to enable E2E test run
-      - *install-python-dev-dependencies
-      - run:
-          name: Post-deploy E2E tests
-          command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=https://crt-portal-django-dev.app.cloud.gov
 
   deploy-stage:
     working_directory: ~/code
@@ -254,12 +312,7 @@ jobs:
           name: Deploy to stage
           command: |
             ./blue-green-deploy.sh $CRT_USERNAME_STAGE $CRT_PASSWORD_STAGE staging
-      # install dev dependencies to enable E2E test run
-      - *install-python-dev-dependencies
-      - run:
-          name: Post-deploy E2E tests
-          command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=https://crt-portal-django-stage.app.cloud.gov
-
+      
   deploy-prod:
     working_directory: ~/code
     docker:
@@ -422,6 +475,27 @@ workflows:
           requires:
             - owasp-scan-stage
             - build_and_test
+          filters:
+            branches:
+              only: master
+
+      - e2e-test-dev:
+          requires:
+            - deploy-dev
+          filters:
+            branches:
+              only: develop
+
+      - e2e-test-stage:
+          requires:
+            - deploy-stage
+          filters:
+            branches:
+              only: /^release.*/
+
+      - e2e-test-prod:
+          requires:
+            - deploy-prod
           filters:
             branches:
               only: master
