@@ -121,12 +121,6 @@ jobs:
       - image: circleci/python:3.8.5-node-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
-          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
-        environment:
-          POSTGRES_USER: root
-          POSTGRES_DB: circle_test
     steps:
       - checkout
       - *install-python-dev-dependencies
@@ -142,12 +136,6 @@ jobs:
       - image: circleci/python:3.8.5-node-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
-          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
-        environment:
-          POSTGRES_USER: root
-          POSTGRES_DB: circle_test
     steps:
       - checkout
       - *install-python-dev-dependencies
