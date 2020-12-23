@@ -12,6 +12,23 @@ install-cf7: &install-cf7
       rm cf7.deb
       cf7 api https://api.fr.cloud.gov
 
+install-python-dependencies: &install-python-dependencies
+  run:
+    name: Install python dependencies
+    command: |
+      pip install -U pip
+      pip install pipenv
+      pipenv install
+
+install-python-dev-dependencies: &install-python-dev-dependencies
+  run:
+    name: Install python dev dependencies
+    command: |
+      pip install -U pip
+      pip install pipenv
+      pipenv install --dev
+      pipenv run python -m playwright install
+
 version: 2
 jobs:
   build_and_test: # runs not using Workflows must have a `build` job as entry point
@@ -51,14 +68,10 @@ jobs:
             - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
             - pip-packages-v1-{{ .Branch }}-
             - pip-packages-v1-
+      - *install-python-dev-dependencies
       - run:
-          name: Python install with pipenv then migrate the database
-          command: |
-            pip install -U pip
-            pip install pipenv
-            pipenv install --dev
-            pipenv run crt_portal/manage.py migrate
-            pipenv run python -m playwright install
+          name: Migrate the database
+          command: pipenv run crt_portal/manage.py migrate
       - save_cache:
           paths:
             - /home/circleci/code/.venv # this path depends on where pipenv creates a virtualenv
@@ -167,13 +180,8 @@ jobs:
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
-      - run:
-          # database will be migrated in cloud.gov
-          name: Python install with pipenv
-          command: |
-            pip install -U pip
-            pip install pipenv
-            pipenv install
+      # database will be migrated in cloud.gov
+      - *install-python-dependencies
       - run:
           name: Install cloud foundry deploy tools
           command: |
@@ -191,6 +199,8 @@ jobs:
           name: Deploy to dev
           command: |
               ./blue-green-deploy.sh $CRT_USERNAME_DEV $CRT_PASSWORD_DEV dev
+      # install dev dependencies to enable E2E test run
+      - *install-python-dev-dependencies
       - run:
           name: Post-deploy E2E tests
           command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=https://crt-portal-django-dev.app.cloud.gov
@@ -225,13 +235,8 @@ jobs:
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
-      - run:
-          # database will be migrated in cloud.gov
-          name: Python install with pipenv
-          command: |
-            pip install -U pip
-            pip install pipenv
-            pipenv install
+      # database will be migrated in cloud.gov
+      - *install-python-dependencies
       - run:
           name: Install cloud foundry deploy tools
           command: |
@@ -249,6 +254,8 @@ jobs:
           name: Deploy to stage
           command: |
             ./blue-green-deploy.sh $CRT_USERNAME_STAGE $CRT_PASSWORD_STAGE staging
+      # install dev dependencies to enable E2E test run
+      - *install-python-dev-dependencies
       - run:
           name: Post-deploy E2E tests
           command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=https://crt-portal-django-stage.app.cloud.gov
@@ -284,13 +291,8 @@ jobs:
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
-      - run:
-          # database will be migrated in cloud.gov
-          name: Python install with pipenv
-          command: |
-            pip install -U pip
-            pip install pipenv
-            pipenv install
+      # database will be migrated in cloud.gov
+      - *install-python-dependencies
       - run:
           name: Install cloud foundry deploy tools
           command: |
