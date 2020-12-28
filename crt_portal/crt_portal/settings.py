@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import json
 import os
-import sys
 
 import boto3
 from django.utils.log import DEFAULT_LOGGING
