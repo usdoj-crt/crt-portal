@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import json
 import os
+import sys
 
 import boto3
 from django.utils.log import DEFAULT_LOGGING
@@ -378,8 +379,11 @@ LOGGING = {
 if environment == 'LOCAL':
     from .local_settings import *  # noqa: F401,F403
 
+IS_RUNNING_TEST_SUITE = (os.path.basename(sys.argv[0]) == 'manage.py'
+                        and len(sys.argv) > 1 and sys.argv[1] == 'test')
+
 # Django debug toolbar setup
-if DEBUG:
+if DEBUG and not IS_RUNNING_TEST_SUITE:
     INSTALLED_APPS += ['debug_toolbar', ]
     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
     DEBUG_TOOLBAR_CONFIG = {'SHOW_TOOLBAR_CALLBACK': lambda _: True}
