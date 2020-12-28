@@ -595,8 +595,10 @@ ul.messages {
 }
 
 #id_assigned_toaria-autocomplete-1-wrapper {
-  @include u-z('top');
   flex-basis: 60%;
+  ul.aria-autocomplete__list {
+    @include u-z('top');
+  }
 }
 
 .aria-autocomplete__wrapper {
