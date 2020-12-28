@@ -646,19 +646,20 @@ class CRT_FILTER_Tests(TestCase):
         response = self.client.get(f'{self.url_base}')
         reports = response.context['data_dict']
 
-        # No DRS reports exist so none should be returned when our profile is set to
+        # No IER reports exist so none should be returned when our profile is set to
         self.assertEquals(Report.objects.filter(assigned_section='IER').count(), 0)
         self.assertEquals(len(reports), 0)
 
     def test_profile_filters_override(self):
         """
-        Results filtered by provided assigned_section, override profile filter
+        Results filtered by provided assigned_section, bypassing profile filter
         """
         Profile.objects.create(intake_filters='IER', user_id=self.user.id)
         filter_ = 'assigned_section=ADM'
         response = self.client.get(f'{self.url_base}?{filter_}')
         reports = response.context['data_dict']
 
+        # We've specified ADM as a query param, we should only see reports from that section
         expected_reports = Report.objects.filter(assigned_section='ADM').count()
         self.assertEquals(len(reports), expected_reports)
 
