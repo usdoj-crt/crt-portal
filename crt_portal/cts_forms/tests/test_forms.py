@@ -8,10 +8,9 @@ from django.test.client import Client
 from django.urls import reverse
 from django.utils.html import escape
 
-from ..forms import BulkActionsForm, ComplaintActions, ReportEditForm
+from ..forms import ComplaintActions, ReportEditForm, BulkActionsForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES
 from ..models import CommentAndSummary, Report, ResponseTemplate
-from .factories import ReportFactory
 from .test_data import SAMPLE_REPORT, SAMPLE_RESPONSE_TEMPLATE
 
 
@@ -139,7 +138,7 @@ class CommentActionTests(TestCase):
         self.client.login(username='DELETE_USER', password=self.test_pass)
 
         self.note = 'Important note'
-        self.report = ReportFactory.create()
+        self.report = Report.objects.create(**SAMPLE_REPORT)
         self.pk = self.report.pk
         self.response = self.client.post(
             reverse(
@@ -801,9 +800,22 @@ class FiltersFormTests(TestCase):
 
         self.email1 = 'email1@usa.gov'
         self.email2 = 'email2@usa.gov'
-        ReportFactory.create_batch(3, contact_email=self.email1)
-        ReportFactory.create_batch(5, contact_email=self.email2)
-        ReportFactory.create_batch(8, contact_email=None)
+        reports_email_1 = [Report.objects.create(**SAMPLE_REPORT) for _ in range(3)]
+        for report in reports_email_1:
+            report.contact_email = self.email1
+            report.save()
+
+        # generate reports for a different email address
+        reports_email_2 = [Report.objects.create(**SAMPLE_REPORT) for _ in range(5)]
+        for report in reports_email_2:
+            report.contact_email = self.email2
+            report.save()
+
+        # generate reports with no email address
+        reports_email_none = [Report.objects.create(**SAMPLE_REPORT) for _ in range(8)]
+        for report in reports_email_none:
+            report.contact_email = None
+            report.save()
 
     def test_basic_navigation(self):
         response = self.client.get(reverse('crt_forms:crt-forms-index'), {})
