@@ -87,10 +87,14 @@ handler501 = 'cts_forms.views.error_501'
 handler502 = 'cts_forms.views.error_502'
 handler503 = 'cts_forms.views.error_503'
 
-if settings.DEBUG:
+if settings.ENABLE_DEBUG_TOOLBAR:
     import debug_toolbar
     urlpatterns += [
         path('__debug__/', include(debug_toolbar.urls)),
+    ]
+
+if settings.DEBUG:
+    urlpatterns += [
         path('errors/404', error_404),
         path('errors/422', error_422),
         path('errors/500', error_500),
