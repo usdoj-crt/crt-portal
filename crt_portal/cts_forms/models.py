@@ -338,7 +338,16 @@ class Report(models.Model):
     @cached_property
     def related_reports(self):
         """Return qs of reports with the same value for `contact_email`"""
-        return Report.objects.exclude(contact_email__isnull=True).filter(contact_email=self.contact_email).order_by('status', 'create_date')
+        return Report.objects.exclude(contact_email__isnull=True).filter(contact_email=self.contact_email).order_by('status', '-create_date')
+
+    @cached_property
+    def related_reports_display(self):
+        """Return set of related reports grouped by STATUS for template rendering"""
+        reports = self.related_reports
+        return (('new', reports.filter(status='new')),
+                ('open', reports.filter(status='open')),
+                ('closed', reports.filter(status='closed')),
+                )
 
 
 class Trends(models.Model):
