@@ -7,11 +7,11 @@ from django.test import TestCase
 from django.test.client import Client
 from django.urls import reverse
 from django.utils.html import escape
-from django.utils.http import urlencode
 
-from ..forms import ComplaintActions, ReportEditForm, BulkActionsForm
+from ..forms import BulkActionsForm, ComplaintActions, ReportEditForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES
 from ..models import CommentAndSummary, Report, ResponseTemplate
+from .factories import ReportFactory
 from .test_data import SAMPLE_REPORT, SAMPLE_RESPONSE_TEMPLATE
 
 
@@ -139,7 +139,7 @@ class CommentActionTests(TestCase):
         self.client.login(username='DELETE_USER', password=self.test_pass)
 
         self.note = 'Important note'
-        self.report = Report.objects.create(**SAMPLE_REPORT)
+        self.report = ReportFactory.create()
         self.pk = self.report.pk
         self.response = self.client.post(
             reverse(
@@ -801,63 +801,18 @@ class FiltersFormTests(TestCase):
 
         self.email1 = 'email1@usa.gov'
         self.email2 = 'email2@usa.gov'
-        reports_email_1 = [Report.objects.create(**SAMPLE_REPORT) for _ in range(3)]
-        for report in reports_email_1:
-            report.contact_email = self.email1
-            report.save()
+        ReportFactory.create_batch(3, contact_email=self.email1)
+        ReportFactory.create_batch(5, contact_email=self.email2)
+        ReportFactory.create_batch(8, contact_email=None)
 
-        # generate reports for a different email address
-        reports_email_2 = [Report.objects.create(**SAMPLE_REPORT) for _ in range(5)]
-        for report in reports_email_2:
-            report.contact_email = self.email2
-            report.save()
-
-        # generate reports with no email address
-        reports_email_none = [Report.objects.create(**SAMPLE_REPORT) for _ in range(7)]
-        for report in reports_email_none:
-            report.contact_email = None
-            report.save()
-
-    def test_email_report_counts(self):
+    def test_basic_navigation(self):
         response = self.client.get(reverse('crt_forms:crt-forms-index'), {})
         self.assertEquals(response.status_code, 200)
 
         for row in response.context['data_dict']:
             if row['report'].contact_email == self.email1:
-                self.assertEqual(row['report'].email_count, 3)
+                self.assertEqual(row['email_report_count'], 3)
             elif row['report'].contact_email == self.email2:
-                self.assertEqual(row['report'].email_count, 5)
+                self.assertEqual(row['email_report_count'], 5)
             elif row['report'].contact_email is None:
-                self.assertEqual(row['report'].email_count, None)
-
-    def test_email_report_count_sorting_desc(self):
-        query_kwargs = {'sort': '-email_count'}
-        base_url = reverse('crt_forms:crt-forms-index')
-        url = f'{base_url}?{urlencode(query_kwargs)}'
-
-        response = self.client.get(url, {})
-        self.assertEquals(response.status_code, 200)
-
-        for index, row in enumerate(response.context['data_dict']):
-            if index < 5:
-                self.assertEqual(row['report'].email_count, 5)
-            elif index < 8:
-                self.assertEqual(row['report'].email_count, 3)
-            else:
-                self.assertEqual(row['report'].email_count, None)
-
-    def test_email_report_count_sorting_asc(self):
-        query_kwargs = {'sort': 'email_count'}
-        base_url = reverse('crt_forms:crt-forms-index')
-        url = f'{base_url}?{urlencode(query_kwargs)}'
-
-        response = self.client.get(url, {})
-        self.assertEquals(response.status_code, 200)
-
-        for index, row in enumerate(response.context['data_dict']):
-            if index < 3:
-                self.assertEqual(row['report'].email_count, 3)
-            elif index < 8:
-                self.assertEqual(row['report'].email_count, 5)
-            else:
-                self.assertEqual(row['report'].email_count, None)
+                self.assertEqual(row['email_report_count'], None)
