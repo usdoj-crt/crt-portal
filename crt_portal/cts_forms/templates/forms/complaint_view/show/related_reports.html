@@ -1,11 +1,13 @@
 {% extends "forms/complaint_view/show/card.html" %}
 {% load static %}
+{% load all_sections %}
+
 {% block title %}{{title}}{% endblock %}
 {% block extra_classes %}crt-action-card related-reports-card{% endblock %}
 {% block extra_title %}
     {% if data.related_reports %}
         <small class="margin-left-auto">
-            <a href="{% url 'crt_forms:crt-forms-index' %}?contact_email={{data.contact_email}}">
+            <a href="{% url 'crt_forms:crt-forms-index' %}?contact_email={{data.contact_email}}{% filter_for_all_sections %}">
                 View All ({{data.related_reports|length}})
             </a>
         </small>
