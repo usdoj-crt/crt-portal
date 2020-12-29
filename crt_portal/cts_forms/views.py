@@ -269,7 +269,7 @@ def index_view(request):
             sort_exprs.append(F(sort_item[1::]).desc(nulls_last=nulls_last))
         else:
             sort_exprs.append(F(sort_item).asc(nulls_last=nulls_last))
-    
+
     requested_reports = requested_reports.order_by(*sort_exprs)
 
     paginator = Paginator(requested_reports, per_page)

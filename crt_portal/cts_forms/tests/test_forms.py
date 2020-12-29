@@ -848,7 +848,7 @@ class FiltersFormTests(TestCase):
             elif index < 8:
                 self.assertEqual(row['report'].email_count, 5)
             else:
-                self.assertEqual(row['report'].email_count, None) 
+                self.assertEqual(row['report'].email_count, None)
 
     def test_basic_multi_sort(self):
         base_url = reverse('crt_forms:crt-forms-index')
@@ -861,7 +861,7 @@ class FiltersFormTests(TestCase):
             if index == 0:
                 continue
 
-            prev_row = response.context['data_dict'][index-1]
+            prev_row = response.context['data_dict'][index - 1]
 
             if prev_row['report'].assigned_section == row['report'].assigned_section:
                 self.assertTrue(prev_row['report'].contact_last_name <= row['report'].contact_last_name)
@@ -879,10 +879,9 @@ class FiltersFormTests(TestCase):
             if index == 0:
                 continue
 
-            prev_row = response.context['data_dict'][index-1]
+            prev_row = response.context['data_dict'][index - 1]
 
             if prev_row['report'].assigned_section == row['report'].assigned_section:
                 self.assertTrue(prev_row['report'].contact_last_name >= row['report'].contact_last_name)
             else:
                 self.assertTrue(prev_row['report'].assigned_section <= row['report'].assigned_section)
-
