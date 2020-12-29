@@ -3,11 +3,11 @@
 {% load all_sections %}
 
 {% block title %}{{title}}{% endblock %}
-{% block extra_classes %}crt-related-reports-card{% endblock %}
+{% block extra_classes %}crt-action-card related-reports-card{% endblock %}
 {% block extra_title %}
     {% if data.related_reports %}
         <small class="margin-left-auto">
-            <a class="related-reports" href="{% url 'crt_forms:crt-forms-index' %}?contact_email={{data.contact_email}}{% filter_for_all_sections %}">
+            <a href="{% url 'crt_forms:crt-forms-index' %}?contact_email={{data.contact_email}}{% filter_for_all_sections %}">
                 View All ({{data.related_reports|length}})
             </a>
         </small>
