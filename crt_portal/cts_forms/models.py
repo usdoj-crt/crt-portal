@@ -335,6 +335,11 @@ class Report(models.Model):
         self.assigned_to = None
         self.status = 'new'
 
+    @cached_property
+    def related_reports(self):
+        """Return qs of reports with the same value for `contact_email`"""
+        return Report.objects.exclude(contact_email__isnull=True).filter(contact_email=self.contact_email).order_by('status', 'create_date')
+
 
 class Trends(models.Model):
     """see the top 10 non-stop words from violation summary """

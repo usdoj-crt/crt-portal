@@ -241,10 +241,12 @@ def index_view(request):
     if hasattr(request.user, 'profile') and request.user.profile.intake_filters:
         request.GET = request.GET.copy()
         global_section_filter = request.user.profile.intake_filters.split(',')
-        request.GET.setlist('assigned_section', global_section_filter)
 
-        # Retreive ProfileForm intake_filters
-        data = {'intake_filters': global_section_filter}
+        # If assigned_section is NOT specificied in request, use filter from profile
+        if 'assigned_section' not in request.GET:
+            request.GET.setlist('assigned_section', global_section_filter)
+
+        data = {'intake_filters': request.GET.getlist('assigned_section')}
         profile_form = ProfileForm(data)
 
     report_query, query_filters = report_filter(request.GET)
