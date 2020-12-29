@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0094_create_email_report_count_view'),
+        ('cts_forms', '0095_create_email_report_count_view'),
     ]
 
     operations = [

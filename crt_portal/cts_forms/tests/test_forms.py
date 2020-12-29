@@ -1,15 +1,16 @@
-"""Back end forms"""
 import secrets
 import urllib.parse
 
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.http import QueryDict
+from django.test import SimpleTestCase, TestCase
 from django.test.client import Client
 from django.urls import reverse
 from django.utils.html import escape
 from django.utils.http import urlencode
 
-from ..forms import BulkActionsForm, ComplaintActions, ReportEditForm
+
+from ..forms import BulkActionsForm, ComplaintActions, Filters, ReportEditForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES
 from ..models import CommentAndSummary, Report, ResponseTemplate
 from .factories import ReportFactory
@@ -885,3 +886,14 @@ class FiltersFormTests(TestCase):
                 self.assertTrue(prev_row['report'].contact_last_name >= row['report'].contact_last_name)
             else:
                 self.assertTrue(prev_row['report'].assigned_section <= row['report'].assigned_section)
+
+
+class SimpleFilterFormTests(SimpleTestCase):
+
+    def test_get_sections_returns_only_valid_choices(self):
+        """
+        Discard assigned_section values received in requests that are not form field choices
+        """
+        data = QueryDict('assigned_section=ADM&assigned_section=<script>alert()</script>')
+        form = Filters(data)
+        self.assertEqual({'ADM'}, form.get_section_filters)

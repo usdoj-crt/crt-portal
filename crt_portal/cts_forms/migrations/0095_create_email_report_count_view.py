@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0093_referral'),
+        ('cts_forms', '0094_eeoc_referral_letters'),
     ]
 
     operations = [
