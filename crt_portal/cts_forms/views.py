@@ -261,13 +261,16 @@ def index_view(request):
 
     requested_reports = report_query.annotate(email_count=F('email_report_count__email_count'))
 
+    sort_exprs = []
     # apply the sort items individually so that we can push nulls to the back
     for sort_item in sort:
         nulls_last = 'email_count' in sort_item
         if sort_item[0] == SORT_DESC_CHAR:
-            requested_reports = requested_reports.order_by(F(sort_item[1::]).desc(nulls_last=nulls_last))
+            sort_exprs.append(F(sort_item[1::]).desc(nulls_last=nulls_last))
         else:
-            requested_reports = requested_reports.order_by(F(sort_item).asc(nulls_last=nulls_last))
+            sort_exprs.append(F(sort_item).asc(nulls_last=nulls_last))
+    
+    requested_reports = requested_reports.order_by(*sort_exprs)
 
     paginator = Paginator(requested_reports, per_page)
     requested_reports, page_format = pagination(paginator, page, per_page)

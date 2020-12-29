@@ -7,6 +7,7 @@ from django.test import TestCase
 from django.test.client import Client
 from django.urls import reverse
 from django.utils.html import escape
+from django.utils.http import urlencode
 
 from ..forms import BulkActionsForm, ComplaintActions, ReportEditForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES
@@ -811,8 +812,61 @@ class FiltersFormTests(TestCase):
 
         for row in response.context['data_dict']:
             if row['report'].contact_email == self.email1:
-                self.assertEqual(row['email_report_count'], 3)
+                self.assertEqual(row['report'].email_count, 3)
             elif row['report'].contact_email == self.email2:
-                self.assertEqual(row['email_report_count'], 5)
+                self.assertEqual(row['report'].email_count, 5)
             elif row['report'].contact_email is None:
-                self.assertEqual(row['email_report_count'], None)
+                self.assertEqual(row['report'].email_count, None)
+
+    def test_email_report_count_sorting_desc(self):
+        query_kwargs = {'sort': '-email_count'}
+        base_url = reverse('crt_forms:crt-forms-index')
+        url = f'{base_url}?{urlencode(query_kwargs)}'
+
+        response = self.client.get(url, {})
+        self.assertEquals(response.status_code, 200)
+
+        for index, row in enumerate(response.context['data_dict']):
+            if index < 5:
+                self.assertEqual(row['report'].email_count, 5)
+            elif index < 8:
+                self.assertEqual(row['report'].email_count, 3)
+            else:
+                self.assertEqual(row['report'].email_count, None)
+
+    def test_email_report_count_sorting_asc(self):
+        query_kwargs = {'sort': 'email_count'}
+        base_url = reverse('crt_forms:crt-forms-index')
+        url = f'{base_url}?{urlencode(query_kwargs)}'
+
+        response = self.client.get(url, {})
+        self.assertEquals(response.status_code, 200)
+
+        for index, row in enumerate(response.context['data_dict']):
+            if index < 3:
+                self.assertEqual(row['report'].email_count, 3)
+            elif index < 8:
+                self.assertEqual(row['report'].email_count, 5)
+            else:
+                self.assertEqual(row['report'].email_count, None) 
+
+    def test_basic_multi_sort(self):
+        base_url = reverse('crt_forms:crt-forms-index')
+        url = f'{base_url}?sort=assigned_section&sort=contact_last_name'
+
+        response = self.client.get(url, {})
+        self.assertEquals(response.status_code, 200)
+
+        print('printing')
+        for index, row in enumerate(response.context['data_dict'], start=1):
+            prev_row = response.context['data_dict'][index-1]
+            print(index)
+
+            print(prev_row['report'].assigned_section, prev_row['report'].contact_last_name)
+            
+            
+            if prev_row['report'].assigned_section == row['report'].assigned_section:
+                print(prev_row['report'].contact_last_name, row['report'].contact_last_name)
+            #    self.assertTrue(prev_row['report'].contact_last_name < row['report'].contact_last_name)
+            #else:
+            #    self.assertTrue(prev_row['report'].assigned_section < row['report'].assigned_section)
