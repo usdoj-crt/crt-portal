@@ -17,3 +17,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '10.0.2.2', '0.0.0.0']  # nosec
 DEBUG = True
 ENABLE_DEBUG_TOOLBAR = True
+
+# Local email development
+EMAIL_HOST = 'mailhog'
+EMAIL_PORT = 1025

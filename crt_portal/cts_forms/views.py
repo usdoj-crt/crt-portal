@@ -22,6 +22,7 @@ from .filters import report_filter
 from .forms import (BulkActionsForm, CommentActions, ComplaintActions,
                     ContactEditForm, Filters, PrintActions, ProfileForm,
                     ReportEditForm, ResponseActions, Review, add_activity)
+from .mail import crt_send_mail
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -393,15 +394,18 @@ class ResponseView(LoginRequiredMixin, View):
         form = ResponseActions(request.POST, instance=report)
 
         if form.is_valid() and form.has_changed():
-            template_name = form.cleaned_data['templates'].title
+            template = form.cleaned_data['templates']
             button_type = request.POST['type']
             actions = {
                 'send': 'Emailed',
                 'copy': 'Copied',
                 'print': 'Printed'
             }
+            if button_type == 'send':
+                crt_send_mail(report, template)
+
             action = actions[button_type]
-            description = f"{action} '{template_name}' template"
+            description = f"{action} '{template.title}' template"
             add_activity(request.user, "Contacted complainant:", description, report)
             messages.add_message(request, messages.SUCCESS, description)
 

@@ -18,6 +18,10 @@ services:
       - 8000:8000
     depends_on:
       - db
-
+  mailhog:
+     image: mailhog/mailhog
+     ports:
+       - 1025:1025 # smtp server
+       - 8025:8025 # web ui
 volumes:
   postgres_data:
