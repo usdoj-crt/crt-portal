@@ -1096,6 +1096,15 @@ class Filters(ModelForm):
             },
         }
 
+    @property
+    def get_section_filters(self):
+        """
+        Return set of sections received as query parameters which are also valid section choices
+        """
+        inbound_sections = set(self.data.getlist('assigned_section'))
+        section_choices = {section for section, _ in self.fields['assigned_section'].choices}
+        return inbound_sections.intersection(section_choices)
+
 
 class ResponseActions(Form):
 
