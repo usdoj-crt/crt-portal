@@ -22,6 +22,7 @@ variable_rename = {
     'commercial_or_public_place': 'Relevant details',
     'reported_reason': 'Reported reason',
     'summary': 'Summary',
+    'contact_email': 'Contact email',
 }
 
 

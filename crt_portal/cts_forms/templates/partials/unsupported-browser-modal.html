@@ -1,0 +1,28 @@
+{% load i18n %}
+{% load static %}
+
+<div id="unsupported_browser_modal" hidden>
+  <div class="modal-wrapper" role="dialog" aria-modal="true" aria-describedby="modal_dialog_header">
+    <div class="modal-content modal-content--small">
+    <div class="usa-alert usa-alert--warning usa-alert">
+      <div class="usa-alert__body">
+        <p class="usa-alert__text">
+          {% blocktrans %}
+          <strong>NOTICE: Your mobile browser is not compatible with this form</strong> and you may experience issues with form submission.
+          {% endblocktrans %}
+        </p>
+        <p class="usa-alert__text">
+          {% blocktrans %}
+          Please consider downloading the latest version of Google Chrome, Mozilla Firefox, Safari, or Microsoft Edge. <a id="ub_contact" href="#contact-crt">You can also contact us by phone or mail here.</a>
+          {% endblocktrans %}
+        </p>
+        <p class="usa-alert__text">
+          <a class="crt-button" id="ub_close">
+            <img src="{% static 'img/intake-icons/ic_close.svg' %}" class="icon" alt="close">Close
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

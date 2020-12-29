@@ -11,6 +11,8 @@ testfixtures = "*"
 coverage = "*"
 locust = "*"
 faker = "*"
+playwright = "*"
+pytest-playwright = "*"
 
 [packages]
 django = "~=2.2"
@@ -29,6 +31,7 @@ pip = "*"
 django-activity-stream = "*"
 newrelic = "*"
 babel = "*"
+python-json-logger = "*"
 
 [requires]
 python_version = "3.8.5"

@@ -104,6 +104,30 @@ class ActionTests(TestCase):
         self.assertTrue(actions)
         self.assertEqual(actions[0], ('Assigned section:', 'Updated from "ADM" to "VOT"'))
 
+    def test_referral(self):
+        form = ComplaintActions(
+            initial={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': None,
+                'referred': False,
+            },
+            data={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': None,
+                'referred': True,
+            }
+        )
+        self.assertTrue(form.is_valid())
+        actions = list(form.get_actions())
+        self.assertTrue(actions)
+        self.assertEqual(actions[0], ('Secondary review:', 'Updated from "False" to "True"'))
+
 
 class CommentActionTests(TestCase):
     def setUp(self):
@@ -421,6 +445,27 @@ class FormNavigationTests(TestCase):
         self.assertEquals(content.count('complaint-nav'), 2)
         self.assertEquals(content.count('disabled-nav'), 1)
 
+    def test_email_filtering(self):
+        # generate random reports associated with a different email address
+        reports = [Report.objects.create(**SAMPLE_REPORT) for _ in range(5)]
+        for report in reports:
+            report.assigned_section = 'VOT'
+            report.contact_email = 'SomeoneElse@usa.gov'
+            report.save()
+
+        first = self.reports[-1]
+        response = self.client.post(
+            reverse('crt_forms:crt-forms-show', kwargs={'id': first.id}),
+            {
+                'next': '?per_page=15&contact_email=SomeoneElse@usa.gov',
+                'index': '1',
+                'type': ComplaintActions.CONTEXT_KEY,
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('N/A of 5 records' in str(response.content))
+
 
 class PrintActionTests(TestCase):
     def setUp(self):
@@ -485,6 +530,49 @@ class PrintActionTests(TestCase):
         self.assertEquals(response.status_code, 200)
         content = str(response.content)
         self.assertTrue(escape('Printed activity, issue for 2 reports') in content)
+
+
+class ReportActionTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        self.report = Report.objects.create(**SAMPLE_REPORT, assigned_section='ADM')
+
+    def referral_section_checked(self):
+        self.assertEquals(self.report.referral_section, '')
+        url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
+        params = {
+            'type': 'actions',
+            'referred': 'on',
+        }
+        response = self.client.post(url, params, follow=True)
+        content = str(response.content)
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('Secondary review:' in content)
+        self.assertTrue(escape('Updated from "False" to "True"') in content)
+        self.report.refresh_from_db()
+        self.assertTrue(self.report.referred)
+        self.assertEquals(self.report.referral_section, 'ADM')
+
+    def referral_section_unchecked(self):
+        self.report.referred = True
+        self.report.referral_section = 'ADM'
+        self.report.save()
+        url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
+        params = {
+            'type': 'actions',
+            'referred': '',
+        }
+        response = self.client.post(url, params, follow=True)
+        content = str(response.content)
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('Secondary review:' in content)
+        self.assertTrue(escape('Updated from "True" to "False"') in content)
+        self.report.refresh_from_db()
+        self.assertFalse(self.report.referred)
+        self.assertEquals(self.report.referral_section, '')
 
 
 class BulkActionsTests(TestCase):
@@ -701,3 +789,42 @@ class BulkActionsFormTests(TestCase):
         ]
         for action in form.get_actions(queryset.first()):
             self.assertTrue(action in expected_actions)
+
+
+class FiltersFormTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+
+        self.email1 = 'email1@usa.gov'
+        self.email2 = 'email2@usa.gov'
+        reports_email_1 = [Report.objects.create(**SAMPLE_REPORT) for _ in range(3)]
+        for report in reports_email_1:
+            report.contact_email = self.email1
+            report.save()
+
+        # generate reports for a different email address
+        reports_email_2 = [Report.objects.create(**SAMPLE_REPORT) for _ in range(5)]
+        for report in reports_email_2:
+            report.contact_email = self.email2
+            report.save()
+
+        # generate reports with no email address
+        reports_email_none = [Report.objects.create(**SAMPLE_REPORT) for _ in range(8)]
+        for report in reports_email_none:
+            report.contact_email = None
+            report.save()
+
+    def test_basic_navigation(self):
+        response = self.client.get(reverse('crt_forms:crt-forms-index'), {})
+        self.assertEquals(response.status_code, 200)
+
+        for row in response.context['data_dict']:
+            if row['report'].contact_email == self.email1:
+                self.assertEqual(row['email_report_count'], 3)
+            elif row['report'].contact_email == self.email2:
+                self.assertEqual(row['email_report_count'], 5)
+            elif row['report'].contact_email is None:
+                self.assertEqual(row['email_report_count'], None)
