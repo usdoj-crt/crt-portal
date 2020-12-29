@@ -417,4 +417,5 @@ PRINT_CHOICES = (
     ('description', 'Personal Description'),
     ('activity', 'Activity'),
     ('summary', 'Summary'),
+    ('related_reports', "Related Reports"),
 )
