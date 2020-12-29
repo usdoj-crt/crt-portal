@@ -857,16 +857,32 @@ class FiltersFormTests(TestCase):
         response = self.client.get(url, {})
         self.assertEquals(response.status_code, 200)
 
-        print('printing')
-        for index, row in enumerate(response.context['data_dict'], start=1):
-            prev_row = response.context['data_dict'][index-1]
-            print(index)
+        for index, row in enumerate(response.context['data_dict']):
+            if index == 0:
+                continue
 
-            print(prev_row['report'].assigned_section, prev_row['report'].contact_last_name)
-            
-            
+            prev_row = response.context['data_dict'][index-1]
+
             if prev_row['report'].assigned_section == row['report'].assigned_section:
-                print(prev_row['report'].contact_last_name, row['report'].contact_last_name)
-            #    self.assertTrue(prev_row['report'].contact_last_name < row['report'].contact_last_name)
-            #else:
-            #    self.assertTrue(prev_row['report'].assigned_section < row['report'].assigned_section)
+                self.assertTrue(prev_row['report'].contact_last_name <= row['report'].contact_last_name)
+            else:
+                self.assertTrue(prev_row['report'].assigned_section <= row['report'].assigned_section)
+
+    def test_multi_sort_multi_direction(self):
+        base_url = reverse('crt_forms:crt-forms-index')
+        url = f'{base_url}?sort=assigned_section&sort=-contact_last_name'
+
+        response = self.client.get(url, {})
+        self.assertEquals(response.status_code, 200)
+
+        for index, row in enumerate(response.context['data_dict']):
+            if index == 0:
+                continue
+
+            prev_row = response.context['data_dict'][index-1]
+
+            if prev_row['report'].assigned_section == row['report'].assigned_section:
+                self.assertTrue(prev_row['report'].contact_last_name >= row['report'].contact_last_name)
+            else:
+                self.assertTrue(prev_row['report'].assigned_section <= row['report'].assigned_section)
+
