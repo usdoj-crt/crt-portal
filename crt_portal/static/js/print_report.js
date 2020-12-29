@@ -5,7 +5,8 @@
     id_options_1: '.crt-report-card',
     id_options_2: '.crt-description-card',
     id_options_3: '.crt-activities-card',
-    id_options_4: '.crt-summary-card'
+    id_options_4: '.crt-summary-card',
+    id_options_5: '.crt-related-reports-card'
   };
 
   var modal = document.getElementById('print_report');
