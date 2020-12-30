@@ -37,6 +37,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
 from .models import CommentAndSummary, EmailReportCount, Profile, Report, Trends
 from .page_through import pagination
+from .sorts import report_sort
 
 logger = logging.getLogger(__name__)
 
@@ -156,8 +157,13 @@ def reconstruct_query(next_qp):
     """
     querydict = QueryDict(next_qp)
     report_query, _ = report_filter(querydict)
-    sort = querydict.getlist('sort', ['-create_date'])
-    return report_query.order_by(*sort)
+
+    report_query = report_query.annotate(email_count=F('email_report_count__email_count'))
+
+    sort_expr, sorts = report_sort(querydict)
+    report_query = report_query.order_by(*sort_expr)
+
+    return report_query
 
 
 def preserve_filter_parameters(report, querydict):
@@ -252,27 +258,13 @@ def index_view(request):
     report_query, query_filters = report_filter(request.GET)
 
     # Sort data based on request from params, default to `created_date` of complaint
-    sort = request.GET.getlist('sort', ['-create_date'])
     per_page = request.GET.get('per_page', 15)
     page = request.GET.get('page', 1)
 
-    # Validate requested sort params
-    valid_fields = [f.name for f in Report._meta.fields] + [f.name for f in EmailReportCount._meta.fields]
-    if all(elem.replace("-", '') in valid_fields for elem in sort) is False:
-        raise Http404(f'Invalid sort request: {sort}')
-
     requested_reports = report_query.annotate(email_count=F('email_report_count__email_count'))
 
-    sort_exprs = []
-    # apply the sort items individually so that we can push nulls to the back
-    for sort_item in sort:
-        nulls_last = 'email_count' in sort_item
-        if sort_item[0] == SORT_DESC_CHAR:
-            sort_exprs.append(F(sort_item[1::]).desc(nulls_last=nulls_last))
-        else:
-            sort_exprs.append(F(sort_item).asc(nulls_last=nulls_last))
-
-    requested_reports = requested_reports.order_by(*sort_exprs)
+    sort_expr, sorts = report_sort(request.GET)
+    requested_reports = requested_reports.order_by(*sort_expr)
 
     paginator = Paginator(requested_reports, per_page)
     requested_reports, page_format = pagination(paginator, page, per_page)
@@ -291,7 +283,7 @@ def index_view(request):
 
     # process sort query params
     sort_args = ''
-    for sort_item in sort:
+    for sort_item in sorts:
         if sort_item[0] == SORT_DESC_CHAR:
             sort_state.update({sort_item[1::]: True})
         else:
