@@ -444,7 +444,7 @@ class FormNavigationTests(TestCase):
 
     def test_email_filtering(self):
         # generate random reports associated with a different email address
-        reports = ReportFactory.create_batch(5, assigned_section='VOT', contact_email='SomeoneElse@usa.gov')
+        ReportFactory.create_batch(5, assigned_section='VOT', contact_email='SomeoneElse@usa.gov')
 
         first = self.reports[-1]
         response = self.client.post(
@@ -462,7 +462,7 @@ class FormNavigationTests(TestCase):
     def test_email_count_sorting_asc(self):
         # generate report wiht no email address
         report = ReportFactory.create(contact_email=None)
-        
+
         response = self.client.post(
             reverse('crt_forms:crt-forms-show', kwargs={'id': report.id}),
             {
@@ -479,7 +479,7 @@ class FormNavigationTests(TestCase):
     def test_email_count_sorting_desc(self):
         # generate report wiht no email address
         report = ReportFactory.create(contact_email=None)
-        
+
         response = self.client.post(
             reverse('crt_forms:crt-forms-show', kwargs={'id': report.id}),
             {
@@ -492,7 +492,6 @@ class FormNavigationTests(TestCase):
         self.assertEquals(response.status_code, 200)
         # the report with no email should land at the back
         self.assertTrue('11 of 11 records' in str(response.content))
-
 
 
 class PrintActionTests(TestCase):
