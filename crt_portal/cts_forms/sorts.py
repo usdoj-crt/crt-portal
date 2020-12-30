@@ -1,12 +1,15 @@
 from django.db.models import F
+from django.http import Http404
 
 from .models import EmailReportCount, Report
 
 SORT_DESC_CHAR = '-'
 
+
 def _valid_sort_params(sort):
     valid_fields = [f.name for f in Report._meta.fields] + [f.name for f in EmailReportCount._meta.fields]
     return all(elem.replace("-", '') in valid_fields for elem in sort)
+
 
 def report_sort(querydict):
     sort = querydict.getlist('sort', ['-create_date'])
