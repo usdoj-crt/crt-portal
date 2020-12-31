@@ -351,7 +351,7 @@ class Report(models.Model):
 
     @property
     def contact_full_name(self):
-        full_name = f'{self.contact_first_name, self.contact_last_name}'
+        full_name = f'{self.contact_first_name}, {self.contact_last_name}'
         return full_name.strip()
 
 

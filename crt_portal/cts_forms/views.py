@@ -388,6 +388,13 @@ class ProfileView(LoginRequiredMixin, FormView):
 
 
 class ResponseView(LoginRequiredMixin, View):
+    """
+    Allow intake specialists to print, copy, or email form response letters
+    """
+    MAIL_SERVICE = "AWS Simple Email Service"
+    ACTIONS = {'send': 'Emailed',
+               'copy': 'Copied',
+               'print': 'Printed'}
 
     def post(self, request, id):
         report = get_object_or_404(Report, pk=id)
@@ -396,18 +403,16 @@ class ResponseView(LoginRequiredMixin, View):
         if form.is_valid() and form.has_changed():
             template = form.cleaned_data['templates']
             button_type = request.POST['type']
-            actions = {
-                'send': 'Emailed',
-                'copy': 'Copied',
-                'print': 'Printed'
-            }
+
             if button_type == 'send':
                 crt_send_mail(report, template)
+                description = f"Email sent: '{template.title}' to {report.contact_email} via {self.MAIL_SERVICE}"
+            else:
+                action = self.ACTIONS[button_type]
+                description = f"{action} '{template.title}' template"
 
-            action = actions[button_type]
-            description = f"{action} '{template.title}' template"
-            add_activity(request.user, "Contacted complainant:", description, report)
             messages.add_message(request, messages.SUCCESS, description)
+            add_activity(request.user, "Contacted complainant:", description, report)
 
         url = preserve_filter_parameters(report, request.POST)
         return redirect(url)
