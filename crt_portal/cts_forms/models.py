@@ -349,6 +349,11 @@ class Report(models.Model):
                 ('closed', reports.filter(status='closed')),
                 )
 
+    @property
+    def contact_full_name(self):
+        full_name = f'{self.contact_first_name, self.contact_last_name}'
+        return full_name.strip()
+
 
 class EmailReportCount(models.Model):
     """see the total number of reports that are associated with the contact_email for each report"""
