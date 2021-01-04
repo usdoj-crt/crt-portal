@@ -12,7 +12,7 @@ def _valid_sort_params(sort):
 
 
 def report_sort(querydict):
-    sort = querydict.getlist('sort', ['-create_date'])
+    sort = querydict.getlist('sort')
 
     if not _valid_sort_params(sort):
         raise Http404(f'Invalid sort request: {sort}')
@@ -25,5 +25,7 @@ def report_sort(querydict):
             sort_exprs.append(F(sort_item[1::]).desc(nulls_last=nulls_last))
         else:
             sort_exprs.append(F(sort_item).asc(nulls_last=nulls_last))
+
+    sort_exprs.extend([F('create_date').desc(), F('id').desc()])
 
     return sort_exprs, sort
