@@ -7,6 +7,7 @@ from django.test import SimpleTestCase, TestCase
 from django.test.client import Client
 from django.urls import reverse
 from django.utils.html import escape
+from django.utils.http import urlencode
 
 
 from ..forms import BulkActionsForm, ComplaintActions, Filters, ReportEditForm
@@ -375,18 +376,12 @@ class FormNavigationTests(TestCase):
         self.test_pass = secrets.token_hex(32)
         self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
-        self.reports = [Report.objects.create(**SAMPLE_REPORT) for _ in range(3)]
-        # generate three reports that belong to a specific section
         self.filter_section = 'ADM'
-        for report in self.reports:
-            report.assigned_section = self.filter_section
-            report.save()
-        # generate random reports that belong to other sections
-        reports = [Report.objects.create(**SAMPLE_REPORT) for _ in range(7)]
-        sections = ['CRM', 'DRS', 'ELS', 'EOS']
-        for index, report in enumerate(reports):
-            report.assigned_section = sections[index % len(sections)]
-            report.save()
+        self.reports = ReportFactory.create_batch(3, assigned_section=self.filter_section)
+        ReportFactory.create_batch(2, assigned_section='CRM')
+        ReportFactory.create_batch(2, assigned_section='DRS')
+        ReportFactory.create_batch(2, assigned_section='ELS')
+        ReportFactory.create_batch(1, assigned_section='EOS')
 
     def test_basic_navigation(self):
         first = self.reports[-1]
@@ -449,11 +444,7 @@ class FormNavigationTests(TestCase):
 
     def test_email_filtering(self):
         # generate random reports associated with a different email address
-        reports = [Report.objects.create(**SAMPLE_REPORT) for _ in range(5)]
-        for report in reports:
-            report.assigned_section = 'VOT'
-            report.contact_email = 'SomeoneElse@usa.gov'
-            report.save()
+        ReportFactory.create_batch(5, assigned_section='VOT', contact_email='SomeoneElse@usa.gov')
 
         first = self.reports[-1]
         response = self.client.post(
@@ -467,6 +458,40 @@ class FormNavigationTests(TestCase):
         )
         self.assertEquals(response.status_code, 200)
         self.assertTrue('N/A of 5 records' in str(response.content))
+
+    def test_email_count_sorting_asc(self):
+        # generate report wiht no email address
+        report = ReportFactory.create(contact_email=None)
+
+        response = self.client.post(
+            reverse('crt_forms:crt-forms-show', kwargs={'id': report.id}),
+            {
+                'next': '?per_page=15&sort=email_count',
+                'index': '1',
+                'type': ComplaintActions.CONTEXT_KEY,
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        # the report with no email should land at the back
+        self.assertTrue('11 of 11 records' in str(response.content))
+
+    def test_email_count_sorting_desc(self):
+        # generate report wiht no email address
+        report = ReportFactory.create(contact_email=None)
+
+        response = self.client.post(
+            reverse('crt_forms:crt-forms-show', kwargs={'id': report.id}),
+            {
+                'next': '?per_page=15&sort=-email_count',
+                'index': '1',
+                'type': ComplaintActions.CONTEXT_KEY,
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        # the report with no email should land at the back
+        self.assertTrue('11 of 11 records' in str(response.content))
 
 
 class PrintActionTests(TestCase):
@@ -812,11 +837,79 @@ class FiltersFormTests(TestCase):
 
         for row in response.context['data_dict']:
             if row['report'].contact_email == self.email1:
-                self.assertEqual(row['email_report_count'], 3)
+                self.assertEqual(row['report'].email_count, 3)
             elif row['report'].contact_email == self.email2:
-                self.assertEqual(row['email_report_count'], 5)
+                self.assertEqual(row['report'].email_count, 5)
             elif row['report'].contact_email is None:
-                self.assertEqual(row['email_report_count'], None)
+                self.assertEqual(row['report'].email_count, None)
+
+    def test_email_report_count_sorting_desc(self):
+        query_kwargs = {'sort': '-email_count'}
+        base_url = reverse('crt_forms:crt-forms-index')
+        url = f'{base_url}?{urlencode(query_kwargs)}'
+
+        response = self.client.get(url, {})
+        self.assertEquals(response.status_code, 200)
+
+        for index, row in enumerate(response.context['data_dict']):
+            if index < 5:
+                self.assertEqual(row['report'].email_count, 5)
+            elif index < 8:
+                self.assertEqual(row['report'].email_count, 3)
+            else:
+                self.assertEqual(row['report'].email_count, None)
+
+    def test_email_report_count_sorting_asc(self):
+        query_kwargs = {'sort': 'email_count'}
+        base_url = reverse('crt_forms:crt-forms-index')
+        url = f'{base_url}?{urlencode(query_kwargs)}'
+
+        response = self.client.get(url, {})
+        self.assertEquals(response.status_code, 200)
+
+        for index, row in enumerate(response.context['data_dict']):
+            if index < 3:
+                self.assertEqual(row['report'].email_count, 3)
+            elif index < 8:
+                self.assertEqual(row['report'].email_count, 5)
+            else:
+                self.assertEqual(row['report'].email_count, None)
+
+    def test_basic_multi_sort(self):
+        base_url = reverse('crt_forms:crt-forms-index')
+        url = f'{base_url}?sort=assigned_section&sort=contact_last_name'
+
+        response = self.client.get(url, {})
+        self.assertEquals(response.status_code, 200)
+
+        for index, row in enumerate(response.context['data_dict']):
+            if index == 0:
+                continue
+
+            prev_row = response.context['data_dict'][index - 1]
+
+            if prev_row['report'].assigned_section == row['report'].assigned_section:
+                self.assertTrue(prev_row['report'].contact_last_name <= row['report'].contact_last_name)
+            else:
+                self.assertTrue(prev_row['report'].assigned_section <= row['report'].assigned_section)
+
+    def test_multi_sort_multi_direction(self):
+        base_url = reverse('crt_forms:crt-forms-index')
+        url = f'{base_url}?sort=assigned_section&sort=-contact_last_name'
+
+        response = self.client.get(url, {})
+        self.assertEquals(response.status_code, 200)
+
+        for index, row in enumerate(response.context['data_dict']):
+            if index == 0:
+                continue
+
+            prev_row = response.context['data_dict'][index - 1]
+
+            if prev_row['report'].assigned_section == row['report'].assigned_section:
+                self.assertTrue(prev_row['report'].contact_last_name >= row['report'].contact_last_name)
+            else:
+                self.assertTrue(prev_row['report'].assigned_section <= row['report'].assigned_section)
 
 
 class SimpleFilterFormTests(SimpleTestCase):
