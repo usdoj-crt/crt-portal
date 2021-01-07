@@ -2,6 +2,8 @@
 {% load i18n %}
 {% load static %}
 
+{% block main_class %}class="confirmation-page"{% endblock %}
+
 {% block page_header %}
 <header class="crt-form-header">
   <div class="grid-container">
@@ -47,6 +49,7 @@
           </div>
       </div>
     </div>
+    <button id="print_button" class="usa-button">Print</button>
   </div>
   </div>
 </section>
@@ -87,9 +90,9 @@
             </p>
             <ul class="confirmation-list">
               <li>{% trans "<strong>Open an investigation</strong> or take some other action within the legal authority of the Justice Department." %}</li>
-                <li>{% trans "<strong>Collect more information</strong> before we can look into your report." %}</li>
-                <li>{% trans "<strong>Recommend another government agency</strong> that can properly look into your report. If so, we’ll let you know." %}
-                </li>
+              <li>{% trans "<strong>Collect more information</strong> before we can look into your report." %}</li>
+              <li>{% trans "<strong>Recommend another government agency</strong> that can properly look into your report. If so, we’ll let you know." %}
+              </li>
             </ul>
             <p>{% trans "In some cases, we may determine that we don’t have legal authority to handle your report and will recommend that you seek help from a private lawyer or local legal aid organization." %}</p>
           </div>
@@ -101,7 +104,7 @@
               <span>3</span>
             </div>
             <h3 class="intake-section-title">
-                {% trans "When possible, we will follow up with you" %}
+              {% trans "When possible, we will follow up with you" %}
             </h3>
           </div>
           <div class='confirmation-content padding-left-6'>
@@ -116,7 +119,7 @@
                 {% trans "We’re receiving and actively reviewing many requests at the same time." %}
               </li>
             </ul>
-              <p>{% trans "If we are able to respond, we will contact you using the contact information you provided in this report. Depending on the type of report, response times can vary. If you need to reach us about your report, please refer to your report number when contacting us. This is how we keep track of your submission." %}</p>
+            <p>{% trans "If we are able to respond, we will contact you using the contact information you provided in this report. Depending on the type of report, response times can vary. If you need to reach us about your report, please refer to your report number when contacting us. This is how we keep track of your submission." %}</p>
           </div>
         </li>
       </ol>
@@ -171,8 +174,8 @@
 <section class="submission">
   <div id="submission" class="grid-container">
     <div class="submission-content tablet:grid-col-8 tablet:grid-offset-2">
-        <h2 class='h1__display'>{% trans "Your submission" %}</h2>
-        {% include "forms/report_data.html" with ordered_step_names=ordered_step_names question=questions hide_edit_button=True %}
+      <h2 class='h1__display'>{% trans "Your submission" %}</h2>
+      {% include "forms/report_data.html" with ordered_step_names=ordered_step_names question=questions hide_edit_button=True %}
     </div>
   </div>
 </section>
@@ -192,4 +195,10 @@
   <script src="https://touchpoints.app.cloud.gov/touchpoints/a24aeb5e/js" async></script>
   <script src="{% static 'js/modal.js' %}"></script>
   <script src="{% static 'js/redirect-modal.js' %}"></script>
+  <script nonce="{{ request.csp_nonce }}">
+   var print_el = document.getElementById('print_button');
+   print_el.onclick = function() {
+     window.print();
+   };
+  </script>
 {% endblock %}

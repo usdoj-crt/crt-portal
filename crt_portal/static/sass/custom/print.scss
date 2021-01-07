@@ -103,3 +103,50 @@
     display: block;
   }
 }
+
+// confirmation page
+@media print {
+  // "how can we improve this site?"
+  #fba-button {
+    display: none !important;
+  }
+
+  .confirmation-page {
+    background-color: color('white');
+
+    #print_button {
+      display: none;
+    }
+
+    // reset all grid margins/padding
+    div:not(.title-icon-blue):not(.paper-icon-wrapper) {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .submission {
+      margin-top: 0;
+    }
+
+    section, .grid-container {
+      background-color: color('white') !important;
+      padding: 0;
+    }
+
+    .h1__display, .intake-section-title, .crt-portal-card__subheader, a, a:visited {
+      color: color('black');
+    }
+
+    .title-icon-blue {
+      background-color: color('black') !important;
+    }
+
+    .crt-portal-card {
+      border-top: 1px solid;
+      border-radius: 0;
+      box-shadow: unset;
+    }
+  }
+}
