@@ -17,7 +17,6 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
-
 from .filters import report_filter
 from .forms import (BulkActionsForm, CommentActions, ComplaintActions,
                     ContactEditForm, Filters, PrintActions, ProfileForm,
@@ -390,23 +389,32 @@ class ProfileView(LoginRequiredMixin, FormView):
 class ResponseView(LoginRequiredMixin, View):
     """
     Allow intake specialists to print, copy, or email form response letters
+    If we encounter _any_ exceptions in sending an email, log the error message and return.
     """
     MAIL_SERVICE = "AWS Simple Email Service"
     ACTIONS = {'send': 'Emailed',
                'copy': 'Copied',
                'print': 'Printed'}
+    SEND_MAIL_ERROR = "There was a problem sending the requested email.\nNo email was delivered.\nWe've logged this error and will review it as soon as possible."
 
     def post(self, request, id):
         report = get_object_or_404(Report, pk=id)
         form = ResponseActions(request.POST, instance=report)
+        url = preserve_filter_parameters(report, request.POST)
 
         if form.is_valid() and form.has_changed():
+
             template = form.cleaned_data['templates']
             button_type = request.POST['type']
 
-            if button_type == 'send':
-                crt_send_mail(report, template)
-                description = f"Email sent: '{template.title}' to {report.contact_email} via {self.MAIL_SERVICE}"
+            if button_type == 'send':  # We're going to send an email!
+                try:
+                    crt_send_mail(report, template)
+                    description = f"Email sent: '{template.title}' to {report.contact_email} via {self.MAIL_SERVICE}"
+                except Exception as e:  # catch *all* exceptions
+                    logger.warning({'message': f"Email failed to send: {e}", 'report': report.id})
+                    messages.add_message(request, messages.ERROR, self.SEND_MAIL_ERROR)
+                    return redirect(url)  # Return here, nothing to write in activity log
             else:
                 action = self.ACTIONS[button_type]
                 description = f"{action} '{template.title}' template"
@@ -414,7 +422,6 @@ class ResponseView(LoginRequiredMixin, View):
             messages.add_message(request, messages.SUCCESS, description)
             add_activity(request.user, "Contacted complainant:", description, report)
 
-        url = preserve_filter_parameters(report, request.POST)
         return redirect(url)
 
 
