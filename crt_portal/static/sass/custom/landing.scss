@@ -161,9 +161,19 @@ $arrow-height: 24px;
     }
   }
 
+  .crt-landing--logo_section {
+    img {
+      height: 60px;
+      @media screen and (max-width: 400px) {
+        height: 45px;
+      }
+    }
+  }
+
   .crt-landing--logo_subheading {
     @extend .usa-footer__logo-subheading;
-    font-size: $theme-text-font-size-sm;
+    font-size: $theme-text-font-size-xs;
+    line-height: 2.25;
     @media screen and (max-width: 400px) {
       @include text--body-copy__xsmall();
     }
@@ -172,9 +182,7 @@ $arrow-height: 24px;
   .crt-landing--logo_heading {
     @extend .usa-footer__logo-heading;
     font-size: $theme-heading-font-size-md;
-    @media screen and (max-width: 400px) {
-      font-size: $theme-text-font-size-sm;
-    }
+    line-height: 0.75;
   }
 
   }
