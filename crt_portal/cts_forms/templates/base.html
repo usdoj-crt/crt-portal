@@ -7,7 +7,7 @@
  <head>
     {% block ga_tagmanager_head %}
       {% environment as env %}
-      {% if env == "PRODUCTION" %}
+      {% if env == "PRODUCTION" or env == "STAGE" %}
        <!-- Google Tag Manager -->
        <script nonce="{{ request.csp_nonce }}">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
        new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -68,7 +68,7 @@
 
     {% block ga_tagmanager_body %}
       {% environment as env %}
-      {% if env == "PRODUCTION" %}
+      {% if env == "PRODUCTION" or env == "STAGE" %}
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N6M8JRD"
         height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
