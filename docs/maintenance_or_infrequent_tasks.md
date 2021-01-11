@@ -361,7 +361,7 @@ If you have just set up localstack, you will need to create the `crt-portal` s3 
 
 You also likely want to configure  [django-compressor](https://django-compressor.readthedocs.io/en/stable/) to work locally.
 
-First, edit `local_settings.py` to include `SECRET_KEY`, `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` (since we are running locally, any value for these settings will work). Most of the S3 configuration is identical to deployed environments:
+First, edit `local_settings.py` to include `SECRET_KEY`, `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` (since we are running locally, any value for these settings will work). This part of the S3 configuration is identical to deployed environments:
 
     AWS_STORAGE_BUCKET_NAME = 'crt-portal'
     AWS_S3_REGION_NAME = 'us-east-1'
@@ -369,10 +369,13 @@ First, edit `local_settings.py` to include `SECRET_KEY`, `AWS_ACCESS_KEY_ID` and
     AWS_S3_OBJECT_PARAMETERS = { 'CacheControl': 'max-age=86400' }
     AWS_LOCATION = 'static'
     AWS_QUERYSTRING_AUTH = False
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3ManifestStaticStorage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_DEFAULT_ACL = 'public-read'
     AWS_IS_GZIPPED = True
+
+We have our own storage class to handle both static files and S3 uploads: we want to temporarily use staticfiles as a staging area from which to upload S3. So we modify the static files storage option here:
+
+    STATICFILES_STORAGE = 'crt_portal.storage.CachedS3Boto3Storage'
 
 Second, we also want to configure our application to use our localstack instance:
 
@@ -382,10 +385,10 @@ Second, we also want to configure our application to use our localstack instance
 
 Note that the `s3` domain is only reachable from within the container: the django service will use `AWS_S3_ENDPOINT_URL` internally when generating static files. In addition, localstack must be reachable from outside the container as well (so that local requests will hit the localstack s3 service -- this is why we forward the localstack port in the django compose file).
 
-Third, we also want to enable compress to run locally and to use the local s3 service we have just set up.
+Third, we also want to enable compress to run locally and to use the local storage (both static files and S3) we have just set up.
 
     COMPRESS_ENABLED = True
-    COMPRESS_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    COMPRESS_STORAGE = 'crt_portal.storage.CachedS3Boto3Storage'
     COMPRESS_URL = STATIC_URL
 
 Finally, run `collectstatic` if it wasn't already done on `docker-compose` startup:
@@ -393,3 +396,8 @@ Finally, run `collectstatic` if it wasn't already done on `docker-compose` start
     docker-compose run web python /code/crt_portal/manage.py collectstatic --verbosity 2
 
 The given verbosity flag will allow us to see the specific static files we are generating (or skipping, if already present).
+
+With all of the above configuration settings, your `local_settings.py` should be identical to that of production, with the exception of our S3 location:
+
+    AWS_S3_ENDPOINT_URL = 'http://s3:4566'
+    AWS_S3_CUSTOM_DOMAIN = f'localhost:4566/{AWS_STORAGE_BUCKET_NAME}'
