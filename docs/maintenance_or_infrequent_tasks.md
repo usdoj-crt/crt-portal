@@ -341,7 +341,6 @@ To integrate localstack, it is probably easiest to modify the docker-compose fil
       environment:
         - DATA_DIR=/tmp/localstack/data
         - SERVICES=s3
-        - DEBUG=1
       volumes:
         - ./.localstack:/tmp/localstack
 
@@ -393,9 +392,9 @@ Third, we also want to enable compress to run locally and to use the local stora
 
 Finally, run `collectstatic` if it wasn't already done on `docker-compose` startup:
 
-    docker-compose run web python /code/crt_portal/manage.py collectstatic --verbosity 2
+    docker-compose run web python /code/crt_portal/manage.py collectstatic
 
-The given verbosity flag will allow us to see the specific static files we are generating (or skipping, if already present).
+You may pass in `--verbosity 2` to the above which will allow us to see the specific static files we are generating (or skipping, if already present), with the caveat that this flag slows the process greatly.
 
 With all of the above configuration settings, your `local_settings.py` should be identical to that of production, with the exception of our S3 location:
 
