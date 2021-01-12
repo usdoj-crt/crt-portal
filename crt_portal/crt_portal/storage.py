@@ -1,8 +1,8 @@
 from django.core.files.storage import get_storage_class
-from storages.backends.s3boto3 import S3Boto3Storage
+from storages.backends.s3boto3 import S3ManifestStaticStorage
 
 
-class CachedS3Boto3Storage(S3Boto3Storage):
+class CachedS3Boto3Storage(S3ManifestStaticStorage):
     """
     Save compressed files to local storage before uploading to S3.
     """
