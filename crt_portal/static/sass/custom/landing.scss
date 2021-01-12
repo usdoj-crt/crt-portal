@@ -161,10 +161,21 @@ $arrow-height: 24px;
     }
   }
 
+  .crt-landing--logo_section {
+    img {
+      height: 60px;
+      @include at-media-max(mobile-lg) {
+        height: 45px;
+      }
+    }
+  }
+
   .crt-landing--logo_subheading {
     @extend .usa-footer__logo-subheading;
-    font-size: $theme-text-font-size-sm;
-    @media screen and (max-width: 400px) {
+    font-size: $theme-text-font-size-xs;
+    line-height: 2.25;
+    margin-top: 0.25rem;
+    @include at-media-max(mobile-lg) {
       @include text--body-copy__xsmall();
     }
   }
@@ -172,8 +183,12 @@ $arrow-height: 24px;
   .crt-landing--logo_heading {
     @extend .usa-footer__logo-heading;
     font-size: $theme-heading-font-size-md;
-    @media screen and (max-width: 400px) {
-      font-size: $theme-text-font-size-sm;
+    line-height: 0.5;
+    margin-bottom: 1rem;
+    margin-top: .2rem;
+    @include at-media-max(mobile-lg) {
+      font-size: $theme-heading-font-size-md-mobile;
+      margin-top: 0.5rem;
     }
   }
 
