@@ -12,7 +12,11 @@
         </div>
         <div id='response-modal-form' class="modal-form">
           <p>Name: <strong>{{data.contact_full_name|default_if_none:"-"}}</strong></p>
-          <p>Email: <strong>{{data.contact_email|default_if_none:"-"}}</strong></p>
+          <p>Email:
+            <strong id="contact_email" data-email="{{data.contact_email|default_if_none:''}}">
+              {{data.contact_email|default_if_none:"-"}}
+            </strong>
+          </p>
           <p class="intake-template--description">
             Subject: <strong id="intake_description">(no template chosen)</strong>
           </p>
