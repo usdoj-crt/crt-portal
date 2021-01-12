@@ -117,8 +117,14 @@
     padding: 0;
     margin: 0;
 
+    .doj-brand {
+      margin: 0;
+    }
+
     h1 {
       color: color('black');
+      font-size: 1.25rem;
+      padding: 0;
     }
 
     // reset all grid margins/padding
@@ -136,24 +142,30 @@
       color: color('black');
     }
 
-    #print_button {
+    #print_button, .crt-success-card__content p, .title img {
       display: none;
     }
 
     .record-number-wrapper {
       border: 1px solid color('black');
-      padding: 1rem;
+      padding: 1rem !important;
+      width: 50% !important;
+
       .record-number, #paper-icon-wrapper {
         background-color: color('white');
       }
     }
 
     // reset all grid margins/padding
-    .grid-container, div:not(.title-icon-blue):not(.paper-icon-wrapper) {
+    .h1, .grid-container, div:not(.title-icon-blue):not(.paper-icon-wrapper) {
       margin: 0;
       padding: 0;
       width: 100%;
       max-width: 100%;
+    }
+
+    li {
+      margin: 0 !important;
     }
 
     .submission {
@@ -181,10 +193,17 @@
       font-weight: bold;
     }
 
-    .crt-portal-card, .crt-success-card {
-      border-top: 1px solid;
+    .crt-portal-card, .crt-success-card, .what-to-expect {
       border-radius: 0;
       box-shadow: unset;
     }
+
+    .crt-portal-card, .what-to-expect {
+      border-top: 1px solid;
+    }
+  }
+
+  .confirmation-page + footer {
+    display: none;
   }
 }
