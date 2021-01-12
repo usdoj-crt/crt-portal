@@ -106,20 +106,50 @@
 
 // confirmation page
 @media print {
-  // "how can we improve this site?"
-  #fba-button {
+  // remove "how can we improve this site?" and usa banner
+  #fba-button, .usa-banner {
     display: none !important;
+  }
+
+  header.crt-form-header {
+    color: color('black');
+    background-color: color('white');
+    padding: 0;
+    margin: 0;
+
+    h1 {
+      color: color('black');
+    }
+
+    // reset all grid margins/padding
+    div {
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      max-width: 100%;
+    }
   }
 
   .confirmation-page {
     background-color: color('white');
+    img {
+      color: color('black');
+    }
 
     #print_button {
       display: none;
     }
 
+    .record-number-wrapper {
+      border: 1px solid color('black');
+      padding: 1rem;
+      .record-number, #paper-icon-wrapper {
+        background-color: color('white');
+      }
+    }
+
     // reset all grid margins/padding
-    div:not(.title-icon-blue):not(.paper-icon-wrapper) {
+    .grid-container, div:not(.title-icon-blue):not(.paper-icon-wrapper) {
       margin: 0;
       padding: 0;
       width: 100%;
@@ -130,20 +160,28 @@
       margin-top: 0;
     }
 
-    section, .grid-container {
+    section, .grid-container, .title-wrapper {
       background-color: color('white') !important;
       padding: 0;
     }
 
-    .h1__display, .intake-section-title, .crt-portal-card__subheader, a, a:visited {
+    .h1,
+    .h1__display,
+    .h3__display,
+    .intake-section-title,
+    .crt-portal-card__subheader,
+    a, a:visited {
       color: color('black');
     }
 
     .title-icon-blue {
-      background-color: color('black') !important;
+      background-color: color('white') !important;
+      color: color('black') !important;
+      border: 2px solid color('black');
+      font-weight: bold;
     }
 
-    .crt-portal-card {
+    .crt-portal-card, .crt-success-card {
       border-top: 1px solid;
       border-radius: 0;
       box-shadow: unset;
