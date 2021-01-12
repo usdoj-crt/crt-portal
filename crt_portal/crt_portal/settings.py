@@ -309,6 +309,17 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     )
     CSP_INCLUDE_NONCE_IN = ['script-src']
 
+    # Configure outbound Email
+    AWS_SES_SECRET_ACCESS_KEY = os.getenv('AWS_SES_SECRET_ACCESS_KEY')
+    AWS_SES_ACCESS_KEY_ID = os.getenv('AWS_SES_ACCESS_KEY_ID')
+    if AWS_SES_SECRET_ACCESS_KEY and AWS_SES_ACCESS_KEY_ID:
+        # Only set backend if SES credentials are present otherwise
+        # `django-ses` will attempt to use AWS credentials established
+        # for use with S3
+        EMAIL_BACKEND = 'django_ses.SESBackend'
+        AWS_SES_REGION_NAME = 'us-gov-west-1'
+        DEFAULT_FROM_EMAIL = 'no_email_yet_set@example.com'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 # This is where source assets are collect from by collect static
