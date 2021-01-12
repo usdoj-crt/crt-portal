@@ -27,6 +27,10 @@
   .bulk-print-link,
   // - hide the "print all" on the bulk actions page.
   .activity-stream,
+  // - hide related report `view all (#) links
+  a.related-reports,
+  // - always hide the related reports card
+  .crt-related-reports-card,
   // - always hide the warning banner.
   .crt-header--warning-pii {
     display: none;

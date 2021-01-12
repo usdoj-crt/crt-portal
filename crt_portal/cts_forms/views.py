@@ -9,8 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
-from django.db.models import Count
-from django.http import Http404, QueryDict
+from django.db.models import F
+from django.http import QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
@@ -37,6 +37,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
 from .models import CommentAndSummary, Profile, Report, Trends
 from .page_through import pagination
+from .sorts import report_sort
 
 logger = logging.getLogger(__name__)
 
@@ -156,8 +157,13 @@ def reconstruct_query(next_qp):
     """
     querydict = QueryDict(next_qp)
     report_query, _ = report_filter(querydict)
-    sort = querydict.getlist('sort', ['-create_date'])
-    return report_query.order_by(*sort)
+
+    report_query = report_query.annotate(email_count=F('email_report_count__email_count'))
+
+    sort_expr, sorts = report_sort(querydict)
+    report_query = report_query.order_by(*sort_expr)
+
+    return report_query
 
 
 def preserve_filter_parameters(report, querydict):
@@ -241,25 +247,25 @@ def index_view(request):
     if hasattr(request.user, 'profile') and request.user.profile.intake_filters:
         request.GET = request.GET.copy()
         global_section_filter = request.user.profile.intake_filters.split(',')
-        request.GET.setlist('assigned_section', global_section_filter)
 
-        # Retreive ProfileForm intake_filters
-        data = {'intake_filters': global_section_filter}
+        # If assigned_section is NOT specificied in request, use filter from profile
+        if 'assigned_section' not in request.GET:
+            request.GET.setlist('assigned_section', global_section_filter)
+
+        data = {'intake_filters': request.GET.getlist('assigned_section')}
         profile_form = ProfileForm(data)
 
     report_query, query_filters = report_filter(request.GET)
 
     # Sort data based on request from params, default to `created_date` of complaint
-    sort = request.GET.getlist('sort', ['-create_date'])
     per_page = request.GET.get('per_page', 15)
     page = request.GET.get('page', 1)
 
-    # Validate requested sort params
-    report_fields = [f.name for f in Report._meta.fields]
-    if all(elem.replace("-", '') in report_fields for elem in sort) is False:
-        raise Http404(f'Invalid sort request: {sort}')
+    requested_reports = report_query.annotate(email_count=F('email_report_count__email_count'))
 
-    requested_reports = report_query.order_by(*sort)
+    sort_expr, sorts = report_sort(request.GET)
+    requested_reports = requested_reports.order_by(*sort_expr)
+
     paginator = Paginator(requested_reports, per_page)
     requested_reports, page_format = pagination(paginator, page, per_page)
 
@@ -277,7 +283,7 @@ def index_view(request):
 
     # process sort query params
     sort_args = ''
-    for sort_item in sort:
+    for sort_item in sorts:
         if sort_item[0] == SORT_DESC_CHAR:
             sort_state.update({sort_item[1::]: True})
         else:
@@ -287,9 +293,6 @@ def index_view(request):
     page_args += sort_args
 
     all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
-
-    emails_in_reports_on_this_page = [r.contact_email for r in requested_reports]
-    emails_counts = Report.objects.filter(contact_email__in=emails_in_reports_on_this_page).values('contact_email').annotate(total=Count('contact_email'))
 
     data = []
 
@@ -307,7 +310,6 @@ def index_view(request):
 
         data.append({
             "report": report,
-            "email_report_count": next((e['total'] for e in emails_counts if e['contact_email'] == report.contact_email), None),
             "report_protected_classes": p_class_list,
             "url": f'{report.id}?next={all_args_encoded}&index={paginated_offset + index}',
         })

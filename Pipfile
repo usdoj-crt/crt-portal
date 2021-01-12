@@ -13,6 +13,8 @@ locust = "*"
 faker = "*"
 playwright = "*"
 pytest-playwright = "*"
+django-debug-toolbar = "*"
+factory-boy = "*"
 
 [packages]
 django = "~=2.2"

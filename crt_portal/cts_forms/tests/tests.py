@@ -10,15 +10,15 @@ from django.urls import reverse
 from testfixtures import LogCapture
 
 from ..forms import (CommercialPublicLocation, ComplaintActions, Contact,
-                     Details, EducationLocation, LocationForm, PoliceLocation,
-                     PrimaryReason, ProForm, ProtectedClassForm, When, HateCrimes, ProfileForm)
+                     Details, EducationLocation, HateCrimes, LocationForm,
+                     PoliceLocation, PrimaryReason, ProfileForm, ProForm,
+                     ProtectedClassForm, When)
 from ..model_variables import (CONTACT_PHONE_INVALID_MESSAGE,
                                PRIMARY_COMPLAINT_CHOICES,
                                PRIMARY_COMPLAINT_ERROR, PROTECTED_CLASS_ERROR,
                                PROTECTED_MODEL_CHOICES, SERVICEMEMBER_ERROR,
                                VIOLATION_SUMMARY_ERROR, WHERE_ERRORS)
-from ..models import (CommentAndSummary,
-                      ProtectedClass, Report)
+from ..models import CommentAndSummary, Profile, ProtectedClass, Report
 from ..views import save_form
 from .test_data import SAMPLE_REPORT
 
@@ -637,6 +637,31 @@ class CRT_FILTER_Tests(TestCase):
         report_len = len(reports)
 
         self.assertEquals(report_len, expected_reports)
+
+    def test_profile_filters(self):
+        """
+        Results filtered by assigned_section set in profile if no assigned_section provided
+        """
+        Profile.objects.create(intake_filters='IER', user_id=self.user.id)
+        response = self.client.get(f'{self.url_base}')
+        reports = response.context['data_dict']
+
+        # No IER reports exist so none should be returned when our profile is set to
+        self.assertEquals(Report.objects.filter(assigned_section='IER').count(), 0)
+        self.assertEquals(len(reports), 0)
+
+    def test_profile_filters_override(self):
+        """
+        Results filtered by provided assigned_section, bypassing profile filter
+        """
+        Profile.objects.create(intake_filters='IER', user_id=self.user.id)
+        filter_ = 'assigned_section=ADM'
+        response = self.client.get(f'{self.url_base}?{filter_}')
+        reports = response.context['data_dict']
+
+        # We've specified ADM as a query param, we should only see reports from that section
+        expected_reports = Report.objects.filter(assigned_section='ADM').count()
+        self.assertEquals(len(reports), expected_reports)
 
 
 class Validation_Form_Tests(TestCase):

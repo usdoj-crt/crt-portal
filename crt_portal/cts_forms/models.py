@@ -335,6 +335,31 @@ class Report(models.Model):
         self.assigned_to = None
         self.status = 'new'
 
+    @cached_property
+    def related_reports(self):
+        """Return qs of reports with the same value for `contact_email`"""
+        return Report.objects.exclude(contact_email__isnull=True).filter(contact_email__iexact=self.contact_email).order_by('status', '-create_date')
+
+    @cached_property
+    def related_reports_display(self):
+        """Return set of related reports grouped by STATUS for template rendering"""
+        reports = self.related_reports
+        return (('new', reports.filter(status='new')),
+                ('open', reports.filter(status='open')),
+                ('closed', reports.filter(status='closed')),
+                )
+
+
+class EmailReportCount(models.Model):
+    """see the total number of reports that are associated with the contact_email for each report"""
+    report = models.OneToOneField(Report, primary_key=True, on_delete=models.CASCADE, related_name='email_report_count')
+    email_count = models.IntegerField()
+
+    class Meta:
+        """This model is tied to a view created from migration 93"""
+        managed = False
+        db_table = 'email_report_count'
+
 
 class Trends(models.Model):
     """see the top 10 non-stop words from violation summary """

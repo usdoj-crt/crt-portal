@@ -1,0 +1,50 @@
+{% extends "forms/complaint_view/show/card.html" %}
+{% load static %}
+{% load all_sections %}
+
+{% block title %}{{title}}{% endblock %}
+{% block extra_classes %}crt-related-reports-card{% endblock %}
+{% block extra_title %}
+    {% if data.related_reports and data.related_reports|length > 1 %}
+        <small class="margin-left-auto">
+            <a class="related-reports" href="{% url 'crt_forms:crt-forms-index' %}?contact_email={{data.contact_email}}{% filter_for_all_sections %}">
+                View All ({{data.related_reports|length}})
+            </a>
+        </small>
+    {% endif %}
+{% endblock %}
+
+{% block icon %}
+<img src="{% static icon %}" alt="" class="icon" />
+{% endblock %}
+
+{% block card_content %}
+<small>
+    There
+        {% if data.related_reports|length > 1 %}
+            are
+        {% else %}
+            is
+        {% endif %}
+        {{data.related_reports|length}} report{{ data.related_reports|pluralize }} associated with this contact.
+</small>
+
+{% for status, reports in data.related_reports_display %}
+    {% if reports %}
+        <p class="margin-y-1">
+            <span class="status-tag status-{{status}} margin-top-05">{{ status }}</span>
+        </p>
+        <table class="usa-table usa-table--borderless related-reports width-full">
+            <tbody>
+                {% for report in reports %}
+                    <tr>
+                        <td>{{report.public_id}}</td>
+                        <td>{{report.assigned_section}}</td>
+                        <td>{{report.create_date|date:"SHORT_DATE_FORMAT"}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endfor %}
+{% endblock %}
