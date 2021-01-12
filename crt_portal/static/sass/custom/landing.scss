@@ -164,7 +164,7 @@ $arrow-height: 24px;
   .crt-landing--logo_section {
     img {
       height: 60px;
-      @media screen and (max-width: 400px) {
+      @media screen and (max-width: 480px) {
         height: 45px;
       }
     }
@@ -175,7 +175,7 @@ $arrow-height: 24px;
     font-size: $theme-text-font-size-xs;
     line-height: 2.25;
     margin-top: 0.25rem;
-    @media screen and (max-width: 400px) {
+    @media screen and (max-width: 480px) {
       @include text--body-copy__xsmall();
     }
   }
@@ -186,7 +186,7 @@ $arrow-height: 24px;
     line-height: 0.5;
     margin-bottom: 1rem;
     margin-top: .2rem;
-    @media screen and (max-width: 400px) {
+    @media screen and (max-width: 480px) {
       font-size: $theme-heading-font-size-md-mobile;
       margin-top: 0.5rem;
     }
