@@ -395,7 +395,7 @@ class ResponseView(LoginRequiredMixin, View):
     ACTIONS = {'send': 'Emailed',
                'copy': 'Copied',
                'print': 'Printed'}
-    SEND_MAIL_ERROR = "There was a problem sending the requested email.\nNo email was delivered.\nWe've logged this error and will review it as soon as possible."
+    SEND_MAIL_ERROR = "There was a problem sending the requested email. No email was sent. We've logged this error and will review it as soon as possible."
 
     def post(self, request, id):
         report = get_object_or_404(Report, pk=id)
