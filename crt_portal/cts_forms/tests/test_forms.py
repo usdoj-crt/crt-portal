@@ -911,6 +911,27 @@ class FiltersFormTests(TestCase):
             else:
                 self.assertTrue(prev_row['report'].assigned_section <= row['report'].assigned_section)
 
+    def test_email_count_caseinsensitive(self):
+
+        # added for case insensitive email count test
+        self.email4 = 'TEST@usa.gov'
+        self.email5 = 'test@usa.gov'
+        self.email6 = 'TesT@usa.gov'
+        self.email7 = 'tESt@usa.gov'
+        # total report count should be 15 for case insensitive
+        ReportFactory.create_batch(4, contact_email=self.email4)
+        ReportFactory.create_batch(5, contact_email=self.email5)
+        ReportFactory.create_batch(2, contact_email=self.email6)
+        ReportFactory.create_batch(4, contact_email=self.email7)
+
+        response = self.client.get(reverse('crt_forms:crt-forms-index'), {})
+        self.assertEquals(response.status_code, 200)
+
+        for row in response.context['data_dict']:
+
+            if row['report'].contact_email in [self.email4, self.email5, self.email6, self.email7]:
+                self.assertEqual(row['report'].email_count, 15)
+
 
 class SimpleFilterFormTests(SimpleTestCase):
 
