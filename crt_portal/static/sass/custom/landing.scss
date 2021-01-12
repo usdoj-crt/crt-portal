@@ -174,9 +174,9 @@ $arrow-height: 24px;
     @extend .usa-footer__logo-subheading;
     font-size: $theme-text-font-size-xs;
     line-height: 2.25;
+    margin-top: 0.25rem;
     @media screen and (max-width: 400px) {
       @include text--body-copy__xsmall();
-      margin-top: 0.25rem;
     }
   }
 
