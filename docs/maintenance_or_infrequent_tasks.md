@@ -328,3 +328,75 @@ URL | Method | Normal | Maintenance mode
 ----|--------|--------|--------
 /report/| GET | Render report form | Render 503 maintenance page
 
+# Localstack
+
+During development, we sometimes use [localstack](https://github.com/localstack/localstack) to stub out AWS cloud functionality, specifically to simulate a S3 service locally (which is useful when dealing with asset management code).
+
+To integrate localstack, it is probably easiest to modify the docker-compose file in order to have all of the services (web, db, and s3) communicate with each other. Add the following service to `docker-compose.yml`:
+
+    s3:
+      image: localstack/localstack:latest
+      ports:
+        - 4566:4566
+      environment:
+        - DATA_DIR=/tmp/localstack/data
+        - SERVICES=s3
+      volumes:
+        - ./.localstack:/tmp/localstack
+
+The `SERVICES` environment variable tells localstack which AWS services to run. We also forward the port 4566 (edge port used by localstack to proxy all AWS service requests) so we can access the localstack service locally. We also set up some volumes so that s3 data can persist across restarts.
+
+Once the project is rebuilt, visiting http://localhost:4566/health?reload will give you a localstack health status update.
+
+You may also use regular `aws` commands by specifying the endpoint:
+
+    aws s3 ls --endpoint-url=http://localhost:4566
+
+## Configuration to use S3 locally
+
+If you have just set up localstack, you will need to create the `crt-portal` s3 bucket:
+
+    aws s3 mb s3://crt-portal --endpoint-url=http://localhost:4566
+
+You also likely want to configure  [django-compressor](https://django-compressor.readthedocs.io/en/stable/) to work locally.
+
+First, edit `local_settings.py` to include `SECRET_KEY`, `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` (since we are running locally, any value for these settings will work). This part of the S3 configuration is identical to deployed environments:
+
+    AWS_STORAGE_BUCKET_NAME = 'crt-portal'
+    AWS_S3_REGION_NAME = 'us-east-1'
+    AWS_DEFAULT_REGION = 'us-east-1'
+    AWS_S3_OBJECT_PARAMETERS = { 'CacheControl': 'max-age=86400' }
+    AWS_LOCATION = 'static'
+    AWS_QUERYSTRING_AUTH = False
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    AWS_DEFAULT_ACL = 'public-read'
+    AWS_IS_GZIPPED = True
+
+We have our own storage class to handle both static files and S3 uploads: we want to temporarily use staticfiles as a staging area from which to upload S3. So we modify the static files storage option here:
+
+    STATICFILES_STORAGE = 'crt_portal.storage.CachedS3Boto3Storage'
+
+Second, we also want to configure our application to use our localstack instance:
+
+    AWS_S3_ENDPOINT_URL = 'http://s3:4566'
+    AWS_S3_CUSTOM_DOMAIN = f'localhost:4566/{AWS_STORAGE_BUCKET_NAME}'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
+
+Note that the `s3` domain is only reachable from within the container: the django service will use `AWS_S3_ENDPOINT_URL` internally when generating static files. In addition, localstack must be reachable from outside the container as well (so that local requests will hit the localstack s3 service -- this is why we forward the localstack port in the django compose file).
+
+Third, we also want to enable compress to run locally and to use the local storage (both static files and S3) we have just set up.
+
+    COMPRESS_ENABLED = True
+    COMPRESS_STORAGE = 'crt_portal.storage.CachedS3Boto3Storage'
+    COMPRESS_URL = STATIC_URL
+
+Finally, run `collectstatic` if it wasn't already done on `docker-compose` startup:
+
+    docker-compose run web python /code/crt_portal/manage.py collectstatic
+
+You may pass in `--verbosity 2` to the above which will allow us to see the specific static files we are generating (or skipping, if already present), with the caveat that this flag slows the process greatly.
+
+With all of the above configuration settings, your `local_settings.py` should be identical to that of production, with the exception of our S3 location:
+
+    AWS_S3_ENDPOINT_URL = 'http://s3:4566'
+    AWS_S3_CUSTOM_DOMAIN = f'localhost:4566/{AWS_STORAGE_BUCKET_NAME}'
