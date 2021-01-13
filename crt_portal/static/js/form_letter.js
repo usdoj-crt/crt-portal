@@ -34,7 +34,7 @@
     if (index >= 1) {
       copy.removeAttribute('disabled');
       print.removeAttribute('disabled');
-    if (email_enabled && has_contact_email) {
+      if (email_enabled && has_contact_email) {
         send_email.removeAttribute('disabled');
       }
     } else {
