@@ -471,6 +471,7 @@ class ShowView(LoginRequiredMixin, View):
         output.update({
             'contact_form': contact_form,
             'details_form': details_form,
+            'email_enabled': settings.EMAIL_ENABLED,
             **filter_output,
         })
         return render(request, 'forms/complaint_view/show/index.html', output)

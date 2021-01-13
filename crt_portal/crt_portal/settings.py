@@ -161,6 +161,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Set to True later in settings if we've successfully configured an email backend
+EMAIL_ENABLED = False
+
 # for AUTH, probably want to add stage in the future
 if environment == 'PRODUCTION':
     for service in vcap['user-provided']:
@@ -319,6 +322,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         EMAIL_BACKEND = 'django_ses.SESBackend'
         AWS_SES_REGION_NAME = 'us-gov-west-1'
         DEFAULT_FROM_EMAIL = 'no_email_yet_set@example.com'
+        EMAIL_ENABLED = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

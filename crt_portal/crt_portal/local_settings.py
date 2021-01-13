@@ -21,3 +21,4 @@ ENABLE_DEBUG_TOOLBAR = True
 # Local email development
 EMAIL_HOST = 'mailhog'
 EMAIL_PORT = 1025
+EMAIL_ENABLED = True
