@@ -248,13 +248,10 @@ if environment not in ['LOCAL', 'UNDEFINED']:
     AWS_LOCATION = 'static'
     AWS_QUERYSTRING_AUTH = False
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
-    STATICFILES_STORAGE = 'crt_portal.storage.CachedS3Boto3Storage'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_DEFAULT_ACL = 'public-read'
     AWS_IS_GZIPPED = True
-    COMPRESS_ENABLED = True
-    COMPRESS_STORAGE = 'crt_portal.storage.CachedS3Boto3Storage'
-    COMPRESS_URL = STATIC_URL
 
 if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     MIDDLEWARE.append('csp.middleware.CSPMiddleware')
@@ -320,7 +317,6 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 # MEDIA_URL = 'media/'
 # Where assets are served by web server
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-COMPRESS_ROOT = STATIC_ROOT
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -340,6 +336,9 @@ COMPRESS_PRECOMPILERS = (
     ('module', 'compressor_toolkit.precompilers.ES6Compiler'),
     ('css', 'compressor_toolkit.precompilers.SCSSCompiler'),
 )
+
+# would like to add this before public release
+COMPRESS_ENABLED = False
 
 # adding better messaging
 CSRF_FAILURE_VIEW = 'cts_forms.views.csrf_failure'

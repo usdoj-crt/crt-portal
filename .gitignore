@@ -18,5 +18,3 @@ data/section_assignment.csv
 .coverage
 crt_portal/NO_ZIP.txt
 *.mo
-# localstack cache
-.localstack/

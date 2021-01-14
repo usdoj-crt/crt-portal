@@ -2,7 +2,6 @@
 
 {% load static %}
 {% load i18n %}
-{% load compress %}
 
 {% block page_header %}
   <header class="crt-landing--header crt-landing--blue">
@@ -429,8 +428,6 @@
      }
    };
   </script>
-  {% compress js %}
   <script src="{% static 'js/modal.js' %}"></script>
   <script src="{% static 'js/redirect-modal.js' %}"></script>
-  {% endcompress %}
 {% endblock %}
