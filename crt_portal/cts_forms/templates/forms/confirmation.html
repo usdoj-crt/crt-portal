@@ -2,6 +2,8 @@
 {% load i18n %}
 {% load static %}
 
+{% block main_class %}class="confirmation-page"{% endblock %}
+
 {% block page_header %}
 <header class="crt-form-header">
   <div class="grid-container">
@@ -45,6 +47,7 @@
               <span class="record-number margin-left-1">{{report.public_id}}</span>
             </div>
           </div>
+          <button id="print_button" class="usa-button">Print report</button>
       </div>
     </div>
   </div>
@@ -192,4 +195,10 @@
   <script src="https://touchpoints.app.cloud.gov/touchpoints/a24aeb5e/js" async></script>
   <script src="{% static 'js/modal.js' %}"></script>
   <script src="{% static 'js/redirect-modal.js' %}"></script>
+  <script nonce="{{ request.csp_nonce }}">
+   var print_el = document.getElementById('print_button');
+   print_el.onclick = function() {
+     window.print();
+   };
+  </script>
 {% endblock %}
