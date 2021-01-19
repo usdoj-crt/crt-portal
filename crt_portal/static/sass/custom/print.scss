@@ -160,6 +160,9 @@
     img {
       color: color('black');
     }
+    hr {
+      border-bottom: 1px solid color('black');
+    }
 
     // record number styling
     .record-number-wrapper {
@@ -218,6 +221,15 @@
     h2.h1 {
       margin: 1rem 0;
     }
+    .confirmation-content {
+      padding-bottom: 0.75rem !important;
+    }
+    h4, hr, p {
+      margin: 0;
+    }
+    .crt-portal-card__content {
+      padding-bottom: 1rem !important;
+    }
 
     // redo icons as black and white
     .title-icon-blue {
@@ -234,9 +246,12 @@
       border-radius: 0;
       box-shadow: unset;
     }
+    .question p {
+      border-bottom: unset !important;
+    }
 
     .crt-portal-card, .what-to-expect {
-      border-top: 1px solid;
+      border-top: 1px solid color('black');
     }
   }
 
