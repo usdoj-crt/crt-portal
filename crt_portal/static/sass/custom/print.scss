@@ -124,7 +124,10 @@
     h1 {
       color: color('black');
       font-size: 1.25rem;
+      line-height: 1.75rem;
+      margin-top: 2rem;
       padding: 0;
+      font-family: family('heading');
     }
 
     // reset all grid margins/padding
@@ -137,22 +140,39 @@
   }
 
   .confirmation-page {
-    background-color: color('white');
-    img {
-      color: color('black');
-    }
 
     #print_button, .crt-success-card__content p, .title img {
       display: none;
     }
 
+    // force black text on white background
+    background-color: color('white');
+    section, .grid-container, .title-wrapper {
+      background-color: color('white') !important;
+      padding: 0;
+    }
+    .h1,
+    .h1__display,
+    .h3__display,
+    .intake-section-title,
+    .crt-portal-card__subheader,
+    a, a:visited,
+    img {
+      color: color('black');
+    }
+
+    // record number styling
     .record-number-wrapper {
       border: 1px solid color('black');
       padding: 1rem !important;
-      width: 50% !important;
+      width: 60% !important;
 
+      div {
+        width: unset !important;
+      }
       .record-number, #paper-icon-wrapper {
         background-color: color('white');
+        margin-right: 1rem;
       }
     }
 
@@ -163,36 +183,53 @@
       width: 100%;
       max-width: 100%;
     }
-
     li {
       margin: 0 !important;
     }
-
     .submission {
       margin-top: 0;
     }
 
-    section, .grid-container, .title-wrapper {
-      background-color: color('white') !important;
-      padding: 0;
+    // typography adjustments
+    h2.h1 {
+      font-size: 1.125rem;
+      line-height: 1.5rem;
+    }
+    h2.h1__display {
+      font-size: 1.5rem;
+      line-height: 1rem;
+    }
+    h3.h3__display {
+      font-weight: unset;
+      font-style: italic;
+      font-size: 0.875rem;
+      line-height: 1rem;
+    }
+    h3 {
+      font-size: 1rem;
+      line-height: 1.25rem;
+    }
+    p, li {
+      font-size: 0.75rem;
+      line-height: 1.125rem;
     }
 
-    .h1,
-    .h1__display,
-    .h3__display,
-    .intake-section-title,
-    .crt-portal-card__subheader,
-    a, a:visited {
-      color: color('black');
+    // spacing
+    h2.h1 {
+      margin: 1rem 0;
     }
 
+    // redo icons as black and white
     .title-icon-blue {
       background-color: color('white') !important;
       color: color('black') !important;
-      border: 2px solid color('black');
+      border: 1px solid color('black');
       font-weight: bold;
+      min-width: 20px !important;
+      min-height: 20px !important;
     }
 
+    // undo boxes and shadows
     .crt-portal-card, .crt-success-card, .what-to-expect {
       border-radius: 0;
       box-shadow: unset;
