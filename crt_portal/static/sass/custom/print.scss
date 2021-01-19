@@ -139,6 +139,10 @@
     }
   }
 
+  body {
+    background-color: color('white');
+  }
+
   .confirmation-page {
 
     #print_button, .crt-success-card__content p, .title img {
