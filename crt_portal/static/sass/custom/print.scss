@@ -145,7 +145,10 @@
 
   .confirmation-page {
 
-    #print_button, .crt-success-card__content p, .title img {
+    #print_button,
+    .crt-success-card__content p,
+    .title img,
+    a.external-link--popup:after {
       display: none;
     }
 
