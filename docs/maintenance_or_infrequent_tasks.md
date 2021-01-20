@@ -353,7 +353,15 @@ For example, this command will enable Jim with a 50% chance to reject an incomin
 
 ### Development, Staging, and Production
 
-Each deployed instance must have `AWS_SES_ACCESS_KEY_ID` and `AWS_SES_SECRET_ACCESS_KEY` environment variables defined in cloud.gov either via the command line or cloud.gov dashboard.
+Each deployed instance **must** have the following environment variables defined in cloud.gov either via the command line or cloud.gov dashboard.
+
+
+Variable | Description
+---------|-----------
+`AWS_SES_ACCESS_KEY_ID` | AWS Access Key ID specific to SES
+`AWS_SES_SECRET_ACCESS_KEY`| AWS Secret Access Key specific to SES
+`AWS_SES_RETURN_PATH` | Instruct Amazon SES to forward bounced emails and complaints to this email.
+`AWS_SES_FROM_EMAIL` | Email to use as FROM email for all outbound messages, used to set the value for Django's [`DEFAULT_FROM_EMAIL`](https://docs.djangoproject.com/en/3.1/ref/settings/#default-from-email)
 
 Command line example
 
@@ -361,8 +369,10 @@ Command line example
    # Authenticate and target desired space
    cf set-env crt-portal-django AWS_SES_ACCESS_KEY_ID {VALUE}
    cf set-env crt-portal-django AWS_SES_SECRET_ACCESS_KEY {VALUE}
+   cf set-env crt-portal-django AWS_SES_RETURN_PATH {VALUE}
+   cf set-env crt-portal-django AWS_SES_FROM_EMAIL {VALUE}
    # re-stage application
    ```
 
 > **WARNING**:
- If one or both of these values is not configured the application will start but `EMAIL_BACKEND` is not set to use SES. This is done so that `django-ses` doesn't attempt to send mail w/ otherwise configured AWS credentials. Attempts to send outbound email messages will fail and generate a log message such as `"Email failed to send: [Errno 99] Cannot assign requested address"`
+ If _any_ of these values is not configured the application will start but `EMAIL_BACKEND` is not set to use SES. This is done so that `django-ses` doesn't attempt to send mail w/ otherwise configured AWS credentials. Attempts to send outbound email messages will fail and generate a log message such as `"Email failed to send: [Errno 99] Cannot assign requested address"`
