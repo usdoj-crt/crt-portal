@@ -1,8 +1,6 @@
 from django.test import SimpleTestCase
 
-from ..models import Report
 from .factories import ReportFactory
-
 
 
 class ReportSimpleTests(SimpleTestCase):
