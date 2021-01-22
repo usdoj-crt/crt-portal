@@ -7,7 +7,8 @@ logger = logging.getLogger(__name__)
 
 def crt_send_mail(report, template):
     """
-    send_mail(subject, message, from_email, recipient_list, fail_silently=False, auth_user=None, auth_password=None, connection=None, html_message=None)
+    Given a report and a template, use django's builtin `send_mail` to generate and send
+    an outbound email
     """
     subject = template.render_subject(report)
     message = template.render_body(report)
