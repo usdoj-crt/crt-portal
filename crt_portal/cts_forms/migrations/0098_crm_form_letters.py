@@ -36,7 +36,7 @@ The Criminal Section
         body="""
 {{ addressee }},
 
-You contacted the Civil Rights Division on {{ intake_date }}. Your report number is {{ record_locator }}.
+You contacted the Civil Rights Division on {{ date_of_intake }}. Your report number is {{ record_locator }}.
 
 The Criminal Section of the Civil Rights Division is responsible for enforcing federal criminal civil rights statutes. Much of our enforcement activity relates to the investigation and prosecution of deprivations of civil rights under color of law. These matters generally involve allegations of excessive physical force or sexual abuse by law enforcement officers.
 
