@@ -188,7 +188,7 @@
       color: color('black');
     }
     hr {
-      border-bottom: 1px solid color('black');
+      border-bottom: unset;
     }
 
     // record number styling
@@ -271,13 +271,26 @@
     }
     h4, hr, p {
       margin: 0;
+    }
+    p {
       max-width: 80%;
     }
     .crt-portal-card__content {
       padding-bottom: 1rem !important;
+
+      p, h3, h4 {
+        margin-left: 1rem !important;
+      }
+
+      .crt-portal-card__subheader {
+        margin-bottom: 1rem;
+      }
     }
     .record-number-note + div {
       display: flex;
+    }
+    section:first-child {
+      margin-bottom: 1rem;
     }
 
     // redo icons as black and white
@@ -299,8 +312,15 @@
       border-bottom: unset !important;
     }
 
+    // misc: make the bullets smaller
+    ul.confirmation-list li::before {
+      height: 4px !important;
+      width: 4px !important;
+    }
+
+    // misc: add dividers
     .crt-portal-card, .what-to-expect {
-      border-top: 1px solid color('black');
+      border-top: 1px solid color($theme-color-base-darker);
     }
   }
 }
