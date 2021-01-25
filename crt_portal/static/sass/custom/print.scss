@@ -176,6 +176,7 @@
     section, .grid-container, .title-wrapper {
       background-color: color('white') !important;
       padding: 0;
+      margin: 0;
     }
     .h1,
     .h1__display,
@@ -202,6 +203,10 @@
       .record-number, #paper-icon-wrapper {
         background-color: color('white');
         margin-right: 1rem;
+      }
+      #paper-icon-wrapper {
+        border: 1px solid color('black');
+        padding: 0.3rem;
       }
     }
 
@@ -247,14 +252,26 @@
     }
 
     // spacing
+    h2.h1__display {
+      margin: 1rem 0;
+      padding: 0;
+    }
     h2.h1 {
       margin: 1rem 0;
     }
     .confirmation-content {
+      margin: 0 2rem !important;
       padding-bottom: 0.75rem !important;
+    }
+    .title-icon-blue {
+      margin: 0 0.5rem 0 0 !important;
+    }
+    .intake-section-title {
+      margin: 0 0 0.5rem 0 !important;
     }
     h4, hr, p {
       margin: 0;
+      max-width: 80%;
     }
     .crt-portal-card__content {
       padding-bottom: 1rem !important;
