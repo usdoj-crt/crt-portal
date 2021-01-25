@@ -161,6 +161,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Set to True later in settings if we've successfully configured an email backend
+EMAIL_ENABLED = False
+
 # for AUTH, probably want to add stage in the future
 if environment == 'PRODUCTION':
     for service in vcap['user-provided']:
@@ -308,6 +311,20 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         "'unsafe-inline'"
     )
     CSP_INCLUDE_NONCE_IN = ['script-src']
+
+    # Configure outbound Email
+    AWS_SES_SECRET_ACCESS_KEY = os.getenv('AWS_SES_SECRET_ACCESS_KEY')
+    AWS_SES_ACCESS_KEY_ID = os.getenv('AWS_SES_ACCESS_KEY_ID')
+    AWS_SES_FROM_EMAIL = os.getenv('AWS_SES_FROM_EMAIL')
+    AWS_SES_RETURN_PATH = os.getenv('AWS_SES_RETURN_PATH')
+    if AWS_SES_SECRET_ACCESS_KEY and AWS_SES_ACCESS_KEY_ID and AWS_SES_RETURN_PATH and AWS_SES_FROM_EMAIL:
+        # Only set backend if all env vars  are present otherwise
+        # `django-ses` will attempt to use AWS credentials established
+        # for use with S3
+        EMAIL_BACKEND = 'django_ses.SESBackend'
+        AWS_SES_REGION_NAME = 'us-gov-west-1'
+        DEFAULT_FROM_EMAIL = AWS_SES_FROM_EMAIL
+        EMAIL_ENABLED = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

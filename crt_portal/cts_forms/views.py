@@ -17,11 +17,11 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
-
 from .filters import report_filter
 from .forms import (BulkActionsForm, CommentActions, ComplaintActions,
                     ContactEditForm, Filters, PrintActions, ProfileForm,
                     ReportEditForm, ResponseActions, Review, add_activity)
+from .mail import crt_send_mail
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -387,25 +387,41 @@ class ProfileView(LoginRequiredMixin, FormView):
 
 
 class ResponseView(LoginRequiredMixin, View):
+    """
+    Allow intake specialists to print, copy, or email form response letters
+    If we encounter _any_ exceptions in sending an email, log the error message and return.
+    """
+    MAIL_SERVICE = "AWS Simple Email Service"
+    ACTIONS = {'send': 'Emailed',
+               'copy': 'Copied',
+               'print': 'Printed'}
+    SEND_MAIL_ERROR = "There was a problem sending the requested email. No email was sent. We've logged this error and will review it as soon as possible."
 
     def post(self, request, id):
         report = get_object_or_404(Report, pk=id)
         form = ResponseActions(request.POST, instance=report)
+        url = preserve_filter_parameters(report, request.POST)
 
         if form.is_valid() and form.has_changed():
-            template_name = form.cleaned_data['templates'].title
-            button_type = request.POST['type']
-            actions = {
-                'send': 'Emailed',
-                'copy': 'Copied',
-                'print': 'Printed'
-            }
-            action = actions[button_type]
-            description = f"{action} '{template_name}' template"
-            add_activity(request.user, "Contacted complainant:", description, report)
-            messages.add_message(request, messages.SUCCESS, description)
 
-        url = preserve_filter_parameters(report, request.POST)
+            template = form.cleaned_data['templates']
+            button_type = request.POST['type']
+
+            if button_type == 'send':  # We're going to send an email!
+                try:
+                    crt_send_mail(report, template)
+                    description = f"Email sent: '{template.title}' to {report.contact_email} via {self.MAIL_SERVICE}"
+                except Exception as e:  # catch *all* exceptions
+                    logger.warning({'message': f"Email failed to send: {e}", 'report': report.id})
+                    messages.add_message(request, messages.ERROR, self.SEND_MAIL_ERROR)
+                    return redirect(url)  # Return here, nothing to write in activity log
+            else:
+                action = self.ACTIONS[button_type]
+                description = f"{action} '{template.title}' template"
+
+            messages.add_message(request, messages.SUCCESS, description)
+            add_activity(request.user, "Contacted complainant:", description, report)
+
         return redirect(url)
 
 
@@ -455,6 +471,7 @@ class ShowView(LoginRequiredMixin, View):
         output.update({
             'contact_form': contact_form,
             'details_form': details_form,
+            'email_enabled': settings.EMAIL_ENABLED,
             **filter_output,
         })
         return render(request, 'forms/complaint_view/show/index.html', output)
