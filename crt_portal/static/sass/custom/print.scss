@@ -111,39 +111,41 @@
     display: none !important;
   }
 
-  header.crt-form-header {
-    color: color('black');
-    background-color: color('white');
-    padding: 0;
-    margin: 0;
-
-    .doj-brand {
-      margin: 0;
-    }
-
-    h1 {
-      color: color('black');
-      font-size: 1.25rem;
-      line-height: 1.75rem;
-      margin-top: 2rem;
-      padding: 0;
-      font-family: family('heading');
-    }
-
-    // reset all grid margins/padding
-    div {
-      padding: 0;
-      margin: 0;
-      width: 100%;
-      max-width: 100%;
-    }
-  }
-
-  body {
-    background-color: color('white');
-  }
-
   .confirmation-page {
+
+    background-color: color('white');
+
+    header.crt-form-header {
+      color: color('black');
+      background-color: color('white');
+      padding: 0;
+      margin: 0;
+
+      .doj-brand {
+        margin: 0;
+      }
+
+      h1 {
+        color: color('black');
+        font-size: 1.25rem;
+        line-height: 1.75rem;
+        margin-top: 2rem;
+        padding: 0;
+        font-family: family('heading');
+      }
+
+      // reset all grid margins/padding
+      div {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+
+    footer {
+      display: none;
+    }
 
     #print_button,
     .crt-success-card__content p,
@@ -260,9 +262,5 @@
     .crt-portal-card, .what-to-expect {
       border-top: 1px solid color('black');
     }
-  }
-
-  .confirmation-page + footer {
-    display: none;
   }
 }
