@@ -97,7 +97,9 @@
 .crt-summary-card,
 .crt-report-card,
 // bulk-print reports
-.bulk-print-reports {
+.bulk-print-reports,
+// confirmation print header
+.doj-brand-print {
   display: none;
   @media print {
     display: block;
@@ -121,8 +123,23 @@
       padding: 0;
       margin: 0;
 
+      .doj-brand-print {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        span:not(.doj-brand-url) {
+          font-family: family('heading');
+          font-weight: bold;
+        }
+        .doj-brand-url {
+          font-size: 0.8rem;
+        }
+        img {
+          width: 38px;
+        }
+      }
       .doj-brand {
-        margin: 0;
+        display: none;
       }
 
       h1 {

@@ -9,9 +9,15 @@
   <div class="grid-container">
     <div class="grid-row grid-gap flex-child">
       <div class="tablet:grid-col-9 tablet:grid-offset-1">
+        <div class="doj-brand-print">
+          <img src="{% static "img/doj-logo-footer.png" %}" alt="" height="38" class="margin-right-105" />
+          <span>{% trans "United States Department of Justice" %}</span>
+          <span>{% trans "Civil Rights Division" %}</span>
+          <span class="doj-brand-url">www.civilrights.justice.gov</span>
+        </div>
         <div class="doj-brand display-flex flex-align-center font-serif-lg">
           <img src="{% static "img/doj-logo-footer.png" %}" alt="" height="38" class="margin-right-105" />
-          <span>{% trans "United States Department of Justice" %}<span>
+          <span>{% trans "United States Department of Justice" %}</span>
         </div>
         <h1 class="h1__display padding-top-2 padding-bottom-1 margin-0">
           {% trans "Thank you for submitting a report to the Civil Rights Division." %}
