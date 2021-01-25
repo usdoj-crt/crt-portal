@@ -65,6 +65,7 @@
     <div class="tablet:grid-col-8 tablet:grid-offset-2">
 
       <h2 class="h1__display">{% trans "What to expect" %}</h2>
+      <div class="crt-print-separator"></div>
 
       <ol class='confirmation-list'>
         <li>
@@ -134,6 +135,7 @@
 
     <div class="tablet:grid-col-8 tablet:grid-offset-2">
       <h2 class="h1__display">{% trans "What you can do next" %}</h2>
+      <div class="crt-print-separator"></div>
       <ol class='confirmation-list'>
         <li>
           <div class="title">
@@ -181,6 +183,7 @@
   <div id="submission" class="grid-container">
     <div class="submission-content tablet:grid-col-8 tablet:grid-offset-2">
         <h2 class='h1__display'>{% trans "Your submission" %}</h2>
+        <div class="crt-print-separator"></div>
         {% include "forms/report_data.html" with ordered_step_names=ordered_step_names question=questions hide_edit_button=True %}
     </div>
   </div>

@@ -99,7 +99,8 @@
 // bulk-print reports
 .bulk-print-reports,
 // confirmation print header
-.doj-brand-print {
+.doj-brand-print,
+.crt-print-separator {
   display: none;
   @media print {
     display: block;
@@ -278,10 +279,6 @@
     .crt-portal-card__content {
       padding-bottom: 1rem !important;
 
-      p, h3, h4 {
-        margin-left: 1rem !important;
-      }
-
       .crt-portal-card__subheader {
         margin-bottom: 1rem;
       }
@@ -321,6 +318,16 @@
     // misc: add dividers
     .crt-portal-card, .what-to-expect {
       border-top: 1px solid color($theme-color-base-darker);
+    }
+
+    // misc separator
+    .crt-print-separator {
+      display: block;
+      margin-bottom: 1.5rem !important;
+      border: 2px solid color('black');
+      border-radius: 2px;
+      background: color('black');
+      width: 30px !important;
     }
   }
 }
