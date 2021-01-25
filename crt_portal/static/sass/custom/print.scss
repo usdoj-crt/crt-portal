@@ -208,14 +208,14 @@
       line-height: 1.5rem;
     }
     h2.h1__display {
-      font-size: 1.5rem;
-      line-height: 1rem;
+      font-size: 1.25rem;
+      line-height: 1.75rem;
     }
     h3.h3__display {
       font-weight: unset;
       font-style: italic;
-      font-size: 0.875rem;
-      line-height: 1rem;
+      font-size: 0.75rem;
+      line-height: 1.125rem;
     }
     h3 {
       font-size: 1rem;
@@ -223,7 +223,10 @@
     }
     p, li {
       font-size: 0.75rem;
-      line-height: 1.125rem;
+      line-height: 1rem;
+    }
+    .record-number-note, .record-number {
+      font-size: 0.875rem;
     }
 
     // spacing
@@ -238,6 +241,9 @@
     }
     .crt-portal-card__content {
       padding-bottom: 1rem !important;
+    }
+    .record-number-note + div {
+      display: flex;
     }
 
     // redo icons as black and white
