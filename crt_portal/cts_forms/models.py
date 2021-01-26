@@ -302,7 +302,7 @@ class Report(models.Model):
     @property
     def addressee_es(self):
         if self.contact_full_name:
-            return f"Estimado/a' {self.contact_full_name}"
+            return f"Estimado/a {self.contact_full_name}"
         return "Gracias por su informe"
 
     def get_absolute_url(self):
