@@ -944,6 +944,7 @@ class FiltersFormTests(TestCase):
         for row in response.context['data_dict']:
             self.assertTrue(row['report'].referred)
 
+
 class SimpleFilterFormTests(SimpleTestCase):
 
     def test_get_sections_returns_only_valid_choices(self):
