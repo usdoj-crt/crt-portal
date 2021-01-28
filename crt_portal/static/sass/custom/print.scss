@@ -254,7 +254,8 @@
 
     // spacing
     h2.h1__display {
-      margin: 1rem 0;
+      margin-top: 1rem;
+      margin-bottom: 0.25rem;
       padding: 0;
     }
     h2.h1 {
@@ -262,7 +263,7 @@
     }
     .confirmation-content {
       margin: 0 2rem !important;
-      padding-bottom: 0.75rem !important;
+      padding-bottom: 1.5rem !important;
     }
     .title-icon-blue {
       margin: 0 0.5rem 0 0 !important;
@@ -278,7 +279,6 @@
     }
     .crt-portal-card__content {
       padding-bottom: 1rem !important;
-
       .crt-portal-card__subheader {
         margin-bottom: 1rem;
       }
@@ -287,7 +287,19 @@
       display: flex;
     }
     section:first-child {
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
+    }
+    section:not(:first-child) {
+      padding-top: 1rem;
+    }
+    h4:not(:first-child) {
+      margin-top: 1rem;
+    }
+    section, .what-to-expect .grid-container div:last-child {
+      padding-top: 1rem;
+    }
+    ul + p {
+      margin-top: 1rem;
     }
 
     // redo icons as black and white
@@ -305,8 +317,13 @@
       border-radius: 0;
       box-shadow: unset;
     }
-    .question p {
-      border-bottom: unset !important;
+    .question {
+      p {
+        border-bottom: unset !important;
+      }
+      h4 {
+        margin-bottom: 0.5rem !important;
+      }
     }
 
     // misc: make the bullets smaller
@@ -323,7 +340,7 @@
     // misc separator
     .crt-print-separator {
       display: block;
-      margin-bottom: 1.5rem !important;
+      margin-bottom: 2rem !important;
       border: 2px solid color('black');
       border-radius: 2px;
       background: color('black');
