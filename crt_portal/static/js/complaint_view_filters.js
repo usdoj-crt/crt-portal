@@ -437,7 +437,7 @@
     checkBoxView({
       el: referredEl,
       name: 'referred'
-    })
+    });
   }
 
   // Bootstrap the filter code's data persistence and
