@@ -196,7 +196,7 @@
     .record-number-wrapper {
       border: 1px solid color('black');
       padding: 1rem !important;
-      width: 60% !important;
+      width: fit-content !important;
 
       div {
         width: unset !important;
