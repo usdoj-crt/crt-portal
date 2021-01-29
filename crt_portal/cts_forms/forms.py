@@ -1005,6 +1005,13 @@ class Filters(ModelForm):
             'name': 'intake_format',
         }),
     )
+    referred = MultipleChoiceField(
+        required=False,
+        choices=((True, 'Yes'),),
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'referred'
+        }),
+    )
 
     class Meta:
         model = Report
@@ -1026,6 +1033,7 @@ class Filters(ModelForm):
             'servicemember',
             'intake_format',
             'contact_email',
+            'referred',
         ]
 
         labels = {

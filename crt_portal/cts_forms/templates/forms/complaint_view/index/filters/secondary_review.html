@@ -1,0 +1,10 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+\
+{% block label %}Secondary Review{% endblock %}
+{% block id %}secondary-review{% endblock %}
+
+{% block content %}
+  <div id="secondary_review-filter" class="multicheckboxes-container multicheckboxes-yesno">
+    {{ form.referred }}
+  </div>
+{% endblock %}

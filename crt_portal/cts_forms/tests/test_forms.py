@@ -932,6 +932,18 @@ class FiltersFormTests(TestCase):
             if row['report'].contact_email in [self.email4, self.email5, self.email6, self.email7]:
                 self.assertEqual(row['report'].email_count, 15)
 
+    def test_secondary_review_filter(self):
+        ReportFactory.create_batch(5, referred=True)
+
+        base_url = reverse('crt_forms:crt-forms-index')
+        url = f'{base_url}?referred=True'
+
+        response = self.client.get(url, {})
+        self.assertEquals(response.status_code, 200)
+
+        for row in response.context['data_dict']:
+            self.assertTrue(row['report'].referred)
+
 
 class SimpleFilterFormTests(SimpleTestCase):
 
