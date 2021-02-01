@@ -1326,11 +1326,11 @@ msgstr "Guarde su número de registro para propósitos de seguimiento."
 
 #: templates/forms/confirmation.html:38
 msgid ""
-"If you want a copy of this report for your personal records, save or print a "
-"copy of this page."
+"You will not receive an email confirmation, so please print or save this "
+"page for your records."
 msgstr ""
-"Si desea una copia de este informe para sus registros personales, guarde o "
-"imprima un copia de esta página."
+"No recibirá una confirmación por correo electrónico, así que por favor "
+"imprima o guarde esta página para sus registros."
 
 #: templates/forms/confirmation.html:42
 msgid "Your record number is:"
