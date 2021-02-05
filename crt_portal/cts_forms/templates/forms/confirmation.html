@@ -2,14 +2,22 @@
 {% load i18n %}
 {% load static %}
 
+{% block body_class %}class="confirmation-page"{% endblock %}
+
 {% block page_header %}
 <header class="crt-form-header">
   <div class="grid-container">
     <div class="grid-row grid-gap flex-child">
       <div class="tablet:grid-col-9 tablet:grid-offset-1">
+        <div class="doj-brand-print">
+          <img src="{% static "img/doj-logo-footer.png" %}" alt="" height="38" class="margin-right-105" />
+          <span>{% trans "United States Department of Justice" %}</span>
+          <span>{% trans "Civil Rights Division" %}</span>
+          <span class="doj-brand-url">civilrights.justice.gov</span>
+        </div>
         <div class="doj-brand display-flex flex-align-center font-serif-lg">
-          <img src="{% static "img/doj-logo-footer.svg" %}" alt="" height="38" class="margin-right-105" />
-          <span>{% trans "United States Department of Justice" %}<span>
+          <img src="{% static "img/doj-logo-footer.png" %}" alt="" height="38" class="margin-right-105" />
+          <span>{% trans "United States Department of Justice" %}</span>
         </div>
         <h1 class="h1__display padding-top-2 padding-bottom-1 margin-0">
           {% trans "Thank you for submitting a report to the Civil Rights Division." %}
@@ -35,7 +43,7 @@
     </div>
       <div class="crt-success-card__content">
           <h3 class="h3__display">{% trans "Please save your record number for tracking." %}</h3>
-          <p>{% trans "If you want a copy of this report for your personal records, save or print a copy of this page." %}</p>
+          <p>{% trans "You will not receive an email confirmation, so please print or save this page for your records." %}</p>
           <div class="record-number-wrapper">
             <div class="record-number-note">
               <div id="paper-icon-wrapper" class="margin-right-1"><img src="{% static 'img/ic_paper.svg' %}" alt="paper" /></div>
@@ -45,6 +53,7 @@
               <span class="record-number margin-left-1">{{report.public_id}}</span>
             </div>
           </div>
+          <button id="print_button" class="usa-button">Print report</button>
       </div>
     </div>
   </div>
@@ -56,6 +65,7 @@
     <div class="tablet:grid-col-8 tablet:grid-offset-2">
 
       <h2 class="h1__display">{% trans "What to expect" %}</h2>
+      <div class="crt-print-separator"></div>
 
       <ol class='confirmation-list'>
         <li>
@@ -125,6 +135,7 @@
 
     <div class="tablet:grid-col-8 tablet:grid-offset-2">
       <h2 class="h1__display">{% trans "What you can do next" %}</h2>
+      <div class="crt-print-separator"></div>
       <ol class='confirmation-list'>
         <li>
           <div class="title">
@@ -136,7 +147,7 @@
             </h3>
           </div>
           <div class='confirmation-content padding-left-5'>
-            {% trans "Legal aid offices or members of lawyer associations in your state may be able to help you with your issue." %}"
+            {% trans "Legal aid offices or members of lawyer associations in your state may be able to help you with your issue." %}
             <ul class="confirmation-list">
               <li>
                 {% trans 'American Bar Association, visit <a class="external-link--blue external-link--popup" aria-label="www.findlegalhelp.org" href="http://www.findlegalhelp.org">www.findlegalhelp.org</a> or call <a href="tel:800-285-2221">(800) 285-2221</a>' %}
@@ -172,6 +183,7 @@
   <div id="submission" class="grid-container">
     <div class="submission-content tablet:grid-col-8 tablet:grid-offset-2">
         <h2 class='h1__display'>{% trans "Your submission" %}</h2>
+        <div class="crt-print-separator"></div>
         {% include "forms/report_data.html" with ordered_step_names=ordered_step_names question=questions hide_edit_button=True %}
     </div>
   </div>
@@ -192,4 +204,10 @@
   <script src="https://touchpoints.app.cloud.gov/touchpoints/a24aeb5e/js" async></script>
   <script src="{% static 'js/modal.js' %}"></script>
   <script src="{% static 'js/redirect-modal.js' %}"></script>
+  <script nonce="{{ request.csp_nonce }}">
+   var print_el = document.getElementById('print_button');
+   print_el.onclick = function() {
+     window.print();
+   };
+  </script>
 {% endblock %}

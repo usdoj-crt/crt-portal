@@ -9,18 +9,19 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
-from django.http import Http404, QueryDict
+from django.db.models import F
+from django.http import QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
-
 from .filters import report_filter
 from .forms import (BulkActionsForm, CommentActions, ComplaintActions,
                     ContactEditForm, Filters, PrintActions, ProfileForm,
                     ReportEditForm, ResponseActions, Review, add_activity)
+from .mail import crt_send_mail
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
@@ -36,6 +37,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
 from .models import CommentAndSummary, Profile, Report, Trends
 from .page_through import pagination
+from .sorts import report_sort
 
 logger = logging.getLogger(__name__)
 
@@ -70,6 +72,14 @@ def error_404(request, exception=None):
             'message': _("We can't find the page you are looking for")
         },
         status=404
+    )
+
+
+def error_422(request):
+    return render(
+        request,
+        'forms/error_422.html',
+        status=422
     )
 
 
@@ -147,8 +157,13 @@ def reconstruct_query(next_qp):
     """
     querydict = QueryDict(next_qp)
     report_query, _ = report_filter(querydict)
-    sort = querydict.getlist('sort', ['-create_date'])
-    return report_query.order_by(*sort)
+
+    report_query = report_query.annotate(email_count=F('email_report_count__email_count'))
+
+    sort_expr, sorts = report_sort(querydict)
+    report_query = report_query.order_by(*sort_expr)
+
+    return report_query
 
 
 def preserve_filter_parameters(report, querydict):
@@ -232,25 +247,25 @@ def index_view(request):
     if hasattr(request.user, 'profile') and request.user.profile.intake_filters:
         request.GET = request.GET.copy()
         global_section_filter = request.user.profile.intake_filters.split(',')
-        request.GET.setlist('assigned_section', global_section_filter)
 
-        # Retreive ProfileForm intake_filters
-        data = {'intake_filters': global_section_filter}
+        # If assigned_section is NOT specificied in request, use filter from profile
+        if 'assigned_section' not in request.GET:
+            request.GET.setlist('assigned_section', global_section_filter)
+
+        data = {'intake_filters': request.GET.getlist('assigned_section')}
         profile_form = ProfileForm(data)
 
     report_query, query_filters = report_filter(request.GET)
 
     # Sort data based on request from params, default to `created_date` of complaint
-    sort = request.GET.getlist('sort', ['-create_date'])
     per_page = request.GET.get('per_page', 15)
     page = request.GET.get('page', 1)
 
-    # Validate requested sort params
-    report_fields = [f.name for f in Report._meta.fields]
-    if all(elem.replace("-", '') in report_fields for elem in sort) is False:
-        raise Http404(f'Invalid sort request: {sort}')
+    requested_reports = report_query.annotate(email_count=F('email_report_count__email_count'))
 
-    requested_reports = report_query.order_by(*sort)
+    sort_expr, sorts = report_sort(request.GET)
+    requested_reports = requested_reports.order_by(*sort_expr)
+
     paginator = Paginator(requested_reports, per_page)
     requested_reports, page_format = pagination(paginator, page, per_page)
 
@@ -268,7 +283,7 @@ def index_view(request):
 
     # process sort query params
     sort_args = ''
-    for sort_item in sort:
+    for sort_item in sorts:
         if sort_item[0] == SORT_DESC_CHAR:
             sort_state.update({sort_item[1::]: True})
         else:
@@ -372,25 +387,41 @@ class ProfileView(LoginRequiredMixin, FormView):
 
 
 class ResponseView(LoginRequiredMixin, View):
+    """
+    Allow intake specialists to print, copy, or email form response letters
+    If we encounter _any_ exceptions in sending an email, log the error message and return.
+    """
+    MAIL_SERVICE = "AWS Simple Email Service"
+    ACTIONS = {'send': 'Emailed',
+               'copy': 'Copied',
+               'print': 'Printed'}
+    SEND_MAIL_ERROR = "There was a problem sending the requested email. No email was sent. We've logged this error and will review it as soon as possible."
 
     def post(self, request, id):
         report = get_object_or_404(Report, pk=id)
         form = ResponseActions(request.POST, instance=report)
+        url = preserve_filter_parameters(report, request.POST)
 
         if form.is_valid() and form.has_changed():
-            template_name = form.cleaned_data['templates'].title
-            button_type = request.POST['type']
-            actions = {
-                'send': 'Emailed',
-                'copy': 'Copied',
-                'print': 'Printed'
-            }
-            action = actions[button_type]
-            description = f"{action} '{template_name}' template"
-            add_activity(request.user, "Contacted complainant:", description, report)
-            messages.add_message(request, messages.SUCCESS, description)
 
-        url = preserve_filter_parameters(report, request.POST)
+            template = form.cleaned_data['templates']
+            button_type = request.POST['type']
+
+            if button_type == 'send':  # We're going to send an email!
+                try:
+                    crt_send_mail(report, template)
+                    description = f"Email sent: '{template.title}' to {report.contact_email} via {self.MAIL_SERVICE}"
+                except Exception as e:  # catch *all* exceptions
+                    logger.warning({'message': f"Email failed to send: {e}", 'report': report.id})
+                    messages.add_message(request, messages.ERROR, self.SEND_MAIL_ERROR)
+                    return redirect(url)  # Return here, nothing to write in activity log
+            else:
+                action = self.ACTIONS[button_type]
+                description = f"{action} '{template.title}' template"
+
+            messages.add_message(request, messages.SUCCESS, description)
+            add_activity(request.user, "Contacted complainant:", description, report)
+
         return redirect(url)
 
 
@@ -440,6 +471,7 @@ class ShowView(LoginRequiredMixin, View):
         output.update({
             'contact_form': contact_form,
             'details_form': details_form,
+            'email_enabled': settings.EMAIL_ENABLED,
             **filter_output,
         })
         return render(request, 'forms/complaint_view/show/index.html', output)
@@ -822,6 +854,24 @@ class CRTReportWizard(SessionWizardView):
         _('Personal description'),
         _('Review'),
     ]
+
+    def form_refreshed(self):
+        """
+        True if the form and associated session data have been refreshed and cleared
+        which invalidates the submission and requires a user to restart the form.
+        """
+        form_current_step = self.request.POST.get('crt_report_wizard-current_step', None)
+        return (form_current_step != self.steps.current and self.storage.current_step is not None)
+
+    def post(self, *args, **kwargs):
+        """
+        Prior to handling the inbound request, check for and handle
+        session data which has been cleared while someone is progressing through
+        the form
+        """
+        if self.form_refreshed():
+            return error_422(self.request)
+        return super().post(*args, **kwargs)
 
     def get(self, request):
         if settings.MAINTENANCE_MODE:

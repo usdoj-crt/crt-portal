@@ -28,6 +28,7 @@ USE_LOCALSTACK = os.environ.get('USE_LOCALSTACK', None)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
+ENABLE_DEBUG_TOOLBAR = os.environ.get('ENABLE_DEBUG_TOOLBAR', False)
 MAINTENANCE_MODE = os.environ.get('MAINTENANCE_MODE', False)
 
 
@@ -80,6 +81,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
+    'actstream',
     'cts_forms',
     'compressor',
     'compressor_toolkit',
@@ -87,7 +89,6 @@ INSTALLED_APPS = [
     'formtools',
     # 'django_auth_adfs' in production only
     'crequest',
-    'actstream',
 ]
 SITE_ID = 1
 
@@ -160,6 +161,9 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+# Set to True later in settings if we've successfully configured an email backend
+EMAIL_ENABLED = False
 
 # for AUTH, probably want to add stage in the future
 if environment == 'PRODUCTION':
@@ -251,6 +255,7 @@ if environment not in ['LOCAL', 'UNDEFINED']:
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
     AWS_DEFAULT_ACL = 'public-read'
+    AWS_IS_GZIPPED = True
 
 if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     MIDDLEWARE.append('csp.middleware.CSPMiddleware')
@@ -308,6 +313,20 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     )
     CSP_INCLUDE_NONCE_IN = ['script-src']
 
+    # Configure outbound Email
+    AWS_SES_SECRET_ACCESS_KEY = os.getenv('AWS_SES_SECRET_ACCESS_KEY')
+    AWS_SES_ACCESS_KEY_ID = os.getenv('AWS_SES_ACCESS_KEY_ID')
+    AWS_SES_FROM_EMAIL = os.getenv('AWS_SES_FROM_EMAIL')
+    AWS_SES_RETURN_PATH = os.getenv('AWS_SES_RETURN_PATH')
+    if AWS_SES_SECRET_ACCESS_KEY and AWS_SES_ACCESS_KEY_ID and AWS_SES_RETURN_PATH and AWS_SES_FROM_EMAIL:
+        # Only set backend if all env vars  are present otherwise
+        # `django-ses` will attempt to use AWS credentials established
+        # for use with S3
+        EMAIL_BACKEND = 'django_ses.SESBackend'
+        AWS_SES_REGION_NAME = 'us-gov-west-1'
+        DEFAULT_FROM_EMAIL = AWS_SES_FROM_EMAIL
+        EMAIL_ENABLED = True
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 # This is where source assets are collect from by collect static
@@ -348,10 +367,12 @@ DEFAULT_LOGGING['handlers']['console']['filters'] = []
 LOGGING = {
     'disable_existing_loggers': False,
     'version': 1,
+    "formatters": {"json": {"()": "pythonjsonlogger.jsonlogger.JsonFormatter"}},
     'handlers': {
         'console': {
             # logging handler that outputs log messages to terminal
             'class': 'logging.StreamHandler',
+            "formatter": "json",
             'level': 'INFO',  # message level to be written to console
         },
     },
@@ -377,3 +398,9 @@ if USE_LOCALSTACK:
 
 if environment == 'LOCAL':
     from .local_settings import *  # noqa: F401,F403
+
+# Django debug toolbar setup
+if ENABLE_DEBUG_TOOLBAR:
+    INSTALLED_APPS += ['debug_toolbar', ]
+    MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
+    DEBUG_TOOLBAR_CONFIG = {'SHOW_TOOLBAR_CALLBACK': lambda _: True}

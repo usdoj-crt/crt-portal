@@ -16,22 +16,22 @@ filter_options = {
     'primary_complaint': '__in',
     'status': '__in',
     'location_state': '__in',
-    'contact_first_name': '__contains',
-    'contact_last_name': '__contains',
-    'contact_email': '__search',
+    'contact_first_name': '__icontains',
+    'contact_last_name': '__icontains',
+    'contact_email': '__icontains',
     'other_class': '__search',
     'violation_summary': 'violation_summary',
-    'location_name': '__contains',
-    'location_city_town': '__contains',
-    'location_address_line_1': '__search',
-    'location_address_line_2': '__search',
+    'location_name': '__icontains',
+    'location_city_town': '__icontains',
+    'location_address_line_1': '__icontains',
+    'location_address_line_2': '__icontains',
     'create_date_start': '__gte',
     'create_date_end': '__lte',
     'closed_date_start': '__gte',
     'closed_date_end': '__lte',
     'modified_date_start': '__gte',
     'modified_date_end': '__lte',
-    'public_id': '__contains',
+    'public_id': '__icontains',
     'primary_statute': '__in',
     'assigned_to': 'foreign_key',
     'summary': 'summary',
@@ -40,6 +40,7 @@ filter_options = {
     'intake_format': '__in',
     'commercial_or_public_place': '__in',
     'reported_reason': 'reported_reason',
+    'referred': 'eq',
 }
 
 
@@ -79,7 +80,7 @@ def report_filter(querydict):
             elif filter_options[field] == '__search':
                 # takes one phrase
                 kwargs[f'{field}__search'] = querydict.getlist(field)[0]
-            elif filter_options[field] == '__contains':
+            elif filter_options[field] == '__icontains':
                 kwargs[f'{field}__icontains'] = querydict.getlist(field)[0]
             elif 'date' in field:
                 # filters by a start date or an end date expects yyyy-mm-dd

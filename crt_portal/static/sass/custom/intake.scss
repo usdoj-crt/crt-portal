@@ -307,6 +307,13 @@
   }
 }
 
+.crt-checkbox {
+  @extend .crt-dropdown;
+  .crt-checkbox__label {
+    padding-left: 0;
+  }
+}
+
 @mixin icon-dark {
   color: color($theme-color-primary-darker);
   @include u-border($theme-color-primary-darker);
@@ -589,6 +596,9 @@ ul.messages {
 
 #id_assigned_toaria-autocomplete-1-wrapper {
   flex-basis: 60%;
+  ul.aria-autocomplete__list {
+    @include u-z('top');
+  }
 }
 
 .aria-autocomplete__wrapper {
@@ -607,7 +617,6 @@ ul.messages {
     position: absolute;
     width: 60%;
     border-radius: 3px;
-    font-weight: bold;
     margin-top: 0;
     box-shadow: 0 15px 10px hsla(0, 0%, 39.2%, 0.2);
 
@@ -626,6 +635,7 @@ ul.messages {
       }
 
       &:hover {
+        font-weight: bold;
         @include u-bg($theme-color-primary-lightest);
         @include u-text($theme-color-primary-darker);
       }

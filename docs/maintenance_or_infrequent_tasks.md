@@ -328,3 +328,51 @@ URL | Method | Normal | Maintenance mode
 ----|--------|--------|--------
 /report/| GET | Render report form | Render 503 maintenance page
 
+
+
+## Email configuration
+
+We use [Amazon Simple Email Service (SES)](https://aws.amazon.com/ses/) to send outbound email from the application.
+
+### Local development
+
+In local environments, all outbound email is routed to [MailHog](https://github.com/mailhog/MailHog).
+
+Outbound messages sent to MailHog are viewable via the MailHog UI, accessible at http://localhost:8025
+
+[Jim, MailHog's Chaos Monkey,](https://github.com/mailhog/MailHog/blob/master/docs/JIM.md) can be enabled and configured by modifying the `docker-compose.yml` file. This is helpful for testing intermittent connections, rejections, or other failures which may be encountered when attempting to send mail.
+
+For example, this command will enable Jim with a 50% chance to reject an incoming connection.
+
+    mailhog:
+        image: mailhog/mailhog
+        ports:
+          - 1025:1025 # smtp server
+          - 8025:8025 # web ui
+        command: -invite-jim=1 -jim-accept=0.50
+
+### Development, Staging, and Production
+
+Each deployed instance **must** have the following environment variables defined in cloud.gov either via the command line or cloud.gov dashboard.
+
+
+Variable | Description
+---------|-----------
+`AWS_SES_ACCESS_KEY_ID` | AWS Access Key ID specific to SES
+`AWS_SES_SECRET_ACCESS_KEY`| AWS Secret Access Key specific to SES
+`AWS_SES_RETURN_PATH` | Instruct Amazon SES to forward bounced emails and complaints to this email.
+`AWS_SES_FROM_EMAIL` | Email to use as FROM email for all outbound messages, used to set the value for Django's [`DEFAULT_FROM_EMAIL`](https://docs.djangoproject.com/en/3.1/ref/settings/#default-from-email)
+
+Command line example
+
+   ```
+   # Authenticate and target desired space
+   cf set-env crt-portal-django AWS_SES_ACCESS_KEY_ID {VALUE}
+   cf set-env crt-portal-django AWS_SES_SECRET_ACCESS_KEY {VALUE}
+   cf set-env crt-portal-django AWS_SES_RETURN_PATH {VALUE}
+   cf set-env crt-portal-django AWS_SES_FROM_EMAIL {VALUE}
+   # re-stage application
+   ```
+
+> **WARNING**:
+ If _any_ of these values is not configured the application will start but `EMAIL_BACKEND` is not set to use SES. This is done so that `django-ses` doesn't attempt to send mail w/ otherwise configured AWS credentials. Attempts to send outbound email messages will fail and generate a log message such as `"Email failed to send: [Errno 99] Cannot assign requested address"`

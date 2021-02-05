@@ -30,6 +30,12 @@ services:
       - DATA_DIR=/tmp/localstack/data
     volumes:
       - "localstack-vol:/tmp/localstack"
+  mailhog:
+     image: mailhog/mailhog
+     ports:
+       - 1025:1025 # smtp server
+       - 8025:8025 # web ui
+     # command: -invite-jim=1 -jim-accept=0.50  # uncomment to enable and configure Jim (Chaos Monkey)
 volumes:
   postgres_data:
   localstack-vol:

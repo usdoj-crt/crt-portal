@@ -1,9 +1,13 @@
 {% if messages %}
-<h2 class="messages">
-    <ul class="messages blue-background usa-prose" >
+    <h2 class="messages">
         {% for message in messages %}
-            <li class="update-status{% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</li>
+            <div class="update-status usa-alert usa-alert--{{message.tags}}">
+                <div class="usa-alert__body">
+                <p class="usa-alert__text">
+                    {{message}}
+                </p>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
-</h2>
+    </h2>
 {% endif %}

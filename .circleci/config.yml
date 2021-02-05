@@ -12,6 +12,23 @@ install-cf7: &install-cf7
       rm cf7.deb
       cf7 api https://api.fr.cloud.gov
 
+install-python-dependencies: &install-python-dependencies
+  run:
+    name: Install python dependencies
+    command: |
+      pip install -U pip
+      pip install pipenv
+      pipenv install
+
+install-python-dev-dependencies: &install-python-dev-dependencies
+  run:
+    name: Install python dev dependencies
+    command: |
+      pip install -U pip
+      pip install pipenv
+      pipenv install --dev
+      pipenv run python -m playwright install
+
 version: 2
 jobs:
   build_and_test: # runs not using Workflows must have a `build` job as entry point
@@ -51,17 +68,17 @@ jobs:
             - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
             - pip-packages-v1-{{ .Branch }}-
             - pip-packages-v1-
+      - *install-python-dev-dependencies
       - run:
-          name: Python install with pipenv then migrate the database
-          command: |
-            pip install -U pip
-            pip install pipenv
-            pipenv install --dev
-            pipenv run crt_portal/manage.py migrate
+          name: Migrate the database
+          command: pipenv run crt_portal/manage.py migrate
       - save_cache:
           paths:
             - /home/circleci/code/.venv # this path depends on where pipenv creates a virtualenv
           key: pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+      - run:
+          name: Run prettier code formatting check
+          command: npm run lint:check
       - run:
           name: Run unit tests & check coverage
           command: |
@@ -70,7 +87,7 @@ jobs:
       - run:
           name: Run bandit (Python security) tests
           command: |
-            pipenv run bandit -r crt_portal/
+            pipenv run bandit -r crt_portal/ --exclude cts_forms/tests
       - run:
           name: Run flake8 test for Python code style
           command: |
@@ -93,8 +110,39 @@ jobs:
       - store_artifacts:
           path: ./pa11y-screenshots
       - run:
-          name: Run prettier code formatting check
-          command: npm run lint:check
+          name: E2E tests
+          command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=http://127.0.0.1:8000
+
+  e2e-test-dev:
+    description: Runs E2E tests against dev
+    working_directory: ~/code
+    docker:
+      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
+      - image: circleci/python:3.8.5-node-browsers
+        environment: # environment variables for primary container
+          PIPENV_VENV_IN_PROJECT: true
+    steps:
+      - checkout
+      - *install-python-dev-dependencies
+      - run:
+          name: E2E tests
+          command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=https://crt-portal-django-dev.app.cloud.gov
+
+  e2e-test-stage:
+    description: Runs E2E tests against stage
+    working_directory: ~/code
+    docker:
+      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
+      - image: circleci/python:3.8.5-node-browsers
+        environment: # environment variables for primary container
+          PIPENV_VENV_IN_PROJECT: true
+    steps:
+      - checkout
+      - *install-python-dev-dependencies
+      - run:
+          name: E2E tests
+          command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=https://crt-portal-django-stage.app.cloud.gov
+
 # owasp scans on live sties
   owasp-scan-dev:
     machine:
@@ -162,13 +210,8 @@ jobs:
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
-      - run:
-          # database will be migrated in cloud.gov
-          name: Python install with pipenv
-          command: |
-            pip install -U pip
-            pip install pipenv
-            pipenv install
+      # database will be migrated in cloud.gov
+      - *install-python-dependencies
       - run:
           name: Install cloud foundry deploy tools
           command: |
@@ -217,13 +260,8 @@ jobs:
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
-      - run:
-          # database will be migrated in cloud.gov
-          name: Python install with pipenv
-          command: |
-            pip install -U pip
-            pip install pipenv
-            pipenv install
+      # database will be migrated in cloud.gov
+      - *install-python-dependencies
       - run:
           name: Install cloud foundry deploy tools
           command: |
@@ -241,7 +279,7 @@ jobs:
           name: Deploy to stage
           command: |
             ./blue-green-deploy.sh $CRT_USERNAME_STAGE $CRT_PASSWORD_STAGE staging
-
+      
   deploy-prod:
     working_directory: ~/code
     docker:
@@ -273,13 +311,8 @@ jobs:
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
-      - run:
-          # database will be migrated in cloud.gov
-          name: Python install with pipenv
-          command: |
-            pip install -U pip
-            pip install pipenv
-            pipenv install
+      # database will be migrated in cloud.gov
+      - *install-python-dependencies
       - run:
           name: Install cloud foundry deploy tools
           command: |
@@ -412,6 +445,20 @@ workflows:
           filters:
             branches:
               only: master
+
+      - e2e-test-dev:
+          requires:
+            - deploy-dev
+          filters:
+            branches:
+              only: develop
+
+      - e2e-test-stage:
+          requires:
+            - deploy-stage
+          filters:
+            branches:
+              only: /^release.*/
 
   # Scheduled maintenance jobs for portal
   # Dev scheduled jobs

@@ -8,7 +8,7 @@ def multiselect_summary(selections, default_text):
     if not selections:
         return default_text
 
-    if (count := len(selections.split(','))) > 2:
+    if (count := len(selections)) > 2:
         return f'Multi ({count})'
 
-    return selections.replace(',', ', ')
+    return ', '.join(selections)

@@ -1,0 +1,14 @@
+{% extends "forms/errors.html" %}
+{% load i18n %}
+
+
+{% block error_heading %}{% trans "We're sorry, something went wrong" %}{% endblock %}
+
+{% block error_message %}
+    {% blocktrans %}
+        <p>This error might be associated with an incompatible Internet browser. Please download the latest version of Google Chrome, Mozilla Firefox, Safari or Microsoft Edge.</p>
+        <p>Additionally, please do not use multiple browsers and/or browser tabs when entering your report.</p>
+    {% endblocktrans %}
+{% endblock error_message%}
+
+{% block error_helptext %}{% endblock %}

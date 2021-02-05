@@ -190,6 +190,10 @@ class Report(models.Model):
     # Not in use- but need to preserving historical data
     hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, blank=True)
 
+    # referrals
+    referred = models.BooleanField(default=False)
+    referral_section = models.TextField(choices=SECTION_CHOICES, blank=True)
+
     @cached_property
     def last_incident_date(self):
         try:
@@ -209,7 +213,7 @@ class Report(models.Model):
         return date
 
     def __str__(self):
-        return f'{self.create_date} {self.violation_summary}'
+        return self.public_id
 
     def __has_immigration_protected_classes(self, pcs):
         immigration_classes = [
@@ -231,10 +235,7 @@ class Report(models.Model):
         """See the SectionAssignmentTests for expected behaviors"""
         protected_classes = [pc.value for pc in self.protected_class.all()]
 
-        if self.hate_crime == 'yes':
-            return 'CRM'
-
-        elif self.primary_complaint == 'voting':
+        if self.primary_complaint == 'voting':
             if self.__is_not_disabled(protected_classes):
                 return 'VOT'
             else:
@@ -294,20 +295,14 @@ class Report(models.Model):
 
     @property
     def addressee(self):
-        if self.contact_first_name:
-            salutation = 'Dear'
-            if self.contact_last_name:
-                return f"{salutation} {self.contact_first_name} {self.contact_last_name}"
-            return f"{salutation} {self.contact_first_name}"
+        if self.contact_full_name:
+            return f"Dear {self.contact_full_name}"
         return "Thank you for your report"
 
     @property
     def addressee_es(self):
-        if self.contact_first_name:
-            salutation = 'Estimado/a'
-            if self.contact_last_name:
-                return f"{salutation} {self.contact_first_name} {self.contact_last_name}"
-            return f"{salutation} {self.contact_first_name}"
+        if self.contact_full_name:
+            return f"Estimado/a {self.contact_full_name}"
         return "Gracias por su informe"
 
     def get_absolute_url(self):
@@ -333,6 +328,44 @@ class Report(models.Model):
         """
         self.assigned_to = None
         self.status = 'new'
+
+    @cached_property
+    def related_reports(self):
+        """Return qs of reports with the same value for `contact_email`"""
+        return Report.objects.exclude(contact_email__isnull=True).filter(contact_email__iexact=self.contact_email).order_by('status', '-create_date')
+
+    @cached_property
+    def related_reports_display(self):
+        """Return set of related reports grouped by STATUS for template rendering"""
+        reports = self.related_reports
+        return (('new', reports.filter(status='new')),
+                ('open', reports.filter(status='open')),
+                ('closed', reports.filter(status='closed')),
+                )
+
+    @property
+    def contact_full_name(self):
+        """
+        Return full name if both first and last are present
+        otherwise return whichever value is present
+        If both are missing, return an empty string
+        """
+        first = self.contact_first_name
+        last = self.contact_last_name
+        if first and last:
+            return f'{first} {last}'
+        return first or last
+
+
+class EmailReportCount(models.Model):
+    """see the total number of reports that are associated with the contact_email for each report"""
+    report = models.OneToOneField(Report, primary_key=True, on_delete=models.CASCADE, related_name='email_report_count')
+    email_count = models.IntegerField()
+
+    class Meta:
+        """This model is tied to a view created from migration 93"""
+        managed = False
+        db_table = 'email_report_count'
 
 
 class Trends(models.Model):

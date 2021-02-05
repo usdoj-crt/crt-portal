@@ -40,7 +40,6 @@ class Ultimate_Section_Assignment_Test(TestCase):
                 'section_assignment_actual': 'Section assignment',
                 'primary_complaint': 'Primary complaint',
                 'protected_class': 'Protected class',
-                'hate_crime': 'Hate crime',
                 'place': 'Place',
                 'facility': 'Facility',
                 'school': 'School',
@@ -56,32 +55,15 @@ class Ultimate_Section_Assignment_Test(TestCase):
                         # create object with required fields
                         test_report = Report.objects.create(**SAMPLE_REPORT)
                         test_report.protected_class.add(class_object[0])
-                        # without hate crimes
-                        test_report.hate_crime = 'no'
-                        section_no_hc = test_report.assign_section()
+                        section = test_report.assign_section()
                         write_and_check(self, writer, expected, actual, {
-                            'section_assignment_actual': section_no_hc,
+                            'section_assignment_actual': section,
                             'primary_complaint': primary[0],
                             'protected_class': str(protected_class),
-                            'hate_crime': test_report.hate_crime,
                             'place': 'n/a',
                             'facility': 'n/a',
                             'school': 'n/a',
                         })
-
-                    # hate crime and trafficking example
-                    test_report.hate_crime = 'yes'
-                    test_report.save()
-                    section = test_report.assign_section()
-                    write_and_check(self, writer, expected, actual, {
-                        'section_assignment_actual': section,
-                        'primary_complaint': primary[0],
-                        'protected_class': str(protected_class),
-                        'hate_crime': test_report.hate_crime,
-                        'place': 'n/a',
-                        'facility': 'n/a',
-                        'school': 'n/a',
-                    })
 
                     if primary[0] == 'commercial_or_public':
                         for place in COMMERCIAL_OR_PUBLIC_PLACE_CHOICES:
@@ -90,14 +72,11 @@ class Ultimate_Section_Assignment_Test(TestCase):
                             data['commercial_or_public_place'] = place[0]
                             test_report = Report.objects.create(**data)
                             test_report.protected_class.add(class_object[0])
-                            # without hate crimes
-                            test_report.hate_crime = 'no'
-                            section_no_hc = test_report.assign_section()
+                            section = test_report.assign_section()
                             write_and_check(self, writer, expected, actual, {
-                                'section_assignment_actual': section_no_hc,
+                                'section_assignment_actual': section,
                                 'primary_complaint': primary[0],
                                 'protected_class': str(protected_class),
-                                'hate_crime': test_report.hate_crime,
                                 'place': place[0],
                                 'facility': 'n/a',
                                 'school': 'n/a',
@@ -108,14 +87,11 @@ class Ultimate_Section_Assignment_Test(TestCase):
                             data['inside_correctional_facility'] = facility[0]
                             test_report = Report.objects.create(**data)
                             test_report.protected_class.add(class_object[0])
-                            # without hate crimes
-                            test_report.hate_crime = 'no'
                             section_facility = test_report.assign_section()
                             write_and_check(self, writer, expected, actual, {
                                 'section_assignment_actual': section_facility,
                                 'primary_complaint': primary[0],
                                 'protected_class': str(protected_class),
-                                'hate_crime': test_report.hate_crime,
                                 'place': 'n/a',
                                 'facility': facility[0],
                                 'school': 'n/a',
@@ -126,14 +102,11 @@ class Ultimate_Section_Assignment_Test(TestCase):
                             data['public_or_private_school'] = school[0]
                             test_report = Report.objects.create(**data)
                             test_report.protected_class.add(class_object[0])
-                            # without hate crimes
-                            test_report.hate_crime = 'no'
                             section_facility = test_report.assign_section()
                             write_and_check(self, writer, expected, actual, {
                                 'section_assignment_actual': section_facility,
                                 'primary_complaint': primary[0],
                                 'protected_class': str(protected_class),
-                                'hate_crime': test_report.hate_crime,
                                 'place': 'n/a',
                                 'facility': 'n/a',
                                 'school': school[0],

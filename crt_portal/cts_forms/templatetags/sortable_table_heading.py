@@ -4,6 +4,7 @@ from django import template
 register = template.Library()
 sort_lookup = {
     'status': 'status',
+    'total #': 'email_count',
     'routed': 'assigned_section',
     'submitted': 'create_date',
     'contact name': 'contact_last_name',
@@ -12,6 +13,7 @@ sort_lookup = {
 }
 sortable_props = [
     'status',
+    'email_count',
     'assigned_section',
     'create_date',
     'contact_last_name',
@@ -46,13 +48,14 @@ def sort_url_factory(heading, is_descending, filter_state):
 
 
 @register.inclusion_tag('forms/snippets/sortable_table_heading.html')
-def render_sortable_heading(heading, sort_state, filter_state):
+def render_sortable_heading(heading, sort_state, filter_state, nowrap=False):
     safe_heading = heading.lower()
     sortable_prop = sort_lookup.get(safe_heading, None)
 
     sort_dict = {
         'heading': heading,
-        'id': heading.lower().replace(' ', '-') + '-sort'
+        'id': heading.lower().replace(' ', '-') + '-sort',
+        'nowrap': nowrap
     }
 
     if sortable_prop in sortable_props:

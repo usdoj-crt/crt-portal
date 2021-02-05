@@ -1,10 +1,11 @@
 import csv
 import logging
 
+from actstream.models import Action, Follow
 from django.contrib import admin
 from django.core.paginator import Paginator
-from django.http import StreamingHttpResponse
 from django.db.models import Prefetch
+from django.http import StreamingHttpResponse
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate)
@@ -13,6 +14,22 @@ from .signals import get_client_ip
 logger = logging.getLogger(__name__)
 
 REPORT_FIELDS = [field.name for field in Report._meta.fields]
+ACTION_FIELDS = ['timestamp', 'actor', 'verb', 'description', 'target']
+
+
+class ReadOnlyModelAdmin(admin.ModelAdmin):
+    """Disable add, modify, and delete functionality"""
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def has_view_permission(self, request, obj=None):
+        return request.user.is_superuser
 
 
 class Echo:
@@ -24,12 +41,12 @@ class Echo:
         return value
 
 
-def format_export_message(request, records):
+def format_export_message(request, records, what_was_exported):
     """Log user and # of records exported"""
     ip = get_client_ip(request) if request else 'CLI'
     username = request.user.username if request else 'CLI'
     userid = request.user.id if request else 'CLI'
-    return f'ADMIN ACTION by: {username} {userid} @ {ip}. Exported {records} reports as csv.'
+    return f'ADMIN ACTION by: {username} {userid} @ {ip}. Exported {records} {what_was_exported} as csv.'
 
 
 def iter_queryset(queryset, headers):
@@ -60,11 +77,20 @@ def _serialize_report_export(data):
         if data.internal_summary:
             # incoming summaries are sorted by descending modified_date the first is the most recent
             row.append(data.internal_summary[0].note)
+        else:
+            row.append('')
         return row
     return data
 
 
-def export_as_csv(modeladmin, request, queryset):
+def _serialize_action(data):
+    """Preserve headers while rendering ACTION_FIELDS for inbound actions"""
+    if isinstance(data, Action):
+        return [getattr(data, field) for field in ACTION_FIELDS]
+    return data
+
+
+def export_reports_as_csv(modeladmin, request, queryset):
     """
     Stream all non-related fields,
     protected_class M2M,
@@ -84,12 +110,29 @@ def export_as_csv(modeladmin, request, queryset):
                                      content_type="text/csv")
     response['Content-Disposition'] = 'attachment; filename="report_export.csv"'
 
-    logger.info(format_export_message(request, queryset.count()))
+    logger.info(format_export_message(request, queryset.count(), 'reports'))
     return response
-export_as_csv.allowed_permissions = ('view',)  # noqa
+export_reports_as_csv.allowed_permissions = ('view',)  # noqa
 
 
-class ReportAdmin(admin.ModelAdmin):
+def export_actions_as_csv(modeladmin, request, queryset):
+    """
+    Stream actions as csv
+    Log all use
+    """
+    writer = csv.writer(Echo(), quoting=csv.QUOTE_ALL)
+    iterator = iter_queryset(queryset, ACTION_FIELDS)
+
+    response = StreamingHttpResponse((writer.writerow(_serialize_action(action)) for action in iterator),
+                                     content_type="text/csv")
+    response['Content-Disposition'] = 'attachment; filename="activity_export.csv"'
+
+    logger.info(format_export_message(request, queryset.count(), 'activity log entries'))
+    return response
+export_actions_as_csv.allowed_permissions = ('view',)  # noqa
+
+
+class ReportAdmin(ReadOnlyModelAdmin):
     """
     View-only report admin providing filtering and export functionality
     """
@@ -97,19 +140,19 @@ class ReportAdmin(admin.ModelAdmin):
     list_filter = ['status', 'create_date', 'modified_date', 'assigned_section', 'servicemember',
                    'hate_crime', 'primary_complaint', 'assigned_to']
     ordering = ['public_id']
-    actions = [export_as_csv]
+    actions = [export_reports_as_csv]
 
-    def has_add_permission(self, request):
-        return False
 
-    def has_change_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
-
-    def has_view_permission(self, request, obj=None):
-        return request.user.is_superuser
+class ActionAdmin(ReadOnlyModelAdmin):
+    """Read-only admin for browsing and exporting raw activity log entries"""
+    search_fields = ['description']
+    date_hierarchy = 'timestamp'
+    list_display = ('timestamp', 'actor', 'verb', 'description', 'target')
+    list_editable = ('verb',)
+    list_filter = ('timestamp', 'verb')
+    raw_id_fields = ('actor_content_type', 'target_content_type',
+                     'action_object_content_type')
+    actions = [export_actions_as_csv]
 
 
 admin.site.register(CommentAndSummary)
@@ -118,3 +161,8 @@ admin.site.register(ProtectedClass)
 admin.site.register(HateCrimesandTrafficking)
 admin.site.register(ResponseTemplate)
 admin.site.register(Profile)
+
+# Activity stream already registers an Admin for Action, we want to replace it
+admin.site.unregister(Action)
+admin.site.unregister(Follow)
+admin.site.register(Action, ActionAdmin)

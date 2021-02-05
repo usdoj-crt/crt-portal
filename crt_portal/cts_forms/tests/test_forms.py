@@ -1,16 +1,19 @@
-"""Back end forms"""
 import secrets
 import urllib.parse
 
 from django.contrib.auth.models import User
-from django.test import TestCase
+from django.http import QueryDict
+from django.test import SimpleTestCase, TestCase
 from django.test.client import Client
 from django.urls import reverse
 from django.utils.html import escape
+from django.utils.http import urlencode
 
-from ..forms import ComplaintActions, ReportEditForm, BulkActionsForm
+
+from ..forms import BulkActionsForm, ComplaintActions, Filters, ReportEditForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES
 from ..models import CommentAndSummary, Report, ResponseTemplate
+from .factories import ReportFactory
 from .test_data import SAMPLE_REPORT, SAMPLE_RESPONSE_TEMPLATE
 
 
@@ -74,10 +77,59 @@ class ActionTests(TestCase):
 
         self.assertTrue(form.is_valid())
 
-        # Running the code to check error.
-        for action in form.get_actions():
-            self.assertEqual(action[0], 'Assigned to:')
-            self.assertEqual(action[1], f'"{self.user2.username}"')
+        self.assertTrue(form.is_valid())
+        actions = list(form.get_actions())
+        self.assertTrue(actions)
+        self.assertEqual(actions[0], ('Assigned to:', f'"{self.user2.username}"'))
+        self.assertEqual(actions[1], ('Assigned to:', f'Updated from "None" to "{self.user2.username}"'))
+
+    def test_section_change(self):
+        """Changes to section are recorded in activity log"""
+        form = ComplaintActions(
+            initial={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': self.user1.pk
+            },
+            data={
+                'assigned_section': 'VOT',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': self.user1.pk
+            }
+        )
+
+        self.assertTrue(form.is_valid())
+        actions = list(form.get_actions())
+        self.assertTrue(actions)
+        self.assertEqual(actions[0], ('Assigned section:', 'Updated from "ADM" to "VOT"'))
+
+    def test_referral(self):
+        form = ComplaintActions(
+            initial={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': None,
+                'referred': False,
+            },
+            data={
+                'assigned_section': 'ADM',
+                'status': 'new',
+                'primary_statute': '144',
+                'district': '1',
+                'assigned_to': None,
+                'referred': True,
+            }
+        )
+        self.assertTrue(form.is_valid())
+        actions = list(form.get_actions())
+        self.assertTrue(actions)
+        self.assertEqual(actions[0], ('Secondary review:', 'Updated from "False" to "True"'))
 
 
 class CommentActionTests(TestCase):
@@ -89,7 +141,7 @@ class CommentActionTests(TestCase):
         self.client.login(username='DELETE_USER', password=self.test_pass)
 
         self.note = 'Important note'
-        self.report = Report.objects.create(**SAMPLE_REPORT)
+        self.report = ReportFactory.create()
         self.pk = self.report.pk
         self.response = self.client.post(
             reverse(
@@ -324,18 +376,12 @@ class FormNavigationTests(TestCase):
         self.test_pass = secrets.token_hex(32)
         self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
-        self.reports = [Report.objects.create(**SAMPLE_REPORT) for _ in range(3)]
-        # generate three reports that belong to a specific section
         self.filter_section = 'ADM'
-        for report in self.reports:
-            report.assigned_section = self.filter_section
-            report.save()
-        # generate random reports that belong to other sections
-        reports = [Report.objects.create(**SAMPLE_REPORT) for _ in range(7)]
-        sections = ['CRM', 'DRS', 'ELS', 'EOS']
-        for index, report in enumerate(reports):
-            report.assigned_section = sections[index % len(sections)]
-            report.save()
+        self.reports = ReportFactory.create_batch(3, assigned_section=self.filter_section)
+        ReportFactory.create_batch(2, assigned_section='CRM')
+        ReportFactory.create_batch(2, assigned_section='DRS')
+        ReportFactory.create_batch(2, assigned_section='ELS')
+        ReportFactory.create_batch(1, assigned_section='EOS')
 
     def test_basic_navigation(self):
         first = self.reports[-1]
@@ -395,6 +441,57 @@ class FormNavigationTests(TestCase):
         self.assertTrue(escape(f"{url}?next={next_qp}&index=1") in content)
         self.assertEquals(content.count('complaint-nav'), 2)
         self.assertEquals(content.count('disabled-nav'), 1)
+
+    def test_email_filtering(self):
+        # generate random reports associated with a different email address
+        ReportFactory.create_batch(5, assigned_section='VOT', contact_email='SomeoneElse@usa.gov')
+
+        first = self.reports[-1]
+        response = self.client.post(
+            reverse('crt_forms:crt-forms-show', kwargs={'id': first.id}),
+            {
+                'next': '?per_page=15&contact_email=SomeoneElse@usa.gov',
+                'index': '1',
+                'type': ComplaintActions.CONTEXT_KEY,
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('N/A of 5 records' in str(response.content))
+
+    def test_email_count_sorting_asc(self):
+        # generate report wiht no email address
+        report = ReportFactory.create(contact_email=None)
+
+        response = self.client.post(
+            reverse('crt_forms:crt-forms-show', kwargs={'id': report.id}),
+            {
+                'next': '?per_page=15&sort=email_count',
+                'index': '1',
+                'type': ComplaintActions.CONTEXT_KEY,
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        # the report with no email should land at the back
+        self.assertTrue('11 of 11 records' in str(response.content))
+
+    def test_email_count_sorting_desc(self):
+        # generate report wiht no email address
+        report = ReportFactory.create(contact_email=None)
+
+        response = self.client.post(
+            reverse('crt_forms:crt-forms-show', kwargs={'id': report.id}),
+            {
+                'next': '?per_page=15&sort=-email_count',
+                'index': '1',
+                'type': ComplaintActions.CONTEXT_KEY,
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        # the report with no email should land at the back
+        self.assertTrue('11 of 11 records' in str(response.content))
 
 
 class PrintActionTests(TestCase):
@@ -460,6 +557,49 @@ class PrintActionTests(TestCase):
         self.assertEquals(response.status_code, 200)
         content = str(response.content)
         self.assertTrue(escape('Printed activity, issue for 2 reports') in content)
+
+
+class ReportActionTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        self.report = Report.objects.create(**SAMPLE_REPORT, assigned_section='ADM')
+
+    def referral_section_checked(self):
+        self.assertEquals(self.report.referral_section, '')
+        url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
+        params = {
+            'type': 'actions',
+            'referred': 'on',
+        }
+        response = self.client.post(url, params, follow=True)
+        content = str(response.content)
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('Secondary review:' in content)
+        self.assertTrue(escape('Updated from "False" to "True"') in content)
+        self.report.refresh_from_db()
+        self.assertTrue(self.report.referred)
+        self.assertEquals(self.report.referral_section, 'ADM')
+
+    def referral_section_unchecked(self):
+        self.report.referred = True
+        self.report.referral_section = 'ADM'
+        self.report.save()
+        url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
+        params = {
+            'type': 'actions',
+            'referred': '',
+        }
+        response = self.client.post(url, params, follow=True)
+        content = str(response.content)
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('Secondary review:' in content)
+        self.assertTrue(escape('Updated from "True" to "False"') in content)
+        self.report.refresh_from_db()
+        self.assertFalse(self.report.referred)
+        self.assertEquals(self.report.referral_section, '')
 
 
 class BulkActionsTests(TestCase):
@@ -676,3 +816,141 @@ class BulkActionsFormTests(TestCase):
         ]
         for action in form.get_actions(queryset.first()):
             self.assertTrue(action in expected_actions)
+
+
+class FiltersFormTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+
+        self.email1 = 'email1@usa.gov'
+        self.email2 = 'email2@usa.gov'
+        ReportFactory.create_batch(3, contact_email=self.email1)
+        ReportFactory.create_batch(5, contact_email=self.email2)
+        ReportFactory.create_batch(8, contact_email=None)
+
+    def test_basic_navigation(self):
+        response = self.client.get(reverse('crt_forms:crt-forms-index'), {})
+        self.assertEquals(response.status_code, 200)
+
+        for row in response.context['data_dict']:
+            if row['report'].contact_email == self.email1:
+                self.assertEqual(row['report'].email_count, 3)
+            elif row['report'].contact_email == self.email2:
+                self.assertEqual(row['report'].email_count, 5)
+            elif row['report'].contact_email is None:
+                self.assertEqual(row['report'].email_count, None)
+
+    def test_email_report_count_sorting_desc(self):
+        query_kwargs = {'sort': '-email_count'}
+        base_url = reverse('crt_forms:crt-forms-index')
+        url = f'{base_url}?{urlencode(query_kwargs)}'
+
+        response = self.client.get(url, {})
+        self.assertEquals(response.status_code, 200)
+
+        for index, row in enumerate(response.context['data_dict']):
+            if index < 5:
+                self.assertEqual(row['report'].email_count, 5)
+            elif index < 8:
+                self.assertEqual(row['report'].email_count, 3)
+            else:
+                self.assertEqual(row['report'].email_count, None)
+
+    def test_email_report_count_sorting_asc(self):
+        query_kwargs = {'sort': 'email_count'}
+        base_url = reverse('crt_forms:crt-forms-index')
+        url = f'{base_url}?{urlencode(query_kwargs)}'
+
+        response = self.client.get(url, {})
+        self.assertEquals(response.status_code, 200)
+
+        for index, row in enumerate(response.context['data_dict']):
+            if index < 3:
+                self.assertEqual(row['report'].email_count, 3)
+            elif index < 8:
+                self.assertEqual(row['report'].email_count, 5)
+            else:
+                self.assertEqual(row['report'].email_count, None)
+
+    def test_basic_multi_sort(self):
+        base_url = reverse('crt_forms:crt-forms-index')
+        url = f'{base_url}?sort=assigned_section&sort=contact_last_name'
+
+        response = self.client.get(url, {})
+        self.assertEquals(response.status_code, 200)
+
+        for index, row in enumerate(response.context['data_dict']):
+            if index == 0:
+                continue
+
+            prev_row = response.context['data_dict'][index - 1]
+
+            if prev_row['report'].assigned_section == row['report'].assigned_section:
+                self.assertTrue(prev_row['report'].contact_last_name <= row['report'].contact_last_name)
+            else:
+                self.assertTrue(prev_row['report'].assigned_section <= row['report'].assigned_section)
+
+    def test_multi_sort_multi_direction(self):
+        base_url = reverse('crt_forms:crt-forms-index')
+        url = f'{base_url}?sort=assigned_section&sort=-contact_last_name'
+
+        response = self.client.get(url, {})
+        self.assertEquals(response.status_code, 200)
+
+        for index, row in enumerate(response.context['data_dict']):
+            if index == 0:
+                continue
+
+            prev_row = response.context['data_dict'][index - 1]
+
+            if prev_row['report'].assigned_section == row['report'].assigned_section:
+                self.assertTrue(prev_row['report'].contact_last_name >= row['report'].contact_last_name)
+            else:
+                self.assertTrue(prev_row['report'].assigned_section <= row['report'].assigned_section)
+
+    def test_email_count_caseinsensitive(self):
+
+        # added for case insensitive email count test
+        self.email4 = 'TEST@usa.gov'
+        self.email5 = 'test@usa.gov'
+        self.email6 = 'TesT@usa.gov'
+        self.email7 = 'tESt@usa.gov'
+        # total report count should be 15 for case insensitive
+        ReportFactory.create_batch(4, contact_email=self.email4)
+        ReportFactory.create_batch(5, contact_email=self.email5)
+        ReportFactory.create_batch(2, contact_email=self.email6)
+        ReportFactory.create_batch(4, contact_email=self.email7)
+
+        response = self.client.get(reverse('crt_forms:crt-forms-index'), {})
+        self.assertEquals(response.status_code, 200)
+
+        for row in response.context['data_dict']:
+
+            if row['report'].contact_email in [self.email4, self.email5, self.email6, self.email7]:
+                self.assertEqual(row['report'].email_count, 15)
+
+    def test_secondary_review_filter(self):
+        ReportFactory.create_batch(5, referred=True)
+
+        base_url = reverse('crt_forms:crt-forms-index')
+        url = f'{base_url}?referred=True'
+
+        response = self.client.get(url, {})
+        self.assertEquals(response.status_code, 200)
+
+        for row in response.context['data_dict']:
+            self.assertTrue(row['report'].referred)
+
+
+class SimpleFilterFormTests(SimpleTestCase):
+
+    def test_get_sections_returns_only_valid_choices(self):
+        """
+        Discard assigned_section values received in requests that are not form field choices
+        """
+        data = QueryDict('assigned_section=ADM&assigned_section=<script>alert()</script>')
+        form = Filters(data)
+        self.assertEqual({'ADM'}, form.get_section_filters)
