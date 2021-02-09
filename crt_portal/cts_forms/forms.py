@@ -1733,7 +1733,7 @@ class AttachmentActions(ModelForm):
         # this is the filename that the user sees
         instance.filename = instance.file.name
 
-        # this is the filename that gets stored in S3        
+        # this is the filename that gets stored in S3
         suffix = datetime.now().strftime('%Y%m%d%H%M%S%f')
         instance.file.name = f'{instance.report.public_id}-{suffix}'
 
