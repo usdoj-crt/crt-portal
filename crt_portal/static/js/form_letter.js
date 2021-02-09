@@ -18,6 +18,11 @@
   var copy = document.getElementById('intake_copy');
   var print = document.getElementById('intake_print');
   var letter = document.getElementById('intake_letter');
+  var send_email = document.getElementById('intake_send');
+
+  var email_enabled = document.getElementById('intake_send').dataset.emailEnabled === 'True';
+  var has_contact_email = Boolean(document.getElementById('contact_email').dataset.email);
+
   var description = document.getElementById('intake_description');
   var options = document.getElementById('intake_select');
   options.onchange = function(event) {
@@ -29,9 +34,15 @@
     if (index >= 1) {
       copy.removeAttribute('disabled');
       print.removeAttribute('disabled');
+      if (email_enabled && has_contact_email) {
+        send_email.removeAttribute('disabled');
+      }
     } else {
       copy.setAttribute('disabled', 'disabled');
       print.setAttribute('disabled', 'disabled');
+      if (email_enabled && has_contact_email) {
+        send_email.setAttribute('disabled', 'disabled');
+      }
     }
   };
 

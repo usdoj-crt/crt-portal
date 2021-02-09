@@ -23,6 +23,7 @@ variable_rename = {
     'reported_reason': 'Reported reason',
     'summary': 'Summary',
     'contact_email': 'Contact email',
+    'referred': 'Secondary review',
 }
 
 

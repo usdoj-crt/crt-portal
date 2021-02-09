@@ -122,6 +122,7 @@
     intake_format: [],
     servicemember: [],
     hate_crime: [],
+    referred: [],
     sort: '',
     page: '',
     per_page: '',
@@ -291,6 +292,7 @@
     var hateCrimeEl = dom.getElementsByName('hate_crime');
     var servicememberEl = dom.getElementsByName('servicemember');
     var contactEmailEl = dom.querySelector('input[name="contact_email"]');
+    var referredEl = dom.getElementsByName('referred');
 
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
@@ -431,6 +433,10 @@
     textInputView({
       el: contactEmailEl,
       name: 'contact_email'
+    });
+    checkBoxView({
+      el: referredEl,
+      name: 'referred'
     });
   }
 

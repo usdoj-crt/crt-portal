@@ -295,20 +295,14 @@ class Report(models.Model):
 
     @property
     def addressee(self):
-        if self.contact_first_name:
-            salutation = 'Dear'
-            if self.contact_last_name:
-                return f"{salutation} {self.contact_first_name} {self.contact_last_name}"
-            return f"{salutation} {self.contact_first_name}"
+        if self.contact_full_name:
+            return f"Dear {self.contact_full_name}"
         return "Thank you for your report"
 
     @property
     def addressee_es(self):
-        if self.contact_first_name:
-            salutation = 'Estimado/a'
-            if self.contact_last_name:
-                return f"{salutation} {self.contact_first_name} {self.contact_last_name}"
-            return f"{salutation} {self.contact_first_name}"
+        if self.contact_full_name:
+            return f"Estimado/a {self.contact_full_name}"
         return "Gracias por su informe"
 
     def get_absolute_url(self):
@@ -348,6 +342,19 @@ class Report(models.Model):
                 ('open', reports.filter(status='open')),
                 ('closed', reports.filter(status='closed')),
                 )
+
+    @property
+    def contact_full_name(self):
+        """
+        Return full name if both first and last are present
+        otherwise return whichever value is present
+        If both are missing, return an empty string
+        """
+        first = self.contact_first_name
+        last = self.contact_last_name
+        if first and last:
+            return f'{first} {last}'
+        return first or last
 
 
 class EmailReportCount(models.Model):
