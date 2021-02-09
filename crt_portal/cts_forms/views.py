@@ -645,7 +645,6 @@ class SaveReportAttachmentView(LoginRequiredMixin, FormView):
     def post(self, request, report_id):
         report = get_object_or_404(Report, pk=report_id)
 
-        logger.info(request.POST)
         attachment_form = self.form_class(request.POST, request.FILES)
 
         if attachment_form.is_valid() and attachment_form.has_changed():

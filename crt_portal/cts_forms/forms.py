@@ -1730,9 +1730,11 @@ class AttachmentActions(ModelForm):
     def save(self, commit=True):
         instance = ModelForm.save(self, commit=False)
 
-        suffix = datetime.now().strftime('%Y%m%d%H%M%S%f')
-
+        # this is the filename that the user sees
         instance.filename = instance.file.name
+
+        # this is the filename that gets stored in S3        
+        suffix = datetime.now().strftime('%Y%m%d%H%M%S%f')
         instance.file.name = f'{instance.report.public_id}-{suffix}'
 
         if commit:
