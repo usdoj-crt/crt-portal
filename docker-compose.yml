@@ -12,7 +12,9 @@ services:
       - ENV=LOCAL
       - SECRET_KEY=${SECRET_KEY}
       - FORM_AUTOCOMPLETE_OFF=False
-      # - USE_LOCALSTACK=True
+      - USE_LOCALSTACK=True
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
     build: .
     command: /code/run.sh
     volumes:
