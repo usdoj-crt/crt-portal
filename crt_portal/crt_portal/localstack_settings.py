@@ -1,8 +1,10 @@
 # Django storages configurations to use localstack container
 
+import os
+
 # Ignored by localstack but required by django-storages, any truthy string should work
-AWS_ACCESS_KEY_ID = 'test'
-AWS_SECRET_ACCESS_KEY = 'test'
+AWS_ACCESS_KEY_ID = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 
 # port defined in docker-compose.yml, localhost because django-storages uses this to build
 # staticfile URIs
