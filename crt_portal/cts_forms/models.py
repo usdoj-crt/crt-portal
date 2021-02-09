@@ -357,6 +357,13 @@ class Report(models.Model):
         return first or last
 
 
+class ReportAttachment(models.Model):
+    file = models.FileField()
+    filename = models.CharField(max_length=255)
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
+    report = models.ForeignKey(Report, on_delete=models.CASCADE, related_name='attachments')
+
+
 class EmailReportCount(models.Model):
     """see the total number of reports that are associated with the contact_email for each report"""
     report = models.OneToOneField(Report, primary_key=True, on_delete=models.CASCADE, related_name='email_report_count')

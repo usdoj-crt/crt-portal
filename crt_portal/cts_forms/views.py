@@ -20,7 +20,8 @@ from formtools.wizard.views import SessionWizardView
 from .filters import report_filter
 from .forms import (BulkActionsForm, CommentActions, ComplaintActions,
                     ContactEditForm, Filters, PrintActions, ProfileForm,
-                    ReportEditForm, ResponseActions, Review, add_activity)
+                    ReportEditForm, ResponseActions, Review, add_activity,
+                    AttachmentActions)
 from .mail import crt_send_mail
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
@@ -349,9 +350,11 @@ def serialize_data(report, request, report_id):
     output = {
         'actions': ComplaintActions(instance=report),
         'responses': ResponseActions(instance=report),
+        'attachment_actions': AttachmentActions(),
         'comments': CommentActions(),
         'print_options': PrintActions(),
         'activity_stream': report.target_actions.all(),
+        'attachments': report.attachments.all(),
         'crimes': crimes,
         'data': report,
         'p_class_list': p_class_list,
@@ -463,7 +466,7 @@ class ShowView(LoginRequiredMixin, View):
     }
 
     def get(self, request, id):
-        report = get_object_or_404(Report, pk=id)
+        report = get_object_or_404(Report.objects.prefetch_related('attachments'), pk=id)
         output = serialize_data(report, request, id)
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)
@@ -480,7 +483,7 @@ class ShowView(LoginRequiredMixin, View):
         form_type = request.POST.get('type')
         if not form_type:
             raise SuspiciousOperation("Invalid form data")
-        return self.forms[form_type](request.POST, instance=report), form_type
+        return self.forms[form_type](request.POST, request.FILES, instance=report), form_type
 
     def post(self, request, id):
         """
@@ -488,9 +491,11 @@ class ShowView(LoginRequiredMixin, View):
         Accept only the submitted form and discard any other inbound changes
         """
         report = get_object_or_404(Report, pk=id)
+        logger.info('1')
 
         form, inbound_form_type = self.get_form(request, report)
         if form.is_valid() and form.has_changed():
+            logger.info('2')
             report = form.save(commit=False)
 
             # Reset Assignee and Status if assigned_section is changed
@@ -509,6 +514,8 @@ class ShowView(LoginRequiredMixin, View):
                     description = f'Updated from "{current_district}" to "{report.district}"'
                     add_activity(request.user, "District:", description, report)
 
+            logger.info('saving report')
+            logger.info(report)
             report.save()
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())
@@ -516,6 +523,7 @@ class ShowView(LoginRequiredMixin, View):
             url = preserve_filter_parameters(report, request.POST)
             return redirect(url)
         else:
+            logger.info('3')
             output = serialize_data(report, request, id)
             filter_output = setup_filter_parameters(report, request.POST)
             output.update({inbound_form_type: form, **filter_output})
@@ -628,6 +636,35 @@ class ActionsView(LoginRequiredMixin, FormView):
                 'questions': Review.question_text,
             }
             return render(request, 'forms/complaint_view/actions/index.html', output)
+
+
+class SaveReportAttachmentView(LoginRequiredMixin, FormView):
+    """Can be used for saving attachments for a report"""
+    form_class = AttachmentActions
+
+    def post(self, request, report_id):
+        report = get_object_or_404(Report, pk=report_id)
+
+        logger.info(request.POST)
+        attachment_form = self.form_class(request.POST, request.FILES)
+
+        if attachment_form.is_valid() and attachment_form.has_changed():
+            attachment = attachment_form.save(commit=False)
+            attachment.user = request.user
+            attachment.save()
+
+            verb = 'Attached file: '
+
+            messages.add_message(request, messages.SUCCESS, f'Successfully {verb[:-2].lower()}')
+            attachment_form.update_activity_stream(request.user, verb, attachment)
+        else:
+            for key in attachment_form.errors:
+                errors = '; '.join(attachment_form.errors[key])
+                error_message = f'Could not save attachment: {errors}'
+                messages.add_message(request, messages.ERROR, error_message)
+
+        url = preserve_filter_parameters(report, request.POST)
+        return redirect(url)
 
 
 class SaveCommentView(LoginRequiredMixin, FormView):
