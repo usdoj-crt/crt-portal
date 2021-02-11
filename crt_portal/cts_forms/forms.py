@@ -1496,7 +1496,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
                 'report': report,
                 'verb': v,
                 'description': d
-            } for (v,d) in self.get_actions(report)])
+            } for (v, d) in self.get_actions(report)])
 
         if comment_string:
             kwargs = {

@@ -752,7 +752,7 @@ class BulkActionsTests(TestCase):
 
     def test_post_with_email_count_sort(self):
         ids = [report.id for report in self.reports]
-        response = self.post(ids, all_ids=True, confirm=True, return_url_args='sort=-email_count', comment='email count sort', status='closed')
+        self.post(ids, all_ids=True, confirm=True, return_url_args='sort=-email_count', comment='email count sort', status='closed')
         for report_id in ids:
             report = Report.objects.get(id=report_id)
             last_activity = list(report.target_actions.all())[-1]
