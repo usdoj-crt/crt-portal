@@ -1484,7 +1484,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         comment_string = updated_data.pop('comment', None)
         summary_string = updated_data.pop('summary', None)
 
-        # rebuild the reports queryset w/o annotations to avoid error on update
+        # rebuild the reports queryset w/o sorts and annotations to avoid error on update
         report_ids = reports.values_list('pk', flat=True)
         reports = Report.objects.filter(pk__in=report_ids)
 
