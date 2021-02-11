@@ -1484,10 +1484,19 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         comment_string = updated_data.pop('comment', None)
         summary_string = updated_data.pop('summary', None)
 
-        # update activity log _before_ we update fields so
-        # that we still have access to the original field
+        # rebuild the reports queryset w/o annotations to avoid error on update
+        report_ids = reports.values_list('pk', flat=True)
+        reports = Report.objects.filter(pk__in=report_ids)
+
+        # assemble the activities but don't commit until after the reports are updated
+        activities = []
         for report in reports:
-            self.update_activity_stream(user, report)
+            activities.extend([{
+                'user': user,
+                'report': report,
+                'verb': v,
+                'description': d
+            } for (v,d) in self.get_actions(report)])
 
         if comment_string:
             kwargs = {
@@ -1498,7 +1507,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
             for report in reports:
                 comment = CommentAndSummary.objects.create(**kwargs)
                 report.internal_comments.add(comment)
-                add_activity(user, 'Added comment: ', comment_string, report)
+                activities.append({'user': user, 'report': report, 'verb': 'Added comment: ', 'description': comment_string})
 
         if summary_string:
             kwargs = {
@@ -1514,11 +1523,16 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
                 else:
                     summary = CommentAndSummary.objects.create(**kwargs)
                     report.internal_comments.add(summary)
-                add_activity(user, 'Added summary: ', summary_string, report)
+                activities.append({'user': user, 'report': report, 'verb': 'Added summary: ', 'description': summary_string})
 
         if updated_data:
             updated_data['modified_date'] = datetime.now(timezone.utc)
+
         updated_number = reports.update(**updated_data)
+
+        for act in activities:
+            add_activity(act['user'], act['verb'], act['description'], act['report'])
+
         return updated_number or len(reports)  # sometimes only a comment is added
 
 
