@@ -608,7 +608,7 @@ class BulkActionsTests(TestCase):
         self.test_pass = secrets.token_hex(32)
         self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
-        self.reports = [Report.objects.create(**SAMPLE_REPORT) for _ in range(16)]
+        self.reports = ReportFactory.create_batch(16, assigned_section='ADM', status='new')
 
     def get(self, ids, all_ids=False):
         params = {
@@ -669,9 +669,9 @@ class BulkActionsTests(TestCase):
         first_id = content.index('<div class="bulk-print-report">')
         self.assertTrue(first_all > first_id)
 
-    def post(self, ids, all_ids=False, confirm=False, **extra):
+    def post(self, ids, all_ids=False, confirm=False, return_url_args='', **extra):
         params = {
-            'next': '?per_page=15',
+            'next': f'?per_page=15&{return_url_args}',
             'ids': ','.join([str(id) for id in ids]),
             **extra,
         }
@@ -748,6 +748,16 @@ class BulkActionsTests(TestCase):
             last_activity = list(report.target_actions.all())[-1]
             self.assertEquals(last_activity.verb, "Added comment: ")
             self.assertEquals(last_activity.description, 'a comment')
+            self.assertEquals(last_activity.actor, self.user)
+
+    def test_post_with_email_count_sort(self):
+        ids = [report.id for report in self.reports]
+        self.post(ids, all_ids=True, confirm=True, return_url_args='sort=-email_count', comment='email count sort', status='closed')
+        for report_id in ids:
+            report = Report.objects.get(id=report_id)
+            last_activity = list(report.target_actions.all())[-1]
+            self.assertEquals(last_activity.verb, 'Status:')
+            self.assertEquals(last_activity.description, 'Updated from "new" to "closed"')
             self.assertEquals(last_activity.actor, self.user)
 
 
