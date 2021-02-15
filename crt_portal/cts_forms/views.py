@@ -491,11 +491,9 @@ class ShowView(LoginRequiredMixin, View):
         Accept only the submitted form and discard any other inbound changes
         """
         report = get_object_or_404(Report, pk=id)
-        logger.info('1')
 
         form, inbound_form_type = self.get_form(request, report)
         if form.is_valid() and form.has_changed():
-            logger.info('2')
             report = form.save(commit=False)
 
             # Reset Assignee and Status if assigned_section is changed
@@ -514,8 +512,6 @@ class ShowView(LoginRequiredMixin, View):
                     description = f'Updated from "{current_district}" to "{report.district}"'
                     add_activity(request.user, "District:", description, report)
 
-            logger.info('saving report')
-            logger.info(report)
             report.save()
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())
@@ -523,7 +519,6 @@ class ShowView(LoginRequiredMixin, View):
             url = preserve_filter_parameters(report, request.POST)
             return redirect(url)
         else:
-            logger.info('3')
             output = serialize_data(report, request, id)
             filter_output = setup_filter_parameters(report, request.POST)
             output.update({inbound_form_type: form, **filter_output})
