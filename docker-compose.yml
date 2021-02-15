@@ -15,6 +15,7 @@ services:
       - USE_LOCALSTACK=True
       - AWS_ACCESS_KEY_ID=test
       - AWS_SECRET_ACCESS_KEY=test
+      - AV_SCAN_URL=http://clamav-rest:8080/scan
     build: .
     command: /code/run.sh
     volumes:
@@ -40,6 +41,16 @@ services:
        - 1025:1025 # smtp server
        - 8025:8025 # web ui
      # command: -invite-jim=1 -jim-accept=0.50  # uncomment to enable and configure Jim (Chaos Monkey)
+  clamav-server:
+    image: mkodockx/docker-clamav:alpine
+  clamav-rest:
+    image: lokori/clamav-rest
+    links:
+      - clamav-server
+    environment:
+      CLAMD_HOST: clamav-server
+    ports:
+      - "8080:8080"
 volumes:
   postgres_data:
   localstack-vol:
