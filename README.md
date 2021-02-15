@@ -313,6 +313,16 @@ To deploy manually, make sure you are logged in, run the push command and pass i
 
 That will push to cloud.gov according to the instructions in the manifest and Profile.
 
+Two [network policies](https://docs.cloudfoundry.org/devguide/deploy-apps/cf-networking.html#add-policy) need to be configured to allow communication between our web application and the ClamAV applications.
+
+First, direct traffic from the ClamAV REST API to the ClamAV server:
+
+    cf add-network-policy clamav-rest --destination-app clamav-server --protocol tcp --port 3310
+
+Second, direct traffic from the portal to the ClamAV REST API:
+
+    cf add-network-policy crt-portal-django --destination-app clamav-rest --protocol tcp --port 8080
+
 ### User roles and permissions
 
 As of October 2019, we have two user roles in the system:

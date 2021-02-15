@@ -15,6 +15,7 @@ applications:
     NEW_RELIC_ENVIRONMENT: production
     NEW_RELIC_APP_NAME: CRT PORTAL (prod)
     NEW_RELIC_LOG: stdout
+    AV_SCAN_URL: http://clamav-rest.apps.internal:8080/scan
   buildpacks:
   - https://github.com/cloudfoundry/apt-buildpack
   - python_buildpack
@@ -23,3 +24,20 @@ applications:
   - crt-s3
   - sso-creds
   - VCAP_SERVICES
+- name: clamav-rest
+  instances: 1
+  memory: 512M
+  docker:
+    image: lokori/clamav-rest
+  env:
+    CLAMD_HOST: clamav-server.apps.internal
+    CLAMD_PORT: 3310
+  routes:
+  - route: clamav-rest.apps.internal
+- name: clamav-server
+  instances: 1
+  memory: 2G
+  docker:
+    image: mkodockx/docker-clamav:alpine
+  routes:
+  - route: clamav-server.apps.internal
