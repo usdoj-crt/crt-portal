@@ -395,7 +395,6 @@ LOGGING = {
 
 AV_SCAN_URL = os.getenv('AV_SCAN_URL')
 AV_SCAN_MAX_ATTEMPTS = 10
-AV_SCAN_SUCCESS_STR = 'Everything ok : true'
 
 if USE_LOCALSTACK:
     from .localstack_settings import *  # noqa: F401,F403
