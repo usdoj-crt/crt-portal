@@ -30,7 +30,7 @@ def validate_file_infection(file):
         file.seek(0)
 
     if AV_SCAN_SUCCESS_STR not in res.text:
-        logger.info(f'Scan of {file} revealed potentially infection - rejecting!')
+        logger.info(f'Scan of {file} revealed potential infection - rejecting!')
         raise ValidationError('The file you uploaded did not pass our security inspection, attachment failed!')
 
     logger.info(f'Scanning of file {file} complete.')
