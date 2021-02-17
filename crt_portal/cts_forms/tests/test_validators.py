@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase
 from unittest.mock import patch
 
-from ..validators import validate_file_infection, AV_SCAN_SUCCESS_STR
+from ..validators import validate_file_infection
 
 
 class MockHttpResponse:
@@ -27,14 +27,14 @@ class TestInfectionValidator(TestCase):
 
     @patch('cts_forms.validators._scan_file')
     def test_validation_fails_on_non_success_response(self, mock_scan_file):
-        mock_scan_file.return_value = MockHttpResponse(200, AV_SCAN_SUCCESS_STR[:-1])
+        mock_scan_file.return_value = MockHttpResponse(406, 'infected!')
 
         with self.assertRaises(ValidationError):
             validate_file_infection(self.fake_file)
 
     @patch('cts_forms.validators._scan_file')
     def test_validation_succeeds_on_success_response(self, mock_scan_file):
-        mock_scan_file.return_value = MockHttpResponse(200, AV_SCAN_SUCCESS_STR)
+        mock_scan_file.return_value = MockHttpResponse(200, 'clean!')
 
         try:
             validate_file_infection(self.fake_file)

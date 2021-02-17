@@ -25,18 +25,8 @@ applications:
   - VCAP_SERVICES
 - name: clamav-rest
   instances: 1
-  memory: 512M
-  docker:
-    image: lokori/clamav-rest
-  env:
-    CLAMD_HOST: clamav-server.apps.internal
-    CLAMD_PORT: 3310
-  routes:
-  - route: clamav-rest.apps.internal
-- name: clamav-server
-  instances: 1
   memory: 2G
   docker:
-    image: mkodockx/docker-clamav:alpine
+    image: ajilaag/clamav-rest:20201028
   routes:
-  - route: clamav-server.apps.internal
+  - route: clamav-rest.apps.internal
