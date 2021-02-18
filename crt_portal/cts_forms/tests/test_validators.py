@@ -2,6 +2,7 @@ import io
 import tempfile
 
 from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.test import TestCase
 from unittest.mock import patch
 
@@ -45,24 +46,29 @@ class TestInfectionValidator(TestCase):
 
 class TestFileSizeValidator(TestCase):
 
-    def setUp(self):
-
-        self.fake_file_ok = tempfile.TemporaryFile()
-        self.fake_file_ok.write(b'this is a small file')
-
-        self.fake_file_bad = tempfile.TemporaryFile()
-        self.fake_file_bad.write(b'this is big file')
-
     def test_file_size_uploadble(self):
+        small_file = TemporaryUploadedFile('file.txt', b'this is a small file', 10000, 'utf-8')
 
         try:
-            validate_file_size(self.fake_file_ok)
+            validate_file_size(small_file)
 
         except ValidationError:
             self.fail('validate_file_infection unexpectedly raised ValidationError!')
 
-
     def test_file_size_notuploadble(self):
+        big_file = TemporaryUploadedFile('file.txt', b'this is a big file', 110000000, 'utf-8')
 
         with self.assertRaises(ValidationError):
-            validate_file_size(self.fake_file_bad)
+            validate_file_size(big_file)
+
+
+class TestFileContentTypeValidator(TestCase):
+    def test_file_size_contenttype_ok(self):
+        file = TemporaryUploadedFile('file.txt', 'text/plain', 10000, 'utf-8')
+        validate_content_type(file)
+
+    def test_file_size_contenttype_bad(self):
+        file = TemporaryUploadedFile('file.zip', 'application/zip', 10000, 'utf-8')
+
+        with self.assertRaises(ValidationError):
+            validate_content_type(file)
