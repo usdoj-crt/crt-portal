@@ -165,6 +165,22 @@ USE_TZ = True
 # Set to True later in settings if we've successfully configured an email backend
 EMAIL_ENABLED = False
 
+# Private S3 bucket configuration
+if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
+    for service in vcap['s3']:
+        if service['instance_name'] == 'sso-creds':
+            priv_s3_creds = service['credentials']
+
+    PRIV_S3_BUCKET = priv_s3_creds['bucket']
+    PRIV_S3_REGION = priv_s3_creds['region']
+    PRIV_S3_ACCESS_KEY_ID = priv_s3_creds['access_key_id']
+    PRIV_S3_SECRET_ACCESS_KEY = priv_s3_creds['secret_access_key']
+else:
+    PRIV_S3_BUCKET = 'crt-private'
+    PRIV_S3_REGION = 'region'
+    PRIV_S3_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+    PRIV_S3_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+
 # for AUTH, probably want to add stage in the future
 if environment == 'PRODUCTION':
     for service in vcap['user-provided']:
@@ -182,22 +198,15 @@ if environment == 'PRODUCTION':
     )
     MIDDLEWARE.append('django_auth_adfs.middleware.LoginRequiredMiddleware')
 
-    for service in vcap['s3']:
-        if service['instance_name'] == 'sso-creds':
-            # Private AWS bucket
-            sso_creds = service["credentials"]
-
-    SSO_BUCKET = sso_creds['bucket']
-    SSO_REGION = sso_creds['region']
     client_sso = boto3.client(
         's3',
-        SSO_REGION,
-        aws_access_key_id=sso_creds['access_key_id'],
-        aws_secret_access_key=sso_creds['secret_access_key'],
+        PRIV_S3_REGION,
+        aws_access_key_id=PRIV_S3_ACCESS_KEY_ID,
+        aws_secret_access_key=PRIV_S3_SECRET_ACCESS_KEY,
     )
 
     with open('ca_bundle.pem', 'wb') as DATA:
-        client_sso.download_file(SSO_BUCKET, 'sso/ca_bundle.pem', 'ca_bundle.pem')
+        client_sso.download_file(PRIV_S3_BUCKET, 'sso/ca_bundle.pem', 'ca_bundle.pem')
 
     # See settings reference https://django-auth-adfs.readthedocs.io/en/latest/settings_ref.html
     AUTH_ADFS = {
@@ -253,7 +262,7 @@ if environment not in ['LOCAL', 'UNDEFINED']:
     AWS_QUERYSTRING_AUTH = False
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    DEFAULT_FILE_STORAGE = 'cts_forms.storages.PrivateS3Storage'
     AWS_DEFAULT_ACL = 'public-read'
     AWS_IS_GZIPPED = True
 

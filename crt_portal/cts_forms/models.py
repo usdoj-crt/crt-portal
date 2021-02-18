@@ -359,7 +359,7 @@ class Report(models.Model):
 
 
 class ReportAttachment(models.Model):
-    file = models.FileField(validators=[validate_file_infection])
+    file = models.FileField(upload_to='attachments', validators=[validate_file_infection])
     filename = models.CharField(max_length=255)
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
     report = models.ForeignKey(Report, on_delete=models.CASCADE, related_name='attachments')
