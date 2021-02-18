@@ -29,7 +29,7 @@ from .model_variables import (CLOSED_STATUS,
                               STATES_AND_TERRITORIES, STATUS_CHOICES,
                               STATUTE_CHOICES)
 from .phone_regex import phone_validation_regex
-from .validators import validate_file_infection
+from .validators import validate_file_attachment
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -359,7 +359,7 @@ class Report(models.Model):
 
 
 class ReportAttachment(models.Model):
-    file = models.FileField(validators=[validate_file_infection])
+    file = models.FileField(validators=[validate_file_attachment])
     filename = models.CharField(max_length=255)
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
     report = models.ForeignKey(Report, on_delete=models.CASCADE, related_name='attachments')

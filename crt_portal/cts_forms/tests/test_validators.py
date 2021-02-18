@@ -1,10 +1,11 @@
 import io
+import tempfile
 
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from unittest.mock import patch
 
-from ..validators import validate_file_infection
+from ..validators import validate_file_infection, validate_file_size, validate_content_type, validate_file_extension
 
 
 class MockHttpResponse:
@@ -40,3 +41,28 @@ class TestInfectionValidator(TestCase):
             validate_file_infection(self.fake_file)
         except ValidationError:
             self.fail('validate_file_infection unexpectedly raised ValidationError!')
+
+
+class TestFileSizeValidator(TestCase):
+
+    def setUp(self):
+
+        self.fake_file_ok = tempfile.TemporaryFile()
+        self.fake_file_ok.write(b'this is a small file')
+
+        self.fake_file_bad = tempfile.TemporaryFile()
+        self.fake_file_bad.write(b'this is big file')
+
+    def test_file_size_uploadble(self):
+
+        try:
+            validate_file_size(self.fake_file_ok)
+
+        except ValidationError:
+            self.fail('validate_file_infection unexpectedly raised ValidationError!')
+
+
+    def test_file_size_notuploadble(self):
+
+        with self.assertRaises(ValidationError):
+            validate_file_size(self.fake_file_bad)
