@@ -636,6 +636,7 @@ class ActionsView(LoginRequiredMixin, FormView):
 class SaveReportAttachmentView(LoginRequiredMixin, FormView):
     """Can be used for saving attachments for a report"""
     form_class = AttachmentActions
+    http_method_names = ['post']
 
     def post(self, request, report_id):
         report = get_object_or_404(Report, pk=report_id)
