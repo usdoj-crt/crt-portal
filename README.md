@@ -280,6 +280,7 @@ Create postgres DB and S3 with development settings:
 
     cf create-service aws-rds shared-psql crt-db
     cf create-service s3 basic-public crt-s3
+    cf create-service s3 basic sso-creds
 
 Or, for prod use the following production settings:
 
