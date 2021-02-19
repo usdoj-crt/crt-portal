@@ -61,13 +61,19 @@ class TestFileSizeValidator(TestCase):
             validate_file_size(big_file)
 
 
+# use this to match the class signature expected in validate_content_type, file.file.content_type
+class FileWrapper:
+    def __init__(self, file):
+        self.file = file
+
+
 class TestFileContentTypeValidator(TestCase):
     def test_file_size_contenttype_ok(self):
-        file = TemporaryUploadedFile('file.txt', 'text/plain', 10000, 'utf-8')
+        file = FileWrapper(TemporaryUploadedFile('file.txt', 'text/plain', 10000, 'utf-8'))
         validate_content_type(file)
 
     def test_file_size_contenttype_bad(self):
-        file = TemporaryUploadedFile('file.zip', 'application/zip', 10000, 'utf-8')
+        file = FileWrapper(TemporaryUploadedFile('file.zip', 'application/zip', 10000, 'utf-8'))
 
         with self.assertRaises(ValidationError):
             validate_content_type(file)

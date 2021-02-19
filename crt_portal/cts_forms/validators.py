@@ -56,7 +56,7 @@ def validate_content_type(file):
 
     valid_content_types = ('image/bmp', 'text/csv', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/gif', 'audio/mpeg', 'image/png', 'application/pdf', 'image/tiff', 'text/plain', 'audio/wav', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'audio/x-aiff')
 
-    file_content_type = file.content_type
+    file_content_type = file.file.content_type
 
     if file_content_type not in valid_content_types:
         raise ValidationError(f'File content type: {file_content_type} not supported for upload, supported content types are: {valid_content_types}')
