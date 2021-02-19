@@ -2,8 +2,6 @@ import logging
 import requests
 import os
 
-from pathlib import Path
-import mimetypes
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
@@ -84,4 +82,3 @@ def validate_file_attachment(file):
     validate_content_type(file)
 
     validate_file_infection(file)
-

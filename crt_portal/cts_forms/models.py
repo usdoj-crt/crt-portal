@@ -358,7 +358,7 @@ class Report(models.Model):
         return first or last
 
 
-class ReportAttachment(models.Model): 
+class ReportAttachment(models.Model):
     file = models.FileField(upload_to='attachments', validators=[validate_file_attachment])
     filename = models.CharField(max_length=255)
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)

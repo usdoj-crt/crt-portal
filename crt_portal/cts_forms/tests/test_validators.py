@@ -1,5 +1,4 @@
 import io
-import tempfile
 
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import TemporaryUploadedFile
@@ -83,7 +82,6 @@ class TestFileExtensionValidator(TestCase):
 
         except ValidationError:
             self.fail('validate_file_extension unexpectedly raised ValidationError!')
-
 
     def test_file_extension_bad(self):
         file = TemporaryUploadedFile('file.zip', 'application/zip', 5000, 'utf-8')
