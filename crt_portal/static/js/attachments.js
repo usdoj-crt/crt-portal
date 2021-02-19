@@ -10,5 +10,8 @@
   file_el.onchange = function(event) {
     var form = document.getElementById('complaint-view-attachments');
     form.submit();
+
+    var modal = document.getElementById('attachment-uploading--modal');
+    root.CRT.openModal(modal);
   };
 })(window, document);
