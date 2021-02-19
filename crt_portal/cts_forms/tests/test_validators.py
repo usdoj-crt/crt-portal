@@ -53,7 +53,7 @@ class TestFileSizeValidator(TestCase):
             validate_file_size(small_file)
 
         except ValidationError:
-            self.fail('validate_file_infection unexpectedly raised ValidationError!')
+            self.fail('validate_file_size unexpectedly raised ValidationError!')
 
     def test_file_size_notuploadble(self):
         big_file = TemporaryUploadedFile('file.txt', b'this is a big file', 110000000, 'utf-8')
