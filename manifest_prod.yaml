@@ -27,6 +27,8 @@ applications:
 - name: clamav-rest
   instances: 1
   memory: 2G
+  env:
+    MAX_FILE_SIZE: 100M
   docker:
     image: ajilaag/clamav-rest:20201028
   routes:
