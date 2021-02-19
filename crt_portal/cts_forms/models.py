@@ -363,6 +363,7 @@ class ReportAttachment(models.Model):
     filename = models.CharField(max_length=255)
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
     report = models.ForeignKey(Report, on_delete=models.CASCADE, related_name='attachments')
+    created_date = models.DateTimeField(auto_now_add=True)
 
 
 class EmailReportCount(models.Model):

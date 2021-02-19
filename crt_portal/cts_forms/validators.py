@@ -74,11 +74,7 @@ def validate_file_extension(file):
 
 
 def validate_file_attachment(file):
-
     validate_file_size(file)
-
     validate_file_extension(file)
-
     validate_content_type(file)
-
     validate_file_infection(file)
