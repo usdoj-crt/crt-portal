@@ -76,11 +76,17 @@ class TestFileContentTypeValidator(TestCase):
 
 class TestFileExtensionValidator(TestCase):
     def test_file_extension_ok(self):
-        file = TemporaryUploadedFile('file.txt', '.txt', 5000, 'utf-8')
-        validate_file_extension(file)
+        file = TemporaryUploadedFile('file.txt', 'text/plain', 5000, 'utf-8')
+
+        try:
+            validate_file_extension(file)
+
+        except ValidationError:
+            self.fail('validate_file_extension unexpectedly raised ValidationError!')
+
 
     def test_file_extension_bad(self):
-        file = TemporaryUploadedFile('file.zip', '.zip', 5000, 'utf-8')
+        file = TemporaryUploadedFile('file.zip', 'application/zip', 5000, 'utf-8')
 
         with self.assertRaises(ValidationError):
             validate_file_extension(file)
