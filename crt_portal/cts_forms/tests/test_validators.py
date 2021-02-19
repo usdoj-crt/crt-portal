@@ -72,3 +72,15 @@ class TestFileContentTypeValidator(TestCase):
 
         with self.assertRaises(ValidationError):
             validate_content_type(file)
+
+
+class TestFileExtensionValidator(TestCase):
+    def test_file_extension_ok(self):
+        file = TemporaryUploadedFile('file.txt', '.txt', 5000, 'utf-8')
+        validate_file_extension(file)
+
+    def test_file_extension_bad(self):
+        file = TemporaryUploadedFile('file.zip', '.zip', 5000, 'utf-8')
+
+        with self.assertRaises(ValidationError):
+            validate_file_extension(file)
