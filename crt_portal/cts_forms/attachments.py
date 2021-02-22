@@ -1,0 +1,37 @@
+MAX_FILE_SIZE_MB = 100
+ALLOWED_CONTENT_TYPES = [
+    'application/msword',
+    'application/pdf',
+    'application/vnd.ms-excel',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'audio/mpeg',
+    'audio/wav',
+    'audio/x-aiff',
+    'image/bmp',
+    'image/jpeg',
+    'image/gif',
+    'image/png',
+    'image/tiff',
+    'text/csv',
+    'text/plain',
+]
+
+ALLOWED_FILE_EXTENSIONS = [
+    '.aiff',
+    '.bmp',
+    '.csv',
+    '.doc',
+    '.docx',
+    '.gif',
+    '.pdf',
+    '.jpeg',
+    '.jpg',
+    '.mp3',
+    '.png',
+    '.tif',
+    '.txt',
+    '.wav',
+    '.xls',
+    '.xlsx',
+]

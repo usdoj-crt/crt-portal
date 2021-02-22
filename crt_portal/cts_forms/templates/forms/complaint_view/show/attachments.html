@@ -19,7 +19,7 @@
     {% endfor %}
     <div class="intake-section">
       
-      <input type="file" name="file" id="file_input" hidden/>
+      <input type="file" name="file" id="file_input" accept="{{ allowed_file_types|join:', ' }}" hidden/>
       <button class="outline-button outline-button--blue" id="add_attachment">
         <img src="{% static "img/intake-icons/ic_folder.svg" %}" class="icon" alt="attachment">
         ADD ATTACHMENT
