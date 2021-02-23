@@ -186,7 +186,7 @@ jobs:
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
-          CF_MANIFEST: manifest-dev.yml
+          CF_MANIFEST: manifest_dev.yaml
           CF_SPACE: dev
       # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
       - image: postgres:10.1-alpine
@@ -217,12 +217,12 @@ jobs:
       # database will be migrated in cloud.gov
       - *install-python-dependencies
       - run:
-          name: Install cloud foundry deploy tools
+          name: install cf7
           command: |
-            wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
-            echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-            apt-get update
-            apt-get install cf-cli
+            curl -L -o cf7.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v7&source=github'
+            dpkg -i cf7.deb
+            rm cf7.deb
+            cf7 api https://api.fr.cloud.gov
       # - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
       #     key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       #     paths:
@@ -231,12 +231,13 @@ jobs:
       #       - "/usr/local/lib/python3.8/site-packages"
       - run:
           name: Login to cloud.gov
-          command: cf7 login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s dev
+          command: cf7 login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s ${CF_SPACE}
       - run:
-          name: Deploy to dev
-          command: |
-#              ./blue-green-deploy.sh $CRT_USERNAME_DEV $CRT_PASSWORD_DEV dev
-                cf7 push --strategy rolling -f ${CF_MANIFEST}
+          name: Deploy clamav-rest to dev
+          command: cf7 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
+      - run:
+          name: Deploy crt-portal-django to dev
+          command: cf7 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
 
   deploy-stage:
     working_directory: ~/code
@@ -245,6 +246,8 @@ jobs:
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+          CF_MANIFEST: manifest_staging.yaml
+          CF_SPACE: staging
       # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
       - image: postgres:10.1-alpine
         environment:
@@ -271,12 +274,12 @@ jobs:
       # database will be migrated in cloud.gov
       - *install-python-dependencies
       - run:
-          name: Install cloud foundry deploy tools
+          name: install cf7
           command: |
-            wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
-            echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-            apt-get update
-            apt-get install cf-cli
+            curl -L -o cf7.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v7&source=github'
+            dpkg -i cf7.deb
+            rm cf7.deb
+            cf7 api https://api.fr.cloud.gov
       - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
           key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
           paths:
@@ -284,9 +287,14 @@ jobs:
             - "/usr/local/bin"
             - "/usr/local/lib/python3.8/site-packages"
       - run:
-          name: Deploy to stage
-          command: |
-            ./blue-green-deploy.sh $CRT_USERNAME_STAGE $CRT_PASSWORD_STAGE staging
+          name: Login to cloud.gov
+          command: cf7 login -u ${CRT_USERNAME_STAGE} -p ${CRT_PASSWORD_STAGE} -o doj-crtportal -s ${CF_SPACE}
+      - run:
+          name: Deploy clamav-rest to staging
+          command: cf7 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
+      - run:
+          name: Deploy crt-portal-django to staging
+          command: cf7 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
 
   deploy-prod:
     working_directory: ~/code
@@ -296,6 +304,8 @@ jobs:
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+          CF_MANIFEST: manifest_prod.yaml
+          CF_SPACE: prod
       # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
       - image: postgres:10.1-alpine
         environment:
@@ -322,12 +332,12 @@ jobs:
       # database will be migrated in cloud.gov
       - *install-python-dependencies
       - run:
-          name: Install cloud foundry deploy tools
+          name: install cf7
           command: |
-            wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | apt-key add -
-            echo "deb https://packages.cloudfoundry.org/debian stable main" | tee /etc/apt/sources.list.d/cloudfoundry-cli.list
-            apt-get update
-            apt-get install cf-cli
+            curl -L -o cf7.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v7&source=github'
+            dpkg -i cf7.deb
+            rm cf7.deb
+            cf7 api https://api.fr.cloud.gov
       - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
           key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
           paths:
@@ -335,9 +345,14 @@ jobs:
             - "/usr/local/bin"
             - "/usr/local/lib/python3.8/site-packages"
       - run:
-          name: Deploy to production
-          command: |
-            ./blue-green-deploy.sh $CRT_USERNAME_PROD $CRT_PASSWORD_PROD prod
+          name: Login to cloud.gov
+          command: cf7 login -u ${CRT_USERNAME_PROD} -p ${CRT_PASSWORD_PROD} -o doj-crtportal -s ${CF_SPACE}
+      - run:
+          name: Deploy clamav-rest to production
+          command: cf7 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
+      - run:
+          name: Deploy crt-portal-django to production
+          command: cf7 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
 
   prod-maintenance-tasks:
     docker:
