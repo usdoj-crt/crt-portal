@@ -4,7 +4,8 @@ from datetime import datetime, timezone
 from actstream import action
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
-from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField, DateField,
+from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
+                          ClearableFileInput, DateField,
                           EmailInput, HiddenInput, IntegerField,
                           ModelChoiceField, ModelForm, Form,
                           ModelMultipleChoiceField, MultipleChoiceField,
@@ -42,7 +43,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ResponseTemplate, Profile)
+                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -1727,3 +1728,39 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
             self.summary_created = created
             self.summary = summary
         return report
+
+
+class AttachmentActions(ModelForm):
+    class Meta:
+        model = ReportAttachment
+        fields = ['file', 'report']
+
+        widgets = {
+            'file': ClearableFileInput(attrs={
+                'class': 'usa-input',
+            }),
+        }
+
+    def save(self, commit=True):
+        instance = ModelForm.save(self, commit=False)
+
+        # this is the filename that the user sees
+        instance.filename = instance.file.name
+
+        # this is the filename that gets stored in S3
+        suffix = datetime.now().strftime('%Y%m%d%H%M%S%f')
+        instance.file.name = f'{instance.report.public_id}-{suffix}'
+
+        if commit:
+            instance.save()
+
+        return instance
+
+    def update_activity_stream(self, user, verb, instance):
+        """Send all actions to activity stream"""
+        action.send(
+            user,
+            verb=verb,
+            description=instance.filename,
+            target=instance.report
+        )

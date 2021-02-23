@@ -10,6 +10,11 @@ services:
       - ENV=LOCAL
       - SECRET_KEY=${SECRET_KEY}
       - FORM_AUTOCOMPLETE_OFF=False
+      - USE_LOCALSTACK=True
+      - LOCALSTACK_URL=http://localstack:4566
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AV_SCAN_URL=http://clamav-rest:9000/scan
     build: .
     command: /code/run.sh
     volumes:
@@ -18,11 +23,30 @@ services:
       - 8000:8000
     depends_on:
       - db
+      - localstack
+  localstack:
+    container_name: "localstack_main"
+    image: localstack/localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=s3
+      # - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - "localstack-vol:/tmp/localstack"
   mailhog:
      image: mailhog/mailhog
      ports:
        - 1025:1025 # smtp server
        - 8025:8025 # web ui
      # command: -invite-jim=1 -jim-accept=0.50  # uncomment to enable and configure Jim (Chaos Monkey)
+  clamav-rest:
+    image: ajilaag/clamav-rest:20201028
+    environment:
+      - MAX_FILE_SIZE=100M
+    ports:
+      - "9000:9000"
 volumes:
   postgres_data:
+  localstack-vol:

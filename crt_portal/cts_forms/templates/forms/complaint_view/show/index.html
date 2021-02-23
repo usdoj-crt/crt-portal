@@ -75,6 +75,8 @@
         {% include 'forms/complaint_view/show/complaint_details.html' with data=data summary=summary %}
 
         {% include 'forms/complaint_view/show/description.html' with description=data.violation_summary %}
+
+        {% include 'forms/complaint_view/show/attachments.html' with title="Attachments" icon="img/intake-icons/ic_check-circle.svg" %}
       </div>
     </div>
   </div>
@@ -94,6 +96,7 @@
 <script src="{% static 'js/form_letter.js' %}"></script>
 <script src="{% static 'js/print_report.js' %}"></script>
 <script src="{% static 'js/routing_guide.js' %}"></script>
+<script src="{% static 'js/attachments.js' %}"></script>
 <script type="text/javascript" src="{% static 'js/aria-autocomplete-1.2.3.min.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
  var select = document.getElementById('id_assigned_to');
