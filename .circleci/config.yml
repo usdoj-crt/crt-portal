@@ -186,11 +186,15 @@ jobs:
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+          CF_MANIFEST: manifest-dev.yml
+          CF_SPACE: dev
       # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
       - image: postgres:10.1-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+
+
     steps:
       - checkout
       # removing as we deal with caching problem
@@ -226,9 +230,13 @@ jobs:
       #       - "/usr/local/bin"
       #       - "/usr/local/lib/python3.8/site-packages"
       - run:
+          name: Login to cloud.gov
+          command: cf7 login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s dev
+      - run:
           name: Deploy to dev
           command: |
-              ./blue-green-deploy.sh $CRT_USERNAME_DEV $CRT_PASSWORD_DEV dev
+#              ./blue-green-deploy.sh $CRT_USERNAME_DEV $CRT_PASSWORD_DEV dev
+                cf7 push --strategy rolling -f ${CF_MANIFEST}
 
   deploy-stage:
     working_directory: ~/code
@@ -279,7 +287,7 @@ jobs:
           name: Deploy to stage
           command: |
             ./blue-green-deploy.sh $CRT_USERNAME_STAGE $CRT_PASSWORD_STAGE staging
-      
+
   deploy-prod:
     working_directory: ~/code
     docker:
