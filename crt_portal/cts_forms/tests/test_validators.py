@@ -20,7 +20,7 @@ class TestInfectionValidator(TestCase):
         self.fake_file = TemporaryUploadedFile('file.txt', 'text/plain', 10000, 'utf-8')
 
     @patch('requests.post')
-    def test_post(self, mock_post):
+    def test_av_service_unavailable(self, mock_post):
         mock_post.side_effect = requests.exceptions.ConnectionError('service unavailable')
 
         with self.assertRaises(ValidationError):
