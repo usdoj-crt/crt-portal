@@ -1,4 +1,4 @@
-import io
+import requests
 
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import TemporaryUploadedFile
@@ -17,7 +17,14 @@ class MockHttpResponse:
 class TestInfectionValidator(TestCase):
 
     def setUp(self):
-        self.fake_file = io.StringIO('this is a fake file')
+        self.fake_file = TemporaryUploadedFile('file.txt', 'text/plain', 10000, 'utf-8')
+
+    @patch('requests.post')
+    def test_post(self, mock_post):
+        mock_post.side_effect = requests.exceptions.ConnectionError('service unavailable')
+
+        with self.assertRaises(ValidationError):
+            validate_file_infection(self.fake_file)
 
     @patch('cts_forms.validators._scan_file')
     def test_validation_fails_on_av_service_error(self, mock_scan_file):
