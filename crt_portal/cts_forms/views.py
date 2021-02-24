@@ -17,6 +17,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import never_cache
 from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
+from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter
 from .forms import (BulkActionsForm, CommentActions, ComplaintActions,
                     ContactEditForm, Filters, PrintActions, ProfileForm,
@@ -475,6 +476,7 @@ class ShowView(LoginRequiredMixin, View):
             'contact_form': contact_form,
             'details_form': details_form,
             'email_enabled': settings.EMAIL_ENABLED,
+            'allowed_file_types': ALLOWED_FILE_EXTENSIONS,
             **filter_output,
         })
         return render(request, 'forms/complaint_view/show/index.html', output)
