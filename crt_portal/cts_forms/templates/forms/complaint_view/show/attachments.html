@@ -15,10 +15,10 @@
     <input type="hidden" value="{{ index }}" name="index" id="index" />
     <input type="hidden" value="{{ data.pk }}" name="report" id="report_id" />
     {% for attachment in attachments %}
-      <p>{{ attachment.filename }}</p>
+      <a href="{{ attachment.presigned_url }}"> {{ attachment.filename }}</a>
     {% endfor %}
     <div class="intake-section">
-      
+
       <input type="file" name="file" id="file_input" hidden/>
       <button class="outline-button outline-button--blue" id="add_attachment">
         <img src="{% static "img/intake-icons/ic_printer.svg" %}" class="icon" alt="attachment">

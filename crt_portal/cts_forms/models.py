@@ -3,6 +3,10 @@ import logging
 from datetime import datetime
 from babel.dates import format_date
 
+import boto3
+from botocore.exceptions import ClientError
+
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, RegexValidator
 from django.db import connection, models
@@ -358,12 +362,29 @@ class Report(models.Model):
         return first or last
 
 
+
 class ReportAttachment(models.Model):
     file = models.FileField(upload_to='attachments', validators=[validate_file_attachment])
     filename = models.CharField(max_length=255)
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
     report = models.ForeignKey(Report, on_delete=models.CASCADE, related_name='attachments')
 
+    @property
+    def presigned_url(self):
+    #Generate a presigned URL to share an S3 object
+        # Generate a presigned URL for the S3 object
+        s3_client = boto3.client(service_name='s3', endpoint_url='http://localstack:4566')
+        try:
+            response = s3_client.generate_presigned_url('get_object',
+                                                        Params={'Bucket': settings.PRIV_S3_BUCKET,
+                                                                'Key': self.file.name},
+                                                        ExpiresIn=3600)
+        except ClientError as e:
+            logging.error(e)
+            return None
+
+        # The response contains the presigned URL
+        return response
 
 class EmailReportCount(models.Model):
     """see the total number of reports that are associated with the contact_email for each report"""
