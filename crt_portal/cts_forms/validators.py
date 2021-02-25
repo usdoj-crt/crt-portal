@@ -16,7 +16,10 @@ AV_SCAN_CODES = {
 
 
 def _scan_file(file):
-    return requests.post(settings.AV_SCAN_URL, files={'file': file}, data={'name': file.name})
+    try:
+        return requests.post(settings.AV_SCAN_URL, files={'file': file}, data={'name': file.name})
+    except requests.exceptions.ConnectionError:
+        raise ValidationError('We were unable to complete a security inspection of the file, please try again or contact support for assistance.')
 
 
 def validate_file_infection(file):
