@@ -378,7 +378,7 @@ class ReportAttachment(models.Model):
         try:
             response = s3_client.generate_presigned_url('get_object',
                                                         Params={'Bucket': settings.PRIV_S3_BUCKET,
-                                                                'Key': self.file.name},
+                                                                'Key': self.file.name, 'ResponseContentDisposition':  f'attachment; filename = "{self.filename}"'},
                                                         ExpiresIn=3600)
         except ClientError as e:
             logging.error(e)
