@@ -374,7 +374,7 @@ class ReportAttachment(models.Model):
     def presigned_url(self):
     #Generate a presigned URL to share an S3 object
         # Generate a presigned URL for the S3 object
-        s3_client = boto3.client(service_name='s3', endpoint_url='http://localstack:4566')
+        s3_client = boto3.client(service_name='s3', endpoint_url='http://localhost:4566')
         try:
             response = s3_client.generate_presigned_url('get_object',
                                                         Params={'Bucket': settings.PRIV_S3_BUCKET,
