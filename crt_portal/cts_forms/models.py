@@ -4,6 +4,7 @@ from datetime import datetime
 from babel.dates import format_date
 
 import boto3
+from botocore.client import Config
 from botocore.exceptions import ClientError
 
 from django.conf import settings
@@ -374,11 +375,15 @@ class ReportAttachment(models.Model):
     def presigned_url(self):
     #Generate a presigned URL to share an S3 object
         # Generate a presigned URL for the S3 object
-        s3_client = boto3.client(service_name='s3', endpoint_url='http://localhost:4566')
+        s3_client = boto3.client(
+            service_name='s3', 
+            endpoint_url='http://localhost:4566',
+            config=Config(signature_version='s3v4'))
         try:
             response = s3_client.generate_presigned_url('get_object',
                                                         Params={'Bucket': settings.PRIV_S3_BUCKET,
-                                                                'Key': self.file.name, 'ResponseContentDisposition':  f'attachment; filename = "{self.filename}"'},
+                                                                'Key': self.file.name, 
+                                                                'ResponseContentDisposition': f'attachment;filename={self.filename}'},
                                                         ExpiresIn=3600)
         except ClientError as e:
             logging.error(e)
