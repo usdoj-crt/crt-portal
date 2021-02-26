@@ -181,6 +181,16 @@ else:
     PRIV_S3_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
     PRIV_S3_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 
+# S3 ENDPOINT URLs
+if environment  in ['LOCAL', 'UNDEFINED']:
+    S3_ENDPOINT_URL = 'http://localhost:4566'
+elif environment == 'DEVELOP':
+    S3_ENDPOINT_URL = 'crt-portal-django-dev.app.cloud.gov:4566'
+elif environment == 'STAGE':
+    S3_ENDPOINT_URL = 'crt-portal-django-stage.app.cloud.gov:4566'
+elif environment == 'PRODUCTION':
+    S3_ENDPOINT_URL = 'crt-portal-django-prod.app.cloud.gov:4566'
+
 # for AUTH, probably want to add stage in the future
 if environment == 'PRODUCTION':
     for service in vcap['user-provided']:

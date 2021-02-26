@@ -14,9 +14,18 @@
     <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
     <input type="hidden" value="{{ index }}" name="index" id="index" />
     <input type="hidden" value="{{ data.pk }}" name="report" id="report_id" />
-    {% for attachment in attachments %}
-      <a href="{{ attachment.presigned_url }}"> {{ attachment.filename }}</a>
-    {% endfor %}
+        <table class="usa-table usa-table--borderless related-reports width-full">
+            <tbody>
+                {% for attachment in attachments %}
+                    <tr>
+                        <td><a href="{{ attachment.presigned_url }}"> {{ attachment.filename }}</a></td>
+                        <td>{{attachment.report}}</td>
+                        <td>{{attachment.user}}</td>
+                        <td>{{attachment.created_date}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     <div class="intake-section">
       <input type="file" name="file" id="file_input" accept="{{ allowed_file_types|join:', ' }}" hidden/>
       <button class="outline-button outline-button--blue" id="add_attachment">

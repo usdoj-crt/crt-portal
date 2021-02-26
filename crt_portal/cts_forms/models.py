@@ -373,16 +373,17 @@ class ReportAttachment(models.Model):
 
     @property
     def presigned_url(self):
-    #Generate a presigned URL to share an S3 object
+        # print (settings.S3_ENDPOINT_URL)
         # Generate a presigned URL for the S3 object
         s3_client = boto3.client(
-            service_name='s3', 
-            endpoint_url='http://localhost:4566',
+            service_name='s3',
+            endpoint_url=settings.S3_ENDPOINT_URL,
             config=Config(signature_version='s3v4'))
+
         try:
             response = s3_client.generate_presigned_url('get_object',
                                                         Params={'Bucket': settings.PRIV_S3_BUCKET,
-                                                                'Key': self.file.name, 
+                                                                'Key': self.file.name,
                                                                 'ResponseContentDisposition': f'attachment;filename={self.filename}'},
                                                         ExpiresIn=3600)
         except ClientError as e:
