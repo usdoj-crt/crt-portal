@@ -377,7 +377,10 @@ class ReportAttachment(models.Model):
         # Generate a presigned URL for the S3 object
         s3_client = boto3.client(
             service_name='s3',
-            endpoint_url=settings.S3_ENDPOINT_URL,
+            # add access_key from setting
+            aws_access_key_id=settings.PRIV_S3_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.PRIV_S3_SECRET_ACCESS_KEY,
+            endpoint_url=settings.PRIV_S3_ENDPOINT_URL,
             config=Config(signature_version='s3v4'))
 
         try:

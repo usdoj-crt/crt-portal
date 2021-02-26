@@ -175,21 +175,13 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     PRIV_S3_REGION = priv_s3_creds['region']
     PRIV_S3_ACCESS_KEY_ID = priv_s3_creds['access_key_id']
     PRIV_S3_SECRET_ACCESS_KEY = priv_s3_creds['secret_access_key']
+    PRIV_S3_ENDPOINT_URL = priv_s3_creds['endpoint']
 else:
     PRIV_S3_BUCKET = 'crt-private'
     PRIV_S3_REGION = 'region'
     PRIV_S3_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
     PRIV_S3_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-
-# S3 ENDPOINT URLs
-if environment  in ['LOCAL', 'UNDEFINED']:
-    S3_ENDPOINT_URL = 'http://localhost:4566'
-elif environment == 'DEVELOP':
-    S3_ENDPOINT_URL = 'crt-portal-django-dev.app.cloud.gov:4566'
-elif environment == 'STAGE':
-    S3_ENDPOINT_URL = 'crt-portal-django-stage.app.cloud.gov:4566'
-elif environment == 'PRODUCTION':
-    S3_ENDPOINT_URL = 'crt-portal-django-prod.app.cloud.gov:4566'
+    PRIV_S3_ENDPOINT_URL = 'http://localhost:4566'
 
 # for AUTH, probably want to add stage in the future
 if environment == 'PRODUCTION':
