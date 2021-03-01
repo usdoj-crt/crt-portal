@@ -3,6 +3,10 @@ import mimetypes
 import os
 import urllib.parse
 
+import boto3
+from botocore.client import Config
+from botocore.exceptions import ClientError
+
 from django import forms
 from django.conf import settings
 from django.contrib import messages
@@ -645,14 +649,35 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
         report = get_object_or_404(Report.objects.prefetch_related('attachments'), pk=id)
         attachment = report.attachments.get(file=f'attachments/{filename}')
 
+                # Generate a presigned URL for the S3 object
+        s3_client = boto3.client(
+            service_name='s3',
+            aws_access_key_id=settings.PRIV_S3_ACCESS_KEY_ID,
+            aws_secret_access_key=settings.PRIV_S3_SECRET_ACCESS_KEY,
+            endpoint_url=settings.PRIV_S3_ENDPOINT_URL,
+            config=Config(signature_version='s3v4'))
+
         try:
-            file = open(attachment.file.name, 'rb')
-            mime_type, _ = mimetypes.guess_type(attachment.filename)
-            response = HttpResponse(file, content_type=mime_type)
-            response['Content-Disposition'] = f'attachment;filename={attachment.filename}'
-            return response
-        except FileNotFoundError:
-            raise Http404("This file does not exist.")
+            response = s3_client.generate_presigned_url('get_object',
+                                                        Params={'Bucket': settings.PRIV_S3_BUCKET,
+                                                                'Key': attachment.file.name,
+                                                                'ResponseContentDisposition': f'attachment;filename={attachment.filename}'},
+                                                        ExpiresIn=100)
+
+            return redirect(response)
+
+        except ClientError as e:
+            logging.error(e)
+            return None
+
+        # try:
+        #     file = open(attachment.file.name, 'rb')
+        #     mime_type, _ = mimetypes.guess_type(attachment.filename)
+        #     response = HttpResponse(file, content_type=mime_type)
+        #     response['Content-Disposition'] = f'attachment;filename={attachment.filename}'
+        #     return response
+        # except FileNotFoundError:
+        #     raise Http404("This file does not exist.")
 
     def post(self, request, report_id):
         report = get_object_or_404(Report, pk=report_id)

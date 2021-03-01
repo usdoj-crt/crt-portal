@@ -16,6 +16,12 @@
     <input type="hidden" value="{{ data.pk }}" name="report" id="report_id" />
         <table class="usa-table usa-table--borderless related-reports width-full">
             <tbody>
+                    <tr>
+                        <th style="text-align:left">File Name</th>
+                        <th style="text-align:left">ID</th>
+                        <th style="text-align:left">Added By</th>
+                        <th style="text-align:left">Created Date</th>
+                    </tr>
                 {% for attachment in attachments %}
                     <tr>
                         <td><a href="{{ attachment.download_url }}"> {{ attachment.filename }}</a></td>
