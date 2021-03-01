@@ -18,7 +18,7 @@
             <tbody>
                 {% for attachment in attachments %}
                     <tr>
-                        <td><a href="{{ attachment.presigned_url }}"> {{ attachment.filename }}</a></td>
+                        <td><a href="{{ attachment.download_url }}"> {{ attachment.filename }}</a></td>
                         <td>{{attachment.report}}</td>
                         <td>{{attachment.user}}</td>
                         <td>{{attachment.created_date}}</td>

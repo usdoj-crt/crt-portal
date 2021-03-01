@@ -1,4 +1,5 @@
 import logging
+import mimetypes
 import os
 import urllib.parse
 
@@ -10,7 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
 from django.db.models import F
-from django.http import QueryDict
+from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
@@ -635,10 +636,24 @@ class ActionsView(LoginRequiredMixin, FormView):
             return render(request, 'forms/complaint_view/actions/index.html', output)
 
 
-class SaveReportAttachmentView(LoginRequiredMixin, FormView):
+class ReportAttachmentView(LoginRequiredMixin, FormView):
     """Can be used for saving attachments for a report"""
     form_class = AttachmentActions
-    http_method_names = ['post']
+    http_method_names = ['get', 'post']
+
+    def get(self, request, id, filename):
+        report = get_object_or_404(Report.objects.prefetch_related('attachments'), pk=id)
+        attachment = report.attachments.get(file=f'attachments/{filename}')
+        
+        try:
+            file = open(attachment.file.name, 'rb')
+            mime_type, _ = mimetypes.guess_type(attachment.filename)
+            response = HttpResponse(file, content_type=mime_type)
+            response['Content-Disposition'] = f'attachment;filename={attachment.filename}'
+            return response
+        except:
+            raise Http404("This file does not exist.")
+
 
     def post(self, request, report_id):
         report = get_object_or_404(Report, pk=report_id)
