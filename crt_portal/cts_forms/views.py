@@ -644,16 +644,15 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
     def get(self, request, id, filename):
         report = get_object_or_404(Report.objects.prefetch_related('attachments'), pk=id)
         attachment = report.attachments.get(file=f'attachments/{filename}')
-        
+
         try:
             file = open(attachment.file.name, 'rb')
             mime_type, _ = mimetypes.guess_type(attachment.filename)
             response = HttpResponse(file, content_type=mime_type)
             response['Content-Disposition'] = f'attachment;filename={attachment.filename}'
             return response
-        except:
+        except FileNotFoundError:
             raise Http404("This file does not exist.")
-
 
     def post(self, request, report_id):
         report = get_object_or_404(Report, pk=report_id)

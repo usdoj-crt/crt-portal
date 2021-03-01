@@ -363,7 +363,6 @@ class Report(models.Model):
         return first or last
 
 
-
 class ReportAttachment(models.Model):
     file = models.FileField(upload_to='attachments', validators=[validate_file_attachment])
     filename = models.CharField(max_length=255)
@@ -375,7 +374,7 @@ class ReportAttachment(models.Model):
     def download_url(self):
         if settings.ENABLE_LOCAL_ATTACHMENT_STORAGE:
             return self.file.url
-        
+
         # Generate a presigned URL for the S3 object
         s3_client = boto3.client(
             service_name='s3',
@@ -396,6 +395,7 @@ class ReportAttachment(models.Model):
 
         # The response contains the presigned URL
         return response
+
 
 class EmailReportCount(models.Model):
     """see the total number of reports that are associated with the contact_email for each report"""

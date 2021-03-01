@@ -54,7 +54,6 @@ def validate_file_size(file):
 def validate_content_type(file):
     file_content_type = file.file.content_type
 
-
     if file_content_type not in ALLOWED_CONTENT_TYPES:
         raise ValidationError(f'File content type: {file_content_type} not supported for upload, supported content types are: {ALLOWED_CONTENT_TYPES}')
 
