@@ -11,7 +11,7 @@ def add_constant_writer_letters(apps, schema_editor):
         body="""
 {{ addressee }},
 
-You contacted the Department of Justice on {{ date_of_intake }}. Your report number is {{ record_locator }}.  We previously received similar correspondence from you concerning this matter and we responded to that inquiry.  
+You contacted the Department of Justice on {{ date_of_intake }}. Your report number is {{ record_locator }}. We previously received similar correspondence from you concerning this matter and we responded to that inquiry.  
 
 There is nothing further we can add to our prior response and we sincerely regret that we cannot offer you further assistance concerning this matter.
 
