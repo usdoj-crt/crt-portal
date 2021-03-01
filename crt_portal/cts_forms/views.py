@@ -646,6 +646,10 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
     http_method_names = ['get', 'post']
 
     def get(self, request, id, filename):
+        """
+        Download a particular attachment for a report
+        For testing/debugging purposes only, when S3 file storage is disabled
+        """
         report = get_object_or_404(Report.objects.prefetch_related('attachments'), pk=id)
         attachment = report.attachments.get(file=f'attachments/{filename}')
 
