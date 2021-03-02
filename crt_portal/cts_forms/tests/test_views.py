@@ -3,6 +3,7 @@ import secrets
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.test import TestCase, override_settings
 from django.test.client import Client
 from django.urls import reverse
@@ -10,7 +11,7 @@ from unittest.mock import patch
 
 from ..forms import ContactEditForm, ReportEditForm
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
-from ..models import Profile, Report
+from ..models import Profile, Report, ReportAttachment
 from .test_data import SAMPLE_REPORT
 from .factories import ReportFactory
 
@@ -160,7 +161,7 @@ class CRTReportWizardTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
 
-class SaveReportAttachmentTests(TestCase):
+class ReportAttachmentTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.report = ReportFactory.create()
@@ -204,3 +205,28 @@ class SaveReportAttachmentTests(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertTrue('Could not save attachment: invalid file' in str(response.content))
+
+    def test_get_attachment(self):
+        user_specified_filename = 'a'
+        internal_filename = 'b'
+        file = TemporaryUploadedFile(internal_filename, 'text/plain', 10000, 'utf-8')
+        attachment = ReportAttachment.objects.create(file=file, user=self.user, filename=user_specified_filename, report=self.report)
+        attachment.save()
+
+        response = self.client.get(
+            reverse(
+                'crt_forms:get-report-attachment',
+                kwargs={'id': self.pk, 'filename': internal_filename}
+            ),
+        )
+
+        # we should reply with a redirect to a presigned s3 url
+        self.assertEqual(response.status_code, 302)
+        # the presigned url should target the private S3 bucket
+        self.assertTrue('/crt-private/' in str(response.url))
+        # the presigned url should have a 30 second expiration
+        self.assertTrue('Expires=30' in str(response.url))
+        # the presigned url should target the internal (not user specified) filename
+        self.assertTrue(f'/attachments/{internal_filename}' in str(response.url))
+        # the response-content-disposition should be set so that the file downloads with the user specified filename
+        self.assertTrue(f'response-content-disposition=attachment%3Bfilename%3D{user_specified_filename}' in str(response.url))
