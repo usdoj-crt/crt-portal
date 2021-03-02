@@ -3,11 +3,6 @@ import logging
 from datetime import datetime
 from babel.dates import format_date
 
-import boto3
-from botocore.client import Config
-from botocore.exceptions import ClientError
-
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.validators import MaxValueValidator, RegexValidator
 from django.db import connection, models
@@ -372,11 +367,7 @@ class ReportAttachment(models.Model):
 
     @property
     def download_url(self):
-        #if settings.ENABLE_LOCAL_ATTACHMENT_STORAGE:
         return self.file.name
-
-        # The response contains the presigned URL
-        #return response
 
 
 class EmailReportCount(models.Model):
