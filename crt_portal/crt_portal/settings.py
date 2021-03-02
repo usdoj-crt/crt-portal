@@ -410,7 +410,7 @@ AV_SCAN_MAX_ATTEMPTS = 10
 ENABLE_LOCAL_ATTACHMENT_STORAGE = False
 if USE_LOCALSTACK:
     from .localstack_settings import *  # noqa: F401,F403
-elif environment in ['LOCAL', 'UNDEFINED']:
+elif environment in ['LOCAL']:
     ENABLE_LOCAL_ATTACHMENT_STORAGE = True
 
 if environment == 'LOCAL':
