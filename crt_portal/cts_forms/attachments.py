@@ -1,8 +1,10 @@
 MAX_FILE_SIZE_MB = 100
 ALLOWED_CONTENT_TYPES = [
     'application/msword',
+    'application/octet-stream',
     'application/pdf',
     'application/vnd.ms-excel',
+    'application/vnd.ms-outlook',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     'audio/mpeg',
@@ -28,6 +30,7 @@ ALLOWED_FILE_EXTENSIONS = [
     '.jpeg',
     '.jpg',
     '.mp3',
+    '.msg',
     '.png',
     '.tif',
     '.txt',

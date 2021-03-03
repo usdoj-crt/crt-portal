@@ -5,7 +5,15 @@ from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.test import TestCase
 from unittest.mock import patch
 
-from ..validators import validate_file_infection, validate_file_size, validate_content_type, validate_file_extension
+from ..attachments import (
+    ALLOWED_CONTENT_TYPES,
+)
+from ..validators import (
+    validate_file_infection,
+    validate_file_size,
+    validate_content_type,
+    validate_file_extension
+)
 
 
 class MockHttpResponse:
@@ -76,14 +84,26 @@ class FileWrapper:
 
 class TestFileContentTypeValidator(TestCase):
     def test_file_size_contenttype_ok(self):
-        file = FileWrapper(TemporaryUploadedFile('file.txt', 'text/plain', 10000, 'utf-8'))
-        validate_content_type(file)
+        for content_type in ALLOWED_CONTENT_TYPES:
+            file = FileWrapper(TemporaryUploadedFile('file', content_type, 10000, 'utf-8'))
+            validate_content_type(file)
 
     def test_file_size_contenttype_bad(self):
-        file = FileWrapper(TemporaryUploadedFile('file.zip', 'application/zip', 10000, 'utf-8'))
+        some_bad_content_types = [
+            'application/gzip',
+            'application/vnd.rar',
+            'application/x-7z-compressed',
+            'application/x-httpd-php',
+            'application/x-sh',
+            'application/x-tar',
+            'application/zip',
+            'text/javascript',
+        ]
+        for content_type in some_bad_content_types:
+            file = FileWrapper(TemporaryUploadedFile('file', content_type, 10000, 'utf-8'))
 
-        with self.assertRaises(ValidationError):
-            validate_content_type(file)
+            with self.assertRaises(ValidationError):
+                validate_content_type(file)
 
 
 class TestFileExtensionValidator(TestCase):
