@@ -63,11 +63,11 @@ jobs:
           paths:
             - /home/circleci/code/node_modules/
           key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-      #- restore_cache:
-      #    keys:
-      #      - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-      #      - pip-packages-v1-{{ .Branch }}-
-      #      - pip-packages-v1-
+      - restore_cache:
+          keys:
+            - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - pip-packages-v1-{{ .Branch }}-
+            - pip-packages-v1-
       - *install-python-dev-dependencies
       - run:
           name: Migrate the database
