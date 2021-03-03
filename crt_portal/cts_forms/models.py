@@ -366,7 +366,7 @@ class ReportAttachment(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
 
     def get_absolute_url(self):
-        return f'attachments/{self.id}'
+        return reverse('crt_forms:get-report-attachment', kwargs={"id": self.report.id, "attachment_id": self.id})
 
 
 class EmailReportCount(models.Model):
