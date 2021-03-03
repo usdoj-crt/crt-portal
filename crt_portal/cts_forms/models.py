@@ -365,9 +365,8 @@ class ReportAttachment(models.Model):
     report = models.ForeignKey(Report, on_delete=models.CASCADE, related_name='attachments')
     created_date = models.DateTimeField(auto_now_add=True)
 
-    @property
-    def download_url(self):
-        return self.file.name
+    def get_absolute_url(self):
+        return f'attachments/{self.id}'
 
 
 class EmailReportCount(models.Model):

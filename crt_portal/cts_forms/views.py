@@ -42,7 +42,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PRIMARY_COMPLAINT_DICT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import CommentAndSummary, Profile, Report, Trends
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, Trends
 from .page_through import pagination
 from .sorts import report_sort
 
@@ -645,14 +645,14 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
     form_class = AttachmentActions
     http_method_names = ['get', 'post']
 
-    def get(self, request, id, filename):
+    def get(self, request, id, attachment_id):
         """
         Download a particular attachment for a report
         """
-        report = get_object_or_404(Report.objects.prefetch_related('attachments'), pk=id)
-        attachment = report.attachments.get(file=f'attachments/{filename}')
 
-        logger.info(f'User {request.user} downloading attachment {attachment.filename} ({attachment.file.name}) for report {id}')
+        attachment = get_object_or_404(ReportAttachment, pk=attachment_id)
+
+        logger.info(f'User {request.user} downloading attachment {attachment.filename} for report {id}')
 
         if settings.ENABLE_LOCAL_ATTACHMENT_STORAGE:
             try:
