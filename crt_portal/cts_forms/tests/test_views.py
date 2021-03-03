@@ -209,6 +209,7 @@ class ReportAttachmentTests(TestCase):
     def test_get_attachment(self):
         user_specified_filename = 'a'
         internal_filename = 'b'
+
         file = TemporaryUploadedFile(internal_filename, 'text/plain', 10000, 'utf-8')
         attachment = ReportAttachment.objects.create(file=file, user=self.user, filename=user_specified_filename, report=self.report)
         attachment.save()
@@ -216,7 +217,7 @@ class ReportAttachmentTests(TestCase):
         response = self.client.get(
             reverse(
                 'crt_forms:get-report-attachment',
-                kwargs={'id': self.pk, 'filename': internal_filename}
+                kwargs={'id': self.pk, 'attachment_id': attachment.pk}
             ),
         )
 
