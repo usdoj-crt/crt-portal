@@ -51,9 +51,9 @@ jobs:
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
       - restore_cache:
           keys:
-            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-            - node-v1-{{ .Branch }}-
-            - node-v1-
+            - node-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-
+            - node-{{ .Environment.CACHE_VERSION }}-
       - run:
           name: Node install, generate CSS
           command: |
@@ -62,12 +62,12 @@ jobs:
       - save_cache:
           paths:
             - /home/circleci/code/node_modules/
-          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: node-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - restore_cache:
           keys:
-            - pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-            - pip-packages-v1-{{ .Branch }}-
-            - pip-packages-v1-
+            - pip-packages-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+            - pip-packages-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-
+            - pip-packages-{{ .Environment.CACHE_VERSION }}-
       - *install-python-dev-dependencies
       - run:
           name: Migrate the database
@@ -75,7 +75,7 @@ jobs:
       - save_cache:
           paths:
             - /home/circleci/code/.venv # this path depends on where pipenv creates a virtualenv
-          key: pip-packages-v1-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          key: pip-packages-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           name: Run prettier code formatting check
           command: npm run lint:check
@@ -200,7 +200,7 @@ jobs:
       # removing as we deal with caching problem
       # - restore_cache:
       # # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-      #     key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+      #     key: deps-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
           command: |
@@ -224,7 +224,7 @@ jobs:
             rm cf7.deb
             cf7 api https://api.fr.cloud.gov
       # - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
-      #     key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+      #     key: deps-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       #     paths:
       #       - ".venv"
       #       - "/usr/local/bin"
@@ -257,7 +257,7 @@ jobs:
       - checkout
       - restore_cache:
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          key: deps-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
           command: |
@@ -281,7 +281,7 @@ jobs:
             rm cf7.deb
             cf7 api https://api.fr.cloud.gov
       - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
-          key: deps10-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          key: deps-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
@@ -315,7 +315,7 @@ jobs:
       - checkout
       - restore_cache:
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          key: deps-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
           command: |
@@ -339,7 +339,7 @@ jobs:
             rm cf7.deb
             cf7 api https://api.fr.cloud.gov
       - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
-          key: deps9-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          key: deps-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
