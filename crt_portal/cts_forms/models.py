@@ -365,6 +365,9 @@ class ReportAttachment(models.Model):
     report = models.ForeignKey(Report, on_delete=models.CASCADE, related_name='attachments')
     created_date = models.DateTimeField(auto_now_add=True)
 
+    def get_absolute_url(self):
+        return reverse('crt_forms:get-report-attachment', kwargs={"id": self.report.id, "attachment_id": self.id})
+
 
 class EmailReportCount(models.Model):
     """see the total number of reports that are associated with the contact_email for each report"""

@@ -175,11 +175,13 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     PRIV_S3_REGION = priv_s3_creds['region']
     PRIV_S3_ACCESS_KEY_ID = priv_s3_creds['access_key_id']
     PRIV_S3_SECRET_ACCESS_KEY = priv_s3_creds['secret_access_key']
+    PRIV_S3_ENDPOINT_URL = priv_s3_creds['endpoint']
 else:
     PRIV_S3_BUCKET = 'crt-private'
     PRIV_S3_REGION = 'region'
-    PRIV_S3_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-    PRIV_S3_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+    PRIV_S3_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID', 'AWSAKID')
+    PRIV_S3_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', 'AWSSAK')
+    PRIV_S3_ENDPOINT_URL = 'http://localhost:4566'
 
 # for AUTH, probably want to add stage in the future
 if environment == 'PRODUCTION':
@@ -405,8 +407,11 @@ LOGGING = {
 AV_SCAN_URL = os.getenv('AV_SCAN_URL')
 AV_SCAN_MAX_ATTEMPTS = 10
 
+ENABLE_LOCAL_ATTACHMENT_STORAGE = False
 if USE_LOCALSTACK:
     from .localstack_settings import *  # noqa: F401,F403
+elif environment == 'LOCAL':
+    ENABLE_LOCAL_ATTACHMENT_STORAGE = True
 
 if environment == 'LOCAL':
     from .local_settings import *  # noqa: F401,F403

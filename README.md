@@ -360,6 +360,8 @@ Or change a user's password:
 
 We deploy from [CircleCI](https://circleci.com/gh/usdoj-crt). The [circle config](https://github.com/usdoj-crt/crt-portal/blob/develop/.circleci/config.yml) contains rules that will deploy the site to different environments using a set of rules.
 
+We leverage the [CircleCI dependency caching](https://circleci.com/docs/2.0/caching/) feature to accelerate the build process. There are times, such as when upgrading to a new runtime version, when it becomes neccesary to clear the cached dependencies manually. This can be done by incrementing the value of the `CACHE_VERSION` environment variable from the CircleCI project settings.
+
 [GitFlow](https://github.com/nvie/gitflow) is a tool that can make it easier to handle branching. On a Mac with homebrew it can be installed with:
 
     brew install git-flow
