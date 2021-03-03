@@ -314,7 +314,7 @@ class Report(models.Model):
         return self.status == CLOSED_STATUS
 
     def activity(self):
-        return self.target_actions.exclude(verb__contains='comment:')
+        return self.target_actions.exclude(verb__contains='comment:').prefetch_related('actor')
 
     def closeout_report(self):
         """
@@ -339,9 +339,13 @@ class Report(models.Model):
     def related_reports_display(self):
         """Return set of related reports grouped by STATUS for template rendering"""
         reports = self.related_reports
-        return (('new', reports.filter(status='new')),
-                ('open', reports.filter(status='open')),
-                ('closed', reports.filter(status='closed')),
+        display = {'new': [], 'open': [], 'closed': []}
+        for report in reports:
+            display[report.status].append(report)
+
+        return (('new', display['new']),
+                ('open', display['open']),
+                ('closed', display['closed']),
                 )
 
     @property
