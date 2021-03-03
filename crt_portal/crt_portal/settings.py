@@ -175,7 +175,8 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     PRIV_S3_REGION = priv_s3_creds['region']
     PRIV_S3_ACCESS_KEY_ID = priv_s3_creds['access_key_id']
     PRIV_S3_SECRET_ACCESS_KEY = priv_s3_creds['secret_access_key']
-    PRIV_S3_ENDPOINT_URL = priv_s3_creds['endpoint']
+    PRIV_S3_ENDPOINT = priv_s3_creds['endpoint']
+    PRIV_S3_ENDPOINT_URL = f'https://{PRIV_S3_ENDPOINT}'
 else:
     PRIV_S3_BUCKET = 'crt-private'
     PRIV_S3_REGION = 'region'
