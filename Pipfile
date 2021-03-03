@@ -37,7 +37,7 @@ django-ses = "*"
 requests = "*"
 
 [requires]
-python_version = "3.8.5"
+python_version = "3.9.1"
 
 [pipenv]
 allow_prereleases = true
