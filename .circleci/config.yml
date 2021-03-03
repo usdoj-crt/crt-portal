@@ -51,9 +51,9 @@ jobs:
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
       - restore_cache:
           keys:
-            - node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
-            - node-v1-{{ .Branch }}-
-            - node-v1-
+            - node-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - node-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-
+            - node-{{ .Environment.CACHE_VERSION }}-
       - run:
           name: Node install, generate CSS
           command: |
@@ -62,7 +62,7 @@ jobs:
       - save_cache:
           paths:
             - /home/circleci/code/node_modules/
-          key: node-v1-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: node-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - restore_cache:
           keys:
             - pip-packages-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
