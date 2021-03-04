@@ -237,7 +237,7 @@ def setup_filter_parameters(report, querydict):
             return {}
 
         output.update({
-            'filter_count': requested_query.count(),
+            'filter_count': len(requested_ids),
             'filter_previous': previous_id,
             'filter_next': next_id,
             'filter_previous_query': f'?next={next_query}&index={index - 1}',
@@ -359,7 +359,7 @@ def serialize_data(report, request, report_id):
         'attachment_actions': AttachmentActions(),
         'comments': CommentActions(),
         'print_options': PrintActions(),
-        'activity_stream': report.target_actions.all(),
+        'activity_stream': report.target_actions.all().prefetch_related('actor'),
         'attachments': report.attachments.all(),
         'crimes': crimes,
         'data': report,
