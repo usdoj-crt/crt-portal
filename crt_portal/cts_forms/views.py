@@ -669,6 +669,7 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
             # Generate a presigned URL for the S3 object
             s3_client = boto3.client(
                 service_name='s3',
+                region_name=settings.PRIV_S3_REGION,
                 aws_access_key_id=settings.PRIV_S3_ACCESS_KEY_ID,
                 aws_secret_access_key=settings.PRIV_S3_SECRET_ACCESS_KEY,
                 endpoint_url=settings.PRIV_S3_ENDPOINT_URL,
