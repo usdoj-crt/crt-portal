@@ -71,7 +71,7 @@ def test_report_complete_and_valid_submission(page):
     assert page.title() == "Step 2: Primary concern - Contact the Civil Rights Division | Department of Justice"
 
     # Check voting
-    page.check("#id_1-primary_complaint_0")
+    page.check("#id_1-primary_complaint_4")
 
     # Go to step 2-2
     next_step()
