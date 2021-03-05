@@ -29,7 +29,7 @@ from .model_variables import (CLOSED_STATUS,
                               STATES_AND_TERRITORIES, STATUS_CHOICES,
                               STATUTE_CHOICES)
 from .phone_regex import phone_validation_regex
-from .validators import validate_file_attachment
+from .validators import validate_file_attachment, validate_email_address
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -106,7 +106,7 @@ class Report(models.Model):
     # Contact
     contact_first_name = models.CharField(max_length=225, null=True, blank=True)
     contact_last_name = models.CharField(max_length=225, null=True, blank=True)
-    contact_email = models.EmailField(null=True, blank=True)
+    contact_email = models.CharField(max_length=225, null=True, blank=True, validators=[validate_email_address])
     contact_phone = models.CharField(
         validators=[RegexValidator(phone_validation_regex, message=CONTACT_PHONE_INVALID_MESSAGE)],
         max_length=225,
