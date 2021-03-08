@@ -5,6 +5,7 @@ from email_validator import validate_email, EmailNotValidError
 
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
 
 from .attachments import MAX_FILE_SIZE_MB, ALLOWED_CONTENT_TYPES, ALLOWED_FILE_EXTENSIONS
 
@@ -79,4 +80,4 @@ def validate_email_address(email):
     try:
         validate_email(email, check_deliverability=False)
     except EmailNotValidError:
-        raise ValidationError('Enter a valid email address.')
+        raise ValidationError(_('Enter a valid email address.'))
