@@ -1,8 +1,12 @@
 import logging
 import requests
 import os
+from email_validator import validate_email, EmailNotValidError
+
 from django.conf import settings
 from django.core.exceptions import ValidationError
+from django.utils.translation import ugettext_lazy as _
+
 from .attachments import MAX_FILE_SIZE_MB, ALLOWED_CONTENT_TYPES, ALLOWED_FILE_EXTENSIONS
 
 logger = logging.getLogger(__name__)
@@ -70,3 +74,10 @@ def validate_file_attachment(file):
     validate_file_extension(file)
     validate_content_type(file)
     validate_file_infection(file)
+
+
+def validate_email_address(email):
+    try:
+        validate_email(email, check_deliverability=False)
+    except EmailNotValidError:
+        raise ValidationError(_('Enter a valid email address.'))
