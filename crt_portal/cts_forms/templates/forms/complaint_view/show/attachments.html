@@ -18,6 +18,8 @@
                 <th scope='col'>File Name</th>
                 <th scope='col'>Added By</th>
                 <th scope='col'>Created Date</th>
+                <th scope='col'>Remove files</th>
+                <th scope='col'>ID </th>
             </thead>
             <tbody>
 
@@ -26,6 +28,8 @@
                         <td><a href="{{ attachment.get_absolute_url }}"> {{ attachment.filename }}</a></td>
                         <td>{{attachment.user}}</td>
                         <td>{{attachment.created_date}}</td>
+                        <td>{remove Button}</td>
+                        <td>{{attachment.pk}}</td>
                     </tr>
                 {% endfor %}
             </tbody>

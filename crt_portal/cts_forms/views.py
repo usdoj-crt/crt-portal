@@ -360,7 +360,7 @@ def serialize_data(report, request, report_id):
         'comments': CommentActions(),
         'print_options': PrintActions(),
         'activity_stream': report.target_actions.all().prefetch_related('actor'),
-        'attachments': report.attachments.all(),
+        'attachments': report.attachments.filter(active=True),
         'crimes': crimes,
         'data': report,
         'p_class_list': p_class_list,
