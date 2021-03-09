@@ -1,13 +1,19 @@
+import io
+import secrets
 
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.test import TestCase, override_settings
 from django.test.client import Client
 from django.urls import reverse
+from unittest.mock import patch
 
 from ..forms import ContactEditForm, ReportEditForm
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
-from ..models import Profile, Report
+from ..models import Profile, Report, ReportAttachment
 from .test_data import SAMPLE_REPORT
+from .factories import ReportFactory
 
 
 class ProfileViewTests(TestCase):
@@ -153,3 +159,75 @@ class CRTReportWizardTests(TestCase):
     def test_returns_200_when_maintenance_mode_false(self):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
+
+
+class ReportAttachmentTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.report = ReportFactory.create()
+        self.pk = self.report.pk
+        self.fake_file = io.StringIO('this is a fake file')
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+
+    @patch('cts_forms.models.ReportAttachment.full_clean')
+    def test_post_valid_file(self, mock_validate_file_infection):
+        response = self.client.post(
+            reverse(
+                'crt_forms:save-report-attachment',
+                kwargs={'report_id': self.pk}
+            ),
+            {
+                'report': self.pk,
+                'file': self.fake_file
+            },
+            follow=True
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('Successfully attached file' in str(response.content))
+
+    @patch('cts_forms.models.ReportAttachment.full_clean')
+    def test_post_invalid_file(self, mock_validate_file_infection):
+        mock_validate_file_infection.side_effect = ValidationError('invalid file')
+        response = self.client.post(
+            reverse(
+                'crt_forms:save-report-attachment',
+                kwargs={'report_id': self.pk}
+            ),
+            {
+                'report': self.pk,
+                'file': self.fake_file
+            },
+            follow=True
+        )
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('Could not save attachment: invalid file' in str(response.content))
+
+    def test_get_attachment(self):
+        user_specified_filename = 'a'
+        internal_filename = 'b'
+
+        file = TemporaryUploadedFile(internal_filename, 'text/plain', 10000, 'utf-8')
+        attachment = ReportAttachment.objects.create(file=file, user=self.user, filename=user_specified_filename, report=self.report)
+        attachment.save()
+
+        response = self.client.get(
+            reverse(
+                'crt_forms:get-report-attachment',
+                kwargs={'id': self.pk, 'attachment_id': attachment.pk}
+            ),
+        )
+
+        # we should reply with a redirect to a presigned s3 url
+        self.assertEqual(response.status_code, 302)
+        # the presigned url should target the private S3 bucket
+        self.assertTrue('/crt-private/' in str(response.url))
+        # the presigned url should have a 30 second expiration
+        self.assertTrue('Expires=30' in str(response.url))
+        # the presigned url should target the internal (not user specified) filename
+        self.assertTrue(f'/attachments/{internal_filename}' in str(response.url))
+        # the response-content-disposition should be set so that the file downloads with the user specified filename
+        self.assertTrue(f'response-content-disposition=attachment%3Bfilename%3D{user_specified_filename}' in str(response.url))

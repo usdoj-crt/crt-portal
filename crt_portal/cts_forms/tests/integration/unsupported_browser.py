@@ -5,7 +5,7 @@ import pytest
 def browser_context_args(browser_context_args):
     return {
         **browser_context_args,
-        "userAgent": "SamsungBrowser"
+        "user_agent": "SamsungBrowser"
     }
 
 
@@ -14,6 +14,6 @@ def test_unsupported_browser_modal_visible(page):
 
     page.goto("/report")
 
-    page.waitForSelector("text=NOTICE: Your mobile browser is not compatible with this form",
-                         state='visible',
-                         timeout=3000)
+    page.wait_for_selector("text=NOTICE: Your mobile browser is not compatible with this form",
+                           state='visible',
+                           timeout=3000)

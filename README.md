@@ -14,7 +14,7 @@
 
 * [Additional documentation](#additional-documentation)
 
-* [Background notes](#background-notes)
+- [Background notes](#background-notes)
 
 ## Local set up
 
@@ -280,6 +280,7 @@ Create postgres DB and S3 with development settings:
 
     cf create-service aws-rds shared-psql crt-db
     cf create-service s3 basic-public crt-s3
+    cf create-service s3 basic sso-creds
 
 Or, for prod use the following production settings:
 
@@ -312,6 +313,12 @@ To deploy manually, make sure you are logged in, run the push command and pass i
     cf push -f manifest_space.yaml
 
 That will push to cloud.gov according to the instructions in the manifest and Profile.
+
+A [network policy](https://docs.cloudfoundry.org/devguide/deploy-apps/cf-networking.html#add-policy) needs to be configured to allow communication between our web application and the ClamAV REST API.
+
+Direct traffic from the portal to the ClamAV REST API:
+
+    cf add-network-policy crt-portal-django --destination-app clamav-rest --protocol tcp --port 9000
 
 ### User roles and permissions
 
@@ -352,6 +359,8 @@ Or change a user's password:
 ## Deployment
 
 We deploy from [CircleCI](https://circleci.com/gh/usdoj-crt). The [circle config](https://github.com/usdoj-crt/crt-portal/blob/develop/.circleci/config.yml) contains rules that will deploy the site to different environments using a set of rules.
+
+We leverage the [CircleCI dependency caching](https://circleci.com/docs/2.0/caching/) feature to accelerate the build process. There are times, such as when upgrading to a new runtime version, when it becomes neccesary to clear the cached dependencies manually. This can be done by incrementing the value of the `CACHE_VERSION` environment variable from the CircleCI project settings.
 
 [GitFlow](https://github.com/nvie/gitflow) is a tool that can make it easier to handle branching. On a Mac with homebrew it can be installed with:
 

@@ -1,0 +1,46 @@
+{% extends "forms/complaint_view/show/card.html" %}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+{% block extra_classes %}crt-action-card{% endblock %}
+{% block icon %}
+<img src="{% static icon %}" alt="" class="icon" />
+{% endblock %}
+
+{% block card_content %}
+<form id="complaint-view-attachments" class="usa-form" method="post" action="{% url 'crt_forms:save-report-attachment' report_id=data.pk %}" enctype="multipart/form-data" novalidate>
+  {% csrf_token %}
+  <fieldset name="view-attachments" class="usa-fieldset usa-prose">
+    <legend class="usa-sr-only">Complaint detail view attachments</legend>
+    <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
+    <input type="hidden" value="{{ index }}" name="index" id="index" />
+    <input type="hidden" value="{{ data.pk }}" name="report" id="report_id" />
+        <table class="usa-table usa-table--borderless related-reports width-full">  <thead>
+                <th scope='col'>File Name</th>
+                <th scope='col'>Added By</th>
+                <th scope='col'>Created Date</th>
+            </thead>
+            <tbody>
+
+                {% for attachment in attachments %}
+                    <tr>
+                        <td><a href="{{ attachment.get_absolute_url }}"> {{ attachment.filename }}</a></td>
+                        <td>{{attachment.user}}</td>
+                        <td>{{attachment.created_date}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    <div class="intake-section">
+      <input type="file" name="file" id="file_input" accept="{{ allowed_file_types|join:', ' }}" hidden/>
+      <button class="outline-button outline-button--blue" id="add_attachment">
+        <img src="{% static "img/intake-icons/ic_folder.svg" %}" class="icon" alt="attachment">
+        ADD ATTACHMENT
+      </button>
+    </div>
+  </fieldset>
+</form>
+
+{% include "partials/routing-guide.html" %}
+{% include "partials/attachment-uploading-modal.html" %}
+
+{% endblock %}

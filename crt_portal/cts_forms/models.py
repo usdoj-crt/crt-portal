@@ -29,6 +29,7 @@ from .model_variables import (CLOSED_STATUS,
                               STATES_AND_TERRITORIES, STATUS_CHOICES,
                               STATUTE_CHOICES)
 from .phone_regex import phone_validation_regex
+from .validators import validate_file_attachment
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -355,6 +356,17 @@ class Report(models.Model):
         if first and last:
             return f'{first} {last}'
         return first or last
+
+
+class ReportAttachment(models.Model):
+    file = models.FileField(upload_to='attachments', validators=[validate_file_attachment])
+    filename = models.CharField(max_length=255)
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
+    report = models.ForeignKey(Report, on_delete=models.CASCADE, related_name='attachments')
+    created_date = models.DateTimeField(auto_now_add=True)
+
+    def get_absolute_url(self):
+        return reverse('crt_forms:get-report-attachment', kwargs={"id": self.report.id, "attachment_id": self.id})
 
 
 class EmailReportCount(models.Model):

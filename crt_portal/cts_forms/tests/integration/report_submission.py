@@ -16,7 +16,7 @@ def test_error_if_form_refreshed(page, base_url):
     next_step()
 
     # Refresh the page in another tab
-    new_tab = page.context.newPage()
+    new_tab = page.context.new_page()
     new_tab.goto(f"{base_url}/report")
 
     # Now try and progress on original tab where we're still on step #2
@@ -91,7 +91,7 @@ def test_report_complete_and_valid_submission(page):
     page.fill("input[name='3-location_city_town']", "Testing")
 
     # Select Alabama
-    page.selectOption('select#id_3-location_state', 'AL')
+    page.select_option('select#id_3-location_state', 'AL')
 
     # Go to step 4
     next_step()
