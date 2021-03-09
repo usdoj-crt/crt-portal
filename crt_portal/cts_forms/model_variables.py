@@ -13,11 +13,12 @@ SERVICEMEMBER_CHOICES = (
 SERVICEMEMBER_ERROR = _('Please select a status as an active duty service member.')
 
 PRIMARY_COMPLAINT_CHOICES = (
-    ('voting', _('Voting rights or ability to vote affected')),
+
     ('workplace', _('Workplace discrimination or other employment-related problem')),
     ('housing', _('Housing discrimination or harassment')),
     ('education', _('Discrimination at a school, educational program or service, or related to receiving education')),
     ('police', _('Mistreated by police, correctional staff, or inmates')),
+    ('voting', _('Voting rights or ability to vote affected')),
     ('commercial_or_public', _('Discriminated against in a commercial location or public place')),
     ('something_else', _('Something else happened')),
 )
