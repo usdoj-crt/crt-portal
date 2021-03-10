@@ -13,8 +13,7 @@
     <th scope='col'>File Name</th>
     <th scope='col'>Added By</th>
     <th scope='col'>Created Date</th>
-    <th scope='col'>Remove files</th>
-    <th scope='col'>ID </th>
+    <th scope='col'></th>
   </thead>
 
   <tbody>
@@ -23,12 +22,11 @@
         <td><a href="{{ attachment.get_absolute_url }}"> {{ attachment.filename }}</a></td>
         <td>{{attachment.user}}</td>
         <td>{{attachment.created_date}}</td>
-        <td>{{ attachment.pk }}</td>
         <td>
           <form id="complaint-view-remove-attachment-{{ attachment.pk }}" class="usa-form" method="post"
           action="{% url 'crt_forms:remove-report-attachment' attachment_id=attachment.pk %}">
             {% csrf_token %}
-            <button type="submit" class="outline-button outline-button--blue">Remove</button>
+            <button data-attachment-id="{{ attachment.pk }}" data-attachment-filename="{{ attachment.filename }}" class="outline-button outline-button--blue remove-attachment-button">Remove</button>
           </form>
         </td>
       </tr>
@@ -55,5 +53,6 @@
 
 {% include "partials/routing-guide.html" %}
 {% include "partials/attachment-uploading-modal.html" %}
+{% include "partials/attachment-removal-confirmation-modal.html" %}
 
 {% endblock %}
