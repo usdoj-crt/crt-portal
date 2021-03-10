@@ -712,6 +712,22 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
         return redirect(url)
 
 
+class RemoveReportAttachmentView(LoginRequiredMixin, FormView):
+    def post(self, request, attachment_id):
+        logger.info(f'User {request.user} removing attachment with id {attachment_id}')
+
+        attachment = get_object_or_404(ReportAttachment, pk=attachment_id)
+        attachment.active = False
+        attachment.save()
+
+        add_activity(request.user, "Removed attachment: ", attachment.filename, attachment.report)
+
+        messages.add_message(request, messages.SUCCESS, f'Successfully removed {attachment.filename}')
+
+        url = preserve_filter_parameters(attachment.report, request.POST)
+        return redirect(url)
+
+
 class SaveCommentView(LoginRequiredMixin, FormView):
     """Can be used for saving comments or summaries for a report"""
     form_class = CommentActions
