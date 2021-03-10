@@ -255,6 +255,4 @@ class ReportAttachmentTests(TestCase):
         # the file should no longer appear in the attachments list
         self.assertTrue(f'complaint-view-remove-attachment-{attachment.pk}' not in str(response.content))
         # the removal should appear in the activity log
-        self.assertTrue(f'Removed attachment:' in str(response.content))
-
-
+        self.assertTrue('Removed attachment:' in str(response.content))
