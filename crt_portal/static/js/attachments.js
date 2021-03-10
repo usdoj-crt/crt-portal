@@ -28,7 +28,7 @@
       var filename_el = document.getElementById('attachment-removal--filename');
       var no_button = document.getElementById('attachment-removal--no');
       var yes_button = document.getElementById('attachment-removal--yes');
-      
+
       // add the to-be-removed filename to the modal
       filename_el.innerText = attachment_filename;
 
@@ -42,7 +42,7 @@
       // user clicks yes on removal confirmation
       yes_button.onclick = function(event) {
         event.preventDefault();
-        
+
         // get the form for removing this particular attachment
         var form_id = `complaint-view-remove-attachment-${attachment_id}`;
         var form = document.getElementById(form_id);
