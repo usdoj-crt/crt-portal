@@ -14,6 +14,7 @@ from ..validators import (
     validate_file_extension,
     validate_file_infection,
     validate_file_size,
+    validate_filename,
 )
 
 
@@ -75,6 +76,40 @@ class TestFileSizeValidator(TestCase):
 
         with self.assertRaises(ValidationError):
             validate_file_size(big_file)
+
+
+class TestFileNameValidator(TestCase):
+
+    def test_file_name_valid(self):
+        valid_filename = TemporaryUploadedFile('file-name_acceptable 03152021.txt', b'This filename is supported', 5000, 'utf-8')
+
+        try:
+            validate_filename(valid_filename)
+
+        except ValidationError:
+            self.fail('validate_file_size unexpectedly raised ValidationError!')
+    # testfilename = "FileName.has.special.character.$For$Geeks@!#$%^&*()<>?/\\|}{~:,;\"\'\\]\\[.pdf"
+
+    def test_file_name_dollersign(self):
+
+        invalid_filename = TemporaryUploadedFile('FileName.has.special.character.$.txt', b'$ special character not supported for filename ', 5000, 'utf-8')
+
+        with self.assertRaises(ValidationError):
+            validate_filename(invalid_filename)
+
+    def test_file_name_atsign(self):
+
+        invalid_filename = TemporaryUploadedFile('FileName.has.special.character.@.txt', b'@ special character not supported for filename ', 5000, 'utf-8')
+
+        with self.assertRaises(ValidationError):
+            validate_filename(invalid_filename)
+
+    def test_file_name_ampersand(self):
+
+        invalid_filename = TemporaryUploadedFile('FileName.has.special.character.&.txt', b'& special character not supported for filename ', 5000, 'utf-8')
+
+        with self.assertRaises(ValidationError):
+            validate_filename(invalid_filename)
 
 
 # use this to match the class signature expected in validate_content_type, file.file.content_type
