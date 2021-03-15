@@ -712,11 +712,15 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
         return redirect(url)
 
 
-class RemoveReportAttachmentView(LoginRequiredMixin, FormView):
+class RemoveReportAttachmentView(LoginRequiredMixin, View):
+    http_method_names = ['post']
+
     def post(self, request, attachment_id):
-        logger.info(f'User {request.user} removing attachment with id {attachment_id}')
 
         attachment = get_object_or_404(ReportAttachment, pk=attachment_id)
+
+        logger.info(f'User {request.user} removing attachment with id {attachment_id}')
+
         attachment.active = False
         attachment.save()
 
