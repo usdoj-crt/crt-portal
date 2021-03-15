@@ -25,8 +25,10 @@ class Migration(migrations.Migration):
             CREATE TRIGGER violation_summary_vector_update BEFORE INSERT OR UPDATE
             ON cts_forms_report FOR EACH ROW EXECUTE PROCEDURE
             tsvector_update_trigger(violation_summary_search_vector, 'pg_catalog.english', violation_summary);
+
+            UPDATE cts_forms_report SET primary_complaint=primary_complaint;
         """,
         reverse_sql="""
             DROP TRIGGER IF EXISTS violation_summary_vector_update ON cts_forms_report
-        """)
+        """),
     ]
