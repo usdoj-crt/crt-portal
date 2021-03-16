@@ -90,12 +90,21 @@ class TestFileNameValidator(TestCase):
             self.fail('validate_file_size unexpectedly raised ValidationError!')
     # testfilename = "FileName.has.special.character.$For$Geeks@!#$%^&*()<>?/\\|}{~:,;\"\'\\]\\[.pdf"
 
+    special_characters = r"[@!#$%^()&*<>?/\|}{~:,;\"\'\]\[]"
+
+
     def test_file_name_dollersign(self):
+        for letter in "[@!#$%^()&*<>?|}{~:,;\"'][]/\\":
+            print(letter)
+            invalid_filename = TemporaryUploadedFile(
+                f'FileName.has.special.character.{letter}.txt',
+                b'$ special character not supported for filename ',
+                5000,
+                'utf-8',
+            )
 
-        invalid_filename = TemporaryUploadedFile('FileName.has.special.character.$.txt', b'$ special character not supported for filename ', 5000, 'utf-8')
-
-        with self.assertRaises(ValidationError):
-            validate_filename(invalid_filename)
+            with self.assertRaises(ValidationError):
+                validate_filename(invalid_filename)
 
     def test_file_name_atsign(self):
 
