@@ -368,6 +368,7 @@ class ReportAttachment(models.Model):
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
     report = models.ForeignKey(Report, on_delete=models.CASCADE, related_name='attachments')
     created_date = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
 
     def get_absolute_url(self):
         return reverse('crt_forms:get-report-attachment', kwargs={"id": self.report.id, "attachment_id": self.id})

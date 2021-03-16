@@ -11,7 +11,13 @@ node node_modules/gulp/bin/gulp build-sass
 # If LOCALSTACK is set in environment, this will upload static files to the localstack s3 service running in docker
 # Otherwise the development server is handling static files
 if [[ -n "${USE_LOCALSTACK}" ]]; then
+    echo Removing crt-portal s3 bucket
+    aws --endpoint-url=${LOCALSTACK_URL} s3 rb s3://crt-portal --force
+
+    echo Creating crt-portal s3 bucket
     aws --endpoint-url=${LOCALSTACK_URL} s3 mb s3://crt-portal
+
+    echo Creating crt-private s3 bucket
     aws --endpoint-url=${LOCALSTACK_URL} s3 mb s3://crt-private
     
     echo Collecting and uploading static assets to localstack...
