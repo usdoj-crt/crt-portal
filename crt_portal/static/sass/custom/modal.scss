@@ -175,6 +175,16 @@ body.is-modal {
   }
 }
 
+#attachment-removal-confirmation--modal {
+  color: color($theme-color-primary-darker);
+
+  #attachment-removal--no {
+    &:focus {
+      color: color($theme-color-primary-darker) !important;
+    }
+  }
+}
+
 #unsupported_browser_modal .modal-content.modal-content--small {
   padding: 0;
 
