@@ -25,9 +25,7 @@ def validate_filename(file):
     # for file name
     thisfile = file.name
 
-    # testfilename = "FileName.has.special.character.$For$Geeks@!#$%^&*()<>?/\\|}{~:,;\"\'\\]\\[.pdf"
-
-    special_characters = r"[@!#$%^()&*<>?/\|}{~:,;\"\'\]\[]"
+    special_characters = r"[@!#$%^()&*<>?/\|}{~:,;\"\'\]\[\\]"
 
     # regex_match = re.compile({special_characters})
     regex_match = re.search(special_characters, thisfile)
@@ -35,7 +33,6 @@ def validate_filename(file):
     # verify if the regex search math found any special character.
     if(regex_match is not None):
 
-        print("File Name contains special characters  ", thisfile)
         raise ValidationError(f'Filename: {thisfile} have special characters, rename file before upload. Acceptable file name special characters are - (dash) and _ (underscore).')
 
 
@@ -94,7 +91,7 @@ def validate_file_attachment(file):
     validate_file_size(file)
     validate_file_extension(file)
     validate_content_type(file)
-    # validate_file_infection(file)
+    validate_file_infection(file)
 
 
 def validate_email_address(email):

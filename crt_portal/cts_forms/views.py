@@ -19,7 +19,6 @@ from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
-from django.utils.text import slugify
 from django.views.decorators.cache import never_cache
 from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
@@ -660,8 +659,7 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
                 file = open(attachment.file.name, 'rb')
                 mime_type, _ = mimetypes.guess_type(attachment.filename)
                 response = HttpResponse(file, content_type=mime_type)
-                fname = slugify(attachment.filename)
-                response['Content-Disposition'] = f'attachment;filename={fname}'
+                response['Content-Disposition'] = f'attachment;filename={attachment.filename}'
                 return response
 
             except FileNotFoundError:
