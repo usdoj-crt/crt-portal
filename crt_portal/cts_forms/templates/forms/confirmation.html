@@ -5,12 +5,7 @@
 
 
 {% block page_title %}
- <!-- needs translation update   -->
-  {% if  LANGUAGE_CODE == 'en' %}
-    <title>{% trans "Submission complete" %}</title>
-  {% else %}
-    <title> {% trans "Contact the Civil Rights Division | Department of Justice" %} </title>
-  {% endif %}
+  <title>{% trans "Submission complete" %}</title>
 {% endblock %}
 
 {% block body_class %}class="confirmation-page"{% endblock %}
