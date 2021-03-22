@@ -123,4 +123,4 @@ def test_report_complete_and_valid_submission(page):
 
     # Complete submission
     next_step()
-    assert page.title() == "Contact the Civil Rights Division | Department of Justice"
+    assert page.title() == "Submission complete"

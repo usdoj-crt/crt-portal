@@ -1,6 +1,7 @@
 import logging
 import requests
 import os
+import re
 from email_validator import validate_email, EmailNotValidError
 
 from django.conf import settings
@@ -17,6 +18,22 @@ AV_SCAN_CODES = {
     'INFECTED': [406],
     'ERROR': [400, 412, 500, 501],
 }
+
+
+def validate_filename(file):
+    # special character not accepted
+    # for file name
+    thisfile = file.name
+
+    special_characters = r"[@!#$%^()&*<>?/\|}{~:,;\"\'\]\[\\]"
+
+    # regex_match = re.compile({special_characters})
+    regex_match = re.search(special_characters, thisfile)
+
+    # verify if the regex search math found any special character.
+    if(regex_match is not None):
+
+        raise ValidationError(f'Filename: {thisfile} have special characters, rename file before upload. Acceptable file name special characters are - (dash) and _ (underscore).')
 
 
 def _scan_file(file):
@@ -70,6 +87,7 @@ def validate_file_extension(file):
 
 
 def validate_file_attachment(file):
+    validate_filename(file)
     validate_file_size(file)
     validate_file_extension(file)
     validate_content_type(file)
