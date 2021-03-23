@@ -130,3 +130,12 @@ table.related-reports {
   font-size: 0.75rem;
   margin-top: 0px;
 }
+
+table.attachments-table {
+  font-size: 0.75rem;
+  margin-top: 0px;
+  
+  th:first-child {
+    padding-left: 1rem;
+  }
+}

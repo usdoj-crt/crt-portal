@@ -29,7 +29,7 @@ from .model_variables import (CLOSED_STATUS,
                               STATES_AND_TERRITORIES, STATUS_CHOICES,
                               STATUTE_CHOICES)
 from .phone_regex import phone_validation_regex
-from .validators import validate_file_attachment
+from .validators import validate_file_attachment, validate_email_address
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -106,7 +106,7 @@ class Report(models.Model):
     # Contact
     contact_first_name = models.CharField(max_length=225, null=True, blank=True)
     contact_last_name = models.CharField(max_length=225, null=True, blank=True)
-    contact_email = models.EmailField(null=True, blank=True)
+    contact_email = models.CharField(max_length=225, null=True, blank=True, validators=[validate_email_address])
     contact_phone = models.CharField(
         validators=[RegexValidator(phone_validation_regex, message=CONTACT_PHONE_INVALID_MESSAGE)],
         max_length=225,
@@ -314,7 +314,7 @@ class Report(models.Model):
         return self.status == CLOSED_STATUS
 
     def activity(self):
-        return self.target_actions.exclude(verb__contains='comment:')
+        return self.target_actions.exclude(verb__contains='comment:').prefetch_related('actor')
 
     def closeout_report(self):
         """
@@ -339,9 +339,13 @@ class Report(models.Model):
     def related_reports_display(self):
         """Return set of related reports grouped by STATUS for template rendering"""
         reports = self.related_reports
-        return (('new', reports.filter(status='new')),
-                ('open', reports.filter(status='open')),
-                ('closed', reports.filter(status='closed')),
+        display = {'new': [], 'open': [], 'closed': []}
+        for report in reports:
+            display[report.status].append(report)
+
+        return (('new', display['new']),
+                ('open', display['open']),
+                ('closed', display['closed']),
                 )
 
     @property
@@ -364,6 +368,7 @@ class ReportAttachment(models.Model):
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
     report = models.ForeignKey(Report, on_delete=models.CASCADE, related_name='attachments')
     created_date = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
 
     def get_absolute_url(self):
         return reverse('crt_forms:get-report-attachment', kwargs={"id": self.report.id, "attachment_id": self.id})

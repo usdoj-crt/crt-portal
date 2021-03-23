@@ -186,7 +186,10 @@ class ReportAttachmentTests(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
+        # there should be a message that the file was attached
         self.assertTrue('Successfully attached file' in str(response.content))
+        # the attachment should appear in the activity log
+        self.assertTrue('Attached file:' in str(response.content))
 
     @patch('cts_forms.models.ReportAttachment.full_clean')
     def test_post_invalid_file(self, mock_validate_file_infection):
@@ -204,6 +207,7 @@ class ReportAttachmentTests(TestCase):
         )
 
         self.assertEqual(response.status_code, 200)
+        # there should be a message that the attachment failed
         self.assertTrue('Could not save attachment: invalid file' in str(response.content))
 
     def test_get_attachment(self):
@@ -231,3 +235,24 @@ class ReportAttachmentTests(TestCase):
         self.assertTrue(f'/attachments/{internal_filename}' in str(response.url))
         # the response-content-disposition should be set so that the file downloads with the user specified filename
         self.assertTrue(f'response-content-disposition=attachment%3Bfilename%3D{user_specified_filename}' in str(response.url))
+
+    def test_removed_attachment_not_displaying(self):
+        file = TemporaryUploadedFile('internal-filename', 'text/plain', 10000, 'utf-8')
+        attachment = ReportAttachment.objects.create(file=file, user=self.user, filename='user_specified_filename', report=self.report)
+        attachment.save()
+
+        response = self.client.post(
+            reverse(
+                'crt_forms:remove-report-attachment',
+                kwargs={'attachment_id': attachment.pk}
+            ),
+            follow=True
+        )
+
+        self.assertEqual(response.status_code, 200)
+        # there should be a message that the file was removed
+        self.assertTrue(f'Successfully removed {attachment.filename}' in str(response.content))
+        # the file should no longer appear in the attachments list
+        self.assertTrue(f'complaint-view-remove-attachment-{attachment.pk}' not in str(response.content))
+        # the removal should appear in the activity log
+        self.assertTrue('Removed attachment:' in str(response.content))

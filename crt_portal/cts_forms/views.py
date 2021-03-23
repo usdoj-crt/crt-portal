@@ -237,7 +237,7 @@ def setup_filter_parameters(report, querydict):
             return {}
 
         output.update({
-            'filter_count': requested_query.count(),
+            'filter_count': len(requested_ids),
             'filter_previous': previous_id,
             'filter_next': next_id,
             'filter_previous_query': f'?next={next_query}&index={index - 1}',
@@ -359,8 +359,8 @@ def serialize_data(report, request, report_id):
         'attachment_actions': AttachmentActions(),
         'comments': CommentActions(),
         'print_options': PrintActions(),
-        'activity_stream': report.target_actions.all(),
-        'attachments': report.attachments.all(),
+        'activity_stream': report.target_actions.all().prefetch_related('actor'),
+        'attachments': report.attachments.filter(active=True),
         'crimes': crimes,
         'data': report,
         'p_class_list': p_class_list,
@@ -709,6 +709,26 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
                 messages.add_message(request, messages.ERROR, error_message)
 
         url = preserve_filter_parameters(report, request.POST)
+        return redirect(url)
+
+
+class RemoveReportAttachmentView(LoginRequiredMixin, View):
+    http_method_names = ['post']
+
+    def post(self, request, attachment_id):
+
+        attachment = get_object_or_404(ReportAttachment, pk=attachment_id)
+
+        logger.info(f'User {request.user} removing attachment with id {attachment_id}')
+
+        attachment.active = False
+        attachment.save()
+
+        add_activity(request.user, "Removed attachment: ", attachment.filename, attachment.report)
+
+        messages.add_message(request, messages.SUCCESS, f'Successfully removed {attachment.filename}')
+
+        url = preserve_filter_parameters(attachment.report, request.POST)
         return redirect(url)
 
 

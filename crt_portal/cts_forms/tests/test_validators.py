@@ -9,10 +9,12 @@ from ..attachments import (
     ALLOWED_CONTENT_TYPES,
 )
 from ..validators import (
+    validate_content_type,
+    validate_email_address,
+    validate_file_extension,
     validate_file_infection,
     validate_file_size,
-    validate_content_type,
-    validate_file_extension
+    validate_filename,
 )
 
 
@@ -76,6 +78,32 @@ class TestFileSizeValidator(TestCase):
             validate_file_size(big_file)
 
 
+class TestFileNameValidator(TestCase):
+
+    def test_file_name_valid(self):
+        valid_filename = TemporaryUploadedFile('file-name_acceptable 03152021.txt', b'This filename is supported', 5000, 'utf-8')
+
+        try:
+            validate_filename(valid_filename)
+
+        except ValidationError:
+            self.fail('validate_file_size unexpectedly raised ValidationError!')
+
+    def test_all_special_characters(self):
+
+        for letter in "@!#$%^()&*<>?|}{~:,;'][\\\"":
+
+            invalid_filename = TemporaryUploadedFile(
+                f'FileName.has.special.character.{letter}.txt',
+                b'Special character not supported for filename ',
+                5000,
+                'utf-8',
+            )
+
+            with self.assertRaises(ValidationError):
+                validate_filename(invalid_filename)
+
+
 # use this to match the class signature expected in validate_content_type, file.file.content_type
 class FileWrapper:
     def __init__(self, file):
@@ -121,3 +149,51 @@ class TestFileExtensionValidator(TestCase):
 
         with self.assertRaises(ValidationError):
             validate_file_extension(file)
+
+
+class TestEmailValidator(TestCase):
+    def test_valid_email_ok(self):
+        try:
+            validate_email_address('name@domain.com')
+        except ValidationError:
+            self.fail('test_valid_email_ok unexpectedly raised ValidationError!')
+
+    def test_invalid_email_raises(self):
+        with self.assertRaises(ValidationError):
+            validate_email_address('thisisnotanemailaddress')
+
+    def test_chinese_email_ok(self):
+        try:
+            validate_email_address('用户@例子.广告')
+        except ValidationError:
+            self.fail('validate_email_address unexpectedly raised ValidationError')
+
+    def test_hindi_email_ok(self):
+        try:
+            validate_email_address('अजय@डाटा.भारत')
+        except ValidationError:
+            self.fail('test_hindi_email_ok unexpectedly raised ValidationError')
+
+    def test_ukrainian_email_ok(self):
+        try:
+            validate_email_address('квіточка@пошта.укр')
+        except ValidationError:
+            self.fail('test_ukrainian_email_ok unexpectedly raised ValidationError')
+
+    def test_greek_email_ok(self):
+        try:
+            validate_email_address('χρήστης@παράδειγμα.ελ')
+        except ValidationError:
+            self.fail('test_greek_email_ok unexpectedly raised ValidationError')
+
+    def test_german_email_ok(self):
+        try:
+            validate_email_address('Dörte@Sörensen.example.com')
+        except ValidationError:
+            self.fail('test_german_email_ok unexpectedly raised ValidationError')
+
+    def test_russian_email_ok(self):
+        try:
+            validate_email_address('коля@пример.рф')
+        except ValidationError:
+            self.fail('test_russian_email_ok unexpectedly raised ValidationError')
