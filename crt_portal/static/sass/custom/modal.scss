@@ -138,6 +138,57 @@ body.is-modal {
   }
 }
 
+#form-letterhead {
+  @page {
+    size: auto;
+    margin: 0mm;
+  }
+
+  @media print {
+    height: 100%;
+    width: 100%;
+
+    .form-letterhead--header {
+      display: flex;
+
+      img {
+        height: 100px;
+        padding-left: 3rem;
+      }
+
+      .form-letterhead--header-logo {
+        width: 50%;
+      }
+
+      .form-letterhead--header-text {
+        margin-top: 1.25rem;
+        margin-bottom: 0px;
+      }
+
+      .form-letterhead--header-subtext {
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
+    }
+
+    .subheader {
+      width: 50%;
+      margin-left: 50%;
+      margin-bottom: 2rem;
+    }
+
+    hr {
+      border: 2px solid #000;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  #form-letter-placeholder {
+    white-space: pre-line;
+  }
+}
+
 #external-link--modal {
   color: color($theme-color-primary-darker);
 
