@@ -214,7 +214,7 @@
                 </p>
                 <div id="crt-landing--choice_examples" class="crt-landing--text">
                   {% for example in choices.workplace.examples %}
-                    <p>{{ example }}</p>
+                    <p>{{ example|safe }}</p>
                   {% endfor %}
                 </div>
                 <div hidden id="crt-landing--humantrafficking">
