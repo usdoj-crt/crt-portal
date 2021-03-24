@@ -13,7 +13,8 @@ from .signals import get_client_ip
 
 logger = logging.getLogger(__name__)
 
-REPORT_FIELDS = [field.name for field in Report._meta.fields]
+EXCLUDED_REPORT_FIELDS = ['violation_summary_search_vector']
+REPORT_FIELDS = [field.name for field in Report._meta.fields if field.name not in EXCLUDED_REPORT_FIELDS]
 ACTION_FIELDS = ['timestamp', 'actor', 'verb', 'description', 'target']
 
 

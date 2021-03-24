@@ -4,6 +4,8 @@ from datetime import datetime
 from babel.dates import format_date
 
 from django.contrib.auth import get_user_model
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import SearchVectorField
 from django.core.validators import MaxValueValidator, RegexValidator
 from django.db import connection, models
 from django.template import Context, Template
@@ -194,6 +196,11 @@ class Report(models.Model):
     # referrals
     referred = models.BooleanField(default=False)
     referral_section = models.TextField(choices=SECTION_CHOICES, blank=True)
+
+    violation_summary_search_vector = SearchVectorField(null=True, editable=False)
+
+    class Meta:
+        indexes = [GinIndex(fields=['violation_summary_search_vector'])]
 
     @cached_property
     def last_incident_date(self):
