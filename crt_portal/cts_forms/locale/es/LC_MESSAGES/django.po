@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-17 16:54+0000\n"
+"POT-Creation-Date: 2021-03-18 18:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -296,8 +296,8 @@ msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in the workplace</strong>"
 msgstr ""
-"Denegado/a un acomodo para una discapacidad, incluyendo el no poder tener "
-"un animal de servicio <strong>en un lugar de trabajo</strong>"
+"Denegado/a un acomodo para una discapacidad, incluyendo el no poder tener un "
+"animal de servicio <strong>en un lugar de trabajo</strong>"
 
 #: model_variables.py:62
 msgid ""
@@ -326,7 +326,8 @@ msgid ""
 "have a service or assistance animal <strong>in public housing</strong>"
 msgstr ""
 "Denegado/a un acomodo para una discapacidad, incluyendo el no tener permiso "
-"para tener un animal de servicio o de asistencia <strong>en una vivienda pública</strong>"
+"para tener un animal de servicio o de asistencia <strong>en una vivienda "
+"pública</strong>"
 
 #: model_variables.py:68
 msgid "Harassment based on race, sex, national origin, disability, or religion"
@@ -417,7 +418,8 @@ msgid ""
 "have a service animal <strong>in a commercial or public location</strong>"
 msgstr ""
 "Denegado/a un acomodo para una discapacidad, incluyendo el no tener permiso "
-"para tener un animal de servicio <strong>en un lugar comercial o público</strong>"
+"para tener un animal de servicio <strong>en un lugar comercial o público</"
+"strong>"
 
 #: model_variables.py:92
 msgid ""
@@ -1326,7 +1328,7 @@ msgstr "obligatorio"
 
 #: templates/forms/confirmation.html:10
 msgid "Submission complete"
-msgstr ""
+msgstr "Envío completo"
 
 #: templates/forms/confirmation.html:25 templates/forms/confirmation.html:31
 #: templates/forms/portal/header.html:3
