@@ -6,7 +6,7 @@ from django.test import TestCase
 from django.test.client import Client
 from django.urls import reverse
 
-from ..admin import ACTION_FIELDS, REPORT_FIELDS, EXCLUDED_REPORT_FIELDS
+from ..admin import ACTION_FIELDS, REPORT_FIELDS
 from ..forms import add_activity
 from ..models import Report
 from .test_data import SAMPLE_REPORT
@@ -62,7 +62,7 @@ class ReportAdminTests(TestCase):
         self.client.force_login(self.superuser)
         form_data = {'action': 'export_reports_as_csv',
                      '_selected_action': [report.id for report in Report.objects.all()]}
-        
+
         response = self.client.post(self.url, form_data)
 
         # Read through the entire streamed response
