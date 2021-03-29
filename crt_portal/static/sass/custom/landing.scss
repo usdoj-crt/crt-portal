@@ -129,6 +129,41 @@ $arrow-height: 24px;
   .crt-menu--section {
     margin-top: 0.1rem;
     padding-right: 0;
+
+    .language-selection {
+      @media (min-width: 64em) {
+        display: none;
+      }
+
+      .language-selection__inner {
+        margin-top: 2rem;
+      }
+    }
+
+    .language-selection__button-active {
+      font-weight: bold !important;
+      background-color: rgba($color: #162e51, $alpha: 0.1)
+    }
+
+    .language-assistance {
+      @media (min-width: 64em) {
+        display: none;
+      }
+
+      .language-assistance__inner {
+        margin-top: 1rem;
+
+        img {
+          height: 1rem;
+        }
+
+        a {
+          color: #162e51;
+          padding-top: 0px;
+          padding-left: 0.5rem;
+        }
+      }
+    }
   }
 
   .crt-menu--navbar {
@@ -157,7 +192,7 @@ $arrow-height: 24px;
     }
 
     @include at-media-max(desktop) {
-      color: black !important;
+      color: #162e51 !important;
     }
   }
 
