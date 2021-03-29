@@ -3,6 +3,11 @@
 .usa-banner {
   background-color: color($theme-color-base-ink);
 
+  .usa-banner__header {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+  }
+
   .usa-banner__header-text,
   .usa-media-block__body {
     color: color('white');
@@ -25,12 +30,21 @@
   .language-selection {
     text-align: right;
 
+    .language-selection__inner {
+      display: inline-flex;
+    }
+
     .language-selection__button {
       margin-left: 1.5rem;
 
       .usa-banner__button-text {
         text-decoration: none;
       }
+    }
+
+    img {
+      height: 1rem;
+      margin-top: .25rem;
     }
 
     .language-selection__button-active {
