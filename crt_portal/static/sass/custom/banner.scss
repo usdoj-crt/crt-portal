@@ -21,4 +21,24 @@
       color: color($theme-color-warning-light);
     }
   }
+
+  .language-selection {
+    text-align: right;
+
+    .language-selection__button {
+      margin-left: 1.5rem;
+
+      .usa-banner__button-text {
+        text-decoration: none;
+      }
+    }
+
+    .language-selection__button-active {
+      text-decoration: underline;
+    }
+
+    .language-selection__button::after {
+      display: none;
+    }
+  }
 }
