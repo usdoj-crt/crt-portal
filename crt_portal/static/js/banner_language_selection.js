@@ -16,5 +16,4 @@
       form.submit();
     };
   });
-
 })(window, document);
