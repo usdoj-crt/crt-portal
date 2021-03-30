@@ -31,10 +31,10 @@ def test_select_spanish_from_banner(page):
 
 @pytest.mark.only_browser("chromium")
 def test_select_english_from_mobile_menu(page):
-    page.set_viewport_size({ 'width': 800, 'height': 1200 })
+    page.set_viewport_size({'width': 800, 'height': 1200})
 
     page.goto('/')
-    
+
     assert page.title() == 'Contact the Civil Rights Division | Department of Justice'
     assert page.is_visible("button.crt-menu--mobile.usa-menu-btn")
 
@@ -50,10 +50,10 @@ def test_select_english_from_mobile_menu(page):
 
 @pytest.mark.only_browser("chromium")
 def test_select_spanish_from_mobile_menu(page):
-    page.set_viewport_size({ 'width': 800, 'height': 1200 })
+    page.set_viewport_size({'width': 800, 'height': 1200})
 
     page.goto('/')
-    
+
     assert page.title() == 'Contact the Civil Rights Division | Department of Justice'
     assert page.is_visible("button.crt-menu--mobile.usa-menu-btn")
 
@@ -65,5 +65,3 @@ def test_select_spanish_from_mobile_menu(page):
         page.click("a[data-value='es']")
 
     assert page.title() == 'Comuníquese con la División de Derechos Civiles | Departamento de Justicia'
-
-    
