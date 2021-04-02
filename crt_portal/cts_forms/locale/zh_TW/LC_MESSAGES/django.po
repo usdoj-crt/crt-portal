@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-02 14:44+0000\n"
+"POT-Creation-Date: 2021-04-02 17:49+0000\n"
 "PO-Revision-Date: 2021-03-31 17:42-0500\n"
 "Language: Chinese Traditional\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1683,15 +1683,15 @@ msgid "Understanding your rights"
 msgstr "瞭解您的權利"
 
 #: templates/landing.html:159
+#, fuzzy
 msgid ""
 "Civil rights laws can protect you from unlawful discrimination, harassment, "
 "or abuse in a variety of settings like <span class=\"crt-landing--"
 "rights_text crt-landing--rights_categories\">housing, the workplace, school, "
 "voting, business, healthcare, public spaces</span>, and more."
 msgstr ""
-"民權法可保護您免於在各種場合遭受非法歧視、騷擾或虐待，如<span class=\"crt-"
-"landing--rights_text crt-landing--rights_categories\">住房、職場、學校、投"
-"票、商店、醫療保健設施、公共場所</span>等等。"
+"民權法可保護您免於在各種場合遭受非法歧視、騷擾或虐待，如住房、職場、學校、投"
+"票、商店、醫療保健設施、公共場所等等。"
 
 #: templates/landing.html:162
 #, fuzzy
