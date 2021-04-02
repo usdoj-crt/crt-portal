@@ -152,6 +152,7 @@ LANGUAGE_CODE = 'en-us'
 LANGUAGES = [
     ('es', _('Spanish')),
     ('en', _('English')),
+    ('zh-tw', _('Chinese Traditional')),
 ]
 
 TIME_ZONE = 'America/New_York'
