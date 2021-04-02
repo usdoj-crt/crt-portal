@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-02 15:04+0000\n"
+"POT-Creation-Date: 2021-04-02 18:07+0000\n"
 "PO-Revision-Date: 2021-04-02 10:07-0500\n"
 "Language: Chinese Simplified\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1313,14 +1313,13 @@ msgid "Get help immediately if you are in danger"
 msgstr "如果身处危险之中，请立即寻求帮助"
 
 #: templates/forms/confirmation.html:178
-#, fuzzy
 msgid ""
 "If you reported an incident where you or someone else has experienced or is "
 "still experiencing physical harm or violence, or are in immediate danger, "
 "please call <a href=\"tel:911\">911</a> and contact the police."
 msgstr ""
 "如果在您报告的事件中，您或他人已经历或仍在经历着身体伤害或暴力，或仍随时有危"
-"险，请拨打 911 报警。"
+"险，请拨打 <a href=\"tel:911\">911</a> 报警。"
 
 #: templates/forms/confirmation.html:191
 msgid "Your submission"
@@ -1331,7 +1330,6 @@ msgid "We're sorry, something went wrong"
 msgstr "很抱歉，出了点故障"
 
 #: templates/forms/error_422.html:8
-#, fuzzy
 msgid ""
 "\n"
 "        <p>This error might be associated with an incompatible Internet "
@@ -1342,9 +1340,9 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"该错误可能与互联网浏览器不兼容有关。请下载最新版本的 Google Chrome、Mozilla "
-"Firefox、Safari 或 Microsoft Edge。\n"
-"此外，请不要在输入报告时使用多个浏览器和/或浏览器分页。\n"
+"        <p>该错误可能与互联网浏览器不兼容有关。请下载最新版本的 Google "
+"Chrome、Mozilla Firefox、Safari 或 Microsoft Edge。</p>\n"
+"        <p>此外，请不要在输入报告时使用多个浏览器和/或浏览器分页。</p>\n"
 "    "
 
 #: templates/forms/errors.html:33
@@ -1432,7 +1430,7 @@ msgid "Contact the Department of Justice to report a civil rights violation"
 msgstr "联系司法部举报一起侵犯民事权利的行为"
 
 #: templates/forms/report_base.html:55
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "                  1 error found\n"
@@ -1447,7 +1445,7 @@ msgstr[0] ""
 "                "
 msgstr[1] ""
 "\n"
-"                  发现 1 个错误\n"
+"                  发现 %(counter)s 个错误\n"
 "                "
 
 #: templates/forms/report_base.html:84
@@ -1927,7 +1925,8 @@ msgid ""
 "official website and that any information you provide is encrypted and "
 "transmitted securely."
 msgstr ""
-"“https://”可确保您连接到官方网站，您提供的任何信息都经过加密并可安全传输。"
+"<strong>https://</strong> 可确保您连接到官方网站，您提供的任何信息都经过加密"
+"并可安全传输。"
 
 #: templates/partials/banner/usa_banner_header.html:9
 msgid "An official website of the United States government"
@@ -2100,7 +2099,6 @@ msgstr ""
 "中包括与以下人员共享："
 
 #: templates/privacy.html:42
-#, fuzzy
 msgid ""
 "\n"
 "                    <li>\n"
@@ -2132,16 +2130,23 @@ msgid ""
 "                    </li>\n"
 "                    "
 msgstr ""
+"\n"
+"                    <li>\n"
 "法庭、治安法官或行政法庭，包括在和解谈判过程中向对方律师披露的信息；\n"
-"                \n"
+"                    </li>\n"
+"                    <li>\n"
 "国会议员提交涉及个人的请求，而我们所持有的记录与此士有关，而且此人请求国会议"
 "员就记录中的主题事项提供协助。\n"
-"                    \n"
+"                    </li>\n"
+"                    <li>\n"
 "司法部的承包商，为了履行合同需要获取信息。根据 5 U.S.C.552a（m）的规定，信息"
 "接收者应遵守经修订的 1974 年《隐私法》的要求。\n"
-"                   \n"
+"                    </li>\n"
+"                    <li>\n"
 "联邦、州或地方执法机构（如果我们意识到违反或可能违反我们管辖范围以外的法律或"
-"法规）。"
+"法规）。\n"
+"                    </li>\n"
+"                    "
 
 #: templates/privacy.html:65
 msgid ""
