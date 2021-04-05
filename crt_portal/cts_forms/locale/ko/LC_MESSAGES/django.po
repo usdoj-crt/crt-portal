@@ -1369,14 +1369,13 @@ msgid "Get help immediately if you are in danger"
 msgstr "위험에 처해 있다면 즉시 도움을 구하세요"
 
 #: templates/forms/confirmation.html:178
-#, fuzzy
 msgid ""
 "If you reported an incident where you or someone else has experienced or is "
 "still experiencing physical harm or violence, or are in immediate danger, "
 "please call <a href=\"tel:911\">911</a> and contact the police."
 msgstr ""
 "귀하 또는 다른 누군가가 물리적 위해나 폭력을 경험했거나 여전히 경험하고 있는 "
-"사건을 신고했거나 긴박한 위험에 처해 있는 경우라면, 911에 전화해 경찰을 접촉"
+"사건을 신고했거나 긴박한 위험에 처해 있는 경우라면, <a href=\"tel:911\">911</a>에 전화해 경찰을 접촉"
 "하십시오."
 
 #: templates/forms/confirmation.html:191
@@ -1494,7 +1493,7 @@ msgid "Contact the Department of Justice to report a civil rights violation"
 msgstr "법무부에 접촉하여 민권 침해를 신고하세요"
 
 #: templates/forms/report_base.html:55
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "                  1 error found\n"
@@ -1509,7 +1508,7 @@ msgstr[0] ""
 "        "
 msgstr[1] ""
 "\n"
-"         1개의 오류 발견\n"
+"         %(counter)s1개의 오류 발견\n"
 "        "
 
 #: templates/forms/report_base.html:84
@@ -1661,9 +1660,8 @@ msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
 msgstr "또는 귀하의 권리에 대해 더 알아보세요"
 
 #: templates/landing.html:101
-#, fuzzy
 msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
-msgstr "위험에 처해 있다면 911로 연락하세요"
+msgstr "위험에 처해 있다면 <a href=\"tel:911\">911</a>로 연락하세요"
 
 #: templates/landing.html:112
 #, fuzzy
@@ -1982,13 +1980,12 @@ msgid "The site is secure."
 msgstr "해당 사이트는 안전합니다."
 
 #: templates/partials/banner/usa_banner_content.html:17
-#, fuzzy
 msgid ""
 "The <strong>https://</strong> ensures that you are connecting to the "
 "official website and that any information you provide is encrypted and "
 "transmitted securely."
 msgstr ""
-"https://는 귀하가 공식 웹사이트에 연결되어 있음을 보장하며 귀하가 제공하는 정"
+"<strong>https://</strong>는 귀하가 공식 웹사이트에 연결되어 있음을 보장하며 귀하가 제공하는 정"
 "보가 암호화되어 안전하게 전송됨을 보장합니다."
 
 #: templates/partials/banner/usa_banner_header.html:9
@@ -2168,7 +2165,6 @@ msgstr ""
 "이 포함됩니다:"
 
 #: templates/privacy.html:42
-#, fuzzy
 msgid ""
 "\n"
 "                    <li>\n"
@@ -2200,18 +2196,26 @@ msgid ""
 "                    </li>\n"
 "                    "
 msgstr ""
+"\n"
+"                    <li>\n"
 "법원, 치안판사 또는 행정 재판소 뿐 아니라 합의 협상 중에 상대편 변호사에의 공"
 "개 포함;\n"
-"        \n"
+"                    </li>\n"
+"                    <li>\n"
 "어떤 개인이 기록 내용과 관련하여 국회의원에게 도움을 요청한 경우, 그 기록에 "
 "관련된 개인을 포함하는 요청서를 제출하는 국회의원.\n"
-"          \n"
+"                    </li>\n"
+"                    <li>\n"
 "계약 수행을 위해 정보에 접근할 필요가 있는, 법무부와 계약한 계약자. 정보를 받"
 "는 사람들은 5 U.S.C. 552a(m)에 따라 1974년 개정된 개인정보 보호법 요건들을 준"
 "수할 것이 요구됩니다.\n"
-"          \n"
+"                    </li>\n"
+"\n"
+"                    <li>\n"
 "우리 관할권 범위 밖의 법규 위반 또는 잠재적 법규 위반을 알게 되는 경우에 연"
 "방, 주 또는 지역 법 집행 기관."
+"                    </li>\n"
+"                    "
 
 #: templates/privacy.html:65
 msgid ""
