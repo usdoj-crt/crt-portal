@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static %}
 
 {% get_current_language as LANGUAGE_CODE %}
 {% get_available_languages as LANGUAGES %}
@@ -6,7 +7,7 @@
 
 <div class="grid-col-fill language-selection">
     <div class="grid-col-auto language-selection__inner">
-      <img src="/static/img/globe-language-white.svg" alt="language" class="icon">
+      <img src="{% static 'img/globe-language-white.svg' %}" alt="language" class="icon">
       <form id="language_selection_form" action="{% url 'set_language' %}" method="post" class="usa-form">{% csrf_token %}
       <input id="language_input" name="language" type="hidden" />
         {% for language in languages %}
