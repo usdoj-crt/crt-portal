@@ -148,10 +148,23 @@ LOGIN_REDIRECT_URL = '/'
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
+import django.conf.locale
+TL_INFO = {
+    'tl': {
+        'bidi': True,
+        'code': 'tl',
+        'name': 'Tagalog',
+        'name_local': 'Tagalog',
+    }
+}
+LANG_INFO = dict(django.conf.locale.LANG_INFO, **TL_INFO)
+django.conf.locale.LANG_INFO = LANG_INFO
+
 LANGUAGE_CODE = 'en-us'
 LANGUAGES = [
     ('es', _('Spanish')),
     ('en', _('English')),
+    ('tl', _('Tagalog')),
 ]
 
 TIME_ZONE = 'America/New_York'
