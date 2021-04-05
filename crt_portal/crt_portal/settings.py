@@ -14,6 +14,7 @@ import json
 import os
 
 import boto3
+import django.conf.locale
 from django.utils.log import DEFAULT_LOGGING
 from django.utils.translation import gettext_lazy as _
 
@@ -148,7 +149,6 @@ LOGIN_REDIRECT_URL = '/'
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-import django.conf.locale
 TL_INFO = {
     'tl': {
         'bidi': True,
