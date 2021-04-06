@@ -89,6 +89,7 @@ INSTALLED_APPS = [
     'formtools',
     # 'django_auth_adfs' in production only
     'crequest',
+    'tms'
 ]
 SITE_ID = 1
 
@@ -425,3 +426,8 @@ if ENABLE_DEBUG_TOOLBAR:
     INSTALLED_APPS += ['debug_toolbar', ]
     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
     DEBUG_TOOLBAR_CONFIG = {'SHOW_TOOLBAR_CALLBACK': lambda _: True}
+
+
+TMS_ENDPOINT = "https://stage-tms.govdelivery.com"
+TMS_AUTH_TOKEN = 'not a real token'
+EMAIL_BACKEND = 'tms.backend.TMSEmailBackend'
