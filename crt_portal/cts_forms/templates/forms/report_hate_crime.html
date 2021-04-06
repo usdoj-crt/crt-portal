@@ -23,8 +23,11 @@
 </div>
 {% endblock %}
 
-{% block usa_footer %}
+{% block footer_extra %}
   {% include "partials/redirect-modal.html" %}
+  <div class="privacy-footer">
+    {% include "partials/policy.html" %}
+  </div>
 {% endblock %}
 
 {% block page_js %}
