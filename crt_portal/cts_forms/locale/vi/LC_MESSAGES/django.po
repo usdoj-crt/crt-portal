@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-05 20:39+0000\n"
+"POT-Creation-Date: 2021-04-06 14:23+0000\n"
 "PO-Revision-Date: 2021-04-05 15:38-0500\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -11,9 +11,8 @@ msgstr ""
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
 #: forms.py:161 forms.py:1546
-#, fuzzy
 msgid " - Select - "
-msgstr "- Chọn -"
+msgstr " - Chọn - "
 
 #. Translators: This is help text for the question asking if someone is a service member
 #: forms.py:173
@@ -1220,28 +1219,14 @@ msgstr "Đi thẳng đến nội dung chính"
 
 #: templates/base.html:121 templates/forms/errors.html:13
 #: templates/forms/report_maintenance.html:13 templates/landing.html:17
-#, fuzzy
 msgid "U.S. Department of Justice"
-msgstr ""
-"#-#-#-#-#  vi.po  #-#-#-#-#\n"
-"Bộ Tư pháp Hoa Kỳ\n"
-"#-#-#-#-#  vi.po  #-#-#-#-#\n"
-"Bộ Tư pháp Hoa Kỳ\n"
-"#-#-#-#-#  vi.po  #-#-#-#-#\n"
-"U.S. Department of Justice"
+msgstr "Bộ Tư pháp Hoa Kỳ\n"
 
 #: templates/base.html:124 templates/forms/confirmation.html:21
 #: templates/forms/errors.html:14 templates/forms/report_maintenance.html:14
 #: templates/landing.html:20
-#, fuzzy
 msgid "Civil Rights Division"
-msgstr ""
-"#-#-#-#-#  vi.po  #-#-#-#-#\n"
-"Ban Dân Quyền\n"
-"#-#-#-#-#  vi.po  #-#-#-#-#\n"
-"Ban Dân Quyền\n"
-"#-#-#-#-#  vi.po  #-#-#-#-#\n"
-"Civil Rights Division"
+msgstr "Ban Dân Quyền\n"
 
 #: templates/forms/complaint_view/actions/bulk_actions.html:78
 #: templates/forms/grouped_questions.html:6
@@ -1460,7 +1445,6 @@ msgid "We're sorry, something went wrong"
 msgstr "Chúng tôi rất tiếc, đã có lỗi xảy ra"
 
 #: templates/forms/error_422.html:8
-#, fuzzy
 msgid ""
 "\n"
 "        <p>This error might be associated with an incompatible Internet "
@@ -1471,11 +1455,11 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"Lỗi này có thể liên quan đến trình duyệt Internet không tương thích. Vui "
-"lòng tải xuống phiên bản mới nhất của trình duyệt Google Chrome, Mozilla "
-"Firefox, Safari hoặc Microsoft Edge.\n"
-"Ngoài ra, vui lòng không sử dụng nhiều trình duyệt và/hoặc các tab trình "
-"duyệt khi nhập báo cáo của quý vị.\n"
+"        <p>Lỗi này có thể liên quan đến trình duyệt Internet không tương "
+"thích. Vui lòng tải xuống phiên bản mới nhất của trình duyệt Google Chrome, "
+"Mozilla Firefox, Safari hoặc Microsoft Edge.</p>\n"
+"        <p>Ngoài ra, vui lòng không sử dụng nhiều trình duyệt và/hoặc các "
+"tab trình duyệt khi nhập báo cáo của quý vị.</p>\n"
 "    "
 
 #: templates/forms/errors.html:33
@@ -1567,7 +1551,7 @@ msgid "Contact the Department of Justice to report a civil rights violation"
 msgstr "Liên hệ với Bộ Tư pháp để báo cáo hành vi vi phạm dân quyền"
 
 #: templates/forms/report_base.html:55
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "                  1 error found\n"
@@ -1582,7 +1566,7 @@ msgstr[0] ""
 "                "
 msgstr[1] ""
 "\n"
-"                  1 lỗi được tìm thấy\n"
+"                  %(counter)s lỗi được tìm thấy\n"
 "                "
 
 #: templates/forms/report_base.html:84
@@ -1741,9 +1725,8 @@ msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
 msgstr "hoặc tìm hiểu thêm về các quyền của quý vị"
 
 #: templates/landing.html:101
-#, fuzzy
 msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
-msgstr "Nếu quý vị đang gặp nguy hiểm, hãy gọi 911"
+msgstr "Nếu quý vị đang gặp nguy hiểm, hãy gọi <a href=\"tel:911\">911</a>"
 
 #: templates/landing.html:112
 #, fuzzy
@@ -2089,15 +2072,14 @@ msgid "The site is secure."
 msgstr "Trang web này được bảo mật."
 
 #: templates/partials/banner/usa_banner_content.html:17
-#, fuzzy
 msgid ""
 "The <strong>https://</strong> ensures that you are connecting to the "
 "official website and that any information you provide is encrypted and "
 "transmitted securely."
 msgstr ""
-"Giao thức https:// đảm bảo rằng quý vị đang kết nối với trang web chính thức "
-"và mọi thông tin quý vị cung cấp đều được mã hóa và truyền đi một cách an "
-"toàn."
+"Giao thức <strong>https://</strong> đảm bảo rằng quý vị đang kết nối với "
+"trang web chính thức và mọi thông tin quý vị cung cấp đều được mã hóa và "
+"truyền đi một cách an toàn."
 
 #: templates/partials/banner/usa_banner_header.html:9
 msgid "An official website of the United States government"
