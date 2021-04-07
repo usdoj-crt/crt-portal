@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-07 20:18+0000\n"
+"POT-Creation-Date: 2021-04-07 20:27+0000\n"
 "PO-Revision-Date: 2021-03-31 17:42-0500\n"
 "Language: Chinese Traditional\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1705,11 +1705,12 @@ msgid "Examples"
 msgstr "例子"
 
 #: templates/landing.html:230
-#, fuzzy
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
-msgstr "如果您認為自己曾發生類似情況，請瞭解該如何舉報民權侵犯事件。"
+msgstr ""
+"如果您認為自己曾發生類似情況，請瞭解該<a href=\"#crt-landing--reporting\">如"
+"何舉報民權侵犯事件</a>。"
 
 #: templates/landing.html:240
 msgid "Protected by civil rights laws"
@@ -1720,11 +1721,12 @@ msgid "These are the most common characteristics that are legally protected."
 msgstr "以下是受到法律保護的最常見特徵清單。"
 
 #: templates/landing.html:245
-#, fuzzy
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
-msgstr "殘障（包括暫時性或康復中的情況）"
+msgstr ""
+"殘障<span class=\"crt-landing--protected\">（包括暫時性或康復中的情況）</"
+"span>"
 
 #: templates/landing.html:247
 msgid "Sex, gender identity, and sexual orientation"
@@ -1735,18 +1737,19 @@ msgid "Immigration/citizenship status"
 msgstr "移民／公民身分"
 
 #: templates/landing.html:249
-#, fuzzy
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
-msgstr "語言和原國籍（包括祖籍和族裔）"
+msgstr ""
+"語言和原國籍<span class=\"crt-landing--protected\">（包括祖籍和族裔）</span>"
 
 #: templates/landing.html:250
-#, fuzzy
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
-msgstr "家庭狀況、婚姻狀態或是否擁有子女（包括懷孕）"
+msgstr ""
+"家庭狀況、婚姻狀態或是否擁有子女<span class=\"crt-landing--protected\">（包括"
+"懷孕）</span>"
 
 #: templates/landing.html:252
 msgid "Genetic identification"
@@ -1814,12 +1817,13 @@ msgid "Submit a report"
 msgstr "提交報告"
 
 #: templates/landing.html:325
-#, fuzzy
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
 "\"#address-footer\">mail</a>."
-msgstr "如果您無法使用線上表格，您可以致電或透過郵件舉報侵權事件。"
+msgstr ""
+"如果您無法使用線上表格，您可以<a href=\"#phone-footer\">致電</a>或透過郵件舉"
+"報侵權事件。"
 
 #: templates/landing.html:335
 msgid "Already submitted a report?"
@@ -1830,16 +1834,15 @@ msgid "Here's what to expect."
 msgstr "以下是後續流程。"
 
 #: templates/landing.html:342
-#, fuzzy
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
 "about the outcome of our review. However, we may not always be able to "
 "provide you with updates because:"
 msgstr ""
-"感謝您提交報告。我們會仔細閱讀每份報告，以判定我們是否有權提供協助。我們會盡"
-"力通知您有關我們審查的結果。然而，我們可能不一定能夠為您提供進度更新，理由如"
-"下："
+"<strong>感謝您提交報告。</strong>我們會仔細閱讀每份報告，以判定我們是否有權提"
+"供協助。我們會盡力通知您有關我們審查的結果。然而，我們可能不一定能夠為您提供"
+"進度更新，理由如下："
 
 #: templates/landing.html:344
 msgid ""
@@ -1974,7 +1977,7 @@ msgid "Privacy Policy"
 msgstr "隱私政策"
 
 #: templates/partials/policy.html:16
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "            The purpose of this form is to allow the public to submit civil "
@@ -1990,10 +1993,11 @@ msgid ""
 msgstr ""
 "\n"
 "             本表格的目的是要讓一般民眾可以向司法部提出民權投訴，以讓我們可以"
-"在我們的職權範圍內執行三十多條民權法規。這些法規授權我們收集這些資訊。您應瞭"
-"解，您透過本表格所提供的所有資訊均屬於自願提供，但您若未提供某些資訊，可能會"
-"使司法部處理您投訴的能力受到限制。我們可將這些資訊用於例行用途，包括在特定情"
-"況下與下列人士分享這些資訊：\n"
+"在我們的職權範圍內執行三十多條<a href=\"%(privacy_policy_url)s#our-statutes"
+"\">民權法規</a>。這些法規授權我們收集這些資訊。您應瞭解，您透過本表格所提供的"
+"所有資訊均屬於自願提供，但您若未提供某些資訊，可能會使司法部處理您投訴的能力"
+"受到限制。我們可將這些資訊用於例行用途，包括在特定情況下與下列人士分享這些資"
+"訊：\n"
 "            "
 
 #: templates/partials/policy.html:20
@@ -2015,11 +2019,12 @@ msgid "Federal, state, or local law enforcement agencies."
 msgstr "聯邦政府、州政府或地方政府的執法機構。"
 
 #: templates/partials/policy.html:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You can find our complete <a href=\"%(privacy_policy_url)s\">Privacy Policy "
 "here</a>."
-msgstr "您可點選此處以查詢我們完整的隱私政策。"
+msgstr ""
+"您可點選此處以查詢我們完整的<a href=\"%(privacy_policy_url)s\">隱私政策</a>。"
 
 #: templates/partials/redirect-modal.html:8
 msgid "You are now leaving the Department of Justice website."
