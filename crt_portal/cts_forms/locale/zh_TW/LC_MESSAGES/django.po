@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-02 17:49+0000\n"
+"POT-Creation-Date: 2021-04-07 20:18+0000\n"
 "PO-Revision-Date: 2021-03-31 17:42-0500\n"
 "Language: Chinese Traditional\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -252,11 +252,12 @@ msgid "Denied reemployment or fired based on military service"
 msgstr "由於服兵役而遭到拒絕復職或遭到解雇"
 
 #: model_variables.py:59
-#, fuzzy
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in the workplace</strong>"
-msgstr "遭到拒絕無法使用殘障便利設施，包括無法攜帶服務性動物至工作場所"
+msgstr ""
+"遭到拒絕無法使用殘障便利設施，包括無法攜帶服務性動物至<strong>工作場所</"
+"strong>"
 
 #: model_variables.py:62
 msgid ""
@@ -275,12 +276,12 @@ msgid "Challenges with terminating a lease due to military status change"
 msgstr "因兵役身分改變而要終止租約时受到阻碍"
 
 #: model_variables.py:65
-#, fuzzy
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service or assistance animal <strong>in public housing</strong>"
 msgstr ""
-"遭到拒絕無法使用殘障便利設施，包括無法攜帶服務性動物或輔助性動物至國民住宅"
+"遭到拒絕無法使用殘障便利設施，包括無法攜帶服務性動物或輔助性動物至<strong>國"
+"民住宅</strong>"
 
 #: model_variables.py:68
 msgid "Harassment based on race, sex, national origin, disability, or religion"
@@ -1215,18 +1216,16 @@ msgid "We may decide to:"
 msgstr "我們可決定："
 
 #: templates/forms/confirmation.html:105
-#, fuzzy
 msgid ""
 "<strong>Open an investigation</strong> or take some other action within the "
 "legal authority of the Justice Department."
-msgstr "立案調查或在司法部的法律權限範圍內採取某些其他行動。"
+msgstr "<strong>立案調查</strong>或在司法部的法律權限範圍內採取某些其他行動。"
 
 #: templates/forms/confirmation.html:106
-#, fuzzy
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
 "report."
-msgstr "在我們針對您的報告進行調查之前收集更多資訊。"
+msgstr "在我們針對您的報告進行調查之前<strong>收集更多資訊</strong>。"
 
 #: templates/forms/confirmation.html:107
 #, fuzzy
@@ -1234,8 +1233,8 @@ msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
 "into your report. If so, we’ll let you know."
 msgstr ""
-"為您建議可以針對您報告進行適當調查的其他政府機關。如發生此情況，我們將會通知"
-"您。"
+"為您建議可以針對您報告進行適當調查的<strong>其他政府機關</strong>。如發生此情"
+"況，我們將會通知您。"
 
 #: templates/forms/confirmation.html:110
 msgid ""
@@ -1406,11 +1405,7 @@ msgstr "民權司相關資訊"
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
-msgstr ""
-"#-#-#-#-#  updated.po  #-#-#-#-#\n"
-"如果您或其他人有紧急的危險，請致電 911 或與當地警察聯絡。\n"
-"#-#-#-#-#  updated.po  #-#-#-#-#\n"
-"如果您或其他人有立即性的危險，請致電 911 或與當地警察聯絡。"
+msgstr "如果您或其他人有紧急的危險，請致電 911 或與當地警察聯絡。\n"
 
 #: templates/forms/portal/progress-bar.html:6
 msgid "progress"
@@ -1559,13 +1554,8 @@ msgid ""
 msgstr ""
 
 #: templates/landing.html:38
-#, fuzzy
 msgid "About the Division"
-msgstr ""
-"#-#-#-#-#  updated.po  #-#-#-#-#\n"
-"民權科相關資訊\n"
-"#-#-#-#-#  updated.po  #-#-#-#-#\n"
-"民權司相關資訊"
+msgstr "民權司相關資訊"
 
 #: templates/landing.html:43
 msgid "Your rights"
@@ -1617,15 +1607,15 @@ msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
 msgstr "如果您處境危險，請聯絡 <a href=\"tel:911\">911</a>"
 
 #: templates/landing.html:112
-#, fuzzy
 msgid ""
 "If you are reporting misconduct by law enforcement or believe you have "
 "experienced a hate crime, please <a aria-label=\"contact the FBI\" class="
 "\"external-link--white\" href=\"https://www.fbi.gov/tips\">contact the FBI</"
 "a>."
 msgstr ""
-"如果您要舉報執法人員的違紀事件或者您認為自己遭遇仇恨犯罪，請與聯邦調查局 "
-"(FBI) 聯絡。"
+"如果您要舉報執法人員的違紀事件或者您認為自己遭遇仇恨犯罪，<a aria-label="
+"\"contact the FBI\" class=\"external-link--white\" href=\"https://www.fbi."
+"gov/tips\">請與聯邦調查局 (FBI) 聯絡</a>。"
 
 #: templates/landing.html:126
 msgid "We protect your rights through:"
@@ -1694,7 +1684,6 @@ msgstr ""
 "票、商店、醫療保健設施、公共場所等等。"
 
 #: templates/landing.html:162
-#, fuzzy
 msgid ""
 "If you have been <span class=\"crt-landing--rights_categories\">mistreated "
 "by law enforcement</span> (including while incarcerated), believe you have "
@@ -1702,8 +1691,10 @@ msgid ""
 "crime</span>, or a victim of <span class=\"crt-landing--rights_categories"
 "\">human trafficking</span>, we can help get you to the right place."
 msgstr ""
-"如果您曾經遭受執法人員（包括在遭到監禁期間）的不當對待、您認為自己曾是仇恨犯"
-"罪或人口販賣的受害者，我們可以協助您與適當的單位聯絡。"
+"如果您曾經遭受執法人員（包括在遭到監禁期間）的<span class=\"crt-landing--"
+"rights_categories\">不當對待</span>、您認為自己曾是<span class=\"crt-"
+"landing--rights_categories\">仇恨犯罪</span>或<span class=\"crt-landing--"
+"rights_categories\">人口販賣</span>的受害者，我們可以協助您與適當的單位聯絡。"
 
 #: templates/landing.html:178
 msgid "Choose from this list to see example civil rights violations:"

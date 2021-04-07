@@ -10,7 +10,7 @@ services:
       - ENV=LOCAL
       - SECRET_KEY=${SECRET_KEY}
       - FORM_AUTOCOMPLETE_OFF=False
-      - USE_LOCALSTACK=True
+    #  - USE_LOCALSTACK=True
       - LOCALSTACK_URL=http://localstack:4566
       - AWS_ACCESS_KEY_ID=test
       - AWS_SECRET_ACCESS_KEY=test
@@ -23,7 +23,7 @@ services:
       - 8000:8000
     depends_on:
       - db
-      - localstack
+    #  - localstack
   localstack:
     container_name: "localstack_main"
     image: localstack/localstack
