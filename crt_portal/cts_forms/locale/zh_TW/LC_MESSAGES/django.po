@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-07 20:27+0000\n"
+"POT-Creation-Date: 2021-04-07 20:45+0000\n"
 "PO-Revision-Date: 2021-03-31 17:42-0500\n"
 "Language: Chinese Traditional\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -11,7 +11,6 @@ msgstr ""
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
 #: forms.py:161 forms.py:1546
-#, fuzzy
 msgid " - Select - "
 msgstr "- 選擇 -"
 
@@ -1159,9 +1158,8 @@ msgid "required"
 msgstr "必填"
 
 #: templates/forms/confirmation.html:8
-#, fuzzy
 msgid "Submission complete"
-msgstr "尚未完成"
+msgstr "完成提交"
 
 #: templates/forms/confirmation.html:20 templates/forms/confirmation.html:26
 #: templates/forms/portal/header.html:3
@@ -1228,7 +1226,6 @@ msgid ""
 msgstr "在我們針對您的報告進行調查之前<strong>收集更多資訊</strong>。"
 
 #: templates/forms/confirmation.html:107
-#, fuzzy
 msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
 "into your report. If so, we’ll let you know."
@@ -2348,9 +2345,8 @@ msgstr ""
 "                "
 
 #: validators.py:101
-#, fuzzy
 msgid "Enter a valid email address."
-msgstr "電子郵件地址"
+msgstr "輸入一个有效的電子郵件地址"
 
 #: views.py:78
 msgid "404 | Page not found"
