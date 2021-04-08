@@ -1,19 +1,15 @@
-# This file was generated from /Users/timothydballard/temp/zh-hant.xlsx
 msgid ""
 msgstr ""
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-08 16:55+0000\n"
-"PO-Revision-Date: 2021-03-31 17:42-0500\n"
+"POT-Creation-Date: 2021-04-08 19:08+0000\n"
 "Language: Chinese Traditional\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: xls-to-po 1.0\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
 #: forms.py:161 forms.py:1546
 msgid " - Select - "
-msgstr "- 選擇 -"
+msgstr " - 選擇 - "
 
 #. Translators: This is help text for the question asking if someone is a service member
 #: forms.py:173
@@ -1439,7 +1435,7 @@ msgstr "已完成"
 msgid ""
 "\n"
 "        Step %(stage_number)s: %(current_step_name)s - "
-msgstr ""
+msgstr "        步驟 %(stage_number)s: %(current_step_name)s - "
 
 #: templates/forms/report_base.html:22
 msgid "Contact the Department of Justice to report a civil rights violation"
@@ -1550,6 +1546,9 @@ msgid ""
 "    %(word_limit)s word limit.\n"
 "  "
 msgstr ""
+"\n"
+"    %(word_limit)s 字數限制.\n"
+"  "
 
 #: templates/forms/word_counter.html:16 templates/forms/word_counter.html:21
 #, python-format
@@ -1558,6 +1557,9 @@ msgid ""
 "          %(word_limit)s word limit reached\n"
 "        "
 msgstr ""
+"\n"
+"          %(word_limit)s 已達字數限制\n"
+"        "
 
 #: templates/landing.html:38
 msgid "About the Division"
@@ -1899,14 +1901,6 @@ msgstr ""
 #: templates/landing.html:371
 msgid "Image attributions"
 msgstr "圖片來源"
-
-#: templates/partials/attachment-uploading-modal.html:8
-msgid "Uploading attachment..."
-msgstr ""
-
-#: templates/partials/attachment-uploading-modal.html:13
-msgid "Your attachment is uploading..."
-msgstr ""
 
 #: templates/partials/banner/usa_banner_content.html:7
 msgid "The .gov means it’s official."
@@ -2460,12 +2454,6 @@ msgstr "請選擇任何適用於您情況的選項（選填）"
 #~ "          步驟：與民權司 | 司法部聯絡\n"
 #~ "        "
 
-#~ msgid "Word limit"
-#~ msgstr "字數限制"
-
-#~ msgid "Word limit reached"
-#~ msgstr "已達字數限制"
-
 #~ msgid "Landing Page"
 #~ msgstr "登陸頁面"
 
@@ -2488,4 +2476,3 @@ msgstr "請選擇任何適用於您情況的選項（選填）"
 
 #~ msgid "Wikimedia Commons Public Domain"
 #~ msgstr "Wikimedia Commons Public Domain"
-
