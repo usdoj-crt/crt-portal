@@ -1436,7 +1436,9 @@ msgstr "已完成"
 msgid ""
 "\n"
 "        Step %(stage_number)s: %(current_step_name)s - "
-msgstr "        步驟 %(stage_number)s: %(current_step_name)s - "
+msgstr ""
+"\n"
+"        步驟 %(stage_number)s: %(current_step_name)s - "
 
 #: templates/forms/report_base.html:22
 msgid "Contact the Department of Justice to report a civil rights violation"
