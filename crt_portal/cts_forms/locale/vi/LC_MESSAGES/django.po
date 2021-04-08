@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-06 14:51+0000\n"
+"POT-Creation-Date: 2021-04-08 16:29+0000\n"
 "PO-Revision-Date: 2021-04-05 15:38-0500\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -313,7 +313,8 @@ msgid ""
 "have a service or assistance animal <strong>in public housing</strong>"
 msgstr ""
 "Bị từ chối hỗ trợ phù hợp cho người khuyết tật, bao gồm cả việc không được "
-"phép sử dụng động vật phục vụ hoặc động vật trợ giúp <strong>trong nhà ở công cộng</strong>"
+"phép sử dụng động vật phục vụ hoặc động vật trợ giúp <strong>trong nhà ở "
+"công cộng</strong>"
 
 #: model_variables.py:68
 msgid "Harassment based on race, sex, national origin, disability, or religion"
@@ -481,7 +482,7 @@ msgstr ""
 "các mối đe dọa gây tổn hại về thể chất, giữ lại tiền lương đã hứa, hoặc bị "
 "giam chân trong một hợp đồng làm việc giả mạo"
 
-#: model_variables.py:127 templates/landing.html:251
+#: model_variables.py:127 templates/landing.html:252
 msgid "Age"
 msgstr "Tuổi"
 
@@ -524,11 +525,11 @@ msgstr "Quốc gia xuất xứ (bao gồm tổ tiên và dân tộc)"
 msgid "Pregnancy"
 msgstr "Mang thai"
 
-#: model_variables.py:136 templates/landing.html:244
+#: model_variables.py:136 templates/landing.html:245
 msgid "Race/color"
 msgstr "Chủng tộc/màu da"
 
-#: model_variables.py:137 templates/landing.html:246
+#: model_variables.py:137 templates/landing.html:247
 msgid "Religion"
 msgstr "Tôn giáo"
 
@@ -1304,24 +1305,25 @@ msgid ""
 "<strong>Open an investigation</strong> or take some other action within the "
 "legal authority of the Justice Department."
 msgstr ""
-"<strong>Mở một cuộc điều tra</strong> hoặc thực hiện một hành động nào khác trong thẩm quyền "
-"pháp lý của Bộ Tư pháp."
+"<strong>Mở một cuộc điều tra</strong> hoặc thực hiện một hành động nào khác "
+"trong thẩm quyền pháp lý của Bộ Tư pháp."
 
 #: templates/forms/confirmation.html:106
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
 "report."
 msgstr ""
-"<strong>Thu thập thêm thông tin</strong> trước khi chúng tôi có thể đánh giá báo cáo của quý "
-"vị."
+"<strong>Thu thập thêm thông tin</strong> trước khi chúng tôi có thể đánh giá "
+"báo cáo của quý vị."
 
 #: templates/forms/confirmation.html:107
 msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
 "into your report. If so, we’ll let you know."
 msgstr ""
-"<strong>Đề nghị một cơ quan chính phủ khác</strong> có thể đánh giá báo cáo của quý vị một "
-"cách chính xác. Nếu vậy, chúng tôi sẽ thông báo cho quý vị biết."
+"<strong>Đề nghị một cơ quan chính phủ khác</strong> có thể đánh giá báo cáo "
+"của quý vị một cách chính xác. Nếu vậy, chúng tôi sẽ thông báo cho quý vị "
+"biết."
 
 #: templates/forms/confirmation.html:110
 msgid ""
@@ -1357,7 +1359,7 @@ msgstr ""
 msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr "Chúng tôi đang nhận và tích cực đánh giá nhiều yêu cầu cùng một lúc."
 
-#: templates/forms/confirmation.html:135 templates/landing.html:347
+#: templates/forms/confirmation.html:135 templates/landing.html:348
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1402,6 +1404,11 @@ msgid ""
 "findlegalhelp.org\">www.findlegalhelp.org</a> or call <a href="
 "\"tel:800-285-2221\">(800) 285-2221</a>"
 msgstr ""
+"Hiệp hội Luật sư Mỹ, vui lòng truy cập <a class=\"external-link--blue external-"
+"link--popup\" aria-label=\"www.findlegalhelp.org\" href=\"http://www."
+"findlegalhelp.org\">www.findlegalhelp.org</a> hoặc gọi "
+"<a href="
+"\"tel:800-285-2221\">(800) 285-2221</a>"
 
 #: templates/forms/confirmation.html:162
 msgid ""
@@ -1410,6 +1417,10 @@ msgid ""
 "href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> "
 "or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
 msgstr ""
+"Legal Service Corporation (hoặc Legal Aid Offices), vui lòng truy cập <a aria-label=\"www."
+"lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--popup\" "
+"href=\"https://www.lsc.gov/find-legal-aid\">www."
+"lsc.gov/find-legal-aid</a> hoặc gọi <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
 
 #: templates/forms/confirmation.html:170
 msgid "2"
@@ -1427,7 +1438,8 @@ msgid ""
 msgstr ""
 "Nếu quý vị đã báo cáo một vụ việc mà quý vị hoặc người khác đã trải qua hoặc "
 "vẫn đang bị tổn hại về thể chất hoặc đang chịu bạo lực, hoặc đang gặp nguy "
-"hiểm ngay trước mắt, vui lòng gọi <a href=\"tel:911\">911</a> và liên hệ với cảnh sát."
+"hiểm ngay trước mắt, vui lòng gọi <a href=\"tel:911\">911</a> và liên hệ với "
+"cảnh sát."
 
 #: templates/forms/confirmation.html:191
 msgid "Your submission"
@@ -1497,18 +1509,18 @@ msgid "File a complaint"
 msgstr "Nộp đơn khiếu nại"
 
 #: templates/forms/errors.html:71 templates/forms/report_maintenance.html:66
-#: templates/landing.html:124
+#: templates/landing.html:125
 msgid "About the Civil Rights Division"
 msgstr "Giới thiệu về Ban Dân Quyền"
 
 #: templates/forms/errors.html:74 templates/forms/report_maintenance.html:69
-#: templates/landing.html:107
+#: templates/landing.html:108
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
 msgstr ""
-"Nếu quý vị hoặc một người nào đó đang gặp nguy hiểm ngay trước mắt, <a href=\"tel:911\">vui lòng "
-"gọi 911 hoặc cảnh sát địa phương</a>."
+"Nếu quý vị hoặc một người nào đó đang gặp nguy hiểm ngay trước mắt, <a href="
+"\"tel:911\">vui lòng gọi 911 hoặc cảnh sát địa phương</a>."
 
 #: templates/forms/portal/progress-bar.html:6
 msgid "progress"
@@ -1587,7 +1599,7 @@ msgid "None selected"
 msgstr "Không lựa chọn nào được chọn"
 
 #: templates/forms/report_hate_crime.html:13
-#: templates/forms/report_hate_crime.html:18 templates/landing.html:221
+#: templates/forms/report_hate_crime.html:18 templates/landing.html:222
 msgid "Were you forced to work against your will?"
 msgstr "Quý vị có bị ép buộc phải làm việc trái ý mình không?"
 
@@ -1600,7 +1612,7 @@ msgstr ""
 "cưỡng bức hoặc ép buộc thực hiện các hành vi tình dục để đổi lấy thứ gì đó "
 "có giá trị."
 
-#: templates/forms/report_hate_crime.html:18 templates/landing.html:221
+#: templates/forms/report_hate_crime.html:18 templates/landing.html:222
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "Yêu cầu trợ giúp từ Đường dây nóng Quốc gia về Buôn bán người"
 
@@ -1682,12 +1694,12 @@ msgstr "Đã gửi?"
 msgid "Contact"
 msgstr "Liên Hệ"
 
-#: templates/landing.html:77
+#: templates/landing.html:78
 #, fuzzy
 msgid "We uphold the civil rights of <em>all</em> people in the United States."
 msgstr "Chúng tôi đề cao quyền công dân của tất cả mọi người dân ở Hoa Kỳ."
 
-#: templates/landing.html:82
+#: templates/landing.html:83
 msgid ""
 "The Civil Rights Division enforces federal laws that protect you from "
 "discrimination based on your race, color, national origin, disability "
@@ -1699,7 +1711,7 @@ msgstr ""
 "tính, tôn giáo, tình trạng gia đình, hoặc tình trạng mất các quyền hợp hiến "
 "khác của quý vị."
 
-#: templates/landing.html:85
+#: templates/landing.html:86
 msgid ""
 "If you believe your civil rights, or someone else’s, have been violated, "
 "submit a report using our online form."
@@ -1707,37 +1719,40 @@ msgstr ""
 "Nếu quý vị tin rằng dân quyền của mình hoặc của người khác đã bị vi phạm, "
 "hãy gửi báo cáo bằng cách sử dụng mẫu trực tuyến của chúng tôi."
 
-#: templates/landing.html:87
+#: templates/landing.html:88
 msgid "Start a report"
 msgstr "Bắt đầu báo cáo"
 
-#: templates/landing.html:88
+#: templates/landing.html:89
 #, fuzzy
 msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
 msgstr "hoặc tìm hiểu thêm về các quyền của quý vị"
 
-#: templates/landing.html:101
+#: templates/landing.html:102
 msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
 msgstr "Nếu quý vị đang gặp nguy hiểm, hãy gọi <a href=\"tel:911\">911</a>"
 
-#: templates/landing.html:112
+#: templates/landing.html:113
 msgid ""
 "If you are reporting misconduct by law enforcement or believe you have "
 "experienced a hate crime, please <a aria-label=\"contact the FBI\" class="
 "\"external-link--white\" href=\"https://www.fbi.gov/tips\">contact the FBI</"
 "a>."
 msgstr ""
-"Nếu quý vị đang báo cáo hành vi sai trái của cơ quan hành pháp hoặc tin rằng quý vị đã phải chịu đựng một hành vi phạm tội do thù ghét, vui lòng <a aria-label=\"contact the FBI\" class=\"external-link--white\" href=\"https://www.fbi.gov/tips\">liên hệ với FBI</a>."
+"Nếu quý vị đang báo cáo hành vi sai trái của cơ quan hành pháp hoặc tin rằng "
+"quý vị đã phải chịu đựng một hành vi phạm tội do thù ghét, vui lòng <a aria-"
+"label=\"contact the FBI\" class=\"external-link--white\" href=\"https://www."
+"fbi.gov/tips\">liên hệ với FBI</a>."
 
-#: templates/landing.html:126
+#: templates/landing.html:127
 msgid "We protect your rights through:"
 msgstr "Chúng tôi bảo vệ các quyền của quý vị thông qua:"
 
-#: templates/landing.html:129
+#: templates/landing.html:130
 msgid "Enforcement"
 msgstr "Đảm bảo thực thi"
 
-#: templates/landing.html:131
+#: templates/landing.html:132
 msgid ""
 "We sue or prosecute individuals and organizations who violate civil rights "
 "laws."
@@ -1745,7 +1760,7 @@ msgstr ""
 "Chúng tôi khởi kiện hoặc truy tố những cá nhân và tổ chức vi phạm luật dân "
 "quyền."
 
-#: templates/landing.html:132
+#: templates/landing.html:133
 msgid ""
 "You can help us do this work by reporting a possible civil rights violation "
 "through our"
@@ -1753,36 +1768,36 @@ msgstr ""
 "Quý vị có thể giúp chúng tôi thực hiện việc này bằng cách báo cáo một hành "
 "vi vi phạm dân quyền có thể xảy ra thông qua"
 
-#: templates/landing.html:132
+#: templates/landing.html:133
 msgid "online form"
 msgstr "mẫu đơn trực tuyến"
 
-#: templates/landing.html:135
+#: templates/landing.html:136
 msgid "Education"
 msgstr "Giáo dục"
 
-#: templates/landing.html:137
+#: templates/landing.html:138
 msgid "We help the public understand how to comply with these laws."
 msgstr "Chúng tôi giúp công chúng hiểu cách tuân thủ các luật này."
 
-#: templates/landing.html:138
+#: templates/landing.html:139
 msgid "We do this through public speaking, technical assistance, and more."
 msgstr ""
 "Chúng tôi thực hiện điều này thông qua phát biểu trước công chúng, trợ giúp "
 "kỹ thuật, và những việc làm khác."
 
-#: templates/landing.html:141
+#: templates/landing.html:142
 msgid "Coordination"
 msgstr "Hợp tác"
 
-#: templates/landing.html:143
+#: templates/landing.html:144
 msgid ""
 "We help the entire federal government work together to enforce these laws."
 msgstr ""
 "Chúng tôi giúp toàn bộ chính phủ liên bang phối hợp làm việc cùng nhau để "
 "thực thi các luật này."
 
-#: templates/landing.html:144
+#: templates/landing.html:145
 msgid ""
 "Our teams work with other agencies to promote a consistent approach to civil "
 "rights laws."
@@ -1790,12 +1805,11 @@ msgstr ""
 "Các nhóm của chúng tôi làm việc với các cơ quan khác để thúc đẩy cách tiếp "
 "cận nhất quán đối với các luật dân quyền."
 
-#: templates/landing.html:156
+#: templates/landing.html:157
 msgid "Understanding your rights"
-msgstr ""
-"Hiểu các quyền của quý vị"
+msgstr "Hiểu các quyền của quý vị"
 
-#: templates/landing.html:159
+#: templates/landing.html:160
 #, fuzzy
 msgid ""
 "Civil rights laws can protect you from unlawful discrimination, harassment, "
@@ -1808,7 +1822,7 @@ msgstr ""
 "việc, trường học, hoạt động bỏ phiếu, doanh nghiệp, chăm sóc sức khỏe, không "
 "gian công cộng, v.v."
 
-#: templates/landing.html:162
+#: templates/landing.html:163
 msgid ""
 "If you have been <span class=\"crt-landing--rights_categories\">mistreated "
 "by law enforcement</span> (including while incarcerated), believe you have "
@@ -1816,75 +1830,82 @@ msgid ""
 "crime</span>, or a victim of <span class=\"crt-landing--rights_categories"
 "\">human trafficking</span>, we can help get you to the right place."
 msgstr ""
-"Nếu quý vị <span class=\"crt-landing--rights_categories\">bị cơ quan hành pháp ngược đãi</span> (kể cả khi đang bị giam giữ), tin "
-"rằng quý vị là nạn nhân của <span class=\"crt-landing--rights_categories\">hành vi phạm tội do thù ghét</span> hoặc nạn nhân của "
-"<span class=\"crt-landing--rights_categories\">nạn buôn người</span>, chúng tôi có thể giúp đưa quý vị đến đúng nơi."
+"Nếu quý vị <span class=\"crt-landing--rights_categories\">bị cơ quan hành "
+"pháp ngược đãi</span> (kể cả khi đang bị giam giữ), tin rằng quý vị là nạn "
+"nhân của <span class=\"crt-landing--rights_categories\">hành vi phạm tội do "
+"thù ghét</span> hoặc nạn nhân của <span class=\"crt-landing--"
+"rights_categories\">nạn buôn người</span>, chúng tôi có thể giúp đưa quý vị "
+"đến đúng nơi."
 
-#: templates/landing.html:178
+#: templates/landing.html:179
 msgid "Choose from this list to see example civil rights violations:"
 msgstr "Chọn từ danh sách này để xem ví dụ về các hành vi vi phạm dân quyền:"
 
-#: templates/landing.html:213
+#: templates/landing.html:214
 msgid "Examples"
 msgstr "Các ví dụ"
 
-#: templates/landing.html:230
+#: templates/landing.html:231
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
 msgstr ""
-"Nếu quý vị cho rằng mình đã trải qua trường hợp tương tự, hãy tìm hiểu <a href=\"#crt-landing--reporting\">cách "
-"báo cáo hành vi vi phạm dân quyền</a>."
+"Nếu quý vị cho rằng mình đã trải qua trường hợp tương tự, hãy tìm hiểu <a "
+"href=\"#crt-landing--reporting\">cách báo cáo hành vi vi phạm dân quyền</a>."
 
-#: templates/landing.html:240
+#: templates/landing.html:241
 msgid "Protected by civil rights laws"
 msgstr "Được các luật dân quyền bảo vệ"
 
-#: templates/landing.html:242
+#: templates/landing.html:243
 msgid "These are the most common characteristics that are legally protected."
 msgstr "Đây là những đặc điểm chung nhất được bảo vệ hợp pháp."
 
-#: templates/landing.html:245
+#: templates/landing.html:246
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
-msgstr "Tình trạng khuyết tật <span class=\"crt-landing--protected\">bao gồm tạm thời hoặc đang phục hồi</span>"
+msgstr ""
+"Tình trạng khuyết tật <span class=\"crt-landing--protected\">bao gồm tạm "
+"thời hoặc đang phục hồi</span>"
 
-#: templates/landing.html:247
+#: templates/landing.html:248
 msgid "Sex, gender identity, and sexual orientation"
 msgstr "Giới tính, nhận dạng giới tính, và xu hướng tình dục"
 
-#: templates/landing.html:248
+#: templates/landing.html:249
 msgid "Immigration/citizenship status"
 msgstr "Tình trạng nhập cư/tư cách công dân"
 
-#: templates/landing.html:249
+#: templates/landing.html:250
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
-msgstr "Ngôn ngữ và quốc gia xuất xứ <span class=\"crt-landing--protected\">bao gồm tổ tiên và dân tộc</span>"
+msgstr ""
+"Ngôn ngữ và quốc gia xuất xứ <span class=\"crt-landing--protected\">bao gồm "
+"tổ tiên và dân tộc</span>"
 
-#: templates/landing.html:250
-#, fuzzy
+#: templates/landing.html:251
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
 msgstr ""
-"Tình trạng gia đình, hôn nhân, hay làm cha mẹ <span class=\"crt-landing--protected\">bao gồm cả tình trạng mang thai</span>"
+"Tình trạng gia đình, hôn nhân, hay làm cha mẹ <span class=\"crt-landing--"
+"protected\">bao gồm cả tình trạng mang thai</span>"
 
-#: templates/landing.html:252
+#: templates/landing.html:253
 msgid "Genetic identification"
 msgstr "Nhận dạng di truyền"
 
-#: templates/landing.html:253
+#: templates/landing.html:254
 msgid "Servicemember status"
 msgstr "Tình trạng quân vụ"
 
-#: templates/landing.html:267
+#: templates/landing.html:268
 msgid "How to report a civil rights violation"
 msgstr "Cách báo cáo một hành vi vi phạm dân quyền"
 
-#: templates/landing.html:272
+#: templates/landing.html:273
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
@@ -1892,11 +1913,11 @@ msgstr ""
 "Nếu quý vị tin rằng quý vị hoặc người khác đã bị phân biệt đối xử bất hợp "
 "pháp, quý vị có thể báo cáo một hành vi vi phạm dân quyền."
 
-#: templates/landing.html:281
+#: templates/landing.html:282
 msgid "Report using our online form."
 msgstr "Báo cáo bằng cách sử dụng mẫu trực tuyến của chúng tôi."
 
-#: templates/landing.html:282
+#: templates/landing.html:283
 msgid ""
 "By completing the online form, you can provide the details we need to "
 "understand what happened. You will receive a confirmation number and your "
@@ -1907,11 +1928,11 @@ msgstr ""
 "nhận và báo cáo của quý vị ngay lập tức được gửi đến nhân viên của chúng tôi "
 "để đánh giá."
 
-#: templates/landing.html:290
+#: templates/landing.html:291
 msgid "We review your report."
 msgstr "Chúng tôi sẽ đánh giá báo cáo của quý vị."
 
-#: templates/landing.html:291
+#: templates/landing.html:292
 msgid ""
 "Teams that specialize in handling your type of issue will review it. If it "
 "needs to be forwarded to another team or agency, we will try to connect your "
@@ -1921,11 +1942,11 @@ msgstr ""
 "vụ việc cần được chuyển tiếp đến một nhóm hoặc cơ quan khác, chúng tôi sẽ cố "
 "gắng kết nối khiếu nại của quý vị với đúng nhóm."
 
-#: templates/landing.html:299
+#: templates/landing.html:300
 msgid "We determine next steps and get back to you."
 msgstr "Chúng tôi xác định các bước tiếp theo và liên hệ lại với quý vị."
 
-#: templates/landing.html:300
+#: templates/landing.html:301
 msgid ""
 "Possible outcomes include: following up for more information, starting a "
 "mediation or investigation, directing you to another organization for "
@@ -1935,62 +1956,63 @@ msgstr ""
 "hòa giải hoặc điều tra, chuyển quý vị đến một tổ chức khác để được trợ giúp "
 "thêm hoặc thông báo cho quý vị rằng chúng tôi không thể giúp đỡ."
 
-#: templates/landing.html:319
+#: templates/landing.html:320
 msgid "Have you or someone you know experienced a civil rights violation?"
 msgstr ""
 "Quý vị hoặc một người nào đó mà quý vị biết có từng bị vi phạm dân quyền "
 "không?"
 
-#: templates/landing.html:320
+#: templates/landing.html:321
 msgid "Submit a report"
 msgstr "Gửi báo cáo"
 
-#: templates/landing.html:325
+#: templates/landing.html:326
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
 "\"#address-footer\">mail</a>."
 msgstr ""
-"Nếu quý vị không thể truy cập vào mẫu trực tuyến, quý vị có thể <a href=\"#phone-footer\">gọi điện</a> để "
-"báo cáo hành vi vi phạm hoặc báo cáo hành vi vi phạm qua <a href=\"#address-footer\">thư</a>."
+"Nếu quý vị không thể truy cập vào mẫu trực tuyến, quý vị có thể <a href="
+"\"#phone-footer\">gọi điện</a> để báo cáo hành vi vi phạm hoặc báo cáo hành "
+"vi vi phạm qua <a href=\"#address-footer\">thư</a>."
 
-#: templates/landing.html:335
+#: templates/landing.html:336
 msgid "Already submitted a report?"
 msgstr "Quý vị đã gửi báo cáo?"
 
-#: templates/landing.html:338
+#: templates/landing.html:339
 msgid "Here's what to expect."
 msgstr "Dưới đây là những việc sẽ xảy ra."
 
-#: templates/landing.html:342
+#: templates/landing.html:343
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
 "about the outcome of our review. However, we may not always be able to "
 "provide you with updates because:"
 msgstr ""
-"<strong>Cảm ơn quý vị đã báo cáo.</strong> Chúng tôi đọc kỹ từng điều một để xác định xem "
-"chúng tôi có đủ thẩm quyền để trợ giúp hay không. Chúng tôi sẽ cố gắng hết "
-"sức để thông báo cho quý vị biết về kết quả đánh giá của chúng tôi. Tuy "
-"nhiên, không phải lúc nào chúng tôi cũng có thể cung cấp cho quý vị các "
-"thông tin cập nhật vì:"
+"<strong>Cảm ơn quý vị đã báo cáo.</strong> Chúng tôi đọc kỹ từng điều một để "
+"xác định xem chúng tôi có đủ thẩm quyền để trợ giúp hay không. Chúng tôi sẽ "
+"cố gắng hết sức để thông báo cho quý vị biết về kết quả đánh giá của chúng "
+"tôi. Tuy nhiên, không phải lúc nào chúng tôi cũng có thể cung cấp cho quý vị "
+"các thông tin cập nhật vì:"
 
-#: templates/landing.html:344
+#: templates/landing.html:345
 msgid ""
 "We're actively working on an investigation or case related to your report."
 msgstr ""
 "Chúng tôi đang tích cực tiến hành một cuộc điều tra hoặc đang xử lý một "
 "trường hợp liên quan đến báo cáo của quý vị."
 
-#: templates/landing.html:345
+#: templates/landing.html:346
 msgid "We're receiving and actively reviewing many reports at the same time."
 msgstr "Chúng tôi đang nhận và tích cực đánh giá nhiều báo cáo cùng một lúc."
 
-#: templates/landing.html:352
+#: templates/landing.html:353
 msgid "Need urgent legal help?"
 msgstr "Quý vị cần hỗ trợ pháp lý khẩn cấp?"
 
-#: templates/landing.html:354
+#: templates/landing.html:355
 msgid ""
 "Due to the amount of reports we receive, it can take several weeks for us to "
 "respond to your issue. Local legal aid offices or lawyers in your area may "
@@ -2001,23 +2023,28 @@ msgstr ""
 "hoặc luật sư trong khu vực của quý vị có thể nhanh chóng hồi đáp hoặc giúp "
 "đỡ quý vị về mối quan ngại của quý vị"
 
-#: templates/landing.html:355
+#: templates/landing.html:356
 msgid ""
 "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
 "aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
 "lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> or call <a href="
 "\"tel:202-295-1500\">(202) 295-1500</a>."
 msgstr ""
+"Liên hệ với Legal Services Corporation tại <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> hoặc "
+"gọi <a href=\"tel:202-295-1500\">(202) 295-1500</a>."
 
-#: templates/landing.html:356
+#: templates/landing.html:357
 msgid ""
 "Or visit <a class=\"external-link--blue external-link--popup\" aria-label="
 "\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
 "findlegalhelp.org</a> or call <a href=\"tel:800-285-2221\">(800) 285-2221</"
 "a> to find a lawyer through the American Bar Association."
 msgstr ""
+"Hoặc truy cập <a class=\"external-link--blue external-link--popup\" aria-label="
+"\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www.findlegalhelp.org</a> hoặc gọi <a href=\"tel:800-285-2221\">(800) 285-2221</a> để tìm luật "
+"sư thông qua Hiệp hội Luật sư Hoa Kỳ."
 
-#: templates/landing.html:370
+#: templates/landing.html:371
 msgid "Image attributions"
 msgstr "Mô tả ảnh"
 
@@ -2101,6 +2128,12 @@ msgstr "Ngân sách và hiệu quả"
 msgid "Legal policies and Disclaimers"
 msgstr "Chính sách pháp lý và Tuyên bố miễn trách nhiệm"
 
+#: templates/partials/menu_language_selection.html:36
+#, fuzzy
+#| msgid "Availability of Language Assistance Services"
+msgid "More Language Assistance Services"
+msgstr "Các Dịch vụ Hỗ trợ Ngôn ngữ sẵn có"
+
 #: templates/partials/policy.html:9
 msgid "Privacy Policy"
 msgstr "Chính sách Quyền Riêng tư"
@@ -2122,14 +2155,14 @@ msgid ""
 msgstr ""
 "\n"
 "            Mục đích của mẫu này là cho phép công chúng gửi khiếu nại về dân "
-"quyền đến Bộ Tư pháp, nhờ đó cho phép chúng tôi thực thi hơn ba mươi <a href=\"%(privacy_policy_url)s#our-statutes\">quy chế "
-"về dân quyền</a> trong thẩm quyền của chúng tôi. Các quy chế này cho phép chúng "
-"tôi thu thập thông tin.  Quý vị nên biết rằng bất kỳ thông tin nào quý vị "
-"cung cấp qua mẫu này đều là tự nguyện, tuy nhiên việc không cung cấp một số "
-"thông tin có thể hạn chế khả năng của Bộ trong việc tìm hiểu về khiếu nại "
-"của quý vị. Chúng tôi có thể sử dụng thông tin này cho các mục đích sử dụng "
-"thông thường nhất định, bao gồm cả việc chia sẻ thông tin này trong một số "
-"trường hợp nhất định với:\n"
+"quyền đến Bộ Tư pháp, nhờ đó cho phép chúng tôi thực thi hơn ba mươi <a href="
+"\"%(privacy_policy_url)s#our-statutes\">quy chế về dân quyền</a> trong thẩm "
+"quyền của chúng tôi. Các quy chế này cho phép chúng tôi thu thập thông tin.  "
+"Quý vị nên biết rằng bất kỳ thông tin nào quý vị cung cấp qua mẫu này đều là "
+"tự nguyện, tuy nhiên việc không cung cấp một số thông tin có thể hạn chế khả "
+"năng của Bộ trong việc tìm hiểu về khiếu nại của quý vị. Chúng tôi có thể sử "
+"dụng thông tin này cho các mục đích sử dụng thông thường nhất định, bao gồm "
+"cả việc chia sẻ thông tin này trong một số trường hợp nhất định với:\n"
 "            "
 
 #: templates/partials/policy.html:20
@@ -2158,7 +2191,8 @@ msgid ""
 "You can find our complete <a href=\"%(privacy_policy_url)s\">Privacy Policy "
 "here</a>."
 msgstr ""
-"Quý vị có thể tìm thấy <a href=\"%(privacy_policy_url)s\">Chính sách Quyền riêng tư</a> đầy đủ của chúng tôi <a href=\"%(privacy_policy_url)s\">tại "
+"Quý vị có thể tìm thấy <a href=\"%(privacy_policy_url)s\">Chính sách Quyền "
+"riêng tư</a> đầy đủ của chúng tôi <a href=\"%(privacy_policy_url)s\">tại "
 "đây</a>."
 
 #: templates/partials/redirect-modal.html:8
@@ -2632,20 +2666,6 @@ msgstr ""
 #~ msgid " Contact the Civil Rights Division | Department of Justice"
 #~ msgstr " Liên hệ với Ban Dân Quyền | Bộ Tư pháp"
 
-#~ msgid ""
-#~ "American Bar Association, visit www.findlegalhelp.org or call (800) "
-#~ "285-2221"
-#~ msgstr ""
-#~ "Hiệp hội Luật sư Mỹ, vui lòng truy cập www.findlegalhelp.org hoặc gọi "
-#~ "(800) 285-2221"
-
-#~ msgid ""
-#~ "Legal Service Corporation (or Legal Aid Offices), visit www.lsc.gov/find-"
-#~ "legal-aid or call (202) 295-1500"
-#~ msgstr ""
-#~ "Legal Service Corporation (hoặc Legal Aid Offices), vui lòng truy cập www."
-#~ "lsc.gov/find-legal-aid hoặc gọi (202) 295-1500"
-
 #~ msgid "Current step:"
 #~ msgstr "Bước hiện tại:"
 
@@ -2664,13 +2684,6 @@ msgstr ""
 
 #~ msgid "Word limit reached"
 #~ msgstr "Đã đạt đến giới hạn từ"
-
-#~ msgid ""
-#~ "Contact Legal Services Corporation at lsc.gov/find-legal-aid or call "
-#~ "(202) 295-1500."
-#~ msgstr ""
-#~ "Liên hệ với Legal Services Corporation tại lsc.gov/find-legal-aid hoặc "
-#~ "gọi (202) 295-1500."
 
 #~ msgid ""
 #~ "Or visit www.findlegalhelp.org or call (800) 285-2221 to find a lawyer "
