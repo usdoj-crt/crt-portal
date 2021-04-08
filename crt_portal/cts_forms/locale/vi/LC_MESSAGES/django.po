@@ -280,13 +280,12 @@ msgid "Denied reemployment or fired based on military service"
 msgstr "Bị từ chối tái tuyển dụng hoặc sa thải do phục vụ quân ngũ"
 
 #: model_variables.py:59
-#, fuzzy
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in the workplace</strong>"
 msgstr ""
 "Bị từ chối hỗ trợ phù hợp cho người khuyết tật, bao gồm cả việc không được "
-"phép sử dụng động vật phục vụ tại nơi làm việc"
+"phép sử dụng động vật phục vụ tại <strong>nơi làm việc</strong>"
 
 #: model_variables.py:62
 msgid ""
@@ -309,13 +308,12 @@ msgstr ""
 "quân nhân"
 
 #: model_variables.py:65
-#, fuzzy
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service or assistance animal <strong>in public housing</strong>"
 msgstr ""
 "Bị từ chối hỗ trợ phù hợp cho người khuyết tật, bao gồm cả việc không được "
-"phép sử dụng động vật phục vụ hoặc động vật trợ giúp trong nhà ở công cộng"
+"phép sử dụng động vật phục vụ hoặc động vật trợ giúp <strong>trong nhà ở công cộng</strong>"
 
 #: model_variables.py:68
 msgid "Harassment based on race, sex, national origin, disability, or religion"
@@ -1243,9 +1241,8 @@ msgid "required"
 msgstr "bắt buộc"
 
 #: templates/forms/confirmation.html:8
-#, fuzzy
 msgid "Submission complete"
-msgstr "chưa hoàn thành"
+msgstr "Đã nộp"
 
 #: templates/forms/confirmation.html:20 templates/forms/confirmation.html:26
 #: templates/forms/portal/header.html:3
@@ -1303,30 +1300,27 @@ msgid "We may decide to:"
 msgstr "Chúng tôi có thể quyết định:"
 
 #: templates/forms/confirmation.html:105
-#, fuzzy
 msgid ""
 "<strong>Open an investigation</strong> or take some other action within the "
 "legal authority of the Justice Department."
 msgstr ""
-"Mở một cuộc điều tra hoặc thực hiện một hành động nào khác trong thẩm quyền "
+"<strong>Mở một cuộc điều tra</strong> hoặc thực hiện một hành động nào khác trong thẩm quyền "
 "pháp lý của Bộ Tư pháp."
 
 #: templates/forms/confirmation.html:106
-#, fuzzy
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
 "report."
 msgstr ""
-"Thu thập thêm thông tin trước khi chúng tôi có thể đánh giá báo cáo của quý "
+"<strong>Thu thập thêm thông tin</strong> trước khi chúng tôi có thể đánh giá báo cáo của quý "
 "vị."
 
 #: templates/forms/confirmation.html:107
-#, fuzzy
 msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
 "into your report. If so, we’ll let you know."
 msgstr ""
-"Đề nghị một cơ quan chính phủ khác có thể đánh giá báo cáo của quý vị một "
+"<strong>Đề nghị một cơ quan chính phủ khác</strong> có thể đánh giá báo cáo của quý vị một "
 "cách chính xác. Nếu vậy, chúng tôi sẽ thông báo cho quý vị biết."
 
 #: templates/forms/confirmation.html:110
@@ -1426,7 +1420,6 @@ msgid "Get help immediately if you are in danger"
 msgstr "Yêu cầu trợ giúp ngay lập tức nếu quý vị đang gặp nguy hiểm"
 
 #: templates/forms/confirmation.html:178
-#, fuzzy
 msgid ""
 "If you reported an incident where you or someone else has experienced or is "
 "still experiencing physical harm or violence, or are in immediate danger, "
@@ -1434,7 +1427,7 @@ msgid ""
 msgstr ""
 "Nếu quý vị đã báo cáo một vụ việc mà quý vị hoặc người khác đã trải qua hoặc "
 "vẫn đang bị tổn hại về thể chất hoặc đang chịu bạo lực, hoặc đang gặp nguy "
-"hiểm ngay trước mắt, vui lòng gọi 911 và liên hệ với cảnh sát."
+"hiểm ngay trước mắt, vui lòng gọi <a href=\"tel:911\">911</a> và liên hệ với cảnh sát."
 
 #: templates/forms/confirmation.html:191
 msgid "Your submission"
@@ -1510,13 +1503,12 @@ msgstr "Giới thiệu về Ban Dân Quyền"
 
 #: templates/forms/errors.html:74 templates/forms/report_maintenance.html:69
 #: templates/landing.html:107
-#, fuzzy
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
 msgstr ""
-"Nếu quý vị hoặc một người nào đó đang gặp nguy hiểm ngay trước mắt, vui lòng "
-"gọi 911 hoặc cảnh sát địa phương."
+"Nếu quý vị hoặc một người nào đó đang gặp nguy hiểm ngay trước mắt, <a href=\"tel:911\">vui lòng "
+"gọi 911 hoặc cảnh sát địa phương</a>."
 
 #: templates/forms/portal/progress-bar.html:6
 msgid "progress"
@@ -1729,20 +1721,13 @@ msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
 msgstr "Nếu quý vị đang gặp nguy hiểm, hãy gọi <a href=\"tel:911\">911</a>"
 
 #: templates/landing.html:112
-#, fuzzy
 msgid ""
 "If you are reporting misconduct by law enforcement or believe you have "
 "experienced a hate crime, please <a aria-label=\"contact the FBI\" class="
 "\"external-link--white\" href=\"https://www.fbi.gov/tips\">contact the FBI</"
 "a>."
 msgstr ""
-"#-#-#-#-#  vi.po  #-#-#-#-#\n"
-"Nếu quý vị đang báo cáo hành vi sai trái của cơ quan hành pháp hoặc tin rằng "
-"quý vị đã phải chịu đựng một hành vi phạm tội do thù ghét, vui lòng liên hệ "
-"với FBI.\n"
-"#-#-#-#-#  vi.po  #-#-#-#-#\n"
-"Nếu quý vị đang báo cáo hành vi sai trái của cơ quan hành pháp hoặc tin rằng "
-"quý vị đã chịu một hành vi phạm tội do thù ghét, vui lòng liên hệ với FBI."
+"Nếu quý vị đang báo cáo hành vi sai trái của cơ quan hành pháp hoặc tin rằng quý vị đã phải chịu đựng một hành vi phạm tội do thù ghét, vui lòng <a aria-label=\"contact the FBI\" class=\"external-link--white\" href=\"https://www.fbi.gov/tips\">liên hệ với FBI</a>."
 
 #: templates/landing.html:126
 msgid "We protect your rights through:"
@@ -1806,13 +1791,9 @@ msgstr ""
 "cận nhất quán đối với các luật dân quyền."
 
 #: templates/landing.html:156
-#, fuzzy
 msgid "Understanding your rights"
 msgstr ""
-"#-#-#-#-#  vi.po  #-#-#-#-#\n"
-"Hiểu các quyền của quý vị\n"
-"#-#-#-#-#  vi.po  #-#-#-#-#\n"
-"Thấu hiểu các quyền của quý vị"
+"Hiểu các quyền của quý vị"
 
 #: templates/landing.html:159
 #, fuzzy
@@ -1828,7 +1809,6 @@ msgstr ""
 "gian công cộng, v.v."
 
 #: templates/landing.html:162
-#, fuzzy
 msgid ""
 "If you have been <span class=\"crt-landing--rights_categories\">mistreated "
 "by law enforcement</span> (including while incarcerated), believe you have "
@@ -1836,9 +1816,9 @@ msgid ""
 "crime</span>, or a victim of <span class=\"crt-landing--rights_categories"
 "\">human trafficking</span>, we can help get you to the right place."
 msgstr ""
-"Nếu quý vị bị cơ quan hành pháp ngược đãi (kể cả khi đang bị giam giữ), tin "
-"rằng quý vị là nạn nhân của hành vi phạm tội do thù ghét hoặc nạn nhân của "
-"nạn buôn người, chúng tôi có thể giúp đưa quý vị đến đúng nơi."
+"Nếu quý vị <span class=\"crt-landing--rights_categories\">bị cơ quan hành pháp ngược đãi</span> (kể cả khi đang bị giam giữ), tin "
+"rằng quý vị là nạn nhân của <span class=\"crt-landing--rights_categories\">hành vi phạm tội do thù ghét</span> hoặc nạn nhân của "
+"<span class=\"crt-landing--rights_categories\">nạn buôn người</span>, chúng tôi có thể giúp đưa quý vị đến đúng nơi."
 
 #: templates/landing.html:178
 msgid "Choose from this list to see example civil rights violations:"
@@ -1849,13 +1829,12 @@ msgid "Examples"
 msgstr "Các ví dụ"
 
 #: templates/landing.html:230
-#, fuzzy
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
 msgstr ""
-"Nếu quý vị cho rằng mình đã trải qua trường hợp tương tự, hãy tìm hiểu cách "
-"báo cáo hành vi vi phạm dân quyền."
+"Nếu quý vị cho rằng mình đã trải qua trường hợp tương tự, hãy tìm hiểu <a href=\"#crt-landing--reporting\">cách "
+"báo cáo hành vi vi phạm dân quyền</a>."
 
 #: templates/landing.html:240
 msgid "Protected by civil rights laws"
@@ -1866,11 +1845,10 @@ msgid "These are the most common characteristics that are legally protected."
 msgstr "Đây là những đặc điểm chung nhất được bảo vệ hợp pháp."
 
 #: templates/landing.html:245
-#, fuzzy
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
-msgstr "Tình trạng khuyết tật bao gồm tạm thời hoặc đang phục hồi"
+msgstr "Tình trạng khuyết tật <span class=\"crt-landing--protected\">bao gồm tạm thời hoặc đang phục hồi</span>"
 
 #: templates/landing.html:247
 msgid "Sex, gender identity, and sexual orientation"
@@ -1881,11 +1859,10 @@ msgid "Immigration/citizenship status"
 msgstr "Tình trạng nhập cư/tư cách công dân"
 
 #: templates/landing.html:249
-#, fuzzy
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
-msgstr "Ngôn ngữ và quốc gia xuất xứ bao gồm tổ tiên và dân tộc"
+msgstr "Ngôn ngữ và quốc gia xuất xứ <span class=\"crt-landing--protected\">bao gồm tổ tiên và dân tộc</span>"
 
 #: templates/landing.html:250
 #, fuzzy
@@ -1893,7 +1870,7 @@ msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
 msgstr ""
-"Tình trạng gia đình, hôn nhân, hay làm cha mẹ bao gồm cả tình trạng mang thai"
+"Tình trạng gia đình, hôn nhân, hay làm cha mẹ <span class=\"crt-landing--protected\">bao gồm cả tình trạng mang thai</span>"
 
 #: templates/landing.html:252
 msgid "Genetic identification"
@@ -1969,14 +1946,13 @@ msgid "Submit a report"
 msgstr "Gửi báo cáo"
 
 #: templates/landing.html:325
-#, fuzzy
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
 "\"#address-footer\">mail</a>."
 msgstr ""
-"Nếu quý vị không thể truy cập vào mẫu trực tuyến, quý vị có thể gọi điện để "
-"báo cáo hành vi vi phạm hoặc báo cáo hành vi vi phạm qua thư."
+"Nếu quý vị không thể truy cập vào mẫu trực tuyến, quý vị có thể <a href=\"#phone-footer\">gọi điện</a> để "
+"báo cáo hành vi vi phạm hoặc báo cáo hành vi vi phạm qua <a href=\"#address-footer\">thư</a>."
 
 #: templates/landing.html:335
 msgid "Already submitted a report?"
@@ -1987,14 +1963,13 @@ msgid "Here's what to expect."
 msgstr "Dưới đây là những việc sẽ xảy ra."
 
 #: templates/landing.html:342
-#, fuzzy
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
 "about the outcome of our review. However, we may not always be able to "
 "provide you with updates because:"
 msgstr ""
-"Cảm ơn quý vị đã báo cáo. Chúng tôi đọc kỹ từng điều một để xác định xem "
+"<strong>Cảm ơn quý vị đã báo cáo.</strong> Chúng tôi đọc kỹ từng điều một để xác định xem "
 "chúng tôi có đủ thẩm quyền để trợ giúp hay không. Chúng tôi sẽ cố gắng hết "
 "sức để thông báo cho quý vị biết về kết quả đánh giá của chúng tôi. Tuy "
 "nhiên, không phải lúc nào chúng tôi cũng có thể cung cấp cho quý vị các "
@@ -2131,7 +2106,7 @@ msgid "Privacy Policy"
 msgstr "Chính sách Quyền Riêng tư"
 
 #: templates/partials/policy.html:16
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "            The purpose of this form is to allow the public to submit civil "
@@ -2147,8 +2122,8 @@ msgid ""
 msgstr ""
 "\n"
 "            Mục đích của mẫu này là cho phép công chúng gửi khiếu nại về dân "
-"quyền đến Bộ Tư pháp, nhờ đó cho phép chúng tôi thực thi hơn ba mươi quy chế "
-"về dân quyền trong thẩm quyền của chúng tôi. Các quy chế này cho phép chúng "
+"quyền đến Bộ Tư pháp, nhờ đó cho phép chúng tôi thực thi hơn ba mươi <a href=\"%(privacy_policy_url)s#our-statutes\">quy chế "
+"về dân quyền</a> trong thẩm quyền của chúng tôi. Các quy chế này cho phép chúng "
 "tôi thu thập thông tin.  Quý vị nên biết rằng bất kỳ thông tin nào quý vị "
 "cung cấp qua mẫu này đều là tự nguyện, tuy nhiên việc không cung cấp một số "
 "thông tin có thể hạn chế khả năng của Bộ trong việc tìm hiểu về khiếu nại "
@@ -2178,13 +2153,13 @@ msgid "Federal, state, or local law enforcement agencies."
 msgstr "Các cơ quan hành pháp của liên bang, tiểu bang, hoặc địa phương."
 
 #: templates/partials/policy.html:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You can find our complete <a href=\"%(privacy_policy_url)s\">Privacy Policy "
 "here</a>."
 msgstr ""
-"Quý vị có thể tìm thấy Chính sách Quyền riêng tư đầy đủ của chúng tôi tại "
-"đây."
+"Quý vị có thể tìm thấy <a href=\"%(privacy_policy_url)s\">Chính sách Quyền riêng tư</a> đầy đủ của chúng tôi <a href=\"%(privacy_policy_url)s\">tại "
+"đây</a>."
 
 #: templates/partials/redirect-modal.html:8
 msgid "You are now leaving the Department of Justice website."
@@ -2561,9 +2536,8 @@ msgstr ""
 "                "
 
 #: validators.py:101
-#, fuzzy
 msgid "Enter a valid email address."
-msgstr "Địa chỉ email"
+msgstr "Hãy cho một dịa chỉ email hợp lệ"
 
 #: views.py:78
 msgid "404 | Page not found"
