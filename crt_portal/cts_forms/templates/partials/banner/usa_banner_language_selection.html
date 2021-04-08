@@ -1,0 +1,21 @@
+{% load i18n %}
+{% load static %}
+
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+
+<div class="grid-col-fill language-selection">
+    <div class="grid-col-auto language-selection__inner">
+      <img src="{% static 'img/globe-language-white.svg' %}" alt="language" class="icon">
+      <form id="language_selection_form" action="{% url 'set_language' %}" method="post" class="usa-form">{% csrf_token %}
+      <input id="language_input" name="language" type="hidden" />
+        {% for language in languages %}
+          <button class="usa-banner__button language-selection__button {% if language.code == LANGUAGE_CODE %}language-selection__button-active{% endif %}" data-value="{{ language.code }}">
+            <span class="usa-banner__button-text">{{ language.name_local }}</span>
+          </button>
+        {% endfor %}
+      </form>
+    </div>
+    
+</div>
