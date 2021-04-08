@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-08 15:04+0000\n"
+"POT-Creation-Date: 2021-04-08 15:34+0000\n"
 "PO-Revision-Date: 2021-04-02 10:07-0500\n"
 "Language: Chinese Simplified\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1680,7 +1680,6 @@ msgstr ""
 "校、投票站、企业、医疗保健机构、公共场所等。"
 
 #: templates/landing.html:163
-#, fuzzy
 msgid ""
 "If you have been <span class=\"crt-landing--rights_categories\">mistreated "
 "by law enforcement</span> (including while incarcerated), believe you have "
@@ -1688,28 +1687,27 @@ msgid ""
 "crime</span>, or a victim of <span class=\"crt-landing--rights_categories"
 "\">human trafficking</span>, we can help get you to the right place."
 msgstr ""
-"如果您被执法部门的不当对待（包括在监禁期间）、相信自己是仇恨犯罪的受害者，或"
-"者是人口贩卖的受害者，我们可以帮助您找到适当的机构联络。"
+"如果您被<span class=\"crt-landing--rights_categories\">执法部门的不当对待</"
+"span>（包括在监禁期间）、相信自己是<span class=\"crt-landing--"
+"rights_categories\">仇恨犯罪</span>的受害者，或者是<span class=\"crt-"
+"landing--rights_categories\">人口贩卖</span>的受害者，我们可以帮助您找到适当"
+"的机构联络。"
 
 #: templates/landing.html:179
-#, fuzzy
 msgid "Choose from this list to see example civil rights violations:"
-msgstr ""
-"#-#-#-#-#  zh-cn.po  #-#-#-#-#\n"
-"从该列表中进行选择，以查看侵犯公民权利的示例：\n"
-"#-#-#-#-#  zh-cn.po  #-#-#-#-#\n"
-"从该列表中选择侵犯公民权利的示例："
+msgstr "从该列表中进行选择，以查看侵犯公民权利的示例："
 
 #: templates/landing.html:214
 msgid "Examples"
 msgstr "例子"
 
 #: templates/landing.html:231
-#, fuzzy
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
-msgstr "如果您认为自己经历过类似的情况，请了解如何举报侵犯公民权利的行为。"
+msgstr ""
+"如果您认为自己经历过类似的情况，请了解<a href=\"#crt-landing--reporting\">如"
+"何举报侵犯公民权利的行为</a>。"
 
 #: templates/landing.html:241
 msgid "Protected by civil rights laws"
@@ -1720,11 +1718,12 @@ msgid "These are the most common characteristics that are legally protected."
 msgstr "这些是受法律保护的最常见特征。"
 
 #: templates/landing.html:246
-#, fuzzy
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
-msgstr "残疾，包括暂时的或正在恢复中的残疾"
+msgstr ""
+"残疾，<span class=\"crt-landing--protected\">包括暂时的或正在恢复中的残疾</"
+"span>"
 
 #: templates/landing.html:248
 msgid "Sex, gender identity, and sexual orientation"
@@ -1735,18 +1734,18 @@ msgid "Immigration/citizenship status"
 msgstr "移民/公民身份"
 
 #: templates/landing.html:250
-#, fuzzy
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
-msgstr "语言和原籍国，包括祖先和种族"
+msgstr ""
+"语言和原籍国，<span class=\"crt-landing--protected\">包括祖先和种族</span>"
 
 #: templates/landing.html:251
-#, fuzzy
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
-msgstr "家庭、婚姻或父母状况，包括怀孕"
+msgstr ""
+"家庭、婚姻或父母状况，<span class=\"crt-landing--protected\">包括怀孕</span>"
 
 #: templates/landing.html:253
 msgid "Genetic identification"
@@ -1819,7 +1818,9 @@ msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
 "\"#address-footer\">mail</a>."
-msgstr "如果您无法访问在线表格，可以打电话或通过邮件报告违规行为。"
+msgstr ""
+"如果您无法访问在线表格，可以<a href=\"#phone-footer\">打电话</a>或通过邮件报"
+"告违规行为。"
 
 #: templates/landing.html:336
 msgid "Already submitted a report?"
@@ -1830,15 +1831,15 @@ msgid "Here's what to expect."
 msgstr "这里是后续流程。"
 
 #: templates/landing.html:343
-#, fuzzy
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
 "about the outcome of our review. However, we may not always be able to "
 "provide you with updates because:"
 msgstr ""
-"感谢您的报告。我们会仔细阅读每一份报告，以确定我们是否有权提供帮助。我们会尽"
-"最大努力让您了解我们的审查结果。但是，我们可能无法向您提供进度更新，因为："
+"<strong>感谢您的报告。</strong>我们会仔细阅读每一份报告，以确定我们是否有权提"
+"供帮助。我们会尽最大努力让您了解我们的审查结果。但是，我们可能无法向您提供进"
+"度更新，因为："
 
 #: templates/landing.html:345
 msgid ""
@@ -1887,13 +1888,8 @@ msgstr ""
 "a>，通过美国律师协会寻找律师。"
 
 #: templates/landing.html:371
-#, fuzzy
 msgid "Image attributions"
-msgstr ""
-"#-#-#-#-#  zh-cn.po  #-#-#-#-#\n"
-"图像属性\n"
-"#-#-#-#-#  zh-cn.po  #-#-#-#-#\n"
-"图像来源"
+msgstr "图像来源"
 
 #: templates/partials/attachment-uploading-modal.html:8
 msgid "Uploading attachment..."
@@ -1920,7 +1916,6 @@ msgid "The site is secure."
 msgstr "该站点较为安全。"
 
 #: templates/partials/banner/usa_banner_content.html:17
-#, fuzzy
 msgid ""
 "The <strong>https://</strong> ensures that you are connecting to the "
 "official website and that any information you provide is encrypted and "
@@ -1985,7 +1980,7 @@ msgid "Privacy Policy"
 msgstr "隐私政策"
 
 #: templates/partials/policy.html:16
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "            The purpose of this form is to allow the public to submit civil "
@@ -2001,10 +1996,10 @@ msgid ""
 msgstr ""
 "\n"
 "            此表格旨在让公众向司法部提交民权投诉，从而使我们能够在职权范围内"
-"执行三十多项民权法规。这些法规授权我们收集这些信息。您应该知道，您通过此表格"
-"提供的任何信息都是自愿的，但是，如果您未能提供某些信息，则可能会限制该部门继"
-"续处理您的案件的能力。我们可以将此信息用于某些常规用途，包括在某些情况下与以"
-"下人员共享此信息：\n"
+"执行三十多项<a href=\"%(privacy_policy_url)s#our-statutes\">民权法规</a>。这"
+"些法规授权我们收集这些信息。您应该知道，您通过此表格提供的任何信息都是自愿"
+"的，但是，如果您未能提供某些信息，则可能会限制该部门继续处理您的案件的能力。"
+"我们可以将此信息用于某些常规用途，包括在某些情况下与以下人员共享此信息：\n"
 "            "
 
 #: templates/partials/policy.html:20
@@ -2026,11 +2021,12 @@ msgid "Federal, state, or local law enforcement agencies."
 msgstr "联邦、州或地方执法机构。"
 
 #: templates/partials/policy.html:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You can find our complete <a href=\"%(privacy_policy_url)s\">Privacy Policy "
 "here</a>."
-msgstr "您可以在这里找到我们完整的隐私政策。"
+msgstr ""
+"您可以在这里找到我们完整的<a href=\"%(privacy_policy_url)s\">隐私政策</a>。"
 
 #: templates/partials/redirect-modal.html:8
 msgid "You are now leaving the Department of Justice website."
@@ -2388,9 +2384,8 @@ msgstr ""
 "                "
 
 #: validators.py:101
-#, fuzzy
 msgid "Enter a valid email address."
-msgstr "电子邮件地址"
+msgstr "输入一个有效的电子邮件地址"
 
 #: views.py:78
 msgid "404 | Page not found"
