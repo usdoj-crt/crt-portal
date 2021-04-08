@@ -2,12 +2,13 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-08 16:48+0000\n"
+"POT-Creation-Date: 2021-04-08 16:55+0000\n"
 "PO-Revision-Date: 2021-03-31 17:42-0500\n"
 "Language: Chinese Traditional\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: xls-to-po 1.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
 #: forms.py:161 forms.py:1546
@@ -2468,95 +2469,6 @@ msgstr "請選擇任何適用於您情況的選項（選填）"
 #~ msgid "Landing Page"
 #~ msgstr "登陸頁面"
 
-#~ msgid "We uphold the civil rights of all people in the United States"
-#~ msgstr "我們會維護所有身在美國的民众的民權"
-
-#~ msgid ""
-#~ "If you believe your civil rights, or someone else's, have been violated, "
-#~ "submit a report using our online form."
-#~ msgstr "如果您認為自己或他人的民權受到侵犯，請使用我們的線上表格提交報告。"
-
-#~ msgid "We sue or prosecute"
-#~ msgstr "我們會控告或起訴"
-
-#~ msgid "individuals and"
-#~ msgstr "違反民權法的人士"
-
-#~ msgid "organizations who violate"
-#~ msgstr "和組織"
-
-#~ msgid "civil rights laws."
-#~ msgstr "。"
-
-#~ msgid "You can help us do this work by"
-#~ msgstr "您可使用我們的線上表格"
-
-#~ msgid "reporting a possible civil rights"
-#~ msgstr "來舉報可能的民權"
-
-#~ msgid "violation through our online form"
-#~ msgstr "侵犯事件，以協助我們完成此工作"
-
-#~ msgid "We help the public"
-#~ msgstr "我們會協助一般民眾"
-
-#~ msgid "understand how to comply"
-#~ msgstr "瞭解如何遵守"
-
-#~ msgid "with these laws"
-#~ msgstr "這些法律"
-
-#~ msgid "We do this through public speaking,"
-#~ msgstr "我們透過公開演講、"
-
-#~ msgid "technical assistance, and more."
-#~ msgstr "技術協助等方法來讓民眾瞭解如何遵守這些法律。"
-
-#~ msgid "We help the entire federal "
-#~ msgstr "我們會協助聯邦政府 "
-
-#~ msgid "government work together"
-#~ msgstr "全體同仁共同合作"
-
-#~ msgid "to enforce these laws."
-#~ msgstr "以執行這些法律。"
-
-#~ msgid "Outteams work with other agencies to "
-#~ msgstr "我們的團隊會與其他機構合作，以 "
-
-#~ msgid "promote a consistent approach to civil"
-#~ msgstr "促使大家透過一致的方式執行民"
-
-#~ msgid "rights laws."
-#~ msgstr "權法。"
-
-#~ msgid "If you have been mistreated by law enforcement (including while"
-#~ msgstr "如果您曾經遭受執法人員（包括在"
-
-#~ msgid ""
-#~ "incarcerated), believe you have been a victim of a hate crime, or a "
-#~ "victim of"
-#~ msgstr ""
-#~ "遭到監禁期間）的不當對待、您認為自己曾是仇恨犯罪或人口販賣的受害者，"
-
-#~ msgid "human trafficking, we can help get you to the right place."
-#~ msgstr "我們可以協助您與適當的單位聯絡。"
-
-#~ msgid "950 Pennsylvania Avenue, NW"
-#~ msgstr "950 Pennsylvania Avenue, NW"
-
-#~ msgid "Washington, D.C. 20530-0001"
-#~ msgstr "Washington, D.C. 20530-0001"
-
-#~ msgid "(202) 514-3847"
-#~ msgstr "(202) 514-3847"
-
-#~ msgid "1-855-856-1247 (toll-free)"
-#~ msgstr "1-855-856-1247（免費）"
-
-#~ msgid "(TTY) (202) 514-0716"
-#~ msgstr "(TTY) (202) 514-0716"
-
 #~ msgid ""
 #~ "Unsplash: Jacob Le, Paul Stickman, Andre Hunter, Sobhan Joodi, Library of "
 #~ "Congress"
@@ -2577,5 +2489,3 @@ msgstr "請選擇任何適用於您情況的選項（選填）"
 #~ msgid "Wikimedia Commons Public Domain"
 #~ msgstr "Wikimedia Commons Public Domain"
 
-#~ msgid "Victim of a hate crime:"
-#~ msgstr "仇恨犯罪的受害者："
