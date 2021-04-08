@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-08 12:47+0000\n"
+"POT-Creation-Date: 2021-04-08 14:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2162,6 +2162,10 @@ msgstr "Presupuesto y rendimiento"
 #: templates/partials/footer.html:96
 msgid "Legal policies and Disclaimers"
 msgstr "Politicas Legales y Descargos de Responsabilidades"
+
+#: templates/partials/i8n.html:15
+msgid "Go"
+msgstr ""
 
 #: templates/partials/menu_language_selection.html:36
 msgid "More Language Assistance Services"
