@@ -78,9 +78,6 @@ def test_report_complete_and_valid_submission(page):
     assert page.title() == "Step 2: Primary concern - Contact the Civil Rights Division | Department of Justice"
 
     # Check footer exist
-    # assert page.footer() == "Links"
-
-    # Check footer exist
     content = page.text_content("footer")
 
     assert "Links" in content
