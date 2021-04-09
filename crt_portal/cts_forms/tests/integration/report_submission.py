@@ -82,10 +82,11 @@ def test_report_complete_and_valid_submission(page):
 
     # Check footer exist
     content = page.text_content("footer")
-    assert content == "Links"
+
+    assert "Links" in content
 
     # Check privacy footer
-    # assert page.footer("privacy-footer") == "Privacy Policy"
+    assert "Privacy Policy" in content
 
     # Check NOT hatecrime
     page.check("#id_2-hate_crime_1")
