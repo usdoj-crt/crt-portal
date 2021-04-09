@@ -1550,6 +1550,8 @@ msgid ""
 "\n"
 "        Step %(stage_number)s: %(current_step_name)s - "
 msgstr ""
+"\n"
+"        Bước %(stage_number)s: %(current_step_name)s - "
 
 #: templates/forms/report_base.html:22
 msgid "Contact the Department of Justice to report a civil rights violation"
@@ -2749,75 +2751,6 @@ msgstr ""
 
 #~ msgid "technical assistance, and more."
 #~ msgstr "trợ giúp kỹ thuật và các việc làm khác."
-
-#~ msgid "We help the entire federal "
-#~ msgstr "Chúng tôi giúp toàn bộ chính phủ "
-
-#~ msgid "government work together"
-#~ msgstr "liên bang phối hợp làm việc cùng nhau"
-
-#~ msgid "to enforce these laws."
-#~ msgstr "để thực thi các luật này."
-
-#~ msgid "Outteams work with other agencies to "
-#~ msgstr "Các nhóm của chúng tôi làm việc với các cơ quan khác để "
-
-#~ msgid "promote a consistent approach to civil"
-#~ msgstr "đề xướng cách tiếp cận nhất quán đối với các"
-
-#~ msgid "rights laws."
-#~ msgstr "luật dân quyền."
-
-#~ msgid ""
-#~ "Civil rights laws can protect you from unlawful discrimination, "
-#~ "harassment, or"
-#~ msgstr ""
-#~ "Luật dân quyền có thể bảo vệ quý vị khỏi sự phân biệt đối xử, quấy rối, "
-#~ "hoặc"
-
-#~ msgid ""
-#~ "abuse in a variety of settings like housing, the workplace, school, "
-#~ "voting,"
-#~ msgstr ""
-#~ "lạm dụng bất hợp pháp trong nhiều môi trường khác nhau như nhà ở, nơi làm "
-#~ "việc, trường học, hoạt động bỏ phiếu,"
-
-#~ msgid "business, healthcare, public spaces, and more."
-#~ msgstr "doanh nghiệp, chăm sóc sức khỏe, không gian công cộng, v.v."
-
-#~ msgid "If you have been mistreated by law enforcement (including while"
-#~ msgstr "Nếu quý vị bị cơ quan hành pháp ngược đãi (kể cả khi"
-
-#~ msgid ""
-#~ "incarcerated), believe you have been a victim of a hate crime, or a "
-#~ "victim of"
-#~ msgstr ""
-#~ "đang bị giam giữ), tin rằng quý vị là nạn nhân của hành vi phạm tội do "
-#~ "thù ghét hoặc nạn nhân của"
-
-#~ msgid "human trafficking, we can help get you to the right place."
-#~ msgstr "nạn buôn người, chúng tôi có thể giúp đưa quý vị đến đúng nơi."
-
-#~ msgid "Choose from this list to see"
-#~ msgstr "Chọn từ danh sách này để xem"
-
-#~ msgid "example civil rights violations:"
-#~ msgstr "ví dụ về các hành vi vi phạm dân quyền:"
-
-#~ msgid "950 Pennsylvania Avenue, NW"
-#~ msgstr "950 Pennsylvania Avenue, NW"
-
-#~ msgid "Washington, D.C. 20530-0001"
-#~ msgstr "Washington, D.C. 20530-0001"
-
-#~ msgid "(202) 514-3847"
-#~ msgstr "(202) 514-3847"
-
-#~ msgid "1-855-856-1247 (toll-free)"
-#~ msgstr "1-855-856-1247 (số điện thoại miễn phí)"
-
-#~ msgid "(TTY) (202) 514-0716"
-#~ msgstr "(TTY) (202) 514-0716"
 
 #~ msgid ""
 #~ "Unsplash: Jacob Le, Paul Stickman, Andre Hunter, Sobhan Joodi, Library of "
