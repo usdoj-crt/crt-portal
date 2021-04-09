@@ -1,13 +1,10 @@
-# This file was generated from /Users/timothydballard/temp/zh-cn.xlsx
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-09 19:23+0000\n"
-"PO-Revision-Date: 2021-04-02 10:07-0500\n"
 "Language: Chinese Simplified\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: xls-to-po 1.0\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
 #: forms.py:161 forms.py:1546
