@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-09 14:34+0000\n"
+"POT-Creation-Date: 2021-04-09 14:43+0000\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2059,14 +2059,6 @@ msgstr ""
 #: templates/landing.html:371
 msgid "Image attributions"
 msgstr "Mô tả ảnh"
-
-#: templates/partials/attachment-uploading-modal.html:8
-msgid "Uploading attachment..."
-msgstr ""
-
-#: templates/partials/attachment-uploading-modal.html:13
-msgid "Your attachment is uploading..."
-msgstr ""
 
 #: templates/partials/banner/usa_banner_content.html:7
 msgid "The .gov means it’s official."
