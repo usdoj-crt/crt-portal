@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-08 18:33+0000\n"
+"POT-Creation-Date: 2021-04-09 15:51+0000\n"
 "PO-Revision-Date: 2021-04-02 10:07-0500\n"
 "Language: Chinese Simplified\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1414,6 +1414,10 @@ msgid ""
 "%(total_stages)s.\n"
 "        "
 msgstr ""
+"\n"
+"          当前步骤：%(current_step_name)s. Step %(stage_number)s of "
+"%(total_stages)s.\n"
+"        "
 
 #: templates/forms/portal/progress-bar.html:27
 msgid "not completed"
@@ -1429,6 +1433,8 @@ msgid ""
 "\n"
 "        Step %(stage_number)s: %(current_step_name)s - "
 msgstr ""
+"\n"
+"        步骤 %(stage_number)s: %(current_step_name)s - "
 
 #: templates/forms/report_base.html:22
 msgid "Contact the Department of Justice to report a civil rights violation"
@@ -1537,6 +1543,9 @@ msgid ""
 "    %(word_limit)s word limit.\n"
 "  "
 msgstr ""
+"\n"
+"    %(word_limit)s 字数限制.\n"
+"  "
 
 #: templates/forms/word_counter.html:16 templates/forms/word_counter.html:21
 #, python-format
@@ -1545,6 +1554,9 @@ msgid ""
 "          %(word_limit)s word limit reached\n"
 "        "
 msgstr ""
+"\n"
+"          %(word_limit)s 已达到字数限制\n"
+"        "
 
 #: templates/landing.html:38
 msgid "About the Division"
@@ -1898,14 +1910,6 @@ msgstr ""
 #: templates/landing.html:371
 msgid "Image attributions"
 msgstr "图像来源"
-
-#: templates/partials/attachment-uploading-modal.html:8
-msgid "Uploading attachment..."
-msgstr ""
-
-#: templates/partials/attachment-uploading-modal.html:13
-msgid "Your attachment is uploading..."
-msgstr ""
 
 #: templates/partials/banner/usa_banner_content.html:7
 msgid "The .gov means it’s official."
@@ -2474,165 +2478,3 @@ msgstr "检查您的报告"
 #: views.py:1089
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "请选择任何适用于您的情况（可选）"
-
-#~ msgid "Chinese (Simplified)"
-#~ msgstr "中文（简体）"
-
-#~ msgid ""
-#~ "Denied an accommodation for a disability, including not being allowed to "
-#~ "have a service animal"
-#~ msgstr "遭到拒绝无法使用残障便利设施，包括不允许饲养服务性动物"
-
-#~ msgid " Contact the Civil Rights Division | Department of Justice"
-#~ msgstr "联系司法部民权司"
-
-#~ msgid "Current step:"
-#~ msgstr "当前步骤："
-
-#~ msgid ""
-#~ "\n"
-#~ "          Step: Contact the Civil Rights Division | Department of "
-#~ "Justice\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "          步骤：联系司法部民权司\n"
-#~ "        "
-
-#~ msgid "Word limit"
-#~ msgstr "字数限制"
-
-#~ msgid "Word limit reached"
-#~ msgstr "已达到字数限制"
-
-#~ msgid "Landing Page"
-#~ msgstr "登录页"
-
-#~ msgid "We uphold the civil rights of all people in the United States"
-#~ msgstr "我们维护所有身在美国的人众的民事权利。"
-
-#~ msgid ""
-#~ "If you believe your civil rights, or someone else's, have been violated, "
-#~ "submit a report using our online form."
-#~ msgstr ""
-#~ "如果您认为您或他人的民事权利受到侵犯，请使用我们的在线表格提交报告。"
-
-#~ msgid "We sue or prosecute"
-#~ msgstr "我们起诉或控告"
-
-#~ msgid "individuals and"
-#~ msgstr "违反民权法的个人和"
-
-#~ msgid "organizations who violate"
-#~ msgstr "组织"
-
-#~ msgid "civil rights laws."
-#~ msgstr "。"
-
-#~ msgid "You can help us do this work by"
-#~ msgstr "您可以通过我们的在线表格"
-
-#~ msgid "reporting a possible civil rights"
-#~ msgstr "举报可能的侵犯公民权利行为，"
-
-#~ msgid "violation through our online form"
-#~ msgstr "从而帮助我们完成这项工作"
-
-#~ msgid "We help the public"
-#~ msgstr "我们帮助公众"
-
-#~ msgid "understand how to comply"
-#~ msgstr "了解如何遵守"
-
-#~ msgid "with these laws"
-#~ msgstr "这些法律"
-
-#~ msgid "We do this through public speaking,"
-#~ msgstr "我们通过公开演讲、"
-
-#~ msgid "technical assistance, and more."
-#~ msgstr "技术援助等方式做到这一点。"
-
-#~ msgid "We help the entire federal "
-#~ msgstr "我们帮助整个联邦 "
-
-#~ msgid "government work together"
-#~ msgstr "政府共同"
-
-#~ msgid "to enforce these laws."
-#~ msgstr "执行这些法律。"
-
-#~ msgid "Outteams work with other agencies to "
-#~ msgstr "我们的团队与其他机构合作，"
-
-#~ msgid "promote a consistent approach to civil"
-#~ msgstr "促进对民权法以一致的做法"
-
-#~ msgid "rights laws."
-#~ msgstr "执行。"
-
-#~ msgid ""
-#~ "Civil rights laws can protect you from unlawful discrimination, "
-#~ "harassment, or"
-#~ msgstr "民权法可在各种环境，"
-
-#~ msgid ""
-#~ "abuse in a variety of settings like housing, the workplace, school, "
-#~ "voting,"
-#~ msgstr ""
-#~ "例如住所、工作场所、学校、投票站、商业场所、医疗保健设施、公共场所等地"
-
-#~ msgid "business, healthcare, public spaces, and more."
-#~ msgstr "保护您免受非法歧视、骚扰或虐待。"
-
-#~ msgid "If you have been mistreated by law enforcement (including while"
-#~ msgstr "如果您被执法部门虐待（包括"
-
-#~ msgid ""
-#~ "incarcerated), believe you have been a victim of a hate crime, or a "
-#~ "victim of"
-#~ msgstr "被监禁期间）、相信自己是仇恨犯罪的受害者或"
-
-#~ msgid "human trafficking, we can help get you to the right place."
-#~ msgstr "人口贩卖的受害者，我们可以帮助您找到适当的机构联系。"
-
-#~ msgid "Choose from this list to see"
-#~ msgstr "从该列表中进行选择，"
-
-#~ msgid "example civil rights violations:"
-#~ msgstr "查看侵犯公民权利的示例："
-
-#~ msgid "950 Pennsylvania Avenue, NW"
-#~ msgstr "950 Pennsylvania Avenue, NW"
-
-#~ msgid "Washington, D.C. 20530-0001"
-#~ msgstr "Washington, D.C. 20530-0001"
-
-#~ msgid "(202) 514-3847"
-#~ msgstr "(202) 514-3847"
-
-#~ msgid "1-855-856-1247 (toll-free)"
-#~ msgstr "1-855-856-1247 (免费)"
-
-#~ msgid "(TTY) (202) 514-0716"
-#~ msgstr "(TTY) (202) 514-0716"
-
-#~ msgid ""
-#~ "Unsplash: Jacob Le, Paul Stickman, Andre Hunter, Sobhan Joodi, Library of "
-#~ "Congress"
-#~ msgstr ""
-#~ "Unsplash：Jacob Le、Paul Stickman、Andre Hunter、Sobhan Joodi、国会图书馆"
-
-#~ msgid "Pexels: Akela Photography, Nicholas Swatz, Asad Photo, Cottonbro"
-#~ msgstr "Pexels：Akela Photography、Nicholas Swatz、Asad Photo、Cottonbro"
-
-#~ msgid ""
-#~ "Flickr: Kelly Johnson Revolutionary Photography, The U.S. National "
-#~ "Archives"
-#~ msgstr "Flickr: Kelly Johnson Revolutionary Photography、美国国家档案馆"
-
-#~ msgid "Wikimedia Commons Public Domain"
-#~ msgstr "维基媒体基金会公共域"
-
-#~ msgid "Victim of a hate crime:"
-#~ msgstr "仇恨犯罪的受害者:"
