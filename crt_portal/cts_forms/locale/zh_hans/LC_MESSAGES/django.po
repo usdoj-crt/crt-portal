@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-09 15:51+0000\n"
+"POT-Creation-Date: 2021-04-09 19:23+0000\n"
 "PO-Revision-Date: 2021-04-02 10:07-0500\n"
 "Language: Chinese Simplified\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -344,11 +344,12 @@ msgid ""
 msgstr "由于种族、性别或宗教等个人特征而被拒绝服务或入境"
 
 #: model_variables.py:86
-#, fuzzy
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in a commercial or public location</strong>"
-msgstr "拒绝为残疾人士提供协助，包括不允许在商业性工作场所携带服务性动物"
+msgstr ""
+"拒绝为残疾人士提供协助，包括不允许<strong>在商业或公共场所内</strong>携带辅助"
+"性动物。"
 
 #: model_variables.py:92
 msgid ""
@@ -1204,11 +1205,10 @@ msgid "We may decide to:"
 msgstr "我们可能会决定："
 
 #: templates/forms/confirmation.html:105
-#, fuzzy
 msgid ""
 "<strong>Open an investigation</strong> or take some other action within the "
 "legal authority of the Justice Department."
-msgstr "在司法部的法律授权范围内展开调查或采取其他行动。"
+msgstr "在司法部的法律授权范围内<strong>展开调查</strong>或采取其他行动。"
 
 #: templates/forms/confirmation.html:106
 msgid ""
@@ -1396,11 +1396,11 @@ msgstr "关于民权司"
 
 #: templates/forms/errors.html:74 templates/forms/report_maintenance.html:69
 #: templates/landing.html:108
-#, fuzzy
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
-msgstr "如果您或他人有紧急危险，请拨打 911 或当地警方。"
+msgstr ""
+"如果您或他人有紧急危险，<a href=\"tel:911\">请拨打 911 或联系当地警方</a>。"
 
 #: templates/forms/portal/progress-bar.html:6
 msgid "progress"
@@ -1580,9 +1580,8 @@ msgid "Contact"
 msgstr "联系"
 
 #: templates/landing.html:78
-#, fuzzy
 msgid "We uphold the civil rights of <em>all</em> people in the United States."
-msgstr "我们维护所有身在美国的民众的民事权利。"
+msgstr "我们维护<em>所有</em>身在美国的民众的民事权利。"
 
 #: templates/landing.html:83
 msgid ""
@@ -1605,22 +1604,12 @@ msgid "Start a report"
 msgstr "开始报告"
 
 #: templates/landing.html:89
-#, fuzzy
 msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
-msgstr ""
-"#-#-#-#-#  zh-cn.po  #-#-#-#-#\n"
-"或进一步了解您的权力\n"
-"#-#-#-#-#  zh-cn.po  #-#-#-#-#\n"
-"或了解更多您的权力"
+msgstr "或了解更多<a href=\"#your-rights\">你的权利</a>"
 
 #: templates/landing.html:102
-#, fuzzy
 msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
-msgstr ""
-"#-#-#-#-#  zh-cn.po  #-#-#-#-#\n"
-"如果您身处危险，请拨打 911\n"
-"#-#-#-#-#  zh-cn.po  #-#-#-#-#\n"
-"如果您有危险，请拨打 911"
+msgstr "如果你身处危险，请拨打<a href=\"tel:911\">911</a>"
 
 #: templates/landing.html:113
 msgid ""
@@ -1689,15 +1678,15 @@ msgid "Understanding your rights"
 msgstr "了解您的权力"
 
 #: templates/landing.html:160
-#, fuzzy
 msgid ""
 "Civil rights laws can protect you from unlawful discrimination, harassment, "
 "or abuse in a variety of settings like <span class=\"crt-landing--"
 "rights_text crt-landing--rights_categories\">housing, the workplace, school, "
 "voting, business, healthcare, public spaces</span>, and more."
 msgstr ""
-"民权法可以保护您在各种环境中免受非法歧视、骚扰或虐待，例如住所、工作场所、学"
-"校、投票站、企业、医疗保健机构、公共场所等。"
+"民权法可以保护您在各种环境中免受非法歧视、骚扰或虐待，例如<span class=\"crt-"
+"landing--rights_text crt-landing--rights_categories\">住所、工作场所、学校、"
+"投票站、企业、医疗保健机构、公共场所</span>等。"
 
 #: templates/landing.html:163
 msgid ""
@@ -1833,14 +1822,13 @@ msgid "Submit a report"
 msgstr "提交报告"
 
 #: templates/landing.html:326
-#, fuzzy
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
 "\"#address-footer\">mail</a>."
 msgstr ""
-"如果您无法访问在线表格，可以<a href=\"#phone-footer\">打电话</a>或通过邮件报"
-"告违规行为。"
+"如果您无法访问在线表格，可以<a href=\"#phone-footer\">打电话</a>或<a href="
+"\"#address-footer\">通过邮件</a>报告违规行为。"
 
 #: templates/landing.html:336
 msgid "Already submitted a report?"
