@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-08 16:29+0000\n"
+"POT-Creation-Date: 2021-04-09 14:11+0000\n"
 "PO-Revision-Date: 2021-04-05 15:38-0500\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -402,13 +402,13 @@ msgstr ""
 "thấy như chủng tộc, giới tính, hoặc tôn giáo"
 
 #: model_variables.py:86
-#, fuzzy
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in a commercial or public location</strong>"
 msgstr ""
 "Bị từ chối hỗ trợ phù hợp cho người khuyết tật, bao gồm cả việc không được "
-"phép sử dụng động vật phục vụ tại nơi làm việc thương mại"
+"phép sử dụng động vật phục vụ <strong>tại khu thương mại hay công cộng</"
+"strong>"
 
 #: model_variables.py:92
 msgid ""
@@ -1404,10 +1404,9 @@ msgid ""
 "findlegalhelp.org\">www.findlegalhelp.org</a> or call <a href="
 "\"tel:800-285-2221\">(800) 285-2221</a>"
 msgstr ""
-"Hiệp hội Luật sư Mỹ, vui lòng truy cập <a class=\"external-link--blue external-"
-"link--popup\" aria-label=\"www.findlegalhelp.org\" href=\"http://www."
-"findlegalhelp.org\">www.findlegalhelp.org</a> hoặc gọi "
-"<a href="
+"Hiệp hội Luật sư Mỹ, vui lòng truy cập <a class=\"external-link--blue "
+"external-link--popup\" aria-label=\"www.findlegalhelp.org\" href=\"http://"
+"www.findlegalhelp.org\">www.findlegalhelp.org</a> hoặc gọi <a href="
 "\"tel:800-285-2221\">(800) 285-2221</a>"
 
 #: templates/forms/confirmation.html:162
@@ -1417,10 +1416,11 @@ msgid ""
 "href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> "
 "or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
 msgstr ""
-"Legal Service Corporation (hoặc Legal Aid Offices), vui lòng truy cập <a aria-label=\"www."
-"lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--popup\" "
-"href=\"https://www.lsc.gov/find-legal-aid\">www."
-"lsc.gov/find-legal-aid</a> hoặc gọi <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
+"Legal Service Corporation (hoặc Legal Aid Offices), vui lòng truy cập <a "
+"aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue "
+"external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc."
+"gov/find-legal-aid</a> hoặc gọi <a href=\"tel:202-295-1500\">(202) 295-1500</"
+"a>"
 
 #: templates/forms/confirmation.html:170
 msgid "2"
@@ -1534,6 +1534,10 @@ msgid ""
 "%(total_stages)s.\n"
 "        "
 msgstr ""
+"\n"
+"          Bước hiện tại: %(current_step_name)s. Bước %(stage_number)s của "
+"%(total_stages)s.\n"
+"        "
 
 #: templates/forms/portal/progress-bar.html:27
 msgid "not completed"
@@ -1695,9 +1699,9 @@ msgid "Contact"
 msgstr "Liên Hệ"
 
 #: templates/landing.html:78
-#, fuzzy
 msgid "We uphold the civil rights of <em>all</em> people in the United States."
-msgstr "Chúng tôi đề cao quyền công dân của tất cả mọi người dân ở Hoa Kỳ."
+msgstr ""
+"Chúng tôi đề cao quyền công dân của <em>tất cả</em> mọi người dân ở Hoa Kỳ."
 
 #: templates/landing.html:83
 msgid ""
@@ -1724,9 +1728,9 @@ msgid "Start a report"
 msgstr "Bắt đầu báo cáo"
 
 #: templates/landing.html:89
-#, fuzzy
 msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
-msgstr "hoặc tìm hiểu thêm về các quyền của quý vị"
+msgstr ""
+"hoặc tìm hiểu thêm về các <a href=\"#your-rights\">quyền của quý vị</a>"
 
 #: templates/landing.html:102
 msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
@@ -1810,7 +1814,6 @@ msgid "Understanding your rights"
 msgstr "Hiểu các quyền của quý vị"
 
 #: templates/landing.html:160
-#, fuzzy
 msgid ""
 "Civil rights laws can protect you from unlawful discrimination, harassment, "
 "or abuse in a variety of settings like <span class=\"crt-landing--"
@@ -1818,9 +1821,10 @@ msgid ""
 "voting, business, healthcare, public spaces</span>, and more."
 msgstr ""
 "Luật dân quyền có thể bảo vệ quý vị khỏi sự phân biệt đối xử, quấy rối hoặc "
-"lạm dụng bất hợp pháp trong nhiều môi trường khác nhau như nhà ở, nơi làm "
-"việc, trường học, hoạt động bỏ phiếu, doanh nghiệp, chăm sóc sức khỏe, không "
-"gian công cộng, v.v."
+"lạm dụng bất hợp pháp trong nhiều môi trường khác nhau như <span class=\"crt-"
+"landing--rights_text crt-landing--rights_categories\">nhà ở, nơi làm việc, "
+"trường học, hoạt động bỏ phiếu, doanh nghiệp, chăm sóc sức khỏe, không gian "
+"công cộng</span>, v.v."
 
 #: templates/landing.html:163
 msgid ""
@@ -2030,8 +2034,10 @@ msgid ""
 "lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> or call <a href="
 "\"tel:202-295-1500\">(202) 295-1500</a>."
 msgstr ""
-"Liên hệ với Legal Services Corporation tại <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> hoặc "
-"gọi <a href=\"tel:202-295-1500\">(202) 295-1500</a>."
+"Liên hệ với Legal Services Corporation tại <a aria-label=\"www.lsc.gov/find-"
+"legal-aid\" class=\"external-link--blue external-link--popup\" href="
+"\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> hoặc gọi "
+"<a href=\"tel:202-295-1500\">(202) 295-1500</a>."
 
 #: templates/landing.html:357
 msgid ""
@@ -2040,9 +2046,10 @@ msgid ""
 "findlegalhelp.org</a> or call <a href=\"tel:800-285-2221\">(800) 285-2221</"
 "a> to find a lawyer through the American Bar Association."
 msgstr ""
-"Hoặc truy cập <a class=\"external-link--blue external-link--popup\" aria-label="
-"\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www.findlegalhelp.org</a> hoặc gọi <a href=\"tel:800-285-2221\">(800) 285-2221</a> để tìm luật "
-"sư thông qua Hiệp hội Luật sư Hoa Kỳ."
+"Hoặc truy cập <a class=\"external-link--blue external-link--popup\" aria-"
+"label=\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
+"findlegalhelp.org</a> hoặc gọi <a href=\"tel:800-285-2221\">(800) 285-2221</"
+"a> để tìm luật sư thông qua Hiệp hội Luật sư Hoa Kỳ."
 
 #: templates/landing.html:371
 msgid "Image attributions"
@@ -2129,10 +2136,8 @@ msgid "Legal policies and Disclaimers"
 msgstr "Chính sách pháp lý và Tuyên bố miễn trách nhiệm"
 
 #: templates/partials/menu_language_selection.html:36
-#, fuzzy
-#| msgid "Availability of Language Assistance Services"
 msgid "More Language Assistance Services"
-msgstr "Các Dịch vụ Hỗ trợ Ngôn ngữ sẵn có"
+msgstr "Còn Nhiều Dịch Vụ Hỗ Trợ Ngôn Ngữ Khác Nữa"
 
 #: templates/partials/policy.html:9
 msgid "Privacy Policy"
@@ -2226,6 +2231,10 @@ msgid ""
 "form</strong> and you may experience issues with form submission.\n"
 "          "
 msgstr ""
+"\n"
+"<strong>LƯU Ý: trình duyệt trên điện thoại di động của quý vị không tương "
+"thích với mẫu này</strong> và quý vị có thể gặp trở ngại khi nộp đơn.\n"
+"          "
 
 #: templates/partials/unsupported-browser-modal.html:15
 msgid ""
@@ -2235,6 +2244,12 @@ msgid ""
 "\"#contact-crt\">You can also contact us by phone or mail here.</a>\n"
 "          "
 msgstr ""
+"\n"
+"          Vui lòng tải xuống phiên bản mới nhất của Google Chrome, Mozilla "
+"Firefox, Safari, hoặc Microsoft Edge. <a id=\"ub_contact\" href=\"#contact-"
+"crt\">Quý vị cũng có thể liên lạc với chúng tôi qua điện thoại hoặc gửi thư "
+"đến đây.</a>\n"
+"          "
 
 #: templates/privacy.html:7 templates/privacy.html:13
 msgid "Civil Rights Division - Department of Justice - Privacy Policy"
@@ -2694,9 +2709,6 @@ msgstr ""
 
 #~ msgid "Landing Page"
 #~ msgstr "Trang Đích đến"
-
-#~ msgid "We uphold the civil rights of all people in the United States"
-#~ msgstr "Chúng tôi đề cao dân quyền của tất cả mọi người dân ở Hoa Kỳ"
 
 #~ msgid ""
 #~ "If you believe your civil rights, or someone else's, have been violated, "
