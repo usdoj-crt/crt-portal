@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-09 14:11+0000\n"
+"POT-Creation-Date: 2021-04-09 14:34+0000\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1667,6 +1667,9 @@ msgid ""
 "    %(word_limit)s word limit.\n"
 "  "
 msgstr ""
+"\n"
+"    %(word_limit)s giới hạn từ.\n"
+"  "
 
 #: templates/forms/word_counter.html:16 templates/forms/word_counter.html:21
 #, python-format
@@ -1675,6 +1678,9 @@ msgid ""
 "          %(word_limit)s word limit reached\n"
 "        "
 msgstr ""
+"\n"
+"          %(word_limit)s đã đạt đến giới hạn từ\n"
+"        "
 
 #: templates/landing.html:38
 msgid "About the Division"
@@ -2133,6 +2139,10 @@ msgstr "Ngân sách và hiệu quả"
 #: templates/partials/footer.html:96
 msgid "Legal policies and Disclaimers"
 msgstr "Chính sách pháp lý và Tuyên bố miễn trách nhiệm"
+
+#: templates/partials/i8n.html:15
+msgid "Go"
+msgstr ""
 
 #: templates/partials/menu_language_selection.html:36
 msgid "More Language Assistance Services"
@@ -2666,111 +2676,3 @@ msgid "Please select if any that apply to your situation (optional)"
 msgstr ""
 "Vui lòng chọn nếu có bất kỳ câu trả lời nào phù hợp với tình huống của quý "
 "vị (tùy chọn)"
-
-#~ msgid "Vietnamese"
-#~ msgstr "Tiếng Việt"
-
-#~ msgid ""
-#~ "Denied an accommodation for a disability, including not being allowed to "
-#~ "have a service animal"
-#~ msgstr ""
-#~ "Bị từ chối hỗ trợ phù hợp cho người khuyết tật, bao gồm cả việc không "
-#~ "được phép sử dụng động vật phục vụ"
-
-#~ msgid " Contact the Civil Rights Division | Department of Justice"
-#~ msgstr " Liên hệ với Ban Dân Quyền | Bộ Tư pháp"
-
-#~ msgid "Current step:"
-#~ msgstr "Bước hiện tại:"
-
-#~ msgid ""
-#~ "\n"
-#~ "          Step: Contact the Civil Rights Division | Department of "
-#~ "Justice\n"
-#~ "        "
-#~ msgstr ""
-#~ "\n"
-#~ "          Bước: Liên hệ với Ban Dân Quyền | Bộ Tư pháp\n"
-#~ "        "
-
-#~ msgid "Word limit"
-#~ msgstr "Giới hạn từ"
-
-#~ msgid "Word limit reached"
-#~ msgstr "Đã đạt đến giới hạn từ"
-
-#~ msgid ""
-#~ "Or visit www.findlegalhelp.org or call (800) 285-2221 to find a lawyer "
-#~ "through the American Bar Association."
-#~ msgstr ""
-#~ "Hoặc truy cập www.findlegalhelp.org hoặc gọi (800) 285-2221 để tìm luật "
-#~ "sư thông qua Hiệp hội Luật sư Hoa Kỳ."
-
-#~ msgid "Landing Page"
-#~ msgstr "Trang Đích đến"
-
-#~ msgid ""
-#~ "If you believe your civil rights, or someone else's, have been violated, "
-#~ "submit a report using our online form."
-#~ msgstr ""
-#~ "Nếu quý vị tin rằng dân quyền của mình hoặc của người khác đã bị vi phạm, "
-#~ "hãy gửi báo cáo bằng cách sử dụng mẫu trực tuyến của chúng tôi."
-
-#~ msgid "We sue or prosecute"
-#~ msgstr "Chúng tôi khởi kiện hoặc truy tố"
-
-#~ msgid "individuals and"
-#~ msgstr "những cá nhân và"
-
-#~ msgid "organizations who violate"
-#~ msgstr "tổ chức vi phạm"
-
-#~ msgid "civil rights laws."
-#~ msgstr "luật dân quyền."
-
-#~ msgid "You can help us do this work by"
-#~ msgstr "Quý vị có thể giúp chúng tôi thực hiện việc này bằng cách"
-
-#~ msgid "reporting a possible civil rights"
-#~ msgstr "báo cáo một hành vi vi phạm dân quyền có thể"
-
-#~ msgid "violation through our online form"
-#~ msgstr "xảy ra thông qua mẫu đơn trực tuyến"
-
-#~ msgid "We help the public"
-#~ msgstr "Chúng tôi giúp công chúng"
-
-#~ msgid "understand how to comply"
-#~ msgstr "hiểu cách tuân thủ"
-
-#~ msgid "with these laws"
-#~ msgstr "các luật này"
-
-#~ msgid "We do this through public speaking,"
-#~ msgstr "Chúng tôi thực hiện điều này thông qua phát biểu trước công chúng,"
-
-#~ msgid "technical assistance, and more."
-#~ msgstr "trợ giúp kỹ thuật và các việc làm khác."
-
-#~ msgid ""
-#~ "Unsplash: Jacob Le, Paul Stickman, Andre Hunter, Sobhan Joodi, Library of "
-#~ "Congress"
-#~ msgstr ""
-#~ "Unsplash: Jacob Le, Paul Stickman, Andre Hunter, Sobhan Joodi, Thư viện "
-#~ "của Quốc hội"
-
-#~ msgid "Pexels: Akela Photography, Nicholas Swatz, Asad Photo, Cottonbro"
-#~ msgstr "Pexels: Akela Photography, Nicholas Swatz, Asad Photo, Cottonbro"
-
-#~ msgid ""
-#~ "Flickr: Kelly Johnson Revolutionary Photography, The U.S. National "
-#~ "Archives"
-#~ msgstr ""
-#~ "Flickr: Kelly Johnson Revolutionary Photography, Cục Quản lý Hồ sơ và Văn "
-#~ "khố Quốc gia Hoa Kỳ"
-
-#~ msgid "Wikimedia Commons Public Domain"
-#~ msgstr "Miền Công cộng Wikimedia Commons"
-
-#~ msgid "Victim of a hate crime:"
-#~ msgstr "Nạn nhân của hành vi phạm tội do thù ghét:"
