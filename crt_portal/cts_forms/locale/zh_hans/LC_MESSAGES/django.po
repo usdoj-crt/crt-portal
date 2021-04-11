@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-09 19:23+0000\n"
+"POT-Creation-Date: 2021-04-11 20:20+0000\n"
 "Language: Chinese Simplified\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1176,6 +1176,10 @@ msgstr "您不会收到电子邮件确认，因此请打印或保存此页以供
 msgid "Your record number is:"
 msgstr "您的记录号是："
 
+#: templates/forms/confirmation.html:62
+msgid "Print report"
+msgstr "打印报告"
+
 #: templates/forms/confirmation.html:73
 msgid "What to expect"
 msgstr "后续流程"
@@ -1412,7 +1416,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          当前步骤：%(current_step_name)s. Step %(stage_number)s of "
+"          当前步骤：%(current_step_name)s. 步骤 %(stage_number)s 的 "
 "%(total_stages)s.\n"
 "        "
 
@@ -1971,10 +1975,8 @@ msgid "Go"
 msgstr ""
 
 #: templates/partials/menu_language_selection.html:36
-#, fuzzy
-#| msgid "Availability of Language Assistance Services"
 msgid "More Language Assistance Services"
-msgstr "提供语言援助服务"
+msgstr "更多的语言协助服务"
 
 #: templates/partials/policy.html:9
 msgid "Privacy Policy"
@@ -2058,6 +2060,9 @@ msgid ""
 "form</strong> and you may experience issues with form submission.\n"
 "          "
 msgstr ""
+"\n"
+"<strong>提示：您移动设备上的浏览器和此表不兼容</strong>，您可能会在提交表格时"
+"遇到问题。          "
 
 #: templates/partials/unsupported-browser-modal.html:15
 msgid ""
@@ -2067,6 +2072,11 @@ msgid ""
 "\"#contact-crt\">You can also contact us by phone or mail here.</a>\n"
 "          "
 msgstr ""
+"\n"
+"          请考虑下载最新版本的Google Chrome, Mozilla Firefox, Safari, or "
+"Microsoft Edge。<a id=\"ub_contact\" href=\"#contact-crt\">您也可以在此用电话"
+"或邮件和我们联络。</a>\n"
+"          "
 
 #: templates/privacy.html:7 templates/privacy.html:13
 msgid "Civil Rights Division - Department of Justice - Privacy Policy"
