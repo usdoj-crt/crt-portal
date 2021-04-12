@@ -4,7 +4,7 @@ import logging
 import urllib.parse
 from datetime import datetime
 
-from django.contrib.postgres.search import SearchQuery, SearchVector
+from django.contrib.postgres.search import SearchQuery
 
 from .models import Report
 
@@ -110,7 +110,7 @@ def report_filter(querydict):
                 kwargs[field] = querydict.getlist(field)
             elif filter_options[field] == 'violation_summary':
                 combined_or_search = _combine_term_searches_with_or(filter_list)
-                qs = qs.annotate(search=SearchVector('violation_summary')).filter(search=combined_or_search)
+                qs = qs.filter(violation_summary_search_vector=combined_or_search)
     qs = qs.filter(**kwargs)
     return qs, filters
 

@@ -4,6 +4,8 @@ from datetime import datetime
 from babel.dates import format_date
 
 from django.contrib.auth import get_user_model
+from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.search import SearchVectorField
 from django.core.validators import MaxValueValidator, RegexValidator
 from django.db import connection, models
 from django.template import Context, Template
@@ -29,7 +31,7 @@ from .model_variables import (CLOSED_STATUS,
                               STATES_AND_TERRITORIES, STATUS_CHOICES,
                               STATUTE_CHOICES)
 from .phone_regex import phone_validation_regex
-from .validators import validate_file_attachment
+from .validators import validate_file_attachment, validate_email_address
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -106,7 +108,7 @@ class Report(models.Model):
     # Contact
     contact_first_name = models.CharField(max_length=225, null=True, blank=True)
     contact_last_name = models.CharField(max_length=225, null=True, blank=True)
-    contact_email = models.EmailField(null=True, blank=True)
+    contact_email = models.CharField(max_length=225, null=True, blank=True, validators=[validate_email_address])
     contact_phone = models.CharField(
         validators=[RegexValidator(phone_validation_regex, message=CONTACT_PHONE_INVALID_MESSAGE)],
         max_length=225,
@@ -194,6 +196,11 @@ class Report(models.Model):
     # referrals
     referred = models.BooleanField(default=False)
     referral_section = models.TextField(choices=SECTION_CHOICES, blank=True)
+
+    violation_summary_search_vector = SearchVectorField(null=True, editable=False)
+
+    class Meta:
+        indexes = [GinIndex(fields=['violation_summary_search_vector'])]
 
     @cached_property
     def last_incident_date(self):
@@ -368,6 +375,7 @@ class ReportAttachment(models.Model):
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL)
     report = models.ForeignKey(Report, on_delete=models.CASCADE, related_name='attachments')
     created_date = models.DateTimeField(auto_now_add=True)
+    active = models.BooleanField(default=True)
 
     def get_absolute_url(self):
         return reverse('crt_forms:get-report-attachment', kwargs={"id": self.report.id, "attachment_id": self.id})

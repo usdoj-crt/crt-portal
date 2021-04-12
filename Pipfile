@@ -35,6 +35,7 @@ babel = "*"
 python-json-logger = "*"
 django-ses = "*"
 requests = "*"
+email-validator = "*"
 
 [requires]
 python_version = "3.9.1"

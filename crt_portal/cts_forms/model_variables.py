@@ -13,11 +13,12 @@ SERVICEMEMBER_CHOICES = (
 SERVICEMEMBER_ERROR = _('Please select a status as an active duty service member.')
 
 PRIMARY_COMPLAINT_CHOICES = (
-    ('voting', _('Voting rights or ability to vote affected')),
+
     ('workplace', _('Workplace discrimination or other employment-related problem')),
     ('housing', _('Housing discrimination or harassment')),
     ('education', _('Discrimination at a school, educational program or service, or related to receiving education')),
     ('police', _('Mistreated by police, correctional staff, or inmates')),
+    ('voting', _('Voting rights or ability to vote affected')),
     ('commercial_or_public', _('Discriminated against in a commercial location or public place')),
     ('something_else', _('Something else happened')),
 )
@@ -55,12 +56,13 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
         _('Retaliated against for reporting discrimination'),
         _('Inappropriately asked to provide immigration documentation'),
         _('Denied reemployment or fired based on military service'),
+        _('Denied an accommodation for a disability, including not being allowed to have a service animal <strong>in the workplace</strong>'),
     ],
     'housing': [
         _('Denied housing, a permit, or a loan based on personal characteristics like race, sex, and/or having children under 18 years old'),
-        _('Denied an accommodation for a disability, including not being allowed to have a service animal'),
         _('Harassment by a landlord or another tenant, including sexual harassment'),
         _('Challenges with terminating a lease due to military status change'),
+        _('Denied an accommodation for a disability, including not being allowed to have a service or assistance animal <strong>in public housing</strong>'),
     ],
     'education': [
         _('Harassment based on race, sex, national origin, disability, or religion'),
@@ -81,6 +83,7 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
     'commercial_or_public': [
         _('A physical or online location that does not provide disability accommodations'),
         _('Denied service or entry because of a perceived personal characteristic like race, sex, or religion'),
+        _('Denied an accommodation for a disability, including not being allowed to have a service animal <strong>in a commercial or public location</strong>'),
     ],
     'something_else': []
 }
