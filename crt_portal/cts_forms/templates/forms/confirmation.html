@@ -5,12 +5,7 @@
 
 
 {% block page_title %}
- <!-- needs translation update   -->
-  {% if  LANGUAGE_CODE == 'en' %}
-    <title>{% trans "Submission complete" %}</title>
-  {% else %}
-    <title> {% trans "Contact the Civil Rights Division | Department of Justice" %} </title>
-  {% endif %}
+  <title>{% trans "Submission complete" %}</title>
 {% endblock %}
 
 {% block body_class %}class="confirmation-page"{% endblock %}
@@ -64,7 +59,7 @@
               <span class="record-number margin-left-1">{{report.public_id}}</span>
             </div>
           </div>
-          <button id="print_button" class="usa-button">Print report</button>
+          <button id="print_button" class="usa-button">{% trans 'Print report' %}</button>
       </div>
     </div>
   </div>

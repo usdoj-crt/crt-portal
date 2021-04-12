@@ -28,7 +28,7 @@
             <ul class="examples" role="presentation">
               {% for example in examples %}
                 <li class="primary-issue-example-li" role="listitem">
-                  {{ example }}<span class="usa-sr-only">.</span>
+                  {{ example|safe }}<span class="usa-sr-only">.</span>
                 </li>
               {% endfor %}
             </ul>
