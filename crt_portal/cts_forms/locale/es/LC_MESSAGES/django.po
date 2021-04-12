@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-08 14:46+0000\n"
+"POT-Creation-Date: 2021-04-12 14:27+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1298,6 +1298,10 @@ msgstr ""
 msgid "Your record number is:"
 msgstr "Su número de registro es:"
 
+#: templates/forms/confirmation.html:62
+msgid "Print report"
+msgstr ""
+
 #: templates/forms/confirmation.html:73
 msgid "What to expect"
 msgstr "¿Qué debo esperar?"
@@ -2081,14 +2085,6 @@ msgstr ""
 
 #: templates/landing.html:371
 msgid "Image attributions"
-msgstr ""
-
-#: templates/partials/attachment-uploading-modal.html:8
-msgid "Uploading attachment..."
-msgstr ""
-
-#: templates/partials/attachment-uploading-modal.html:13
-msgid "Your attachment is uploading..."
 msgstr ""
 
 #: templates/partials/banner/usa_banner_content.html:7

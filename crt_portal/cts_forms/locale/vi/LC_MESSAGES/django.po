@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-09 14:43+0000\n"
+"POT-Creation-Date: 2021-04-12 14:27+0000\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1270,6 +1270,10 @@ msgstr ""
 #: templates/forms/confirmation.html:56
 msgid "Your record number is:"
 msgstr "Số hồ sơ của quý vị là:"
+
+#: templates/forms/confirmation.html:62
+msgid "Print report"
+msgstr ""
 
 #: templates/forms/confirmation.html:73
 msgid "What to expect"
