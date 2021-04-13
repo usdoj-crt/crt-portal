@@ -62,7 +62,7 @@
 
   var printContents = function(event) {
     const letterhead = document.getElementById('form-letterhead');
-    const letter_placeholder = document.getElementById('form-letter-placeholder');
+    const letter_placeholder = document.getElementById('form-letter--placeholder');
     const el = document.createElement('p');
     el.append(letter.value);
     letter_placeholder.appendChild(el);

@@ -174,7 +174,18 @@ body.is-modal {
     .subheader {
       width: 50%;
       margin-left: 50%;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    #form-letterhead--addressee {
+      margin-left: 0.75in;
+      margin-right: 0.75in;
+    }
+
+    #form-letter--placeholder {
+      white-space: pre-line;
+      margin-left: 0.75in;
+      margin-right: 0.75in;
     }
 
     hr {
@@ -182,10 +193,6 @@ body.is-modal {
       margin-top: 1rem;
       margin-bottom: 1rem;
     }
-  }
-
-  #form-letter-placeholder {
-    white-space: pre-line;
   }
 }
 
