@@ -153,6 +153,7 @@ LANGUAGES = [
     ('es', _('Spanish')),
     ('en', _('English')),
     ('zh-hans', _('Chinese Simplified')),
+    ('vi', _('Vietnamese')),
 ]
 
 TIME_ZONE = 'America/New_York'
