@@ -152,6 +152,7 @@ LANGUAGE_CODE = 'en-us'
 LANGUAGES = [
     ('es', _('Spanish')),
     ('en', _('English')),
+    ('zh-hans', _('Chinese Simplified')),
     ('vi', _('Vietnamese')),
 ]
 
