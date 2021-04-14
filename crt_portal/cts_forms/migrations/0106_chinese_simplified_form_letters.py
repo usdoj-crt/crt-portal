@@ -28,7 +28,6 @@ def add_letters(apps, schema_editor):
 此致，
 /s/
 刑事科
-
 """)
 
     ResponseTemplate.objects.create(
@@ -108,7 +107,6 @@ www.fbi.gov/contact-us/field-offices
 
 美国司法部
 民权司
-
 """)
 
     ResponseTemplate.objects.create(
