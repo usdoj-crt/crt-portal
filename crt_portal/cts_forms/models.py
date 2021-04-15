@@ -313,6 +313,12 @@ class Report(models.Model):
             return f"Estimado/a {self.contact_full_name}"
         return "Gracias por su informe"
 
+    @property
+    def addressee_vi(self):
+        if self.contact_full_name:
+            return f"Kính gửi {self.contact_full_name}"
+        return "Cảm ơn quý vị đã báo cáo"
+
     def get_absolute_url(self):
         return reverse('crt_forms:crt-forms-show', kwargs={"id": self.id})
 
@@ -438,6 +444,11 @@ class ResponseTemplate(models.Model):
                 'date_of_intake': format_date(report.create_date, format='long', locale='es_ES'),
                 'outgoing_date': format_date(today, locale='es_ES'),
                 'section_name': section_choices_es.get(report.assigned_section, "no section"),
+            },
+            'vi': {
+                'addressee': report.addressee_vi,
+                'date_of_intake': format_date(report.create_date, format='long', locale='vi'),
+                'outgoing_date': format_date(today, locale='vi'),
             }
         })
 
