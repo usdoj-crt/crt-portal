@@ -8,7 +8,7 @@ class TMSClient(object):
     """
 
     def __init__(self, api_root=None, api_auth_token=None):
-        self.api_root = api_root or settings.TMS_ENDPOINT
+        self.api_root = api_root or settings.TMS_TARGET_ENDPOINT
         self.api_auth_token = api_auth_token or settings.TMS_AUTH_TOKEN
         self.headers = {'X-AUTH-TOKEN': self.api_auth_token}
 

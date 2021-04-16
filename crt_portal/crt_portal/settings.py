@@ -169,6 +169,26 @@ USE_TZ = True
 # Set to True later in settings if we've successfully configured an email backend
 EMAIL_ENABLED = False
 
+# govDelivery TMS settings
+TMS_STAGING_ENDPOINT = "https://stage-tms.govdelivery.com"
+TMS_PRODUCTION_ENDPOINT = "https://tms.govdelivery.com"
+EMAIL_BACKEND = 'tms.backend.TMSEmailBackend'
+TMS_AUTH_TOKEN = os.environ.get('TMS_AUTH_TOKEN', '')
+TMS_TARGET_ENDPOINT = TMS_STAGING_ENDPOINT
+
+# Since there's no sandbox, we'll limit outbound recipients to these domains
+# to avoid un-intentional emails
+RESTRICT_EMAIL_RECIPIENT_DOMAINS_TO = ['gsa.gov', 'usdoj.gov']
+
+if TMS_AUTH_TOKEN:
+    EMAIL_ENABLED = True
+
+    if environment == 'PRODUCTION':
+        TMS_TARGET_ENDPOINT = TMS_PRODUCTION_ENDPOINT
+        RESTRICT_EMAIL_RECIPIENT_DOMAINS_TO = []
+
+
+
 # Private S3 bucket configuration
 if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     for service in vcap['s3']:
@@ -329,20 +349,6 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     )
     CSP_INCLUDE_NONCE_IN = ['script-src']
 
-    # Configure outbound Email
-    AWS_SES_SECRET_ACCESS_KEY = os.getenv('AWS_SES_SECRET_ACCESS_KEY')
-    AWS_SES_ACCESS_KEY_ID = os.getenv('AWS_SES_ACCESS_KEY_ID')
-    AWS_SES_FROM_EMAIL = os.getenv('AWS_SES_FROM_EMAIL')
-    AWS_SES_RETURN_PATH = os.getenv('AWS_SES_RETURN_PATH')
-    if AWS_SES_SECRET_ACCESS_KEY and AWS_SES_ACCESS_KEY_ID and AWS_SES_RETURN_PATH and AWS_SES_FROM_EMAIL:
-        # Only set backend if all env vars  are present otherwise
-        # `django-ses` will attempt to use AWS credentials established
-        # for use with S3
-        EMAIL_BACKEND = 'django_ses.SESBackend'
-        AWS_SES_REGION_NAME = 'us-gov-west-1'
-        DEFAULT_FROM_EMAIL = AWS_SES_FROM_EMAIL
-        EMAIL_ENABLED = True
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 # This is where source assets are collect from by collect static
@@ -426,8 +432,3 @@ if ENABLE_DEBUG_TOOLBAR:
     INSTALLED_APPS += ['debug_toolbar', ]
     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
     DEBUG_TOOLBAR_CONFIG = {'SHOW_TOOLBAR_CALLBACK': lambda _: True}
-
-
-TMS_ENDPOINT = "https://stage-tms.govdelivery.com"
-TMS_AUTH_TOKEN = 'not a real token'
-EMAIL_BACKEND = 'tms.backend.TMSEmailBackend'

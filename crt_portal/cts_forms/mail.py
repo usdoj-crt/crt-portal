@@ -27,4 +27,3 @@ def crt_send_mail(report, template):
              ).save()
 
     logger.info(f'Sent email response template #{template.id} to report: {report.id}')
-
