@@ -64,14 +64,13 @@ class TMSEmailBackend(BaseEmailBackend):
         """
         A helper method that does the actual sending.
         """
-        recipients = email_message.recipients()
-        if not recipients:
-            return False
+        if not email_message.recipients():
+            return {}
         outbound = self._prepare_outbound_dict(email_message)
         response = self.connection.post(target=self.EMAIL_ENDPOINT, payload=outbound)
         if response.status_code == 201:
-            # Success
-            pass
+            # Success per TMS docs
+            logger.debug(f'TMS API email success:<{response.status_code}> {response.json()}')
         else:
             logger.warn(f'TMS API email send failed:<{response.status_code}> {response.json()}')
             if not self.fail_silently:
