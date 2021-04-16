@@ -1,5 +1,4 @@
-from django.test import SimpleTestCase, override_settings
-from django.core.mail import EmailMessage
+from django.test import SimpleTestCase
 
 from ..api.client import TMSClient
 from . import TMSEmailBackend
