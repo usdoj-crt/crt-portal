@@ -188,7 +188,6 @@ if TMS_AUTH_TOKEN:
         RESTRICT_EMAIL_RECIPIENT_DOMAINS_TO = []
 
 
-
 # Private S3 bucket configuration
 if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     for service in vcap['s3']:
