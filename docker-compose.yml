@@ -9,6 +9,7 @@ services:
     environment:
       - ENV=LOCAL
       - SECRET_KEY=${SECRET_KEY}
+      - TMS_AUTH_TOKEN=${TMS_AUTH_TOKEN}
       - FORM_AUTOCOMPLETE_OFF=False
       - USE_LOCALSTACK=True
       - LOCALSTACK_URL=http://localstack:4566
