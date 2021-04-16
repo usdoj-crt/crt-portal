@@ -400,7 +400,7 @@ class ResponseView(LoginRequiredMixin, View):
     Allow intake specialists to print, copy, or email form response letters
     If we encounter _any_ exceptions in sending an email, log the error message and return.
     """
-    MAIL_SERVICE = "AWS Simple Email Service"
+    MAIL_SERVICE = "govDelivery TMS"
     ACTIONS = {'send': 'Emailed',
                'copy': 'Copied',
                'print': 'Printed'}
