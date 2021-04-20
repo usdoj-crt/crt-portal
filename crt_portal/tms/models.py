@@ -1,3 +1,5 @@
+import uuid
+
 from django.contrib.auth import get_user_model
 from django.db import models
 
@@ -21,6 +23,7 @@ class TMSEmail(models.Model):
         (INCONCLUSIVE, 'Inconclusive'),
     ]
 
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     tms_id = models.BigIntegerField(unique=True)
     report = models.ForeignKey('cts_forms.Report', related_name='emails', blank=True, on_delete=models.CASCADE)
     recipient = models.EmailField()
