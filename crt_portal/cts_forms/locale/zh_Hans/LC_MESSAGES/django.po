@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-11 20:20+0000\n"
+"POT-Creation-Date: 2021-04-20 14:30+0000\n"
 "Language: Chinese Simplified\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1477,11 +1477,11 @@ msgstr "上一步"
 msgid "Back"
 msgstr "返回"
 
-#: templates/forms/report_data.html:21 templates/forms/report_data.html:116
+#: templates/forms/report_data.html:21 templates/forms/report_data.html:114
 msgid "Address"
 msgstr "地址"
 
-#: templates/forms/report_data.html:137 templates/forms/report_data.html:143
+#: templates/forms/report_data.html:135 templates/forms/report_data.html:141
 msgid "None selected"
 msgstr "未选择"
 
@@ -1558,6 +1558,10 @@ msgstr ""
 "\n"
 "          %(word_limit)s 已达到字数限制\n"
 "        "
+
+#: templates/landing.html:29
+msgid "Menu"
+msgstr "菜单"
 
 #: templates/landing.html:38
 msgid "About the Division"
@@ -1932,7 +1936,7 @@ msgstr "美国政府的官方网站"
 #: templates/partials/banner/usa_banner_header.html:10
 #: templates/partials/banner/usa_banner_header.html:13
 msgid "Here’s how you know"
-msgstr "通过以下方式了解"
+msgstr "通过以下方式辨识"
 
 #: templates/partials/footer.html:47
 msgid "Availability of Language Assistance Services"
@@ -1972,7 +1976,7 @@ msgstr "法律政策和免责声明"
 
 #: templates/partials/i8n.html:15
 msgid "Go"
-msgstr ""
+msgstr "前往"
 
 #: templates/partials/menu_language_selection.html:36
 msgid "More Language Assistance Services"
