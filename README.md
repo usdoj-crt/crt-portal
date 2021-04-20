@@ -277,7 +277,7 @@ That will produce a report locally that you can view in your browser. It will gi
 
 We're using [Playwright](https://github.com/microsoft/playwright-python) for automated end-to-end testing. Currently this test suite can be run locally by developers with the following command.
 
-    pipenv run pytest crt_portal/cts_forms/tests/integration/report_submission.py --base-url=http://localhost:8000
+    pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=http://localhost:8000
 
 These tests are automatically executed for every pull request against a development instance in CircleCI.
 

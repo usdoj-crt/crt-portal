@@ -152,6 +152,15 @@ LANGUAGE_CODE = 'en-us'
 LANGUAGES = [
     ('es', _('Spanish')),
     ('en', _('English')),
+    # ('zh-hant', _('Chinese Traditional')),
+    # ('zh-hans', _('Chinese Simplified')),
+    # ('vi', _('Vietnamese')),
+]
+
+# Set LOCALE_PATHS to ensure that our translations are given precedence
+# https://docs.djangoproject.com/en/2.2/topics/i18n/translation/#how-django-discovers-translations
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'cts_forms', 'locale'),
 ]
 
 TIME_ZONE = 'America/New_York'
