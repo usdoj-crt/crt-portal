@@ -313,6 +313,12 @@ class Report(models.Model):
             return f"Estimado/a {self.contact_full_name}"
         return "Gracias por su informe"
 
+    @property
+    def addressee_tl(self):
+        if self.contact_full_name:
+            return f"Mahal na {self.contact_full_name}"
+        return "Salamat sa iyong ulat"
+
     def get_absolute_url(self):
         return reverse('crt_forms:crt-forms-show', kwargs={"id": self.id})
 
@@ -438,6 +444,11 @@ class ResponseTemplate(models.Model):
                 'date_of_intake': format_date(report.create_date, format='long', locale='es_ES'),
                 'outgoing_date': format_date(today, locale='es_ES'),
                 'section_name': section_choices_es.get(report.assigned_section, "no section"),
+            },
+            'tl': {
+                'addressee': report.addressee_tl,
+                'date_of_intake': format_date(report.create_date, format='long', locale='tl'),
+                'outgoing_date': format_date(today, locale='tl'),
             }
         })
 
