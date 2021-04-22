@@ -357,14 +357,16 @@ To enable outbound emails, a deployed instance **must** have the following envir
 Variable | Description
 ---------|-----------
 `TMS_AUTH_TOKEN` | TMS API authentication token
+`TMS_WEBHOOK_ALLOWED_CIDR_NETS` | ; delimited string of IP addresses from which we're expecting webhook requests
 
 Command line example
 
    ```
    # Authenticate and target desired space
    cf set-env crt-portal-django TMS_AUTH_TOKEN {VALUE}
+   cf set-env crt-portal-django TMS_WEBHOOK_ALLOWED_CIDR_NETS {VALUE}
    # re-stage application
    ```
 
 > **WARNING**:
- If this value is not configured the application will start but `EMAIL_ENABLED` will be set to `False` and the user interface will not provide an option to generate and send emails.
+ If these values are not configured the application will start but `EMAIL_ENABLED` will be set to `False` and the user interface will not provide an option to generate and send emails.

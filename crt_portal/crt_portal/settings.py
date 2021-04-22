@@ -180,13 +180,14 @@ TMS_TARGET_ENDPOINT = TMS_STAGING_ENDPOINT
 # to avoid un-intentional emails
 RESTRICT_EMAIL_RECIPIENT_DOMAINS_TO = ['gsa.gov', 'usdoj.gov']
 
-if TMS_AUTH_TOKEN:
+TMS_WEBHOOK_ALLOWED_CIDR_NETS = os.environ.get('TMS_WEBHOOK_ALLOWED_CIDR_NETS', '').split(';')
+
+if TMS_AUTH_TOKEN and TMS_WEBHOOK_ALLOWED_CIDR_NETS:
     EMAIL_ENABLED = True
 
     if environment == 'PRODUCTION':
         TMS_TARGET_ENDPOINT = TMS_PRODUCTION_ENDPOINT
         RESTRICT_EMAIL_RECIPIENT_DOMAINS_TO = []
-
 
 # Private S3 bucket configuration
 if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:

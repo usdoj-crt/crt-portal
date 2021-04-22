@@ -76,7 +76,6 @@ class TMSEmailBackend(BaseEmailBackend):
         response = self.connection.post(target=self.EMAIL_ENDPOINT, payload=outbound_data)
 
         if response.status_code == 201:
-            # Success per TMS docs
             logger.debug(
                 f"TMS API email success:<{response.status_code}> {response.json()}"
             )
@@ -85,5 +84,5 @@ class TMSEmailBackend(BaseEmailBackend):
                 f"TMS API email send failed:<{response.status_code}> {response.json()}"
             )
             if not self.fail_silently:
-                raise
+                response.raise_for_status()
         return response.json()

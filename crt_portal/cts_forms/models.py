@@ -465,3 +465,6 @@ class DoNotEmail(models.Model):
 
     class Meta:
         verbose_name = 'Do Not Email recipient'
+
+    def __str__(self):
+        return self.recipient

@@ -35,6 +35,8 @@ babel = "*"
 python-json-logger = "*"
 requests = "*"
 email-validator = "*"
+netaddr = "*"
+boto3 = "*"
 
 [requires]
 python_version = "3.9.1"
