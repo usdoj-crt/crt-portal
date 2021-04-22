@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
-from netaddr import AddrFormatError, IPNetwork
+from netaddr import IPNetwork
 
 from .models import TMSEmail
 
@@ -41,13 +41,15 @@ def _get_message_id(request):
     message_id = re.search(r'\d+', message_url)
     return message_id.group() if message_id else None
 
+
 def _get_completed_at(request):
     """return a UTC datetime from inbound completed_at string, we're only expecting UTC
     e.g: "2015-08-05+18:47:18+UTC"
     """
     completed_at = unquote(getattr(request.POST, 'completed_at', ''))
-    completed_datetime =  datetime.strptime(completed_at, '%Y-%m-%d+%H:%M:%S+%Z').replace(tzinfo=timezone.utc)
+    completed_datetime = datetime.strptime(completed_at, '%Y-%m-%d+%H:%M:%S+%Z').replace(tzinfo=timezone.utc)
     return completed_datetime
+
 
 @method_decorator(csrf_exempt, name='dispatch')
 class WebhookView(View):
@@ -62,7 +64,7 @@ class WebhookView(View):
         into python objects so that we can easily test for membership
         """
         # We're allowing all if explicitly configured
-        if  settings.TMS_WEBHOOK_ALLOWED_CIDR_NETS == ['*']:
+        if settings.TMS_WEBHOOK_ALLOWED_CIDR_NETS == ['*']:
             return True
 
         allowed_cidr_nets = [IPNetwork(net) for net in settings.TMS_WEBHOOK_ALLOWED_CIDR_NETS]
@@ -76,7 +78,7 @@ class WebhookView(View):
     def post(self, request):
         """Update TMSEmail instance of associated inbound webhook update"""
         self.limit_by_origin(request)
-        message_id  = _get_message_id(request)
+        message_id = _get_message_id(request)
         if message_id:
             try:
                 email = TMSEmail.objects.get(tms_id=message_id)
@@ -92,4 +94,3 @@ class WebhookView(View):
         else:
             # We couldn't find a message ID in this request, do nothing and return 400
             return HttpResponse(status=400)
-

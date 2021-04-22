@@ -357,7 +357,8 @@ To enable outbound emails, a deployed instance **must** have the following envir
 Variable | Description
 ---------|-----------
 `TMS_AUTH_TOKEN` | TMS API authentication token
-`TMS_WEBHOOK_ALLOWED_CIDR_NETS` | ; delimited string of IP addresses from which we're expecting webhook requests
+`TMS_WEBHOOK_ALLOWED_CIDR_NETS` | `;` delimited string of IP addresses from which we're expecting webhook requests. Requests from all other origins will be rejected. May be set to `*` in development to allow requests from all origins.
+
 
 Command line example
 
@@ -370,3 +371,5 @@ Command line example
 
 > **WARNING**:
  If these values are not configured the application will start but `EMAIL_ENABLED` will be set to `False` and the user interface will not provide an option to generate and send emails.
+
+ TMS_WEBHOOK_ALLOWED_CIDR_NETS may be set to '*' in development to allow requests from all origins.
