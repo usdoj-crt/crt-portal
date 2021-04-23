@@ -1,0 +1,41 @@
+{% load static %}
+{% load i18n %}
+
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+
+<li class="usa-nav__primary-item language-selection">
+  <div class="grid-col-auto language-selection__inner">
+    <div class="grid-row">
+      <div class="grid-col-auto">
+        <img src="{% static 'img/globe-language-blue.svg' %}" alt="language" class="icon">
+      </div>
+    </div>
+
+    <div class="grid-row grid-gap-1">
+      {% for language in languages %}
+        <div class="grid-col-6">
+          <a class="crt-landing--menu_link language-selection__button {% if language.code == LANGUAGE_CODE %}language-selection__button-active{% endif %}" href="#" data-value="{{ language.code }}">
+            <span>{{ language.name_local }}</span>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</li>
+<li class="usa-nav__primary-item language-assistance">
+  <div class="grid-col-auto language-assistance__inner">
+    <div class="grid-row">
+      <div class="grid-col-1">
+
+        <img src="{% static 'img/ic_help-circle-blue.svg' %}" alt="help" class="icon">
+      </div>
+      <div class="grid-col-11">
+    <a href="https://www.justice.gov/crt/availability-language-assistance-services">
+      {% trans 'More Language Assistance Services' %}
+    </a>
+  </div>
+    </div>
+  </div>
+</li>
