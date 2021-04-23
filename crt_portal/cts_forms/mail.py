@@ -32,12 +32,15 @@ def crt_send_mail(report, template):
     """
     subject = template.render_subject(report)
     message = template.render_body(report)
+
     recipient_list = remove_disallowed_recipients([report.contact_email])
     if not recipient_list:
         logger.info(f'{report.contact_email} not in allowed domains, not attempting to deliver email response template #{template.id} to report: {report.id}')
         return None
-    else:
-        response = send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list, fail_silently=False)[0]
+    send_results = send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list, fail_silently=False)
+    logger.info(f'Sent email response template #{template.id} to report: {report.id}')
+    if settings.EMAIL_BACKEND == 'tms.backend.TMSEmailBackend':
+        response = send_results[0]
         TMSEmail(tms_id=response['id'],
                  recipient=report.contact_email,
                  subject=subject,
@@ -46,5 +49,4 @@ def crt_send_mail(report, template):
                  created_at=datetime.strptime(response['created_at'], '%Y-%m-%dT%H:%M:%S%z'),
                  status=response['status']
                  ).save()
-        logger.info(f'Sent email response template #{template.id} to report: {report.id}')
-        return TMSEmail
+    return send_results

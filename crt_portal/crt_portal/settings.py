@@ -169,21 +169,21 @@ USE_TZ = True
 # Set to True later in settings if we've successfully configured an email backend
 EMAIL_ENABLED = False
 
-# govDelivery TMS settings
+TMS_WEBHOOK_ALLOWED_CIDR_NETS = os.environ.get('TMS_WEBHOOK_ALLOWED_CIDR_NETS', '').split(';')
 TMS_STAGING_ENDPOINT = "https://stage-tms.govdelivery.com"
 TMS_PRODUCTION_ENDPOINT = "https://tms.govdelivery.com"
-EMAIL_BACKEND = 'tms.backend.TMSEmailBackend'
-TMS_AUTH_TOKEN = os.environ.get('TMS_AUTH_TOKEN', '')
-TMS_TARGET_ENDPOINT = TMS_STAGING_ENDPOINT
-
 # Since there's no sandbox, we'll limit outbound recipients to these addresses
 # to avoid un-intentional emails
 RESTRICT_EMAIL_RECIPIENTS_TO = os.environ.get('RESTRICT_EMAIL_RECIPIENTS_TO', '').split(';')
 
-TMS_WEBHOOK_ALLOWED_CIDR_NETS = os.environ.get('TMS_WEBHOOK_ALLOWED_CIDR_NETS', '').split(';')
+if environment not in ['LOCAL', 'UNDEFINED']:
+    # govDelivery TMS settings
+    EMAIL_BACKEND = 'tms.backend.TMSEmailBackend'
+    TMS_AUTH_TOKEN = os.environ.get('TMS_AUTH_TOKEN', '')
+    TMS_TARGET_ENDPOINT = TMS_STAGING_ENDPOINT
 
-if TMS_AUTH_TOKEN and TMS_WEBHOOK_ALLOWED_CIDR_NETS:
-    EMAIL_ENABLED = True
+    if TMS_AUTH_TOKEN and TMS_WEBHOOK_ALLOWED_CIDR_NETS:
+        EMAIL_ENABLED = True
 
     if environment == 'PRODUCTION':
         TMS_TARGET_ENDPOINT = TMS_PRODUCTION_ENDPOINT

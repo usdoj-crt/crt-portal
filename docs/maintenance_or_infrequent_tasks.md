@@ -365,13 +365,11 @@ Command line example
 
    ```
    # Authenticate and target desired space
-   cf set-env crt-portal-django TMS_AUTH_TOKEN {VALUE}
-   cf set-env crt-portal-django TMS_WEBHOOK_ALLOWED_CIDR_NETS {VALUE}
-   cf set-env crt-portal-django RESTRICT_EMAIL_RECIPIENTS_TO {VALUE}
+   cf set-env crt-portal-django TMS_AUTH_TOKEN not_a_real_token
+   cf set-env crt-portal-django TMS_WEBHOOK_ALLOWED_CIDR_NETS 192.168.0.15/24
+   cf set-env crt-portal-django RESTRICT_EMAIL_RECIPIENTS_TO developer.email@example.com;dev@example.com
    # re-stage application
    ```
 
 > **WARNING**:
- If these values are not configured the application will start but `EMAIL_ENABLED` will be set to `False` and the user interface will not provide an option to generate and send emails.
-
- TMS_WEBHOOK_ALLOWED_CIDR_NETS may be set to '*' in development to allow requests from all origins.
+ If `TMS_AUTH_TOKEN` and `TMS_WEBHOOK_ALLOWED_CIDR_NETS` values are not configured the application will start but `EMAIL_ENABLED` will be set to `False` and the user interface will not provide an option to generate and send emails.
