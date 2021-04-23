@@ -27,6 +27,7 @@ from .model_variables import (CLOSED_STATUS,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
                               SECTION_CHOICES, SECTION_CHOICES_ES,
+                              SECTION_CHOICES_KO,
                               SERVICEMEMBER_CHOICES,
                               STATES_AND_TERRITORIES, STATUS_CHOICES,
                               STATUTE_CHOICES)
@@ -432,6 +433,7 @@ class ResponseTemplate(models.Model):
         today = datetime.today()
         section_choices = dict(SECTION_CHOICES)
         section_choices_es = dict(SECTION_CHOICES_ES)
+        section_choices_ko = dict(SECTION_CHOICES_KO)
         return Context({
             'record_locator': report.public_id,
             'addressee': report.addressee,
@@ -449,6 +451,7 @@ class ResponseTemplate(models.Model):
                 'addressee': report.addressee_ko,
                 'date_of_intake': format_date(report.create_date, format='long', locale='ko'),
                 'outgoing_date': format_date(today, locale='ko'),
+                'section_name': section_choices_ko.get(report.assigned_section, "no section"),
             }
         })
 

@@ -186,6 +186,18 @@ SECTION_CHOICES_ES = (
     ('SPL', 'de Litigios Especiales'),
     ('VOT', 'de Votación'),
 )
+SECTION_CHOICES_KO = (
+    ('ADM', '행정'),
+    ('CRM', '형사'),
+    ('DRS', '장애인 권리'),
+    ('ELS', '고용 소송'),
+    ('EOS', '교육 기회'),
+    ('FCS', '연방 조정 및 규정준수'),
+    ('HCE', '주택 및 민법 시행'),
+    ('IER', '이민 및 직원 권리'),
+    ('SPL', '특별 소송'),
+    ('VOT', '투표'),
+)
 
 # CRT view global section filter
 SECTION_CHOICES_WITHOUT_LABELS = tuple([(key[0], key[0]) for key in SECTION_CHOICES])
