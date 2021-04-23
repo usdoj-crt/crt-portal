@@ -357,6 +357,7 @@ To enable outbound emails, a deployed instance **must** have the following envir
 Variable | Description
 ---------|-----------
 `TMS_AUTH_TOKEN` | TMS API authentication token
+`RESTRICT_EMAIL_RECIPIENTS_TO` | `;` delimited string of email addresses which, when non-empty, will prevent outbound email from being sent to any address other than those specified here. We use this to prevent sending unexpected emails from development instances.
 `TMS_WEBHOOK_ALLOWED_CIDR_NETS` | `;` delimited string of IP addresses from which we're expecting webhook requests. Requests from all other origins will be rejected. May be set to `*` in development to allow requests from all origins.
 
 
@@ -366,6 +367,7 @@ Command line example
    # Authenticate and target desired space
    cf set-env crt-portal-django TMS_AUTH_TOKEN {VALUE}
    cf set-env crt-portal-django TMS_WEBHOOK_ALLOWED_CIDR_NETS {VALUE}
+   cf set-env crt-portal-django RESTRICT_EMAIL_RECIPIENTS_TO {VALUE}
    # re-stage application
    ```
 

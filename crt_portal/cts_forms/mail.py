@@ -13,12 +13,12 @@ def remove_disallowed_recipients(recipient_list):
     If we've limited the recipients, modify the `to` attribute of our email_message
     """
     # If the list of restrictions is empty, allow all
-    restricted_to = settings.RESTRICT_EMAIL_RECIPIENT_DOMAINS_TO
+    restricted_to = settings.RESTRICT_EMAIL_RECIPIENTS_TO
     if restricted_to:
         recipient_list = [
             to_address
             for to_address in recipient_list
-            if to_address.split("@")[1] in restricted_to
+            if to_address in restricted_to
         ]
     return recipient_list
 

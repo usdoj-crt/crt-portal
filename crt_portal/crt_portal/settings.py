@@ -176,9 +176,9 @@ EMAIL_BACKEND = 'tms.backend.TMSEmailBackend'
 TMS_AUTH_TOKEN = os.environ.get('TMS_AUTH_TOKEN', '')
 TMS_TARGET_ENDPOINT = TMS_STAGING_ENDPOINT
 
-# Since there's no sandbox, we'll limit outbound recipients to these domains
+# Since there's no sandbox, we'll limit outbound recipients to these addresses
 # to avoid un-intentional emails
-RESTRICT_EMAIL_RECIPIENT_DOMAINS_TO = ['gsa.gov', 'usdoj.gov']
+RESTRICT_EMAIL_RECIPIENTS_TO = os.environ.get('RESTRICT_EMAIL_RECIPIENTS_TO', '').split(';')
 
 TMS_WEBHOOK_ALLOWED_CIDR_NETS = os.environ.get('TMS_WEBHOOK_ALLOWED_CIDR_NETS', '').split(';')
 
@@ -187,7 +187,7 @@ if TMS_AUTH_TOKEN and TMS_WEBHOOK_ALLOWED_CIDR_NETS:
 
     if environment == 'PRODUCTION':
         TMS_TARGET_ENDPOINT = TMS_PRODUCTION_ENDPOINT
-        RESTRICT_EMAIL_RECIPIENT_DOMAINS_TO = []
+        RESTRICT_EMAIL_RECIPIENTS_TO = []
 
 # Private S3 bucket configuration
 if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
