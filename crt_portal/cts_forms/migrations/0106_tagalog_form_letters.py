@@ -2,7 +2,7 @@ from django.db import migrations
 
 def add_letters(apps, schema_editor):
     ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
-    subject = 'Response: Your Civil Rights Division Report - {{ record_locator }} from {{ section_name }} Section'
+    subject = 'Tugon: Ang Iyong Ulat sa Dibisyon sa Mga Karapatang Sibil – {{ record_locator }} mula sa Seksyon na {{ tl.section_name }}'
     ResponseTemplate.objects.create(
         title='CRM - R1 Form Letter (Tagalog)',
         subject=subject,
