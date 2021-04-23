@@ -196,7 +196,7 @@ SECTION_CHOICES_TL = (
     ('HCE', 'Pabahay at Pagpapatupad ng Sibil'),
     ('IER', 'Imigrasyon at Mga Karapatan ng Empleyado'),
     ('SPL', 'Espesyal na Paglilitis'),
-    ('VOT', 'Pagboto'),   
+    ('VOT', 'Pagboto'),
 )
 
 # CRT view global section filter
