@@ -40,6 +40,8 @@ def crt_send_mail(report, template):
         response = send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list, fail_silently=False)[0]
         TMSEmail(tms_id=response['id'],
                  recipient=report.contact_email,
+                 subject=subject,
+                 body=message,
                  report=report,
                  created_at=datetime.strptime(response['created_at'], '%Y-%m-%dT%H:%M:%S%z'),
                  status=response['status']

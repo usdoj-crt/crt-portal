@@ -23,6 +23,8 @@ class TMSEmail(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     tms_id = models.BigIntegerField(unique=True)
     report = models.ForeignKey('cts_forms.Report', related_name='emails', blank=True, on_delete=models.CASCADE)
+    subject = models.TextField(help_text='Subject line of outbound email')
+    body = models.TextField(help_text='Body of outbound email')
     recipient = models.EmailField()
     created_at = models.DateTimeField()
     completed_at = models.DateTimeField(null=True)
