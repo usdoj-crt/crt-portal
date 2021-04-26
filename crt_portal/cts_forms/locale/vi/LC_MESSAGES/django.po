@@ -1,10 +1,11 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-12 14:27+0000\n"
+"POT-Creation-Date: 2021-04-26 17:24+0000\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
 #: forms.py:161 forms.py:1546
@@ -37,7 +38,7 @@ msgstr ""
 "Chọn lý do mô tả tốt nhất mối quan ngại của quý vị. Với mỗi lý do, liệt kê "
 "các ví dụ về những hành vi vi phạm dân quyền có thể liên quan đến vụ việc "
 "của quý vị. Trong một phần khác của báo cáo này, quý vị sẽ có thể mô tả mối "
-"quan ngại của mình bằng cách diễn đạt của quý vị."
+"quan ngại của mình qua lời lẽ riêng của quý vị."
 
 #. Translators: notes that this page is the same form step as the page before
 #: forms.py:239
@@ -1240,7 +1241,7 @@ msgstr "bắt buộc"
 
 #: templates/forms/confirmation.html:8
 msgid "Submission complete"
-msgstr "Đã nộp"
+msgstr "nộp xong"
 
 #: templates/forms/confirmation.html:20 templates/forms/confirmation.html:26
 #: templates/forms/portal/header.html:3
@@ -1597,11 +1598,11 @@ msgstr "bước trước"
 msgid "Back"
 msgstr "Quay lại"
 
-#: templates/forms/report_data.html:21 templates/forms/report_data.html:116
+#: templates/forms/report_data.html:21 templates/forms/report_data.html:114
 msgid "Address"
 msgstr "Địa chỉ"
 
-#: templates/forms/report_data.html:137 templates/forms/report_data.html:143
+#: templates/forms/report_data.html:135 templates/forms/report_data.html:141
 msgid "None selected"
 msgstr "Không lựa chọn nào được chọn"
 
@@ -2591,7 +2592,7 @@ msgstr ""
 
 #: validators.py:101
 msgid "Enter a valid email address."
-msgstr "Hãy cho một dịa chỉ email hợp lệ"
+msgstr "điền vào địa chỉ email hợp lệ"
 
 #: views.py:78
 msgid "404 | Page not found"
