@@ -1,19 +1,14 @@
-# This file was generated from /Users/timothydballard/temp/ko.xlsx
-msgid ""
-msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-23 13:25+0000\n"
-"PO-Revision-Date: 2021-04-02 15:31-0500\n"
 "Language: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: xls-to-po 1.0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
 #: forms.py:161 forms.py:1546
-#, fuzzy
 msgid " - Select - "
-msgstr "- 선택 -"
+msgstr " - 선택 - "
 
 #. Translators: This is help text for the question asking if someone is a service member
 #: forms.py:173
@@ -53,7 +48,7 @@ msgstr "예: 사업체, 학교, 교차로, 교도소, 투표소, 웹사이트 �
 
 #: forms.py:317 question_text.py:29
 msgid "Where did this happen?"
-msgstr "이 일이 일어난 장소는 어디입니까?"
+msgstr "이 일이 발생한 것은 언제입니까?"
 
 #: forms.py:329
 msgid ""
@@ -265,12 +260,11 @@ msgid "Denied reemployment or fired based on military service"
 msgstr "군대 복무를 근거로 해고를 당하거나 재 고용이 거부됨"
 
 #: model_variables.py:59
-#, fuzzy
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in the workplace</strong>"
 msgstr ""
-"직장에서 장애인 보조 동물이 허용되지 않음을 포함한 장애인을 위한 편의가 거부"
+"<strong>직장에서</strong> 장애인 보조 동물이 허용되지 않음을 포함한 장애인을 위한 편의가 거부"
 "됨."
 
 #: model_variables.py:62
@@ -290,12 +284,11 @@ msgid "Challenges with terminating a lease due to military status change"
 msgstr "군 복무 신분의 변화로 인한 임대 해지의 어려움"
 
 #: model_variables.py:65
-#, fuzzy
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service or assistance animal <strong>in public housing</strong>"
 msgstr ""
-"공공 주택에서 장애인 보조 동물 또는 지원 동물이 허용되지 않음을 포함한 장애인"
+"<strong>공공 주택에서</strong> 장애인 보조 동물 또는 지원 동물이 허용되지 않음을 포함한 장애인"
 "을 위한 편의가 거부됨"
 
 #: model_variables.py:68
@@ -373,13 +366,11 @@ msgstr ""
 "인종, 성별 또는 종교 같은 인지된 인적 특성 때문에 입장이나 서비스가 거부됨"
 
 #: model_variables.py:86
-#, fuzzy
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in a commercial or public location</strong>"
 msgstr ""
-"상업적 근로 현장에서 장애인 보조 동물이 허용되지 않음을 포함하여 장애인을 위"
-"한 편의가 거부됨"
+"<strong>상업용 또는 공공 장소에서</strong> 장애인 보조 동물이 허용되지 않음을 포함한 장애인을 위한 편의가 거부됨."
 
 #: model_variables.py:92
 msgid ""
@@ -1196,7 +1187,6 @@ msgid "required"
 msgstr "필수"
 
 #: templates/forms/confirmation.html:8
-#, fuzzy
 msgid "Submission complete"
 msgstr "완료 안 됨"
 
@@ -1259,27 +1249,23 @@ msgid "We may decide to:"
 msgstr "다음을 하기로 결정할 수 있습니다."
 
 #: templates/forms/confirmation.html:105
-#, fuzzy
 msgid ""
 "<strong>Open an investigation</strong> or take some other action within the "
 "legal authority of the Justice Department."
-msgstr "법무부의 법적 권한 내에서 조사를 개시하거나 일부 다른 조치를 취합니다."
+msgstr "법무부의 법적 권한 내에서 <strong>조사를 개시하거나</strong> 일부 다른 조치를 취합니다."
 
 #: templates/forms/confirmation.html:106
-#, fuzzy
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
 "report."
-msgstr "신고 내용을 더 들여다 보기 전에 추가 정보를 수집합니다."
+msgstr "신고 내용을 더 들여다 보기 전에 <strong>추가 정보를 수집합니다</strong>."
 
 #: templates/forms/confirmation.html:107
-#, fuzzy
 msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
 "into your report. If so, we’ll let you know."
 msgstr ""
-"귀하의 신고 내용을 적절하게 파헤쳐 볼 수 있는 다른 정부 기관을 추천합니다. 그"
-"런 경우, 귀하에게 알려드립니다."
+"귀하의 신고 내용을 적절하게 파헤쳐 볼 수 있는 <strong>다른 정부 기관을 추천합니다</strong>. 그런 경우, 귀하에게 알려드립니다."
 
 #: templates/forms/confirmation.html:110
 msgid ""
@@ -1378,8 +1364,8 @@ msgid ""
 "please call <a href=\"tel:911\">911</a> and contact the police."
 msgstr ""
 "귀하 또는 다른 누군가가 물리적 위해나 폭력을 경험했거나 여전히 경험하고 있는 "
-"사건을 신고했거나 긴박한 위험에 처해 있는 경우라면, <a href=\"tel:911\">911</"
-"a>에 전화해 경찰을 접촉하십시오."
+"사건을 신고했거나 긴박한 위험에 처해 있는 경우라면, <a href=\"tel:911\">911</a>에 전화해 경찰을 접촉"
+"하십시오."
 
 #: templates/forms/confirmation.html:191
 msgid "Your submission"
@@ -1400,11 +1386,11 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"        <p>이 오류는 호환되지 않는 인터넷 브라우저와 연계된 것일 수 있습니"
-"다. 최신 버전의 Google Chrome, Mozilla Firefox, Safari 또는 Microsoft Edge를 "
-"다운로드하십시오.</p>\n"
-"        <p>또한, 신고 내용을 입력할 때 다수의 브라우저 및/또는 브라우저 탭을 "
-"이용하지 마십시오.</p>\n"
+"        <p>이 오류는 호환되지 않는 인터넷 브라우저와 연계된 것일 수 있습니다. 최신 버전"
+"의 Google Chrome, Mozilla Firefox, Safari 또는 Microsoft Edge를 다운로드하십"
+"시오.</p>\n"
+"        <p>또한, 신고 내용을 입력할 때 다수의 브라우저 및/또는 브라우저 탭을 이용하지 마"
+"십시오.</p>\n"
 "    "
 
 #: templates/forms/errors.html:33
@@ -1454,12 +1440,11 @@ msgstr "민권국 소개"
 
 #: templates/forms/errors.html:74 templates/forms/report_maintenance.html:69
 #: templates/landing.html:108
-#, fuzzy
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
 msgstr ""
-"귀하 또는 다른 누군가가 긴박한 위험에 처해 있다면 911 또는 지역 경찰서로 전화"
+"귀하 또는 다른 누군가가 긴박한 위험에 처해 있다면 <a href=\"tel:911\">911 또는 지역 경찰서로 전화</a>"
 "하십시오."
 
 #: templates/forms/portal/progress-bar.html:6
@@ -1506,12 +1491,12 @@ msgid_plural ""
 "                "
 msgstr[0] ""
 "\n"
-"         1개의 오류 발견\n"
-"        "
+"                  1개의 오류 발견\n"
+"                "
 msgstr[1] ""
 "\n"
-"         %(counter)s1개의 오류 발견\n"
-"        "
+"                  %(counter)s개의 오류 발견\n"
+"                "
 
 #: templates/forms/report_base.html:84
 msgid "Submit"
@@ -1630,9 +1615,8 @@ msgid "Contact"
 msgstr "연락처"
 
 #: templates/landing.html:78
-#, fuzzy
 msgid "We uphold the civil rights of <em>all</em> people in the United States."
-msgstr "우리는 미국 내 모든 사람들의 민권을 옹호합니다."
+msgstr "우리는 미국 내 <em>모든</em> 사람들의 민권을 옹호합니다."
 
 #: templates/landing.html:83
 msgid ""
@@ -1657,16 +1641,14 @@ msgid "Start a report"
 msgstr "신고서 작성을 시작하거나"
 
 #: templates/landing.html:89
-#, fuzzy
 msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
-msgstr "또는 귀하의 권리에 대해 더 알아보세요"
+msgstr "또는 <a href=\"#your-rights\">귀하의 권리</a>에 대해 더 알아보세요"
 
 #: templates/landing.html:102
 msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
 msgstr "위험에 처해 있다면 <a href=\"tel:911\">911</a>로 연락하세요"
 
 #: templates/landing.html:113
-#, fuzzy
 msgid ""
 "If you are reporting misconduct by law enforcement or believe you have "
 "experienced a hate crime, please <a aria-label=\"contact the FBI\" class="
@@ -1674,7 +1656,8 @@ msgid ""
 "a>."
 msgstr ""
 "법 집행기관에 의한 부당행위를 신고 중이거나 증오 범죄를 경험했다고 생각되면, "
-"FBI에 연락하십시오."
+"<a aria-label=\"contact the FBI\" class="
+"\"external-link--white\" href=\"https://www.fbi.gov/tips\">FBI에 연락하십시오</a>."
 
 #: templates/landing.html:127
 msgid "We protect your rights through:"
@@ -1735,19 +1718,18 @@ msgid "Understanding your rights"
 msgstr "귀하의 권리를 이해하기"
 
 #: templates/landing.html:160
-#, fuzzy
 msgid ""
 "Civil rights laws can protect you from unlawful discrimination, harassment, "
 "or abuse in a variety of settings like <span class=\"crt-landing--"
 "rights_text crt-landing--rights_categories\">housing, the workplace, school, "
 "voting, business, healthcare, public spaces</span>, and more."
 msgstr ""
-"민권법은 주택, 직장, 학교, 투표, 사업, 의료, 공공장소 등의 다양한 여러 환경에"
+"민권법은 <span class=\"crt-landing--"
+"rights_text crt-landing--rights_categories\">주택, 직장, 학교, 투표, 사업, 의료, 공공장소</span> 등의 다양한 여러 환경에"
 "서 벌어지는 불법적인 차별, 괴롭힘 또는 학대로부터 귀하를 보호해 드릴 수 있습"
 "니다."
 
 #: templates/landing.html:163
-#, fuzzy
 msgid ""
 "If you have been <span class=\"crt-landing--rights_categories\">mistreated "
 "by law enforcement</span> (including while incarcerated), believe you have "
@@ -1755,8 +1737,8 @@ msgid ""
 "crime</span>, or a victim of <span class=\"crt-landing--rights_categories"
 "\">human trafficking</span>, we can help get you to the right place."
 msgstr ""
-"법 집행기관에 의해 (감금되어 있던 동안 포함) 불법적인 대우를 받았거나, 증오 "
-"범죄 또는 인신매매의 피해자라고 믿는 경우, 귀하가 올바른 곳과 접촉할 수 있도"
+"법 집행기관에 의해 (감금되어 있던 동안 포함) <span class=\"crt-landing--rights_categories\">불법적인 대우를 받았거나</span>, <span class=\"crt-landing--rights_categories\">증오 "
+"범죄</span> 또는 <span class=\"crt-landing--rights_categories\">인신매매</span>의 피해자라고 믿는 경우, 귀하가 올바른 곳과 접촉할 수 있도"
 "록 도와드릴 수 있습니다."
 
 #: templates/landing.html:179
@@ -1768,12 +1750,12 @@ msgid "Examples"
 msgstr "예"
 
 #: templates/landing.html:231
-#, fuzzy
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
 msgstr ""
-"귀하가 유사 상황을 경험했다고 생각되는 경우, 민권 침해를 신고하는 방법에 대"
+"귀하가 유사 상황을 경험했다고 생각되는 경우, <a href=\"#crt-"
+"landing--reporting\">민권 침해를 신고하는 방법</a>에 대"
 "해 알아보세요. "
 
 #: templates/landing.html:241
@@ -1785,11 +1767,10 @@ msgid "These are the most common characteristics that are legally protected."
 msgstr "다음은 법적 보호를 받는 가장 일반적인 특성들입니다."
 
 #: templates/landing.html:246
-#, fuzzy
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
-msgstr "일시적이거나 회복 중인 상태를 포함한 장애"
+msgstr "<span class=\"crt-landing--protected\">일시적이거나 회복 중인 상태를 포함한</span> 장애"
 
 #: templates/landing.html:248
 msgid "Sex, gender identity, and sexual orientation"
@@ -1800,18 +1781,18 @@ msgid "Immigration/citizenship status"
 msgstr "이민/시민권 신분"
 
 #: templates/landing.html:250
-#, fuzzy
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
-msgstr "언어와 혈통 및 민족을 포함한 출신 국가"
+msgstr "언어와 <span class=\"crt-landing--protected"
+"\">혈통 및 민족을 포함한</span> 출신 국가"
 
 #: templates/landing.html:251
-#, fuzzy
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
-msgstr "가족, 결혼 또는 임신을 포함한 자녀 유무 상태"
+msgstr "가족, 결혼 또는 <span class=\"crt-landing--protected"
+"\">임신을 포함한</span> 자녀 유무 상태"
 
 #: templates/landing.html:253
 msgid "Genetic identification"
@@ -1883,13 +1864,14 @@ msgid "Submit a report"
 msgstr "신고서를 제출하십시오."
 
 #: templates/landing.html:326
-#, fuzzy
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
 "\"#address-footer\">mail</a>."
 msgstr ""
-"온라인 양식에 접근할 수 없는 경우, 전화를 걸어 침해 내용을 신고하거나 우편으"
+"온라인 양식에 접근할 수 없는 경우, <a href=\"#phone-footer"
+"\">전화</a>를 걸어 침해 내용을 신고하거나 <a href="
+"\"#address-footer\">우편</a>으"
 "로 신고하실 수 있습니다."
 
 #: templates/landing.html:336
@@ -1901,14 +1883,13 @@ msgid "Here's what to expect."
 msgstr "예상되는 결과는 다음과 같습니다."
 
 #: templates/landing.html:343
-#, fuzzy
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
 "about the outcome of our review. However, we may not always be able to "
 "provide you with updates because:"
 msgstr ""
-"신고해 주셔서 감사합니다. 우리는 각각의 신고서를 신중히 읽어보고 우리가 도움"
+"<strong>신고해 주셔서 감사합니다</strong>. 우리는 각각의 신고서를 신중히 읽어보고 우리가 도움"
 "을 드릴 권한이 있는지 판단합니다. 우리는 검토 결과를 알려 드리기 위해 최선을 "
 "다할 것입니다. 하지만 우리는 다음과 같은 이유로 항상 업데이트를 제공해 드릴 "
 "수 있는 것은 아닙니다."
@@ -1978,8 +1959,8 @@ msgid ""
 "official website and that any information you provide is encrypted and "
 "transmitted securely."
 msgstr ""
-"<strong>https://</strong>는 귀하가 공식 웹사이트에 연결되어 있음을 보장하며 "
-"귀하가 제공하는 정보가 암호화되어 안전하게 전송됨을 보장합니다."
+"<strong>https://</strong>는 귀하가 공식 웹사이트에 연결되어 있음을 보장하며 귀하가 제공하는 정"
+"보가 암호화되어 안전하게 전송됨을 보장합니다."
 
 #: templates/partials/banner/usa_banner_header.html:9
 msgid "An official website of the United States government"
@@ -2032,14 +2013,14 @@ msgstr ""
 
 #: templates/partials/menu_language_selection.html:36
 msgid "More Language Assistance Services"
-msgstr "접근성 지원 언어 서비스"
+msgstr "더 많은 언어 도움 서비스"
 
 #: templates/partials/policy.html:9
 msgid "Privacy Policy"
 msgstr "개인정보 보호 정책"
 
 #: templates/partials/policy.html:16
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "            The purpose of this form is to allow the public to submit civil "
@@ -2054,14 +2035,14 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"      이 양식의 목적은 일반 대중이 민권 진정사항을 법무부에 제출할 수 있게 하"
-"는 것으로서, 이를 통해 우리는 우리가 가진 권한 내에서 30가지의 민권 법령에 대"
+"            이 양식의 목적은 일반 대중이 민권 진정사항을 법무부에 제출할 수 있게 하"
+"는 것으로서, 이를 통해 우리는 우리가 가진 권한 내에서 30가지의 <a href=\"%(privacy_policy_url)s#our-statutes\">민권 법령</a>에 대"
 "한 집행이 가능합니다. 이들 법령은 우리에게 이 정보를 수집할 권한을 부여합니"
 "다. 귀하는 이 양식을 통해 제공하는 모든 정보가 자발적인 것이며, 일부 정보를 "
 "제공하지 않는 경우 귀하의 주장을 추적할 수 있는 법무부의 능력을 제한할 수 있"
 "음을 아셔야 합니다. 우리는 특정 상황 하에서 이 정보를 다음과 같은 사람들과 공"
 "유하는 것을 비롯해, 일정한 통상적인 용도로 이 정보를 사용할 수 있습니다:\n"
-"      "
+"            "
 
 #: templates/partials/policy.html:20
 msgid "contractors who work with us, if they need it to perform a contract;"
@@ -2084,11 +2065,11 @@ msgid "Federal, state, or local law enforcement agencies."
 msgstr "연방, 주 또는 지역의 법 집행 기관;"
 
 #: templates/partials/policy.html:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You can find our complete <a href=\"%(privacy_policy_url)s\">Privacy Policy "
 "here</a>."
-msgstr "여기에서 우리의 개인정보 보호 정책 전문을 찾아보실 수 있습니다."
+msgstr "여기에서 우리의 <a href=\"%(privacy_policy_url)s\">개인정보 보호 정책</a> 전문을 찾아보실 수 있습니다."
 
 #: templates/partials/redirect-modal.html:8
 msgid "You are now leaving the Department of Justice website."
@@ -2446,7 +2427,7 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"        이 통신물의 통상적 사용에 대한 전체 목록을 볼 수 있는 곳: System of "
+"                이 통신물의 통상적 사용에 대한 전체 목록을 볼 수 있는 곳: System of "
 "Records Notice(기록물 공지 시스템) 타이틀: JUSTICE/CRT – 001, “중앙 민권국 인"
 "덱스 파일 및 연관 기록”, 68 Fed. Reg. 47610, 611 (8-11-2003); 70 Fed. Reg. "
 "43904 (7-29-2005); 72 Fed. Reg. 3410 (1-25-2007) (82 FR 24147에 의해 철회"
@@ -2454,9 +2435,8 @@ msgstr ""
 "                "
 
 #: validators.py:101
-#, fuzzy
 msgid "Enter a valid email address."
-msgstr "이메일 주소"
+msgstr "유효한 이메일 주소를 입력하십시오."
 
 #: views.py:78
 msgid "404 | Page not found"
