@@ -26,7 +26,7 @@
       <div class="crt-menu--section grid-col-auto">
         <div class="usa-nav-container">
           <div class="crt-menu--navbar">
-            <button class="crt-menu--mobile usa-menu-btn">Menu</button>
+            <button class="crt-menu--mobile usa-menu-btn">{% trans "Menu" %}</button>
           </div>
           <div class="usa-nav">
             <button class="usa-nav__close">
@@ -130,7 +130,12 @@
               <p class="h3__display crt-landing--subheader">{% trans "Enforcement" %}</p>
               <div class="crt-landing--separator_sub"></div>
               <p class="crt-landing--columns crt-landing--largetext">{% trans "We sue or prosecute individuals and organizations who violate civil rights laws." %}</p>
-              <p class="margin-bottom-0">{% trans "You can help us do this work by reporting a possible civil rights violation through our" %} <a href="{% url 'crt_report_form' %}">{% trans "online form" %}</a>.</p>
+              <p class="margin-bottom-0">
+                {% url 'crt_report_form' as report_form_url %}
+                {% blocktrans %}
+                You can help us do this work by reporting a possible civil rights violation through our <a href="{{ report_form_url }}">online form</a>.
+                {% endblocktrans %}
+              </p>
             </div>
           <div class="tablet:grid-col-4 crt-landing--section__item">
               <p class="h3__display crt-landing--subheader">{% trans "Education" %}</p>
