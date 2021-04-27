@@ -461,12 +461,13 @@ class ResponseTemplate(models.Model):
                 'date_of_intake': format_date(report.create_date, format='long', locale='zh_hans'),
                 'outgoing_date': format_date(today, locale='zh_hans'),
                 'section_name': section_choices_zh_hans.get(report.assigned_section, "no section"),
+            },
             'zh_hant': {
                 'addressee': report.addressee_zh_hant,
                 'date_of_intake': format_date(report.create_date, format='long', locale='zh_hant'),
                 'outgoing_date': format_date(today, locale='zh_hant'),
                 'section_name': section_choices_zh_hant.get(report.assigned_section, "no section"),
-            }
+            },
         })
 
     def render_subject(self, report):
