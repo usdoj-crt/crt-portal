@@ -41,9 +41,7 @@
     <p>{{ report.get_primary_complaint_display }}</p>
 
     <h3 class="crt-portal-card__subheader">{{ question.hate_crime }}</h3>
-    {% with report.hate_crime|default:"-" as hate %}
-    <p>{{ hate|title }}</p>
-    {% endwith %}
+    <p>{{ report.get_hate_crime_display|default:"-" }}</p>
   </div>
 </div>
 

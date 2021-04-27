@@ -55,6 +55,9 @@ jobs:
             - node-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-
             - node-{{ .Environment.CACHE_VERSION }}-
       - run:
+          name: Install gettext
+          command: sudo apt-get update && sudo apt-get install -yqq gettext
+      - run:
           name: Node install, generate CSS
           command: |
             npm ci
@@ -92,6 +95,10 @@ jobs:
           name: Run flake8 test for Python code style
           command: |
             pipenv run flake8
+      - run:
+          name: compile messages for internationalization
+          command: |
+            pipenv run crt_portal/manage.py compilemessages
       - run:
           name: run server for tests
           environment:

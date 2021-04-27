@@ -77,6 +77,14 @@ def test_report_complete_and_valid_submission(page):
     next_step()
     assert page.title() == "Step 2: Primary concern - Contact the Civil Rights Division | Department of Justice"
 
+    # Check footer exist
+    content = page.text_content("footer")
+
+    assert "Links" in content
+
+    # Check privacy footer
+    assert "Privacy Policy" in content
+
     # Check NOT hatecrime
     page.check("#id_2-hate_crime_1")
 
