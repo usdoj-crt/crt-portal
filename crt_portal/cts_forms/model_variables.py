@@ -186,6 +186,18 @@ SECTION_CHOICES_ES = (
     ('SPL', 'de Litigios Especiales'),
     ('VOT', 'de Votación'),
 )
+SECTION_CHOICES_ZH_HANT = (
+    ('ADM', '行政管理'),
+    ('CRM', '刑事'),
+    ('DRS', '残疾權利'),
+    ('ELS', '就業訴訟'),
+    ('EOS', '教育机會'),
+    ('FCS', '聮邦恊调與遵守'),
+    ('HCE', '住房和民事执法'),
+    ('IER', '移民與雇員權利'),
+    ('SPL', '特别訴訟'),
+    ('VOT', '投票'),
+)
 
 SECTION_CHOICES_ZH_HANS = (
     ('ADM', '行政管理'),
