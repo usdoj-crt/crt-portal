@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-26 16:55+0000\n"
+"POT-Creation-Date: 2021-04-27 16:51+0000\n"
 "Language: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1347,6 +1347,10 @@ msgid ""
 "findlegalhelp.org\">www.findlegalhelp.org</a> or call <a href="
 "\"tel:800-285-2221\">(800) 285-2221</a>"
 msgstr ""
+"American Bar Association의 <a class=\"external-link--blue external-link--"
+"popup\" aria-label=\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp."
+"org\">www.findlegalhelp.org</a> 방문 또는 <a href=\"tel:800-285-2221\">(800) "
+"285-2221</a>로 전화"
 
 #: templates/forms/confirmation.html:162
 msgid ""
@@ -1355,6 +1359,10 @@ msgid ""
 "href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> "
 "or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
 msgstr ""
+"법률서비스 법인 (또는 법률구조공사)의 <a aria-label=\"www.lsc.gov/find-legal-"
+"aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
+"lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> 방문 또는 <a href="
+"\"tel:202-295-1500\">(202) 295-1500</a>으로 전화 "
 
 #: templates/forms/confirmation.html:170
 msgid "2"
@@ -1466,6 +1474,10 @@ msgid ""
 "%(total_stages)s.\n"
 "        "
 msgstr ""
+"\n"
+"          현 단계: %(current_step_name)s. 단계 %(stage_number)s / "
+"%(total_stages)s.\n"
+"        "
 
 #: templates/forms/portal/progress-bar.html:27
 msgid "not completed"
@@ -1481,6 +1493,8 @@ msgid ""
 "\n"
 "        Step %(stage_number)s: %(current_step_name)s - "
 msgstr ""
+"\n"
+"        단계 %(stage_number)s: %(current_step_name)s - "
 
 #: templates/forms/report_base.html:22
 msgid "Contact the Department of Justice to report a civil rights violation"
@@ -1591,6 +1605,9 @@ msgid ""
 "    %(word_limit)s word limit.\n"
 "  "
 msgstr ""
+"\n"
+"    %(word_limit)s 단어 수 제한.\n"
+"  "
 
 #: templates/forms/word_counter.html:16 templates/forms/word_counter.html:21
 #, python-format
@@ -1599,6 +1616,9 @@ msgid ""
 "          %(word_limit)s word limit reached\n"
 "        "
 msgstr ""
+"\n"
+"          %(word_limit)s 단어 수 제한에 도달\n"
+"        "
 
 #: templates/landing.html:38
 msgid "About the Division"
@@ -1935,6 +1955,10 @@ msgid ""
 "lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> or call <a href="
 "\"tel:202-295-1500\">(202) 295-1500</a>."
 msgstr ""
+"법률서비스 법인 <a aria-label=\"www.lsc.gov/find-legal-aid\" class="
+"\"external-link--blue external-link--popup\" href=\"https://www.lsc.gov/find-"
+"legal-aid\">lsc.gov/find-legal-aid</a>에 연락 또는 <a href="
+"\"tel:202-295-1500\">(202) 295-1500</a>으로 전화."
 
 #: templates/landing.html:357
 msgid ""
@@ -1943,6 +1967,11 @@ msgid ""
 "findlegalhelp.org</a> or call <a href=\"tel:800-285-2221\">(800) 285-2221</"
 "a> to find a lawyer through the American Bar Association."
 msgstr ""
+"또는 <a class=\"external-link--blue external-link--popup\" aria-label=\"www."
+"findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www.findlegalhelp."
+"org</a>를 방문하거나 <a href=\"tel:800-285-2221\">(800) 285-2221</a>로 전화하"
+"여 미국 변호사 협회(American Bar Association)을 통해 변호사를 찾으시기 바랍니"
+"다."
 
 #: templates/landing.html:371
 msgid "Image attributions"
@@ -2115,6 +2144,10 @@ msgid ""
 "form</strong> and you may experience issues with form submission.\n"
 "          "
 msgstr ""
+"\n"
+"<strong>주의: 당신의 모바일 브라우저에서 이 양식을 제출할 때에 문제가 생길 "
+"수 있습니다</strong>.\n"
+"          "
 
 #: templates/partials/unsupported-browser-modal.html:15
 msgid ""
@@ -2124,6 +2157,11 @@ msgid ""
 "\"#contact-crt\">You can also contact us by phone or mail here.</a>\n"
 "          "
 msgstr ""
+"\n"
+"가장 최신 버전의 구글 크롬, 모질라 파이어폭스, 사파리 또는 마이크로소프트 엣"
+"지를 다운로드 받는 것을 고려해 보십시오. <a id=\"ub_contact\" href="
+"\"#contact-crt\">또 여기에서 전화나 이메일로 연락하실 수 있습니다</a>.\n"
+"          "
 
 #: templates/privacy.html:7 templates/privacy.html:13
 msgid "Civil Rights Division - Department of Justice - Privacy Policy"
@@ -2528,197 +2566,3 @@ msgstr "신고 내용을 검토하십시오"
 #: views.py:1089
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "귀하의 상황에 적용되는 것이 있다면 그것을 선택하십시오.(선택사항)"
-
-#~ msgid "Korean"
-#~ msgstr "한국어"
-
-#~ msgid ""
-#~ "Denied an accommodation for a disability, including not being allowed to "
-#~ "have a service animal"
-#~ msgstr ""
-#~ "장애인 보조 동물이 허용되지 않는 것을 포함하여 장애인을 위한 편의가 거부"
-#~ "됨."
-
-#~ msgid " Contact the Civil Rights Division | Department of Justice"
-#~ msgstr " 법무부 | 민권국 연락처"
-
-#~ msgid ""
-#~ "American Bar Association, visit www.findlegalhelp.org or call (800) "
-#~ "285-2221"
-#~ msgstr ""
-#~ "American Bar Association의 www.findlegalhelp.org 방문 또는 (800) 285-2221"
-#~ "로 전화"
-
-#~ msgid ""
-#~ "Legal Service Corporation (or Legal Aid Offices), visit www.lsc.gov/find-"
-#~ "legal-aid or call (202) 295-1500"
-#~ msgstr ""
-#~ "법률서비스 법인 (또는 법률구조공사)의 www.lsc.gov/find-legal-aid 방문 또"
-#~ "는 (202) 295-1500으로 전화 "
-
-#~ msgid "Current step:"
-#~ msgstr "현 단계:"
-
-#~ msgid ""
-#~ "\n"
-#~ "     Step: Contact the Civil Rights Division | Department of Justice\n"
-#~ "    "
-#~ msgstr ""
-#~ "\n"
-#~ "     단계: 법무부 | 민권국에 연락하기\n"
-#~ "    "
-
-#~ msgid "Word limit"
-#~ msgstr "단어 수 제한"
-
-#~ msgid "Word limit reached"
-#~ msgstr "단어 수 제한에 도달"
-
-#~ msgid ""
-#~ "Contact Legal Services Corporation at lsc.gov/find-legal-aid or call "
-#~ "(202) 295-1500."
-#~ msgstr ""
-#~ "법률서비스 법인 lsc.gov/find-legal-aid에 연락 또는 (202) 295-1500으로 전"
-#~ "화."
-
-#~ msgid ""
-#~ "Or visit www.findlegalhelp.org or call (800) 285-2221 to find a lawyer "
-#~ "through the American Bar Association."
-#~ msgstr ""
-#~ "또는 www.findlegalhelp.org를 방문하거나 (800) 285-2221로 전화하여 미국 변"
-#~ "호사 협회(American Bar Association)을 통해 변호사를 찾으시기 바랍니다."
-
-#~ msgid "Landing Page"
-#~ msgstr "랜딩 페이지"
-
-#~ msgid "We uphold the civil rights of all people in the United States"
-#~ msgstr "우리는 미국 내 모든 사람들의 민권을 옹호합니다"
-
-#~ msgid ""
-#~ "If you believe your civil rights, or someone else's, have been violated, "
-#~ "submit a report using our online form."
-#~ msgstr ""
-#~ "귀하 또는 다른 누군가의 민권이 침해되었다고 믿는 경우, 온라인 양식을 이용"
-#~ "해 신고서를 제출하십시오."
-
-#~ msgid "We sue or prosecute"
-#~ msgstr "우리는 민권법을 위반하는"
-
-#~ msgid "individuals and"
-#~ msgstr "개인 및 단체를"
-
-#~ msgid "organizations who violate"
-#~ msgstr "기소하거나 소송을"
-
-#~ msgid "civil rights laws."
-#~ msgstr "제기합니다."
-
-#~ msgid "You can help us do this work by"
-#~ msgstr "귀하는 온라인 양식을 통해"
-
-#~ msgid "reporting a possible civil rights"
-#~ msgstr "잠재적 민권 침해를 신고함으로써"
-
-#~ msgid "violation through our online form"
-#~ msgstr "우리의 일에 도움을 줄 수 있습니다"
-
-#~ msgid "We help the public"
-#~ msgstr "우리는 대중이"
-
-#~ msgid "understand how to comply"
-#~ msgstr "이 법률 준수 방법을"
-
-#~ msgid "with these laws"
-#~ msgstr "이해할 수 있게 돕습니다"
-
-#~ msgid "We do this through public speaking,"
-#~ msgstr "우리는 공개 강연, 기술적 지원 등"
-
-#~ msgid "technical assistance, and more."
-#~ msgstr "여러 가지를 통해 이를 수행합니다."
-
-#~ msgid "We help the entire federal "
-#~ msgstr "우리는 전체 연방 정부가 "
-
-#~ msgid "government work together"
-#~ msgstr "이 법률 집행을 위해 협력하도록"
-
-#~ msgid "to enforce these laws."
-#~ msgstr "지원합니다."
-
-#~ msgid "Outteams work with other agencies to "
-#~ msgstr "우리 팀들은 민권법에의 일관된 접근을 "
-
-#~ msgid "promote a consistent approach to civil"
-#~ msgstr "촉진하기 위해 다른 기관들과"
-
-#~ msgid "rights laws."
-#~ msgstr "협력합니다."
-
-#~ msgid ""
-#~ "Civil rights laws can protect you from unlawful discrimination, "
-#~ "harassment, or"
-#~ msgstr "민권법은 주택, 직장, 학교, 투표, 사업, 의료, 공공장소 등의"
-
-#~ msgid ""
-#~ "abuse in a variety of settings like housing, the workplace, school, "
-#~ "voting,"
-#~ msgstr ""
-#~ "다양한 여러 환경에서 벌어지는 불법적인 차별, 괴롭힘, 또는 학대로부터"
-
-#~ msgid "business, healthcare, public spaces, and more."
-#~ msgstr "귀하를 보호해 드릴 수 있습니다."
-
-#~ msgid "If you have been mistreated by law enforcement (including while"
-#~ msgstr "법 집행기관에 의해(감금되어 있던 동안 포함) 불법적인 대우를"
-
-#~ msgid ""
-#~ "incarcerated), believe you have been a victim of a hate crime, or a "
-#~ "victim of"
-#~ msgstr "받았거나, 증오 범죄 또는 인신매매의 피해자라고 믿는 경우,"
-
-#~ msgid "human trafficking, we can help get you to the right place."
-#~ msgstr "귀하가 올바른 곳과 접촉할 수 있도록 도와드릴 수 있습니다."
-
-#~ msgid "Choose from this list to see"
-#~ msgstr "민권 침해의 예를 보려면"
-
-#~ msgid "example civil rights violations:"
-#~ msgstr "이 목록 중에서 선택하세요:"
-
-#~ msgid "950 Pennsylvania Avenue, NW"
-#~ msgstr "950 Pennsylvania Avenue, NW"
-
-#~ msgid "Washington, D.C. 20530-0001"
-#~ msgstr "Washington, D.C. 20530-0001"
-
-#~ msgid "(202) 514-3847"
-#~ msgstr "(202) 514-3847"
-
-#~ msgid "1-855-856-1247 (toll-free)"
-#~ msgstr "1-855-856-1247 (무료)"
-
-#~ msgid "(TTY) (202) 514-0716"
-#~ msgstr "(TTY) (202) 514-0716"
-
-#~ msgid ""
-#~ "Unsplash: Jacob Le, Paul Stickman, Andre Hunter, Sobhan Joodi, Library of "
-#~ "Congress"
-#~ msgstr ""
-#~ "언스플래시: Jacob Le, Paul Stickman, Andre Hunter, Sobhan Joodi, 의회 도서"
-#~ "관"
-
-#~ msgid "Pexels: Akela Photography, Nicholas Swatz, Asad Photo, Cottonbro"
-#~ msgstr "Pexels: Akela Photography, Nicholas Swatz, Asad Photo, Cottonbro"
-
-#~ msgid ""
-#~ "Flickr: Kelly Johnson Revolutionary Photography, The U.S. National "
-#~ "Archives"
-#~ msgstr ""
-#~ "Flickr: Kelly Johnson Revolutionary Photography, 미국 국립 기록 보관소"
-
-#~ msgid "Wikimedia Commons Public Domain"
-#~ msgstr "Wikimedia Commons 공공 도메인"
-
-#~ msgid "Victim of a hate crime:"
-#~ msgstr "증오 범죄 피해자:"
