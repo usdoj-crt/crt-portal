@@ -37,7 +37,7 @@ def _get_message_id(request):
     return message ID integer from TMS provided message url
     https://stage-tms.govdelivery.com/messages/email/<message_id:int>
     """
-    message_url = unquote(getattr(request.POST, 'message_url', ''))
+    message_url = unquote(request.POST.get('message_url', ''))
     message_id = re.search(r'\d+', message_url)
     return message_id.group() if message_id else None
 
@@ -46,7 +46,7 @@ def _get_completed_at(request):
     """return a UTC datetime from inbound completed_at string, we're only expecting UTC
     e.g: "2015-08-05+18:47:18+UTC"
     """
-    completed_at = unquote(getattr(request.POST, 'completed_at', ''))
+    completed_at = unquote(request.POST.get('completed_at', ''))
     completed_datetime = datetime.strptime(completed_at, '%Y-%m-%d+%H:%M:%S+%Z').replace(tzinfo=timezone.utc)
     return completed_datetime
 
