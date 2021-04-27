@@ -1,9 +1,6 @@
-# This file was generated from /Users/timothydballard/temp/tl/tl-single.xlsx
 msgid ""
 msgstr ""
-"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-04-05 18:08+0000\n"
-"PO-Revision-Date: 2021-04-27 15:09-0500\n"
 "Language: Tagalog\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,9 +8,8 @@ msgstr ""
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
 #: forms.py:161 forms.py:1546
-#, fuzzy
 msgid " - Select - "
-msgstr "-Pumili-"
+msgstr " - Pumili - "
 
 #. Translators: This is help text for the question asking if someone is a service member
 #: forms.py:173
@@ -292,13 +288,11 @@ msgstr ""
 "serbisyong militar"
 
 #: model_variables.py:59
-#, fuzzy
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in the workplace</strong>"
 msgstr ""
-"Tinanggihan ng tulong dahil sa isang kapansanan, kabilang ang hindi "
-"pagpapahintulot na magkaroon ng hayop na nagbibigay ng serbisyo"
+"Tinanggihan ng tulong dahil sa isang kapansanan, kabilang ang hindi pagpapahintulot na magkaroon ng hayop na nagbibigay ng serbisyo <strong>sa lugar ng pinagtratrabahuhan</strong>"
 
 #: model_variables.py:62
 msgid ""
@@ -322,13 +316,11 @@ msgstr ""
 "militar"
 
 #: model_variables.py:65
-#, fuzzy
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service or assistance animal <strong>in public housing</strong>"
 msgstr ""
-"Tinanggihan ng tulong dahil sa isang kapansanan, kabilang ang hindi "
-"pagpapahintulot na magkaroon ng hayop na nagbibigay ng serbisyo"
+"Tinanggihan ng tulong dahil sa isang kapansanan, kabilang ang hindi pagpapahintulot na magkaroon ng hayop na nagbibigay ng serbisyo o hayop na tumutulong <strong>sa loob ng pampublikong pabahay</strong>"
 
 #: model_variables.py:68
 msgid "Harassment based on race, sex, national origin, disability, or religion"
@@ -417,13 +409,11 @@ msgstr ""
 "na katangian katulad ng lahi, kasarian, o relihiyon"
 
 #: model_variables.py:86
-#, fuzzy
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in a commercial or public location</strong>"
 msgstr ""
-"Tinanggihan ng tulong dahil sa isang kapansanan, kabilang ang hindi "
-"pagpapahintulot na magkaroon ng hayop na nagbibigay ng serbisyo"
+"Tinanggihan ng tulong dahil sa isang kapansanan, kabilang ang hindi pagpapahintulot na magkaroon ng hayop na nagbibigay ng serbisyo <strong>sa isang komersyal o pampublikong lokasyon</strong>"
 
 #: model_variables.py:92
 msgid ""
@@ -1274,9 +1264,8 @@ msgid "required"
 msgstr "kailangan"
 
 #: templates/forms/confirmation.html:8
-#, fuzzy
 msgid "Submission complete"
-msgstr "Hindi nakumpleto"
+msgstr "Kumpleto ang pagsusumite"
 
 #: templates/forms/confirmation.html:20 templates/forms/confirmation.html:26
 #: templates/forms/portal/header.html:3
@@ -1337,30 +1326,25 @@ msgid "We may decide to:"
 msgstr "Maaari kaming magpasya na:"
 
 #: templates/forms/confirmation.html:105
-#, fuzzy
 msgid ""
 "<strong>Open an investigation</strong> or take some other action within the "
 "legal authority of the Justice Department."
 msgstr ""
-"Magbukas ng isang pagsisiyasat o gumawa ng iba pang mga kilos sa loob ng "
-"ligal na awtoridad ng Kagawaran ng Katarungan."
+"<strong>Magbukas ng isang pagsisiyasat</strong> o gumawa ng iba pang mga kilos sa loob ng ligal na awtoridad ng Kagawaran ng Katarungan."
 
 #: templates/forms/confirmation.html:106
-#, fuzzy
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
 "report."
 msgstr ""
-"Magtipon ng karagdagang impormasyon bago namin matingnan ang iyong ulat."
+"<strong>Magtipon ng karagdagang impormasyon</strong> bago namin matingnan ang iyong ulat."
 
 #: templates/forms/confirmation.html:107
-#, fuzzy
 msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
 "into your report. If so, we’ll let you know."
 msgstr ""
-"Magrekomenda ng ibang ahensya ng gobyerno na titingin ng maayos sa iyong "
-"ulat. Kung gayon, ipapaalam namin sa iyo."
+"<strong>Magrekomenda ng ibang ahensya ng gobyerno</strong> na titingin ng maayos sa iyong ulat. Kung gayon, ipapaalam namin sa iyo."
 
 #: templates/forms/confirmation.html:110
 msgid ""
@@ -1457,7 +1441,6 @@ msgid "Get help immediately if you are in danger"
 msgstr "Humingi ng tulong kaagad-agad kung ikaw ay nasa panganib"
 
 #: templates/forms/confirmation.html:178
-#, fuzzy
 msgid ""
 "If you reported an incident where you or someone else has experienced or is "
 "still experiencing physical harm or violence, or are in immediate danger, "
@@ -1465,7 +1448,7 @@ msgid ""
 msgstr ""
 "Kung nag-ulat ka ng isang pangyayari na kung saan ikaw o ibang tao ay "
 "nakaranas o nakakaranas pa rin ng pisikal na pananakit o karahasan, o nasa "
-"kaagarang panganib, mangyaring tumawag sa 911 at makipag-ugnay sa pulis. "
+"kaagarang panganib, mangyaring tumawag sa <a href=\"tel:911\">911</a> at makipag-ugnay sa pulis. "
 
 #: templates/forms/confirmation.html:191
 msgid "Your submission"
@@ -1476,7 +1459,6 @@ msgid "We're sorry, something went wrong"
 msgstr "Pasensya na, mayroong nangyaring kamalian"
 
 #: templates/forms/error_422.html:8
-#, fuzzy
 msgid ""
 "\n"
 "        <p>This error might be associated with an incompatible Internet "
@@ -1486,11 +1468,14 @@ msgid ""
 "tabs when entering your report.</p>\n"
 "    "
 msgstr ""
-"Ang kamaliang ito ay maaaring kaugnay sa hindi tugma na browser ng "
+"\n"
+"        <p>Ang kamaliang ito ay maaaring kaugnay sa hindi tugma na browser ng "
 "Internet.  Mangyaring i-download ang pinakabagong pagsasalin ng Google "
-"Chrome, Mozilla Firefox, Safari o Microsoft Edge. Bilang karagdagan, "
+"Chrome, Mozilla Firefox, Safari o Microsoft Edge.</p>\n"
+"        <p>Bilang karagdagan, "
 "mangyaring huwag gumamit ng maramihang browser at/o mga tabs ng browser "
-"kapag ipinapasok ang iyong ulat."
+"kapag ipinapasok ang iyong ulat.</p>\n"
+"    "
 
 #: templates/forms/errors.html:33
 msgid "We hope to fix this issue shortly"
@@ -1540,13 +1525,12 @@ msgstr "Tungkol sa Dibisyon sa mga Karapatang Sibil"
 
 #: templates/forms/errors.html:74 templates/forms/report_maintenance.html:69
 #: templates/landing.html:107
-#, fuzzy
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
 msgstr ""
-"Kung ikaw o ibang tao ay nasa kaagarang panganib, mangyaring tumawag sa 911 "
-"o lokal na pulis."
+"Kung ikaw o ibang tao ay nasa kaagarang panganib, <a href=\"tel:911\">mangyaring tumawag sa 911 "
+"o lokal na pulis.</a>"
 
 #: templates/forms/portal/progress-bar.html:6
 msgid "progress"
@@ -1583,7 +1567,7 @@ msgstr ""
 "mga karapatang sibil"
 
 #: templates/forms/report_base.html:55
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "                  1 error found\n"
@@ -1592,8 +1576,14 @@ msgid_plural ""
 "\n"
 "                  %(counter)s errors found\n"
 "                "
-msgstr[0] "1 kamaliang natagpuan"
-msgstr[1] "1 kamaliang natagpuan"
+msgstr[0] ""
+"\n"
+"                  1 kamaliang natagpuan"
+"                "
+msgstr[1] ""
+"\n"
+"                  %(counter)s kamaliang natagpuan"
+"                "
 
 #: templates/forms/report_base.html:84
 msgid "Submit"
@@ -1718,10 +1708,9 @@ msgid "Contact"
 msgstr "Makipag-ugnay"
 
 #: templates/landing.html:77
-#, fuzzy
 msgid "We uphold the civil rights of <em>all</em> people in the United States."
 msgstr ""
-"Pinapanindigan namin ang mga karapatang sibil ng lahat ng tao sa Estados "
+"Pinapanindigan namin ang mga karapatang sibil ng <em>lahat</em> ng tao sa Estados "
 "Unidos."
 
 #: templates/landing.html:82
@@ -1750,26 +1739,22 @@ msgid "Start a report"
 msgstr "Mag-umpisa ng isang ulat"
 
 #: templates/landing.html:88
-#, fuzzy
 msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
-msgstr "o matuto ng karagdagang kaalaman tungkol sa iyong mga karapatan"
+msgstr "o matuto ng karagdagang kaalaman tungkol sa <a href=\"#your-rights\">iyong mga karapatan</a>"
 
 #: templates/landing.html:101
-#, fuzzy
 msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
-msgstr "Kung ikaw ay nasa panganib, makipag-ugnay sa 911"
+msgstr "Kung ikaw ay nasa panganib, makipag-ugnay sa <a href=\"tel:911\">911</a>"
 
 #: templates/landing.html:112
-#, fuzzy
 msgid ""
 "If you are reporting misconduct by law enforcement or believe you have "
 "experienced a hate crime, please <a aria-label=\"contact the FBI\" class="
 "\"external-link--white\" href=\"https://www.fbi.gov/tips\">contact the FBI</"
 "a>."
 msgstr ""
-"Kung ikaw ay nag-uulat ng maling pangangasiwa galing sa mga nagpapatupad ng "
-"batas o naniniwala ka na nakaranas ka ng isang krimen sa pagkapoot, "
-"mangyaring makipag-ugnay sa FBI."
+"Kung ikaw ay nag-uulat sa maling pangangasiwa ng mga nagpapatupad ng batas o naniniwala ka na nakaranas ka ng isang krimen sa pagkapoot, mangyaring <a aria-label=\"contact the FBI\" class="
+"\"external-link--white\" href=\"https://www.fbi.gov/tips\">makipag-ugnay sa FBI</a>."
 
 #: templates/landing.html:126
 msgid "We protect your rights through:"
@@ -1840,20 +1825,16 @@ msgid "Understanding your rights"
 msgstr "Pag-unawa sa iyong mga karapatan"
 
 #: templates/landing.html:159
-#, fuzzy
 msgid ""
 "Civil rights laws can protect you from unlawful discrimination, harassment, "
 "or abuse in a variety of settings like <span class=\"crt-landing--"
 "rights_text crt-landing--rights_categories\">housing, the workplace, school, "
 "voting, business, healthcare, public spaces</span>, and more."
 msgstr ""
-"Maaari kang protektahan ng mga batas sa mga karapatang sibil mula sa labag "
-"sa batas na diskriminasyon, panliligalig, o abuso sa iba’t ibang kapaligiran "
-"katulad ng pabahay, lugar ng pinagtratrabahuhan, paaralan, botohan, negosyo, "
-"pangangalaga sa kalusugan, pampublikong mga puwang, at iba pa."
+"Maaari kang protektahan ng mga batas sa karapatang sibil mula sa labag sa batas na diskriminasyon, panliligalig, o abuso sa iba’t-ibang kapaligiran katulad ng <span class=\"crt-landing--"
+"rights_text crt-landing--rights_categories\">pabahay, lugar ng pinagtatrabahuhan, paaralan, pagboto, negosyo, pangangalaga sa kalusugan, pampublikong mga puwang</span>, at iba pa."
 
 #: templates/landing.html:162
-#, fuzzy
 msgid ""
 "If you have been <span class=\"crt-landing--rights_categories\">mistreated "
 "by law enforcement</span> (including while incarcerated), believe you have "
@@ -1861,9 +1842,9 @@ msgid ""
 "crime</span>, or a victim of <span class=\"crt-landing--rights_categories"
 "\">human trafficking</span>, we can help get you to the right place."
 msgstr ""
-"Kung ikaw ay minaltrato ng nagpapatupad ng batas (kabilang ang habang "
-"nakakulong), naniniwala na ikaw ay naging biktima ng isang krimen sa "
-"pagkapoot, o isang biktima ng panlilinlang ng mga tao, maaari ka naming "
+"Kung ikaw ay <span class=\"crt-landing--rights_categories\">minaltrato ng nagpapatupad ng batas</span> (kabilang ang habang "
+"nakakulong), naniniwala na ikaw ay naging biktima ng isang <span class=\"crt-landing--rights_categories\">krimen sa "
+"pagkapoot</span>, o isang biktima ng <span class=\"crt-landing--rights_categories\">panlilinlang ng mga tao</span>, maaari ka naming "
 "tulungan na tumungo sa tamang direksiyon."
 
 #: templates/landing.html:178
@@ -1877,13 +1858,12 @@ msgid "Examples"
 msgstr "Mga halimbawa"
 
 #: templates/landing.html:230
-#, fuzzy
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
 msgstr ""
-"Kung sa tingin mo ay nakaranas ka ng kaparehong sitwasyon, aralin kung paano "
-"mag-ulat ng isang paglabag sa mga karapatang sibil."
+"Kung sa tingin mo ay nakaranas ka ng kaparehong sitwasyon, aralin <a href=\"#crt-"
+"landing--reporting\">kung paano mag-ulat ng isang paglabag sa mga karapatang sibil</a>."
 
 #: templates/landing.html:240
 msgid "Protected by civil rights laws"
@@ -1896,11 +1876,10 @@ msgstr ""
 "pinoprotektahan."
 
 #: templates/landing.html:245
-#, fuzzy
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
-msgstr "Kapansanan kabilang ang panandalian o habang nagpapagaling"
+msgstr "Kapansanan <span class=\"crt-landing--protected\">kabilang ang panandalian o habang nagpapagaling</span>"
 
 #: templates/landing.html:247
 msgid "Sex, gender identity, and sexual orientation"
@@ -1911,19 +1890,17 @@ msgid "Immigration/citizenship status"
 msgstr "Katayuan sa Imigrasyon / Pagkamamamayan"
 
 #: templates/landing.html:249
-#, fuzzy
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
-msgstr "Wika at pambansang pinagmulan kabilang ang pinagnunuan at etnisidad"
+msgstr "Wika at pambansang pinagmulan <span class=\"crt-landing--protected\">kabilang ang pinagnunuan at etnisidad</span>"
 
 #: templates/landing.html:250
-#, fuzzy
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
 msgstr ""
-"Katayuan ng pamilya, pag-aasawa, o pagiging magulang kabilang ang pagbubuntis"
+"Katayuan ng pamilya, pag-aasawa, o pagiging magulang <span class=\"crt-landing--protected\">kabilang ang pagbubuntis</span>"
 
 #: templates/landing.html:252
 msgid "Genetic identification"
@@ -2001,14 +1978,15 @@ msgid "Submit a report"
 msgstr "Magsumite ng ulat"
 
 #: templates/landing.html:325
-#, fuzzy
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
 "\"#address-footer\">mail</a>."
 msgstr ""
-"Kung hindi mo makuha ang online na pormularyo, maaari kang tumawag upang mag-"
-"ulat ng isang paglabag o mag-ulat ng isang paglabag sa pamamagitan ng koreo."
+"Kung hindi mo makuha ang online na pormularyo, maaari kang <a href=\"#phone-footer"
+"\">tumawag</a> upang mag-"
+"ulat ng isang paglabag o mag-ulat ng isang paglabag sa pamamagitan ng <a href="
+"\"#address-footer\">koreo</a>."
 
 #: templates/landing.html:335
 msgid "Already submitted a report?"
@@ -2019,18 +1997,13 @@ msgid "Here's what to expect."
 msgstr "Ito ang aasahan."
 
 #: templates/landing.html:342
-#, fuzzy
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
 "about the outcome of our review. However, we may not always be able to "
 "provide you with updates because:"
 msgstr ""
-"Salamat sa iyong ulat. Masinsinan naming binabasa ang bawat isa upang "
-"matukoy kung mayroon kaming awtoridad na tumulong. Ginagawa namin ang lahat "
-"ng aming makakaya upang ipaalam sa iyo kung ano ang kinalabasan ng aming "
-"pagsusuri. Subalit, maaaring hindi namin palaging maibibigay sa iyo ang mga "
-"pinakabagong impormasyon dahil:"
+"<strong>Salamat sa iyong ulat.</strong> Masinsinan naming binabasa ang bawat isa upang matukoy kung mayroon kaming awtoridad na tumulong. Ginagawa namin ang lahat ng aming makakaya upang ipaalam sa iyo kung ano ang kinalabasan ng aming pagsusuri. Subalit, maaaring hindi namin palaging maibibigay sa iyo ang mga pinakabagong impormasyon dahil:"
 
 #: templates/landing.html:344
 msgid ""
@@ -2104,13 +2077,12 @@ msgid "The site is secure."
 msgstr "Ang sityo ay ligtas."
 
 #: templates/partials/banner/usa_banner_content.html:17
-#, fuzzy
 msgid ""
 "The <strong>https://</strong> ensures that you are connecting to the "
 "official website and that any information you provide is encrypted and "
 "transmitted securely."
 msgstr ""
-"Ang https:// ay nakatitiyak na ikaw ay kumukonekta sa opisyal na website at "
+"Ang <strong>https://</strong> ay nakatitiyak na ikaw ay kumukonekta sa opisyal na website at "
 "anumang impormasyon na ibigay mo ay naka-encrypt at ligtas na maipapadala."
 
 #: templates/partials/banner/usa_banner_header.html:9
@@ -2163,7 +2135,7 @@ msgid "Privacy Policy"
 msgstr "Patakaran sa pagkapribado"
 
 #: templates/partials/policy.html:16
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "            The purpose of this form is to allow the public to submit civil "
@@ -2177,17 +2149,7 @@ msgid ""
 "information under certain circumstances with:\n"
 "            "
 msgstr ""
-"Ang layunin ng pormularyo na ito ay upang mapahintulutan ang publiko na "
-"magsumite ng mga reklamo sa karapatang pangsibil sa Kagawaran ng Katarungan, "
-"kung saan kami ay pinapahintulutan na magpatupad nang mahigit na tatlumpong "
-"batas para sa mga karapatang pangsibil sa loob ng aming kapangyarihan. Itong "
-"mga batas ay nagpapahintulot sa amin na tipunin itong impormasyon. Kailangan "
-"mong malaman na anumang impormasyon na ipinagkaloob mo sa pormularyo na ito "
-"ay kusang-loob, ngunit ang hindi mo pagkaloob ng ibang impormasyon ay "
-"maaring makalimita sa kakayahan ng Kagawaran upang ipagpatuloy ang iyong "
-"kahilingan. Maaari naming gamitin itong impormasyon para sa mga karaniwang "
-"gawain, kabilang ang pagbabahagi nitong impormasyon sa ilalim ng ilang mga "
-"kalagayan kasama ang:"
+"Ang layunin ng pormularyo na ito ay upang mapahintulutan ang publiko na magsumite ng mga reklamo sa karapatang pangsibil sa Kagawaran ng Katarungan, kung saan kami ay pinapahintulutan na magpatupad nang mahigit na tatlumpong <a href=\"%(privacy_policy_url)s#our-statutes\">batas para sa mga karapatang pangsibil</a> sa loob ng aming kapangyarihan. Itong mga batas ay nagpapahintulot sa amin na tipunin itong impormasyon. Kailangan mong malaman na anumang impormasyon na ipinagkaloob mo sa pormularyo na ito ay kusang-loob, ngunit ang hindi mo pagkaloob ng ibang impormasyon ay maaring makalimita sa kakayahan ng Kagawaran upang ipagpatuloy ang iyong kahilingan. Maaari naming gamitin itong impormasyon para sa mga karaniwang gawain, kabilang ang pagbabahagi nitong impormasyon sa ilalim ng ilang mga kalagayan kasama ang:"
 
 #: templates/partials/policy.html:20
 msgid "contractors who work with us, if they need it to perform a contract;"
@@ -2213,12 +2175,12 @@ msgid "Federal, state, or local law enforcement agencies."
 msgstr "Mga ahensiya na nagpapatupad ng batas sa pederal, estado, o lokal "
 
 #: templates/partials/policy.html:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You can find our complete <a href=\"%(privacy_policy_url)s\">Privacy Policy "
 "here</a>."
 msgstr ""
-"Maaari mong makita ang aming kumpletong Patakaran sa Pagkapribado dito."
+"Maaari mong makita ang aming kumpletong <a href=\"%(privacy_policy_url)s\">Patakaran sa Pagkapribado dito</a>."
 
 #: templates/partials/redirect-modal.html:8
 msgid "You are now leaving the Department of Justice website."
@@ -2252,6 +2214,9 @@ msgid ""
 "form</strong> and you may experience issues with form submission.\n"
 "          "
 msgstr ""
+"\n"
+"<strong>ABISO: Ang iyong mobile browser ay hindi tugma sa pormularyong ito</strong> at maaari kang dumanas ng mga problema sa pagsumite ng pormularyo.\n"
+"          "
 
 #: templates/partials/unsupported-browser-modal.html:15
 msgid ""
@@ -2261,6 +2226,10 @@ msgid ""
 "\"#contact-crt\">You can also contact us by phone or mail here.</a>\n"
 "          "
 msgstr ""
+"\n"
+"Mangyaring isaalang-alang ang pag-download ng pinakabagong bersyon ng Google Chrome, Mozilla Firefox, Safari, o Microsoft Edge. <a id=\"ub_contact\" href="
+"\"#contact-crt\">Maaari ka ring makipag-ugnay sa amin dito sa pamamagitan ng telepono o koreo.</a>\n"
+"          "
 
 #: templates/privacy.html:7 templates/privacy.html:13
 msgid "Civil Rights Division - Department of Justice - Privacy Policy"
@@ -2508,9 +2477,8 @@ msgstr ""
 "(1-25-2007) (pinawalang-bisa ng 82 FR 24147); 82 Fed. Reg. 24147 (5-25-2017)."
 
 #: validators.py:101
-#, fuzzy
 msgid "Enter a valid email address."
-msgstr "Direksyon ng Email "
+msgstr "Maglagay ng wastong email address."
 
 #: views.py:78
 msgid "404 | Page not found"
