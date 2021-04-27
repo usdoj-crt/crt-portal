@@ -199,6 +199,19 @@ SECTION_CHOICES_ZH_HANT = (
     ('VOT', '投票'),
 )
 
+SECTION_CHOICES_ZH_HANS = (
+    ('ADM', '行政管理'),
+    ('CRM', '刑事'),
+    ('DRS', '残疾权利'),
+    ('ELS', '就业诉讼'),
+    ('EOS', '教育机会'),
+    ('FCS', '联邦协调与遵守'),
+    ('HCE', '住房和民事执法'),
+    ('IER', '移民与雇员权利'),
+    ('SPL', '特别诉讼'),
+    ('VOT', '投票'),
+)
+
 # CRT view global section filter
 SECTION_CHOICES_WITHOUT_LABELS = tuple([(key[0], key[0]) for key in SECTION_CHOICES])
 
