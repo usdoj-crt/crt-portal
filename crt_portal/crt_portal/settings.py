@@ -152,9 +152,10 @@ LANGUAGE_CODE = 'en-us'
 LANGUAGES = [
     ('es', _('Spanish')),
     ('en', _('English')),
-    # ('zh-hant', _('Chinese Traditional')),
-    # ('zh-hans', _('Chinese Simplified')),
-    # ('vi', _('Vietnamese')),
+    ('zh-hant', _('Chinese Traditional')),
+    ('zh-hans', _('Chinese Simplified')),
+    ('vi', _('Vietnamese')),
+    ('ko', _('Korean')),
 ]
 
 # Set LOCALE_PATHS to ensure that our translations are given precedence
