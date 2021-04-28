@@ -27,6 +27,7 @@ from .model_variables import (CLOSED_STATUS,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
                               SECTION_CHOICES, SECTION_CHOICES_ES,
+                              SECTION_CHOICES_KO,
                               SECTION_CHOICES_TL,
                               SECTION_CHOICES_VI,
                               SECTION_CHOICES_ZH_HANS,
@@ -318,6 +319,12 @@ class Report(models.Model):
         return "Gracias por su informe"
 
     @property
+    def addressee_ko(self):
+        if self.contact_full_name:
+            return f"{self.contact_full_name}님께"
+        return "신고해 주셔서 감사합니다"
+
+    @property
     def addressee_tl(self):
         if self.contact_full_name:
             return f"Mahal na {self.contact_full_name}"
@@ -454,6 +461,7 @@ class ResponseTemplate(models.Model):
         today = datetime.today()
         section_choices = dict(SECTION_CHOICES)
         section_choices_es = dict(SECTION_CHOICES_ES)
+        section_choices_ko = dict(SECTION_CHOICES_KO)
         section_choices_tl = dict(SECTION_CHOICES_TL)
         section_choices_vi = dict(SECTION_CHOICES_VI)
         section_choices_zh_hans = dict(SECTION_CHOICES_ZH_HANS)
@@ -471,6 +479,12 @@ class ResponseTemplate(models.Model):
                 'date_of_intake': format_date(report.create_date, format='long', locale='es_ES'),
                 'outgoing_date': format_date(today, locale='es_ES'),
                 'section_name': section_choices_es.get(report.assigned_section, "no section"),
+            },
+            'ko': {
+                'addressee': report.addressee_ko,
+                'date_of_intake': format_date(report.create_date, format='long', locale='ko'),
+                'outgoing_date': format_date(today, locale='ko'),
+                'section_name': section_choices_ko.get(report.assigned_section, "no section"),
             },
             'tl': {
                 'addressee': report.addressee_tl,
