@@ -186,6 +186,7 @@ SECTION_CHOICES_ES = (
     ('SPL', 'de Litigios Especiales'),
     ('VOT', 'de Votación'),
 )
+
 SECTION_CHOICES_TL = (
     ('ADM', 'Pang-Administratibo'),
     ('CRM', 'Kriminal'),
@@ -197,6 +198,32 @@ SECTION_CHOICES_TL = (
     ('IER', 'Imigrasyon at Mga Karapatan ng Empleyado'),
     ('SPL', 'Espesyal na Paglilitis'),
     ('VOT', 'Pagboto'),
+)
+
+SECTION_CHOICES_ZH_HANT = (
+    ('ADM', '行政管理'),
+    ('CRM', '刑事'),
+    ('DRS', '残疾權利'),
+    ('ELS', '就業訴訟'),
+    ('EOS', '教育机會'),
+    ('FCS', '聮邦恊调與遵守'),
+    ('HCE', '住房和民事执法'),
+    ('IER', '移民與雇員權利'),
+    ('SPL', '特别訴訟'),
+    ('VOT', '投票'),
+)
+
+SECTION_CHOICES_ZH_HANS = (
+    ('ADM', '行政管理'),
+    ('CRM', '刑事'),
+    ('DRS', '残疾权利'),
+    ('ELS', '就业诉讼'),
+    ('EOS', '教育机会'),
+    ('FCS', '联邦协调与遵守'),
+    ('HCE', '住房和民事执法'),
+    ('IER', '移民与雇员权利'),
+    ('SPL', '特别诉讼'),
+    ('VOT', '投票'),
 )
 
 # CRT view global section filter
