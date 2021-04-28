@@ -1,0 +1,2734 @@
+msgid ""
+msgstr ""
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-04-28 20:46+0000\n"
+"Language: Tagalog\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
+#: forms.py:161 forms.py:1546
+msgid " - Select - "
+msgstr " - Pumili - "
+
+#. Translators: This is help text for the question asking if someone is a service member
+#: forms.py:173
+msgid ""
+"If you’re reporting on behalf of someone else, please select their status."
+msgstr ""
+"Kung ikaw ay nag-uulat sa ngalan ng ibang tao, mangyaring piliin ang "
+"kanilang katayuan."
+
+#: forms.py:190 templates/forms/report_contact_info.html:8
+msgid ""
+"If you believe you or someone else has experienced a civil rights violation, "
+"please tell us what happened."
+msgstr ""
+"Kung sa paniniwala mo na ikaw o ang ibang tao ay nakaranas ng isang paglabag "
+"sa mga karapatang sibil, mangyaring sabihin sa amin kung ano ang nangyari."
+
+#: forms.py:216
+msgid ""
+"Select the reason that best describes your concern. Each reason lists "
+"examples of civil rights violations that may relate to your incident. In "
+"another section of this report, you will be able to describe your concern in "
+"your own words."
+msgstr ""
+"Pumili ng dahilan na pinaka-naglalarawan sa iyong pagkabahala. Bawat dahilan "
+"ay nagtatala ng mga halimbawa ng paglabag sa mga karapatang sibil na "
+"maaaring maiugnay sa iyong insidente. Sa ibang seksyon ng ulat na ito, "
+"maaari mong ilarawan ang iyong pagkabahala sa sarili mong mga salita."
+
+#. Translators: notes that this page is the same form step as the page before
+#: forms.py:239
+msgid "Continued"
+msgstr "Pagpapatuloy"
+
+#: forms.py:295
+msgid ""
+"Examples: Name of business, school, intersection, prison, polling place, "
+"website, etc."
+msgstr ""
+"Mga halimbawa: Pangalan ng negosyo, paaralan, interseksyon, kulungan, lugar "
+"kung saan maaaring bomoto, website, at iba pa."
+
+#: forms.py:317 question_text.py:29
+msgid "Where did this happen?"
+msgstr "Saan ito nangyari?"
+
+#: forms.py:329
+msgid ""
+"Please tell us the city, state, and name of the location where this incident "
+"took place. This ensures your report is reviewed by the right people within "
+"the Civil Rights Division."
+msgstr ""
+"Mangyaring sabihin sa amin ang lungsod, estado, at pangalan ng lugar kung "
+"saan naganap ang panyayaring ito. Tinitiyak nito na ang iyong ulat ay "
+"masusuri ng mga tamang tao sa loob ng Dibisyon sa mga Karapatang Sibil."
+
+#: forms.py:392
+msgid ""
+"Public employers include organizations funded by the government like the "
+"military, post office, fire department, courthouse, DMV, or public school. "
+"This could be at the local or state level."
+msgstr ""
+"Kasama sa pampublikong tagapag-empleyo ang mga organisasyon na pinopondohan "
+"ng gobyerno katulad ng militar, tanggapan ng koreo, himpilan ng bumbero, "
+"korte, DMV, o pampublikong paaralan. Ito ay maaaring nasa lokal o estadong "
+"antas."
+
+#: forms.py:393
+msgid ""
+"Private employers are business or non-profits not funded by the government "
+"such as retail stores, banks, or restaurants."
+msgstr ""
+"Ang mga pribadong tagapag-empleyo ay mga negosyo o mga hindi kumikita at "
+"hindi pinopondohan ng gobyerno katulad ng mga tindahan, mga bangko, o mga "
+"restawran."
+
+#. Translators: describe the "other" option for commercial or public place question
+#: forms.py:439
+msgid "Please describe"
+msgstr "Mangyaring ilarawan"
+
+#: forms.py:506
+msgid ""
+"Includes schools, educational programs, or educational activities, like "
+"training programs, sports teams, clubs, or other school-sponsored activities"
+msgstr ""
+"Kasama ang mga paaralan, mga palatuntunang pang-edukasyon, o mga aktibidad "
+"na pang-edukasyon, katulad ng mga palatuntunan sa pagsasanay, mga koponan sa "
+"paglalaro, mga klab o ibang aktibidad na sinusuportahan ng paaralan"
+
+#: forms.py:517
+msgid "Please select the type of school or educational program."
+msgstr "Mangyaring piliin ang uri ng paaralan o palatuntunang pang-edukasyon."
+
+#: forms.py:540
+msgid ""
+"There are federal and state laws that protect people from discrimination "
+"based on their personal characteristics. Here is a list of the most common "
+"characteristics that are legally protected. Select any that apply to your "
+"incident."
+msgstr ""
+"Mayroong mga batas na pampederal at pang-estado na nagproprotekta sa mga tao "
+"mula sa diskriminasyon batay sa kanilang personal na mga katangian. Ito ay "
+"isang listahan ng pinakakaraniwang mga katangian na pinoprotektahan sa ligal "
+"na pamamaraan. Pumili ng anuman na nababagay sa iyong insidente."
+
+#. Translators: This is to explain an "other" choice for personal characteristics
+#: forms.py:545
+msgid "Please describe \"Other reason\""
+msgstr "Mangyaring ilarawan ang “Ibang dahilan”"
+
+#: forms.py:627
+msgid ""
+"It is important for us to know how recently this incident happened so we can "
+"take the appropriate action. If this happened over a period of time or is "
+"still happening, please provide the most recent date."
+msgstr ""
+"Mahalagang malaman namin kung gaano kamakalian lamang ang pangyayaring ito "
+"upang makagawa kami ng naaangkop na kilos. Kung matagal ng nangyari ito o "
+"kasalukuyan pa ring nangyayari, mangyaring ibigay ang pinaka-kamakailan na "
+"petsa."
+
+#: forms.py:915
+msgid "Primary classification"
+msgstr "Pangunahing pag-uuri"
+
+#: forms.py:937
+msgid "Assigned to"
+msgstr "Naitalaga kay"
+
+#: forms.py:1104
+msgid "Create date cannot be in the future."
+msgstr "Ang petsa na inilikha ay hindi maaaring sa hinaharap."
+
+#: forms.py:1286
+msgid "Comment cannot be empty"
+msgstr "Ang puna ay hindi maaaring walang laman"
+
+#. Translators: This is used as a an empty selection default for drop down menus
+#: model_variables.py:6
+msgid "- Select -"
+msgstr "- Pumili -"
+
+#: model_variables.py:9 model_variables.py:119 model_variables.py:248
+msgid "Yes"
+msgstr "Oo"
+
+#: model_variables.py:10 model_variables.py:120 model_variables.py:247
+msgid "No"
+msgstr "Hindi"
+
+#: model_variables.py:13
+msgid "Please select a status as an active duty service member."
+msgstr ""
+"Mangyaring piliin ang katayuan bilang isang aktibong miyembro ng serbisyo sa "
+"tungkulin."
+
+#: model_variables.py:17
+msgid "Workplace discrimination or other employment-related problem"
+msgstr ""
+"Diskriminasyon sa lugar ng pinagtratrabahuhan o iba pang problema na may "
+"kaugnayan sa trabaho"
+
+#: model_variables.py:18
+msgid "Housing discrimination or harassment"
+msgstr "Diskriminasyon o panliligalig sa pabahay"
+
+#: model_variables.py:19
+msgid ""
+"Discrimination at a school, educational program or service, or related to "
+"receiving education"
+msgstr ""
+"Diskriminasyon sa paaralan, palatuntunang o serbisyong pang-edukasyon, o may "
+"kaugnayan sa pagtanggap ng edukasyon"
+
+#: model_variables.py:20
+msgid "Mistreated by police, correctional staff, or inmates"
+msgstr "Minaltrato ng pulis, mga tauhan sa pagwawasto, o mga preso"
+
+#: model_variables.py:21
+msgid "Voting rights or ability to vote affected"
+msgstr "Naapektuhan na mga karapatan sa pagboto o ang kakayahang bumoto"
+
+#: model_variables.py:22
+msgid "Discriminated against in a commercial location or public place"
+msgstr ""
+"Nakaranas ng diskriminasyon sa isang lugar ng komersiyo o lugar na pampubliko"
+
+#: model_variables.py:23
+msgid "Something else happened"
+msgstr "Mayroon pang ibang nangyari"
+
+#: model_variables.py:38
+msgid "Victim of a hate crime"
+msgstr "Biktima ng isang krimen sa pagkapoot"
+
+#: model_variables.py:39
+msgid "Victim of human trafficking"
+msgstr "Biktima ng panlilinlang ng mga tao"
+
+#: model_variables.py:44
+msgid ""
+"This could include a store, restaurant, bar, hotel, place of worship, "
+"library, medical facility, bank, courthouse, government building, public "
+"park or street, as well as online."
+msgstr ""
+"Maaari nitong maisama ang isang tindahan, restawran, bar, otel, lugar ng "
+"pagsamba, silid-aklatan, pasilidad ng medisina, bangko, korte, gusali ng "
+"pamahalaan, pampublikong parke o langsangan, pati na rin ang online."
+
+#: model_variables.py:45
+msgid ""
+"The examples above reflect some but not all of the civil rights violations "
+"that we address. Select this option if you don’t see an example that applies "
+"to your situation. You will be able to tell us more later."
+msgstr ""
+"Ang mga halimbawa sa itaas ay sumasalamin ng ilan ngunit hindi sa lahat ng "
+"paglabag sa mga karapatang sibil na aming tinutugunan. Piliin ang "
+"pagpipiliang ito kung wala kang nakikitang isang halimbawa na nababagay sa "
+"iyong sitwasyon.  Maaari kang magsabi sa amin ng karagdagan mamaya."
+
+#: model_variables.py:46
+msgid "(Including while in prison)"
+msgstr "(Kabilang ang habang nakakulong)"
+
+#: model_variables.py:49
+msgid ""
+"To potentially be a hate crime, the situation must include physical harm, or "
+"attempts to cause harm with a dangerous weapon, because of race, color, "
+"national origin, religion, gender, sexual orientation, gender identity, or "
+"disability.  Threats of force or physical harm because of race, color, "
+"religion or national origin are also potential hate crimes."
+msgstr ""
+"Upang potensyal na maging isang krimen sa pagkapoot, ang sitwasyon ay "
+"kinakailangang may kasamang pisikal na pananakit, o tangkang magdulot ng "
+"pananakit gamit ang mapanganib na sandata, dahil sa lahi, kulay, pambansang "
+"pinagmulan, relihiyon, kasarian, orientasyong sekswal, pagkakakilanlan ng "
+"kasarian, o kapansanan. Mga banta ng pwersa o pisikal na pananakit dahil sa "
+"lahi, kulay, relihiyon, o pambansang pinagmulan ay maaari rin na mga krimen "
+"sa pagkapoot."
+
+#: model_variables.py:50
+msgid ""
+"Human trafficking is when someone is forced into labor or sex work for "
+"profit. This can happen in many types of work that include, for example: "
+"agriculture, domestic work, restaurants, cleaning services, and sex work."
+msgstr ""
+"Panlilinlang ng mga tao ay kung saan ang isang tao ay pinipilit na "
+"magtrabaho o makipagtalik upang mapagkakitaan. Maaari itong mangyari sa "
+"maraming uri ng trabaho na kasama, halimbawa, ang: agrikultura, trabaho sa "
+"loob ng bahay, mga restawran, mga serbisyong tagapaglinis, at trabaho sa "
+"pakikipagtalik."
+
+#: model_variables.py:55
+msgid ""
+"Fired, not hired, or demoted for reasons unrelated to job performance or "
+"qualifications"
+msgstr ""
+"Natanggal sa trabaho, hindi natanggap, o na-demot sa trabaho sa kadahilanang "
+"hindi kaugnay sa pagganap sa trabaho o mga kwalipikasyon."
+
+#: model_variables.py:56
+msgid "Retaliated against for reporting discrimination"
+msgstr "Ginantihan dahil sa pag-uulat ng diskriminasyon"
+
+#: model_variables.py:57
+msgid "Inappropriately asked to provide immigration documentation"
+msgstr ""
+"Hindi naaangkop na humiling na magbigay ng dokumentasyon tungkol sa "
+"imigrasyon."
+
+#: model_variables.py:58
+msgid "Denied reemployment or fired based on military service"
+msgstr ""
+"Tinanggihan sa muling pagtatrabaho o sisantehin sa trabaho batay sa "
+"serbisyong militar"
+
+#: model_variables.py:59
+msgid ""
+"Denied an accommodation for a disability, including not being allowed to "
+"have a service animal <strong>in the workplace</strong>"
+msgstr ""
+"Tinanggihan ng tulong dahil sa isang kapansanan, kabilang ang hindi "
+"pagpapahintulot na magkaroon ng hayop na nagbibigay ng serbisyo <strong>sa "
+"lugar ng pinagtratrabahuhan</strong>"
+
+#: model_variables.py:62
+msgid ""
+"Denied housing, a permit, or a loan based on personal characteristics like "
+"race, sex, and/or having children under 18 years old"
+msgstr ""
+"Tinanggihan ng pabahay, pahintulot, o pautangin batay sa personal na mga "
+"katangian katulad ng lahi, kasarian, at/o pagkakaroon ng mga anak na wala "
+"pang 18 taong gulang"
+
+#: model_variables.py:63
+msgid "Harassment by a landlord or another tenant, including sexual harassment"
+msgstr ""
+"Panliligalig ng isang nagpapaupa o ibang umuupa, kabilang ang sekswal na "
+"panliligalig"
+
+#: model_variables.py:64
+msgid "Challenges with terminating a lease due to military status change"
+msgstr ""
+"Mga hamon sa pagwawakas ng pagpapaupa dahil sa pagbabago ng katayuan sa "
+"militar"
+
+#: model_variables.py:65
+msgid ""
+"Denied an accommodation for a disability, including not being allowed to "
+"have a service or assistance animal <strong>in public housing</strong>"
+msgstr ""
+"Tinanggihan ng tulong dahil sa isang kapansanan, kabilang ang hindi "
+"pagpapahintulot na magkaroon ng hayop na nagbibigay ng serbisyo o hayop na "
+"tumutulong <strong>sa loob ng pampublikong pabahay</strong>"
+
+#: model_variables.py:68
+msgid "Harassment based on race, sex, national origin, disability, or religion"
+msgstr ""
+"Panliligalig batay sa lahi, kasarian, pambansang pinagmulan, kapansanan, o "
+"relihiyon"
+
+#: model_variables.py:69
+msgid "Denied admission or segregated in an education program or activity"
+msgstr ""
+"Tinanggihan ang pagpasok o inihiwalay sa isang palatuntunan o aktibidad na "
+"pang-edukasyon"
+
+#: model_variables.py:70
+msgid "Denied educational accommodations for a disability or language barrier"
+msgstr ""
+"Tinanggihan ng mga tulong na pang-edukasyon dahil sa isang kapansanan o "
+"kahadlangan sa wika"
+
+#: model_variables.py:73
+msgid ""
+"Obstacles to registering to vote, obtaining or submitting a ballot, having "
+"your ballot counted, or entering a polling place to vote"
+msgstr ""
+"Mga sagabal sa pagpaparehistro sa pagboto, sa pagkuha o pagsumite ng balota, "
+"sa pagbilang sa iyong balota, o pagpasok sa lugar ng botohan upang bumoto"
+
+#: model_variables.py:74
+msgid ""
+"Denied adequate voting assistance or accommodations for a disability at a "
+"polling place"
+msgstr ""
+"Tinanggihan ng sapat na tulong sa pagboto o mga akomodasyon para sa isang "
+"kapansanan sa lugar ng botohan"
+
+#: model_variables.py:75
+msgid ""
+"Restricted or prevented from participating in an election, including voting, "
+"becoming a candidate, or being elected for office"
+msgstr ""
+"Pinaghigpitan o pinigilang makilahok sa isang halalan, kabilang ang pagboto, "
+"pagiging isang kandidato, o pagkahalal sa posisyon"
+
+#: model_variables.py:78
+msgid ""
+"Police brutality or use of excessive force, including patterns of police "
+"misconduct"
+msgstr ""
+"Pagmamalupit ng pulis o paggamit ng labis na puwersa, kabilang ang mga "
+"kaparaanan ng maling pangangasiwa ng mga pulis"
+
+#: model_variables.py:79
+msgid ""
+"Searched and arrested under false pretenses, including racial or other "
+"discriminatory profiling"
+msgstr ""
+"Hinanapan at inaresto sa ilalim ng maling mga pagpapanggap, kabilang ang "
+"pagtatangi ng lahi o iba pang diskriminasyon "
+
+#: model_variables.py:80
+msgid "Denied rights while arrested or incarcerated"
+msgstr "Tinanggihang mga karapatan habang naaresto o nakakulong"
+
+#: model_variables.py:81
+msgid ""
+"Denied access to safe living conditions or accommodations for a disability, "
+"language barrier, or religious practice while incarcerated"
+msgstr ""
+"Tinanggihan ng pagkakaroon ng ligtas na mga kondisyon sa pamumuhay o mga "
+"tulong para sa kapansanan, kahadlangan sa wika, o kasanayan sa relihiyon "
+"habang nakakulong"
+
+#: model_variables.py:84
+msgid ""
+"A physical or online location that does not provide disability accommodations"
+msgstr ""
+"Isang lugar na pisikal o online na hindi nagkakaloob ng akomodasyon para sa "
+"may kapansanan"
+
+#: model_variables.py:85
+msgid ""
+"Denied service or entry because of a perceived personal characteristic like "
+"race, sex, or religion"
+msgstr ""
+"Tinanggihan na serbisyo o pagpasok dahil sa isang pinaghihinalaang personal "
+"na katangian katulad ng lahi, kasarian, o relihiyon"
+
+#: model_variables.py:86
+msgid ""
+"Denied an accommodation for a disability, including not being allowed to "
+"have a service animal <strong>in a commercial or public location</strong>"
+msgstr ""
+"Tinanggihan ng tulong dahil sa isang kapansanan, kabilang ang hindi "
+"pagpapahintulot na magkaroon ng hayop na nagbibigay ng serbisyo <strong>sa "
+"isang komersyal o pampublikong lokasyon</strong>"
+
+#: model_variables.py:92
+msgid ""
+"Physical attack causing injury, or an attempt to cause injury with a "
+"dangerous weapon, because of the above characteristics"
+msgstr ""
+"Pisikal na atake na nagdudulot ng pinsala, o pagtangkang magdulot ng pinsala "
+"gamit ang mapanganib na sandata, dahil sa mga katangian na nabanggit sa itaas"
+
+#: model_variables.py:93
+msgid ""
+"Attacks, threats of violence, or destruction of property at place of worship "
+"(ie: shooting, arson, bombing, smashing windows, writing slurs)"
+msgstr ""
+"Mga atake, mga banta ng karahasan, o pagsira ng mga ari-arian sa lugar ng "
+"pagsamba (tulad ng: pagbaril, pagsunog, pagbomba, pagbasag ng mga bintana, "
+"pagsulat ng mga insulto)"
+
+#: model_variables.py:96
+msgid ""
+"Coerced into working through threats of harm or deportation, psychological "
+"manipulation, debt manipulation, document confiscation, or confinement"
+msgstr ""
+"Pinilit na magtrabaho sa pamamagitan ng mga banta ng pananakit o "
+"deportasyon, manipulasyong sikolohikal, manipulasyon sa mga utang, "
+"pagkumpiska ng mga dokumento, o pagkakulong"
+
+#: model_variables.py:97
+msgid ""
+"Forced into sex work for profit through physical abuse or assault, sexual "
+"abuse or assault, other threats of harm, or confinement"
+msgstr ""
+"Pinuwersa sa trabahong pakikipagtalik upang mapagkakitaan sa pamamagitan ng "
+"pisikal na pang-aabuso o pag-atake, sekswal na pang-aabuso o pag-atake, iba "
+"pang mga banta ng pananakit, o pagkakulong"
+
+#: model_variables.py:102 model_variables.py:254
+msgid "Federal"
+msgstr "Pederal"
+
+#: model_variables.py:103
+msgid "State or local"
+msgstr "Estado o lokal"
+
+#. Translators: Both state, federal and local elections
+#: model_variables.py:105
+msgid "Both"
+msgstr "Pareho"
+
+#: model_variables.py:106 model_variables.py:256 model_variables.py:271
+#: model_variables.py:279 model_variables.py:296
+msgid "I'm not sure"
+msgstr "Hindi ako sigurado"
+
+#: model_variables.py:112
+msgid ""
+"Physical harm or threats of violence based on race, color, national origin, "
+"religion, gender, sexual orientation, gender identity, or disability"
+msgstr ""
+"Pisikal na pananakit o mga banta ng karahasan batay sa lahi, kulay, "
+"pambansang pinagmulan, relihiyon, kasarian, orientasyong sekswal, "
+"pagkakakilanlan ng kasarian, o kapansanan"
+
+#: model_variables.py:113
+msgid ""
+"Threatened, forced, and held against your will for the purposes of "
+"performing work or commercial sex acts. This could include threats of "
+"physical harm, withholding promised wages, or being held under a false work "
+"contract"
+msgstr ""
+"Pinagbantaan, pinuwersa, at pinigilan laban sa iyong kalooban para sa "
+"layuning gumanap ng trabaho o mga sekswal na kilos pang-komersyal. Maaaring "
+"kabilang dito ang pagbabanta sa pisikal na pananakit, pagpipigil sa "
+"ipinangakong mga sahod, o pagsasa-ilalim sa huwad na kontrata sa trabaho"
+
+#: model_variables.py:127 templates/landing.html:257
+msgid "Age"
+msgstr "Edad"
+
+#: model_variables.py:128
+msgid ""
+"Disability (including temporary or recovered and including HIV and drug "
+"addiction)"
+msgstr ""
+"Kapansanan (kabilang ang panandalian o bumuti at kasama ang HIV at "
+"pagkagumon sa droga)"
+
+#: model_variables.py:129
+msgid "Family, marital, or parental status"
+msgstr "Katayuan ng pamilya, pag-aasawa, o pagiging magulang"
+
+#: model_variables.py:130
+msgid "Gender identity (including gender stereotypes)"
+msgstr "Pagkakakilanlan ng kasarian (kabilang ang mga estereotipo sa kasarian)"
+
+#: model_variables.py:131
+msgid "Genetic information (including family medical history)"
+msgstr "Impormasyong genetiko (kabilang ang kasaysayang medikal ng pamilya)"
+
+#: model_variables.py:132
+msgid ""
+"Immigration/citizenship status (choosing this will not share your status)"
+msgstr ""
+"Katayuan ng Imigrasyon/pagkamamamayan (ang pagpili nito ay hindi magbabahagi "
+"ng iyong katayuan)"
+
+#: model_variables.py:133
+msgid "Language"
+msgstr "Wika"
+
+#: model_variables.py:134
+msgid "National origin (including ancestry and ethnicity)"
+msgstr "Pambansang pinagmulan (kabilang ang ninuno at etnisidad)"
+
+#: model_variables.py:135
+msgid "Pregnancy"
+msgstr "Pagbubuntis"
+
+#: model_variables.py:136 templates/landing.html:250
+msgid "Race/color"
+msgstr "Lahi/kulay"
+
+#: model_variables.py:137 templates/landing.html:252
+msgid "Religion"
+msgstr "Relihiyon"
+
+#: model_variables.py:138
+msgid "Sex"
+msgstr "Kasarian"
+
+#: model_variables.py:139
+msgid "Sexual orientation"
+msgstr "Orientasyong sekswal"
+
+#: model_variables.py:140
+msgid "None of these apply to me"
+msgstr "Wala sa mga ito ang nalalapat sa akin"
+
+#: model_variables.py:141
+msgid "Other reason"
+msgstr "Ibang dahilan"
+
+#: model_variables.py:150
+msgid ""
+"Please make a selection to continue. If none of these apply to your "
+"situation, please select “None of these apply to me” or \"Other reason\"and "
+"explain."
+msgstr ""
+"Mangyaring gawin ang pagpili upang makapagpatuloy. Kung wala sa mga ito ang "
+"nalalapat sa iyong sitwasyon, mangyaring piliin ang “Wala sa mga ito ang "
+"nalalapat sa akin” o “Ibang dahilan” at ipaliwanag."
+
+#: model_variables.py:219
+msgid "Place of worship or about a place of worship"
+msgstr "Lugar ng pagsamba o tungkol sa lugar ng pagsamba"
+
+#: model_variables.py:220
+msgid "Commercial or retail building"
+msgstr "Gusaling pangkomersyal o tingian"
+
+#: model_variables.py:221 model_variables.py:232
+msgid "Healthcare facility"
+msgstr "Pasilidad sa pag-aalaga ng kalusugan"
+
+#: model_variables.py:222 model_variables.py:233
+msgid "Financial institution"
+msgstr "Institusyong pampinansyal"
+
+#: model_variables.py:223
+msgid "Public space"
+msgstr "Puwang na pampubliko"
+
+#: model_variables.py:224 templatetags/commercial_public_space_view.py:17
+msgid "Other"
+msgstr "Iba pa"
+
+#: model_variables.py:227
+msgid ""
+"Please select the type of location. If none of these apply to your "
+"situation, please select \"Other\"."
+msgstr ""
+"Mangyaring pumili ng uri ng lugar. Kung wala sa mga ito ang nalalapat sa "
+"iyong sitwasyon, mangyaring piliin ang “Iba pa”."
+
+#: model_variables.py:230
+msgid "Place of worship"
+msgstr "Lugar ng pagsamba"
+
+#: model_variables.py:231
+msgid "Commercial"
+msgstr "Komersyal"
+
+#: model_variables.py:234
+msgid "Public outdoor space"
+msgstr "Puwang sa labas na pampubliko"
+
+#: model_variables.py:238
+msgid "Church, synagogue, temple, religious community center"
+msgstr "Simbahan, sinagoga, templo, tampukan ng relihiyong pamayanan "
+
+#: model_variables.py:239
+msgid "Store, restaurant, bar, hotel, theater"
+msgstr "Tindahan, restawran, bar, otel, teatro"
+
+#: model_variables.py:240
+msgid ""
+"Hospital or clinic (including inpatient and outpatient programs), "
+"reproductive care clinic, state developmental institution, nursing home"
+msgstr ""
+"Ospital o klinika (kabilang ang mga palatuntunan para sa pasyenteng "
+"nananatili sa pasilidad at pasyenteng nagsisi-uwian), klinika sa "
+"pangangalaga ng pampag-anak, institusyon para sa pang-unlad ng estado, bahay "
+"ng pag-aalaga  "
+
+#: model_variables.py:241
+msgid "Bank, credit union, loan services"
+msgstr "Bangko, unyon ng kredito, mga serbisyo sa pautang"
+
+#: model_variables.py:242
+msgid ""
+"Park, sidewalk, street, other public buildings (courthouse, DMV, city "
+"library)"
+msgstr ""
+"Parke, bangketa, lansangan, iba pang mga gusaling pampubliko (korte, DMV, "
+"silid-aklatan ng lungsod)"
+
+#: model_variables.py:253
+msgid "State/local"
+msgstr "Estado/lokal"
+
+#: model_variables.py:255
+msgid "Private"
+msgstr "Pribado"
+
+#: model_variables.py:261
+msgid "Outside of prison"
+msgstr "Sa labas ng bilangguan"
+
+#: model_variables.py:263
+msgid "Prison (Federal)"
+msgstr "Bilangguan (Pederal)"
+
+#: model_variables.py:264
+msgid "Prison (Private)"
+msgstr "Bilangguan (Pribado)"
+
+#: model_variables.py:265
+msgid "Prison (I'm not sure)"
+msgstr "Bilangguan (Hindi ako sigurado)"
+
+#: model_variables.py:269
+msgid "Public employer"
+msgstr "Tagapag-empleyong pampubliko"
+
+#: model_variables.py:270
+msgid "Private employer"
+msgstr "Tagapag-empleyong pampribado"
+
+#: model_variables.py:274
+msgid "Please select what type of employer this is."
+msgstr "Mangyaring piliin kung anong uri ng tagapag-empleyo ito."
+
+#: model_variables.py:277
+msgid "Fewer than 15 employees"
+msgstr "Mas kaunti sa 15 na mga empleyado"
+
+#: model_variables.py:278
+msgid "15 or more employees"
+msgstr "15 o higit pang mga empleyado"
+
+#: model_variables.py:282
+msgid "Please select how large the employer is."
+msgstr "Mangyaring piliin kung gaano kalaki ang tagapag-empleyo."
+
+#: model_variables.py:294
+msgid "Public school or educational program"
+msgstr "Pampublikong paaralan o palatuntunang pang-edukasyon"
+
+#: model_variables.py:295
+msgid "Private school or educational program"
+msgstr "Pribadong paaralan o palatuntunang pang-edukasyon"
+
+#: model_variables.py:301
+msgid "Alabama"
+msgstr "Alabama"
+
+#: model_variables.py:302
+msgid "Alaska"
+msgstr "Alaska"
+
+#: model_variables.py:303
+msgid "Arizona"
+msgstr "Arizona"
+
+#: model_variables.py:304
+msgid "Arkansas"
+msgstr "Arkansas"
+
+#: model_variables.py:305
+msgid "California"
+msgstr "California"
+
+#: model_variables.py:306
+msgid "Colorado"
+msgstr "Colorado"
+
+#: model_variables.py:307
+msgid "Connecticut"
+msgstr "Connecticut"
+
+#: model_variables.py:308
+msgid "Delaware"
+msgstr "Delaware"
+
+#: model_variables.py:309
+msgid "District of Columbia"
+msgstr "District of Columbia"
+
+#: model_variables.py:310
+msgid "Florida"
+msgstr "Florida"
+
+#: model_variables.py:311
+msgid "Georgia"
+msgstr "Georgia"
+
+#: model_variables.py:312
+msgid "Hawaii"
+msgstr "Hawaii"
+
+#: model_variables.py:313
+msgid "Idaho"
+msgstr "Idaho"
+
+#: model_variables.py:314
+msgid "Illinois"
+msgstr "Illinois"
+
+#: model_variables.py:315
+msgid "Indiana"
+msgstr "Indiana"
+
+#: model_variables.py:316
+msgid "Iowa"
+msgstr "Iowa"
+
+#: model_variables.py:317
+msgid "Kansas"
+msgstr "Kansas"
+
+#: model_variables.py:318
+msgid "Kentucky"
+msgstr "Kentucky"
+
+#: model_variables.py:319
+msgid "Louisiana"
+msgstr "Louisiana"
+
+#: model_variables.py:320
+msgid "Maine"
+msgstr "Maine"
+
+#: model_variables.py:321
+msgid "Maryland"
+msgstr "Maryland"
+
+#: model_variables.py:322
+msgid "Massachusetts"
+msgstr "Massachusetts"
+
+#: model_variables.py:323
+msgid "Michigan"
+msgstr "Michigan"
+
+#: model_variables.py:324
+msgid "Minnesota"
+msgstr "Minnesota"
+
+#: model_variables.py:325
+msgid "Mississippi"
+msgstr "Mississippi"
+
+#: model_variables.py:326
+msgid "Missouri"
+msgstr "Missouri"
+
+#: model_variables.py:327
+msgid "Montana"
+msgstr "Montana"
+
+#: model_variables.py:328
+msgid "Nebraska"
+msgstr "Nebraska"
+
+#: model_variables.py:329
+msgid "Nevada"
+msgstr "Nevada"
+
+#: model_variables.py:330
+msgid "New Hampshire"
+msgstr "New Hampshire"
+
+#: model_variables.py:331
+msgid "New Jersey"
+msgstr "New Jersey"
+
+#: model_variables.py:332
+msgid "New Mexico"
+msgstr "New Mexico"
+
+#: model_variables.py:333
+msgid "New York"
+msgstr "New York"
+
+#: model_variables.py:334
+msgid "North Carolina"
+msgstr "North Carolina"
+
+#: model_variables.py:335
+msgid "North Dakota"
+msgstr "North Dakota"
+
+#: model_variables.py:336
+msgid "Ohio"
+msgstr "Ohio"
+
+#: model_variables.py:337
+msgid "Oklahoma"
+msgstr "Oklashoma"
+
+#: model_variables.py:338
+msgid "Oregon"
+msgstr "Oregon"
+
+#: model_variables.py:339
+msgid "Pennsylvania"
+msgstr "Pennsylvania"
+
+#: model_variables.py:340
+msgid "Rhode Island"
+msgstr "Rhode Island"
+
+#: model_variables.py:341
+msgid "South Carolina"
+msgstr "South Carolina"
+
+#: model_variables.py:342
+msgid "South Dakota"
+msgstr "South Dakota"
+
+#: model_variables.py:343
+msgid "Tennessee"
+msgstr "Tennessee"
+
+#: model_variables.py:344
+msgid "Texas"
+msgstr "Texas"
+
+#: model_variables.py:345
+msgid "Utah"
+msgstr "Utah"
+
+#: model_variables.py:346
+msgid "Vermont"
+msgstr "Vermont"
+
+#: model_variables.py:347
+msgid "Virginia"
+msgstr "Virginia"
+
+#: model_variables.py:348
+msgid "Washington"
+msgstr "Washington"
+
+#: model_variables.py:349
+msgid "West Virginia"
+msgstr "West Virginia"
+
+#: model_variables.py:350
+msgid "Wisconsin"
+msgstr "Wisconsin"
+
+#: model_variables.py:351
+msgid "Wyoming"
+msgstr "Wyoming"
+
+#: model_variables.py:352
+msgid "American Samoa"
+msgstr "American Samoa"
+
+#: model_variables.py:353
+msgid "Guam"
+msgstr "Guam"
+
+#: model_variables.py:354
+msgid "Northern Mariana Islands"
+msgstr "Northern Mariana Islands"
+
+#: model_variables.py:355
+msgid "Puerto Rico"
+msgstr "Puerto Rico"
+
+#: model_variables.py:356
+msgid "Virgin Islands"
+msgstr "Virgin Islands"
+
+#: model_variables.py:357
+msgid "Armed Forces Africa"
+msgstr "Armed Forces Africa"
+
+#: model_variables.py:358
+msgid "Armed Forces Americas"
+msgstr "Armed Forces Americas"
+
+#: model_variables.py:359
+msgid "Armed Forces Canada"
+msgstr "Armed Forces Canada"
+
+#: model_variables.py:360
+msgid "Armed Forces Europe"
+msgstr "Armed Forces Europe"
+
+#: model_variables.py:361
+msgid "Armed Forces Middle East"
+msgstr "Armed Forces Middle East"
+
+#: model_variables.py:362
+msgid "Armed Forces Pacific"
+msgstr "Armed Forces Pacific"
+
+#: model_variables.py:365
+msgid "Please provide description to continue"
+msgstr "Mangyaring magbigay ng paglalarawan upang makapagpatuloy"
+
+#: model_variables.py:366
+msgid "Please select a primary reason to continue."
+msgstr "Mangyaring pumili ng pangunahing dahilan upang makapagpatuloy."
+
+#: model_variables.py:369
+msgid "Please enter the name of the location where this took place."
+msgstr "Mangyaring ilagay ang pangalan ng lugar kung saan ito nangyari."
+
+#: model_variables.py:370
+msgid "Please enter the city or town where this took place."
+msgstr "Mangyaring ilagay ang lungsod o bayan kung saan ito nangyari."
+
+#: model_variables.py:371
+msgid "Please select the state where this took place."
+msgstr "Mangyaring piliin ang estado kung saan ito nangyari."
+
+#: model_variables.py:375
+msgid "Please select where this occurred"
+msgstr "Mangyaring piliin kung saan ito nangyari"
+
+#: model_variables.py:376
+msgid "Please select the type of location"
+msgstr "Mangyaring piliin ang uri ng lugar"
+
+#: model_variables.py:388
+msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
+msgstr ""
+"Kailangan mong ilagay ang buwan at taon. Mangyaring gamitin ang pormat na BB/"
+"AA/TTTT"
+
+#: model_variables.py:391
+msgid "Please enter a month."
+msgstr "Mangyaring ilagay ang buwan."
+
+#: model_variables.py:392
+msgid "Please enter a valid month. Month must be between 1 and 12."
+msgstr ""
+"Mangyaring ilagay ang tamang buwan. Ang buwan ay kailangang nasa pagitan ng "
+"1 at 12."
+
+#: model_variables.py:393
+msgid ""
+"Please enter a valid day of the month. Day must be between 1 and the last "
+"day of the month."
+msgstr ""
+"Mangyaring ilagay ang tamang araw ng buwan.  Ang araw ay kailangang nasa "
+"pagitan ng 1 at sa huling araw ng buwan."
+
+#: model_variables.py:394
+msgid "Please enter a year."
+msgstr "Mangyaring ilagay ang taon."
+
+#: model_variables.py:395
+msgid "Date can not be in the future."
+msgstr "Ang petsa ay hindi maaaring sa hinaharap."
+
+#: model_variables.py:396
+msgid "Please enter a year after 1900."
+msgstr "Mangyaring ilagay ang taon pagkaraan ng 1900."
+
+#: model_variables.py:397
+msgid "Please enter a valid date. Use format MM/DD/YYYY."
+msgstr "Mangyaring ilagay ang tamang petsa. Gamitin ang pormat na BB/AA/TTTT"
+
+#: model_variables.py:400
+msgid "Please select the type of election or voting activity."
+msgstr "Mangyaring piliin ang uri ng halalan o aktibidad sa pagboto."
+
+#: model_variables.py:440
+msgid ""
+"If you submit a phone number, please make sure to include between 7 and 15 "
+"digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
+"Please include country code if entering an international phone number."
+msgstr ""
+"Kapag nagsumite ka ng numero ng telepono, mangyaring siguraduhin na magbigay "
+"ng tambilang na nasa pagitan ng 7 at 15. Ang mga simbolo na “+”, “)”, “(”, "
+"“-”, at “.” ay pinapahintulutan. Mangyaring ilagay ang kodigo ng bansa kung "
+"naglalagay ng internasyonal na numero ng telepono."
+
+#: question_text.py:5
+msgid "Contact information"
+msgstr "Impormasyon sa pakikipag-ugnay"
+
+#: question_text.py:6
+msgid ""
+"You are not required to provide your name or contact information. If you "
+"want to remain anonymous, leave this section blank. If you choose to provide "
+"your contact information, we will only use it to respond to your submission."
+msgstr ""
+"Hindi mo kailangang ibigay ang iyong pangalan o impormasyon sa pakikipag-"
+"ugnay. Kung nais mong manatiling anonimo, iwanang blangko ang seksyong ito. "
+"Kung piliin mong magbigay ng iyong impormasyon sa pakikipag-ugnay, gagamitin "
+"lamang namin ito upang sagutin ang iyong pagsumite."
+
+#: question_text.py:7 templates/forms/report_data.html:12
+msgid "Your name"
+msgstr "Iyong pangalan"
+
+#: question_text.py:8
+msgid "First name"
+msgstr "Pangalan"
+
+#: question_text.py:9
+msgid "Last name"
+msgstr "Apelyido"
+
+#: question_text.py:10
+msgid "Email address"
+msgstr "Direksyon ng Email "
+
+#: question_text.py:11
+msgid "Phone number"
+msgstr "Numero ng telepono"
+
+#: question_text.py:12
+msgid "Mailing address 1"
+msgstr "Direksyon kung saan tumatanggap ng koreo 1"
+
+#: question_text.py:13
+msgid "Mailing address 2"
+msgstr "Direksyon kung saan tumatanggap ng koreo 2"
+
+#: question_text.py:14
+msgid "City"
+msgstr "Lungsod"
+
+#: question_text.py:15
+msgid "Zip code"
+msgstr "Kodigo ng koreo"
+
+#: question_text.py:16 question_text.py:34
+msgid "State"
+msgstr "Estado"
+
+#: question_text.py:18
+msgid "Are you now or have ever been an active duty service member?"
+msgstr ""
+"Ikaw ba ay pangkasalukuyan o naging isang aktibong miyembro ng serbisyo sa "
+"tungkulin?"
+
+#: question_text.py:21
+msgid "What is your primary reason for contacting the Civil Rights Division?"
+msgstr ""
+"Ano ang iyong pangunahing dahilan sa pakikipag-uugnay sa Dibisyon sa mga "
+"Karapatang Sibil?"
+
+#: question_text.py:23
+msgid "Primary Issue"
+msgstr "Pangunahing Suliranin"
+
+#: question_text.py:24
+msgid "Does your situation involve physical harm or threats of violence?"
+msgstr ""
+"Ang sitwasyon mo ba ay kinasasangkutan ng pisikal na pananakit o mga banta "
+"ng karahasan?"
+
+#: question_text.py:25
+msgid ""
+"To be considered a hate crime, the physical harm or threats of violence must "
+"be based on race, color, national origin, religion, gender, sexual "
+"orientation, gender identity, or disability."
+msgstr ""
+"Upang maisaalang-alang ito bilang isang krimen sa pagkapoot, ang pisikal na "
+"pananakit o mga banta ng karahasan ay kinakailangang batay sa lahi, kulay, "
+"pambansang pinagmulan, relihiyon, kasarian, orientasyong sekswal, "
+"pagkakakilanlan ng kasarian, o kapansanan."
+
+#: question_text.py:30
+msgid "Location name"
+msgstr "Pangalan ng lugar"
+
+#: question_text.py:31
+msgid "Street address 1"
+msgstr "Direksyon ng lansangan 1"
+
+#: question_text.py:32
+msgid "Street address 2"
+msgstr "Direksyon ng lansangan 2"
+
+#: question_text.py:33
+msgid "City/town"
+msgstr "Lungsod/bayan"
+
+#: question_text.py:36
+msgid "What kind of election or voting activity was this related to?"
+msgstr "Anong uri na halalan o aktibidad sa pagboto ang kaugnay nito?"
+
+#: question_text.py:38
+msgid "Was this a public or private employer?"
+msgstr "Ito ba ay isang pampubliko o pampribadong tagapag-empleyo?"
+
+#: question_text.py:39
+msgid "How large is this employer?"
+msgstr "Gaano kalaki ang tagapag-empleyong ito?"
+
+#: question_text.py:41
+msgid ""
+"Please choose the type of location that best describes where the incident "
+"happened"
+msgstr ""
+"Mangyaring piliin ang uri ng lugar na pinaka-naglalarawan kung saan nangyari "
+"ang insidente"
+
+#: question_text.py:43
+msgid "Did this happen while in custody or incarcerated?"
+msgstr "Nangyari ba ito habang nasa kustodiya o nakakulong?"
+
+#: question_text.py:44
+msgid "What type of prison or correctional facility?"
+msgstr "Anong uri ng kulungan o pasilidad sa pagwawasto?"
+
+#: question_text.py:46
+msgid ""
+"Did this happen at a public or a private school, educational program or "
+"activity?"
+msgstr ""
+"Nangyari ba ito sa isang pampubliko o pampribadong paaralan, palatuntunan o "
+"aktibidad na pang-edukasyon?"
+
+#: question_text.py:49
+msgid ""
+"Do you believe any of these personal characteristics influenced why you were "
+"treated this way?"
+msgstr ""
+"Naniniwala ka ba na alin man sa mga katangiang ito ang naka-impluwensiya "
+"kung bakit ka natrato sa ganitong paraan?"
+
+#: question_text.py:52
+msgid "When did this happen?"
+msgstr "Kailan ito nangyari?"
+
+#: question_text.py:53
+msgid "Month"
+msgstr "Buwan"
+
+#: question_text.py:54
+msgid "Day"
+msgstr "Araw"
+
+#: question_text.py:55
+msgid "Year"
+msgstr "Taon"
+
+#: question_text.py:59
+msgid "In your own words, describe what happened"
+msgstr "Sa sarili mong mga salita, ilarawan kung ano ang nangyari"
+
+#: question_text.py:61
+msgid "Please share details like:"
+msgstr "Mangyaring ibahagi ang mga detalye katulad ng:"
+
+#: question_text.py:63
+msgid "Time"
+msgstr "Oras"
+
+#: question_text.py:64
+msgid "Names of people involved including witnesses if there are any"
+msgstr ""
+"Mga pangalan ng mga taong kasangkot kabilang ang mga saksi kung mayroon man"
+
+#: question_text.py:65
+msgid "Any supporting materials (please list and describe them)"
+msgstr ""
+"Anumang pang-suportang materyales (mangyaring ilista at ilarawan ang mga ito)"
+
+#: templates/base.html:33 templates/base.html:58
+#: templates/forms/report_base.html:10 templates/forms/report_base.html:13
+msgid "Contact the Civil Rights Division | Department of Justice"
+msgstr ""
+"Makipag-ugnay sa Dibisyon sa mga Karapatang Sibil | Kagawaran ng Katarungan"
+
+#: templates/base.html:46
+msgid ""
+"Have you or someone you know experienced unlawful discrimination? The Civil "
+"Rights Division may be able to help. Civil rights laws can protect you from "
+"unlawful discrimination, harassment, or abuse in a variety of settings like "
+"housing, the workplace, school, voting, businesses, healthcare, public "
+"spaces, and more."
+msgstr ""
+"Kung ikaw ba o isang kakilala mo ay nakaranas ng labag sa batas na "
+"diskriminasyon? Maaari kang matulungan ng Dibisyon sa mga Karapatang Sibil. "
+"Ang mga batas sa karapatang sibil ay maaari kang protektahan mula sa labag "
+"sa batas na diskriminasyon, panliligalig, o abuso sa iba’t ibang kapaligiran "
+"katulad ng pabahay, lugar ng pinagtratrabahuhan, paaralan, botohan, mga "
+"negosyo, pangangalaga sa kalusugan, pamublikong puwang, at iba pa."
+
+#: templates/base.html:67
+msgid "Skip to main content"
+msgstr "Lampasan upang mapunta sa pangunahing nilalaman"
+
+#: templates/base.html:121 templates/forms/errors.html:13
+#: templates/forms/report_maintenance.html:13 templates/landing.html:17
+msgid "U.S. Department of Justice"
+msgstr "Kagawaran ng Katarungan ng Estados Unidos"
+
+#: templates/base.html:124 templates/forms/confirmation.html:21
+#: templates/forms/errors.html:14 templates/forms/report_maintenance.html:14
+#: templates/landing.html:20
+msgid "Civil Rights Division"
+msgstr "Dibisyon sa mga Karapatang Sibil"
+
+#: templates/forms/complaint_view/actions/bulk_actions.html:78
+#: templates/forms/grouped_questions.html:6
+#: templates/forms/question_cards/commercial_public_location.html:5
+#: templates/forms/question_cards/police_location.html:4
+#: templates/forms/question_cards/single_form.html:16
+#: templates/forms/question_cards/single_question.html:13
+#: templates/forms/report_class.html:14 templates/forms/report_details.html:13
+#: templates/forms/report_location.html:33
+#: templates/forms/report_location.html:39
+#: templates/forms/report_primary_complaint.html:11
+#: templates/forms/snippets/input.html:9
+msgid "required"
+msgstr "kailangan"
+
+#: templates/forms/confirmation.html:8
+msgid "Submission complete"
+msgstr "Kumpleto ang pagsusumite"
+
+#: templates/forms/confirmation.html:20 templates/forms/confirmation.html:26
+#: templates/forms/portal/header.html:3
+msgid "United States Department of Justice"
+msgstr "Kagawaran ng Katarungan ng Estados Unidos"
+
+#: templates/forms/confirmation.html:29
+msgid "Thank you for submitting a report to the Civil Rights Division."
+msgstr ""
+"Salamat sa iyong pagsumite ng ulat sa Dibisyon sa mga Karapatang Sibil."
+
+#: templates/forms/confirmation.html:46
+msgid "Report successfully submitted"
+msgstr "Ang ulat ay matagumpay na naipasa. "
+
+#: templates/forms/confirmation.html:51
+msgid "Please save your record number for tracking."
+msgstr "Mangyaring iadya ang numero ng talaan para sa pagsubaybay."
+
+#: templates/forms/confirmation.html:52
+msgid ""
+"You will not receive an email confirmation, so please print or save this "
+"page for your records."
+msgstr ""
+"Hindi ka makakatanggap ng kumpirmasyon sa email, kaya mangyaring pakilimbag "
+"o iadya ang pahinang ito para sa iyong mga talaan."
+
+#: templates/forms/confirmation.html:56
+msgid "Your record number is:"
+msgstr "Ang iyong numero ng talaan ay:"
+
+#: templates/forms/confirmation.html:62
+msgid "Print report"
+msgstr "Ilimbag ang ulat"
+
+#: templates/forms/confirmation.html:73
+msgid "What to expect"
+msgstr "Ano ang dapat asahan"
+
+#: templates/forms/confirmation.html:83
+msgid "We review your report"
+msgstr "Sinusuri namin ang iyong ulat "
+
+#: templates/forms/confirmation.html:88
+msgid ""
+"Our specialists in the Civil Rights Division carefully read every report to "
+"identify civil rights violations, spot trends, and determine if we have "
+"authority to help with your report."
+msgstr ""
+"Ang aming mga espesyalista sa Dibisyon sa mga Karapatang Sibil ay maingat na "
+"binabasa ang bawat ulat upang kilalanin kung ano ang mga nilabag na mga "
+"karapatang sibil, makita ang mga kalakaran, at matukoy kung mayroon kaming "
+"awtoridad upang tumulong sa iyong ulat."
+
+#: templates/forms/confirmation.html:98
+msgid "Our specialists determine the next step"
+msgstr ""
+"Ang aming mga espesyalista ang nagtutukoy kung ano ang susunod na hakbang"
+
+#: templates/forms/confirmation.html:102
+msgid "We may decide to:"
+msgstr "Maaari kaming magpasya na:"
+
+#: templates/forms/confirmation.html:105
+msgid ""
+"<strong>Open an investigation</strong> or take some other action within the "
+"legal authority of the Justice Department."
+msgstr ""
+"<strong>Magbukas ng isang pagsisiyasat</strong> o gumawa ng iba pang mga "
+"kilos sa loob ng ligal na awtoridad ng Kagawaran ng Katarungan."
+
+#: templates/forms/confirmation.html:106
+msgid ""
+"<strong>Collect more information</strong> before we can look into your "
+"report."
+msgstr ""
+"<strong>Magtipon ng karagdagang impormasyon</strong> bago namin matingnan "
+"ang iyong ulat."
+
+#: templates/forms/confirmation.html:107
+msgid ""
+"<strong>Recommend another government agency</strong> that can properly look "
+"into your report. If so, we’ll let you know."
+msgstr ""
+"<strong>Magrekomenda ng ibang ahensya ng gobyerno</strong> na titingin ng "
+"maayos sa iyong ulat. Kung gayon, ipapaalam namin sa iyo."
+
+#: templates/forms/confirmation.html:110
+msgid ""
+"In some cases, we may determine that we don’t have legal authority to handle "
+"your report and will recommend that you seek help from a private lawyer or "
+"local legal aid organization."
+msgstr "Magtipon ng karagdagang impormasyon bago namin tingnan ang iyong ulat."
+
+#: templates/forms/confirmation.html:120
+msgid "When possible, we will follow up with you"
+msgstr "Kapag maaari, magpa-follow-up kami sa iyo"
+
+#: templates/forms/confirmation.html:125
+msgid ""
+"We do our best to let you know about the outcome of our review. However, we "
+"may not always be able to provide you with updates because:"
+msgstr ""
+"Ginagawa namin ang lahat ng aming makakaya upang ipaalam sa iyo kung ano ang "
+"kinalabasan ng aming pagsusuri. Subalit, maaaring hindi namin palaging "
+"maibibigay sa iyo ang mga pinakabagong impormasyon dahil:"
+
+#: templates/forms/confirmation.html:129
+msgid ""
+"We’re actively working on an investigation or case related to your report."
+msgstr ""
+"Kami ay aktibong nagsasagawa ng pagsisiyasat o kaso na kaugnay sa iyong ulat."
+
+#: templates/forms/confirmation.html:132
+msgid "We’re receiving and actively reviewing many requests at the same time."
+msgstr ""
+"Kami ay tumatanggap at aktibong sumusuri ng maraming mga kahilingan ng sabay-"
+"sabay."
+
+#: templates/forms/confirmation.html:135 templates/landing.html:353
+msgid ""
+"If we are able to respond, we will contact you using the contact information "
+"you provided in this report. Depending on the type of report, response times "
+"can vary. If you need to reach us about your report, please refer to your "
+"report number when contacting us. This is how we keep track of your "
+"submission."
+msgstr ""
+"Kung magagawa naming tumugon, makikipag-ugnay kami sa iyo gamit ang "
+"impormasyon sa pakikipag-ugnay na ibinigay mo sa ulat na ito. Depende sa uri "
+"ng ulat, ang mga oras ng pagtugon ay maaaring iba-iba. Kung kinakailangan "
+"mong makipag-abot sa amin tungkol sa iyong ulat, mangyaring sumangguni sa "
+"iyong numero ng ulat kung makikipag-ugnayan sa amin. Ito ang paraan namin "
+"upang masusubaybayan ang iyong pagsumite."
+
+#: templates/forms/confirmation.html:143
+msgid "What you can do next"
+msgstr "Ang mga susunod na maaari mong gawin"
+
+#: templates/forms/confirmation.html:149
+msgid "1"
+msgstr "1"
+
+#: templates/forms/confirmation.html:152
+msgid ""
+"Contact local legal aid organizations or a lawyer if you haven’t already"
+msgstr ""
+"Makipag-ugnay sa mga organisasyong lokal para sa ligal na tulong o sa "
+"abogado kung hindi mo pa ito nagagawa"
+
+#: templates/forms/confirmation.html:156
+msgid ""
+"Legal aid offices or members of lawyer associations in your state may be "
+"able to help you with your issue."
+msgstr ""
+"Ang mga tanggapan sa ligal na tulong o mga miyembro ng mga samahan ng "
+"abogado sa iyong estado ay maaaring makatulong sa iyo sa iyong suliranin."
+
+#: templates/forms/confirmation.html:159
+msgid ""
+"American Bar Association, visit <a class=\"external-link--blue external-"
+"link--popup\" aria-label=\"www.findlegalhelp.org\" href=\"http://www."
+"findlegalhelp.org\">www.findlegalhelp.org</a> or call <a href="
+"\"tel:800-285-2221\">(800) 285-2221</a>"
+msgstr ""
+"American Bar Association, bisitahin ang <a class=\"external-link--blue "
+"external-link--popup\" aria-label=\"www.findlegalhelp.org\" href=\"http://"
+"www.findlegalhelp.org\">www.findlegalhelp.org</a> o tawagan ang <a href="
+"\"tel:800-285-2221\">(800) 285-2221</a>"
+
+#: templates/forms/confirmation.html:162
+msgid ""
+"Legal Service Corporation (or Legal Aid Offices), visit <a aria-label=\"www."
+"lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--popup\" "
+"href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> "
+"or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
+msgstr ""
+"Legal Service Corporation (o mga Tanggapan sa Ligal na Tulong), bisitahin "
+"ang <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue "
+"external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc."
+"gov/find-legal-aid</a> o tawagan ang <a href=\"tel:202-295-1500\">(202) "
+"295-1500</a>"
+
+#: templates/forms/confirmation.html:170
+msgid "2"
+msgstr "2"
+
+#: templates/forms/confirmation.html:173
+msgid "Get help immediately if you are in danger"
+msgstr "Humingi ng tulong kaagad-agad kung ikaw ay nasa panganib"
+
+#: templates/forms/confirmation.html:178
+msgid ""
+"If you reported an incident where you or someone else has experienced or is "
+"still experiencing physical harm or violence, or are in immediate danger, "
+"please call <a href=\"tel:911\">911</a> and contact the police."
+msgstr ""
+"Kung nag-ulat ka ng isang pangyayari na kung saan ikaw o ibang tao ay "
+"nakaranas o nakakaranas pa rin ng pisikal na pananakit o karahasan, o nasa "
+"kaagarang panganib, mangyaring tumawag sa <a href=\"tel:911\">911</a> at "
+"makipag-ugnay sa pulis. "
+
+#: templates/forms/confirmation.html:191
+msgid "Your submission"
+msgstr "Ang iyong pagsumite"
+
+#: templates/forms/error_422.html:5 templates/forms/errors.html:31
+msgid "We're sorry, something went wrong"
+msgstr "Pasensya na, mayroong nangyaring kamalian"
+
+#: templates/forms/error_422.html:8
+msgid ""
+"\n"
+"        <p>This error might be associated with an incompatible Internet "
+"browser. Please download the latest version of Google Chrome, Mozilla "
+"Firefox, Safari or Microsoft Edge.</p>\n"
+"        <p>Additionally, please do not use multiple browsers and/or browser "
+"tabs when entering your report.</p>\n"
+"    "
+msgstr ""
+"\n"
+"        <p>Ang kamaliang ito ay maaaring kaugnay sa hindi tugma na browser "
+"ng Internet.  Mangyaring i-download ang pinakabagong pagsasalin ng Google "
+"Chrome, Mozilla Firefox, Safari o Microsoft Edge.</p>\n"
+"        <p>Bilang karagdagan, mangyaring huwag gumamit ng maramihang browser "
+"at/o mga tabs ng browser kapag ipinapasok ang iyong ulat.</p>\n"
+"    "
+
+#: templates/forms/errors.html:33
+msgid "We hope to fix this issue shortly"
+msgstr "Umaasa kami na maaayos ang suliraning ito ng ilang sandali"
+
+#: templates/forms/errors.html:35
+msgid "Error: "
+msgstr "Pagkakamali: "
+
+#: templates/forms/errors.html:37 templates/forms/report_maintenance.html:33
+msgid "If you need to contact us immediately, you can reach us by:"
+msgstr ""
+"Kung kinakailangan mong makipag-ugnay sa amin kaagad-agad, maaari kang "
+"makipag-abot sa amin sa pamamagitan ng:"
+
+#: templates/forms/errors.html:42 templates/forms/report_maintenance.html:38
+msgid "Email"
+msgstr "Email"
+
+#: templates/forms/errors.html:51 templates/forms/report_maintenance.html:47
+#: templates/partials/footer.html:32
+msgid "(toll-free)"
+msgstr "(walang bayad)"
+
+#: templates/forms/errors.html:52 templates/forms/report_maintenance.html:48
+#: templates/partials/footer.html:33
+msgid "Telephone Device for the Deaf"
+msgstr "Teleponong Aparato para sa mga Bingi"
+
+#: templates/forms/errors.html:53 templates/forms/report_maintenance.html:49
+#: templates/partials/footer.html:34
+msgid "(TTY)"
+msgstr "(TTY)"
+
+#: templates/forms/errors.html:68 templates/forms/report_maintenance.html:64
+msgid "Other information"
+msgstr "Iba pang impormasyon"
+
+#: templates/forms/errors.html:69
+msgid "File a complaint"
+msgstr "Magsumite ng reklamo"
+
+#: templates/forms/errors.html:71 templates/forms/report_maintenance.html:66
+#: templates/landing.html:125
+msgid "About the Civil Rights Division"
+msgstr "Tungkol sa Dibisyon sa mga Karapatang Sibil"
+
+#: templates/forms/errors.html:74 templates/forms/report_maintenance.html:69
+#: templates/landing.html:108
+msgid ""
+"If you or someone else is in immediate danger, <a href=\"tel:911\">please "
+"call 911 or local police.</a>"
+msgstr ""
+"Kung ikaw o ibang tao ay nasa kaagarang panganib, <a href="
+"\"tel:911\">mangyaring tumawag sa 911 o lokal na pulis.</a>"
+
+#: templates/forms/portal/progress-bar.html:6
+msgid "progress"
+msgstr "pag-unlad"
+
+#: templates/forms/portal/progress-bar.html:8
+#, python-format
+msgid ""
+"\n"
+"          Current step: %(current_step_name)s. Step %(stage_number)s of "
+"%(total_stages)s.\n"
+"        "
+msgstr ""
+"\n"
+"          Kasalukuyang hakbang: %(current_step_name)s. Hakbang "
+"%(stage_number)s of %(total_stages)s.\n"
+"        "
+
+#: templates/forms/portal/progress-bar.html:27
+msgid "not completed"
+msgstr "Hindi nakumpleto"
+
+#: templates/forms/portal/progress-bar.html:29
+msgid "completed"
+msgstr "Kumpleto "
+
+#: templates/forms/report_base.html:8
+#, python-format
+msgid ""
+"\n"
+"        Step %(stage_number)s: %(current_step_name)s - "
+msgstr ""
+"\n"
+"        Hakbang %(stage_number)s: %(current_step_name)s - "
+
+#: templates/forms/report_base.html:22
+msgid "Contact the Department of Justice to report a civil rights violation"
+msgstr ""
+"Makipag-ugnay sa Kagawaran ng Katarungan upang mag-ulat ng isang Paglabag sa "
+"mga karapatang sibil"
+
+#: templates/forms/report_base.html:55
+#, python-format
+msgid ""
+"\n"
+"                  1 error found\n"
+"                "
+msgid_plural ""
+"\n"
+"                  %(counter)s errors found\n"
+"                "
+msgstr[0] ""
+"\n"
+"                  1 kamaliang natagpuan                "
+msgstr[1] ""
+"\n"
+"                  %(counter)s kamaliang natagpuan                "
+
+#: templates/forms/report_base.html:84
+msgid "Submit"
+msgstr "i-sumite"
+
+#: templates/forms/report_base.html:86
+msgid "Next"
+msgstr "Kasunod"
+
+#: templates/forms/report_base.html:93 templates/forms/report_review.html:32
+msgid "previous step"
+msgstr "nakaraang hakbang"
+
+#: templates/forms/report_base.html:96 templates/forms/report_review.html:35
+#: templates/partials/redirect-modal.html:21
+msgid "Back"
+msgstr "Balik"
+
+#: templates/forms/report_data.html:21 templates/forms/report_data.html:114
+msgid "Address"
+msgstr "Direksyon"
+
+#: templates/forms/report_data.html:135 templates/forms/report_data.html:141
+msgid "None selected"
+msgstr "Walang napili"
+
+#: templates/forms/report_hate_crime.html:13
+#: templates/forms/report_hate_crime.html:18 templates/landing.html:227
+msgid "Were you forced to work against your will?"
+msgstr "Pinilit ka bang magtrabaho ng laban sa iyong kalooban?"
+
+#: templates/forms/report_hate_crime.html:16
+msgid ""
+"Human trafficking includes being forced or coerced to do work, or forced or "
+"coerced to engage in sex acts for something of value."
+msgstr ""
+"Kabilang sa panlilinlang ng mga tao ang pinilit o tinakot na magtrabaho, o "
+"pinilit o tinakot na makisali sa mga sekswal na kilos kapalit ng mahalagang "
+"bagay. "
+
+#: templates/forms/report_hate_crime.html:18 templates/landing.html:227
+msgid "Get help from the National Human Trafficking Hotline"
+msgstr "Humingi ng tulong sa National Human Trafficking Hotline"
+
+#: templates/forms/report_maintenance.html:30
+msgid "This page is currently down for maintenance."
+msgstr ""
+"Ang pahinang ito ay kasalukuyang hindi gumagana dahil sa ginagawang "
+"pagpapanatili."
+
+#: templates/forms/report_maintenance.html:31
+msgid ""
+"We expect to be back shortly. We recommend checking back to report a civil "
+"rights violation."
+msgstr ""
+"Inaasahan naming makabalik ng ilang sandali. Kami ay nagrerekomenda na "
+"muling bumalik upang mag-ulat ng isang paglabag sa mga karapatang sibil."
+
+#: templates/forms/report_review.html:10
+msgid "Before you submit your report, please check your responses"
+msgstr ""
+"Bago ka magsumite ng iyong ulat, mangyaring suriin ang iyong mga katugunan"
+
+#: templates/forms/report_review.html:12
+msgid ""
+"If you need to make any changes, you can go back and edit the previous "
+"pages. Please make sure your information is accurate. This allows us to "
+"respond to your report quickly."
+msgstr ""
+"Kung kinakailangan mong gumawa ng mga pagbabago, maaari kang bumalik at "
+"baguhin ang nakaraang mga pahina. Mangyaring siguraduhin na tumpak ang iyong "
+"impormasyon. Pinahihintulutan nito na mapabilis ang aming pagtugon sa iyong "
+"ulat."
+
+#: templates/forms/report_review.html:14 templates/forms/report_review.html:26
+msgid "Submit report"
+msgstr "Isumite ang ulat"
+
+#: templates/forms/snippets/preview_button.html:5
+msgid "Edit this page"
+msgstr "Baguhin ang pahinang ito"
+
+#: templates/forms/widgets/crt_radio_area_option.html:26
+msgid "Examples:"
+msgstr "Mga halimbawa:"
+
+#: templates/forms/word_counter.html:4
+#, python-format
+msgid ""
+"\n"
+"    %(word_limit)s word limit.\n"
+"  "
+msgstr ""
+"\n"
+"%(word_limit)s Hangganan ng salita.\n"
+"  "
+
+#: templates/forms/word_counter.html:16 templates/forms/word_counter.html:21
+#, python-format
+msgid ""
+"\n"
+"          %(word_limit)s word limit reached\n"
+"        "
+msgstr ""
+"\n"
+"          %(word_limit)s naabot na ang hangganan ng salita\n"
+"        "
+
+#: templates/landing.html:29
+msgid "Menu"
+msgstr "Mga Putahe"
+
+#: templates/landing.html:38
+msgid "About the Division"
+msgstr "Tungkol sa Dibisyon"
+
+#: templates/landing.html:43
+msgid "Your rights"
+msgstr "Ang iyong mga karapatan"
+
+#: templates/landing.html:48 templates/partials/footer.html:69
+msgid "Report a violation"
+msgstr "Mag-ulat ng paglabag"
+
+#: templates/landing.html:53
+msgid "Already submitted?"
+msgstr "Naisumite na?"
+
+#: templates/landing.html:58 templates/partials/footer.html:9 views.py:951
+#: views.py:1030 views.py:1049
+msgid "Contact"
+msgstr "Makipag-ugnay"
+
+#: templates/landing.html:78
+msgid "We uphold the civil rights of <em>all</em> people in the United States."
+msgstr ""
+"Pinapanindigan namin ang mga karapatang sibil ng <em>lahat</em> ng tao sa "
+"Estados Unidos."
+
+#: templates/landing.html:83
+msgid ""
+"The Civil Rights Division enforces federal laws that protect you from "
+"discrimination based on your race, color, national origin, disability "
+"status, sex, religion, familial status, or loss of other constitutional "
+"rights."
+msgstr ""
+"Ang Dibisyon sa mga Karapatang Sibil ay nagpapatupad ng mga batas na "
+"pampederal na pumoprotekta sa iyo mula sa diskriminasyon batay sa iyong "
+"lahi, kulay, pambansang pinagmulan, katayuan ng kapansanan, kasarian, "
+"relihiyon, katayuan ng pamilya, o kawalan ng ibang mga karapatan sa ilalim "
+"ng saligang batas."
+
+#: templates/landing.html:86
+msgid ""
+"If you believe your civil rights, or someone else’s, have been violated, "
+"submit a report using our online form."
+msgstr ""
+"Kung naniniwala ka na ang iyong mga karapatang sibil, o ng ibang tao, ay "
+"nalabag, magsumite ng ulat gamit ang aming online na pormularyo."
+
+#: templates/landing.html:88
+msgid "Start a report"
+msgstr "Mag-umpisa ng isang ulat"
+
+#: templates/landing.html:89
+msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
+msgstr ""
+"o matuto ng karagdagang kaalaman tungkol sa <a href=\"#your-rights\">iyong "
+"mga karapatan</a>"
+
+#: templates/landing.html:102
+msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
+msgstr ""
+"Kung ikaw ay nasa panganib, makipag-ugnay sa <a href=\"tel:911\">911</a>"
+
+#: templates/landing.html:113
+msgid ""
+"If you are reporting misconduct by law enforcement or believe you have "
+"experienced a hate crime, please <a aria-label=\"contact the FBI\" class="
+"\"external-link--white\" href=\"https://www.fbi.gov/tips\">contact the FBI</"
+"a>."
+msgstr ""
+"Kung ikaw ay nag-uulat sa maling pangangasiwa ng mga nagpapatupad ng batas o "
+"naniniwala ka na nakaranas ka ng isang krimen sa pagkapoot, mangyaring <a "
+"aria-label=\"contact the FBI\" class=\"external-link--white\" href=\"https://"
+"www.fbi.gov/tips\">makipag-ugnay sa FBI</a>."
+
+#: templates/landing.html:127
+msgid "We protect your rights through:"
+msgstr "Pinoprotektahan namin ang iyong mga karapatan sa pamamagitan ng:"
+
+#: templates/landing.html:130
+msgid "Enforcement"
+msgstr "Pagpapatupad"
+
+#: templates/landing.html:132
+msgid ""
+"We sue or prosecute individuals and organizations who violate civil rights "
+"laws."
+msgstr ""
+"Idinedemanda o inuusig namin ang mga tao at mga samahan na lumalabag sa mga "
+"batas sa mga karapatang sibil."
+
+#: templates/landing.html:135
+#, python-format
+msgid ""
+"\n"
+"                You can help us do this work by reporting a possible civil "
+"rights violation through our <a href=\"%(report_form_url)s\">online form</"
+"a>.\n"
+"                "
+msgstr ""
+"\n"
+"                Maaari mo kaming tulungang gawin ang trabahong ito sa "
+"pamamagitan ng pag-uulat ng isang posibleng paglabag sa mga karapatang sibil "
+"sa pamamagitan ng aming <a href=\"%(report_form_url)s\">online na "
+"pormularyo</a>.\n"
+"                "
+
+#: templates/landing.html:141
+msgid "Education"
+msgstr "Edukasyon"
+
+#: templates/landing.html:143
+msgid "We help the public understand how to comply with these laws."
+msgstr ""
+"Tinutulungan namin ang publiko na maunawaan kung paano sumunod sa mga batas "
+"na ito."
+
+#: templates/landing.html:144
+msgid "We do this through public speaking, technical assistance, and more."
+msgstr ""
+"Ginagawa namin ito sa pamamagitan ng pakikipag-usap sa publiko, tulong na "
+"pangteknikal, at iba pa."
+
+#: templates/landing.html:147
+msgid "Coordination"
+msgstr "Koordinasyon"
+
+#: templates/landing.html:149
+msgid ""
+"We help the entire federal government work together to enforce these laws."
+msgstr ""
+"Tinutulungan namin ang buong gobyernong pampederal na magtrabaho ng sama-"
+"sama upang ipatupad ang mga batas na ito."
+
+#: templates/landing.html:150
+msgid ""
+"Our teams work with other agencies to promote a consistent approach to civil "
+"rights laws."
+msgstr ""
+"Ang aming mga koponan ay nagtatrabaho kasama ang ibang mga ahensya upang "
+"itaguyod ang naaalinsunod na pagtalakay ng mga batas sa karapatang sibil."
+
+#: templates/landing.html:162
+msgid "Understanding your rights"
+msgstr "Pag-unawa sa iyong mga karapatan"
+
+#: templates/landing.html:165
+msgid ""
+"Civil rights laws can protect you from unlawful discrimination, harassment, "
+"or abuse in a variety of settings like <span class=\"crt-landing--"
+"rights_text crt-landing--rights_categories\">housing, the workplace, school, "
+"voting, business, healthcare, public spaces</span>, and more."
+msgstr ""
+"Maaari kang protektahan ng mga batas sa karapatang sibil mula sa labag sa "
+"batas na diskriminasyon, panliligalig, o abuso sa iba’t-ibang kapaligiran "
+"katulad ng <span class=\"crt-landing--rights_text crt-landing--"
+"rights_categories\">pabahay, lugar ng pinagtatrabahuhan, paaralan, pagboto, "
+"negosyo, pangangalaga sa kalusugan, pampublikong mga puwang</span>, at iba "
+"pa."
+
+#: templates/landing.html:168
+msgid ""
+"If you have been <span class=\"crt-landing--rights_categories\">mistreated "
+"by law enforcement</span> (including while incarcerated), believe you have "
+"been a victim of a <span class=\"crt-landing--rights_categories\">hate "
+"crime</span>, or a victim of <span class=\"crt-landing--rights_categories"
+"\">human trafficking</span>, we can help get you to the right place."
+msgstr ""
+"Kung ikaw ay <span class=\"crt-landing--rights_categories\">minaltrato ng "
+"nagpapatupad ng batas</span> (kabilang ang habang nakakulong), naniniwala na "
+"ikaw ay naging biktima ng isang <span class=\"crt-landing--rights_categories"
+"\">krimen sa pagkapoot</span>, o isang biktima ng <span class=\"crt-landing--"
+"rights_categories\">panlilinlang ng mga tao</span>, maaari ka naming "
+"tulungan na tumungo sa tamang direksiyon."
+
+#: templates/landing.html:184
+msgid "Choose from this list to see example civil rights violations:"
+msgstr ""
+"Pumili mula sa listahang ito upang makita ang halimbawa ng mga paglabag sa "
+"mga karapatang sibil:"
+
+#: templates/landing.html:219
+msgid "Examples"
+msgstr "Mga halimbawa"
+
+#: templates/landing.html:236
+msgid ""
+"If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
+"landing--reporting\">how to report a civil rights violation</a>."
+msgstr ""
+"Kung sa tingin mo ay nakaranas ka ng kaparehong sitwasyon, aralin <a href="
+"\"#crt-landing--reporting\">kung paano mag-ulat ng isang paglabag sa mga "
+"karapatang sibil</a>."
+
+#: templates/landing.html:246
+msgid "Protected by civil rights laws"
+msgstr "Protektado ng mga batas sa mga karapatang sibil"
+
+#: templates/landing.html:248
+msgid "These are the most common characteristics that are legally protected."
+msgstr ""
+"Ang mga ito ay ang pinaka-karaniwang mga katangian na ligal na "
+"pinoprotektahan."
+
+#: templates/landing.html:251
+msgid ""
+"Disability <span class=\"crt-landing--protected\">including temporary or in "
+"recovery</span>"
+msgstr ""
+"Kapansanan <span class=\"crt-landing--protected\">kabilang ang panandalian o "
+"habang nagpapagaling</span>"
+
+#: templates/landing.html:253
+msgid "Sex, gender identity, and sexual orientation"
+msgstr "Kasarian, pagkakakilanlan ng kasarian, at orientasyong sekswal"
+
+#: templates/landing.html:254
+msgid "Immigration/citizenship status"
+msgstr "Katayuan sa Imigrasyon / Pagkamamamayan"
+
+#: templates/landing.html:255
+msgid ""
+"Language and national origin <span class=\"crt-landing--protected"
+"\">including ancestry and ethnicity</span>"
+msgstr ""
+"Wika at pambansang pinagmulan <span class=\"crt-landing--protected"
+"\">kabilang ang pinagnunuan at etnisidad</span>"
+
+#: templates/landing.html:256
+msgid ""
+"Family, marital, or parental status <span class=\"crt-landing--protected"
+"\">including pregnancy</span>"
+msgstr ""
+"Katayuan ng pamilya, pag-aasawa, o pagiging magulang <span class=\"crt-"
+"landing--protected\">kabilang ang pagbubuntis</span>"
+
+#: templates/landing.html:258
+msgid "Genetic identification"
+msgstr "Pagkakakilanlan ng genetika"
+
+#: templates/landing.html:259
+msgid "Servicemember status"
+msgstr "Katayuan sa miyembro ng serbisyo"
+
+#: templates/landing.html:273
+msgid "How to report a civil rights violation"
+msgstr "Paano mag-ulat ng isang paglabag sa mga karapatang sibil"
+
+#: templates/landing.html:278
+msgid ""
+"If you believe that you or someone else experienced unlawful discrimination, "
+"you can report a civil rights violation."
+msgstr ""
+"Kung naniniwala ka na ikaw o ang ibang tao ay nakaranas ng labag sa batas na "
+"diskriminasyon, maaari kang mag-ulat ng isang paglabag sa mga karapatang "
+"sibil."
+
+#: templates/landing.html:287
+msgid "Report using our online form."
+msgstr "Mag-ulat gamit ang aming online na pormularyo."
+
+#: templates/landing.html:288
+msgid ""
+"By completing the online form, you can provide the details we need to "
+"understand what happened. You will receive a confirmation number and your "
+"report is immediately sent to our staff for review."
+msgstr ""
+"Sa pamamagitan ng pagkumpleto sa online na pormularyo, maaari kang magbigay "
+"ng mga detalye na kailangan namin upang maunawaan kung ano ang nangyari. "
+"Makakatanggap ka ng numero bilang kumpirmasyon at ang iyong ulat ay agad na "
+"maipapadala sa aming kawani upang masuri."
+
+#: templates/landing.html:296
+msgid "We review your report."
+msgstr "Sinusuri namin ang iyong ulat."
+
+#: templates/landing.html:297
+msgid ""
+"Teams that specialize in handling your type of issue will review it. If it "
+"needs to be forwarded to another team or agency, we will try to connect your "
+"complaint to the right group."
+msgstr ""
+"Ang mga koponan na dalubhasa sa paghawak ng iyong uri ng suliranin ay "
+"susuriin ito. Kung kinakailangang ipasa ito sa ibang koponan o ahensya, "
+"susubukan naming ikonekta ang iyong reklamo sa tamang pangkat."
+
+#: templates/landing.html:305
+msgid "We determine next steps and get back to you."
+msgstr "Tinutukoy namin ang mga susunod na hakbang at babalikan ka namin."
+
+#: templates/landing.html:306
+msgid ""
+"Possible outcomes include: following up for more information, starting a "
+"mediation or investigation, directing you to another organization for "
+"further help, or informing you that we cannot help."
+msgstr ""
+"Kabilang sa posibleng mga kalalabasan ay ang: mag-follow-up para sa "
+"karagdagang impormasyon, mag-umpisa ng isang pagpapagitna o pagsisiyasat, "
+"ididirekta ka sa ibang samahan para sa karagdagang tulong, o ipapaalam sa "
+"iyo na hindi kami makakatulong."
+
+#: templates/landing.html:325
+msgid "Have you or someone you know experienced a civil rights violation?"
+msgstr ""
+"Ikaw ba o isang kakilala mo ay nakaranas ng isang paglabag sa mga karapatang "
+"sibil?"
+
+#: templates/landing.html:326
+msgid "Submit a report"
+msgstr "Magsumite ng ulat"
+
+#: templates/landing.html:331
+msgid ""
+"If you cannot access the online form, you can <a href=\"#phone-footer"
+"\">call</a> to report a violation or report a violation by <a href="
+"\"#address-footer\">mail</a>."
+msgstr ""
+"Kung hindi mo makuha ang online na pormularyo, maaari kang <a href=\"#phone-"
+"footer\">tumawag</a> upang mag-ulat ng isang paglabag o mag-ulat ng isang "
+"paglabag sa pamamagitan ng <a href=\"#address-footer\">koreo</a>."
+
+#: templates/landing.html:341
+msgid "Already submitted a report?"
+msgstr "Nagsumite na ng ulat?"
+
+#: templates/landing.html:344
+msgid "Here's what to expect."
+msgstr "Ito ang aasahan."
+
+#: templates/landing.html:348
+msgid ""
+"<strong>Thank you for your report.</strong> We carefully read each one to "
+"determine if we have the authority to help. We do our best to let you know "
+"about the outcome of our review. However, we may not always be able to "
+"provide you with updates because:"
+msgstr ""
+"<strong>Salamat sa iyong ulat.</strong> Masinsinan naming binabasa ang bawat "
+"isa upang matukoy kung mayroon kaming awtoridad na tumulong. Ginagawa namin "
+"ang lahat ng aming makakaya upang ipaalam sa iyo kung ano ang kinalabasan ng "
+"aming pagsusuri. Subalit, maaaring hindi namin palaging maibibigay sa iyo "
+"ang mga pinakabagong impormasyon dahil:"
+
+#: templates/landing.html:350
+msgid ""
+"We're actively working on an investigation or case related to your report."
+msgstr ""
+"Kami ay aktibong nagsasagawa ng pagsisiyasat o kaso na kaugnay sa iyong ulat."
+
+#: templates/landing.html:351
+msgid "We're receiving and actively reviewing many reports at the same time."
+msgstr ""
+"Kami ay tumatanggap at aktibong sumusuri ng maraming mga ulat ng sabay-sabay."
+
+#: templates/landing.html:358
+msgid "Need urgent legal help?"
+msgstr "Nangangailangan ng kagyat na ligal na tulong?"
+
+#: templates/landing.html:360
+msgid ""
+"Due to the amount of reports we receive, it can take several weeks for us to "
+"respond to your issue. Local legal aid offices or lawyers in your area may "
+"be able to quickly respond to or help with your concern"
+msgstr ""
+"Dahil sa dami ng mga ulat na aming natatanggap, maaaring tumagal ng ilang "
+"linggo bago kami makatugon sa iyong suliranin. Ang mga tanggapang lokal sa "
+"ligal na tulong o mga abogado sa iyong lugar ay maaaring tumugon ng "
+"mabilisan o tumulong sa iyong pagkabahala"
+
+#: templates/landing.html:361
+msgid ""
+"Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
+"aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
+"lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> or call <a href="
+"\"tel:202-295-1500\">(202) 295-1500</a>."
+msgstr ""
+"Makipag-ugnay sa Legal Services Corporation sa <a aria-label=\"www.lsc.gov/"
+"find-legal-aid\" class=\"external-link--blue external-link--popup\" href="
+"\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> o tawagan "
+"ang <a href=\"tel:202-295-1500\">(202) 295-1500</a>."
+
+#: templates/landing.html:362
+msgid ""
+"Or visit <a class=\"external-link--blue external-link--popup\" aria-label="
+"\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
+"findlegalhelp.org</a> or call <a href=\"tel:800-285-2221\">(800) 285-2221</"
+"a> to find a lawyer through the American Bar Association."
+msgstr ""
+"O bisitahin ang <a class=\"external-link--blue external-link--popup\" aria-"
+"label=\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
+"findlegalhelp.org</a> o tawagan ang <a href=\"tel:800-285-2221\">(800) "
+"285-2221</a> upang humanap ng isang abogado sa pamamagitan ng American Bar "
+"Association."
+
+#: templates/landing.html:376
+msgid "Image attributions"
+msgstr "Mga katangian ng imahe"
+
+#: templates/partials/banner/usa_banner_content.html:7
+msgid "The .gov means it’s official."
+msgstr "Ang .gov ay nangangahulugan na ito ay opisyal."
+
+#: templates/partials/banner/usa_banner_content.html:8
+msgid ""
+"Federal government websites often end in .gov or .mil. Before sharing "
+"sensitive information, make sure you’re on a federal government site."
+msgstr ""
+"Ang mga website ng gobyernong pampederal ay kadalasang nagtatapos sa .gov o ."
+"mil. Bago ibahagi ang sensitibong impormasyon, siguraduhin na ikaw ay nasa "
+"sityo ng gobyernong pampederal."
+
+#: templates/partials/banner/usa_banner_content.html:16
+msgid "The site is secure."
+msgstr "Ang sityo ay ligtas."
+
+#: templates/partials/banner/usa_banner_content.html:17
+msgid ""
+"The <strong>https://</strong> ensures that you are connecting to the "
+"official website and that any information you provide is encrypted and "
+"transmitted securely."
+msgstr ""
+"Ang <strong>https://</strong> ay nakatitiyak na ikaw ay kumukonekta sa "
+"opisyal na website at anumang impormasyon na ibigay mo ay naka-encrypt at "
+"ligtas na maipapadala."
+
+#: templates/partials/banner/usa_banner_header.html:9
+msgid "An official website of the United States government"
+msgstr "Isang opisyal na website ng gobyerno ng Estados Unidos"
+
+#: templates/partials/banner/usa_banner_header.html:10
+#: templates/partials/banner/usa_banner_header.html:13
+msgid "Here’s how you know"
+msgstr "Ito ay kung paano mo malalaman"
+
+#: templates/partials/footer.html:47
+msgid "Availability of Language Assistance Services"
+msgstr "Pagkakaroon ng mga Serbisyong Tulong sa Wika"
+
+#: templates/partials/footer.html:59
+msgid "Links"
+msgstr "Mga Kawing"
+
+#: templates/partials/footer.html:66
+msgid "About the division"
+msgstr "Tungkol sa Dibisyon"
+
+#: templates/partials/footer.html:72
+msgid "Privacy policy"
+msgstr "Patakaran sa pagkapribado"
+
+#: templates/partials/footer.html:75
+msgid "FOIA"
+msgstr "FOIA"
+
+#: templates/partials/footer.html:78
+msgid "Accessibility"
+msgstr "Kakayahang makuha"
+
+#: templates/partials/footer.html:90
+msgid "Office of Inspector General"
+msgstr "Tanggapan ng Inspektor Heneral"
+
+#: templates/partials/footer.html:93
+msgid "Budget and performance"
+msgstr "Badyet at pagganap"
+
+#: templates/partials/footer.html:96
+msgid "Legal policies and Disclaimers"
+msgstr "Ligal na mga patakaran at mga Pagtanggi"
+
+#: templates/partials/i8n.html:15
+msgid "Go"
+msgstr "Pumunta"
+
+#: templates/partials/menu_language_selection.html:36
+msgid "More Language Assistance Services"
+msgstr "Karagdagang Serbisyo sa Pantulong sa Wika"
+
+#: templates/partials/policy.html:9
+msgid "Privacy Policy"
+msgstr "Patakaran sa pagkapribado"
+
+#: templates/partials/policy.html:16
+#, python-format
+msgid ""
+"\n"
+"            The purpose of this form is to allow the public to submit civil "
+"rights complaints to the Department of Justice, thereby allowing us to "
+"enforce over thirty <a href=\"%(privacy_policy_url)s#our-statutes\">civil "
+"rights statutes</a> within our authority. These statutes authorize us to "
+"collect this information.  You should know that any information you provide "
+"through this form is voluntary, yet failure to provide some of the "
+"information might limit the Department’s ability to pursue your claim. We "
+"may use this information for certain routine uses, including sharing this "
+"information under certain circumstances with:\n"
+"            "
+msgstr ""
+"\n"
+"Ang layunin ng pormularyo na ito ay upang mapahintulutan ang publiko na "
+"magsumite ng mga reklamo sa karapatang pangsibil sa Kagawaran ng Katarungan, "
+"kung saan kami ay pinapahintulutan na magpatupad nang mahigit na tatlumpong "
+"<a href=\"%(privacy_policy_url)s#our-statutes\">batas para sa mga karapatang "
+"pangsibil</a> sa loob ng aming kapangyarihan. Itong mga batas ay "
+"nagpapahintulot sa amin na tipunin itong impormasyon. Kailangan mong malaman "
+"na anumang impormasyon na ipinagkaloob mo sa pormularyo na ito ay kusang-"
+"loob, ngunit ang hindi mo pagkaloob ng ibang impormasyon ay maaring "
+"makalimita sa kakayahan ng Kagawaran upang ipagpatuloy ang iyong kahilingan. "
+"Maaari naming gamitin itong impormasyon para sa mga karaniwang gawain, "
+"kabilang ang pagbabahagi nitong impormasyon sa ilalim ng ilang mga kalagayan "
+"kasama ang:\n"
+"            "
+
+#: templates/partials/policy.html:20
+msgid "contractors who work with us, if they need it to perform a contract;"
+msgstr ""
+"mga kontratista na nagtratrabaho kasama namin, kung kakailanganin nila ito "
+"upang makagawa ng isang kontrata;"
+
+#: templates/partials/policy.html:21
+msgid ""
+"a court, magistrate, or administrative tribunal, as well as opposing counsel "
+"during settlement negotiations and/or litigation;"
+msgstr ""
+"Isang korte, mahistrado, o tribunal na pang-administratibo, pati na rin ang "
+"mga manananggol ng salungat na panig sa panahon ng negosasyon sa pag-aareglo "
+"at/o litigasyon;"
+
+#: templates/partials/policy.html:22
+msgid "Members of Congress;"
+msgstr "Mga Miyembro ng Kongreso"
+
+#: templates/partials/policy.html:23
+msgid "Federal, state, or local law enforcement agencies."
+msgstr "Mga ahensiya na nagpapatupad ng batas sa pederal, estado, o lokal "
+
+#: templates/partials/policy.html:27
+#, python-format
+msgid ""
+"You can find our complete <a href=\"%(privacy_policy_url)s\">Privacy Policy "
+"here</a>."
+msgstr ""
+"Maaari mong makita ang aming kumpletong <a href=\"%(privacy_policy_url)s"
+"\">Patakaran sa Pagkapribado dito</a>."
+
+#: templates/partials/redirect-modal.html:8
+msgid "You are now leaving the Department of Justice website."
+msgstr "Ikaw ay lumilisan na sa website ng Kagawaran ng Katarungan."
+
+#: templates/partials/redirect-modal.html:13
+msgid "You will automatically be redirected to:"
+msgstr "Ikaw ay kusang igagawi sa:"
+
+#: templates/partials/redirect-modal.html:18
+msgid ""
+"The Department of Justice does not endorse the organizations or views "
+"represented by this site and takes no responsibility for, and exercises no "
+"control over, the accuracy, accessibility, copyright or trademark compliance "
+"or legality of the material contained on this site."
+msgstr ""
+"Ang Kagawaran ng Katarungan ay hindi ine-endoso ang mga samahan o mga "
+"opinyon na kinakatawanan ng sityo na ito at walang pananagutan para sa, at "
+"hindi ginagamit ang pamamahala sa, kawastuhan, kakayahang makuha, pagsunod "
+"sa karapatang magpalathala o marka ng kalakal o pagiging ligal ng mga "
+"materyales na nilalaman ng sityo na ito."
+
+#: templates/partials/redirect-modal.html:22
+msgid "Continue"
+msgstr "Ipagpatuloy"
+
+#: templates/partials/unsupported-browser-modal.html:10
+msgid ""
+"\n"
+"          <strong>NOTICE: Your mobile browser is not compatible with this "
+"form</strong> and you may experience issues with form submission.\n"
+"          "
+msgstr ""
+"\n"
+"<strong>ABISO: Ang iyong mobile browser ay hindi tugma sa pormularyong ito</"
+"strong> at maaari kang dumanas ng mga problema sa pagsumite ng pormularyo.\n"
+"          "
+
+#: templates/partials/unsupported-browser-modal.html:15
+msgid ""
+"\n"
+"          Please consider downloading the latest version of Google Chrome, "
+"Mozilla Firefox, Safari, or Microsoft Edge. <a id=\"ub_contact\" href="
+"\"#contact-crt\">You can also contact us by phone or mail here.</a>\n"
+"          "
+msgstr ""
+"\n"
+"Mangyaring isaalang-alang ang pag-download ng pinakabagong bersyon ng Google "
+"Chrome, Mozilla Firefox, Safari, o Microsoft Edge. <a id=\"ub_contact\" href="
+"\"#contact-crt\">Maaari ka ring makipag-ugnay sa amin dito sa pamamagitan ng "
+"telepono o koreo.</a>\n"
+"          "
+
+#: templates/privacy.html:7 templates/privacy.html:13
+msgid "Civil Rights Division - Department of Justice - Privacy Policy"
+msgstr ""
+"Dibisyon sa mga Karapatang Sibil - Kagawaran ng Katarungan- Patakaran sa "
+"Pagkapribado"
+
+#: templates/privacy.html:23 templates/privacy.html:34
+msgid "Privacy Act Statement"
+msgstr "Pahayag sa Batas sa Pagkapribado "
+
+#: templates/privacy.html:26
+msgid "Your information"
+msgstr "Ang iyong impormasyon"
+
+#: templates/privacy.html:29
+msgid "Our Statutes"
+msgstr "Ang aming mga Batas"
+
+#: templates/privacy.html:37
+msgid ""
+"The information you provide through this form will help the Department of "
+"Justice’s Civil Rights Division (“us,” “we”) enforce the federal civil "
+"rights statutes within its authority."
+msgstr ""
+"Ang impormasyon na ibibigay mo sa pormularyong ito ay makakatulong sa "
+"Dibisyon sa mga Karapatang Sibil (“kami”, “tayo”) ng Kagawaran ng Katarungan "
+"na ipatupad ang mga batas na pampederal sa mga karapatang sibil sa loob ng "
+"kanyang kapangyarihan."
+
+#: templates/privacy.html:40
+msgid ""
+"In addition to our enforcement efforts, we may use the information you "
+"provide on this form for certain routine purposes. These include sharing "
+"with:"
+msgstr ""
+"Karagdagan sa aming mga pagsisikap na magpatupad, maaari naming gamitin ang "
+"impormasyon na iyong ibibigay sa pormularyong ito para sa ilang karaniwang "
+"gawain. Kabilang dito ang pagbabahagi sa:"
+
+#: templates/privacy.html:42
+msgid ""
+"\n"
+"                    <li>\n"
+"                        a court, magistrate, or administrative tribunal, "
+"including disclosures to opposing counsel in\n"
+"                        the course of settlement negotiations;\n"
+"                    </li>\n"
+"                    <li>\n"
+"                        a Member of Congress submitting a request involving "
+"an individual, to whom the record pertains,\n"
+"                        when the individual has requested assistance from "
+"the Member with respect to the subject matter\n"
+"                        of the record.\n"
+"                    </li>\n"
+"                    <li>\n"
+"                        a contractor with the Department of Justice who "
+"needs access to the information in order to\n"
+"                        perform a contract. Recipients of information shall "
+"be required to comply with the requirements\n"
+"                        of the Privacy Act of 1974, as amended, pursuant to "
+"5 U.S.C. 552a(m).\n"
+"                    </li>\n"
+"\n"
+"                    <li>\n"
+"                        a Federal, State, or local law enforcement agency, "
+"if we become aware of a violation or\n"
+"                        potential violation of law or regulation outside the "
+"scope of our jurisdiction.\n"
+"                    </li>\n"
+"                    "
+msgstr ""
+"\n"
+"                    <li>\n"
+"Isang korte, mahistrado, o tribunal na pang-administratibo, kabilang ang mga "
+"pagsisiwalat sa manananggol ng salungat na panig sa kurso ng negosasyon sa "
+"pag-aareglo;\n"
+"                    </li>\n"
+"                    <li>\n"
+"Isang miyembro ng Kongreso na nagsusumite ng kahilingan na kinasasangkutan "
+"ng isang tao, kung kanino nakatukoy ang tala, kapag humingi ng tulong ang "
+"taong ito sa Miyembro patungkol sa paksa ng talaan.\n"
+"                    </li>\n"
+"                    <li>\n"
+"Isang kontratista sa Kagawaran ng Katarungan na nangangailangan ng pagkuha "
+"sa impormasyon upang magsagawa ng isang kontrata. Ang mga tatanggap ng "
+"impormasyon ay kinakailangang sumunod sa mga kinakailangan ng Batas sa "
+"Pagkapribado ng 1974, ayon sa sinusugan, alinsunod sa 5 U.S.C. 552a(m). \n"
+"                    </li>\n"
+"\n"
+"                    <li>\n"
+"Isang Pederal, Estado, o lokal na ahensya na nagpapatupad ng batas, kung "
+"mayroon kaming nalaman na paglabag o maaaring paglabag ng batas o tuntunin "
+"sa labas ng saklaw ng aming kinasasakupan.\n"
+"                    </li>\n"
+"                    "
+
+#: templates/privacy.html:65
+msgid ""
+"For a complete list of routine agency uses, please consult the following:"
+msgstr ""
+"Para sa isang kumpletong listahan ng mga karaniwang gawain ng ahensya, "
+"mangyaring kumunsulta sa sumusunod:"
+
+#: templates/privacy.html:84
+msgid "You should also know that:"
+msgstr "Kailangan mo ring malaman na:"
+
+#: templates/privacy.html:86
+msgid ""
+"\n"
+"                    <li>Any information you provide to us through this form "
+"is voluntary.</li>\n"
+"                    <li>If you choose not to provide the information we ask "
+"for on this form, we may not be able to\n"
+"                        evaluate or take action based on your report.</li>\n"
+"                    <li>We will treat the information you provide on this "
+"form confidentially, to the extent we are\n"
+"                        allowed by the Freedom of Information Act (5 U.S.C. "
+"552) and the Privacy Act (5 U.S.C. 552a).\n"
+"                    </li>\n"
+"                    "
+msgstr ""
+"\n"
+"                    <li>Anumang impormasyon na ipagkaloob mo sa amin sa "
+"pamamagitan ng pormularyo na ito ay kusang-loob.</li>\n"
+"                    <li>Kung piliin mo na hindi magbigay ng impormasyon na "
+"hinihingi namin sa pormularyong ito, maaaring hindi namin masusuri o "
+"magagawan ng kilos batay sa iyong ulat.</li>\n"
+"                    <li>Ituturing naming kumpidensyal ang impormasyon na "
+"ipagkakaloob mo sa pormularyong ito, hanggang sa saklaw na ipinapahintulot "
+"sa amin ng Batas sa Kalayaan ng Impormasyon (Freedom of Information Act, 5 U."
+"S.C. 552) at ng Batas sa Pagkapribado (Privacy Act, 5 U.S.C. 552a).\n"
+"                    </li>\n"
+"                    "
+
+#: templates/privacy.html:97 templates/privacy.html:168
+msgid "Return to top"
+msgstr "Bumalik sa itaas"
+
+#: templates/privacy.html:108
+msgid ""
+"We are authorized to collect this information pursuant to the following "
+"statutes:"
+msgstr ""
+"Kami ay pinahintulutan na tipunin ang impormasyong ito na alinsunod sa "
+"sumusunod na mga batas:"
+
+#: templates/privacy.html:110
+msgid ""
+"\n"
+"                    <li>Official Misconduct, 18 U.S.C. §§ 241, 242</li>\n"
+"                    <li>The Matthew Shepard and James Byrd, Jr., Hate Crimes "
+"Prevention Act of 2009, 18 U.S. Code § 249,\n"
+"                        et seq.</li>\n"
+"                    <li>Federally Protected Activities, 18 U.S.C. § 245</"
+"li>\n"
+"                    <li>Criminal Interference with Right to Fair Housing, 18 "
+"U.S.C. § 3631</li>\n"
+"                    <li>Damage to Religious Property, 18 U.S.C. § 247</li>\n"
+"                    <li>Anti-Trafficking Statutes, including:\n"
+"                        <ul>\n"
+"                            <li>18 U.S.C. § 1581 (Peonage)</li>\n"
+"                            <li>18 U.S.C. § 1584 (Involuntary Servitude)</"
+"li>\n"
+"                            <li>18 U.S.C. § 1589 (Forced Labor)</li>\n"
+"                            <li>18 U.S.C. § 1590 (Trafficking with Respect "
+"to Peonage, Slavery, Involuntary Servitude,\n"
+"                                or Forced Labor)</li>\n"
+"                            <li>18 U.S.C. § 1591 (Sex Trafficking of "
+"Children or by Force, Fraud, or Coercion)</li>\n"
+"                            <li>18 U.S.C. § 1592 (Unlawful Conduct with "
+"Respect to Documents in Furtherance of\n"
+"                                Trafficking, Peonage, Slavery, Involuntary "
+"Servitude, or Forced Labor)</li>\n"
+"                            <li>18 U.S.C. § 1593 (Mandatory Restitution)</"
+"li>\n"
+"                            <li>18 U.S.C. § 1594 (Attempt and Forfeiture)</"
+"li>\n"
+"                            <li>18 U.S.C. § 1595 (Private Right of Action)</"
+"li>\n"
+"                            <li>18 U.S.C. § 2423 (Transportation of Minors "
+"into Prostitution)</li>\n"
+"                            <li>18 U.S.C. § 1546 (Visa Fraud)</li>\n"
+"                        </ul>\n"
+"                    </li>\n"
+"                    <li>Freedom of Access to Clinic Entrances Act (FACE), 18 "
+"U.S.C. § 248</li>\n"
+"                    <li>Criminal Protection for Voting Rights, 18 U.S.C. § "
+"594</li>\n"
+"                    <li>Americans with Disabilities Act, Titles I-III, 42 U."
+"S.C. § 126, et seq.</li>\n"
+"                    <li>Rehabilitation Act of 1973, 29 U.S.C. § 701, et seq."
+"</li>\n"
+"                    <li>Civil Rights Act of 1964, Titles II, IV, VI, VII</"
+"li>\n"
+"                    <li>Uniformed Services Employment and Reemployment "
+"Rights Act (USERRA), 38 U.S.C. § 4301, et seq.\n"
+"                    </li>\n"
+"                    <li>Equal Education Opportunities Act of 1974 (EEOA), 20 "
+"USC § 1701, et seq.</li>\n"
+"                    <li>Individuals with Disabilities in Education Act "
+"(IDEA), 20 USC § 1400, et seq.</li>\n"
+"                    <li>Education Amendments of 1972, Title IX, 20 U.S.C. § "
+"1681, et seq.</li>\n"
+"                    <li>Fair Housing Act (FHA), 42 U.S.C. § 3601, et seq.</"
+"li>\n"
+"                    <li>Equal Credit Opportunity Act (ECOA), 15 U.S.C. § "
+"1691, et seq.</li>\n"
+"                    <li>Religious Land Use and Institutionalized Persons Act "
+"(RLUIPA), 42 U.S.C. § 2000cc, et seq.</li>\n"
+"                    <li>Servicemembers Civil Relief Act (SCRA), 50 U.S.C. § "
+"3901, et seq.</li>\n"
+"                    <li>Immigration and Nationality Act § 274B, 8 U.S.C. "
+"§ 1324b</li>\n"
+"                    <li>Civil Rights of Institutionalized Persons Act "
+"(CRIPA), 42 U.S.C. § 1997, et seq.</li>\n"
+"                    <li>Violent Crime Control and Law Enforcement Act, 36 U."
+"S.C. 12601, et seq.</li>\n"
+"                    <li>Omnibus Crime and Safe Streets Act, 34 U.S.C. § "
+"10101, et seq.</li>\n"
+"                    <li>Voting Rights Act, 52 U.S.C. § 10101, et seq.</li>\n"
+"                    <li>Voting Accessibility for the Elderly and Handicapped "
+"Act, 42 U.S.C. § 1973ee, et seq.</li>\n"
+"                    <li>Uniformed and Overseas Citizens Absentee Voting Act "
+"(UOCAVA), 52 U.S.C. 20310, et seq.</li>\n"
+"                    <li>National Voter Registration Act (NVRA), 52 U.S.C. § "
+"20501, et seq.</li>\n"
+"                    <li>Genetic Information Nondiscrimination Act (GINA), "
+"Title II, 42 U.S.C. § 21f</li>\n"
+"                    <li>Help America Vote Act (HAVA), 52 U.S.C. § 20901, et "
+"seq.</li>\n"
+"                    <li>Civil Rights Acts of 1870, 1957, 1960, & 1964</li>\n"
+"                    "
+msgstr ""
+"\n"
+"<li>Opisyal na Maling Pangangasiwa, 18 U.S.C. §§ 241, 242</li>\n"
+"<li>Mga Batas upang Maiwasan ang mga Krimen ng Pagkapoot ng 2009, ayon kay "
+"Matthew Shepard at James Byrd, Jr., 18 U.S. Code § 249, et seq.</li>\n"
+"<li>Mga Aktibidad na Prinoprotektahan ng Pederal, 18 U.S.C. § 245</li>\n"
+"<li>Kriminal na Pagkagambala sa Karapatan ng Maayos na Tirahan, 18 U.S.C. § "
+"3631</li>\n"
+"<li>Pinsala sa mga Ari-ariang Pangrelihiyon, 18 U.S.C. § 247</li>\n"
+"<li>Mga Batas Laban sa Panglilinlang, kabilang ang:\n"
+" <ul>\n"
+"   <li>18 U.S.C. § 1581 (Pagtratrabaho bilang Kabayaran sa Utang)</li>\n"
+"   <li>18 U.S.C. § 1584 (Labag sa Loob na Pagpapa-alipin)</li>\n"
+"   <li>18 U.S.C. § 1590 (Panglilinlang na may Kaugnayan sa Pagtratrabaho "
+"bilang Kabayaran sa Utang, Pang-aalipin, Labag sa Loob na Pagpapa-alipin, o "
+"Pwersahang Pagtratrabaho)</li>\n"
+"   <li>18 U.S.C. § 1591 (Panglilinlang sa Pakikipagtalik ng mga Bata sa "
+"Pamamagitan ng Pwersa, Pangloloko, o Pamimilit)</li>\n"
+"   <li>18 U.S.C. § 1592 (Mga Pangangasiwang Labag sa Batas na may Kaugnayan "
+"sa mga Dokumentong Nagpapalawig ng Panglilinlang, Pagtratrabaho bilang "
+"Kabayaran sa Utang, Pagkabusabos, Labag sa Loob na Pagpapa-alipin, o "
+"Pwersahang Pagtratrabaho)</li>\n"
+"   <li>18 U.S.C. § 1594 (Pagtangka at Pagkawala ng Pagkakataon)</li>\n"
+"   <li>18 U.S.C. § 1595 (Pampribadong Karapatan na Magdemanda)</li>\n"
+"   <li>18 U.S.C. § 2423 (Transportasyon ng mga Bata papunta sa "
+"Prostitusyon)</li>\n"
+"   <li>18 U.S.C. § 1546 (Panloloko ng Visa)</li>\n"
+" </ul>\n"
+"</li>\n"
+"<li>Batas para sa Kalayaan na Makapasok sa mga Pasukan ng Klinika (Freedom "
+"of Access to Clinic Entrances Act, FACE), 18 U.S.C. § 248</li>\n"
+"<li>Proteksyong Pangkriminal para sa Karapatang Bomoto, 18 U.S.C. § 594</"
+"li>\n"
+"<li>Batas para sa mga Amerikanong may mga Kapansanan, Mga Titolo I-III, 42 U."
+"S.C. § 126, et seq.</li>\n"
+"<li>Batas Para sa Rehabilitasyon ng 1973, 29 U.S.C. § 701, et seq.</li>\n"
+"<li>Batas Para sa Karapatang Pangsibil ng 1964, Mga Titolo II, IV, VI, VII</"
+"li>\n"
+"<li>Batas Para sa Unipormeng Serbisyo sa Karapatan sa Pagtratrabaho at "
+"Pagbabalik sa Trabaho (Uniformed Services Employment and Reemployment Rights "
+"Act, USERRA), 38 U.S.C. § 4301, et seq.</li>\n"
+"<li>Batas para sa Pantay na Oportunidad sa Edukasyon ng 1974 (Equal "
+"Education Opportunities Act, EEOA), 20 USC § 1701, et seq.</li>\n"
+"<li>Batas para sa Edukasyon ng mga Taong may mga Kapansanan (Individuals "
+"with Disabilities in Education Act, IDEA), 20 USC § 1400, et seq.</li>\n"
+"<li>Mga Pagbabago sa Edukasyon ng 1972, Titolo IX, 20 U.S.C. § 1681, et seq."
+"</li>\n"
+"<li>Batas para sa Walang-Kiling na Pabahay (Fair Housing Act, FHA), 42 U.S."
+"C. § 3601, et seq.</li>\n"
+"<li>Batas para sa Pantay na Opportunidad sa Pagpapautang (Equal Credit "
+"Opportunity Act, ECOA), 15 U.S.C. § 1691, et seq.</li>\n"
+"<li>Batas para sa Paggamit ng mga Lupa para sa Relihiyon at sa Mga Taong "
+"Nasa Bilangguan (Religious Land Use and Institutionalized Persons Act, "
+"RLUIPA), 42 U.S.C. § 2000cc, et seq.</li>\n"
+"<li>Batas na Makakapagpagaan sa Buhay Pangsibil ng mga Miyembro ng "
+"Serbisyong Pangmilitar (Servicemembers Civil Relief Act, SCRA), 50 U.S.C. § "
+"3901, et seq.</li>\n"
+"<li>Batas para sa Imigrasyon at Nasyonalidad § 274B, 8 U.S.C. § 1324b</li>\n"
+"<li>Batas para sa Mga Karapatang Pangsibil ng mga Taong Nasa Bilangguan "
+"(Civil Rights of Institutionalized Persons Act, CRIPA), 42 U.S.C. § 1997, et "
+"seq.</li>\n"
+"<li>Batas para sa Pagkontrol ng Bayolenteng Krimen at Pagpapatupad ng Batas, "
+"36 U.S.C. 12601, et seq.</li>\n"
+"<li>Batas para sa Mga Pinagsama-samang Krimen at Ligtas na Kalye, 34 U.S.C. "
+"§ 10101, et seq.</li>\n"
+"<li>Batas para sa Mga Karapatang Bumoto, 52 U.S.C. § 10101, et seq.</li>\n"
+"<li>Batas para sa Madaliang Pagboto ng mga Matatanda at May Mga Kapansanan, "
+"42 U.S.C. § 1973ee, et seq.</li>\n"
+"<li>Batas para sa Pagboto ng Mga Mamamayan na Manliliban na Nasa Militar at "
+"Nasa Ibang Bansa (Uniformed and Overseas Citizens Absentee Voting Act, "
+"UOCAVA), 52 U.S.C. 20310, et seq.</li>\n"
+"<li>Batas para sa Pagtatala ng Mga Botanteng Mamamayan (National Voter "
+"Registration Act, NVRA), 52 U.S.C. § 20501, et seq.</li>\n"
+"<li>Batas na Laban sa Diskriminasyon Base sa Impormasyon ng Henesya (Genetic "
+"Information Nondiscrimination Act, GINA), Titolo II, 42 U.S.C. § 21f</li>\n"
+"<li>Batas na Tumutulong sa Pagboto ng Amerika (Help America Vote Act, HAVA), "
+"52 U.S.C. § 20901, et seq.</li>\n"
+"<li>Batas para sa Mga Karapatang Pangsibil ng 1870, 1957, 1960 & 1964</li>\n"
+"                    "
+
+#: templates/privacy.html:162
+msgid ""
+"\n"
+"                The full list of routine uses for this correspondence can be "
+"found in the System of Records Notice titled, JUSTICE/CRT – 001, \"Central "
+"Civil Rights Division Index File and Associated Records\", 68 Fed. Reg. "
+"47610, 611 (8-11-2003); 70 Fed. Reg. 43904 (7-29-2005); 72 Fed. Reg. 3410 "
+"(1-25-2007) (rescinded by 82 FR 24147); 82 Fed. Reg. 24147 (5-25-2017).\n"
+"                "
+msgstr ""
+"\n"
+"Ang buong listahan ng mga karaniwang gawain ng pagsusulatang ito ay makikita "
+"sa Sistema ng Abiso ng Talaan na pinamamagatang, JUSTICE/CRT - 001, “Central "
+"Civil Rights Division Index File and Associated Records”, 68 Fed. Reg. "
+"47610, 611 (8-11-2003); 70 Fed. Reg. 43904 (7-29-2005); 72 Fed. Reg. 3410 "
+"(1-25-2007) (pinawalang-bisa ng 82 FR 24147); 82 Fed. Reg. 24147 "
+"(5-25-2017).\n"
+"                "
+
+#: validators.py:101
+msgid "Enter a valid email address."
+msgstr "Maglagay ng wastong email address."
+
+#: views.py:78
+msgid "404 | Page not found"
+msgstr "404 | Pahina ay hindi makita"
+
+#: views.py:79
+msgid "We can't find the page you are looking for"
+msgstr "Hindi namin makita ang pahina na iyong hinahanap"
+
+#: views.py:138
+msgid "Your browser couldn't create a secure cookie"
+msgstr "Ang iyong browser ay hindi makalikha ng matatag na cookie"
+
+#: views.py:139
+msgid ""
+"We use security cookies to protect your information from attackers. Make "
+"sure you allow cookies for this site. Having the page open for long periods "
+"can also cause this problem. If you know cookies are allowed and you are "
+"having this issue, try going to this page in new browser tab or window. That "
+"will make you a new security cookie and should resolve the problem."
+msgstr ""
+"Gumagamit kami ng security cookies upang maprotektahan ang iyong impormasyon "
+"mula sa mga umaatake. Siguraduhing pinapahintulutan mo ang mga cookies sa "
+"sityo na ito. Magdudulot din ng problema kapag hinahayaang nakabukas ang "
+"pahina ng matagal. Kung alam mo na ang mga cookies ay pinapahintulutan at "
+"nagkakaroon ka ng ganitong problema, subukan mong buksan ang pahinang ito sa "
+"panibagong tab o window ng browser. Magbibigay ito ng isang panibagong "
+"security cookie sayo at maaaring maglutas sa problema."
+
+#: views.py:826 views.py:1077
+msgid "word remaining"
+msgstr "natitirang salita"
+
+#: views.py:827 views.py:1078
+msgid " words remaining"
+msgstr " natitirang mga salita"
+
+#: views.py:828 views.py:1079
+msgid " word limit reached"
+msgstr " naabot na ang hangganan ng salita"
+
+#: views.py:952 views.py:1031 views.py:1032 views.py:1050 views.py:1051
+#: views.py:1086
+msgid "Primary concern"
+msgstr "Pangunahing pagkabahala"
+
+#: views.py:953 views.py:1033 views.py:1034 views.py:1035 views.py:1036
+#: views.py:1037 views.py:1038
+msgid "Location"
+msgstr "Lugar"
+
+#: views.py:954 views.py:1039 views.py:1058
+msgid "Personal characteristics"
+msgstr "Personal na mga katangian"
+
+#: views.py:955 views.py:1040 views.py:1059
+msgid "Date"
+msgstr "Petsa"
+
+#: views.py:956 views.py:1041 views.py:1060
+msgid "Personal description"
+msgstr "Personal na paglalarawan"
+
+#: views.py:957 views.py:1042 views.py:1091
+msgid "Review"
+msgstr "Pagsusuri"
+
+#: views.py:1052 views.py:1053 views.py:1054 views.py:1055 views.py:1056
+#: views.py:1057
+msgid "Location details"
+msgstr "Mga detalye ng lugar"
+
+#: views.py:1061
+msgid "Review your report"
+msgstr "Suriin ang iyong ulat"
+
+#: views.py:1089
+msgid "Please select if any that apply to your situation (optional)"
+msgstr ""
+"Mangyaring pumili kung mayroong naaangkop  sa iyong sitwasyon (opsyonal)"
