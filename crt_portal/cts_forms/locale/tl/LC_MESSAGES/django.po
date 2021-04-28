@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-28 12:04+0000\n"
+"POT-Creation-Date: 2021-04-28 20:46+0000\n"
 "Language: Tagalog\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1720,7 +1720,7 @@ msgstr ""
 
 #: templates/landing.html:29
 msgid "Menu"
-msgstr ""
+msgstr "Mga Putahe"
 
 #: templates/landing.html:38
 msgid "About the Division"
@@ -1825,8 +1825,8 @@ msgstr ""
 "\n"
 "                Maaari mo kaming tulungang gawin ang trabahong ito sa "
 "pamamagitan ng pag-uulat ng isang posibleng paglabag sa mga karapatang sibil "
-"sa pamamagitan ng aming<a href=\"%(report_form_url)s\">online na pormularyo</"
-"a>.\n"
+"sa pamamagitan ng aming <a href=\"%(report_form_url)s\">online na "
+"pormularyo</a>.\n"
 "                "
 
 #: templates/landing.html:141
@@ -2193,7 +2193,7 @@ msgstr "Ligal na mga patakaran at mga Pagtanggi"
 
 #: templates/partials/i8n.html:15
 msgid "Go"
-msgstr ""
+msgstr "Pumunta"
 
 #: templates/partials/menu_language_selection.html:36
 msgid "More Language Assistance Services"
