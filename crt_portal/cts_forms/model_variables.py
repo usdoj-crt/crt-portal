@@ -199,6 +199,19 @@ SECTION_CHOICES_KO = (
     ('VOT', '투표'),
 )
 
+SECTION_CHOICES_TL = (
+    ('ADM', 'Pang-Administratibo'),
+    ('CRM', 'Kriminal'),
+    ('DRS', 'Mga Karapatan ng May Kapansanan'),
+    ('ELS', 'Paglilitis sa Trabaho'),
+    ('EOS', 'Mga Oportunidad sa Edukasyon'),
+    ('FCS', 'Pederal na Koordinasyon at Pagsunod'),
+    ('HCE', 'Pabahay at Pagpapatupad ng Sibil'),
+    ('IER', 'Imigrasyon at Mga Karapatan ng Empleyado'),
+    ('SPL', 'Espesyal na Paglilitis'),
+    ('VOT', 'Pagboto'),
+)
+
 SECTION_CHOICES_VI = (
     ('ADM', 'Ban Hành Chánh'),
     ('CRM', 'Ban Hình Sự'),
