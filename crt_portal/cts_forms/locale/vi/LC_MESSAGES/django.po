@@ -2680,6 +2680,3 @@ msgid "Please select if any that apply to your situation (optional)"
 msgstr ""
 "Vui lòng chọn nếu có bất kỳ câu trả lời nào phù hợp với tình huống của quý "
 "vị (tùy chọn)"
-
-#~ msgid "online form"
-#~ msgstr "mẫu đơn trực tuyến"

@@ -2481,6 +2481,3 @@ msgstr "检查您的报告"
 #: views.py:1089
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "请选择任何适用于您的情况（可选）"
-
-#~ msgid "online form"
-#~ msgstr "在线表格"
