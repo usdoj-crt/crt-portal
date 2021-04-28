@@ -208,7 +208,7 @@ msgstr "Biktima ng isang krimen sa pagkapoot"
 
 #: model_variables.py:39
 msgid "Victim of human trafficking"
-msgstr "Biktima ng isang krimen sa pagkapoot"
+msgstr "Biktima ng panlilinlang ng mga tao"
 
 #: model_variables.py:44
 msgid ""
