@@ -2,7 +2,7 @@ from django.db import migrations
 
 def add_letters(apps, schema_editor):
     ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
-    subject = 'Response: Your Civil Rights Division Report - {{ record_locator }} from {{ section_name }} Section'
+    subject = 'Hồi đáp: Báo Cáo của Ban Dân Quyền của Quý Vị - {{ record_locator }} từ Phòng {{ vi.section_name }}'
     ResponseTemplate.objects.create(
         title='CRM - R1 Form Letter (Vietnamese)',
         subject=subject,
@@ -667,7 +667,7 @@ def remove_letters(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0105_add_violation_summary_search_index'),
+        ('cts_forms', '0107_chinese_simplified_form_letters'),
     ]
 
     operations = [
