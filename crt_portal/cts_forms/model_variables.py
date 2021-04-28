@@ -186,6 +186,20 @@ SECTION_CHOICES_ES = (
     ('SPL', 'de Litigios Especiales'),
     ('VOT', 'de Votación'),
 )
+
+SECTION_CHOICES_VI = (
+    ('ADM', 'Ban Hành Chánh'),
+    ('CRM', 'Ban Hình Sự'),
+    ('DRS', 'Ban Quyền của Người Khuyết Tật'),
+    ('ELS', 'Ban Tranh Tụng về Bất những vấn đề/bất công trong Việc Làm'),
+    ('EOS', 'Ban Cơ Hội Được Giáo Dục tốt'),
+    ('FCS', 'Ban Tuân Thủ và Điều Phối Liên Bang'),
+    ('HCE', 'Ban Gia Cư và Thực Thi Dân Sự'),
+    ('IER', 'Ban  Di Trú và Quyền của Người Lao Động'),
+    ('SPL', 'Ban Tố Tụng Đặc Biệt'),
+    ('VOT', 'Ban Bầu Cử'),
+)
+
 SECTION_CHOICES_ZH_HANT = (
     ('ADM', '行政管理'),
     ('CRM', '刑事'),
