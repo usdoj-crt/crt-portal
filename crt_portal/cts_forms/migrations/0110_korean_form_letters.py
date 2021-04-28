@@ -687,7 +687,7 @@ def remove_letters(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0105_add_violation_summary_search_index'),
+        ('cts_forms', '0109_tagalog_form_letters'),
     ]
 
     operations = [

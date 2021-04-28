@@ -323,7 +323,7 @@ class Report(models.Model):
         if self.contact_full_name:
             return f"{self.contact_full_name}님께"
         return "신고해 주셔서 감사합니다"
-        
+
     @property
     def addressee_tl(self):
         if self.contact_full_name:
