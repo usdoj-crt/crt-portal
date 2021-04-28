@@ -151,7 +151,7 @@ msgstr "Ang puna ay hindi maaaring walang laman"
 #. Translators: This is used as a an empty selection default for drop down menus
 #: model_variables.py:6
 msgid "- Select -"
-msgstr "-Pumili-"
+msgstr "- Pumili -"
 
 #: model_variables.py:9 model_variables.py:119 model_variables.py:248
 msgid "Yes"
