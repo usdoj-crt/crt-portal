@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-27 16:51+0000\n"
+"POT-Creation-Date: 2021-04-28 17:18+0000\n"
 "Language: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -142,11 +142,11 @@ msgstr "설명란은 비어 있을 수 없습니다"
 msgid "- Select -"
 msgstr "- 선택 -"
 
-#: model_variables.py:9 model_variables.py:119 model_variables.py:223
+#: model_variables.py:9 model_variables.py:119 model_variables.py:262
 msgid "Yes"
 msgstr "예"
 
-#: model_variables.py:10 model_variables.py:120 model_variables.py:222
+#: model_variables.py:10 model_variables.py:120 model_variables.py:261
 msgid "No"
 msgstr "아니요"
 
@@ -407,7 +407,7 @@ msgstr ""
 "신체적 학대나 폭행, 성적 학대나 성폭력, 기타 해를 가하겠다는 위협 또는 감금"
 "을 통해 이익을 얻을 목적으로 성 노동을 강요 당함 "
 
-#: model_variables.py:102 model_variables.py:229
+#: model_variables.py:102 model_variables.py:268
 msgid "Federal"
 msgstr "연방"
 
@@ -420,8 +420,8 @@ msgstr "주 또는 지방"
 msgid "Both"
 msgstr "둘 다"
 
-#: model_variables.py:106 model_variables.py:231 model_variables.py:246
-#: model_variables.py:254 model_variables.py:271
+#: model_variables.py:106 model_variables.py:270 model_variables.py:285
+#: model_variables.py:293 model_variables.py:310
 msgid "I'm not sure"
 msgstr "확실하지 않음"
 
@@ -444,7 +444,7 @@ msgstr ""
 "거나 위협을 받음 여기에는 물리적 위해를 가하겠다는 위협, 약속된 임금 체불, 허"
 "위 노동 계약에 따른 감금 등이 포함될 수 있습니다."
 
-#: model_variables.py:127 templates/landing.html:252
+#: model_variables.py:127 templates/landing.html:257
 msgid "Age"
 msgstr "나이"
 
@@ -483,11 +483,11 @@ msgstr "출신 국가(혈통 및 민족 포함)"
 msgid "Pregnancy"
 msgstr "임신"
 
-#: model_variables.py:136 templates/landing.html:245
+#: model_variables.py:136 templates/landing.html:250
 msgid "Race/color"
 msgstr "인종/피부색"
 
-#: model_variables.py:137 templates/landing.html:247
+#: model_variables.py:137 templates/landing.html:252
 msgid "Religion"
 msgstr "종교"
 
@@ -516,31 +516,31 @@ msgstr ""
 "계속하려면 선택해 주십시오. 이들 중 귀하의 상황에 적용되는 것이 없다면, “이"
 "들 중 나에게 적용되는 것 없음” 또는 “기타 이유”를 선택하고 설명해 주십시오."
 
-#: model_variables.py:194
+#: model_variables.py:233
 msgid "Place of worship or about a place of worship"
 msgstr "예배 장소 또는 예배 장소 주변"
 
-#: model_variables.py:195
+#: model_variables.py:234
 msgid "Commercial or retail building"
 msgstr "상업 건물 또는 상가"
 
-#: model_variables.py:196 model_variables.py:207
+#: model_variables.py:235 model_variables.py:246
 msgid "Healthcare facility"
 msgstr "의료 시설"
 
-#: model_variables.py:197 model_variables.py:208
+#: model_variables.py:236 model_variables.py:247
 msgid "Financial institution"
 msgstr "금융 기관"
 
-#: model_variables.py:198
+#: model_variables.py:237
 msgid "Public space"
 msgstr "공공장소"
 
-#: model_variables.py:199 templatetags/commercial_public_space_view.py:17
+#: model_variables.py:238 templatetags/commercial_public_space_view.py:17
 msgid "Other"
 msgstr "기타"
 
-#: model_variables.py:202
+#: model_variables.py:241
 msgid ""
 "Please select the type of location. If none of these apply to your "
 "situation, please select \"Other\"."
@@ -548,27 +548,27 @@ msgstr ""
 "장소 유형을 선택하십시오. 이들 중 귀하의 상황에 적용되는 것이 없다면 “기"
 "타”를 선택하십시오."
 
-#: model_variables.py:205
+#: model_variables.py:244
 msgid "Place of worship"
 msgstr "예배 장소"
 
-#: model_variables.py:206
+#: model_variables.py:245
 msgid "Commercial"
 msgstr "상업용"
 
-#: model_variables.py:209
+#: model_variables.py:248
 msgid "Public outdoor space"
 msgstr "실외 공공장소"
 
-#: model_variables.py:213
+#: model_variables.py:252
 msgid "Church, synagogue, temple, religious community center"
 msgstr "교회, 유대교 회당, 사원, 종교 공동체 센터"
 
-#: model_variables.py:214
+#: model_variables.py:253
 msgid "Store, restaurant, bar, hotel, theater"
 msgstr "상점, 식당, 바, 호텔, 극장"
 
-#: model_variables.py:215
+#: model_variables.py:254
 msgid ""
 "Hospital or clinic (including inpatient and outpatient programs), "
 "reproductive care clinic, state developmental institution, nursing home"
@@ -576,362 +576,362 @@ msgstr ""
 "병원이나 클리닉(입원 및 외래 프로그램 포함), 모자보건(생식기능 케어), 주 개"
 "발 기관, 요양원"
 
-#: model_variables.py:216
+#: model_variables.py:255
 msgid "Bank, credit union, loan services"
 msgstr "은행, 신용조합, 대출 서비스"
 
-#: model_variables.py:217
+#: model_variables.py:256
 msgid ""
 "Park, sidewalk, street, other public buildings (courthouse, DMV, city "
 "library)"
 msgstr "공원, 인도, 거리, 기타 공공 건물(법원, DMV, 시립 도서관)"
 
-#: model_variables.py:228
+#: model_variables.py:267
 msgid "State/local"
 msgstr "주/지방"
 
-#: model_variables.py:230
+#: model_variables.py:269
 msgid "Private"
 msgstr "민간"
 
-#: model_variables.py:236
+#: model_variables.py:275
 msgid "Outside of prison"
 msgstr "교도소 밖"
 
-#: model_variables.py:238
+#: model_variables.py:277
 msgid "Prison (Federal)"
 msgstr "교도소(연방)"
 
-#: model_variables.py:239
+#: model_variables.py:278
 msgid "Prison (Private)"
 msgstr "교도소(민간)"
 
-#: model_variables.py:240
+#: model_variables.py:279
 msgid "Prison (I'm not sure)"
 msgstr "교도소(확실하지 않음)"
 
-#: model_variables.py:244
+#: model_variables.py:283
 msgid "Public employer"
 msgstr "공공 고용주"
 
-#: model_variables.py:245
+#: model_variables.py:284
 msgid "Private employer"
 msgstr "민간 고용주"
 
-#: model_variables.py:249
+#: model_variables.py:288
 msgid "Please select what type of employer this is."
 msgstr "어떤 유형의 고용주인지 선택하십시오."
 
-#: model_variables.py:252
+#: model_variables.py:291
 msgid "Fewer than 15 employees"
 msgstr "15명 미만의 직원"
 
-#: model_variables.py:253
+#: model_variables.py:292
 msgid "15 or more employees"
 msgstr "15명 이상의 직원"
 
-#: model_variables.py:257
+#: model_variables.py:296
 msgid "Please select how large the employer is."
 msgstr "고용주가 어느 정도 규모인지 선택하십시오."
 
-#: model_variables.py:269
+#: model_variables.py:308
 msgid "Public school or educational program"
 msgstr "공립학교 또는 공공 교육 프로그램"
 
-#: model_variables.py:270
+#: model_variables.py:309
 msgid "Private school or educational program"
 msgstr "사립학교 또는 민간 교육 프로그램"
 
-#: model_variables.py:276
+#: model_variables.py:315
 msgid "Alabama"
 msgstr "앨라배마"
 
-#: model_variables.py:277
+#: model_variables.py:316
 msgid "Alaska"
 msgstr "알래스카"
 
-#: model_variables.py:278
+#: model_variables.py:317
 msgid "Arizona"
 msgstr "애리조나"
 
-#: model_variables.py:279
+#: model_variables.py:318
 msgid "Arkansas"
 msgstr "아칸소"
 
-#: model_variables.py:280
+#: model_variables.py:319
 msgid "California"
 msgstr "캘리포니아"
 
-#: model_variables.py:281
+#: model_variables.py:320
 msgid "Colorado"
 msgstr "콜로라도"
 
-#: model_variables.py:282
+#: model_variables.py:321
 msgid "Connecticut"
 msgstr "코네티컷"
 
-#: model_variables.py:283
+#: model_variables.py:322
 msgid "Delaware"
 msgstr "델라웨어"
 
-#: model_variables.py:284
+#: model_variables.py:323
 msgid "District of Columbia"
 msgstr "컬럼비아 특별구(DC)"
 
-#: model_variables.py:285
+#: model_variables.py:324
 msgid "Florida"
 msgstr "플로리다"
 
-#: model_variables.py:286
+#: model_variables.py:325
 msgid "Georgia"
 msgstr "조지아"
 
-#: model_variables.py:287
+#: model_variables.py:326
 msgid "Hawaii"
 msgstr "하와이"
 
-#: model_variables.py:288
+#: model_variables.py:327
 msgid "Idaho"
 msgstr "아이다호"
 
-#: model_variables.py:289
+#: model_variables.py:328
 msgid "Illinois"
 msgstr "일리노이"
 
-#: model_variables.py:290
+#: model_variables.py:329
 msgid "Indiana"
 msgstr "인디아나"
 
-#: model_variables.py:291
+#: model_variables.py:330
 msgid "Iowa"
 msgstr "아이오와"
 
-#: model_variables.py:292
+#: model_variables.py:331
 msgid "Kansas"
 msgstr "캔자스"
 
-#: model_variables.py:293
+#: model_variables.py:332
 msgid "Kentucky"
 msgstr "켄터키"
 
-#: model_variables.py:294
+#: model_variables.py:333
 msgid "Louisiana"
 msgstr "루이지애나"
 
-#: model_variables.py:295
+#: model_variables.py:334
 msgid "Maine"
 msgstr "메인"
 
-#: model_variables.py:296
+#: model_variables.py:335
 msgid "Maryland"
 msgstr "메릴랜드"
 
-#: model_variables.py:297
+#: model_variables.py:336
 msgid "Massachusetts"
 msgstr "매사추세츠"
 
-#: model_variables.py:298
+#: model_variables.py:337
 msgid "Michigan"
 msgstr "미시간"
 
-#: model_variables.py:299
+#: model_variables.py:338
 msgid "Minnesota"
 msgstr "미네소타"
 
-#: model_variables.py:300
+#: model_variables.py:339
 msgid "Mississippi"
 msgstr "미시시피"
 
-#: model_variables.py:301
+#: model_variables.py:340
 msgid "Missouri"
 msgstr "미주리"
 
-#: model_variables.py:302
+#: model_variables.py:341
 msgid "Montana"
 msgstr "몬타나"
 
-#: model_variables.py:303
+#: model_variables.py:342
 msgid "Nebraska"
 msgstr "네브라스카"
 
-#: model_variables.py:304
+#: model_variables.py:343
 msgid "Nevada"
 msgstr "네바다"
 
-#: model_variables.py:305
+#: model_variables.py:344
 msgid "New Hampshire"
 msgstr "뉴햄프셔"
 
-#: model_variables.py:306
+#: model_variables.py:345
 msgid "New Jersey"
 msgstr "뉴저지"
 
-#: model_variables.py:307
+#: model_variables.py:346
 msgid "New Mexico"
 msgstr "뉴멕시코"
 
-#: model_variables.py:308
+#: model_variables.py:347
 msgid "New York"
 msgstr "뉴욕"
 
-#: model_variables.py:309
+#: model_variables.py:348
 msgid "North Carolina"
 msgstr "노스캐롤라이나"
 
-#: model_variables.py:310
+#: model_variables.py:349
 msgid "North Dakota"
 msgstr "노스다코타"
 
-#: model_variables.py:311
+#: model_variables.py:350
 msgid "Ohio"
 msgstr "오하이오"
 
-#: model_variables.py:312
+#: model_variables.py:351
 msgid "Oklahoma"
 msgstr "오클라호마"
 
-#: model_variables.py:313
+#: model_variables.py:352
 msgid "Oregon"
 msgstr "오레곤"
 
-#: model_variables.py:314
+#: model_variables.py:353
 msgid "Pennsylvania"
 msgstr "펜실베이니아"
 
-#: model_variables.py:315
+#: model_variables.py:354
 msgid "Rhode Island"
 msgstr "로드 아일랜드"
 
-#: model_variables.py:316
+#: model_variables.py:355
 msgid "South Carolina"
 msgstr "사우스캐롤라이나"
 
-#: model_variables.py:317
+#: model_variables.py:356
 msgid "South Dakota"
 msgstr "사우스다코타"
 
-#: model_variables.py:318
+#: model_variables.py:357
 msgid "Tennessee"
 msgstr "테네시"
 
-#: model_variables.py:319
+#: model_variables.py:358
 msgid "Texas"
 msgstr "텍사스"
 
-#: model_variables.py:320
+#: model_variables.py:359
 msgid "Utah"
 msgstr "유타"
 
-#: model_variables.py:321
+#: model_variables.py:360
 msgid "Vermont"
 msgstr "버몬트"
 
-#: model_variables.py:322
+#: model_variables.py:361
 msgid "Virginia"
 msgstr "버지니아"
 
-#: model_variables.py:323
+#: model_variables.py:362
 msgid "Washington"
 msgstr "워싱턴"
 
-#: model_variables.py:324
+#: model_variables.py:363
 msgid "West Virginia"
 msgstr "웨스트 버지니아"
 
-#: model_variables.py:325
+#: model_variables.py:364
 msgid "Wisconsin"
 msgstr "위스콘신"
 
-#: model_variables.py:326
+#: model_variables.py:365
 msgid "Wyoming"
 msgstr "와이오밍"
 
-#: model_variables.py:327
+#: model_variables.py:366
 msgid "American Samoa"
 msgstr "미국령 사모아"
 
-#: model_variables.py:328
+#: model_variables.py:367
 msgid "Guam"
 msgstr "괌"
 
-#: model_variables.py:329
+#: model_variables.py:368
 msgid "Northern Mariana Islands"
 msgstr "북마리아나 제도"
 
-#: model_variables.py:330
+#: model_variables.py:369
 msgid "Puerto Rico"
 msgstr "푸에르토리코"
 
-#: model_variables.py:331
+#: model_variables.py:370
 msgid "Virgin Islands"
 msgstr "버진 아일랜드"
 
-#: model_variables.py:332
+#: model_variables.py:371
 msgid "Armed Forces Africa"
 msgstr "Armed Forces Africa"
 
-#: model_variables.py:333
+#: model_variables.py:372
 msgid "Armed Forces Americas"
 msgstr "Armed Forces Americas"
 
-#: model_variables.py:334
+#: model_variables.py:373
 msgid "Armed Forces Canada"
 msgstr "Armed Forces Canada"
 
-#: model_variables.py:335
+#: model_variables.py:374
 msgid "Armed Forces Europe"
 msgstr "Armed Forces Europe"
 
-#: model_variables.py:336
+#: model_variables.py:375
 msgid "Armed Forces Middle East"
 msgstr "Armed Forces Middle East"
 
-#: model_variables.py:337
+#: model_variables.py:376
 msgid "Armed Forces Pacific"
 msgstr "Armed Forces Pacific"
 
-#: model_variables.py:340
+#: model_variables.py:379
 msgid "Please provide description to continue"
 msgstr "계속하려면 설명을 제공하십시오"
 
-#: model_variables.py:341
+#: model_variables.py:380
 msgid "Please select a primary reason to continue."
 msgstr "계속하려면 주요 이유를 선택하십시오."
 
-#: model_variables.py:344
+#: model_variables.py:383
 msgid "Please enter the name of the location where this took place."
 msgstr "이 일이 일어난 장소 이름을 입력하십시오."
 
-#: model_variables.py:345
+#: model_variables.py:384
 msgid "Please enter the city or town where this took place."
 msgstr "이 일이 일어난 시 또는 타운을 입력하십시오."
 
-#: model_variables.py:346
+#: model_variables.py:385
 msgid "Please select the state where this took place."
 msgstr "이 일이 일어난 주를 선택하십시오."
 
-#: model_variables.py:350
+#: model_variables.py:389
 msgid "Please select where this occurred"
 msgstr "이 일이 발생한 장소를 선택하십시오"
 
-#: model_variables.py:351
+#: model_variables.py:390
 msgid "Please select the type of location"
 msgstr "장소 유형을 선택하십시오"
 
-#: model_variables.py:363
+#: model_variables.py:402
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr ""
 "월 및 년도를 입력하셔야 합니다. 월월/일일/년년년년 형식을 이용하십시오."
 
-#: model_variables.py:366
+#: model_variables.py:405
 msgid "Please enter a month."
 msgstr "‘월’을 입력하십시오."
 
-#: model_variables.py:367
+#: model_variables.py:406
 msgid "Please enter a valid month. Month must be between 1 and 12."
 msgstr "유효한 ‘월’을 입력하십시오. 1에서 12 사이의 숫자여야 합니다."
 
-#: model_variables.py:368
+#: model_variables.py:407
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
@@ -939,27 +939,27 @@ msgstr ""
 "그 달의 유효한 ‘일’을 입력하십시오. ‘일’은 1에서 그 달의 마지막 날 사이의 숫"
 "자여야 합니다."
 
-#: model_variables.py:369
+#: model_variables.py:408
 msgid "Please enter a year."
 msgstr "년도를 입력하십시오."
 
-#: model_variables.py:370
+#: model_variables.py:409
 msgid "Date can not be in the future."
 msgstr "날짜는 미래일 수 없습니다."
 
-#: model_variables.py:371
+#: model_variables.py:410
 msgid "Please enter a year after 1900."
 msgstr "1900 이후의 년도를 입력하십시오."
 
-#: model_variables.py:372
+#: model_variables.py:411
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
 msgstr "유효한 날짜를 입력하십시오. 월월/일일/년년년년 형식을 이용하십시오."
 
-#: model_variables.py:375
+#: model_variables.py:414
 msgid "Please select the type of election or voting activity."
 msgstr "선거 또는 투표 활동의 유형을 선택하십시오."
 
-#: model_variables.py:415
+#: model_variables.py:454
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
@@ -1305,7 +1305,7 @@ msgstr "귀하의 신고와 관련된 사례를 활발하게 처리 중이거나
 msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr "우리는 동시에 많은 요청을 받고 있고 적극적으로 검토하고 있습니다."
 
-#: templates/forms/confirmation.html:135 templates/landing.html:348
+#: templates/forms/confirmation.html:135 templates/landing.html:353
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1545,7 +1545,7 @@ msgid "None selected"
 msgstr "선택된 것 없음"
 
 #: templates/forms/report_hate_crime.html:13
-#: templates/forms/report_hate_crime.html:18 templates/landing.html:222
+#: templates/forms/report_hate_crime.html:18 templates/landing.html:227
 msgid "Were you forced to work against your will?"
 msgstr "귀하의 의지에 반하여 일하도록 강요 받았습니까?"
 
@@ -1557,7 +1557,7 @@ msgstr ""
 "인신매매에는 금전을 위해 성행위에 참여하도록 강요나 강압 또는 일을 하도록 강"
 "요나 강압당하는 것이 포함됩니다."
 
-#: templates/forms/report_hate_crime.html:18 templates/landing.html:222
+#: templates/forms/report_hate_crime.html:18 templates/landing.html:227
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "국가 인신매매 핫라인으로부터 도움 받기"
 
@@ -1619,6 +1619,10 @@ msgstr ""
 "\n"
 "          %(word_limit)s 단어 수 제한에 도달\n"
 "        "
+
+#: templates/landing.html:29
+msgid "Menu"
+msgstr ""
 
 #: templates/landing.html:38
 msgid "About the Division"
@@ -1700,51 +1704,53 @@ msgid ""
 "laws."
 msgstr "우리는 민권법을 위반하는 개인 및 단체를 기소하거나 소송을 제기합니다."
 
-#: templates/landing.html:133
+#: templates/landing.html:135
+#, python-format
 msgid ""
-"You can help us do this work by reporting a possible civil rights violation "
-"through our"
+"\n"
+"                You can help us do this work by reporting a possible civil "
+"rights violation through our <a href=\"%(report_form_url)s\">online form</"
+"a>.\n"
+"                "
 msgstr ""
+"\n"
 "귀하는 다음을 통해 잠재적 민권 침해를 신고함으로써 우리의 일에 도움을 줄 수 "
-"있습니다"
+"있습니다 <a href=\"%(report_form_url)s\">온라인 양식</a>.\n"
+"                "
 
-#: templates/landing.html:133
-msgid "online form"
-msgstr "온라인 양식"
-
-#: templates/landing.html:136
+#: templates/landing.html:141
 msgid "Education"
 msgstr "교육"
 
-#: templates/landing.html:138
+#: templates/landing.html:143
 msgid "We help the public understand how to comply with these laws."
 msgstr "우리는 대중이 이 법률 준수 방법을 이해할 수 있게 돕습니다."
 
-#: templates/landing.html:139
+#: templates/landing.html:144
 msgid "We do this through public speaking, technical assistance, and more."
 msgstr "우리는 공개 강연, 기술적 지원 등 여러 가지를 통해 이를 수행합니다."
 
-#: templates/landing.html:142
+#: templates/landing.html:147
 msgid "Coordination"
 msgstr "코디네이션"
 
-#: templates/landing.html:144
+#: templates/landing.html:149
 msgid ""
 "We help the entire federal government work together to enforce these laws."
 msgstr "우리는 전체 연방 정부가 이 법률 집행을 위해 협력하도록 지원합니다."
 
-#: templates/landing.html:145
+#: templates/landing.html:150
 msgid ""
 "Our teams work with other agencies to promote a consistent approach to civil "
 "rights laws."
 msgstr ""
 "우리 팀들은 민권법에의 일관된 접근을 촉진하기 위해 다른 기관들과 협력합니다."
 
-#: templates/landing.html:157
+#: templates/landing.html:162
 msgid "Understanding your rights"
 msgstr "귀하의 권리를 이해하기"
 
-#: templates/landing.html:160
+#: templates/landing.html:165
 msgid ""
 "Civil rights laws can protect you from unlawful discrimination, harassment, "
 "or abuse in a variety of settings like <span class=\"crt-landing--"
@@ -1756,7 +1762,7 @@ msgstr ""
 "다양한 여러 환경에서 벌어지는 불법적인 차별, 괴롭힘 또는 학대로부터 귀하를 보"
 "호해 드릴 수 있습니다."
 
-#: templates/landing.html:163
+#: templates/landing.html:168
 msgid ""
 "If you have been <span class=\"crt-landing--rights_categories\">mistreated "
 "by law enforcement</span> (including while incarcerated), believe you have "
@@ -1770,15 +1776,15 @@ msgstr ""
 "landing--rights_categories\">인신매매</span>의 피해자라고 믿는 경우, 귀하가 "
 "올바른 곳과 접촉할 수 있도록 도와드릴 수 있습니다."
 
-#: templates/landing.html:179
+#: templates/landing.html:184
 msgid "Choose from this list to see example civil rights violations:"
 msgstr "민권 침해의 예를 보려면 이 목록 중에서 선택하세요."
 
-#: templates/landing.html:214
+#: templates/landing.html:219
 msgid "Examples"
 msgstr "예"
 
-#: templates/landing.html:231
+#: templates/landing.html:236
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
@@ -1786,15 +1792,15 @@ msgstr ""
 "귀하가 유사 상황을 경험했다고 생각되는 경우, <a href=\"#crt-landing--"
 "reporting\">민권 침해를 신고하는 방법</a>에 대해 알아보세요. "
 
-#: templates/landing.html:241
+#: templates/landing.html:246
 msgid "Protected by civil rights laws"
 msgstr "민권법에 의한 보호 대상"
 
-#: templates/landing.html:243
+#: templates/landing.html:248
 msgid "These are the most common characteristics that are legally protected."
 msgstr "다음은 법적 보호를 받는 가장 일반적인 특성들입니다."
 
-#: templates/landing.html:246
+#: templates/landing.html:251
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
@@ -1802,15 +1808,15 @@ msgstr ""
 "<span class=\"crt-landing--protected\">일시적이거나 회복 중인 상태를 포함한</"
 "span> 장애"
 
-#: templates/landing.html:248
+#: templates/landing.html:253
 msgid "Sex, gender identity, and sexual orientation"
 msgstr "성별, 성 정체성, 성적 지향"
 
-#: templates/landing.html:249
+#: templates/landing.html:254
 msgid "Immigration/citizenship status"
 msgstr "이민/시민권 신분"
 
-#: templates/landing.html:250
+#: templates/landing.html:255
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
@@ -1818,7 +1824,7 @@ msgstr ""
 "언어와 <span class=\"crt-landing--protected\">혈통 및 민족을 포함한</span> 출"
 "신 국가"
 
-#: templates/landing.html:251
+#: templates/landing.html:256
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
@@ -1826,19 +1832,19 @@ msgstr ""
 "가족, 결혼 또는 <span class=\"crt-landing--protected\">임신을 포함한</span> "
 "자녀 유무 상태"
 
-#: templates/landing.html:253
+#: templates/landing.html:258
 msgid "Genetic identification"
 msgstr "유전적 식별 정보"
 
-#: templates/landing.html:254
+#: templates/landing.html:259
 msgid "Servicemember status"
 msgstr "병역 상태"
 
-#: templates/landing.html:268
+#: templates/landing.html:273
 msgid "How to report a civil rights violation"
 msgstr "민권 침해를 보고하는 방법 "
 
-#: templates/landing.html:273
+#: templates/landing.html:278
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
@@ -1846,11 +1852,11 @@ msgstr ""
 "귀하 또는 다른 누군가가 불법적인 차별을 경험했다고 믿는다면, 민권 침해를 신고"
 "할 수 있습니다."
 
-#: templates/landing.html:282
+#: templates/landing.html:287
 msgid "Report using our online form."
 msgstr "온라인 양식을 이용해 신고하십시오."
 
-#: templates/landing.html:283
+#: templates/landing.html:288
 msgid ""
 "By completing the online form, you can provide the details we need to "
 "understand what happened. You will receive a confirmation number and your "
@@ -1860,11 +1866,11 @@ msgstr ""
 "항을 제공하실 수 있습니다. 귀하는 확인 번호를 받게 되며, 신고하신 내용은 검토"
 "를 위해 우리 직원에게 즉시 보내집니다."
 
-#: templates/landing.html:291
+#: templates/landing.html:296
 msgid "We review your report."
 msgstr "우리가 귀하의 신고 내용을 검토합니다."
 
-#: templates/landing.html:292
+#: templates/landing.html:297
 msgid ""
 "Teams that specialize in handling your type of issue will review it. If it "
 "needs to be forwarded to another team or agency, we will try to connect your "
@@ -1874,11 +1880,11 @@ msgstr ""
 "이나 기관에 보낼 필요가 있는 경우, 올바른 그룹에게 귀하의 진정사항을 연결시키"
 "고자 노력할 것입니다."
 
-#: templates/landing.html:300
+#: templates/landing.html:305
 msgid "We determine next steps and get back to you."
 msgstr "우리는 다음 단계를 결정하고 귀하에게 응답을 드립니다."
 
-#: templates/landing.html:301
+#: templates/landing.html:306
 msgid ""
 "Possible outcomes include: following up for more information, starting a "
 "mediation or investigation, directing you to another organization for "
@@ -1887,15 +1893,15 @@ msgstr ""
 "가능한 결과: 더 많은 정보를 위한 후속 조치, 중재나 조사 시작, 추가 도움을 위"
 "해 다른 단체에 귀하를 연결 또는 우리가 도움을 줄 수 없다고 귀하에게 알림. "
 
-#: templates/landing.html:320
+#: templates/landing.html:325
 msgid "Have you or someone you know experienced a civil rights violation?"
 msgstr "귀하 또는 지인이 민권 침해를 경험했습니까?"
 
-#: templates/landing.html:321
+#: templates/landing.html:326
 msgid "Submit a report"
 msgstr "신고서를 제출하십시오."
 
-#: templates/landing.html:326
+#: templates/landing.html:331
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
@@ -1905,15 +1911,15 @@ msgstr ""
 "침해 내용을 신고하거나 <a href=\"#address-footer\">우편</a>으로 신고하실 수 "
 "있습니다."
 
-#: templates/landing.html:336
+#: templates/landing.html:341
 msgid "Already submitted a report?"
 msgstr "이미 신고서를 제출하셨습니까?"
 
-#: templates/landing.html:339
+#: templates/landing.html:344
 msgid "Here's what to expect."
 msgstr "예상되는 결과는 다음과 같습니다."
 
-#: templates/landing.html:343
+#: templates/landing.html:348
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
@@ -1925,20 +1931,20 @@ msgstr ""
 "리기 위해 최선을 다할 것입니다. 하지만 우리는 다음과 같은 이유로 항상 업데이"
 "트를 제공해 드릴 수 있는 것은 아닙니다."
 
-#: templates/landing.html:345
+#: templates/landing.html:350
 msgid ""
 "We're actively working on an investigation or case related to your report."
 msgstr "귀하의 신고와 관련된 사례를 활발하게 처리 중이거나 조사 중입니다."
 
-#: templates/landing.html:346
+#: templates/landing.html:351
 msgid "We're receiving and actively reviewing many reports at the same time."
 msgstr "우리는 동시에 많은 신고를 받고 있고 적극적으로 검토하고 있습니다."
 
-#: templates/landing.html:353
+#: templates/landing.html:358
 msgid "Need urgent legal help?"
 msgstr "긴급한 법적 도움이 필요하세요?"
 
-#: templates/landing.html:355
+#: templates/landing.html:360
 msgid ""
 "Due to the amount of reports we receive, it can take several weeks for us to "
 "respond to your issue. Local legal aid offices or lawyers in your area may "
@@ -1948,7 +1954,7 @@ msgstr ""
 "습니다. 현지 법률 지원 사무소 또는 귀하 지역의 변호사가 귀하의 우려에 신속하"
 "게 응답해 드릴 수도 있고 도움을 드릴 수도 있습니다."
 
-#: templates/landing.html:356
+#: templates/landing.html:361
 msgid ""
 "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
 "aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
@@ -1960,7 +1966,7 @@ msgstr ""
 "legal-aid\">lsc.gov/find-legal-aid</a>에 연락 또는 <a href="
 "\"tel:202-295-1500\">(202) 295-1500</a>으로 전화."
 
-#: templates/landing.html:357
+#: templates/landing.html:362
 msgid ""
 "Or visit <a class=\"external-link--blue external-link--popup\" aria-label="
 "\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
@@ -1973,7 +1979,7 @@ msgstr ""
 "여 미국 변호사 협회(American Bar Association)을 통해 변호사를 찾으시기 바랍니"
 "다."
 
-#: templates/landing.html:371
+#: templates/landing.html:376
 msgid "Image attributions"
 msgstr "이미지 속성"
 
