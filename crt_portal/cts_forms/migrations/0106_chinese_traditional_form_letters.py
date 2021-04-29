@@ -295,7 +295,7 @@ www.fbi.gov/contact-us/field-offices
         body="""
 {{ zh_hant.addressee }}，
 
-您於2021年3月2日與司法部聯繫。在仔細審閱了您所提交的內容之後，我們決定不對您的申訴採取任何進一步的行動。
+您於{{ zh_hant.date_of_intake }}與司法部聯繫。在仔細審閱了您所提交的內容之後，我們決定不對您的申訴採取任何進一步的行動。
 
 我們做了什麼：
 
