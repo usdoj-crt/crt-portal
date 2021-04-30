@@ -186,6 +186,70 @@ SECTION_CHOICES_ES = (
     ('SPL', 'de Litigios Especiales'),
     ('VOT', 'de Votación'),
 )
+SECTION_CHOICES_KO = (
+    ('ADM', '행정'),
+    ('CRM', '형사'),
+    ('DRS', '장애인 권리'),
+    ('ELS', '고용 소송'),
+    ('EOS', '교육 기회'),
+    ('FCS', '연방 조정 및 규정준수'),
+    ('HCE', '주택 및 민법 시행'),
+    ('IER', '이민 및 직원 권리'),
+    ('SPL', '특별 소송'),
+    ('VOT', '투표'),
+)
+
+SECTION_CHOICES_TL = (
+    ('ADM', 'Pang-Administratibo'),
+    ('CRM', 'Kriminal'),
+    ('DRS', 'Mga Karapatan ng May Kapansanan'),
+    ('ELS', 'Paglilitis sa Trabaho'),
+    ('EOS', 'Mga Oportunidad sa Edukasyon'),
+    ('FCS', 'Pederal na Koordinasyon at Pagsunod'),
+    ('HCE', 'Pabahay at Pagpapatupad ng Sibil'),
+    ('IER', 'Imigrasyon at Mga Karapatan ng Empleyado'),
+    ('SPL', 'Espesyal na Paglilitis'),
+    ('VOT', 'Pagboto'),
+)
+
+SECTION_CHOICES_VI = (
+    ('ADM', 'Ban Hành Chánh'),
+    ('CRM', 'Ban Hình Sự'),
+    ('DRS', 'Ban Quyền của Người Khuyết Tật'),
+    ('ELS', 'Ban Tranh Tụng về Bất những vấn đề/bất công trong Việc Làm'),
+    ('EOS', 'Ban Cơ Hội Được Giáo Dục tốt'),
+    ('FCS', 'Ban Tuân Thủ và Điều Phối Liên Bang'),
+    ('HCE', 'Ban Gia Cư và Thực Thi Dân Sự'),
+    ('IER', 'Ban  Di Trú và Quyền của Người Lao Động'),
+    ('SPL', 'Ban Tố Tụng Đặc Biệt'),
+    ('VOT', 'Ban Bầu Cử'),
+)
+
+SECTION_CHOICES_ZH_HANT = (
+    ('ADM', '行政管理'),
+    ('CRM', '刑事'),
+    ('DRS', '残疾權利'),
+    ('ELS', '就業訴訟'),
+    ('EOS', '教育机會'),
+    ('FCS', '聮邦恊调與遵守'),
+    ('HCE', '住房和民事执法'),
+    ('IER', '移民與雇員權利'),
+    ('SPL', '特别訴訟'),
+    ('VOT', '投票'),
+)
+
+SECTION_CHOICES_ZH_HANS = (
+    ('ADM', '行政管理'),
+    ('CRM', '刑事'),
+    ('DRS', '残疾权利'),
+    ('ELS', '就业诉讼'),
+    ('EOS', '教育机会'),
+    ('FCS', '联邦协调与遵守'),
+    ('HCE', '住房和民事执法'),
+    ('IER', '移民与雇员权利'),
+    ('SPL', '特别诉讼'),
+    ('VOT', '投票'),
+)
 
 # CRT view global section filter
 SECTION_CHOICES_WITHOUT_LABELS = tuple([(key[0], key[0]) for key in SECTION_CHOICES])
