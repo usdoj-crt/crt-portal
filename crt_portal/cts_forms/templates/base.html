@@ -28,6 +28,15 @@
 
       <meta property="og:url" content="https://civilrights.justice.gov{{ request.path }}" />
       <meta property="og:type" content="website" />
+      {% comment "Why we're conditionally loading a font " %}
+       This is intended as a temporary fix to resolve inconsistent diacritic rendering
+       for vietnamese glyphs when using the serif font family.
+      {% endcomment %}
+
+      {% if LANGUAGE_CODE == 'vi' %}
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Tinos:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+      {% endif %}
 
       {% block meta_title %}
         {% trans 'Contact the Civil Rights Division | Department of Justice' as meta_title %}

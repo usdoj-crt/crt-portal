@@ -1,6 +1,7 @@
 (function(root, dom) {
   var buttons = document.querySelectorAll('.language-selection__button');
-  buttons.forEach(function(button) {
+  for (var index in buttons) {
+    var button = buttons[index];
     button.onclick = function(event) {
       event.preventDefault();
 
@@ -13,5 +14,5 @@
       var form = document.getElementById('language_selection_form');
       form.submit();
     };
-  });
+  }
 })(window, document);

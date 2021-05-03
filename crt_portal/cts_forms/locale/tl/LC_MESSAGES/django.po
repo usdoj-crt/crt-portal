@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-28 20:46+0000\n"
+"POT-Creation-Date: 2021-04-29 21:00+0000\n"
 "Language: Tagalog\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -153,11 +153,11 @@ msgstr "Ang puna ay hindi maaaring walang laman"
 msgid "- Select -"
 msgstr "- Pumili -"
 
-#: model_variables.py:9 model_variables.py:119 model_variables.py:248
+#: model_variables.py:9 model_variables.py:119 model_variables.py:287
 msgid "Yes"
 msgstr "Oo"
 
-#: model_variables.py:10 model_variables.py:120 model_variables.py:247
+#: model_variables.py:10 model_variables.py:120 model_variables.py:286
 msgid "No"
 msgstr "Hindi"
 
@@ -456,7 +456,7 @@ msgstr ""
 "pisikal na pang-aabuso o pag-atake, sekswal na pang-aabuso o pag-atake, iba "
 "pang mga banta ng pananakit, o pagkakulong"
 
-#: model_variables.py:102 model_variables.py:254
+#: model_variables.py:102 model_variables.py:293
 msgid "Federal"
 msgstr "Pederal"
 
@@ -469,8 +469,8 @@ msgstr "Estado o lokal"
 msgid "Both"
 msgstr "Pareho"
 
-#: model_variables.py:106 model_variables.py:256 model_variables.py:271
-#: model_variables.py:279 model_variables.py:296
+#: model_variables.py:106 model_variables.py:295 model_variables.py:310
+#: model_variables.py:318 model_variables.py:335
 msgid "I'm not sure"
 msgstr "Hindi ako sigurado"
 
@@ -504,8 +504,8 @@ msgid ""
 "Disability (including temporary or recovered and including HIV and drug "
 "addiction)"
 msgstr ""
-"Kapansanan (kabilang ang panandalian o bumuti at kasama ang HIV at "
-"pagkagumon sa droga)"
+"Kapansanan (kabilang ang pansamantalang kapansan o gumaling na, pati na rin "
+"ang HIV at pagkagumon sa droga)"
 
 #: model_variables.py:129
 msgid "Family, marital, or parental status"
@@ -572,31 +572,31 @@ msgstr ""
 "nalalapat sa iyong sitwasyon, mangyaring piliin ang “Wala sa mga ito ang "
 "nalalapat sa akin” o “Ibang dahilan” at ipaliwanag."
 
-#: model_variables.py:219
+#: model_variables.py:258
 msgid "Place of worship or about a place of worship"
 msgstr "Lugar ng pagsamba o tungkol sa lugar ng pagsamba"
 
-#: model_variables.py:220
+#: model_variables.py:259
 msgid "Commercial or retail building"
 msgstr "Gusaling pangkomersyal o tingian"
 
-#: model_variables.py:221 model_variables.py:232
+#: model_variables.py:260 model_variables.py:271
 msgid "Healthcare facility"
 msgstr "Pasilidad sa pag-aalaga ng kalusugan"
 
-#: model_variables.py:222 model_variables.py:233
+#: model_variables.py:261 model_variables.py:272
 msgid "Financial institution"
 msgstr "Institusyong pampinansyal"
 
-#: model_variables.py:223
+#: model_variables.py:262
 msgid "Public space"
 msgstr "Puwang na pampubliko"
 
-#: model_variables.py:224 templatetags/commercial_public_space_view.py:17
+#: model_variables.py:263 templatetags/commercial_public_space_view.py:17
 msgid "Other"
 msgstr "Iba pa"
 
-#: model_variables.py:227
+#: model_variables.py:266
 msgid ""
 "Please select the type of location. If none of these apply to your "
 "situation, please select \"Other\"."
@@ -604,27 +604,27 @@ msgstr ""
 "Mangyaring pumili ng uri ng lugar. Kung wala sa mga ito ang nalalapat sa "
 "iyong sitwasyon, mangyaring piliin ang “Iba pa”."
 
-#: model_variables.py:230
+#: model_variables.py:269
 msgid "Place of worship"
 msgstr "Lugar ng pagsamba"
 
-#: model_variables.py:231
+#: model_variables.py:270
 msgid "Commercial"
 msgstr "Komersyal"
 
-#: model_variables.py:234
+#: model_variables.py:273
 msgid "Public outdoor space"
 msgstr "Puwang sa labas na pampubliko"
 
-#: model_variables.py:238
+#: model_variables.py:277
 msgid "Church, synagogue, temple, religious community center"
 msgstr "Simbahan, sinagoga, templo, tampukan ng relihiyong pamayanan "
 
-#: model_variables.py:239
+#: model_variables.py:278
 msgid "Store, restaurant, bar, hotel, theater"
 msgstr "Tindahan, restawran, bar, otel, teatro"
 
-#: model_variables.py:240
+#: model_variables.py:279
 msgid ""
 "Hospital or clinic (including inpatient and outpatient programs), "
 "reproductive care clinic, state developmental institution, nursing home"
@@ -634,11 +634,11 @@ msgstr ""
 "pangangalaga ng pampag-anak, institusyon para sa pang-unlad ng estado, bahay "
 "ng pag-aalaga  "
 
-#: model_variables.py:241
+#: model_variables.py:280
 msgid "Bank, credit union, loan services"
 msgstr "Bangko, unyon ng kredito, mga serbisyo sa pautang"
 
-#: model_variables.py:242
+#: model_variables.py:281
 msgid ""
 "Park, sidewalk, street, other public buildings (courthouse, DMV, city "
 "library)"
@@ -646,355 +646,355 @@ msgstr ""
 "Parke, bangketa, lansangan, iba pang mga gusaling pampubliko (korte, DMV, "
 "silid-aklatan ng lungsod)"
 
-#: model_variables.py:253
+#: model_variables.py:292
 msgid "State/local"
 msgstr "Estado/lokal"
 
-#: model_variables.py:255
+#: model_variables.py:294
 msgid "Private"
 msgstr "Pribado"
 
-#: model_variables.py:261
+#: model_variables.py:300
 msgid "Outside of prison"
 msgstr "Sa labas ng bilangguan"
 
-#: model_variables.py:263
+#: model_variables.py:302
 msgid "Prison (Federal)"
 msgstr "Bilangguan (Pederal)"
 
-#: model_variables.py:264
+#: model_variables.py:303
 msgid "Prison (Private)"
 msgstr "Bilangguan (Pribado)"
 
-#: model_variables.py:265
+#: model_variables.py:304
 msgid "Prison (I'm not sure)"
 msgstr "Bilangguan (Hindi ako sigurado)"
 
-#: model_variables.py:269
+#: model_variables.py:308
 msgid "Public employer"
 msgstr "Tagapag-empleyong pampubliko"
 
-#: model_variables.py:270
+#: model_variables.py:309
 msgid "Private employer"
 msgstr "Tagapag-empleyong pampribado"
 
-#: model_variables.py:274
+#: model_variables.py:313
 msgid "Please select what type of employer this is."
 msgstr "Mangyaring piliin kung anong uri ng tagapag-empleyo ito."
 
-#: model_variables.py:277
+#: model_variables.py:316
 msgid "Fewer than 15 employees"
 msgstr "Mas kaunti sa 15 na mga empleyado"
 
-#: model_variables.py:278
+#: model_variables.py:317
 msgid "15 or more employees"
 msgstr "15 o higit pang mga empleyado"
 
-#: model_variables.py:282
+#: model_variables.py:321
 msgid "Please select how large the employer is."
 msgstr "Mangyaring piliin kung gaano kalaki ang tagapag-empleyo."
 
-#: model_variables.py:294
+#: model_variables.py:333
 msgid "Public school or educational program"
 msgstr "Pampublikong paaralan o palatuntunang pang-edukasyon"
 
-#: model_variables.py:295
+#: model_variables.py:334
 msgid "Private school or educational program"
 msgstr "Pribadong paaralan o palatuntunang pang-edukasyon"
 
-#: model_variables.py:301
+#: model_variables.py:340
 msgid "Alabama"
 msgstr "Alabama"
 
-#: model_variables.py:302
+#: model_variables.py:341
 msgid "Alaska"
 msgstr "Alaska"
 
-#: model_variables.py:303
+#: model_variables.py:342
 msgid "Arizona"
 msgstr "Arizona"
 
-#: model_variables.py:304
+#: model_variables.py:343
 msgid "Arkansas"
 msgstr "Arkansas"
 
-#: model_variables.py:305
+#: model_variables.py:344
 msgid "California"
 msgstr "California"
 
-#: model_variables.py:306
+#: model_variables.py:345
 msgid "Colorado"
 msgstr "Colorado"
 
-#: model_variables.py:307
+#: model_variables.py:346
 msgid "Connecticut"
 msgstr "Connecticut"
 
-#: model_variables.py:308
+#: model_variables.py:347
 msgid "Delaware"
 msgstr "Delaware"
 
-#: model_variables.py:309
+#: model_variables.py:348
 msgid "District of Columbia"
 msgstr "District of Columbia"
 
-#: model_variables.py:310
+#: model_variables.py:349
 msgid "Florida"
 msgstr "Florida"
 
-#: model_variables.py:311
+#: model_variables.py:350
 msgid "Georgia"
 msgstr "Georgia"
 
-#: model_variables.py:312
+#: model_variables.py:351
 msgid "Hawaii"
 msgstr "Hawaii"
 
-#: model_variables.py:313
+#: model_variables.py:352
 msgid "Idaho"
 msgstr "Idaho"
 
-#: model_variables.py:314
+#: model_variables.py:353
 msgid "Illinois"
 msgstr "Illinois"
 
-#: model_variables.py:315
+#: model_variables.py:354
 msgid "Indiana"
 msgstr "Indiana"
 
-#: model_variables.py:316
+#: model_variables.py:355
 msgid "Iowa"
 msgstr "Iowa"
 
-#: model_variables.py:317
+#: model_variables.py:356
 msgid "Kansas"
 msgstr "Kansas"
 
-#: model_variables.py:318
+#: model_variables.py:357
 msgid "Kentucky"
 msgstr "Kentucky"
 
-#: model_variables.py:319
+#: model_variables.py:358
 msgid "Louisiana"
 msgstr "Louisiana"
 
-#: model_variables.py:320
+#: model_variables.py:359
 msgid "Maine"
 msgstr "Maine"
 
-#: model_variables.py:321
+#: model_variables.py:360
 msgid "Maryland"
 msgstr "Maryland"
 
-#: model_variables.py:322
+#: model_variables.py:361
 msgid "Massachusetts"
 msgstr "Massachusetts"
 
-#: model_variables.py:323
+#: model_variables.py:362
 msgid "Michigan"
 msgstr "Michigan"
 
-#: model_variables.py:324
+#: model_variables.py:363
 msgid "Minnesota"
 msgstr "Minnesota"
 
-#: model_variables.py:325
+#: model_variables.py:364
 msgid "Mississippi"
 msgstr "Mississippi"
 
-#: model_variables.py:326
+#: model_variables.py:365
 msgid "Missouri"
 msgstr "Missouri"
 
-#: model_variables.py:327
+#: model_variables.py:366
 msgid "Montana"
 msgstr "Montana"
 
-#: model_variables.py:328
+#: model_variables.py:367
 msgid "Nebraska"
 msgstr "Nebraska"
 
-#: model_variables.py:329
+#: model_variables.py:368
 msgid "Nevada"
 msgstr "Nevada"
 
-#: model_variables.py:330
+#: model_variables.py:369
 msgid "New Hampshire"
 msgstr "New Hampshire"
 
-#: model_variables.py:331
+#: model_variables.py:370
 msgid "New Jersey"
 msgstr "New Jersey"
 
-#: model_variables.py:332
+#: model_variables.py:371
 msgid "New Mexico"
 msgstr "New Mexico"
 
-#: model_variables.py:333
+#: model_variables.py:372
 msgid "New York"
 msgstr "New York"
 
-#: model_variables.py:334
+#: model_variables.py:373
 msgid "North Carolina"
 msgstr "North Carolina"
 
-#: model_variables.py:335
+#: model_variables.py:374
 msgid "North Dakota"
 msgstr "North Dakota"
 
-#: model_variables.py:336
+#: model_variables.py:375
 msgid "Ohio"
 msgstr "Ohio"
 
-#: model_variables.py:337
+#: model_variables.py:376
 msgid "Oklahoma"
 msgstr "Oklashoma"
 
-#: model_variables.py:338
+#: model_variables.py:377
 msgid "Oregon"
 msgstr "Oregon"
 
-#: model_variables.py:339
+#: model_variables.py:378
 msgid "Pennsylvania"
 msgstr "Pennsylvania"
 
-#: model_variables.py:340
+#: model_variables.py:379
 msgid "Rhode Island"
 msgstr "Rhode Island"
 
-#: model_variables.py:341
+#: model_variables.py:380
 msgid "South Carolina"
 msgstr "South Carolina"
 
-#: model_variables.py:342
+#: model_variables.py:381
 msgid "South Dakota"
 msgstr "South Dakota"
 
-#: model_variables.py:343
+#: model_variables.py:382
 msgid "Tennessee"
 msgstr "Tennessee"
 
-#: model_variables.py:344
+#: model_variables.py:383
 msgid "Texas"
 msgstr "Texas"
 
-#: model_variables.py:345
+#: model_variables.py:384
 msgid "Utah"
 msgstr "Utah"
 
-#: model_variables.py:346
+#: model_variables.py:385
 msgid "Vermont"
 msgstr "Vermont"
 
-#: model_variables.py:347
+#: model_variables.py:386
 msgid "Virginia"
 msgstr "Virginia"
 
-#: model_variables.py:348
+#: model_variables.py:387
 msgid "Washington"
 msgstr "Washington"
 
-#: model_variables.py:349
+#: model_variables.py:388
 msgid "West Virginia"
 msgstr "West Virginia"
 
-#: model_variables.py:350
+#: model_variables.py:389
 msgid "Wisconsin"
 msgstr "Wisconsin"
 
-#: model_variables.py:351
+#: model_variables.py:390
 msgid "Wyoming"
 msgstr "Wyoming"
 
-#: model_variables.py:352
+#: model_variables.py:391
 msgid "American Samoa"
 msgstr "American Samoa"
 
-#: model_variables.py:353
+#: model_variables.py:392
 msgid "Guam"
 msgstr "Guam"
 
-#: model_variables.py:354
+#: model_variables.py:393
 msgid "Northern Mariana Islands"
 msgstr "Northern Mariana Islands"
 
-#: model_variables.py:355
+#: model_variables.py:394
 msgid "Puerto Rico"
 msgstr "Puerto Rico"
 
-#: model_variables.py:356
+#: model_variables.py:395
 msgid "Virgin Islands"
 msgstr "Virgin Islands"
 
-#: model_variables.py:357
+#: model_variables.py:396
 msgid "Armed Forces Africa"
 msgstr "Armed Forces Africa"
 
-#: model_variables.py:358
+#: model_variables.py:397
 msgid "Armed Forces Americas"
 msgstr "Armed Forces Americas"
 
-#: model_variables.py:359
+#: model_variables.py:398
 msgid "Armed Forces Canada"
 msgstr "Armed Forces Canada"
 
-#: model_variables.py:360
+#: model_variables.py:399
 msgid "Armed Forces Europe"
 msgstr "Armed Forces Europe"
 
-#: model_variables.py:361
+#: model_variables.py:400
 msgid "Armed Forces Middle East"
 msgstr "Armed Forces Middle East"
 
-#: model_variables.py:362
+#: model_variables.py:401
 msgid "Armed Forces Pacific"
 msgstr "Armed Forces Pacific"
 
-#: model_variables.py:365
+#: model_variables.py:404
 msgid "Please provide description to continue"
 msgstr "Mangyaring magbigay ng paglalarawan upang makapagpatuloy"
 
-#: model_variables.py:366
+#: model_variables.py:405
 msgid "Please select a primary reason to continue."
 msgstr "Mangyaring pumili ng pangunahing dahilan upang makapagpatuloy."
 
-#: model_variables.py:369
+#: model_variables.py:408
 msgid "Please enter the name of the location where this took place."
 msgstr "Mangyaring ilagay ang pangalan ng lugar kung saan ito nangyari."
 
-#: model_variables.py:370
+#: model_variables.py:409
 msgid "Please enter the city or town where this took place."
 msgstr "Mangyaring ilagay ang lungsod o bayan kung saan ito nangyari."
 
-#: model_variables.py:371
+#: model_variables.py:410
 msgid "Please select the state where this took place."
 msgstr "Mangyaring piliin ang estado kung saan ito nangyari."
 
-#: model_variables.py:375
+#: model_variables.py:414
 msgid "Please select where this occurred"
 msgstr "Mangyaring piliin kung saan ito nangyari"
 
-#: model_variables.py:376
+#: model_variables.py:415
 msgid "Please select the type of location"
 msgstr "Mangyaring piliin ang uri ng lugar"
 
-#: model_variables.py:388
+#: model_variables.py:427
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr ""
 "Kailangan mong ilagay ang buwan at taon. Mangyaring gamitin ang pormat na BB/"
 "AA/TTTT"
 
-#: model_variables.py:391
+#: model_variables.py:430
 msgid "Please enter a month."
 msgstr "Mangyaring ilagay ang buwan."
 
-#: model_variables.py:392
+#: model_variables.py:431
 msgid "Please enter a valid month. Month must be between 1 and 12."
 msgstr ""
 "Mangyaring ilagay ang tamang buwan. Ang buwan ay kailangang nasa pagitan ng "
 "1 at 12."
 
-#: model_variables.py:393
+#: model_variables.py:432
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
@@ -1002,27 +1002,27 @@ msgstr ""
 "Mangyaring ilagay ang tamang araw ng buwan.  Ang araw ay kailangang nasa "
 "pagitan ng 1 at sa huling araw ng buwan."
 
-#: model_variables.py:394
+#: model_variables.py:433
 msgid "Please enter a year."
 msgstr "Mangyaring ilagay ang taon."
 
-#: model_variables.py:395
+#: model_variables.py:434
 msgid "Date can not be in the future."
 msgstr "Ang petsa ay hindi maaaring sa hinaharap."
 
-#: model_variables.py:396
+#: model_variables.py:435
 msgid "Please enter a year after 1900."
 msgstr "Mangyaring ilagay ang taon pagkaraan ng 1900."
 
-#: model_variables.py:397
+#: model_variables.py:436
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
 msgstr "Mangyaring ilagay ang tamang petsa. Gamitin ang pormat na BB/AA/TTTT"
 
-#: model_variables.py:400
+#: model_variables.py:439
 msgid "Please select the type of election or voting activity."
 msgstr "Mangyaring piliin ang uri ng halalan o aktibidad sa pagboto."
 
-#: model_variables.py:440
+#: model_variables.py:479
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
@@ -1767,7 +1767,7 @@ msgid ""
 "If you believe your civil rights, or someone else’s, have been violated, "
 "submit a report using our online form."
 msgstr ""
-"Kung naniniwala ka na ang iyong mga karapatang sibil, o ng ibang tao, ay "
+"Kung naniniwala ka na ang iyong mga karapatang sibil o ng ibang tao ay "
 "nalabag, magsumite ng ulat gamit ang aming online na pormularyo."
 
 #: templates/landing.html:88
@@ -2157,7 +2157,7 @@ msgstr "Ito ay kung paano mo malalaman"
 
 #: templates/partials/footer.html:47
 msgid "Availability of Language Assistance Services"
-msgstr "Pagkakaroon ng mga Serbisyong Tulong sa Wika"
+msgstr "Mga Handog na Serbisyong Tulong sa Wika"
 
 #: templates/partials/footer.html:59
 msgid "Links"
@@ -2193,7 +2193,7 @@ msgstr "Ligal na mga patakaran at mga Pagtanggi"
 
 #: templates/partials/i8n.html:15
 msgid "Go"
-msgstr "Pumunta"
+msgstr "Oo"
 
 #: templates/partials/menu_language_selection.html:36
 msgid "More Language Assistance Services"
@@ -2325,7 +2325,7 @@ msgstr ""
 
 #: templates/privacy.html:23 templates/privacy.html:34
 msgid "Privacy Act Statement"
-msgstr "Pahayag sa Batas sa Pagkapribado "
+msgstr "Pahayag sa Batas ng Pagkapribado"
 
 #: templates/privacy.html:26
 msgid "Your information"
@@ -2574,7 +2574,7 @@ msgstr ""
 "Pwersahang Pagtratrabaho)</li>\n"
 "   <li>18 U.S.C. § 1594 (Pagtangka at Pagkawala ng Pagkakataon)</li>\n"
 "   <li>18 U.S.C. § 1595 (Pampribadong Karapatan na Magdemanda)</li>\n"
-"   <li>18 U.S.C. § 2423 (Transportasyon ng mga Bata papunta sa "
+"   <li>18 U.S.C. § 2423 (Transportasyon ng mga Menor de Edad sa "
 "Prostitusyon)</li>\n"
 "   <li>18 U.S.C. § 1546 (Panloloko ng Visa)</li>\n"
 " </ul>\n"
