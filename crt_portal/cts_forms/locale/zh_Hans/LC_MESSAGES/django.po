@@ -1,32 +1,27 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-28 19:02+0000\n"
-"Language: Vietnamese\n"
+"POT-Creation-Date: 2021-04-28 19:03+0000\n"
+"Language: Chinese Simplified\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
 #: forms.py:161 forms.py:1546
 msgid " - Select - "
-msgstr " - Chọn - "
+msgstr " - 选择 - "
 
 #. Translators: This is help text for the question asking if someone is a service member
 #: forms.py:173
 msgid ""
 "If you’re reporting on behalf of someone else, please select their status."
-msgstr ""
-"Nếu quý vị đang báo cáo thay mặt cho người khác, vui lòng chọn tình trạng "
-"của họ."
+msgstr "如果您代表其他人报告，请选择他们的状态。"
 
 #: forms.py:190 templates/forms/report_contact_info.html:8
 msgid ""
 "If you believe you or someone else has experienced a civil rights violation, "
 "please tell us what happened."
-msgstr ""
-"Nếu quý vị cho rằng quý vị hoặc một người nào đó đã bị vi phạm dân quyền, "
-"vui lòng cho chúng tôi biết điều gì đã xảy ra."
+msgstr "如果您认为自己或他人的民事权利受到了侵犯，请告诉我们发生了什么。"
 
 #: forms.py:216
 msgid ""
@@ -35,27 +30,23 @@ msgid ""
 "another section of this report, you will be able to describe your concern in "
 "your own words."
 msgstr ""
-"Chọn lý do mô tả tốt nhất mối quan ngại của quý vị. Với mỗi lý do, liệt kê "
-"các ví dụ về những hành vi vi phạm dân quyền có thể liên quan đến vụ việc "
-"của quý vị. Trong một phần khác của báo cáo này, quý vị sẽ có thể mô tả mối "
-"quan ngại của mình qua lời lẽ riêng của quý vị."
+"选择最能描述您有所顾虑的原因。每个理由都列出了可能与您的事件有关的侵犯民事权"
+"利的例子。在本报告的另一部分中，您将可以用自己的语言描述您的顾虑。"
 
 #. Translators: notes that this page is the same form step as the page before
 #: forms.py:239
 msgid "Continued"
-msgstr "Tiếp tục"
+msgstr "继续"
 
 #: forms.py:295
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
-msgstr ""
-"Ví dụ: Tên doanh nghiệp, trường học, giao lộ, nhà tù, điểm bỏ phiếu, trang "
-"web, v.v."
+msgstr "例如：公司、学校、路口、监狱、投票站、网站等名称。"
 
 #: forms.py:317 question_text.py:29
 msgid "Where did this happen?"
-msgstr "Việc này đã xảy ra ở đâu?"
+msgstr "这是在哪里发生的？"
 
 #: forms.py:329
 msgid ""
@@ -63,9 +54,8 @@ msgid ""
 "took place. This ensures your report is reviewed by the right people within "
 "the Civil Rights Division."
 msgstr ""
-"Vui lòng cho chúng tôi biết thành phố, tiểu bang và tên của địa điểm đã diễn "
-"ra vụ việc này. Điều này nhằm đảm bảo báo cáo của quý vị được đánh giá bởi "
-"những người phù hợp trong Ban Dân quyền."
+"请告诉我们这一事件发生的城市、州以及地点的名称。这样可以确保您的报告会由民权"
+"司的适当人员进行审阅。"
 
 #: forms.py:392
 msgid ""
@@ -73,36 +63,31 @@ msgid ""
 "military, post office, fire department, courthouse, DMV, or public school. "
 "This could be at the local or state level."
 msgstr ""
-"Đơn vị tuyển dụng khu vực công bao gồm các tổ chức được chính phủ tài trợ "
-"như quân đội, bưu điện, sở cứu hỏa, trụ sở tòa án, cơ quan quản lý các "
-"phương tiện cơ giới (DMV) hoặc trường công lập. Đơn vị này có thể là ở cấp "
-"địa phương hoặc tiểu bang."
+"公共雇主包括由政府资助的组织，例如军队、邮局、消防局、法院、机动车管理局"
+"（DMV）或公立学校。可能是地方或州一级部门。"
 
 #: forms.py:393
 msgid ""
 "Private employers are business or non-profits not funded by the government "
 "such as retail stores, banks, or restaurants."
-msgstr ""
-"Chủ lao động tư nhân là doanh nghiệp hoặc tổ chức phi lợi nhuận không được "
-"chính phủ tài trợ, chẳng hạn như cửa hàng bán lẻ, ngân hàng, hoặc nhà hàng."
+msgstr "私人雇主是指不受政府资助的企业或非营利组织，如零售商店、银行或餐馆。"
 
 #. Translators: describe the "other" option for commercial or public place question
 #: forms.py:439
 msgid "Please describe"
-msgstr "Vui lòng mô tả"
+msgstr "请描述"
 
 #: forms.py:506
 msgid ""
 "Includes schools, educational programs, or educational activities, like "
 "training programs, sports teams, clubs, or other school-sponsored activities"
 msgstr ""
-"Bao gồm trường học, chương trình giáo dục, hoặc các hoạt động giáo dục, như "
-"chương trình đào tạo, các đội thể thao, câu lạc bộ, hoặc các hoạt động khác "
-"do trường bảo trợ"
+"包括学校、教育项目或教育活动，例如培训项目、运动团体、俱乐部或其他学校资助的"
+"活动"
 
 #: forms.py:517
 msgid "Please select the type of school or educational program."
-msgstr "Vui lòng chọn loại hình trường học hoặc chương trình giáo dục."
+msgstr "请选择学校或教育项目的类型。"
 
 #: forms.py:540
 msgid ""
@@ -111,15 +96,13 @@ msgid ""
 "characteristics that are legally protected. Select any that apply to your "
 "incident."
 msgstr ""
-"Có các luật liên bang và tiểu bang bảo vệ mọi người khỏi sự phân biệt đối xử "
-"dựa trên các đặc điểm cá nhân của họ. Dưới đây là danh sách các đặc điểm "
-"thông thường nhất được bảo vệ hợp pháp. Chọn bất kỳ đặc điểm nào phù hợp với "
-"vụ việc của quý vị."
+"有联邦和州法律保护人们不受基于个人特征的歧视。下面列出了受法律保护的最常见的"
+"特征。选择任何适用于您的事件的选项。"
 
 #. Translators: This is to explain an "other" choice for personal characteristics
 #: forms.py:545
 msgid "Please describe \"Other reason\""
-msgstr "Vui lòng mô tả “Lý do khác”"
+msgstr "请说明“其他原因”"
 
 #: forms.py:627
 msgid ""
@@ -127,84 +110,79 @@ msgid ""
 "take the appropriate action. If this happened over a period of time or is "
 "still happening, please provide the most recent date."
 msgstr ""
-"Điều quan trọng là chúng tôi cần phải biết vụ việc này đã xảy ra gần đây hay "
-"không để chúng tôi có thể thực hiện hành động phù hợp. Nếu vụ việc này đã "
-"diễn ra trong một khoảng thời gian hoặc vẫn đang diễn ra, vui lòng cho biết "
-"ngày gần đây nhất."
+"让我们知道这起事件是在最近何时发生的很重要，这样我们才能采取适当的行动。如果"
+"该事件发生在一段时间里，或者现在仍然在发生，请提供最近一次发生的日期。"
 
 #: forms.py:915
 msgid "Primary classification"
-msgstr "Phân loại chính"
+msgstr "主要分类"
 
 #: forms.py:937
 msgid "Assigned to"
-msgstr "Được giao cho"
+msgstr "分配给"
 
 #: forms.py:1104
 msgid "Create date cannot be in the future."
-msgstr "Ngày tạo không được là ngày trong tương lai."
+msgstr "创建日期不能为未来时间。"
 
 #: forms.py:1286
 msgid "Comment cannot be empty"
-msgstr "Nhận xét không được để trống"
+msgstr "评论不能为空"
 
 #. Translators: This is used as a an empty selection default for drop down menus
 #: model_variables.py:6
 msgid "- Select -"
-msgstr "- Chọn -"
+msgstr "- 选择 -"
 
 #: model_variables.py:9 model_variables.py:119 model_variables.py:262
 msgid "Yes"
-msgstr "Có"
+msgstr "是"
 
 #: model_variables.py:10 model_variables.py:120 model_variables.py:261
 msgid "No"
-msgstr "Không"
+msgstr "否"
 
 #: model_variables.py:13
 msgid "Please select a status as an active duty service member."
-msgstr "Vui lòng chọn trạng thái là quân nhân tại ngũ."
+msgstr "请以现役军人身份选择身份。"
 
 #: model_variables.py:17
 msgid "Workplace discrimination or other employment-related problem"
-msgstr ""
-"Phân biệt đối xử tại nơi làm việc hoặc vấn đề khác liên quan đến việc làm"
+msgstr "工作场所歧视或其他与就业有关的问题"
 
 #: model_variables.py:18
 msgid "Housing discrimination or harassment"
-msgstr "Phân biệt đối xử về gia cư hoặc quấy rối"
+msgstr "住房歧视或骚扰"
 
 #: model_variables.py:19
 msgid ""
 "Discrimination at a school, educational program or service, or related to "
 "receiving education"
-msgstr ""
-"Phân biệt đối xử tại trường học, chương trình giáo dục hoặc dịch vụ, hoặc "
-"liên quan đến việc tiếp nhận giáo dục"
+msgstr "在学校、教育项目或服务中的歧视，或与接受教育有关的歧视"
 
 #: model_variables.py:20
 msgid "Mistreated by police, correctional staff, or inmates"
-msgstr "Bị cảnh sát, nhân viên cải huấn hoặc tù nhân ngược đãi"
+msgstr "受到警察、管教人员或囚犯的虐待"
 
 #: model_variables.py:21
 msgid "Voting rights or ability to vote affected"
-msgstr "Quyền bỏ biếu hoặc khả năng bỏ phiếu bị ảnh hưởng"
+msgstr "投票权或投票能力受到影响"
 
 #: model_variables.py:22
 msgid "Discriminated against in a commercial location or public place"
-msgstr "Bị phân biệt đối xử ở một địa điểm thương mại hoặc nơi công cộng"
+msgstr "在商业场所或公共场所受到歧视"
 
 #: model_variables.py:23
 msgid "Something else happened"
-msgstr "Một vấn đề khác đã xảy ra"
+msgstr "发生了其他事情"
 
 #: model_variables.py:38
 msgid "Victim of a hate crime"
-msgstr "Nạn nhân của việc phạm tội do thù ghét"
+msgstr "仇恨犯罪的受害者"
 
 #: model_variables.py:39
 msgid "Victim of human trafficking"
-msgstr "Nạn nhân của nạn buôn người"
+msgstr "贩卖人口的受害者"
 
 #: model_variables.py:44
 msgid ""
@@ -212,9 +190,8 @@ msgid ""
 "library, medical facility, bank, courthouse, government building, public "
 "park or street, as well as online."
 msgstr ""
-"Điều này có thể bao gồm cửa hàng, nhà hàng, quán bar, khách sạn, cơ sở thờ "
-"phượng, thư viện, cơ sở y tế, ngân hàng, trụ sở tòa án, tòa nhà chính phủ, "
-"công viên hoặc đường phố công cộng, cũng như trực tuyến."
+"可能包括商店、餐馆、酒吧、酒店、礼拜场所、图书馆、医疗设施、银行、法院、政府"
+"大楼、公园或街道，以及在线。"
 
 #: model_variables.py:45
 msgid ""
@@ -222,14 +199,12 @@ msgid ""
 "that we address. Select this option if you don’t see an example that applies "
 "to your situation. You will be able to tell us more later."
 msgstr ""
-"Các ví dụ trên phản ánh một số nhưng không phải tất cả các vi phạm về dân "
-"quyền mà chúng tôi giải quyết. Chọn tùy chọn này nếu quý vị không thấy ví dụ "
-"áp dụng cho trường hợp của mình. Quý vị sẽ có thể cho chúng tôi biết thêm "
-"sau."
+"上面的例子反映了我们处理的部分但非所有侵犯民事权利的行为。如果您没有看到适用"
+"于您情况的示例，请选择此项。您将可以在稍后时间告诉我们详情。"
 
 #: model_variables.py:46
 msgid "(Including while in prison)"
-msgstr "(Kể cả khi ở trong tù)"
+msgstr "（包括在狱中）"
 
 #: model_variables.py:49
 msgid ""
@@ -239,12 +214,9 @@ msgid ""
 "disability.  Threats of force or physical harm because of race, color, "
 "religion or national origin are also potential hate crimes."
 msgstr ""
-"Để có thể là một hành vi phạm tội do thù ghét, tình huống phải bao gồm tổn "
-"hại về thể chất hoặc mưu hại bằng vũ khí nguy hiểm, vì lý do chủng tộc, màu "
-"da, quốc gia xuất xứ, tôn giáo, giới tính, khuynh hướng tình dục, nhận dạng "
-"giới tính, hoặc tình trạng khuyết tật.  Đe dọa bằng vũ lực hoặc gây tổn hại "
-"về thể chất vì chủng tộc, màu da, tôn giáo hoặc quốc gia xuất xứ cũng là "
-"những hành vi phạm tội do thù ghét tiềm ẩn."
+"要构成一种可能的仇恨犯罪，这种情况必须包括由于种族、肤色、原籍国、宗教、性"
+"别、性取向、性别认同或残疾而造成的人身伤害或企图用危险武器造成伤害。由于种"
+"族、肤色、宗教或原籍国而威胁使用武力或人身伤害也可能是仇恨犯罪。"
 
 #: model_variables.py:50
 msgid ""
@@ -252,221 +224,184 @@ msgid ""
 "profit. This can happen in many types of work that include, for example: "
 "agriculture, domestic work, restaurants, cleaning services, and sex work."
 msgstr ""
-"Buôn bán người là khi một người nào đó bị ép buộc phải lao động hoặc bán dâm "
-"vì mục đích lợi nhuận. Điều này có thể xảy ra trong nhiều loại hình công "
-"việc, chẳng hạn như: nông nghiệp, công việc nội trợ, nhà hàng, dịch vụ dọn "
-"dẹp và mại dâm."
+"贩卖人口是指有人被迫从事劳动或性工作以换取利益。这可能发生在很多类型的工作"
+"中，例如：农业、家政、餐馆、清洁服务和性工作。"
 
 #: model_variables.py:55
 msgid ""
 "Fired, not hired, or demoted for reasons unrelated to job performance or "
 "qualifications"
-msgstr ""
-"Bị sa thải, không được thuê, hoặc bị giáng cấp vì những lý do không liên "
-"quan đến kết quả công việc hoặc trình độ"
+msgstr "因与工作表现或资格无关的原因被解雇、不被录用或降级"
 
 #: model_variables.py:56
 msgid "Retaliated against for reporting discrimination"
-msgstr "Bị trả đũa vì báo cáo về việc phân biệt đối xử"
+msgstr "因举报歧视而受到报复"
 
 #: model_variables.py:57
 msgid "Inappropriately asked to provide immigration documentation"
-msgstr "Bị yêu cầu cung cấp giấy tờ nhập cư theo cách không phù hợp"
+msgstr "不适当地被要求提供移民文件"
 
 #: model_variables.py:58
 msgid "Denied reemployment or fired based on military service"
-msgstr "Bị từ chối tái tuyển dụng hoặc sa thải do phục vụ quân ngũ"
+msgstr "因为兵役而被拒绝再就业或被解雇"
 
 #: model_variables.py:59
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in the workplace</strong>"
 msgstr ""
-"Bị từ chối hỗ trợ phù hợp cho người khuyết tật, bao gồm cả việc không được "
-"phép sử dụng động vật phục vụ tại <strong>nơi làm việc</strong>"
+"拒绝为残疾人士提供协助，包括不允许<strong>在工作场所</strong>携带服务性动物"
 
 #: model_variables.py:62
 msgid ""
 "Denied housing, a permit, or a loan based on personal characteristics like "
 "race, sex, and/or having children under 18 years old"
 msgstr ""
-"Bị từ chối hỗ trợ về nhà ở, cấp phép hoặc khoản vay dựa trên các đặc điểm cá "
-"nhân như chủng tộc, giới tính và/hoặc có con dưới 18 tuổi"
+"基于种族、性别和/或有未满 18 岁的子女等个人特征而被拒绝住房、许可证件或贷款"
 
 #: model_variables.py:63
 msgid "Harassment by a landlord or another tenant, including sexual harassment"
-msgstr ""
-"Bị quấy rối bởi chủ nhà hoặc người thuê nhà khác, bao gồm cả quấy rối tình "
-"dục"
+msgstr "受到房东或其他房客的骚扰，包括性骚扰"
 
 #: model_variables.py:64
 msgid "Challenges with terminating a lease due to military status change"
-msgstr ""
-"Bị gây khó khăn trong việc chấm dứt hợp đồng thuê do thay đổi tình trạng "
-"quân nhân"
+msgstr "因兵役身份改变而要终止租约时受到阻碍"
 
 #: model_variables.py:65
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service or assistance animal <strong>in public housing</strong>"
 msgstr ""
-"Bị từ chối hỗ trợ phù hợp cho người khuyết tật, bao gồm cả việc không được "
-"phép sử dụng động vật phục vụ hoặc động vật trợ giúp <strong>trong nhà ở "
-"công cộng</strong>"
+"拒绝为残疾人士提供协助，包括不允许在<strong>公共住房内</strong>饲养服务性动物"
+"或辅助性动物"
 
 #: model_variables.py:68
 msgid "Harassment based on race, sex, national origin, disability, or religion"
-msgstr ""
-"Bị quấy rối vì lý do chủng tộc, giới tính, quốc gia xuất xứ, tình trạng "
-"khuyết tật, hoặc tôn giáo"
+msgstr "基于种族、性别、原籍国、残疾或宗教的骚扰"
 
 #: model_variables.py:69
 msgid "Denied admission or segregated in an education program or activity"
-msgstr ""
-"Bị từ chối nhập học hoặc bị tách biệt trong một chương trình hoặc hoạt động "
-"giáo dục"
+msgstr "在教育项目或活动中被拒绝入学或被隔离"
 
 #: model_variables.py:70
 msgid "Denied educational accommodations for a disability or language barrier"
-msgstr ""
-"Bị từ chối hỗ trợ giáo dục do tình trạng khuyết tật hoặc rào cản ngôn ngữ"
+msgstr "有残疾或语言障碍但被拒绝提供教育上的便利设施"
 
 #: model_variables.py:73
 msgid ""
 "Obstacles to registering to vote, obtaining or submitting a ballot, having "
 "your ballot counted, or entering a polling place to vote"
-msgstr ""
-"Những trở ngại đối với việc đăng ký bỏ phiếu, lấy hoặc gửi phiếu bầu, kiểm "
-"phiếu hoặc vào phòng phiếu để bỏ phiếu"
+msgstr "登记投票、获取或提交选票、清点选票或进入投票站投票时遭遇障碍"
 
 #: model_variables.py:74
 msgid ""
 "Denied adequate voting assistance or accommodations for a disability at a "
 "polling place"
-msgstr ""
-"Bị từ chối sự hỗ trợ đầy đủ trong việc bỏ phiếu hoặc hỗ trợ phù hợp cho "
-"người khuyết tật tại một địa điểm bỏ phiếu"
+msgstr "在投票站没有为残疾人士提供足够的投票援助或安排"
 
 #: model_variables.py:75
 msgid ""
 "Restricted or prevented from participating in an election, including voting, "
 "becoming a candidate, or being elected for office"
-msgstr ""
-"Bị hạn chế hoặc bị ngăn cản tham gia vào một cuộc bầu cử, bao gồm bỏ phiếu, "
-"trở thành ứng cử viên, hoặc được bầu cho một chức vụ"
+msgstr "限制或阻止参加选举，包括投票、成为候选人或被选为公职人员"
 
 #: model_variables.py:78
 msgid ""
 "Police brutality or use of excessive force, including patterns of police "
 "misconduct"
-msgstr ""
-"Tình trạng bạo hành của cảnh sát hoặc sử dụng vũ lực quá mức cần thiết, bao "
-"gồm cả các kiểu hành vi sai trái của cảnh sát"
+msgstr "警察的暴行或过度使用武力，包括警察不当行为"
 
 #: model_variables.py:79
 msgid ""
 "Searched and arrested under false pretenses, including racial or other "
 "discriminatory profiling"
-msgstr ""
-"Bị khám xét và bắt giữ với mục đích lừa đảo, bao gồm cả việc phân biệt đối "
-"xử vì lý do chủng tộc hoặc phân biệt đối xử khác"
+msgstr "以包括种族或其他歧视性貌相在内的虚假借口进行搜查和逮捕"
 
 #: model_variables.py:80
 msgid "Denied rights while arrested or incarcerated"
-msgstr "Bị từ chối các quyền khi bị bắt giữ hoặc bị giam giữ"
+msgstr "在被捕或监禁期间被剥夺权利"
 
 #: model_variables.py:81
 msgid ""
 "Denied access to safe living conditions or accommodations for a disability, "
 "language barrier, or religious practice while incarcerated"
 msgstr ""
-"Bị từ chối tiếp cận với các điều kiện sống an toàn hoặc phương tiện hỗ trợ "
-"dành cho tình trạng khuyết tật, bất đồng ngôn ngữ, hoặc nghi thức tôn giáo "
-"khi bị giam giữ"
+"在被监禁期间，无法获得安全的居住环境或无法获得残疾、语言障碍或的宗教活动方面"
+"的便利设施"
 
 #: model_variables.py:84
 msgid ""
 "A physical or online location that does not provide disability accommodations"
-msgstr ""
-"Một địa điểm thực tế hoặc trực tuyến không cung cấp hỗ trợ cho người khuyết "
-"tật"
+msgstr "没有提供残疾便利的实地场所或网站"
 
 #: model_variables.py:85
 msgid ""
 "Denied service or entry because of a perceived personal characteristic like "
 "race, sex, or religion"
-msgstr ""
-"Bị từ chối phục vụ hoặc không cho vào cửa vì một đặc điểm cá nhân được nhận "
-"thấy như chủng tộc, giới tính, hoặc tôn giáo"
+msgstr "由于种族、性别或宗教等个人特征而被拒绝服务或入境"
 
 #: model_variables.py:86
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in a commercial or public location</strong>"
 msgstr ""
-"Bị từ chối hỗ trợ phù hợp cho người khuyết tật, bao gồm cả việc không được "
-"phép sử dụng động vật phục vụ <strong>tại khu thương mại hay công cộng</"
-"strong>"
+"拒绝为残疾人士提供协助，包括不允许<strong>在商业或公共场所内</strong>携带辅助"
+"性动物。"
 
 #: model_variables.py:92
 msgid ""
 "Physical attack causing injury, or an attempt to cause injury with a "
 "dangerous weapon, because of the above characteristics"
-msgstr ""
-"Tấn công về thể chất gây thương tích, hoặc toan gây thương tích bằng vũ khí "
-"nguy hiểm, vì các đặc điểm trên"
+msgstr "由于上述特征而造成伤害的身体攻击，或企图用危险武器造成伤害"
 
 #: model_variables.py:93
 msgid ""
 "Attacks, threats of violence, or destruction of property at place of worship "
 "(ie: shooting, arson, bombing, smashing windows, writing slurs)"
 msgstr ""
-"Tấn công, đe dọa bạo lực, hoặc phá hoại tài sản tại cơ sở thờ phượng (ví dụ: "
-"bắn súng, đốt phá, đánh bom, đập vỡ cửa sổ, viết những lời nhục mạ)"
+"在礼拜场所遭到攻击、暴力威胁或毁坏财产（例如枪击、纵火、爆炸、砸碎窗户、书写"
+"脏话）"
 
 #: model_variables.py:96
 msgid ""
 "Coerced into working through threats of harm or deportation, psychological "
 "manipulation, debt manipulation, document confiscation, or confinement"
 msgstr ""
-"Bị ép buộc làm việc thông qua việc đe dọa làm tổn hại hoặc trục xuất, thao "
-"túng tâm lý, thao túng nợ, tịch thu giấy tờ, hoặc giam giữ"
+"由于遭受伤害或驱逐出境的威胁、心理操纵、债务操纵、文件没收或监禁而被迫工作"
 
 #: model_variables.py:97
 msgid ""
 "Forced into sex work for profit through physical abuse or assault, sexual "
 "abuse or assault, other threats of harm, or confinement"
 msgstr ""
-"Bị ép buộc hoạt động mại dâm vì mục đích lợi nhuận thông qua lạm dụng hoặc "
-"tấn công thân thể, lạm dụng hoặc tấn công tình dục, các mối đe dọa gây tổn "
-"hại khác, hoặc bị giam giữ"
+"由于受到身体虐待或攻击、性虐待或侵害、其他伤害威胁或监禁而被迫从事性工作以牟"
+"利"
 
 #: model_variables.py:102 model_variables.py:268
 msgid "Federal"
-msgstr "Liên Bang"
+msgstr "联邦"
 
 #: model_variables.py:103
 msgid "State or local"
-msgstr "Tiểu bang hoặc địa phương"
+msgstr "州或地方"
 
 #. Translators: Both state, federal and local elections
 #: model_variables.py:105
 msgid "Both"
-msgstr "Cả hai"
+msgstr "二者都有"
 
 #: model_variables.py:106 model_variables.py:270 model_variables.py:285
 #: model_variables.py:293 model_variables.py:310
 msgid "I'm not sure"
-msgstr "Tôi không chắc"
+msgstr "我不确定"
 
 #: model_variables.py:112
 msgid ""
 "Physical harm or threats of violence based on race, color, national origin, "
 "religion, gender, sexual orientation, gender identity, or disability"
 msgstr ""
-"Gây tổn hại về thể chất hoặc đe dọa bạo lực dựa trên chủng tộc, màu da, quốc "
-"gia xuất xứ, tôn giáo, giới tính, khuynh hướng tình dục, nhận dạng giới "
-"tính, hoặc tình trạng khuyết tật"
+"基于种族、肤色、原籍国、宗教、性别、性取向、性别认同或残疾的而遭受身体伤害或"
+"暴力威胁"
 
 #: model_variables.py:113
 msgid ""
@@ -475,77 +410,71 @@ msgid ""
 "physical harm, withholding promised wages, or being held under a false work "
 "contract"
 msgstr ""
-"Bị đe dọa, ép buộc, và giam giữ trái với ý muốn của quý vị vì mục đích thực "
-"hiện công việc hoặc các hành vi tình dục thương mại. Điều này có thể bao gồm "
-"các mối đe dọa gây tổn hại về thể chất, giữ lại tiền lương đã hứa, hoặc bị "
-"giam chân trong một hợp đồng làm việc giả mạo"
+"受到威胁、胁迫并在违背您的意愿下迫使您工作或从事性交易。这可能包括人身伤害威"
+"胁、扣发承诺的工资或用虚假的工作合同扣押您"
 
 #: model_variables.py:127 templates/landing.html:257
 msgid "Age"
-msgstr "Tuổi"
+msgstr "年龄"
 
 #: model_variables.py:128
 msgid ""
 "Disability (including temporary or recovered and including HIV and drug "
 "addiction)"
-msgstr ""
-"Tình trạng khuyết tật (bao gồm tạm thời hoặc đã phục hồi và bao gồm cả HIV "
-"và nghiện ma tuý)"
+msgstr "残疾（包括暂时的或已康复的，也包括艾滋病和药物/毒品依赖）"
 
 #: model_variables.py:129
 msgid "Family, marital, or parental status"
-msgstr "Tình trạng gia đình, hôn nhân, hay làm cha mẹ"
+msgstr "家庭、婚姻或父母身份"
 
 #: model_variables.py:130
 msgid "Gender identity (including gender stereotypes)"
-msgstr "Nhận dạng giới tính (bao gồm cả định kiến về giới tính)"
+msgstr "性别认同（包括性别定型观念）"
 
 #: model_variables.py:131
 msgid "Genetic information (including family medical history)"
-msgstr "Thông tin di truyền (bao gồm bệnh sử của gia đình)"
+msgstr "遗传信息（包括家族病史）"
 
 #: model_variables.py:132
 msgid ""
 "Immigration/citizenship status (choosing this will not share your status)"
-msgstr ""
-"Tình trạng nhập cư/tư cách công dân (việc chọn lựa chọn này sẽ không chia sẻ "
-"tình trạng của quý vị)"
+msgstr "移民/公民身份（选择此项不会公开您的身份）"
 
 #: model_variables.py:133
 msgid "Language"
-msgstr "Ngôn ngữ"
+msgstr "语言"
 
 #: model_variables.py:134
 msgid "National origin (including ancestry and ethnicity)"
-msgstr "Quốc gia xuất xứ (bao gồm tổ tiên và dân tộc)"
+msgstr "原籍国（包括祖籍和种族）"
 
 #: model_variables.py:135
 msgid "Pregnancy"
-msgstr "Mang thai"
+msgstr "怀孕"
 
 #: model_variables.py:136 templates/landing.html:250
 msgid "Race/color"
-msgstr "Chủng tộc/màu da"
+msgstr "族裔/肤色"
 
 #: model_variables.py:137 templates/landing.html:252
 msgid "Religion"
-msgstr "Tôn giáo"
+msgstr "宗教"
 
 #: model_variables.py:138
 msgid "Sex"
-msgstr "Giới tính"
+msgstr "性别"
 
 #: model_variables.py:139
 msgid "Sexual orientation"
-msgstr "Xu hướng tình dục"
+msgstr "性取向"
 
 #: model_variables.py:140
 msgid "None of these apply to me"
-msgstr "Không có điều nào trong số những điều trên phù hợp với tôi"
+msgstr "这些都不适用"
 
 #: model_variables.py:141
 msgid "Other reason"
-msgstr "Lý do khác"
+msgstr "其他原因"
 
 #: model_variables.py:150
 msgid ""
@@ -553,455 +482,445 @@ msgid ""
 "situation, please select “None of these apply to me” or \"Other reason\"and "
 "explain."
 msgstr ""
-"Vui lòng đưa ra lựa chọn để tiếp tục. Nếu không có lý do nào trong các lý do "
-"này phù hợp với tình huống của quý vị, vui lòng chọn “Không có lý do nào "
-"trong số này phù hợp với tôi” hoặc “Lý do khác” và giải thích."
+"请做选择，然后继续。如果这些都不适用于您的情况，请选择“这些都不适用”或“其他原"
+"因”并做解释。"
 
 #: model_variables.py:233
 msgid "Place of worship or about a place of worship"
-msgstr "Nơi thờ phượng hoặc về một nơi thờ phượng"
+msgstr "礼拜场所或和礼拜场所有关"
 
 #: model_variables.py:234
 msgid "Commercial or retail building"
-msgstr "Tòa nhà thương mại hoặc bán lẻ"
+msgstr "商业或零售大楼"
 
 #: model_variables.py:235 model_variables.py:246
 msgid "Healthcare facility"
-msgstr "Cơ sở chăm sóc sức khỏe"
+msgstr "医疗设施"
 
 #: model_variables.py:236 model_variables.py:247
 msgid "Financial institution"
-msgstr "Tổ chức tài chính"
+msgstr "金融机构"
 
 #: model_variables.py:237
 msgid "Public space"
-msgstr "Không gian công cộng"
+msgstr "公共场所"
 
 #: model_variables.py:238 templatetags/commercial_public_space_view.py:17
 msgid "Other"
-msgstr "Khác"
+msgstr "其他"
 
 #: model_variables.py:241
 msgid ""
 "Please select the type of location. If none of these apply to your "
 "situation, please select \"Other\"."
-msgstr ""
-"Vui lòng chọn loại địa điểm. Nếu không có địa điểm nào trong số các địa điểm "
-"này phù hợp với tình huống của quý vị, vui lòng chọn “Khác”."
+msgstr "请选择地点类型。如果这些都不适用于您的情况，请选择“其他”。"
 
 #: model_variables.py:244
 msgid "Place of worship"
-msgstr "Nơi thờ phượng"
+msgstr "礼拜场所"
 
 #: model_variables.py:245
 msgid "Commercial"
-msgstr "Thương mại"
+msgstr "商业场所"
 
 #: model_variables.py:248
 msgid "Public outdoor space"
-msgstr "Không gian công cộng ngoài trời"
+msgstr "室外公共空间"
 
 #: model_variables.py:252
 msgid "Church, synagogue, temple, religious community center"
-msgstr "Nhà thờ, đền thờ do thái, đền thờ, trung tâm cộng đồng tôn giáo"
+msgstr "教堂、犹太教堂、寺庙、宗教社区中心"
 
 #: model_variables.py:253
 msgid "Store, restaurant, bar, hotel, theater"
-msgstr "Cửa hàng, nhà hàng, quán bar, khách sạn, rạp chiếu phim"
+msgstr "商店、餐馆、酒吧、酒店、剧院"
 
 #: model_variables.py:254
 msgid ""
 "Hospital or clinic (including inpatient and outpatient programs), "
 "reproductive care clinic, state developmental institution, nursing home"
-msgstr ""
-"Bệnh viện hoặc phòng khám (bao gồm các chương trình nội trú và ngoại trú), "
-"phòng khám chăm sóc sinh sản, tổ chức phát triển tiểu bang, viện dưỡng lão"
+msgstr "医院或诊所（包括住院和门诊）、生殖保健诊所、州立发展机构、疗养院"
 
 #: model_variables.py:255
 msgid "Bank, credit union, loan services"
-msgstr "Ngân hàng, tổ chức tín dụng, dịch vụ cho vay"
+msgstr "银行、信用合作社、贷款服务"
 
 #: model_variables.py:256
 msgid ""
 "Park, sidewalk, street, other public buildings (courthouse, DMV, city "
 "library)"
 msgstr ""
-"Công viên, vỉa hè, đường phố, các tòa nhà công cộng khác (trụ sở tòa án, "
-"DMV, thư viện thành phố)"
+"公园、人行道、街道、其他公共建筑（法院、机动车管理局（DMV）、市图书馆）"
 
 #: model_variables.py:267
 msgid "State/local"
-msgstr "Tiểu bang/địa phương"
+msgstr "州/地方"
 
 #: model_variables.py:269
 msgid "Private"
-msgstr "Tư nhân"
+msgstr "私人"
 
 #: model_variables.py:275
 msgid "Outside of prison"
-msgstr "Bên ngoài nhà tù"
+msgstr "监狱外"
 
 #: model_variables.py:277
 msgid "Prison (Federal)"
-msgstr "Nhà tù (Liên bang)"
+msgstr "监狱（联邦）"
 
 #: model_variables.py:278
 msgid "Prison (Private)"
-msgstr "Nhà tù (Tư nhân)"
+msgstr "监狱（私人）"
 
 #: model_variables.py:279
 msgid "Prison (I'm not sure)"
-msgstr "Nhà tù (Tôi không chắc)"
+msgstr "监狱（我不确定）"
 
 #: model_variables.py:283
 msgid "Public employer"
-msgstr "Cơ quan tuyển dụng công"
+msgstr "公共雇主"
 
 #: model_variables.py:284
 msgid "Private employer"
-msgstr "Cơ quan tuyển dụng tư nhân"
+msgstr "私人雇主"
 
 #: model_variables.py:288
 msgid "Please select what type of employer this is."
-msgstr "Vui lòng chọn loại hình cơ quan tuyển dụng này."
+msgstr "请选择这是哪种类型的雇主。"
 
 #: model_variables.py:291
 msgid "Fewer than 15 employees"
-msgstr "Ít hơn 15 nhân viên"
+msgstr "少于 15 名员工"
 
 #: model_variables.py:292
 msgid "15 or more employees"
-msgstr "Từ 15 nhân viên trở lên"
+msgstr "15 名或 15 名以上员工 "
 
 #: model_variables.py:296
 msgid "Please select how large the employer is."
-msgstr "Vui lòng chọn quy mô của cơ quan tuyển dụng."
+msgstr "请选择雇主的规模。"
 
 #: model_variables.py:308
 msgid "Public school or educational program"
-msgstr "Trường hoặc chương trình giáo dục công lập"
+msgstr "公立学校或教育项目"
 
 #: model_variables.py:309
 msgid "Private school or educational program"
-msgstr "Trường hoặc chương trình giáo dục tư"
+msgstr "私立学校或教育项目"
 
 #: model_variables.py:315
 msgid "Alabama"
-msgstr "Alabama"
+msgstr "阿拉巴马州"
 
 #: model_variables.py:316
 msgid "Alaska"
-msgstr "Alaska"
+msgstr "阿拉斯加州"
 
 #: model_variables.py:317
 msgid "Arizona"
-msgstr "Arizona"
+msgstr "亚利桑那州"
 
 #: model_variables.py:318
 msgid "Arkansas"
-msgstr "Arkansas"
+msgstr "阿肯色州"
 
 #: model_variables.py:319
 msgid "California"
-msgstr "California"
+msgstr "加利福尼亚州"
 
 #: model_variables.py:320
 msgid "Colorado"
-msgstr "Colorado"
+msgstr "科罗拉多州"
 
 #: model_variables.py:321
 msgid "Connecticut"
-msgstr "Connecticut"
+msgstr "康涅狄格州"
 
 #: model_variables.py:322
 msgid "Delaware"
-msgstr "Delaware"
+msgstr "特拉华州"
 
 #: model_variables.py:323
 msgid "District of Columbia"
-msgstr "District of Columbia"
+msgstr "哥伦比亚特区"
 
 #: model_variables.py:324
 msgid "Florida"
-msgstr "Florida"
+msgstr "佛罗里达州"
 
 #: model_variables.py:325
 msgid "Georgia"
-msgstr "Georgia"
+msgstr "乔治亚州"
 
 #: model_variables.py:326
 msgid "Hawaii"
-msgstr "Hawaii"
+msgstr "夏威夷州"
 
 #: model_variables.py:327
 msgid "Idaho"
-msgstr "Idaho"
+msgstr "爱达荷州"
 
 #: model_variables.py:328
 msgid "Illinois"
-msgstr "Illinois"
+msgstr "伊利诺伊州"
 
 #: model_variables.py:329
 msgid "Indiana"
-msgstr "Indiana"
+msgstr "印第安纳州"
 
 #: model_variables.py:330
 msgid "Iowa"
-msgstr "Iowa"
+msgstr "爱荷华州"
 
 #: model_variables.py:331
 msgid "Kansas"
-msgstr "Kansas"
+msgstr "堪萨斯州"
 
 #: model_variables.py:332
 msgid "Kentucky"
-msgstr "Kentucky"
+msgstr "肯塔基州"
 
 #: model_variables.py:333
 msgid "Louisiana"
-msgstr "Louisiana"
+msgstr "路易斯安那州"
 
 #: model_variables.py:334
 msgid "Maine"
-msgstr "Maine"
+msgstr "缅因州"
 
 #: model_variables.py:335
 msgid "Maryland"
-msgstr "Maryland"
+msgstr "马里兰州"
 
 #: model_variables.py:336
 msgid "Massachusetts"
-msgstr "Massachusetts"
+msgstr "马萨诸塞州"
 
 #: model_variables.py:337
 msgid "Michigan"
-msgstr "Michigan"
+msgstr "密歇根州"
 
 #: model_variables.py:338
 msgid "Minnesota"
-msgstr "Minnesota"
+msgstr "明尼苏达州"
 
 #: model_variables.py:339
 msgid "Mississippi"
-msgstr "Mississippi"
+msgstr "密西西比州"
 
 #: model_variables.py:340
 msgid "Missouri"
-msgstr "Missouri"
+msgstr "密苏里州"
 
 #: model_variables.py:341
 msgid "Montana"
-msgstr "Montana"
+msgstr "蒙大拿州"
 
 #: model_variables.py:342
 msgid "Nebraska"
-msgstr "Nebraska"
+msgstr "内布拉斯加州"
 
 #: model_variables.py:343
 msgid "Nevada"
-msgstr "Nevada"
+msgstr "内华达州"
 
 #: model_variables.py:344
 msgid "New Hampshire"
-msgstr "New Hampshire"
+msgstr "新罕布什尔州"
 
 #: model_variables.py:345
 msgid "New Jersey"
-msgstr "New Jersey"
+msgstr "新泽西州"
 
 #: model_variables.py:346
 msgid "New Mexico"
-msgstr "New Mexico"
+msgstr "新墨西哥州"
 
 #: model_variables.py:347
 msgid "New York"
-msgstr "New York"
+msgstr "纽约州"
 
 #: model_variables.py:348
 msgid "North Carolina"
-msgstr "North Carolina"
+msgstr "北卡罗莱纳州"
 
 #: model_variables.py:349
 msgid "North Dakota"
-msgstr "North Dakota"
+msgstr "北达科他州"
 
 #: model_variables.py:350
 msgid "Ohio"
-msgstr "Ohio"
+msgstr "俄亥俄州"
 
 #: model_variables.py:351
 msgid "Oklahoma"
-msgstr "Oklahoma"
+msgstr "俄克拉荷马州"
 
 #: model_variables.py:352
 msgid "Oregon"
-msgstr "Oregon"
+msgstr "俄勒冈州"
 
 #: model_variables.py:353
 msgid "Pennsylvania"
-msgstr "Pennsylvania"
+msgstr "宾夕法尼亚州"
 
 #: model_variables.py:354
 msgid "Rhode Island"
-msgstr "Rhode Island"
+msgstr "罗德岛州"
 
 #: model_variables.py:355
 msgid "South Carolina"
-msgstr "South Carolina"
+msgstr "南卡罗来纳州"
 
 #: model_variables.py:356
 msgid "South Dakota"
-msgstr "South Dakota"
+msgstr "南达科他州"
 
 #: model_variables.py:357
 msgid "Tennessee"
-msgstr "Tennessee"
+msgstr "田纳西州"
 
 #: model_variables.py:358
 msgid "Texas"
-msgstr "Texas"
+msgstr "得克萨斯州"
 
 #: model_variables.py:359
 msgid "Utah"
-msgstr "Utah"
+msgstr "犹他州"
 
 #: model_variables.py:360
 msgid "Vermont"
-msgstr "Vermont"
+msgstr "佛蒙特州"
 
 #: model_variables.py:361
 msgid "Virginia"
-msgstr "Virginia"
+msgstr "弗吉尼亚州"
 
 #: model_variables.py:362
 msgid "Washington"
-msgstr "Washington"
+msgstr "华盛顿州"
 
 #: model_variables.py:363
 msgid "West Virginia"
-msgstr "West Virginia"
+msgstr "西弗吉尼亚州"
 
 #: model_variables.py:364
 msgid "Wisconsin"
-msgstr "Wisconsin"
+msgstr "威斯康星州"
 
 #: model_variables.py:365
 msgid "Wyoming"
-msgstr "Wyoming"
+msgstr "怀俄明州"
 
 #: model_variables.py:366
 msgid "American Samoa"
-msgstr "American Samoa"
+msgstr "美属萨摩亚"
 
 #: model_variables.py:367
 msgid "Guam"
-msgstr "Guam"
+msgstr "关岛"
 
 #: model_variables.py:368
 msgid "Northern Mariana Islands"
-msgstr "Northern Mariana Islands"
+msgstr "北马里亚纳群岛"
 
 #: model_variables.py:369
 msgid "Puerto Rico"
-msgstr "Puerto Rico"
+msgstr "波多黎各"
 
 #: model_variables.py:370
 msgid "Virgin Islands"
-msgstr "Virgin Islands"
+msgstr "维尔京群岛"
 
 #: model_variables.py:371
 msgid "Armed Forces Africa"
-msgstr "Lực Lượng Vũ Trang Châu Phi"
+msgstr "非洲武装部队"
 
 #: model_variables.py:372
 msgid "Armed Forces Americas"
-msgstr "Lực Lượng Vũ Trang Hoa Kỳ"
+msgstr "美洲武装部队"
 
 #: model_variables.py:373
 msgid "Armed Forces Canada"
-msgstr "Lực Lượng Vũ Trang Canada"
+msgstr "加拿大武装部队"
 
 #: model_variables.py:374
 msgid "Armed Forces Europe"
-msgstr "Lực Lượng Vũ Trang Châu Âu"
+msgstr "欧洲武装部队"
 
 #: model_variables.py:375
 msgid "Armed Forces Middle East"
-msgstr "Lực Lượng Vũ Trang Trung Đông"
+msgstr "中东武装部队"
 
 #: model_variables.py:376
 msgid "Armed Forces Pacific"
-msgstr "Lực Lượng Vũ Trang Thái Bình Dương"
+msgstr "太平洋武装部队"
 
 #: model_variables.py:379
 msgid "Please provide description to continue"
-msgstr "Vui lòng cung cấp mô tả để tiếp tục"
+msgstr "请提供说明，然后继续"
 
 #: model_variables.py:380
 msgid "Please select a primary reason to continue."
-msgstr "Vui lòng chọn một lý do chính để tiếp tục."
+msgstr "请选择主要原因，然后继续。"
 
 #: model_variables.py:383
 msgid "Please enter the name of the location where this took place."
-msgstr "Vui lòng nhập tên địa điểm nơi việc này xảy ra."
+msgstr "请输入发生此事件地点的名称。"
 
 #: model_variables.py:384
 msgid "Please enter the city or town where this took place."
-msgstr "Vui lòng nhập thành phố hoặc thị trấn nơi việc này xảy ra."
+msgstr "请输入发生此事件的城市或城镇。"
 
 #: model_variables.py:385
 msgid "Please select the state where this took place."
-msgstr "Vui lòng nhập tiểu bang nơi việc này xảy ra."
+msgstr "请选择发生此事件的州。"
 
 #: model_variables.py:389
 msgid "Please select where this occurred"
-msgstr "Vui lòng chọn nơi việc này xảy ra"
+msgstr "请选择发生此情况的地点"
 
 #: model_variables.py:390
 msgid "Please select the type of location"
-msgstr "Vui lòng chọn loại địa điểm"
+msgstr "请选择地点类型。"
 
 #: model_variables.py:402
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
-msgstr ""
-"Quý vị phải nhập tháng và năm. Vui lòng sử dụng định dạng tháng( MM)/ngày "
-"(DD)/năm (YYYY)."
+msgstr "必须输入月和年。请使用 MM/DD/YYYY（月/日/年）的格式。"
 
 #: model_variables.py:405
 msgid "Please enter a month."
-msgstr "Vui lòng nhập tháng."
+msgstr "请输入月份。"
 
 #: model_variables.py:406
 msgid "Please enter a valid month. Month must be between 1 and 12."
-msgstr "Vui lòng nhập một tháng hợp lệ. Tháng phải từ 1 đến 12."
+msgstr "请输入一个有效的月份。月份必须介于 1 和 12 之间。"
 
 #: model_variables.py:407
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
-msgstr ""
-"Vui lòng nhập một ngày hợp lệ trong tháng. Ngày phải từ ngày 1 đến ngày cuối "
-"cùng của tháng."
+msgstr "请输入当月的有效日期。日期必须介于 1 和当月最后一天之间。"
 
 #: model_variables.py:408
 msgid "Please enter a year."
-msgstr "Vui lòng nhập một năm."
+msgstr "请输入年份。"
 
 #: model_variables.py:409
 msgid "Date can not be in the future."
-msgstr "Ngày không được là ngày trong tương lai."
+msgstr "日期不能为将来的日期。"
 
 #: model_variables.py:410
 msgid "Please enter a year after 1900."
-msgstr "Vui lòng nhập một năm sau 1900."
+msgstr "请输入一个 1900 年以后的年份。"
 
 #: model_variables.py:411
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
-msgstr "Vui lòng nhập một ngày hợp lệ. Sử dụng định dạng MM/DD/YYYY."
+msgstr "请输入一个有效的日期。请使用 MM/DD/YYYY（月/日/年）格式。"
 
 #: model_variables.py:414
 msgid "Please select the type of election or voting activity."
-msgstr "Vui lòng chọn hình thức bầu cử hoặc hoạt động bỏ phiếu."
+msgstr "请选择选举或投票活动的类型。"
 
 #: model_variables.py:454
 msgid ""
@@ -1009,13 +928,12 @@ msgid ""
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
 "Please include country code if entering an international phone number."
 msgstr ""
-"Nếu quý vị gửi số điện thoại, vui lòng đảm bảo ghi số điện thoại từ 7 đến 15 "
-"chữ số. Được phép sử dụng các ký tự “+”, “)”, “(”, “-”, và “.” . Vui lòng "
-"ghi mã quốc gia nếu nhập số điện thoại quốc tế."
+"如果您提交了一个电话号码，请确保包含 7 到 15 位数字。允许使用字"
+"符“+”、“）”、“（”、“-”和“.”。如果输入国际电话号码，请包括国家代码。"
 
 #: question_text.py:5
 msgid "Contact information"
-msgstr "Thông tin liên hệ"
+msgstr "联系信息"
 
 #: question_text.py:6
 msgid ""
@@ -1023,68 +941,64 @@ msgid ""
 "want to remain anonymous, leave this section blank. If you choose to provide "
 "your contact information, we will only use it to respond to your submission."
 msgstr ""
-"Quý vị không bắt buộc phải cung cấp tên hoặc thông tin liên hệ của mình. Nếu "
-"quý vị muốn ẩn danh, hãy để trống phần này. Nếu quý vị chọn cung cấp thông "
-"tin liên hệ của mình, chúng tôi sẽ chỉ sử dụng thông tin đó để hồi đáp thông "
-"tin quý vị đã gửi."
+"您无需提供姓名或联系方式。如果您想保持匿名，请将此部分留空。如果您选择提供您"
+"的联系信息，我们将仅使用它来回复您的报告。"
 
 #: question_text.py:7 templates/forms/report_data.html:12
 msgid "Your name"
-msgstr "Tên của quý vị"
+msgstr "您的姓名"
 
 #: question_text.py:8
 msgid "First name"
-msgstr "Tên"
+msgstr "名字"
 
 #: question_text.py:9
 msgid "Last name"
-msgstr "Họ"
+msgstr "姓氏"
 
 #: question_text.py:10
 msgid "Email address"
-msgstr "Địa chỉ email"
+msgstr "电子邮件地址"
 
 #: question_text.py:11
 msgid "Phone number"
-msgstr "Số điện thoại"
+msgstr "电话号码"
 
 #: question_text.py:12
 msgid "Mailing address 1"
-msgstr "Địa chỉ nhận thư 1"
+msgstr "邮寄地址 1"
 
 #: question_text.py:13
 msgid "Mailing address 2"
-msgstr "Địa chỉ nhận thư 2"
+msgstr "邮寄地址 2"
 
 #: question_text.py:14
 msgid "City"
-msgstr "Thành phố"
+msgstr "城市"
 
 #: question_text.py:15
 msgid "Zip code"
-msgstr "Mã bưu điện"
+msgstr "邮编"
 
 #: question_text.py:16 question_text.py:34
 msgid "State"
-msgstr "Tiểu bang"
+msgstr "州"
 
 #: question_text.py:18
 msgid "Are you now or have ever been an active duty service member?"
-msgstr "Quý vị hiện có đang hoặc đã từng là một quân nhân tại ngũ không?"
+msgstr "您是现役军人或曾经是军人吗？"
 
 #: question_text.py:21
 msgid "What is your primary reason for contacting the Civil Rights Division?"
-msgstr "Lý do chính quý vị liên hệ với Ban Dân Quyền là gì?"
+msgstr "您联系民权司的主要原因是什么？"
 
 #: question_text.py:23
 msgid "Primary Issue"
-msgstr "Vấn đề Chính"
+msgstr "主要问题"
 
 #: question_text.py:24
 msgid "Does your situation involve physical harm or threats of violence?"
-msgstr ""
-"Tình huống của quý vị có liên quan đến việc gây tổn hại về thể chất hoặc đe "
-"dọa bạo lực không?"
+msgstr "您的处境是否涉及身体伤害或暴力威胁？"
 
 #: question_text.py:25
 msgid ""
@@ -1092,109 +1006,103 @@ msgid ""
 "be based on race, color, national origin, religion, gender, sexual "
 "orientation, gender identity, or disability."
 msgstr ""
-"Để bị coi là một hành vi phạm tội do thù ghét, việc gây tổn hại về thể chất "
-"hoặc đe dọa bạo lực phải dựa trên chủng tộc, màu da, quốc gia xuất xứ, tôn "
-"giáo, giới tính, khuynh hướng tình dục, nhận dạng giới tính, hoặc tình trạng "
-"khuyết tật."
+"要被视为仇恨犯罪，身体伤害或暴力威胁必须基于种族、肤色、原籍国、宗教、性别、"
+"性取向、性别认同或残疾的理由。"
 
 #: question_text.py:30
 msgid "Location name"
-msgstr "Tên địa điểm"
+msgstr "地点名称"
 
 #: question_text.py:31
 msgid "Street address 1"
-msgstr "Địa chỉ đường phố 1"
+msgstr "街道地址 1"
 
 #: question_text.py:32
 msgid "Street address 2"
-msgstr "Địa chỉ đường phố 2"
+msgstr "街道地址 2"
 
 #: question_text.py:33
 msgid "City/town"
-msgstr "Thành phố/thị trấn"
+msgstr "城市/镇"
 
 #: question_text.py:36
 msgid "What kind of election or voting activity was this related to?"
-msgstr "Điều này liên quan đến hình thức bầu cử hoặc hoạt động bỏ phiếu nào?"
+msgstr "这与何种选举或投票活动有关？"
 
 #: question_text.py:38
 msgid "Was this a public or private employer?"
-msgstr "Đây là đơn vị tuyển dụng công hay đơn vị tuyển dụng tư nhân?"
+msgstr "这是政府雇主还是私人雇主？"
 
 #: question_text.py:39
 msgid "How large is this employer?"
-msgstr "Quy mô của đơn vị tuyển dụng này ra sao?"
+msgstr "该雇主规模如何？"
 
 #: question_text.py:41
 msgid ""
 "Please choose the type of location that best describes where the incident "
 "happened"
-msgstr "Vui lòng chọn loại địa điểm mô tả chính xác nhất nơi xảy ra vụ việc"
+msgstr "请选择最能描述事件发生地点位置的类型"
 
 #: question_text.py:43
 msgid "Did this happen while in custody or incarcerated?"
-msgstr "Điều này có xảy ra khi đang bị cầm cố hoặc bỏ tù không?"
+msgstr "是在被拘留或监禁期间发生的吗？"
 
 #: question_text.py:44
 msgid "What type of prison or correctional facility?"
-msgstr "Loại hình nhà tù hoặc cơ sở cải huấn nào?"
+msgstr "是什么类型的监狱或劳教所？"
 
 #: question_text.py:46
 msgid ""
 "Did this happen at a public or a private school, educational program or "
 "activity?"
-msgstr ""
-"Điều này có xảy ra tại một trường học, chương trình hoặc hoạt động giáo dục "
-"công lập hay tư nhân không?"
+msgstr "是在公立学校、私立学校、教育项目或活动中发生的？"
 
 #: question_text.py:49
 msgid ""
 "Do you believe any of these personal characteristics influenced why you were "
 "treated this way?"
-msgstr ""
-"Quý vị có cho rằng bất kỳ điểm nào trong các đặc điểm cá nhân này đã ảnh "
-"hưởng đến lý do tại sao quý vị bị đối xử như vậy không?"
+msgstr "您认为这些个人特征影响了您被这样对待吗？"
 
 #: question_text.py:52
 msgid "When did this happen?"
-msgstr "Việc này đã xảy ra khi nào?"
+msgstr "这是何时发生的？"
 
 #: question_text.py:53
 msgid "Month"
-msgstr "Tháng"
+msgstr "月"
 
 #: question_text.py:54
 msgid "Day"
-msgstr "Ngày"
+msgstr "日"
 
 #: question_text.py:55
 msgid "Year"
-msgstr "Năm"
+msgstr "年"
 
 #: question_text.py:59
 msgid "In your own words, describe what happened"
-msgstr "Bằng cách diễn đạt của chính quý vị, hãy mô tả những gì đã xảy ra"
+msgstr "用您自己的话语描述发生了什么"
 
 #: question_text.py:61
 msgid "Please share details like:"
-msgstr "Vui lòng chia sẻ thông tin chi tiết như:"
+msgstr "请告诉诸如以下的细节："
 
 #: question_text.py:63
 msgid "Time"
-msgstr "Thời gian"
+msgstr "时间"
 
 #: question_text.py:64
 msgid "Names of people involved including witnesses if there are any"
-msgstr "Tên của những người liên quan bao gồm cả nhân chứng nếu có"
+msgstr "涉案人员姓名，包括证人（如有）"
 
 #: question_text.py:65
 msgid "Any supporting materials (please list and describe them)"
-msgstr "Mọi tài liệu hỗ trợ (vui lòng liệt kê và mô tả chúng)"
+msgstr "任何支持性材料（请列出并说明）"
 
 #: templates/base.html:33 templates/base.html:58
 #: templates/forms/report_base.html:10 templates/forms/report_base.html:13
 msgid "Contact the Civil Rights Division | Department of Justice"
-msgstr "Liên hệ với Ban Dân Quyền | Bộ Tư pháp"
+msgstr "联系司法部民权司"
 
 #: templates/base.html:46
 msgid ""
@@ -1204,26 +1112,24 @@ msgid ""
 "housing, the workplace, school, voting, businesses, healthcare, public "
 "spaces, and more."
 msgstr ""
-"Quý vị hoặc một người nào đó mà quý vị biết đã từng bị phân biệt đối xử bất "
-"hợp pháp chưa? Ban Dân Quyền có thể giúp đỡ quý vị. Luật dân quyền có thể "
-"bảo vệ quý vị khỏi sự phân biệt đối xử, quấy rối hoặc lạm dụng bất hợp pháp "
-"trong nhiều môi trường khác nhau như nhà ở, nơi làm việc, trường học, hoạt "
-"động bỏ phiếu, doanh nghiệp, chăm sóc sức khỏe, không gian công cộng, v.v."
+"您或您认识的人经历过非法歧视吗？ 民权司或许能够提供帮助。民权法可以保护您在各"
+"种环境中免受非法歧视、骚扰或虐待，例如住所、工作场所、学校、投票站、企业、医"
+"疗保健机构、公共场所等。"
 
 #: templates/base.html:67
 msgid "Skip to main content"
-msgstr "Đi thẳng đến nội dung chính"
+msgstr "跳转到主要内容"
 
 #: templates/base.html:121 templates/forms/errors.html:13
 #: templates/forms/report_maintenance.html:13 templates/landing.html:17
 msgid "U.S. Department of Justice"
-msgstr "Bộ Tư pháp Hoa Kỳ"
+msgstr "美国司法部"
 
 #: templates/base.html:124 templates/forms/confirmation.html:21
 #: templates/forms/errors.html:14 templates/forms/report_maintenance.html:14
 #: templates/landing.html:20
 msgid "Civil Rights Division"
-msgstr "Ban Dân Quyền"
+msgstr "民权司"
 
 #: templates/forms/complaint_view/actions/bulk_actions.html:78
 #: templates/forms/grouped_questions.html:6
@@ -1237,52 +1143,50 @@ msgstr "Ban Dân Quyền"
 #: templates/forms/report_primary_complaint.html:11
 #: templates/forms/snippets/input.html:9
 msgid "required"
-msgstr "bắt buộc"
+msgstr "必填"
 
 #: templates/forms/confirmation.html:8
 msgid "Submission complete"
-msgstr "nộp xong"
+msgstr "完成提交"
 
 #: templates/forms/confirmation.html:20 templates/forms/confirmation.html:26
 #: templates/forms/portal/header.html:3
 msgid "United States Department of Justice"
-msgstr "Bộ Tư pháp Hoa Kỳ"
+msgstr "美国司法部"
 
 #: templates/forms/confirmation.html:29
 msgid "Thank you for submitting a report to the Civil Rights Division."
-msgstr "Cảm ơn quý vị đã gửi báo cáo đến Ban Dân quyền."
+msgstr "感谢您向民权司提交报告。"
 
 #: templates/forms/confirmation.html:46
 msgid "Report successfully submitted"
-msgstr "Báo cáo đã được gửi thành công"
+msgstr "报告成功提交"
 
 #: templates/forms/confirmation.html:51
 msgid "Please save your record number for tracking."
-msgstr "Vui lòng lưu số hồ sơ của quý vị để theo dõi."
+msgstr "请保存您的记录号码，以便追踪。"
 
 #: templates/forms/confirmation.html:52
 msgid ""
 "You will not receive an email confirmation, so please print or save this "
 "page for your records."
-msgstr ""
-"Quý vị sẽ không nhận được email xác nhận, vì vậy vui lòng in hoặc lưu trang "
-"này vào hồ sơ của quý vị."
+msgstr "您不会收到电子邮件确认，因此请打印或保存此页以供记录。"
 
 #: templates/forms/confirmation.html:56
 msgid "Your record number is:"
-msgstr "Số hồ sơ của quý vị là:"
+msgstr "您的记录号是："
 
 #: templates/forms/confirmation.html:62
 msgid "Print report"
-msgstr "In baìo caìo"
+msgstr "打印报告"
 
 #: templates/forms/confirmation.html:73
 msgid "What to expect"
-msgstr "Những việc sẽ diễn ra"
+msgstr "后续流程"
 
 #: templates/forms/confirmation.html:83
 msgid "We review your report"
-msgstr "Chúng tôi sẽ đánh giá báo cáo của quý vị"
+msgstr "我们会审查您的报告"
 
 #: templates/forms/confirmation.html:88
 msgid ""
@@ -1290,42 +1194,36 @@ msgid ""
 "identify civil rights violations, spot trends, and determine if we have "
 "authority to help with your report."
 msgstr ""
-"Các chuyên gia của chúng tôi trong Ban Dân quyền đọc kỹ mọi báo cáo để xác "
-"định các hành vi vi phạm dân quyền, phát hiện xu hướng, và xác định xem "
-"chúng tôi có thẩm quyền trợ giúp vụ việc trong báo cáo của quý vị hay không."
+"我们民权司的专家会仔细阅读每一份报告，以查明侵犯公民权利的情况、发现趋势，并"
+"确定我们是否有权对您提交的报告提供帮助。"
 
 #: templates/forms/confirmation.html:98
 msgid "Our specialists determine the next step"
-msgstr "Các chuyên gia của chúng tôi sẽ xác định bước tiếp theo"
+msgstr "我们的专员决定下一步"
 
 #: templates/forms/confirmation.html:102
 msgid "We may decide to:"
-msgstr "Chúng tôi có thể quyết định:"
+msgstr "我们可能会决定："
 
 #: templates/forms/confirmation.html:105
 msgid ""
 "<strong>Open an investigation</strong> or take some other action within the "
 "legal authority of the Justice Department."
-msgstr ""
-"<strong>Mở một cuộc điều tra</strong> hoặc thực hiện một hành động nào khác "
-"trong thẩm quyền pháp lý của Bộ Tư pháp."
+msgstr "在司法部的法律授权范围内<strong>展开调查</strong>或采取其他行动。"
 
 #: templates/forms/confirmation.html:106
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
 "report."
-msgstr ""
-"<strong>Thu thập thêm thông tin</strong> trước khi chúng tôi có thể đánh giá "
-"báo cáo của quý vị."
+msgstr "在我们针对您的报告进行调查之前<strong>收集更多信息</strong>。"
 
 #: templates/forms/confirmation.html:107
 msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
 "into your report. If so, we’ll let you know."
 msgstr ""
-"<strong>Đề nghị một cơ quan chính phủ khác</strong> có thể đánh giá báo cáo "
-"của quý vị một cách chính xác. Nếu vậy, chúng tôi sẽ thông báo cho quý vị "
-"biết."
+"<strong>推荐另一个政府机构</strong>，该机构可以适当地研究您的报告。如果是这"
+"样，我们会通知您。"
 
 #: templates/forms/confirmation.html:110
 msgid ""
@@ -1333,33 +1231,29 @@ msgid ""
 "your report and will recommend that you seek help from a private lawyer or "
 "local legal aid organization."
 msgstr ""
-"Trong một số trường hợp, chúng tôi có thể xác định rằng chúng tôi không có "
-"thẩm quyền pháp lý để xử lý báo cáo của quý vị và sẽ khuyến nghị quý vị nên "
-"tìm kiếm sự trợ giúp từ luật sư riêng hoặc tổ chức hỗ trợ pháp lý địa phương."
+"某些情况下，我们可能会确定我们没有法律权限处理您的报告，并建议您向私人律师或"
+"当地法律援助组织寻求帮助。"
 
 #: templates/forms/confirmation.html:120
 msgid "When possible, we will follow up with you"
-msgstr "Khi có thể, chúng tôi sẽ liên hệ với quý vị"
+msgstr "如果可能，我们会进行跟进"
 
 #: templates/forms/confirmation.html:125
 msgid ""
 "We do our best to let you know about the outcome of our review. However, we "
 "may not always be able to provide you with updates because:"
 msgstr ""
-"Chúng tôi sẽ cố gắng hết sức để thông báo cho quý vị biết về kết quả đánh "
-"giá của chúng tôi. Tuy nhiên, không phải lúc nào chúng tôi cũng có thể cung "
-"cấp cho quý vị các thông tin cập nhật vì:"
+"我们会尽最大努力让您了解我们的审查结果。但是，我们可能无法向您提供进度更新，"
+"因为："
 
 #: templates/forms/confirmation.html:129
 msgid ""
 "We’re actively working on an investigation or case related to your report."
-msgstr ""
-"Chúng tôi đang tích cực thực hiện một cuộc điều tra hoặc trường hợp liên "
-"quan đến báo cáo của quý vị."
+msgstr "我们正在积极调查与您的报告有关的案件。"
 
 #: templates/forms/confirmation.html:132
 msgid "We’re receiving and actively reviewing many requests at the same time."
-msgstr "Chúng tôi đang nhận và tích cực đánh giá nhiều yêu cầu cùng một lúc."
+msgstr "我们同时收到并需要积极审查很多请求。"
 
 #: templates/forms/confirmation.html:135 templates/landing.html:353
 msgid ""
@@ -1369,16 +1263,13 @@ msgid ""
 "report number when contacting us. This is how we keep track of your "
 "submission."
 msgstr ""
-"Nếu chúng tôi có thể hồi đáp, chúng tôi sẽ liên hệ với quý vị bằng cách sử "
-"dụng thông tin liên hệ mà quý vị đã cung cấp trong báo cáo này. Tùy thuộc "
-"vào loại báo cáo, thời gian hồi đáp có thể khác nhau. Nếu quý vị cần liên hệ "
-"với chúng tôi về báo cáo của mình, vui lòng cung cấp mã số báo cáo của quý "
-"vị khi liên hệ với chúng tôi. Đây là cách chúng tôi theo dõi hồ sơ của quý "
-"vị."
+"如果我们能够回复，我们将使用您在本报告中提供的联系信息与您联系。根据报告的类"
+"型，响应时间可能会有所不同。如果您需要就报告联系我们，请在联系我们时告知您的"
+"报告号码。这就是我们追踪您提交材料的方式。"
 
 #: templates/forms/confirmation.html:143
 msgid "What you can do next"
-msgstr "Quý vị có thể làm gì tiếp theo"
+msgstr "下一步您能做什么"
 
 #: templates/forms/confirmation.html:149
 msgid "1"
@@ -1387,17 +1278,13 @@ msgstr "1"
 #: templates/forms/confirmation.html:152
 msgid ""
 "Contact local legal aid organizations or a lawyer if you haven’t already"
-msgstr ""
-"Liên hệ với các tổ chức hỗ trợ pháp lý địa phương hoặc luật sư nếu quý vị "
-"chưa làm việc đó"
+msgstr "如何您尚未与当地法律援助组织或律师联系，你可以联络"
 
 #: templates/forms/confirmation.html:156
 msgid ""
 "Legal aid offices or members of lawyer associations in your state may be "
 "able to help you with your issue."
-msgstr ""
-"Các văn phòng hỗ trợ pháp lý hoặc thành viên của các hiệp hội luật sư ở tiểu "
-"bang của quý vị có thể giúp quý vị giải quyết vấn đề của mình."
+msgstr "您所在州的法律援助办公室或律师协会成员可能可以帮助您解决问题。"
 
 #: templates/forms/confirmation.html:159
 msgid ""
@@ -1406,10 +1293,10 @@ msgid ""
 "findlegalhelp.org\">www.findlegalhelp.org</a> or call <a href="
 "\"tel:800-285-2221\">(800) 285-2221</a>"
 msgstr ""
-"Hiệp hội Luật sư Mỹ, vui lòng truy cập <a class=\"external-link--blue "
-"external-link--popup\" aria-label=\"www.findlegalhelp.org\" href=\"http://"
-"www.findlegalhelp.org\">www.findlegalhelp.org</a> hoặc gọi <a href="
-"\"tel:800-285-2221\">(800) 285-2221</a>"
+"美国律师协会，请访问 <a class=\"external-link--blue external-link--popup\" "
+"aria-label=\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org"
+"\">www.findlegalhelp.org</a> 或拨打<a href=\"tel:800-285-2221\">（800）"
+"285-2221</a>"
 
 #: templates/forms/confirmation.html:162
 msgid ""
@@ -1418,11 +1305,10 @@ msgid ""
 "href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> "
 "or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
 msgstr ""
-"Legal Service Corporation (hoặc Legal Aid Offices), vui lòng truy cập <a "
-"aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue "
-"external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc."
-"gov/find-legal-aid</a> hoặc gọi <a href=\"tel:202-295-1500\">(202) 295-1500</"
-"a>"
+"法律服务公司（或法律援助办事处），请访问<a aria-label=\"www.lsc.gov/find-"
+"legal-aid\" class=\"external-link--blue external-link--popup\" href="
+"\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> 或拨打"
+"<a href=\"tel:202-295-1500\">（202）295-1500</a>"
 
 #: templates/forms/confirmation.html:170
 msgid "2"
@@ -1430,7 +1316,7 @@ msgstr "2"
 
 #: templates/forms/confirmation.html:173
 msgid "Get help immediately if you are in danger"
-msgstr "Yêu cầu trợ giúp ngay lập tức nếu quý vị đang gặp nguy hiểm"
+msgstr "如果身处危险之中，请立即寻求帮助"
 
 #: templates/forms/confirmation.html:178
 msgid ""
@@ -1438,18 +1324,16 @@ msgid ""
 "still experiencing physical harm or violence, or are in immediate danger, "
 "please call <a href=\"tel:911\">911</a> and contact the police."
 msgstr ""
-"Nếu quý vị đã báo cáo một vụ việc mà quý vị hoặc người khác đã trải qua hoặc "
-"vẫn đang bị tổn hại về thể chất hoặc đang chịu bạo lực, hoặc đang gặp nguy "
-"hiểm ngay trước mắt, vui lòng gọi <a href=\"tel:911\">911</a> và liên hệ với "
-"cảnh sát."
+"如果在您报告的事件中，您或他人已经历或仍在经历着身体伤害或暴力，或仍随时有危"
+"险，请拨打 <a href=\"tel:911\">911</a> 报警。"
 
 #: templates/forms/confirmation.html:191
 msgid "Your submission"
-msgstr "Hồ sơ của quý vị"
+msgstr "您提交的信息"
 
 #: templates/forms/error_422.html:5 templates/forms/errors.html:31
 msgid "We're sorry, something went wrong"
-msgstr "Chúng tôi rất tiếc, đã có lỗi xảy ra"
+msgstr "很抱歉，出了点故障"
 
 #: templates/forms/error_422.html:8
 msgid ""
@@ -1462,58 +1346,54 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"        <p>Lỗi này có thể liên quan đến trình duyệt Internet không tương "
-"thích. Vui lòng tải xuống phiên bản mới nhất của trình duyệt Google Chrome, "
-"Mozilla Firefox, Safari hoặc Microsoft Edge.</p>\n"
-"        <p>Ngoài ra, vui lòng không sử dụng nhiều trình duyệt và/hoặc các "
-"tab trình duyệt khi nhập báo cáo của quý vị.</p>\n"
+"        <p>该错误可能与互联网浏览器不兼容有关。请下载最新版本的 Google "
+"Chrome、Mozilla Firefox、Safari 或 Microsoft Edge。</p>\n"
+"        <p>此外，请不要在输入报告时使用多个浏览器和/或浏览器分页。</p>\n"
 "    "
 
 #: templates/forms/errors.html:33
 msgid "We hope to fix this issue shortly"
-msgstr "Chúng tôi hy vọng sẽ sớm khắc phục sự cố này"
+msgstr "我们希望尽快解决这个问题"
 
 #: templates/forms/errors.html:35
 msgid "Error: "
-msgstr "Lỗi: "
+msgstr "错误："
 
 #: templates/forms/errors.html:37 templates/forms/report_maintenance.html:33
 msgid "If you need to contact us immediately, you can reach us by:"
-msgstr ""
-"Nếu quý vị cần liên hệ với chúng tôi ngay lập tức, quý vị có thể liên hệ với "
-"chúng tôi bằng cách:"
+msgstr "如果您需要立即与我们取得联系，可以通过以下方式联系我们："
 
 #: templates/forms/errors.html:42 templates/forms/report_maintenance.html:38
 msgid "Email"
-msgstr "Email"
+msgstr "电子邮件"
 
 #: templates/forms/errors.html:51 templates/forms/report_maintenance.html:47
 #: templates/partials/footer.html:32
 msgid "(toll-free)"
-msgstr "(số điện thoại miễn phí)"
+msgstr "（免费）"
 
 #: templates/forms/errors.html:52 templates/forms/report_maintenance.html:48
 #: templates/partials/footer.html:33
 msgid "Telephone Device for the Deaf"
-msgstr "Thiết bị Điện thoại dành cho Người khiếm thính"
+msgstr "聋人专线"
 
 #: templates/forms/errors.html:53 templates/forms/report_maintenance.html:49
 #: templates/partials/footer.html:34
 msgid "(TTY)"
-msgstr "(TTY)"
+msgstr "（TTY）"
 
 #: templates/forms/errors.html:68 templates/forms/report_maintenance.html:64
 msgid "Other information"
-msgstr "Các thông tin khác"
+msgstr "其他信息"
 
 #: templates/forms/errors.html:69
 msgid "File a complaint"
-msgstr "Nộp đơn khiếu nại"
+msgstr "投诉"
 
 #: templates/forms/errors.html:71 templates/forms/report_maintenance.html:66
 #: templates/landing.html:125
 msgid "About the Civil Rights Division"
-msgstr "Giới thiệu về Ban Dân Quyền"
+msgstr "关于民权司"
 
 #: templates/forms/errors.html:74 templates/forms/report_maintenance.html:69
 #: templates/landing.html:108
@@ -1521,12 +1401,11 @@ msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
 msgstr ""
-"Nếu quý vị hoặc một người nào đó đang gặp nguy hiểm ngay trước mắt, <a href="
-"\"tel:911\">vui lòng gọi 911 hoặc cảnh sát địa phương</a>."
+"如果您或他人有紧急危险，<a href=\"tel:911\">请拨打 911 或联系当地警方</a>。"
 
 #: templates/forms/portal/progress-bar.html:6
 msgid "progress"
-msgstr "tiến trình"
+msgstr "进展"
 
 #: templates/forms/portal/progress-bar.html:8
 #, python-format
@@ -1537,17 +1416,17 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          Bước hiện tại: %(current_step_name)s. Bước %(stage_number)s của "
+"          当前步骤：%(current_step_name)s. 步骤 %(stage_number)s 的 "
 "%(total_stages)s.\n"
 "        "
 
 #: templates/forms/portal/progress-bar.html:27
 msgid "not completed"
-msgstr "chưa hoàn thành"
+msgstr "未完成"
 
 #: templates/forms/portal/progress-bar.html:29
 msgid "completed"
-msgstr "đã hoàn thành"
+msgstr "已完成"
 
 #: templates/forms/report_base.html:8
 #, python-format
@@ -1556,11 +1435,11 @@ msgid ""
 "        Step %(stage_number)s: %(current_step_name)s - "
 msgstr ""
 "\n"
-"        Bước %(stage_number)s: %(current_step_name)s - "
+"        步骤 %(stage_number)s: %(current_step_name)s - "
 
 #: templates/forms/report_base.html:22
 msgid "Contact the Department of Justice to report a civil rights violation"
-msgstr "Liên hệ với Bộ Tư pháp để báo cáo hành vi vi phạm dân quyền"
+msgstr "联系司法部举报一起侵犯民事权利的行为"
 
 #: templates/forms/report_base.html:55
 #, python-format
@@ -1574,73 +1453,68 @@ msgid_plural ""
 "                "
 msgstr[0] ""
 "\n"
-"                  1 lỗi được tìm thấy\n"
+"                  发现 1 个错误\n"
 "                "
 msgstr[1] ""
 "\n"
-"                  %(counter)s lỗi được tìm thấy\n"
+"                  发现 %(counter)s 个错误\n"
 "                "
 
 #: templates/forms/report_base.html:84
 msgid "Submit"
-msgstr "Gửi"
+msgstr "提交"
 
 #: templates/forms/report_base.html:86
 msgid "Next"
-msgstr "Tiếp theo"
+msgstr "下一步"
 
 #: templates/forms/report_base.html:93 templates/forms/report_review.html:32
 msgid "previous step"
-msgstr "bước trước"
+msgstr "上一步"
 
 #: templates/forms/report_base.html:96 templates/forms/report_review.html:35
 #: templates/partials/redirect-modal.html:21
 msgid "Back"
-msgstr "Quay lại"
+msgstr "返回"
 
 #: templates/forms/report_data.html:21 templates/forms/report_data.html:114
 msgid "Address"
-msgstr "Địa chỉ"
+msgstr "地址"
 
 #: templates/forms/report_data.html:135 templates/forms/report_data.html:141
 msgid "None selected"
-msgstr "Không lựa chọn nào được chọn"
+msgstr "未选择"
 
 #: templates/forms/report_hate_crime.html:13
 #: templates/forms/report_hate_crime.html:18 templates/landing.html:227
 msgid "Were you forced to work against your will?"
-msgstr "Quý vị có bị ép buộc phải làm việc trái ý mình không?"
+msgstr "是否有人违背您的意愿强迫您工作？"
 
 #: templates/forms/report_hate_crime.html:16
 msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
 msgstr ""
-"Buôn bán người bao gồm việc bị cưỡng bức hoặc ép buộc làm việc, hoặc bị "
-"cưỡng bức hoặc ép buộc thực hiện các hành vi tình dục để đổi lấy thứ gì đó "
-"có giá trị."
+"贩卖人口包括被强迫或胁迫从事工作，或遭强迫、胁迫而发生性行为以换取有价值的物"
+"品。"
 
 #: templates/forms/report_hate_crime.html:18 templates/landing.html:227
 msgid "Get help from the National Human Trafficking Hotline"
-msgstr "Yêu cầu trợ giúp từ Đường dây nóng Quốc gia về Buôn bán người"
+msgstr "向全国人口贩卖热线求助"
 
 #: templates/forms/report_maintenance.html:30
 msgid "This page is currently down for maintenance."
-msgstr "Trang này hiện đang ngưng hoạt động để bảo trì."
+msgstr "本页当前已关闭进行维护。"
 
 #: templates/forms/report_maintenance.html:31
 msgid ""
 "We expect to be back shortly. We recommend checking back to report a civil "
 "rights violation."
-msgstr ""
-"Chúng tôi dự kiến sẽ sớm hoạt động trở lại. Chúng tôi khuyến khích quý vị "
-"nên kiểm tra lại để báo cáo hành vi vi phạm dân quyền."
+msgstr "我们预计很快就会完成。我们建议您稍后再回来报告民权侵犯事件。"
 
 #: templates/forms/report_review.html:10
 msgid "Before you submit your report, please check your responses"
-msgstr ""
-"Trước khi quý vị gửi báo cáo của mình, vui lòng kiểm tra các câu trả lời của "
-"quý vị"
+msgstr "提交报告之前，请检查您的回答"
 
 #: templates/forms/report_review.html:12
 msgid ""
@@ -1648,22 +1522,20 @@ msgid ""
 "pages. Please make sure your information is accurate. This allows us to "
 "respond to your report quickly."
 msgstr ""
-"Nếu quý vị cần thực hiện bất kỳ thay đổi nào, quý vị có thể quay lại và "
-"chỉnh sửa các trang trước đó. Hãy chắc chắn rằng thông tin của quý vị là "
-"chính xác. Điều này cho phép chúng tôi hồi đáp lại báo cáo của quý vị một "
-"cách nhanh chóng."
+"如果需要进行任何更改，您可以返回并编辑以前的页面。请确保您的信息准确无误。这"
+"可使我们对您的报告迅速作出反应。"
 
 #: templates/forms/report_review.html:14 templates/forms/report_review.html:26
 msgid "Submit report"
-msgstr "Gửi báo cáo"
+msgstr "提交报告"
 
 #: templates/forms/snippets/preview_button.html:5
 msgid "Edit this page"
-msgstr "Chỉnh sửa trang này"
+msgstr "编辑本页面"
 
 #: templates/forms/widgets/crt_radio_area_option.html:26
 msgid "Examples:"
-msgstr "Ví dụ:"
+msgstr "例如："
 
 #: templates/forms/word_counter.html:4
 #, python-format
@@ -1673,7 +1545,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    %(word_limit)s giới hạn từ.\n"
+"    %(word_limit)s 字数限制.\n"
 "  "
 
 #: templates/forms/word_counter.html:16 templates/forms/word_counter.html:21
@@ -1684,38 +1556,37 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          %(word_limit)s đã đạt đến giới hạn từ\n"
+"          %(word_limit)s 已达到字数限制\n"
 "        "
 
 #: templates/landing.html:29
 msgid "Menu"
-msgstr ""
+msgstr "菜单"
 
 #: templates/landing.html:38
 msgid "About the Division"
-msgstr "Giới thiệu về Ban"
+msgstr "有关民权司"
 
 #: templates/landing.html:43
 msgid "Your rights"
-msgstr "Các quyền của quý vị"
+msgstr "您的权力"
 
 #: templates/landing.html:48 templates/partials/footer.html:69
 msgid "Report a violation"
-msgstr "Báo cáo một vi phạm"
+msgstr "举报一起违法行为"
 
 #: templates/landing.html:53
 msgid "Already submitted?"
-msgstr "Đã gửi?"
+msgstr "已经提交了？"
 
 #: templates/landing.html:58 templates/partials/footer.html:9 views.py:951
 #: views.py:1030 views.py:1049
 msgid "Contact"
-msgstr "Liên Hệ"
+msgstr "联系"
 
 #: templates/landing.html:78
 msgid "We uphold the civil rights of <em>all</em> people in the United States."
-msgstr ""
-"Chúng tôi đề cao quyền công dân của <em>tất cả</em> mọi người dân ở Hoa Kỳ."
+msgstr "我们维护<em>所有</em>身在美国的民众的民事权利。"
 
 #: templates/landing.html:83
 msgid ""
@@ -1724,31 +1595,26 @@ msgid ""
 "status, sex, religion, familial status, or loss of other constitutional "
 "rights."
 msgstr ""
-"Ban Dân quyền thực thi luật liên bang bảo vệ quý vị khỏi sự phân biệt đối xử "
-"dựa trên chủng tộc, màu da, quốc gia xuất xứ, tình trạng khuyết tật, giới "
-"tính, tôn giáo, tình trạng gia đình, hoặc tình trạng mất các quyền hợp hiến "
-"khác của quý vị."
+"民权司执行联邦法律，保护您免受基于种族、肤色、原籍国、残疾状况、性别、宗教、"
+"家庭状况的歧视或丧失其他宪法权利。"
 
 #: templates/landing.html:86
 msgid ""
 "If you believe your civil rights, or someone else’s, have been violated, "
 "submit a report using our online form."
-msgstr ""
-"Nếu quý vị tin rằng dân quyền của mình hoặc của người khác đã bị vi phạm, "
-"hãy gửi báo cáo bằng cách sử dụng mẫu trực tuyến của chúng tôi."
+msgstr "如果您认为您或他人的民事权利受到侵犯，请使用我们的在线表格提交报告。"
 
 #: templates/landing.html:88
 msgid "Start a report"
-msgstr "Bắt đầu báo cáo"
+msgstr "开始报告"
 
 #: templates/landing.html:89
 msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
-msgstr ""
-"hoặc tìm hiểu thêm về các <a href=\"#your-rights\">quyền của quý vị</a>"
+msgstr "或了解更多<a href=\"#your-rights\">你的权利</a>"
 
 #: templates/landing.html:102
 msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
-msgstr "Nếu quý vị đang gặp nguy hiểm, hãy gọi <a href=\"tel:911\">911</a>"
+msgstr "如果你身处危险，请拨打<a href=\"tel:911\">911</a>"
 
 #: templates/landing.html:113
 msgid ""
@@ -1757,26 +1623,23 @@ msgid ""
 "\"external-link--white\" href=\"https://www.fbi.gov/tips\">contact the FBI</"
 "a>."
 msgstr ""
-"Nếu quý vị đang báo cáo hành vi sai trái của cơ quan hành pháp hoặc tin rằng "
-"quý vị đã phải chịu đựng một hành vi phạm tội do thù ghét, vui lòng <a aria-"
-"label=\"contact the FBI\" class=\"external-link--white\" href=\"https://www."
-"fbi.gov/tips\">liên hệ với FBI</a>."
+"如果您要举报执法部门的不当行为或认为自己经历过仇恨犯罪，<a aria-label="
+"\"contact the FBI\" class=\"external-link--white\" href=\"https://www.fbi."
+"gov/tips\">请联系联邦调查局（FBI）</a>。"
 
 #: templates/landing.html:127
 msgid "We protect your rights through:"
-msgstr "Chúng tôi bảo vệ các quyền của quý vị thông qua:"
+msgstr "我们通过以下方式保护您的权力："
 
 #: templates/landing.html:130
 msgid "Enforcement"
-msgstr "Đảm bảo thực thi"
+msgstr "执法"
 
 #: templates/landing.html:132
 msgid ""
 "We sue or prosecute individuals and organizations who violate civil rights "
 "laws."
-msgstr ""
-"Chúng tôi khởi kiện hoặc truy tố những cá nhân và tổ chức vi phạm luật dân "
-"quyền."
+msgstr "我们起诉或控告违反民权法的个人和组织。"
 
 #: templates/landing.html:135
 #, python-format
@@ -1788,47 +1651,40 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"Quý vị có thể giúp chúng tôi thực hiện việc này bằng cách báo cáo một hành "
-"vi vi phạm dân quyền có thể xảy ra thông qua <a href=\"%(report_form_url)s"
-"\">mẫu đơn trực tuyến</a>.\n"
+"您可以通过我们的<a href=\"%(report_form_url)s\">在线表格</a>举报可能侵犯公民"
+"权利的行为来帮助我们完成这项工作.\n"
 "                "
 
 #: templates/landing.html:141
 msgid "Education"
-msgstr "Giáo dục"
+msgstr "教育"
 
 #: templates/landing.html:143
 msgid "We help the public understand how to comply with these laws."
-msgstr "Chúng tôi giúp công chúng hiểu cách tuân thủ các luật này."
+msgstr "我们帮助公众了解如何遵守这些法律。"
 
 #: templates/landing.html:144
 msgid "We do this through public speaking, technical assistance, and more."
-msgstr ""
-"Chúng tôi thực hiện điều này thông qua phát biểu trước công chúng, trợ giúp "
-"kỹ thuật, và những việc làm khác."
+msgstr "我们通过公开演讲、技术援助等方式做到这一点。"
 
 #: templates/landing.html:147
 msgid "Coordination"
-msgstr "Hợp tác"
+msgstr "协调"
 
 #: templates/landing.html:149
 msgid ""
 "We help the entire federal government work together to enforce these laws."
-msgstr ""
-"Chúng tôi giúp toàn bộ chính phủ liên bang phối hợp làm việc cùng nhau để "
-"thực thi các luật này."
+msgstr "我们帮助整个联邦政府共同执行这些法律。"
 
 #: templates/landing.html:150
 msgid ""
 "Our teams work with other agencies to promote a consistent approach to civil "
 "rights laws."
-msgstr ""
-"Các nhóm của chúng tôi làm việc với các cơ quan khác để thúc đẩy cách tiếp "
-"cận nhất quán đối với các luật dân quyền."
+msgstr "我们的团队与其他机构合作，促进对民权法采取一致的做法。"
 
 #: templates/landing.html:162
 msgid "Understanding your rights"
-msgstr "Hiểu các quyền của quý vị"
+msgstr "了解您的权力"
 
 #: templates/landing.html:165
 msgid ""
@@ -1837,11 +1693,9 @@ msgid ""
 "rights_text crt-landing--rights_categories\">housing, the workplace, school, "
 "voting, business, healthcare, public spaces</span>, and more."
 msgstr ""
-"Luật dân quyền có thể bảo vệ quý vị khỏi sự phân biệt đối xử, quấy rối hoặc "
-"lạm dụng bất hợp pháp trong nhiều môi trường khác nhau như <span class=\"crt-"
-"landing--rights_text crt-landing--rights_categories\">nhà ở, nơi làm việc, "
-"trường học, hoạt động bỏ phiếu, doanh nghiệp, chăm sóc sức khỏe, không gian "
-"công cộng</span>, v.v."
+"民权法可以保护您在各种环境中免受非法歧视、骚扰或虐待，例如<span class=\"crt-"
+"landing--rights_text crt-landing--rights_categories\">住所、工作场所、学校、"
+"投票站、企业、医疗保健机构、公共场所</span>等。"
 
 #: templates/landing.html:168
 msgid ""
@@ -1851,92 +1705,87 @@ msgid ""
 "crime</span>, or a victim of <span class=\"crt-landing--rights_categories"
 "\">human trafficking</span>, we can help get you to the right place."
 msgstr ""
-"Nếu quý vị <span class=\"crt-landing--rights_categories\">bị cơ quan hành "
-"pháp ngược đãi</span> (kể cả khi đang bị giam giữ), tin rằng quý vị là nạn "
-"nhân của <span class=\"crt-landing--rights_categories\">hành vi phạm tội do "
-"thù ghét</span> hoặc nạn nhân của <span class=\"crt-landing--"
-"rights_categories\">nạn buôn người</span>, chúng tôi có thể giúp đưa quý vị "
-"đến đúng nơi."
+"如果您被<span class=\"crt-landing--rights_categories\">执法部门的不当对待</"
+"span>（包括在监禁期间）、相信自己是<span class=\"crt-landing--"
+"rights_categories\">仇恨犯罪</span>的受害者，或者是<span class=\"crt-"
+"landing--rights_categories\">人口贩卖</span>的受害者，我们可以帮助您找到适当"
+"的机构联络。"
 
 #: templates/landing.html:184
 msgid "Choose from this list to see example civil rights violations:"
-msgstr "Chọn từ danh sách này để xem ví dụ về các hành vi vi phạm dân quyền:"
+msgstr "从该列表中进行选择，以查看侵犯公民权利的示例："
 
 #: templates/landing.html:219
 msgid "Examples"
-msgstr "Các ví dụ"
+msgstr "例子"
 
 #: templates/landing.html:236
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
 msgstr ""
-"Nếu quý vị cho rằng mình đã trải qua trường hợp tương tự, hãy tìm hiểu <a "
-"href=\"#crt-landing--reporting\">cách báo cáo hành vi vi phạm dân quyền</a>."
+"如果您认为自己经历过类似的情况，请了解<a href=\"#crt-landing--reporting\">如"
+"何举报侵犯公民权利的行为</a>。"
 
 #: templates/landing.html:246
 msgid "Protected by civil rights laws"
-msgstr "Được các luật dân quyền bảo vệ"
+msgstr "受到民权法的保护"
 
 #: templates/landing.html:248
 msgid "These are the most common characteristics that are legally protected."
-msgstr "Đây là những đặc điểm chung nhất được bảo vệ hợp pháp."
+msgstr "这些是受法律保护的最常见特征。"
 
 #: templates/landing.html:251
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
 msgstr ""
-"Tình trạng khuyết tật <span class=\"crt-landing--protected\">bao gồm tạm "
-"thời hoặc đang phục hồi</span>"
+"残疾，<span class=\"crt-landing--protected\">包括暂时的或正在恢复中的残疾</"
+"span>"
 
 #: templates/landing.html:253
 msgid "Sex, gender identity, and sexual orientation"
-msgstr "Giới tính, nhận dạng giới tính, và xu hướng tình dục"
+msgstr "性别、性别认同和性取向"
 
 #: templates/landing.html:254
 msgid "Immigration/citizenship status"
-msgstr "Tình trạng nhập cư/tư cách công dân"
+msgstr "移民/公民身份"
 
 #: templates/landing.html:255
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
 msgstr ""
-"Ngôn ngữ và quốc gia xuất xứ <span class=\"crt-landing--protected\">bao gồm "
-"tổ tiên và dân tộc</span>"
+"语言和原籍国，<span class=\"crt-landing--protected\">包括祖先和种族</span>"
 
 #: templates/landing.html:256
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
 msgstr ""
-"Tình trạng gia đình, hôn nhân, hay làm cha mẹ <span class=\"crt-landing--"
-"protected\">bao gồm cả tình trạng mang thai</span>"
+"家庭、婚姻或父母状况，<span class=\"crt-landing--protected\">包括怀孕</span>"
 
 #: templates/landing.html:258
 msgid "Genetic identification"
-msgstr "Nhận dạng di truyền"
+msgstr "基因识别信息"
 
 #: templates/landing.html:259
 msgid "Servicemember status"
-msgstr "Tình trạng quân vụ"
+msgstr "服役人员状态"
 
 #: templates/landing.html:273
 msgid "How to report a civil rights violation"
-msgstr "Cách báo cáo một hành vi vi phạm dân quyền"
+msgstr "如何举报违反民权的行为"
 
 #: templates/landing.html:278
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
-msgstr ""
-"Nếu quý vị tin rằng quý vị hoặc người khác đã bị phân biệt đối xử bất hợp "
-"pháp, quý vị có thể báo cáo một hành vi vi phạm dân quyền."
+msgstr "如果您认为您或他人遭受非法歧视，可以举报侵犯民事权利的行为。"
 
 #: templates/landing.html:287
 msgid "Report using our online form."
-msgstr "Báo cáo bằng cách sử dụng mẫu trực tuyến của chúng tôi."
+msgstr "使用我们的在线表格进行举报。"
 
 #: templates/landing.html:288
 msgid ""
@@ -1944,14 +1793,12 @@ msgid ""
 "understand what happened. You will receive a confirmation number and your "
 "report is immediately sent to our staff for review."
 msgstr ""
-"Bằng cách hoàn thành mẫu đơn trực tuyến, quý vị có thể cung cấp các chi tiết "
-"mà chúng tôi cần để hiểu điều gì đã xảy ra. Quý vị sẽ nhận được một số xác "
-"nhận và báo cáo của quý vị ngay lập tức được gửi đến nhân viên của chúng tôi "
-"để đánh giá."
+"通过填写在线表格，您可以提供我们需要了解的详细信息。您将收到一个确认号码，您"
+"的报告将立即发送给我们的工作人员进行审核。"
 
 #: templates/landing.html:296
 msgid "We review your report."
-msgstr "Chúng tôi sẽ đánh giá báo cáo của quý vị."
+msgstr "我们对您的报告进行审查。"
 
 #: templates/landing.html:297
 msgid ""
@@ -1959,13 +1806,12 @@ msgid ""
 "needs to be forwarded to another team or agency, we will try to connect your "
 "complaint to the right group."
 msgstr ""
-"Các nhóm chuyên trách xử lý loại vấn đề của quý vị sẽ xem xét vấn đề đó. Nếu "
-"vụ việc cần được chuyển tiếp đến một nhóm hoặc cơ quan khác, chúng tôi sẽ cố "
-"gắng kết nối khiếu nại của quý vị với đúng nhóm."
+"专门处理此类问题的团队将对其进行审查。如果需要转发给其他团队或机构，我们将尝"
+"试将您的报告转至相应的团体。"
 
 #: templates/landing.html:305
 msgid "We determine next steps and get back to you."
-msgstr "Chúng tôi xác định các bước tiếp theo và liên hệ lại với quý vị."
+msgstr "我们会决定下一步，然后再与您联系。"
 
 #: templates/landing.html:306
 msgid ""
@@ -1973,19 +1819,16 @@ msgid ""
 "mediation or investigation, directing you to another organization for "
 "further help, or informing you that we cannot help."
 msgstr ""
-"Các kết quả có thể xảy ra bao gồm: theo dõi để biết thêm thông tin, bắt đầu "
-"hòa giải hoặc điều tra, chuyển quý vị đến một tổ chức khác để được trợ giúp "
-"thêm hoặc thông báo cho quý vị rằng chúng tôi không thể giúp đỡ."
+"可能的结果包括：跟进了解更多信息、开始调解或调查、介绍您到另一个组织寻求进一"
+"步帮助，或通知您我们无法提供帮助。"
 
 #: templates/landing.html:325
 msgid "Have you or someone you know experienced a civil rights violation?"
-msgstr ""
-"Quý vị hoặc một người nào đó mà quý vị biết có từng bị vi phạm dân quyền "
-"không?"
+msgstr "您或您认识的人是否有过侵犯公民权利的经历？"
 
 #: templates/landing.html:326
 msgid "Submit a report"
-msgstr "Gửi báo cáo"
+msgstr "提交报告"
 
 #: templates/landing.html:331
 msgid ""
@@ -1993,17 +1836,16 @@ msgid ""
 "\">call</a> to report a violation or report a violation by <a href="
 "\"#address-footer\">mail</a>."
 msgstr ""
-"Nếu quý vị không thể truy cập vào mẫu trực tuyến, quý vị có thể <a href="
-"\"#phone-footer\">gọi điện</a> để báo cáo hành vi vi phạm hoặc báo cáo hành "
-"vi vi phạm qua <a href=\"#address-footer\">thư</a>."
+"如果您无法访问在线表格，可以<a href=\"#phone-footer\">打电话</a>或<a href="
+"\"#address-footer\">通过邮件</a>报告违规行为。"
 
 #: templates/landing.html:341
 msgid "Already submitted a report?"
-msgstr "Quý vị đã gửi báo cáo?"
+msgstr "已经提交了报告？"
 
 #: templates/landing.html:344
 msgid "Here's what to expect."
-msgstr "Dưới đây là những việc sẽ xảy ra."
+msgstr "这里是后续流程。"
 
 #: templates/landing.html:348
 msgid ""
@@ -2012,26 +1854,22 @@ msgid ""
 "about the outcome of our review. However, we may not always be able to "
 "provide you with updates because:"
 msgstr ""
-"<strong>Cảm ơn quý vị đã báo cáo.</strong> Chúng tôi đọc kỹ từng điều một để "
-"xác định xem chúng tôi có đủ thẩm quyền để trợ giúp hay không. Chúng tôi sẽ "
-"cố gắng hết sức để thông báo cho quý vị biết về kết quả đánh giá của chúng "
-"tôi. Tuy nhiên, không phải lúc nào chúng tôi cũng có thể cung cấp cho quý vị "
-"các thông tin cập nhật vì:"
+"<strong>感谢您的报告。</strong>我们会仔细阅读每一份报告，以确定我们是否有权提"
+"供帮助。我们会尽最大努力让您了解我们的审查结果。但是，我们可能无法向您提供进"
+"度更新，因为："
 
 #: templates/landing.html:350
 msgid ""
 "We're actively working on an investigation or case related to your report."
-msgstr ""
-"Chúng tôi đang tích cực tiến hành một cuộc điều tra hoặc đang xử lý một "
-"trường hợp liên quan đến báo cáo của quý vị."
+msgstr "我们正在积极调查与您的报告有关的案件。"
 
 #: templates/landing.html:351
 msgid "We're receiving and actively reviewing many reports at the same time."
-msgstr "Chúng tôi đang nhận và tích cực đánh giá nhiều báo cáo cùng một lúc."
+msgstr "我们同时收到很多需要积极极审查的大量请求。"
 
 #: templates/landing.html:358
 msgid "Need urgent legal help?"
-msgstr "Quý vị cần hỗ trợ pháp lý khẩn cấp?"
+msgstr "需要紧急法律援助？"
 
 #: templates/landing.html:360
 msgid ""
@@ -2039,10 +1877,8 @@ msgid ""
 "respond to your issue. Local legal aid offices or lawyers in your area may "
 "be able to quickly respond to or help with your concern"
 msgstr ""
-"Do chúng tôi nhận được số lượng lớn các báo cáo, có thể mất vài tuần để "
-"chúng tôi hồi đáp vấn đề của quý vị. Văn phòng hỗ trợ pháp lý địa phương "
-"hoặc luật sư trong khu vực của quý vị có thể nhanh chóng hồi đáp hoặc giúp "
-"đỡ quý vị về mối quan ngại của quý vị"
+"鉴于我们收到的报告量，我们可能会需要几个星期才能对您的问题作出回应。您所在地"
+"区的当地法律援助办公室或律师可能可以迅速回应或帮助您解决问题"
 
 #: templates/landing.html:361
 msgid ""
@@ -2051,10 +1887,10 @@ msgid ""
 "lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> or call <a href="
 "\"tel:202-295-1500\">(202) 295-1500</a>."
 msgstr ""
-"Liên hệ với Legal Services Corporation tại <a aria-label=\"www.lsc.gov/find-"
-"legal-aid\" class=\"external-link--blue external-link--popup\" href="
-"\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> hoặc gọi "
-"<a href=\"tel:202-295-1500\">(202) 295-1500</a>."
+"联系法律服务公司 <a aria-label=\"www.lsc.gov/find-legal-aid\" class="
+"\"external-link--blue external-link--popup\" href=\"https://www.lsc.gov/find-"
+"legal-aid\">lsc.gov/find-legal-aid</a> 或致电<a href="
+"\"tel:202-295-1500\">（202）295-1500</a>。"
 
 #: templates/landing.html:362
 msgid ""
@@ -2063,31 +1899,30 @@ msgid ""
 "findlegalhelp.org</a> or call <a href=\"tel:800-285-2221\">(800) 285-2221</"
 "a> to find a lawyer through the American Bar Association."
 msgstr ""
-"Hoặc truy cập <a class=\"external-link--blue external-link--popup\" aria-"
-"label=\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
-"findlegalhelp.org</a> hoặc gọi <a href=\"tel:800-285-2221\">(800) 285-2221</"
-"a> để tìm luật sư thông qua Hiệp hội Luật sư Hoa Kỳ."
+"还可以访问 <a class=\"external-link--blue external-link--popup\" aria-label="
+"\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
+"findlegalhelp.org</a>，或者致电<a href=\"tel:800-285-2221\">(800) 285-2221</"
+"a>，通过美国律师协会寻找律师。"
 
 #: templates/landing.html:376
 msgid "Image attributions"
-msgstr "Mô tả ảnh"
+msgstr "图像来源"
 
 #: templates/partials/banner/usa_banner_content.html:7
 msgid "The .gov means it’s official."
-msgstr ".Gov có nghĩa là chính thức."
+msgstr "“.gov”表示官方机构。"
 
 #: templates/partials/banner/usa_banner_content.html:8
 msgid ""
 "Federal government websites often end in .gov or .mil. Before sharing "
 "sensitive information, make sure you’re on a federal government site."
 msgstr ""
-"Các trang web của chính phủ liên bang thường kết thúc bằng .gov hoặc .mil. "
-"Trước khi chia sẻ thông tin nhạy cảm, hãy đảm bảo rằng quý vị đang ở trên "
-"trang web của chính phủ liên bang."
+"联邦政府网站通常以“.gov”或“.mil”结尾。分享敏感信息之前，请确保您在联邦政府网"
+"站上。"
 
 #: templates/partials/banner/usa_banner_content.html:16
 msgid "The site is secure."
-msgstr "Trang web này được bảo mật."
+msgstr "该站点较为安全。"
 
 #: templates/partials/banner/usa_banner_content.html:17
 msgid ""
@@ -2095,66 +1930,65 @@ msgid ""
 "official website and that any information you provide is encrypted and "
 "transmitted securely."
 msgstr ""
-"Giao thức <strong>https://</strong> đảm bảo rằng quý vị đang kết nối với "
-"trang web chính thức và mọi thông tin quý vị cung cấp đều được mã hóa và "
-"truyền đi một cách an toàn."
+"<strong>https://</strong> 可确保您连接到官方网站，您提供的任何信息都经过加密"
+"并可安全传输。"
 
 #: templates/partials/banner/usa_banner_header.html:9
 msgid "An official website of the United States government"
-msgstr "Một trang web chính thức của chính phủ Hoa Kỳ"
+msgstr "美国政府的官方网站"
 
 #: templates/partials/banner/usa_banner_header.html:10
 #: templates/partials/banner/usa_banner_header.html:13
 msgid "Here’s how you know"
-msgstr "Đây là cách để quý vị biết"
+msgstr "通过以下方式辨识"
 
 #: templates/partials/footer.html:47
 msgid "Availability of Language Assistance Services"
-msgstr "Các Dịch vụ Hỗ trợ Ngôn ngữ sẵn có"
+msgstr "提供语言援助服务"
 
 #: templates/partials/footer.html:59
 msgid "Links"
-msgstr "Các liên kết"
+msgstr "链接"
 
 #: templates/partials/footer.html:66
 msgid "About the division"
-msgstr "Giới thiệu về ban"
+msgstr "有关民权司"
 
 #: templates/partials/footer.html:72
 msgid "Privacy policy"
-msgstr "Chính sách quyền riêng tư"
+msgstr "隐私政策"
 
 #: templates/partials/footer.html:75
 msgid "FOIA"
-msgstr "FOIA (Freedom of Information Act, Đạo Luật Tự Do Thông Tin)"
+msgstr "《信息自由法》（FOIA）"
 
 #: templates/partials/footer.html:78
 msgid "Accessibility"
-msgstr "Khả Năng Tiếp Cận"
+msgstr "便利措施"
 
 #: templates/partials/footer.html:90
 msgid "Office of Inspector General"
-msgstr "Văn phòng Tổng Thanh tra"
+msgstr "监察长办公室"
 
 #: templates/partials/footer.html:93
 msgid "Budget and performance"
-msgstr "Ngân sách và hiệu quả"
+msgstr "预算和业绩"
 
 #: templates/partials/footer.html:96
 msgid "Legal policies and Disclaimers"
-msgstr "Chính sách pháp lý và Tuyên bố miễn trách nhiệm"
+msgstr "法律政策和免责声明"
 
 #: templates/partials/i8n.html:15
 msgid "Go"
-msgstr ""
+msgstr "前往"
 
 #: templates/partials/menu_language_selection.html:36
 msgid "More Language Assistance Services"
-msgstr "Còn Nhiều Dịch Vụ Hỗ Trợ Ngôn Ngữ Khác Nữa"
+msgstr "更多的语言协助服务"
 
 #: templates/partials/policy.html:9
 msgid "Privacy Policy"
-msgstr "Chính sách Quyền Riêng tư"
+msgstr "隐私政策"
 
 #: templates/partials/policy.html:16
 #, python-format
@@ -2172,36 +2006,30 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"            Mục đích của mẫu này là cho phép công chúng gửi khiếu nại về dân "
-"quyền đến Bộ Tư pháp, nhờ đó cho phép chúng tôi thực thi hơn ba mươi <a href="
-"\"%(privacy_policy_url)s#our-statutes\">quy chế về dân quyền</a> trong thẩm "
-"quyền của chúng tôi. Các quy chế này cho phép chúng tôi thu thập thông tin.  "
-"Quý vị nên biết rằng bất kỳ thông tin nào quý vị cung cấp qua mẫu này đều là "
-"tự nguyện, tuy nhiên việc không cung cấp một số thông tin có thể hạn chế khả "
-"năng của Bộ trong việc tìm hiểu về khiếu nại của quý vị. Chúng tôi có thể sử "
-"dụng thông tin này cho các mục đích sử dụng thông thường nhất định, bao gồm "
-"cả việc chia sẻ thông tin này trong một số trường hợp nhất định với:\n"
+"            此表格旨在让公众向司法部提交民权投诉，从而使我们能够在职权范围内"
+"执行三十多项<a href=\"%(privacy_policy_url)s#our-statutes\">民权法规</a>。这"
+"些法规授权我们收集这些信息。您应该知道，您通过此表格提供的任何信息都是自愿"
+"的，但是，如果您未能提供某些信息，则可能会限制该部门继续处理您的案件的能力。"
+"我们可以将此信息用于某些常规用途，包括在某些情况下与以下人员共享此信息：\n"
 "            "
 
 #: templates/partials/policy.html:20
 msgid "contractors who work with us, if they need it to perform a contract;"
-msgstr "các nhà thầu làm việc với chúng tôi, nếu họ cần để thực hiện hợp đồng;"
+msgstr "与我们合作的承包商（如果他们需要履行合同）；"
 
 #: templates/partials/policy.html:21
 msgid ""
 "a court, magistrate, or administrative tribunal, as well as opposing counsel "
 "during settlement negotiations and/or litigation;"
-msgstr ""
-"tòa án, quan tòa, hoặc tòa án hành chính, cũng như luật sư đối phương trong "
-"quá trình đàm phán dàn xếp và/hoặc kiện tụng;"
+msgstr "法庭、治安法官或行政法庭，以及和解谈判和/或诉讼期间对方的律师；"
 
 #: templates/partials/policy.html:22
 msgid "Members of Congress;"
-msgstr "Các Thành viên của Quốc hội;"
+msgstr "国会议员；"
 
 #: templates/partials/policy.html:23
 msgid "Federal, state, or local law enforcement agencies."
-msgstr "Các cơ quan hành pháp của liên bang, tiểu bang, hoặc địa phương."
+msgstr "联邦、州或地方执法机构。"
 
 #: templates/partials/policy.html:27
 #, python-format
@@ -2209,17 +2037,15 @@ msgid ""
 "You can find our complete <a href=\"%(privacy_policy_url)s\">Privacy Policy "
 "here</a>."
 msgstr ""
-"Quý vị có thể tìm thấy <a href=\"%(privacy_policy_url)s\">Chính sách Quyền "
-"riêng tư</a> đầy đủ của chúng tôi <a href=\"%(privacy_policy_url)s\">tại "
-"đây</a>."
+"您可以在这里找到我们完整的<a href=\"%(privacy_policy_url)s\">隐私政策</a>。"
 
 #: templates/partials/redirect-modal.html:8
 msgid "You are now leaving the Department of Justice website."
-msgstr "Bây giờ quý vị đang rời khỏi trang web của Bộ Tư pháp."
+msgstr "您即将离开司法部的网站。"
 
 #: templates/partials/redirect-modal.html:13
 msgid "You will automatically be redirected to:"
-msgstr "Quý vị sẽ tự động được chuyển hướng đến:"
+msgstr "您将被自动转到："
 
 #: templates/partials/redirect-modal.html:18
 msgid ""
@@ -2228,14 +2054,12 @@ msgid ""
 "control over, the accuracy, accessibility, copyright or trademark compliance "
 "or legality of the material contained on this site."
 msgstr ""
-"Bộ Tư pháp không xác nhận các tổ chức hoặc quan điểm được đại diện bởi trang "
-"web này và không chịu trách nhiệm cũng như không kiểm soát tính chính xác, "
-"khả năng truy cập, tuân thủ bản quyền hoặc thương hiệu hoặc tính hợp pháp "
-"của tài liệu có trên trang web này."
+"司法部不认可本网站所代表的组织或观点，对本网站所载材料的准确性、可访问性、版"
+"权或商标合规性或合法性均不承担任何责任，也没有任何控制能力。"
 
 #: templates/partials/redirect-modal.html:22
 msgid "Continue"
-msgstr "Tiếp tục"
+msgstr "接上页"
 
 #: templates/partials/unsupported-browser-modal.html:10
 msgid ""
@@ -2245,9 +2069,8 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"<strong>LƯU Ý: trình duyệt trên điện thoại di động của quý vị không tương "
-"thích với mẫu này</strong> và quý vị có thể gặp trở ngại khi nộp đơn.\n"
-"          "
+"<strong>提示：您移动设备上的浏览器和此表不兼容</strong>，您可能会在提交表格时"
+"遇到问题。          "
 
 #: templates/partials/unsupported-browser-modal.html:15
 msgid ""
@@ -2258,27 +2081,26 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"          Vui lòng tải xuống phiên bản mới nhất của Google Chrome, Mozilla "
-"Firefox, Safari, hoặc Microsoft Edge. <a id=\"ub_contact\" href=\"#contact-"
-"crt\">Quý vị cũng có thể liên lạc với chúng tôi qua điện thoại hoặc gửi thư "
-"đến đây.</a>\n"
+"          请考虑下载最新版本的Google Chrome, Mozilla Firefox, Safari, or "
+"Microsoft Edge。<a id=\"ub_contact\" href=\"#contact-crt\">您也可以在此用电话"
+"或邮件和我们联络。</a>\n"
 "          "
 
 #: templates/privacy.html:7 templates/privacy.html:13
 msgid "Civil Rights Division - Department of Justice - Privacy Policy"
-msgstr "Ban Dân Quyền - Bộ Tư pháp - Chính sách Quyền riêng tư"
+msgstr "民权司 - 司法部 - 私隐政策"
 
 #: templates/privacy.html:23 templates/privacy.html:34
 msgid "Privacy Act Statement"
-msgstr "Tuyên bố về Đạo luật về Quyền Riêng tư"
+msgstr "隐私法案声明"
 
 #: templates/privacy.html:26
 msgid "Your information"
-msgstr "Thông tin của quý vị"
+msgstr "您的信息"
 
 #: templates/privacy.html:29
 msgid "Our Statutes"
-msgstr "Các Quy chế của Chúng tôi"
+msgstr "我们的法规"
 
 #: templates/privacy.html:37
 msgid ""
@@ -2286,9 +2108,8 @@ msgid ""
 "Justice’s Civil Rights Division (“us,” “we”) enforce the federal civil "
 "rights statutes within its authority."
 msgstr ""
-"Thông tin quý vị cung cấp qua mẫu này sẽ giúp Ban Dân quyền của Bộ Tư pháp "
-"(“chúng tôi”) thực thi các quy chế về dân quyền của liên bang trong thẩm "
-"quyền của mình."
+"您通过本表格提供的信息将有助于司法部民权司（“我们”）在其职权范围内执行联邦民"
+"权法规。"
 
 #: templates/privacy.html:40
 msgid ""
@@ -2296,9 +2117,8 @@ msgid ""
 "provide on this form for certain routine purposes. These include sharing "
 "with:"
 msgstr ""
-"Ngoài các nỗ lực đảm bảo thực thi của chúng tôi, chúng tôi có thể sử dụng "
-"thông tin quý vị cung cấp trong mẫu này cho các mục đích thông thường nhất "
-"định. Các mục đích này bao gồm việc chia sẻ với:"
+"除了我们的执法工作外，我们可能会将您在此表格中提供的信息用于某些例行用途。其"
+"中包括与以下人员共享："
 
 #: templates/privacy.html:42
 msgid ""
@@ -2334,37 +2154,30 @@ msgid ""
 msgstr ""
 "\n"
 "                    <li>\n"
-"                        tòa án, quan tòa hoặc tòa án hành chính, bao gồm cả "
-"việc tiết lộ cho luật sư đối phương trong quá trình đàn phám dàn xếp;\n"
+"法庭、治安法官或行政法庭，包括在和解谈判过程中向对方律师披露的信息；\n"
 "                    </li>\n"
 "                    <li>\n"
-"                        một thành viên của Quốc hội gửi một yêu cầu liên "
-"quan đến một cá nhân, mà hồ sơ liên quan đến họ, khi cá nhân đó đã yêu cầu "
-"sự hỗ trợ từ Thành viên liên quan đến đối tượng chủ thể của hồ sơ.\n"
+"国会议员提交涉及个人的请求，而我们所持有的记录与此士有关，而且此人请求国会议"
+"员就记录中的主题事项提供协助。\n"
 "                    </li>\n"
 "                    <li>\n"
-"                        nhà thầu với Bộ Tư pháp, người cần tiếp cận thông "
-"tin để thực hiện hợp đồng. Người nhận thông tin phải tuân thủ các yêu cầu "
-"của Đạo luật về Quyền riêng tư năm 1974, đã được sửa đổi, theo 5 U.S.C. "
-"552a(m).\n"
+"司法部的承包商，为了履行合同需要获取信息。根据 5 U.S.C.552a（m）的规定，信息"
+"接收者应遵守经修订的 1974 年《隐私法》的要求。\n"
 "                    </li>\n"
 "                    <li>\n"
-"                        một cơ quan hành pháp của Liên bang, Tiểu bang, hoặc "
-"địa phương, nếu chúng tôi phát hiện ra vi phạm hoặc có khả năng vi phạm pháp "
-"luật hoặc quy định nằm ngoài phạm vi quyền hạn của chúng tôi.\n"
+"联邦、州或地方执法机构（如果我们意识到违反或可能违反我们管辖范围以外的法律或"
+"法规）。\n"
 "                    </li>\n"
 "                    "
 
 #: templates/privacy.html:65
 msgid ""
 "For a complete list of routine agency uses, please consult the following:"
-msgstr ""
-"Để có danh sách đầy đủ các mục đích sử dụng thông thường của cơ quan, vui "
-"lòng tham khảo phần dưới đây:"
+msgstr "有关机构例行使用的完整列表，请参考以下内容："
 
 #: templates/privacy.html:84
 msgid "You should also know that:"
-msgstr "Quý vị cũng cần biết rằng:"
+msgstr "此外，您还应了解："
 
 #: templates/privacy.html:86
 msgid ""
@@ -2382,28 +2195,25 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"                    <li>Bất kỳ thông tin nào quý vị cung cấp cho chúng tôi "
-"thông qua mẫu này đều là tự nguyện.</li>\n"
-"                    <li>Nếu quý vị chọn không cung cấp thông tin chúng tôi "
-"yêu cầu trong mẫu này, chúng tôi có thể không\n"
-"                        đánh giá hoặc thực hiện hành động dựa trên báo cáo "
-"của quý vị.</li>\n"
-"                    <li>Chúng tôi sẽ xử lý thông tin quý vị cung cấp trong "
-"mẫu này một cách bí mật, trong phạm vi chúng tôi\n"
-"                        được phép theo Đạo luật Tự do Thông tin (5 U.S.C. "
-"552) và Đạo luật về Quyền Riêng Tư (5 U.S.C. 552a).\n"
+"                    <li>您通过此表格向我们提供的任何信息都是自愿的。</li>\n"
+"                    <li>如果您选择不提供我们在此表格中要求的信息，我们可能会"
+"无法</li>\n"
+"                    <li>根据您的报告进行评估或采取行动。\n"
+"                    在《信息自由法》（5 U.S.C.552）和《隐私法》（5 U.S."
+"C.552a）\n"
+"                        允许的范围内，我们将对您在此表格中提供的信息保密。\n"
 "                    </li>\n"
 "                    "
 
 #: templates/privacy.html:97 templates/privacy.html:168
 msgid "Return to top"
-msgstr "Trở về đầu trang"
+msgstr "返回顶部"
 
 #: templates/privacy.html:108
 msgid ""
 "We are authorized to collect this information pursuant to the following "
 "statutes:"
-msgstr "Chúng tôi được phép thu thập thông tin này theo các quy chế sau:"
+msgstr "我们有权根据以下法规收集这些信息："
 
 #: templates/privacy.html:110
 msgid ""
@@ -2493,89 +2303,86 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"                    <li>Hành vi Sai trái Chính thức, 18 U.S.C. §§ 241, 242</"
+"                    <li>官方不当行为，《美国法典》第 18 卷第 241、242 条</"
 "li>\n"
-"                    <li>Matthew Shepard và, James Byrd, Jr., Đạo luật Phòng "
-"ngừa Tội phạm Thù ghét năm 2009, Bộ luật Hoa Kỳ 18 § 249, và các tài liệu "
-"tiếp theo.</li>\n"
-"                    <li>Các Hoạt động được Bảo vệ của Liên bang, 18 U.S.C. § "
-"245</li>\n"
-"                    <li>Can thiệp Hình sự vào Quyền có Nhà ở Công bằng, 18 U."
-"S.C. § 3631</li>\n"
-"                    <li>Thiệt hại Tài sản Tôn giáo, 18 U.S.C. § 247</li>\n"
-"                    <li>Các Quy chế Chống Buôn bán người, bao gồm:</li>\n"
+"                    <li>Matthew Shepard 和 James Byrd，Jr.，2009 年《仇恨犯罪"
+"预防法案》，《美国法典》第 18 卷第 249 条及以下</li>\n"
+"                    <li>联邦保护活动，《美国法典》第 18 卷第 245 条</li>\n"
+"                    <li>对公平住房权的刑事干预，《美国法典》第 18 卷第 3631 "
+"条</li>\n"
+"                    <li>对宗教财产的损害，《美国法典》第 18 卷第 247 条</"
+"li>\n"
+"                    <li>反贩卖法令，包括：\n"
 "                        <ul>\n"
-"                            <li>18 U.S.C. § 1581 (Con nợ)</li>\n"
-"                            <li>18 U.S.C. § 1584 (Nô lệ Không tự nguyện)</"
+"                            <li>《美国法典》第 18 卷第 1581 条（苦工）</li>\n"
+"                            <li>《美国法典》第 18 卷第 1584 条（非自愿劳役）"
+"</li>\n"
+"                            <li>《美国法典》第 18 卷第 1589 条（强迫劳动）</"
 "li>\n"
-"                            <li>18 U.S.C. § 1589 (Lao động Cưỡng bức)</li>\n"
-"                            <li>18 U.S.C. § 1590 (Buôn bán Liên quan đến Con "
-"nợ, Nô lệ, Nô lệ Không tự nguyện hoặc Lao động Cưỡng bức)</li>\n"
-"                            <li>18 U.S.C. § 1591 (Buôn bán Tình dục Trẻ em "
-"hoặc bằng Bạo lực, Lừa gạt, hoặc Ép buộc)</li>\n"
-"                            <li>18 U.S.C. § 1592 (Hành vi Bất hợp pháp Liên "
-"quan đến các Tài liệu về Buôn bán, Con nợ, Nô lệ, Nô lệ Không tự nguyện, "
-"hoặc Lao động Cưỡng bức)</li>\n"
-"                            <li>18 U.S.C. § 1593 (Bồi thường Bắt buộc)</li>\n"
-"                            <li>18 U.S.C. § 1594 (Xâm phạm và Tước quyền)</"
+"                            <li>《美国法典》第 18 卷第 1590 条（与苦工、奴"
+"役、非自愿劳役或强迫劳动有关的人口贩卖）</li>\n"
+"                            <li>《美国法典》第 18 卷第 1591 条（对儿童进行性"
+"贩卖或通过暴力、欺诈或胁迫进行性贩卖）</li>\n"
+"                            <li>《美国法典》第 18 卷第 1592 条（有关助长贩"
+"卖、苦工、奴役、非自愿劳役或强迫劳动文件的不法行为）</li>\n"
+"                            <li>《美国法典》第 18 卷第 1593 条（强制赔偿）</"
 "li>\n"
-"                            <li>18 U.S.C. § 1595 (Quyền Hành động Riêng tư)</"
+"                            <li>《美国法典》第 18 卷第 1594 条（意图与没收）"
+"</li>\n"
+"                            <li>《美国法典》第 18 卷第 1595 条（私人诉讼权）"
+"</li>\n"
+"                            <li>《美国法典》第 18 卷第 2423 条（运送未成年人"
+"卖淫）</li>\n"
+"                            <li>《美国法典》第 18 卷第 1546 条（签证欺诈）</"
 "li>\n"
-"                            <li>18 U.S.C. § 2423 (Vận chuyển Trẻ vị Thành "
-"niên vào Mại dâm)</li>\n"
-"                            <li>18 U.S.C. § 1546 (Gian lận Visa)</li>\n"
 "                        </ul>\n"
 "                    </li>\n"
-"                    <li>Đạo luật về Quyền Tự do Tiếp cận Lối vào Phòng khám "
-"(FACE), 18 U.S.C. § 248</li>\n"
-"                    <li>Bảo vệ Hình sự cho Quyền Bầu cử, 18 U.S.C. § 594</"
+"                    <li>《自由进入诊所法》（FACE）、《美国法典》第 18 卷第 "
+"248 条</li>\n"
+"                    <li>《投票权的刑事保护》、《美国法典》第 18 卷第 594 条</"
 "li>\n"
-"                    <li>Đạo luật về Người Mỹ Khuyết tật, các Title I-III, 42 "
-"U.S.C. § 126, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Phục hồi năm 1973, 29 U.S.C. § 701, và các "
-"tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Dân quyền năm 1964, các Title II, IV, VI, "
-"VII</li>\n"
-"                    <li>Đạo Luật Quyền Được Tuyển Dụng và Tái Tuyển Dụng của "
-"Quân Nhân (USERRA), 38 U.S.C. § 4301, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật về Cơ hội Giáo dục Bình đẳng năm 1974 "
-"(EEOA), 20 USC § 1701, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Giáo dục Người Khuyết tật (IDEA), 20 USC § "
-"1400, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Tu chính về Giáo dục năm 1972, Title IX, 20 U.S.C. § "
-"1681, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Gia cư Công (FHA), 42 U.S.C. § 3601, và các "
-"tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Cơ hội Tín dụng Bình đẳng (ECOA), 15 U.S.C. "
-"§ 1691, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Sử dụng Đất Tôn giáo và dành cho Người ở Cơ "
-"sở Tập trung (RLUIPA), 42 U.S.C. § 2000cc, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Miễn Giảm Trách Nhiệm Dân Sự của Quân Nhân "
-"(SCRA), 50 U.S.C. § 3901, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật về Nhập cư và Quốc tịch § 274B, 8 U.S.C. "
-"§ 1324b</li>\n"
-"                    <li>Đạo luật về Quyền công dân của Những người Ở Cơ sở "
-"Tập trung (CRIPA), 42 U.S.C. § 1997, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Kiểm soát Tội phạm Bạo lực và Thực thi Pháp "
-"luật, 36 U.S.C. 12601, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật về Tội phạm Omnibus và Đường phố An toàn, "
-"34 U.S.C. § 10101, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật về Quyền Bỏ phiếu, 52 U.S.C. § 10101, và "
-"các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật về Việc Tiếp cận Bỏ phiếu cho Người cao "
-"tuổi và Người khuyết tật, 42 U.S.C. § 1973ee, và các tài liệu tiếp theo.</"
+"                    <li>《美国残疾人法案》第一至第三编、《美国法典》第 42 卷"
+"第 126 条及以下</li>\n"
+"                    <li>1973 年《康复法》，《美国法典》第 29 卷第 701 条及以"
+"下。</li>\n"
+"                    <li>1964 年《民权法案》，第二、四、六、七编</li>\n"
+"                    <li>《军警服务就业和再就业权利法案》（USERRA）、《美国法"
+"典》第 38 卷第 4301 条及以下</li>\n"
+"                    <li>1974 年《平等教育机会法》（EEOA）、《美国法典》第 20 "
+"卷第 1701 条及以下</li>\n"
+"                    <li>《残疾人教育法案》（IDEA）、《美国法典》第 20 卷第 "
+"1400 条及以下</li>\n"
+"                    <li>1972 年《教育修正案》第 九 编、《美国法典》第 20 卷"
+"第 1681 条及以下</li>\n"
+"                    <li>《公平住房法》（FHA）、《美国法典》第 42 卷第 3601 条"
+"及以下</li>\n"
+"                    <li>《平等信贷机会法》（ECOA）、《美国法典》第 15 卷第 "
+"1691 条及以下</li>\n"
+"                    <li>《宗教土地使用和制度化人员法案》（RLUIPA）、《美国法"
+"典》第 42 卷第 2000 条及以下</li>\n"
+"                    <li>《军人民事救济法》（SCRA）、《美国法典》第 50 卷第 "
+"3901 条及以下</li>\n"
+"                    <li>《移民和国籍法》第 274 条、《美国法典》第 8 卷第 "
+"1324</li>\n"
+"                    <li>《制度化公民民事权利法》（CRIPA）、《美国法典》第 42 "
+"卷第 1997 条及以下</li>\n"
+"                    <li>《暴力犯罪控制和执法法》、《美国法典》第 36 卷第 "
+"12601 条及以下</li>\n"
+"                    <li>《综合犯罪控制与街道安全法》、《美国法典》第 34 卷第 "
+"10101 条及以下</li>\n"
+"                    <li>《选举法案》、《美国法典》第 52 卷第 10101 条及以下</"
 "li>\n"
-"                    <li>Đạo luật Bỏ phiếu Khiếm diện cho Công dân Cư trú ở "
-"Nước ngoài và Quân nhân (UOCAVA), 52 U.S.C. 20310, và các tài liệu tiếp theo."
-"</li>\n"
-"                    <li>Đạo luật Đăng ký Cử tri Quốc gia (NVRA), 52 U.S.C. § "
-"20501, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Không Phân biệt Đối xử về Thông tin Di "
-"truyền (GINA), Title II, 42 U.S.C. § 21f</li>\n"
-"                    <li>Đạo luật Giúp Mỹ Bỏ Phiếu Bầu (HAVA), 52 U.S.C. § "
-"20901, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Dân Quyền năm 1870, 1957, 1960, & 1964</"
-"li>\n"
+"                    <li>《老年人和残障人投票无障碍法》、《美国法典》第 42 卷"
+"第 1973ee 条及以下</li>\n"
+"                    <li>《军人和海外公民缺席投票法案》（UOCAVA）、《美国法"
+"典》第 52 卷第 20310 条及以下</li>\n"
+"                    <li>《全国选民登记法》（NVRA）、《美国法典》第 52 卷第 "
+"20501 条及以下</li>\n"
+"                    <li>《遗传信息不歧视法》（GINA）第二编、《美国法典》第 "
+"42 卷第 21f 条</li>\n"
+"                    <li>《帮助美国投票法案》（HAVA）、《美国法典》第 52 卷第 "
+"20901 条及以下</li>\n"
+"                    <li>1870、1957、1960 和 1964 年《民权法案》</li>\n"
 "                    "
 
 #: templates/privacy.html:162
@@ -2589,29 +2396,27 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"                Danh sách đầy đủ các mục đích sử dụng thông thường cho thư "
-"tín này có thể được tìm thấy trong Thông báo Hệ thống Hồ sơ có tiêu đề, "
-"JUSTICE/CRT – 001, “Hồ sơ Chỉ số Ban Dân quyền Trung tâm và Hồ sơ Liên kết"
-"\", 68 Fed. Reg. 47610, 611 (8-11-2003); 70 Fed. Reg. 43904 (7-29-2005); 72 "
-"Fed. Reg. 3410 (1-25-2007) (bị hủy bỏ bởi 82 FR 24147); 82 Fed. Reg. 24147 "
-"(5-25-2017).\n"
+"                本信函常规用途的完整列表可在标题为 JUSTICE/CRT–001“中央民权司"
+"索引文件和相关记录”的记录系统通知中找到，68 Fed. Reg. 47610，611 "
+"(8-11-2003)；70 Fed. Reg. 43904 (7-29-2005)；72 Fed. Reg. 3410 (1-25-2007) "
+"(被 82 FR 24147 撤销)；82 Fed. Reg. 24147 (5-25-2017)。\n"
 "                "
 
 #: validators.py:101
 msgid "Enter a valid email address."
-msgstr "điền vào địa chỉ email hợp lệ"
+msgstr "输入一个有效的电子邮件地址"
 
 #: views.py:78
 msgid "404 | Page not found"
-msgstr "404 | Không tìm thấy trang"
+msgstr "404 | 未找到该页面"
 
 #: views.py:79
 msgid "We can't find the page you are looking for"
-msgstr "Chúng tôi không thể tìm thấy trang quý vị đang tìm kiếm"
+msgstr "我们找不到您要找的页面"
 
 #: views.py:138
 msgid "Your browser couldn't create a secure cookie"
-msgstr "Trình duyệt của quý vị không thể tạo cookie an toàn"
+msgstr "您的浏览器无法创建安全的 cookie"
 
 #: views.py:139
 msgid ""
@@ -2621,62 +2426,58 @@ msgid ""
 "having this issue, try going to this page in new browser tab or window. That "
 "will make you a new security cookie and should resolve the problem."
 msgstr ""
-"Chúng tôi sử dụng cookie bảo mật để bảo vệ thông tin của quý vị khỏi những "
-"kẻ tấn công. Đảm bảo rằng quý vị cho phép cookie cho trang web này. Việc để "
-"mở trang trong thời gian dài cũng có thể gây ra sự cố này. Nếu quý vị biết "
-"cookie được cho phép và quý vị đang gặp sự cố này, hãy thử truy cập trang "
-"này trong cửa sổ hoặc tab trình duyệt mới. Điều đó sẽ tạo cho quý vị một "
-"cookie bảo mật mới và sẽ giải quyết được sự cố."
+"我们使用安全 cookies 保护您的信息免受攻击者的攻击。请允许此站点使用 cookie。"
+"长时间保持页面开启也可能会导致此问题。如果您知道您已允许使用 cookie，但还是遇"
+"到此问题，请尝试在新的浏览器分页或窗口中前往此页。这将为您创建一个新的安全 "
+"cookie，应该可以解决该问题。"
 
 #: views.py:826 views.py:1077
 msgid "word remaining"
-msgstr "từ còn lại"
+msgstr "剩余字数"
 
 #: views.py:827 views.py:1078
 msgid " words remaining"
-msgstr " các từ còn lại"
+msgstr " 剩余字数"
 
 #: views.py:828 views.py:1079
 msgid " word limit reached"
-msgstr " đã đạt đến giới hạn từ"
+msgstr " 已达到字数限制"
 
 #: views.py:952 views.py:1031 views.py:1032 views.py:1050 views.py:1051
 #: views.py:1086
 msgid "Primary concern"
-msgstr "Mối quan ngại chính"
+msgstr "主要顾虑"
 
 #: views.py:953 views.py:1033 views.py:1034 views.py:1035 views.py:1036
 #: views.py:1037 views.py:1038
 msgid "Location"
-msgstr "Địa điểm"
+msgstr "地点"
 
 #: views.py:954 views.py:1039 views.py:1058
 msgid "Personal characteristics"
-msgstr "Các đặc điểm cá nhân"
+msgstr "个人特征"
 
 #: views.py:955 views.py:1040 views.py:1059
 msgid "Date"
-msgstr "Ngày"
+msgstr "日期"
 
 #: views.py:956 views.py:1041 views.py:1060
 msgid "Personal description"
-msgstr "Mô tả cá nhân"
+msgstr "个人描述"
 
 #: views.py:957 views.py:1042 views.py:1091
 msgid "Review"
-msgstr "Đánh giá"
+msgstr "检查"
 
 #: views.py:1052 views.py:1053 views.py:1054 views.py:1055 views.py:1056
 #: views.py:1057
 msgid "Location details"
-msgstr "Thông tin chi tiết về địa điểm"
+msgstr "地点详情"
 
 #: views.py:1061
 msgid "Review your report"
-msgstr "Đánh giá báo cáo của quý vị"
+msgstr "检查您的报告"
 
 #: views.py:1089
 msgid "Please select if any that apply to your situation (optional)"
-msgstr ""
-"Vui lòng chọn nếu có bất kỳ câu trả lời nào phù hợp với tình huống của quý "
-"vị (tùy chọn)"
+msgstr "请选择任何适用于您的情况（可选）"

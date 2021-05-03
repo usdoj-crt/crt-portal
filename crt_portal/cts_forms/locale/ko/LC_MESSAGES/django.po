@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-28 19:02+0000\n"
-"Language: Vietnamese\n"
+"POT-Creation-Date: 2021-04-28 19:00+0000\n"
+"Language: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -10,23 +10,21 @@ msgstr ""
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
 #: forms.py:161 forms.py:1546
 msgid " - Select - "
-msgstr " - Chọn - "
+msgstr " - 선택 - "
 
 #. Translators: This is help text for the question asking if someone is a service member
 #: forms.py:173
 msgid ""
 "If you’re reporting on behalf of someone else, please select their status."
-msgstr ""
-"Nếu quý vị đang báo cáo thay mặt cho người khác, vui lòng chọn tình trạng "
-"của họ."
+msgstr "누군가를 대신하여 신고하는 경우라면 그 사람의 신분을 선택하십시오."
 
 #: forms.py:190 templates/forms/report_contact_info.html:8
 msgid ""
 "If you believe you or someone else has experienced a civil rights violation, "
 "please tell us what happened."
 msgstr ""
-"Nếu quý vị cho rằng quý vị hoặc một người nào đó đã bị vi phạm dân quyền, "
-"vui lòng cho chúng tôi biết điều gì đã xảy ra."
+"귀하 또는 다른 누군가가 민권 침해를 경험했다고 생각되면, 어떤 일이 있었는지 "
+"저희에게 알려주십시오."
 
 #: forms.py:216
 msgid ""
@@ -35,27 +33,24 @@ msgid ""
 "another section of this report, you will be able to describe your concern in "
 "your own words."
 msgstr ""
-"Chọn lý do mô tả tốt nhất mối quan ngại của quý vị. Với mỗi lý do, liệt kê "
-"các ví dụ về những hành vi vi phạm dân quyền có thể liên quan đến vụ việc "
-"của quý vị. Trong một phần khác của báo cáo này, quý vị sẽ có thể mô tả mối "
-"quan ngại của mình qua lời lẽ riêng của quý vị."
+"귀하의 우려를 가장 잘 표현하고 있는 해당 이유를 선택하십시오. 각 이유는 귀하"
+"의 경우와 관련이 있을 수 있는 민권 침해의 예를 열거해 놓고 있습니다. 이 신고"
+"의 다른 섹션에서는 우려하는 바를 귀하 스스로의 표현으로 설명할 수 있습니다."
 
 #. Translators: notes that this page is the same form step as the page before
 #: forms.py:239
 msgid "Continued"
-msgstr "Tiếp tục"
+msgstr "계속"
 
 #: forms.py:295
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
-msgstr ""
-"Ví dụ: Tên doanh nghiệp, trường học, giao lộ, nhà tù, điểm bỏ phiếu, trang "
-"web, v.v."
+msgstr "예: 사업체, 학교, 교차로, 교도소, 투표소, 웹사이트 등의 이름"
 
 #: forms.py:317 question_text.py:29
 msgid "Where did this happen?"
-msgstr "Việc này đã xảy ra ở đâu?"
+msgstr "이 일이 발생한 것은 언제입니까?"
 
 #: forms.py:329
 msgid ""
@@ -63,9 +58,8 @@ msgid ""
 "took place. This ensures your report is reviewed by the right people within "
 "the Civil Rights Division."
 msgstr ""
-"Vui lòng cho chúng tôi biết thành phố, tiểu bang và tên của địa điểm đã diễn "
-"ra vụ việc này. Điều này nhằm đảm bảo báo cáo của quý vị được đánh giá bởi "
-"những người phù hợp trong Ban Dân quyền."
+"이 일이 일어난 장소의 이름과 시, 주를 알려 주십시오. 이 정보를 바탕으로 민권"
+"국(Civil Rights Division) 내의 적합한 사람이 귀하의 신고를 검토하게 됩니다."
 
 #: forms.py:392
 msgid ""
@@ -73,36 +67,33 @@ msgid ""
 "military, post office, fire department, courthouse, DMV, or public school. "
 "This could be at the local or state level."
 msgstr ""
-"Đơn vị tuyển dụng khu vực công bao gồm các tổ chức được chính phủ tài trợ "
-"như quân đội, bưu điện, sở cứu hỏa, trụ sở tòa án, cơ quan quản lý các "
-"phương tiện cơ giới (DMV) hoặc trường công lập. Đơn vị này có thể là ở cấp "
-"địa phương hoặc tiểu bang."
+"공공 고용주에는 군대, 우체국, 소방서, 법원, DMV 또는 공립학교와 같은 정부 예"
+"산이 투입되는 조직이 포함됩니다. 이는 지방 또는 주(state) 차원일 수 있습니다."
 
 #: forms.py:393
 msgid ""
 "Private employers are business or non-profits not funded by the government "
 "such as retail stores, banks, or restaurants."
 msgstr ""
-"Chủ lao động tư nhân là doanh nghiệp hoặc tổ chức phi lợi nhuận không được "
-"chính phủ tài trợ, chẳng hạn như cửa hàng bán lẻ, ngân hàng, hoặc nhà hàng."
+"민간 고용주는 소매점, 은행 또는 식당처럼 정부 예산이 투입되지 않는 사업체 또"
+"는 비영리 조직을 말합니다."
 
 #. Translators: describe the "other" option for commercial or public place question
 #: forms.py:439
 msgid "Please describe"
-msgstr "Vui lòng mô tả"
+msgstr "기술해 주십시오"
 
 #: forms.py:506
 msgid ""
 "Includes schools, educational programs, or educational activities, like "
 "training programs, sports teams, clubs, or other school-sponsored activities"
 msgstr ""
-"Bao gồm trường học, chương trình giáo dục, hoặc các hoạt động giáo dục, như "
-"chương trình đào tạo, các đội thể thao, câu lạc bộ, hoặc các hoạt động khác "
-"do trường bảo trợ"
+"학교, 교육 프로그램 또는 훈련 프로그램, 스포츠팀, 클럽, 기타 학교 후원 활동 "
+"등과 같은 교육 활동이 포함됩니다"
 
 #: forms.py:517
 msgid "Please select the type of school or educational program."
-msgstr "Vui lòng chọn loại hình trường học hoặc chương trình giáo dục."
+msgstr "학교 또는 교육 프로그램의 유형을 선택하십시오."
 
 #: forms.py:540
 msgid ""
@@ -111,15 +102,14 @@ msgid ""
 "characteristics that are legally protected. Select any that apply to your "
 "incident."
 msgstr ""
-"Có các luật liên bang và tiểu bang bảo vệ mọi người khỏi sự phân biệt đối xử "
-"dựa trên các đặc điểm cá nhân của họ. Dưới đây là danh sách các đặc điểm "
-"thông thường nhất được bảo vệ hợp pháp. Chọn bất kỳ đặc điểm nào phù hợp với "
-"vụ việc của quý vị."
+"인적 특성을 토대로 한 차별로부터 사람을 보호하는 연방 및 주 법률이 마련되어 "
+"있습니다. 법적 보호를 받는 가장 일반적인 특성들 목록이 여기 있습니다. 귀하의 "
+"경우에 적용되는 것을 선택하십시오."
 
 #. Translators: This is to explain an "other" choice for personal characteristics
 #: forms.py:545
 msgid "Please describe \"Other reason\""
-msgstr "Vui lòng mô tả “Lý do khác”"
+msgstr "“기타 이유”를 기술해 주십시오"
 
 #: forms.py:627
 msgid ""
@@ -127,84 +117,82 @@ msgid ""
 "take the appropriate action. If this happened over a period of time or is "
 "still happening, please provide the most recent date."
 msgstr ""
-"Điều quan trọng là chúng tôi cần phải biết vụ việc này đã xảy ra gần đây hay "
-"không để chúng tôi có thể thực hiện hành động phù hợp. Nếu vụ việc này đã "
-"diễn ra trong một khoảng thời gian hoặc vẫn đang diễn ra, vui lòng cho biết "
-"ngày gần đây nhất."
+"저희가 이 일이 얼마나 최근에 일어났는지 아는 것이 중요합니다. 그래야 적절한 "
+"조치를 취할 수 있습니다. 이 일이 일정 기간 동안 일어났거나 현재도 일어나고 있"
+"다면, 가장 최근 날짜를 알려주십시오."
 
 #: forms.py:915
 msgid "Primary classification"
-msgstr "Phân loại chính"
+msgstr "주요 분류"
 
 #: forms.py:937
 msgid "Assigned to"
-msgstr "Được giao cho"
+msgstr "다음에 배정됨:"
 
 #: forms.py:1104
 msgid "Create date cannot be in the future."
-msgstr "Ngày tạo không được là ngày trong tương lai."
+msgstr "생성 날짜는 미래일 수 없습니다."
 
 #: forms.py:1286
 msgid "Comment cannot be empty"
-msgstr "Nhận xét không được để trống"
+msgstr "설명란은 비어 있을 수 없습니다"
 
 #. Translators: This is used as a an empty selection default for drop down menus
 #: model_variables.py:6
 msgid "- Select -"
-msgstr "- Chọn -"
+msgstr "- 선택 -"
 
 #: model_variables.py:9 model_variables.py:119 model_variables.py:262
 msgid "Yes"
-msgstr "Có"
+msgstr "예"
 
 #: model_variables.py:10 model_variables.py:120 model_variables.py:261
 msgid "No"
-msgstr "Không"
+msgstr "아니요"
 
 #: model_variables.py:13
 msgid "Please select a status as an active duty service member."
-msgstr "Vui lòng chọn trạng thái là quân nhân tại ngũ."
+msgstr "현역 군인으로서 신분을 선택해 주십시오."
 
 #: model_variables.py:17
 msgid "Workplace discrimination or other employment-related problem"
-msgstr ""
-"Phân biệt đối xử tại nơi làm việc hoặc vấn đề khác liên quan đến việc làm"
+msgstr "직장 내 차별 또는 기타 고용 관련 문제"
 
 #: model_variables.py:18
 msgid "Housing discrimination or harassment"
-msgstr "Phân biệt đối xử về gia cư hoặc quấy rối"
+msgstr "주택 관련 차별 또는 괴롭힘"
 
 #: model_variables.py:19
 msgid ""
 "Discrimination at a school, educational program or service, or related to "
 "receiving education"
 msgstr ""
-"Phân biệt đối xử tại trường học, chương trình giáo dục hoặc dịch vụ, hoặc "
-"liên quan đến việc tiếp nhận giáo dục"
+"학교 또는 교육 프로그램이나 서비스 또는 교육을 받는 것과 관련하여 이루어진 차"
+"별"
 
 #: model_variables.py:20
 msgid "Mistreated by police, correctional staff, or inmates"
-msgstr "Bị cảnh sát, nhân viên cải huấn hoặc tù nhân ngược đãi"
+msgstr "경찰, 교정기관 직원 또는 제소자에 의한 학대나 혹사"
 
 #: model_variables.py:21
 msgid "Voting rights or ability to vote affected"
-msgstr "Quyền bỏ biếu hoặc khả năng bỏ phiếu bị ảnh hưởng"
+msgstr "투표권 또는 투표할 수 있는 능력에 영향을 받음"
 
 #: model_variables.py:22
 msgid "Discriminated against in a commercial location or public place"
-msgstr "Bị phân biệt đối xử ở một địa điểm thương mại hoặc nơi công cộng"
+msgstr "상업적 장소나 공공장소에서 이루어진 차별 "
 
 #: model_variables.py:23
 msgid "Something else happened"
-msgstr "Một vấn đề khác đã xảy ra"
+msgstr "기타 다른 일이 일어났음"
 
 #: model_variables.py:38
 msgid "Victim of a hate crime"
-msgstr "Nạn nhân của việc phạm tội do thù ghét"
+msgstr "증오 범죄 피해자"
 
 #: model_variables.py:39
 msgid "Victim of human trafficking"
-msgstr "Nạn nhân của nạn buôn người"
+msgstr "인신매매 피해자"
 
 #: model_variables.py:44
 msgid ""
@@ -212,9 +200,8 @@ msgid ""
 "library, medical facility, bank, courthouse, government building, public "
 "park or street, as well as online."
 msgstr ""
-"Điều này có thể bao gồm cửa hàng, nhà hàng, quán bar, khách sạn, cơ sở thờ "
-"phượng, thư viện, cơ sở y tế, ngân hàng, trụ sở tòa án, tòa nhà chính phủ, "
-"công viên hoặc đường phố công cộng, cũng như trực tuyến."
+"여기에는 상점, 식당, 바, 호텔, 예배 장소, 도서관, 의료시설, 은행, 법원, 정부 "
+"건물, 공원 또는 길거리 뿐 아니라 온라인도 포함될 수 있습니다."
 
 #: model_variables.py:45
 msgid ""
@@ -222,14 +209,13 @@ msgid ""
 "that we address. Select this option if you don’t see an example that applies "
 "to your situation. You will be able to tell us more later."
 msgstr ""
-"Các ví dụ trên phản ánh một số nhưng không phải tất cả các vi phạm về dân "
-"quyền mà chúng tôi giải quyết. Chọn tùy chọn này nếu quý vị không thấy ví dụ "
-"áp dụng cho trường hợp của mình. Quý vị sẽ có thể cho chúng tôi biết thêm "
-"sau."
+"위의 예들은 저희가 처리하는 민권 침해의 전부가 아닌 일부를 반영하고 있습니"
+"다. 귀하의 상황에 적용되는 예를 찾을 수 없다면 이 옵션을 선택하십시오. 나중"
+"에 저희에게 더 자세히 알려주실 수 있습니다."
 
 #: model_variables.py:46
 msgid "(Including while in prison)"
-msgstr "(Kể cả khi ở trong tù)"
+msgstr "(감옥에 있는 동안도 포함)"
 
 #: model_variables.py:49
 msgid ""
@@ -239,12 +225,11 @@ msgid ""
 "disability.  Threats of force or physical harm because of race, color, "
 "religion or national origin are also potential hate crimes."
 msgstr ""
-"Để có thể là một hành vi phạm tội do thù ghét, tình huống phải bao gồm tổn "
-"hại về thể chất hoặc mưu hại bằng vũ khí nguy hiểm, vì lý do chủng tộc, màu "
-"da, quốc gia xuất xứ, tôn giáo, giới tính, khuynh hướng tình dục, nhận dạng "
-"giới tính, hoặc tình trạng khuyết tật.  Đe dọa bằng vũ lực hoặc gây tổn hại "
-"về thể chất vì chủng tộc, màu da, tôn giáo hoặc quốc gia xuất xứ cũng là "
-"những hành vi phạm tội do thù ghét tiềm ẩn."
+"잠재적으로 증오 범죄가 성립하기 위해서는 인종, 피부색, 출신 국가, 종교, 성"
+"별, 성적 지향, 성 정체성 또는 장애를 이유로 위험한 무기를 가지고 해를 끼치려 "
+"시도했거나 물리적 위해를 끼친 것이 상황에 포함되어야 합니다. 인종, 피부색, 종"
+"교, 출신 국가를 이유로 한 폭력 위협이나 물리적 위해 또한 잠재적 증오 범죄에 "
+"해당합니다."
 
 #: model_variables.py:50
 msgid ""
@@ -252,221 +237,201 @@ msgid ""
 "profit. This can happen in many types of work that include, for example: "
 "agriculture, domestic work, restaurants, cleaning services, and sex work."
 msgstr ""
-"Buôn bán người là khi một người nào đó bị ép buộc phải lao động hoặc bán dâm "
-"vì mục đích lợi nhuận. Điều này có thể xảy ra trong nhiều loại hình công "
-"việc, chẳng hạn như: nông nghiệp, công việc nội trợ, nhà hàng, dịch vụ dọn "
-"dẹp và mại dâm."
+"인신매매는 수익을 위해 성행위 또는 노동을 강요 받는 경우입니다. 이는 다음과 "
+"같은 많은 유형의 일에서 일어날 수 있습니다.(예: 농업, 가사노동, 식당, 청소 서"
+"비스, 성 노동)"
 
 #: model_variables.py:55
 msgid ""
 "Fired, not hired, or demoted for reasons unrelated to job performance or "
 "qualifications"
 msgstr ""
-"Bị sa thải, không được thuê, hoặc bị giáng cấp vì những lý do không liên "
-"quan đến kết quả công việc hoặc trình độ"
+"직무 성과 또는 자질과 관련 없는 이유로 인해 해고되거나 고용이 되지 않거나 좌"
+"천됨"
 
 #: model_variables.py:56
 msgid "Retaliated against for reporting discrimination"
-msgstr "Bị trả đũa vì báo cáo về việc phân biệt đối xử"
+msgstr "차별을 신고했다는 이유로 보복을 당함"
 
 #: model_variables.py:57
 msgid "Inappropriately asked to provide immigration documentation"
-msgstr "Bị yêu cầu cung cấp giấy tờ nhập cư theo cách không phù hợp"
+msgstr "이민 서류를 제공하라는 부적절한 요구를 받음"
 
 #: model_variables.py:58
 msgid "Denied reemployment or fired based on military service"
-msgstr "Bị từ chối tái tuyển dụng hoặc sa thải do phục vụ quân ngũ"
+msgstr "군대 복무를 근거로 해고를 당하거나 재 고용이 거부됨"
 
 #: model_variables.py:59
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in the workplace</strong>"
 msgstr ""
-"Bị từ chối hỗ trợ phù hợp cho người khuyết tật, bao gồm cả việc không được "
-"phép sử dụng động vật phục vụ tại <strong>nơi làm việc</strong>"
+"<strong>직장에서</strong> 장애인 보조 동물이 허용되지 않음을 포함한 장애인을 "
+"위한 편의가 거부됨."
 
 #: model_variables.py:62
 msgid ""
 "Denied housing, a permit, or a loan based on personal characteristics like "
 "race, sex, and/or having children under 18 years old"
 msgstr ""
-"Bị từ chối hỗ trợ về nhà ở, cấp phép hoặc khoản vay dựa trên các đặc điểm cá "
-"nhân như chủng tộc, giới tính và/hoặc có con dưới 18 tuổi"
+"인종, 성별 및/또는 18세 미만 아동의 부양 같은 인적 특성을 근거로 주택공급이"
+"나 인가 또는 대출이 거부됨 "
 
 #: model_variables.py:63
 msgid "Harassment by a landlord or another tenant, including sexual harassment"
-msgstr ""
-"Bị quấy rối bởi chủ nhà hoặc người thuê nhà khác, bao gồm cả quấy rối tình "
-"dục"
+msgstr "성희롱을 포함하는 임대인 또는 다른 임차인에 의한 괴롭힘."
 
 #: model_variables.py:64
 msgid "Challenges with terminating a lease due to military status change"
-msgstr ""
-"Bị gây khó khăn trong việc chấm dứt hợp đồng thuê do thay đổi tình trạng "
-"quân nhân"
+msgstr "군 복무 신분의 변화로 인한 임대 해지의 어려움"
 
 #: model_variables.py:65
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service or assistance animal <strong>in public housing</strong>"
 msgstr ""
-"Bị từ chối hỗ trợ phù hợp cho người khuyết tật, bao gồm cả việc không được "
-"phép sử dụng động vật phục vụ hoặc động vật trợ giúp <strong>trong nhà ở "
-"công cộng</strong>"
+"<strong>공공 주택에서</strong> 장애인 보조 동물 또는 지원 동물이 허용되지 않"
+"음을 포함한 장애인을 위한 편의가 거부됨"
 
 #: model_variables.py:68
 msgid "Harassment based on race, sex, national origin, disability, or religion"
-msgstr ""
-"Bị quấy rối vì lý do chủng tộc, giới tính, quốc gia xuất xứ, tình trạng "
-"khuyết tật, hoặc tôn giáo"
+msgstr "인종, 성별, 출신 국가, 장애 또는 종교를 근거로 한 괴롭힘"
 
 #: model_variables.py:69
 msgid "Denied admission or segregated in an education program or activity"
-msgstr ""
-"Bị từ chối nhập học hoặc bị tách biệt trong một chương trình hoặc hoạt động "
-"giáo dục"
+msgstr "교육 프로그램 또는 활동에서 분리를 당하거나 가입/입학이 거부됨"
 
 #: model_variables.py:70
 msgid "Denied educational accommodations for a disability or language barrier"
-msgstr ""
-"Bị từ chối hỗ trợ giáo dục do tình trạng khuyết tật hoặc rào cản ngôn ngữ"
+msgstr "장애 또는 언어 장벽을 위한 교육상의 편의가 거부됨"
 
 #: model_variables.py:73
 msgid ""
 "Obstacles to registering to vote, obtaining or submitting a ballot, having "
 "your ballot counted, or entering a polling place to vote"
 msgstr ""
-"Những trở ngại đối với việc đăng ký bỏ phiếu, lấy hoặc gửi phiếu bầu, kiểm "
-"phiếu hoặc vào phòng phiếu để bỏ phiếu"
+"투표권 등록, 투표지 획득이나 제출, 투표용지를 계산하는 것 또는 투표소 입장 등"
+"을 방해함"
 
 #: model_variables.py:74
 msgid ""
 "Denied adequate voting assistance or accommodations for a disability at a "
 "polling place"
-msgstr ""
-"Bị từ chối sự hỗ trợ đầy đủ trong việc bỏ phiếu hoặc hỗ trợ phù hợp cho "
-"người khuyết tật tại một địa điểm bỏ phiếu"
+msgstr "투표소에서 장애인을 위한 적절한 투표 도움이나 편의를 거부당함 "
 
 #: model_variables.py:75
 msgid ""
 "Restricted or prevented from participating in an election, including voting, "
 "becoming a candidate, or being elected for office"
 msgstr ""
-"Bị hạn chế hoặc bị ngăn cản tham gia vào một cuộc bầu cử, bao gồm bỏ phiếu, "
-"trở thành ứng cử viên, hoặc được bầu cho một chức vụ"
+"투표하기, 후보자 되기 또는 공직에 선출되기 등을 포함하여 선거에 참여하지 못하"
+"도록 막거나 제한함 "
 
 #: model_variables.py:78
 msgid ""
 "Police brutality or use of excessive force, including patterns of police "
 "misconduct"
 msgstr ""
-"Tình trạng bạo hành của cảnh sát hoặc sử dụng vũ lực quá mức cần thiết, bao "
-"gồm cả các kiểu hành vi sai trái của cảnh sát"
+"경찰 직권남용의 여러 정형화된 형식을 포함한 경찰의 만행 또는 과도한 물리력의 "
+"사용."
 
 #: model_variables.py:79
 msgid ""
 "Searched and arrested under false pretenses, including racial or other "
 "discriminatory profiling"
 msgstr ""
-"Bị khám xét và bắt giữ với mục đích lừa đảo, bao gồm cả việc phân biệt đối "
-"xử vì lý do chủng tộc hoặc phân biệt đối xử khác"
+"인종적인 또는 기타 차별적인 프로파일링을 포함하여, 사실이 아닌 허위 주장 하"
+"에 수색하고 체포함"
 
 #: model_variables.py:80
 msgid "Denied rights while arrested or incarcerated"
-msgstr "Bị từ chối các quyền khi bị bắt giữ hoặc bị giam giữ"
+msgstr "체포 또는 감금되어 있는 동안 권리가 거부됨"
 
 #: model_variables.py:81
 msgid ""
 "Denied access to safe living conditions or accommodations for a disability, "
 "language barrier, or religious practice while incarcerated"
 msgstr ""
-"Bị từ chối tiếp cận với các điều kiện sống an toàn hoặc phương tiện hỗ trợ "
-"dành cho tình trạng khuyết tật, bất đồng ngôn ngữ, hoặc nghi thức tôn giáo "
-"khi bị giam giữ"
+"감금되어 있는 동안 장애, 언어 장벽 또는 종교적 실천을 위한 편의 또는 안전한 "
+"생활 조건에의 접근이 거부됨 "
 
 #: model_variables.py:84
 msgid ""
 "A physical or online location that does not provide disability accommodations"
-msgstr ""
-"Một địa điểm thực tế hoặc trực tuyến không cung cấp hỗ trợ cho người khuyết "
-"tật"
+msgstr "장애 편의를 제공하지 않는 물리적 장소나 온라인 장소"
 
 #: model_variables.py:85
 msgid ""
 "Denied service or entry because of a perceived personal characteristic like "
 "race, sex, or religion"
 msgstr ""
-"Bị từ chối phục vụ hoặc không cho vào cửa vì một đặc điểm cá nhân được nhận "
-"thấy như chủng tộc, giới tính, hoặc tôn giáo"
+"인종, 성별 또는 종교 같은 인지된 인적 특성 때문에 입장이나 서비스가 거부됨"
 
 #: model_variables.py:86
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in a commercial or public location</strong>"
 msgstr ""
-"Bị từ chối hỗ trợ phù hợp cho người khuyết tật, bao gồm cả việc không được "
-"phép sử dụng động vật phục vụ <strong>tại khu thương mại hay công cộng</"
-"strong>"
+"<strong>상업용 또는 공공 장소에서</strong> 장애인 보조 동물이 허용되지 않음"
+"을 포함한 장애인을 위한 편의가 거부됨."
 
 #: model_variables.py:92
 msgid ""
 "Physical attack causing injury, or an attempt to cause injury with a "
 "dangerous weapon, because of the above characteristics"
 msgstr ""
-"Tấn công về thể chất gây thương tích, hoặc toan gây thương tích bằng vũ khí "
-"nguy hiểm, vì các đặc điểm trên"
+"위의 특성을 이유로, 위험한 무기를 가지고 상해를 입히려고 시도 또는 상해를 입"
+"히는 물리적 공격"
 
 #: model_variables.py:93
 msgid ""
 "Attacks, threats of violence, or destruction of property at place of worship "
 "(ie: shooting, arson, bombing, smashing windows, writing slurs)"
 msgstr ""
-"Tấn công, đe dọa bạo lực, hoặc phá hoại tài sản tại cơ sở thờ phượng (ví dụ: "
-"bắn súng, đốt phá, đánh bom, đập vỡ cửa sổ, viết những lời nhục mạ)"
+"예배 장소에서의 공격, 폭력 위협이나 또는 재산 파괴 (예: 총격, 방화, 폭탄, 창"
+"문 깨기, 비방 글 작성)"
 
 #: model_variables.py:96
 msgid ""
 "Coerced into working through threats of harm or deportation, psychological "
 "manipulation, debt manipulation, document confiscation, or confinement"
 msgstr ""
-"Bị ép buộc làm việc thông qua việc đe dọa làm tổn hại hoặc trục xuất, thao "
-"túng tâm lý, thao túng nợ, tịch thu giấy tờ, hoặc giam giữ"
+"해를 가한다거나 추방하겠다는 위협, 심리적 조작, 부채 조작, 서류 몰수 또는 감"
+"금 등을 통해 강제 노동을 당함"
 
 #: model_variables.py:97
 msgid ""
 "Forced into sex work for profit through physical abuse or assault, sexual "
 "abuse or assault, other threats of harm, or confinement"
 msgstr ""
-"Bị ép buộc hoạt động mại dâm vì mục đích lợi nhuận thông qua lạm dụng hoặc "
-"tấn công thân thể, lạm dụng hoặc tấn công tình dục, các mối đe dọa gây tổn "
-"hại khác, hoặc bị giam giữ"
+"신체적 학대나 폭행, 성적 학대나 성폭력, 기타 해를 가하겠다는 위협 또는 감금"
+"을 통해 이익을 얻을 목적으로 성 노동을 강요 당함 "
 
 #: model_variables.py:102 model_variables.py:268
 msgid "Federal"
-msgstr "Liên Bang"
+msgstr "연방"
 
 #: model_variables.py:103
 msgid "State or local"
-msgstr "Tiểu bang hoặc địa phương"
+msgstr "주 또는 지방"
 
 #. Translators: Both state, federal and local elections
 #: model_variables.py:105
 msgid "Both"
-msgstr "Cả hai"
+msgstr "둘 다"
 
 #: model_variables.py:106 model_variables.py:270 model_variables.py:285
 #: model_variables.py:293 model_variables.py:310
 msgid "I'm not sure"
-msgstr "Tôi không chắc"
+msgstr "확실하지 않음"
 
 #: model_variables.py:112
 msgid ""
 "Physical harm or threats of violence based on race, color, national origin, "
 "religion, gender, sexual orientation, gender identity, or disability"
 msgstr ""
-"Gây tổn hại về thể chất hoặc đe dọa bạo lực dựa trên chủng tộc, màu da, quốc "
-"gia xuất xứ, tôn giáo, giới tính, khuynh hướng tình dục, nhận dạng giới "
-"tính, hoặc tình trạng khuyết tật"
+"인종, 피부색, 출신 국가, 종교, 성별, 성적 지향, 성 정체성 또는 장애를 기반으"
+"로 한 물리적 위해 또는 폭력 위협"
 
 #: model_variables.py:113
 msgid ""
@@ -475,77 +440,72 @@ msgid ""
 "physical harm, withholding promised wages, or being held under a false work "
 "contract"
 msgstr ""
-"Bị đe dọa, ép buộc, và giam giữ trái với ý muốn của quý vị vì mục đích thực "
-"hiện công việc hoặc các hành vi tình dục thương mại. Điều này có thể bao gồm "
-"các mối đe dọa gây tổn hại về thể chất, giữ lại tiền lương đã hứa, hoặc bị "
-"giam chân trong một hợp đồng làm việc giả mạo"
+"노동이나 상업적 성행위를 목적으로 귀하의 의지에 반하여 감금되거나 강압을 당하"
+"거나 위협을 받음 여기에는 물리적 위해를 가하겠다는 위협, 약속된 임금 체불, 허"
+"위 노동 계약에 따른 감금 등이 포함될 수 있습니다."
 
 #: model_variables.py:127 templates/landing.html:257
 msgid "Age"
-msgstr "Tuổi"
+msgstr "나이"
 
 #: model_variables.py:128
 msgid ""
 "Disability (including temporary or recovered and including HIV and drug "
 "addiction)"
-msgstr ""
-"Tình trạng khuyết tật (bao gồm tạm thời hoặc đã phục hồi và bao gồm cả HIV "
-"và nghiện ma tuý)"
+msgstr "장애(HIV 및 약물 중독 포함하여 일시적이거나 회복된 장애 포함)"
 
 #: model_variables.py:129
 msgid "Family, marital, or parental status"
-msgstr "Tình trạng gia đình, hôn nhân, hay làm cha mẹ"
+msgstr "가족, 결혼 또는 자녀 유무 상태"
 
 #: model_variables.py:130
 msgid "Gender identity (including gender stereotypes)"
-msgstr "Nhận dạng giới tính (bao gồm cả định kiến về giới tính)"
+msgstr "성 정체성(정형화된 성 고정관념 포함)"
 
 #: model_variables.py:131
 msgid "Genetic information (including family medical history)"
-msgstr "Thông tin di truyền (bao gồm bệnh sử của gia đình)"
+msgstr "유전적 정보(가족의 병력 포함)"
 
 #: model_variables.py:132
 msgid ""
 "Immigration/citizenship status (choosing this will not share your status)"
-msgstr ""
-"Tình trạng nhập cư/tư cách công dân (việc chọn lựa chọn này sẽ không chia sẻ "
-"tình trạng của quý vị)"
+msgstr "이민/시민권 신분(이를 선택해도 귀하의 신분을 공유하지 않습니다)"
 
 #: model_variables.py:133
 msgid "Language"
-msgstr "Ngôn ngữ"
+msgstr "언어"
 
 #: model_variables.py:134
 msgid "National origin (including ancestry and ethnicity)"
-msgstr "Quốc gia xuất xứ (bao gồm tổ tiên và dân tộc)"
+msgstr "출신 국가(혈통 및 민족 포함)"
 
 #: model_variables.py:135
 msgid "Pregnancy"
-msgstr "Mang thai"
+msgstr "임신"
 
 #: model_variables.py:136 templates/landing.html:250
 msgid "Race/color"
-msgstr "Chủng tộc/màu da"
+msgstr "인종/피부색"
 
 #: model_variables.py:137 templates/landing.html:252
 msgid "Religion"
-msgstr "Tôn giáo"
+msgstr "종교"
 
 #: model_variables.py:138
 msgid "Sex"
-msgstr "Giới tính"
+msgstr "성별"
 
 #: model_variables.py:139
 msgid "Sexual orientation"
-msgstr "Xu hướng tình dục"
+msgstr "성적 지향"
 
 #: model_variables.py:140
 msgid "None of these apply to me"
-msgstr "Không có điều nào trong số những điều trên phù hợp với tôi"
+msgstr "이들 중 나에게 적용되는 것 없음"
 
 #: model_variables.py:141
 msgid "Other reason"
-msgstr "Lý do khác"
+msgstr "기타 이유"
 
 #: model_variables.py:150
 msgid ""
@@ -553,455 +513,451 @@ msgid ""
 "situation, please select “None of these apply to me” or \"Other reason\"and "
 "explain."
 msgstr ""
-"Vui lòng đưa ra lựa chọn để tiếp tục. Nếu không có lý do nào trong các lý do "
-"này phù hợp với tình huống của quý vị, vui lòng chọn “Không có lý do nào "
-"trong số này phù hợp với tôi” hoặc “Lý do khác” và giải thích."
+"계속하려면 선택해 주십시오. 이들 중 귀하의 상황에 적용되는 것이 없다면, “이"
+"들 중 나에게 적용되는 것 없음” 또는 “기타 이유”를 선택하고 설명해 주십시오."
 
 #: model_variables.py:233
 msgid "Place of worship or about a place of worship"
-msgstr "Nơi thờ phượng hoặc về một nơi thờ phượng"
+msgstr "예배 장소 또는 예배 장소 주변"
 
 #: model_variables.py:234
 msgid "Commercial or retail building"
-msgstr "Tòa nhà thương mại hoặc bán lẻ"
+msgstr "상업 건물 또는 상가"
 
 #: model_variables.py:235 model_variables.py:246
 msgid "Healthcare facility"
-msgstr "Cơ sở chăm sóc sức khỏe"
+msgstr "의료 시설"
 
 #: model_variables.py:236 model_variables.py:247
 msgid "Financial institution"
-msgstr "Tổ chức tài chính"
+msgstr "금융 기관"
 
 #: model_variables.py:237
 msgid "Public space"
-msgstr "Không gian công cộng"
+msgstr "공공장소"
 
 #: model_variables.py:238 templatetags/commercial_public_space_view.py:17
 msgid "Other"
-msgstr "Khác"
+msgstr "기타"
 
 #: model_variables.py:241
 msgid ""
 "Please select the type of location. If none of these apply to your "
 "situation, please select \"Other\"."
 msgstr ""
-"Vui lòng chọn loại địa điểm. Nếu không có địa điểm nào trong số các địa điểm "
-"này phù hợp với tình huống của quý vị, vui lòng chọn “Khác”."
+"장소 유형을 선택하십시오. 이들 중 귀하의 상황에 적용되는 것이 없다면 “기"
+"타”를 선택하십시오."
 
 #: model_variables.py:244
 msgid "Place of worship"
-msgstr "Nơi thờ phượng"
+msgstr "예배 장소"
 
 #: model_variables.py:245
 msgid "Commercial"
-msgstr "Thương mại"
+msgstr "상업용"
 
 #: model_variables.py:248
 msgid "Public outdoor space"
-msgstr "Không gian công cộng ngoài trời"
+msgstr "실외 공공장소"
 
 #: model_variables.py:252
 msgid "Church, synagogue, temple, religious community center"
-msgstr "Nhà thờ, đền thờ do thái, đền thờ, trung tâm cộng đồng tôn giáo"
+msgstr "교회, 유대교 회당, 사원, 종교 공동체 센터"
 
 #: model_variables.py:253
 msgid "Store, restaurant, bar, hotel, theater"
-msgstr "Cửa hàng, nhà hàng, quán bar, khách sạn, rạp chiếu phim"
+msgstr "상점, 식당, 바, 호텔, 극장"
 
 #: model_variables.py:254
 msgid ""
 "Hospital or clinic (including inpatient and outpatient programs), "
 "reproductive care clinic, state developmental institution, nursing home"
 msgstr ""
-"Bệnh viện hoặc phòng khám (bao gồm các chương trình nội trú và ngoại trú), "
-"phòng khám chăm sóc sinh sản, tổ chức phát triển tiểu bang, viện dưỡng lão"
+"병원이나 클리닉(입원 및 외래 프로그램 포함), 모자보건(생식기능 케어), 주 개"
+"발 기관, 요양원"
 
 #: model_variables.py:255
 msgid "Bank, credit union, loan services"
-msgstr "Ngân hàng, tổ chức tín dụng, dịch vụ cho vay"
+msgstr "은행, 신용조합, 대출 서비스"
 
 #: model_variables.py:256
 msgid ""
 "Park, sidewalk, street, other public buildings (courthouse, DMV, city "
 "library)"
-msgstr ""
-"Công viên, vỉa hè, đường phố, các tòa nhà công cộng khác (trụ sở tòa án, "
-"DMV, thư viện thành phố)"
+msgstr "공원, 인도, 거리, 기타 공공 건물(법원, DMV, 시립 도서관)"
 
 #: model_variables.py:267
 msgid "State/local"
-msgstr "Tiểu bang/địa phương"
+msgstr "주/지방"
 
 #: model_variables.py:269
 msgid "Private"
-msgstr "Tư nhân"
+msgstr "민간"
 
 #: model_variables.py:275
 msgid "Outside of prison"
-msgstr "Bên ngoài nhà tù"
+msgstr "교도소 밖"
 
 #: model_variables.py:277
 msgid "Prison (Federal)"
-msgstr "Nhà tù (Liên bang)"
+msgstr "교도소(연방)"
 
 #: model_variables.py:278
 msgid "Prison (Private)"
-msgstr "Nhà tù (Tư nhân)"
+msgstr "교도소(민간)"
 
 #: model_variables.py:279
 msgid "Prison (I'm not sure)"
-msgstr "Nhà tù (Tôi không chắc)"
+msgstr "교도소(확실하지 않음)"
 
 #: model_variables.py:283
 msgid "Public employer"
-msgstr "Cơ quan tuyển dụng công"
+msgstr "공공 고용주"
 
 #: model_variables.py:284
 msgid "Private employer"
-msgstr "Cơ quan tuyển dụng tư nhân"
+msgstr "민간 고용주"
 
 #: model_variables.py:288
 msgid "Please select what type of employer this is."
-msgstr "Vui lòng chọn loại hình cơ quan tuyển dụng này."
+msgstr "어떤 유형의 고용주인지 선택하십시오."
 
 #: model_variables.py:291
 msgid "Fewer than 15 employees"
-msgstr "Ít hơn 15 nhân viên"
+msgstr "15명 미만의 직원"
 
 #: model_variables.py:292
 msgid "15 or more employees"
-msgstr "Từ 15 nhân viên trở lên"
+msgstr "15명 이상의 직원"
 
 #: model_variables.py:296
 msgid "Please select how large the employer is."
-msgstr "Vui lòng chọn quy mô của cơ quan tuyển dụng."
+msgstr "고용주가 어느 정도 규모인지 선택하십시오."
 
 #: model_variables.py:308
 msgid "Public school or educational program"
-msgstr "Trường hoặc chương trình giáo dục công lập"
+msgstr "공립학교 또는 공공 교육 프로그램"
 
 #: model_variables.py:309
 msgid "Private school or educational program"
-msgstr "Trường hoặc chương trình giáo dục tư"
+msgstr "사립학교 또는 민간 교육 프로그램"
 
 #: model_variables.py:315
 msgid "Alabama"
-msgstr "Alabama"
+msgstr "앨라배마"
 
 #: model_variables.py:316
 msgid "Alaska"
-msgstr "Alaska"
+msgstr "알래스카"
 
 #: model_variables.py:317
 msgid "Arizona"
-msgstr "Arizona"
+msgstr "애리조나"
 
 #: model_variables.py:318
 msgid "Arkansas"
-msgstr "Arkansas"
+msgstr "아칸소"
 
 #: model_variables.py:319
 msgid "California"
-msgstr "California"
+msgstr "캘리포니아"
 
 #: model_variables.py:320
 msgid "Colorado"
-msgstr "Colorado"
+msgstr "콜로라도"
 
 #: model_variables.py:321
 msgid "Connecticut"
-msgstr "Connecticut"
+msgstr "코네티컷"
 
 #: model_variables.py:322
 msgid "Delaware"
-msgstr "Delaware"
+msgstr "델라웨어"
 
 #: model_variables.py:323
 msgid "District of Columbia"
-msgstr "District of Columbia"
+msgstr "컬럼비아 특별구(DC)"
 
 #: model_variables.py:324
 msgid "Florida"
-msgstr "Florida"
+msgstr "플로리다"
 
 #: model_variables.py:325
 msgid "Georgia"
-msgstr "Georgia"
+msgstr "조지아"
 
 #: model_variables.py:326
 msgid "Hawaii"
-msgstr "Hawaii"
+msgstr "하와이"
 
 #: model_variables.py:327
 msgid "Idaho"
-msgstr "Idaho"
+msgstr "아이다호"
 
 #: model_variables.py:328
 msgid "Illinois"
-msgstr "Illinois"
+msgstr "일리노이"
 
 #: model_variables.py:329
 msgid "Indiana"
-msgstr "Indiana"
+msgstr "인디아나"
 
 #: model_variables.py:330
 msgid "Iowa"
-msgstr "Iowa"
+msgstr "아이오와"
 
 #: model_variables.py:331
 msgid "Kansas"
-msgstr "Kansas"
+msgstr "캔자스"
 
 #: model_variables.py:332
 msgid "Kentucky"
-msgstr "Kentucky"
+msgstr "켄터키"
 
 #: model_variables.py:333
 msgid "Louisiana"
-msgstr "Louisiana"
+msgstr "루이지애나"
 
 #: model_variables.py:334
 msgid "Maine"
-msgstr "Maine"
+msgstr "메인"
 
 #: model_variables.py:335
 msgid "Maryland"
-msgstr "Maryland"
+msgstr "메릴랜드"
 
 #: model_variables.py:336
 msgid "Massachusetts"
-msgstr "Massachusetts"
+msgstr "매사추세츠"
 
 #: model_variables.py:337
 msgid "Michigan"
-msgstr "Michigan"
+msgstr "미시간"
 
 #: model_variables.py:338
 msgid "Minnesota"
-msgstr "Minnesota"
+msgstr "미네소타"
 
 #: model_variables.py:339
 msgid "Mississippi"
-msgstr "Mississippi"
+msgstr "미시시피"
 
 #: model_variables.py:340
 msgid "Missouri"
-msgstr "Missouri"
+msgstr "미주리"
 
 #: model_variables.py:341
 msgid "Montana"
-msgstr "Montana"
+msgstr "몬타나"
 
 #: model_variables.py:342
 msgid "Nebraska"
-msgstr "Nebraska"
+msgstr "네브라스카"
 
 #: model_variables.py:343
 msgid "Nevada"
-msgstr "Nevada"
+msgstr "네바다"
 
 #: model_variables.py:344
 msgid "New Hampshire"
-msgstr "New Hampshire"
+msgstr "뉴햄프셔"
 
 #: model_variables.py:345
 msgid "New Jersey"
-msgstr "New Jersey"
+msgstr "뉴저지"
 
 #: model_variables.py:346
 msgid "New Mexico"
-msgstr "New Mexico"
+msgstr "뉴멕시코"
 
 #: model_variables.py:347
 msgid "New York"
-msgstr "New York"
+msgstr "뉴욕"
 
 #: model_variables.py:348
 msgid "North Carolina"
-msgstr "North Carolina"
+msgstr "노스캐롤라이나"
 
 #: model_variables.py:349
 msgid "North Dakota"
-msgstr "North Dakota"
+msgstr "노스다코타"
 
 #: model_variables.py:350
 msgid "Ohio"
-msgstr "Ohio"
+msgstr "오하이오"
 
 #: model_variables.py:351
 msgid "Oklahoma"
-msgstr "Oklahoma"
+msgstr "오클라호마"
 
 #: model_variables.py:352
 msgid "Oregon"
-msgstr "Oregon"
+msgstr "오레곤"
 
 #: model_variables.py:353
 msgid "Pennsylvania"
-msgstr "Pennsylvania"
+msgstr "펜실베이니아"
 
 #: model_variables.py:354
 msgid "Rhode Island"
-msgstr "Rhode Island"
+msgstr "로드 아일랜드"
 
 #: model_variables.py:355
 msgid "South Carolina"
-msgstr "South Carolina"
+msgstr "사우스캐롤라이나"
 
 #: model_variables.py:356
 msgid "South Dakota"
-msgstr "South Dakota"
+msgstr "사우스다코타"
 
 #: model_variables.py:357
 msgid "Tennessee"
-msgstr "Tennessee"
+msgstr "테네시"
 
 #: model_variables.py:358
 msgid "Texas"
-msgstr "Texas"
+msgstr "텍사스"
 
 #: model_variables.py:359
 msgid "Utah"
-msgstr "Utah"
+msgstr "유타"
 
 #: model_variables.py:360
 msgid "Vermont"
-msgstr "Vermont"
+msgstr "버몬트"
 
 #: model_variables.py:361
 msgid "Virginia"
-msgstr "Virginia"
+msgstr "버지니아"
 
 #: model_variables.py:362
 msgid "Washington"
-msgstr "Washington"
+msgstr "워싱턴"
 
 #: model_variables.py:363
 msgid "West Virginia"
-msgstr "West Virginia"
+msgstr "웨스트 버지니아"
 
 #: model_variables.py:364
 msgid "Wisconsin"
-msgstr "Wisconsin"
+msgstr "위스콘신"
 
 #: model_variables.py:365
 msgid "Wyoming"
-msgstr "Wyoming"
+msgstr "와이오밍"
 
 #: model_variables.py:366
 msgid "American Samoa"
-msgstr "American Samoa"
+msgstr "미국령 사모아"
 
 #: model_variables.py:367
 msgid "Guam"
-msgstr "Guam"
+msgstr "괌"
 
 #: model_variables.py:368
 msgid "Northern Mariana Islands"
-msgstr "Northern Mariana Islands"
+msgstr "북마리아나 제도"
 
 #: model_variables.py:369
 msgid "Puerto Rico"
-msgstr "Puerto Rico"
+msgstr "푸에르토리코"
 
 #: model_variables.py:370
 msgid "Virgin Islands"
-msgstr "Virgin Islands"
+msgstr "버진 아일랜드"
 
 #: model_variables.py:371
 msgid "Armed Forces Africa"
-msgstr "Lực Lượng Vũ Trang Châu Phi"
+msgstr "Armed Forces Africa"
 
 #: model_variables.py:372
 msgid "Armed Forces Americas"
-msgstr "Lực Lượng Vũ Trang Hoa Kỳ"
+msgstr "Armed Forces Americas"
 
 #: model_variables.py:373
 msgid "Armed Forces Canada"
-msgstr "Lực Lượng Vũ Trang Canada"
+msgstr "Armed Forces Canada"
 
 #: model_variables.py:374
 msgid "Armed Forces Europe"
-msgstr "Lực Lượng Vũ Trang Châu Âu"
+msgstr "Armed Forces Europe"
 
 #: model_variables.py:375
 msgid "Armed Forces Middle East"
-msgstr "Lực Lượng Vũ Trang Trung Đông"
+msgstr "Armed Forces Middle East"
 
 #: model_variables.py:376
 msgid "Armed Forces Pacific"
-msgstr "Lực Lượng Vũ Trang Thái Bình Dương"
+msgstr "Armed Forces Pacific"
 
 #: model_variables.py:379
 msgid "Please provide description to continue"
-msgstr "Vui lòng cung cấp mô tả để tiếp tục"
+msgstr "계속하려면 설명을 제공하십시오"
 
 #: model_variables.py:380
 msgid "Please select a primary reason to continue."
-msgstr "Vui lòng chọn một lý do chính để tiếp tục."
+msgstr "계속하려면 주요 이유를 선택하십시오."
 
 #: model_variables.py:383
 msgid "Please enter the name of the location where this took place."
-msgstr "Vui lòng nhập tên địa điểm nơi việc này xảy ra."
+msgstr "이 일이 일어난 장소 이름을 입력하십시오."
 
 #: model_variables.py:384
 msgid "Please enter the city or town where this took place."
-msgstr "Vui lòng nhập thành phố hoặc thị trấn nơi việc này xảy ra."
+msgstr "이 일이 일어난 시 또는 타운을 입력하십시오."
 
 #: model_variables.py:385
 msgid "Please select the state where this took place."
-msgstr "Vui lòng nhập tiểu bang nơi việc này xảy ra."
+msgstr "이 일이 일어난 주를 선택하십시오."
 
 #: model_variables.py:389
 msgid "Please select where this occurred"
-msgstr "Vui lòng chọn nơi việc này xảy ra"
+msgstr "이 일이 발생한 장소를 선택하십시오"
 
 #: model_variables.py:390
 msgid "Please select the type of location"
-msgstr "Vui lòng chọn loại địa điểm"
+msgstr "장소 유형을 선택하십시오"
 
 #: model_variables.py:402
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr ""
-"Quý vị phải nhập tháng và năm. Vui lòng sử dụng định dạng tháng( MM)/ngày "
-"(DD)/năm (YYYY)."
+"월 및 년도를 입력하셔야 합니다. 월월/일일/년년년년 형식을 이용하십시오."
 
 #: model_variables.py:405
 msgid "Please enter a month."
-msgstr "Vui lòng nhập tháng."
+msgstr "‘월’을 입력하십시오."
 
 #: model_variables.py:406
 msgid "Please enter a valid month. Month must be between 1 and 12."
-msgstr "Vui lòng nhập một tháng hợp lệ. Tháng phải từ 1 đến 12."
+msgstr "유효한 ‘월’을 입력하십시오. 1에서 12 사이의 숫자여야 합니다."
 
 #: model_variables.py:407
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
 msgstr ""
-"Vui lòng nhập một ngày hợp lệ trong tháng. Ngày phải từ ngày 1 đến ngày cuối "
-"cùng của tháng."
+"그 달의 유효한 ‘일’을 입력하십시오. ‘일’은 1에서 그 달의 마지막 날 사이의 숫"
+"자여야 합니다."
 
 #: model_variables.py:408
 msgid "Please enter a year."
-msgstr "Vui lòng nhập một năm."
+msgstr "년도를 입력하십시오."
 
 #: model_variables.py:409
 msgid "Date can not be in the future."
-msgstr "Ngày không được là ngày trong tương lai."
+msgstr "날짜는 미래일 수 없습니다."
 
 #: model_variables.py:410
 msgid "Please enter a year after 1900."
-msgstr "Vui lòng nhập một năm sau 1900."
+msgstr "1900 이후의 년도를 입력하십시오."
 
 #: model_variables.py:411
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
-msgstr "Vui lòng nhập một ngày hợp lệ. Sử dụng định dạng MM/DD/YYYY."
+msgstr "유효한 날짜를 입력하십시오. 월월/일일/년년년년 형식을 이용하십시오."
 
 #: model_variables.py:414
 msgid "Please select the type of election or voting activity."
-msgstr "Vui lòng chọn hình thức bầu cử hoặc hoạt động bỏ phiếu."
+msgstr "선거 또는 투표 활동의 유형을 선택하십시오."
 
 #: model_variables.py:454
 msgid ""
@@ -1009,13 +965,13 @@ msgid ""
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
 "Please include country code if entering an international phone number."
 msgstr ""
-"Nếu quý vị gửi số điện thoại, vui lòng đảm bảo ghi số điện thoại từ 7 đến 15 "
-"chữ số. Được phép sử dụng các ký tự “+”, “)”, “(”, “-”, và “.” . Vui lòng "
-"ghi mã quốc gia nếu nhập số điện thoại quốc tế."
+"전화번호를 제출하는 경우, 7~15자리의 숫자가 되는지 확인하십시오. 특수문자 \"+"
+"\", \")\", \"(\", \"-\", \".\"가 허용됩니다. 국제 전화번호를 입력하는 경우, "
+"국가 코드를 포함하십시오."
 
 #: question_text.py:5
 msgid "Contact information"
-msgstr "Thông tin liên hệ"
+msgstr "연락처 정보"
 
 #: question_text.py:6
 msgid ""
@@ -1023,68 +979,65 @@ msgid ""
 "want to remain anonymous, leave this section blank. If you choose to provide "
 "your contact information, we will only use it to respond to your submission."
 msgstr ""
-"Quý vị không bắt buộc phải cung cấp tên hoặc thông tin liên hệ của mình. Nếu "
-"quý vị muốn ẩn danh, hãy để trống phần này. Nếu quý vị chọn cung cấp thông "
-"tin liên hệ của mình, chúng tôi sẽ chỉ sử dụng thông tin đó để hồi đáp thông "
-"tin quý vị đã gửi."
+"귀하의 이름이나 연락처 정보를 제공하지 않으셔도 됩니다. 익명을 유지하고 싶으"
+"신 경우, 이 섹션을 빈칸으로 두십시오. 연락처 정보를 제공하기로 하신 경우, 저"
+"희는 귀하의 제출에 응하는 데에만 그 정보를 사용할 것입니다."
 
 #: question_text.py:7 templates/forms/report_data.html:12
 msgid "Your name"
-msgstr "Tên của quý vị"
+msgstr "귀하의 성명"
 
 #: question_text.py:8
 msgid "First name"
-msgstr "Tên"
+msgstr "이름"
 
 #: question_text.py:9
 msgid "Last name"
-msgstr "Họ"
+msgstr "성"
 
 #: question_text.py:10
 msgid "Email address"
-msgstr "Địa chỉ email"
+msgstr "이메일 주소"
 
 #: question_text.py:11
 msgid "Phone number"
-msgstr "Số điện thoại"
+msgstr "전화번호"
 
 #: question_text.py:12
 msgid "Mailing address 1"
-msgstr "Địa chỉ nhận thư 1"
+msgstr "우편 주소 1"
 
 #: question_text.py:13
 msgid "Mailing address 2"
-msgstr "Địa chỉ nhận thư 2"
+msgstr "우편 주소 2"
 
 #: question_text.py:14
 msgid "City"
-msgstr "Thành phố"
+msgstr "시"
 
 #: question_text.py:15
 msgid "Zip code"
-msgstr "Mã bưu điện"
+msgstr "우편번호"
 
 #: question_text.py:16 question_text.py:34
 msgid "State"
-msgstr "Tiểu bang"
+msgstr "주"
 
 #: question_text.py:18
 msgid "Are you now or have ever been an active duty service member?"
-msgstr "Quý vị hiện có đang hoặc đã từng là một quân nhân tại ngũ không?"
+msgstr "귀하는 현재 또는 이전에 현역 군인이었던 적이 있습니까?"
 
 #: question_text.py:21
 msgid "What is your primary reason for contacting the Civil Rights Division?"
-msgstr "Lý do chính quý vị liên hệ với Ban Dân Quyền là gì?"
+msgstr "민권국(Civil Rights Division)에 접촉하는 주된 이유는 무엇입니까?"
 
 #: question_text.py:23
 msgid "Primary Issue"
-msgstr "Vấn đề Chính"
+msgstr "주요 문제"
 
 #: question_text.py:24
 msgid "Does your situation involve physical harm or threats of violence?"
-msgstr ""
-"Tình huống của quý vị có liên quan đến việc gây tổn hại về thể chất hoặc đe "
-"dọa bạo lực không?"
+msgstr "귀하의 상황에 물리적 위해 또는 폭력 위협이 포함되어 있습니까?"
 
 #: question_text.py:25
 msgid ""
@@ -1092,109 +1045,107 @@ msgid ""
 "be based on race, color, national origin, religion, gender, sexual "
 "orientation, gender identity, or disability."
 msgstr ""
-"Để bị coi là một hành vi phạm tội do thù ghét, việc gây tổn hại về thể chất "
-"hoặc đe dọa bạo lực phải dựa trên chủng tộc, màu da, quốc gia xuất xứ, tôn "
-"giáo, giới tính, khuynh hướng tình dục, nhận dạng giới tính, hoặc tình trạng "
-"khuyết tật."
+"증오 범죄로 간주되려면, 물리적 위해 또는 폭력 위협이 인종, 피부색, 출신 국"
+"가, 종교, 성별, 성적 지향, 성 정체성 또는 장애를 기반으로 해야 합니다."
 
 #: question_text.py:30
 msgid "Location name"
-msgstr "Tên địa điểm"
+msgstr "장소 이름"
 
 #: question_text.py:31
 msgid "Street address 1"
-msgstr "Địa chỉ đường phố 1"
+msgstr "거리 주소 1"
 
 #: question_text.py:32
 msgid "Street address 2"
-msgstr "Địa chỉ đường phố 2"
+msgstr "거리 주소 2"
 
 #: question_text.py:33
 msgid "City/town"
-msgstr "Thành phố/thị trấn"
+msgstr "시/타운"
 
 #: question_text.py:36
 msgid "What kind of election or voting activity was this related to?"
-msgstr "Điều này liên quan đến hình thức bầu cử hoặc hoạt động bỏ phiếu nào?"
+msgstr "어떤 종류의 선거 또는 투표 활동에 관련된 것이었습니까?"
 
 #: question_text.py:38
 msgid "Was this a public or private employer?"
-msgstr "Đây là đơn vị tuyển dụng công hay đơn vị tuyển dụng tư nhân?"
+msgstr "공공 고용주입니까, 민간 고용주입니까?"
 
 #: question_text.py:39
 msgid "How large is this employer?"
-msgstr "Quy mô của đơn vị tuyển dụng này ra sao?"
+msgstr "이 고용주는 어느 정도의 규모입니까?"
 
 #: question_text.py:41
 msgid ""
 "Please choose the type of location that best describes where the incident "
 "happened"
-msgstr "Vui lòng chọn loại địa điểm mô tả chính xác nhất nơi xảy ra vụ việc"
+msgstr "일이 발생한 곳을 가장 잘 설명하는 장소 유형을 선택하십시오."
 
 #: question_text.py:43
 msgid "Did this happen while in custody or incarcerated?"
-msgstr "Điều này có xảy ra khi đang bị cầm cố hoặc bỏ tù không?"
+msgstr "구금 또는 감금되어 있는 동안 일어난 일입니까?"
 
 #: question_text.py:44
 msgid "What type of prison or correctional facility?"
-msgstr "Loại hình nhà tù hoặc cơ sở cải huấn nào?"
+msgstr "어떤 종류의 교도소 또는 교정 시설입니까?"
 
 #: question_text.py:46
 msgid ""
 "Did this happen at a public or a private school, educational program or "
 "activity?"
 msgstr ""
-"Điều này có xảy ra tại một trường học, chương trình hoặc hoạt động giáo dục "
-"công lập hay tư nhân không?"
+"공립 또는 사립학교나 공공 또는 민간 교육 프로그램이나 활동에서 일어난 일입니"
+"까?"
 
 #: question_text.py:49
 msgid ""
 "Do you believe any of these personal characteristics influenced why you were "
 "treated this way?"
 msgstr ""
-"Quý vị có cho rằng bất kỳ điểm nào trong các đặc điểm cá nhân này đã ảnh "
-"hưởng đến lý do tại sao quý vị bị đối xử như vậy không?"
+"이들 인적 특성이 귀하가 이런 방식의 처우를 받는 이유에 영향을 미쳤다고 생각하"
+"십니까?"
 
 #: question_text.py:52
 msgid "When did this happen?"
-msgstr "Việc này đã xảy ra khi nào?"
+msgstr "이 일이 발생한 것은 언제입니까?"
 
 #: question_text.py:53
 msgid "Month"
-msgstr "Tháng"
+msgstr "월"
 
 #: question_text.py:54
 msgid "Day"
-msgstr "Ngày"
+msgstr "일"
 
 #: question_text.py:55
 msgid "Year"
-msgstr "Năm"
+msgstr "년도"
 
 #: question_text.py:59
 msgid "In your own words, describe what happened"
-msgstr "Bằng cách diễn đạt của chính quý vị, hãy mô tả những gì đã xảy ra"
+msgstr "어떤 일이 있었는지 귀하 자신의 표현으로 설명하십시오"
 
 #: question_text.py:61
 msgid "Please share details like:"
-msgstr "Vui lòng chia sẻ thông tin chi tiết như:"
+msgstr "다음과 같은 세부사항을 공유해 주십시오."
 
 #: question_text.py:63
 msgid "Time"
-msgstr "Thời gian"
+msgstr "시간"
 
 #: question_text.py:64
 msgid "Names of people involved including witnesses if there are any"
-msgstr "Tên của những người liên quan bao gồm cả nhân chứng nếu có"
+msgstr "목격자가 있는 경우, 목격자를 포함한 관련자들의 이름"
 
 #: question_text.py:65
 msgid "Any supporting materials (please list and describe them)"
-msgstr "Mọi tài liệu hỗ trợ (vui lòng liệt kê và mô tả chúng)"
+msgstr "뒷받침하는 자료들(그 목록을 열거하고 설명하십시오)"
 
 #: templates/base.html:33 templates/base.html:58
 #: templates/forms/report_base.html:10 templates/forms/report_base.html:13
 msgid "Contact the Civil Rights Division | Department of Justice"
-msgstr "Liên hệ với Ban Dân Quyền | Bộ Tư pháp"
+msgstr "법무부 | 민권국 연락처"
 
 #: templates/base.html:46
 msgid ""
@@ -1204,26 +1155,25 @@ msgid ""
 "housing, the workplace, school, voting, businesses, healthcare, public "
 "spaces, and more."
 msgstr ""
-"Quý vị hoặc một người nào đó mà quý vị biết đã từng bị phân biệt đối xử bất "
-"hợp pháp chưa? Ban Dân Quyền có thể giúp đỡ quý vị. Luật dân quyền có thể "
-"bảo vệ quý vị khỏi sự phân biệt đối xử, quấy rối hoặc lạm dụng bất hợp pháp "
-"trong nhiều môi trường khác nhau như nhà ở, nơi làm việc, trường học, hoạt "
-"động bỏ phiếu, doanh nghiệp, chăm sóc sức khỏe, không gian công cộng, v.v."
+"귀하 또는 지인이 불법적인 차별을 경험했습니까? 민권국(Civil Rights Division)"
+"이 도움을 드릴 수 있습니다. 민권법은 주택, 직장, 학교, 투표, 사업, 의료, 공공"
+"장소 등의 다양한 여러 환경에서 벌어지는 불법적인 차별, 괴롭힘, 학대로부터 귀"
+"하를 보호해 드릴 수 있습니다."
 
 #: templates/base.html:67
 msgid "Skip to main content"
-msgstr "Đi thẳng đến nội dung chính"
+msgstr "주요 컨텐츠로 건너뛰기"
 
 #: templates/base.html:121 templates/forms/errors.html:13
 #: templates/forms/report_maintenance.html:13 templates/landing.html:17
 msgid "U.S. Department of Justice"
-msgstr "Bộ Tư pháp Hoa Kỳ"
+msgstr "미국 법무부"
 
 #: templates/base.html:124 templates/forms/confirmation.html:21
 #: templates/forms/errors.html:14 templates/forms/report_maintenance.html:14
 #: templates/landing.html:20
 msgid "Civil Rights Division"
-msgstr "Ban Dân Quyền"
+msgstr "민권국"
 
 #: templates/forms/complaint_view/actions/bulk_actions.html:78
 #: templates/forms/grouped_questions.html:6
@@ -1237,52 +1187,52 @@ msgstr "Ban Dân Quyền"
 #: templates/forms/report_primary_complaint.html:11
 #: templates/forms/snippets/input.html:9
 msgid "required"
-msgstr "bắt buộc"
+msgstr "필수"
 
 #: templates/forms/confirmation.html:8
 msgid "Submission complete"
-msgstr "nộp xong"
+msgstr "완료 안 됨"
 
 #: templates/forms/confirmation.html:20 templates/forms/confirmation.html:26
 #: templates/forms/portal/header.html:3
 msgid "United States Department of Justice"
-msgstr "Bộ Tư pháp Hoa Kỳ"
+msgstr "미국 법무부"
 
 #: templates/forms/confirmation.html:29
 msgid "Thank you for submitting a report to the Civil Rights Division."
-msgstr "Cảm ơn quý vị đã gửi báo cáo đến Ban Dân quyền."
+msgstr "민권국에 신고서를 제출해 주셔서 감사합니다."
 
 #: templates/forms/confirmation.html:46
 msgid "Report successfully submitted"
-msgstr "Báo cáo đã được gửi thành công"
+msgstr "신고서가 성공적으로 제출되었습니다"
 
 #: templates/forms/confirmation.html:51
 msgid "Please save your record number for tracking."
-msgstr "Vui lòng lưu số hồ sơ của quý vị để theo dõi."
+msgstr "추적을 위해 귀하의 기록 번호를 저장해 두십시오."
 
 #: templates/forms/confirmation.html:52
 msgid ""
 "You will not receive an email confirmation, so please print or save this "
 "page for your records."
 msgstr ""
-"Quý vị sẽ không nhận được email xác nhận, vì vậy vui lòng in hoặc lưu trang "
-"này vào hồ sơ của quý vị."
+"확인 이메일 받지 못하실 것이므로, 기록용으로 이 페이지를 인쇄하거나 저장해 두"
+"십시오."
 
 #: templates/forms/confirmation.html:56
 msgid "Your record number is:"
-msgstr "Số hồ sơ của quý vị là:"
+msgstr "귀하의 기록 번호:"
 
 #: templates/forms/confirmation.html:62
 msgid "Print report"
-msgstr "In baìo caìo"
+msgstr "보고서 출력"
 
 #: templates/forms/confirmation.html:73
 msgid "What to expect"
-msgstr "Những việc sẽ diễn ra"
+msgstr "추후 상황"
 
 #: templates/forms/confirmation.html:83
 msgid "We review your report"
-msgstr "Chúng tôi sẽ đánh giá báo cáo của quý vị"
+msgstr "우리가 귀하의 신고 내용을 검토합니다"
 
 #: templates/forms/confirmation.html:88
 msgid ""
@@ -1290,42 +1240,39 @@ msgid ""
 "identify civil rights violations, spot trends, and determine if we have "
 "authority to help with your report."
 msgstr ""
-"Các chuyên gia của chúng tôi trong Ban Dân quyền đọc kỹ mọi báo cáo để xác "
-"định các hành vi vi phạm dân quyền, phát hiện xu hướng, và xác định xem "
-"chúng tôi có thẩm quyền trợ giúp vụ việc trong báo cáo của quý vị hay không."
+"민권국의 전문가가 모든 신고 내용을 신중히 읽고 민권 침해를 식별하여, 동향을 "
+"파악하고, 우리가 신고 내용에 도움을 줄 권한이 있는가를 판단합니다."
 
 #: templates/forms/confirmation.html:98
 msgid "Our specialists determine the next step"
-msgstr "Các chuyên gia của chúng tôi sẽ xác định bước tiếp theo"
+msgstr "우리 전문가가 다음 단계를 결정합니다"
 
 #: templates/forms/confirmation.html:102
 msgid "We may decide to:"
-msgstr "Chúng tôi có thể quyết định:"
+msgstr "다음을 하기로 결정할 수 있습니다."
 
 #: templates/forms/confirmation.html:105
 msgid ""
 "<strong>Open an investigation</strong> or take some other action within the "
 "legal authority of the Justice Department."
 msgstr ""
-"<strong>Mở một cuộc điều tra</strong> hoặc thực hiện một hành động nào khác "
-"trong thẩm quyền pháp lý của Bộ Tư pháp."
+"법무부의 법적 권한 내에서 <strong>조사를 개시하거나</strong> 일부 다른 조치"
+"를 취합니다."
 
 #: templates/forms/confirmation.html:106
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
 "report."
 msgstr ""
-"<strong>Thu thập thêm thông tin</strong> trước khi chúng tôi có thể đánh giá "
-"báo cáo của quý vị."
+"신고 내용을 더 들여다 보기 전에 <strong>추가 정보를 수집합니다</strong>."
 
 #: templates/forms/confirmation.html:107
 msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
 "into your report. If so, we’ll let you know."
 msgstr ""
-"<strong>Đề nghị một cơ quan chính phủ khác</strong> có thể đánh giá báo cáo "
-"của quý vị một cách chính xác. Nếu vậy, chúng tôi sẽ thông báo cho quý vị "
-"biết."
+"귀하의 신고 내용을 적절하게 파헤쳐 볼 수 있는 <strong>다른 정부 기관을 추천합"
+"니다</strong>. 그런 경우, 귀하에게 알려드립니다."
 
 #: templates/forms/confirmation.html:110
 msgid ""
@@ -1333,33 +1280,30 @@ msgid ""
 "your report and will recommend that you seek help from a private lawyer or "
 "local legal aid organization."
 msgstr ""
-"Trong một số trường hợp, chúng tôi có thể xác định rằng chúng tôi không có "
-"thẩm quyền pháp lý để xử lý báo cáo của quý vị và sẽ khuyến nghị quý vị nên "
-"tìm kiếm sự trợ giúp từ luật sư riêng hoặc tổ chức hỗ trợ pháp lý địa phương."
+"일부 사례에서 우리는 귀하의 신고를 처리할 법적 권한이 없다고 판단할 수 있으"
+"며, 민간 변호사 또는 지역 법률 지원 단체로부터 도움을 구하실 수 있도록 권고"
+"해 드리기도 합니다."
 
 #: templates/forms/confirmation.html:120
 msgid "When possible, we will follow up with you"
-msgstr "Khi có thể, chúng tôi sẽ liên hệ với quý vị"
+msgstr "가능한 경우, 귀하와 후속 단계를 취할 것입니다"
 
 #: templates/forms/confirmation.html:125
 msgid ""
 "We do our best to let you know about the outcome of our review. However, we "
 "may not always be able to provide you with updates because:"
 msgstr ""
-"Chúng tôi sẽ cố gắng hết sức để thông báo cho quý vị biết về kết quả đánh "
-"giá của chúng tôi. Tuy nhiên, không phải lúc nào chúng tôi cũng có thể cung "
-"cấp cho quý vị các thông tin cập nhật vì:"
+"우리는 검토 결과를 알려 드리기 위해 최선을 다할 것입니다. 하지만 우리는 다음"
+"과 같은 이유로 항상 업데이트를 제공해 드릴 수 있는 것은 아닙니다."
 
 #: templates/forms/confirmation.html:129
 msgid ""
 "We’re actively working on an investigation or case related to your report."
-msgstr ""
-"Chúng tôi đang tích cực thực hiện một cuộc điều tra hoặc trường hợp liên "
-"quan đến báo cáo của quý vị."
+msgstr "귀하의 신고와 관련된 사례를 활발하게 처리 중이거나 조사 중입니다."
 
 #: templates/forms/confirmation.html:132
 msgid "We’re receiving and actively reviewing many requests at the same time."
-msgstr "Chúng tôi đang nhận và tích cực đánh giá nhiều yêu cầu cùng một lúc."
+msgstr "우리는 동시에 많은 요청을 받고 있고 적극적으로 검토하고 있습니다."
 
 #: templates/forms/confirmation.html:135 templates/landing.html:353
 msgid ""
@@ -1369,16 +1313,15 @@ msgid ""
 "report number when contacting us. This is how we keep track of your "
 "submission."
 msgstr ""
-"Nếu chúng tôi có thể hồi đáp, chúng tôi sẽ liên hệ với quý vị bằng cách sử "
-"dụng thông tin liên hệ mà quý vị đã cung cấp trong báo cáo này. Tùy thuộc "
-"vào loại báo cáo, thời gian hồi đáp có thể khác nhau. Nếu quý vị cần liên hệ "
-"với chúng tôi về báo cáo của mình, vui lòng cung cấp mã số báo cáo của quý "
-"vị khi liên hệ với chúng tôi. Đây là cách chúng tôi theo dõi hồ sơ của quý "
-"vị."
+"우리는 귀하에게 응답할 수 있는 경우, 귀하가 해당 신고 시 제공한 연락처 정보"
+"를 이용하여 귀하에게 연락할 것입니다. 신고 유형에 따라 응답 시간은 달라질 수 "
+"있습니다. 신고와 관련하여 우리를 접촉해야 하는 경우, 연락할 때 귀하의 신고 번"
+"호를 말씀해 주십시오. 그래야 귀하가 제출하신 내용을 계속 추적해 나갈 수 있습"
+"니다."
 
 #: templates/forms/confirmation.html:143
 msgid "What you can do next"
-msgstr "Quý vị có thể làm gì tiếp theo"
+msgstr "다음으로 하실 수 있는 것"
 
 #: templates/forms/confirmation.html:149
 msgid "1"
@@ -1387,17 +1330,15 @@ msgstr "1"
 #: templates/forms/confirmation.html:152
 msgid ""
 "Contact local legal aid organizations or a lawyer if you haven’t already"
-msgstr ""
-"Liên hệ với các tổ chức hỗ trợ pháp lý địa phương hoặc luật sư nếu quý vị "
-"chưa làm việc đó"
+msgstr "아직 하지 않았다면, 지역 법률 지원 단체나 변호사에게 연락합니다"
 
 #: templates/forms/confirmation.html:156
 msgid ""
 "Legal aid offices or members of lawyer associations in your state may be "
 "able to help you with your issue."
 msgstr ""
-"Các văn phòng hỗ trợ pháp lý hoặc thành viên của các hiệp hội luật sư ở tiểu "
-"bang của quý vị có thể giúp quý vị giải quyết vấn đề của mình."
+"귀하가 거주하는 주의 법률 지원 사무소나 변호사 협회 일원이 귀하의 문제에 도움"
+"을 드릴 수도 있습니다."
 
 #: templates/forms/confirmation.html:159
 msgid ""
@@ -1406,10 +1347,10 @@ msgid ""
 "findlegalhelp.org\">www.findlegalhelp.org</a> or call <a href="
 "\"tel:800-285-2221\">(800) 285-2221</a>"
 msgstr ""
-"Hiệp hội Luật sư Mỹ, vui lòng truy cập <a class=\"external-link--blue "
-"external-link--popup\" aria-label=\"www.findlegalhelp.org\" href=\"http://"
-"www.findlegalhelp.org\">www.findlegalhelp.org</a> hoặc gọi <a href="
-"\"tel:800-285-2221\">(800) 285-2221</a>"
+"American Bar Association의 <a class=\"external-link--blue external-link--"
+"popup\" aria-label=\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp."
+"org\">www.findlegalhelp.org</a> 방문 또는 <a href=\"tel:800-285-2221\">(800) "
+"285-2221</a>로 전화"
 
 #: templates/forms/confirmation.html:162
 msgid ""
@@ -1418,11 +1359,10 @@ msgid ""
 "href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> "
 "or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
 msgstr ""
-"Legal Service Corporation (hoặc Legal Aid Offices), vui lòng truy cập <a "
-"aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue "
-"external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc."
-"gov/find-legal-aid</a> hoặc gọi <a href=\"tel:202-295-1500\">(202) 295-1500</"
-"a>"
+"법률서비스 법인 (또는 법률구조공사)의 <a aria-label=\"www.lsc.gov/find-legal-"
+"aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
+"lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> 방문 또는 <a href="
+"\"tel:202-295-1500\">(202) 295-1500</a>으로 전화 "
 
 #: templates/forms/confirmation.html:170
 msgid "2"
@@ -1430,7 +1370,7 @@ msgstr "2"
 
 #: templates/forms/confirmation.html:173
 msgid "Get help immediately if you are in danger"
-msgstr "Yêu cầu trợ giúp ngay lập tức nếu quý vị đang gặp nguy hiểm"
+msgstr "위험에 처해 있다면 즉시 도움을 구하세요"
 
 #: templates/forms/confirmation.html:178
 msgid ""
@@ -1438,18 +1378,17 @@ msgid ""
 "still experiencing physical harm or violence, or are in immediate danger, "
 "please call <a href=\"tel:911\">911</a> and contact the police."
 msgstr ""
-"Nếu quý vị đã báo cáo một vụ việc mà quý vị hoặc người khác đã trải qua hoặc "
-"vẫn đang bị tổn hại về thể chất hoặc đang chịu bạo lực, hoặc đang gặp nguy "
-"hiểm ngay trước mắt, vui lòng gọi <a href=\"tel:911\">911</a> và liên hệ với "
-"cảnh sát."
+"귀하 또는 다른 누군가가 물리적 위해나 폭력을 경험했거나 여전히 경험하고 있는 "
+"사건을 신고했거나 긴박한 위험에 처해 있는 경우라면, <a href=\"tel:911\">911</"
+"a>에 전화해 경찰을 접촉하십시오."
 
 #: templates/forms/confirmation.html:191
 msgid "Your submission"
-msgstr "Hồ sơ của quý vị"
+msgstr "귀하의 제출"
 
 #: templates/forms/error_422.html:5 templates/forms/errors.html:31
 msgid "We're sorry, something went wrong"
-msgstr "Chúng tôi rất tiếc, đã có lỗi xảy ra"
+msgstr "죄송합니다만 뭔가 오류가 있었습니다"
 
 #: templates/forms/error_422.html:8
 msgid ""
@@ -1462,40 +1401,39 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"        <p>Lỗi này có thể liên quan đến trình duyệt Internet không tương "
-"thích. Vui lòng tải xuống phiên bản mới nhất của trình duyệt Google Chrome, "
-"Mozilla Firefox, Safari hoặc Microsoft Edge.</p>\n"
-"        <p>Ngoài ra, vui lòng không sử dụng nhiều trình duyệt và/hoặc các "
-"tab trình duyệt khi nhập báo cáo của quý vị.</p>\n"
+"        <p>이 오류는 호환되지 않는 인터넷 브라우저와 연계된 것일 수 있습니"
+"다. 최신 버전의 Google Chrome, Mozilla Firefox, Safari 또는 Microsoft Edge를 "
+"다운로드하십시오.</p>\n"
+"        <p>또한, 신고 내용을 입력할 때 다수의 브라우저 및/또는 브라우저 탭을 "
+"이용하지 마십시오.</p>\n"
 "    "
 
 #: templates/forms/errors.html:33
 msgid "We hope to fix this issue shortly"
-msgstr "Chúng tôi hy vọng sẽ sớm khắc phục sự cố này"
+msgstr "이 문제가 곧 해결되기를 바랍니다"
 
 #: templates/forms/errors.html:35
 msgid "Error: "
-msgstr "Lỗi: "
+msgstr "오류: "
 
 #: templates/forms/errors.html:37 templates/forms/report_maintenance.html:33
 msgid "If you need to contact us immediately, you can reach us by:"
 msgstr ""
-"Nếu quý vị cần liên hệ với chúng tôi ngay lập tức, quý vị có thể liên hệ với "
-"chúng tôi bằng cách:"
+"즉시 우리에게 연락할 필요가 있는 경우, 다음의 방법으로 연락하실 수 있습니다."
 
 #: templates/forms/errors.html:42 templates/forms/report_maintenance.html:38
 msgid "Email"
-msgstr "Email"
+msgstr "이메일"
 
 #: templates/forms/errors.html:51 templates/forms/report_maintenance.html:47
 #: templates/partials/footer.html:32
 msgid "(toll-free)"
-msgstr "(số điện thoại miễn phí)"
+msgstr "(무료)"
 
 #: templates/forms/errors.html:52 templates/forms/report_maintenance.html:48
 #: templates/partials/footer.html:33
 msgid "Telephone Device for the Deaf"
-msgstr "Thiết bị Điện thoại dành cho Người khiếm thính"
+msgstr "청각 장애인용 전화 장치"
 
 #: templates/forms/errors.html:53 templates/forms/report_maintenance.html:49
 #: templates/partials/footer.html:34
@@ -1504,16 +1442,16 @@ msgstr "(TTY)"
 
 #: templates/forms/errors.html:68 templates/forms/report_maintenance.html:64
 msgid "Other information"
-msgstr "Các thông tin khác"
+msgstr "기타 정보"
 
 #: templates/forms/errors.html:69
 msgid "File a complaint"
-msgstr "Nộp đơn khiếu nại"
+msgstr "진정사항 접수"
 
 #: templates/forms/errors.html:71 templates/forms/report_maintenance.html:66
 #: templates/landing.html:125
 msgid "About the Civil Rights Division"
-msgstr "Giới thiệu về Ban Dân Quyền"
+msgstr "민권국 소개"
 
 #: templates/forms/errors.html:74 templates/forms/report_maintenance.html:69
 #: templates/landing.html:108
@@ -1521,12 +1459,12 @@ msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
 msgstr ""
-"Nếu quý vị hoặc một người nào đó đang gặp nguy hiểm ngay trước mắt, <a href="
-"\"tel:911\">vui lòng gọi 911 hoặc cảnh sát địa phương</a>."
+"귀하 또는 다른 누군가가 긴박한 위험에 처해 있다면 <a href=\"tel:911\">911 또"
+"는 지역 경찰서로 전화</a>하십시오."
 
 #: templates/forms/portal/progress-bar.html:6
 msgid "progress"
-msgstr "tiến trình"
+msgstr "진행"
 
 #: templates/forms/portal/progress-bar.html:8
 #, python-format
@@ -1537,17 +1475,17 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          Bước hiện tại: %(current_step_name)s. Bước %(stage_number)s của "
+"          현 단계: %(current_step_name)s. 단계 %(stage_number)s / "
 "%(total_stages)s.\n"
 "        "
 
 #: templates/forms/portal/progress-bar.html:27
 msgid "not completed"
-msgstr "chưa hoàn thành"
+msgstr "완료 안 됨"
 
 #: templates/forms/portal/progress-bar.html:29
 msgid "completed"
-msgstr "đã hoàn thành"
+msgstr "완료됨"
 
 #: templates/forms/report_base.html:8
 #, python-format
@@ -1556,11 +1494,11 @@ msgid ""
 "        Step %(stage_number)s: %(current_step_name)s - "
 msgstr ""
 "\n"
-"        Bước %(stage_number)s: %(current_step_name)s - "
+"        단계 %(stage_number)s: %(current_step_name)s - "
 
 #: templates/forms/report_base.html:22
 msgid "Contact the Department of Justice to report a civil rights violation"
-msgstr "Liên hệ với Bộ Tư pháp để báo cáo hành vi vi phạm dân quyền"
+msgstr "법무부에 접촉하여 민권 침해를 신고하세요"
 
 #: templates/forms/report_base.html:55
 #, python-format
@@ -1574,73 +1512,69 @@ msgid_plural ""
 "                "
 msgstr[0] ""
 "\n"
-"                  1 lỗi được tìm thấy\n"
+"                  1개의 오류 발견\n"
 "                "
 msgstr[1] ""
 "\n"
-"                  %(counter)s lỗi được tìm thấy\n"
+"                  %(counter)s개의 오류 발견\n"
 "                "
 
 #: templates/forms/report_base.html:84
 msgid "Submit"
-msgstr "Gửi"
+msgstr "제출"
 
 #: templates/forms/report_base.html:86
 msgid "Next"
-msgstr "Tiếp theo"
+msgstr "다음"
 
 #: templates/forms/report_base.html:93 templates/forms/report_review.html:32
 msgid "previous step"
-msgstr "bước trước"
+msgstr "이전 단계"
 
 #: templates/forms/report_base.html:96 templates/forms/report_review.html:35
 #: templates/partials/redirect-modal.html:21
 msgid "Back"
-msgstr "Quay lại"
+msgstr "뒤로"
 
 #: templates/forms/report_data.html:21 templates/forms/report_data.html:114
 msgid "Address"
-msgstr "Địa chỉ"
+msgstr "주소"
 
 #: templates/forms/report_data.html:135 templates/forms/report_data.html:141
 msgid "None selected"
-msgstr "Không lựa chọn nào được chọn"
+msgstr "선택된 것 없음"
 
 #: templates/forms/report_hate_crime.html:13
 #: templates/forms/report_hate_crime.html:18 templates/landing.html:227
 msgid "Were you forced to work against your will?"
-msgstr "Quý vị có bị ép buộc phải làm việc trái ý mình không?"
+msgstr "귀하의 의지에 반하여 일하도록 강요 받았습니까?"
 
 #: templates/forms/report_hate_crime.html:16
 msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
 msgstr ""
-"Buôn bán người bao gồm việc bị cưỡng bức hoặc ép buộc làm việc, hoặc bị "
-"cưỡng bức hoặc ép buộc thực hiện các hành vi tình dục để đổi lấy thứ gì đó "
-"có giá trị."
+"인신매매에는 금전을 위해 성행위에 참여하도록 강요나 강압 또는 일을 하도록 강"
+"요나 강압당하는 것이 포함됩니다."
 
 #: templates/forms/report_hate_crime.html:18 templates/landing.html:227
 msgid "Get help from the National Human Trafficking Hotline"
-msgstr "Yêu cầu trợ giúp từ Đường dây nóng Quốc gia về Buôn bán người"
+msgstr "국가 인신매매 핫라인으로부터 도움 받기"
 
 #: templates/forms/report_maintenance.html:30
 msgid "This page is currently down for maintenance."
-msgstr "Trang này hiện đang ngưng hoạt động để bảo trì."
+msgstr "이 페이지는 현재 유지보수를 위해 중단된 상태입니다."
 
 #: templates/forms/report_maintenance.html:31
 msgid ""
 "We expect to be back shortly. We recommend checking back to report a civil "
 "rights violation."
 msgstr ""
-"Chúng tôi dự kiến sẽ sớm hoạt động trở lại. Chúng tôi khuyến khích quý vị "
-"nên kiểm tra lại để báo cáo hành vi vi phạm dân quyền."
+"곧 다시 복원될 것입니다. 다시 확인해 보시고 민권 침해 신고를 하시기 바랍니다."
 
 #: templates/forms/report_review.html:10
 msgid "Before you submit your report, please check your responses"
-msgstr ""
-"Trước khi quý vị gửi báo cáo của mình, vui lòng kiểm tra các câu trả lời của "
-"quý vị"
+msgstr "신고서 제출에 앞서, 응답하신 내용을 확인하십시오."
 
 #: templates/forms/report_review.html:12
 msgid ""
@@ -1648,22 +1582,21 @@ msgid ""
 "pages. Please make sure your information is accurate. This allows us to "
 "respond to your report quickly."
 msgstr ""
-"Nếu quý vị cần thực hiện bất kỳ thay đổi nào, quý vị có thể quay lại và "
-"chỉnh sửa các trang trước đó. Hãy chắc chắn rằng thông tin của quý vị là "
-"chính xác. Điều này cho phép chúng tôi hồi đáp lại báo cáo của quý vị một "
-"cách nhanh chóng."
+"변경이 필요한 경우, 뒤로 돌아가 이전 페이지를 수정하실 수 있습니다. 정보가 정"
+"확한지 확인해 주십시오. 이를 통해 저희가 귀하의 신고에 신속하게 응할 수 있습"
+"니다."
 
 #: templates/forms/report_review.html:14 templates/forms/report_review.html:26
 msgid "Submit report"
-msgstr "Gửi báo cáo"
+msgstr "신고서 제출"
 
 #: templates/forms/snippets/preview_button.html:5
 msgid "Edit this page"
-msgstr "Chỉnh sửa trang này"
+msgstr "이 페이지 수정"
 
 #: templates/forms/widgets/crt_radio_area_option.html:26
 msgid "Examples:"
-msgstr "Ví dụ:"
+msgstr "예:"
 
 #: templates/forms/word_counter.html:4
 #, python-format
@@ -1673,7 +1606,7 @@ msgid ""
 "  "
 msgstr ""
 "\n"
-"    %(word_limit)s giới hạn từ.\n"
+"    %(word_limit)s 단어 수 제한.\n"
 "  "
 
 #: templates/forms/word_counter.html:16 templates/forms/word_counter.html:21
@@ -1684,7 +1617,7 @@ msgid ""
 "        "
 msgstr ""
 "\n"
-"          %(word_limit)s đã đạt đến giới hạn từ\n"
+"          %(word_limit)s 단어 수 제한에 도달\n"
 "        "
 
 #: templates/landing.html:29
@@ -1693,29 +1626,28 @@ msgstr ""
 
 #: templates/landing.html:38
 msgid "About the Division"
-msgstr "Giới thiệu về Ban"
+msgstr "민권국 소개"
 
 #: templates/landing.html:43
 msgid "Your rights"
-msgstr "Các quyền của quý vị"
+msgstr "귀하의 권리"
 
 #: templates/landing.html:48 templates/partials/footer.html:69
 msgid "Report a violation"
-msgstr "Báo cáo một vi phạm"
+msgstr "침해 신고"
 
 #: templates/landing.html:53
 msgid "Already submitted?"
-msgstr "Đã gửi?"
+msgstr "이미 제출하셨습니까?"
 
 #: templates/landing.html:58 templates/partials/footer.html:9 views.py:951
 #: views.py:1030 views.py:1049
 msgid "Contact"
-msgstr "Liên Hệ"
+msgstr "연락처"
 
 #: templates/landing.html:78
 msgid "We uphold the civil rights of <em>all</em> people in the United States."
-msgstr ""
-"Chúng tôi đề cao quyền công dân của <em>tất cả</em> mọi người dân ở Hoa Kỳ."
+msgstr "우리는 미국 내 <em>모든</em> 사람들의 민권을 옹호합니다."
 
 #: templates/landing.html:83
 msgid ""
@@ -1724,31 +1656,28 @@ msgid ""
 "status, sex, religion, familial status, or loss of other constitutional "
 "rights."
 msgstr ""
-"Ban Dân quyền thực thi luật liên bang bảo vệ quý vị khỏi sự phân biệt đối xử "
-"dựa trên chủng tộc, màu da, quốc gia xuất xứ, tình trạng khuyết tật, giới "
-"tính, tôn giáo, tình trạng gia đình, hoặc tình trạng mất các quyền hợp hiến "
-"khác của quý vị."
+"민권국은 인종, 피부색, 출신 국가, 장애 신분, 성별, 종교, 가족 상태 또는 헌법"
+"상 권리의 상실에 기반한 차별로부터 귀하를 보호하는 연방 법률을 집행합니다."
 
 #: templates/landing.html:86
 msgid ""
 "If you believe your civil rights, or someone else’s, have been violated, "
 "submit a report using our online form."
 msgstr ""
-"Nếu quý vị tin rằng dân quyền của mình hoặc của người khác đã bị vi phạm, "
-"hãy gửi báo cáo bằng cách sử dụng mẫu trực tuyến của chúng tôi."
+"귀하 또는 다른 누군가의 민권이 침해되었다고 믿는 경우, 온라인 양식을 이용해 "
+"신고서를 제출하십시오."
 
 #: templates/landing.html:88
 msgid "Start a report"
-msgstr "Bắt đầu báo cáo"
+msgstr "신고서 작성을 시작하거나"
 
 #: templates/landing.html:89
 msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
-msgstr ""
-"hoặc tìm hiểu thêm về các <a href=\"#your-rights\">quyền của quý vị</a>"
+msgstr "또는 <a href=\"#your-rights\">귀하의 권리</a>에 대해 더 알아보세요"
 
 #: templates/landing.html:102
 msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
-msgstr "Nếu quý vị đang gặp nguy hiểm, hãy gọi <a href=\"tel:911\">911</a>"
+msgstr "위험에 처해 있다면 <a href=\"tel:911\">911</a>로 연락하세요"
 
 #: templates/landing.html:113
 msgid ""
@@ -1757,26 +1686,23 @@ msgid ""
 "\"external-link--white\" href=\"https://www.fbi.gov/tips\">contact the FBI</"
 "a>."
 msgstr ""
-"Nếu quý vị đang báo cáo hành vi sai trái của cơ quan hành pháp hoặc tin rằng "
-"quý vị đã phải chịu đựng một hành vi phạm tội do thù ghét, vui lòng <a aria-"
-"label=\"contact the FBI\" class=\"external-link--white\" href=\"https://www."
-"fbi.gov/tips\">liên hệ với FBI</a>."
+"법 집행기관에 의한 부당행위를 신고 중이거나 증오 범죄를 경험했다고 생각되면, "
+"<a aria-label=\"contact the FBI\" class=\"external-link--white\" href="
+"\"https://www.fbi.gov/tips\">FBI에 연락하십시오</a>."
 
 #: templates/landing.html:127
 msgid "We protect your rights through:"
-msgstr "Chúng tôi bảo vệ các quyền của quý vị thông qua:"
+msgstr "우리는 다음을 통해 귀하의 권리를 보호합니다."
 
 #: templates/landing.html:130
 msgid "Enforcement"
-msgstr "Đảm bảo thực thi"
+msgstr "집행"
 
 #: templates/landing.html:132
 msgid ""
 "We sue or prosecute individuals and organizations who violate civil rights "
 "laws."
-msgstr ""
-"Chúng tôi khởi kiện hoặc truy tố những cá nhân và tổ chức vi phạm luật dân "
-"quyền."
+msgstr "우리는 민권법을 위반하는 개인 및 단체를 기소하거나 소송을 제기합니다."
 
 #: templates/landing.html:135
 #, python-format
@@ -1788,47 +1714,41 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"Quý vị có thể giúp chúng tôi thực hiện việc này bằng cách báo cáo một hành "
-"vi vi phạm dân quyền có thể xảy ra thông qua <a href=\"%(report_form_url)s"
-"\">mẫu đơn trực tuyến</a>.\n"
+"귀하는 다음을 통해 잠재적 민권 침해를 신고함으로써 우리의 일에 도움을 줄 수 "
+"있습니다 <a href=\"%(report_form_url)s\">온라인 양식</a>.\n"
 "                "
 
 #: templates/landing.html:141
 msgid "Education"
-msgstr "Giáo dục"
+msgstr "교육"
 
 #: templates/landing.html:143
 msgid "We help the public understand how to comply with these laws."
-msgstr "Chúng tôi giúp công chúng hiểu cách tuân thủ các luật này."
+msgstr "우리는 대중이 이 법률 준수 방법을 이해할 수 있게 돕습니다."
 
 #: templates/landing.html:144
 msgid "We do this through public speaking, technical assistance, and more."
-msgstr ""
-"Chúng tôi thực hiện điều này thông qua phát biểu trước công chúng, trợ giúp "
-"kỹ thuật, và những việc làm khác."
+msgstr "우리는 공개 강연, 기술적 지원 등 여러 가지를 통해 이를 수행합니다."
 
 #: templates/landing.html:147
 msgid "Coordination"
-msgstr "Hợp tác"
+msgstr "코디네이션"
 
 #: templates/landing.html:149
 msgid ""
 "We help the entire federal government work together to enforce these laws."
-msgstr ""
-"Chúng tôi giúp toàn bộ chính phủ liên bang phối hợp làm việc cùng nhau để "
-"thực thi các luật này."
+msgstr "우리는 전체 연방 정부가 이 법률 집행을 위해 협력하도록 지원합니다."
 
 #: templates/landing.html:150
 msgid ""
 "Our teams work with other agencies to promote a consistent approach to civil "
 "rights laws."
 msgstr ""
-"Các nhóm của chúng tôi làm việc với các cơ quan khác để thúc đẩy cách tiếp "
-"cận nhất quán đối với các luật dân quyền."
+"우리 팀들은 민권법에의 일관된 접근을 촉진하기 위해 다른 기관들과 협력합니다."
 
 #: templates/landing.html:162
 msgid "Understanding your rights"
-msgstr "Hiểu các quyền của quý vị"
+msgstr "귀하의 권리를 이해하기"
 
 #: templates/landing.html:165
 msgid ""
@@ -1837,11 +1757,10 @@ msgid ""
 "rights_text crt-landing--rights_categories\">housing, the workplace, school, "
 "voting, business, healthcare, public spaces</span>, and more."
 msgstr ""
-"Luật dân quyền có thể bảo vệ quý vị khỏi sự phân biệt đối xử, quấy rối hoặc "
-"lạm dụng bất hợp pháp trong nhiều môi trường khác nhau như <span class=\"crt-"
-"landing--rights_text crt-landing--rights_categories\">nhà ở, nơi làm việc, "
-"trường học, hoạt động bỏ phiếu, doanh nghiệp, chăm sóc sức khỏe, không gian "
-"công cộng</span>, v.v."
+"민권법은 <span class=\"crt-landing--rights_text crt-landing--"
+"rights_categories\">주택, 직장, 학교, 투표, 사업, 의료, 공공장소</span> 등의 "
+"다양한 여러 환경에서 벌어지는 불법적인 차별, 괴롭힘 또는 학대로부터 귀하를 보"
+"호해 드릴 수 있습니다."
 
 #: templates/landing.html:168
 msgid ""
@@ -1851,92 +1770,91 @@ msgid ""
 "crime</span>, or a victim of <span class=\"crt-landing--rights_categories"
 "\">human trafficking</span>, we can help get you to the right place."
 msgstr ""
-"Nếu quý vị <span class=\"crt-landing--rights_categories\">bị cơ quan hành "
-"pháp ngược đãi</span> (kể cả khi đang bị giam giữ), tin rằng quý vị là nạn "
-"nhân của <span class=\"crt-landing--rights_categories\">hành vi phạm tội do "
-"thù ghét</span> hoặc nạn nhân của <span class=\"crt-landing--"
-"rights_categories\">nạn buôn người</span>, chúng tôi có thể giúp đưa quý vị "
-"đến đúng nơi."
+"법 집행기관에 의해 (감금되어 있던 동안 포함) <span class=\"crt-landing--"
+"rights_categories\">불법적인 대우를 받았거나</span>, <span class=\"crt-"
+"landing--rights_categories\">증오 범죄</span> 또는 <span class=\"crt-"
+"landing--rights_categories\">인신매매</span>의 피해자라고 믿는 경우, 귀하가 "
+"올바른 곳과 접촉할 수 있도록 도와드릴 수 있습니다."
 
 #: templates/landing.html:184
 msgid "Choose from this list to see example civil rights violations:"
-msgstr "Chọn từ danh sách này để xem ví dụ về các hành vi vi phạm dân quyền:"
+msgstr "민권 침해의 예를 보려면 이 목록 중에서 선택하세요."
 
 #: templates/landing.html:219
 msgid "Examples"
-msgstr "Các ví dụ"
+msgstr "예"
 
 #: templates/landing.html:236
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
 msgstr ""
-"Nếu quý vị cho rằng mình đã trải qua trường hợp tương tự, hãy tìm hiểu <a "
-"href=\"#crt-landing--reporting\">cách báo cáo hành vi vi phạm dân quyền</a>."
+"귀하가 유사 상황을 경험했다고 생각되는 경우, <a href=\"#crt-landing--"
+"reporting\">민권 침해를 신고하는 방법</a>에 대해 알아보세요. "
 
 #: templates/landing.html:246
 msgid "Protected by civil rights laws"
-msgstr "Được các luật dân quyền bảo vệ"
+msgstr "민권법에 의한 보호 대상"
 
 #: templates/landing.html:248
 msgid "These are the most common characteristics that are legally protected."
-msgstr "Đây là những đặc điểm chung nhất được bảo vệ hợp pháp."
+msgstr "다음은 법적 보호를 받는 가장 일반적인 특성들입니다."
 
 #: templates/landing.html:251
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
 msgstr ""
-"Tình trạng khuyết tật <span class=\"crt-landing--protected\">bao gồm tạm "
-"thời hoặc đang phục hồi</span>"
+"<span class=\"crt-landing--protected\">일시적이거나 회복 중인 상태를 포함한</"
+"span> 장애"
 
 #: templates/landing.html:253
 msgid "Sex, gender identity, and sexual orientation"
-msgstr "Giới tính, nhận dạng giới tính, và xu hướng tình dục"
+msgstr "성별, 성 정체성, 성적 지향"
 
 #: templates/landing.html:254
 msgid "Immigration/citizenship status"
-msgstr "Tình trạng nhập cư/tư cách công dân"
+msgstr "이민/시민권 신분"
 
 #: templates/landing.html:255
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
 msgstr ""
-"Ngôn ngữ và quốc gia xuất xứ <span class=\"crt-landing--protected\">bao gồm "
-"tổ tiên và dân tộc</span>"
+"언어와 <span class=\"crt-landing--protected\">혈통 및 민족을 포함한</span> 출"
+"신 국가"
 
 #: templates/landing.html:256
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
 msgstr ""
-"Tình trạng gia đình, hôn nhân, hay làm cha mẹ <span class=\"crt-landing--"
-"protected\">bao gồm cả tình trạng mang thai</span>"
+"가족, 결혼 또는 <span class=\"crt-landing--protected\">임신을 포함한</span> "
+"자녀 유무 상태"
 
 #: templates/landing.html:258
 msgid "Genetic identification"
-msgstr "Nhận dạng di truyền"
+msgstr "유전적 식별 정보"
 
 #: templates/landing.html:259
 msgid "Servicemember status"
-msgstr "Tình trạng quân vụ"
+msgstr "병역 상태"
 
 #: templates/landing.html:273
 msgid "How to report a civil rights violation"
-msgstr "Cách báo cáo một hành vi vi phạm dân quyền"
+msgstr "민권 침해를 보고하는 방법 "
 
 #: templates/landing.html:278
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
 msgstr ""
-"Nếu quý vị tin rằng quý vị hoặc người khác đã bị phân biệt đối xử bất hợp "
-"pháp, quý vị có thể báo cáo một hành vi vi phạm dân quyền."
+"귀하 또는 다른 누군가가 불법적인 차별을 경험했다고 믿는다면, 민권 침해를 신고"
+"할 수 있습니다."
 
 #: templates/landing.html:287
 msgid "Report using our online form."
-msgstr "Báo cáo bằng cách sử dụng mẫu trực tuyến của chúng tôi."
+msgstr "온라인 양식을 이용해 신고하십시오."
 
 #: templates/landing.html:288
 msgid ""
@@ -1944,14 +1862,13 @@ msgid ""
 "understand what happened. You will receive a confirmation number and your "
 "report is immediately sent to our staff for review."
 msgstr ""
-"Bằng cách hoàn thành mẫu đơn trực tuyến, quý vị có thể cung cấp các chi tiết "
-"mà chúng tôi cần để hiểu điều gì đã xảy ra. Quý vị sẽ nhận được một số xác "
-"nhận và báo cáo của quý vị ngay lập tức được gửi đến nhân viên của chúng tôi "
-"để đánh giá."
+"온라인 양식을 완료함으로써, 발생한 일을 우리가 이해할 수 있도록 필요한 세부사"
+"항을 제공하실 수 있습니다. 귀하는 확인 번호를 받게 되며, 신고하신 내용은 검토"
+"를 위해 우리 직원에게 즉시 보내집니다."
 
 #: templates/landing.html:296
 msgid "We review your report."
-msgstr "Chúng tôi sẽ đánh giá báo cáo của quý vị."
+msgstr "우리가 귀하의 신고 내용을 검토합니다."
 
 #: templates/landing.html:297
 msgid ""
@@ -1959,13 +1876,13 @@ msgid ""
 "needs to be forwarded to another team or agency, we will try to connect your "
 "complaint to the right group."
 msgstr ""
-"Các nhóm chuyên trách xử lý loại vấn đề của quý vị sẽ xem xét vấn đề đó. Nếu "
-"vụ việc cần được chuyển tiếp đến một nhóm hoặc cơ quan khác, chúng tôi sẽ cố "
-"gắng kết nối khiếu nại của quý vị với đúng nhóm."
+"귀하 유형의 문제를 다루는 데 특화된 팀들이 그 내용을 검토할 것입니다. 다른 팀"
+"이나 기관에 보낼 필요가 있는 경우, 올바른 그룹에게 귀하의 진정사항을 연결시키"
+"고자 노력할 것입니다."
 
 #: templates/landing.html:305
 msgid "We determine next steps and get back to you."
-msgstr "Chúng tôi xác định các bước tiếp theo và liên hệ lại với quý vị."
+msgstr "우리는 다음 단계를 결정하고 귀하에게 응답을 드립니다."
 
 #: templates/landing.html:306
 msgid ""
@@ -1973,19 +1890,16 @@ msgid ""
 "mediation or investigation, directing you to another organization for "
 "further help, or informing you that we cannot help."
 msgstr ""
-"Các kết quả có thể xảy ra bao gồm: theo dõi để biết thêm thông tin, bắt đầu "
-"hòa giải hoặc điều tra, chuyển quý vị đến một tổ chức khác để được trợ giúp "
-"thêm hoặc thông báo cho quý vị rằng chúng tôi không thể giúp đỡ."
+"가능한 결과: 더 많은 정보를 위한 후속 조치, 중재나 조사 시작, 추가 도움을 위"
+"해 다른 단체에 귀하를 연결 또는 우리가 도움을 줄 수 없다고 귀하에게 알림. "
 
 #: templates/landing.html:325
 msgid "Have you or someone you know experienced a civil rights violation?"
-msgstr ""
-"Quý vị hoặc một người nào đó mà quý vị biết có từng bị vi phạm dân quyền "
-"không?"
+msgstr "귀하 또는 지인이 민권 침해를 경험했습니까?"
 
 #: templates/landing.html:326
 msgid "Submit a report"
-msgstr "Gửi báo cáo"
+msgstr "신고서를 제출하십시오."
 
 #: templates/landing.html:331
 msgid ""
@@ -1993,17 +1907,17 @@ msgid ""
 "\">call</a> to report a violation or report a violation by <a href="
 "\"#address-footer\">mail</a>."
 msgstr ""
-"Nếu quý vị không thể truy cập vào mẫu trực tuyến, quý vị có thể <a href="
-"\"#phone-footer\">gọi điện</a> để báo cáo hành vi vi phạm hoặc báo cáo hành "
-"vi vi phạm qua <a href=\"#address-footer\">thư</a>."
+"온라인 양식에 접근할 수 없는 경우, <a href=\"#phone-footer\">전화</a>를 걸어 "
+"침해 내용을 신고하거나 <a href=\"#address-footer\">우편</a>으로 신고하실 수 "
+"있습니다."
 
 #: templates/landing.html:341
 msgid "Already submitted a report?"
-msgstr "Quý vị đã gửi báo cáo?"
+msgstr "이미 신고서를 제출하셨습니까?"
 
 #: templates/landing.html:344
 msgid "Here's what to expect."
-msgstr "Dưới đây là những việc sẽ xảy ra."
+msgstr "예상되는 결과는 다음과 같습니다."
 
 #: templates/landing.html:348
 msgid ""
@@ -2012,26 +1926,23 @@ msgid ""
 "about the outcome of our review. However, we may not always be able to "
 "provide you with updates because:"
 msgstr ""
-"<strong>Cảm ơn quý vị đã báo cáo.</strong> Chúng tôi đọc kỹ từng điều một để "
-"xác định xem chúng tôi có đủ thẩm quyền để trợ giúp hay không. Chúng tôi sẽ "
-"cố gắng hết sức để thông báo cho quý vị biết về kết quả đánh giá của chúng "
-"tôi. Tuy nhiên, không phải lúc nào chúng tôi cũng có thể cung cấp cho quý vị "
-"các thông tin cập nhật vì:"
+"<strong>신고해 주셔서 감사합니다</strong>. 우리는 각각의 신고서를 신중히 읽어"
+"보고 우리가 도움을 드릴 권한이 있는지 판단합니다. 우리는 검토 결과를 알려 드"
+"리기 위해 최선을 다할 것입니다. 하지만 우리는 다음과 같은 이유로 항상 업데이"
+"트를 제공해 드릴 수 있는 것은 아닙니다."
 
 #: templates/landing.html:350
 msgid ""
 "We're actively working on an investigation or case related to your report."
-msgstr ""
-"Chúng tôi đang tích cực tiến hành một cuộc điều tra hoặc đang xử lý một "
-"trường hợp liên quan đến báo cáo của quý vị."
+msgstr "귀하의 신고와 관련된 사례를 활발하게 처리 중이거나 조사 중입니다."
 
 #: templates/landing.html:351
 msgid "We're receiving and actively reviewing many reports at the same time."
-msgstr "Chúng tôi đang nhận và tích cực đánh giá nhiều báo cáo cùng một lúc."
+msgstr "우리는 동시에 많은 신고를 받고 있고 적극적으로 검토하고 있습니다."
 
 #: templates/landing.html:358
 msgid "Need urgent legal help?"
-msgstr "Quý vị cần hỗ trợ pháp lý khẩn cấp?"
+msgstr "긴급한 법적 도움이 필요하세요?"
 
 #: templates/landing.html:360
 msgid ""
@@ -2039,10 +1950,9 @@ msgid ""
 "respond to your issue. Local legal aid offices or lawyers in your area may "
 "be able to quickly respond to or help with your concern"
 msgstr ""
-"Do chúng tôi nhận được số lượng lớn các báo cáo, có thể mất vài tuần để "
-"chúng tôi hồi đáp vấn đề của quý vị. Văn phòng hỗ trợ pháp lý địa phương "
-"hoặc luật sư trong khu vực của quý vị có thể nhanh chóng hồi đáp hoặc giúp "
-"đỡ quý vị về mối quan ngại của quý vị"
+"우리는 접수되는 신고의 양 때문에 귀하의 문제에 응답하는 데 몇 주가 걸릴 수 있"
+"습니다. 현지 법률 지원 사무소 또는 귀하 지역의 변호사가 귀하의 우려에 신속하"
+"게 응답해 드릴 수도 있고 도움을 드릴 수도 있습니다."
 
 #: templates/landing.html:361
 msgid ""
@@ -2051,10 +1961,10 @@ msgid ""
 "lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> or call <a href="
 "\"tel:202-295-1500\">(202) 295-1500</a>."
 msgstr ""
-"Liên hệ với Legal Services Corporation tại <a aria-label=\"www.lsc.gov/find-"
-"legal-aid\" class=\"external-link--blue external-link--popup\" href="
-"\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> hoặc gọi "
-"<a href=\"tel:202-295-1500\">(202) 295-1500</a>."
+"법률서비스 법인 <a aria-label=\"www.lsc.gov/find-legal-aid\" class="
+"\"external-link--blue external-link--popup\" href=\"https://www.lsc.gov/find-"
+"legal-aid\">lsc.gov/find-legal-aid</a>에 연락 또는 <a href="
+"\"tel:202-295-1500\">(202) 295-1500</a>으로 전화."
 
 #: templates/landing.html:362
 msgid ""
@@ -2063,31 +1973,31 @@ msgid ""
 "findlegalhelp.org</a> or call <a href=\"tel:800-285-2221\">(800) 285-2221</"
 "a> to find a lawyer through the American Bar Association."
 msgstr ""
-"Hoặc truy cập <a class=\"external-link--blue external-link--popup\" aria-"
-"label=\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
-"findlegalhelp.org</a> hoặc gọi <a href=\"tel:800-285-2221\">(800) 285-2221</"
-"a> để tìm luật sư thông qua Hiệp hội Luật sư Hoa Kỳ."
+"또는 <a class=\"external-link--blue external-link--popup\" aria-label=\"www."
+"findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www.findlegalhelp."
+"org</a>를 방문하거나 <a href=\"tel:800-285-2221\">(800) 285-2221</a>로 전화하"
+"여 미국 변호사 협회(American Bar Association)을 통해 변호사를 찾으시기 바랍니"
+"다."
 
 #: templates/landing.html:376
 msgid "Image attributions"
-msgstr "Mô tả ảnh"
+msgstr "이미지 속성"
 
 #: templates/partials/banner/usa_banner_content.html:7
 msgid "The .gov means it’s official."
-msgstr ".Gov có nghĩa là chính thức."
+msgstr "“.gov”는 공식 사이트임을 의미합니다."
 
 #: templates/partials/banner/usa_banner_content.html:8
 msgid ""
 "Federal government websites often end in .gov or .mil. Before sharing "
 "sensitive information, make sure you’re on a federal government site."
 msgstr ""
-"Các trang web của chính phủ liên bang thường kết thúc bằng .gov hoặc .mil. "
-"Trước khi chia sẻ thông tin nhạy cảm, hãy đảm bảo rằng quý vị đang ở trên "
-"trang web của chính phủ liên bang."
+"연방 정부 웹사이트는 주로 .gov 또는 .mil로 끝납니다. 민감 정보를 공유하기 전"
+"에 연방 정부 사이트에 있는지 확인하십시오."
 
 #: templates/partials/banner/usa_banner_content.html:16
 msgid "The site is secure."
-msgstr "Trang web này được bảo mật."
+msgstr "해당 사이트는 안전합니다."
 
 #: templates/partials/banner/usa_banner_content.html:17
 msgid ""
@@ -2095,54 +2005,53 @@ msgid ""
 "official website and that any information you provide is encrypted and "
 "transmitted securely."
 msgstr ""
-"Giao thức <strong>https://</strong> đảm bảo rằng quý vị đang kết nối với "
-"trang web chính thức và mọi thông tin quý vị cung cấp đều được mã hóa và "
-"truyền đi một cách an toàn."
+"<strong>https://</strong>는 귀하가 공식 웹사이트에 연결되어 있음을 보장하며 "
+"귀하가 제공하는 정보가 암호화되어 안전하게 전송됨을 보장합니다."
 
 #: templates/partials/banner/usa_banner_header.html:9
 msgid "An official website of the United States government"
-msgstr "Một trang web chính thức của chính phủ Hoa Kỳ"
+msgstr "미국 정부의 공식 웹사이트"
 
 #: templates/partials/banner/usa_banner_header.html:10
 #: templates/partials/banner/usa_banner_header.html:13
 msgid "Here’s how you know"
-msgstr "Đây là cách để quý vị biết"
+msgstr "알 수 있는 방법이 있습니다"
 
 #: templates/partials/footer.html:47
 msgid "Availability of Language Assistance Services"
-msgstr "Các Dịch vụ Hỗ trợ Ngôn ngữ sẵn có"
+msgstr "언어 지원 서비스의 사용 가능성"
 
 #: templates/partials/footer.html:59
 msgid "Links"
-msgstr "Các liên kết"
+msgstr "링크"
 
 #: templates/partials/footer.html:66
 msgid "About the division"
-msgstr "Giới thiệu về ban"
+msgstr "민권국 소개"
 
 #: templates/partials/footer.html:72
 msgid "Privacy policy"
-msgstr "Chính sách quyền riêng tư"
+msgstr "개인정보 보호 정책"
 
 #: templates/partials/footer.html:75
 msgid "FOIA"
-msgstr "FOIA (Freedom of Information Act, Đạo Luật Tự Do Thông Tin)"
+msgstr "정보자유법(FOIA)"
 
 #: templates/partials/footer.html:78
 msgid "Accessibility"
-msgstr "Khả Năng Tiếp Cận"
+msgstr "접근성"
 
 #: templates/partials/footer.html:90
 msgid "Office of Inspector General"
-msgstr "Văn phòng Tổng Thanh tra"
+msgstr "총 감찰관실"
 
 #: templates/partials/footer.html:93
 msgid "Budget and performance"
-msgstr "Ngân sách và hiệu quả"
+msgstr "예산 및 성과"
 
 #: templates/partials/footer.html:96
 msgid "Legal policies and Disclaimers"
-msgstr "Chính sách pháp lý và Tuyên bố miễn trách nhiệm"
+msgstr "법적 방침 및 책임 부인"
 
 #: templates/partials/i8n.html:15
 msgid "Go"
@@ -2150,11 +2059,11 @@ msgstr ""
 
 #: templates/partials/menu_language_selection.html:36
 msgid "More Language Assistance Services"
-msgstr "Còn Nhiều Dịch Vụ Hỗ Trợ Ngôn Ngữ Khác Nữa"
+msgstr "더 많은 언어 도움 서비스"
 
 #: templates/partials/policy.html:9
 msgid "Privacy Policy"
-msgstr "Chính sách Quyền Riêng tư"
+msgstr "개인정보 보호 정책"
 
 #: templates/partials/policy.html:16
 #, python-format
@@ -2172,36 +2081,35 @@ msgid ""
 "            "
 msgstr ""
 "\n"
-"            Mục đích của mẫu này là cho phép công chúng gửi khiếu nại về dân "
-"quyền đến Bộ Tư pháp, nhờ đó cho phép chúng tôi thực thi hơn ba mươi <a href="
-"\"%(privacy_policy_url)s#our-statutes\">quy chế về dân quyền</a> trong thẩm "
-"quyền của chúng tôi. Các quy chế này cho phép chúng tôi thu thập thông tin.  "
-"Quý vị nên biết rằng bất kỳ thông tin nào quý vị cung cấp qua mẫu này đều là "
-"tự nguyện, tuy nhiên việc không cung cấp một số thông tin có thể hạn chế khả "
-"năng của Bộ trong việc tìm hiểu về khiếu nại của quý vị. Chúng tôi có thể sử "
-"dụng thông tin này cho các mục đích sử dụng thông thường nhất định, bao gồm "
-"cả việc chia sẻ thông tin này trong một số trường hợp nhất định với:\n"
+"            이 양식의 목적은 일반 대중이 민권 진정사항을 법무부에 제출할 수 "
+"있게 하는 것으로서, 이를 통해 우리는 우리가 가진 권한 내에서 30가지의 <a "
+"href=\"%(privacy_policy_url)s#our-statutes\">민권 법령</a>에 대한 집행이 가능"
+"합니다. 이들 법령은 우리에게 이 정보를 수집할 권한을 부여합니다. 귀하는 이 양"
+"식을 통해 제공하는 모든 정보가 자발적인 것이며, 일부 정보를 제공하지 않는 경"
+"우 귀하의 주장을 추적할 수 있는 법무부의 능력을 제한할 수 있음을 아셔야 합니"
+"다. 우리는 특정 상황 하에서 이 정보를 다음과 같은 사람들과 공유하는 것을 비롯"
+"해, 일정한 통상적인 용도로 이 정보를 사용할 수 있습니다:\n"
 "            "
 
 #: templates/partials/policy.html:20
 msgid "contractors who work with us, if they need it to perform a contract;"
-msgstr "các nhà thầu làm việc với chúng tôi, nếu họ cần để thực hiện hợp đồng;"
+msgstr "우리와 함께 협력하는 계약업자(계약 수행을 위해 필요한 경우);"
 
 #: templates/partials/policy.html:21
 msgid ""
 "a court, magistrate, or administrative tribunal, as well as opposing counsel "
 "during settlement negotiations and/or litigation;"
 msgstr ""
-"tòa án, quan tòa, hoặc tòa án hành chính, cũng như luật sư đối phương trong "
-"quá trình đàm phán dàn xếp và/hoặc kiện tụng;"
+"법원, 치안판사 또는 행정 재판소뿐 아니라, 합의 협상 및/또는 소송 중인 경우에 "
+"상대편 변호사;"
 
 #: templates/partials/policy.html:22
 msgid "Members of Congress;"
-msgstr "Các Thành viên của Quốc hội;"
+msgstr "국회의원;"
 
 #: templates/partials/policy.html:23
 msgid "Federal, state, or local law enforcement agencies."
-msgstr "Các cơ quan hành pháp của liên bang, tiểu bang, hoặc địa phương."
+msgstr "연방, 주 또는 지역의 법 집행 기관;"
 
 #: templates/partials/policy.html:27
 #, python-format
@@ -2209,17 +2117,16 @@ msgid ""
 "You can find our complete <a href=\"%(privacy_policy_url)s\">Privacy Policy "
 "here</a>."
 msgstr ""
-"Quý vị có thể tìm thấy <a href=\"%(privacy_policy_url)s\">Chính sách Quyền "
-"riêng tư</a> đầy đủ của chúng tôi <a href=\"%(privacy_policy_url)s\">tại "
-"đây</a>."
+"여기에서 우리의 <a href=\"%(privacy_policy_url)s\">개인정보 보호 정책</a> 전"
+"문을 찾아보실 수 있습니다."
 
 #: templates/partials/redirect-modal.html:8
 msgid "You are now leaving the Department of Justice website."
-msgstr "Bây giờ quý vị đang rời khỏi trang web của Bộ Tư pháp."
+msgstr "현재 법무부 웹사이트를 떠나려고 하십니다."
 
 #: templates/partials/redirect-modal.html:13
 msgid "You will automatically be redirected to:"
-msgstr "Quý vị sẽ tự động được chuyển hướng đến:"
+msgstr "자동으로 다음으로 이동하시게 됩니다."
 
 #: templates/partials/redirect-modal.html:18
 msgid ""
@@ -2228,14 +2135,13 @@ msgid ""
 "control over, the accuracy, accessibility, copyright or trademark compliance "
 "or legality of the material contained on this site."
 msgstr ""
-"Bộ Tư pháp không xác nhận các tổ chức hoặc quan điểm được đại diện bởi trang "
-"web này và không chịu trách nhiệm cũng như không kiểm soát tính chính xác, "
-"khả năng truy cập, tuân thủ bản quyền hoặc thương hiệu hoặc tính hợp pháp "
-"của tài liệu có trên trang web này."
+"법무부는 이 사이트에 표시된 조직/단체 또는 견해를 보증하지 않으며, 이 사이트"
+"에 포함된 자료의 정확성이나 접근성, 저작권이나 상표권 준수 또는 합법성에 대"
+"해 그 어떤 책임도 지지 않고 그에 대한 어떤 통제도 행사하지 않습니다."
 
 #: templates/partials/redirect-modal.html:22
 msgid "Continue"
-msgstr "Tiếp tục"
+msgstr "계속"
 
 #: templates/partials/unsupported-browser-modal.html:10
 msgid ""
@@ -2245,8 +2151,8 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"<strong>LƯU Ý: trình duyệt trên điện thoại di động của quý vị không tương "
-"thích với mẫu này</strong> và quý vị có thể gặp trở ngại khi nộp đơn.\n"
+"<strong>주의: 당신의 모바일 브라우저에서 이 양식을 제출할 때에 문제가 생길 "
+"수 있습니다</strong>.\n"
 "          "
 
 #: templates/partials/unsupported-browser-modal.html:15
@@ -2258,27 +2164,26 @@ msgid ""
 "          "
 msgstr ""
 "\n"
-"          Vui lòng tải xuống phiên bản mới nhất của Google Chrome, Mozilla "
-"Firefox, Safari, hoặc Microsoft Edge. <a id=\"ub_contact\" href=\"#contact-"
-"crt\">Quý vị cũng có thể liên lạc với chúng tôi qua điện thoại hoặc gửi thư "
-"đến đây.</a>\n"
+"가장 최신 버전의 구글 크롬, 모질라 파이어폭스, 사파리 또는 마이크로소프트 엣"
+"지를 다운로드 받는 것을 고려해 보십시오. <a id=\"ub_contact\" href="
+"\"#contact-crt\">또 여기에서 전화나 이메일로 연락하실 수 있습니다</a>.\n"
 "          "
 
 #: templates/privacy.html:7 templates/privacy.html:13
 msgid "Civil Rights Division - Department of Justice - Privacy Policy"
-msgstr "Ban Dân Quyền - Bộ Tư pháp - Chính sách Quyền riêng tư"
+msgstr "민권국 - 법무부 - 개인정보 보호 정책"
 
 #: templates/privacy.html:23 templates/privacy.html:34
 msgid "Privacy Act Statement"
-msgstr "Tuyên bố về Đạo luật về Quyền Riêng tư"
+msgstr "개인정보 보호법 내역"
 
 #: templates/privacy.html:26
 msgid "Your information"
-msgstr "Thông tin của quý vị"
+msgstr "귀하의 정보"
 
 #: templates/privacy.html:29
 msgid "Our Statutes"
-msgstr "Các Quy chế của Chúng tôi"
+msgstr "우리의 법령"
 
 #: templates/privacy.html:37
 msgid ""
@@ -2286,9 +2191,8 @@ msgid ""
 "Justice’s Civil Rights Division (“us,” “we”) enforce the federal civil "
 "rights statutes within its authority."
 msgstr ""
-"Thông tin quý vị cung cấp qua mẫu này sẽ giúp Ban Dân quyền của Bộ Tư pháp "
-"(“chúng tôi”) thực thi các quy chế về dân quyền của liên bang trong thẩm "
-"quyền của mình."
+"귀하가 이 양식을 통해 제공하는 정보는 법무부 민권국(이하 “우리” “저희”)이 권"
+"한 내에서 연방 민권 법령을 집행하는 데 도움을 줄 것입니다."
 
 #: templates/privacy.html:40
 msgid ""
@@ -2296,9 +2200,9 @@ msgid ""
 "provide on this form for certain routine purposes. These include sharing "
 "with:"
 msgstr ""
-"Ngoài các nỗ lực đảm bảo thực thi của chúng tôi, chúng tôi có thể sử dụng "
-"thông tin quý vị cung cấp trong mẫu này cho các mục đích thông thường nhất "
-"định. Các mục đích này bao gồm việc chia sẻ với:"
+"우리는 법령 집행 노력에 더하여, 일정한 통상적인 용도를 위해 이 양식에 귀하가 "
+"제공하는 정보를 사용할 수 있습니다. 여기에는 다음과 같은 사람들과 공유하는 것"
+"이 포함됩니다:"
 
 #: templates/privacy.html:42
 msgid ""
@@ -2334,37 +2238,32 @@ msgid ""
 msgstr ""
 "\n"
 "                    <li>\n"
-"                        tòa án, quan tòa hoặc tòa án hành chính, bao gồm cả "
-"việc tiết lộ cho luật sư đối phương trong quá trình đàn phám dàn xếp;\n"
+"법원, 치안판사 또는 행정 재판소 뿐 아니라 합의 협상 중에 상대편 변호사에의 공"
+"개 포함;\n"
 "                    </li>\n"
 "                    <li>\n"
-"                        một thành viên của Quốc hội gửi một yêu cầu liên "
-"quan đến một cá nhân, mà hồ sơ liên quan đến họ, khi cá nhân đó đã yêu cầu "
-"sự hỗ trợ từ Thành viên liên quan đến đối tượng chủ thể của hồ sơ.\n"
+"어떤 개인이 기록 내용과 관련하여 국회의원에게 도움을 요청한 경우, 그 기록에 "
+"관련된 개인을 포함하는 요청서를 제출하는 국회의원.\n"
 "                    </li>\n"
 "                    <li>\n"
-"                        nhà thầu với Bộ Tư pháp, người cần tiếp cận thông "
-"tin để thực hiện hợp đồng. Người nhận thông tin phải tuân thủ các yêu cầu "
-"của Đạo luật về Quyền riêng tư năm 1974, đã được sửa đổi, theo 5 U.S.C. "
-"552a(m).\n"
+"계약 수행을 위해 정보에 접근할 필요가 있는, 법무부와 계약한 계약자. 정보를 받"
+"는 사람들은 5 U.S.C. 552a(m)에 따라 1974년 개정된 개인정보 보호법 요건들을 준"
+"수할 것이 요구됩니다.\n"
 "                    </li>\n"
+"\n"
 "                    <li>\n"
-"                        một cơ quan hành pháp của Liên bang, Tiểu bang, hoặc "
-"địa phương, nếu chúng tôi phát hiện ra vi phạm hoặc có khả năng vi phạm pháp "
-"luật hoặc quy định nằm ngoài phạm vi quyền hạn của chúng tôi.\n"
-"                    </li>\n"
+"우리 관할권 범위 밖의 법규 위반 또는 잠재적 법규 위반을 알게 되는 경우에 연"
+"방, 주 또는 지역 법 집행 기관.                    </li>\n"
 "                    "
 
 #: templates/privacy.html:65
 msgid ""
 "For a complete list of routine agency uses, please consult the following:"
-msgstr ""
-"Để có danh sách đầy đủ các mục đích sử dụng thông thường của cơ quan, vui "
-"lòng tham khảo phần dưới đây:"
+msgstr "통상적인 기관의 사용에 대한 전체 목록을 보려면 다음을 참조하십시오:"
 
 #: templates/privacy.html:84
 msgid "You should also know that:"
-msgstr "Quý vị cũng cần biết rằng:"
+msgstr "또한 다음에 대해 아셔야 합니다:"
 
 #: templates/privacy.html:86
 msgid ""
@@ -2382,28 +2281,28 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"                    <li>Bất kỳ thông tin nào quý vị cung cấp cho chúng tôi "
-"thông qua mẫu này đều là tự nguyện.</li>\n"
-"                    <li>Nếu quý vị chọn không cung cấp thông tin chúng tôi "
-"yêu cầu trong mẫu này, chúng tôi có thể không\n"
-"                        đánh giá hoặc thực hiện hành động dựa trên báo cáo "
-"của quý vị.</li>\n"
-"                    <li>Chúng tôi sẽ xử lý thông tin quý vị cung cấp trong "
-"mẫu này một cách bí mật, trong phạm vi chúng tôi\n"
-"                        được phép theo Đạo luật Tự do Thông tin (5 U.S.C. "
-"552) và Đạo luật về Quyền Riêng Tư (5 U.S.C. 552a).\n"
+"                    <li>이 양식을 통해 귀하가 우리에게 제공하는 정보는 자발적"
+"인 것입니다.</li>\n"
+"                    <li>우리가 이 양식에서 요청하는 정보를 제공하지 않기로 결"
+"정하시는 경우, 우리는\n"
+"                        귀하의 신고 내용을 바탕으로 평가를 하거나 조치를 취"
+"할 수 없습니다.</li>\n"
+"                    <li>우리는 귀하가 이 양식에서 제공하는 정보를 기밀로 취급"
+"하며, 이는 우리에게\n"
+"                        정보자유법(Freedom of Information Act 5 U.S.C 552) "
+"및 개인정보 보호법(5 U.S.C 552a)이 허락하는 한도 내에서 이루어집니다.\n"
 "                    </li>\n"
 "                    "
 
 #: templates/privacy.html:97 templates/privacy.html:168
 msgid "Return to top"
-msgstr "Trở về đầu trang"
+msgstr "맨 위로 돌아가기"
 
 #: templates/privacy.html:108
 msgid ""
 "We are authorized to collect this information pursuant to the following "
 "statutes:"
-msgstr "Chúng tôi được phép thu thập thông tin này theo các quy chế sau:"
+msgstr "저희는 다음 법령에 따라 이 정보를 수집할 권한이 있습니다:"
 
 #: templates/privacy.html:110
 msgid ""
@@ -2493,89 +2392,86 @@ msgid ""
 "                    "
 msgstr ""
 "\n"
-"                    <li>Hành vi Sai trái Chính thức, 18 U.S.C. §§ 241, 242</"
-"li>\n"
-"                    <li>Matthew Shepard và, James Byrd, Jr., Đạo luật Phòng "
-"ngừa Tội phạm Thù ghét năm 2009, Bộ luật Hoa Kỳ 18 § 249, và các tài liệu "
-"tiếp theo.</li>\n"
-"                    <li>Các Hoạt động được Bảo vệ của Liên bang, 18 U.S.C. § "
-"245</li>\n"
-"                    <li>Can thiệp Hình sự vào Quyền có Nhà ở Công bằng, 18 U."
-"S.C. § 3631</li>\n"
-"                    <li>Thiệt hại Tài sản Tôn giáo, 18 U.S.C. § 247</li>\n"
-"                    <li>Các Quy chế Chống Buôn bán người, bao gồm:</li>\n"
+"                    <li>공식 위법행위, 18 U.S.C §§ 241, 242</li>\n"
+"                    <li>Matthew Shepard 및 James Byrd, Jr., 2009년 증오 범죄 "
+"예방법, 18 U.S. Code § 249,et seq.</li>\n"
+"                    <li>연방 차원의 보호를 받는 활동(Federally Protected "
+"Activities), 18 U.S.C. § 245</li>\n"
+"                    <li>공정한 주택에 대한 권리 방해죄(Criminal Interference "
+"with Right to Fair Housing), 18 U.S.C § 3631</li>\n"
+"                    <li>종교 재산에의 피해(Damage to Religious Property), 18 "
+"U.S.C. § 247</li>\n"
+"                    <li>인신매매 금지 법령, 다음을 포함:\n"
 "                        <ul>\n"
-"                            <li>18 U.S.C. § 1581 (Con nợ)</li>\n"
-"                            <li>18 U.S.C. § 1584 (Nô lệ Không tự nguyện)</"
+"                            <li>18 U.S.C. § 1581(부채로 인한 노역)</li>\n"
+"                            <li>18 U.S.C. § 1584(비자발적 노역)</li>\n"
+"                            <li>18 U.S.C. § 1589(강제 노동)</li>\n"
+"                            <li>18 U.S.C. § 1590(부채로 인한 노역, 노예, 비자"
+"발적 노역, 강제 노동과 관련된 인신매매)</li>\n"
+"                            <li>18 U.S.C. § 1591(강요, 사기, 강압에 의한 또"
+"는 아동의 성매매)</li>\n"
+"                            <li>18 U.S.C. § 1592(인신매매, 부채로 인한 노역, "
+"노예, 비자발적 노역, 강제 노동 등의 촉진을 위한 문서와 관련된 부당 행위)</"
 "li>\n"
-"                            <li>18 U.S.C. § 1589 (Lao động Cưỡng bức)</li>\n"
-"                            <li>18 U.S.C. § 1590 (Buôn bán Liên quan đến Con "
-"nợ, Nô lệ, Nô lệ Không tự nguyện hoặc Lao động Cưỡng bức)</li>\n"
-"                            <li>18 U.S.C. § 1591 (Buôn bán Tình dục Trẻ em "
-"hoặc bằng Bạo lực, Lừa gạt, hoặc Ép buộc)</li>\n"
-"                            <li>18 U.S.C. § 1592 (Hành vi Bất hợp pháp Liên "
-"quan đến các Tài liệu về Buôn bán, Con nợ, Nô lệ, Nô lệ Không tự nguyện, "
-"hoặc Lao động Cưỡng bức)</li>\n"
-"                            <li>18 U.S.C. § 1593 (Bồi thường Bắt buộc)</li>\n"
-"                            <li>18 U.S.C. § 1594 (Xâm phạm và Tước quyền)</"
+"                            <li>18 U.S.C. § 1593(의무적 배상)</li>\n"
+"                            <li>18 U.S.C. § 1594(시도 및 박탈)</li>\n"
+"                            <li>18 U.S.C. § 1595(사적 청구권)</li>\n"
+"                            <li>18 U.S.C. § 2423(성매매로의 미성년자 운송)</"
 "li>\n"
-"                            <li>18 U.S.C. § 1595 (Quyền Hành động Riêng tư)</"
-"li>\n"
-"                            <li>18 U.S.C. § 2423 (Vận chuyển Trẻ vị Thành "
-"niên vào Mại dâm)</li>\n"
-"                            <li>18 U.S.C. § 1546 (Gian lận Visa)</li>\n"
+"                            <li>18 U.S.C. § 1546(비자 사기)</li>\n"
 "                        </ul>\n"
 "                    </li>\n"
-"                    <li>Đạo luật về Quyền Tự do Tiếp cận Lối vào Phòng khám "
-"(FACE), 18 U.S.C. § 248</li>\n"
-"                    <li>Bảo vệ Hình sự cho Quyền Bầu cử, 18 U.S.C. § 594</"
-"li>\n"
-"                    <li>Đạo luật về Người Mỹ Khuyết tật, các Title I-III, 42 "
-"U.S.C. § 126, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Phục hồi năm 1973, 29 U.S.C. § 701, và các "
-"tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Dân quyền năm 1964, các Title II, IV, VI, "
+"                    <li>클리닉 입구 접근의 자유(FACE: Freedom of Access to "
+"Clinic Entrances) Act, 18 U.S.C. § 248</li>\n"
+"                    <li>선거권을 위한 형사상 보호(Criminal Protection for "
+"Voting Rights), 18 U.S.C. § 594</li>\n"
+"                    <li>장애 미국인 법(Americans with Disabilities Act) "
+"Titles I-III, 42 U.S.C. § 126, et seq.</li>\n"
+"                    <li>1973년 복권법(Rehabilitation Act) 29 U.S.C. § 701, "
+"et seq.</li>\n"
+"                    <li>1964년 민권법(Civil Rights Act) Titles II, IV, VI, "
 "VII</li>\n"
-"                    <li>Đạo Luật Quyền Được Tuyển Dụng và Tái Tuyển Dụng của "
-"Quân Nhân (USERRA), 38 U.S.C. § 4301, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật về Cơ hội Giáo dục Bình đẳng năm 1974 "
-"(EEOA), 20 USC § 1701, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Giáo dục Người Khuyết tật (IDEA), 20 USC § "
-"1400, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Tu chính về Giáo dục năm 1972, Title IX, 20 U.S.C. § "
-"1681, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Gia cư Công (FHA), 42 U.S.C. § 3601, và các "
-"tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Cơ hội Tín dụng Bình đẳng (ECOA), 15 U.S.C. "
-"§ 1691, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Sử dụng Đất Tôn giáo và dành cho Người ở Cơ "
-"sở Tập trung (RLUIPA), 42 U.S.C. § 2000cc, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Miễn Giảm Trách Nhiệm Dân Sự của Quân Nhân "
-"(SCRA), 50 U.S.C. § 3901, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật về Nhập cư và Quốc tịch § 274B, 8 U.S.C. "
-"§ 1324b</li>\n"
-"                    <li>Đạo luật về Quyền công dân của Những người Ở Cơ sở "
-"Tập trung (CRIPA), 42 U.S.C. § 1997, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Kiểm soát Tội phạm Bạo lực và Thực thi Pháp "
-"luật, 36 U.S.C. 12601, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật về Tội phạm Omnibus và Đường phố An toàn, "
-"34 U.S.C. § 10101, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật về Quyền Bỏ phiếu, 52 U.S.C. § 10101, và "
-"các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật về Việc Tiếp cận Bỏ phiếu cho Người cao "
-"tuổi và Người khuyết tật, 42 U.S.C. § 1973ee, và các tài liệu tiếp theo.</"
+"                    <li>군 복무자 고용 및 재고용 권리법(USERRA: Uniformed "
+"Services Employment and Reemployment Rights Act), 38 U.S.C. § 4301, et seq.</"
 "li>\n"
-"                    <li>Đạo luật Bỏ phiếu Khiếm diện cho Công dân Cư trú ở "
-"Nước ngoài và Quân nhân (UOCAVA), 52 U.S.C. 20310, và các tài liệu tiếp theo."
-"</li>\n"
-"                    <li>Đạo luật Đăng ký Cử tri Quốc gia (NVRA), 52 U.S.C. § "
-"20501, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Không Phân biệt Đối xử về Thông tin Di "
-"truyền (GINA), Title II, 42 U.S.C. § 21f</li>\n"
-"                    <li>Đạo luật Giúp Mỹ Bỏ Phiếu Bầu (HAVA), 52 U.S.C. § "
-"20901, và các tài liệu tiếp theo.</li>\n"
-"                    <li>Đạo luật Dân Quyền năm 1870, 1957, 1960, & 1964</"
-"li>\n"
+"                    <li>1974년 동등 교육 기회법(EEOA: Equal Education "
+"Opportunities Act), 20 USC § 1701, et seq.</li>\n"
+"                    <li>교육에서의 장애인 법(IDEA: Individuals with "
+"Disabilities in Education Act), 20 USC § 1400, et seq.</li>\n"
+"                    <li>1972년 수정 교육(Education Amendments of 1972), "
+"Title IX, 20 U.S.C. § 1681, et seq.</li>\n"
+"                    <li>공정 주택법(FHA: Fair Housing Act), 42 U.S.C. § "
+"3601, et seq.</li>\n"
+"                    <li>동등 신용 기회법(ECOA: Equal Credit Opportunity "
+"Act), 15 U.S.C. § 1691, et seq.</li>\n"
+"                    <li>종교 토지 사용 및 피수용자 법(RLUIPA: Religious Land "
+"Use and Institutionalized Persons Act), 42 U.S.C. § 2000cc, et seq.</li>\n"
+"                    <li>군 복무자 민간 구호법(SCRA: Service members Civil "
+"Relief Act), 50 U.S.C. § 3901, et seq.</li>\n"
+"                    <li>이민 및 국적법(Immigration and Nationality Act) § "
+"274B, 8 U.S.C. § 1324b</li>\n"
+"                    <li>피수용자 민권법(CRIPA: Civil Rights of "
+"Institutionalized Persons Act), 42 U.S.C. § 1997, et seq.</li>\n"
+"                    <li>폭력범죄 통제 및 법 집행법(Violent Crime Control and "
+"Law Enforcement Act), 36 U.S.C. 12601, et seq.</li>\n"
+"                    <li>종합 범죄 단속 가두안전 법(Omnibus Crime and Safe "
+"Streets Act), 34 U.S.C. § 10101, et seq.</li>\n"
+"                    <li>투표권 법(Voting Rights Act), 52 U.S.C. § 10101, et "
+"seq.</li>\n"
+"                    <li>노령자 및 장애인을 위한 투표 접근성 법(Voting "
+"Accessibility for the Elderly and Handicapped Act), 42 U.S.C. § 1973ee, et "
+"seq.</li>\n"
+"                    <li>군 복무 및 해외 거주 국민 부재자 투표법(UOCAVA: "
+"Uniformed and Overseas Citizens Absentee Voting Act), 52 U.S.C. 20310, et "
+"seq.</li>\n"
+"                    <li>전국 유권자 등록법(NVRA: National Voter Registration "
+"Act), 52 U.S.C. § 20501, et seq.</li>\n"
+"                    <li>유전 정보 비차별 법(GINA: Genetic Information "
+"Nondiscrimination Act), Title II, 42 U.S.C. § 21f</li>\n"
+"                    <li>미국 선거 지원 법(HAVA: Help America Vote Act), 52 U."
+"S.C. § 20901, et seq.</li>\n"
+"                    <li>1870, 1957, 1960, 1964년도 민권법(Civil Rights "
+"Acts)</li>\n"
 "                    "
 
 #: templates/privacy.html:162
@@ -2589,29 +2485,28 @@ msgid ""
 "                "
 msgstr ""
 "\n"
-"                Danh sách đầy đủ các mục đích sử dụng thông thường cho thư "
-"tín này có thể được tìm thấy trong Thông báo Hệ thống Hồ sơ có tiêu đề, "
-"JUSTICE/CRT – 001, “Hồ sơ Chỉ số Ban Dân quyền Trung tâm và Hồ sơ Liên kết"
-"\", 68 Fed. Reg. 47610, 611 (8-11-2003); 70 Fed. Reg. 43904 (7-29-2005); 72 "
-"Fed. Reg. 3410 (1-25-2007) (bị hủy bỏ bởi 82 FR 24147); 82 Fed. Reg. 24147 "
-"(5-25-2017).\n"
+"                이 통신물의 통상적 사용에 대한 전체 목록을 볼 수 있는 곳: "
+"System of Records Notice(기록물 공지 시스템) 타이틀: JUSTICE/CRT – 001, “중"
+"앙 민권국 인덱스 파일 및 연관 기록”, 68 Fed. Reg. 47610, 611 (8-11-2003); 70 "
+"Fed. Reg. 43904 (7-29-2005); 72 Fed. Reg. 3410 (1-25-2007) (82 FR 24147에 의"
+"해 철회됨); 82 Fed. Reg. 24147 (5-25-2017).\n"
 "                "
 
 #: validators.py:101
 msgid "Enter a valid email address."
-msgstr "điền vào địa chỉ email hợp lệ"
+msgstr "유효한 이메일 주소를 입력하십시오."
 
 #: views.py:78
 msgid "404 | Page not found"
-msgstr "404 | Không tìm thấy trang"
+msgstr "404 | 페이지를 찾을 수 없음"
 
 #: views.py:79
 msgid "We can't find the page you are looking for"
-msgstr "Chúng tôi không thể tìm thấy trang quý vị đang tìm kiếm"
+msgstr "찾고 계신 페이지를 찾을 수가 없습니다"
 
 #: views.py:138
 msgid "Your browser couldn't create a secure cookie"
-msgstr "Trình duyệt của quý vị không thể tạo cookie an toàn"
+msgstr "브라우저가 안전한 쿠키를 생성할 수 없었습니다"
 
 #: views.py:139
 msgid ""
@@ -2621,62 +2516,59 @@ msgid ""
 "having this issue, try going to this page in new browser tab or window. That "
 "will make you a new security cookie and should resolve the problem."
 msgstr ""
-"Chúng tôi sử dụng cookie bảo mật để bảo vệ thông tin của quý vị khỏi những "
-"kẻ tấn công. Đảm bảo rằng quý vị cho phép cookie cho trang web này. Việc để "
-"mở trang trong thời gian dài cũng có thể gây ra sự cố này. Nếu quý vị biết "
-"cookie được cho phép và quý vị đang gặp sự cố này, hãy thử truy cập trang "
-"này trong cửa sổ hoặc tab trình duyệt mới. Điều đó sẽ tạo cho quý vị một "
-"cookie bảo mật mới và sẽ giải quyết được sự cố."
+"우리는 보안 쿠키를 사용하여 공격자로부터 귀하의 정보를 보호합니다. 이 사이트"
+"에 대해 쿠키를 허용하시기 바랍니다. 또한 오랫동안 페이지를 열어 놓으면 이런 "
+"문제가 발생할 수 있습니다. 쿠키가 허용되어 있음을 아는데도 이런 문제가 생겼다"
+"면, 새로운 브라우저 탭이나 창에서 이 페이지로 가 보십시오. 이렇게 하면 새로"
+"운 보안 쿠키를 만들어 문제가 해결될 것입니다."
 
 #: views.py:826 views.py:1077
 msgid "word remaining"
-msgstr "từ còn lại"
+msgstr "단어 수 남아 있음"
 
 #: views.py:827 views.py:1078
 msgid " words remaining"
-msgstr " các từ còn lại"
+msgstr " 단어 수 남아 있음"
 
 #: views.py:828 views.py:1079
 msgid " word limit reached"
-msgstr " đã đạt đến giới hạn từ"
+msgstr " 단어 수 제한에 도달"
 
 #: views.py:952 views.py:1031 views.py:1032 views.py:1050 views.py:1051
 #: views.py:1086
 msgid "Primary concern"
-msgstr "Mối quan ngại chính"
+msgstr "주요 우려사항"
 
 #: views.py:953 views.py:1033 views.py:1034 views.py:1035 views.py:1036
 #: views.py:1037 views.py:1038
 msgid "Location"
-msgstr "Địa điểm"
+msgstr "장소"
 
 #: views.py:954 views.py:1039 views.py:1058
 msgid "Personal characteristics"
-msgstr "Các đặc điểm cá nhân"
+msgstr "인적 특성"
 
 #: views.py:955 views.py:1040 views.py:1059
 msgid "Date"
-msgstr "Ngày"
+msgstr "날짜"
 
 #: views.py:956 views.py:1041 views.py:1060
 msgid "Personal description"
-msgstr "Mô tả cá nhân"
+msgstr "개인적 설명"
 
 #: views.py:957 views.py:1042 views.py:1091
 msgid "Review"
-msgstr "Đánh giá"
+msgstr "검토"
 
 #: views.py:1052 views.py:1053 views.py:1054 views.py:1055 views.py:1056
 #: views.py:1057
 msgid "Location details"
-msgstr "Thông tin chi tiết về địa điểm"
+msgstr "장소 세부사항"
 
 #: views.py:1061
 msgid "Review your report"
-msgstr "Đánh giá báo cáo của quý vị"
+msgstr "신고 내용을 검토하십시오"
 
 #: views.py:1089
 msgid "Please select if any that apply to your situation (optional)"
-msgstr ""
-"Vui lòng chọn nếu có bất kỳ câu trả lời nào phù hợp với tình huống của quý "
-"vị (tùy chọn)"
+msgstr "귀하의 상황에 적용되는 것이 있다면 그것을 선택하십시오.(선택사항)"
