@@ -61,12 +61,16 @@
   copy.addEventListener('click', copyContents);
 
   var printContents = function(event) {
+    const letterhead = document.getElementById('form-letterhead');
+    const letter_placeholder = document.getElementById('form-letter--placeholder');
     const el = document.createElement('p');
-    el.classList.add('intake-letter-preview');
     el.append(letter.value);
-    document.body.appendChild(el);
+    letter_placeholder.appendChild(el);
+    letterhead.removeAttribute('hidden');
+    document.body.appendChild(letterhead);
     window.print();
-    document.body.removeChild(el);
+    letterhead.removeChild(el);
+    document.body.removeChild(letterhead);
     root.CRT.closeModal(modal);
   };
   print.addEventListener('click', printContents);
