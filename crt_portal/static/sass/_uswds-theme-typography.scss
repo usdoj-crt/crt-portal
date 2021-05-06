@@ -199,7 +199,7 @@ $theme-font-icon-custom-stack:  false;
 $theme-font-lang-custom-stack:  false;
 $theme-font-mono-custom-stack:  false;
 $theme-font-sans-custom-stack:  false;
-$theme-font-serif-custom-stack: false;
+$theme-font-serif-custom-stack: "Merriweather Web, Tinos, Georgia, Cambria, Times New Roman, Times, serif";
 
 /*
 ----------------------------------------
@@ -399,7 +399,7 @@ $theme-body-line-height:           5;
 $theme-style-body-element:         false;
 
 // Headings -- not used
-// NOTE: We don't use these because the design system's font token normalization 
+// NOTE: We don't use these because the design system's font token normalization
 // changes the size of the font on the fly:
 // https://designsystem.digital.gov/design-tokens/typesetting/overview/
 // Instead, we use REM defined in the next section.

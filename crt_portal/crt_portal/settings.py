@@ -344,7 +344,16 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         bucket,
         'www.civilrights.justice.gov',
         'civilrights.justice.gov',
-        "'unsafe-inline'"
+        "'unsafe-inline'",
+        'https://fonts.googleapis.com',
+    )
+    CSP_FONT_SRC = (
+        "'self'",
+        bucket,
+        'www.civilrights.justice.gov',
+        'civilrights.justice.gov',
+        "'unsafe-inline'",
+        'https://fonts.gstatic.com',
     )
     CSP_INCLUDE_NONCE_IN = ['script-src']
 
