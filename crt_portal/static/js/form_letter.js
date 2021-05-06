@@ -50,13 +50,21 @@
     var language_select = document.getElementById('template-language-select');
     var selected_language = language_select.value;
 
-    alert(selected_language);
+    var toHide = document.querySelectorAll(`#intake_select > option.usa-select:not([data-language=${selected_language}])`);
+    var toShow = document.querySelectorAll(`#intake_select > option.usa-select[data-language=${selected_language}]`);
+
+    for (var el of toHide) {
+      el.setAttribute('hidden', 'true');
+    }
+
+    for (var el of toShow) {
+      el.removeAttribute('hidden');
+    }
   };
 
   var language_select = document.getElementById('template-language-select');
   language_select.onchange = function(event) {
     event.preventDefault();
-
     applyTemplateLanguageFilter();
   }
 
