@@ -46,6 +46,22 @@
     }
   };
 
+  var applyTemplateLanguageFilter = function() {
+    var language_select = document.getElementById('template-language-select');
+    var selected_language = language_select.value;
+
+    alert(selected_language);
+  };
+
+  var language_select = document.getElementById('template-language-select');
+  language_select.onchange = function(event) {
+    event.preventDefault();
+
+    applyTemplateLanguageFilter();
+  }
+
+  applyTemplateLanguageFilter();
+
   var copyContents = function(event) {
     const el = document.createElement('textarea');
     el.value = description.innerText + '\n\n' + letter.value;

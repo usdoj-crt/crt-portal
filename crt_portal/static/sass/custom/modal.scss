@@ -103,13 +103,30 @@ body.is-modal {
 }
 
 .intake-template--modal {
+
+  .modal-content--large {
+    height: 90%;
+  }
+
   .intake-template--description {
     min-height: 2rem;
   }
 
+  #response-modal-form {
+    p {
+      margin-top: 0px;
+      margin-bottom: 1rem;
+    }
+  }
+
+  #template-language-select {
+    width: 50%;
+    margin-bottom: 0px;
+  }
+
   #intake_select {
     width: 50%;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 
   #intake_letter {
