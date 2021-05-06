@@ -36,7 +36,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: circleci/python:3.9.1-node-browsers
+      - image: circleci/python:3.9.2-node-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -125,7 +125,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: circleci/python:3.9.1-node-browsers
+      - image: circleci/python:3.9.2-node-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -140,7 +140,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: circleci/python:3.9.1-node-browsers
+      - image: circleci/python:3.9.2-node-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -189,7 +189,7 @@ jobs:
     working_directory: ~/code
     docker:
       # standard docker python image
-      - image: python:3.9.1
+      - image: python:3.9.2
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -249,7 +249,7 @@ jobs:
   deploy-stage:
     working_directory: ~/code
     docker:
-      - image: python:3.9.1
+      - image: python:3.9.2
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -307,7 +307,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: python:3.9.1
+      - image: python:3.9.2
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
