@@ -103,13 +103,12 @@ body.is-modal {
 }
 
 .intake-template--modal {
-
-  min-height: 55rem;
-  padding-top: 5rem;
   align-items: normal;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 
   .modal-content--large {
-    height: 90%;
+    min-height: 50rem;
   }
 
   .intake-template--description {

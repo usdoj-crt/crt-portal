@@ -50,13 +50,30 @@
     }
   };
 
+  var setLanguageCookie = function(lang) {
+    document.cookie = 'form-letter-language' + '=' + lang;
+  };
+
+  var getLanguageCookie = function() {
+    var nameEQ = 'form-letter-language=';
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  };
+
   var applyTemplateLanguageFilter = function() {
     var language_select = document.getElementById('template-language-select');
     var selected_language = language_select.value;
 
+    // form letters for languages other than the one selected
     var toHide = document.querySelectorAll(
       `#intake_select > option.usa-select:not([data-language=${selected_language}])`
     );
+    // form letters for the language that is selected
     var toShow = document.querySelectorAll(
       `#intake_select > option.usa-select[data-language=${selected_language}]`
     );
@@ -69,6 +86,7 @@
       el.removeAttribute('hidden');
     }
 
+    // the selected language changed, clear the currently selected form letter
     var intake_select = document.getElementById('intake_select');
     intake_select.selectedIndex = 0;
     reset();
@@ -78,8 +96,15 @@
   language_select.onchange = function(event) {
     event.preventDefault();
     applyTemplateLanguageFilter();
+    setLanguageCookie(language_select.value);
   };
 
+  // try to grab the most recently used language setting
+  if (getLanguageCookie()) {
+    // if there is one, set the dropdown back to that value
+    language_select.value = getLanguageCookie();
+  }
+  // refresh the template dropdown to reflect the current language selection
   applyTemplateLanguageFilter();
 
   var copyContents = function(event) {
