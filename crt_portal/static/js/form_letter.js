@@ -23,6 +23,14 @@
   var email_enabled = document.getElementById('intake_send').dataset.emailEnabled === 'True';
   var has_contact_email = Boolean(document.getElementById('contact_email').dataset.email);
 
+  var reset = function() {
+    description.innerHTML = '(select a response template)';
+    letter.innerHTML = '';
+    copy.setAttribute('disabled', 'disabled');
+    print.setAttribute('disabled', 'disabled');
+    send_email.setAttribute('disabled', 'disabled');
+  };
+
   var description = document.getElementById('intake_description');
   var options = document.getElementById('intake_select');
   options.onchange = function(event) {
@@ -38,11 +46,7 @@
         send_email.removeAttribute('disabled');
       }
     } else {
-      copy.setAttribute('disabled', 'disabled');
-      print.setAttribute('disabled', 'disabled');
-      if (email_enabled && has_contact_email) {
-        send_email.setAttribute('disabled', 'disabled');
-      }
+      reset();
     }
   };
 
@@ -60,6 +64,10 @@
     for (var el of toShow) {
       el.removeAttribute('hidden');
     }
+
+    var intake_select = document.getElementById('intake_select');
+    intake_select.selectedIndex = 0;
+    reset();
   };
 
   var language_select = document.getElementById('template-language-select');

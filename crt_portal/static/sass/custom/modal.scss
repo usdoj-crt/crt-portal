@@ -104,6 +104,10 @@ body.is-modal {
 
 .intake-template--modal {
 
+  min-height: 55rem;
+  padding-top: 5rem;
+  align-items: normal;
+
   .modal-content--large {
     height: 90%;
   }
@@ -121,7 +125,7 @@ body.is-modal {
 
   #template-language-select {
     width: 50%;
-    margin-bottom: 0px;
+    margin-bottom: 1rem;
   }
 
   #intake_select {
