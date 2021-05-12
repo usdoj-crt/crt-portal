@@ -257,6 +257,8 @@ class Details(ModelForm):
         self.fields['violation_summary'].help_text = SUMMARY_HELPTEXT
         self.fields['violation_summary'].error_messages = {'required': VIOLATION_SUMMARY_ERROR}
         self.fields['violation_summary'].required = True
+        self.fields['language'].required = False
+        self.fields['language'].HiddenInput = False
 
 
 class LocationForm(ModelForm):
