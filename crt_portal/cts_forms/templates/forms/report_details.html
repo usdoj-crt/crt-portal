@@ -30,9 +30,9 @@
 
 				{% include "forms/word_counter.html" with word_limit=500 %}
 			{% endfor %}
-            <input type="hidden"
+            <input
             value="{% get_current_language as LANGUAGE_CODE %}{{LANGUAGE_CODE}}"
-            name="language" />
+            name="language" required="false" />
 		</div>
 	</div>
 {% endblock %}
