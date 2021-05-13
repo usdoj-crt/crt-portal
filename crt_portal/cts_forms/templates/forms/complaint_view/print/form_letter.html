@@ -1,0 +1,32 @@
+{% load static %}
+{% load i18n %}
+
+<div id="form-letterhead" hidden>
+  <div class="form-letterhead--header">
+    <div class="form-letterhead--header-logo">
+      <img src="{% static "img/doj-logo-footer.png" %}" alt="" />
+    </div>
+    <div class="form-letterhead--header-textbox">
+      <h2 class="form-letterhead--header-text">U.S. Department of Justice</h2>
+      <h2 class="form-letterhead--header-subtext">Civil Rights Division</h2>
+    </div>
+  </div>
+  <hr />
+  <div class="subheader">
+    <p><em>Washington, DC 20530</em></p>
+    <p>{% now "DATE_FORMAT" %}</p>
+  </div>
+  <p id="form-letterhead--addressee">
+    {{ data.contact_first_name }} {{ data.contact_last_name }}
+    <br />
+    {{ data.contact_address_line_1 }}
+    {% if data.contact_address_line_2 %}
+      <br />
+      {{ data.contact_address_line_2 }}
+    {% endif %}
+    <br />
+    {{ data.contact_city }}, {{ data.contact_state }} {{ data.contact_zip }}
+  </p>
+  <div id="form-letter--placeholder">
+  </div>
+</div>

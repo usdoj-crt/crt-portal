@@ -14,6 +14,7 @@ import json
 import os
 
 import boto3
+import django.conf.locale
 from django.utils.log import DEFAULT_LOGGING
 from django.utils.translation import gettext_lazy as _
 
@@ -149,6 +150,17 @@ LOGIN_REDIRECT_URL = '/'
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
+TL_INFO = {
+    'tl': {
+        'bidi': True,
+        'code': 'tl',
+        'name': 'Tagalog',
+        'name_local': 'Tagalog',
+    }
+}
+LANG_INFO = dict(django.conf.locale.LANG_INFO, **TL_INFO)
+django.conf.locale.LANG_INFO = LANG_INFO
+
 LANGUAGE_CODE = 'en-us'
 LANGUAGES = [
     ('es', _('Spanish')),
@@ -156,6 +168,14 @@ LANGUAGES = [
     ('zh-hant', _('Chinese Traditional')),
     ('zh-hans', _('Chinese Simplified')),
     ('vi', _('Vietnamese')),
+    ('ko', _('Korean')),
+    ('tl', _('Tagalog')),
+]
+
+# Set LOCALE_PATHS to ensure that our translations are given precedence
+# https://docs.djangoproject.com/en/2.2/topics/i18n/translation/#how-django-discovers-translations
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'cts_forms', 'locale'),
 ]
 
 TIME_ZONE = 'America/New_York'
@@ -345,7 +365,16 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         bucket,
         'www.civilrights.justice.gov',
         'civilrights.justice.gov',
-        "'unsafe-inline'"
+        "'unsafe-inline'",
+        'https://fonts.googleapis.com',
+    )
+    CSP_FONT_SRC = (
+        "'self'",
+        bucket,
+        'www.civilrights.justice.gov',
+        'civilrights.justice.gov',
+        "'unsafe-inline'",
+        'https://fonts.gstatic.com',
     )
     CSP_INCLUDE_NONCE_IN = ['script-src']
 
