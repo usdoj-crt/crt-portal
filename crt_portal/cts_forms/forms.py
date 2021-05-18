@@ -244,7 +244,7 @@ class Details(ModelForm):
         model = Report
         fields = [
             'violation_summary',
-            # 'language'
+            'language'
         ]
 
     def __init__(self, *args, **kwargs):
@@ -257,9 +257,7 @@ class Details(ModelForm):
         self.fields['violation_summary'].help_text = SUMMARY_HELPTEXT
         self.fields['violation_summary'].error_messages = {'required': VIOLATION_SUMMARY_ERROR}
         self.fields['violation_summary'].required = True
-
-        # self.fields['language'].required = False
-        # self.fields['language'].HiddenInput = False
+        self.fields['language'] = CharField()
 
 
 class LocationForm(ModelForm):
