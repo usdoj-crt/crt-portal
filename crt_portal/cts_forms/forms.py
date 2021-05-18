@@ -1126,6 +1126,7 @@ class ResponseActions(Form):
             template.id: {
                 'description': template.render_subject(self.report),
                 'content': template.render_body(self.report),
+                'language': template.language,
             }
             for template in templates
         }

@@ -103,13 +103,33 @@ body.is-modal {
 }
 
 .intake-template--modal {
+  align-items: normal;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+
+  .modal-content--large {
+    min-height: 50rem;
+  }
+
   .intake-template--description {
     min-height: 2rem;
   }
 
+  #response-modal-form {
+    p {
+      margin-top: 0px;
+      margin-bottom: 1rem;
+    }
+  }
+
+  #template-language-select {
+    width: 50%;
+    margin-bottom: 1rem;
+  }
+
   #intake_select {
     width: 50%;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 
   #intake_letter {
@@ -135,6 +155,64 @@ body.is-modal {
     height: 100%;
     width: 100%;
     white-space: pre-wrap;
+  }
+}
+
+#form-letterhead {
+  @page {
+    size: auto;
+    margin: 0mm;
+  }
+
+  @media print {
+    height: 100%;
+    width: 100%;
+
+    .form-letterhead--header {
+      display: flex;
+
+      img {
+        height: 100px;
+        padding-left: 3rem;
+      }
+
+      .form-letterhead--header-logo {
+        width: 50%;
+      }
+
+      .form-letterhead--header-text {
+        margin-top: 1.25rem;
+        margin-bottom: 0px;
+      }
+
+      .form-letterhead--header-subtext {
+        margin-top: 0px;
+        margin-bottom: 0px;
+      }
+    }
+
+    .subheader {
+      width: 50%;
+      margin-left: 50%;
+      margin-bottom: 1rem;
+    }
+
+    #form-letterhead--addressee {
+      margin-left: 0.75in;
+      margin-right: 0.75in;
+    }
+
+    #form-letter--placeholder {
+      white-space: pre-line;
+      margin-left: 0.75in;
+      margin-right: 0.75in;
+    }
+
+    hr {
+      border: 2px solid #000;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+    }
   }
 }
 
