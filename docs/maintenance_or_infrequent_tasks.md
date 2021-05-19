@@ -328,11 +328,9 @@ URL | Method | Normal | Maintenance mode
 ----|--------|--------|--------
 /report/| GET | Render report form | Render 503 maintenance page
 
-
-
 ## Email configuration
 
-We use [Amazon Simple Email Service (SES)](https://aws.amazon.com/ses/) to send outbound email from the application.
+We use [GovDelivery's Targeted Messaging System (TMS)](https://developer.govdelivery.com/api/tms/) to send outbound email from the application.
 
 ### Local development
 
@@ -353,26 +351,25 @@ For example, this command will enable Jim with a 50% chance to reject an incomin
 
 ### Development, Staging, and Production
 
-Each deployed instance **must** have the following environment variables defined in cloud.gov either via the command line or cloud.gov dashboard.
+To enable outbound emails, a deployed instance **must** have the following environment variables defined in cloud.gov either via the command line or cloud.gov dashboard.
 
 
 Variable | Description
 ---------|-----------
-`AWS_SES_ACCESS_KEY_ID` | AWS Access Key ID specific to SES
-`AWS_SES_SECRET_ACCESS_KEY`| AWS Secret Access Key specific to SES
-`AWS_SES_RETURN_PATH` | Instruct Amazon SES to forward bounced emails and complaints to this email.
-`AWS_SES_FROM_EMAIL` | Email to use as FROM email for all outbound messages, used to set the value for Django's [`DEFAULT_FROM_EMAIL`](https://docs.djangoproject.com/en/3.1/ref/settings/#default-from-email)
+`TMS_AUTH_TOKEN` | TMS API authentication token
+`RESTRICT_EMAIL_RECIPIENTS_TO` | `;` delimited string of email addresses which, when non-empty, will prevent outbound email from being sent to any address other than those specified here. We use this to prevent sending unexpected emails from development instances.
+`TMS_WEBHOOK_ALLOWED_CIDR_NETS` | `;` delimited string of IP addresses from which we're expecting webhook requests. Requests from all other origins will be rejected. May be set to `*` in development to allow requests from all origins.
+
 
 Command line example
 
    ```
    # Authenticate and target desired space
-   cf set-env crt-portal-django AWS_SES_ACCESS_KEY_ID {VALUE}
-   cf set-env crt-portal-django AWS_SES_SECRET_ACCESS_KEY {VALUE}
-   cf set-env crt-portal-django AWS_SES_RETURN_PATH {VALUE}
-   cf set-env crt-portal-django AWS_SES_FROM_EMAIL {VALUE}
+   cf set-env crt-portal-django TMS_AUTH_TOKEN not_a_real_token
+   cf set-env crt-portal-django TMS_WEBHOOK_ALLOWED_CIDR_NETS 192.168.0.15/24
+   cf set-env crt-portal-django RESTRICT_EMAIL_RECIPIENTS_TO developer.email@example.com;dev@example.com
    # re-stage application
    ```
 
 > **WARNING**:
- If _any_ of these values is not configured the application will start but `EMAIL_BACKEND` is not set to use SES. This is done so that `django-ses` doesn't attempt to send mail w/ otherwise configured AWS credentials. Attempts to send outbound email messages will fail and generate a log message such as `"Email failed to send: [Errno 99] Cannot assign requested address"`
+ If `TMS_AUTH_TOKEN` and `TMS_WEBHOOK_ALLOWED_CIDR_NETS` values are not configured the application will start but `EMAIL_ENABLED` will be set to `False` and the user interface will not provide an option to generate and send emails.
