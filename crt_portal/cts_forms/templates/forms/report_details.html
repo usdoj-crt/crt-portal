@@ -29,10 +29,15 @@
 
 				{% include "forms/word_counter.html" with word_limit=500 %}
             {% endwith %}
+
+
             <input type="hidden"
-            value="{% get_current_language as LANGUAGE_CODE %}{{LANGUAGE_CODE}}"
-            name="{{ wizard.field.language.name.id_for_label }}" id="{{ wizard.field.language.name.id_for_label }}"  />
-            {{ wizard.field.language.id_for_label }} **** {{ wizard.field.language }}
+            value="{% get_current_language as LANGUAGE_CODE %}{{LANGUAGE_CODE}}" name="11-language"
+             id="{{ form.language.id_for_label }}"  />
+
+           {{ form.language.label }} **** {{ form.language.id_for_label }}
+           {{LANGUAGE_CODE}} .... {{ form.language.name_for_label }}
+
 		</div>
 	</div>
 {% endblock %}
