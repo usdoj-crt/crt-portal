@@ -6,6 +6,7 @@ node_modules/
 *.pyc
 *.DS_Store
 *.env
+.python-version
 # this is where collect static puts the files
 staticfiles/
 pa11y-screenshots/

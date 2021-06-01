@@ -90,6 +90,7 @@ INSTALLED_APPS = [
     'formtools',
     # 'django_auth_adfs' in production only
     'crequest',
+    'tms'
 ]
 SITE_ID = 1
 
@@ -187,6 +188,26 @@ USE_TZ = True
 
 # Set to True later in settings if we've successfully configured an email backend
 EMAIL_ENABLED = False
+
+TMS_WEBHOOK_ALLOWED_CIDR_NETS = os.environ.get('TMS_WEBHOOK_ALLOWED_CIDR_NETS', '').split(';')
+TMS_STAGING_ENDPOINT = "https://stage-tms.govdelivery.com"
+TMS_PRODUCTION_ENDPOINT = "https://tms.govdelivery.com"
+# Since there's no sandbox, we'll limit outbound recipients to these addresses
+# to avoid un-intentional emails
+RESTRICT_EMAIL_RECIPIENTS_TO = os.environ.get('RESTRICT_EMAIL_RECIPIENTS_TO', '').split(';')
+
+if environment not in ['LOCAL', 'UNDEFINED']:
+    # govDelivery TMS settings
+    EMAIL_BACKEND = 'tms.backend.TMSEmailBackend'
+    TMS_AUTH_TOKEN = os.environ.get('TMS_AUTH_TOKEN', '')
+    TMS_TARGET_ENDPOINT = TMS_STAGING_ENDPOINT
+
+    if TMS_AUTH_TOKEN and TMS_WEBHOOK_ALLOWED_CIDR_NETS:
+        EMAIL_ENABLED = True
+
+    if environment == 'PRODUCTION':
+        TMS_TARGET_ENDPOINT = TMS_PRODUCTION_ENDPOINT
+        RESTRICT_EMAIL_RECIPIENTS_TO = []
 
 # Private S3 bucket configuration
 if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
@@ -356,20 +377,6 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'https://fonts.gstatic.com',
     )
     CSP_INCLUDE_NONCE_IN = ['script-src']
-
-    # Configure outbound Email
-    AWS_SES_SECRET_ACCESS_KEY = os.getenv('AWS_SES_SECRET_ACCESS_KEY')
-    AWS_SES_ACCESS_KEY_ID = os.getenv('AWS_SES_ACCESS_KEY_ID')
-    AWS_SES_FROM_EMAIL = os.getenv('AWS_SES_FROM_EMAIL')
-    AWS_SES_RETURN_PATH = os.getenv('AWS_SES_RETURN_PATH')
-    if AWS_SES_SECRET_ACCESS_KEY and AWS_SES_ACCESS_KEY_ID and AWS_SES_RETURN_PATH and AWS_SES_FROM_EMAIL:
-        # Only set backend if all env vars  are present otherwise
-        # `django-ses` will attempt to use AWS credentials established
-        # for use with S3
-        EMAIL_BACKEND = 'django_ses.SESBackend'
-        AWS_SES_REGION_NAME = 'us-gov-west-1'
-        DEFAULT_FROM_EMAIL = AWS_SES_FROM_EMAIL
-        EMAIL_ENABLED = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

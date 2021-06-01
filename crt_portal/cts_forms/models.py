@@ -525,3 +525,18 @@ class ResponseTemplate(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class DoNotEmail(models.Model):
+    """
+    Email addresses which, if present, have been flagged as one to which
+    we will no longer attempt to deliver email messages
+    """
+    recipient = models.EmailField(unique=True, help_text="Emails will not be sent to the address added here")
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = 'Do Not Email recipient'
+
+    def __str__(self):
+        return self.recipient

@@ -400,7 +400,7 @@ class ResponseView(LoginRequiredMixin, View):
     Allow intake specialists to print, copy, or email form response letters
     If we encounter _any_ exceptions in sending an email, log the error message and return.
     """
-    MAIL_SERVICE = "AWS Simple Email Service"
+    MAIL_SERVICE = "govDelivery TMS"
     ACTIONS = {'send': 'Emailed',
                'copy': 'Copied',
                'print': 'Printed'}
@@ -418,8 +418,11 @@ class ResponseView(LoginRequiredMixin, View):
 
             if button_type == 'send':  # We're going to send an email!
                 try:
-                    crt_send_mail(report, template)
-                    description = f"Email sent: '{template.title}' to {report.contact_email} via {self.MAIL_SERVICE}"
+                    sent = crt_send_mail(report, template)
+                    if sent:
+                        description = f"Email sent: '{template.title}' to {report.contact_email} via {self.MAIL_SERVICE}"
+                    else:
+                        description = f"{report.contact_email} not in allowed domains, not attempting to deliver {template.title}."
                 except Exception as e:  # catch *all* exceptions
                     logger.warning({'message': f"Email failed to send: {e}", 'report': report.id})
                     messages.add_message(request, messages.ERROR, self.SEND_MAIL_ERROR)
