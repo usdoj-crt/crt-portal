@@ -29,15 +29,9 @@
 
 				{% include "forms/word_counter.html" with word_limit=500 %}
             {% endwith %}
-
-
             <input type="hidden"
             value="{% get_current_language as LANGUAGE_CODE %}{{LANGUAGE_CODE}}" name="{{ form.language.html_name }}"
              id="{{ form.language.id_for_label }}"  />
-
-           {{ form.language.label }} ***-ID: {{ form.language.id_for_label }} ***Val:
-           {{LANGUAGE_CODE}} ..name: {{ form.language.name }} **name2 {{ form.language.html_name }} **-tag: {{ form.language.label_tag }}
-
 		</div>
 	</div>
 {% endblock %}
