@@ -44,10 +44,10 @@ def _get_message_id(request):
 
 def _get_completed_at(request):
     """return a UTC datetime from inbound completed_at string, we're only expecting UTC
-    e.g: "2015-08-05+18:47:18+UTC"
+    e.g: "2015-08-05 18:47:18 UTC"
     """
     completed_at = unquote(request.POST.get('completed_at', ''))
-    completed_datetime = datetime.strptime(completed_at, '%Y-%m-%d+%H:%M:%S+%Z').replace(tzinfo=timezone.utc)
+    completed_datetime = datetime.strptime(completed_at, '%Y-%m-%d %H:%M:%S %Z').replace(tzinfo=timezone.utc)
     return completed_datetime
 
 
@@ -73,7 +73,7 @@ class WebhookView(View):
         for net in allowed_cidr_nets:
             if ip in net:
                 return True
-        raise DisallowedHost("Invalid HTTP_HOST header")
+        raise DisallowedHost("Unexpected origin for a webhook request")
 
     def post(self, request):
         """Update TMSEmail instance of associated inbound webhook update"""
