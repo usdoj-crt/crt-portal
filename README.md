@@ -109,7 +109,7 @@ As a logged-in local Postgres user, you can run queries directly against the dat
 
 ### Public and private webpages
 
-New endpoints are behind authentication by default. In [settings.py](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/crt_portal/settings.py), you will want to add any public endpoints to `LOGIN_EXEMPT_URLS`.
+In production, we use [django-auth-adfs](https://django-auth-adfs.readthedocs.io/) and new endpoints are behind authentication by default. To create a public page, you must update `LOGIN_EXEMPT_URLS` In [settings.py](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/crt_portal/settings.py) to include the endpoint(s) which are to be available without requiring authentication.
 
 We also explicitly add login required to views and functions that need authentication. If you are making a new path that requires authentication, add a test the [login required test class](https://github.com/usdoj-crt/crt-portal/blob/e9856a2b4726df5ad97ecbf84db99b7767f1662c/crt_portal/cts_forms/tests/tests.py#L985).
 
