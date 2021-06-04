@@ -4,8 +4,7 @@
 	<div class="crt-portal-card">
 		<div class="crt-portal-card__content crt-portal-card__content--lg">
 			{{ block.super }}
-			{% for field in wizard.form.visible_fields %}
-
+			{% with field=form.violation_summary %}
 				<label
 					for="{{ field.id_for_label }}"
 					class="{% if label_class %}{{label_class}}{% endif %}"
@@ -29,7 +28,10 @@
 				{% endif %}
 
 				{% include "forms/word_counter.html" with word_limit=500 %}
-			{% endfor %}
+            {% endwith %}
+            <input type="hidden"
+            value="{% get_current_language as LANGUAGE_CODE %}{{LANGUAGE_CODE}}" name="{{ form.language.html_name }}"
+             id="{{ form.language.id_for_label }}"  />
 		</div>
 	</div>
 {% endblock %}

@@ -243,7 +243,8 @@ class Details(ModelForm):
     class Meta:
         model = Report
         fields = [
-            'violation_summary'
+            'violation_summary',
+            'language'
         ]
 
     def __init__(self, *args, **kwargs):

@@ -839,7 +839,6 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
 
     def done(self, form_list, form_dict, **kwargs):
         data, report = save_form(self.get_all_cleaned_data())
-
         return redirect(reverse('crt_forms:crt-forms-show', kwargs={'id': report.pk}))
 
 
