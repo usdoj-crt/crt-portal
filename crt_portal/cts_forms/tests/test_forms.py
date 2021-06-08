@@ -1,3 +1,6 @@
+"""
+These are the forms that appear on the individual report page to update a report
+"""
 import secrets
 import urllib.parse
 

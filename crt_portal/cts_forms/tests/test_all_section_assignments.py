@@ -1,4 +1,10 @@
-"""This is not a test yet, it is looping through meaningful permeations of the data and showing the output of the assign section function."""
+"""
+This loops through meaningful permeations of the data and shows the output of the assign section function.
+
+View expected results: data/section_assignment_expected.csv If section routing rules change you will need to update this document.
+
+The output of this test is saved to data/section_assignment.csv
+"""
 import csv
 import copy
 

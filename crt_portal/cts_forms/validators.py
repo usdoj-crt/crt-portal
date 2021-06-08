@@ -1,3 +1,5 @@
+
+"""Validating email """
 import logging
 import requests
 import os
