@@ -1,5 +1,8 @@
 
-"""Validating email """
+"""
+Validating file uploads
+Uploads are only available for CRT staff. Uploads are vetted with ClamAV.
+"""
 import logging
 import requests
 import os
