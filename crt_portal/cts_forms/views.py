@@ -234,7 +234,7 @@ def index_view(request):
         'return_url_args': all_args_encoded,
     }
 
-    return render(request, '/complaint_view/index/index.html', final_data)
+    return render(request, 'forms/complaint_view/index/index.html', final_data)
 
 
 def serialize_data(report, request, report_id):
@@ -587,7 +587,7 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
                         'Key': attachment.file.name,
                         'ResponseContentDisposition': f'attachment;filename={attachment.filename}'
                     },
-                    ExpiresIn=30
+                    ExpiresIn=30,
                 )
 
                 return redirect(response)

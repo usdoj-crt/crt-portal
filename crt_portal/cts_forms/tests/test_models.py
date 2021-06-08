@@ -1,3 +1,6 @@
+"""
+Testing multilingual properties used to make messages
+"""
 from django.test import SimpleTestCase
 
 from .factories import ReportFactory

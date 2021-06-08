@@ -1,3 +1,6 @@
+"""
+Internal views and misc views
+"""
 import copy
 import io
 import secrets
