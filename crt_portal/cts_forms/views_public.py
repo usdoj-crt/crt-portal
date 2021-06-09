@@ -12,7 +12,7 @@ from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.cache import never_cache
-from django.views.generic import FormView, TemplateView, View
+from django.views.generic import TemplateView
 
 from formtools.wizard.views import SessionWizardView
 
