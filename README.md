@@ -120,7 +120,7 @@ In production, we use [django-auth-adfs](https://django-auth-adfs.readthedocs.io
 
 We also explicitly add login required to views and functions that need authentication. If you are making a new path that requires authentication, add a test the [login required test class](https://github.com/usdoj-crt/crt-portal/blob/e9856a2b4726df5ad97ecbf84db99b7767f1662c/crt_portal/cts_forms/tests/tests.py#L985).
 
-We also use public and private as a way to separate views into manageable files. In `cts_forms`, private views are in `views.py` and public views are in v`iews_public.py`.
+We also use public and private as a way to separate views into manageable files. In `cts_forms`, private views are in `views.py` and public views are in `views_public.py`.
 
 ### I18N
 
