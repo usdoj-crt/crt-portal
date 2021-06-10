@@ -1,5 +1,10 @@
+"""
+Internal views and misc views
+"""
+import copy
 import io
 import secrets
+from datetime import date, timedelta
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -9,9 +14,11 @@ from django.test.client import Client
 from django.urls import reverse
 from unittest.mock import patch
 
+from testfixtures import LogCapture
+
 from ..forms import ContactEditForm, ReportEditForm
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
-from ..models import Profile, Report, ReportAttachment
+from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary
 from .test_data import SAMPLE_REPORT
 from .factories import ReportFactory
 
@@ -34,7 +41,7 @@ class ProfileViewTests(TestCase):
         self.user.delete()
 
     def test_profile_form_save(self):
-        """Profile create on successfull POST"""
+        """Profile create on successful POST"""
         new_intake_filters = ['VOT', 'ADM']
         self.form_data.update({'intake_filters': new_intake_filters})
         self.client.post(self.url, self.form_data, follow=True)
@@ -57,7 +64,7 @@ class ContactInfoUpdateTests(TestCase):
         self.user.delete()
 
     def test_update_name_and_zipcode(self):
-        """Contact info updates on successfull POST"""
+        """Contact info updates on successful POST"""
         new_first_name = 'TESTER'
         new_zipcode = '00000'
         self.form_data.update({'contact_first_name': new_first_name})
@@ -107,7 +114,7 @@ class ReportEditShowViewTests(TestCase):
         self.assertEqual(response.status_code, 400)
 
     def test_update_primary_cause(self):
-        """Report fields update on successfull POST"""
+        """Report fields update on successful POST"""
         new_primary_complaint = PRIMARY_COMPLAINT_CHOICES[1][0]
         form_data = {'type': ReportEditForm.CONTEXT_KEY, 'primary_complaint': new_primary_complaint}
         response = self.client.post(self.url, form_data, follow=True)
@@ -256,3 +263,419 @@ class ReportAttachmentTests(TestCase):
         self.assertTrue(f'complaint-view-remove-attachment-{attachment.pk}' not in str(response.content))
         # the removal should appear in the activity log
         self.assertTrue('Removed attachment:' in str(response.content))
+
+
+class Complaint_Show_View_Valid(TestCase):
+    def setUp(self):
+        data = copy.deepcopy(SAMPLE_REPORT)
+        data['primary_complaint'] = 'voting'
+        data['election_details'] = 'federal'
+        data['hate_crime'] = 'yes'
+
+        test_report = Report.objects.create(**data)
+
+        for choice in PROTECTED_MODEL_CHOICES:
+            pc = ProtectedClass.objects.get_or_create(value=choice[0])[0]
+            test_report.protected_class.add(pc)
+            test_report.save()
+
+        self.client = Client()
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': test_report.id}))
+        self.context = response.context
+        self.content = str(response.content)
+        self.test_report = test_report
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_correspondant_info(self):
+        self.assertTrue(self.test_report.contact_email in self.content)
+        self.assertTrue(self.test_report.contact_phone in self.content)
+        self.assertTrue(self.test_report.contact_first_name in self.content)
+        self.assertTrue(self.test_report.contact_last_name in self.content)
+
+    def test_complaint_details(self):
+        pc = PRIMARY_COMPLAINT_CHOICES[3][1]
+        self.assertTrue(str(pc) in self.content)
+        self.assertTrue('Election type (federal/local): federal' in self.content)
+        self.assertTrue(self.test_report.hate_crime in self.content)
+        self.assertTrue(self.test_report.location_name in self.content)
+        self.assertTrue(self.test_report.location_city_town in self.content)
+        self.assertTrue(self.test_report.location_state in self.content)
+
+    def test_full_summary(self):
+        self.assertTrue(self.test_report.violation_summary in self.content)
+
+
+class Valid_CRT_Pagnation_Tests(TestCase):
+    def setUp(self):
+        for choice, label in PROTECTED_MODEL_CHOICES:
+            pc = ProtectedClass.objects.get_or_create(value=choice)
+            test_report = Report.objects.create(**SAMPLE_REPORT)
+            test_report.protected_class.add(pc[0])
+            test_report.save()
+
+        self.client = Client()
+        # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        self.content = str(response.content)
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_total_pages(self):
+        # we are making a test record for each protected class
+        num_records = len(PROTECTED_MODEL_CHOICES)
+        self.assertTrue(f'{num_records} of {num_records} records' in self.content)
+
+    def test_paging(self):
+        url_base = reverse('crt_forms:crt-forms-index')
+        url = f'{url_base}?page=6&per_page=1&sort=assigned_section'
+        response = self.client.get(url)
+        content = str(response.content)
+        # check first page, current page, and the pages before and after
+        self.assertTrue('Go to page 1.' in content)
+        self.assertTrue('Go to page 5.' in content)
+        self.assertTrue('Current page, page 6.' in content)
+        self.assertTrue('Go to page 7.' in content)
+        self.assertTrue(f'Go to page {len(PROTECTED_MODEL_CHOICES)}.' in content)
+        # link generation, update with sorting etc. as we add
+        self.assertTrue('href="?per_page=1' in content)
+        self.assertTrue('sort=assigned_section' in content)
+
+
+class Valid_CRT_SORT_Tests(TestCase):
+    def setUp(self):
+        for choice in PRIMARY_COMPLAINT_CHOICES:
+            SAMPLE_REPORT['primary_complaint'] = choice[0]
+            test_report = Report.objects.create(**SAMPLE_REPORT)
+            test_report.assigned_section = test_report.assign_section()
+            test_report.save()
+
+        self.client = Client()
+        # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        url_base = reverse('crt_forms:crt-forms-index')
+        url_1 = f'{url_base}?sort=assigned_section'
+        url_2 = f'{url_base}?sort=-assigned_section'
+        self.response_1 = self.client.get(url_1).content
+        self.response_2 = self.client.get(url_2).content
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_default_sort_order_desc(self):
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        expected_list = []
+        for record in response.context['data_dict']:
+            expected_list.append(record['report'].create_date)
+
+        self.assertTrue(expected_list == sorted(expected_list, key=None, reverse=True))
+        self.assertFalse(expected_list == sorted(expected_list))
+
+    def test_sort(self):
+        # Vote should come after ADM when alphabetical, opposite for reverse
+        vote_index_1 = str(self.response_1).find('VOT')
+        adm_index_1 = str(self.response_1).find('ADM')
+        self.assertTrue(vote_index_1 > adm_index_1)
+
+    def test_bad_sort_param(self):
+        url_base = reverse('crt_forms:crt-forms-index')
+        url_3 = f'{url_base}?sort=-assigned_section'
+        response_3 = self.client.get(url_3)
+        self.assertTrue(response_3.status_code, '404')
+
+
+class CRT_FILTER_Tests(TestCase):
+    def setUp(self):
+        for choice in PRIMARY_COMPLAINT_CHOICES:
+            SAMPLE_REPORT['primary_complaint'] = choice[0]
+            test_report = Report.objects.create(**SAMPLE_REPORT)
+            test_report.assigned_section = test_report.assign_section()
+            test_report.save()
+
+        SAMPLE_REPORT['primary_complaint'] = PRIMARY_COMPLAINT_CHOICES[0][0]
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+        test_report.contact_first_name = 'Mary'
+        test_report.contact_last_name = 'Bar'
+        test_report.location_city_town = 'Cleveland'
+        test_report.location_state = 'OH'
+        test_report.assigned_section = test_report.assign_section()
+        test_report.servicemember = 'yes'
+        test_report.hate_crime = 'yes'
+        test_report.save()
+
+        self.client = Client()
+        # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        self.url_base = reverse('crt_forms:crt-forms-index')
+        self.len_all_results = len(self.client.get(self.url_base).context['data_dict'])
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_filter(self):
+        url = f'{self.url_base}?assigned_section=ADM'
+        one_filter_response = self.client.get(url)
+        expected_reports = Report.objects.filter(assigned_section='ADM')
+        actual_reports = one_filter_response.context['data_dict']
+
+        self.assertTrue(len(actual_reports) == len(list(expected_reports)))
+
+    def test_combined_filter(self):
+        url_1 = f'{self.url_base}?assigned_section=ADM&status=new'
+        two_filter_response = self.client.get(url_1)
+        url_2 = f'{self.url_base}?assigned_section=ADM&status=closed'
+        two_filter_no_match = self.client.get(url_2)
+
+        # assumes all new reports are assigned to ADM and labeled new
+        all_reports_actual = Report.objects.filter(assigned_section='ADM', status='new')
+        all_reports_expected = two_filter_response.context['data_dict']
+        # assumes no reports should be assigned to ADM and marked closed
+        no_reports_actual = Report.objects.filter(assigned_section='ADM', status='closed')
+        no_reports_expected = two_filter_no_match.context['data_dict']
+
+        self.assertTrue(len(all_reports_actual) == len(all_reports_expected))
+        self.assertTrue(len(no_reports_actual) == len(no_reports_expected))
+
+    def test_date_filter(self):
+        yesterday = date.today() - timedelta(days=1)
+        tomorrow = date.today() + timedelta(days=1)
+
+        url_start_yesterday = f"{self.url_base}?create_date_start={yesterday.strftime('%Y-%m-%d')}"
+        start_yesterday_response = self.client.get(url_start_yesterday).context['data_dict']
+
+        url_start_tomorrow = f"{self.url_base}?create_date_start={tomorrow.strftime('%Y-%m-%d')}"
+        start_tomorrow_response = self.client.get(url_start_tomorrow).context['data_dict']
+
+        url_end_yesterday = f"{self.url_base}?create_date_end={yesterday.strftime('%Y-%m-%d')}"
+        end_yesterday_response = self.client.get(url_end_yesterday).context['data_dict']
+
+        url_end_tomorrow = f"{self.url_base}?create_date_end={tomorrow.strftime('%Y-%m-%d')}"
+        end_tomorrow_response = self.client.get(url_end_tomorrow).context['data_dict']
+
+        # sanity check
+        self.assertTrue(self.len_all_results > 0)
+
+        self.assertEqual(len(start_tomorrow_response), 0)
+        self.assertEqual(len(end_yesterday_response), 0)
+        self.assertEqual(len(start_yesterday_response), self.len_all_results)
+        self.assertEqual(len(end_tomorrow_response), self.len_all_results)
+
+    def test_text_filter(self):
+        url_phrase = f'{self.url_base}?violation_summary=Four%20score%20and%20seven'
+        phrase_response = self.client.get(url_phrase).context['data_dict']
+
+        url_phrase_case_insensitive = f'{self.url_base}?violation_summary=four%20score%20and%20seven'
+        case_insensitive_phrase_response = self.client.get(url_phrase_case_insensitive).context['data_dict']
+
+        url_disjointed_phrase = f'{self.url_base}?violation_summary=For%20seven'
+        disjointed_phrase_response = self.client.get(url_disjointed_phrase).context['data_dict']
+
+        url_not_in_phrase = f'{self.url_base}?violation_summary=haberdashery'
+        url_not_in_phrase_response = self.client.get(url_not_in_phrase).context['data_dict']
+
+        self.assertEqual(len(phrase_response), self.len_all_results)
+        self.assertEqual(len(case_insensitive_phrase_response), self.len_all_results)
+        self.assertEqual(len(disjointed_phrase_response), self.len_all_results)
+        self.assertEqual(len(url_not_in_phrase_response), 0)
+
+    def test_first_name_filter(self):
+        first_name_filter = 'contact_first_name=lin'
+        response = self.client.get(f'{self.url_base}?{first_name_filter}')
+        reports = response.context['data_dict']
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, self.len_all_results - 1)
+
+    def test_last_name_filter(self):
+        last_name_filter = 'contact_last_name=bar'
+        response = self.client.get(f'{self.url_base}?{last_name_filter}')
+        reports = response.context['data_dict']
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, 1)
+
+    def test_city_name_filter(self):
+        city_name_filter = 'location_city_town=land'
+        response = self.client.get(f'{self.url_base}?{city_name_filter}')
+        reports = response.context['data_dict']
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, 1)
+
+    def test_state_filter(self):
+        state_filter = 'location_state=OH'
+        response = self.client.get(f'{self.url_base}?{state_filter}')
+        reports = response.context['data_dict']
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, 1)
+
+    def test_summary_filter(self):
+        """This is a many to may field so it works differently than the other searches. Also checking stemming"""
+        summary = CommentAndSummary.objects.create(
+            note="service animal",
+            is_summary=True,
+        )
+        test_report = Report.objects.all()[0]
+        test_report.internal_comments.add(summary)
+
+        summary_filter = 'summary=service animals'
+        response = self.client.get(f'{self.url_base}?{summary_filter}')
+        reports = response.context['data_dict']
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, 1)
+
+    def test_servicemember_filter(self):
+        servicemember_filter = 'servicemember=yes'
+        response = self.client.get(f'{self.url_base}?{servicemember_filter}')
+        reports = response.context['data_dict']
+        expected_reports = Report.objects.filter(servicemember='yes').count()
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, expected_reports)
+
+    def test_hatecrime_filter(self):
+        filter_ = 'hate_crime=yes'
+        response = self.client.get(f'{self.url_base}?{filter_}')
+        reports = response.context['data_dict']
+        expected_reports = Report.objects.filter(hate_crime='yes').count()
+
+        report_len = len(reports)
+
+        self.assertEquals(report_len, expected_reports)
+
+    def test_profile_filters(self):
+        """
+        Results filtered by assigned_section set in profile if no assigned_section provided
+        """
+        Profile.objects.create(intake_filters='IER', user_id=self.user.id)
+        response = self.client.get(f'{self.url_base}')
+        reports = response.context['data_dict']
+
+        # No IER reports exist so none should be returned when our profile is set to
+        self.assertEquals(Report.objects.filter(assigned_section='IER').count(), 0)
+        self.assertEquals(len(reports), 0)
+
+    def test_profile_filters_override(self):
+        """
+        Results filtered by provided assigned_section, bypassing profile filter
+        """
+        Profile.objects.create(intake_filters='IER', user_id=self.user.id)
+        filter_ = 'assigned_section=ADM'
+        response = self.client.get(f'{self.url_base}?{filter_}')
+        reports = response.context['data_dict']
+
+        # We've specified ADM as a query param, we should only see reports from that section
+        expected_reports = Report.objects.filter(assigned_section='ADM').count()
+        self.assertEquals(len(reports), expected_reports)
+
+
+class LoginRequiredTests(TestCase):
+    """Please add a test for each url that is tied to a view that requires authorization/authentication."""
+
+    def setUp(self):
+        self.client = Client()
+        # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'lennon@thebeatles.com', self.test_pass)
+        test_report = Report.objects.create(**SAMPLE_REPORT)
+        test_report.save()
+        self.report = test_report
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_view_all_login_success(self):
+        """Successful login returns 200 success code."""
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_all_unauthenticated(self):
+        """Unauthenticated attempt to view all page redirects to login page."""
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/accounts/login/?next=/form/view/')
+
+        response = self.client.get(reverse('crt_forms:crt-pro-form'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/accounts/login/?next=/form/new/')
+
+        response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': 1}))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/accounts/login/?next=/form/view/1/')
+
+        response = self.response = self.client.post(
+            reverse(
+                'crt_forms:save-report-comment',
+                kwargs={'report_id': 1}
+            ),
+            {
+                'is_summary': False,
+                'note': 'hello',
+            },
+        )
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/accounts/login/?next=/form/comment/report/1/')
+
+    def test_view_report_details_authenticated(self):
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_report_details_unauthenticated(self):
+        response = self.client.get(reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id}))
+        expected_response = '/accounts/login/?next=/form/view/%s/' % self.report.id
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, expected_response)
+
+    def test_view_all_incorrect_password(self):
+        """Attempt with incorrect password redirects to login page."""
+        self.client.login(username='DELETE_USER', password='incorrect_password')  # nosec -- this code runs in test only
+        response = self.client.get(reverse('crt_forms:crt-forms-index'))
+        self.assertEqual(response.status_code, 302)
+        self.assertRedirects(response, '/accounts/login/?next=/form/view/')
+
+    def test_required_user_logging(self):
+        """For compliance and good forensics, check a sample of required logging events"""
+        with LogCapture() as cm:
+            self.client = Client()
+            self.test_pass = secrets.token_hex(32)
+            self.user2 = User.objects.create_user('DELETE_USER_2', 'mccartney@thebeatles.com', self.test_pass)
+            self.user2_pk = copy.copy(self.user2.pk)
+            self.user2.delete()
+
+            create = 'cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User created: {pk} permissions: <QuerySet []> staff: False superuser: False active: True'.format(pk=self.user2_pk)
+            self.assertEqual(
+                cm.check_present(
+                    (create)
+                ),
+                None,
+            )
+
+            delete = 'cts_forms.signals', 'INFO', 'ADMIN ACTION by: CLI CLI @ CLI User deleted: {pk} permissions: <QuerySet []> staff: False superuser: False active: True'.format(pk=self.user2_pk)
+            self.assertEqual(
+                cm.check_present(
+                    (delete)
+                ),
+                None,
+            )

@@ -105,6 +105,26 @@ class ActivityStreamUpdater(object):
             add_activity(user, verb, description, self.instance)
 
 
+def save_form(form_data_dict, **kwargs):
+    """Saving all the report form data, in use for the public form and the Pro form
+    """
+    m2m_protected_class = form_data_dict.pop('protected_class')
+    r = Report.objects.create(**form_data_dict)
+
+    # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
+    for protected in m2m_protected_class:
+        r.protected_class.add(protected)
+
+    r.assigned_section = r.assign_section()
+    r.district = r.assign_district()
+    if kwargs.get('intake_format'):
+        r.intake_format = kwargs.get('intake_format')
+    r.save()
+    # adding this back for the save page results
+    form_data_dict['protected_class'] = m2m_protected_class.values()
+    return form_data_dict, r
+
+
 class Contact(ModelForm):
     class Meta:
         model = Report

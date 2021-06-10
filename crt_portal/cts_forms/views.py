@@ -1,13 +1,17 @@
+"""
+This is where to put views that need authentication.
+ - CRT-only views should not be translated
+ - Add a test to ensure authentication
+ - Be mindful of any naming collision with public URLs in settings
+"""
 import logging
 import mimetypes
-import os
 import urllib.parse
 
 import boto3
 from botocore.client import Config
 from botocore.exceptions import ClientError
 
-from django import forms
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -17,31 +21,19 @@ from django.core.paginator import Paginator
 from django.db.models import F
 from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
-from django.utils.decorators import method_decorator
-from django.utils.translation import gettext_lazy as _
-from django.views.decorators.cache import never_cache
 from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
+
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter
-from .forms import (BulkActionsForm, CommentActions, ComplaintActions,
-                    ContactEditForm, Filters, PrintActions, ProfileForm,
-                    ReportEditForm, ResponseActions, Review, add_activity,
-                    AttachmentActions)
+from .forms import (
+    BulkActionsForm, CommentActions, ComplaintActions,
+    ContactEditForm, Filters, PrintActions, ProfileForm,
+    ReportEditForm, ResponseActions, add_activity,
+    AttachmentActions, Review, save_form,
+)
 from .mail import crt_send_mail
-from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
-                              CORRECTIONAL_FACILITY_LOCATION_DICT,
-                              CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT,
-                              ELECTION_DICT, EMPLOYER_SIZE_DICT,
-                              HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
-                              LANDING_COMPLAINT_CHOICES_TO_EXAMPLES,
-                              LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
-                              LANDING_COMPLAINT_DICT,
-                              PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
-                              PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
-                              PRIMARY_COMPLAINT_DICT,
-                              PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
-                              PUBLIC_OR_PRIVATE_SCHOOL_DICT)
+from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
 from .models import CommentAndSummary, Profile, Report, ReportAttachment, Trends
 from .page_through import pagination
 from .sorts import report_sort
@@ -49,97 +41,6 @@ from .sorts import report_sort
 logger = logging.getLogger(__name__)
 
 SORT_DESC_CHAR = '-'
-
-
-def error_400(request, exception=None):
-    return render(
-        request,
-        'forms/errors.html', {
-            'status': 400,
-        },
-        status=400
-    )
-
-
-def error_403(request, exception=None):
-    return render(
-        request,
-        'forms/errors.html', {
-            'status': 403,
-        },
-        status=403
-    )
-
-
-def error_404(request, exception=None):
-    return render(
-        request,
-        'forms/errors_heading.html', {
-            'status': _("404 | Page not found"),
-            'message': _("We can't find the page you are looking for")
-        },
-        status=404
-    )
-
-
-def error_422(request):
-    return render(
-        request,
-        'forms/error_422.html',
-        status=422
-    )
-
-
-def error_500(request, exception=None):
-    return render(
-        request,
-        'forms/errors.html', {
-            'status': 500
-        },
-        status=500
-    )
-
-
-def error_501(request, exception=None):
-    return render(
-        request,
-        'forms/errors.html', {
-            'status': 501,
-        },
-        status=501
-    )
-
-
-def error_502(request, exception=None):
-    return render(
-        request,
-        'forms/errors.html', {
-            'status': 502,
-        },
-        status=502
-    )
-
-
-def error_503(request, exception=None):
-    return render(
-        request,
-        'forms/errors.html', {
-            'status': 503,
-        },
-        status=503
-    )
-
-
-def csrf_failure(request, reason=""):
-    return render(
-        request,
-        'forms/errors_heading.html', {
-            'status': "Problem with security cookie",
-            'message': _("Your browser couldn't create a secure cookie"),
-            'helptext': _("We use security cookies to protect your information from attackers. Make sure you allow cookies for this site. Having the page open for long periods can also cause this problem. If you know cookies are allowed and you are having this issue, try going to this page in new browser tab or window. That will make you a new security cookie and should resolve the problem.")
-        },
-        status=403
-    )
 
 
 def format_protected_class(p_class_objects, other_class):
@@ -158,7 +59,7 @@ def format_protected_class(p_class_objects, other_class):
 
 def reconstruct_query(next_qp):
     """
-    reconstruct the query filter on the previous page using the next
+    Reconstruct the query filter on the previous page using the next
     query parameter. note that if next is empty, the resulting query
     will return all records.
     """
@@ -255,7 +156,7 @@ def index_view(request):
         request.GET = request.GET.copy()
         global_section_filter = request.user.profile.intake_filters.split(',')
 
-        # If assigned_section is NOT specificied in request, use filter from profile
+        # If assigned_section is NOT specified in request, use filter from profile
         if 'assigned_section' not in request.GET:
             request.GET.setlist('assigned_section', global_section_filter)
 
@@ -510,7 +411,7 @@ class ShowView(LoginRequiredMixin, View):
             if 'assigned_section' in form.changed_data:
                 report.status_assignee_reset()
 
-            # district and location are on different forms so handled here.
+            # District and location are on different forms so handled here.
             # If the incident location changes, update the district.
             # District can be overwritten in the drop down.
             # If there was a location change but no new match for district, don't override.
@@ -539,7 +440,7 @@ class ShowView(LoginRequiredMixin, View):
                 fail_message = 'No updates applied'
             messages.add_message(request, messages.ERROR, fail_message)
 
-            # provide new forms for those not submitted
+            # Provide new for those not submitted
             for form_type, form in self.forms.items():
                 if form_type != inbound_form_type:
                     output.update({form_type: form(instance=report)})
@@ -548,13 +449,13 @@ class ShowView(LoginRequiredMixin, View):
 
 
 class ActionsView(LoginRequiredMixin, FormView):
-
+    """ CRT view to update report data"""
     def get(self, request):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
 
         ids = request.GET.getlist('id')
-        # the select all option only applies if 1. user hits the
+        # The select all option only applies if 1. user hits the
         # select all button and 2. we have more records in the query
         # than the ids passed in
         selected_all = request.GET.get('all', '') == 'all'
@@ -679,11 +580,15 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
                 config=Config(signature_version='s3v4'))
 
             try:
-                response = s3_client.generate_presigned_url('get_object',
-                                                            Params={'Bucket': settings.PRIV_S3_BUCKET,
-                                                                    'Key': attachment.file.name,
-                                                                    'ResponseContentDisposition': f'attachment;filename={attachment.filename}'},
-                                                            ExpiresIn=30)
+                response = s3_client.generate_presigned_url(
+                    'get_object',
+                    Params={
+                        'Bucket': settings.PRIV_S3_BUCKET,
+                        'Key': attachment.file.name,
+                        'ResponseContentDisposition': f'attachment;filename={attachment.filename}'
+                    },
+                    ExpiresIn=30,
+                )
 
                 return redirect(response)
 
@@ -781,25 +686,8 @@ class SaveCommentView(LoginRequiredMixin, FormView):
             return render(request, 'forms/complaint_view/show/index.html', output)
 
 
-def save_form(form_data_dict, **kwargs):
-    m2m_protected_class = form_data_dict.pop('protected_class')
-    r = Report.objects.create(**form_data_dict)
-
-    # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
-    for protected in m2m_protected_class:
-        r.protected_class.add(protected)
-
-    r.assigned_section = r.assign_section()
-    r.district = r.assign_district()
-    if kwargs.get('intake_format'):
-        r.intake_format = kwargs.get('intake_format')
-    r.save()
-    # adding this back for the save page results
-    form_data_dict['protected_class'] = m2m_protected_class.values()
-    return form_data_dict, r
-
-
 class ProFormView(LoginRequiredMixin, SessionWizardView):
+    """This is the one-page internal form for CRT staff to input complaints"""
     def get_template_names(self):
         return 'forms/pro_template.html'
 
@@ -826,9 +714,9 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
             'page_errors': page_errors,
             'num_page_errors': len(list(page_errors)),
             'word_count_text': {
-                'wordRemainingText': _('word remaining'),
-                'wordsRemainingText': _(' words remaining'),
-                'wordLimitReachedText': _(' word limit reached'),
+                'wordRemainingText': 'word remaining',
+                'wordsRemainingText': ' words remaining',
+                'wordLimitReachedText': ' word limit reached',
             },
             'ordered_step_names': ordered_step_names,
             'stage_link': True,
@@ -842,304 +730,8 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
         return redirect(reverse('crt_forms:crt-forms-show', kwargs={'id': report.pk}))
 
 
-TEMPLATES = [
-    # Contact
-    'forms/report_contact_info.html',
-    # Primary reason
-    'forms/report_primary_complaint.html',
-    # Hate crimes
-    'forms/report_hate_crime.html',
-    # Voting + location
-    'forms/report_location.html',
-    # Workplace + location
-    'forms/report_location.html',
-    # Police + location
-    'forms/report_location.html',
-    # Commercial/Public + location
-    'forms/report_location.html',
-    # Education + location
-    'forms/report_location.html',
-    # Location
-    'forms/report_location.html',
-    # Protected Class
-    'forms/report_class.html',
-    # Date
-    'forms/report_date.html',
-    # Details
-    'forms/report_details.html',
-    # Review page
-    'forms/report_review.html',
-]
-
-conditional_location_routings = ['voting', 'workplace', 'police', 'commercial_or_public', 'education']
-
-
-def is_routable_complaint(wizard, primary_complaint):
-    # try to get the cleaned data of step 1
-    cleaned_data = wizard.get_cleaned_data_for_step('1') or {'primary_complaint': 'not yet completed'}
-    if cleaned_data['primary_complaint'] == primary_complaint:
-        return True
-    return False
-
-
-def show_election_form_condition(wizard):
-    return is_routable_complaint(wizard, 'voting')
-
-
-def show_workplace_form_condition(wizard):
-    return is_routable_complaint(wizard, 'workplace')
-
-
-def show_police_form_condition(wizard):
-    return is_routable_complaint(wizard, 'police')
-
-
-def show_commercial_public_form_condition(wizard):
-    return is_routable_complaint(wizard, 'commercial_or_public')
-
-
-def show_education_form_condition(wizard):
-    return is_routable_complaint(wizard, 'education')
-
-
-def data_decode(form_data_dict, decoder_dict, value):
-    return decoder_dict.get(
-        form_data_dict.get(value)
-    )
-
-
-def show_location_form_condition(wizard):
-    # try to get the cleaned data of step 1
-    cleaned_data = wizard.get_cleaned_data_for_step('1') or {'primary_complaint': 'not yet completed'}
-
-    if not cleaned_data['primary_complaint'] in conditional_location_routings:
-        return True
-    return False
-
-
-class LandingPageView(TemplateView):
-    template_name = "landing.html"
-
-    def get_context_data(self, **kwargs):
-        all_complaints = {
-            **PRIMARY_COMPLAINT_DICT,
-            **LANDING_COMPLAINT_DICT,
-        }
-        all_examples = {
-            **PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
-            **LANDING_COMPLAINT_CHOICES_TO_EXAMPLES,
-        }
-        all_helptext = {
-            **PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
-            **LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
-        }
-        choices = {
-            key: {
-                'description': description,
-                'examples': all_examples.get(key, []),
-                'helptext': all_helptext.get(key, ''),
-            }
-            for key, description in all_complaints.items()
-            if key != 'something_else'  # exclude because this choice has no examples
-        }
-        return {'choices': choices}
-
-
-@method_decorator(never_cache, name='dispatch')
-class CRTReportWizard(SessionWizardView):
-    """Once all the sub-forms are submitted this class will clean data and save."""
-
-    ORDERED_STEP_NAMES = [
-        _('Contact'),
-        _('Primary concern'),
-        _('Location'),
-        _('Personal characteristics'),
-        _('Date'),
-        _('Personal description'),
-        _('Review'),
-    ]
-
-    def form_refreshed(self):
-        """
-        True if the form and associated session data have been refreshed and cleared
-        which invalidates the submission and requires a user to restart the form.
-        """
-        form_current_step = self.request.POST.get('crt_report_wizard-current_step', None)
-        return (form_current_step != self.steps.current and self.storage.current_step is not None)
-
-    def post(self, *args, **kwargs):
-        """
-        Prior to handling the inbound request, check for and handle
-        session data which has been cleared while someone is progressing through
-        the form
-        """
-        if self.form_refreshed():
-            return error_422(self.request)
-        return super().post(*args, **kwargs)
-
-    def get(self, request):
-        if settings.MAINTENANCE_MODE:
-            return render(self.request, 'forms/report_maintenance.html', status=503)
-        return super().get(request)
-
-    # overriding the get form to add checks to the hidden field and avoid 500s
-    def get_form(self, step=None, data=None, files=None):
-        """
-        Constructs the form for a given `step`. If no `step` is defined, the
-        current step will be determined automatically.
-        The form will be initialized using the `data` argument to prefill the
-        new form. If needed, instance or queryset (for `ModelForm` or
-        `ModelFormSet`) will be added too.
-        """
-        if step is None:
-            step = self.steps.current
-        # added check to see if people are messing with the form
-        elif not step.isdigit() or int(step) > len(TEMPLATES):
-            raise PermissionDenied
-
-        form_class = self.form_list[step]
-        # prepare the kwargs for the form instance.
-        kwargs = self.get_form_kwargs(step)
-        kwargs.update({
-            'data': data,
-            'files': files,
-            'prefix': self.get_form_prefix(step, form_class),
-            'initial': self.get_form_initial(step),
-        })
-        if issubclass(form_class, (forms.ModelForm, forms.models.BaseInlineFormSet)):
-            # If the form is based on ModelForm or InlineFormSet,
-            # add instance if available and not previously set.
-            kwargs.setdefault('instance', self.get_form_instance(step))
-        elif issubclass(form_class, forms.models.BaseModelFormSet):
-            # If the form is based on ModelFormSet, add queryset if available
-            # and not previous set.
-            kwargs.setdefault('queryset', self.get_form_instance(step))
-        return form_class(**kwargs)
-
-    def get_template_names(self):
-        return [TEMPLATES[int(self.steps.current)]]
-
-    def get_context_data(self, form, **kwargs):
-        context = super(CRTReportWizard, self).get_context_data(form=form, **kwargs)
-        field_errors = list(map(lambda field: field.errors, context['form']))
-        page_errors = [error for field in field_errors for error in field]
-        form_name = form.name if hasattr(form, 'name') else ''
-
-        # This name appears in the progress bar wizard
-
-        # Name for all forms whether they are skipped or not
-        all_step_names = [
-            _('Contact'),
-            _('Primary concern'),
-            _('Primary concern'),
-            _('Location'),
-            _('Location'),
-            _('Location'),
-            _('Location'),
-            _('Location'),
-            _('Location'),
-            _('Personal characteristics'),
-            _('Date'),
-            _('Personal description'),
-            _('Review'),
-        ]
-
-        current_step_name = all_step_names[int(self.steps.current)]
-
-        # This title appears in large font above the question elements
-        ordered_step_titles = [
-            _('Contact'),
-            _('Primary concern'),
-            _('Primary concern'),
-            _('Location details'),
-            _('Location details'),
-            _('Location details'),
-            _('Location details'),
-            _('Location details'),
-            _('Location details'),
-            _('Personal characteristics'),
-            _('Date'),
-            _('Personal description'),
-            _('Review your report'),
-        ]
-        current_step_title = ordered_step_titles[int(self.steps.current)]
-        form_autocomplete_off = os.getenv('FORM_AUTOCOMPLETE_OFF', False)
-
-        context.update({
-            'ordered_step_names': self.ORDERED_STEP_NAMES,
-            'current_step_title': current_step_title,
-            'current_step_name': current_step_name,
-            'page_errors': page_errors,
-            'num_page_errors': len(list(page_errors)),
-            'page_errors_desc': ','.join([f'"{error_desc}"' for error_desc in page_errors]),
-            # Disable default client-side validation
-            'form_novalidate': True,
-            'form_autocomplete_off': form_autocomplete_off,
-            'word_count_text': {
-                'wordRemainingText': _('word remaining'),
-                'wordsRemainingText': _(' words remaining'),
-                'wordLimitReachedText': _(' word limit reached'),
-            },
-            'form_name': form_name,
-            'stage_number': self.ORDERED_STEP_NAMES.index(current_step_name) + 1,
-            'total_stages': len(self.ORDERED_STEP_NAMES),
-        })
-
-        if current_step_name == _('Primary concern'):
-            if all_step_names[int(self.steps.prev)] != current_step_name:
-                context.update({
-                    'crime_help_text2': _('Please select if any that apply to your situation (optional)'),
-                })
-        elif current_step_name == _('Review'):
-            form_data_dict = self.get_all_cleaned_data()
-            # unpack values in data for display
-            form_data_dict['primary_complaint'] = data_decode(
-                form_data_dict, PRIMARY_COMPLAINT_DICT, 'primary_complaint'
-            )
-            form_data_dict['election_details'] = data_decode(
-                form_data_dict, ELECTION_DICT, 'election_details'
-            )
-            form_data_dict['public_or_private_employer'] = data_decode(
-                form_data_dict, PUBLIC_OR_PRIVATE_EMPLOYER_DICT, 'public_or_private_employer'
-            )
-            form_data_dict['employer_size'] = data_decode(
-                form_data_dict, EMPLOYER_SIZE_DICT, 'employer_size'
-            )
-            form_data_dict['inside_correctional_facility'] = data_decode(
-                form_data_dict, CORRECTIONAL_FACILITY_LOCATION_DICT, 'inside_correctional_facility'
-            )
-            form_data_dict['correctional_facility_type'] = data_decode(
-                form_data_dict, CORRECTIONAL_FACILITY_LOCATION_TYPE_DICT, 'correctional_facility_type'
-            )
-            form_data_dict['commercial_or_public_place'] = data_decode(
-                form_data_dict, COMMERCIAL_OR_PUBLIC_PLACE_DICT, 'commercial_or_public_place'
-            )
-            form_data_dict['public_or_private_school'] = data_decode(
-                form_data_dict, PUBLIC_OR_PRIVATE_SCHOOL_DICT, 'public_or_private_school'
-            )
-
-            context.update({
-                'protected_classes': form_data_dict.pop('protected_class'),
-                'report': Report(**form_data_dict),
-                'question': form.question_text
-            })
-
-        return context
-
-    def done(self, form_list, form_dict, **kwargs):
-        form_data_dict = self.get_all_cleaned_data()
-        _, report = save_form(form_data_dict, intake_format='web')
-        return render(
-            self.request, 'forms/confirmation.html',
-            {
-                'report': report,
-                'questions': Review.question_text,
-                'ordered_step_names': self.ORDERED_STEP_NAMES
-            },
-        )
-
-
 class TrendView(LoginRequiredMixin, TemplateView):
+    """This shows word trending for incoming reports"""
     template_name = "forms/complaint_view/trends.html"
 
     def get_context_data(self, **kwargs):

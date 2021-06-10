@@ -1,4 +1,3 @@
-
 from django.test import SimpleTestCase, override_settings
 from cts_forms.mail import remove_disallowed_recipients
 
