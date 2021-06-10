@@ -1,7 +1,7 @@
 import logging
 from datetime import datetime, timezone
-
 from actstream import action
+
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
@@ -13,6 +13,7 @@ from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           TypedChoiceField)
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
@@ -1007,6 +1008,13 @@ class Filters(ModelForm):
             'name': 'intake_format',
         }),
     )
+    language = MultipleChoiceField(
+        required=False,
+        choices=settings.LANGUAGES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'language',
+        }),
+    )
     referred = MultipleChoiceField(
         required=False,
         choices=((True, 'Yes'),),
@@ -1036,6 +1044,7 @@ class Filters(ModelForm):
             'intake_format',
             'contact_email',
             'referred',
+            'language'
         ]
 
         labels = {

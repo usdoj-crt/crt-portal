@@ -24,6 +24,7 @@ variable_rename = {
     'summary': 'Summary',
     'contact_email': 'Contact email',
     'referred': 'Secondary review',
+    'language': 'Report Language',
 }
 
 

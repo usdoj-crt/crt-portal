@@ -41,6 +41,7 @@ filter_options = {
     'commercial_or_public_place': '__in',
     'reported_reason': 'reported_reason',
     'referred': 'eq',
+    'language': '__in',
 }
 
 

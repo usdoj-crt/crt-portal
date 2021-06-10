@@ -10,6 +10,7 @@ SAMPLE_REPORT = {
     'location_name': 'Yosemite',
     'location_city_town': 'Yosemite Valley',
     'location_state': 'CA',
+    'language': 'en',
 }
 
 SAMPLE_RESPONSE_TEMPLATE = {
