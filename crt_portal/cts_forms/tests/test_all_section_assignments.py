@@ -1,5 +1,5 @@
 """
-This loops through meaningful permeations of the data and shows the output of the assign section function.
+This loops through meaningful permutations of the data and shows the output of the assign_section function.
 
 View expected results: data/section_assignment_expected.csv If section routing rules change you will need to update this document.
 
