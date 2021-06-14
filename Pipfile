@@ -39,7 +39,7 @@ netaddr = "*"
 boto3 = "*"
 
 [requires]
-python_version = "3.9.2"
+python_version = "3.9.4"
 
 [pipenv]
 allow_prereleases = true
