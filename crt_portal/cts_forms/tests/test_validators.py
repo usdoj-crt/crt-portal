@@ -1,3 +1,6 @@
+"""
+Testing email validation
+"""
 import requests
 
 from django.core.exceptions import ValidationError

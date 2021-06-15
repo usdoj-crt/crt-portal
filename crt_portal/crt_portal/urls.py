@@ -15,19 +15,22 @@ Including another URLconf
 """
 import os
 
-from cts_forms.forms import (CommercialPublicLocation, Contact, Details,
-                             EducationLocation, ElectionLocation, HateCrimes,
-                             LocationForm, PoliceLocation, PrimaryReason,
-                             ProtectedClassForm, Review, When,
-                             WorkplaceLocation)
-from cts_forms.views import (CRTReportWizard, LandingPageView, error_404,
-                             error_422, error_500,
-                             show_commercial_public_form_condition,
-                             show_education_form_condition,
-                             show_election_form_condition,
-                             show_location_form_condition,
-                             show_police_form_condition,
-                             show_workplace_form_condition)
+from cts_forms.forms import (
+    CommercialPublicLocation, Contact, Details,
+    EducationLocation, ElectionLocation, HateCrimes,
+    LocationForm, PoliceLocation, PrimaryReason,
+    ProtectedClassForm, Review, When,
+    WorkplaceLocation
+)
+from cts_forms.views_public import (
+    CRTReportWizard, LandingPageView, error_404, error_422, error_500,
+    show_commercial_public_form_condition,
+    show_education_form_condition,
+    show_election_form_condition,
+    show_location_form_condition,
+    show_police_form_condition,
+    show_workplace_form_condition
+)
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
@@ -80,13 +83,13 @@ urlpatterns = auth + [
     path('', LandingPageView.as_view(), name='crt_landing_page'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-handler400 = 'cts_forms.views.error_400'
-handler403 = 'cts_forms.views.error_403'
-handler404 = 'cts_forms.views.error_404'
-handler500 = 'cts_forms.views.error_500'
-handler501 = 'cts_forms.views.error_501'
-handler502 = 'cts_forms.views.error_502'
-handler503 = 'cts_forms.views.error_503'
+handler400 = 'cts_forms.views_public.error_400'
+handler403 = 'cts_forms.views_public.error_403'
+handler404 = 'cts_forms.views_public.error_404'
+handler500 = 'cts_forms.views_public.error_500'
+handler501 = 'cts_forms.views_public.error_501'
+handler502 = 'cts_forms.views_public.error_502'
+handler503 = 'cts_forms.views_public.error_503'
 
 if settings.ENABLE_DEBUG_TOOLBAR:
     import debug_toolbar

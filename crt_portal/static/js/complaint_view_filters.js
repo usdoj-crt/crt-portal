@@ -126,7 +126,8 @@
     sort: '',
     page: '',
     per_page: '',
-    no_status: ''
+    no_status: '',
+    language: []
   };
   var filterDataModel = {};
 
@@ -293,7 +294,7 @@
     var servicememberEl = dom.getElementsByName('servicemember');
     var contactEmailEl = dom.querySelector('input[name="contact_email"]');
     var referredEl = dom.getElementsByName('referred');
-
+    var languageEl = dom.getElementsByName('language');
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
      * and perform a new search with the updated filters applied.
@@ -310,7 +311,8 @@
         'primary_complaint',
         'intake_format',
         'commercial_or_public_place',
-        'reported_reason'
+        'reported_reason',
+        'language'
       ];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {
@@ -437,6 +439,10 @@
     checkBoxView({
       el: referredEl,
       name: 'referred'
+    });
+    checkBoxView({
+      el: languageEl,
+      name: 'language'
     });
   }
 

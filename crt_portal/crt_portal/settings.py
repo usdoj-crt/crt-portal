@@ -273,6 +273,7 @@ if environment == 'PRODUCTION':
             '^robots.txt',
             '^privacy-policy',
             '^i18n',
+            '^email',
         ],
     }
 

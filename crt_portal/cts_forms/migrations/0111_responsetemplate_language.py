@@ -21,7 +21,7 @@ def assign_language(apps, schema_editor):
             template.language = 'tl'
         else:
             template.language = 'en'
-        
+
         template.save()
 
 

@@ -1,7 +1,7 @@
 import logging
 from datetime import datetime, timezone
-
 from actstream import action
+
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
@@ -13,6 +13,7 @@ from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           TypedChoiceField)
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
+from django.conf import settings
 
 from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
@@ -102,6 +103,26 @@ class ActivityStreamUpdater(object):
         """Send all actions to activity stream"""
         for verb, description in self.get_actions():
             add_activity(user, verb, description, self.instance)
+
+
+def save_form(form_data_dict, **kwargs):
+    """Saving all the report form data, in use for the public form and the Pro form
+    """
+    m2m_protected_class = form_data_dict.pop('protected_class')
+    r = Report.objects.create(**form_data_dict)
+
+    # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
+    for protected in m2m_protected_class:
+        r.protected_class.add(protected)
+
+    r.assigned_section = r.assign_section()
+    r.district = r.assign_district()
+    if kwargs.get('intake_format'):
+        r.intake_format = kwargs.get('intake_format')
+    r.save()
+    # adding this back for the save page results
+    form_data_dict['protected_class'] = m2m_protected_class.values()
+    return form_data_dict, r
 
 
 class Contact(ModelForm):
@@ -243,7 +264,8 @@ class Details(ModelForm):
     class Meta:
         model = Report
         fields = [
-            'violation_summary'
+            'violation_summary',
+            'language'
         ]
 
     def __init__(self, *args, **kwargs):
@@ -1006,6 +1028,13 @@ class Filters(ModelForm):
             'name': 'intake_format',
         }),
     )
+    language = MultipleChoiceField(
+        required=False,
+        choices=settings.LANGUAGES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'language',
+        }),
+    )
     referred = MultipleChoiceField(
         required=False,
         choices=((True, 'Yes'),),
@@ -1035,6 +1064,7 @@ class Filters(ModelForm):
             'intake_format',
             'contact_email',
             'referred',
+            'language'
         ]
 
         labels = {

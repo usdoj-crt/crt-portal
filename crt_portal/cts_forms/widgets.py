@@ -1,3 +1,4 @@
+"""Form widgets"""
 from django.forms.widgets import ChoiceWidget, SelectMultiple, DateInput
 
 

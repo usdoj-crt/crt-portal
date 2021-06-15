@@ -1,4 +1,11 @@
 [![CircleCI](https://circleci.com/gh/usdoj-crt/crt-portal.svg?style=svg)](https://circleci.com/gh/usdoj-crt/crt-portal)
+## About the project
+
+This is the code that runs [civilrights.justice.gov](https://civilrights.justice.gov/).
+
+In order to be more responsive to the public’s changing communication needs and the increased reporting volume,the Civil Rights Division, in close collaboration with 18F, launched a user-friendly online submission experience at [civilrights.justice.gov](https://civilrights.justice.gov/). The project has transformed the way the Civil Rights Division collects, sorts, and responds to public reports of civil rights violations.
+
+Here is a [blog post](https://18f.gsa.gov/2020/07/07/transforming-how-dojs-civil-rights-division-engages-with-the-public/) about the launch of this project with more details.
 
 ## Contents
 
@@ -14,7 +21,7 @@
 
 * [Additional documentation](#additional-documentation)
 
-- [Background notes](#background-notes)
+* [Background notes](#background-notes)
 
 ## Local set up
 
@@ -106,6 +113,14 @@ Then from, within the container, you can run:
     psql -U postgres
 
 As a logged-in local Postgres user, you can run queries directly against the database, for example: `select * from cts_forms_report;` to see report data in your local database.
+
+### Public and private webpages
+
+In production, we use [django-auth-adfs](https://django-auth-adfs.readthedocs.io/) and new endpoints are behind authentication by default. To create a public page, you must update `LOGIN_EXEMPT_URLS` In [settings.py](https://github.com/usdoj-crt/crt-portal/blob/develop/crt_portal/crt_portal/settings.py) to include the endpoint(s) which are to be available without requiring authentication.
+
+We also explicitly add login required to views and functions that need authentication. If you are making a new path that requires authentication, add a test the [login required test class](https://github.com/usdoj-crt/crt-portal/blob/e9856a2b4726df5ad97ecbf84db99b7767f1662c/crt_portal/cts_forms/tests/tests.py#L985).
+
+We also use public and private as a way to separate views into manageable files. In `cts_forms`, private views are in `views.py` and public views are in `views_public.py`.
 
 ### I18N
 
@@ -209,6 +224,8 @@ Please keep in mind that the quality of tests is more important than the quantit
     docker-compose run web python /code/crt_portal/manage.py test --settings=crt_portal.test_settings cts_forms
 
 That will create a file locally that tells your machine to not load zip codes on migration. These are not needed for tests and take a while.
+
+Another way to have a speedier experience locally is to not run local stack and ClamAV unless you are testing attachment uploads or email.
 
 ### Accessibility test
 For accessibility testing with Pa11y, we generally want a test on each unique view. You can run Pa11y locally, _if you have npm installed locally_:
