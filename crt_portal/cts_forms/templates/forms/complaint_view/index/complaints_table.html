@@ -25,6 +25,7 @@
           <th></th>
           {% render_sortable_heading 'Status' sort_state filter_state %}
           {% render_sortable_heading 'Total #' sort_state filter_state nowrap=True %}
+          {% render_sortable_heading 'ID' sort_state filter_state %}
           {% render_sortable_heading 'Routed' sort_state filter_state %}
           {% render_sortable_heading 'Submitted' sort_state filter_state %}
           {% render_sortable_heading 'Contact Name' sort_state filter_state %}
@@ -68,6 +69,7 @@
                   {% endwith %}
                 </a>
               </td>
+              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.public_id }}</a></td>
               <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.assigned_section }}</a></td>
               <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.create_date|date:"SHORT_DATE_FORMAT" }}</a></td>
               <td>
@@ -140,14 +142,6 @@
                 </div>
                 <div class="td-summary">
                   {{ datum.report.location_name|default:"-" }}
-                </div>
-              </td>
-              <td>
-                <div class="td-quickview">
-                  Complaint ID
-                </div>
-                <div class="td-summary">
-                  {{ datum.report.public_id|default:"-" }}
                 </div>
               </td>
             </tr>
