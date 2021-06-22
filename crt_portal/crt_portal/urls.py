@@ -38,7 +38,7 @@ from django.urls import include, path, re_path
 from django.views.generic import RedirectView, TemplateView
 
 environment = os.environ.get('ENV', 'UNDEFINED')
-if environment == 'PRODUCTION':
+if environment in ['PRODUCTION', 'STAGE']:
     auth = [
         re_path('admin/login/$', RedirectView.as_view(pattern_name='login')),
         re_path('accounts/login/$', RedirectView.as_view(pattern_name='login')),
