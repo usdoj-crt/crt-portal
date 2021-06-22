@@ -30,7 +30,6 @@
           {% render_sortable_heading 'Contact Name' sort_state filter_state %}
           {% render_sortable_heading 'Contact Details' sort_state filter_state %}
           {% render_sortable_heading 'Incident Location' sort_state filter_state %}
-          <!-- {% render_sortable_heading 'Summary' sort_state filter_state %} -->
           {% render_sortable_heading 'Incident Date' sort_state filter_state %}
         </tr>
       </thead>
@@ -94,13 +93,6 @@
                   {{ datum.report.location_city_town }}, {{ datum.report.location_state }}
                 </a>
               </td>
-              <!-- <td>
-                <a class="td-link display-block" href="{{datum.url}}">
-                  {% with summary=datum.report.get_summary %}
-                    {{ summary.note|default:"—"|truncatechars:60 }}
-                  {% endwith %}
-                </a>
-              </td> -->
               <td>
                 <a class="td-link display-block" href="{{datum.url}}">
                   {{ datum.report.last_incident_month|default:"-" }}/{{datum.report.last_incident_day|default:"-"}}/{{ datum.report.last_incident_year|default:"-" }}
@@ -110,22 +102,6 @@
             {# this row is hidden by default #}
             <tr id="tr-additional-{{ datum.report.id }}" hidden>
               <td colspan="2"></td>
-              <!-- <td colspan="2">
-                <div class="td-quickview">
-                  Contact
-                </div>
-                <div class="display-flex flex-column">
-                  <span>
-                    {{ datum.report.contact_last_name|default:"-" }} {{ datum.report.contact_first_name|default:"-" }}
-                  </span>
-                  <span>
-                    {{ datum.report.contact_email|default:"-" }}
-                  </span>
-                  <span>
-                    {{ datum.report.contact_phone|default:"-" }}
-                  </span>
-                </div>
-              </td> -->
               <td colspan="4">
                 <div class="td-quickview">
                   Summary
@@ -144,22 +120,6 @@
                   {{ datum.report.violation_summary|linebreaks|default:"-" }}
                 </div>
               </td>
-              <!-- <td>
-                <div class="td-quickview">
-                  Location Name
-                </div>
-                <div class="td-summary">
-                  {{ datum.report.location_name|default:"-" }}
-                </div>
-              </td>
-              <td>
-                <div class="td-quickview">
-                  Complaint ID
-                </div>
-                <div class="td-summary">
-                  {{ datum.report.public_id|default:"-" }}
-                </div>
-              </td> -->
             </tr>
           {% endfor %}
         </tbody>
