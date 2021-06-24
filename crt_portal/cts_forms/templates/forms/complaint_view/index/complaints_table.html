@@ -31,7 +31,6 @@
           {% render_sortable_heading 'Contact Name' sort_state filter_state %}
           {% render_sortable_heading 'Contact Details' sort_state filter_state %}
           {% render_sortable_heading 'Incident Location' sort_state filter_state %}
-          {% render_sortable_heading 'Summary' sort_state filter_state %}
           {% render_sortable_heading 'Incident Date' sort_state filter_state %}
         </tr>
       </thead>
@@ -98,13 +97,6 @@
               </td>
               <td>
                 <a class="td-link display-block" href="{{datum.url}}">
-                  {% with summary=datum.report.get_summary %}
-                    {{ summary.note|default:"—"|truncatechars:60 }}
-                  {% endwith %}
-                </a>
-              </td>
-              <td>
-                <a class="td-link display-block" href="{{datum.url}}">
                   {{ datum.report.last_incident_month|default:"-" }}/{{datum.report.last_incident_day|default:"-"}}/{{ datum.report.last_incident_year|default:"-" }}
                 </a>
               </td>
@@ -112,20 +104,14 @@
             {# this row is hidden by default #}
             <tr id="tr-additional-{{ datum.report.id }}" hidden>
               <td colspan="2"></td>
-              <td colspan="2">
+              <td colspan="4">
                 <div class="td-quickview">
-                  Contact
+                  Summary
                 </div>
-                <div class="display-flex flex-column">
-                  <span>
-                    {{ datum.report.contact_last_name|default:"-" }} {{ datum.report.contact_first_name|default:"-" }}
-                  </span>
-                  <span>
-                    {{ datum.report.contact_email|default:"-" }}
-                  </span>
-                  <span>
-                    {{ datum.report.contact_phone|default:"-" }}
-                  </span>
+                <div class="td-summary">
+                  {% with summary=datum.report.get_summary %}
+                    {{ summary.note|linebreaks|default:"-" }}
+                  {% endwith %}
                 </div>
               </td>
               <td colspan="4">
@@ -134,14 +120,6 @@
                 </div>
                 <div class="td-summary">
                   {{ datum.report.violation_summary|linebreaks|default:"-" }}
-                </div>
-              </td>
-              <td>
-                <div class="td-quickview">
-                  Location Name
-                </div>
-                <div class="td-summary">
-                  {{ datum.report.location_name|default:"-" }}
                 </div>
               </td>
             </tr>
