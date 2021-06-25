@@ -30,6 +30,7 @@
           {% render_sortable_heading 'Submitted' sort_state filter_state %}
           {% render_sortable_heading 'Contact Name' sort_state filter_state %}
           {% render_sortable_heading 'Contact Details' sort_state filter_state %}
+          {% render_sortable_heading 'Location Name' sort_state filter_state %}
           {% render_sortable_heading 'Incident Location' sort_state filter_state %}
           {% render_sortable_heading 'Incident Date' sort_state filter_state %}
         </tr>
@@ -90,6 +91,7 @@
                   {% endwith %}
                 </a>
               </td>
+              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.location_name|default:"-" }}</a></td>
               <td>
                 <a class="td-link display-block" href="{{datum.url}}">
                   {{ datum.report.location_city_town }}, {{ datum.report.location_state }}

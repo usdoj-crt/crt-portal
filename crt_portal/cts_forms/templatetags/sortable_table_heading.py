@@ -9,6 +9,7 @@ sort_lookup = {
     'routed': 'assigned_section',
     'submitted': 'create_date',
     'contact name': 'contact_last_name',
+    'location name': 'location_name',
     'incident location': 'location_city_town',
     'incident date': 'last_incident_month',
 }
@@ -19,6 +20,7 @@ sortable_props = [
     'assigned_section',
     'create_date',
     'contact_last_name',
+    'location_name',
     'location_city_town',
     'last_incident_month',
 ]
