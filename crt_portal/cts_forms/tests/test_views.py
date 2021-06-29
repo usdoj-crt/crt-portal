@@ -411,6 +411,7 @@ class CRT_FILTER_Tests(TestCase):
         test_report.assigned_section = test_report.assign_section()
         test_report.servicemember = 'yes'
         test_report.hate_crime = 'yes'
+        test_report.public_id = '999-XYZ'
         test_report.save()
 
         self.client = Client()
@@ -431,6 +432,12 @@ class CRT_FILTER_Tests(TestCase):
         actual_reports = one_filter_response.context['data_dict']
 
         self.assertTrue(len(actual_reports) == len(list(expected_reports)))
+
+    def test_id_filter(self):
+        url = f'{self.url_base}?public_id=999-XYZ'
+        one_filter_response = self.client.get(url)
+        actual_reports = str(one_filter_response.content)
+        self.assertTrue('999-XYZ' in actual_reports)
 
     def test_combined_filter(self):
         url_1 = f'{self.url_base}?assigned_section=ADM&status=new'

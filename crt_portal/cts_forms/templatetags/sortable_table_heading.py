@@ -5,18 +5,22 @@ register = template.Library()
 sort_lookup = {
     'status': 'status',
     'total #': 'email_count',
+    'id': 'public_id',
     'routed': 'assigned_section',
     'submitted': 'create_date',
     'contact name': 'contact_last_name',
+    'location name': 'location_name',
     'incident location': 'location_city_town',
     'incident date': 'last_incident_month',
 }
 sortable_props = [
     'status',
     'email_count',
+    'public_id',
     'assigned_section',
     'create_date',
     'contact_last_name',
+    'location_name',
     'location_city_town',
     'last_incident_month',
 ]
