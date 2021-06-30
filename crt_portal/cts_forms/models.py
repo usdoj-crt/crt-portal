@@ -36,6 +36,7 @@ from .model_variables import (CLOSED_STATUS,
                               STATES_AND_TERRITORIES, STATUS_CHOICES,
                               STATUTE_CHOICES)
 from .phone_regex import phone_validation_regex
+import pytz
 from .validators import validate_file_attachment, validate_email_address
 
 logger = logging.getLogger(__name__)
@@ -456,6 +457,11 @@ class ResponseTemplate(models.Model):
     body = models.TextField(null=False, blank=False,)
     language = models.CharField(max_length=10, null=False, blank=False,)
 
+    def utc_timezone_to_est(self, utc_dt):
+        local_tz = pytz.timezone('US/Eastern')
+        local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(local_tz)
+        return local_tz.normalize(local_dt)
+
     def available_report_fields(self, report):
         """
         Only permit a small subset of report fields
@@ -469,10 +475,12 @@ class ResponseTemplate(models.Model):
         section_choices_zh_hans = dict(SECTION_CHOICES_ZH_HANS)
         section_choices_zh_hant = dict(SECTION_CHOICES_ZH_HANT)
 
+        local_datetime = self.utc_timezone_to_est(report.create_date)
+
         return Context({
             'record_locator': report.public_id,
             'addressee': report.addressee,
-            'date_of_intake': format_date(report.create_date, format='long', locale='en_US'),
+            'date_of_intake': format_date(local_datetime, format='long', locale='en_US'),
             'outgoing_date': format_date(today, locale='en_US'),  # required for paper mail
             'section_name': section_choices.get(report.assigned_section, "no section"),
             # spanish translations
