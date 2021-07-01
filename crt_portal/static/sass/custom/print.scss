@@ -2,6 +2,15 @@
   .intake-bg {
     background-color: color('white');
   }
+  body,
+  html {
+    padding: 0;
+    margin: 0;
+  }
+
+  @page {
+    margin: .5cm;
+  }
 
   // selectively hide page elements that we don't want to be visible
   // when printing.
