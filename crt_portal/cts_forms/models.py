@@ -475,48 +475,48 @@ class ResponseTemplate(models.Model):
         section_choices_zh_hans = dict(SECTION_CHOICES_ZH_HANS)
         section_choices_zh_hant = dict(SECTION_CHOICES_ZH_HANT)
 
-        local_datetime = self.utc_timezone_to_est(report.create_date)
+        eastern_standard_datetime = self.utc_timezone_to_est(report.create_date)
 
         return Context({
             'record_locator': report.public_id,
             'addressee': report.addressee,
-            'date_of_intake': format_date(local_datetime, format='long', locale='en_US'),
+            'date_of_intake': format_date(eastern_standard_datetime, format='long', locale='en_US'),
             'outgoing_date': format_date(today, locale='en_US'),  # required for paper mail
             'section_name': section_choices.get(report.assigned_section, "no section"),
             # spanish translations
             'es': {
                 'addressee': report.addressee_es,
-                'date_of_intake': format_date(report.create_date, format='long', locale='es_ES'),
+                'date_of_intake': format_date(eastern_standard_datetime, format='long', locale='es_ES'),
                 'outgoing_date': format_date(today, locale='es_ES'),
                 'section_name': section_choices_es.get(report.assigned_section, "no section"),
             },
             'ko': {
                 'addressee': report.addressee_ko,
-                'date_of_intake': format_date(report.create_date, format='long', locale='ko'),
+                'date_of_intake': format_date(eastern_standard_datetime, format='long', locale='ko'),
                 'outgoing_date': format_date(today, locale='ko'),
                 'section_name': section_choices_ko.get(report.assigned_section, "no section"),
             },
             'tl': {
                 'addressee': report.addressee_tl,
-                'date_of_intake': format_date(report.create_date, format='long', locale='tl'),
+                'date_of_intake': format_date(eastern_standard_datetime, format='long', locale='tl'),
                 'outgoing_date': format_date(today, locale='tl'),
                 'section_name': section_choices_tl.get(report.assigned_section, "no section"),
             },
             'vi': {
                 'addressee': report.addressee_vi,
-                'date_of_intake': format_date(report.create_date, format='long', locale='vi'),
+                'date_of_intake': format_date(eastern_standard_datetime, format='long', locale='vi'),
                 'outgoing_date': format_date(today, locale='vi'),
                 'section_name': section_choices_vi.get(report.assigned_section, "no section"),
             },
             'zh_hans': {
                 'addressee': report.addressee_zh_hans,
-                'date_of_intake': format_date(report.create_date, format='long', locale='zh_hans'),
+                'date_of_intake': format_date(eastern_standard_datetime, format='long', locale='zh_hans'),
                 'outgoing_date': format_date(today, locale='zh_hans'),
                 'section_name': section_choices_zh_hans.get(report.assigned_section, "no section"),
             },
             'zh_hant': {
                 'addressee': report.addressee_zh_hant,
-                'date_of_intake': format_date(report.create_date, format='long', locale='zh_hant'),
+                'date_of_intake': format_date(eastern_standard_datetime, format='long', locale='zh_hant'),
                 'outgoing_date': format_date(today, locale='zh_hant'),
                 'section_name': section_choices_zh_hant.get(report.assigned_section, "no section"),
             },
