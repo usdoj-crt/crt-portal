@@ -475,7 +475,7 @@ class ResponseTemplate(models.Model):
         section_choices_zh_hans = dict(SECTION_CHOICES_ZH_HANS)
         section_choices_zh_hant = dict(SECTION_CHOICES_ZH_HANT)
 
-        # as of July 1, create_dates are being converted to eastern standard time from utc, 
+        # as of July 1, create_dates are being converted to eastern standard time from utc,
         # to show the correct date for reports created in the evening.
         report_create_date_est = self.utc_timezone_to_est(report.create_date)
 
