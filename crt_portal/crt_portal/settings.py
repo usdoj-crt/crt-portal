@@ -411,7 +411,7 @@ COMPRESS_PRECOMPILERS = (
 COMPRESS_ENABLED = False
 
 # adding better messaging
-CSRF_FAILURE_VIEW = 'cts_forms.views.csrf_failure'
+CSRF_FAILURE_VIEW = 'cts_forms.views_public.csrf_failure'
 
 # disable logging filters
 DEFAULT_LOGGING['handlers']['console']['filters'] = []
