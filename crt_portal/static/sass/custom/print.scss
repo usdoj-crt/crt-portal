@@ -262,7 +262,7 @@
       margin: 1rem 0;
     }
     .confirmation-content {
-      margin: 0 2rem !important;
+      margin: 0 1rem !important;
       padding-bottom: 1.5rem !important;
     }
     .title-icon-blue {
@@ -345,6 +345,12 @@
       border-radius: 2px;
       background: color('black');
       width: 30px !important;
+    }
+    section.what-to-expect ul.confirmation-list li {
+      padding-left: 0;
+    }
+    .confirmation-page .confirmation-content {
+      margin-left: .5rem !important;
     }
   }
 }
