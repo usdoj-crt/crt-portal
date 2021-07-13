@@ -228,8 +228,8 @@ else:
     PRIV_S3_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY', 'AWSSAK')
     PRIV_S3_ENDPOINT_URL = 'http://localhost:4566'
 
-# for AUTH, probably want to add stage in the future
-if environment == 'PRODUCTION':
+# for AUTH, in prod and stage
+if environment in ['PRODUCTION', 'STAGE']:
     for service in vcap['user-provided']:
         if service['instance_name'] == "VCAP_SERVICES":
             # SECURITY WARNING: keep the secret key used in production secret!
@@ -286,6 +286,7 @@ if environment == 'PRODUCTION':
         'civilrights.justice.gov',
         'www.civilrights.justice.gov',
         'crt-portal-django-prod.app.cloud.gov',
+        'crt-portal-django-stage.app.cloud.gov',
     ]
 
 STATIC_URL = '/static/'
@@ -411,7 +412,7 @@ COMPRESS_PRECOMPILERS = (
 COMPRESS_ENABLED = False
 
 # adding better messaging
-CSRF_FAILURE_VIEW = 'cts_forms.views.csrf_failure'
+CSRF_FAILURE_VIEW = 'cts_forms.views_public.csrf_failure'
 
 # disable logging filters
 DEFAULT_LOGGING['handlers']['console']['filters'] = []
