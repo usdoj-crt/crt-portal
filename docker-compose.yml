@@ -48,6 +48,7 @@ services:
     image: ajilaag/clamav-rest:20201028
     environment:
       - MAX_FILE_SIZE=100M
+      - SIGNATURE_CHECKS=1
     ports:
       - "9000:9000"
 volumes:
