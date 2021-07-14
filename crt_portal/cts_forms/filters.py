@@ -8,7 +8,7 @@ from django.contrib.postgres.search import SearchQuery
 
 from .models import Report
 
-logger = logging.getLogger(__name__)
+# logger = logging.getLogger(__name__)
 
 # To add a new filter option for Reports, add the field name and expected filter behavior
 filter_options = {
@@ -113,15 +113,13 @@ def report_filter(querydict):
                 combined_or_search = _combine_term_searches_with_or(filter_list)
                 qs = qs.filter(violation_summary_search_vector=combined_or_search)
     qs = qs.filter(**kwargs)
-    logger.warning(qs.query)
     return qs, filters
 
 
 def _combine_term_searches_with_or(terms):
     """Create a CombinedSearchQuery of all received search terms"""
-    combined_search = SearchQuery(terms.pop())
+    combined_search = SearchQuery(terms.pop(), config='english')
     for term in terms:
-        combined_search = combined_search | SearchQuery(term)
-    logger.warning(combined_search)
+        combined_search = combined_search | SearchQuery(term, config='english')
 
     return combined_search
