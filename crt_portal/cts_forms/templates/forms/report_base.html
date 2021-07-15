@@ -37,7 +37,6 @@
           >
           {% csrf_token %}
           {{ wizard.management_form }}
-
           {% if form.non_field_errors %}
             {% include "forms/snippets/error_alert.html" with errors=form.non_field_errors %}
           {% endif %}
@@ -103,6 +102,7 @@
     </div>
   </div>
 {% include "partials/unsupported-browser-modal.html" %}
+{% include "partials/contact-info-confirmation-modal.html" %}
 {% endblock %}
 
 {% block footer_extra %}
@@ -121,16 +121,25 @@
       wordsRemainingText: "{{ word_count_text.wordsRemainingText }}",
       wordLimitReachedText: "{{ word_count_text.wordLimitReachedText }}"
     };
+    root.CRT.stageNumber = {{ stage_number }}
   })(window)
 </script>
 <script src="{% static 'js/word_count.js' %}"></script>
 <script src="{% static 'js/modal.js' %}"></script>
 <script src="{% static 'js/unsupported_browsers.js' %}"></script>
-<script nonce="{{request.csp_nonce}}">
+<script src="{% static 'js/contact_info_confirmation_modal.js' %}"></script>
+    <script nonce="{{request.csp_nonce}}">
   (function(root) {
+    {#if (root.CRT.stageNumber === 1) {#}
+    {#  var contactInfoConfirm = document.getElementById('contact-info-confirmation--modal');#}
+    {#  root.CRT.openModal(contactInfoConfirm);#}
+      {##}
+      {#var close_el = document.getElementById('ub_close');#}
+      {#root.CRT.cancelModal(modal, close_el);#}
+    {#}#}
     if (root.CRT.isUnsupportedBrowser()) {
-      var modal = document.getElementById('unsupported_browser_modal');
-      root.CRT.openModal(modal);
+      var unsupportedBrowserModal = document.getElementById('unsupported_browser_modal');
+      root.CRT.openModal(unsupportedBrowserModal);
 
       var close_el = document.getElementById('ub_close');
       root.CRT.cancelModal(modal, close_el);

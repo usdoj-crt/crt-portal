@@ -1,0 +1,22 @@
+{% load i18n %}
+
+<div id="contact-info-confirmation--modal" hidden>
+  <div class="modal-wrapper" role="dialog" aria-modal="true" aria-describedby="modal_dialog_header">
+    <div class="modal-content modal-content--small">
+      <div class="modal-header">
+        <h1 id="modal_dialog_header" class="h2__display">
+          Contact Information
+        </h1>
+      </div>
+      <div class="modal-form">
+        <p>
+          Add your contact information?
+        </p>
+        <div class="modal-footer">
+            <a id="external-link--cancel" href="#" class="usa-button usa-button--outline button--cancel light-button">{% trans "Back" %}</a>
+            <a id="external-link--continue" href="#" class="usa-button button--continue">{% trans "Continue" %}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
