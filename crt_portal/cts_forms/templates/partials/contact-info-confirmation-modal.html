@@ -5,16 +5,18 @@
     <div class="modal-content modal-content--small">
       <div class="modal-header">
         <h1 id="modal_dialog_header" class="h2__display">
-          Contact Information
+            You are continuing your complaint without providing email or phone information.
         </h1>
       </div>
       <div class="modal-form">
         <p>
-          Add your contact information?
+            {{ wizard }}
+
+            You do not have to provide contact information, however, we will not be able to contact you for any status updates or potential follow up. Would you like to add your contact information now? If you prefer not to, you will go to Step 2.
         </p>
         <div class="modal-footer">
-            <a id="external-link--cancel" href="#" class="usa-button usa-button--outline button--cancel light-button">{% trans "Back" %}</a>
-            <a id="external-link--continue" href="#" class="usa-button button--continue">{% trans "Continue" %}</a>
+            <a id="external-link--cancel" href="#" class="usa-button usa-button--outline button--cancel light-button">{% trans "No, I don't want to provide it" %}</a>
+            <a id="external-link--continue" href="#" class="usa-button button--continue">{% trans "Yes, I'd like to add it" %}</a>
         </div>
       </div>
     </div>
