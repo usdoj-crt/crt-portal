@@ -1,48 +1,48 @@
 (function(root) {
   // note that modal.js must be loaded beforehand
   var modal_el = document.getElementById('contact-info-confirmation--modal');
-  var span = document.getElementById('external-link--address');
-  var links = document.querySelectorAll('.external-link--popup');
-  var continue_button = document.getElementById('external-link--continue');
-  var redirect;
-  for (var i = 0; i < links.length; i++) {
-    var link = links[i];
-    console.log('links', links);
-    link.onclick = function(event) {
-      console.log('document.getElementsByName(\'0-contact_email\')[0].value', document.getElementsByName('0-contact_email')[0].value)
-      console.log('in link.onclick')
-      var href = event.target.href;
-      event.preventDefault();
-      // display the actual redirect link
-      span.innerHTML = '<a href="' + href + '">' + href + '</a>';
-      root.CRT.openModal(modal_el);
-      // set timeout for redirect
-      clearTimeout(redirect);
-      redirect = setTimeout(function() {
-        // only redirect if modal is still visible
-        if (modal_el.getAttribute('hidden') === null) {
-          window.location.href = href;
-        }
-      }, 20000);
 
-      // set up "continue" button to immediately redirect
-      continue_button.onclick = function(event) {
+  function clickSubmit(stepOneSubmitButton) {
+    stepOneSubmitButton[0].addEventListener("click",(event) => {
+      var phone_el = document.getElementsByName('0-contact_phone')[0]
+      var email_el = document.getElementsByName('0-contact_email')[0]
+      var requiredFieldSelected = document.getElementsByName('0-servicemember')[0].checked  ||  document.getElementsByName('0-servicemember')[1].checked
+      var noContactInfo = (phone_el.value && email_el.value)
+
+      // If there is contact information OR if the required field is not filled out, no modal is needed
+      if ( noContactInfo || !requiredFieldSelected) {
         event.preventDefault();
-        var href = span.children[0].href;
-        window.location.href = href;
-      };
-    };
+        submitNextButton.click()
+      }
+      else {
+        event.preventDefault();
+        var cancelModalButton = document.getElementById('external-link--cancel');
+
+        // field_el is the field element that will need to be filled out.  We want to focus that field and scroll to it.
+        var field_el = {}
+        if (noContactInfo || !email_el.value) {
+          field_el = email_el
+        }
+        else if (!phone_el.value) {
+          field_el = phone_el
+        }
+        root.CRT.cancelModal(modal_el, cancelModalButton, field_el);
+        root.CRT.openModal(modal_el);
+      }
+    })
   }
-  var cancel_modal = document.getElementById('external-link--cancel');
-  root.CRT.cancelModal(modal_el, cancel_modal);
 
   if (root.CRT.stageNumber === 1) {
-    submitButton = document.getElementById('submit-next')
-    submitButton.onclick((event) => {
-      console.log(event)
-      // root.CRT.openModal(contactInfoConfirm);
-    })
-    var contactInfoConfirm = document.getElementById('contact-info-confirmation--modal');
+    stepOneSubmitButton = document.getElementsByClassName('report-step-1-continue')
+    if (stepOneSubmitButton.length) {
+      var submitNextButton = document.getElementById('submit-next')
+      var continue_modal_button = document.getElementById('external-link--continue');
+      continue_modal_button.onclick = function(event) {
+        event.preventDefault();
+        submitNextButton.click();
+      };
+      clickSubmit(stepOneSubmitButton)
+    }
   }
 
 })(window);

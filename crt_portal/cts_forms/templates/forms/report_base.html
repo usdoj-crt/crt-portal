@@ -78,14 +78,16 @@
 
           {% block bottom-navigation %}
           <div class="margin-top-5">
+          {%  block submit-button %}
             <input id="submit-next"
                   type="submit"
                   value={% if submit_button %}
-                          "{% trans 'Submit' %}"
+                          {% trans 'Submit' %}
                         {% else %}
-                          "{% trans 'Next' %}"
+                          {% trans 'Next' %}
                         {% endif %}
                   class="usa-button" />
+          {% endblock %}
 
             {% if wizard.steps.prev %}
               <button name="wizard_goto_step"
@@ -131,13 +133,6 @@
 <script src="{% static 'js/contact_info_confirmation_modal.js' %}"></script>
     <script nonce="{{request.csp_nonce}}">
   (function(root) {
-    {#if (root.CRT.stageNumber === 1) {#}
-    {#  var contactInfoConfirm = document.getElementById('contact-info-confirmation--modal');#}
-    {#  root.CRT.openModal(contactInfoConfirm);#}
-      {##}
-      {#var close_el = document.getElementById('ub_close');#}
-      {#root.CRT.cancelModal(modal, close_el);#}
-    {#}#}
     if (root.CRT.isUnsupportedBrowser()) {
       var unsupportedBrowserModal = document.getElementById('unsupported_browser_modal');
       root.CRT.openModal(unsupportedBrowserModal);

@@ -27,6 +27,22 @@
   </div>
 {% endblock %}
 
+{%  block submit-button %}
+    <br />
+    <a class="usa-button button--continue report-step-1-continue">
+        Next
+    </a>
+    <input hidden
+           id="submit-next"
+           type="submit"
+           value={% if submit_button %}
+               {% trans 'Submit' %}
+           {% else %}
+               {% trans 'Next' %}
+           {% endif %}
+                   class="usa-button"
+    />
+{% endblock %}
 
 {% block contact-info-confirmation %}
     {% include "partials/contact_info_confirmation_modal.html" %}
