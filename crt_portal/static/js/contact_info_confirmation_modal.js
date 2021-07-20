@@ -33,7 +33,7 @@
   }
 
   if (root.CRT.stageNumber === 1) {
-    stepOneSubmitButton = document.getElementsByClassName('report-step-1-continue')
+    var stepOneSubmitButton = document.getElementsByClassName('report-step-1-continue')
     if (stepOneSubmitButton.length) {
       var submitNextButton = document.getElementById('submit-next')
       var continue_modal_button = document.getElementById('external-link--continue');
