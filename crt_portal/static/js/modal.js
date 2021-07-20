@@ -58,8 +58,8 @@
   root.CRT.cancelModal = function(modal_el, cancel_el, form_el = {}) {
     var dismissModal = function(event) {
       if (form_el) {
-        form_el.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
-        form_el.focus()
+        form_el.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+        form_el.focus();
       }
       event.preventDefault();
       root.CRT.closeModal(modal_el);
