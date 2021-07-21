@@ -7,7 +7,7 @@ def test_error_if_form_refreshed(page, base_url):
 
     def next_step():
         with page.expect_navigation() as response:
-            page.click('input[type="submit"]', delay=100)
+            page.click('input[type="submit"]', force=True)
         return response.value
 
     page.goto("/report")
