@@ -7,12 +7,8 @@ def test_error_if_form_refreshed(page, base_url):
 
     def next_step():
         with page.expect_navigation() as response:
-            # page.evaluate("document.getElementById('submit-next').click()")
-            kwargs = {
-                'selector': 'input[type="submit"]',
-                'force': True
-            }
-            page.click(**kwargs)
+            page.evaluate("document.getElementById('submit-next').click()")
+            # page.click('input[type="submit"]', force=True)
         return response.value
 
     page.goto("/report")
