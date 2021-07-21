@@ -7,10 +7,7 @@ def test_error_if_form_refreshed(page, base_url):
 
     def next_step():
         with page.expect_navigation() as response:
-            if page.click('input[type="submit"]').is_hidden():
-                page.click('input[type="submit"]', {"force": "true"})
-            else:
-                page.click('input[type="submit"]')
+            page.click('input[type="submit"]', force=True)
         return response.value
 
     page.goto("/report")
