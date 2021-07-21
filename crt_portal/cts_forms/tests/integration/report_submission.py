@@ -8,7 +8,6 @@ def test_error_if_form_refreshed(page, base_url):
     def next_step():
         with page.expect_navigation() as response:
             page.evaluate("document.getElementById('submit-next').click()")
-            # page.click('input[type="submit"]', force=True)
         return response.value
 
     page.goto("/report")
@@ -35,7 +34,7 @@ def test_report_complete_and_valid_submission(page):
 
     def next_step():
         with page.expect_navigation():
-            page.click('input[type="submit"]')
+            page.evaluate("document.getElementById('submit-next').click()")
 
     page.goto("/report")
     assert page.title() == "Step 1: Contact - Contact the Civil Rights Division | Department of Justice"
