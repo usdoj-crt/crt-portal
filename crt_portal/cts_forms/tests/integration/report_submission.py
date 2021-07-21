@@ -4,12 +4,13 @@ import pytest
 
 @pytest.mark.only_browser("chromium")
 def test_error_if_form_refreshed(page, base_url):
-    print('page is ', page)
-    print("base_url is ", base_url)
 
     def next_step():
         with page.expect_navigation() as response:
-            page.click('input[type="submit"]')
+            if page.click('input[type="submit"]').is_hidden:
+                page.click('input[type="submit"]', {"force": "true"})
+            else:
+                page.click('input[type="submit"]')
         return response.value
 
     page.goto("/report")
