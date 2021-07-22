@@ -1,6 +1,5 @@
 
 import pytest
-import logging
 
 
 @pytest.mark.only_browser("chromium")
