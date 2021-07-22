@@ -1,6 +1,5 @@
 # Class to handle filtering Reports by supplied query params,
 # provided they are valid filterable model properties.
-import logging
 import urllib.parse
 from datetime import datetime
 
@@ -8,7 +7,6 @@ from django.contrib.postgres.search import SearchQuery
 
 from .models import Report
 
-logger = logging.getLogger(__name__)
 
 # To add a new filter option for Reports, add the field name and expected filter behavior
 filter_options = {
@@ -118,7 +116,8 @@ def report_filter(querydict):
 
 def _combine_term_searches_with_or(terms):
     """Create a CombinedSearchQuery of all received search terms"""
-    combined_search = SearchQuery(terms.pop())
+    combined_search = SearchQuery(terms.pop(), config='english')
     for term in terms:
-        combined_search = combined_search | SearchQuery(term)
+        combined_search = combined_search | SearchQuery(term, config='english')
+
     return combined_search
