@@ -38,7 +38,7 @@ def test_report_complete_and_valid_submission(page):
     def next_step():
         with page.expect_navigation():
             logger.info(page)
-            page.evaluate("document.querySelector('input[type=/'submit/']').click()")
+            page.evaluate("document.querySelector('input[type=\"submit\"]').click()")
 
     page.goto("/report")
     assert page.title() == "Step 1: Contact - Contact the Civil Rights Division | Department of Justice"
