@@ -28,6 +28,7 @@
 
     {% if wizard.steps.prev %}
       <button name="wizard_goto_step"
+              id="submit-report"
               type="submit"
               label="{% trans "previous step" %}"
               value="{{ wizard.steps.prev }}"
