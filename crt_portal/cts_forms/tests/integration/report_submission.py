@@ -2,8 +2,6 @@
 import pytest
 import logging
 
-logger = logging.getLogger(__name__)
-
 
 @pytest.mark.only_browser("chromium")
 def test_error_if_form_refreshed(page, base_url):
