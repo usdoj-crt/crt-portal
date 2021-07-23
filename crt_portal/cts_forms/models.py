@@ -4,7 +4,7 @@ from datetime import datetime
 from babel.dates import format_date
 
 from django.contrib.auth import get_user_model
-from django.contrib.postgres.indexes import GinIndex
+from django.contrib.postgres.indexes import Index, GinIndex
 from django.contrib.postgres.search import SearchVectorField
 from django.core.validators import MaxValueValidator, RegexValidator
 from django.db import connection, models
@@ -196,6 +196,8 @@ class Report(models.Model):
     assigned_to = models.ForeignKey(User, blank=True, null=True, related_name="assigned_complaints", on_delete=models.CASCADE)
     closed_date = models.DateTimeField(blank=True, null=True, help_text="The Date this report's status was most recently set to \"Closed\"")
     language = models.CharField(default='en', max_length=10, blank=True, null=True)
+    # number of emails, updated as data is added or change
+    number_contacts = models.PositiveIntegerField(blank=True, null=True)
 
     # Not in use- but need to preserving historical data
     hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, blank=True)
@@ -207,8 +209,17 @@ class Report(models.Model):
     violation_summary_search_vector = SearchVectorField(null=True, editable=False)
 
     class Meta:
-        indexes = [GinIndex(fields=['violation_summary_search_vector'])]
+        indexes = [
+            GinIndex(fields=['violation_summary_search_vector']),
+            # default to btree index for columns that are available for order by on the view all form
+            # These were the main sort fields
+            # Added ordering for create date, since that is the default order coming to that page
+            Index(fields=[
+                '-create_date', 'number_contacts', 'assigned_to', 'location_name',
+            ]),
+        ]
 
+    # This might need be a regular, indexed field
     @cached_property
     def last_incident_date(self):
         try:
@@ -424,7 +435,7 @@ class EmailReportCount(models.Model):
     email_count = models.IntegerField()
 
     class Meta:
-        """This model is tied to a view created from migration 93"""
+        """This model is tied to a view created from migration 97"""
         managed = False
         db_table = 'email_report_count'
 

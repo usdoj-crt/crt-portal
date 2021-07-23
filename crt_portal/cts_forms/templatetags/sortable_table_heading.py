@@ -4,7 +4,7 @@ from django import template
 register = template.Library()
 sort_lookup = {
     'status': 'status',
-    'total #': 'email_count',
+    'total #': 'number_contacts',
     'id': 'public_id',
     'routed': 'assigned_section',
     'submitted': 'create_date',
@@ -15,7 +15,7 @@ sort_lookup = {
 }
 sortable_props = [
     'status',
-    'email_count',
+    'number_contacts',
     'public_id',
     'assigned_section',
     'create_date',

@@ -66,8 +66,6 @@ def reconstruct_query(next_qp):
     querydict = QueryDict(next_qp)
     report_query, _ = report_filter(querydict)
 
-    report_query = report_query.annotate(email_count=F('email_report_count__email_count'))
-
     sort_expr, sorts = report_sort(querydict)
     report_query = report_query.order_by(*sort_expr)
 
@@ -169,7 +167,7 @@ def index_view(request):
     per_page = request.GET.get('per_page', 15)
     page = request.GET.get('page', 1)
 
-    requested_reports = report_query.annotate(email_count=F('email_report_count__email_count'))
+    requested_reports = report_query
 
     sort_expr, sorts = report_sort(request.GET)
     requested_reports = requested_reports.order_by(*sort_expr)
