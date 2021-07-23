@@ -21,9 +21,9 @@ def report_sort(querydict):
     # apply the sort items individually so that we can push nulls to the back
     for sort_item in sort:
         if sort_item[0] == SORT_DESC_CHAR:
-            sort_exprs.append(F(sort_item[1::]).desc(nulls_last=nulls_last))
+            sort_exprs.append(F(sort_item[1::]).desc(nulls_last=True))
         else:
-            sort_exprs.append(F(sort_item).asc(nulls_last=nulls_last))
+            sort_exprs.append(F(sort_item).asc(nulls_last=True))
 
     sort_exprs.extend([F('create_date').desc(), F('id').desc()])
 
