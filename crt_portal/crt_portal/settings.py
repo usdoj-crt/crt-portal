@@ -338,7 +338,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
     SESSION_COOKIE_HTTPONLY = True
     # see settings options https://django-csp.readthedocs.io/en/latest/configuration.html#configuration-chapter
     CSP_DEFAULT_SRC = allowed_sources
-    SESSION_COOKIE_SAMESITE = 'Strict'
+    SESSION_COOKIE_SAMESITE = 'Lax'
     CSP_SCRIPT_SRC = (
         "'self'",
         bucket,
