@@ -29,6 +29,7 @@ applications:
   memory: 2G
   env:
     MAX_FILE_SIZE: 100M
+    SIGNATURE_CHECKS: 8
   docker:
     image: ajilaag/clamav-rest:20201028
   routes:
