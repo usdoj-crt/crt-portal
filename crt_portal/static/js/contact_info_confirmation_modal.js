@@ -9,10 +9,10 @@
       var requiredFieldSelected =
         document.getElementsByName('0-servicemember')[0].checked ||
         document.getElementsByName('0-servicemember')[1].checked;
-      var noContactInfo = phone_el.value && email_el.value;
+      var noContactInfo = !phone_el.value && !email_el.value;
 
       // If there is contact information OR if the required field is not filled out, no modal is needed
-      if (noContactInfo || !requiredFieldSelected) {
+      if (!noContactInfo || !requiredFieldSelected) {
         event.preventDefault();
         submitNextButton.click();
       } else {
