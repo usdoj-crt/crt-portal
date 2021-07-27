@@ -236,6 +236,7 @@ $arrow-height: 24px;
   background-size: 100%;
   background-position: bottom;
   min-height: 800px;
+  rel: preload;
 
   @include at-media-max(mobile-lg) {
     background-image: url(../../img/landing-page-hero-mobile.jpeg);
@@ -243,6 +244,7 @@ $arrow-height: 24px;
     background-color: #436eac;
     min-height: 600px;
     color: color('white');
+    rel: preload;
 
     .h1__display {
       color: color('white');
@@ -264,6 +266,7 @@ $arrow-height: 24px;
     background-image: url(../../img/landing-page-hero-tablet.jpg);
     background-position: bottom;
     min-height: 850px;
+    rel: preload;
   }
 
   h1 {
