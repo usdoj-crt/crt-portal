@@ -93,7 +93,7 @@ def update_email_count(email):
     if email is not None:
         reports = Report.objects.filter(contact_email=email)
         number_emails = len(reports)
-        reports.update(number_contacts=number_emails)
+        reports.update(email_count=email_count)
 
 
 @receiver(post_save, sender=Report)

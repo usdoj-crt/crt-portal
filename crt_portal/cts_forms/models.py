@@ -197,7 +197,7 @@ class Report(models.Model):
     closed_date = models.DateTimeField(blank=True, null=True, help_text="The Date this report's status was most recently set to \"Closed\"")
     language = models.CharField(default='en', max_length=10, blank=True, null=True)
     # number of emails, updated as data is added or change
-    number_contacts = models.PositiveIntegerField(blank=True, null=True)
+    email_count = models.PositiveIntegerField(blank=True, null=True)
 
     # Not in use- but need to preserving historical data
     hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, blank=True)
@@ -215,7 +215,7 @@ class Report(models.Model):
             # These were the main sort fields
             # Added ordering for create date, since that is the default order coming to that page
             Index(fields=[
-                '-create_date', 'number_contacts', 'assigned_to', 'location_name',
+                '-create_date', 'email_count', 'assigned_to', 'location_name',
             ]),
         ]
 
