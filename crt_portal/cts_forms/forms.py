@@ -1042,6 +1042,13 @@ class Filters(ModelForm):
             'name': 'referred'
         }),
     )
+    correctional_facility_type = MultipleChoiceField(
+        required=False,
+        choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'correctional_facility_type',
+        }),
+    )
 
     class Meta:
         model = Report
@@ -1064,7 +1071,8 @@ class Filters(ModelForm):
             'intake_format',
             'contact_email',
             'referred',
-            'language'
+            'language',
+            'correctional_facility_type',
         ]
 
         labels = {
@@ -1082,6 +1090,7 @@ class Filters(ModelForm):
             'create_date_start': 'Created Date Start',
             'create_date_end': 'Created Date End',
             'contact_email': 'Contact email',
+            'correctional_facility_type': 'Prison Type',
         }
 
         widgets = {
