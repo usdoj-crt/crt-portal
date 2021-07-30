@@ -429,17 +429,6 @@ class ReportAttachment(models.Model):
         return reverse('crt_forms:get-report-attachment', kwargs={"id": self.report.id, "attachment_id": self.id})
 
 
-# class EmailReportCount(models.Model):
-#     """see the total number of reports that are associated with the contact_email for each report"""
-#     report = models.OneToOneField(Report, primary_key=True, on_delete=models.CASCADE, related_name='email_report_count')
-#     email_count = models.IntegerField()
-
-#     class Meta:
-#         """This model is tied to a view created from migration 97"""
-#         managed = False
-#         db_table = 'email_report_count'
-
-
 class Trends(models.Model):
     """see the top 10 non-stop words from violation summary """
     word = models.TextField()
