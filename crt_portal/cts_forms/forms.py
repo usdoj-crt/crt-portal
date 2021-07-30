@@ -1451,12 +1451,16 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
             updates['status'] = 'new'
         # update email count if the email is changed
         if 'contact_email' in updates:
-            if updates['contact_email'] is None:
-                # update this
-                pass
-            else:
-                related_reports = Report.objects.filter(contact_email=updates['contact_email'])
-                related_reports.update(email_count=len(related_reports))
+            if updates['contact_email'] is not None:
+                # new email
+                related_reports = Report.objects.filter(contact_email__iexact=updates['contact_email'])
+                related_reports.update(email_count__iexact=len(related_reports))
+            if self.fields[contact_email].initial is not None:
+                # old email
+                related_reports = Report.objects.filter(contact_email__iexact=self.fields[contact_email].initial)
+                related_reports.update(email_count__iexact=len(related_reports))
+
+
 
         updates.pop('district', None)  # district is currently disabled (read-only)
         return updates

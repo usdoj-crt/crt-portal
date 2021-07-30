@@ -91,9 +91,9 @@ def salt():
 
 def update_email_count(email):
     if email is not None:
-        reports = Report.objects.filter(contact_email=email)
-        number_emails = len(reports)
-        reports.update(email_count=email_count)
+        reports = Report.objects.filter(contact_email__iexact=email)
+        email_count = len(reports)
+        reports.update(email_count__iexact=email_count)
 
 
 @receiver(post_save, sender=Report)
