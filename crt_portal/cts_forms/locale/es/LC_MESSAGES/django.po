@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-27 17:34+0000\n"
+"POT-Creation-Date: 2021-08-09 15:26+0000\n"
 "Language: SpanishMIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1603,6 +1603,7 @@ msgid "Submit"
 msgstr "Entregar"
 
 #: templates/forms/report_base.html:87
+#: templates/forms/report_contact_info.html:34
 #: templates/forms/report_contact_info.html:42
 msgid "Next"
 msgstr "Siguiente"
@@ -2120,10 +2121,6 @@ msgid "Here’s how you know"
 msgstr "Así es como lo sabe"
 
 #: templates/partials/contact-info-confirmation-modal.html:8
-#, fuzzy
-#| msgid ""
-#| "You are continuing your complaint without providing email or phone "
-#| "information."
 msgid ""
 "You are continuing your complaint without providing email or phone "
 "information."
@@ -2741,6 +2738,9 @@ msgstr ""
 "problema. Si sabe que se permiten las cookies y tiene este problema, intente "
 "acceder a esta página en otra pestaña o ventana en su navegador. Eso le "
 "creará otra cookie de seguridad y debería resolver el problema."
+
+#~ msgid "Hello."
+#~ msgstr "Goodbye"
 
 #~ msgid "Submit a report"
 #~ msgstr "Presentar un informe"
