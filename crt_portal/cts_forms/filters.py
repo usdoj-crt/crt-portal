@@ -40,6 +40,7 @@ filter_options = {
     'reported_reason': 'reported_reason',
     'referred': 'eq',
     'language': '__in',
+    'correctional_facility_type': '__in',
 }
 
 
