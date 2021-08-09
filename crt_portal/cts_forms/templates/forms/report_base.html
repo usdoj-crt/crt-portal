@@ -32,7 +32,6 @@
                 class="usa-form"
                 action=""
                 method="post"
-                onsubmit="document.getElementById('submit-next').disabled = true;"
                 {% if form_autocomplete_off %}autocomplete="off"{% endif %}
                 {% if form_novalidate %}novalidate{% endif %}
           >
@@ -114,6 +113,7 @@
 {% endblock footer_extra %}
 
 {% block page_js %}
+<script src="{% static 'js/disable_submit_button.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
   (function(root) {
     root.CRT = root.CRT || {};
