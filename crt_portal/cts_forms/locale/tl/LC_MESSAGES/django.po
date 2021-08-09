@@ -1,25 +1,25 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-29 21:00+0000\n"
+"POT-Creation-Date: 2021-08-09 15:41+0000\n"
 "Language: Tagalog\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:161 forms.py:1546
+#: forms.py:182 forms.py:1586
 msgid " - Select - "
 msgstr " - Pumili - "
 
 #. Translators: This is help text for the question asking if someone is a service member
-#: forms.py:173
+#: forms.py:194
 msgid ""
 "If you’re reporting on behalf of someone else, please select their status."
 msgstr ""
 "Kung ikaw ay nag-uulat sa ngalan ng ibang tao, mangyaring piliin ang "
 "kanilang katayuan."
 
-#: forms.py:190 templates/forms/report_contact_info.html:8
+#: forms.py:211 templates/forms/report_contact_info.html:9
 msgid ""
 "If you believe you or someone else has experienced a civil rights violation, "
 "please tell us what happened."
@@ -27,7 +27,7 @@ msgstr ""
 "Kung sa paniniwala mo na ikaw o ang ibang tao ay nakaranas ng isang paglabag "
 "sa mga karapatang sibil, mangyaring sabihin sa amin kung ano ang nangyari."
 
-#: forms.py:216
+#: forms.py:237
 msgid ""
 "Select the reason that best describes your concern. Each reason lists "
 "examples of civil rights violations that may relate to your incident. In "
@@ -40,11 +40,11 @@ msgstr ""
 "maaari mong ilarawan ang iyong pagkabahala sa sarili mong mga salita."
 
 #. Translators: notes that this page is the same form step as the page before
-#: forms.py:239
+#: forms.py:260
 msgid "Continued"
 msgstr "Pagpapatuloy"
 
-#: forms.py:295
+#: forms.py:317
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
@@ -52,11 +52,11 @@ msgstr ""
 "Mga halimbawa: Pangalan ng negosyo, paaralan, interseksyon, kulungan, lugar "
 "kung saan maaaring bomoto, website, at iba pa."
 
-#: forms.py:317 question_text.py:29
+#: forms.py:339 question_text.py:29
 msgid "Where did this happen?"
 msgstr "Saan ito nangyari?"
 
-#: forms.py:329
+#: forms.py:351
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your report is reviewed by the right people within "
@@ -66,7 +66,7 @@ msgstr ""
 "saan naganap ang panyayaring ito. Tinitiyak nito na ang iyong ulat ay "
 "masusuri ng mga tamang tao sa loob ng Dibisyon sa mga Karapatang Sibil."
 
-#: forms.py:392
+#: forms.py:414
 msgid ""
 "Public employers include organizations funded by the government like the "
 "military, post office, fire department, courthouse, DMV, or public school. "
@@ -77,7 +77,7 @@ msgstr ""
 "korte, DMV, o pampublikong paaralan. Ito ay maaaring nasa lokal o estadong "
 "antas."
 
-#: forms.py:393
+#: forms.py:415
 msgid ""
 "Private employers are business or non-profits not funded by the government "
 "such as retail stores, banks, or restaurants."
@@ -87,11 +87,11 @@ msgstr ""
 "restawran."
 
 #. Translators: describe the "other" option for commercial or public place question
-#: forms.py:439
+#: forms.py:461
 msgid "Please describe"
 msgstr "Mangyaring ilarawan"
 
-#: forms.py:506
+#: forms.py:528
 msgid ""
 "Includes schools, educational programs, or educational activities, like "
 "training programs, sports teams, clubs, or other school-sponsored activities"
@@ -100,11 +100,11 @@ msgstr ""
 "na pang-edukasyon, katulad ng mga palatuntunan sa pagsasanay, mga koponan sa "
 "paglalaro, mga klab o ibang aktibidad na sinusuportahan ng paaralan"
 
-#: forms.py:517
+#: forms.py:539
 msgid "Please select the type of school or educational program."
 msgstr "Mangyaring piliin ang uri ng paaralan o palatuntunang pang-edukasyon."
 
-#: forms.py:540
+#: forms.py:562
 msgid ""
 "There are federal and state laws that protect people from discrimination "
 "based on their personal characteristics. Here is a list of the most common "
@@ -117,11 +117,11 @@ msgstr ""
 "na pamamaraan. Pumili ng anuman na nababagay sa iyong insidente."
 
 #. Translators: This is to explain an "other" choice for personal characteristics
-#: forms.py:545
+#: forms.py:567
 msgid "Please describe \"Other reason\""
 msgstr "Mangyaring ilarawan ang “Ibang dahilan”"
 
-#: forms.py:627
+#: forms.py:649
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -132,19 +132,19 @@ msgstr ""
 "kasalukuyan pa ring nangyayari, mangyaring ibigay ang pinaka-kamakailan na "
 "petsa."
 
-#: forms.py:915
+#: forms.py:937
 msgid "Primary classification"
 msgstr "Pangunahing pag-uuri"
 
-#: forms.py:937
+#: forms.py:959
 msgid "Assigned to"
 msgstr "Naitalaga kay"
 
-#: forms.py:1104
+#: forms.py:1143
 msgid "Create date cannot be in the future."
 msgstr "Ang petsa na inilikha ay hindi maaaring sa hinaharap."
 
-#: forms.py:1286
+#: forms.py:1326
 msgid "Comment cannot be empty"
 msgstr "Ang puna ay hindi maaaring walang laman"
 
@@ -1219,13 +1219,13 @@ msgid "Any supporting materials (please list and describe them)"
 msgstr ""
 "Anumang pang-suportang materyales (mangyaring ilista at ilarawan ang mga ito)"
 
-#: templates/base.html:33 templates/base.html:58
+#: templates/base.html:42 templates/base.html:67
 #: templates/forms/report_base.html:10 templates/forms/report_base.html:13
 msgid "Contact the Civil Rights Division | Department of Justice"
 msgstr ""
 "Makipag-ugnay sa Dibisyon sa mga Karapatang Sibil | Kagawaran ng Katarungan"
 
-#: templates/base.html:46
+#: templates/base.html:55
 msgid ""
 "Have you or someone you know experienced unlawful discrimination? The Civil "
 "Rights Division may be able to help. Civil rights laws can protect you from "
@@ -1240,16 +1240,16 @@ msgstr ""
 "katulad ng pabahay, lugar ng pinagtratrabahuhan, paaralan, botohan, mga "
 "negosyo, pangangalaga sa kalusugan, pamublikong puwang, at iba pa."
 
-#: templates/base.html:67
+#: templates/base.html:76
 msgid "Skip to main content"
 msgstr "Lampasan upang mapunta sa pangunahing nilalaman"
 
-#: templates/base.html:121 templates/forms/errors.html:13
+#: templates/base.html:130 templates/forms/errors.html:13
 #: templates/forms/report_maintenance.html:13 templates/landing.html:17
 msgid "U.S. Department of Justice"
 msgstr "Kagawaran ng Katarungan ng Estados Unidos"
 
-#: templates/base.html:124 templates/forms/confirmation.html:21
+#: templates/base.html:133 templates/forms/confirmation.html:21
 #: templates/forms/errors.html:14 templates/forms/report_maintenance.html:14
 #: templates/landing.html:20
 msgid "Civil Rights Division"
@@ -1261,7 +1261,7 @@ msgstr "Dibisyon sa mga Karapatang Sibil"
 #: templates/forms/question_cards/police_location.html:4
 #: templates/forms/question_cards/single_form.html:16
 #: templates/forms/question_cards/single_question.html:13
-#: templates/forms/report_class.html:14 templates/forms/report_details.html:13
+#: templates/forms/report_class.html:14 templates/forms/report_details.html:12
 #: templates/forms/report_location.html:33
 #: templates/forms/report_location.html:39
 #: templates/forms/report_primary_complaint.html:11
@@ -1611,19 +1611,22 @@ msgstr[1] ""
 "\n"
 "                  %(counter)s kamaliang natagpuan                "
 
-#: templates/forms/report_base.html:84
+#: templates/forms/report_base.html:85
+#: templates/forms/report_contact_info.html:40
 msgid "Submit"
 msgstr "i-sumite"
 
-#: templates/forms/report_base.html:86
+#: templates/forms/report_base.html:87
+#: templates/forms/report_contact_info.html:34
+#: templates/forms/report_contact_info.html:42
 msgid "Next"
 msgstr "Kasunod"
 
-#: templates/forms/report_base.html:93 templates/forms/report_review.html:32
+#: templates/forms/report_base.html:95 templates/forms/report_review.html:33
 msgid "previous step"
 msgstr "nakaraang hakbang"
 
-#: templates/forms/report_base.html:96 templates/forms/report_review.html:35
+#: templates/forms/report_base.html:98 templates/forms/report_review.html:36
 #: templates/partials/redirect-modal.html:21
 msgid "Back"
 msgstr "Balik"
@@ -1738,8 +1741,8 @@ msgstr "Mag-ulat ng paglabag"
 msgid "Already submitted?"
 msgstr "Naisumite na?"
 
-#: templates/landing.html:58 templates/partials/footer.html:9 views.py:951
-#: views.py:1030 views.py:1049
+#: templates/landing.html:58 templates/partials/footer.html:9
+#: views_public.py:145 views_public.py:224 views_public.py:243
 msgid "Contact"
 msgstr "Makipag-ugnay"
 
@@ -1770,7 +1773,7 @@ msgstr ""
 "Kung naniniwala ka na ang iyong mga karapatang sibil o ng ibang tao ay "
 "nalabag, magsumite ng ulat gamit ang aming online na pormularyo."
 
-#: templates/landing.html:88
+#: templates/landing.html:88 templates/landing.html:326
 msgid "Start a report"
 msgstr "Mag-umpisa ng isang ulat"
 
@@ -2029,10 +2032,6 @@ msgstr ""
 "Ikaw ba o isang kakilala mo ay nakaranas ng isang paglabag sa mga karapatang "
 "sibil?"
 
-#: templates/landing.html:326
-msgid "Submit a report"
-msgstr "Magsumite ng ulat"
-
 #: templates/landing.html:331
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
@@ -2154,6 +2153,35 @@ msgstr "Isang opisyal na website ng gobyerno ng Estados Unidos"
 #: templates/partials/banner/usa_banner_header.html:13
 msgid "Here’s how you know"
 msgstr "Ito ay kung paano mo malalaman"
+
+#: templates/partials/contact-info-confirmation-modal.html:8
+msgid ""
+"You are continuing your complaint without providing email or phone "
+"information."
+msgstr ""
+"Ipinagpapatuloy mo ang iyong pag-uulat nang hindi nagbibigay ng impormasyon "
+"sa iyong email o telepono."
+
+#: templates/partials/contact-info-confirmation-modal.html:13
+msgid ""
+"You do not have to provide contact information, however, we will not be able "
+"to contact you for any status updates or potential follow up. Would you like "
+"to add your contact information now? If you prefer not to, you will go to "
+"Step 2."
+msgstr ""
+"Hindi mo kinakailangang magbigay ng impormasyon sa pakikipag-ugnay, subalit, "
+"hindi naming magagawang makipag-ugnay sayo para sa anumang update sa "
+"katayuan o potensiyal na pag-follow up. Nais mo bang idagdag ang iyong "
+"impormasyon sa pakikipag-ugnay ngayon? Kung pipiliin mo na hindi, mapupunta "
+"ka sa Hakbang 2."
+
+#: templates/partials/contact-info-confirmation-modal.html:16
+msgid "No, I don't want to provide it"
+msgstr "Hindi, ayaw kong ibigay ito."
+
+#: templates/partials/contact-info-confirmation-modal.html:17
+msgid "Yes, I'd like to add it"
+msgstr "Oo, gusto kong idagdag ito."
 
 #: templates/partials/footer.html:47
 msgid "Availability of Language Assistance Services"
@@ -2649,23 +2677,76 @@ msgstr ""
 "(5-25-2017).\n"
 "                "
 
-#: validators.py:101
+#: validators.py:106
 msgid "Enter a valid email address."
 msgstr "Maglagay ng wastong email address."
 
-#: views.py:78
+#: views_public.py:146 views_public.py:225 views_public.py:226
+#: views_public.py:244 views_public.py:245 views_public.py:280
+msgid "Primary concern"
+msgstr "Pangunahing pagkabahala"
+
+#: views_public.py:147 views_public.py:227 views_public.py:228
+#: views_public.py:229 views_public.py:230 views_public.py:231
+#: views_public.py:232
+msgid "Location"
+msgstr "Lugar"
+
+#: views_public.py:148 views_public.py:233 views_public.py:252
+msgid "Personal characteristics"
+msgstr "Personal na mga katangian"
+
+#: views_public.py:149 views_public.py:234 views_public.py:253
+msgid "Date"
+msgstr "Petsa"
+
+#: views_public.py:150 views_public.py:235 views_public.py:254
+msgid "Personal description"
+msgstr "Personal na paglalarawan"
+
+#: views_public.py:151 views_public.py:236 views_public.py:285
+msgid "Review"
+msgstr "Pagsusuri"
+
+#: views_public.py:246 views_public.py:247 views_public.py:248
+#: views_public.py:249 views_public.py:250 views_public.py:251
+msgid "Location details"
+msgstr "Mga detalye ng lugar"
+
+#: views_public.py:255
+msgid "Review your report"
+msgstr "Suriin ang iyong ulat"
+
+#: views_public.py:271
+msgid "word remaining"
+msgstr "natitirang salita"
+
+#: views_public.py:272
+msgid " words remaining"
+msgstr " natitirang mga salita"
+
+#: views_public.py:273
+msgid " word limit reached"
+msgstr " naabot na ang hangganan ng salita"
+
+#: views_public.py:283
+msgid "Please select if any that apply to your situation (optional)"
+msgstr ""
+"Mangyaring pumili kung mayroong naaangkop  sa iyong sitwasyon (opsyonal)"
+
+#: views_public.py:359
 msgid "404 | Page not found"
 msgstr "404 | Pahina ay hindi makita"
 
-#: views.py:79
+#: views_public.py:360
 msgid "We can't find the page you are looking for"
 msgstr "Hindi namin makita ang pahina na iyong hinahanap"
 
-#: views.py:138
+#: views_public.py:419
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Ang iyong browser ay hindi makalikha ng matatag na cookie"
 
-#: views.py:139
+#: views_public.py:420
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
@@ -2681,54 +2762,5 @@ msgstr ""
 "panibagong tab o window ng browser. Magbibigay ito ng isang panibagong "
 "security cookie sayo at maaaring maglutas sa problema."
 
-#: views.py:826 views.py:1077
-msgid "word remaining"
-msgstr "natitirang salita"
-
-#: views.py:827 views.py:1078
-msgid " words remaining"
-msgstr " natitirang mga salita"
-
-#: views.py:828 views.py:1079
-msgid " word limit reached"
-msgstr " naabot na ang hangganan ng salita"
-
-#: views.py:952 views.py:1031 views.py:1032 views.py:1050 views.py:1051
-#: views.py:1086
-msgid "Primary concern"
-msgstr "Pangunahing pagkabahala"
-
-#: views.py:953 views.py:1033 views.py:1034 views.py:1035 views.py:1036
-#: views.py:1037 views.py:1038
-msgid "Location"
-msgstr "Lugar"
-
-#: views.py:954 views.py:1039 views.py:1058
-msgid "Personal characteristics"
-msgstr "Personal na mga katangian"
-
-#: views.py:955 views.py:1040 views.py:1059
-msgid "Date"
-msgstr "Petsa"
-
-#: views.py:956 views.py:1041 views.py:1060
-msgid "Personal description"
-msgstr "Personal na paglalarawan"
-
-#: views.py:957 views.py:1042 views.py:1091
-msgid "Review"
-msgstr "Pagsusuri"
-
-#: views.py:1052 views.py:1053 views.py:1054 views.py:1055 views.py:1056
-#: views.py:1057
-msgid "Location details"
-msgstr "Mga detalye ng lugar"
-
-#: views.py:1061
-msgid "Review your report"
-msgstr "Suriin ang iyong ulat"
-
-#: views.py:1089
-msgid "Please select if any that apply to your situation (optional)"
-msgstr ""
-"Mangyaring pumili kung mayroong naaangkop  sa iyong sitwasyon (opsyonal)"
+#~ msgid "Submit a report"
+#~ msgstr "Magsumite ng ulat"
