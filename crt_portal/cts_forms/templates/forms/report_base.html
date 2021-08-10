@@ -32,13 +32,11 @@
                 class="usa-form"
                 action=""
                 method="post"
-                onsubmit="document.getElementById('submit-next').disabled = true;"
                 {% if form_autocomplete_off %}autocomplete="off"{% endif %}
                 {% if form_novalidate %}novalidate{% endif %}
           >
           {% csrf_token %}
           {{ wizard.management_form }}
-
           {% if form.non_field_errors %}
             {% include "forms/snippets/error_alert.html" with errors=form.non_field_errors %}
           {% endif %}
@@ -79,14 +77,16 @@
 
           {% block bottom-navigation %}
           <div class="margin-top-5">
+          {%  block submit-button %}
             <input id="submit-next"
                   type="submit"
                   value={% if submit_button %}
-                          "{% trans 'Submit' %}"
+                          {% trans 'Submit' %}
                         {% else %}
-                          "{% trans 'Next' %}"
+                          {% trans 'Next' %}
                         {% endif %}
                   class="usa-button" />
+          {% endblock %}
 
             {% if wizard.steps.prev %}
               <button name="wizard_goto_step"
@@ -113,6 +113,7 @@
 {% endblock footer_extra %}
 
 {% block page_js %}
+<script src="{% static 'js/disable_submit_button.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
   (function(root) {
     root.CRT = root.CRT || {};
@@ -122,16 +123,18 @@
       wordsRemainingText: "{{ word_count_text.wordsRemainingText }}",
       wordLimitReachedText: "{{ word_count_text.wordLimitReachedText }}"
     };
+    root.CRT.stageNumber = {{ stage_number }}
   })(window)
 </script>
 <script src="{% static 'js/word_count.js' %}"></script>
 <script src="{% static 'js/modal.js' %}"></script>
 <script src="{% static 'js/unsupported_browsers.js' %}"></script>
-<script nonce="{{request.csp_nonce}}">
+<script src="{% static 'js/contact_info_confirmation_modal.js' %}"></script>
+    <script nonce="{{request.csp_nonce}}">
   (function(root) {
     if (root.CRT.isUnsupportedBrowser()) {
-      var modal = document.getElementById('unsupported_browser_modal');
-      root.CRT.openModal(modal);
+      var unsupportedBrowserModal = document.getElementById('unsupported_browser_modal');
+      root.CRT.openModal(unsupportedBrowserModal);
 
       var close_el = document.getElementById('ub_close');
       root.CRT.cancelModal(modal, close_el);

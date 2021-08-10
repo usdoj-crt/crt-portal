@@ -1,5 +1,6 @@
 {% extends "forms/report_base.html" %}
 {% load i18n %}
+{% load static %}
 
 {% block page_info_card %}
   <div class="crt-portal-card crt-portal-card">
@@ -12,6 +13,7 @@
 {% endblock %}
 
 {% block form_questions %}
+{% include "partials/contact-info-confirmation-modal.html" %}
 <div class="crt-portal-card crt-portal-card">
   <div class="crt-portal-card__content crt-portal-card__content--lg">
     {{ block.super }}
@@ -24,4 +26,21 @@
   <div role="group" aria-labelledby="servicemember-help-text">
     {% include "forms/question_cards/single_form.html" with field=form.servicemember ally_id="servicemember-help-text" %}
   </div>
+{% endblock %}
+
+{%  block submit-button %}
+    <br />
+    <a class="usa-button button--continue report-step-1-continue">
+        {% trans 'Next' %}
+    </a>
+    <input hidden
+           id="submit-next"
+           type="submit"
+           value={% if submit_button %}
+               {% trans 'Submit' %}
+           {% else %}
+               {% trans 'Next' %}
+           {% endif %}
+                   class="usa-button"
+    />
 {% endblock %}

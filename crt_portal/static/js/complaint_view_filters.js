@@ -127,7 +127,8 @@
     page: '',
     per_page: '',
     no_status: '',
-    language: []
+    language: [],
+    correctional_facility_type: []
   };
   var filterDataModel = {};
 
@@ -295,6 +296,7 @@
     var contactEmailEl = dom.querySelector('input[name="contact_email"]');
     var referredEl = dom.getElementsByName('referred');
     var languageEl = dom.getElementsByName('language');
+    var correctionalFacilityTypeEl = dom.getElementsByName('correctional_facility_type');
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
      * and perform a new search with the updated filters applied.
@@ -312,7 +314,8 @@
         'intake_format',
         'commercial_or_public_place',
         'reported_reason',
-        'language'
+        'language',
+        'correctional_facility_type'
       ];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {
@@ -443,6 +446,10 @@
     checkBoxView({
       el: languageEl,
       name: 'language'
+    });
+    checkBoxView({
+      el: correctionalFacilityTypeEl,
+      name: 'correctional_facility_type'
     });
   }
 
