@@ -237,6 +237,95 @@ def index_view(request):
     return render(request, 'forms/complaint_view/index/index.html', final_data)
 
 
+@login_required
+def index_view_beta(request):
+    profile_form = ProfileForm()
+    # Check for Profile object, then add filter to request
+    if hasattr(request.user, 'profile') and request.user.profile.intake_filters:
+        request.GET = request.GET.copy()
+        global_section_filter = request.user.profile.intake_filters.split(',')
+
+        # If assigned_section is NOT specified in request, use filter from profile
+        if 'assigned_section' not in request.GET:
+            request.GET.setlist('assigned_section', global_section_filter)
+
+        data = {'intake_filters': request.GET.getlist('assigned_section')}
+        profile_form = ProfileForm(data)
+
+    report_query, query_filters = report_filter(request.GET)
+
+    # Sort data based on request from params, default to `created_date` of complaint
+    per_page = request.GET.get('per_page', 15)
+    page = request.GET.get('page', 1)
+
+    requested_reports = report_query.annotate(email_count=F('email_report_count__email_count'))
+
+    sort_expr, sorts = report_sort(request.GET)
+    requested_reports = requested_reports.order_by(*sort_expr)
+
+    paginator = Paginator(requested_reports, per_page)
+    requested_reports, page_format = pagination(paginator, page, per_page)
+
+    sort_state = {}
+    # make sure the links for this page have the same paging, sorting, filtering etc.
+    page_args = f'?per_page={per_page}'
+
+    # process filter query params
+    filter_args = ''
+    for query_item in query_filters.keys():
+        arg = query_item
+        for item in query_filters[query_item]:
+            filter_args = filter_args + f'&{arg}={item}'
+    page_args += filter_args
+
+    # process sort query params
+    sort_args = ''
+    for sort_item in sorts:
+        if sort_item[0] == SORT_DESC_CHAR:
+            sort_state.update({sort_item[1::]: True})
+        else:
+            sort_state.update({sort_item: False})
+
+        sort_args += f'&sort={sort_item}'
+    page_args += sort_args
+
+    all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
+
+    data = []
+
+    paginated_offset = page_format['page_range_start'] - 1
+    for index, report in enumerate(requested_reports):
+        p_class_list = format_protected_class(
+            report.protected_class.all().order_by('form_order'),
+            report.other_class,
+        )
+        if report.other_class:
+            p_class_list.append(report.other_class)
+        if len(p_class_list) > 3:
+            p_class_list = p_class_list[:3]
+            p_class_list[2] = f'{p_class_list[2]}...'
+
+        data.append({
+            "report": report,
+            "report_protected_classes": p_class_list,
+            "url": f'{report.id}?next={all_args_encoded}&index={paginated_offset + index}',
+        })
+
+    final_data = {
+        'form': Filters(request.GET),
+        'profile_form': profile_form,
+        'data_dict': data,
+        'page_format': page_format,
+        'page_args': page_args,
+        'sort_state': sort_state,
+        'filter_state': filter_args,
+        'filters': query_filters,
+        'return_url_args': all_args_encoded,
+    }
+
+    return render(request, 'forms/complaint_view/index/index-beta.html', final_data)
+
+
 def serialize_data(report, request, report_id):
     crimes = {
         'physical_harm': False,

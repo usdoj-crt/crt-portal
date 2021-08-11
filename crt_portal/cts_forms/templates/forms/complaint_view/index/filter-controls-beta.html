@@ -1,0 +1,49 @@
+{% load static %}
+<h2 class="intake-section-title">Filters Beta</h2>
+<form
+  id="filters-form"
+  method="GET"
+  action="/form/view-beta"
+  novalidate
+>
+  <div class="usa-form intake-filters intake-checkbox">
+    {% include 'forms/complaint_view/index/filters/checkbox_status_filter.html' %}
+  </div>
+  <div class="usa-form">
+    <div class="intake-filters">
+      {% include 'forms/complaint_view/index/filters/contact_filter.html' %}
+      {% include 'forms/complaint_view/index/filters/contact_filter_lastname.html' %}
+      {% include 'forms/complaint_view/index/filters/public_id_filter.html' %}
+      {% include 'forms/complaint_view/index/filters/summary_filter.html' %}
+      <button class="usa-button" type="submit" id="apply-filters-button">
+        Apply filters
+      </button>
+      <button class="outline-button outline-button--dark" id="toggle-filters">
+        More
+      </button>
+    </div>
+
+    <div class="intake-filters">
+      {% include 'forms/complaint_view/index/filters/violation_summary_filter.html' %}
+      {% include 'forms/complaint_view/index/filters/date.html' %}
+      {% include 'forms/complaint_view/index/filters/primary_statute_filter.html' %}
+      {% include 'forms/complaint_view/index/filters/assignee.html' %}
+      {% include 'forms/complaint_view/index/filters/incident_location_filter.html' %}
+
+      <div id="extra-filters" class="intake-filters" hidden>
+        {% include 'forms/complaint_view/index/filters/primary_issue.html' %}
+        {% include 'forms/complaint_view/index/filters/reported_reason.html' %}
+        {% include 'forms/complaint_view/index/filters/relevant_details.html' %}
+        {% include 'forms/complaint_view/index/filters/hate_crime.html' %}
+        {% include 'forms/complaint_view/index/filters/servicemember.html' %}
+        {% include 'forms/complaint_view/index/filters/intake_type.html' %}
+        {% include 'forms/complaint_view/index/filters/contact_email.html' %}
+        {% include 'forms/complaint_view/index/filters/secondary_review.html' %}
+        {% include 'forms/complaint_view/index/filters/report_language.html' %}
+        {% include 'forms/complaint_view/index/filters/prison_type_filter.html' %}
+      </div>
+    </div>
+  </div>
+</form>
+
+<button class="look-like-link" data-clear-filters>Clear all filters</button>
