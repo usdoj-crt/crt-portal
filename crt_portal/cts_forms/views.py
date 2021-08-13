@@ -237,6 +237,7 @@ def index_view(request):
     return render(request, 'forms/complaint_view/index/index.html', final_data)
 
 
+# The beta version of the filters page
 @login_required
 def index_view_beta(request):
     profile_form = ProfileForm()
@@ -383,6 +384,27 @@ class ProfileView(LoginRequiredMixin, FormView):
             profile_form.save()
         # redirects back to /form/view but all filter params are not perserved.
         return redirect(reverse('crt_forms:crt-forms-index'))
+
+
+# Needed for the beta version of the filters page
+class ProfileViewBeta(LoginRequiredMixin, FormView):
+    # Can be used for updating section filter for a profile
+    form_class = ProfileForm
+
+    def post(self, request):
+        # Update or create Profile
+        if hasattr(request.user, 'profile'):
+            instance = request.user.profile
+        else:
+            instance = Profile()
+            instance.user = request.user
+
+        profile_form = ProfileForm(request.POST, instance=instance)
+        if profile_form.is_valid() and profile_form.has_changed():
+            # Save Data in database
+            profile_form.save()
+        # redirects back to /form/view but all filter params are not perserved.
+        return redirect(reverse('crt_forms:crt-forms-index-beta'))
 
 
 class ResponseView(LoginRequiredMixin, View):
