@@ -63,17 +63,17 @@
                 </a>
               </td>
               <td>
-                <a class="td-link display-block" href="{{datum.url}}">
+                <a class="td-link display-block" href="../view/{{ datum.url}}">
                   {% with count=datum.report.email_count|default:"—" %}
                     {{ count }}
                   {% endwith %}
                 </a>
               </td>
-              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.public_id }}</a></td>
-              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.assigned_section }}</a></td>
-              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.create_date|date:"SHORT_DATE_FORMAT" }}</a></td>
+              <td><a class="td-link display-block" href="../view/{{ datum.url}}">{{ datum.report.public_id }}</a></td>
+              <td><a class="td-link display-block" href="../view/{{ datum.url}}">{{ datum.report.assigned_section }}</a></td>
+              <td><a class="td-link display-block" href="../view/{{ datum.url}}">{{ datum.report.create_date|date:"SHORT_DATE_FORMAT" }}</a></td>
               <td>
-                <a class="td-link display-block" href="{{datum.url}}">
+                <a class="td-link display-block" href="../view/{{ datum.url}}">
                   {% with last=datum.report.contact_last_name|default:"—" %}
                     {{ last|truncatechars:20 }}{% endwith %}, {% with first=datum.report.contact_first_name|default:"—" %}
                     {{ first|truncatechars:20 }}
@@ -81,7 +81,7 @@
                 </a>
               </td>
               <td>
-                <a class="td-link display-block" href="{{datum.url}}">
+                <a class="td-link display-block" href="../view/{{ datum.url}}">
                   {% with email=datum.report.contact_email|default:"—" %}
                     {{ email|truncatechars:20 }}
                   {% endwith %}
@@ -91,14 +91,14 @@
                   {% endwith %}
                 </a>
               </td>
-              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.location_name|default:"-" }}</a></td>
+              <td><a class="td-link display-block" href="../view/{{ datum.url}}">{{ datum.report.location_name|default:"-" }}</a></td>
               <td>
-                <a class="td-link display-block" href="{{datum.url}}">
+                <a class="td-link display-block" href="../view/{{ datum.url}}">
                   {{ datum.report.location_city_town }}, {{ datum.report.location_state }}
                 </a>
               </td>
               <td>
-                <a class="td-link display-block" href="{{datum.url}}">
+                <a class="td-link display-block" href="../view/{{ datum.url}}">
                   {{ datum.report.last_incident_month|default:"-" }}/{{datum.report.last_incident_day|default:"-"}}/{{ datum.report.last_incident_year|default:"-" }}
                 </a>
               </td>
