@@ -18,7 +18,7 @@
               </a>
             </div>
             {% if filter_count %}
-              <nav class="usa-pagination display-flex" role="navigation" aria-label="pagination">
+              <nav class="usa-pagination display-flex" aria-label="pagination">
                 <span>{{ filter_current|default:"N/A" }} of {{ filter_count }} records</span>
                 <ol class="display-flex margin-0 pagination">
                   <li class="complaint-nav nav-arrow{% if not filter_previous %} disabled-nav{% endif %}">
