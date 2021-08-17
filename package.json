@@ -49,8 +49,8 @@
     "path": "^0.12.7",
     "postcss-cli": "^6.1.3",
     "url-search-params-polyfill": "^7.0.1",
-    "uswds": "2.3.0",
-    "uswds-gulp": "github:uswds/uswds-gulp#5e32f1b99279a6e50ad875e66cc4cb77b456c390"
+    "uswds": "2.4.0",
+    "uswds-gulp": "github:uswds/uswds-gulp#166e81c6405bb8cf30856ff4bc8b0ab69b18b4cf"
   },
   "devDependencies": {
     "node-sass": "^4.13.1",

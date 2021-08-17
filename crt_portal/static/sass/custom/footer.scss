@@ -39,14 +39,15 @@ footer {
 
 .usa-footer__logo-heading {
   @include text--heading__large();
+  @include u-font-family('serif');
   font-weight: bold;
 }
 
 .usa-footer__logo-subheading {
   @include text--heading__small();
+  @include u-font-family('serif');
   font-weight: bold;
   margin: 0;
-  @include u-font-family('serif');
 }
 
 .usa-footer__heading {
