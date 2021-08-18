@@ -38,22 +38,20 @@
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "^9.7.4",
-    "css-mqpacker": "^7.0.0",
-    "cssnano": "^4.1.11",
     "gulp": "^4.0.2",
     "gulp-postcss": "^8.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-replace": "^1.0.0",
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
-    "path": "^0.12.7",
     "postcss-cli": "^6.1.3",
+    "postcss-csso": "^4.0.0",
+    "sass": "^1.38.0",
     "url-search-params-polyfill": "^7.0.1",
-    "uswds": "2.4.0",
-    "uswds-gulp": "github:uswds/uswds-gulp#166e81c6405bb8cf30856ff4bc8b0ab69b18b4cf"
+    "uswds": "2.5.1",
+    "uswds-gulp": "github:uswds/uswds-gulp#b714fd93fe917618ac666bbe50a6fdf1fff6b88d"
   },
   "devDependencies": {
-    "node-sass": "^4.13.1",
     "pa11y": "^5.3.0",
     "pa11y-ci": "^2.4.2",
     "prettier": "1.18.2"
