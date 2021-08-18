@@ -103,6 +103,11 @@ footer {
   width: 100%; // IE11 fix
 }
 
+.usa-footer__nav {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .usa-footer__secondary-section {
   background-color: color($theme-color-base-ink);
 
