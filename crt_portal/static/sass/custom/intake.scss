@@ -113,6 +113,10 @@
           margin: 0.5rem;
         }
 
+        li:first-child {
+          margin-left: 0;
+        }
+
         + .usa-button {
           margin-left: 2rem;
         }
@@ -193,7 +197,12 @@
     }
 
     .usa-button {
+      margin-right: 1em;
       margin-bottom: 2rem;
+
+      &:last-child {
+        margin-right: 0;
+      }
     }
 
     #toggle-filters {
