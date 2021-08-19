@@ -1,0 +1,22 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block controls %}incident-city-state{% endblock %}
+{% block label %}Incident City/State{% endblock %}
+{% block id %}incident-city-state{% endblock %}
+
+{% block content %}
+  <div id="location-city-filter">
+    <label for="id_{{form.fields.location_city_town.widget.attrs.name}}" class="usa-label margin-bottom-1 margin-top-0">
+      <b>{{form.location_city_town.label}}</b>
+    </label>
+    {{ form.location_city_town }}
+  </div>
+  <div id="location-state-filter">
+    <label for="id_{{form.fields.location_state.widget.attrs.name}}" class="usa-label margin-bottom-1">
+      <b>{{form.location_state.label }}</b>
+    </label>
+    <div class="multicheckboxes-container">
+      {{ form.location_state }}
+    </div>
+  </div>
+{% endblock %}
