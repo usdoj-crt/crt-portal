@@ -158,6 +158,18 @@
       margin-top: 0rem;
     }
 
+    .primary-issue {
+      width: 20rem;
+    }
+
+    .reported-reason {
+      width: 18rem;
+    }
+
+    .relevant-details {
+      width: 18rem;
+    }
+
     .multicheckboxes-container {
       @include u-border(1px, $theme-color-primary-darker);
       height: 13rem; // just enough to accommodate 5 checkboxes
