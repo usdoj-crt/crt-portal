@@ -32,22 +32,24 @@ class ReportFilterTests(TestCase):
 
         test_data['violation_summary'] = 'boat'
         r3 = Report.objects.create(**test_data)
-        r3.protected_class.add(age)
 
         test_data['violation_summary'] = 'hovercraft'
         r4 = Report.objects.create(**test_data)
-        r4.protected_class.add(age)
-        r4.protected_class.add(gender)
 
         test_data['violation_summary'] = 'boat with some other text in the search phrase and hovercraft'
-        r4 = Report.objects.create(**test_data)
-        r4.protected_class.add(age)
-        r4.protected_class.add(gender)
+        r5 = Report.objects.create(**test_data)
 
     def test_no_filters(self):
         """Returns all reports when no filters provided"""
         reports, _ = report_filter(QueryDict(''))
         self.assertEquals(reports.count(), Report.objects.count())
+
+    def test_reported_reason(self):
+        reports, _ = report_filter(QueryDict('reported_reason=age'))
+        self.assertEquals(reports.count(), 2)
+
+        reports, _ = report_filter(QueryDict('reported_reason=gender&reported_reason=language'))
+        self.assertEquals(reports.count(), 1)
 
     def test_or_search_for_violation_summary(self):
         """
@@ -59,13 +61,11 @@ class ReportFilterTests(TestCase):
         reports, _ = report_filter(QueryDict('violation_summary=plane&violation_summary=truck'))
         self.assertEquals(reports.count(), 2)
 
-    def test_complex_and_or_search_for_violation_summary(self):
-        """
-        Returns query set responsive to a simple AND search and a simple OR search
-        """
+    def test_or_search(self):
         reports, _ = report_filter(QueryDict('violation_summary=boat%20OR%20hovercraft'))
         self.assertEquals(reports.count(), 3)
 
+    def test_and_search(self):
         # "boat AND hovercraft" is functionally the same as "boat hovercraft"
         reports, _ = report_filter(QueryDict('violation_summary=boat%20AND%20hovercraft'))
         self.assertEquals(reports.count(), 1)
@@ -73,15 +73,9 @@ class ReportFilterTests(TestCase):
         reports, _ = report_filter(QueryDict('violation_summary=boat%20hovercraft'))
         self.assertEquals(reports.count(), 1)
 
-        reports, _ = report_filter(QueryDict('violation_summary=boat%20OR%20hovercraft%20AND%20truck'))
-        self.assertEquals(reports.count(), 4)
-
-    def test_reported_reason(self):
-        reports, _ = report_filter(QueryDict('reported_reason=age'))
+    def test_or_and_search(self):
+        reports, _ = report_filter(QueryDict('violation_summary=boat%20AND%20hovercraft%20OR%20truck'))
         self.assertEquals(reports.count(), 2)
-
-        reports, _ = report_filter(QueryDict('reported_reason=gender&reported_reason=language'))
-        self.assertEquals(reports.count(), 1)
 
 
 class ReportLanguageFilterTests(TestCase):
