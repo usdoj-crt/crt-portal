@@ -31,13 +31,13 @@ class ReportFilterTests(TestCase):
         r2.protected_class.add(gender)
 
         test_data['violation_summary'] = 'boat'
-        r3 = Report.objects.create(**test_data)
+        Report.objects.create(**test_data)
 
         test_data['violation_summary'] = 'hovercraft'
-        r4 = Report.objects.create(**test_data)
+        Report.objects.create(**test_data)
 
         test_data['violation_summary'] = 'boat with some other text in the search phrase and hovercraft'
-        r5 = Report.objects.create(**test_data)
+        Report.objects.create(**test_data)
 
     def test_no_filters(self):
         """Returns all reports when no filters provided"""
