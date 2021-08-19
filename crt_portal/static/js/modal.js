@@ -55,7 +55,7 @@
     dom.body.classList.remove('is-modal');
   };
 
-  root.CRT.cancelModal = function(modal_el, cancel_el, form_el = {}) {
+  root.CRT.cancelModal = function(modal_el, cancel_el, form_el) {
     var dismissModal = function(event) {
       if (form_el) {
         form_el.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
