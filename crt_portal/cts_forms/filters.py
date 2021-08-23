@@ -109,7 +109,10 @@ def report_filter(querydict):
             elif filter_options[field] == '__gte':
                 kwargs[field] = querydict.getlist(field)
             elif filter_options[field] == 'violation_summary':
-                combined_or_search = _combine_term_searches_with_or(filter_list)
+                combined_or_list = []
+                for vs_filter in filter_list:
+                    combined_or_list += vs_filter.split(" OR ")
+                combined_or_search = _combine_term_searches_with_or(combined_or_list)
                 qs = qs.filter(violation_summary_search_vector=combined_or_search)
     qs = qs.filter(**kwargs)
     return qs, filters
