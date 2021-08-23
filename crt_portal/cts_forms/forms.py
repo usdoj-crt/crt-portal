@@ -1117,7 +1117,9 @@ class Filters(ModelForm):
             }),
             'location_name': TextInput(attrs={
                 'class': 'usa-input',
-                'name': 'location_name'
+                'name': 'location_name',
+                'placeholder': 'Incident Location',
+                'aria-label': 'Incident Location'
             }),
             'public_id': TextInput(attrs={
                 'class': 'usa-input',
