@@ -204,24 +204,6 @@
         margin-right: 0;
       }
     }
-
-    #toggle-filters {
-      font-size: 1rem;
-      text-transform: uppercase;
-      &:hover {
-        background: color($theme-color-primary-lighter);
-      }
-      &:before {
-        margin-right: 10px;
-        background-image: url(../../img/intake-icons/ic_sliders.svg);
-        background-size: cover;
-        background-repeat: no-repeat;
-        content: '';
-        width: 20px;
-        height: 20px;
-        display: inline-block;
-      }
-    }
   }
 }
 
