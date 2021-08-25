@@ -245,6 +245,89 @@ select * from cts_forms_report where violation_summary='TESTING_NEW_DB 5/24'
 Delete back up file from your local
 Delete crt-db-old from cloud.gov
 
+# Adding Form Letters
+
+To add a new form letter, it is necessary to do a django migration.  
+
+
+
+Here is an example of a new form migration.
+
+1. Go to the migrations folder, and create a new migration file.  The naming convention is [4_DIGIT_MIGRATION_NUMBER][MIGRATION_DESCRIPTION].  For example
+
+```
+0115_spl_standard_form_letter.py
+```
+
+Here is an example migration adding both the english and spanish forms.
+
+```
+from django.db import migrations
+
+def add_covid_letters(apps, schema_editor):
+    ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
+    subject = 'Response: Your Civil Rights Division Report - {{ record_locator }} from {{ section_name }} Section'
+    ResponseTemplate.objects.create(
+        title='Trending - General COVID inquiries',
+        subject=subject,
+        body="""
+{{ addressee }},
+
+Thank you for your report {{ record_locator }} filed with the Civil Rights Division on {{ date_of_intake }}.
+
+Many Americans are adjusting to a "new normal” as a result of the COVID-19 – one that balances the critical need to prevent the spread of coronavirus with the other factors that also affect health and well-being. As in all emergencies, the COVID-19 outbreak has affected people of many different races, religions, and ethnicities, as well as those with disabilities.
+
+The Civil Rights Division of the U.S. Department of Justice, together with other agencies throughout the federal government, monitors civil rights issues related to COVID-19. For more information, please see www.justice.gov/crt/fcs. More information on the federal government’s response to COVID-19 is available at www.whitehouse.gov/priorities/covid-19/ and www.coronavirus.gov.
+
+Sincerely,
+U.S. Department of Justice
+Civil Rights Division
+""")
+
+    ResponseTemplate.objects.create(
+        title='Trending - General COVID inquiries (Spanish)',
+        subject=subject,
+        body="""
+{{ es.addressee }},
+
+Gracias por el informe {{ record_locator }} que usted presentó ante la División de Derechos Civiles el {{ es.date_of_intake }}.
+
+Como resultado del COVID-19, muchos estadounidenses se están acostumbrando a la “nueva normalidad”, una que hace equilibrio entre la necesidad crítica de prevenir la propagación del coronavirus y otros factores que también afectan la salud y el bienestar. Al igual que en todo caso de emergencia, el brote del COVID-19 ha afectado a mucha gente de distintas razas, religiones y etnias, así como a personas con discapacidades.
+
+La División de Derechos Civiles del Departamento de Justicia de los EE. UU., junta con otras agencias del gobierno federal, supervisa los asuntos relacionados con derechos civiles y el COVID-19. Para más información, vaya a www.justice.gov/crt/fcs. Para más información sobre la respuesta del gobierno federal al COVID-19, vaya a https://www.whitehouse.gov/es/prioridades/covid-19/ y https://espanol.cdc.gov/coronavirus/2019-ncov/index.html.
+
+Atentamente,
+Departamento de Justicia de los EE. UU.
+División de Derechos Civiles
+""")
+
+def remove_covid_letters(apps, schema_editor):
+    ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
+    templates = ResponseTemplate.objects.filter(title__icontains='Trending - General COVID')
+    templates.delete()
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('cts_forms', '0098_crm_form_letters'),
+    ]
+
+    operations = [
+        migrations.RunPython(add_covid_letters, remove_covid_letters)
+    ]
+
+```
+
+After you are done with your migration, run 
+
+```
+docker-compose run web python /code/crt_portal/manage.py makemigrations
+docker-compose run web python /code/crt_portal/manage.py migrate
+```
+
+to add it to the database.
+
+
 # Dependency management
 
 Dependencies are installed on each deploy of the application as part of the build process in CircleCI
