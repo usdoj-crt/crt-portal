@@ -247,16 +247,13 @@ Delete crt-db-old from cloud.gov
 
 # Adding Form Letters
 
-To add a new form letter, it is necessary to do a django migration.  
-
-
+To add a new form letter, it is necessary to do a django migration.
 
 Here is an example of a new form migration.
-
 1. Go to the migrations folder, and create a new migration file.  The naming convention is [4_DIGIT_MIGRATION_NUMBER][MIGRATION_DESCRIPTION].  For example
 
 ```
-0115_spl_standard_form_letter.py
+0099_covid_form_letter.py
 ```
 
 Here is an example migration adding both the english and spanish forms.
