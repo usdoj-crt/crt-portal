@@ -355,13 +355,13 @@ Note the "es." preface for variables that are specific to the spanish language.
     
 ### Language Codes used for form letter translation variables.  
     
-(Spanish) = 'es'
-(Chinese Traditional) = 'zh-hant'
-(Chinese Simplified) = 'zh-hans'
-(Vietnamese) = 'vi'
-(Korean) = 'ko'
-(Tagalog) = 'tl'
-(English) = 'en'
+* Spanish = 'es'
+* Chinese Traditional = 'zh-hant'
+* Chinese Simplified = 'zh-hans'
+* Vietnamese = 'vi'
+* Korean = 'ko'
+* Tagalog = 'tl'
+* English = 'en'
 
 # Dependency management
 
