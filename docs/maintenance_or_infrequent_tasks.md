@@ -245,7 +245,7 @@ select * from cts_forms_report where violation_summary='TESTING_NEW_DB 5/24'
 Delete back up file from your local
 Delete crt-db-old from cloud.gov
 
-# Adding Form Letters
+## Adding Form Letters
 
 To add a new form letter, it is necessary to do a django migration.
 
@@ -256,7 +256,7 @@ Here is an example of a new form migration.
 0099_covid_form_letter.py
 ```
 
-Here is an example migration adding both the english and spanish forms.
+Here is an example migration adding a form letter in English.
 
 ```
 from django.db import migrations
@@ -279,23 +279,6 @@ The Civil Rights Division of the U.S. Department of Justice, together with other
 Sincerely,
 U.S. Department of Justice
 Civil Rights Division
-""")
-
-    ResponseTemplate.objects.create(
-        title='Trending - General COVID inquiries (Spanish)',
-        subject=subject,
-        body="""
-{{ es.addressee }},
-
-Gracias por el informe {{ record_locator }} que usted presentó ante la División de Derechos Civiles el {{ es.date_of_intake }}.
-
-Como resultado del COVID-19, muchos estadounidenses se están acostumbrando a la “nueva normalidad”, una que hace equilibrio entre la necesidad crítica de prevenir la propagación del coronavirus y otros factores que también afectan la salud y el bienestar. Al igual que en todo caso de emergencia, el brote del COVID-19 ha afectado a mucha gente de distintas razas, religiones y etnias, así como a personas con discapacidades.
-
-La División de Derechos Civiles del Departamento de Justicia de los EE. UU., junta con otras agencias del gobierno federal, supervisa los asuntos relacionados con derechos civiles y el COVID-19. Para más información, vaya a www.justice.gov/crt/fcs. Para más información sobre la respuesta del gobierno federal al COVID-19, vaya a https://www.whitehouse.gov/es/prioridades/covid-19/ y https://espanol.cdc.gov/coronavirus/2019-ncov/index.html.
-
-Atentamente,
-Departamento de Justicia de los EE. UU.
-División de Derechos Civiles
 """)
 
 def remove_covid_letters(apps, schema_editor):
@@ -370,7 +353,7 @@ class Migration(migrations.Migration):
     
 Note the "es." preface for variables that are specific to the spanish language.
     
-### Language Codes
+### Language Codes used for form letter translation variables.  
     
 (Spanish) = 'es'
 (Chinese Traditional) = 'zh-hant'
