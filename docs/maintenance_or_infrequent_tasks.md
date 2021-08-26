@@ -324,6 +324,61 @@ docker-compose run web python /code/crt_portal/manage.py migrate
 
 to add it to the database.
 
+### Foreign language forms
+    
+Here is an example of a form migration in another language. 
+    
+```
+from django.db import migrations
+
+def add_covid_letters(apps, schema_editor):
+    ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
+    subject = 'Response: Your Civil Rights Division Report - {{ record_locator }} from {{ section_name }} Section'
+    ResponseTemplate.objects.create(
+        title='Trending - General COVID inquiries (Spanish)',
+        subject=subject,
+        body="""
+{{ es.addressee }},
+
+Gracias por el informe {{ record_locator }} que usted presentó ante la División de Derechos Civiles el {{ es.date_of_intake }}.
+
+Como resultado del COVID-19, muchos estadounidenses se están acostumbrando a la “nueva normalidad”, una que hace equilibrio entre la necesidad crítica de prevenir la propagación del coronavirus y otros factores que también afectan la salud y el bienestar. Al igual que en todo caso de emergencia, el brote del COVID-19 ha afectado a mucha gente de distintas razas, religiones y etnias, así como a personas con discapacidades.
+
+La División de Derechos Civiles del Departamento de Justicia de los EE. UU., junta con otras agencias del gobierno federal, supervisa los asuntos relacionados con derechos civiles y el COVID-19. Para más información, vaya a www.justice.gov/crt/fcs. Para más información sobre la respuesta del gobierno federal al COVID-19, vaya a https://www.whitehouse.gov/es/prioridades/covid-19/ y https://espanol.cdc.gov/coronavirus/2019-ncov/index.html.
+
+Atentamente,
+Departamento de Justicia de los EE. UU.
+División de Derechos Civiles
+""")
+
+def remove_covid_letters(apps, schema_editor):
+    ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
+    templates = ResponseTemplate.objects.filter(title__icontains='Trending - General COVID inquiries (Spanish))
+    templates.delete()
+
+class Migration(migrations.Migration):
+
+    dependencies = [
+        ('cts_forms', '0098_crm_form_letters'),
+    ]
+
+    operations = [
+        migrations.RunPython(add_covid_letters, remove_covid_letters)
+    ]
+
+```
+    
+Note the "es." preface for variables that are specific to the spanish language.
+    
+### Language Codes
+    
+(Spanish) = 'es'
+(Chinese Traditional) = 'zh-hant'
+(Chinese Simplified) = 'zh-hans'
+(Vietnamese) = 'vi'
+(Korean) = 'ko'
+(Tagalog) = 'tl'
+(English) = 'en'
 
 # Dependency management
 
