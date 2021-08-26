@@ -30,7 +30,7 @@ Civil Rights Division
 
 def remove_spl_standard_form_letters(apps, schema_editor):
     ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
-    templates = ResponseTemplate.objects.filter(title__icontains='Trending - General COVID')
+    templates = ResponseTemplate.objects.filter(title__icontains='SPL - Standard Form Letter')
     templates.delete()
 
 class Migration(migrations.Migration):
