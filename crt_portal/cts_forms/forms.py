@@ -1137,15 +1137,15 @@ class Filters(ModelForm):
             'contact_first_name': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'contact_first_name',
-                'placeholder': 'Contact First Name',
+                'placeholder': 'Contact first name',
                 'id': 'id_contact_first_name',
-                'aria-label': 'Contact First Name'
+                'aria-label': 'Contact first name'
             }),
             'contact_last_name': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'contact_last_name',
-                'placeholder': 'Contact Last Name',
-                'aria-label': 'Contact Last Name'
+                'placeholder': 'Contact last name',
+                'aria-label': 'Contact last name'
             }),
             'location_city_town': TextInput(attrs={
                 'class': 'usa-input',
@@ -1154,8 +1154,8 @@ class Filters(ModelForm):
             'location_name': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'location_name',
-                'placeholder': 'Incident Location Name',
-                'aria-label': 'Incident Location Name'
+                'placeholder': 'Incident location name',
+                'aria-label': 'Incident location name'
             }),
             'public_id': TextInput(attrs={
                 'class': 'usa-input',
@@ -1166,14 +1166,14 @@ class Filters(ModelForm):
             'violation_summary': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'violation_summary',
-                'placeholder': 'Personal Description',
-                'aria-label': 'Personal Description'
+                'placeholder': 'Personal description',
+                'aria-label': 'Personal description'
             }),
             'contact_email': EmailInput(attrs={
                 'class': 'usa-input',
                 'name': 'contact_email',
-                'placeholder': 'Contact Email',
-                'aria-label': 'Email',
+                'placeholder': 'Contact email',
+                'aria-label': 'Contact email',
             }),
         }
         error_messages = {
