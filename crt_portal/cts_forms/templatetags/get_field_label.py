@@ -25,6 +25,7 @@ variable_rename = {
     'contact_email': 'Contact email',
     'referred': 'Secondary review',
     'language': 'Report Language',
+    'correctional_facility_type': 'Prison type',
 }
 
 

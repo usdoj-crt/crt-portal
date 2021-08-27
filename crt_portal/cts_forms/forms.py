@@ -1126,7 +1126,7 @@ class Filters(ModelForm):
             'create_date_start': 'Created Date Start',
             'create_date_end': 'Created Date End',
             'contact_email': 'Contact email',
-            'correctional_facility_type': 'Prison Type',
+            'correctional_facility_type': 'Prison type',
         }
 
         widgets = {
