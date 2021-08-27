@@ -3,7 +3,7 @@ from django.db import migrations
 
 def add_spl_standard_form_letters(apps, schema_editor):
     ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
-    subject = 'Response: Your Civil Rights Division Report - {{ record_locator }} from {{ section_name }} Section'
+    subject = 'Respuesta: Su informe de la División de Derechos Civiles - {{ record_locator }} de la Sección {{ es.section_name }}'
     ResponseTemplate.objects.create(
         title='SPL - Standard Form Letter (Spanish)',
         subject=subject,
