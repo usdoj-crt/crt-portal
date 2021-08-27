@@ -21,7 +21,7 @@ variable_rename = {
     'intake_format': 'Intake type',
     'commercial_or_public_place': 'Relevant details',
     'reported_reason': 'Reported reason',
-    'summary': 'Summary',
+    'summary': 'CRT summary',
     'contact_email': 'Contact email',
     'referred': 'Secondary review',
     'language': 'Report Language',

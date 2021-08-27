@@ -1442,12 +1442,12 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
     summary = CharField(
         required=False,
         max_length=7000,
-        label='CRT Summary',
+        label='CRT summary',
         widget=Textarea(
             attrs={
                 'rows': 3,
                 'class': 'usa-textarea',
-                'aria-label': 'Complaint Summary'
+                'aria-label': 'Complaint summary'
             },
         ),
     )
