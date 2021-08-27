@@ -1160,8 +1160,8 @@ class Filters(ModelForm):
             'public_id': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'public_id',
-                'placeholder': 'ID',
-                'aria-label': 'CRT Public ID'
+                'placeholder': 'Complaint ID',
+                'aria-label': 'Complaint ID'
             }),
             'violation_summary': TextInput(attrs={
                 'class': 'usa-input',
