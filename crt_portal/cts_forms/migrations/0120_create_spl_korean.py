@@ -6,6 +6,7 @@ def add_letters(apps, schema_editor):
     ResponseTemplate.objects.create(
         title='SPL - Standard Form Letter (Korean)',
         subject=subject,
+        language='ko',
         body="""
 {{ ko.addressee }},
 
