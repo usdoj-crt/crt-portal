@@ -26,6 +26,8 @@ variable_rename = {
     'referred': 'Secondary review',
     'language': 'Report Language',
     'correctional_facility_type': 'Prison type',
+    'create_date_start': 'Submission date start',
+    'create_date_end': 'Submission date end',
 }
 
 

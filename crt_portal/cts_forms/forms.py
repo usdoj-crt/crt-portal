@@ -1123,8 +1123,8 @@ class Filters(ModelForm):
             'public_id': 'Complaint ID',
             'primary_statute': 'Primary classification',
             'violation_summary': 'Personal description',
-            'create_date_start': 'Created Date Start',
-            'create_date_end': 'Created Date End',
+            'create_date_start': 'Submission date start',
+            'create_date_end': 'Submission date end',
             'contact_email': 'Contact email',
             'correctional_facility_type': 'Prison type',
         }
