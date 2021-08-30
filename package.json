@@ -42,7 +42,7 @@
     "gulp-postcss": "^8.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-replace": "^1.0.0",
-    "gulp-sass": "^4.0.2",
+    "gulp-sass": "^5.0.0",
     "gulp-sourcemaps": "^2.6.5",
     "postcss-cli": "^6.1.3",
     "postcss-csso": "^4.0.0",
