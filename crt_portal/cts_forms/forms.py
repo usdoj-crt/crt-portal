@@ -962,6 +962,7 @@ class Filters(ModelForm):
     )
     location_state = MultipleChoiceField(
         required=False,
+        label=_("Incident state"),
         choices=STATES_AND_TERRITORIES,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'location_state',
@@ -1092,8 +1093,8 @@ class Filters(ModelForm):
             'contact_first_name',
             'contact_last_name',
             'location_city_town',
-            'location_name',
             'location_state',
+            'location_name',
             'status',
             'assigned_to',
             'public_id',
@@ -1115,9 +1116,9 @@ class Filters(ModelForm):
             'assigned_section': 'View sections',
             'contact_first_name': 'Contact first name',
             'contact_last_name': 'Contact last name',
-            'location_city_town': 'Incident location city',
+            'location_city_town': 'Incident city',
+            'location_state': 'Incident state',
             'location_name': 'Incident location name',
-            'location_state': 'Incident location state',
             'assigned_to': 'Assignee',
             'public_id': 'Complaint ID',
             'primary_statute': 'Primary classification',
@@ -1153,8 +1154,8 @@ class Filters(ModelForm):
             'location_name': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'location_name',
-                'placeholder': 'Incident Location',
-                'aria-label': 'Incident Location'
+                'placeholder': 'Incident Location Name',
+                'aria-label': 'Incident Location Name'
             }),
             'public_id': TextInput(attrs={
                 'class': 'usa-input',
