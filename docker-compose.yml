@@ -6,6 +6,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
   web:
+    platform: linux/amd64
     environment:
       - ENV=LOCAL
       - SECRET_KEY=${SECRET_KEY}
