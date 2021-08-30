@@ -3,6 +3,7 @@ from django.apps import apps
 from django.core.exceptions import FieldDoesNotExist
 register = template.Library()
 
+# TODO: where possible, pull in names from filter labels
 variable_rename = {
     'status': 'Status',
     'assigned_section': 'Routed',

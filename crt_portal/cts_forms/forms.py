@@ -970,7 +970,7 @@ class Filters(ModelForm):
     )
     primary_statute = ChoiceField(
         required=False,
-        label=_("Primary classification"),
+        label=_("Primary classification"),  # This is overridden in templates to the shorter "Classification"
         choices=_add_empty_choice(STATUTE_CHOICES),
         widget=Select(attrs={
             'name': 'primary_statute',
@@ -992,7 +992,7 @@ class Filters(ModelForm):
     assigned_to = ModelChoiceField(
         required=False,
         queryset=User.objects.filter(is_active=True).order_by('username'),
-        label=_("Assigned to"),
+        label=_("Assigned to"),  # This is overriden in templates as "Assigned"
         to_field_name='username',
         widget=Select(attrs={
             'name': 'assigned_to',
@@ -1023,14 +1023,15 @@ class Filters(ModelForm):
     )
     primary_complaint = MultipleChoiceField(
         required=False,
+        label='Primary issue',
         choices=PRIMARY_COMPLAINT_PROFORM_CHOICES,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'primary_issue',
         }),
-        label='Primary Issue',
     )
     reported_reason = MultipleChoiceField(
         required=False,
+        label='Reported reason',
         choices=reported_reason_proform,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'reported_reason',
@@ -1038,6 +1039,7 @@ class Filters(ModelForm):
     )
     commercial_or_public_place = MultipleChoiceField(
         required=False,
+        label='Relevant details',
         choices=COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'relevant_details',
@@ -1045,6 +1047,7 @@ class Filters(ModelForm):
     )
     hate_crime = MultipleChoiceField(
         required=False,
+        label='Hate crime',
         choices=(('yes', 'Yes'),),
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'hate_crime',
@@ -1052,6 +1055,7 @@ class Filters(ModelForm):
     )
     servicemember = MultipleChoiceField(
         required=False,
+        label='Servicemember',
         choices=(('yes', 'Yes'),),
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'servicemember',
@@ -1059,6 +1063,7 @@ class Filters(ModelForm):
     )
     intake_format = MultipleChoiceField(
         required=False,
+        label='Intake type',
         choices=INTAKE_FORMAT_CHOICES,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'intake_format',
@@ -1066,6 +1071,7 @@ class Filters(ModelForm):
     )
     language = MultipleChoiceField(
         required=False,
+        label='Report language',
         choices=settings.LANGUAGES,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'language',
@@ -1073,6 +1079,7 @@ class Filters(ModelForm):
     )
     referred = MultipleChoiceField(
         required=False,
+        label='Secondary review',
         choices=((True, 'Yes'),),
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'referred'
@@ -1080,6 +1087,7 @@ class Filters(ModelForm):
     )
     correctional_facility_type = MultipleChoiceField(
         required=False,
+        label='Prison type',
         choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'correctional_facility_type',
@@ -1113,7 +1121,6 @@ class Filters(ModelForm):
 
         labels = {
             # These are CRT view only
-            'assigned_section': 'View sections',
             'contact_first_name': 'Contact first name',
             'contact_last_name': 'Contact last name',
             'location_city_town': 'Incident city',
@@ -1121,12 +1128,8 @@ class Filters(ModelForm):
             'location_name': 'Incident location name',
             'assigned_to': 'Assignee',
             'public_id': 'Complaint ID',
-            'primary_statute': 'Primary classification',
             'violation_summary': 'Personal description',
-            'create_date_start': 'Submission date start',
-            'create_date_end': 'Submission date end',
             'contact_email': 'Contact email',
-            'correctional_facility_type': 'Prison type',
         }
 
         widgets = {
@@ -1135,17 +1138,17 @@ class Filters(ModelForm):
                 'name': 'assigned_section'
             }),
             'contact_first_name': TextInput(attrs={
+                'id': 'id_contact_first_name',
                 'class': 'usa-input',
                 'name': 'contact_first_name',
-                'placeholder': 'Contact first name',
-                'id': 'id_contact_first_name',
-                'aria-label': 'Contact first name'
+                'placeholder': labels['contact_first_name'],
+                'aria-label': labels['contact_first_name']
             }),
             'contact_last_name': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'contact_last_name',
-                'placeholder': 'Contact last name',
-                'aria-label': 'Contact last name'
+                'placeholder': labels['contact_last_name'],
+                'aria-label': labels['contact_last_name']
             }),
             'location_city_town': TextInput(attrs={
                 'class': 'usa-input',
@@ -1154,26 +1157,26 @@ class Filters(ModelForm):
             'location_name': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'location_name',
-                'placeholder': 'Incident location name',
-                'aria-label': 'Incident location name'
+                'placeholder': labels['location_name'],
+                'aria-label': labels['location_name']
             }),
             'public_id': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'public_id',
-                'placeholder': 'Complaint ID',
-                'aria-label': 'Complaint ID'
+                'placeholder': labels['public_id'],
+                'aria-label': labels['public_id']
             }),
             'violation_summary': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'violation_summary',
-                'placeholder': 'Personal description',
-                'aria-label': 'Personal description'
+                'placeholder': labels['violation_summary'],
+                'aria-label': labels['violation_summary']
             }),
             'contact_email': EmailInput(attrs={
                 'class': 'usa-input',
                 'name': 'contact_email',
-                'placeholder': 'Contact email',
-                'aria-label': 'Contact email',
+                'placeholder': labels['contact_email'],
+                'aria-label': labels['contact_email'],
             }),
         }
         error_messages = {

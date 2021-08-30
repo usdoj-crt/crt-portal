@@ -5,7 +5,7 @@
 {% get_language_info_list for LANGUAGES as languages %}
 
 {% block controls %}report_languge{% endblock %}
-{% block label %}Report language{% endblock %}
+{% block label %}{{ form.language.label }}{% endblock %}
 {% block id %}report-language{% endblock %}
 
 {% block content %}

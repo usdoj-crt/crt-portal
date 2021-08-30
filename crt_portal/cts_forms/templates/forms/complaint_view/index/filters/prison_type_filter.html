@@ -1,7 +1,7 @@
 {% extends "forms/complaint_view/index/filter.html" %}
 
 {% block controls %}prison_type{% endblock %}
-{% block label %}Prison type{% endblock %}
+{% block label %}{{ form.correctional_facility_type.label }}{% endblock %}
 {% block id %}prison-type{% endblock %}
 
 {% block content %}
