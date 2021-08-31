@@ -578,7 +578,11 @@ def date_cleaner(self, cleaned_data):
         year = cleaned_data['last_incident_year']
         month = cleaned_data['last_incident_month']
         # custom messages
-        if day > 31 or day < 1:
+        if month > 12 or month < 1:
+            self.add_error('last_incident_month', ValidationError(
+                DATE_ERRORS['month_invalid'],
+            ))
+        elif day > 31 or day < 1:
             self.add_error('last_incident_day', ValidationError(
                 DATE_ERRORS['day_invalid'],
             ))
@@ -617,18 +621,27 @@ class When(ModelForm):
             'last_incident_month': TextInput(attrs={
                 'class': 'usa-input usa-input--small',
                 'required': True,
-                'type': 'number',
+                'type': 'text',
+                'maxlength': 2,
+                'pattern': '[0-9]*',
+                'inputmode': 'numeric',
                 'label': DATE_QUESTIONS['last_incident_month']
             }),
             'last_incident_day': TextInput(attrs={
                 'class': 'usa-input usa-input--small',
-                'type': 'number',
-                'min': 0
+                'type': 'text',
+                'maxlength': 2,
+                'pattern': '[0-9]*',
+                'inputmode': 'numeric',
             }),
             'last_incident_year': TextInput(attrs={
                 'class': 'usa-input usa-input--medium',
                 'required': True,
-                'type': 'number',
+                'type': 'text',
+                'minlength': 4,
+                'maxlength': 4,
+                'pattern': '[0-9]*',
+                'inputmode': 'numeric',
             }),
         }
 
@@ -637,12 +650,17 @@ class When(ModelForm):
 
         self.fields['last_incident_month'].label = DATE_QUESTIONS['last_incident_month']
         self.fields['last_incident_month'].error_messages = {
+            'invalid': DATE_ERRORS['month_invalid'],
             'required': DATE_ERRORS['month_required'],
         }
         self.fields['last_incident_month'].required = True
         self.fields['last_incident_day'].label = DATE_QUESTIONS['last_incident_day']
+        self.fields['last_incident_day'].error_messages = {
+            'invalid': DATE_ERRORS['day_invalid'],
+        }
         self.fields['last_incident_year'].label = DATE_QUESTIONS['last_incident_year']
         self.fields['last_incident_year'].error_messages = {
+            'invalid': DATE_ERRORS['no_past'],
             'required': DATE_ERRORS['year_required'],
         }
         self.fields['last_incident_year'].required = True
@@ -736,36 +754,53 @@ class ProForm(
             {
                 'last_incident_month': TextInput(attrs={
                     'class': 'usa-input usa-input--small',
-                    'type': 'number',
+                    'type': 'text',
+                    'maxlength': 2,
+                    'pattern': '[0-9]*',
+                    'inputmode': 'numeric',
                     'required': False,
                 }),
                 'last_incident_day': TextInput(attrs={
                     'class': 'usa-input usa-input--small',
-                    'type': 'number',
-                    'min': 0,
+                    'type': 'text',
+                    'maxlength': 2,
+                    'pattern': '[0-9]*',
+                    'inputmode': 'numeric',
                     'required': False,
                 }),
                 'last_incident_year': TextInput(attrs={
                     'class': 'usa-input usa-input--medium',
-                    'type': 'number',
+                    'type': 'text',
+                    'minlength': 4,
+                    'maxlength': 4,
+                    'pattern': '[0-9]*',
                     'required': False,
                 }),
             },
             {
                 'crt_reciept_month': TextInput(attrs={
                     'class': 'usa-input usa-input--small',
-                    'type': 'number',
+                    'type': 'text',
+                    'maxlength': 2,
+                    'pattern': '[0-9]*',
+                    'inputmode': 'numeric',
                     'required': False,
                 }),
                 'crt_reciept_day': TextInput(attrs={
                     'class': 'usa-input usa-input--small',
-                    'type': 'number',
-                    'min': 0,
+                    'type': 'text',
+                    'maxlength': 2,
+                    'pattern': '[0-9]*',
+                    'inputmode': 'numeric',
                     'required': False,
                 }),
                 'crt_reciept_year': TextInput(attrs={
                     'class': 'usa-input usa-input--medium',
-                    'type': 'number',
+                    'type': 'text',
+                    'minlength': 4,
+                    'maxlength': 4,
+                    'pattern': '[0-9]*',
+                    'inputmode': 'numeric',
                     'required': False,
                 }),
             },
@@ -927,6 +962,7 @@ class Filters(ModelForm):
     )
     location_state = MultipleChoiceField(
         required=False,
+        label=_("Incident state"),
         choices=STATES_AND_TERRITORIES,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'location_state',
@@ -1057,8 +1093,8 @@ class Filters(ModelForm):
             'contact_first_name',
             'contact_last_name',
             'location_city_town',
-            'location_name',
             'location_state',
+            'location_name',
             'status',
             'assigned_to',
             'public_id',
@@ -1080,9 +1116,9 @@ class Filters(ModelForm):
             'assigned_section': 'View sections',
             'contact_first_name': 'Contact first name',
             'contact_last_name': 'Contact last name',
-            'location_city_town': 'Incident location city',
+            'location_city_town': 'Incident city',
+            'location_state': 'Incident state',
             'location_name': 'Incident location name',
-            'location_state': 'Incident location state',
             'assigned_to': 'Assignee',
             'public_id': 'Complaint ID',
             'primary_statute': 'Primary classification',
@@ -1118,8 +1154,8 @@ class Filters(ModelForm):
             'location_name': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'location_name',
-                'placeholder': 'Incident Location',
-                'aria-label': 'Incident Location'
+                'placeholder': 'Incident Location Name',
+                'aria-label': 'Incident Location Name'
             }),
             'public_id': TextInput(attrs={
                 'class': 'usa-input',

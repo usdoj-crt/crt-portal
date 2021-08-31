@@ -9,38 +9,46 @@ from .models import Report
 
 
 # To add a new filter option for Reports, add the field name and expected filter behavior
+# These filters should match the order they're presented in filter-controls.html
 filter_options = {
     'assigned_section': '__in',
-    'primary_complaint': '__in',
     'status': '__in',
-    'location_state': '__in',
     'contact_first_name': '__icontains',
     'contact_last_name': '__icontains',
-    'contact_email': '__icontains',
-    'other_class': '__search',
-    'violation_summary': 'violation_summary',
-    'location_name': '__icontains',
+    'public_id': '__icontains',  # aka "ID" or "Complaint ID"
+    'assigned_to': 'foreign_key',  # aka "Assignee"
+
+    'location_address_line_1': '__icontains',  # not in filter controls?
+    'location_address_line_2': '__icontains',  # not in filter controls?
     'location_city_town': '__icontains',
-    'location_address_line_1': '__icontains',
-    'location_address_line_2': '__icontains',
+    'location_state': '__in',
+
+    'contact_email': '__icontains',
+
     'create_date_start': '__gte',
     'create_date_end': '__lte',
-    'closed_date_start': '__gte',
-    'closed_date_end': '__lte',
-    'modified_date_start': '__gte',
-    'modified_date_end': '__lte',
-    'public_id': '__icontains',
-    'primary_statute': '__in',
-    'assigned_to': 'foreign_key',
-    'summary': 'summary',
-    'servicemember': 'eq',
-    'hate_crime': 'eq',
-    'intake_format': '__in',
-    'commercial_or_public_place': '__in',
+    'closed_date_start': '__gte',  # not in filter controls?
+    'closed_date_end': '__lte',  # not in filter controls?
+    'modified_date_start': '__gte',  # not in filter controls?
+    'modified_date_end': '__lte',  # not in filter controls?
+
+    'primary_statute': '__in',  # aka "Classification"
+    'primary_complaint': '__in',  # aka "Primary issue"
     'reported_reason': 'reported_reason',
-    'referred': 'eq',
-    'language': '__in',
-    'correctional_facility_type': '__in',
+    'commercial_or_public_place': '__in',  # aka "Relevant details"
+
+    'servicemember': 'eq',
+    'intake_format': '__in',
+    'referred': 'eq',  # aka "Secondary review"
+    'language': '__in',  # aka "Report language"
+    'hate_crime': 'eq',
+    'correctional_facility_type': '__in',  # aka "Prison type"
+
+    'violation_summary': 'violation_summary',  # aka "Personal description"
+    'summary': 'summary',  # aka "CRT Summary"
+    'location_name': '__icontains',
+
+    'other_class': '__search',  # not in filter controls?
 }
 
 
