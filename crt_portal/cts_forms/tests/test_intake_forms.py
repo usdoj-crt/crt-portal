@@ -23,7 +23,7 @@ from ..model_variables import (
     PRIMARY_COMPLAINT_CHOICES,
     PRIMARY_COMPLAINT_ERROR, PROTECTED_CLASS_ERROR,
     PROTECTED_MODEL_CHOICES, SERVICEMEMBER_ERROR,
-    VIOLATION_SUMMARY_ERROR, WHERE_ERRORS
+    VIOLATION_SUMMARY_ERROR, WHERE_ERRORS, DATE_ERRORS
 )
 from ..models import CommentAndSummary, ProtectedClass, Report
 from .test_data import SAMPLE_REPORT
@@ -97,7 +97,9 @@ class Valid_Form_Tests(TestCase):
         })
         self.assertTrue(form.is_valid())
 
-    def test_When_vaild(self):
+    # Note: a more complete suite of date validation tests are in
+    # `Valid_Form_Tests` below
+    def test_When_valid(self):
         form = When(data={
             'last_incident_year': 2019,
             'last_incident_month': 5,
@@ -390,6 +392,67 @@ class Validation_Form_Tests(TestCase):
             'last_incident_day': 5,
         })
         self.assertFalse(form.is_valid())
+
+    def test_invalid_year_nonnumeric(self):
+        form = When(data={
+            'last_incident_year': 'xxxx',
+            'last_incident_month': 5,
+        })
+        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["no_past"]}' in str(form.errors))
+
+    def test_invalid_month_nonnumeric(self):
+        form = When(data={
+            'last_incident_year': 2021,
+            'last_incident_month': 'zz',
+        })
+        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["month_invalid"]}' in str(form.errors))
+
+    def test_invalid_day_nonnumeric(self):
+        form = When(data={
+            'last_incident_year': 2021,
+            'last_incident_month': 5,
+            'last_incident_day': 'xx',
+        })
+        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["day_invalid"]}' in str(form.errors))
+
+    def test_invalid_month_too_high(self):
+        form = When(data={
+            'last_incident_year': 2021,
+            'last_incident_month': 13,
+        })
+        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["month_invalid"]}' in str(form.errors))
+
+    def test_invalid_day_too_high(self):
+        form = When(data={
+            'last_incident_year': 2021,
+            'last_incident_month': 5,
+            'last_incident_day': 32,
+        })
+        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["day_invalid"]}' in str(form.errors))
+
+    def test_invalid_month_negative(self):
+        form = When(data={
+            'last_incident_year': 2021,
+            'last_incident_month': -1,
+        })
+        self.assertFalse(form.is_valid())
+
+    def test_invalid_day_negative(self):
+        form = When(data={
+            'last_incident_year': 2021,
+            'last_incident_month': 5,
+            'last_incident_day': -1,
+        })
+        self.assertFalse(form.is_valid())
+
+    def test_invalid_month_zero(self):
+        form = When(data={
+            'last_incident_year': 2021,
+            'last_incident_month': 0,
+        })
+        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["month_invalid"]}' in str(form.errors))
+
+    # Note: the form will accept 0 for day (because it's treated as optional?)
 
     def test_commercial_public_place(self):
         location_data = {
