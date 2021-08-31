@@ -130,7 +130,7 @@
     letterhead.removeAttribute('hidden');
     document.body.appendChild(letterhead);
     window.print();
-    letterhead.removeChild(el);
+    el.remove();
     document.body.removeChild(letterhead);
     root.CRT.closeModal(modal);
   };
