@@ -449,11 +449,19 @@ form#cts-forms-profile {
   height: 2rem;
   margin-right: 1rem;
   margin-bottom: 1rem;
+  max-width: 50rem; /* This is an arbitrary number */
 
   &--large {
     min-height: 2.5rem;
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
+  }
+
+  > span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 1.6; /* Prevent text from being clipped */
   }
 }
 

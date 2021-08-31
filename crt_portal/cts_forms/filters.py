@@ -45,7 +45,7 @@ filter_options = {
     'correctional_facility_type': '__in',  # aka "Prison type"
 
     'violation_summary': 'violation_summary',  # aka "Personal description"
-    'summary': 'summary',  # aka "CRT Summary"
+    'summary': 'summary',  # aka "CRT summary"
     'location_name': '__icontains',
 
     'other_class': '__search',  # not in filter controls?

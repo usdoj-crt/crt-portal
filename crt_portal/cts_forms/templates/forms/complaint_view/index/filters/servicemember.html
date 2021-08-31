@@ -1,7 +1,7 @@
 {% extends "forms/complaint_view/index/filter.html" %}
 
 {% block controls %}servicemember{% endblock %}
-{% block label %}Service Member{% endblock %}
+{% block label %}{{ form.servicemember.label }}{% endblock %}
 {% block id %}service-member{% endblock %}
 
 {% block content %}
