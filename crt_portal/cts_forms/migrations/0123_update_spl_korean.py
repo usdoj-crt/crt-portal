@@ -1,7 +1,5 @@
 from django.db import migrations
 
-from django.db import migrations
-
 
 def tweak_spl_tagalog(apps, schema_editor):
     ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
