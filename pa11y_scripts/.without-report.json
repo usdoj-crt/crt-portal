@@ -27,6 +27,16 @@
         {
             "url": "http://127.0.0.1:8000/errors/404",
             "screenCapture": "pa11y-screenshots/404.png"
+        },
+        {
+            "url": "http://127.0.0.1:8000/",
+            "viewport": {
+                "width": 320,
+                "height": 480,
+                "deviceScaleFactor": 2,
+                "isMobile": true
+            },
+            "screenCapture": "pa11y-screenshots/crt-landing-view-mobile.png"
         }
     ]
 }
