@@ -8,7 +8,7 @@ from django.db.models import Prefetch
 from django.http import StreamingHttpResponse
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
-                     ProtectedClass, Report, ResponseTemplate, DoNotEmail)
+                     ProtectedClass, Report, ResponseTemplate, DoNotEmail, Banner)
 from .signals import get_client_ip
 
 logger = logging.getLogger(__name__)
@@ -163,6 +163,7 @@ admin.site.register(HateCrimesandTrafficking)
 admin.site.register(ResponseTemplate)
 admin.site.register(Profile)
 admin.site.register(DoNotEmail)
+admin.site.register(Banner)
 
 
 # Activity stream already registers an Admin for Action, we want to replace it

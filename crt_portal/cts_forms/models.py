@@ -50,6 +50,15 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.user)
 
+class Banner(models.Model):
+    show_banner = models.BooleanField(default=False)
+    banner_text = models.CharField(max_length=500, null=False, blank=False,)
+    button_text = models.CharField(max_length=50, null=True, blank=True,)
+    button_url = models.URLField(max_length=200, null=True, blank=True,)
+    create_date = models.DateTimeField(auto_now_add=True)
+    deploy_date = models.DateTimeField(auto_now_add=False)
+    destroy_date = models.DateTimeField(auto_now_add=False)
+
 
 class CommentAndSummary(models.Model):
     note = models.CharField(max_length=7000, null=False, blank=False,)
