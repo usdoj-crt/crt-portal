@@ -3,14 +3,15 @@ from django.apps import apps
 from django.core.exceptions import FieldDoesNotExist
 register = template.Library()
 
+# TODO: where possible, pull in names from filter labels
 variable_rename = {
     'status': 'Status',
     'assigned_section': 'Routed',
     'contact_first_name': 'Contact first name',
     'contact_last_name': 'Contact last name',
-    'location_city_town': 'City',
-    'location_name': 'Location name',
-    'location_state': 'State',
+    'location_city_town': 'Incident city',
+    'location_name': 'Incident location name',
+    'location_state': 'Incident state',
     'assigned_to': 'Assignee',
     'public_id': 'Complaint ID',
     'primary_statute': 'Classification',
@@ -21,10 +22,13 @@ variable_rename = {
     'intake_format': 'Intake type',
     'commercial_or_public_place': 'Relevant details',
     'reported_reason': 'Reported reason',
-    'summary': 'Summary',
+    'summary': 'CRT summary',
     'contact_email': 'Contact email',
     'referred': 'Secondary review',
-    'language': 'Report Language',
+    'language': 'Report language',
+    'correctional_facility_type': 'Prison type',
+    'create_date_start': 'Submission date start',
+    'create_date_end': 'Submission date end',
 }
 
 

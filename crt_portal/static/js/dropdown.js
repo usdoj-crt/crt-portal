@@ -21,7 +21,7 @@
       },
       hide: function() {
         isVisible = false;
-        content.setAttribute('hidden', !isVisible);
+        content.setAttribute('hidden', '');
         control.setAttribute('aria-expanded', isVisible);
         el.classList.remove('expanded');
       },

@@ -39,14 +39,15 @@ footer {
 
 .usa-footer__logo-heading {
   @include text--heading__large();
+  @include u-font-family('serif');
   font-weight: bold;
 }
 
 .usa-footer__logo-subheading {
   @include text--heading__small();
+  @include u-font-family('serif');
   font-weight: bold;
   margin: 0;
-  @include u-font-family('serif');
 }
 
 .usa-footer__heading {
@@ -100,6 +101,12 @@ footer {
 
 .usa-footer__language {
   width: 100%; // IE11 fix
+}
+
+.usa-footer__nav {
+  padding-left: 0;
+  padding-right: 0;
+  border-bottom: 0; // Always remove bottom border, even on mobile
 }
 
 .usa-footer__secondary-section {

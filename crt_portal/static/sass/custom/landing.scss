@@ -238,6 +238,14 @@ $arrow-height: 24px;
   min-height: 800px;
   rel: preload;
 
+  @include at-media-max(desktop) {
+    background-image: url(../../img/landing-page-hero-tablet.jpg);
+    background-position: bottom;
+    min-height: 850px;
+    rel: preload;
+  }
+
+  // This must be placed _after_ the desktop media query for higher priority
   @include at-media-max(mobile-lg) {
     background-image: url(../../img/landing-page-hero-mobile.jpeg);
     background-size: cover; // avoid unsightly mobile gap
@@ -260,13 +268,6 @@ $arrow-height: 24px;
     a:visited {
       color: white;
     }
-  }
-
-  @include at-media-max(desktop) {
-    background-image: url(../../img/landing-page-hero-tablet.jpg);
-    background-position: bottom;
-    min-height: 850px;
-    rel: preload;
   }
 
   h1 {

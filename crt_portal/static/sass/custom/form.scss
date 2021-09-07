@@ -410,7 +410,6 @@ select.usa-input--error {
     @extend .field-required;
 
     &::before {
-      @extend .field-required::before;
       margin-left: 0.5rem;
     }
   }

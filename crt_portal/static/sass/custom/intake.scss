@@ -113,6 +113,10 @@
           margin: 0.5rem;
         }
 
+        li:first-child {
+          margin-left: 0;
+        }
+
         + .usa-button {
           margin-left: 2rem;
         }
@@ -193,24 +197,11 @@
     }
 
     .usa-button {
+      margin-right: 1em;
       margin-bottom: 2rem;
-    }
 
-    #toggle-filters {
-      font-size: 1rem;
-      text-transform: uppercase;
-      &:hover {
-        background: color($theme-color-primary-lighter);
-      }
-      &:before {
-        margin-right: 10px;
-        background-image: url(../../img/intake-icons/ic_sliders.svg);
-        background-size: cover;
-        background-repeat: no-repeat;
-        content: '';
-        width: 20px;
-        height: 20px;
-        display: inline-block;
+      &:last-child {
+        margin-right: 0;
       }
     }
   }
@@ -458,11 +449,19 @@ form#cts-forms-profile {
   height: 2rem;
   margin-right: 1rem;
   margin-bottom: 1rem;
+  max-width: 50rem; /* This is an arbitrary number */
 
   &--large {
     min-height: 2.5rem;
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
+  }
+
+  > span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    line-height: 1.6; /* Prevent text from being clipped */
   }
 }
 

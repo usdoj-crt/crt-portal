@@ -578,7 +578,11 @@ def date_cleaner(self, cleaned_data):
         year = cleaned_data['last_incident_year']
         month = cleaned_data['last_incident_month']
         # custom messages
-        if day > 31 or day < 1:
+        if month > 12 or month < 1:
+            self.add_error('last_incident_month', ValidationError(
+                DATE_ERRORS['month_invalid'],
+            ))
+        elif day > 31 or day < 1:
             self.add_error('last_incident_day', ValidationError(
                 DATE_ERRORS['day_invalid'],
             ))
@@ -617,18 +621,27 @@ class When(ModelForm):
             'last_incident_month': TextInput(attrs={
                 'class': 'usa-input usa-input--small',
                 'required': True,
-                'type': 'number',
+                'type': 'text',
+                'maxlength': 2,
+                'pattern': '[0-9]*',
+                'inputmode': 'numeric',
                 'label': DATE_QUESTIONS['last_incident_month']
             }),
             'last_incident_day': TextInput(attrs={
                 'class': 'usa-input usa-input--small',
-                'type': 'number',
-                'min': 0
+                'type': 'text',
+                'maxlength': 2,
+                'pattern': '[0-9]*',
+                'inputmode': 'numeric',
             }),
             'last_incident_year': TextInput(attrs={
                 'class': 'usa-input usa-input--medium',
                 'required': True,
-                'type': 'number',
+                'type': 'text',
+                'minlength': 4,
+                'maxlength': 4,
+                'pattern': '[0-9]*',
+                'inputmode': 'numeric',
             }),
         }
 
@@ -637,12 +650,17 @@ class When(ModelForm):
 
         self.fields['last_incident_month'].label = DATE_QUESTIONS['last_incident_month']
         self.fields['last_incident_month'].error_messages = {
+            'invalid': DATE_ERRORS['month_invalid'],
             'required': DATE_ERRORS['month_required'],
         }
         self.fields['last_incident_month'].required = True
         self.fields['last_incident_day'].label = DATE_QUESTIONS['last_incident_day']
+        self.fields['last_incident_day'].error_messages = {
+            'invalid': DATE_ERRORS['day_invalid'],
+        }
         self.fields['last_incident_year'].label = DATE_QUESTIONS['last_incident_year']
         self.fields['last_incident_year'].error_messages = {
+            'invalid': DATE_ERRORS['no_past'],
             'required': DATE_ERRORS['year_required'],
         }
         self.fields['last_incident_year'].required = True
@@ -736,36 +754,53 @@ class ProForm(
             {
                 'last_incident_month': TextInput(attrs={
                     'class': 'usa-input usa-input--small',
-                    'type': 'number',
+                    'type': 'text',
+                    'maxlength': 2,
+                    'pattern': '[0-9]*',
+                    'inputmode': 'numeric',
                     'required': False,
                 }),
                 'last_incident_day': TextInput(attrs={
                     'class': 'usa-input usa-input--small',
-                    'type': 'number',
-                    'min': 0,
+                    'type': 'text',
+                    'maxlength': 2,
+                    'pattern': '[0-9]*',
+                    'inputmode': 'numeric',
                     'required': False,
                 }),
                 'last_incident_year': TextInput(attrs={
                     'class': 'usa-input usa-input--medium',
-                    'type': 'number',
+                    'type': 'text',
+                    'minlength': 4,
+                    'maxlength': 4,
+                    'pattern': '[0-9]*',
                     'required': False,
                 }),
             },
             {
                 'crt_reciept_month': TextInput(attrs={
                     'class': 'usa-input usa-input--small',
-                    'type': 'number',
+                    'type': 'text',
+                    'maxlength': 2,
+                    'pattern': '[0-9]*',
+                    'inputmode': 'numeric',
                     'required': False,
                 }),
                 'crt_reciept_day': TextInput(attrs={
                     'class': 'usa-input usa-input--small',
-                    'type': 'number',
-                    'min': 0,
+                    'type': 'text',
+                    'maxlength': 2,
+                    'pattern': '[0-9]*',
+                    'inputmode': 'numeric',
                     'required': False,
                 }),
                 'crt_reciept_year': TextInput(attrs={
                     'class': 'usa-input usa-input--medium',
-                    'type': 'number',
+                    'type': 'text',
+                    'minlength': 4,
+                    'maxlength': 4,
+                    'pattern': '[0-9]*',
+                    'inputmode': 'numeric',
                     'required': False,
                 }),
             },
@@ -927,6 +962,7 @@ class Filters(ModelForm):
     )
     location_state = MultipleChoiceField(
         required=False,
+        label=_("Incident state"),
         choices=STATES_AND_TERRITORIES,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'location_state',
@@ -934,7 +970,7 @@ class Filters(ModelForm):
     )
     primary_statute = ChoiceField(
         required=False,
-        label=_("Primary classification"),
+        label=_("Primary classification"),  # This is overridden in templates to the shorter "Classification"
         choices=_add_empty_choice(STATUTE_CHOICES),
         widget=Select(attrs={
             'name': 'primary_statute',
@@ -956,7 +992,7 @@ class Filters(ModelForm):
     assigned_to = ModelChoiceField(
         required=False,
         queryset=User.objects.filter(is_active=True).order_by('username'),
-        label=_("Assigned to"),
+        label=_("Assigned to"),  # This is overriden in templates as "Assigned"
         to_field_name='username',
         widget=Select(attrs={
             'name': 'assigned_to',
@@ -987,14 +1023,15 @@ class Filters(ModelForm):
     )
     primary_complaint = MultipleChoiceField(
         required=False,
+        label='Primary issue',
         choices=PRIMARY_COMPLAINT_PROFORM_CHOICES,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'primary_issue',
         }),
-        label='Primary Issue',
     )
     reported_reason = MultipleChoiceField(
         required=False,
+        label='Reported reason',
         choices=reported_reason_proform,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'reported_reason',
@@ -1002,6 +1039,7 @@ class Filters(ModelForm):
     )
     commercial_or_public_place = MultipleChoiceField(
         required=False,
+        label='Relevant details',
         choices=COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'relevant_details',
@@ -1009,6 +1047,7 @@ class Filters(ModelForm):
     )
     hate_crime = MultipleChoiceField(
         required=False,
+        label='Hate crime',
         choices=(('yes', 'Yes'),),
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'hate_crime',
@@ -1016,6 +1055,7 @@ class Filters(ModelForm):
     )
     servicemember = MultipleChoiceField(
         required=False,
+        label='Servicemember',
         choices=(('yes', 'Yes'),),
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'servicemember',
@@ -1023,6 +1063,7 @@ class Filters(ModelForm):
     )
     intake_format = MultipleChoiceField(
         required=False,
+        label='Intake type',
         choices=INTAKE_FORMAT_CHOICES,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'intake_format',
@@ -1030,6 +1071,7 @@ class Filters(ModelForm):
     )
     language = MultipleChoiceField(
         required=False,
+        label='Report language',
         choices=settings.LANGUAGES,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'language',
@@ -1037,6 +1079,7 @@ class Filters(ModelForm):
     )
     referred = MultipleChoiceField(
         required=False,
+        label='Secondary review',
         choices=((True, 'Yes'),),
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'referred'
@@ -1044,6 +1087,7 @@ class Filters(ModelForm):
     )
     correctional_facility_type = MultipleChoiceField(
         required=False,
+        label='Prison type',
         choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'correctional_facility_type',
@@ -1057,8 +1101,8 @@ class Filters(ModelForm):
             'contact_first_name',
             'contact_last_name',
             'location_city_town',
-            'location_name',
             'location_state',
+            'location_name',
             'status',
             'assigned_to',
             'public_id',
@@ -1077,20 +1121,15 @@ class Filters(ModelForm):
 
         labels = {
             # These are CRT view only
-            'assigned_section': 'View sections',
             'contact_first_name': 'Contact first name',
             'contact_last_name': 'Contact last name',
-            'location_city_town': 'Incident location city',
+            'location_city_town': 'Incident city',
+            'location_state': 'Incident state',
             'location_name': 'Incident location name',
-            'location_state': 'Incident location state',
             'assigned_to': 'Assignee',
             'public_id': 'Complaint ID',
-            'primary_statute': 'Primary classification',
             'violation_summary': 'Personal description',
-            'create_date_start': 'Created Date Start',
-            'create_date_end': 'Created Date End',
             'contact_email': 'Contact email',
-            'correctional_facility_type': 'Prison Type',
         }
 
         widgets = {
@@ -1099,17 +1138,17 @@ class Filters(ModelForm):
                 'name': 'assigned_section'
             }),
             'contact_first_name': TextInput(attrs={
+                'id': 'id_contact_first_name',
                 'class': 'usa-input',
                 'name': 'contact_first_name',
-                'placeholder': 'Contact First Name',
-                'id': 'id_contact_first_name',
-                'aria-label': 'Contact First Name'
+                'placeholder': labels['contact_first_name'],
+                'aria-label': labels['contact_first_name']
             }),
             'contact_last_name': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'contact_last_name',
-                'placeholder': 'Contact Last Name',
-                'aria-label': 'Contact Last Name'
+                'placeholder': labels['contact_last_name'],
+                'aria-label': labels['contact_last_name']
             }),
             'location_city_town': TextInput(attrs={
                 'class': 'usa-input',
@@ -1117,25 +1156,27 @@ class Filters(ModelForm):
             }),
             'location_name': TextInput(attrs={
                 'class': 'usa-input',
-                'name': 'location_name'
+                'name': 'location_name',
+                'placeholder': labels['location_name'],
+                'aria-label': labels['location_name']
             }),
             'public_id': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'public_id',
-                'placeholder': 'ID',
-                'aria-label': 'CRT Public ID'
+                'placeholder': labels['public_id'],
+                'aria-label': labels['public_id']
             }),
             'violation_summary': TextInput(attrs={
                 'class': 'usa-input',
                 'name': 'violation_summary',
-                'placeholder': 'Personal Description',
-                'aria-label': 'Personal Description'
+                'placeholder': labels['violation_summary'],
+                'aria-label': labels['violation_summary']
             }),
             'contact_email': EmailInput(attrs={
                 'class': 'usa-input',
                 'name': 'contact_email',
-                'placeholder': 'Contact Email',
-                'aria-label': 'Email',
+                'placeholder': labels['contact_email'],
+                'aria-label': labels['contact_email'],
             }),
         }
         error_messages = {
@@ -1404,12 +1445,12 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
     summary = CharField(
         required=False,
         max_length=7000,
-        label='CRT Summary',
+        label='CRT summary',
         widget=Textarea(
             attrs={
                 'rows': 3,
                 'class': 'usa-textarea',
-                'aria-label': 'Complaint Summary'
+                'aria-label': 'Complaint summary'
             },
         ),
     )
