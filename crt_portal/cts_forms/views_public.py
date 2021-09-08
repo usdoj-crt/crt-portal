@@ -4,6 +4,7 @@ These are the views that are available to the public.
  - URLs for public pages need to be declared in the settings
 """
 import os
+import logging
 
 from django import forms
 from django.conf import settings
@@ -28,8 +29,11 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PRIMARY_COMPLAINT_DICT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import Report
+from .models import Report, ResponseTemplate
 from .forms import save_form, Review
+from .mail import crt_send_mail
+
+logger = logging.getLogger(__name__)
 
 
 class LandingPageView(TemplateView):
@@ -321,6 +325,25 @@ class CRTReportWizard(SessionWizardView):
     def done(self, form_list, form_dict, **kwargs):
         form_data_dict = self.get_all_cleaned_data()
         _, report = save_form(form_data_dict, intake_format='web')
+        template = ResponseTemplate.objects.get(title='CRT Auto response', language=report.language)
+
+        # Skip automated response if complainant doesn't provide an email
+        # or if the auto response template doesn't exist
+        if report.contact_email and template:
+            try:
+                sent = crt_send_mail(report, template)
+                if sent:
+                    description = f"Automated response email sent: '{template.title}' to {report.contact_email} for report {report.public_id}"
+                    logger.info(description)
+                else:
+                    description = f"{report.contact_email} not in allowed domains, not attempting to deliver {template.title}."
+                    logger.info(description)
+            except Exception as e:  # catch *all* exceptions
+                logger.warning({'message': f"Automated response email failed to send: {e}", 'report': report.id})
+
+        # TODO: add this to activity log? who is the user?
+        # add_activity(request.user, "Contacted complainant:", description, report)
+
         return render(
             self.request, 'forms/confirmation.html',
             {
