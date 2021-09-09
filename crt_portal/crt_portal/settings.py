@@ -104,6 +104,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'crequest.middleware.CrequestMiddleware',
+    'htmlmin.middleware.HtmlMinifyMiddleware',
+    'htmlmin.middleware.MarkRequestMiddleware',
 ]
 
 ROOT_URLCONF = 'crt_portal.urls'
@@ -412,6 +414,9 @@ COMPRESS_PRECOMPILERS = (
 
 # would like to add this before public release
 COMPRESS_ENABLED = False
+
+# enable html minifier
+HTML_MINIFY = True
 
 # adding better messaging
 CSRF_FAILURE_VIEW = 'cts_forms.views_public.csrf_failure'

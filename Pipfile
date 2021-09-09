@@ -37,6 +37,7 @@ requests = "*"
 email-validator = "*"
 netaddr = "*"
 boto3 = "*"
+django-htmlmin = "*"
 
 [requires]
 python_version = "3.9.6"
