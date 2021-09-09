@@ -13,7 +13,7 @@ Please do not reply to this email. This is an unmonitored account.
 ==================================================
 
 
-Thank you for submitting a report to the Civil Rights Division. Please save your record number for tracking. Your record number is: 888-MPL.
+Thank you for submitting a report to the Civil Rights Division. Please save your record number for tracking. Your record number is: {{ record_locator }}.
 
 
 If you reported an incident where you or someone else has experienced or is still experiencing physical harm or violence, or are in immediate danger, please call 911 and contact the police.
