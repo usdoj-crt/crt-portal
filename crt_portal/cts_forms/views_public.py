@@ -325,7 +325,7 @@ class CRTReportWizard(SessionWizardView):
     def done(self, form_list, form_dict, **kwargs):
         form_data_dict = self.get_all_cleaned_data()
         _, report = save_form(form_data_dict, intake_format='web')
-        template = ResponseTemplate.objects.get(title='CRT Auto response', language=report.language)
+        template = ResponseTemplate.objects.filter(title='CRT Auto response', language=report.language).first()
 
         # Skip automated response if complainant doesn't provide an email
         # or if the auto response template doesn't exist
@@ -340,6 +340,8 @@ class CRTReportWizard(SessionWizardView):
                     logger.info(description)
             except Exception as e:  # catch *all* exceptions
                 logger.warning({'message': f"Automated response email failed to send: {e}", 'report': report.id})
+        else:
+            logger.info("Report has no contact email, or autoresponse template not found. No automated response email will be sent.")
 
         # TODO: add this to activity log? who is the user?
         # add_activity(request.user, "Contacted complainant:", description, report)
