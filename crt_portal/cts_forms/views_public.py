@@ -155,14 +155,15 @@ def send_autoresponse_mail(report):
             else:
                 description = f"{report.contact_email} not in allowed domains, not attempting to deliver {template.title}."
 
+            # Log this activity to server output.
+            # This is not being logged in actstream because it is an autonomous activity,
+            # and there's no authenticated user attached to this action.
+            # When sending email through TMS, a record will automatically be logged in "Tms emails"
             logger.info(description)
         except Exception as e:  # catch *all* exceptions
             logger.warning({'message': f"Automated response email failed to send: {e}", 'report': report.id})
     else:
         logger.info("Report has no contact email, or autoresponse template not found. No automated response email will be sent.")
-
-    # TODO: add this to activity log? who is the user?
-    # add_activity("system", "Autoresponder to complainant:", description, report)
 
 
 @method_decorator(never_cache, name='dispatch')
