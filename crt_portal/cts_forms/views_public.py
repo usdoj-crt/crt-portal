@@ -350,7 +350,9 @@ class CRTReportWizard(SessionWizardView):
     def done(self, form_list, form_dict, **kwargs):
         form_data_dict = self.get_all_cleaned_data()
         _, report = save_form(form_data_dict, intake_format='web')
-        send_autoresponse_mail(report)
+
+        if settings.EMAIL_AUTORESPONSE_ENABLED:
+            send_autoresponse_mail(report)
 
         return render(
             self.request, 'forms/confirmation.html',
