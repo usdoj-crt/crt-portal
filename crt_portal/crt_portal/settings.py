@@ -200,6 +200,9 @@ RESTRICT_EMAIL_RECIPIENTS_TO = os.environ.get('RESTRICT_EMAIL_RECIPIENTS_TO', ''
 
 EMAIL_AUTORESPONSE_ENABLED = os.environ.get('EMAIL_AUTORESPONSE_ENABLED', False)
 
+if environment in ['DEVELOP']:
+    EMAIL_AUTORESPONSE_ENABLED = True
+
 if environment not in ['LOCAL', 'UNDEFINED']:
     # govDelivery TMS settings
     EMAIL_BACKEND = 'tms.backend.TMSEmailBackend'
