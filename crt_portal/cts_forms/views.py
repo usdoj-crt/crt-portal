@@ -23,6 +23,7 @@ from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
+from tms.models import TMSEmail
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter
@@ -319,7 +320,7 @@ class ResponseView(LoginRequiredMixin, View):
 
             if button_type == 'send':  # We're going to send an email!
                 try:
-                    sent = crt_send_mail(report, template)
+                    sent = crt_send_mail(report, template, TMSEmail.MANUAL_EMAIL)
                     if sent:
                         description = f"Email sent: '{template.title}' to {report.contact_email} via {self.MAIL_SERVICE}"
                     else:
