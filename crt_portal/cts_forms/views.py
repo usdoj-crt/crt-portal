@@ -66,8 +66,6 @@ def reconstruct_query(next_qp):
     querydict = QueryDict(next_qp)
     report_query, _ = report_filter(querydict)
 
-    report_query = report_query.annotate(email_count=F('email_report_count__email_count'))
-
     sort_expr, sorts = report_sort(querydict)
     report_query = report_query.order_by(*sort_expr)
 
@@ -169,13 +167,11 @@ def index_view(request):
     per_page = request.GET.get('per_page', 15)
     page = request.GET.get('page', 1)
 
-    requested_reports = report_query.annotate(email_count=F('email_report_count__email_count'))
-
     sort_expr, sorts = report_sort(request.GET)
-    requested_reports = requested_reports.order_by(*sort_expr)
+    report_query = report_query.order_by(*sort_expr)
 
-    paginator = Paginator(requested_reports, per_page)
-    requested_reports, page_format = pagination(paginator, page, per_page)
+    paginator = Paginator(report_query, per_page)
+    report_query, page_format = pagination(paginator, page, per_page)
 
     sort_state = {}
     # make sure the links for this page have the same paging, sorting, filtering etc.
@@ -205,7 +201,7 @@ def index_view(request):
     data = []
 
     paginated_offset = page_format['page_range_start'] - 1
-    for index, report in enumerate(requested_reports):
+    for index, report in enumerate(report_query):
         p_class_list = format_protected_class(
             report.protected_class.all().order_by('form_order'),
             report.other_class,

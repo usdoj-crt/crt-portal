@@ -89,12 +89,20 @@ def salt():
     return ''.join(random.choice(characters) for x in range(3))  # nosec
 
 
+def update_email_count(email):
+    if email is not None:
+        reports = Report.objects.filter(contact_email__iexact=email)
+        email_count = len(reports)
+        reports.update(email_count=email_count)
+
+
 @receiver(post_save, sender=Report)
 def post_report_create(sender, instance, created, **kwargs):
     """
     Upon creation of a new Report we
         * log the assigned ID
         * assign author and public_id values
+        * update email counts
     """
     if created:
         logger.info(f'REPORT CREATED: #{instance.id}')
@@ -105,6 +113,11 @@ def post_report_create(sender, instance, created, **kwargs):
             author = PUBLIC_USER
         instance.author = author
         instance.public_id = f'{instance.pk}-' + salt()
+        update_email_count(instance.contact_email)
+
+@receiver(post_delete, sender=Report)
+def update_email_count_when_delete(sender, instance, **kwargs):
+    update_email_count(instance.contact_email)
 
 
 @receiver(post_delete, sender=Report)
