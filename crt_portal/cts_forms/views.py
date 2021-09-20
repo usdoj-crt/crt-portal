@@ -37,6 +37,8 @@ from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
 from .models import CommentAndSummary, Profile, Report, ReportAttachment, Trends
 from .page_through import pagination
 from .sorts import report_sort
+from .utils import update_email_count
+
 
 logger = logging.getLogger(__name__)
 
@@ -398,11 +400,10 @@ class ShowView(LoginRequiredMixin, View):
         Accept only the submitted form and discard any other inbound changes
         """
         report = get_object_or_404(Report, pk=id)
-
+        old_email = report.contact_email
         form, inbound_form_type = self.get_form(request, report)
         if form.is_valid() and form.has_changed():
             report = form.save(commit=False)
-
             # Reset Assignee and Status if assigned_section is changed
             if 'assigned_section' in form.changed_data:
                 report.status_assignee_reset()
@@ -419,6 +420,16 @@ class ShowView(LoginRequiredMixin, View):
                     description = f'Updated from "{current_district}" to "{report.district}"'
                     add_activity(request.user, "District:", description, report)
 
+            # Email counts are updated on change now.  So both the old email and new email count need to be updated
+            if 'contact_email' in form.changed_data:
+                update_email_count(old_email)
+                new_email = form['contact_email'].value()
+                new_email_count = update_email_count(new_email)
+                if new_email_count:
+                    report.email_count = new_email_count
+                # if the email is removed, the count should be set to none
+                else:
+                    report.email_count = None
             report.save()
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())

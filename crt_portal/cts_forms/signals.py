@@ -13,6 +13,7 @@ from django.dispatch import receiver
 
 from .models import Report, ProtectedClass, CommentAndSummary
 from .model_variables import PUBLIC_USER
+from .utils import update_email_count
 
 logger = logging.getLogger(__name__)
 
@@ -89,13 +90,6 @@ def salt():
     return ''.join(random.choice(characters) for x in range(3))  # nosec
 
 
-def update_email_count(email):
-    if email is not None:
-        reports = Report.objects.filter(contact_email__iexact=email)
-        email_count = len(reports)
-        reports.update(email_count=email_count)
-
-
 @receiver(post_save, sender=Report)
 def post_report_create(sender, instance, created, **kwargs):
     """
@@ -113,7 +107,11 @@ def post_report_create(sender, instance, created, **kwargs):
             author = PUBLIC_USER
         instance.author = author
         instance.public_id = f'{instance.pk}-' + salt()
-        update_email_count(instance.contact_email)
+        email_count = update_email_count(instance.contact_email)
+        # email_count needs to be updated here as well because the report is not submitted in time for
+        # update_email_count to update it
+        instance.email_count = email_count
+
 
 @receiver(post_delete, sender=Report)
 def update_email_count_when_delete(sender, instance, **kwargs):

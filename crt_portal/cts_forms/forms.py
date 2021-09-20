@@ -1505,9 +1505,9 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
                 # new email
                 related_reports = Report.objects.filter(contact_email__iexact=updates['contact_email'])
                 related_reports.update(email_count__iexact=len(related_reports))
-            if self.fields[contact_email].initial is not None:
+            if self.fields['contact_email'].initial is not None:
                 # old email
-                related_reports = Report.objects.filter(contact_email__iexact=self.fields[contact_email].initial)
+                related_reports = Report.objects.filter(contact_email__iexact=self.fields['contact_email'].initial)
                 related_reports.update(email_count__iexact=len(related_reports))
 
 
