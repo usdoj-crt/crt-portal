@@ -1510,8 +1510,6 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
                 related_reports = Report.objects.filter(contact_email__iexact=self.fields['contact_email'].initial)
                 related_reports.update(email_count__iexact=len(related_reports))
 
-
-
         updates.pop('district', None)  # district is currently disabled (read-only)
         return updates
 

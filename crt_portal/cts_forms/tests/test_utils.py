@@ -2,6 +2,7 @@ from django.test import TestCase
 from .factories import ReportFactory
 from ..utils import update_email_count
 
+
 class Test_Helper_Utilities(TestCase):
     def setUp(self):
         ReportFactory.create(contact_email='')
