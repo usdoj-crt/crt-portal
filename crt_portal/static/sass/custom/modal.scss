@@ -219,10 +219,6 @@ body.is-modal {
 #external-link--modal {
   color: color($theme-color-primary-darker);
 
-  h1 {
-    margin: 0;
-  }
-
   .external-link--disclaimer {
     font-style: italic;
     font-size: $theme-text-font-size-sm;
