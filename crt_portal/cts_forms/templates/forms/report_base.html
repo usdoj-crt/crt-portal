@@ -103,7 +103,9 @@
       </div>
     </div>
   </div>
-{% include "partials/unsupported-browser-modal.html" %}
+
+  {% block modals %}{% endblock %}
+  {% include "partials/unsupported-browser-modal.html" %}
 {% endblock %}
 
 {% block footer_extra %}

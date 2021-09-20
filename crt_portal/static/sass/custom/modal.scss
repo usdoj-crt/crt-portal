@@ -230,21 +230,8 @@ body.is-modal {
   }
 
   #external-link--cancel {
-    margin-left: 0;
     &:focus {
       color: color($theme-color-primary-darker) !important;
-    }
-  }
-
-  #external-link--continue {
-    @include at-media-max(mobile-lg) {
-      margin-top: 1rem;
-    }
-  }
-
-  #external-link--continue {
-    @include at-media-max(mobile-lg) {
-      margin-top: 1rem;
     }
   }
 
@@ -287,12 +274,5 @@ body.is-modal {
         margin-left: 0px;
       }
     }
-  }
-}
-
-
-#contact-info-confirmation--modal {
-  .button--cancel {
-    margin: 1rem 1rem 1rem 0;
   }
 }
