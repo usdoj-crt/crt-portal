@@ -7,7 +7,7 @@
 ========================================
 ========================================
 ----------------------------------------
-USWDS 2.7.0
+USWDS 2.8.1
 ----------------------------------------
 COLOR SETTINGS
 ----------------------------------------
@@ -40,7 +40,7 @@ $theme-color-primary-lightest: "blue-warm-5";
 $theme-color-primary-lighter: "blue-warm-10";
 $theme-color-primary-light: false;
 $theme-color-primary: "blue-warm-70v";
-$theme-color-primary-vivid: false;
+$theme-color-primary-vivid: "blue-warm-60v";
 $theme-color-primary-dark: "blue-warm-70v";
 $theme-color-primary-darker: "blue-warm-80v";
 $theme-color-primary-darkest: false;
@@ -61,7 +61,7 @@ $theme-color-accent-warm-family: "orange";
 $theme-color-accent-warm-lightest: false;
 $theme-color-accent-warm-lighter: false;
 $theme-color-accent-warm-light: false;
-$theme-color-accent-warm: false;
+$theme-color-accent-warm: "orange-30v";
 $theme-color-accent-warm-dark: false;
 $theme-color-accent-warm-darker: false;
 $theme-color-accent-warm-darkest: false;
@@ -131,4 +131,7 @@ $theme-link-color: $theme-color-primary-darker;
 $theme-link-visited-color: $theme-color-primary-darker;
 $theme-link-hover-color: "blue-50";
 $theme-link-active-color: "primary-darker";
+$theme-link-reverse-color: "base-lighter";
+$theme-link-reverse-hover-color: "base-lightest";
+$theme-link-reverse-active-color: "white";
 $theme-link-dark-hover-color: "blue-warm-30v"; // Custom
