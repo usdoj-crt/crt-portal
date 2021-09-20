@@ -418,7 +418,7 @@ class ShowView(LoginRequiredMixin, View):
                     report.district = assigned_district
                     description = f'Updated from "{current_district}" to "{report.district}"'
                     add_activity(request.user, "District:", description, report)
-
+            report.save()
             # Email counts are updated on change now.  So both the old email and new email count need to be updated
             if 'contact_email' in form.changed_data:
                 update_email_count(old_email)
@@ -429,7 +429,6 @@ class ShowView(LoginRequiredMixin, View):
                 # if the email is removed, the count should be set to none
                 else:
                     report.email_count = None
-            report.save()
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())
 
