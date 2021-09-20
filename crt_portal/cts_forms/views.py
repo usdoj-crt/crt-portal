@@ -424,11 +424,9 @@ class ShowView(LoginRequiredMixin, View):
                 update_email_count(old_email)
                 new_email = form['contact_email'].value()
                 new_email_count = update_email_count(new_email)
-                if new_email_count:
-                    report.email_count = new_email_count
                 # if the email is removed, the count should be set to none
-                else:
-                    report.email_count = None
+                report.email_count = new_email_count or None
+                report.save()
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())
 
