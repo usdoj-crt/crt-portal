@@ -11,7 +11,7 @@
       <form id="language_selection_form" action="{% url 'set_language' %}" method="post" class="usa-form">{% csrf_token %}
       <input id="language_input" name="language" type="hidden" />
         {% for language in languages %}
-          <button class="usa-banner__button language-selection__button {% if language.code == LANGUAGE_CODE %}language-selection__button-active{% endif %}" data-value="{{ language.code }}">
+          <button aria-label="{{ language.name }}"  class="usa-banner__button language-selection__button {% if language.code == LANGUAGE_CODE %}language-selection__button-active{% endif %}" data-value="{{ language.code }}">
             <span class="usa-banner__button-text">{{ language.name_local }}</span>
           </button>
         {% endfor %}

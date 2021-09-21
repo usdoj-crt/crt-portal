@@ -18,7 +18,7 @@ def remove_disallowed_recipients(recipient_list):
         recipient_list = [
             to_address
             for to_address in recipient_list
-            if to_address in restricted_to
+            if to_address.lower() in [email.lower() for email in restricted_to]
         ]
     return recipient_list
 
