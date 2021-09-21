@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         for record in reports:
             email = record.contact_email
             if email is not None:
-                record.number_contacts = len(Report.objects.filter(contact_email=email))
+                record.number_contacts = len(Report.objects.filter(contact_email__iexact=email))
                 record.save()
             else:
                 record.number_contacts = None
