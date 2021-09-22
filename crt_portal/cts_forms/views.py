@@ -23,6 +23,7 @@ from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
+from tms.models import TMSEmail
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter
@@ -319,7 +320,7 @@ class ResponseView(LoginRequiredMixin, View):
 
             if button_type == 'send':  # We're going to send an email!
                 try:
-                    sent = crt_send_mail(report, template)
+                    sent = crt_send_mail(report, template, TMSEmail.MANUAL_EMAIL)
                     if sent:
                         description = f"Email sent: '{template.title}' to {report.contact_email} via {self.MAIL_SERVICE}"
                     else:
@@ -381,11 +382,13 @@ class ShowView(LoginRequiredMixin, View):
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)
         filter_output = setup_filter_parameters(report, request.GET)
+        autoresponse_email = TMSEmail.objects.filter(report=report.id, purpose=TMSEmail.AUTO_EMAIL).order_by('created_at').first()
         output.update({
             'contact_form': contact_form,
             'details_form': details_form,
             'email_enabled': settings.EMAIL_ENABLED,
             'allowed_file_types': ALLOWED_FILE_EXTENSIONS,
+            'autoresponse_email': autoresponse_email,
             **filter_output,
         })
         return render(request, 'forms/complaint_view/show/index.html', output)
