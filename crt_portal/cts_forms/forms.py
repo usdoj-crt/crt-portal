@@ -15,7 +15,8 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
-from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
+from .model_variables import (CLOSED_STATUS,
+                              COMMERCIAL_OR_PUBLIC_ERROR,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
                               COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
                               CONTACT_PHONE_INVALID_MESSAGE,
@@ -1346,7 +1347,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         If this report was referred, set the section.
         """
         report = super().save(commit=False)
-        if report.closed:
+        if report.status == CLOSED_STATUS:
             report.closeout_report()
             self.report_closed = True
         if report.referred:
