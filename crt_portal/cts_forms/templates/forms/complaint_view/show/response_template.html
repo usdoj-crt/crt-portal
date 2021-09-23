@@ -8,46 +8,57 @@
   {% csrf_token %}
   <input type="hidden" value="{{ return_url_args }}" name="next" id="modal_next" />
   <input type="hidden" value="{{ index }}" name="index" id="index" />
-  <div id="intake_template" hidden>
-    <div class="modal-wrapper intake-template--modal">
-      <div class="modal-content modal-content--large">
-        <div class="modal-header">
-          <h1>Contact complainant</h1>
+</form>
+
+<div id="intake_template" hidden>
+  <div class="modal-wrapper intake-template--modal">
+    <div class="modal-content modal-content--large">
+      <div class="modal-header">
+        <h1>Contact complainant</h1>
+      </div>
+      <div id='response-modal-form' class="modal-form">
+        <p>Name: <strong>{{data.contact_full_name|default_if_none:"-"}}</strong></p>
+        <p>Email:
+          <strong id="contact_email" data-email="{{data.contact_email|default_if_none:''}}">
+            {{data.contact_email|default_if_none:"-"}}
+          </strong>
+        </p>
+        <p class="intake-template--description">
+          Subject: <strong id="intake_description">(no template chosen)</strong>
+        </p>
+        <span>
+          Template Language:
+        </span>
+        <select id="template-language-select" class="usa-select" aria-label="template language selection">
+          {% for language in languages %}
+            <option value="{{ language.code }}" aria-label="template language selection" {% if language.code == 'en' %}selected{% endif %}>{{ language.name }}</option>
+          {% endfor %}
+        </select>
+        <span>
+          Template:
+        </span>
+        {{ responses.templates }}
+        <div class="modal-main">
+          <textarea disabled aria-label="intake letter" id="intake_letter" rows="10" cols="80"></textarea>
         </div>
-        <div id='response-modal-form' class="modal-form">
-          <p>Name: <strong>{{data.contact_full_name|default_if_none:"-"}}</strong></p>
-          <p>Email:
-            <strong id="contact_email" data-email="{{data.contact_email|default_if_none:''}}">
-              {{data.contact_email|default_if_none:"-"}}
-            </strong>
-          </p>
-          <p class="intake-template--description">
-            Subject: <strong id="intake_description">(no template chosen)</strong>
-          </p>
-          <span>
-            Template Language:
-          </span>
-          <select id="template-language-select" class="usa-select" aria-label="template language selection">
-            {% for language in languages %}
-              <option value="{{ language.code }}" aria-label="template language selection" {% if language.code == 'en' %}selected{% endif %}>{{ language.name }}</option>
-            {% endfor %}
-          </select>
-          <span>
-            Template:
-          </span>
-          {{ responses.templates }}
-          <div class="modal-main">
-            <textarea disabled aria-label="intake letter" id="intake_letter" rows="10" cols="80"></textarea>
-          </div>
-          <div class="modal-footer">
-            <button disabled id="intake_copy" class="usa-button" type="submit" name="type" value="copy">Copy</button>
-            <button disabled id="intake_print" class="usa-button" type="submit" name="type" value="print">Print</button>
-            <button disabled id="intake_send" data-email-enabled="{{email_enabled}}" class="usa-button" type="submit" name="type" value="send">Send</button>
-            <a id="intake_template_cancel" href="#">Cancel</a>
-          </div>
+        <div class="modal-footer">
+          <ul class="usa-button-group">
+            <li class="usa-button-group__item">
+              <button disabled id="intake_copy" class="usa-button" type="submit" name="type" value="copy">Copy</button>
+            </li>
+            <li class="usa-button-group__item">
+              <button disabled id="intake_print" class="usa-button" type="submit" name="type" value="print">Print</button>
+            </li>
+            <li class="usa-button-group__item">
+              <button disabled id="intake_send" data-email-enabled="{{email_enabled}}" class="usa-button" type="submit" name="type" value="send">Send</button>
+            </li>
+            <li class="usa-button-group__item">
+              <button id="intake_template_cancel" class="usa-button usa-button--unstyled">Cancel</button>
+            </li>
+          </ul>
         </div>
       </div>
-      {% include 'forms/complaint_view/print/form_letter.html' %}
     </div>
+    {% include 'forms/complaint_view/print/form_letter.html' %}
   </div>
-</form>
+</div>

@@ -27,14 +27,16 @@
       class="usa-button" />
 
     {% if wizard.steps.prev %}
+    <div class="margin-top-2">
       <button name="wizard_goto_step"
               id="submit-report"
               type="submit"
               label="{% trans "previous step" %}"
               value="{{ wizard.steps.prev }}"
-              class="look-like-link margin-top-2 display-block">
+              class="usa-button usa-button--unstyled">
         {% trans "Back" %}
       </button>
+    </div>
     {% endif %}
 </div>
 {% endblock %}

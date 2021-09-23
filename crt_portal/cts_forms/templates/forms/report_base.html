@@ -89,13 +89,15 @@
           {% endblock %}
 
             {% if wizard.steps.prev %}
+            <div class="margin-top-2">
               <button name="wizard_goto_step"
                       type="submit"
                       label="{% trans "previous step" %}"
                       value="{{ wizard.steps.prev }}"
-                      class="look-like-link margin-top-2 display-block">
+                      class="usa-button usa-button--unstyled">
                 {% trans "Back" %}
               </button>
+            </div>
             {% endif %}
           </div>
           {% endblock %}
@@ -103,7 +105,9 @@
       </div>
     </div>
   </div>
-{% include "partials/unsupported-browser-modal.html" %}
+
+  {% block modals %}{% endblock %}
+  {% include "partials/unsupported-browser-modal.html" %}
 {% endblock %}
 
 {% block footer_extra %}

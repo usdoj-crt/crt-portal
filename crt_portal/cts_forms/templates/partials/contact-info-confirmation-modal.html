@@ -4,17 +4,23 @@
   <div class="modal-wrapper" role="dialog" aria-modal="true" aria-describedby="modal_dialog_header">
     <div class="modal-content modal-content--small">
       <div class="modal-header">
-        <h1 id="modal_dialog_header" class="h2__display">
-            {% trans "You are continuing your complaint without providing email or phone information." %}
+        <h1 id="modal_dialog_header" class="h2__display margin-0">
+          {% trans "You are continuing your complaint without providing email or phone information." %}
         </h1>
       </div>
       <div class="modal-form">
         <p>
-            {% trans "You do not have to provide contact information, however, we will not be able to contact you for any status updates or potential follow up. Would you like to add your contact information now? If you prefer not to, you will go to Step 2." %}
+          {% trans "You do not have to provide contact information, however, we will not be able to contact you for any status updates or potential follow up. Would you like to add your contact information now? If you prefer not to, you will go to Step 2." %}
         </p>
         <div class="modal-footer">
-            <a id="external-link--continue" href="#" class="usa-button usa-button--outline button--cancel light-button">{% trans "No, I don't want to provide it" %}</a>
-            <a id="external-link--cancel" href="#" class="usa-button button--continue">{% trans "Yes, I'd like to add it" %}</a>
+          <ul class="usa-button-group">
+            <li class="usa-button-group__item">
+              <a id="external-link--continue" href="#" class="usa-button usa-button--outline button--cancel light-button">{% trans "No, I don't want to provide it" %}</a>
+            </li>
+            <li class="usa-button-group__item">
+              <a id="external-link--cancel" href="#" class="usa-button button--continue">{% trans "Yes, I'd like to add it" %}</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
