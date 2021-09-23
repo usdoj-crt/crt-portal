@@ -129,6 +129,26 @@
 table.related-reports {
   font-size: 0.75rem;
   margin-top: 0px;
+
+  td {
+    white-space: nowrap;
+  }
+
+  td:first-child {
+    padding-left: 0;
+  }
+
+  td:last-child {
+    padding-right: 0;
+    text-align: right;
+  }
+
+  .letter-sent-icon {
+    height: 1rem;
+    min-width: 1rem;
+    vertical-align: text-bottom;
+    margin-left: 0.15rem;
+  }
 }
 
 table.attachments-table {

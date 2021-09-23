@@ -40,6 +40,14 @@
                     <tr>
                         <td>{{report.public_id}}</td>
                         <td>{{report.assigned_section}}</td>
+                        <td>
+                            {% if report.recent_email_sent %}
+                            <span class="usa-tooltip" data-position="bottom" title="{{report.recent_email_sent}}">
+                                Letter sent
+                                <img src="{% static "img/ic_help-circle-dark.svg" %}" alt="More info" class="letter-sent-icon">
+                            </span>
+                            {% endif %}
+                        </td>
                         <td>{{report.create_date|date:"SHORT_DATE_FORMAT"}}</td>
                     </tr>
                 {% endfor %}
