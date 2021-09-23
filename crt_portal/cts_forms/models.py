@@ -392,6 +392,18 @@ class Report(models.Model):
                 ('closed', display['closed']),
                 )
 
+    @cached_property
+    def recent_email_sent(self):
+        """Returns the name of the last email template sent in response to this report"""
+        recent_contact_activity = self.activity().filter(verb='Contacted complainant:', description__contains='Email sent').first()
+        if recent_contact_activity:
+            try:
+                email = recent_contact_activity.description.split("'")[1]
+            except IndexError:
+                email = None
+            return email
+        return None
+
     @property
     def contact_full_name(self):
         """
