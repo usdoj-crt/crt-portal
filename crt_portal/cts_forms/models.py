@@ -353,7 +353,7 @@ class Report(models.Model):
     def get_absolute_url(self):
         return reverse('crt_forms:crt-forms-show', kwargs={"id": self.id})
 
-    @cached_property
+    @property
     def closed(self):
         return self.status == CLOSED_STATUS
 
