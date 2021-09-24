@@ -18,14 +18,14 @@ $button-size: 1.5rem;
   li {
     height: 2rem;
     margin: 0 2px;
-    width: 2rem;
+    min-width: 2rem;
 
     a,
     div,
     span.ellipsis {
       border-radius: 5px;
       display: block;
-      width: $button-size;
+      padding: 0 0.25rem;
       height: $button-size;
       line-height: $button-size;
       text-align: center;
