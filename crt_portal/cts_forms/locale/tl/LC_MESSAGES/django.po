@@ -1784,9 +1784,12 @@ msgstr ""
 "mga karapatan</a>"
 
 #: templates/landing.html:102
-msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
+msgid ""
+"If you are in danger, contact <a href=\"tel:911\" aria-label=\"9 1 1\">911</"
+"a>"
 msgstr ""
-"Kung ikaw ay nasa panganib, makipag-ugnay sa <a href=\"tel:911\">911</a>"
+"Kung ikaw ay nasa panganib, makipag-ugnay sa <a href=\"tel:911\" aria-label="
+"\"9 1 1\">911</a>"
 
 #: templates/landing.html:113
 msgid ""
