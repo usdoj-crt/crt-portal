@@ -3,7 +3,7 @@
   var modal_el = document.getElementById('contact-info-confirmation--modal');
 
   function clickSubmit(stepOneSubmitButton) {
-    stepOneSubmitButton[0].addEventListener('click', event => {
+    stepOneSubmitButton.addEventListener('click', event => {
       var phone_el = document.getElementsByName('0-contact_phone')[0];
       var email_el = document.getElementsByName('0-contact_email')[0];
       var requiredFieldSelected =
@@ -33,8 +33,8 @@
   }
 
   if (root.CRT.stageNumber === 1) {
-    var stepOneSubmitButton = document.getElementsByClassName('report-step-1-continue');
-    if (stepOneSubmitButton.length) {
+    var stepOneSubmitButton = document.getElementById('report-step-1-continue');
+    if (stepOneSubmitButton) {
       var submitNextButton = document.getElementById('submit-next');
       var continue_modal_button = document.getElementById('external-link--continue');
       continue_modal_button.onclick = function(event) {

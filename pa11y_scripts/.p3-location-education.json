@@ -5,8 +5,10 @@
       "actions": [
         "wait for element #id_0-servicemember_0 to be visible",
         "click element #id_0-servicemember_0",
-        "wait for element #submit-next to be visible",
-        "click element #submit-next",
+        "wait for element #report-step-1-continue to be visible",
+        "click element #report-step-1-continue",
+        "wait for element #external-link--continue to be visible",
+        "click element #external-link--continue",
         "wait for element #id_1-primary_complaint to be visible",
         "click element #id_1-primary_complaint_2",
         "wait for element #submit-next to be visible",
