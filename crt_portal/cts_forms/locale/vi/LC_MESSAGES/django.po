@@ -1750,8 +1750,12 @@ msgstr ""
 "hoặc tìm hiểu thêm về các <a href=\"#your-rights\">quyền của quý vị</a>"
 
 #: templates/landing.html:102
-msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
-msgstr "Nếu quý vị đang gặp nguy hiểm, hãy gọi <a href=\"tel:911\">911</a>"
+msgid ""
+"If you are in danger, contact <a href=\"tel:911\" aria-label=\"9 1 1\">911</"
+"a>"
+msgstr ""
+"Nếu quý vị đang gặp nguy hiểm, hãy gọi <a href=\"tel:911\" aria-label=\"9 1 "
+"1\">911</a>"
 
 #: templates/landing.html:113
 msgid ""

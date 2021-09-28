@@ -1679,8 +1679,12 @@ msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
 msgstr "또는 <a href=\"#your-rights\">귀하의 권리</a>에 대해 더 알아보세요"
 
 #: templates/landing.html:102
-msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
-msgstr "위험에 처해 있다면 <a href=\"tel:911\">911</a>로 연락하세요"
+msgid ""
+"If you are in danger, contact <a href=\"tel:911\" aria-label=\"9 1 1\">911</"
+"a>"
+msgstr ""
+"위험에 처해 있다면 <a href=\"tel:911\" aria-label=\"9 1 1\">911</a>로 연락하"
+"세요"
 
 #: templates/landing.html:113
 msgid ""
