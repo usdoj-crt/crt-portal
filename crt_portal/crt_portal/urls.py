@@ -17,7 +17,7 @@ import os
 
 from cts_forms.forms import (
     CommercialPublicLocation, Contact, Details,
-    EducationLocation, ElectionLocation, HateCrimes,
+    EducationLocation, ElectionLocation,
     LocationForm, PoliceLocation, PrimaryReason,
     ProtectedClassForm, Review, When,
     WorkplaceLocation
@@ -58,7 +58,6 @@ urlpatterns = auth + [
         [
             Contact,
             PrimaryReason,
-            HateCrimes,
             ElectionLocation,
             WorkplaceLocation,
             PoliceLocation,
@@ -71,12 +70,12 @@ urlpatterns = auth + [
             Review,
         ],
         condition_dict={
-            '3': show_election_form_condition,
-            '4': show_workplace_form_condition,
-            '5': show_police_form_condition,
-            '6': show_commercial_public_form_condition,
-            '7': show_education_form_condition,
-            '8': show_location_form_condition,
+            '2': show_election_form_condition,
+            '3': show_workplace_form_condition,
+            '4': show_police_form_condition,
+            '5': show_commercial_public_form_condition,
+            '6': show_education_form_condition,
+            '7': show_location_form_condition,
         },
     ), name='crt_report_form'),
     path('privacy-policy', TemplateView.as_view(template_name="privacy.html"), name='privacy_policy'),
