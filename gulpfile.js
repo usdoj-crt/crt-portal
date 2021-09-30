@@ -17,8 +17,8 @@ const gulp = require("gulp");
 const pkg = require("./node_modules/uswds/package.json");
 const postcss = require("gulp-postcss");
 const replace = require("gulp-replace");
-const rename = require("gulp-rename")
-const uglify = require('gulp-uglify');
+const rename = require("gulp-rename");
+const uglify = require("gulp-uglify");
 const sass = require("gulp-sass")(require("sass"));
 const sourcemaps = require("gulp-sourcemaps");
 const uswds = require("./node_modules/uswds-gulp/config/uswds");
@@ -45,7 +45,7 @@ const FONTS_DEST = "./crt_portal/static/fonts";
 
 // Javascript destination
 const JS_DEST = "./crt_portal/static/js";
-const JS_FILES = [`${JS_DEST}/*.js`, `!${JS_DEST}/*.min.js`]
+const JS_FILES = [`${JS_DEST}/*.js`, `!${JS_DEST}/*.min.js`];
 
 // Compiled CSS destination
 const CSS_DEST = "./crt_portal/static/css/compiled";
@@ -87,7 +87,7 @@ gulp.task('build-js', function() {
     .pipe(rename({
       suffix: '.min'
     }))
-    .pipe(sourcemaps.write('.'))
+    .pipe(sourcemaps.write("."))
     // Output
     .pipe(gulp.dest(`${JS_DEST}`))
 });
