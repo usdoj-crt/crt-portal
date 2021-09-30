@@ -57,7 +57,7 @@ Create a superuser for local admin access
 
 To add some test data with the form http://0.0.0.0:8000/report and then you can check it out in the backend view http://0.0.0.0:8000/form/view and the admin view at http://0.0.0.0:8000/admin.
 
-Generate the SASS for the front end with gulp:
+Generate the SASS and Javascript for the front end with gulp:
 
 If you are doing front end work, you will want to have gulp compile the css so you can instantly see changes.
 
@@ -78,7 +78,7 @@ Finally, `nvm use && npm install`
 
 Now to compile the sass files into css, run:
 
-    npm run sass:watch
+    npm run gulp:watch
 
 Also note, that the staticfiles folder is the destination of all static assets when you or a script runs `manage.py collectstatic` so don't make your changes there, or they will be overwritten.
 

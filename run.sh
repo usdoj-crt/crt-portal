@@ -5,8 +5,9 @@
 echo Migrating database...
 python /code/crt_portal/manage.py migrate
 
-echo Generating css...
+echo Generating css and js...
 node node_modules/gulp/bin/gulp build-sass
+node node_modules/gulp/bin/gulp build-js
 
 # If LOCALSTACK is set in environment, this will upload static files to the localstack s3 service running in docker
 # Otherwise the development server is handling static files
