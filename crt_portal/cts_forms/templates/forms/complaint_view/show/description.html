@@ -4,18 +4,17 @@
 
 <div class="crt-portal-card crt-description-card">
   <div class="crt-portal-card__content">
-    <h3 class="complaint-card-heading text-uppercase">Personal Description</h3>
-    <p>{{ description|linebreaks }}</p>
+    <h3 class="complaint-card-heading text-uppercase">Personal description</h3>
+    <div class="word-break">
+      {{ description|linebreaks }}
+    </div>
   </div>
   <div class="crt-portal-card__content">
-    <h3 class="complaint-card-heading text-uppercase">Report Language</h3>
+    <h3 class="complaint-card-heading text-uppercase">Report language</h3>
     <p>
-
       {% for language in languages %}
         {% if language.code == data.language %}This report submitted in: {{ language.name }}{% endif %}
       {% endfor %}
-
     </p>
-
   </div>
 </div>
