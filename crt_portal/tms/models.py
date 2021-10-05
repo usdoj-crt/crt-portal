@@ -20,6 +20,13 @@ class TMSEmail(models.Model):
         (INCONCLUSIVE, 'Inconclusive'),
     ]
 
+    AUTO_EMAIL = 'auto'
+    MANUAL_EMAIL = 'manual'
+    PURPOSE_CHOICES = [
+        (AUTO_EMAIL, 'Autoresponse'),
+        (MANUAL_EMAIL, 'Manual response'),
+    ]
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     tms_id = models.BigIntegerField(unique=True)
     report = models.ForeignKey('cts_forms.Report', related_name='emails', blank=True, on_delete=models.CASCADE)
@@ -29,6 +36,7 @@ class TMSEmail(models.Model):
     created_at = models.DateTimeField()
     completed_at = models.DateTimeField(null=True)
     status = models.CharField(max_length=32, choices=STATUS_CHOICES)
+    purpose = models.CharField(max_length=32, choices=PURPOSE_CHOICES, default=MANUAL_EMAIL)
     error_message = models.TextField(help_text='If failed, this field will contain any error messages provided by TMS', null=True)
 
     def __str__(self):

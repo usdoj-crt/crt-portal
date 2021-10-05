@@ -219,10 +219,6 @@ body.is-modal {
 #external-link--modal {
   color: color($theme-color-primary-darker);
 
-  h1 {
-    margin: 0;
-  }
-
   .external-link--disclaimer {
     font-style: italic;
     font-size: $theme-text-font-size-sm;
@@ -230,21 +226,8 @@ body.is-modal {
   }
 
   #external-link--cancel {
-    margin-left: 0;
     &:focus {
       color: color($theme-color-primary-darker) !important;
-    }
-  }
-
-  #external-link--continue {
-    @include at-media-max(mobile-lg) {
-      margin-top: 1rem;
-    }
-  }
-
-  #external-link--continue {
-    @include at-media-max(mobile-lg) {
-      margin-top: 1rem;
     }
   }
 
@@ -287,12 +270,5 @@ body.is-modal {
         margin-left: 0px;
       }
     }
-  }
-}
-
-
-#contact-info-confirmation--modal {
-  .button--cancel {
-    margin: 1rem 1rem 1rem 0;
   }
 }

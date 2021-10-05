@@ -1630,8 +1630,11 @@ msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
 msgstr "或進一步瞭解<a href=\"#your-rights\">您的權利</a>"
 
 #: templates/landing.html:102
-msgid "If you are in danger, contact <a href=\"tel:911\">911</a>"
-msgstr "如果您處境危險，請聯絡 <a href=\"tel:911\">911</a>"
+msgid ""
+"If you are in danger, contact <a href=\"tel:911\" aria-label=\"9 1 1\">911</"
+"a>"
+msgstr ""
+"如果您處境危險，請聯絡 <a href=\"tel:911\" aria-label=\"9 1 1\">911</a>"
 
 #: templates/landing.html:113
 msgid ""

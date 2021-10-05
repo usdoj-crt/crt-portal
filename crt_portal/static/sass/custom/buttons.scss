@@ -3,6 +3,16 @@ button,
   background-color: color($theme-color-primary-darker);
 }
 
+/* Override above style to make sure unstyled buttons don't pick up background-color */
+.usa-button--unstyled {
+  background-color: transparent !important;
+}
+
+/* Unstyled buttons should still align even in a button group */
+.usa-button-group__item .usa-button--unstyled {
+  padding: .75rem 0.25rem;
+}
+
 .button--warning {
   background-color: color($theme-color-secondary);
   &:before {

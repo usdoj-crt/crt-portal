@@ -16,6 +16,7 @@ from django.views.decorators.cache import never_cache
 from django.views.generic import TemplateView
 
 from formtools.wizard.views import SessionWizardView
+from tms.models import TMSEmail
 
 from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               CORRECTIONAL_FACILITY_LOCATION_DICT,
@@ -142,14 +143,15 @@ def show_location_form_condition(wizard):
 
 
 def send_autoresponse_mail(report):
-    # Guaranteed to find only one email template, or set to None
-    template = ResponseTemplate.objects.filter(title='CRT Auto response', language=report.language).first()
+    # Guaranteed to find only one email template, or set to None. If the letter template
+    # template in the report's language is not found, default to sending the English letter
+    template = ResponseTemplate.objects.filter(title='CRT Auto response', language=report.language).first() or ResponseTemplate.objects.filter(title='CRT Auto response', language='en').first()
 
     # Skip automated response if complainant doesn't provide an email
     # or if the auto response template doesn't exist
     if report.contact_email and template:
         try:
-            sent = crt_send_mail(report, template)
+            sent = crt_send_mail(report, template, TMSEmail.AUTO_EMAIL)
             if sent:
                 description = f"Automated response email sent: '{template.title}' to {report.contact_email} for report {report.public_id}"
             else:

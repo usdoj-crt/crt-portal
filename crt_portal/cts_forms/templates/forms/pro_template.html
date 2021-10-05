@@ -20,7 +20,7 @@
     <div class="margin-top-3 display-flex flex-align-end">
       {% include "forms/question_cards/date.html" with question='CRT receipt date' month=form.crt_reciept_month day=form.crt_reciept_day year=form.crt_reciept_year required=False %}
       <button id="today-receipt-btn" name="today-receipt-date" label="autofill receipt date"
-        class="look-like-link autofill_today_btn" type="button">Today</button>
+        class="usa-button usa-button--unstyled autofill_today_btn" type="button">Today</button>
     </div>
     <div class="margin-top-4">
       {% include "forms/question_cards/single_question.html" with field=form.intake_format %}
@@ -82,7 +82,7 @@
     <div class="margin-top-3 display-flex flex-align-end">
       {% include "forms/question_cards/date.html" with card_title='Date' question=form.date_question month=form.last_incident_month day=form.last_incident_day year=form.last_incident_year required=False %}
       <button id="today-complaint-btn" name="today-complaint-date" label="autofill complaint date"
-        class="look-like-link autofill_today_btn flex-align-end" type="button">
+        class="usa-button usa-button--unstyled autofill_today_btn flex-align-end" type="button">
         Today
       </button>
     </div>

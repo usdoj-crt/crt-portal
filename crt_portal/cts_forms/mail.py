@@ -23,7 +23,7 @@ def remove_disallowed_recipients(recipient_list):
     return recipient_list
 
 
-def crt_send_mail(report, template):
+def crt_send_mail(report, template, purpose=TMSEmail.MANUAL_EMAIL):
     """
     Given a report and a template, use django's builtin `send_mail` to generate and send
     an outbound email
@@ -47,6 +47,7 @@ def crt_send_mail(report, template):
                  body=message,
                  report=report,
                  created_at=datetime.strptime(response['created_at'], '%Y-%m-%dT%H:%M:%S%z'),
-                 status=response['status']
+                 status=response['status'],
+                 purpose=purpose
                  ).save()
     return send_results

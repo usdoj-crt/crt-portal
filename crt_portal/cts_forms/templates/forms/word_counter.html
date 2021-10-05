@@ -1,12 +1,12 @@
 {% load i18n %}
 
 <noscript>
-  <em>{% blocktrans with word_limit=word_limit %}
+  <span class="usa-hint usa-character-count__message">{% blocktrans with word_limit=word_limit %}
     {{ word_limit }} word limit.
-  {% endblocktrans %}</em>
+  {% endblocktrans %}</span>
 </noscript>
 <div id="word_count_area" hidden>
-  <em id="word_limit_message" class="margin-bottom-0" role="tooltip"  aria-live="polite"></em>
+  <span id="word_limit_message" class="usa-hint usa-character-count__message" aria-live="polite"></span>
   <div id="word_limit_alert"
        role="alert"
        class="usa-alert usa-alert--warning usa-alert--slim"

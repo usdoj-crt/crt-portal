@@ -4,7 +4,7 @@
   <div class="modal-wrapper" role="dialog" aria-modal="true" aria-describedby="modal_dialog_header">
     <div class="modal-content modal-content--small">
       <div class="modal-header">
-        <h1 id="modal_dialog_header" class="h2__display">
+        <h1 id="modal_dialog_header" class="h2__display margin-0">
           {% trans "You are now leaving the Department of Justice website." %}
         </h1>
       </div>
@@ -18,8 +18,14 @@
           {% trans "The Department of Justice does not endorse the organizations or views represented by this site and takes no responsibility for, and exercises no control over, the accuracy, accessibility, copyright or trademark compliance or legality of the material contained on this site." %}
         </p>
         <div class="modal-footer">
-          <a id="external-link--cancel" href="#" class="usa-button usa-button--outline button--cancel light-button">{% trans "Back" %}</a>
-          <a id="external-link--continue" href="#" class="usa-button button--continue">{% trans "Continue" %}</a>
+          <ul class="usa-button-group">
+            <li class="usa-button-group__item">
+              <a id="external-link--cancel" href="#" class="usa-button usa-button--outline button--cancel light-button">{% trans "Back" %}</a>
+            </li>
+            <li class="usa-button-group__item">
+              <a id="external-link--continue" href="#" class="usa-button button--continue">{% trans "Continue" %}</a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

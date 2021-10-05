@@ -5,8 +5,10 @@
       "actions": [
         "wait for element #id_0-servicemember_1 to be visible",
         "click element #id_0-servicemember_1",
-        "wait for element #submit-next to be visible",
-        "click element #submit-next",
+        "wait for element #report-step-1-continue to be visible",
+        "click element #report-step-1-continue",
+        "wait for element #external-link--continue to be visible",
+        "click element #external-link--continue",
         "wait for element #id_1-primary_complaint to be visible",
         "click element #id_1-primary_complaint_0",
         "wait for element #submit-next to be visible",
@@ -35,6 +37,7 @@
         "click element #submit-next",
         "wait for element #page-errors to be visible",
         "set field #id_10-last_incident_year to 2021",
+        "set field #id_10-last_incident_month to 0",
         "wait for element #submit-next to be visible",
         "click element #submit-next",
         "wait for element #page-errors to be visible"

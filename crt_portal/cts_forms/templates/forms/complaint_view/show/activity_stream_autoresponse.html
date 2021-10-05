@@ -1,0 +1,11 @@
+<li class="activity-stream-item">
+  <div class="display-flex flex-justify">
+    <b>system</b>
+    <span class="date font-sans-sm flex-align-end">
+      {{ autoresponse_email.created_at|date:'n/d/y'}} {{ autoresponse_email.created_at|time}}
+    </span>
+  </div>
+  <p class="margin-top-05">
+    Automated response e-mail sent: '{{ autoresponse_email.subject }}' to {{ autoresponse_email.recipient }}
+  </p>
+</li>

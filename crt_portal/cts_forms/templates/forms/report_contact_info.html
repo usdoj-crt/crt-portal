@@ -13,24 +13,23 @@
 {% endblock %}
 
 {% block form_questions %}
-{% include "partials/contact-info-confirmation-modal.html" %}
-<div class="crt-portal-card crt-portal-card">
-  <div class="crt-portal-card__content crt-portal-card__content--lg">
-    {{ block.super }}
-    <p class="help-text">{{ form.help_text.0 }}</p>
+  <div class="crt-portal-card crt-portal-card">
+    <div class="crt-portal-card__content crt-portal-card__content--lg">
+      {{ block.super }}
+      <p class="help-text">{{ form.help_text.0 }}</p>
 
-    {% include "forms/question_cards/contact.html" %}
+      {% include "forms/question_cards/contact.html" %}
+    </div>
   </div>
-</div>
 
   <div role="group" aria-labelledby="servicemember-help-text">
     {% include "forms/question_cards/single_form.html" with field=form.servicemember ally_id="servicemember-help-text" %}
   </div>
 {% endblock %}
 
-{%  block submit-button %}
+{% block submit-button %}
     <br />
-    <button class="usa-button button--continue report-step-1-continue">
+    <button class="usa-button button--continue" id="report-step-1-continue">
         {% trans 'Next' %}
     </button>
     <input hidden
@@ -43,4 +42,8 @@
            {% endif %}
                    class="usa-button"
     />
+{% endblock %}
+
+{% block modals %}
+  {% include "partials/contact-info-confirmation-modal.html" %}
 {% endblock %}

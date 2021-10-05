@@ -1,8 +1,6 @@
 // USA Gov Banner Customization
 
 .usa-banner {
-  background-color: color($theme-color-base-ink);
-
   .usa-banner__header {
     padding-top: .75rem;
     padding-bottom: .75rem;
@@ -15,15 +13,6 @@
     // Touchpoints footer styling
     [id='fba-modal-dialog'] & {
       color: color($theme-color-base-darkest);
-    }
-  }
-
-  .usa-banner__button,
-  .usa-banner__header-action {
-    color: color($theme-color-warning);
-
-    &:hover {
-      color: color($theme-color-warning-light);
     }
   }
 

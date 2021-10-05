@@ -12,11 +12,15 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import json
 import os
+import sys
 
 import boto3
 import django.conf.locale
 from django.utils.log import DEFAULT_LOGGING
 from django.utils.translation import gettext_lazy as _
+
+# Are we in a test environment?
+TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -464,6 +468,11 @@ elif environment == 'LOCAL':
 
 if environment == 'LOCAL':
     from .local_settings import *  # noqa: F401,F403
+
+# Don't activate the debug toolbar in a test environment; it can unexpectedly
+# output HTML content that will break test assertions
+if TESTING:
+    ENABLE_DEBUG_TOOLBAR = False
 
 # Django debug toolbar setup
 if ENABLE_DEBUG_TOOLBAR:

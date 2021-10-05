@@ -121,8 +121,10 @@ $arrow-height: 24px;
     color: color('white');
     text-decoration: none;
 
-    &:hover {
-      border-bottom: 1px solid color('white');
+    @include at-media('desktop') {
+      &:hover {
+        border-bottom: 1px solid color('white');
+      }
     }
   }
 
@@ -182,18 +184,19 @@ $arrow-height: 24px;
 
   // again overriding USWDS defaults
   .crt-landing--menu_link {
-    color: white !important;
+    color: #162e51 !important;
     font-weight: normal !important;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    padding: 0.5rem 0 !important;
+    padding: 1rem 0.25rem;
 
-    &:hover {
-      font-weight: bold !important;
-    }
+    @include at-media('desktop') {
+      color: white !important;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 0 !important;
 
-    @include at-media-max(desktop) {
-      color: #162e51 !important;
+      &:hover {
+        font-weight: bold !important;
+      }
     }
   }
 
