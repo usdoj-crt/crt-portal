@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-27 20:52+0000\n"
+"POT-Creation-Date: 2021-10-07 17:29+0000\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:182 forms.py:1577
+#: forms.py:182 forms.py:1627
 msgid " - Select - "
 msgstr " - Chọn - "
 
@@ -121,7 +121,7 @@ msgstr ""
 msgid "Please describe \"Other reason\""
 msgstr "Vui lòng mô tả “Lý do khác”"
 
-#: forms.py:649
+#: forms.py:667
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -132,19 +132,23 @@ msgstr ""
 "diễn ra trong một khoảng thời gian hoặc vẫn đang diễn ra, vui lòng cho biết "
 "ngày gần đây nhất."
 
-#: forms.py:937
+#: forms.py:965
+msgid "Incident state"
+msgstr ""
+
+#: forms.py:973
 msgid "Primary classification"
 msgstr "Phân loại chính"
 
-#: forms.py:959
+#: forms.py:995
 msgid "Assigned to"
 msgstr "Được giao cho"
 
-#: forms.py:1134
+#: forms.py:1184
 msgid "Create date cannot be in the future."
 msgstr "Ngày tạo không được là ngày trong tương lai."
 
-#: forms.py:1317
+#: forms.py:1367
 msgid "Comment cannot be empty"
 msgstr "Nhận xét không được để trống"
 
@@ -1562,7 +1566,7 @@ msgstr ""
 msgid "Contact the Department of Justice to report a civil rights violation"
 msgstr "Liên hệ với Bộ Tư pháp để báo cáo hành vi vi phạm dân quyền"
 
-#: templates/forms/report_base.html:55
+#: templates/forms/report_base.html:54
 #, python-format
 msgid ""
 "\n"
@@ -1581,23 +1585,23 @@ msgstr[1] ""
 "                  %(counter)s lỗi được tìm thấy\n"
 "                "
 
-#: templates/forms/report_base.html:85
-#: templates/forms/report_contact_info.html:40
+#: templates/forms/report_base.html:84
+#: templates/forms/report_contact_info.html:39
 msgid "Submit"
 msgstr "Gửi"
 
-#: templates/forms/report_base.html:87
-#: templates/forms/report_contact_info.html:34
-#: templates/forms/report_contact_info.html:42
+#: templates/forms/report_base.html:86
+#: templates/forms/report_contact_info.html:33
+#: templates/forms/report_contact_info.html:41
 msgid "Next"
 msgstr "Tiếp theo"
 
-#: templates/forms/report_base.html:95 templates/forms/report_review.html:33
+#: templates/forms/report_base.html:95 templates/forms/report_review.html:34
 msgid "previous step"
 msgstr "bước trước"
 
-#: templates/forms/report_base.html:98 templates/forms/report_review.html:36
-#: templates/partials/redirect-modal.html:21
+#: templates/forms/report_base.html:98 templates/forms/report_review.html:37
+#: templates/partials/redirect-modal.html:23
 msgid "Back"
 msgstr "Quay lại"
 
@@ -1615,17 +1619,19 @@ msgid "Were you forced to work against your will?"
 msgstr "Quý vị có bị ép buộc phải làm việc trái ý mình không?"
 
 #: templates/forms/report_hate_crime.html:16
+#: templates/hate_crime_human_trafficking.html:66
 msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
 msgstr ""
-"Buôn bán người bao gồm việc bị cưỡng bức hoặc ép buộc làm việc, hoặc bị "
-"cưỡng bức hoặc ép buộc thực hiện các hành vi tình dục để đổi lấy thứ gì đó "
-"có giá trị."
+"Nạn buôn người bao gồm việc bị ép buộc hay cưỡng bức làm việc, hoặc bị ép "
+"buộc hay cưỡng bức thực hiện hành vi tình dục để được một thứ gì đó có giá "
+"trị."
 
-#: templates/forms/report_hate_crime.html:18 templates/landing.html:227
+#: templates/forms/report_hate_crime.html:18
+#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:227
 msgid "Get help from the National Human Trafficking Hotline"
-msgstr "Yêu cầu trợ giúp từ Đường dây nóng Quốc gia về Buôn bán người"
+msgstr "Nhận sự giúp đỡ từ Đường Dây Nóng Chống Buôn Người Toàn Quốc"
 
 #: templates/forms/report_maintenance.html:30
 msgid "This page is currently down for maintenance."
@@ -1690,6 +1696,61 @@ msgstr ""
 "          %(word_limit)s đã đạt đến giới hạn từ\n"
 "        "
 
+#: templates/hate_crime_human_trafficking.html:7
+#: templates/hate_crime_human_trafficking.html:14
+msgid ""
+"Civil Rights Division - Department of Justice - Get help for hate crimes and "
+"human trafficking"
+msgstr ""
+"Ban Dân Quyền - Bộ Tư pháp - Nhận sự giúp đỡ khi gặp tội ác do thù hận và "
+"nạn buôn người"
+
+#: templates/hate_crime_human_trafficking.html:25
+msgid "How do I…"
+msgstr "Tôi nên làm như thế nào để..."
+
+#: templates/hate_crime_human_trafficking.html:28
+msgid "Report a hate crime"
+msgstr "Trình báo một tội ác do thù hận"
+
+#: templates/hate_crime_human_trafficking.html:31
+msgid "Report human trafficking"
+msgstr "Trình báo nạn buôn người"
+
+#: templates/hate_crime_human_trafficking.html:37
+msgid "Get help for hate crimes and human trafficking"
+msgstr "Nhận sự giúp đỡ khi gặp tội ác do thù hận và nạn buôn người"
+
+#: templates/hate_crime_human_trafficking.html:42
+msgid "Where to report a hate crime"
+msgstr "Nơi trình báo một tội do ác thù hận"
+
+#: templates/hate_crime_human_trafficking.html:44
+msgid ""
+"A hate crime is violence or threats of violence based on race, color, "
+"national origin, religion, gender, sexual orientation, gender identity, or "
+"disability."
+msgstr ""
+"Tội ác do thù hận là bạo lực hoặc đe dọa bạo lực dựa trên chủng tộc, màu da, "
+"nguồn gốc quốc gia, tôn giáo, giới tính, khuynh hướng tình dục, bản dạng "
+"giới, hoặc sự tàn tật."
+
+#: templates/hate_crime_human_trafficking.html:48
+msgid "In cases of emergency, contact 911"
+msgstr "Trong trường hợp khẩn cấp, gọi 911"
+
+#: templates/hate_crime_human_trafficking.html:53
+msgid "Otherwise, contact the FBI online"
+msgstr "Nếu không, liên hệ với FBI trực tuyến"
+
+#: templates/hate_crime_human_trafficking.html:58
+msgid "Or a local field office by phone"
+msgstr "Hoặc văn phòng địa phương qua điện thoại"
+
+#: templates/hate_crime_human_trafficking.html:64
+msgid "Where to report human trafficking"
+msgstr "Nơi trình báo nạn buôn người"
+
 #: templates/landing.html:29
 msgid "Menu"
 msgstr ""
@@ -1702,7 +1763,7 @@ msgstr "Giới thiệu về Ban"
 msgid "Your rights"
 msgstr "Các quyền của quý vị"
 
-#: templates/landing.html:48 templates/partials/footer.html:69
+#: templates/landing.html:48 templates/partials/footer.html:70
 msgid "Report a violation"
 msgstr "Báo cáo một vi phạm"
 
@@ -1711,7 +1772,7 @@ msgid "Already submitted?"
 msgstr "Đã gửi?"
 
 #: templates/landing.html:58 templates/partials/footer.html:9
-#: views_public.py:145 views_public.py:224 views_public.py:243
+#: views_public.py:176 views_public.py:255 views_public.py:274
 msgid "Contact"
 msgstr "Liên Hệ"
 
@@ -2131,11 +2192,11 @@ msgstr ""
 "hợp có thể cần thêm thông tin.  Quý vị có muốn cung cấp thông tin liên lạc "
 "của quý vị bây giờ hay không? Nếu không muốn, quý vị sẽ chuyển sang Bước 2."
 
-#: templates/partials/contact-info-confirmation-modal.html:16
+#: templates/partials/contact-info-confirmation-modal.html:18
 msgid "No, I don't want to provide it"
 msgstr "Không, tôi không muốn cung cấp."
 
-#: templates/partials/contact-info-confirmation-modal.html:17
+#: templates/partials/contact-info-confirmation-modal.html:21
 msgid "Yes, I'd like to add it"
 msgstr "Có, tôi muốn cung cấp."
 
@@ -2147,31 +2208,31 @@ msgstr "Các Dịch vụ Hỗ trợ Ngôn ngữ sẵn có"
 msgid "Links"
 msgstr "Các liên kết"
 
-#: templates/partials/footer.html:66
+#: templates/partials/footer.html:67
 msgid "About the division"
 msgstr "Giới thiệu về ban"
 
-#: templates/partials/footer.html:72
+#: templates/partials/footer.html:73
 msgid "Privacy policy"
 msgstr "Chính sách quyền riêng tư"
 
-#: templates/partials/footer.html:75
+#: templates/partials/footer.html:76
 msgid "FOIA"
 msgstr "FOIA (Freedom of Information Act, Đạo Luật Tự Do Thông Tin)"
 
-#: templates/partials/footer.html:78
+#: templates/partials/footer.html:79
 msgid "Accessibility"
 msgstr "Khả Năng Tiếp Cận"
 
-#: templates/partials/footer.html:90
+#: templates/partials/footer.html:91
 msgid "Office of Inspector General"
 msgstr "Văn phòng Tổng Thanh tra"
 
-#: templates/partials/footer.html:93
+#: templates/partials/footer.html:94
 msgid "Budget and performance"
 msgstr "Ngân sách và hiệu quả"
 
-#: templates/partials/footer.html:96
+#: templates/partials/footer.html:97
 msgid "Legal policies and Disclaimers"
 msgstr "Chính sách pháp lý và Tuyên bố miễn trách nhiệm"
 
@@ -2264,7 +2325,7 @@ msgstr ""
 "khả năng truy cập, tuân thủ bản quyền hoặc thương hiệu hoặc tính hợp pháp "
 "của tài liệu có trên trang web này."
 
-#: templates/partials/redirect-modal.html:22
+#: templates/partials/redirect-modal.html:26
 msgid "Continue"
 msgstr "Tiếp tục"
 
@@ -2632,73 +2693,73 @@ msgstr ""
 msgid "Enter a valid email address."
 msgstr "điền vào địa chỉ email hợp lệ"
 
-#: views_public.py:146 views_public.py:225 views_public.py:226
-#: views_public.py:244 views_public.py:245 views_public.py:280
+#: views_public.py:177 views_public.py:256 views_public.py:257
+#: views_public.py:275 views_public.py:276 views_public.py:311
 msgid "Primary concern"
 msgstr "Mối quan ngại chính"
 
-#: views_public.py:147 views_public.py:227 views_public.py:228
-#: views_public.py:229 views_public.py:230 views_public.py:231
-#: views_public.py:232
+#: views_public.py:178 views_public.py:258 views_public.py:259
+#: views_public.py:260 views_public.py:261 views_public.py:262
+#: views_public.py:263
 msgid "Location"
 msgstr "Địa điểm"
 
-#: views_public.py:148 views_public.py:233 views_public.py:252
+#: views_public.py:179 views_public.py:264 views_public.py:283
 msgid "Personal characteristics"
 msgstr "Các đặc điểm cá nhân"
 
-#: views_public.py:149 views_public.py:234 views_public.py:253
+#: views_public.py:180 views_public.py:265 views_public.py:284
 msgid "Date"
 msgstr "Ngày"
 
-#: views_public.py:150 views_public.py:235 views_public.py:254
+#: views_public.py:181 views_public.py:266 views_public.py:285
 msgid "Personal description"
 msgstr "Mô tả cá nhân"
 
-#: views_public.py:151 views_public.py:236 views_public.py:285
+#: views_public.py:182 views_public.py:267 views_public.py:316
 msgid "Review"
 msgstr "Đánh giá"
 
-#: views_public.py:246 views_public.py:247 views_public.py:248
-#: views_public.py:249 views_public.py:250 views_public.py:251
+#: views_public.py:277 views_public.py:278 views_public.py:279
+#: views_public.py:280 views_public.py:281 views_public.py:282
 msgid "Location details"
 msgstr "Thông tin chi tiết về địa điểm"
 
-#: views_public.py:255
+#: views_public.py:286
 msgid "Review your report"
 msgstr "Đánh giá báo cáo của quý vị"
 
-#: views_public.py:271
+#: views_public.py:302
 msgid "word remaining"
 msgstr "từ còn lại"
 
-#: views_public.py:272
+#: views_public.py:303
 msgid " words remaining"
 msgstr " các từ còn lại"
 
-#: views_public.py:273
+#: views_public.py:304
 msgid " word limit reached"
 msgstr " đã đạt đến giới hạn từ"
 
-#: views_public.py:283
+#: views_public.py:314
 msgid "Please select if any that apply to your situation (optional)"
 msgstr ""
 "Vui lòng chọn nếu có bất kỳ câu trả lời nào phù hợp với tình huống của quý "
 "vị (tùy chọn)"
 
-#: views_public.py:359
+#: views_public.py:394
 msgid "404 | Page not found"
 msgstr "404 | Không tìm thấy trang"
 
-#: views_public.py:360
+#: views_public.py:395
 msgid "We can't find the page you are looking for"
 msgstr "Chúng tôi không thể tìm thấy trang quý vị đang tìm kiếm"
 
-#: views_public.py:419
+#: views_public.py:454
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Trình duyệt của quý vị không thể tạo cookie an toàn"
 
-#: views_public.py:420
+#: views_public.py:455
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "

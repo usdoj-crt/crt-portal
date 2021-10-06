@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-09 15:41+0000\n"
+"POT-Creation-Date: 2021-10-07 17:29+0000\n"
 "Language: Tagalog\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:182 forms.py:1586
+#: forms.py:182 forms.py:1627
 msgid " - Select - "
 msgstr " - Pumili - "
 
@@ -121,7 +121,7 @@ msgstr ""
 msgid "Please describe \"Other reason\""
 msgstr "Mangyaring ilarawan ang “Ibang dahilan”"
 
-#: forms.py:649
+#: forms.py:667
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -132,19 +132,23 @@ msgstr ""
 "kasalukuyan pa ring nangyayari, mangyaring ibigay ang pinaka-kamakailan na "
 "petsa."
 
-#: forms.py:937
+#: forms.py:965
+msgid "Incident state"
+msgstr ""
+
+#: forms.py:973
 msgid "Primary classification"
 msgstr "Pangunahing pag-uuri"
 
-#: forms.py:959
+#: forms.py:995
 msgid "Assigned to"
 msgstr "Naitalaga kay"
 
-#: forms.py:1143
+#: forms.py:1184
 msgid "Create date cannot be in the future."
 msgstr "Ang petsa na inilikha ay hindi maaaring sa hinaharap."
 
-#: forms.py:1326
+#: forms.py:1367
 msgid "Comment cannot be empty"
 msgstr "Ang puna ay hindi maaaring walang laman"
 
@@ -1594,7 +1598,7 @@ msgstr ""
 "Makipag-ugnay sa Kagawaran ng Katarungan upang mag-ulat ng isang Paglabag sa "
 "mga karapatang sibil"
 
-#: templates/forms/report_base.html:55
+#: templates/forms/report_base.html:54
 #, python-format
 msgid ""
 "\n"
@@ -1611,23 +1615,23 @@ msgstr[1] ""
 "\n"
 "                  %(counter)s kamaliang natagpuan                "
 
-#: templates/forms/report_base.html:85
-#: templates/forms/report_contact_info.html:40
+#: templates/forms/report_base.html:84
+#: templates/forms/report_contact_info.html:39
 msgid "Submit"
 msgstr "i-sumite"
 
-#: templates/forms/report_base.html:87
-#: templates/forms/report_contact_info.html:34
-#: templates/forms/report_contact_info.html:42
+#: templates/forms/report_base.html:86
+#: templates/forms/report_contact_info.html:33
+#: templates/forms/report_contact_info.html:41
 msgid "Next"
 msgstr "Kasunod"
 
-#: templates/forms/report_base.html:95 templates/forms/report_review.html:33
+#: templates/forms/report_base.html:95 templates/forms/report_review.html:34
 msgid "previous step"
 msgstr "nakaraang hakbang"
 
-#: templates/forms/report_base.html:98 templates/forms/report_review.html:36
-#: templates/partials/redirect-modal.html:21
+#: templates/forms/report_base.html:98 templates/forms/report_review.html:37
+#: templates/partials/redirect-modal.html:23
 msgid "Back"
 msgstr "Balik"
 
@@ -1645,17 +1649,20 @@ msgid "Were you forced to work against your will?"
 msgstr "Pinilit ka bang magtrabaho ng laban sa iyong kalooban?"
 
 #: templates/forms/report_hate_crime.html:16
+#: templates/hate_crime_human_trafficking.html:66
 msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
 msgstr ""
-"Kabilang sa panlilinlang ng mga tao ang pinilit o tinakot na magtrabaho, o "
-"pinilit o tinakot na makisali sa mga sekswal na kilos kapalit ng mahalagang "
-"bagay. "
+"Kasama sa panlilinlang ng mga tao ang pagsasapilitan o pagpipilit na gumawa "
+"ng trabaho, o pagsapilitan o pagpilit na makisali sa mga gawaing sekswal "
+"bilang kapalit sa isang bagay na may halaga."
 
-#: templates/forms/report_hate_crime.html:18 templates/landing.html:227
+#: templates/forms/report_hate_crime.html:18
+#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:227
 msgid "Get help from the National Human Trafficking Hotline"
-msgstr "Humingi ng tulong sa National Human Trafficking Hotline"
+msgstr ""
+"Humingi ng tulong mula sa Pambansang Hotline sa Panlilinlang ng mga Tao"
 
 #: templates/forms/report_maintenance.html:30
 msgid "This page is currently down for maintenance."
@@ -1721,6 +1728,62 @@ msgstr ""
 "          %(word_limit)s naabot na ang hangganan ng salita\n"
 "        "
 
+#: templates/hate_crime_human_trafficking.html:7
+#: templates/hate_crime_human_trafficking.html:14
+msgid ""
+"Civil Rights Division - Department of Justice - Get help for hate crimes and "
+"human trafficking"
+msgstr ""
+"Dibisyon sa mga Karapatang Sibil - Kagawaran ng Katarungan - Humingi ng "
+"tulong para sa mga krimen sa pagkapoot at panlilinlang ng mga tao"
+
+#: templates/hate_crime_human_trafficking.html:25
+msgid "How do I…"
+msgstr "Paano ako…"
+
+#: templates/hate_crime_human_trafficking.html:28
+msgid "Report a hate crime"
+msgstr "Mag-ulat ng isang krimen sa pagkapoot"
+
+#: templates/hate_crime_human_trafficking.html:31
+msgid "Report human trafficking"
+msgstr "Mag-ulat ng panlilinlang ng mga tao"
+
+#: templates/hate_crime_human_trafficking.html:37
+msgid "Get help for hate crimes and human trafficking"
+msgstr ""
+"Humingi ng tulong para sa mga krimen sa pagkapoot at panlilinlang ng mga tao"
+
+#: templates/hate_crime_human_trafficking.html:42
+msgid "Where to report a hate crime"
+msgstr "Saan iuulat ang isang krimen sa pagkapoot"
+
+#: templates/hate_crime_human_trafficking.html:44
+msgid ""
+"A hate crime is violence or threats of violence based on race, color, "
+"national origin, religion, gender, sexual orientation, gender identity, or "
+"disability."
+msgstr ""
+"Ang isang krimen sa pagkapoot ay karahasan o mga pananakot ng karahasan "
+"batay sa lahi, kulay, pambansang pinagmulan, relihiyon, kasarian, "
+"oryentasyong sekswal, pagkakakilanlan ng kasarian, o kapansanan."
+
+#: templates/hate_crime_human_trafficking.html:48
+msgid "In cases of emergency, contact 911"
+msgstr "Kung sakaling may kagipitan, makipag-ugnay sa 911"
+
+#: templates/hate_crime_human_trafficking.html:53
+msgid "Otherwise, contact the FBI online"
+msgstr "Kung hindi man, makipag-ugnay sa FBI sa online"
+
+#: templates/hate_crime_human_trafficking.html:58
+msgid "Or a local field office by phone"
+msgstr "O sa isang lokal na tanggapan ng FBI sa pamamagitan ng telepono"
+
+#: templates/hate_crime_human_trafficking.html:64
+msgid "Where to report human trafficking"
+msgstr "Biktima ng panlilinlang ng mga tao"
+
 #: templates/landing.html:29
 msgid "Menu"
 msgstr "Nabigasyon"
@@ -1733,7 +1796,7 @@ msgstr "Tungkol sa Dibisyon"
 msgid "Your rights"
 msgstr "Ang iyong mga karapatan"
 
-#: templates/landing.html:48 templates/partials/footer.html:69
+#: templates/landing.html:48 templates/partials/footer.html:70
 msgid "Report a violation"
 msgstr "Mag-ulat ng paglabag"
 
@@ -1742,7 +1805,7 @@ msgid "Already submitted?"
 msgstr "Naisumite na?"
 
 #: templates/landing.html:58 templates/partials/footer.html:9
-#: views_public.py:145 views_public.py:224 views_public.py:243
+#: views_public.py:176 views_public.py:255 views_public.py:274
 msgid "Contact"
 msgstr "Makipag-ugnay"
 
@@ -2178,11 +2241,11 @@ msgstr ""
 "impormasyon sa pakikipag-ugnay ngayon? Kung pipiliin mo na hindi, mapupunta "
 "ka sa Hakbang 2."
 
-#: templates/partials/contact-info-confirmation-modal.html:16
+#: templates/partials/contact-info-confirmation-modal.html:18
 msgid "No, I don't want to provide it"
 msgstr "Hindi, ayaw kong ibigay ito."
 
-#: templates/partials/contact-info-confirmation-modal.html:17
+#: templates/partials/contact-info-confirmation-modal.html:21
 msgid "Yes, I'd like to add it"
 msgstr "Oo, gusto kong idagdag ito."
 
@@ -2194,31 +2257,31 @@ msgstr "Mga Handog na Serbisyong Tulong sa Wika"
 msgid "Links"
 msgstr "Mga Kawing"
 
-#: templates/partials/footer.html:66
+#: templates/partials/footer.html:67
 msgid "About the division"
 msgstr "Tungkol sa Dibisyon"
 
-#: templates/partials/footer.html:72
+#: templates/partials/footer.html:73
 msgid "Privacy policy"
 msgstr "Patakaran sa pagkapribado"
 
-#: templates/partials/footer.html:75
+#: templates/partials/footer.html:76
 msgid "FOIA"
 msgstr "FOIA"
 
-#: templates/partials/footer.html:78
+#: templates/partials/footer.html:79
 msgid "Accessibility"
 msgstr "Kakayahang makuha"
 
-#: templates/partials/footer.html:90
+#: templates/partials/footer.html:91
 msgid "Office of Inspector General"
 msgstr "Tanggapan ng Inspektor Heneral"
 
-#: templates/partials/footer.html:93
+#: templates/partials/footer.html:94
 msgid "Budget and performance"
 msgstr "Badyet at pagganap"
 
-#: templates/partials/footer.html:96
+#: templates/partials/footer.html:97
 msgid "Legal policies and Disclaimers"
 msgstr "Ligal na mga patakaran at mga Pagtanggi"
 
@@ -2317,7 +2380,7 @@ msgstr ""
 "sa karapatang magpalathala o marka ng kalakal o pagiging ligal ng mga "
 "materyales na nilalaman ng sityo na ito."
 
-#: templates/partials/redirect-modal.html:22
+#: templates/partials/redirect-modal.html:26
 msgid "Continue"
 msgstr "Ipagpatuloy"
 
@@ -2684,72 +2747,72 @@ msgstr ""
 msgid "Enter a valid email address."
 msgstr "Maglagay ng wastong email address."
 
-#: views_public.py:146 views_public.py:225 views_public.py:226
-#: views_public.py:244 views_public.py:245 views_public.py:280
+#: views_public.py:177 views_public.py:256 views_public.py:257
+#: views_public.py:275 views_public.py:276 views_public.py:311
 msgid "Primary concern"
 msgstr "Pangunahing pagkabahala"
 
-#: views_public.py:147 views_public.py:227 views_public.py:228
-#: views_public.py:229 views_public.py:230 views_public.py:231
-#: views_public.py:232
+#: views_public.py:178 views_public.py:258 views_public.py:259
+#: views_public.py:260 views_public.py:261 views_public.py:262
+#: views_public.py:263
 msgid "Location"
 msgstr "Lugar"
 
-#: views_public.py:148 views_public.py:233 views_public.py:252
+#: views_public.py:179 views_public.py:264 views_public.py:283
 msgid "Personal characteristics"
 msgstr "Personal na mga katangian"
 
-#: views_public.py:149 views_public.py:234 views_public.py:253
+#: views_public.py:180 views_public.py:265 views_public.py:284
 msgid "Date"
 msgstr "Petsa"
 
-#: views_public.py:150 views_public.py:235 views_public.py:254
+#: views_public.py:181 views_public.py:266 views_public.py:285
 msgid "Personal description"
 msgstr "Personal na paglalarawan"
 
-#: views_public.py:151 views_public.py:236 views_public.py:285
+#: views_public.py:182 views_public.py:267 views_public.py:316
 msgid "Review"
 msgstr "Pagsusuri"
 
-#: views_public.py:246 views_public.py:247 views_public.py:248
-#: views_public.py:249 views_public.py:250 views_public.py:251
+#: views_public.py:277 views_public.py:278 views_public.py:279
+#: views_public.py:280 views_public.py:281 views_public.py:282
 msgid "Location details"
 msgstr "Mga detalye ng lugar"
 
-#: views_public.py:255
+#: views_public.py:286
 msgid "Review your report"
 msgstr "Suriin ang iyong ulat"
 
-#: views_public.py:271
+#: views_public.py:302
 msgid "word remaining"
 msgstr "natitirang salita"
 
-#: views_public.py:272
+#: views_public.py:303
 msgid " words remaining"
 msgstr " natitirang mga salita"
 
-#: views_public.py:273
+#: views_public.py:304
 msgid " word limit reached"
 msgstr " naabot na ang hangganan ng salita"
 
-#: views_public.py:283
+#: views_public.py:314
 msgid "Please select if any that apply to your situation (optional)"
 msgstr ""
 "Mangyaring pumili kung mayroong naaangkop  sa iyong sitwasyon (opsyonal)"
 
-#: views_public.py:359
+#: views_public.py:394
 msgid "404 | Page not found"
 msgstr "404 | Pahina ay hindi makita"
 
-#: views_public.py:360
+#: views_public.py:395
 msgid "We can't find the page you are looking for"
 msgstr "Hindi namin makita ang pahina na iyong hinahanap"
 
-#: views_public.py:419
+#: views_public.py:454
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Ang iyong browser ay hindi makalikha ng matatag na cookie"
 
-#: views_public.py:420
+#: views_public.py:455
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "

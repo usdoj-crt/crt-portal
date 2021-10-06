@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-09 15:26+0000\n"
+"POT-Creation-Date: 2021-10-07 17:29+0000\n"
 "Language: SpanishMIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:182 forms.py:1577
+#: forms.py:182 forms.py:1627
 msgid " - Select - "
 msgstr " - Elija - "
 
@@ -122,7 +122,7 @@ msgstr ""
 msgid "Please describe \"Other reason\""
 msgstr "Favor de describir \"Otro motivo\""
 
-#: forms.py:649
+#: forms.py:667
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -132,21 +132,27 @@ msgstr ""
 "tomar las medidas apropiadas. Si sucedió a lo largo de un período de tiempo "
 "o todavía está sucediendo, favor de indicar la fecha más reciente."
 
-#: forms.py:937
+#: forms.py:965
+#, fuzzy
+#| msgid "Incident location state"
+msgid "Incident state"
+msgstr "Estado en que ocurrió el incidente"
+
+#: forms.py:973
 msgid "Primary classification"
 msgstr "Clasificación principal"
 
-#: forms.py:959
+#: forms.py:995
 msgid "Assigned to"
 msgstr "Asignado a"
 
-#: forms.py:1134
+#: forms.py:1184
 #, fuzzy
 #| msgid "Date can not be in the future."
 msgid "Create date cannot be in the future."
 msgstr "La fecha no puede ser en el futuro."
 
-#: forms.py:1317
+#: forms.py:1367
 msgid "Comment cannot be empty"
 msgstr ""
 
@@ -1578,7 +1584,7 @@ msgstr ""
 "Para informar de una vulneración de derechos civiles comuníquese con el "
 "Departamento de Justicia"
 
-#: templates/forms/report_base.html:55
+#: templates/forms/report_base.html:54
 #, python-format
 msgid ""
 "\n"
@@ -1597,23 +1603,23 @@ msgstr[1] ""
 "                  %(counter)s errores encontrados\n"
 "                "
 
-#: templates/forms/report_base.html:85
-#: templates/forms/report_contact_info.html:40
+#: templates/forms/report_base.html:84
+#: templates/forms/report_contact_info.html:39
 msgid "Submit"
 msgstr "Entregar"
 
-#: templates/forms/report_base.html:87
-#: templates/forms/report_contact_info.html:34
-#: templates/forms/report_contact_info.html:42
+#: templates/forms/report_base.html:86
+#: templates/forms/report_contact_info.html:33
+#: templates/forms/report_contact_info.html:41
 msgid "Next"
 msgstr "Siguiente"
 
-#: templates/forms/report_base.html:95 templates/forms/report_review.html:33
+#: templates/forms/report_base.html:95 templates/forms/report_review.html:34
 msgid "previous step"
 msgstr "paso previo"
 
-#: templates/forms/report_base.html:98 templates/forms/report_review.html:36
-#: templates/partials/redirect-modal.html:21
+#: templates/forms/report_base.html:98 templates/forms/report_review.html:37
+#: templates/partials/redirect-modal.html:23
 msgid "Back"
 msgstr "Volver"
 
@@ -1631,6 +1637,7 @@ msgid "Were you forced to work against your will?"
 msgstr "¿Le obligaron a trabajar en contra de su voluntad?"
 
 #: templates/forms/report_hate_crime.html:16
+#: templates/hate_crime_human_trafficking.html:66
 msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
@@ -1638,7 +1645,8 @@ msgstr ""
 "La trata de personas incluye ser forzado o coaccionado a hacer trabajo, o "
 "forzado o coaccionado a participar en actos sexuales por algo de valor."
 
-#: templates/forms/report_hate_crime.html:18 templates/landing.html:227
+#: templates/forms/report_hate_crime.html:18
+#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:227
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "Reciba ayuda de la Línea Nacional contra la Trata de Personas"
 
@@ -1702,6 +1710,78 @@ msgstr ""
 "          %(word_limit)s límite de palabras alcanzado\n"
 "        "
 
+#: templates/hate_crime_human_trafficking.html:7
+#: templates/hate_crime_human_trafficking.html:14
+#, fuzzy
+#| msgid "Civil Rights Division - Department of Justice - Privacy Policy"
+msgid ""
+"Civil Rights Division - Department of Justice - Get help for hate crimes and "
+"human trafficking"
+msgstr ""
+"La División de Derechos Civiles - Departamento de Justicia - Política de "
+"privacidad"
+
+#: templates/hate_crime_human_trafficking.html:25
+msgid "How do I…"
+msgstr ""
+
+#: templates/hate_crime_human_trafficking.html:28
+#, fuzzy
+#| msgid "Victim of a hate crime"
+msgid "Report a hate crime"
+msgstr "Víctima de un delito de odio"
+
+#: templates/hate_crime_human_trafficking.html:31
+#, fuzzy
+#| msgid "Victim of human trafficking"
+msgid "Report human trafficking"
+msgstr "Víctima de la trata de personas"
+
+#: templates/hate_crime_human_trafficking.html:37
+#, fuzzy
+#| msgid "Get help from the National Human Trafficking Hotline"
+msgid "Get help for hate crimes and human trafficking"
+msgstr "Reciba ayuda de la Línea Nacional contra la Trata de Personas"
+
+#: templates/hate_crime_human_trafficking.html:42
+#, fuzzy
+#| msgid "Victim of a hate crime"
+msgid "Where to report a hate crime"
+msgstr "Víctima de un delito de odio"
+
+#: templates/hate_crime_human_trafficking.html:44
+#, fuzzy
+#| msgid ""
+#| "Physical harm or threats of violence based on race, color, national "
+#| "origin, religion, gender, sexual orientation, gender identity, or "
+#| "disability"
+msgid ""
+"A hate crime is violence or threats of violence based on race, color, "
+"national origin, religion, gender, sexual orientation, gender identity, or "
+"disability."
+msgstr ""
+"Daño físico o amenazas de violencia por motivos de raza, color de piel, "
+"origen nacional, religión, género, orientación sexual, identidad de género o "
+"discapacidad"
+
+#: templates/hate_crime_human_trafficking.html:48
+msgid "In cases of emergency, contact 911"
+msgstr ""
+
+#: templates/hate_crime_human_trafficking.html:53
+msgid "Otherwise, contact the FBI online"
+msgstr ""
+
+#: templates/hate_crime_human_trafficking.html:58
+msgid "Or a local field office by phone"
+msgstr ""
+
+#: templates/hate_crime_human_trafficking.html:64
+#, fuzzy
+#| msgid "Victim of human trafficking"
+msgid "Where to report human trafficking"
+msgstr "Víctima de la trata de personas"
+
 #: templates/landing.html:29
 msgid "Menu"
 msgstr ""
@@ -1714,7 +1794,7 @@ msgstr "Acerca de la División"
 msgid "Your rights"
 msgstr "Sus derechos"
 
-#: templates/landing.html:48 templates/partials/footer.html:69
+#: templates/landing.html:48 templates/partials/footer.html:70
 msgid "Report a violation"
 msgstr "Informe sobre una vulneración"
 
@@ -1723,7 +1803,7 @@ msgid "Already submitted?"
 msgstr "¿Ya nos informó de una vulneración?"
 
 #: templates/landing.html:58 templates/partials/footer.html:9
-#: views_public.py:145 views_public.py:224 views_public.py:243
+#: views_public.py:176 views_public.py:255 views_public.py:274
 msgid "Contact"
 msgstr "Contacto"
 
@@ -2144,11 +2224,11 @@ msgstr ""
 "necesario. ¿Quisiera agregar sus datos de contacto ahora? Si prefiere no "
 "hacerlo, pasará al Paso 2."
 
-#: templates/partials/contact-info-confirmation-modal.html:16
+#: templates/partials/contact-info-confirmation-modal.html:18
 msgid "No, I don't want to provide it"
 msgstr "No, no quiero proporcionarlos."
 
-#: templates/partials/contact-info-confirmation-modal.html:17
+#: templates/partials/contact-info-confirmation-modal.html:21
 msgid "Yes, I'd like to add it"
 msgstr "Sí, quisiera agregarlos."
 
@@ -2160,31 +2240,31 @@ msgstr "Disponibilidad de servicios de asistencia lingüística"
 msgid "Links"
 msgstr "Enlaces"
 
-#: templates/partials/footer.html:66
+#: templates/partials/footer.html:67
 msgid "About the division"
 msgstr "Acerca de la División"
 
-#: templates/partials/footer.html:72
+#: templates/partials/footer.html:73
 msgid "Privacy policy"
 msgstr "Política de privacidad"
 
-#: templates/partials/footer.html:75
+#: templates/partials/footer.html:76
 msgid "FOIA"
 msgstr "Ley de libertad de información (FOIA por sus siglas en inglés)"
 
-#: templates/partials/footer.html:78
+#: templates/partials/footer.html:79
 msgid "Accessibility"
 msgstr "Accesibilidad"
 
-#: templates/partials/footer.html:90
+#: templates/partials/footer.html:91
 msgid "Office of Inspector General"
 msgstr "Oficina del Inspector General"
 
-#: templates/partials/footer.html:93
+#: templates/partials/footer.html:94
 msgid "Budget and performance"
 msgstr "Presupuesto y rendimiento"
 
-#: templates/partials/footer.html:96
+#: templates/partials/footer.html:97
 msgid "Legal policies and Disclaimers"
 msgstr "Politicas Legales y Descargos de Responsabilidades"
 
@@ -2278,7 +2358,7 @@ msgstr ""
 "sobre la precisión, la accesibilidad, el cumplimiento con los derechos de "
 "autor o marca registrada o la legalidad del material contenido en este sitio."
 
-#: templates/partials/redirect-modal.html:22
+#: templates/partials/redirect-modal.html:26
 msgid "Continue"
 msgstr "Continúe"
 
@@ -2665,71 +2745,71 @@ msgstr ""
 msgid "Enter a valid email address."
 msgstr "Dirección de correo electrónico"
 
-#: views_public.py:146 views_public.py:225 views_public.py:226
-#: views_public.py:244 views_public.py:245 views_public.py:280
+#: views_public.py:177 views_public.py:256 views_public.py:257
+#: views_public.py:275 views_public.py:276 views_public.py:311
 msgid "Primary concern"
 msgstr "Motivo principal de preocupación"
 
-#: views_public.py:147 views_public.py:227 views_public.py:228
-#: views_public.py:229 views_public.py:230 views_public.py:231
-#: views_public.py:232
+#: views_public.py:178 views_public.py:258 views_public.py:259
+#: views_public.py:260 views_public.py:261 views_public.py:262
+#: views_public.py:263
 msgid "Location"
 msgstr "Lugar"
 
-#: views_public.py:148 views_public.py:233 views_public.py:252
+#: views_public.py:179 views_public.py:264 views_public.py:283
 msgid "Personal characteristics"
 msgstr "Características personales"
 
-#: views_public.py:149 views_public.py:234 views_public.py:253
+#: views_public.py:180 views_public.py:265 views_public.py:284
 msgid "Date"
 msgstr "Fecha"
 
-#: views_public.py:150 views_public.py:235 views_public.py:254
+#: views_public.py:181 views_public.py:266 views_public.py:285
 msgid "Personal description"
 msgstr "Descripción personal"
 
-#: views_public.py:151 views_public.py:236 views_public.py:285
+#: views_public.py:182 views_public.py:267 views_public.py:316
 msgid "Review"
 msgstr "Repasar"
 
-#: views_public.py:246 views_public.py:247 views_public.py:248
-#: views_public.py:249 views_public.py:250 views_public.py:251
+#: views_public.py:277 views_public.py:278 views_public.py:279
+#: views_public.py:280 views_public.py:281 views_public.py:282
 msgid "Location details"
 msgstr "Datos de lugar"
 
-#: views_public.py:255
+#: views_public.py:286
 msgid "Review your report"
 msgstr "Revise su informe"
 
-#: views_public.py:271
+#: views_public.py:302
 msgid "word remaining"
 msgstr "palabra restante"
 
-#: views_public.py:272
+#: views_public.py:303
 msgid " words remaining"
 msgstr "palabras restantes"
 
-#: views_public.py:273
+#: views_public.py:304
 msgid " word limit reached"
 msgstr "límite de palabras alcanzado"
 
-#: views_public.py:283
+#: views_public.py:314
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "Favor de elegir esta opción si"
 
-#: views_public.py:359
+#: views_public.py:394
 msgid "404 | Page not found"
 msgstr "404 | Página no encontrada"
 
-#: views_public.py:360
+#: views_public.py:395
 msgid "We can't find the page you are looking for"
 msgstr "No encontramos la página que usted está buscando"
 
-#: views_public.py:419
+#: views_public.py:454
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Su navegador no pudo crear una cookie segura"
 
-#: views_public.py:420
+#: views_public.py:455
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
@@ -2943,9 +3023,6 @@ msgstr ""
 
 #~| msgid "Incident location state"
 #~ msgid "Incident location name"
-#~ msgstr "Estado en que ocurrió el incidente"
-
-#~ msgid "Incident location state"
 #~ msgstr "Estado en que ocurrió el incidente"
 
 #~ msgid "(Optional)"

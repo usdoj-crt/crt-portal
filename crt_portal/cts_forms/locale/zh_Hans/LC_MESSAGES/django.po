@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-27 17:47+0000\n"
+"POT-Creation-Date: 2021-10-07 17:29+0000\n"
 "Language: Chinese Simplified\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:182 forms.py:1577
+#: forms.py:182 forms.py:1627
 msgid " - Select - "
 msgstr " - 选择 - "
 
@@ -104,7 +104,7 @@ msgstr ""
 msgid "Please describe \"Other reason\""
 msgstr "请说明“其他原因”"
 
-#: forms.py:649
+#: forms.py:667
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -113,19 +113,23 @@ msgstr ""
 "让我们知道这起事件是在最近何时发生的很重要，这样我们才能采取适当的行动。如果"
 "该事件发生在一段时间里，或者现在仍然在发生，请提供最近一次发生的日期。"
 
-#: forms.py:937
+#: forms.py:965
+msgid "Incident state"
+msgstr ""
+
+#: forms.py:973
 msgid "Primary classification"
 msgstr "主要分类"
 
-#: forms.py:959
+#: forms.py:995
 msgid "Assigned to"
 msgstr "分配给"
 
-#: forms.py:1134
+#: forms.py:1184
 msgid "Create date cannot be in the future."
 msgstr "创建日期不能为未来时间。"
 
-#: forms.py:1317
+#: forms.py:1367
 msgid "Comment cannot be empty"
 msgstr "评论不能为空"
 
@@ -1441,7 +1445,7 @@ msgstr ""
 msgid "Contact the Department of Justice to report a civil rights violation"
 msgstr "联系司法部举报一起侵犯民事权利的行为"
 
-#: templates/forms/report_base.html:55
+#: templates/forms/report_base.html:54
 #, python-format
 msgid ""
 "\n"
@@ -1460,22 +1464,23 @@ msgstr[1] ""
 "                  发现 %(counter)s 个错误\n"
 "                "
 
-#: templates/forms/report_base.html:85
-#: templates/forms/report_contact_info.html:40
+#: templates/forms/report_base.html:84
+#: templates/forms/report_contact_info.html:39
 msgid "Submit"
 msgstr "提交"
 
-#: templates/forms/report_base.html:87
-#: templates/forms/report_contact_info.html:42
+#: templates/forms/report_base.html:86
+#: templates/forms/report_contact_info.html:33
+#: templates/forms/report_contact_info.html:41
 msgid "Next"
 msgstr "下一步"
 
-#: templates/forms/report_base.html:95 templates/forms/report_review.html:33
+#: templates/forms/report_base.html:95 templates/forms/report_review.html:34
 msgid "previous step"
 msgstr "上一步"
 
-#: templates/forms/report_base.html:98 templates/forms/report_review.html:36
-#: templates/partials/redirect-modal.html:21
+#: templates/forms/report_base.html:98 templates/forms/report_review.html:37
+#: templates/partials/redirect-modal.html:23
 msgid "Back"
 msgstr "返回"
 
@@ -1493,16 +1498,17 @@ msgid "Were you forced to work against your will?"
 msgstr "是否有人违背您的意愿强迫您工作？"
 
 #: templates/forms/report_hate_crime.html:16
+#: templates/hate_crime_human_trafficking.html:66
 msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
 msgstr ""
-"贩卖人口包括被强迫或胁迫从事工作，或遭强迫、胁迫而发生性行为以换取有价值的物"
-"品。"
+"人口贩运包括被强迫或胁迫做工，或是被强迫或胁迫从事性行为以换取有价值的东西。"
 
-#: templates/forms/report_hate_crime.html:18 templates/landing.html:227
+#: templates/forms/report_hate_crime.html:18
+#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:227
 msgid "Get help from the National Human Trafficking Hotline"
-msgstr "向全国人口贩卖热线求助"
+msgstr "向国家人口贩运专线寻求帮助"
 
 #: templates/forms/report_maintenance.html:30
 msgid "This page is currently down for maintenance."
@@ -1561,6 +1567,58 @@ msgstr ""
 "          %(word_limit)s 已达到字数限制\n"
 "        "
 
+#: templates/hate_crime_human_trafficking.html:7
+#: templates/hate_crime_human_trafficking.html:14
+msgid ""
+"Civil Rights Division - Department of Justice - Get help for hate crimes and "
+"human trafficking"
+msgstr "民权司 - 司法部 - 获取仇恨犯罪和人口贩运方面的帮助"
+
+#: templates/hate_crime_human_trafficking.html:25
+msgid "How do I…"
+msgstr "我如何……"
+
+#: templates/hate_crime_human_trafficking.html:28
+msgid "Report a hate crime"
+msgstr "举报仇恨犯罪"
+
+#: templates/hate_crime_human_trafficking.html:31
+msgid "Report human trafficking"
+msgstr "举报人口贩运"
+
+#: templates/hate_crime_human_trafficking.html:37
+msgid "Get help for hate crimes and human trafficking"
+msgstr "获取仇恨犯罪和人口贩运方面的帮助"
+
+#: templates/hate_crime_human_trafficking.html:42
+msgid "Where to report a hate crime"
+msgstr "哪里可以举报仇恨犯罪"
+
+#: templates/hate_crime_human_trafficking.html:44
+msgid ""
+"A hate crime is violence or threats of violence based on race, color, "
+"national origin, religion, gender, sexual orientation, gender identity, or "
+"disability."
+msgstr ""
+"仇恨犯罪是基于种族、肤色、国籍、宗教、性别、性取向、性别认同或残疾的暴力行为"
+"或暴力威胁。"
+
+#: templates/hate_crime_human_trafficking.html:48
+msgid "In cases of emergency, contact 911"
+msgstr "紧急情况，请拨打911"
+
+#: templates/hate_crime_human_trafficking.html:53
+msgid "Otherwise, contact the FBI online"
+msgstr "否则，请线上联系联邦调"
+
+#: templates/hate_crime_human_trafficking.html:58
+msgid "Or a local field office by phone"
+msgstr "查局或者致电当地的分局"
+
+#: templates/hate_crime_human_trafficking.html:64
+msgid "Where to report human trafficking"
+msgstr "在哪里举报人口贩运"
+
 #: templates/landing.html:29
 msgid "Menu"
 msgstr "菜单"
@@ -1573,7 +1631,7 @@ msgstr "有关民权司"
 msgid "Your rights"
 msgstr "您的权力"
 
-#: templates/landing.html:48 templates/partials/footer.html:69
+#: templates/landing.html:48 templates/partials/footer.html:70
 msgid "Report a violation"
 msgstr "举报一起违法行为"
 
@@ -1582,7 +1640,7 @@ msgid "Already submitted?"
 msgstr "已经提交了？"
 
 #: templates/landing.html:58 templates/partials/footer.html:9
-#: views_public.py:145 views_public.py:224 views_public.py:243
+#: views_public.py:176 views_public.py:255 views_public.py:274
 msgid "Contact"
 msgstr "联系"
 
@@ -1958,11 +2016,11 @@ msgstr ""
 "您不一定要提供联系方式，但是我们将无法与您联系，向您提供任何的新进展或进行后"
 "续跟进。您想现在添加您的联系方式吗？如果不愿意，您将进入第二步。"
 
-#: templates/partials/contact-info-confirmation-modal.html:16
+#: templates/partials/contact-info-confirmation-modal.html:18
 msgid "No, I don't want to provide it"
 msgstr "不，我不想提供联系方式"
 
-#: templates/partials/contact-info-confirmation-modal.html:17
+#: templates/partials/contact-info-confirmation-modal.html:21
 msgid "Yes, I'd like to add it"
 msgstr "好，我想添加联系方式"
 
@@ -1974,31 +2032,31 @@ msgstr "提供语言援助服务"
 msgid "Links"
 msgstr "链接"
 
-#: templates/partials/footer.html:66
+#: templates/partials/footer.html:67
 msgid "About the division"
 msgstr "有关民权司"
 
-#: templates/partials/footer.html:72
+#: templates/partials/footer.html:73
 msgid "Privacy policy"
 msgstr "隐私政策"
 
-#: templates/partials/footer.html:75
+#: templates/partials/footer.html:76
 msgid "FOIA"
 msgstr "《信息自由法》（FOIA）"
 
-#: templates/partials/footer.html:78
+#: templates/partials/footer.html:79
 msgid "Accessibility"
 msgstr "便利措施"
 
-#: templates/partials/footer.html:90
+#: templates/partials/footer.html:91
 msgid "Office of Inspector General"
 msgstr "监察长办公室"
 
-#: templates/partials/footer.html:93
+#: templates/partials/footer.html:94
 msgid "Budget and performance"
 msgstr "预算和业绩"
 
-#: templates/partials/footer.html:96
+#: templates/partials/footer.html:97
 msgid "Legal policies and Disclaimers"
 msgstr "法律政策和免责声明"
 
@@ -2081,7 +2139,7 @@ msgstr ""
 "司法部不认可本网站所代表的组织或观点，对本网站所载材料的准确性、可访问性、版"
 "权或商标合规性或合法性均不承担任何责任，也没有任何控制能力。"
 
-#: templates/partials/redirect-modal.html:22
+#: templates/partials/redirect-modal.html:26
 msgid "Continue"
 msgstr "接上页"
 
@@ -2430,71 +2488,71 @@ msgstr ""
 msgid "Enter a valid email address."
 msgstr "输入一个有效的电子邮件地址"
 
-#: views_public.py:146 views_public.py:225 views_public.py:226
-#: views_public.py:244 views_public.py:245 views_public.py:280
+#: views_public.py:177 views_public.py:256 views_public.py:257
+#: views_public.py:275 views_public.py:276 views_public.py:311
 msgid "Primary concern"
 msgstr "主要顾虑"
 
-#: views_public.py:147 views_public.py:227 views_public.py:228
-#: views_public.py:229 views_public.py:230 views_public.py:231
-#: views_public.py:232
+#: views_public.py:178 views_public.py:258 views_public.py:259
+#: views_public.py:260 views_public.py:261 views_public.py:262
+#: views_public.py:263
 msgid "Location"
 msgstr "地点"
 
-#: views_public.py:148 views_public.py:233 views_public.py:252
+#: views_public.py:179 views_public.py:264 views_public.py:283
 msgid "Personal characteristics"
 msgstr "个人特征"
 
-#: views_public.py:149 views_public.py:234 views_public.py:253
+#: views_public.py:180 views_public.py:265 views_public.py:284
 msgid "Date"
 msgstr "日期"
 
-#: views_public.py:150 views_public.py:235 views_public.py:254
+#: views_public.py:181 views_public.py:266 views_public.py:285
 msgid "Personal description"
 msgstr "个人描述"
 
-#: views_public.py:151 views_public.py:236 views_public.py:285
+#: views_public.py:182 views_public.py:267 views_public.py:316
 msgid "Review"
 msgstr "检查"
 
-#: views_public.py:246 views_public.py:247 views_public.py:248
-#: views_public.py:249 views_public.py:250 views_public.py:251
+#: views_public.py:277 views_public.py:278 views_public.py:279
+#: views_public.py:280 views_public.py:281 views_public.py:282
 msgid "Location details"
 msgstr "地点详情"
 
-#: views_public.py:255
+#: views_public.py:286
 msgid "Review your report"
 msgstr "检查您的报告"
 
-#: views_public.py:271
+#: views_public.py:302
 msgid "word remaining"
 msgstr "剩余字数"
 
-#: views_public.py:272
+#: views_public.py:303
 msgid " words remaining"
 msgstr " 剩余字数"
 
-#: views_public.py:273
+#: views_public.py:304
 msgid " word limit reached"
 msgstr " 已达到字数限制"
 
-#: views_public.py:283
+#: views_public.py:314
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "请选择任何适用于您的情况（可选）"
 
-#: views_public.py:359
+#: views_public.py:394
 msgid "404 | Page not found"
 msgstr "404 | 未找到该页面"
 
-#: views_public.py:360
+#: views_public.py:395
 msgid "We can't find the page you are looking for"
 msgstr "我们找不到您要找的页面"
 
-#: views_public.py:419
+#: views_public.py:454
 msgid "Your browser couldn't create a secure cookie"
 msgstr "您的浏览器无法创建安全的 cookie"
 
-#: views_public.py:420
+#: views_public.py:455
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
