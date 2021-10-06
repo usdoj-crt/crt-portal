@@ -207,6 +207,10 @@ $arrow-height: 24px;
         height: 45px;
       }
     }
+
+    a:hover {
+      color: color('white');
+    }
   }
 
   .crt-landing--logo_subheading {
