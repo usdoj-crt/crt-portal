@@ -208,8 +208,14 @@ $arrow-height: 24px;
       }
     }
 
+    a {
+      /* Allows focus border to appear in Chrome/Safari */
+      display: inline-block;
+    }
+
     a:hover {
       color: color('white');
+      border-bottom: 0;
     }
   }
 
