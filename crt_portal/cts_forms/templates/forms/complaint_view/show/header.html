@@ -6,32 +6,29 @@
   </h2>
   <span class="status-tag status-{{data.status}} margin-top-05">{{ data.status }}</span>
 </div>
-<p class="display-flex">
+<p>
   <span>
     <span class="details-date-label text-uppercase backend-blue">Received: </span>
     <span class="backend-blue">{{ data.create_date|date:'g:i a F j, Y' }}</span>
-    {% if data.intake_format %}
-      <span class="usa-sr-only"> from {{ data.intake_format }}</span>
-    {% endif %}
   </span>
   {% if data.intake_format %}
-    <span class="tooltip">
-      <span class="tooltiptext backend-blue">from {{ data.intake_format }}</span>
-      {% if data.intake_format == 'web' %}
-        <img src="{% static "img/intake-icons/ic_web.svg" %}" class="icon margin-left-2" alt="from web">
-      {% elif data.intake_format == 'email' %}
-        <img src="{% static "img/intake-icons/ic_email.svg" %}" class="icon margin-left-2" alt="from email">
-      {% elif data.intake_format == 'letter' %}
-        <img src="{% static "img/intake-icons/ic_letter.svg" %}" class="icon margin-left-2" alt="from a letter">
-      {% elif data.intake_format == 'phone' %}
-        <img src="{% static "img/intake-icons/ic_contact.svg" %}" class="icon margin-left-2" alt="from phone">
-      {% elif data.intake_format == 'fax' %}
-        <img src="{% static "img/intake-icons/ic_printer.svg" %}" class="icon margin-left-2" alt="from fax">
-      {% endif %}
+    <span class="usa-sr-only">from {{ data.intake_format }}</span>
+    <span class="usa-tooltip" data-position="right" data-classes="margin-left-1 display-inline" title="from {{ data.intake_format }}">
+    {% if data.intake_format == 'web' %}
+      <img src="{% static "img/intake-icons/ic_web.svg" %}" class="text-tbottom" alt="" role="presentation">
+    {% elif data.intake_format == 'email' %}
+      <img src="{% static "img/intake-icons/ic_email.svg" %}" class="text-tbottom" alt="" role="presentation">
+    {% elif data.intake_format == 'letter' %}
+      <img src="{% static "img/intake-icons/ic_letter.svg" %}" class="text-tbottom" alt="" role="presentation">
+    {% elif data.intake_format == 'phone' %}
+      <img src="{% static "img/intake-icons/ic_contact.svg" %}" class="text-tbottom" alt="" role="presentation">
+    {% elif data.intake_format == 'fax' %}
+      <img src="{% static "img/intake-icons/ic_printer.svg" %}" class="text-tbottom" alt="=" role="presentation">
+    {% endif %}
     </span>
   {% endif %}
 </p>
-<p class="display-flex">
+<p>
   <span class="details-date-label text-uppercase backend-blue">Last Updated: </span>
   <span class="backend-blue">{{ data.modified_date|date:'g:i a F j, Y' }}</span>
 </p>
