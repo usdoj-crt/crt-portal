@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-12 17:54+0000\n"
+"POT-Creation-Date: 2021-10-12 22:10+0000\n"
 "Language: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -448,7 +448,7 @@ msgstr ""
 "거나 위협을 받음 여기에는 물리적 위해를 가하겠다는 위협, 약속된 임금 체불, 허"
 "위 노동 계약에 따른 감금 등이 포함될 수 있습니다."
 
-#: model_variables.py:127 templates/landing.html:259
+#: model_variables.py:127 templates/landing.html:260
 msgid "Age"
 msgstr "나이"
 
@@ -487,11 +487,11 @@ msgstr "출신 국가(혈통 및 민족 포함)"
 msgid "Pregnancy"
 msgstr "임신"
 
-#: model_variables.py:136 templates/landing.html:252
+#: model_variables.py:136 templates/landing.html:253
 msgid "Race/color"
 msgstr "인종/피부색"
 
-#: model_variables.py:137 templates/landing.html:254
+#: model_variables.py:137 templates/landing.html:255
 msgid "Religion"
 msgstr "종교"
 
@@ -1169,13 +1169,14 @@ msgid "Skip to main content"
 msgstr "주요 컨텐츠로 건너뛰기"
 
 #: templates/base.html:130 templates/forms/errors.html:13
-#: templates/forms/report_maintenance.html:13 templates/landing.html:17
+#: templates/forms/report_maintenance.html:13 templates/landing.html:10
+#: templates/landing.html:17
 msgid "U.S. Department of Justice"
 msgstr "미국 법무부"
 
 #: templates/base.html:133 templates/forms/confirmation.html:21
 #: templates/forms/errors.html:14 templates/forms/report_maintenance.html:14
-#: templates/landing.html:20
+#: templates/landing.html:10 templates/landing.html:20
 msgid "Civil Rights Division"
 msgstr "민권국"
 
@@ -1309,7 +1310,7 @@ msgstr "귀하의 신고와 관련된 사례를 활발하게 처리 중이거나
 msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr "우리는 동시에 많은 요청을 받고 있고 적극적으로 검토하고 있습니다."
 
-#: templates/forms/confirmation.html:135 templates/landing.html:355
+#: templates/forms/confirmation.html:135 templates/landing.html:356
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1453,12 +1454,12 @@ msgid "File a complaint"
 msgstr "진정사항 접수"
 
 #: templates/forms/errors.html:71 templates/forms/report_maintenance.html:66
-#: templates/landing.html:127
+#: templates/landing.html:128
 msgid "About the Civil Rights Division"
 msgstr "민권국 소개"
 
 #: templates/forms/errors.html:74 templates/forms/report_maintenance.html:69
-#: templates/landing.html:110
+#: templates/landing.html:111
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
@@ -1552,7 +1553,7 @@ msgid "None selected"
 msgstr "선택된 것 없음"
 
 #: templates/forms/report_hate_crime.html:13
-#: templates/forms/report_hate_crime.html:18 templates/landing.html:229
+#: templates/forms/report_hate_crime.html:18 templates/landing.html:230
 msgid "Were you forced to work against your will?"
 msgstr "귀하의 의지에 반하여 일하도록 강요 받았습니까?"
 
@@ -1566,7 +1567,7 @@ msgstr ""
 "제, 또는 강요로 성행위를 하는 것을 포함합니다."
 
 #: templates/forms/report_hate_crime.html:18
-#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:229
+#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:230
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "전국 인신매매 핫라인에서 도움을 받으세요"
 
@@ -1686,36 +1687,36 @@ msgstr "연락하거나 FBI 지부에 전화하세요"
 msgid "Where to report human trafficking"
 msgstr "인신매매를 신고할 수 있는 곳"
 
-#: templates/landing.html:29
+#: templates/landing.html:30
 msgid "Menu"
 msgstr ""
 
-#: templates/landing.html:38
+#: templates/landing.html:39
 msgid "About the Division"
 msgstr "민권국 소개"
 
-#: templates/landing.html:43
+#: templates/landing.html:44
 msgid "Your rights"
 msgstr "귀하의 권리"
 
-#: templates/landing.html:48 templates/partials/footer.html:70
+#: templates/landing.html:49 templates/partials/footer.html:70
 msgid "Report a violation"
 msgstr "침해 신고"
 
-#: templates/landing.html:53
+#: templates/landing.html:54
 msgid "Already submitted?"
 msgstr "이미 제출하셨습니까?"
 
-#: templates/landing.html:58 templates/partials/footer.html:9
+#: templates/landing.html:59 templates/partials/footer.html:9
 #: views_public.py:176 views_public.py:255 views_public.py:274
 msgid "Contact"
 msgstr "연락처"
 
-#: templates/landing.html:80
+#: templates/landing.html:81
 msgid "We uphold the civil rights of <em>all</em> people in the United States."
 msgstr "우리는 미국 내 <em>모든</em> 사람들의 민권을 옹호합니다."
 
-#: templates/landing.html:85
+#: templates/landing.html:86
 msgid ""
 "The Civil Rights Division enforces federal laws that protect you from "
 "discrimination based on your race, color, national origin, disability "
@@ -1726,7 +1727,7 @@ msgstr ""
 "헌법상 권리의 상실에 기반한 차별로부터 귀하를 보호하는 연방 법률을 집행합니"
 "다."
 
-#: templates/landing.html:88
+#: templates/landing.html:89
 msgid ""
 "If you believe your civil rights, or someone else’s, have been violated, "
 "submit a report using our online form."
@@ -1734,15 +1735,15 @@ msgstr ""
 "귀하 또는 다른 누군가의 민권이 침해되었다고 믿는 경우, 온라인 양식을 이용해 "
 "신고서를 제출하십시오."
 
-#: templates/landing.html:90 templates/landing.html:328
+#: templates/landing.html:91 templates/landing.html:329
 msgid "Start a report"
 msgstr "신고서 작성을 시작하거나"
 
-#: templates/landing.html:91
+#: templates/landing.html:92
 msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
 msgstr "또는 <a href=\"#your-rights\">귀하의 권리</a>에 대해 더 알아보세요"
 
-#: templates/landing.html:104
+#: templates/landing.html:105
 msgid ""
 "If you are in danger, contact <a href=\"tel:911\" aria-label=\"9 1 1\">911</"
 "a>"
@@ -1750,7 +1751,7 @@ msgstr ""
 "위험에 처해 있다면 <a href=\"tel:911\" aria-label=\"9 1 1\">911</a>로 연락하"
 "세요"
 
-#: templates/landing.html:115
+#: templates/landing.html:116
 msgid ""
 "If you are reporting misconduct by law enforcement or believe you have "
 "experienced a hate crime, please <a aria-label=\"contact the FBI\" class="
@@ -1761,21 +1762,21 @@ msgstr ""
 "<a aria-label=\"contact the FBI\" class=\"external-link--white\" href="
 "\"https://www.fbi.gov/tips\">FBI에 연락하십시오</a>."
 
-#: templates/landing.html:129
+#: templates/landing.html:130
 msgid "We protect your rights through:"
 msgstr "우리는 다음을 통해 귀하의 권리를 보호합니다."
 
-#: templates/landing.html:132
+#: templates/landing.html:133
 msgid "Enforcement"
 msgstr "집행"
 
-#: templates/landing.html:134
+#: templates/landing.html:135
 msgid ""
 "We sue or prosecute individuals and organizations who violate civil rights "
 "laws."
 msgstr "우리는 민권법을 위반하는 개인 및 단체를 기소하거나 소송을 제기합니다."
 
-#: templates/landing.html:137
+#: templates/landing.html:138
 #, python-format
 msgid ""
 "\n"
@@ -1789,39 +1790,39 @@ msgstr ""
 "있습니다 <a href=\"%(report_form_url)s\">온라인 양식</a>.\n"
 "                "
 
-#: templates/landing.html:143
+#: templates/landing.html:144
 msgid "Education"
 msgstr "교육"
 
-#: templates/landing.html:145
+#: templates/landing.html:146
 msgid "We help the public understand how to comply with these laws."
 msgstr "우리는 대중이 이 법률 준수 방법을 이해할 수 있게 돕습니다."
 
-#: templates/landing.html:146
+#: templates/landing.html:147
 msgid "We do this through public speaking, technical assistance, and more."
 msgstr "우리는 공개 강연, 기술적 지원 등 여러 가지를 통해 이를 수행합니다."
 
-#: templates/landing.html:149
+#: templates/landing.html:150
 msgid "Coordination"
 msgstr "코디네이션"
 
-#: templates/landing.html:151
+#: templates/landing.html:152
 msgid ""
 "We help the entire federal government work together to enforce these laws."
 msgstr "우리는 전체 연방 정부가 이 법률 집행을 위해 협력하도록 지원합니다."
 
-#: templates/landing.html:152
+#: templates/landing.html:153
 msgid ""
 "Our teams work with other agencies to promote a consistent approach to civil "
 "rights laws."
 msgstr ""
 "우리 팀들은 민권법에의 일관된 접근을 촉진하기 위해 다른 기관들과 협력합니다."
 
-#: templates/landing.html:164
+#: templates/landing.html:165
 msgid "Understanding your rights"
 msgstr "귀하의 권리를 이해하기"
 
-#: templates/landing.html:167
+#: templates/landing.html:168
 msgid ""
 "Civil rights laws can protect you from unlawful discrimination, harassment, "
 "or abuse in a variety of settings like <span class=\"crt-landing--"
@@ -1833,7 +1834,7 @@ msgstr ""
 "다양한 여러 환경에서 벌어지는 불법적인 차별, 괴롭힘 또는 학대로부터 귀하를 보"
 "호해 드릴 수 있습니다."
 
-#: templates/landing.html:170
+#: templates/landing.html:171
 msgid ""
 "If you have been <span class=\"crt-landing--rights_categories\">mistreated "
 "by law enforcement</span> (including while incarcerated), believe you have "
@@ -1847,15 +1848,15 @@ msgstr ""
 "landing--rights_categories\">인신매매</span>의 피해자라고 믿는 경우, 귀하가 "
 "올바른 곳과 접촉할 수 있도록 도와드릴 수 있습니다."
 
-#: templates/landing.html:186
+#: templates/landing.html:187
 msgid "Choose from this list to see example civil rights violations:"
 msgstr "민권 침해의 예를 보려면 이 목록 중에서 선택하세요."
 
-#: templates/landing.html:221
+#: templates/landing.html:222
 msgid "Examples"
 msgstr "예"
 
-#: templates/landing.html:238
+#: templates/landing.html:239
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
@@ -1863,15 +1864,15 @@ msgstr ""
 "귀하가 유사 상황을 경험했다고 생각되는 경우, <a href=\"#crt-landing--"
 "reporting\">민권 침해를 신고하는 방법</a>에 대해 알아보세요. "
 
-#: templates/landing.html:248
+#: templates/landing.html:249
 msgid "Protected by civil rights laws"
 msgstr "민권법에 의한 보호 대상"
 
-#: templates/landing.html:250
+#: templates/landing.html:251
 msgid "These are the most common characteristics that are legally protected."
 msgstr "다음은 법적 보호를 받는 가장 일반적인 특성들입니다."
 
-#: templates/landing.html:253
+#: templates/landing.html:254
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
@@ -1879,15 +1880,15 @@ msgstr ""
 "<span class=\"crt-landing--protected\">일시적이거나 회복 중인 상태를 포함한</"
 "span> 장애"
 
-#: templates/landing.html:255
+#: templates/landing.html:256
 msgid "Sex, gender identity, and sexual orientation"
 msgstr "성별, 성 정체성, 성적 지향"
 
-#: templates/landing.html:256
+#: templates/landing.html:257
 msgid "Immigration/citizenship status"
 msgstr "이민/시민권 신분"
 
-#: templates/landing.html:257
+#: templates/landing.html:258
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
@@ -1895,7 +1896,7 @@ msgstr ""
 "언어와 <span class=\"crt-landing--protected\">혈통 및 민족을 포함한</span> 출"
 "신 국가"
 
-#: templates/landing.html:258
+#: templates/landing.html:259
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
@@ -1903,19 +1904,19 @@ msgstr ""
 "가족, 결혼 또는 <span class=\"crt-landing--protected\">임신을 포함한</span> "
 "자녀 유무 상태"
 
-#: templates/landing.html:260
+#: templates/landing.html:261
 msgid "Genetic identification"
 msgstr "유전적 식별 정보"
 
-#: templates/landing.html:261
+#: templates/landing.html:262
 msgid "Servicemember status"
 msgstr "병역 상태"
 
-#: templates/landing.html:275
+#: templates/landing.html:276
 msgid "How to report a civil rights violation"
 msgstr "민권 침해를 보고하는 방법 "
 
-#: templates/landing.html:280
+#: templates/landing.html:281
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
@@ -1923,11 +1924,11 @@ msgstr ""
 "귀하 또는 다른 누군가가 불법적인 차별을 경험했다고 믿는다면, 민권 침해를 신고"
 "할 수 있습니다."
 
-#: templates/landing.html:289
+#: templates/landing.html:290
 msgid "Report using our online form."
 msgstr "온라인 양식을 이용해 신고하십시오."
 
-#: templates/landing.html:290
+#: templates/landing.html:291
 msgid ""
 "By completing the online form, you can provide the details we need to "
 "understand what happened. You will receive a confirmation number and your "
@@ -1937,11 +1938,11 @@ msgstr ""
 "항을 제공하실 수 있습니다. 귀하는 확인 번호를 받게 되며, 신고하신 내용은 검토"
 "를 위해 우리 직원에게 즉시 보내집니다."
 
-#: templates/landing.html:298
+#: templates/landing.html:299
 msgid "We review your report."
 msgstr "우리가 귀하의 신고 내용을 검토합니다."
 
-#: templates/landing.html:299
+#: templates/landing.html:300
 msgid ""
 "Teams that specialize in handling your type of issue will review it. If it "
 "needs to be forwarded to another team or agency, we will try to connect your "
@@ -1951,11 +1952,11 @@ msgstr ""
 "이나 기관에 보낼 필요가 있는 경우, 올바른 그룹에게 귀하의 진정사항을 연결시키"
 "고자 노력할 것입니다."
 
-#: templates/landing.html:307
+#: templates/landing.html:308
 msgid "We determine next steps and get back to you."
 msgstr "우리는 다음 단계를 결정하고 귀하에게 응답을 드립니다."
 
-#: templates/landing.html:308
+#: templates/landing.html:309
 msgid ""
 "Possible outcomes include: following up for more information, starting a "
 "mediation or investigation, directing you to another organization for "
@@ -1964,11 +1965,11 @@ msgstr ""
 "가능한 결과: 더 많은 정보를 위한 후속 조치, 중재나 조사 시작, 추가 도움을 위"
 "해 다른 단체에 귀하를 연결 또는 우리가 도움을 줄 수 없다고 귀하에게 알림. "
 
-#: templates/landing.html:327
+#: templates/landing.html:328
 msgid "Have you or someone you know experienced a civil rights violation?"
 msgstr "귀하 또는 지인이 민권 침해를 경험했습니까?"
 
-#: templates/landing.html:333
+#: templates/landing.html:334
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
@@ -1978,15 +1979,15 @@ msgstr ""
 "침해 내용을 신고하거나 <a href=\"#address-footer\">우편</a>으로 신고하실 수 "
 "있습니다."
 
-#: templates/landing.html:343
+#: templates/landing.html:344
 msgid "Already submitted a report?"
 msgstr "이미 신고서를 제출하셨습니까?"
 
-#: templates/landing.html:346
+#: templates/landing.html:347
 msgid "Here's what to expect."
 msgstr "예상되는 결과는 다음과 같습니다."
 
-#: templates/landing.html:350
+#: templates/landing.html:351
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
@@ -1998,20 +1999,20 @@ msgstr ""
 "리기 위해 최선을 다할 것입니다. 하지만 우리는 다음과 같은 이유로 항상 업데이"
 "트를 제공해 드릴 수 있는 것은 아닙니다."
 
-#: templates/landing.html:352
+#: templates/landing.html:353
 msgid ""
 "We're actively working on an investigation or case related to your report."
 msgstr "귀하의 신고와 관련된 사례를 활발하게 처리 중이거나 조사 중입니다."
 
-#: templates/landing.html:353
+#: templates/landing.html:354
 msgid "We're receiving and actively reviewing many reports at the same time."
 msgstr "우리는 동시에 많은 신고를 받고 있고 적극적으로 검토하고 있습니다."
 
-#: templates/landing.html:360
+#: templates/landing.html:361
 msgid "Need urgent legal help?"
 msgstr "긴급한 법적 도움이 필요하세요?"
 
-#: templates/landing.html:362
+#: templates/landing.html:363
 msgid ""
 "Due to the amount of reports we receive, it can take several weeks for us to "
 "respond to your issue. Local legal aid offices or lawyers in your area may "
@@ -2021,7 +2022,7 @@ msgstr ""
 "습니다. 현지 법률 지원 사무소 또는 귀하 지역의 변호사가 귀하의 우려에 신속하"
 "게 응답해 드릴 수도 있고 도움을 드릴 수도 있습니다."
 
-#: templates/landing.html:363
+#: templates/landing.html:364
 msgid ""
 "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
 "aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
@@ -2033,7 +2034,7 @@ msgstr ""
 "legal-aid\">lsc.gov/find-legal-aid</a>에 연락 또는 <a href="
 "\"tel:202-295-1500\">(202) 295-1500</a>으로 전화."
 
-#: templates/landing.html:364
+#: templates/landing.html:365
 msgid ""
 "Or visit <a class=\"external-link--blue external-link--popup\" aria-label="
 "\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
@@ -2046,7 +2047,7 @@ msgstr ""
 "여 미국 변호사 협회(American Bar Association)을 통해 변호사를 찾으시기 바랍니"
 "다."
 
-#: templates/landing.html:378
+#: templates/landing.html:379
 msgid "Image attributions"
 msgstr "이미지 속성"
 
@@ -2363,11 +2364,11 @@ msgid ""
 "For a complete list of routine agency uses, please consult the following:"
 msgstr "통상적인 기관의 사용에 대한 전체 목록을 보려면 다음을 참조하십시오:"
 
-#: templates/privacy.html:84
+#: templates/privacy.html:74
 msgid "You should also know that:"
 msgstr "또한 다음에 대해 아셔야 합니다:"
 
-#: templates/privacy.html:86
+#: templates/privacy.html:76
 msgid ""
 "\n"
 "                    <li>Any information you provide to us through this form "
@@ -2396,17 +2397,17 @@ msgstr ""
 "                    </li>\n"
 "                    "
 
-#: templates/privacy.html:97 templates/privacy.html:168
+#: templates/privacy.html:85 templates/privacy.html:146
 msgid "Return to top"
 msgstr "맨 위로 돌아가기"
 
-#: templates/privacy.html:108
+#: templates/privacy.html:88
 msgid ""
 "We are authorized to collect this information pursuant to the following "
 "statutes:"
 msgstr "저희는 다음 법령에 따라 이 정보를 수집할 권한이 있습니다:"
 
-#: templates/privacy.html:110
+#: templates/privacy.html:90
 msgid ""
 "\n"
 "                    <li>Official Misconduct, 18 U.S.C. §§ 241, 242</li>\n"
@@ -2576,7 +2577,7 @@ msgstr ""
 "Acts)</li>\n"
 "                    "
 
-#: templates/privacy.html:162
+#: templates/privacy.html:142
 msgid ""
 "\n"
 "                The full list of routine uses for this correspondence can be "

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-12 17:54+0000\n"
+"POT-Creation-Date: 2021-10-12 22:10+0000\n"
 "Language: SpanishMIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -492,7 +492,7 @@ msgstr ""
 "físico, la retención de sueldos prometidos o la retención bajo un contrato "
 "laboral falso"
 
-#: model_variables.py:127 templates/landing.html:259
+#: model_variables.py:127 templates/landing.html:260
 msgid "Age"
 msgstr "Edad"
 
@@ -535,11 +535,11 @@ msgstr "Origen nacional (incluyendo ascendencia y etnia)"
 msgid "Pregnancy"
 msgstr "Embarazo"
 
-#: model_variables.py:136 templates/landing.html:252
+#: model_variables.py:136 templates/landing.html:253
 msgid "Race/color"
 msgstr "Raza/color de piel"
 
-#: model_variables.py:137 templates/landing.html:254
+#: model_variables.py:137 templates/landing.html:255
 msgid "Religion"
 msgstr "Religión"
 
@@ -1238,13 +1238,14 @@ msgid "Skip to main content"
 msgstr "Pasar directamente al contenido principal"
 
 #: templates/base.html:130 templates/forms/errors.html:13
-#: templates/forms/report_maintenance.html:13 templates/landing.html:17
+#: templates/forms/report_maintenance.html:13 templates/landing.html:10
+#: templates/landing.html:17
 msgid "U.S. Department of Justice"
 msgstr "Departamento de Justicia de los EE. UU."
 
 #: templates/base.html:133 templates/forms/confirmation.html:21
 #: templates/forms/errors.html:14 templates/forms/report_maintenance.html:14
-#: templates/landing.html:20
+#: templates/landing.html:10 templates/landing.html:20
 msgid "Civil Rights Division"
 msgstr "División de Derechos Civiles"
 
@@ -1383,7 +1384,7 @@ msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr ""
 "Estamos recibiendo y revisando activamente muchas solicitudes a la vez."
 
-#: templates/forms/confirmation.html:135 templates/landing.html:355
+#: templates/forms/confirmation.html:135 templates/landing.html:356
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1531,12 +1532,12 @@ msgid "File a complaint"
 msgstr "Presentar una querella"
 
 #: templates/forms/errors.html:71 templates/forms/report_maintenance.html:66
-#: templates/landing.html:127
+#: templates/landing.html:128
 msgid "About the Civil Rights Division"
 msgstr "Acerca de la División de Derechos Civiles"
 
 #: templates/forms/errors.html:74 templates/forms/report_maintenance.html:69
-#: templates/landing.html:110
+#: templates/landing.html:111
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
@@ -1632,7 +1633,7 @@ msgid "None selected"
 msgstr "Ninguna selección hecha"
 
 #: templates/forms/report_hate_crime.html:13
-#: templates/forms/report_hate_crime.html:18 templates/landing.html:229
+#: templates/forms/report_hate_crime.html:18 templates/landing.html:230
 msgid "Were you forced to work against your will?"
 msgstr "¿Le obligaron a trabajar en contra de su voluntad?"
 
@@ -1647,7 +1648,7 @@ msgstr ""
 "valor."
 
 #: templates/forms/report_hate_crime.html:18
-#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:229
+#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:230
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "Consiga ayuda de la Línea Directa Nacional contra la Trata de Personas"
 
@@ -1766,38 +1767,38 @@ msgstr "O llamando a alguna de sus oficinas locales"
 msgid "Where to report human trafficking"
 msgstr "Dónde denunciar la trata de personas"
 
-#: templates/landing.html:29
+#: templates/landing.html:30
 msgid "Menu"
 msgstr ""
 
-#: templates/landing.html:38
+#: templates/landing.html:39
 msgid "About the Division"
 msgstr "Acerca de la División"
 
-#: templates/landing.html:43
+#: templates/landing.html:44
 msgid "Your rights"
 msgstr "Sus derechos"
 
-#: templates/landing.html:48 templates/partials/footer.html:70
+#: templates/landing.html:49 templates/partials/footer.html:70
 msgid "Report a violation"
 msgstr "Informe sobre una vulneración"
 
-#: templates/landing.html:53
+#: templates/landing.html:54
 msgid "Already submitted?"
 msgstr "¿Ya nos informó de una vulneración?"
 
-#: templates/landing.html:58 templates/partials/footer.html:9
+#: templates/landing.html:59 templates/partials/footer.html:9
 #: views_public.py:176 views_public.py:255 views_public.py:274
 msgid "Contact"
 msgstr "Contacto"
 
-#: templates/landing.html:80
+#: templates/landing.html:81
 msgid "We uphold the civil rights of <em>all</em> people in the United States."
 msgstr ""
 "Nosotros defendemos los derechos civiles de <em>todas</em> las personas en "
 "los Estados Unidos."
 
-#: templates/landing.html:85
+#: templates/landing.html:86
 msgid ""
 "The Civil Rights Division enforces federal laws that protect you from "
 "discrimination based on your race, color, national origin, disability "
@@ -1809,7 +1810,7 @@ msgstr ""
 "de piel, origen nacional, discapacidad, género, religión, estatus familiar o "
 "pérdida de otros derechos constitucionales."
 
-#: templates/landing.html:88
+#: templates/landing.html:89
 msgid ""
 "If you believe your civil rights, or someone else’s, have been violated, "
 "submit a report using our online form."
@@ -1817,15 +1818,15 @@ msgstr ""
 "Si cree que sus derechos civiles o los de otra persona han sido vulnerados, "
 "envíe un informe mediante nuestro formulario en línea."
 
-#: templates/landing.html:90 templates/landing.html:328
+#: templates/landing.html:91 templates/landing.html:329
 msgid "Start a report"
 msgstr "Inicie el proceso de querella"
 
-#: templates/landing.html:91
+#: templates/landing.html:92
 msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
 msgstr "o aprenda más sobre <a href=\"#your-rights\">sus derechos</a>"
 
-#: templates/landing.html:104
+#: templates/landing.html:105
 msgid ""
 "If you are in danger, contact <a href=\"tel:911\" aria-label=\"9 1 1\">911</"
 "a>"
@@ -1833,7 +1834,7 @@ msgstr ""
 "Si usted se encuentra en peligro, llame al <a href=\"tel:911\" aria-label="
 "\"9 1 1\">911</a>"
 
-#: templates/landing.html:115
+#: templates/landing.html:116
 msgid ""
 "If you are reporting misconduct by law enforcement or believe you have "
 "experienced a hate crime, please <a aria-label=\"contact the FBI\" class="
@@ -1845,15 +1846,15 @@ msgstr ""
 "<a aria-label=\"debe comunicarse con el FBI\"class=\"crt-external--link\" "
 "href=\"https://www.fbi.gov/tips\">debe comunicarse con el FBI</a>."
 
-#: templates/landing.html:129
+#: templates/landing.html:130
 msgid "We protect your rights through:"
 msgstr "Protegemos sus derechos mediante:"
 
-#: templates/landing.html:132
+#: templates/landing.html:133
 msgid "Enforcement"
 msgstr "Aplicación de la ley"
 
-#: templates/landing.html:134
+#: templates/landing.html:135
 msgid ""
 "We sue or prosecute individuals and organizations who violate civil rights "
 "laws."
@@ -1861,7 +1862,7 @@ msgstr ""
 "Nosotros entablamos pleitos o enjuiciamos a personas y organizaciones que "
 "vulneran las leyes de derechos civiles."
 
-#: templates/landing.html:137
+#: templates/landing.html:138
 #, python-format
 msgid ""
 "\n"
@@ -1876,30 +1877,30 @@ msgstr ""
 "\"%(report_form_url)s\">formulario virtual</a>.\n"
 "                "
 
-#: templates/landing.html:143
+#: templates/landing.html:144
 msgid "Education"
 msgstr "Educación"
 
-#: templates/landing.html:145
+#: templates/landing.html:146
 msgid "We help the public understand how to comply with these laws."
 msgstr "Ayudamos al público a entender cómo cumplir con estas leyes."
 
-#: templates/landing.html:146
+#: templates/landing.html:147
 msgid "We do this through public speaking, technical assistance, and more."
 msgstr "Lo hacemos mediante discursos públicos, asistencia técnica y más."
 
-#: templates/landing.html:149
+#: templates/landing.html:150
 msgid "Coordination"
 msgstr "Coordinación"
 
-#: templates/landing.html:151
+#: templates/landing.html:152
 msgid ""
 "We help the entire federal government work together to enforce these laws."
 msgstr ""
 "Ayudamos al Gobierno federal en su conjunto a colaborar en el esfuerzo por "
 "hacer cumplir estas leyes."
 
-#: templates/landing.html:152
+#: templates/landing.html:153
 msgid ""
 "Our teams work with other agencies to promote a consistent approach to civil "
 "rights laws."
@@ -1907,11 +1908,11 @@ msgstr ""
 "Nuestros equipos trabajan con otros organismos gubernamentales para promover "
 "un alcance coherente a las leyes de derechos civiles."
 
-#: templates/landing.html:164
+#: templates/landing.html:165
 msgid "Understanding your rights"
 msgstr "Comprenda sus derechos"
 
-#: templates/landing.html:167
+#: templates/landing.html:168
 msgid ""
 "Civil rights laws can protect you from unlawful discrimination, harassment, "
 "or abuse in a variety of settings like <span class=\"crt-landing--"
@@ -1924,7 +1925,7 @@ msgstr ""
 "vivienda, el empleo, la escuela, la votación, las empresas, la asistencia "
 "sanitaria, los espacios públicos</span> y más."
 
-#: templates/landing.html:170
+#: templates/landing.html:171
 msgid ""
 "If you have been <span class=\"crt-landing--rights_categories\">mistreated "
 "by law enforcement</span> (including while incarcerated), believe you have "
@@ -1939,16 +1940,16 @@ msgstr ""
 "\"crt-landing--rights_categories\">trata de personas</span>, podemos "
 "dirigirle al lugar indicado."
 
-#: templates/landing.html:186
+#: templates/landing.html:187
 msgid "Choose from this list to see example civil rights violations:"
 msgstr ""
 "Para ver ejemplos de vulneraciones de derechos civiles, elija de esta lista:"
 
-#: templates/landing.html:221
+#: templates/landing.html:222
 msgid "Examples"
 msgstr "Ejemplos"
 
-#: templates/landing.html:238
+#: templates/landing.html:239
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
@@ -1957,17 +1958,17 @@ msgstr ""
 "\"#crt-landing--reporting\">cómo informar una querella por una vulneración "
 "de sus derechos civiles</a>."
 
-#: templates/landing.html:248
+#: templates/landing.html:249
 msgid "Protected by civil rights laws"
 msgstr "Protecciones en virtud de las leyes de derechos civiles"
 
-#: templates/landing.html:250
+#: templates/landing.html:251
 msgid "These are the most common characteristics that are legally protected."
 msgstr ""
 "Estas son las características más comunes que son protegidas al amparo de la "
 "ley."
 
-#: templates/landing.html:253
+#: templates/landing.html:254
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
@@ -1976,15 +1977,15 @@ msgstr ""
 "personas con discapacidades temporales o que se están recuperando de una "
 "discapacidad</span>"
 
-#: templates/landing.html:255
+#: templates/landing.html:256
 msgid "Sex, gender identity, and sexual orientation"
 msgstr "Género, identidad de género y orientación sexual"
 
-#: templates/landing.html:256
+#: templates/landing.html:257
 msgid "Immigration/citizenship status"
 msgstr "Estatus migratorio/de ciudadanía"
 
-#: templates/landing.html:257
+#: templates/landing.html:258
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
@@ -1992,7 +1993,7 @@ msgstr ""
 "Idioma y origen nacional <span class=\"crt-landing--protected\">Incluye "
 "ascendencia y etnia</span>"
 
-#: templates/landing.html:258
+#: templates/landing.html:259
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
@@ -2000,19 +2001,19 @@ msgstr ""
 "Estatus familiar, civil o parental <span class=\"crt-landing--protected"
 "\">Incluye el embarazo</span>"
 
-#: templates/landing.html:260
+#: templates/landing.html:261
 msgid "Genetic identification"
 msgstr "Información genética"
 
-#: templates/landing.html:261
+#: templates/landing.html:262
 msgid "Servicemember status"
 msgstr "Estatus como miembro de las fuerzas armadas"
 
-#: templates/landing.html:275
+#: templates/landing.html:276
 msgid "How to report a civil rights violation"
 msgstr "Como informar de una vulneración de los derechos civiles"
 
-#: templates/landing.html:280
+#: templates/landing.html:281
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
@@ -2020,11 +2021,11 @@ msgstr ""
 "Si cree que usted u otra persona ha sido discriminado/a ilegalmente, puede "
 "informar de una vulneración de los derechos civiles."
 
-#: templates/landing.html:289
+#: templates/landing.html:290
 msgid "Report using our online form."
 msgstr "Informarnos mediante nuestro formulario virtual."
 
-#: templates/landing.html:290
+#: templates/landing.html:291
 msgid ""
 "By completing the online form, you can provide the details we need to "
 "understand what happened. You will receive a confirmation number and your "
@@ -2035,11 +2036,11 @@ msgstr ""
 "confirmación y su informe se enviará directamente a nuestro personal para "
 "ser revisado."
 
-#: templates/landing.html:298
+#: templates/landing.html:299
 msgid "We review your report."
 msgstr "Revisamos su informe"
 
-#: templates/landing.html:299
+#: templates/landing.html:300
 msgid ""
 "Teams that specialize in handling your type of issue will review it. If it "
 "needs to be forwarded to another team or agency, we will try to connect your "
@@ -2049,11 +2050,11 @@ msgstr ""
 "Si hay que remitirlo a otro equipo u agencia, intentaremos enviaremos su "
 "querella al grupo correcto."
 
-#: templates/landing.html:307
+#: templates/landing.html:308
 msgid "We determine next steps and get back to you."
 msgstr "Determinamos los próximos pasos y le respondemos a usted."
 
-#: templates/landing.html:308
+#: templates/landing.html:309
 msgid ""
 "Possible outcomes include: following up for more information, starting a "
 "mediation or investigation, directing you to another organization for "
@@ -2064,13 +2065,13 @@ msgstr ""
 "a otra organización para buscar ayuda adicional o informarle que no podremos "
 "ayudar."
 
-#: templates/landing.html:327
+#: templates/landing.html:328
 msgid "Have you or someone you know experienced a civil rights violation?"
 msgstr ""
 "¿Usted u otra persona ha sido víctima de una vulneración de sus derechos "
 "civiles?"
 
-#: templates/landing.html:333
+#: templates/landing.html:334
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
@@ -2080,15 +2081,15 @@ msgstr ""
 "footer\">llamar</a> para reportar una vulneración o bien puede reportar una "
 "vulneración por <a href=\"#address-footer\">correo ordinario</a>."
 
-#: templates/landing.html:343
+#: templates/landing.html:344
 msgid "Already submitted a report?"
 msgstr "¿Ya presentó un informe?"
 
-#: templates/landing.html:346
+#: templates/landing.html:347
 msgid "Here's what to expect."
 msgstr "Puede esperar lo siguiente."
 
-#: templates/landing.html:350
+#: templates/landing.html:351
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
@@ -2099,22 +2100,22 @@ msgstr ""
 "determinar si podemos ayudar. Nos esforzamos por notificarle del resultado "
 "de nuestro repaso. No obstante, no siempre podremos actualizarle porque:"
 
-#: templates/landing.html:352
+#: templates/landing.html:353
 msgid ""
 "We're actively working on an investigation or case related to your report."
 msgstr ""
 "Estamos trabajando activamente en una investigación o un caso relacionado "
 "con su informe."
 
-#: templates/landing.html:353
+#: templates/landing.html:354
 msgid "We're receiving and actively reviewing many reports at the same time."
 msgstr "Estamos recibiendo y repasando muchos informes a la vez."
 
-#: templates/landing.html:360
+#: templates/landing.html:361
 msgid "Need urgent legal help?"
 msgstr "¿Necesita ayuda legal urgente?"
 
-#: templates/landing.html:362
+#: templates/landing.html:363
 msgid ""
 "Due to the amount of reports we receive, it can take several weeks for us to "
 "respond to your issue. Local legal aid offices or lawyers in your area may "
@@ -2124,7 +2125,7 @@ msgstr ""
 "semanas en responderle. Oficinas locales de asistencia legal en su zona "
 "podrán responder rápido o ayudarle con su motivo de preocupación."
 
-#: templates/landing.html:363
+#: templates/landing.html:364
 msgid ""
 "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
 "aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
@@ -2136,7 +2137,7 @@ msgstr ""
 "\"https://lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> o llame al <a "
 "href=\"tel:202-295-1500\">(202) 295-1500</a>."
 
-#: templates/landing.html:364
+#: templates/landing.html:365
 msgid ""
 "Or visit <a class=\"external-link--blue external-link--popup\" aria-label="
 "\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
@@ -2148,7 +2149,7 @@ msgstr ""
 "llamar al <a href=\"tel:800-285-2221\">(800) 285-2221</a> para localizar a "
 "un abogado a través del Colegio de Abogados Estadounidense. "
 
-#: templates/landing.html:378
+#: templates/landing.html:379
 msgid "Image attributions"
 msgstr ""
 
@@ -2473,11 +2474,11 @@ msgid ""
 "For a complete list of routine agency uses, please consult the following:"
 msgstr "Para una lista completa de usos agenciales rutinarios, véanse:"
 
-#: templates/privacy.html:84
+#: templates/privacy.html:74
 msgid "You should also know that:"
 msgstr "Por otra parte, se le avisa que:"
 
-#: templates/privacy.html:86
+#: templates/privacy.html:76
 msgid ""
 "\n"
 "                    <li>Any information you provide to us through this form "
@@ -2507,11 +2508,11 @@ msgstr ""
 "                    "
 
 # don't have this
-#: templates/privacy.html:97 templates/privacy.html:168
+#: templates/privacy.html:85 templates/privacy.html:146
 msgid "Return to top"
 msgstr "Volver al principio"
 
-#: templates/privacy.html:108
+#: templates/privacy.html:88
 msgid ""
 "We are authorized to collect this information pursuant to the following "
 "statutes:"
@@ -2519,7 +2520,7 @@ msgstr ""
 "En virtud de los siguientes estatutos, estamos autorizados para recopilar "
 "estos datos:"
 
-#: templates/privacy.html:110
+#: templates/privacy.html:90
 msgid ""
 "\n"
 "                    <li>Official Misconduct, 18 U.S.C. §§ 241, 242</li>\n"
@@ -2712,7 +2713,7 @@ msgstr ""
 "1964</li>\n"
 "                    "
 
-#: templates/privacy.html:162
+#: templates/privacy.html:142
 msgid ""
 "\n"
 "                The full list of routine uses for this correspondence can be "

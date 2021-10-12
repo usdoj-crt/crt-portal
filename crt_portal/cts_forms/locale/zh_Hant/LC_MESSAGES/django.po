@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-12 17:54+0000\n"
+"POT-Creation-Date: 2021-10-12 22:10+0000\n"
 "Language: Chinese Traditional\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -425,7 +425,7 @@ msgstr ""
 "受到威脅、脅迫並在違反您意願的情況下迫使您工作或從事性交易。其中可能包括威脅"
 "造成身體傷害、扣留答應給予的薪資或根據虛假的工作合約扣留您"
 
-#: model_variables.py:127 templates/landing.html:259
+#: model_variables.py:127 templates/landing.html:260
 msgid "Age"
 msgstr "年齡"
 
@@ -466,11 +466,11 @@ msgstr "原國籍（包括祖籍和族裔）"
 msgid "Pregnancy"
 msgstr "懷孕"
 
-#: model_variables.py:136 templates/landing.html:252
+#: model_variables.py:136 templates/landing.html:253
 msgid "Race/color"
 msgstr "種族／膚色"
 
-#: model_variables.py:137 templates/landing.html:254
+#: model_variables.py:137 templates/landing.html:255
 msgid "Religion"
 msgstr "宗教"
 
@@ -1136,13 +1136,14 @@ msgid "Skip to main content"
 msgstr "跳到主要內容"
 
 #: templates/base.html:130 templates/forms/errors.html:13
-#: templates/forms/report_maintenance.html:13 templates/landing.html:17
+#: templates/forms/report_maintenance.html:13 templates/landing.html:10
+#: templates/landing.html:17
 msgid "U.S. Department of Justice"
 msgstr "美國司法部"
 
 #: templates/base.html:133 templates/forms/confirmation.html:21
 #: templates/forms/errors.html:14 templates/forms/report_maintenance.html:14
-#: templates/landing.html:20
+#: templates/landing.html:10 templates/landing.html:20
 msgid "Civil Rights Division"
 msgstr "民權司"
 
@@ -1270,7 +1271,7 @@ msgstr "我們正在積極調查與您報告有關的案件。"
 msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr "我們同時收到許多要求且正在積極審查這些要求。"
 
-#: templates/forms/confirmation.html:135 templates/landing.html:355
+#: templates/forms/confirmation.html:135 templates/landing.html:356
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1407,12 +1408,12 @@ msgid "File a complaint"
 msgstr "提出投訴"
 
 #: templates/forms/errors.html:71 templates/forms/report_maintenance.html:66
-#: templates/landing.html:127
+#: templates/landing.html:128
 msgid "About the Civil Rights Division"
 msgstr "民權司相關資訊"
 
 #: templates/forms/errors.html:74 templates/forms/report_maintenance.html:69
-#: templates/landing.html:110
+#: templates/landing.html:111
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
@@ -1506,7 +1507,7 @@ msgid "None selected"
 msgstr "沒有選擇任何選項"
 
 #: templates/forms/report_hate_crime.html:13
-#: templates/forms/report_hate_crime.html:18 templates/landing.html:229
+#: templates/forms/report_hate_crime.html:18 templates/landing.html:230
 msgid "Were you forced to work against your will?"
 msgstr "是否有人違反您的意願強迫您工作？"
 
@@ -1519,7 +1520,7 @@ msgstr ""
 "人口販運包括被强迫或脅迫做工，或是被强迫或脅迫从事性行爲以換取有價值的東西。"
 
 #: templates/forms/report_hate_crime.html:18
-#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:229
+#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:230
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "向國家人口販運專綫尋求幫助"
 
@@ -1634,36 +1635,36 @@ msgstr "或者致電當地的分局"
 msgid "Where to report human trafficking"
 msgstr "在哪裏舉報人口販運"
 
-#: templates/landing.html:29
+#: templates/landing.html:30
 msgid "Menu"
 msgstr "菜單"
 
-#: templates/landing.html:38
+#: templates/landing.html:39
 msgid "About the Division"
 msgstr "民權司相關資訊"
 
-#: templates/landing.html:43
+#: templates/landing.html:44
 msgid "Your rights"
 msgstr "您的權利"
 
-#: templates/landing.html:48 templates/partials/footer.html:70
+#: templates/landing.html:49 templates/partials/footer.html:70
 msgid "Report a violation"
 msgstr "舉報侵權事件"
 
-#: templates/landing.html:53
+#: templates/landing.html:54
 msgid "Already submitted?"
 msgstr "已經提交？"
 
-#: templates/landing.html:58 templates/partials/footer.html:9
+#: templates/landing.html:59 templates/partials/footer.html:9
 #: views_public.py:176 views_public.py:255 views_public.py:274
 msgid "Contact"
 msgstr "聯絡"
 
-#: templates/landing.html:80
+#: templates/landing.html:81
 msgid "We uphold the civil rights of <em>all</em> people in the United States."
 msgstr "我們會維護所有身处美國的民众的民權。"
 
-#: templates/landing.html:85
+#: templates/landing.html:86
 msgid ""
 "The Civil Rights Division enforces federal laws that protect you from "
 "discrimination based on your race, color, national origin, disability "
@@ -1673,28 +1674,28 @@ msgstr ""
 "民權司負責執行聯邦法律，保護您免於因為種族、膚色、原國籍、殘障人士身分、性"
 "別、宗教、家庭狀況而遭受歧視或喪失其他憲法權利。"
 
-#: templates/landing.html:88
+#: templates/landing.html:89
 msgid ""
 "If you believe your civil rights, or someone else’s, have been violated, "
 "submit a report using our online form."
 msgstr "如果您認為自己或他人的民權受到侵犯，請使用我們的線上表格提交報告。"
 
-#: templates/landing.html:90 templates/landing.html:328
+#: templates/landing.html:91 templates/landing.html:329
 msgid "Start a report"
 msgstr "開始提交報告"
 
-#: templates/landing.html:91
+#: templates/landing.html:92
 msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
 msgstr "或進一步瞭解<a href=\"#your-rights\">您的權利</a>"
 
-#: templates/landing.html:104
+#: templates/landing.html:105
 msgid ""
 "If you are in danger, contact <a href=\"tel:911\" aria-label=\"9 1 1\">911</"
 "a>"
 msgstr ""
 "如果您處境危險，請聯絡 <a href=\"tel:911\" aria-label=\"9 1 1\">911</a>"
 
-#: templates/landing.html:115
+#: templates/landing.html:116
 msgid ""
 "If you are reporting misconduct by law enforcement or believe you have "
 "experienced a hate crime, please <a aria-label=\"contact the FBI\" class="
@@ -1705,21 +1706,21 @@ msgstr ""
 "\"contact the FBI\" class=\"external-link--white\" href=\"https://www.fbi."
 "gov/tips\">請與聯邦調查局 (FBI) 聯絡</a>。"
 
-#: templates/landing.html:129
+#: templates/landing.html:130
 msgid "We protect your rights through:"
 msgstr "我們透過下列方式保障您的權利："
 
-#: templates/landing.html:132
+#: templates/landing.html:133
 msgid "Enforcement"
 msgstr "執法"
 
-#: templates/landing.html:134
+#: templates/landing.html:135
 msgid ""
 "We sue or prosecute individuals and organizations who violate civil rights "
 "laws."
 msgstr "我們會控告或起訴違反民權法的人士和組織。"
 
-#: templates/landing.html:137
+#: templates/landing.html:138
 #, python-format
 msgid ""
 "\n"
@@ -1733,38 +1734,38 @@ msgstr ""
 "舉報可能的民權侵犯事件，以協助我們完成。\n"
 "                "
 
-#: templates/landing.html:143
+#: templates/landing.html:144
 msgid "Education"
 msgstr "教育"
 
-#: templates/landing.html:145
+#: templates/landing.html:146
 msgid "We help the public understand how to comply with these laws."
 msgstr "我們會協助一般民眾瞭解如何遵守這些法律。"
 
-#: templates/landing.html:146
+#: templates/landing.html:147
 msgid "We do this through public speaking, technical assistance, and more."
 msgstr "我們透過公開演講、技術協助等方法來讓民眾瞭解如何遵守這些法律。"
 
-#: templates/landing.html:149
+#: templates/landing.html:150
 msgid "Coordination"
 msgstr "協調"
 
-#: templates/landing.html:151
+#: templates/landing.html:152
 msgid ""
 "We help the entire federal government work together to enforce these laws."
 msgstr "我們會協助聯邦政府全體同仁共同合作以執行這些法律。"
 
-#: templates/landing.html:152
+#: templates/landing.html:153
 msgid ""
 "Our teams work with other agencies to promote a consistent approach to civil "
 "rights laws."
 msgstr "我們的團隊會與其他機構合作，以促使大家透過一致的方式執行民權法。"
 
-#: templates/landing.html:164
+#: templates/landing.html:165
 msgid "Understanding your rights"
 msgstr "瞭解您的權利"
 
-#: templates/landing.html:167
+#: templates/landing.html:168
 msgid ""
 "Civil rights laws can protect you from unlawful discrimination, harassment, "
 "or abuse in a variety of settings like <span class=\"crt-landing--"
@@ -1775,7 +1776,7 @@ msgstr ""
 "landing--rights_text crt-landing--rights_categories\">住房、職場、學校、投"
 "票、商店、醫療保健設施、公共場所</span>等等。"
 
-#: templates/landing.html:170
+#: templates/landing.html:171
 msgid ""
 "If you have been <span class=\"crt-landing--rights_categories\">mistreated "
 "by law enforcement</span> (including while incarcerated), believe you have "
@@ -1788,15 +1789,15 @@ msgstr ""
 "landing--rights_categories\">仇恨犯罪</span>或<span class=\"crt-landing--"
 "rights_categories\">人口販賣</span>的受害者，我們可以協助您與適當的單位聯絡。"
 
-#: templates/landing.html:186
+#: templates/landing.html:187
 msgid "Choose from this list to see example civil rights violations:"
 msgstr "請從本清單中選擇，以查看民權侵犯事件的例子："
 
-#: templates/landing.html:221
+#: templates/landing.html:222
 msgid "Examples"
 msgstr "例子"
 
-#: templates/landing.html:238
+#: templates/landing.html:239
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
@@ -1804,15 +1805,15 @@ msgstr ""
 "如果您認為自己曾發生類似情況，請瞭解該<a href=\"#crt-landing--reporting\">如"
 "何舉報民權侵犯事件</a>。"
 
-#: templates/landing.html:248
+#: templates/landing.html:249
 msgid "Protected by civil rights laws"
 msgstr "受到民權法的保護"
 
-#: templates/landing.html:250
+#: templates/landing.html:251
 msgid "These are the most common characteristics that are legally protected."
 msgstr "以下是受到法律保護的最常見特徵清單。"
 
-#: templates/landing.html:253
+#: templates/landing.html:254
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
@@ -1820,22 +1821,22 @@ msgstr ""
 "殘障<span class=\"crt-landing--protected\">（包括暫時性或康復中的情況）</"
 "span>"
 
-#: templates/landing.html:255
+#: templates/landing.html:256
 msgid "Sex, gender identity, and sexual orientation"
 msgstr "性別、性別認同及性取向"
 
-#: templates/landing.html:256
+#: templates/landing.html:257
 msgid "Immigration/citizenship status"
 msgstr "移民／公民身分"
 
-#: templates/landing.html:257
+#: templates/landing.html:258
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
 msgstr ""
 "語言和原國籍<span class=\"crt-landing--protected\">（包括祖籍和族裔）</span>"
 
-#: templates/landing.html:258
+#: templates/landing.html:259
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
@@ -1843,29 +1844,29 @@ msgstr ""
 "家庭狀況、婚姻狀態或是否擁有子女<span class=\"crt-landing--protected\">（包括"
 "懷孕）</span>"
 
-#: templates/landing.html:260
+#: templates/landing.html:261
 msgid "Genetic identification"
 msgstr "基因識別資訊"
 
-#: templates/landing.html:261
+#: templates/landing.html:262
 msgid "Servicemember status"
 msgstr "服役人員状态"
 
-#: templates/landing.html:275
+#: templates/landing.html:276
 msgid "How to report a civil rights violation"
 msgstr "民權侵犯事件的舉報方式"
 
-#: templates/landing.html:280
+#: templates/landing.html:281
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
 msgstr "如果您認為自己或他人遭受非法歧視，您可以舉報民權侵犯事件。"
 
-#: templates/landing.html:289
+#: templates/landing.html:290
 msgid "Report using our online form."
 msgstr "請使用我們的線上表格進行舉報。"
 
-#: templates/landing.html:290
+#: templates/landing.html:291
 msgid ""
 "By completing the online form, you can provide the details we need to "
 "understand what happened. You will receive a confirmation number and your "
@@ -1874,11 +1875,11 @@ msgstr ""
 "您可藉由填寫線上表格來提供我們瞭解事發經過所需的詳細資訊。您將會收到一組確認"
 "號碼，而您的報告將會立即寄送給我們的工作人員進行審查。"
 
-#: templates/landing.html:298
+#: templates/landing.html:299
 msgid "We review your report."
 msgstr "我們會審查您的報告。"
 
-#: templates/landing.html:299
+#: templates/landing.html:300
 msgid ""
 "Teams that specialize in handling your type of issue will review it. If it "
 "needs to be forwarded to another team or agency, we will try to connect your "
@@ -1887,11 +1888,11 @@ msgstr ""
 "專門處理您該類型問題的團隊將會審查您的報告。如果我們需要將您的報告轉交給其他"
 "團隊或機構，我們將會盡力將您的投訴轉介給適當的團體。"
 
-#: templates/landing.html:307
+#: templates/landing.html:308
 msgid "We determine next steps and get back to you."
 msgstr "我們會決定接下來該怎麼做並回覆您。"
 
-#: templates/landing.html:308
+#: templates/landing.html:309
 msgid ""
 "Possible outcomes include: following up for more information, starting a "
 "mediation or investigation, directing you to another organization for "
@@ -1900,11 +1901,11 @@ msgstr ""
 "可能的結果包括：跟進以索取進一步資訊、開始進行調解或調查、轉介您至其他組織以"
 "尋求進一步協助或通知您我們無法提供協助。"
 
-#: templates/landing.html:327
+#: templates/landing.html:328
 msgid "Have you or someone you know experienced a civil rights violation?"
 msgstr "您或您所認識的人是否曾遭遇民權侵權事件？"
 
-#: templates/landing.html:333
+#: templates/landing.html:334
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
@@ -1913,15 +1914,15 @@ msgstr ""
 "如果您無法使用線上表格，您可以<a href=\"#phone-footer\">致電</a>或透過<a "
 "href=\"#address-footer\">郵件</a>舉報侵權事件。"
 
-#: templates/landing.html:343
+#: templates/landing.html:344
 msgid "Already submitted a report?"
 msgstr "已經提交報告了嗎？"
 
-#: templates/landing.html:346
+#: templates/landing.html:347
 msgid "Here's what to expect."
 msgstr "以下是後續流程。"
 
-#: templates/landing.html:350
+#: templates/landing.html:351
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
@@ -1932,20 +1933,20 @@ msgstr ""
 "供協助。我們會盡力通知您有關我們審查的結果。然而，我們可能不一定能夠為您提供"
 "進度更新，理由如下："
 
-#: templates/landing.html:352
+#: templates/landing.html:353
 msgid ""
 "We're actively working on an investigation or case related to your report."
 msgstr "我們正在積極處理某項與您報告有關的案件。"
 
-#: templates/landing.html:353
+#: templates/landing.html:354
 msgid "We're receiving and actively reviewing many reports at the same time."
 msgstr "我們同時收到許多報告且正在積極審查這些報告。"
 
-#: templates/landing.html:360
+#: templates/landing.html:361
 msgid "Need urgent legal help?"
 msgstr "急需法律援助？"
 
-#: templates/landing.html:362
+#: templates/landing.html:363
 msgid ""
 "Due to the amount of reports we receive, it can take several weeks for us to "
 "respond to your issue. Local legal aid offices or lawyers in your area may "
@@ -1954,7 +1955,7 @@ msgstr ""
 "基於我們所收到的報告量，我們可能需要幾週的時間才能回覆您的問題。您當地的法扶"
 "辦公室或律師可能可以迅速作出回覆或協助您處理您所擔憂的問題"
 
-#: templates/landing.html:363
+#: templates/landing.html:364
 msgid ""
 "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
 "aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
@@ -1966,7 +1967,7 @@ msgstr ""
 "gov/find-legal-aid</a> 或致電 <a href=\"tel:202-295-1500\">(202) 295-1500</"
 "a> 與法律服務公司聯絡。"
 
-#: templates/landing.html:364
+#: templates/landing.html:365
 msgid ""
 "Or visit <a class=\"external-link--blue external-link--popup\" aria-label="
 "\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
@@ -1978,7 +1979,7 @@ msgstr ""
 "findlegalhelp.org</a>或致電 <a href=\"tel:800-285-2221\">(800) 285-2221</a> "
 "以透過美國律師協會尋找律師。"
 
-#: templates/landing.html:378
+#: templates/landing.html:379
 msgid "Image attributions"
 msgstr "圖片來源"
 
@@ -2282,11 +2283,11 @@ msgid ""
 "For a complete list of routine agency uses, please consult the following:"
 msgstr "如需例行機構用途的完整清單，請參閱下文："
 
-#: templates/privacy.html:84
+#: templates/privacy.html:74
 msgid "You should also know that:"
 msgstr "您也應瞭解："
 
-#: templates/privacy.html:86
+#: templates/privacy.html:76
 msgid ""
 "\n"
 "                    <li>Any information you provide to us through this form "
@@ -2311,17 +2312,17 @@ msgstr ""
 "                    </li>\n"
 "                    "
 
-#: templates/privacy.html:97 templates/privacy.html:168
+#: templates/privacy.html:85 templates/privacy.html:146
 msgid "Return to top"
 msgstr "返回最前面"
 
-#: templates/privacy.html:108
+#: templates/privacy.html:88
 msgid ""
 "We are authorized to collect this information pursuant to the following "
 "statutes:"
 msgstr "我們已獲得授權，得以根據下列法規收集這些資訊："
 
-#: templates/privacy.html:110
+#: templates/privacy.html:90
 msgid ""
 "\n"
 "                    <li>Official Misconduct, 18 U.S.C. §§ 241, 242</li>\n"
@@ -2458,7 +2459,7 @@ msgstr ""
 "<li>1870 年、1957 年、1960 年及 1964 年民權法</li>\n"
 "                    "
 
-#: templates/privacy.html:162
+#: templates/privacy.html:142
 msgid ""
 "\n"
 "                The full list of routine uses for this correspondence can be "
