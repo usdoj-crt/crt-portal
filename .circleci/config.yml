@@ -154,7 +154,7 @@ jobs:
 # owasp scans on live sties
   owasp-scan-dev:
     machine:
-      image: circleci/classic:latest
+      image: ubuntu-2004:202107-02
     working_directory: ~/code
     steps:
       - checkout
@@ -165,7 +165,7 @@ jobs:
               -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf -z "-config rules.cookie.ignorelist=django_language"
   owasp-scan-stage:
     machine:
-      image: circleci/classic:latest
+      image: ubuntu-2004:202107-02
     working_directory: ~/code
     steps:
       - checkout
@@ -176,7 +176,7 @@ jobs:
               -t https://crt-portal-django-stage.app.cloud.gov/report/ -c .circleci/zap.conf -z "-config rules.cookie.ignorelist=django_language"
   owasp-scan-prod:
     machine:
-      image: circleci/classic:latest
+      image: ubuntu-2004:202107-02
     working_directory: ~/code
     steps:
       - checkout
