@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-07 17:29+0000\n"
+"POT-Creation-Date: 2021-10-12 14:38+0000\n"
 "Language: SpanishMIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1642,13 +1642,14 @@ msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
 msgstr ""
-"La trata de personas incluye ser forzado o coaccionado a hacer trabajo, o "
-"forzado o coaccionado a participar en actos sexuales por algo de valor."
+"La trata de personas incluye obligar o coaccionar a alguien a trabajar u "
+"obligar o coaccionar a alguien a realizar actos sexuales a cambio de algo de "
+"valor."
 
 #: templates/forms/report_hate_crime.html:18
 #: templates/hate_crime_human_trafficking.html:70 templates/landing.html:227
 msgid "Get help from the National Human Trafficking Hotline"
-msgstr "Reciba ayuda de la Línea Nacional contra la Trata de Personas"
+msgstr "Consiga ayuda de la Línea Directa Nacional contra la Trata de Personas"
 
 #: templates/forms/report_maintenance.html:30
 msgid "This page is currently down for maintenance."
@@ -1712,75 +1713,58 @@ msgstr ""
 
 #: templates/hate_crime_human_trafficking.html:7
 #: templates/hate_crime_human_trafficking.html:14
-#, fuzzy
-#| msgid "Civil Rights Division - Department of Justice - Privacy Policy"
 msgid ""
 "Civil Rights Division - Department of Justice - Get help for hate crimes and "
 "human trafficking"
 msgstr ""
-"La División de Derechos Civiles - Departamento de Justicia - Política de "
-"privacidad"
+"La División de Derechos Civiles - Departamento de Justicia - Consiga ayuda "
+"con delitos de odio y la trata de personas"
 
 #: templates/hate_crime_human_trafficking.html:25
 msgid "How do I…"
-msgstr ""
+msgstr "¿Cómo puedo…?"
 
 #: templates/hate_crime_human_trafficking.html:28
-#, fuzzy
-#| msgid "Victim of a hate crime"
 msgid "Report a hate crime"
-msgstr "Víctima de un delito de odio"
+msgstr "Denunciar un delito de odio"
 
 #: templates/hate_crime_human_trafficking.html:31
-#, fuzzy
-#| msgid "Victim of human trafficking"
 msgid "Report human trafficking"
-msgstr "Víctima de la trata de personas"
+msgstr "Denunciar la trata de personas"
 
 #: templates/hate_crime_human_trafficking.html:37
-#, fuzzy
-#| msgid "Get help from the National Human Trafficking Hotline"
 msgid "Get help for hate crimes and human trafficking"
-msgstr "Reciba ayuda de la Línea Nacional contra la Trata de Personas"
+msgstr "Consiga ayuda con delitos de odio y la trata de personas"
 
 #: templates/hate_crime_human_trafficking.html:42
-#, fuzzy
-#| msgid "Victim of a hate crime"
 msgid "Where to report a hate crime"
-msgstr "Víctima de un delito de odio"
+msgstr "Dónde denunciar un delito de odio"
 
 #: templates/hate_crime_human_trafficking.html:44
-#, fuzzy
-#| msgid ""
-#| "Physical harm or threats of violence based on race, color, national "
-#| "origin, religion, gender, sexual orientation, gender identity, or "
-#| "disability"
 msgid ""
 "A hate crime is violence or threats of violence based on race, color, "
 "national origin, religion, gender, sexual orientation, gender identity, or "
 "disability."
 msgstr ""
-"Daño físico o amenazas de violencia por motivos de raza, color de piel, "
-"origen nacional, religión, género, orientación sexual, identidad de género o "
-"discapacidad"
+"Un delito de odio consiste en violencia o amenazas de violencia por motivos "
+"de raza, color de piel, origen nacional, religión, género, orientación "
+"sexual, identidad de género o discapacidad."
 
 #: templates/hate_crime_human_trafficking.html:48
 msgid "In cases of emergency, contact 911"
-msgstr ""
+msgstr "En casos de emergencia, llame al 911"
 
 #: templates/hate_crime_human_trafficking.html:53
 msgid "Otherwise, contact the FBI online"
-msgstr ""
+msgstr "De lo contrario, puede comunicarse con el FBI en línea"
 
 #: templates/hate_crime_human_trafficking.html:58
 msgid "Or a local field office by phone"
-msgstr ""
+msgstr "O llamando a alguna de sus oficinas locales"
 
 #: templates/hate_crime_human_trafficking.html:64
-#, fuzzy
-#| msgid "Victim of human trafficking"
 msgid "Where to report human trafficking"
-msgstr "Víctima de la trata de personas"
+msgstr "Dónde denunciar la trata de personas"
 
 #: templates/landing.html:29
 msgid "Menu"
