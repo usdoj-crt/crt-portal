@@ -5,8 +5,9 @@
 echo Migrating database...
 python /code/crt_portal/manage.py migrate
 
-echo Generating css...
+echo Generating css and js...
 node node_modules/gulp/bin/gulp build-sass
+node node_modules/gulp/bin/gulp build-js
 
 # If LOCALSTACK is set in environment, this will upload static files to the localstack s3 service running in docker
 # Otherwise the development server is handling static files
@@ -24,8 +25,8 @@ if [[ -n "${USE_LOCALSTACK}" ]]; then
     python /code/crt_portal/manage.py collectstatic --noinput
 else
     # Since the dev server is handling static files, let's rebuild them as we modify
-    echo Watching-sass to rebuild as we make changes...
-    node node_modules/gulp/bin/gulp watch-sass &
+    echo Watching sass and js to rebuild as we make changes...
+    node node_modules/gulp/bin/gulp watch &
 fi;
 
 echo Compiling i8n files…
