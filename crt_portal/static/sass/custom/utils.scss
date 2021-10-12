@@ -1,3 +1,11 @@
 .align-center {
   text-align: center;
 }
+
+// This utility class should be used on elements that may have extremely
+// long words that cause text to overflow outside of containers.
+.word-break {
+  word-wrap: break-word; // IE11 support
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
