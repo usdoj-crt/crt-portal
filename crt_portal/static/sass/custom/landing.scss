@@ -207,6 +207,16 @@ $arrow-height: 24px;
         height: 45px;
       }
     }
+
+    a {
+      /* Allows focus border to appear in Chrome/Safari */
+      display: inline-block;
+    }
+
+    a:hover {
+      color: color('white');
+      border-bottom: 0;
+    }
   }
 
   .crt-landing--logo_subheading {
