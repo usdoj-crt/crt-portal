@@ -161,7 +161,7 @@ jobs:
       - run:
             name: Pull owasp zap docker image and run scan
             command: |
-              docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-baseline.py \
+              docker run -v $(pwd):/zap/wrk/:rw -t oowasp/zap2docker-stable:latest zap-baseline.py \
               -t https://crt-portal-django-dev.app.cloud.gov/report/ -c .circleci/zap.conf -z "-config rules.cookie.ignorelist=django_language"
   owasp-scan-stage:
     machine:
@@ -172,7 +172,7 @@ jobs:
       - run:
             name: Pull owasp zap docker image and run scan
             command: |
-              docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-baseline.py \
+              docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable:latest zap-baseline.py \
               -t https://crt-portal-django-stage.app.cloud.gov/report/ -c .circleci/zap.conf -z "-config rules.cookie.ignorelist=django_language"
   owasp-scan-prod:
     machine:
@@ -183,7 +183,7 @@ jobs:
       - run:
             name: Pull owasp zap docker image and run scan
             command: |
-              docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-weekly zap-baseline.py \
+              docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable:latest zap-baseline.py \
               -t https://civilrights.justice.gov/report/ -c .circleci/zap.conf -z "-config rules.cookie.ignorelist=django_language"
 # deployments
   deploy-dev:
