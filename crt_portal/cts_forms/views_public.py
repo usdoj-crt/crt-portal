@@ -72,8 +72,6 @@ TEMPLATES = [
     'forms/report_contact_info.html',
     # Primary reason
     'forms/report_primary_complaint.html',
-    # Hate crimes
-    'forms/report_hate_crime.html',
     # Voting + location
     'forms/report_location.html',
     # Workplace + location
@@ -254,7 +252,6 @@ class CRTReportWizard(SessionWizardView):
         all_step_names = [
             _('Contact'),
             _('Primary concern'),
-            _('Primary concern'),
             _('Location'),
             _('Location'),
             _('Location'),
@@ -272,7 +269,6 @@ class CRTReportWizard(SessionWizardView):
         # This title appears in large font above the question elements
         ordered_step_titles = [
             _('Contact'),
-            _('Primary concern'),
             _('Primary concern'),
             _('Location details'),
             _('Location details'),
