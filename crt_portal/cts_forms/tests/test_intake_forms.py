@@ -14,7 +14,7 @@ from django.urls import reverse
 
 from ..forms import (
     CommercialPublicLocation, ComplaintActions, Contact,
-    Details, EducationLocation, HateCrimes, LocationForm,
+    Details, EducationLocation, LocationForm,
     PoliceLocation, PrimaryReason, ProfileForm, ProForm,
     ProtectedClassForm, When, save_form
 )
@@ -88,12 +88,6 @@ class Valid_Form_Tests(TestCase):
     def test_Primary_reason_valid(self):
         form = PrimaryReason(data={
             'primary_complaint': PRIMARY_COMPLAINT_CHOICES[0][0],
-        })
-        self.assertTrue(form.is_valid())
-
-    def test_hate_crimes_valad(self):
-        form = HateCrimes(data={
-            'hate_crime': 'yes',
         })
         self.assertTrue(form.is_valid())
 

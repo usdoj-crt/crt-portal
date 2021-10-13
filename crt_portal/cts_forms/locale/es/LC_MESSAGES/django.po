@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-12 22:10+0000\n"
+"POT-Creation-Date: 2021-10-13 18:44+0000\n"
 "Language: SpanishMIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:182 forms.py:1627
+#: forms.py:182 forms.py:1603
 msgid " - Select - "
 msgstr " - Elija - "
 
@@ -40,12 +40,7 @@ msgstr ""
 "su caso. En otra sección de este informe, tendrá la oportunidad de describir "
 "su preocupación en sus propias palabras."
 
-#. Translators: notes that this page is the same form step as the page before
-#: forms.py:260
-msgid "Continued"
-msgstr "Continuado"
-
-#: forms.py:317
+#: forms.py:295
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
@@ -53,11 +48,11 @@ msgstr ""
 "Ejemplos: Nombre de la empresa, escuela, intersección, cárcel, sede de "
 "votación, página web, etc."
 
-#: forms.py:339 question_text.py:29
+#: forms.py:317 question_text.py:29
 msgid "Where did this happen?"
 msgstr "¿Dónde sucedió esto?"
 
-#: forms.py:351
+#: forms.py:329
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your report is reviewed by the right people within "
@@ -67,7 +62,7 @@ msgstr ""
 "incidente. Esto asegura que su informe sea revisado por las personas "
 "indicadas dentro de la División de Derechos Civiles."
 
-#: forms.py:414
+#: forms.py:392
 msgid ""
 "Public employers include organizations funded by the government like the "
 "military, post office, fire department, courthouse, DMV, or public school. "
@@ -78,7 +73,7 @@ msgstr ""
 "juzgados, departamentos de vehículos motorizados o escuelas públicas. Esto "
 "podría ser al nivel local o estatal."
 
-#: forms.py:415
+#: forms.py:393
 msgid ""
 "Private employers are business or non-profits not funded by the government "
 "such as retail stores, banks, or restaurants."
@@ -88,11 +83,11 @@ msgstr ""
 "bancos o restaurantes."
 
 #. Translators: describe the "other" option for commercial or public place question
-#: forms.py:461
+#: forms.py:439
 msgid "Please describe"
 msgstr "Favor de describirlo"
 
-#: forms.py:528
+#: forms.py:506
 msgid ""
 "Includes schools, educational programs, or educational activities, like "
 "training programs, sports teams, clubs, or other school-sponsored activities"
@@ -101,11 +96,11 @@ msgstr ""
 "programas de capacitación, equipos deportivos, clubes u otras actividades "
 "patrocinadas por una escuela."
 
-#: forms.py:539
+#: forms.py:517
 msgid "Please select the type of school or educational program."
 msgstr "Elija el tipo de escuela o programa educativo."
 
-#: forms.py:562
+#: forms.py:540
 msgid ""
 "There are federal and state laws that protect people from discrimination "
 "based on their personal characteristics. Here is a list of the most common "
@@ -118,11 +113,11 @@ msgstr ""
 "Elija cualquiera que se aplique a su incidente."
 
 #. Translators: This is to explain an "other" choice for personal characteristics
-#: forms.py:567
+#: forms.py:545
 msgid "Please describe \"Other reason\""
 msgstr "Favor de describir \"Otro motivo\""
 
-#: forms.py:667
+#: forms.py:645
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -132,27 +127,27 @@ msgstr ""
 "tomar las medidas apropiadas. Si sucedió a lo largo de un período de tiempo "
 "o todavía está sucediendo, favor de indicar la fecha más reciente."
 
-#: forms.py:965
+#: forms.py:941
 #, fuzzy
 #| msgid "Incident location state"
 msgid "Incident state"
 msgstr "Estado en que ocurrió el incidente"
 
-#: forms.py:973
+#: forms.py:949
 msgid "Primary classification"
 msgstr "Clasificación principal"
 
-#: forms.py:995
+#: forms.py:971
 msgid "Assigned to"
 msgstr "Asignado a"
 
-#: forms.py:1184
+#: forms.py:1160
 #, fuzzy
 #| msgid "Date can not be in the future."
 msgid "Create date cannot be in the future."
 msgstr "La fecha no puede ser en el futuro."
 
-#: forms.py:1367
+#: forms.py:1343
 msgid "Comment cannot be empty"
 msgstr ""
 
@@ -1624,33 +1619,13 @@ msgstr "paso previo"
 msgid "Back"
 msgstr "Volver"
 
-#: templates/forms/report_data.html:21 templates/forms/report_data.html:114
+#: templates/forms/report_data.html:21 templates/forms/report_data.html:111
 msgid "Address"
 msgstr "Dirección física"
 
-#: templates/forms/report_data.html:135 templates/forms/report_data.html:141
+#: templates/forms/report_data.html:132 templates/forms/report_data.html:138
 msgid "None selected"
 msgstr "Ninguna selección hecha"
-
-#: templates/forms/report_hate_crime.html:13
-#: templates/forms/report_hate_crime.html:18 templates/landing.html:230
-msgid "Were you forced to work against your will?"
-msgstr "¿Le obligaron a trabajar en contra de su voluntad?"
-
-#: templates/forms/report_hate_crime.html:16
-#: templates/hate_crime_human_trafficking.html:66
-msgid ""
-"Human trafficking includes being forced or coerced to do work, or forced or "
-"coerced to engage in sex acts for something of value."
-msgstr ""
-"La trata de personas incluye obligar o coaccionar a alguien a trabajar u "
-"obligar o coaccionar a alguien a realizar actos sexuales a cambio de algo de "
-"valor."
-
-#: templates/forms/report_hate_crime.html:18
-#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:230
-msgid "Get help from the National Human Trafficking Hotline"
-msgstr "Consiga ayuda de la Línea Directa Nacional contra la Trata de Personas"
 
 #: templates/forms/report_maintenance.html:30
 msgid "This page is currently down for maintenance."
@@ -1767,6 +1742,19 @@ msgstr "O llamando a alguna de sus oficinas locales"
 msgid "Where to report human trafficking"
 msgstr "Dónde denunciar la trata de personas"
 
+#: templates/hate_crime_human_trafficking.html:66
+msgid ""
+"Human trafficking includes being forced or coerced to do work, or forced or "
+"coerced to engage in sex acts for something of value."
+msgstr ""
+"La trata de personas incluye obligar o coaccionar a alguien a trabajar u "
+"obligar o coaccionar a alguien a realizar actos sexuales a cambio de algo de "
+"valor."
+
+#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:230
+msgid "Get help from the National Human Trafficking Hotline"
+msgstr "Consiga ayuda de la Línea Directa Nacional contra la Trata de Personas"
+
 #: templates/landing.html:30
 msgid "Menu"
 msgstr ""
@@ -1788,7 +1776,7 @@ msgid "Already submitted?"
 msgstr "¿Ya nos informó de una vulneración?"
 
 #: templates/landing.html:59 templates/partials/footer.html:9
-#: views_public.py:176 views_public.py:255 views_public.py:274
+#: views_public.py:174 views_public.py:253 views_public.py:271
 msgid "Contact"
 msgstr "Contacto"
 
@@ -1948,6 +1936,10 @@ msgstr ""
 #: templates/landing.html:222
 msgid "Examples"
 msgstr "Ejemplos"
+
+#: templates/landing.html:230
+msgid "Were you forced to work against your will?"
+msgstr "¿Le obligaron a trabajar en contra de su voluntad?"
 
 #: templates/landing.html:239
 msgid ""
@@ -2738,71 +2730,71 @@ msgstr ""
 msgid "Enter a valid email address."
 msgstr "Dirección de correo electrónico"
 
-#: views_public.py:177 views_public.py:256 views_public.py:257
-#: views_public.py:275 views_public.py:276 views_public.py:311
+#: views_public.py:175 views_public.py:254 views_public.py:272
+#: views_public.py:307
 msgid "Primary concern"
 msgstr "Motivo principal de preocupación"
 
-#: views_public.py:178 views_public.py:258 views_public.py:259
-#: views_public.py:260 views_public.py:261 views_public.py:262
-#: views_public.py:263
+#: views_public.py:176 views_public.py:255 views_public.py:256
+#: views_public.py:257 views_public.py:258 views_public.py:259
+#: views_public.py:260
 msgid "Location"
 msgstr "Lugar"
 
-#: views_public.py:179 views_public.py:264 views_public.py:283
+#: views_public.py:177 views_public.py:261 views_public.py:279
 msgid "Personal characteristics"
 msgstr "Características personales"
 
-#: views_public.py:180 views_public.py:265 views_public.py:284
+#: views_public.py:178 views_public.py:262 views_public.py:280
 msgid "Date"
 msgstr "Fecha"
 
-#: views_public.py:181 views_public.py:266 views_public.py:285
+#: views_public.py:179 views_public.py:263 views_public.py:281
 msgid "Personal description"
 msgstr "Descripción personal"
 
-#: views_public.py:182 views_public.py:267 views_public.py:316
+#: views_public.py:180 views_public.py:264 views_public.py:312
 msgid "Review"
 msgstr "Repasar"
 
-#: views_public.py:277 views_public.py:278 views_public.py:279
-#: views_public.py:280 views_public.py:281 views_public.py:282
+#: views_public.py:273 views_public.py:274 views_public.py:275
+#: views_public.py:276 views_public.py:277 views_public.py:278
 msgid "Location details"
 msgstr "Datos de lugar"
 
-#: views_public.py:286
+#: views_public.py:282
 msgid "Review your report"
 msgstr "Revise su informe"
 
-#: views_public.py:302
+#: views_public.py:298
 msgid "word remaining"
 msgstr "palabra restante"
 
-#: views_public.py:303
+#: views_public.py:299
 msgid " words remaining"
 msgstr "palabras restantes"
 
-#: views_public.py:304
+#: views_public.py:300
 msgid " word limit reached"
 msgstr "límite de palabras alcanzado"
 
-#: views_public.py:314
+#: views_public.py:310
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "Favor de elegir esta opción si"
 
-#: views_public.py:394
+#: views_public.py:390
 msgid "404 | Page not found"
 msgstr "404 | Página no encontrada"
 
-#: views_public.py:395
+#: views_public.py:391
 msgid "We can't find the page you are looking for"
 msgstr "No encontramos la página que usted está buscando"
 
-#: views_public.py:454
+#: views_public.py:450
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Su navegador no pudo crear una cookie segura"
 
-#: views_public.py:455
+#: views_public.py:451
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
@@ -2815,6 +2807,9 @@ msgstr ""
 "problema. Si sabe que se permiten las cookies y tiene este problema, intente "
 "acceder a esta página en otra pestaña o ventana en su navegador. Eso le "
 "creará otra cookie de seguridad y debería resolver el problema."
+
+#~ msgid "Continued"
+#~ msgstr "Continuado"
 
 #~ msgid "Hello."
 #~ msgstr "Goodbye"

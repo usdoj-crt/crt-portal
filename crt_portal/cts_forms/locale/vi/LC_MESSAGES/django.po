@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-12 22:10+0000\n"
+"POT-Creation-Date: 2021-10-13 18:44+0000\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:182 forms.py:1627
+#: forms.py:182 forms.py:1603
 msgid " - Select - "
 msgstr " - Chọn - "
 
@@ -40,12 +40,7 @@ msgstr ""
 "của quý vị. Trong một phần khác của báo cáo này, quý vị sẽ có thể mô tả mối "
 "quan ngại của mình qua lời lẽ riêng của quý vị."
 
-#. Translators: notes that this page is the same form step as the page before
-#: forms.py:260
-msgid "Continued"
-msgstr "Tiếp tục"
-
-#: forms.py:317
+#: forms.py:295
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
@@ -53,11 +48,11 @@ msgstr ""
 "Ví dụ: Tên doanh nghiệp, trường học, giao lộ, nhà tù, điểm bỏ phiếu, trang "
 "web, v.v."
 
-#: forms.py:339 question_text.py:29
+#: forms.py:317 question_text.py:29
 msgid "Where did this happen?"
 msgstr "Việc này đã xảy ra ở đâu?"
 
-#: forms.py:351
+#: forms.py:329
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your report is reviewed by the right people within "
@@ -67,7 +62,7 @@ msgstr ""
 "ra vụ việc này. Điều này nhằm đảm bảo báo cáo của quý vị được đánh giá bởi "
 "những người phù hợp trong Ban Dân quyền."
 
-#: forms.py:414
+#: forms.py:392
 msgid ""
 "Public employers include organizations funded by the government like the "
 "military, post office, fire department, courthouse, DMV, or public school. "
@@ -78,7 +73,7 @@ msgstr ""
 "phương tiện cơ giới (DMV) hoặc trường công lập. Đơn vị này có thể là ở cấp "
 "địa phương hoặc tiểu bang."
 
-#: forms.py:415
+#: forms.py:393
 msgid ""
 "Private employers are business or non-profits not funded by the government "
 "such as retail stores, banks, or restaurants."
@@ -87,11 +82,11 @@ msgstr ""
 "chính phủ tài trợ, chẳng hạn như cửa hàng bán lẻ, ngân hàng, hoặc nhà hàng."
 
 #. Translators: describe the "other" option for commercial or public place question
-#: forms.py:461
+#: forms.py:439
 msgid "Please describe"
 msgstr "Vui lòng mô tả"
 
-#: forms.py:528
+#: forms.py:506
 msgid ""
 "Includes schools, educational programs, or educational activities, like "
 "training programs, sports teams, clubs, or other school-sponsored activities"
@@ -100,11 +95,11 @@ msgstr ""
 "chương trình đào tạo, các đội thể thao, câu lạc bộ, hoặc các hoạt động khác "
 "do trường bảo trợ"
 
-#: forms.py:539
+#: forms.py:517
 msgid "Please select the type of school or educational program."
 msgstr "Vui lòng chọn loại hình trường học hoặc chương trình giáo dục."
 
-#: forms.py:562
+#: forms.py:540
 msgid ""
 "There are federal and state laws that protect people from discrimination "
 "based on their personal characteristics. Here is a list of the most common "
@@ -117,11 +112,11 @@ msgstr ""
 "vụ việc của quý vị."
 
 #. Translators: This is to explain an "other" choice for personal characteristics
-#: forms.py:567
+#: forms.py:545
 msgid "Please describe \"Other reason\""
 msgstr "Vui lòng mô tả “Lý do khác”"
 
-#: forms.py:667
+#: forms.py:645
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -132,23 +127,23 @@ msgstr ""
 "diễn ra trong một khoảng thời gian hoặc vẫn đang diễn ra, vui lòng cho biết "
 "ngày gần đây nhất."
 
-#: forms.py:965
+#: forms.py:941
 msgid "Incident state"
 msgstr ""
 
-#: forms.py:973
+#: forms.py:949
 msgid "Primary classification"
 msgstr "Phân loại chính"
 
-#: forms.py:995
+#: forms.py:971
 msgid "Assigned to"
 msgstr "Được giao cho"
 
-#: forms.py:1184
+#: forms.py:1160
 msgid "Create date cannot be in the future."
 msgstr "Ngày tạo không được là ngày trong tương lai."
 
-#: forms.py:1367
+#: forms.py:1343
 msgid "Comment cannot be empty"
 msgstr "Nhận xét không được để trống"
 
@@ -1606,33 +1601,13 @@ msgstr "bước trước"
 msgid "Back"
 msgstr "Quay lại"
 
-#: templates/forms/report_data.html:21 templates/forms/report_data.html:114
+#: templates/forms/report_data.html:21 templates/forms/report_data.html:111
 msgid "Address"
 msgstr "Địa chỉ"
 
-#: templates/forms/report_data.html:135 templates/forms/report_data.html:141
+#: templates/forms/report_data.html:132 templates/forms/report_data.html:138
 msgid "None selected"
 msgstr "Không lựa chọn nào được chọn"
-
-#: templates/forms/report_hate_crime.html:13
-#: templates/forms/report_hate_crime.html:18 templates/landing.html:230
-msgid "Were you forced to work against your will?"
-msgstr "Quý vị có bị ép buộc phải làm việc trái ý mình không?"
-
-#: templates/forms/report_hate_crime.html:16
-#: templates/hate_crime_human_trafficking.html:66
-msgid ""
-"Human trafficking includes being forced or coerced to do work, or forced or "
-"coerced to engage in sex acts for something of value."
-msgstr ""
-"Nạn buôn người bao gồm việc bị ép buộc hay cưỡng bức làm việc, hoặc bị ép "
-"buộc hay cưỡng bức thực hiện hành vi tình dục để được một thứ gì đó có giá "
-"trị."
-
-#: templates/forms/report_hate_crime.html:18
-#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:230
-msgid "Get help from the National Human Trafficking Hotline"
-msgstr "Nhận sự giúp đỡ từ Đường Dây Nóng Chống Buôn Người Toàn Quốc"
 
 #: templates/forms/report_maintenance.html:30
 msgid "This page is currently down for maintenance."
@@ -1752,6 +1727,19 @@ msgstr "Hoặc văn phòng địa phương qua điện thoại"
 msgid "Where to report human trafficking"
 msgstr "Nơi trình báo nạn buôn người"
 
+#: templates/hate_crime_human_trafficking.html:66
+msgid ""
+"Human trafficking includes being forced or coerced to do work, or forced or "
+"coerced to engage in sex acts for something of value."
+msgstr ""
+"Nạn buôn người bao gồm việc bị ép buộc hay cưỡng bức làm việc, hoặc bị ép "
+"buộc hay cưỡng bức thực hiện hành vi tình dục để được một thứ gì đó có giá "
+"trị."
+
+#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:230
+msgid "Get help from the National Human Trafficking Hotline"
+msgstr "Nhận sự giúp đỡ từ Đường Dây Nóng Chống Buôn Người Toàn Quốc"
+
 #: templates/landing.html:30
 msgid "Menu"
 msgstr ""
@@ -1773,7 +1761,7 @@ msgid "Already submitted?"
 msgstr "Đã gửi?"
 
 #: templates/landing.html:59 templates/partials/footer.html:9
-#: views_public.py:176 views_public.py:255 views_public.py:274
+#: views_public.py:174 views_public.py:253 views_public.py:271
 msgid "Contact"
 msgstr "Liên Hệ"
 
@@ -1934,6 +1922,10 @@ msgstr "Chọn từ danh sách này để xem ví dụ về các hành vi vi ph�
 #: templates/landing.html:222
 msgid "Examples"
 msgstr "Các ví dụ"
+
+#: templates/landing.html:230
+msgid "Were you forced to work against your will?"
+msgstr "Quý vị có bị ép buộc phải làm việc trái ý mình không?"
 
 #: templates/landing.html:239
 msgid ""
@@ -2703,73 +2695,73 @@ msgstr ""
 msgid "Enter a valid email address."
 msgstr "điền vào địa chỉ email hợp lệ"
 
-#: views_public.py:177 views_public.py:256 views_public.py:257
-#: views_public.py:275 views_public.py:276 views_public.py:311
+#: views_public.py:175 views_public.py:254 views_public.py:272
+#: views_public.py:307
 msgid "Primary concern"
 msgstr "Mối quan ngại chính"
 
-#: views_public.py:178 views_public.py:258 views_public.py:259
-#: views_public.py:260 views_public.py:261 views_public.py:262
-#: views_public.py:263
+#: views_public.py:176 views_public.py:255 views_public.py:256
+#: views_public.py:257 views_public.py:258 views_public.py:259
+#: views_public.py:260
 msgid "Location"
 msgstr "Địa điểm"
 
-#: views_public.py:179 views_public.py:264 views_public.py:283
+#: views_public.py:177 views_public.py:261 views_public.py:279
 msgid "Personal characteristics"
 msgstr "Các đặc điểm cá nhân"
 
-#: views_public.py:180 views_public.py:265 views_public.py:284
+#: views_public.py:178 views_public.py:262 views_public.py:280
 msgid "Date"
 msgstr "Ngày"
 
-#: views_public.py:181 views_public.py:266 views_public.py:285
+#: views_public.py:179 views_public.py:263 views_public.py:281
 msgid "Personal description"
 msgstr "Mô tả cá nhân"
 
-#: views_public.py:182 views_public.py:267 views_public.py:316
+#: views_public.py:180 views_public.py:264 views_public.py:312
 msgid "Review"
 msgstr "Đánh giá"
 
-#: views_public.py:277 views_public.py:278 views_public.py:279
-#: views_public.py:280 views_public.py:281 views_public.py:282
+#: views_public.py:273 views_public.py:274 views_public.py:275
+#: views_public.py:276 views_public.py:277 views_public.py:278
 msgid "Location details"
 msgstr "Thông tin chi tiết về địa điểm"
 
-#: views_public.py:286
+#: views_public.py:282
 msgid "Review your report"
 msgstr "Đánh giá báo cáo của quý vị"
 
-#: views_public.py:302
+#: views_public.py:298
 msgid "word remaining"
 msgstr "từ còn lại"
 
-#: views_public.py:303
+#: views_public.py:299
 msgid " words remaining"
 msgstr " các từ còn lại"
 
-#: views_public.py:304
+#: views_public.py:300
 msgid " word limit reached"
 msgstr " đã đạt đến giới hạn từ"
 
-#: views_public.py:314
+#: views_public.py:310
 msgid "Please select if any that apply to your situation (optional)"
 msgstr ""
 "Vui lòng chọn nếu có bất kỳ câu trả lời nào phù hợp với tình huống của quý "
 "vị (tùy chọn)"
 
-#: views_public.py:394
+#: views_public.py:390
 msgid "404 | Page not found"
 msgstr "404 | Không tìm thấy trang"
 
-#: views_public.py:395
+#: views_public.py:391
 msgid "We can't find the page you are looking for"
 msgstr "Chúng tôi không thể tìm thấy trang quý vị đang tìm kiếm"
 
-#: views_public.py:454
+#: views_public.py:450
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Trình duyệt của quý vị không thể tạo cookie an toàn"
 
-#: views_public.py:455
+#: views_public.py:451
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
@@ -2783,6 +2775,9 @@ msgstr ""
 "cookie được cho phép và quý vị đang gặp sự cố này, hãy thử truy cập trang "
 "này trong cửa sổ hoặc tab trình duyệt mới. Điều đó sẽ tạo cho quý vị một "
 "cookie bảo mật mới và sẽ giải quyết được sự cố."
+
+#~ msgid "Continued"
+#~ msgstr "Tiếp tục"
 
 #~ msgid "Submit a report"
 #~ msgstr "Gửi báo cáo"
