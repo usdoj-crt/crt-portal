@@ -120,12 +120,6 @@ $arrow-height: 24px;
   a {
     color: color('white');
     text-decoration: none;
-
-    @include at-media('desktop') {
-      &:hover {
-        border-bottom: 1px solid color('white');
-      }
-    }
   }
 
   .crt-menu--section {
@@ -195,7 +189,7 @@ $arrow-height: 24px;
       padding: 0.5rem 0 !important;
 
       &:hover {
-        font-weight: bold !important;
+        border-bottom: 2px solid color('white');
       }
     }
   }
@@ -215,7 +209,6 @@ $arrow-height: 24px;
 
     a:hover {
       color: color('white');
-      border-bottom: 0;
     }
   }
 
