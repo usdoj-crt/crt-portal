@@ -14,6 +14,7 @@ pa11y-screenshots/
 crt_portal/static/css/compiled/*
 crt_portal/static/css/styles.css
 crt_portal/static/css/styles.css.map
+crt_portal/static/js/*.min.js*
 data/section_assignment.csv
 .vscode
 .coverage
