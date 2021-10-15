@@ -128,9 +128,15 @@ Important commands to use during internationalization (i18n):
 
 When you run `makemessages`, Django will search through .py, .txt, and .html files to find strings marked for translation. Django finds these strings through the `gettext` function or its lazy-loading equivalent (in Python) or the `trans` function (in HTML). This adds the marked strings to `.po` files where translators will do their work.
 
+    docker-compose run -w /code/crt_portal/cts_forms web django-admin makemessages
+
+If you only want to generate a `.po` file for a single language, specify the language code like so:
+
     docker-compose run -w /code/crt_portal/cts_forms web django-admin makemessages -l es
 
-After the strings translated, the translation can be compiled back to Django-readable `.mo` files using run `compilemessages`:
+If you edit the `.po` file by hand, re-running the `makemessages` command will correct your formatting for you. It's a good idea to run it one final time before committing changes to locale files so that future change commits to these files are clean.
+
+After the strings are translated, the translation can be compiled back to Django-readable `.mo` files using run `compilemessages`:
 
     docker-compose run -w /code/crt_portal/cts_forms web django-admin compilemessages
 

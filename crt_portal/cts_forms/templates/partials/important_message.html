@@ -1,0 +1,14 @@
+{% load i18n %}
+
+<div class="crt-landing--important-message bg-gold padding-y-1">
+  <div class="grid-container">
+    <div class="grid-row grid-gap">
+      <div class="tablet:grid-col-12">
+        {% trans "Have you been a victim of a hate crime or human trafficking?" %}
+        <a href="{% url 'hate_crime_human_trafficking' %}" class="text-bold text-ink hover:text-ink hover:text-no-underline">
+          {% trans "Get help NOW!" %}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

@@ -240,8 +240,11 @@ $arrow-height: 24px;
       margin-top: 0.5rem;
     }
   }
+}
 
-  }
+.crt-landing--important-message {
+  @include text--body-copy__large();
+}
 
 .crt-landing--hero {
   background-image: url(../../img/landing-page-hero.jpeg);
