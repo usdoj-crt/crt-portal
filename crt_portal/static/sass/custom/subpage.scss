@@ -1,0 +1,29 @@
+@include at-media-max(tablet) {
+  .crt-subpage {
+    padding-top: 0;
+  }
+}
+
+@include at-media(tablet) {
+  .crt-subpage h1 {
+    margin-top: 0;
+  }
+}
+
+.crt-subpage h2 {
+  margin-top: 2rem;
+ 
+  @include at-media(desktop) {
+    margin-top: 3rem;
+  }
+}
+
+@include at-media(tablet) {
+  ul.crt-subpage--nav {
+    margin-top: 0.67em;
+  }
+}
+
+ul.crt-subpage--nav li {
+  margin-bottom: 0;
+}

@@ -283,6 +283,7 @@ if environment in ['PRODUCTION', 'STAGE']:
             '^report',
             '^robots.txt',
             '^privacy-policy',
+            '^hate-crime-human-trafficking',
             '^i18n',
             '^email',
         ],

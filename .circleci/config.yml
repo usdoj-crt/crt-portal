@@ -62,6 +62,7 @@ jobs:
           command: |
             npm ci
             node node_modules/gulp/bin/gulp build-sass
+            node node_modules/gulp/bin/gulp build-js
       - save_cache:
           paths:
             - /home/circleci/code/node_modules/
@@ -211,7 +212,7 @@ jobs:
       - run:
           name: Node install
           command: |
-            echo "deb https://deb.nodesource.com/node_12.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
+            echo "deb https://deb.nodesource.com/node_14.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
             wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
             apt-get update && \
             apt-get install -yqq nodejs && \
@@ -219,6 +220,7 @@ jobs:
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
+            node node_modules/gulp/bin/gulp build-js
       # database will be migrated in cloud.gov
       - *install-python-dependencies
       - run:
@@ -266,7 +268,7 @@ jobs:
       - run:
           name: Node install
           command: |
-            echo "deb https://deb.nodesource.com/node_12.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
+            echo "deb https://deb.nodesource.com/node_14.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
             wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
             apt-get update && \
             apt-get install -yqq nodejs && \
@@ -274,6 +276,7 @@ jobs:
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
+            node node_modules/gulp/bin/gulp build-js
       # database will be migrated in cloud.gov
       - *install-python-dependencies
       - run:
@@ -322,7 +325,7 @@ jobs:
       - run:
           name: Node install
           command: |
-            echo "deb https://deb.nodesource.com/node_12.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
+            echo "deb https://deb.nodesource.com/node_14.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
             wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
             apt-get update && \
             apt-get install -yqq nodejs && \
@@ -330,6 +333,7 @@ jobs:
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
+            node node_modules/gulp/bin/gulp build-js
       # database will be migrated in cloud.gov
       - *install-python-dependencies
       - run:

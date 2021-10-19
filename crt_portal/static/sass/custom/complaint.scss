@@ -82,31 +82,6 @@ $complaint-header-min-height: 200px;
   line-height: 1.4; // USWDS override
 }
 
-/* Tooltip container */
-.tooltip {
-  position: relative;
-  display: inline-block;
-}
-
-/* Tooltip text */
-.tooltip .tooltiptext {
-  visibility: hidden;
-  width: 9rem;
-  text-align: left;
-  padding: 0.3rem 0;
-  padding-left: 3rem;
-  border-radius: 0.3rem;
-  position: absolute;
-  z-index: 1;
-}
-
-/* Show the tooltip text when you mouse over the tooltip container */
-.tooltip:hover .tooltiptext {
-  visibility: visible;
-  padding-top: 0rem;
-  color: color($theme-color-primary-darker);
-}
-
 // Messages rendering
 ul.messages {
   @include text--body-copy__large();

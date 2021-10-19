@@ -17,6 +17,8 @@ const gulp = require("gulp");
 const pkg = require("./node_modules/uswds/package.json");
 const postcss = require("gulp-postcss");
 const replace = require("gulp-replace");
+const rename = require("gulp-rename");
+const uglify = require("gulp-uglify");
 const sass = require("gulp-sass")(require("sass"));
 const sourcemaps = require("gulp-sourcemaps");
 const uswds = require("./node_modules/uswds-gulp/config/uswds");
@@ -43,6 +45,7 @@ const FONTS_DEST = "./crt_portal/static/fonts";
 
 // Javascript destination
 const JS_DEST = "./crt_portal/static/js";
+const JS_FILES = [`${JS_DEST}/*.js`, `!${JS_DEST}/*.min.js`];
 
 // Compiled CSS destination
 const CSS_DEST = "./crt_portal/static/css/compiled";
@@ -74,6 +77,19 @@ gulp.task("copy-uswds-images", () => {
 
 gulp.task("copy-uswds-js", () => {
   return gulp.src(`${uswds}/js/**/**`).pipe(gulp.dest(`${JS_DEST}`));
+});
+
+gulp.task('build-js', function() {
+  return gulp.src(JS_FILES)
+    .pipe(sourcemaps.init())
+    // Minify the file
+    .pipe(uglify())
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(sourcemaps.write("."))
+    // Output
+    .pipe(gulp.dest(`${JS_DEST}`))
 });
 
 gulp.task("build-sass", function(done) {
@@ -115,6 +131,7 @@ gulp.task(
     "copy-uswds-fonts",
     "copy-uswds-images",
     "copy-uswds-js",
+    "build-js",
     "build-sass"
   )
 );
@@ -122,7 +139,10 @@ gulp.task(
 gulp.task("watch-sass", function() {
   gulp.watch(`${PROJECT_SASS_SRC}/**/*.scss`, gulp.series("build-sass"));
 });
+gulp.task("watch-js", function() {
+  gulp.watch(JS_FILES, gulp.series("build-js"));
+});
 
-gulp.task("watch", gulp.series("build-sass", "watch-sass"));
+gulp.task("watch", gulp.series("build-sass", "build-js", "watch-sass", "watch-js"));
 
 gulp.task("default", gulp.series("watch"));

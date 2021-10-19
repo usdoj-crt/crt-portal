@@ -7,20 +7,21 @@
   <header class="crt-landing--header crt-landing--blue">
     <div class="crt-landing--header_section">
       <div class="grid-container crt-landing--logo_section">
-        <div class="usa-footer__logo grid-row grid-gap-1">
-          <div class="grid-col-auto">
-            <img src="{% static "img/doj-logo-footer.png" %}"
-                 alt="" />
+        <a href="/" title="Home" aria-label="{% trans 'U.S. Department of Justice' %} - {% trans 'Civil Rights Division' %}">
+          <div class="usa-footer__logo grid-row grid-gap-1">
+            <div class="grid-col-auto">
+              <img src="{% static 'img/doj-logo-footer.png' %}" alt="" />
+            </div>
+            <div class="grid-col-auto">
+              <p class="crt-landing--logo_subheading">
+                {% trans "U.S. Department of Justice" %}
+              </p>
+              <p class="crt-landing--logo_heading">
+                {% trans "Civil Rights Division" %}
+              </p>
+            </div>
           </div>
-          <div class="grid-col-auto">
-            <p class="crt-landing--logo_subheading">
-              {% trans "U.S. Department of Justice" %}
-            </p>
-            <p class="crt-landing--logo_heading">
-              {% trans "Civil Rights Division" %}
-            </p>
-          </div>
-        </div>
+        </a>
       </div>
 
       <div class="crt-menu--section grid-col-auto">
@@ -434,6 +435,6 @@
      }
    };
   </script>
-  <script src="{% static 'js/modal.js' %}"></script>
-  <script src="{% static 'js/redirect-modal.js' %}"></script>
+  <script src="{% static 'js/modal.min.js' %}"></script>
+  <script src="{% static 'js/redirect-modal.min.js' %}"></script>
 {% endblock %}

@@ -4,7 +4,8 @@
   "description": "crt portal",
   "main": "index.js",
   "scripts": {
-    "sass:watch": "gulp watch",
+    "sass:watch": "gulp watch-sass",
+    "gulp:watch": "gulp watch",
     "lint:check": "prettier --check \"crt_portal/static/js/*.js\"",
     "lint:write": "prettier --write \"crt_portal/static/js/*.js\"",
     "test:all-spanish": "pa11y-ci --config pa11y_scripts/.all-spanish.json",
@@ -44,6 +45,7 @@
     "gulp-replace": "^1.0.0",
     "gulp-sass": "^5.0.0",
     "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify": "^3.0.2",
     "postcss-cli": "^6.1.3",
     "postcss-csso": "^4.0.0",
     "sass": "^1.38.0",

@@ -117,7 +117,7 @@
 {% endblock footer_extra %}
 
 {% block page_js %}
-<script src="{% static 'js/disable_submit_button.js' %}"></script>
+<script src="{% static 'js/disable_submit_button.min.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
   (function(root) {
     root.CRT = root.CRT || {};
@@ -130,10 +130,10 @@
     root.CRT.stageNumber = {{ stage_number }}
   })(window)
 </script>
-<script src="{% static 'js/word_count.js' %}"></script>
-<script src="{% static 'js/modal.js' %}"></script>
-<script src="{% static 'js/unsupported_browsers.js' %}"></script>
-<script src="{% static 'js/contact_info_confirmation_modal.js' %}"></script>
+<script src="{% static 'js/word_count.min.js' %}"></script>
+<script src="{% static 'js/modal.min.js' %}"></script>
+<script src="{% static 'js/unsupported_browsers.min.js' %}"></script>
+<script src="{% static 'js/contact_info_confirmation_modal.min.js' %}"></script>
     <script nonce="{{request.csp_nonce}}">
   (function(root) {
     if (root.CRT.isUnsupportedBrowser()) {
