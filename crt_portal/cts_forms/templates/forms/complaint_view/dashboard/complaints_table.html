@@ -1,0 +1,177 @@
+{% load sortable_table_heading %}
+{% load static %}
+<form class="usa-form"
+      method="get"
+      action="{% url 'crt_forms:crt-forms-actions' %}"
+      novalidate
+>
+  <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
+
+  <div class="crt-xscroll">
+    <table class="usa-table crt-table sort-table">
+      <thead>
+        <tr>
+          <th>
+            <div class="usa-checkbox td-checkbox">
+              <input type="checkbox"
+                     name="all"
+                     class="usa-checkbox__input"
+                     value="all"
+                     id="checkbox-all"
+              >
+              <label class="crt-checkbox__label" for="checkbox-all" aria-label="select all records"></label>
+            </div>
+          </th>
+          <th></th>
+          {% render_sortable_heading 'Status' sort_state filter_state %}
+          {% render_sortable_heading 'Total #' sort_state filter_state nowrap=True %}
+          {% render_sortable_heading 'ID' sort_state filter_state %}
+          {% render_sortable_heading 'Routed' sort_state filter_state %}
+          {% render_sortable_heading 'Submitted' sort_state filter_state %}
+          {% render_sortable_heading 'Contact Name' sort_state filter_state %}
+          {% render_sortable_heading 'Contact Details' sort_state filter_state %}
+          {% render_sortable_heading 'Incident Location' sort_state filter_state %}
+          {% render_sortable_heading 'Incident City/State' sort_state filter_state %}
+          {% render_sortable_heading 'Incident Date' sort_state filter_state %}
+        </tr>
+      </thead>
+      {% if data_dict %}
+        <tbody>
+          {% for datum in data_dict %}
+            <tr class="tr-status-{{ datum.report.status }} tr--hover{% cycle ' stripe' '' %}">
+              <td>
+                <div class="usa-checkbox td-checkbox">
+                  <input type="checkbox"
+                         name="id"
+                         class="usa-checkbox__input"
+                         value="{{ datum.report.id }}"
+                         id="checkbox-{{ datum.report.id }}"
+                  >
+                  <label class="crt-checkbox__label" for="checkbox-{{ datum.report.id }}" aria-label="select record {{ datum.report.id }}"></label>
+                </div>
+              </td>
+              <td>
+                <a data-id="{{ datum.report.id }}" class="td-toggle display-flex" href="#">
+                  <img src="{% static "img/intake-icons/ic_chevron-right.svg" %}" alt="show additional information in a new row" class="icon">
+                </a>
+              </td>
+              <td>
+                <a class="td-link display-block" href="{{datum.url}}">
+                  <span class="status-tag status-{{ datum.report.status }}">
+                    {{ datum.report.status }}
+                  </span>
+                </a>
+              </td>
+              <td>
+                <a class="td-link display-block" href="{{datum.url}}">
+                  {% with count=datum.report.email_count|default:"—" %}
+                    {{ count }}
+                  {% endwith %}
+                </a>
+              </td>
+              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.public_id }}</a></td>
+              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.assigned_section }}</a></td>
+              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.create_date|date:"SHORT_DATE_FORMAT" }}</a></td>
+              <td>
+                <a class="td-link display-block" href="{{datum.url}}">
+                  {% with last=datum.report.contact_last_name|default:"—" %}
+                    {{ last|truncatechars:20 }}{% endwith %}, {% with first=datum.report.contact_first_name|default:"—" %}
+                    {{ first|truncatechars:20 }}
+                    {% endwith %}
+                </a>
+              </td>
+              <td>
+                <a class="td-link display-block" href="{{datum.url}}">
+                  {% with email=datum.report.contact_email|default:"—" %}
+                    {{ email|truncatechars:20 }}
+                  {% endwith %}
+                  <br>
+                  {% with phone=datum.report.contact_phone|default:"—"  %}
+                    {{ phone|truncatechars:20 }}
+                  {% endwith %}
+                </a>
+              </td>
+              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.location_name|default:"-" }}</a></td>
+              <td>
+                <a class="td-link display-block" href="{{datum.url}}">
+                  {{ datum.report.location_city_town }}, {{ datum.report.location_state }}
+                </a>
+              </td>
+              <td>
+                <a class="td-link display-block" href="{{datum.url}}">
+                  {{ datum.report.last_incident_month|default:"-" }}/{{datum.report.last_incident_day|default:"-"}}/{{ datum.report.last_incident_year|default:"-" }}
+                </a>
+              </td>
+            </tr>
+            {# this row is hidden by default #}
+            <tr id="tr-additional-{{ datum.report.id }}" hidden>
+              <td colspan="2"></td>
+              <td colspan="4">
+                <div class="td-quickview">
+                  Summary
+                </div>
+                <div class="td-summary">
+                  {% with summary=datum.report.get_summary %}
+                    {{ summary.note|linebreaks|default:"-" }}
+                  {% endwith %}
+                </div>
+              </td>
+              <td colspan="4">
+                <div class="td-quickview">
+                  Personal Description
+                </div>
+                <div class="td-summary">
+                  {{ datum.report.violation_summary|linebreaks|default:"-" }}
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      {% endif %}
+    </table>
+  </div>
+
+  <div class="selection-action-notification" hidden>
+    <div class="display-flex flex-align-center">
+      <div>
+        <img src="{% static 'img/ic_successconfirmation-white.svg' %}" alt="action available on selection" class="icon">
+      </div>
+      <h2>
+        <span id="selection-action-count">1 record</span> selected
+      </h2>
+      <div class="selection-submit">
+        <button type="submit" id="actions" label="actions" class="usa-button">Actions</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+{% if not data_dict %}
+  <div class="crt-portal-card table-message">
+    <div class="crt-portal-card__content">
+      <div class="grid-container padding-bottom-2">
+        <div class="align-center">
+          <img alt="filter icon" src="{% static 'img/filters.svg' %}" class="margin-top-1" />
+          <p class="margin-bottom-1 margin-top-1" role="status"><b>No records found</b></p>
+          <em>Try adjusting your filters to see more records</em>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% if not page_format.has_next and data_dict %}
+  <div class="crt-portal-card table-message">
+    <div class="crt-portal-card__content">
+      <div class="grid-container padding-bottom-2">
+        <div class="align-center">
+          <p class="margin-bottom-1">
+            <img alt="encouraging coffee icon" src="{% static 'img/coffee.svg' %}" />
+            <b>End of results</b>
+          </p>
+          <em>Try adjusting your filters to see more records</em>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

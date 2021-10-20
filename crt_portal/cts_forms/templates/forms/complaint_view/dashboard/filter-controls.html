@@ -1,0 +1,24 @@
+{% load static %}
+<h2 class="intake-section-title">Filters</h2>
+<form
+  id="filters-form"
+  method="GET"
+  action="/form/dashboard"
+  novalidate
+>
+  <div class="usa-form">
+    <div class="intake-filters">
+      {% include 'forms/complaint_view/dashboard/filters/assignee.html' %}
+      {% include 'forms/complaint_view/dashboard/filters/date.html' %}
+    </div>
+
+    <div>
+      <button class="usa-button" type="submit" id="apply-filters-button">
+        Apply filters
+      </button>
+      <button class="usa-button usa-button--unstyled" data-clear-filters>
+        Clear all filters
+      </button>
+    </div>
+  </div>
+</form>

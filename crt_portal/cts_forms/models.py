@@ -358,7 +358,12 @@ class Report(models.Model):
         return self.status == CLOSED_STATUS
 
     def activity(self):
+        print("activity => ",  self.target_actions.exclude(verb__contains='comment:').prefetch_related('actor'))
         return self.target_actions.exclude(verb__contains='comment:').prefetch_related('actor')
+
+    def activity_all(self):
+        print("activity_all => ", self.activity())
+        return self.activity()
 
     def closeout_report(self):
         """
@@ -403,6 +408,11 @@ class Report(models.Model):
                 email = None
             return email
         return None
+
+    @property
+    def activity_log(self):
+        log = self.activity().filter(assigned_to='billy')
+        return log
 
     @property
     def contact_full_name(self):

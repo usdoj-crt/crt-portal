@@ -1171,6 +1171,37 @@ class Filters(ModelForm):
         return inbound_sections.intersection(section_choices)
 
 
+class DashboardFilter(ModelForm):
+    assigned_to = ModelChoiceField(
+        required=False,
+        queryset=User.objects.filter(is_active=True).order_by('username'),
+        label=_("Assigned to"),  # This is overriden in templates as "Assigned"
+        to_field_name='username',
+        widget=Select(attrs={
+            'name': 'assigned_to',
+            'class': 'usa-input'
+        })
+    )
+
+    class Meta:
+        model = Report
+        fields = [
+            'assigned_to',
+        ]
+
+        labels = {
+            # These are CRT view only
+            'assigned_to': 'Assignee',
+        }
+
+        widgets = {
+            'assigned_section': CrtMultiSelect(attrs={
+                'class': 'text-uppercase',
+                'name': 'assigned_section'
+            }),
+        }
+
+
 class ResponseActions(Form):
 
     def __init__(self, *args, **kwargs):

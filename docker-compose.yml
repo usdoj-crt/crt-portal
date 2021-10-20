@@ -14,8 +14,8 @@ services:
       - TMS_WEBHOOK_ALLOWED_CIDR_NETS=${TMS_WEBHOOK_ALLOWED_CIDR_NETS}
       - RESTRICT_EMAIL_RECIPIENTS_TO=${RESTRICT_EMAIL_RECIPIENTS_TO}
       - FORM_AUTOCOMPLETE_OFF=False
-      - USE_LOCALSTACK=True
-      - LOCALSTACK_URL=http://localstack:4566
+#      - USE_LOCALSTACK=True
+#      - LOCALSTACK_URL=http://localstack:4566
       - AWS_ACCESS_KEY_ID=test
       - AWS_SECRET_ACCESS_KEY=test
       - AV_SCAN_URL=http://clamav-rest:9000/scan
@@ -27,18 +27,18 @@ services:
       - 8000:8000
     depends_on:
       - db
-      - localstack
-  localstack:
-    container_name: "localstack_main"
-    image: localstack/localstack
-    ports:
-      - "4566:4566"
-    environment:
-      - SERVICES=s3
-      # - DEBUG=1
-      - DATA_DIR=/tmp/localstack/data
-    volumes:
-      - "localstack-vol:/tmp/localstack"
+#      - localstack
+#  localstack:
+#    container_name: "localstack_main"
+#    image: localstack/localstack
+#    ports:
+#      - "4566:4566"
+#    environment:
+#      - SERVICES=s3
+#      # - DEBUG=1
+#      - DATA_DIR=/tmp/localstack/data
+#    volumes:
+#      - "localstack-vol:/tmp/localstack"
   mailhog:
      image: mailhog/mailhog
      ports:
@@ -54,4 +54,4 @@ services:
       - "9000:9000"
 volumes:
   postgres_data:
-  localstack-vol:
+#  localstack-vol:

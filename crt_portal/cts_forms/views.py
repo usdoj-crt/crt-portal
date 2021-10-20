@@ -26,10 +26,10 @@ from formtools.wizard.views import SessionWizardView
 from tms.models import TMSEmail
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
-from .filters import report_filter
+from .filters import report_filter, dashboard_filter
 from .forms import (
     BulkActionsForm, CommentActions, ComplaintActions,
-    ContactEditForm, Filters, PrintActions, ProfileForm,
+    ContactEditForm, Filters, DashboardFilter, PrintActions, ProfileForm,
     ReportEditForm, ResponseActions, add_activity,
     AttachmentActions, Review, save_form,
 )
@@ -151,6 +151,7 @@ def setup_filter_parameters(report, querydict):
 
 @login_required
 def index_view(request):
+    print("in index_view")
     profile_form = ProfileForm()
     # Check for Profile object, then add filter to request
     if hasattr(request.user, 'profile') and request.user.profile.intake_filters:
@@ -165,6 +166,7 @@ def index_view(request):
         profile_form = ProfileForm(data)
 
     report_query, query_filters = report_filter(request.GET)
+    print("request.GET => ", request.GET)
 
     # Sort data based on request from params, default to `created_date` of complaint
     per_page = request.GET.get('per_page', 15)
@@ -236,6 +238,95 @@ def index_view(request):
     }
 
     return render(request, 'forms/complaint_view/index/index.html', final_data)
+
+
+@login_required
+def dashboard_view(request):
+    profile_form = ProfileForm()
+    # Check for Profile object, then add filter to request
+    if hasattr(request.user, 'profile') and request.user.profile.intake_filters:
+        request.GET = request.GET.copy()
+        print("request.GET.copy() => ", request.GET.copy())
+        global_section_filter = request.user.profile.intake_filters.split(',')
+
+        # If assigned_section is NOT specified in request, use filter from profile
+        if 'assigned_section' not in request.GET:
+            request.GET.setlist('assigned_section', global_section_filter)
+
+        data = {'intake_filters': request.GET.getlist('assigned_section')}
+        profile_form = ProfileForm(data)
+
+    report_query, query_filters = dashboard_filter(request.GET)
+    print("report_query => ", report_query)
+    print("query_filters => ", query_filters)
+    # Sort data based on request from params, default to `created_date` of complaint
+    per_page = request.GET.get('per_page', 15)
+    page = request.GET.get('page', 1)
+
+    requested_reports = report_query.annotate(email_count=F('email_report_count__email_count'))
+    sort_expr, sorts = report_sort(request.GET)
+    requested_reports = requested_reports.order_by(*sort_expr)
+
+    paginator = Paginator(requested_reports, per_page)
+    requested_reports, page_format = pagination(paginator, page, per_page)
+
+    sort_state = {}
+    # make sure the links for this page have the same paging, sorting, filtering etc.
+    page_args = f'?per_page={per_page}'
+
+    # process filter query params
+    filter_args = ''
+    for query_item in query_filters.keys():
+        print("query_item => ", query_item)
+        arg = query_item
+        for item in query_filters[query_item]:
+            filter_args = filter_args + f'&{arg}={item}'
+    page_args += filter_args
+
+    # process sort query params
+    sort_args = ''
+    for sort_item in sorts:
+        if sort_item[0] == SORT_DESC_CHAR:
+            sort_state.update({sort_item[1::]: True})
+        else:
+            sort_state.update({sort_item: False})
+
+        sort_args += f'&sort={sort_item}'
+    page_args += sort_args
+
+    all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
+
+    data = []
+    
+    for index, report in enumerate(requested_reports):
+        p_class_list = format_protected_class(
+            report.protected_class.all().order_by('form_order'),
+            report.other_class,
+        )
+        if report.other_class:
+            p_class_list.append(report.other_class)
+        if len(p_class_list) > 3:
+            p_class_list = p_class_list[:3]
+            p_class_list[2] = f'{p_class_list[2]}...'
+        print("report", report)
+        data.append({
+            "report": report,
+            "report_protected_classes": p_class_list,
+            "activity_stream": report.target_actions.all(),
+        })
+    print("DashboardFilter(request.GET) =>", DashboardFilter(request.GET))
+    final_data = {
+        'form': Filters(request.GET),
+        'dashboard_form': DashboardFilter(request.GET),
+        'data_dict': data,
+        'page_format': page_format,
+        'page_args': page_args,
+        'sort_state': sort_state,
+        'filter_state': filter_args,
+        'filters': query_filters,
+        'return_url_args': all_args_encoded,
+    }
+    return render(request, 'forms/complaint_view/dashboard/index.html', final_data)
 
 
 def serialize_data(report, request, report_id):

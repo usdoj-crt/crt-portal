@@ -1,0 +1,14 @@
+{% extends "forms/complaint_view/dashboard/filter.html" %}
+
+{% block controls %}assigned_to{% endblock %}
+{% block label %}Assignee{% endblock %}
+{% block id %}assigned_to{% endblock %}
+{% block content %}
+   <label for="id_assigned_to">
+    <span class="usa-sr-only">assignee</span>
+   </label>
+   <label for="id_assigned_to-select">
+    <span class="usa-sr-only">assignee</span>
+   </label>
+   {{ form.assigned_to }}
+{% endblock %}
