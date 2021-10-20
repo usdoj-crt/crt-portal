@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-13 18:44+0000\n"
+"POT-Creation-Date: 2021-10-20 19:48+0000\n"
 "Language: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1644,8 +1644,8 @@ msgid ""
 "national origin, religion, gender, sexual orientation, gender identity, or "
 "disability."
 msgstr ""
-"증오범죄란 인종, 피부색, 출신 국가, 종교, 성별, 성적 지향, 성정체성, 혹은장애"
-"에 근거한 폭력이나 폭력의 위협입니다."
+"증오범죄란 인종, 피부색, 출신 국가, 종교, 성별, 성적 지향, 성정체성, 혹은 장"
+"애에 근거한 폭력이나 폭력의 위협입니다."
 
 #: templates/hate_crime_human_trafficking.html:48
 msgid "In cases of emergency, contact 911"
@@ -1653,11 +1653,11 @@ msgstr "응급 상황에는 911에 연락하세요"
 
 #: templates/hate_crime_human_trafficking.html:53
 msgid "Otherwise, contact the FBI online"
-msgstr "그외의 경우FBI 온라인으로"
+msgstr "그외의 경우 FBI 온라인으로 연락하거나"
 
 #: templates/hate_crime_human_trafficking.html:58
 msgid "Or a local field office by phone"
-msgstr "연락하거나 FBI 지부에 전화하세요"
+msgstr "FBI 지부에 전화하세요"
 
 #: templates/hate_crime_human_trafficking.html:64
 msgid "Where to report human trafficking"
