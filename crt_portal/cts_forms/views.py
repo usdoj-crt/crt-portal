@@ -166,7 +166,6 @@ def index_view(request):
         profile_form = ProfileForm(data)
 
     report_query, query_filters = report_filter(request.GET)
-    print("request.GET => ", request.GET)
 
     # Sort data based on request from params, default to `created_date` of complaint
     per_page = request.GET.get('per_page', 15)
@@ -242,23 +241,12 @@ def index_view(request):
 
 @login_required
 def dashboard_view(request):
+
     profile_form = ProfileForm()
-    # Check for Profile object, then add filter to request
-    if hasattr(request.user, 'profile') and request.user.profile.intake_filters:
-        request.GET = request.GET.copy()
-        print("request.GET.copy() => ", request.GET.copy())
-        global_section_filter = request.user.profile.intake_filters.split(',')
 
-        # If assigned_section is NOT specified in request, use filter from profile
-        if 'assigned_section' not in request.GET:
-            request.GET.setlist('assigned_section', global_section_filter)
-
-        data = {'intake_filters': request.GET.getlist('assigned_section')}
-        profile_form = ProfileForm(data)
-
-    report_query, query_filters = dashboard_filter(request.GET)
+    report_query, selected_actor = dashboard_filter(request.GET)
     print("report_query => ", report_query)
-    print("query_filters => ", query_filters)
+    print("author => ", selected_actor)
     # Sort data based on request from params, default to `created_date` of complaint
     per_page = request.GET.get('per_page', 15)
     page = request.GET.get('page', 1)
@@ -274,45 +262,17 @@ def dashboard_view(request):
     # make sure the links for this page have the same paging, sorting, filtering etc.
     page_args = f'?per_page={per_page}'
 
-    # process filter query params
-    filter_args = ''
-    for query_item in query_filters.keys():
-        print("query_item => ", query_item)
-        arg = query_item
-        for item in query_filters[query_item]:
-            filter_args = filter_args + f'&{arg}={item}'
-    page_args += filter_args
-
-    # process sort query params
-    sort_args = ''
-    for sort_item in sorts:
-        if sort_item[0] == SORT_DESC_CHAR:
-            sort_state.update({sort_item[1::]: True})
-        else:
-            sort_state.update({sort_item: False})
-
-        sort_args += f'&sort={sort_item}'
-    page_args += sort_args
-
-    all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
-
     data = []
-    
+    actor_data = {}
     for index, report in enumerate(requested_reports):
-        p_class_list = format_protected_class(
-            report.protected_class.all().order_by('form_order'),
-            report.other_class,
-        )
-        if report.other_class:
-            p_class_list.append(report.other_class)
-        if len(p_class_list) > 3:
-            p_class_list = p_class_list[:3]
-            p_class_list[2] = f'{p_class_list[2]}...'
-        print("report", report)
+        for actor in report.activity_actor_list():
+            if actor not in actor_data:
+                actor_data[actor] = 0
+            actor_data[actor] += 1
         data.append({
             "report": report,
-            "report_protected_classes": p_class_list,
             "activity_stream": report.target_actions.all(),
+            "activity_actor_list": report.activity_actor_list(),
         })
     print("DashboardFilter(request.GET) =>", DashboardFilter(request.GET))
     final_data = {
@@ -320,11 +280,10 @@ def dashboard_view(request):
         'dashboard_form': DashboardFilter(request.GET),
         'data_dict': data,
         'page_format': page_format,
-        'page_args': page_args,
         'sort_state': sort_state,
-        'filter_state': filter_args,
-        'filters': query_filters,
-        'return_url_args': all_args_encoded,
+        'selected_actor': selected_actor,
+        'activity_count': actor_data[selected_actor]
+
     }
     return render(request, 'forms/complaint_view/dashboard/index.html', final_data)
 

@@ -128,15 +128,13 @@ def report_filter(querydict):
 
 
 def dashboard_filter(querydict):
-    print("dashboard queryDict => ", querydict)
     kwargs = {}
     filters = {}
     qs = Report.objects.filter()
+    actor = querydict["actor"]
     print("qs => ", qs)
     for field in dashboard_filter_options.keys():
         filter_list = querydict.getlist(field)
-        print("filter_list => ", filter_list)
-
         if len(filter_list) > 0:
             filters[field] = querydict.getlist(field)
             if filter_options[field] == '__in':
@@ -179,11 +177,8 @@ def dashboard_filter(querydict):
                     combined_or_list += vs_filter.split(" OR ")
                 combined_or_search = _combine_term_searches_with_or(combined_or_list)
                 qs = qs.filter(violation_summary_search_vector=combined_or_search)
-    print("qs pre filter=> ", qs)
     qs = qs.filter(**kwargs)
-    print("qs post filter=> ", qs)
-    print("kwargs => ", kwargs)
-    return qs, filters
+    return qs, actor
 
 
 def _combine_term_searches_with_or(terms):

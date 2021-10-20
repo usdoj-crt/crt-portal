@@ -358,12 +358,19 @@ class Report(models.Model):
         return self.status == CLOSED_STATUS
 
     def activity(self):
-        print("activity => ",  self.target_actions.exclude(verb__contains='comment:').prefetch_related('actor'))
         return self.target_actions.exclude(verb__contains='comment:').prefetch_related('actor')
 
     def activity_all(self):
-        print("activity_all => ", self.activity())
-        return self.activity()
+        return self.activity().prefetch_related('actor')
+
+    def activity_actor_list(self):
+        activities = list(self.activity_all())
+        actors = set([])
+        actors.add(self.author)
+        for activity in activities:
+            actors.add(activity.actor.username)
+        return actors
+
 
     def closeout_report(self):
         """

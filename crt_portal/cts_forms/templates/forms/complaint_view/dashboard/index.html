@@ -19,12 +19,9 @@
       <div class="intake-table-header">
         <h2 class="intake-section-title">Incoming records</h2>
       </div>
-        {% for datum in data_dict %}
-            <h4>{{  datum.report }}</h4>
-            {% for activity in datum.report.activity_all %}
-                <h2>{{ activity }}</h2>
-            {% endfor %}
-        {% endfor %}
+        <h1>selected_actor: {{ selected_actor }}</h1>
+        <h1>activity_count: {{ activity_count }}</h1>
+
       {% include "forms/complaint_view/dashboard/complaints_table.html" with page_format=page_format data_dict=data_dict sort_state=sort_state filter_state=filter_state %}
     </div>
   </div>
