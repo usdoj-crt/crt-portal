@@ -46,20 +46,20 @@
   <div class="crt-portal-card__content crt-portal-card__content--lg margin-bottom-3">
     {# buttons to the right form page based on data present #}
 
-    <div class="button--review">
-    {% if report.election_details %}
+    <div class="button--review" data-testid="edit-location">
+    {% if primary_complaint_key == "voting" %}
       {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=2 %}
 
-    {% elif report.public_or_private_employer %}
+    {% elif primary_complaint_key == "workplace" %}
       {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=3 %}
 
-    {% elif report.inside_correctional_facility %}
+    {% elif primary_complaint_key == "police" %}
       {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=4 %}
 
-    {% elif report.commercial_or_public_place %}
+    {% elif primary_complaint_key == "commercial_or_public" %}
       {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=5 %}
 
-    {% elif report.public_or_private_school %}
+    {% elif primary_complaint_key == "education" %}
       {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=6 %}
 
     {% else %}
