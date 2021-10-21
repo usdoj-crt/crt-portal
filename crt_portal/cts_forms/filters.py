@@ -131,53 +131,7 @@ def dashboard_filter(querydict):
     kwargs = {}
     filters = {}
     qs = Report.objects.filter()
-    actor = querydict.get("actor", None)
-    print("qs => ", qs)
-    for field in dashboard_filter_options.keys():
-        filter_list = querydict.getlist(field)
-        if len(filter_list) > 0:
-            filters[field] = querydict.getlist(field)
-            if filter_options[field] == '__in':
-                # works for one or more options with exact matches
-                kwargs[f'{field}__in'] = querydict.getlist(field)
-            elif filter_options[field] == '__search':
-                # takes one phrase
-                kwargs[f'{field}__search'] = querydict.getlist(field)[0]
-            elif filter_options[field] == '__icontains':
-                kwargs[f'{field}__icontains'] = querydict.getlist(field)[0]
-            elif 'date' in field:
-                # filters by a start date or an end date expects yyyy-mm-dd
-                field_name = _get_date_field_from_param(field)
-                encodedDate = querydict.getlist(field)[0]
-                decodedDate = urllib.parse.unquote(encodedDate)
-                try:
-                    dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
-                    dateObj = _change_datetime_to_end_of_day(dateObj, field)
-                    kwargs[f'{field_name}{filter_options[field]}'] = dateObj
-                except ValueError:
-                    # if the date is invalid, we ignore it.
-                    continue
-            elif filter_options[field] == 'summary':
-                # assumes summaries are edited so there is only one per report - that is current behavior
-                kwargs['internal_comments__note__search'] = querydict.getlist(field)[0]
-                kwargs['internal_comments__is_summary'] = True
-            elif filter_options[field] == 'reported_reason':
-                reasons = querydict.getlist(field)
-                kwargs['protected_class__value__in'] = reasons
-            elif filter_options[field] == 'foreign_key':
-                # assumes assigned_to but could add logic for other foreign keys in the future
-                kwargs['assigned_to__username__in'] = querydict.getlist(field)
-            elif filter_options[field] == 'eq':
-                kwargs[field] = querydict.getlist(field)[0]
-            elif filter_options[field] == '__gte':
-                kwargs[field] = querydict.getlist(field)
-            elif filter_options[field] == 'violation_summary':
-                combined_or_list = []
-                for vs_filter in filter_list:
-                    combined_or_list += vs_filter.split(" OR ")
-                combined_or_search = _combine_term_searches_with_or(combined_or_list)
-                qs = qs.filter(violation_summary_search_vector=combined_or_search)
-    qs = qs.filter(**kwargs)
+    actor = querydict.get("assigned_to", None)
     return qs, actor
 
 

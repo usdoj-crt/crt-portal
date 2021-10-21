@@ -236,7 +236,6 @@
    * @param {String} props.name The key in the filter data model that corresponds to the data to update
    */
   function textInputView(props) {
-    console.log("props => ", props)
     if (!props.el || !props.name) {
       throw new Error(
         'Component must be supplied with a valid DOM node and a `name` key corresponding to a key in the filterDataModel object'
@@ -338,9 +337,9 @@
   // Bootstrap the filter code's data persistence and
   // instantiate the controller that manages the UI components / views
   function init() {
-
+    console.log("in init")
     if (root.location.dashboardsearch === '') {
-      root.location.dashboardsearch = '?';
+      root.location.dashboardsearch = '?assigned_to=none';
     }
 
     var filterUpdates = getQueryParams(root.location.dashboardsearch, Object.keys(initialFilterState));
