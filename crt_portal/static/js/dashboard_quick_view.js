@@ -1,5 +1,4 @@
 (function(root, dom) {
-  console.log("in dashboard quick view")
   var toggles = dom.querySelectorAll('a.td-toggle');
   for (var i = 0; i < toggles.length; i++) {
     var toggle = toggles[i];

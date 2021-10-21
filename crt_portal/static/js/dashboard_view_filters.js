@@ -29,10 +29,8 @@
    * @returns {Object} Map of all params and their URL encoded values
    */
   function getQueryParams(queryString, paramsWhitelist) {
-    console.log("queryString =>", queryString)
     var paramsMap = {};
     var search = new URLSearchParams(queryString);
-    console.log("search => ", search)
     var acceptedParams = (paramsWhitelist instanceof Array && paramsWhitelist) || [];
 
     search.forEach(function(value, filterName) {
@@ -163,7 +161,6 @@
    * @param {HTMLElement} props.el The DOM node this view manages
    */
   function formView(props) {
-    console.log("in formView")
     var form = props.el;
 
     form.addEventListener('submit', function handleSubmit(event) {
@@ -337,7 +334,6 @@
   // Bootstrap the filter code's data persistence and
   // instantiate the controller that manages the UI components / views
   function init() {
-    console.log("in init")
     if (root.location.dashboardsearch === '') {
       root.location.dashboardsearch = '?assigned_to=none';
     }
