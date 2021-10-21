@@ -131,7 +131,7 @@ def dashboard_filter(querydict):
     kwargs = {}
     filters = {}
     qs = Report.objects.filter()
-    actor = querydict["actor"]
+    actor = querydict.get("actor", None)
     print("qs => ", qs)
     for field in dashboard_filter_options.keys():
         filter_list = querydict.getlist(field)

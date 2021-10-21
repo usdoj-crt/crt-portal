@@ -274,6 +274,7 @@ def dashboard_view(request):
             "activity_stream": report.target_actions.all(),
             "activity_actor_list": report.activity_actor_list(),
         })
+    activity_count = actor_data.get(selected_actor, 0)
     print("DashboardFilter(request.GET) =>", DashboardFilter(request.GET))
     final_data = {
         'form': Filters(request.GET),
@@ -282,7 +283,7 @@ def dashboard_view(request):
         'page_format': page_format,
         'sort_state': sort_state,
         'selected_actor': selected_actor,
-        'activity_count': actor_data[selected_actor]
+        'activity_count': activity_count
 
     }
     return render(request, 'forms/complaint_view/dashboard/index.html', final_data)
