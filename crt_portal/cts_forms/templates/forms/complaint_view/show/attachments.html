@@ -26,7 +26,7 @@
           <form id="complaint-view-remove-attachment-{{ attachment.pk }}" class="usa-form" method="post"
           action="{% url 'crt_forms:remove-report-attachment' attachment_id=attachment.pk %}">
             {% csrf_token %}
-            <button data-attachment-id="{{ attachment.pk }}" data-attachment-filename="{{ attachment.filename }}" class="usa-button light-button remove-attachment-button"> <img src="{% static "img/trash-2.svg" %}" class="icon" alt="remove attachment"></button>
+            <button data-attachment-id="{{ attachment.pk }}" data-attachment-filename="{{ attachment.filename }}" class="usa-button usa-button--outline remove-attachment-button"> <img src="{% static "img/trash-2.svg" %}" class="icon" alt="remove attachment"></button>
           </form>
         </td>
       </tr>

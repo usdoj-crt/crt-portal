@@ -71,9 +71,10 @@ li {
 a,
 a:visited {
   color: color($theme-link-color);
-  &:hover {
-    color: color($theme-link-hover-color);
-  }
+}
+
+a:hover {
+  color: color($theme-link-hover-color);
 }
 
 .text__reverse {
