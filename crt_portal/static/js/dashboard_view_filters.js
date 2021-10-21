@@ -105,7 +105,7 @@
     assigned_to: '',
     sort: '',
     page: '',
-    per_page: '',
+    per_page: ''
   };
   var filterDataModel = {};
 
@@ -180,7 +180,6 @@
     if (preparedFilters) {
       finalQuery = '?' + preparedFilters;
     }
-    console.log("form.action => ", form.action)
     window.location = form.action + finalQuery;
   };
 
@@ -338,7 +337,10 @@
       root.location.dashboardsearch = '?assigned_to=none';
     }
 
-    var filterUpdates = getQueryParams(root.location.dashboardsearch, Object.keys(initialFilterState));
+    var filterUpdates = getQueryParams(
+      root.location.dashboardsearch,
+      Object.keys(initialFilterState)
+    );
 
     Object.keys(initialFilterState).forEach(function(key) {
       filterDataModel[key] = initialFilterState[key];
