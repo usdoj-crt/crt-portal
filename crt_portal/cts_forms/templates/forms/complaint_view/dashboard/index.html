@@ -10,13 +10,6 @@
   <div id="status-update" class="grid-col-auto">
     {% include 'partials/messages.html' %}
   </div>
-  <div class="display-flex">
-    <a class="outline-button outline-button--dark" href="{% url 'crt_forms:crt-forms-index' %}{{ return_url_args }}">
-      <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" alt="back arrow" class="icon">
-      Back to all
-    </a>
-  </div>
-
   {% include "forms/complaint_view/dashboard/filter-controls.html" with filters=filters form=form %}
   <div class="display-flex margin-top-8">
     {% include "forms/complaint_view/dashboard/active-filters.html" %}

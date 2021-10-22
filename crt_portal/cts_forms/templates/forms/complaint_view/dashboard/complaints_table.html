@@ -78,19 +78,3 @@
     </div>
   </div>
 {% endif %}
-
-{% if not page_format.has_next and data_dict %}
-  <div class="crt-portal-card table-message">
-    <div class="crt-portal-card__content">
-      <div class="grid-container padding-bottom-2">
-        <div class="align-center">
-          <p class="margin-bottom-1">
-            <img alt="encouraging coffee icon" src="{% static 'img/coffee.svg' %}" />
-            <b>End of results</b>
-          </p>
-          <em>Try adjusting your filters to see more records</em>
-        </div>
-      </div>
-    </div>
-  </div>
-{% endif %}
