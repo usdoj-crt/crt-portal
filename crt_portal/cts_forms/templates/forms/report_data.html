@@ -162,6 +162,8 @@
     <h2 class="h1 margin-top-0">{{ ordered_step_names.5 }}</h2>
 
     <h3 class="crt-portal-card__subheader">{{ question.summary }}</h3>
-    <p>{{ report.violation_summary|linebreaks }}</p>
+    <div class="word-break">
+      {{ report.violation_summary|linebreaks }}
+    </div>
   </div>
 </div>
