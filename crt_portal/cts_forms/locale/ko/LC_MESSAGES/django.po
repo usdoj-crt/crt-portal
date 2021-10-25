@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-20 19:48+0000\n"
+"POT-Creation-Date: 2021-10-27 17:22+0000\n"
 "Language: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1315,9 +1315,8 @@ msgid ""
 msgstr ""
 "우리는 귀하에게 응답할 수 있는 경우, 귀하가 해당 신고 시 제공한 연락처 정보"
 "를 이용하여 귀하에게 연락할 것입니다. 신고 유형에 따라 응답 시간은 달라질 수 "
-"있습니다. 신고와 관련하여 우리를 접촉해야 하는 경우, 연락할 때 귀하의 신고 번"
-"호를 말씀해 주십시오. 그래야 귀하가 제출하신 내용을 계속 추적해 나갈 수 있습"
-"니다."
+"있습니다. 신고와 관련하여 연락할 때 귀하의 신고 번호를 말씀해 주시면 귀하가 "
+"제출하신 내용을 계속 추적해 나갈 수 있습니다."
 
 #: templates/forms/confirmation.html:143
 msgid "What you can do next"
@@ -1543,7 +1542,7 @@ msgstr "뒤로"
 msgid "Address"
 msgstr "주소"
 
-#: templates/forms/report_data.html:132 templates/forms/report_data.html:138
+#: templates/forms/report_data.html:131 templates/forms/report_data.html:137
 msgid "None selected"
 msgstr "선택된 것 없음"
 
@@ -1711,9 +1710,8 @@ msgid ""
 "status, sex, religion, familial status, or loss of other constitutional "
 "rights."
 msgstr ""
-"민권국은 인종, 피부색, 출신 국가, 장애 신분, 성별, 종교, 가족 상태 또는 다른 "
-"헌법상 권리의 상실에 기반한 차별로부터 귀하를 보호하는 연방 법률을 집행합니"
-"다."
+"민권국은 인종, 피부색, 출신 국가, 장애, 성별, 종교, 가족 상태 또는 다른 헌법"
+"상 권리의 상실에 기반한 차별로부터 귀하를 보호하는 연방 법률을 집행합니다."
 
 #: templates/landing.html:89
 msgid ""
@@ -1725,11 +1723,11 @@ msgstr ""
 
 #: templates/landing.html:91 templates/landing.html:329
 msgid "Start a report"
-msgstr "신고서 작성을 시작하거나"
+msgstr "신고서 작성"
 
 #: templates/landing.html:92
 msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
-msgstr "또는 <a href=\"#your-rights\">귀하의 권리</a>에 대해 더 알아보세요"
+msgstr "<a href=\"#your-rights\">귀하의 권리</a>에 대해 더 알아보세요"
 
 #: templates/landing.html:105
 msgid ""
@@ -1784,11 +1782,11 @@ msgstr "교육"
 
 #: templates/landing.html:146
 msgid "We help the public understand how to comply with these laws."
-msgstr "우리는 대중이 이 법률 준수 방법을 이해할 수 있게 돕습니다."
+msgstr "우리는 대중이 법률 준수 방법을 이해할 수 있게 돕습니다."
 
 #: templates/landing.html:147
 msgid "We do this through public speaking, technical assistance, and more."
-msgstr "우리는 공개 강연, 기술적 지원 등 여러 가지를 통해 이를 수행합니다."
+msgstr "우리는 공개 강연, 기술적 지원 등 여러가지를 통해 이를 수행합니다."
 
 #: templates/landing.html:150
 msgid "Coordination"
@@ -1797,14 +1795,14 @@ msgstr "코디네이션"
 #: templates/landing.html:152
 msgid ""
 "We help the entire federal government work together to enforce these laws."
-msgstr "우리는 전체 연방 정부가 이 법률 집행을 위해 협력하도록 지원합니다."
+msgstr "우리는 전체 연방 정부가 법률 집행을 위해 협력하도록 지원합니다."
 
 #: templates/landing.html:153
 msgid ""
 "Our teams work with other agencies to promote a consistent approach to civil "
 "rights laws."
 msgstr ""
-"우리 팀들은 민권법에의 일관된 접근을 촉진하기 위해 다른 기관들과 협력합니다."
+"우리 팀들은 민권법에 일관된 접근을 촉진하기 위해 다른 기관들과 협력합니다."
 
 #: templates/landing.html:165
 msgid "Understanding your rights"
@@ -1819,8 +1817,8 @@ msgid ""
 msgstr ""
 "민권법은 <span class=\"crt-landing--rights_text crt-landing--"
 "rights_categories\">주택, 직장, 학교, 투표, 사업, 의료, 공공장소</span> 등의 "
-"다양한 여러 환경에서 벌어지는 불법적인 차별, 괴롭힘 또는 학대로부터 귀하를 보"
-"호해 드릴 수 있습니다."
+"다양한 환경에서 벌어지는 불법적인 차별, 괴롭힘 또는 학대로부터 귀하를 보호해 "
+"드릴 수 있습니다."
 
 #: templates/landing.html:171
 msgid ""
@@ -1885,16 +1883,16 @@ msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
 msgstr ""
-"언어와 <span class=\"crt-landing--protected\">혈통 및 민족을 포함한</span> 출"
-"신 국가"
+"언어와 출신 국가 <span class=\"crt-landing--protected\">혈통 및 민족 포함</"
+"span>"
 
 #: templates/landing.html:259
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
 msgstr ""
-"가족, 결혼 또는 <span class=\"crt-landing--protected\">임신을 포함한</span> "
-"자녀 유무 상태"
+"가족, 결혼 또는 자녀 유무 상태 <span class=\"crt-landing--protected\">임신 포"
+"함</span>"
 
 #: templates/landing.html:261
 msgid "Genetic identification"
@@ -1906,7 +1904,7 @@ msgstr "병역 상태"
 
 #: templates/landing.html:276
 msgid "How to report a civil rights violation"
-msgstr "민권 침해를 보고하는 방법 "
+msgstr "민권 침해를 신고하는 방법 "
 
 #: templates/landing.html:281
 msgid ""
@@ -1955,7 +1953,8 @@ msgid ""
 "further help, or informing you that we cannot help."
 msgstr ""
 "가능한 결과: 더 많은 정보를 위한 후속 조치, 중재나 조사 시작, 추가 도움을 위"
-"해 다른 단체에 귀하를 연결 또는 우리가 도움을 줄 수 없다고 귀하에게 알림. "
+"해 다른 단체에 귀하를 연결 또는 우리가 도움을 줄 수 없다고 귀하에게 알립니"
+"다. "
 
 #: templates/landing.html:328
 msgid "Have you or someone you know experienced a civil rights violation?"
@@ -2643,19 +2642,19 @@ msgstr " 단어 수 제한에 도달"
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "귀하의 상황에 적용되는 것이 있다면 그것을 선택하십시오.(선택사항)"
 
-#: views_public.py:390
+#: views_public.py:394
 msgid "404 | Page not found"
 msgstr "404 | 페이지를 찾을 수 없음"
 
-#: views_public.py:391
+#: views_public.py:395
 msgid "We can't find the page you are looking for"
 msgstr "찾고 계신 페이지를 찾을 수가 없습니다"
 
-#: views_public.py:450
+#: views_public.py:454
 msgid "Your browser couldn't create a secure cookie"
 msgstr "브라우저가 안전한 쿠키를 생성할 수 없었습니다"
 
-#: views_public.py:451
+#: views_public.py:455
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
