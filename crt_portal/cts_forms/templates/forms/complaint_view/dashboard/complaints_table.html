@@ -9,28 +9,16 @@
 
   <div class="crt-xscroll">
     {% if selected_actor %}
-    <table class="usa-table crt-table sort-table">
+    <table class="usa-table crt-table dashboard-table">
       <thead>
         <tr>
-          <th>
           {% render_sortable_heading 'User' sort_state filter_state %}
           {% render_sortable_heading 'Date range' sort_state filter_state nowrap=True %}
           {% render_sortable_heading 'Reports touched' sort_state filter_state nowrap=True %}
         </tr>
       </thead>
       <tbody>
-        <tr class="tr-status-{{ datum.report.status }} tr--hover{% cycle ' stripe' '' %}">
-          <td>
-            <div class="usa-checkbox td-checkbox">
-              <input type="checkbox"
-                      name="id"
-                      class="usa-checkbox__input"
-                      value="{{ datum.report.id }}"
-                      id="checkbox-{{ datum.report.id }}"
-              >
-              <label class="crt-checkbox__label" for="checkbox-{{ datum.report.id }}" aria-label="select record {{ datum.report.id }}"></label>
-            </div>
-          </td>
+        <tr class="tr--hover{% cycle ' stripe' '' %}">
           <td style="vertical-align: middle;font-weight: 700;">
             {{ selected_actor }}
           </td>
