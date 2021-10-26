@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-13 18:44+0000\n"
+"POT-Creation-Date: 2021-10-25 20:36+0000\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1699,7 +1699,7 @@ msgstr "Nhận sự giúp đỡ khi gặp tội ác do thù hận và 
 
 #: templates/hate_crime_human_trafficking.html:42
 msgid "Where to report a hate crime"
-msgstr "Nơi trình báo một tội do ác thù hận"
+msgstr "Nơi trình báo một tội ác do thù hận"
 
 #: templates/hate_crime_human_trafficking.html:44
 msgid ""
@@ -2749,19 +2749,19 @@ msgstr ""
 "Vui lòng chọn nếu có bất kỳ câu trả lời nào phù hợp với tình huống của quý "
 "vị (tùy chọn)"
 
-#: views_public.py:390
+#: views_public.py:394
 msgid "404 | Page not found"
 msgstr "404 | Không tìm thấy trang"
 
-#: views_public.py:391
+#: views_public.py:395
 msgid "We can't find the page you are looking for"
 msgstr "Chúng tôi không thể tìm thấy trang quý vị đang tìm kiếm"
 
-#: views_public.py:450
+#: views_public.py:454
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Trình duyệt của quý vị không thể tạo cookie an toàn"
 
-#: views_public.py:451
+#: views_public.py:455
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
