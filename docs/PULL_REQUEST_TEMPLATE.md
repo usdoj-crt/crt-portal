@@ -10,7 +10,7 @@
 
 + [ ] If this is a story, run locally and check to make sure all Acceptance Criteria are met. (If any criteria are unclear, ask about them.).
 + [ ] Check for, document, and establish a testing plan for any behavior that may vary across environments or is otherwise difficult to test.
-+ [ ] Check for [accessibility](/docs/a11y_plan.md).
++ [ ] Check for [accessibility](https://github.com/usdoj-crt/crt-portal/blob/develop/docs/a11y_plan.md).
 + [ ] [Tests pass](https://github.com/USDOJ/crt-portal/#tests).
 
 ### Reviewer
