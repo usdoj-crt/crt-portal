@@ -85,10 +85,10 @@ def test_report_complete_and_valid_submission(page):
     next_step()
     assert page.title() == "Step 3: Location - Contact the Civil Rights Division | Department of Justice"
 
-    # Fill input[name="3-location_name"]
+    # Fill input[name="2-location_name"]
     page.fill("input[name='2-location_name']", "Test store")
 
-    # Fill input[name="3-location_city_town"]
+    # Fill input[name="2-location_city_town"]
     page.fill("input[name='2-location_city_town']", "Testing")
 
     # Select Alabama
@@ -121,6 +121,17 @@ def test_report_complete_and_valid_submission(page):
     # Go to step 7
     next_step()
     assert page.title() == "Step 7: Review - Contact the Civil Rights Division | Department of Justice"
+
+    # Click on "Edit this page" for Location
+    with page.expect_navigation():
+        page.evaluate("document.querySelector('[data-testid=\"edit-location\"] button').click()")
+    assert page.title() == "Step 3: Location - Contact the Civil Rights Division | Department of Justice"
+
+    # Navigate back to review page
+    next_step()
+    next_step()
+    next_step()
+    next_step()
 
     # Complete submission
     next_step()

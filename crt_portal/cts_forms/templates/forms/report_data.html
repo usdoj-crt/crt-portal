@@ -1,32 +1,32 @@
 {% load i18n %}
 <div class="crt-portal-card">
-    <div class="crt-portal-card__content crt-portal-card__content--lg margin-bottom-3">
-      <div class="button--review">
-        {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.0 step_value=0 %}
-      </div>
-
-        <h2 class="h1 margin-top-0 margin-bottom-0">{{ordered_step_names.0}}</h2>
-
-        <div class="question">
-          <h3 class="crt-portal-card__subheader">{{ question.contact.contact_title }}</h3>
-          <h4>{% trans "Your name" %}</h4>
-          <p>{{ report.contact_first_name|default:"-" }} {{ report.contact_last_name|default:"-" }}</p>
-
-          <h4>{{ question.contact.contact_email }}</h4>
-          <p>{{ report.contact_email|default:"-" }}</p>
-
-          <h4>{{ question.contact.contact_phone }}</h4>
-          <p>{{ report.contact_phone|default:"-" }}</p>
-
-          <h4>{% trans "Address" %}</h4>
-          <p>{{ report.contact_address_line_1|default:"-" }}</p>
-          <p>{{ report.contact_address_line_2|default:"-" }}</p>
-          <p>{{ report.contact_city|default:"-" }}, {{ report.get_contact_state_display|default:"-" }} {{ report.contact_zip|default:"-" }}</p>
-
-        </div>
-        <h3 class="crt-portal-card__subheader">{{ question.servicemember }}</h3>
-        <p>{{ report.get_servicemember_display|default:"-" }}</p>
+  <div class="crt-portal-card__content crt-portal-card__content--lg margin-bottom-3">
+    <div class="button--review">
+      {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.0 step_value=0 %}
     </div>
+
+    <h2 class="h1 margin-top-0 margin-bottom-0">{{ordered_step_names.0}}</h2>
+
+    <div class="question">
+      <h3 class="crt-portal-card__subheader">{{ question.contact.contact_title }}</h3>
+      <h4>{% trans "Your name" %}</h4>
+      <p>{{ report.contact_first_name|default:"-" }} {{ report.contact_last_name|default:"-" }}</p>
+
+      <h4>{{ question.contact.contact_email }}</h4>
+      <p>{{ report.contact_email|default:"-" }}</p>
+
+      <h4>{{ question.contact.contact_phone }}</h4>
+      <p>{{ report.contact_phone|default:"-" }}</p>
+
+      <h4>{% trans "Address" %}</h4>
+      <p>{{ report.contact_address_line_1|default:"-" }}</p>
+      <p>{{ report.contact_address_line_2|default:"-" }}</p>
+      <p>{{ report.contact_city|default:"-" }}, {{ report.get_contact_state_display|default:"-" }} {{ report.contact_zip|default:"-" }}</p>
+    </div>
+
+    <h3 class="crt-portal-card__subheader">{{ question.servicemember }}</h3>
+    <p>{{ report.get_servicemember_display|default:"-" }}</p>
+  </div>
 </div>
 
 <div class="crt-portal-card">
@@ -46,26 +46,26 @@
   <div class="crt-portal-card__content crt-portal-card__content--lg margin-bottom-3">
     {# buttons to the right form page based on data present #}
 
-    <div class="button--review">
-    {% if report.election_details %}
-      {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=3 %}
+    <div class="button--review" data-testid="edit-location">
+      {% if primary_complaint_key == "voting" %}
+        {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=2 %}
 
-    {% elif report.public_or_private_employer %}
-      {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=4 %}
+      {% elif primary_complaint_key == "workplace" %}
+        {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=3 %}
 
-    {% elif report.inside_correctional_facility %}
-      {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=5 %}
+      {% elif primary_complaint_key == "police" %}
+        {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=4 %}
 
-    {% elif report.commercial_or_public_place %}
-      {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=6 %}
+      {% elif primary_complaint_key == "commercial_or_public" %}
+        {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=5 %}
 
-    {% elif report.public_or_private_school %}
-      {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=7 %}
+      {% elif primary_complaint_key == "education" %}
+        {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=6 %}
 
-    {% else %}
-      {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=2 %}
-  {% endif %}
-  </div>
+      {% else %}
+        {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.2 step_value=7 %}
+      {% endif %}
+    </div>
 
     <h2 class="h1 margin-top-0">{{ ordered_step_names.2 }}</h2>
 
@@ -105,62 +105,65 @@
 
     <h3 class="crt-portal-card__subheader">{{ question.location.location_title }}</h3>
 
-        <h4>{{ question.location.location_name }}</h4>
-        <p>{{ report.location_name|default:"-" }}</p>
+    <h4>{{ question.location.location_name }}</h4>
+    <p>{{ report.location_name|default:"-" }}</p>
 
-        <h4>{% trans "Address" %}</h4>
-        <p>{{ report.location_address_line_1|default:"-" }}</p>
-        <p>{{ report.location_address_line_2|default:"-" }}</p>
-        <p>{{ report.location_city_town|default:"-" }}, {{ report.get_location_state_display|default:"-"}}</p>
-
-    </div>
+    <h4>{% trans "Address" %}</h4>
+    <p>{{ report.location_address_line_1|default:"-" }}</p>
+    <p>{{ report.location_address_line_2|default:"-" }}</p>
+    <p>{{ report.location_city_town|default:"-" }}, {{ report.get_location_state_display|default:"-"}}</p>
+  </div>
 </div>
 
 <div class="crt-portal-card">
-    <div class="crt-portal-card__content crt-portal-card__content--lg margin-bottom-3">
-      <div class="button--review">
-        {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.3 step_value=9 %}
-      </div>
-
-        <h2 class="h1 margin-top-0">{{ ordered_step_names.3 }}</h2>
-
-        <h3 class="crt-portal-card__subheader">{{ question.characteristics }}</h3>
-        {% if report.id %}
-            {% for characteristic in report.protected_class.all %}
-                <p>{{ characteristic }}</p>
-            {% empty %}
-                <p>{% trans 'None selected' %}</p>
-            {% endfor %}
-        {% else %}
-            {% for characteristic in protected_classes %}
-                <p>{{characteristic}}</p>
-            {% empty %}
-                <p>{% trans 'None selected' %}</p>
-            {% endfor %}
-        {% endif %}
+  <div class="crt-portal-card__content crt-portal-card__content--lg margin-bottom-3">
+    <div class="button--review">
+      {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.3 step_value=8 %}
     </div>
+
+    <h2 class="h1 margin-top-0">{{ ordered_step_names.3 }}</h2>
+
+    <h3 class="crt-portal-card__subheader">{{ question.characteristics }}</h3>
+    {% if report.id %}
+      {% for characteristic in report.protected_class.all %}
+        <p>{{ characteristic }}</p>
+      {% empty %}
+        <p>{% trans 'None selected' %}</p>
+      {% endfor %}
+    {% else %}
+      {% for characteristic in protected_classes %}
+        <p>{{characteristic}}</p>
+      {% empty %}
+        <p>{% trans 'None selected' %}</p>
+      {% endfor %}
+    {% endif %}
+  </div>
 </div>
 
 <div class="crt-portal-card">
-    <div class="crt-portal-card__content crt-portal-card__content--lg margin-bottom-3">
-      <div class="button--review">
-        {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.4 step_value=10 %}
-      </div>
-        <h2 class="h1 margin-top-0">{{ ordered_step_names.4 }}</h2>
-
-        <h3 class="crt-portal-card__subheader">{{ question.date.date_title }}</h3>
-        <p>{{ report.last_incident_month|default:"—" }}/{{ report.last_incident_day|default:"—" }}/{{ report.last_incident_year|default:"—"}}</p>
+  <div class="crt-portal-card__content crt-portal-card__content--lg margin-bottom-3">
+    <div class="button--review">
+      {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.4 step_value=9 %}
     </div>
+
+    <h2 class="h1 margin-top-0">{{ ordered_step_names.4 }}</h2>
+
+    <h3 class="crt-portal-card__subheader">{{ question.date.date_title }}</h3>
+    <p>{{ report.last_incident_month|default:"—" }}/{{ report.last_incident_day|default:"—" }}/{{ report.last_incident_year|default:"—"}}</p>
+  </div>
 </div>
 
 <div class="crt-portal-card">
-    <div class="crt-portal-card__content crt-portal-card__content--lg margin-bottom-3">
-      <div class="button--review">
-        {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.5 step_value=11 %}
-      </div>
-        <h2 class="h1 margin-top-0">{{ ordered_step_names.5 }}</h2>
-
-        <h3 class="crt-portal-card__subheader">{{ question.summary }}</h3>
-        <p>{{ report.violation_summary|linebreaks }}</p>
+  <div class="crt-portal-card__content crt-portal-card__content--lg margin-bottom-3">
+    <div class="button--review">
+      {% include "forms/snippets/preview_button.html" with step_name=ordered_step_names.5 step_value=10 %}
     </div>
+
+    <h2 class="h1 margin-top-0">{{ ordered_step_names.5 }}</h2>
+
+    <h3 class="crt-portal-card__subheader">{{ question.summary }}</h3>
+    <div class="word-break">
+      {{ report.violation_summary|linebreaks }}
+    </div>
+  </div>
 </div>
