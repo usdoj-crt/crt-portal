@@ -965,14 +965,17 @@ class Filters(ModelForm):
             },
         ),
     )
-    assigned_to = ModelChoiceField(
+    assigned_to = ChoiceField(
         required=False,
-        queryset=User.objects.filter(is_active=True).order_by('username'),
+        choices=[
+            ('', ''),  # Default choice: empty
+            ('-1', '(unassigned)'),  # Custom choice: unassigned report.
+            # Appends a queryset of active users, converted to a list of tuples
+        ] + list(User.objects.filter(is_active=True).values_list('username', 'username').order_by('username')),
         label=_("Assigned to"),  # This is overriden in templates as "Assigned"
-        to_field_name='username',
         widget=Select(attrs={
             'name': 'assigned_to',
-            'class': 'usa-input'
+            'class': 'usa-input usa-select',
         })
     )
     create_date_start = DateField(
