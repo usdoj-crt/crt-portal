@@ -30,7 +30,7 @@ from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter
 from .forms import (
     BulkActionsForm, CommentActions, ComplaintActions,
-    ContactEditForm, Filters, DashboardFilter, PrintActions, ProfileForm,
+    ContactEditForm, Filters, PrintActions, ProfileForm,
     ReportEditForm, ResponseActions, add_activity,
     AttachmentActions, Review, save_form,
 )
@@ -149,6 +149,7 @@ def setup_filter_parameters(report, querydict):
 
     return output
 
+
 def _format_date(date_string):
     if date_string:
         return datetime.strptime(date_string, '%Y-%m-%d')
@@ -246,8 +247,6 @@ def index_view(request):
 
 @login_required
 def dashboard_view(request):
-
-    profile_form = ProfileForm()
     query_filters, selected_actions = dashboard_filter(request.GET)
 
     # process filter query params

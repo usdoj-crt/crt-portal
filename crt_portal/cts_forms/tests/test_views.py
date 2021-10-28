@@ -614,7 +614,7 @@ class CRT_Dashboard_Tests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
 
-    def test_view_dashboard_unauthenticated(self):
+    def test_view_dashboard_authenticated(self):
         """Authenticated will return 200 and display "No records found."""
         self.client.force_login(self.superuser)
         response = self.client.get(self.url)
