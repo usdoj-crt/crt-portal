@@ -334,7 +334,7 @@
   // instantiate the controller that manages the UI components / views
   function init() {
     if (root.location.dashboardsearch === '') {
-      root.location.dashboardsearch = '?assigned_to=none';
+      root.location.dashboardsearch = '?';
     }
 
     var filterUpdates = getQueryParams(

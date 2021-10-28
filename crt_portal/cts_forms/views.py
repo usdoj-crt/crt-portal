@@ -24,6 +24,7 @@ from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
 from tms.models import TMSEmail
+from datetime import datetime
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter
@@ -148,10 +149,14 @@ def setup_filter_parameters(report, querydict):
 
     return output
 
+def _format_date(date_string):
+    if date_string:
+        return datetime.strptime(date_string, '%Y-%m-%d')
+    return ""
+
 
 @login_required
 def index_view(request):
-    print("in index_view")
     profile_form = ProfileForm()
     # Check for Profile object, then add filter to request
     if hasattr(request.user, 'profile') and request.user.profile.intake_filters:
@@ -243,48 +248,31 @@ def index_view(request):
 def dashboard_view(request):
 
     profile_form = ProfileForm()
+    query_filters, selected_actions = dashboard_filter(request.GET)
 
-    report_query, selected_actor = dashboard_filter(request.GET)
-    print("report_query => ", report_query)
-    print("author => ", selected_actor)
-    # Sort data based on request from params, default to `created_date` of complaint
-    per_page = request.GET.get('per_page', 15)
-    page = request.GET.get('page', 1)
-
-    requested_reports = report_query.annotate(email_count=F('email_report_count__email_count'))
-    sort_expr, sorts = report_sort(request.GET)
-    requested_reports = requested_reports.order_by(*sort_expr)
-
-    paginator = Paginator(requested_reports, per_page)
-    requested_reports, page_format = pagination(paginator, page, per_page)
-
-    sort_state = {}
-    # make sure the links for this page have the same paging, sorting, filtering etc.
-    page_args = f'?per_page={per_page}'
+    # process filter query params
+    filter_args = ''
+    for query_item in query_filters.keys():
+        arg = query_item
+        for item in query_filters[query_item]:
+            filter_args = filter_args + f'&{arg}={item}'
 
     data = []
     actor_data = {}
-    for index, report in enumerate(requested_reports):
-        for actor in report.activity_actor_list():
-            if actor not in actor_data:
-                actor_data[actor] = 0
-            actor_data[actor] += 1
-        data.append({
-            "report": report,
-            "activity_stream": report.target_actions.all(),
-            "activity_actor_list": report.activity_actor_list(),
-        })
-    activity_count = actor_data.get(selected_actor, 0)
-    print("DashboardFilter(request.GET) =>", DashboardFilter(request.GET))
+    reports_set = set()
+    for action in selected_actions:
+        reports_set.add(action.target_object_id)
+    start_date = _format_date(request.GET.get("create_date_start", ""))
+    end_date = _format_date(request.GET.get("create_date_end", ""))
+
     final_data = {
         'form': Filters(request.GET),
-        'dashboard_form': DashboardFilter(request.GET),
         'data_dict': data,
-        'page_format': page_format,
-        'sort_state': sort_state,
-        'selected_actor': selected_actor,
-        'activity_count': activity_count
-
+        'selected_actor': request.GET.get("assigned_to", ""),
+        'date_range_start': start_date,
+        'date_range_end': end_date,
+        'activity_count': len(reports_set),
+        'filters': query_filters,
     }
     return render(request, 'forms/complaint_view/dashboard/index.html', final_data)
 

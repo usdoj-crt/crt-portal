@@ -23,11 +23,19 @@
             {{ selected_actor }}
           </td>
           <td style="vertical-align: middle;font-weight: 700;">
-            {% if date_range_start and date_range_end %}
-              {{ date_range_start }} – {{ date_range_end }}
+            {% if date_range_start %}
+              {{ date_range_start|date:"SHORT_DATE_FORMAT" }}
             {% else %}
-              (all)
+              1/1/2015
             {% endif %}
+             -
+            {% if date_range_end %}
+              {{ date_range_end|date:"SHORT_DATE_FORMAT" }}
+            {% else %}
+              Present
+            {% endif %}
+
+
             </td>
           <td style="vertical-align: middle;font-weight: 700;">
             {{ activity_count }} report{{ activity_count|pluralize }}

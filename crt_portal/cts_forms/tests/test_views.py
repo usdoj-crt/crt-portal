@@ -16,7 +16,7 @@ from unittest.mock import patch
 
 from testfixtures import LogCapture
 
-from ..forms import ContactEditForm, ReportEditForm
+from ..forms import ContactEditForm, ReportEditForm, add_activity
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
 from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary
 from .test_data import SAMPLE_REPORT
@@ -594,6 +594,72 @@ class CRT_FILTER_Tests(TestCase):
         # We've specified ADM as a query param, we should only see reports from that section
         expected_reports = Report.objects.filter(assigned_section='ADM').count()
         self.assertEquals(len(reports), expected_reports)
+
+
+class CRT_Dashboard_Tests(TestCase):
+    def setUp(self):
+        # We'll need a report and a handful of actions
+        self.client = Client()
+        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
+        self.superuser2 = User.objects.create_superuser('superduperuser2', 'a@a.com', '')
+        self.report = Report.objects.create(**SAMPLE_REPORT)
+        self.report2 = Report.objects.create(**SAMPLE_REPORT)
+        self.url = reverse('crt_forms:dashboard')
+
+        [add_activity(self.superuser, 'verb', 'description', self.report) for _ in range(5)]
+        [add_activity(self.superuser, 'verb', 'description_2', self.report) for _ in range(5)]
+
+    def test_view_dashboard_unauthenticated(self):
+        """Unauthenticated attempt to view all page redirects to login page."""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_view_dashboard_unauthenticated(self):
+        """Authenticated will return 200 and display "No records found."""
+        self.client.force_login(self.superuser)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('No records found' in str(response.content))
+
+    def test_assigned_to_filter_wrong_user(self):
+
+        url = f'{self.url}?assigned_to=superduperuser2'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        self.assertTrue('0 reports' in str(response.content))
+        self.assertTrue('superduperuser2' in str(response.content))
+
+    def test_assigned_to_filter(self):
+        url = f'{self.url}?assigned_to=superduperuser'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        self.assertTrue('1 report' in str(response.content))
+        self.assertTrue('superduperuser' in str(response.content))
+
+    def test_date_range(self):
+        url = f'{self.url}?create_date_start=2021-09-01&create_date_end=2035-09-30&assigned_to=superduperuser'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        self.assertTrue('1 report' in str(response.content))
+
+    def test_add_activity_to_new_report(self):
+        url = f'{self.url}?create_date_start=2021-09-01&create_date_end=2035-09-30&assigned_to=superduperuser'
+        self.client.force_login(self.superuser)
+        [add_activity(self.superuser, 'verb', 'description', self.report2) for _ in range(5)]
+        response = self.client.get(url)
+        self.assertTrue('2 reports' in str(response.content))
+
+    def test_bad_start_date_range(self):
+        url = f'{self.url}?create_date_start=2030-09-01&assigned_to=superduperuser'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        self.assertTrue('0 reports' in str(response.content))
+
+    def test_bad_end_date(self):
+        url = f'{self.url}?create_date_end=2016-09-01&assigned_to=superduperuser'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        self.assertTrue('0 reports' in str(response.content))
 
 
 class LoginRequiredTests(TestCase):

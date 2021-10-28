@@ -6,7 +6,7 @@ from datetime import datetime
 from django.contrib.postgres.search import SearchQuery
 
 from .models import Report
-
+from actstream.models import Action
 
 # To add a new filter option for Reports, add the field name and expected filter behavior
 # These filters should match the order they're presented in filter-controls.html
@@ -54,9 +54,8 @@ filter_options = {
 # To add a new filter option for Reports, add the field name and expected filter behavior
 # These filters should match the order they're presented in filter-controls.html
 dashboard_filter_options = {
-    'assigned_to': 'foreign_key',  # aka "Assignee"
-    'create_date_start': '__gte',
-    'create_date_end': '__lte',
+    'timestamp_start': '__gte',
+    'timestamp_end': '__lte',
 }
 
 
@@ -130,9 +129,29 @@ def report_filter(querydict):
 def dashboard_filter(querydict):
     kwargs = {}
     filters = {}
-    qs = Report.objects.filter()
-    actor = querydict.get("assigned_to", None)
-    return qs, actor
+    selected_actions = []
+    selected_actor = querydict.get("assigned_to", None)
+    for field in filter_options.keys():
+        filter_list = querydict.getlist(field)
+        if len(filter_list) > 0:
+            filters[field] = querydict.getlist(field)
+            if 'date' in field:
+                # filters by a start date or an end date expects yyyy-mm-dd
+                field_name = 'timestamp'
+                encodedDate = querydict.getlist(field)[0]
+                decodedDate = urllib.parse.unquote(encodedDate)
+                try:
+                    dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
+                    dateObj = _change_datetime_to_end_of_day(dateObj, field)
+                    kwargs[f'{field_name}{filter_options[field]}'] = dateObj
+                except ValueError:
+                    # if the date is invalid, we ignore it.
+                    continue
+    actions = Action.objects.filter(**kwargs)
+    for action in actions:
+        if selected_actor == action.actor.username:
+            selected_actions.append(action)
+    return filters, selected_actions
 
 
 def _combine_term_searches_with_or(terms):
