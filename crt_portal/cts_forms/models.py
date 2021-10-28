@@ -360,18 +360,6 @@ class Report(models.Model):
     def activity(self):
         return self.target_actions.exclude(verb__contains='comment:').prefetch_related('actor')
 
-    def activity_all(self):
-        return self.activity().prefetch_related('actor')
-
-    def activity_actor_list(self):
-        activities = list(self.activity_all())
-        actors = set([])
-        actors.add(self.author)
-        for activity in activities:
-            actors.add(activity.actor.username)
-        return actors
-
-
     def closeout_report(self):
         """
         Remove assignee and record date of call
@@ -415,11 +403,6 @@ class Report(models.Model):
                 email = None
             return email
         return None
-
-    @property
-    def activity_log(self):
-        log = self.activity().filter(assigned_to='billy')
-        return log
 
     @property
     def contact_full_name(self):

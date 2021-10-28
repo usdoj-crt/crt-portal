@@ -257,8 +257,6 @@ def dashboard_view(request):
         for item in query_filters[query_item]:
             filter_args = filter_args + f'&{arg}={item}'
 
-    data = []
-    actor_data = {}
     reports_set = set()
     for action in selected_actions:
         reports_set.add(action.target_object_id)
@@ -267,7 +265,6 @@ def dashboard_view(request):
 
     final_data = {
         'form': Filters(request.GET),
-        'data_dict': data,
         'selected_actor': request.GET.get("assigned_to", ""),
         'date_range_start': start_date,
         'date_range_end': end_date,

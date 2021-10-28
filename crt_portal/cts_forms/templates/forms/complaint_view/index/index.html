@@ -35,9 +35,9 @@
 {% endblock %}
 {% block page_js %}
 {{ block.super }}
-<script src="{% static 'js/dashboard_quick_view.min.js' %}"></script>
-<script src="{% static 'js/dashboard_view_filters.min.js' %}"></script>
-<script src="{% static 'js/dashboard_actions.min.js' %}"></script>
+<script src="{% static 'js/complaint_quick_view.min.js' %}"></script>
+<script src="{% static 'js/complaint_view_filters.min.js' %}"></script>
+<script src="{% static 'js/complaint_actions.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'vendor/aria-autocomplete-1.2.3.min.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
  var select = document.getElementById('id_assigned_to');

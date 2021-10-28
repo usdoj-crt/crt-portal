@@ -622,7 +622,6 @@ class CRT_Dashboard_Tests(TestCase):
         self.assertTrue('No records found' in str(response.content))
 
     def test_assigned_to_filter_wrong_user(self):
-
         url = f'{self.url}?assigned_to=superduperuser2'
         self.client.force_login(self.superuser)
         response = self.client.get(url)
@@ -630,6 +629,7 @@ class CRT_Dashboard_Tests(TestCase):
         self.assertTrue('superduperuser2' in str(response.content))
 
     def test_assigned_to_filter(self):
+        """Should only return one report even though that report has two activities associated with it"""
         url = f'{self.url}?assigned_to=superduperuser'
         self.client.force_login(self.superuser)
         response = self.client.get(url)
