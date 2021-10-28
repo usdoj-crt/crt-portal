@@ -124,6 +124,7 @@ $arrow-height: 24px;
 
   .crt-menu--section {
     margin-top: 0.1rem;
+    margin-left: 1rem;
     padding-right: 0;
 
     .language-selection {
@@ -196,9 +197,12 @@ $arrow-height: 24px;
 
   .crt-landing--logo_section {
     img {
-      height: 60px;
-      @include at-media-max(mobile-lg) {
-        height: 45px;
+      height: 45px;
+      width: 45px;
+      max-width: initial;
+      @include at-media(mobile-lg) {
+        height: 60px;
+        width: 60px;
       }
     }
 
@@ -210,27 +214,31 @@ $arrow-height: 24px;
     a:hover {
       color: color('white');
     }
+
+    /* Prevent agency heading from wrapping to below the logo */
+    .grid-row {
+      flex-wrap: nowrap;
+    }
   }
 
   .crt-landing--logo_subheading {
     @extend .usa-footer__logo-subheading;
     font-size: $theme-text-font-size-xs;
-    line-height: 2.25;
-    margin-top: 0.25rem;
-    @include at-media-max(mobile-lg) {
-      @include text--body-copy__xsmall();
+    line-height: 1.2;
+
+    @include at-media(mobile-lg) {
+      line-height: 1.3;
     }
   }
 
   .crt-landing--logo_heading {
     @extend .usa-footer__logo-heading;
-    font-size: $theme-heading-font-size-md;
-    line-height: 0.5;
-    margin-bottom: 1rem;
-    margin-top: .2rem;
-    @include at-media-max(mobile-lg) {
-      font-size: $theme-heading-font-size-md-mobile;
-      margin-top: 0.5rem;
+    font-size: $theme-heading-font-size-md-mobile;
+    line-height: 1.2;
+
+    @include at-media(mobile-lg) {
+      font-size: $theme-heading-font-size-md;
+      line-height: 1.3;
     }
   }
 }

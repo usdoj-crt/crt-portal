@@ -35,12 +35,22 @@ footer {
 .usa-footer__logo-section {
   margin-top: 1.25rem;
   margin-bottom: 2.5rem;
+
+  img {
+    max-width: initial;
+  }
+
+  /* Prevent agency heading from wrapping to below the logo */
+  .grid-row {
+    flex-wrap: nowrap;
+  }
 }
 
 .usa-footer__logo-heading {
   @include text--heading__large();
   @include u-font-family('serif');
   font-weight: bold;
+  margin: 0;
 }
 
 .usa-footer__logo-subheading {
