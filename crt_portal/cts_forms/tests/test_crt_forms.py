@@ -7,7 +7,7 @@ import urllib.parse
 
 from django.contrib.auth.models import User
 from django.http import QueryDict
-from django.test import SimpleTestCase, TestCase
+from django.test import TestCase
 from django.test.client import Client
 from django.urls import reverse
 from django.utils.html import escape
@@ -978,8 +978,32 @@ class FiltersFormTests(TestCase):
         for row in response.context['data_dict']:
             self.assertTrue(row['report'].referred)
 
+    def test_assigned_report_filter(self):
+        ReportFactory.create_batch(3, assigned_to=self.user)
 
-class SimpleFilterFormTests(SimpleTestCase):
+        base_url = reverse('crt_forms:crt-forms-index')
+        url = f'{base_url}?assigned_to=DELETE_USER'
+
+        response = self.client.get(url, {})
+        self.assertEquals(response.status_code, 200)
+
+        self.assertEquals(len(response.context['data_dict']), 3)
+
+        for row in response.context['data_dict']:
+            self.assertEqual(row['report'].assigned_to, self.user)
+
+    def test_unassigned_report_filter(self):
+        base_url = reverse('crt_forms:crt-forms-index')
+        url = f'{base_url}?assigned_to=(unassigned)'
+
+        response = self.client.get(url, {})
+        self.assertEquals(response.status_code, 200)
+
+        for row in response.context['data_dict']:
+            self.assertEqual(row['report'].assigned_to, None)
+
+
+class SimpleFilterFormTests(TestCase):
 
     def test_get_sections_returns_only_valid_choices(self):
         """
