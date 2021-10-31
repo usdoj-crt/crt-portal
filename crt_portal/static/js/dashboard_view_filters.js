@@ -333,12 +333,12 @@
   // Bootstrap the filter code's data persistence and
   // instantiate the controller that manages the UI components / views
   function init() {
-    if (root.location.dashboardsearch === '') {
-      root.location.dashboardsearch = '?';
+    if (root.location.search === '') {
+      root.location.search = '?';
     }
 
     var filterUpdates = getQueryParams(
-      root.location.dashboardsearch,
+      root.location.search,
       Object.keys(initialFilterState)
     );
 
