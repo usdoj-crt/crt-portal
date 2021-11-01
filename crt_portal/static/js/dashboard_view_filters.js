@@ -337,10 +337,7 @@
       root.location.search = '?';
     }
 
-    var filterUpdates = getQueryParams(
-      root.location.search,
-      Object.keys(initialFilterState)
-    );
+    var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
 
     Object.keys(initialFilterState).forEach(function(key) {
       filterDataModel[key] = initialFilterState[key];
