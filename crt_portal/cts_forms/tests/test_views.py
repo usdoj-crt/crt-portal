@@ -619,7 +619,7 @@ class CRT_Dashboard_Tests(TestCase):
         self.client.force_login(self.superuser)
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue('No records found' in str(response.content))
+        self.assertTrue('Select Intake Specialist' in str(response.content))
 
     def test_assigned_to_filter_wrong_user(self):
         url = f'{self.url}?assigned_to=superduperuser2'
