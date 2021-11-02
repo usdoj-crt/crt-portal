@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-27 20:52+0000\n"
+"POT-Creation-Date: 2021-10-25 20:36+0000\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:182 forms.py:1577
+#: forms.py:182 forms.py:1603
 msgid " - Select - "
 msgstr " - Chọn - "
 
@@ -40,12 +40,7 @@ msgstr ""
 "của quý vị. Trong một phần khác của báo cáo này, quý vị sẽ có thể mô tả mối "
 "quan ngại của mình qua lời lẽ riêng của quý vị."
 
-#. Translators: notes that this page is the same form step as the page before
-#: forms.py:260
-msgid "Continued"
-msgstr "Tiếp tục"
-
-#: forms.py:317
+#: forms.py:295
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
@@ -53,11 +48,11 @@ msgstr ""
 "Ví dụ: Tên doanh nghiệp, trường học, giao lộ, nhà tù, điểm bỏ phiếu, trang "
 "web, v.v."
 
-#: forms.py:339 question_text.py:29
+#: forms.py:317 question_text.py:29
 msgid "Where did this happen?"
 msgstr "Việc này đã xảy ra ở đâu?"
 
-#: forms.py:351
+#: forms.py:329
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your report is reviewed by the right people within "
@@ -67,7 +62,7 @@ msgstr ""
 "ra vụ việc này. Điều này nhằm đảm bảo báo cáo của quý vị được đánh giá bởi "
 "những người phù hợp trong Ban Dân quyền."
 
-#: forms.py:414
+#: forms.py:392
 msgid ""
 "Public employers include organizations funded by the government like the "
 "military, post office, fire department, courthouse, DMV, or public school. "
@@ -78,7 +73,7 @@ msgstr ""
 "phương tiện cơ giới (DMV) hoặc trường công lập. Đơn vị này có thể là ở cấp "
 "địa phương hoặc tiểu bang."
 
-#: forms.py:415
+#: forms.py:393
 msgid ""
 "Private employers are business or non-profits not funded by the government "
 "such as retail stores, banks, or restaurants."
@@ -87,11 +82,11 @@ msgstr ""
 "chính phủ tài trợ, chẳng hạn như cửa hàng bán lẻ, ngân hàng, hoặc nhà hàng."
 
 #. Translators: describe the "other" option for commercial or public place question
-#: forms.py:461
+#: forms.py:439
 msgid "Please describe"
 msgstr "Vui lòng mô tả"
 
-#: forms.py:528
+#: forms.py:506
 msgid ""
 "Includes schools, educational programs, or educational activities, like "
 "training programs, sports teams, clubs, or other school-sponsored activities"
@@ -100,11 +95,11 @@ msgstr ""
 "chương trình đào tạo, các đội thể thao, câu lạc bộ, hoặc các hoạt động khác "
 "do trường bảo trợ"
 
-#: forms.py:539
+#: forms.py:517
 msgid "Please select the type of school or educational program."
 msgstr "Vui lòng chọn loại hình trường học hoặc chương trình giáo dục."
 
-#: forms.py:562
+#: forms.py:540
 msgid ""
 "There are federal and state laws that protect people from discrimination "
 "based on their personal characteristics. Here is a list of the most common "
@@ -117,11 +112,11 @@ msgstr ""
 "vụ việc của quý vị."
 
 #. Translators: This is to explain an "other" choice for personal characteristics
-#: forms.py:567
+#: forms.py:545
 msgid "Please describe \"Other reason\""
 msgstr "Vui lòng mô tả “Lý do khác”"
 
-#: forms.py:649
+#: forms.py:645
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -132,19 +127,23 @@ msgstr ""
 "diễn ra trong một khoảng thời gian hoặc vẫn đang diễn ra, vui lòng cho biết "
 "ngày gần đây nhất."
 
-#: forms.py:937
+#: forms.py:941
+msgid "Incident state"
+msgstr ""
+
+#: forms.py:949
 msgid "Primary classification"
 msgstr "Phân loại chính"
 
-#: forms.py:959
+#: forms.py:971
 msgid "Assigned to"
 msgstr "Được giao cho"
 
-#: forms.py:1134
+#: forms.py:1160
 msgid "Create date cannot be in the future."
 msgstr "Ngày tạo không được là ngày trong tương lai."
 
-#: forms.py:1317
+#: forms.py:1343
 msgid "Comment cannot be empty"
 msgstr "Nhận xét không được để trống"
 
@@ -480,7 +479,7 @@ msgstr ""
 "các mối đe dọa gây tổn hại về thể chất, giữ lại tiền lương đã hứa, hoặc bị "
 "giam chân trong một hợp đồng làm việc giả mạo"
 
-#: model_variables.py:127 templates/landing.html:257
+#: model_variables.py:127 templates/landing.html:260
 msgid "Age"
 msgstr "Tuổi"
 
@@ -523,11 +522,11 @@ msgstr "Quốc gia xuất xứ (bao gồm tổ tiên và dân tộc)"
 msgid "Pregnancy"
 msgstr "Mang thai"
 
-#: model_variables.py:136 templates/landing.html:250
+#: model_variables.py:136 templates/landing.html:253
 msgid "Race/color"
 msgstr "Chủng tộc/màu da"
 
-#: model_variables.py:137 templates/landing.html:252
+#: model_variables.py:137 templates/landing.html:255
 msgid "Religion"
 msgstr "Tôn giáo"
 
@@ -1215,13 +1214,14 @@ msgid "Skip to main content"
 msgstr "Đi thẳng đến nội dung chính"
 
 #: templates/base.html:130 templates/forms/errors.html:13
-#: templates/forms/report_maintenance.html:13 templates/landing.html:17
+#: templates/forms/report_maintenance.html:13 templates/landing.html:10
+#: templates/landing.html:17
 msgid "U.S. Department of Justice"
 msgstr "Bộ Tư pháp Hoa Kỳ"
 
 #: templates/base.html:133 templates/forms/confirmation.html:21
 #: templates/forms/errors.html:14 templates/forms/report_maintenance.html:14
-#: templates/landing.html:20
+#: templates/landing.html:10 templates/landing.html:20
 msgid "Civil Rights Division"
 msgstr "Ban Dân Quyền"
 
@@ -1361,7 +1361,7 @@ msgstr ""
 msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr "Chúng tôi đang nhận và tích cực đánh giá nhiều yêu cầu cùng một lúc."
 
-#: templates/forms/confirmation.html:135 templates/landing.html:353
+#: templates/forms/confirmation.html:135 templates/landing.html:356
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1511,12 +1511,12 @@ msgid "File a complaint"
 msgstr "Nộp đơn khiếu nại"
 
 #: templates/forms/errors.html:71 templates/forms/report_maintenance.html:66
-#: templates/landing.html:125
+#: templates/landing.html:128
 msgid "About the Civil Rights Division"
 msgstr "Giới thiệu về Ban Dân Quyền"
 
 #: templates/forms/errors.html:74 templates/forms/report_maintenance.html:69
-#: templates/landing.html:108
+#: templates/landing.html:111
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
@@ -1562,7 +1562,7 @@ msgstr ""
 msgid "Contact the Department of Justice to report a civil rights violation"
 msgstr "Liên hệ với Bộ Tư pháp để báo cáo hành vi vi phạm dân quyền"
 
-#: templates/forms/report_base.html:55
+#: templates/forms/report_base.html:54
 #, python-format
 msgid ""
 "\n"
@@ -1581,51 +1581,33 @@ msgstr[1] ""
 "                  %(counter)s lỗi được tìm thấy\n"
 "                "
 
-#: templates/forms/report_base.html:85
-#: templates/forms/report_contact_info.html:40
+#: templates/forms/report_base.html:84
+#: templates/forms/report_contact_info.html:39
 msgid "Submit"
 msgstr "Gửi"
 
-#: templates/forms/report_base.html:87
-#: templates/forms/report_contact_info.html:34
-#: templates/forms/report_contact_info.html:42
+#: templates/forms/report_base.html:86
+#: templates/forms/report_contact_info.html:33
+#: templates/forms/report_contact_info.html:41
 msgid "Next"
 msgstr "Tiếp theo"
 
-#: templates/forms/report_base.html:95 templates/forms/report_review.html:33
+#: templates/forms/report_base.html:95 templates/forms/report_review.html:34
 msgid "previous step"
 msgstr "bước trước"
 
-#: templates/forms/report_base.html:98 templates/forms/report_review.html:36
-#: templates/partials/redirect-modal.html:21
+#: templates/forms/report_base.html:98 templates/forms/report_review.html:37
+#: templates/partials/redirect-modal.html:23
 msgid "Back"
 msgstr "Quay lại"
 
-#: templates/forms/report_data.html:21 templates/forms/report_data.html:114
+#: templates/forms/report_data.html:21 templates/forms/report_data.html:111
 msgid "Address"
 msgstr "Địa chỉ"
 
-#: templates/forms/report_data.html:135 templates/forms/report_data.html:141
+#: templates/forms/report_data.html:132 templates/forms/report_data.html:138
 msgid "None selected"
 msgstr "Không lựa chọn nào được chọn"
-
-#: templates/forms/report_hate_crime.html:13
-#: templates/forms/report_hate_crime.html:18 templates/landing.html:227
-msgid "Were you forced to work against your will?"
-msgstr "Quý vị có bị ép buộc phải làm việc trái ý mình không?"
-
-#: templates/forms/report_hate_crime.html:16
-msgid ""
-"Human trafficking includes being forced or coerced to do work, or forced or "
-"coerced to engage in sex acts for something of value."
-msgstr ""
-"Buôn bán người bao gồm việc bị cưỡng bức hoặc ép buộc làm việc, hoặc bị "
-"cưỡng bức hoặc ép buộc thực hiện các hành vi tình dục để đổi lấy thứ gì đó "
-"có giá trị."
-
-#: templates/forms/report_hate_crime.html:18 templates/landing.html:227
-msgid "Get help from the National Human Trafficking Hotline"
-msgstr "Yêu cầu trợ giúp từ Đường dây nóng Quốc gia về Buôn bán người"
 
 #: templates/forms/report_maintenance.html:30
 msgid "This page is currently down for maintenance."
@@ -1690,37 +1672,105 @@ msgstr ""
 "          %(word_limit)s đã đạt đến giới hạn từ\n"
 "        "
 
-#: templates/landing.html:29
+#: templates/hate_crime_human_trafficking.html:7
+#: templates/hate_crime_human_trafficking.html:14
+msgid ""
+"Civil Rights Division - Department of Justice - Get help for hate crimes and "
+"human trafficking"
+msgstr ""
+"Ban Dân Quyền - Bộ Tư pháp - Nhận sự giúp đỡ khi gặp tội ác do thù hận và "
+"nạn buôn người"
+
+#: templates/hate_crime_human_trafficking.html:25
+msgid "How do I…"
+msgstr "Tôi nên làm như thế nào để..."
+
+#: templates/hate_crime_human_trafficking.html:28
+msgid "Report a hate crime"
+msgstr "Trình báo một tội ác do thù hận"
+
+#: templates/hate_crime_human_trafficking.html:31
+msgid "Report human trafficking"
+msgstr "Trình báo nạn buôn người"
+
+#: templates/hate_crime_human_trafficking.html:37
+msgid "Get help for hate crimes and human trafficking"
+msgstr "Nhận sự giúp đỡ khi gặp tội ác do thù hận và nạn buôn người"
+
+#: templates/hate_crime_human_trafficking.html:42
+msgid "Where to report a hate crime"
+msgstr "Nơi trình báo một tội ác do thù hận"
+
+#: templates/hate_crime_human_trafficking.html:44
+msgid ""
+"A hate crime is violence or threats of violence based on race, color, "
+"national origin, religion, gender, sexual orientation, gender identity, or "
+"disability."
+msgstr ""
+"Tội ác do thù hận là bạo lực hoặc đe dọa bạo lực dựa trên chủng tộc, màu da, "
+"nguồn gốc quốc gia, tôn giáo, giới tính, khuynh hướng tình dục, bản dạng "
+"giới, hoặc sự tàn tật."
+
+#: templates/hate_crime_human_trafficking.html:48
+msgid "In cases of emergency, contact 911"
+msgstr "Trong trường hợp khẩn cấp, gọi 911"
+
+#: templates/hate_crime_human_trafficking.html:53
+msgid "Otherwise, contact the FBI online"
+msgstr "Nếu không, liên hệ với FBI trực tuyến"
+
+#: templates/hate_crime_human_trafficking.html:58
+msgid "Or a local field office by phone"
+msgstr "Hoặc văn phòng địa phương qua điện thoại"
+
+#: templates/hate_crime_human_trafficking.html:64
+msgid "Where to report human trafficking"
+msgstr "Nơi trình báo nạn buôn người"
+
+#: templates/hate_crime_human_trafficking.html:66
+msgid ""
+"Human trafficking includes being forced or coerced to do work, or forced or "
+"coerced to engage in sex acts for something of value."
+msgstr ""
+"Nạn buôn người bao gồm việc bị ép buộc hay cưỡng bức làm việc, hoặc bị ép "
+"buộc hay cưỡng bức thực hiện hành vi tình dục để được một thứ gì đó có giá "
+"trị."
+
+#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:230
+msgid "Get help from the National Human Trafficking Hotline"
+msgstr "Nhận sự giúp đỡ từ Đường Dây Nóng Chống Buôn Người Toàn Quốc"
+
+#: templates/landing.html:30
 msgid "Menu"
 msgstr ""
 
-#: templates/landing.html:38
+#: templates/landing.html:39
 msgid "About the Division"
 msgstr "Giới thiệu về Ban"
 
-#: templates/landing.html:43
+#: templates/landing.html:44
 msgid "Your rights"
 msgstr "Các quyền của quý vị"
 
-#: templates/landing.html:48 templates/partials/footer.html:69
+#: templates/landing.html:49 templates/partials/footer.html:70
 msgid "Report a violation"
 msgstr "Báo cáo một vi phạm"
 
-#: templates/landing.html:53
+#: templates/landing.html:54
 msgid "Already submitted?"
 msgstr "Đã gửi?"
 
-#: templates/landing.html:58 templates/partials/footer.html:9
-#: views_public.py:145 views_public.py:224 views_public.py:243
+#: templates/landing.html:59 templates/partials/footer.html:9
+#: views_public.py:174 views_public.py:253 views_public.py:271
 msgid "Contact"
 msgstr "Liên Hệ"
 
-#: templates/landing.html:78
+#: templates/landing.html:81
 msgid "We uphold the civil rights of <em>all</em> people in the United States."
 msgstr ""
 "Chúng tôi đề cao quyền công dân của <em>tất cả</em> mọi người dân ở Hoa Kỳ."
 
-#: templates/landing.html:83
+#: templates/landing.html:86
 msgid ""
 "The Civil Rights Division enforces federal laws that protect you from "
 "discrimination based on your race, color, national origin, disability "
@@ -1732,7 +1782,7 @@ msgstr ""
 "tính, tôn giáo, tình trạng gia đình, hoặc tình trạng mất các quyền hợp hiến "
 "khác của quý vị."
 
-#: templates/landing.html:86
+#: templates/landing.html:89
 msgid ""
 "If you believe your civil rights, or someone else’s, have been violated, "
 "submit a report using our online form."
@@ -1740,16 +1790,16 @@ msgstr ""
 "Nếu quý vị tin rằng dân quyền của mình hoặc của người khác đã bị vi phạm, "
 "hãy gửi báo cáo bằng cách sử dụng mẫu trực tuyến của chúng tôi."
 
-#: templates/landing.html:88 templates/landing.html:326
+#: templates/landing.html:91 templates/landing.html:329
 msgid "Start a report"
 msgstr "Bắt đầu báo cáo"
 
-#: templates/landing.html:89
+#: templates/landing.html:92
 msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
 msgstr ""
 "hoặc tìm hiểu thêm về các <a href=\"#your-rights\">quyền của quý vị</a>"
 
-#: templates/landing.html:102
+#: templates/landing.html:105
 msgid ""
 "If you are in danger, contact <a href=\"tel:911\" aria-label=\"9 1 1\">911</"
 "a>"
@@ -1757,7 +1807,7 @@ msgstr ""
 "Nếu quý vị đang gặp nguy hiểm, hãy gọi <a href=\"tel:911\" aria-label=\"9 1 "
 "1\">911</a>"
 
-#: templates/landing.html:113
+#: templates/landing.html:116
 msgid ""
 "If you are reporting misconduct by law enforcement or believe you have "
 "experienced a hate crime, please <a aria-label=\"contact the FBI\" class="
@@ -1769,15 +1819,15 @@ msgstr ""
 "label=\"contact the FBI\" class=\"external-link--white\" href=\"https://www."
 "fbi.gov/tips\">liên hệ với FBI</a>."
 
-#: templates/landing.html:127
+#: templates/landing.html:130
 msgid "We protect your rights through:"
 msgstr "Chúng tôi bảo vệ các quyền của quý vị thông qua:"
 
-#: templates/landing.html:130
+#: templates/landing.html:133
 msgid "Enforcement"
 msgstr "Đảm bảo thực thi"
 
-#: templates/landing.html:132
+#: templates/landing.html:135
 msgid ""
 "We sue or prosecute individuals and organizations who violate civil rights "
 "laws."
@@ -1785,7 +1835,7 @@ msgstr ""
 "Chúng tôi khởi kiện hoặc truy tố những cá nhân và tổ chức vi phạm luật dân "
 "quyền."
 
-#: templates/landing.html:135
+#: templates/landing.html:138
 #, python-format
 msgid ""
 "\n"
@@ -1800,32 +1850,32 @@ msgstr ""
 "\">mẫu đơn trực tuyến</a>.\n"
 "                "
 
-#: templates/landing.html:141
+#: templates/landing.html:144
 msgid "Education"
 msgstr "Giáo dục"
 
-#: templates/landing.html:143
+#: templates/landing.html:146
 msgid "We help the public understand how to comply with these laws."
 msgstr "Chúng tôi giúp công chúng hiểu cách tuân thủ các luật này."
 
-#: templates/landing.html:144
+#: templates/landing.html:147
 msgid "We do this through public speaking, technical assistance, and more."
 msgstr ""
 "Chúng tôi thực hiện điều này thông qua phát biểu trước công chúng, trợ giúp "
 "kỹ thuật, và những việc làm khác."
 
-#: templates/landing.html:147
+#: templates/landing.html:150
 msgid "Coordination"
 msgstr "Hợp tác"
 
-#: templates/landing.html:149
+#: templates/landing.html:152
 msgid ""
 "We help the entire federal government work together to enforce these laws."
 msgstr ""
 "Chúng tôi giúp toàn bộ chính phủ liên bang phối hợp làm việc cùng nhau để "
 "thực thi các luật này."
 
-#: templates/landing.html:150
+#: templates/landing.html:153
 msgid ""
 "Our teams work with other agencies to promote a consistent approach to civil "
 "rights laws."
@@ -1833,11 +1883,11 @@ msgstr ""
 "Các nhóm của chúng tôi làm việc với các cơ quan khác để thúc đẩy cách tiếp "
 "cận nhất quán đối với các luật dân quyền."
 
-#: templates/landing.html:162
+#: templates/landing.html:165
 msgid "Understanding your rights"
 msgstr "Hiểu các quyền của quý vị"
 
-#: templates/landing.html:165
+#: templates/landing.html:168
 msgid ""
 "Civil rights laws can protect you from unlawful discrimination, harassment, "
 "or abuse in a variety of settings like <span class=\"crt-landing--"
@@ -1850,7 +1900,7 @@ msgstr ""
 "trường học, hoạt động bỏ phiếu, doanh nghiệp, chăm sóc sức khỏe, không gian "
 "công cộng</span>, v.v."
 
-#: templates/landing.html:168
+#: templates/landing.html:171
 msgid ""
 "If you have been <span class=\"crt-landing--rights_categories\">mistreated "
 "by law enforcement</span> (including while incarcerated), believe you have "
@@ -1865,15 +1915,19 @@ msgstr ""
 "rights_categories\">nạn buôn người</span>, chúng tôi có thể giúp đưa quý vị "
 "đến đúng nơi."
 
-#: templates/landing.html:184
+#: templates/landing.html:187
 msgid "Choose from this list to see example civil rights violations:"
 msgstr "Chọn từ danh sách này để xem ví dụ về các hành vi vi phạm dân quyền:"
 
-#: templates/landing.html:219
+#: templates/landing.html:222
 msgid "Examples"
 msgstr "Các ví dụ"
 
-#: templates/landing.html:236
+#: templates/landing.html:230
+msgid "Were you forced to work against your will?"
+msgstr "Quý vị có bị ép buộc phải làm việc trái ý mình không?"
+
+#: templates/landing.html:239
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
@@ -1881,15 +1935,15 @@ msgstr ""
 "Nếu quý vị cho rằng mình đã trải qua trường hợp tương tự, hãy tìm hiểu <a "
 "href=\"#crt-landing--reporting\">cách báo cáo hành vi vi phạm dân quyền</a>."
 
-#: templates/landing.html:246
+#: templates/landing.html:249
 msgid "Protected by civil rights laws"
 msgstr "Được các luật dân quyền bảo vệ"
 
-#: templates/landing.html:248
+#: templates/landing.html:251
 msgid "These are the most common characteristics that are legally protected."
 msgstr "Đây là những đặc điểm chung nhất được bảo vệ hợp pháp."
 
-#: templates/landing.html:251
+#: templates/landing.html:254
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
@@ -1897,15 +1951,15 @@ msgstr ""
 "Tình trạng khuyết tật <span class=\"crt-landing--protected\">bao gồm tạm "
 "thời hoặc đang phục hồi</span>"
 
-#: templates/landing.html:253
+#: templates/landing.html:256
 msgid "Sex, gender identity, and sexual orientation"
 msgstr "Giới tính, nhận dạng giới tính, và xu hướng tình dục"
 
-#: templates/landing.html:254
+#: templates/landing.html:257
 msgid "Immigration/citizenship status"
 msgstr "Tình trạng nhập cư/tư cách công dân"
 
-#: templates/landing.html:255
+#: templates/landing.html:258
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
@@ -1913,7 +1967,7 @@ msgstr ""
 "Ngôn ngữ và quốc gia xuất xứ <span class=\"crt-landing--protected\">bao gồm "
 "tổ tiên và dân tộc</span>"
 
-#: templates/landing.html:256
+#: templates/landing.html:259
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
@@ -1921,19 +1975,19 @@ msgstr ""
 "Tình trạng gia đình, hôn nhân, hay làm cha mẹ <span class=\"crt-landing--"
 "protected\">bao gồm cả tình trạng mang thai</span>"
 
-#: templates/landing.html:258
+#: templates/landing.html:261
 msgid "Genetic identification"
 msgstr "Nhận dạng di truyền"
 
-#: templates/landing.html:259
+#: templates/landing.html:262
 msgid "Servicemember status"
 msgstr "Tình trạng quân vụ"
 
-#: templates/landing.html:273
+#: templates/landing.html:276
 msgid "How to report a civil rights violation"
 msgstr "Cách báo cáo một hành vi vi phạm dân quyền"
 
-#: templates/landing.html:278
+#: templates/landing.html:281
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
@@ -1941,11 +1995,11 @@ msgstr ""
 "Nếu quý vị tin rằng quý vị hoặc người khác đã bị phân biệt đối xử bất hợp "
 "pháp, quý vị có thể báo cáo một hành vi vi phạm dân quyền."
 
-#: templates/landing.html:287
+#: templates/landing.html:290
 msgid "Report using our online form."
 msgstr "Báo cáo bằng cách sử dụng mẫu trực tuyến của chúng tôi."
 
-#: templates/landing.html:288
+#: templates/landing.html:291
 msgid ""
 "By completing the online form, you can provide the details we need to "
 "understand what happened. You will receive a confirmation number and your "
@@ -1956,11 +2010,11 @@ msgstr ""
 "nhận và báo cáo của quý vị ngay lập tức được gửi đến nhân viên của chúng tôi "
 "để đánh giá."
 
-#: templates/landing.html:296
+#: templates/landing.html:299
 msgid "We review your report."
 msgstr "Chúng tôi sẽ đánh giá báo cáo của quý vị."
 
-#: templates/landing.html:297
+#: templates/landing.html:300
 msgid ""
 "Teams that specialize in handling your type of issue will review it. If it "
 "needs to be forwarded to another team or agency, we will try to connect your "
@@ -1970,11 +2024,11 @@ msgstr ""
 "vụ việc cần được chuyển tiếp đến một nhóm hoặc cơ quan khác, chúng tôi sẽ cố "
 "gắng kết nối khiếu nại của quý vị với đúng nhóm."
 
-#: templates/landing.html:305
+#: templates/landing.html:308
 msgid "We determine next steps and get back to you."
 msgstr "Chúng tôi xác định các bước tiếp theo và liên hệ lại với quý vị."
 
-#: templates/landing.html:306
+#: templates/landing.html:309
 msgid ""
 "Possible outcomes include: following up for more information, starting a "
 "mediation or investigation, directing you to another organization for "
@@ -1984,13 +2038,13 @@ msgstr ""
 "hòa giải hoặc điều tra, chuyển quý vị đến một tổ chức khác để được trợ giúp "
 "thêm hoặc thông báo cho quý vị rằng chúng tôi không thể giúp đỡ."
 
-#: templates/landing.html:325
+#: templates/landing.html:328
 msgid "Have you or someone you know experienced a civil rights violation?"
 msgstr ""
 "Quý vị hoặc một người nào đó mà quý vị biết có từng bị vi phạm dân quyền "
 "không?"
 
-#: templates/landing.html:331
+#: templates/landing.html:334
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
@@ -2000,15 +2054,15 @@ msgstr ""
 "\"#phone-footer\">gọi điện</a> để báo cáo hành vi vi phạm hoặc báo cáo hành "
 "vi vi phạm qua <a href=\"#address-footer\">thư</a>."
 
-#: templates/landing.html:341
+#: templates/landing.html:344
 msgid "Already submitted a report?"
 msgstr "Quý vị đã gửi báo cáo?"
 
-#: templates/landing.html:344
+#: templates/landing.html:347
 msgid "Here's what to expect."
 msgstr "Dưới đây là những việc sẽ xảy ra."
 
-#: templates/landing.html:348
+#: templates/landing.html:351
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
@@ -2021,22 +2075,22 @@ msgstr ""
 "tôi. Tuy nhiên, không phải lúc nào chúng tôi cũng có thể cung cấp cho quý vị "
 "các thông tin cập nhật vì:"
 
-#: templates/landing.html:350
+#: templates/landing.html:353
 msgid ""
 "We're actively working on an investigation or case related to your report."
 msgstr ""
 "Chúng tôi đang tích cực tiến hành một cuộc điều tra hoặc đang xử lý một "
 "trường hợp liên quan đến báo cáo của quý vị."
 
-#: templates/landing.html:351
+#: templates/landing.html:354
 msgid "We're receiving and actively reviewing many reports at the same time."
 msgstr "Chúng tôi đang nhận và tích cực đánh giá nhiều báo cáo cùng một lúc."
 
-#: templates/landing.html:358
+#: templates/landing.html:361
 msgid "Need urgent legal help?"
 msgstr "Quý vị cần hỗ trợ pháp lý khẩn cấp?"
 
-#: templates/landing.html:360
+#: templates/landing.html:363
 msgid ""
 "Due to the amount of reports we receive, it can take several weeks for us to "
 "respond to your issue. Local legal aid offices or lawyers in your area may "
@@ -2047,7 +2101,7 @@ msgstr ""
 "hoặc luật sư trong khu vực của quý vị có thể nhanh chóng hồi đáp hoặc giúp "
 "đỡ quý vị về mối quan ngại của quý vị"
 
-#: templates/landing.html:361
+#: templates/landing.html:364
 msgid ""
 "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
 "aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
@@ -2059,7 +2113,7 @@ msgstr ""
 "\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> hoặc gọi "
 "<a href=\"tel:202-295-1500\">(202) 295-1500</a>."
 
-#: templates/landing.html:362
+#: templates/landing.html:365
 msgid ""
 "Or visit <a class=\"external-link--blue external-link--popup\" aria-label="
 "\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
@@ -2071,7 +2125,7 @@ msgstr ""
 "findlegalhelp.org</a> hoặc gọi <a href=\"tel:800-285-2221\">(800) 285-2221</"
 "a> để tìm luật sư thông qua Hiệp hội Luật sư Hoa Kỳ."
 
-#: templates/landing.html:376
+#: templates/landing.html:379
 msgid "Image attributions"
 msgstr "Mô tả ảnh"
 
@@ -2131,11 +2185,11 @@ msgstr ""
 "hợp có thể cần thêm thông tin.  Quý vị có muốn cung cấp thông tin liên lạc "
 "của quý vị bây giờ hay không? Nếu không muốn, quý vị sẽ chuyển sang Bước 2."
 
-#: templates/partials/contact-info-confirmation-modal.html:16
+#: templates/partials/contact-info-confirmation-modal.html:18
 msgid "No, I don't want to provide it"
 msgstr "Không, tôi không muốn cung cấp."
 
-#: templates/partials/contact-info-confirmation-modal.html:17
+#: templates/partials/contact-info-confirmation-modal.html:21
 msgid "Yes, I'd like to add it"
 msgstr "Có, tôi muốn cung cấp."
 
@@ -2147,37 +2201,46 @@ msgstr "Các Dịch vụ Hỗ trợ Ngôn ngữ sẵn có"
 msgid "Links"
 msgstr "Các liên kết"
 
-#: templates/partials/footer.html:66
+#: templates/partials/footer.html:67
 msgid "About the division"
 msgstr "Giới thiệu về ban"
 
-#: templates/partials/footer.html:72
+#: templates/partials/footer.html:73
 msgid "Privacy policy"
 msgstr "Chính sách quyền riêng tư"
 
-#: templates/partials/footer.html:75
+#: templates/partials/footer.html:76
 msgid "FOIA"
 msgstr "FOIA (Freedom of Information Act, Đạo Luật Tự Do Thông Tin)"
 
-#: templates/partials/footer.html:78
+#: templates/partials/footer.html:79
 msgid "Accessibility"
 msgstr "Khả Năng Tiếp Cận"
 
-#: templates/partials/footer.html:90
+#: templates/partials/footer.html:91
 msgid "Office of Inspector General"
 msgstr "Văn phòng Tổng Thanh tra"
 
-#: templates/partials/footer.html:93
+#: templates/partials/footer.html:94
 msgid "Budget and performance"
 msgstr "Ngân sách và hiệu quả"
 
-#: templates/partials/footer.html:96
+#: templates/partials/footer.html:97
 msgid "Legal policies and Disclaimers"
 msgstr "Chính sách pháp lý và Tuyên bố miễn trách nhiệm"
 
 #: templates/partials/i8n.html:15
 msgid "Go"
 msgstr ""
+
+#: templates/partials/important_message.html:7
+msgid "Have you been a victim of a hate crime or human trafficking?"
+msgstr ""
+"Bạn có từng là nạn nhân của một tội ác do thù hận hay nạn buôn người không?"
+
+#: templates/partials/important_message.html:9
+msgid "Get help NOW!"
+msgstr "Hãy nhận sự giúp đỡ NGAY BÂY GIỜ!"
 
 #: templates/partials/menu_language_selection.html:36
 msgid "More Language Assistance Services"
@@ -2264,7 +2327,7 @@ msgstr ""
 "khả năng truy cập, tuân thủ bản quyền hoặc thương hiệu hoặc tính hợp pháp "
 "của tài liệu có trên trang web này."
 
-#: templates/partials/redirect-modal.html:22
+#: templates/partials/redirect-modal.html:26
 msgid "Continue"
 msgstr "Tiếp tục"
 
@@ -2393,11 +2456,11 @@ msgstr ""
 "Để có danh sách đầy đủ các mục đích sử dụng thông thường của cơ quan, vui "
 "lòng tham khảo phần dưới đây:"
 
-#: templates/privacy.html:84
+#: templates/privacy.html:74
 msgid "You should also know that:"
 msgstr "Quý vị cũng cần biết rằng:"
 
-#: templates/privacy.html:86
+#: templates/privacy.html:76
 msgid ""
 "\n"
 "                    <li>Any information you provide to us through this form "
@@ -2426,17 +2489,17 @@ msgstr ""
 "                    </li>\n"
 "                    "
 
-#: templates/privacy.html:97 templates/privacy.html:168
+#: templates/privacy.html:85 templates/privacy.html:146
 msgid "Return to top"
 msgstr "Trở về đầu trang"
 
-#: templates/privacy.html:108
+#: templates/privacy.html:88
 msgid ""
 "We are authorized to collect this information pursuant to the following "
 "statutes:"
 msgstr "Chúng tôi được phép thu thập thông tin này theo các quy chế sau:"
 
-#: templates/privacy.html:110
+#: templates/privacy.html:90
 msgid ""
 "\n"
 "                    <li>Official Misconduct, 18 U.S.C. §§ 241, 242</li>\n"
@@ -2609,7 +2672,7 @@ msgstr ""
 "li>\n"
 "                    "
 
-#: templates/privacy.html:162
+#: templates/privacy.html:142
 msgid ""
 "\n"
 "                The full list of routine uses for this correspondence can be "
@@ -2632,73 +2695,73 @@ msgstr ""
 msgid "Enter a valid email address."
 msgstr "điền vào địa chỉ email hợp lệ"
 
-#: views_public.py:146 views_public.py:225 views_public.py:226
-#: views_public.py:244 views_public.py:245 views_public.py:280
+#: views_public.py:175 views_public.py:254 views_public.py:272
+#: views_public.py:307
 msgid "Primary concern"
 msgstr "Mối quan ngại chính"
 
-#: views_public.py:147 views_public.py:227 views_public.py:228
-#: views_public.py:229 views_public.py:230 views_public.py:231
-#: views_public.py:232
+#: views_public.py:176 views_public.py:255 views_public.py:256
+#: views_public.py:257 views_public.py:258 views_public.py:259
+#: views_public.py:260
 msgid "Location"
 msgstr "Địa điểm"
 
-#: views_public.py:148 views_public.py:233 views_public.py:252
+#: views_public.py:177 views_public.py:261 views_public.py:279
 msgid "Personal characteristics"
 msgstr "Các đặc điểm cá nhân"
 
-#: views_public.py:149 views_public.py:234 views_public.py:253
+#: views_public.py:178 views_public.py:262 views_public.py:280
 msgid "Date"
 msgstr "Ngày"
 
-#: views_public.py:150 views_public.py:235 views_public.py:254
+#: views_public.py:179 views_public.py:263 views_public.py:281
 msgid "Personal description"
 msgstr "Mô tả cá nhân"
 
-#: views_public.py:151 views_public.py:236 views_public.py:285
+#: views_public.py:180 views_public.py:264 views_public.py:312
 msgid "Review"
 msgstr "Đánh giá"
 
-#: views_public.py:246 views_public.py:247 views_public.py:248
-#: views_public.py:249 views_public.py:250 views_public.py:251
+#: views_public.py:273 views_public.py:274 views_public.py:275
+#: views_public.py:276 views_public.py:277 views_public.py:278
 msgid "Location details"
 msgstr "Thông tin chi tiết về địa điểm"
 
-#: views_public.py:255
+#: views_public.py:282
 msgid "Review your report"
 msgstr "Đánh giá báo cáo của quý vị"
 
-#: views_public.py:271
+#: views_public.py:298
 msgid "word remaining"
 msgstr "từ còn lại"
 
-#: views_public.py:272
+#: views_public.py:299
 msgid " words remaining"
 msgstr " các từ còn lại"
 
-#: views_public.py:273
+#: views_public.py:300
 msgid " word limit reached"
 msgstr " đã đạt đến giới hạn từ"
 
-#: views_public.py:283
+#: views_public.py:310
 msgid "Please select if any that apply to your situation (optional)"
 msgstr ""
 "Vui lòng chọn nếu có bất kỳ câu trả lời nào phù hợp với tình huống của quý "
 "vị (tùy chọn)"
 
-#: views_public.py:359
+#: views_public.py:394
 msgid "404 | Page not found"
 msgstr "404 | Không tìm thấy trang"
 
-#: views_public.py:360
+#: views_public.py:395
 msgid "We can't find the page you are looking for"
 msgstr "Chúng tôi không thể tìm thấy trang quý vị đang tìm kiếm"
 
-#: views_public.py:419
+#: views_public.py:454
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Trình duyệt của quý vị không thể tạo cookie an toàn"
 
-#: views_public.py:420
+#: views_public.py:455
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
@@ -2712,6 +2775,9 @@ msgstr ""
 "cookie được cho phép và quý vị đang gặp sự cố này, hãy thử truy cập trang "
 "này trong cửa sổ hoặc tab trình duyệt mới. Điều đó sẽ tạo cho quý vị một "
 "cookie bảo mật mới và sẽ giải quyết được sự cố."
+
+#~ msgid "Continued"
+#~ msgstr "Tiếp tục"
 
 #~ msgid "Submit a report"
 #~ msgstr "Gửi báo cáo"

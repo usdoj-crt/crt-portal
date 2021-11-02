@@ -3,6 +3,17 @@ button,
   background-color: color($theme-color-primary-darker);
 }
 
+.usa-button--outline,
+.usa-button--outline:visited {
+  background-color: transparent;
+  color: color($theme-color-primary-darker);
+
+  &:hover {
+    background-color: transparent !important;
+    color: color($theme-link-hover-color) !important;
+  }
+}
+
 /* Override above style to make sure unstyled buttons don't pick up background-color */
 .usa-button--unstyled {
   background-color: transparent !important;
@@ -57,7 +68,7 @@ button,
   }
 }
 
-.button--continue, button#login {
+.button--continue {
   color: color('white') !important;
 }
 

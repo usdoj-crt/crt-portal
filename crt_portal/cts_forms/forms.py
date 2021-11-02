@@ -49,12 +49,12 @@ from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             EDUCATION_QUESTION, ELECTION_QUESTION,
-                            HATE_CRIME_QUESTION, HATE_CRIME_TITLE,
                             LOCATION_QUESTIONS, POLICE_QUESTIONS,
                             PRIMARY_REASON_QUESTION, PROTECTED_CLASS_QUESTION,
                             PUBLIC_QUESTION, SERVICEMEMBER_QUESTION,
                             SUMMARY_HELPTEXT, SUMMARY_QUESTION,
-                            WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT)
+                            WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT,
+                            HATE_CRIME_QUESTION)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
                       CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
                       UsaRadioSelect, DataAttributesSelect, CrtDateInput)
@@ -236,28 +236,6 @@ class PrimaryReason(ModelForm):
             label=PRIMARY_REASON_QUESTION,
             help_text=_('Select the reason that best describes your concern. Each reason lists examples of civil rights violations that may relate to your incident. In another section of this report, you will be able to describe your concern in your own words.'),
         )
-
-
-class HateCrimes(ModelForm):
-    class Meta:
-        model = Report
-        fields = [
-            'hate_crime'
-        ]
-
-    def __init__(self, *args, **kwargs):
-        ModelForm.__init__(self, *args, **kwargs)
-
-        self.fields['hate_crime'] = TypedChoiceField(
-            choices=HATE_CRIME_CHOICES,
-            label=HATE_CRIME_QUESTION,
-            help_text=HATE_CRIME_HELP_TEXT,
-            empty_value=None,
-            widget=UsaRadioSelect,
-            required=False,
-        )
-        # Translators: notes that this page is the same form step as the page before
-        self.page_note = _('Continued')
 
 
 class Details(ModelForm):
@@ -677,8 +655,6 @@ class Review(ModelForm):
         'contact': CONTACT_QUESTIONS,
         'servicemember': SERVICEMEMBER_QUESTION,
         'primary_reason': PRIMARY_REASON_QUESTION,
-        'hate_crime_title': HATE_CRIME_TITLE,
-        'hate_crime': HATE_CRIME_QUESTION,
         'location': LOCATION_QUESTIONS,
         'election': ELECTION_QUESTION,
         'workplace': WORKPLACE_QUESTIONS,

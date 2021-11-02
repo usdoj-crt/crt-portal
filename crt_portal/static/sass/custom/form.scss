@@ -152,20 +152,13 @@ form#cts-forms-profile {
     box-shadow: 0 0 0 2px color($theme-color-primary-darker), inset 0 0 0 2px color('white');
   }
   .usa-button {
+    // TODO: remove this level of specificity, which can override alternate button styles
     &:hover {
       background-color: color($theme-link-hover-color);
     }
 
     @media (min-width: 30em) {
       margin-top: 0;
-    }
-  }
-
-  .light-button {
-    color: color($theme-color-primary-darker);
-    background-color: transparent;
-    &:hover {
-      background-color: color('white');
     }
   }
 

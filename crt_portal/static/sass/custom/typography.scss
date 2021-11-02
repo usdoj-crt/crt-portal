@@ -71,13 +71,22 @@ li {
 a,
 a:visited {
   color: color($theme-link-color);
-  &:hover {
-    color: color($theme-link-hover-color);
-  }
+}
+
+a:hover {
+  color: color($theme-link-hover-color);
 }
 
 .text__reverse {
   color: color('white');
+}
+
+/***********************************************
+Locale-specific rules
+***********************************************/
+
+html[lang="ko"] {
+  word-break: keep-all;
 }
 
 /***********************************************

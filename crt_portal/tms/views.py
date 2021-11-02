@@ -1,3 +1,4 @@
+import json
 import logging
 import re
 from datetime import datetime, timezone
@@ -6,14 +7,16 @@ from urllib.parse import unquote
 from cts_forms.models import DoNotEmail
 from cts_forms.signals import get_client_ip
 from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import DisallowedHost
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from netaddr import IPNetwork
 
+from .api.client import TMSClient
 from .models import TMSEmail
 
 logger = logging.getLogger(__name__)
@@ -94,3 +97,19 @@ class WebhookView(View):
         else:
             # We couldn't find a message ID in this request, do nothing and return 400
             return HttpResponse(status=400)
+
+
+class AdminView(LoginRequiredMixin, View):
+    """View webhook settings at TMS"""
+
+    http_method_names = ['get']
+    WEBHOOK_ENDPOINT = "/webhooks"
+
+    def get(self, request):
+        try:
+            connection = TMSClient()
+            response = connection.get(target=self.WEBHOOK_ENDPOINT)
+            parsed = json.loads(response.content)
+            return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
+        except AttributeError:
+            return render(request, 'email.html', {'data': 'no tms settings here'})

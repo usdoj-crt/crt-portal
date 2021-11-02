@@ -4,7 +4,7 @@
 {% load i18n %}
 
 {% block meta_title %}
-    {% trans 'Civil Rights Division - Department of Justice - Privacy Policy' as meta_title %}
+    {% trans "Civil Rights Division - Department of Justice - Privacy Policy" as meta_title %}
     <meta property="og:title" content="{{meta_title}}" />
     <meta property="name" content="{{meta_title}}" />
 {% endblock meta_title %}
@@ -14,11 +14,11 @@
 {% endblock %}
 
 {% block content %}
-<div class="crt-landing--section crt-landing--pale crt-privacy">
+<div class="crt-landing--section crt-landing--pale crt-subpage">
     <div class="grid-container">
         <div class="grid-row grid-gap">
             <div class="tablet:grid-col-4">
-                <ul class="usa-sidenav privacy-nav">
+                <ul class="usa-sidenav crt-subpage--nav">
                     <li class="usa-sidenav__item">
                         <a href="#privacy-act-statement" class="usa-current">{% trans "Privacy Act Statement" %}</a>
                     </li>
@@ -70,17 +70,7 @@
                         <li>82 Fed. Reg. 24147 (5-25-2017)</li>
                     </ul>
                 </p>
-            </div>
-        </div>
-    </div>
-</div>
 
-<div class="crt-landing--section crt-landing--pale crt-privacy">
-    <div class="grid-container">
-        <div class="grid-row grid-gap">
-            <div class="tablet:grid-col-4">
-            </div>
-            <div class="tablet:grid-col-8">
                 <h2 id="your-information">{% trans "You should also know that:" %}</h2>
                 <div class="crt-landing--separator"></div>
                 <ul class="privacy-policy-list">{% blocktrans %}
@@ -92,18 +82,8 @@
                     </li>
                     {% endblocktrans %}
                 </ul>
-            </div>
-        </div>
-        <!-- <a class="float-right" href="#">{% trans 'Return to top' %}</a> -->
-    </div>
-</div>
+                <!-- <a class="float-right" href="#">{% trans 'Return to top' %}</a> -->
 
-<div class="crt-landing--section crt-landing--pale crt-privacy">
-    <div class="grid-container">
-        <div class="grid-row grid-gap">
-            <div class="tablet:grid-col-4">
-            </div>
-            <div class="tablet:grid-col-8">
                 <h2 id="our-statutes">
                     {% trans "We are authorized to collect this information pursuant to the following statutes:" %}</h2>
                 <div class="crt-landing--separator"></div>
@@ -163,9 +143,9 @@
                 The full list of routine uses for this correspondence can be found in the System of Records Notice titled, JUSTICE/CRT – 001, "Central Civil Rights Division Index File and Associated Records", 68 Fed. Reg. 47610, 611 (8-11-2003); 70 Fed. Reg. 43904 (7-29-2005); 72 Fed. Reg. 3410 (1-25-2007) (rescinded by 82 FR 24147); 82 Fed. Reg. 24147 (5-25-2017).
                 {% endblocktrans %}
                 </p>
+                <!-- <a class="float-right" href="#">{% trans 'Return to top' %}</a> -->
             </div>
         </div>
-        <!-- <a class="float-right" href="#">{% trans "Return to top" %}</a> -->
     </div>
 </div>
 {% endblock %}

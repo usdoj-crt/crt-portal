@@ -72,8 +72,6 @@ TEMPLATES = [
     'forms/report_contact_info.html',
     # Primary reason
     'forms/report_primary_complaint.html',
-    # Hate crimes
-    'forms/report_hate_crime.html',
     # Voting + location
     'forms/report_location.html',
     # Workplace + location
@@ -254,7 +252,6 @@ class CRTReportWizard(SessionWizardView):
         all_step_names = [
             _('Contact'),
             _('Primary concern'),
-            _('Primary concern'),
             _('Location'),
             _('Location'),
             _('Location'),
@@ -272,7 +269,6 @@ class CRTReportWizard(SessionWizardView):
         # This title appears in large font above the question elements
         ordered_step_titles = [
             _('Contact'),
-            _('Primary concern'),
             _('Primary concern'),
             _('Location details'),
             _('Location details'),
@@ -315,6 +311,9 @@ class CRTReportWizard(SessionWizardView):
                 })
         elif current_step_name == _('Review'):
             form_data_dict = self.get_all_cleaned_data()
+            # remember primary complaint key (it's overwritten in the next step)
+            # this variable improves some conditional display logic in templates
+            primary_complaint_key = form_data_dict['primary_complaint']
             # unpack values in data for display
             form_data_dict['primary_complaint'] = data_decode(
                 form_data_dict, PRIMARY_COMPLAINT_DICT, 'primary_complaint'
@@ -344,7 +343,8 @@ class CRTReportWizard(SessionWizardView):
             context.update({
                 'protected_classes': form_data_dict.pop('protected_class'),
                 'report': Report(**form_data_dict),
-                'question': form.question_text
+                'question': form.question_text,
+                'primary_complaint_key': primary_complaint_key
             })
 
         return context
