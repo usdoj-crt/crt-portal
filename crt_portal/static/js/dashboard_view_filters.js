@@ -333,7 +333,6 @@
   // Bootstrap the filter code's data persistence and
   // instantiate the controller that manages the UI components / views
   function init() {
-
     var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
 
     Object.keys(initialFilterState).forEach(function(key) {
