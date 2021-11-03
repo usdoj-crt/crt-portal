@@ -1,0 +1,39 @@
+{% extends "forms/complaint_view/intake_base.html" %}
+{% load static %}
+
+{% block page_header %}
+{% include 'forms/complaint_view/dashboard/header.html' with title_text="CRT Team Management" %}
+{% endblock %}
+
+{% block content %}
+<div class="intake-content">
+  <div id="status-update" class="grid-col-auto">
+    {% include 'partials/messages.html' %}
+  </div>
+  {% include "forms/complaint_view/dashboard/filter-controls.html" with filters=filters form=form %}
+  <div class="display-flex margin-top-8">
+    {% include "forms/complaint_view/dashboard/active-filters.html" %}
+  </div>
+  <div class="grid-col-auto">
+    <div class="intake-table">
+      <div class="intake-table-header">
+        <h2 class="intake-section-title">Activity log</h2>
+      </div>
+      {% include "forms/complaint_view/dashboard/complaints_table.html" with page_format=page_format sort_state=sort_state filter_state=filter_state %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block page_js %}
+{{ block.super }}
+<script src="{% static 'js/dashboard_quick_view.min.js' %}"></script>
+<script src="{% static 'js/dashboard_view_filters.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'vendor/aria-autocomplete-1.2.3.min.js' %}"></script>
+<script nonce="{{request.csp_nonce}}">
+ var select = document.getElementById('id_assigned_to');
+ AriaAutocomplete(select, {
+   minLength: 0,
+   maxResults: 5
+ });
+</script>
+{% endblock %}

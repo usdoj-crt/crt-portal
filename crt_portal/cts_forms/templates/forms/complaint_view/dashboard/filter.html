@@ -1,0 +1,17 @@
+{% load static %}
+<div class="crt-dropdown {% block classes %}{% endblock %}" data-crt-dropdown>
+  <button
+    class="crt-dropdown__title"
+    aria-controls="{% block controls %}{% endblock %}"
+    aria-expanded="false"
+    type="button"
+    id="{%block id %}{% endblock %}"
+    data-crt-dropdown-control
+  >
+    <span class="label">{% block label %}{% endblock %}</span>
+    <img src="{% static 'img/intake-icons/ic_select-down.svg' %}" alt="open filter dropdown" class="icon" />
+  </button>  
+  <div class="content" hidden>
+    {% block content %}{% endblock %}
+  </div>
+</div>
