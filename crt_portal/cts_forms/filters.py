@@ -156,7 +156,7 @@ def dashboard_filter(querydict):
                     continue
     actions = Action.objects.filter(**kwargs)
     for action in actions:
-        if selected_actor == action.actor.username:
+        if hasattr(action.actor, 'username') and selected_actor == action.actor.username:
             selected_actions.append(action)
     return filters, selected_actions
 
