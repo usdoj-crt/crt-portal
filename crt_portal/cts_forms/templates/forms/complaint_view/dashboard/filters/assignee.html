@@ -1,0 +1,13 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block controls %}assigned_to{% endblock %}
+{% block label %}Intake specialist{% endblock %}
+{% block id %}assigned_to{% endblock %}
+{% block content %}
+  <label for="id_assigned_to">
+    <span class="usa-sr-only">assignee</span>
+  </label>
+  <div class="usa-combo-box" data-placeholder="Select one" data-default-value="">
+    {{ form.assigned_to }}
+  </div>
+{% endblock %}
