@@ -5,8 +5,9 @@ from datetime import datetime
 
 from django.contrib.postgres.search import SearchQuery
 
-from .models import Report
-from actstream.models import Action
+from .models import Report, User
+from actstream import registry
+from actstream.models import actor_stream
 
 # To add a new filter option for Reports, add the field name and expected filter behavior
 # These filters should match the order they're presented in filter-controls.html
@@ -139,8 +140,6 @@ def report_filter(querydict):
 def dashboard_filter(querydict):
     kwargs = {}
     filters = {}
-    selected_actions = []
-    selected_actor = querydict.get("assigned_to", None)
     for field in filter_options.keys():
         filter_list = querydict.getlist(field)
         if len(filter_list) > 0:
@@ -157,11 +156,16 @@ def dashboard_filter(querydict):
                 except ValueError:
                     # if the date is invalid, we ignore it.
                     continue
-    actions = Action.objects.filter(**kwargs)
-    for action in actions:
-        if hasattr(action.actor, 'username') and selected_actor == action.actor.username:
-            selected_actions.append(action)
-    return filters, selected_actions
+
+    registry.register(User)
+    selected_actor_username = querydict.get("assigned_to", None)
+    selected_actor = User.objects.filter(username=selected_actor_username).first()
+    print("selected_actor => ", selected_actor)
+    if selected_actor:
+        filtered_actions = actor_stream(selected_actor).filter(**kwargs)
+    else:
+        return filters, []
+    return filters, filtered_actions
 
 
 def _combine_term_searches_with_or(terms):
