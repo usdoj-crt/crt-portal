@@ -929,6 +929,25 @@ def reported_reason_proform():
 
 
 class Filters(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+        # Putting this field in __init__ allows the User QuerySet to be evaluated
+        # (otherwise it breaks when this module is read during a migration)
+        self.fields['assigned_to'] = ChoiceField(
+            required=False,
+            choices=[
+                ('', ''),  # Default choice: empty
+                ('-1', '(unassigned)'),  # Custom choice: unassigned report.
+                # Appends a queryset of active users, converted to a list of tuples
+            ] + list(User.objects.filter(is_active=True).values_list('pk', 'username').order_by('username')),
+            label=_("Assigned to"),  # This is overriden in templates as "Assigned"
+            widget=Select(attrs={
+                'name': 'assigned_to',
+                'class': 'usa-input usa-select',
+            })
+        )
+
     status = MultipleChoiceField(
         initial=(('new', 'New'), ('open', 'Open')),
         required=False,
@@ -964,16 +983,6 @@ class Filters(ModelForm):
                 'aria-label': 'Complaint Summary'
             },
         ),
-    )
-    assigned_to = ModelChoiceField(
-        required=False,
-        queryset=User.objects.filter(is_active=True).order_by('username'),
-        label=_("Assigned to"),  # This is overriden in templates as "Assigned"
-        to_field_name='username',
-        widget=Select(attrs={
-            'name': 'assigned_to',
-            'class': 'usa-input'
-        })
     )
     create_date_start = DateField(
         required=False,

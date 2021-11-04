@@ -4,11 +4,10 @@
 {% block label %}Assignee{% endblock %}
 {% block id %}assigned_to{% endblock %}
 {% block content %}
-   <label for="id_assigned_to">
+  <label for="id_assigned_to">
     <span class="usa-sr-only">assignee</span>
-   </label>
-   <label for="id_assigned_to-select">
-    <span class="usa-sr-only">assignee</span>
-   </label>
-   {{ form.assigned_to }}
+  </label>
+  <div class="usa-combo-box" data-placeholder="Select one" data-default-value="">
+    {{ form.assigned_to }}
+  </div>
 {% endblock %}
