@@ -160,7 +160,6 @@ def dashboard_filter(querydict):
     registry.register(User)
     selected_actor_username = querydict.get("assigned_to", None)
     selected_actor = User.objects.filter(username=selected_actor_username).first()
-    print("selected_actor => ", selected_actor)
     if selected_actor:
         filtered_actions = actor_stream(selected_actor).filter(**kwargs)
     else:
