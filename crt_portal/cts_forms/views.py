@@ -417,7 +417,7 @@ class ShowView(LoginRequiredMixin, View):
         if not report.opened:
             now = datetime.now()
             description = f"Report opened at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
-            add_activity(request.user, f"Report opened:", description, report)
+            add_activity(request.user, "Report opened:", description, report)
             report.opened = True
             report.save()
         contact_form = ContactEditForm(instance=report)
