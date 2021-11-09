@@ -16,7 +16,7 @@ from django.utils.http import urlencode
 from datetime import datetime
 
 from ..forms import BulkActionsForm, ComplaintActions, Filters, ReportEditForm
-from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES
+from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, NEW_STATUS
 from ..models import CommentAndSummary, Report, ResponseTemplate
 from .factories import ReportFactory
 from .test_data import SAMPLE_REPORT, SAMPLE_RESPONSE_TEMPLATE
@@ -591,11 +591,13 @@ class ReportActionTests(TestCase):
         self.client.login(username='DELETE_USER', password=self.test_pass)
         self.report = Report.objects.create(**SAMPLE_REPORT, assigned_section='ADM')
 
-    def referral_section_checked(self):
+    def test_referral_section_checked(self):
         self.assertEquals(self.report.referral_section, '')
         url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
         params = {
             'type': 'actions',
+            # Keep the same status as when the report was created.
+            'status': NEW_STATUS,
             'referred': 'on',
         }
         response = self.client.post(url, params, follow=True)
@@ -607,13 +609,15 @@ class ReportActionTests(TestCase):
         self.assertTrue(self.report.referred)
         self.assertEquals(self.report.referral_section, 'ADM')
 
-    def referral_section_unchecked(self):
+    def test_referral_section_unchecked(self):
         self.report.referred = True
         self.report.referral_section = 'ADM'
         self.report.save()
         url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
         params = {
             'type': 'actions',
+            # Keep the same status as when the report was created.
+            'status': NEW_STATUS,
             'referred': '',
         }
         response = self.client.post(url, params, follow=True)
@@ -624,6 +628,44 @@ class ReportActionTests(TestCase):
         self.report.refresh_from_db()
         self.assertFalse(self.report.referred)
         self.assertEquals(self.report.referral_section, '')
+
+    def test_assign_report_to_user(self):
+        url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
+        params = {
+            'type': 'actions',
+            # Keep the same status as when the report was created.
+            'status': NEW_STATUS,
+            # Make sure the assigned section is set to the same value.
+            # If this assigned section is removed or changed, the assigned_to
+            # field doesn't get set.
+            'assigned_section': 'ADM',
+            'assigned_to': self.user.pk,
+        }
+        response = self.client.post(url, params, follow=True)
+        content = str(response.content)
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('Assigned to:' in content)
+        self.assertTrue(escape(f'Updated from "None" to "{self.user.username}"') in content)
+        self.report.refresh_from_db()
+        self.assertEquals(self.report.assigned_to.pk, self.user.pk)
+
+    def test_unassign_report_to_user(self):
+        self.report.assigned_to = self.user
+        self.report.save()
+        url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
+        params = {
+            'type': 'actions',
+            # Keep the same status as when the report was created.
+            'status': NEW_STATUS,
+            'assigned_to': '',
+        }
+        response = self.client.post(url, params, follow=True)
+        content = str(response.content)
+        self.assertEquals(response.status_code, 200)
+        self.assertTrue('Assigned to:' in content)
+        self.assertTrue(escape(f'Updated from "{self.user.username}" to "None"') in content)
+        self.report.refresh_from_db()
+        self.assertEquals(self.report.assigned_to, None)
 
 
 class BulkActionsTests(TestCase):

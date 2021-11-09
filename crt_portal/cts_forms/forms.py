@@ -1214,15 +1214,18 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
     assigned_to = ModelChoiceField(
         queryset=User.objects.filter(is_active=True).order_by('username'),
         # crt view only
-        label="Assigned to",
-        required=False
+        label='Assigned to',
+        required=False,
+        widget=Select(attrs={
+            'class': 'usa-input usa-select',
+        })
     )
     referred = BooleanField(
+        label='Secondary review',
         required=False,
-        label='Secondary Review',
         widget=CheckboxInput(attrs={
             'class': 'usa-checkbox__input',
-            'aria-label': 'Secondary Review',
+            'aria-label': 'Secondary review',
         })
     )
 
@@ -1272,7 +1275,6 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             choices=_add_empty_choice(DISTRICT_CHOICES, default_string=''),
             required=False
         )
-        self.fields['assigned_to'].widget.label = 'Assigned to'
 
     def get_actions(self):
         """
