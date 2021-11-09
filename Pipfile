@@ -15,6 +15,7 @@ playwright = "*"
 pytest-playwright = "*"
 django-debug-toolbar = "*"
 factory-boy = "*"
+tblib = "*"
 
 [packages]
 django = "~=2.2"
