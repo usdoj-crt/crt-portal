@@ -542,6 +542,11 @@ form#cts-forms-profile {
     .crt-checkbox__label {
       margin-top: 0; // Fixes vertical spacing issues
     }
+
+    // Force combo box inputs to use bold text to match other UI
+    .usa-combo-box input {
+      font-weight: bold;
+    }
   }
 
   .crt-textarea {
