@@ -1,3 +1,9 @@
+.usa-combo-box {
+  // Create a new stacking context to hold generated combo box elements
+  // that have its own z-index
+  z-index: 1;
+}
+
 .usa-combo-box input {
   border-radius: 3px;
 }
