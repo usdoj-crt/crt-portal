@@ -40,7 +40,7 @@ def remove_drs_eeoc_referral_letter(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('cts_forms', '0124_update_auto-reply-form-letter'),
+        ('cts_forms', '0125_report_opened'),
     ]
 
     operations = [

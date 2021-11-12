@@ -41,7 +41,7 @@ def remove_drs_hhs_referral_letter(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('cts_forms', '0125_drs_eeoc_referral_letter'),
+        ('cts_forms', '0128_drs_dept_of_ed_referral_letter'),
     ]
 
     operations = [
