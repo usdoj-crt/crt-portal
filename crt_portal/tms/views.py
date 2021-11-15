@@ -129,7 +129,7 @@ class AdminMessageView(LoginRequiredMixin, View):
             return render(request, 'email.html', {'data': 'need an email id'})
         try:
             connection = TMSClient()
-            response = connection.get(target=self.WEBHOOK_ENDPOINT + '/' + tms_id)
+            response = connection.get(target=self.WEBHOOK_ENDPOINT + '/' + str(tms_id))
             parsed = json.loads(response.content)
             return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
         except AttributeError:
