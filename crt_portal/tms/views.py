@@ -100,7 +100,7 @@ class WebhookView(View):
             return HttpResponse(status=400)
 
 
-class AdminView(LoginRequiredMixin, View):
+class AdminWebhookView(LoginRequiredMixin, View):
     """View webhook settings at TMS"""
 
     http_method_names = ['get']
@@ -111,6 +111,25 @@ class AdminView(LoginRequiredMixin, View):
         try:
             connection = TMSClient()
             response = connection.get(target=self.WEBHOOK_ENDPOINT)
+            parsed = json.loads(response.content)
+            return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
+        except AttributeError:
+            return render(request, 'email.html', {'data': 'no tms settings here'})
+
+
+class AdminMessageView(LoginRequiredMixin, View):
+    """View message status at TMS"""
+
+    http_method_names = ['get']
+    WEBHOOK_ENDPOINT = "/messages/email"
+
+    @method_decorator(staff_member_required)
+    def get(self, request, tms_id):
+        if not tms_id:
+            return render(request, 'email.html', {'data': 'need an email id'})
+        try:
+            connection = TMSClient()
+            response = connection.get(target=self.WEBHOOK_ENDPOINT + '/' + tms_id)
             parsed = json.loads(response.content)
             return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
         except AttributeError:
