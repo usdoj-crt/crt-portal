@@ -7,6 +7,7 @@ from urllib.parse import unquote
 from cts_forms.models import DoNotEmail
 from cts_forms.signals import get_client_ip
 from django.conf import settings
+from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import DisallowedHost
 from django.http import HttpResponse
@@ -105,6 +106,7 @@ class AdminView(LoginRequiredMixin, View):
     http_method_names = ['get']
     WEBHOOK_ENDPOINT = "/webhooks"
 
+    @method_decorator(staff_member_required)
     def get(self, request):
         try:
             connection = TMSClient()
