@@ -119,7 +119,7 @@ def report_filter(querydict):
                 kwargs['protected_class__value__in'] = reasons
             elif filter_options[field] == 'foreign_key':
                 # assumes assigned_to but could add logic for other foreign keys in the future
-                if querydict.getlist(field)[0] == '(unassigned)':
+                if querydict.getlist(field)[0] == '(none)':
                     kwargs['assigned_to__isnull'] = True
                 else:
                     kwargs['assigned_to__username__in'] = querydict.getlist(field)

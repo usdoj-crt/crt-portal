@@ -938,7 +938,7 @@ class Filters(ModelForm):
             required=False,
             choices=[
                 ('', ''),  # Default choice: empty
-                ('-1', '(unassigned)'),  # Custom choice: unassigned report.
+                ('-1', '(none)'),  # Custom choice: unassigned report.
                 # Appends a queryset of active users, converted to a list of tuples
             ] + list(User.objects.filter(is_active=True).values_list('pk', 'username').order_by('username')),
             label=_("Assigned to"),  # This is overriden in templates as "Assigned"
