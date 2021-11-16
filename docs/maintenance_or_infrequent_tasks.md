@@ -366,6 +366,24 @@ Note the "es." preface for variables that are specific to the spanish language.
 * English = 'en'
 
 
+### Adding a department address to a form
+If you need to add a department address to a form, you will need to add it to ```form_letters.js```, where you will add the html address to ```DEPT_ADDRESS``` and add a new case to the ```addReferralAddress``` switch
+
+ex add to form_letter.js
+
+DEPT_ADDRESS
+```
+deptOfEd:
+    '<p id="form-letterhead--dept-addressee">U.S. Department of Education<br>Office for Civil Rights<br>Lyndon Baines Johnson Department of Education Bldg.<br>400 Maryland Avenue, SW<br>Washington, DC 20202-1100<br></p>'
+```
+
+addReferralAddress
+```
+case 'DRS - Dept of Ed Referral Form Letter':
+    addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.deptOfEd);
+    break;
+```
+
 ### Updating forms
 
 Here is example code for modifying an existing form. 
