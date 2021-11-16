@@ -9,6 +9,9 @@
     {% for action in activity %}
       {% include 'forms/complaint_view/show/activity_stream_item.html' with activity=action %}
     {% endfor %}
+    {% if autoresponse_email %}
+      {% include 'forms/complaint_view/show/activity_stream_autoresponse.html' %}
+    {% endif %}
     {% include 'forms/complaint_view/show/activity_stream_created.html' %}
   </ul>
 
