@@ -1,4 +1,39 @@
 (function(root) {
+  const DEPT_ADDRESS = {
+    EEOC:
+      '<p id="form-letterhead--dept-addressee">Field Management Programs<br>U.S. Equal Employment Opportunity Commission<br>131 M Street, N.E.<br>Washington, DC  20507<br></p>',
+    HHS:
+      '<p id="form-letterhead--dept-addressee">Office for Civil Rights<br>Department of Health and Human Services<br>200 Independence Avenue, SW, Room 515F<br>Humphrey Building<br>Washington, D.C.  20201<br></p>',
+    DOT:
+      '<p id="form-letterhead--dept-addressee">Director of Civil Rights Advocacy<br>Aviation Consumer Protection Division<br>Department of Transportation<br>1200 New Jersey Avenue, S.E., C-75<br>W96-432<br>Washington, D.C.  20590<br></p>',
+    deptOfEd:
+      '<p id="form-letterhead--dept-addressee">U.S. Department of Education<br>Office for Civil Rights<br>Lyndon Baines Johnson Department of Education Bldg.<br>400 Maryland Avenue, SW<br>Washington, DC 20202-1100<br></p>'
+  };
+
+  addReferralAddress = option => {
+    let addressee = document.getElementById('form-letterhead--addressee');
+    let deptAddressee = document.getElementById('form-letterhead--dept-addressee');
+    if (deptAddressee) {
+      deptAddressee.parentNode.removeChild(deptAddressee);
+    }
+    switch (option.innerText) {
+      case 'DRS - Dept of Ed Referral Form Letter':
+        addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.deptOfEd);
+        break;
+      case 'DRS - DOT Referral Form Letter':
+        addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.DOT);
+        break;
+      case 'DRS - HHS Referral Form Letter':
+        addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.HHS);
+        break;
+      case 'DRS - EEOC Referral Form Letter':
+        addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.EEOC);
+        break;
+      default:
+        break;
+    }
+  };
+
   var modal = document.getElementById('intake_template');
 
   var contact = document.getElementById('contact_complainant');
@@ -37,6 +72,7 @@
     event.preventDefault();
     var index = event.target.selectedIndex;
     var option = event.target.options[index];
+    addReferralAddress(option);
     description.innerHTML = option.dataset['description'] || '(select a response template)';
     letter.innerHTML = option.dataset['content'] || '';
     if (index >= 1) {
