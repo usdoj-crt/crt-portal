@@ -532,8 +532,15 @@ form#cts-forms-profile {
       }
     }
 
-    select {
+    select,
+    .usa-combo-box {
       flex-basis: 60%; // label flex-basis is 40% for total of 100%
+    }
+
+    select,
+    .usa-combo-box input,
+    .crt-checkbox__label {
+      margin-top: 0; // Fixes vertical spacing issues
     }
   }
 

@@ -150,10 +150,12 @@ PROTECTED_MODEL_CHOICES = tuple(
 PROTECTED_CLASS_ERROR = _('Please make a selection to continue. If none of these apply to your situation, please select “None of these apply to me” or "Other reason"and explain.')
 
 # CRT views only
+NEW_STATUS = 'new'
+OPEN_STATUS = 'open'
 CLOSED_STATUS = 'closed'
 STATUS_CHOICES = (
-    ('new', 'New'),
-    ('open', 'Open'),
+    (NEW_STATUS, 'New'),
+    (OPEN_STATUS, 'Open'),
     (CLOSED_STATUS, 'Closed'),
 )
 

@@ -24,9 +24,10 @@ from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
 from tms.models import TMSEmail
+from datetime import datetime
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
-from .filters import report_filter
+from .filters import report_filter, dashboard_filter
 from .forms import (
     BulkActionsForm, CommentActions, ComplaintActions,
     ContactEditForm, Filters, PrintActions, ProfileForm,
@@ -149,6 +150,12 @@ def setup_filter_parameters(report, querydict):
     return output
 
 
+def _format_date(date_string):
+    if date_string:
+        return datetime.strptime(date_string, '%Y-%m-%d')
+    return ""
+
+
 @login_required
 def index_view(request):
     profile_form = ProfileForm()
@@ -236,6 +243,34 @@ def index_view(request):
     }
 
     return render(request, 'forms/complaint_view/index/index.html', final_data)
+
+
+@login_required
+def dashboard_view(request):
+    query_filters, selected_actions = dashboard_filter(request.GET)
+
+    # process filter query params
+    filter_args = ''
+    for query_item in query_filters.keys():
+        arg = query_item
+        for item in query_filters[query_item]:
+            filter_args = filter_args + f'&{arg}={item}'
+
+    reports_set = set()
+    for action in selected_actions:
+        reports_set.add(action.target_object_id)
+    start_date = _format_date(request.GET.get("create_date_start", ""))
+    end_date = _format_date(request.GET.get("create_date_end", ""))
+
+    final_data = {
+        'form': Filters(request.GET),
+        'selected_actor': request.GET.get("assigned_to", ""),
+        'date_range_start': start_date,
+        'date_range_end': end_date,
+        'activity_count': len(reports_set),
+        'filters': query_filters,
+    }
+    return render(request, 'forms/complaint_view/dashboard/index.html', final_data)
 
 
 def serialize_data(report, request, report_id):
@@ -379,6 +414,12 @@ class ShowView(LoginRequiredMixin, View):
     def get(self, request, id):
         report = get_object_or_404(Report.objects.prefetch_related('attachments'), pk=id)
         output = serialize_data(report, request, id)
+        if not report.opened:
+            now = datetime.now()
+            description = f"Report opened at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
+            add_activity(request.user, "Report opened:", description, report)
+            report.opened = True
+            report.save()
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)
         filter_output = setup_filter_parameters(report, request.GET)

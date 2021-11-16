@@ -196,6 +196,7 @@ class Report(models.Model):
     assigned_to = models.ForeignKey(User, blank=True, null=True, related_name="assigned_complaints", on_delete=models.CASCADE)
     closed_date = models.DateTimeField(blank=True, null=True, help_text="The Date this report's status was most recently set to \"Closed\"")
     language = models.CharField(default='en', max_length=10, blank=True, null=True)
+    opened = models.BooleanField(default=False)
 
     # Not in use- but need to preserving historical data
     hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, blank=True)

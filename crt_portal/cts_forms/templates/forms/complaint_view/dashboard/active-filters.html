@@ -1,0 +1,21 @@
+{% load static %}
+{% load get_field_label %}
+
+<div id="active-filters" data-active-filters>
+  {% for key, value in filters.items %}
+    {% for item in value %}
+      {% if key != "assigned_section" %}
+        <span class="usa-sr-only">{{key}}: {{item}}</span>
+        <button
+          class="filter-tag"
+          aria-label="Remove filter {{'Report'|get_field_label:key}}: {{item}} from the list"
+          data-filter-name="{{key}}"
+          data-filter-value="{{item}}"
+        >
+          <span>{{ 'Report'|get_field_label:key }}: {{item}}</span>
+          <img src="{% static 'img/intake-icons/ic_close.svg' %}" class="icon right" alt="close">
+        </button>
+      {% endif %}
+    {% endfor %}
+  {% endfor %}
+</div>

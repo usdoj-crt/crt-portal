@@ -1,0 +1,28 @@
+.usa-combo-box input {
+  border-radius: 3px;
+}
+
+.usa-combo-box__list {
+  border-radius: 3px;
+}
+
+.usa-combo-box__toggle-list {
+  background-image: url(../../img/intake-icons/ic_chevron-down.svg), linear-gradient(transparent, transparent);;
+  background-size: 15px;
+  background-position: center center;
+
+  /* Override a very aggressive button width from .intake-content */
+  width: auto !important;
+}
+
+/* Override a very aggressive li margin from .usa-form */
+.usa-combo-box__list-option {
+  margin-top: 0 !important;
+}
+
+.usa-combo-box__clear-input {
+  background-image: url(../../img/close-blue-60-alt.svg), linear-gradient(transparent, transparent);
+
+  /* Override a very aggressive button width from .intake-content */
+  width: auto !important;
+}

@@ -137,12 +137,12 @@ gulp.task(
 );
 
 gulp.task("watch-sass", function() {
-  gulp.watch(`${PROJECT_SASS_SRC}/**/*.scss`, gulp.series("build-sass"));
+  gulp.watch(`${PROJECT_SASS_SRC}/**/*.scss`, gulp.series("build-sass", "watch-sass"));
 });
 gulp.task("watch-js", function() {
-  gulp.watch(JS_FILES, gulp.series("build-js"));
+  gulp.watch(JS_FILES, gulp.series("build-js", "watch-js"));
 });
 
-gulp.task("watch", gulp.series("build-sass", "build-js", "watch-sass", "watch-js"));
+gulp.task("watch", gulp.parallel("watch-sass", "watch-js"));
 
 gulp.task("default", gulp.series("watch"));

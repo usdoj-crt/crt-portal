@@ -5,8 +5,9 @@ from datetime import datetime
 
 from django.contrib.postgres.search import SearchQuery
 
-from .models import Report
-
+from .models import Report, User
+from actstream import registry
+from actstream.models import actor_stream
 
 # To add a new filter option for Reports, add the field name and expected filter behavior
 # These filters should match the order they're presented in filter-controls.html
@@ -49,6 +50,13 @@ filter_options = {
     'location_name': '__icontains',
 
     'other_class': '__search',  # not in filter controls?
+}
+
+# To add a new filter option for Reports, add the field name and expected filter behavior
+# These filters should match the order they're presented in filter-controls.html
+dashboard_filter_options = {
+    'timestamp_start': '__gte',
+    'timestamp_end': '__lte',
 }
 
 
@@ -111,7 +119,10 @@ def report_filter(querydict):
                 kwargs['protected_class__value__in'] = reasons
             elif filter_options[field] == 'foreign_key':
                 # assumes assigned_to but could add logic for other foreign keys in the future
-                kwargs['assigned_to__username__in'] = querydict.getlist(field)
+                if querydict.getlist(field)[0] == '(unassigned)':
+                    kwargs['assigned_to__isnull'] = True
+                else:
+                    kwargs['assigned_to__username__in'] = querydict.getlist(field)
             elif filter_options[field] == 'eq':
                 kwargs[field] = querydict.getlist(field)[0]
             elif filter_options[field] == '__gte':
@@ -124,6 +135,36 @@ def report_filter(querydict):
                 qs = qs.filter(violation_summary_search_vector=combined_or_search)
     qs = qs.filter(**kwargs)
     return qs, filters
+
+
+def dashboard_filter(querydict):
+    kwargs = {}
+    filters = {}
+    for field in filter_options.keys():
+        filter_list = querydict.getlist(field)
+        if len(filter_list) > 0:
+            filters[field] = querydict.getlist(field)
+            if 'date' in field:
+                # filters by a start date or an end date expects yyyy-mm-dd
+                field_name = 'timestamp'
+                encodedDate = querydict.getlist(field)[0]
+                decodedDate = urllib.parse.unquote(encodedDate)
+                try:
+                    dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
+                    dateObj = _change_datetime_to_end_of_day(dateObj, field)
+                    kwargs[f'{field_name}{filter_options[field]}'] = dateObj
+                except ValueError:
+                    # if the date is invalid, we ignore it.
+                    continue
+
+    registry.register(User)
+    selected_actor_username = querydict.get("assigned_to", None)
+    selected_actor = User.objects.filter(username=selected_actor_username).first()
+    if selected_actor:
+        filtered_actions = actor_stream(selected_actor).filter(**kwargs)
+    else:
+        return filters, []
+    return filters, filtered_actions
 
 
 def _combine_term_searches_with_or(terms):
