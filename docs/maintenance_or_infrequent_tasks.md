@@ -136,6 +136,21 @@ crt_portal/crt_portal/urls.py
         'crt-portal-django-stage.app.cloud.gov',
     ]
 
+# Adding mock reports
+To add mock reports for local testing, run the create_mock_reports command with the number of reports you want.
+
+For example, run 
+
+```docker-compose run web python crt_portal/manage.py create_mock_reports 10```
+
+to generate 10 reports.
+
+If you need to modify reports for individual testing needs, you can do it temporarily in the python file. For example, if you wanted to test performance of the SQL command that generates the #Total column on "view/form", uncomment 
+
+```# report.contact_email = "test@test.test"```
+
+in "create_mock_reports.py" to create multiple reports with the same email address.
+
 # Load testing
 
 We use [locust](https://docs.locust.io/en/stable/what-is-locust.html) for load testing. We don't have this kind of testing automated as part of our release at this time.
