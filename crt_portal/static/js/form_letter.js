@@ -10,11 +10,11 @@
       '<p id="form-letterhead--dept-addressee">Field Management Programs<br>U.S. Equal Employment Opportunity Commission<br>131 M Street, N.E.<br>Washington, DC  20507<br></p>'
   };
 
-  addReferralAddress = option => {
+  const addReferralAddress = option => {
     let addressee = document.getElementById('form-letterhead--addressee');
     let deptAddressee = document.getElementById('form-letterhead--dept-addressee');
     if (deptAddressee) {
-      deptAddressee.parentNode.removeChild(deptAddressee);
+      deptAddressee.remove(deptAddressee);
     }
     switch (option.innerText) {
       case 'DRS - Dept of Ed Referral Form Letter':
