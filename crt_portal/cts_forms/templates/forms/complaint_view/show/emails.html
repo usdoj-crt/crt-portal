@@ -1,0 +1,46 @@
+{% extends "forms/complaint_view/show/card.html" %}
+{% load static %}
+{% block title %}{{title}}{% endblock %}
+{% block extra_classes %}crt-action-card{% endblock %}
+{% block icon %}
+<img src="{% static icon %}" alt="" class="icon" />
+{% endblock %}
+
+{% block card_content %}
+  {% if not emails %}
+    <p class="margin-bottom-0 margin-top-3">
+      There have been no e-mail correspondence for this report.
+    </p>
+  {% else %}
+    <table class="usa-table usa-table--borderless crt-data-table width-full">
+      <thead class="text-bottom">
+        <th scope="col">Date sent</th>
+        <th scope="col">Subject</th>
+        <th scope="col">Status</th>
+      </thead>
+
+      <tbody>
+        {% for email in emails %}
+          <tr class="text-top">
+            <td>{{ email.created_at|date:"SHORT_DATE_FORMAT" }}</td>
+            <td>
+              {% if email.purpose == "auto" %}
+                <em>(Autoresponse)</em>
+              {% endif %}
+              {{ email.subject }}
+
+              {% if email.status == "failed" %}
+                <p style="font-size: 1em; color: red;">
+                  {{ email.error_message }}
+                </p>
+              {% endif %}
+            </td>
+            <td>
+              {{ email.status|title }}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+  </table>
+  {% endif %}
+{% endblock %}

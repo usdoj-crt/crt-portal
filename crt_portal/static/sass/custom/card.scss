@@ -127,19 +127,11 @@
 }
 
 table.related-reports {
-  font-size: 0.75rem;
-  margin-top: 0px;
-
   td {
     white-space: nowrap;
   }
 
-  td:first-child {
-    padding-left: 0;
-  }
-
   td:last-child {
-    padding-right: 0;
     text-align: right;
   }
 
@@ -151,11 +143,16 @@ table.related-reports {
   }
 }
 
-table.attachments-table {
+table.crt-data-table {
   font-size: 0.75rem;
-  margin-top: 0px;
-  
-  th:first-child {
-    padding-left: 1rem;
+  margin-bottom: 0;
+  margin-top: 0;
+
+  td:first-child {
+    padding-left: 0;
+  }
+
+  td:last-child {
+    padding-right: 0;
   }
 }
