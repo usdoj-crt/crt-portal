@@ -110,11 +110,13 @@ class AdminWebhookView(LoginRequiredMixin, View):
     def get(self, request):
         try:
             connection = TMSClient()
-            response = connection.get(target=self.WEBHOOK_ENDPOINT)
-            parsed = json.loads(response.content)
-            return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
+        # Raised when there are no TMS credentials in the env
         except AttributeError:
             return render(request, 'email.html', {'data': 'no tms settings here'})
+
+        response = connection.get(target=self.WEBHOOK_ENDPOINT)
+        parsed = json.loads(response.content)
+        return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
 
 
 class AdminMessageView(LoginRequiredMixin, View):
@@ -127,10 +129,24 @@ class AdminMessageView(LoginRequiredMixin, View):
     def get(self, request, tms_id):
         if not tms_id:
             return render(request, 'email.html', {'data': 'need an email id'})
+
         try:
             connection = TMSClient()
-            response = connection.get(target=self.WEBHOOK_ENDPOINT + '/' + str(tms_id))
-            parsed = json.loads(response.content)
-            return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
+        # Raised when there are no TMS credentials in the env
         except AttributeError:
             return render(request, 'email.html', {'data': 'no tms settings here'})
+
+        response = connection.get(target=self.WEBHOOK_ENDPOINT + '/' + str(tms_id))
+        parsed = json.loads(response.content)
+
+        if parsed.status == 'completed':
+            if parsed.recipient_counts.failed > 0:
+                response2 = connection.get(target=parsed._links.failed)
+                parsed2 = json.loads(response2.content)
+            elif parsed.recipient_counts.sent > 0:
+                response2 = connection.get(target=parsed._links.sent)
+                parsed2 = json.loads(response2.content)
+
+            return render(request, 'email.html', {'data': json.dumps(parsed, indent=2) + '\n' + json.dumps(parsed2, indent=2)})
+        else:
+            return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
