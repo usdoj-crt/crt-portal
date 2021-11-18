@@ -14,7 +14,7 @@
     let addressee = document.getElementById('form-letterhead--addressee');
     let deptAddressee = document.getElementById('form-letterhead--dept-addressee');
     if (deptAddressee) {
-      deptAddressee.remove(deptAddressee);
+      deptAddressee.remove();
     }
     switch (option.innerText) {
       case 'DRS - Dept of Ed Referral Form Letter':
