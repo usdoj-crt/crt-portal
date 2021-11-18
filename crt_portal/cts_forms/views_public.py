@@ -30,7 +30,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PRIMARY_COMPLAINT_DICT,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import Report, ResponseTemplate
+from .models import Report, ResponseTemplate, EmailReportCount
 from .forms import save_form, Review
 from .mail import crt_send_mail
 
@@ -355,7 +355,7 @@ class CRTReportWizard(SessionWizardView):
 
         if settings.EMAIL_AUTORESPONSE_ENABLED:
             send_autoresponse_mail(report)
-
+        EmailReportCount.refresh_view()
         return render(
             self.request, 'forms/confirmation.html',
             {
