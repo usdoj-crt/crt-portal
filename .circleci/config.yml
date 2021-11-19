@@ -216,7 +216,7 @@ jobs:
             wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
             apt-get update && \
             apt-get install -yqq nodejs && \
-            npm i -g npm@^6 && \
+            npm i -g npm@^8 && \
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
@@ -272,7 +272,7 @@ jobs:
             wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
             apt-get update && \
             apt-get install -yqq nodejs && \
-            npm i -g npm@^6 && \
+            npm i -g npm@^8 && \
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
@@ -329,7 +329,7 @@ jobs:
             wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
             apt-get update && \
             apt-get install -yqq nodejs && \
-            npm i -g npm@^6 && \
+            npm i -g npm@^8 && \
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass

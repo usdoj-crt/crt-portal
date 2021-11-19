@@ -26,7 +26,7 @@ RUN \
   apt-get update && \
   apt-get install -yqq nodejs && \
   pip install -U pip && pip install pipenv && \
-  npm i -g npm@^6 && \
+  npm i -g npm@^8 && \
   rm -rf /var/lib/apt/lists/*
 
 RUN npm install
