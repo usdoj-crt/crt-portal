@@ -31,10 +31,6 @@ Civil Rights Division
 
     eeoc_form_letter.save()
 
-def remove_drs_eeoc_referral_letter_2(apps, schema_editor):
-    ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
-    templates = ResponseTemplate.objects.filter(title__icontains='DRS - EEOC Referral Form Letter')
-    templates.delete()
 
 class Migration(migrations.Migration):
     dependencies = [
@@ -42,5 +38,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(modify_drs_eeoc_referral_letter, remove_drs_eeoc_referral_letter_2)
+        migrations.RunPython(modify_drs_eeoc_referral_letter)
     ]

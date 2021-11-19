@@ -32,16 +32,11 @@ Civil Rights Division
     dot_form_letter.save()
 
 
-def remove_drs_dot_referral_letter_2(apps, schema_editor):
-    ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
-    templates = ResponseTemplate.objects.filter(title__icontains='DRS - DOT Referral Form Letter')
-    templates.delete()
-
 class Migration(migrations.Migration):
     dependencies = [
         ('cts_forms', '0132_drs_eeoc_referral_letter_update'),
     ]
 
     operations = [
-        migrations.RunPython(modify_drs_dot_referral_letter, remove_drs_dot_referral_letter_2)
+        migrations.RunPython(modify_drs_dot_referral_letter)
     ]
