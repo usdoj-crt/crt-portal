@@ -14,7 +14,7 @@ class TMSEmailAdmin(ReadOnlyModelAdmin):
     ordering = ['-created_at']
 
     def tms_detail_url(self, obj):
-        return format_html('<a href="%s">View status</a>' % (reverse('tms:tms-admin-message', kwargs={"tms_id": obj.tms_id})))
+        return format_html('<a href="%s">View & update</a>' % (reverse('tms:tms-admin-message', kwargs={"tms_id": obj.tms_id})))
 
     tms_detail_url.short_description = 'TMS details'
 
