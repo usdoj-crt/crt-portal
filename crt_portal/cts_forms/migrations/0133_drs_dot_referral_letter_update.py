@@ -1,7 +1,7 @@
 from django.db import migrations
 
 
-def modify_drs_dot_referral_letter(apps):
+def modify_drs_dot_referral_letter(apps, schema_editor):
     ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
     dot_form_letter = ResponseTemplate.objects.get(title='DRS - DOT Referral Form Letter')
     dot_form_letter.body="""
@@ -32,7 +32,7 @@ Civil Rights Division
     dot_form_letter.save()
 
 
-def remove_drs_dot_referral_letter_2(apps):
+def remove_drs_dot_referral_letter_2(apps, schema_editor):
     ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
     templates = ResponseTemplate.objects.filter(title__icontains='DRS - DOT Referral Form Letter')
     templates.delete()
