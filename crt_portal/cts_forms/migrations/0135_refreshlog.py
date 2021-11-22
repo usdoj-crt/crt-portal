@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0130_materialize_email_count_view'),
+        ('cts_forms', '0134_materialize_email_count_view'),
     ]
 
     operations = [
