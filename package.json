@@ -38,7 +38,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "autoprefixer": "^10.0.3",
+    "autoprefixer": "^10.2.4",
     "gulp": "^4.0.2",
     "gulp-postcss": "^9.0.0",
     "gulp-rename": "^2.0.0",
@@ -46,12 +46,12 @@
     "gulp-sass": "^5.0.0",
     "gulp-sourcemaps": "^3.0.0",
     "gulp-uglify": "^3.0.2",
-    "postcss": "^8.1.10",
+    "postcss": "^8.2.5",
     "postcss-csso": "^5.0.0",
     "sass": "^1.38.0",
     "url-search-params-polyfill": "^7.0.1",
-    "uswds": "^2.10.3",
-    "uswds-gulp": "github:uswds/uswds-gulp#154b9109f660aeb6d3e101c303306c14a3b1d2d1"
+    "uswds": "2.10.3",
+    "uswds-gulp": "github:uswds/uswds-gulp#4f2e1ef06f5fde76cba2b136b683ab22a258e6a8"
   },
   "devDependencies": {
     "pa11y": "^6.0.1",
