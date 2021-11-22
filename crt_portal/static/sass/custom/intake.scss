@@ -215,6 +215,7 @@
   border-radius: 3px;
   background-image: url(../../img/intake-icons/ic_chevron-down.svg);
   background-size: 15px;
+  background-position: right 0.75rem center; // Restore legacy position
 }
 
 .crt-dropdown {
@@ -269,11 +270,6 @@
     * {
       pointer-events: none;
     }
-  }
-
-  select {
-    background-image: url(../../img/intake-icons/ic_chevron-down.svg);
-    background-size: 15px;
   }
 
   select.complaint-multi-select {
