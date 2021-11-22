@@ -36,7 +36,7 @@ from .forms import (
 )
 from .mail import crt_send_mail
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, Trends, EmailReportCount
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, Trends
 from .page_through import pagination
 from .sorts import report_sort
 
@@ -468,8 +468,6 @@ class ShowView(LoginRequiredMixin, View):
                     add_activity(request.user, "District:", description, report)
 
             report.save()
-            if 'contact_email' in form.changed_data:
-                EmailReportCount.refresh_view()
             form.update_activity_stream(request.user)
             messages.add_message(request, messages.SUCCESS, form.success_message())
 
@@ -773,7 +771,6 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
 
     def done(self, form_list, form_dict, **kwargs):
         data, report = save_form(self.get_all_cleaned_data())
-        EmailReportCount.refresh_view()
         return redirect(reverse('crt_forms:crt-forms-show', kwargs={'id': report.pk}))
 
 
