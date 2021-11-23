@@ -55,6 +55,16 @@ def _get_completed_at(request):
     return completed_datetime
 
 
+def _get_completed_at2(data):
+    """return a UTC datetime from inbound completed_at string, we're only expecting UTC
+    e.g: "2015-08-05T18:47:18Z"
+    Note this this is a different format than what gets posted to webhook
+    """
+    completed_at = data.get('completed_at', '')
+    completed_datetime = datetime.strptime(completed_at, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=timezone.utc)
+    return completed_datetime
+
+
 @method_decorator(csrf_exempt, name='dispatch')
 class WebhookView(View):
     """Handle inbound webhook requests from TMS"""
@@ -110,11 +120,13 @@ class AdminWebhookView(LoginRequiredMixin, View):
     def get(self, request):
         try:
             connection = TMSClient()
-            response = connection.get(target=self.WEBHOOK_ENDPOINT)
-            parsed = json.loads(response.content)
-            return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
+        # Raised when there are no TMS credentials in the env
         except AttributeError:
             return render(request, 'email.html', {'data': 'no tms settings here'})
+
+        response = connection.get(target=self.WEBHOOK_ENDPOINT)
+        parsed = json.loads(response.content)
+        return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
 
 
 class AdminMessageView(LoginRequiredMixin, View):
@@ -127,10 +139,40 @@ class AdminMessageView(LoginRequiredMixin, View):
     def get(self, request, tms_id):
         if not tms_id:
             return render(request, 'email.html', {'data': 'need an email id'})
+
         try:
             connection = TMSClient()
-            response = connection.get(target=self.WEBHOOK_ENDPOINT + '/' + str(tms_id))
-            parsed = json.loads(response.content)
-            return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
+        # Raised when there are no TMS credentials in the env
         except AttributeError:
             return render(request, 'email.html', {'data': 'no tms settings here'})
+
+        response = connection.get(target=self.WEBHOOK_ENDPOINT + '/' + str(tms_id))
+        parsed = json.loads(response.content)
+
+        # if the email has been marked as "completed", it doesn't have the same data
+        # as the payload posted via the webhooks. We have to follow the links for the
+        # "failed" or "sent" state to receive status, completion date, and errors.
+        if parsed['status'] == 'completed':
+            if parsed['recipient_counts']['failed'] > 0:
+                response2 = connection.get(target=parsed['_links']['failed'])
+            elif parsed['recipient_counts']['sent'] > 0:
+                response2 = connection.get(target=parsed['_links']['sent'])
+
+            # Since we only send to one e-mail recipient at a time, we assume
+            # that the data only has one message in it. Just in case `parsed2`
+            # is output in the view so we can see exactly what the endpoint returns
+            parsed2 = json.loads(response2.content)
+            message = parsed[0]
+            email = TMSEmail.objects.get(tms_id=tms_id)
+            email.status = message['status']
+            email.completed_at = _get_completed_at2(message)
+            # Only failed messages have the error_message attribute, otherwise
+            # it does not exist
+            if email.failed:
+                email.error_message = message['error_message']
+            email.save()
+
+            # Displays both payloads
+            return render(request, 'email.html', {'data': json.dumps(parsed, indent=2) + '\n' + json.dumps(parsed2, indent=2)})
+        else:
+            return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
