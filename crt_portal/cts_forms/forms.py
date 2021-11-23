@@ -38,7 +38,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               PUBLIC_OR_PRIVATE_EMPLOYER_ERROR,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
                               SECTION_CHOICES_WITHOUT_LABELS,
-                              SECTION_CHOICES, SERVICEMEMBER_CHOICES,
+                              SERVICEMEMBER_CHOICES,
                               SERVICEMEMBER_ERROR, STATES_AND_TERRITORIES,
                               STATUS_CHOICES, STATUTE_CHOICES,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
@@ -1240,9 +1240,9 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         self.fields['assigned_section'] = ChoiceField(
             widget=ComplaintSelect(
                 label='Section',
-                attrs={'class': 'usa-select text-bold text-uppercase crt-dropdown__data'},
+                attrs={'class': 'usa-select text-bold crt-dropdown__data'},
             ),
-            choices=SECTION_CHOICES,
+            choices=SECTION_CHOICES_WITHOUT_LABELS,
             required=False
         )
         self.fields['status'] = ChoiceField(
@@ -1259,7 +1259,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             widget=ComplaintSelect(
                 label='Primary classification',
                 attrs={
-                    'class': 'text-uppercase crt-dropdown__data',
+                    'class': 'crt-dropdown__data',
                 },
             ),
             choices=_add_empty_choice(STATUTE_CHOICES, default_string=''),
@@ -1269,7 +1269,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             widget=ComplaintSelect(
                 label='Judicial district',
                 attrs={
-                    'class': 'text-uppercase crt-dropdown__data',
+                    'class': 'crt-dropdown__data',
                 },
             ),
             choices=_add_empty_choice(DISTRICT_CHOICES, default_string=''),
@@ -1393,9 +1393,9 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
     assigned_section = ChoiceField(
         label='Section',
         widget=ComplaintSelect(
-            attrs={'class': 'usa-select text-bold text-uppercase crt-dropdown__data'},
+            attrs={'class': 'usa-select text-bold crt-dropdown__data'},
         ),
-        choices=_add_empty_choice(SECTION_CHOICES, default_string=EMPTY_CHOICE),
+        choices=_add_empty_choice(SECTION_CHOICES_WITHOUT_LABELS, default_string=EMPTY_CHOICE),
         required=False
     )
     status = ChoiceField(
@@ -1408,7 +1408,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
     primary_statute = ChoiceField(
         label='Primary classification',
         widget=ComplaintSelect(
-            attrs={'class': 'text-uppercase crt-dropdown__data'},
+            attrs={'class': 'crt-dropdown__data'},
         ),
         choices=_add_empty_choice(STATUTE_CHOICES, default_string=EMPTY_CHOICE),
         required=False
@@ -1417,7 +1417,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         label='Judicial district',
         widget=ComplaintSelect(
             attrs={
-                'class': 'text-uppercase crt-dropdown__data',
+                'class': 'crt-dropdown__data',
                 'disabled': 'disabled'
             },
         ),
