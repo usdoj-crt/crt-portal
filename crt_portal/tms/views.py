@@ -152,7 +152,7 @@ class AdminMessageView(LoginRequiredMixin, View):
         # if the email has been marked as "completed", it doesn't have the same data
         # as the payload posted via the webhooks. We have to follow the links for the
         # "failed" or "sent" state to receive status, completion date, and errors.
-        if parsed['status'] == 'completed':
+        if parsed.get('status', '') == 'completed':
             response2 = None
             if parsed['recipient_counts']['failed'] > 0:
                 response2 = connection.get(target=parsed['_links']['failed'])
