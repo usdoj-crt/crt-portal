@@ -29,6 +29,11 @@ RUN \
   npm i -g npm@^8 && \
   rm -rf /var/lib/apt/lists/*
 
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+
+COPY package*.json /code/
+
 RUN npm install
 
 # Install gettext for i18n
