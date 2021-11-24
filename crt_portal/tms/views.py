@@ -153,6 +153,7 @@ class AdminMessageView(LoginRequiredMixin, View):
         # as the payload posted via the webhooks. We have to follow the links for the
         # "failed" or "sent" state to receive status, completion date, and errors.
         if parsed['status'] == 'completed':
+            response2 = None
             if parsed['recipient_counts']['failed'] > 0:
                 response2 = connection.get(target=parsed['_links']['failed'])
             elif parsed['recipient_counts']['sent'] > 0:
@@ -161,18 +162,21 @@ class AdminMessageView(LoginRequiredMixin, View):
             # Since we only send to one e-mail recipient at a time, we assume
             # that the data only has one message in it. Just in case `parsed2`
             # is output in the view so we can see exactly what the endpoint returns
-            parsed2 = json.loads(response2.content)
-            message = parsed2[0]
-            email = TMSEmail.objects.get(tms_id=tms_id)
-            email.status = message['status']
-            email.completed_at = _get_completed_at2(message)
-            # Only failed messages have the error_message attribute, otherwise
-            # it does not exist
-            if email.failed:
-                email.error_message = message['error_message']
-            email.save()
+            if (response2):
+                parsed2 = json.loads(response2.content)
+                message = parsed2[0]
+                email = TMSEmail.objects.get(tms_id=tms_id)
+                email.status = message['status']
+                email.completed_at = _get_completed_at2(message)
+                # Only failed messages have the error_message attribute, otherwise
+                # it does not exist
+                if email.failed:
+                    email.error_message = message['error_message']
+                email.save()
 
-            # Displays both payloads
-            return render(request, 'email.html', {'data': json.dumps(parsed, indent=2) + '\n' + json.dumps(parsed2, indent=2)})
+                # Displays both payloads
+                return render(request, 'email.html', {'data': json.dumps(parsed, indent=2) + '\n' + json.dumps(parsed2, indent=2)})
+            else:
+                return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
         else:
             return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
