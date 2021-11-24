@@ -162,7 +162,7 @@ class AdminMessageView(LoginRequiredMixin, View):
             # that the data only has one message in it. Just in case `parsed2`
             # is output in the view so we can see exactly what the endpoint returns
             parsed2 = json.loads(response2.content)
-            message = parsed[0]
+            message = parsed2[0]
             email = TMSEmail.objects.get(tms_id=tms_id)
             email.status = message['status']
             email.completed_at = _get_completed_at2(message)
