@@ -50,7 +50,7 @@ def revert_email_count_view(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0133_drs_dot_referral_letter_update'),
+        ('cts_forms', '0134_update_district_choices'),
     ]
     operations = [
         migrations.RunPython(change_email_count_view_to_materialized, revert_email_count_view)
