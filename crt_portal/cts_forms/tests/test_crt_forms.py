@@ -17,7 +17,7 @@ from datetime import datetime
 
 from ..forms import BulkActionsForm, ComplaintActions, Filters, ReportEditForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, NEW_STATUS
-from ..models import CommentAndSummary, Report, ResponseTemplate
+from ..models import CommentAndSummary, Report, ResponseTemplate, EmailReportCount
 from .factories import ReportFactory
 from .test_data import SAMPLE_REPORT, SAMPLE_RESPONSE_TEMPLATE
 
@@ -406,6 +406,7 @@ class FormNavigationTests(TestCase):
         ReportFactory.create_batch(2, assigned_section='DRS')
         ReportFactory.create_batch(2, assigned_section='ELS')
         ReportFactory.create_batch(1, assigned_section='EOS')
+        EmailReportCount.refresh_view()
 
     def test_basic_navigation(self):
         first = self.reports[-1]
@@ -906,6 +907,7 @@ class FiltersFormTests(TestCase):
         ReportFactory.create_batch(3, contact_email=self.email1)
         ReportFactory.create_batch(5, contact_email=self.email2)
         ReportFactory.create_batch(8, contact_email=None)
+        EmailReportCount.refresh_view()
 
     def test_basic_navigation(self):
         response = self.client.get(reverse('crt_forms:crt-forms-index'), {})
@@ -999,7 +1001,7 @@ class FiltersFormTests(TestCase):
         ReportFactory.create_batch(5, contact_email=self.email5)
         ReportFactory.create_batch(2, contact_email=self.email6)
         ReportFactory.create_batch(4, contact_email=self.email7)
-
+        EmailReportCount.refresh_view()
         response = self.client.get(reverse('crt_forms:crt-forms-index'), {})
         self.assertEquals(response.status_code, 200)
 
