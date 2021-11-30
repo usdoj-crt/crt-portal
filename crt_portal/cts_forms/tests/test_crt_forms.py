@@ -1036,7 +1036,7 @@ class FiltersFormTests(TestCase):
 
     def test_unassigned_report_filter(self):
         base_url = reverse('crt_forms:crt-forms-index')
-        url = f'{base_url}?assigned_to=(unassigned)'
+        url = f'{base_url}?assigned_to=(none)'
 
         response = self.client.get(url, {})
         self.assertEquals(response.status_code, 200)

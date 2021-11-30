@@ -136,6 +136,21 @@ crt_portal/crt_portal/urls.py
         'crt-portal-django-stage.app.cloud.gov',
     ]
 
+# Adding mock reports
+To add mock reports for local testing, run the create_mock_reports command with the number of reports you want.
+
+For example, run 
+
+```docker-compose run web python crt_portal/manage.py create_mock_reports 10```
+
+to generate 10 reports.
+
+If you need to modify reports for individual testing needs, you can do it temporarily in the python file. For example, if you wanted to test performance of the SQL command that generates the #Total column on "view/form", uncomment 
+
+```# report.contact_email = "test@test.test"```
+
+in "create_mock_reports.py" to create multiple reports with the same email address.
+
 # Load testing
 
 We use [locust](https://docs.locust.io/en/stable/what-is-locust.html) for load testing. We don't have this kind of testing automated as part of our release at this time.
@@ -365,6 +380,24 @@ Note the "es." preface for variables that are specific to the spanish language.
 * Tagalog = 'tl'
 * English = 'en'
 
+
+### Adding a department address to a form
+If you need to add a department address to a form, you will need to add it to ```form_letters.js```, where you will add the html address to ```DEPT_ADDRESS``` and add a new case to the ```addReferralAddress``` switch
+
+ex add to form_letter.js
+
+DEPT_ADDRESS
+```
+deptOfEd:
+    '<p id="form-letterhead--dept-addressee">U.S. Department of Education<br>Office for Civil Rights<br>Lyndon Baines Johnson Department of Education Bldg.<br>400 Maryland Avenue, SW<br>Washington, DC 20202-1100<br></p>'
+```
+
+addReferralAddress
+```
+case 'DRS - Dept of Ed Referral Form Letter':
+    addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.deptOfEd);
+    break;
+```
 
 ### Updating forms
 

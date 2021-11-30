@@ -26,8 +26,13 @@ RUN \
   apt-get update && \
   apt-get install -yqq nodejs && \
   pip install -U pip && pip install pipenv && \
-  npm i -g npm@^6 && \
+  npm i -g npm@^8 && \
   rm -rf /var/lib/apt/lists/*
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+
+COPY package*.json /code/
 
 RUN npm install
 
