@@ -11,6 +11,16 @@ USWDS SASS GULPFILE
 ----------------------------------------
 */
 
+/**
+ * See package.json for reference commit SHA from
+ * https://github.com/uswds/uswds-gulp
+ * 
+ * Primary differences on our side:
+ * - We also use this to minify our own JavaScript
+ * - We did not port over the SVG sprite maker
+ *   (but may in future, if we need it)
+ */
+
 const autoprefixer = require("autoprefixer");
 const csso = require("postcss-csso");
 const gulp = require("gulp");
@@ -79,7 +89,7 @@ gulp.task("copy-uswds-js", () => {
   return gulp.src(`${uswds}/js/**/**`).pipe(gulp.dest(`${JS_DEST}`));
 });
 
-gulp.task('build-js', function() {
+gulp.task('build-js', function () {
   return gulp.src(JS_FILES)
     .pipe(sourcemaps.init())
     // Minify the file
@@ -92,12 +102,12 @@ gulp.task('build-js', function() {
     .pipe(gulp.dest(`${JS_DEST}`))
 });
 
-gulp.task("build-sass", function(done) {
+gulp.task("build-sass", function (done) {
   var plugins = [
     // Autoprefix
     autoprefixer({
       cascade: false,
-      grid: true
+      grid: true,
     }),
     // Minify
     csso({ forceMediaMerge: false }),
@@ -111,8 +121,8 @@ gulp.task("build-sass", function(done) {
           includePaths: [
             `${PROJECT_SASS_SRC}`,
             `${uswds}/scss`,
-            `${uswds}/scss/packages`
-          ]
+            `${uswds}/scss/packages`,
+          ],
         })
       )
       .pipe(replace(/\buswds @version\b/g, "based on uswds v" + pkg.version))
@@ -136,12 +146,15 @@ gulp.task(
   )
 );
 
-gulp.task("watch-sass", function() {
+gulp.task("watch-sass", function () {
   gulp.watch(`${PROJECT_SASS_SRC}/**/*.scss`, gulp.series("build-sass", "watch-sass"));
 });
-gulp.task("watch-js", function() {
+
+gulp.task("watch-js", function () {
   gulp.watch(JS_FILES, gulp.series("build-js", "watch-js"));
 });
+
+gulp.task("build", gulp.parallel("build-sass", "build-js"));
 
 gulp.task("watch", gulp.parallel("watch-sass", "watch-js"));
 

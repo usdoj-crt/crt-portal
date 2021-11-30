@@ -7,7 +7,7 @@
 ========================================
 ========================================
 ----------------------------------------
-USWDS 2.9.0
+USWDS 2.10.3
 ----------------------------------------
 COLOR SETTINGS
 ----------------------------------------
@@ -38,7 +38,7 @@ $theme-color-base-ink: "gray-warm-80";
 $theme-color-primary-family: "blue";
 $theme-color-primary-lightest: "blue-warm-5";
 $theme-color-primary-lighter: "blue-warm-10";
-$theme-color-primary-light: false;
+$theme-color-primary-light: "blue-30";
 $theme-color-primary: "blue-warm-70v";
 $theme-color-primary-vivid: "blue-warm-60v";
 $theme-color-primary-dark: "blue-warm-70v";
@@ -120,11 +120,22 @@ $theme-color-disabled-light: "gray-10";
 $theme-color-disabled: "gray-20";
 $theme-color-disabled-dark: "gray-30";
 
+// Emergency colors
+$theme-color-emergency: "red-warm-60v";
+$theme-color-emergency-dark: "red-warm-80";
+
 /*
 ----------------------------------------
 General colors
 ----------------------------------------
 */
+
+// Body
+$theme-body-background-color: "white";
+
+// Text
+$theme-text-color: "ink";
+$theme-text-reverse-color: "white";
 
 // Links
 $theme-link-color: $theme-color-primary-darker;
