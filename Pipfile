@@ -38,6 +38,7 @@ requests = "*"
 email-validator = "*"
 netaddr = "*"
 boto3 = "*"
+python-frontmatter = "*"
 
 [requires]
 python_version = "3.9.7"
