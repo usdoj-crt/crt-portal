@@ -29,6 +29,9 @@ else
     node node_modules/gulp/bin/gulp watch &
 fi;
 
+echo Updating response templates…
+python /code/crt_portal/manage.py update_response_templates
+
 echo Compiling i8n files…
 python /code/crt_portal/manage.py compilemessages
 
