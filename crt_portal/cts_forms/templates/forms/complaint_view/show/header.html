@@ -12,7 +12,6 @@
     <span class="backend-blue">{{ data.create_date|date:'g:i a F j, Y' }}</span>
   </span>
   {% if data.intake_format %}
-    <span class="usa-sr-only">from {{ data.intake_format }}</span>
     <span class="usa-tooltip" data-position="right" data-classes="margin-left-1 display-inline" title="from {{ data.intake_format }}">
     {% if data.intake_format == 'web' %}
       <img src="{% static "img/intake-icons/ic_web.svg" %}" class="text-tbottom" alt="" role="presentation">
