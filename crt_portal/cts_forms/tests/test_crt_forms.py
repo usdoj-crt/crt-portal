@@ -804,6 +804,22 @@ class BulkActionsTests(TestCase):
             self.assertEquals(last_activity.description, 'Updated from "new" to "closed"')
             self.assertEquals(last_activity.actor, self.user)
 
+    def test_close_posts(self):
+        ids = [report.id for report in self.reports[3:5]]
+        response = self.post(ids, assigned_to=self.user.id, comment='a comment', assigned_section='ADM', status='new')
+        response = self.post(ids, confirm=False, status='closed', comment='Close Posts')
+        content = str(response.content)
+        self.assertTrue('2 records have been updated: status set to closed' in content)
+        self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
+        for report_id in ids:
+            report = Report.objects.get(id=report_id)
+            first_activity = list(report.target_actions.all())[0]
+            self.assertEquals(first_activity.verb, "Report closed and Assignee removed")
+            self.assertTrue('Date closed updated to' in first_activity.description)
+            self.assertEquals(first_activity.actor, self.user)
+            self.assertEquals(report.assigned_to, None)
+            self.assertEquals(report.status, "closed")
+
     def test_post_with_all(self):
         ids = [report.id for report in self.reports]
         response = self.post(ids, all_ids=True, confirm=True, summary='summary', comment='a comment', assigned_section='ADM', status='new')

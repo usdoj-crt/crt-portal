@@ -1597,7 +1597,18 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         if updated_data:
             updated_data['modified_date'] = datetime.now(timezone.utc)
 
+        existing_reports_closed = []
+        for report in reports:
+            existing_reports_closed.append(report.closed)
         updated_number = reports.update(**updated_data)
+        index = 0
+        for report in reports:
+            if report.closed and not existing_reports_closed[index]:
+                index += 1
+                report.closeout_report()
+                self.report_closed = True
+                report.save()
+                activities.append({'user': user, 'report': report, 'verb': "Report closed and Assignee removed", 'description':  f"Date closed updated to {report.closed_date.strftime('%m/%d/%y %H:%M:%M %p')}"})
 
         for act in activities:
             add_activity(act['user'], act['verb'], act['description'], act['report'])
