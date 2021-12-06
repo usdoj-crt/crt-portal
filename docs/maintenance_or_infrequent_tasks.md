@@ -260,118 +260,74 @@ select * from cts_forms_report where violation_summary='TESTING_NEW_DB 5/24'
 Delete back up file from your local
 Delete crt-db-old from cloud.gov
 
-## Form Letters
 
-### Adding
+## Response templates
 
-To add a new form letter, it is necessary to do a django migration.
-
-Here is an example of a new form migration.
-1. Go to the migrations folder, and create a new migration file.  The naming convention is [4_DIGIT_MIGRATION_NUMBER]_[MIGRATION_DESCRIPTION].  For example
+Response templates (for example, form letters) are used by intake specialists to respond to complaints. These are stored as flat text files with YAML front-matter metadata in this location:
 
 ```
-0099_covid_form_letter.py
+[BASE_DIR]/crt_portal/cts_forms/response_templates/
 ```
 
-Here is an example migration adding a form letter in English.
+Files must be named with a `.md` extension. This is intentional. We currently do not use or parse Markdown, but many of our response templates were initially created with light styling in mind (bold, links, even tables). This functionality may be added in the future.
 
-```
-from django.db import migrations
 
-def add_covid_letters(apps, schema_editor):
-    ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
-    subject = 'Response: Your Civil Rights Division Report - {{ record_locator }} from {{ section_name }} Section'
-    ResponseTemplate.objects.create(
-        title='Trending - General COVID inquiries',
-        subject=subject,
-        body="""
+### Template formatting and variables
+
+Files should have the following format:
+
+```yaml
+---
+title: IER - Form Letter
+subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from the {{ section_name }} Section"
+language: en
+---
 {{ addressee }},
 
-Thank you for your report {{ record_locator }} filed with the Civil Rights Division on {{ date_of_intake }}.
+You contacted the Department of Justice on {{ date_of_intake }}. After careful review of what you submitted, we have determined that your report would more appropriately be handled by another federal agency.
 
-Many Americans are adjusting to a "new normal” as a result of the COVID-19 – one that balances the critical need to prevent the spread of coronavirus with the other factors that also affect health and well-being. As in all emergencies, the COVID-19 outbreak has affected people of many different races, religions, and ethnicities, as well as those with disabilities.
-
-The Civil Rights Division of the U.S. Department of Justice, together with other agencies throughout the federal government, monitors civil rights issues related to COVID-19. For more information, please see www.justice.gov/crt/fcs. More information on the federal government’s response to COVID-19 is available at www.whitehouse.gov/priorities/covid-19/ and www.coronavirus.gov.
-
-Sincerely,
-U.S. Department of Justice
-Civil Rights Division
-""")
-
-def remove_covid_letters(apps, schema_editor):
-    ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
-    templates = ResponseTemplate.objects.filter(title__icontains='Trending - General COVID')
-    templates.delete()
-
-class Migration(migrations.Migration):
-
-    dependencies = [
-        ('cts_forms', '0098_crm_form_letters'),
-    ]
-
-    operations = [
-        migrations.RunPython(add_covid_letters, remove_covid_letters)
-    ]
-
+Your record number is {{ record_locator }}.
 ```
 
-After you are done with your migration, run 
+In the front-matter section, the following properties are required:
 
-```
-docker-compose run web python /code/crt_portal/manage.py makemigrations
-docker-compose run web python /code/crt_portal/manage.py migrate
-```
+- **title**: This is used by staff to identify which letter to send, and it is also a unique identifier for the response template, enforced by our database schema. If a response template matching an existing title is found in the database, it will be updated. If no response template with this title is found, a new entry will be created. (File names are used to identify response templates.)
+- **subject**: This is the subject line that will be used when a response is sent via e-mail.
+- **language**: This is a two-letter language code for the language that the template is written in. See below for a list of language codes.
 
-to add it to the database.
+Other properties can be added to the front-matter section, but will be ignored. There is one optional property.
 
-### Foreign language forms
-    
-Here is an example of a form migration in another language. 
-    
-```
-from django.db import migrations
+- **ignore**: This is a boolean value. If set to `true`, the response template file will not be created or updated in the database. This can be used to prevent a response template from overwriting changes made manually in the database. If this property is missing or set to `false`, the default behavior is to create or update response templates.
 
-def add_covid_letters(apps, schema_editor):
-    ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
-    subject = 'Response: Your Civil Rights Division Report - {{ record_locator }} from {{ section_name }} Section'
-    ResponseTemplate.objects.create(
-        title='Trending - General COVID inquiries (Spanish)',
-        subject=subject,
-        body="""
+The following placeholders are available to use in the text body or in the subject line:
+
+- **`{{ record_locator }}`** - the number-letter ID of a submitted report.
+- **`{{ date_of_intake }}`** - the human-readable date that a report was submitted.
+- **`{{ section_name }}`** - the name of the section that the report has been assigned to.
+- **`{{ addressee }}`** - a boilerplate salutation that includes the reporter's name, if provided.
+
+Placeholders also have locale-specific versions. These can be accessed by prefixing the placeholder with the two-letter language code. For example, this is a response template in Spanish:
+
+```yaml
+---
+title: IER - Form Letter (Spanish)
+subject: "Respuesta: Su informe de la División de Derechos Civiles - {{ record_locator }} de la Sección {{ es.section_name }}"
+language: es
+---
 {{ es.addressee }},
 
-Gracias por el informe {{ record_locator }} que usted presentó ante la División de Derechos Civiles el {{ es.date_of_intake }}.
+Usted se comunicó con el Departamento de Justicia el {{ es.date_of_intake }}. Tras revisar su presentación detenidamente, hemos determinado que su informe podría ser tratado de una forma más apropiada por otra agencia federal.
 
-Como resultado del COVID-19, muchos estadounidenses se están acostumbrando a la “nueva normalidad”, una que hace equilibrio entre la necesidad crítica de prevenir la propagación del coronavirus y otros factores que también afectan la salud y el bienestar. Al igual que en todo caso de emergencia, el brote del COVID-19 ha afectado a mucha gente de distintas razas, religiones y etnias, así como a personas con discapacidades.
-
-La División de Derechos Civiles del Departamento de Justicia de los EE. UU., junta con otras agencias del gobierno federal, supervisa los asuntos relacionados con derechos civiles y el COVID-19. Para más información, vaya a www.justice.gov/crt/fcs. Para más información sobre la respuesta del gobierno federal al COVID-19, vaya a https://www.whitehouse.gov/es/prioridades/covid-19/ y https://espanol.cdc.gov/coronavirus/2019-ncov/index.html.
-
-Atentamente,
-Departamento de Justicia de los EE. UU.
-División de Derechos Civiles
-""")
-
-def remove_covid_letters(apps, schema_editor):
-    ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
-    templates = ResponseTemplate.objects.filter(title__icontains='Trending - General COVID inquiries (Spanish))
-    templates.delete()
-
-class Migration(migrations.Migration):
-
-    dependencies = [
-        ('cts_forms', '0098_crm_form_letters'),
-    ]
-
-    operations = [
-        migrations.RunPython(add_covid_letters, remove_covid_letters)
-    ]
-
+Su número de registro es {{ record_locator }}.
 ```
-    
-Note the "es." preface for variables that are specific to the spanish language.
-    
-### Language Codes used for form letter translation variables.  
-    
+
+Note the "es." prefix for variables that are specific to the Spanish language.
+
+The `{{ record_locator }}` variable is the same in every locale and does not need to be prefixed.
+
+
+#### Language codes
+
 * Spanish = 'es'
 * Chinese Traditional = 'zh-hant'
 * Chinese Simplified = 'zh-hans'
@@ -379,6 +335,27 @@ Note the "es." preface for variables that are specific to the spanish language.
 * Korean = 'ko'
 * Tagalog = 'tl'
 * English = 'en'
+
+
+### Processing
+
+Response templates are automatically added or updated to the database when the Django server starts.
+
+Response templates are never automatically deleted. If a file is removed from the repository, staff should manually delete the response template in the database if that's desired.
+
+If you want to manually run the command to add or update response templates without restarting the server, run this command:
+
+```sh
+docker-compose run web python /code/crt_portal/manage.py update_response_templates
+```
+
+### Legacy response templates
+
+Prior to the flat file system, response templates were added or changed in the database with migrations. This was changed to reduce the amount of coordination and error-proneness of using migrations to add and update data.
+
+Templates that have been previously added via a migration may not yet exist as flat files. Over time, we should be able to port those templates into the new format. Please do not add or make changes to response templates with new migrations.
+
+To remove a legacy response template permanently, that should be done with a new migration.
 
 
 ### Adding a department address to a form
