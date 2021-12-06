@@ -824,7 +824,7 @@ class BulkActionsTests(TestCase):
         first_report = Report.objects.get(id=self.reports[0].id)
         second_report = Report.objects.get(id=self.reports[1].id)
         self.post([first_report.id], confirm=False, status='closed', comment='Close Report')
-        response = self.post([first_report.id, second_report.id], assigned_to=self.user.id, comment='a comment')
+        self.post([first_report.id, second_report.id], assigned_to=self.user.id, comment='a comment')
         first_report_actions = str(first_report.target_actions.all())
         second_report_actions = str(second_report.target_actions.all())
         self.assertTrue('Report closed and Assignee removed' in first_report_actions)
