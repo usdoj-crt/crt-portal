@@ -1606,7 +1606,6 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
             if report.closed and not existing_reports_closed[index]:
                 index += 1
                 report.closeout_report()
-                self.report_closed = True
                 report.save()
                 activities.append({'user': user, 'report': report, 'verb': "Report closed and Assignee removed", 'description': f"Date closed updated to {report.closed_date.strftime('%m/%d/%y %H:%M:%M %p')}"})
 
