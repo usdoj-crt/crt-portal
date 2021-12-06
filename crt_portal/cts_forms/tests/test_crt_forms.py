@@ -820,6 +820,26 @@ class BulkActionsTests(TestCase):
             self.assertEquals(report.assigned_to, None)
             self.assertEquals(report.status, "closed")
 
+    def test_close_mixed_status_posts(self):
+        first_report = Report.objects.get(id=self.reports[0].id)
+        second_report = Report.objects.get(id=self.reports[1].id)
+        self.post([first_report.id], confirm=False, status='closed', comment='Close Report')
+        response = self.post([first_report.id, second_report.id], assigned_to=self.user.id, comment='a comment')
+        first_report_actions = str(first_report.target_actions.all())
+        second_report_actions = str(second_report.target_actions.all())
+        self.assertTrue('Report closed and Assignee removed' in first_report_actions)
+        self.assertTrue('Report closed and Assignee removed' not in second_report_actions)
+        # This following will only effect second_report, because first_report is already closed.
+        self.post([first_report.id, second_report.id], confirm=False, status='closed', comment='Close Reports with Mixed Statuses')
+        first_report_actions = str(first_report.target_actions.all())
+        second_report_actions = str(second_report.target_actions.all())
+        self.assertTrue('Report closed and Assignee removed' in first_report_actions)
+        self.assertTrue('Report closed and Assignee removed' in second_report_actions)
+        first_report = Report.objects.get(id=self.reports[0].id)
+        second_report = Report.objects.get(id=self.reports[1].id)
+        self.assertEquals(first_report.assigned_to, self.user)
+        self.assertEquals(second_report.assigned_to, None)
+
     def test_post_with_all(self):
         ids = [report.id for report in self.reports]
         response = self.post(ids, all_ids=True, confirm=True, summary='summary', comment='a comment', assigned_section='ADM', status='new')
