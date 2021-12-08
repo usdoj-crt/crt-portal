@@ -1,6 +1,7 @@
 from cts_forms.model_variables import (PRIMARY_COMPLAINT_CHOICES,
                                        SECTION_CHOICES, SERVICEMEMBER_CHOICES,
-                                       STATES_AND_TERRITORIES, STATUS_CHOICES)
+                                       STATES_AND_TERRITORIES, STATUS_CHOICES,
+                                       INTAKE_FORMAT_CHOICES)
 from cts_forms.models import Report
 from factory import Faker
 from factory.django import DjangoModelFactory
@@ -39,3 +40,5 @@ class ReportFactory(DjangoModelFactory):
     servicemember = FuzzyChoice(SERVICEMEMBER_CHOICES, getter=lambda c: c[0])
     status = FuzzyChoice(STATUS_CHOICES, getter=lambda c: c[0])
     assigned_section = FuzzyChoice(SECTION_CHOICES, getter=lambda c: c[0])
+
+    intake_format = FuzzyChoice(INTAKE_FORMAT_CHOICES, getter=lambda c: c[0])
