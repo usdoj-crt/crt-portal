@@ -663,22 +663,34 @@ ul.messages {
   }
 }
 
+/* Stylized to fit width of content and to override USWDS tooltip
+   component's wrapping behavior */
 .search-helper-tooltip {
-  margin: 0.5rem;
-  white-space: initial;
-  width: 250px;
-
-  p {
-    font-size: .85rem;
-    margin: 0;
+  .usa-tooltip__trigger {
+    // Allows tooltip arrow to position at centered vertical position
+    display: inline-block;
   }
 
-  ul {
-    margin-left: 1.25rem;
-  }
+  .usa-tooltip__body {
+    padding: 0.75rem;
+    white-space: initial;
+    width: 260px;
 
-  li {
-    list-style: initial !important;
-    font-size: .85rem;
+    p {
+      font-size: .80rem;
+      margin: 0;
+      line-height: 1.4;
+    }
+  
+    ul {
+      margin-left: 1.25rem;
+      margin-bottom: 0;
+    }
+  
+    li {
+      list-style: initial !important;
+      font-size: .80rem;
+      line-height: 1.4;
+    }
   }
 }
