@@ -12,12 +12,35 @@
   .title {
     @include flex-container();
 
+    img {
+      max-width: 32px;
+      width: 32px;
+      padding: 3px;
+    }
+
     .title-copy {
       @include text--heading__medium();
       font-family: family('heading');
       color: color('white');
       font-weight: 400;
       margin-left: 0.8rem;
+      min-width: 250px;
+
+    }
+  }
+
+  .crt-landing--menu_link.reporting-header {
+    color: #fff;
+    border-bottom: 2px solid #162e51;
+    margin: 0 .5rem;
+
+    &:hover {
+      color: #fff;
+      border-bottom: 2px solid color('white');
+    }
+
+    &.selected {
+      border-bottom: 2px solid color('white');
     }
   }
 
@@ -120,6 +143,7 @@
         + .usa-button {
           margin-left: 2rem;
         }
+
         .usa-checkbox {
           position: relative;
         }
@@ -299,6 +323,7 @@
 
 .crt-checkbox {
   @extend .crt-dropdown;
+
   .crt-checkbox__label {
     padding-left: 0;
   }
@@ -488,6 +513,7 @@ form#cts-forms-profile {
   .bulk-print-link {
     text-decoration: none;
   }
+
   .bulk-print-disabled {
     @include u-text($theme-color-base-dark);
     cursor: not-allowed;
@@ -500,6 +526,7 @@ form#cts-forms-profile {
       select {
         flex-basis: 30%;
       }
+
       .help-text {
         flex-basis: 30%;
         font-size: $theme-text-font-size-xs;
@@ -548,6 +575,7 @@ form#cts-forms-profile {
   .crt-textarea {
     display: flex;
     align-items: baseline;
+
     textarea {
       flex-basis: 60%;
       height: auto;
@@ -606,6 +634,7 @@ ul.messages {
 
 #id_assigned_toaria-autocomplete-1-wrapper {
   flex-basis: 60%;
+
   ul.aria-autocomplete__list {
     @include u-z('top');
   }
@@ -640,6 +669,7 @@ ul.messages {
       &:nth-child(odd) {
         @include u-bg($theme-color-base-lightest);
       }
+
       &:not(:last-child) {
         border-bottom: 1px solid color($theme-color-primary-darker);
       }

@@ -2,33 +2,33 @@
 {% load static %}
 
 {% block page_header %}
-{% include 'forms/complaint_view/intake_filters_header.html' with title_text="CRT Complaint Records" profile_form=profile_form  %}
+{% include 'forms/complaint_view/intake_filters_header.html' with title_text="Reporting Portal" profile_form=profile_form  %}
 {% endblock %}
 
 {% block content %}
-<div class="intake-content">
-  <div id="status-update" class="grid-col-auto">
+<div class='intake-content'>
+  <div id='status-update' class='grid-col-auto'>
     {% include 'partials/messages.html' %}
   </div>
   {% include "forms/complaint_view/index/filter-controls.html" with filters=filters form=form %}
-  <div class="display-flex margin-top-8">
+  <div class='display-flex margin-top-8'>
     {% include "forms/complaint_view/index/active-filters.html" %}
-    <span class="intake-pagination margin-left-auto">
+    <span class='intake-pagination margin-left-auto'>
       <p>Showing {{ page_format.page_range_start }} - {{ page_format.page_range_end }} of {{ page_format.count }} records</p>
     </span>
   </div>
-  <div class="grid-col-auto">
-    <div class="intake-table">
-      <div class="intake-table-header">
-        <h2 class="intake-section-title">Incoming records</h2>
-        <div class="margin-left-auto">
+  <div class='grid-col-auto'>
+    <div class='intake-table'>
+      <div class='intake-table-header'>
+        <h2 class='intake-section-title'>Incoming records</h2>
+        <div class='margin-left-auto'>
           {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args placement="top" %}
         </div>
       </div>
       {% include "forms/complaint_view/index/complaints_table.html" with page_format=page_format data_dict=data_dict sort_state=sort_state filter_state=filter_state %}
     </div>
   </div>
-  <div class="margin-bottom-5">
+  <div class='margin-bottom-5'>
     {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args placement="bottom" %}
   </div>
 </div>

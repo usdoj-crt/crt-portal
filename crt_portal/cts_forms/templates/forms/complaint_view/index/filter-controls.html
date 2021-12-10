@@ -1,16 +1,17 @@
 {% load static %}
-<h2 class="intake-section-title">Filters</h2>
+<h2 class='intake-section-title margin-bottom-105'>Report Records</h2>
+<span>Find specific CRT Report Records by using the filter options below.</span>
 <form
-  id="filters-form"
-  method="GET"
-  action="/form/view"
+  id='filters-form'
+  method='GET'
+  action='/form/view'
   novalidate
 >
-  <div class="usa-form intake-filters intake-checkbox">
+  <div class='usa-form intake-filters intake-checkbox'>
     {% include 'forms/complaint_view/index/filters/checkbox_status_filter.html' %}
   </div>
-  <div class="usa-form">
-    <div class="intake-filters">
+  <div class='usa-form'>
+    <div class='intake-filters'>
       {% include 'forms/complaint_view/index/filters/contact_filter.html' %} <!-- First Name -->
       {% include 'forms/complaint_view/index/filters/contact_filter_lastname.html' %}
       {% include 'forms/complaint_view/index/filters/public_id_filter.html' %}
@@ -18,7 +19,7 @@
       {% include 'forms/complaint_view/index/filters/incident_city_state.html' %}
     </div>
 
-    <div class="intake-filters">
+    <div class='intake-filters'>
       {% include 'forms/complaint_view/index/filters/contact_email.html' %}
       {% include 'forms/complaint_view/index/filters/date.html' %}
       {% include 'forms/complaint_view/index/filters/primary_statute_filter.html' %} <!-- Classification -->
@@ -33,17 +34,17 @@
       {% include 'forms/complaint_view/index/filters/prison_type_filter.html' %}
     </div>
 
-    <div class="intake-filters">
+    <div class='intake-filters'>
       {% include 'forms/complaint_view/index/filters/violation_summary_filter.html' %} <!-- Personal description -->
       {% include 'forms/complaint_view/index/filters/summary_filter.html' %} <!-- CRT summary -->
       {% include 'forms/complaint_view/index/filters/incident_location_filter.html' %}
     </div>
 
     <div>
-      <button class="usa-button" type="submit" id="apply-filters-button">
+      <button class='usa-button' type='submit' id='apply-filters-button'>
         Apply filters
       </button>
-      <button class="usa-button usa-button--unstyled" data-clear-filters>
+      <button class='usa-button usa-button--unstyled' data-clear-filters>
         Clear all filters
       </button>
     </div>

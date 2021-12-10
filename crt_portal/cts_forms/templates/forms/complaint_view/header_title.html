@@ -1,0 +1,33 @@
+{% load static %}
+<div class='title'>
+  <div class='title-icon'>
+    <img src="{% static 'img/intake-icons/ic_home.svg' %}" alt='' class='icon' />
+  </div>
+  <h1 class='title-copy'>
+    {{ title_text }}
+  </h1>
+  <ul class='usa-nav__primary usa-accordion'>
+    <li class='usa-nav__primary-item'>
+      {% if report_records %}
+      <a class='crt-landing--menu_link reporting-header selected' href='/form/view'>
+        Report Records
+      </a>
+      {% else %}
+      <a class='crt-landing--menu_link reporting-header' href='/form/view'>
+        Report Records
+      </a>
+      {% endif %}
+    </li>
+    <li class='usa-nav__primary-item'>
+      {% if team_management %}
+      <a class='crt-landing--menu_link reporting-header selected' href='/form/dashboard'>
+        Team Management
+      </a>
+      {% else %}
+      <a class='crt-landing--menu_link reporting-header' href='/form/dashboard'>
+        Team Management
+      </a>
+      {% endif %}
+    </li>
+  </ul>
+</div>

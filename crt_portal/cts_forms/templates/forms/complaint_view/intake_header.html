@@ -1,24 +1,18 @@
 {% load static %}
-<header class="intake-header">
-  <div class="title">
-    <div class="title-icon">
-      <img src="{% static 'img/intake-icons/ic_home.svg' %}" alt="" class="icon" />
-    </div>
-
-    <h1 class="title-copy">
-      {{ title_text }}
-    </h1>
+<header class='intake-header'>
+  <div class='title'>
+    {% include 'forms/complaint_view/header_title.html' with report_records=True title_text='Reporting Portal' %}
   </div>
-  <div class="intake-actions">
-    <a class="add-record" href="/form/new/" label="create record" name="Create record">
-      <img src="{% static 'img/intake-icons/ic_add.svg'%}" alt="" class="icon" />
+  <div class='intake-actions'>
+    <a class='add-record' href='/form/new/' label='create record' name='Create record'>
+      <img src="{% static 'img/intake-icons/ic_add.svg'%}" alt='' class='icon' />
       Add new record
     </a>
   </div>
 </header>
 {% if progress_bar %}
-<div class="intake-header--progress-bar">
-  <div class="grid-container">
+<div class='intake-header--progress-bar'>
+  <div class='grid-container'>
     {% include 'forms/portal/progress-bar.html' %}
   </div>
 </div>
