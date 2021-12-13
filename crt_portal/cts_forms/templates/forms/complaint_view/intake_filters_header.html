@@ -1,17 +1,17 @@
 {% load static %}
-<header class='intake-header grid-row'>
+<header class="intake-header grid-row">
   {% include 'forms/complaint_view/header_title.html' with report_records=True %}
-  <div class='intake-actions'>
+  <div class="intake-actions">
     {% include 'forms/complaint_view/index/filters/checkbox_section_filter.html' %}
-    <a class='add-record' href='/form/new/' label='create record' name='Create record'>
-      <img src="{% static 'img/intake-icons/ic_add.svg'%}" alt='' class='icon' />
+    <a class="add-record" href="/form/new/" label="create record" name="Create record">
+      <img src="{% static 'img/intake-icons/ic_add.svg'%}" alt="" class="icon" />
       Add new record
     </a>
   </div>
 </header>
 {% if progress_bar %}
-<div class='intake-header--progress-bar'>
-  <div class='grid-container'>
+<div class="intake-header--progress-bar">
+  <div class="grid-container">
     {% include 'forms/portal/progress-bar.html' %}
   </div>
 </div>
