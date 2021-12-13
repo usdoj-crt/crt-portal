@@ -2,7 +2,8 @@ from django.urls import path
 
 from .views import (ActionsView, index_view, dashboard_view, ShowView, ProFormView,
                     SaveCommentView, TrendView, ResponseView,
-                    PrintView, ProfileView, ReportAttachmentView, RemoveReportAttachmentView)
+                    PrintView, ProfileView, ReportAttachmentView, RemoveReportAttachmentView,
+                    APIReportViewed)
 from .forms import ProForm
 
 app_name = 'crt_forms'
@@ -23,4 +24,5 @@ urlpatterns = [
     path('attachment/<int:attachment_id>/', RemoveReportAttachmentView.as_view(), name='remove-report-attachment'),
     path('trends/', TrendView.as_view(), name='trends'),
     path('dashboard/', dashboard_view, name='dashboard'),
+    path('api/report/viewed/', APIReportViewed.as_view(), name='crt-api-report-viewed'),
 ]

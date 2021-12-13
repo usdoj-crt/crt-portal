@@ -4,6 +4,7 @@ This is where to put views that need authentication.
  - Add a test to ensure authentication
  - Be mindful of any naming collision with public URLs in settings
 """
+import json
 import logging
 import mimetypes
 import urllib.parse
@@ -19,7 +20,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
 from django.db.models import F
-from django.http import Http404, HttpResponse, QueryDict
+from django.http import Http404, HttpResponse, JsonResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
@@ -148,6 +149,14 @@ def setup_filter_parameters(report, querydict):
         })
 
     return output
+
+
+def mark_report_as_viewed(report, user):
+    now = datetime.now()
+    description = f"Report opened at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
+    add_activity(user, "Report opened:", description, report)
+    report.opened = True
+    report.save()
 
 
 def _format_date(date_string):
@@ -415,11 +424,7 @@ class ShowView(LoginRequiredMixin, View):
         report = get_object_or_404(Report.objects.prefetch_related('attachments'), pk=id)
         output = serialize_data(report, request, id)
         if not report.opened:
-            now = datetime.now()
-            description = f"Report opened at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
-            add_activity(request.user, "Report opened:", description, report)
-            report.opened = True
-            report.save()
+            mark_report_as_viewed(report, request.user)
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)
         filter_output = setup_filter_parameters(report, request.GET)
@@ -788,3 +793,27 @@ class TrendView(LoginRequiredMixin, TemplateView):
             'four_weeks': Trends.objects.filter(record_type='four_weeks'),
             'year': Trends.objects.filter(record_type='year'),
         }
+
+
+class APIReportViewed(View):
+    def post(self, request):
+        # We didn't use the LoginRequiredMixin since this should not redirect
+        # to a login page if unauthed. Instead just return a status code and
+        # a message in case front-end wants to handle it
+        if not request.user.is_authenticated:
+            return JsonResponse({
+                'message': 'You\'re not authorized to do this, please log in and authenticate your request'
+            }, status=403)
+
+        data = json.loads(request.body.decode('utf-8'))
+        report_id = data['report_id']
+        report = Report.objects.filter(pk=report_id).first()
+        if not report.opened:
+            mark_report_as_viewed(report, request.user)
+            response = {
+                'message': f'Report {report.public_id} first viewed by {request.user}',
+            }
+            return JsonResponse(response, status=200)
+        else:
+            # Already opened; acknowledge the request, but do nothing
+            return JsonResponse({}, status=204)
