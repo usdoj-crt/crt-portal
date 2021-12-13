@@ -1,22 +1,22 @@
 {% load static %}
-<h2 class='intake-section-title'>Team Management</h2>
+<h2 class="intake-section-title">Team Management</h2>
 <form
-  id='filters-form'
-  method='GET'
-  action='/form/dashboard'
+  id="filters-form"
+  method="GET"
+  action="/form/dashboard"
   novalidate
 >
-  <div class='usa-form'>
-    <div class='intake-filters'>
+  <div class="usa-form">
+    <div class="intake-filters">
       {% include 'forms/complaint_view/dashboard/filters/assignee.html' %}
       {% include 'forms/complaint_view/index/filters/date.html' %}
     </div>
 
-    <div>
-      <button class='usa-button' type='submit' id='apply-filters-button'>
+    <div class="text-right">
+      <button class="usa-button" type="submit" id="apply-filters-button">
         Apply filters
       </button>
-      <button class='usa-button usa-button--unstyled' data-clear-filters>
+      <button class="usa-button usa-button--unstyled" data-clear-filters>
         Clear all filters
       </button>
     </div>

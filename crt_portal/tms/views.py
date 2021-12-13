@@ -154,7 +154,17 @@ class AdminMessageView(LoginRequiredMixin, View):
         # "failed" or "sent" state to receive status, completion date, and errors.
         if parsed.get('status', '') == 'completed':
             response2 = None
-            if parsed['recipient_counts']['failed'] > 0:
+
+            if parsed['recipient_counts']['inconclusive'] > 0:
+                # Inconclusive emails are ones where the recipient's email client
+                # has not responded either with a failure message or success
+                # confirmation. There is no follow up link, so we have no
+                # `completed_at` value or any additional information. We only
+                # record the status as "Inconclusive"
+                email = TMSEmail.objects.get(tms_id=tms_id)
+                email.status = 'inconclusive'
+                email.save()
+            elif parsed['recipient_counts']['failed'] > 0:
                 response2 = connection.get(target=parsed['_links']['failed'])
             elif parsed['recipient_counts']['sent'] > 0:
                 response2 = connection.get(target=parsed['_links']['sent'])

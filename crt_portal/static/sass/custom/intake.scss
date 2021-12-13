@@ -692,3 +692,35 @@ ul.messages {
     padding-left: 2rem;
   }
 }
+
+/* Stylized to fit width of content and to override USWDS tooltip
+   component's wrapping behavior */
+.search-helper-tooltip {
+  .usa-tooltip__trigger {
+    // Allows tooltip arrow to position at centered vertical position
+    display: inline-block;
+  }
+
+  .usa-tooltip__body {
+    padding: 0.75rem;
+    white-space: initial;
+    width: 260px;
+
+    p {
+      font-size: .80rem;
+      margin: 0;
+      line-height: 1.4;
+    }
+  
+    ul {
+      margin-left: 1.25rem;
+      margin-bottom: 0;
+    }
+  
+    li {
+      list-style: initial !important;
+      font-size: .80rem;
+      line-height: 1.4;
+    }
+  }
+}
