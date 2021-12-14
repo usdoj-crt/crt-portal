@@ -4,30 +4,18 @@
     <img src="{% static 'img/intake-icons/ic_home.svg' %}" alt="" class="icon" />
   </div>
   <h1 class="title-copy">
-    {{ title_text }}
+    Reporting Portal
   </h1>
   <ul class="usa-nav__primary usa-accordion">
     <li class="usa-nav__primary-item">
-      {% if report_records %}
-      <a class="crt-landing--menu_link reporting-header selected" href="/form/view">
-        Report Records
+      <a class="crt-landing--menu_link reporting-header {% if page == 'report_records' %} selected {% endif %}" href="/form/view">
+        Report records
       </a>
-      {% else %}
-      <a class="crt-landing--menu_link reporting-header" href="/form/view">
-        Report Records
-      </a>
-      {% endif %}
     </li>
     <li class="usa-nav__primary-item">
-      {% if team_management %}
-      <a class="crt-landing--menu_link reporting-header selected" href="/form/dashboard">
-        Team Management
+      <a class="crt-landing--menu_link reporting-header {% if page == 'team_management' %} selected {% endif %}" href="/form/dashboard">
+        Team management
       </a>
-      {% else %}
-      <a class="crt-landing--menu_link reporting-header" href="/form/dashboard">
-        Team Management
-      </a>
-      {% endif %}
     </li>
   </ul>
 </div>

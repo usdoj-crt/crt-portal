@@ -1,5 +1,10 @@
 .intake-bg {
   @include u-bg($theme-color-primary-lightest);
+  .intake-section-title {
+    font-size: 28px;
+    line-height: 26px;
+    margin-top: 0;
+  }
 }
 
 .intake-header {
@@ -22,25 +27,39 @@
       @include text--heading__medium();
       font-family: family('heading');
       color: color('white');
-      font-weight: 400;
+      font-weight: 700;
       margin-left: 0.8rem;
       min-width: 250px;
+      font-size: 28px;
+      line-height: 28px;
+    }
+    .usa-nav__primary {
+      display: flex;
+      margin-top: 0;
+      .usa-nav__primary-item {
+        border-top: none;
+        a {
+          color: white !important;
+        }
+      }
 
     }
+
   }
 
   .crt-landing--menu_link.reporting-header {
     color: #fff;
-    border-bottom: 2px solid #162e51;
+    border-bottom: 3px solid #162e51;
     margin: 0 .5rem;
-
+    font-size: 18px;
+    font-weight: 500;
     &:hover {
       color: #fff;
-      border-bottom: 2px solid color('white');
+      border-bottom: 3px solid color('white');
     }
 
     &.selected {
-      border-bottom: 2px solid color('white');
+      border-bottom: 3px solid color('white');
     }
   }
 
@@ -711,12 +730,12 @@ ul.messages {
       margin: 0;
       line-height: 1.4;
     }
-  
+
     ul {
       margin-left: 1.25rem;
       margin-bottom: 0;
     }
-  
+
     li {
       list-style: initial !important;
       font-size: .80rem;

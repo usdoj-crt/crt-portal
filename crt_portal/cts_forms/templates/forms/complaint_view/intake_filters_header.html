@@ -1,6 +1,6 @@
 {% load static %}
 <header class="intake-header grid-row">
-  {% include 'forms/complaint_view/header_title.html' with report_records=True %}
+  {% include 'forms/complaint_view/header_title.html' with page="report_records" %}
   <div class="intake-actions">
     {% include 'forms/complaint_view/index/filters/checkbox_section_filter.html' %}
     <a class="add-record" href="/form/new/" label="create record" name="Create record">

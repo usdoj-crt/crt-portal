@@ -1,7 +1,7 @@
 {% load static %}
 <header class="intake-header">
   <div class="title">
-    {% include 'forms/complaint_view/header_title.html' with report_records=True title_text='Reporting Portal' %}
+    {% include 'forms/complaint_view/header_title.html' with page="report_records" %}
   </div>
   <div class="intake-actions">
     <a class="add-record" href="/form/new/" label="create record" name="Create record">
