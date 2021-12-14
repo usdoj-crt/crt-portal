@@ -22,7 +22,13 @@
 
 .usa-combo-box__clear-input {
   background-image: url(../../img/close-blue-60-alt.svg), linear-gradient(transparent, transparent);
+  background-size: 13px;
 
   /* Override a very aggressive button width from .intake-content */
   width: auto !important;
+}
+
+.usa-combo-box__clear-input, .usa-combo-box__toggle-list {
+  /* Override USWDS opacity setting */
+  opacity: 1;
 }

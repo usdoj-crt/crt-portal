@@ -97,6 +97,10 @@ jobs:
           command: |
             pipenv run flake8
       - run:
+          name: add or update response templates
+          command: |
+            pipenv run crt_portal/manage.py update_response_templates
+      - run:
           name: compile messages for internationalization
           command: |
             pipenv run crt_portal/manage.py compilemessages

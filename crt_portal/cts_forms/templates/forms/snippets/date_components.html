@@ -1,31 +1,30 @@
-<section class="usa-memorable-date">
-    <div class="grid-row" {% if help_text %}aria-labelledby="incident-date-help-text"{% endif %}>
-        <div class="mobile-lg:grid-col-3">
-            <label class="usa-label" for="{{ month.id_for_label }}">
-                {{ month.label }}{% if required %}<span class="text-secondary-dark">*</span>{% endif %}
-            </label>
-            {{ month|withInputError }}
-        </div>
-        <div class="mobile-lg:grid-col-3">
-            <label class="usa-label" for="{{ day.id_for_label}}">
-                {{ day.label }}
-            </label>
-            {{ day|withInputError }}
-        </div>
-        <div class="mobile-lg:grid-col-5">
-            <label class="usa-label" for="{{ year.id_for_label }}">
-                {{ year.label }}{% if required %}<span class="text-secondary-dark">*</span>{% endif %}
-            </label>
-            {{ year|withInputError }}
-        </div>
-    </div>
-</section>
+<div class="usa-memorable-date" {% if help_text %}aria-labelledby="incident-date-help-text"{% endif %}>
+  <div class="usa-form-group usa-form-group--month">
+    <label class="usa-label" for="{{ month.id_for_label }}">
+      {{ month.label }}{% if required %}<span class="text-secondary-dark">*</span>{% endif %}
+    </label>
+    {{ month|withInputError }}
+  </div>
+  <div class="usa-form-group usa-form-group--day">
+    <label class="usa-label" for="{{ day.id_for_label}}">
+      {{ day.label }}
+    </label>
+    {{ day|withInputError }}
+  </div>
+  <div class="usa-form-group usa-form-group--year">
+    <label class="usa-label" for="{{ year.id_for_label }}">
+      {{ year.label }}{% if required %}<span class="text-secondary-dark">*</span>{% endif %}
+    </label>
+    {{ year|withInputError }}
+  </div>
+</div>
+
 {% if month.errors %}
-{% include "forms/snippets/error_alert.html" with errors=month.errors %}
+  {% include "forms/snippets/error_alert.html" with errors=month.errors %}
 {% endif %}
 {% if day.errors %}
-{% include "forms/snippets/error_alert.html" with errors=day.errors %}
+  {% include "forms/snippets/error_alert.html" with errors=day.errors %}
 {% endif %}
 {% if year.errors %}
-{% include "forms/snippets/error_alert.html" with errors=year.errors %}
+  {% include "forms/snippets/error_alert.html" with errors=year.errors %}
 {% endif %}

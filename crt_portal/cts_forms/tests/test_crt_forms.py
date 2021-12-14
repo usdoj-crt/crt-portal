@@ -17,7 +17,7 @@ from datetime import datetime
 
 from ..forms import BulkActionsForm, ComplaintActions, Filters, ReportEditForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, NEW_STATUS
-from ..models import CommentAndSummary, Report, ResponseTemplate
+from ..models import CommentAndSummary, Report, ResponseTemplate, EmailReportCount
 from .factories import ReportFactory
 from .test_data import SAMPLE_REPORT, SAMPLE_RESPONSE_TEMPLATE
 
@@ -406,6 +406,7 @@ class FormNavigationTests(TestCase):
         ReportFactory.create_batch(2, assigned_section='DRS')
         ReportFactory.create_batch(2, assigned_section='ELS')
         ReportFactory.create_batch(1, assigned_section='EOS')
+        EmailReportCount.refresh_view()
 
     def test_basic_navigation(self):
         first = self.reports[-1]
@@ -803,6 +804,42 @@ class BulkActionsTests(TestCase):
             self.assertEquals(last_activity.description, 'Updated from "new" to "closed"')
             self.assertEquals(last_activity.actor, self.user)
 
+    def test_close_posts(self):
+        ids = [report.id for report in self.reports[3:5]]
+        response = self.post(ids, assigned_to=self.user.id, comment='a comment', assigned_section='ADM', status='new')
+        response = self.post(ids, confirm=False, status='closed', comment='Close Posts')
+        content = str(response.content)
+        self.assertTrue('2 records have been updated: status set to closed' in content)
+        self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
+        for report_id in ids:
+            report = Report.objects.get(id=report_id)
+            first_activity = list(report.target_actions.all())[0]
+            self.assertEquals(first_activity.verb, "Report closed and Assignee removed")
+            self.assertTrue('Date closed updated to' in first_activity.description)
+            self.assertEquals(first_activity.actor, self.user)
+            self.assertEquals(report.assigned_to, None)
+            self.assertEquals(report.status, "closed")
+
+    def test_close_mixed_status_posts(self):
+        first_report = Report.objects.get(id=self.reports[0].id)
+        second_report = Report.objects.get(id=self.reports[1].id)
+        self.post([first_report.id], confirm=False, status='closed', comment='Close Report')
+        self.post([first_report.id, second_report.id], assigned_to=self.user.id, comment='a comment')
+        first_report_actions = str(first_report.target_actions.all())
+        second_report_actions = str(second_report.target_actions.all())
+        self.assertTrue('Report closed and Assignee removed' in first_report_actions)
+        self.assertTrue('Report closed and Assignee removed' not in second_report_actions)
+        # This following will only effect second_report, because first_report is already closed.
+        self.post([first_report.id, second_report.id], confirm=False, status='closed', comment='Close Reports with Mixed Statuses')
+        first_report_actions = str(first_report.target_actions.all())
+        second_report_actions = str(second_report.target_actions.all())
+        self.assertTrue('Report closed and Assignee removed' in first_report_actions)
+        self.assertTrue('Report closed and Assignee removed' in second_report_actions)
+        first_report = Report.objects.get(id=self.reports[0].id)
+        second_report = Report.objects.get(id=self.reports[1].id)
+        self.assertEquals(first_report.assigned_to, self.user)
+        self.assertEquals(second_report.assigned_to, None)
+
     def test_post_with_all(self):
         ids = [report.id for report in self.reports]
         response = self.post(ids, all_ids=True, confirm=True, summary='summary', comment='a comment', assigned_section='ADM', status='new')
@@ -906,6 +943,7 @@ class FiltersFormTests(TestCase):
         ReportFactory.create_batch(3, contact_email=self.email1)
         ReportFactory.create_batch(5, contact_email=self.email2)
         ReportFactory.create_batch(8, contact_email=None)
+        EmailReportCount.refresh_view()
 
     def test_basic_navigation(self):
         response = self.client.get(reverse('crt_forms:crt-forms-index'), {})
@@ -999,7 +1037,7 @@ class FiltersFormTests(TestCase):
         ReportFactory.create_batch(5, contact_email=self.email5)
         ReportFactory.create_batch(2, contact_email=self.email6)
         ReportFactory.create_batch(4, contact_email=self.email7)
-
+        EmailReportCount.refresh_view()
         response = self.client.get(reverse('crt_forms:crt-forms-index'), {})
         self.assertEquals(response.status_code, 200)
 

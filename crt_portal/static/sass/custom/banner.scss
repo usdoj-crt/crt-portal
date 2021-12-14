@@ -16,6 +16,12 @@
     }
   }
 
+  .usa-banner__header-action {
+    /* Override aggressive global <p> font-size */
+    /* Should match font-size of .usa-banner__header-text */
+    font-size: .75rem;
+  }
+
   .language-selection {
 
     @media (max-width: 63.99em) {

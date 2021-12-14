@@ -8,7 +8,8 @@ from django.db.models import Prefetch
 from django.http import StreamingHttpResponse
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
-                     ProtectedClass, Report, ResponseTemplate, DoNotEmail)
+                     ProtectedClass, Report, ResponseTemplate, DoNotEmail,
+                     JudicialDistrict)
 from .signals import get_client_ip
 
 logger = logging.getLogger(__name__)
@@ -156,6 +157,12 @@ class ActionAdmin(ReadOnlyModelAdmin):
     actions = [export_actions_as_csv]
 
 
+class JudicialDistrictAdmin(ReadOnlyModelAdmin):
+    list_display = ['zipcode', 'city', 'county', 'state', 'district']
+    list_filter = ['district']
+    search_fields = ['zipcode', 'city', 'county', 'state', 'district']
+
+
 admin.site.register(CommentAndSummary)
 admin.site.register(Report, ReportAdmin)
 admin.site.register(ProtectedClass)
@@ -163,7 +170,7 @@ admin.site.register(HateCrimesandTrafficking)
 admin.site.register(ResponseTemplate)
 admin.site.register(Profile)
 admin.site.register(DoNotEmail)
-
+admin.site.register(JudicialDistrict, JudicialDistrictAdmin)
 
 # Activity stream already registers an Admin for Action, we want to replace it
 admin.site.unregister(Action)

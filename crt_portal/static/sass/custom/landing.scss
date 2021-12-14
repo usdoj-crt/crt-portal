@@ -154,10 +154,11 @@ $arrow-height: 24px;
           height: 1rem;
         }
 
+        // Override USWDS styles
         a {
-          color: #162e51;
-          padding-top: 0px;
-          padding-left: 0.5rem;
+          color: #162e51 !important;
+          padding-top: 0 !important;
+          padding-left: 0.5rem !important;
         }
       }
     }
@@ -181,7 +182,7 @@ $arrow-height: 24px;
   .crt-landing--menu_link {
     color: #162e51 !important;
     font-weight: normal !important;
-    padding: 1rem 0.25rem;
+    padding: 1rem 0.25rem !important;
 
     @include at-media('desktop') {
       color: white !important;

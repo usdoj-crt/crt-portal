@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from cts_forms.tests.factories import ReportFactory
 from datetime import datetime
+from cts_forms.signals import salt
 
 
 class Command(BaseCommand):
@@ -18,5 +19,8 @@ class Command(BaseCommand):
             # report.contact_email = "test@test.test"
             report.status = 'open'
             report.create_date = datetime.now()
+            report.save()
+            salt_chars = salt()
+            report.public_id = f'{report.pk}-{salt_chars}'
             report.save()
         self.stdout.write(self.style.SUCCESS(f'Created {number_reports} reports'))

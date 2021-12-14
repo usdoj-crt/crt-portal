@@ -1,5 +1,6 @@
 """All models need to be added to signals.py for proper logging."""
 import logging
+import time
 from datetime import datetime
 from babel.dates import format_date
 
@@ -440,6 +441,15 @@ class EmailReportCount(models.Model):
         """This model is tied to a view created from migration 93"""
         managed = False
         db_table = 'email_report_count'
+
+    @staticmethod
+    def refresh_view():
+        start = time.time()
+        with connection.cursor() as cursor:
+            cursor.execute("REFRESH MATERIALIZED VIEW CONCURRENTLY email_report_count;")
+        end = time.time()
+        elapsed = round(end - start, 4)
+        logger.info(f'SUCCESS: Refreshed Email view in {elapsed} seconds')
 
 
 class Trends(models.Model):
