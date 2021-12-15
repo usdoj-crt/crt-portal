@@ -1,0 +1,21 @@
+{% load static %}
+<div class="title">
+  <div class="title-icon">
+    <img src="{% static 'img/intake-icons/ic_home.svg' %}" alt="" class="icon" />
+  </div>
+  <h1 class="title-copy">
+    Reporting Portal
+  </h1>
+  <ul class="usa-nav__primary usa-accordion">
+    <li class="usa-nav__primary-item">
+      <a class="crt-landing--menu_link reporting-header {% if page == 'report_records' %} selected {% endif %}" href="/form/view">
+        Report records
+      </a>
+    </li>
+    <li class="usa-nav__primary-item">
+      <a class="crt-landing--menu_link reporting-header {% if page == 'team_management' %} selected {% endif %}" href="/form/dashboard">
+        Team management
+      </a>
+    </li>
+  </ul>
+</div>

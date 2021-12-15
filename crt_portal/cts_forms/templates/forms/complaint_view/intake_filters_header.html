@@ -1,15 +1,6 @@
 {% load static %}
-<header class="intake-header">
-  <div class="title">
-    <div class="title-icon">
-      <img src="{% static 'img/intake-icons/ic_home.svg' %}" alt="" class="icon" />
-    </div>
-
-    <h1 class="title-copy">
-      {{ title_text }}
-    </h1>
-  </div>
-
+<header class="intake-header grid-row">
+  {% include 'forms/complaint_view/header_title.html' with page="report_records" %}
   <div class="intake-actions">
     {% include 'forms/complaint_view/index/filters/checkbox_section_filter.html' %}
     <a class="add-record" href="/form/new/" label="create record" name="Create record">
