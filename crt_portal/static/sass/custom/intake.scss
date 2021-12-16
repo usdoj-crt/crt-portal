@@ -340,6 +340,23 @@
   }
 }
 
+/* Matches styling of .crt-dropdown, but is not a .crt-dropdown */
+.crt-filter {
+  align-items: center;
+  background: color('white');
+  border-radius: 3px;
+  display: flex;
+  min-height: 2.5rem;
+  min-width: 6rem;
+  position: relative;
+  margin-right: 1rem;
+  margin-bottom: 2rem;
+
+  &:last-of-type {
+    margin-top: 0rem;
+  }
+}
+
 .crt-checkbox {
   @extend .crt-dropdown;
 
@@ -741,5 +758,30 @@ ul.messages {
       font-size: .80rem;
       line-height: 1.4;
     }
+  }
+}
+
+/* Match combo box input styling with other filters */
+.crt-combo-box-filter {
+  width: 15rem; /* Hard code width to fix situation where input would expand when an item is selected */
+
+  .usa-combo-box__input {
+    margin-top: 0;
+    border: 0;
+
+    &::placeholder {
+      color: color($theme-color-primary-darker);
+      opacity: 1; /* Firefox */
+    }
+
+    &::-ms-input-placeholder {
+      color: color($theme-color-primary-darker);
+    }
+  }
+
+  .usa-combo-box__list {
+    border: 0;
+    border-top: 1px solid color("base-lighter"); /* Match list item border color */
+    box-shadow: 0 15px 10px rgb(100 100 100 / 20%); /* Match .crt-dropdown .content */
   }
 }
