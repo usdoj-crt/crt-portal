@@ -37,6 +37,15 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 from django.views.generic import RedirectView, TemplateView
 
+from django.urls import include, path
+from rest_framework import routers
+from api.views import (UserViewSet, ReportList, ReportViewSet, ResponseTemplateViewSet)
+
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+router.register(r'reports', ReportViewSet)
+router.register(r'responsetemplates', ResponseTemplateViewSet)
+
 environment = os.environ.get('ENV', 'UNDEFINED')
 if environment in ['PRODUCTION', 'STAGE']:
     auth = [
@@ -79,8 +88,12 @@ urlpatterns = auth + [
         },
     ), name='crt_report_form'),
     path('privacy-policy', TemplateView.as_view(template_name="privacy.html"), name='privacy_policy'),
-    path('hate-crime-human-trafficking', TemplateView.as_view(template_name="hate_crime_human_trafficking.html"), name='hate_crime_human_trafficking'),
+    path('hate-crime-human-trafficking', TemplateView.as_view(template_name="hate_crime_human_trafficking.html"),
+         name='hate_crime_human_trafficking'),
     path('', LandingPageView.as_view(), name='crt_landing_page'),
+    path('api/v1/', include(router.urls)),
+    path('api/v1/reports', ReportViewSet),
+    path('api/v1/api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler400 = 'cts_forms.views_public.error_400'
@@ -93,6 +106,7 @@ handler503 = 'cts_forms.views_public.error_503'
 
 if settings.ENABLE_DEBUG_TOOLBAR:
     import debug_toolbar
+
     urlpatterns += [
         path('__debug__/', include(debug_toolbar.urls)),
     ]

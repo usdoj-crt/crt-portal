@@ -53,8 +53,8 @@ class Profile(models.Model):
 
 
 class CommentAndSummary(models.Model):
-    note = models.CharField(max_length=7000, null=False, blank=False,)
-    author = models.CharField(max_length=1000, null=False, blank=False,)
+    note = models.CharField(max_length=7000, null=False, blank=False, )
+    author = models.CharField(max_length=1000, null=False, blank=False, )
     modified_date = models.DateTimeField(auto_now=True)
     create_date = models.DateTimeField(auto_now_add=True)
     is_summary = models.BooleanField(default=False)
@@ -64,7 +64,8 @@ class CommentAndSummary(models.Model):
 
 
 class ProtectedClass(models.Model):
-    protected_class = models.CharField(max_length=100, null=True, blank=True, choices=PROTECTED_MODEL_CHOICES, unique=True)
+    protected_class = models.CharField(max_length=100, null=True, blank=True, choices=PROTECTED_MODEL_CHOICES,
+                                       unique=True)
     value = models.CharField(max_length=100, blank=True, choices=PROTECTED_MODEL_CHOICES, unique=True)
     # for display in the CRT views
     code = models.CharField(max_length=100, null=True, blank=True, unique=True)
@@ -83,7 +84,8 @@ class ProtectedClass(models.Model):
 
 # Not in use- but need to preserving historical data
 class HateCrimesandTrafficking(models.Model):
-    hatecrimes_trafficking_option = models.CharField(max_length=500, null=True, blank=True, choices=HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, unique=True)
+    hatecrimes_trafficking_option = models.CharField(max_length=500, null=True, blank=True,
+                                                     choices=HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, unique=True)
     value = models.CharField(max_length=500, blank=True, choices=HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, unique=True)
 
     def __str__(self):
@@ -160,24 +162,32 @@ class Report(models.Model):
 
     # Incident location routing-specific fields
     election_details = models.CharField(max_length=225, null=True, blank=True, default=None, choices=ELECTION_CHOICES)
-    public_or_private_employer = models.CharField(max_length=100, null=True, blank=True, default=None, choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES)
+    public_or_private_employer = models.CharField(max_length=100, null=True, blank=True, default=None,
+                                                  choices=PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES)
     employer_size = models.CharField(max_length=100, null=True, blank=True, default=None, choices=EMPLOYER_SIZE_CHOICES)
 
     # By law
-    inside_correctional_facility = models.CharField(max_length=255, null=True, blank=True, default=None, choices=CORRECTIONAL_FACILITY_LOCATION_CHOICES)
-    correctional_facility_type = models.CharField(max_length=50, null=True, blank=True, default=None, choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES)
+    inside_correctional_facility = models.CharField(max_length=255, null=True, blank=True, default=None,
+                                                    choices=CORRECTIONAL_FACILITY_LOCATION_CHOICES)
+    correctional_facility_type = models.CharField(max_length=50, null=True, blank=True, default=None,
+                                                  choices=CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES)
 
     # Commercial or public space
-    commercial_or_public_place = models.CharField(max_length=225, choices=COMMERCIAL_OR_PUBLIC_PLACE_CHOICES, null=True, blank=True, default=None)
+    commercial_or_public_place = models.CharField(max_length=225, choices=COMMERCIAL_OR_PUBLIC_PLACE_CHOICES, null=True,
+                                                  blank=True, default=None)
     other_commercial_or_public_place = models.CharField(max_length=150, blank=True, null=True, default=None)
 
     # Education location
-    public_or_private_school = models.CharField(max_length=100, null=True, blank=True, choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, default=None)
+    public_or_private_school = models.CharField(max_length=100, null=True, blank=True,
+                                                choices=PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, default=None)
 
     # Incident date
-    last_incident_year = models.PositiveIntegerField(MaxValueValidator(datetime.now().year, message=DATE_ERRORS['no_future']), null=True, blank=True)
-    last_incident_day = models.PositiveIntegerField(MaxValueValidator(31, message=DATE_ERRORS['day_invalid']), null=True, blank=True)
-    last_incident_month = models.PositiveIntegerField(MaxValueValidator(12, message=DATE_ERRORS['month_invalid']), null=True, blank=True,)
+    last_incident_year = models.PositiveIntegerField(
+        MaxValueValidator(datetime.now().year, message=DATE_ERRORS['no_future']), null=True, blank=True)
+    last_incident_day = models.PositiveIntegerField(MaxValueValidator(31, message=DATE_ERRORS['day_invalid']),
+                                                    null=True, blank=True)
+    last_incident_month = models.PositiveIntegerField(MaxValueValidator(12, message=DATE_ERRORS['month_invalid']),
+                                                      null=True, blank=True, )
 
     # Internal comments
     internal_comments = models.ManyToManyField(CommentAndSummary)
@@ -194,10 +204,12 @@ class Report(models.Model):
     crt_reciept_month = models.PositiveIntegerField(MaxValueValidator(12), null=True, blank=True)
     intake_format = models.CharField(max_length=100, null=True, default=None, choices=INTAKE_FORMAT_CHOICES)
     author = models.CharField(max_length=1000, null=True, blank=True)
-    assigned_to = models.ForeignKey(User, blank=True, null=True, related_name="assigned_complaints", on_delete=models.CASCADE)
-    closed_date = models.DateTimeField(blank=True, null=True, help_text="The Date this report's status was most recently set to \"Closed\"")
+    assigned_to = models.ForeignKey(User, blank=True, null=True, related_name="assigned_complaints",
+                                    on_delete=models.CASCADE)
+    closed_date = models.DateTimeField(blank=True, null=True,
+                                       help_text="The Date this report's status was most recently set to \"Closed\"")
     language = models.CharField(default='en', max_length=10, blank=True, null=True)
-    opened = models.BooleanField(default=False)
+    read = models.BooleanField(default=False)
 
     # Not in use- but need to preserving historical data
     hatecrimes_trafficking = models.ManyToManyField(HateCrimesandTrafficking, blank=True)
@@ -379,7 +391,8 @@ class Report(models.Model):
     @cached_property
     def related_reports(self):
         """Return qs of reports with the same value for `contact_email`"""
-        return Report.objects.exclude(contact_email__isnull=True).filter(contact_email__iexact=self.contact_email).order_by('status', '-create_date')
+        return Report.objects.exclude(contact_email__isnull=True).filter(
+            contact_email__iexact=self.contact_email).order_by('status', '-create_date')
 
     @cached_property
     def related_reports_display(self):
@@ -397,7 +410,8 @@ class Report(models.Model):
     @cached_property
     def recent_email_sent(self):
         """Returns the name of the last email template sent in response to this report"""
-        recent_contact_activity = self.activity().filter(verb='Contacted complainant:', description__contains='Email sent').first()
+        recent_contact_activity = self.activity().filter(verb='Contacted complainant:',
+                                                         description__contains='Email sent').first()
         if recent_contact_activity:
             try:
                 email = recent_contact_activity.description.split("'")[1]
@@ -475,10 +489,10 @@ class Trends(models.Model):
 
 
 class ResponseTemplate(models.Model):
-    title = models.CharField(max_length=100, null=False, blank=False, unique=True,)
-    subject = models.CharField(max_length=150, null=False, blank=False,)
-    body = models.TextField(null=False, blank=False,)
-    language = models.CharField(default='en', max_length=10, null=False, blank=False,)
+    title = models.CharField(max_length=100, null=False, blank=False, unique=True, )
+    subject = models.CharField(max_length=150, null=False, blank=False, )
+    body = models.TextField(null=False, blank=False, )
+    language = models.CharField(default='en', max_length=10, null=False, blank=False, )
 
     def utc_timezone_to_est(self, utc_dt):
         local_tz = pytz.timezone('US/Eastern')

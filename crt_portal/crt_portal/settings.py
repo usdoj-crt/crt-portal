@@ -36,7 +36,6 @@ DEBUG = os.environ.get('DEBUG', False)
 ENABLE_DEBUG_TOOLBAR = os.environ.get('ENABLE_DEBUG_TOOLBAR', False)
 MAINTENANCE_MODE = os.environ.get('MAINTENANCE_MODE', False)
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -94,6 +93,7 @@ INSTALLED_APPS = [
     'formtools',
     # 'django_auth_adfs' in production only
     'crequest',
+    'rest_framework',
     'tms'
 ]
 SITE_ID = 1
@@ -395,7 +395,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 # This is where source assets are collect from by collect static
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 # Enable for admin storage
 # MEDIA_URL = 'media/'
 # Where assets are served by web server
@@ -449,7 +449,7 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'INFO',
             'propagate': False,  # this tells logger to send logging message
-                                 # to its parent (will send if set to True)
+            # to its parent (will send if set to True)
         },
         'django.db': {
             # django also has database level logging
@@ -480,3 +480,8 @@ if ENABLE_DEBUG_TOOLBAR:
     INSTALLED_APPS += ['debug_toolbar', ]
     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
     DEBUG_TOOLBAR_CONFIG = {'SHOW_TOOLBAR_CALLBACK': lambda _: True}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}

@@ -150,6 +150,14 @@ def setup_filter_parameters(report, querydict):
     return output
 
 
+def mark_report_as_viewed(report, user):
+    now = datetime.now()
+    description = f"Report opened at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
+    add_activity(user, "Report opened:", description, report)
+    report.read = True
+    report.save()
+
+
 def _format_date(date_string):
     if date_string:
         return datetime.strptime(date_string, '%Y-%m-%d')
@@ -414,16 +422,17 @@ class ShowView(LoginRequiredMixin, View):
     def get(self, request, id):
         report = get_object_or_404(Report.objects.prefetch_related('attachments'), pk=id)
         output = serialize_data(report, request, id)
-        if not report.opened:
+        if not report.read:
             now = datetime.now()
             description = f"Report opened at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
             add_activity(request.user, "Report opened:", description, report)
-            report.opened = True
+            report.read = True
             report.save()
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)
         filter_output = setup_filter_parameters(report, request.GET)
-        autoresponse_email = TMSEmail.objects.filter(report=report.id, purpose=TMSEmail.AUTO_EMAIL).order_by('created_at').first()
+        autoresponse_email = TMSEmail.objects.filter(report=report.id, purpose=TMSEmail.AUTO_EMAIL).order_by(
+            'created_at').first()
         output.update({
             'contact_form': contact_form,
             'details_form': details_form,
@@ -496,6 +505,7 @@ class ShowView(LoginRequiredMixin, View):
 
 class ActionsView(LoginRequiredMixin, FormView):
     """ CRT view to update report data"""
+
     def get(self, request):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
@@ -670,7 +680,6 @@ class RemoveReportAttachmentView(LoginRequiredMixin, View):
     http_method_names = ['post']
 
     def post(self, request, attachment_id):
-
         attachment = get_object_or_404(ReportAttachment, pk=attachment_id)
 
         logger.info(f'User {request.user} removing attachment with id {attachment_id}')
@@ -734,6 +743,7 @@ class SaveCommentView(LoginRequiredMixin, FormView):
 
 class ProFormView(LoginRequiredMixin, SessionWizardView):
     """This is the one-page internal form for CRT staff to input complaints"""
+
     def get_template_names(self):
         return 'forms/pro_template.html'
 
