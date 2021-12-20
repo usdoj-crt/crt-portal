@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from cts_forms.tests.factories import ReportFactory
 from datetime import datetime
 from cts_forms.signals import salt
+from cts_forms.models import EmailReportCount
 
 
 class Command(BaseCommand):
@@ -23,4 +24,5 @@ class Command(BaseCommand):
             salt_chars = salt()
             report.public_id = f'{report.pk}-{salt_chars}'
             report.save()
+        EmailReportCount.refresh_view()
         self.stdout.write(self.style.SUCCESS(f'Created {number_reports} reports'))
