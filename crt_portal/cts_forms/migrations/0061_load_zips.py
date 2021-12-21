@@ -34,7 +34,6 @@ def fetch_file():  # pragma: no cover
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('cts_forms', '0061_adjust_district_model'),
     ]

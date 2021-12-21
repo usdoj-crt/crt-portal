@@ -185,7 +185,8 @@ class AdminMessageView(LoginRequiredMixin, View):
                 email.save()
 
                 # Displays both payloads
-                return render(request, 'email.html', {'data': json.dumps(parsed, indent=2) + '\n' + json.dumps(parsed2, indent=2)})
+                return render(request, 'email.html',
+                              {'data': json.dumps(parsed, indent=2) + '\n' + json.dumps(parsed2, indent=2)})
             else:
                 return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
         else:

@@ -1,75 +1,62 @@
-from django.http import HttpResponse, JsonResponse
-from rest_framework import status
 from django.contrib.auth.models import User
 from cts_forms.models import Report, ResponseTemplate
 from rest_framework import viewsets
+from rest_framework import generics
 from rest_framework import permissions
-from rest_framework.views import APIView
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.reverse import reverse
+from cts_forms.views import mark_report_as_viewed
 
 from api.serializers import UserSerializer, ReportSerializer, ResponseTemplateSerializer
 
 
-class UserViewSet(viewsets.ModelViewSet):
+@api_view(['GET'])
+def api_root(request, format=None):
+    return Response({
+        'users': reverse('user-list', request=request, format=format),
+        'reports': reverse('report-list', request=request, format=format),
+        'responses': reverse('response-list', request=request, format=format)
+    })
+
+
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    API endpoint that allows users to be viewed or edited.
+    This viewset automatically provides `list` and `retrieve` actions.
     """
-    queryset = User.objects.all().order_by('-date_joined')
+    queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
 
 
-class ResponseTemplateViewSet(viewsets.ModelViewSet):
+class ReportList(generics.ListAPIView):
     """
-    API endpoint that allows users to be viewed or edited.
+    API endpoint that allows Reports to be viewed.
     """
-    queryset = ResponseTemplate.objects.all()
-    serializer_class = ResponseTemplateSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-
-class ReportViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-
     queryset = Report.objects.all().order_by('pk')
     serializer_class = ReportSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
-class ReportList(APIView):
-    """
-    List all snippets, or create a new snippet.
-    """
+class ReportDetail(generics.RetrieveUpdateAPIView):
+    queryset = Report.objects.all()
+    serializer_class = ReportSerializer
 
-    def get(self, request, format=None):
-        snippets = Report.objects.all()
-        serializer = ReportSerializer(snippets, many=True)
-        return Response(serializer.data)
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        report_pk = kwargs.get("pk")
+        if report_pk:
+            report = Report.objects.filter(pk=report_pk).first()
+            if not report.read:
+                mark_report_as_viewed(report, request.user)
+        return self.update(request, *args, **kwargs)
 
 
-def report_opened(request, pk):
+class ResponseList(generics.ListAPIView):
     """
-    Retrieve, update or delete a code snippet.
+    API endpoint that allows responses to be viewed.
     """
-    print("request", request)
-    print("in report_opened")
-    # try:
-    #     report = Report.objects.get(pk=pk)
-    # except Report.DoesNotExist:
-    #     return HttpResponse(status=404)
-    #
-    # if request.method == 'GET':
-    #     data = JSONParser().parse(request)
-    #     print("data", data)
-    #     serializer = ReportSerializer(report)
-    #     return JsonResponse(serializer.data)
-    #
-    # elif request.method == 'PUT':
-    #     data = JSONParser().parse(request)
-    #     serializer = ReportSerializer(report, data=data)
-    #     if serializer.is_valid():
-    #         serializer.save()
-    #         return JsonResponse(serializer.data)
-    #     return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    queryset = ResponseTemplate.objects.all()
+    serializer_class = ResponseTemplateSerializer
+    permission_classes = [permissions.IsAuthenticated]

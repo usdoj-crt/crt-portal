@@ -19,13 +19,15 @@ class Command(BaseCommand):
                     try:
                         content = frontmatter.load(f)
                     except yaml.scanner.ScannerError:
-                        self.stdout.write(self.style.ERROR(f'Response template {template.name} front-matter could not be parsed. Skipping it!'))
+                        self.stdout.write(self.style.ERROR(
+                            f'Response template {template.name} front-matter could not be parsed. Skipping it!'))
                         continue
 
                     try:
                         letter_id = content['title']
                     except KeyError:
-                        self.stdout.write(self.style.ERROR(f'Response template {template.name} is missing required `title` property. Skipping it!'))
+                        self.stdout.write(self.style.ERROR(
+                            f'Response template {template.name} is missing required `title` property. Skipping it!'))
                         continue
 
                     if content.get('ignore', False):
@@ -39,7 +41,8 @@ class Command(BaseCommand):
                             'body': content,
                         }
                     except KeyError as e:
-                        self.stdout.write(self.style.ERROR(f'Response template {template.name} is missing required `{e.args[0]}` property. Skipping it!'))
+                        self.stdout.write(self.style.ERROR(
+                            f'Response template {template.name} is missing required `{e.args[0]}` property. Skipping it!'))
                         continue
 
                     letter, created = ResponseTemplate.objects.update_or_create(title=letter_id, defaults=letter_data)

@@ -151,9 +151,10 @@ def setup_filter_parameters(report, querydict):
 
 
 def mark_report_as_viewed(report, user):
+    print("in mark_report_as_viewed")
     now = datetime.now()
-    description = f"Report opened at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
-    add_activity(user, "Report opened:", description, report)
+    description = f"Report read at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
+    add_activity(user, "Report read:", description, report)
     report.read = True
     report.save()
 

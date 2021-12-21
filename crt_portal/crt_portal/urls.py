@@ -34,17 +34,10 @@ from cts_forms.views_public import (
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import include, path, re_path
+from django.urls import re_path
 from django.views.generic import RedirectView, TemplateView
 
 from django.urls import include, path
-from rest_framework import routers
-from api.views import (UserViewSet, ReportList, ReportViewSet, ResponseTemplateViewSet)
-
-router = routers.DefaultRouter()
-router.register(r'users', UserViewSet)
-router.register(r'reports', ReportViewSet)
-router.register(r'responsetemplates', ResponseTemplateViewSet)
 
 environment = os.environ.get('ENV', 'UNDEFINED')
 if environment in ['PRODUCTION', 'STAGE']:
@@ -91,9 +84,7 @@ urlpatterns = auth + [
     path('hate-crime-human-trafficking', TemplateView.as_view(template_name="hate_crime_human_trafficking.html"),
          name='hate_crime_human_trafficking'),
     path('', LandingPageView.as_view(), name='crt_landing_page'),
-    path('api/v1/', include(router.urls)),
-    path('api/v1/reports', ReportViewSet),
-    path('api/v1/api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    path('api/v1/', include('api.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler400 = 'cts_forms.views_public.error_400'
