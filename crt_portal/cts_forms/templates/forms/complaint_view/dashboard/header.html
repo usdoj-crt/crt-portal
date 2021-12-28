@@ -1,12 +1,6 @@
 {% load static %}
 <header class="intake-header">
   <div class="title">
-    <div class="title-icon">
-      <img src="{% static 'img/intake-icons/ic_home.svg' %}" alt="" class="icon" />
-    </div>
-
-    <h1 class="title-copy">
-      {{ title_text }}
-    </h1>
+    {% include 'forms/complaint_view/header_title.html' with page='team_management' %}
   </div>
 </header>

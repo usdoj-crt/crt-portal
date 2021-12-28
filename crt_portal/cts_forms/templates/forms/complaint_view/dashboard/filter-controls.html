@@ -1,5 +1,6 @@
 {% load static %}
-<h2 class="intake-section-title">Portal Dashboard</h2>
+<h2 class="intake-section-title">Team Management</h2>
+<div class="margin-bottom-2">Review the activity log of intake specialists by selecting their name(s) and dates in the filter options below.</div>
 <form
   id="filters-form"
   method="GET"
@@ -12,7 +13,7 @@
       {% include 'forms/complaint_view/index/filters/date.html' %}
     </div>
 
-    <div>
+    <div class="text-right">
       <button class="usa-button" type="submit" id="apply-filters-button">
         Apply filters
       </button>

@@ -1,13 +1,8 @@
-{% extends "forms/complaint_view/index/filter.html" %}
-
-{% block controls %}assigned_to{% endblock %}
-{% block label %}Intake specialist{% endblock %}
-{% block id %}assigned_to{% endblock %}
-{% block content %}
+<div class="crt-filter">
   <label for="id_assigned_to">
-    <span class="usa-sr-only">assignee</span>
+    <span class="usa-sr-only">Intake specialist</span>
   </label>
-  <div class="usa-combo-box" data-placeholder="Select one" data-default-value="">
+  <div class="usa-combo-box crt-combo-box-filter" data-placeholder="Intake specialist" data-default-value="{{ selected_actor_id }}">
     {{ form.assigned_to }}
   </div>
-{% endblock %}
+</div>
