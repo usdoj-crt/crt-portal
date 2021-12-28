@@ -615,9 +615,9 @@ def crt_date_cleaner(self, cleaned_data):
                 DATE_ERRORS['no_future'],
                 params={'value': datetime(year, month, day).strftime('%x')},
             ))
-        elif datetime(year, month, day) < datetime(1899, 12, 31):
+        elif datetime(year, month, day) < datetime(1999, 12, 31):
             self.add_error('crt_reciept_year', ValidationError(
-                DATE_ERRORS['no_past'],
+                DATE_ERRORS['crt_no_past'],
                 params={'value': datetime(year, month, day).strftime('%x')},
             ))
 
