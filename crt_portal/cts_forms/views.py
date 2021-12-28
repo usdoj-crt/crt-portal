@@ -513,7 +513,6 @@ class ShowView(LoginRequiredMixin, View):
 
 class ActionsView(LoginRequiredMixin, FormView):
     """ CRT view to update report data"""
-
     def get(self, request):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
@@ -688,6 +687,7 @@ class RemoveReportAttachmentView(LoginRequiredMixin, View):
     http_method_names = ['post']
 
     def post(self, request, attachment_id):
+
         attachment = get_object_or_404(ReportAttachment, pk=attachment_id)
 
         logger.info(f'User {request.user} removing attachment with id {attachment_id}')
@@ -751,7 +751,6 @@ class SaveCommentView(LoginRequiredMixin, FormView):
 
 class ProFormView(LoginRequiredMixin, SessionWizardView):
     """This is the one-page internal form for CRT staff to input complaints"""
-
     def get_template_names(self):
         return 'forms/pro_template.html'
 
@@ -760,6 +759,7 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
 
         field_errors = list(map(lambda field: field.errors, context['form']))
         page_errors = [error for field in field_errors for error in field]
+
         # internal use only
         ordered_step_names = [
             'Intake',
