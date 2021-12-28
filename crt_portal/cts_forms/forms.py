@@ -25,6 +25,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               EMPLOYER_SIZE_CHOICES, EMPLOYER_SIZE_ERROR,
                               EMPTY_CHOICE, INCIDENT_DATE_HELPTEXT,
                               INTAKE_FORMAT_CHOICES,
+                              INTAKE_FORMAT_ERROR,
                               POLICE_LOCATION_ERRORS,
                               PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
@@ -587,6 +588,51 @@ def date_cleaner(self, cleaned_data):
 
     return cleaned_data
 
+def crt_date_cleaner(self, cleaned_data):
+    """This should give the most specific error message, if the date doesn't render for reasons other than what we are checking for, it will give the generic error."""
+    try:
+        # If these are required they will be caught by the key error
+        day = cleaned_data.get('crt_reciept_day')
+        year = cleaned_data.get('crt_reciept_year')
+        month = cleaned_data.get('crt_reciept_month')
+        # custom messages
+        if not month:
+            self.add_error('crt_recript_month', ValidationError(DATE_ERRORS['month_required']))
+        elif month > 12 or month < 1:
+            self.add_error('crt_reciept_month', ValidationError(
+                DATE_ERRORS['month_invalid'],
+            ))
+        if not day:
+            self.add_error('crt_recript_day', ValidationError(DATE_ERRORS['day_required']))
+        elif day > 31 or day < 1:
+            self.add_error('crt_reciept_day', ValidationError(
+                DATE_ERRORS['day_invalid'],
+            ))
+        if not year:
+            self.add_error('crt_recript_year', ValidationError(DATE_ERRORS['year_required']))
+        elif datetime(year, month, day) > datetime.now():
+            self.add_error('crt_reciept_year', ValidationError(
+                DATE_ERRORS['no_future'],
+                params={'value': datetime(year, month, day).strftime('%x')},
+            ))
+        elif datetime(year, month, day) < datetime(1899, 12, 31):
+            self.add_error('crt_reciept_year', ValidationError(
+                DATE_ERRORS['no_past'],
+                params={'value': datetime(year, month, day).strftime('%x')},
+            ))
+
+    except ValueError:
+        # a bit of a catch-all for all the ways people could make invalid dates
+        self.add_error('last_incident_year', ValidationError(
+            DATE_ERRORS['not_valid'],
+            params={'value': f'{month}/{day}/{year}'},
+        ))
+    except KeyError:
+        # these required errors will be caught by the built in error validation
+        return cleaned_data
+
+    return cleaned_data
+
 
 class When(ModelForm):
     date_question = DATE_QUESTIONS['date_title']
@@ -760,7 +806,7 @@ class ProForm(
                     'maxlength': 2,
                     'pattern': '[0-9]*',
                     'inputmode': 'numeric',
-                    'required': False,
+                    'required': True,
                 }),
                 'crt_reciept_day': TextInput(attrs={
                     'class': 'usa-input usa-input--small',
@@ -768,7 +814,7 @@ class ProForm(
                     'maxlength': 2,
                     'pattern': '[0-9]*',
                     'inputmode': 'numeric',
-                    'required': False,
+                    'required': True,
                 }),
                 'crt_reciept_year': TextInput(attrs={
                     'class': 'usa-input usa-input--medium',
@@ -777,7 +823,7 @@ class ProForm(
                     'maxlength': 4,
                     'pattern': '[0-9]*',
                     'inputmode': 'numeric',
-                    'required': False,
+                    'required': True,
                 }),
             },
         ]
@@ -797,7 +843,8 @@ class ProForm(
                 ('email', 'email'),
             ),
             widget=UsaRadioSelect,
-            required=False,
+            error_messages={'required': INTAKE_FORMAT_ERROR},
+            required=True,
         )
         self.fields['servicemember'] = TypedChoiceField(
             choices=SERVICEMEMBER_CHOICES,
@@ -872,9 +919,11 @@ class ProForm(
         self.fields['last_incident_year'].label = DATE_QUESTIONS['last_incident_year']
 
         self.fields['crt_reciept_day'].label = DATE_QUESTIONS['last_incident_day']
+        self.fields['crt_reciept_day'].required = True
         self.fields['crt_reciept_month'].label = DATE_QUESTIONS['last_incident_month']
+        self.fields['crt_reciept_month'].required = True
         self.fields['crt_reciept_year'].label = DATE_QUESTIONS['last_incident_year']
-
+        self.fields['crt_reciept_year'].required = True
         if 'violation_summary' in self.fields:
             self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
             self.label_suffix = ''
@@ -886,10 +935,7 @@ class ProForm(
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
         cleaned_data = super(ProForm, self).clean()
-        if cleaned_data['last_incident_year'] and cleaned_data['last_incident_month']:
-            return date_cleaner(self, cleaned_data)
-        else:
-            return cleaned_data
+        return crt_date_cleaner(self, cleaned_data)
 
 
 class ProfileForm(ModelForm):
