@@ -56,7 +56,7 @@ if environment != 'LOCAL':
     # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.db.backends.postgresql',
             'NAME': db_credentials['db_name'],
             'USER': db_credentials['username'],
             'PASSWORD': db_credentials['password'],
