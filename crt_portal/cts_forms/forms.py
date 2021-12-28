@@ -623,10 +623,8 @@ def crt_date_cleaner(self, cleaned_data):
 
     except ValueError:
         # a bit of a catch-all for all the ways people could make invalid dates
-        self.add_error('last_incident_year', ValidationError(
-            DATE_ERRORS['not_valid'],
-            params={'value': f'{month}/{day}/{year}'},
-        ))
+        return cleaned_data
+
     except KeyError:
         # these required errors will be caught by the built in error validation
         return cleaned_data
