@@ -591,44 +591,37 @@ def date_cleaner(self, cleaned_data):
 
 def crt_date_cleaner(self, cleaned_data):
     """This should give the most specific error message, if the date doesn't render for reasons other than what we are checking for, it will give the generic error."""
-    try:
-        # If these are required they will be caught by the key error
-        day = cleaned_data.get('crt_reciept_day')
-        year = cleaned_data.get('crt_reciept_year')
-        month = cleaned_data.get('crt_reciept_month')
-        # custom messages
-        if not month:
-            self.add_error('crt_recript_month', ValidationError(DATE_ERRORS['month_required']))
-        elif month > 12 or month < 1:
+    if 'crt_reciept_month' in cleaned_data:
+        month = cleaned_data['crt_reciept_month']
+        if month > 12 or month < 1:
             self.add_error('crt_reciept_month', ValidationError(
                 DATE_ERRORS['month_invalid'],
             ))
-        if not day:
-            self.add_error('crt_recript_day', ValidationError(DATE_ERRORS['day_required']))
-        elif day > 31 or day < 1:
+    else:
+        self.add_error('crt_reciept_month', ValidationError(DATE_ERRORS['month_required']))
+
+    if 'crt_reciept_day' in cleaned_data:
+        day = cleaned_data['crt_reciept_day']
+        if day > 31 or day < 1:
             self.add_error('crt_reciept_day', ValidationError(
                 DATE_ERRORS['day_invalid'],
             ))
-        if not year:
-            self.add_error('crt_recript_year', ValidationError(DATE_ERRORS['year_required']))
+    else:
+        self.add_error('crt_reciept_day', ValidationError(DATE_ERRORS['day_required']))
+
+    if 'crt_reciept_year' in cleaned_data:
+        year = cleaned_data['crt_reciept_year']
+        if year < 2000:
+            self.add_error('crt_reciept_year', ValidationError(
+                DATE_ERRORS['crt_no_past'],
+            ))
         elif datetime(year, month, day) > datetime.now():
             self.add_error('crt_reciept_year', ValidationError(
                 DATE_ERRORS['no_future'],
                 params={'value': datetime(year, month, day).strftime('%x')},
             ))
-        elif datetime(year, month, day) < datetime(1999, 12, 31):
-            self.add_error('crt_reciept_year', ValidationError(
-                DATE_ERRORS['crt_no_past'],
-                params={'value': datetime(year, month, day).strftime('%x')},
-            ))
-
-    except ValueError:
-        # a bit of a catch-all for all the ways people could make invalid dates
-        return cleaned_data
-
-    except KeyError:
-        # these required errors will be caught by the built in error validation
-        return cleaned_data
+    else:
+        self.add_error('crt_reciept_year', ValidationError(DATE_ERRORS['year_required']))
 
     return cleaned_data
 
