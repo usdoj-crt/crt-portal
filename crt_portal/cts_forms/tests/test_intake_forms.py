@@ -712,7 +712,7 @@ class ProFormTest(TestCase):
         bad_year_data["crt_reciept_year"] = 1899
         form = ProForm(data=bad_year_data)
         errors = str(form.errors)
-        self.assertTrue("Please enter a year after 1900." in errors)
+        self.assertTrue("Please enter a year after 1999." in errors)
         self.assertFalse(form.is_valid())
         bad_year_data["crt_reciept_year"] = 3000
         form = ProForm(data=bad_year_data)
