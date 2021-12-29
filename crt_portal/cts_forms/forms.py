@@ -1735,7 +1735,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         """
         exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name', 'election_details',
                    'contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_state',
-                   'contact_city', 'contact_zip', 'crt_reciept_day', 'crt_reciept_month', 'crt_reciept_year']
+                   'contact_city', 'contact_zip']
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
@@ -1778,6 +1778,12 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         self.fields['last_incident_day'].widget.required = False
         self.fields['last_incident_month'].widget.required = False
         self.fields['last_incident_year'].widget.required = False
+        self.fields['crt_reciept_day'].label = DATE_QUESTIONS['last_incident_day']
+        self.fields['crt_reciept_month'].label = DATE_QUESTIONS['last_incident_month']
+        self.fields['crt_reciept_year'].label = DATE_QUESTIONS['last_incident_year']
+        self.fields['crt_reciept_day'].widget.required = False
+        self.fields['crt_reciept_month'].widget.required = False
+        self.fields['crt_reciept_year'].widget.required = False
 
         # Summary fields
         summary = self.instance.get_summary
