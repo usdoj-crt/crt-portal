@@ -699,14 +699,6 @@ class ProFormTest(TestCase):
         self.assertTrue("Please enter a valid day of the month. Day must be between 1 and the last day of the month." in errors)
         self.assertFalse(form.is_valid())
 
-    def test_month_validation(self):
-        bad_month_data = self.data
-        bad_month_data["crt_reciept_month"] = 13
-        form = ProForm(data=bad_month_data)
-        errors = str(form.errors)
-        self.assertTrue("Please enter a valid month. Month must be between 1 and 12." in errors)
-        self.assertFalse(form.is_valid())
-
     def test_year_validation(self):
         bad_year_data = self.data
         bad_year_data["crt_reciept_year"] = 1899
@@ -720,8 +712,6 @@ class ProFormTest(TestCase):
         print(errors)
         self.assertTrue("Date can not be in the future." in errors)
         self.assertFalse(form.is_valid())
-
-
 
     def test_full_example(self):
         form = ProForm(data=self.data)
