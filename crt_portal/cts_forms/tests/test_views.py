@@ -557,7 +557,7 @@ class CRT_FILTER_Tests(TestCase):
 
         report_len = len(reports)
 
-        self.assertEquals(report_len, self.len_all_results - 1)
+        self.assertEqual(report_len, self.len_all_results - 1)
 
     def test_last_name_filter(self):
         last_name_filter = 'contact_last_name=bar'
@@ -566,7 +566,7 @@ class CRT_FILTER_Tests(TestCase):
 
         report_len = len(reports)
 
-        self.assertEquals(report_len, 1)
+        self.assertEqual(report_len, 1)
 
     def test_city_name_filter(self):
         city_name_filter = 'location_city_town=land'
@@ -575,7 +575,7 @@ class CRT_FILTER_Tests(TestCase):
 
         report_len = len(reports)
 
-        self.assertEquals(report_len, 1)
+        self.assertEqual(report_len, 1)
 
     def test_state_filter(self):
         state_filter = 'location_state=OH'
@@ -584,7 +584,7 @@ class CRT_FILTER_Tests(TestCase):
 
         report_len = len(reports)
 
-        self.assertEquals(report_len, 1)
+        self.assertEqual(report_len, 1)
 
     def test_summary_filter(self):
         """This is a many to may field so it works differently than the other searches. Also checking stemming"""
@@ -601,7 +601,7 @@ class CRT_FILTER_Tests(TestCase):
 
         report_len = len(reports)
 
-        self.assertEquals(report_len, 1)
+        self.assertEqual(report_len, 1)
 
     def test_servicemember_filter(self):
         servicemember_filter = 'servicemember=yes'
@@ -611,7 +611,7 @@ class CRT_FILTER_Tests(TestCase):
 
         report_len = len(reports)
 
-        self.assertEquals(report_len, expected_reports)
+        self.assertEqual(report_len, expected_reports)
 
     def test_hatecrime_filter(self):
         filter_ = 'hate_crime=yes'
@@ -621,7 +621,7 @@ class CRT_FILTER_Tests(TestCase):
 
         report_len = len(reports)
 
-        self.assertEquals(report_len, expected_reports)
+        self.assertEqual(report_len, expected_reports)
 
     def test_profile_filters(self):
         """
@@ -632,8 +632,8 @@ class CRT_FILTER_Tests(TestCase):
         reports = response.context['data_dict']
 
         # No IER reports exist so none should be returned when our profile is set to
-        self.assertEquals(Report.objects.filter(assigned_section='IER').count(), 0)
-        self.assertEquals(len(reports), 0)
+        self.assertEqual(Report.objects.filter(assigned_section='IER').count(), 0)
+        self.assertEqual(len(reports), 0)
 
     def test_profile_filters_override(self):
         """
@@ -646,7 +646,7 @@ class CRT_FILTER_Tests(TestCase):
 
         # We've specified ADM as a query param, we should only see reports from that section
         expected_reports = Report.objects.filter(assigned_section='ADM').count()
-        self.assertEquals(len(reports), expected_reports)
+        self.assertEqual(len(reports), expected_reports)
 
 
 class CRT_Dashboard_Tests(TestCase):
