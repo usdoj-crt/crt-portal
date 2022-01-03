@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-25 20:36+0000\n"
+"POT-Creation-Date: 2021-12-29 19:50+0000\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:182 forms.py:1603
+#: forms.py:182 forms.py:1621
 msgid " - Select - "
 msgstr " - Chọn - "
 
@@ -127,23 +127,23 @@ msgstr ""
 "diễn ra trong một khoảng thời gian hoặc vẫn đang diễn ra, vui lòng cho biết "
 "ngày gần đây nhất."
 
-#: forms.py:941
-msgid "Incident state"
-msgstr ""
-
-#: forms.py:949
-msgid "Primary classification"
-msgstr "Phân loại chính"
-
-#: forms.py:971
+#: forms.py:944
 msgid "Assigned to"
 msgstr "Được giao cho"
 
-#: forms.py:1160
+#: forms.py:960
+msgid "Incident state"
+msgstr ""
+
+#: forms.py:968
+msgid "Primary classification"
+msgstr "Phân loại chính"
+
+#: forms.py:1169
 msgid "Create date cannot be in the future."
 msgstr "Ngày tạo không được là ngày trong tương lai."
 
-#: forms.py:1343
+#: forms.py:1354
 msgid "Comment cannot be empty"
 msgstr "Nhận xét không được để trống"
 
@@ -152,11 +152,11 @@ msgstr "Nhận xét không được để trống"
 msgid "- Select -"
 msgstr "- Chọn -"
 
-#: model_variables.py:9 model_variables.py:119 model_variables.py:287
+#: model_variables.py:9 model_variables.py:119 model_variables.py:289
 msgid "Yes"
 msgstr "Có"
 
-#: model_variables.py:10 model_variables.py:120 model_variables.py:286
+#: model_variables.py:10 model_variables.py:120 model_variables.py:288
 msgid "No"
 msgstr "Không"
 
@@ -440,7 +440,7 @@ msgstr ""
 "tấn công thân thể, lạm dụng hoặc tấn công tình dục, các mối đe dọa gây tổn "
 "hại khác, hoặc bị giam giữ"
 
-#: model_variables.py:102 model_variables.py:293
+#: model_variables.py:102 model_variables.py:295
 msgid "Federal"
 msgstr "Liên Bang"
 
@@ -453,8 +453,8 @@ msgstr "Tiểu bang hoặc địa phương"
 msgid "Both"
 msgstr "Cả hai"
 
-#: model_variables.py:106 model_variables.py:295 model_variables.py:310
-#: model_variables.py:318 model_variables.py:335
+#: model_variables.py:106 model_variables.py:297 model_variables.py:312
+#: model_variables.py:320 model_variables.py:337
 msgid "I'm not sure"
 msgstr "Tôi không chắc"
 
@@ -556,31 +556,31 @@ msgstr ""
 "này phù hợp với tình huống của quý vị, vui lòng chọn “Không có lý do nào "
 "trong số này phù hợp với tôi” hoặc “Lý do khác” và giải thích."
 
-#: model_variables.py:258
+#: model_variables.py:260
 msgid "Place of worship or about a place of worship"
 msgstr "Nơi thờ phượng hoặc về một nơi thờ phượng"
 
-#: model_variables.py:259
+#: model_variables.py:261
 msgid "Commercial or retail building"
 msgstr "Tòa nhà thương mại hoặc bán lẻ"
 
-#: model_variables.py:260 model_variables.py:271
+#: model_variables.py:262 model_variables.py:273
 msgid "Healthcare facility"
 msgstr "Cơ sở chăm sóc sức khỏe"
 
-#: model_variables.py:261 model_variables.py:272
+#: model_variables.py:263 model_variables.py:274
 msgid "Financial institution"
 msgstr "Tổ chức tài chính"
 
-#: model_variables.py:262
+#: model_variables.py:264
 msgid "Public space"
 msgstr "Không gian công cộng"
 
-#: model_variables.py:263 templatetags/commercial_public_space_view.py:17
+#: model_variables.py:265 templatetags/commercial_public_space_view.py:17
 msgid "Other"
 msgstr "Khác"
 
-#: model_variables.py:266
+#: model_variables.py:268
 msgid ""
 "Please select the type of location. If none of these apply to your "
 "situation, please select \"Other\"."
@@ -588,27 +588,27 @@ msgstr ""
 "Vui lòng chọn loại địa điểm. Nếu không có địa điểm nào trong số các địa điểm "
 "này phù hợp với tình huống của quý vị, vui lòng chọn “Khác”."
 
-#: model_variables.py:269
+#: model_variables.py:271
 msgid "Place of worship"
 msgstr "Nơi thờ phượng"
 
-#: model_variables.py:270
+#: model_variables.py:272
 msgid "Commercial"
 msgstr "Thương mại"
 
-#: model_variables.py:273
+#: model_variables.py:275
 msgid "Public outdoor space"
 msgstr "Không gian công cộng ngoài trời"
 
-#: model_variables.py:277
+#: model_variables.py:279
 msgid "Church, synagogue, temple, religious community center"
 msgstr "Nhà thờ, đền thờ do thái, đền thờ, trung tâm cộng đồng tôn giáo"
 
-#: model_variables.py:278
+#: model_variables.py:280
 msgid "Store, restaurant, bar, hotel, theater"
 msgstr "Cửa hàng, nhà hàng, quán bar, khách sạn, rạp chiếu phim"
 
-#: model_variables.py:279
+#: model_variables.py:281
 msgid ""
 "Hospital or clinic (including inpatient and outpatient programs), "
 "reproductive care clinic, state developmental institution, nursing home"
@@ -616,11 +616,11 @@ msgstr ""
 "Bệnh viện hoặc phòng khám (bao gồm các chương trình nội trú và ngoại trú), "
 "phòng khám chăm sóc sinh sản, tổ chức phát triển tiểu bang, viện dưỡng lão"
 
-#: model_variables.py:280
+#: model_variables.py:282
 msgid "Bank, credit union, loan services"
 msgstr "Ngân hàng, tổ chức tín dụng, dịch vụ cho vay"
 
-#: model_variables.py:281
+#: model_variables.py:283
 msgid ""
 "Park, sidewalk, street, other public buildings (courthouse, DMV, city "
 "library)"
@@ -628,353 +628,353 @@ msgstr ""
 "Công viên, vỉa hè, đường phố, các tòa nhà công cộng khác (trụ sở tòa án, "
 "DMV, thư viện thành phố)"
 
-#: model_variables.py:292
+#: model_variables.py:294
 msgid "State/local"
 msgstr "Tiểu bang/địa phương"
 
-#: model_variables.py:294
+#: model_variables.py:296
 msgid "Private"
 msgstr "Tư nhân"
 
-#: model_variables.py:300
+#: model_variables.py:302
 msgid "Outside of prison"
 msgstr "Bên ngoài nhà tù"
 
-#: model_variables.py:302
+#: model_variables.py:304
 msgid "Prison (Federal)"
 msgstr "Nhà tù (Liên bang)"
 
-#: model_variables.py:303
+#: model_variables.py:305
 msgid "Prison (Private)"
 msgstr "Nhà tù (Tư nhân)"
 
-#: model_variables.py:304
+#: model_variables.py:306
 msgid "Prison (I'm not sure)"
 msgstr "Nhà tù (Tôi không chắc)"
 
-#: model_variables.py:308
+#: model_variables.py:310
 msgid "Public employer"
 msgstr "Cơ quan tuyển dụng công"
 
-#: model_variables.py:309
+#: model_variables.py:311
 msgid "Private employer"
 msgstr "Cơ quan tuyển dụng tư nhân"
 
-#: model_variables.py:313
+#: model_variables.py:315
 msgid "Please select what type of employer this is."
 msgstr "Vui lòng chọn loại hình cơ quan tuyển dụng này."
 
-#: model_variables.py:316
+#: model_variables.py:318
 msgid "Fewer than 15 employees"
 msgstr "Ít hơn 15 nhân viên"
 
-#: model_variables.py:317
+#: model_variables.py:319
 msgid "15 or more employees"
 msgstr "Từ 15 nhân viên trở lên"
 
-#: model_variables.py:321
+#: model_variables.py:323
 msgid "Please select how large the employer is."
 msgstr "Vui lòng chọn quy mô của cơ quan tuyển dụng."
 
-#: model_variables.py:333
+#: model_variables.py:335
 msgid "Public school or educational program"
 msgstr "Trường hoặc chương trình giáo dục công lập"
 
-#: model_variables.py:334
+#: model_variables.py:336
 msgid "Private school or educational program"
 msgstr "Trường hoặc chương trình giáo dục tư"
 
-#: model_variables.py:340
+#: model_variables.py:342
 msgid "Alabama"
 msgstr "Alabama"
 
-#: model_variables.py:341
+#: model_variables.py:343
 msgid "Alaska"
 msgstr "Alaska"
 
-#: model_variables.py:342
+#: model_variables.py:344
 msgid "Arizona"
 msgstr "Arizona"
 
-#: model_variables.py:343
+#: model_variables.py:345
 msgid "Arkansas"
 msgstr "Arkansas"
 
-#: model_variables.py:344
+#: model_variables.py:346
 msgid "California"
 msgstr "California"
 
-#: model_variables.py:345
+#: model_variables.py:347
 msgid "Colorado"
 msgstr "Colorado"
 
-#: model_variables.py:346
+#: model_variables.py:348
 msgid "Connecticut"
 msgstr "Connecticut"
 
-#: model_variables.py:347
+#: model_variables.py:349
 msgid "Delaware"
 msgstr "Delaware"
 
-#: model_variables.py:348
+#: model_variables.py:350
 msgid "District of Columbia"
 msgstr "District of Columbia"
 
-#: model_variables.py:349
+#: model_variables.py:351
 msgid "Florida"
 msgstr "Florida"
 
-#: model_variables.py:350
+#: model_variables.py:352
 msgid "Georgia"
 msgstr "Georgia"
 
-#: model_variables.py:351
+#: model_variables.py:353
 msgid "Hawaii"
 msgstr "Hawaii"
 
-#: model_variables.py:352
+#: model_variables.py:354
 msgid "Idaho"
 msgstr "Idaho"
 
-#: model_variables.py:353
+#: model_variables.py:355
 msgid "Illinois"
 msgstr "Illinois"
 
-#: model_variables.py:354
+#: model_variables.py:356
 msgid "Indiana"
 msgstr "Indiana"
 
-#: model_variables.py:355
+#: model_variables.py:357
 msgid "Iowa"
 msgstr "Iowa"
 
-#: model_variables.py:356
+#: model_variables.py:358
 msgid "Kansas"
 msgstr "Kansas"
 
-#: model_variables.py:357
+#: model_variables.py:359
 msgid "Kentucky"
 msgstr "Kentucky"
 
-#: model_variables.py:358
+#: model_variables.py:360
 msgid "Louisiana"
 msgstr "Louisiana"
 
-#: model_variables.py:359
+#: model_variables.py:361
 msgid "Maine"
 msgstr "Maine"
 
-#: model_variables.py:360
+#: model_variables.py:362
 msgid "Maryland"
 msgstr "Maryland"
 
-#: model_variables.py:361
+#: model_variables.py:363
 msgid "Massachusetts"
 msgstr "Massachusetts"
 
-#: model_variables.py:362
+#: model_variables.py:364
 msgid "Michigan"
 msgstr "Michigan"
 
-#: model_variables.py:363
+#: model_variables.py:365
 msgid "Minnesota"
 msgstr "Minnesota"
 
-#: model_variables.py:364
+#: model_variables.py:366
 msgid "Mississippi"
 msgstr "Mississippi"
 
-#: model_variables.py:365
+#: model_variables.py:367
 msgid "Missouri"
 msgstr "Missouri"
 
-#: model_variables.py:366
+#: model_variables.py:368
 msgid "Montana"
 msgstr "Montana"
 
-#: model_variables.py:367
+#: model_variables.py:369
 msgid "Nebraska"
 msgstr "Nebraska"
 
-#: model_variables.py:368
+#: model_variables.py:370
 msgid "Nevada"
 msgstr "Nevada"
 
-#: model_variables.py:369
+#: model_variables.py:371
 msgid "New Hampshire"
 msgstr "New Hampshire"
 
-#: model_variables.py:370
+#: model_variables.py:372
 msgid "New Jersey"
 msgstr "New Jersey"
 
-#: model_variables.py:371
+#: model_variables.py:373
 msgid "New Mexico"
 msgstr "New Mexico"
 
-#: model_variables.py:372
+#: model_variables.py:374
 msgid "New York"
 msgstr "New York"
 
-#: model_variables.py:373
+#: model_variables.py:375
 msgid "North Carolina"
 msgstr "North Carolina"
 
-#: model_variables.py:374
+#: model_variables.py:376
 msgid "North Dakota"
 msgstr "North Dakota"
 
-#: model_variables.py:375
+#: model_variables.py:377
 msgid "Ohio"
 msgstr "Ohio"
 
-#: model_variables.py:376
+#: model_variables.py:378
 msgid "Oklahoma"
 msgstr "Oklahoma"
 
-#: model_variables.py:377
+#: model_variables.py:379
 msgid "Oregon"
 msgstr "Oregon"
 
-#: model_variables.py:378
+#: model_variables.py:380
 msgid "Pennsylvania"
 msgstr "Pennsylvania"
 
-#: model_variables.py:379
+#: model_variables.py:381
 msgid "Rhode Island"
 msgstr "Rhode Island"
 
-#: model_variables.py:380
+#: model_variables.py:382
 msgid "South Carolina"
 msgstr "South Carolina"
 
-#: model_variables.py:381
+#: model_variables.py:383
 msgid "South Dakota"
 msgstr "South Dakota"
 
-#: model_variables.py:382
+#: model_variables.py:384
 msgid "Tennessee"
 msgstr "Tennessee"
 
-#: model_variables.py:383
+#: model_variables.py:385
 msgid "Texas"
 msgstr "Texas"
 
-#: model_variables.py:384
+#: model_variables.py:386
 msgid "Utah"
 msgstr "Utah"
 
-#: model_variables.py:385
+#: model_variables.py:387
 msgid "Vermont"
 msgstr "Vermont"
 
-#: model_variables.py:386
+#: model_variables.py:388
 msgid "Virginia"
 msgstr "Virginia"
 
-#: model_variables.py:387
+#: model_variables.py:389
 msgid "Washington"
 msgstr "Washington"
 
-#: model_variables.py:388
+#: model_variables.py:390
 msgid "West Virginia"
 msgstr "West Virginia"
 
-#: model_variables.py:389
+#: model_variables.py:391
 msgid "Wisconsin"
 msgstr "Wisconsin"
 
-#: model_variables.py:390
+#: model_variables.py:392
 msgid "Wyoming"
 msgstr "Wyoming"
 
-#: model_variables.py:391
+#: model_variables.py:393
 msgid "American Samoa"
 msgstr "American Samoa"
 
-#: model_variables.py:392
+#: model_variables.py:394
 msgid "Guam"
 msgstr "Guam"
 
-#: model_variables.py:393
+#: model_variables.py:395
 msgid "Northern Mariana Islands"
 msgstr "Northern Mariana Islands"
 
-#: model_variables.py:394
+#: model_variables.py:396
 msgid "Puerto Rico"
 msgstr "Puerto Rico"
 
-#: model_variables.py:395
+#: model_variables.py:397
 msgid "Virgin Islands"
 msgstr "Virgin Islands"
 
-#: model_variables.py:396
+#: model_variables.py:398
 msgid "Armed Forces Africa"
 msgstr "Lực Lượng Vũ Trang Châu Phi"
 
-#: model_variables.py:397
+#: model_variables.py:399
 msgid "Armed Forces Americas"
 msgstr "Lực Lượng Vũ Trang Hoa Kỳ"
 
-#: model_variables.py:398
+#: model_variables.py:400
 msgid "Armed Forces Canada"
 msgstr "Lực Lượng Vũ Trang Canada"
 
-#: model_variables.py:399
+#: model_variables.py:401
 msgid "Armed Forces Europe"
 msgstr "Lực Lượng Vũ Trang Châu Âu"
 
-#: model_variables.py:400
+#: model_variables.py:402
 msgid "Armed Forces Middle East"
 msgstr "Lực Lượng Vũ Trang Trung Đông"
 
-#: model_variables.py:401
+#: model_variables.py:403
 msgid "Armed Forces Pacific"
 msgstr "Lực Lượng Vũ Trang Thái Bình Dương"
 
-#: model_variables.py:404
+#: model_variables.py:406
 msgid "Please provide description to continue"
 msgstr "Vui lòng cung cấp mô tả để tiếp tục"
 
-#: model_variables.py:405
+#: model_variables.py:407
 msgid "Please select a primary reason to continue."
 msgstr "Vui lòng chọn một lý do chính để tiếp tục."
 
-#: model_variables.py:408
+#: model_variables.py:410
 msgid "Please enter the name of the location where this took place."
 msgstr "Vui lòng nhập tên địa điểm nơi việc này xảy ra."
 
-#: model_variables.py:409
+#: model_variables.py:411
 msgid "Please enter the city or town where this took place."
 msgstr "Vui lòng nhập thành phố hoặc thị trấn nơi việc này xảy ra."
 
-#: model_variables.py:410
+#: model_variables.py:412
 msgid "Please select the state where this took place."
 msgstr "Vui lòng nhập tiểu bang nơi việc này xảy ra."
 
-#: model_variables.py:414
+#: model_variables.py:416
 msgid "Please select where this occurred"
 msgstr "Vui lòng chọn nơi việc này xảy ra"
 
-#: model_variables.py:415
+#: model_variables.py:417
 msgid "Please select the type of location"
 msgstr "Vui lòng chọn loại địa điểm"
 
-#: model_variables.py:427
+#: model_variables.py:429
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr ""
 "Quý vị phải nhập tháng và năm. Vui lòng sử dụng định dạng tháng( MM)/ngày "
 "(DD)/năm (YYYY)."
 
-#: model_variables.py:430
+#: model_variables.py:432
 msgid "Please enter a month."
 msgstr "Vui lòng nhập tháng."
 
-#: model_variables.py:431
+#: model_variables.py:433
 msgid "Please enter a valid month. Month must be between 1 and 12."
 msgstr "Vui lòng nhập một tháng hợp lệ. Tháng phải từ 1 đến 12."
 
-#: model_variables.py:432
+#: model_variables.py:434
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
@@ -982,27 +982,27 @@ msgstr ""
 "Vui lòng nhập một ngày hợp lệ trong tháng. Ngày phải từ ngày 1 đến ngày cuối "
 "cùng của tháng."
 
-#: model_variables.py:433
+#: model_variables.py:435
 msgid "Please enter a year."
 msgstr "Vui lòng nhập một năm."
 
-#: model_variables.py:434
+#: model_variables.py:436
 msgid "Date can not be in the future."
 msgstr "Ngày không được là ngày trong tương lai."
 
-#: model_variables.py:435
+#: model_variables.py:437
 msgid "Please enter a year after 1900."
 msgstr "Vui lòng nhập một năm sau 1900."
 
-#: model_variables.py:436
+#: model_variables.py:438
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
 msgstr "Vui lòng nhập một ngày hợp lệ. Sử dụng định dạng MM/DD/YYYY."
 
-#: model_variables.py:439
+#: model_variables.py:441
 msgid "Please select the type of election or voting activity."
 msgstr "Vui lòng chọn hình thức bầu cử hoặc hoạt động bỏ phiếu."
 
-#: model_variables.py:479
+#: model_variables.py:554
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
@@ -1209,23 +1209,23 @@ msgstr ""
 "trong nhiều môi trường khác nhau như nhà ở, nơi làm việc, trường học, hoạt "
 "động bỏ phiếu, doanh nghiệp, chăm sóc sức khỏe, không gian công cộng, v.v."
 
-#: templates/base.html:76
+#: templates/base.html:78
 msgid "Skip to main content"
 msgstr "Đi thẳng đến nội dung chính"
 
-#: templates/base.html:130 templates/forms/errors.html:13
+#: templates/base.html:132 templates/forms/errors.html:13
 #: templates/forms/report_maintenance.html:13 templates/landing.html:10
 #: templates/landing.html:17
 msgid "U.S. Department of Justice"
 msgstr "Bộ Tư pháp Hoa Kỳ"
 
-#: templates/base.html:133 templates/forms/confirmation.html:21
+#: templates/base.html:135 templates/forms/confirmation.html:21
 #: templates/forms/errors.html:14 templates/forms/report_maintenance.html:14
 #: templates/landing.html:10 templates/landing.html:20
 msgid "Civil Rights Division"
 msgstr "Ban Dân Quyền"
 
-#: templates/forms/complaint_view/actions/bulk_actions.html:78
+#: templates/forms/complaint_view/actions/bulk_actions.html:75
 #: templates/forms/grouped_questions.html:6
 #: templates/forms/question_cards/commercial_public_location.html:5
 #: templates/forms/question_cards/police_location.html:4
@@ -1254,37 +1254,29 @@ msgstr "Cảm ơn quý vị đã gửi báo cáo đến Ban Dân quyền."
 
 #: templates/forms/confirmation.html:46
 msgid "Report successfully submitted"
-msgstr "Báo cáo đã được gửi thành công"
+msgstr "Báo cáo đã được nộp thành công"
 
 #: templates/forms/confirmation.html:51
 msgid "Please save your record number for tracking."
-msgstr "Vui lòng lưu số hồ sơ của quý vị để theo dõi."
+msgstr "Vui lòng lưu lại số hồ sơ của quý vị để theo dõi."
 
-#: templates/forms/confirmation.html:52
-msgid ""
-"You will not receive an email confirmation, so please print or save this "
-"page for your records."
-msgstr ""
-"Quý vị sẽ không nhận được email xác nhận, vì vậy vui lòng in hoặc lưu trang "
-"này vào hồ sơ của quý vị."
-
-#: templates/forms/confirmation.html:56
+#: templates/forms/confirmation.html:55
 msgid "Your record number is:"
-msgstr "Số hồ sơ của quý vị là:"
+msgstr "Số hồ sơ của quý vị là:"
 
-#: templates/forms/confirmation.html:62
+#: templates/forms/confirmation.html:61
 msgid "Print report"
 msgstr "In baìo caìo"
 
-#: templates/forms/confirmation.html:73
+#: templates/forms/confirmation.html:72
 msgid "What to expect"
 msgstr "Những việc sẽ diễn ra"
 
-#: templates/forms/confirmation.html:83
+#: templates/forms/confirmation.html:82
 msgid "We review your report"
 msgstr "Chúng tôi sẽ đánh giá báo cáo của quý vị"
 
-#: templates/forms/confirmation.html:88
+#: templates/forms/confirmation.html:87
 msgid ""
 "Our specialists in the Civil Rights Division carefully read every report to "
 "identify civil rights violations, spot trends, and determine if we have "
@@ -1294,15 +1286,15 @@ msgstr ""
 "định các hành vi vi phạm dân quyền, phát hiện xu hướng, và xác định xem "
 "chúng tôi có thẩm quyền trợ giúp vụ việc trong báo cáo của quý vị hay không."
 
-#: templates/forms/confirmation.html:98
+#: templates/forms/confirmation.html:97
 msgid "Our specialists determine the next step"
 msgstr "Các chuyên gia của chúng tôi sẽ xác định bước tiếp theo"
 
-#: templates/forms/confirmation.html:102
+#: templates/forms/confirmation.html:101
 msgid "We may decide to:"
 msgstr "Chúng tôi có thể quyết định:"
 
-#: templates/forms/confirmation.html:105
+#: templates/forms/confirmation.html:104
 msgid ""
 "<strong>Open an investigation</strong> or take some other action within the "
 "legal authority of the Justice Department."
@@ -1310,7 +1302,7 @@ msgstr ""
 "<strong>Mở một cuộc điều tra</strong> hoặc thực hiện một hành động nào khác "
 "trong thẩm quyền pháp lý của Bộ Tư pháp."
 
-#: templates/forms/confirmation.html:106
+#: templates/forms/confirmation.html:105
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
 "report."
@@ -1318,7 +1310,7 @@ msgstr ""
 "<strong>Thu thập thêm thông tin</strong> trước khi chúng tôi có thể đánh giá "
 "báo cáo của quý vị."
 
-#: templates/forms/confirmation.html:107
+#: templates/forms/confirmation.html:106
 msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
 "into your report. If so, we’ll let you know."
@@ -1327,7 +1319,7 @@ msgstr ""
 "của quý vị một cách chính xác. Nếu vậy, chúng tôi sẽ thông báo cho quý vị "
 "biết."
 
-#: templates/forms/confirmation.html:110
+#: templates/forms/confirmation.html:109
 msgid ""
 "In some cases, we may determine that we don’t have legal authority to handle "
 "your report and will recommend that you seek help from a private lawyer or "
@@ -1337,11 +1329,11 @@ msgstr ""
 "thẩm quyền pháp lý để xử lý báo cáo của quý vị và sẽ khuyến nghị quý vị nên "
 "tìm kiếm sự trợ giúp từ luật sư riêng hoặc tổ chức hỗ trợ pháp lý địa phương."
 
-#: templates/forms/confirmation.html:120
+#: templates/forms/confirmation.html:119
 msgid "When possible, we will follow up with you"
 msgstr "Khi có thể, chúng tôi sẽ liên hệ với quý vị"
 
-#: templates/forms/confirmation.html:125
+#: templates/forms/confirmation.html:124
 msgid ""
 "We do our best to let you know about the outcome of our review. However, we "
 "may not always be able to provide you with updates because:"
@@ -1350,18 +1342,18 @@ msgstr ""
 "giá của chúng tôi. Tuy nhiên, không phải lúc nào chúng tôi cũng có thể cung "
 "cấp cho quý vị các thông tin cập nhật vì:"
 
-#: templates/forms/confirmation.html:129
+#: templates/forms/confirmation.html:128
 msgid ""
 "We’re actively working on an investigation or case related to your report."
 msgstr ""
 "Chúng tôi đang tích cực thực hiện một cuộc điều tra hoặc trường hợp liên "
 "quan đến báo cáo của quý vị."
 
-#: templates/forms/confirmation.html:132
+#: templates/forms/confirmation.html:131
 msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr "Chúng tôi đang nhận và tích cực đánh giá nhiều yêu cầu cùng một lúc."
 
-#: templates/forms/confirmation.html:135 templates/landing.html:356
+#: templates/forms/confirmation.html:134 templates/landing.html:356
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1376,22 +1368,22 @@ msgstr ""
 "vị khi liên hệ với chúng tôi. Đây là cách chúng tôi theo dõi hồ sơ của quý "
 "vị."
 
-#: templates/forms/confirmation.html:143
+#: templates/forms/confirmation.html:142
 msgid "What you can do next"
 msgstr "Quý vị có thể làm gì tiếp theo"
 
-#: templates/forms/confirmation.html:149
+#: templates/forms/confirmation.html:148
 msgid "1"
 msgstr "1"
 
-#: templates/forms/confirmation.html:152
+#: templates/forms/confirmation.html:151
 msgid ""
 "Contact local legal aid organizations or a lawyer if you haven’t already"
 msgstr ""
 "Liên hệ với các tổ chức hỗ trợ pháp lý địa phương hoặc luật sư nếu quý vị "
 "chưa làm việc đó"
 
-#: templates/forms/confirmation.html:156
+#: templates/forms/confirmation.html:155
 msgid ""
 "Legal aid offices or members of lawyer associations in your state may be "
 "able to help you with your issue."
@@ -1399,7 +1391,7 @@ msgstr ""
 "Các văn phòng hỗ trợ pháp lý hoặc thành viên của các hiệp hội luật sư ở tiểu "
 "bang của quý vị có thể giúp quý vị giải quyết vấn đề của mình."
 
-#: templates/forms/confirmation.html:159
+#: templates/forms/confirmation.html:158
 msgid ""
 "American Bar Association, visit <a class=\"external-link--blue external-"
 "link--popup\" aria-label=\"www.findlegalhelp.org\" href=\"http://www."
@@ -1411,7 +1403,7 @@ msgstr ""
 "www.findlegalhelp.org\">www.findlegalhelp.org</a> hoặc gọi <a href="
 "\"tel:800-285-2221\">(800) 285-2221</a>"
 
-#: templates/forms/confirmation.html:162
+#: templates/forms/confirmation.html:161
 msgid ""
 "Legal Service Corporation (or Legal Aid Offices), visit <a aria-label=\"www."
 "lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--popup\" "
@@ -1424,15 +1416,15 @@ msgstr ""
 "gov/find-legal-aid</a> hoặc gọi <a href=\"tel:202-295-1500\">(202) 295-1500</"
 "a>"
 
-#: templates/forms/confirmation.html:170
+#: templates/forms/confirmation.html:169
 msgid "2"
 msgstr "2"
 
-#: templates/forms/confirmation.html:173
+#: templates/forms/confirmation.html:172
 msgid "Get help immediately if you are in danger"
 msgstr "Yêu cầu trợ giúp ngay lập tức nếu quý vị đang gặp nguy hiểm"
 
-#: templates/forms/confirmation.html:178
+#: templates/forms/confirmation.html:177
 msgid ""
 "If you reported an incident where you or someone else has experienced or is "
 "still experiencing physical harm or violence, or are in immediate danger, "
@@ -1443,7 +1435,7 @@ msgstr ""
 "hiểm ngay trước mắt, vui lòng gọi <a href=\"tel:911\">911</a> và liên hệ với "
 "cảnh sát."
 
-#: templates/forms/confirmation.html:191
+#: templates/forms/confirmation.html:190
 msgid "Your submission"
 msgstr "Hồ sơ của quý vị"
 
@@ -1605,7 +1597,7 @@ msgstr "Quay lại"
 msgid "Address"
 msgstr "Địa chỉ"
 
-#: templates/forms/report_data.html:132 templates/forms/report_data.html:138
+#: templates/forms/report_data.html:131 templates/forms/report_data.html:137
 msgid "None selected"
 msgstr "Không lựa chọn nào được chọn"
 
