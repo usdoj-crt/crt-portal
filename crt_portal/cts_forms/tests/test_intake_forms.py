@@ -709,7 +709,6 @@ class ProFormTest(TestCase):
         bad_year_data["crt_reciept_year"] = 3000
         form = ProForm(data=bad_year_data)
         errors = str(form.errors)
-        print(errors)
         self.assertTrue("Date can not be in the future." in errors)
         self.assertFalse(form.is_valid())
 
