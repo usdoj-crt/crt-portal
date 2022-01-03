@@ -4,7 +4,7 @@
 {% load employer_info_view %}
 {% load static %}
 
-{% block title %}Reported Complaint{% endblock %}
+{% block title %}Reported complaint{% endblock %}
 {% block extra_title %}
 <button aria-label="edit report details" id="edit-details-btn" class="usa-button usa-button--unstyled button--edit margin-left-auto" type="button">Edit</button>
 {% endblock %}
@@ -78,7 +78,7 @@
       </tr>
       {# showing old data with trafficking #}
       <tr>
-        <th>Human Trafficking</th>
+        <th>Human trafficking</th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
             {% if crimes.trafficking %}
@@ -113,7 +113,7 @@
       </tr>
       {% endif %}
       <tr>
-        <th>Relevant Details</th>
+        <th>Relevant details</th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
             {% if data.election_details %}
@@ -200,7 +200,7 @@
         </td>
       </tr>
       <tr>
-        <th><label for="{{details_form.servicemember.id_for_label}}">Service Member</label></th>
+        <th><label for="{{details_form.servicemember.id_for_label}}">Servicemember</label></th>
           <td>
             <div class="details {% if details_form.errors %}display-none{% endif %}">
               {{data.servicemember|title|default:"—"}}
