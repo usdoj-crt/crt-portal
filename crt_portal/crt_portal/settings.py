@@ -189,8 +189,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-# Commented this setting due to the 3.9.5 upgrade issue with psycopg2 UTC time zone not set.
-# USE_TZ = True
+USE_TZ = True
 
 # Set to True later in settings if we've successfully configured an email backend
 EMAIL_ENABLED = False
