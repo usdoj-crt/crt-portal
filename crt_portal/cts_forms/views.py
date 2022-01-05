@@ -439,8 +439,7 @@ class ShowView(LoginRequiredMixin, View):
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)
         filter_output = setup_filter_parameters(report, request.GET)
-        autoresponse_email = TMSEmail.objects.filter(report=report.id, purpose=TMSEmail.AUTO_EMAIL).order_by(
-            'created_at').first()
+        autoresponse_email = TMSEmail.objects.filter(report=report.id, purpose=TMSEmail.AUTO_EMAIL).order_by('created_at').first()
         output.update({
             'contact_form': contact_form,
             'details_form': details_form,
