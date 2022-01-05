@@ -606,7 +606,7 @@ def crt_date_cleaner(self, cleaned_data):
     else:
         self.add_error('crt_reciept_month', ValidationError(DATE_ERRORS['month_required']))
         invalid_date = True
-# Test Day
+    # Test Day
     if 'crt_reciept_day' in cleaned_data:
         day = cleaned_data['crt_reciept_day']
         if type(day) != int:
