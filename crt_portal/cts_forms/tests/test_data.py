@@ -11,6 +11,9 @@ SAMPLE_REPORT = {
     'location_city_town': 'Yosemite Valley',
     'location_state': 'CA',
     'language': 'en',
+    'crt_reciept_month': None,
+    'crt_receipt_day': None,
+    'crt_receipt_year': None
 }
 
 SAMPLE_RESPONSE_TEMPLATE = {

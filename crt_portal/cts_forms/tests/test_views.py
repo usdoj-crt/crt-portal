@@ -16,7 +16,7 @@ from unittest.mock import patch
 
 from testfixtures import LogCapture
 
-from ..forms import ContactEditForm, ReportEditForm, add_activity
+from ..forms import ContactEditForm, ReportEditForm, add_activity, ProForm
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
 from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary
 from .test_data import SAMPLE_REPORT
@@ -148,8 +148,20 @@ class ReportEditShowViewTests(TestCase):
 
         form_data = {'type': ReportEditForm.CONTEXT_KEY, 'last_incident_month': 99, 'contact_email': 'test@'}
         response = self.client.post(self.url, form_data, follow=True)
-
         self.assertEqual(response.context['contact_form'].initial['contact_email'], initial)
+
+
+    def test_crt_form_validation(self):
+        """Do not update crt_reciept_month with an out of range month
+        """
+        form_data = {'type': ReportEditForm.CONTEXT_KEY, 'crt_reciept_month': 12, 'crt_reciept_day': 31, 'crt_receipt_year': 2000}
+        response = self.client.post(self.url, form_data, follow=True)
+        self.report.refresh_from_db()
+        print("response.context", response.context)
+        print("self.report", self.report)
+        # self.assertTrue('crt_recript_month' in response.context['details_form'].initial)
+        # print("response.context['contact_form'].initial['contact_email']", response.context['contact_form'].initial['crt_reciept_month'])
+        # self.assertEqual(response.context['contact_form'].initial['crt_reciept_month'], initial)
 
 
 class CRTReportWizardTests(TestCase):

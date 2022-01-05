@@ -591,30 +591,46 @@ def date_cleaner(self, cleaned_data):
 
 def crt_date_cleaner(self, cleaned_data):
     """This should give the most specific error message, if the date doesn't render for reasons other than what we are checking for, it will give the generic error."""
+    invalid_date = False
+    # Test month
     if 'crt_reciept_month' in cleaned_data:
         month = cleaned_data['crt_reciept_month']
-        if month > 12 or month < 1:
+        # These checks are to prevent existing report detail page edits to require the crt_. . . fields.  They are required in the pro form and that is caught through the existing "required" validation.
+        if type(month) != int:
+            return cleaned_data
+        elif month > 12 or month < 1:
             self.add_error('crt_reciept_month', ValidationError(
                 DATE_ERRORS['month_invalid'],
             ))
+            invalid_date = True
     else:
         self.add_error('crt_reciept_month', ValidationError(DATE_ERRORS['month_required']))
-
+        invalid_date = True
+# Test Day
     if 'crt_reciept_day' in cleaned_data:
         day = cleaned_data['crt_reciept_day']
-        if day > 31 or day < 1:
+        if type(day) != int:
+            return cleaned_data
+        elif day > 31 or day < 1:
             self.add_error('crt_reciept_day', ValidationError(
                 DATE_ERRORS['day_invalid'],
             ))
+            invalid_date = True
     else:
         self.add_error('crt_reciept_day', ValidationError(DATE_ERRORS['day_required']))
-
+        invalid_date = True
+    # Test year
     if 'crt_reciept_year' in cleaned_data:
         year = cleaned_data['crt_reciept_year']
-        if year < 2000:
+        if type(year) != int:
+            return cleaned_data
+        elif year < 2000:
             self.add_error('crt_reciept_year', ValidationError(
                 DATE_ERRORS['crt_no_past'],
             ))
+        elif invalid_date:
+            # Added if month and year are invalid.  We don't want to create a datetime with bad data, which happens in the next conditional.
+            return cleaned_data
         elif datetime(year, month, day) > datetime.now():
             self.add_error('crt_reciept_year', ValidationError(
                 DATE_ERRORS['no_future'],
