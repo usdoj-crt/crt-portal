@@ -718,7 +718,7 @@ class ProFormTest(TestCase):
         bad_date_data["crt_reciept_day"] = 30
         form = ProForm(data=bad_date_data)
         errors = str(form.errors)
-        self.assertTrue("Please enter a valid date." in errors)
+        self.assertTrue("Please use a valid date." in errors)
         self.assertFalse(form.is_valid())
 
     def test_full_example(self):

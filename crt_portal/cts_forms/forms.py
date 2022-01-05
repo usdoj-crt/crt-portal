@@ -639,7 +639,7 @@ def crt_date_cleaner(self, cleaned_data):
                 ))
         except ValueError:
             self.add_error('crt_reciept_year', ValidationError(
-                DATE_ERRORS['not_valid'],
+                DATE_ERRORS['crt_not_valid'],
             ))
     else:
         self.add_error('crt_reciept_year', ValidationError(DATE_ERRORS['year_required']))

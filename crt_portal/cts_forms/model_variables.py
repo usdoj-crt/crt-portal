@@ -439,6 +439,7 @@ DATE_ERRORS = {
     'no_past': _('Please enter a year after 1900.'),
     'crt_no_past': _('Please enter a year after 1999.'),
     'not_valid': _('Please enter a valid date. Use format MM/DD/YYYY.'),
+    'crt_not_valid': _('Please use a valid date.'),
 }
 
 VOTING_ERROR = _('Please select the type of election or voting activity.')
