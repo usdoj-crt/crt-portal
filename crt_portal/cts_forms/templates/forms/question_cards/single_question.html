@@ -10,7 +10,7 @@
   {% if field.label %}
   <h3 class="question--header margin-top-0">
     <label for="{{ field.id_for_label }}" class="{{label_class}} margin-bottom-0">
-      {{ field.label }}{% if required or field.field.required %}<span class="field-required">{% trans "required" %}</span>{% endif %}
+      {{ field.label }}{% if required or field.field.required or proform_required %}<span class="field-required">{% trans "required" %}</span>{% endif %}
     </label>
   </h3>
   {% endif %} {% if field.help_text %}

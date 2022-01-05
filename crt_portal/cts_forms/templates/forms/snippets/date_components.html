@@ -7,7 +7,7 @@
   </div>
   <div class="usa-form-group usa-form-group--day">
     <label class="usa-label" for="{{ day.id_for_label}}">
-      {{ day.label }}
+      {{ day.label }}{% if proform_required %}<span class="text-secondary-dark">*</span>{% endif %}
     </label>
     {{ day|withInputError }}
   </div>

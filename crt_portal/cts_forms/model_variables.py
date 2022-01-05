@@ -405,6 +405,7 @@ STATES_AND_TERRITORIES = (
 
 VIOLATION_SUMMARY_ERROR = _('Please provide description to continue')
 PRIMARY_COMPLAINT_ERROR = _('Please select a primary reason to continue.')
+INTAKE_FORMAT_ERROR = _('Please select an intake format')
 
 WHERE_ERRORS = (
     ('location_name', _('Please enter the name of the location where this took place.')),
@@ -431,11 +432,14 @@ INCIDENT_DATE_HELPTEXT = _('You must enter a month and year. Please use the form
 DATE_ERRORS = {
     'month_required': _('Please enter a month.'),
     'month_invalid': _('Please enter a valid month. Month must be between 1 and 12.'),
+    'day_required': _('Please enter a day.'),
     'day_invalid': _('Please enter a valid day of the month. Day must be between 1 and the last day of the month.'),
     'year_required': _('Please enter a year.'),
     'no_future': _('Date can not be in the future.'),
     'no_past': _('Please enter a year after 1900.'),
+    'crt_no_past': _('Please enter a year after 1999.'),
     'not_valid': _('Please enter a valid date. Use format MM/DD/YYYY.'),
+    'crt_not_valid': _('Please use a valid date.'),
 }
 
 VOTING_ERROR = _('Please select the type of election or voting activity.')
