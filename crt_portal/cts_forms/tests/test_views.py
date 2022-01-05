@@ -118,7 +118,6 @@ class ReportEditShowViewTests(TestCase):
         new_primary_complaint = PRIMARY_COMPLAINT_CHOICES[1][0]
         form_data = {'type': ReportEditForm.CONTEXT_KEY, 'primary_complaint': new_primary_complaint}
         response = self.client.post(self.url, form_data, follow=True)
-
         self.report.refresh_from_db()
         self.assertEqual(self.report.primary_complaint, new_primary_complaint)
         self.assertTrue(response.context['data'].primary_complaint == new_primary_complaint)
@@ -150,18 +149,63 @@ class ReportEditShowViewTests(TestCase):
         response = self.client.post(self.url, form_data, follow=True)
         self.assertEqual(response.context['contact_form'].initial['contact_email'], initial)
 
-
-    def test_crt_form_validation(self):
-        """Do not update crt_reciept_month with an out of range month
+    def test_crt_month_update(self):
+        """Update crt_reciept_month with valid month
         """
-        form_data = {'type': ReportEditForm.CONTEXT_KEY, 'crt_reciept_month': 12, 'crt_reciept_day': 31, 'crt_receipt_year': 2000}
+        form_data = {'type': ReportEditForm.CONTEXT_KEY, 'crt_reciept_month': 11}
+        original_month = self.report.crt_reciept_month
         response = self.client.post(self.url, form_data, follow=True)
         self.report.refresh_from_db()
-        print("response.context", response.context)
-        print("self.report", self.report)
-        # self.assertTrue('crt_recript_month' in response.context['details_form'].initial)
-        # print("response.context['contact_form'].initial['contact_email']", response.context['contact_form'].initial['crt_reciept_month'])
-        # self.assertEqual(response.context['contact_form'].initial['crt_reciept_month'], initial)
+        self.assertEqual(self.report.crt_reciept_month, 11)
+        self.assertNotEqual(self.report.crt_reciept_month, original_month)
+
+    def test_crt_month_out_of_range(self):
+        """Do not update crt_reciept_month with an out of range month
+        """
+        form_data = {'type': ReportEditForm.CONTEXT_KEY, 'crt_reciept_month': 99}
+        original_month = self.report.crt_reciept_month
+        response = self.client.post(self.url, form_data, follow=True)
+        self.report.refresh_from_db()
+        self.assertNotEqual(response.context['data'].crt_reciept_month, 99)
+        self.assertEqual(self.report.crt_reciept_month, original_month)
+
+    def test_crt_day_modification(self):
+        """Update crt_reciept_day with valid day
+        """
+        form_data = {'type': ReportEditForm.CONTEXT_KEY, 'crt_reciept_day': 11}
+        original_day = self.report.crt_reciept_day
+        response = self.client.post(self.url, form_data, follow=True)
+        self.report.refresh_from_db()
+        self.assertEqual(self.report.crt_reciept_day, 11)
+        self.assertNotEqual(self.report.crt_reciept_day, original_day)
+
+    def test_crt_day_out_of_range(self):
+        """Do not update crt_reciept_day with an out of range day
+        """
+        form_data = {'type': ReportEditForm.CONTEXT_KEY, 'crt_reciept_day': 0}
+        original_day = self.report.crt_reciept_day
+        response = self.client.post(self.url, form_data, follow=True)
+        self.report.refresh_from_db()
+        self.assertNotEqual(response.context['data'].crt_reciept_day, 0)
+        self.assertEqual(response.context['data'].crt_reciept_day, original_day)
+
+    def test_crt_year_modification(self):
+        """Update crt_reciept_year with valid year
+        """
+        form_data = {'type': ReportEditForm.CONTEXT_KEY, 'crt_reciept_year': 2001}
+        response = self.client.post(self.url, form_data, follow=True)
+        self.report.refresh_from_db()
+        self.assertEqual(response.context['data'].crt_reciept_year, 2001)
+
+    def test_crt_year_out_of_range(self):
+        """Do not update crt_reciept_year with an out of range year
+        """
+        form_data = {'type': ReportEditForm.CONTEXT_KEY, 'crt_reciept_year': 1999}
+        original_year = self.report.crt_reciept_year
+        response = self.client.post(self.url, form_data, follow=True)
+        self.report.refresh_from_db()
+        self.assertNotEqual(response.context['data'].crt_reciept_year, 1999)
+        self.assertEqual(response.context['data'].crt_reciept_year, original_year)
 
 
 class CRTReportWizardTests(TestCase):
