@@ -631,10 +631,15 @@ def crt_date_cleaner(self, cleaned_data):
         elif invalid_date:
             # Added if month and year are invalid.  We don't want to create a datetime with bad data, which happens in the next conditional.
             return cleaned_data
-        elif datetime(year, month, day) > datetime.now():
+        try:
+            if datetime(year, month, day) > datetime.now():
+                self.add_error('crt_reciept_year', ValidationError(
+                    DATE_ERRORS['no_future'],
+                    params={'value': datetime(year, month, day).strftime('%x')},
+                ))
+        except ValueError:
             self.add_error('crt_reciept_year', ValidationError(
-                DATE_ERRORS['no_future'],
-                params={'value': datetime(year, month, day).strftime('%x')},
+                DATE_ERRORS['not_valid'],
             ))
     else:
         self.add_error('crt_reciept_year', ValidationError(DATE_ERRORS['year_required']))

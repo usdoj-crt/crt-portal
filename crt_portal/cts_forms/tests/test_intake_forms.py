@@ -712,6 +712,15 @@ class ProFormTest(TestCase):
         self.assertTrue("Date can not be in the future." in errors)
         self.assertFalse(form.is_valid())
 
+    def test_bad_date(self):
+        bad_date_data = self.data
+        bad_date_data["crt_reciept_month"] = 2
+        bad_date_data["crt_reciept_day"] = 30
+        form = ProForm(data=bad_date_data)
+        errors = str(form.errors)
+        self.assertTrue("Please enter a valid date." in errors)
+        self.assertFalse(form.is_valid())
+
     def test_full_example(self):
         form = ProForm(data=self.data)
         self.assertTrue(form.is_valid())
