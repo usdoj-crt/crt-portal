@@ -5,19 +5,19 @@ from django.forms.widgets import ChoiceWidget, SelectMultiple, DateInput
 class UsaRadioSelect(ChoiceWidget):
     input_type = 'radio'
     template_name = 'django/forms/widgets/radio.html'
-    option_template_name = '../templates/forms/widgets/usa_radio_option.html'
+    option_template_name = 'forms/widgets/usa_radio_option.html'
 
 
 class CrtPrimaryIssueRadioGroup(ChoiceWidget):
     input_type = 'radio'
-    template_name = '../templates/forms/widgets/multiple_inputs.html'
-    option_template_name = '../templates/forms/widgets/crt_radio_area_option.html'
+    template_name = 'forms/widgets/multiple_inputs.html'
+    option_template_name = 'forms/widgets/crt_radio_area_option.html'
 
 
 class ComplaintSelect(ChoiceWidget):
     input_type = 'select'
-    template_name = '../templates/forms/widgets/complaint_select.html'
-    option_template_name = '../templates/forms/widgets/multi_select_option.html'
+    template_name = 'forms/widgets/complaint_select.html'
+    option_template_name = 'forms/widgets/multi_select_option.html'
 
     def __init__(self, *args, **kwargs):
         label = kwargs.pop('label', None)
@@ -40,8 +40,8 @@ class ComplaintSelect(ChoiceWidget):
 
 
 class CrtMultiSelect(SelectMultiple):
-    template_name = '../templates/forms/widgets/multi_select.html'
-    option_template_name = '../templates/forms/widgets/multi_select_option.html'
+    template_name = 'forms/widgets/multi_select.html'
+    option_template_name = 'forms/widgets/multi_select_option.html'
 
 
 class CrtDateInput(DateInput):
@@ -55,7 +55,7 @@ class UsaCheckboxSelectMultiple(ChoiceWidget):
     allow_multiple_selected = True
     input_type = 'checkbox'
     template_name = 'django/forms/widgets/checkbox_select.html'
-    option_template_name = '../templates/forms/widgets/usa_checkbox_option.html'
+    option_template_name = 'forms/widgets/usa_checkbox_option.html'
 
     def use_required_attribute(self, initial):
         # Don't use the 'required' attribute because browser validation would
@@ -106,4 +106,4 @@ class DataAttributesSelect(ChoiceWidget):
 
 class CRTDateField(DateInput):
     input_type = 'text',
-    template_name = '../templates/forms/widgets/crt_date_entry.html'
+    template_name = 'forms/widgets/crt_date_entry.html'
