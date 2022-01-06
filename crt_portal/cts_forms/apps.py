@@ -2,6 +2,7 @@ from django.apps import AppConfig
 
 
 class CtsFormsConfig(AppConfig):
+    default_auto_field = 'django.db.models.AutoField'
     name = 'cts_forms'
 
     def ready(self):
