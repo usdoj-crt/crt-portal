@@ -393,6 +393,67 @@ class ResponseActionTests(TestCase):
         self.assertTrue('You contacted the Department of Justice on December 31, 2020' in content)
         self.assertFalse('You contacted the Department of Justice on January 1, 2021' in content)
 
+    def test_ignore_crt_receipt_date(self):
+        # Ignore crt_reciept_date because intake_format is web
+        self.report.create_date = datetime(2020, 12, 31, 23, 0, 0)
+        self.report.intake_format = 'web'
+        self.report.save()
+        response = self.client.post(
+            reverse(
+                'crt_forms:crt-forms-response',
+                kwargs={'id': self.report.id},
+            ),
+            {
+                'next': '?per_page=15',
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        content = str(response.content)
+        self.assertTrue('You contacted the Department of Justice on December 31, 2020' in content)
+        self.assertFalse('You contacted the Department of Justice on December 1, 2000' in content)
+
+    def test_bad_crt_receipt_date(self):
+        # Ignore crt_reciept_date it is not valid
+        self.report.create_date = datetime(2020, 12, 31, 23, 0, 0)
+        self.report.crt_reciept_day = None
+        self.report.intake_format = 'web'
+        self.report.save()
+        response = self.client.post(
+            reverse(
+                'crt_forms:crt-forms-response',
+                kwargs={'id': self.report.id},
+            ),
+            {
+                'next': '?per_page=15',
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        content = str(response.content)
+        self.assertTrue('You contacted the Department of Justice on December 31, 2020' in content)
+        self.assertFalse('You contacted the Department of Justice on December 1, 2000' in content)
+
+    def test_crt_receipt_date(self):
+        # use crt_reciept_date
+        self.report.create_date = datetime(2020, 12, 31, 23, 0, 0)
+        self.report.intake_format = 'fax'
+        self.report.save()
+        response = self.client.post(
+            reverse(
+                'crt_forms:crt-forms-response',
+                kwargs={'id': self.report.id},
+            ),
+            {
+                'next': '?per_page=15',
+            },
+            follow=True
+        )
+        self.assertEquals(response.status_code, 200)
+        content = str(response.content)
+        self.assertTrue('You contacted the Department of Justice on December 1, 2000' in content)
+        self.assertFalse('You contacted the Department of Justice on December 31, 2020' in content)
+
 
 class FormNavigationTests(TestCase):
     def setUp(self):
