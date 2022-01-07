@@ -86,8 +86,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
-    'actstream',
-    'cts_forms',
+    # 'actstream',
+    'cts_forms.apps.CtsActstreamConfig',  # Override default actstream config
+    'cts_forms.apps.CtsFormsConfig',
     'compressor',
     'compressor_toolkit',
     'storages',
