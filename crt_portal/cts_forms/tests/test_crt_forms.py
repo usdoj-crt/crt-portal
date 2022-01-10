@@ -417,7 +417,7 @@ class ResponseActionTests(TestCase):
         # Ignore crt_reciept_date it is not valid
         self.report.create_date = datetime(2020, 12, 31, 23, 0, 0)
         self.report.crt_reciept_day = None
-        self.report.intake_format = 'web'
+        self.report.intake_format = 'fax'
         self.report.save()
         response = self.client.post(
             reverse(
