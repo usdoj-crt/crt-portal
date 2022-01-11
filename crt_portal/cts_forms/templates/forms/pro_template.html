@@ -18,12 +18,12 @@
 
     <h2 class="h1" id="intake">Intake</h2>
     <div class="margin-top-3 display-flex flex-align-end">
-      {% include "forms/question_cards/date.html" with question='CRT receipt date' month=form.crt_reciept_month day=form.crt_reciept_day year=form.crt_reciept_year required=False %}
+      {% include "forms/question_cards/date.html" with question='CRT receipt date' month=form.crt_reciept_month day=form.crt_reciept_day year=form.crt_reciept_year required=True proform_required=True %}
       <button id="today-receipt-btn" name="today-receipt-date" label="autofill receipt date"
         class="usa-button usa-button--unstyled autofill_today_btn margin-left-2" type="button">Today</button>
     </div>
     <div class="margin-top-4">
-      {% include "forms/question_cards/single_question.html" with field=form.intake_format %}
+      {% include "forms/question_cards/single_question.html" with field=form.intake_format required=True proform_required=True %}
     </div>
   </div>
 </div>
@@ -40,7 +40,7 @@
   <div class="crt-portal-card__content crt-portal-card__content--lg">
     <h2 class="h1" id="primary-concern">Primary concern</h2>
     <div class="margin-top-3">
-      {% include "forms/question_cards/single_question.html" with field=form.primary_complaint required=True %}
+      {% include "forms/question_cards/single_question.html" with field=form.primary_complaint required=True proform_required=True %}
 
       {# Optional questions: #}
 

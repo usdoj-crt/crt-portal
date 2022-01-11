@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-13 18:44+0000\n"
+"POT-Creation-Date: 2021-12-29 19:50+0000\n"
 "Language: Chinese Traditional\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:182 forms.py:1603
+#: forms.py:182 forms.py:1621
 msgid " - Select - "
 msgstr " - 選擇 - "
 
@@ -111,23 +111,23 @@ msgstr ""
 "讓我們知道此事件是在最近多久發生非常重要，這樣我們才能採取適當行動。如果此事"
 "件是發生在一段時間或者現在仍持續發生，請提供最近一次發生的日期。"
 
-#: forms.py:941
-msgid "Incident state"
-msgstr ""
-
-#: forms.py:949
-msgid "Primary classification"
-msgstr "主要分類"
-
-#: forms.py:971
+#: forms.py:944
 msgid "Assigned to"
 msgstr "指定給"
 
-#: forms.py:1160
+#: forms.py:960
+msgid "Incident state"
+msgstr ""
+
+#: forms.py:968
+msgid "Primary classification"
+msgstr "主要分類"
+
+#: forms.py:1169
 msgid "Create date cannot be in the future."
 msgstr "建立日期不得是未來日期。"
 
-#: forms.py:1343
+#: forms.py:1354
 msgid "Comment cannot be empty"
 msgstr "意見欄位不得空白"
 
@@ -136,11 +136,11 @@ msgstr "意見欄位不得空白"
 msgid "- Select -"
 msgstr "- 選擇 -"
 
-#: model_variables.py:9 model_variables.py:119 model_variables.py:287
+#: model_variables.py:9 model_variables.py:119 model_variables.py:289
 msgid "Yes"
 msgstr "是"
 
-#: model_variables.py:10 model_variables.py:120 model_variables.py:286
+#: model_variables.py:10 model_variables.py:120 model_variables.py:288
 msgid "No"
 msgstr "否"
 
@@ -384,7 +384,7 @@ msgstr ""
 "由於受到身體虐待或人身侵犯、性虐待或性侵害、其他傷害威脅或監禁而被迫從事性工"
 "作以換取利益"
 
-#: model_variables.py:102 model_variables.py:293
+#: model_variables.py:102 model_variables.py:295
 msgid "Federal"
 msgstr "聯邦"
 
@@ -397,8 +397,8 @@ msgstr "州或地方"
 msgid "Both"
 msgstr "兩者"
 
-#: model_variables.py:106 model_variables.py:295 model_variables.py:310
-#: model_variables.py:318 model_variables.py:335
+#: model_variables.py:106 model_variables.py:297 model_variables.py:312
+#: model_variables.py:320 model_variables.py:337
 msgid "I'm not sure"
 msgstr "我不確定"
 
@@ -494,57 +494,57 @@ msgstr ""
 "請選擇一個選項以繼續進行。如果以上所有選項都不適用於您的狀況，請選擇「以上所"
 "有項目都不適用於我」或「其他理由」並加以說明。"
 
-#: model_variables.py:258
+#: model_variables.py:260
 msgid "Place of worship or about a place of worship"
 msgstr "禮拜場所或與禮拜場所有關"
 
-#: model_variables.py:259
+#: model_variables.py:261
 msgid "Commercial or retail building"
 msgstr "商用建物或零售商店建物"
 
-#: model_variables.py:260 model_variables.py:271
+#: model_variables.py:262 model_variables.py:273
 msgid "Healthcare facility"
 msgstr "醫療保健設施"
 
-#: model_variables.py:261 model_variables.py:272
+#: model_variables.py:263 model_variables.py:274
 msgid "Financial institution"
 msgstr "金融機構"
 
-#: model_variables.py:262
+#: model_variables.py:264
 msgid "Public space"
 msgstr "公共場所"
 
-#: model_variables.py:263 templatetags/commercial_public_space_view.py:17
+#: model_variables.py:265 templatetags/commercial_public_space_view.py:17
 msgid "Other"
 msgstr "其他"
 
-#: model_variables.py:266
+#: model_variables.py:268
 msgid ""
 "Please select the type of location. If none of these apply to your "
 "situation, please select \"Other\"."
 msgstr "請選擇地點類型。如果以上所有選項都不適用於您的狀況，請選擇「其他」。"
 
-#: model_variables.py:269
+#: model_variables.py:271
 msgid "Place of worship"
 msgstr "禮拜場所"
 
-#: model_variables.py:270
+#: model_variables.py:272
 msgid "Commercial"
 msgstr "商業場所"
 
-#: model_variables.py:273
+#: model_variables.py:275
 msgid "Public outdoor space"
 msgstr "戶外公共場所"
 
-#: model_variables.py:277
+#: model_variables.py:279
 msgid "Church, synagogue, temple, religious community center"
 msgstr "教堂、猶太教堂、寺廟、宗教社區中心"
 
-#: model_variables.py:278
+#: model_variables.py:280
 msgid "Store, restaurant, bar, hotel, theater"
 msgstr "商店、餐廳、酒吧、飯店、電影院"
 
-#: model_variables.py:279
+#: model_variables.py:281
 msgid ""
 "Hospital or clinic (including inpatient and outpatient programs), "
 "reproductive care clinic, state developmental institution, nursing home"
@@ -552,387 +552,387 @@ msgstr ""
 "醫院或診所（包括住院和門診計畫）、生殖護理診所、州政府發展障礙人士收容機構、"
 "療養院"
 
-#: model_variables.py:280
+#: model_variables.py:282
 msgid "Bank, credit union, loan services"
 msgstr "銀行、信用合作社、貸款服務"
 
-#: model_variables.py:281
+#: model_variables.py:283
 msgid ""
 "Park, sidewalk, street, other public buildings (courthouse, DMV, city "
 "library)"
 msgstr "公園、人行道、街道、其他公共建物（法院、DMV、市立圖書館）"
 
-#: model_variables.py:292
+#: model_variables.py:294
 msgid "State/local"
 msgstr "州／地方"
 
-#: model_variables.py:294
+#: model_variables.py:296
 msgid "Private"
 msgstr "私人"
 
-#: model_variables.py:300
+#: model_variables.py:302
 msgid "Outside of prison"
 msgstr "監獄外"
 
-#: model_variables.py:302
+#: model_variables.py:304
 msgid "Prison (Federal)"
 msgstr "監獄（聯邦）"
 
-#: model_variables.py:303
+#: model_variables.py:305
 msgid "Prison (Private)"
 msgstr "監獄（私人經營）"
 
-#: model_variables.py:304
+#: model_variables.py:306
 msgid "Prison (I'm not sure)"
 msgstr "監獄（我不確定）"
 
-#: model_variables.py:308
+#: model_variables.py:310
 msgid "Public employer"
 msgstr "公家機關雇主"
 
-#: model_variables.py:309
+#: model_variables.py:311
 msgid "Private employer"
 msgstr "私人雇主"
 
-#: model_variables.py:313
+#: model_variables.py:315
 msgid "Please select what type of employer this is."
 msgstr "請選擇該雇主是屬於什麼類型。"
 
-#: model_variables.py:316
+#: model_variables.py:318
 msgid "Fewer than 15 employees"
 msgstr "少於 15 名員工"
 
-#: model_variables.py:317
+#: model_variables.py:319
 msgid "15 or more employees"
 msgstr "15 名員工以上"
 
-#: model_variables.py:321
+#: model_variables.py:323
 msgid "Please select how large the employer is."
 msgstr "請選擇雇主的組織規模。"
 
-#: model_variables.py:333
+#: model_variables.py:335
 msgid "Public school or educational program"
 msgstr "公立學校或教育計畫"
 
-#: model_variables.py:334
+#: model_variables.py:336
 msgid "Private school or educational program"
 msgstr "私立學校或教育計畫"
 
-#: model_variables.py:340
+#: model_variables.py:342
 msgid "Alabama"
 msgstr "阿拉巴馬州"
 
-#: model_variables.py:341
+#: model_variables.py:343
 msgid "Alaska"
 msgstr "阿拉斯加州"
 
-#: model_variables.py:342
+#: model_variables.py:344
 msgid "Arizona"
 msgstr "亞利桑那州"
 
-#: model_variables.py:343
+#: model_variables.py:345
 msgid "Arkansas"
 msgstr "阿肯色州"
 
-#: model_variables.py:344
+#: model_variables.py:346
 msgid "California"
 msgstr "加州"
 
-#: model_variables.py:345
+#: model_variables.py:347
 msgid "Colorado"
 msgstr "科羅拉多州"
 
-#: model_variables.py:346
+#: model_variables.py:348
 msgid "Connecticut"
 msgstr "康乃狄克州"
 
-#: model_variables.py:347
+#: model_variables.py:349
 msgid "Delaware"
 msgstr "特拉華州"
 
-#: model_variables.py:348
+#: model_variables.py:350
 msgid "District of Columbia"
 msgstr "哥倫比亞特區"
 
-#: model_variables.py:349
+#: model_variables.py:351
 msgid "Florida"
 msgstr "佛羅里達州"
 
-#: model_variables.py:350
+#: model_variables.py:352
 msgid "Georgia"
 msgstr "喬治亞州"
 
-#: model_variables.py:351
+#: model_variables.py:353
 msgid "Hawaii"
 msgstr "夏威夷州"
 
-#: model_variables.py:352
+#: model_variables.py:354
 msgid "Idaho"
 msgstr "愛達荷州"
 
-#: model_variables.py:353
+#: model_variables.py:355
 msgid "Illinois"
 msgstr "伊利諾州"
 
-#: model_variables.py:354
+#: model_variables.py:356
 msgid "Indiana"
 msgstr "印第安納州"
 
-#: model_variables.py:355
+#: model_variables.py:357
 msgid "Iowa"
 msgstr "愛荷華州"
 
-#: model_variables.py:356
+#: model_variables.py:358
 msgid "Kansas"
 msgstr "堪薩斯州"
 
-#: model_variables.py:357
+#: model_variables.py:359
 msgid "Kentucky"
 msgstr "肯塔基州"
 
-#: model_variables.py:358
+#: model_variables.py:360
 msgid "Louisiana"
 msgstr "路易斯安那州"
 
-#: model_variables.py:359
+#: model_variables.py:361
 msgid "Maine"
 msgstr "緬因州"
 
-#: model_variables.py:360
+#: model_variables.py:362
 msgid "Maryland"
 msgstr "馬里蘭州"
 
-#: model_variables.py:361
+#: model_variables.py:363
 msgid "Massachusetts"
 msgstr "麻州"
 
-#: model_variables.py:362
+#: model_variables.py:364
 msgid "Michigan"
 msgstr "密西根州"
 
-#: model_variables.py:363
+#: model_variables.py:365
 msgid "Minnesota"
 msgstr "明尼蘇達州"
 
-#: model_variables.py:364
+#: model_variables.py:366
 msgid "Mississippi"
 msgstr "密西西比州"
 
-#: model_variables.py:365
+#: model_variables.py:367
 msgid "Missouri"
 msgstr "密蘇里州"
 
-#: model_variables.py:366
+#: model_variables.py:368
 msgid "Montana"
 msgstr "蒙大拿州"
 
-#: model_variables.py:367
+#: model_variables.py:369
 msgid "Nebraska"
 msgstr "內布拉斯加州"
 
-#: model_variables.py:368
+#: model_variables.py:370
 msgid "Nevada"
 msgstr "內華達州"
 
-#: model_variables.py:369
+#: model_variables.py:371
 msgid "New Hampshire"
 msgstr "新罕布什爾州"
 
-#: model_variables.py:370
+#: model_variables.py:372
 msgid "New Jersey"
 msgstr "紐澤西州"
 
-#: model_variables.py:371
+#: model_variables.py:373
 msgid "New Mexico"
 msgstr "新墨西哥州"
 
-#: model_variables.py:372
+#: model_variables.py:374
 msgid "New York"
 msgstr "紐約州"
 
-#: model_variables.py:373
+#: model_variables.py:375
 msgid "North Carolina"
 msgstr "北卡羅萊納州"
 
-#: model_variables.py:374
+#: model_variables.py:376
 msgid "North Dakota"
 msgstr "北達科他州"
 
-#: model_variables.py:375
+#: model_variables.py:377
 msgid "Ohio"
 msgstr "俄亥俄州"
 
-#: model_variables.py:376
+#: model_variables.py:378
 msgid "Oklahoma"
 msgstr "奧克拉荷馬州"
 
-#: model_variables.py:377
+#: model_variables.py:379
 msgid "Oregon"
 msgstr "俄勒岡州"
 
-#: model_variables.py:378
+#: model_variables.py:380
 msgid "Pennsylvania"
 msgstr "賓州"
 
-#: model_variables.py:379
+#: model_variables.py:381
 msgid "Rhode Island"
 msgstr "羅得島州"
 
-#: model_variables.py:380
+#: model_variables.py:382
 msgid "South Carolina"
 msgstr "南卡羅萊納州"
 
-#: model_variables.py:381
+#: model_variables.py:383
 msgid "South Dakota"
 msgstr "南達科他州"
 
-#: model_variables.py:382
+#: model_variables.py:384
 msgid "Tennessee"
 msgstr "田納西州"
 
-#: model_variables.py:383
+#: model_variables.py:385
 msgid "Texas"
 msgstr "德州"
 
-#: model_variables.py:384
+#: model_variables.py:386
 msgid "Utah"
 msgstr "猶他州"
 
-#: model_variables.py:385
+#: model_variables.py:387
 msgid "Vermont"
 msgstr "佛蒙特州"
 
-#: model_variables.py:386
+#: model_variables.py:388
 msgid "Virginia"
 msgstr "維吉尼亞州"
 
-#: model_variables.py:387
+#: model_variables.py:389
 msgid "Washington"
 msgstr "華盛頓州"
 
-#: model_variables.py:388
+#: model_variables.py:390
 msgid "West Virginia"
 msgstr "西維吉尼亞州"
 
-#: model_variables.py:389
+#: model_variables.py:391
 msgid "Wisconsin"
 msgstr "威斯康辛州"
 
-#: model_variables.py:390
+#: model_variables.py:392
 msgid "Wyoming"
 msgstr "懷俄明州"
 
-#: model_variables.py:391
+#: model_variables.py:393
 msgid "American Samoa"
 msgstr "美屬薩摩亞"
 
-#: model_variables.py:392
+#: model_variables.py:394
 msgid "Guam"
 msgstr "關島"
 
-#: model_variables.py:393
+#: model_variables.py:395
 msgid "Northern Mariana Islands"
 msgstr "北馬利安納群島邦"
 
-#: model_variables.py:394
+#: model_variables.py:396
 msgid "Puerto Rico"
 msgstr "波多黎各"
 
-#: model_variables.py:395
+#: model_variables.py:397
 msgid "Virgin Islands"
 msgstr "維爾京群島"
 
-#: model_variables.py:396
+#: model_variables.py:398
 msgid "Armed Forces Africa"
 msgstr "非洲武裝部隊"
 
-#: model_variables.py:397
+#: model_variables.py:399
 msgid "Armed Forces Americas"
 msgstr "美國武裝部隊"
 
-#: model_variables.py:398
+#: model_variables.py:400
 msgid "Armed Forces Canada"
 msgstr "加拿大武裝部隊"
 
-#: model_variables.py:399
+#: model_variables.py:401
 msgid "Armed Forces Europe"
 msgstr "歐洲武裝部隊"
 
-#: model_variables.py:400
+#: model_variables.py:402
 msgid "Armed Forces Middle East"
 msgstr "中東武裝部隊"
 
-#: model_variables.py:401
+#: model_variables.py:403
 msgid "Armed Forces Pacific"
 msgstr "太平洋地區武裝部隊"
 
-#: model_variables.py:404
+#: model_variables.py:406
 msgid "Please provide description to continue"
 msgstr "請提供說明以繼續進行"
 
-#: model_variables.py:405
+#: model_variables.py:407
 msgid "Please select a primary reason to continue."
 msgstr "請選擇一項主要理由以繼續進行。"
 
-#: model_variables.py:408
+#: model_variables.py:410
 msgid "Please enter the name of the location where this took place."
 msgstr "請輸入此事件發生的地點名稱。"
 
-#: model_variables.py:409
+#: model_variables.py:411
 msgid "Please enter the city or town where this took place."
 msgstr "請輸入此事件發生的城市或城鎮。"
 
-#: model_variables.py:410
+#: model_variables.py:412
 msgid "Please select the state where this took place."
 msgstr "請選擇此事件發生的州。"
 
-#: model_variables.py:414
+#: model_variables.py:416
 msgid "Please select where this occurred"
 msgstr "請選擇此事件發生的地點"
 
-#: model_variables.py:415
+#: model_variables.py:417
 msgid "Please select the type of location"
 msgstr "請選擇地點類型"
 
-#: model_variables.py:427
+#: model_variables.py:429
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr "您必須輸入月份和年份。請使用月月／日日／年年年年的格式。"
 
-#: model_variables.py:430
+#: model_variables.py:432
 msgid "Please enter a month."
 msgstr "請輸入月份。"
 
-#: model_variables.py:431
+#: model_variables.py:433
 msgid "Please enter a valid month. Month must be between 1 and 12."
 msgstr "請輸入有效的月份。月份必須介於 1 至 12 之間。"
 
-#: model_variables.py:432
+#: model_variables.py:434
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
 msgstr "請輸入有效的日期。日期必須介於一個月的 1 號至一個月的最後一天。"
 
-#: model_variables.py:433
+#: model_variables.py:435
 msgid "Please enter a year."
 msgstr "請輸入年份。"
 
-#: model_variables.py:434
+#: model_variables.py:436
 msgid "Date can not be in the future."
 msgstr "日期不得是未來日期。"
 
-#: model_variables.py:435
+#: model_variables.py:437
 msgid "Please enter a year after 1900."
 msgstr "請輸入 1900 之後的年份。"
 
-#: model_variables.py:436
+#: model_variables.py:438
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
 msgstr "請輸入有效的日期。請使用月月／日日／年年年年的格式。"
 
-#: model_variables.py:439
+#: model_variables.py:441
 msgid "Please select the type of election or voting activity."
 msgstr "請選擇選舉或投票活動的類型。"
 
-#: model_variables.py:479
+#: model_variables.py:554
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
@@ -1126,23 +1126,23 @@ msgstr ""
 "於在各種場合遭受非法歧視、騷擾或虐待，如住房、職場、學校、投票、商店、醫療保"
 "健設施、公共場所等等。"
 
-#: templates/base.html:76
+#: templates/base.html:78
 msgid "Skip to main content"
 msgstr "跳到主要內容"
 
-#: templates/base.html:130 templates/forms/errors.html:13
+#: templates/base.html:132 templates/forms/errors.html:13
 #: templates/forms/report_maintenance.html:13 templates/landing.html:10
 #: templates/landing.html:17
 msgid "U.S. Department of Justice"
 msgstr "美國司法部"
 
-#: templates/base.html:133 templates/forms/confirmation.html:21
+#: templates/base.html:135 templates/forms/confirmation.html:21
 #: templates/forms/errors.html:14 templates/forms/report_maintenance.html:14
 #: templates/landing.html:10 templates/landing.html:20
 msgid "Civil Rights Division"
 msgstr "民權司"
 
-#: templates/forms/complaint_view/actions/bulk_actions.html:78
+#: templates/forms/complaint_view/actions/bulk_actions.html:75
 #: templates/forms/grouped_questions.html:6
 #: templates/forms/question_cards/commercial_public_location.html:5
 #: templates/forms/question_cards/police_location.html:4
@@ -1171,35 +1171,29 @@ msgstr "感謝您向民權司提交報告。"
 
 #: templates/forms/confirmation.html:46
 msgid "Report successfully submitted"
-msgstr "報告已提交成功"
+msgstr "報告提交成功"
 
 #: templates/forms/confirmation.html:51
 msgid "Please save your record number for tracking."
-msgstr "請保留您的記錄號碼以方便追蹤。"
+msgstr "请保存您的記錄號碼以便查詢。"
 
-#: templates/forms/confirmation.html:52
-msgid ""
-"You will not receive an email confirmation, so please print or save this "
-"page for your records."
-msgstr "您將不會收到電子郵件確認通知，因此請列印或儲存此頁面以留作記錄。"
-
-#: templates/forms/confirmation.html:56
+#: templates/forms/confirmation.html:55
 msgid "Your record number is:"
 msgstr "您的記錄號碼是："
 
-#: templates/forms/confirmation.html:62
+#: templates/forms/confirmation.html:61
 msgid "Print report"
 msgstr "打印報告"
 
-#: templates/forms/confirmation.html:73
+#: templates/forms/confirmation.html:72
 msgid "What to expect"
 msgstr "後續流程"
 
-#: templates/forms/confirmation.html:83
+#: templates/forms/confirmation.html:82
 msgid "We review your report"
 msgstr "我們會審查您的報告"
 
-#: templates/forms/confirmation.html:88
+#: templates/forms/confirmation.html:87
 msgid ""
 "Our specialists in the Civil Rights Division carefully read every report to "
 "identify civil rights violations, spot trends, and determine if we have "
@@ -1208,27 +1202,27 @@ msgstr ""
 "民權司的專員會仔細閱讀每份報告，以找出違反民權法的行為、瞭解違規行為的趨勢並"
 "判定我們是否有權協助處理您所舉報的事宜。"
 
-#: templates/forms/confirmation.html:98
+#: templates/forms/confirmation.html:97
 msgid "Our specialists determine the next step"
 msgstr "我們的專員將會決定接下來該怎麼做"
 
-#: templates/forms/confirmation.html:102
+#: templates/forms/confirmation.html:101
 msgid "We may decide to:"
 msgstr "我們可決定："
 
-#: templates/forms/confirmation.html:105
+#: templates/forms/confirmation.html:104
 msgid ""
 "<strong>Open an investigation</strong> or take some other action within the "
 "legal authority of the Justice Department."
 msgstr "<strong>立案調查</strong>或在司法部的法律權限範圍內採取某些其他行動。"
 
-#: templates/forms/confirmation.html:106
+#: templates/forms/confirmation.html:105
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
 "report."
 msgstr "在我們針對您的報告進行調查之前<strong>收集更多資訊</strong>。"
 
-#: templates/forms/confirmation.html:107
+#: templates/forms/confirmation.html:106
 msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
 "into your report. If so, we’ll let you know."
@@ -1236,7 +1230,7 @@ msgstr ""
 "為您建議可以針對您報告進行適當調查的<strong>其他政府機關</strong>。如發生此情"
 "況，我們將會通知您。"
 
-#: templates/forms/confirmation.html:110
+#: templates/forms/confirmation.html:109
 msgid ""
 "In some cases, we may determine that we don’t have legal authority to handle "
 "your report and will recommend that you seek help from a private lawyer or "
@@ -1245,11 +1239,11 @@ msgstr ""
 "在某些情況下，我們可能會判定我們沒有法律權限可以處理您的報告，且我們將會建議"
 "您向私人律師或當地法扶組織尋求協助。"
 
-#: templates/forms/confirmation.html:120
+#: templates/forms/confirmation.html:119
 msgid "When possible, we will follow up with you"
 msgstr "在可能的情況下，我們將會跟進您的狀況"
 
-#: templates/forms/confirmation.html:125
+#: templates/forms/confirmation.html:124
 msgid ""
 "We do our best to let you know about the outcome of our review. However, we "
 "may not always be able to provide you with updates because:"
@@ -1257,16 +1251,16 @@ msgstr ""
 "我們會盡力通知您有關我們審查的結果。然而，我們可能不一定能夠為您提供進度更"
 "新，理由如下："
 
-#: templates/forms/confirmation.html:129
+#: templates/forms/confirmation.html:128
 msgid ""
 "We’re actively working on an investigation or case related to your report."
 msgstr "我們正在積極調查與您報告有關的案件。"
 
-#: templates/forms/confirmation.html:132
+#: templates/forms/confirmation.html:131
 msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr "我們同時收到許多要求且正在積極審查這些要求。"
 
-#: templates/forms/confirmation.html:135 templates/landing.html:356
+#: templates/forms/confirmation.html:134 templates/landing.html:356
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1278,26 +1272,26 @@ msgstr ""
 "類型而定，回覆的時間可能會有所不同。如果您需要與我們聯絡有關您報告的事宜，在"
 "聯絡我們時請告知我們您的報告號碼。我們透過此方式來追蹤您所提交的資訊。"
 
-#: templates/forms/confirmation.html:143
+#: templates/forms/confirmation.html:142
 msgid "What you can do next"
 msgstr "您接下來可以採取的行動"
 
-#: templates/forms/confirmation.html:149
+#: templates/forms/confirmation.html:148
 msgid "1"
 msgstr "1"
 
-#: templates/forms/confirmation.html:152
+#: templates/forms/confirmation.html:151
 msgid ""
 "Contact local legal aid organizations or a lawyer if you haven’t already"
 msgstr "如果您尚未與您當地的法扶組織或律師聯絡，您可以與其聯絡"
 
-#: templates/forms/confirmation.html:156
+#: templates/forms/confirmation.html:155
 msgid ""
 "Legal aid offices or members of lawyer associations in your state may be "
 "able to help you with your issue."
 msgstr "您所在州的法扶辦公室或律師協會的成員可能可以協助您處理您的問題。"
 
-#: templates/forms/confirmation.html:159
+#: templates/forms/confirmation.html:158
 msgid ""
 "American Bar Association, visit <a class=\"external-link--blue external-"
 "link--popup\" aria-label=\"www.findlegalhelp.org\" href=\"http://www."
@@ -1309,7 +1303,7 @@ msgstr ""
 "findlegalhelp.org</a> 或致電 <a href=\"tel:800-285-2221\">(800) 285-2221</a> "
 "與美國律師協會聯絡"
 
-#: templates/forms/confirmation.html:162
+#: templates/forms/confirmation.html:161
 msgid ""
 "Legal Service Corporation (or Legal Aid Offices), visit <a aria-label=\"www."
 "lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--popup\" "
@@ -1321,15 +1315,15 @@ msgstr ""
 "lsc.gov/find-legal-aid</a> 或致電 <a href=\"tel:202-295-1500\">(202) "
 "295-1500</a> 與法律服務公司（或法扶辦公室）聯絡"
 
-#: templates/forms/confirmation.html:170
+#: templates/forms/confirmation.html:169
 msgid "2"
 msgstr "2"
 
-#: templates/forms/confirmation.html:173
+#: templates/forms/confirmation.html:172
 msgid "Get help immediately if you are in danger"
 msgstr "如果您的處境危險，請立即尋求協助"
 
-#: templates/forms/confirmation.html:178
+#: templates/forms/confirmation.html:177
 msgid ""
 "If you reported an incident where you or someone else has experienced or is "
 "still experiencing physical harm or violence, or are in immediate danger, "
@@ -1339,7 +1333,7 @@ msgstr ""
 "或其他人目前仍因為該事件而遭受身體傷害或暴力行為，或仍随时可能有危險，請致電 "
 "<a href=\"tel:911\">911</a> 並與警察聯絡。"
 
-#: templates/forms/confirmation.html:191
+#: templates/forms/confirmation.html:190
 msgid "Your submission"
 msgstr "您所提交的資訊"
 
@@ -1497,7 +1491,7 @@ msgstr "返回"
 msgid "Address"
 msgstr "地址"
 
-#: templates/forms/report_data.html:132 templates/forms/report_data.html:138
+#: templates/forms/report_data.html:131 templates/forms/report_data.html:137
 msgid "None selected"
 msgstr "沒有選擇任何選項"
 
@@ -2525,19 +2519,19 @@ msgstr " 已達字數限制"
 msgid "Please select if any that apply to your situation (optional)"
 msgstr "請選擇任何適用於您情況的選項（選填）"
 
-#: views_public.py:390
+#: views_public.py:394
 msgid "404 | Page not found"
 msgstr "404 | 找不到網頁"
 
-#: views_public.py:391
+#: views_public.py:395
 msgid "We can't find the page you are looking for"
 msgstr "我們找不到您要尋找的網頁"
 
-#: views_public.py:450
+#: views_public.py:454
 msgid "Your browser couldn't create a secure cookie"
 msgstr "您的瀏覽器無法建立安全 cookie"
 
-#: views_public.py:451
+#: views_public.py:455
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "

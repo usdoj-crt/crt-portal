@@ -103,6 +103,9 @@ class ReportEditShowViewTests(TestCase):
         self.client.login(username='DELETE_USER', password='')  # nosec
 
         self.url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
+        self.original_crt_day = self.report_data['crt_reciept_day']
+        self.original_crt_month = self.report_data['crt_reciept_month']
+        self.original_crt_year = self.report_data['crt_reciept_year']
 
     def tearDown(self):
         self.user.delete()
@@ -118,7 +121,6 @@ class ReportEditShowViewTests(TestCase):
         new_primary_complaint = PRIMARY_COMPLAINT_CHOICES[1][0]
         form_data = {'type': ReportEditForm.CONTEXT_KEY, 'primary_complaint': new_primary_complaint}
         response = self.client.post(self.url, form_data, follow=True)
-
         self.report.refresh_from_db()
         self.assertEqual(self.report.primary_complaint, new_primary_complaint)
         self.assertTrue(response.context['data'].primary_complaint == new_primary_complaint)
@@ -148,8 +150,59 @@ class ReportEditShowViewTests(TestCase):
 
         form_data = {'type': ReportEditForm.CONTEXT_KEY, 'last_incident_month': 99, 'contact_email': 'test@'}
         response = self.client.post(self.url, form_data, follow=True)
-
         self.assertEqual(response.context['contact_form'].initial['contact_email'], initial)
+
+    def test_crt_date_update(self):
+        """Update crt receipt date with valid data
+        """
+        new_primary_complaint = PRIMARY_COMPLAINT_CHOICES[1][0]
+        form_data = {'type': ReportEditForm.CONTEXT_KEY, 'primary_complaint': new_primary_complaint, 'crt_reciept_month': 12, 'crt_reciept_day': 3, 'crt_reciept_year': 2001}
+        response = self.client.post(self.url, form_data, follow=True)
+        self.report.refresh_from_db()
+        self.assertEqual(self.report.primary_complaint, new_primary_complaint)
+        self.assertTrue(response.context['data'].primary_complaint == new_primary_complaint)
+        self.assertEqual(self.report.crt_reciept_month, 12)
+        self.assertTrue(response.context['data'].crt_reciept_month == 12)
+        self.assertEqual(self.report.crt_reciept_day, 3)
+        self.assertTrue(response.context['data'].crt_reciept_day == 3)
+        self.assertEqual(self.report.crt_reciept_year, 2001)
+        self.assertTrue(response.context['data'].crt_reciept_year == 2001)
+
+    def test_crt_month_validation(self):
+        """Update crt receipt date with bad month. Nothing should be updated.
+        """
+        new_primary_complaint = PRIMARY_COMPLAINT_CHOICES[1][0]
+        form_data = {'type': ReportEditForm.CONTEXT_KEY, 'primary_complaint': new_primary_complaint, 'crt_reciept_month': 0, 'crt_reciept_day': 3, 'crt_reciept_year': 2001}
+        response = self.client.post(self.url, form_data, follow=True)
+        self.report.refresh_from_db()
+        self.assertEqual(self.report.crt_reciept_month, self.original_crt_month)
+        self.assertEqual(self.report.crt_reciept_day, self.original_crt_day)
+        self.assertEqual(self.report.crt_reciept_year, self.original_crt_year)
+        self.assertTrue('Failed to update complaint details.' in str(response.content))
+
+    def test_crt_day_validation(self):
+        """Update crt receipt date with bad day. Nothing should be updated.
+        """
+        new_primary_complaint = PRIMARY_COMPLAINT_CHOICES[1][0]
+        form_data = {'type': ReportEditForm.CONTEXT_KEY, 'primary_complaint': new_primary_complaint, 'crt_reciept_month': 12, 'crt_reciept_day': 32, 'crt_reciept_year': 2001}
+        response = self.client.post(self.url, form_data, follow=True)
+        self.report.refresh_from_db()
+        self.assertEqual(self.report.crt_reciept_month, self.original_crt_month)
+        self.assertEqual(self.report.crt_reciept_day, self.original_crt_day)
+        self.assertEqual(self.report.crt_reciept_year, self.original_crt_year)
+        self.assertTrue('Failed to update complaint details.' in str(response.content))
+
+    def test_crt_year_validation(self):
+        """Update crt receipt date with bad year. Nothing should be updated.
+        """
+        new_primary_complaint = PRIMARY_COMPLAINT_CHOICES[1][0]
+        form_data = {'type': ReportEditForm.CONTEXT_KEY, 'primary_complaint': new_primary_complaint, 'crt_reciept_month': 12, 'crt_reciept_day': 3, 'crt_reciept_year': 1999}
+        response = self.client.post(self.url, form_data, follow=True)
+        self.report.refresh_from_db()
+        self.assertEqual(self.report.crt_reciept_month, self.original_crt_month)
+        self.assertEqual(self.report.crt_reciept_day, self.original_crt_day)
+        self.assertEqual(self.report.crt_reciept_year, self.original_crt_year)
+        self.assertTrue('Failed to update complaint details.' in str(response.content))
 
 
 class CRTReportWizardTests(TestCase):

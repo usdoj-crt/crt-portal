@@ -221,6 +221,16 @@
           </div>
         </td>
       </tr>
+      <tr>
+        <th>CRT receipt date</th>
+        <td>
+          <div class="details {% if details_form.errors %}display-none{% endif %}">
+          {{ data.crt_reciept_month|default:"-"}}/{{data.crt_reciept_day|default:"-"}}/{{data.crt_reciept_year|default:"-"}}
+          </div>
+          <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
+            {% include "forms/snippets/date_components.html" with month=details_form.crt_reciept_month day=details_form.crt_reciept_day year=details_form.crt_reciept_year  %}
+          </div>
+        </td>
       </tr>
     </table>
     <button aria-label="update complaint details"
