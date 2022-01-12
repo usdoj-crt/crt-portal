@@ -13,7 +13,8 @@ SAMPLE_REPORT = {
     'language': 'en',
     'crt_reciept_day': 1,
     'crt_reciept_month': 12,
-    'crt_reciept_year': 2000
+    'crt_reciept_year': 2000,
+    'intake_format': 'web'
 }
 
 SAMPLE_RESPONSE_TEMPLATE = {
