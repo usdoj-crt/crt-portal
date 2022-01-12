@@ -1109,8 +1109,8 @@ msgstr ""
 "género o la discapacidad."
 
 #: question_text.py:30
-msgid "Location name"
-msgstr "Nombre del lugar"
+msgid "Organization name"
+msgstr "Nombre de la organización"
 
 #: question_text.py:31
 msgid "Street address 1"

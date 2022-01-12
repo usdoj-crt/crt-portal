@@ -27,7 +27,7 @@ HATE_CRIME_HELP_TEXT = _('To be considered a hate crime, the physical harm or th
 # Location
 LOCATION_QUESTIONS = {
     'location_title': _('Where did this happen?'),
-    'location_name': _('Location name'),
+    'location_name': _('Organization name'),
     'location_address_line_1': _('Street address 1'),
     'location_address_line_2': _('Street address 2'),
     'location_city_town': _('City/town'),
