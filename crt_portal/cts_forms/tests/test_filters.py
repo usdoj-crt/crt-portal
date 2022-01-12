@@ -10,9 +10,9 @@ from .test_data import SAMPLE_REPORT
 class FilterTests(SimpleTestCase):
     def test_get_date_field_from_param(self):
         """truncate `_start` and `_end` from incoming parameters"""
-        self.assertEquals(_get_date_field_from_param('create_date_start'), 'create_date')
-        self.assertEquals(_get_date_field_from_param('closed_date_end'), 'closed_date')
-        self.assertEquals(_get_date_field_from_param('modified_date_start'), 'modified_date')
+        self.assertEqual(_get_date_field_from_param('create_date_start'), 'create_date')
+        self.assertEqual(_get_date_field_from_param('closed_date_end'), 'closed_date')
+        self.assertEqual(_get_date_field_from_param('modified_date_start'), 'modified_date')
 
 
 class ReportFilterTests(TestCase):
@@ -42,40 +42,40 @@ class ReportFilterTests(TestCase):
     def test_no_filters(self):
         """Returns all reports when no filters provided"""
         reports, _ = report_filter(QueryDict(''))
-        self.assertEquals(reports.count(), Report.objects.count())
+        self.assertEqual(reports.count(), Report.objects.count())
 
     def test_reported_reason(self):
         reports, _ = report_filter(QueryDict('reported_reason=age'))
-        self.assertEquals(reports.count(), 2)
+        self.assertEqual(reports.count(), 2)
 
         reports, _ = report_filter(QueryDict('reported_reason=gender&reported_reason=language'))
-        self.assertEquals(reports.count(), 1)
+        self.assertEqual(reports.count(), 1)
 
     def test_or_search_for_violation_summary(self):
         """
         Returns query set responsive to N terms provided as OR search
         """
         reports, _ = report_filter(QueryDict('violation_summary=plane'))
-        self.assertEquals(reports.count(), 1)
+        self.assertEqual(reports.count(), 1)
 
         reports, _ = report_filter(QueryDict('violation_summary=plane&violation_summary=truck'))
-        self.assertEquals(reports.count(), 2)
+        self.assertEqual(reports.count(), 2)
 
     def test_or_search(self):
         reports, _ = report_filter(QueryDict('violation_summary=boat%20OR%20hovercraft'))
-        self.assertEquals(reports.count(), 3)
+        self.assertEqual(reports.count(), 3)
 
     def test_and_search(self):
         # "boat AND hovercraft" is functionally the same as "boat hovercraft"
         reports, _ = report_filter(QueryDict('violation_summary=boat%20AND%20hovercraft'))
-        self.assertEquals(reports.count(), 1)
+        self.assertEqual(reports.count(), 1)
 
         reports, _ = report_filter(QueryDict('violation_summary=boat%20hovercraft'))
-        self.assertEquals(reports.count(), 1)
+        self.assertEqual(reports.count(), 1)
 
     def test_or_and_search(self):
         reports, _ = report_filter(QueryDict('violation_summary=boat%20AND%20hovercraft%20OR%20truck'))
-        self.assertEquals(reports.count(), 2)
+        self.assertEqual(reports.count(), 2)
 
 
 class ReportLanguageFilterTests(TestCase):
@@ -114,34 +114,34 @@ class ReportLanguageFilterTests(TestCase):
     # report submitted in English
     def test_reported_language_en(self):
         reports, _ = report_filter(QueryDict('language=en'))
-        self.assertEquals(reports.count(), 1)
+        self.assertEqual(reports.count(), 1)
 
     # report submitted in Spanish
     def test_reported_language_es(self):
         reports, _ = report_filter(QueryDict('language=es'))
-        self.assertEquals(reports.count(), 1)
+        self.assertEqual(reports.count(), 1)
 
     # report submitted in Chinese Traditional
     def test_reported_language_hant(self):
         reports, _ = report_filter(QueryDict('language=zh-hant'))
-        self.assertEquals(reports.count(), 1)
+        self.assertEqual(reports.count(), 1)
 
     # report submitted in Chinese Simplified
     def test_reported_language_hans(self):
         reports, _ = report_filter(QueryDict('language=zh-hans'))
-        self.assertEquals(reports.count(), 1)
+        self.assertEqual(reports.count(), 1)
 
     # report submitted in Vietnamese
     def test_reported_language_vi(self):
         reports, _ = report_filter(QueryDict('language=vi'))
-        self.assertEquals(reports.count(), 1)
+        self.assertEqual(reports.count(), 1)
 
     # report submitted in Korean
     def test_reported_language_ko(self):
         reports, _ = report_filter(QueryDict('language=ko'))
-        self.assertEquals(reports.count(), 1)
+        self.assertEqual(reports.count(), 1)
 
     # report submitted in Tagalog
     def test_reported_language_tl(self):
         reports, _ = report_filter(QueryDict('language=tl'))
-        self.assertEquals(reports.count(), 1)
+        self.assertEqual(reports.count(), 1)

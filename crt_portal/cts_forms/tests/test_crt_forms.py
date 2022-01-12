@@ -163,7 +163,7 @@ class CommentActionTests(TestCase):
 
     def test_post(self):
         """A logged in user can post a comment"""
-        self.assertEquals(self.response.status_code, 200)
+        self.assertEqual(self.response.status_code, 200)
 
     def test_retain_query(self):
         """if the user came to the page with query parameters, keep them for the back to all button."""
@@ -173,7 +173,7 @@ class CommentActionTests(TestCase):
         """A comment is created and associated with the right report"""
         comment_id = CommentAndSummary.objects.get(note=self.note).pk
         report = Report.objects.filter(internal_comments__pk=comment_id)[0]
-        self.assertEquals(report.pk, self.pk)
+        self.assertEqual(report.pk, self.pk)
 
     def test_adds_comment_to_activity(self):
         """The comment shows up in the report's activity log"""
@@ -220,7 +220,7 @@ class CommentActionTests(TestCase):
         )
         content = str(response.content)
         self.assertTrue('Could not save comment' in content)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
 
 class ReportEditFormTests(TestCase):
@@ -341,7 +341,7 @@ class ResponseActionTests(TestCase):
             },
             follow=True
         )
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         return str(response.content)
 
     def test_response_action_print(self):
@@ -369,7 +369,7 @@ class ResponseActionTests(TestCase):
             },
             follow=True
         )
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         content = str(response.content)
         self.assertTrue('?per_page=15' in content)
         self.assertFalse('Contacted complainant:' in content)
@@ -388,7 +388,7 @@ class ResponseActionTests(TestCase):
             },
             follow=True
         )
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         content = str(response.content)
         self.assertTrue('You contacted the Department of Justice on December 31, 2020' in content)
         self.assertFalse('You contacted the Department of Justice on January 1, 2021' in content)
@@ -478,14 +478,14 @@ class FormNavigationTests(TestCase):
                 'index': '0',
             },
         )
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         content = str(response.content)
         self.assertTrue('1 of 3 records' in content)
         url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.reports[1].id})
         next_qp = urllib.parse.quote('?per_page=15&assigned_section=ADM')
         self.assertTrue(escape(f"{url}?next={next_qp}&index=1") in content)
-        self.assertEquals(content.count('complaint-nav'), 2)
-        self.assertEquals(content.count('disabled-nav'), 1)
+        self.assertEqual(content.count('complaint-nav'), 2)
+        self.assertEqual(content.count('disabled-nav'), 1)
 
     def test_invalid_index_navigation(self):
         second = self.reports[1]
@@ -496,7 +496,7 @@ class FormNavigationTests(TestCase):
                 'index': '5000',
             },
         )
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         content = str(response.content)
         self.assertTrue('2 of 3 records' in content)
         url1 = reverse('crt_forms:crt-forms-show', kwargs={'id': self.reports[2].id})
@@ -504,8 +504,8 @@ class FormNavigationTests(TestCase):
         next_qp = urllib.parse.quote('?per_page=15&assigned_section=ADM')
         self.assertTrue(escape(f"{url1}?next={next_qp}&index=0") in content)
         self.assertTrue(escape(f"{url2}?next={next_qp}&index=2") in content)
-        self.assertEquals(content.count('complaint-nav'), 2)
-        self.assertEquals(content.count('disabled-nav'), 0)
+        self.assertEqual(content.count('complaint-nav'), 2)
+        self.assertEqual(content.count('disabled-nav'), 0)
 
     def test_report_out_of_query_filter(self):
         second = self.reports[1]
@@ -519,14 +519,14 @@ class FormNavigationTests(TestCase):
             },
             follow=True
         )
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         content = str(response.content)
         self.assertTrue('N/A of 2 records' in content)
         url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.reports[0].id})
         next_qp = urllib.parse.quote('?per_page=15&assigned_section=ADM')
         self.assertTrue(escape(f"{url}?next={next_qp}&index=1") in content)
-        self.assertEquals(content.count('complaint-nav'), 2)
-        self.assertEquals(content.count('disabled-nav'), 1)
+        self.assertEqual(content.count('complaint-nav'), 2)
+        self.assertEqual(content.count('disabled-nav'), 1)
 
     def test_email_filtering(self):
         # generate random reports associated with a different email address
@@ -542,7 +542,7 @@ class FormNavigationTests(TestCase):
             },
             follow=True
         )
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         self.assertTrue('N/A of 5 records' in str(response.content))
 
     def test_email_count_sorting_asc(self):
@@ -558,7 +558,7 @@ class FormNavigationTests(TestCase):
             },
             follow=True
         )
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         # the report with no email should land at the back
         self.assertTrue('11 of 11 records' in str(response.content))
 
@@ -575,7 +575,7 @@ class FormNavigationTests(TestCase):
             },
             follow=True
         )
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         # the report with no email should land at the back
         self.assertTrue('11 of 11 records' in str(response.content))
 
@@ -603,7 +603,7 @@ class PrintActionTests(TestCase):
             },
             follow=True
         )
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         content = str(response.content)
         # verify that next QP is preserved and activity log shows up
         self.assertTrue('?per_page=15' in content)
@@ -623,7 +623,7 @@ class PrintActionTests(TestCase):
             },
             follow=True
         )
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         content = str(response.content)
         self.assertTrue(escape('Printed issue, summary for 1 reports') in content)
 
@@ -640,7 +640,7 @@ class PrintActionTests(TestCase):
             },
             follow=True
         )
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         content = str(response.content)
         self.assertTrue(escape('Printed activity, issue for 2 reports') in content)
 
@@ -654,7 +654,7 @@ class ReportActionTests(TestCase):
         self.report = Report.objects.create(**SAMPLE_REPORT, assigned_section='ADM')
 
     def test_referral_section_checked(self):
-        self.assertEquals(self.report.referral_section, '')
+        self.assertEqual(self.report.referral_section, '')
         url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
         params = {
             'type': 'actions',
@@ -664,12 +664,12 @@ class ReportActionTests(TestCase):
         }
         response = self.client.post(url, params, follow=True)
         content = str(response.content)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         self.assertTrue('Secondary review:' in content)
         self.assertTrue(escape('Updated from "False" to "True"') in content)
         self.report.refresh_from_db()
         self.assertTrue(self.report.referred)
-        self.assertEquals(self.report.referral_section, 'ADM')
+        self.assertEqual(self.report.referral_section, 'ADM')
 
     def test_referral_section_unchecked(self):
         self.report.referred = True
@@ -684,12 +684,12 @@ class ReportActionTests(TestCase):
         }
         response = self.client.post(url, params, follow=True)
         content = str(response.content)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         self.assertTrue('Secondary review:' in content)
         self.assertTrue(escape('Updated from "True" to "False"') in content)
         self.report.refresh_from_db()
         self.assertFalse(self.report.referred)
-        self.assertEquals(self.report.referral_section, '')
+        self.assertEqual(self.report.referral_section, '')
 
     def test_assign_report_to_user(self):
         url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
@@ -705,11 +705,11 @@ class ReportActionTests(TestCase):
         }
         response = self.client.post(url, params, follow=True)
         content = str(response.content)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         self.assertTrue('Assigned to:' in content)
         self.assertTrue(escape(f'Updated from "None" to "{self.user.username}"') in content)
         self.report.refresh_from_db()
-        self.assertEquals(self.report.assigned_to.pk, self.user.pk)
+        self.assertEqual(self.report.assigned_to.pk, self.user.pk)
 
     def test_unassign_report_to_user(self):
         self.report.assigned_to = self.user
@@ -723,11 +723,11 @@ class ReportActionTests(TestCase):
         }
         response = self.client.post(url, params, follow=True)
         content = str(response.content)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         self.assertTrue('Assigned to:' in content)
         self.assertTrue(escape(f'Updated from "{self.user.username}" to "None"') in content)
         self.report.refresh_from_db()
-        self.assertEquals(self.report.assigned_to, None)
+        self.assertEqual(self.report.assigned_to, None)
 
 
 class BulkActionsTests(TestCase):
@@ -746,7 +746,7 @@ class BulkActionsTests(TestCase):
         if all_ids:
             params['all'] = 'all'
         response = self.client.get(reverse('crt_forms:crt-forms-actions'), params)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         return response
 
     def test_get_with_ids(self):
@@ -784,7 +784,7 @@ class BulkActionsTests(TestCase):
             'all': 'all',
         }
         response = self.client.get(reverse('crt_forms:crt-forms-actions'), params)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         content = str(response.content)
         id_str = ",".join([str(id) for id in ids])
         self.assertTrue(f'value="{id_str}" name="ids"' in content)
@@ -808,7 +808,7 @@ class BulkActionsTests(TestCase):
         if confirm:
             params['confirm_all'] = 'confirm_all'
         response = self.client.post(reverse('crt_forms:crt-forms-actions'), params, follow=True)
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         return response
 
     def test_post_with_invalid_user(self):
@@ -831,39 +831,39 @@ class BulkActionsTests(TestCase):
         response = self.post(ids, assigned_to=self.user.id, comment='a comment', assigned_section='ADM', status='new')
         content = str(response.content)
         self.assertTrue('2 records have been updated: assigned to DELETE_USER' in content)
-        self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
+        self.assertEqual(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
         for report_id in ids:
             report = Report.objects.get(id=report_id)
             last_activity = list(report.target_actions.all())[-1]
-            self.assertEquals(last_activity.verb, "Assigned to:")
-            self.assertEquals(last_activity.description, 'Updated from "None" to "DELETE_USER"')
-            self.assertEquals(last_activity.actor, self.user)
+            self.assertEqual(last_activity.verb, "Assigned to:")
+            self.assertEqual(last_activity.description, 'Updated from "None" to "DELETE_USER"')
+            self.assertEqual(last_activity.actor, self.user)
 
     def test_post_with_section_status_and_assignee(self):
         ids = [report.id for report in self.reports[3:5]]
         response = self.post(ids, assigned_to=self.user.id, comment='a comment', assigned_section='VOT', status='closed')
         content = str(response.content)
         self.assertTrue(escape("2 records have been updated: section set to VOT, status set to new, assigned to '', and primary classification set to ''") in content)
-        self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
+        self.assertEqual(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
         for report_id in ids:
             report = Report.objects.get(id=report_id)
             last_activity = list(report.target_actions.all())[-1]
-            self.assertEquals(last_activity.verb, "Assigned section:")
-            self.assertEquals(last_activity.description, 'Updated from "ADM" to "VOT"')
-            self.assertEquals(last_activity.actor, self.user)
+            self.assertEqual(last_activity.verb, "Assigned section:")
+            self.assertEqual(last_activity.description, 'Updated from "ADM" to "VOT"')
+            self.assertEqual(last_activity.actor, self.user)
 
     def test_post_with_ids_and_all(self):
         ids = [report.id for report in self.reports[3:5]]
         response = self.post(ids, all_ids=True, confirm=False, status='closed', comment='a comment', assigned_section='ADM')
         content = str(response.content)
         self.assertTrue('2 records have been updated: status set to closed' in content)
-        self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
+        self.assertEqual(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
         for report_id in ids:
             report = Report.objects.get(id=report_id)
             last_activity = list(report.target_actions.all())[-1]
-            self.assertEquals(last_activity.verb, "Status:")
-            self.assertEquals(last_activity.description, 'Updated from "new" to "closed"')
-            self.assertEquals(last_activity.actor, self.user)
+            self.assertEqual(last_activity.verb, "Status:")
+            self.assertEqual(last_activity.description, 'Updated from "new" to "closed"')
+            self.assertEqual(last_activity.actor, self.user)
 
     def test_close_posts(self):
         ids = [report.id for report in self.reports[3:5]]
@@ -871,15 +871,15 @@ class BulkActionsTests(TestCase):
         response = self.post(ids, confirm=False, status='closed', comment='Close Posts')
         content = str(response.content)
         self.assertTrue('2 records have been updated: status set to closed' in content)
-        self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
+        self.assertEqual(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
         for report_id in ids:
             report = Report.objects.get(id=report_id)
             first_activity = list(report.target_actions.all())[0]
-            self.assertEquals(first_activity.verb, "Report closed and Assignee removed")
+            self.assertEqual(first_activity.verb, "Report closed and Assignee removed")
             self.assertTrue('Date closed updated to' in first_activity.description)
-            self.assertEquals(first_activity.actor, self.user)
-            self.assertEquals(report.assigned_to, None)
-            self.assertEquals(report.status, "closed")
+            self.assertEqual(first_activity.actor, self.user)
+            self.assertEqual(report.assigned_to, None)
+            self.assertEqual(report.status, "closed")
 
     def test_close_mixed_status_posts(self):
         first_report = Report.objects.get(id=self.reports[0].id)
@@ -898,21 +898,21 @@ class BulkActionsTests(TestCase):
         self.assertTrue('Report closed and Assignee removed' in second_report_actions)
         first_report = Report.objects.get(id=self.reports[0].id)
         second_report = Report.objects.get(id=self.reports[1].id)
-        self.assertEquals(first_report.assigned_to, self.user)
-        self.assertEquals(second_report.assigned_to, None)
+        self.assertEqual(first_report.assigned_to, self.user)
+        self.assertEqual(second_report.assigned_to, None)
 
     def test_post_with_all(self):
         ids = [report.id for report in self.reports]
         response = self.post(ids, all_ids=True, confirm=True, summary='summary', comment='a comment', assigned_section='ADM', status='new')
         content = str(response.content)
         self.assertTrue('16 records have been updated: summary updated' in content)
-        self.assertEquals(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
+        self.assertEqual(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
         for report_id in ids:
             report = Report.objects.get(id=report_id)
             last_activity = list(report.target_actions.all())[-1]
-            self.assertEquals(last_activity.verb, "Added comment: ")
-            self.assertEquals(last_activity.description, 'a comment')
-            self.assertEquals(last_activity.actor, self.user)
+            self.assertEqual(last_activity.verb, "Added comment: ")
+            self.assertEqual(last_activity.description, 'a comment')
+            self.assertEqual(last_activity.actor, self.user)
 
     def test_post_with_email_count_sort(self):
         ids = [report.id for report in self.reports]
@@ -920,23 +920,23 @@ class BulkActionsTests(TestCase):
         for report_id in ids:
             report = Report.objects.get(id=report_id)
             last_activity = list(report.target_actions.all())[-1]
-            self.assertEquals(last_activity.verb, 'Status:')
-            self.assertEquals(last_activity.description, 'Updated from "new" to "closed"')
-            self.assertEquals(last_activity.actor, self.user)
+            self.assertEqual(last_activity.verb, 'Status:')
+            self.assertEqual(last_activity.description, 'Updated from "new" to "closed"')
+            self.assertEqual(last_activity.actor, self.user)
 
 
 class BulkActionsFormTests(TestCase):
     def test_bulk_actions_initial_empty(self):
         queryset = Report.objects.all()
         result = list(BulkActionsForm.get_initial_values(queryset, []))
-        self.assertEquals(result, [])
+        self.assertEqual(result, [])
 
     def test_bulk_actions_initial(self):
         [Report.objects.create(**SAMPLE_REPORT) for _ in range(4)]
         queryset = Report.objects.all()
         keys = ['assigned_section', 'status', 'id']
         result = list(BulkActionsForm.get_initial_values(queryset, keys))
-        self.assertEquals(result, [('assigned_section', 'ADM'), ('status', 'new')])
+        self.assertEqual(result, [('assigned_section', 'ADM'), ('status', 'new')])
 
     def test_bulk_actions_change_section(self):
         # changing the section resets primary_status, assigned_to, and status
@@ -1008,7 +1008,7 @@ class FiltersFormTests(TestCase):
 
     def test_basic_navigation(self):
         response = self.client.get(reverse('crt_forms:crt-forms-index'), {})
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
         for row in response.context['data_dict']:
             if row['report'].contact_email == self.email1:
@@ -1024,7 +1024,7 @@ class FiltersFormTests(TestCase):
         url = f'{base_url}?{urlencode(query_kwargs)}'
 
         response = self.client.get(url, {})
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
         for index, row in enumerate(response.context['data_dict']):
             if index < 5:
@@ -1040,7 +1040,7 @@ class FiltersFormTests(TestCase):
         url = f'{base_url}?{urlencode(query_kwargs)}'
 
         response = self.client.get(url, {})
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
         for index, row in enumerate(response.context['data_dict']):
             if index < 3:
@@ -1055,7 +1055,7 @@ class FiltersFormTests(TestCase):
         url = f'{base_url}?sort=assigned_section&sort=contact_last_name'
 
         response = self.client.get(url, {})
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
         for index, row in enumerate(response.context['data_dict']):
             if index == 0:
@@ -1073,7 +1073,7 @@ class FiltersFormTests(TestCase):
         url = f'{base_url}?sort=assigned_section&sort=-contact_last_name'
 
         response = self.client.get(url, {})
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
         for index, row in enumerate(response.context['data_dict']):
             if index == 0:
@@ -1100,7 +1100,7 @@ class FiltersFormTests(TestCase):
         ReportFactory.create_batch(4, contact_email=self.email7)
         EmailReportCount.refresh_view()
         response = self.client.get(reverse('crt_forms:crt-forms-index'), {})
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
         for row in response.context['data_dict']:
 
@@ -1114,7 +1114,7 @@ class FiltersFormTests(TestCase):
         url = f'{base_url}?referred=True'
 
         response = self.client.get(url, {})
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
         for row in response.context['data_dict']:
             self.assertTrue(row['report'].referred)
@@ -1126,9 +1126,9 @@ class FiltersFormTests(TestCase):
         url = f'{base_url}?assigned_to=DELETE_USER'
 
         response = self.client.get(url, {})
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
-        self.assertEquals(len(response.context['data_dict']), 3)
+        self.assertEqual(len(response.context['data_dict']), 3)
 
         for row in response.context['data_dict']:
             self.assertEqual(row['report'].assigned_to, self.user)
@@ -1138,7 +1138,7 @@ class FiltersFormTests(TestCase):
         url = f'{base_url}?assigned_to=(none)'
 
         response = self.client.get(url, {})
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
 
         for row in response.context['data_dict']:
             self.assertEqual(row['report'].assigned_to, None)
