@@ -7,8 +7,8 @@ Re:		您的民權司報告 - {{ zh_hant.section_name }}科的 {{ record_locator 
 
 謝謝您于{{ zh_hant.date_of_intake }}聯係司法部。我們審查了您提供的信息后決定，投訴所提出的問題由另一個聯邦機構處理更爲合適。因此我們將該投訴轉給下列的機構做進一步處理：
 
-美國教育部，民權辦公室 (U.S. Department of Education, Office for Civil Rights)
-(800) 421-3481; (202) 453-6012 (傳真); (800) 877-8339 (聽障人士專用)
+美國教育部，民權辦公室 (U.S. Department of Education, Office for Civil Rights)  
+(800) 421-3481; (202) 453-6012 (傳真); (800) 877-8339 (聽障人士專用)  
 OCR@ed.gov
 
 您可以做什麽：
@@ -24,5 +24,5 @@ OCR@ed.gov
 此致，
 
 
-美國司法部
+美國司法部  
 民權司

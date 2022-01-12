@@ -8,9 +8,9 @@ Re:		Báo Cáo của Ban Dân Quyền của Quý Vị - {{ record_locator }}
 Cảm ơn quý vị đã liên lạc Bộ Tư Pháp vào ngày {{ vi.date_of_intake }}. Chúng tôi đã duyệt qua thông tin quý vị cung cấp và xác định rằng khiếu nại này nêu lên những vấn đề mà một cơ quan liên bang khác có thể xử lý thích hợp hơn. Vì vậy, chúng tôi sẽ chuyển khiếu nại này tới cơ quan sau đây để thực hiện những việc tiếp theo:
 
 Ủy Ban Cơ Hội Việc Làm Bình Đẳng của Hoa Kỳ (U.S. Equal Employment Opportunity Commission)
-1-800-669-4000
-1-800-669-6820 (TTY for Deaf/Hard of Hearing callers only)
-1-844-234-5122 (ASL Video Phone for Deaf/Hard of Hearing callers only)
+1-800-669-4000  
+1-800-669-6820 (TTY for Deaf/Hard of Hearing callers only)  
+1-844-234-5122 (ASL Video Phone for Deaf/Hard of Hearing callers only)  
 https://www.eeoc.gov/
 
 Những gì quý vị có thể làm:
@@ -19,12 +19,12 @@ Cơ quan nêu trên sẽ duyệt khiếu nại của quý vị. Chúng tôi 
 
 Những gì quý vị đã giúp:
 
-Mặc dù chúng tôi không thể làm gì đối với khiếu nại của quý vị, việc trình báo của quý vị có thể giúp chúng tôi tìm ra được những vấn đề ảnh hưởng đến nhiều người hoặc các cộng đồng. Nó cũng giúp chúng tôi hiểu biết về những xu hướng và vấn đề đang phát sinh. 
+Mặc dù chúng tôi không thể làm gì đối với khiếu nại của quý vị, việc trình báo của quý vị có thể giúp chúng tôi tìm ra được những vấn đề ảnh hưởng đến nhiều người hoặc các cộng đồng. Nó cũng giúp chúng tôi hiểu biết về những xu hướng và vấn đề đang phát sinh.
 
 Cảm ơn quý vị đã dành thời gian liên lạc với Bộ Tư Pháp về những quan ngại của mình.
 
 Trân trọng,
 
 
-Bộ Tư Pháp Hoa Kỳ
+Bộ Tư Pháp Hoa Kỳ  
 Ban Dân Quyền

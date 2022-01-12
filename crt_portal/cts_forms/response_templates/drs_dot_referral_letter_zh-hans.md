@@ -7,7 +7,7 @@ Re:		您的民权司报告 - {{ zh_hans.section_name }}科的 {{ record_locator 
 
 谢谢您于{{ zh_hans.date_of_intake }}联系司法部。我们审阅了您提供的信息后决定，投诉所提出的问题由另一个联邦机构处理更为合适。因此, 我们将该投诉转给下列的机构做进一步处理：
 
-交通部，航空消费者保护司 (Department of Transportation, Aviation Consumer Protection Division)
+交通部，航空消费者保护司 (Department of Transportation, Aviation Consumer Protection Division)  
 (202) 366-4648 (有声); (202) 366-8538 (听障人士专线)
 
 您可以做什么：
@@ -23,5 +23,5 @@ Re:		您的民权司报告 - {{ zh_hans.section_name }}科的 {{ record_locator 
 此致，
 
 
-美国司法部
+美国司法部  
 民权司
