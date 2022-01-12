@@ -9,8 +9,8 @@ Re:		您的民权司报告 - {{ zh_hans.section_name }}科的 {{ record_locator 
 
 美国平等就业机会委员会 (U.S. Equal Employment Opportunity Commission)  
 1-800-669-4000  
-1-800-669-6820 (TTY for Deaf/Hard of Hearing callers only)  
-1-844-234-5122 (ASL Video Phone for Deaf/Hard of Hearing callers only)  
+1-800-669-6820 (文字电话仅适用于失聪/听障来电者)  
+1-844-234-5122 (美国手语视频电话仅适用失聪/听障来电者)  
 https://www.eeoc.gov/
 
 您可以做什么：

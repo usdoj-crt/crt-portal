@@ -9,8 +9,8 @@ Gracias por comunicarse con el Departamento de Justicia el {{ es.date_of_intake 
 
 U.S. Equal Employment Opportunity Commission  
 1-800-669-4000  
-1-800-669-6820 (TTY for Deaf/Hard of Hearing callers only)  
-1-844-234-5122 (ASL Video Phone for Deaf/Hard of Hearing callers only)  
+1-800-669-6820 (TTY exclusivamente para interlocutores sordos/con discapacidades auditivas)  
+1-844-234-5122 (Videoteléfono de ASL exclusivamente para interlocutores sordos/con discapacidades auditivas)  
 https://www.eeoc.gov/
 
 Lo que usted puede hacer:

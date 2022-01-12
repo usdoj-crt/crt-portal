@@ -9,8 +9,8 @@ Salamat sa pakikipag-ugnayan sa Kagawaran ng Katarungan sa {{ tl.date_of_intake 
 
 Komisyon para sa Pantay na Oportunidad sa Trabaho ng Estados Unidos (U.S. Equal Employment Opportunity Commission)
 1-800-669-4000  
-1-800-669-6820 (TTY for Deaf/Hard of Hearing callers only)  
-1-844-234-5122 (ASL Video Phone for Deaf/Hard of Hearing callers only)  
+1-800-669-6820 (TTY para sa Bingi/Para lamang sa mga tumatawag na Mahina ang Pandinig)  
+1-844-234-5122 (ASL Bideyong Telepono para sa Bingi/ Para lamang sa mga tumatawag na Mahina ang Pandinig)  
 https://www.eeoc.gov/
 
 Ano ang pwede mong gawin:

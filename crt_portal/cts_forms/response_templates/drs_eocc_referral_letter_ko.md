@@ -9,8 +9,8 @@ Re:		귀하의 민권국 보고서 - {{ ko.section_name }}과의 {{ record_locat
 
 미국 평등 고용 기회 위원회 (U.S. Equal Employment Opportunity Commission)  
 1-800-669-4000  
-1-800-669-6820 (TTY for Deaf/Hard of Hearing callers only)  
-1-844-234-5122 (ASL Video Phone for Deaf/Hard of Hearing callers only)  
+1-800-669-6820 (청각장애인 전용 TTY (문자 전화))  
+1-844-234-5122 (청각장애인 전용 ASL (미국 수화) 영상전화)  
 https://www.eeoc.gov/
 
 귀하가 하실 수 있는 것:
