@@ -28,7 +28,7 @@ class Command(BaseCommand):
                         self.stdout.write(self.style.ERROR(f'Response template {template.name} is missing required `title` property. Skipping it!'))
                         continue
 
-                    if content.get('ignore', False):
+                    if content.get('ignore') is True:
                         self.stdout.write(self.style.SUCCESS(f'Ignoring response template: {letter_id}'))
                         continue
 
@@ -41,6 +41,11 @@ class Command(BaseCommand):
                     except KeyError as e:
                         self.stdout.write(self.style.ERROR(f'Response template {template.name} is missing required `{e.args[0]}` property. Skipping it!'))
                         continue
+
+                    # Mark if a letter should be processed from Markdown to HTML.
+                    # This is optional. Default value is false
+                    # Note: this does not catch errors or typos in values.
+                    letter_data['is_html'] = content.get('is_html', False)
 
                     letter, created = ResponseTemplate.objects.update_or_create(title=letter_id, defaults=letter_data)
 
