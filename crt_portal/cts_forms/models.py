@@ -479,6 +479,7 @@ class ResponseTemplate(models.Model):
     subject = models.CharField(max_length=150, null=False, blank=False,)
     body = models.TextField(null=False, blank=False,)
     language = models.CharField(default='en', max_length=10, null=False, blank=False,)
+    is_html = models.BooleanField('HTML email', default=False,)
 
     def utc_timezone_to_est(self, utc_dt):
         local_tz = pytz.timezone('US/Eastern')
