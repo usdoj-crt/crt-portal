@@ -1020,8 +1020,8 @@ msgstr ""
 "或殘障等理由才可視為是仇恨犯罪。"
 
 #: question_text.py:30
-msgid "Location name"
-msgstr "地點名稱"
+msgid "Organization name"
+msgstr "機構名稱"
 
 #: question_text.py:31
 msgid "Street address 1"

@@ -1121,8 +1121,8 @@ msgstr ""
 "pagkakakilanlan ng kasarian, o kapansanan."
 
 #: question_text.py:30
-msgid "Location name"
-msgstr "Pangalan ng lugar"
+msgid "Organization name"
+msgstr "Pangalan ng organisasyon"
 
 #: question_text.py:31
 msgid "Street address 1"
