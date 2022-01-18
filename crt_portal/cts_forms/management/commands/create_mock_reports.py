@@ -19,9 +19,9 @@ class Command(BaseCommand):
             # Uncomment the following line to create reports with the same email address
             # Note could will be useful for testing the "Total #" column in the form/view table
             # report.contact_email = "test@test.test"
+
             # This code adds some frequent flier reports randomly to better emulate production
             rand = random.randint(1, 100)
-            print("rand", rand)
             # approximately 1% of reports
             if rand <= 1:
                 report.contact_email = "frequentflier1@test.test"
