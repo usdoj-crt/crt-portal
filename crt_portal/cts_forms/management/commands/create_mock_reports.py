@@ -21,7 +21,8 @@ class Command(BaseCommand):
             # report.contact_email = "test@test.test"
 
             # This code adds some frequent flier reports randomly to better emulate production
-            rand = random.randint(1, 100)
+            # nosec turns off bandit error because random is not used for security or run outside of local env.
+            rand = random.randint(1, 100)  # nosec
             # approximately 1% of reports
             if rand <= 1:
                 report.contact_email = "frequentflier1@test.test"
