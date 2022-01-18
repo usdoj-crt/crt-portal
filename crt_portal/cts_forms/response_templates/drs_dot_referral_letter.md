@@ -1,5 +1,5 @@
 ---
-title: DRS - EEOC Referral Form Letter
+title: DRS - DOT Referral Form Letter
 subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from {{ section_name }} Section"
 language: en
 ---
@@ -7,11 +7,8 @@ Re:		Civil Rights Division Complaint – {{ record_locator }} from the Disabilit
 
 Thank you for contacting the Department of Justice on {{ date_of_intake }}.  We have reviewed the information you provided and have determined that the complaint raises issues that are more appropriately addressed by another federal agency.  We are, therefore, referring this complaint to the following agency for further action:
 
-U.S. Equal Employment Opportunity Commission  
-1-800-669-4000  
-1-800-669-6820 (TTY for Deaf/Hard of Hearing callers only)  
-1-844-234-5122 (ASL Video Phone for Deaf/Hard of Hearing callers only)  
-https://www.eeoc.gov/
+Department of Transportation, Aviation Consumer Protection Division  
+(202) 366-4648 (voice); (202) 366-8538 (TTY)
 
 What you can do:
 
