@@ -41,11 +41,12 @@ jobs:
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
+      - image: postgres:11.14-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+          POSTGRES_PASSWORD: password
     steps:
       - checkout
       # Removing chache for now, we either need to build our image or move the cache location
@@ -201,11 +202,12 @@ jobs:
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
           CF_MANIFEST: manifest_dev.yaml
           CF_SPACE: dev
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
+      - image: postgres:11.14-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+          POSTGRES_PASSWORD: password
     steps:
       - checkout
       # removing as we deal with caching problem
@@ -258,11 +260,12 @@ jobs:
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
           CF_MANIFEST: manifest_staging.yaml
           CF_SPACE: staging
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
+      - image: postgres:11.14-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+          POSTGRES_PASSWORD: password
     steps:
       - checkout
       - restore_cache:
@@ -315,11 +318,12 @@ jobs:
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
           CF_MANIFEST: manifest_prod.yaml
           CF_SPACE: prod
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
+      - image: postgres:11.14-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+          POSTGRES_PASSWORD: password
     steps:
       - checkout
       - restore_cache:
