@@ -32,9 +32,7 @@ class Command(BaseCommand):
             # 3%
             elif rand <= 6:
                 report.contact_email = "frequentflier3@test.test"
-            report.status = 'open'
             report.create_date = datetime.now()
-            report.save()
             salt_chars = salt()
             report.public_id = f'{report.pk}-{salt_chars}'
             report.save()
