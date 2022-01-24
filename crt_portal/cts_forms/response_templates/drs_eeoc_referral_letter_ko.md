@@ -1,5 +1,5 @@
 ---
-title: DRS - EOCC Referral Form Letter (Korean)
+title: DRS - EEOC Referral Form Letter (Korean)
 subject: "회신: 귀하의 민권국 보고서 - {{ ko.section_name }}과의 {{ record_locator }}"
 language: ko
 ---
