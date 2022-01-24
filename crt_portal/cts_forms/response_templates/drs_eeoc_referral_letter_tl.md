@@ -1,5 +1,5 @@
 ---
-title: DRS - EOCC Referral Form Letter (Tagalog)
+title: DRS - EEOC Referral Form Letter (Tagalog)
 subject: "Tugon: Ang Iyong Ulat sa Dibisyon sa Mga Karapatang Sibil – {{ record_locator }} mula sa Seksyon na {{ tl.section_name }}"
 language: tl
 ---
