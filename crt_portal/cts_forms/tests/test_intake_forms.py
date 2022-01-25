@@ -69,7 +69,7 @@ class Valid_Form_Tests(TestCase):
         })
         errors = dict(WHERE_ERRORS)
         self.assertFalse(form.is_valid())
-        self.assertEquals(
+        self.assertEqual(
             form.errors,
             {
                 'location_name': [errors['location_name']],
@@ -550,7 +550,7 @@ class ContactValidationTests(TestCase):
             'servicemember': 'yes',
         })
         self.assertFalse(form.is_valid())
-        self.assertEquals(
+        self.assertEqual(
             form.errors,
             {'contact_phone': [CONTACT_PHONE_INVALID_MESSAGE]}
         )
@@ -733,10 +733,10 @@ class TestIntakeFormat(TestCase):
 
     def test_intake_save_web(self):
         data, saved_object = save_form(self.form_data_dict, intake_format='web')
-        self.assertEquals(saved_object.intake_format, 'web')
+        self.assertEqual(saved_object.intake_format, 'web')
 
     def test_intake_save_ProForm(self):
         form_data_dict = copy.deepcopy(self.form_data_dict)
         form_data_dict['intake_format'] = 'phone'
         data, saved_object = save_form(form_data_dict)
-        self.assertEquals(saved_object.intake_format, 'phone')
+        self.assertEqual(saved_object.intake_format, 'phone')

@@ -625,7 +625,7 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
                 file = open(attachment.file.name, 'rb')
                 mime_type, _ = mimetypes.guess_type(attachment.filename)
                 response = HttpResponse(file, content_type=mime_type)
-                response['Content-Disposition'] = f'attachment;filename={attachment.filename}'
+                response.headers['Content-Disposition'] = f'attachment;filename={attachment.filename}'
                 return response
 
             except FileNotFoundError:

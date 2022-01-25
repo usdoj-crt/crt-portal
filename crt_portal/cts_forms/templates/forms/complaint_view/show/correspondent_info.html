@@ -46,13 +46,14 @@ class="usa-button usa-button--unstyled button--edit margin-left-auto" type="butt
       </tr>
       <tr>
         <th>Address</th>
-        <td>{{ data.contact_address_line_1|default:"—" }}
+        <td>
+          <span>{{ data.contact_address_line_1|default:"—" }}</span>
           <br>
-            {{ data.contact_address_line_2|default:"—" }}
+          <span>{{ data.contact_address_line_2|default:"—" }}</span>
           <br>
-            {{ data.contact_city|default:"—" }},
+          <span>{{ data.contact_city|default:"—" }},
             {{ data.contact_state|default:"—" }},
-            {{ data.contact_zip|default:"—" }}
+            {{ data.contact_zip|default:"—" }}</span>
         </td>
     </tr>
     </table>

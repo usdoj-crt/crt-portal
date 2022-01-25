@@ -1009,8 +1009,8 @@ msgstr ""
 "性取向、性别认同或残疾的理由。"
 
 #: question_text.py:30
-msgid "Location name"
-msgstr "地点名称"
+msgid "Organization name"
+msgstr "机构名称"
 
 #: question_text.py:31
 msgid "Street address 1"

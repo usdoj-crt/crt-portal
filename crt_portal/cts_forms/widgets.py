@@ -5,19 +5,19 @@ from django.forms.widgets import ChoiceWidget, SelectMultiple, DateInput
 class UsaRadioSelect(ChoiceWidget):
     input_type = 'radio'
     template_name = 'django/forms/widgets/radio.html'
-    option_template_name = '../templates/forms/widgets/usa_radio_option.html'
+    option_template_name = 'forms/widgets/usa_radio_option.html'
 
 
 class CrtPrimaryIssueRadioGroup(ChoiceWidget):
     input_type = 'radio'
-    template_name = '../templates/forms/widgets/multiple_inputs.html'
-    option_template_name = '../templates/forms/widgets/crt_radio_area_option.html'
+    template_name = 'forms/widgets/multiple_inputs.html'
+    option_template_name = 'forms/widgets/crt_radio_area_option.html'
 
 
 class ComplaintSelect(ChoiceWidget):
     input_type = 'select'
-    template_name = '../templates/forms/widgets/complaint_select.html'
-    option_template_name = '../templates/forms/widgets/multi_select_option.html'
+    template_name = 'forms/widgets/complaint_select.html'
+    option_template_name = 'forms/widgets/multi_select_option.html'
 
     def __init__(self, *args, **kwargs):
         label = kwargs.pop('label', None)
@@ -40,8 +40,8 @@ class ComplaintSelect(ChoiceWidget):
 
 
 class CrtMultiSelect(SelectMultiple):
-    template_name = '../templates/forms/widgets/multi_select.html'
-    option_template_name = '../templates/forms/widgets/multi_select_option.html'
+    template_name = 'forms/widgets/multi_select.html'
+    option_template_name = 'forms/widgets/multi_select_option.html'
 
 
 class CrtDateInput(DateInput):
@@ -55,7 +55,7 @@ class UsaCheckboxSelectMultiple(ChoiceWidget):
     allow_multiple_selected = True
     input_type = 'checkbox'
     template_name = 'django/forms/widgets/checkbox_select.html'
-    option_template_name = '../templates/forms/widgets/usa_checkbox_option.html'
+    option_template_name = 'forms/widgets/usa_checkbox_option.html'
 
     def use_required_attribute(self, initial):
         # Don't use the 'required' attribute because browser validation would
@@ -88,12 +88,22 @@ class DataAttributesSelect(ChoiceWidget):
 
     def create_option(self, name, value, label, selected, index, **kwargs):
         option = super().create_option(name, value, label, selected, index, **kwargs)
-        data_attributes = self.data.get(value, {})
-        for key, value in data_attributes.items():
-            option['attrs'][f"data-{key}"] = value
+        # Prior to Django 3.1, self.data.get(value, {}) worked properly.
+        # Beginning in Django 3.2, this results in a `TypeError: unhashable type:
+        # 'ModelChoiceIteratorValue` error message. This may be fixed in Django v4
+        # when ModelChoiceIteratorValue is made hashable.
+        # See patch here: https://code.djangoproject.com/ticket/33155
+        # Currently, the fix is to force the `value` to be its original (and
+        # hashable) numeric value. Note that there is a blank value that must
+        # be skipped.
+        if not value.__str__() == '':
+            data_attributes = self.data.get(int(value.__str__()), {})
+            for key, value in data_attributes.items():
+                option['attrs'][f"data-{key}"] = value
+
         return option
 
 
 class CRTDateField(DateInput):
     input_type = 'text',
-    template_name = '../templates/forms/widgets/crt_date_entry.html'
+    template_name = 'forms/widgets/crt_date_entry.html'

@@ -5,15 +5,13 @@ $complaint-header-min-height: 200px;
   width: 100%;
 
   th {
-    color: color($theme-color-base-ink);
-    @include text--body-copy__medium();
-    font-weight: bold;
-    padding-right: 0;
     width: 40%;
+    padding-right: 0;
+    color: color($theme-color-base-ink);
+    font-weight: bold;
   }
 
   td {
-    padding-left: 0;
     width: 60%;
     white-space: normal;
     word-wrap: break-word;

@@ -222,12 +222,12 @@ class Report(models.Model):
 
     @cached_property
     def crt_reciept_date(self):
-        day = self.crt_reciept_day or 1
-        try:
-            date = datetime(self.crt_reciept_year, self.crt_reciept_month, day)
-        except ValueError:
-            date = None
-        return date
+        if self.crt_reciept_year and self.crt_reciept_month and self.crt_reciept_day:
+            try:
+                return datetime(self.crt_reciept_year, self.crt_reciept_month, self.crt_reciept_day)
+            except ValueError:
+                return None
+        return None
 
     def __str__(self):
         return self.public_id
@@ -498,9 +498,15 @@ class ResponseTemplate(models.Model):
         section_choices_zh_hans = dict(SECTION_CHOICES_ZH_HANS)
         section_choices_zh_hant = dict(SECTION_CHOICES_ZH_HANT)
 
-        # as of July 1, create_dates are being converted to eastern standard time from utc
-        # to show the correct date for reports created in the evening.
-        report_create_date_est = self.utc_timezone_to_est(report.create_date)
+        # For ProForm reports, the date the report was received is more relevant than the create date, so
+        # we use that when it is available
+        try:
+            if report.crt_reciept_date and report.intake_format != 'web':
+                report_create_date_est = report.crt_reciept_date
+            else:
+                report_create_date_est = self.utc_timezone_to_est(report.create_date)
+        except ValueError:
+            report_create_date_est = self.utc_timezone_to_est(report.create_date)
 
         return Context({
             'record_locator': report.public_id,

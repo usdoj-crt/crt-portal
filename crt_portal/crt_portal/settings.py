@@ -56,7 +56,7 @@ if environment != 'LOCAL':
     # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'ENGINE': 'django.db.backends.postgresql',
             'NAME': db_credentials['db_name'],
             'USER': db_credentials['username'],
             'PASSWORD': db_credentials['password'],
@@ -86,8 +86,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.postgres',
-    'actstream',
-    'cts_forms',
+    # 'actstream',
+    'cts_forms.apps.CtsActstreamConfig',  # Override default actstream config
+    'cts_forms.apps.CtsFormsConfig',
     'compressor',
     'compressor_toolkit',
     'storages',
@@ -189,8 +190,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-# Commented this setting due to the 3.9.5 upgrade issue with psycopg2 UTC time zone not set.
-# USE_TZ = True
+USE_TZ = True
 
 # Set to True later in settings if we've successfully configured an email backend
 EMAIL_ENABLED = False
@@ -407,14 +407,17 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-COMPRESS_CSS_FILTERS = [
-    'compressor.filters.css_default.CssAbsoluteFilter',
-    'compressor.filters.cssmin.CSSMinFilter',
-    'compressor.filters.template.TemplateFilter'
-]
-COMPRESS_JS_FILTERS = [
-    'compressor.filters.jsmin.JSMinFilter',
-]
+COMPRESS_FILTERS = {
+    'css': [
+        'compressor.filters.css_default.CssAbsoluteFilter',
+        'compressor.filters.cssmin.CSSMinFilter',
+        'compressor.filters.template.TemplateFilter'
+    ],
+    'js': [
+        'compressor.filters.jsmin.JSMinFilter',
+    ]
+}
+
 COMPRESS_PRECOMPILERS = (
     ('module', 'compressor_toolkit.precompilers.ES6Compiler'),
     ('css', 'compressor_toolkit.precompilers.SCSSCompiler'),

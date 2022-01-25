@@ -44,10 +44,10 @@ class ActionAdminTests(TestCase):
         exported_action_csv = [row for row in reader]
 
         # Headers + 5 actions expected
-        self.assertEquals(len(exported_action_csv), 6)
+        self.assertEqual(len(exported_action_csv), 6)
 
         # Headers match ACTION_FIELDS
-        self.assertEquals(exported_action_csv[0], ACTION_FIELDS)
+        self.assertEqual(exported_action_csv[0], ACTION_FIELDS)
 
 
 class ReportAdminTests(TestCase):
@@ -73,4 +73,4 @@ class ReportAdminTests(TestCase):
 
         expected_header = REPORT_FIELDS + ['protected_class', 'internal_summary']
 
-        self.assertEquals(exported_reports_csv[0], expected_header)
+        self.assertEqual(exported_reports_csv[0], expected_header)

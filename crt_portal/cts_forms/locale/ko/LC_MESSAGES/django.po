@@ -1048,8 +1048,8 @@ msgstr ""
 "가, 종교, 성별, 성적 지향, 성 정체성 또는 장애를 기반으로 해야 합니다."
 
 #: question_text.py:30
-msgid "Location name"
-msgstr "장소 이름"
+msgid "Organization name"
+msgstr "기관명"
 
 #: question_text.py:31
 msgid "Street address 1"
