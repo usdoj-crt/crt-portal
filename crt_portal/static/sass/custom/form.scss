@@ -424,10 +424,3 @@ select.usa-input--error {
     }
   }
 }
-
-//Since #page-errors is in a parent report_base.html, and we don't want it in the pro form, we reference it via the #id_pro_form_view-current_step sibling.
-#id_pro_form_view-current_step ~ .crt-portal-card {
-  #page-errors {
-    display: none;
-  }
-}
