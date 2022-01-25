@@ -1,4 +1,5 @@
 import logging
+import markdown
 from datetime import datetime
 
 from django.conf import settings
@@ -37,7 +38,14 @@ def crt_send_mail(report, template, purpose=TMSEmail.MANUAL_EMAIL):
     if not recipient_list:
         logger.info(f'{report.contact_email} not in allowed domains, not attempting to deliver email response template #{template.id} to report: {report.id}')
         return None
-    send_results = send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list, fail_silently=False)
+
+    if template.is_html:
+        body = markdown.markdown(message)
+    else:
+        # replace newlines, \n, with <br> so the API will generate formatted emails
+        body = message.replace('\n', '<br>')
+
+    send_results = send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, recipient_list, fail_silently=False)
     logger.info(f'Sent email response template #{template.id} to report: {report.id}')
     if settings.EMAIL_BACKEND == 'tms.backend.TMSEmailBackend':
         response = send_results[0]

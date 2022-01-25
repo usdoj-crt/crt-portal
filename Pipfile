@@ -40,6 +40,7 @@ netaddr = "*"
 boto3 = "*"
 python-frontmatter = "*"
 djangorestframework = "*"
+markdown = "*"
 
 [requires]
 python_version = "3.9.9"

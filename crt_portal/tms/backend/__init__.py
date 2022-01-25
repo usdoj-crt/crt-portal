@@ -57,11 +57,9 @@ class TMSEmailBackend(BaseEmailBackend):
         Establish outbound payload for TMS send email POST API
         """
         recipients = [{"email": to_address} for to_address in email_message.to]
-        # replace newlines, \n, with <br> so the API will generate formatted emails
-        body = email_message.body.replace('\n', '<br>')
         return {
             "subject": email_message.subject,
-            "body": body,
+            "body": email_message.body,
             "recipients": recipients,
             "open_tracking_enabled": False,
             "click_tracking_enabled": False,
