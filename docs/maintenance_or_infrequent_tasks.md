@@ -177,89 +177,121 @@ After the test is done, delete the user you made for testing.
 
 # Database upgrades
 
-For staging and prod we use medium-psql-redundant. These instructions are for updating dev to medium-psql-redundant or, could be adapted if you ever needed to move prod to a large-psql-redundant instance. Check the [cloud.gov docs])(https://cloud.gov/docs/services/relational-database/) for any updates or new recommendations.
+For staging and prod we use the `medium-psql-redundant` database service. These instructions are for updating dev to `medium-psql-redundant` and can be adapted to move prod to a `large-psql-redundant` instance. Check the [cloud.gov docs](https://cloud.gov/docs/services/relational-database/) for any updates or new recommendations.
 
 ### Here are instructions of how to upgrade the dev db
 
-1) Install dependencies
+1) **Install dependencies.**
 
-Install cf-service connect, it's a cloud.gov tool useful for moving data around
+    - Install `[cf-service-connect](https://github.com/cloud-gov/cf-service-connect)`, a cloud.gov tool for moving data around
     [https://github.com/cloud-gov/cf-service-connect](https://github.com/cloud-gov/cf-service-connect)
     (Darwin is the Mac binary)
-If you don't already have it, install [pgcli](https://postgresapp.com/documentation/cli-tools.html) It is a command line tool for working with postgres
+    - If you don't already have it, install `[pgcli](https://postgresapp.com/documentation/cli-tools.html)`, a command line tool for working with PostgreSQL.
 
-4) Export data
+2) **Set `cf target` to desired instance.** Sign in to cloud.gov and make sure you are in the correct space.
 
-For dev and staging that file can be downloaded locally but for prod it may be better to put the file in the private s3 bucket or somewhere on the DOJ network.
-
-    #In your terminal, signed in to could.gov make sure you are in the correct space:
-    cf target -s dev
-
-    # In a separate shell window, connect to the service to setup a direct SSH tunnel and leave it running
-    # note the credentials and connection info given in the output
-    cf connect-to-service -no-client crt-portal-django crt-db
-
-    # Back in the original window, dump the database outside of the fec-cms directory
-    # using the credentials provided in the SSH tab
-    pg_dump -f crt_dev_<date>.dump postgres://<username>:<password>@<host>:<port>/<name>
-
-5) Create new database
-
-    cf create-service aws-rds medium-psql-redundant crt-db-new
-
-6) Load data into the new database
-
-    psql postgres://<username>:<password>@<host>:<port>/<name> < crt_dev_<date>.dump
-
-7) check crt-db-new and then rename databases
-This will allow us to try the new database and make sure we are happy with it before getting rid of the old database.
-
-check the new data base
-
-    #  Connect to the new db using pgcli
-    cf connect-to-service crt-portal-django crt-db-new
-    # Do some quick queries to make sure the information loaded correctly
-    # list tables
-    \dt
-    # list some report records
-    \ select * from cts_forms_report limit 50;
-    # list some user accounts
-    select * from auth_user limit 50;
-    # exit
-    \q
-
-rename databases
-
-    # rename old data base
-    cf rename-service crt-db crt-db-old
-    # rename new data base
-    cf rename-service crt-db-new crt-db
-
-8) Restage or redeploy
-Redeploying prevents downtime, so that is what you would want to do for production. You can go to Circle and redeploy the last successful build. The change to what database is being used won't go into effect untill the app is restaged or redeployed.
-
-For dev and staging, you can change the bindigs manually and restage. (It's a bit quicker)
-
-    # unbind old db and bind the new one
-    cf unbind-service crt-portal-django crt-db-old
-    cf bind-service crt-portal-django crt-db
-    # confirm the correct db is bound (look at the name, plan, and bound apps)
-    cf services
-    # restage
-    cf restage crt-portal-django
-
-9) Confirm app is working
-Go to the site, log out, log back in, make a distinctive sample record.
+```sh
+cf target -s dev
 ```
+
+3) **Export data from existing database.** Database dumps from dev and staging instances can be downloaded locally, but for prod it may be better to put the file in the private s3 bucket or somewhere on the DOJ network.
+
+In a separate shell window, connect to the service to setup a direct SSH tunnel and leave it running. Note the credentials and connection info given in the output.
+
+```sh
+cf connect-to-service -no-client crt-portal-django crt-db
+```
+
+Back in the original window, dump the database outside of the project directory using the credentials provided in the SSH tab.
+
+```sh
+pg_dump -f crt_dev_<date>.dump postgres://<username>:<password>@<host>:<port>/<name>
+```
+
+After the dump has finished, you can return to the SSH tab and press Control-C to close the tunnel.
+
+4) **Create new database.**
+
+```sh
+cf create-service aws-rds medium-psql-redundant crt-db-new
+```
+
+You can run `cf services` to see that the new database is being created. Wait for it to finish creating before proceeding to the next step.
+
+5) **Load data into the new database.**
+
+After the new database has been created, open a new shell window and open a SSH tunnel to the new database. Again, note the credentions and connection info in the output.
+
+```sh
+cf connect-to-service -no-client crt-portal-django crt-db-new
+```
+
+Back in the original window, load the database from the dumped file using the credentials for the new database.
+
+```sh
+psql postgres://<username>:<password>@<host>:<port>/<name> < crt_dev_<date>.dump
+```
+
+After the data has been loaded, close the SSH tunnel.
+
+6) **Check the new database.** This is a gut-check to make sure that the data has populated the new database.
+
+```sh
+#  Connect to the new db using pgcli
+cf connect-to-service crt-portal-django crt-db-new
+
+# Do some quick queries to make sure the information loaded correctly
+# list tables
+\dt
+# list some report records
+\ select * from cts_forms_report limit 50;
+# list some user accounts
+select * from auth_user limit 50;
+# exit
+\q
+```
+
+7) **Rename databases.** This will allow us to try the new database and make sure we are happy with it before getting rid of the old database.
+
+```sh
+# rename old data base
+cf rename-service crt-db crt-db-old
+
+# rename new data base
+cf rename-service crt-db-new crt-db
+```
+
+8) **Restage or redeploy.**  The change to what database is being used won't go into effect until the app is restaged or redeployed.
+
+Redeploying prevents downtime, so that is what you would want to do for production. You can go to Circle and redeploy the last successful build.
+
+For dev and staging, you can change the bindings manually and restage. (It's a bit quicker)
+
+```sh
+# unbind old db and bind the new one
+cf unbind-service crt-portal-django crt-db-old
+cf bind-service crt-portal-django crt-db
+
+# confirm the correct db is bound (look at the name, plan, and bound apps)
+cf services
+
+# restage
+cf restage crt-portal-django
+```
+
+9) **Confirm app is working.** Go to the site, log out, log back in, make a distinctive sample record.
+
+```sh
 # Connect to the new db using pgcli
 cf connect-to-service crt-portal-django crt-db
-# Look for you sample. For this one I made the description 'TESTING_NEW_DB 5/24'
+
+# Look for your sample. For this one I made the description 'TESTING_NEW_DB 5/24'
 select * from cts_forms_report where violation_summary='TESTING_NEW_DB 5/24'
 ```
-10) Clean up
-Delete back up file from your local
-Delete crt-db-old from cloud.gov
 
+10) **Clean up.** Once everything looks good:
+    - Delete database dump file from your local machine
+    - Delete `crt-db-old` from cloud.gov
 
 ## Response templates
 
