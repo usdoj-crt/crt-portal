@@ -54,8 +54,8 @@ jobs:
       - restore_cache:
           keys:
             - node-v4-{{ .Branch }}-{{ checksum "package-lock.json" }}
-            - node-v4-{{ .Branch }}-
-            - node-v4-
+      #      - node-v4-{{ .Branch }}-
+      #      - node-v4-
       - run:
           name: Install gettext
           command: sudo apt-get update && sudo apt-get install -yqq gettext
@@ -72,8 +72,8 @@ jobs:
       - restore_cache:
           keys:
             - pip-packages-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-            - pip-packages-v4-{{ .Branch }}-
-            - pip-packages-v4-
+      #      - pip-packages-v4-{{ .Branch }}-
+      #      - pip-packages-v4-
       - *install-python-dev-dependencies
       - run:
           name: Migrate the database
