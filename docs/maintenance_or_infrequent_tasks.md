@@ -183,113 +183,120 @@ For staging and prod we use the `medium-psql-redundant` database service. These 
 
 1) **Install dependencies.**
 
-    - Install `[cf-service-connect](https://github.com/cloud-gov/cf-service-connect)`, a cloud.gov tool for moving data around
+    - Install [`cf-service-connect`](https://github.com/cloud-gov/cf-service-connect), a cloud.gov tool for moving data around
     [https://github.com/cloud-gov/cf-service-connect](https://github.com/cloud-gov/cf-service-connect)
     (Darwin is the Mac binary)
-    - If you don't already have it, install `[pgcli](https://postgresapp.com/documentation/cli-tools.html)`, a command line tool for working with PostgreSQL.
+    - If you don't already have it, install [`pgcli`](https://postgresapp.com/documentation/cli-tools.html), a command line tool for working with PostgreSQL.
 
-2) **Set `cf target` to desired instance.** Sign in to cloud.gov and make sure you are in the correct space.
+2) **Sign into cloud.gov and set `cf target` to desired instance.** This gives you command line access to the instance.
 
-```sh
-cf target -s dev
-```
+    ```sh
+    cf login -a api.fr.cloud.gov --sso
+    ```
+    
+    Enter the passcode from the URL that is given to you, and make sure you select the correct organization and space. 
+    
+    ```sh
+    cf target -s dev
+    ```
 
 3) **Export data from existing database.** Database dumps from dev and staging instances can be downloaded locally, but for prod it may be better to put the file in the private s3 bucket or somewhere on the DOJ network.
 
-In a separate shell window, connect to the service to setup a direct SSH tunnel and leave it running. Note the credentials and connection info given in the output.
+    In a separate shell window, connect to the service to setup a direct SSH tunnel and leave it running. Note the credentials and connection info given in the output.
 
-```sh
-cf connect-to-service -no-client crt-portal-django crt-db
-```
+    ```sh
+    cf connect-to-service -no-client crt-portal-django crt-db
+    ```
 
-Back in the original window, dump the database outside of the project directory using the credentials provided in the SSH tab.
+    Back in the original window, dump the database outside of the project directory using the credentials provided in the SSH tab.
 
-```sh
-pg_dump -f crt_dev_<date>.dump postgres://<username>:<password>@<host>:<port>/<name>
-```
+    ```sh
+    pg_dump -f crt_dev_<date>.dump postgres://<username>:<password>@<host>:<port>/<name>
+    ```
 
-After the dump has finished, you can return to the SSH tab and press Control-C to close the tunnel.
+    After the dump has finished, you can return to the SSH tab and press Control-C to close the tunnel.
 
 4) **Create new database.**
 
-```sh
-cf create-service aws-rds medium-psql-redundant crt-db-new
-```
+    ```sh
+    cf create-service aws-rds medium-psql-redundant crt-db-new
+    ```
 
-You can run `cf services` to see that the new database is being created. Wait for it to finish creating before proceeding to the next step.
+    You can run `cf services` to see that the new database is being created. Wait for it to finish creating before proceeding to the next step.
 
 5) **Load data into the new database.**
 
-After the new database has been created, open a new shell window and open a SSH tunnel to the new database. Again, note the credentions and connection info in the output.
+    After the new database has been created, open a new shell window and open a SSH tunnel to the new database. Again, note the credentions and connection info in the output.
 
-```sh
-cf connect-to-service -no-client crt-portal-django crt-db-new
-```
+    ```sh
+    cf connect-to-service -no-client crt-portal-django crt-db-new
+    ```
 
-Back in the original window, load the database from the dumped file using the credentials for the new database.
+    Back in the original window, load the database from the dumped file using the credentials for the new database.
 
-```sh
-psql postgres://<username>:<password>@<host>:<port>/<name> < crt_dev_<date>.dump
-```
+    ```sh
+    psql postgres://<username>:<password>@<host>:<port>/<name> < crt_dev_<date>.dump
+    ```
 
-After the data has been loaded, close the SSH tunnel.
+    After the data has been loaded, close the SSH tunnel.
 
 6) **Check the new database.** This is a gut-check to make sure that the data has populated the new database.
 
-```sh
-#  Connect to the new db using pgcli
-cf connect-to-service crt-portal-django crt-db-new
+    ```sh
+    #  Connect to the new db using pgcli
+    cf connect-to-service crt-portal-django crt-db-new
 
-# Do some quick queries to make sure the information loaded correctly
-# list tables
-\dt
-# list some report records
-\ select * from cts_forms_report limit 50;
-# list some user accounts
-select * from auth_user limit 50;
-# exit
-\q
-```
+    # Do some quick queries to make sure the information loaded correctly
+    # list tables
+    \dt
+    # list some report records
+    \ select * from cts_forms_report limit 50;
+    # list some user accounts
+    select * from auth_user limit 50;
+    # exit
+    \q
+    ```
 
 7) **Rename databases.** This will allow us to try the new database and make sure we are happy with it before getting rid of the old database.
 
-```sh
-# rename old data base
-cf rename-service crt-db crt-db-old
+    ```sh
+    # rename old data base
+    cf rename-service crt-db crt-db-old
 
-# rename new data base
-cf rename-service crt-db-new crt-db
-```
+    # rename new data base
+    cf rename-service crt-db-new crt-db
+    ```
 
 8) **Restage or redeploy.**  The change to what database is being used won't go into effect until the app is restaged or redeployed.
 
-Redeploying prevents downtime, so that is what you would want to do for production. You can go to Circle and redeploy the last successful build.
+    Redeploying prevents downtime, so that is what you would want to do for production. You can go to Circle and redeploy the last successful build.
 
-For dev and staging, you can change the bindings manually and restage. (It's a bit quicker)
+    For dev and staging, you can change the bindings manually and restage. (It's a bit quicker)
 
-```sh
-# unbind old db and bind the new one
-cf unbind-service crt-portal-django crt-db-old
-cf bind-service crt-portal-django crt-db
+    ```sh
+    # unbind old db and bind the new one
+    cf unbind-service crt-portal-django crt-db-old
+    cf bind-service crt-portal-django crt-db
 
-# confirm the correct db is bound (look at the name, plan, and bound apps)
-cf services
+    # confirm the correct db is bound (look at the name, plan, and bound apps)
+    cf services
 
-# restage
-cf restage crt-portal-django
-```
+    # restage
+    cf restage crt-portal-django
+    ```
 
 9) **Confirm app is working.** Go to the site, log out, log back in, make a distinctive sample record.
 
-```sh
-# Connect to the new db using pgcli
-cf connect-to-service crt-portal-django crt-db
+    ```sh
+    # Connect to the new db using pgcli
+    cf connect-to-service crt-portal-django crt-db
 
-# Look for your sample. For this one I made the description 'TESTING_NEW_DB 5/24'
-select * from cts_forms_report where violation_summary='TESTING_NEW_DB 5/24'
-```
+    # Look for your sample. For this one I made the description 'TESTING_NEW_DB 5/24'
+    select * from cts_forms_report where violation_summary='TESTING_NEW_DB 5/24'
+    ```
 
 10) **Clean up.** Once everything looks good:
+
     - Delete database dump file from your local machine
     - Delete `crt-db-old` from cloud.gov
 
