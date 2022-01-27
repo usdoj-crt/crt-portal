@@ -59,7 +59,8 @@ class TMSEmailBackend(BaseEmailBackend):
         recipients = [{"email": to_address} for to_address in email_message.to]
         return {
             "subject": email_message.subject,
-            "body": email_message.body,
+            # Send the HTML e-mail attachment as the message body
+            "body": email_message.alternatives[0][0],
             "recipients": recipients,
             "open_tracking_enabled": False,
             "click_tracking_enabled": False,
