@@ -1,25 +1,25 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-29 19:50+0000\n"
+"POT-Creation-Date: 2022-01-28 15:05+0000\n"
 "Language: Tagalog\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:182 forms.py:1621
+#: forms.py:183 forms.py:1680
 msgid " - Select - "
 msgstr " - Pumili - "
 
 #. Translators: This is help text for the question asking if someone is a service member
-#: forms.py:194
+#: forms.py:195
 msgid ""
 "If you’re reporting on behalf of someone else, please select their status."
 msgstr ""
 "Kung ikaw ay nag-uulat sa ngalan ng ibang tao, mangyaring piliin ang "
 "kanilang katayuan."
 
-#: forms.py:211 templates/forms/report_contact_info.html:9
+#: forms.py:212 templates/forms/report_contact_info.html:9
 msgid ""
 "If you believe you or someone else has experienced a civil rights violation, "
 "please tell us what happened."
@@ -27,7 +27,7 @@ msgstr ""
 "Kung sa paniniwala mo na ikaw o ang ibang tao ay nakaranas ng isang paglabag "
 "sa mga karapatang sibil, mangyaring sabihin sa amin kung ano ang nangyari."
 
-#: forms.py:237
+#: forms.py:238
 msgid ""
 "Select the reason that best describes your concern. Each reason lists "
 "examples of civil rights violations that may relate to your incident. In "
@@ -39,7 +39,7 @@ msgstr ""
 "maaaring maiugnay sa iyong insidente. Sa ibang seksyon ng ulat na ito, "
 "maaari mong ilarawan ang iyong pagkabahala sa sarili mong mga salita."
 
-#: forms.py:295
+#: forms.py:296
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
@@ -47,11 +47,11 @@ msgstr ""
 "Mga halimbawa: Pangalan ng negosyo, paaralan, interseksyon, kulungan, lugar "
 "kung saan maaaring bomoto, website, at iba pa."
 
-#: forms.py:317 question_text.py:29
+#: forms.py:318 question_text.py:29
 msgid "Where did this happen?"
 msgstr "Saan ito nangyari?"
 
-#: forms.py:329
+#: forms.py:330
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your report is reviewed by the right people within "
@@ -61,7 +61,7 @@ msgstr ""
 "saan naganap ang panyayaring ito. Tinitiyak nito na ang iyong ulat ay "
 "masusuri ng mga tamang tao sa loob ng Dibisyon sa mga Karapatang Sibil."
 
-#: forms.py:392
+#: forms.py:393
 msgid ""
 "Public employers include organizations funded by the government like the "
 "military, post office, fire department, courthouse, DMV, or public school. "
@@ -72,7 +72,7 @@ msgstr ""
 "korte, DMV, o pampublikong paaralan. Ito ay maaaring nasa lokal o estadong "
 "antas."
 
-#: forms.py:393
+#: forms.py:394
 msgid ""
 "Private employers are business or non-profits not funded by the government "
 "such as retail stores, banks, or restaurants."
@@ -82,11 +82,11 @@ msgstr ""
 "restawran."
 
 #. Translators: describe the "other" option for commercial or public place question
-#: forms.py:439
+#: forms.py:440
 msgid "Please describe"
 msgstr "Mangyaring ilarawan"
 
-#: forms.py:506
+#: forms.py:507
 msgid ""
 "Includes schools, educational programs, or educational activities, like "
 "training programs, sports teams, clubs, or other school-sponsored activities"
@@ -95,11 +95,11 @@ msgstr ""
 "na pang-edukasyon, katulad ng mga palatuntunan sa pagsasanay, mga koponan sa "
 "paglalaro, mga klab o ibang aktibidad na sinusuportahan ng paaralan"
 
-#: forms.py:517
+#: forms.py:518
 msgid "Please select the type of school or educational program."
 msgstr "Mangyaring piliin ang uri ng paaralan o palatuntunang pang-edukasyon."
 
-#: forms.py:540
+#: forms.py:541
 msgid ""
 "There are federal and state laws that protect people from discrimination "
 "based on their personal characteristics. Here is a list of the most common "
@@ -112,11 +112,11 @@ msgstr ""
 "na pamamaraan. Pumili ng anuman na nababagay sa iyong insidente."
 
 #. Translators: This is to explain an "other" choice for personal characteristics
-#: forms.py:545
+#: forms.py:546
 msgid "Please describe \"Other reason\""
 msgstr "Mangyaring ilarawan ang “Ibang dahilan”"
 
-#: forms.py:645
+#: forms.py:704
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -127,23 +127,23 @@ msgstr ""
 "kasalukuyan pa ring nangyayari, mangyaring ibigay ang pinaka-kamakailan na "
 "petsa."
 
-#: forms.py:944
+#: forms.py:1003
 msgid "Assigned to"
 msgstr "Naitalaga kay"
 
-#: forms.py:960
+#: forms.py:1019
 msgid "Incident state"
 msgstr ""
 
-#: forms.py:968
+#: forms.py:1027
 msgid "Primary classification"
 msgstr "Pangunahing pag-uuri"
 
-#: forms.py:1169
+#: forms.py:1228
 msgid "Create date cannot be in the future."
 msgstr "Ang petsa na inilikha ay hindi maaaring sa hinaharap."
 
-#: forms.py:1354
+#: forms.py:1413
 msgid "Comment cannot be empty"
 msgstr "Ang puna ay hindi maaaring walang laman"
 
@@ -957,43 +957,43 @@ msgstr "Mangyaring magbigay ng paglalarawan upang makapagpatuloy"
 msgid "Please select a primary reason to continue."
 msgstr "Mangyaring pumili ng pangunahing dahilan upang makapagpatuloy."
 
-#: model_variables.py:410
+#: model_variables.py:411
 msgid "Please enter the name of the location where this took place."
 msgstr "Mangyaring ilagay ang pangalan ng lugar kung saan ito nangyari."
 
-#: model_variables.py:411
+#: model_variables.py:412
 msgid "Please enter the city or town where this took place."
 msgstr "Mangyaring ilagay ang lungsod o bayan kung saan ito nangyari."
 
-#: model_variables.py:412
+#: model_variables.py:413
 msgid "Please select the state where this took place."
 msgstr "Mangyaring piliin ang estado kung saan ito nangyari."
 
-#: model_variables.py:416
+#: model_variables.py:417
 msgid "Please select where this occurred"
 msgstr "Mangyaring piliin kung saan ito nangyari"
 
-#: model_variables.py:417
+#: model_variables.py:418
 msgid "Please select the type of location"
 msgstr "Mangyaring piliin ang uri ng lugar"
 
-#: model_variables.py:429
+#: model_variables.py:430
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr ""
 "Kailangan mong ilagay ang buwan at taon. Mangyaring gamitin ang pormat na BB/"
 "AA/TTTT"
 
-#: model_variables.py:432
+#: model_variables.py:433
 msgid "Please enter a month."
 msgstr "Mangyaring ilagay ang buwan."
 
-#: model_variables.py:433
+#: model_variables.py:434
 msgid "Please enter a valid month. Month must be between 1 and 12."
 msgstr ""
 "Mangyaring ilagay ang tamang buwan. Ang buwan ay kailangang nasa pagitan ng "
 "1 at 12."
 
-#: model_variables.py:434
+#: model_variables.py:436
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
@@ -1001,27 +1001,27 @@ msgstr ""
 "Mangyaring ilagay ang tamang araw ng buwan.  Ang araw ay kailangang nasa "
 "pagitan ng 1 at sa huling araw ng buwan."
 
-#: model_variables.py:435
+#: model_variables.py:437
 msgid "Please enter a year."
 msgstr "Mangyaring ilagay ang taon."
 
-#: model_variables.py:436
+#: model_variables.py:438
 msgid "Date can not be in the future."
 msgstr "Ang petsa ay hindi maaaring sa hinaharap."
 
-#: model_variables.py:437
+#: model_variables.py:439
 msgid "Please enter a year after 1900."
 msgstr "Mangyaring ilagay ang taon pagkaraan ng 1900."
 
-#: model_variables.py:438
+#: model_variables.py:441
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
 msgstr "Mangyaring ilagay ang tamang petsa. Gamitin ang pormat na BB/AA/TTTT"
 
-#: model_variables.py:441
+#: model_variables.py:445
 msgid "Please select the type of election or voting activity."
 msgstr "Mangyaring piliin ang uri ng halalan o aktibidad sa pagboto."
 
-#: model_variables.py:554
+#: model_variables.py:558
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "

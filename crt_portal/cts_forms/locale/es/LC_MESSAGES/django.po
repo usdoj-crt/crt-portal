@@ -1,26 +1,26 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-29 19:50+0000\n"
+"POT-Creation-Date: 2022-01-28 15:05+0000\n"
 "Language: SpanishMIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:182 forms.py:1621
+#: forms.py:183 forms.py:1680
 msgid " - Select - "
 msgstr " - Elija - "
 
 #. Translators: This is help text for the question asking if someone is a service member
-#: forms.py:194
+#: forms.py:195
 msgid ""
 "If you’re reporting on behalf of someone else, please select their status."
 msgstr ""
 "Si usted está presentando la querella en nombre de otra persona, elija el "
 "estatus de tal persona."
 
-#: forms.py:211 templates/forms/report_contact_info.html:9
+#: forms.py:212 templates/forms/report_contact_info.html:9
 msgid ""
 "If you believe you or someone else has experienced a civil rights violation, "
 "please tell us what happened."
@@ -28,7 +28,7 @@ msgstr ""
 "Si usted cree que usted u otra persona ha sido víctima de una vulneración de "
 "sus derechos civiles, cuéntenos lo que pasó."
 
-#: forms.py:237
+#: forms.py:238
 msgid ""
 "Select the reason that best describes your concern. Each reason lists "
 "examples of civil rights violations that may relate to your incident. In "
@@ -40,7 +40,7 @@ msgstr ""
 "su caso. En otra sección de este informe, tendrá la oportunidad de describir "
 "su preocupación en sus propias palabras."
 
-#: forms.py:295
+#: forms.py:296
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
@@ -48,11 +48,11 @@ msgstr ""
 "Ejemplos: Nombre de la empresa, escuela, intersección, cárcel, sede de "
 "votación, página web, etc."
 
-#: forms.py:317 question_text.py:29
+#: forms.py:318 question_text.py:29
 msgid "Where did this happen?"
 msgstr "¿Dónde sucedió esto?"
 
-#: forms.py:329
+#: forms.py:330
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your report is reviewed by the right people within "
@@ -62,7 +62,7 @@ msgstr ""
 "incidente. Esto asegura que su informe sea revisado por las personas "
 "indicadas dentro de la División de Derechos Civiles."
 
-#: forms.py:392
+#: forms.py:393
 msgid ""
 "Public employers include organizations funded by the government like the "
 "military, post office, fire department, courthouse, DMV, or public school. "
@@ -73,7 +73,7 @@ msgstr ""
 "juzgados, departamentos de vehículos motorizados o escuelas públicas. Esto "
 "podría ser al nivel local o estatal."
 
-#: forms.py:393
+#: forms.py:394
 msgid ""
 "Private employers are business or non-profits not funded by the government "
 "such as retail stores, banks, or restaurants."
@@ -83,11 +83,11 @@ msgstr ""
 "bancos o restaurantes."
 
 #. Translators: describe the "other" option for commercial or public place question
-#: forms.py:439
+#: forms.py:440
 msgid "Please describe"
 msgstr "Favor de describirlo"
 
-#: forms.py:506
+#: forms.py:507
 msgid ""
 "Includes schools, educational programs, or educational activities, like "
 "training programs, sports teams, clubs, or other school-sponsored activities"
@@ -96,11 +96,11 @@ msgstr ""
 "programas de capacitación, equipos deportivos, clubes u otras actividades "
 "patrocinadas por una escuela."
 
-#: forms.py:517
+#: forms.py:518
 msgid "Please select the type of school or educational program."
 msgstr "Elija el tipo de escuela o programa educativo."
 
-#: forms.py:540
+#: forms.py:541
 msgid ""
 "There are federal and state laws that protect people from discrimination "
 "based on their personal characteristics. Here is a list of the most common "
@@ -113,11 +113,11 @@ msgstr ""
 "Elija cualquiera que se aplique a su incidente."
 
 #. Translators: This is to explain an "other" choice for personal characteristics
-#: forms.py:545
+#: forms.py:546
 msgid "Please describe \"Other reason\""
 msgstr "Favor de describir \"Otro motivo\""
 
-#: forms.py:645
+#: forms.py:704
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -127,27 +127,27 @@ msgstr ""
 "tomar las medidas apropiadas. Si sucedió a lo largo de un período de tiempo "
 "o todavía está sucediendo, favor de indicar la fecha más reciente."
 
-#: forms.py:944
+#: forms.py:1003
 msgid "Assigned to"
 msgstr "Asignado a"
 
-#: forms.py:960
+#: forms.py:1019
 #, fuzzy
 #| msgid "Incident location state"
 msgid "Incident state"
 msgstr "Estado en que ocurrió el incidente"
 
-#: forms.py:968
+#: forms.py:1027
 msgid "Primary classification"
 msgstr "Clasificación principal"
 
-#: forms.py:1169
+#: forms.py:1228
 #, fuzzy
 #| msgid "Date can not be in the future."
 msgid "Create date cannot be in the future."
 msgstr "La fecha no puede ser en el futuro."
 
-#: forms.py:1354
+#: forms.py:1413
 msgid "Comment cannot be empty"
 msgstr ""
 
@@ -949,41 +949,41 @@ msgstr "Para continuar, proporcione una descripción"
 msgid "Please select a primary reason to continue."
 msgstr "Para continuar, elija un motivo principal."
 
-#: model_variables.py:410
+#: model_variables.py:411
 msgid "Please enter the name of the location where this took place."
 msgstr "Introduzca el nombre del lugar dónde esto sucedió."
 
-#: model_variables.py:411
+#: model_variables.py:412
 msgid "Please enter the city or town where this took place."
 msgstr "Introduzca el nombre de la ciudad o el pueblo dónde esto sucedió."
 
-#: model_variables.py:412
+#: model_variables.py:413
 msgid "Please select the state where this took place."
 msgstr "Elija el estado dónde esto sucedió."
 
-#: model_variables.py:416
+#: model_variables.py:417
 msgid "Please select where this occurred"
 msgstr "Elija dónde esto sucedió"
 
-#: model_variables.py:417
+#: model_variables.py:418
 msgid "Please select the type of location"
 msgstr "Elija el tipo de lugar"
 
-#: model_variables.py:429
+#: model_variables.py:430
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr ""
 "Debe introducir un mes y un año. Favor de seguir el formato MM/DD/AAAA."
 
-#: model_variables.py:432
+#: model_variables.py:433
 msgid "Please enter a month."
 msgstr "Introduzca un mes."
 
-#: model_variables.py:433
+#: model_variables.py:434
 msgid "Please enter a valid month. Month must be between 1 and 12."
 msgstr ""
 "Introduzca un mes válido. El mes tiene que caer entre las cifras 1 y 12."
 
-#: model_variables.py:434
+#: model_variables.py:436
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
@@ -991,27 +991,27 @@ msgstr ""
 "Introduzca un día válido del mes. El día tiene que caer entre el 1 y el "
 "último día del mes."
 
-#: model_variables.py:435
+#: model_variables.py:437
 msgid "Please enter a year."
 msgstr "Introduzca el año."
 
-#: model_variables.py:436
+#: model_variables.py:438
 msgid "Date can not be in the future."
 msgstr "La fecha no puede ser en el futuro."
 
-#: model_variables.py:437
+#: model_variables.py:439
 msgid "Please enter a year after 1900."
 msgstr "Introduzca un año después de 1900"
 
-#: model_variables.py:438
+#: model_variables.py:441
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
 msgstr "Introduzca una fecha válida. Utilice el formato MM/DD/AAAA."
 
-#: model_variables.py:441
+#: model_variables.py:445
 msgid "Please select the type of election or voting activity."
 msgstr "Elija el tipo de elecciones o actividad relacionada con el voto"
 
-#: model_variables.py:554
+#: model_variables.py:558
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "

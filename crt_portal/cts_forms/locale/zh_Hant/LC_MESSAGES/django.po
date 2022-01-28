@@ -1,30 +1,30 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-29 19:50+0000\n"
+"POT-Creation-Date: 2022-01-28 15:05+0000\n"
 "Language: Chinese Traditional\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:182 forms.py:1621
+#: forms.py:183 forms.py:1680
 msgid " - Select - "
 msgstr " - 選擇 - "
 
 #. Translators: This is help text for the question asking if someone is a service member
-#: forms.py:194
+#: forms.py:195
 msgid ""
 "If you’re reporting on behalf of someone else, please select their status."
 msgstr "如果您是代表他人舉報，請選擇其身分。"
 
-#: forms.py:211 templates/forms/report_contact_info.html:9
+#: forms.py:212 templates/forms/report_contact_info.html:9
 msgid ""
 "If you believe you or someone else has experienced a civil rights violation, "
 "please tell us what happened."
 msgstr "如果您認為自己或其他人的民權曾受到侵犯，請告訴我們事發經過。"
 
-#: forms.py:237
+#: forms.py:238
 msgid ""
 "Select the reason that best describes your concern. Each reason lists "
 "examples of civil rights violations that may relate to your incident. In "
@@ -34,17 +34,17 @@ msgstr ""
 "請選擇最能描述您擔憂問題的理由。每項理由均列有可能與您事件有關的民權侵犯例"
 "子。在本報告的另一個部分，您將可使用您自己的話語來描述您擔憂的問題。"
 
-#: forms.py:295
+#: forms.py:296
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
 msgstr "例子：公司、學校、十字路口、監獄、投票所、網站等的名稱。"
 
-#: forms.py:317 question_text.py:29
+#: forms.py:318 question_text.py:29
 msgid "Where did this happen?"
 msgstr "此事件是發生在什麼地點？"
 
-#: forms.py:329
+#: forms.py:330
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your report is reviewed by the right people within "
@@ -53,7 +53,7 @@ msgstr ""
 "請告訴我們此事件發生的城市、州及地點名稱。這可確保您的報告由民權科的適當人員"
 "進行審查。"
 
-#: forms.py:392
+#: forms.py:393
 msgid ""
 "Public employers include organizations funded by the government like the "
 "military, post office, fire department, courthouse, DMV, or public school. "
@@ -63,7 +63,7 @@ msgstr ""
 "理局 (Department of Motor Vehicles, DMV) 或公立學校。其中可能包括地方組織或州"
 "政府組織。"
 
-#: forms.py:393
+#: forms.py:394
 msgid ""
 "Private employers are business or non-profits not funded by the government "
 "such as retail stores, banks, or restaurants."
@@ -71,11 +71,11 @@ msgstr ""
 "私人雇主包括不是由政府提供資金的企業或非營利組織，如零售商店、銀行或餐廳。"
 
 #. Translators: describe the "other" option for commercial or public place question
-#: forms.py:439
+#: forms.py:440
 msgid "Please describe"
 msgstr "請說明"
 
-#: forms.py:506
+#: forms.py:507
 msgid ""
 "Includes schools, educational programs, or educational activities, like "
 "training programs, sports teams, clubs, or other school-sponsored activities"
@@ -83,11 +83,11 @@ msgstr ""
 "包括學校、教育計畫或教育活動（如培訓計畫）、體育隊、俱樂部或由學校贊助的其他"
 "活動"
 
-#: forms.py:517
+#: forms.py:518
 msgid "Please select the type of school or educational program."
 msgstr "請選擇學校或教育計畫的類型。"
 
-#: forms.py:540
+#: forms.py:541
 msgid ""
 "There are federal and state laws that protect people from discrimination "
 "based on their personal characteristics. Here is a list of the most common "
@@ -98,11 +98,11 @@ msgstr ""
 "的最常見特徵清單。請選擇適用於您事件的所有選項。"
 
 #. Translators: This is to explain an "other" choice for personal characteristics
-#: forms.py:545
+#: forms.py:546
 msgid "Please describe \"Other reason\""
 msgstr "請說明「其他理由」"
 
-#: forms.py:645
+#: forms.py:704
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -111,23 +111,23 @@ msgstr ""
 "讓我們知道此事件是在最近多久發生非常重要，這樣我們才能採取適當行動。如果此事"
 "件是發生在一段時間或者現在仍持續發生，請提供最近一次發生的日期。"
 
-#: forms.py:944
+#: forms.py:1003
 msgid "Assigned to"
 msgstr "指定給"
 
-#: forms.py:960
+#: forms.py:1019
 msgid "Incident state"
 msgstr ""
 
-#: forms.py:968
+#: forms.py:1027
 msgid "Primary classification"
 msgstr "主要分類"
 
-#: forms.py:1169
+#: forms.py:1228
 msgid "Create date cannot be in the future."
 msgstr "建立日期不得是未來日期。"
 
-#: forms.py:1354
+#: forms.py:1413
 msgid "Comment cannot be empty"
 msgstr "意見欄位不得空白"
 
@@ -874,65 +874,65 @@ msgstr "請提供說明以繼續進行"
 msgid "Please select a primary reason to continue."
 msgstr "請選擇一項主要理由以繼續進行。"
 
-#: model_variables.py:410
+#: model_variables.py:411
 msgid "Please enter the name of the location where this took place."
 msgstr "請輸入此事件發生的地點名稱。"
 
-#: model_variables.py:411
+#: model_variables.py:412
 msgid "Please enter the city or town where this took place."
 msgstr "請輸入此事件發生的城市或城鎮。"
 
-#: model_variables.py:412
+#: model_variables.py:413
 msgid "Please select the state where this took place."
 msgstr "請選擇此事件發生的州。"
 
-#: model_variables.py:416
+#: model_variables.py:417
 msgid "Please select where this occurred"
 msgstr "請選擇此事件發生的地點"
 
-#: model_variables.py:417
+#: model_variables.py:418
 msgid "Please select the type of location"
 msgstr "請選擇地點類型"
 
-#: model_variables.py:429
+#: model_variables.py:430
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr "您必須輸入月份和年份。請使用月月／日日／年年年年的格式。"
 
-#: model_variables.py:432
+#: model_variables.py:433
 msgid "Please enter a month."
 msgstr "請輸入月份。"
 
-#: model_variables.py:433
+#: model_variables.py:434
 msgid "Please enter a valid month. Month must be between 1 and 12."
 msgstr "請輸入有效的月份。月份必須介於 1 至 12 之間。"
 
-#: model_variables.py:434
+#: model_variables.py:436
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
 msgstr "請輸入有效的日期。日期必須介於一個月的 1 號至一個月的最後一天。"
 
-#: model_variables.py:435
+#: model_variables.py:437
 msgid "Please enter a year."
 msgstr "請輸入年份。"
 
-#: model_variables.py:436
+#: model_variables.py:438
 msgid "Date can not be in the future."
 msgstr "日期不得是未來日期。"
 
-#: model_variables.py:437
+#: model_variables.py:439
 msgid "Please enter a year after 1900."
 msgstr "請輸入 1900 之後的年份。"
 
-#: model_variables.py:438
+#: model_variables.py:441
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
 msgstr "請輸入有效的日期。請使用月月／日日／年年年年的格式。"
 
-#: model_variables.py:441
+#: model_variables.py:445
 msgid "Please select the type of election or voting activity."
 msgstr "請選擇選舉或投票活動的類型。"
 
-#: model_variables.py:554
+#: model_variables.py:558
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
