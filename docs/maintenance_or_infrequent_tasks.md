@@ -237,6 +237,8 @@ For staging and prod we use the `medium-psql-redundant` database service. These 
     ```sh
     psql postgres://<username>:<password>@<host>:<port>/<name> < crt_dev_<date>.dump
     ```
+    
+    You may see some errors because the new database doesn't have the same roles. This is fine: roles could only be preserved by running `pg_dumpall` command on the original database, and we didn't do that because we do not have access to run that on `shared_psql` instances. The data will still be loaded just fine.
 
     After the data has been loaded, close the SSH tunnel.
 
