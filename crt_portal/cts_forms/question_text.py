@@ -63,4 +63,5 @@ SUMMARY_HELPTEXT = {
         _('Time'),
         _('Names of people involved including witnesses if there are any'),
         _('Any supporting materials (please list and describe them)')],
+    'attachments': _('While you <strong>cannot</strong> submit these materials through this site, we may request copies of these from you at a later date. If you provide details of these materials, we can know what will be most helpful for your report.'),
 }

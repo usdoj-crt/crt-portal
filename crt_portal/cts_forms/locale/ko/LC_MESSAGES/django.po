@@ -1,24 +1,24 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-12-29 19:50+0000\n"
+"POT-Creation-Date: 2022-01-28 15:24+0000\n"
 "Language: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:182 forms.py:1621
+#: forms.py:183 forms.py:1680
 msgid " - Select - "
 msgstr " - 선택 - "
 
 #. Translators: This is help text for the question asking if someone is a service member
-#: forms.py:194
+#: forms.py:195
 msgid ""
 "If you’re reporting on behalf of someone else, please select their status."
 msgstr "누군가를 대신하여 신고하는 경우라면 그 사람의 신분을 선택하십시오."
 
-#: forms.py:211 templates/forms/report_contact_info.html:9
+#: forms.py:212 templates/forms/report_contact_info.html:9
 msgid ""
 "If you believe you or someone else has experienced a civil rights violation, "
 "please tell us what happened."
@@ -26,7 +26,7 @@ msgstr ""
 "귀하 또는 다른 누군가가 민권 침해를 경험했다고 생각되면, 어떤 일이 있었는지 "
 "저희에게 알려주십시오."
 
-#: forms.py:237
+#: forms.py:238
 msgid ""
 "Select the reason that best describes your concern. Each reason lists "
 "examples of civil rights violations that may relate to your incident. In "
@@ -37,17 +37,17 @@ msgstr ""
 "의 경우와 관련이 있을 수 있는 민권 침해의 예를 열거해 놓고 있습니다. 이 신고"
 "의 다른 섹션에서는 우려하는 바를 귀하 스스로의 표현으로 설명할 수 있습니다."
 
-#: forms.py:295
+#: forms.py:296
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
 msgstr "예: 사업체, 학교, 교차로, 교도소, 투표소, 웹사이트 등의 이름"
 
-#: forms.py:317 question_text.py:29
+#: forms.py:318 question_text.py:29
 msgid "Where did this happen?"
 msgstr "이 일이 발생한 것은 언제입니까?"
 
-#: forms.py:329
+#: forms.py:330
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your report is reviewed by the right people within "
@@ -56,7 +56,7 @@ msgstr ""
 "이 일이 일어난 장소의 이름과 시, 주를 알려 주십시오. 이 정보를 바탕으로 민권"
 "국(Civil Rights Division) 내의 적합한 사람이 귀하의 신고를 검토하게 됩니다."
 
-#: forms.py:392
+#: forms.py:393
 msgid ""
 "Public employers include organizations funded by the government like the "
 "military, post office, fire department, courthouse, DMV, or public school. "
@@ -65,7 +65,7 @@ msgstr ""
 "공공 고용주에는 군대, 우체국, 소방서, 법원, DMV 또는 공립학교와 같은 정부 예"
 "산이 투입되는 조직이 포함됩니다. 이는 지방 또는 주(state) 차원일 수 있습니다."
 
-#: forms.py:393
+#: forms.py:394
 msgid ""
 "Private employers are business or non-profits not funded by the government "
 "such as retail stores, banks, or restaurants."
@@ -74,11 +74,11 @@ msgstr ""
 "는 비영리 조직을 말합니다."
 
 #. Translators: describe the "other" option for commercial or public place question
-#: forms.py:439
+#: forms.py:440
 msgid "Please describe"
 msgstr "기술해 주십시오"
 
-#: forms.py:506
+#: forms.py:507
 msgid ""
 "Includes schools, educational programs, or educational activities, like "
 "training programs, sports teams, clubs, or other school-sponsored activities"
@@ -86,11 +86,11 @@ msgstr ""
 "학교, 교육 프로그램 또는 훈련 프로그램, 스포츠팀, 클럽, 기타 학교 후원 활동 "
 "등과 같은 교육 활동이 포함됩니다"
 
-#: forms.py:517
+#: forms.py:518
 msgid "Please select the type of school or educational program."
 msgstr "학교 또는 교육 프로그램의 유형을 선택하십시오."
 
-#: forms.py:540
+#: forms.py:541
 msgid ""
 "There are federal and state laws that protect people from discrimination "
 "based on their personal characteristics. Here is a list of the most common "
@@ -102,11 +102,11 @@ msgstr ""
 "경우에 적용되는 것을 선택하십시오."
 
 #. Translators: This is to explain an "other" choice for personal characteristics
-#: forms.py:545
+#: forms.py:546
 msgid "Please describe \"Other reason\""
 msgstr "“기타 이유”를 기술해 주십시오"
 
-#: forms.py:645
+#: forms.py:704
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -116,23 +116,23 @@ msgstr ""
 "조치를 취할 수 있습니다. 이 일이 일정 기간 동안 일어났거나 현재도 일어나고 있"
 "다면, 가장 최근 날짜를 알려주십시오."
 
-#: forms.py:944
+#: forms.py:1003
 msgid "Assigned to"
 msgstr "다음에 배정됨:"
 
-#: forms.py:960
+#: forms.py:1019
 msgid "Incident state"
 msgstr ""
 
-#: forms.py:968
+#: forms.py:1027
 msgid "Primary classification"
 msgstr "주요 분류"
 
-#: forms.py:1169
+#: forms.py:1228
 msgid "Create date cannot be in the future."
 msgstr "생성 날짜는 미래일 수 없습니다."
 
-#: forms.py:1354
+#: forms.py:1413
 msgid "Comment cannot be empty"
 msgstr "설명란은 비어 있을 수 없습니다"
 
@@ -897,40 +897,40 @@ msgstr "계속하려면 설명을 제공하십시오"
 msgid "Please select a primary reason to continue."
 msgstr "계속하려면 주요 이유를 선택하십시오."
 
-#: model_variables.py:410
+#: model_variables.py:411
 msgid "Please enter the name of the location where this took place."
 msgstr "이 일이 일어난 장소 이름을 입력하십시오."
 
-#: model_variables.py:411
+#: model_variables.py:412
 msgid "Please enter the city or town where this took place."
 msgstr "이 일이 일어난 시 또는 타운을 입력하십시오."
 
-#: model_variables.py:412
+#: model_variables.py:413
 msgid "Please select the state where this took place."
 msgstr "이 일이 일어난 주를 선택하십시오."
 
-#: model_variables.py:416
+#: model_variables.py:417
 msgid "Please select where this occurred"
 msgstr "이 일이 발생한 장소를 선택하십시오"
 
-#: model_variables.py:417
+#: model_variables.py:418
 msgid "Please select the type of location"
 msgstr "장소 유형을 선택하십시오"
 
-#: model_variables.py:429
+#: model_variables.py:430
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr ""
 "월 및 년도를 입력하셔야 합니다. 월월/일일/년년년년 형식을 이용하십시오."
 
-#: model_variables.py:432
+#: model_variables.py:433
 msgid "Please enter a month."
 msgstr "‘월’을 입력하십시오."
 
-#: model_variables.py:433
+#: model_variables.py:434
 msgid "Please enter a valid month. Month must be between 1 and 12."
 msgstr "유효한 ‘월’을 입력하십시오. 1에서 12 사이의 숫자여야 합니다."
 
-#: model_variables.py:434
+#: model_variables.py:436
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
@@ -938,27 +938,27 @@ msgstr ""
 "그 달의 유효한 ‘일’을 입력하십시오. ‘일’은 1에서 그 달의 마지막 날 사이의 숫"
 "자여야 합니다."
 
-#: model_variables.py:435
+#: model_variables.py:437
 msgid "Please enter a year."
 msgstr "년도를 입력하십시오."
 
-#: model_variables.py:436
+#: model_variables.py:438
 msgid "Date can not be in the future."
 msgstr "날짜는 미래일 수 없습니다."
 
-#: model_variables.py:437
+#: model_variables.py:439
 msgid "Please enter a year after 1900."
 msgstr "1900 이후의 년도를 입력하십시오."
 
-#: model_variables.py:438
+#: model_variables.py:441
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
 msgstr "유효한 날짜를 입력하십시오. 월월/일일/년년년년 형식을 이용하십시오."
 
-#: model_variables.py:441
+#: model_variables.py:445
 msgid "Please select the type of election or voting activity."
 msgstr "선거 또는 투표 활동의 유형을 선택하십시오."
 
-#: model_variables.py:554
+#: model_variables.py:558
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
@@ -1140,6 +1140,17 @@ msgstr "목격자가 있는 경우, 목격자를 포함한 관련자들의 이�
 #: question_text.py:65
 msgid "Any supporting materials (please list and describe them)"
 msgstr "뒷받침하는 자료들(그 목록을 열거하고 설명하십시오)"
+
+#: question_text.py:66
+msgid ""
+"While you <strong>cannot</strong> submit these materials through this site, "
+"we may request copies of these from you at a later date. If you provide "
+"details of these materials, we can know what will be most helpful for your "
+"report."
+msgstr ""
+"이 자료는 본 사이트를 통해 제출 <strong>할 수 없지만</strong>, 추후 귀하에게 "
+"이 자료의 사본을 요청할 수 있습니다. 이 자료에 대한 세부 사항을 제공하시면 귀"
+"하의 신고서에 가장 도움이 되는 것을 식별할 수 있습니다."
 
 #: templates/base.html:42 templates/base.html:67
 #: templates/forms/report_base.html:10 templates/forms/report_base.html:13
