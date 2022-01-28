@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-28 15:05+0000\n"
+"POT-Creation-Date: 2022-01-28 15:24+0000\n"
 "Language: Tagalog\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1217,6 +1217,19 @@ msgstr ""
 msgid "Any supporting materials (please list and describe them)"
 msgstr ""
 "Anumang pang-suportang materyales (mangyaring ilista at ilarawan ang mga ito)"
+
+#: question_text.py:66
+msgid ""
+"While you <strong>cannot</strong> submit these materials through this site, "
+"we may request copies of these from you at a later date. If you provide "
+"details of these materials, we can know what will be most helpful for your "
+"report."
+msgstr ""
+"Habang <strong>hindi</strong> ka maaaring magsumite ng mga materyales na ito "
+"sa pamamagitan ng pahinaryang ito, maaari kaming humiling ng mga kopya ng "
+"mga ito mula sa iyo sa ibang araw. Kung magbibigay ka ng mga detalye ng mga "
+"materyales na ito, malalaman namin kung ano ang higit na makakatulong para "
+"sa iyong ulat."
 
 #: templates/base.html:42 templates/base.html:67
 #: templates/forms/report_base.html:10 templates/forms/report_base.html:13

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-28 15:05+0000\n"
+"POT-Creation-Date: 2022-01-28 15:24+0000\n"
 "Language: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1140,6 +1140,17 @@ msgstr "목격자가 있는 경우, 목격자를 포함한 관련자들의 이�
 #: question_text.py:65
 msgid "Any supporting materials (please list and describe them)"
 msgstr "뒷받침하는 자료들(그 목록을 열거하고 설명하십시오)"
+
+#: question_text.py:66
+msgid ""
+"While you <strong>cannot</strong> submit these materials through this site, "
+"we may request copies of these from you at a later date. If you provide "
+"details of these materials, we can know what will be most helpful for your "
+"report."
+msgstr ""
+"이 자료는 본 사이트를 통해 제출 <strong>할 수 없지만</strong>, 추후 귀하에게 "
+"이 자료의 사본을 요청할 수 있습니다. 이 자료에 대한 세부 사항을 제공하시면 귀"
+"하의 신고서에 가장 도움이 되는 것을 식별할 수 있습니다."
 
 #: templates/base.html:42 templates/base.html:67
 #: templates/forms/report_base.html:10 templates/forms/report_base.html:13

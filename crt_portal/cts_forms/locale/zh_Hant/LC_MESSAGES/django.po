@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-28 15:05+0000\n"
+"POT-Creation-Date: 2022-01-28 15:24+0000\n"
 "Language: Chinese Traditional\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1108,6 +1108,17 @@ msgstr "涉及的人士姓名，包括目擊證人（如有）"
 #: question_text.py:65
 msgid "Any supporting materials (please list and describe them)"
 msgstr "任何佐證資料（請列出並加以說明）"
+
+#: question_text.py:66
+msgid ""
+"While you <strong>cannot</strong> submit these materials through this site, "
+"we may request copies of these from you at a later date. If you provide "
+"details of these materials, we can know what will be most helpful for your "
+"report."
+msgstr ""
+"雖然您<strong>無法</strong>通過本網站提交這些材料，我 們以後可能會要求您提供"
+"這些材料的副 本。如果您提供這些材料的詳細信息, 我們 就能知道哪些材料對您的報"
+"告最有幫助。"
 
 #: templates/base.html:42 templates/base.html:67
 #: templates/forms/report_base.html:10 templates/forms/report_base.html:13

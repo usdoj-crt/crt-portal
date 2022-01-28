@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-28 15:05+0000\n"
+"POT-Creation-Date: 2022-01-28 15:24+0000\n"
 "Language: SpanishMIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1206,6 +1206,18 @@ msgstr ""
 #: question_text.py:65
 msgid "Any supporting materials (please list and describe them)"
 msgstr "Cualquier material de apoyo (haga una lista y describa cada artículo)"
+
+#: question_text.py:66
+msgid ""
+"While you <strong>cannot</strong> submit these materials through this site, "
+"we may request copies of these from you at a later date. If you provide "
+"details of these materials, we can know what will be most helpful for your "
+"report."
+msgstr ""
+"Aunque <strong>no podrá</strong> entregar estos materiales mediante este "
+"sitio, es posible que le pidamos copias de ellos en el futuro. Si nos "
+"proporciona detalles sobre estos materiales, podremos saber cuáles serán más "
+"útiles para su informe."
 
 #: templates/base.html:42 templates/base.html:67
 #: templates/forms/report_base.html:10 templates/forms/report_base.html:13

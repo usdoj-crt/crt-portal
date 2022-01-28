@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-28 15:05+0000\n"
+"POT-Creation-Date: 2022-01-28 15:24+0000\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1189,6 +1189,18 @@ msgstr "Tên của những người liên quan bao gồm cả nhân chứng nế
 #: question_text.py:65
 msgid "Any supporting materials (please list and describe them)"
 msgstr "Mọi tài liệu hỗ trợ (vui lòng liệt kê và mô tả chúng)"
+
+#: question_text.py:66
+msgid ""
+"While you <strong>cannot</strong> submit these materials through this site, "
+"we may request copies of these from you at a later date. If you provide "
+"details of these materials, we can know what will be most helpful for your "
+"report."
+msgstr ""
+"Mặc dù quý vị <strong>không thể</strong> nộp tài liệu qua trang mạng này, "
+"chúng tôi có thể yêu cầu bản sao của những tài liệu đó sau này. Nếu quý vị "
+"cung cấp chi tiết về những tài liệu đó, chúng tôi có thể biết được tài liệu "
+"nào sẽ hữu ích nhất đối với báo cáo của quý vị."
 
 #: templates/base.html:42 templates/base.html:67
 #: templates/forms/report_base.html:10 templates/forms/report_base.html:13

@@ -1,37 +1,42 @@
 {% extends "forms/report_base.html" %}
 {% load i18n %}
 {% block form_questions %}
-	<div class="crt-portal-card">
-		<div class="crt-portal-card__content crt-portal-card__content--lg">
-			{{ block.super }}
-			{% with field=form.violation_summary %}
-				<label
-					for="{{ field.id_for_label }}"
-					class="{% if label_class %}{{label_class}}{% endif %}"
-				>
+  <div class="crt-portal-card">
+    <div class="crt-portal-card__content crt-portal-card__content--lg">
+      {{ block.super }}
+      {% with field=form.violation_summary %}
+        <label
+          for="{{ field.id_for_label }}"
+          class="{% if label_class %}{{label_class}}{% endif %}"
+        >
           <span class="question--header display-block">{{ field.label }}{% if not question_group.optional %}<span class="field-required--group">{% trans "required" %}</span>{% endif %}</span>
-          <span class="help-text display-block margin-bottom-2">
-          {% if field.help_text %}
+        </label>
+        <div class="help-text display-block margin-bottom-2">
+        {% if field.help_text %}
+          <p>
             {{ field.help_text.title }}
-            <ul class="question_primary_complaint">
-            {% for example in field.help_text.examples %}
-              <li class="primary-issue-example-li margin-left-4"><em>{{ example }}</em></li>
-            {% endfor %}
-            </ul>
-          {% endif %}
-          </span>
-				</label>
+          </p>
+          <ul class="question_primary_complaint">
+          {% for example in field.help_text.examples %}
+            <li class="primary-issue-example-li margin-left-4"><em>{{ example }}</em></li>
+          {% endfor %}
+          </ul>
+          <p class="help-text__small margin-left-2">
+            {{ field.help_text.attachments | safe }}
+          </p>
+        {% endif %}
+        </div>
 
-				{{ field|withInputError }}
-				{% if field.errors %}
-					{% include "forms/snippets/error_alert.html" with errors=field.errors %}
-				{% endif %}
+        {{ field|withInputError }}
+        {% if field.errors %}
+          {% include "forms/snippets/error_alert.html" with errors=field.errors %}
+        {% endif %}
 
-				{% include "forms/word_counter.html" with word_limit=500 %}
+        {% include "forms/word_counter.html" with word_limit=500 %}
             {% endwith %}
             <input type="hidden"
             value="{% get_current_language as LANGUAGE_CODE %}{{LANGUAGE_CODE}}" name="{{ form.language.html_name }}"
              id="{{ form.language.id_for_label }}"  />
-		</div>
-	</div>
+    </div>
+  </div>
 {% endblock %}
