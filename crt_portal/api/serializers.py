@@ -12,7 +12,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 class ReportSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Report
-        fields = ['url', 'pk', 'read']
+        fields = ['url', 'pk', 'viewed']
 
 
 class ResponseTemplateSerializer(serializers.HyperlinkedModelSerializer):

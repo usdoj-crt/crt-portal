@@ -35,6 +35,7 @@
 {% endblock %}
 {% block page_js %}
 {{ block.super }}
+<script src="{% static 'vendor/js.cookie.min.js' %}"></script>
 <script src="{% static 'js/complaint_quick_view.min.js' %}"></script>
 <script src="{% static 'js/complaint_view_filters.min.js' %}"></script>
 <script src="{% static 'js/complaint_actions.min.js' %}"></script>

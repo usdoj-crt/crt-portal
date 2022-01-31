@@ -44,11 +44,11 @@ class ReportDetail(generics.RetrieveUpdateAPIView):
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
 
-    def put(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         report_pk = kwargs.get("pk")
         if report_pk:
             report = Report.objects.filter(pk=report_pk).first()
-            if not report.read:
+            if not report.viewed:
                 mark_report_as_viewed(report, request.user)
         return self.update(request, *args, **kwargs)
 

@@ -151,11 +151,10 @@ def setup_filter_parameters(report, querydict):
 
 
 def mark_report_as_viewed(report, user):
-    print("in mark_report_as_viewed")
     now = datetime.now()
-    description = f"Report read at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
-    add_activity(user, "Report read:", description, report)
-    report.read = True
+    description = f"Report viewed at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
+    add_activity(user, "Report viewed:", description, report)
+    report.viewed = True
     report.save()
 
 
@@ -440,11 +439,7 @@ class ShowView(LoginRequiredMixin, View):
         report = get_object_or_404(Report.objects.prefetch_related('attachments'), pk=id)
         output = serialize_data(report, request, id)
         if not report.viewed:
-            now = datetime.now()
-            description = f"Report viewed at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
-            add_activity(request.user, "Report viewed:", description, report)
-            report.viewed = True
-            report.save()
+            mark_report_as_viewed(report, request.user)
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)
         filter_output = setup_filter_parameters(report, request.GET)
@@ -521,7 +516,6 @@ class ShowView(LoginRequiredMixin, View):
 
 class ActionsView(LoginRequiredMixin, FormView):
     """ CRT view to update report data"""
-
     def get(self, request):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
