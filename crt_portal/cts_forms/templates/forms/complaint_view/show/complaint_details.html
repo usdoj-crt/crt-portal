@@ -4,7 +4,7 @@
 {% load employer_info_view %}
 {% load static %}
 
-{% block title %}Reported Complaint{% endblock %}
+{% block title %}Reported complaint{% endblock %}
 {% block extra_title %}
 <button aria-label="edit report details" id="edit-details-btn" class="usa-button usa-button--unstyled button--edit margin-left-auto" type="button">Edit</button>
 {% endblock %}
@@ -78,7 +78,7 @@
       </tr>
       {# showing old data with trafficking #}
       <tr>
-        <th>Human Trafficking</th>
+        <th>Human trafficking</th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
             {% if crimes.trafficking %}
@@ -104,7 +104,7 @@
         <th><label for="{{details_form.hate_crime.id_for_label}}">Hate crime</label></th>
           <td>
             <div class="details {% if details_form.errors %}display-none{% endif %}">
-              {{data.hate_crime|title|default:"—"}}
+              <span>{{data.hate_crime|title|default:"—"}}</span>
             </div>
             <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
               {{details_form.hate_crime}}
@@ -113,7 +113,7 @@
       </tr>
       {% endif %}
       <tr>
-        <th>Relevant Details</th>
+        <th>Relevant details</th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
             {% if data.election_details %}
@@ -128,7 +128,7 @@
             {% elif data.public_or_private_employer %}
               {% render_employer_info_view data.public_or_private_employer data.employer_size %}
             {% else %}
-              —
+              <span>—</span>
             {% endif %}
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
@@ -146,10 +146,10 @@
         </td>
       </tr>
       <tr>
-        <th><label for="{{details_form.location_name.id_for_label}}">Location name</label></th>
+        <th><label for="{{details_form.location_name.id_for_label}}">Organization name</label></th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
-            {{data.location_name|default:"-"}}
+            <span>{{data.location_name|default:"—"}}</span>
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
             {{details_form.location_name}}
@@ -160,12 +160,12 @@
         <th>Address</th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
-            {{ data.location_address_line_1|default:"—" }}
+            <span>{{ data.location_address_line_1|default:"—" }}</span>
             <br>
-            {{ data.location_address_line_2|default:"—" }}
+            <span>{{ data.location_address_line_2|default:"—" }}</span>
             <br>
-            {{data.location_city_town|default:"-"}},
-            {{data.location_state|default:"-"}}
+            <span>{{data.location_city_town|default:"—"}},
+            {{data.location_state|default:"—"}}</span>
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
             {% include 'forms/complaint_view/show/details_edit_select.html' with field=details_form.location_address_line_1 %}
@@ -190,6 +190,9 @@
               <br>
               Other: {{data.other_class}}
             {% endif %}
+            {% if not p_class_list or data.other_class %}
+              <span>—</span>
+            {% endif %}
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
             {{details_form.protected_class}}
@@ -200,7 +203,7 @@
         </td>
       </tr>
       <tr>
-        <th><label for="{{details_form.servicemember.id_for_label}}">Service Member</label></th>
+        <th><label for="{{details_form.servicemember.id_for_label}}">Servicemember</label></th>
           <td>
             <div class="details {% if details_form.errors %}display-none{% endif %}">
               {{data.servicemember|title|default:"—"}}
@@ -214,13 +217,23 @@
         <th>Date of incident</th>
         <td>
           <div class="details {% if details_form.errors %}display-none{% endif %}">
-          {{ data.last_incident_month|default:"-"}}/{{data.last_incident_day|default:"-"}}/{{data.last_incident_year|default:"-"}}
+          {{ data.last_incident_month|default:"—"}}/{{data.last_incident_day|default:"—"}}/{{data.last_incident_year|default:"—"}}
           </div>
           <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
             {% include "forms/snippets/date_components.html" with month=details_form.last_incident_month day=details_form.last_incident_day year=details_form.last_incident_year  %}
           </div>
         </td>
       </tr>
+      <tr>
+        <th>CRT receipt date</th>
+        <td>
+          <div class="details {% if details_form.errors %}display-none{% endif %}">
+          {{ data.crt_reciept_month|default:"—"}}/{{data.crt_reciept_day|default:"—"}}/{{data.crt_reciept_year|default:"—"}}
+          </div>
+          <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
+            {% include "forms/snippets/date_components.html" with month=details_form.crt_reciept_month day=details_form.crt_reciept_day year=details_form.crt_reciept_year  %}
+          </div>
+        </td>
       </tr>
     </table>
     <button aria-label="update complaint details"

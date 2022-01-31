@@ -27,7 +27,7 @@ HATE_CRIME_HELP_TEXT = _('To be considered a hate crime, the physical harm or th
 # Location
 LOCATION_QUESTIONS = {
     'location_title': _('Where did this happen?'),
-    'location_name': _('Location name'),
+    'location_name': _('Organization name'),
     'location_address_line_1': _('Street address 1'),
     'location_address_line_2': _('Street address 2'),
     'location_city_town': _('City/town'),
@@ -63,4 +63,5 @@ SUMMARY_HELPTEXT = {
         _('Time'),
         _('Names of people involved including witnesses if there are any'),
         _('Any supporting materials (please list and describe them)')],
+    'attachments': _('While you <strong>cannot</strong> submit these materials through this site, we may request copies of these from you at a later date. If you provide details of these materials, we can know what will be most helpful for your report.'),
 }

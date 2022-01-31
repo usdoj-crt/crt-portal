@@ -25,6 +25,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               EMPLOYER_SIZE_CHOICES, EMPLOYER_SIZE_ERROR,
                               EMPTY_CHOICE, INCIDENT_DATE_HELPTEXT,
                               INTAKE_FORMAT_CHOICES,
+                              INTAKE_FORMAT_ERROR,
                               POLICE_LOCATION_ERRORS,
                               PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
@@ -588,6 +589,64 @@ def date_cleaner(self, cleaned_data):
     return cleaned_data
 
 
+def crt_date_cleaner(self, cleaned_data):
+    """This should give the most specific error message, if the date doesn't render for reasons other than what we are checking for, it will give the generic error."""
+    invalid_date = False
+    # Test month
+    if 'crt_reciept_month' in cleaned_data:
+        month = cleaned_data['crt_reciept_month']
+        # These checks are to prevent existing report detail page edits to require the crt_. . . fields.  They are required in the pro form and that is caught through the existing "required" validation.
+        if type(month) != int:
+            return cleaned_data
+        elif month > 12 or month < 1:
+            self.add_error('crt_reciept_month', ValidationError(
+                DATE_ERRORS['month_invalid'],
+            ))
+            invalid_date = True
+    else:
+        self.add_error('crt_reciept_month', ValidationError(DATE_ERRORS['month_required']))
+        invalid_date = True
+    # Test Day
+    if 'crt_reciept_day' in cleaned_data:
+        day = cleaned_data['crt_reciept_day']
+        if type(day) != int:
+            return cleaned_data
+        elif day > 31 or day < 1:
+            self.add_error('crt_reciept_day', ValidationError(
+                DATE_ERRORS['day_invalid'],
+            ))
+            invalid_date = True
+    else:
+        self.add_error('crt_reciept_day', ValidationError(DATE_ERRORS['day_required']))
+        invalid_date = True
+    # Test year
+    if 'crt_reciept_year' in cleaned_data:
+        year = cleaned_data['crt_reciept_year']
+        if type(year) != int:
+            return cleaned_data
+        elif year < 2000:
+            self.add_error('crt_reciept_year', ValidationError(
+                DATE_ERRORS['crt_no_past'],
+            ))
+        elif invalid_date:
+            # Added if month and year are invalid.  We don't want to create a datetime with bad data, which happens in the next conditional.
+            return cleaned_data
+        try:
+            if datetime(year, month, day) > datetime.now():
+                self.add_error('crt_reciept_year', ValidationError(
+                    DATE_ERRORS['no_future'],
+                    params={'value': datetime(year, month, day).strftime('%x')},
+                ))
+        except ValueError:
+            self.add_error('crt_reciept_year', ValidationError(
+                DATE_ERRORS['crt_not_valid'],
+            ))
+    else:
+        self.add_error('crt_reciept_year', ValidationError(DATE_ERRORS['year_required']))
+
+    return cleaned_data
+
+
 class When(ModelForm):
     date_question = DATE_QUESTIONS['date_title']
     help_text = INCIDENT_DATE_HELPTEXT
@@ -760,7 +819,7 @@ class ProForm(
                     'maxlength': 2,
                     'pattern': '[0-9]*',
                     'inputmode': 'numeric',
-                    'required': False,
+                    'required': True,
                 }),
                 'crt_reciept_day': TextInput(attrs={
                     'class': 'usa-input usa-input--small',
@@ -768,7 +827,7 @@ class ProForm(
                     'maxlength': 2,
                     'pattern': '[0-9]*',
                     'inputmode': 'numeric',
-                    'required': False,
+                    'required': True,
                 }),
                 'crt_reciept_year': TextInput(attrs={
                     'class': 'usa-input usa-input--medium',
@@ -777,7 +836,7 @@ class ProForm(
                     'maxlength': 4,
                     'pattern': '[0-9]*',
                     'inputmode': 'numeric',
-                    'required': False,
+                    'required': True,
                 }),
             },
         ]
@@ -797,7 +856,8 @@ class ProForm(
                 ('email', 'email'),
             ),
             widget=UsaRadioSelect,
-            required=False,
+            error_messages={'required': INTAKE_FORMAT_ERROR},
+            required=True,
         )
         self.fields['servicemember'] = TypedChoiceField(
             choices=SERVICEMEMBER_CHOICES,
@@ -872,9 +932,11 @@ class ProForm(
         self.fields['last_incident_year'].label = DATE_QUESTIONS['last_incident_year']
 
         self.fields['crt_reciept_day'].label = DATE_QUESTIONS['last_incident_day']
+        self.fields['crt_reciept_day'].required = True
         self.fields['crt_reciept_month'].label = DATE_QUESTIONS['last_incident_month']
+        self.fields['crt_reciept_month'].required = True
         self.fields['crt_reciept_year'].label = DATE_QUESTIONS['last_incident_year']
-
+        self.fields['crt_reciept_year'].required = True
         if 'violation_summary' in self.fields:
             self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
             self.label_suffix = ''
@@ -886,10 +948,7 @@ class ProForm(
     def clean(self):
         """Validating more than one field at a time can't be done in the model validation"""
         cleaned_data = super(ProForm, self).clean()
-        if cleaned_data['last_incident_year'] and cleaned_data['last_incident_month']:
-            return date_cleaner(self, cleaned_data)
-        else:
-            return cleaned_data
+        return crt_date_cleaner(self, cleaned_data)
 
 
 class ProfileForm(ModelForm):
@@ -1691,7 +1750,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         """
         exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name', 'election_details',
                    'contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_state',
-                   'contact_city', 'contact_zip', 'crt_reciept_day', 'crt_reciept_month', 'crt_reciept_year']
+                   'contact_city', 'contact_zip']
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
@@ -1734,6 +1793,12 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         self.fields['last_incident_day'].widget.required = False
         self.fields['last_incident_month'].widget.required = False
         self.fields['last_incident_year'].widget.required = False
+        self.fields['crt_reciept_day'].label = DATE_QUESTIONS['last_incident_day']
+        self.fields['crt_reciept_month'].label = DATE_QUESTIONS['last_incident_month']
+        self.fields['crt_reciept_year'].label = DATE_QUESTIONS['last_incident_year']
+        self.fields['crt_reciept_day'].widget.required = False
+        self.fields['crt_reciept_month'].widget.required = False
+        self.fields['crt_reciept_year'].widget.required = False
 
         # Summary fields
         summary = self.instance.get_summary

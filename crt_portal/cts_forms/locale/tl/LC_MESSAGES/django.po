@@ -1,25 +1,25 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-13 18:44+0000\n"
+"POT-Creation-Date: 2022-01-28 15:24+0000\n"
 "Language: Tagalog\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:182 forms.py:1603
+#: forms.py:183 forms.py:1680
 msgid " - Select - "
 msgstr " - Pumili - "
 
 #. Translators: This is help text for the question asking if someone is a service member
-#: forms.py:194
+#: forms.py:195
 msgid ""
 "If you’re reporting on behalf of someone else, please select their status."
 msgstr ""
 "Kung ikaw ay nag-uulat sa ngalan ng ibang tao, mangyaring piliin ang "
 "kanilang katayuan."
 
-#: forms.py:211 templates/forms/report_contact_info.html:9
+#: forms.py:212 templates/forms/report_contact_info.html:9
 msgid ""
 "If you believe you or someone else has experienced a civil rights violation, "
 "please tell us what happened."
@@ -27,7 +27,7 @@ msgstr ""
 "Kung sa paniniwala mo na ikaw o ang ibang tao ay nakaranas ng isang paglabag "
 "sa mga karapatang sibil, mangyaring sabihin sa amin kung ano ang nangyari."
 
-#: forms.py:237
+#: forms.py:238
 msgid ""
 "Select the reason that best describes your concern. Each reason lists "
 "examples of civil rights violations that may relate to your incident. In "
@@ -39,7 +39,7 @@ msgstr ""
 "maaaring maiugnay sa iyong insidente. Sa ibang seksyon ng ulat na ito, "
 "maaari mong ilarawan ang iyong pagkabahala sa sarili mong mga salita."
 
-#: forms.py:295
+#: forms.py:296
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
@@ -47,11 +47,11 @@ msgstr ""
 "Mga halimbawa: Pangalan ng negosyo, paaralan, interseksyon, kulungan, lugar "
 "kung saan maaaring bomoto, website, at iba pa."
 
-#: forms.py:317 question_text.py:29
+#: forms.py:318 question_text.py:29
 msgid "Where did this happen?"
 msgstr "Saan ito nangyari?"
 
-#: forms.py:329
+#: forms.py:330
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your report is reviewed by the right people within "
@@ -61,7 +61,7 @@ msgstr ""
 "saan naganap ang panyayaring ito. Tinitiyak nito na ang iyong ulat ay "
 "masusuri ng mga tamang tao sa loob ng Dibisyon sa mga Karapatang Sibil."
 
-#: forms.py:392
+#: forms.py:393
 msgid ""
 "Public employers include organizations funded by the government like the "
 "military, post office, fire department, courthouse, DMV, or public school. "
@@ -72,7 +72,7 @@ msgstr ""
 "korte, DMV, o pampublikong paaralan. Ito ay maaaring nasa lokal o estadong "
 "antas."
 
-#: forms.py:393
+#: forms.py:394
 msgid ""
 "Private employers are business or non-profits not funded by the government "
 "such as retail stores, banks, or restaurants."
@@ -82,11 +82,11 @@ msgstr ""
 "restawran."
 
 #. Translators: describe the "other" option for commercial or public place question
-#: forms.py:439
+#: forms.py:440
 msgid "Please describe"
 msgstr "Mangyaring ilarawan"
 
-#: forms.py:506
+#: forms.py:507
 msgid ""
 "Includes schools, educational programs, or educational activities, like "
 "training programs, sports teams, clubs, or other school-sponsored activities"
@@ -95,11 +95,11 @@ msgstr ""
 "na pang-edukasyon, katulad ng mga palatuntunan sa pagsasanay, mga koponan sa "
 "paglalaro, mga klab o ibang aktibidad na sinusuportahan ng paaralan"
 
-#: forms.py:517
+#: forms.py:518
 msgid "Please select the type of school or educational program."
 msgstr "Mangyaring piliin ang uri ng paaralan o palatuntunang pang-edukasyon."
 
-#: forms.py:540
+#: forms.py:541
 msgid ""
 "There are federal and state laws that protect people from discrimination "
 "based on their personal characteristics. Here is a list of the most common "
@@ -112,11 +112,11 @@ msgstr ""
 "na pamamaraan. Pumili ng anuman na nababagay sa iyong insidente."
 
 #. Translators: This is to explain an "other" choice for personal characteristics
-#: forms.py:545
+#: forms.py:546
 msgid "Please describe \"Other reason\""
 msgstr "Mangyaring ilarawan ang “Ibang dahilan”"
 
-#: forms.py:645
+#: forms.py:704
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -127,23 +127,23 @@ msgstr ""
 "kasalukuyan pa ring nangyayari, mangyaring ibigay ang pinaka-kamakailan na "
 "petsa."
 
-#: forms.py:941
-msgid "Incident state"
-msgstr ""
-
-#: forms.py:949
-msgid "Primary classification"
-msgstr "Pangunahing pag-uuri"
-
-#: forms.py:971
+#: forms.py:1003
 msgid "Assigned to"
 msgstr "Naitalaga kay"
 
-#: forms.py:1160
+#: forms.py:1019
+msgid "Incident state"
+msgstr ""
+
+#: forms.py:1027
+msgid "Primary classification"
+msgstr "Pangunahing pag-uuri"
+
+#: forms.py:1228
 msgid "Create date cannot be in the future."
 msgstr "Ang petsa na inilikha ay hindi maaaring sa hinaharap."
 
-#: forms.py:1343
+#: forms.py:1413
 msgid "Comment cannot be empty"
 msgstr "Ang puna ay hindi maaaring walang laman"
 
@@ -152,11 +152,11 @@ msgstr "Ang puna ay hindi maaaring walang laman"
 msgid "- Select -"
 msgstr "- Pumili -"
 
-#: model_variables.py:9 model_variables.py:119 model_variables.py:287
+#: model_variables.py:9 model_variables.py:119 model_variables.py:289
 msgid "Yes"
 msgstr "Oo"
 
-#: model_variables.py:10 model_variables.py:120 model_variables.py:286
+#: model_variables.py:10 model_variables.py:120 model_variables.py:288
 msgid "No"
 msgstr "Hindi"
 
@@ -455,7 +455,7 @@ msgstr ""
 "pisikal na pang-aabuso o pag-atake, sekswal na pang-aabuso o pag-atake, iba "
 "pang mga banta ng pananakit, o pagkakulong"
 
-#: model_variables.py:102 model_variables.py:293
+#: model_variables.py:102 model_variables.py:295
 msgid "Federal"
 msgstr "Pederal"
 
@@ -468,8 +468,8 @@ msgstr "Estado o lokal"
 msgid "Both"
 msgstr "Pareho"
 
-#: model_variables.py:106 model_variables.py:295 model_variables.py:310
-#: model_variables.py:318 model_variables.py:335
+#: model_variables.py:106 model_variables.py:297 model_variables.py:312
+#: model_variables.py:320 model_variables.py:337
 msgid "I'm not sure"
 msgstr "Hindi ako sigurado"
 
@@ -571,31 +571,31 @@ msgstr ""
 "nalalapat sa iyong sitwasyon, mangyaring piliin ang “Wala sa mga ito ang "
 "nalalapat sa akin” o “Ibang dahilan” at ipaliwanag."
 
-#: model_variables.py:258
+#: model_variables.py:260
 msgid "Place of worship or about a place of worship"
 msgstr "Lugar ng pagsamba o tungkol sa lugar ng pagsamba"
 
-#: model_variables.py:259
+#: model_variables.py:261
 msgid "Commercial or retail building"
 msgstr "Gusaling pangkomersyal o tingian"
 
-#: model_variables.py:260 model_variables.py:271
+#: model_variables.py:262 model_variables.py:273
 msgid "Healthcare facility"
 msgstr "Pasilidad sa pag-aalaga ng kalusugan"
 
-#: model_variables.py:261 model_variables.py:272
+#: model_variables.py:263 model_variables.py:274
 msgid "Financial institution"
 msgstr "Institusyong pampinansyal"
 
-#: model_variables.py:262
+#: model_variables.py:264
 msgid "Public space"
 msgstr "Puwang na pampubliko"
 
-#: model_variables.py:263 templatetags/commercial_public_space_view.py:17
+#: model_variables.py:265 templatetags/commercial_public_space_view.py:17
 msgid "Other"
 msgstr "Iba pa"
 
-#: model_variables.py:266
+#: model_variables.py:268
 msgid ""
 "Please select the type of location. If none of these apply to your "
 "situation, please select \"Other\"."
@@ -603,27 +603,27 @@ msgstr ""
 "Mangyaring pumili ng uri ng lugar. Kung wala sa mga ito ang nalalapat sa "
 "iyong sitwasyon, mangyaring piliin ang “Iba pa”."
 
-#: model_variables.py:269
+#: model_variables.py:271
 msgid "Place of worship"
 msgstr "Lugar ng pagsamba"
 
-#: model_variables.py:270
+#: model_variables.py:272
 msgid "Commercial"
 msgstr "Komersyal"
 
-#: model_variables.py:273
+#: model_variables.py:275
 msgid "Public outdoor space"
 msgstr "Puwang sa labas na pampubliko"
 
-#: model_variables.py:277
+#: model_variables.py:279
 msgid "Church, synagogue, temple, religious community center"
 msgstr "Simbahan, sinagoga, templo, tampukan ng relihiyong pamayanan "
 
-#: model_variables.py:278
+#: model_variables.py:280
 msgid "Store, restaurant, bar, hotel, theater"
 msgstr "Tindahan, restawran, bar, otel, teatro"
 
-#: model_variables.py:279
+#: model_variables.py:281
 msgid ""
 "Hospital or clinic (including inpatient and outpatient programs), "
 "reproductive care clinic, state developmental institution, nursing home"
@@ -633,11 +633,11 @@ msgstr ""
 "pangangalaga ng pampag-anak, institusyon para sa pang-unlad ng estado, bahay "
 "ng pag-aalaga  "
 
-#: model_variables.py:280
+#: model_variables.py:282
 msgid "Bank, credit union, loan services"
 msgstr "Bangko, unyon ng kredito, mga serbisyo sa pautang"
 
-#: model_variables.py:281
+#: model_variables.py:283
 msgid ""
 "Park, sidewalk, street, other public buildings (courthouse, DMV, city "
 "library)"
@@ -645,355 +645,355 @@ msgstr ""
 "Parke, bangketa, lansangan, iba pang mga gusaling pampubliko (korte, DMV, "
 "silid-aklatan ng lungsod)"
 
-#: model_variables.py:292
+#: model_variables.py:294
 msgid "State/local"
 msgstr "Estado/lokal"
 
-#: model_variables.py:294
+#: model_variables.py:296
 msgid "Private"
 msgstr "Pribado"
 
-#: model_variables.py:300
+#: model_variables.py:302
 msgid "Outside of prison"
 msgstr "Sa labas ng bilangguan"
 
-#: model_variables.py:302
+#: model_variables.py:304
 msgid "Prison (Federal)"
 msgstr "Bilangguan (Pederal)"
 
-#: model_variables.py:303
+#: model_variables.py:305
 msgid "Prison (Private)"
 msgstr "Bilangguan (Pribado)"
 
-#: model_variables.py:304
+#: model_variables.py:306
 msgid "Prison (I'm not sure)"
 msgstr "Bilangguan (Hindi ako sigurado)"
 
-#: model_variables.py:308
+#: model_variables.py:310
 msgid "Public employer"
 msgstr "Tagapag-empleyong pampubliko"
 
-#: model_variables.py:309
+#: model_variables.py:311
 msgid "Private employer"
 msgstr "Tagapag-empleyong pampribado"
 
-#: model_variables.py:313
+#: model_variables.py:315
 msgid "Please select what type of employer this is."
 msgstr "Mangyaring piliin kung anong uri ng tagapag-empleyo ito."
 
-#: model_variables.py:316
+#: model_variables.py:318
 msgid "Fewer than 15 employees"
 msgstr "Mas kaunti sa 15 na mga empleyado"
 
-#: model_variables.py:317
+#: model_variables.py:319
 msgid "15 or more employees"
 msgstr "15 o higit pang mga empleyado"
 
-#: model_variables.py:321
+#: model_variables.py:323
 msgid "Please select how large the employer is."
 msgstr "Mangyaring piliin kung gaano kalaki ang tagapag-empleyo."
 
-#: model_variables.py:333
+#: model_variables.py:335
 msgid "Public school or educational program"
 msgstr "Pampublikong paaralan o palatuntunang pang-edukasyon"
 
-#: model_variables.py:334
+#: model_variables.py:336
 msgid "Private school or educational program"
 msgstr "Pribadong paaralan o palatuntunang pang-edukasyon"
 
-#: model_variables.py:340
+#: model_variables.py:342
 msgid "Alabama"
 msgstr "Alabama"
 
-#: model_variables.py:341
+#: model_variables.py:343
 msgid "Alaska"
 msgstr "Alaska"
 
-#: model_variables.py:342
+#: model_variables.py:344
 msgid "Arizona"
 msgstr "Arizona"
 
-#: model_variables.py:343
+#: model_variables.py:345
 msgid "Arkansas"
 msgstr "Arkansas"
 
-#: model_variables.py:344
+#: model_variables.py:346
 msgid "California"
 msgstr "California"
 
-#: model_variables.py:345
+#: model_variables.py:347
 msgid "Colorado"
 msgstr "Colorado"
 
-#: model_variables.py:346
+#: model_variables.py:348
 msgid "Connecticut"
 msgstr "Connecticut"
 
-#: model_variables.py:347
+#: model_variables.py:349
 msgid "Delaware"
 msgstr "Delaware"
 
-#: model_variables.py:348
+#: model_variables.py:350
 msgid "District of Columbia"
 msgstr "District of Columbia"
 
-#: model_variables.py:349
+#: model_variables.py:351
 msgid "Florida"
 msgstr "Florida"
 
-#: model_variables.py:350
+#: model_variables.py:352
 msgid "Georgia"
 msgstr "Georgia"
 
-#: model_variables.py:351
+#: model_variables.py:353
 msgid "Hawaii"
 msgstr "Hawaii"
 
-#: model_variables.py:352
+#: model_variables.py:354
 msgid "Idaho"
 msgstr "Idaho"
 
-#: model_variables.py:353
+#: model_variables.py:355
 msgid "Illinois"
 msgstr "Illinois"
 
-#: model_variables.py:354
+#: model_variables.py:356
 msgid "Indiana"
 msgstr "Indiana"
 
-#: model_variables.py:355
+#: model_variables.py:357
 msgid "Iowa"
 msgstr "Iowa"
 
-#: model_variables.py:356
+#: model_variables.py:358
 msgid "Kansas"
 msgstr "Kansas"
 
-#: model_variables.py:357
+#: model_variables.py:359
 msgid "Kentucky"
 msgstr "Kentucky"
 
-#: model_variables.py:358
+#: model_variables.py:360
 msgid "Louisiana"
 msgstr "Louisiana"
 
-#: model_variables.py:359
+#: model_variables.py:361
 msgid "Maine"
 msgstr "Maine"
 
-#: model_variables.py:360
+#: model_variables.py:362
 msgid "Maryland"
 msgstr "Maryland"
 
-#: model_variables.py:361
+#: model_variables.py:363
 msgid "Massachusetts"
 msgstr "Massachusetts"
 
-#: model_variables.py:362
+#: model_variables.py:364
 msgid "Michigan"
 msgstr "Michigan"
 
-#: model_variables.py:363
+#: model_variables.py:365
 msgid "Minnesota"
 msgstr "Minnesota"
 
-#: model_variables.py:364
+#: model_variables.py:366
 msgid "Mississippi"
 msgstr "Mississippi"
 
-#: model_variables.py:365
+#: model_variables.py:367
 msgid "Missouri"
 msgstr "Missouri"
 
-#: model_variables.py:366
+#: model_variables.py:368
 msgid "Montana"
 msgstr "Montana"
 
-#: model_variables.py:367
+#: model_variables.py:369
 msgid "Nebraska"
 msgstr "Nebraska"
 
-#: model_variables.py:368
+#: model_variables.py:370
 msgid "Nevada"
 msgstr "Nevada"
 
-#: model_variables.py:369
+#: model_variables.py:371
 msgid "New Hampshire"
 msgstr "New Hampshire"
 
-#: model_variables.py:370
+#: model_variables.py:372
 msgid "New Jersey"
 msgstr "New Jersey"
 
-#: model_variables.py:371
+#: model_variables.py:373
 msgid "New Mexico"
 msgstr "New Mexico"
 
-#: model_variables.py:372
+#: model_variables.py:374
 msgid "New York"
 msgstr "New York"
 
-#: model_variables.py:373
+#: model_variables.py:375
 msgid "North Carolina"
 msgstr "North Carolina"
 
-#: model_variables.py:374
+#: model_variables.py:376
 msgid "North Dakota"
 msgstr "North Dakota"
 
-#: model_variables.py:375
+#: model_variables.py:377
 msgid "Ohio"
 msgstr "Ohio"
 
-#: model_variables.py:376
+#: model_variables.py:378
 msgid "Oklahoma"
 msgstr "Oklashoma"
 
-#: model_variables.py:377
+#: model_variables.py:379
 msgid "Oregon"
 msgstr "Oregon"
 
-#: model_variables.py:378
+#: model_variables.py:380
 msgid "Pennsylvania"
 msgstr "Pennsylvania"
 
-#: model_variables.py:379
+#: model_variables.py:381
 msgid "Rhode Island"
 msgstr "Rhode Island"
 
-#: model_variables.py:380
+#: model_variables.py:382
 msgid "South Carolina"
 msgstr "South Carolina"
 
-#: model_variables.py:381
+#: model_variables.py:383
 msgid "South Dakota"
 msgstr "South Dakota"
 
-#: model_variables.py:382
+#: model_variables.py:384
 msgid "Tennessee"
 msgstr "Tennessee"
 
-#: model_variables.py:383
+#: model_variables.py:385
 msgid "Texas"
 msgstr "Texas"
 
-#: model_variables.py:384
+#: model_variables.py:386
 msgid "Utah"
 msgstr "Utah"
 
-#: model_variables.py:385
+#: model_variables.py:387
 msgid "Vermont"
 msgstr "Vermont"
 
-#: model_variables.py:386
+#: model_variables.py:388
 msgid "Virginia"
 msgstr "Virginia"
 
-#: model_variables.py:387
+#: model_variables.py:389
 msgid "Washington"
 msgstr "Washington"
 
-#: model_variables.py:388
+#: model_variables.py:390
 msgid "West Virginia"
 msgstr "West Virginia"
 
-#: model_variables.py:389
+#: model_variables.py:391
 msgid "Wisconsin"
 msgstr "Wisconsin"
 
-#: model_variables.py:390
+#: model_variables.py:392
 msgid "Wyoming"
 msgstr "Wyoming"
 
-#: model_variables.py:391
+#: model_variables.py:393
 msgid "American Samoa"
 msgstr "American Samoa"
 
-#: model_variables.py:392
+#: model_variables.py:394
 msgid "Guam"
 msgstr "Guam"
 
-#: model_variables.py:393
+#: model_variables.py:395
 msgid "Northern Mariana Islands"
 msgstr "Northern Mariana Islands"
 
-#: model_variables.py:394
+#: model_variables.py:396
 msgid "Puerto Rico"
 msgstr "Puerto Rico"
 
-#: model_variables.py:395
+#: model_variables.py:397
 msgid "Virgin Islands"
 msgstr "Virgin Islands"
 
-#: model_variables.py:396
+#: model_variables.py:398
 msgid "Armed Forces Africa"
 msgstr "Armed Forces Africa"
 
-#: model_variables.py:397
+#: model_variables.py:399
 msgid "Armed Forces Americas"
 msgstr "Armed Forces Americas"
 
-#: model_variables.py:398
+#: model_variables.py:400
 msgid "Armed Forces Canada"
 msgstr "Armed Forces Canada"
 
-#: model_variables.py:399
+#: model_variables.py:401
 msgid "Armed Forces Europe"
 msgstr "Armed Forces Europe"
 
-#: model_variables.py:400
+#: model_variables.py:402
 msgid "Armed Forces Middle East"
 msgstr "Armed Forces Middle East"
 
-#: model_variables.py:401
+#: model_variables.py:403
 msgid "Armed Forces Pacific"
 msgstr "Armed Forces Pacific"
 
-#: model_variables.py:404
+#: model_variables.py:406
 msgid "Please provide description to continue"
 msgstr "Mangyaring magbigay ng paglalarawan upang makapagpatuloy"
 
-#: model_variables.py:405
+#: model_variables.py:407
 msgid "Please select a primary reason to continue."
 msgstr "Mangyaring pumili ng pangunahing dahilan upang makapagpatuloy."
 
-#: model_variables.py:408
+#: model_variables.py:411
 msgid "Please enter the name of the location where this took place."
 msgstr "Mangyaring ilagay ang pangalan ng lugar kung saan ito nangyari."
 
-#: model_variables.py:409
+#: model_variables.py:412
 msgid "Please enter the city or town where this took place."
 msgstr "Mangyaring ilagay ang lungsod o bayan kung saan ito nangyari."
 
-#: model_variables.py:410
+#: model_variables.py:413
 msgid "Please select the state where this took place."
 msgstr "Mangyaring piliin ang estado kung saan ito nangyari."
 
-#: model_variables.py:414
+#: model_variables.py:417
 msgid "Please select where this occurred"
 msgstr "Mangyaring piliin kung saan ito nangyari"
 
-#: model_variables.py:415
+#: model_variables.py:418
 msgid "Please select the type of location"
 msgstr "Mangyaring piliin ang uri ng lugar"
 
-#: model_variables.py:427
+#: model_variables.py:430
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr ""
 "Kailangan mong ilagay ang buwan at taon. Mangyaring gamitin ang pormat na BB/"
 "AA/TTTT"
 
-#: model_variables.py:430
+#: model_variables.py:433
 msgid "Please enter a month."
 msgstr "Mangyaring ilagay ang buwan."
 
-#: model_variables.py:431
+#: model_variables.py:434
 msgid "Please enter a valid month. Month must be between 1 and 12."
 msgstr ""
 "Mangyaring ilagay ang tamang buwan. Ang buwan ay kailangang nasa pagitan ng "
 "1 at 12."
 
-#: model_variables.py:432
+#: model_variables.py:436
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
@@ -1001,27 +1001,27 @@ msgstr ""
 "Mangyaring ilagay ang tamang araw ng buwan.  Ang araw ay kailangang nasa "
 "pagitan ng 1 at sa huling araw ng buwan."
 
-#: model_variables.py:433
+#: model_variables.py:437
 msgid "Please enter a year."
 msgstr "Mangyaring ilagay ang taon."
 
-#: model_variables.py:434
+#: model_variables.py:438
 msgid "Date can not be in the future."
 msgstr "Ang petsa ay hindi maaaring sa hinaharap."
 
-#: model_variables.py:435
+#: model_variables.py:439
 msgid "Please enter a year after 1900."
 msgstr "Mangyaring ilagay ang taon pagkaraan ng 1900."
 
-#: model_variables.py:436
+#: model_variables.py:441
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
 msgstr "Mangyaring ilagay ang tamang petsa. Gamitin ang pormat na BB/AA/TTTT"
 
-#: model_variables.py:439
+#: model_variables.py:445
 msgid "Please select the type of election or voting activity."
 msgstr "Mangyaring piliin ang uri ng halalan o aktibidad sa pagboto."
 
-#: model_variables.py:479
+#: model_variables.py:558
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
@@ -1121,8 +1121,8 @@ msgstr ""
 "pagkakakilanlan ng kasarian, o kapansanan."
 
 #: question_text.py:30
-msgid "Location name"
-msgstr "Pangalan ng lugar"
+msgid "Organization name"
+msgstr "Pangalan ng organisasyon"
 
 #: question_text.py:31
 msgid "Street address 1"
@@ -1218,6 +1218,19 @@ msgid "Any supporting materials (please list and describe them)"
 msgstr ""
 "Anumang pang-suportang materyales (mangyaring ilista at ilarawan ang mga ito)"
 
+#: question_text.py:66
+msgid ""
+"While you <strong>cannot</strong> submit these materials through this site, "
+"we may request copies of these from you at a later date. If you provide "
+"details of these materials, we can know what will be most helpful for your "
+"report."
+msgstr ""
+"Habang <strong>hindi</strong> ka maaaring magsumite ng mga materyales na ito "
+"sa pamamagitan ng pahinaryang ito, maaari kaming humiling ng mga kopya ng "
+"mga ito mula sa iyo sa ibang araw. Kung magbibigay ka ng mga detalye ng mga "
+"materyales na ito, malalaman namin kung ano ang higit na makakatulong para "
+"sa iyong ulat."
+
 #: templates/base.html:42 templates/base.html:67
 #: templates/forms/report_base.html:10 templates/forms/report_base.html:13
 msgid "Contact the Civil Rights Division | Department of Justice"
@@ -1239,23 +1252,23 @@ msgstr ""
 "katulad ng pabahay, lugar ng pinagtratrabahuhan, paaralan, botohan, mga "
 "negosyo, pangangalaga sa kalusugan, pamublikong puwang, at iba pa."
 
-#: templates/base.html:76
+#: templates/base.html:78
 msgid "Skip to main content"
 msgstr "Lampasan upang mapunta sa pangunahing nilalaman"
 
-#: templates/base.html:130 templates/forms/errors.html:13
+#: templates/base.html:132 templates/forms/errors.html:13
 #: templates/forms/report_maintenance.html:13 templates/landing.html:10
 #: templates/landing.html:17
 msgid "U.S. Department of Justice"
 msgstr "Kagawaran ng Katarungan ng Estados Unidos"
 
-#: templates/base.html:133 templates/forms/confirmation.html:21
+#: templates/base.html:135 templates/forms/confirmation.html:21
 #: templates/forms/errors.html:14 templates/forms/report_maintenance.html:14
 #: templates/landing.html:10 templates/landing.html:20
 msgid "Civil Rights Division"
 msgstr "Dibisyon sa mga Karapatang Sibil"
 
-#: templates/forms/complaint_view/actions/bulk_actions.html:78
+#: templates/forms/complaint_view/actions/bulk_actions.html:75
 #: templates/forms/grouped_questions.html:6
 #: templates/forms/question_cards/commercial_public_location.html:5
 #: templates/forms/question_cards/police_location.html:4
@@ -1285,37 +1298,29 @@ msgstr ""
 
 #: templates/forms/confirmation.html:46
 msgid "Report successfully submitted"
-msgstr "Ang ulat ay matagumpay na naipasa. "
+msgstr "Matagumpay na naisumite ang ulat"
 
 #: templates/forms/confirmation.html:51
 msgid "Please save your record number for tracking."
-msgstr "Mangyaring iadya ang numero ng talaan para sa pagsubaybay."
+msgstr "Mangyaring itabi ang numero ng iyong tala para sa pagsubaybay."
 
-#: templates/forms/confirmation.html:52
-msgid ""
-"You will not receive an email confirmation, so please print or save this "
-"page for your records."
-msgstr ""
-"Hindi ka makakatanggap ng kumpirmasyon sa email, kaya mangyaring pakilimbag "
-"o iadya ang pahinang ito para sa iyong mga talaan."
-
-#: templates/forms/confirmation.html:56
+#: templates/forms/confirmation.html:55
 msgid "Your record number is:"
-msgstr "Ang iyong numero ng talaan ay:"
+msgstr "Ang numero ng iyong tala ay:"
 
-#: templates/forms/confirmation.html:62
+#: templates/forms/confirmation.html:61
 msgid "Print report"
 msgstr "Ilimbag ang ulat"
 
-#: templates/forms/confirmation.html:73
+#: templates/forms/confirmation.html:72
 msgid "What to expect"
 msgstr "Ano ang dapat asahan"
 
-#: templates/forms/confirmation.html:83
+#: templates/forms/confirmation.html:82
 msgid "We review your report"
 msgstr "Sinusuri namin ang iyong ulat "
 
-#: templates/forms/confirmation.html:88
+#: templates/forms/confirmation.html:87
 msgid ""
 "Our specialists in the Civil Rights Division carefully read every report to "
 "identify civil rights violations, spot trends, and determine if we have "
@@ -1326,16 +1331,16 @@ msgstr ""
 "karapatang sibil, makita ang mga kalakaran, at matukoy kung mayroon kaming "
 "awtoridad upang tumulong sa iyong ulat."
 
-#: templates/forms/confirmation.html:98
+#: templates/forms/confirmation.html:97
 msgid "Our specialists determine the next step"
 msgstr ""
 "Ang aming mga espesyalista ang nagtutukoy kung ano ang susunod na hakbang"
 
-#: templates/forms/confirmation.html:102
+#: templates/forms/confirmation.html:101
 msgid "We may decide to:"
 msgstr "Maaari kaming magpasya na:"
 
-#: templates/forms/confirmation.html:105
+#: templates/forms/confirmation.html:104
 msgid ""
 "<strong>Open an investigation</strong> or take some other action within the "
 "legal authority of the Justice Department."
@@ -1343,7 +1348,7 @@ msgstr ""
 "<strong>Magbukas ng isang pagsisiyasat</strong> o gumawa ng iba pang mga "
 "kilos sa loob ng ligal na awtoridad ng Kagawaran ng Katarungan."
 
-#: templates/forms/confirmation.html:106
+#: templates/forms/confirmation.html:105
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
 "report."
@@ -1351,7 +1356,7 @@ msgstr ""
 "<strong>Magtipon ng karagdagang impormasyon</strong> bago namin matingnan "
 "ang iyong ulat."
 
-#: templates/forms/confirmation.html:107
+#: templates/forms/confirmation.html:106
 msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
 "into your report. If so, we’ll let you know."
@@ -1359,18 +1364,18 @@ msgstr ""
 "<strong>Magrekomenda ng ibang ahensya ng gobyerno</strong> na titingin ng "
 "maayos sa iyong ulat. Kung gayon, ipapaalam namin sa iyo."
 
-#: templates/forms/confirmation.html:110
+#: templates/forms/confirmation.html:109
 msgid ""
 "In some cases, we may determine that we don’t have legal authority to handle "
 "your report and will recommend that you seek help from a private lawyer or "
 "local legal aid organization."
 msgstr "Magtipon ng karagdagang impormasyon bago namin tingnan ang iyong ulat."
 
-#: templates/forms/confirmation.html:120
+#: templates/forms/confirmation.html:119
 msgid "When possible, we will follow up with you"
 msgstr "Kapag maaari, magpa-follow-up kami sa iyo"
 
-#: templates/forms/confirmation.html:125
+#: templates/forms/confirmation.html:124
 msgid ""
 "We do our best to let you know about the outcome of our review. However, we "
 "may not always be able to provide you with updates because:"
@@ -1379,19 +1384,19 @@ msgstr ""
 "kinalabasan ng aming pagsusuri. Subalit, maaaring hindi namin palaging "
 "maibibigay sa iyo ang mga pinakabagong impormasyon dahil:"
 
-#: templates/forms/confirmation.html:129
+#: templates/forms/confirmation.html:128
 msgid ""
 "We’re actively working on an investigation or case related to your report."
 msgstr ""
 "Kami ay aktibong nagsasagawa ng pagsisiyasat o kaso na kaugnay sa iyong ulat."
 
-#: templates/forms/confirmation.html:132
+#: templates/forms/confirmation.html:131
 msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr ""
 "Kami ay tumatanggap at aktibong sumusuri ng maraming mga kahilingan ng sabay-"
 "sabay."
 
-#: templates/forms/confirmation.html:135 templates/landing.html:356
+#: templates/forms/confirmation.html:134 templates/landing.html:356
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1406,22 +1411,22 @@ msgstr ""
 "iyong numero ng ulat kung makikipag-ugnayan sa amin. Ito ang paraan namin "
 "upang masusubaybayan ang iyong pagsumite."
 
-#: templates/forms/confirmation.html:143
+#: templates/forms/confirmation.html:142
 msgid "What you can do next"
 msgstr "Ang mga susunod na maaari mong gawin"
 
-#: templates/forms/confirmation.html:149
+#: templates/forms/confirmation.html:148
 msgid "1"
 msgstr "1"
 
-#: templates/forms/confirmation.html:152
+#: templates/forms/confirmation.html:151
 msgid ""
 "Contact local legal aid organizations or a lawyer if you haven’t already"
 msgstr ""
 "Makipag-ugnay sa mga organisasyong lokal para sa ligal na tulong o sa "
 "abogado kung hindi mo pa ito nagagawa"
 
-#: templates/forms/confirmation.html:156
+#: templates/forms/confirmation.html:155
 msgid ""
 "Legal aid offices or members of lawyer associations in your state may be "
 "able to help you with your issue."
@@ -1429,7 +1434,7 @@ msgstr ""
 "Ang mga tanggapan sa ligal na tulong o mga miyembro ng mga samahan ng "
 "abogado sa iyong estado ay maaaring makatulong sa iyo sa iyong suliranin."
 
-#: templates/forms/confirmation.html:159
+#: templates/forms/confirmation.html:158
 msgid ""
 "American Bar Association, visit <a class=\"external-link--blue external-"
 "link--popup\" aria-label=\"www.findlegalhelp.org\" href=\"http://www."
@@ -1441,7 +1446,7 @@ msgstr ""
 "www.findlegalhelp.org\">www.findlegalhelp.org</a> o tawagan ang <a href="
 "\"tel:800-285-2221\">(800) 285-2221</a>"
 
-#: templates/forms/confirmation.html:162
+#: templates/forms/confirmation.html:161
 msgid ""
 "Legal Service Corporation (or Legal Aid Offices), visit <a aria-label=\"www."
 "lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--popup\" "
@@ -1454,15 +1459,15 @@ msgstr ""
 "gov/find-legal-aid</a> o tawagan ang <a href=\"tel:202-295-1500\">(202) "
 "295-1500</a>"
 
-#: templates/forms/confirmation.html:170
+#: templates/forms/confirmation.html:169
 msgid "2"
 msgstr "2"
 
-#: templates/forms/confirmation.html:173
+#: templates/forms/confirmation.html:172
 msgid "Get help immediately if you are in danger"
 msgstr "Humingi ng tulong kaagad-agad kung ikaw ay nasa panganib"
 
-#: templates/forms/confirmation.html:178
+#: templates/forms/confirmation.html:177
 msgid ""
 "If you reported an incident where you or someone else has experienced or is "
 "still experiencing physical harm or violence, or are in immediate danger, "
@@ -1473,7 +1478,7 @@ msgstr ""
 "kaagarang panganib, mangyaring tumawag sa <a href=\"tel:911\">911</a> at "
 "makipag-ugnay sa pulis. "
 
-#: templates/forms/confirmation.html:191
+#: templates/forms/confirmation.html:190
 msgid "Your submission"
 msgstr "Ang iyong pagsumite"
 
@@ -1635,7 +1640,7 @@ msgstr "Balik"
 msgid "Address"
 msgstr "Direksyon"
 
-#: templates/forms/report_data.html:132 templates/forms/report_data.html:138
+#: templates/forms/report_data.html:131 templates/forms/report_data.html:137
 msgid "None selected"
 msgstr "Walang napili"
 
@@ -2802,19 +2807,19 @@ msgid "Please select if any that apply to your situation (optional)"
 msgstr ""
 "Mangyaring pumili kung mayroong naaangkop  sa iyong sitwasyon (opsyonal)"
 
-#: views_public.py:390
+#: views_public.py:394
 msgid "404 | Page not found"
 msgstr "404 | Pahina ay hindi makita"
 
-#: views_public.py:391
+#: views_public.py:395
 msgid "We can't find the page you are looking for"
 msgstr "Hindi namin makita ang pahina na iyong hinahanap"
 
-#: views_public.py:450
+#: views_public.py:454
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Ang iyong browser ay hindi makalikha ng matatag na cookie"
 
-#: views_public.py:451
+#: views_public.py:455
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "

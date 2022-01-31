@@ -103,6 +103,9 @@ class ReportEditShowViewTests(TestCase):
         self.client.login(username='DELETE_USER', password='')  # nosec
 
         self.url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
+        self.original_crt_day = self.report_data['crt_reciept_day']
+        self.original_crt_month = self.report_data['crt_reciept_month']
+        self.original_crt_year = self.report_data['crt_reciept_year']
 
     def tearDown(self):
         self.user.delete()
@@ -113,12 +116,18 @@ class ReportEditShowViewTests(TestCase):
         response = self.client.post(self.url, form_data, follow=True)
         self.assertEqual(response.status_code, 400)
 
+    def test_viewed_in_activity_log(self):
+        """Report viewed in activity log on successful GET"""
+        response = self.client.get(self.url)
+        self.assertTrue('Report viewed:' in str(response.content))
+        self.assertFalse('Report opened:' in str(response.content))
+        self.assertEqual(response.status_code, 200)
+
     def test_update_primary_cause(self):
         """Report fields update on successful POST"""
         new_primary_complaint = PRIMARY_COMPLAINT_CHOICES[1][0]
         form_data = {'type': ReportEditForm.CONTEXT_KEY, 'primary_complaint': new_primary_complaint}
         response = self.client.post(self.url, form_data, follow=True)
-
         self.report.refresh_from_db()
         self.assertEqual(self.report.primary_complaint, new_primary_complaint)
         self.assertTrue(response.context['data'].primary_complaint == new_primary_complaint)
@@ -148,8 +157,59 @@ class ReportEditShowViewTests(TestCase):
 
         form_data = {'type': ReportEditForm.CONTEXT_KEY, 'last_incident_month': 99, 'contact_email': 'test@'}
         response = self.client.post(self.url, form_data, follow=True)
-
         self.assertEqual(response.context['contact_form'].initial['contact_email'], initial)
+
+    def test_crt_date_update(self):
+        """Update crt receipt date with valid data
+        """
+        new_primary_complaint = PRIMARY_COMPLAINT_CHOICES[1][0]
+        form_data = {'type': ReportEditForm.CONTEXT_KEY, 'primary_complaint': new_primary_complaint, 'crt_reciept_month': 12, 'crt_reciept_day': 3, 'crt_reciept_year': 2001}
+        response = self.client.post(self.url, form_data, follow=True)
+        self.report.refresh_from_db()
+        self.assertEqual(self.report.primary_complaint, new_primary_complaint)
+        self.assertTrue(response.context['data'].primary_complaint == new_primary_complaint)
+        self.assertEqual(self.report.crt_reciept_month, 12)
+        self.assertTrue(response.context['data'].crt_reciept_month == 12)
+        self.assertEqual(self.report.crt_reciept_day, 3)
+        self.assertTrue(response.context['data'].crt_reciept_day == 3)
+        self.assertEqual(self.report.crt_reciept_year, 2001)
+        self.assertTrue(response.context['data'].crt_reciept_year == 2001)
+
+    def test_crt_month_validation(self):
+        """Update crt receipt date with bad month. Nothing should be updated.
+        """
+        new_primary_complaint = PRIMARY_COMPLAINT_CHOICES[1][0]
+        form_data = {'type': ReportEditForm.CONTEXT_KEY, 'primary_complaint': new_primary_complaint, 'crt_reciept_month': 0, 'crt_reciept_day': 3, 'crt_reciept_year': 2001}
+        response = self.client.post(self.url, form_data, follow=True)
+        self.report.refresh_from_db()
+        self.assertEqual(self.report.crt_reciept_month, self.original_crt_month)
+        self.assertEqual(self.report.crt_reciept_day, self.original_crt_day)
+        self.assertEqual(self.report.crt_reciept_year, self.original_crt_year)
+        self.assertTrue('Failed to update complaint details.' in str(response.content))
+
+    def test_crt_day_validation(self):
+        """Update crt receipt date with bad day. Nothing should be updated.
+        """
+        new_primary_complaint = PRIMARY_COMPLAINT_CHOICES[1][0]
+        form_data = {'type': ReportEditForm.CONTEXT_KEY, 'primary_complaint': new_primary_complaint, 'crt_reciept_month': 12, 'crt_reciept_day': 32, 'crt_reciept_year': 2001}
+        response = self.client.post(self.url, form_data, follow=True)
+        self.report.refresh_from_db()
+        self.assertEqual(self.report.crt_reciept_month, self.original_crt_month)
+        self.assertEqual(self.report.crt_reciept_day, self.original_crt_day)
+        self.assertEqual(self.report.crt_reciept_year, self.original_crt_year)
+        self.assertTrue('Failed to update complaint details.' in str(response.content))
+
+    def test_crt_year_validation(self):
+        """Update crt receipt date with bad year. Nothing should be updated.
+        """
+        new_primary_complaint = PRIMARY_COMPLAINT_CHOICES[1][0]
+        form_data = {'type': ReportEditForm.CONTEXT_KEY, 'primary_complaint': new_primary_complaint, 'crt_reciept_month': 12, 'crt_reciept_day': 3, 'crt_reciept_year': 1999}
+        response = self.client.post(self.url, form_data, follow=True)
+        self.report.refresh_from_db()
+        self.assertEqual(self.report.crt_reciept_month, self.original_crt_month)
+        self.assertEqual(self.report.crt_reciept_day, self.original_crt_day)
+        self.assertEqual(self.report.crt_reciept_year, self.original_crt_year)
+        self.assertTrue('Failed to update complaint details.' in str(response.content))
 
 
 class CRTReportWizardTests(TestCase):
@@ -504,7 +564,7 @@ class CRT_FILTER_Tests(TestCase):
 
         report_len = len(reports)
 
-        self.assertEquals(report_len, self.len_all_results - 1)
+        self.assertEqual(report_len, self.len_all_results - 1)
 
     def test_last_name_filter(self):
         last_name_filter = 'contact_last_name=bar'
@@ -513,7 +573,7 @@ class CRT_FILTER_Tests(TestCase):
 
         report_len = len(reports)
 
-        self.assertEquals(report_len, 1)
+        self.assertEqual(report_len, 1)
 
     def test_city_name_filter(self):
         city_name_filter = 'location_city_town=land'
@@ -522,7 +582,7 @@ class CRT_FILTER_Tests(TestCase):
 
         report_len = len(reports)
 
-        self.assertEquals(report_len, 1)
+        self.assertEqual(report_len, 1)
 
     def test_state_filter(self):
         state_filter = 'location_state=OH'
@@ -531,7 +591,7 @@ class CRT_FILTER_Tests(TestCase):
 
         report_len = len(reports)
 
-        self.assertEquals(report_len, 1)
+        self.assertEqual(report_len, 1)
 
     def test_summary_filter(self):
         """This is a many to may field so it works differently than the other searches. Also checking stemming"""
@@ -548,7 +608,7 @@ class CRT_FILTER_Tests(TestCase):
 
         report_len = len(reports)
 
-        self.assertEquals(report_len, 1)
+        self.assertEqual(report_len, 1)
 
     def test_servicemember_filter(self):
         servicemember_filter = 'servicemember=yes'
@@ -558,7 +618,7 @@ class CRT_FILTER_Tests(TestCase):
 
         report_len = len(reports)
 
-        self.assertEquals(report_len, expected_reports)
+        self.assertEqual(report_len, expected_reports)
 
     def test_hatecrime_filter(self):
         filter_ = 'hate_crime=yes'
@@ -568,7 +628,7 @@ class CRT_FILTER_Tests(TestCase):
 
         report_len = len(reports)
 
-        self.assertEquals(report_len, expected_reports)
+        self.assertEqual(report_len, expected_reports)
 
     def test_profile_filters(self):
         """
@@ -579,8 +639,8 @@ class CRT_FILTER_Tests(TestCase):
         reports = response.context['data_dict']
 
         # No IER reports exist so none should be returned when our profile is set to
-        self.assertEquals(Report.objects.filter(assigned_section='IER').count(), 0)
-        self.assertEquals(len(reports), 0)
+        self.assertEqual(Report.objects.filter(assigned_section='IER').count(), 0)
+        self.assertEqual(len(reports), 0)
 
     def test_profile_filters_override(self):
         """
@@ -593,7 +653,7 @@ class CRT_FILTER_Tests(TestCase):
 
         # We've specified ADM as a query param, we should only see reports from that section
         expected_reports = Report.objects.filter(assigned_section='ADM').count()
-        self.assertEquals(len(reports), expected_reports)
+        self.assertEqual(len(reports), expected_reports)
 
 
 class CRT_Dashboard_Tests(TestCase):

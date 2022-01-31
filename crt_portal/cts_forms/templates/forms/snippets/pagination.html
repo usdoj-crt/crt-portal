@@ -31,7 +31,7 @@
       {% endif %}
 
       {% for linkpage in page_format.page_numbers %}
-        {% ifequal linkpage page_format.page %}
+        {% if linkpage == page_format.page %}
            <li class="current-page disabled-nav" aria-current="true">
              <div>
                {{ page_format.page }}
@@ -39,7 +39,7 @@
           </li>
         {% else %}
            <li><a href="{{ page_args }}&page={{ linkpage }}" role="button" aria-label="Go to page {{ linkpage }}.">{{ linkpage }}</a></li>
-        {% endifequal %}
+        {% endif %}
       {% endfor %}
 
       {% if page_format.last_ellipsis %}

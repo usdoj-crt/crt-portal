@@ -1,6 +1,8 @@
-# Python CircleCI 2.0 configuration file
+# Python CircleCI 2.1 configuration file
 # Circle docs https://circleci.com/docs/2.0/language-python/
 # Set deployment variables in CircleCI as environment variables
+
+version: 2.1
 
 # Snippet for installing CloudFoundry CLI version 7
 install-cf7: &install-cf7
@@ -29,31 +31,31 @@ install-python-dev-dependencies: &install-python-dev-dependencies
       pipenv install --dev
       pipenv run python -m playwright install
 
-version: 2
 jobs:
   build_and_test: # runs not using Workflows must have a `build` job as entry point
     # directory where steps are run
     working_directory: ~/code
     docker:
-      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: circleci/python:3.9.7-node-browsers
+      # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
+      - image: cimg/python:3.9.9-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
+      - image: postgres:11.14-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+          POSTGRES_PASSWORD: password
     steps:
       - checkout
       # Removing chache for now, we either need to build our image or move the cache location
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
       - restore_cache:
           keys:
-            - node-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "package-lock.json" }}
-            - node-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-
-            - node-{{ .Environment.CACHE_VERSION }}-
+            - node-v4-{{ .Branch }}-{{ checksum "package-lock.json" }}
+      #      - node-v4-{{ .Branch }}-
+      #      - node-v4-
       - run:
           name: Install gettext
           command: sudo apt-get update && sudo apt-get install -yqq gettext
@@ -66,12 +68,12 @@ jobs:
       - save_cache:
           paths:
             - /home/circleci/code/node_modules/
-          key: node-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: node-v4-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - restore_cache:
           keys:
-            - pip-packages-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-            - pip-packages-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-
-            - pip-packages-{{ .Environment.CACHE_VERSION }}-
+            - pip-packages-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+      #      - pip-packages-v4-{{ .Branch }}-
+      #      - pip-packages-v4-
       - *install-python-dev-dependencies
       - run:
           name: Migrate the database
@@ -79,7 +81,7 @@ jobs:
       - save_cache:
           paths:
             - /home/circleci/code/.venv # this path depends on where pipenv creates a virtualenv
-          key: pip-packages-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
+          key: pip-packages-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
       - run:
           name: Run prettier code formatting check
           command: npm run lint:check
@@ -129,8 +131,8 @@ jobs:
     description: Runs E2E tests against dev
     working_directory: ~/code
     docker:
-      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: circleci/python:3.9.7-node-browsers
+      # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
+      - image: cimg/python:3.9.9-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -144,8 +146,8 @@ jobs:
     description: Runs E2E tests against stage
     working_directory: ~/code
     docker:
-      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: circleci/python:3.9.7-node-browsers
+      # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
+      - image: cimg/python:3.9.9-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -194,25 +196,24 @@ jobs:
     working_directory: ~/code
     docker:
       # standard docker python image
-      - image: python:3.9.7
+      - image: python:3.9.9
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
           CF_MANIFEST: manifest_dev.yaml
           CF_SPACE: dev
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
+      - image: postgres:11.14-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
-
-
+          POSTGRES_PASSWORD: password
     steps:
       - checkout
       # removing as we deal with caching problem
       # - restore_cache:
       # # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-      #     key: deps-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+      #     key: deps-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
           command: |
@@ -235,7 +236,7 @@ jobs:
             rm cf7.deb
             cf7 api https://api.fr.cloud.gov
       # - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
-      #     key: deps-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+      #     key: deps-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       #     paths:
       #       - ".venv"
       #       - "/usr/local/bin"
@@ -253,22 +254,23 @@ jobs:
   deploy-stage:
     working_directory: ~/code
     docker:
-      - image: python:3.9.7
+      - image: python:3.9.9
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
           CF_MANIFEST: manifest_staging.yaml
           CF_SPACE: staging
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
+      - image: postgres:11.14-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+          POSTGRES_PASSWORD: password
     steps:
       - checkout
       - restore_cache:
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: deps-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          key: deps-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
           command: |
@@ -291,7 +293,7 @@ jobs:
             rm cf7.deb
             cf7 api https://api.fr.cloud.gov
       - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
-          key: deps-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          key: deps-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
@@ -309,23 +311,24 @@ jobs:
   deploy-prod:
     working_directory: ~/code
     docker:
-      # CircleCI Python images available at: https://hub.docker.com/r/circleci/python/
-      - image: python:3.9.7
+      # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
+      - image: python:3.9.9
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
           CF_MANIFEST: manifest_prod.yaml
           CF_SPACE: prod
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
+      - image: postgres:11.14-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+          POSTGRES_PASSWORD: password
     steps:
       - checkout
       - restore_cache:
       # Read about caching dependencies: https://circleci.com/docs/2.0/caching/
-          key: deps-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          key: deps-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       - run:
           name: Node install
           command: |
@@ -348,7 +351,7 @@ jobs:
             rm cf7.deb
             cf7 api https://api.fr.cloud.gov
       - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
-          key: deps-{{ .Environment.CACHE_VERSION }}-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
+          key: deps-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
           paths:
             - ".venv"
             - "/usr/local/bin"
@@ -433,7 +436,6 @@ jobs:
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions
 
 workflows:
-  version: 2
   build-test-deploy:
     jobs:
       - build_and_test

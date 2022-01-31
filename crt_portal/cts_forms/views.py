@@ -36,7 +36,7 @@ from .forms import (
 )
 from .mail import crt_send_mail
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, Trends, EmailReportCount
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, Trends, EmailReportCount, User
 from .page_through import pagination
 from .sorts import report_sort
 
@@ -239,6 +239,13 @@ def index_view(request):
             "url": f'{report.id}?next={all_args_encoded}&index={paginated_offset + index}',
         })
 
+    selected_assignee = request.GET.get("assigned_to", "")
+    selected_assignee_object = User.objects.filter(username=selected_assignee).first()
+    if selected_assignee_object:
+        selected_assignee_id = selected_assignee_object.pk
+    else:
+        selected_assignee_id = ''
+
     final_data = {
         'form': Filters(request.GET),
         'profile_form': profile_form,
@@ -249,6 +256,7 @@ def index_view(request):
         'filter_state': filter_args,
         'filters': query_filters,
         'return_url_args': all_args_encoded,
+        'selected_assignee_id': selected_assignee_id,
     }
 
     return render(request, 'forms/complaint_view/index/index.html', final_data)
@@ -271,9 +279,17 @@ def dashboard_view(request):
     start_date = _format_date(request.GET.get("create_date_start", ""))
     end_date = _format_date(request.GET.get("create_date_end", ""))
 
+    selected_actor = request.GET.get("assigned_to", "")
+    selected_actor_object = User.objects.filter(username=selected_actor).first()
+    if selected_actor_object:
+        selected_actor_id = selected_actor_object.pk
+    else:
+        selected_actor_id = ''
+
     final_data = {
         'form': Filters(request.GET),
-        'selected_actor': request.GET.get("assigned_to", ""),
+        'selected_actor': selected_actor,
+        'selected_actor_id': selected_actor_id,
         'date_range_start': start_date,
         'date_range_end': end_date,
         'activity_count': len(reports_set),
@@ -423,17 +439,16 @@ class ShowView(LoginRequiredMixin, View):
     def get(self, request, id):
         report = get_object_or_404(Report.objects.prefetch_related('attachments'), pk=id)
         output = serialize_data(report, request, id)
-        if not report.read:
+        if not report.viewed:
             now = datetime.now()
-            description = f"Report opened at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
-            add_activity(request.user, "Report opened:", description, report)
-            report.read = True
+            description = f"Report viewed at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
+            add_activity(request.user, "Report viewed:", description, report)
+            report.viewed = True
             report.save()
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)
         filter_output = setup_filter_parameters(report, request.GET)
-        autoresponse_email = TMSEmail.objects.filter(report=report.id, purpose=TMSEmail.AUTO_EMAIL).order_by(
-            'created_at').first()
+        autoresponse_email = TMSEmail.objects.filter(report=report.id, purpose=TMSEmail.AUTO_EMAIL).order_by('created_at').first()
         output.update({
             'contact_form': contact_form,
             'details_form': details_form,
@@ -620,7 +635,7 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
                 file = open(attachment.file.name, 'rb')
                 mime_type, _ = mimetypes.guess_type(attachment.filename)
                 response = HttpResponse(file, content_type=mime_type)
-                response['Content-Disposition'] = f'attachment;filename={attachment.filename}'
+                response.headers['Content-Disposition'] = f'attachment;filename={attachment.filename}'
                 return response
 
             except FileNotFoundError:
@@ -744,7 +759,6 @@ class SaveCommentView(LoginRequiredMixin, FormView):
 
 class ProFormView(LoginRequiredMixin, SessionWizardView):
     """This is the one-page internal form for CRT staff to input complaints"""
-
     def get_template_names(self):
         return 'forms/pro_template.html'
 
@@ -778,6 +792,7 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
             'ordered_step_names': ordered_step_names,
             'stage_link': True,
             'submit_button': True,
+            'form_novalidate': True,
         })
 
         return context

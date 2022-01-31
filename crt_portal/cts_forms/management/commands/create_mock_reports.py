@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from cts_forms.tests.factories import ReportFactory
 from datetime import datetime
+import random
 from cts_forms.signals import salt
 from cts_forms.models import EmailReportCount
 
@@ -18,8 +19,21 @@ class Command(BaseCommand):
             # Uncomment the following line to create reports with the same email address
             # Note could will be useful for testing the "Total #" column in the form/view table
             # report.contact_email = "test@test.test"
-            report.status = 'open'
+
+            # This code adds some frequent flier reports randomly to better emulate production
+            # nosec turns off bandit error because random is not used for security or run outside of local env.
+            rand = random.randint(1, 100)  # nosec
+            # approximately 1% of reports
+            if rand <= 1:
+                report.contact_email = "frequentflier1@test.test"
+            # 2%
+            elif rand <= 3:
+                report.contact_email = "frequentflier2@test.test"
+            # 3%
+            elif rand <= 6:
+                report.contact_email = "frequentflier3@test.test"
             report.create_date = datetime.now()
+            # This save creates the report id, report.pk, so we can create a public_id
             report.save()
             salt_chars = salt()
             report.public_id = f'{report.pk}-{salt_chars}'
