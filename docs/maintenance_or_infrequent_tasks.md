@@ -226,7 +226,7 @@ For staging and prod we use the `medium-psql-redundant` database service. These 
 
 5) **Load data into the new database.**
 
-    After the new database has been created, open a new shell window and open a SSH tunnel to the new database. Again, note the credentions and connection info in the output.
+    After the new database has been created, open a new shell window and open a SSH tunnel to the new database. Again, note the credentials and connection info in the output.
 
     ```sh
     cf connect-to-service -no-client crt-portal-django crt-db-new
