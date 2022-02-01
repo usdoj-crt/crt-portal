@@ -1,23 +1,18 @@
-from django.contrib.auth.models import User
 from cts_forms.models import Report
-from rest_framework import viewsets
 from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from cts_forms.views import mark_report_as_viewed
-
+from rest_framework.permissions import IsAuthenticated
 from api.serializers import ReportSerializer
-from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 
 REST_FRAMEWORK = {
-'DEFAULT_PERMISSION_CLASSES': (
-    'rest_framework.permissions.IsAuthenticated',
-)
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
 }
-from rest_framework.permissions import IsAuthenticated
 
 
 @api_view(['GET'])
@@ -25,7 +20,6 @@ def api_root(request, format=None):
     return Response({
         'reports': reverse('report-list', request=request, format=format),
     })
-
 
 
 class ReportList(generics.ListAPIView):
