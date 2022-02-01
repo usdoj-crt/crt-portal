@@ -16,15 +16,17 @@
 
         // There's no "then" handler since the interaction is a quiet one.
         // Use the network inspector to check on request and response content
-        window.fetch(`/api/reports/${id}/`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': Cookies.get('csrftoken')
-          },
-          mode: 'same-origin',
-          body: JSON.stringify({ viewed: true })
-        });
+        window
+          .fetch(`/api/reports/${id}/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-CSRFToken': Cookies.get('csrftoken')
+            },
+            mode: 'same-origin',
+            body: JSON.stringify({ viewed: true })
+          })
+          .then(data => console.log('response status => ', data.status));
       }
       event.preventDefault();
     };
