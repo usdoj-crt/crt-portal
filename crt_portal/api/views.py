@@ -7,6 +7,7 @@ from rest_framework.reverse import reverse
 from cts_forms.views import mark_report_as_viewed
 from rest_framework.permissions import IsAuthenticated
 from api.serializers import ReportSerializer
+from django.contrib.auth.decorators import login_required
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -16,6 +17,7 @@ REST_FRAMEWORK = {
 
 
 @api_view(['GET'])
+@login_required
 def api_root(request, format=None):
     return Response({
         'reports': reverse('report-list', request=request, format=format),
