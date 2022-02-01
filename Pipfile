@@ -39,6 +39,7 @@ email-validator = "*"
 netaddr = "*"
 boto3 = "*"
 python-frontmatter = "*"
+djangorestframework = "*"
 
 [requires]
 python_version = "3.9.9"
