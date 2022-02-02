@@ -128,10 +128,7 @@ def report_filter(querydict):
             elif filter_options[field] == '__gte':
                 kwargs[field] = querydict.getlist(field)
             elif filter_options[field] == 'violation_summary':
-                combined_or_list = []
-                for vs_filter in filter_list:
-                    combined_or_list += vs_filter.split(" OR ")
-                combined_or_search = _combine_term_searches_with_or(combined_or_list)
+                combined_or_search = _combine_term_searches_with_or(filter_list)
                 qs = qs.filter(violation_summary_search_vector=combined_or_search)
     qs = qs.filter(**kwargs)
     return qs, filters
@@ -169,8 +166,19 @@ def dashboard_filter(querydict):
 
 def _combine_term_searches_with_or(terms):
     """Create a CombinedSearchQuery of all received search terms"""
-    combined_search = SearchQuery(terms.pop(), config='english')
+    combined_search = _make_search_query(terms.pop())
     for term in terms:
-        combined_search = combined_search | SearchQuery(term, config='english')
+        combined_search = combined_search | _make_search_query(term)
 
     return combined_search
+
+
+def _make_search_query(search_text):
+    if '(' in search_text and ')' in search_text:
+        search_text = search_text.replace(' AND ', ' & ')
+        search_text = search_text.replace(' OR ', ' | ')
+        query = SearchQuery(search_text, config='english', search_type='raw')
+    else:
+        query = SearchQuery(search_text, config='english', search_type='websearch')
+
+    return query

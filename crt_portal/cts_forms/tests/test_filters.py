@@ -36,7 +36,13 @@ class ReportFilterTests(TestCase):
         test_data['violation_summary'] = 'hovercraft'
         Report.objects.create(**test_data)
 
-        test_data['violation_summary'] = 'boat with some other text in the search phrase and hovercraft'
+        # Note: Postgres websearch treats "with" as a stopword, _even in exact
+        # phrase matches_, which means that word is dropped in the actual
+        # query run behind the scenes.
+        test_data['violation_summary'] = 'fishing boat with hovercraft'
+        Report.objects.create(**test_data)
+
+        test_data['violation_summary'] = 'fishing boat with truck'
         Report.objects.create(**test_data)
 
     def test_no_filters(self):
@@ -58,23 +64,114 @@ class ReportFilterTests(TestCase):
         reports, _ = report_filter(QueryDict('violation_summary=plane'))
         self.assertEqual(reports.count(), 1)
 
+        # Undocumented feature: multiple search query params in URL becomes an OR
         reports, _ = report_filter(QueryDict('violation_summary=plane&violation_summary=truck'))
-        self.assertEqual(reports.count(), 2)
+        self.assertEqual(reports.count(), 3)
+        for report in reports:
+            self.assertEqual('plane' in report.violation_summary or 'truck' in report.violation_summary, True)
 
     def test_or_search(self):
         reports, _ = report_filter(QueryDict('violation_summary=boat%20OR%20hovercraft'))
-        self.assertEqual(reports.count(), 3)
+        self.assertEqual(reports.count(), 4)
+        for report in reports:
+            self.assertEqual('boat' in report.violation_summary or 'hovercraft' in report.violation_summary, True)
 
     def test_and_search(self):
         # "boat AND hovercraft" is functionally the same as "boat hovercraft"
         reports, _ = report_filter(QueryDict('violation_summary=boat%20AND%20hovercraft'))
         self.assertEqual(reports.count(), 1)
+        for report in reports:
+            self.assertIn('boat', report.violation_summary)
+            self.assertIn('hovercraft', report.violation_summary)
 
         reports, _ = report_filter(QueryDict('violation_summary=boat%20hovercraft'))
         self.assertEqual(reports.count(), 1)
+        for report in reports:
+            self.assertIn('boat', report.violation_summary)
+            self.assertIn('hovercraft', report.violation_summary)
 
     def test_or_and_search(self):
+        # This query uses AND and OR without parentheses
         reports, _ = report_filter(QueryDict('violation_summary=boat%20AND%20hovercraft%20OR%20truck'))
+        self.assertEqual(reports.count(), 3)
+
+    def test_or_and_parens_search(self):
+        # This query uses AND and OR with parentheses
+        reports, _ = report_filter(QueryDict('violation_summary=boat%20AND%20(hovercraft%20OR%20truck)'))
+        self.assertEqual(reports.count(), 2)
+        for report in reports:
+            self.assertIn('boat', report.violation_summary)
+            self.assertEqual('hovercraft' in report.violation_summary or 'truck' in report.violation_summary, True)
+
+    def test_not_search(self):
+        reports, _ = report_filter(QueryDict('violation_summary=boat%20-fishing'))
+        self.assertEqual(reports.count(), 1)
+        for report in reports:
+            self.assertIn('boat', report.violation_summary)
+            self.assertNotIn('fishing', report.violation_summary)
+
+    def test_not_and_search(self):
+        reports, _ = report_filter(QueryDict('violation_summary=boat%20AND%20-fishing'))
+        self.assertEqual(reports.count(), 1)
+        for report in reports:
+            self.assertIn('boat', report.violation_summary)
+            self.assertNotIn('fishing', report.violation_summary)
+
+    def test_not_or_search(self):
+        reports, _ = report_filter(QueryDict('violation_summary=truck%20OR%20-boat'))
+        # This one is a little counter-intuitive, because one result will have "truck"
+        # and "boat" in it. Why? Because the search query translates to "all entries
+        # without 'boat'", and "all entries with truck, regardless of whether it has 'boat".
+        self.assertEqual(reports.count(), 4)
+        for report in reports:
+            self.assertEqual('truck' in report.violation_summary or 'boat' not in report.violation_summary, True)
+
+    def test_exact_phrase_search(self):
+        reports, _ = report_filter(QueryDict('violation_summary="fishing boat"'))
+        self.assertEqual(reports.count(), 2)
+        for report in reports:
+            self.assertIn('fishing boat', report.violation_summary)
+
+    def test_exact_phrase_and_search(self):
+        reports, _ = report_filter(QueryDict('violation_summary="fishing%20boat"%20AND%20hovercraft'))
+        self.assertEqual(reports.count(), 1)
+        for report in reports:
+            self.assertIn('fishing boat', report.violation_summary)
+            self.assertIn('hovercraft', report.violation_summary)
+
+        reports, _ = report_filter(QueryDict('violation_summary="fishing%20boat"%20hovercraft'))
+        self.assertEqual(reports.count(), 1)
+        for report in reports:
+            self.assertIn('fishing boat', report.violation_summary)
+            self.assertIn('hovercraft', report.violation_summary)
+
+    def test_exact_phrase_or_search(self):
+        reports, _ = report_filter(QueryDict('violation_summary=hovercraft%20OR%20"fishing%20boat"'))
+        self.assertEqual(reports.count(), 3)
+        for report in reports:
+            self.assertEqual('hovercraft' in report.violation_summary or 'fishing boat' in report.violation_summary, True)
+
+    def test_exact_phrase_not_search(self):
+        reports, _ = report_filter(QueryDict('violation_summary="fishing%20boat"%20-hovercraft'))
+        self.assertEqual(reports.count(), 1)
+        for report in reports:
+            self.assertEqual('hovercraft' not in report.violation_summary and 'fishing boat' in report.violation_summary, True)
+
+    def test_not_exact_phrase_search(self):
+        reports, _ = report_filter(QueryDict('violation_summary=boat%20-"fishing%20boat"'))
+        self.assertEqual(reports.count(), 1)
+        for report in reports:
+            self.assertEqual('boat' in report.violation_summary and 'fishing boat' not in report.violation_summary, True)
+
+    # todo: handle malformed syntax query
+    def test_passthru_nested_parens_search(self):
+        """
+        Search queries cannot handle nested parentheses. It's a Postgres limitation.
+        Still, it should gracefully handle as if there were one level of grouping.
+        The result doesn't really matter for our test we just want to make sure
+        it doesn't throw errors
+        """
+        reports, _ = report_filter(QueryDict('violation_summary=boat%20AND%20(hovercraft%20OR%20(truck%20AND%20fishing))'))
         self.assertEqual(reports.count(), 2)
 
 
