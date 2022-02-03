@@ -6,6 +6,7 @@ class ReportSerializer(serializers.ModelSerializer):
     url = serializers.HyperlinkedIdentityField(
         view_name='api:report-detail',
     )
+
     class Meta:
         model = Report
         fields = ['url', 'pk', 'viewed']

@@ -1,27 +1,13 @@
 """
-Internal views and misc views
+DRF API Tests
 """
-import copy
-import io
-import secrets
-from datetime import date, timedelta
 
 from django.contrib.auth.models import User
-from django.core.exceptions import ValidationError
-from django.core.files.uploadedfile import TemporaryUploadedFile
-from django.test import TestCase, override_settings
+from django.test import TestCase
 from django.test.client import Client
 from django.urls import reverse
-from unittest.mock import patch
-from django.shortcuts import get_object_or_404
-
-from testfixtures import LogCapture
-
-from ..forms import ContactEditForm, ReportEditForm, add_activity
-from ..model_variables import PRIMARY_COMPLAINT_CHOICES
-from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary
+from ..models import Report
 from .test_data import SAMPLE_REPORT
-from .factories import ReportFactory
 
 
 class APIBaseUrlTests(TestCase):
@@ -47,6 +33,7 @@ class APIBaseUrlTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
         self.assertEqual(response.url, '/accounts/login/?next=/api/')
+
 
 class APIReportListTests(TestCase):
 
