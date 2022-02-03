@@ -64,6 +64,7 @@ class APIReportListTests(TestCase):
         """test report list get"""
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
+        print("content is => ", str(response.content))
         self.assertTrue('/api/reports/1' in str(response.content))
         self.assertTrue('false' in str(response.content))
 
