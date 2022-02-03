@@ -20,7 +20,7 @@ REST_FRAMEWORK = {
 @login_required
 def api_root(request, format=None):
     return Response({
-        'reports': reverse('report-list', request=request, format=format),
+        'reports': reverse('api:report-list', request=request, format=format),
     })
 
 
