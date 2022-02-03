@@ -26,7 +26,9 @@
             mode: 'same-origin',
             body: JSON.stringify({ viewed: true })
           })
-          .catch(error => console.error(error));
+          .catch(error => {
+            console.error(error);
+          });
       }
       event.preventDefault();
     };
