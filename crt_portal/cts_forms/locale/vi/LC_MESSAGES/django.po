@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-28 15:24+0000\n"
+"POT-Creation-Date: 2022-02-04 15:06+0000\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2134,31 +2134,33 @@ msgid "Image attributions"
 msgstr "Mô tả ảnh"
 
 #: templates/partials/banner/usa_banner_content.html:7
-msgid "The .gov means it’s official."
-msgstr ".Gov có nghĩa là chính thức."
+msgid "Official websites use .gov"
+msgstr "Những trang mạng chính thức sử dụng tên miền .gov"
 
 #: templates/partials/banner/usa_banner_content.html:8
 msgid ""
-"Federal government websites often end in .gov or .mil. Before sharing "
-"sensitive information, make sure you’re on a federal government site."
+"A <strong>.gov</strong> website belongs to an official government "
+"organization in the United States."
 msgstr ""
-"Các trang web của chính phủ liên bang thường kết thúc bằng .gov hoặc .mil. "
-"Trước khi chia sẻ thông tin nhạy cảm, hãy đảm bảo rằng quý vị đang ở trên "
-"trang web của chính phủ liên bang."
+"Trang mạng <strong>.gov</strong> thuộc một cơ quan chính thức của chính phủ "
+"tại Hoa Kỳ."
 
 #: templates/partials/banner/usa_banner_content.html:16
-msgid "The site is secure."
-msgstr "Trang web này được bảo mật."
+msgid "Secure .gov websites use HTTPS"
+msgstr "Các trang mạng an toàn có tên miền .gov sử dụng HTTPS"
 
-#: templates/partials/banner/usa_banner_content.html:17
+#: templates/partials/banner/usa_banner_content.html:18
+msgid "A <strong>lock</strong> ("
+msgstr "<strong>Biểu tượng ổ khóa</strong> ("
+
+#: templates/partials/banner/usa_banner_content.html:20
 msgid ""
-"The <strong>https://</strong> ensures that you are connecting to the "
-"official website and that any information you provide is encrypted and "
-"transmitted securely."
+") or <strong>https://</strong> means you’ve safely connected to the .gov "
+"website. Share sensitive information only on official, secure websites."
 msgstr ""
-"Giao thức <strong>https://</strong> đảm bảo rằng quý vị đang kết nối với "
-"trang web chính thức và mọi thông tin quý vị cung cấp đều được mã hóa và "
-"truyền đi một cách an toàn."
+") hoặc <strong>https://</strong> có nghĩa quý vị đã kết nối an toàn với "
+"trang mạng .gov. Chỉ chia sẻ những thông tin nhạy cảm trên những trang mạng "
+"chính thức và an toàn."
 
 #: templates/partials/banner/usa_banner_header.html:9
 msgid "An official website of the United States government"
@@ -2779,6 +2781,20 @@ msgstr ""
 "cookie được cho phép và quý vị đang gặp sự cố này, hãy thử truy cập trang "
 "này trong cửa sổ hoặc tab trình duyệt mới. Điều đó sẽ tạo cho quý vị một "
 "cookie bảo mật mới và sẽ giải quyết được sự cố."
+
+#~ msgid "The .gov means it’s official."
+#~ msgstr ".Gov có nghĩa là chính thức."
+
+#~ msgid ""
+#~ "Federal government websites often end in .gov or .mil. Before sharing "
+#~ "sensitive information, make sure you’re on a federal government site."
+#~ msgstr ""
+#~ "Các trang web của chính phủ liên bang thường kết thúc bằng .gov hoặc ."
+#~ "mil. Trước khi chia sẻ thông tin nhạy cảm, hãy đảm bảo rằng quý vị đang ở "
+#~ "trên trang web của chính phủ liên bang."
+
+#~ msgid "The site is secure."
+#~ msgstr "Trang web này được bảo mật."
 
 #~ msgid "Continued"
 #~ msgstr "Tiếp tục"

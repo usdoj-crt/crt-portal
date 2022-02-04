@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-28 15:24+0000\n"
+"POT-Creation-Date: 2022-02-04 15:06+0000\n"
 "Language: Chinese Simplified\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1965,29 +1965,30 @@ msgid "Image attributions"
 msgstr "图像来源"
 
 #: templates/partials/banner/usa_banner_content.html:7
-msgid "The .gov means it’s official."
-msgstr "“.gov”表示官方机构。"
+msgid "Official websites use .gov"
+msgstr "官方网站使用.gov"
 
 #: templates/partials/banner/usa_banner_content.html:8
 msgid ""
-"Federal government websites often end in .gov or .mil. Before sharing "
-"sensitive information, make sure you’re on a federal government site."
-msgstr ""
-"联邦政府网站通常以“.gov”或“.mil”结尾。分享敏感信息之前，请确保您在联邦政府网"
-"站上。"
+"A <strong>.gov</strong> website belongs to an official government "
+"organization in the United States."
+msgstr "以<strong>.gov</strong> 的网站为美国正式的政府机构。"
 
 #: templates/partials/banner/usa_banner_content.html:16
-msgid "The site is secure."
-msgstr "该站点较为安全。"
+msgid "Secure .gov websites use HTTPS"
+msgstr "安全的.gov 网站使用 HTTPS"
 
-#: templates/partials/banner/usa_banner_content.html:17
+#: templates/partials/banner/usa_banner_content.html:18
+msgid "A <strong>lock</strong> ("
+msgstr "<strong>锁</strong>图案（"
+
+#: templates/partials/banner/usa_banner_content.html:20
 msgid ""
-"The <strong>https://</strong> ensures that you are connecting to the "
-"official website and that any information you provide is encrypted and "
-"transmitted securely."
+") or <strong>https://</strong> means you’ve safely connected to the .gov "
+"website. Share sensitive information only on official, secure websites."
 msgstr ""
-"<strong>https://</strong> 可确保您连接到官方网站，您提供的任何信息都经过加密"
-"并可安全传输。"
+"）或<strong>https://</strong> 表示您已安全 连接到.gov 网站。请仅在官方和安全"
+"的网 站上分享敏感的信息。"
 
 #: templates/partials/banner/usa_banner_header.html:9
 msgid "An official website of the United States government"
@@ -2570,6 +2571,19 @@ msgstr ""
 "长时间保持页面开启也可能会导致此问题。如果您知道您已允许使用 cookie，但还是遇"
 "到此问题，请尝试在新的浏览器分页或窗口中前往此页。这将为您创建一个新的安全 "
 "cookie，应该可以解决该问题。"
+
+#~ msgid "The .gov means it’s official."
+#~ msgstr "“.gov”表示官方机构。"
+
+#~ msgid ""
+#~ "Federal government websites often end in .gov or .mil. Before sharing "
+#~ "sensitive information, make sure you’re on a federal government site."
+#~ msgstr ""
+#~ "联邦政府网站通常以“.gov”或“.mil”结尾。分享敏感信息之前，请确保您在联邦政府"
+#~ "网站上。"
+
+#~ msgid "The site is secure."
+#~ msgstr "该站点较为安全。"
 
 #~ msgid "Continued"
 #~ msgstr "继续"

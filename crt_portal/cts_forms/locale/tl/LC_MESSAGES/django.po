@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-28 15:24+0000\n"
+"POT-Creation-Date: 2022-02-04 15:06+0000\n"
 "Language: Tagalog\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2183,31 +2183,32 @@ msgid "Image attributions"
 msgstr "Mga katangian ng imahe"
 
 #: templates/partials/banner/usa_banner_content.html:7
-msgid "The .gov means it’s official."
-msgstr "Ang .gov ay nangangahulugan na ito ay opisyal."
+msgid "Official websites use .gov"
+msgstr "Ginagamit ng opisyal na mga pahinarya ang .gov"
 
 #: templates/partials/banner/usa_banner_content.html:8
 msgid ""
-"Federal government websites often end in .gov or .mil. Before sharing "
-"sensitive information, make sure you’re on a federal government site."
+"A <strong>.gov</strong> website belongs to an official government "
+"organization in the United States."
 msgstr ""
-"Ang mga website ng gobyernong pampederal ay kadalasang nagtatapos sa .gov o ."
-"mil. Bago ibahagi ang sensitibong impormasyon, siguraduhin na ikaw ay nasa "
-"sityo ng gobyernong pampederal."
+"Ang isang pahinarya na <strong>.gov</strong> ay kabilang sa isang opisyal na "
+"organisasyon ng pamahalaan sa Estados Unidos."
 
 #: templates/partials/banner/usa_banner_content.html:16
-msgid "The site is secure."
-msgstr "Ang sityo ay ligtas."
+msgid "Secure .gov websites use HTTPS"
+msgstr "Ang ligtas na mga pahinarya na .gov ay gumagamit ng HTTPS"
 
-#: templates/partials/banner/usa_banner_content.html:17
+#: templates/partials/banner/usa_banner_content.html:18
+msgid "A <strong>lock</strong> ("
+msgstr "Ang isang <strong>kandado</strong> ("
+
+#: templates/partials/banner/usa_banner_content.html:20
 msgid ""
-"The <strong>https://</strong> ensures that you are connecting to the "
-"official website and that any information you provide is encrypted and "
-"transmitted securely."
+") or <strong>https://</strong> means you’ve safely connected to the .gov "
+"website. Share sensitive information only on official, secure websites."
 msgstr ""
-"Ang <strong>https://</strong> ay nakatitiyak na ikaw ay kumukonekta sa "
-"opisyal na website at anumang impormasyon na ibigay mo ay naka-encrypt at "
-"ligtas na maipapadala."
+") o <strong>https://</strong> ay nakakonekta sa pahinaryang .gov. Magbahagi "
+"lamang ng sensitibong impormasyon sa opisyal, ligtas na mga pahinarya."
 
 #: templates/partials/banner/usa_banner_header.html:9
 msgid "An official website of the United States government"
@@ -2834,6 +2835,20 @@ msgstr ""
 "nagkakaroon ka ng ganitong problema, subukan mong buksan ang pahinang ito sa "
 "panibagong tab o window ng browser. Magbibigay ito ng isang panibagong "
 "security cookie sayo at maaaring maglutas sa problema."
+
+#~ msgid "The .gov means it’s official."
+#~ msgstr "Ang .gov ay nangangahulugan na ito ay opisyal."
+
+#~ msgid ""
+#~ "Federal government websites often end in .gov or .mil. Before sharing "
+#~ "sensitive information, make sure you’re on a federal government site."
+#~ msgstr ""
+#~ "Ang mga website ng gobyernong pampederal ay kadalasang nagtatapos sa .gov "
+#~ "o .mil. Bago ibahagi ang sensitibong impormasyon, siguraduhin na ikaw ay "
+#~ "nasa sityo ng gobyernong pampederal."
+
+#~ msgid "The site is secure."
+#~ msgstr "Ang sityo ay ligtas."
 
 #~ msgid "Continued"
 #~ msgstr "Pagpapatuloy"
