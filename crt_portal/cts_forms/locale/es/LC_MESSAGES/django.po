@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-28 15:24+0000\n"
+"POT-Creation-Date: 2022-02-04 15:06+0000\n"
 "Language: SpanishMIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -2150,31 +2150,33 @@ msgid "Image attributions"
 msgstr ""
 
 #: templates/partials/banner/usa_banner_content.html:7
-msgid "The .gov means it’s official."
-msgstr "El .gov significa que es oficial."
+msgid "Official websites use .gov"
+msgstr "Los sitios web oficiales usan .gov"
 
 #: templates/partials/banner/usa_banner_content.html:8
 msgid ""
-"Federal government websites often end in .gov or .mil. Before sharing "
-"sensitive information, make sure you’re on a federal government site."
+"A <strong>.gov</strong> website belongs to an official government "
+"organization in the United States."
 msgstr ""
-"Las páginas web federales suelen acabar en .gov o .mil. Antes de compartir "
-"información confidencial, compruebe que se encuentra en un sitio del "
-"gobierno federal."
+"Un sitio web <strong>.gov</strong> pertenece a una organización oficial del "
+"Gobierno de Estados Unidos."
 
 #: templates/partials/banner/usa_banner_content.html:16
-msgid "The site is secure."
-msgstr "Este sitio es seguro."
+msgid "Secure .gov websites use HTTPS"
+msgstr "Los sitios web seguros .gov usan HTTPS"
 
-#: templates/partials/banner/usa_banner_content.html:17
+#: templates/partials/banner/usa_banner_content.html:18
+msgid "A <strong>lock</strong> ("
+msgstr "Un <strong>candado</strong> ("
+
+#: templates/partials/banner/usa_banner_content.html:20
 msgid ""
-"The <strong>https://</strong> ensures that you are connecting to the "
-"official website and that any information you provide is encrypted and "
-"transmitted securely."
+") or <strong>https://</strong> means you’ve safely connected to the .gov "
+"website. Share sensitive information only on official, secure websites."
 msgstr ""
-"El <strong>https://</strong> asegura que usted se ha conectado al sitio web "
-"oficial y que cualquier información que usted presente sea encriptada y "
-"transmitida de manera segura."
+") o <strong>https://</strong> significa que usted se conectó de forma segura "
+"a un sitio web .gov. Comparta información sensible sólo en sitios web "
+"oficiales y seguros."
 
 #: templates/partials/banner/usa_banner_header.html:9
 msgid "An official website of the United States government"

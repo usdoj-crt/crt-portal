@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-28 15:24+0000\n"
+"POT-Creation-Date: 2022-02-04 15:06+0000\n"
 "Language: Chinese Traditional\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1981,29 +1981,30 @@ msgid "Image attributions"
 msgstr "圖片來源"
 
 #: templates/partials/banner/usa_banner_content.html:7
-msgid "The .gov means it’s official."
-msgstr ".gov 意指官方網站。"
+msgid "Official websites use .gov"
+msgstr "官方網站使用.gov"
 
 #: templates/partials/banner/usa_banner_content.html:8
 msgid ""
-"Federal government websites often end in .gov or .mil. Before sharing "
-"sensitive information, make sure you’re on a federal government site."
-msgstr ""
-"聯邦政府網站的網址通常是以 .gov 或 .mil 結尾。在分享敏感性資訊之前，請確認您"
-"上的是聯邦政府的網站。"
+"A <strong>.gov</strong> website belongs to an official government "
+"organization in the United States."
+msgstr "以<strong>.gov</strong> 的網站為美國正式的政府機構。"
 
 #: templates/partials/banner/usa_banner_content.html:16
-msgid "The site is secure."
-msgstr "此網站是安全的。"
+msgid "Secure .gov websites use HTTPS"
+msgstr "安全的.gov 网站使用 HTTPS"
 
-#: templates/partials/banner/usa_banner_content.html:17
+#: templates/partials/banner/usa_banner_content.html:18
+msgid "A <strong>lock</strong> ("
+msgstr "<strong>锁</strong>图案（"
+
+#: templates/partials/banner/usa_banner_content.html:20
 msgid ""
-"The <strong>https://</strong> ensures that you are connecting to the "
-"official website and that any information you provide is encrypted and "
-"transmitted securely."
+") or <strong>https://</strong> means you’ve safely connected to the .gov "
+"website. Share sensitive information only on official, secure websites."
 msgstr ""
-"<strong>https://</strong> 確保您連線的是官方網站，且您所提供的任何資訊都會加"
-"密處理並透過安全的方式傳輸。"
+"）或https:// 表示您已安全连接到.gov 网站。请仅在官方和安全的网站上分享敏感的"
+"信息。"
 
 #: templates/partials/banner/usa_banner_header.html:9
 msgid "An official website of the United States government"
