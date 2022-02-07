@@ -139,7 +139,7 @@ class ReportAdmin(ReadOnlyModelAdmin):
     View-only report admin providing filtering and export functionality
     """
     list_display = ['public_id', 'status', 'assigned_section', 'create_date', 'modified_date', 'assigned_to']
-    list_filter = ['status', 'create_date', 'modified_date', 'assigned_section', 'servicemember',
+    list_filter = ['status', 'viewed', 'create_date', 'modified_date', 'assigned_section', 'servicemember',
                    'hate_crime', 'primary_complaint', 'assigned_to']
     ordering = ['public_id']
     actions = [export_reports_as_csv]
