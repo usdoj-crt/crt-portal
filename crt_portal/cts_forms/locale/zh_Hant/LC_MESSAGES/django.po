@@ -2556,19 +2556,6 @@ msgstr ""
 "cookies，但您仍發生此問題，請嘗試使用新的瀏覽器分頁或視窗開啟此網頁。這將可讓"
 "您使用新的安全 cookie 且應能解決問題。"
 
-#~ msgid "The .gov means it’s official."
-#~ msgstr ".gov 意指官方網站。"
-
-#~ msgid ""
-#~ "Federal government websites often end in .gov or .mil. Before sharing "
-#~ "sensitive information, make sure you’re on a federal government site."
-#~ msgstr ""
-#~ "聯邦政府網站的網址通常是以 .gov 或 .mil 結尾。在分享敏感性資訊之前，請確認"
-#~ "您上的是聯邦政府的網站。"
-
-#~ msgid "The site is secure."
-#~ msgstr "此網站是安全的。"
-
 #~ msgid "Continued"
 #~ msgstr "（續）"
 

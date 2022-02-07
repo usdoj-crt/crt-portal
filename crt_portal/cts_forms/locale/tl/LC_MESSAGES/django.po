@@ -2836,20 +2836,6 @@ msgstr ""
 "panibagong tab o window ng browser. Magbibigay ito ng isang panibagong "
 "security cookie sayo at maaaring maglutas sa problema."
 
-#~ msgid "The .gov means it’s official."
-#~ msgstr "Ang .gov ay nangangahulugan na ito ay opisyal."
-
-#~ msgid ""
-#~ "Federal government websites often end in .gov or .mil. Before sharing "
-#~ "sensitive information, make sure you’re on a federal government site."
-#~ msgstr ""
-#~ "Ang mga website ng gobyernong pampederal ay kadalasang nagtatapos sa .gov "
-#~ "o .mil. Bago ibahagi ang sensitibong impormasyon, siguraduhin na ikaw ay "
-#~ "nasa sityo ng gobyernong pampederal."
-
-#~ msgid "The site is secure."
-#~ msgstr "Ang sityo ay ligtas."
-
 #~ msgid "Continued"
 #~ msgstr "Pagpapatuloy"
 

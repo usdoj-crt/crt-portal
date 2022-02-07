@@ -2782,20 +2782,6 @@ msgstr ""
 "này trong cửa sổ hoặc tab trình duyệt mới. Điều đó sẽ tạo cho quý vị một "
 "cookie bảo mật mới và sẽ giải quyết được sự cố."
 
-#~ msgid "The .gov means it’s official."
-#~ msgstr ".Gov có nghĩa là chính thức."
-
-#~ msgid ""
-#~ "Federal government websites often end in .gov or .mil. Before sharing "
-#~ "sensitive information, make sure you’re on a federal government site."
-#~ msgstr ""
-#~ "Các trang web của chính phủ liên bang thường kết thúc bằng .gov hoặc ."
-#~ "mil. Trước khi chia sẻ thông tin nhạy cảm, hãy đảm bảo rằng quý vị đang ở "
-#~ "trên trang web của chính phủ liên bang."
-
-#~ msgid "The site is secure."
-#~ msgstr "Trang web này được bảo mật."
-
 #~ msgid "Continued"
 #~ msgstr "Tiếp tục"
 

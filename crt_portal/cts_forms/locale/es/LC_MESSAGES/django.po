@@ -2814,20 +2814,6 @@ msgstr ""
 "acceder a esta página en otra pestaña o ventana en su navegador. Eso le "
 "creará otra cookie de seguridad y debería resolver el problema."
 
-#~ msgid "The .gov means it’s official."
-#~ msgstr "El .gov significa que es oficial."
-
-#~ msgid ""
-#~ "Federal government websites often end in .gov or .mil. Before sharing "
-#~ "sensitive information, make sure you’re on a federal government site."
-#~ msgstr ""
-#~ "Las páginas web federales suelen acabar en .gov o .mil. Antes de "
-#~ "compartir información confidencial, compruebe que se encuentra en un "
-#~ "sitio del gobierno federal."
-
-#~ msgid "The site is secure."
-#~ msgstr "Este sitio es seguro."
-
 #~ msgid "Continued"
 #~ msgstr "Continuado"
 

@@ -2674,19 +2674,6 @@ msgstr ""
 "면, 새로운 브라우저 탭이나 창에서 이 페이지로 가 보십시오. 이렇게 하면 새로"
 "운 보안 쿠키를 만들어 문제가 해결될 것입니다."
 
-#~ msgid "The .gov means it’s official."
-#~ msgstr "“.gov”는 공식 사이트임을 의미합니다."
-
-#~ msgid ""
-#~ "Federal government websites often end in .gov or .mil. Before sharing "
-#~ "sensitive information, make sure you’re on a federal government site."
-#~ msgstr ""
-#~ "연방 정부 웹사이트는 주로 .gov 또는 .mil로 끝납니다. 민감 정보를 공유하기 "
-#~ "전에 연방 정부 사이트에 있는지 확인하십시오."
-
-#~ msgid "The site is secure."
-#~ msgstr "해당 사이트는 안전합니다."
-
 #~ msgid "Continued"
 #~ msgstr "계속"
 
