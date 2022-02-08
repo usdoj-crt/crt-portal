@@ -64,12 +64,6 @@ class ReportFilterTests(TestCase):
         reports, _ = report_filter(QueryDict('violation_summary=plane'))
         self.assertEqual(reports.count(), 1)
 
-        # Undocumented feature: multiple search query params in URL becomes an OR
-        reports, _ = report_filter(QueryDict('violation_summary=plane&violation_summary=truck'))
-        self.assertEqual(reports.count(), 3)
-        for report in reports:
-            self.assertEqual('plane' in report.violation_summary or 'truck' in report.violation_summary, True)
-
     def test_or_search(self):
         reports, _ = report_filter(QueryDict('violation_summary=boat%20OR%20hovercraft'))
         self.assertEqual(reports.count(), 4)
