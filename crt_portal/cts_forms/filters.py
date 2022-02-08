@@ -4,6 +4,7 @@ import urllib.parse
 from datetime import datetime
 
 from django.contrib.postgres.search import SearchQuery
+from django.db import connection
 
 from .models import Report, User
 from actstream import registry
@@ -165,10 +166,23 @@ def dashboard_filter(querydict):
 
 
 def _make_search_query(search_text):
+    # Websearch will drop parentheses from query. So if a set of parentheses is
+    # detected, we attempt to convert it to a tsquery
     if '(' in search_text and ')' in search_text:
         search_text = search_text.replace(' AND ', ' & ')
         search_text = search_text.replace(' OR ', ' | ')
-        query = SearchQuery(search_text, config='english', search_type='raw')
+        search_text = search_text.replace(' -', ' !')
+        with connection.cursor() as cursor:
+            try:
+                # This can still create syntax errors, so we ask the db to validate the
+                # query for us. This query only parses the input, it doesn't incur the
+                # performance hit of executing the search twice. If the query isn't
+                # valid, we catch the error and execute a websearch instead, which is
+                # more forgiving with syntax errors.
+                cursor.execute("SELECT to_tsquery('english', %s);", [search_text])
+                query = SearchQuery(search_text, config='english', search_type='raw')
+            except Exception:  # catch *all* exceptions
+                query = SearchQuery(search_text, config='english', search_type='websearch')
     else:
         query = SearchQuery(search_text, config='english', search_type='websearch')
 

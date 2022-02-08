@@ -1,6 +1,6 @@
 from cts_forms.filters import _get_date_field_from_param
 from django.http import QueryDict
-from django.test import SimpleTestCase, TestCase
+from django.test import SimpleTestCase, TestCase, TransactionTestCase
 
 from ..filters import report_filter
 from ..models import Report, ProtectedClass
@@ -120,6 +120,13 @@ class ReportFilterTests(TestCase):
         for report in reports:
             self.assertEqual('truck' in report.violation_summary or 'boat' not in report.violation_summary, True)
 
+    def test_not_parens_search(self):
+        reports, _ = report_filter(QueryDict('violation_summary=boat%20AND%20-(fishing%20AND%20hovercraft)'))
+        # Also may be counter-intuitive, because we want results that lack BOTH "fishing"
+        # and "hovercraft", so "fishing boat with hovercraft" is removed, but "fishing boat
+        # with truck" is allowed
+        self.assertEqual(reports.count(), 2)
+
     def test_exact_phrase_search(self):
         reports, _ = report_filter(QueryDict('violation_summary="fishing boat"'))
         self.assertEqual(reports.count(), 2)
@@ -157,7 +164,6 @@ class ReportFilterTests(TestCase):
         for report in reports:
             self.assertEqual('boat' in report.violation_summary and 'fishing boat' not in report.violation_summary, True)
 
-    # todo: handle malformed syntax query
     def test_passthru_nested_parens_search(self):
         """
         Search queries cannot handle nested parentheses. It's a Postgres limitation.
@@ -167,6 +173,27 @@ class ReportFilterTests(TestCase):
         """
         reports, _ = report_filter(QueryDict('violation_summary=boat%20AND%20(hovercraft%20OR%20(truck%20AND%20fishing))'))
         self.assertEqual(reports.count(), 2)
+
+
+# This is a separate test suite from the above search query tests because
+# test suites don't like it when databases throw errors inside of them
+class ReportFilterErrorTests(TransactionTestCase):
+    def setUp(self):
+        test_data = SAMPLE_REPORT.copy()
+
+        test_data['violation_summary'] = 'plane'
+        Report.objects.create(**test_data)
+
+        test_data['violation_summary'] = 'truck'
+        Report.objects.create(**test_data)
+
+    def test_malformed_parens_search(self):
+        """
+        If parens has a syntax error, don't throw errors. Do our best with the query,
+        returning an empty query set if necessary.
+        """
+        reports, _ = report_filter(QueryDict('violation_summary=boat%20AND%20(hovercraft%20OR%20truck))'))
+        self.assertEqual(reports.count(), 0)
 
 
 class ReportLanguageFilterTests(TestCase):
