@@ -1,5 +1,5 @@
 ---
-title: DRS - EOCC Referral Form Letter (Spanish)
+title: DRS - EEOC Referral Form Letter (Spanish)
 subject: "Respuesta: Su informe de la División de Derechos Civiles - {{ record_locator }} de la Sección {{ es.section_name }}"
 language: es
 ---

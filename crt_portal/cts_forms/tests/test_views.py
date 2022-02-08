@@ -116,6 +116,13 @@ class ReportEditShowViewTests(TestCase):
         response = self.client.post(self.url, form_data, follow=True)
         self.assertEqual(response.status_code, 400)
 
+    def test_viewed_in_activity_log(self):
+        """Report viewed in activity log on successful GET"""
+        response = self.client.get(self.url)
+        self.assertTrue('Report viewed:' in str(response.content))
+        self.assertFalse('Report opened:' in str(response.content))
+        self.assertEqual(response.status_code, 200)
+
     def test_update_primary_cause(self):
         """Report fields update on successful POST"""
         new_primary_complaint = PRIMARY_COMPLAINT_CHOICES[1][0]

@@ -2,14 +2,19 @@ version: "3.7"
 
 services:
   db:
-    image: postgres:10.1-alpine
+    image: postgres:11.14-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - 5432:5432
   web:
     platform: linux/amd64
     environment:
       - ENV=LOCAL
       - SECRET_KEY=${SECRET_KEY}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - TMS_AUTH_TOKEN=${TMS_AUTH_TOKEN}
       - TMS_WEBHOOK_ALLOWED_CIDR_NETS=${TMS_WEBHOOK_ALLOWED_CIDR_NETS}
       - RESTRICT_EMAIL_RECIPIENTS_TO=${RESTRICT_EMAIL_RECIPIENTS_TO}

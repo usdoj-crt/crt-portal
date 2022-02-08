@@ -37,15 +37,16 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.9.7-browsers
+      - image: cimg/python:3.9.9-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
+      - image: postgres:11.14-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+          POSTGRES_PASSWORD: password
     steps:
       - checkout
       # Removing chache for now, we either need to build our image or move the cache location
@@ -53,8 +54,8 @@ jobs:
       - restore_cache:
           keys:
             - node-v4-{{ .Branch }}-{{ checksum "package-lock.json" }}
-            - node-v4-{{ .Branch }}-
-            - node-v4-
+      #      - node-v4-{{ .Branch }}-
+      #      - node-v4-
       - run:
           name: Install gettext
           command: sudo apt-get update && sudo apt-get install -yqq gettext
@@ -71,8 +72,8 @@ jobs:
       - restore_cache:
           keys:
             - pip-packages-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}
-            - pip-packages-v4-{{ .Branch }}-
-            - pip-packages-v4-
+      #      - pip-packages-v4-{{ .Branch }}-
+      #      - pip-packages-v4-
       - *install-python-dev-dependencies
       - run:
           name: Migrate the database
@@ -131,7 +132,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.9.7-browsers
+      - image: cimg/python:3.9.9-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -146,7 +147,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.9.7-browsers
+      - image: cimg/python:3.9.9-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -198,17 +199,18 @@ jobs:
     working_directory: ~/code
     docker:
       # standard docker python image
-      - image: python:3.9.7
+      - image: python:3.9.9
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
           CF_MANIFEST: manifest_dev.yaml
           CF_SPACE: dev
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
+      - image: postgres:11.14-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+          POSTGRES_PASSWORD: password
     steps:
       - checkout
       # removing as we deal with caching problem
@@ -255,17 +257,18 @@ jobs:
   deploy-stage:
     working_directory: ~/code
     docker:
-      - image: python:3.9.7
+      - image: python:3.9.9
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
           CF_MANIFEST: manifest_staging.yaml
           CF_SPACE: staging
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
+      - image: postgres:11.14-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+          POSTGRES_PASSWORD: password
     steps:
       - checkout
       - restore_cache:
@@ -312,17 +315,18 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: python:3.9.7
+      - image: python:3.9.9
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
           CF_MANIFEST: manifest_prod.yaml
           CF_SPACE: prod
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/r/circleci/postgres/
-      - image: postgres:10.1-alpine
+      # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
+      - image: postgres:11.14-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
+          POSTGRES_PASSWORD: password
     steps:
       - checkout
       - restore_cache:

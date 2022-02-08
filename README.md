@@ -35,9 +35,10 @@ Clone the project locally:
 
     git clone git@github.com:usdoj-crt/crt-portal.git
 
-In the top level directory create a .env file in the top of your directory and set `SECRET_KEY` to a long, random string.
+In the top level directory create a .env file in the top of your directory and add the following environment variables. Set `SECRET_KEY` to a long, random string and `POSTGRES_PASSWORD` to any string you like.
 
-    SECRET_KEY=''
+    SECRET_KEY=this_is_a_long_random_string
+    POSTGRES_PASSWORD=rando_pw
 
 To build the project
     You will need to build the project for the first time and when there are package updates to apply.
@@ -128,7 +129,7 @@ Important commands to use during internationalization (i18n):
 
 When you run `makemessages`, Django will search through .py, .txt, and .html files to find strings marked for translation. Django finds these strings through the `gettext` function or its lazy-loading equivalent (in Python) or the `trans` function (in HTML). This adds the marked strings to `.po` files where translators will do their work.
 
-    docker-compose run -w /code/crt_portal/cts_forms web django-admin makemessages
+    docker-compose run -w /code/crt_portal/cts_forms web django-admin makemessages --all
 
 If you only want to generate a `.po` file for a single language, specify the language code like so:
 

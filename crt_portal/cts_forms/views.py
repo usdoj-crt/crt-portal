@@ -430,11 +430,11 @@ class ShowView(LoginRequiredMixin, View):
     def get(self, request, id):
         report = get_object_or_404(Report.objects.prefetch_related('attachments'), pk=id)
         output = serialize_data(report, request, id)
-        if not report.opened:
+        if not report.viewed:
             now = datetime.now()
-            description = f"Report opened at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
-            add_activity(request.user, "Report opened:", description, report)
-            report.opened = True
+            description = f"Report viewed at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
+            add_activity(request.user, "Report viewed:", description, report)
+            report.viewed = True
             report.save()
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)

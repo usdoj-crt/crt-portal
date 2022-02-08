@@ -16,7 +16,11 @@
     if (deptAddressee) {
       deptAddressee.remove();
     }
-    switch (option.innerText) {
+    // Remove language e.g. "(Spanish)" or "(Chinese Traditional)" from letter name
+    // so that we can check for special department address header on all translations
+    // of the DRS letters
+    const letterName = option.innerText.replace(/\(.+\)$/, '').trim();
+    switch (letterName) {
       case 'DRS - Dept of Ed Referral Form Letter':
         addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.deptOfEd);
         break;
