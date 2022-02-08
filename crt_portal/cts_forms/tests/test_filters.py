@@ -127,6 +127,10 @@ class ReportFilterTests(TestCase):
         # with truck" is allowed
         self.assertEqual(reports.count(), 2)
 
+        # Should also assume AND
+        reports, _ = report_filter(QueryDict('violation_summary=boat%20-(fishing%20AND%20hovercraft)'))
+        self.assertEqual(reports.count(), 2)
+
     def test_exact_phrase_search(self):
         reports, _ = report_filter(QueryDict('violation_summary="fishing boat"'))
         self.assertEqual(reports.count(), 2)

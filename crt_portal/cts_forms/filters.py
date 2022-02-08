@@ -1,5 +1,6 @@
 # Class to handle filtering Reports by supplied query params,
 # provided they are valid filterable model properties.
+import re
 import urllib.parse
 from datetime import datetime
 
@@ -172,6 +173,10 @@ def _make_search_query(search_text):
         search_text = search_text.replace(' AND ', ' & ')
         search_text = search_text.replace(' OR ', ' | ')
         search_text = search_text.replace(' -', ' !')
+        # In between search tokens that don't have operators, insert &
+        # e.g. "foo -(bar | baz qux)" => "foo & !(bar | baz & qux)"
+        search_text = re.sub('([a-zA-Z)"]) ([a-zA-Z("!])', r'\1 & \2', search_text)
+        # Note: the only search type we don't handle here are exact phrase quotes.
         with connection.cursor() as cursor:
             try:
                 # This can still create syntax errors, so we ask the db to validate the
