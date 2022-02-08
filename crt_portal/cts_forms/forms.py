@@ -937,6 +937,7 @@ class ProForm(
         self.fields['crt_reciept_month'].required = True
         self.fields['crt_reciept_year'].label = DATE_QUESTIONS['last_incident_year']
         self.fields['crt_reciept_year'].required = True
+        self.fields['location_name'].label = LOCATION_QUESTIONS['location_name']
         if 'violation_summary' in self.fields:
             self.fields['violation_summary'].widget.attrs['class'] = 'usa-textarea word-count-500'
             self.label_suffix = ''
