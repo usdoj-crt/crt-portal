@@ -170,6 +170,7 @@ SECTION_CHOICES = (
     ('FCS', 'Federal Coordination and Compliance'),
     ('HCE', 'Housing and Civil Enforcement'),
     ('IER', 'Immigrant and Employee Rights'),
+    ('POL', 'Policy'),    # Added to support SVI related report
     ('SPL', 'Special Litigation'),
     ('VOT', 'Voting'),
 )
