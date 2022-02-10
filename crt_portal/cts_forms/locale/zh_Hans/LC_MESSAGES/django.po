@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-04 15:06+0000\n"
+"POT-Creation-Date: 2022-02-08 18:40+0000\n"
 "Language: Chinese Simplified\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -412,7 +412,7 @@ msgstr ""
 "受到威胁、胁迫并在违背您的意愿下迫使您工作或从事性交易。这可能包括人身伤害威"
 "胁、扣发承诺的工资或用虚假的工作合同扣押您"
 
-#: model_variables.py:127 templates/landing.html:260
+#: model_variables.py:127 templates/landing.html:263
 msgid "Age"
 msgstr "年龄"
 
@@ -451,11 +451,11 @@ msgstr "原籍国（包括祖籍和种族）"
 msgid "Pregnancy"
 msgstr "怀孕"
 
-#: model_variables.py:136 templates/landing.html:253
+#: model_variables.py:136 templates/landing.html:256
 msgid "Race/color"
 msgstr "族裔/肤色"
 
-#: model_variables.py:137 templates/landing.html:255
+#: model_variables.py:137 templates/landing.html:258
 msgid "Religion"
 msgstr "宗教"
 
@@ -1260,7 +1260,7 @@ msgstr "我们正在积极调查与您的报告有关的案件。"
 msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr "我们同时收到并需要积极审查很多请求。"
 
-#: templates/forms/confirmation.html:134 templates/landing.html:356
+#: templates/forms/confirmation.html:134 templates/landing.html:359
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1609,7 +1609,7 @@ msgid ""
 msgstr ""
 "人口贩运包括被强迫或胁迫做工，或是被强迫或胁迫从事性行为以换取有价值的东西。"
 
-#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:230
+#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:233
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "向国家人口贩运专线寻求帮助"
 
@@ -1658,7 +1658,7 @@ msgid ""
 "submit a report using our online form."
 msgstr "如果您认为您或他人的民事权利受到侵犯，请使用我们的在线表格提交报告。"
 
-#: templates/landing.html:91 templates/landing.html:329
+#: templates/landing.html:91 templates/landing.html:332
 msgid "Start a report"
 msgstr "开始报告"
 
@@ -1776,10 +1776,14 @@ msgid "Examples"
 msgstr "例子"
 
 #: templates/landing.html:230
+msgid "Get help for hate crimes"
+msgstr "为寻求仇恨犯罪的帮助"
+
+#: templates/landing.html:233
 msgid "Were you forced to work against your will?"
 msgstr "是否有人违背您的意愿强迫您工作？"
 
-#: templates/landing.html:239
+#: templates/landing.html:242
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
@@ -1787,15 +1791,15 @@ msgstr ""
 "如果您认为自己经历过类似的情况，请了解<a href=\"#crt-landing--reporting\">如"
 "何举报侵犯公民权利的行为</a>。"
 
-#: templates/landing.html:249
+#: templates/landing.html:252
 msgid "Protected by civil rights laws"
 msgstr "受到民权法的保护"
 
-#: templates/landing.html:251
+#: templates/landing.html:254
 msgid "These are the most common characteristics that are legally protected."
 msgstr "这些是受法律保护的最常见特征。"
 
-#: templates/landing.html:254
+#: templates/landing.html:257
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
@@ -1803,51 +1807,51 @@ msgstr ""
 "残疾，<span class=\"crt-landing--protected\">包括暂时的或正在恢复中的残疾</"
 "span>"
 
-#: templates/landing.html:256
+#: templates/landing.html:259
 msgid "Sex, gender identity, and sexual orientation"
 msgstr "性别、性别认同和性取向"
 
-#: templates/landing.html:257
+#: templates/landing.html:260
 msgid "Immigration/citizenship status"
 msgstr "移民/公民身份"
 
-#: templates/landing.html:258
+#: templates/landing.html:261
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
 msgstr ""
 "语言和原籍国，<span class=\"crt-landing--protected\">包括祖先和种族</span>"
 
-#: templates/landing.html:259
+#: templates/landing.html:262
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
 msgstr ""
 "家庭、婚姻或父母状况，<span class=\"crt-landing--protected\">包括怀孕</span>"
 
-#: templates/landing.html:261
+#: templates/landing.html:264
 msgid "Genetic identification"
 msgstr "基因识别信息"
 
-#: templates/landing.html:262
+#: templates/landing.html:265
 msgid "Servicemember status"
 msgstr "服役人员状态"
 
-#: templates/landing.html:276
+#: templates/landing.html:279
 msgid "How to report a civil rights violation"
 msgstr "如何举报违反民权的行为"
 
-#: templates/landing.html:281
+#: templates/landing.html:284
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
 msgstr "如果您认为您或他人遭受非法歧视，可以举报侵犯民事权利的行为。"
 
-#: templates/landing.html:290
+#: templates/landing.html:293
 msgid "Report using our online form."
 msgstr "使用我们的在线表格进行举报。"
 
-#: templates/landing.html:291
+#: templates/landing.html:294
 msgid ""
 "By completing the online form, you can provide the details we need to "
 "understand what happened. You will receive a confirmation number and your "
@@ -1856,11 +1860,11 @@ msgstr ""
 "通过填写在线表格，您可以提供我们需要了解的详细信息。您将收到一个确认号码，您"
 "的报告将立即发送给我们的工作人员进行审核。"
 
-#: templates/landing.html:299
+#: templates/landing.html:302
 msgid "We review your report."
 msgstr "我们对您的报告进行审查。"
 
-#: templates/landing.html:300
+#: templates/landing.html:303
 msgid ""
 "Teams that specialize in handling your type of issue will review it. If it "
 "needs to be forwarded to another team or agency, we will try to connect your "
@@ -1869,11 +1873,11 @@ msgstr ""
 "专门处理此类问题的团队将对其进行审查。如果需要转发给其他团队或机构，我们将尝"
 "试将您的报告转至相应的团体。"
 
-#: templates/landing.html:308
+#: templates/landing.html:311
 msgid "We determine next steps and get back to you."
 msgstr "我们会决定下一步，然后再与您联系。"
 
-#: templates/landing.html:309
+#: templates/landing.html:312
 msgid ""
 "Possible outcomes include: following up for more information, starting a "
 "mediation or investigation, directing you to another organization for "
@@ -1882,11 +1886,11 @@ msgstr ""
 "可能的结果包括：跟进了解更多信息、开始调解或调查、介绍您到另一个组织寻求进一"
 "步帮助，或通知您我们无法提供帮助。"
 
-#: templates/landing.html:328
+#: templates/landing.html:331
 msgid "Have you or someone you know experienced a civil rights violation?"
 msgstr "您或您认识的人是否有过侵犯公民权利的经历？"
 
-#: templates/landing.html:334
+#: templates/landing.html:337
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
@@ -1895,15 +1899,15 @@ msgstr ""
 "如果您无法访问在线表格，可以<a href=\"#phone-footer\">打电话</a>或<a href="
 "\"#address-footer\">通过邮件</a>报告违规行为。"
 
-#: templates/landing.html:344
+#: templates/landing.html:347
 msgid "Already submitted a report?"
 msgstr "已经提交了报告？"
 
-#: templates/landing.html:347
+#: templates/landing.html:350
 msgid "Here's what to expect."
 msgstr "这里是后续流程。"
 
-#: templates/landing.html:351
+#: templates/landing.html:354
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
@@ -1914,20 +1918,20 @@ msgstr ""
 "供帮助。我们会尽最大努力让您了解我们的审查结果。但是，我们可能无法向您提供进"
 "度更新，因为："
 
-#: templates/landing.html:353
+#: templates/landing.html:356
 msgid ""
 "We're actively working on an investigation or case related to your report."
 msgstr "我们正在积极调查与您的报告有关的案件。"
 
-#: templates/landing.html:354
+#: templates/landing.html:357
 msgid "We're receiving and actively reviewing many reports at the same time."
 msgstr "我们同时收到很多需要积极极审查的大量请求。"
 
-#: templates/landing.html:361
+#: templates/landing.html:364
 msgid "Need urgent legal help?"
 msgstr "需要紧急法律援助？"
 
-#: templates/landing.html:363
+#: templates/landing.html:366
 msgid ""
 "Due to the amount of reports we receive, it can take several weeks for us to "
 "respond to your issue. Local legal aid offices or lawyers in your area may "
@@ -1936,7 +1940,7 @@ msgstr ""
 "鉴于我们收到的报告量，我们可能会需要几个星期才能对您的问题作出回应。您所在地"
 "区的当地法律援助办公室或律师可能可以迅速回应或帮助您解决问题"
 
-#: templates/landing.html:364
+#: templates/landing.html:367
 msgid ""
 "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
 "aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
@@ -1948,7 +1952,7 @@ msgstr ""
 "legal-aid\">lsc.gov/find-legal-aid</a> 或致电<a href="
 "\"tel:202-295-1500\">（202）295-1500</a>。"
 
-#: templates/landing.html:365
+#: templates/landing.html:368
 msgid ""
 "Or visit <a class=\"external-link--blue external-link--popup\" aria-label="
 "\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
@@ -1960,7 +1964,7 @@ msgstr ""
 "findlegalhelp.org</a>，或者致电<a href=\"tel:800-285-2221\">(800) 285-2221</"
 "a>，通过美国律师协会寻找律师。"
 
-#: templates/landing.html:379
+#: templates/landing.html:382
 msgid "Image attributions"
 msgstr "图像来源"
 
