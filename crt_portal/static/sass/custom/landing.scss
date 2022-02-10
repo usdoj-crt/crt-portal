@@ -578,11 +578,14 @@ $arrow-height: 24px;
       padding-right: 1rem;
     }
 
-    #crt-landing--humantrafficking a {
-      font-size: 0.9rem;
+    #crt-landing--humantrafficking, #crt-landing--hate-crimes a {
       font-style: italic;
       background-color: color('white');
       margin-top: 0.5rem;
+      font-weight: bold;
+      img {
+        padding-left: 2px;
+      }
     }
 
     .crt-landing--example_header {
