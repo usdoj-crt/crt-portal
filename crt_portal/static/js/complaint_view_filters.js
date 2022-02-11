@@ -455,16 +455,18 @@
 
   function validateTextSearch(el) {
     var buttonEl = document.getElementById('apply-filters-button');
-    var textEl = document.getElementById('search-notification');
+    var alertEl = document.getElementById('search-notification');
+    var textEl = alertEl.querySelector('.usa-alert__text');
     var value = el.value;
     if (value.includes('(') && value.includes(')') && value.includes('"')) {
       buttonEl.setAttribute('disabled', '');
-      textEl.textContent = 'Search query cannot contain both parentheses grouping and quoted text';
-      textEl.style.display = 'inline-block';
+      textEl.textContent =
+        '(Parentheses) and "quotation marks" cannot be used together in the same keyword search';
+      alertEl.style.display = 'inline-block';
     } else {
       buttonEl.removeAttribute('disabled');
       textEl.textContent = '';
-      textEl.style.display = 'none';
+      alertEl.style.display = 'none';
     }
   }
 
