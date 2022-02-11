@@ -761,21 +761,10 @@ ul.messages {
   }
 }
 
-.search-filter-container {
-  width: 100%;
+#search-notification {
+  display: none;
+  margin-top: -1rem;
   margin-bottom: 2rem;
-  display: flex;
-  flex-direction: row;
-
-  .crt-textbox.summary_input {
-    margin-bottom: 0;
-  }
-
-  #search-notification {
-    display: inline-block;
-    font-style: italic;
-    color: red;
-  }
 }
 
 /* Match combo box input styling with other filters */
