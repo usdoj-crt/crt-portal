@@ -45,6 +45,9 @@ class ReportFilterTests(TestCase):
         test_data['violation_summary'] = 'fishing boat with truck'
         Report.objects.create(**test_data)
 
+        test_data['violation_summary'] = 'boat plane'
+        Report.objects.create(**test_data)
+
     def test_no_filters(self):
         """Returns all reports when no filters provided"""
         reports, _ = report_filter(QueryDict(''))
@@ -62,11 +65,11 @@ class ReportFilterTests(TestCase):
         Returns query set responsive to N terms provided as OR search
         """
         reports, _ = report_filter(QueryDict('violation_summary=plane'))
-        self.assertEqual(reports.count(), 1)
+        self.assertEqual(reports.count(), 2)
 
     def test_or_search(self):
         reports, _ = report_filter(QueryDict('violation_summary=boat%20OR%20hovercraft'))
-        self.assertEqual(reports.count(), 4)
+        self.assertEqual(reports.count(), 5)
         for report in reports:
             self.assertEqual('boat' in report.violation_summary or 'hovercraft' in report.violation_summary, True)
 
@@ -97,16 +100,23 @@ class ReportFilterTests(TestCase):
             self.assertIn('boat', report.violation_summary)
             self.assertEqual('hovercraft' in report.violation_summary or 'truck' in report.violation_summary, True)
 
+        # multiple OR
+        reports, _ = report_filter(QueryDict('violation_summary=boat%20(hovercraft%20OR%20truck%20OR%20plane)'))
+        self.assertEqual(reports.count(), 3)
+        for report in reports:
+            self.assertIn('boat', report.violation_summary)
+            self.assertEqual('hovercraft' in report.violation_summary or 'truck' in report.violation_summary or 'plane' in report.violation_summary, True)
+
     def test_not_search(self):
         reports, _ = report_filter(QueryDict('violation_summary=boat%20-fishing'))
-        self.assertEqual(reports.count(), 1)
+        self.assertEqual(reports.count(), 2)
         for report in reports:
             self.assertIn('boat', report.violation_summary)
             self.assertNotIn('fishing', report.violation_summary)
 
     def test_not_and_search(self):
         reports, _ = report_filter(QueryDict('violation_summary=boat%20AND%20-fishing'))
-        self.assertEqual(reports.count(), 1)
+        self.assertEqual(reports.count(), 2)
         for report in reports:
             self.assertIn('boat', report.violation_summary)
             self.assertNotIn('fishing', report.violation_summary)
@@ -125,11 +135,11 @@ class ReportFilterTests(TestCase):
         # Also may be counter-intuitive, because we want results that lack BOTH "fishing"
         # and "hovercraft", so "fishing boat with hovercraft" is removed, but "fishing boat
         # with truck" is allowed
-        self.assertEqual(reports.count(), 2)
+        self.assertEqual(reports.count(), 3)
 
         # Should also assume AND
         reports, _ = report_filter(QueryDict('violation_summary=boat%20-(fishing%20AND%20hovercraft)'))
-        self.assertEqual(reports.count(), 2)
+        self.assertEqual(reports.count(), 3)
 
     def test_exact_phrase_search(self):
         reports, _ = report_filter(QueryDict('violation_summary="fishing boat"'))
@@ -164,7 +174,7 @@ class ReportFilterTests(TestCase):
 
     def test_not_exact_phrase_search(self):
         reports, _ = report_filter(QueryDict('violation_summary=boat%20-"fishing%20boat"'))
-        self.assertEqual(reports.count(), 1)
+        self.assertEqual(reports.count(), 2)
         for report in reports:
             self.assertEqual('boat' in report.violation_summary and 'fishing boat' not in report.violation_summary, True)
 
