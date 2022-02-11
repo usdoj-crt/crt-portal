@@ -761,6 +761,23 @@ ul.messages {
   }
 }
 
+.search-filter-container {
+  width: 100%;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: row;
+
+  .crt-textbox.summary_input {
+    margin-bottom: 0;
+  }
+
+  #search-notification {
+    display: inline-block;
+    font-style: italic;
+    color: red;
+  }
+}
+
 /* Match combo box input styling with other filters */
 .crt-combo-box-filter {
   width: 15rem; /* Hard code width to fix situation where input would expand when an item is selected */
