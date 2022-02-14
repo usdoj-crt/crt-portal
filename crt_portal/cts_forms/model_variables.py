@@ -176,6 +176,7 @@ SECTION_CHOICES = (
 )
 # for form letter translations only. Note that these choices
 # technically differ from section choices since they have "de" (of).
+#  Spanish
 SECTION_CHOICES_ES = (
     ('ADM', 'Administrativa'),
     ('APP', 'de Apelación'),
@@ -190,6 +191,8 @@ SECTION_CHOICES_ES = (
     ('SPL', 'de Litigios Especiales'),
     ('VOT', 'de Votación'),
 )
+
+#  Korean
 SECTION_CHOICES_KO = (
     ('ADM', '행정'),
     ('CRM', '형사'),
@@ -199,10 +202,12 @@ SECTION_CHOICES_KO = (
     ('FCS', '연방 조정 및 규정준수'),
     ('HCE', '주택 및 민법 시행'),
     ('IER', '이민 및 직원 권리'),
+    ('POL', '정책 섹션'),    # Added to support SVI related report form letters
     ('SPL', '특별 소송'),
     ('VOT', '투표'),
 )
 
+#  Tagalog
 SECTION_CHOICES_TL = (
     ('ADM', 'Pang-Administratibo'),
     ('CRM', 'Kriminal'),
