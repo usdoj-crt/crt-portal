@@ -212,6 +212,7 @@ SECTION_CHOICES_TL = (
     ('FCS', 'Pederal na Koordinasyon at Pagsunod'),
     ('HCE', 'Pabahay at Pagpapatupad ng Sibil'),
     ('IER', 'Imigrasyon at Mga Karapatan ng Empleyado'),
+    ('POL', 'Patakaran'),    # Added to support SVI related report
     ('SPL', 'Espesyal na Paglilitis'),
     ('VOT', 'Pagboto'),
 )
