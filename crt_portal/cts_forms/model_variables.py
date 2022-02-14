@@ -225,10 +225,12 @@ SECTION_CHOICES_VI = (
     ('FCS', 'Ban Tuân Thủ và Điều Phối Liên Bang'),
     ('HCE', 'Ban Gia Cư và Thực Thi Dân Sự'),
     ('IER', 'Ban  Di Trú và Quyền của Người Lao Động'),
+    ('POL', 'Policy'),    # Added to support SVI related report
     ('SPL', 'Ban Tố Tụng Đặc Biệt'),
     ('VOT', 'Ban Bầu Cử'),
 )
 
+#  Chinese Traditional
 SECTION_CHOICES_ZH_HANT = (
     ('ADM', '行政管理'),
     ('CRM', '刑事'),
@@ -243,6 +245,7 @@ SECTION_CHOICES_ZH_HANT = (
     ('VOT', '投票'),
 )
 
+#  Chinese Simplified
 SECTION_CHOICES_ZH_HANS = (
     ('ADM', '行政管理'),
     ('CRM', '刑事'),
@@ -252,6 +255,7 @@ SECTION_CHOICES_ZH_HANS = (
     ('FCS', '联邦协调与遵守'),
     ('HCE', '住房和民事执法'),
     ('IER', '移民与雇员权利'),
+    ('POL', '政策部分'),    # Added to support SVI related report form letter
     ('SPL', '特别诉讼'),
     ('VOT', '投票'),
 )
