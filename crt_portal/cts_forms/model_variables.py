@@ -225,7 +225,7 @@ SECTION_CHOICES_VI = (
     ('FCS', 'Ban Tuân Thủ và Điều Phối Liên Bang'),
     ('HCE', 'Ban Gia Cư và Thực Thi Dân Sự'),
     ('IER', 'Ban  Di Trú và Quyền của Người Lao Động'),
-    ('POL', 'Policy'),    # Added to support SVI related report
+    ('POL', 'Ban Phần Chính Sách'),    # Added to support SVI related report
     ('SPL', 'Ban Tố Tụng Đặc Biệt'),
     ('VOT', 'Ban Bầu Cử'),
 )
