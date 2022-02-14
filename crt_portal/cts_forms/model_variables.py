@@ -238,6 +238,7 @@ SECTION_CHOICES_ZH_HANT = (
     ('FCS', '聮邦恊调與遵守'),
     ('HCE', '住房和民事执法'),
     ('IER', '移民與雇員權利'),
+    ('POL', '政策部分'),    # Added to support SVI related report form letter
     ('SPL', '特别訴訟'),
     ('VOT', '投票'),
 )
