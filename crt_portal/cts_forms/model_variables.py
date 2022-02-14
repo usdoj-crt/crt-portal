@@ -186,6 +186,7 @@ SECTION_CHOICES_ES = (
     ('FCS', 'de Coordinación y Cumplimiento Federal'),
     ('HCE', 'de Coordinación y Cumplimiento Federal'),
     ('IER', 'de Derechos de Inmigrantes y Empleados'),
+    ('POL', 'de Políticas'),    # Added to support SVI related report form letter
     ('SPL', 'de Litigios Especiales'),
     ('VOT', 'de Votación'),
 )
