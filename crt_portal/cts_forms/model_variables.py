@@ -176,6 +176,7 @@ SECTION_CHOICES = (
 )
 # for form letter translations only. Note that these choices
 # technically differ from section choices since they have "de" (of).
+#  Spanish
 SECTION_CHOICES_ES = (
     ('ADM', 'Administrativa'),
     ('APP', 'de Apelación'),
@@ -186,9 +187,12 @@ SECTION_CHOICES_ES = (
     ('FCS', 'de Coordinación y Cumplimiento Federal'),
     ('HCE', 'de Coordinación y Cumplimiento Federal'),
     ('IER', 'de Derechos de Inmigrantes y Empleados'),
+    ('POL', 'de Políticas'),    # Added to support SVI related report form letter
     ('SPL', 'de Litigios Especiales'),
     ('VOT', 'de Votación'),
 )
+
+#  Korean
 SECTION_CHOICES_KO = (
     ('ADM', '행정'),
     ('CRM', '형사'),
@@ -198,10 +202,12 @@ SECTION_CHOICES_KO = (
     ('FCS', '연방 조정 및 규정준수'),
     ('HCE', '주택 및 민법 시행'),
     ('IER', '이민 및 직원 권리'),
+    ('POL', '정책 섹션'),    # Added to support SVI related report form letters
     ('SPL', '특별 소송'),
     ('VOT', '투표'),
 )
 
+#  Tagalog
 SECTION_CHOICES_TL = (
     ('ADM', 'Pang-Administratibo'),
     ('CRM', 'Kriminal'),
@@ -211,6 +217,7 @@ SECTION_CHOICES_TL = (
     ('FCS', 'Pederal na Koordinasyon at Pagsunod'),
     ('HCE', 'Pabahay at Pagpapatupad ng Sibil'),
     ('IER', 'Imigrasyon at Mga Karapatan ng Empleyado'),
+    ('POL', 'Patakaran'),    # Added to support SVI related report
     ('SPL', 'Espesyal na Paglilitis'),
     ('VOT', 'Pagboto'),
 )
@@ -224,10 +231,12 @@ SECTION_CHOICES_VI = (
     ('FCS', 'Ban Tuân Thủ và Điều Phối Liên Bang'),
     ('HCE', 'Ban Gia Cư và Thực Thi Dân Sự'),
     ('IER', 'Ban  Di Trú và Quyền của Người Lao Động'),
+    ('POL', 'Ban Phần Chính Sách'),    # Added to support SVI related report
     ('SPL', 'Ban Tố Tụng Đặc Biệt'),
     ('VOT', 'Ban Bầu Cử'),
 )
 
+#  Chinese Traditional
 SECTION_CHOICES_ZH_HANT = (
     ('ADM', '行政管理'),
     ('CRM', '刑事'),
@@ -237,10 +246,12 @@ SECTION_CHOICES_ZH_HANT = (
     ('FCS', '聮邦恊调與遵守'),
     ('HCE', '住房和民事执法'),
     ('IER', '移民與雇員權利'),
+    ('POL', '政策部分'),    # Added to support SVI related report form letter
     ('SPL', '特别訴訟'),
     ('VOT', '投票'),
 )
 
+#  Chinese Simplified
 SECTION_CHOICES_ZH_HANS = (
     ('ADM', '行政管理'),
     ('CRM', '刑事'),
@@ -250,6 +261,7 @@ SECTION_CHOICES_ZH_HANS = (
     ('FCS', '联邦协调与遵守'),
     ('HCE', '住房和民事执法'),
     ('IER', '移民与雇员权利'),
+    ('POL', '政策部分'),    # Added to support SVI related report form letter
     ('SPL', '特别诉讼'),
     ('VOT', '投票'),
 )
