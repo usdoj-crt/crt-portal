@@ -13,6 +13,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         templates = os.scandir(self.templates_dir)
+        environment = os.environ.get('ENV', 'UNDEFINED')
         for template in templates:
             if template.is_file() and template.name.endswith('.md'):
                 with open(template, 'r') as f:
@@ -26,6 +27,10 @@ class Command(BaseCommand):
                         letter_id = content['title']
                     except KeyError:
                         self.stdout.write(self.style.ERROR(f'Response template {template.name} is missing required `title` property. Skipping it!'))
+                        continue
+
+                    if letter_id.startswith('(TEST)') and environment == 'PRODUCTION':
+                        self.stdout.write(self.style.SUCCESS(f'Ignoring response template in production: {letter_id}'))
                         continue
 
                     if content.get('ignore') is True:
