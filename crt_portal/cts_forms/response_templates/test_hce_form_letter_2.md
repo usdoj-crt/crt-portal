@@ -18,7 +18,7 @@ In the meantime, here are some suggestions for what you can do:
 
 For more information about the Housing Section and our work, please visit our web page: https://www.justice.gov/crt/housing-and-civil-enforcement-section
 
-For your convenience, we also provide a list of resources that you may find helpful. You can view it at https://civilrights.justice.gov/resources/housing
+For your convenience, we also provide a list of resources that you may find helpful. You can view it at https://civilrights.justice.gov/housing-resources
 
 
 Sincerely,
