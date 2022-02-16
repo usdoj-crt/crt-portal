@@ -1,4 +1,4 @@
-from cts_forms.models import Report
+from cts_forms.models import Report, ResponseTemplate
 from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.decorators import api_view
@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from cts_forms.views import mark_report_as_viewed
 from rest_framework.permissions import IsAuthenticated
-from api.serializers import ReportSerializer
+from api.serializers import ReportSerializer, ResponseTemplateSerializer
 from django.contrib.auth.decorators import login_required
 
 REST_FRAMEWORK = {
@@ -21,6 +21,7 @@ REST_FRAMEWORK = {
 def api_root(request, format=None):
     return Response({
         'reports': reverse('api:report-list', request=request, format=format),
+        'responses': reverse('api:response-list', request=request, format=format)
     })
 
 
@@ -57,3 +58,12 @@ class ReportDetail(generics.RetrieveUpdateAPIView):
             if not report.viewed:
                 mark_report_as_viewed(report, request.user)
         return self.update(request, *args, **kwargs)
+
+
+class ResponseList(generics.ListAPIView):
+    """
+    API endpoint that allows responses to be viewed.
+    """
+    queryset = ResponseTemplate.objects.all()
+    serializer_class = ResponseTemplateSerializer
+    permission_classes = [permissions.IsAuthenticated]
