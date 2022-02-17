@@ -38,6 +38,18 @@
     }
   };
 
+  document.addEventListener('DOMContentLoaded', function() {
+    // `marked` should be loaded in global context at this point.
+    if (marked) {
+      marked.setOptions({
+        gfm: true,
+        breaks: true
+      });
+    } else {
+      console.error('marked.js parser not loaded');
+    }
+  });
+
   var modal = document.getElementById('intake_template');
 
   var contact = document.getElementById('contact_complainant');
@@ -57,6 +69,7 @@
   var copy = document.getElementById('intake_copy');
   var print = document.getElementById('intake_print');
   var letter = document.getElementById('intake_letter');
+  var letter_html = document.getElementById('intake_letter_html');
   var send_email = document.getElementById('intake_send');
 
   var email_enabled = document.getElementById('intake_send').dataset.emailEnabled === 'True';
@@ -64,7 +77,10 @@
 
   var reset = function() {
     description.innerHTML = '(select a response template)';
+    letter_html.innerHTML = '';
+    letter_html.hidden = true;
     letter.innerHTML = '';
+    letter.hidden = false;
     copy.setAttribute('disabled', 'disabled');
     print.setAttribute('disabled', 'disabled');
     send_email.setAttribute('disabled', 'disabled');
@@ -78,7 +94,16 @@
     var option = event.target.options[index];
     addReferralAddress(option);
     description.innerHTML = option.dataset['description'] || '(select a response template)';
-    letter.innerHTML = option.dataset['content'] || '';
+    var isHtml = option.dataset['is_html'] !== undefined;
+    if (isHtml) {
+      letter.hidden = true;
+      letter_html.hidden = false;
+      letter_html.innerHTML = marked.parse(option.dataset['content'] || '');
+    } else {
+      letter_html.hidden = true;
+      letter.hidden = false;
+      letter.innerHTML = option.dataset['content'] || '';
+    }
     if (index >= 1) {
       copy.removeAttribute('disabled');
       print.removeAttribute('disabled');
@@ -147,26 +172,52 @@
   // refresh the template dropdown to reflect the current language selection
   applyTemplateLanguageFilter();
 
-  var copyContents = function(event) {
-    const el = document.createElement('textarea');
-    el.value = description.innerText + '\n\n' + letter.value;
-    el.setAttribute('readonly', '');
-    el.style.position = 'absolute';
-    el.style.left = '-9999px';
-    document.body.appendChild(el);
-    el.select();
-    el.setSelectionRange(0, 99999); // mobile
+  function copyHTMLToClipboard(str) {
+    function listener(e) {
+      e.clipboardData.setData('text/html', str);
+      e.clipboardData.setData('text/plain', str);
+      e.preventDefault();
+    }
+    document.addEventListener('copy', listener);
     document.execCommand('copy');
-    document.body.removeChild(el);
+    document.removeEventListener('copy', listener);
+  }
+
+  var copyContents = function(event) {
+    // Text-only letter
+    if (!letter.hidden) {
+      const el = document.createElement('textarea');
+      el.value = description.innerText + '\n\n' + letter.value;
+      el.setAttribute('readonly', '');
+      el.style.position = 'absolute';
+      el.style.left = '-9999px';
+      document.body.appendChild(el);
+      el.select();
+      el.setSelectionRange(0, 99999); // mobile
+      document.execCommand('copy');
+      document.body.removeChild(el);
+      // HTML content
+    } else if (!letter_html.hidden) {
+      copyHTMLToClipboard(letter_html.innerHTML);
+    }
   };
   copy.addEventListener('click', copyContents);
 
   var printContents = function(event) {
     const letterhead = document.getElementById('form-letterhead');
     const letter_placeholder = document.getElementById('form-letter--placeholder');
-    const el = document.createElement('p');
-    el.append(letter.value);
-    letter_placeholder.appendChild(el);
+    // Text-only letter
+    if (!letter.hidden) {
+      const el = document.createElement('p');
+      el.append(letter.value);
+      letter_placeholder.appendChild(el);
+      // HTML letter
+    } else if (!letter_html.hidden) {
+      const el = letter_html.cloneNode(true);
+      // Prevent id collision
+      el.id = el.id + '_rand' + Math.floor(Math.random() * 1000000);
+      letter_placeholder.appendChild(el);
+    }
     letterhead.removeAttribute('hidden');
     document.body.appendChild(letterhead);
     window.print();

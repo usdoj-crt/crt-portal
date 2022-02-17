@@ -1252,6 +1252,7 @@ class ResponseActions(Form):
                 'description': template.render_subject(self.report),
                 'content': template.render_body(self.report),
                 'language': template.language,
+                'is_html': template.is_html,
             }
             for template in templates
         }
