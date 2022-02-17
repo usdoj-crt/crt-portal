@@ -138,6 +138,16 @@ body.is-modal {
     height: 80%;
     @include u-radius('md');
   }
+
+  #intake_letter_html {
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 1em;
+    width: 100%;
+    height: 220px;
+    border: 1px solid black;
+    @include u-radius('md');
+  }
 }
 
 .print-report--modal {

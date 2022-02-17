@@ -90,6 +90,7 @@
 
 {% block page_js %}
 {{ block.super }}
+<script defer src="{% static 'vendor/marked.min.js' %}"></script>
 <script src="{% static 'js/edit_contact_info.min.js' %}"></script>
 <script src="{% static 'js/edit_details.min.js' %}"></script>
 <script src="{% static 'js/modal.min.js' %}"></script>
