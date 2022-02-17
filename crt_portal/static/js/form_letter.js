@@ -210,6 +210,7 @@
     if (!letter.hidden) {
       const el = document.createElement('p');
       el.append(letter.value);
+      letter_placeholder.classList.add('form-letter-text');
       letter_placeholder.appendChild(el);
       // HTML letter
     } else if (!letter_html.hidden) {
@@ -222,6 +223,7 @@
     document.body.appendChild(letterhead);
     window.print();
     el.remove();
+    letter_placeholder.classList.remove('form-letter-text');
     document.body.removeChild(letterhead);
     root.CRT.closeModal(modal);
   };

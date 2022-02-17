@@ -213,9 +213,13 @@ body.is-modal {
     }
 
     #form-letter--placeholder {
-      white-space: pre-line;
       margin-left: 0.75in;
       margin-right: 0.75in;
+
+      // For rendering text-only letter content
+      &.form-letter-text {
+        white-space: pre-line;
+      }
     }
 
     hr {
@@ -223,6 +227,46 @@ body.is-modal {
       margin-top: 1rem;
       margin-bottom: 1rem;
     }
+
+    // Display link destinations when printing
+    a[href]:after {
+      content: ' (' attr(href) ')';
+    }
+  }
+}
+
+// For HTML-rendered letter content
+// We are overriding some form/modal CSS in parent elements,
+// please forgive the !importants
+.form-letter {
+  // Restore margin & padding
+  ul {
+    margin-left: 1em;
+    padding-left: 1em;
+  }
+
+  h1 {
+    margin-top: 1em !important;
+    margin-bottom: 0.5em !important;
+    font-family: family('heading');
+    border-bottom: 0 !important;
+
+    &::after {
+      content: '';
+      display: block;
+      margin-top: 0.2em;
+      border: 2px solid color($theme-color-warning);
+      border-radius: 2px;
+      background: color($theme-color-warning);
+      width: 25px;
+    }
+  }
+
+  h2 {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-family: family('heading');
+    color: color($theme-color-primary-darker);
   }
 }
 
