@@ -279,6 +279,12 @@ body.is-modal {
     margin-top: 0.5rem;
   }
 
+  /* Break long links */
+  #external-link--address {
+    word-wrap: break-word;
+    word-break: break-word;
+  }
+
   #external-link--cancel {
     &:focus {
       color: color($theme-color-primary-darker) !important;
