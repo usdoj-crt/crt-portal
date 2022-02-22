@@ -67,3 +67,24 @@ class ResponseList(generics.ListAPIView):
     queryset = ResponseTemplate.objects.all()
     serializer_class = ResponseTemplateSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+class ResponseDetail(generics.RetrieveAPIView):
+    queryset = ResponseTemplate.objects.all()
+    serializer_class = ResponseTemplateSerializer
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, *args, **kwargs):
+        template = self.get_object()
+        serializer = self.get_serializer(template)
+        # Makes a copy of the serialized data so it can be updated
+        serialized_data = serializer.data
+        # If a `?report_id=<pk>` is provided, then render the letter content
+        # with the given report details
+        report_pk = request.query_params.get('report_id')
+        if report_pk:
+            report = Report.objects.filter(pk=report_pk).first()
+            serialized_data['url'] = serialized_data['url'] + '?report_id=' + report_pk
+            serialized_data['subject'] = template.render_subject(report)
+            serialized_data['body'] = template.render_body(report)
+        return Response(serialized_data)

@@ -11,7 +11,12 @@ class ReportSerializer(serializers.ModelSerializer):
         model = Report
         fields = ['url', 'pk', 'viewed']
 
-class ResponseTemplateSerializer(serializers.HyperlinkedModelSerializer):
+
+class ResponseTemplateSerializer(serializers.ModelSerializer):
+    url = serializers.HyperlinkedIdentityField(
+        view_name='api:response-detail',
+    )
+
     class Meta:
         model = ResponseTemplate
-        fields = ['title', 'subject', 'body', 'language']
+        fields = ['url', 'pk', 'title', 'subject', 'body', 'language', 'is_html']
