@@ -86,24 +86,32 @@
     send_email.setAttribute('disabled', 'disabled');
   };
 
-  var description = document.getElementById('intake_description');
-  var options = document.getElementById('intake_select');
-  options.onchange = function(event) {
+  const description = document.getElementById('intake_description');
+  const options = document.getElementById('intake_select');
+  const reportId = document.getElementById('template-report-id').value;
+  options.addEventListener('change', function(event) {
     event.preventDefault();
-    var index = event.target.selectedIndex;
-    var option = event.target.options[index];
+    const index = event.target.selectedIndex;
+    const option = event.target.options[index];
+    const value = event.target.value;
+    window
+      .fetch('/api/responses/' + value + '/?report_id=' + reportId)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(data) {
+        description.innerHTML = data.subject || '(select a response template)';
+        if (data.is_html) {
+          letter.hidden = true;
+          letter_html.hidden = false;
+          letter_html.innerHTML = marked.parse(data.body || '');
+        } else {
+          letter_html.hidden = true;
+          letter.hidden = false;
+          letter.innerHTML = data.body || '';
+        }
+      });
     addReferralAddress(option);
-    description.innerHTML = option.dataset['description'] || '(select a response template)';
-    var isHtml = option.dataset['is_html'] !== undefined;
-    if (isHtml) {
-      letter.hidden = true;
-      letter_html.hidden = false;
-      letter_html.innerHTML = marked.parse(option.dataset['content'] || '');
-    } else {
-      letter_html.hidden = true;
-      letter.hidden = false;
-      letter.innerHTML = option.dataset['content'] || '';
-    }
     if (index >= 1) {
       copy.removeAttribute('disabled');
       print.removeAttribute('disabled');
@@ -113,7 +121,7 @@
     } else {
       reset();
     }
-  };
+  });
 
   var setLanguageCookie = function(lang) {
     document.cookie = 'form-letter-language' + '=' + lang;
