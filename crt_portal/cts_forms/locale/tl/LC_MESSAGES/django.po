@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-28 15:24+0000\n"
+"POT-Creation-Date: 2022-02-08 18:40+0000\n"
 "Language: Tagalog\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -494,7 +494,7 @@ msgstr ""
 "kabilang dito ang pagbabanta sa pisikal na pananakit, pagpipigil sa "
 "ipinangakong mga sahod, o pagsasa-ilalim sa huwad na kontrata sa trabaho"
 
-#: model_variables.py:127 templates/landing.html:260
+#: model_variables.py:127 templates/landing.html:263
 msgid "Age"
 msgstr "Edad"
 
@@ -537,11 +537,11 @@ msgstr "Pambansang pinagmulan (kabilang ang ninuno at etnisidad)"
 msgid "Pregnancy"
 msgstr "Pagbubuntis"
 
-#: model_variables.py:136 templates/landing.html:253
+#: model_variables.py:136 templates/landing.html:256
 msgid "Race/color"
 msgstr "Lahi/kulay"
 
-#: model_variables.py:137 templates/landing.html:255
+#: model_variables.py:137 templates/landing.html:258
 msgid "Religion"
 msgstr "Relihiyon"
 
@@ -1396,7 +1396,7 @@ msgstr ""
 "Kami ay tumatanggap at aktibong sumusuri ng maraming mga kahilingan ng sabay-"
 "sabay."
 
-#: templates/forms/confirmation.html:134 templates/landing.html:356
+#: templates/forms/confirmation.html:134 templates/landing.html:359
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1773,7 +1773,7 @@ msgstr ""
 "ng trabaho, o pagsapilitan o pagpilit na makisali sa mga gawaing sekswal "
 "bilang kapalit sa isang bagay na may halaga."
 
-#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:230
+#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:233
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr ""
 "Humingi ng tulong mula sa Pambansang Hotline sa Panlilinlang ng mga Tao"
@@ -1830,7 +1830,7 @@ msgstr ""
 "Kung naniniwala ka na ang iyong mga karapatang sibil o ng ibang tao ay "
 "nalabag, magsumite ng ulat gamit ang aming online na pormularyo."
 
-#: templates/landing.html:91 templates/landing.html:329
+#: templates/landing.html:91 templates/landing.html:332
 msgid "Start a report"
 msgstr "Mag-umpisa ng isang ulat"
 
@@ -1971,10 +1971,14 @@ msgid "Examples"
 msgstr "Mga halimbawa"
 
 #: templates/landing.html:230
+msgid "Get help for hate crimes"
+msgstr "Humingi ng tulong para sa mga krimen ng pagka-poot"
+
+#: templates/landing.html:233
 msgid "Were you forced to work against your will?"
 msgstr "Pinilit ka bang magtrabaho ng laban sa iyong kalooban?"
 
-#: templates/landing.html:239
+#: templates/landing.html:242
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
@@ -1983,17 +1987,17 @@ msgstr ""
 "\"#crt-landing--reporting\">kung paano mag-ulat ng isang paglabag sa mga "
 "karapatang sibil</a>."
 
-#: templates/landing.html:249
+#: templates/landing.html:252
 msgid "Protected by civil rights laws"
 msgstr "Protektado ng mga batas sa mga karapatang sibil"
 
-#: templates/landing.html:251
+#: templates/landing.html:254
 msgid "These are the most common characteristics that are legally protected."
 msgstr ""
 "Ang mga ito ay ang pinaka-karaniwang mga katangian na ligal na "
 "pinoprotektahan."
 
-#: templates/landing.html:254
+#: templates/landing.html:257
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
@@ -2001,15 +2005,15 @@ msgstr ""
 "Kapansanan <span class=\"crt-landing--protected\">kabilang ang panandalian o "
 "habang nagpapagaling</span>"
 
-#: templates/landing.html:256
+#: templates/landing.html:259
 msgid "Sex, gender identity, and sexual orientation"
 msgstr "Kasarian, pagkakakilanlan ng kasarian, at orientasyong sekswal"
 
-#: templates/landing.html:257
+#: templates/landing.html:260
 msgid "Immigration/citizenship status"
 msgstr "Katayuan sa Imigrasyon / Pagkamamamayan"
 
-#: templates/landing.html:258
+#: templates/landing.html:261
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
@@ -2017,7 +2021,7 @@ msgstr ""
 "Wika at pambansang pinagmulan <span class=\"crt-landing--protected"
 "\">kabilang ang pinagnunuan at etnisidad</span>"
 
-#: templates/landing.html:259
+#: templates/landing.html:262
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
@@ -2025,19 +2029,19 @@ msgstr ""
 "Katayuan ng pamilya, pag-aasawa, o pagiging magulang <span class=\"crt-"
 "landing--protected\">kabilang ang pagbubuntis</span>"
 
-#: templates/landing.html:261
+#: templates/landing.html:264
 msgid "Genetic identification"
 msgstr "Pagkakakilanlan ng genetika"
 
-#: templates/landing.html:262
+#: templates/landing.html:265
 msgid "Servicemember status"
 msgstr "Katayuan sa miyembro ng serbisyo"
 
-#: templates/landing.html:276
+#: templates/landing.html:279
 msgid "How to report a civil rights violation"
 msgstr "Paano mag-ulat ng isang paglabag sa mga karapatang sibil"
 
-#: templates/landing.html:281
+#: templates/landing.html:284
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
@@ -2046,11 +2050,11 @@ msgstr ""
 "diskriminasyon, maaari kang mag-ulat ng isang paglabag sa mga karapatang "
 "sibil."
 
-#: templates/landing.html:290
+#: templates/landing.html:293
 msgid "Report using our online form."
 msgstr "Mag-ulat gamit ang aming online na pormularyo."
 
-#: templates/landing.html:291
+#: templates/landing.html:294
 msgid ""
 "By completing the online form, you can provide the details we need to "
 "understand what happened. You will receive a confirmation number and your "
@@ -2061,11 +2065,11 @@ msgstr ""
 "Makakatanggap ka ng numero bilang kumpirmasyon at ang iyong ulat ay agad na "
 "maipapadala sa aming kawani upang masuri."
 
-#: templates/landing.html:299
+#: templates/landing.html:302
 msgid "We review your report."
 msgstr "Sinusuri namin ang iyong ulat."
 
-#: templates/landing.html:300
+#: templates/landing.html:303
 msgid ""
 "Teams that specialize in handling your type of issue will review it. If it "
 "needs to be forwarded to another team or agency, we will try to connect your "
@@ -2075,11 +2079,11 @@ msgstr ""
 "susuriin ito. Kung kinakailangang ipasa ito sa ibang koponan o ahensya, "
 "susubukan naming ikonekta ang iyong reklamo sa tamang pangkat."
 
-#: templates/landing.html:308
+#: templates/landing.html:311
 msgid "We determine next steps and get back to you."
 msgstr "Tinutukoy namin ang mga susunod na hakbang at babalikan ka namin."
 
-#: templates/landing.html:309
+#: templates/landing.html:312
 msgid ""
 "Possible outcomes include: following up for more information, starting a "
 "mediation or investigation, directing you to another organization for "
@@ -2090,13 +2094,13 @@ msgstr ""
 "ididirekta ka sa ibang samahan para sa karagdagang tulong, o ipapaalam sa "
 "iyo na hindi kami makakatulong."
 
-#: templates/landing.html:328
+#: templates/landing.html:331
 msgid "Have you or someone you know experienced a civil rights violation?"
 msgstr ""
 "Ikaw ba o isang kakilala mo ay nakaranas ng isang paglabag sa mga karapatang "
 "sibil?"
 
-#: templates/landing.html:334
+#: templates/landing.html:337
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
@@ -2106,15 +2110,15 @@ msgstr ""
 "footer\">tumawag</a> upang mag-ulat ng isang paglabag o mag-ulat ng isang "
 "paglabag sa pamamagitan ng <a href=\"#address-footer\">koreo</a>."
 
-#: templates/landing.html:344
+#: templates/landing.html:347
 msgid "Already submitted a report?"
 msgstr "Nagsumite na ng ulat?"
 
-#: templates/landing.html:347
+#: templates/landing.html:350
 msgid "Here's what to expect."
 msgstr "Ito ang aasahan."
 
-#: templates/landing.html:351
+#: templates/landing.html:354
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
@@ -2127,22 +2131,22 @@ msgstr ""
 "aming pagsusuri. Subalit, maaaring hindi namin palaging maibibigay sa iyo "
 "ang mga pinakabagong impormasyon dahil:"
 
-#: templates/landing.html:353
+#: templates/landing.html:356
 msgid ""
 "We're actively working on an investigation or case related to your report."
 msgstr ""
 "Kami ay aktibong nagsasagawa ng pagsisiyasat o kaso na kaugnay sa iyong ulat."
 
-#: templates/landing.html:354
+#: templates/landing.html:357
 msgid "We're receiving and actively reviewing many reports at the same time."
 msgstr ""
 "Kami ay tumatanggap at aktibong sumusuri ng maraming mga ulat ng sabay-sabay."
 
-#: templates/landing.html:361
+#: templates/landing.html:364
 msgid "Need urgent legal help?"
 msgstr "Nangangailangan ng kagyat na ligal na tulong?"
 
-#: templates/landing.html:363
+#: templates/landing.html:366
 msgid ""
 "Due to the amount of reports we receive, it can take several weeks for us to "
 "respond to your issue. Local legal aid offices or lawyers in your area may "
@@ -2153,7 +2157,7 @@ msgstr ""
 "ligal na tulong o mga abogado sa iyong lugar ay maaaring tumugon ng "
 "mabilisan o tumulong sa iyong pagkabahala"
 
-#: templates/landing.html:364
+#: templates/landing.html:367
 msgid ""
 "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
 "aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
@@ -2165,7 +2169,7 @@ msgstr ""
 "\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> o tawagan "
 "ang <a href=\"tel:202-295-1500\">(202) 295-1500</a>."
 
-#: templates/landing.html:365
+#: templates/landing.html:368
 msgid ""
 "Or visit <a class=\"external-link--blue external-link--popup\" aria-label="
 "\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
@@ -2178,36 +2182,37 @@ msgstr ""
 "285-2221</a> upang humanap ng isang abogado sa pamamagitan ng American Bar "
 "Association."
 
-#: templates/landing.html:379
+#: templates/landing.html:382
 msgid "Image attributions"
 msgstr "Mga katangian ng imahe"
 
 #: templates/partials/banner/usa_banner_content.html:7
-msgid "The .gov means it’s official."
-msgstr "Ang .gov ay nangangahulugan na ito ay opisyal."
+msgid "Official websites use .gov"
+msgstr "Ginagamit ng opisyal na mga pahinarya ang .gov"
 
 #: templates/partials/banner/usa_banner_content.html:8
 msgid ""
-"Federal government websites often end in .gov or .mil. Before sharing "
-"sensitive information, make sure you’re on a federal government site."
+"A <strong>.gov</strong> website belongs to an official government "
+"organization in the United States."
 msgstr ""
-"Ang mga website ng gobyernong pampederal ay kadalasang nagtatapos sa .gov o ."
-"mil. Bago ibahagi ang sensitibong impormasyon, siguraduhin na ikaw ay nasa "
-"sityo ng gobyernong pampederal."
+"Ang isang pahinarya na <strong>.gov</strong> ay kabilang sa isang opisyal na "
+"organisasyon ng pamahalaan sa Estados Unidos."
 
 #: templates/partials/banner/usa_banner_content.html:16
-msgid "The site is secure."
-msgstr "Ang sityo ay ligtas."
+msgid "Secure .gov websites use HTTPS"
+msgstr "Ang ligtas na mga pahinarya na .gov ay gumagamit ng HTTPS"
 
-#: templates/partials/banner/usa_banner_content.html:17
+#: templates/partials/banner/usa_banner_content.html:18
+msgid "A <strong>lock</strong> ("
+msgstr "Ang isang <strong>kandado</strong> ("
+
+#: templates/partials/banner/usa_banner_content.html:20
 msgid ""
-"The <strong>https://</strong> ensures that you are connecting to the "
-"official website and that any information you provide is encrypted and "
-"transmitted securely."
+") or <strong>https://</strong> means you’ve safely connected to the .gov "
+"website. Share sensitive information only on official, secure websites."
 msgstr ""
-"Ang <strong>https://</strong> ay nakatitiyak na ikaw ay kumukonekta sa "
-"opisyal na website at anumang impormasyon na ibigay mo ay naka-encrypt at "
-"ligtas na maipapadala."
+") o <strong>https://</strong> ay nakakonekta sa pahinaryang .gov. Magbahagi "
+"lamang ng sensitibong impormasyon sa opisyal, ligtas na mga pahinarya."
 
 #: templates/partials/banner/usa_banner_header.html:9
 msgid "An official website of the United States government"

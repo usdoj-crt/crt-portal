@@ -761,6 +761,12 @@ ul.messages {
   }
 }
 
+#search-notification {
+  display: none;
+  margin-top: -1rem;
+  margin-bottom: 2rem;
+}
+
 /* Match combo box input styling with other filters */
 .crt-combo-box-filter {
   width: 15rem; /* Hard code width to fix situation where input would expand when an item is selected */

@@ -95,6 +95,7 @@ INSTALLED_APPS = [
     'formtools',
     # 'django_auth_adfs' in production only
     'crequest',
+    'rest_framework',
     'tms'
 ]
 SITE_ID = 1
@@ -452,7 +453,7 @@ LOGGING = {
             'handlers': ['console'],
             'level': 'INFO',
             'propagate': False,  # this tells logger to send logging message
-                                 # to its parent (will send if set to True)
+            # to its parent (will send if set to True)
         },
         'django.db': {
             # django also has database level logging
@@ -483,3 +484,8 @@ if ENABLE_DEBUG_TOOLBAR:
     INSTALLED_APPS += ['debug_toolbar', ]
     MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware', ] + MIDDLEWARE
     DEBUG_TOOLBAR_CONFIG = {'SHOW_TOOLBAR_CALLBACK': lambda _: True}
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}

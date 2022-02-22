@@ -4,7 +4,7 @@ from faker import Faker
 fake = Faker()
 
 # can't use lazy translated strings outside of django
-SECTIONS = ['ADM', 'APP', 'CRM', 'DRS', 'ELS', 'EOS', 'FCS', 'HCE', 'IER', 'SPL', 'VOT']
+SECTIONS = ['ADM', 'APP', 'CRM', 'DRS', 'ELS', 'EOS', 'FCS', 'HCE', 'IER', 'POL', 'SPL', 'VOT']
 STATUSES = ['new', 'open', 'closed']
 STATES = [
     "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA",

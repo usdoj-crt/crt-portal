@@ -80,7 +80,9 @@ urlpatterns = auth + [
     ), name='crt_report_form'),
     path('privacy-policy', TemplateView.as_view(template_name="privacy.html"), name='privacy_policy'),
     path('hate-crime-human-trafficking', TemplateView.as_view(template_name="hate_crime_human_trafficking.html"), name='hate_crime_human_trafficking'),
+    path('resources/housing', TemplateView.as_view(template_name="hce_resources.html"), name='hce_resources'),
     path('', LandingPageView.as_view(), name='crt_landing_page'),
+    path('api/', include('api.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler400 = 'cts_forms.views_public.error_400'

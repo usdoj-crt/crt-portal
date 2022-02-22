@@ -1,9 +1,11 @@
 # Class to handle filtering Reports by supplied query params,
 # provided they are valid filterable model properties.
+import re
 import urllib.parse
 from datetime import datetime
 
 from django.contrib.postgres.search import SearchQuery
+from django.db import connection
 
 from .models import Report, User
 from actstream import registry
@@ -128,11 +130,8 @@ def report_filter(querydict):
             elif filter_options[field] == '__gte':
                 kwargs[field] = querydict.getlist(field)
             elif filter_options[field] == 'violation_summary':
-                combined_or_list = []
-                for vs_filter in filter_list:
-                    combined_or_list += vs_filter.split(" OR ")
-                combined_or_search = _combine_term_searches_with_or(combined_or_list)
-                qs = qs.filter(violation_summary_search_vector=combined_or_search)
+                search_query = querydict.getlist(field)[0]
+                qs = qs.filter(violation_summary_search_vector=_make_search_query(search_query))
     qs = qs.filter(**kwargs)
     return qs, filters
 
@@ -167,10 +166,29 @@ def dashboard_filter(querydict):
     return filters, filtered_actions
 
 
-def _combine_term_searches_with_or(terms):
-    """Create a CombinedSearchQuery of all received search terms"""
-    combined_search = SearchQuery(terms.pop(), config='english')
-    for term in terms:
-        combined_search = combined_search | SearchQuery(term, config='english')
+def _make_search_query(search_text):
+    # Websearch will drop parentheses from query. So if a set of parentheses is
+    # detected, we attempt to convert it to a tsquery
+    if '(' in search_text and ')' in search_text:
+        search_text = search_text.replace(' AND ', ' & ')
+        search_text = search_text.replace(' OR ', ' | ')
+        search_text = search_text.replace(' -', ' !')
+        # In between search tokens that don't have operators, insert &
+        # e.g. "foo -(bar | baz qux)" => "foo & !(bar | baz & qux)"
+        search_text = re.sub('([a-zA-Z)"]) ([a-zA-Z("!])', r'\1 & \2', search_text)
+        # Note: the only search type we don't handle here are exact phrase quotes.
+        with connection.cursor() as cursor:
+            try:
+                # This can still create syntax errors, so we ask the db to validate the
+                # query for us. This query only parses the input, it doesn't incur the
+                # performance hit of executing the search twice. If the query isn't
+                # valid, we catch the error and execute a websearch instead, which is
+                # more forgiving with syntax errors.
+                cursor.execute("SELECT to_tsquery('english', %s);", [search_text])
+                query = SearchQuery(search_text, config='english', search_type='raw')
+            except Exception:  # catch *all* exceptions
+                query = SearchQuery(search_text, config='english', search_type='websearch')
+    else:
+        query = SearchQuery(search_text, config='english', search_type='websearch')
 
-    return combined_search
+    return query

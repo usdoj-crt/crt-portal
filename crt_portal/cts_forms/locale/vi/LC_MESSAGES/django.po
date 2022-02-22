@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-28 15:24+0000\n"
+"POT-Creation-Date: 2022-02-08 18:40+0000\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -479,7 +479,7 @@ msgstr ""
 "các mối đe dọa gây tổn hại về thể chất, giữ lại tiền lương đã hứa, hoặc bị "
 "giam chân trong một hợp đồng làm việc giả mạo"
 
-#: model_variables.py:127 templates/landing.html:260
+#: model_variables.py:127 templates/landing.html:263
 msgid "Age"
 msgstr "Tuổi"
 
@@ -522,11 +522,11 @@ msgstr "Quốc gia xuất xứ (bao gồm tổ tiên và dân tộc)"
 msgid "Pregnancy"
 msgstr "Mang thai"
 
-#: model_variables.py:136 templates/landing.html:253
+#: model_variables.py:136 templates/landing.html:256
 msgid "Race/color"
 msgstr "Chủng tộc/màu da"
 
-#: model_variables.py:137 templates/landing.html:255
+#: model_variables.py:137 templates/landing.html:258
 msgid "Religion"
 msgstr "Tôn giáo"
 
@@ -1365,7 +1365,7 @@ msgstr ""
 msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr "Chúng tôi đang nhận và tích cực đánh giá nhiều yêu cầu cùng một lúc."
 
-#: templates/forms/confirmation.html:134 templates/landing.html:356
+#: templates/forms/confirmation.html:134 templates/landing.html:359
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1740,7 +1740,7 @@ msgstr ""
 "buộc hay cưỡng bức thực hiện hành vi tình dục để được một thứ gì đó có giá "
 "trị."
 
-#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:230
+#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:233
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "Nhận sự giúp đỡ từ Đường Dây Nóng Chống Buôn Người Toàn Quốc"
 
@@ -1794,7 +1794,7 @@ msgstr ""
 "Nếu quý vị tin rằng dân quyền của mình hoặc của người khác đã bị vi phạm, "
 "hãy gửi báo cáo bằng cách sử dụng mẫu trực tuyến của chúng tôi."
 
-#: templates/landing.html:91 templates/landing.html:329
+#: templates/landing.html:91 templates/landing.html:332
 msgid "Start a report"
 msgstr "Bắt đầu báo cáo"
 
@@ -1928,10 +1928,14 @@ msgid "Examples"
 msgstr "Các ví dụ"
 
 #: templates/landing.html:230
+msgid "Get help for hate crimes"
+msgstr "Nhận sự giúp đỡ khi gặp phải những hành vi phạm tội do thù hận"
+
+#: templates/landing.html:233
 msgid "Were you forced to work against your will?"
 msgstr "Quý vị có bị ép buộc phải làm việc trái ý mình không?"
 
-#: templates/landing.html:239
+#: templates/landing.html:242
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
@@ -1939,15 +1943,15 @@ msgstr ""
 "Nếu quý vị cho rằng mình đã trải qua trường hợp tương tự, hãy tìm hiểu <a "
 "href=\"#crt-landing--reporting\">cách báo cáo hành vi vi phạm dân quyền</a>."
 
-#: templates/landing.html:249
+#: templates/landing.html:252
 msgid "Protected by civil rights laws"
 msgstr "Được các luật dân quyền bảo vệ"
 
-#: templates/landing.html:251
+#: templates/landing.html:254
 msgid "These are the most common characteristics that are legally protected."
 msgstr "Đây là những đặc điểm chung nhất được bảo vệ hợp pháp."
 
-#: templates/landing.html:254
+#: templates/landing.html:257
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
@@ -1955,15 +1959,15 @@ msgstr ""
 "Tình trạng khuyết tật <span class=\"crt-landing--protected\">bao gồm tạm "
 "thời hoặc đang phục hồi</span>"
 
-#: templates/landing.html:256
+#: templates/landing.html:259
 msgid "Sex, gender identity, and sexual orientation"
 msgstr "Giới tính, nhận dạng giới tính, và xu hướng tình dục"
 
-#: templates/landing.html:257
+#: templates/landing.html:260
 msgid "Immigration/citizenship status"
 msgstr "Tình trạng nhập cư/tư cách công dân"
 
-#: templates/landing.html:258
+#: templates/landing.html:261
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
@@ -1971,7 +1975,7 @@ msgstr ""
 "Ngôn ngữ và quốc gia xuất xứ <span class=\"crt-landing--protected\">bao gồm "
 "tổ tiên và dân tộc</span>"
 
-#: templates/landing.html:259
+#: templates/landing.html:262
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
@@ -1979,19 +1983,19 @@ msgstr ""
 "Tình trạng gia đình, hôn nhân, hay làm cha mẹ <span class=\"crt-landing--"
 "protected\">bao gồm cả tình trạng mang thai</span>"
 
-#: templates/landing.html:261
+#: templates/landing.html:264
 msgid "Genetic identification"
 msgstr "Nhận dạng di truyền"
 
-#: templates/landing.html:262
+#: templates/landing.html:265
 msgid "Servicemember status"
 msgstr "Tình trạng quân vụ"
 
-#: templates/landing.html:276
+#: templates/landing.html:279
 msgid "How to report a civil rights violation"
 msgstr "Cách báo cáo một hành vi vi phạm dân quyền"
 
-#: templates/landing.html:281
+#: templates/landing.html:284
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
@@ -1999,11 +2003,11 @@ msgstr ""
 "Nếu quý vị tin rằng quý vị hoặc người khác đã bị phân biệt đối xử bất hợp "
 "pháp, quý vị có thể báo cáo một hành vi vi phạm dân quyền."
 
-#: templates/landing.html:290
+#: templates/landing.html:293
 msgid "Report using our online form."
 msgstr "Báo cáo bằng cách sử dụng mẫu trực tuyến của chúng tôi."
 
-#: templates/landing.html:291
+#: templates/landing.html:294
 msgid ""
 "By completing the online form, you can provide the details we need to "
 "understand what happened. You will receive a confirmation number and your "
@@ -2014,11 +2018,11 @@ msgstr ""
 "nhận và báo cáo của quý vị ngay lập tức được gửi đến nhân viên của chúng tôi "
 "để đánh giá."
 
-#: templates/landing.html:299
+#: templates/landing.html:302
 msgid "We review your report."
 msgstr "Chúng tôi sẽ đánh giá báo cáo của quý vị."
 
-#: templates/landing.html:300
+#: templates/landing.html:303
 msgid ""
 "Teams that specialize in handling your type of issue will review it. If it "
 "needs to be forwarded to another team or agency, we will try to connect your "
@@ -2028,11 +2032,11 @@ msgstr ""
 "vụ việc cần được chuyển tiếp đến một nhóm hoặc cơ quan khác, chúng tôi sẽ cố "
 "gắng kết nối khiếu nại của quý vị với đúng nhóm."
 
-#: templates/landing.html:308
+#: templates/landing.html:311
 msgid "We determine next steps and get back to you."
 msgstr "Chúng tôi xác định các bước tiếp theo và liên hệ lại với quý vị."
 
-#: templates/landing.html:309
+#: templates/landing.html:312
 msgid ""
 "Possible outcomes include: following up for more information, starting a "
 "mediation or investigation, directing you to another organization for "
@@ -2042,13 +2046,13 @@ msgstr ""
 "hòa giải hoặc điều tra, chuyển quý vị đến một tổ chức khác để được trợ giúp "
 "thêm hoặc thông báo cho quý vị rằng chúng tôi không thể giúp đỡ."
 
-#: templates/landing.html:328
+#: templates/landing.html:331
 msgid "Have you or someone you know experienced a civil rights violation?"
 msgstr ""
 "Quý vị hoặc một người nào đó mà quý vị biết có từng bị vi phạm dân quyền "
 "không?"
 
-#: templates/landing.html:334
+#: templates/landing.html:337
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
@@ -2058,15 +2062,15 @@ msgstr ""
 "\"#phone-footer\">gọi điện</a> để báo cáo hành vi vi phạm hoặc báo cáo hành "
 "vi vi phạm qua <a href=\"#address-footer\">thư</a>."
 
-#: templates/landing.html:344
+#: templates/landing.html:347
 msgid "Already submitted a report?"
 msgstr "Quý vị đã gửi báo cáo?"
 
-#: templates/landing.html:347
+#: templates/landing.html:350
 msgid "Here's what to expect."
 msgstr "Dưới đây là những việc sẽ xảy ra."
 
-#: templates/landing.html:351
+#: templates/landing.html:354
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
@@ -2079,22 +2083,22 @@ msgstr ""
 "tôi. Tuy nhiên, không phải lúc nào chúng tôi cũng có thể cung cấp cho quý vị "
 "các thông tin cập nhật vì:"
 
-#: templates/landing.html:353
+#: templates/landing.html:356
 msgid ""
 "We're actively working on an investigation or case related to your report."
 msgstr ""
 "Chúng tôi đang tích cực tiến hành một cuộc điều tra hoặc đang xử lý một "
 "trường hợp liên quan đến báo cáo của quý vị."
 
-#: templates/landing.html:354
+#: templates/landing.html:357
 msgid "We're receiving and actively reviewing many reports at the same time."
 msgstr "Chúng tôi đang nhận và tích cực đánh giá nhiều báo cáo cùng một lúc."
 
-#: templates/landing.html:361
+#: templates/landing.html:364
 msgid "Need urgent legal help?"
 msgstr "Quý vị cần hỗ trợ pháp lý khẩn cấp?"
 
-#: templates/landing.html:363
+#: templates/landing.html:366
 msgid ""
 "Due to the amount of reports we receive, it can take several weeks for us to "
 "respond to your issue. Local legal aid offices or lawyers in your area may "
@@ -2105,7 +2109,7 @@ msgstr ""
 "hoặc luật sư trong khu vực của quý vị có thể nhanh chóng hồi đáp hoặc giúp "
 "đỡ quý vị về mối quan ngại của quý vị"
 
-#: templates/landing.html:364
+#: templates/landing.html:367
 msgid ""
 "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
 "aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
@@ -2117,7 +2121,7 @@ msgstr ""
 "\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> hoặc gọi "
 "<a href=\"tel:202-295-1500\">(202) 295-1500</a>."
 
-#: templates/landing.html:365
+#: templates/landing.html:368
 msgid ""
 "Or visit <a class=\"external-link--blue external-link--popup\" aria-label="
 "\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
@@ -2129,36 +2133,38 @@ msgstr ""
 "findlegalhelp.org</a> hoặc gọi <a href=\"tel:800-285-2221\">(800) 285-2221</"
 "a> để tìm luật sư thông qua Hiệp hội Luật sư Hoa Kỳ."
 
-#: templates/landing.html:379
+#: templates/landing.html:382
 msgid "Image attributions"
 msgstr "Mô tả ảnh"
 
 #: templates/partials/banner/usa_banner_content.html:7
-msgid "The .gov means it’s official."
-msgstr ".Gov có nghĩa là chính thức."
+msgid "Official websites use .gov"
+msgstr "Những trang mạng chính thức sử dụng tên miền .gov"
 
 #: templates/partials/banner/usa_banner_content.html:8
 msgid ""
-"Federal government websites often end in .gov or .mil. Before sharing "
-"sensitive information, make sure you’re on a federal government site."
+"A <strong>.gov</strong> website belongs to an official government "
+"organization in the United States."
 msgstr ""
-"Các trang web của chính phủ liên bang thường kết thúc bằng .gov hoặc .mil. "
-"Trước khi chia sẻ thông tin nhạy cảm, hãy đảm bảo rằng quý vị đang ở trên "
-"trang web của chính phủ liên bang."
+"Trang mạng <strong>.gov</strong> thuộc một cơ quan chính thức của chính phủ "
+"tại Hoa Kỳ."
 
 #: templates/partials/banner/usa_banner_content.html:16
-msgid "The site is secure."
-msgstr "Trang web này được bảo mật."
+msgid "Secure .gov websites use HTTPS"
+msgstr "Các trang mạng an toàn có tên miền .gov sử dụng HTTPS"
 
-#: templates/partials/banner/usa_banner_content.html:17
+#: templates/partials/banner/usa_banner_content.html:18
+msgid "A <strong>lock</strong> ("
+msgstr "<strong>Biểu tượng ổ khóa</strong> ("
+
+#: templates/partials/banner/usa_banner_content.html:20
 msgid ""
-"The <strong>https://</strong> ensures that you are connecting to the "
-"official website and that any information you provide is encrypted and "
-"transmitted securely."
+") or <strong>https://</strong> means you’ve safely connected to the .gov "
+"website. Share sensitive information only on official, secure websites."
 msgstr ""
-"Giao thức <strong>https://</strong> đảm bảo rằng quý vị đang kết nối với "
-"trang web chính thức và mọi thông tin quý vị cung cấp đều được mã hóa và "
-"truyền đi một cách an toàn."
+") hoặc <strong>https://</strong> có nghĩa quý vị đã kết nối an toàn với "
+"trang mạng .gov. Chỉ chia sẻ những thông tin nhạy cảm trên những trang mạng "
+"chính thức và an toàn."
 
 #: templates/partials/banner/usa_banner_header.html:9
 msgid "An official website of the United States government"

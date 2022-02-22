@@ -226,8 +226,11 @@
                     <p>{{ example|safe }}</p>
                   {% endfor %}
                 </div>
+                <div hidden id="crt-landing--hate-crimes">
+                  <a href="./hate-crime-human-trafficking">{% trans "Get help for hate crimes" %}</a>
+                </div>
                 <div hidden id="crt-landing--humantrafficking">
-                  <a class="usa-button usa-button--outline" aria-label="{% trans "Were you forced to work against your will?" %} {% trans "Get help from the National Human Trafficking Hotline" %}" href=" https://humantraffickinghotline.org/">{% trans "Get help from the National Human Trafficking Hotline" %}
+                  <a aria-label="{% trans "Were you forced to work against your will?" %} {% trans "Get help from the National Human Trafficking Hotline" %}" href=" https://humantraffickinghotline.org/">{% trans "Get help from the National Human Trafficking Hotline" %}
                     <img src="{% static 'img/external_link.svg'%}" alt="external link" class="icon" />
                   </a>
                 </div>
@@ -416,6 +419,7 @@
      var helptext_field = document.getElementById("crt-landing--choice_helptext");
      var option_field = document.getElementById("crt-landing--example_option");
      var trafficking_button = document.getElementById("crt-landing--humantrafficking");
+     var hate_crimes_button = document.getElementById("crt-landing--hate-crimes")
      var el = document.getElementById("crt-landing--example-" + key);
      var helptext = el.dataset["helptext"];
      if (helptext) {
@@ -425,8 +429,13 @@
      }
      if (key === "human_trafficking") {
        trafficking_button.removeAttribute('hidden');
+       hate_crimes_button.setAttribute('hidden', 'hidden');
+     } else if (key === "hate_crime") {
+       hate_crimes_button.removeAttribute('hidden');
+       trafficking_button.setAttribute('hidden', 'hidden');
      } else {
        trafficking_button.setAttribute('hidden', 'hidden');
+       hate_crimes_button.setAttribute('hidden', 'hidden');
      }
      option_field.innerHTML = el.dataset["description"];
      let length = el.dataset.examplecount;

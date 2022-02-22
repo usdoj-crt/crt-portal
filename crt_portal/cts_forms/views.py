@@ -150,6 +150,14 @@ def setup_filter_parameters(report, querydict):
     return output
 
 
+def mark_report_as_viewed(report, user):
+    now = datetime.now()
+    description = f"Report viewed at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
+    add_activity(user, "Report viewed:", description, report)
+    report.viewed = True
+    report.save()
+
+
 def _format_date(date_string):
     if date_string:
         return datetime.strptime(date_string, '%Y-%m-%d')
@@ -431,11 +439,7 @@ class ShowView(LoginRequiredMixin, View):
         report = get_object_or_404(Report.objects.prefetch_related('attachments'), pk=id)
         output = serialize_data(report, request, id)
         if not report.viewed:
-            now = datetime.now()
-            description = f"Report viewed at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
-            add_activity(request.user, "Report viewed:", description, report)
-            report.viewed = True
-            report.save()
+            mark_report_as_viewed(report, request.user)
         contact_form = ContactEditForm(instance=report)
         details_form = ReportEditForm(instance=report)
         filter_output = setup_filter_parameters(report, request.GET)

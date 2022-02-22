@@ -453,6 +453,33 @@
     });
   }
 
+  function validateTextSearch(el) {
+    var buttonEl = document.getElementById('apply-filters-button');
+    var alertEl = document.getElementById('search-notification');
+    var textEl = alertEl.querySelector('.usa-alert__text');
+    var value = el.value;
+    if (value.includes('(') && value.includes(')') && value.includes('"')) {
+      buttonEl.setAttribute('disabled', '');
+      textEl.textContent =
+        '(Parentheses) and "quotation marks" cannot be used together in the same keyword search';
+      alertEl.style.display = 'inline-block';
+    } else {
+      buttonEl.removeAttribute('disabled');
+      textEl.textContent = '';
+      alertEl.style.display = 'none';
+    }
+  }
+
+  function initValidateTextSearch() {
+    var inputEl = document.getElementById('id_violation_summary');
+    // Validate immediately, in case field is pre-populated
+    validateTextSearch(inputEl);
+    // Then add an event listener to re-validate when input changes
+    inputEl.addEventListener('input', function(event) {
+      validateTextSearch(event.target);
+    });
+  }
+
   // Bootstrap the filter code's data persistence and
   // instantiate the controller that manages the UI components / views
   function init() {
@@ -468,6 +495,7 @@
     mutateFilterDataWithUpdates(filterDataModel, filterUpdates);
 
     filterController();
+    initValidateTextSearch();
   }
 
   window.addEventListener('DOMContentLoaded', init);

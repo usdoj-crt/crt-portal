@@ -1,20 +1,23 @@
 {% load static %}
 {% load i18n %}
 <div class="usa-banner__guidance tablet:grid-col-6">
-  <img class="usa-banner__icon usa-media-block__img" src="{% static "img/icon-dot-gov.svg" %}" role="img" alt="Dot gov">
+  <img class="usa-banner__icon usa-media-block__img" src="{% static "img/icon-dot-gov.svg" %}" role="img" alt="" aria-hidden="true">
   <div class="usa-media-block__body">
     <p>
-      <strong>{% trans "The .gov means it’s official." %}</strong>
-      <br>{% trans "Federal government websites often end in .gov or .mil. Before sharing sensitive information, make sure you’re on a federal government site." %}
+      <strong>{% trans "Official websites use .gov" %}</strong>
+      <br>{% trans "A <strong>.gov</strong> website belongs to an official government organization in the United States." %}
     </p>
   </div>
 </div>
 <div class="usa-banner__guidance tablet:grid-col-6">
-  <img class="usa-banner__icon usa-media-block__img" src="{% static "img/icon-https.svg" %}" role="img" alt="Https">
+  <img class="usa-banner__icon usa-media-block__img" src="{% static "img/icon-https.svg" %}" role="img" alt="" aria-hidden="true">
   <div class="usa-media-block__body">
     <p>
-      <strong>{% trans "The site is secure." %}</strong>
-      <br>{% trans "The <strong>https://</strong> ensures that you are connecting to the official website and that any information you provide is encrypted and transmitted securely." %}
+      <strong>{% trans "Secure .gov websites use HTTPS" %}</strong>
+      <br>
+      {% trans "A <strong>lock</strong> (" %}
+      {% include "partials/banner/usa_banner_lock_icon.html" %}
+      {% trans ") or <strong>https://</strong> means you’ve safely connected to the .gov website. Share sensitive information only on official, secure websites." %}
     </p>
   </div>
 </div>
