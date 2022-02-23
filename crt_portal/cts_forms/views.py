@@ -809,3 +809,15 @@ class TrendView(LoginRequiredMixin, TemplateView):
             'four_weeks': Trends.objects.filter(record_type='four_weeks'),
             'year': Trends.objects.filter(record_type='year'),
         }
+
+
+class SearchHelperView(LoginRequiredMixin, TemplateView):
+    """This shows advanced help text for the full-text search"""
+    def get(self, request):
+        return_url_args = request.GET.get('next', '')
+        return_url_args = urllib.parse.unquote(return_url_args)
+
+        output = {
+            'return_url_args': return_url_args,
+        }
+        return render(request, 'forms/complaint_view/search_help.html', output)

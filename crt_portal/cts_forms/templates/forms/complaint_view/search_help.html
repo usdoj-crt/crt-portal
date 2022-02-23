@@ -1,0 +1,85 @@
+{% extends "forms/complaint_view/intake_base.html" %}
+
+{% load static %}
+
+{% block page_title %}
+  <title>CRT Complaint Records - Search help</title>
+{% endblock %}
+
+{% block content %}
+<div class="intake-content">
+  <div class="grid-container-widescreen">
+    <div class="grid-row">
+      <div class="grid-col">
+        <div class="display-flex margin-bottom-4">
+          <a class="outline-button outline-button--dark" href="{% url 'crt_forms:crt-forms-index' %}{{ return_url_args }}">
+            <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" alt="back arrow" class="icon">
+            Back to all
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="grid-row">
+      <div class="grid-col">
+        <h2 class="intake-section-title">Search examples</h2>
+        <p>Here are some examples of using AND, OR, minus sign (-), “quotation marks”, and (parantheses) to search keywords in Personal Description:</p>
+      </div>
+    </div>
+    <div class="grid-row grid-gap display-flex flex-align-center usa-form">
+      <div class="tablet:grid-col-3">
+        <input type="text" name="search_example_1" class="usa-input border-0 margin-y-1" value="mask AND vaccine">
+      </div>
+      <div class="tablet:grid-col-fill">
+        Mask AND Vaccine: Gets results for reports with both words listed.
+      </div>
+    </div>
+    <div class="grid-row grid-gap display-flex flex-align-center usa-form">
+      <div class="tablet:grid-col-3">
+        <input type="text" name="search_example_1" class="usa-input border-0 margin-y-1" value="mask OR vaccine">
+      </div>
+      <div class="tablet:grid-col-fill">
+        Mask OR Vaccine: Gets results for reports with either of the words listed.
+      </div>
+    </div>
+    <div class="grid-row grid-gap display-flex flex-align-center usa-form">
+      <div class="tablet:grid-col-3">
+        <input type="text" name="search_example_1" class="usa-input border-0 margin-y-1" value="mask AND vaccine OR shot">
+      </div>
+      <div class="tablet:grid-col-fill">
+        Mask AND Vaccine OR Shot: Gets results for reports that include Mask and Vaccine and all reports that include Shot.
+      </div>
+    </div>
+    <div class="grid-row grid-gap display-flex flex-align-center usa-form">
+      <div class="tablet:grid-col-3">
+        <input type="text" name="search_example_1" class="usa-input border-0 margin-y-1" value="mask -vaccine">
+      </div>
+      <div class="tablet:grid-col-fill">
+        Mask -Vaccine: Gets results for report that include Mask and exclude Vaccine because of the minus signs (-).
+      </div>
+    </div>
+    <div class="grid-row grid-gap display-flex flex-align-center usa-form">
+      <div class="tablet:grid-col-3">
+        <input type="text" name="search_example_1" class="usa-input border-0 margin-y-1" value='"mask vaccine"'>
+      </div>
+      <div class="tablet:grid-col-fill">
+        “Mask Vaccine”: Gets results for reports with similar matching words in the quotation marks<sup>*</sup>.
+      </div>
+    </div>
+    <div class="grid-row grid-gap display-flex flex-align-center usa-form">
+      <div class="tablet:grid-col-3">
+        <input type="text" name="search_example_1" class="usa-input border-0 margin-y-1" value="mask and (vaccine OR shot)">
+      </div>
+      <div class="tablet:grid-col-fill">
+        Mask AND (Vaccine OR Shot): Gets results that have both Mark and Vaccine plus also reports with both Mask and Shot<sup>*</sup>.
+      </div>
+    </div>
+    <div class="grid-row">
+      <div class="grid-col">
+        <p>
+          <sup>*</sup>Disclaimer: Do not use (parantheses) and “quotation marks” in the same search. Results may be unexpected.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
