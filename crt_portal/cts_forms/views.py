@@ -473,7 +473,10 @@ class ShowView(LoginRequiredMixin, View):
 
             # Reset Assignee and Status if assigned_section is changed
             if 'assigned_section' in form.changed_data:
+                primary_statute = report.primary_statute
                 report.status_assignee_reset()
+                description = f'Updated from "{primary_statute}" to None'
+                add_activity(request.user, "Primary classification:", description, report)
 
             # District and location are on different forms so handled here.
             # If the incident location changes, update the district.

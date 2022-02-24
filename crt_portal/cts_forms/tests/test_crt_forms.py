@@ -729,6 +729,37 @@ class ReportActionTests(TestCase):
         self.report.refresh_from_db()
         self.assertEqual(self.report.assigned_to, None)
 
+    def test_change_section(self):
+        # After the second post, when the report is reassigned to a new section, the primary_statute
+        # should be reset
+        params_1 = {
+            'type': 'actions',
+            # Keep the same status as when the report was created.
+            'status': NEW_STATUS,
+            'assigned_to': '',
+            'assigned_section': 'ADM',
+            'primary_statute': '144'
+        }
+        url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
+        response = self.client.post(url, params_1, follow=True)
+        self.report.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.report.primary_statute, '144')
+        params_2 = {
+            'type': 'actions',
+            'status': NEW_STATUS,
+            'assigned_to': '',
+            'assigned_section': 'HCE',
+        }
+        response = self.client.post(url, params_2, follow=True)
+        self.report.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        first_activity = list(self.report.target_actions.all())[0]
+        second_activity = list(self.report.target_actions.all())[1]
+        self.assertEqual('Updated from "144" to ""', first_activity.description)
+        self.assertEqual('Updated from "ADM" to "HCE"', second_activity.description)
+        self.assertEqual(self.report.primary_statute, None)
+
 
 class BulkActionsTests(TestCase):
     def setUp(self):
