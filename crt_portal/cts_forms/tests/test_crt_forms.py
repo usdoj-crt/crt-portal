@@ -378,15 +378,11 @@ class ResponseActionTests(TestCase):
         # Add datetime without timezone to make sure its converted to EST
         self.report.create_date = datetime(2020, 12, 31, 23, 0, 0)
         self.report.save()
-        response = self.client.post(
+        response = self.client.get(
             reverse(
-                'crt_forms:crt-forms-response',
-                kwargs={'id': self.report.id},
-            ),
-            {
-                'next': '?per_page=15',
-            },
-            follow=True
+                'api:response-detail',
+                kwargs={'pk': 1},
+            ) + f"?report_id={self.report.id}"
         )
         self.assertEqual(response.status_code, 200)
         content = str(response.content)
@@ -398,15 +394,11 @@ class ResponseActionTests(TestCase):
         self.report.create_date = datetime(2020, 12, 31, 23, 0, 0)
         self.report.intake_format = 'web'
         self.report.save()
-        response = self.client.post(
+        response = self.client.get(
             reverse(
-                'crt_forms:crt-forms-response',
-                kwargs={'id': self.report.id},
-            ),
-            {
-                'next': '?per_page=15',
-            },
-            follow=True
+                'api:response-detail',
+                kwargs={'pk': 1},
+            ) + f"?report_id={self.report.id}"
         )
         self.assertEquals(response.status_code, 200)
         content = str(response.content)
@@ -419,15 +411,11 @@ class ResponseActionTests(TestCase):
         self.report.crt_reciept_day = None
         self.report.intake_format = 'fax'
         self.report.save()
-        response = self.client.post(
+        response = self.client.get(
             reverse(
-                'crt_forms:crt-forms-response',
-                kwargs={'id': self.report.id},
-            ),
-            {
-                'next': '?per_page=15',
-            },
-            follow=True
+                'api:response-detail',
+                kwargs={'pk': 1},
+            ) + f"?report_id={self.report.id}"
         )
         self.assertEquals(response.status_code, 200)
         content = str(response.content)
@@ -439,15 +427,11 @@ class ResponseActionTests(TestCase):
         self.report.create_date = datetime(2020, 12, 31, 23, 0, 0)
         self.report.intake_format = 'fax'
         self.report.save()
-        response = self.client.post(
+        response = self.client.get(
             reverse(
-                'crt_forms:crt-forms-response',
-                kwargs={'id': self.report.id},
-            ),
-            {
-                'next': '?per_page=15',
-            },
-            follow=True
+                'api:response-detail',
+                kwargs={'pk': 1},
+            ) + f"?report_id={self.report.id}"
         )
         self.assertEquals(response.status_code, 200)
         content = str(response.content)
