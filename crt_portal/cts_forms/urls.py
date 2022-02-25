@@ -1,7 +1,7 @@
 from django.urls import path
 
 from .views import (ActionsView, index_view, dashboard_view, ShowView, ProFormView,
-                    SaveCommentView, TrendView, ResponseView,
+                    SaveCommentView, TrendView, ResponseView, SearchHelperView,
                     PrintView, ProfileView, ReportAttachmentView, RemoveReportAttachmentView)
 from .forms import ProForm
 
@@ -15,6 +15,7 @@ urlpatterns = [
     path('view/<int:id>/attachments/<int:attachment_id>', ReportAttachmentView.as_view(), name='get-report-attachment'),
     path('view/', index_view, name='crt-forms-index'),
     path('view/update-profile', ProfileView.as_view(), name='cts-forms-profile'),
+    path('view/search-examples', SearchHelperView.as_view(), name='cts-forms-search-help'),
     path('new/', ProFormView.as_view([ProForm]), name='crt-pro-form'),
     path('actions/', ActionsView.as_view(), name='crt-forms-actions'),
     path('actions/print', PrintView.as_view(), name='crt-forms-print'),

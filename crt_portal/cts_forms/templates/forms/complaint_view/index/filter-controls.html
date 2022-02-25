@@ -38,17 +38,8 @@
     </div>
 
     <p>
-      Search on keywords in the Personal description field below. Separate key words with AND, OR to search on multiple keywords.
-      <span class="search-helper-tooltip">
-        <span class="usa-tooltip" data-position="right" title="<p>Here are some examples of using <b>AND, OR</b> to search keywords:</p>
-          <ul>
-            <li>Mask <b>AND</b> Vaccine: Gets results for reports with both words listed</li>
-            <li>Mask <b>OR</b> Vaccine: Gets results for reports with either of the words listed</li>
-            <li>Mask <b>AND</b> Vaccine <b>OR</b> Shot: Gets results for reports that include Mask and Vaccine and all reports that include Shot</li>
-          </ul>">
-          <img src="{% static 'img/error-blue.svg' %}" alt="More info" class="text-tbottom">
-        </span>
-      </span>
+      Search on keywords in the Personal Description field below. Use AND, OR, minus sign (-), “quotations”, or (parentheses) to search multiple keywords combinations.
+      <a href="{% url 'crt_forms:cts-forms-search-help' %}?next={{ return_url_args}}" class="text-no-wrap">View search examples</a>
     </p>
     <div class="intake-filters">
       {% include 'forms/complaint_view/index/filters/violation_summary_filter.html' %} <!-- Personal description -->
