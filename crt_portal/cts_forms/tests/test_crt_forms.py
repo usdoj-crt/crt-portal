@@ -982,7 +982,7 @@ class BulkActionsFormTests(TestCase):
 
         updates = form.get_updates()
         self.assertEqual(updates['assigned_section'], 'APP')
-        self.assertEqual(updates['primary_statute'], '')
+        self.assertEqual(updates['primary_statute'], None)
         self.assertEqual(updates['assigned_to'], '')
         self.assertEqual(updates['status'], 'new')
 
@@ -1010,7 +1010,7 @@ class BulkActionsFormTests(TestCase):
 
         updates = form.get_updates()
         self.assertEqual(updates['assigned_section'], 'APP')
-        self.assertEqual(updates['primary_statute'], '')
+        self.assertEqual(updates['primary_statute'], None)
         self.assertEqual(updates['assigned_to'], '')
         self.assertEqual(updates['status'], 'new')
 
