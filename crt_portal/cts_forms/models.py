@@ -375,6 +375,7 @@ class Report(models.Model):
         """
         self.assigned_to = None
         self.status = 'new'
+        self.primary_statute = None
 
     @cached_property
     def related_reports(self):
