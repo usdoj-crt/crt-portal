@@ -147,7 +147,7 @@ language: zh-hans
 
 美国律师协会
 
-    www.findlegalhelp.org
+    www.americanbar.org/groups/legal_services/flh-home
     致电联络：1-800-285-2221
 
 

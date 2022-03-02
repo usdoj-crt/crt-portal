@@ -20,7 +20,7 @@ For more information about the Housing Section and our work, [please visit our w
 
 For more information about credit, disability rights, housing rights, and more, [please visit our Housing related resource page](https://civilrights.justice.gov/housing-resources).
 
-You also may wish to consult a private attorney to determine what claims, if any, you may have under other federal and state laws.  If you do not have an attorney, you may find your [state bar association](https://www.findlegalhelp.org) or [local legal assistance agency](https://www.lsc.gov/find-legal-aid) helpful in locating an attorney to discuss your complaint.
+You also may wish to consult a private attorney to determine what claims, if any, you may have under other federal and state laws.  If you do not have an attorney, you may find your [state bar association](https://www.americanbar.org/groups/legal_services/flh-home/) or [local legal assistance agency](https://www.lsc.gov/find-legal-aid) helpful in locating an attorney to discuss your complaint.
 
 
 Sincerely,
