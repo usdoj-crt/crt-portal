@@ -98,9 +98,6 @@ $arrow-height: 24px;
   .grid-container {
     padding: 0;
     margin: 0;
-    .american-bar-link {
-      word-break: break-word;
-    }
   }
 
   .crt-landing--header_section {
@@ -704,4 +701,8 @@ $arrow-height: 24px;
   a {
     font-weight: bold;
   }
+}
+
+.american-bar-link {
+  word-break: break-word;
 }
