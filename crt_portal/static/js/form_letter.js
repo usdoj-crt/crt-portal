@@ -21,6 +21,9 @@
     // of the DRS letters
     const letterName = option.innerText.replace(/\(.+\)$/, '').trim();
     switch (letterName) {
+      case 'EOS - Department of Ed OCR Referral Form Letter':
+        addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.deptOfEd);
+        break;
       case 'DRS - Dept of Ed Referral Form Letter':
         addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.deptOfEd);
         break;
