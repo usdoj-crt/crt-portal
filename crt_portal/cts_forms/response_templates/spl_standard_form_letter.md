@@ -2,6 +2,7 @@
 title: SPL - Standard Form Letter
 subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from the Special Litigation Section"
 language: en
+is_html: true
 ---
 {{ addressee }},
 
