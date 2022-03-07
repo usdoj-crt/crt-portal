@@ -24,7 +24,7 @@ The Special Litigation Section protects the civil rights of:
 - people seeking to practice their religion while in state and local institutions
 - people with disabilities seeking to receive needed services in integrated, community settings
 
-For more information about the Special Litigation Section, please visit our web page:  www.justice.gov/crt/about/spl/.  If your concern is outside our area, you may wish to consult the Civil Rights Division web page to find the correct section:  https://civilrights.justice.gov/.  
+For more information about the Special Litigation Section, please visit our web page:  https://www.justice.gov/crt/about/spl/.  If your concern is outside our area, you may wish to consult the Civil Rights Division web page to find the correct section:  https://civilrights.justice.gov/.  
   
 If we are unable to help, you may wish to consult a private attorney or a legal aid organization for assistance.  Thank you again for contacting the Special Litigation Section.
  
