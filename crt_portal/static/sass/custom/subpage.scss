@@ -21,9 +21,15 @@
 @include at-media(tablet) {
   ul.crt-subpage--nav {
     margin-top: 0.67em;
+    position: sticky;
+    top: 0;
   }
 }
 
 ul.crt-subpage--nav li {
   margin-bottom: 0;
+}
+
+#toc > li.usa-sidenav__item.active {
+  font-weight: bold;
 }
