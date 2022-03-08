@@ -20,27 +20,29 @@
     // so that we can check for special department address header on all translations
     // of the DRS letters
     const letterName = option.innerText.replace(/\(.+\)$/, '').trim();
-    switch (letterName) {
-      case 'EOS - Department of Ed OCR Referral Form Letter':
-        addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.deptOfEd);
-        break;
-      case 'DRS - Dept of Ed Referral Form Letter':
-        addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.deptOfEd);
-        break;
-      case 'DRS - DOT Referral Form Letter':
-        addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.DOT);
-        break;
-      case 'DRS - HHS Referral Form Letter':
-        addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.HHS);
-        break;
-      case 'DRS - EEOC Referral Form Letter':
-        addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.EEOC);
-        break;
-      case 'EOS - EEOC Referral Form Letter':
-        addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.EEOC);
-        break;
-      default:
-        break;
+    if (addressee) {
+      switch (letterName) {
+        case 'EOS - Department of Ed OCR Referral Form Letter':
+          addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.deptOfEd);
+          break;
+        case 'DRS - Dept of Ed Referral Form Letter':
+          addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.deptOfEd);
+          break;
+        case 'DRS - DOT Referral Form Letter':
+          addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.DOT);
+          break;
+        case 'DRS - HHS Referral Form Letter':
+          addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.HHS);
+          break;
+        case 'DRS - EEOC Referral Form Letter':
+          addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.EEOC);
+          break;
+        case 'EOS - EEOC Referral Form Letter':
+          addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.EEOC);
+          break;
+        default:
+          break;
+      }
     }
   };
 
