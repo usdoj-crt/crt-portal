@@ -1249,8 +1249,6 @@ class ResponseActions(Form):
         templates = ResponseTemplate.objects.order_by('title')
         data = {
             template.id: {
-                'description': template.render_subject(self.report),
-                'content': template.render_body(self.report),
                 'language': template.language,
             }
             for template in templates
@@ -1543,7 +1541,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         # if section is changed, override assignee and status
         # explicitly, even if they are set by the user.
         if 'assigned_section' in updates:
-            updates['primary_statute'] = ''
+            updates['primary_statute'] = None
             updates['assigned_to'] = ''
             updates['status'] = 'new'
 

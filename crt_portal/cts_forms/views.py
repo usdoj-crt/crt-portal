@@ -473,7 +473,11 @@ class ShowView(LoginRequiredMixin, View):
 
             # Reset Assignee and Status if assigned_section is changed
             if 'assigned_section' in form.changed_data:
+                primary_statute = report.primary_statute
                 report.status_assignee_reset()
+                if primary_statute:
+                    description = f'Updated from "{primary_statute}" to "None"'
+                    add_activity(request.user, "Primary classification:", description, report)
 
             # District and location are on different forms so handled here.
             # If the incident location changes, update the district.
@@ -809,3 +813,15 @@ class TrendView(LoginRequiredMixin, TemplateView):
             'four_weeks': Trends.objects.filter(record_type='four_weeks'),
             'year': Trends.objects.filter(record_type='year'),
         }
+
+
+class SearchHelperView(LoginRequiredMixin, TemplateView):
+    """This shows advanced help text for the full-text search"""
+    def get(self, request):
+        return_url_args = request.GET.get('next', '')
+        return_url_args = urllib.parse.unquote(return_url_args)
+
+        output = {
+            'return_url_args': return_url_args,
+        }
+        return render(request, 'forms/complaint_view/search_help.html', output)

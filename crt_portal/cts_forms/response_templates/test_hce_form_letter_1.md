@@ -37,17 +37,9 @@ For your convenience, we include below a list of resources that you may find hel
 
 ## Disability
 
-### Accessibility/Disability Resources (complaints, disability & accessibility resources)
-
-**U.S. Department of Justice Civil Rights Division**
-**[Disability Rights Section](https://www.ada.gov/)**
-150 M Street, N.E. – 4CON
-Washington, DC 20530
-(800) 514-0301
-
 ### Accessibility Issues
 
-**[Fair Housing Accessibility First](www.fairhousingfirst.org)**
+**[Fair Housing Accessibility First](https://www.fairhousingfirst.org)**
 (HUD contractor; builder/developer technical guidance)
 (888) 341-7781
 
@@ -60,19 +52,19 @@ Washington, DC 20530
 
 **[Community Partner Resources One CPD Resource Exchange](https://www.hudexchange.info/contact-us/)**
 
-**[Homelessness Resources](www.hudexchange.info/housing-and-homeless-assistance/)**
+**[Homelessness Resources](https://www.hudexchange.info/housing-and-homeless-assistance/)**
 
-**[Office of Public & Indian Housing](www.hud.gov/program_offices/public_indian_ho using/pha/contacts)**
+**[Office of Public & Indian Housing](https://www.hud.gov/program_offices/public_indian_housing/pha/contacts)**
 (complaints about a public housing authority or its employees, housing vouchers, landlord)
 (800) 955-2232
 
-**[Office of Inspector General (OIG)](www.hudoig.gov/about/where-were-located)**
+**[Office of Inspector General (OIG)](https://www.hudoig.gov/about/where-were-located)**
 (fraud)
 (800) 347-3735
 (202) 708-4829 Facsimile
 hotline@hudoig.gov
 
-**[Fair Housing Initiatives Program Agencies](www.hud.gov/program_offices/fair_housing_equal_opp/partners/FHIP)**
+**[Fair Housing Initiatives Program Agencies](https://www.hud.gov/program_offices/fair_housing_equal_opp/partners/FHIP)**
 (discrimination in housing- fair housing organizations) 
 
 **[Substantially Equivalent State Agencies](https://www.findlaw.com/civilrights/enforcing-your-civil-rights/state-civil-rights-offices.html)**
@@ -83,12 +75,12 @@ hotline@hudoig.gov
 
 ## Private Attorney Resources
 
-**[American Bar Association](www.findlegalhelp.org)**
+**[American Bar Association](https://www.findlegalhelp.org)**
 1050 Connecticut Avenue, N.W. Suite 400
 Washington, DC 20036
 (800) 285-2221
 
-**[Legal Services Corporation (or Legal Aid Offices)](www.lsc.gov/find-legal-aid)**
+**[Legal Services Corporation (or Legal Aid Offices)](https://www.lsc.gov/find-legal-aid)**
 3333 K Street, N.W. Washington, DC 20007
 (202) 295-1500
 
@@ -97,23 +89,6 @@ Washington, DC 20036
 **[State Attorneys General](https://www.usa.gov/state-attorney-general)**
 (complaints- hotels, restaurants, theaters, public places)
 (844) 872-4681
-
-## Religious Land Use
-
-**U.S. Department of Justice Civil Rights**
-**[Division Place to Worship Initiative](www.justice.gov/crt/place-worship-initiative)**
-(discrimination in zoning)
-150 M Street, N.E. – 4CON
-Washington, DC 20530
-(202) 514-4609
-
-## Servicemembers
-
-**U.S. Department of Justice Civil Rights Division**
-**[Servicemembers and Veterans Initiative](https://www.servicemembers.gov)**
-(mortgage foreclosures, residential & vehicle leases, evictions, automobile repossessions, interest rate reductions)
-(202) 307-SCRA (7272)
-servicemembers@usdoj.gov
 
 
 Sincerely,
