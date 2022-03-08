@@ -36,6 +36,9 @@
       case 'DRS - EEOC Referral Form Letter':
         addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.EEOC);
         break;
+      case 'EOS - EEOC Referral Form Letter':
+        addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.EEOC);
+        break;
       default:
         break;
     }
