@@ -4,14 +4,14 @@
 {% load i18n %}
 
 {% block meta_title %}
-  {% trans "Civil Rights Division - Department of Justice - Get help for hate crimes and human trafficking" as meta_title %}
+  {% trans "Civil Rights Division - Department of Justice - Get resources" as meta_title %}
   <meta property="og:title" content="{{meta_title}}" />
   <meta property="name" content="{{meta_title}}" />
 {% endblock meta_title %}
 
 {% block page_title %}
   <title>
-    {% trans "Civil Rights Division - Department of Justice - Get help for hate crimes and human trafficking" %}
+    {% trans "Civil Rights Division - Department of Justice - Get resources" %}
   </title>
 {% endblock %}
 
@@ -22,26 +22,28 @@
       <div class="tablet:grid-col-4">
         <ul class="usa-sidenav crt-subpage--nav" id="toc">
           <li class="usa-sidenav__item">
-            <a href="#get-help" class="usa-current">List of resources</a>
+            <a href="#get-help" class="usa-current">Housing Section Resources</a>
           </li>
-          <li class="usa-sidenav__item">
-            <a href="#credit">Credit</a>
-          </li>
-          <li class="usa-sidenav__item">
-            <a href="#disability">Disability</a>
-          </li>
-          <li class="usa-sidenav__item">
-            <a href="#housing">Housing</a>
-          </li>
-          <li class="usa-sidenav__item">
-            <a href="#find-an-attorney">Find an attorney</a>
-          </li>
-          <li class="usa-sidenav__item">
-            <a href="#enforcement-of-state-laws">Enforcement of state laws</a>
-          </li>
-          <li class="usa-sidenav__item">
-            <a href="#general-assistance">General assistance</a>
-          </li>
+          <div class="usa-sidenav__sublist">
+            <li class="usa-sidenav__item">
+              <a href="#credit">Credit</a>
+            </li>
+            <li class="usa-sidenav__item">
+              <a href="#disability">Disability</a>
+            </li>
+            <li class="usa-sidenav__item">
+              <a href="#housing">Housing</a>
+            </li>
+            <li class="usa-sidenav__item">
+              <a href="#find-an-attorney">Find an attorney</a>
+            </li>
+            <li class="usa-sidenav__item">
+              <a href="#enforcement-of-state-laws">Enforcement of state laws</a>
+            </li>
+            <li class="usa-sidenav__item">
+              <a href="#general-assistance">General assistance</a>
+            </li>
+          </div>
         </ul>
       </div>
       <div class="tablet:grid-col-8">
