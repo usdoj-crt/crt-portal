@@ -323,7 +323,7 @@ if environment not in ['LOCAL', 'UNDEFINED']:
     AWS_LOCATION = 'static'
     AWS_QUERYSTRING_AUTH = False
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{AWS_LOCATION}/'
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3ManifestStaticStorage'
     DEFAULT_FILE_STORAGE = 'cts_forms.storages.PrivateS3Storage'
     AWS_DEFAULT_ACL = 'public-read'
     AWS_IS_GZIPPED = True
