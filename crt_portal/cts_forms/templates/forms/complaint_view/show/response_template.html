@@ -8,6 +8,7 @@
   {% csrf_token %}
   <input type="hidden" value="{{ return_url_args }}" name="next" id="modal_next" />
   <input type="hidden" value="{{ index }}" name="index" id="index" />
+  <input type="hidden" value="{{ data.id }}" name="id" id="template-report-id" />
   <div id="intake_template" hidden>
     <div class="modal-wrapper intake-template--modal">
       <div class="modal-content modal-content--large">

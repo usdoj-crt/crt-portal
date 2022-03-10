@@ -287,6 +287,7 @@ if environment in ['PRODUCTION', 'STAGE']:
             '^hate-crime-human-trafficking',
             '^i18n',
             '^email',
+            '^housing-resources',
         ],
     }
 

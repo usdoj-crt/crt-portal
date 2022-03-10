@@ -378,15 +378,11 @@ class ResponseActionTests(TestCase):
         # Add datetime without timezone to make sure its converted to EST
         self.report.create_date = datetime(2020, 12, 31, 23, 0, 0)
         self.report.save()
-        response = self.client.post(
+        response = self.client.get(
             reverse(
-                'crt_forms:crt-forms-response',
-                kwargs={'id': self.report.id},
-            ),
-            {
-                'next': '?per_page=15',
-            },
-            follow=True
+                'api:response-detail',
+                kwargs={'pk': 1},
+            ) + f"?report_id={self.report.id}"
         )
         self.assertEqual(response.status_code, 200)
         content = str(response.content)
@@ -398,15 +394,11 @@ class ResponseActionTests(TestCase):
         self.report.create_date = datetime(2020, 12, 31, 23, 0, 0)
         self.report.intake_format = 'web'
         self.report.save()
-        response = self.client.post(
+        response = self.client.get(
             reverse(
-                'crt_forms:crt-forms-response',
-                kwargs={'id': self.report.id},
-            ),
-            {
-                'next': '?per_page=15',
-            },
-            follow=True
+                'api:response-detail',
+                kwargs={'pk': 1},
+            ) + f"?report_id={self.report.id}"
         )
         self.assertEquals(response.status_code, 200)
         content = str(response.content)
@@ -419,15 +411,11 @@ class ResponseActionTests(TestCase):
         self.report.crt_reciept_day = None
         self.report.intake_format = 'fax'
         self.report.save()
-        response = self.client.post(
+        response = self.client.get(
             reverse(
-                'crt_forms:crt-forms-response',
-                kwargs={'id': self.report.id},
-            ),
-            {
-                'next': '?per_page=15',
-            },
-            follow=True
+                'api:response-detail',
+                kwargs={'pk': 1},
+            ) + f"?report_id={self.report.id}"
         )
         self.assertEquals(response.status_code, 200)
         content = str(response.content)
@@ -439,15 +427,11 @@ class ResponseActionTests(TestCase):
         self.report.create_date = datetime(2020, 12, 31, 23, 0, 0)
         self.report.intake_format = 'fax'
         self.report.save()
-        response = self.client.post(
+        response = self.client.get(
             reverse(
-                'crt_forms:crt-forms-response',
-                kwargs={'id': self.report.id},
-            ),
-            {
-                'next': '?per_page=15',
-            },
-            follow=True
+                'api:response-detail',
+                kwargs={'pk': 1},
+            ) + f"?report_id={self.report.id}"
         )
         self.assertEquals(response.status_code, 200)
         content = str(response.content)
@@ -729,6 +713,37 @@ class ReportActionTests(TestCase):
         self.report.refresh_from_db()
         self.assertEqual(self.report.assigned_to, None)
 
+    def test_change_section(self):
+        # After the second post, when the report is reassigned to a new section, the primary_statute
+        # should be reset
+        params_1 = {
+            'type': 'actions',
+            # Keep the same status as when the report was created.
+            'status': NEW_STATUS,
+            'assigned_to': '',
+            'assigned_section': 'ADM',
+            'primary_statute': '144'
+        }
+        url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
+        response = self.client.post(url, params_1, follow=True)
+        self.report.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(self.report.primary_statute, '144')
+        params_2 = {
+            'type': 'actions',
+            'status': NEW_STATUS,
+            'assigned_to': '',
+            'assigned_section': 'HCE',
+        }
+        response = self.client.post(url, params_2, follow=True)
+        self.report.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        first_activity = list(self.report.target_actions.all())[0]
+        second_activity = list(self.report.target_actions.all())[1]
+        self.assertEqual('Updated from "144" to ""', first_activity.description)
+        self.assertEqual('Updated from "ADM" to "HCE"', second_activity.description)
+        self.assertEqual(self.report.primary_statute, None)
+
 
 class BulkActionsTests(TestCase):
     def setUp(self):
@@ -951,7 +966,7 @@ class BulkActionsFormTests(TestCase):
 
         updates = form.get_updates()
         self.assertEqual(updates['assigned_section'], 'APP')
-        self.assertEqual(updates['primary_statute'], '')
+        self.assertEqual(updates['primary_statute'], None)
         self.assertEqual(updates['assigned_to'], '')
         self.assertEqual(updates['status'], 'new')
 
@@ -979,7 +994,7 @@ class BulkActionsFormTests(TestCase):
 
         updates = form.get_updates()
         self.assertEqual(updates['assigned_section'], 'APP')
-        self.assertEqual(updates['primary_statute'], '')
+        self.assertEqual(updates['primary_statute'], None)
         self.assertEqual(updates['assigned_to'], '')
         self.assertEqual(updates['status'], 'new')
 
