@@ -30,10 +30,17 @@ ul.crt-subpage--nav li {
   margin-bottom: 0;
 }
 
-#toc > li.usa-sidenav__item.active {
-  font-weight: bold;
-}
-
 #toc > div > li.usa-sidenav__item.active {
   font-weight: bold;
+  &::after {
+    background-color: #1a4480;
+    border-radius: 99rem;
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: 0.25rem;
+    top: 0.25rem;
+    width: 0.25rem;
+    left: 0;
+  }
 }

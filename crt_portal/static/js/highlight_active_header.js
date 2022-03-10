@@ -7,6 +7,5 @@ if (toc) {
 
   toc.addEventListener("click", function(event) {
     if (event.target.tagName !== "A") return;
-    expandPanel(event.target.hash);
   });
 }
