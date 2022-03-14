@@ -147,7 +147,7 @@ SAMAHAN NA MAAARING MAKATULONG
 
 Kalipunan ng Bar ng Amerikano
 
-    www.findlegalhelp.org
+    www.americanbar.org/groups/legal_services/flh-home
     Makipag-ugnay sa pamamagitan ng telepono: 1-800-285-2221
 
 

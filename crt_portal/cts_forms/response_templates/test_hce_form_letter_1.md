@@ -18,7 +18,7 @@ In the meantime, here are some suggestions for what you can do:
 
 For more information about the Housing Section and our work, [please visit our web page](https://www.justice.gov/crt/housing-and-civil-enforcement-section).
 
-For your convenience, we include below a list of resources that you may find helpful. You also may wish to consult a private attorney to determine what claims, if any, you may have under other federal and state laws.  If you do not have an attorney, you may find your [state bar association](https://www.findlegalhelp.org) or [local legal assistance agency](https://www.lsc.gov/find-legal-aid) helpful in locating an attorney to discuss your complaint.
+For your convenience, we include below a list of resources that you may find helpful. You also may wish to consult a private attorney to determine what claims, if any, you may have under other federal and state laws.  If you do not have an attorney, you may find your [state bar association](https://www.americanbar.org/groups/legal_services/flh-home/) or [local legal assistance agency](https://www.lsc.gov/find-legal-aid) helpful in locating an attorney to discuss your complaint.
 
 # List of resources
 
@@ -75,7 +75,7 @@ hotline@hudoig.gov
 
 ## Private Attorney Resources
 
-**[American Bar Association](https://www.findlegalhelp.org)**
+**[American Bar Association](https://www.americanbar.org/groups/legal_services/flh-home/)**
 1050 Connecticut Avenue, N.W. Suite 400
 Washington, DC 20036
 (800) 285-2221
