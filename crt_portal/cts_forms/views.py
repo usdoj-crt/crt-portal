@@ -185,7 +185,7 @@ def index_view(request):
     per_page = request.GET.get('per_page', 15)
     page = request.GET.get('page', 1)
 
-    requested_reports = report_query.annotate(email_count=F('email_report_count__email_count'))
+    requested_reports = report_query.distinct().annotate(email_count=F('email_report_count__email_count'))
 
     sort_expr, sorts = report_sort(request.GET)
     requested_reports = requested_reports.order_by(*sort_expr)
