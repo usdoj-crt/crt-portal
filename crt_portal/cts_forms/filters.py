@@ -86,7 +86,7 @@ def _change_datetime_to_end_of_day(dateObj, field):
 def report_filter(querydict):
     kwargs = {}
     filters = {}
-    qs = Report.objects.filter()
+    qs = Report.objects.filter().distinct()
     for field in filter_options.keys():
         filter_list = querydict.getlist(field)
 
