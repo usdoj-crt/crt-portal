@@ -86,7 +86,7 @@ def _change_datetime_to_end_of_day(dateObj, field):
 def report_filter(querydict):
     kwargs = {}
     filters = {}
-    qs = Report.objects.filter().distinct()
+    qs = Report.objects.filter()
     for field in filter_options.keys():
         filter_list = querydict.getlist(field)
 
@@ -132,7 +132,7 @@ def report_filter(querydict):
             elif filter_options[field] == 'violation_summary':
                 search_query = querydict.getlist(field)[0]
                 qs = qs.filter(violation_summary_search_vector=_make_search_query(search_query))
-    qs = qs.filter(**kwargs)
+    qs = qs.filter(**kwargs).distinct()
     return qs, filters
 
 
