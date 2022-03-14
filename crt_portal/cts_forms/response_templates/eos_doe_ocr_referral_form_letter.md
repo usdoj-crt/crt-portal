@@ -10,7 +10,7 @@ Thank you for contacting the Department of Justice on December 10, 2021.  We hav
 U.S. Department of Education, Office for Civil Rights  
 (800) 421-3481; (202) 453-6012 (fax); (800) 877-8339 (TDD)  
 OCR@ed.gov
-www2.ed.gov/about/offices/list/ocr/index.html 
+https://www2.ed.gov/about/offices/list/ocr/index.html 
 
 What you can do:
 
@@ -21,11 +21,11 @@ You also may contact your state bar association or local legal aid office to ass
     To find a local office:
 
     American Bar Association
-    www.americanbar.org/groups/legal_services/flh-home
+    https://www.americanbar.org/groups/legal_services/flh-home
     (800) 285-2221
 
     Legal Service Corporation (or Legal Aid Offices)
-    www.lsc.gov/find-legal-aid 
+    https://www.lsc.gov/find-legal-aid 
     (202) 295-1500
 
 How you have helped:
