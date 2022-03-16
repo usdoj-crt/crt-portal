@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
             'HCE - Referral for Housing/Lending/Public Accommodation (Spanish)',
             '(TEST) HCE - Form Letter (full HTML)',
             '(TEST) HCE - Form Letter (hybrid)',
-            '(TEST) HCE - Form Letter (text only with external resources)'
+            '(TEST) HCE - Form Letter (text only with external resources)',
             'Trending - Arbery Inquiries',
             'Trending - Floyd Inquiries'
         ]
