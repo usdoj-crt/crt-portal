@@ -37,13 +37,12 @@ class Command(BaseCommand):
     # shape of production data.
     weights = [2, 1, 2, 2, 1, 2, 3, 16, 20, 4, 2, 1, 1, 1, 1, 1, 2, 3, 1, 2]
 
-
     def add_arguments(self, parser):
         parser.add_argument('number_reports')
 
     def handle(self, *args, **options):
         number_reports = int(options["number_reports"])
-        random_form_letters = random.choices(population=self.forms, weights=self.weights, k=number_reports) # nosec
+        random_form_letters = random.choices(population=self.forms, weights=self.weights, k=number_reports)  # nosec
 
         user1 = User.objects.filter(username="USER_1").first()
         if not user1:
@@ -58,7 +57,7 @@ class Command(BaseCommand):
             report.public_id = f'{report.pk}-{salt_chars}'
             # This code adds some frequent flier reports randomly to better emulate production
             # nosec turns off bandit error because random is not used for security or run outside of local env.
-            rand = random.randint(1, 100) # nosec
+            rand = random.randint(1, 100)  # nosec
             # approximately 1% of reports
             if rand <= 1:
                 report.contact_email = "frequentflier1@test.test"
