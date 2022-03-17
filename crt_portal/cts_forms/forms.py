@@ -133,7 +133,7 @@ class Contact(ModelForm):
             'contact_first_name', 'contact_last_name',
             'contact_email', 'contact_phone', 'servicemember',
             'contact_address_line_1', 'contact_address_line_2', 'contact_state',
-            'contact_city', 'contact_zip',
+            'contact_city', 'contact_zip', 'referrer'
         ]
         widgets = {
             'contact_first_name': TextInput(attrs={
@@ -210,6 +210,7 @@ class Contact(ModelForm):
         ]
         self.help_text = CONTACT_QUESTIONS['contact_help_text'],
         self.lede_text = _('If you believe you or someone else has experienced a civil rights violation, please tell us what happened.')
+        self.referrer ="THIS WILL COME FROM THE FRONT END"
 
 
 class PrimaryReason(ModelForm):
