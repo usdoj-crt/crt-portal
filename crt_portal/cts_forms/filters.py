@@ -162,8 +162,8 @@ def dashboard_filter(querydict):
     if selected_actor:
         filtered_actions = actor_stream(selected_actor).filter(**kwargs)
     else:
-        return filters, []
-    return filters, filtered_actions
+        return 0
+    return len(filtered_actions)
 
 
 def _make_search_query(search_text):
