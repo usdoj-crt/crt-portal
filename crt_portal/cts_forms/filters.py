@@ -132,7 +132,7 @@ def report_filter(querydict):
             elif filter_options[field] == 'violation_summary':
                 search_query = querydict.getlist(field)[0]
                 qs = qs.filter(violation_summary_search_vector=_make_search_query(search_query))
-    qs = qs.filter(**kwargs)
+    qs = qs.filter(**kwargs).distinct()
     return qs, filters
 
 
