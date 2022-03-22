@@ -147,7 +147,7 @@ ORGANIZATION THAT MAY BE ABLE TO HELP
 
 American Bar Association
 
-    www.findlegalhelp.org
+    www.americanbar.org/groups/legal_services/flh-home
     Contact by phone: 1-800-285-2221
 
 

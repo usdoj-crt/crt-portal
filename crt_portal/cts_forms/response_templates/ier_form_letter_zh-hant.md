@@ -147,7 +147,7 @@ language: zh-hant
 
 美國律師協會
 
-    www.findlegalhelp.org
+    www.americanbar.org/groups/legal_services/flh-home
     致電聯絡：1-800-285-2221
 
 

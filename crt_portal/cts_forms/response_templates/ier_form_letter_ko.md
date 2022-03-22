@@ -145,7 +145,7 @@ language: ko
 
 미국 변호사 협회
 
-    www.findlegalhelp.org
+    www.americanbar.org/groups/legal_services/flh-home
     전화 연락: 1-800-285-2221
 
 
