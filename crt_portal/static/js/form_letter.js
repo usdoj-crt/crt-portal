@@ -229,16 +229,17 @@
       letter_placeholder.classList.add('form-letter-text');
       letter_placeholder.appendChild(el);
       // HTML letter
+      el.remove();
     } else if (!letter_html.hidden) {
       const el = letter_html.cloneNode(true);
       // Prevent id collision
       el.id = el.id + '_rand' + Math.floor(Math.random() * 1000000);
       letter_placeholder.appendChild(el);
+      el.remove();
     }
     letterhead.removeAttribute('hidden');
     document.body.appendChild(letterhead);
     window.print();
-    el.remove();
     letter_placeholder.classList.remove('form-letter-text');
     document.body.removeChild(letterhead);
     root.CRT.closeModal(modal);
