@@ -1,7 +1,7 @@
 (function(root) {
   let header = document.getElementsByClassName('crt-landing--header')[0];
   let toc = document.getElementById('toc');
-  let topNavLink = document.getElementById('sticky-nav-top');
+  let topNavLink = toc.firstElementChild;
   topNavLink.className = 'usa-sidenav__item usa-current';
 
   if (toc) {
