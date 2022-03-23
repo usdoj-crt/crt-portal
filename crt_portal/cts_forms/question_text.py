@@ -14,6 +14,7 @@ CONTACT_QUESTIONS = {
     'contact_city': _('City'),
     'contact_zip': _('Zip code'),
     'contact_state': _('State'),
+    'referrer': _('Referrer'),
 }
 SERVICEMEMBER_QUESTION = _('Are you now or have ever been an active duty service member?')
 

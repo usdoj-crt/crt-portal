@@ -210,7 +210,6 @@ class Contact(ModelForm):
         ]
         self.help_text = CONTACT_QUESTIONS['contact_help_text'],
         self.lede_text = _('If you believe you or someone else has experienced a civil rights violation, please tell us what happened.')
-        self.referrer ="THIS WILL COME FROM THE FRONT END"
 
 
 class PrimaryReason(ModelForm):
