@@ -19,6 +19,7 @@ class ReportFilterTests(TestCase):
     def setUp(self):
         age = ProtectedClass.objects.get(value='age')
         gender = ProtectedClass.objects.get(value='gender')
+        language = ProtectedClass.objects.get(value='language')
         test_data = SAMPLE_REPORT.copy()
 
         test_data['violation_summary'] = 'plane'
@@ -29,6 +30,7 @@ class ReportFilterTests(TestCase):
         r2 = Report.objects.create(**test_data)
         r2.protected_class.add(age)
         r2.protected_class.add(gender)
+        r2.protected_class.add(language)
 
         test_data['violation_summary'] = 'boat'
         Report.objects.create(**test_data)
