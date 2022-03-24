@@ -9,7 +9,6 @@ from cts_forms.filters import reports_accessed_filter
 from rest_framework.permissions import IsAuthenticated
 from api.serializers import ReportSerializer, ResponseTemplateSerializer
 from django.contrib.auth.decorators import login_required
-from actstream.models import Action
 from rest_framework.views import APIView
 
 REST_FRAMEWORK = {
