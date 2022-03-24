@@ -5,7 +5,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from cts_forms.views import mark_report_as_viewed
-from cts_forms.filters import dashboard_filter
+from cts_forms.filters import reports_accessed_filter
 from rest_framework.permissions import IsAuthenticated
 from api.serializers import ReportSerializer, ResponseTemplateSerializer
 from django.contrib.auth.decorators import login_required
@@ -100,6 +100,6 @@ class ReportCountView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, format=None):
-        report_count = dashboard_filter(request.GET)
+        report_count = reports_accessed_filter(request.GET)
         content = {'report_count': report_count}
         return Response(content)
