@@ -162,11 +162,16 @@ class Contact(ModelForm):
             'contact_zip': TextInput(attrs={
                 'class': 'usa-input',
             }),
+            'referrer': TextInput(attrs={
+                'class': 'usa-input',
+                'type': 'hidden'
+            })
         }
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
         self.label_suffix = ''
+        self.fields['referrer'].initial = "hardcoded default value"
 
         self.fields['contact_first_name'].label = CONTACT_QUESTIONS['contact_first_name']
         self.fields['contact_last_name'].label = CONTACT_QUESTIONS['contact_last_name']
@@ -1690,7 +1695,7 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
             'contact_first_name', 'contact_last_name',
             'contact_email', 'contact_phone', 'contact_address_line_1',
             'contact_address_line_2', 'contact_state',
-            'contact_city', 'contact_zip',
+            'contact_city', 'contact_zip', 'referrer'
         ]
 
         widgets = {
@@ -1718,6 +1723,9 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
                 'class': 'usa-input',
             }),
             'contact_zip': TextInput(attrs={
+                'class': 'usa-input',
+            }),
+            'referrer': TextInput(attrs={
                 'class': 'usa-input',
             }),
         }
