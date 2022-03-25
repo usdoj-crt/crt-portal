@@ -8,4 +8,9 @@
   if (localStorage.getItem('referrer') == null && referrer != '') {
     localStorage.setItem('referrer', referrer)
   }
+
+  if (localStorage.getItem('referrer') != null && localStorage.getItem('referrer') != '') {
+    referrerField = document.findElementById("id_0-referrer")
+    referrerField.value = referrer
+  }
 })(window);
