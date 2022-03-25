@@ -10,7 +10,9 @@
   }
 
   if (localStorage.getItem('referrer') != null && localStorage.getItem('referrer') != '') {
-    referrerField = document.findElementById("id_0-referrer");
-    referrerField.value = referrer;
+    referrerField = document.getElementById("id_0-referrer");
+    if (referrerField) {
+      referrerField.value = referrer;
+    }
   }
 })(window);
