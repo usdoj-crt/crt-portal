@@ -171,7 +171,7 @@ class Contact(ModelForm):
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
         self.label_suffix = ''
-        self.fields['referrer'].initial = "hardcoded default value"
+        self.fields['referrer'].initial = None
 
         self.fields['contact_first_name'].label = CONTACT_QUESTIONS['contact_first_name']
         self.fields['contact_last_name'].label = CONTACT_QUESTIONS['contact_last_name']
@@ -1736,6 +1736,8 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
         self.fields['contact_phone'].error_messages = {'invalid': CONTACT_PHONE_INVALID_MESSAGE}
 
     def success_message(self):
+        # see if referrer available here
+        breakpoint()
         return self.SUCCESS_MESSAGE
 
 
