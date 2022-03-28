@@ -169,6 +169,11 @@ def dashboard_filter(querydict):
 def reports_accessed_filter(querydict):
     kwargs = {}
     filters = {}
+    reports_accessed_payload = {
+        "report_count": 0,
+        "start_date": '',
+        "end_date": ''
+    }
     for field in filter_options.keys():
         filter_list = querydict.getlist(field)
         if len(filter_list) > 0:
@@ -177,6 +182,10 @@ def reports_accessed_filter(querydict):
                 # filters by a start date or an end date expects yyyy-mm-dd
                 field_name = 'timestamp'
                 encodedDate = querydict.getlist(field)[0]
+                if field == 'create_date_start':
+                    reports_accessed_payload["start_date"] = encodedDate
+                elif field == 'create_date_end':
+                    reports_accessed_payload["end_date"] = encodedDate
                 decodedDate = urllib.parse.unquote(encodedDate)
                 try:
                     dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
@@ -187,13 +196,12 @@ def reports_accessed_filter(querydict):
                     continue
 
     registry.register(User)
-    selected_actor_username = querydict.get("assigned_to", None)
+    selected_actor_username = querydict.get("intake_specialist", None)
     selected_actor = User.objects.filter(username=selected_actor_username).first()
     if selected_actor:
         filtered_actions = actor_stream(selected_actor).filter(**kwargs)
-    else:
-        return 0
-    return len(filtered_actions)
+        reports_accessed_payload["report_count"] = len(filtered_actions)
+    return reports_accessed_payload
 
 
 def _make_search_query(search_text):

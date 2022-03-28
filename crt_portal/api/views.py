@@ -88,6 +88,7 @@ class ResponseDetail(generics.RetrieveAPIView):
             report = Report.objects.filter(pk=report_pk).first()
             serialized_data['url'] = serialized_data['url'] + '?report_id=' + report_pk
             serialized_data['subject'] = template.render_subject(report)
+            serialized_data['subject'] = template.render_subject(report)
             serialized_data['body'] = template.render_body(report)
         return Response(serialized_data)
 
@@ -99,6 +100,5 @@ class ReportCountView(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, format=None):
-        report_count = reports_accessed_filter(request.GET)
-        content = {'report_count': report_count}
-        return Response(content)
+        reports_accessed_payload = reports_accessed_filter(request.GET)
+        return Response(reports_accessed_payload)
