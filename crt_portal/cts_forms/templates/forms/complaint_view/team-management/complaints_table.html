@@ -1,0 +1,74 @@
+{% load sortable_table_heading %}
+{% load static %}
+<form class="usa-form"
+      method="get"
+      action="{% url 'crt_forms:crt-forms-actions' %}"
+      novalidate
+>
+  <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
+
+  <div class="crt-xscroll">
+    {% if selected_actor %}
+    <table class="usa-table crt-table dashboard-table">
+      <thead>
+        <tr>
+          {% render_sortable_heading 'User' sort_state filter_state %}
+          {% render_sortable_heading 'Date range' sort_state filter_state nowrap=True %}
+          {% render_sortable_heading 'Reports touched' sort_state filter_state nowrap=True %}
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="tr--hover{% cycle ' stripe' '' %}">
+          <td style="vertical-align: middle;font-weight: 700;">
+            {{ selected_actor }}
+          </td>
+          <td style="vertical-align: middle;font-weight: 700;">
+            {% if date_range_start %}
+              {{ date_range_start|date:"SHORT_DATE_FORMAT" }}
+            {% else %}
+              3/30/2020
+            {% endif %}
+             -
+            {% if date_range_end %}
+              {{ date_range_end|date:"SHORT_DATE_FORMAT" }}
+            {% else %}
+              Present
+            {% endif %}
+            </td>
+          <td style="vertical-align: middle;font-weight: 700;">
+            {{ activity_count }} report{{ activity_count|pluralize }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+
+  <div class="selection-action-notification" hidden>
+    <div class="display-flex flex-align-center">
+      <div>
+        <img src="{% static 'img/ic_successconfirmation-white.svg' %}" alt="action available on selection" class="icon">
+      </div>
+      <h2>
+        <span id="selection-action-count">1 record</span> selected
+      </h2>
+      <!-- <div class="selection-submit">
+        <button type="submit" id="actions" label="actions" class="usa-button">Actions</button>
+      </div> -->
+    </div>
+  </div>
+</form>
+
+{% if not selected_actor %}
+  <div class="crt-portal-card table-message">
+    <div class="crt-portal-card__content">
+      <div class="grid-container padding-bottom-2">
+        <div class="align-center">
+          <img alt="filter icon" src="{% static 'img/filters.svg' %}" class="margin-top-1" />
+          <p class="margin-bottom-1 margin-top-1" role="status"><b>Select intake specialist</b></p>
+          <em>Please select an intake specialist to see activity log data</em>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

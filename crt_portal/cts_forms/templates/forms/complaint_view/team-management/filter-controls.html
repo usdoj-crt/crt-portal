@@ -1,0 +1,25 @@
+{% load static %}
+<h2 class="intake-section-title">Team Management</h2>
+<div class="margin-bottom-2">Review the activity log of intake specialists by selecting their name(s) and dates in the filter options below.</div>
+<form
+  id="filters-form"
+  method="GET"
+  action="/form/dashboard"
+  novalidate
+>
+  <div class="usa-form">
+    <div class="intake-filters">
+      {% include 'forms/complaint_view/dashboard/filters/assignee.html' %}
+      {% include 'forms/complaint_view/index/filters/date.html' %}
+    </div>
+
+    <div class="text-right">
+      <button class="usa-button" type="submit" id="apply-filters-button">
+        Apply filters
+      </button>
+      <button class="usa-button usa-button--unstyled" data-clear-filters>
+        Clear all filters
+      </button>
+    </div>
+  </div>
+</form>
