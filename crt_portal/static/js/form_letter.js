@@ -229,13 +229,11 @@
       letter_placeholder.classList.add('form-letter-text');
       letter_placeholder.appendChild(el);
       // HTML letter
-      el.remove();
     } else if (!letter_html.hidden) {
       const el = letter_html.cloneNode(true);
       // Prevent id collision
       el.id = el.id + '_rand' + Math.floor(Math.random() * 1000000);
       letter_placeholder.appendChild(el);
-      el.remove();
     }
     letterhead.removeAttribute('hidden');
     document.body.appendChild(letterhead);
