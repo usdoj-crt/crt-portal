@@ -9,9 +9,68 @@
     <div
       class="usa-combo-box crt-combo-box-filter"
       data-placeholder="Date"
-      data-default-value="{{ selected_actor_id }}"
+      data-default-value=""
+      data-enhanced="true"
     >
-      {{ form.assigned_to }}
+      <select
+        name="assigned_to"
+        class="usa-input usa-select usa-sr-only usa-combo-box__select"
+        id=""
+        aria-hidden="true"
+        tabindex="-1"
+      >
+        <option value="" selected=""></option>
+
+        <option value="-1">(none)</option>
+
+        <option value="2">USER_1</option>
+
+        <option value="1">billy</option>
+      </select>
+      <input
+        aria-owns="id_assigned_to--list"
+        aria-autocomplete="list"
+        aria-describedby="id_assigned_to--assistiveHint"
+        aria-expanded="false"
+        autocapitalize="off"
+        autocomplete="off"
+        id="id_assigned_to"
+        class="usa-combo-box__input"
+        type="text"
+        role="combobox"
+        placeholder="Date"
+      /><span class="usa-combo-box__clear-input__wrapper" tabindex="-1">
+        <button
+          type="button"
+          class="usa-combo-box__clear-input"
+          aria-label="Clear the select contents"
+        >
+          &nbsp;
+        </button> </span
+      ><span class="usa-combo-box__input-button-separator">&nbsp;</span
+      ><span class="usa-combo-box__toggle-list__wrapper" tabindex="-1">
+        <button
+          type="button"
+          tabindex="-1"
+          class="usa-combo-box__toggle-list"
+          aria-label="Toggle the dropdown list"
+        >
+          &nbsp;
+        </button>
+      </span>
+      <ul
+        tabindex="-1"
+        id="id_assigned_to--list"
+        class="usa-combo-box__list"
+        role="listbox"
+        aria-labelledby="id_assigned_to-label"
+        hidden=""
+      ></ul>
+      <div class="usa-combo-box__status usa-sr-only" role="status"></div>
+      <span id="id_assigned_to--assistiveHint" class="usa-sr-only">
+        When autocomplete results are available use up and down arrows to review and enter to
+        select. Touch device users, explore by touch or with swipe gestures.
+      </span>
     </div>
   </div>
 </div>
