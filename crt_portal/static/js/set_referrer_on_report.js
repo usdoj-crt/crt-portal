@@ -9,10 +9,11 @@
     localStorage.setItem('referrer', referrer);
   }
 
-  if (localStorage.getItem('referrer') != null && localStorage.getItem('referrer') != '') {
+  referrerInStorage = localStorage.getItem('referrer')
+  if (referrerInStorage) {
     referrerField = document.getElementById("id_0-referrer");
     if (referrerField) {
-      referrerField.value = localStorage.getItem('referrer');
+      referrerField.value = referrerInStorage
     }
   }
 })(window);

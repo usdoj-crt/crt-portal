@@ -2,7 +2,7 @@
   referrer = document.referrer;
   host = document.location.host;
 
-  if (localStorage.getItem('referrer') == null && referrer != '') {
+  if (referrer) {
     localStorage.setItem('referrer', referrer);
   }
 })(window);
