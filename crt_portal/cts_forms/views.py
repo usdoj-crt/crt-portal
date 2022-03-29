@@ -297,6 +297,42 @@ def dashboard_view(request):
     return render(request, 'forms/complaint_view/dashboard/index.html', final_data)
 
 
+@login_required
+def team_management_view(request):
+    query_filters, selected_actions = dashboard_filter(request.GET)
+
+    # process filter query params
+    filter_args = ''
+    for query_item in query_filters.keys():
+        arg = query_item
+        for item in query_filters[query_item]:
+            filter_args = filter_args + f'&{arg}={item}'
+
+    reports_set = set()
+    for action in selected_actions:
+        reports_set.add(action.target_object_id)
+    start_date = _format_date(request.GET.get("create_date_start", ""))
+    end_date = _format_date(request.GET.get("create_date_end", ""))
+
+    selected_actor = request.GET.get("assigned_to", "")
+    selected_actor_object = User.objects.filter(username=selected_actor).first()
+    if selected_actor_object:
+        selected_actor_id = selected_actor_object.pk
+    else:
+        selected_actor_id = ''
+
+    final_data = {
+        'form': Filters(request.GET),
+        'selected_actor': selected_actor,
+        'selected_actor_id': selected_actor_id,
+        'date_range_start': start_date,
+        'date_range_end': end_date,
+        'activity_count': len(reports_set),
+        'filters': query_filters,
+    }
+    return render(request, 'team_management/index.html', final_data)
+
+
 def serialize_data(report, request, report_id):
     crimes = {
         'physical_harm': False,

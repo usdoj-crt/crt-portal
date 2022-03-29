@@ -31,7 +31,7 @@ from cts_forms.views_public import (
     show_police_form_condition,
     show_workplace_form_condition
 )
-from cts_forms.views import dashboard_view
+from cts_forms.views import team_management_view
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -85,7 +85,7 @@ urlpatterns = auth + [
     path('housing-resources', TemplateView.as_view(template_name="hce_resources.html"), name='hce_resources'),
     path('', LandingPageView.as_view(), name='crt_landing_page'),
     path('api/', include('api.urls')),
-    path('team-management/', dashboard_view, name='team-management'),
+    path('team-management/', team_management_view, name='team-management'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 handler400 = 'cts_forms.views_public.error_400'

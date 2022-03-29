@@ -1,0 +1,25 @@
+{% extends "forms/complaint_view/intake_base.html" %}
+{% load static %}
+
+{% block page_header %}
+{% include 'forms/complaint_view/dashboard/header.html' %}
+{% endblock %}
+
+{% block content %}
+    <div class="usa-card__container team-management">
+      <header class="usa-card__header">
+      </header>
+      <div class="usa-card__body">
+        <div class="grid-col-4">
+              {% include "team_management/filters/assignee.html" %}
+              {% include "team_management/filters/date.html" %}
+        </div>
+      </div>
+    </div>
+
+{% endblock %}
+{% block page_js %}
+{{ block.super }}
+<script src="{% static 'js/dashboard_quick_view.min.js' %}"></script>
+<script src="{% static 'js/dashboard_view_filters.min.js' %}"></script>
+{% endblock %}

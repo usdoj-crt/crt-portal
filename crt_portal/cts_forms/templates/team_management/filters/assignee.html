@@ -1,0 +1,20 @@
+<div class="crt-filter assignee">
+  <div class="grid-col-3">
+    <span class="text-bold label margin-right-1">Assignee</span>
+  </div>
+  <div class="grid-col-3">
+    <span class="required margin-right-3">required</span>
+  </div>
+  <div class="grid-col-6">
+    <label for="id_assigned_to">
+      <span class="usa-sr-only">Intake specialist</span>
+    </label>
+    <div
+      class="usa-combo-box crt-combo-box-filter"
+      data-placeholder="Intake specialist"
+      data-default-value="{{ selected_actor_id }}"
+    >
+      {{ form.assigned_to }}
+    </div>
+  </div>
+</div>

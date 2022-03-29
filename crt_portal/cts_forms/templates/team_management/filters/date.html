@@ -1,0 +1,17 @@
+<div class="crt-filter assignee">
+  <div class="grid-col-6">
+    <span class="text-bold label margin-right-1">Date</span>
+  </div>
+  <div class="grid-col-6">
+    <label for="id_assigned_to">
+      <span class="usa-sr-only">Date</span>
+    </label>
+    <div
+      class="usa-combo-box crt-combo-box-filter"
+      data-placeholder="Date"
+      data-default-value="{{ selected_actor_id }}"
+    >
+      {{ form.assigned_to }}
+    </div>
+  </div>
+</div>
