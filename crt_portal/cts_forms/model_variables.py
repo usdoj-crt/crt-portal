@@ -551,6 +551,8 @@ DISTRICT_CHOICES = (
     ('86', '86 - Wisconsin - WD'),
     ('87', '87 - Wyoming'),
     ('90', '90 - Virgin Islands'),
+    ('91', '91 - Guam'),
+    ('103', '103 - Northern Mariana Islands')
 )
 
 # for internal use only
