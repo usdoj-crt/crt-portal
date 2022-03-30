@@ -19,13 +19,13 @@
         aria-hidden="true"
         tabindex="-1"
       >
-        <option value="" selected=""></option>
+        <option value=""></option>
+        <option value="thirty-days">Last 30 Days</option>
+        <option value="ninty-days">Last 90 Days</option>
+        <option value="last-year">Last Year</option>
+        <option value="this-year">This Year</option>
+        <option value="custom-dates">Custom Dates</option>
 
-        <option value="-1">(none)</option>
-
-        <option value="2">USER_1</option>
-
-        <option value="1">billy</option>
       </select>
       <input
         aria-owns="id_assigned_to--list"
@@ -47,7 +47,6 @@
         >
           &nbsp;
         </button> </span
-      ><span class="usa-combo-box__input-button-separator">&nbsp;</span
       ><span class="usa-combo-box__toggle-list__wrapper" tabindex="-1">
         <button
           type="button"
@@ -67,10 +66,6 @@
         hidden=""
       ></ul>
       <div class="usa-combo-box__status usa-sr-only" role="status"></div>
-      <span id="id_assigned_to--assistiveHint" class="usa-sr-only">
-        When autocomplete results are available use up and down arrows to review and enter to
-        select. Touch device users, explore by touch or with swipe gestures.
-      </span>
     </div>
   </div>
 </div>
