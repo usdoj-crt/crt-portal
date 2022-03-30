@@ -127,6 +127,7 @@ class Report(models.Model):
     contact_city = models.CharField(max_length=700, null=True, blank=True)
     contact_state = models.CharField(max_length=100, null=True, blank=True, choices=STATES_AND_TERRITORIES)
     contact_zip = models.CharField(max_length=10, null=True, blank=True)
+    referrer = models.CharField(max_length=225, null=True, blank=True)
 
     servicemember = models.CharField(max_length=4, null=True, blank=True, choices=SERVICEMEMBER_CHOICES)
 

@@ -133,7 +133,7 @@ class Contact(ModelForm):
             'contact_first_name', 'contact_last_name',
             'contact_email', 'contact_phone', 'servicemember',
             'contact_address_line_1', 'contact_address_line_2', 'contact_state',
-            'contact_city', 'contact_zip',
+            'contact_city', 'contact_zip', 'referrer'
         ]
         widgets = {
             'contact_first_name': TextInput(attrs={
@@ -162,6 +162,10 @@ class Contact(ModelForm):
             'contact_zip': TextInput(attrs={
                 'class': 'usa-input',
             }),
+            'referrer': TextInput(attrs={
+                'class': 'usa-input',
+                'type': 'hidden'
+            })
         }
 
     def __init__(self, *args, **kwargs):
@@ -1690,7 +1694,7 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
             'contact_first_name', 'contact_last_name',
             'contact_email', 'contact_phone', 'contact_address_line_1',
             'contact_address_line_2', 'contact_state',
-            'contact_city', 'contact_zip',
+            'contact_city', 'contact_zip', 'referrer'
         ]
 
         widgets = {
@@ -1719,6 +1723,10 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
             }),
             'contact_zip': TextInput(attrs={
                 'class': 'usa-input',
+            }),
+            'referrer': TextInput(attrs={
+                'class': 'usa-input',
+                'type': 'hidden'
             }),
         }
 
