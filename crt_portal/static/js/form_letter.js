@@ -108,6 +108,7 @@
         return response.json();
       })
       .then(function(data) {
+        console.log("data", data)
         description.innerHTML = data.subject || '(select a response template)';
         if (data.is_html) {
           letter.hidden = true;

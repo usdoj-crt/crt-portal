@@ -1,20 +1,19 @@
 (function(root) {
-  referrer = document.referrer;
-  host = document.location.host;
-  if (referrer.indexOf(host) > -1) {
-    referrer = '';
-  }
+  const host = document.location.host;
 
-  if (localStorage.getItem('referrer') == null && referrer != '') {
+  //If referrer is same domain, do not include
+  const referrer = document.referrer.includes(host) ? '' : document.referrer;
+  let localStorageReferrer = localStorage.getItem('referrer');
+
+  if (referrer && !localStorageReferrer) {
     localStorage.setItem('referrer', referrer);
+    localStorageReferrer = referrer;
   }
-
-  referrerInStorage = localStorage.getItem('referrer')
-  if (referrerInStorage) {
-    referrerField = document.getElementById("id_0-referrer");
-    if (referrerField) {
-      referrerField.value = referrerInStorage
+  console.log('localStorageReferrer', localStorageReferrer);
+  if (localStorageReferrer) {
+    let referrerEl = document.getElementById('id_0-referrer');
+    if (referrerEl) {
+      referrerEl.value = localStorageReferrer;
     }
   }
 })(window);
-
