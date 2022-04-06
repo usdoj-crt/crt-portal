@@ -20,16 +20,18 @@
   <div class="grid-container">
     <div class="grid-row grid-gap">
       <div class="tablet:grid-col-4">
-        <ul class="usa-sidenav crt-subpage--nav">
+        <ul class="usa-sidenav crt-subpage--nav" id="toc">
           <li class="usa-sidenav__item">
-            <a href="#get-help" class="usa-current">{% trans "How do I…" %}</a>
+            <a href="#get-help" class="usa-current">{% trans "Get help" %}</a>
           </li>
-          <li class="usa-sidenav__item">
-            <a href="#report-hate-crime">{% trans "Report a hate crime" %}</a>
-          </li>
-          <li class="usa-sidenav__item">
-            <a href="#report-human-trafficking">{% trans "Report human trafficking" %}</a>
-          </li>
+          <ul class="sublist">
+            <li class="usa-sidenav__item">
+              <a href="#report-hate-crime">{% trans "Report a hate crime" %}</a>
+            </li>
+            <li class="usa-sidenav__item">
+              <a href="#report-human-trafficking">{% trans "Report human trafficking" %}</a>
+            </li>
+          </ul>
         </ul>
       </div>
       <div class="tablet:grid-col-8">
@@ -80,4 +82,6 @@
 {% block page_js %}
 <script src="{% static 'js/modal.min.js' %}"></script>
 <script src="{% static 'js/redirect-modal.min.js' %}"></script>
+<script src="{% static 'vendor/gumshoe.min.js' %}"></script>
+<script src="{% static 'js/highlight_active_header.js' %}"></script>
 {% endblock %}

@@ -238,7 +238,6 @@
     letterhead.removeAttribute('hidden');
     document.body.appendChild(letterhead);
     window.print();
-    el.remove();
     letter_placeholder.classList.remove('form-letter-text');
     document.body.removeChild(letterhead);
     root.CRT.closeModal(modal);
