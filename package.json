@@ -51,7 +51,7 @@
     "sass": "^1.38.0",
     "url-search-params-polyfill": "^7.0.1",
     "uswds": "2.10.3",
-    "uswds-gulp": "github:uswds/uswds-gulp#993c08983249e2ba7721bf676554e7569b9b7e0b"
+    "uswds-gulp": "github:uswds/uswds-gulp#0aa819bc382538ff0186b7845c8844068cd4656f"
   },
   "devDependencies": {
     "pa11y": "^6.0.1",
