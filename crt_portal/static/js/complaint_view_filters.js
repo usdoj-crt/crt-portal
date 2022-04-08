@@ -1,4 +1,4 @@
-(function(root, dom) {
+(function (root, dom) {
   /**
    * Convert an array-like object to an array.
    *
@@ -33,7 +33,7 @@
     var search = new URLSearchParams(queryString);
     var acceptedParams = (paramsWhitelist instanceof Array && paramsWhitelist) || [];
 
-    search.forEach(function(value, filterName) {
+    search.forEach(function (value, filterName) {
       if (acceptedParams.indexOf(filterName) >= 0) {
         paramsMap[filterName] = paramsMap[filterName] || [];
 
@@ -53,7 +53,7 @@
    */
   function makeQueryParams(params) {
     var keys = Object.keys(params);
-    return keys.reduce(function(memo, key) {
+    return keys.reduce(function (memo, key) {
       var paramValue = params[key];
 
       if (!paramValue || !paramValue.length) {
@@ -62,7 +62,7 @@
 
       var valueToList = wrapValue(paramValue);
       var paramsString = valueToList
-        .reduce(function(accum, value) {
+        .reduce(function (accum, value) {
           accum.push(makeQueryParam(key, value));
 
           return accum;
@@ -128,7 +128,7 @@
     per_page: '',
     no_status: '',
     language: [],
-    correctional_facility_type: []
+    correctional_facility_type: [],
   };
   var filterDataModel = {};
 
@@ -212,12 +212,12 @@
    * @param {HTMLElement} props.el The DOM node this view manages
    */
   function multiSelectView(props) {
-    props.el.addEventListener('change', function(event) {
+    props.el.addEventListener('change', function (event) {
       filterDataModel[props.name] = multiSelectView.getValues(event.target);
     });
   }
 
-  multiSelectView.getValues = function(select) {
+  multiSelectView.getValues = function (select) {
     var options = toArray((select && select.options) || []);
 
     function isSelected(option) {
@@ -233,13 +233,13 @@
 
   function checkBoxView(props) {
     for (var i = 0; i < props.el.length; i++) {
-      props.el[i].addEventListener('change', function(event) {
+      props.el[i].addEventListener('change', function (event) {
         checkBoxView.getValues(event.target);
       });
     }
   }
 
-  checkBoxView.getValues = function(el) {
+  checkBoxView.getValues = function (el) {
     if (el.checked) {
       filterDataModel[event.target.name].push(el.value);
     } else {
@@ -261,7 +261,7 @@
       );
     }
 
-    props.el.addEventListener('change', function(event) {
+    props.el.addEventListener('change', function (event) {
       filterDataModel[props.name] = event.target.value;
     });
   }
@@ -315,7 +315,7 @@
         'commercial_or_public_place',
         'reported_reason',
         'language',
-        'correctional_facility_type'
+        'correctional_facility_type',
       ];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {
@@ -333,7 +333,7 @@
     function clearAllFilters() {
       const activeFilters = toArray(activeFiltersEl.children);
 
-      var updates = activeFilters.reduce(function(updates, node) {
+      var updates = activeFilters.reduce(function (updates, node) {
         var filterName = node.getAttribute('data-filter-name');
         var currentFilterData = filterDataModel[filterName];
         currentFilterData = wrapValue(currentFilterData);
@@ -349,107 +349,107 @@
     }
 
     formView({
-      el: formEl
+      el: formEl,
     });
     textInputView({
       el: firstNameEl,
-      name: 'contact_first_name'
+      name: 'contact_first_name',
     });
     textInputView({
       el: lastNameEl,
-      name: 'contact_last_name'
+      name: 'contact_last_name',
     });
     textInputView({
       el: locationCityEl,
-      name: 'location_city_town'
+      name: 'location_city_town',
     });
     textInputView({
       el: locationNameEl,
-      name: 'location_name'
+      name: 'location_name',
     });
     checkBoxView({
       el: locationStateEl,
-      name: 'location_state'
+      name: 'location_state',
     });
     filterTagView({
       el: activeFiltersEl,
-      onClick: onFilterTagClick
+      onClick: onFilterTagClick,
     });
     checkBoxView({
       el: statusEl,
-      name: 'status'
+      name: 'status',
     });
     textInputView({
       el: summaryEl,
-      name: 'summary'
+      name: 'summary',
     });
     textInputView({
       el: assigneeEl,
-      name: 'assigned_to'
+      name: 'assigned_to',
     });
     textInputView({
       el: personalDescriptionEl,
-      name: 'violation_summary'
+      name: 'violation_summary',
     });
     textInputView({
       el: createdatestartEl,
-      name: 'create_date_start'
+      name: 'create_date_start',
     });
     textInputView({
       el: createdateendEl,
-      name: 'create_date_end'
+      name: 'create_date_end',
     });
     textInputView({
       el: complaintIDEl,
-      name: 'public_id'
+      name: 'public_id',
     });
     textInputView({
       el: statuteEl,
-      name: 'primary_statute'
+      name: 'primary_statute',
     });
     clearFiltersView({
       el: clearAllEl,
-      onClick: clearAllFilters
+      onClick: clearAllFilters,
     });
     checkBoxView({
       el: primaryIssueEl,
-      name: 'primary_complaint'
+      name: 'primary_complaint',
     });
     checkBoxView({
       el: reportedReasonEl,
-      name: 'reported_reason'
+      name: 'reported_reason',
     });
     checkBoxView({
       el: relevantDetailsEl,
-      name: 'commercial_or_public_place'
+      name: 'commercial_or_public_place',
     });
     checkBoxView({
       el: intakeFormatEl,
-      name: 'intake_format'
+      name: 'intake_format',
     });
     checkBoxView({
       el: hateCrimeEl,
-      name: 'hate_crime'
+      name: 'hate_crime',
     });
     checkBoxView({
       el: servicememberEl,
-      name: 'servicemember'
+      name: 'servicemember',
     });
     textInputView({
       el: contactEmailEl,
-      name: 'contact_email'
+      name: 'contact_email',
     });
     checkBoxView({
       el: referredEl,
-      name: 'referred'
+      name: 'referred',
     });
     checkBoxView({
       el: languageEl,
-      name: 'language'
+      name: 'language',
     });
     checkBoxView({
       el: correctionalFacilityTypeEl,
-      name: 'correctional_facility_type'
+      name: 'correctional_facility_type',
     });
   }
 
@@ -475,7 +475,7 @@
     // Validate immediately, in case field is pre-populated
     validateTextSearch(inputEl);
     // Then add an event listener to re-validate when input changes
-    inputEl.addEventListener('input', function(event) {
+    inputEl.addEventListener('input', function (event) {
       validateTextSearch(event.target);
     });
   }
@@ -488,7 +488,7 @@
     }
     var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
 
-    Object.keys(initialFilterState).forEach(function(key) {
+    Object.keys(initialFilterState).forEach(function (key) {
       filterDataModel[key] = initialFilterState[key];
     });
 

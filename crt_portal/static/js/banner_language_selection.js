@@ -1,8 +1,8 @@
-(function(root, dom) {
+(function (root, dom) {
   var buttons = document.querySelectorAll('.language-selection__button');
   for (var index in buttons) {
     var button = buttons[index];
-    button.onclick = function(event) {
+    button.onclick = function (event) {
       event.preventDefault();
 
       var language_code = this.getAttribute('data-value');

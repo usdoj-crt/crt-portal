@@ -1,4 +1,4 @@
-(function() {
+(function () {
   function showForm() {
     var showThese = document.querySelectorAll('.details-edit');
     var hideThese = document.querySelectorAll('.details');
@@ -110,14 +110,14 @@
       'inside_correctional_facility',
       'correctional_facility_type',
       'commercial_or_public_place',
-      'other_commercial_or_public_place'
+      'other_commercial_or_public_place',
     ];
 
     var followupMapping = {
       workplace: ['public_or_private_employer', 'employer_size'],
       education: ['public_or_private_school'],
       police: ['inside_correctional_facility', 'correctional_facility_type'],
-      commercial_or_public: ['commercial_or_public_place', 'other_commercial_or_public_place']
+      commercial_or_public: ['commercial_or_public_place', 'other_commercial_or_public_place'],
     };
 
     // pick out and show dependent fields

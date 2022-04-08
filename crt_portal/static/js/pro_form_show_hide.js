@@ -1,4 +1,4 @@
-(function(root, dom) {
+(function (root, dom) {
   root.CRT = root.CRT || {};
 
   function toggleFollowUpQuestions(event) {
@@ -6,17 +6,17 @@
     var predicate_target_mapping = {
       'id_0-primary_complaint_0': [
         'div-id_0-public_or_private_employer_0',
-        'div-id_0-employer_size_0'
+        'div-id_0-employer_size_0',
       ],
       'id_0-primary_complaint_2': ['div-id_0-public_or_private_school_0'],
       'id_0-primary_complaint_3': [
         'div-id_0-inside_correctional_facility_0',
-        'div-id_0-correctional_facility_type_0'
+        'div-id_0-correctional_facility_type_0',
       ],
       'id_0-primary_complaint_5': [
         'div-id_0-commercial_or_public_place_0',
-        'div-id_0-other_commercial_or_public_place'
-      ]
+        'div-id_0-other_commercial_or_public_place',
+      ],
     };
     // show
     if (primary_complaint_id in predicate_target_mapping) {
@@ -27,7 +27,7 @@
       }
     }
     // hide
-    Object.keys(predicate_target_mapping).forEach(function(primary_id) {
+    Object.keys(predicate_target_mapping).forEach(function (primary_id) {
       if (primary_complaint_id != primary_id) {
         var targets = predicate_target_mapping[primary_id];
         for (i = 0; i < targets.length; i++) {

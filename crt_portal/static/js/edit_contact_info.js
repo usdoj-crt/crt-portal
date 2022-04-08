@@ -1,4 +1,4 @@
-(function() {
+(function () {
   function showContactForm() {
     contactForm.classList.remove('display-none');
     contactInfo.classList.add('display-none');

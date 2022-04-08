@@ -1,12 +1,12 @@
 // Polyfill Array.from for IE11: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
 // Production steps of ECMA-262, Edition 6, 22.1.2.1
 if (!Array.from) {
-  Array.from = (function() {
+  Array.from = (function () {
     var toStr = Object.prototype.toString;
-    var isCallable = function(fn) {
+    var isCallable = function (fn) {
       return typeof fn === 'function' || toStr.call(fn) === '[object Function]';
     };
-    var toInteger = function(value) {
+    var toInteger = function (value) {
       var number = Number(value);
       if (isNaN(number)) {
         return 0;
@@ -17,7 +17,7 @@ if (!Array.from) {
       return (number > 0 ? 1 : -1) * Math.floor(Math.abs(number));
     };
     var maxSafeInteger = Math.pow(2, 53) - 1;
-    var toLength = function(value) {
+    var toLength = function (value) {
       var len = toInteger(value);
       return Math.min(Math.max(len, 0), maxSafeInteger);
     };
@@ -82,7 +82,7 @@ if (!Array.from) {
   })();
 }
 
-(function(root, document) {
+(function (root, document) {
   var translations = root.CRT.translations;
   var textAreaElem500 = document.getElementsByClassName('word-count-500');
   var textAreaElem10 = document.getElementsByClassName('word-count-10');
@@ -197,7 +197,7 @@ if (!Array.from) {
 
   // Add listeners only to word-limited elements
   const wordLimitedElements = Array.from(textAreaElem500).concat(Array.from(textAreaElem10));
-  wordLimitedElements.forEach(function(element) {
+  wordLimitedElements.forEach(function (element) {
     element.addEventListener('keyup', listenWordCount);
   });
 

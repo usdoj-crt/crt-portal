@@ -1,4 +1,4 @@
-(function(root, dom) {
+(function (root, dom) {
   root.CRT = root.CRT || {};
 
   function doToggle(predicate, target) {

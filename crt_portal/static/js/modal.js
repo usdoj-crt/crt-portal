@@ -1,12 +1,12 @@
-(function(root, dom) {
+(function (root, dom) {
   root.CRT = root.CRT || {};
 
   var previous_onkeydown = dom.onkeydown;
   var focusable_elements =
     'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
-  root.CRT.openModal = function(modal_el) {
-    dom.onkeydown = function(event) {
+  root.CRT.openModal = function (modal_el) {
+    dom.onkeydown = function (event) {
       event = event || window.event;
       var isEscape = false;
       if ('key' in event) {
@@ -49,14 +49,14 @@
     dom.body.classList.add('is-modal');
   };
 
-  root.CRT.closeModal = function(modal_el) {
+  root.CRT.closeModal = function (modal_el) {
     dom.onkeydown = previous_onkeydown;
     modal_el.setAttribute('hidden', 'hidden');
     dom.body.classList.remove('is-modal');
   };
 
-  root.CRT.cancelModal = function(modal_el, cancel_el, form_el) {
-    var dismissModal = function(event) {
+  root.CRT.cancelModal = function (modal_el, cancel_el, form_el) {
+    var dismissModal = function (event) {
       if (form_el) {
         form_el.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
         form_el.focus();

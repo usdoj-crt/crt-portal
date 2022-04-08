@@ -1,16 +1,13 @@
-(function(root) {
+(function (root) {
   const DEPT_ADDRESS = {
     deptOfEd:
       '<p id="form-letterhead--dept-addressee">U.S. Department of Education<br>Office for Civil Rights<br>Lyndon Baines Johnson Department of Education Bldg.<br>400 Maryland Avenue, SW<br>Washington, DC 20202-1100<br></p>',
-    DOT:
-      '<p id="form-letterhead--dept-addressee">Director of Civil Rights Advocacy<br>Aviation Consumer Protection Division<br>Department of Transportation<br>1200 New Jersey Avenue, S.E., C-75<br>W96-432<br>Washington, D.C.  20590<br></p>',
-    HHS:
-      '<p id="form-letterhead--dept-addressee">Office for Civil Rights<br>Department of Health and Human Services<br>200 Independence Avenue, SW, Room 515F<br>Humphrey Building<br>Washington, D.C.  20201<br></p>',
-    EEOC:
-      '<p id="form-letterhead--dept-addressee">Field Management Programs<br>U.S. Equal Employment Opportunity Commission<br>131 M Street, N.E.<br>Washington, DC  20507<br></p>'
+    DOT: '<p id="form-letterhead--dept-addressee">Director of Civil Rights Advocacy<br>Aviation Consumer Protection Division<br>Department of Transportation<br>1200 New Jersey Avenue, S.E., C-75<br>W96-432<br>Washington, D.C.  20590<br></p>',
+    HHS: '<p id="form-letterhead--dept-addressee">Office for Civil Rights<br>Department of Health and Human Services<br>200 Independence Avenue, SW, Room 515F<br>Humphrey Building<br>Washington, D.C.  20201<br></p>',
+    EEOC: '<p id="form-letterhead--dept-addressee">Field Management Programs<br>U.S. Equal Employment Opportunity Commission<br>131 M Street, N.E.<br>Washington, DC  20507<br></p>',
   };
 
-  const addReferralAddress = option => {
+  const addReferralAddress = (option) => {
     let addressee = document.getElementById('form-letterhead--addressee');
     let deptAddressee = document.getElementById('form-letterhead--dept-addressee');
     if (deptAddressee) {
@@ -46,12 +43,12 @@
     }
   };
 
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     // `marked` should be loaded in global context at this point.
     if (marked) {
       marked.setOptions({
         gfm: true,
-        breaks: true
+        breaks: true,
       });
     } else {
       console.error('marked.js parser not loaded');
@@ -61,7 +58,7 @@
   var modal = document.getElementById('intake_template');
 
   var contact = document.getElementById('contact_complainant');
-  var showModal = function(event) {
+  var showModal = function (event) {
     event.preventDefault();
     if (modal.getAttribute('hidden') !== null) {
       root.CRT.openModal(modal);
@@ -83,7 +80,7 @@
   var email_enabled = document.getElementById('intake_send').dataset.emailEnabled === 'True';
   var has_contact_email = Boolean(document.getElementById('contact_email').dataset.email);
 
-  var reset = function() {
+  var reset = function () {
     description.innerHTML = '(select a response template)';
     letter_html.innerHTML = '';
     letter_html.hidden = true;
@@ -97,17 +94,17 @@
   const description = document.getElementById('intake_description');
   const options = document.getElementById('intake_select');
   const reportId = document.getElementById('template-report-id').value;
-  options.addEventListener('change', function(event) {
+  options.addEventListener('change', function (event) {
     event.preventDefault();
     const index = event.target.selectedIndex;
     const option = event.target.options[index];
     const value = event.target.value;
     window
       .fetch('/api/responses/' + value + '/?report_id=' + reportId)
-      .then(function(response) {
+      .then(function (response) {
         return response.json();
       })
-      .then(function(data) {
+      .then(function (data) {
         description.innerHTML = data.subject || '(select a response template)';
         if (data.is_html) {
           letter.hidden = true;
@@ -131,11 +128,11 @@
     }
   });
 
-  var setLanguageCookie = function(lang) {
+  var setLanguageCookie = function (lang) {
     document.cookie = 'form-letter-language' + '=' + lang;
   };
 
-  var getLanguageCookie = function() {
+  var getLanguageCookie = function () {
     var nameEQ = 'form-letter-language=';
     var ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {
@@ -146,7 +143,7 @@
     return null;
   };
 
-  var applyTemplateLanguageFilter = function() {
+  var applyTemplateLanguageFilter = function () {
     var language_select = document.getElementById('template-language-select');
     var selected_language = language_select.value;
 
@@ -174,7 +171,7 @@
   };
 
   var language_select = document.getElementById('template-language-select');
-  language_select.onchange = function(event) {
+  language_select.onchange = function (event) {
     event.preventDefault();
     applyTemplateLanguageFilter();
     setLanguageCookie(language_select.value);
@@ -199,7 +196,7 @@
     document.removeEventListener('copy', listener);
   }
 
-  var copyContents = function(event) {
+  var copyContents = function (event) {
     // Text-only letter
     if (!letter.hidden) {
       const el = document.createElement('textarea');
@@ -219,7 +216,7 @@
   };
   copy.addEventListener('click', copyContents);
 
-  var printContents = function(event) {
+  var printContents = function (event) {
     const letterhead = document.getElementById('form-letterhead');
     const letter_placeholder = document.getElementById('form-letter--placeholder');
     // Text-only letter

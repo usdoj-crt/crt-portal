@@ -1,8 +1,8 @@
-(function(root, dom) {
+(function (root, dom) {
   var toggles = dom.querySelectorAll('a.td-toggle');
   for (var i = 0; i < toggles.length; i++) {
     var toggle = toggles[i];
-    toggle.onclick = function(event) {
+    toggle.onclick = function (event) {
       var target = event.currentTarget;
       var id = target.dataset['id'];
       var image = target.children[0];
@@ -21,12 +21,12 @@
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              'X-CSRFToken': Cookies.get('csrftoken')
+              'X-CSRFToken': Cookies.get('csrftoken'),
             },
             mode: 'same-origin',
-            body: JSON.stringify({ viewed: true })
+            body: JSON.stringify({ viewed: true }),
           })
-          .catch(error => {
+          .catch((error) => {
             console.error(error);
           });
       }

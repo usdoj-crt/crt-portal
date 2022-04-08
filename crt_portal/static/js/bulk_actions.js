@@ -1,9 +1,9 @@
-(function(root, dom) {
+(function (root, dom) {
   var select = document.getElementById('id_assigned_to');
   AriaAutocomplete(select, {});
 
   var comment_field = document.getElementById('id_comment');
-  comment_field.oninput = function(event) {
+  comment_field.oninput = function (event) {
     var buttons = document.querySelectorAll('.complaint-page .usa-button');
     for (var i = 0; i < buttons.length; i++) {
       var button = buttons[i];
@@ -21,7 +21,7 @@
   var warning_count_all = document.getElementById('warning_count_all');
   var confirm_button = document.getElementById('confirm_button');
 
-  var update_warning = function(is_partial) {
+  var update_warning = function (is_partial) {
     actions_section.setAttribute('hidden', 'hidden');
     warning_section.removeAttribute('hidden');
     if (is_partial) {
@@ -37,7 +37,7 @@
 
   var show_warning_section = document.getElementById('show_warning_section');
   if (show_warning_section) {
-    show_warning_section.onclick = function(event) {
+    show_warning_section.onclick = function (event) {
       event.preventDefault();
       update_warning(false);
     };
@@ -45,7 +45,7 @@
 
   var show_warning_section_partial = document.getElementById('show_warning_section_partial');
   if (show_warning_section_partial) {
-    show_warning_section_partial.onclick = function(event) {
+    show_warning_section_partial.onclick = function (event) {
       event.preventDefault();
       update_warning(true);
     };
@@ -53,7 +53,7 @@
 
   var cancel_warning_section = document.getElementById('cancel_warning_section');
   if (cancel_warning_section) {
-    cancel_warning_section.onclick = function(event) {
+    cancel_warning_section.onclick = function (event) {
       event.preventDefault();
       actions_section.removeAttribute('hidden');
       warning_section.setAttribute('hidden', 'hidden');
@@ -62,7 +62,7 @@
 
   var assigned_section = document.getElementById('id_assigned_section');
   var original_statute_value = document.getElementById('id_primary_statute').value;
-  assigned_section.onchange = function(event) {
+  assigned_section.onchange = function (event) {
     var status = document.getElementById('id_status');
     status.value = 'new';
     status.setAttribute('disabled', 'disabled');

@@ -1,4 +1,4 @@
-(function(root, dom) {
+(function (root, dom) {
   function update_record_count() {
     var action_notification_el = dom.querySelector('.selection-action-notification');
     var count_el = dom.getElementById('selection-action-count');
@@ -16,7 +16,7 @@
   var all_checkboxes = dom.querySelectorAll('td input.usa-checkbox__input');
   for (var i = 0; i < all_checkboxes.length; i++) {
     var checkbox = all_checkboxes[i];
-    checkbox.onclick = function(event) {
+    checkbox.onclick = function (event) {
       var target = event.target;
       var parent = target.parentNode.parentNode.parentNode;
       if (target.checked) {
@@ -31,7 +31,7 @@
     };
   }
 
-  select_all_checkboxes.onclick = function(event) {
+  select_all_checkboxes.onclick = function (event) {
     var checked = event.target.checked;
     for (var i = 0; i < all_checkboxes.length; i++) {
       var checkbox = all_checkboxes[i];

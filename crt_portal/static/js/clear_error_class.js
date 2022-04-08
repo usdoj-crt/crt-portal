@@ -1,4 +1,4 @@
-(function() {
+(function () {
   var USA_INPUT_ERROR = 'usa-input--error';
   var inputs = document.querySelectorAll('input[type="text"], textarea, select');
   var inputList = Array.prototype.slice.call(inputs);
@@ -12,7 +12,7 @@
 
     node.classList.remove(USA_INPUT_ERROR);
   }
-  inputList.filter(isRequired).forEach(function(node) {
+  inputList.filter(isRequired).forEach(function (node) {
     node.addEventListener('change', removeError);
   });
 })();

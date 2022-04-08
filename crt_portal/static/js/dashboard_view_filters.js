@@ -1,4 +1,4 @@
-(function(root, dom) {
+(function (root, dom) {
   /**
    * Convert an array-like object to an array.
    *
@@ -33,7 +33,7 @@
     var search = new URLSearchParams(queryString);
     var acceptedParams = (paramsWhitelist instanceof Array && paramsWhitelist) || [];
 
-    search.forEach(function(value, filterName) {
+    search.forEach(function (value, filterName) {
       if (acceptedParams.indexOf(filterName) >= 0) {
         paramsMap[filterName] = paramsMap[filterName] || [];
 
@@ -53,7 +53,7 @@
    */
   function makeQueryParams(params) {
     var keys = Object.keys(params);
-    return keys.reduce(function(memo, key) {
+    return keys.reduce(function (memo, key) {
       var paramValue = params[key];
 
       if (!paramValue || !paramValue.length) {
@@ -62,7 +62,7 @@
 
       var valueToList = wrapValue(paramValue);
       var paramsString = valueToList
-        .reduce(function(accum, value) {
+        .reduce(function (accum, value) {
           accum.push(makeQueryParam(key, value));
 
           return accum;
@@ -105,7 +105,7 @@
     assigned_to: '',
     sort: '',
     page: '',
-    per_page: ''
+    per_page: '',
   };
   var filterDataModel = {};
 
@@ -189,12 +189,12 @@
    * @param {HTMLElement} props.el The DOM node this view manages
    */
   function multiSelectView(props) {
-    props.el.addEventListener('change', function(event) {
+    props.el.addEventListener('change', function (event) {
       filterDataModel[props.name] = multiSelectView.getValues(event.target);
     });
   }
 
-  multiSelectView.getValues = function(select) {
+  multiSelectView.getValues = function (select) {
     var options = toArray((select && select.options) || []);
 
     function isSelected(option) {
@@ -210,13 +210,13 @@
 
   function checkBoxView(props) {
     for (var i = 0; i < props.el.length; i++) {
-      props.el[i].addEventListener('change', function(event) {
+      props.el[i].addEventListener('change', function (event) {
         checkBoxView.getValues(event.target);
       });
     }
   }
 
-  checkBoxView.getValues = function(el) {
+  checkBoxView.getValues = function (el) {
     if (el.checked) {
       filterDataModel[event.target.name].push(el.value);
     } else {
@@ -238,7 +238,7 @@
       );
     }
 
-    props.el.addEventListener('change', function(event) {
+    props.el.addEventListener('change', function (event) {
       filterDataModel[props.name] = event.target.value;
     });
   }
@@ -272,7 +272,7 @@
         'commercial_or_public_place',
         'reported_reason',
         'language',
-        'correctional_facility_type'
+        'correctional_facility_type',
       ];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {
@@ -290,7 +290,7 @@
     function clearAllFilters() {
       const activeFilters = toArray(activeFiltersEl.children);
 
-      var updates = activeFilters.reduce(function(updates, node) {
+      var updates = activeFilters.reduce(function (updates, node) {
         var filterName = node.getAttribute('data-filter-name');
         var currentFilterData = filterDataModel[filterName];
         currentFilterData = wrapValue(currentFilterData);
@@ -306,27 +306,27 @@
     }
 
     formView({
-      el: formEl
+      el: formEl,
     });
     filterTagView({
       el: activeFiltersEl,
-      onClick: onFilterTagClick
+      onClick: onFilterTagClick,
     });
     textInputView({
       el: assigneeEl,
-      name: 'assigned_to'
+      name: 'assigned_to',
     });
     textInputView({
       el: createdatestartEl,
-      name: 'create_date_start'
+      name: 'create_date_start',
     });
     textInputView({
       el: createdateendEl,
-      name: 'create_date_end'
+      name: 'create_date_end',
     });
     clearFiltersView({
       el: clearAllEl,
-      onClick: clearAllFilters
+      onClick: clearAllFilters,
     });
   }
 
@@ -335,7 +335,7 @@
   function init() {
     var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
 
-    Object.keys(initialFilterState).forEach(function(key) {
+    Object.keys(initialFilterState).forEach(function (key) {
       filterDataModel[key] = initialFilterState[key];
     });
 

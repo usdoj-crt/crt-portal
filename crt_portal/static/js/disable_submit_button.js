@@ -1,4 +1,4 @@
-(function(root) {
+(function (root) {
   document.getElementById('report-form').addEventListener('submit', disableSubmitButton);
   function disableSubmitButton() {
     const submitNextButton = document.getElementById('submit-next');

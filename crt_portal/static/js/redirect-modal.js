@@ -1,4 +1,4 @@
-(function(root) {
+(function (root) {
   // note that modal.js must be loaded beforehand
   var modal_el = document.getElementById('external-link--modal');
   var span = document.getElementById('external-link--address');
@@ -7,7 +7,7 @@
   var redirect;
   for (var i = 0; i < links.length; i++) {
     var link = links[i];
-    link.onclick = function(event) {
+    link.onclick = function (event) {
       var href = event.target.href;
       event.preventDefault();
       // display the actual redirect link
@@ -15,7 +15,7 @@
       root.CRT.openModal(modal_el);
       // set timeout for redirect
       clearTimeout(redirect);
-      redirect = setTimeout(function() {
+      redirect = setTimeout(function () {
         // only redirect if modal is still visible
         if (modal_el.getAttribute('hidden') === null) {
           window.location.href = href;
@@ -23,7 +23,7 @@
       }, 20000);
 
       // set up "continue" button to immediately redirect
-      continue_button.onclick = function(event) {
+      continue_button.onclick = function (event) {
         event.preventDefault();
         var href = span.children[0].href;
         window.location.href = href;

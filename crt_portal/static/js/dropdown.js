@@ -1,4 +1,4 @@
-(function() {
+(function () {
   /**
    * Controls the visibility of a dropdown component
    * @param {HTMLElement} el Node that represents the dropdown
@@ -19,23 +19,23 @@
       get isVisible() {
         return isVisible;
       },
-      hide: function() {
+      hide: function () {
         isVisible = false;
         content.setAttribute('hidden', '');
         control.setAttribute('aria-expanded', isVisible);
         el.classList.remove('expanded');
       },
-      show: function() {
+      show: function () {
         isVisible = true;
         content.removeAttribute('hidden');
         control.setAttribute('aria-expanded', isVisible);
         el.classList.add('expanded');
-      }
+      },
     };
   }
 
   var dropdownNodes = Array.prototype.slice.call(document.querySelectorAll('[data-crt-dropdown]'));
-  var dropdowns = dropdownNodes.map(function(node) {
+  var dropdowns = dropdownNodes.map(function (node) {
     var dropdown = Dropdown(node);
     dropdown.hide();
 
@@ -56,7 +56,7 @@
   }
 
   function closeAllDropdowns() {
-    dropdowns.forEach(function(dropdown) {
+    dropdowns.forEach(function (dropdown) {
       dropdown.hide();
     });
   }
@@ -89,7 +89,7 @@
     return currNode;
   }
 
-  document.body.addEventListener('click', function(event) {
+  document.body.addEventListener('click', function (event) {
     /**
      * Determine if the click event happened inside of a dropdown.
      * If so, there are one of two paths we need to take.
@@ -103,7 +103,7 @@
      * When click events occur outside of a dropdown, close all open
      * dropdowns
      **/
-    var node = hasParentNode(event.target, function(n) {
+    var node = hasParentNode(event.target, function (n) {
       if (!n.classList) {
         return false;
       }
@@ -120,7 +120,7 @@
       closeAllDropdowns();
     } else {
       // A node here indicates that the click event happened within a dropdown
-      var maybeDropdown = dropdowns.filter(function(dropdown) {
+      var maybeDropdown = dropdowns.filter(function (dropdown) {
         return dropdown.control === event.target;
       })[0];
 

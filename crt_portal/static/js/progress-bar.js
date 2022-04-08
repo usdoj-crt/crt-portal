@@ -1,4 +1,4 @@
-(function() {
+(function () {
   // see if we're in a browser that supports smooth scrolling, aka not IE11 and some versions of Edge
   // from https://stackoverflow.com/a/53672870
   function supportsSmoothScroll() {
@@ -10,7 +10,7 @@
         get behavior() {
           supportsScroll = true;
           return 'smooth';
-        }
+        },
       });
     } catch (err) {
       console.log(err);
@@ -32,11 +32,11 @@
       window.scroll({
         top: window.pageYOffset + totalOffset,
         left: window.pageXOffset,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
     for (i = 0; i < steps.length; i++) {
-      steps[i].addEventListener('click', function(el) {
+      steps[i].addEventListener('click', function (el) {
         smoothScroll(el);
       });
     }
@@ -47,7 +47,7 @@
     var bar = document.getElementsByClassName('intake-header--progress-bar')[0];
     var cards = document.getElementsByClassName('crt-portal-card');
 
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
       if (window.pageYOffset >= barOffset) {
         bar.style.position = 'fixed';
       } else {

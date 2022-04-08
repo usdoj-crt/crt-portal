@@ -1,13 +1,13 @@
-(function(root, dom) {
+(function (root, dom) {
   var add_attachment_el = document.getElementById('add_attachment');
   var file_el = document.getElementById('file_input');
 
-  add_attachment_el.onclick = function(event) {
+  add_attachment_el.onclick = function (event) {
     event.preventDefault();
     file_el.click();
   };
 
-  file_el.onchange = function(event) {
+  file_el.onchange = function (event) {
     var form = document.getElementById('complaint-view-attachments');
     form.submit();
 
@@ -16,8 +16,8 @@
   };
 
   var remove_buttons = document.querySelectorAll('.remove-attachment-button');
-  remove_buttons.forEach(function(btn) {
-    btn.onclick = function(event) {
+  remove_buttons.forEach(function (btn) {
+    btn.onclick = function (event) {
       event.preventDefault();
 
       var attachment_id = this.getAttribute('data-attachment-id');
@@ -33,14 +33,14 @@
       filename_el.innerText = attachment_filename;
 
       // user clicks no on removal confirmation
-      no_button.onclick = function(event) {
+      no_button.onclick = function (event) {
         event.preventDefault();
         // do nothing, just hide the modal
         root.CRT.closeModal(modal);
       };
 
       // user clicks yes on removal confirmation
-      yes_button.onclick = function(event) {
+      yes_button.onclick = function (event) {
         event.preventDefault();
 
         // get the form for removing this particular attachment

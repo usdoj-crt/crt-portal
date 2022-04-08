@@ -1,7 +1,7 @@
 // Helper functions to apply the correct `selected` styles to the primary complaint cards
 // Necessary becuase CSS does not allow styling of parent elements based on the
 // state of child nodes.
-(function(doc) {
+(function (doc) {
   var SELECTED_CLASS = 'selected';
   var cards = Array.prototype.slice.call(doc.querySelectorAll('.crt-hover-card'));
 
@@ -14,14 +14,14 @@
   }
 
   function handleRadioSelect(el) {
-    cards.forEach(function(card) {
+    cards.forEach(function (card) {
       removeClass(card, SELECTED_CLASS);
     });
 
     addClass(el, SELECTED_CLASS);
   }
 
-  cards.forEach(function(el) {
+  cards.forEach(function (el) {
     const eventTarget = el.querySelector('input[type="radio"]');
 
     // Ensure the `selected` class is applied to an issue that
@@ -30,7 +30,7 @@
       handleRadioSelect(el);
     }
 
-    eventTarget.addEventListener('change', function() {
+    eventTarget.addEventListener('change', function () {
       handleRadioSelect(el);
     });
   });

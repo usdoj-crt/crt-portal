@@ -6,7 +6,7 @@
  *
  */
 
-(function(self) {
+(function (self) {
   'use strict';
 
   var nativeURLSearchParams =
@@ -19,7 +19,7 @@
     __URLSearchParams__ = '__URLSearchParams__',
     // Fix bug in Edge which cannot encode ' &' correctly
     encodesAmpersandsCorrectly = nativeURLSearchParams
-      ? (function() {
+      ? (function () {
           var ampersandTest = new nativeURLSearchParams();
           ampersandTest.append('s', ' &');
           return ampersandTest.toString() === 's=+%26';
@@ -59,7 +59,7 @@
    * @param {string} name
    * @param {string} value
    */
-  prototype.append = function(name, value) {
+  prototype.append = function (name, value) {
     appendTo(this[__URLSearchParams__], name, value);
   };
 
@@ -69,7 +69,7 @@
    *
    * @param {string} name
    */
-  prototype['delete'] = function(name) {
+  prototype['delete'] = function (name) {
     delete this[__URLSearchParams__][name];
   };
 
@@ -79,7 +79,7 @@
    * @param {string} name
    * @returns {string|null}
    */
-  prototype.get = function(name) {
+  prototype.get = function (name) {
     var dict = this[__URLSearchParams__];
     return name in dict ? dict[name][0] : null;
   };
@@ -90,7 +90,7 @@
    * @param {string} name
    * @returns {Array}
    */
-  prototype.getAll = function(name) {
+  prototype.getAll = function (name) {
     var dict = this[__URLSearchParams__];
     return name in dict ? dict[name].slice(0) : [];
   };
@@ -101,7 +101,7 @@
    * @param {string} name
    * @returns {boolean}
    */
-  prototype.has = function(name) {
+  prototype.has = function (name) {
     return name in this[__URLSearchParams__];
   };
 
@@ -122,7 +122,7 @@
    *
    * @returns {string}
    */
-  prototype.toString = function() {
+  prototype.toString = function () {
     var dict = this[__URLSearchParams__],
       query = [],
       i,
@@ -149,11 +149,11 @@
     value: useProxy
       ? // Safari 10.0 doesn't support Proxy, so it won't extend URLSearchParams on safari 10.0
         new Proxy(nativeURLSearchParams, {
-          construct: function(target, args) {
+          construct: function (target, args) {
             return new target(new URLSearchParamsPolyfill(args[0]).toString());
-          }
+          },
         })
-      : URLSearchParamsPolyfill
+      : URLSearchParamsPolyfill,
   });
 
   var USPProto = self.URLSearchParams.prototype;
@@ -167,10 +167,10 @@
    */
   USPProto.forEach =
     USPProto.forEach ||
-    function(callback, thisArg) {
+    function (callback, thisArg) {
       var dict = parseToDict(this.toString());
-      Object.getOwnPropertyNames(dict).forEach(function(name) {
-        dict[name].forEach(function(value) {
+      Object.getOwnPropertyNames(dict).forEach(function (name) {
+        dict[name].forEach(function (value) {
           callback.call(thisArg, value, name, this);
         }, this);
       }, this);
@@ -181,7 +181,7 @@
    */
   USPProto.sort =
     USPProto.sort ||
-    function() {
+    function () {
       var dict = parseToDict(this.toString()),
         keys = [],
         k,
@@ -212,9 +212,9 @@
    */
   USPProto.keys =
     USPProto.keys ||
-    function() {
+    function () {
       var items = [];
-      this.forEach(function(item, name) {
+      this.forEach(function (item, name) {
         items.push(name);
       });
       return makeIterator(items);
@@ -228,9 +228,9 @@
    */
   USPProto.values =
     USPProto.values ||
-    function() {
+    function () {
       var items = [];
-      this.forEach(function(item) {
+      this.forEach(function (item) {
         items.push(item);
       });
       return makeIterator(items);
@@ -244,9 +244,9 @@
    */
   USPProto.entries =
     USPProto.entries ||
-    function() {
+    function () {
       var items = [];
-      this.forEach(function(item, name) {
+      this.forEach(function (item, name) {
         items.push([name, item]);
       });
       return makeIterator(items);
@@ -264,29 +264,29 @@
       ')': '%29',
       '~': '%7E',
       '%20': '+',
-      '%00': '\x00'
+      '%00': '\x00',
     };
-    return encodeURIComponent(str).replace(/[!'\(\)~]|%20|%00/g, function(match) {
+    return encodeURIComponent(str).replace(/[!'\(\)~]|%20|%00/g, function (match) {
       return replace[match];
     });
   }
 
   function decode(str) {
-    return str.replace(/[ +]/g, '%20').replace(/(%[a-f0-9]{2})+/gi, function(match) {
+    return str.replace(/[ +]/g, '%20').replace(/(%[a-f0-9]{2})+/gi, function (match) {
       return decodeURIComponent(match);
     });
   }
 
   function makeIterator(arr) {
     var iterator = {
-      next: function() {
+      next: function () {
         var value = arr.shift();
         return { done: value === undefined, value: value };
-      }
+      },
     };
 
     if (iterable) {
-      iterator[self.Symbol.iterator] = function() {
+      iterator[self.Symbol.iterator] = function () {
         return iterator;
       };
     }
