@@ -336,6 +336,26 @@ def serialize_data(report, request, report_id):
     return output
 
 
+class FormLetterView(LoginRequiredMixin, FormView):
+
+    def get(self, request):
+        total_form_letters_sent = 0
+        reports = Report.objects.all()
+        for report in reports:
+            recent_contact_activity = report.activity().filter(verb='Contacted complainant:', description__contains='Email sent').all()
+            for contact in recent_contact_activity:
+                try:
+                    email = contact.description.split("'")[1]
+                    if email:
+                        total_form_letters_sent += 1
+                except IndexError:
+                    print("oh my, it is not an email")
+
+        output = {
+            'total_form_letters_sent': total_form_letters_sent
+        }
+        return render(request, 'form_letters.html', output)
+
 class ProfileView(LoginRequiredMixin, FormView):
     # Can be used for updating section filter for a profile
     form_class = ProfileForm
