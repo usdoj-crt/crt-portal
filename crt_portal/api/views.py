@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 from api.serializers import ReportSerializer, ResponseTemplateSerializer
 from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView
+import html
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -88,8 +89,7 @@ class ResponseDetail(generics.RetrieveAPIView):
             report = Report.objects.filter(pk=report_pk).first()
             serialized_data['url'] = serialized_data['url'] + '?report_id=' + report_pk
             serialized_data['subject'] = template.render_subject(report)
-            serialized_data['subject'] = template.render_subject(report)
-            serialized_data['body'] = template.render_body(report)
+            serialized_data['body'] = html.unescape(template.render_body(report))
         return Response(serialized_data)
 
 
