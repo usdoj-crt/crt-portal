@@ -339,6 +339,16 @@ def serialize_data(report, request, report_id):
 class FormLetterView(LoginRequiredMixin, FormView):
 
     def get(self, request):
+        emails_counter = {'CRM - R1 Form Letter': 0,
+                          'CRM - R2 Form Letter': 0,
+                          'CRM - Referral to FBI': 0,
+                          'CRT - Comments & Opinions': 0,
+                          'CRT - Constant Writer': 0,
+                          'CRT - EEOC Referral Letter': 0,
+                          'CRT - No capacity': 0,
+                          'CRT - Non-Actionable': 0,
+                          'CRT - Request for Agency Review': 0}
+
         total_form_letters_sent = 0
         reports = Report.objects.all()
         for report in reports:
@@ -348,11 +358,31 @@ class FormLetterView(LoginRequiredMixin, FormView):
                     email = contact.description.split("'")[1]
                     if email:
                         total_form_letters_sent += 1
+                        if email == 'CRM - R1 Form Letter':
+                            emails_counter['CRM - R1 Form Letter'] += 1
+                        elif email == 'CRM - R2 Form Letter':
+                            emails_counter['CRM - R2 Form Letter'] += 1
+                        elif email == 'CRM - Referral to FBI':
+                            emails_counter['CRM - Referral to FBI'] += 1
+                        elif email == 'CRT - Comments & Opinions':
+                            emails_counter['CRT - Comments & Opinions'] += 1
+                        elif email == 'CRT - Constant Writer':
+                            emails_counter['CRT - Constant Writer'] += 1
+                        elif email == 'CRT - EEOC Referral Letter':
+                            emails_counter['CRT - EEOC Referral Letter'] += 1
+                        elif email == 'CRT - No capacity':
+                            emails_counter['CRT - No capacity'] += 1
+                        elif email == 'CRT - Non-Actionable':
+                            emails_counter['CRT - Non-Actionable'] += 1
+                        elif email == 'CRT - Request for Agency Review':
+                            emails_counter['CRT - Request for Agency Review'] += 1
+
                 except IndexError:
                     print("oh my, it is not an email")
 
         output = {
-            'total_form_letters_sent': total_form_letters_sent
+            'total_form_letters_sent': total_form_letters_sent,
+            'emails_counter': emails_counter
         }
         return render(request, 'form_letters.html', output)
 
