@@ -167,3 +167,47 @@ class APIResponseDetailTests(TestCase):
         response = self.client.get(self.url)
         self.assertTrue('Authentication credentials were not provided' in str(response.content))
         self.assertEqual(response.status_code, 403)
+
+class APIReportsAccessedTests(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.test_report = Report.objects.create(**SAMPLE_REPORT)
+        self.test_report2 = Report.objects.create(**SAMPLE_REPORT)
+        self.test_report3 = Report.objects.create(**SAMPLE_REPORT)
+        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', '')
+        self.client.login(username='DELETE_USER', password='')  # nosec
+        self.url = reverse('api:report-count', kwargs={'pk': self.test_report.pk})
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_report_detail_url(self):
+        """test report detail get"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('false' in str(response.content))
+        self.assertFalse('true' in str(response.content))
+
+    def test_report_detail_mark_true_return_message(self):
+        """test report detail post status"""
+        response = self.client.post(self.url, {"viewed": "true"})
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('true' in str(response.content))
+        self.assertFalse('false' in str(response.content))
+
+    def test_report_detail_mark_true_model_updated(self):
+        """test report detail update model"""
+        response = self.client.post(self.url, {"viewed": "true"})
+        self.assertEqual(response.status_code, 200)
+        report = Report.objects.get(id=self.test_report.id)
+        first_activity = list(report.target_actions.all())[0]
+        self.assertEqual(report.viewed, True)
+        self.assertTrue("Report viewed:" in str(first_activity))
+
+    def test_unauthenticated_report_detail_url(self):
+        """test report detail not logged in"""
+        self.client.logout()
+        response = self.client.post(self.url, {"viewed": "true"})
+        self.assertTrue('Authentication credentials were not provided' in str(response.content))
+        self.assertEqual(response.status_code, 403)

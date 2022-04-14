@@ -1,0 +1,4 @@
+scratchpad.txt
+
+Goals for pairing
+- determine from where in database to pull letter title
