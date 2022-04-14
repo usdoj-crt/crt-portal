@@ -35,6 +35,10 @@ filter_options = {
     'modified_date_start': '__gte',  # not in filter controls?
     'modified_date_end': '__lte',  # not in filter controls?
 
+    # API
+    'start_date': '__gte',
+    'end_date': '__lte',
+
     'primary_statute': '__in',  # aka "Classification"
     'primary_complaint': '__in',  # aka "Primary issue"
     'reported_reason': 'reported_reason',
@@ -176,15 +180,17 @@ def reports_accessed_filter(querydict):
     }
     for field in filter_options.keys():
         filter_list = querydict.getlist(field)
+        # TODO: ask billy - is the below check necessary?
         if len(filter_list) > 0:
             filters[field] = querydict.getlist(field)
             if 'date' in field:
                 # filters by a start date or an end date expects yyyy-mm-dd
                 field_name = 'timestamp'
+                # TODO: ask Billy - why some snakecase and some camelcase?
                 encodedDate = querydict.getlist(field)[0]
-                if field == 'create_date_start':
+                if field == 'start_date':
                     reports_accessed_payload["start_date"] = encodedDate
-                elif field == 'create_date_end':
+                elif field == 'end_date':
                     reports_accessed_payload["end_date"] = encodedDate
                 decodedDate = urllib.parse.unquote(encodedDate)
                 try:
