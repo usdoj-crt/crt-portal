@@ -20,3 +20,9 @@ class ResponseTemplateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ResponseTemplate
         fields = ['url', 'pk', 'title', 'subject', 'body', 'language', 'is_html']
+
+
+class FormLetterSerializer(serializers.Serializer):
+    title = serializers.CharField(required=True, allow_blank=True, max_length=100)
+    class Meta:
+        fields = ['title']

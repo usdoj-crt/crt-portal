@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import (ActionsView, FormLetterView, index_view, dashboard_view, ShowView, ProFormView,
+from .views import (ActionsView, index_view, dashboard_view, ShowView, ProFormView,
                     SaveCommentView, TrendView, ResponseView, SearchHelperView,
                     PrintView, ProfileView, ReportAttachmentView, RemoveReportAttachmentView)
 from .forms import ProForm
@@ -23,6 +23,5 @@ urlpatterns = [
     path('attachment/report/<int:report_id>/', ReportAttachmentView.as_view(), name='save-report-attachment'),
     path('attachment/<int:attachment_id>/', RemoveReportAttachmentView.as_view(), name='remove-report-attachment'),
     path('trends/', TrendView.as_view(), name='trends'),
-    path('dashboard/', dashboard_view, name='dashboard'),
-    path('form-letters/', FormLetterView.as_view(template_name="form_letters.html"), name='form_letters.html')
+    path('dashboard/', dashboard_view, name='dashboard')
 ]
