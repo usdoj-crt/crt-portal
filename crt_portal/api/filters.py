@@ -4,21 +4,13 @@ from actstream.models import Action
 import urllib.parse
 from datetime import datetime
 
+from utils.datetime_fns import _change_datetime_to_end_of_day
+
 # To add a new filter option, add the field name and expected filter behavior
 filter_options = {
   'start_date': '__gte',
   'end_date': '__lte'
 }
-
-def _change_datetime_to_end_of_day(dateObj, field):
-    """
-    Takes a datetime and field param to ensure an end_date
-    field has time moved to end of day (23:59:59)
-    """
-    if 'end' in field:
-        return dateObj.replace(hour=23, minute=59, second=59)
-    else:
-        return dateObj
 
 def contacts_filter(querydict):
   kwargs = {}
