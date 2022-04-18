@@ -95,9 +95,9 @@ class ResponseDetail(generics.RetrieveAPIView):
 
 class ReportCountView(APIView):
     """
-    A view that returns the count of reports accessed in JSON. 
-    
-    
+    A view that returns the count of reports accessed in JSON.
+
+
     Example: api/report-count/?start_date=2022-02-01&end_date=2022-04-14&intake_specialist=USER_1
     """
     permission_classes = (IsAuthenticated,)
