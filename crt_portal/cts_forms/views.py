@@ -335,6 +335,7 @@ def serialize_data(report, request, report_id):
 
     return output
 
+
 class ProfileView(LoginRequiredMixin, FormView):
     # Can be used for updating section filter for a profile
     form_class = ProfileForm

@@ -78,8 +78,6 @@ def _get_date_field_from_param(field):
     return field[:field.rfind('_')]
 
 
-
-
 def report_filter(querydict):
     kwargs = {}
     filters = {}

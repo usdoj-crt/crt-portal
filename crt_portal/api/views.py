@@ -1,5 +1,3 @@
-from actstream.models import Action
-from email.headerregistry import HeaderRegistry
 from cts_forms.models import Report, ResponseTemplate
 from rest_framework import generics
 from rest_framework import permissions
@@ -105,6 +103,7 @@ class ReportCountView(APIView):
     def get(self, request, format=None):
         reports_accessed_payload = reports_accessed_filter(request.GET)
         return Response(reports_accessed_payload)
+
 
 class FormLettersIndex(APIView):
     """
