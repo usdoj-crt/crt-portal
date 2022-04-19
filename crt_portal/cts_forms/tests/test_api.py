@@ -12,12 +12,11 @@ from cts_forms.views import add_activity
 
 
 class APIBaseUrlTests(TestCase):
-
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', '')
-        self.client.login(username='DELETE_USER', password='')  # nosec
-        self.url = reverse('api:api-base')
+        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.client.login(username="DELETE_USER", password="")  # nosec
+        self.url = reverse("api:api-base")
 
     def tearDown(self):
         self.user.delete()
@@ -26,24 +25,23 @@ class APIBaseUrlTests(TestCase):
         """test api base url get status"""
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue('/api/reports' in str(response.content))
+        self.assertTrue("/api/reports" in str(response.content))
 
     def test_unauthenticated_api_base_url(self):
         """test api base url not logged in"""
         self.client.logout()
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response.url, '/accounts/login/?next=/api/')
+        self.assertEqual(response.url, "/accounts/login/?next=/api/")
 
 
 class APIReportListTests(TestCase):
-
     def setUp(self):
         self.client = Client()
         self.test_report = Report.objects.create(**SAMPLE_REPORT)
-        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', '')
-        self.client.login(username='DELETE_USER', password='')  # nosec
-        self.url = reverse('api:report-list')
+        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.client.login(username="DELETE_USER", password="")  # nosec
+        self.url = reverse("api:report-list")
 
     def tearDown(self):
         self.user.delete()
@@ -52,25 +50,26 @@ class APIReportListTests(TestCase):
         """test report list get"""
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue('/api/reports' in str(response.content))
-        self.assertTrue('false' in str(response.content))
+        self.assertTrue("/api/reports" in str(response.content))
+        self.assertTrue("false" in str(response.content))
 
     def test_unauthenticated_report_list_url(self):
         """test report list not logged in"""
         self.client.logout()
         response = self.client.get(self.url)
-        self.assertTrue('Authentication credentials were not provided' in str(response.content))
+        self.assertTrue(
+            "Authentication credentials were not provided" in str(response.content)
+        )
         self.assertEqual(response.status_code, 403)
 
 
 class APIReportDetailTests(TestCase):
-
     def setUp(self):
         self.client = Client()
         self.test_report = Report.objects.create(**SAMPLE_REPORT)
-        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', '')
-        self.client.login(username='DELETE_USER', password='')  # nosec
-        self.url = reverse('api:report-detail', kwargs={'pk': self.test_report.pk})
+        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.client.login(username="DELETE_USER", password="")  # nosec
+        self.url = reverse("api:report-detail", kwargs={"pk": self.test_report.pk})
 
     def tearDown(self):
         self.user.delete()
@@ -79,15 +78,15 @@ class APIReportDetailTests(TestCase):
         """test report detail get"""
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue('false' in str(response.content))
-        self.assertFalse('true' in str(response.content))
+        self.assertTrue("false" in str(response.content))
+        self.assertFalse("true" in str(response.content))
 
     def test_report_detail_mark_true_return_message(self):
         """test report detail post status"""
         response = self.client.post(self.url, {"viewed": "true"})
         self.assertEqual(response.status_code, 200)
-        self.assertTrue('true' in str(response.content))
-        self.assertFalse('false' in str(response.content))
+        self.assertTrue("true" in str(response.content))
+        self.assertFalse("false" in str(response.content))
 
     def test_report_detail_mark_true_model_updated(self):
         """test report detail update model"""
@@ -102,17 +101,18 @@ class APIReportDetailTests(TestCase):
         """test report detail not logged in"""
         self.client.logout()
         response = self.client.post(self.url, {"viewed": "true"})
-        self.assertTrue('Authentication credentials were not provided' in str(response.content))
+        self.assertTrue(
+            "Authentication credentials were not provided" in str(response.content)
+        )
         self.assertEqual(response.status_code, 403)
 
 
 class APIResponseListTests(TestCase):
-
     def setUp(self):
         self.client = Client()
-        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', '')
-        self.client.login(username='DELETE_USER', password='')  # nosec
-        self.url = reverse('api:response-list')
+        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.client.login(username="DELETE_USER", password="")  # nosec
+        self.url = reverse("api:response-list")
 
     def tearDown(self):
         self.user.delete()
@@ -121,25 +121,26 @@ class APIResponseListTests(TestCase):
         """test response list get"""
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue('/api/responses' in str(response.content))
-        self.assertTrue('false' in str(response.content))
+        self.assertTrue("/api/responses" in str(response.content))
+        self.assertTrue("false" in str(response.content))
 
     def test_unauthenticated_response_list_url(self):
         """test response list not logged in"""
         self.client.logout()
         response = self.client.get(self.url)
-        self.assertTrue('Authentication credentials were not provided' in str(response.content))
+        self.assertTrue(
+            "Authentication credentials were not provided" in str(response.content)
+        )
         self.assertEqual(response.status_code, 403)
 
 
 class APIResponseDetailTests(TestCase):
-
     def setUp(self):
         self.client = Client()
         self.test_report = Report.objects.create(**SAMPLE_REPORT)
-        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', '')
-        self.client.login(username='DELETE_USER', password='')  # nosec
-        self.url = reverse('api:response-detail', kwargs={'pk': 1})
+        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.client.login(username="DELETE_USER", password="")  # nosec
+        self.url = reverse("api:response-detail", kwargs={"pk": 1})
 
     def tearDown(self):
         self.user.delete()
@@ -148,39 +149,39 @@ class APIResponseDetailTests(TestCase):
         """test response detail get"""
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue('false' in str(response.content))
-        self.assertFalse('true' in str(response.content))
+        self.assertTrue("false" in str(response.content))
+        self.assertFalse("true" in str(response.content))
 
     def test_response_detail_url_with_report_id(self):
         """test response detail get with report_id"""
         response = self.client.get(self.url + f"?report_id={self.test_report.id}")
         self.assertEqual(response.status_code, 200)
-        self.assertTrue('false' in str(response.content))
-        self.assertFalse('true' in str(response.content))
-        self.assertFalse('{{ addressee }}' in str(response.content))
-        self.assertFalse('{{ record_locator }}' in str(response.content))
-        self.assertFalse('{{ section_name }}' in str(response.content))
-        self.assertFalse('{{ date_of_intake }}' in str(response.content))
+        self.assertTrue("false" in str(response.content))
+        self.assertFalse("true" in str(response.content))
+        self.assertFalse("{{ addressee }}" in str(response.content))
+        self.assertFalse("{{ record_locator }}" in str(response.content))
+        self.assertFalse("{{ section_name }}" in str(response.content))
+        self.assertFalse("{{ date_of_intake }}" in str(response.content))
 
     def test_unauthenticated_response_detail_url(self):
         """test response detail not logged in"""
         self.client.logout()
         response = self.client.get(self.url)
-        self.assertTrue('Authentication credentials were not provided' in str(response.content))
+        self.assertTrue(
+            "Authentication credentials were not provided" in str(response.content)
+        )
         self.assertEqual(response.status_code, 403)
 
 
 class APIReportsAccessedTests(TestCase):
-
     def setUp(self):
         self.client = Client()
         self.test_report = Report.objects.create(**SAMPLE_REPORT)
         self.test_report2 = Report.objects.create(**SAMPLE_REPORT)
         self.test_report3 = Report.objects.create(**SAMPLE_REPORT)
-        self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', '')
-        self.client.login(username='DELETE_USER', password='')  # nosec
-        self.url = reverse('api:report-count') + "?intake_specialist=DELETE_USER"
-        print("self.url"), self.url
+        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.client.login(username="DELETE_USER", password="")  # nosec
+        self.url = reverse("api:report-count") + "?intake_specialist=DELETE_USER"
         self.template = ResponseTemplate.objects.create(**SAMPLE_RESPONSE_TEMPLATE)
 
     def tearDown(self):
@@ -190,14 +191,12 @@ class APIReportsAccessedTests(TestCase):
         """test report detail get"""
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        print("response.content", response.content)
         self.assertTrue('"report_count":0' in str(response.content))
 
     def test_report_count_url_no_results(self):
         """test report detail get"""
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        print("response.content", response.content)
         self.assertTrue('"report_count":0' in str(response.content))
 
     def test_report_count_url_with_results(self):
@@ -214,5 +213,7 @@ class APIReportsAccessedTests(TestCase):
         """test report detail not logged in"""
         self.client.logout()
         response = self.client.get(self.url)
-        self.assertTrue('Authentication credentials were not provided' in str(response.content))
+        self.assertTrue(
+            "Authentication credentials were not provided" in str(response.content)
+        )
         self.assertEqual(response.status_code, 403)

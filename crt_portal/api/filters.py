@@ -4,13 +4,12 @@ from cts_forms.models import User
 
 
 def reports_accessed_filter(querydict):
-    print("api filter")
     kwargs = {}
     reports_accessed_payload = {
         "report_count": 0,
-        "start_date": '',
-        "end_date": '',
-        "intake_specialist": ''
+        "start_date": "",
+        "end_date": "",
+        "intake_specialist": "",
     }
     registry.register(User)
     intake_specialist_username = querydict.get("intake_specialist", None)
@@ -20,11 +19,11 @@ def reports_accessed_filter(querydict):
         filtered_actions = actor_stream(intake_specialist).filter(**kwargs)
         reports_accessed_payload["report_count"] = len(filtered_actions)
         for field in querydict:
-            if 'date' in field:
+            if "date" in field:
                 # filters by a start date or an end date expects yyyy-mm-dd
                 encoded_date = querydict.getlist(field)[0]
-                if field == 'start_date':
+                if field == "start_date":
                     reports_accessed_payload["start_date"] = encoded_date
-                elif field == 'end_date':
+                elif field == "end_date":
                     reports_accessed_payload["end_date"] = encoded_date
     return reports_accessed_payload
