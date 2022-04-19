@@ -100,3 +100,4 @@ def contacts_filter(querydict):
   contacts_payload['emails_counter_for_date_range'] = emails_counter_for_date_range
 
   return contacts_payload
+  

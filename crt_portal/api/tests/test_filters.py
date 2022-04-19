@@ -1,5 +1,5 @@
 
-from argparse import Action
+from actstream.models import Action
 from urllib import request
 from django.http import QueryDict
 
@@ -7,16 +7,13 @@ from django.test import TestCase
 from api.tests.test_data import SAMPLE_ACTION_1, SAMPLE_ACTION_2, SAMPLE_ACTION_3
 from ..filters import contacts_filter
 
-# TODO: make setup between first and second test dryer
 
 class ContactsFilterTests(TestCase):
-  def set_up(self):
-    # there are two contacts on 4/12/22 and one contact on 4/15/22
+  def setUp(self):
     action_1 = Action.objects.create(**SAMPLE_ACTION_1)
     action_2 = Action.objects.create(**SAMPLE_ACTION_2)
     action_3 = Action.objects.create(**SAMPLE_ACTION_3)
   
-  # TODO: figure out how to run one specific test
   def test_date_filter(self):
     request_one_day = QueryDict(mutable=True)
     request_one_day.update({
@@ -44,7 +41,7 @@ class ContactsFilterTests(TestCase):
   
   def test_date_filter_no_results(self):
     request = QueryDict(mutable=True)
-    request.update({'start_date': '2022-04-1', 'end_date': ['2022-04-11']})
+    request.update({'start_date': '2022-04-1', 'end_date': '2022-04-11'})
     result = contacts_filter(request)
 
     self.assertEqual(result['total_contacts_in_range'], 0)

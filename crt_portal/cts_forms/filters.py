@@ -173,13 +173,11 @@ def reports_accessed_filter(querydict):
     }
     for field in filter_options.keys():
         filter_list = querydict.getlist(field)
-        # TODO: ask billy - is the below check necessary?
         if len(filter_list) > 0:
             filters[field] = querydict.getlist(field)
             if 'date' in field:
                 # filters by a start date or an end date expects yyyy-mm-dd
                 field_name = 'timestamp'
-                # TODO: ask Billy - why some snakecase and some camelcase?
                 encodedDate = querydict.getlist(field)[0]
                 if field == 'start_date':
                     reports_accessed_payload["start_date"] = encodedDate
