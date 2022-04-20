@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "sass:watch": "gulp watch-sass",
+    "build": "webpack --config webpack.config.js --mode production",
+    "start": "webpack-dev-server --config webpack.config.js",
     "gulp:watch": "gulp watch",
     "lint:check": "prettier --check \"crt_portal/static/js/*.js\"",
     "lint:write": "prettier --write \"crt_portal/static/js/*.js\"",
@@ -51,11 +53,18 @@
     "sass": "^1.38.0",
     "url-search-params-polyfill": "^7.0.1",
     "uswds": "2.10.3",
-    "uswds-gulp": "github:uswds/uswds-gulp#4f2e1ef06f5fde76cba2b136b683ab22a258e6a8"
+    "uswds-gulp": "github:uswds/uswds-gulp#4f2e1ef06f5fde76cba2b136b683ab22a258e6a8",
+    "util": "^0.12.4",
+    "webpack-dev-server": "^4.8.1"
   },
   "devDependencies": {
+    "node-sass": "^7.0.1",
     "pa11y": "^6.0.1",
     "pa11y-ci": "^2.4.2",
-    "prettier": "1.18.2"
+    "prettier": "1.18.2",
+    "sass-loader": "^12.6.0",
+    "webpack-bundle-tracker": "^1.5.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-glob": "^2.0.2"
   }
 }
