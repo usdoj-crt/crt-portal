@@ -8,7 +8,7 @@ from cts_forms.views import mark_report_as_viewed
 from cts_forms.filters import reports_accessed_filter
 from api.filters import contacts_filter
 from rest_framework.permissions import IsAuthenticated
-from api.serializers import ReportSerializer, ResponseTemplateSerializer
+from api.serializers import ReportSerializer, ResponseTemplateSerializer, ResponseTitleSerializer
 from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView
 
@@ -69,6 +69,15 @@ class ResponseList(generics.ListAPIView):
     """
     queryset = ResponseTemplate.objects.all()
     serializer_class = ResponseTemplateSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
+class ResponseTitleList(generics.ListAPIView):
+    """
+    API endpoint that returns response titles.
+    """
+    queryset = ResponseTemplate.objects.all()
+    serializer_class = ResponseTitleSerializer
     permission_classes = [permissions.IsAuthenticated]
 
 
