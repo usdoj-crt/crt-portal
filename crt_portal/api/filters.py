@@ -1,10 +1,11 @@
 # Class to handle filtering data by supplied query params, providing the params are valid.
 
 from actstream.models import Action
+from rest_framework.exceptions import ParseError
 import urllib.parse
 from datetime import datetime
 
-from utils.datetime_fns import _change_datetime_to_end_of_day
+from utils.datetime_fns import change_datetime_to_end_of_day
 
 # To add a new filter option, add the field name and expected filter behavior
 filter_options = {
@@ -13,35 +14,13 @@ filter_options = {
 }
 
 
-def contacts_filter(querydict):
+def contacts_filter(querydict, total_emails_counter):
     kwargs = {}
     filters = {}
     action_qs = Action.objects.filter().all()
     contact_qs = Action.objects.filter(verb='Contacted complainant:').all()
     total_actions = len(action_qs)
     total_contacts = len(contact_qs)
-    total_emails_counter = {'CRM - R1 Form Letter': 0,
-                            'CRM - R2 Form Letter': 0,
-                            'CRM - Referral to FBI': 0,
-                            'CRT - Comments & Opinions': 0,
-                            'CRT - Constant Writer': 0,
-                            'CRT - EEOC Referral Letter': 0,
-                            'CRT - No capacity': 0,
-                            'CRT - Non-Actionable': 0,
-                            'CRT - Request for Agency Review': 0,
-                            'DRS - Dept of Ed Referral Form Letter': 0,
-                            'DRS - DOT Referral Letter': 0,
-                            'DRS - EEOC Referral Letter': 0,
-                            'DRS - HHS Referral Form Letter': 0,
-                            'HCE - Referral for Housing/Lending/Public Accomodation': 0,
-                            'IER - Form Letter': 0,
-                            'EOS - EEOC Referral Form Letter': 0,
-                            'EOS - Department of Ed OCR Referral Form Letter': 0,
-                            'SPL - Referral for PREA Issues': 0,
-                            'SPL - Standard Form Letter': 0,
-                            'Trending - Arbery Inquiries': 0,
-                            'Trending - Floyd Inquiries': 0,
-                            'Trending - General COVID Inquiries': 0}
     emails_counter_for_date_range = total_emails_counter.copy()
 
     contacts_payload = {
@@ -67,11 +46,11 @@ def contacts_filter(querydict):
             decoded_date = urllib.parse.unquote(encoded_date)
             try:
                 date_obj = datetime.strptime(decoded_date, "%Y-%m-%d")
-                date_obj = _change_datetime_to_end_of_day(date_obj, field)
+                date_obj = change_datetime_to_end_of_day(date_obj, field)
                 kwargs[f'{field_name}{filter_options[field]}'] = date_obj
             except ValueError:
-                # if the date is invalid, we ignore it.
-                continue
+                # if the date is invalid, we throw an error
+                raise ValueError("Incorrect date format, should be YYYY-MM-DD")
     filtered_actions = action_qs.filter(**kwargs).distinct()
     filtered_contacts = contact_qs.filter(**kwargs).distinct()
 
@@ -83,7 +62,7 @@ def contacts_filter(querydict):
                     if key == email_title:
                         total_emails_counter[key] += 1
         except IndexError:
-            print("oh my, it is not an email")
+            raise ParseError("Request failed due to invalid data")
 
     for contact in filtered_contacts:
         try:
@@ -93,7 +72,7 @@ def contacts_filter(querydict):
                     if key == email_title:
                         emails_counter_for_date_range[key] += 1
         except IndexError:
-            print("oh my, it is not an email")
+            raise ParseError("Request failed due to invalid data")
 
     contacts_payload['total_contacts_in_range'] = len(filtered_contacts)
     contacts_payload['total_actions_in_range'] = len(filtered_actions)

@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from cts_forms.models import Report, ResponseTemplate
 from rest_framework import generics
 from rest_framework import permissions
@@ -25,7 +26,8 @@ def api_root(request, format=None):
     return Response({
         'reports': reverse('api:report-list', request=request, format=format),
         'responses': reverse('api:response-list', request=request, format=format),
-        'report-count': reverse('api:report-count', request=request, format=format)
+        'report-count': reverse('api:report-count', request=request, format=format),
+        'form-letters': reverse('api:form-letters', request=request, format=format)
     })
 
 
@@ -117,10 +119,21 @@ class ReportCountView(APIView):
 class FormLettersIndex(APIView):
     """
     A view that displays information about the number of form letters sent.
+
+    Example: /api/form-letters/?start_date=2022-03-24&end_date=2022-03-29
     """
 
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        contacts_payload = contacts_filter(request.GET)
-        return Response(contacts_payload)
+        results = ResponseTitleList.as_view()(request=request._request).data["results"]
+        total_emails_counter = {}
+        for result in results:
+            total_emails_counter[result['title']] = 0
+        try:
+            contacts_payload = contacts_filter(request.GET, total_emails_counter)
+            return Response(contacts_payload)
+        except ValueError:
+            return HttpResponse(status=400)
+        except IndexError:
+            return HttpResponse(status=500)

@@ -7,7 +7,7 @@ from datetime import datetime
 from django.contrib.postgres.search import SearchQuery
 from django.db import connection
 
-from utils.datetime_fns import _change_datetime_to_end_of_day
+from utils.datetime_fns import change_datetime_to_end_of_day
 
 from .models import Report, User
 from actstream import registry
@@ -36,10 +36,6 @@ filter_options = {
     'closed_date_end': '__lte',  # not in filter controls?
     'modified_date_start': '__gte',  # not in filter controls?
     'modified_date_end': '__lte',  # not in filter controls?
-
-    # API
-    'start_date': '__gte',
-    'end_date': '__lte',
 
     'primary_statute': '__in',  # aka "Classification"
     'primary_complaint': '__in',  # aka "Primary issue"
@@ -102,7 +98,7 @@ def report_filter(querydict):
                 decodedDate = urllib.parse.unquote(encodedDate)
                 try:
                     dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
-                    dateObj = _change_datetime_to_end_of_day(dateObj, field)
+                    dateObj = change_datetime_to_end_of_day(dateObj, field)
                     kwargs[f'{field_name}{filter_options[field]}'] = dateObj
                 except ValueError:
                     # if the date is invalid, we ignore it.
@@ -145,7 +141,7 @@ def dashboard_filter(querydict):
                 decodedDate = urllib.parse.unquote(encodedDate)
                 try:
                     dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
-                    dateObj = _change_datetime_to_end_of_day(dateObj, field)
+                    dateObj = change_datetime_to_end_of_day(dateObj, field)
                     kwargs[f'{field_name}{filter_options[field]}'] = dateObj
                 except ValueError:
                     # if the date is invalid, we ignore it.
@@ -177,14 +173,14 @@ def reports_accessed_filter(querydict):
                 # filters by a start date or an end date expects yyyy-mm-dd
                 field_name = 'timestamp'
                 encodedDate = querydict.getlist(field)[0]
-                if field == 'start_date':
+                if field == 'create_date_start':
                     reports_accessed_payload["start_date"] = encodedDate
-                elif field == 'end_date':
+                elif field == 'create_date_end':
                     reports_accessed_payload["end_date"] = encodedDate
                 decodedDate = urllib.parse.unquote(encodedDate)
                 try:
                     dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
-                    dateObj = _change_datetime_to_end_of_day(dateObj, field)
+                    dateObj = change_datetime_to_end_of_day(dateObj, field)
                     kwargs[f'{field_name}{filter_options[field]}'] = dateObj
                 except ValueError:
                     # if the date is invalid, we ignore it.
