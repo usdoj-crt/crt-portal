@@ -29,7 +29,6 @@ def reports_accessed_filter(querydict):
     intake_specialist = User.objects.filter(username=intake_specialist_username).first()
     if intake_specialist:
         reports_accessed_payload["intake_specialist"] = intake_specialist_username
-
         for field in querydict:
             if "date" in field:
                 # filters by a start date or an end date expects yyyy-mm-dd
@@ -53,5 +52,5 @@ def reports_accessed_filter(querydict):
                         continue
                     reports_accessed_payload["end_date"] = encodedDate
         filtered_actions = actor_stream(intake_specialist).filter(**kwargs)
-    reports_accessed_payload["report_count"] = len(filtered_actions)
+        reports_accessed_payload["report_count"] = len(filtered_actions)
     return reports_accessed_payload

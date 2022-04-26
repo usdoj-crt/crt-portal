@@ -9,6 +9,8 @@ from django.urls import reverse
 from ..models import Report, ResponseTemplate
 from .test_data import SAMPLE_REPORT, SAMPLE_RESPONSE_TEMPLATE
 from cts_forms.views import add_activity
+from actstream.models import actor_stream
+from datetime import datetime
 
 
 class APIBaseUrlTests(TestCase):
@@ -182,6 +184,7 @@ class APIReportsAccessedTests(TestCase):
         self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.client.login(username="DELETE_USER", password="")  # nosec
         self.url = reverse("api:report-count") + "?intake_specialist=DELETE_USER"
+        self.url2 = reverse("api:report-count") + "?start_date=2020-02-01&end_date=2022-04-01&intake_specialist=DELETE_USER"
         self.template = ResponseTemplate.objects.create(**SAMPLE_RESPONSE_TEMPLATE)
 
     def tearDown(self):
@@ -208,6 +211,19 @@ class APIReportsAccessedTests(TestCase):
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertTrue('"report_count":3' in str(response.content))
+
+    def test_report_count_url_with_date_results(self):
+        """test report detail get"""
+        description = "Printed 'CRT - Request for Agency Review' template"
+        add_activity(self.user, "Printed report", description, self.test_report)
+        add_activity(self.user, "Printed report", description, self.test_report2)
+        add_activity(self.user, "Printed report", description, self.test_report3)
+        first_action = actor_stream(self.user).first()
+        first_action.timestamp = datetime(2021, 1, 1)
+        first_action.save()
+        response = self.client.get(self.url2)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('"report_count":1' in str(response.content))
 
     def test_unauthenticated_report_detail_url(self):
         """test report detail not logged in"""
