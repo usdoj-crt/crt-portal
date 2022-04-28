@@ -7,7 +7,9 @@ python /code/crt_portal/manage.py migrate
 
 echo Generating css and js...
 node node_modules/gulp/bin/gulp build-sass
-node node_modules/gulp/bin/gulp build-js
+# node node_modules/gulp/bin/gulp build-js
+# Replace gulp with webpack
+node node_modules/webpack/bin/webpack.js --config webpack.config.js --mode production
 
 # If LOCALSTACK is set in environment, this will upload static files to the localstack s3 service running in docker
 # Otherwise the development server is handling static files
