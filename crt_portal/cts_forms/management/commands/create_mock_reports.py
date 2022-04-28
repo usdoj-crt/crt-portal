@@ -33,7 +33,6 @@ class Command(BaseCommand):
              'EOS - Dept of Ed Referral Form Letter',
              'EOS - EEOC Referral Form Letter'
              ]
-    protect_class_fields = ['Immigration', 'Language', 'National origin', 'Pregnancy', 'Race/color']
 
     # These are the probabilities that a given form letter will be sent.  I suspect we will adjust these after we see the
     # shape of production data.
