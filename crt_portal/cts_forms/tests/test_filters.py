@@ -1,10 +1,12 @@
 from cts_forms.filters import _get_date_field_from_param
+from actstream.models import Action
 from django.http import QueryDict
 from django.test import SimpleTestCase, TestCase, TransactionTestCase
 
 from ..filters import report_filter
+from api.filters import contacts_filter
 from ..models import Report, ProtectedClass
-from .test_data import SAMPLE_REPORT
+from .test_data import SAMPLE_ACTION_1, SAMPLE_ACTION_2, SAMPLE_ACTION_3, SAMPLE_REPORT
 
 
 class FilterTests(SimpleTestCase):
@@ -279,3 +281,61 @@ class ReportLanguageFilterTests(TestCase):
     def test_reported_language_tl(self):
         reports, _ = report_filter(QueryDict('language=tl'))
         self.assertEqual(reports.count(), 1)
+
+
+class ContactsFilterTests(TestCase):
+    def setUp(self):
+        Action.objects.create(**SAMPLE_ACTION_1)
+        Action.objects.create(**SAMPLE_ACTION_2)
+        Action.objects.create(**SAMPLE_ACTION_3)
+        self.total_emails_counter = {'CRM - R1 Form Letter': 0,
+                                     'CRM - R2 Form Letter': 0,
+                                     'CRM - Referral to FBI': 0,
+                                     'CRT - Comments & Opinions': 0,
+                                     'CRT - Constant Writer': 0,
+                                     'CRT - EEOC Referral Letter': 0,
+                                     'CRT - No capacity': 0,
+                                     'CRT - Non-Actionable': 0,
+                                     'CRT - Request for Agency Review': 0,
+                                     'DRS - Dept of Ed Referral Form Letter': 0,
+                                     'DRS - DOT Referral Letter': 0,
+                                     'DRS - EEOC Referral Letter': 0,
+                                     'DRS - HHS Referral Form Letter': 0,
+                                     'HCE - Referral for Housing/Lending/Public Accomodation': 0,
+                                     'IER - Form Letter': 0,
+                                     'EOS - EEOC Referral Form Letter': 0,
+                                     'EOS - Department of Ed OCR Referral Form Letter': 0,
+                                     'SPL - Referral for PREA Issues': 0,
+                                     'SPL - Standard Form Letter': 0,
+                                     'Trending - Arbery Inquiries': 0,
+                                     'Trending - Floyd Inquiries': 0,
+                                     'Trending - General COVID Inquiries': 0}
+
+    def test_date_filter(self):
+        request_one_day = QueryDict(mutable=True)
+        request_one_day.update({
+            'start_date': '2022-04-12',
+            'end_date': '2022-04-12'})
+        request_multi_day = QueryDict(mutable=True)
+        request_multi_day.update({
+            'start_date': '2022-04-12',
+            'end_date': '2022-04-15'})
+        result_one_day = contacts_filter(request_one_day, self.total_emails_counter)
+        result_multi_day = contacts_filter(request_multi_day, self.total_emails_counter)
+        self.assertEqual(result_one_day['total_contacts_in_range'], 2)
+        self.assertEqual(result_multi_day['total_contacts_in_range'], 3)
+
+    def test_result_without_date_filter(self):
+        request = {}
+        result = contacts_filter(request, self.total_emails_counter)
+
+        self.assertEqual(result['total_emails_counter'], result['emails_counter_for_date_range'])
+        self.assertEqual(result['total_actions'], result['total_actions_in_range'])
+        self.assertEqual(result['total_contacts'], result['total_contacts_in_range'])
+
+    def test_date_filter_no_results(self):
+        request = QueryDict(mutable=True)
+        request.update({'start_date': '2022-04-1', 'end_date': '2022-04-11'})
+        result = contacts_filter(request, self.total_emails_counter)
+        self.assertEqual(result['total_contacts_in_range'], 0)
+        self.assertEqual(result['total_actions_in_range'], 0)
