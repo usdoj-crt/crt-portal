@@ -3,7 +3,8 @@ from cts_forms.tests.factories import ReportFactory
 from datetime import datetime
 import random
 from cts_forms.signals import salt
-from cts_forms.models import EmailReportCount
+from cts_forms.models import EmailReportCount, ProtectedClass
+from cts_forms.model_variables import PROTECTED_MODEL_CHOICES
 from cts_forms.forms import add_activity
 from django.contrib.auth.models import User
 
@@ -61,17 +62,39 @@ class Command(BaseCommand):
             # approximately 1% of reports
             if rand <= 1:
                 report.contact_email = "frequentflier1@test.test"
+                protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[0][0])
+                protected_example3 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[2][0])
+                protected_example4 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[3][0])
+                protected_example5 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[4][0])
+                report.protected_class.add(protected_example)
+                report.protected_class.add(protected_example3)
+                report.protected_class.add(protected_example4)
+                report.protected_class.add(protected_example5)
             # 3%
             elif rand <= 3:
                 report.contact_email = "frequentflier2@test.test"
                 add_activity(user1, 'Contacted complainant:', f"Copied '{random_form_letters[i]}' template", report)
+                protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[5][0])
+                protected_example2 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[6][0])
+                protected_example3 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[7][0])
+                report.protected_class.add(protected_example)
+                report.protected_class.add(protected_example2)
+                report.protected_class.add(protected_example3)
             # 6%
             elif rand <= 6:
                 report.contact_email = "frequentflier3@test.test"
                 add_activity(user1, 'Contacted complainant:', f"Printed '{random_form_letters[i]}' template", report)
+                protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[8][0])
+                protected_example2 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[9][0])
+                protected_example3 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[10][0])
+                report.protected_class.add(protected_example)
+                report.protected_class.add(protected_example2)
+                report.protected_class.add(protected_example3)
             # 50% chance of sending an email
             elif rand <= 50:
                 add_activity(user1, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
+                protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[0][0])
+                report.protected_class.add(protected_example)
             report.save()
         EmailReportCount.refresh_view()
         self.stdout.write(self.style.SUCCESS(f'Created {number_reports} reports'))
