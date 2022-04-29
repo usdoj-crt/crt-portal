@@ -123,7 +123,12 @@ def report_filter(querydict):
             elif filter_options[field] == 'violation_summary':
                 search_query = querydict.getlist(field)[0]
                 qs = qs.filter(violation_summary_search_vector=_make_search_query(search_query))
-    qs = qs.filter(**kwargs).distinct()
+    # Check to see if there are multiple values in report_reason search and run distinct if so.  If not, run a regular
+    # much faster search.
+    if len(kwargs.get('protected_class__value__in', [])) > 1:
+        qs = qs.filter(**kwargs).distinct()
+    else:
+        qs = qs.filter(**kwargs)
     return qs, filters
 
 
@@ -155,44 +160,6 @@ def dashboard_filter(querydict):
     else:
         return filters, []
     return filters, filtered_actions
-
-
-def reports_accessed_filter(querydict):
-    kwargs = {}
-    filters = {}
-    reports_accessed_payload = {
-        "report_count": 0,
-        "start_date": '',
-        "end_date": ''
-    }
-    for field in filter_options.keys():
-        filter_list = querydict.getlist(field)
-        if len(filter_list) > 0:
-            filters[field] = querydict.getlist(field)
-            if 'date' in field:
-                # filters by a start date or an end date expects yyyy-mm-dd
-                field_name = 'timestamp'
-                encodedDate = querydict.getlist(field)[0]
-                if field == 'create_date_start':
-                    reports_accessed_payload["start_date"] = encodedDate
-                elif field == 'create_date_end':
-                    reports_accessed_payload["end_date"] = encodedDate
-                decodedDate = urllib.parse.unquote(encodedDate)
-                try:
-                    dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
-                    dateObj = change_datetime_to_end_of_day(dateObj, field)
-                    kwargs[f'{field_name}{filter_options[field]}'] = dateObj
-                except ValueError:
-                    # if the date is invalid, we ignore it.
-                    continue
-
-    registry.register(User)
-    selected_actor_username = querydict.get("intake_specialist", None)
-    selected_actor = User.objects.filter(username=selected_actor_username).first()
-    if selected_actor:
-        filtered_actions = actor_stream(selected_actor).filter(**kwargs)
-        reports_accessed_payload["report_count"] = len(filtered_actions)
-    return reports_accessed_payload
 
 
 def _make_search_query(search_text):

@@ -1,6 +1,8 @@
 # Class to handle filtering data by supplied query params, providing the params are valid.
 
-from actstream.models import Action
+from cts_forms.models import User
+from actstream import registry
+from actstream.models import Action, actor_stream
 from rest_framework.exceptions import ParseError
 import urllib.parse
 from datetime import datetime
@@ -80,3 +82,43 @@ def contacts_filter(querydict, total_emails_counter):
     contacts_payload['emails_counter_for_date_range'] = emails_counter_for_date_range
 
     return contacts_payload
+
+
+def reports_accessed_filter(querydict):
+    kwargs = {}
+    reports_accessed_payload = {
+        "report_count": 0,
+        "start_date": "",
+        "end_date": "",
+        "intake_specialist": "",
+    }
+    registry.register(User)
+    intake_specialist_username = querydict.get("intake_specialist", None)
+    intake_specialist = User.objects.filter(username=intake_specialist_username).first()
+    if intake_specialist:
+        reports_accessed_payload["intake_specialist"] = intake_specialist_username
+        for field in querydict:
+            if "date" in field:
+                # filters by a start date or an end date expects yyyy-mm-dd
+                encodedDate = querydict.getlist(field)[0]
+                decodedDate = urllib.parse.unquote(encodedDate)
+                if field == "start_date":
+                    try:
+                        dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
+                        kwargs['timestamp__gte'] = dateObj
+                    except ValueError:
+                        # if the date is invalid, we ignore it.
+                        continue
+                    reports_accessed_payload["start_date"] = encodedDate
+                elif field == "end_date":
+                    try:
+                        dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
+                        dateObj = change_datetime_to_end_of_day(dateObj, field)
+                        kwargs['timestamp__lte'] = dateObj
+                    except ValueError:
+                        # if the date is invalid, we ignore it.
+                        continue
+                    reports_accessed_payload["end_date"] = encodedDate
+        filtered_actions = actor_stream(intake_specialist).filter(**kwargs)
+        reports_accessed_payload["report_count"] = len(filtered_actions)
+    return reports_accessed_payload

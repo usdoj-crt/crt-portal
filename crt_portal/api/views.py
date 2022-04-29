@@ -6,12 +6,12 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from cts_forms.views import mark_report_as_viewed
-from cts_forms.filters import reports_accessed_filter
-from api.filters import contacts_filter
+from api.filters import contacts_filter, reports_accessed_filter
 from rest_framework.permissions import IsAuthenticated
 from api.serializers import ReportSerializer, ResponseTemplateSerializer, ResponseTitleSerializer
 from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView
+import html
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -100,14 +100,16 @@ class ResponseDetail(generics.RetrieveAPIView):
             report = Report.objects.filter(pk=report_pk).first()
             serialized_data['url'] = serialized_data['url'] + '?report_id=' + report_pk
             serialized_data['subject'] = template.render_subject(report)
-            serialized_data['subject'] = template.render_subject(report)
-            serialized_data['body'] = template.render_body(report)
+            serialized_data['body'] = html.unescape(template.render_body(report))
         return Response(serialized_data)
 
 
 class ReportCountView(APIView):
     """
     A view that returns the count of reports accessed in JSON.
+
+
+    Example: api/report-count/?start_date=2022-02-01&end_date=2022-04-14&intake_specialist=USER_1
     """
     permission_classes = (IsAuthenticated,)
 
