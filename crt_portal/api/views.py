@@ -8,7 +8,7 @@ from rest_framework.reverse import reverse
 from cts_forms.views import mark_report_as_viewed
 from api.filters import contacts_filter, reports_accessed_filter
 from rest_framework.permissions import IsAuthenticated
-from api.serializers import ReportSerializer, ResponseTemplateSerializer, ResponseTitleSerializer
+from api.serializers import ReportSerializer, ResponseTemplateSerializer
 from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView
 import html
@@ -74,15 +74,6 @@ class ResponseList(generics.ListAPIView):
     permission_classes = [permissions.IsAuthenticated]
 
 
-class ResponseTitleList(generics.ListAPIView):
-    """
-    API endpoint that returns response titles.
-    """
-    queryset = ResponseTemplate.objects.all()
-    serializer_class = ResponseTitleSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-
 class ResponseDetail(generics.RetrieveAPIView):
     queryset = ResponseTemplate.objects.all()
     serializer_class = ResponseTemplateSerializer
@@ -128,12 +119,8 @@ class FormLettersIndex(APIView):
     permission_classes = (IsAuthenticated,)
 
     def get(self, request):
-        results = ResponseTitleList.as_view()(request=request._request).data["results"]
-        total_emails_counter = {}
-        for result in results:
-            total_emails_counter[result['title']] = 0
         try:
-            contacts_payload = contacts_filter(request.GET, total_emails_counter)
+            contacts_payload = contacts_filter(request.GET)
             return Response(contacts_payload)
         except ValueError:
             return HttpResponse(status=400)

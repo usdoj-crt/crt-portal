@@ -52,3 +52,13 @@ SAMPLE_ACTION_3 = {
     'public': True,
     'actor_content_type_id': 1
 }
+
+SAMPLE_ACTION_4 = {
+    'id': 4,
+    'actor_object_id': 1,
+    'verb': 'Added comment: ',
+    'description': 'a comment',
+    'timestamp': '2022-05-01 10:56:53.277142+00',
+    'public': True,
+    'actor_content_type_id': 1
+}

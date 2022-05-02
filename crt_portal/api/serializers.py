@@ -27,10 +27,3 @@ class FormLetterSerializer(serializers.Serializer):
 
     class Meta:
         fields = ['title']
-
-
-class ResponseTitleSerializer(serializers.Serializer):
-    title = serializers.CharField(required=True, allow_blank=True, max_length=100)
-
-    class Meta:
-        fields = ['title']

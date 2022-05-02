@@ -16,24 +16,19 @@ filter_options = {
 }
 
 
-def contacts_filter(querydict, total_emails_counter):
+def contacts_filter(querydict):
     kwargs = {}
     filters = {}
     action_qs = Action.objects.filter().all()
     contact_qs = Action.objects.filter(verb='Contacted complainant:').all()
-    total_actions = len(action_qs)
-    total_contacts = len(contact_qs)
-    emails_counter_for_date_range = total_emails_counter.copy()
+    emails_counter = {}
 
     contacts_payload = {
         "start_date": '',
         "end_date": '',
-        'total_actions': total_actions,
-        'total_contacts': total_contacts,
-        "total_contacts_in_range": 0,
-        "total_actions_in_range": 0,
-        "total_emails_counter": total_emails_counter,
-        "emails_counter_for_date_range": emails_counter_for_date_range
+        'total_actions': 0,
+        'total_contacts': 0,
+        "emails_counter": emails_counter
     }
 
     for field in querydict.keys():
@@ -56,30 +51,21 @@ def contacts_filter(querydict, total_emails_counter):
     filtered_actions = action_qs.filter(**kwargs).distinct()
     filtered_contacts = contact_qs.filter(**kwargs).distinct()
 
-    for contact in contact_qs:
-        try:
-            email_title = contact.description.split("'")[1]
-            if email_title:
-                for key in total_emails_counter:
-                    if key == email_title:
-                        total_emails_counter[key] += 1
-        except IndexError:
-            raise ParseError("Request failed due to invalid data")
-
     for contact in filtered_contacts:
         try:
             email_title = contact.description.split("'")[1]
             if email_title:
-                for key in emails_counter_for_date_range:
+                for key in emails_counter:
                     if key == email_title:
-                        emails_counter_for_date_range[key] += 1
+                        emails_counter[key] += 1
+                    else:
+                        emails_counter[key] = 1
         except IndexError:
             raise ParseError("Request failed due to invalid data")
 
-    contacts_payload['total_contacts_in_range'] = len(filtered_contacts)
-    contacts_payload['total_actions_in_range'] = len(filtered_actions)
-    contacts_payload['total_emails_counter'] = total_emails_counter
-    contacts_payload['emails_counter_for_date_range'] = emails_counter_for_date_range
+    contacts_payload['total_contacts'] = len(filtered_contacts)
+    contacts_payload['total_actions'] = len(filtered_actions)
+    contacts_payload['emails_counter'] = emails_counter
 
     return contacts_payload
 
