@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "sass:watch": "gulp watch-sass",
-    "build": "webpack --config webpack.config.js --mode production",
+    "build": "webpack --mode production",
     "start": "webpack-dev-server --config webpack.config.js",
     "gulp:watch": "gulp watch",
     "lint:check": "prettier --check \"crt_portal/static/js/*.js\"",
@@ -58,6 +58,11 @@
     "webpack-dev-server": "^4.8.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.5",
     "node-sass": "^7.0.1",
     "pa11y": "^6.0.1",
     "pa11y-ci": "^2.4.2",

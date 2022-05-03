@@ -67,7 +67,12 @@
       <title>{% trans "Contact the Civil Rights Division | Department of Justice" %}</title>
     {% endblock %}
 
-    <script src="{% static 'vendor/uswds-init.min.js' %}"></script>
+    <script src="{% static 'vendor/uswds-init.min.js' %}"></script>  
+    <!-- Grab the production version of React 18 -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <!-- Grab Babel so we can write JSX - DO NOT USE IN PRODUCTION
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> -->
 
     <link rel="icon" href="{% static "img/favicon.png" %}">
     <link rel="stylesheet" href="{% static "css/compiled/styles.css" %}">

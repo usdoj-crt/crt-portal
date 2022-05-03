@@ -132,7 +132,12 @@ def report_filter(querydict):
             elif filter_options[field] == 'violation_summary':
                 search_query = querydict.getlist(field)[0]
                 qs = qs.filter(violation_summary_search_vector=_make_search_query(search_query))
-    qs = qs.filter(**kwargs).distinct()
+    # Check to see if there are multiple values in report_reason search and run distinct if so.  If not, run a regular
+    # much faster search.
+    if len(kwargs.get('protected_class__value__in', [])) > 1:
+        qs = qs.filter(**kwargs).distinct()
+    else:
+        qs = qs.filter(**kwargs)
     return qs, filters
 
 

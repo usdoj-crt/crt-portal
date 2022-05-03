@@ -47,6 +47,7 @@
       <div class="tablet:grid-col-4 grid-offset-1 padding-left-05">
         {% include 'forms/complaint_view/show/header.html' with data=data %}
       </div>
+      <div id="react_container"></div>
       <div id="status-update" class="tablet:grid-col-6">
         {% include 'partials/messages.html' %}
       </div>
@@ -97,4 +98,6 @@
 <script src="{% static 'js/print_report.min.js' %}"></script>
 <script src="{% static 'js/routing_guide.min.js' %}"></script>
 <script src="{% static 'js/attachments.min.js' %}"></script>
+  <!-- Load our React component. -->
+<script src="{% static 'js/test.min.js' %}"></script>
 {%endblock%}
