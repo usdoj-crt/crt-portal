@@ -56,6 +56,8 @@ class Command(BaseCommand):
             report.save()
             salt_chars = salt()
             report.public_id = f'{report.pk}-{salt_chars}'
+            # report.intake_format = ''
+            # report.public_id = ''
             # This code adds some frequent flier reports randomly to better emulate production
             # nosec turns off bandit error because random is not used for security or run outside of local env.
             rand = random.randint(1, 100)  # nosec
