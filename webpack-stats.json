@@ -1,0 +1,7 @@
+{
+    "status": "error",
+    "assets": {},
+    "chunks": {},
+    "error": "ModuleNotFoundError",
+    "message": "Module not found: Error: Can't resolve 'crt_portal/static/js' in '/Users/billyhunt/Dev/crt-portal'"
+  }
