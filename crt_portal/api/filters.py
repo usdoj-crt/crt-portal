@@ -1,5 +1,6 @@
 # Class to handle filtering data by supplied query params, providing the params are valid.
 
+from cts_forms.models import Report
 from cts_forms.models import User
 from actstream import registry
 from actstream.models import Action, actor_stream
@@ -11,8 +12,9 @@ from utils.datetime_fns import change_datetime_to_end_of_day
 
 # To add a new filter option, add the field name and expected filter behavior
 filter_options = {
-    'start_date': '__gte',
-    'end_date': '__lte'
+    "assigned_section": "assigned_section",
+    "start_date": "__gte",
+    "end_date": "__lte"
 }
 
 
@@ -20,24 +22,24 @@ def contacts_filter(querydict):
     kwargs = {}
     filters = {}
     action_qs = Action.objects.filter().all()
-    contact_qs = Action.objects.filter(verb='Contacted complainant:').all()
+    contact_qs = Action.objects.filter(verb="Contacted complainant:").all()
     emails_counter = {}
 
     contacts_payload = {
-        "start_date": '',
-        "end_date": '',
-        'total_actions': 0,
-        'total_contacts': 0,
+        "start_date": "",
+        "end_date": "",
+        "assigned_section": "",
+        "total_actions": 0,
+        "total_contacts": 0,
         "emails_counter": emails_counter
     }
-
     for field in querydict.keys():
         filter_list = querydict.getlist(field)
         if len(filter_list) > 0:
             filters[field] = filter_list
-        if 'date' in field:
+        if "date" in field:
             # filters by a start date or an end date expects yyyy-mm-dd
-            field_name = 'timestamp'
+            field_name = "timestamp"
             encoded_date = filter_list[0]
             contacts_payload[field] = encoded_date
             decoded_date = urllib.parse.unquote(encoded_date)
@@ -51,6 +53,14 @@ def contacts_filter(querydict):
     filtered_actions = action_qs.filter(**kwargs).distinct()
     filtered_contacts = contact_qs.filter(**kwargs).distinct()
 
+    for field in querydict.keys():
+        filter_list = querydict.getlist(field)
+        if len(filter_list) > 0:
+            filters[field] = filter_list
+        if "assigned_section" in field:
+            filtered_actions = [action for action in filtered_actions if Report.objects.filter(public_id=action.target_object_id) and Report.objects.filter(public_id=action.target_object_id).first().assigned_section == filter_list[0]]
+            filtered_contacts = [contact for contact in filtered_contacts if Report.objects.filter(public_id=contact.target_object_id) and Report.objects.filter(public_id=contact.target_object_id).first().assigned_section == filter_list[0]]
+
     for contact in filtered_contacts:
         try:
             email_title = contact.description.split("'")[1]
@@ -63,9 +73,9 @@ def contacts_filter(querydict):
         except IndexError:
             raise ParseError("Request failed due to invalid data")
 
-    contacts_payload['total_contacts'] = len(filtered_contacts)
-    contacts_payload['total_actions'] = len(filtered_actions)
-    contacts_payload['emails_counter'] = emails_counter
+    contacts_payload["total_contacts"] = len(filtered_contacts)
+    contacts_payload["total_actions"] = len(filtered_actions)
+    contacts_payload["emails_counter"] = emails_counter
 
     return contacts_payload
 

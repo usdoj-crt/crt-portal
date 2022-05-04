@@ -7,7 +7,7 @@ from django.test import TestCase
 from django.test.client import Client
 from django.urls import reverse
 from ..models import Report, ResponseTemplate
-from .test_data import SAMPLE_REPORT, SAMPLE_RESPONSE_TEMPLATE
+from .test_data import SAMPLE_REPORT_1, SAMPLE_RESPONSE_TEMPLATE
 from cts_forms.views import add_activity
 from actstream.models import actor_stream
 from datetime import datetime
@@ -40,7 +40,7 @@ class APIBaseUrlTests(TestCase):
 class APIReportListTests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.test_report = Report.objects.create(**SAMPLE_REPORT)
+        self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
         self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.client.login(username="DELETE_USER", password="")  # nosec
         self.url = reverse("api:report-list")
@@ -68,7 +68,7 @@ class APIReportListTests(TestCase):
 class APIReportDetailTests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.test_report = Report.objects.create(**SAMPLE_REPORT)
+        self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
         self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.client.login(username="DELETE_USER", password="")  # nosec
         self.url = reverse("api:report-detail", kwargs={"pk": self.test_report.pk})
@@ -139,7 +139,7 @@ class APIResponseListTests(TestCase):
 class APIResponseDetailTests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.test_report = Report.objects.create(**SAMPLE_REPORT)
+        self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
         self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.client.login(username="DELETE_USER", password="")  # nosec
         self.url = reverse("api:response-detail", kwargs={"pk": 1})
@@ -178,9 +178,9 @@ class APIResponseDetailTests(TestCase):
 class APIReportsAccessedTests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.test_report = Report.objects.create(**SAMPLE_REPORT)
-        self.test_report2 = Report.objects.create(**SAMPLE_REPORT)
-        self.test_report3 = Report.objects.create(**SAMPLE_REPORT)
+        self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
+        self.test_report2 = Report.objects.create(**SAMPLE_REPORT_1)
+        self.test_report3 = Report.objects.create(**SAMPLE_REPORT_1)
         self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.client.login(username="DELETE_USER", password="")  # nosec
         self.url = reverse("api:report-count") + "?intake_specialist=DELETE_USER"

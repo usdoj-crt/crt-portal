@@ -26,7 +26,7 @@ from ..model_variables import (
     VIOLATION_SUMMARY_ERROR, WHERE_ERRORS, DATE_ERRORS
 )
 from ..models import CommentAndSummary, ProtectedClass, Report
-from .test_data import SAMPLE_REPORT
+from .test_data import SAMPLE_REPORT_1
 
 
 class Valid_Form_Tests(TestCase):
@@ -112,7 +112,7 @@ class Valid_CRT_view_Tests(TestCase):
     def setUp(self):
         for choice, label in PROTECTED_MODEL_CHOICES:
             ProtectedClass.objects.get_or_create(value=choice)
-        test_report = Report.objects.create(**SAMPLE_REPORT)
+        test_report = Report.objects.create(**SAMPLE_REPORT_1)
         test_report.last_incident_day = '1'
         test_report.last_incident_month = '1'
         test_report.last_incident_year = '2020'
@@ -167,13 +167,13 @@ class Valid_CRT_view_Tests(TestCase):
 
 class SectionAssignmentTests(TestCase):
     def test_CRM_routing(self):
-        data = copy.deepcopy(SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT_1)
         data['primary_complaint'] = 'police'
         data['inside_correctional_facility'] = 'outside'
         test_report = Report.objects.create(**data)
         self.assertTrue(test_report.assign_section() == 'CRM')
 
-        data = copy.deepcopy(SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT_1)
         data['primary_complaint'] = 'voting'
         test_report = Report.objects.create(**data)
         disability = ProtectedClass.objects.get_or_create(value='disability')
@@ -184,7 +184,7 @@ class SectionAssignmentTests(TestCase):
     def test_VOT_routing(self):
         # Unless a protected class of disability is selected, reports
         # with a primary complaint of voting should be assigned to voting.
-        data = copy.deepcopy(SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT_1)
         data['primary_complaint'] = 'voting'
         test_report = Report.objects.create(**data)
         test_report.save()
@@ -192,14 +192,14 @@ class SectionAssignmentTests(TestCase):
 
     def test_ELS_routing(self):
         # Workplace discrimination complaints are routed to ELS by default
-        data = copy.deepcopy(SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT_1)
         data['primary_complaint'] = 'workplace'
         test_report = Report.objects.create(**data)
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'ELS')
 
-        data = copy.deepcopy(SAMPLE_REPORT)
-        SAMPLE_REPORT['primary_complaint'] = 'workplace'
+        data = copy.deepcopy(SAMPLE_REPORT_1)
+        SAMPLE_REPORT_1['primary_complaint'] = 'workplace'
         disability = ProtectedClass.objects.get_or_create(value='disability')
         test_report.protected_class.add(disability[0])
         test_report.save()
@@ -212,8 +212,8 @@ class SectionAssignmentTests(TestCase):
         language = ProtectedClass.objects.get_or_create(value='language')
         origin = ProtectedClass.objects.get_or_create(value='national_origin')
 
-        SAMPLE_REPORT['primary_complaint'] = 'workplace'
-        test_report = Report.objects.create(**SAMPLE_REPORT)
+        SAMPLE_REPORT_1['primary_complaint'] = 'workplace'
+        test_report = Report.objects.create(**SAMPLE_REPORT_1)
 
         test_report.protected_class.add(immigration[0])
         test_report.save()
@@ -230,17 +230,17 @@ class SectionAssignmentTests(TestCase):
         self.assertTrue(test_report.assign_section() == 'IER')
 
     def test_HCE_routing(self):
-        data = copy.deepcopy(SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT_1)
         data['primary_complaint'] = 'commercial_or_public'
         test_report = Report.objects.create(**data)
         self.assertTrue(test_report.assign_section() == 'HCE')
 
-        data = copy.deepcopy(SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT_1)
         data['primary_complaint'] = 'housing'
         test_report = Report.objects.create(**data)
         self.assertTrue(test_report.assign_section() == 'HCE')
 
-        data = copy.deepcopy(SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT_1)
         test_report.commercial_or_public_place = 'other'
         test_report.save()
         self.assertTrue(test_report.assign_section() == 'HCE')
@@ -248,7 +248,7 @@ class SectionAssignmentTests(TestCase):
     def test_EOS_routing(self):
         disability = ProtectedClass.objects.get_or_create(value='disability')
 
-        data = copy.deepcopy(SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT_1)
         data['primary_complaint'] = 'education'
         data['public_or_private_school'] = 'public'
         test_report = Report.objects.create(**data)
@@ -265,7 +265,7 @@ class SectionAssignmentTests(TestCase):
 
     def test_SPL_routing(self):
         # Test if law enforcement and inside a prison
-        data = copy.deepcopy(SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT_1)
         data['primary_complaint'] = 'police'
         data['inside_correctional_facility'] = 'inside'
         test_report = Report.objects.create(**data)
@@ -279,21 +279,21 @@ class SectionAssignmentTests(TestCase):
     def test_DRS_routing(self):
         disability = ProtectedClass.objects.get_or_create(value='disability')
 
-        school_data = copy.deepcopy(SAMPLE_REPORT)
+        school_data = copy.deepcopy(SAMPLE_REPORT_1)
         school_data['primary_complaint'] = 'education'
         school_data['public_or_private_school'] = 'private'
         test_report = Report.objects.create(**school_data)
         test_report.protected_class.add(disability[0])
         self.assertTrue(test_report.assign_section() == 'DRS')
 
-        data = copy.deepcopy(SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT_1)
         data['primary_complaint'] = 'something_else'
         test_report = Report.objects.create(**data)
         test_report.protected_class.add(disability[0])
         self.assertTrue(test_report.assign_section() == 'DRS')
 
         # housing exemption
-        data = copy.deepcopy(SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT_1)
         data['primary_complaint'] = 'commercial_or_public'
         data['commercial_or_public_place'] = 'healthcare'
         test_report = Report.objects.create(**data)
@@ -301,7 +301,7 @@ class SectionAssignmentTests(TestCase):
         self.assertTrue(test_report.assign_section() == 'DRS')
 
         # Reports with a primary complaint of voting and protected class of disability
-        data = copy.deepcopy(SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT_1)
         data['primary_complaint'] = 'voting'
         test_report = Report.objects.create(**data)
         test_report.protected_class.add(disability[0])
@@ -309,7 +309,7 @@ class SectionAssignmentTests(TestCase):
         self.assertTrue(test_report.assign_section() == 'DRS')
 
         # special exemptions
-        data = copy.deepcopy(SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT_1)
         data['primary_complaint'] = 'police'
         data['inside_correctional_facility'] = 'inside'
         test_report = Report.objects.create(**data)
@@ -598,7 +598,7 @@ class ContactValidationTests(TestCase):
 class Complaint_Update_Tests(TestCase):
 
     def setUp(self):
-        test_report = Report.objects.create(**SAMPLE_REPORT)
+        test_report = Report.objects.create(**SAMPLE_REPORT_1)
         test_report.contact_first_name = 'Foobert'
         test_report.contact_last_name = 'Bar'
         test_report.location_city_town = 'Cleveland'
@@ -646,7 +646,7 @@ class Complaint_Update_Tests(TestCase):
 
 class ProFormTest(TestCase):
     def setUp(self):
-        data_sample = copy.deepcopy(SAMPLE_REPORT)
+        data_sample = copy.deepcopy(SAMPLE_REPORT_1)
         data_sample.update({
             'contact_address_line_1': '123',
             'contact_address_line_2': 'Apt 234',
@@ -728,7 +728,7 @@ class ProFormTest(TestCase):
 
 class TestIntakeFormat(TestCase):
     def setUp(self):
-        self.form_data_dict = copy.deepcopy(SAMPLE_REPORT)
+        self.form_data_dict = copy.deepcopy(SAMPLE_REPORT_1)
         self.form_data_dict['protected_class'] = ProtectedClass.objects.none()
 
     def test_intake_save_web(self):

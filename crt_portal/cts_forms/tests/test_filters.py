@@ -6,7 +6,7 @@ from django.test import SimpleTestCase, TestCase, TransactionTestCase
 from ..filters import report_filter
 from api.filters import contacts_filter
 from ..models import Report, ProtectedClass
-from .test_data import SAMPLE_ACTION_1, SAMPLE_ACTION_2, SAMPLE_ACTION_3, SAMPLE_ACTION_4, SAMPLE_REPORT
+from .test_data import SAMPLE_ACTION_1, SAMPLE_ACTION_2, SAMPLE_ACTION_3, SAMPLE_ACTION_4, SAMPLE_ACTION_5, SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3
 
 
 class FilterTests(SimpleTestCase):
@@ -22,7 +22,7 @@ class ReportFilterTests(TestCase):
         age = ProtectedClass.objects.get(value='age')
         gender = ProtectedClass.objects.get(value='gender')
         language = ProtectedClass.objects.get(value='language')
-        test_data = SAMPLE_REPORT.copy()
+        test_data = SAMPLE_REPORT_1.copy()
 
         test_data['violation_summary'] = 'plane'
         r1 = Report.objects.create(**test_data)
@@ -197,7 +197,7 @@ class ReportFilterTests(TestCase):
 # test suites don't like it when databases throw errors inside of them
 class ReportFilterErrorTests(TransactionTestCase):
     def setUp(self):
-        test_data = SAMPLE_REPORT.copy()
+        test_data = SAMPLE_REPORT_1.copy()
 
         test_data['violation_summary'] = 'plane'
         Report.objects.create(**test_data)
@@ -216,7 +216,7 @@ class ReportFilterErrorTests(TransactionTestCase):
 
 class ReportLanguageFilterTests(TestCase):
     def setUp(self):
-        test_data = SAMPLE_REPORT.copy()
+        test_data = SAMPLE_REPORT_1.copy()
 
         # test setup for language English
         test_data['language'] = 'en'
@@ -289,31 +289,55 @@ class ContactsFilterTests(TestCase):
         Action.objects.create(**SAMPLE_ACTION_2)
         Action.objects.create(**SAMPLE_ACTION_3)
         Action.objects.create(**SAMPLE_ACTION_4)
+        Action.objects.create(**SAMPLE_ACTION_5)
+        Report.objects.create(**SAMPLE_REPORT_1)
+        Report.objects.create(**SAMPLE_REPORT_2)
+        Report.objects.create(**SAMPLE_REPORT_3)
 
     def test_date_filter(self):
         request_one_day = QueryDict(mutable=True)
         request_one_day.update({
-            'start_date': '2022-04-12',
-            'end_date': '2022-04-12'})
+            "start_date": "2022-04-12",
+            "end_date": "2022-04-12"})
         request_multi_day = QueryDict(mutable=True)
         request_multi_day.update({
-            'start_date': '2022-04-12',
-            'end_date': '2022-04-15'})
+            "start_date": "2022-04-12",
+            "end_date": "2022-04-15"})
         result_one_day = contacts_filter(request_one_day)
         result_multi_day = contacts_filter(request_multi_day)
-        self.assertEqual(result_one_day['total_contacts'], 2)
-        self.assertEqual(result_multi_day['total_contacts'], 3)
+        self.assertEqual(result_one_day["total_contacts"], 2)
+        self.assertEqual(result_multi_day["total_contacts"], 3)
 
     def test_result_without_date_filter(self):
         request = {}
         result = contacts_filter(request)
-
-        self.assertEqual(result['total_actions'], 4)
-        self.assertEqual(result['total_contacts'], 3)
+        self.assertEqual(result["total_actions"], 5)
+        self.assertEqual(result["total_contacts"], 3)
 
     def test_date_filter_no_results(self):
         request = QueryDict(mutable=True)
-        request.update({'start_date': '2022-04-1', 'end_date': '2022-04-11'})
+        request.update({"start_date": "2022-04-1", "end_date": "2022-04-11"})
         result = contacts_filter(request)
-        self.assertEqual(result['total_contacts'], 0)
-        self.assertEqual(result['total_actions'], 0)
+        self.assertEqual(result["total_contacts"], 0)
+        self.assertEqual(result["total_actions"], 0)    
+ 
+    def test_section_filter_no_results(self):
+        request = QueryDict(mutable=True)
+        request.update({"assigned_section": "FCS"})
+        result = contacts_filter(request)
+        self.assertEqual(result["total_contacts"], 0)
+        self.assertEqual(result["total_actions"], 0)
+    
+    def test_section_filter_two_results(self):
+        request = QueryDict(mutable=True)
+        request.update({"assigned_section": "ADM"})
+        result = contacts_filter(request)
+        self.assertEqual(result["total_contacts"], 1)
+        self.assertEqual(result["total_actions"], 2)
+
+    def test_section_filter_and_date_filter_one_result(self):
+        request = QueryDict(mutable=True)
+        request.update({"assigned_section": "CRM", "start_date": "2022-04-11", "end_date": "2022-04-14"})
+        result = contacts_filter(request)
+        self.assertEqual(result["total_contacts"], 1)
+        self.assertEqual(result["total_actions"], 1)

@@ -19,7 +19,7 @@ from ..forms import BulkActionsForm, ComplaintActions, Filters, ReportEditForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, NEW_STATUS
 from ..models import CommentAndSummary, Report, ResponseTemplate, EmailReportCount
 from .factories import ReportFactory
-from .test_data import SAMPLE_REPORT, SAMPLE_RESPONSE_TEMPLATE
+from .test_data import SAMPLE_REPORT_1, SAMPLE_RESPONSE_TEMPLATE
 
 
 class ActionTests(TestCase):
@@ -225,7 +225,7 @@ class CommentActionTests(TestCase):
 
 class ReportEditFormTests(TestCase):
     def setUp(self):
-        self.report_data = SAMPLE_REPORT.copy()
+        self.report_data = SAMPLE_REPORT_1.copy()
         self.report_data.update({'primary_complaint': 'workplace',
                                  'public_or_private_employer': PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES[0][0]})
         self.report = Report.objects.create(**self.report_data)
@@ -325,7 +325,7 @@ class ResponseActionTests(TestCase):
         self.test_pass = secrets.token_hex(32)
         self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
-        self.report = Report.objects.create(**SAMPLE_REPORT)
+        self.report = Report.objects.create(**SAMPLE_REPORT_1)
         self.template = ResponseTemplate.objects.create(**SAMPLE_RESPONSE_TEMPLATE)
 
     def post_template_action(self, what):
@@ -570,8 +570,8 @@ class PrintActionTests(TestCase):
         self.test_pass = secrets.token_hex(32)
         self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
-        self.report = Report.objects.create(**SAMPLE_REPORT)
-        Report.objects.create(**SAMPLE_REPORT)
+        self.report = Report.objects.create(**SAMPLE_REPORT_1)
+        Report.objects.create(**SAMPLE_REPORT_1)
 
     def test_response_action_print(self):
         options = ['correspondent', 'activity']
@@ -635,7 +635,7 @@ class ReportActionTests(TestCase):
         self.test_pass = secrets.token_hex(32)
         self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
-        self.report = Report.objects.create(**SAMPLE_REPORT, assigned_section='ADM')
+        self.report = Report.objects.create(**SAMPLE_REPORT_1)
 
     def test_referral_section_checked(self):
         self.assertEqual(self.report.referral_section, '')
@@ -947,7 +947,7 @@ class BulkActionsFormTests(TestCase):
         self.assertEqual(result, [])
 
     def test_bulk_actions_initial(self):
-        [Report.objects.create(**SAMPLE_REPORT) for _ in range(4)]
+        [Report.objects.create(**SAMPLE_REPORT_1) for _ in range(4)]
         queryset = Report.objects.all()
         keys = ['assigned_section', 'status', 'id']
         result = list(BulkActionsForm.get_initial_values(queryset, keys))
@@ -956,7 +956,7 @@ class BulkActionsFormTests(TestCase):
     def test_bulk_actions_change_section(self):
         # changing the section resets primary_status, assigned_to, and status
         # the activity stream (get_action) should only report fields that actually change as a result
-        Report.objects.create(**SAMPLE_REPORT)
+        Report.objects.create(**SAMPLE_REPORT_1)
         queryset = Report.objects.all()
         form = BulkActionsForm(queryset, {
             'assigned_section': 'APP',
@@ -981,7 +981,7 @@ class BulkActionsFormTests(TestCase):
         # changing the section resets primary_status, assigned_to, and status
         # the activity stream (get_action) should only report fields that actually change as a result
         user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', secrets.token_hex(32))
-        report = Report.objects.create(**SAMPLE_REPORT)
+        report = Report.objects.create(**SAMPLE_REPORT_1)
         report.assigned_to = user
         report.save()
 
