@@ -33,6 +33,8 @@ def contacts_filter(querydict):
         "total_contacts": 0,
         "emails_counter": emails_counter
     }
+    section_filter = False
+    section = ""
     for field in querydict.keys():
         filter_list = querydict.getlist(field)
         if len(filter_list) > 0:
@@ -50,16 +52,23 @@ def contacts_filter(querydict):
             except ValueError:
                 # if the date is invalid, we throw an error
                 raise ValueError("Incorrect date format, should be YYYY-MM-DD")
-    filtered_actions = action_qs.filter(**kwargs).distinct()
-    filtered_contacts = contact_qs.filter(**kwargs).distinct()
+        elif "assigned_section" in field:
+            section_filter = True
+            section = filter_list[0]
+    filtered_actions = action_qs.filter(**kwargs)
+    filtered_contacts = contact_qs.filter(**kwargs)
 
-    for field in querydict.keys():
-        filter_list = querydict.getlist(field)
-        if len(filter_list) > 0:
-            filters[field] = filter_list
-        if "assigned_section" in field:
-            filtered_actions = [action for action in filtered_actions if Report.objects.filter(public_id=action.target_object_id) and Report.objects.filter(public_id=action.target_object_id).first().assigned_section == filter_list[0]]
-            filtered_contacts = [contact for contact in filtered_contacts if Report.objects.filter(public_id=contact.target_object_id) and Report.objects.filter(public_id=contact.target_object_id).first().assigned_section == filter_list[0]]
+    if section_filter and section:
+        filtered_by_section_actions = []
+        filtered_by_section_contacts = []
+        for action in filtered_actions:
+            report = Report.objects.filter(public_id=action.target_object_id).first()
+            if report and report.assigned_section == section:
+                filtered_by_section_actions.append(action)
+                if action.verb == "Contacted complainant:":
+                    filtered_by_section_contacts.append(action)
+        filtered_actions = filtered_by_section_actions
+        filtered_contacts = filtered_by_section_contacts
 
     for contact in filtered_contacts:
         try:

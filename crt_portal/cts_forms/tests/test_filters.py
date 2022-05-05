@@ -319,15 +319,15 @@ class ContactsFilterTests(TestCase):
         request.update({"start_date": "2022-04-1", "end_date": "2022-04-11"})
         result = contacts_filter(request)
         self.assertEqual(result["total_contacts"], 0)
-        self.assertEqual(result["total_actions"], 0)    
- 
+        self.assertEqual(result["total_actions"], 0)
+
     def test_section_filter_no_results(self):
         request = QueryDict(mutable=True)
         request.update({"assigned_section": "FCS"})
         result = contacts_filter(request)
         self.assertEqual(result["total_contacts"], 0)
         self.assertEqual(result["total_actions"], 0)
-    
+
     def test_section_filter_two_results(self):
         request = QueryDict(mutable=True)
         request.update({"assigned_section": "ADM"})

@@ -98,7 +98,7 @@ SAMPLE_ACTION_3 = {
     "timestamp": "2022-04-15 10:56:53.277142+00",
     "public": True,
     "actor_content_type_id": 1,
-    "target_object_id": "1140-NAW" 
+    "target_object_id": "1140-NAW"
 }
 
 SAMPLE_ACTION_4 = {
