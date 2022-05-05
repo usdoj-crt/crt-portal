@@ -380,7 +380,7 @@ jobs:
       - run:
           name: Login to cloud.gov Production
           command: cf login -u ${CRT_USERNAME_PROD} -p ${CRT_PASSWORD_PROD} -o doj-crtportal -s ${CF_SPACE}
-      # Refresh the trend view in staging
+      # Refresh the trend view in prod
       - run:
           name: Refresh trends view
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends
@@ -403,6 +403,10 @@ jobs:
       - run:
           name: Login to cloud.gov Staging
           command: cf login -u ${CRT_USERNAME_STAGE} -p ${CRT_PASSWORD_STAGE} -o doj-crtportal -s ${CF_SPACE}
+      # Refresh the action section view in staging
+      - run:
+          name: Refresh action section view
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_action_section_view" --name refresh-action-section-view
       # Refresh the trend view in staging
       - run:
           name: Refresh trends view
@@ -426,7 +430,11 @@ jobs:
       - run:
           name: Login to cloud.gov Dev
           command: cf login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s ${CF_SPACE}
-      # Refresh the trend view in staging
+      # Refresh the action section view in dev
+      - run:
+          name: Refresh action section view
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_action_section_view" --name refresh-action-section-view      
+      # Refresh the trend view in dev
       - run:
           name: Refresh trends view
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends

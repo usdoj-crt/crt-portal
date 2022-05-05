@@ -475,6 +475,29 @@ class Trends(models.Model):
         logger.info("Trends view refreshed")
 
 
+class ActionSection(models.Model):
+    """see the number of actions taken per section"""
+    report_public_id = models.TextField()
+    report_contact_email = models.TextField()
+    report_assigned_section = models.TextField()
+    action_id = models.IntegerField()
+    action_verb = models.TextField()
+    action_description = models.TextField()
+    action_target_object_id = models.TextField()
+
+    class Meta:
+        """This model is tied to a view create from migration 144"""
+        managed = False
+        db_table = "action_section"
+
+    @staticmethod
+    def refresh_view():
+        logger.info("Refreshing Action Section view....")
+        with connection.cursor() as cursor:
+            cursor.execute("REFRESH MATERIALIZED VIEW action_section;")
+        logger.info("Action section view refreshed")
+
+
 class ResponseTemplate(models.Model):
     title = models.CharField(max_length=100, null=False, blank=False, unique=True,)
     subject = models.CharField(max_length=150, null=False, blank=False,)
