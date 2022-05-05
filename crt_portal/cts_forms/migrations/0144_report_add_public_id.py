@@ -5,7 +5,7 @@ from cts_forms.signals import salt
 
 def add_public_id(apps, schema_editor):
     # add public_ids to reports that did not have them due to database failure.
-    report_pks = ['10023', '10022', '10021', '10014', '10016', '1', '2300000000', '10017']
+    report_pks = ['152678', '152679', '152680', '152681']
     Report = apps.get_model('cts_forms', 'Report')
     reports = Report.objects.all()
     for report_pk in report_pks:
@@ -26,7 +26,7 @@ def add_public_id(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('cts_forms', '0145_report_add_public_id copy'),
+        ('cts_forms', '0143_alter_report_district'),
     ]
 
     operations = [
