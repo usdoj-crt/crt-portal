@@ -6,56 +6,63 @@ class RelatedReports extends React.Component {
     this.state = {
       data: 0,
       error: false
-    }
     };
+  }
 
   componentDidMount() {
-    this.fetchTotalResults('/api/responses/');
+    this.fetchTotalResults('/api/related-reports/?email=rrose@example.com');
   }
 
   fetchTotalResults = api => {
     fetch(api)
       .then(result => result.json())
-      .then(count => this.setState({ data: count.count }))
+      .then(res => this.setState({ data: res }))
       .catch(error => this.setState({ error }));
   };
 
   render() {
-    if (this.state.data.length === 0) {
-      return <h2 className="h3">Loading data...</h2>;
-    } else if (!this.state.error) {
-      return <h2 className="h3">Data loaded! {this.state.data}</h2>;
-    } else if (this.state.error) {
-      return <h2 className="h3">{this.state.error}</h2>
-    }
-
-
-    // Replicate this template: 
-//     <table class="usa-table usa-table--borderless related-reports width-full">
-//     <tbody>
-//         {% for report in reports %}
-//             <tr>
-//                 <td>{{report.public_id}}</td>
-//                 <td>{{report.assigned_section}}</td>
-//                 <td>
-//                     {% if report.recent_email_sent %}
-//                     <span class="usa-tooltip" data-position="bottom" title="{{report.recent_email_sent}}">
-//                         Letter sent
-//                         <img src="{% static "img/ic_help-circle-dark.svg" %}" alt="More info" class="letter-sent-icon">
-//                     </span>
-//                     {% endif %}
-//                 </td>
-//                 <td>{{report.create_date|date:"SHORT_DATE_FORMAT"}}</td>
-//             </tr>
-//         {% endfor %}
-//     </tbody>
-// </table>
-
-
-
+    return (
+      <>
+        <h2>{this.props.title}</h2>
+        {this.state.error ? (
+          <>
+            <p>I'm sorry, an error was encountered while returning the data.</p>{' '}
+            <p>{this.state.error}</p>
+          </>
+        ) : (
+          <table class="usa-table usa-table--borderless related-reports width-full">
+            <tbody>
+              {this.state.data === 0 ? (
+                <p>Loading...</p>
+              ) : (
+                this.state.data.map((item, k) => {
+                  <tr key={k}>
+                    <td>{item.public_id}</td>
+                    <td>{item.assigned_section}</td>
+                    <td>
+                      {item.recent_email_sent ? (
+                        <span
+                          class="usa-tooltip"
+                          data-position="bottom"
+                          title={item.recent_email_sent}
+                        >
+                          Letter sent
+                          <img src={this.props.icon} alt="More info" class="letter-sent-icon" />
+                        </span>
+                      ) : null}
+                    </td>
+                    <td>{item.create_date}</td>
+                  </tr>
+                })
+              )}
+            </tbody>
+          </table>
+        )}
+      </>
+    );
   }
 }
 
-const domContainer = document.querySelector('#react_container');
+const domContainer = document.querySelector('#related_reports');
 const root = ReactDOM.createRoot(domContainer);
-root.render(<RelatedReports />);
+root.render(<RelatedReports title="Total Complaints" icon="img/intake-icons/copy.svg" />);

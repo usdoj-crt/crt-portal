@@ -1,6 +1,6 @@
 from actstream import registry
 from actstream.models import actor_stream
-from cts_forms.models import User
+from cts_forms.models import User, Report
 import urllib.parse
 from datetime import datetime
 
@@ -54,3 +54,19 @@ def reports_accessed_filter(querydict):
         filtered_actions = actor_stream(intake_specialist).filter(**kwargs)
         reports_accessed_payload["report_count"] = len(filtered_actions)
     return reports_accessed_payload
+
+def related_reports_filter(email_address, data):
+    related_reports_payload = []
+    related_reports_dict = {}
+    for field in data:
+        related_reports_dict["pk"] = field.pk
+        related_reports_dict["viewed"] = field.viewed
+        related_reports_dict["public_id"] = field.public_id
+        related_reports_dict["assigned_section"] = field.assigned_section
+        related_reports_dict["recent_email_sent"] = field.recent_email_sent
+        related_reports_dict["create_date"] = field.create_date
+        related_reports_dict["email"] = email_address
+        related_reports_payload.append(related_reports_dict)
+
+    return related_reports_payload
+

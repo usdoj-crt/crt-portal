@@ -5,12 +5,13 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from cts_forms.views import mark_report_as_viewed
-from .filters import reports_accessed_filter
+from .filters import reports_accessed_filter, related_reports_filter
 from rest_framework.permissions import IsAuthenticated
 from api.serializers import ReportSerializer, ResponseTemplateSerializer
 from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView
 import html
+from rest_framework.renderers import JSONRenderer
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -25,7 +26,8 @@ def api_root(request, format=None):
     return Response({
         'reports': reverse('api:report-list', request=request, format=format),
         'responses': reverse('api:response-list', request=request, format=format),
-        'report-count': reverse('api:report-count', request=request, format=format)
+        'report-count': reverse('api:report-count', request=request, format=format),
+        'related-reports': reverse('api:related-reports', request=request, format=format)
     })
 
 
@@ -105,3 +107,21 @@ class ReportCountView(APIView):
     def get(self, request, format=None):
         reports_accessed_payload = reports_accessed_filter(request.GET)
         return Response(reports_accessed_payload)
+
+class RelatedReports(APIView):
+    """
+    A view that lists all of the reports filed using the same email address. 
+
+    Example: api/related-reports/?email=test.test@test.com
+    """
+
+    permission_classes = (IsAuthenticated,)
+    queryset = Report.objects.all()
+
+    def get(self, request, format=None):
+        email_address = request.query_params.get('email')
+        if email_address:
+            reports = self.queryset.exclude(contact_email__isnull=True).filter(contact_email__iexact=email_address).order_by('status', '-create_date')
+            payload = related_reports_filter(email_address, reports)
+        return Response(payload)
+        

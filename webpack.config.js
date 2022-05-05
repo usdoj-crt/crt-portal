@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    test: './crt_portal/static/js/components/related_reports.jsx',
+    relatedReports: './crt_portal/static/js/components/related_reports.jsx',
     // base: './crt_portal/static/js/base.js',
     // attachments: './crt_portal/static/js/attachments.js',
     // autofill_current_date: './crt_portal/static/js/autofill_current_date.js',
@@ -35,7 +35,7 @@ module.exports = {
     // word_count: './crt_portal/static/js/word_count.js'
   },
   output: {
-    filename: '[name][hash].min.js',
+    filename: '[name].min.js',
     path: path.resolve(__dirname, 'crt_portal/static/js/dist')
   },
   module: {
