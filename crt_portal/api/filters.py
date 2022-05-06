@@ -1,7 +1,6 @@
 # Class to handle filtering data by supplied query params, providing the params are valid.
 
-from cts_forms.models import Report
-from cts_forms.models import User
+from cts_forms.models import User, FormLettersSent, Report
 from actstream import registry
 from actstream.models import Action, actor_stream
 from rest_framework.exceptions import ParseError
@@ -17,21 +16,56 @@ filter_options = {
     "end_date": "__lte"
 }
 
+def autoresponses_filter(querydict):
+    kwargs = {}
+    autoresponse_qs = Report.objects.filter().all()
 
-def contacts_filter(querydict):
+    autoresponses_payload = {
+        "start_date": "",
+        "end_date": "",
+        "total_autoresponses": 0
+    }
+    for field in querydict.keys():
+        if "date" in field:
+            # filters by a start date or an end date expects yyyy-mm-dd
+            encoded_date = querydict.getlist(field)[0]
+            decoded_date = urllib.parse.unquote(encoded_date)
+            if field == "start_date":
+                try:
+                    date_obj = datetime.strptime(decoded_date, "%Y-%m-%d")
+                    kwargs["create_date__gte"] = date_obj                    
+                except ValueError:
+                    # if the date is invalid, we throw an error
+                    raise ValueError("Incorrect date format, should be YYYY-MM-DD")
+                autoresponses_payload["start_date"] = encoded_date
+            elif field == "end_date":
+                try:
+                    date_obj = datetime.strptime(decoded_date, "%Y-%m-%d")
+                    date_obj = change_datetime_to_end_of_day(date_obj, field)
+                    kwargs["create_date__lte"] = date_obj
+                except ValueError:
+                    # if the date is invalid, we throw an error
+                    raise ValueError("Incorrect date format, should be YYYY-MM-DD")
+                autoresponses_payload["end_date"] = encoded_date
+        elif field == "assigned_section":
+            kwargs["assigned_section"] = querydict.getlist(field)[0]
+    filtered_autoresponses = autoresponse_qs.filter(**kwargs)
+    autoresponses_payload["total_autoresponses"] = len(filtered_autoresponses)
+    return autoresponses_payload            
+           
+
+def form_letters_filter(querydict):
     kwargs = {}
     filters = {}
-    action_qs = Action.objects.filter().all()
-    contact_qs = Action.objects.filter(verb="Contacted complainant:").all()
-    emails_counter = {}
+    form_letter_qs = Action.objects.filter(verb="Contacted complainant:").all()
+    form_letters_counter = {}
 
-    contacts_payload = {
+    form_letters_payload = {
         "start_date": "",
         "end_date": "",
         "assigned_section": "",
-        "total_actions": 0,
-        "total_contacts": 0,
-        "emails_counter": emails_counter
+        "total_form_letters": 0,
+        "form_letters_counter": form_letters_counter
     }
     section_filter = False
     section = ""
@@ -43,7 +77,7 @@ def contacts_filter(querydict):
             # filters by a start date or an end date expects yyyy-mm-dd
             field_name = "timestamp"
             encoded_date = filter_list[0]
-            contacts_payload[field] = encoded_date
+            form_letters_payload[field] = encoded_date
             decoded_date = urllib.parse.unquote(encoded_date)
             try:
                 date_obj = datetime.strptime(decoded_date, "%Y-%m-%d")
@@ -55,38 +89,33 @@ def contacts_filter(querydict):
         elif "assigned_section" in field:
             section_filter = True
             section = filter_list[0]
-    filtered_actions = action_qs.filter(**kwargs)
-    filtered_contacts = contact_qs.filter(**kwargs)
+    filtered_form_letters = form_letter_qs.filter(**kwargs)
 
     if section_filter and section:
-        filtered_by_section_actions = []
-        filtered_by_section_contacts = []
-        for action in filtered_actions:
-            report = Report.objects.filter(public_id=action.target_object_id).first()
-            if report and report.assigned_section == section:
-                filtered_by_section_actions.append(action)
-                if action.verb == "Contacted complainant:":
-                    filtered_by_section_contacts.append(action)
-        filtered_actions = filtered_by_section_actions
-        filtered_contacts = filtered_by_section_contacts
+        filtered_by_section_form_letters = []
+        for contact in filtered_form_letters:
+            form_letters_sent = FormLettersSent.objects.filter(report_id=contact.target_object_id).first()
+            if form_letters_sent and form_letters_sent.section == section:
+                filtered_by_section_form_letters.append(contact)
+        filtered_form_letters = filtered_by_section_form_letters
+        filtered_reports = filtered_reports.filter(assigned_section=section)
 
-    for contact in filtered_contacts:
+    for form_letter in filtered_form_letters:
         try:
-            email_title = contact.description.split("'")[1]
+            email_title = form_letter.description.split("'")[1]
             if email_title:
-                for key in emails_counter:
+                for key in form_letters_counter:
                     if key == email_title:
-                        emails_counter[key] += 1
+                        form_letters_counter[key] += 1
                     else:
-                        emails_counter[key] = 1
+                        form_letters_counter[key] = 1
         except IndexError:
             raise ParseError("Request failed due to invalid data")
 
-    contacts_payload["total_contacts"] = len(filtered_contacts)
-    contacts_payload["total_actions"] = len(filtered_actions)
-    contacts_payload["emails_counter"] = emails_counter
+    form_letters_payload["form_letters_counter"] = form_letters_counter
+    form_letters_payload["total_form_letters"] = len(filtered_form_letters)
 
-    return contacts_payload
+    return form_letters_payload
 
 
 def reports_accessed_filter(querydict):

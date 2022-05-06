@@ -475,27 +475,23 @@ class Trends(models.Model):
         logger.info("Trends view refreshed")
 
 
-class ActionSection(models.Model):
+class FormLettersSent(models.Model):
     """see the number of actions taken per section"""
-    report_public_id = models.TextField()
-    report_contact_email = models.TextField()
-    report_assigned_section = models.TextField()
-    action_id = models.IntegerField()
-    action_verb = models.TextField()
-    action_description = models.TextField()
-    action_target_object_id = models.TextField()
+    report_id = models.IntegerField()
+    assigned_section = models.TextField()
+    timestamp = models.DateTimeField()
 
     class Meta:
-        """This model is tied to a view create from migration 144"""
+        """This model is tied to a view created from migration 144"""
         managed = False
-        db_table = "action_section"
+        db_table = "form_letters_sent"
 
     @staticmethod
     def refresh_view():
-        logger.info("Refreshing Action Section view....")
+        logger.info("Refreshing Form Letters Sent view....")
         with connection.cursor() as cursor:
-            cursor.execute("REFRESH MATERIALIZED VIEW action_section;")
-        logger.info("Action section view refreshed")
+            cursor.execute("REFRESH MATERIALIZED VIEW form_letters_sent;")
+        logger.info("FormLetter Sent view refreshed")
 
 
 class ResponseTemplate(models.Model):

@@ -1,12 +1,14 @@
+from datetime import datetime
 from cts_forms.filters import _get_date_field_from_param
 from actstream.models import Action
 from django.http import QueryDict
 from django.test import SimpleTestCase, TestCase, TransactionTestCase
+import pytz
 
 from ..filters import report_filter
-from api.filters import contacts_filter
+from api.filters import form_letters_filter, autoresponses_filter
 from ..models import Report, ProtectedClass
-from .test_data import SAMPLE_ACTION_1, SAMPLE_ACTION_2, SAMPLE_ACTION_3, SAMPLE_ACTION_4, SAMPLE_ACTION_5, SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3
+from .test_data import SAMPLE_ACTION_1, SAMPLE_ACTION_2, SAMPLE_ACTION_3, SAMPLE_ACTION_4, SAMPLE_ACTION_5, SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
 
 
 class FilterTests(SimpleTestCase):
@@ -283,7 +285,7 @@ class ReportLanguageFilterTests(TestCase):
         self.assertEqual(reports.count(), 1)
 
 
-class ContactsFilterTests(TestCase):
+class FormLettersFilterTests(TestCase):
     def setUp(self):
         Action.objects.create(**SAMPLE_ACTION_1)
         Action.objects.create(**SAMPLE_ACTION_2)
@@ -293,6 +295,7 @@ class ContactsFilterTests(TestCase):
         Report.objects.create(**SAMPLE_REPORT_1)
         Report.objects.create(**SAMPLE_REPORT_2)
         Report.objects.create(**SAMPLE_REPORT_3)
+        Report.objects.create(**SAMPLE_REPORT_4)
 
     def test_date_filter(self):
         request_one_day = QueryDict(mutable=True)
@@ -303,41 +306,71 @@ class ContactsFilterTests(TestCase):
         request_multi_day.update({
             "start_date": "2022-04-12",
             "end_date": "2022-04-15"})
-        result_one_day = contacts_filter(request_one_day)
-        result_multi_day = contacts_filter(request_multi_day)
-        self.assertEqual(result_one_day["total_contacts"], 2)
-        self.assertEqual(result_multi_day["total_contacts"], 3)
+        result_one_day = form_letters_filter(request_one_day)
+        result_multi_day = form_letters_filter(request_multi_day)
+        self.assertEqual(result_one_day["total_form_letters"], 2)
+        self.assertEqual(result_one_day["total_autoresponses"], 1)
+        self.assertEqual(result_multi_day["total_form_letters"], 3)
 
     def test_result_without_date_filter(self):
         request = {}
-        result = contacts_filter(request)
-        self.assertEqual(result["total_actions"], 5)
-        self.assertEqual(result["total_contacts"], 3)
+        result = form_letters_filter(request)
+        self.assertEqual(result["total_form_letters"], 3)
 
     def test_date_filter_no_results(self):
         request = QueryDict(mutable=True)
         request.update({"start_date": "2022-04-1", "end_date": "2022-04-11"})
-        result = contacts_filter(request)
-        self.assertEqual(result["total_contacts"], 0)
-        self.assertEqual(result["total_actions"], 0)
+        result = form_letters_filter(request)
+        self.assertEqual(result["total_form_letters"], 0)
 
     def test_section_filter_no_results(self):
         request = QueryDict(mutable=True)
         request.update({"assigned_section": "FCS"})
-        result = contacts_filter(request)
-        self.assertEqual(result["total_contacts"], 0)
-        self.assertEqual(result["total_actions"], 0)
+        result = form_letters_filter(request)
+        self.assertEqual(result["total_form_letters"], 0)
 
-    def test_section_filter_two_results(self):
+    def test_section_filter_one_result(self):
         request = QueryDict(mutable=True)
         request.update({"assigned_section": "ADM"})
-        result = contacts_filter(request)
-        self.assertEqual(result["total_contacts"], 1)
-        self.assertEqual(result["total_actions"], 2)
+        result = form_letters_filter(request)
+        self.assertEqual(result["total_form_letters"], 1)
 
     def test_section_filter_and_date_filter_one_result(self):
         request = QueryDict(mutable=True)
         request.update({"assigned_section": "CRM", "start_date": "2022-04-11", "end_date": "2022-04-14"})
-        result = contacts_filter(request)
-        self.assertEqual(result["total_contacts"], 1)
-        self.assertEqual(result["total_actions"], 1)
+        result = form_letters_filter(request)
+        self.assertEqual(result["total_form_letters"], 1)
+
+class AutoResponsesFilterTests(TestCase):
+    @classmethod
+    def setUpTestData(self):
+        report_1 = Report.objects.create(**SAMPLE_REPORT_1)
+        report_1.create_date = datetime(2022, 4, 12, 18, 17, 52, 0, tzinfo=pytz.utc)
+        report_1.save()
+        report_2 = Report.objects.create(**SAMPLE_REPORT_2)
+        report_2.create_date = datetime(2022, 4, 13, 18, 17, 52, 0, tzinfo=pytz.utc)
+        report_2.save()
+        report_3 = Report.objects.create(**SAMPLE_REPORT_3)
+        report_3.create_date = datetime(2022, 2, 1, 18, 17, 52, 0, tzinfo=pytz.utc)
+        report_3.save()
+        report_4 = Report.objects.create(**SAMPLE_REPORT_4)
+        report_4.create_date = datetime(2022, 2, 4, 18, 17, 52, 0, tzinfo=pytz.utc)
+        report_4.save()        
+    
+    def test_only_date_filter(self):
+        request = QueryDict(mutable=True)
+        request.update({"start_date": "2022-04-12", "end_date": "2022-04-13"})
+        result = autoresponses_filter(request)
+        self.assertEqual(result["total_autoresponses"], 2)
+
+    def test_only_section_filter(self):
+        request = QueryDict(mutable=True)
+        request.update({"assigned_section": "CRM"})
+        result = autoresponses_filter(request)
+        self.assertEqual(result["total_autoresponses"], 3)
+
+    def test_date_and_section_filter(self):
+        request = QueryDict(mutable=True)
+        request.update({"start_date": "2022-02-01", "end_date": "2022-02-13", "assigned_section": "CRM"})
+        result = autoresponses_filter(request)
+        self.assertEqual(result["total_autoresponses"], 2)
