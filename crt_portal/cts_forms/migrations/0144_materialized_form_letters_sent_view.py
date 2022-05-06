@@ -10,6 +10,9 @@ def create_materialized_form_letters_sent_view(apps, schema_editor):
             ON cts_forms_report.id = CAST(actstream_action.target_object_id as int)
             WHERE actstream_action.verb LIKE 'Contacted complainant:';
         """)
+        cursor.execute("""
+            CREATE UNIQUE INDEX ON public.form_letters_sent ( report_id );
+        """)
 
 def revert_materialized_form_letters_sent_view(apps, schema_editor):
     with connection.cursor() as cursor:

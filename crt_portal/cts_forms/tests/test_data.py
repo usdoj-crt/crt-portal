@@ -133,7 +133,7 @@ SAMPLE_ACTION_4 = {
     "id": 4,
     "actor_object_id": 1,
     "verb": "Added comment: ",
-    "description": "a comment",
+    "description": "Email sent: 'SPL - Standard Form Letter' to gregory94@example.com via govDelivery TMS",
     "timestamp": "2022-05-01 10:56:53.277142+00",
     "public": True,
     "actor_content_type_id": 1,
@@ -144,9 +144,20 @@ SAMPLE_ACTION_5 = {
     "id": 5,
     "actor_object_id": 1,
     "verb": "Added comment: ",
-    "description": "may the fourth be with you",
+    "description": "Email sent: 'DRS - EEOC Referral Form Letter' to stephaniegomez@example.com via govDelivery TMS",
     "timestamp": "2022-05-04 10:56:53.277142+00",
     "public": True,
     "actor_content_type_id": 1,
     "target_object_id": "9999999"
+}
+
+SAMPLE_ACTION_6 = {
+    "id": 6,
+    "actor_object_id": 1,
+    "verb": "Contacted complainant:",
+    "description": "Email sent: 'CRT - Request for Agency Review' to hernandezcolleen@example.com via govDelivery TMS",
+    "timestamp": "2022-05-04 10:56:53.277142+00",
+    "public": True,
+    "actor_content_type_id": 1,
+    "target_object_id": "1"
 }

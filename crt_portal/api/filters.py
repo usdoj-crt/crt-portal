@@ -93,12 +93,11 @@ def form_letters_filter(querydict):
 
     if section_filter and section:
         filtered_by_section_form_letters = []
-        for contact in filtered_form_letters:
-            form_letters_sent = FormLettersSent.objects.filter(report_id=contact.target_object_id).first()
-            if form_letters_sent and form_letters_sent.section == section:
-                filtered_by_section_form_letters.append(contact)
+        for form_letter in filtered_form_letters:
+            form_letters_sent = FormLettersSent.objects.filter(report_id=form_letter.target_object_id).first()
+            if form_letters_sent and form_letters_sent.assigned_section == section:
+                filtered_by_section_form_letters.append(form_letter)
         filtered_form_letters = filtered_by_section_form_letters
-        filtered_reports = filtered_reports.filter(assigned_section=section)
 
     for form_letter in filtered_form_letters:
         try:

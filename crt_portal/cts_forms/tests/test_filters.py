@@ -7,8 +7,8 @@ import pytz
 
 from ..filters import report_filter
 from api.filters import form_letters_filter, autoresponses_filter
-from ..models import Report, ProtectedClass
-from .test_data import SAMPLE_ACTION_1, SAMPLE_ACTION_2, SAMPLE_ACTION_3, SAMPLE_ACTION_4, SAMPLE_ACTION_5, SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
+from ..models import Report, ProtectedClass, FormLettersSent
+from .test_data import SAMPLE_ACTION_1, SAMPLE_ACTION_2, SAMPLE_ACTION_3, SAMPLE_ACTION_4, SAMPLE_ACTION_5, SAMPLE_ACTION_6, SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
 
 
 class FilterTests(SimpleTestCase):
@@ -198,7 +198,8 @@ class ReportFilterTests(TestCase):
 # This is a separate test suite from the above search query tests because
 # test suites don't like it when databases throw errors inside of them
 class ReportFilterErrorTests(TransactionTestCase):
-    def setUp(self):
+    @classmethod
+    def setUpTestData(self):
         test_data = SAMPLE_REPORT_1.copy()
 
         test_data['violation_summary'] = 'plane'
@@ -217,7 +218,8 @@ class ReportFilterErrorTests(TransactionTestCase):
 
 
 class ReportLanguageFilterTests(TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpTestData(self):
         test_data = SAMPLE_REPORT_1.copy()
 
         # test setup for language English
@@ -286,16 +288,21 @@ class ReportLanguageFilterTests(TestCase):
 
 
 class FormLettersFilterTests(TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpTestData(self):
         Action.objects.create(**SAMPLE_ACTION_1)
         Action.objects.create(**SAMPLE_ACTION_2)
         Action.objects.create(**SAMPLE_ACTION_3)
         Action.objects.create(**SAMPLE_ACTION_4)
         Action.objects.create(**SAMPLE_ACTION_5)
+        Action.objects.create(**SAMPLE_ACTION_6)
+        SAMPLE_REPORT_1["id"] = 1
         Report.objects.create(**SAMPLE_REPORT_1)
         Report.objects.create(**SAMPLE_REPORT_2)
         Report.objects.create(**SAMPLE_REPORT_3)
         Report.objects.create(**SAMPLE_REPORT_4)
+        FormLettersSent.refresh_view()
+        # see the section for every fls, i suspect they are all crm
 
     def test_date_filter(self):
         request_one_day = QueryDict(mutable=True)
@@ -309,13 +316,12 @@ class FormLettersFilterTests(TestCase):
         result_one_day = form_letters_filter(request_one_day)
         result_multi_day = form_letters_filter(request_multi_day)
         self.assertEqual(result_one_day["total_form_letters"], 2)
-        self.assertEqual(result_one_day["total_autoresponses"], 1)
         self.assertEqual(result_multi_day["total_form_letters"], 3)
 
     def test_result_without_date_filter(self):
         request = {}
         result = form_letters_filter(request)
-        self.assertEqual(result["total_form_letters"], 3)
+        self.assertEqual(result["total_form_letters"], 4)
 
     def test_date_filter_no_results(self):
         request = QueryDict(mutable=True)
@@ -335,11 +341,11 @@ class FormLettersFilterTests(TestCase):
         result = form_letters_filter(request)
         self.assertEqual(result["total_form_letters"], 1)
 
-    def test_section_filter_and_date_filter_one_result(self):
+    def test_section_filter_and_date_filter(self):
         request = QueryDict(mutable=True)
         request.update({"assigned_section": "CRM", "start_date": "2022-04-11", "end_date": "2022-04-14"})
         result = form_letters_filter(request)
-        self.assertEqual(result["total_form_letters"], 1)
+        self.assertEqual(result["total_form_letters"], 2)
 
 class AutoResponsesFilterTests(TestCase):
     @classmethod

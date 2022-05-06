@@ -477,7 +477,7 @@ class Trends(models.Model):
 
 class FormLettersSent(models.Model):
     """see the number of actions taken per section"""
-    report_id = models.IntegerField()
+    report_id = models.IntegerField(primary_key=True)
     assigned_section = models.TextField()
     timestamp = models.DateTimeField()
 
