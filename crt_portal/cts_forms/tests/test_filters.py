@@ -218,8 +218,7 @@ class ReportFilterErrorTests(TransactionTestCase):
 
 
 class ReportLanguageFilterTests(TestCase):
-    @classmethod
-    def setUpTestData(self):
+    def setUp(self):
         test_data = SAMPLE_REPORT_1.copy()
 
         # test setup for language English

@@ -4,7 +4,6 @@ SAMPLE_REPORT_1 = {
     "contact_last_name": "Abraham",
     "contact_email": "Lincoln@usa.gov",
     "contact_phone": "202-867-5309",
-    "create_date": "2022-04-12 18:17:52.74131+00",
     "violation_summary": "Four score and seven years ago our fathers brought forth on this continent, a new nation, conceived in Liberty, and dedicated to the proposition that all men are created equal.",
     "last_incident_month": 1,
     "last_incident_year": 2019,
@@ -16,7 +15,6 @@ SAMPLE_REPORT_1 = {
     "crt_reciept_month": 12,
     "crt_reciept_year": 2000,
     "intake_format": "web",
-    "public_id": "1122-AZM",
     "assigned_section": "ADM"
 }
 
