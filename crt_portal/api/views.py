@@ -11,6 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 from api.serializers import ReportSerializer, ResponseTemplateSerializer
 from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView
+from cts_forms.models import FormLettersSent
 import html
 
 REST_FRAMEWORK = {
@@ -120,7 +121,10 @@ class FormLettersIndex(APIView):
 
     def get(self, request):
         try:
+            # all_responses = FormLettersSent.objects.filter(assigned_section="CRM")
+            # print("length of FormLettersSent", len(all_responses))
             contacts_payload = form_letters_filter(request.GET)
+            print("contacts_payload", contacts_payload)
             return Response(contacts_payload)
         except ValueError:
             return HttpResponse(status=400)

@@ -480,6 +480,7 @@ class FormLettersSent(models.Model):
     report_id = models.IntegerField(primary_key=True)
     assigned_section = models.TextField()
     timestamp = models.DateTimeField()
+    description = models.TextField()
 
     class Meta:
         """This model is tied to a view created from migration 144"""
