@@ -237,11 +237,12 @@ class APIReportsAccessedTests(TestCase):
 class APIRelatedReportsTests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.test_report = Report.objects.create(**SAMPLE_REPORT)
+        self.test_report1 = Report.objects.create(**SAMPLE_REPORT)
         self.test_report2 = Report.objects.create(**SAMPLE_REPORT)
         self.test_report3 = Report.objects.create(**SAMPLE_REPORT)
         self.test_report4 = Report.objects.create(**SAMPLE_REPORT)
         self.test_report5 = Report.objects.create(**SAMPLE_REPORT)
+        self.test_report6 = Report.objects.create(**SAMPLE_REPORT)
         self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.client.login(username="DELETE_USER", password="")  # nosec
         self.url = reverse("api:related-reports") + "?email=Lincoln@usa.gov"
@@ -262,16 +263,18 @@ class APIRelatedReportsTests(TestCase):
     
     def test_number_of_results(self):
         """does the email address queried return a number equal to the number of reports created?"""
+        self.client.login(username="DELETE_USER", password="") 
         response = self.client.get(self.url)
-        self.assertEqual(len(response.content), 6)
+        # This is the number of reports (6) multiplied by the number of fields in each report (7)
+        self.assertEqual(len(str(response.content).split(',')), 42)
 
     def test_returned_fields(self):
         """are all of the expected fields present in the response body?"""
         response = self.client.get(self.url)
-        self.assertTrue('pk' in response.content)
-        self.assertTrue('viewed' in response.content)
-        self.assertTrue('public_id' in response.content)
-        self.assertTrue('assigned_section' in response.content)
-        self.assertTrue('recent_email_sent' in response.content)
-        self.assertTrue('create_date' in response.content)
-        self.assertTrue('email' in response.content)
+        self.assertTrue('pk' in str(response.content))
+        self.assertTrue('viewed' in str(response.content))
+        self.assertTrue('public_id' in str(response.content))
+        self.assertTrue('assigned_section' in str(response.content))
+        self.assertTrue('recent_email_sent' in str(response.content))
+        self.assertTrue('create_date' in str(response.content))
+        self.assertTrue('email' in str(response.content))
