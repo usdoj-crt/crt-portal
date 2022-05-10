@@ -233,3 +233,45 @@ class APIReportsAccessedTests(TestCase):
             "Authentication credentials were not provided" in str(response.content)
         )
         self.assertEqual(response.status_code, 403)
+
+class APIRelatedReportsTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.test_report = Report.objects.create(**SAMPLE_REPORT)
+        self.test_report2 = Report.objects.create(**SAMPLE_REPORT)
+        self.test_report3 = Report.objects.create(**SAMPLE_REPORT)
+        self.test_report4 = Report.objects.create(**SAMPLE_REPORT)
+        self.test_report5 = Report.objects.create(**SAMPLE_REPORT)
+        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.client.login(username="DELETE_USER", password="")  # nosec
+        self.url = reverse("api:related-reports") + "?email=Lincoln@usa.gov"
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_api_base_url(self):
+        """test api base url get status"""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_unauthenticated_api_base_url(self):
+        """test api base url not logged in"""
+        self.client.logout()
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 403)
+    
+    def test_number_of_results(self):
+        """does the email address queried return a number equal to the number of reports created?"""
+        response = self.client.get(self.url)
+        self.assertEqual(len(response.content), 6)
+
+    def test_returned_fields(self):
+        """are all of the expected fields present in the response body?"""
+        response = self.client.get(self.url)
+        self.assertTrue('pk' in response.content)
+        self.assertTrue('viewed' in response.content)
+        self.assertTrue('public_id' in response.content)
+        self.assertTrue('assigned_section' in response.content)
+        self.assertTrue('recent_email_sent' in response.content)
+        self.assertTrue('create_date' in response.content)
+        self.assertTrue('email' in response.content)
