@@ -6,7 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from cts_forms.views import mark_report_as_viewed
-from api.filters import form_letters_filter, reports_accessed_filter
+from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter
 from rest_framework.permissions import IsAuthenticated
 from api.serializers import ReportSerializer, ResponseTemplateSerializer
 from django.contrib.auth.decorators import login_required
@@ -120,8 +120,10 @@ class FormLettersIndex(APIView):
 
     def get(self, request):
         try:
-            contacts_payload = form_letters_filter(request.GET)
-            return Response(contacts_payload)
+            form_letters_payload = form_letters_filter(request.GET)
+            total_autoresponses = autoresponses_filter(request.GET)
+            form_letters_payload["total_autoresponses"] = total_autoresponses
+            return Response(form_letters_payload)
         except ValueError:
             return HttpResponse(status=400)
         except IndexError:

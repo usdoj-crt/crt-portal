@@ -9,22 +9,10 @@ from datetime import datetime
 
 from utils.datetime_fns import change_datetime_to_end_of_day
 
-# To add a new filter option, add the field name and expected filter behavior
-filter_options = {
-    "assigned_section": "assigned_section",
-    "start_date": "__gte",
-    "end_date": "__lte"
-}
-
 def autoresponses_filter(querydict):
     kwargs = {}
     autoresponse_qs = Report.objects.filter().all()
 
-    autoresponses_payload = {
-        "start_date": "",
-        "end_date": "",
-        "total_autoresponses": 0
-    }
     for field in querydict.keys():
         if "date" in field:
             # filters by a start date or an end date expects yyyy-mm-dd
@@ -37,7 +25,6 @@ def autoresponses_filter(querydict):
                 except ValueError:
                     # if the date is invalid, we throw an error
                     raise ValueError("Incorrect date format, should be YYYY-MM-DD")
-                autoresponses_payload["start_date"] = encoded_date
             elif field == "end_date":
                 try:
                     date_obj = datetime.strptime(decoded_date, "%Y-%m-%d")
@@ -46,12 +33,10 @@ def autoresponses_filter(querydict):
                 except ValueError:
                     # if the date is invalid, we throw an error
                     raise ValueError("Incorrect date format, should be YYYY-MM-DD")
-                autoresponses_payload["end_date"] = encoded_date
         elif field == "assigned_section":
             kwargs["assigned_section"] = querydict.getlist(field)[0]
     filtered_autoresponses = autoresponse_qs.filter(**kwargs)
-    autoresponses_payload["total_autoresponses"] = len(filtered_autoresponses)
-    return autoresponses_payload            
+    return len(filtered_autoresponses)            
 
 
 def form_letters_filter(querydict):

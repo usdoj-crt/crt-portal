@@ -364,17 +364,17 @@ class AutoResponsesFilterTests(TestCase):
     def test_only_date_filter(self):
         request = QueryDict(mutable=True)
         request.update({"start_date": "2022-04-12", "end_date": "2022-04-13"})
-        result = autoresponses_filter(request)
-        self.assertEqual(result["total_autoresponses"], 2)
+        total_autoresponses = autoresponses_filter(request)
+        self.assertEqual(total_autoresponses, 2)
 
     def test_only_section_filter(self):
         request = QueryDict(mutable=True)
         request.update({"assigned_section": "CRM"})
-        result = autoresponses_filter(request)
-        self.assertEqual(result["total_autoresponses"], 3)
+        total_autoresponses = autoresponses_filter(request)
+        self.assertEqual(total_autoresponses, 3)
 
     def test_date_and_section_filter(self):
         request = QueryDict(mutable=True)
         request.update({"start_date": "2022-02-01", "end_date": "2022-02-13", "assigned_section": "CRM"})
-        result = autoresponses_filter(request)
-        self.assertEqual(result["total_autoresponses"], 2)
+        total_autoresponses = autoresponses_filter(request)
+        self.assertEqual(total_autoresponses, 2)
