@@ -11,7 +11,7 @@ def create_materialized_form_letters_sent_view(apps, schema_editor):
             WHERE actstream_action.verb LIKE 'Contacted complainant:';
         """)
         cursor.execute("""
-            CREATE UNIQUE INDEX ON public.form_letters_sent ( report_id );
+            CREATE INDEX ON public.form_letters_sent ( report_id );
         """)
 
 def revert_materialized_form_letters_sent_view(apps, schema_editor):

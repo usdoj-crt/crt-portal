@@ -203,10 +203,10 @@ class ReportFilterErrorTests(TransactionTestCase):
         test_data = SAMPLE_REPORT_1.copy()
 
         test_data['violation_summary'] = 'plane'
-        Report.objects.create(**test_data)
+        self.report1 = Report.objects.create(**test_data)
 
         test_data['violation_summary'] = 'truck'
-        Report.objects.create(**test_data)
+        self.report2 = Report.objects.create(**test_data)
 
     def test_malformed_parens_search(self):
         """
@@ -218,36 +218,37 @@ class ReportFilterErrorTests(TransactionTestCase):
 
 
 class ReportLanguageFilterTests(TestCase):
-    def setUp(self):
+    @classmethod
+    def setUpTestData(self):
         test_data = SAMPLE_REPORT_1.copy()
 
         # test setup for language English
         test_data['language'] = 'en'
-        Report.objects.create(**test_data)
+        self.report1 = Report.objects.create(**test_data)
 
         # test setup for language Spanish
         test_data['language'] = 'es'
-        Report.objects.create(**test_data)
+        self.report2 = Report.objects.create(**test_data)
 
         # test setup for language Chinese traditional
         test_data['language'] = 'zh-hant'
-        Report.objects.create(**test_data)
+        self.report3 = Report.objects.create(**test_data)
 
         # test setup for language Chinese simplified
         test_data['language'] = 'zh-hans'
-        Report.objects.create(**test_data)
+        self.report4 = Report.objects.create(**test_data)
 
         # test setup for language Vietnamese
         test_data['language'] = 'vi'
-        Report.objects.create(**test_data)
+        self.report5 = Report.objects.create(**test_data)
 
         # test setup for language Korean
         test_data['language'] = 'ko'
-        Report.objects.create(**test_data)
+        self.report6 = Report.objects.create(**test_data)
 
         # test setup for language tagalog
         test_data['language'] = 'tl'
-        Report.objects.create(**test_data)
+        self.report7 = Report.objects.create(**test_data)
 
     # report language filter test
     # report submitted in English
@@ -295,13 +296,11 @@ class FormLettersFilterTests(TestCase):
         Action.objects.create(**SAMPLE_ACTION_4)
         Action.objects.create(**SAMPLE_ACTION_5)
         Action.objects.create(**SAMPLE_ACTION_6)
-        SAMPLE_REPORT_1["id"] = 1
-        Report.objects.create(**SAMPLE_REPORT_1)
-        Report.objects.create(**SAMPLE_REPORT_2)
-        Report.objects.create(**SAMPLE_REPORT_3)
-        Report.objects.create(**SAMPLE_REPORT_4)
+        self.test_report1 = Report.objects.create(**SAMPLE_REPORT_1)
+        self.test_report2 = Report.objects.create(**SAMPLE_REPORT_2)
+        self.test_report3 = Report.objects.create(**SAMPLE_REPORT_3)
+        self.test_report4 = Report.objects.create(**SAMPLE_REPORT_4)
         FormLettersSent.refresh_view()
-        # see the section for every fls, i suspect they are all crm
 
     def test_date_filter(self):
         request_one_day = QueryDict(mutable=True)
@@ -322,7 +321,7 @@ class FormLettersFilterTests(TestCase):
     def test_date_filter_no_results(self):
         request = QueryDict(mutable=True)
         request.update({"assigned_section": "ADM",
-                        "start_date": "2022-04-1", 
+                        "start_date": "2022-04-1",
                         "end_date": "2022-04-11"})
         result = form_letters_filter(request)
         self.assertEqual(result["total_form_letters"], 0)
@@ -345,6 +344,7 @@ class FormLettersFilterTests(TestCase):
         result = form_letters_filter(request)
         self.assertEqual(result["total_form_letters"], 2)
 
+
 class AutoResponsesFilterTests(TestCase):
     @classmethod
     def setUpTestData(self):
@@ -359,8 +359,8 @@ class AutoResponsesFilterTests(TestCase):
         report_3.save()
         report_4 = Report.objects.create(**SAMPLE_REPORT_4)
         report_4.create_date = datetime(2022, 2, 4, 18, 17, 52, 0, tzinfo=pytz.utc)
-        report_4.save()        
-    
+        report_4.save()
+
     def test_only_date_filter(self):
         request = QueryDict(mutable=True)
         request.update({"start_date": "2022-04-12", "end_date": "2022-04-13"})

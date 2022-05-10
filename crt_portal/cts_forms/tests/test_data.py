@@ -19,7 +19,6 @@ SAMPLE_REPORT_1 = {
 }
 
 SAMPLE_REPORT_2 = {
-    "id": 2,
     "other_class": "test other",
     "contact_first_name": "Abby",
     "contact_last_name": "Cadabby",
@@ -41,7 +40,6 @@ SAMPLE_REPORT_2 = {
 }
 
 SAMPLE_REPORT_3 = {
-    "id": 3,
     "other_class": "testing more stuff",
     "contact_first_name": "Big",
     "contact_last_name": "Bird",
@@ -64,7 +62,6 @@ SAMPLE_REPORT_3 = {
 
 
 SAMPLE_REPORT_4 = {
-    "id": 4,
     "other_class": "testing testing",
     "contact_first_name": "Bert",
     "contact_last_name": "Muppet",
@@ -92,7 +89,6 @@ SAMPLE_RESPONSE_TEMPLATE = {
 }
 
 SAMPLE_ACTION_1 = {
-    "id": 1,
     "actor_object_id": 1,
     "verb": "Contacted complainant:",
     "description": "Email sent: 'EOS - Department of Ed OCR Referral Form Letter' to cookiemonster@fakeemail.com via govDelivery TMS",
@@ -103,7 +99,6 @@ SAMPLE_ACTION_1 = {
 }
 
 SAMPLE_ACTION_2 = {
-    "id": 2,
     "actor_object_id": 1,
     "verb": "Contacted complainant:",
     "description": "Email sent: 'EOS - EEOC Referral Form Letter' to    eileenmcfarland@navapbc.com via govDelivery TMS",
@@ -114,7 +109,6 @@ SAMPLE_ACTION_2 = {
 }
 
 SAMPLE_ACTION_3 = {
-    "id": 3,
     "actor_object_id": 1,
     "verb": "Contacted complainant:",
     "description": "Email sent: 'EOS - EEOC Referral Form Letter' to  bigbird@fake.com via govDelivery TMS",
@@ -125,7 +119,6 @@ SAMPLE_ACTION_3 = {
 }
 
 SAMPLE_ACTION_4 = {
-    "id": 4,
     "actor_object_id": 1,
     "verb": "Added comment: ",
     "description": "Email sent: 'SPL - Standard Form Letter' to gregory94@example.com via govDelivery TMS",
@@ -136,7 +129,6 @@ SAMPLE_ACTION_4 = {
 }
 
 SAMPLE_ACTION_5 = {
-    "id": 5,
     "actor_object_id": 1,
     "verb": "Added comment: ",
     "description": "Email sent: 'DRS - EEOC Referral Form Letter' to stephaniegomez@example.com via govDelivery TMS",
@@ -147,7 +139,6 @@ SAMPLE_ACTION_5 = {
 }
 
 SAMPLE_ACTION_6 = {
-    "id": 6,
     "actor_object_id": 1,
     "verb": "Contacted complainant:",
     "description": "Email sent: 'CRT - Request for Agency Review' to hernandezcolleen@example.com via govDelivery TMS",

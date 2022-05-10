@@ -2,12 +2,12 @@
 
 from cts_forms.models import User, FormLettersSent, Report
 from actstream import registry
-from actstream.models import Action, actor_stream
-from rest_framework.exceptions import ParseError
+from actstream.models import actor_stream
 import urllib.parse
 from datetime import datetime
 
 from utils.datetime_fns import change_datetime_to_end_of_day
+
 
 def autoresponses_filter(querydict):
     kwargs = {}
@@ -21,7 +21,7 @@ def autoresponses_filter(querydict):
             if field == "start_date":
                 try:
                     date_obj = datetime.strptime(decoded_date, "%Y-%m-%d")
-                    kwargs["create_date__gte"] = date_obj                    
+                    kwargs["create_date__gte"] = date_obj
                 except ValueError:
                     # if the date is invalid, we throw an error
                     raise ValueError("Incorrect date format, should be YYYY-MM-DD")
@@ -36,7 +36,7 @@ def autoresponses_filter(querydict):
         elif field == "assigned_section":
             kwargs["assigned_section"] = querydict.getlist(field)[0]
     filtered_autoresponses = autoresponse_qs.filter(**kwargs)
-    return len(filtered_autoresponses)            
+    return len(filtered_autoresponses)
 
 
 def form_letters_filter(querydict):
