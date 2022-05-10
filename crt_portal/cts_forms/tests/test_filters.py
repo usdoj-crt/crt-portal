@@ -218,8 +218,7 @@ class ReportFilterErrorTests(TransactionTestCase):
 
 
 class ReportLanguageFilterTests(TestCase):
-    @classmethod
-    def setUpTestData(self):
+    def setUp(self):
         test_data = SAMPLE_REPORT_1.copy()
 
         # test setup for language English
@@ -307,10 +306,12 @@ class FormLettersFilterTests(TestCase):
     def test_date_filter(self):
         request_one_day = QueryDict(mutable=True)
         request_one_day.update({
+            "assigned_section": "CRM",
             "start_date": "2022-04-12",
             "end_date": "2022-04-12"})
         request_multi_day = QueryDict(mutable=True)
         request_multi_day.update({
+            "assigned_section": "CRM",
             "start_date": "2022-04-12",
             "end_date": "2022-04-15"})
         result_one_day = form_letters_filter(request_one_day)
@@ -318,14 +319,11 @@ class FormLettersFilterTests(TestCase):
         self.assertEqual(result_one_day["total_form_letters"], 2)
         self.assertEqual(result_multi_day["total_form_letters"], 3)
 
-    def test_result_without_date_filter(self):
-        request = {}
-        result = form_letters_filter(request)
-        self.assertEqual(result["total_form_letters"], 4)
-
     def test_date_filter_no_results(self):
         request = QueryDict(mutable=True)
-        request.update({"start_date": "2022-04-1", "end_date": "2022-04-11"})
+        request.update({"assigned_section": "ADM",
+                        "start_date": "2022-04-1", 
+                        "end_date": "2022-04-11"})
         result = form_letters_filter(request)
         self.assertEqual(result["total_form_letters"], 0)
 

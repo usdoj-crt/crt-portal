@@ -113,7 +113,7 @@ class FormLettersIndex(APIView):
     """
     A view that displays information about the number of form letters sent.
 
-    Example: /api/form-letters/?start_date=2022-03-24&end_date=2022-03-29
+    Example: /api/form-letters/?assigned_section=CRM&start_date=2022-03-24&end_date=2022-03-29
     """
 
     permission_classes = (IsAuthenticated,)
