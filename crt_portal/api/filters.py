@@ -80,8 +80,8 @@ def form_letters_filter(querydict):
                     dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
                     kwargs['timestamp__gte'] = dateObj
                 except ValueError:
-                    # if the date is invalid, we ignore it.
-                    continue
+                    # if the date is invalid, we throw an error
+                    raise ValueError("Incorrect date format, should be YYYY-MM-DD")
                 form_letters_payload["start_date"] = encodedDate
             elif field == "end_date":
                 try:
@@ -89,8 +89,8 @@ def form_letters_filter(querydict):
                     dateObj = change_datetime_to_end_of_day(dateObj, field)
                     kwargs['timestamp__lte'] = dateObj
                 except ValueError:
-                    # if the date is invalid, we ignore it.
-                    continue
+                    # if the date is invalid, we throw an error
+                    raise ValueError("Incorrect date format, should be YYYY-MM-DD")
                 form_letters_payload["end_date"] = encodedDate
     filtered_form_letters = form_letters_by_section.filter(**kwargs)
     form_letters_payload["total_form_letters"] = len(filtered_form_letters)

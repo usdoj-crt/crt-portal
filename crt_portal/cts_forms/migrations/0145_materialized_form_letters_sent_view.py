@@ -23,7 +23,7 @@ def revert_materialized_form_letters_sent_view(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0143_alter_report_district'),
+        ('cts_forms', '0144_report_add_public_id'),
     ]
 
     operations = [
