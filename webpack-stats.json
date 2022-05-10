@@ -1,7 +1,154 @@
 {
-  "status": "error",
-  "assets": {},
-  "chunks": {},
-  "error": "ModuleNotFoundError",
-  "message": "Module not found: Error: Can't resolve 'crt_portal/static/js' in '/Users/billyhunt/Dev/crt-portal'"
+  "status": "done",
+  "assets": {
+    "css/styles.css": {
+      "name": "css/styles.css",
+      "path": "/code/crt_portal/static/dist/css/styles.css"
+    },
+    "js/actions-c741d6c5f96dbaeb06d8.js": {
+      "name": "js/actions-c741d6c5f96dbaeb06d8.js",
+      "path": "/code/crt_portal/static/dist/js/actions-c741d6c5f96dbaeb06d8.js"
+    },
+    "js/base-ae3f5fcadf1eaa5d408e.js": {
+      "name": "js/base-ae3f5fcadf1eaa5d408e.js",
+      "path": "/code/crt_portal/static/dist/js/base-ae3f5fcadf1eaa5d408e.js"
+    },
+    "js/commercialPublicLocation-082ef85bbc2799da252f.js": {
+      "name": "js/commercialPublicLocation-082ef85bbc2799da252f.js",
+      "path": "/code/crt_portal/static/dist/js/commercialPublicLocation-082ef85bbc2799da252f.js"
+    },
+    "js/complaintView-895459fa4b33b4c393c1.js": {
+      "name": "js/complaintView-895459fa4b33b4c393c1.js",
+      "path": "/code/crt_portal/static/dist/js/complaintView-895459fa4b33b4c393c1.js"
+    },
+    "js/confirmation-ff60070b50b3dea8647c.js": {
+      "name": "js/confirmation-ff60070b50b3dea8647c.js",
+      "path": "/code/crt_portal/static/dist/js/confirmation-ff60070b50b3dea8647c.js"
+    },
+    "js/dashboard-aa6a24ed52c75685accc.js": {
+      "name": "js/dashboard-aa6a24ed52c75685accc.js",
+      "path": "/code/crt_portal/static/dist/js/dashboard-aa6a24ed52c75685accc.js"
+    },
+    "js/hateCrimesHumanTrafficking-64bfdbfda136a98b0370.js": {
+      "name": "js/hateCrimesHumanTrafficking-64bfdbfda136a98b0370.js",
+      "path": "/code/crt_portal/static/dist/js/hateCrimesHumanTrafficking-64bfdbfda136a98b0370.js"
+    },
+    "js/hceResources-a0d3a703c958ea94a0d3.js": {
+      "name": "js/hceResources-a0d3a703c958ea94a0d3.js",
+      "path": "/code/crt_portal/static/dist/js/hceResources-a0d3a703c958ea94a0d3.js"
+    },
+    "js/landing-7e063ec97121bc7adcb9.js": {
+      "name": "js/landing-7e063ec97121bc7adcb9.js",
+      "path": "/code/crt_portal/static/dist/js/landing-7e063ec97121bc7adcb9.js"
+    },
+    "js/privacy-e003fc798cb50583a341.js": {
+      "name": "js/privacy-e003fc798cb50583a341.js",
+      "path": "/code/crt_portal/static/dist/js/privacy-e003fc798cb50583a341.js"
+    },
+    "js/proTemplate-a09a2624ee9078185fc6.js": {
+      "name": "js/proTemplate-a09a2624ee9078185fc6.js",
+      "path": "/code/crt_portal/static/dist/js/proTemplate-a09a2624ee9078185fc6.js"
+    },
+    "js/reportBase-c017ab7d760586102eb5.js": {
+      "name": "js/reportBase-c017ab7d760586102eb5.js",
+      "path": "/code/crt_portal/static/dist/js/reportBase-c017ab7d760586102eb5.js"
+    },
+    "js/show-17dc44972c2e7e958b1f.js": {
+      "name": "js/show-17dc44972c2e7e958b1f.js",
+      "path": "/code/crt_portal/static/dist/js/show-17dc44972c2e7e958b1f.js"
+    },
+    "js/actions-c741d6c5f96dbaeb06d8.js.map": {
+      "name": "js/actions-c741d6c5f96dbaeb06d8.js.map",
+      "path": "/code/crt_portal/static/dist/js/actions-c741d6c5f96dbaeb06d8.js.map"
+    },
+    "js/base-ae3f5fcadf1eaa5d408e.js.map": {
+      "name": "js/base-ae3f5fcadf1eaa5d408e.js.map",
+      "path": "/code/crt_portal/static/dist/js/base-ae3f5fcadf1eaa5d408e.js.map"
+    },
+    "js/commercialPublicLocation-082ef85bbc2799da252f.js.map": {
+      "name": "js/commercialPublicLocation-082ef85bbc2799da252f.js.map",
+      "path": "/code/crt_portal/static/dist/js/commercialPublicLocation-082ef85bbc2799da252f.js.map"
+    },
+    "js/complaintView-895459fa4b33b4c393c1.js.map": {
+      "name": "js/complaintView-895459fa4b33b4c393c1.js.map",
+      "path": "/code/crt_portal/static/dist/js/complaintView-895459fa4b33b4c393c1.js.map"
+    },
+    "js/confirmation-ff60070b50b3dea8647c.js.map": {
+      "name": "js/confirmation-ff60070b50b3dea8647c.js.map",
+      "path": "/code/crt_portal/static/dist/js/confirmation-ff60070b50b3dea8647c.js.map"
+    },
+    "js/dashboard-aa6a24ed52c75685accc.js.map": {
+      "name": "js/dashboard-aa6a24ed52c75685accc.js.map",
+      "path": "/code/crt_portal/static/dist/js/dashboard-aa6a24ed52c75685accc.js.map"
+    },
+    "js/hateCrimesHumanTrafficking-64bfdbfda136a98b0370.js.map": {
+      "name": "js/hateCrimesHumanTrafficking-64bfdbfda136a98b0370.js.map",
+      "path": "/code/crt_portal/static/dist/js/hateCrimesHumanTrafficking-64bfdbfda136a98b0370.js.map"
+    },
+    "js/hceResources-a0d3a703c958ea94a0d3.js.map": {
+      "name": "js/hceResources-a0d3a703c958ea94a0d3.js.map",
+      "path": "/code/crt_portal/static/dist/js/hceResources-a0d3a703c958ea94a0d3.js.map"
+    },
+    "js/landing-7e063ec97121bc7adcb9.js.map": {
+      "name": "js/landing-7e063ec97121bc7adcb9.js.map",
+      "path": "/code/crt_portal/static/dist/js/landing-7e063ec97121bc7adcb9.js.map"
+    },
+    "js/privacy-e003fc798cb50583a341.js.map": {
+      "name": "js/privacy-e003fc798cb50583a341.js.map",
+      "path": "/code/crt_portal/static/dist/js/privacy-e003fc798cb50583a341.js.map"
+    },
+    "js/proTemplate-a09a2624ee9078185fc6.js.map": {
+      "name": "js/proTemplate-a09a2624ee9078185fc6.js.map",
+      "path": "/code/crt_portal/static/dist/js/proTemplate-a09a2624ee9078185fc6.js.map"
+    },
+    "js/reportBase-c017ab7d760586102eb5.js.map": {
+      "name": "js/reportBase-c017ab7d760586102eb5.js.map",
+      "path": "/code/crt_portal/static/dist/js/reportBase-c017ab7d760586102eb5.js.map"
+    },
+    "js/show-17dc44972c2e7e958b1f.js.map": {
+      "name": "js/show-17dc44972c2e7e958b1f.js.map",
+      "path": "/code/crt_portal/static/dist/js/show-17dc44972c2e7e958b1f.js.map"
+    }
+  },
+  "chunks": {
+    "actions": [
+      "js/actions-c741d6c5f96dbaeb06d8.js"
+    ],
+    "base": [
+      "js/base-ae3f5fcadf1eaa5d408e.js"
+    ],
+    "commercialPublicLocation": [
+      "js/commercialPublicLocation-082ef85bbc2799da252f.js"
+    ],
+    "complaintView": [
+      "js/complaintView-895459fa4b33b4c393c1.js"
+    ],
+    "confirmation": [
+      "js/confirmation-ff60070b50b3dea8647c.js"
+    ],
+    "dashboard": [
+      "js/dashboard-aa6a24ed52c75685accc.js"
+    ],
+    "hateCrimesHumanTrafficking": [
+      "js/hateCrimesHumanTrafficking-64bfdbfda136a98b0370.js"
+    ],
+    "hceResources": [
+      "js/hceResources-a0d3a703c958ea94a0d3.js"
+    ],
+    "landing": [
+      "js/landing-7e063ec97121bc7adcb9.js"
+    ],
+    "privacy": [
+      "js/privacy-e003fc798cb50583a341.js"
+    ],
+    "proTemplate": [
+      "js/proTemplate-a09a2624ee9078185fc6.js"
+    ],
+    "reportBase": [
+      "js/reportBase-c017ab7d760586102eb5.js"
+    ],
+    "show": [
+      "js/show-17dc44972c2e7e958b1f.js"
+    ]
+  }
 }

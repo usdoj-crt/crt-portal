@@ -96,7 +96,8 @@ INSTALLED_APPS = [
     # 'django_auth_adfs' in production only
     'crequest',
     'rest_framework',
-    'tms'
+    'tms',
+    'webpack_loader',
 ]
 SITE_ID = 1
 
@@ -130,6 +131,14 @@ TEMPLATES = [
         },
     },
 ]
+
+WEBPACK_LOADER = {
+  'DEFAULT': {
+      'BUNDLE_DIR_NAME': 'dist/',
+      'CACHE': not DEBUG,
+      'STATS_FILE': 'webpack-stats.json',
+  }
+}
 
 WSGI_APPLICATION = 'crt_portal.wsgi.application'
 

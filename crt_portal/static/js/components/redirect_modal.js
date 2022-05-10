@@ -1,3 +1,5 @@
+import './modal';
+
 (function(root) {
   // note that modal.js must be loaded beforehand
   var modal_el = document.getElementById('external-link--modal');
@@ -22,7 +24,6 @@
         }
       }, 20000);
 
-      // set up "continue" button to immediately redirect
       continue_button.onclick = function(event) {
         event.preventDefault();
         var href = span.children[0].href;

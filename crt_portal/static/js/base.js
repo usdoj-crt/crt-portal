@@ -1,6 +1,5 @@
-import 'vendor/uswds-init.min.js';
-import 'url_params_polyfill.min.js';
-import 'focus_alert.min.js';
-import 'clear_error_class.min.js';
-import 'banner_language_selection.min.js';
-import 'url_params_polyfill.min.js';
+import '../sass/styles.scss';
+import 'uswds';
+import './components/focus_alert';
+import './components/clear_error_class';
+import './components/banner_language_selection';

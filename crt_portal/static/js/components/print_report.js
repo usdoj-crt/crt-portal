@@ -1,3 +1,5 @@
+import './modal.js';
+
 (function(root, dom) {
   var complaint_page = document.querySelector('.complaint-show-body');
   var option_mapping_to_section = {

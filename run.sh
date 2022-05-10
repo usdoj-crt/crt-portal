@@ -6,8 +6,10 @@ echo Migrating database...
 python /code/crt_portal/manage.py migrate
 
 echo Generating css and js...
-node node_modules/gulp/bin/gulp build-sass
-node node_modules/gulp/bin/gulp build-js
+#node node_modules/gulp/bin/gulp build-sass
+#node node_modules/gulp/bin/gulp build-js
+npm run build
+python /code/crt_portal/manage.py collectstatic --noinput
 
 # If LOCALSTACK is set in environment, this will upload static files to the localstack s3 service running in docker
 # Otherwise the development server is handling static files
@@ -20,13 +22,13 @@ if [[ -n "${USE_LOCALSTACK}" ]]; then
 
     echo Creating crt-private s3 bucket
     aws --endpoint-url=${LOCALSTACK_URL} s3 mb s3://crt-private
-    
+
     echo Collecting and uploading static assets to localstack...
     python /code/crt_portal/manage.py collectstatic --noinput
-else
-    # Since the dev server is handling static files, let's rebuild them as we modify
-    echo Watching sass and js to rebuild as we make changes...
-    node node_modules/gulp/bin/gulp watch &
+#else
+  # Since the dev server is handling static files, let's rebuild them as we modify
+#  echo Watching sass and js to rebuild as we make changes...
+#  npx webpack --config webpack.config.js --watch
 fi;
 
 echo Updating response templates…

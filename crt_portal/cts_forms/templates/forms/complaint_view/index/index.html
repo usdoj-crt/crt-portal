@@ -1,5 +1,6 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% load static %}
+{% load render_bundle from webpack_loader %}
 
 {% block page_header %}
 {% include 'forms/complaint_view/intake_filters_header.html' with title_text="Reporting Portal" profile_form=profile_form  %}
@@ -35,8 +36,5 @@
 {% endblock %}
 {% block page_js %}
 {{ block.super }}
-<script src="{% static 'vendor/js.cookie.min.js' %}"></script>
-<script src="{% static 'js/complaint_quick_view.min.js' %}"></script>
-<script src="{% static 'js/complaint_view_filters.min.js' %}"></script>
-<script src="{% static 'js/complaint_actions.min.js' %}"></script>
+{% render_bundle 'complaintView' %}
 {% endblock %}
