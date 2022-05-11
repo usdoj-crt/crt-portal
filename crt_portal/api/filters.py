@@ -1,6 +1,6 @@
 # Class to handle filtering data by supplied query params, providing the params are valid.
 
-from cts_forms.models import User, FormLettersSent, Report
+from cts_forms.models import User, Report, FormLettersSent
 from actstream import registry
 from actstream.models import actor_stream
 import urllib.parse
