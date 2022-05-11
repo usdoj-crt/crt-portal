@@ -101,7 +101,6 @@ def reports_accessed_filter(querydict):
         "end_date": "",
         "intake_specialist": "",
     }
-    registry.register(User)
     intake_specialist_username = querydict.get("intake_specialist", None)
     intake_specialist = User.objects.filter(username=intake_specialist_username).first()
     if intake_specialist:

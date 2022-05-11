@@ -1,6 +1,9 @@
 from datetime import datetime
+from cts_forms.forms import add_activity
 from cts_forms.filters import _get_date_field_from_param
-from actstream.models import Action
+from django.contrib.auth.models import User
+from actstream import registry
+from actstream.models import actor_stream
 from django.http import QueryDict
 from django.test import SimpleTestCase, TestCase, TransactionTestCase
 import pytz
@@ -8,7 +11,7 @@ import pytz
 from ..filters import report_filter
 from api.filters import form_letters_filter, autoresponses_filter
 from ..models import Report, ProtectedClass, FormLettersSent
-from .test_data import SAMPLE_ACTION_1, SAMPLE_ACTION_2, SAMPLE_ACTION_3, SAMPLE_ACTION_4, SAMPLE_ACTION_5, SAMPLE_ACTION_6, SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
+from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
 
 
 class FilterTests(SimpleTestCase):
@@ -290,16 +293,32 @@ class ReportLanguageFilterTests(TestCase):
 class FormLettersFilterTests(TestCase):
     @classmethod
     def setUpTestData(self):
-        Action.objects.create(**SAMPLE_ACTION_1)
-        Action.objects.create(**SAMPLE_ACTION_2)
-        Action.objects.create(**SAMPLE_ACTION_3)
-        Action.objects.create(**SAMPLE_ACTION_4)
-        Action.objects.create(**SAMPLE_ACTION_5)
-        Action.objects.create(**SAMPLE_ACTION_6)
-        self.test_report1 = Report.objects.create(**SAMPLE_REPORT_1)
-        self.test_report2 = Report.objects.create(**SAMPLE_REPORT_2)
-        self.test_report3 = Report.objects.create(**SAMPLE_REPORT_3)
-        self.test_report4 = Report.objects.create(**SAMPLE_REPORT_4)
+        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.report1 = Report.objects.create(**SAMPLE_REPORT_1)
+        self.report2 = Report.objects.create(**SAMPLE_REPORT_2)
+        self.report3 = Report.objects.create(**SAMPLE_REPORT_3)
+        self.report4 = Report.objects.create(**SAMPLE_REPORT_4)
+        registry.register(User)
+        add_activity(self.user, "Contacted complainant:", "Email sent: 'EOS - Department of Ed OCR Referral Form Letter' to cookiemonster@fakeemail.com via govDelivery TMS", self.report4)
+        first_action = actor_stream(self.user).first()
+        first_action.timestamp = datetime(2022, 4, 12, 14, 56, 53, tzinfo=pytz.utc)
+        first_action.save()
+        add_activity(self.user, "Contacted complainant:", "Email sent: 'EOS - EEOC Referral Form Letter' to    eileenmcfarland@navapbc.com via govDelivery TMS", self.report2)
+        second_action = actor_stream(self.user).first()
+        second_action.timestamp = datetime(2022, 4, 12, 17, 30, 53, tzinfo=pytz.utc)
+        second_action.save()
+        add_activity(self.user, "Contacted complainant:", "Email sent: 'EOS - EEOC Referral Form Letter' to  bigbird@fake.com via govDelivery TMS", self.report3)
+        third_action = actor_stream(self.user).first()
+        third_action.timestamp = datetime(2022, 4, 15, 10, 56, 53, tzinfo=pytz.utc)
+        third_action.save()
+        add_activity(self.user, "Added comment: ", "Email sent: 'SPL - Standard Form Letter' to gregory94@example.com via govDelivery TMS", self.report4)
+        fourth_action = actor_stream(self.user).first()
+        fourth_action.timestamp = datetime(2022, 5, 1, 10, 56, 53, tzinfo=pytz.utc)
+        fourth_action.save()
+        add_activity(self.user, "Contacted complainant:", "Email sent: 'CRT - Request for Agency Review' to hernandezcolleen@example.com via govDelivery TMS", self.report1)
+        fifth_action = actor_stream(self.user).first()
+        fifth_action.timestamp = datetime(2022, 5, 4, 10, 56, 53, tzinfo=pytz.utc)
+        fifth_action.save()
         FormLettersSent.refresh_view()
 
     def test_date_filter(self):
