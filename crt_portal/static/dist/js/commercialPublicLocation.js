@@ -1,29 +1,61 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 365:
+/***/ 903:
 /***/ (function() {
 
-(function (root) {
-  var header = document.getElementsByClassName('crt-landing--header')[0];
-  var toc = document.getElementById('toc');
-  var topNavLink = toc.firstElementChild;
-  topNavLink.className = 'usa-sidenav__item usa-current';
+(function (root, dom) {
+  root.CRT = root.CRT || {};
 
-  if (toc) {
-    var spy = new Gumshoe('#toc a', {});
-    toc.addEventListener('gumshoeActivate', function (event) {
-      var link = event.detail.link;
-      link.className = 'usa-current';
-      topNavLink.className = 'usa-sidenav__item';
-    });
-    toc.addEventListener('gumshoeDeactivate', function (event) {
-      var link = event.detail.link;
-      link.className = null;
-      topNavLink.className = 'usa-sidenav__item usa-current';
-    });
+  function doToggle(predicate, target) {
+    if (predicate) {
+      target.removeAttribute('hidden');
+    } else {
+      target.setAttribute('hidden', '');
+    }
   }
-})(window);
+
+  root.CRT.otherTextInputToggle = function toggleTextInput(selector, index) {
+    var parentEl = dom.querySelector('[data-toggle]');
+    var selector = selector || '.usa-checkbox';
+
+    if (selector instanceof NodeList) {
+      var options = selector;
+    } else {
+      var options = parentEl.querySelectorAll(selector);
+    }
+
+    var index = index || options.length - 1; // Wrapper element for the 'other' option form control
+
+    var otherOptionEl = options[index]; // The actual checkbox or radio button the user will interact with
+
+    var otherOptionFormEl = otherOptionEl.querySelector('[class$="__input"]'); // Wrapper element for the short text description revealed when the 'other' option is selected
+
+    var otherOptionTextEl = parentEl.querySelector('.other-class-option');
+
+    function toggleOtherOptionTextInput(event) {
+      var target = event.target;
+
+      if (target.nodeName !== 'INPUT') {
+        return;
+      }
+
+      if (target.type === 'checkbox') {
+        doToggle(otherOptionFormEl.checked, otherOptionTextEl);
+      } else if (target.type === 'radio') {
+        doToggle(target === otherOptionFormEl, otherOptionTextEl);
+      }
+    }
+
+    parentEl.addEventListener('click', toggleOtherOptionTextInput);
+
+    if (!otherOptionFormEl.checked) {
+      otherOptionTextEl.setAttribute('hidden', '');
+    }
+  };
+
+  return root;
+})(window, document);
 
 /***/ })
 
@@ -88,10 +120,10 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 !function() {
 "use strict";
-/* harmony import */ var _components_highlight_active_header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(365);
-/* harmony import */ var _components_highlight_active_header__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_highlight_active_header__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_other_show_hide__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(903);
+/* harmony import */ var _components_other_show_hide__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_other_show_hide__WEBPACK_IMPORTED_MODULE_0__);
 
 }();
 /******/ })()
 ;
-//# sourceMappingURL=privacy-e003fc798cb50583a341.js.map
+//# sourceMappingURL=commercialPublicLocation.js.map

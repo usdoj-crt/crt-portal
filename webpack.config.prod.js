@@ -4,6 +4,7 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const BundleTracker = require('webpack-bundle-tracker');
 
 module.exports = {
+  mode: 'production',
   devtool: 'source-map',
   entry: {
     actions: './crt_portal/static/js/actions.js',
@@ -12,6 +13,7 @@ module.exports = {
     complaintView: './crt_portal/static/js/complaintView.js',
     confirmation: './crt_portal/static/js/confirmation.js',
     dashboard: './crt_portal/static/js/dashboard.js',
+    intakeBase: './crt_portal/static/js/intakeBase.js',
     hateCrimesHumanTrafficking: './crt_portal/static/js/hateCrimesHumanTrafficking.js',
     hceResources: './crt_portal/static/js/hceResources.js',
     landing: './crt_portal/static/js/landing.js',
@@ -21,7 +23,7 @@ module.exports = {
     show: './crt_portal/static/js/show.js'
   },
   output: {
-    filename: 'js/[name]-[contenthash].js',
+    filename: 'js/[name].js',
     path: path.resolve(__dirname, 'crt_portal/static/dist'),
     clean: true
   },

@@ -1,32 +1,6 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 365:
-/***/ (function() {
-
-(function (root) {
-  var header = document.getElementsByClassName('crt-landing--header')[0];
-  var toc = document.getElementById('toc');
-  var topNavLink = toc.firstElementChild;
-  topNavLink.className = 'usa-sidenav__item usa-current';
-
-  if (toc) {
-    var spy = new Gumshoe('#toc a', {});
-    toc.addEventListener('gumshoeActivate', function (event) {
-      var link = event.detail.link;
-      link.className = 'usa-current';
-      topNavLink.className = 'usa-sidenav__item';
-    });
-    toc.addEventListener('gumshoeDeactivate', function (event) {
-      var link = event.detail.link;
-      link.className = null;
-      topNavLink.className = 'usa-sidenav__item usa-current';
-    });
-  }
-})(window);
-
-/***/ }),
-
 /***/ 671:
 /***/ (function() {
 
@@ -145,6 +119,8 @@ var __webpack_exports__ = {};
 !function() {
 "use strict";
 
+// UNUSED EXPORTS: print
+
 // EXTERNAL MODULE: ./crt_portal/static/js/components/modal.js
 var modal = __webpack_require__(671);
 ;// CONCATENATED MODULE: ./crt_portal/static/js/components/redirect_modal.js
@@ -187,12 +163,17 @@ var modal = __webpack_require__(671);
   var cancel_modal = document.getElementById('external-link--cancel');
   root.CRT.cancelModal(modal_el, cancel_modal);
 })(window);
-// EXTERNAL MODULE: ./crt_portal/static/js/components/highlight_active_header.js
-var highlight_active_header = __webpack_require__(365);
-;// CONCATENATED MODULE: ./crt_portal/static/js/hateCrimesHumanTrafficking.js
+;// CONCATENATED MODULE: ./crt_portal/static/js/confirmation.js
+ // set up "continue" button to immediately redirect
 
+var print = function print() {
+  var print_el = document.getElementById('print_button');
 
+  print_el.onclick = function () {
+    window.print();
+  };
+};
 }();
 /******/ })()
 ;
-//# sourceMappingURL=hateCrimesHumanTrafficking-64bfdbfda136a98b0370.js.map
+//# sourceMappingURL=confirmation.js.map

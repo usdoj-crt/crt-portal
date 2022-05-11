@@ -5,6 +5,8 @@
 /***/ (function() {
 
 (function (root, dom) {
+  console.log("METAL!!!!!!!!!!!");
+
   var buttons = document.querySelectorAll('.language-selection__button');
 
   for (var index in buttons) {
@@ -216,10 +218,10 @@ var __webpack_exports__ = {};
 !function() {
 "use strict";
 
-;// CONCATENATED MODULE: ./crt_portal/static/sass/styles.scss
-/* harmony default export */ var styles = (__webpack_require__.p + "css/styles.css");
 // EXTERNAL MODULE: ./node_modules/uswds/dist/js/uswds.min.js
 var uswds_min = __webpack_require__(289);
+;// CONCATENATED MODULE: ./crt_portal/static/sass/styles.scss
+/* harmony default export */ var styles = (__webpack_require__.p + "css/styles.css");
 // EXTERNAL MODULE: ./crt_portal/static/js/components/focus_alert.js
 var focus_alert = __webpack_require__(737);
 // EXTERNAL MODULE: ./crt_portal/static/js/components/clear_error_class.js
@@ -235,4 +237,4 @@ var banner_language_selection = __webpack_require__(480);
 }();
 /******/ })()
 ;
-//# sourceMappingURL=base-ae3f5fcadf1eaa5d408e.js.map
+//# sourceMappingURL=base.js.map

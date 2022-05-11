@@ -1,32 +1,6 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 365:
-/***/ (function() {
-
-(function (root) {
-  var header = document.getElementsByClassName('crt-landing--header')[0];
-  var toc = document.getElementById('toc');
-  var topNavLink = toc.firstElementChild;
-  topNavLink.className = 'usa-sidenav__item usa-current';
-
-  if (toc) {
-    var spy = new Gumshoe('#toc a', {});
-    toc.addEventListener('gumshoeActivate', function (event) {
-      var link = event.detail.link;
-      link.className = 'usa-current';
-      topNavLink.className = 'usa-sidenav__item';
-    });
-    toc.addEventListener('gumshoeDeactivate', function (event) {
-      var link = event.detail.link;
-      link.className = null;
-      topNavLink.className = 'usa-sidenav__item usa-current';
-    });
-  }
-})(window);
-
-/***/ }),
-
 /***/ 671:
 /***/ (function() {
 
@@ -187,12 +161,9 @@ var modal = __webpack_require__(671);
   var cancel_modal = document.getElementById('external-link--cancel');
   root.CRT.cancelModal(modal_el, cancel_modal);
 })(window);
-// EXTERNAL MODULE: ./crt_portal/static/js/components/highlight_active_header.js
-var highlight_active_header = __webpack_require__(365);
-;// CONCATENATED MODULE: ./crt_portal/static/js/hceResources.js
-
+;// CONCATENATED MODULE: ./crt_portal/static/js/landing.js
 
 }();
 /******/ })()
 ;
-//# sourceMappingURL=hceResources-a0d3a703c958ea94a0d3.js.map
+//# sourceMappingURL=landing.js.map

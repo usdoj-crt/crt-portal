@@ -1,4 +1,4 @@
-(function() {
+export default function() {
   /**
    * Controls the visibility of a dropdown component
    * @param {HTMLElement} el Node that represents the dropdown
@@ -127,4 +127,4 @@
       dropdownToggle(maybeDropdown);
     }
   });
-})(window);
+}

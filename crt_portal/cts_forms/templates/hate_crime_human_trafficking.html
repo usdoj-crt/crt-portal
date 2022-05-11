@@ -1,4 +1,5 @@
 {% extends "landing.html" %}
+{% load render_bundle from webpack_loader %}
 
 {% load static %}
 {% load i18n %}
@@ -81,5 +82,5 @@
 
 {% block page_js %}
 <script src="{% static 'vendor/gumshoe.min.js' %}"></script>
-<script src="{% static 'dist/js/hateCrimesHumanTrafficking.js' %}"></script>
+{% render_bundle 'base' %}
 {% endblock %}

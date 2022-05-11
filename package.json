@@ -4,8 +4,8 @@
   "description": "crt portal",
   "main": "index.js",
   "scripts": {
-    "build": "webpack --mode production",
-    "start": "webpack watch",
+    "build": "webpack --config webpack.config.prod.js",
+    "start": "webpack --watch --config webpack.config.dev.js",
     "lint:check": "prettier --check \"crt_portal/static/js/*.js\"",
     "lint:write": "prettier --write \"crt_portal/static/js/*.js\"",
     "test:all-spanish": "pa11y-ci --config pa11y_scripts/.all-spanish.json",
@@ -53,8 +53,7 @@
     "url-search-params-polyfill": "^7.0.1",
     "uswds": "2.10.3",
     "uswds-gulp": "github:uswds/uswds-gulp#4f2e1ef06f5fde76cba2b136b683ab22a258e6a8",
-    "util": "^0.12.4",
-    "webpack-dev-server": "^4.8.1"
+    "util": "^0.12.4"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
@@ -76,6 +75,7 @@
     "webpack": "^5.72.0",
     "webpack-bundle-tracker": "^1.5.0",
     "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0",
     "webpack-glob": "^2.0.2"
   }
 }
