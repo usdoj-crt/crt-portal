@@ -475,6 +475,26 @@ class Trends(models.Model):
         logger.info("Trends view refreshed")
 
 
+class FormLettersSent(models.Model):
+    """see the number of actions taken per section"""
+    report_id = models.IntegerField(primary_key=True)
+    assigned_section = models.TextField()
+    timestamp = models.DateTimeField()
+    description = models.TextField()
+
+    class Meta:
+        """This model is tied to a view created from migration 144"""
+        managed = False
+        db_table = "form_letters_sent"
+
+    @staticmethod
+    def refresh_view():
+        logger.info("Refreshing Form Letters Sent view....")
+        with connection.cursor() as cursor:
+            cursor.execute("REFRESH MATERIALIZED VIEW form_letters_sent;")
+        logger.info("FormLetter Sent view refreshed")
+
+
 class ResponseTemplate(models.Model):
     title = models.CharField(max_length=100, null=False, blank=False, unique=True,)
     subject = models.CharField(max_length=150, null=False, blank=False,)

@@ -1,10 +1,17 @@
+from datetime import datetime
+from cts_forms.forms import add_activity
 from cts_forms.filters import _get_date_field_from_param
+from django.contrib.auth.models import User
+from actstream import registry
+from actstream.models import actor_stream
 from django.http import QueryDict
 from django.test import SimpleTestCase, TestCase, TransactionTestCase
+import pytz
 
 from ..filters import report_filter
-from ..models import Report, ProtectedClass
-from .test_data import SAMPLE_REPORT
+from api.filters import form_letters_filter, autoresponses_filter
+from ..models import Report, ProtectedClass, FormLettersSent
+from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
 
 
 class FilterTests(SimpleTestCase):
@@ -20,7 +27,7 @@ class ReportFilterTests(TestCase):
         age = ProtectedClass.objects.get(value='age')
         gender = ProtectedClass.objects.get(value='gender')
         language = ProtectedClass.objects.get(value='language')
-        test_data = SAMPLE_REPORT.copy()
+        test_data = SAMPLE_REPORT_1.copy()
 
         test_data['violation_summary'] = 'plane'
         r1 = Report.objects.create(**test_data)
@@ -194,14 +201,15 @@ class ReportFilterTests(TestCase):
 # This is a separate test suite from the above search query tests because
 # test suites don't like it when databases throw errors inside of them
 class ReportFilterErrorTests(TransactionTestCase):
-    def setUp(self):
-        test_data = SAMPLE_REPORT.copy()
+    @classmethod
+    def setUpTestData(self):
+        test_data = SAMPLE_REPORT_1.copy()
 
         test_data['violation_summary'] = 'plane'
-        Report.objects.create(**test_data)
+        self.report1 = Report.objects.create(**test_data)
 
         test_data['violation_summary'] = 'truck'
-        Report.objects.create(**test_data)
+        self.report2 = Report.objects.create(**test_data)
 
     def test_malformed_parens_search(self):
         """
@@ -213,36 +221,37 @@ class ReportFilterErrorTests(TransactionTestCase):
 
 
 class ReportLanguageFilterTests(TestCase):
-    def setUp(self):
-        test_data = SAMPLE_REPORT.copy()
+    @classmethod
+    def setUpTestData(self):
+        test_data = SAMPLE_REPORT_1.copy()
 
         # test setup for language English
         test_data['language'] = 'en'
-        Report.objects.create(**test_data)
+        self.report1 = Report.objects.create(**test_data)
 
         # test setup for language Spanish
         test_data['language'] = 'es'
-        Report.objects.create(**test_data)
+        self.report2 = Report.objects.create(**test_data)
 
         # test setup for language Chinese traditional
         test_data['language'] = 'zh-hant'
-        Report.objects.create(**test_data)
+        self.report3 = Report.objects.create(**test_data)
 
         # test setup for language Chinese simplified
         test_data['language'] = 'zh-hans'
-        Report.objects.create(**test_data)
+        self.report4 = Report.objects.create(**test_data)
 
         # test setup for language Vietnamese
         test_data['language'] = 'vi'
-        Report.objects.create(**test_data)
+        self.report5 = Report.objects.create(**test_data)
 
         # test setup for language Korean
         test_data['language'] = 'ko'
-        Report.objects.create(**test_data)
+        self.report6 = Report.objects.create(**test_data)
 
         # test setup for language tagalog
         test_data['language'] = 'tl'
-        Report.objects.create(**test_data)
+        self.report7 = Report.objects.create(**test_data)
 
     # report language filter test
     # report submitted in English
@@ -279,3 +288,112 @@ class ReportLanguageFilterTests(TestCase):
     def test_reported_language_tl(self):
         reports, _ = report_filter(QueryDict('language=tl'))
         self.assertEqual(reports.count(), 1)
+
+
+class FormLettersFilterTests(TestCase):
+    @classmethod
+    def setUpTestData(self):
+        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.report1 = Report.objects.create(**SAMPLE_REPORT_1)
+        self.report2 = Report.objects.create(**SAMPLE_REPORT_2)
+        self.report3 = Report.objects.create(**SAMPLE_REPORT_3)
+        self.report4 = Report.objects.create(**SAMPLE_REPORT_4)
+        registry.register(User)
+        add_activity(self.user, "Contacted complainant:", "Email sent: 'EOS - Department of Ed OCR Referral Form Letter' to cookiemonster@fakeemail.com via govDelivery TMS", self.report4)
+        first_action = actor_stream(self.user).first()
+        first_action.timestamp = datetime(2022, 4, 12, 14, 56, 53, tzinfo=pytz.utc)
+        first_action.save()
+        add_activity(self.user, "Contacted complainant:", "Email sent: 'EOS - EEOC Referral Form Letter' to    eileenmcfarland@navapbc.com via govDelivery TMS", self.report2)
+        second_action = actor_stream(self.user).first()
+        second_action.timestamp = datetime(2022, 4, 12, 17, 30, 53, tzinfo=pytz.utc)
+        second_action.save()
+        add_activity(self.user, "Contacted complainant:", "Email sent: 'EOS - EEOC Referral Form Letter' to  bigbird@fake.com via govDelivery TMS", self.report3)
+        third_action = actor_stream(self.user).first()
+        third_action.timestamp = datetime(2022, 4, 15, 10, 56, 53, tzinfo=pytz.utc)
+        third_action.save()
+        add_activity(self.user, "Added comment: ", "Email sent: 'SPL - Standard Form Letter' to gregory94@example.com via govDelivery TMS", self.report4)
+        fourth_action = actor_stream(self.user).first()
+        fourth_action.timestamp = datetime(2022, 5, 1, 10, 56, 53, tzinfo=pytz.utc)
+        fourth_action.save()
+        add_activity(self.user, "Contacted complainant:", "Email sent: 'CRT - Request for Agency Review' to hernandezcolleen@example.com via govDelivery TMS", self.report1)
+        fifth_action = actor_stream(self.user).first()
+        fifth_action.timestamp = datetime(2022, 5, 4, 10, 56, 53, tzinfo=pytz.utc)
+        fifth_action.save()
+        FormLettersSent.refresh_view()
+
+    def test_date_filter(self):
+        request_one_day = QueryDict(mutable=True)
+        request_one_day.update({
+            "assigned_section": "CRM",
+            "start_date": "2022-04-12",
+            "end_date": "2022-04-12"})
+        request_multi_day = QueryDict(mutable=True)
+        request_multi_day.update({
+            "assigned_section": "CRM",
+            "start_date": "2022-04-12",
+            "end_date": "2022-04-15"})
+        result_one_day = form_letters_filter(request_one_day)
+        result_multi_day = form_letters_filter(request_multi_day)
+        self.assertEqual(result_one_day["total_form_letters"], 2)
+        self.assertEqual(result_multi_day["total_form_letters"], 3)
+
+    def test_date_filter_no_results(self):
+        request = QueryDict(mutable=True)
+        request.update({"assigned_section": "ADM",
+                        "start_date": "2022-04-1",
+                        "end_date": "2022-04-11"})
+        result = form_letters_filter(request)
+        self.assertEqual(result["total_form_letters"], 0)
+
+    def test_section_filter_no_results(self):
+        request = QueryDict(mutable=True)
+        request.update({"assigned_section": "FCS"})
+        result = form_letters_filter(request)
+        self.assertEqual(result["total_form_letters"], 0)
+
+    def test_section_filter_one_result(self):
+        request = QueryDict(mutable=True)
+        request.update({"assigned_section": "ADM"})
+        result = form_letters_filter(request)
+        self.assertEqual(result["total_form_letters"], 1)
+
+    def test_section_filter_and_date_filter(self):
+        request = QueryDict(mutable=True)
+        request.update({"assigned_section": "CRM", "start_date": "2022-04-11", "end_date": "2022-04-14"})
+        result = form_letters_filter(request)
+        self.assertEqual(result["total_form_letters"], 2)
+
+
+class AutoResponsesFilterTests(TestCase):
+    @classmethod
+    def setUpTestData(self):
+        report_1 = Report.objects.create(**SAMPLE_REPORT_1)
+        report_1.create_date = datetime(2022, 4, 12, 18, 17, 52, 0, tzinfo=pytz.utc)
+        report_1.save()
+        report_2 = Report.objects.create(**SAMPLE_REPORT_2)
+        report_2.create_date = datetime(2022, 4, 13, 18, 17, 52, 0, tzinfo=pytz.utc)
+        report_2.save()
+        report_3 = Report.objects.create(**SAMPLE_REPORT_3)
+        report_3.create_date = datetime(2022, 2, 1, 18, 17, 52, 0, tzinfo=pytz.utc)
+        report_3.save()
+        report_4 = Report.objects.create(**SAMPLE_REPORT_4)
+        report_4.create_date = datetime(2022, 2, 4, 18, 17, 52, 0, tzinfo=pytz.utc)
+        report_4.save()
+
+    def test_no_section_filter(self):
+        request = QueryDict(mutable=True)
+        request.update({"start_date": "2022-04-12", "end_date": "2022-04-13"})
+        total_autoresponses = autoresponses_filter(request)
+        self.assertEqual(total_autoresponses, 0)
+
+    def test_only_section_filter(self):
+        request = QueryDict(mutable=True)
+        request.update({"assigned_section": "CRM"})
+        total_autoresponses = autoresponses_filter(request)
+        self.assertEqual(total_autoresponses, 3)
+
+    def test_date_and_section_filter(self):
+        request = QueryDict(mutable=True)
+        request.update({"start_date": "2022-02-01", "end_date": "2022-02-13", "assigned_section": "CRM"})
+        total_autoresponses = autoresponses_filter(request)
+        self.assertEqual(total_autoresponses, 2)
