@@ -3,6 +3,7 @@
 from cts_forms.models import User, Report, FormLettersSent
 from actstream import registry
 from actstream.models import actor_stream
+from django.utils.datastructures import MultiValueDictKeyError
 import urllib.parse
 from datetime import datetime
 
@@ -12,6 +13,9 @@ from utils.datetime_fns import change_datetime_to_end_of_day
 def autoresponses_filter(querydict):
     kwargs = {}
     autoresponse_qs = Report.objects.filter().all()
+
+    if "assigned_section" not in querydict.keys():
+        return 0
 
     for field in querydict.keys():
         if "date" in field:
@@ -51,9 +55,12 @@ def form_letters_filter(querydict):
         "form_letters_counter": {}
     }
 
-    section = querydict["assigned_section"]
-    form_letters_payload["assigned_section"] = section
-    form_letters_by_section = FormLettersSent.objects.filter(assigned_section=section)
+    try:
+        section = querydict["assigned_section"]
+        form_letters_payload["assigned_section"] = section
+        form_letters_by_section = FormLettersSent.objects.filter(assigned_section=section)
+    except MultiValueDictKeyError:
+        return form_letters_payload
 
     for field in querydict:
         if "date" in field:

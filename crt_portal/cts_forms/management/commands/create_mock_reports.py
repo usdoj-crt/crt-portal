@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from crt_portal.cts_forms.models import FormLettersSent
 from cts_forms.tests.factories import ReportFactory
 from datetime import datetime
 import random
@@ -102,4 +103,5 @@ class Command(BaseCommand):
                 report.protected_class.add(protected_example)
             report.save()
         EmailReportCount.refresh_view()
+        FormLettersSent.refresh_view()
         self.stdout.write(self.style.SUCCESS(f'Created {number_reports} reports'))

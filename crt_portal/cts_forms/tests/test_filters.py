@@ -380,11 +380,11 @@ class AutoResponsesFilterTests(TestCase):
         report_4.create_date = datetime(2022, 2, 4, 18, 17, 52, 0, tzinfo=pytz.utc)
         report_4.save()
 
-    def test_only_date_filter(self):
+    def test_no_section_filter(self):
         request = QueryDict(mutable=True)
         request.update({"start_date": "2022-04-12", "end_date": "2022-04-13"})
         total_autoresponses = autoresponses_filter(request)
-        self.assertEqual(total_autoresponses, 2)
+        self.assertEqual(total_autoresponses, 0)
 
     def test_only_section_filter(self):
         request = QueryDict(mutable=True)

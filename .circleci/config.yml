@@ -406,7 +406,7 @@ jobs:
       # Refresh the form letters sent view in staging
       - run:
           name: Refresh form letters sent view
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_form_letters_sent" --name refresh-form-letters-sent-view
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_form_letters_sent_view" --name refresh-form-letters-sent-view
       # Refresh the trend view in staging
       - run:
           name: Refresh trends view
@@ -433,7 +433,7 @@ jobs:
       # Refresh the form letters sent view in dev
       - run:
           name: Refresh form letters sent view
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_form_letters_sent" --name refresh-form-letters-sent-view      
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_form_letters_sent_view" --name refresh-form-letters-sent-view      
       # Refresh the trend view in dev
       - run:
           name: Refresh trends view
