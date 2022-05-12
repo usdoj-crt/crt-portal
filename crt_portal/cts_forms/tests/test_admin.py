@@ -9,7 +9,7 @@ from django.urls import reverse
 from ..admin import ACTION_FIELDS, REPORT_FIELDS
 from ..forms import add_activity
 from ..models import Report
-from .test_data import SAMPLE_REPORT
+from .test_data import SAMPLE_REPORT_1
 from .factories import ReportFactory
 
 User = get_user_model()
@@ -21,7 +21,7 @@ class ActionAdminTests(TestCase):
         # We'll need a report and a handful of actions
         self.client = Client()
         self.superuser = User.objects.create_superuser('ACTION_EXPORT_TEST_USER', 'a@a.com', '')
-        self.report = Report.objects.create(**SAMPLE_REPORT)
+        self.report = Report.objects.create(**SAMPLE_REPORT_1)
         self.url = reverse('admin:actstream_action_changelist')
 
         [add_activity(self.superuser, 'verb', 'description', self.report) for _ in range(5)]

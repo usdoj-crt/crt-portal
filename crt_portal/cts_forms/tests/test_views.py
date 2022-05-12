@@ -19,7 +19,7 @@ from testfixtures import LogCapture
 from ..forms import ContactEditForm, ReportEditForm, add_activity
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
 from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary
-from .test_data import SAMPLE_REPORT
+from .test_data import SAMPLE_REPORT_1
 from .factories import ReportFactory
 
 
@@ -52,7 +52,7 @@ class ProfileViewTests(TestCase):
 class ContactInfoUpdateTests(TestCase):
 
     def setUp(self):
-        self.test_report = Report.objects.create(**SAMPLE_REPORT)
+        self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
         self.client = Client()
         self.user = User.objects.create_user('DELETE_USER', 'george@thebeatles.com', '')
         self.client.login(username='DELETE_USER', password='')  # nosec
@@ -95,7 +95,7 @@ class ContactInfoUpdateTests(TestCase):
 class ReportEditShowViewTests(TestCase):
 
     def setUp(self):
-        self.report_data = SAMPLE_REPORT.copy()
+        self.report_data = SAMPLE_REPORT_1.copy()
         self.report_data.update({'primary_complaint': PRIMARY_COMPLAINT_CHOICES[0][0]})
         self.report = Report.objects.create(**self.report_data)
         self.client = Client()
@@ -327,7 +327,7 @@ class ReportAttachmentTests(TestCase):
 
 class Complaint_Show_View_Valid(TestCase):
     def setUp(self):
-        data = copy.deepcopy(SAMPLE_REPORT)
+        data = copy.deepcopy(SAMPLE_REPORT_1)
         data['primary_complaint'] = 'voting'
         data['election_details'] = 'federal'
         data['hate_crime'] = 'yes'
@@ -374,7 +374,7 @@ class Valid_CRT_Pagnation_Tests(TestCase):
     def setUp(self):
         for choice, label in PROTECTED_MODEL_CHOICES:
             pc = ProtectedClass.objects.get_or_create(value=choice)
-            test_report = Report.objects.create(**SAMPLE_REPORT)
+            test_report = Report.objects.create(**SAMPLE_REPORT_1)
             test_report.protected_class.add(pc[0])
             test_report.save()
 
@@ -413,8 +413,8 @@ class Valid_CRT_Pagnation_Tests(TestCase):
 class Valid_CRT_SORT_Tests(TestCase):
     def setUp(self):
         for choice in PRIMARY_COMPLAINT_CHOICES:
-            SAMPLE_REPORT['primary_complaint'] = choice[0]
-            test_report = Report.objects.create(**SAMPLE_REPORT)
+            SAMPLE_REPORT_1['primary_complaint'] = choice[0]
+            test_report = Report.objects.create(**SAMPLE_REPORT_1)
             test_report.assigned_section = test_report.assign_section()
             test_report.save()
 
@@ -457,13 +457,13 @@ class Valid_CRT_SORT_Tests(TestCase):
 class CRT_FILTER_Tests(TestCase):
     def setUp(self):
         for choice in PRIMARY_COMPLAINT_CHOICES:
-            SAMPLE_REPORT['primary_complaint'] = choice[0]
-            test_report = Report.objects.create(**SAMPLE_REPORT)
+            SAMPLE_REPORT_1['primary_complaint'] = choice[0]
+            test_report = Report.objects.create(**SAMPLE_REPORT_1)
             test_report.assigned_section = test_report.assign_section()
             test_report.save()
 
-        SAMPLE_REPORT['primary_complaint'] = PRIMARY_COMPLAINT_CHOICES[0][0]
-        test_report = Report.objects.create(**SAMPLE_REPORT)
+        SAMPLE_REPORT_1['primary_complaint'] = PRIMARY_COMPLAINT_CHOICES[0][0]
+        test_report = Report.objects.create(**SAMPLE_REPORT_1)
         test_report.contact_first_name = 'Mary'
         test_report.contact_last_name = 'Bar'
         test_report.location_city_town = 'Cleveland'
@@ -662,8 +662,8 @@ class CRT_Dashboard_Tests(TestCase):
         self.client = Client()
         self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
         self.superuser2 = User.objects.create_superuser('superduperuser2', 'a@a.com', '')
-        self.report = Report.objects.create(**SAMPLE_REPORT)
-        self.report2 = Report.objects.create(**SAMPLE_REPORT)
+        self.report = Report.objects.create(**SAMPLE_REPORT_1)
+        self.report2 = Report.objects.create(**SAMPLE_REPORT_1)
         self.url = reverse('crt_forms:dashboard')
 
         [add_activity(self.superuser, 'verb', 'description', self.report) for _ in range(5)]
@@ -730,7 +730,7 @@ class LoginRequiredTests(TestCase):
         # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
         self.test_pass = secrets.token_hex(32)
         self.user = User.objects.create_user('DELETE_USER', 'lennon@thebeatles.com', self.test_pass)
-        test_report = Report.objects.create(**SAMPLE_REPORT)
+        test_report = Report.objects.create(**SAMPLE_REPORT_1)
         test_report.save()
         self.report = test_report
 
@@ -812,3 +812,31 @@ class LoginRequiredTests(TestCase):
                 ),
                 None,
             )
+
+
+class FormLettersIndexTests(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user("USER_1", "cookiemonster@fake.net", "")
+        self.base_url = reverse('api:form-letters')
+        self.client.login(username="USER_1", password="")  # nosec
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_unauthenticated_user_cant_access_url(self):
+        self.client.logout()
+        url = f'{self.base_url}?assigned_section=CRM'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 403)
+
+    def test_authenticated_user_can_access_url(self):
+        url = f'{self.base_url}?assigned_section=CRM'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_invalid_date_format(self):
+        url = f'{self.base_url}?assigned_section=CRM&start_date=4-12-2022&end_date=4-13-2022'
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 400)

@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+from crt_portal.cts_forms.models import FormLettersSent
 from cts_forms.tests.factories import ReportFactory
 from datetime import datetime
 import random
@@ -56,6 +57,11 @@ class Command(BaseCommand):
             report.save()
             salt_chars = salt()
             report.public_id = f'{report.pk}-{salt_chars}'
+
+            # Code to replicate bad data that can occur in prod when there are database errors.
+            # report.intake_format = None
+            # report.public_id = ''
+
             # This code adds some frequent flier reports randomly to better emulate production
             # nosec turns off bandit error because random is not used for security or run outside of local env.
             rand = random.randint(1, 100)  # nosec
@@ -97,4 +103,5 @@ class Command(BaseCommand):
                 report.protected_class.add(protected_example)
             report.save()
         EmailReportCount.refresh_view()
+        FormLettersSent.refresh_view()
         self.stdout.write(self.style.SUCCESS(f'Created {number_reports} reports'))
