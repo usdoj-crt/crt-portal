@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from crt_portal.cts_forms.models import FormLettersSent
+from cts_forms.models import FormLettersSent
 from cts_forms.tests.factories import ReportFactory
 from datetime import datetime
 import random
