@@ -39,13 +39,6 @@
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "^10.2.4",
-    "gulp": "^4.0.2",
-    "gulp-postcss": "^9.0.0",
-    "gulp-rename": "^2.0.0",
-    "gulp-replace": "^1.0.0",
-    "gulp-sass": "^5.0.0",
-    "gulp-sourcemaps": "^3.0.0",
-    "gulp-uglify": "^3.0.2",
     "postcss": "^8.2.5",
     "postcss-csso": "^5.0.0",
     "postcss-loader": "^6.2.1",

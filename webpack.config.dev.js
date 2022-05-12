@@ -6,6 +6,11 @@ const BundleTracker = require('webpack-bundle-tracker');
 module.exports = {
   devtool: 'source-map',
   mode: 'development',
+  watchOptions: {
+    ignored: ['**/node_modules'],
+    aggregateTimeout: 200,
+    poll: 1000
+  },
   entry: {
     actions: './crt_portal/static/js/actions.js',
     base: './crt_portal/static/js/base.js',
@@ -23,7 +28,7 @@ module.exports = {
     show: './crt_portal/static/js/show.js'
   },
   output: {
-    filename: 'js/[name].js',
+    filename: 'js/[name]-[chunkhash:8].js',
     path: path.resolve(__dirname, 'crt_portal/static/dist'),
     clean: true
   },
@@ -51,8 +56,5 @@ module.exports = {
   optimization: {
     minimizer: [new CssMinimizerPlugin()]
   },
-  plugins: [
-    new MiniCssExtractPlugin(),
-    new BundleTracker({ filename: './webpack-stats.json' }),
-  ]
+  plugins: [new MiniCssExtractPlugin(), new BundleTracker({ filename: './webpack-stats.json' })]
 };

@@ -1,7 +1,10 @@
 /******/ (function() { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 338:
+/***/ "./crt_portal/static/js/components/bulk_actions.js":
+/*!*********************************************************!*\
+  !*** ./crt_portal/static/js/components/bulk_actions.js ***!
+  \*********************************************************/
 /***/ (function() {
 
 (function (root, dom) {
@@ -96,7 +99,10 @@
 
 /***/ }),
 
-/***/ 671:
+/***/ "./crt_portal/static/js/components/modal.js":
+/*!**************************************************!*\
+  !*** ./crt_portal/static/js/components/modal.js ***!
+  \**************************************************/
 /***/ (function() {
 
 (function (root, dom) {
@@ -182,7 +188,131 @@
 
 /***/ }),
 
-/***/ 618:
+/***/ "./crt_portal/static/js/components/print_report.js":
+/*!*********************************************************!*\
+  !*** ./crt_portal/static/js/components/print_report.js ***!
+  \*********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modal.js */ "./crt_portal/static/js/components/modal.js");
+/* harmony import */ var _modal_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_modal_js__WEBPACK_IMPORTED_MODULE_0__);
+
+
+(function (root, dom) {
+  var complaint_page = document.querySelector('.complaint-show-body');
+  var option_mapping_to_section = {
+    id_options_0: '.crt-correspondent-card',
+    id_options_1: '.crt-report-card',
+    id_options_2: '.crt-description-card',
+    id_options_3: '.crt-activities-card',
+    id_options_4: '.crt-summary-card'
+  };
+  var modal = document.getElementById('print_report');
+  var original_beforeprint = root.onbeforeprint;
+  var original_afterprint = root.onafterprint;
+
+  var showModal = function showModal(event) {
+    event.preventDefault();
+
+    if (modal.getAttribute('hidden') !== null) {
+      // set up before and after print handlers so that we can
+      // selectively hide or show sections.
+      root.onbeforeprint = function (event) {
+        for (var option_id in option_mapping_to_section) {
+          var el = document.getElementById(option_id);
+          var classname = option_mapping_to_section[option_id];
+          var sections = complaint_page.querySelectorAll(classname);
+
+          if (!el.checked) {
+            sections.forEach(function (section) {
+              section.setAttribute('hidden', 'hidden');
+            });
+          }
+        }
+      };
+
+      root.onafterprint = function (event) {
+        for (var option_id in option_mapping_to_section) {
+          var el = document.getElementById(option_id);
+          var classname = option_mapping_to_section[option_id];
+          var sections = complaint_page.querySelectorAll(classname);
+
+          if (!el.checked) {
+            sections.forEach(function (section) {
+              section.removeAttribute('hidden');
+            });
+          }
+        }
+      };
+
+      root.CRT.openModal(modal);
+    } else {
+      // reset before and after print handlers.
+      root.onbeforeprint = original_beforeprint;
+      root.onafterprint = original_afterprint;
+      root.CRT.closeModal(modal);
+    }
+  };
+
+  var report = document.getElementById('printout_report');
+  report.addEventListener('click', showModal);
+  var cancel_modal = document.getElementById('print_report_cancel');
+  root.CRT.cancelModal(modal, cancel_modal); // if no options are clicked, disable the print button.
+
+  var print_buttons = document.querySelectorAll('.print-report-button');
+
+  for (var option_id in option_mapping_to_section) {
+    var el = document.getElementById(option_id);
+
+    el.onclick = function (event) {
+      var selected = modal.querySelectorAll('input[type=checkbox]:checked');
+
+      for (var i = 0; i < print_buttons.length; i++) {
+        var print_button = print_buttons[i];
+
+        if (selected.length == 0) {
+          print_button.setAttribute('disabled', 'disabled');
+        } else {
+          print_button.removeAttribute('disabled');
+        }
+      }
+    };
+  }
+
+  for (var i = 0; i < print_buttons.length; i++) {
+    var print_button = print_buttons[i];
+
+    print_button.onclick = function (event) {
+      // display extra reports only if user hits "print all"
+      var print_all = event.target.value === 'print_all';
+      var extra_reports = document.querySelectorAll('.bulk-print-report-extra');
+
+      for (var j = 0; j < extra_reports.length; j++) {
+        var report = extra_reports[j];
+
+        if (print_all) {
+          report.removeAttribute('hidden');
+        } else {
+          report.setAttribute('hidden', 'hidden');
+        }
+      } // hide the modal lest we print the modal itself.
+
+
+      dom.body.classList.remove('is-modal');
+      modal.setAttribute('hidden', 'hidden');
+      root.print();
+    };
+  }
+})(window, document);
+
+/***/ }),
+
+/***/ "./crt_portal/static/vendor/aria-autocomplete-1.2.3.min.js":
+/*!*****************************************************************!*\
+  !*** ./crt_portal/static/vendor/aria-autocomplete-1.2.3.min.js ***!
+  \*****************************************************************/
 /***/ (function(module, exports, __webpack_require__) {
 
 /* module decorator */ module = __webpack_require__.nmd(module);
@@ -1216,6 +1346,46 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	!function() {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = function(module) {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				function() { return module['default']; } :
+/******/ 				function() { return module; };
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	!function() {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = function(exports, definition) {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	!function() {
+/******/ 		__webpack_require__.o = function(obj, prop) { return Object.prototype.hasOwnProperty.call(obj, prop); }
+/******/ 	}();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	!function() {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = function(exports) {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	}();
+/******/ 	
 /******/ 	/* webpack/runtime/node module decorator */
 /******/ 	!function() {
 /******/ 		__webpack_require__.nmd = function(module) {
@@ -1230,123 +1400,17 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 !function() {
 "use strict";
-
-// EXTERNAL MODULE: ./crt_portal/static/vendor/aria-autocomplete-1.2.3.min.js
-var aria_autocomplete_1_2_3_min = __webpack_require__(618);
-// EXTERNAL MODULE: ./crt_portal/static/js/components/bulk_actions.js
-var bulk_actions = __webpack_require__(338);
-// EXTERNAL MODULE: ./crt_portal/static/js/components/modal.js
-var modal = __webpack_require__(671);
-;// CONCATENATED MODULE: ./crt_portal/static/js/components/print_report.js
-
-
-(function (root, dom) {
-  var complaint_page = document.querySelector('.complaint-show-body');
-  var option_mapping_to_section = {
-    id_options_0: '.crt-correspondent-card',
-    id_options_1: '.crt-report-card',
-    id_options_2: '.crt-description-card',
-    id_options_3: '.crt-activities-card',
-    id_options_4: '.crt-summary-card'
-  };
-  var modal = document.getElementById('print_report');
-  var original_beforeprint = root.onbeforeprint;
-  var original_afterprint = root.onafterprint;
-
-  var showModal = function showModal(event) {
-    event.preventDefault();
-
-    if (modal.getAttribute('hidden') !== null) {
-      // set up before and after print handlers so that we can
-      // selectively hide or show sections.
-      root.onbeforeprint = function (event) {
-        for (var option_id in option_mapping_to_section) {
-          var el = document.getElementById(option_id);
-          var classname = option_mapping_to_section[option_id];
-          var sections = complaint_page.querySelectorAll(classname);
-
-          if (!el.checked) {
-            sections.forEach(function (section) {
-              section.setAttribute('hidden', 'hidden');
-            });
-          }
-        }
-      };
-
-      root.onafterprint = function (event) {
-        for (var option_id in option_mapping_to_section) {
-          var el = document.getElementById(option_id);
-          var classname = option_mapping_to_section[option_id];
-          var sections = complaint_page.querySelectorAll(classname);
-
-          if (!el.checked) {
-            sections.forEach(function (section) {
-              section.removeAttribute('hidden');
-            });
-          }
-        }
-      };
-
-      root.CRT.openModal(modal);
-    } else {
-      // reset before and after print handlers.
-      root.onbeforeprint = original_beforeprint;
-      root.onafterprint = original_afterprint;
-      root.CRT.closeModal(modal);
-    }
-  };
-
-  var report = document.getElementById('printout_report');
-  report.addEventListener('click', showModal);
-  var cancel_modal = document.getElementById('print_report_cancel');
-  root.CRT.cancelModal(modal, cancel_modal); // if no options are clicked, disable the print button.
-
-  var print_buttons = document.querySelectorAll('.print-report-button');
-
-  for (var option_id in option_mapping_to_section) {
-    var el = document.getElementById(option_id);
-
-    el.onclick = function (event) {
-      var selected = modal.querySelectorAll('input[type=checkbox]:checked');
-
-      for (var i = 0; i < print_buttons.length; i++) {
-        var print_button = print_buttons[i];
-
-        if (selected.length == 0) {
-          print_button.setAttribute('disabled', 'disabled');
-        } else {
-          print_button.removeAttribute('disabled');
-        }
-      }
-    };
-  }
-
-  for (var i = 0; i < print_buttons.length; i++) {
-    var print_button = print_buttons[i];
-
-    print_button.onclick = function (event) {
-      // display extra reports only if user hits "print all"
-      var print_all = event.target.value === 'print_all';
-      var extra_reports = document.querySelectorAll('.bulk-print-report-extra');
-
-      for (var j = 0; j < extra_reports.length; j++) {
-        var report = extra_reports[j];
-
-        if (print_all) {
-          report.removeAttribute('hidden');
-        } else {
-          report.setAttribute('hidden', 'hidden');
-        }
-      } // hide the modal lest we print the modal itself.
-
-
-      dom.body.classList.remove('is-modal');
-      modal.setAttribute('hidden', 'hidden');
-      root.print();
-    };
-  }
-})(window, document);
-;// CONCATENATED MODULE: ./crt_portal/static/js/actions.js
+/*!*****************************************!*\
+  !*** ./crt_portal/static/js/actions.js ***!
+  \*****************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _vendor_aria_autocomplete_1_2_3_min_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../vendor/aria-autocomplete-1.2.3.min.js */ "./crt_portal/static/vendor/aria-autocomplete-1.2.3.min.js");
+/* harmony import */ var _vendor_aria_autocomplete_1_2_3_min_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_vendor_aria_autocomplete_1_2_3_min_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_bulk_actions_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/bulk_actions.js */ "./crt_portal/static/js/components/bulk_actions.js");
+/* harmony import */ var _components_bulk_actions_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_bulk_actions_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _components_modal_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/modal.js */ "./crt_portal/static/js/components/modal.js");
+/* harmony import */ var _components_modal_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_components_modal_js__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _components_print_report_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/print_report.js */ "./crt_portal/static/js/components/print_report.js");
 
 
 

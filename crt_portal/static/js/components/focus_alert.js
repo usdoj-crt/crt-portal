@@ -1,6 +1,7 @@
 // Overwrites native 'firstElementChild' prototype.
 // Adds Document & DocumentFragment support for IE9 & Safari.
 (function(constructor) {
+  console.log('focus alert');
   if (constructor && constructor.prototype && constructor.prototype.firstElementChild == null) {
     Object.defineProperty(constructor.prototype, 'firstElementChild', {
       get: function() {
