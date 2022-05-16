@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from cts_forms.models import Report, ResponseTemplate
 from rest_framework import generics
 from rest_framework import permissions
@@ -5,7 +6,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from cts_forms.views import mark_report_as_viewed
-from cts_forms.filters import reports_accessed_filter
+from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter
 from rest_framework.permissions import IsAuthenticated
 from api.serializers import ReportSerializer, ResponseTemplateSerializer
 from django.contrib.auth.decorators import login_required
@@ -25,7 +26,8 @@ def api_root(request, format=None):
     return Response({
         'reports': reverse('api:report-list', request=request, format=format),
         'responses': reverse('api:response-list', request=request, format=format),
-        'report-count': reverse('api:report-count', request=request, format=format)
+        'report-count': reverse('api:report-count', request=request, format=format),
+        'form-letters': reverse('api:form-letters', request=request, format=format)
     })
 
 
@@ -96,9 +98,33 @@ class ResponseDetail(generics.RetrieveAPIView):
 class ReportCountView(APIView):
     """
     A view that returns the count of reports accessed in JSON.
+
+
+    Example: api/report-count/?start_date=2022-02-01&end_date=2022-04-14&intake_specialist=USER_1
     """
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, format=None):
         reports_accessed_payload = reports_accessed_filter(request.GET)
         return Response(reports_accessed_payload)
+
+
+class FormLettersIndex(APIView):
+    """
+    A view that displays information about the number of form letters sent.
+
+    Example: /api/form-letters/?assigned_section=CRM&start_date=2022-03-24&end_date=2022-03-29
+    """
+
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request):
+        try:
+            form_letters_payload = form_letters_filter(request.GET)
+            total_autoresponses = autoresponses_filter(request.GET)
+            form_letters_payload["total_autoresponses"] = total_autoresponses
+            return Response(form_letters_payload)
+        except ValueError:
+            return HttpResponse(status=400)
+        except IndexError:
+            return HttpResponse(status=500)

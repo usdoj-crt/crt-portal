@@ -4,6 +4,7 @@
 # # make sure migrations are applied
 echo Migrating database...
 python /code/crt_portal/manage.py migrate
+python /code/crt_portal/manage.py refresh_form_letters_sent_view
 
 
 # If LOCALSTACK is set in environment, this will upload static files to the localstack s3 service running in docker
