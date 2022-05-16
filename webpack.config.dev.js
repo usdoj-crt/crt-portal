@@ -28,7 +28,7 @@ module.exports = {
     show: './crt_portal/static/js/show.js'
   },
   output: {
-    filename: 'js/[name]-[chunkhash:8].js',
+    filename: 'js/[name].js',
     path: path.resolve(__dirname, 'crt_portal/static/dist'),
     clean: true
   },

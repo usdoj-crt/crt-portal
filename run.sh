@@ -5,12 +5,15 @@
 echo Migrating database...
 python /code/crt_portal/manage.py migrate
 
-echo Generating css and js...
-npm run build
 
 # If LOCALSTACK is set in environment, this will upload static files to the localstack s3 service running in docker
 # Otherwise the development server is handling static files
 if [[ -n "${USE_LOCALSTACK}" ]]; then
+
+    echo Generating css and js...
+    npm run build
+    python /code/crt_portal/manage.py collectstatic --noinput
+
     echo Removing crt-portal s3 bucket
     aws --endpoint-url=${LOCALSTACK_URL} s3 rb s3://crt-portal --force
 
