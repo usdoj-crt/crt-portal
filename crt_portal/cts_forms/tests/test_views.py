@@ -722,6 +722,38 @@ class CRT_Dashboard_Tests(TestCase):
         self.assertTrue('0 reports' in str(response.content))
 
 
+class IndexViewTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'lennon@thebeatles.com', self.test_pass)
+        self.client.login(username="DELETE_USER", password=self.test_pass)
+        for n in range(60):
+            test_report = Report.objects.create(**SAMPLE_REPORT_1)
+            test_report.save()
+
+    def test_view_can_specify_reports_per_page(self):
+        """Test that a front-end argument can customize the number of reports seen per page"""
+        params = {
+            "per_page": "50",
+            "status": "new"
+        }
+        response = self.client.get(reverse("crt_forms:crt-forms-index"), params)
+        self.assertEqual(response.status_code, 200)
+        print(str(response.content))
+        self.assertTrue("Showing 1 - 50" in str(response.content))
+
+    def test_view_defaults_to_15_reports_per_page(self):
+        """Test that 15 reports display when the user does not customize number of reports"""
+        params = {
+            "status": "new",
+        }
+        response = self.client.get(reverse("crt_forms:crt-forms-index"), params)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue("Showing 1 - 15" in str(response.content))
+
+
 class LoginRequiredTests(TestCase):
     """Please add a test for each url that is tied to a view that requires authorization/authentication."""
 
@@ -742,6 +774,17 @@ class LoginRequiredTests(TestCase):
         self.client.login(username='DELETE_USER', password=self.test_pass)
         response = self.client.get(reverse('crt_forms:crt-forms-index'))
         self.assertEqual(response.status_code, 200)
+
+    # def test_view_can_specify_reports_per_page(self):
+    #     """Test that a front-end argument can customize the number of reports seen per page"""
+    #     params = {
+    #         'next': '?per_page=50&status=open',
+    #     }
+    #     # putting this elsewhere to get enough data
+    #     self.client.login(username='DELETE_USER', password=self.test_pass)
+    #     response = self.client.get(reverse('crt_forms:crt-forms-index'), params)
+    #     self.assertEqual(response.status_code, 200)
+    #     # figure out how to test number of records returned
 
     def test_view_all_unauthenticated(self):
         """Unauthenticated attempt to view all page redirects to login page."""

@@ -182,7 +182,9 @@ def index_view(request):
     report_query, query_filters = report_filter(request.GET)
 
     # Sort data based on request from params, default to `created_date` of complaint
-    per_page = request.GET.get('per_page', 15)
+    per_page = request.GET.get('per_page')
+    if per_page is None:
+        per_page = 15
     page = request.GET.get('page', 1)
 
     requested_reports = report_query.annotate(email_count=F('email_report_count__email_count'))
