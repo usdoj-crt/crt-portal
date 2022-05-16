@@ -22,5 +22,5 @@ crt_portal/NO_ZIP.txt
 *.mo
 # this is where we store uploaded attachments when USE_LOCALSTACK=False
 attachments/
-crt_portal/static/dist/
-webpack.stats.json
+dist/
+webpack-stats.json
