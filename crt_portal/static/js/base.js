@@ -1,4 +1,3 @@
-import 'uswds';
 import '../sass/styles.scss';
 import './components/focus_alert';
 import './components/clear_error_class';

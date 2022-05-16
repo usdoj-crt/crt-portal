@@ -1,1 +1,1 @@
-import './components/dropdown'
+import './components/dropdown';

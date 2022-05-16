@@ -91,6 +91,6 @@
 
 {% block page_js %}
 {{ block.super }}
+<script defer src="{% static 'vendor/marked.min.js' %}"></script>
 {% render_bundle 'show' %}
-<script src="{% static 'dist/js/show.js' %}"></script>
 {%endblock%}

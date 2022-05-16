@@ -36,5 +36,6 @@
 {% endblock %}
 {% block page_js %}
 {{ block.super }}
+<script src="{% static 'vendor/js.cookie.min.js' %}"></script>
 {% render_bundle 'complaintView' %}
 {% endblock %}

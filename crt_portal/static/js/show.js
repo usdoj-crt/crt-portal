@@ -1,4 +1,3 @@
-import '../vendor/marked.min';
 import './components/edit_contact_info.js';
 import './components/edit_details.js';
 import './components/modal.js';
