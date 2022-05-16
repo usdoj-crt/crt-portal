@@ -6,9 +6,9 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from cts_forms.views import mark_report_as_viewed
-from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter, related_reports_filter
+from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter
 from rest_framework.permissions import IsAuthenticated
-from api.serializers import ReportSerializer, ResponseTemplateSerializer
+from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
 from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView
 import html
@@ -110,7 +110,7 @@ class ReportCountView(APIView):
         reports_accessed_payload = reports_accessed_filter(request.GET)
         return Response(reports_accessed_payload)
 
-class RelatedReports(APIView):
+class RelatedReports(generics.ListAPIView):
     """
     A view that lists all of the reports filed using the same email address. 
 
@@ -118,15 +118,13 @@ class RelatedReports(APIView):
     """
 
     permission_classes = (IsAuthenticated,)
-    queryset = Report.objects.all()
+    queryset = Report.objects.all().exclude(contact_email__isnull=True)
+    serializer_class = RelatedReportSerializer
 
-    def get(self, request, format=None):
-        email_address = request.query_params.get('email')
-        if email_address:
-            reports = self.queryset.exclude(contact_email__isnull=True).filter(contact_email__iexact=email_address).order_by('status', '-create_date')
-            payload = related_reports_filter(email_address, reports)
-        return Response(payload)
-        
+    def get_queryset(self):
+        email_address = self.request.query_params.get('email')
+        reports = self.queryset.filter(contact_email__iexact=email_address).order_by('status', '-create_date')
+        return reports        
 
 class FormLettersIndex(APIView):
     """

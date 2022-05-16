@@ -265,12 +265,12 @@ class APIReportsAccessedTests(TestCase):
 class APIRelatedReportsTests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.test_report1 = Report.objects.create(**SAMPLE_REPORT)
-        self.test_report2 = Report.objects.create(**SAMPLE_REPORT)
-        self.test_report3 = Report.objects.create(**SAMPLE_REPORT)
-        self.test_report4 = Report.objects.create(**SAMPLE_REPORT)
-        self.test_report5 = Report.objects.create(**SAMPLE_REPORT)
-        self.test_report6 = Report.objects.create(**SAMPLE_REPORT)
+        self.test_report1 = Report.objects.create(**SAMPLE_REPORT_1)
+        self.test_report2 = Report.objects.create(**SAMPLE_REPORT_1)
+        self.test_report3 = Report.objects.create(**SAMPLE_REPORT_1)
+        self.test_report4 = Report.objects.create(**SAMPLE_REPORT_1)
+        self.test_report5 = Report.objects.create(**SAMPLE_REPORT_1)
+        self.test_report6 = Report.objects.create(**SAMPLE_REPORT_1)
         self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.client.login(username="DELETE_USER", password="")  # nosec
         self.url = reverse("api:related-reports") + "?email=Lincoln@usa.gov"
@@ -288,17 +288,31 @@ class APIRelatedReportsTests(TestCase):
         self.client.logout()
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 403)
+
+    def test_no_email_address(self):
+        """if no email address provided the whole thing doesn't explode"""
+        self.url = reverse("api:related-reports")
+        response = self.client.get(self.url)
+        self.assertTrue('count' in str(response.content))
+        self.assertTrue('next' in str(response.content))
+        self.assertTrue('previous' in str(response.content))
+        self.assertTrue('results' in str(response.content))
+
     
     def test_number_of_results(self):
         """does the email address queried return a number equal to the number of reports created?"""
         self.client.login(username="DELETE_USER", password="") 
         response = self.client.get(self.url)
-        # This is the number of reports (6) multiplied by the number of fields in each report (7)
-        self.assertEqual(len(str(response.content).split(',')), 42)
+        # We expect the count to equal the number of reports created:
+        self.assertTrue('"count":6' in str(response.content))
 
     def test_returned_fields(self):
         """are all of the expected fields present in the response body?"""
         response = self.client.get(self.url)
+        self.assertTrue('count' in str(response.content))
+        self.assertTrue('next' in str(response.content))
+        self.assertTrue('previous' in str(response.content))
+        self.assertTrue('results' in str(response.content))
         self.assertTrue('pk' in str(response.content))
         self.assertTrue('viewed' in str(response.content))
         self.assertTrue('public_id' in str(response.content))
