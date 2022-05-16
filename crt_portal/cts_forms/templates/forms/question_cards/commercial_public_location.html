@@ -24,8 +24,9 @@
   {% endif %}
 </fieldset>
 {% block page_js %}
-<script src="{% static 'dist/js/commercialPublicLocation.js' %}"></script>
-<script nonce="{{request.csp_nonce}}">
+{% render_bundle 'commercialPublicLocation' %}
+
+    <script nonce="{{request.csp_nonce}}">
   window.CRT.otherTextInputToggle('#id_6-commercial_or_public_place li');
 </script>
 {% endblock %}

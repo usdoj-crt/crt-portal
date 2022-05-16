@@ -40,5 +40,6 @@
 
 {% block page_js %}
 {{ block.super }}
+{% render_bundle 'reportClass' %}
 <script nonce="{{request.csp_nonce}}">window.CRT.otherTextInputToggle()</script>
 {% endblock %}
