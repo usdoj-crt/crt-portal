@@ -133,11 +133,11 @@ TEMPLATES = [
 ]
 
 WEBPACK_LOADER = {
-  'DEFAULT': {
-      'BUNDLE_DIR_NAME': 'dist/',
-      'CACHE': not DEBUG,
-      'STATS_FILE': 'webpack-stats.json',
-  }
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'dist/',
+        'CACHE': not DEBUG,
+        'STATS_FILE': 'webpack-stats.json',
+    }
 }
 
 WSGI_APPLICATION = 'crt_portal.wsgi.application'
