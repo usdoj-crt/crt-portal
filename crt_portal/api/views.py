@@ -27,7 +27,7 @@ def api_root(request, format=None):
         'reports': reverse('api:report-list', request=request, format=format),
         'responses': reverse('api:response-list', request=request, format=format),
         'report-count': reverse('api:report-count', request=request, format=format),
-        'related-reports': reverse('api:related-reports', request=request, format=format)
+        'related-reports': reverse('api:related-reports', request=request, format=format),
     })
 
 
