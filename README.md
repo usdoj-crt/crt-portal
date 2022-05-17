@@ -312,6 +312,9 @@ For the general public facing pages, we regularly test against Microsoft Edge, I
 
 For the staff-only pages, we only support the Microsoft Edge and Google Chrome browsers. Internet Explorer 11 will _not_ work.
 
+### Regression tests
+A regression test checklist in here https://github.com/usdoj-crt/crt-portal/blob/develop/docs/regression-tests.md
+
 ## cloud.gov set up
 You only need to get the services stood up and configure the S3 bucket once.
 
