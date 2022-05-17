@@ -6,7 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
     "build:local": "webpack --config webpack.config.local.js",
-    "start": "webpack --watch --config webpack.config.dev.js",
+    "start": "webpack --watch --config webpack.config.local.js",
     "lint:check": "prettier --check \"crt_portal/static/js/*.js\"",
     "lint:write": "prettier --write \"crt_portal/static/js/*.js\"",
     "test:all-spanish": "pa11y-ci --config pa11y_scripts/.all-spanish.json",

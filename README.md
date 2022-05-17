@@ -58,9 +58,9 @@ Create a superuser for local admin access
 
 To add some test data with the form http://0.0.0.0:8000/report and then you can check it out in the backend view http://0.0.0.0:8000/form/view and the admin view at http://0.0.0.0:8000/admin.
 
-Generate the SASS and Javascript for the front end with gulp:
+Generate the SASS and Javascript for the front end with webpack:
 
-If you are doing front end work, you will want to have gulp compile the css so you can instantly see changes.
+If you are doing front end work, you will want to have webpack compile the css so you can instantly see changes.
 
 To ensure we are all using the same versions of our front-end dependencies, we use `nvm` to peg a version of node to this project.
 
@@ -77,9 +77,9 @@ Then, if this is your first time installing the project or `nvm`, run `nvm insta
 
 Finally, `nvm use && npm install`
 
-Now to compile the sass files into css, run:
+Now to hot reload the Javascript and SCSS, in a separate window from your "docker-compose up" command, run 
 
-    npm run gulp:watch
+    npm start
 
 Also note, that the staticfiles folder is the destination of all static assets when you or a script runs `manage.py collectstatic` so don't make your changes there, or they will be overwritten.
 
