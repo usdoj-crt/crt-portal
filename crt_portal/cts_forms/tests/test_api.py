@@ -262,6 +262,7 @@ class APIReportsAccessedTests(TestCase):
         )
         self.assertEqual(response.status_code, 403)
 
+
 class APIRelatedReportsTests(TestCase):
     def setUp(self):
         self.client = Client()
@@ -298,10 +299,9 @@ class APIRelatedReportsTests(TestCase):
         self.assertTrue('previous' in str(response.content))
         self.assertTrue('results' in str(response.content))
 
-    
     def test_number_of_results(self):
         """does the email address queried return a number equal to the number of reports created?"""
-        self.client.login(username="DELETE_USER", password="") 
+        self.client.login(username="DELETE_USER", password="")
         response = self.client.get(self.url)
         # We expect the count to equal the number of reports created:
         self.assertTrue('"count":6' in str(response.content))

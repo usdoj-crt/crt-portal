@@ -3,7 +3,6 @@
 from cts_forms.models import User, Report, FormLettersSent
 from actstream import registry
 from actstream.models import actor_stream
-from cts_forms.models import User, Report
 from django.utils.datastructures import MultiValueDictKeyError
 import urllib.parse
 from datetime import datetime

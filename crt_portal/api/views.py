@@ -12,7 +12,6 @@ from api.serializers import ReportSerializer, ResponseTemplateSerializer, Relate
 from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView
 import html
-from rest_framework.renderers import JSONRenderer
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -110,9 +109,11 @@ class ReportCountView(APIView):
         reports_accessed_payload = reports_accessed_filter(request.GET)
         return Response(reports_accessed_payload)
 
+
 class RelatedReports(generics.ListAPIView):
     """
-    A view that lists all of the reports filed using the same email address. 
+    A view that lists all of the reports filed using the same email address.
+
 
     Example: api/related-reports/?email=test.test@test.com
     """
@@ -124,11 +125,13 @@ class RelatedReports(generics.ListAPIView):
     def get_queryset(self):
         email_address = self.request.query_params.get('email')
         reports = self.queryset.filter(contact_email__iexact=email_address).order_by('status', '-create_date')
-        return reports        
+        return reports
+
 
 class FormLettersIndex(APIView):
     """
     A view that displays information about the number of form letters sent.
+
 
     Example: /api/form-letters/?assigned_section=CRM&start_date=2022-03-24&end_date=2022-03-29
     """
