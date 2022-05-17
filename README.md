@@ -299,13 +299,13 @@ That will produce a report locally that you can view in your browser. It will gi
 
 ### End-to-End tests
 
-We're using [Playwright](https://github.com/microsoft/playwright-python) for automated end-to-end testing. Currently 
+We're using [Playwright](https://github.com/microsoft/playwright-python) for automated end-to-end testing. 
 
-First install playwrite by running 
+To run Playwright tests locally, first install it by running 
 
     pipenv install playwright
 
-Then, this test suite can be run locally by developers with the following command.
+Then, run with the following command.
 
     pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=http://localhost:8000
 
