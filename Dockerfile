@@ -1,5 +1,5 @@
 # Pull base image
-FROM python:3.9.9
+FROM python:3.9.12
 
 # Set environment varibles,
 ENV PYTHONDONTWRITEBYTECODE 1
@@ -27,6 +27,9 @@ RUN \
   apt-get install -yqq nodejs && \
   pip install -U pip && pip install pipenv && \
   npm i -g npm@8.5.5 && \
+  pip --version && \
+  npm -v && \
+  node -v i  && \
   rm -rf /var/lib/apt/lists/*
 
 # Install app dependencies
