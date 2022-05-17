@@ -21,6 +21,7 @@ module.exports = {
     hceResources: './crt_portal/static/js/hceResources.js',
     landing: './crt_portal/static/js/landing.js',
     privacy: './crt_portal/static/js/privacy.js',
+    primaryComplaint: './crt_portal/static/js/primaryComplaint.js',
     proTemplate: './crt_portal/static/js/proTemplate.js',
     reportBase: './crt_portal/static/js/reportBase.js',
     reportClass: './crt_portal/static/js/reportClass.js',
