@@ -8,7 +8,7 @@ from rest_framework.reverse import reverse
 from cts_forms.views import mark_report_as_viewed
 from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter
 from rest_framework.permissions import IsAuthenticated
-from api.serializers import ReportSerializer, ResponseTemplateSerializer
+from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
 from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView
 import html
@@ -27,6 +27,7 @@ def api_root(request, format=None):
         'reports': reverse('api:report-list', request=request, format=format),
         'responses': reverse('api:response-list', request=request, format=format),
         'report-count': reverse('api:report-count', request=request, format=format),
+        'related-reports': reverse('api:related-reports', request=request, format=format),
         'form-letters': reverse('api:form-letters', request=request, format=format)
     })
 
@@ -109,9 +110,28 @@ class ReportCountView(APIView):
         return Response(reports_accessed_payload)
 
 
+class RelatedReports(generics.ListAPIView):
+    """
+    A view that lists all of the reports filed using the same email address.
+
+
+    Example: api/related-reports/?email=test.test@test.com
+    """
+
+    permission_classes = (IsAuthenticated,)
+    queryset = Report.objects.all().exclude(contact_email__isnull=True)
+    serializer_class = RelatedReportSerializer
+
+    def get_queryset(self):
+        email_address = self.request.query_params.get('email')
+        reports = self.queryset.filter(contact_email__iexact=email_address).order_by('status', '-create_date')
+        return reports
+
+
 class FormLettersIndex(APIView):
     """
     A view that displays information about the number of form letters sent.
+
 
     Example: /api/form-letters/?assigned_section=CRM&start_date=2022-03-24&end_date=2022-03-29
     """
