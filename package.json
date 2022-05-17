@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.prod.js",
+    "build:local": "webpack --config webpack.config.local.js",
     "start": "webpack --watch --config webpack.config.dev.js",
     "lint:check": "prettier --check \"crt_portal/static/js/*.js\"",
     "lint:write": "prettier --write \"crt_portal/static/js/*.js\"",
