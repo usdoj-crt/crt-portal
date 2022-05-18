@@ -46,10 +46,7 @@ def test_report_complete_and_valid_submission(page):
     page.fill("input[name='0-contact_last_name']", "Tester")
 
     # Fill input[name="0-contact_email"]
-    page.fill("input[name='0-contact_email']", "testing")
-
-    # Fill input[name="0-contact_email"]
-    page.fill("input[name='0-contact_email']", "testing@test.test")
+    page.fill("input[name='0-contact_email']", "testing@test.com")
 
     # Fill input[name="0-contact_phone"]
     page.fill("input[name='0-contact_phone']", "555-555-5555")
