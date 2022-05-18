@@ -40,14 +40,11 @@
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "^10.2.4",
-    "postcss": "^8.2.5",
-    "postcss-csso": "^5.0.0",
-    "postcss-loader": "^6.2.1",
     "sass": "^1.38.0",
     "url-search-params-polyfill": "^7.0.1",
     "uswds": "2.10.3",
-    "uswds-gulp": "github:uswds/uswds-gulp#4f2e1ef06f5fde76cba2b136b683ab22a258e6a8",
     "util": "^0.12.4"
+    "uswds": "2.10.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.17.10",
@@ -63,6 +60,9 @@
     "postcss-preset-env": "^7.5.0",
     "prettier": "1.18.2",
     "sass-loader": "^12.6.0",
+    "postcss": "^8.2.5",
+    "postcss-csso": "^5.0.0",
+    "postcss-loader": "^6.2.1",
     "style-loader": "^3.3.1",
     "svg-url-loader": "^7.1.1",
     "url-loader": "^4.1.1",
