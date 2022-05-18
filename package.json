@@ -1,6 +1,6 @@
 {
   "name": "crt-django",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "crt portal",
   "main": "index.js",
   "scripts": {
