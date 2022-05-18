@@ -8,7 +8,6 @@ python /code/crt_portal/manage.py refresh_form_letters_sent_view
 
 echo Building js and css
 npm run build:local
-python /code/crt_portal/manage.py collectstatic --noinput
 echo js and css are built
 
 # If LOCALSTACK is set in environment, this will upload static files to the localstack s3 service running in docker
@@ -24,9 +23,10 @@ if [[ -n "${USE_LOCALSTACK}" ]]; then
     echo Creating crt-private s3 bucket
     aws --endpoint-url=${LOCALSTACK_URL} s3 mb s3://crt-private
 
-    echo Collecting and uploading static assets to localstack...
-    python /code/crt_portal/manage.py collectstatic --noinput
 fi;
+
+echo Collecting and uploading static assets to localstack...
+python /code/crt_portal/manage.py collectstatic --noinput
 
 echo Updating response templates…
 python /code/crt_portal/manage.py update_response_templates
