@@ -533,26 +533,9 @@ Output, if any, of the command being executed will be be available in the applic
 
 ## Updating the U.S. Web Design System
 
-Our front-end stylesheets and UI components are based on the [U.S. Web Design System (USWDS)](https://designsystem.digital.gov/). We want to track updates to the USWDS closely whenever possible in order to adopt the most recent guidance in user experience, developer experience, and accessibility, and to keep our product up-to-date with other modern federal government websites. Update cadence should be roughly 1-2 months, but if we're behind, it's best to update only one minor version at a time (usually okay to include all patch updates) incorporating changes at each step. _Despite following semantic versioning, USWDS v2 can introduce breaking changes at minor versions_.
+Our front-end stylesheets and UI components are based on the [U.S. Web Design System (USWDS)](https://designsystem.digital.gov/). We want to track updates to the USWDS closely whenever possible in order to adopt the most recent guidance in user experience, developer experience, and accessibility, and to keep our product up-to-date with other modern federal government websites. Update cadence should be roughly 1-2 months, but if we're behind, it's best to update only one minor version at a time (usually okay to include all patch updates) incorporating changes at each step.
 
-In general, follow these steps to update the USWDS:
-
-1. Update `package.json` to set the next version of the `uswds` package and run `npm install`.
-2. Read the [changelog](https://github.com/uswds/uswds/releases) and incorporate any necessary updates:
-    - Update any markup changes (e.g. component code changes, accessibility updates)
-    - Adopt new components, if any. The USWDS sometimes introduces new components that can replace custom or third-party UI components that we use, and offloading our work to the USWDS is a one-time effort that makes it easier to maintain these components in the future.
-    - Note any other bug fixes or feature improvements that affect or improve our site.
-3. Updates to stylesheet and visual assets.
-    - Update our settings in `crt_portal/static/sass` from the [source theme](https://github.com/uswds/uswds/tree/develop/src/stylesheets/theme). (You can do a diff between the new version and last version to see new additions.) Don't override settings we set on purpose, but we should add or set new settings.
-    - Check that stylesheets can build with `npx gulp build-sass`.
-        - A common issue is that a new component uses a color value that we set to `false`, which throws an error when Sass tries to resolve a value. Usually, setting it to the default value will resolve the problem.
-    - Check for any changes or additions to static files, e.g. images that should be copied to the [static folder](https://github.com/usdoj-crt/crt-portal/tree/develop/crt_portal/static/img).
-4. Updates to JavaScript.
-    - Copy the minified JavaScript bundles from `node_modules/uswds/dist/js` (installed in step 1) to the `crt_portal/static/vendor` folder.
-5. Updates to the Gulp build process. This may not always occur.
-    - Update `package.json` to pin to a version of [`uswds-gulp`](https://github.com/uswds/uswds-gulp) that is expected to work with the version of USWDS installed in step 1. `uswds-gulp` does not use versioning, so we pin to a specific commit SHA. This will include changes to build dependencies and `gulpfile.js`, try to incorporate as many updates as possible.
-6. Verify that the build process works and that all functionality works as expected.
-7. Ready to review and deploy!
+To update the US Web Design System, follow the install instructions here: https://designsystem.digital.gov/documentation/migration/
 
 # Maintenance Mode
 

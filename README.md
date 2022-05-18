@@ -64,18 +64,11 @@ If you are doing front end work, you will want to have webpack compile the css s
 
 To ensure we are all using the same versions of our front-end dependencies, we use `nvm` to peg a version of node to this project.
 
-Check that `nvm` is installed with `nvm --version`.
+To install nvm, follow the instructions here. https://github.com/nvm-sh/nvm#installing-and-updating
 
-If not, run the following command to install it:
+To run, use the following
 
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
-    source ~/.bash_profile
-
-If you get an error, and don't have a `bash_profile` file, create one first with `touch ~/.bash_profile`, then run the command above again.
-
-Then, if this is your first time installing the project or `nvm`, run `nvm install`.
-
-Finally, `nvm use && npm install`
+    nvm use && npm install
 
 Now to hot reload the Javascript and SCSS, in a separate window from your "docker-compose up" command, run 
 
