@@ -13,7 +13,6 @@ echo js and css are built
 # If LOCALSTACK is set in environment, this will upload static files to the localstack s3 service running in docker
 # Otherwise the development server is handling static files
 if [[ -n "${USE_LOCALSTACK}" ]]; then
-
     echo Removing crt-portal s3 bucket
     aws --endpoint-url=${LOCALSTACK_URL} s3 rb s3://crt-portal --force
 

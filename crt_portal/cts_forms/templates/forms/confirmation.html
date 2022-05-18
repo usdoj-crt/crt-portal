@@ -208,7 +208,6 @@
 {% block page_js %}
   <script src="https://touchpoints.app.cloud.gov/touchpoints/a24aeb5e/js" async></script>
   {% render_bundle 'landing' %}
-
   <script nonce="{{ request.csp_nonce }}">
    var print_el = document.getElementById('print_button');
    print_el.onclick = function() {
