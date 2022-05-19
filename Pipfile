@@ -41,6 +41,7 @@ boto3 = "*"
 python-frontmatter = "*"
 djangorestframework = "*"
 markdown = "*"
+django-webpack-loader = "*"
 
 [requires]
 python_version = "3.9.12"

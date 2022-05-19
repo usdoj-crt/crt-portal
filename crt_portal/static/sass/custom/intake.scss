@@ -256,7 +256,7 @@
 .usa-select {
   @include u-border(1px, $theme-color-primary-darker);
   border-radius: 3px;
-  background-image: url(../../img/intake-icons/ic_chevron-down.svg);
+  background-image: url(../img/intake-icons/ic_chevron-down.svg);
   background-size: 15px;
   background-position: right 0.75rem center; // Restore legacy position
 }
@@ -404,7 +404,7 @@ form#cts-forms-profile {
     }
 
     .icon {
-      background-image: url(../../img/intake-icons/ic_select-down_gold.svg);
+      background-image: url(../img/intake-icons/ic_select-down_gold.svg);
       background-repeat: no-repeat;
       background-position: center center;
       background-size: contain;
@@ -412,7 +412,7 @@ form#cts-forms-profile {
 
     &.expanded {
       .icon {
-        background-image: url(../../img/intake-icons/ic_select-up.svg);
+        background-image: url(../img/intake-icons/ic_select-up.svg);
       }
 
       .crt-section_dropdown {
@@ -575,7 +575,7 @@ form#cts-forms-profile {
           content: '';
           display: block;
           margin: auto;
-          background-image: url(../../img/ic_help-circle-dark.svg);
+          background-image: url(../img/ic_help-circle-dark.svg);
           background-repeat: no-repeat;
           background-position: center;
         }

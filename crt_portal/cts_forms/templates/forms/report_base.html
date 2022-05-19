@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load static %}
+{% load render_bundle from webpack_loader %}
 
 {% block page_title %}
   {% if wizard.steps.step1 and current_step_name %}
@@ -117,7 +118,6 @@
 {% endblock footer_extra %}
 
 {% block page_js %}
-<script src="{% static 'js/disable_submit_button.min.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
   (function(root) {
     root.CRT = root.CRT || {};
@@ -130,11 +130,8 @@
     root.CRT.stageNumber = {{ stage_number }}
   })(window)
 </script>
-<script src="{% static 'js/word_count.min.js' %}"></script>
-<script src="{% static 'js/modal.min.js' %}"></script>
-<script src="{% static 'js/unsupported_browsers.min.js' %}"></script>
-<script src="{% static 'js/contact_info_confirmation_modal.min.js' %}"></script>
-    <script nonce="{{request.csp_nonce}}">
+{% render_bundle 'reportBase' %}
+<script nonce="{{request.csp_nonce}}">
   (function(root) {
     if (root.CRT.isUnsupportedBrowser()) {
       var unsupportedBrowserModal = document.getElementById('unsupported_browser_modal');

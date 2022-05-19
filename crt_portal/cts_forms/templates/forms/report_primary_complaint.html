@@ -1,6 +1,7 @@
 {% extends "forms/report_base.html" %}
 {% load static %}
 {% load i18n %}
+{% load render_bundle from webpack_loader %}
 
 {% block form_questions %}
   {% with primary_complaint_field=wizard.form.primary_complaint %}
@@ -30,5 +31,5 @@
 
 {% block page_js %}
   {{ block.super }}
-  <script src="{% static 'js/primary_complaint.min.js' %}"></script>
+  {% render_bundle 'primaryComplaint' %}
 {% endblock %}

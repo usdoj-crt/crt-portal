@@ -37,8 +37,8 @@ Clone the project locally:
 
 In the top level directory create a .env file in the top of your directory and add the following environment variables. Set `SECRET_KEY` to a long, random string and `POSTGRES_PASSWORD` to any string you like.
 
-    SECRET_KEY=this_is_a_long_random_string
-    POSTGRES_PASSWORD=rando_pw
+    SECRET_KEY="this_is_a_long_random_string"
+    POSTGRES_PASSWORD="rando_pw"
 
 To build the project
     You will need to build the project for the first time and when there are package updates to apply.
@@ -58,28 +58,21 @@ Create a superuser for local admin access
 
 To add some test data with the form http://0.0.0.0:8000/report and then you can check it out in the backend view http://0.0.0.0:8000/form/view and the admin view at http://0.0.0.0:8000/admin.
 
-Generate the SASS and Javascript for the front end with gulp:
+Generate the SASS and Javascript for the front end with webpack:
 
-If you are doing front end work, you will want to have gulp compile the css so you can instantly see changes.
+If you are doing front end work, you will want to have webpack compile the css so you can instantly see changes.
 
 To ensure we are all using the same versions of our front-end dependencies, we use `nvm` to peg a version of node to this project.
 
-Check that `nvm` is installed with `nvm --version`.
+To install nvm, follow the instructions here. https://github.com/nvm-sh/nvm#installing-and-updating
 
-If not, run the following command to install it:
+To run, use the following
 
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.1/install.sh | bash
-    source ~/.bash_profile
+    nvm use && npm install
 
-If you get an error, and don't have a `bash_profile` file, create one first with `touch ~/.bash_profile`, then run the command above again.
+Now to hot reload the Javascript and SCSS, in a separate window from your "docker-compose up" command, run 
 
-Then, if this is your first time installing the project or `nvm`, run `nvm install`.
-
-Finally, `nvm use && npm install`
-
-Now to compile the sass files into css, run:
-
-    npm run gulp:watch
+    npm start
 
 Also note, that the staticfiles folder is the destination of all static assets when you or a script runs `manage.py collectstatic` so don't make your changes there, or they will be overwritten.
 
@@ -317,6 +310,9 @@ As we build out our end-to-end test suite it will be further automated and integ
 For the general public facing pages, we regularly test against Microsoft Edge, Internet Explorer 11, and Google Chrome, and occasionally test against Safari and Firefox.
 
 For the staff-only pages, we only support the Microsoft Edge and Google Chrome browsers. Internet Explorer 11 will _not_ work.
+
+### Regression tests
+A regression test checklist in here https://github.com/usdoj-crt/crt-portal/blob/develop/docs/regression-tests.md
 
 ## cloud.gov set up
 You only need to get the services stood up and configure the S3 bucket once.

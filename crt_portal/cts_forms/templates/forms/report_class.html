@@ -1,6 +1,7 @@
 {% extends "forms/report_base.html" %}
 {% load i18n %}
 {% load static %}
+{% load render_bundle from webpack_loader %}
 
 
 {% block form_questions %}
@@ -40,6 +41,6 @@
 
 {% block page_js %}
 {{ block.super }}
-<script src="{% static 'js/other_show_hide.min.js' %}"></script>
+{% render_bundle 'reportClass' %}
 <script nonce="{{request.csp_nonce}}">window.CRT.otherTextInputToggle()</script>
 {% endblock %}

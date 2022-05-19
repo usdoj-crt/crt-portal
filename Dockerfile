@@ -37,6 +37,7 @@ RUN \
 
 COPY package*.json /code/
 
+RUN npm install webpack -g
 RUN npm install
 
 # Install gettext for i18n

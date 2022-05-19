@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load render_bundle from webpack_loader %}
 {% block ga_tagmanager_head %}{% endblock %}
 {% block ga_tagmanager_body %}{% endblock %}
 {% block meta_analytics %}{% endblock %}
@@ -12,7 +13,7 @@
 {% block usa_footer %}{% endblock %}
 {% block page_js %}
 {{ block.super }}
-<script src="{% static 'js/dropdown.min.js' %}"></script>
+{% render_bundle 'intakeBase' %}
 {%endblock%}
 {# no google analytics on backend #}
 {% block analytics %}{% endblock %}

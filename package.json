@@ -1,13 +1,14 @@
 {
   "name": "crt-django",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "crt portal",
   "main": "index.js",
   "scripts": {
-    "sass:watch": "gulp watch-sass",
-    "gulp:watch": "gulp watch",
-    "lint:check": "prettier --check \"crt_portal/static/js/*.js\"",
-    "lint:write": "prettier --write \"crt_portal/static/js/*.js\"",
+    "build": "webpack --config webpack/webpack.prod.js",
+    "build:local": "webpack --config webpack/webpack.local.js",
+    "start": "webpack --watch --config webpack/webpack.local.js",
+    "lint:check": "prettier --check \"crt_portal/static/js/**/*.js\"",
+    "lint:write": "prettier --write \"crt_portal/static/js/**/*.js\"",
     "test:all-spanish": "pa11y-ci --config pa11y_scripts/.all-spanish.json",
     "test:a11y-1": "pa11y-ci --config pa11y_scripts/.p1-contact.json",
     "test:a11y-1-error-state": "pa11y-ci --config pa11y_scripts/.p1-error.json",
@@ -39,23 +40,29 @@
   "license": "ISC",
   "dependencies": {
     "autoprefixer": "^10.2.4",
-    "gulp": "^4.0.2",
-    "gulp-postcss": "^9.0.0",
-    "gulp-rename": "^2.0.0",
-    "gulp-replace": "^1.0.0",
-    "gulp-sass": "^5.0.0",
-    "gulp-sourcemaps": "^3.0.0",
-    "gulp-uglify": "^3.0.2",
-    "postcss": "^8.2.5",
-    "postcss-csso": "^5.0.0",
     "sass": "^1.38.0",
     "url-search-params-polyfill": "^7.0.1",
-    "uswds": "2.10.3",
-    "uswds-gulp": "github:uswds/uswds-gulp#4f2e1ef06f5fde76cba2b136b683ab22a258e6a8"
+    "uswds": "2.10.3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "@babel/preset-react": "^7.16.7",
+    "babel-loader": "^8.2.5",
+    "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^3.4.1",
+    "file-loader": "^6.2.0",
+    "mini-css-extract-plugin": "^2.6.0",
     "pa11y": "^6.0.1",
     "pa11y-ci": "^2.4.2",
-    "prettier": "1.18.2"
+    "prettier": "1.18.2",
+    "sass-loader": "^12.6.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.72.0",
+    "webpack-bundle-tracker": "^1.5.0",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0",
+    "webpack-merge": "^5.8.0"
   }
 }
