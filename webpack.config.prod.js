@@ -38,18 +38,17 @@ module.exports = {
       {
         test: /\.scss$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: { outputPath: 'css/', name: '[name].css' }
-          },
-          'sass-loader'
-        ]
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       }
     ]
   },
   optimization: {
     minimizer: [new CssMinimizerPlugin()]
   },
-  plugins: [new MiniCssExtractPlugin(), new BundleTracker({ filename: './webpack-stats.json' })]
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'css/style.css'
+    }),
+    new BundleTracker({ filename: './webpack-stats.json' })
+  ]
 };
