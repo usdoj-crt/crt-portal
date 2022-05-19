@@ -62,6 +62,7 @@ jobs:
       - run:
           name: Node install, generate CSS
           command: |
+            npm install webpack -g
             npm ci
             npm run build
       - save_cache:
