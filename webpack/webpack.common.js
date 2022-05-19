@@ -4,8 +4,6 @@ const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const BundleTracker = require('webpack-bundle-tracker');
 
 module.exports = {
-  mode: 'production',
-  devtool: 'source-map',
   entry: {
     actions: './crt_portal/static/js/actions.js',
     base: './crt_portal/static/js/base.js',
@@ -22,11 +20,6 @@ module.exports = {
     reportClass: './crt_portal/static/js/reportClass.js',
     show: './crt_portal/static/js/show.js'
   },
-  output: {
-    filename: 'js/[name]-[chunkhash:8].js',
-    path: path.resolve(__dirname, 'crt_portal/static/dist'),
-    clean: true
-  },
   module: {
     rules: [
       {
@@ -38,7 +31,14 @@ module.exports = {
       {
         test: /\.scss$/,
         exclude: /node_modules/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {}
+          },
+          'css-loader',
+          'sass-loader'
+        ]
       }
     ]
   },
