@@ -1,16 +1,8 @@
-const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const BundleTracker = require('webpack-bundle-tracker');
 
 module.exports = {
-  devtool: 'source-map',
-  mode: 'development',
-  watchOptions: {
-    ignored: ['**/node_modules'],
-    aggregateTimeout: 200,
-    poll: 1000
-  },
   entry: {
     actions: './crt_portal/static/js/actions.js',
     base: './crt_portal/static/js/base.js',
@@ -26,11 +18,6 @@ module.exports = {
     reportBase: './crt_portal/static/js/reportBase.js',
     reportClass: './crt_portal/static/js/reportClass.js',
     show: './crt_portal/static/js/show.js'
-  },
-  output: {
-    filename: 'js/[name].js',
-    path: path.resolve(__dirname, 'crt_portal/static/dist'),
-    clean: true
   },
   module: {
     rules: [
