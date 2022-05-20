@@ -1,5 +1,4 @@
 {% extends "forms/complaint_view/intake_base.html" %}
-{% load render_bundle from webpack_loader %}
 
 {% load static %}
 
@@ -44,8 +43,9 @@
 {% endblock %}
 
 {% block page_js %}
-{{ block.super }}
-<script type="text/javascript" src="{% static 'vendor/aria-autocomplete-1.2.3.min.js' %}"></script>
-{% render_bundle 'actions' %}
-
+  {{ block.super }}
+  <script type="text/javascript" src="{% static 'vendor/aria-autocomplete-1.2.3.min.js' %}"></script>
+  <script src="{% static 'js/bulk_actions.min.js' %}"></script>
+  <script src="{% static 'js/modal.min.js' %}"></script>
+  <script src="{% static 'js/print_report.min.js' %}"></script>
 {% endblock %}

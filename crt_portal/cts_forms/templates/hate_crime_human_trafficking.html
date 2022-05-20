@@ -1,5 +1,4 @@
 {% extends "landing.html" %}
-{% load render_bundle from webpack_loader %}
 
 {% load static %}
 {% load i18n %}
@@ -81,6 +80,8 @@
 {% endblock %}
 
 {% block page_js %}
+<script src="{% static 'js/modal.min.js' %}"></script>
+<script src="{% static 'js/redirect-modal.min.js' %}"></script>
 <script src="{% static 'vendor/gumshoe.min.js' %}"></script>
-{% render_bundle 'hceResources' %}
+<script src="{% static 'js/highlight_active_header.js' %}"></script>
 {% endblock %}

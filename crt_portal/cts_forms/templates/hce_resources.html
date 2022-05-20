@@ -2,7 +2,6 @@
 
 {% load static %}
 {% load i18n %}
-{% load render_bundle from webpack_loader %}
 
 {% block meta_title %}
   {% trans "Civil Rights Division - Department of Justice - Get resources" as meta_title %}
@@ -169,6 +168,8 @@
 {% endblock %}
 
 {% block page_js %}
+<script src="{% static 'js/modal.min.js' %}"></script>
+<script src="{% static 'js/redirect-modal.min.js' %}"></script>
 <script src="{% static 'vendor/gumshoe.min.js' %}"></script>
-{% render_bundle 'hceResources' %}
+<script src="{% static 'js/highlight_active_header.js' %}"></script>
 {% endblock %}

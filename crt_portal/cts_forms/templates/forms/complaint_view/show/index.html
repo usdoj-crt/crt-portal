@@ -1,6 +1,5 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% load static %}
-{% load render_bundle from webpack_loader %}
 
 {% block page_title %}
  <title>CRT Complaint Records{% for message in messages %} - {{ message }}{% endfor %}</title>
@@ -91,5 +90,12 @@
 {% block page_js %}
 {{ block.super }}
 <script defer src="{% static 'vendor/marked.min.js' %}"></script>
-{% render_bundle 'show' %}
+<script src="{% static 'js/edit_contact_info.min.js' %}"></script>
+<script src="{% static 'js/edit_details.min.js' %}"></script>
+<script src="{% static 'js/modal.min.js' %}"></script>
+<script src="{% static 'js/form_letter.min.js' %}"></script>
+<script src="{% static 'js/print_report.min.js' %}"></script>
+<script src="{% static 'js/routing_guide.min.js' %}"></script>
+<script src="{% static 'js/attachments.min.js' %}"></script>
+<script src="{% static 'js/dist/relatedReports.min.js' %}"></script>
 {%endblock%}

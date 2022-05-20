@@ -2,7 +2,6 @@
 {% extends "forms/report_base.html" %}
 {% load static %}
 {{ super }}
-{% load render_bundle from webpack_loader %}
 
 {% block page_header %}
   {% include 'forms/complaint_view/intake_header.html' with title_text="CRT Public Complaint Intake" progress_bar=True%}
@@ -115,5 +114,9 @@
     };
   })(window)
 </script>
-{% render_bundle 'proTemplate' %}
+<script src="{% static 'js/disable_submit_button.min.js' %}"></script>
+<script src="{% static 'js/pro_form_show_hide.min.js' %}"></script>
+<script src="{% static 'js/autofill_current_date.min.js' %}"></script>
+<script src="{% static 'js/word_count.min.js' %}"></script>
+<script src="{% static 'js/progress-bar.min.js' %}"></script>
 {% endblock %}
