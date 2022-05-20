@@ -222,7 +222,7 @@ jobs:
             apt-get install -yqq nodejs && \
             npm i -g npm@8.5.5 && \
             rm -rf /var/lib/apt/lists/*
-            npm ci --production
+            npm ci
             npm run build
       # database will be migrated in cloud.gov
       - *install-python-dependencies
@@ -278,7 +278,7 @@ jobs:
             apt-get install -yqq nodejs && \
             npm i -g npm@8.5.5 && \
             rm -rf /var/lib/apt/lists/*
-            npm ci --production
+            npm ci
             npm run build
       # database will be migrated in cloud.gov
       - *install-python-dependencies
@@ -335,7 +335,7 @@ jobs:
             apt-get install -yqq nodejs && \
             npm i -g npm@8.5.5 && \
             rm -rf /var/lib/apt/lists/*
-            npm ci --production
+            npm ci
             npm run build
       # database will be migrated in cloud.gov
       - *install-python-dependencies
