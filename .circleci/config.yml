@@ -63,7 +63,8 @@ jobs:
           name: Node install, generate CSS
           command: |
             npm ci
-            npm run build
+            node node_modules/gulp/bin/gulp build-sass
+            node node_modules/gulp/bin/gulp build-js
       - save_cache:
           paths:
             - /home/circleci/code/node_modules/
@@ -222,8 +223,9 @@ jobs:
             apt-get install -yqq nodejs && \
             npm i -g npm@8.5.5 && \
             rm -rf /var/lib/apt/lists/*
-            npm ci
-            npm run build
+            npm ci --production
+            node node_modules/gulp/bin/gulp build-sass
+            node node_modules/gulp/bin/gulp build-js
       # database will be migrated in cloud.gov
       - *install-python-dependencies
       - run:
@@ -278,8 +280,9 @@ jobs:
             apt-get install -yqq nodejs && \
             npm i -g npm@8.5.5 && \
             rm -rf /var/lib/apt/lists/*
-            npm ci
-            npm run build
+            npm ci --production
+            node node_modules/gulp/bin/gulp build-sass
+            node node_modules/gulp/bin/gulp build-js
       # database will be migrated in cloud.gov
       - *install-python-dependencies
       - run:
@@ -335,8 +338,9 @@ jobs:
             apt-get install -yqq nodejs && \
             npm i -g npm@8.5.5 && \
             rm -rf /var/lib/apt/lists/*
-            npm ci
-            npm run build
+            npm ci --production
+            node node_modules/gulp/bin/gulp build-sass
+            node node_modules/gulp/bin/gulp build-js
       # database will be migrated in cloud.gov
       - *install-python-dependencies
       - run:

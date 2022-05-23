@@ -2,7 +2,6 @@
 
 {% load static %}
 {% load i18n %}
-{% load render_bundle from webpack_loader %}
 
 {% block meta_title %}
     {% trans "Civil Rights Division - Department of Justice - Privacy Policy" as meta_title %}
@@ -155,5 +154,5 @@
 
 {% block page_js %}
 <script src="{% static 'vendor/gumshoe.min.js' %}"></script>
-{% render_bundle 'privacy' %}
+<script src="{% static 'js/highlight_active_header.js' %}"></script>
 {% endblock %}

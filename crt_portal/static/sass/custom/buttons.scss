@@ -28,7 +28,7 @@ button,
   background-color: color($theme-color-secondary);
   &:before {
     margin-right: 10px;
-    background-image: url(../img/alerts/warning.svg);
+    background-image: url(../../img/alerts/warning.svg);
     background-size: cover;
     background-repeat: no-repeat;
     content: '';
@@ -47,7 +47,7 @@ button,
   float: right;
   &:before {
     margin-right: 10px;
-    background-image: url(../img/ic_edit.svg);
+    background-image: url(../../img/ic_edit.svg);
     background-repeat: no-repeat;
     content: '';
     height: 12px;

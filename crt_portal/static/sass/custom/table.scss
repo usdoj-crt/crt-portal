@@ -233,14 +233,14 @@
   &.sort-up {
     &:after {
       @include sortable-cell-icon();
-      background: url('../img/sort-up.svg');
+      background: url('../../img/sort-up.svg');
     }
   }
 
   &.sort-down {
     &:after {
       @include sortable-cell-icon();
-      background: url('../img/sort-down.svg');
+      background: url('../../img/sort-down.svg');
     }
   }
 }

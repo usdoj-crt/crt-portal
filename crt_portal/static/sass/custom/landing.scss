@@ -249,7 +249,7 @@ $arrow-height: 24px;
 }
 
 .crt-landing--hero {
-  background-image: url(../img/landing-page-hero.jpeg);
+  background-image: url(../../img/landing-page-hero.jpeg);
   background-repeat: no-repeat;
   background-size: 100%;
   background-position: bottom;
@@ -257,7 +257,7 @@ $arrow-height: 24px;
   rel: preload;
 
   @include at-media-max(desktop) {
-    background-image: url(../img/landing-page-hero-tablet.jpg);
+    background-image: url(../../img/landing-page-hero-tablet.jpg);
     background-position: bottom;
     min-height: 850px;
     rel: preload;
@@ -265,7 +265,7 @@ $arrow-height: 24px;
 
   // This must be placed _after_ the desktop media query for higher priority
   @include at-media-max(mobile-lg) {
-    background-image: url(../img/landing-page-hero-mobile.jpeg);
+    background-image: url(../../img/landing-page-hero-mobile.jpeg);
     background-size: cover; // avoid unsightly mobile gap
     background-color: #436eac;
     min-height: 600px;
@@ -491,12 +491,12 @@ $arrow-height: 24px;
       height: 100%;
 
       &[aria-expanded='false'] {
-        background-image: url(../img/angle-arrow-down-white.svg) !important;
+        background-image: url(../../img/angle-arrow-down-white.svg) !important;
       }
 
       &[aria-expanded='true'] {
         @include u-radius-bottom(0);
-        background-image: url(../img/angle-arrow-up-white.svg) !important;
+        background-image: url(../../img/angle-arrow-up-white.svg) !important;
       }
 
       &:hover {
