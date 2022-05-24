@@ -255,9 +255,9 @@ body.is-modal {
       content: '';
       display: block;
       margin-top: 0.2em;
-      border: 2px solid color($theme-color-warning);
+      border: 2px solid color($theme-color-primary-darker);
       border-radius: 2px;
-      background: color($theme-color-warning);
+      background: color($theme-color-primary-darker);
       width: 25px;
     }
   }

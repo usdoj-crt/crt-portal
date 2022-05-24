@@ -41,7 +41,7 @@ class CustomHTMLProcessor(Treeprocessor):
         for element in root.iter('h1'):
             element.set('style', 'margin-top: 36px; margin-bottom: 16px; font-size: 22px;color: #162e51;font-family: Merriweather,Merriweather Web,Merriweather Web,Tinos,Georgia,Cambria,Times New Roman,Times,serif;line-height: 1.5;font-weight: 700;')
             div = Element('div')
-            div.set('style', 'margin-top: 8px; border: 2px solid #ffbe2e; border-radius: 2px; background: #ffbe2e; width: 25px;')
+            div.set('style', 'margin-top: 8px; border: 2px solid #162e51; border-radius: 2px; background: #162e51; width: 25px;')
             element.append(div)
         for element in root.iter('h2'):
             element.set('style', 'margin-top: 36px; margin-bottom: 16px; font-size: 20px;color: #162e51;font-family: Merriweather,Merriweather Web,Merriweather Web,Tinos,Georgia,Cambria,Times New Roman,Times,serif;line-height: 1.5;font-weight: 700;')
