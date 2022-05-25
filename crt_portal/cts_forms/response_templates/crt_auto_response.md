@@ -12,8 +12,6 @@ Thank you for submitting a report to the Civil Rights Division. Please save your
 
 If you reported an incident where you or someone else has experienced or is still experiencing physical harm or violence, or are in immediate danger, please call 911 and contact the police.
 
----------------------------------
-
 # What to Expect
 ## 1. We review your report 
 Our specialists in the Civil Rights Division carefully read every report to identify civil rights violations, spot trends, and determine if we have authority to help with your report.
@@ -37,10 +35,6 @@ We do our best to let you know about the outcome of our review. However, we may 
 
 If we are able to respond, we will contact you using the contact information you provided in this report. Depending on the type of report, response times can vary. If you need to reach us about your report, please refer to your report number when contacting us. This is how we keep track of your submission.
 
-
----------------------------------
-
-
 # What You Can Do Next
 ## 1. Contact local legal aid organizations or a lawyer if you haven’t already.
 Legal aid offices or members of lawyer associations in your state may be able to help you with your issue.
@@ -56,4 +50,5 @@ Visit [civilrights.justice.gov](https://civilrights.justice.gov) to learn more a
 ---------------------------------
 
 
-**Please Note:** Each week, we receive hundreds of reports of potential violations.  We collect and analyze this information to help us select cases, and we may use this information as evidence in an existing case.  We will review your letter to decide whether it is necessary to contact you for additional information.  We do not have the resources to follow-up on every letter.
+#### *Please Note:* 
+*Each week, we receive hundreds of reports of potential violations.  We collect and analyze this information to help us select cases, and we may use this information as evidence in an existing case.  We will review your letter to decide whether it is necessary to contact you for additional information.  We do not have the resources to follow-up on every letter.*
