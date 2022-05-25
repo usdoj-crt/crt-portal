@@ -50,5 +50,4 @@ Visit [civilrights.justice.gov](https://civilrights.justice.gov) to learn more a
 ---------------------------------
 
 
-#### *Please Note:* 
-*Each week, we receive hundreds of reports of potential violations.  We collect and analyze this information to help us select cases, and we may use this information as evidence in an existing case.  We will review your letter to decide whether it is necessary to contact you for additional information.  We do not have the resources to follow-up on every letter.*
+***Please Note:** Each week, we receive hundreds of reports of potential violations.  We collect and analyze this information to help us select cases, and we may use this information as evidence in an existing case.  We will review your letter to decide whether it is necessary to contact you for additional information.  We do not have the resources to follow-up on every letter.*
