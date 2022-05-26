@@ -88,11 +88,12 @@ def form_letters_filter(querydict):
     form_letters_payload["total_form_letters"] = len(filtered_form_letters)
 
     for form_letter in filtered_form_letters:
-        email_title = form_letter.description.split("'")[1]
-        try:
-            form_letters_counter[email_title] += 1
-        except KeyError:
-            form_letters_counter[email_title] = 1
+        if "'" in form_letter.description:
+            email_title = form_letter.description.split("'")[1]
+            try:
+                form_letters_counter[email_title] += 1
+            except KeyError:
+                form_letters_counter[email_title] = 1
 
     form_letters_payload["form_letters_counter"] = form_letters_counter
     form_letters_payload["total_form_letters"] = len(filtered_form_letters)
