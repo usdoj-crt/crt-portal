@@ -67,6 +67,7 @@ class Command(BaseCommand):
             rand = random.randint(1, 100)  # nosec
             # approximately 1% of reports
             if rand <= 1:
+                add_activity(user1, 'Contacted complainant:', "frequentflier1@test.test not in allowed domains, not attempting to deliver CRT Auto response.", report)
                 report.contact_email = "frequentflier1@test.test"
                 protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[0][0])
                 protected_example3 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[2][0])
