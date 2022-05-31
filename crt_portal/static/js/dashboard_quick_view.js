@@ -2,6 +2,7 @@
   var toggles = dom.querySelectorAll('a.td-toggle');
   for (var i = 0; i < toggles.length; i++) {
     var toggle = toggles[i];
+    console.log("toggle", toggle)
     toggle.onclick = function(event) {
       var target = event.currentTarget;
       var id = target.dataset['id'];

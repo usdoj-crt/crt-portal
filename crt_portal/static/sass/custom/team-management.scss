@@ -3,6 +3,34 @@
     border-bottom: 1px solid hsla(216, 57%, 20%, 1);
   }
 
+  img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 18px;
+  }
+
+  .title {
+    font-size: 28px;
+    line-height: 26px;
+    margin-top: 0;
+    border-bottom: 1px solid hsla(216, 57%, 20%, 1);
+    padding-bottom: 10px;
+    font-family: Merriweather Web,Merriweather Web,Tinos,Georgia,Cambria,Times New Roman,Times,serif;
+  }
+
+  .results {
+    padding-top: 35px;
+    .results-text {
+      margin-top: 5px;
+      font-style: italic;
+    }
+  }
+
+  .usa-card__body {
+    padding-top: 15px;
+  }
+
   .label {
     color: hsla(60, 5%, 17%, 1);
   }

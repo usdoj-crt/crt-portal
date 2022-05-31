@@ -249,11 +249,12 @@
 
   function filterController() {
     var formEl = dom.getElementById('filters-form');
+    console.log("formEl", formEl)
     var activeFiltersEl = dom.querySelector('[data-active-filters]');
-    var createdatestartEl = formEl.querySelector('input[name="create_date_start"]');
-    var createdateendEl = formEl.querySelector('input[name="create_date_end"]');
     var clearAllEl = dom.querySelector('[data-clear-filters]');
     var assigneeEl = formEl.querySelector('#id_assigned_to');
+    var dateEl = formEl.querySelector('#id_date');
+    console.log("dateEl", dateEl)
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
      * and perform a new search with the updated filters applied.
@@ -334,7 +335,6 @@
   // instantiate the controller that manages the UI components / views
   function init() {
     var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
-
     Object.keys(initialFilterState).forEach(function(key) {
       filterDataModel[key] = initialFilterState[key];
     });
