@@ -43,7 +43,7 @@ djangorestframework = "*"
 markdown = "*"
 
 [requires]
-python_version = "3.9.9"
+python_version = "3.9.12"
 
 [pipenv]
 allow_prereleases = true
