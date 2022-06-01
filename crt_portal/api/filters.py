@@ -109,10 +109,11 @@ def reports_accessed_filter(querydict):
         "intake_specialist": "",
     }
     registry.register(User)
-    intake_specialist_username = querydict.get("intake_specialist", None)
-    intake_specialist = User.objects.filter(username=intake_specialist_username).first()
+    intake_specialist_pk = querydict.get("pk", None)
+    intake_specialist = User.objects.filter(pk=intake_specialist_pk).first()
+    print("intake_specialist", intake_specialist)
     if intake_specialist:
-        reports_accessed_payload["intake_specialist"] = intake_specialist_username
+        reports_accessed_payload["intake_specialist"] = intake_specialist.name
         for field in querydict:
             if "date" in field:
                 # filters by a start date or an end date expects yyyy-mm-dd

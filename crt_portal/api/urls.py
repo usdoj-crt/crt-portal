@@ -11,6 +11,7 @@ urlpatterns = [
     path('responses/', ResponseList.as_view(), name='response-list'),
     path('responses/<int:pk>/', ResponseDetail.as_view(), name='response-detail'),
     path('report-count/', ReportCountView.as_view(), name='report-count'),
+    path('report-count/<int:pk>', ReportCountView.as_view(), name='report-count'),
     path('related-reports/', RelatedReports.as_view(), name='related-reports'),
     path('form-letters/', FormLettersIndex.as_view(), name='form-letters'),
 ]
