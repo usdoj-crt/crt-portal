@@ -1,0 +1,45 @@
+@use "uswds-core" as *;
+
+ //Custom type mixins
+@mixin text--body-copy__xsmall {
+  font-size: $theme-text-font-size-xs;
+  line-height: 1.3;
+},
+@mixin text--body-copy__small {
+  font-size: $theme-text-font-size-sm;
+  line-height: 1.5;
+},
+@mixin text--body-copy__medium {
+  font-size: $theme-text-font-size-md;
+  line-height: 1.625;
+},
+@mixin text--body-copy__large {
+  font-size: $theme-text-font-size-lg;
+  line-height: 1.5;
+},
+@mixin text--heading__small {
+  font-size: $theme-heading-font-size-sm;
+  line-height: 1.5;
+},
+@mixin text--heading__medium {
+  font-size: $theme-heading-font-size-md;
+  line-height: 1.5;
+  @include at-media-max(mobile-lg) {
+    font-size: $theme-heading-font-size-md-mobile;
+    line-height: 1.3;
+  }
+},
+@mixin text--heading__large {
+  font-size: $theme-heading-font-size-lg;
+  line-height: 1.3;
+  @include at-media-max(mobile-lg) {
+    font-size: $theme-heading-font-size-lg-mobile;
+  }
+},
+@mixin text--heading__xlarge {
+  font-size: $theme-heading-font-size-xl;
+  line-height: 1.3;
+  @include at-media-max(mobile-lg) {
+    font-size: $theme-heading-font-size-lg;
+  }
+},

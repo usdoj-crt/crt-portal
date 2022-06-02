@@ -1,3 +1,5 @@
+@use "uswds-core" as *;
+
 .crt-success-card {
   @include u-radius('lg');
   background-color: color('white');

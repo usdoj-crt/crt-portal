@@ -1,5 +1,7 @@
 // USA Gov Banner Customization
 
+@use "uswds-core" as *;
+
 .usa-banner {
   .usa-banner__header {
     padding-top: .75rem;

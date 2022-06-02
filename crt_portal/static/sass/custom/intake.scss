@@ -1,3 +1,5 @@
+@use "uswds-core" as *;
+
 .intake-bg {
   @include u-bg($theme-color-primary-lightest);
   .intake-section-title {

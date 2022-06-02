@@ -9,20 +9,11 @@
 */
 
 // -------------------------------------
-// Import individual theme settings
-
-@forward "uswds-theme-general";
-@forward "uswds-theme-typography";
-@forward "uswds-theme-spacing";
-@forward "uswds-theme-color";
-@forward "uswds-theme-utilities";
-
-// components import needs to be last
-@forward "uswds-theme-components";
+// Import theme settings
+@forward "uswds-theme";
 
 // -------------------------------------
-// Import the complete USWDS kit
-
+// Import the necessary USWDS packages
 @forward "uswds";
 
 // -------------------------------------
@@ -56,3 +47,4 @@
 @forward "custom/modal";
 @forward "custom/print";
 @forward "custom/error";
+@forward "custom/mixins";

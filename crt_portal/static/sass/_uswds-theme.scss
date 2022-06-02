@@ -1,164 +1,120 @@
- @use "uswds-core" with (
- $theme-color-base-family: "gray",
-$theme-color-base-light: "gray-30",
-$theme-color-base: "gray-50",
-$theme-color-base-darker: "gray-70",
-$theme-color-base-ink: "gray-warm-80",
-$theme-color-primary-lightest: "blue-warm-5",
-$theme-color-primary-lighter: "blue-warm-10",
-$theme-color-primary-lighter: "blue-warm-10",
-$theme-color-success-dark: "green-cool-50",
-$theme-color-success-darker: "green-cool-60",
-$theme-link-color: $theme-color-primary-darker,
-$theme-link-visited-color: $theme-color-primary-darker,
-$theme-link-hover-color: "blue-50",
-$theme-color-accent-cool-lighter: false,
-$theme-color-accent-cool-light: false,
-$theme-color-accent-warm-lighter: false,
-$theme-color-accent-warm-light: false,
-$theme-color-secondary-lighter: false,
-$theme-color-secondary-light: false,
-$theme-color-secondary-vivid: false,
-$theme-link-dark-hover-color: "blue-warm-30v", // Custom
+@use "uswds-core" with (
+  //Colors
+  $theme-color-base-family: "gray",
+  $theme-color-base-light: "gray-30",
+  $theme-color-base: "gray-50",
+  $theme-color-base-darker: "gray-70",
+  $theme-color-base-ink: "gray-warm-80",
+  $theme-color-primary-lightest: "blue-warm-5",
+  $theme-color-primary-lighter: "blue-warm-10",
+  $theme-color-success-dark: "green-cool-50",
+  $theme-color-success-darker: "green-cool-60",
+  $theme-link-color: "blue-warm-80v",
+  $theme-link-visited-color: "blue-warm-80v",
+  $theme-link-hover-color: "blue-50",
+  $theme-color-accent-cool-lighter: false,
+  $theme-color-accent-cool-light: false,
+  $theme-color-accent-warm-lighter: false,
+  $theme-color-accent-warm-light: false,
+  $theme-color-secondary-lighter: false,
+  $theme-color-secondary-light: false,
+  $theme-color-secondary-vivid: false,
+  $theme-link-dark-hover-color: "blue-warm-30v", // Custom
 
-//Components
-$theme-alert-icon-size: 5,
-$theme-banner-background-color: "ink",
-$theme-banner-link-color: "warning",
-$theme-input-tile-background-color-selected: "primary-lighter",
-$theme-input-tile-border-color: "base-lighter",
-$theme-input-tile-border-color-selected: "primary-light",
-$theme-table-border-color: "ink",
-$theme-table-header-text-color: "ink",
-$theme-table-stripe-text-color: "ink",
-$theme-table-text-color: "ink",
-$theme-tooltip-background-color: "primary-darker",
-$theme-tooltip-font-color: "white",
+  //Components
+  $theme-alert-icon-size: 5,
+  $theme-banner-background-color: "ink",
+  $theme-banner-link-color: "warning",
+  $theme-input-tile-background-color-selected: "primary-lighter",
+  $theme-input-tile-border-color: "base-lighter",
+  $theme-input-tile-border-color-selected: "primary-light",
+  $theme-table-border-color: "ink",
+  $theme-table-header-text-color: "ink",
+  $theme-table-stripe-text-color: "ink",
+  $theme-table-text-color: "ink",
+  $theme-tooltip-background-color: "primary-darker",
+  $theme-tooltip-font-color: "white",
 
-//General
-$theme-image-path: "../../img",
-$theme-show-compile-warnings: false,
-$theme-show-notifications: false,
-$theme-layout-grid-use-important: false !default,
-$theme-focus-offset: 2px,
-$theme-focus-width: 2px,
+  //General
+  $theme-image-path: "../../img",
+  $theme-show-compile-warnings: false,
+  $theme-show-notifications: false,
+  $theme-layout-grid-use-important: false,
+  $theme-focus-offset: "2px",
+  $theme-focus-width: "2px",
 
-// Spacing
-$theme-site-max-width: "desktop";
-// Custom spacing variables
-// Use with the units() function, ex, units($spacer-unit-2x)
-$spacer-half: '05'; // 0.25rem / 4px
-$spacer-1x: 1;      // 0.5rem  / 8px
-$spacer-2x: 2,      // 1rem    / 16px
-$spacer-3x: 3,      // 1.5rem  / 24px
-$spacer-4x: 4,      // 2rem    / 32px
-$spacer-5x: 5,      // 2.5rem  / 40px
-$spacer-6x: 6,      // 3rem    / 48px
-$spacer-7x: 7,      // 3.5rem  / 56px
-$spacer-8x: 8,      // 4rem    / 64px
-$spacer-9x: 9,      // 4.5rem  / 72px
-$spacer-12x: 5rem,  // 5rem    / 96px - not defined in USWDS tokens
+  // Spacing
+  $theme-site-max-width: "desktop",
+  // Custom spacing variables
+  // Use with the units() function, ex, units($spacer-unit-2x)
+  $spacer-half: '05', // 0.25rem / 4px
+  $spacer-1x: 1,      // 0.5rem  / 8px
+  $spacer-2x: 2,      // 1rem    / 16px
+  $spacer-3x: 3,      // 1.5rem  / 24px
+  $spacer-4x: 4,      // 2rem    / 32px
+  $spacer-5x: 5,      // 2.5rem  / 40px
+  $spacer-6x: 6,      // 3rem    / 48px
+  $spacer-7x: 7,      // 3.5rem  / 56px
+  $spacer-8x: 8,      // 4rem    / 64px
+  $spacer-9x: 9,      // 4.5rem  / 72px
+  $spacer-12x: 5rem,  // 5rem    / 96px - not defined in USWDS tokens
 
-// Typography
-$theme-font-path: "../../fonts",
-$theme-font-type-sans: "public-sans",
-$theme-font-serif-custom-stack: "Merriweather Web, Tinos, Georgia, Cambria, Times New Roman, Times, serif",
-	// Headings -- not used
-// NOTE: We don't use these because the design system's font token normalization
-// changes the size of the font on the fly:
-// https://designsystem.digital.gov/design-tokens/typesetting/overview/
-// Instead, we use REM defined in the next section.
-$theme-h1-font-size: "xl",
-$theme-h2-font-size: "lg",
-$theme-h3-font-size: "md",
-$theme-heading-line-height: 3,
-$theme-display-font-size: "3xl", // not used
+  // Typography
+  $theme-font-path: "../../fonts",
+  $theme-font-type-sans: "public-sans",
+  $theme-font-serif-custom-stack: "Merriweather Web, Tinos, Georgia, Cambria, Times New Roman, Times, serif",
+  // Headings -- not used
+  // NOTE: We don't use these because the design system's font token normalization
+  // changes the size of the font on the fly:
+  // https://designsystem.digital.gov/design-tokens/typesetting/overview/
+  // Instead, we use REM defined in the next section.
+  $theme-h1-font-size: "xl",
+  $theme-h2-font-size: "lg",
+  $theme-h3-font-size: "md",
+  $theme-heading-line-height: 3,
+  $theme-display-font-size: "3xl", // not used
 
 
-// Custom type variables -- note that these are not USWDS-native variables
-$theme-heading-font-size-xl: 2.8125rem, // 45px - h1 display
-$theme-heading-font-size-lg: 2rem, // 32px - h2 display
-$theme-heading-font-size-md: 1.375rem, // 22px - h3 display
-$theme-heading-font-size-sm: 1rem, // 16px - h4 display
-$theme-heading-font-size-lg-mobile: 1.5rem, // 24px - mobile headers
-$theme-heading-font-size-md-mobile: 1.25rem, // 20px - mobile headers
-$theme-text-font-size-lg: 1.125rem, // 18px - lead body copy
-$theme-text-font-size-md: 1rem, //16px - regular body copy
-$theme-text-font-size-sm: 0.875rem, // 14px - small body copy
-$theme-text-font-size-xs: 0.75rem, // 12px - accent text
-$theme-body-copy-line-height: 1.625,
-// Custom type mixins
-@mixin text--body-copy__xsmall {
-  font-size: $theme-text-font-size-xs;
-  line-height: 1.3;
-}
-@mixin text--body-copy__small {
-  font-size: $theme-text-font-size-sm;
-  line-height: 1.5;
-}
-@mixin text--body-copy__medium {
-  font-size: $theme-text-font-size-md;
-  line-height: 1.625;
-}
-@mixin text--body-copy__large {
-  font-size: $theme-text-font-size-lg;
-  line-height: 1.5;
-}
-@mixin text--heading__small {
-  font-size: $theme-heading-font-size-sm;
-  line-height: 1.5;
-}
-@mixin text--heading__medium {
-  font-size: $theme-heading-font-size-md;
-  line-height: 1.5;
-  @include at-media-max(mobile-lg) {
-    font-size: $theme-heading-font-size-md-mobile;
-    line-height: 1.3;
-  }
-}
-@mixin text--heading__large {
-  font-size: $theme-heading-font-size-lg;
-  line-height: 1.3;
-  @include at-media-max(mobile-lg) {
-    font-size: $theme-heading-font-size-lg-mobile;
-  }
-}
-@mixin text--heading__xlarge {
-  font-size: $theme-heading-font-size-xl;
-  line-height: 1.3;
-  @include at-media-max(mobile-lg) {
-    font-size: $theme-heading-font-size-lg;
-  }
-}
+  // Custom type variables -- note that these are not USWDS-native variables
+  $theme-heading-font-size-xl: 2.8125rem, // 45px - h1 display
+  $theme-heading-font-size-lg: 2rem, // 32px - h2 display
+  $theme-heading-font-size-md: 1.375rem, // 22px - h3 display
+  $theme-heading-font-size-sm: 1rem, // 16px - h4 display
+  $theme-heading-font-size-lg-mobile: 1.5rem, // 24px - mobile headers
+  $theme-heading-font-size-md-mobile: 1.25rem, // 20px - mobile headers
+  $theme-text-font-size-lg: 1.125rem, // 18px - lead body copy
+  $theme-text-font-size-md: 1rem, //16px - regular body copy
+  $theme-text-font-size-sm: 0.875rem, // 14px - small body copy
+  $theme-text-font-size-xs: 0.75rem, // 12px - accent text
+  $theme-body-copy-line-height: 1.625,
 
-// Utilities
-	$theme-utility-breakpoints: (
-  // 160px:
-  "card": false,
-  // 240px:
-  "card-lg": false,
-  // 320px:
-  "mobile": false,
-  // 480px:
-  "mobile-lg": true,
-  // 640px:
-  "tablet": true,
-  // 800px:
-  "tablet-lg": false,
-  // 1024px:
-  "desktop": true,
-  // 1200px:
-  "desktop-lg": false,
-  // 1400px:
-  "widescreen": false
+  // Utilities
+      $theme-utility-breakpoints: (
+    // 160px:
+    "card": false,
+    // 240px:
+    "card-lg": false,
+    // 320px:
+    "mobile": false,
+    // 480px:
+    "mobile-lg": true,
+    // 640px:
+    "tablet": true,
+    // 800px:
+    "tablet-lg": false,
+    // 1024px:
+    "desktop": true,
+    // 1200px:
+    "desktop-lg": false,
+    // 1400px:
+    "widescreen": false
+  ),
+  $width-settings: (
+    output: true,
+    responsive: false,
+    active: false,
+    focus: false,
+    hover: false,
+    visited: false,
+  )
 );
-$width-settings: (
-  output: true,
-  responsive: false,
-  active: false,
-  focus: false,
-  hover: false,
-  visited: false,
-);
-
- );

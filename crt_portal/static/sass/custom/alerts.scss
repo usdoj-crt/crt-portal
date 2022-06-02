@@ -1,5 +1,7 @@
 // Alert Overrides
 
+@use "uswds-core" as *;
+
 .page-errors {
   font-weight: bold;
   color: color($theme-color-secondary-dark);
