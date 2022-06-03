@@ -1,6 +1,7 @@
 from django.db import connection
 from django.core.management.base import BaseCommand
 
+
 class Command(BaseCommand):
     help = "Flag reports that were submitted by repeat writers."
 
@@ -8,7 +9,7 @@ class Command(BaseCommand):
         # Flag reports that have the same violation summary as at least 50 reports
         repeat_summary_sql = """
         WITH repeat_summary AS (SELECT violation_summary, COUNT(*)
-        FROM cts_forms_report 
+        FROM cts_forms_report
         GROUP BY violation_summary
         HAVING count(*) > 50 )
         UPDATE cts_forms_report
@@ -26,7 +27,7 @@ class Command(BaseCommand):
 
         # Flag reports that were submitted by individuals whose contact email addresses had already received a repeat writer email
         repeat_writer_sql = """
-        UPDATE cts_forms_report 
+        UPDATE cts_forms_report
         SET by_repeat_writer = true
         WHERE id IN (SELECT id
         FROM cts_forms_report report
