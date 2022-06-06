@@ -13,12 +13,12 @@ ON report.violation_summary = repeat_summary.violation_summary
 ORDER BY report.violation_summary);
 
 
--- QUERY 2 - update the reports that were submitted by individuals who have received a repeat writer email
-UPDATE cts_forms_report 
+-- QUERY 2 - update the reports that were submitted by individuals who have received a repeat writer email.  
+-- BUG: This won't find the contact emails from reports where a user printed a Contact Complainant Template, but didn't email the individual.
+UPDATE cts_forms_report
 SET by_repeat_writer = true
-WHERE id IN (SELECT id
-FROM cts_forms_report report
-WHERE report.id IN (SELECT act.target_object_id::INTEGER
-FROM actstream_action act
-WHERE act.verb = 'Contacted complainant:'
-AND act.description LIKE '%Constant Writer%'));
+WHERE contact_email IN (
+SELECT array_to_string(regexp_matches(description, '\w+@\S+', 'g'), ';') FROM actstream_action act
+WHERE act.verb = 'Contacted complainant:' 
+AND act.description LIKE '%Constant Writer%');
+
