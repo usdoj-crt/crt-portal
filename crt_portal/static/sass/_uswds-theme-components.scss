@@ -25,7 +25,7 @@ $theme-accordion-font-family: "body";
 // Alert
 $theme-alert-bar-width: 1;
 $theme-alert-font-family: "ui";
-//$theme-alert-icon-size: 5;
+$theme-alert-icon-size: 5;
 $theme-alert-padding-x: 2.5;
 $theme-alert-text-color: default;
 $theme-alert-text-reverse-color: default;
@@ -168,12 +168,12 @@ $theme-summary-box-link-color: default;
 $theme-summary-box-text-color: default;
 
 // Table
-//$theme-table-border-color: "ink";
+$theme-table-border-color: "ink";
 $theme-table-header-background-color: "base-lighter";
-//$theme-table-header-text-color: "ink";
+$theme-table-header-text-color: "ink";
 $theme-table-stripe-background-color: "base-lightest";
-//$theme-table-stripe-text-color: "ink";
-//$theme-table-text-color: "ink";
+$theme-table-stripe-text-color: "ink";
+$theme-table-text-color: "ink";
 
 // Tooltips
 $theme-tooltip-background-color: "primary-darker";
