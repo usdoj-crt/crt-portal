@@ -10,7 +10,7 @@ class Command(BaseCommand):
         WITH repeat_summary AS (SELECT violation_summary, COUNT(*)
         FROM cts_forms_report
         GROUP BY violation_summary
-        HAVING count(*) > 50 )
+        HAVING count(*) >= 50 )
         UPDATE cts_forms_report
         SET by_repeat_writer = true
         WHERE id IN
