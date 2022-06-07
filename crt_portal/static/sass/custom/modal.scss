@@ -1,4 +1,5 @@
 @use "uswds-core" as *;
+@use "variables" as *;
 
 // prevent scrolling when modal is open
 body.is-modal {

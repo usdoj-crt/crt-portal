@@ -1,4 +1,6 @@
 @use "uswds-core" as *;
+@use "layout" as *;
+@use "variables" as *;
 
 .crt-portal-card {
   @include u-radius('lg');

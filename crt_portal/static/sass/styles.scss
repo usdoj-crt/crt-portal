@@ -14,13 +14,14 @@
 
 // -------------------------------------
 // Import the necessary USWDS packages
-@forward "uswds";
+@use "uswds";
 
 // -------------------------------------
 // Import theme custom styles
 
 // layout needs to be first
 @forward "custom/layout";
+@forward "custom/variables";
 @forward "custom/card";
 @forward "custom/complaint";
 @forward "custom/alerts";
@@ -47,4 +48,3 @@
 @forward "custom/modal";
 @forward "custom/print";
 @forward "custom/error";
-@forward "custom/mixins";

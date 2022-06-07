@@ -1,4 +1,7 @@
 @use "uswds-core" as *;
+@use "layout" as *;
+@use "variables" as *;
+@use "form" as *;
 
 .intake-bg {
   @include u-bg($theme-color-primary-lightest);

@@ -5,6 +5,8 @@
 */
 
 @use "uswds-core" as *;
+@use "variables" as *;
+@use "layout" as *;
 
 // Variables
 $steps-width: 100%;

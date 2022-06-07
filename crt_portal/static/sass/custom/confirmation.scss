@@ -1,4 +1,6 @@
 @use "uswds-core" as *;
+@use "variables" as *;
+@use "layout" as *;
 
 .crt-success-card {
   @include u-radius('lg');

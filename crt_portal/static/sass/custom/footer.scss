@@ -1,10 +1,13 @@
 @use "uswds-core" as *;
-
+@use "variables" as *;
+@use "landing" as *;
 // Footer Styles
 footer {
   width: 100%; // IE11 fix
   color: color('white');
-
+  .usa-footer__secondary-section {
+    color: color('white');
+  }
   select,
   input {
     color: black;
