@@ -25,9 +25,9 @@ class CreateMockReports(TestCase):
         # create 50 reports that were by the user who already received the repeat writer email and that have distinct violation summaries
         letters = string.ascii_lowercase
         for _ in range(50):
-            SAMPLE_REPORT_3["violation_summary"] = ''.join(random.choice(letters) for i in range(10))
-            SAMPLE_REPORT_3["contact_email"] = repeat_writer1
-            Report.objects.create(**SAMPLE_REPORT_3)
+            SAMPLE_REPORT_2["violation_summary"] = ''.join(random.choice(letters) for i in range(10))
+            SAMPLE_REPORT_2["contact_email"] = repeat_writer1
+            Report.objects.create(**SAMPLE_REPORT_2)
         # Create another report with a new violation summary
         report_with_template = Report.objects.create(**SAMPLE_REPORT_4)
         repeat_writer2 = SAMPLE_REPORT_4["contact_email"]
@@ -39,6 +39,15 @@ class CreateMockReports(TestCase):
             Report.objects.create(**SAMPLE_REPORT_4)
 
     def test_flag_repeat_writers_only_email_actions(self):
+        flagged_reports = Report.objects.filter(by_repeat_writer=True).count()
+        self.assertEqual(flagged_reports, 0)
+        call_command('flag_repeat_writers')
+        flagged_reports = Report.objects.filter(by_repeat_writer=True).count()
+        self.assertEqual(flagged_reports, 202)
+
+    def test_flag_repeat_writers_for_49_reports(self):
+        for _ in range(48):
+            Report.objects.create(**SAMPLE_REPORT_3)
         flagged_reports = Report.objects.filter(by_repeat_writer=True).count()
         self.assertEqual(flagged_reports, 0)
         call_command('flag_repeat_writers')
