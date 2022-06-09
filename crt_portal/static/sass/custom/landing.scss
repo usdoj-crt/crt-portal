@@ -218,6 +218,10 @@ $arrow-height: 24px;
       display: inline-block;
     }
 
+    a:visited {
+      color: color('white');
+    }
+
     a:hover {
       color: color('white');
     }
