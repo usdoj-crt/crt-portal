@@ -384,6 +384,10 @@ jobs:
       - run:
           name: Refresh trends view
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends
+      # Mark by_repeat_writer true on reports that were submitted by repeat writers or which have violation summaries identical to other reports
+      - run:
+          name: Flag reports submitted by repeat writers or that have violation summaries identical to other reports
+          command: cf run-task crt-portal-django -c "python crt_portal/manage.py flag_repeat_writers" --name flag-repeat-writers
       # Clear expired sessions in staging session table
       - run:
           name: clearsessions management command
@@ -407,6 +411,10 @@ jobs:
       - run:
           name: Refresh form letters sent view
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_form_letters_sent_view" --name refresh-form-letters-sent-view
+      # Mark by_repeat_writer true on reports that were submitted by repeat writers or which have violation summaries identical to other reports
+      - run:
+          name: Flag reports submitted by repeat writers or that have violation summaries identical to other reports
+          command: cf run-task crt-portal-django -c "python crt_portal/manage.py flag_repeat_writers" --name flag-repeat-writers 
       # Refresh the trend view in staging
       - run:
           name: Refresh trends view
@@ -433,7 +441,11 @@ jobs:
       # Refresh the form letters sent view in dev
       - run:
           name: Refresh form letters sent view
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_form_letters_sent_view" --name refresh-form-letters-sent-view      
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_form_letters_sent_view" --name refresh-form-letters-sent-view
+      # Mark by_repeat_writer true on reports that were submitted by repeat writers or which have violation summaries identical to other reports
+      - run:
+          name: Flag reports submitted by repeat writers or that have violation summaries identical to other reports
+          command: cf run-task crt-portal-django -c "python crt_portal/manage.py flag_repeat_writers" --name flag-repeat-writers  
       # Refresh the trend view in dev
       - run:
           name: Refresh trends view
