@@ -65,6 +65,9 @@
         padding-right: 2rem !important;
       }
     }
+    .checkbox-all {
+      padding-bottom: 1.8rem;
+    }
   }
 
   tr {
@@ -125,7 +128,8 @@
     }
 
     .td-checkbox {
-      padding: 1rem 0;
+      background: transparent;
+      padding: 0;
     }
 
     .td-toggle {

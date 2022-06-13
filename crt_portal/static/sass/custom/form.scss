@@ -232,7 +232,8 @@ form#cts-forms-profile {
   .crt-radio__label_helper {
     line-height: 0.85rem;
     margin-bottom: 0;
-
+    display: inline;
+    
     .label-text {
       position: relative;
       bottom: 32px;
@@ -304,9 +305,16 @@ form#cts-forms-profile {
   .crt-checkbox__label {
     @extend .usa-checkbox__label;
     line-height: 1.5rem;
+    background: transparent;
 
     &:last-child {
       margin-bottom: 0;
+    }
+  }
+
+  #id_status {
+    .crt-checkbox__label {
+      background: color($theme-color-primary-lightest);
     }
   }
 

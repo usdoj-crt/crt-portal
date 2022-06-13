@@ -77,7 +77,7 @@
       color: color($theme-color-primary-darker);
       background: color($theme-color-warning) !important;
       margin-right: 1.5rem;
-
+      padding: 0.75rem 1.5rem 0.75rem 1rem;
       &.usa-button:visited {
         color: color($theme-color-primary-darker);
       }
@@ -515,7 +515,7 @@ form#cts-forms-profile {
   margin-right: 1rem;
   margin-bottom: 1rem;
   max-width: 50rem; /* This is an arbitrary number */
-
+  cursor: pointer;
   &--large {
     min-height: 2.5rem;
     padding-top: 1.5rem;
@@ -526,6 +526,7 @@ form#cts-forms-profile {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    font-weight: 700;
     line-height: 1.6; /* Prevent text from being clipped */
   }
 }
