@@ -35,12 +35,14 @@ services:
       - localstack
   localstack:
     container_name: "localstack_main"
-    image: localstack/localstack
+    image: localstack/localstack-full:latest
     ports:
       - "4566:4566"
     environment:
       - SERVICES=s3
-      # - DEBUG=1
+      ## - DEBUG=1
+      ## this will be deprecated in future community version of local-stack
+      - LEGACY_PERSISTENCE=1
       - DATA_DIR=/tmp/localstack/data
     volumes:
       - "localstack-vol:/tmp/localstack"
@@ -51,7 +53,7 @@ services:
        - 8025:8025 # web ui
      # command: -invite-jim=1 -jim-accept=0.50  # uncomment to enable and configure Jim (Chaos Monkey)
   clamav-rest:
-    image: ajilaag/clamav-rest:20201028
+    image: ajilaag/clamav-rest:20220511   # ## 20201028
     environment:
       - MAX_FILE_SIZE=100M
       - SIGNATURE_CHECKS=1
