@@ -562,6 +562,16 @@ form#cts-forms-profile {
   }
 }
 
+.bulk-action-back-button {
+  padding: 0.75rem 1.5rem 0.75rem 1rem;
+}
+
+#id_assigned_toaria-autocomplete-1-input {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #565C64;
+}
+
 #complaint-view-actions, #bulk_actions_section {
   .crt-dropdown {
     &.crt-dropdown__shrink-to-contents {
