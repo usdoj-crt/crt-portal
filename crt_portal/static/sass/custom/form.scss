@@ -236,8 +236,9 @@ form#cts-forms-profile {
     
     .label-text {
       position: relative;
-      bottom: 32px;
+      bottom: 37px;
       margin-bottom: -30px;
+      padding-left: 2rem;
     }
 
     .help-text--radio {
@@ -258,6 +259,7 @@ form#cts-forms-profile {
     &:before {
       top: 0;
       vertical-align: middle;
+      position: relative;
     }
 
     .label-text {
