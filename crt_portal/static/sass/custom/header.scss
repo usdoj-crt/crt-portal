@@ -44,4 +44,11 @@
   width: 100%;
   background-color: color($theme-color-primary-darker);
   padding-top: 1rem;
+  .usa-alert--warning {
+    padding: 1.2rem 1rem 1.1rem 0.85rem;
+    &::before {
+      left: 1.25rem;
+      top: 0.25rem;
+    }
+ }
 }
