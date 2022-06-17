@@ -26,7 +26,7 @@ RUN \
   apt-get update && \
   apt-get install -yqq nodejs && \
   pip install -U pip && pip install pipenv && \
-  npm i -g npm@8.5.5 && \
+  npm i -g npm@^8 && \
   pip --version && \
   npm -v && \
   node -v i  && \
