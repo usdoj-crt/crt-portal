@@ -4,11 +4,9 @@
        {% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}
        class="usa-radio__input"
        {% include "django/forms/widgets/attrs.html" %} />
-<label class="usa-radio__label crt-radio__label_helper"
+<label class="usa-radio__label"
        {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}
->
-  <div class="label-text margin-top-2">
-    <p class="margin-top-0 margin-bottom-0 radio-text-indent">{{ widget.label }}</p>
+>{{ widget.label }}
     {% if widget.attrs.help_text %}
       {% with help_text=widget.attrs.help_text|get_dict_item:widget.value %}
       {% if help_text %}
@@ -18,5 +16,4 @@
       {% endif %}
       {% endwith %}
     {% endif %}
-  </div>
 </label>

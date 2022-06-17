@@ -1,3 +1,6 @@
+@use "uswds-core" as *;
+@use "variables" as *;
+
 .crt-error-box {
   display: flex;
   align-items: flex-start;

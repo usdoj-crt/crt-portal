@@ -5,7 +5,7 @@
       {% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}
       class="usa-radio__input"
       {% include "django/forms/widgets/attrs.html" %} />
-<label class="crt-radio__label_area"
+<label class="usa-radio__label crt-radio__label_area"
       {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>
   <div class="label-text">
     <h3 class="question--label">

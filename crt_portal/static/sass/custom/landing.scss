@@ -1,3 +1,8 @@
+@use "uswds-core" as *;
+@use "layout" as *;
+@use "variables" as *;
+@use "card" as *;
+
 $arrow-height: 24px;
 
 .crt-landing--section {
@@ -165,7 +170,8 @@ $arrow-height: 24px;
   }
 
   .crt-menu--navbar {
-    @extend .usa-navbar;
+    position:relative;
+    width:33%;
     border-bottom: 0 !important;
   }
 
@@ -212,6 +218,10 @@ $arrow-height: 24px;
       display: inline-block;
     }
 
+    a:visited {
+      color: color('white');
+    }
+
     a:hover {
       color: color('white');
     }
@@ -223,7 +233,10 @@ $arrow-height: 24px;
   }
 
   .crt-landing--logo_subheading {
-    @extend .usa-footer__logo-subheading;
+    @include text--heading__small();
+    @include u-font-family('serif');
+    font-weight: bold;
+    margin: 0;
     font-size: $theme-text-font-size-xs;
     line-height: 1.2;
 
@@ -233,7 +246,10 @@ $arrow-height: 24px;
   }
 
   .crt-landing--logo_heading {
-    @extend .usa-footer__logo-heading;
+    @include text--heading__large();
+    @include u-font-family('serif');
+    font-weight: bold;
+    margin: 0;
     font-size: $theme-heading-font-size-md-mobile;
     line-height: 1.2;
 
@@ -297,7 +313,9 @@ $arrow-height: 24px;
   padding-top: 1.5rem;
   padding-bottom: 1rem;
   text-align: center;
-
+  .h3__display {
+    color: color($theme-color-warning);
+  }
   &_header {
     color: color($theme-color-warning);
     margin-top: 1rem;

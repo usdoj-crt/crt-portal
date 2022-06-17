@@ -1,3 +1,6 @@
+@use "uswds-core" as *;
+@use "variables" as *;
+
 // Django Formtools Wizard customization
 
 // Django wraps lot of elements in <li> by default
@@ -229,11 +232,13 @@ form#cts-forms-profile {
   .crt-radio__label_helper {
     line-height: 0.85rem;
     margin-bottom: 0;
-
+    display: inline;
+    
     .label-text {
       position: relative;
-      bottom: 32px;
+      bottom: 37px;
       margin-bottom: -30px;
+      padding-left: 2rem;
     }
 
     .help-text--radio {
@@ -254,6 +259,7 @@ form#cts-forms-profile {
     &:before {
       top: 0;
       vertical-align: middle;
+      position: relative;
     }
 
     .label-text {
@@ -301,9 +307,16 @@ form#cts-forms-profile {
   .crt-checkbox__label {
     @extend .usa-checkbox__label;
     line-height: 1.5rem;
+    background: transparent;
 
     &:last-child {
       margin-bottom: 0;
+    }
+  }
+
+  #id_status {
+    .crt-checkbox__label {
+      background: color($theme-color-primary-lightest);
     }
   }
 

@@ -4,6 +4,10 @@
   MIT Licensed: https://blog.codepen.io/legal/licensing/
 */
 
+@use "uswds-core" as *;
+@use "variables" as *;
+@use "layout" as *;
+
 // Variables
 $steps-width: 100%;
 

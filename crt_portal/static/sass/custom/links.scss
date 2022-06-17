@@ -1,6 +1,12 @@
+@use "uswds-core" as *;
+
 .external-link--white:after {
   padding-left: 0.25rem;
   content: url(../../img/ic_external-link-white.svg);
+}
+
+.external-link--white:visited {
+  color: #fff;
 }
 
 .external-link--blue:after {

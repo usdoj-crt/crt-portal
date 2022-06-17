@@ -1,0 +1,6 @@
+//extends.scss
+@use "uswds-core" as *;
+
+.usa-checkbox__label-extend {
+  @extend .usa-checkbox__label;
+}

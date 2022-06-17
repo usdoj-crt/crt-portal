@@ -1,3 +1,5 @@
+@use "uswds-core" as *;
+
 @mixin flex-container {
   align-items: center;
   display: flex;
