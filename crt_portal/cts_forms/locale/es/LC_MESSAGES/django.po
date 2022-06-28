@@ -1,14 +1,14 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-02-08 18:40+0000\n"
+"POT-Creation-Date: 2022-06-27 20:28+0000\n"
 "Language: SpanishMIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:183 forms.py:1680
+#: forms.py:183 forms.py:1679
 msgid " - Select - "
 msgstr " - Elija - "
 
@@ -127,27 +127,27 @@ msgstr ""
 "tomar las medidas apropiadas. Si sucedió a lo largo de un período de tiempo "
 "o todavía está sucediendo, favor de indicar la fecha más reciente."
 
-#: forms.py:1003
+#: forms.py:1004
 msgid "Assigned to"
 msgstr "Asignado a"
 
-#: forms.py:1019
+#: forms.py:1020
 #, fuzzy
 #| msgid "Incident location state"
 msgid "Incident state"
 msgstr "Estado en que ocurrió el incidente"
 
-#: forms.py:1027
+#: forms.py:1028
 msgid "Primary classification"
 msgstr "Clasificación principal"
 
-#: forms.py:1228
+#: forms.py:1229
 #, fuzzy
 #| msgid "Date can not be in the future."
 msgid "Create date cannot be in the future."
 msgstr "La fecha no puede ser en el futuro."
 
-#: forms.py:1413
+#: forms.py:1412
 msgid "Comment cannot be empty"
 msgstr ""
 
@@ -156,11 +156,11 @@ msgstr ""
 msgid "- Select -"
 msgstr "- Elija -"
 
-#: model_variables.py:9 model_variables.py:119 model_variables.py:289
+#: model_variables.py:9 model_variables.py:119 model_variables.py:302
 msgid "Yes"
 msgstr "Sí"
 
-#: model_variables.py:10 model_variables.py:120 model_variables.py:288
+#: model_variables.py:10 model_variables.py:120 model_variables.py:301
 msgid "No"
 msgstr "No"
 
@@ -448,7 +448,7 @@ msgstr ""
 "Obligado al trabajo sexual mediante a cambio de dinero mediante el abuso "
 "físico o acoso, otras amenazas de daño o el confiamiento."
 
-#: model_variables.py:102 model_variables.py:295
+#: model_variables.py:102 model_variables.py:308
 msgid "Federal"
 msgstr "Federal"
 
@@ -461,8 +461,8 @@ msgstr "Estatal o local"
 msgid "Both"
 msgstr "Ambas"
 
-#: model_variables.py:106 model_variables.py:297 model_variables.py:312
-#: model_variables.py:320 model_variables.py:337
+#: model_variables.py:106 model_variables.py:310 model_variables.py:325
+#: model_variables.py:333 model_variables.py:350
 msgid "I'm not sure"
 msgstr "No estoy seguro/a"
 
@@ -487,7 +487,7 @@ msgstr ""
 "físico, la retención de sueldos prometidos o la retención bajo un contrato "
 "laboral falso"
 
-#: model_variables.py:127 templates/landing.html:263
+#: model_variables.py:127 templates/landing.html:261
 msgid "Age"
 msgstr "Edad"
 
@@ -530,11 +530,11 @@ msgstr "Origen nacional (incluyendo ascendencia y etnia)"
 msgid "Pregnancy"
 msgstr "Embarazo"
 
-#: model_variables.py:136 templates/landing.html:256
+#: model_variables.py:136 templates/landing.html:254
 msgid "Race/color"
 msgstr "Raza/color de piel"
 
-#: model_variables.py:137 templates/landing.html:258
+#: model_variables.py:137 templates/landing.html:256
 msgid "Religion"
 msgstr "Religión"
 
@@ -564,31 +564,31 @@ msgstr ""
 "\"Ninguna de estas opciones se aplica a mí\" u \"Otro motivo\" y proporcione "
 "una explicación."
 
-#: model_variables.py:260
+#: model_variables.py:273
 msgid "Place of worship or about a place of worship"
 msgstr "Lugar de culto o acerca de un lugar de culto"
 
-#: model_variables.py:261
+#: model_variables.py:274
 msgid "Commercial or retail building"
 msgstr "Edificio comercial o de tiendas de venta al por menor"
 
-#: model_variables.py:262 model_variables.py:273
+#: model_variables.py:275 model_variables.py:286
 msgid "Healthcare facility"
 msgstr "Centro de atención médica"
 
-#: model_variables.py:263 model_variables.py:274
+#: model_variables.py:276 model_variables.py:287
 msgid "Financial institution"
 msgstr "Institución financiera"
 
-#: model_variables.py:264
+#: model_variables.py:277
 msgid "Public space"
 msgstr "Lugar público"
 
-#: model_variables.py:265 templatetags/commercial_public_space_view.py:17
+#: model_variables.py:278 templatetags/commercial_public_space_view.py:17
 msgid "Other"
 msgstr "Otro"
 
-#: model_variables.py:268
+#: model_variables.py:281
 msgid ""
 "Please select the type of location. If none of these apply to your "
 "situation, please select \"Other\"."
@@ -596,27 +596,27 @@ msgstr ""
 "Favor de elegir el tipo de localización. Si ninguno de estos se aplica a su "
 "situación, elija \"Otro\""
 
-#: model_variables.py:271
+#: model_variables.py:284
 msgid "Place of worship"
 msgstr "Lugar de culto"
 
-#: model_variables.py:272
+#: model_variables.py:285
 msgid "Commercial"
 msgstr "Comercial"
 
-#: model_variables.py:275
+#: model_variables.py:288
 msgid "Public outdoor space"
 msgstr "Lugar público al aire libre"
 
-#: model_variables.py:279
+#: model_variables.py:292
 msgid "Church, synagogue, temple, religious community center"
 msgstr "Iglesia, sinagoga, templo, centro religioso comunitario"
 
-#: model_variables.py:280
+#: model_variables.py:293
 msgid "Store, restaurant, bar, hotel, theater"
 msgstr "Tienda, restaurante, bar, hotel, teatro"
 
-#: model_variables.py:281
+#: model_variables.py:294
 msgid ""
 "Hospital or clinic (including inpatient and outpatient programs), "
 "reproductive care clinic, state developmental institution, nursing home"
@@ -625,11 +625,11 @@ msgstr ""
 "clínica de servicios de salud reproductiva, institución estatal de "
 "desarrollo, residencia de tercera edad"
 
-#: model_variables.py:282
+#: model_variables.py:295
 msgid "Bank, credit union, loan services"
 msgstr "Servicios de préstamo, cooperativa de crédito y bancarios"
 
-#: model_variables.py:283
+#: model_variables.py:296
 msgid ""
 "Park, sidewalk, street, other public buildings (courthouse, DMV, city "
 "library)"
@@ -637,353 +637,353 @@ msgstr ""
 "Parque, acera, calle, otros edificios comerciales (juzgado, Departamento de "
 "Vehículos Motorizados, biblioteca municipal)"
 
-#: model_variables.py:294
+#: model_variables.py:307
 msgid "State/local"
 msgstr "Estatal/local"
 
-#: model_variables.py:296
+#: model_variables.py:309
 msgid "Private"
 msgstr "Privado"
 
-#: model_variables.py:302
+#: model_variables.py:315
 msgid "Outside of prison"
 msgstr "Fuera de la cárcel"
 
-#: model_variables.py:304
+#: model_variables.py:317
 msgid "Prison (Federal)"
 msgstr "Cárcel (Federal)"
 
-#: model_variables.py:305
+#: model_variables.py:318
 msgid "Prison (Private)"
 msgstr "Cárcel (Privada)"
 
-#: model_variables.py:306
+#: model_variables.py:319
 msgid "Prison (I'm not sure)"
 msgstr "Cárcel (No estoy seguro/a)"
 
-#: model_variables.py:310
+#: model_variables.py:323
 msgid "Public employer"
 msgstr "Empleador público"
 
-#: model_variables.py:311
+#: model_variables.py:324
 msgid "Private employer"
 msgstr "Empleador privado"
 
-#: model_variables.py:315
+#: model_variables.py:328
 msgid "Please select what type of employer this is."
 msgstr "Elija el tipo de empleador del que se trata."
 
-#: model_variables.py:318
+#: model_variables.py:331
 msgid "Fewer than 15 employees"
 msgstr "Menos de 15 empleados"
 
-#: model_variables.py:319
+#: model_variables.py:332
 msgid "15 or more employees"
 msgstr "15 empleados o más"
 
-#: model_variables.py:323
+#: model_variables.py:336
 msgid "Please select how large the employer is."
 msgstr "Indique el tamaño del empleador"
 
-#: model_variables.py:335
+#: model_variables.py:348
 msgid "Public school or educational program"
 msgstr "Escuela pública o programa educativo"
 
-#: model_variables.py:336
+#: model_variables.py:349
 msgid "Private school or educational program"
 msgstr "Escuela privada o programa educativo"
 
-#: model_variables.py:342
+#: model_variables.py:355
 msgid "Alabama"
 msgstr "Alabama"
 
-#: model_variables.py:343
+#: model_variables.py:356
 msgid "Alaska"
 msgstr "Alaska"
 
-#: model_variables.py:344
+#: model_variables.py:357
 msgid "Arizona"
 msgstr "Arizona"
 
-#: model_variables.py:345
+#: model_variables.py:358
 msgid "Arkansas"
 msgstr "Arkansas"
 
-#: model_variables.py:346
+#: model_variables.py:359
 msgid "California"
 msgstr "California"
 
-#: model_variables.py:347
+#: model_variables.py:360
 msgid "Colorado"
 msgstr "Colorado"
 
-#: model_variables.py:348
+#: model_variables.py:361
 msgid "Connecticut"
 msgstr "Connecticut"
 
-#: model_variables.py:349
+#: model_variables.py:362
 msgid "Delaware"
 msgstr "Delaware"
 
-#: model_variables.py:350
+#: model_variables.py:363
 msgid "District of Columbia"
 msgstr "District of Columbia"
 
-#: model_variables.py:351
+#: model_variables.py:364
 msgid "Florida"
 msgstr "Florida"
 
-#: model_variables.py:352
+#: model_variables.py:365
 msgid "Georgia"
 msgstr "Georgia"
 
-#: model_variables.py:353
+#: model_variables.py:366
 msgid "Hawaii"
 msgstr "Hawaii"
 
-#: model_variables.py:354
+#: model_variables.py:367
 msgid "Idaho"
 msgstr "Idaho"
 
-#: model_variables.py:355
+#: model_variables.py:368
 msgid "Illinois"
 msgstr "Illinois"
 
-#: model_variables.py:356
+#: model_variables.py:369
 msgid "Indiana"
 msgstr "Indiana"
 
-#: model_variables.py:357
+#: model_variables.py:370
 msgid "Iowa"
 msgstr "Iowa"
 
-#: model_variables.py:358
+#: model_variables.py:371
 msgid "Kansas"
 msgstr "Kansas"
 
-#: model_variables.py:359
+#: model_variables.py:372
 msgid "Kentucky"
 msgstr "Kentucky"
 
-#: model_variables.py:360
+#: model_variables.py:373
 msgid "Louisiana"
 msgstr "Louisiana"
 
-#: model_variables.py:361
+#: model_variables.py:374
 msgid "Maine"
 msgstr "Maine"
 
-#: model_variables.py:362
+#: model_variables.py:375
 msgid "Maryland"
 msgstr "Maryland"
 
-#: model_variables.py:363
+#: model_variables.py:376
 msgid "Massachusetts"
 msgstr "Massachusetts"
 
-#: model_variables.py:364
+#: model_variables.py:377
 msgid "Michigan"
 msgstr "Michigan"
 
-#: model_variables.py:365
+#: model_variables.py:378
 msgid "Minnesota"
 msgstr "Minnesota"
 
-#: model_variables.py:366
+#: model_variables.py:379
 msgid "Mississippi"
 msgstr "Mississippi"
 
-#: model_variables.py:367
+#: model_variables.py:380
 msgid "Missouri"
 msgstr "Missouri"
 
-#: model_variables.py:368
+#: model_variables.py:381
 msgid "Montana"
 msgstr "Montana"
 
-#: model_variables.py:369
+#: model_variables.py:382
 msgid "Nebraska"
 msgstr "Nebraska"
 
-#: model_variables.py:370
+#: model_variables.py:383
 msgid "Nevada"
 msgstr "Nevada"
 
-#: model_variables.py:371
+#: model_variables.py:384
 msgid "New Hampshire"
 msgstr "New Hampshire"
 
-#: model_variables.py:372
+#: model_variables.py:385
 msgid "New Jersey"
 msgstr "New Jersey"
 
-#: model_variables.py:373
+#: model_variables.py:386
 msgid "New Mexico"
 msgstr "New México"
 
-#: model_variables.py:374
+#: model_variables.py:387
 msgid "New York"
 msgstr "New York"
 
-#: model_variables.py:375
+#: model_variables.py:388
 msgid "North Carolina"
 msgstr "North Carolina"
 
-#: model_variables.py:376
+#: model_variables.py:389
 msgid "North Dakota"
 msgstr "North Dakota"
 
-#: model_variables.py:377
+#: model_variables.py:390
 msgid "Ohio"
 msgstr "Ohio"
 
-#: model_variables.py:378
+#: model_variables.py:391
 msgid "Oklahoma"
 msgstr "Oklahoma"
 
-#: model_variables.py:379
+#: model_variables.py:392
 msgid "Oregon"
 msgstr "Oregón"
 
-#: model_variables.py:380
+#: model_variables.py:393
 msgid "Pennsylvania"
 msgstr "Pennsylvania"
 
-#: model_variables.py:381
+#: model_variables.py:394
 msgid "Rhode Island"
 msgstr "Rhode Island"
 
-#: model_variables.py:382
+#: model_variables.py:395
 msgid "South Carolina"
 msgstr "South Carolina"
 
-#: model_variables.py:383
+#: model_variables.py:396
 msgid "South Dakota"
 msgstr "South Dakota"
 
-#: model_variables.py:384
+#: model_variables.py:397
 msgid "Tennessee"
 msgstr "Tennessee"
 
-#: model_variables.py:385
+#: model_variables.py:398
 msgid "Texas"
 msgstr "Texas"
 
-#: model_variables.py:386
+#: model_variables.py:399
 msgid "Utah"
 msgstr "Utah"
 
-#: model_variables.py:387
+#: model_variables.py:400
 msgid "Vermont"
 msgstr "Vermont"
 
-#: model_variables.py:388
+#: model_variables.py:401
 msgid "Virginia"
 msgstr "Virginia"
 
-#: model_variables.py:389
+#: model_variables.py:402
 msgid "Washington"
 msgstr "Washington"
 
-#: model_variables.py:390
+#: model_variables.py:403
 msgid "West Virginia"
 msgstr "West Virginia"
 
-#: model_variables.py:391
+#: model_variables.py:404
 msgid "Wisconsin"
 msgstr "Wisconsin"
 
-#: model_variables.py:392
+#: model_variables.py:405
 msgid "Wyoming"
 msgstr "Wyoming"
 
-#: model_variables.py:393
+#: model_variables.py:406
 msgid "American Samoa"
 msgstr "American Samoa"
 
-#: model_variables.py:394
+#: model_variables.py:407
 msgid "Guam"
 msgstr "Guam"
 
-#: model_variables.py:395
+#: model_variables.py:408
 msgid "Northern Mariana Islands"
 msgstr "Northern Mariana Islands"
 
-#: model_variables.py:396
+#: model_variables.py:409
 msgid "Puerto Rico"
 msgstr "Puerto Rico"
 
-#: model_variables.py:397
+#: model_variables.py:410
 msgid "Virgin Islands"
 msgstr "Virgin Islands"
 
-#: model_variables.py:398
+#: model_variables.py:411
 msgid "Armed Forces Africa"
 msgstr "Armed Forces Africa"
 
-#: model_variables.py:399
+#: model_variables.py:412
 msgid "Armed Forces Americas"
 msgstr "Armed Forces Americas"
 
-#: model_variables.py:400
+#: model_variables.py:413
 msgid "Armed Forces Canada"
 msgstr "Armed Forces Canada"
 
-#: model_variables.py:401
+#: model_variables.py:414
 msgid "Armed Forces Europe"
 msgstr "Armed Forces Europe"
 
-#: model_variables.py:402
+#: model_variables.py:415
 msgid "Armed Forces Middle East"
 msgstr "Armed Forces Middle East"
 
-#: model_variables.py:403
+#: model_variables.py:416
 msgid "Armed Forces Pacific"
 msgstr "Armed Forces Pacific"
 
-#: model_variables.py:406
+#: model_variables.py:419
 msgid "Please provide description to continue"
 msgstr "Para continuar, proporcione una descripción"
 
-#: model_variables.py:407
+#: model_variables.py:420
 msgid "Please select a primary reason to continue."
 msgstr "Para continuar, elija un motivo principal."
 
-#: model_variables.py:411
+#: model_variables.py:424
 msgid "Please enter the name of the location where this took place."
 msgstr "Introduzca el nombre del lugar dónde esto sucedió."
 
-#: model_variables.py:412
+#: model_variables.py:425
 msgid "Please enter the city or town where this took place."
 msgstr "Introduzca el nombre de la ciudad o el pueblo dónde esto sucedió."
 
-#: model_variables.py:413
+#: model_variables.py:426
 msgid "Please select the state where this took place."
 msgstr "Elija el estado dónde esto sucedió."
 
-#: model_variables.py:417
+#: model_variables.py:430
 msgid "Please select where this occurred"
 msgstr "Elija dónde esto sucedió"
 
-#: model_variables.py:418
+#: model_variables.py:431
 msgid "Please select the type of location"
 msgstr "Elija el tipo de lugar"
 
-#: model_variables.py:430
+#: model_variables.py:443
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr ""
 "Debe introducir un mes y un año. Favor de seguir el formato MM/DD/AAAA."
 
-#: model_variables.py:433
+#: model_variables.py:446
 msgid "Please enter a month."
 msgstr "Introduzca un mes."
 
-#: model_variables.py:434
+#: model_variables.py:447
 msgid "Please enter a valid month. Month must be between 1 and 12."
 msgstr ""
 "Introduzca un mes válido. El mes tiene que caer entre las cifras 1 y 12."
 
-#: model_variables.py:436
+#: model_variables.py:449
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
@@ -991,27 +991,27 @@ msgstr ""
 "Introduzca un día válido del mes. El día tiene que caer entre el 1 y el "
 "último día del mes."
 
-#: model_variables.py:437
+#: model_variables.py:450
 msgid "Please enter a year."
 msgstr "Introduzca el año."
 
-#: model_variables.py:438
+#: model_variables.py:451
 msgid "Date can not be in the future."
 msgstr "La fecha no puede ser en el futuro."
 
-#: model_variables.py:439
+#: model_variables.py:452
 msgid "Please enter a year after 1900."
 msgstr "Introduzca un año después de 1900"
 
-#: model_variables.py:441
+#: model_variables.py:454
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
 msgstr "Introduzca una fecha válida. Utilice el formato MM/DD/AAAA."
 
-#: model_variables.py:445
+#: model_variables.py:458
 msgid "Please select the type of election or voting activity."
 msgstr "Elija el tipo de elecciones o actividad relacionada con el voto"
 
-#: model_variables.py:558
+#: model_variables.py:573
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
@@ -1240,17 +1240,17 @@ msgstr ""
 "variedad de entornos como la vivienda, el lugar de trabajo, la escuela, la "
 "votación, los negocios, la atención médica, los espacios públicos y más."
 
-#: templates/base.html:78
+#: templates/base.html:77
 msgid "Skip to main content"
 msgstr "Pasar directamente al contenido principal"
 
-#: templates/base.html:132 templates/forms/errors.html:13
+#: templates/base.html:131 templates/forms/errors.html:13
 #: templates/forms/report_maintenance.html:13 templates/landing.html:10
 #: templates/landing.html:17
 msgid "U.S. Department of Justice"
 msgstr "Departamento de Justicia de los EE. UU."
 
-#: templates/base.html:135 templates/forms/confirmation.html:21
+#: templates/base.html:134 templates/forms/confirmation.html:21
 #: templates/forms/errors.html:14 templates/forms/report_maintenance.html:14
 #: templates/landing.html:10 templates/landing.html:20
 msgid "Civil Rights Division"
@@ -1383,7 +1383,7 @@ msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr ""
 "Estamos recibiendo y revisando activamente muchas solicitudes a la vez."
 
-#: templates/forms/confirmation.html:134 templates/landing.html:359
+#: templates/forms/confirmation.html:134 templates/landing.html:357
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1421,11 +1421,17 @@ msgstr ""
 "su estado podrían ayudarle con su motivo de preocupación."
 
 #: templates/forms/confirmation.html:158
+#, fuzzy
+#| msgid ""
+#| "American Bar Association, visit <a class=\"external-link--blue external-"
+#| "link--popup\" aria-label=\"www.findlegalhelp.org\" href=\"http://www."
+#| "findlegalhelp.org\">www.findlegalhelp.org</a> or call <a href="
+#| "\"tel:800-285-2221\">(800) 285-2221</a>"
 msgid ""
 "American Bar Association, visit <a class=\"external-link--blue external-"
-"link--popup\" aria-label=\"www.findlegalhelp.org\" href=\"http://www."
-"findlegalhelp.org\">www.findlegalhelp.org</a> or call <a href="
-"\"tel:800-285-2221\">(800) 285-2221</a>"
+"link--popup\" href=\"https://www.americanbar.org/groups/legal_services/flh-"
+"home/\">www.americanbar.org/groups/legal_services/flh-home</a> or call <a "
+"href=\"tel:800-285-2221\">(800) 285-2221</a>"
 msgstr ""
 "American Bar Association [Colegio de Abogados de los Estados Unidos], vaya a "
 "<a class=\"external-link--blue external-link--popup\" aria-label=\"www."
@@ -1701,26 +1707,28 @@ msgstr ""
 "con delitos de odio y la trata de personas"
 
 #: templates/hate_crime_human_trafficking.html:25
-msgid "How do I…"
-msgstr "¿Cómo puedo…?"
+#, fuzzy
+#| msgid "Get help NOW!"
+msgid "Get help"
+msgstr "¡Consiga ayuda AHORA!"
 
-#: templates/hate_crime_human_trafficking.html:28
+#: templates/hate_crime_human_trafficking.html:29
 msgid "Report a hate crime"
 msgstr "Denunciar un delito de odio"
 
-#: templates/hate_crime_human_trafficking.html:31
+#: templates/hate_crime_human_trafficking.html:32
 msgid "Report human trafficking"
 msgstr "Denunciar la trata de personas"
 
-#: templates/hate_crime_human_trafficking.html:37
+#: templates/hate_crime_human_trafficking.html:39
 msgid "Get help for hate crimes and human trafficking"
 msgstr "Consiga ayuda con delitos de odio y la trata de personas"
 
-#: templates/hate_crime_human_trafficking.html:42
+#: templates/hate_crime_human_trafficking.html:44
 msgid "Where to report a hate crime"
 msgstr "Dónde denunciar un delito de odio"
 
-#: templates/hate_crime_human_trafficking.html:44
+#: templates/hate_crime_human_trafficking.html:46
 msgid ""
 "A hate crime is violence or threats of violence based on race, color, "
 "national origin, religion, gender, sexual orientation, gender identity, or "
@@ -1730,23 +1738,23 @@ msgstr ""
 "de raza, color de piel, origen nacional, religión, género, orientación "
 "sexual, identidad de género o discapacidad."
 
-#: templates/hate_crime_human_trafficking.html:48
+#: templates/hate_crime_human_trafficking.html:50
 msgid "In cases of emergency, contact 911"
 msgstr "En casos de emergencia, llame al 911"
 
-#: templates/hate_crime_human_trafficking.html:53
+#: templates/hate_crime_human_trafficking.html:55
 msgid "Otherwise, contact the FBI online"
 msgstr "De lo contrario, puede comunicarse con el FBI en línea"
 
-#: templates/hate_crime_human_trafficking.html:58
+#: templates/hate_crime_human_trafficking.html:60
 msgid "Or a local field office by phone"
 msgstr "O llamando a alguna de sus oficinas locales"
 
-#: templates/hate_crime_human_trafficking.html:64
+#: templates/hate_crime_human_trafficking.html:66
 msgid "Where to report human trafficking"
 msgstr "Dónde denunciar la trata de personas"
 
-#: templates/hate_crime_human_trafficking.html:66
+#: templates/hate_crime_human_trafficking.html:68
 msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
@@ -1755,9 +1763,17 @@ msgstr ""
 "obligar o coaccionar a alguien a realizar actos sexuales a cambio de algo de "
 "valor."
 
-#: templates/hate_crime_human_trafficking.html:70 templates/landing.html:233
+#: templates/hate_crime_human_trafficking.html:72 templates/landing.html:233
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "Consiga ayuda de la Línea Directa Nacional contra la Trata de Personas"
+
+#: templates/hce_resources.html:7 templates/hce_resources.html:14
+#, fuzzy
+#| msgid "Civil Rights Division - Department of Justice - Privacy Policy"
+msgid "Civil Rights Division - Department of Justice - Get resources"
+msgstr ""
+"La División de Derechos Civiles - Departamento de Justicia - Política de "
+"privacidad"
 
 #: templates/landing.html:30
 msgid "Menu"
@@ -1810,7 +1826,7 @@ msgstr ""
 "Si cree que sus derechos civiles o los de otra persona han sido vulnerados, "
 "envíe un informe mediante nuestro formulario en línea."
 
-#: templates/landing.html:91 templates/landing.html:332
+#: templates/landing.html:91 templates/landing.html:330
 msgid "Start a report"
 msgstr "Inicie el proceso de querella"
 
@@ -1830,13 +1846,13 @@ msgstr ""
 msgid ""
 "If you are reporting misconduct by law enforcement or believe you have "
 "experienced a hate crime, please <a aria-label=\"contact the FBI\" class="
-"\"external-link--white\" href=\"https://www.fbi.gov/tips\">contact the FBI</"
-"a>."
+"\"external-link--white\" href=\"https://www.fbi.gov/contact-us\">contact the "
+"FBI</a>."
 msgstr ""
 "Si usted está informando de un caso de conducta impropia por parte de los "
 "cuerpos del orden público o si cree haber sido víctima de un delito de odio, "
 "<a aria-label=\"debe comunicarse con el FBI\"class=\"crt-external--link\" "
-"href=\"https://www.fbi.gov/tips\">debe comunicarse con el FBI</a>."
+"href=\"https://www.fbi.gov/contact-us\">debe comunicarse con el FBI</a>."
 
 #: templates/landing.html:130
 msgid "We protect your rights through:"
@@ -1949,7 +1965,7 @@ msgstr "Consiga ayuda en relación con un delito de odio"
 msgid "Were you forced to work against your will?"
 msgstr "¿Le obligaron a trabajar en contra de su voluntad?"
 
-#: templates/landing.html:242
+#: templates/landing.html:240
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
@@ -1958,17 +1974,17 @@ msgstr ""
 "\"#crt-landing--reporting\">cómo informar una querella por una vulneración "
 "de sus derechos civiles</a>."
 
-#: templates/landing.html:252
+#: templates/landing.html:250
 msgid "Protected by civil rights laws"
 msgstr "Protecciones en virtud de las leyes de derechos civiles"
 
-#: templates/landing.html:254
+#: templates/landing.html:252
 msgid "These are the most common characteristics that are legally protected."
 msgstr ""
 "Estas son las características más comunes que son protegidas al amparo de la "
 "ley."
 
-#: templates/landing.html:257
+#: templates/landing.html:255
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
@@ -1977,15 +1993,15 @@ msgstr ""
 "personas con discapacidades temporales o que se están recuperando de una "
 "discapacidad</span>"
 
-#: templates/landing.html:259
+#: templates/landing.html:257
 msgid "Sex, gender identity, and sexual orientation"
 msgstr "Género, identidad de género y orientación sexual"
 
-#: templates/landing.html:260
+#: templates/landing.html:258
 msgid "Immigration/citizenship status"
 msgstr "Estatus migratorio/de ciudadanía"
 
-#: templates/landing.html:261
+#: templates/landing.html:259
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
@@ -1993,7 +2009,7 @@ msgstr ""
 "Idioma y origen nacional <span class=\"crt-landing--protected\">Incluye "
 "ascendencia y etnia</span>"
 
-#: templates/landing.html:262
+#: templates/landing.html:260
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
@@ -2001,19 +2017,19 @@ msgstr ""
 "Estatus familiar, civil o parental <span class=\"crt-landing--protected"
 "\">Incluye el embarazo</span>"
 
-#: templates/landing.html:264
+#: templates/landing.html:262
 msgid "Genetic identification"
 msgstr "Información genética"
 
-#: templates/landing.html:265
+#: templates/landing.html:263
 msgid "Servicemember status"
 msgstr "Estatus como miembro de las fuerzas armadas"
 
-#: templates/landing.html:279
+#: templates/landing.html:277
 msgid "How to report a civil rights violation"
 msgstr "Como informar de una vulneración de los derechos civiles"
 
-#: templates/landing.html:284
+#: templates/landing.html:282
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
@@ -2021,11 +2037,11 @@ msgstr ""
 "Si cree que usted u otra persona ha sido discriminado/a ilegalmente, puede "
 "informar de una vulneración de los derechos civiles."
 
-#: templates/landing.html:293
+#: templates/landing.html:291
 msgid "Report using our online form."
 msgstr "Informarnos mediante nuestro formulario virtual."
 
-#: templates/landing.html:294
+#: templates/landing.html:292
 msgid ""
 "By completing the online form, you can provide the details we need to "
 "understand what happened. You will receive a confirmation number and your "
@@ -2036,11 +2052,11 @@ msgstr ""
 "confirmación y su informe se enviará directamente a nuestro personal para "
 "ser revisado."
 
-#: templates/landing.html:302
+#: templates/landing.html:300
 msgid "We review your report."
 msgstr "Revisamos su informe"
 
-#: templates/landing.html:303
+#: templates/landing.html:301
 msgid ""
 "Teams that specialize in handling your type of issue will review it. If it "
 "needs to be forwarded to another team or agency, we will try to connect your "
@@ -2050,11 +2066,11 @@ msgstr ""
 "Si hay que remitirlo a otro equipo u agencia, intentaremos enviaremos su "
 "querella al grupo correcto."
 
-#: templates/landing.html:311
+#: templates/landing.html:309
 msgid "We determine next steps and get back to you."
 msgstr "Determinamos los próximos pasos y le respondemos a usted."
 
-#: templates/landing.html:312
+#: templates/landing.html:310
 msgid ""
 "Possible outcomes include: following up for more information, starting a "
 "mediation or investigation, directing you to another organization for "
@@ -2065,13 +2081,13 @@ msgstr ""
 "a otra organización para buscar ayuda adicional o informarle que no podremos "
 "ayudar."
 
-#: templates/landing.html:331
+#: templates/landing.html:329
 msgid "Have you or someone you know experienced a civil rights violation?"
 msgstr ""
 "¿Usted u otra persona ha sido víctima de una vulneración de sus derechos "
 "civiles?"
 
-#: templates/landing.html:337
+#: templates/landing.html:335
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
@@ -2081,15 +2097,15 @@ msgstr ""
 "footer\">llamar</a> para reportar una vulneración o bien puede reportar una "
 "vulneración por <a href=\"#address-footer\">correo ordinario</a>."
 
-#: templates/landing.html:347
+#: templates/landing.html:345
 msgid "Already submitted a report?"
 msgstr "¿Ya presentó un informe?"
 
-#: templates/landing.html:350
+#: templates/landing.html:348
 msgid "Here's what to expect."
 msgstr "Puede esperar lo siguiente."
 
-#: templates/landing.html:354
+#: templates/landing.html:352
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
@@ -2100,22 +2116,22 @@ msgstr ""
 "determinar si podemos ayudar. Nos esforzamos por notificarle del resultado "
 "de nuestro repaso. No obstante, no siempre podremos actualizarle porque:"
 
-#: templates/landing.html:356
+#: templates/landing.html:354
 msgid ""
 "We're actively working on an investigation or case related to your report."
 msgstr ""
 "Estamos trabajando activamente en una investigación o un caso relacionado "
 "con su informe."
 
-#: templates/landing.html:357
+#: templates/landing.html:355
 msgid "We're receiving and actively reviewing many reports at the same time."
 msgstr "Estamos recibiendo y repasando muchos informes a la vez."
 
-#: templates/landing.html:364
+#: templates/landing.html:362
 msgid "Need urgent legal help?"
 msgstr "¿Necesita ayuda legal urgente?"
 
-#: templates/landing.html:366
+#: templates/landing.html:364
 msgid ""
 "Due to the amount of reports we receive, it can take several weeks for us to "
 "respond to your issue. Local legal aid offices or lawyers in your area may "
@@ -2125,7 +2141,7 @@ msgstr ""
 "semanas en responderle. Oficinas locales de asistencia legal en su zona "
 "podrán responder rápido o ayudarle con su motivo de preocupación."
 
-#: templates/landing.html:367
+#: templates/landing.html:365
 msgid ""
 "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
 "aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
@@ -2137,19 +2153,26 @@ msgstr ""
 "\"https://lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> o llame al <a "
 "href=\"tel:202-295-1500\">(202) 295-1500</a>."
 
-#: templates/landing.html:368
+#: templates/landing.html:366
+#, fuzzy
+#| msgid ""
+#| "Or visit <a class=\"external-link--blue external-link--popup\" aria-label="
+#| "\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
+#| "findlegalhelp.org</a> or call <a href=\"tel:800-285-2221\">(800) "
+#| "285-2221</a> to find a lawyer through the American Bar Association."
 msgid ""
-"Or visit <a class=\"external-link--blue external-link--popup\" aria-label="
-"\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
-"findlegalhelp.org</a> or call <a href=\"tel:800-285-2221\">(800) 285-2221</"
-"a> to find a lawyer through the American Bar Association."
+"Or visit <a class=\"external-link--blue external-link--popup american-bar-"
+"link\" href=\"https://www.americanbar.org/groups/legal_services/flh-home/"
+"\">www.americanbar.org/groups/legal_services/flh-home</a> or call <a href="
+"\"tel:800-285-2221\">(800) 285-2221</a> to find a lawyer through the "
+"American Bar Association."
 msgstr ""
 "Por otra parte, puede ir a <a class=\"external-link--blue external-link--"
 "popup\" href=\"http://www.findlegalhelp.org/\">www.findlegalhelp.org</a> o "
 "llamar al <a href=\"tel:800-285-2221\">(800) 285-2221</a> para localizar a "
 "un abogado a través del Colegio de Abogados Estadounidense. "
 
-#: templates/landing.html:382
+#: templates/landing.html:380
 msgid "Image attributions"
 msgstr ""
 
@@ -2380,19 +2403,19 @@ msgstr ""
 "La División de Derechos Civiles - Departamento de Justicia - Política de "
 "privacidad"
 
-#: templates/privacy.html:23 templates/privacy.html:34
+#: templates/privacy.html:23 templates/privacy.html:36
 msgid "Privacy Act Statement"
 msgstr "Declaración sobre la ley de Privacidad"
 
-#: templates/privacy.html:26
+#: templates/privacy.html:27
 msgid "Your information"
 msgstr "Su información"
 
-#: templates/privacy.html:29
+#: templates/privacy.html:30
 msgid "Our Statutes"
 msgstr "Nuestras leyes"
 
-#: templates/privacy.html:37
+#: templates/privacy.html:39
 msgid ""
 "The information you provide through this form will help the Department of "
 "Justice’s Civil Rights Division (“us,” “we”) enforce the federal civil "
@@ -2402,7 +2425,7 @@ msgstr ""
 "División de Derechos Civiles del Departamento de Justicia (nosotros, nos) a "
 "hacer cumplir las leyes federales de derechos civiles de su competencia."
 
-#: templates/privacy.html:40
+#: templates/privacy.html:42
 msgid ""
 "In addition to our enforcement efforts, we may use the information you "
 "provide on this form for certain routine purposes. These include sharing "
@@ -2412,7 +2435,7 @@ msgstr ""
 "información que proporciona en este formulario para ciertos fines "
 "rutinarios. Estos incluyen compartirla con:"
 
-#: templates/privacy.html:42
+#: templates/privacy.html:44
 msgid ""
 "\n"
 "                    <li>\n"
@@ -2471,16 +2494,16 @@ msgstr ""
 "                    </li>\n"
 "                    "
 
-#: templates/privacy.html:65
+#: templates/privacy.html:67
 msgid ""
 "For a complete list of routine agency uses, please consult the following:"
 msgstr "Para una lista completa de usos agenciales rutinarios, véanse:"
 
-#: templates/privacy.html:74
+#: templates/privacy.html:76
 msgid "You should also know that:"
 msgstr "Por otra parte, se le avisa que:"
 
-#: templates/privacy.html:76
+#: templates/privacy.html:78
 msgid ""
 "\n"
 "                    <li>Any information you provide to us through this form "
@@ -2510,11 +2533,11 @@ msgstr ""
 "                    "
 
 # don't have this
-#: templates/privacy.html:85 templates/privacy.html:146
+#: templates/privacy.html:87 templates/privacy.html:148
 msgid "Return to top"
 msgstr "Volver al principio"
 
-#: templates/privacy.html:88
+#: templates/privacy.html:90
 msgid ""
 "We are authorized to collect this information pursuant to the following "
 "statutes:"
@@ -2522,7 +2545,7 @@ msgstr ""
 "En virtud de los siguientes estatutos, estamos autorizados para recopilar "
 "estos datos:"
 
-#: templates/privacy.html:90
+#: templates/privacy.html:92
 msgid ""
 "\n"
 "                    <li>Official Misconduct, 18 U.S.C. §§ 241, 242</li>\n"
@@ -2715,7 +2738,7 @@ msgstr ""
 "1964</li>\n"
 "                    "
 
-#: templates/privacy.html:142
+#: templates/privacy.html:144
 msgid ""
 "\n"
 "                The full list of routine uses for this correspondence can be "
@@ -2817,6 +2840,9 @@ msgstr ""
 "problema. Si sabe que se permiten las cookies y tiene este problema, intente "
 "acceder a esta página en otra pestaña o ventana en su navegador. Eso le "
 "creará otra cookie de seguridad y debería resolver el problema."
+
+#~ msgid "How do I…"
+#~ msgstr "¿Cómo puedo…?"
 
 #~ msgid "Continued"
 #~ msgstr "Continuado"

@@ -71,7 +71,7 @@ FBI 可能可以帮助您。您可以通过以下任何一种方式与 FBI 联�
 
 在线：
 
-www.fbi.gov/tips
+www.fbi.gov/contact-us
 
 电话或面谈：
 
