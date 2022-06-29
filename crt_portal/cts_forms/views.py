@@ -776,7 +776,7 @@ class ProFormView(LoginRequiredMixin, SessionWizardView):
             'Incident location',
             'Personal characteristics',
             'Date',
-            'Summary',
+            'Personal Description',
         ]
 
         context.update({
