@@ -5,6 +5,12 @@
 
 $arrow-height: 24px;
 
+.crt-landing--logo_section  {
+  p.crt-landing--logo_heading {
+    font-size: 1.25rem;
+  }
+}
+
 .crt-landing--emergency_contact .crt-external--link {
     color: #fff;
   &::after {
@@ -12,7 +18,13 @@ $arrow-height: 24px;
   content: url(../../img/ic_external-link-white.svg);
 }
 }
-
+.crt-landing--header {
+  .crt-landing--header_section {
+    .tablet-menu-button {
+      margin-top: .5rem;
+    }
+  }
+}
 .crt-landing--section {
   padding-top: 3rem;
   padding-bottom: 3rem;
