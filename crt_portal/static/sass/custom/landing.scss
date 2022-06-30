@@ -7,7 +7,9 @@ $arrow-height: 24px;
 
 .crt-landing--logo_section  {
   p.crt-landing--logo_heading {
-    font-size: 1.25rem;
+    @include at-media-max(mobile-lg) {
+      font-size: 1.25rem;
+    }
   }
 }
 
