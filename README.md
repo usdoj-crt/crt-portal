@@ -37,8 +37,8 @@ Clone the project locally:
 
 In the top level directory create a .env file in the top of your directory and add the following environment variables. Set `SECRET_KEY` to a long, random string and `POSTGRES_PASSWORD` to any string you like.
 
-    SECRET_KEY=this_is_a_long_random_string
-    POSTGRES_PASSWORD=rando_pw
+    SECRET_KEY="this_is_a_long_random_string"
+    POSTGRES_PASSWORD="rando_pw"
 
 To build the project
     You will need to build the project for the first time and when there are package updates to apply.

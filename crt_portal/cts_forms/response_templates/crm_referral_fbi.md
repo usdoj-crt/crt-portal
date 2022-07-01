@@ -23,7 +23,7 @@ The FBI may be able to help in your situation. You can contact the FBI by any of
 
 Online:
 
-www.fbi.gov/tips
+www.fbi.gov/contact-us
 
 By phone or in-person:
 

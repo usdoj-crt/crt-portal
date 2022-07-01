@@ -1,12 +1,16 @@
 // Alert Overrides
 
+@use "uswds-core" as *;
+
 .page-errors {
   font-weight: bold;
   color: color($theme-color-secondary-dark);
 }
 
-.usa-alert--error {
-  background-image: url(../../img/alerts/error-red.svg), linear-gradient(transparent, transparent);
+.usa-alert--error:before {
+    background: url(../../img/alerts/error-red.svg) no-repeat center/contain !important;
+    -webkit-mask: url(../../img/alerts/error-red.svg) no-repeat center/contain;
+    mask: url(../../img/alerts/error-red.svg) no-repeat center/contain;
 }
 
 #word-limit-alert.usa-alert.usa-alert--warning {

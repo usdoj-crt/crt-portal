@@ -1,3 +1,8 @@
+@use "uswds-core" as *;
+@use "layout" as *;
+@use "variables" as *;
+@use "form" as *;
+
 .intake-bg {
   @include u-bg($theme-color-primary-lightest);
   .intake-section-title {
@@ -72,7 +77,7 @@
       color: color($theme-color-primary-darker);
       background: color($theme-color-warning) !important;
       margin-right: 1.5rem;
-
+      padding: 0.75rem 1.5rem 0.75rem 1rem;
       &.usa-button:visited {
         color: color($theme-color-primary-darker);
       }
@@ -482,6 +487,7 @@ form#cts-forms-profile {
 
   &--dark {
     @include icon-dark();
+    padding: 0.75rem 1.5rem 0.75rem 1rem;
   }
 
   .icon {
@@ -500,6 +506,12 @@ form#cts-forms-profile {
   }
 }
 
+.complaint-filter-navigation {
+  .outline-button {
+    padding: 0.75rem 1.5rem 0.75rem 1rem;
+  }
+}
+
 .filter-tag {
   @extend .outline-button;
   @include icon-dark();
@@ -510,7 +522,7 @@ form#cts-forms-profile {
   margin-right: 1rem;
   margin-bottom: 1rem;
   max-width: 50rem; /* This is an arbitrary number */
-
+  cursor: pointer;
   &--large {
     min-height: 2.5rem;
     padding-top: 1.5rem;
@@ -521,6 +533,7 @@ form#cts-forms-profile {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    font-weight: 700;
     line-height: 1.6; /* Prevent text from being clipped */
   }
 }
@@ -556,7 +569,20 @@ form#cts-forms-profile {
   }
 }
 
+.bulk-action-back-button {
+  padding: 0.75rem 1.5rem 0.75rem 1rem;
+}
+
+#id_assigned_toaria-autocomplete-1-input {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  border: 1px solid #565C64;
+}
+
 #complaint-view-actions, #bulk_actions_section {
+  .usa-checkbox__label::before {
+    position: relative;
+  }
   .crt-dropdown {
     &.crt-dropdown__shrink-to-contents {
       select {
@@ -634,6 +660,7 @@ form#cts-forms-profile {
 
   button {
     margin: 0.5rem 0.5rem 0.5rem 0;
+    padding: 0.75rem 1.5rem 0.75rem 1rem;
   }
 
   .icon {

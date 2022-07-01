@@ -9,50 +9,42 @@
 */
 
 // -------------------------------------
-// Import individual theme settings
-
-@import "uswds-theme-general";
-@import "uswds-theme-typography";
-@import "uswds-theme-spacing";
-@import "uswds-theme-color";
-@import "uswds-theme-utilities";
-
-// components import needs to be last
-@import "uswds-theme-components";
+// Import theme settings
+@forward "uswds-theme";
 
 // -------------------------------------
-// Import the complete USWDS kit
-
-@import "uswds";
+// Import the necessary USWDS packages
+@forward "uswds";
 
 // -------------------------------------
 // Import theme custom styles
 
 // layout needs to be first
-@import "custom/layout";
-@import "custom/card";
-@import "custom/complaint";
-@import "custom/alerts";
-@import "custom/banner";
-@import "custom/buttons";
-@import "custom/combo-box";
-@import "custom/footer";
-@import "custom/form";
-@import "custom/header";
-@import "custom/ie";
-@import "custom/intake.scss";
-@import "custom/pagination";
-@import "custom/progress";
-@import "custom/skipnav";
-@import "custom/table";
-@import "custom/typography";
-@import "custom/utils";
-@import "custom/confirmation";
-@import "custom/landing";
-@import "custom/privacy";
-@import "custom/subpage";
-@import "custom/touchpoints";
-@import "custom/links";
-@import "custom/modal";
-@import "custom/print";
-@import "custom/error";
+@forward "custom/layout";
+@forward "custom/variables";
+@forward "custom/card";
+@forward "custom/complaint";
+@forward "custom/alerts";
+@forward "custom/banner";
+@forward "custom/buttons";
+@forward "custom/combo-box";
+@forward "custom/footer";
+@forward "custom/form";
+@forward "custom/header";
+@forward "custom/ie";
+@forward "custom/intake.scss";
+@forward "custom/pagination";
+@forward "custom/progress";
+@forward "custom/skipnav";
+@forward "custom/table";
+@forward "custom/typography";
+@forward "custom/utils";
+@forward "custom/confirmation";
+@forward "custom/landing";
+@forward "custom/privacy";
+@forward "custom/subpage";
+@forward "custom/touchpoints";
+@forward "custom/links";
+@forward "custom/modal";
+@forward "custom/print";
+@forward "custom/error";

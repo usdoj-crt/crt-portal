@@ -1,0 +1,79 @@
+@use "uswds-core" with (
+  //Colors
+  $theme-color-base-family: "gray",
+  $theme-color-base-light: "gray-30",
+  $theme-color-base: "gray-50",
+  $theme-color-base-darker: "gray-70",
+  $theme-color-base-ink: "gray-warm-80",
+  $theme-color-primary-lightest: "blue-warm-5",
+  $theme-color-primary-lighter: "blue-warm-10",
+  $theme-color-success-dark: "green-cool-50",
+  $theme-color-success-darker: "green-cool-60",
+  $theme-link-color: "blue-warm-80v",
+  $theme-link-visited-color: "blue-warm-80v",
+  $theme-link-hover-color: "blue-50",
+
+  //Components
+  $theme-alert-icon-size: 5,
+  $theme-banner-background-color: "ink",
+  $theme-banner-link-color: "warning",
+  $theme-table-border-color: "ink",
+  $theme-table-header-text-color: "ink",
+  $theme-table-stripe-text-color: "ink",
+  $theme-table-text-color: "ink",
+  $theme-tooltip-background-color: "primary-darker",
+  $theme-tooltip-font-color: "white",
+
+  ////General
+  $theme-image-path: "../../img",
+  $theme-show-compile-warnings: false,
+  $theme-show-notifications: false,
+  $theme-layout-grid-use-important: false,
+  $theme-focus-offset: "2px",
+  $theme-focus-width: "2px",
+
+  //// Typography
+  $theme-font-path: "../../fonts",
+  $theme-font-type-sans: "public-sans",
+  $theme-font-serif-custom-stack: "Merriweather Web, Tinos, Georgia, Cambria, Times New Roman, Times, serif",
+  //// Headings -- not used
+  //// NOTE: We don't use these because the design system's font token normalization
+  //// changes the size of the font on the fly:
+  //// https://designsystem.digital.gov/design-tokens/typesetting/overview/
+  //// Instead, we use REM defined in the next section.
+  $theme-h1-font-size: "xl",
+  $theme-h2-font-size: "lg",
+  $theme-h3-font-size: "md",
+  $theme-heading-line-height: 3,
+  $theme-display-font-size: "3xl", // not used
+
+  // Utilities
+      $theme-utility-breakpoints: (
+    // 160px:
+    "card": false,
+    // 240px:
+    "card-lg": false,
+    // 320px:
+    "mobile": false,
+    // 480px:
+    "mobile-lg": true,
+    // 640px:
+    "tablet": true,
+    // 800px:
+    "tablet-lg": false,
+    // 1024px:
+    "desktop": true,
+    // 1200px:
+    "desktop-lg": false,
+    // 1400px:
+    "widescreen": false
+  ),
+  $width-settings: (
+    output: true,
+    responsive: false,
+    active: false,
+    focus: false,
+    hover: false,
+    visited: false,
+  )
+);

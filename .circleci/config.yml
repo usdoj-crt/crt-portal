@@ -224,7 +224,7 @@ jobs:
             wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
             apt-get update && \
             apt-get install -yqq nodejs && \
-            npm i -g npm@8.5.5 && \
+            npm i -g npm@^8 && \
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
@@ -281,7 +281,7 @@ jobs:
             wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
             apt-get update && \
             apt-get install -yqq nodejs && \
-            npm i -g npm@8.5.5 && \
+            npm i -g npm@^8 && \
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
@@ -339,7 +339,7 @@ jobs:
             wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
             apt-get update && \
             apt-get install -yqq nodejs && \
-            npm i -g npm@8.5.5 && \
+            npm i -g npm@^8 && \
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
@@ -387,6 +387,10 @@ jobs:
       - run:
           name: Refresh trends view
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends
+      # Mark by_repeat_writer true on reports that were submitted by repeat writers or which have violation summaries identical to other reports
+      - run:
+          name: Flag reports submitted by repeat writers or that have violation summaries identical to other reports
+          command: cf run-task crt-portal-django -c "python crt_portal/manage.py flag_repeat_writers" --name flag-repeat-writers
       # Clear expired sessions in staging session table
       - run:
           name: clearsessions management command
@@ -410,6 +414,10 @@ jobs:
       - run:
           name: Refresh form letters sent view
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_form_letters_sent_view" --name refresh-form-letters-sent-view
+      # Mark by_repeat_writer true on reports that were submitted by repeat writers or which have violation summaries identical to other reports
+      - run:
+          name: Flag reports submitted by repeat writers or that have violation summaries identical to other reports
+          command: cf run-task crt-portal-django -c "python crt_portal/manage.py flag_repeat_writers" --name flag-repeat-writers 
       # Refresh the trend view in staging
       - run:
           name: Refresh trends view
@@ -436,7 +444,11 @@ jobs:
       # Refresh the form letters sent view in dev
       - run:
           name: Refresh form letters sent view
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_form_letters_sent_view" --name refresh-form-letters-sent-view      
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_form_letters_sent_view" --name refresh-form-letters-sent-view
+      # Mark by_repeat_writer true on reports that were submitted by repeat writers or which have violation summaries identical to other reports
+      - run:
+          name: Flag reports submitted by repeat writers or that have violation summaries identical to other reports
+          command: cf run-task crt-portal-django -c "python crt_portal/manage.py flag_repeat_writers" --name flag-repeat-writers  
       # Refresh the trend view in dev
       - run:
           name: Refresh trends view

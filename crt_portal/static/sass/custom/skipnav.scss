@@ -1,5 +1,7 @@
 // Skipnav
 
+@use "uswds-core" as *;
+
 .usa-skipnav:focus {
   outline-offset: 0;
 }

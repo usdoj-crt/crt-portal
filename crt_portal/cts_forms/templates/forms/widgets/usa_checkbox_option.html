@@ -6,5 +6,5 @@
     class="usa-checkbox__input"
     {% include "django/forms/widgets/attrs.html" %}
   />
-  <label class="crt-checkbox__label" {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>{{ widget.label }}</label>
+  <label class="usa-checkbox__label crt-checkbox__label" {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>{{ widget.label }}</label>
 </div>

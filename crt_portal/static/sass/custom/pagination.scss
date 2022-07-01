@@ -1,3 +1,5 @@
+ @use "uswds-core" as *;
+
 $button-size: 1.5rem;
 
 .usa-pagination-wrapper {
@@ -7,6 +9,8 @@ $button-size: 1.5rem;
 .usa-pagination {
   &.view-all-pagination {
     margin-left: auto;
+    margin-top: 0;
+    margin-bottom: 0;
   }
 
   ol {

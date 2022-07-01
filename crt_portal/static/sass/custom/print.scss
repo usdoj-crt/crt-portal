@@ -1,3 +1,6 @@
+@use "uswds-core" as *;
+@use "variables" as *;
+
 @media print {
   .intake-bg {
     background-color: color('white');
