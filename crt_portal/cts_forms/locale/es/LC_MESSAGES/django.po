@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-06-27 20:28+0000\n"
+"POT-Creation-Date: 2022-07-06 20:46+0000\n"
 "Language: SpanishMIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1421,12 +1421,6 @@ msgstr ""
 "su estado podrían ayudarle con su motivo de preocupación."
 
 #: templates/forms/confirmation.html:158
-#, fuzzy
-#| msgid ""
-#| "American Bar Association, visit <a class=\"external-link--blue external-"
-#| "link--popup\" aria-label=\"www.findlegalhelp.org\" href=\"http://www."
-#| "findlegalhelp.org\">www.findlegalhelp.org</a> or call <a href="
-#| "\"tel:800-285-2221\">(800) 285-2221</a>"
 msgid ""
 "American Bar Association, visit <a class=\"external-link--blue external-"
 "link--popup\" href=\"https://www.americanbar.org/groups/legal_services/flh-"
@@ -1434,9 +1428,10 @@ msgid ""
 "href=\"tel:800-285-2221\">(800) 285-2221</a>"
 msgstr ""
 "American Bar Association [Colegio de Abogados de los Estados Unidos], vaya a "
-"<a class=\"external-link--blue external-link--popup\" aria-label=\"www."
-"findlegalhelp.org\" href=\"http://www.findlegalhelp.org\">www.findlegalhelp."
-"org</a> o llame a <a href=\"tel:800-285-2221\">(800) 285-2221</a>"
+"<a class=\"external-link--blue external-link--popup\" href=\"https://www."
+"americanbar.org/groups/legal_services/flh-home/\">www.americanbar.org/groups/"
+"legal_services/flh-home</a> o llame a <a href=\"tel:800-285-2221\">(800) "
+"285-2221</a>"
 
 #: templates/forms/confirmation.html:161
 msgid ""
@@ -1446,7 +1441,7 @@ msgid ""
 "or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
 msgstr ""
 "Legal Service Corporation [Corporación de servicios legales] (o Legal Aid "
-"Offices), vaya a <a hclass=\"external-link--blue external-link--popup\" ref="
+"Offices), vaya a <a class=\"external-link--blue external-link--popup\" href="
 "\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> o "
 "llame a <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
 
@@ -1777,7 +1772,7 @@ msgstr ""
 
 #: templates/landing.html:30
 msgid "Menu"
-msgstr ""
+msgstr "Menú"
 
 #: templates/landing.html:39
 msgid "About the Division"
@@ -2154,12 +2149,6 @@ msgstr ""
 "href=\"tel:202-295-1500\">(202) 295-1500</a>."
 
 #: templates/landing.html:366
-#, fuzzy
-#| msgid ""
-#| "Or visit <a class=\"external-link--blue external-link--popup\" aria-label="
-#| "\"www.findlegalhelp.org\" href=\"http://www.findlegalhelp.org/\">www."
-#| "findlegalhelp.org</a> or call <a href=\"tel:800-285-2221\">(800) "
-#| "285-2221</a> to find a lawyer through the American Bar Association."
 msgid ""
 "Or visit <a class=\"external-link--blue external-link--popup american-bar-"
 "link\" href=\"https://www.americanbar.org/groups/legal_services/flh-home/"
@@ -2168,9 +2157,10 @@ msgid ""
 "American Bar Association."
 msgstr ""
 "Por otra parte, puede ir a <a class=\"external-link--blue external-link--"
-"popup\" href=\"http://www.findlegalhelp.org/\">www.findlegalhelp.org</a> o "
-"llamar al <a href=\"tel:800-285-2221\">(800) 285-2221</a> para localizar a "
-"un abogado a través del Colegio de Abogados Estadounidense. "
+"popup american-bar-link\" href=\"https://www.americanbar.org/groups/"
+"legal_services/flh-home/\">www.americanbar.org/groups/legal_services/flh-"
+"home</a> o llamar al <a href=\"tel:800-285-2221\">(800) 285-2221</a> para "
+"localizar a un abogado a través del Colegio de Abogados Estadounidense. "
 
 #: templates/landing.html:380
 msgid "Image attributions"
