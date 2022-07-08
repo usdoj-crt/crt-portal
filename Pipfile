@@ -41,6 +41,7 @@ boto3 = "*"
 python-frontmatter = "*"
 djangorestframework = "*"
 markdown = "*"
+localstack = "~=0.13"
 
 [requires]
 python_version = "3.9.12"

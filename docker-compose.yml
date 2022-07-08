@@ -35,14 +35,14 @@ services:
       - localstack
   localstack:
     container_name: "localstack_main"
-    image: localstack/localstack-full:latest
+    image: localstack/localstack-full:0.13.3
     ports:
       - "4566:4566"
     environment:
       - SERVICES=s3
       ## - DEBUG=1
       ## this will be deprecated in future community version of local-stack
-      - LEGACY_PERSISTENCE=1
+#      - LEGACY_PERSISTENCE=1
       - DATA_DIR=/tmp/localstack/data
     volumes:
       - "localstack-vol:/tmp/localstack"
