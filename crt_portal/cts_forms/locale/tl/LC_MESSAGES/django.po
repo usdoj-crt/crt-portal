@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-07 14:44+0000\n"
+"POT-Creation-Date: 2022-07-08 17:19+0000\n"
 "Language: Tagalog\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1718,8 +1718,6 @@ msgstr ""
 "tulong para sa mga krimen sa pagkapoot at panlilinlang ng mga tao"
 
 #: templates/hate_crime_human_trafficking.html:25
-#, fuzzy
-#| msgid "Get help NOW!"
 msgid "Get help"
 msgstr "Humingi ng tulong NGAYON!"
 
