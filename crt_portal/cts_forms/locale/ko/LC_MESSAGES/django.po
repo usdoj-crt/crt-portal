@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-07 14:44+0000\n"
+"POT-Creation-Date: 2022-07-08 17:19+0000\n"
 "Language: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1616,8 +1616,6 @@ msgid ""
 msgstr "민권국 - 법무부 - 증오범죄나 인신매매에 대한 도움을 받으세요"
 
 #: templates/hate_crime_human_trafficking.html:25
-#, fuzzy
-#| msgid "Get help NOW!"
 msgid "Get help"
 msgstr "지금 도움을 받으세요!"
 
