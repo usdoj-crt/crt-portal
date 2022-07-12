@@ -48,6 +48,12 @@
         }
       }
 
+      .usa-banner__button.language-selection__button {
+        &:after {
+          display: none;
+        }
+      }
+
       img {
         height: 1rem;
         margin-top: .25rem;
@@ -55,10 +61,6 @@
 
       .language-selection__button-active {
         text-decoration: underline;
-      }
-
-      .usa-banner__button::after {
-        display: none;
       }
     }
   }
