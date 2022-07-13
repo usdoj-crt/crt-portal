@@ -1,7 +1,7 @@
 """All models need to be added to signals.py for proper logging."""
 import logging
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 from babel.dates import format_date
 
 from django.contrib.auth import get_user_model
@@ -368,7 +368,7 @@ class Report(models.Model):
         Remove assignee and record date of call
         """
         self.assigned_to = None
-        self.closed_date = datetime.now()
+        self.closed_date = datetime.now(timezone.utc)
 
     def status_assignee_reset(self):
         """
