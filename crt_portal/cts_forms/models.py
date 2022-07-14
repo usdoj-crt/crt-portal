@@ -1,7 +1,7 @@
 """All models need to be added to signals.py for proper logging."""
 import logging
 import time
-from datetime import datetime, timezone
+from datetime import datetime
 from babel.dates import format_date
 
 from django.contrib.auth import get_user_model
