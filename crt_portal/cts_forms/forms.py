@@ -570,7 +570,7 @@ def date_cleaner(self, cleaned_data):
                 DATE_ERRORS['no_future'],
                 params={'value': datetime(year, month, day).strftime('%x')},
             ))
-        elif datetime(year, month, day) < datetime(1899, 12, 31):
+        elif datetime(year, month, day) < datetime(1900, 1, 1):
             self.add_error('last_incident_year', ValidationError(
                 DATE_ERRORS['no_past'],
                 params={'value': datetime(year, month, day).strftime('%x')},
