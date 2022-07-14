@@ -588,11 +588,10 @@ def date_cleaner(self, cleaned_data):
 
     return cleaned_data
 
-
 def crt_date_cleaner(self, cleaned_data):
     """This should give the most specific error message, if the date doesn't render for reasons other than what we are checking for, it will give the generic error."""
     invalid_date = False
-    # Test month
+    # Test Receipt Month
     if 'crt_reciept_month' in cleaned_data:
         month = cleaned_data['crt_reciept_month']
         # These checks are to prevent existing report detail page edits to require the crt_. . . fields.  They are required in the pro form and that is caught through the existing "required" validation.
@@ -606,7 +605,7 @@ def crt_date_cleaner(self, cleaned_data):
     else:
         self.add_error('crt_reciept_month', ValidationError(DATE_ERRORS['month_required']))
         invalid_date = True
-    # Test Day
+    # Test Receipt Day
     if 'crt_reciept_day' in cleaned_data:
         day = cleaned_data['crt_reciept_day']
         if type(day) != int:
@@ -619,7 +618,7 @@ def crt_date_cleaner(self, cleaned_data):
     else:
         self.add_error('crt_reciept_day', ValidationError(DATE_ERRORS['day_required']))
         invalid_date = True
-    # Test year
+    # Test Receipt Year
     if 'crt_reciept_year' in cleaned_data:
         year = cleaned_data['crt_reciept_year']
         if type(year) != int:
@@ -643,7 +642,15 @@ def crt_date_cleaner(self, cleaned_data):
             ))
     else:
         self.add_error('crt_reciept_year', ValidationError(DATE_ERRORS['year_required']))
-
+    # Test Incident Year
+    if 'last_incident_year' in cleaned_data:
+        year = cleaned_data['last_incident_year']
+        if type(year) != int:
+            return cleaned_data
+        if year < 1900:
+            self.add_error('last_incident_year', ValidationError(
+                DATE_ERRORS['no_past'],
+            ))
     return cleaned_data
 
 

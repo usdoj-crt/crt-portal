@@ -699,7 +699,7 @@ class ProFormTest(TestCase):
         self.assertTrue("Please enter a valid day of the month. Day must be between 1 and the last day of the month." in errors)
         self.assertFalse(form.is_valid())
 
-    def test_year_validation(self):
+    def test_receipt_year_validation(self):
         bad_year_data = self.data
         bad_year_data["crt_reciept_year"] = 1899
         form = ProForm(data=bad_year_data)
@@ -710,6 +710,13 @@ class ProFormTest(TestCase):
         form = ProForm(data=bad_year_data)
         errors = str(form.errors)
         self.assertTrue("Date can not be in the future." in errors)
+        self.assertFalse(form.is_valid())
+
+    def test_last_incident_year_validation(self):
+        bad_year_data = self.data
+        bad_year_data["last_incident_year"] = 1899
+        form = ProForm(data=bad_year_data)
+        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["no_past"]}' in str(form.errors))
         self.assertFalse(form.is_valid())
 
     def test_bad_date(self):
