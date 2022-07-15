@@ -20,6 +20,7 @@ from ..forms import (
 )
 from ..model_variables import (
     CONTACT_PHONE_INVALID_MESSAGE,
+    INTAKE_FORMAT_ERROR,
     PRIMARY_COMPLAINT_CHOICES,
     PRIMARY_COMPLAINT_ERROR, PROTECTED_CLASS_ERROR,
     PROTECTED_MODEL_CHOICES, SERVICEMEMBER_ERROR,
@@ -355,14 +356,14 @@ class Validation_Form_Tests(TestCase):
             'last_incident_month': 5,
             'last_incident_day': 5,
         })
-        self.assertTrue('<ul class="errorlist"><li>Please enter a year' in str(form.errors))
+        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["year_required"]}' in str(form.errors))
 
     def test_required_month(self):
         form = When(data={
             'last_incident_year': 2019,
             'last_incident_day': 5,
         })
-        self.assertTrue('<ul class="errorlist"><li>Please enter a month' in str(form.errors))
+        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["month_required"]}' in str(form.errors))
 
     def test_NOT_required_day(self):
         form = When(data={
@@ -676,8 +677,8 @@ class ProFormTest(TestCase):
     def test_required_fields(self):
         form = ProForm(data={})
         errors = str(form.errors)
-        self.assertTrue("Please select an intake format" in errors)
-        self.assertTrue("Please select a primary reason to continue." in errors)
+        self.assertTrue(f'<ul class="errorlist"><li>{INTAKE_FORMAT_ERROR}' in errors)
+        self.assertTrue(f'<ul class="errorlist"><li>{PRIMARY_COMPLAINT_ERROR}' in errors)
         self.assertTrue("crt_reciept_day" in errors)
         self.assertTrue("crt_reciept_month" in errors)
         self.assertTrue("crt_reciept_year" in errors)
@@ -687,29 +688,25 @@ class ProFormTest(TestCase):
         bad_month_data = self.data
         bad_month_data["crt_reciept_month"] = 13
         form = ProForm(data=bad_month_data)
-        errors = str(form.errors)
-        self.assertTrue("Please enter a valid month. Month must be between 1 and 12." in errors)
+        self.assertTrue(str(DATE_ERRORS['month_invalid']) in str(form.errors))
         self.assertFalse(form.is_valid())
 
     def test_day_validation(self):
         bad_day_data = self.data
         bad_day_data["crt_reciept_day"] = 32
         form = ProForm(data=bad_day_data)
-        errors = str(form.errors)
-        self.assertTrue("Please enter a valid day of the month. Day must be between 1 and the last day of the month." in errors)
+        self.assertTrue(str(DATE_ERRORS['day_invalid']) in str(form.errors))
         self.assertFalse(form.is_valid())
 
     def test_receipt_year_validation(self):
         bad_year_data = self.data
         bad_year_data["crt_reciept_year"] = 1899
         form = ProForm(data=bad_year_data)
-        errors = str(form.errors)
-        self.assertTrue("Please enter a year after 1999." in errors)
+        self.assertTrue(DATE_ERRORS['crt_no_past'] in str(form.errors))
         self.assertFalse(form.is_valid())
         bad_year_data["crt_reciept_year"] = 3000
         form = ProForm(data=bad_year_data)
-        errors = str(form.errors)
-        self.assertTrue("Date can not be in the future." in errors)
+        self.assertTrue(str(DATE_ERRORS['no_future']) in str(form.errors))
         self.assertFalse(form.is_valid())
 
     def test_last_incident_year_validation(self):
@@ -724,8 +721,7 @@ class ProFormTest(TestCase):
         bad_date_data["crt_reciept_month"] = 2
         bad_date_data["crt_reciept_day"] = 30
         form = ProForm(data=bad_date_data)
-        errors = str(form.errors)
-        self.assertTrue("Please use a valid date." in errors)
+        self.assertTrue(DATE_ERRORS['crt_not_valid'] in str(form.errors))
         self.assertFalse(form.is_valid())
 
     def test_full_example(self):
