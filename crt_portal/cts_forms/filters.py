@@ -29,6 +29,7 @@ filter_options = {
     'location_state': '__in',
 
     'contact_email': '__icontains',
+    'contact_phone': 'contact_phone',
 
     'create_date_start': '__gte',
     'create_date_end': '__lte',
@@ -123,6 +124,13 @@ def report_filter(querydict):
             elif filter_options[field] == 'violation_summary':
                 search_query = querydict.getlist(field)[0]
                 qs = qs.filter(violation_summary_search_vector=_make_search_query(search_query))
+            elif filter_options[field] == 'contact_phone':
+                # Removes all non digit characters, then breaks the number into blocks to search individually
+                # EG (123) 456-7890 will search to see if  "123" AND "456" AND "7890" are in the number
+                phone_number_array = ''.join(c if c.isdigit() else ' ' for c in querydict.getlist(field)[0]).split()
+                for number_block in phone_number_array:
+                    qs = qs.filter(contact_phone__icontains=number_block)
+
     # Check to see if there are multiple values in report_reason search and run distinct if so.  If not, run a regular
     # much faster search.
     if len(kwargs.get('protected_class__value__in', [])) > 1:

@@ -21,6 +21,7 @@
 
     <div class="intake-filters">
       {% include 'forms/complaint_view/index/filters/contact_email.html' %}
+      {% include 'forms/complaint_view/index/filters/contact_phone_number_filter.html' %} <!-- CRT summary -->
       {% include 'forms/complaint_view/index/filters/date.html' %}
       {% include 'forms/complaint_view/index/filters/primary_statute_filter.html' %} <!-- Classification -->
       {% include 'forms/complaint_view/index/filters/primary_issue.html' %}
@@ -34,7 +35,6 @@
       {% include 'forms/complaint_view/index/filters/prison_type_filter.html' %}
 
       {% include 'forms/complaint_view/index/filters/summary_filter.html' %} <!-- CRT summary -->
-      {% include 'forms/complaint_view/index/filters/contact_phone_number_filter.html' %} <!-- CRT summary -->
       {% include 'forms/complaint_view/index/filters/incident_location_filter.html' %}
     </div>
 
