@@ -368,7 +368,8 @@ class Report(models.Model):
         Remove assignee and record date of call
         """
         self.assigned_to = None
-        self.closed_date = datetime.now()
+        local_tz = pytz.timezone('US/Eastern')
+        self.closed_date = datetime.now(local_tz)
 
     def status_assignee_reset(self):
         """
