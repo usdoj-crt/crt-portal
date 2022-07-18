@@ -1044,6 +1044,17 @@ class Filters(ModelForm):
             },
         ),
     )
+    contact_phone = CharField(
+        required=False,
+        widget=TextInput(
+            attrs={
+                'class': 'usa-input',
+                'name': 'contact_phone',
+                'placeholder': 'Contact Phone Number',
+                'aria-label': 'Contact Phone Number'
+            },
+        ),
+    )
     create_date_start = DateField(
         required=False,
         label="From:",
@@ -1154,6 +1165,7 @@ class Filters(ModelForm):
             'primary_statute',
             'violation_summary',
             'primary_complaint',
+            'contact_phone',
             'commercial_or_public_place',
             'hate_crime',
             'servicemember',
