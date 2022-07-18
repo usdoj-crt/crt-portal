@@ -728,6 +728,15 @@ class ProFormTest(TestCase):
         form = ProForm(data=self.data)
         self.assertTrue(form.is_valid())
 
+    def test_multiple_errors(self):
+        data = self.data
+        data["crt_reciept_year"] = 1900
+        data.pop("crt_reciept_day")
+        form = ProForm(data=data)
+        self.assertTrue(DATE_ERRORS['day_required'] in str(form.errors))
+        self.assertTrue(DATE_ERRORS['crt_no_past'] in str(form.errors))
+        self.assertFalse(form.is_valid())
+
 
 class TestIntakeFormat(TestCase):
     def setUp(self):
