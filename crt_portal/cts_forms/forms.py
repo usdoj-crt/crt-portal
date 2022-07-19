@@ -592,7 +592,7 @@ def date_cleaner(self, cleaned_data):
 def crt_date_cleaner(self, cleaned_data):
     """This should give the most specific error message, if the date doesn't render for reasons other than what we are checking for, it will give the generic error."""
     invalid_date = False
-    # Test month
+    # Test Receipt Month
     if 'crt_reciept_month' in cleaned_data:
         month = cleaned_data['crt_reciept_month']
         # These checks are to prevent existing report detail page edits to require the crt_. . . fields.  They are required in the pro form and that is caught through the existing "required" validation.
@@ -606,7 +606,7 @@ def crt_date_cleaner(self, cleaned_data):
     else:
         self.add_error('crt_reciept_month', ValidationError(DATE_ERRORS['month_required']))
         invalid_date = True
-    # Test Day
+    # Test Receipt Day
     if 'crt_reciept_day' in cleaned_data:
         day = cleaned_data['crt_reciept_day']
         if type(day) != int:
@@ -619,7 +619,7 @@ def crt_date_cleaner(self, cleaned_data):
     else:
         self.add_error('crt_reciept_day', ValidationError(DATE_ERRORS['day_required']))
         invalid_date = True
-    # Test year
+    # Test Receipt Year
     if 'crt_reciept_year' in cleaned_data:
         year = cleaned_data['crt_reciept_year']
         if type(year) != int:
@@ -631,6 +631,9 @@ def crt_date_cleaner(self, cleaned_data):
         elif invalid_date:
             # Added if month and year are invalid.  We don't want to create a datetime with bad data, which happens in the next conditional.
             return cleaned_data
+    else:
+        self.add_error('crt_reciept_year', ValidationError(DATE_ERRORS['year_required']))
+    if 'crt_reciept_year' in cleaned_data and 'crt_reciept_month' in cleaned_data and 'crt_reciept_day' in cleaned_data:
         try:
             if datetime(year, month, day) > datetime.now():
                 self.add_error('crt_reciept_year', ValidationError(
@@ -641,9 +644,36 @@ def crt_date_cleaner(self, cleaned_data):
             self.add_error('crt_reciept_year', ValidationError(
                 DATE_ERRORS['crt_not_valid'],
             ))
-    else:
-        self.add_error('crt_reciept_year', ValidationError(DATE_ERRORS['year_required']))
-
+    if 'last_incident_day' in cleaned_data:
+        incident_day = cleaned_data['last_incident_day']
+        if type(incident_day) != int:
+            return cleaned_data
+        elif incident_day > 31 or incident_day < 1:
+            self.add_error('last_incident_day', ValidationError(
+                DATE_ERRORS['day_invalid'],
+            ))
+        if 'last_incident_month' in cleaned_data:
+            incident_month = cleaned_data['last_incident_month']
+            if type(incident_month) != int:
+                return cleaned_data
+            elif incident_month > 12 or incident_month < 1:
+                self.add_error('last_incident_month', ValidationError(
+                    DATE_ERRORS['month_invalid'],
+                ))
+    if 'last_incident_year' in cleaned_data:
+        incident_year = cleaned_data['last_incident_year']
+        if type(incident_year) != int:
+            return cleaned_data
+        if incident_year < 1900:
+            self.add_error('last_incident_year', ValidationError(
+                DATE_ERRORS['no_past'],
+            ))
+    if 'last_incident_year' in cleaned_data and 'last_incident_month' in cleaned_data and 'last_incident_day' in cleaned_data:
+        if datetime(incident_year, incident_month, incident_day) > datetime.now():
+            self.add_error('last_incident_year', ValidationError(
+                DATE_ERRORS['no_future'],
+                params={'value': datetime(incident_year, incident_month, incident_day).strftime('%x')},
+            ))
     return cleaned_data
 
 
