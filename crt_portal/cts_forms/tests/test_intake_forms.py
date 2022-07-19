@@ -709,11 +709,32 @@ class ProFormTest(TestCase):
         self.assertTrue(str(DATE_ERRORS['no_future']) in str(form.errors))
         self.assertFalse(form.is_valid())
 
+    def test_last_incident_month_validation(self):
+        bad_month_data = self.data
+        bad_month_data["last_incident_month"] = 22
+        form = ProForm(data=bad_month_data)
+        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["month_invalid"]}' in str(form.errors))
+        self.assertFalse(form.is_valid())
+
+    def test_last_incident_day_validation(self):
+        bad_day_data = self.data
+        bad_day_data["last_incident_day"] = 80
+        form = ProForm(data=bad_day_data)
+        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["day_invalid"]}' in str(form.errors))
+        self.assertFalse(form.is_valid())
+
     def test_last_incident_year_validation(self):
         bad_year_data = self.data
         bad_year_data["last_incident_year"] = 1899
         form = ProForm(data=bad_year_data)
         self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["no_past"]}' in str(form.errors))
+        self.assertFalse(form.is_valid())
+
+    def test_last_incident_no_future_validation(self):
+        future_year_data = self.data
+        future_year_data["last_incident_year"] = 3001
+        form = ProForm(data=future_year_data)
+        self.assertTrue(f'<ul class="errorlist"><li>{DATE_ERRORS["no_future"]}' in str(form.errors))
         self.assertFalse(form.is_valid())
 
     def test_bad_date(self):

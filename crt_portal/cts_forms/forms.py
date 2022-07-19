@@ -644,13 +644,35 @@ def crt_date_cleaner(self, cleaned_data):
             self.add_error('crt_reciept_year', ValidationError(
                 DATE_ERRORS['crt_not_valid'],
             ))
-    if 'last_incident_year' in cleaned_data:
-        year = cleaned_data['last_incident_year']
-        if type(year) != int:
+    if 'last_incident_day' in cleaned_data:
+        incident_day = cleaned_data['last_incident_day']
+        if type(incident_day) != int:
             return cleaned_data
-        if year < 1900:
+        elif incident_day > 31 or incident_day < 1:
+            self.add_error('last_incident_day', ValidationError(
+                DATE_ERRORS['day_invalid'],
+            ))
+        if 'last_incident_month' in cleaned_data:
+            incident_month = cleaned_data['last_incident_month']
+            if type(incident_month) != int:
+                return cleaned_data
+            elif incident_month > 12 or incident_month < 1:
+                self.add_error('last_incident_month', ValidationError(
+                    DATE_ERRORS['month_invalid'],
+                ))
+    if 'last_incident_year' in cleaned_data:
+        incident_year = cleaned_data['last_incident_year']
+        if type(incident_year) != int:
+            return cleaned_data
+        if incident_year < 1900:
             self.add_error('last_incident_year', ValidationError(
                 DATE_ERRORS['no_past'],
+            ))
+    if 'last_incident_year' in cleaned_data and 'last_incident_month' in cleaned_data and 'last_incident_day' in cleaned_data:
+        if datetime(incident_year, incident_month, incident_day) > datetime.now():
+            self.add_error('last_incident_year', ValidationError(
+                DATE_ERRORS['no_future'],
+                params={'value': datetime(incident_year, incident_month, incident_day).strftime('%x')},
             ))
     return cleaned_data
 
