@@ -417,7 +417,7 @@ class CRT_Pagination_Performance_Tests(TestCase):
             test_report = Report.objects.create(**SAMPLE_REPORT_1)
             test_report.save()
         self.client = Client()
-    
+
     def test_time_for_15_per_page(self):
         url_base = reverse('crt_forms:crt-forms-index')
         url = f'{url_base}?per_page=15'

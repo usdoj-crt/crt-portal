@@ -16,13 +16,8 @@
     <span class="intake-pagination margin-left-auto">
       <form method="GET">
         <span>
-            <select name="per_page" id="">
-                <option value="10">15</option>
-                <option value="20">20</option>
-                <option value="30">30</option>
-                <option value="50">50</option>
-            </select>
-            <input type="submit" value="Paginate">
+          Showing <input type="text" name="per_page" value="{{ page_format.per_page }}"> per page
+          <input type="submit" value="Paginate">
         </span>
     </form>
     </span>

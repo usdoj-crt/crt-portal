@@ -30,7 +30,7 @@ from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter
 from .forms import (
     BulkActionsForm, CommentActions, ComplaintActions,
-    ContactEditForm, Filters, PerPageForm, PrintActions, ProfileForm,
+    ContactEditForm, Filters, PrintActions, ProfileForm,
     ReportEditForm, ResponseActions, add_activity,
     AttachmentActions, Review, save_form,
 )
