@@ -14,7 +14,17 @@
   <div class="display-flex margin-top-8">
     {% include "forms/complaint_view/index/active-filters.html" %}
     <span class="intake-pagination margin-left-auto">
-      {% include "forms/complaint_view/index/per_page.html" with page_format=page_format %}
+      <form method="GET">
+        <span>
+            <select name="per_page" id="">
+                <option value="10">15</option>
+                <option value="20">20</option>
+                <option value="30">30</option>
+                <option value="50">50</option>
+            </select>
+            <input type="submit" value="Paginate">
+        </span>
+    </form>
     </span>
   </div>
   <div class="grid-col-auto">
