@@ -30,7 +30,7 @@ from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter
 from .forms import (
     BulkActionsForm, CommentActions, ComplaintActions,
-    ContactEditForm, Filters, PrintActions, ProfileForm,
+    ContactEditForm, Filters, PerPageForm, PrintActions, ProfileForm,
     ReportEditForm, ResponseActions, add_activity,
     AttachmentActions, Review, save_form,
 )
@@ -167,6 +167,23 @@ def _format_date(date_string):
 @login_required
 def index_view(request):
     profile_form = ProfileForm()
+    per_page = request.GET.get('per_page', 15)
+    default_data = {
+        "page_range_start": 1,
+        "page_range_end": per_page
+    }
+    per_page_form = PerPageForm(default_data)
+    
+    if request.method == "POST":
+        # GOAL: make the selected page range persist.
+        per_page_form = PerPageForm(request.POST)
+        if per_page_form.is_valid():
+            # TODO: update page_format
+            # TODO: add error handling for if someone enters a non-number
+            page_range_start = int(per_page_form.cleaned_data["page_range_start"])
+            page_range_end = int(per_page_form.cleaned_data["page_range_end"])
+            per_page = page_range_end - page_range_start + 1
+
     # Check for Profile object, then add filter to request
     if hasattr(request.user, 'profile') and request.user.profile.intake_filters:
         request.GET = request.GET.copy()
@@ -182,7 +199,6 @@ def index_view(request):
     report_query, query_filters = report_filter(request.GET)
 
     # Sort data based on request from params, default to `created_date` of complaint
-    per_page = request.GET.get('per_page', 15)
     page = request.GET.get('page', 1)
 
     requested_reports = report_query.annotate(email_count=F('email_report_count__email_count'))

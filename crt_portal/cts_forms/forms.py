@@ -730,6 +730,10 @@ class Review(ModelForm):
         fields = []
 
 
+class PerPageForm(Form):
+    page_range_start = CharField(label="Page Range Start", max_length=100)
+    page_range_end = CharField(label="Page Range End", max_length=100)
+
 class ProForm(
     Contact,
     ElectionLocation,

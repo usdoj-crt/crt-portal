@@ -1,0 +1,7 @@
+<form action="/form/view/" method="post">
+    {% csrf_token %}
+    <span>
+        Showing <input id="page_range_start" type="text" name="page_range_start" value="{{ page_format.page_range_start }}"> to <input id="page_range_end" type="text" name="page_range_end" value="{{ page_format.page_range_end }}">
+        <input type="submit" value="OK">
+    </span>
+</form>
