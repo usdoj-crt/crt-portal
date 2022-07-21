@@ -1,0 +1,11 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block controls %}per-page{% endblock %}
+{% block label %}Records Per Page{% endblock %}
+{% block id %}per-page{% endblock %}
+
+{% block content %}
+  <div id="per-page-filter">
+    {{ form.per_page }}
+  </div>
+{% endblock %}

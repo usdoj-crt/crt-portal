@@ -26,7 +26,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               EMPTY_CHOICE, INCIDENT_DATE_HELPTEXT,
                               INTAKE_FORMAT_CHOICES,
                               INTAKE_FORMAT_ERROR,
-                              POLICE_LOCATION_ERRORS,
+                              POLICE_LOCATION_ERRORS, PER_PAGE,
                               PRIMARY_COMPLAINT_CHOICES,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
@@ -1031,6 +1031,16 @@ class Filters(ModelForm):
             'name': 'primary_statute',
             'class': 'usa-select',
             'aria-label': 'Primary Classification'
+        })
+    )
+    per_page = ChoiceField(
+        required=False,
+        label=_("Records per page"),
+        choices=_add_empty_choice(PER_PAGE),
+        widget=Select(attrs={
+            'name': 'per_page',
+            'class': 'usa-select',
+            'aria-label': 'Records per page'
         })
     )
     summary = CharField(

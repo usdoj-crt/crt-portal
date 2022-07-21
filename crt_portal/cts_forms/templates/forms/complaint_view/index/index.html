@@ -14,12 +14,7 @@
   <div class="display-flex margin-top-8">
     {% include "forms/complaint_view/index/active-filters.html" %}
     <span class="intake-pagination margin-left-auto">
-      <form method="GET">
-        <span>
-          Showing <input type="text" name="per_page" value="{{ page_format.per_page }}"> per page
-          <input type="submit" value="Paginate">
-        </span>
-    </form>
+      Showing {{ page_format.per_page }} per page
     </span>
   </div>
   <div class="grid-col-auto">
