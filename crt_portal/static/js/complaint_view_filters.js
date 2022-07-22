@@ -29,9 +29,9 @@
    * @returns {Object} Map of all params and their URL encoded values
    */
   function getQueryParams(queryString, paramsWhitelist) {
-    var paramsMap = {};
-    var search = new URLSearchParams(queryString);
-    var acceptedParams = (paramsWhitelist instanceof Array && paramsWhitelist) || [];
+    let paramsMap = {};
+    const search = new URLSearchParams(queryString);
+    const acceptedParams = (paramsWhitelist instanceof Array && paramsWhitelist) || [];
 
     search.forEach(function(value, filterName) {
       if (acceptedParams.indexOf(filterName) >= 0) {
@@ -52,16 +52,16 @@
    * @returns {Array} A list of URI-encoded query param strings
    */
   function makeQueryParams(params) {
-    var keys = Object.keys(params);
+    let keys = Object.keys(params);
     return keys.reduce(function(memo, key) {
-      var paramValue = params[key];
+      const paramValue = params[key];
 
       if (!paramValue || !paramValue.length) {
         return memo;
       }
 
-      var valueToList = wrapValue(paramValue);
-      var paramsString = valueToList
+      let valueToList = wrapValue(paramValue);
+      let paramsString = valueToList
         .reduce(function(accum, value) {
           accum.push(makeQueryParam(key, value));
 
@@ -99,7 +99,7 @@
    * of the filters
    */
 
-  var initialFilterState = {
+  let initialFilterState = {
     status: [],
     location_state: [],
     primary_complaint: [],
@@ -130,7 +130,7 @@
     language: [],
     correctional_facility_type: []
   };
-  var filterDataModel = {};
+  let filterDataModel = {};
 
   /**
    * Mutate the current filter state with updated filter values
@@ -167,11 +167,11 @@
    * @param {HTMLElement} props.el The DOM node this view manages
    */
   function filterTagView(props) {
-    var filters = props.el;
-    var onClickHandler = props.onClick;
+    let filters = props.el;
+    let onClickHandler = props.onClick;
 
     filters.addEventListener('click', function handleFilterTagClick(event) {
-      var node = event.target;
+      const node = event.target;
       if (node.tagName === 'BUTTON') {
         onClickHandler(node);
       }
@@ -184,7 +184,7 @@
    * @param {HTMLElement} props.el The DOM node this view manages
    */
   function formView(props) {
-    var form = props.el;
+    let form = props.el;
 
     form.addEventListener('submit', function handleSubmit(event) {
       event.preventDefault();
@@ -198,8 +198,8 @@
    * in the browser to perform a new search with the applied filters
    */
   formView.doSearch = function doSearch(form) {
-    var preparedFilters = finalizeQueryParams(makeQueryParams(filterDataModel));
-    var finalQuery = '';
+    const preparedFilters = finalizeQueryParams(makeQueryParams(filterDataModel));
+    let finalQuery = '';
     if (preparedFilters) {
       finalQuery = '?' + preparedFilters;
     }
@@ -218,7 +218,7 @@
   }
 
   multiSelectView.getValues = function(select) {
-    var options = toArray((select && select.options) || []);
+    let options = toArray((select && select.options) || []);
 
     function isSelected(option) {
       return option.selected;
@@ -232,7 +232,7 @@
   };
 
   function checkBoxView(props) {
-    for (var i = 0; i < props.el.length; i++) {
+    for (let i = 0; i < props.el.length; i++) {
       props.el[i].addEventListener('change', function(event) {
         checkBoxView.getValues(event.target);
       });
@@ -243,7 +243,7 @@
     if (el.checked) {
       filterDataModel[event.target.name].push(el.value);
     } else {
-      var index = filterDataModel[event.target.name].indexOf(el.value);
+      const index = filterDataModel[event.target.name].indexOf(el.value);
       filterDataModel[event.target.name].splice(index, 1);
     }
   };
@@ -271,44 +271,44 @@
   }
 
   function filterController() {
-    var formEl = dom.getElementById('filters-form');
-    var firstNameEl = formEl.querySelector('input[name="contact_first_name"');
-    var lastNameEl = formEl.querySelector('input[name="contact_last_name"');
-    var locationCityEl = formEl.querySelector('input[name="location_city_town"]');
-    var locationNameEl = formEl.querySelector('input[name="location_name"]');
-    var locationStateEl = dom.getElementsByName('location_state');
-    var activeFiltersEl = dom.querySelector('[data-active-filters]');
-    var clearAllEl = dom.querySelector('[data-clear-filters]');
-    var statusEl = dom.getElementsByName('status');
-    var summaryEl = formEl.querySelector('input[name="summary"]');
-    var createdatestartEl = formEl.querySelector('input[name="create_date_start');
-    var createdateendEl = formEl.querySelector('input[name="create_date_end');
-    var assigneeEl = formEl.querySelector('#id_assigned_to');
-    var complaintIDEl = formEl.querySelector('input[name="public_id"');
-    var statuteEl = formEl.querySelector('select[name="primary_statute"]');
+    const formEl = dom.getElementById('filters-form');
+    const firstNameEl = formEl.querySelector('input[name="contact_first_name"');
+    const lastNameEl = formEl.querySelector('input[name="contact_last_name"');
+    const locationCityEl = formEl.querySelector('input[name="location_city_town"]');
+    const locationNameEl = formEl.querySelector('input[name="location_name"]');
+    const locationStateEl = dom.getElementsByName('location_state');
+    const activeFiltersEl = dom.querySelector('[data-active-filters]');
+    const clearAllEl = dom.querySelector('[data-clear-filters]');
+    const statusEl = dom.getElementsByName('status');
+    const summaryEl = formEl.querySelector('input[name="summary"]');
+    const createDateStartEl = formEl.querySelector('input[name="create_date_start');
+    const createDateEndEl = formEl.querySelector('input[name="create_date_end');
+    const assigneeEl = formEl.querySelector('#id_assigned_to');
+    const complaintIDEl = formEl.querySelector('input[name="public_id"');
+    const statuteEl = formEl.querySelector('select[name="primary_statute"]');
     const perPageDiv = dom.getElementById('per-page-filter');
     const perPageEl = perPageDiv.querySelector('select[name="per_page"]');
-    var personalDescriptionEl = formEl.querySelector('input[name="violation_summary"]');
-    var primaryIssueEl = dom.getElementsByName('primary_complaint');
-    var reportedReasonEl = dom.getElementsByName('reported_reason');
-    var relevantDetailsEl = dom.getElementsByName('commercial_or_public_place');
-    var intakeFormatEl = dom.getElementsByName('intake_format');
-    var hateCrimeEl = dom.getElementsByName('hate_crime');
-    var servicememberEl = dom.getElementsByName('servicemember');
-    var contactEmailEl = dom.querySelector('input[name="contact_email"]');
-    var referredEl = dom.getElementsByName('referred');
-    var languageEl = dom.getElementsByName('language');
-    var correctionalFacilityTypeEl = dom.getElementsByName('correctional_facility_type');
+    const personalDescriptionEl = formEl.querySelector('input[name="violation_summary"]');
+    const primaryIssueEl = dom.getElementsByName('primary_complaint');
+    const reportedReasonEl = dom.getElementsByName('reported_reason');
+    const relevantDetailsEl = dom.getElementsByName('commercial_or_public_place');
+    const intakeFormatEl = dom.getElementsByName('intake_format');
+    const hateCrimeEl = dom.getElementsByName('hate_crime');
+    const servicememberEl = dom.getElementsByName('servicemember');
+    const contactEmailEl = dom.querySelector('input[name="contact_email"]');
+    const referredEl = dom.getElementsByName('referred');
+    const languageEl = dom.getElementsByName('language');
+    const correctionalFacilityTypeEl = dom.getElementsByName('correctional_facility_type');
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
      * and perform a new search with the updated filters applied.
      * @param {HTMLElement} node An HTML element
      */
     function onFilterTagClick(node) {
-      var filterName = node.getAttribute('data-filter-name');
+      const filterName = node.getAttribute('data-filter-name');
 
       // see if we have to process multiple select elements first
-      var multiSelectElements = [
+      const multiSelectElements = [
         'status',
         'location_state',
         'violation_summary',
@@ -319,10 +319,10 @@
         'language',
         'correctional_facility_type'
       ];
-      var filterIndex = multiSelectElements.indexOf(filterName);
+      const filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {
-        var selections = filterDataModel[filterName];
-        var selectionData = node.getAttribute('data-filter-value');
+        let selections = filterDataModel[filterName];
+        const selectionData = node.getAttribute('data-filter-value');
         selections.splice(selections.indexOf(selectionData), 1);
         filterDataModel[filterName] = selections;
       } else {
@@ -335,9 +335,9 @@
     function clearAllFilters() {
       const activeFilters = toArray(activeFiltersEl.children);
 
-      var updates = activeFilters.reduce(function(updates, node) {
-        var filterName = node.getAttribute('data-filter-name');
-        var currentFilterData = filterDataModel[filterName];
+      let updates = activeFilters.reduce(function(updates, node) {
+        const filterName = node.getAttribute('data-filter-name');
+        let currentFilterData = filterDataModel[filterName];
         currentFilterData = wrapValue(currentFilterData);
         if (currentFilterData.length) {
           updates[filterName] = initialFilterState[filterName];
@@ -394,11 +394,11 @@
       name: 'violation_summary'
     });
     textInputView({
-      el: createdatestartEl,
+      el: createDateStartEl,
       name: 'create_date_start'
     });
     textInputView({
-      el: createdateendEl,
+      el: createDateEndEl,
       name: 'create_date_end'
     });
     textInputView({
@@ -422,7 +422,7 @@
       name: 'primary_complaint'
     });
     checkBoxView({
-      el: reportedReasonEl,
+      const: reportedReasonEl,
       name: 'reported_reason'
     });
     checkBoxView({
@@ -434,7 +434,7 @@
       name: 'intake_format'
     });
     checkBoxView({
-      el: hateCrimeEl,
+      const: hateCrimeEl,
       name: 'hate_crime'
     });
     checkBoxView({
@@ -460,10 +460,10 @@
   }
 
   function validateTextSearch(el) {
-    var buttonEl = document.getElementById('apply-filters-button');
-    var alertEl = document.getElementById('search-notification');
-    var textEl = alertEl.querySelector('.usa-alert__text');
-    var value = el.value;
+    let buttonEl = document.getElementById('apply-filters-button');
+    let alertEl = document.getElementById('search-notification');
+    let textEl = alertEl.querySelector('.usa-alert__text');
+    const value = el.value;
     if (value.includes('(') && value.includes(')') && value.includes('"')) {
       buttonEl.setAttribute('disabled', '');
       textEl.textContent =
@@ -477,7 +477,7 @@
   }
 
   function initValidateTextSearch() {
-    var inputEl = document.getElementById('id_violation_summary');
+    let inputEl = document.getElementById('id_violation_summary');
     // Validate immediately, in case field is pre-populated
     validateTextSearch(inputEl);
     // Then add an event listener to re-validate when input changes
@@ -492,7 +492,7 @@
     if (root.location.search === '') {
       root.location.search = '?status=new&status=open&no_status=false';
     }
-    var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
+    let filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
 
     Object.keys(initialFilterState).forEach(function(key) {
       filterDataModel[key] = initialFilterState[key];
