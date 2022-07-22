@@ -286,7 +286,8 @@
     var assigneeEl = formEl.querySelector('#id_assigned_to');
     var complaintIDEl = formEl.querySelector('input[name="public_id"');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
-    var perPageEl = formEl.querySelector('select[name="per_page"]');
+    const perPageDiv = dom.getElementById('per-page-filter');
+    const perPageEl = perPageDiv.querySelector('select[name="per_page"]');
     var personalDescriptionEl = formEl.querySelector('input[name="violation_summary"]');
     var primaryIssueEl = dom.getElementsByName('primary_complaint');
     var reportedReasonEl = dom.getElementsByName('reported_reason');
