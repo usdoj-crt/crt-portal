@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import (ActionsView, index_view, dashboard_view, ShowView, ProFormView,
+from .views import (ActionsView, index_view, dashboard_view, RoutingGuideView, ShowView, ProFormView,
                     SaveCommentView, TrendView, ResponseView, SearchHelperView,
                     PrintView, ProfileView, ReportAttachmentView, RemoveReportAttachmentView)
 from .forms import ProForm
@@ -11,6 +11,7 @@ app_name = 'crt_forms'
 urlpatterns = [
     path('view/<int:id>/', ShowView.as_view(), name='crt-forms-show'),
     path('view/<int:id>/response', ResponseView.as_view(), name='crt-forms-response'),
+    path('view/<int:id>/routing-guide/', RoutingGuideView.as_view(), name='routing-guide'),
     path('view/<int:id>/print', PrintView.as_view(), name='crt-forms-print'),
     path('view/<int:id>/attachments/<int:attachment_id>', ReportAttachmentView.as_view(), name='get-report-attachment'),
     path('view/', index_view, name='crt-forms-index'),

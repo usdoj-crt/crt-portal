@@ -518,6 +518,19 @@ class ShowView(LoginRequiredMixin, View):
             return render(request, 'forms/complaint_view/show/index.html', output)
 
 
+class RoutingGuideView(LoginRequiredMixin, View):
+
+    def get(self, request, id):
+        print("id", id)
+        print("request.path", request.path.split('/'))
+        print("request.META", request.META['QUERY_STRING'])
+        path_elements = request.path.split('/')
+        output = {
+            "redirect_path":
+                f'/form/view/{id}/?{request.META["QUERY_STRING"]}'
+        }
+        return render(request, 'forms/complaint_view/routing_guide.html', output)
+
 class ActionsView(LoginRequiredMixin, FormView):
     """ CRT view to update report data"""
     def get(self, request):

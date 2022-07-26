@@ -1,0 +1,30 @@
+{% extends "forms/complaint_view/intake_base.html" %}
+{% load static %}
+{% block page_header %} {%
+include 'forms/complaint_view/routing_guide_header.html' %}
+{% endblock %}
+{% block content %}
+<div class="intake-content grid-container-widescreen">
+  <div class="display-flex margin-bottom-6">
+    <a class="outline-button outline-button--dark" href="{{redirect_path}}">
+      <img src="/static/img/intake-icons/ic_arrow_forward.svg" alt="back arrow" class="icon" />
+      Back to report details
+    </a>
+  </div>
+  <h2 class="intake-section-title">Field guide for report routing</h2>
+  <p class="text-bold">This guide is intended to help intake specialists</p>
+  <p>This is an internal guide designed to help intake specialists know when to redirect violation
+    reports to other sections.</p>
+  <p class="text-bold">Why is it important to reroute reports correctly and quickly?</p>
+  <p>We want to give the section best-positioned to analyze any given report the chance to do so as
+    soon as possible.</p>
+  <div class="crt-portal-card ">
+    <h3>Step 1.</h3>
+    <p class="text-bold">Does the writer present a threat to themselves or others?</p>
+    Hello
+  </div>
+</div>
+{% endblock %}
+{% block page_js %}
+{{ block.super }}
+{% endblock %}
