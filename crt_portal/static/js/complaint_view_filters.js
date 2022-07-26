@@ -128,6 +128,7 @@
     per_page: '',
     no_status: '',
     language: [],
+    contact_phone: '',
     correctional_facility_type: []
   };
   var filterDataModel = {};
@@ -272,8 +273,8 @@
 
   function filterController() {
     var formEl = dom.getElementById('filters-form');
-    var firstNameEl = formEl.querySelector('input[name="contact_first_name"');
-    var lastNameEl = formEl.querySelector('input[name="contact_last_name"');
+    var firstNameEl = formEl.querySelector('input[name="contact_first_name"]');
+    var lastNameEl = formEl.querySelector('input[name="contact_last_name"]');
     var locationCityEl = formEl.querySelector('input[name="location_city_town"]');
     var locationNameEl = formEl.querySelector('input[name="location_name"]');
     var locationStateEl = dom.getElementsByName('location_state');
@@ -281,10 +282,10 @@
     var clearAllEl = dom.querySelector('[data-clear-filters]');
     var statusEl = dom.getElementsByName('status');
     var summaryEl = formEl.querySelector('input[name="summary"]');
-    var createdatestartEl = formEl.querySelector('input[name="create_date_start');
-    var createdateendEl = formEl.querySelector('input[name="create_date_end');
+    var createdatestartEl = formEl.querySelector('input[name="create_date_start"]');
+    var createdateendEl = formEl.querySelector('input[name="create_date_end"]');
     var assigneeEl = formEl.querySelector('#id_assigned_to');
-    var complaintIDEl = formEl.querySelector('input[name="public_id"');
+    var complaintIDEl = formEl.querySelector('input[name="public_id"]');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
     var personalDescriptionEl = formEl.querySelector('input[name="violation_summary"]');
     var primaryIssueEl = dom.getElementsByName('primary_complaint');
@@ -296,6 +297,7 @@
     var contactEmailEl = dom.querySelector('input[name="contact_email"]');
     var referredEl = dom.getElementsByName('referred');
     var languageEl = dom.getElementsByName('language');
+    var contactPhoneEL = dom.getElementsByName('contact_phone')[0];
     var correctionalFacilityTypeEl = dom.getElementsByName('correctional_facility_type');
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
@@ -438,6 +440,10 @@
     textInputView({
       el: contactEmailEl,
       name: 'contact_email'
+    });
+    textInputView({
+      el: contactPhoneEL,
+      name: 'contact_phone'
     });
     checkBoxView({
       el: referredEl,

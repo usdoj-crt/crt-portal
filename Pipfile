@@ -41,9 +41,10 @@ boto3 = "*"
 python-frontmatter = "*"
 djangorestframework = "*"
 markdown = "*"
+localstack = "~=0.14.2"
 
 [requires]
-python_version = "3.9.12"
+python_version = "3.9.13"
 
 [pipenv]
 allow_prereleases = true
