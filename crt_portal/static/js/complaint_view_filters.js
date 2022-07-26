@@ -1,4 +1,13 @@
 (function(root, dom) {
+
+  // Update per_page as soon as the user selects a per_page from the dropdown.
+  const perPageDiv = dom.getElementById('per-page-filter');
+  const per_page_selector = perPageDiv.querySelector('select[name="per_page"]');
+  per_page_selector.onchange = function(event) {
+    // WIP: below is what we want per_page to be set to.  click the "Apply filters" button after this.
+    console.log("per_page_selector value", per_page_selector.value);
+  };
+
   /**
    * Convert an array-like object to an array.
    *
@@ -286,8 +295,7 @@
     const assigneeEl = formEl.querySelector('#id_assigned_to');
     const complaintIDEl = formEl.querySelector('input[name="public_id"');
     const statuteEl = formEl.querySelector('select[name="primary_statute"]');
-    const perPageDiv = dom.getElementById('per-page-filter');
-    const perPageEl = perPageDiv.querySelector('select[name="per_page"]');
+    const perPageEl = formEl.querySelector('select[name="per_page"]');
     const personalDescriptionEl = formEl.querySelector('input[name="violation_summary"]');
     const primaryIssueEl = dom.getElementsByName('primary_complaint');
     const reportedReasonEl = dom.getElementsByName('reported_reason');
