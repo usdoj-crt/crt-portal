@@ -1,10 +1,10 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% load static %}
-{% block page_header %} {%
-include 'forms/complaint_view/routing_guide_header.html' %}
+{% block page_header %}
+{% include 'forms/complaint_view/routing_guide_header.html' %}
 {% endblock %}
 {% block content %}
-<div class="intake-content grid-container-widescreen">
+<div class="intake-content grid-container-widescreen routing-guide">
   <div class="display-flex margin-bottom-6">
     <a class="outline-button outline-button--dark" href="{{redirect_path}}">
       <img src="/static/img/intake-icons/ic_arrow_forward.svg" alt="back arrow" class="icon" />
@@ -18,10 +18,164 @@ include 'forms/complaint_view/routing_guide_header.html' %}
   <p class="text-bold">Why is it important to reroute reports correctly and quickly?</p>
   <p>We want to give the section best-positioned to analyze any given report the chance to do so as
     soon as possible.</p>
-  <div class="crt-portal-card ">
-    <h3>Step 1.</h3>
+  <div class="crt-portal-card padding-x-4 padding-top-3 padding-bottom-4">
+    <div class="title">
+      <h2 class="intake-section-title">Step 1.</h2>
+    </div>
     <p class="text-bold">Does the writer present a threat to themselves or others?</p>
-    Hello
+    <table class="usa-table usa-table--borderless routing-guide-table-1">
+      <tbody>
+        <tr>
+          <th>Yes</th>
+          <td>
+            Print a copy of the original incoming report (correspondent information, reported issue, personal description) and email the PDF to Theresa.Weathers@usdoj.gov. Federal Protective Services (FPS) will follow-up with any relevant federal agency and the correspondent.
+            <p>No further action is necessary by CRT and the report can be closed.</p>
+          </td>
+        </tr>
+        <tr>
+          <th>No</th>
+          <td>Continue to next step.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="crt-portal-card padding-x-4 padding-top-3 padding-bottom-4 routing-step-2-card">
+    <div class="title">
+      <h2 class="intake-section-title">Step 2.</h2>
+    </div>
+    <p class="text-bold">Do any of the following apply?</p>
+    <table class="usa-table usa-table--borderless routing-guide-table-2">
+      <tbody>
+        <th>Report involves...</th>
+        <th>Route to...</th>
+        <tr>
+          <td>Hate Crime (involves physical harm or threat)</td>
+          <td>CRM</td>
+        </tr>
+        <tr>
+          <td>Human Trafficking</td>
+          <td>CRM</td>
+        </tr>
+        <tr>
+          <td>Pattern of Police Misconduct</td>
+          <td>SPL</td>
+        </tr>
+        <tr>
+          <td>Jail/Prison/Juvenile Mistreatment (state and local institutions)</td>
+          <td>SPL</td>
+        </tr>
+        <tr>
+          <td>Accessing a Reproductive Health Clinic (FACE)</td>
+          <td>SPL</td>
+        </tr>
+        <tr>
+          <td>Living in an Institutional Setting<br /><br />Inc: mental health & long-term care facilities/nursing homes</td>
+          <td>DRS <span class="text-normal">(Disability-related)</span><br /><br />SPL <span class="text-normal">(conditions of confinement)</span></td>
+        </tr>
+        <tr>
+          <td>Housing
+            <ul>
+              <li>Pattern or practice – tenants being harassed by landlord</li>
+              <li>Familial status – tenants being moved to certain apartments or areas because they have children</li>
+              <li>Potential tenants being turned away because they have children</li>
+            </ul>
+          </td>
+            </ul>
+          <td>HCE</td>
+        </tr>
+        <tr>
+          <td>Religious Land Use/Zoning (RLUIPA)<br /><br />Inc: churches/places of worship, correctional facilities</td>
+          <td>HCE <span class="text-normal">(public place)</span><br /><br />SPL <span class="text-normal">(correctional facility)</span></td>
+        </tr>
+        <tr>
+          <td>Lending<br /><br />Any lender (bank, credit card, car dealership, etc.) any type of loan (mortgages, auto, etc.)</td>
+          <td>HCE <span class="text-normal">except:<br /><br />SCRA = </span>POL</td>
+        </tr>
+        <tr>
+          <td>Servicemember/Military Protections & Benefits
+            <ul>
+              <li>SCRA violations (repossessions, foreclosures, default judgements, credit card and loan interest rates, lease terminations, evictions)</li>
+            </ul>
+          </td>
+          <td>POL <span class="text-normal">except:<br />Job-related (USERRA) = </span>ELS <br /> <span class="text-normal">Voting-related (UOCAVA) =</span> VOT</td>
+        </tr>
+        <tr>
+          <td>Voting/Registering to Vote/Elections
+            <ul>
+              <li>Redistricting issues</li>
+              <li>Voter registration issues</li>
+              <li>Language access</li>
+            </ul>
+          </td>
+          <td>VOT <span class="text-normal">except:<br /><br />Accessibility of polling location = </span>DRS</td>
+        </tr>
+        <tr>
+          <td>School/Educational Program<br /><br />
+            <span class="text-bold">Public</span> K-12 school district or a <span class="text-bold">public</span> college/university<br />
+            <ul>
+              <li>Discrimination based on race, color, national origin, sex (including gender orientation), religion, language access, or disability</li>
+              <li>Failure to respond or indifferent to harassment/bullying based on race, color, national origin, sex, religion, language access, or disability</li>
+              <li>Segregates or denies admission to students based on race, color, national origin, sex, or religion.</li>
+              <li>Segregates students based on language or disability</li>
+            </ul>
+            <span class="text-bold">Private</span> K-12 school district or a <span class="text-bold">private</span> college/university that receives funding from the Department of Justice
+            <ul>
+              <li>Discrimination based on race, color, or national origin</li>
+            </ul>
+          </td>
+          <td>EOS</td>
+        </tr>
+        <tr>
+          <td>Employment<br /><br />
+            <span class="text-bold">Title VII</span> – State and local government employers discriminating based on grounds of race, sex (including pregnancy, sexual orientation, and gender identity), religion, and national origin<br /><br />
+            <span class="text-bold">USERRA</span> – Employers discriminating or retaliating against an employee or applicant for employment because of such <span class="text-bold">person’s past, current or future military obligation</span></td>
+          <td>ELS <span class="text-normal">except:<br /><br />Citizenship, visa, work document-related =</span> IER<br /><br /><span class="text-normal">Disability =</span> DRS</td>
+        </tr>
+        <tr>
+          <td>Any other disability-related issue</td>
+          <td>DRS</td>
+        </tr>
+        <tr>
+          <td>Discrimination by an entity that is receiving federal funding.<br /><br />
+            <ul>
+              <li>Common examples include state and local:</li>
+              <li>Police depts, prisons and jails</li>
+              <li>Dept of Child & Family Services (aka Child Protective Services)</li>
+              <li>Entities/nonprofits that provide food assistance (e.g. SNAP, TANF), housing assistance, job training, health services, legal services, shelters, or emergency services</li>
+              <li>Depts of Transportation</li>
+              <li>Depts of Labor</li>
+              <li>Depts of Health and Human Services</li>
+              <li>Housing authorities</li>
+              <li>Emergency Management Depts</li>
+            </ul>
+          </td>
+          <td>FCS</td>
+        </tr>
+        <tr>
+          <td>LGBTI related concerns</td>
+          <td><span class="text-normal">Section most closely related to the subject matter.<br /><br />Except: Transgender =</span> FCS</td>
+        </tr>
+        <tr>
+          <td>Not sure – more than one seem to apply</td>
+          <td><span class="text-normal">Ask your supervisor</span></td>
+        </tr>
+        <tr>
+          <td>None of the above apply</td>
+          <td><span class="text-normal">Use your section’s approach for non-actionable reports</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="crt-portal-card padding-x-4 padding-top-3 padding-bottom-4">
+    <div class="title">
+      <h2 class="intake-section-title">Translation Request Form</h2>
+    </div>
+    <p>To request a translation, complete the Translation Request Form.</p>
+    <table class="usa-table usa-table--borderless routing-guide-table-3">
+      <tbody>
+
+      </tbody>
+    </table>
   </div>
 </div>
 {% endblock %}
