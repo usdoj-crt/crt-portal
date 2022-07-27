@@ -430,7 +430,7 @@
       name: 'primary_complaint'
     });
     checkBoxView({
-      const: reportedReasonEl,
+      el: reportedReasonEl,
       name: 'reported_reason'
     });
     checkBoxView({
@@ -442,7 +442,7 @@
       name: 'intake_format'
     });
     checkBoxView({
-      const: hateCrimeEl,
+      el: hateCrimeEl,
       name: 'hate_crime'
     });
     checkBoxView({
