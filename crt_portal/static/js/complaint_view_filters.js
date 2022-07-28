@@ -1,12 +1,5 @@
 (function(root, dom) {
 
-  // Update per_page as soon as the user selects a per_page from the dropdown.
-  const perPageDiv = dom.getElementById('per-page-filter');
-  const per_page_selector = perPageDiv.querySelector('select[name="per_page"]');
-  per_page_selector.onchange = function(event) {
-    // WIP: below is what we want per_page to be set to.  click the "Apply filters" button after this.
-    console.log("per_page_selector value", per_page_selector.value);
-  };
 
   /**
    * Convert an array-like object to an array.
@@ -272,6 +265,9 @@
 
     props.el.addEventListener('change', function(event) {
       filterDataModel[props.name] = event.target.value;
+      if (props.name == 'per_page') {
+        dom.getElementById('apply-filters-button').click()
+      }
     });
   }
 
