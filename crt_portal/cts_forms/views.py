@@ -438,10 +438,6 @@ class ShowView(LoginRequiredMixin, View):
     def get(self, request, id):
         report = get_object_or_404(Report.objects.prefetch_related('attachments'), pk=id)
         output = serialize_data(report, request, id)
-        print("report", report)
-        print("request", request)
-        print("id", id)
-        print("output", output)
         if not report.viewed:
             mark_report_as_viewed(report, request.user)
         contact_form = ContactEditForm(instance=report)
@@ -527,7 +523,12 @@ class RoutingGuideView(LoginRequiredMixin, View):
 
     def get(self, request, id):
         routing_sections = RoutingSection.objects.all()
-        routing_section_block = {}
+        routing_section_block = {
+            "section_1": "",
+            "names_1": "",
+            "section_2": "",
+            "names_2": ""
+        }
         routing_section_blocks = []
         # Because we display 2 sections per row in the table,
         # we are breaking up the routing sections into groups of two.
@@ -535,11 +536,18 @@ class RoutingGuideView(LoginRequiredMixin, View):
             if index % 2 == 0:
                 routing_section_block["section_1"] = route.section
                 routing_section_block["names_1"] = route.names
+                if index == len(routing_sections) - 1:
+                    routing_section_blocks.append(routing_section_block)
             else:
                 routing_section_block["section_2"] = route.section
                 routing_section_block["names_2"] = route.names
                 routing_section_blocks.append(routing_section_block)
-                routing_section_block = {}
+                routing_section_block = {
+                    "section_1": "",
+                    "names_1": "",
+                    "section_2": "",
+                    "names_2": ""
+                }
         output = {
             "redirect_path":
                 f'/form/view/{id}/?{request.META["QUERY_STRING"]}',
