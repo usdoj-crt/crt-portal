@@ -1,7 +1,6 @@
 (function(root) {
-  let routingPrintButton = document.getElementsByClassName("routing-guide-print-button")
-  console.log("routing-guide-print-button", routingPrintButton)
+  let routingPrintButton = document.getElementsByClassName('routing-guide-print-button');
   if (routingPrintButton && routingPrintButton.length) {
-    routingPrintButton[0].addEventListener('click', () => window.print())
+    routingPrintButton[0].addEventListener('click', () => window.print());
   }
 })(window);
