@@ -5,21 +5,28 @@
 {% endblock %}
 {% block content %}
 <div class="intake-content grid-container-widescreen routing-guide">
-  <div class="display-flex margin-bottom-6">
+  <div class="display-flex margin-bottom-6 routing-guide-buttons">
     <a class="outline-button outline-button--dark" href="{{redirect_path}}">
       <img src="/static/img/intake-icons/ic_arrow_forward.svg" alt="back arrow" class="icon" />
       Back to report details
     </a>
+    <button class="usa-button routing-guide-print-button" type="submit" id="apply-filters-button">
+      Print
+    </button>
   </div>
-  <h2 class="intake-section-title">Field guide for report routing</h2>
-  <p class="text-bold">This guide is intended to help intake specialists</p>
-  <p>This is an internal guide designed to help intake specialists know when to redirect violation
-    reports to other sections.</p>
-  <p class="text-bold">Why is it important to reroute reports correctly and quickly?</p>
-  <p>We want to give the section best-positioned to analyze any given report the chance to do so as
-    soon as possible.</p>
-  <div class="crt-portal-card padding-x-4 padding-top-3 padding-bottom-4">
+  <h2 class="intake-section-title margin-bottom-2">Field guide for report routing</h2>
+  <p class="text-italic">(last updated: July 2022)</p>
+  <p class="text-bold margin-top-205 margin-bottom-05">This guide is intended to help intake specialists</p>
+  <span>This is an internal guide designed to help intake specialists know when to redirect violation
+    reports to other sections.</span>
+  <p class="text-bold margin-bottom-05">Why is it important to reroute reports correctly and quickly?</p>
+  <span>We want to give the section best-positioned to analyze any given report the chance to do so as
+    soon as possible.</span>
+  <div class="crt-portal-card padding-x-4 padding-y-3">
     <div class="title">
+      <div class="image-container">
+        <img class="report-image" src="{% static 'img/alerts/report.svg' %}" alt="language" class="icon">
+      </div>
       <h2 class="intake-section-title">Step 1.</h2>
     </div>
     <p class="text-bold">Does the writer present a threat to themselves or others?</p>
@@ -33,21 +40,24 @@
           </td>
         </tr>
         <tr>
-          <th>No</th>
-          <td>Continue to next step.</td>
+          <th class="routing-last-row">No</th>
+          <td class="routing-last-row">Continue to next step.</td>
         </tr>
       </tbody>
     </table>
   </div>
   <div class="crt-portal-card padding-x-4 padding-top-3 padding-bottom-4 routing-step-2-card">
     <div class="title">
+      <div class="image-container">
+        <img class="lightbulb-image" src="{% static 'img/lightbulb_outline.svg' %}" alt="language" class="icon">
+      </div>
       <h2 class="intake-section-title">Step 2.</h2>
     </div>
     <p class="text-bold">Do any of the following apply?</p>
     <table class="usa-table usa-table--borderless routing-guide-table-2">
       <tbody>
-        <th>Report involves...</th>
-        <th>Route to...</th>
+        <th class="routing-border-bottom">Report involves...</th>
+        <th class="routing-border-bottom">Route to...</th>
         <tr>
           <td>Hate Crime (involves physical harm or threat)</td>
           <td>CRM</td>
@@ -168,17 +178,38 @@
   </div>
   <div class="crt-portal-card padding-x-4 padding-top-3 padding-bottom-4">
     <div class="title">
+      <div class="image-container">
+        <img class="translate-image" src="{% static 'img/translate.svg' %}" alt="language" class="icon">
+      </div>
       <h2 class="intake-section-title">Translation Request Form</h2>
     </div>
-    <p>To request a translation, complete the Translation Request Form.</p>
+    <p>To request a translation, complete the <a href="https://mycrt/services/lawg/documents/transrequest.pdf">Translation Request Form</a>.</p>
+    <div class="title">
+      <div class="image-container">
+        <img class="translate-image" src="{% static 'img/help_outline.svg' %}" alt="language" class="icon">
+      </div>
+      <h2 class="intake-section-title">Questions?</h2>
+    </div>
+    <p>If you have a question about whether you should route a report to a particular section, start by talking to your supervisor.</p>
+    <p>If you still have questions, contact the point of contact for a given section.</p>
     <table class="usa-table usa-table--borderless routing-guide-table-3">
       <tbody>
-
+      {% for routing_section_block in routing_section_blocks %}
+        <tr>
+          <th>{{ routing_section_block.section_1 }}</th>
+          <td>{{ routing_section_block.names_1 }}</td>
+          <th>{{ routing_section_block.section_2 }}</th>
+          <td>{{ routing_section_block.names_2 }}</td>
+        </tr>
+      {% endfor %}
       </tbody>
     </table>
   </div>
+  <h3 class="routing-guide-h3">Final Note</h3>
+  <p><span class="text-bold">This guide is designed to be practical, not precise.</span> The federal civil rights laws we enforce are varied and complex. When we list a section for routing, it does not mean that the section will necessarily have enforcement authority for that report. It also does not mean this section is the only one who might have enforcement authority. Being listed here only means this section is likely best positioned to know the right next step for this kind of report.</p>
 </div>
 {% endblock %}
 {% block page_js %}
 {{ block.super }}
+<script src="{% static 'js/routing_guide.min.js' %}"></script>
 {% endblock %}
