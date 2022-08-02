@@ -52,4 +52,4 @@ def pagination(paginator, page, per_page):
         'page_range_end': records.end_index(),
     }
 
-    return(records, page_format)
+    return records, page_format
