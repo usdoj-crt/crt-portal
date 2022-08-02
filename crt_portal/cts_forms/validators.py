@@ -36,7 +36,7 @@ def validate_filename(file):
     regex_match = re.search(special_characters, thisfile)
 
     # verify if the regex search math found any special character.
-    if(regex_match is not None):
+    if regex_match is not None:
 
         raise ValidationError(f'Filename: {thisfile} have special characters, rename file before upload. Acceptable file name special characters are - (dash) and _ (underscore).')
 
