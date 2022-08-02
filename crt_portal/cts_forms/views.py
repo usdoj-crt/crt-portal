@@ -36,7 +36,7 @@ from .forms import (
 )
 from .mail import crt_send_mail
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, Trends, EmailReportCount, User
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, Trends, EmailReportCount, User, RoutingSection
 from .page_through import pagination
 from .sorts import report_sort
 
@@ -451,6 +451,8 @@ class ShowView(LoginRequiredMixin, View):
             'allowed_file_types': ALLOWED_FILE_EXTENSIONS,
             'autoresponse_email': autoresponse_email,
             **filter_output,
+            'routing_guide_link':
+                f'/form/view/{id}/routing-guide/?{request.META["QUERY_STRING"]}',
         })
         return render(request, 'forms/complaint_view/show/index.html', output)
 
@@ -514,8 +516,44 @@ class ShowView(LoginRequiredMixin, View):
             for form_type, form in self.forms.items():
                 if form_type != inbound_form_type:
                     output.update({form_type: form(instance=report)})
-
             return render(request, 'forms/complaint_view/show/index.html', output)
+
+
+class RoutingGuideView(LoginRequiredMixin, View):
+
+    def get(self, request, id):
+        routing_sections = RoutingSection.objects.all()
+        routing_section_block = {
+            "section_1": "",
+            "names_1": "",
+            "section_2": "",
+            "names_2": ""
+        }
+        routing_section_blocks = []
+        # Because we display 2 sections per row in the table,
+        # we are breaking up the routing sections into groups of two.
+        for index, route in enumerate(routing_sections):
+            if index % 2 == 0:
+                routing_section_block["section_1"] = route.section
+                routing_section_block["names_1"] = route.names
+                if index == len(routing_sections) - 1:
+                    routing_section_blocks.append(routing_section_block)
+            else:
+                routing_section_block["section_2"] = route.section
+                routing_section_block["names_2"] = route.names
+                routing_section_blocks.append(routing_section_block)
+                routing_section_block = {
+                    "section_1": "",
+                    "names_1": "",
+                    "section_2": "",
+                    "names_2": ""
+                }
+        output = {
+            "redirect_path":
+                f'/form/view/{id}/?{request.META["QUERY_STRING"]}',
+            "routing_section_blocks": routing_section_blocks
+        }
+        return render(request, 'forms/complaint_view/routing_guide.html', output)
 
 
 class ActionsView(LoginRequiredMixin, FormView):

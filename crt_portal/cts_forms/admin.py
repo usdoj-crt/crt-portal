@@ -9,7 +9,7 @@ from django.http import StreamingHttpResponse
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
-                     JudicialDistrict)
+                     JudicialDistrict, RoutingSection)
 from .signals import get_client_ip
 
 logger = logging.getLogger(__name__)
@@ -163,6 +163,10 @@ class JudicialDistrictAdmin(ReadOnlyModelAdmin):
     search_fields = ['zipcode', 'city', 'county', 'state', 'district']
 
 
+class RoutingSectionAdmin(admin.ModelAdmin):
+    list_display = ['section', 'names']
+
+
 admin.site.register(CommentAndSummary)
 admin.site.register(Report, ReportAdmin)
 admin.site.register(ProtectedClass)
@@ -171,6 +175,7 @@ admin.site.register(ResponseTemplate)
 admin.site.register(Profile)
 admin.site.register(DoNotEmail)
 admin.site.register(JudicialDistrict, JudicialDistrictAdmin)
+admin.site.register(RoutingSection, RoutingSectionAdmin)
 
 # Activity stream already registers an Admin for Action, we want to replace it
 admin.site.unregister(Action)
