@@ -16,6 +16,7 @@ class ReportFactory(DjangoModelFactory):
     contact_first_name = Faker('first_name')
     contact_last_name = Faker('last_name')
     contact_email = Faker('email', domain="example.com")
+    contact_phone = Faker('phone_number')
     contact_address_line_1 = Faker('street_address')
     contact_address_line_2 = Faker('secondary_address')
     contact_state = Faker('state_abbr')

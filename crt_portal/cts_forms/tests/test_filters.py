@@ -69,6 +69,22 @@ class ReportFilterTests(TestCase):
         reports, _ = report_filter(QueryDict('reported_reason=gender&reported_reason=language'))
         self.assertEqual(reports.count(), 1)
 
+    def test_contact_phone(self):
+        test_data2 = SAMPLE_REPORT_2.copy()
+        Report.objects.create(**test_data2)
+        test_data3 = SAMPLE_REPORT_3.copy()
+        Report.objects.create(**test_data3)
+        reports, _ = report_filter(QueryDict('contact_phone=555'))
+        self.assertEqual(reports.count(), 2)
+        reports, _ = report_filter(QueryDict('contact_phone=202-555-5555'))
+        self.assertEqual(reports.count(), 1)
+        # Should ignore any non numberical characters and search against blocks
+        reports, _ = report_filter(QueryDict('contact_phone=(202)%20555.5555'))
+        self.assertEqual(reports.count(), 1)
+        # Since non numeric characters are stripped, it should return all results.
+        reports, _ = report_filter(QueryDict('contact_phone=Hello'))
+        self.assertEqual(reports.count(), 9)
+
     def test_or_search_for_violation_summary(self):
         """
         Returns query set responsive to N terms provided as OR search

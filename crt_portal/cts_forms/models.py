@@ -33,6 +33,7 @@ from .model_variables import (CLOSED_STATUS,
                               SECTION_CHOICES_VI,
                               SECTION_CHOICES_ZH_HANS,
                               SECTION_CHOICES_ZH_HANT,
+                              SECTION_CHOICES_WITHOUT_LABELS,
                               SERVICEMEMBER_CHOICES,
                               STATES_AND_TERRITORIES, STATUS_CHOICES,
                               STATUTE_CHOICES)
@@ -102,6 +103,11 @@ class JudicialDistrict(models.Model):
     district_number = models.SmallIntegerField(null=True, blank=True)
     district_letter = models.CharField(max_length=2, null=True, blank=True)
     district = models.CharField(max_length=7)
+
+
+class RoutingSection(models.Model):
+    section = models.TextField(choices=SECTION_CHOICES_WITHOUT_LABELS, default='ADM', unique=True)
+    names = models.CharField(max_length=700, null=False, blank=False)
 
 
 class Report(models.Model):
