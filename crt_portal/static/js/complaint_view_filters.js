@@ -265,7 +265,7 @@
     props.el.addEventListener('change', function(event) {
       filterDataModel[props.name] = event.target.value;
       if (props.name == 'per_page') {
-        dom.getElementById('apply-filters-button').click()
+        dom.getElementById('apply-filters-button').click();
       }
     });
   }
