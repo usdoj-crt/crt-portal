@@ -5,7 +5,6 @@ import copy
 import io
 import secrets
 from datetime import date, timedelta
-import time
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -371,7 +370,7 @@ class Complaint_Show_View_Valid(TestCase):
         self.assertTrue(self.test_report.violation_summary in self.content)
 
 
-class Valid_CRT_Pagination_Tests(TestCase):
+class Valid_CRT_Pagnation_Tests(TestCase):
     def setUp(self):
         for choice, label in PROTECTED_MODEL_CHOICES:
             pc = ProtectedClass.objects.get_or_create(value=choice)
@@ -409,56 +408,6 @@ class Valid_CRT_Pagination_Tests(TestCase):
         # link generation, update with sorting etc. as we add
         self.assertTrue('href="?per_page=1' in content)
         self.assertTrue('sort=assigned_section' in content)
-
-
-class CRT_Pagination_Performance_Tests(TestCase):
-    def setUp(self):
-        for _ in range(100_000):
-            test_report = Report.objects.create(**SAMPLE_REPORT_1)
-            test_report.save()
-        self.client = Client()
-
-    def test_time_for_15_per_page(self):
-        url_base = reverse('crt_forms:crt-forms-index')
-        url = f'{url_base}?per_page=15'
-        load_times = list()
-        for _ in range(10):
-            start = time.time()
-            self.client.get(url)
-            load_time = time.time() - start
-            load_times.append(load_time)
-        mean_load_time = sum(load_times) / len(load_times)
-        print("This is the mean load time for 15 per page", mean_load_time)
-        # Mean load time was 0.00154 (this test ran second)
-        self.assertTrue(mean_load_time < 1)
-
-    def test_time_for_100_per_page(self):
-        url_base = reverse('crt_forms:crt-forms-index')
-        url = f'{url_base}?per_page=100'
-        load_times = list()
-        for _ in range(10):
-            start = time.time()
-            self.client.get(url)
-            load_time = time.time() - start
-            load_times.append(load_time)
-        mean_load_time = sum(load_times) / len(load_times)
-        print("This is the mean load time for 100 per page", mean_load_time)
-        # Mean load time was 0.00498 (this test ran first)
-        self.assertTrue(mean_load_time < 1)
-
-    def test_time_for_200_per_page(self):
-        url_base = reverse('crt_forms:crt-forms-index')
-        url = f'{url_base}?per_page=200'
-        load_times = list()
-        for _ in range(10):
-            start = time.time()
-            self.client.get(url)
-            load_time = time.time() - start
-            load_times.append(load_time)
-        mean_load_time = sum(load_times) / len(load_times)
-        print("This is the mean load time for 200 per page", mean_load_time)
-        # Mean load time was 0.00131 (this test ran third)
-        self.assertTrue(mean_load_time < 1)
 
 
 class Valid_CRT_SORT_Tests(TestCase):
