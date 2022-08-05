@@ -143,8 +143,8 @@
       if (state.hasOwnProperty(key)) {
         state[key] = decodeFormData(value);
       }
-      if (key === "per_page") {
-        document.getElementsByName("per_page")[0].value = value;
+      if (key === 'per_page') {
+        document.getElementsByName('per_page')[0].value = value;
       }
     }
   }
