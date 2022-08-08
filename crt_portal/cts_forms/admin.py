@@ -9,7 +9,7 @@ from django.http import StreamingHttpResponse
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
-                     JudicialDistrict, RoutingSection)
+                     JudicialDistrict, RoutingSection, RoutingStepOneContacts)
 from .signals import get_client_ip
 
 logger = logging.getLogger(__name__)
@@ -176,6 +176,7 @@ admin.site.register(Profile)
 admin.site.register(DoNotEmail)
 admin.site.register(JudicialDistrict, JudicialDistrictAdmin)
 admin.site.register(RoutingSection, RoutingSectionAdmin)
+admin.site.register(RoutingStepOneContacts)
 
 # Activity stream already registers an Admin for Action, we want to replace it
 admin.site.unregister(Action)
