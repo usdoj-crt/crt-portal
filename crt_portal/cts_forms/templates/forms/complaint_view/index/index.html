@@ -14,7 +14,7 @@
   <div class="display-flex margin-top-8">
     {% include "forms/complaint_view/index/active-filters.html" %}
     <span class="intake-pagination margin-left-auto">
-      Showing {{ page_format.page_range_start }} to {{ page_format.page_range_end }} of TOTAL records
+      Showing {{ page_format.page_range_start }} - {{ page_format.page_range_end }} of {{ page_format.count }} records
       {% include 'forms/complaint_view/index/filters/per_page.html' %}
     </span>
   </div>
