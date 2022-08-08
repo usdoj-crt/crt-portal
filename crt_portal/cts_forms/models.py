@@ -109,8 +109,9 @@ class RoutingSection(models.Model):
     section = models.TextField(choices=SECTION_CHOICES_WITHOUT_LABELS, default='ADM', unique=True)
     names = models.CharField(max_length=700, null=False, blank=False)
 
-class RoutingStepOneContacts(models.Model):
-    contacts = models.TextField(unique=True)
+
+class RoutingStepOneContact(models.Model):
+    contacts = models.TextField(max_length=700, null=False, blank=False)
 
 
 class Report(models.Model):
