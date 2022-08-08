@@ -18,9 +18,9 @@
         {{ actions.fields.assigned_section.widget.label }}
       </label>
       {{ actions.assigned_section }}
-      <button class="help-text usa-button usa-button--unstyled" id="routing-guide-toggle">
+      <a class="help-text usa-button usa-button--unstyled"  href="{{ routing_guide_link }}">
         <span>rerouting guide</span>
-      </button>
+      </a>
     </div>
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
       <label for="id_status" class="intake-label">
@@ -69,7 +69,5 @@
     <button class="usa-button" type="submit" name='type' value='{{actions.CONTEXT_KEY}}'>Apply changes</button>
   </fieldset>
 </form>
-
-{% include "partials/routing-guide.html" %}
 
 {% endblock %}
