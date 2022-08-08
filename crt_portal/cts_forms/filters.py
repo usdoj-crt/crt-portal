@@ -54,7 +54,7 @@ filter_options = {
     'summary': 'summary',  # aka "CRT summary"
     'location_name': '__icontains',
     'other_class': '__search',  # not in filter controls?
-    'per_page': '__pass', # adding so a filter tag will show up in /form/view.  No filtering will actually happen.
+    'per_page': '__pass',  # adding so a filter tag will show up in /form/view.  No filtering will actually happen.
 }
 
 # To add a new filter option for Reports, add the field name and expected filter behavior
