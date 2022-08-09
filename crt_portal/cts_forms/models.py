@@ -110,6 +110,10 @@ class RoutingSection(models.Model):
     names = models.CharField(max_length=700, null=False, blank=False)
 
 
+class RoutingStepOneContact(models.Model):
+    contacts = models.TextField(max_length=700, null=False, blank=False)
+
+
 class Report(models.Model):
     PRIMARY_COMPLAINT_DEPENDENT_FIELDS = {
         'workplace': ['public_or_private_employer', 'employer_size'],

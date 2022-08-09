@@ -36,7 +36,7 @@ from .forms import (
 )
 from .mail import crt_send_mail
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, Trends, EmailReportCount, User, RoutingSection
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, Trends, EmailReportCount, User, RoutingSection, RoutingStepOneContact
 from .page_through import pagination
 from .sorts import report_sort
 
@@ -523,6 +523,10 @@ class RoutingGuideView(LoginRequiredMixin, View):
 
     def get(self, request, id):
         routing_sections = RoutingSection.objects.all()
+        try:
+            routing_step_one_contacts = RoutingStepOneContact.objects.first().contacts
+        except AttributeError:
+            routing_step_one_contacts = "ask.CRT@usdoj.gov"
         routing_section_block = {
             "section_1": "",
             "names_1": "",
@@ -551,7 +555,8 @@ class RoutingGuideView(LoginRequiredMixin, View):
         output = {
             "redirect_path":
                 f'/form/view/{id}/?{request.META["QUERY_STRING"]}',
-            "routing_section_blocks": routing_section_blocks
+            "routing_section_blocks": routing_section_blocks,
+            "routing_step_one_contacts": routing_step_one_contacts
         }
         return render(request, 'forms/complaint_view/routing_guide.html', output)
 
