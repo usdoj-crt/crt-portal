@@ -262,6 +262,14 @@
   align-self: flex-end;
   justify-content: flex-end;
   min-width: 12rem;
+  .kabob-menu {
+    width: 25px;
+    background: url(../../img/kebab-menu-icon.svg) no-repeat;
+    border: none;
+    display: flex;
+    margin-left: 10px;
+    margin-top: 2px;
+  }
 }
 
 .selection-action-notification {

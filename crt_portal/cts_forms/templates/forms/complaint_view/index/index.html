@@ -14,9 +14,13 @@
   <div class="display-flex margin-top-8">
     {% include "forms/complaint_view/index/active-filters.html" %}
     <span class="intake-pagination margin-left-auto">
-      <p>Showing {{ page_format.page_range_start }} - {{ page_format.page_range_end }} of {{ page_format.count }} records</p>
+      Showing {{ page_format.page_range_start }} - {{ page_format.page_range_end }} of {{ page_format.count }} records
+      {% include 'forms/complaint_view/index/filters/per_page.html' %}
     </span>
   </div>
+  <br/>
+  <br/>
+  </form>
   <div class="grid-col-auto">
     <div class="intake-table">
       <div class="intake-table-header">

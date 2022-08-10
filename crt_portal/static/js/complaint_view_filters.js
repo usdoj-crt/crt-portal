@@ -143,6 +143,9 @@
       if (state.hasOwnProperty(key)) {
         state[key] = decodeFormData(value);
       }
+      if (key === 'per_page') {
+        document.getElementsByName('per_page')[0].value = value;
+      }
     }
   }
 
@@ -264,6 +267,9 @@
 
     props.el.addEventListener('change', function(event) {
       filterDataModel[props.name] = event.target.value;
+      if (props.name == 'per_page') {
+        dom.getElementById('apply-filters-button').click();
+      }
     });
   }
 
@@ -287,6 +293,7 @@
     var assigneeEl = formEl.querySelector('#id_assigned_to');
     var complaintIDEl = formEl.querySelector('input[name="public_id"]');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
+    var perPageEl = dom.querySelector('select[name="per_page"]');
     var personalDescriptionEl = formEl.querySelector('input[name="violation_summary"]');
     var primaryIssueEl = dom.getElementsByName('primary_complaint');
     var reportedReasonEl = dom.getElementsByName('reported_reason');
@@ -408,6 +415,10 @@
     textInputView({
       el: statuteEl,
       name: 'primary_statute'
+    });
+    textInputView({
+      el: perPageEl,
+      name: 'per_page'
     });
     clearFiltersView({
       el: clearAllEl,

@@ -7,7 +7,7 @@
 <div class="intake-content grid-container-widescreen routing-guide">
   <div class="display-flex margin-bottom-6 routing-guide-buttons">
     <a class="outline-button outline-button--dark" href="{{redirect_path}}">
-      <img src="/static/img/intake-icons/ic_arrow_forward.svg" alt="back arrow" class="icon" />
+      <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" alt="back arrow" class="icon">
       Back to report details
     </a>
     <button class="usa-button routing-guide-print-button" type="submit" id="apply-filters-button">
@@ -35,7 +35,7 @@
         <tr>
           <th>Yes</th>
           <td>
-            Print a copy of the original incoming report (correspondent information, reported issue, personal description) and email the PDF to Theresa.Weathers@usdoj.gov. Federal Protective Services (FPS) will follow-up with any relevant federal agency and the correspondent.
+            Print a copy of the original incoming report (correspondent information, reported issue, personal description) and email the PDF to {{ routing_step_one_contacts }}. Federal Protective Services (FPS) will follow-up with any relevant federal agency and the correspondent.
             <p>No further action is necessary by CRT and the report can be closed.</p>
           </td>
         </tr>
