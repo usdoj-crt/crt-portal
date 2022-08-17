@@ -657,6 +657,10 @@ class ActionsView(LoginRequiredMixin, FormView):
             return render(request, 'forms/complaint_view/actions/index.html', output)
 
 
+class DataRequestView(LoginRequiredMixin, View):
+    pass
+
+
 class ReportAttachmentView(LoginRequiredMixin, FormView):
     """Can be used for saving attachments for a report"""
     form_class = AttachmentActions
