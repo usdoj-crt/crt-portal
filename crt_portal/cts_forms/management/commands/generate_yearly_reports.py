@@ -2,7 +2,7 @@ from datetime import date, datetime
 import time
 import csv
 from django.core.management.base import BaseCommand, CommandError
-from cts_forms.models import Report, ReportAttachment
+from cts_forms.models import Report, ReportsData
 
 class Command(BaseCommand):
     help = "Generates reports for each year of activity, stored in comma separated value format (.csv)."
@@ -17,7 +17,7 @@ class Command(BaseCommand):
             # Set up for saving to db
             # Might need a user for permissions
             # Might need an http verb
-            attachment = ReportAttachment
+            attachment = ReportsData
             # Open file:
             with open('2022.csv', 'wt') as csvfile:
                 filewriter = csv.writer(csvfile, dialect='excel')
@@ -27,10 +27,7 @@ class Command(BaseCommand):
                 # Write to database
                 attachment.file = csvfile
                 attachment.filename = '2022'
-                attachment.user = "user1"
-                attachment.report = None
                 attachment.created_date = datetime.now()
-                attachment.active = None
                 attachment.save()
             # Stop the timer:
             end = time.time()
