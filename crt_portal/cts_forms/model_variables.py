@@ -33,7 +33,7 @@ PRIMARY_COMPLAINT_CHOICES_VOTING = (
     ('commercial_or_public', _('Discriminated against in a commercial location or public place')),
     ('something_else', _('Something else happened')),
 )
-PRIMARY_COMPLAINT_DICT_VOTING = dict(PRIMARY_COMPLAINT_CHOICES)
+PRIMARY_COMPLAINT_DICT_VOTING = dict(PRIMARY_COMPLAINT_CHOICES_VOTING)
 
 PRIMARY_COMPLAINT_PROFORM_CHOICES = (
     ('workplace', 'Workplace Discrimination'),
