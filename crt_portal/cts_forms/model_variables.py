@@ -24,11 +24,32 @@ PRIMARY_COMPLAINT_CHOICES = (
 )
 PRIMARY_COMPLAINT_DICT = dict(PRIMARY_COMPLAINT_CHOICES)
 
+PRIMARY_COMPLAINT_CHOICES_VOTING = (
+    ('voting', _('Voting rights or ability to vote affected')),
+    ('workplace', _('Workplace discrimination or other employment-related problem')),
+    ('housing', _('Housing discrimination or harassment')),
+    ('education', _('Discrimination at a school, educational program or service, or related to receiving education')),
+    ('police', _('Mistreated by police, correctional staff, or inmates')),
+    ('commercial_or_public', _('Discriminated against in a commercial location or public place')),
+    ('something_else', _('Something else happened')),
+)
+PRIMARY_COMPLAINT_DICT_VOTING = dict(PRIMARY_COMPLAINT_CHOICES)
+
 PRIMARY_COMPLAINT_PROFORM_CHOICES = (
     ('workplace', 'Workplace Discrimination'),
     ('housing', 'Housing Discrimination'),
     ('education', 'Education Discrimination'),
     ('voting', 'Voting Discrimination'),
+    ('police', 'Police / Correctional Misconduct'),
+    ('commercial_or_public', 'Commercial / Public Discrimination'),
+    ('something_else', 'Something else'),
+)
+
+PRIMARY_COMPLAINT_PROFORM_CHOICES_VOTING = (
+    ('voting', 'Voting Discrimination'),
+    ('workplace', 'Workplace Discrimination'),
+    ('housing', 'Housing Discrimination'),
+    ('education', 'Education Discrimination'),
     ('police', 'Police / Correctional Misconduct'),
     ('commercial_or_public', 'Commercial / Public Discrimination'),
     ('something_else', 'Something else'),
@@ -73,6 +94,43 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
         _('Obstacles to registering to vote, obtaining or submitting a ballot, having your ballot counted, or entering a polling place to vote'),
         _('Denied adequate voting assistance or accommodations for a disability at a polling place'),
         _('Restricted or prevented from participating in an election, including voting, becoming a candidate, or being elected for office'),
+    ],
+    'police': [
+        _('Police brutality or use of excessive force, including patterns of police misconduct'),
+        _('Searched and arrested under false pretenses, including racial or other discriminatory profiling'),
+        _('Denied rights while arrested or incarcerated'),
+        _('Denied access to safe living conditions or accommodations for a disability, language barrier, or religious practice while incarcerated'),
+    ],
+    'commercial_or_public': [
+        _('A physical or online location that does not provide disability accommodations'),
+        _('Denied service or entry because of a perceived personal characteristic like race, sex, or religion'),
+        _('Denied an accommodation for a disability, including not being allowed to have a service animal <strong>in a commercial or public location</strong>'),
+    ],
+    'something_else': []
+}
+PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES_VOTING = {
+    'voting': [
+        _('Obstacles to registering to vote, obtaining or submitting a ballot, having your ballot counted, or entering a polling place to vote'),
+        _('Denied adequate voting assistance or accommodations for a disability at a polling place'),
+        _('Restricted or prevented from participating in an election, including voting, becoming a candidate, or being elected for office'),
+    ],
+    'workplace': [
+        _('Fired, not hired, or demoted for reasons unrelated to job performance or qualifications'),
+        _('Retaliated against for reporting discrimination'),
+        _('Inappropriately asked to provide immigration documentation'),
+        _('Denied reemployment or fired based on military service'),
+        _('Denied an accommodation for a disability, including not being allowed to have a service animal <strong>in the workplace</strong>'),
+    ],
+    'housing': [
+        _('Denied housing, a permit, or a loan based on personal characteristics like race, sex, and/or having children under 18 years old'),
+        _('Harassment by a landlord or another tenant, including sexual harassment'),
+        _('Challenges with terminating a lease due to military status change'),
+        _('Denied an accommodation for a disability, including not being allowed to have a service or assistance animal <strong>in public housing</strong>'),
+    ],
+    'education': [
+        _('Harassment based on race, sex, national origin, disability, or religion'),
+        _('Denied admission or segregated in an education program or activity'),
+        _('Denied educational accommodations for a disability or language barrier'),
     ],
     'police': [
         _('Police brutality or use of excessive force, including patterns of police misconduct'),

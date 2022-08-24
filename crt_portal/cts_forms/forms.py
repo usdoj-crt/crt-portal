@@ -28,10 +28,13 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               INTAKE_FORMAT_ERROR,
                               POLICE_LOCATION_ERRORS, PER_PAGE,
                               PRIMARY_COMPLAINT_CHOICES,
+                              PRIMARY_COMPLAINT_CHOICES_VOTING,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
+                              PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES_VOTING,
                               PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
                               PRIMARY_COMPLAINT_ERROR,
                               PRIMARY_COMPLAINT_PROFORM_CHOICES,
+                              PRIMARY_COMPLAINT_PROFORM_CHOICES_VOTING,
                               PRINT_CHOICES,
                               PROTECTED_CLASS_ERROR,
                               PROTECTED_MODEL_CHOICES,
@@ -45,7 +48,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment)
+                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment, VotingMode)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -224,10 +227,15 @@ class PrimaryReason(ModelForm):
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
+        voting_toggle = VotingMode.objects.first().toggle
+        complaint_choices = PRIMARY_COMPLAINT_CHOICES_VOTING if voting_toggle else PRIMARY_COMPLAINT_CHOICES
+        print("complaint_choices", complaint_choices)
+        complaint_choices_examples = PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES_VOTING if voting_toggle else PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES
+        print("complaint_choices_examples", complaint_choices_examples)
         self.fields['primary_complaint'] = ChoiceField(
-            choices=PRIMARY_COMPLAINT_CHOICES,
+            choices=complaint_choices,
             widget=CrtPrimaryIssueRadioGroup(attrs={
-                'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
+                'choices_to_examples': complaint_choices_examples,
                 'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
             }),
             required=True,
@@ -1117,10 +1125,12 @@ class Filters(ModelForm):
             'placeholder': 'yyyy-mm-dd',
         }),
     )
+    voting_toggle = VotingMode.objects.first().toggle
+    proform_choices = PRIMARY_COMPLAINT_PROFORM_CHOICES_VOTING if voting_toggle else PRIMARY_COMPLAINT_PROFORM_CHOICES
     primary_complaint = MultipleChoiceField(
         required=False,
         label='Primary issue',
-        choices=PRIMARY_COMPLAINT_PROFORM_CHOICES,
+        choices=proform_choices,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'primary_issue',
         }),
