@@ -154,14 +154,6 @@ class Report(models.Model):
         blank=False
     )
 
-    # Primary Issue Voting
-    primary_complaint_voting = models.CharField(
-        max_length=100,
-        choices=PRIMARY_COMPLAINT_CHOICES_VOTING,
-        default='',
-        blank=False
-    )
-
     hate_crime = models.CharField(max_length=4, null=True, blank=True, choices=HATE_CRIME_CHOICES)
 
     # Protected Class
