@@ -24,6 +24,7 @@ from .model_variables import (CLOSED_STATUS,
                               EMPLOYER_SIZE_CHOICES, HATE_CRIME_CHOICES,
                               HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
                               INTAKE_FORMAT_CHOICES, PRIMARY_COMPLAINT_CHOICES,
+                              PRIMARY_COMPLAINT_CHOICES_VOTING,
                               PROTECTED_MODEL_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
@@ -114,6 +115,10 @@ class RoutingStepOneContact(models.Model):
     contacts = models.TextField(max_length=700, null=False, blank=False)
 
 
+class VotingMode(models.Model):
+    toggle = models.BooleanField(default=False)
+
+
 class Report(models.Model):
     PRIMARY_COMPLAINT_DEPENDENT_FIELDS = {
         'workplace': ['public_or_private_employer', 'employer_size'],
@@ -145,6 +150,14 @@ class Report(models.Model):
     primary_complaint = models.CharField(
         max_length=100,
         choices=PRIMARY_COMPLAINT_CHOICES,
+        default='',
+        blank=False
+    )
+
+    # Primary Issue Voting
+    primary_complaint_voting = models.CharField(
+        max_length=100,
+        choices=PRIMARY_COMPLAINT_CHOICES_VOTING,
         default='',
         blank=False
     )
