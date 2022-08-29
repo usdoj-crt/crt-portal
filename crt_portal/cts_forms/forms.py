@@ -229,9 +229,7 @@ class PrimaryReason(ModelForm):
         ModelForm.__init__(self, *args, **kwargs)
         voting_toggle = VotingMode.objects.first().toggle
         complaint_choices = PRIMARY_COMPLAINT_CHOICES_VOTING if voting_toggle else PRIMARY_COMPLAINT_CHOICES
-        print("complaint_choices", complaint_choices)
         complaint_choices_examples = PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES_VOTING if voting_toggle else PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES
-        print("complaint_choices_examples", complaint_choices_examples)
         self.fields['primary_complaint'] = ChoiceField(
             choices=complaint_choices,
             widget=CrtPrimaryIssueRadioGroup(attrs={
@@ -904,8 +902,10 @@ class ProForm(
             widget=UsaRadioSelect,
             required=False,
         )
+        voting_toggle = VotingMode.objects.first().toggle
+        complaint_choices = PRIMARY_COMPLAINT_CHOICES_VOTING if voting_toggle else PRIMARY_COMPLAINT_CHOICES
         self.fields['primary_complaint'] = TypedChoiceField(
-            choices=PRIMARY_COMPLAINT_CHOICES,
+            choices=complaint_choices,
             error_messages={'required': PRIMARY_COMPLAINT_ERROR},
             label=PRIMARY_REASON_QUESTION,
             widget=UsaRadioSelect,

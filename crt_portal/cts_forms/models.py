@@ -23,7 +23,8 @@ from .model_variables import (CLOSED_STATUS,
                               DATE_ERRORS, DISTRICT_CHOICES, ELECTION_CHOICES,
                               EMPLOYER_SIZE_CHOICES, HATE_CRIME_CHOICES,
                               HATE_CRIMES_TRAFFICKING_MODEL_CHOICES,
-                              INTAKE_FORMAT_CHOICES, PRIMARY_COMPLAINT_CHOICES_VOTING,
+                              INTAKE_FORMAT_CHOICES, PRIMARY_COMPLAINT_CHOICES,
+                              PRIMARY_COMPLAINT_CHOICES_VOTING,
                               PROTECTED_MODEL_CHOICES,
                               PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES,
                               PUBLIC_OR_PRIVATE_SCHOOL_CHOICES,
@@ -147,6 +148,14 @@ class Report(models.Model):
 
     # Primary Issue
     primary_complaint = models.CharField(
+        max_length=100,
+        choices=PRIMARY_COMPLAINT_CHOICES,
+        default='',
+        blank=False
+    )
+
+    # Primary Issue Voting
+    primary_complaint_voting = models.CharField(
         max_length=100,
         choices=PRIMARY_COMPLAINT_CHOICES_VOTING,
         default='',

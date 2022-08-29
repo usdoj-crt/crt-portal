@@ -1,7 +1,6 @@
 {% load static %}
 {% load i18n %}
 {% load get_env %}
-{% load voting_toggle %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html lang="{{LANGUAGE_CODE}}">
@@ -150,9 +149,6 @@
     <script src="{% static 'js/focus_alert.min.js' %}"></script>
     <script src="{% static 'js/clear_error_class.min.js' %}"></script>
     <script src="{% static 'js/banner_language_selection.min.js' %}"></script>
-    <script type="text/javascript">
-      window["votingToggle"] = {% voting_toggle_mode %}
-    </script>
     {% block page_js %}{% endblock %}
 
     {% block analytics %}
