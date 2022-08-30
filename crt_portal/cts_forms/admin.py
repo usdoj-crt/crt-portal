@@ -9,7 +9,7 @@ from django.http import StreamingHttpResponse
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
-                     JudicialDistrict, RoutingSection, RoutingStepOneContact)
+                     JudicialDistrict, RoutingSection, RoutingStepOneContact, VotingMode)
 from .signals import get_client_ip
 
 logger = logging.getLogger(__name__)
@@ -171,6 +171,16 @@ class RoutingStepOneContactAdmin(admin.ModelAdmin):
     list_display = ['contacts']
 
 
+class VotingModeAdmin(admin.ModelAdmin):
+    list_display = ['voting_toggle_display_name']
+
+    @admin.display(description='Voting Toggle')
+    def voting_toggle_display_name(self, obj):
+        if obj.toggle:
+            return 'Voting Mode: True'
+        return 'Voting Mode: False'
+
+
 admin.site.register(CommentAndSummary)
 admin.site.register(Report, ReportAdmin)
 admin.site.register(ProtectedClass)
@@ -180,6 +190,7 @@ admin.site.register(Profile)
 admin.site.register(DoNotEmail)
 admin.site.register(JudicialDistrict, JudicialDistrictAdmin)
 admin.site.register(RoutingSection, RoutingSectionAdmin)
+admin.site.register(VotingMode, VotingModeAdmin)
 admin.site.register(RoutingStepOneContact, RoutingStepOneContactAdmin)
 
 # Activity stream already registers an Admin for Action, we want to replace it

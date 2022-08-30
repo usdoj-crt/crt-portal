@@ -114,6 +114,10 @@ class RoutingStepOneContact(models.Model):
     contacts = models.TextField(max_length=700, null=False, blank=False)
 
 
+class VotingMode(models.Model):
+    toggle = models.BooleanField(default=False)
+
+
 class Report(models.Model):
     PRIMARY_COMPLAINT_DEPENDENT_FIELDS = {
         'workplace': ['public_or_private_employer', 'employer_size'],
