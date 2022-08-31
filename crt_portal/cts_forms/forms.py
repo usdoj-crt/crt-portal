@@ -83,6 +83,15 @@ def add_activity(user, verb, description, instance):
     )
 
 
+def is_voting_mode():
+    try:
+        voting_mode = VotingMode.objects.first()
+        return voting_mode.toggle
+    except AttributeError:
+        VotingMode.objects.create(toggle=False)
+        return False
+
+
 class ActivityStreamUpdater(object):
     """Utility functions to update activity stream for all changed fields"""
 
@@ -227,9 +236,8 @@ class PrimaryReason(ModelForm):
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
-        voting_toggle = VotingMode.objects.first().toggle
-        complaint_choices = PRIMARY_COMPLAINT_CHOICES_VOTING if voting_toggle else PRIMARY_COMPLAINT_CHOICES
-        complaint_choices_examples = PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES_VOTING if voting_toggle else PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES
+        complaint_choices = PRIMARY_COMPLAINT_CHOICES_VOTING if is_voting_mode() else PRIMARY_COMPLAINT_CHOICES
+        complaint_choices_examples = PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES_VOTING if is_voting_mode() else PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES
         self.fields['primary_complaint'] = ChoiceField(
             choices=complaint_choices,
             widget=CrtPrimaryIssueRadioGroup(attrs={
@@ -902,8 +910,7 @@ class ProForm(
             widget=UsaRadioSelect,
             required=False,
         )
-        voting_toggle = VotingMode.objects.first().toggle
-        complaint_choices = PRIMARY_COMPLAINT_CHOICES_VOTING if voting_toggle else PRIMARY_COMPLAINT_CHOICES
+        complaint_choices = PRIMARY_COMPLAINT_CHOICES_VOTING if is_voting_mode() else PRIMARY_COMPLAINT_CHOICES
         self.fields['primary_complaint'] = TypedChoiceField(
             choices=complaint_choices,
             error_messages={'required': PRIMARY_COMPLAINT_ERROR},
@@ -1125,8 +1132,7 @@ class Filters(ModelForm):
             'placeholder': 'yyyy-mm-dd',
         }),
     )
-    voting_toggle = VotingMode.objects.first().toggle
-    proform_choices = PRIMARY_COMPLAINT_PROFORM_CHOICES_VOTING if voting_toggle else PRIMARY_COMPLAINT_PROFORM_CHOICES
+    proform_choices = PRIMARY_COMPLAINT_PROFORM_CHOICES_VOTING if is_voting_mode() else PRIMARY_COMPLAINT_PROFORM_CHOICES
     primary_complaint = MultipleChoiceField(
         required=False,
         label='Primary issue',
