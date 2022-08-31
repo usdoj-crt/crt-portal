@@ -24,7 +24,7 @@ Hiệp hội luật sư tiểu bang hoặc văn phòng hỗ trợ pháp lý đ�
     Hiệp hội Luật sư Hoa Kỳ
     www.americanbar.org/groups/legal_services/flh-home
     (800) 285-2221
-    Legal Service Corporation (hoặc Legal Aid Offices)
+    Legal Services Corporation (hoặc Legal Aid Offices)
     www.lsc.gov/find-legal-aid
     (202) 295-1500
 
