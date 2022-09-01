@@ -26,17 +26,13 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
                               LANDING_COMPLAINT_DICT,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
-                              PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES_VOTING,
                               PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
                               PRIMARY_COMPLAINT_DICT,
-                              PRIMARY_COMPLAINT_DICT_VOTING,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import Report, ResponseTemplate, EmailReportCount, VotingMode
+from .models import Report, ResponseTemplate, EmailReportCount
 from .forms import save_form, Review
 from .mail import crt_send_mail
-from utils.voting_mode import is_voting_mode
-
 
 logger = logging.getLogger(__name__)
 
@@ -46,14 +42,12 @@ class LandingPageView(TemplateView):
     template_name = "landing.html"
 
     def get_context_data(self, **kwargs):
-        primary_complaint_dictionary = PRIMARY_COMPLAINT_DICT if is_voting_mode() else PRIMARY_COMPLAINT_DICT_VOTING
         all_complaints = {
-            **primary_complaint_dictionary,
+            **PRIMARY_COMPLAINT_DICT,
             **LANDING_COMPLAINT_DICT,
         }
-        complaint_choices_examples = PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES_VOTING if is_voting_mode() else PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES
         all_examples = {
-            **complaint_choices_examples,
+            **PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
             **LANDING_COMPLAINT_CHOICES_TO_EXAMPLES,
         }
         all_helptext = {
@@ -321,9 +315,8 @@ class CRTReportWizard(SessionWizardView):
             # this variable improves some conditional display logic in templates
             primary_complaint_key = form_data_dict['primary_complaint']
             # unpack values in data for display
-            primary_complaint_dictionary = PRIMARY_COMPLAINT_DICT if is_voting_mode() else PRIMARY_COMPLAINT_DICT_VOTING
             form_data_dict['primary_complaint'] = data_decode(
-                form_data_dict, primary_complaint_dictionary, 'primary_complaint'
+                form_data_dict, PRIMARY_COMPLAINT_DICT, 'primary_complaint'
             )
             form_data_dict['election_details'] = data_decode(
                 form_data_dict, ELECTION_DICT, 'election_details'
