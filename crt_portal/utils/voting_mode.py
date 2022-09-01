@@ -8,4 +8,3 @@ def is_voting_mode():
     except AttributeError:
         VotingMode.objects.create(toggle=False)
         return False
-
