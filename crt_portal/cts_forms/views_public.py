@@ -32,7 +32,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PRIMARY_COMPLAINT_DICT_VOTING,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import Report, ResponseTemplate, EmailReportCount, VotingMode
+from .models import Report, ResponseTemplate, EmailReportCount
 from .forms import save_form, Review
 from .mail import crt_send_mail
 from utils.voting_mode import is_voting_mode
