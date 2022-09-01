@@ -1,5 +1,6 @@
 from cts_forms.models import VotingMode
 
+
 def is_voting_mode():
     try:
         voting_mode = VotingMode.objects.first()
