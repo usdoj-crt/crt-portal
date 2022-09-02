@@ -4,7 +4,7 @@
   function toggleFollowUpQuestions(event) {
     var primary_complaint_id = event.target.id;
     // check to see if first item in list is Voting, which is toggled during election season
-    isVotingMode = document.getElementById("id_0-primary_complaint_0").value === 'voting'
+    isVotingMode = document.getElementById('id_0-primary_complaint_0').value === 'voting';
     var predicate_target_mapping = isVotingMode
       ? {
           'id_0-primary_complaint_1': [
