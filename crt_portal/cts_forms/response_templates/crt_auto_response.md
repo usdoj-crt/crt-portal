@@ -40,7 +40,7 @@ If we are able to respond, we will contact you using the contact information you
 Legal aid offices or members of lawyer associations in your state may be able to help you with your issue.
 
 - American Bar Association, visit the [www.americanbar.org/groups/legal_services/flh-home](www.americanbar.org/groups/legal_services/flh-home) or call (800) 285-2221
-- Legal Service Corporation (or Legal Aid Offices), visit the [Legal Services Corporation](www.lsc.gov/find-legal-aid) or call (202) 295-1500
+- Legal Services Corporation (or Legal Aid Offices), visit the [Legal Services Corporation](www.lsc.gov/find-legal-aid) or call (202) 295-1500
 
 
 ## 2. Learn More

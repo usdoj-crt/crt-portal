@@ -23,7 +23,7 @@ We are not determining that your report lacks merit. Your issue may still be act
     www.americanbar.org/groups/legal_services/flh-home
     (800) 285-2221
 
-    Legal Service Corporation (or Legal Aid Offices)
+    Legal Services Corporation (or Legal Aid Offices)
     www.lsc.gov/find-legal-aid
     (202) 295-1500
 
