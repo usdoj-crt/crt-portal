@@ -18,7 +18,7 @@ factory-boy = "*"
 tblib = "*"
 
 [packages]
-django = "~=3.2"
+django = "==3.2.15"
 gunicorn = "*"
 django-compressor = "*"
 django-compressor-toolkit = "*"
