@@ -289,6 +289,7 @@ if environment in ['PRODUCTION', 'STAGE']:
             '^i18n',
             '^email',
             '^housing-resources',
+            '^voting-resources',
         ],
     }
 
