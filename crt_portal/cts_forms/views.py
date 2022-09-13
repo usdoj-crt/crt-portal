@@ -32,11 +32,11 @@ from .forms import (
     BulkActionsForm, CommentActions, ComplaintActions,
     ContactEditForm, Filters, PrintActions, ProfileForm,
     ReportEditForm, ResponseActions, add_activity,
-    AttachmentActions, Review, save_form,
+    AttachmentActions, ReportDataActions, Review, save_form,
 )
 from .mail import crt_send_mail
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, Trends, EmailReportCount, User, RoutingSection, RoutingStepOneContact
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, User, RoutingSection, RoutingStepOneContact
 from .page_through import pagination
 from .sorts import report_sort
 
@@ -715,6 +715,82 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
 
     def post(self, request, report_id):
         report = get_object_or_404(Report, pk=report_id)
+
+        attachment_form = self.form_class(request.POST, request.FILES)
+
+        if attachment_form.is_valid() and attachment_form.has_changed():
+            attachment = attachment_form.save(commit=False)
+            attachment.user = request.user
+            attachment.save()
+
+            verb = 'Attached file: '
+
+            messages.add_message(request, messages.SUCCESS, f'Successfully {verb[:-2].lower()}')
+            attachment_form.update_activity_stream(request.user, verb, attachment)
+        else:
+            for key in attachment_form.errors:
+                errors = '; '.join(attachment_form.errors[key])
+                error_message = f'Could not save attachment: {errors}'
+                messages.add_message(request, messages.ERROR, error_message)
+
+        url = preserve_filter_parameters(report, request.POST)
+        return redirect(url)
+
+
+class ReportDataView(LoginRequiredMixin, FormView):
+    """Can be used for saving report data for a report"""
+    form_class = ReportDataActions
+    http_method_names = ['get', 'post']
+
+    def get(self, request, id, attachment_id):
+        """
+        Download a particular attachment for a report
+        """
+
+        attachment = get_object_or_404(ReportsData)
+
+        logger.info(f'User {request.user} downloading attachment {attachment.filename} for report {id}')
+
+        if settings.ENABLE_LOCAL_ATTACHMENT_STORAGE:
+            try:
+                file = open(attachment.file.name, 'rb')
+                mime_type, _ = mimetypes.guess_type(attachment.filename)
+                response = HttpResponse(file, content_type=mime_type)
+                response.headers['Content-Disposition'] = f'attachment;filename={attachment.filename}'
+                return response
+
+            except FileNotFoundError:
+                raise Http404(f'File {attachment.filename} not found.')
+
+        else:
+            # Generate a presigned URL for the S3 object
+            s3_client = boto3.client(
+                service_name='s3',
+                region_name=settings.PRIV_S3_REGION,
+                aws_access_key_id=settings.PRIV_S3_ACCESS_KEY_ID,
+                aws_secret_access_key=settings.PRIV_S3_SECRET_ACCESS_KEY,
+                endpoint_url=settings.PRIV_S3_ENDPOINT_URL,
+                config=Config(signature_version='s3v4'))
+
+            try:
+                response = s3_client.generate_presigned_url(
+                    'get_object',
+                    Params={
+                        'Bucket': settings.PRIV_S3_BUCKET,
+                        'Key': attachment.file.name,
+                        'ResponseContentDisposition': f'attachment;filename={attachment.filename}'
+                    },
+                    ExpiresIn=30,
+                )
+
+                return redirect(response)
+
+            except ClientError as e:
+                logging.error(e)
+                raise Http404(f'File {attachment.filename} not found.')
+
+    def post(self, request):
+
 
         attachment_form = self.form_class(request.POST, request.FILES)
 

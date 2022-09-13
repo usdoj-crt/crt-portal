@@ -1955,3 +1955,38 @@ class AttachmentActions(ModelForm):
             description=instance.filename,
             target=instance.report
         )
+
+class ReportDataActions(ModelForm):
+    class Meta:
+        model = ReportAttachment
+        fields = ['file']
+
+        widgets = {
+            'file': ClearableFileInput(attrs={
+                'class': 'usa-input',
+            }),
+        }
+
+    def save(self, commit=True):
+        instance = ModelForm.save(self, commit=False)
+
+        # this is the filename that the user sees
+        instance.filename = instance.file.name
+
+        # this is the filename that gets stored in S3
+        suffix = datetime.now().strftime('%Y%m%d%H%M%S%f')
+        instance.file.name = '2022'
+
+        if commit:
+            instance.save()
+
+        return instance
+
+    def update_activity_stream(self, user, verb, instance):
+        """Send all actions to activity stream"""
+        action.send(
+            user,
+            verb=verb,
+            description=instance.filename,
+            target=instance.report
+        )

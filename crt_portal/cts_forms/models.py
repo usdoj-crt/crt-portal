@@ -450,10 +450,11 @@ class ReportAttachment(models.Model):
 
 
 class ReportsData(models.Model):
-    file = models.FileField(upload_to='data-request', validators=[validate_file_attachment])
-    filename = models.CharField(max_length=255)
+    file = models.FileField(upload_to='report-data', validators=[validate_file_attachment])
     created_date = models.DateTimeField(auto_now_add=True)
 
+    def get_absolute_url(self):
+        return reverse('crt_forms:get-report-data')
 
 class EmailReportCount(models.Model):
     """see the total number of reports that are associated with the contact_email for each report"""
