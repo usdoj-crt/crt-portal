@@ -32,7 +32,7 @@ from .forms import (
     BulkActionsForm, CommentActions, ComplaintActions,
     ContactEditForm, Filters, PrintActions, ProfileForm,
     ReportEditForm, ResponseActions, add_activity,
-    AttachmentActions, ReportDataActions, Review, save_form,
+    AttachmentActions, Review, save_form,
 )
 from .mail import crt_send_mail
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
@@ -322,6 +322,7 @@ def serialize_data(report, request, report_id):
         'print_options': PrintActions(),
         'activity_stream': report.target_actions.all().prefetch_related('actor'),
         'attachments': report.attachments.filter(active=True),
+        'reports_data_files': ReportsData.objects.all(),
         'crimes': crimes,
         'data': report,
         'p_class_list': p_class_list,
@@ -739,15 +740,13 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
 
 class ReportDataView(LoginRequiredMixin, FormView):
     """Can be used for saving report data for a report"""
-    form_class = ReportDataActions
     http_method_names = ['get', 'post']
 
-    def get(self, request, id, attachment_id):
+    def get(self, request, report_data_id):
         """
         Download a particular attachment for a report
         """
-
-        attachment = get_object_or_404(ReportsData)
+        attachment = get_object_or_404(ReportsData, pk=report_data_id)
 
         logger.info(f'User {request.user} downloading attachment {attachment.filename} for report {id}')
 
@@ -788,29 +787,6 @@ class ReportDataView(LoginRequiredMixin, FormView):
             except ClientError as e:
                 logging.error(e)
                 raise Http404(f'File {attachment.filename} not found.')
-
-    def post(self, request):
-
-
-        attachment_form = self.form_class(request.POST, request.FILES)
-
-        if attachment_form.is_valid() and attachment_form.has_changed():
-            attachment = attachment_form.save(commit=False)
-            attachment.user = request.user
-            attachment.save()
-
-            verb = 'Attached file: '
-
-            messages.add_message(request, messages.SUCCESS, f'Successfully {verb[:-2].lower()}')
-            attachment_form.update_activity_stream(request.user, verb, attachment)
-        else:
-            for key in attachment_form.errors:
-                errors = '; '.join(attachment_form.errors[key])
-                error_message = f'Could not save attachment: {errors}'
-                messages.add_message(request, messages.ERROR, error_message)
-
-        url = preserve_filter_parameters(report, request.POST)
-        return redirect(url)
 
 
 class RemoveReportAttachmentView(LoginRequiredMixin, View):
