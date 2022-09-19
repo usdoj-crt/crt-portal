@@ -35,6 +35,7 @@ USE_LOCALSTACK = os.environ.get('USE_LOCALSTACK', None)
 DEBUG = os.environ.get('DEBUG', False)
 ENABLE_DEBUG_TOOLBAR = os.environ.get('ENABLE_DEBUG_TOOLBAR', False)
 MAINTENANCE_MODE = os.environ.get('MAINTENANCE_MODE', False)
+VOTING_MODE = os.environ.get('VOTING_MODE', False)
 
 
 # Quick-start development settings - unsuitable for production
@@ -288,6 +289,7 @@ if environment in ['PRODUCTION', 'STAGE']:
             '^i18n',
             '^email',
             '^housing-resources',
+            '^voting-resources',
         ],
     }
 

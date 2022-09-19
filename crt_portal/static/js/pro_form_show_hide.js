@@ -3,21 +3,39 @@
 
   function toggleFollowUpQuestions(event) {
     var primary_complaint_id = event.target.id;
-    var predicate_target_mapping = {
-      'id_0-primary_complaint_0': [
-        'div-id_0-public_or_private_employer_0',
-        'div-id_0-employer_size_0'
-      ],
-      'id_0-primary_complaint_2': ['div-id_0-public_or_private_school_0'],
-      'id_0-primary_complaint_3': [
-        'div-id_0-inside_correctional_facility_0',
-        'div-id_0-correctional_facility_type_0'
-      ],
-      'id_0-primary_complaint_5': [
-        'div-id_0-commercial_or_public_place_0',
-        'div-id_0-other_commercial_or_public_place'
-      ]
-    };
+    // check to see if first item in list is Voting, which is toggled during election season
+    isVotingMode = document.getElementById('id_0-primary_complaint_0').value === 'voting';
+    var predicate_target_mapping = isVotingMode
+      ? {
+          'id_0-primary_complaint_1': [
+            'div-id_0-public_or_private_employer_0',
+            'div-id_0-employer_size_0'
+          ],
+          'id_0-primary_complaint_3': ['div-id_0-public_or_private_school_0'],
+          'id_0-primary_complaint_4': [
+            'div-id_0-inside_correctional_facility_0',
+            'div-id_0-correctional_facility_type_0'
+          ],
+          'id_0-primary_complaint_5': [
+            'div-id_0-commercial_or_public_place_0',
+            'div-id_0-other_commercial_or_public_place'
+          ]
+        }
+      : {
+          'id_0-primary_complaint_0': [
+            'div-id_0-public_or_private_employer_0',
+            'div-id_0-employer_size_0'
+          ],
+          'id_0-primary_complaint_2': ['div-id_0-public_or_private_school_0'],
+          'id_0-primary_complaint_3': [
+            'div-id_0-inside_correctional_facility_0',
+            'div-id_0-correctional_facility_type_0'
+          ],
+          'id_0-primary_complaint_5': [
+            'div-id_0-commercial_or_public_place_0',
+            'div-id_0-other_commercial_or_public_place'
+          ]
+        };
     // show
     if (primary_complaint_id in predicate_target_mapping) {
       var targets = predicate_target_mapping[primary_complaint_id];

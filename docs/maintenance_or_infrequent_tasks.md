@@ -577,6 +577,30 @@ cf unset-env crt-portal-django MAINTENANCE_MODE
 cf restart crt-portal-django --strategy rolling
 ```
 
+# Voting Mode
+
+Like Maintenance mode, we use an environment variable, `VOTING_MODE`, to run the application during voting season.  This places Voting choice as the primary reason at the top
+of the proForm and regular report section, and will add a banner to a page to give users a better sense of their voting rights.
+
+To **enable** voting mode, we need to set the `VOTING_MODE` environment variable to `True` and restart all running instances.
+
+> **NOTE**: Cloud Foundry [CLI Version 7](https://docs.cloudfoundry.org/cf-cli/v7.html) is required to use `--strategy rolling`
+
+
+```shell
+cf target -s {target environment}
+cf set-env crt-portal-django VOTING_MODE True
+cf restart crt-portal-django --strategy rolling
+```
+
+To **disable** voting mode and return the application to normal operations, remove the `VOTING_MODE` variable from the desired environment and restart all running instances.
+
+```shell
+cf target -s {target environment}
+cf unset-env crt-portal-django VOTING_MODE
+cf restart crt-portal-django --strategy rolling
+```
+
 ## A list of modified functionality when operating in maintenance mode
 
 URL | Method | Normal | Maintenance mode

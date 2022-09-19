@@ -14,6 +14,8 @@ DATABASES = {
 }
 
 SECRET_KEY = os.getenv('SECRET_KEY')
+# Convert string to boolean
+VOTING_MODE = (os.getenv('VOTING_MODE', 'False') == 'True')
 # This setting will only be used in local development
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '10.0.2.2', '0.0.0.0']  # nosec
 DEBUG = True
