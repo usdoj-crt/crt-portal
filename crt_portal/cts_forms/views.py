@@ -785,6 +785,15 @@ class ReportDataView(LoginRequiredMixin, FormView):
                 raise Http404(f'File {attachment.filename} not found.')
 
 
+class DataExport(LoginRequiredMixin, TemplateView):
+
+    def get(self, request):
+        output = {
+            'reports_data_files': ReportsData.objects.all(),
+        }
+        return render(request, 'forms/data_export.html', output)
+
+
 class RemoveReportAttachmentView(LoginRequiredMixin, View):
     http_method_names = ['post']
 

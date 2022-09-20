@@ -1,0 +1,38 @@
+{% extends "forms/complaint_view/intake_base.html" %}
+{% load static %}
+
+{% block page_title %}
+ <title>CRT Complaint Records{% for message in messages %} - {{ message }}{% endfor %}</title>
+{% endblock %}
+
+{% block content %}
+  <div class="complaint-show-body">
+    <div class="grid-container-widescreen">
+      <div class="grid-row margin-bottom-1">
+        <div class="tablet:grid-col-10 grid-offset-1 padding-left-05">
+            <div class="grid-container-widescreen">
+      <h1>Exported Data</h1>
+            <h2>Reports</h2>
+<table class="usa-table usa-table--borderless attachments-table width-full">
+  <thead>
+    <th scope='col'>File Name</th>
+    <th scope='col'>Created Date</th>
+    <th scope='col'></th>
+  </thead>
+
+  <tbody>
+    {% for reports_data in reports_data_files %}
+      <tr>
+        <td><a href="{{ reports_data.get_absolute_url }}"> {{ reports_data.filename }}</a></td>
+        <td>{{reports_data.created_date}}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+    </div>
+        </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
