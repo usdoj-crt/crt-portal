@@ -463,7 +463,7 @@ jobs:
       - run:
           name: generate_yearly_reports command
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_yearly_reports" --name clear-sessions
-          
+
 workflows:
   build-test-deploy:
     jobs:
