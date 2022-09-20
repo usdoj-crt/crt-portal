@@ -26,7 +26,7 @@ class Command(BaseCommand):
             # Create reports for each year
             for year in year_range:
                 start_date = datetime(year, 1, 1).astimezone(pytz.timezone('EST'))
-                end_date = datetime(year, 12, 31, 23, 59, 59).astimezone(pytz.timezone('EST'))
+                end_date = datetime(year, 12, 31, 23, 59, 59, 999999).astimezone(pytz.timezone('EST'))
                 filename = f'reports-data-{year}.csv'
                 headers = REPORT_FIELDS + ['protected_class', 'internal_summary']
 
