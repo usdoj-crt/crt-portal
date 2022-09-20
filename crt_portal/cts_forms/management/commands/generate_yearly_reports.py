@@ -22,10 +22,11 @@ class Command(BaseCommand):
             # For performance monitoring
             start = time.time()
             year_range = list(range(2020, datetime.today().year + 1))
+            total_count = 0
             # Create reports for each year
             for year in year_range:
-                start_date = datetime(year, 1, 1).astimezone(pytz.timezone('UTC'))
-                end_date = datetime(year, 12, 31).astimezone(pytz.timezone('UTC'))
+                start_date = datetime(year, 1, 1).astimezone(pytz.timezone('EST'))
+                end_date = datetime(year, 12, 31, 23, 59, 59).astimezone(pytz.timezone('EST'))
                 filename = f'reports-data-{year}.csv'
                 headers = REPORT_FIELDS + ['protected_class', 'internal_summary']
 
@@ -35,6 +36,7 @@ class Command(BaseCommand):
                                                      Prefetch('internal_comments', queryset=summaries,
                                                               to_attr='internal_summary')
                                                      ).order_by('id')
+                total_count += queryset.count()
                 iterator = iter_queryset(queryset, headers)
                 csv_buffer = StringIO()
                 csv_writer = csv.writer(csv_buffer, quoting=csv.QUOTE_ALL)
@@ -62,7 +64,7 @@ class Command(BaseCommand):
 
         except OSError as error:
             raise CommandError(f'Error writing CSV file: {error}')
-        except ValueError:
-            raise CommandError(f'Something went wrong: {ValueError}')
+        except ValueError as error:
+            raise CommandError(f'Something went wrong: {error}')
 
-        self.stdout.write(self.style.SUCCESS(f'Successfully exported {queryset.count()} reports in {elapsed} seconds.'))
+        self.stdout.write(self.style.SUCCESS(f'Successfully exported {total_count} reports in {elapsed} seconds.'))
