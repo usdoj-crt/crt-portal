@@ -28,10 +28,13 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               INTAKE_FORMAT_ERROR,
                               POLICE_LOCATION_ERRORS, PER_PAGE,
                               PRIMARY_COMPLAINT_CHOICES,
+                              PRIMARY_COMPLAINT_CHOICES_VOTING,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
+                              PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES_VOTING,
                               PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
                               PRIMARY_COMPLAINT_ERROR,
                               PRIMARY_COMPLAINT_PROFORM_CHOICES,
+                              PRIMARY_COMPLAINT_PROFORM_CHOICES_VOTING,
                               PRINT_CHOICES,
                               PROTECTED_CLASS_ERROR,
                               PROTECTED_MODEL_CHOICES,
@@ -59,6 +62,8 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
 from .widgets import (ComplaintSelect, CrtMultiSelect,
                       CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
                       UsaRadioSelect, DataAttributesSelect, CrtDateInput)
+from utils.voting_mode import is_voting_mode
+
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -224,10 +229,12 @@ class PrimaryReason(ModelForm):
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
+        complaint_choices = PRIMARY_COMPLAINT_CHOICES_VOTING if is_voting_mode() else PRIMARY_COMPLAINT_CHOICES
+        complaint_choices_examples = PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES_VOTING if is_voting_mode() else PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES
         self.fields['primary_complaint'] = ChoiceField(
-            choices=PRIMARY_COMPLAINT_CHOICES,
+            choices=complaint_choices,
             widget=CrtPrimaryIssueRadioGroup(attrs={
-                'choices_to_examples': PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
+                'choices_to_examples': complaint_choices_examples,
                 'choices_to_helptext': PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
             }),
             required=True,
@@ -896,8 +903,9 @@ class ProForm(
             widget=UsaRadioSelect,
             required=False,
         )
+        complaint_choices = PRIMARY_COMPLAINT_CHOICES_VOTING if is_voting_mode() else PRIMARY_COMPLAINT_CHOICES
         self.fields['primary_complaint'] = TypedChoiceField(
-            choices=PRIMARY_COMPLAINT_CHOICES,
+            choices=complaint_choices,
             error_messages={'required': PRIMARY_COMPLAINT_ERROR},
             label=PRIMARY_REASON_QUESTION,
             widget=UsaRadioSelect,
@@ -1117,10 +1125,11 @@ class Filters(ModelForm):
             'placeholder': 'yyyy-mm-dd',
         }),
     )
+    proform_choices = PRIMARY_COMPLAINT_PROFORM_CHOICES_VOTING if is_voting_mode() else PRIMARY_COMPLAINT_PROFORM_CHOICES
     primary_complaint = MultipleChoiceField(
         required=False,
         label='Primary issue',
-        choices=PRIMARY_COMPLAINT_PROFORM_CHOICES,
+        choices=proform_choices,
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'primary_issue',
         }),

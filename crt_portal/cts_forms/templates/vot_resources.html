@@ -1,0 +1,125 @@
+{% extends "landing.html" %}
+
+{% load static %}
+{% load i18n %}
+
+{% block meta_title %}
+  {% trans "Civil Rights Division - Department of Justice - Voting resources" as meta_title %}
+  <meta property="og:title" content="{{meta_title}}" />
+  <meta property="name" content="{{meta_title}}" />
+{% endblock meta_title %}
+
+{% block page_title %}
+  <title>
+    {% trans "Civil Rights Division - Department of Justice - Voting resources" %}
+  </title>
+{% endblock %}
+
+{% block content %}
+<div class="crt-landing--section crt-landing--pale crt-subpage">
+  <div class="grid-container">
+    <div class="grid-row grid-gap">
+      <div class="tablet:grid-col-4">
+        <ul class="usa-sidenav crt-subpage--nav" id="toc">
+          <li class="usa-sidenav__item">
+            <a href="#get-help">{% trans "How do I..." %}</a>
+          </li>
+          <ul class="sublist">
+            <li class="usa-sidenav__item">
+              <a href="#civilrights-violation">{% trans "Report a possible civil rights violation" %}</a>
+            </li>
+            <li class="usa-sidenav__item">
+              <a href="#criminal-violation">{% trans "Report a possible federal criminal civil rights violation" %}</a>
+            </li>
+            <li class="usa-sidenav__item">
+              <a href="#polling-place">{% trans "Find the election laws, voting hours, or polling place locations in your state" %}</a>
+            </li>
+
+            <li class="usa-sidenav__item">
+              <a href="#voting-rights">{% trans "Learn about your voting rights" %}</a>
+            </li>
+          </ul>
+        </ul>
+      </div>
+      <div class="tablet:grid-col-8">
+        <h1 id="get-help">
+          {% trans "Report voting issues" %}
+        </h1>
+        <div class="crt-landing--separator"></div>
+
+        <section id="civilrights-violation">
+          <h2>{% trans "Report a possible civil rights violation" %}</h2>
+
+          <p>
+            {% trans "To report civil rights violations, go to " %} <a class="link--blue" href="https://civilrights.justice.gov">civilrights.justice.gov</a>.
+          </p>
+
+          <p>
+            {% trans "Examples:" %}
+          </p>
+          <ul>
+            <li>{% trans "Discrimination on the basis of race, color, or membership in a language minority group while voting or attempting to vote" %}</li>
+            <li>{% trans "Voter registration issues" %}</li>
+            <li>{% trans "Lack of accessibility while voting" %}</li>
+            <li>{% trans "Absentee voting issues for uniformed services or overseas voters" %}</li>
+          </ul>
+        </section>
+
+        <section id="criminal-violation">
+          <h2>{% trans "Report a possible federal criminal civil rights violation" %}</h2>
+
+          <p>
+          <ul>
+            <li>{% trans "All complaints related to violence, threats of violence, or intimidation at a polling place should be reported first to local police authorities by calling" %}
+            <a class="external-link--blue" href="tel:911">
+            {% trans "911" %}
+            </a></li>
+
+            <li>{% trans "After alerting local law enforcement to such emergencies by calling"%}
+            <a class="external-link--blue" href="tel:911">
+            {% trans "911" %}
+            </a>,
+            {% trans "the public should contact the Department of Justice" %} </li>
+
+            <li>{% trans "Election-crime complaints should be directed to your local" %}
+            <a class="external-link--blue" href="https://www.justice.gov/usao/find-your-united-states-attorney">{% trans "U.S. Attorney's Offices" %} </a>
+            {% trans "or the local" %}
+            <a class="external-link--blue" href="https://www.fbi.gov/contact-us">{% trans "FBI office" %}</a>
+            </li>
+          </ul>
+          </p>
+        </section>
+        <section id="polling-place">
+          <h2>{% trans "Find the election laws, voting hours, or polling place locations in your state" %}</h2>
+
+          <p>
+            {% trans "Go to" %} <a class="external-link--blue" href="https://usa.gov/election-office">usa.gov/election-office</a>  {% trans " to find your state election website" %}.
+          </p>
+        </section>
+
+        <section id="voting-rights">
+          <h2>{% trans "Learn about your voting rights" %}</h2>
+
+          <p>
+            <ul>
+            <li>{% trans "Find additional information about voting rights laws at " %}<a class="link--blue" href="https://justice.gov/crt/voting-section">www.justice.gov/crt/voting-section</a>.</li>
+
+            <li>{% trans "Learn about federal laws that protect voters with disabilities at " %}<a class="link--blue" href="https://ada.gov">ada.gov</a>.</li>
+
+
+            <li>{% trans "Download the Justice Department's new " %}<a class="link--blue" href="https://www.justice.gov/file/1517936/download">{% trans "Know Your Voting Rights" %}</a> {% trans "guide" %}.
+            </li>
+            </ul>
+          </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block page_js %}
+<script src="{% static 'js/modal.min.js' %}"></script>
+<script src="{% static 'js/redirect-modal.min.js' %}"></script>
+<script src="{% static 'vendor/gumshoe.min.js' %}"></script>
+<script src="{% static 'js/highlight_active_header.js' %}"></script>
+{% endblock %}

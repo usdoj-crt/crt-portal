@@ -1,0 +1,13 @@
+{% load i18n %}
+
+<div class="crt-landing--important-message bg-gold padding-y-1">
+  <div class="grid-container">
+    <div class="grid-row grid-gap">
+      <div class="tablet:grid-col-12">
+        <a href="{% url 'vot_resources' %}" class="text-bold text-ink hover:text-ink hover:text-no-underline">
+          {% trans "Report voting issues" %}
+        </a>, {% trans "including threats against voters and election fraud." %}
+      </div>
+    </div>
+  </div>
+</div>
