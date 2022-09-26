@@ -21,7 +21,7 @@
   </thead>
 
   <tbody>
-    {% for reports_data in reports_data_files %}
+    {% for reports_data in reports_data_files|dictsort:"created_date" %}
       <tr>
         <td><a href="{{ reports_data.get_absolute_url }}"> {{ reports_data.filename }}</a></td>
         <td>{{reports_data.created_date}}</td>
