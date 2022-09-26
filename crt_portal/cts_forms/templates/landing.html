@@ -74,14 +74,15 @@
 
 {% block content %}
 
-  {% voting_mode as votetoggle %}
-  {% if votetoggle == True %}
+  {% voting_banner as votbanner %}
+  {% if votbanner == 'True' %}
   <!-- display only when voting toggle is on -->
       {% include "partials/important_message_voting.html" %}
       {% include "partials/message_hate_crime.html" %}
   {% else %}
       {% include "partials/important_message.html" %}
   {% endif %}
+
 
   <div class="crt-landing--section crt-landing--hero crt-landing--lightblue">
     <div class="grid-container">
