@@ -7,6 +7,7 @@ from cts_forms.models import Report, ReportsData, CommentAndSummary
 from datetime import datetime
 from io import StringIO
 from django.core.files.base import ContentFile
+from pytz import timezone
 
 from ...admin import iter_queryset, _serialize_report_export
 
@@ -20,16 +21,16 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         try:
             # For performance monitoring
+            UTC = timezone('UTC')
             start = time.time()
             year_range = list(range(2020, datetime.today().year + 1))
             total_count = 0
             # Create reports for each year
             for year in year_range:
-                start_date = datetime(year, 1, 1).astimezone(pytz.timezone('EST'))
-                end_date = datetime(year, 12, 31, 23, 59, 59, 999999).astimezone(pytz.timezone('EST'))
+                start_date = UTC.localize(datetime(year, 1, 1))
+                end_date = UTC.localize(datetime(year, 12, 31, 23, 59, 59))
                 filename = f'reports-data-{year}.csv'
                 headers = REPORT_FIELDS + ['protected_class', 'internal_summary']
-
                 summaries = CommentAndSummary.objects.filter(is_summary=True).order_by('-modified_date')
                 queryset = Report.objects.all().filter(create_date__gte=start_date, create_date__lte=end_date)
                 queryset = queryset.prefetch_related('protected_class',
@@ -49,13 +50,13 @@ class Command(BaseCommand):
                     reports_data = ReportsData.objects.filter(filename=filename).first()
                     reports_data.file.save(filename, csv_file)
                     reports_data.filename = filename
-                    reports_data.created_date = datetime.now(tz=pytz.UTC)
+                    reports_data.created_date = UTC.localize(datetime.now())
                     reports_data.save()
                 except AttributeError:
                     reports_data = ReportsData.objects.create()
                     reports_data.file.save(filename, csv_file)
                     reports_data.filename = filename
-                    reports_data.created_date = datetime.now(tz=pytz.UTC)
+                    reports_data.created_date = UTC.localize(datetime.now())
                     reports_data.save()
 
             # Stop the timer:
