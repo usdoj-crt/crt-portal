@@ -21,6 +21,7 @@ class Command(BaseCommand):
         try:
             # For performance monitoring
             UTC = timezone('UTC')
+            EST = timezone('America/New_York')
             start = time.time()
             year_range = list(range(2020, datetime.today().year + 1))
             total_count = 0
@@ -49,13 +50,13 @@ class Command(BaseCommand):
                     reports_data = ReportsData.objects.filter(filename=filename).first()
                     reports_data.file.save(filename, csv_file)
                     reports_data.filename = filename
-                    reports_data.created_date = datetime.now()
+                    reports_data.modified_date = EST.localize(datetime.now())
                     reports_data.save()
                 except AttributeError:
                     reports_data = ReportsData.objects.create()
                     reports_data.file.save(filename, csv_file)
                     reports_data.filename = filename
-                    reports_data.created_date = datetime.now()
+                    reports_data.modified_date = EST.localize(datetime.now())
                     reports_data.save()
 
             # Stop the timer:

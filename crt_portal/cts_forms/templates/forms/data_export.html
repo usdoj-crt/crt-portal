@@ -16,15 +16,15 @@
 <table class="usa-table usa-table--borderless attachments-table width-full">
   <thead>
     <th scope='col'>File Name</th>
-    <th scope='col'>Created Date</th>
+    <th scope='col'>Modified Date</th>
     <th scope='col'></th>
   </thead>
 
   <tbody>
-    {% for reports_data in reports_data_files|dictsort:"created_date" %}
+    {% for reports_data in reports_data_files|dictsort:"modified_date" %}
       <tr>
         <td><a href="{{ reports_data.get_absolute_url }}"> {{ reports_data.filename }}</a></td>
-        <td>{{reports_data.created_date}}</td>
+        <td>{{reports_data.modified_date}}</td>
       </tr>
     {% endfor %}
   </tbody>

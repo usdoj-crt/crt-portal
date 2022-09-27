@@ -453,6 +453,7 @@ class ReportsData(models.Model):
     file = models.FileField(upload_to='report-data')
     filename = models.CharField(max_length=255)
     created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
 
     def get_absolute_url(self):
         return reverse('crt_forms:get-report-data', kwargs={"report_data_id": self.id})
