@@ -49,13 +49,13 @@ class Command(BaseCommand):
                     reports_data = ReportsData.objects.filter(filename=filename).first()
                     reports_data.file.save(filename, csv_file)
                     reports_data.filename = filename
-                    reports_data.created_date = UTC.localize(datetime.now())
+                    reports_data.created_date = datetime.now()
                     reports_data.save()
                 except AttributeError:
                     reports_data = ReportsData.objects.create()
                     reports_data.file.save(filename, csv_file)
                     reports_data.filename = filename
-                    reports_data.created_date = UTC.localize(datetime.now())
+                    reports_data.created_date = datetime.now()
                     reports_data.save()
 
             # Stop the timer:

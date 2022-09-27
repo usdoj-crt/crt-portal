@@ -736,7 +736,7 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
 
 class ReportDataView(LoginRequiredMixin, FormView):
     """Can be used for saving report data for a report"""
-    http_method_names = ['get', 'post']
+    http_method_names = ['get']
 
     def get(self, request, report_data_id):
         """
@@ -744,7 +744,7 @@ class ReportDataView(LoginRequiredMixin, FormView):
         """
         attachment = get_object_or_404(ReportsData, pk=report_data_id)
 
-        logger.info(f'User {request.user} downloading attachment {attachment.filename} for report {id}')
+        logger.info(f'User {request.user} downloading report data')
 
         if settings.ENABLE_LOCAL_ATTACHMENT_STORAGE:
             try:
