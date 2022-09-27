@@ -449,6 +449,16 @@ class ReportAttachment(models.Model):
         return reverse('crt_forms:get-report-attachment', kwargs={"id": self.report.id, "attachment_id": self.id})
 
 
+class ReportsData(models.Model):
+    file = models.FileField(upload_to='report-data')
+    filename = models.CharField(max_length=255)
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
+    def get_absolute_url(self):
+        return reverse('crt_forms:get-report-data', kwargs={"report_data_id": self.id})
+
+
 class EmailReportCount(models.Model):
     """see the total number of reports that are associated with the contact_email for each report"""
     report = models.OneToOneField(Report, primary_key=True, on_delete=models.CASCADE, related_name='email_report_count')

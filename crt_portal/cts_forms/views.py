@@ -36,7 +36,7 @@ from .forms import (
 )
 from .mail import crt_send_mail
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, Trends, EmailReportCount, User, RoutingSection, RoutingStepOneContact
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, User, RoutingSection, RoutingStepOneContact
 from .page_through import pagination
 from .sorts import report_sort
 
@@ -322,6 +322,7 @@ def serialize_data(report, request, report_id):
         'print_options': PrintActions(),
         'activity_stream': report.target_actions.all().prefetch_related('actor'),
         'attachments': report.attachments.filter(active=True),
+        'reports_data_files': ReportsData.objects.all(),
         'crimes': crimes,
         'data': report,
         'p_class_list': p_class_list,
@@ -731,6 +732,66 @@ class ReportAttachmentView(LoginRequiredMixin, FormView):
 
         url = preserve_filter_parameters(report, request.POST)
         return redirect(url)
+
+
+class ReportDataView(LoginRequiredMixin, FormView):
+    """Can be used for saving report data for a report"""
+    http_method_names = ['get']
+
+    def get(self, request, report_data_id):
+        """
+        Download a particular attachment for a report
+        """
+        attachment = get_object_or_404(ReportsData, pk=report_data_id)
+
+        logger.info(f'User {request.user} downloading report data')
+
+        if settings.ENABLE_LOCAL_ATTACHMENT_STORAGE:
+            try:
+                file = open(attachment.file.name, 'rb')
+                mime_type, _ = mimetypes.guess_type(attachment.filename)
+                response = HttpResponse(file, content_type=mime_type)
+                response.headers['Content-Disposition'] = f'attachment;filename={attachment.filename}'
+                return response
+
+            except FileNotFoundError:
+                raise Http404(f'File {attachment.filename} not found.')
+
+        else:
+            # Generate a presigned URL for the S3 object
+            s3_client = boto3.client(
+                service_name='s3',
+                region_name=settings.PRIV_S3_REGION,
+                aws_access_key_id=settings.PRIV_S3_ACCESS_KEY_ID,
+                aws_secret_access_key=settings.PRIV_S3_SECRET_ACCESS_KEY,
+                endpoint_url=settings.PRIV_S3_ENDPOINT_URL,
+                config=Config(signature_version='s3v4'))
+
+            try:
+                response = s3_client.generate_presigned_url(
+                    'get_object',
+                    Params={
+                        'Bucket': settings.PRIV_S3_BUCKET,
+                        'Key': attachment.file.name,
+                        'ResponseContentDisposition': f'attachment;filename={attachment.filename}'
+                    },
+                    ExpiresIn=30,
+                )
+
+                return redirect(response)
+
+            except ClientError as e:
+                logging.error(e)
+                raise Http404(f'File {attachment.filename} not found.')
+
+
+class DataExport(LoginRequiredMixin, TemplateView):
+
+    def get(self, request):
+        output = {
+            'reports_data_files': ReportsData.objects.all(),
+        }
+        return render(request, 'forms/data_export.html', output)
 
 
 class RemoveReportAttachmentView(LoginRequiredMixin, View):

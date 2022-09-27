@@ -392,6 +392,9 @@ jobs:
       - run:
           name: clearsessions management command
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions
+      - run:
+          name: generate yearly reports command
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_yearly_reports" --name generate-yearly-reports
 
   staging-maintenance-tasks:
     docker:
@@ -423,6 +426,9 @@ jobs:
       - run:
           name: clearsessions management command
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions
+      - run:
+          name: generate yearly reports command
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_yearly_reports" --name generate-yearly-reports
 
   dev-maintenance-tasks:
     docker:
@@ -454,6 +460,9 @@ jobs:
       - run:
           name: clearsessions management command
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions
+      - run:
+          name: generate yearly reports command
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_yearly_reports" --name generate-yearly-reports
 
 workflows:
   build-test-deploy:
