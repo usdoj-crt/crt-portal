@@ -46,7 +46,7 @@ class LandingPageView(TemplateView):
     template_name = "landing.html"
 
     def get_context_data(self, **kwargs):
-        primary_complaint_dictionary = PRIMARY_COMPLAINT_DICT if is_voting_mode() else PRIMARY_COMPLAINT_DICT_VOTING
+        primary_complaint_dictionary = PRIMARY_COMPLAINT_DICT_VOTING if is_voting_mode() else PRIMARY_COMPLAINT_DICT
         all_complaints = {
             **primary_complaint_dictionary,
             **LANDING_COMPLAINT_DICT,
@@ -321,7 +321,7 @@ class CRTReportWizard(SessionWizardView):
             # this variable improves some conditional display logic in templates
             primary_complaint_key = form_data_dict['primary_complaint']
             # unpack values in data for display
-            primary_complaint_dictionary = PRIMARY_COMPLAINT_DICT if is_voting_mode() else PRIMARY_COMPLAINT_DICT_VOTING
+            primary_complaint_dictionary = PRIMARY_COMPLAINT_DICT_VOTING if is_voting_mode() else PRIMARY_COMPLAINT_DICT
             form_data_dict['primary_complaint'] = data_decode(
                 form_data_dict, primary_complaint_dictionary, 'primary_complaint'
             )
