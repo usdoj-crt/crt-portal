@@ -203,13 +203,13 @@
                 <li>
                   <button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="crt-landing--examples" aria-label="select example">
                     <div id="crt-landing--example_option">
-                        {% voting_banner as votbanner %}
-                        {% if votbanner == 'True' %}
-                        <!-- display only when voting toggle is on -->
-                            {{ choices.voting.description }}
-                        {% else %}
-                            {{ choices.workplace.description }}
-                        {% endif %}
+                      {% voting_banner as votbanner %}
+                      {% if votbanner == 'True' %}
+                      <!-- display only when voting toggle is on -->
+                          {{ choices.voting.description }}
+                      {% else %}
+                          {{ choices.workplace.description }}
+                      {% endif %}
                     </div>
                   </button>
                   <ul id="crt-landing--examples" class="usa-nav__submenu" hidden>
