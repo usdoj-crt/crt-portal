@@ -459,6 +459,15 @@ class ReportsData(models.Model):
         return reverse('crt_forms:get-report-data', kwargs={"report_data_id": self.id})
 
 
+class RepeatWriterInfo(models.Model):
+    # We might consider adding these in the future to have a one stop shop to check for Repeat writers
+    # contact_first_name = models.CharField(max_length=225, null=True, blank=True)
+    # contact_last_name = models.CharField(max_length=225, null=True, blank=True)
+    # repeat_writer_form_sent = models.BooleanField(default=False)
+    email = models.EmailField(unique=True, primary_key=True, help_text="Email associated with number of reports")
+    email_count = models.IntegerField()
+
+
 class EmailReportCount(models.Model):
     """see the total number of reports that are associated with the contact_email for each report"""
     report = models.OneToOneField(Report, primary_key=True, on_delete=models.CASCADE, related_name='email_report_count')

@@ -36,7 +36,8 @@ from .forms import (
 )
 from .mail import crt_send_mail
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, User, RoutingSection, RoutingStepOneContact
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, User, \
+    RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import report_sort
 
@@ -226,6 +227,17 @@ def index_view(request):
             report.protected_class.all().order_by('form_order'),
             report.other_class,
         )
+        # If a user has an email, it is looked up in the table to see if they are a repeat writer.
+        if report.contact_email:
+            repeat_writer = RepeatWriterInfo.objects.filter(email=report.contact_email).first()
+            if repeat_writer:
+                report.related_reports_count = repeat_writer.email_count
+            # If the email is not in the repeat_writer table, add it and initialize to 1.
+            else:
+                report.related_reports_count = 1
+        # If the report has no email address, set the total reports to 1
+        else:
+            report.related_reports_count = 1
         if report.other_class:
             p_class_list.append(report.other_class)
         if len(p_class_list) > 3:
