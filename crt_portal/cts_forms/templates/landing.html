@@ -203,7 +203,13 @@
                 <li>
                   <button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="crt-landing--examples" aria-label="select example">
                     <div id="crt-landing--example_option">
-                      {{ choices.workplace.description }}
+                      {% voting_banner as votbanner %}
+                      {% if votbanner == 'True' %}
+                      <!-- display only when voting toggle is on -->
+                          {{ choices.voting.description }}
+                      {% else %}
+                          {{ choices.workplace.description }}
+                      {% endif %}
                     </div>
                   </button>
                   <ul id="crt-landing--examples" class="usa-nav__submenu" hidden>
@@ -232,9 +238,17 @@
                   {% trans "Examples" %}
                 </p>
                 <div id="crt-landing--choice_examples" class="crt-landing--text">
-                  {% for example in choices.workplace.examples %}
-                    <p>{{ example|safe }}</p>
-                  {% endfor %}
+                  {% voting_banner as votbanner %}
+                  {% if votbanner == 'True' %}
+                  <!-- display only when voting toggle is on -->
+                    {% for example in choices.voting.examples %}
+                      <p>{{ example|safe }}</p>
+                    {% endfor %}
+                  {% else %}
+                    {% for example in choices.workplace.examples %}
+                      <p>{{ example|safe }}</p>
+                    {% endfor %}
+                  {% endif %}
                 </div>
                 <div hidden id="crt-landing--hate-crimes">
                   <a href="./hate-crime-human-trafficking">{% trans "Get help for hate crimes" %}</a>

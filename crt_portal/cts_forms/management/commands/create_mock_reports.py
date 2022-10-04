@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand
 from cts_forms.models import FormLettersSent
 from cts_forms.tests.factories import ReportFactory
 from datetime import datetime
+from pytz import timezone
 import random
 from cts_forms.signals import salt
 from cts_forms.models import EmailReportCount, ProtectedClass
@@ -52,7 +53,8 @@ class Command(BaseCommand):
 
         for i in range(number_reports):
             report = ReportFactory.build()
-            report.create_date = datetime.now()
+            UTC = timezone('UTC')
+            report.create_date = UTC.localize(datetime.now())
             # This save creates the report id, report.pk, so we can create a public_id
             report.save()
             salt_chars = salt()
@@ -77,6 +79,7 @@ class Command(BaseCommand):
                 report.protected_class.add(protected_example3)
                 report.protected_class.add(protected_example4)
                 report.protected_class.add(protected_example5)
+                report.create_date = UTC.localize(datetime(2020, 6, 21, 18, 25, 30))
             # 3%
             elif rand <= 3:
                 report.contact_email = "frequentflier2@test.test"
@@ -87,6 +90,7 @@ class Command(BaseCommand):
                 report.protected_class.add(protected_example)
                 report.protected_class.add(protected_example2)
                 report.protected_class.add(protected_example3)
+                report.create_date = UTC.localize(datetime(2021, 12, 31, 18, 25, 30))
             # 6%
             elif rand <= 6:
                 report.contact_email = "frequentflier3@test.test"
@@ -97,6 +101,7 @@ class Command(BaseCommand):
                 report.protected_class.add(protected_example)
                 report.protected_class.add(protected_example2)
                 report.protected_class.add(protected_example3)
+                report.create_date = UTC.localize(datetime(2021, 1, 1, 0, 0, 0))
             # 50% chance of sending an email
             elif rand <= 50:
                 add_activity(user1, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
