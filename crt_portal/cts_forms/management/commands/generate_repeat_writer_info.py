@@ -15,12 +15,13 @@ class Command(BaseCommand):
             cursor.execute("DELETE FROM cts_forms_repeatwriterinfo;")
         for report in reports:
             if report.contact_email:
-                repeat_writer = RepeatWriterInfo.objects.filter(email=report.contact_email).first()
+                email = report.contact_email.lower()
+                repeat_writer = RepeatWriterInfo.objects.filter(email=email).first()
                 if repeat_writer:
                     repeat_writer.email_count = repeat_writer.email_count + 1
                     repeat_writer.save()
                 else:
-                    RepeatWriterInfo.objects.create(email=report.contact_email, email_count=1)
+                    RepeatWriterInfo.objects.create(email=email, email_count=1)
                     total_email_count += 1
         # Stop the timer:
         end = time.time()
