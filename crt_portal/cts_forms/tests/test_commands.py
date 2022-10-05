@@ -78,20 +78,20 @@ class GenerateRepeatWriterInfo(TestCase):
         self.assertEqual(repeat_writer_rows, 4)
 
     def test_email_count(self):
-        repeat_writer_1 = RepeatWriterInfo.objects.filter(email=self.email1).first()
+        repeat_writer_1 = RepeatWriterInfo.objects.filter(email=self.email1.lower()).first()
         self.assertEqual(repeat_writer_1.email_count, 100)
-        repeat_writer_2 = RepeatWriterInfo.objects.filter(email=self.email2).first()
+        repeat_writer_2 = RepeatWriterInfo.objects.filter(email=self.email2.lower()).first()
         self.assertEqual(repeat_writer_2.email_count, 50)
-        repeat_writer_3 = RepeatWriterInfo.objects.filter(email=self.email3).first()
+        repeat_writer_3 = RepeatWriterInfo.objects.filter(email=self.email3.lower()).first()
         self.assertEqual(repeat_writer_3.email_count, 50)
-        repeat_writer_4 = RepeatWriterInfo.objects.filter(email=self.email4).first()
+        repeat_writer_4 = RepeatWriterInfo.objects.filter(email=self.email4.lower()).first()
         self.assertEqual(repeat_writer_4.email_count, 1)
 
     def test_update_repeat_writer_info(self):
         for _ in range(5):
             Report.objects.create(**SAMPLE_REPORT_1)
-        repeat_writer_1 = RepeatWriterInfo.objects.filter(email=self.email1).first()
+        repeat_writer_1 = RepeatWriterInfo.objects.filter(email=self.email1.lower()).first()
         self.assertEqual(repeat_writer_1.email_count, 100)
         call_command('generate_repeat_writer_info')
-        repeat_writer_1 = RepeatWriterInfo.objects.filter(email=self.email1).first()
+        repeat_writer_1 = RepeatWriterInfo.objects.filter(email=self.email1.lower()).first()
         self.assertEqual(repeat_writer_1.email_count, 105)
