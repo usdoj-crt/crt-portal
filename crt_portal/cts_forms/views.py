@@ -237,8 +237,6 @@ def index_view(request):
             else:
                 report.related_reports_count = 1
         # If the report has no email address, set the total reports to 1
-        else:
-            report.related_reports_count = 1
         if report.other_class:
             p_class_list.append(report.other_class)
         if len(p_class_list) > 3:

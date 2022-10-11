@@ -64,7 +64,7 @@
               </td>
               <td>
                 <a class="td-link display-block" href="{{datum.url}}">
-                  {% with count=datum.report.related_reports_count %}
+                  {% with count=datum.report.related_reports_count|default:"—" %}
                     {{ count }}
                   {% endwith %}
                 </a>
