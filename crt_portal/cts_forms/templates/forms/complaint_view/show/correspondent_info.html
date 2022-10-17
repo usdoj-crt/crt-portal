@@ -30,9 +30,9 @@ class="usa-button usa-button--unstyled button--edit margin-left-auto" type="butt
         <td>
           <div class="display-flex">
             <span>{{ data.contact_email|default:"—" }}</span>
-            {% if data.related_reports and data.related_reports|length > 1 %}
+            {% if data.related_reports and data.related_reports_info > 1 %}
               <span class="margin-left-auto">
-                <a class="related-reports" href="{% url 'crt_forms:crt-forms-index' %}?contact_email={{data.contact_email}}{% filter_for_all_sections %}">View All ({{data.related_reports|length}})</a>
+                <a class="related-reports" href="{% url 'crt_forms:crt-forms-index' %}?contact_email={{data.contact_email}}{% filter_for_all_sections %}">View All ({{data.related_reports_info}})</a>
               </span>
             {% endif %}
             </div>
