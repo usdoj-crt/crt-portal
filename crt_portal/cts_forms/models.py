@@ -396,7 +396,7 @@ class Report(models.Model):
     @cached_property
     def related_reports(self):
         """Return qs of reports with the same value for `contact_email`"""
-        return Report.objects.exclude(contact_email__isnull=True).filter(contact_email__iexact=self.contact_email).order_by('status', '-create_date')
+        return Report.objects.exclude(contact_email__isnull=True).filter(contact_email__iexact=self.contact_email).order_by('status', '-create_date')[:1000]
 
     @cached_property
     def related_reports_display(self):
