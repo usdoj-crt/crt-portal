@@ -164,6 +164,7 @@ def _format_date(date_string):
         return datetime.strptime(date_string, '%Y-%m-%d')
     return ""
 
+
 def _related_reports_count(report):
     email = report.contact_email.upper()
     repeat_writer = RepeatWriterInfo.objects.filter(email=email).first()
