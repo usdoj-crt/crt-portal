@@ -229,10 +229,10 @@ def index_view(request):
         )
         # If a user has an email, it is looked up in the table to see if they are a repeat writer.
         if report.contact_email:
-            email = report.contact_email.lower()
+            email = report.contact_email.upper()
             repeat_writer = RepeatWriterInfo.objects.filter(email=email).first()
             if repeat_writer:
-                report.related_reports_count = repeat_writer.email_count
+                report.related_reports_count = repeat_writer.count
             # If the email is not in the repeat_writer table, add it and initialize to 1.
             else:
                 report.related_reports_count = 1
