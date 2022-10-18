@@ -1,26 +1,26 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-07-08 17:19+0000\n"
+"POT-Creation-Date: 2022-10-18 17:58+0000\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:183 forms.py:1679
+#: forms.py:188 forms.py:1740
 msgid " - Select - "
 msgstr " - Chọn - "
 
 #. Translators: This is help text for the question asking if someone is a service member
-#: forms.py:195
+#: forms.py:200
 msgid ""
 "If you’re reporting on behalf of someone else, please select their status."
 msgstr ""
 "Nếu quý vị đang báo cáo thay mặt cho người khác, vui lòng chọn tình trạng "
 "của họ."
 
-#: forms.py:212 templates/forms/report_contact_info.html:9
+#: forms.py:217 templates/forms/report_contact_info.html:9
 msgid ""
 "If you believe you or someone else has experienced a civil rights violation, "
 "please tell us what happened."
@@ -28,7 +28,7 @@ msgstr ""
 "Nếu quý vị cho rằng quý vị hoặc một người nào đó đã bị vi phạm dân quyền, "
 "vui lòng cho chúng tôi biết điều gì đã xảy ra."
 
-#: forms.py:238
+#: forms.py:245
 msgid ""
 "Select the reason that best describes your concern. Each reason lists "
 "examples of civil rights violations that may relate to your incident. In "
@@ -40,7 +40,7 @@ msgstr ""
 "của quý vị. Trong một phần khác của báo cáo này, quý vị sẽ có thể mô tả mối "
 "quan ngại của mình qua lời lẽ riêng của quý vị."
 
-#: forms.py:296
+#: forms.py:303
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
@@ -48,11 +48,11 @@ msgstr ""
 "Ví dụ: Tên doanh nghiệp, trường học, giao lộ, nhà tù, điểm bỏ phiếu, trang "
 "web, v.v."
 
-#: forms.py:318 question_text.py:29
+#: forms.py:325 question_text.py:29
 msgid "Where did this happen?"
 msgstr "Việc này đã xảy ra ở đâu?"
 
-#: forms.py:330
+#: forms.py:337
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your report is reviewed by the right people within "
@@ -62,7 +62,7 @@ msgstr ""
 "ra vụ việc này. Điều này nhằm đảm bảo báo cáo của quý vị được đánh giá bởi "
 "những người phù hợp trong Ban Dân quyền."
 
-#: forms.py:393
+#: forms.py:400
 msgid ""
 "Public employers include organizations funded by the government like the "
 "military, post office, fire department, courthouse, DMV, or public school. "
@@ -73,7 +73,7 @@ msgstr ""
 "phương tiện cơ giới (DMV) hoặc trường công lập. Đơn vị này có thể là ở cấp "
 "địa phương hoặc tiểu bang."
 
-#: forms.py:394
+#: forms.py:401
 msgid ""
 "Private employers are business or non-profits not funded by the government "
 "such as retail stores, banks, or restaurants."
@@ -82,11 +82,11 @@ msgstr ""
 "chính phủ tài trợ, chẳng hạn như cửa hàng bán lẻ, ngân hàng, hoặc nhà hàng."
 
 #. Translators: describe the "other" option for commercial or public place question
-#: forms.py:440
+#: forms.py:447
 msgid "Please describe"
 msgstr "Vui lòng mô tả"
 
-#: forms.py:507
+#: forms.py:514
 msgid ""
 "Includes schools, educational programs, or educational activities, like "
 "training programs, sports teams, clubs, or other school-sponsored activities"
@@ -95,11 +95,11 @@ msgstr ""
 "chương trình đào tạo, các đội thể thao, câu lạc bộ, hoặc các hoạt động khác "
 "do trường bảo trợ"
 
-#: forms.py:518
+#: forms.py:525
 msgid "Please select the type of school or educational program."
 msgstr "Vui lòng chọn loại hình trường học hoặc chương trình giáo dục."
 
-#: forms.py:541
+#: forms.py:548
 msgid ""
 "There are federal and state laws that protect people from discrimination "
 "based on their personal characteristics. Here is a list of the most common "
@@ -112,11 +112,11 @@ msgstr ""
 "vụ việc của quý vị."
 
 #. Translators: This is to explain an "other" choice for personal characteristics
-#: forms.py:546
+#: forms.py:553
 msgid "Please describe \"Other reason\""
 msgstr "Vui lòng mô tả “Lý do khác”"
 
-#: forms.py:704
+#: forms.py:741
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -127,23 +127,27 @@ msgstr ""
 "diễn ra trong một khoảng thời gian hoặc vẫn đang diễn ra, vui lòng cho biết "
 "ngày gần đây nhất."
 
-#: forms.py:1004
+#: forms.py:1042
 msgid "Assigned to"
 msgstr "Được giao cho"
 
-#: forms.py:1020
+#: forms.py:1058
 msgid "Incident state"
 msgstr ""
 
-#: forms.py:1028
+#: forms.py:1066
 msgid "Primary classification"
 msgstr "Phân loại chính"
 
-#: forms.py:1229
+#: forms.py:1076
+msgid "Records per page"
+msgstr ""
+
+#: forms.py:1290
 msgid "Create date cannot be in the future."
 msgstr "Ngày tạo không được là ngày trong tương lai."
 
-#: forms.py:1412
+#: forms.py:1473
 msgid "Comment cannot be empty"
 msgstr "Nhận xét không được để trống"
 
@@ -152,11 +156,11 @@ msgstr "Nhận xét không được để trống"
 msgid "- Select -"
 msgstr "- Chọn -"
 
-#: model_variables.py:9 model_variables.py:119 model_variables.py:302
+#: model_variables.py:9 model_variables.py:177 model_variables.py:360
 msgid "Yes"
 msgstr "Có"
 
-#: model_variables.py:10 model_variables.py:120 model_variables.py:301
+#: model_variables.py:10 model_variables.py:178 model_variables.py:359
 msgid "No"
 msgstr "Không"
 
@@ -164,16 +168,16 @@ msgstr "Không"
 msgid "Please select a status as an active duty service member."
 msgstr "Vui lòng chọn trạng thái là quân nhân tại ngũ."
 
-#: model_variables.py:17
+#: model_variables.py:17 model_variables.py:29
 msgid "Workplace discrimination or other employment-related problem"
 msgstr ""
 "Phân biệt đối xử tại nơi làm việc hoặc vấn đề khác liên quan đến việc làm"
 
-#: model_variables.py:18
+#: model_variables.py:18 model_variables.py:30
 msgid "Housing discrimination or harassment"
 msgstr "Phân biệt đối xử về gia cư hoặc quấy rối"
 
-#: model_variables.py:19
+#: model_variables.py:19 model_variables.py:31
 msgid ""
 "Discrimination at a school, educational program or service, or related to "
 "receiving education"
@@ -181,31 +185,31 @@ msgstr ""
 "Phân biệt đối xử tại trường học, chương trình giáo dục hoặc dịch vụ, hoặc "
 "liên quan đến việc tiếp nhận giáo dục"
 
-#: model_variables.py:20
+#: model_variables.py:20 model_variables.py:32
 msgid "Mistreated by police, correctional staff, or inmates"
 msgstr "Bị cảnh sát, nhân viên cải huấn hoặc tù nhân ngược đãi"
 
-#: model_variables.py:21
+#: model_variables.py:21 model_variables.py:28
 msgid "Voting rights or ability to vote affected"
 msgstr "Quyền bỏ biếu hoặc khả năng bỏ phiếu bị ảnh hưởng"
 
-#: model_variables.py:22
+#: model_variables.py:22 model_variables.py:33
 msgid "Discriminated against in a commercial location or public place"
 msgstr "Bị phân biệt đối xử ở một địa điểm thương mại hoặc nơi công cộng"
 
-#: model_variables.py:23
+#: model_variables.py:23 model_variables.py:34
 msgid "Something else happened"
 msgstr "Một vấn đề khác đã xảy ra"
 
-#: model_variables.py:38
+#: model_variables.py:59
 msgid "Victim of a hate crime"
 msgstr "Nạn nhân của việc phạm tội do thù ghét"
 
-#: model_variables.py:39
+#: model_variables.py:60
 msgid "Victim of human trafficking"
 msgstr "Nạn nhân của nạn buôn người"
 
-#: model_variables.py:44
+#: model_variables.py:65
 msgid ""
 "This could include a store, restaurant, bar, hotel, place of worship, "
 "library, medical facility, bank, courthouse, government building, public "
@@ -215,7 +219,7 @@ msgstr ""
 "phượng, thư viện, cơ sở y tế, ngân hàng, trụ sở tòa án, tòa nhà chính phủ, "
 "công viên hoặc đường phố công cộng, cũng như trực tuyến."
 
-#: model_variables.py:45
+#: model_variables.py:66
 msgid ""
 "The examples above reflect some but not all of the civil rights violations "
 "that we address. Select this option if you don’t see an example that applies "
@@ -226,11 +230,11 @@ msgstr ""
 "áp dụng cho trường hợp của mình. Quý vị sẽ có thể cho chúng tôi biết thêm "
 "sau."
 
-#: model_variables.py:46
+#: model_variables.py:67
 msgid "(Including while in prison)"
 msgstr "(Kể cả khi ở trong tù)"
 
-#: model_variables.py:49
+#: model_variables.py:70
 msgid ""
 "To potentially be a hate crime, the situation must include physical harm, or "
 "attempts to cause harm with a dangerous weapon, because of race, color, "
@@ -245,7 +249,7 @@ msgstr ""
 "về thể chất vì chủng tộc, màu da, tôn giáo hoặc quốc gia xuất xứ cũng là "
 "những hành vi phạm tội do thù ghét tiềm ẩn."
 
-#: model_variables.py:50
+#: model_variables.py:71
 msgid ""
 "Human trafficking is when someone is forced into labor or sex work for "
 "profit. This can happen in many types of work that include, for example: "
@@ -256,7 +260,7 @@ msgstr ""
 "việc, chẳng hạn như: nông nghiệp, công việc nội trợ, nhà hàng, dịch vụ dọn "
 "dẹp và mại dâm."
 
-#: model_variables.py:55
+#: model_variables.py:76 model_variables.py:118
 msgid ""
 "Fired, not hired, or demoted for reasons unrelated to job performance or "
 "qualifications"
@@ -264,19 +268,19 @@ msgstr ""
 "Bị sa thải, không được thuê, hoặc bị giáng cấp vì những lý do không liên "
 "quan đến kết quả công việc hoặc trình độ"
 
-#: model_variables.py:56
+#: model_variables.py:77 model_variables.py:119
 msgid "Retaliated against for reporting discrimination"
 msgstr "Bị trả đũa vì báo cáo về việc phân biệt đối xử"
 
-#: model_variables.py:57
+#: model_variables.py:78 model_variables.py:120
 msgid "Inappropriately asked to provide immigration documentation"
 msgstr "Bị yêu cầu cung cấp giấy tờ nhập cư theo cách không phù hợp"
 
-#: model_variables.py:58
+#: model_variables.py:79 model_variables.py:121
 msgid "Denied reemployment or fired based on military service"
 msgstr "Bị từ chối tái tuyển dụng hoặc sa thải do phục vụ quân ngũ"
 
-#: model_variables.py:59
+#: model_variables.py:80 model_variables.py:122
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in the workplace</strong>"
@@ -284,7 +288,7 @@ msgstr ""
 "Bị từ chối hỗ trợ phù hợp cho người khuyết tật, bao gồm cả việc không được "
 "phép sử dụng động vật phục vụ tại <strong>nơi làm việc</strong>"
 
-#: model_variables.py:62
+#: model_variables.py:83 model_variables.py:125
 msgid ""
 "Denied housing, a permit, or a loan based on personal characteristics like "
 "race, sex, and/or having children under 18 years old"
@@ -292,19 +296,19 @@ msgstr ""
 "Bị từ chối hỗ trợ về nhà ở, cấp phép hoặc khoản vay dựa trên các đặc điểm cá "
 "nhân như chủng tộc, giới tính và/hoặc có con dưới 18 tuổi"
 
-#: model_variables.py:63
+#: model_variables.py:84 model_variables.py:126
 msgid "Harassment by a landlord or another tenant, including sexual harassment"
 msgstr ""
 "Bị quấy rối bởi chủ nhà hoặc người thuê nhà khác, bao gồm cả quấy rối tình "
 "dục"
 
-#: model_variables.py:64
+#: model_variables.py:85 model_variables.py:127
 msgid "Challenges with terminating a lease due to military status change"
 msgstr ""
 "Bị gây khó khăn trong việc chấm dứt hợp đồng thuê do thay đổi tình trạng "
 "quân nhân"
 
-#: model_variables.py:65
+#: model_variables.py:86 model_variables.py:128
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service or assistance animal <strong>in public housing</strong>"
@@ -313,24 +317,24 @@ msgstr ""
 "phép sử dụng động vật phục vụ hoặc động vật trợ giúp <strong>trong nhà ở "
 "công cộng</strong>"
 
-#: model_variables.py:68
+#: model_variables.py:89 model_variables.py:131
 msgid "Harassment based on race, sex, national origin, disability, or religion"
 msgstr ""
 "Bị quấy rối vì lý do chủng tộc, giới tính, quốc gia xuất xứ, tình trạng "
 "khuyết tật, hoặc tôn giáo"
 
-#: model_variables.py:69
+#: model_variables.py:90 model_variables.py:132
 msgid "Denied admission or segregated in an education program or activity"
 msgstr ""
 "Bị từ chối nhập học hoặc bị tách biệt trong một chương trình hoặc hoạt động "
 "giáo dục"
 
-#: model_variables.py:70
+#: model_variables.py:91 model_variables.py:133
 msgid "Denied educational accommodations for a disability or language barrier"
 msgstr ""
 "Bị từ chối hỗ trợ giáo dục do tình trạng khuyết tật hoặc rào cản ngôn ngữ"
 
-#: model_variables.py:73
+#: model_variables.py:94 model_variables.py:113
 msgid ""
 "Obstacles to registering to vote, obtaining or submitting a ballot, having "
 "your ballot counted, or entering a polling place to vote"
@@ -338,7 +342,7 @@ msgstr ""
 "Những trở ngại đối với việc đăng ký bỏ phiếu, lấy hoặc gửi phiếu bầu, kiểm "
 "phiếu hoặc vào phòng phiếu để bỏ phiếu"
 
-#: model_variables.py:74
+#: model_variables.py:95 model_variables.py:114
 msgid ""
 "Denied adequate voting assistance or accommodations for a disability at a "
 "polling place"
@@ -346,7 +350,7 @@ msgstr ""
 "Bị từ chối sự hỗ trợ đầy đủ trong việc bỏ phiếu hoặc hỗ trợ phù hợp cho "
 "người khuyết tật tại một địa điểm bỏ phiếu"
 
-#: model_variables.py:75
+#: model_variables.py:96 model_variables.py:115
 msgid ""
 "Restricted or prevented from participating in an election, including voting, "
 "becoming a candidate, or being elected for office"
@@ -354,7 +358,7 @@ msgstr ""
 "Bị hạn chế hoặc bị ngăn cản tham gia vào một cuộc bầu cử, bao gồm bỏ phiếu, "
 "trở thành ứng cử viên, hoặc được bầu cho một chức vụ"
 
-#: model_variables.py:78
+#: model_variables.py:99 model_variables.py:136
 msgid ""
 "Police brutality or use of excessive force, including patterns of police "
 "misconduct"
@@ -362,7 +366,7 @@ msgstr ""
 "Tình trạng bạo hành của cảnh sát hoặc sử dụng vũ lực quá mức cần thiết, bao "
 "gồm cả các kiểu hành vi sai trái của cảnh sát"
 
-#: model_variables.py:79
+#: model_variables.py:100 model_variables.py:137
 msgid ""
 "Searched and arrested under false pretenses, including racial or other "
 "discriminatory profiling"
@@ -370,11 +374,11 @@ msgstr ""
 "Bị khám xét và bắt giữ với mục đích lừa đảo, bao gồm cả việc phân biệt đối "
 "xử vì lý do chủng tộc hoặc phân biệt đối xử khác"
 
-#: model_variables.py:80
+#: model_variables.py:101 model_variables.py:138
 msgid "Denied rights while arrested or incarcerated"
 msgstr "Bị từ chối các quyền khi bị bắt giữ hoặc bị giam giữ"
 
-#: model_variables.py:81
+#: model_variables.py:102 model_variables.py:139
 msgid ""
 "Denied access to safe living conditions or accommodations for a disability, "
 "language barrier, or religious practice while incarcerated"
@@ -383,14 +387,14 @@ msgstr ""
 "dành cho tình trạng khuyết tật, bất đồng ngôn ngữ, hoặc nghi thức tôn giáo "
 "khi bị giam giữ"
 
-#: model_variables.py:84
+#: model_variables.py:105 model_variables.py:142
 msgid ""
 "A physical or online location that does not provide disability accommodations"
 msgstr ""
 "Một địa điểm thực tế hoặc trực tuyến không cung cấp hỗ trợ cho người khuyết "
 "tật"
 
-#: model_variables.py:85
+#: model_variables.py:106 model_variables.py:143
 msgid ""
 "Denied service or entry because of a perceived personal characteristic like "
 "race, sex, or religion"
@@ -398,7 +402,7 @@ msgstr ""
 "Bị từ chối phục vụ hoặc không cho vào cửa vì một đặc điểm cá nhân được nhận "
 "thấy như chủng tộc, giới tính, hoặc tôn giáo"
 
-#: model_variables.py:86
+#: model_variables.py:107 model_variables.py:144
 msgid ""
 "Denied an accommodation for a disability, including not being allowed to "
 "have a service animal <strong>in a commercial or public location</strong>"
@@ -407,7 +411,7 @@ msgstr ""
 "phép sử dụng động vật phục vụ <strong>tại khu thương mại hay công cộng</"
 "strong>"
 
-#: model_variables.py:92
+#: model_variables.py:150
 msgid ""
 "Physical attack causing injury, or an attempt to cause injury with a "
 "dangerous weapon, because of the above characteristics"
@@ -415,7 +419,7 @@ msgstr ""
 "Tấn công về thể chất gây thương tích, hoặc toan gây thương tích bằng vũ khí "
 "nguy hiểm, vì các đặc điểm trên"
 
-#: model_variables.py:93
+#: model_variables.py:151
 msgid ""
 "Attacks, threats of violence, or destruction of property at place of worship "
 "(ie: shooting, arson, bombing, smashing windows, writing slurs)"
@@ -423,7 +427,7 @@ msgstr ""
 "Tấn công, đe dọa bạo lực, hoặc phá hoại tài sản tại cơ sở thờ phượng (ví dụ: "
 "bắn súng, đốt phá, đánh bom, đập vỡ cửa sổ, viết những lời nhục mạ)"
 
-#: model_variables.py:96
+#: model_variables.py:154
 msgid ""
 "Coerced into working through threats of harm or deportation, psychological "
 "manipulation, debt manipulation, document confiscation, or confinement"
@@ -431,7 +435,7 @@ msgstr ""
 "Bị ép buộc làm việc thông qua việc đe dọa làm tổn hại hoặc trục xuất, thao "
 "túng tâm lý, thao túng nợ, tịch thu giấy tờ, hoặc giam giữ"
 
-#: model_variables.py:97
+#: model_variables.py:155
 msgid ""
 "Forced into sex work for profit through physical abuse or assault, sexual "
 "abuse or assault, other threats of harm, or confinement"
@@ -440,25 +444,25 @@ msgstr ""
 "tấn công thân thể, lạm dụng hoặc tấn công tình dục, các mối đe dọa gây tổn "
 "hại khác, hoặc bị giam giữ"
 
-#: model_variables.py:102 model_variables.py:308
+#: model_variables.py:160 model_variables.py:366
 msgid "Federal"
 msgstr "Liên Bang"
 
-#: model_variables.py:103
+#: model_variables.py:161
 msgid "State or local"
 msgstr "Tiểu bang hoặc địa phương"
 
 #. Translators: Both state, federal and local elections
-#: model_variables.py:105
+#: model_variables.py:163
 msgid "Both"
 msgstr "Cả hai"
 
-#: model_variables.py:106 model_variables.py:310 model_variables.py:325
-#: model_variables.py:333 model_variables.py:350
+#: model_variables.py:164 model_variables.py:368 model_variables.py:383
+#: model_variables.py:391 model_variables.py:408
 msgid "I'm not sure"
 msgstr "Tôi không chắc"
 
-#: model_variables.py:112
+#: model_variables.py:170
 msgid ""
 "Physical harm or threats of violence based on race, color, national origin, "
 "religion, gender, sexual orientation, gender identity, or disability"
@@ -467,7 +471,7 @@ msgstr ""
 "gia xuất xứ, tôn giáo, giới tính, khuynh hướng tình dục, nhận dạng giới "
 "tính, hoặc tình trạng khuyết tật"
 
-#: model_variables.py:113
+#: model_variables.py:171
 msgid ""
 "Threatened, forced, and held against your will for the purposes of "
 "performing work or commercial sex acts. This could include threats of "
@@ -479,11 +483,11 @@ msgstr ""
 "các mối đe dọa gây tổn hại về thể chất, giữ lại tiền lương đã hứa, hoặc bị "
 "giam chân trong một hợp đồng làm việc giả mạo"
 
-#: model_variables.py:127 templates/landing.html:261
+#: model_variables.py:185 templates/landing.html:285
 msgid "Age"
 msgstr "Tuổi"
 
-#: model_variables.py:128
+#: model_variables.py:186
 msgid ""
 "Disability (including temporary or recovered and including HIV and drug "
 "addiction)"
@@ -491,62 +495,62 @@ msgstr ""
 "Tình trạng khuyết tật (bao gồm tạm thời hoặc đã phục hồi và bao gồm cả HIV "
 "và nghiện ma tuý)"
 
-#: model_variables.py:129
+#: model_variables.py:187
 msgid "Family, marital, or parental status"
 msgstr "Tình trạng gia đình, hôn nhân, hay làm cha mẹ"
 
-#: model_variables.py:130
+#: model_variables.py:188
 msgid "Gender identity (including gender stereotypes)"
 msgstr "Nhận dạng giới tính (bao gồm cả định kiến về giới tính)"
 
-#: model_variables.py:131
+#: model_variables.py:189
 msgid "Genetic information (including family medical history)"
 msgstr "Thông tin di truyền (bao gồm bệnh sử của gia đình)"
 
-#: model_variables.py:132
+#: model_variables.py:190
 msgid ""
 "Immigration/citizenship status (choosing this will not share your status)"
 msgstr ""
 "Tình trạng nhập cư/tư cách công dân (việc chọn lựa chọn này sẽ không chia sẻ "
 "tình trạng của quý vị)"
 
-#: model_variables.py:133
+#: model_variables.py:191
 msgid "Language"
 msgstr "Ngôn ngữ"
 
-#: model_variables.py:134
+#: model_variables.py:192
 msgid "National origin (including ancestry and ethnicity)"
 msgstr "Quốc gia xuất xứ (bao gồm tổ tiên và dân tộc)"
 
-#: model_variables.py:135
+#: model_variables.py:193
 msgid "Pregnancy"
 msgstr "Mang thai"
 
-#: model_variables.py:136 templates/landing.html:254
+#: model_variables.py:194 templates/landing.html:278
 msgid "Race/color"
 msgstr "Chủng tộc/màu da"
 
-#: model_variables.py:137 templates/landing.html:256
+#: model_variables.py:195 templates/landing.html:280
 msgid "Religion"
 msgstr "Tôn giáo"
 
-#: model_variables.py:138
+#: model_variables.py:196
 msgid "Sex"
 msgstr "Giới tính"
 
-#: model_variables.py:139
+#: model_variables.py:197
 msgid "Sexual orientation"
 msgstr "Xu hướng tình dục"
 
-#: model_variables.py:140
+#: model_variables.py:198
 msgid "None of these apply to me"
 msgstr "Không có điều nào trong số những điều trên phù hợp với tôi"
 
-#: model_variables.py:141
+#: model_variables.py:199
 msgid "Other reason"
 msgstr "Lý do khác"
 
-#: model_variables.py:150
+#: model_variables.py:208
 msgid ""
 "Please make a selection to continue. If none of these apply to your "
 "situation, please select “None of these apply to me” or \"Other reason\"and "
@@ -556,31 +560,31 @@ msgstr ""
 "này phù hợp với tình huống của quý vị, vui lòng chọn “Không có lý do nào "
 "trong số này phù hợp với tôi” hoặc “Lý do khác” và giải thích."
 
-#: model_variables.py:273
+#: model_variables.py:331
 msgid "Place of worship or about a place of worship"
 msgstr "Nơi thờ phượng hoặc về một nơi thờ phượng"
 
-#: model_variables.py:274
+#: model_variables.py:332
 msgid "Commercial or retail building"
 msgstr "Tòa nhà thương mại hoặc bán lẻ"
 
-#: model_variables.py:275 model_variables.py:286
+#: model_variables.py:333 model_variables.py:344
 msgid "Healthcare facility"
 msgstr "Cơ sở chăm sóc sức khỏe"
 
-#: model_variables.py:276 model_variables.py:287
+#: model_variables.py:334 model_variables.py:345
 msgid "Financial institution"
 msgstr "Tổ chức tài chính"
 
-#: model_variables.py:277
+#: model_variables.py:335
 msgid "Public space"
 msgstr "Không gian công cộng"
 
-#: model_variables.py:278 templatetags/commercial_public_space_view.py:17
+#: model_variables.py:336 templatetags/commercial_public_space_view.py:17
 msgid "Other"
 msgstr "Khác"
 
-#: model_variables.py:281
+#: model_variables.py:339
 msgid ""
 "Please select the type of location. If none of these apply to your "
 "situation, please select \"Other\"."
@@ -588,27 +592,27 @@ msgstr ""
 "Vui lòng chọn loại địa điểm. Nếu không có địa điểm nào trong số các địa điểm "
 "này phù hợp với tình huống của quý vị, vui lòng chọn “Khác”."
 
-#: model_variables.py:284
+#: model_variables.py:342
 msgid "Place of worship"
 msgstr "Nơi thờ phượng"
 
-#: model_variables.py:285
+#: model_variables.py:343
 msgid "Commercial"
 msgstr "Thương mại"
 
-#: model_variables.py:288
+#: model_variables.py:346
 msgid "Public outdoor space"
 msgstr "Không gian công cộng ngoài trời"
 
-#: model_variables.py:292
+#: model_variables.py:350
 msgid "Church, synagogue, temple, religious community center"
 msgstr "Nhà thờ, đền thờ do thái, đền thờ, trung tâm cộng đồng tôn giáo"
 
-#: model_variables.py:293
+#: model_variables.py:351
 msgid "Store, restaurant, bar, hotel, theater"
 msgstr "Cửa hàng, nhà hàng, quán bar, khách sạn, rạp chiếu phim"
 
-#: model_variables.py:294
+#: model_variables.py:352
 msgid ""
 "Hospital or clinic (including inpatient and outpatient programs), "
 "reproductive care clinic, state developmental institution, nursing home"
@@ -616,11 +620,11 @@ msgstr ""
 "Bệnh viện hoặc phòng khám (bao gồm các chương trình nội trú và ngoại trú), "
 "phòng khám chăm sóc sinh sản, tổ chức phát triển tiểu bang, viện dưỡng lão"
 
-#: model_variables.py:295
+#: model_variables.py:353
 msgid "Bank, credit union, loan services"
 msgstr "Ngân hàng, tổ chức tín dụng, dịch vụ cho vay"
 
-#: model_variables.py:296
+#: model_variables.py:354
 msgid ""
 "Park, sidewalk, street, other public buildings (courthouse, DMV, city "
 "library)"
@@ -628,353 +632,353 @@ msgstr ""
 "Công viên, vỉa hè, đường phố, các tòa nhà công cộng khác (trụ sở tòa án, "
 "DMV, thư viện thành phố)"
 
-#: model_variables.py:307
+#: model_variables.py:365
 msgid "State/local"
 msgstr "Tiểu bang/địa phương"
 
-#: model_variables.py:309
+#: model_variables.py:367
 msgid "Private"
 msgstr "Tư nhân"
 
-#: model_variables.py:315
+#: model_variables.py:373
 msgid "Outside of prison"
 msgstr "Bên ngoài nhà tù"
 
-#: model_variables.py:317
+#: model_variables.py:375
 msgid "Prison (Federal)"
 msgstr "Nhà tù (Liên bang)"
 
-#: model_variables.py:318
+#: model_variables.py:376
 msgid "Prison (Private)"
 msgstr "Nhà tù (Tư nhân)"
 
-#: model_variables.py:319
+#: model_variables.py:377
 msgid "Prison (I'm not sure)"
 msgstr "Nhà tù (Tôi không chắc)"
 
-#: model_variables.py:323
+#: model_variables.py:381
 msgid "Public employer"
 msgstr "Cơ quan tuyển dụng công"
 
-#: model_variables.py:324
+#: model_variables.py:382
 msgid "Private employer"
 msgstr "Cơ quan tuyển dụng tư nhân"
 
-#: model_variables.py:328
+#: model_variables.py:386
 msgid "Please select what type of employer this is."
 msgstr "Vui lòng chọn loại hình cơ quan tuyển dụng này."
 
-#: model_variables.py:331
+#: model_variables.py:389
 msgid "Fewer than 15 employees"
 msgstr "Ít hơn 15 nhân viên"
 
-#: model_variables.py:332
+#: model_variables.py:390
 msgid "15 or more employees"
 msgstr "Từ 15 nhân viên trở lên"
 
-#: model_variables.py:336
+#: model_variables.py:394
 msgid "Please select how large the employer is."
 msgstr "Vui lòng chọn quy mô của cơ quan tuyển dụng."
 
-#: model_variables.py:348
+#: model_variables.py:406
 msgid "Public school or educational program"
 msgstr "Trường hoặc chương trình giáo dục công lập"
 
-#: model_variables.py:349
+#: model_variables.py:407
 msgid "Private school or educational program"
 msgstr "Trường hoặc chương trình giáo dục tư"
 
-#: model_variables.py:355
+#: model_variables.py:413
 msgid "Alabama"
 msgstr "Alabama"
 
-#: model_variables.py:356
+#: model_variables.py:414
 msgid "Alaska"
 msgstr "Alaska"
 
-#: model_variables.py:357
+#: model_variables.py:415
 msgid "Arizona"
 msgstr "Arizona"
 
-#: model_variables.py:358
+#: model_variables.py:416
 msgid "Arkansas"
 msgstr "Arkansas"
 
-#: model_variables.py:359
+#: model_variables.py:417
 msgid "California"
 msgstr "California"
 
-#: model_variables.py:360
+#: model_variables.py:418
 msgid "Colorado"
 msgstr "Colorado"
 
-#: model_variables.py:361
+#: model_variables.py:419
 msgid "Connecticut"
 msgstr "Connecticut"
 
-#: model_variables.py:362
+#: model_variables.py:420
 msgid "Delaware"
 msgstr "Delaware"
 
-#: model_variables.py:363
+#: model_variables.py:421
 msgid "District of Columbia"
 msgstr "District of Columbia"
 
-#: model_variables.py:364
+#: model_variables.py:422
 msgid "Florida"
 msgstr "Florida"
 
-#: model_variables.py:365
+#: model_variables.py:423
 msgid "Georgia"
 msgstr "Georgia"
 
-#: model_variables.py:366
+#: model_variables.py:424
 msgid "Hawaii"
 msgstr "Hawaii"
 
-#: model_variables.py:367
+#: model_variables.py:425
 msgid "Idaho"
 msgstr "Idaho"
 
-#: model_variables.py:368
+#: model_variables.py:426
 msgid "Illinois"
 msgstr "Illinois"
 
-#: model_variables.py:369
+#: model_variables.py:427
 msgid "Indiana"
 msgstr "Indiana"
 
-#: model_variables.py:370
+#: model_variables.py:428
 msgid "Iowa"
 msgstr "Iowa"
 
-#: model_variables.py:371
+#: model_variables.py:429
 msgid "Kansas"
 msgstr "Kansas"
 
-#: model_variables.py:372
+#: model_variables.py:430
 msgid "Kentucky"
 msgstr "Kentucky"
 
-#: model_variables.py:373
+#: model_variables.py:431
 msgid "Louisiana"
 msgstr "Louisiana"
 
-#: model_variables.py:374
+#: model_variables.py:432
 msgid "Maine"
 msgstr "Maine"
 
-#: model_variables.py:375
+#: model_variables.py:433
 msgid "Maryland"
 msgstr "Maryland"
 
-#: model_variables.py:376
+#: model_variables.py:434
 msgid "Massachusetts"
 msgstr "Massachusetts"
 
-#: model_variables.py:377
+#: model_variables.py:435
 msgid "Michigan"
 msgstr "Michigan"
 
-#: model_variables.py:378
+#: model_variables.py:436
 msgid "Minnesota"
 msgstr "Minnesota"
 
-#: model_variables.py:379
+#: model_variables.py:437
 msgid "Mississippi"
 msgstr "Mississippi"
 
-#: model_variables.py:380
+#: model_variables.py:438
 msgid "Missouri"
 msgstr "Missouri"
 
-#: model_variables.py:381
+#: model_variables.py:439
 msgid "Montana"
 msgstr "Montana"
 
-#: model_variables.py:382
+#: model_variables.py:440
 msgid "Nebraska"
 msgstr "Nebraska"
 
-#: model_variables.py:383
+#: model_variables.py:441
 msgid "Nevada"
 msgstr "Nevada"
 
-#: model_variables.py:384
+#: model_variables.py:442
 msgid "New Hampshire"
 msgstr "New Hampshire"
 
-#: model_variables.py:385
+#: model_variables.py:443
 msgid "New Jersey"
 msgstr "New Jersey"
 
-#: model_variables.py:386
+#: model_variables.py:444
 msgid "New Mexico"
 msgstr "New Mexico"
 
-#: model_variables.py:387
+#: model_variables.py:445
 msgid "New York"
 msgstr "New York"
 
-#: model_variables.py:388
+#: model_variables.py:446
 msgid "North Carolina"
 msgstr "North Carolina"
 
-#: model_variables.py:389
+#: model_variables.py:447
 msgid "North Dakota"
 msgstr "North Dakota"
 
-#: model_variables.py:390
+#: model_variables.py:448
 msgid "Ohio"
 msgstr "Ohio"
 
-#: model_variables.py:391
+#: model_variables.py:449
 msgid "Oklahoma"
 msgstr "Oklahoma"
 
-#: model_variables.py:392
+#: model_variables.py:450
 msgid "Oregon"
 msgstr "Oregon"
 
-#: model_variables.py:393
+#: model_variables.py:451
 msgid "Pennsylvania"
 msgstr "Pennsylvania"
 
-#: model_variables.py:394
+#: model_variables.py:452
 msgid "Rhode Island"
 msgstr "Rhode Island"
 
-#: model_variables.py:395
+#: model_variables.py:453
 msgid "South Carolina"
 msgstr "South Carolina"
 
-#: model_variables.py:396
+#: model_variables.py:454
 msgid "South Dakota"
 msgstr "South Dakota"
 
-#: model_variables.py:397
+#: model_variables.py:455
 msgid "Tennessee"
 msgstr "Tennessee"
 
-#: model_variables.py:398
+#: model_variables.py:456
 msgid "Texas"
 msgstr "Texas"
 
-#: model_variables.py:399
+#: model_variables.py:457
 msgid "Utah"
 msgstr "Utah"
 
-#: model_variables.py:400
+#: model_variables.py:458
 msgid "Vermont"
 msgstr "Vermont"
 
-#: model_variables.py:401
+#: model_variables.py:459
 msgid "Virginia"
 msgstr "Virginia"
 
-#: model_variables.py:402
+#: model_variables.py:460
 msgid "Washington"
 msgstr "Washington"
 
-#: model_variables.py:403
+#: model_variables.py:461
 msgid "West Virginia"
 msgstr "West Virginia"
 
-#: model_variables.py:404
+#: model_variables.py:462
 msgid "Wisconsin"
 msgstr "Wisconsin"
 
-#: model_variables.py:405
+#: model_variables.py:463
 msgid "Wyoming"
 msgstr "Wyoming"
 
-#: model_variables.py:406
+#: model_variables.py:464
 msgid "American Samoa"
 msgstr "American Samoa"
 
-#: model_variables.py:407
+#: model_variables.py:465
 msgid "Guam"
 msgstr "Guam"
 
-#: model_variables.py:408
+#: model_variables.py:466
 msgid "Northern Mariana Islands"
 msgstr "Northern Mariana Islands"
 
-#: model_variables.py:409
+#: model_variables.py:467
 msgid "Puerto Rico"
 msgstr "Puerto Rico"
 
-#: model_variables.py:410
+#: model_variables.py:468
 msgid "Virgin Islands"
 msgstr "Virgin Islands"
 
-#: model_variables.py:411
+#: model_variables.py:469
 msgid "Armed Forces Africa"
 msgstr "Lực Lượng Vũ Trang Châu Phi"
 
-#: model_variables.py:412
+#: model_variables.py:470
 msgid "Armed Forces Americas"
 msgstr "Lực Lượng Vũ Trang Hoa Kỳ"
 
-#: model_variables.py:413
+#: model_variables.py:471
 msgid "Armed Forces Canada"
 msgstr "Lực Lượng Vũ Trang Canada"
 
-#: model_variables.py:414
+#: model_variables.py:472
 msgid "Armed Forces Europe"
 msgstr "Lực Lượng Vũ Trang Châu Âu"
 
-#: model_variables.py:415
+#: model_variables.py:473
 msgid "Armed Forces Middle East"
 msgstr "Lực Lượng Vũ Trang Trung Đông"
 
-#: model_variables.py:416
+#: model_variables.py:474
 msgid "Armed Forces Pacific"
 msgstr "Lực Lượng Vũ Trang Thái Bình Dương"
 
-#: model_variables.py:419
+#: model_variables.py:477
 msgid "Please provide description to continue"
 msgstr "Vui lòng cung cấp mô tả để tiếp tục"
 
-#: model_variables.py:420
+#: model_variables.py:478
 msgid "Please select a primary reason to continue."
 msgstr "Vui lòng chọn một lý do chính để tiếp tục."
 
-#: model_variables.py:424
+#: model_variables.py:482
 msgid "Please enter the name of the location where this took place."
 msgstr "Vui lòng nhập tên địa điểm nơi việc này xảy ra."
 
-#: model_variables.py:425
+#: model_variables.py:483
 msgid "Please enter the city or town where this took place."
 msgstr "Vui lòng nhập thành phố hoặc thị trấn nơi việc này xảy ra."
 
-#: model_variables.py:426
+#: model_variables.py:484
 msgid "Please select the state where this took place."
 msgstr "Vui lòng nhập tiểu bang nơi việc này xảy ra."
 
-#: model_variables.py:430
+#: model_variables.py:488
 msgid "Please select where this occurred"
 msgstr "Vui lòng chọn nơi việc này xảy ra"
 
-#: model_variables.py:431
+#: model_variables.py:489
 msgid "Please select the type of location"
 msgstr "Vui lòng chọn loại địa điểm"
 
-#: model_variables.py:443
+#: model_variables.py:501
 msgid "You must enter a month and year. Please use the format MM/DD/YYYY."
 msgstr ""
 "Quý vị phải nhập tháng và năm. Vui lòng sử dụng định dạng tháng( MM)/ngày "
 "(DD)/năm (YYYY)."
 
-#: model_variables.py:446
+#: model_variables.py:504
 msgid "Please enter a month."
 msgstr "Vui lòng nhập tháng."
 
-#: model_variables.py:447
+#: model_variables.py:505
 msgid "Please enter a valid month. Month must be between 1 and 12."
 msgstr "Vui lòng nhập một tháng hợp lệ. Tháng phải từ 1 đến 12."
 
-#: model_variables.py:449
+#: model_variables.py:507
 msgid ""
 "Please enter a valid day of the month. Day must be between 1 and the last "
 "day of the month."
@@ -982,27 +986,27 @@ msgstr ""
 "Vui lòng nhập một ngày hợp lệ trong tháng. Ngày phải từ ngày 1 đến ngày cuối "
 "cùng của tháng."
 
-#: model_variables.py:450
+#: model_variables.py:508
 msgid "Please enter a year."
 msgstr "Vui lòng nhập một năm."
 
-#: model_variables.py:451
+#: model_variables.py:509
 msgid "Date can not be in the future."
 msgstr "Ngày không được là ngày trong tương lai."
 
-#: model_variables.py:452
+#: model_variables.py:510
 msgid "Please enter a year after 1900."
 msgstr "Vui lòng nhập một năm sau 1900."
 
-#: model_variables.py:454
+#: model_variables.py:512
 msgid "Please enter a valid date. Use format MM/DD/YYYY."
 msgstr "Vui lòng nhập một ngày hợp lệ. Sử dụng định dạng MM/DD/YYYY."
 
-#: model_variables.py:458
+#: model_variables.py:516
 msgid "Please select the type of election or voting activity."
 msgstr "Vui lòng chọn hình thức bầu cử hoặc hoạt động bỏ phiếu."
 
-#: model_variables.py:573
+#: model_variables.py:636
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
@@ -1202,12 +1206,12 @@ msgstr ""
 "cung cấp chi tiết về những tài liệu đó, chúng tôi có thể biết được tài liệu "
 "nào sẽ hữu ích nhất đối với báo cáo của quý vị."
 
-#: templates/base.html:42 templates/base.html:67
+#: templates/base.html:43 templates/base.html:68
 #: templates/forms/report_base.html:10 templates/forms/report_base.html:13
 msgid "Contact the Civil Rights Division | Department of Justice"
 msgstr "Liên hệ với Ban Dân Quyền | Bộ Tư pháp"
 
-#: templates/base.html:55
+#: templates/base.html:56
 msgid ""
 "Have you or someone you know experienced unlawful discrimination? The Civil "
 "Rights Division may be able to help. Civil rights laws can protect you from "
@@ -1221,19 +1225,19 @@ msgstr ""
 "trong nhiều môi trường khác nhau như nhà ở, nơi làm việc, trường học, hoạt "
 "động bỏ phiếu, doanh nghiệp, chăm sóc sức khỏe, không gian công cộng, v.v."
 
-#: templates/base.html:77
+#: templates/base.html:78
 msgid "Skip to main content"
 msgstr "Đi thẳng đến nội dung chính"
 
-#: templates/base.html:131 templates/forms/errors.html:13
-#: templates/forms/report_maintenance.html:13 templates/landing.html:10
-#: templates/landing.html:17
+#: templates/base.html:132 templates/forms/errors.html:13
+#: templates/forms/report_maintenance.html:13 templates/landing.html:11
+#: templates/landing.html:18
 msgid "U.S. Department of Justice"
 msgstr "Bộ Tư pháp Hoa Kỳ"
 
-#: templates/base.html:134 templates/forms/confirmation.html:21
+#: templates/base.html:135 templates/forms/confirmation.html:21
 #: templates/forms/errors.html:14 templates/forms/report_maintenance.html:14
-#: templates/landing.html:10 templates/landing.html:20
+#: templates/landing.html:11 templates/landing.html:21
 msgid "Civil Rights Division"
 msgstr "Ban Dân Quyền"
 
@@ -1365,7 +1369,7 @@ msgstr ""
 msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr "Chúng tôi đang nhận và tích cực đánh giá nhiều yêu cầu cùng một lúc."
 
-#: templates/forms/confirmation.html:134 templates/landing.html:357
+#: templates/forms/confirmation.html:134 templates/landing.html:381
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1515,12 +1519,12 @@ msgid "File a complaint"
 msgstr "Nộp đơn khiếu nại"
 
 #: templates/forms/errors.html:71 templates/forms/report_maintenance.html:66
-#: templates/landing.html:128
+#: templates/landing.html:138
 msgid "About the Civil Rights Division"
 msgstr "Giới thiệu về Ban Dân Quyền"
 
 #: templates/forms/errors.html:74 templates/forms/report_maintenance.html:69
-#: templates/landing.html:111
+#: templates/landing.html:121
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
@@ -1651,6 +1655,7 @@ msgid "Edit this page"
 msgstr "Chỉnh sửa trang này"
 
 #: templates/forms/widgets/crt_radio_area_option.html:26
+#: templates/vot_resources.html:58
 msgid "Examples:"
 msgstr "Ví dụ:"
 
@@ -1740,7 +1745,7 @@ msgstr ""
 "buộc hay cưỡng bức thực hiện hành vi tình dục để được một thứ gì đó có giá "
 "trị."
 
-#: templates/hate_crime_human_trafficking.html:72 templates/landing.html:233
+#: templates/hate_crime_human_trafficking.html:72 templates/landing.html:257
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "Nhận sự giúp đỡ từ Đường Dây Nóng Chống Buôn Người Toàn Quốc"
 
@@ -1750,37 +1755,209 @@ msgstr "Nhận sự giúp đỡ từ Đường Dây Nóng Chống Buôn 
 msgid "Civil Rights Division - Department of Justice - Get resources"
 msgstr "Ban Dân Quyền - Bộ Tư pháp - Chính sách Quyền riêng tư"
 
-#: templates/landing.html:30
+#: templates/hce_resources.html:25
+msgid "Housing Section Resources"
+msgstr ""
+
+#: templates/hce_resources.html:29 templates/hce_resources.html:56
+msgid "Credit"
+msgstr ""
+
+#: templates/hce_resources.html:32 templates/hce_resources.html:76
+#, fuzzy
+#| msgid "Accessibility"
+msgid "Disability"
+msgstr "Khả Năng Tiếp Cận"
+
+#: templates/hce_resources.html:35 templates/hce_resources.html:85
+msgid "Housing"
+msgstr ""
+
+#: templates/hce_resources.html:38
+msgid "Find an attorney"
+msgstr ""
+
+#: templates/hce_resources.html:41
+#, fuzzy
+#| msgid "Enforcement"
+msgid "Enforcement of state laws"
+msgstr "Đảm bảo thực thi"
+
+#: templates/hce_resources.html:44
+msgid "General assistance"
+msgstr ""
+
+#: templates/hce_resources.html:51
+msgid "Housing section resources"
+msgstr ""
+
+#: templates/hce_resources.html:59
+msgid "Consumer Financial Protection Bureau"
+msgstr ""
+
+#: templates/hce_resources.html:60
+msgid "Submit a complaint about a financial product or service."
+msgstr ""
+
+#: templates/hce_resources.html:66
+msgid "Credit Bureaus"
+msgstr ""
+
+#: templates/hce_resources.html:67
+msgid "Find information about credit history or credit scores."
+msgstr ""
+
+#: templates/hce_resources.html:80
+msgid ""
+"Information about physical accessibility requirements in multifamily housing."
+msgstr ""
+
+#: templates/hce_resources.html:88
+#, fuzzy
+#| msgid "U.S. Department of Justice"
+msgid "U.S. Department of Housing and Urban Development"
+msgstr "Bộ Tư pháp Hoa Kỳ"
+
+#: templates/hce_resources.html:89
+msgid "Submit a complaint about discrimination in housing."
+msgstr ""
+
+#: templates/hce_resources.html:96
+msgid "Homelessness Resources"
+msgstr ""
+
+#: templates/hce_resources.html:97
+msgid "Information on housing assistance."
+msgstr ""
+
+#: templates/hce_resources.html:101
+msgid "Office of Public &amp; Indian Housing"
+msgstr ""
+
+#: templates/hce_resources.html:102
+msgid ""
+"Information on public housing authorities, rental assistance, and housing "
+"counseling."
+msgstr ""
+
+#: templates/hce_resources.html:103
+msgid ""
+"(for inquiries on public housing authorities and housing choice voucher "
+"programs)"
+msgstr ""
+
+#: templates/hce_resources.html:107
+#, fuzzy
+#| msgid "Office of Inspector General"
+msgid "Office of Inspector General (OIG)"
+msgstr "Văn phòng Tổng Thanh tra"
+
+#: templates/hce_resources.html:108
+msgid "Report fraud, waste, or abuse in HUD-funded programs."
+msgstr ""
+
+#: templates/hce_resources.html:115
+msgid "Fair Housing Initiatives Program Agencies"
+msgstr ""
+
+#: templates/hce_resources.html:116
+msgid ""
+"Information about organizations that assist people who believe they have "
+"been victims of housing discrimination."
+msgstr ""
+
+#: templates/hce_resources.html:120
+msgid "Fair Housing Assistance Program Agencies"
+msgstr ""
+
+#: templates/hce_resources.html:121
+msgid ""
+"State and local agencies responsible for receiving reports of discrimination."
+msgstr ""
+
+#: templates/hce_resources.html:125
+msgid "Rent and Utility Payment Assistance"
+msgstr ""
+
+#: templates/hce_resources.html:126
+msgid "Information on rental assistance programs in your area."
+msgstr ""
+
+#: templates/hce_resources.html:130
+msgid "Find an Attorney"
+msgstr ""
+
+#: templates/hce_resources.html:133
+#, fuzzy
+#| msgid "American Samoa"
+msgid "American Bar Association"
+msgstr "American Samoa"
+
+#: templates/hce_resources.html:140
+msgid "Legal Services Corporation (or Legal Aid Offices)"
+msgstr ""
+
+#: templates/hce_resources.html:141
+msgid ""
+"Information on non-profit organizations providing legal help to people with "
+"limited income."
+msgstr ""
+
+#: templates/hce_resources.html:148
+#, fuzzy
+#| msgid "Enforcement"
+msgid "Enforcement of State Laws"
+msgstr "Đảm bảo thực thi"
+
+#: templates/hce_resources.html:151
+msgid "State Attorneys General"
+msgstr ""
+
+#: templates/hce_resources.html:152
+msgid "Find contact information for your state attorney general."
+msgstr ""
+
+#: templates/hce_resources.html:156
+msgid "General Assistance"
+msgstr ""
+
+#: templates/hce_resources.html:160
+msgid ""
+"Assistance with questions about federal agencies, government programs, "
+"services, and more."
+msgstr ""
+
+#: templates/landing.html:31
 msgid "Menu"
 msgstr "Thực đơn"
 
-#: templates/landing.html:39
+#: templates/landing.html:40
 msgid "About the Division"
 msgstr "Giới thiệu về Ban"
 
-#: templates/landing.html:44
+#: templates/landing.html:45
 msgid "Your rights"
 msgstr "Các quyền của quý vị"
 
-#: templates/landing.html:49 templates/partials/footer.html:70
+#: templates/landing.html:50 templates/partials/footer.html:70
 msgid "Report a violation"
 msgstr "Báo cáo một vi phạm"
 
-#: templates/landing.html:54
+#: templates/landing.html:55
 msgid "Already submitted?"
 msgstr "Đã gửi?"
 
-#: templates/landing.html:59 templates/partials/footer.html:9
-#: views_public.py:174 views_public.py:253 views_public.py:271
+#: templates/landing.html:60 templates/partials/footer.html:9
+#: views_public.py:180 views_public.py:259 views_public.py:277
 msgid "Contact"
 msgstr "Liên Hệ"
 
-#: templates/landing.html:81
+#: templates/landing.html:91
 msgid "We uphold the civil rights of <em>all</em> people in the United States."
 msgstr ""
 "Chúng tôi đề cao quyền công dân của <em>tất cả</em> mọi người dân ở Hoa Kỳ."
 
-#: templates/landing.html:86
+#: templates/landing.html:96
 msgid ""
 "The Civil Rights Division enforces federal laws that protect you from "
 "discrimination based on your race, color, national origin, disability "
@@ -1792,7 +1969,7 @@ msgstr ""
 "tính, tôn giáo, tình trạng gia đình, hoặc tình trạng mất các quyền hợp hiến "
 "khác của quý vị."
 
-#: templates/landing.html:89
+#: templates/landing.html:99
 msgid ""
 "If you believe your civil rights, or someone else’s, have been violated, "
 "submit a report using our online form."
@@ -1800,16 +1977,16 @@ msgstr ""
 "Nếu quý vị tin rằng dân quyền của mình hoặc của người khác đã bị vi phạm, "
 "hãy gửi báo cáo bằng cách sử dụng mẫu trực tuyến của chúng tôi."
 
-#: templates/landing.html:91 templates/landing.html:330
+#: templates/landing.html:101 templates/landing.html:354
 msgid "Start a report"
 msgstr "Bắt đầu báo cáo"
 
-#: templates/landing.html:92
+#: templates/landing.html:102
 msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
 msgstr ""
 "hoặc tìm hiểu thêm về các <a href=\"#your-rights\">quyền của quý vị</a>"
 
-#: templates/landing.html:105
+#: templates/landing.html:115
 msgid ""
 "If you are in danger, contact <a href=\"tel:911\" aria-label=\"9 1 1\">911</"
 "a>"
@@ -1817,7 +1994,7 @@ msgstr ""
 "Nếu quý vị đang gặp nguy hiểm, hãy gọi <a href=\"tel:911\" aria-label=\"9 1 "
 "1\">911</a>"
 
-#: templates/landing.html:116
+#: templates/landing.html:126
 msgid ""
 "If you are reporting misconduct by law enforcement or believe you have "
 "experienced a hate crime, please <a aria-label=\"contact the FBI\" class="
@@ -1829,15 +2006,15 @@ msgstr ""
 "label=\"contact the FBI\" class=\"external-link--white\" href=\"https://www."
 "fbi.gov/contact-us\">liên hệ với FBI</a>."
 
-#: templates/landing.html:130
+#: templates/landing.html:140
 msgid "We protect your rights through:"
 msgstr "Chúng tôi bảo vệ các quyền của quý vị thông qua:"
 
-#: templates/landing.html:133
+#: templates/landing.html:143
 msgid "Enforcement"
 msgstr "Đảm bảo thực thi"
 
-#: templates/landing.html:135
+#: templates/landing.html:145
 msgid ""
 "We sue or prosecute individuals and organizations who violate civil rights "
 "laws."
@@ -1845,7 +2022,7 @@ msgstr ""
 "Chúng tôi khởi kiện hoặc truy tố những cá nhân và tổ chức vi phạm luật dân "
 "quyền."
 
-#: templates/landing.html:138
+#: templates/landing.html:148
 #, python-format
 msgid ""
 "\n"
@@ -1860,32 +2037,32 @@ msgstr ""
 "\">mẫu đơn trực tuyến</a>.\n"
 "                "
 
-#: templates/landing.html:144
+#: templates/landing.html:154
 msgid "Education"
 msgstr "Giáo dục"
 
-#: templates/landing.html:146
+#: templates/landing.html:156
 msgid "We help the public understand how to comply with these laws."
 msgstr "Chúng tôi giúp công chúng hiểu cách tuân thủ các luật này."
 
-#: templates/landing.html:147
+#: templates/landing.html:157
 msgid "We do this through public speaking, technical assistance, and more."
 msgstr ""
 "Chúng tôi thực hiện điều này thông qua phát biểu trước công chúng, trợ giúp "
 "kỹ thuật, và những việc làm khác."
 
-#: templates/landing.html:150
+#: templates/landing.html:160
 msgid "Coordination"
 msgstr "Hợp tác"
 
-#: templates/landing.html:152
+#: templates/landing.html:162
 msgid ""
 "We help the entire federal government work together to enforce these laws."
 msgstr ""
 "Chúng tôi giúp toàn bộ chính phủ liên bang phối hợp làm việc cùng nhau để "
 "thực thi các luật này."
 
-#: templates/landing.html:153
+#: templates/landing.html:163
 msgid ""
 "Our teams work with other agencies to promote a consistent approach to civil "
 "rights laws."
@@ -1893,11 +2070,11 @@ msgstr ""
 "Các nhóm của chúng tôi làm việc với các cơ quan khác để thúc đẩy cách tiếp "
 "cận nhất quán đối với các luật dân quyền."
 
-#: templates/landing.html:165
+#: templates/landing.html:175
 msgid "Understanding your rights"
 msgstr "Hiểu các quyền của quý vị"
 
-#: templates/landing.html:168
+#: templates/landing.html:178
 msgid ""
 "Civil rights laws can protect you from unlawful discrimination, harassment, "
 "or abuse in a variety of settings like <span class=\"crt-landing--"
@@ -1910,7 +2087,7 @@ msgstr ""
 "trường học, hoạt động bỏ phiếu, doanh nghiệp, chăm sóc sức khỏe, không gian "
 "công cộng</span>, v.v."
 
-#: templates/landing.html:171
+#: templates/landing.html:181
 msgid ""
 "If you have been <span class=\"crt-landing--rights_categories\">mistreated "
 "by law enforcement</span> (including while incarcerated), believe you have "
@@ -1925,23 +2102,23 @@ msgstr ""
 "rights_categories\">nạn buôn người</span>, chúng tôi có thể giúp đưa quý vị "
 "đến đúng nơi."
 
-#: templates/landing.html:187
+#: templates/landing.html:197
 msgid "Choose from this list to see example civil rights violations:"
 msgstr "Chọn từ danh sách này để xem ví dụ về các hành vi vi phạm dân quyền:"
 
-#: templates/landing.html:222
+#: templates/landing.html:238
 msgid "Examples"
 msgstr "Các ví dụ"
 
-#: templates/landing.html:230
+#: templates/landing.html:254
 msgid "Get help for hate crimes"
 msgstr "Nhận sự giúp đỡ khi gặp phải những hành vi phạm tội do thù hận"
 
-#: templates/landing.html:233
+#: templates/landing.html:257
 msgid "Were you forced to work against your will?"
 msgstr "Quý vị có bị ép buộc phải làm việc trái ý mình không?"
 
-#: templates/landing.html:240
+#: templates/landing.html:264
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
@@ -1949,15 +2126,15 @@ msgstr ""
 "Nếu quý vị cho rằng mình đã trải qua trường hợp tương tự, hãy tìm hiểu <a "
 "href=\"#crt-landing--reporting\">cách báo cáo hành vi vi phạm dân quyền</a>."
 
-#: templates/landing.html:250
+#: templates/landing.html:274
 msgid "Protected by civil rights laws"
 msgstr "Được các luật dân quyền bảo vệ"
 
-#: templates/landing.html:252
+#: templates/landing.html:276
 msgid "These are the most common characteristics that are legally protected."
 msgstr "Đây là những đặc điểm chung nhất được bảo vệ hợp pháp."
 
-#: templates/landing.html:255
+#: templates/landing.html:279
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
@@ -1965,15 +2142,15 @@ msgstr ""
 "Tình trạng khuyết tật <span class=\"crt-landing--protected\">bao gồm tạm "
 "thời hoặc đang phục hồi</span>"
 
-#: templates/landing.html:257
+#: templates/landing.html:281
 msgid "Sex, gender identity, and sexual orientation"
 msgstr "Giới tính, nhận dạng giới tính, và xu hướng tình dục"
 
-#: templates/landing.html:258
+#: templates/landing.html:282
 msgid "Immigration/citizenship status"
 msgstr "Tình trạng nhập cư/tư cách công dân"
 
-#: templates/landing.html:259
+#: templates/landing.html:283
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
@@ -1981,7 +2158,7 @@ msgstr ""
 "Ngôn ngữ và quốc gia xuất xứ <span class=\"crt-landing--protected\">bao gồm "
 "tổ tiên và dân tộc</span>"
 
-#: templates/landing.html:260
+#: templates/landing.html:284
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
@@ -1989,19 +2166,19 @@ msgstr ""
 "Tình trạng gia đình, hôn nhân, hay làm cha mẹ <span class=\"crt-landing--"
 "protected\">bao gồm cả tình trạng mang thai</span>"
 
-#: templates/landing.html:262
+#: templates/landing.html:286
 msgid "Genetic identification"
 msgstr "Nhận dạng di truyền"
 
-#: templates/landing.html:263
+#: templates/landing.html:287
 msgid "Servicemember status"
 msgstr "Tình trạng quân vụ"
 
-#: templates/landing.html:277
+#: templates/landing.html:301
 msgid "How to report a civil rights violation"
 msgstr "Cách báo cáo một hành vi vi phạm dân quyền"
 
-#: templates/landing.html:282
+#: templates/landing.html:306
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
@@ -2009,11 +2186,11 @@ msgstr ""
 "Nếu quý vị tin rằng quý vị hoặc người khác đã bị phân biệt đối xử bất hợp "
 "pháp, quý vị có thể báo cáo một hành vi vi phạm dân quyền."
 
-#: templates/landing.html:291
+#: templates/landing.html:315
 msgid "Report using our online form."
 msgstr "Báo cáo bằng cách sử dụng mẫu trực tuyến của chúng tôi."
 
-#: templates/landing.html:292
+#: templates/landing.html:316
 msgid ""
 "By completing the online form, you can provide the details we need to "
 "understand what happened. You will receive a confirmation number and your "
@@ -2024,11 +2201,11 @@ msgstr ""
 "nhận và báo cáo của quý vị ngay lập tức được gửi đến nhân viên của chúng tôi "
 "để đánh giá."
 
-#: templates/landing.html:300
+#: templates/landing.html:324
 msgid "We review your report."
 msgstr "Chúng tôi sẽ đánh giá báo cáo của quý vị."
 
-#: templates/landing.html:301
+#: templates/landing.html:325
 msgid ""
 "Teams that specialize in handling your type of issue will review it. If it "
 "needs to be forwarded to another team or agency, we will try to connect your "
@@ -2038,11 +2215,11 @@ msgstr ""
 "vụ việc cần được chuyển tiếp đến một nhóm hoặc cơ quan khác, chúng tôi sẽ cố "
 "gắng kết nối khiếu nại của quý vị với đúng nhóm."
 
-#: templates/landing.html:309
+#: templates/landing.html:333
 msgid "We determine next steps and get back to you."
 msgstr "Chúng tôi xác định các bước tiếp theo và liên hệ lại với quý vị."
 
-#: templates/landing.html:310
+#: templates/landing.html:334
 msgid ""
 "Possible outcomes include: following up for more information, starting a "
 "mediation or investigation, directing you to another organization for "
@@ -2052,13 +2229,13 @@ msgstr ""
 "hòa giải hoặc điều tra, chuyển quý vị đến một tổ chức khác để được trợ giúp "
 "thêm hoặc thông báo cho quý vị rằng chúng tôi không thể giúp đỡ."
 
-#: templates/landing.html:329
+#: templates/landing.html:353
 msgid "Have you or someone you know experienced a civil rights violation?"
 msgstr ""
 "Quý vị hoặc một người nào đó mà quý vị biết có từng bị vi phạm dân quyền "
 "không?"
 
-#: templates/landing.html:335
+#: templates/landing.html:359
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
@@ -2068,15 +2245,15 @@ msgstr ""
 "\"#phone-footer\">gọi điện</a> để báo cáo hành vi vi phạm hoặc báo cáo hành "
 "vi vi phạm qua <a href=\"#address-footer\">thư</a>."
 
-#: templates/landing.html:345
+#: templates/landing.html:369
 msgid "Already submitted a report?"
 msgstr "Quý vị đã gửi báo cáo?"
 
-#: templates/landing.html:348
+#: templates/landing.html:372
 msgid "Here's what to expect."
 msgstr "Dưới đây là những việc sẽ xảy ra."
 
-#: templates/landing.html:352
+#: templates/landing.html:376
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
@@ -2089,22 +2266,22 @@ msgstr ""
 "tôi. Tuy nhiên, không phải lúc nào chúng tôi cũng có thể cung cấp cho quý vị "
 "các thông tin cập nhật vì:"
 
-#: templates/landing.html:354
+#: templates/landing.html:378
 msgid ""
 "We're actively working on an investigation or case related to your report."
 msgstr ""
 "Chúng tôi đang tích cực tiến hành một cuộc điều tra hoặc đang xử lý một "
 "trường hợp liên quan đến báo cáo của quý vị."
 
-#: templates/landing.html:355
+#: templates/landing.html:379
 msgid "We're receiving and actively reviewing many reports at the same time."
 msgstr "Chúng tôi đang nhận và tích cực đánh giá nhiều báo cáo cùng một lúc."
 
-#: templates/landing.html:362
+#: templates/landing.html:386
 msgid "Need urgent legal help?"
 msgstr "Quý vị cần hỗ trợ pháp lý khẩn cấp?"
 
-#: templates/landing.html:364
+#: templates/landing.html:388
 msgid ""
 "Due to the amount of reports we receive, it can take several weeks for us to "
 "respond to your issue. Local legal aid offices or lawyers in your area may "
@@ -2115,7 +2292,7 @@ msgstr ""
 "hoặc luật sư trong khu vực của quý vị có thể nhanh chóng hồi đáp hoặc giúp "
 "đỡ quý vị về mối quan ngại của quý vị"
 
-#: templates/landing.html:365
+#: templates/landing.html:389
 msgid ""
 "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
 "aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
@@ -2127,7 +2304,7 @@ msgstr ""
 "\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> hoặc gọi "
 "<a href=\"tel:202-295-1500\">(202) 295-1500</a>."
 
-#: templates/landing.html:366
+#: templates/landing.html:390
 msgid ""
 "Or visit <a class=\"external-link--blue external-link--popup american-bar-"
 "link\" href=\"https://www.americanbar.org/groups/legal_services/flh-home/"
@@ -2141,7 +2318,7 @@ msgstr ""
 "\"tel:800-285-2221\">(800) 285-2221</a> để tìm luật sư thông qua Hiệp hội "
 "Luật sư Hoa Kỳ."
 
-#: templates/landing.html:380
+#: templates/landing.html:404
 msgid "Image attributions"
 msgstr "Mô tả ảnh"
 
@@ -2252,13 +2429,24 @@ msgid "Go"
 msgstr ""
 
 #: templates/partials/important_message.html:7
+#: templates/partials/message_hate_crime.html:7
 msgid "Have you been a victim of a hate crime or human trafficking?"
 msgstr ""
 "Bạn có từng là nạn nhân của một tội ác do thù hận hay nạn buôn người không?"
 
 #: templates/partials/important_message.html:9
+#: templates/partials/message_hate_crime.html:9
 msgid "Get help NOW!"
 msgstr "Hãy nhận sự giúp đỡ NGAY BÂY GIỜ!"
+
+#: templates/partials/important_message_voting.html:8
+#: templates/vot_resources.html:46
+msgid "Report voting issues"
+msgstr "Trình báo những khả nghi trong việc bỏ phiếu"
+
+#: templates/partials/important_message_voting.html:9
+msgid "including threats against voters and election fraud."
+msgstr "bao gồm sự đe dọa đối với các cử tri và gian lận bầu cử"
 
 #: templates/partials/menu_language_selection.html:36
 msgid "More Language Assistance Services"
@@ -2709,77 +2897,212 @@ msgstr ""
 "(5-25-2017).\n"
 "                "
 
+#: templates/vot_resources.html:7 templates/vot_resources.html:14
+#, fuzzy
+#| msgid "Civil Rights Division - Department of Justice - Privacy Policy"
+msgid "Civil Rights Division - Department of Justice - Voting resources"
+msgstr "Ban Dân Quyền - Bộ Tư pháp - Chính sách Quyền riêng tư"
+
+#: templates/vot_resources.html:25
+msgid "How do I..."
+msgstr "Bằng cách nào tôi có thể…"
+
+#: templates/vot_resources.html:29 templates/vot_resources.html:51
+msgid "Report a possible civil rights violation"
+msgstr "Trình báo một việc có khả năng vi phạm quyền công dân"
+
+#: templates/vot_resources.html:32 templates/vot_resources.html:69
+msgid "Report a possible federal criminal civil rights violation"
+msgstr ""
+"Trình báo một việc có khả năng là vi phạm hình sự liên bang về quyền công dân"
+
+#: templates/vot_resources.html:35 templates/vot_resources.html:85
+msgid ""
+"Find the election laws, voting hours, or polling place locations in your "
+"state"
+msgstr ""
+"Tìm thông tin về luật bầu cử, giờ bỏ phiếu, hoặc những địa điểm bỏ phiếu "
+"trong tiểu bang của mình"
+
+#: templates/vot_resources.html:39 templates/vot_resources.html:93
+msgid "Learn about your voting rights"
+msgstr "Tìm hiểu về quyền bỏ phiếu của mình"
+
+#: templates/vot_resources.html:54
+msgid ""
+"To report civil rights violations, go to <a class='link--blue' href='https://"
+"civilrights.justice.gov/report/'>civilrights.justice.gov/report</a>"
+msgstr ""
+"Để trình báo những việc có khả năng vi phạm  quyền công dân, hãy vào trang "
+"mạng <a class='link--blue' href='https://civilrights.justice.gov/"
+"report/'>civilrights.justice.gov/report</a>"
+
+#: templates/vot_resources.html:61
+msgid ""
+"Discrimination on the basis of race, color, or membership in a language "
+"minority group while voting or attempting to vote"
+msgstr ""
+"Phân biệt đối xử dựa trên chủng tộc, màu da, hay đối với người thuộc nhóm "
+"thiểu số về ngôn ngữ trong khi bỏ phiếu hay định bỏ phiếu"
+
+#: templates/vot_resources.html:62
+msgid "Voter registration issues"
+msgstr "Những vấn đề về đăng ký cử tri"
+
+#: templates/vot_resources.html:63
+msgid "Lack of accessibility while voting"
+msgstr "Thiếu phương tiện hổ trợ khi bỏ phiếu"
+
+#: templates/vot_resources.html:64
+msgid "Absentee voting issues for uniformed services or overseas voters"
+msgstr ""
+"Những vấn đề về bỏ phiếu khiếm diện đối với những cử tri thuộc lực lượng mặc "
+"đồng phục hay đang ở hải ngoại"
+
+#: templates/vot_resources.html:73
+msgid ""
+"All complaints related to violence, threats of violence, or intimidation at "
+"a polling place should be reported first to local police authorities by "
+"calling"
+msgstr ""
+"Tất cả những khiếu nại liên quan đến bạo lực, đe dọa dùng bạo lực, hay dọa "
+"dẫm tại nơi bỏ phiếu trước hết phải được trình báo với cơ quan cảnh sát địa "
+"phương bằng cách gọi 911"
+
+#: templates/vot_resources.html:75
+msgid "911"
+msgstr "911"
+
+#: templates/vot_resources.html:78
+msgid ""
+"After alerting local law enforcement to such emergencies by calling <a "
+"class='external-link--blue' href='tel:911'>911</a>, the public should "
+"contact the Department of Justice"
+msgstr ""
+"Sau khi đã gọi 911để báo cho cơ quan thi hành pháp luật địa phương về những "
+"trường hợp khẩn cấp này, quần chúng nên liên lạc với Bộ Tư Pháp"
+
+#: templates/vot_resources.html:80
+msgid ""
+"Election-crime complaints should be directed to your local <a "
+"class='external-link--blue' href='https://www.justice.gov/usao/find-your-"
+"united-states-attorney'>U.S. Attorney's Offices</a> or the local <a "
+"class='external-link--blue' href='https://www.fbi.gov/contact-us'>FBI "
+"office</a>"
+msgstr ""
+"Những khiếu nại về vi phạm trong bầu cử phải được gửi đến  <a "
+"class='external-link--blue' href='https://www.justice.gov/usao/find-your-"
+"united-states-attorney'>Văn Phòng Chưởng Lý Hoa Kỳ</a> hay <a "
+"class='external-link--blue' href='https://www.fbi.gov/contact-us'>Văn Phòng "
+"FBI</a> địa phương của quý vị"
+
+#: templates/vot_resources.html:88
+msgid ""
+"Go to <a class='external-link--blue' href='https://usa.gov/election-"
+"office'>usa.gov/election-office</a> to find your state election website"
+msgstr ""
+"Hãy vào <a class='external-link--blue' href='https://usa.gov/election-"
+"office'>usa.gov/election-office</a> để tìm trang mạng văn phòng bầu cử của "
+"tiểu bang mình"
+
+#: templates/vot_resources.html:97
+msgid ""
+"Find additional information about voting rights laws at <a class='link--"
+"blue' href='https://justice.gov/crt/voting-section'>www.justice.gov/crt/"
+"voting-section</a>."
+msgstr ""
+"Tìm thêm thông tin về luật liên bang đối với quyền bỏ phiếu tại <a "
+"class='link--blue' href='https://justice.gov/crt/voting-section'>www.justice."
+"gov/crt/voting-section</a>."
+
+#: templates/vot_resources.html:99
+msgid ""
+"Learn about federal laws that protect voters with disabilities at <a "
+"class='link--blue' href='https://ada.gov'>ada.gov</a>."
+msgstr ""
+"Tìm hiểu về luật liên bang bảo vệ những cử tri bị khuyết tật tại <a "
+"class='link--blue' href='https://ada.gov'>ada.gov</a>."
+
+#: templates/vot_resources.html:102
+msgid ""
+"Download the Justice Department's new <a class='link--blue' href='https://"
+"www.justice.gov/file/1517936/download'>Know Your Voting Rights</a> guide."
+msgstr ""
+"Tải về tài liệu hướng dẫn mới của Bộ Tư Pháp, <a class='link--blue' "
+"href='https://www.justice.gov/file/1517936/download'>Hiểu Biết về Quyền Bỏ "
+"Phiếu của Mình</a>"
+
 #: validators.py:106
 msgid "Enter a valid email address."
 msgstr "điền vào địa chỉ email hợp lệ"
 
-#: views_public.py:175 views_public.py:254 views_public.py:272
-#: views_public.py:307
+#: views_public.py:181 views_public.py:260 views_public.py:278
+#: views_public.py:313
 msgid "Primary concern"
 msgstr "Mối quan ngại chính"
 
-#: views_public.py:176 views_public.py:255 views_public.py:256
-#: views_public.py:257 views_public.py:258 views_public.py:259
-#: views_public.py:260
+#: views_public.py:182 views_public.py:261 views_public.py:262
+#: views_public.py:263 views_public.py:264 views_public.py:265
+#: views_public.py:266
 msgid "Location"
 msgstr "Địa điểm"
 
-#: views_public.py:177 views_public.py:261 views_public.py:279
+#: views_public.py:183 views_public.py:267 views_public.py:285
 msgid "Personal characteristics"
 msgstr "Các đặc điểm cá nhân"
 
-#: views_public.py:178 views_public.py:262 views_public.py:280
+#: views_public.py:184 views_public.py:268 views_public.py:286
 msgid "Date"
 msgstr "Ngày"
 
-#: views_public.py:179 views_public.py:263 views_public.py:281
+#: views_public.py:185 views_public.py:269 views_public.py:287
 msgid "Personal description"
 msgstr "Mô tả cá nhân"
 
-#: views_public.py:180 views_public.py:264 views_public.py:312
+#: views_public.py:186 views_public.py:270 views_public.py:318
 msgid "Review"
 msgstr "Đánh giá"
 
-#: views_public.py:273 views_public.py:274 views_public.py:275
-#: views_public.py:276 views_public.py:277 views_public.py:278
+#: views_public.py:279 views_public.py:280 views_public.py:281
+#: views_public.py:282 views_public.py:283 views_public.py:284
 msgid "Location details"
 msgstr "Thông tin chi tiết về địa điểm"
 
-#: views_public.py:282
+#: views_public.py:288
 msgid "Review your report"
 msgstr "Đánh giá báo cáo của quý vị"
 
-#: views_public.py:298
+#: views_public.py:304
 msgid "word remaining"
 msgstr "từ còn lại"
 
-#: views_public.py:299
+#: views_public.py:305
 msgid " words remaining"
 msgstr " các từ còn lại"
 
-#: views_public.py:300
+#: views_public.py:306
 msgid " word limit reached"
 msgstr " đã đạt đến giới hạn từ"
 
-#: views_public.py:310
+#: views_public.py:316
 msgid "Please select if any that apply to your situation (optional)"
 msgstr ""
 "Vui lòng chọn nếu có bất kỳ câu trả lời nào phù hợp với tình huống của quý "
 "vị (tùy chọn)"
 
-#: views_public.py:394
+#: views_public.py:401
 msgid "404 | Page not found"
 msgstr "404 | Không tìm thấy trang"
 
-#: views_public.py:395
+#: views_public.py:402
 msgid "We can't find the page you are looking for"
 msgstr "Chúng tôi không thể tìm thấy trang quý vị đang tìm kiếm"
 
-#: views_public.py:454
+#: views_public.py:461
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Trình duyệt của quý vị không thể tạo cookie an toàn"
 
-#: views_public.py:455
+#: views_public.py:462
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
@@ -2794,8 +3117,28 @@ msgstr ""
 "này trong cửa sổ hoặc tab trình duyệt mới. Điều đó sẽ tạo cho quý vị một "
 "cookie bảo mật mới và sẽ giải quyết được sự cố."
 
-#~ msgid "How do I…"
-#~ msgstr "Tôi nên làm như thế nào để..."
+#~ msgid "To report civil rights violations, go to "
+#~ msgstr ""
+#~ "Để trình báo những việc có khả năng vi phạm quyền công dân, hãy vào trang "
+#~ "mạng "
+
+#~ msgid "Find additional information about voting rights laws at "
+#~ msgstr "Tìm thêm thông tin về luật liên bang đối với quyền bỏ phiếu tại "
+
+#, fuzzy
+#~| msgid "State or local"
+#~ msgid "or the local"
+#~ msgstr "Tiểu bang hoặc địa phương"
+
+#, fuzzy
+#~| msgid "Federal, state, or local law enforcement agencies."
+#~ msgid "After alerting local law enforcement to such emergencies by calling"
+#~ msgstr "Các cơ quan hành pháp của liên bang, tiểu bang, hoặc địa phương."
+
+#, fuzzy
+#~| msgid "United States Department of Justice"
+#~ msgid "the public should contact the Department of Justice"
+#~ msgstr "Bộ Tư pháp Hoa Kỳ"
 
 #~ msgid "Continued"
 #~ msgstr "Tiếp tục"
