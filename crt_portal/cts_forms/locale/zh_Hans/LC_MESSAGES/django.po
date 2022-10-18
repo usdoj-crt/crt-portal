@@ -2263,14 +2263,13 @@ msgstr "请立刻求助！"
 
 #: templates/partials/important_message_voting.html:8
 #: templates/vot_resources.html:46
-#, fuzzy
 #| msgid "Report a violation"
 msgid "Report voting issues"
-msgstr "举报一起违法行为"
+msgstr "举报投票问题"
 
 #: templates/partials/important_message_voting.html:9
 msgid "including threats against voters and election fraud."
-msgstr ""
+msgstr "包括对投票者的威胁和选举舞弊"
 
 #: templates/partials/menu_language_selection.html:36
 msgid "More Language Assistance Services"
@@ -2699,74 +2698,71 @@ msgid "Civil Rights Division - Department of Justice - Voting resources"
 msgstr "民权司 - 司法部 - 私隐政策"
 
 #: templates/vot_resources.html:25
-#, fuzzy
 #| msgid "How do I…"
 msgid "How do I..."
 msgstr "我如何……"
 
 #: templates/vot_resources.html:29 templates/vot_resources.html:51
-#, fuzzy
 #| msgid "How to report a civil rights violation"
 msgid "Report a possible civil rights violation"
-msgstr "如何举报违反民权的行为"
+msgstr "举报可能侵犯民权的行为"
 
 #: templates/vot_resources.html:32 templates/vot_resources.html:69
-#, fuzzy
 #| msgid "How to report a civil rights violation"
 msgid "Report a possible federal criminal civil rights violation"
-msgstr "如何举报违反民权的行为"
+msgstr "举报可能侵犯民权的联邦刑事犯罪"
 
 #: templates/vot_resources.html:35 templates/vot_resources.html:85
 msgid ""
 "Find the election laws, voting hours, or polling place locations in your "
 "state"
-msgstr ""
+msgstr "查找您所在州的选举法、投票时间或选举地点"
 
 #: templates/vot_resources.html:39 templates/vot_resources.html:93
 msgid "Learn about your voting rights"
-msgstr ""
+msgstr "了解您的投票权利"
 
 #: templates/vot_resources.html:54
 msgid ""
 "To report civil rights violations, go to <a class='link--blue' href='https://"
 "civilrights.justice.gov/report/'>civilrights.justice.gov/report</a>"
-msgstr ""
+msgstr "举报可能侵犯民权的行为, 请前往<a class='link--blue' href='https://civilrights.justice.gov/report/'>civilrights.justice.gov/report</a>"
 
 #: templates/vot_resources.html:61
 msgid ""
 "Discrimination on the basis of race, color, or membership in a language "
 "minority group while voting or attempting to vote"
-msgstr ""
+msgstr "在他人投票或试图投票时基于种族、肤色或少数语言群体成员的歧视"
 
 #: templates/vot_resources.html:62
 msgid "Voter registration issues"
-msgstr ""
+msgstr "选民登记问题"
 
 #: templates/vot_resources.html:63
 msgid "Lack of accessibility while voting"
-msgstr ""
+msgstr "投票时缺乏可访问性无障碍设施"
 
 #: templates/vot_resources.html:64
 msgid "Absentee voting issues for uniformed services or overseas voters"
-msgstr ""
+msgstr "现役军人或海外选民的缺席投票问题"
 
 #: templates/vot_resources.html:73
 msgid ""
 "All complaints related to violence, threats of violence, or intimidation at "
 "a polling place should be reported first to local police authorities by "
 "calling"
-msgstr ""
+msgstr "所有与在投票站使用暴力、暴力威胁或恐吓有关的举报，都应先拨打911向地方警察当局报告"
 
 #: templates/vot_resources.html:75
 msgid "911"
-msgstr ""
+msgstr "911"
 
 #: templates/vot_resources.html:78
 msgid ""
 "After alerting local law enforcement to such emergencies by calling <a "
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
 "contact the Department of Justice"
-msgstr ""
+msgstr "拨打911向地方执法部门报告紧急情况后，公众应和司法部联系"
 
 #: templates/vot_resources.html:80
 msgid ""
@@ -2775,32 +2771,35 @@ msgid ""
 "united-states-attorney'>U.S. Attorney's Offices</a> or the local <a "
 "class='external-link--blue' href='https://www.fbi.gov/contact-us'>FBI "
 "office</a>"
-msgstr ""
+msgstr "与选举犯罪有关的举报应提交给您当地的<a "
+"class='external-link--blue' href='https://www.justice.gov/usao/find-your-"
+"united-states-attorney'>美国检察官办公室</a>或者<a "
+"class='external-link--blue' href='https://www.fbi.gov/contact-us'>联邦调查局地方分局</a>"
 
 #: templates/vot_resources.html:88
 msgid ""
 "Go to <a class='external-link--blue' href='https://usa.gov/election-"
 "office'>usa.gov/election-office</a> to find your state election website"
-msgstr ""
+msgstr "查找您所在州的选举办公室网站, 请访问<a class='external-link--blue' href='https://usa.gov/election-office'>usa.gov/election-office</a>"
 
 #: templates/vot_resources.html:97
 msgid ""
 "Find additional information about voting rights laws at <a class='link--"
 "blue' href='https://justice.gov/crt/voting-section'>www.justice.gov/crt/"
 "voting-section</a>."
-msgstr ""
+msgstr "了解更多的联邦投票权法律, 请访问<a class='link--blue' href='https://justice.gov/crt/voting-section'>www.justice.gov/crt/voting-section</a>"
 
 #: templates/vot_resources.html:99
 msgid ""
 "Learn about federal laws that protect voters with disabilities at <a "
 "class='link--blue' href='https://ada.gov'>ada.gov</a>."
-msgstr ""
+msgstr "了解联邦法律中保护残障投票者的法律, 请访问<a class='link--blue' href='https://ada.gov'>ada.gov</a>"
 
 #: templates/vot_resources.html:102
 msgid ""
 "Download the Justice Department's new <a class='link--blue' href='https://"
 "www.justice.gov/file/1517936/download'>Know Your Voting Rights</a> guide."
-msgstr ""
+msgstr "下载司法部新的<a class='link--blue' href='https://www.justice.gov/file/1517936/download'> “了解您的投票权” </a>指南"
 
 #: validators.py:106
 msgid "Enter a valid email address."
