@@ -2865,7 +2865,7 @@ msgid ""
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
 "contact the Department of Justice"
 msgstr ""
-"911에 전화하셔서 이런 긴급상황을 지역 법집행기관에 알린 후 법무부에 연락하시"
+"<a class='external-link--blue' href='tel:911'>911</a>에 전화하셔서 이런 긴급상황을 지역 법집행기관에 알린 후 법무부에 연락하시"
 "길 바랍니다."
 
 #: templates/vot_resources.html:80

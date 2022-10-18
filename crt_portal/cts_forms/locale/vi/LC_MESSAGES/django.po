@@ -2967,7 +2967,7 @@ msgid ""
 msgstr ""
 "Tất cả những khiếu nại liên quan đến bạo lực, đe dọa dùng bạo lực, hay dọa "
 "dẫm tại nơi bỏ phiếu trước hết phải được trình báo với cơ quan cảnh sát địa "
-"phương bằng cách gọi 911"
+"phương bằng cách gọi "
 
 #: templates/vot_resources.html:75
 msgid "911"
@@ -2979,7 +2979,7 @@ msgid ""
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
 "contact the Department of Justice"
 msgstr ""
-"Sau khi đã gọi 911để báo cho cơ quan thi hành pháp luật địa phương về những "
+"Sau khi đã gọi <a class='external-link--blue' href='tel:911'>911</a>để báo cho cơ quan thi hành pháp luật địa phương về những "
 "trường hợp khẩn cấp này, quần chúng nên liên lạc với Bộ Tư Pháp"
 
 #: templates/vot_resources.html:80

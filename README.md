@@ -141,6 +141,12 @@ After the strings are translated, the translation can be compiled back to Django
 
     docker-compose run -w /code/crt_portal/cts_forms web django-admin compilemessages
 
+Note: Sometimes links should be included in a translation because they might appear in different parts of the sentence in different languages.  If so, you need to change the quotes within the hyperlinks from double quotes to single quote.  eg 
+
+```
+{% trans "To report civil rights violations, go to <a class='link--blue' href='https://civilrights.justice.gov/report/'>civilrights.justice.gov/report</a>" %} .
+```
+
 #### Adding support for a new language
 
 To add support for a new language, first generate a `.po` file for the new language using the `makemessages` command described above. Once the file is generated, open it and set the `Language` metadata item near the top of the file. This value should be either the language name (Spanish, Chinese Traditional, Korean, etc.) or the [language code](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (es, zh, ko, etc.). In order to [properly translate plurals](https://www.gnu.org/software/gettext/manual/html_node/Translating-plural-forms.html), you will also need to set the `Plural-Forms` metadata item. Translators should provide and/or verify the appropriate value for this field.

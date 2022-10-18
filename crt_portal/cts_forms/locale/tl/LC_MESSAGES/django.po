@@ -3026,7 +3026,7 @@ msgid ""
 "After alerting local law enforcement to such emergencies by calling <a "
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
 "contact the Department of Justice"
-msgstr "Matapos alertuhan ang lokal na tagapagpatupad ng batas sa naturang mga emerhensiya sa pamamagitan ng  pagtawag sa 911, nararapat na tawagan ng publiko ang Kagawaran ng Hustisya"
+msgstr "Matapos alertuhan ang lokal na tagapagpatupad ng batas sa naturang mga emerhensiya sa pamamagitan ng  pagtawag sa <a class='external-link--blue' href='tel:911'>911</a>, nararapat na tawagan ng publiko ang Kagawaran ng Hustisya"
 
 #: templates/vot_resources.html:80
 msgid ""
@@ -3035,7 +3035,7 @@ msgid ""
 "united-states-attorney'>U.S. Attorney's Offices</a> or the local <a "
 "class='external-link--blue' href='https://www.fbi.gov/contact-us'>FBI "
 "office</a>"
-msgstr "Ang mga reklamong krimen-sa- halalan ay dapat idirekta sa iyong lokal na <a class='external-link--blue' href='https://www.justice.gov/usao/find-your-united-states-attorney'>Mga Tanggapan ng Abogado ng Estados Unidos</a> o sa lokal na tanggapan ng FBI"
+msgstr "Ang mga reklamong krimen-sa- halalan ay dapat idirekta sa iyong lokal na <a class='external-link--blue' href='https://www.justice.gov/usao/find-your-united-states-attorney'>Mga Tanggapan ng Abogado ng Estados Unidos</a> o sa lokal na <a class='external-link--blue' href='https://www.fbi.gov/contact-us'>tanggapan ng FBI</a>"
 
 #: templates/vot_resources.html:88
 msgid ""

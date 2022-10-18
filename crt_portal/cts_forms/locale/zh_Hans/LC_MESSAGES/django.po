@@ -2762,7 +2762,7 @@ msgid ""
 "After alerting local law enforcement to such emergencies by calling <a "
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
 "contact the Department of Justice"
-msgstr "拨打911向地方执法部门报告紧急情况后，公众应和司法部联系"
+msgstr "拨打<a class='external-link--blue' href='tel:911'>911</a>向地方执法部门报告紧急情况后，公众应和司法部联系"
 
 #: templates/vot_resources.html:80
 msgid ""
