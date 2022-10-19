@@ -5,10 +5,10 @@
 {% block title %}{{title}}{% endblock %}
 {% block extra_classes %}crt-related-reports-card{% endblock %}
 {% block extra_title %}
-    {% if data.related_reports and data.related_reports|length > 1 %}
+    {% if data.related_reports and data.related_reports_count > 1 %}
         <small class="margin-left-auto">
             <a class="related-reports" href="{% url 'crt_forms:crt-forms-index' %}?contact_email={{data.contact_email}}{% filter_for_all_sections %}">
-                View All ({{data.related_reports|length}})
+                View All ({{data.related_reports_count}})
             </a>
         </small>
     {% endif %}
@@ -21,12 +21,12 @@
 {% block card_content %}
 <small>
     There
-        {% if data.related_reports|length > 1 %}
+        {% if data.related_reports_count > 1 %}
             are
         {% else %}
             is
         {% endif %}
-        {{data.related_reports|length}} report{{ data.related_reports|pluralize }} associated with this contact.
+        {{data.related_reports_count}} report{{ data.related_reports_count|pluralize }} associated with this contact.
 </small>
 
 {% for status, reports in data.related_reports_display %}
