@@ -395,6 +395,9 @@ jobs:
       - run:
           name: generate yearly reports command
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_yearly_reports" --name generate-yearly-reports
+      - run:
+          name: generate repeat_writer_info
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_writer_info" --name generate-repeat-writer-info
 
   staging-maintenance-tasks:
     docker:
@@ -429,6 +432,9 @@ jobs:
       - run:
           name: generate yearly reports command
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_yearly_reports" --name generate-yearly-reports
+      - run:
+          name: generate repeat_writer_info
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_writer_info" --name generate-repeat-writer-info
 
   dev-maintenance-tasks:
     docker:
@@ -463,6 +469,9 @@ jobs:
       - run:
           name: generate yearly reports command
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_yearly_reports" --name generate-yearly-reports
+      - run:
+          name: generate repeat_writer_info
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_writer_info" --name generate-repeat-writer-info
 
 workflows:
   build-test-deploy:
