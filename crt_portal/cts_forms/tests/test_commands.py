@@ -79,7 +79,6 @@ class GenerateRepeatWriterInfo(TestCase):
 
     def test_email_count(self):
         repeat_writer_1 = RepeatWriterInfo.objects.filter(email=self.email1.upper()).first()
-        print("repeat_writer_1", repeat_writer_1)
         self.assertEqual(repeat_writer_1.count, 100)
         repeat_writer_2 = RepeatWriterInfo.objects.filter(email=self.email2.upper()).first()
         self.assertEqual(repeat_writer_2.count, 50)
