@@ -10,7 +10,7 @@ from ..models import Report, RepeatWriterInfo
 from ..forms import add_activity
 
 
-class CreateMockReports(TestCase):
+class FlagRepeatWriters(TestCase):
 
     def setUp(self):
         self.user = User.objects.create_user("DELETE_USER", "ringo@thebeatles.com", "")
@@ -95,3 +95,10 @@ class GenerateRepeatWriterInfo(TestCase):
         call_command('generate_repeat_writer_info')
         repeat_writer_1 = RepeatWriterInfo.objects.filter(email=self.email1.upper()).first()
         self.assertEqual(repeat_writer_1.count, 105)
+
+class CreateMockReports(TestCase):
+    
+    def setUp(self):
+        call_command('create_mock_reports', 100)
+        reports_length = len(Report.objects.all())
+        self.assertEqual(reports_length, 100)
