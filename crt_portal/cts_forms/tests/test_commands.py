@@ -1,6 +1,5 @@
 import random
 import string
-import os
 
 from django.contrib.auth.models import User
 from django.core.management import call_command
@@ -8,7 +7,7 @@ from django.test import TestCase
 from datetime import datetime
 
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
-from ..models import Report, RepeatWriterInfo, ReportsData, ResponseTemplate
+from ..models import Report, RepeatWriterInfo, ReportsData, Trends
 from ..forms import add_activity
 
 
@@ -122,19 +121,24 @@ class GenerateYearlyReports(TestCase):
         year_range = list(range(2020, datetime.today().year + 1))
         self.assertEqual(reports_count, len(year_range))
 
+    def test_reports_data_view(self):
+        reports_count = ReportsData.objects.all().count()
+        year_range = list(range(2020, datetime.today().year + 1))
+        self.assertEqual(reports_count, len(year_range))
+
 
 class CreateMockReports(TestCase):
 
-    def setUp(self):
+    def test_create_mock_reports(self):
         call_command('create_mock_reports', 100)
         reports_length = len(Report.objects.all())
         self.assertEqual(reports_length, 100)
 
 
-class UpdateResponseTemplates(TestCase):
+class RefreshTrends(TestCase):
 
-    def setUp(self):
-        template_files = os.scandir(self.templates_dir)
-        call_command('update_response_templates')
-        templates = ResponseTemplate.objects.all()
-        self.assertEqual(len(template_files), len(templates))
+    def test_refresh_trends(self):
+        call_command('refresh_trends')
+        trends = Trends.objects.all()
+        print("len(trends)", len(trends))
+        # self.assertEqual(len(template_files), len(templates))

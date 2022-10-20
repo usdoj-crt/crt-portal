@@ -8,6 +8,7 @@ from datetime import date, timedelta
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.core.management import call_command
 from django.core.files.uploadedfile import TemporaryUploadedFile
 from django.test import TestCase, override_settings
 from django.test.client import Client
@@ -654,6 +655,27 @@ class CRT_FILTER_Tests(TestCase):
         # We've specified ADM as a query param, we should only see reports from that section
         expected_reports = Report.objects.filter(assigned_section='ADM').count()
         self.assertEqual(len(reports), expected_reports)
+
+
+class Data_Export(TestCase):
+    def setUp(self):
+        call_command('generate_yearly_reports')
+        self.client = Client()
+        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
+        self.url = reverse('crt_forms:get-report-data')
+
+    def test_get_reports_unauthenticated(self):
+        """Unauthenticated attempt to view all page redirects to login page."""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_get_reports(self):
+        self.client.force_login(self.superuser)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('reports-data-2020.csv' in str(response.content))
+        self.assertTrue('reports-data-2021.csv' in str(response.content))
+        self.assertTrue('reports-data-2022.csv' in str(response.content))
 
 
 class CRT_Dashboard_Tests(TestCase):
