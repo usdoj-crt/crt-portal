@@ -96,8 +96,9 @@ class GenerateRepeatWriterInfo(TestCase):
         repeat_writer_1 = RepeatWriterInfo.objects.filter(email=self.email1.upper()).first()
         self.assertEqual(repeat_writer_1.count, 105)
 
+
 class CreateMockReports(TestCase):
-    
+
     def setUp(self):
         call_command('create_mock_reports', 100)
         reports_length = len(Report.objects.all())
