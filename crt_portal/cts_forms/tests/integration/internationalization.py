@@ -2,7 +2,7 @@ import pytest
 
 
 @pytest.mark.only_browser("chromium")
-def test_select_english_from_banner(page):
+def test_select_english_from_banner(page):  # pragma: no cover
     page.goto('/')
 
     assert page.title() == 'Contact the Civil Rights Division | Department of Justice'
@@ -16,7 +16,7 @@ def test_select_english_from_banner(page):
 
 
 @pytest.mark.only_browser("chromium")
-def test_select_spanish_from_banner(page):
+def test_select_spanish_from_banner(page):  # pragma: no cover
     page.goto('/')
 
     assert page.title() == 'Contact the Civil Rights Division | Department of Justice'
@@ -30,7 +30,7 @@ def test_select_spanish_from_banner(page):
 
 
 @pytest.mark.only_browser("chromium")
-def test_select_english_from_mobile_menu(page):
+def test_select_english_from_mobile_menu(page):  # pragma: no cover
     page.set_viewport_size({'width': 800, 'height': 1200})
 
     page.goto('/')
@@ -49,7 +49,7 @@ def test_select_english_from_mobile_menu(page):
 
 
 @pytest.mark.only_browser("chromium")
-def test_select_spanish_from_mobile_menu(page):
+def test_select_spanish_from_mobile_menu(page):  # pragma: no cover
     page.set_viewport_size({'width': 800, 'height': 1200})
 
     page.goto('/')
