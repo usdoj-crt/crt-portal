@@ -3,7 +3,7 @@ import pytest
 
 
 @pytest.mark.only_browser("chromium")
-def test_error_if_form_refreshed(page, base_url):  # pragma: no cover
+def test_error_if_form_refreshed(page, base_url):
 
     def next_step():
         with page.expect_navigation() as response:
@@ -30,7 +30,7 @@ def test_error_if_form_refreshed(page, base_url):  # pragma: no cover
 
 
 @pytest.mark.only_browser("chromium")
-def test_report_complete_and_valid_submission(page):  # pragma: no cover
+def test_report_complete_and_valid_submission(page):
 
     def next_step():
         with page.expect_navigation():
