@@ -1,5 +1,6 @@
 import random
 import string
+import os
 
 from django.contrib.auth.models import User
 from django.core.management import call_command
@@ -7,7 +8,7 @@ from django.test import TestCase
 from datetime import datetime
 
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
-from ..models import Report, RepeatWriterInfo, ReportsData
+from ..models import Report, RepeatWriterInfo, ReportsData, ResponseTemplate
 from ..forms import add_activity
 
 
@@ -128,3 +129,12 @@ class CreateMockReports(TestCase):
         call_command('create_mock_reports', 100)
         reports_length = len(Report.objects.all())
         self.assertEqual(reports_length, 100)
+
+
+class UpdateResponseTemplates(TestCase):
+
+    def setUp(self):
+        template_files = os.scandir(self.templates_dir)
+        call_command('update_response_templates')
+        templates = ResponseTemplate.objects.all()
+        self.assertEqual(len(template_files), len(templates))

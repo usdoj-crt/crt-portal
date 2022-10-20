@@ -6,7 +6,7 @@ from django.core.management.base import BaseCommand
 from cts_forms.models import ResponseTemplate
 
 
-class Command(BaseCommand):
+class Command(BaseCommand):  # pragma: no cover
     help = 'Adds new response templates or updates existing ones'
 
     templates_dir = os.path.join(settings.BASE_DIR, 'cts_forms', 'response_templates')
