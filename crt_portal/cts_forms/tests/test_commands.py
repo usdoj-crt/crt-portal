@@ -149,4 +149,3 @@ class RefreshTrends(TestCase):
             all_trend_words.append(trend.word)
         self.assertEqual(len(trends), 30)
         self.assertTrue('nation' in str(all_trend_words))
-
