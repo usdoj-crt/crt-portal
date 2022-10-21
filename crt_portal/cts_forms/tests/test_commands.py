@@ -137,8 +137,13 @@ class CreateMockReports(TestCase):
 
 class RefreshTrends(TestCase):
 
+    def setUp(self):
+        for _ in range(5):
+            Report.objects.create(**SAMPLE_REPORT_1)
+
     def test_refresh_trends(self):
         call_command('refresh_trends')
         trends = Trends.objects.all()
-        print("len(trends)", len(trends))
-        # self.assertEqual(len(template_files), len(templates))
+        self.assertEqual(len(trends), 30)
+        self.assertEqual(trends[0].word, 'nation')
+        self.assertEqual(trends[0].word_count, 5)
