@@ -121,11 +121,6 @@ class GenerateYearlyReports(TestCase):
         year_range = list(range(2020, datetime.today().year + 1))
         self.assertEqual(reports_count, len(year_range))
 
-    def test_reports_data_view(self):
-        reports_count = ReportsData.objects.all().count()
-        year_range = list(range(2020, datetime.today().year + 1))
-        self.assertEqual(reports_count, len(year_range))
-
 
 class CreateMockReports(TestCase):
 
