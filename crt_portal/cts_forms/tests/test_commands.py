@@ -6,7 +6,7 @@ from django.core.management import call_command
 from django.test import TestCase
 
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
-from ..models import Report
+from ..models import Report, RepeatWriterInfo
 from ..forms import add_activity
 
 
@@ -53,3 +53,45 @@ class CreateMockReports(TestCase):
         call_command('flag_repeat_writers')
         flagged_reports = Report.objects.filter(by_repeat_writer=True).count()
         self.assertEqual(flagged_reports, 202)
+
+
+class GenerateRepeatWriterInfo(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_user("DELETE_USER", "ringo@thebeatles.com", "")
+        # Create 100 reports that all have the same violation summary
+        self.email1 = SAMPLE_REPORT_1["contact_email"]
+        self.email2 = SAMPLE_REPORT_2["contact_email"]
+        self.email3 = SAMPLE_REPORT_3["contact_email"]
+        self.email4 = SAMPLE_REPORT_4["contact_email"]
+        for _ in range(100):
+            Report.objects.create(**SAMPLE_REPORT_1)
+        for _ in range(50):
+            Report.objects.create(**SAMPLE_REPORT_2)
+        for _ in range(50):
+            Report.objects.create(**SAMPLE_REPORT_3)
+        Report.objects.create(**SAMPLE_REPORT_4)
+        call_command('generate_repeat_writer_info')
+
+    def test_total_rows(self):
+        repeat_writer_rows = RepeatWriterInfo.objects.all().count()
+        self.assertEqual(repeat_writer_rows, 4)
+
+    def test_email_count(self):
+        repeat_writer_1 = RepeatWriterInfo.objects.filter(email=self.email1.upper()).first()
+        self.assertEqual(repeat_writer_1.count, 100)
+        repeat_writer_2 = RepeatWriterInfo.objects.filter(email=self.email2.upper()).first()
+        self.assertEqual(repeat_writer_2.count, 50)
+        repeat_writer_3 = RepeatWriterInfo.objects.filter(email=self.email3.upper()).first()
+        self.assertEqual(repeat_writer_3.count, 50)
+        repeat_writer_4 = RepeatWriterInfo.objects.filter(email=self.email4.upper()).first()
+        self.assertEqual(repeat_writer_4.count, 1)
+
+    def test_update_repeat_writer_info(self):
+        for _ in range(5):
+            Report.objects.create(**SAMPLE_REPORT_1)
+        repeat_writer_1 = RepeatWriterInfo.objects.filter(email=self.email1.upper()).first()
+        self.assertEqual(repeat_writer_1.count, 100)
+        call_command('generate_repeat_writer_info')
+        repeat_writer_1 = RepeatWriterInfo.objects.filter(email=self.email1.upper()).first()
+        self.assertEqual(repeat_writer_1.count, 105)

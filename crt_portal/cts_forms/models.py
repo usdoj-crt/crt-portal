@@ -396,7 +396,7 @@ class Report(models.Model):
     @cached_property
     def related_reports(self):
         """Return qs of reports with the same value for `contact_email`"""
-        return Report.objects.exclude(contact_email__isnull=True).filter(contact_email__iexact=self.contact_email).order_by('status', '-create_date')
+        return Report.objects.exclude(contact_email__isnull=True).filter(contact_email__iexact=self.contact_email).order_by('status', '-create_date')[:1000]
 
     @cached_property
     def related_reports_display(self):
@@ -457,6 +457,29 @@ class ReportsData(models.Model):
 
     def get_absolute_url(self):
         return reverse('crt_forms:get-report-data', kwargs={"report_data_id": self.id})
+
+
+class RepeatWriterInfo(models.Model):
+    # We might consider adding these in the future to have a one stop shop to check for Repeat writers
+    # contact_first_name = models.CharField(max_length=225, null=True, blank=True)
+    # contact_last_name = models.CharField(max_length=225, null=True, blank=True)
+    # repeat_writer_form_sent = models.BooleanField(default=False)
+    email = models.EmailField(unique=True, primary_key=True, help_text="Email associated with number of reports")
+    count = models.IntegerField()
+
+    class Meta:
+        """This model is tied to a view created from migration 93"""
+        managed = False
+        db_table = 'repeat_writer_view'
+
+    @staticmethod
+    def refresh_view():
+        start = time.time()
+        with connection.cursor() as cursor:
+            cursor.execute("REFRESH MATERIALIZED VIEW repeat_writer_view;")
+        end = time.time()
+        elapsed = round(end - start, 4)
+        logger.info(f'SUCCESS: Refreshed Email view in {elapsed} seconds')
 
 
 class EmailReportCount(models.Model):

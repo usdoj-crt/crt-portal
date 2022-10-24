@@ -36,7 +36,8 @@ from .forms import (
 )
 from .mail import crt_send_mail
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, User, RoutingSection, RoutingStepOneContact
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, User, \
+    RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import report_sort
 
@@ -164,6 +165,16 @@ def _format_date(date_string):
     return ""
 
 
+def _related_reports_count(report):
+    email = report.contact_email.upper()
+    repeat_writer = RepeatWriterInfo.objects.filter(email=email).first()
+    if repeat_writer:
+        return repeat_writer.count
+    # If the email is not in the repeat_writer table, initialize to 1.
+    else:
+        return 1
+
+
 @login_required
 def index_view(request):
     profile_form = ProfileForm()
@@ -226,6 +237,9 @@ def index_view(request):
             report.protected_class.all().order_by('form_order'),
             report.other_class,
         )
+        # If a user has an email, it is looked up in the table to see if they are a repeat writer and add the count to the report.
+        if report.contact_email:
+            report.related_reports_count = _related_reports_count(report)
         if report.other_class:
             p_class_list.append(report.other_class)
         if len(p_class_list) > 3:
@@ -438,6 +452,9 @@ class ShowView(LoginRequiredMixin, View):
 
     def get(self, request, id):
         report = get_object_or_404(Report.objects.prefetch_related('attachments'), pk=id)
+        # If a user has an email, it is looked up in the table to see if they are a repeat writer and add the count to the report.
+        if report.contact_email:
+            report.related_reports_count = _related_reports_count(report)
         output = serialize_data(report, request, id)
         if not report.viewed:
             mark_report_as_viewed(report, request.user)
