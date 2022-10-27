@@ -11,7 +11,7 @@ from cts_forms.forms import add_activity
 from django.contrib.auth.models import User
 
 
-class Command(BaseCommand):
+class Command(BaseCommand):  # pragma: no cover
     help = "Create mock reports for local testing"
 
     forms = ['CRM R1 Form Letter',

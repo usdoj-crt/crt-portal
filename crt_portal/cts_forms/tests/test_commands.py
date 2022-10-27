@@ -4,13 +4,14 @@ import string
 from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.test import TestCase
+from datetime import datetime
 
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
-from ..models import Report, RepeatWriterInfo
+from ..models import Report, RepeatWriterInfo, ReportsData, Trends
 from ..forms import add_activity
 
 
-class CreateMockReports(TestCase):
+class FlagRepeatWriters(TestCase):
 
     def setUp(self):
         self.user = User.objects.create_user("DELETE_USER", "ringo@thebeatles.com", "")
@@ -95,3 +96,51 @@ class GenerateRepeatWriterInfo(TestCase):
         call_command('generate_repeat_writer_info')
         repeat_writer_1 = RepeatWriterInfo.objects.filter(email=self.email1.upper()).first()
         self.assertEqual(repeat_writer_1.count, 105)
+
+
+class GenerateYearlyReports(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_user("DELETE_USER", "ringo@thebeatles.com", "")
+        # Create 100 reports that all have the same violation summary
+        self.email1 = SAMPLE_REPORT_1["contact_email"]
+        self.email2 = SAMPLE_REPORT_2["contact_email"]
+        self.email3 = SAMPLE_REPORT_3["contact_email"]
+        self.email4 = SAMPLE_REPORT_4["contact_email"]
+        for _ in range(100):
+            Report.objects.create(**SAMPLE_REPORT_1)
+        for _ in range(50):
+            Report.objects.create(**SAMPLE_REPORT_2)
+        for _ in range(50):
+            Report.objects.create(**SAMPLE_REPORT_3)
+        Report.objects.create(**SAMPLE_REPORT_4)
+        call_command('generate_yearly_reports')
+
+    def test_reports_created(self):
+        reports_count = ReportsData.objects.all().count()
+        year_range = list(range(2020, datetime.today().year + 1))
+        self.assertEqual(reports_count, len(year_range))
+
+
+class CreateMockReports(TestCase):
+
+    def test_create_mock_reports(self):
+        call_command('create_mock_reports', 100)
+        reports_length = len(Report.objects.all())
+        self.assertEqual(reports_length, 100)
+
+
+class RefreshTrends(TestCase):
+
+    def setUp(self):
+        for _ in range(5):
+            Report.objects.create(**SAMPLE_REPORT_1)
+
+    def test_refresh_trends(self):
+        call_command('refresh_trends')
+        trends = Trends.objects.all()
+        all_trend_words = []
+        for trend in trends:
+            all_trend_words.append(trend.word)
+        self.assertEqual(len(trends), 30)
+        self.assertTrue('nation' in str(all_trend_words))
