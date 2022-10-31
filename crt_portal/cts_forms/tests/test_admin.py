@@ -49,6 +49,29 @@ class ActionAdminTests(TestCase):
         # Headers match ACTION_FIELDS
         self.assertEqual(exported_action_csv[0], ACTION_FIELDS)
 
+    def test_actor_filter(self):
+        self.client.force_login(self.superuser)
+        user1 = User.objects.create_user("USER_1", "user1@example.com", "")
+        user2 = User.objects.create_user("USER_2", "user1@example.com", "")
+        add_activity(user1, 'verb', 'Action 1', self.report)
+        add_activity(user2, 'verb', 'Action 2', self.report)
+        actions = Action.objects.all()
+        url1 = self.url
+        url2 = self.url + f'?actor_object_id={user1.pk}'
+        url3 = self.url + f'?actor_object_id={user2.pk}'
+        response1 = self.client.get(url1)
+        # show everything
+        self.assertTrue('Action 1' in str(response1.content))
+        self.assertTrue('Action 2' in str(response1.content))
+        # filter on user1
+        response2 = self.client.get(url2)
+        self.assertTrue('Action 1' in str(response2.content))
+        self.assertTrue('Action 2' not in str(response2.content))
+        # filter on user2
+        response3 = self.client.get(url3)
+        self.assertTrue('Action 1' not in str(response3.content))
+        self.assertTrue('Action 2' in str(response3.content))
+
 
 class ReportAdminTests(TestCase):
     def setUp(self):
