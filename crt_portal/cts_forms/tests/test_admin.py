@@ -55,7 +55,6 @@ class ActionAdminTests(TestCase):
         user2 = User.objects.create_user("USER_2", "user1@example.com", "")
         add_activity(user1, 'verb', 'Action 1', self.report)
         add_activity(user2, 'verb', 'Action 2', self.report)
-        actions = Action.objects.all()
         url1 = self.url
         url2 = self.url + f'?actor_object_id={user1.pk}'
         url3 = self.url + f'?actor_object_id={user2.pk}'
