@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 from django.db.models import Prefetch
 from django.http import StreamingHttpResponse
 from django.contrib.auth.models import User
+from django.db.models.functions import Lower
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
@@ -155,7 +156,7 @@ class ActorActionFilter(admin.SimpleListFilter):
     parameter_name = 'actor_object_id'
 
     def lookups(self, request, model_admin):
-        users = set([u for u in User.objects.all()])
+        users = [u for u in User.objects.all().order_by(Lower('username'))]
         return [(user.id, user.username) for user in users]
 
     def queryset(self, request, queryset):
