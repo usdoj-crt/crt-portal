@@ -11,7 +11,7 @@ from cts_forms.forms import add_activity
 from django.contrib.auth.models import User
 
 
-class Command(BaseCommand):
+class Command(BaseCommand):  # pragma: no cover
     help = "Create mock reports for local testing"
 
     forms = ['CRM R1 Form Letter',
@@ -50,6 +50,12 @@ class Command(BaseCommand):
         user1 = User.objects.filter(username="USER_1").first()
         if not user1:
             user1 = User.objects.create_user("USER_1", "user1@example.com", "")
+        user2 = User.objects.filter(username="USER_2").first()
+        if not user2:
+            user2 = User.objects.create_user("USER_2", "user1@example.com", "")
+        user3 = User.objects.filter(username="USER_3").first()
+        if not user3:
+            user3 = User.objects.create_user("USER_3", "user1@example.com", "")
 
         for i in range(number_reports):
             report = ReportFactory.build()
@@ -94,7 +100,7 @@ class Command(BaseCommand):
             # 6%
             elif rand <= 6:
                 report.contact_email = "frequentflier3@test.test"
-                add_activity(user1, 'Contacted complainant:', f"Printed '{random_form_letters[i]}' template", report)
+                add_activity(user2, 'Contacted complainant:', f"Printed '{random_form_letters[i]}' template", report)
                 protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[8][0])
                 protected_example2 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[9][0])
                 protected_example3 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[10][0])
@@ -104,7 +110,7 @@ class Command(BaseCommand):
                 report.create_date = UTC.localize(datetime(2021, 1, 1, 0, 0, 0))
             # 50% chance of sending an email
             elif rand <= 50:
-                add_activity(user1, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
+                add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
                 protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[0][0])
                 report.protected_class.add(protected_example)
             report.save()

@@ -2,7 +2,7 @@ from django.db import connection
 from django.core.management.base import BaseCommand
 
 
-class Command(BaseCommand):
+class Command(BaseCommand):  # pragma: no cover
     help = "Flag reports that were submitted by repeat writers."
 
     def handle(self, *args, **options):

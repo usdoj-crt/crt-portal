@@ -14,7 +14,7 @@ EXCLUDED_REPORT_FIELDS = ['violation_summary_search_vector']
 REPORT_FIELDS = [field.name for field in Report._meta.fields if field.name not in EXCLUDED_REPORT_FIELDS]
 
 
-class Command(BaseCommand):
+class Command(BaseCommand):  # pragma: no cover
     help = "Generates reports for each year of activity, stored in comma separated value format (.csv)."
 
     def handle(self, *args, **options):

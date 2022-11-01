@@ -14,7 +14,7 @@ from django.urls import reverse
 
 from ..forms import (
     CommercialPublicLocation, ComplaintActions, Contact,
-    Details, EducationLocation, LocationForm,
+    Details, EducationLocation, WorkplaceLocation, LocationForm,
     PoliceLocation, PrimaryReason, ProfileForm, ProForm,
     ProtectedClassForm, When, save_form
 )
@@ -517,6 +517,12 @@ class Validation_Form_Tests(TestCase):
     def test_education_location(self):
         form = EducationLocation(data={
             'public_or_private_school': ''
+        })
+        self.assertFalse(form.is_valid())
+
+    def test_workplace_location(self):
+        form = WorkplaceLocation(data={
+            'public_or_private_employer': ''
         })
         self.assertFalse(form.is_valid())
 
