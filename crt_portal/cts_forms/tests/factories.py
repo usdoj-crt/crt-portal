@@ -3,9 +3,13 @@ from cts_forms.model_variables import (PRIMARY_COMPLAINT_CHOICES,
                                        STATES_AND_TERRITORIES, STATUS_CHOICES,
                                        INTAKE_FORMAT_CHOICES)
 from cts_forms.models import Report
+from tms.models import TMSEmail
 from factory import Faker
 from factory.django import DjangoModelFactory
 from factory.fuzzy import FuzzyChoice
+from datetime import datetime
+from cts_forms.signals import salt
+from pytz import timezone
 
 
 class ReportFactory(DjangoModelFactory):
@@ -43,3 +47,32 @@ class ReportFactory(DjangoModelFactory):
     assigned_section = FuzzyChoice(SECTION_CHOICES, getter=lambda c: c[0])
 
     intake_format = FuzzyChoice(INTAKE_FORMAT_CHOICES, getter=lambda c: c[0])
+
+
+def _create_report():
+    report = ReportFactory.build()
+    UTC = timezone('UTC')
+    report.create_date = UTC.localize(datetime.now())
+    # This save creates the report id, report.pk, so we can create a public_id
+    report.save()
+    salt_chars = salt()
+    report.public_id = f'{report.pk}-{salt_chars}'
+    report.save()
+    return report
+
+
+class EmailFactory(DjangoModelFactory):
+
+    class Meta:
+        model = TMSEmail
+
+    tms_id = TMSEmail.objects.all().order_by('-tms_id')[0].tms_id + 1
+    report = _create_report()
+    subject = Faker('sentence', nb_words=4)
+    body = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True)
+    recipient = Faker('email', domain="example.com")
+    created_at = datetime.now()
+    completed_at = datetime.now()
+    status = FuzzyChoice(TMSEmail.STATUS_CHOICES, getter=lambda c: c[0])
+    purpose = FuzzyChoice(TMSEmail.PURPOSE_CHOICES, getter=lambda c: c[0])
+    error_message = ''
