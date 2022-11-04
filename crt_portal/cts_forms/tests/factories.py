@@ -66,7 +66,7 @@ class EmailFactory(DjangoModelFactory):
     class Meta:
         model = TMSEmail
 
-    tms_id = TMSEmail.objects.all().order_by('-tms_id')[0].tms_id + 1
+    tms_id = Faker('random_int', min=100000000, max=999999999)
     report = _create_report()
     subject = Faker('sentence', nb_words=4)
     body = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True)
