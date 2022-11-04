@@ -7,7 +7,7 @@ from django.http import StreamingHttpResponse
 
 from .models import TMSEmail
 
-TMS_FIELDS = ['id', 'tms_id', 'recipient', 'subject', 'body', 'recipient', 'status', 'error_message', 'report_id', 'created_at', 'completed_at', 'purpose']
+TMS_FIELDS = ['id', 'tms_id', 'subject', 'body', 'recipient', 'status', 'error_message', 'report_id', 'created_at', 'completed_at', 'purpose']
 
 logger = logging.getLogger(__name__)
 
