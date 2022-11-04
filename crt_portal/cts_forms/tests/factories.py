@@ -71,8 +71,8 @@ class EmailFactory(DjangoModelFactory):
     subject = Faker('sentence', nb_words=4)
     body = Faker('paragraph', nb_sentences=5, variable_nb_sentences=True)
     recipient = Faker('email', domain="example.com")
-    created_at = datetime.now()
-    completed_at = datetime.now()
+    created_at = Faker('date_this_year')
+    completed_at = Faker('date_this_year')
     status = FuzzyChoice(TMSEmail.STATUS_CHOICES, getter=lambda c: c[0])
     purpose = FuzzyChoice(TMSEmail.PURPOSE_CHOICES, getter=lambda c: c[0])
     error_message = ''
