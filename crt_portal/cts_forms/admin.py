@@ -6,6 +6,8 @@ from django.contrib import admin
 from django.core.paginator import Paginator
 from django.db.models import Prefetch
 from django.http import StreamingHttpResponse
+from django.contrib.auth.models import User
+from django.db.models.functions import Lower
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
@@ -145,13 +147,39 @@ class ReportAdmin(ReadOnlyModelAdmin):
     actions = [export_reports_as_csv]
 
 
+class ActorActionFilter(admin.SimpleListFilter):
+    # Human-readable title which will be displayed in the
+    # right admin sidebar just above the filter options.
+    title = 'actor'
+
+    # Parameter for the filter that will be used in the URL query.
+    parameter_name = 'actor_object_id'
+
+    def lookups(self, request, model_admin):
+        users = [u for u in User.objects.all().order_by(Lower('username'))]
+        return [(user.id, user.username) for user in users]
+
+    def queryset(self, request, queryset):
+        """
+        Returns the filtered queryset based on the value
+        provided in the query string and retrievable via
+        `self.value()`.
+        """
+        # Compare the requested value (either '80s' or '90s')
+        # to decide how to filter the queryset.
+        if not self.value():
+            return queryset
+        else:
+            return queryset.filter(actor_object_id=self.value())
+
+
 class ActionAdmin(ReadOnlyModelAdmin):
     """Read-only admin for browsing and exporting raw activity log entries"""
     search_fields = ['description']
     date_hierarchy = 'timestamp'
     list_display = ('timestamp', 'actor', 'verb', 'description', 'target')
     list_editable = ('verb',)
-    list_filter = ('timestamp', 'verb')
+    list_filter = ('timestamp', 'verb', ActorActionFilter)
     raw_id_fields = ('actor_content_type', 'target_content_type',
                      'action_object_content_type')
     actions = [export_actions_as_csv]
