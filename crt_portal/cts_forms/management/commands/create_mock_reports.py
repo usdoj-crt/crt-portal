@@ -23,7 +23,7 @@ def random_date():
     end_date = UTC.localize(datetime.now())
     delta = end_date - start_date
     int_delta = (delta.days * 24 * 60 * 60) + delta.seconds
-    random_second = randrange(int_delta)
+    random_second = randrange(int_delta)  # nosec
     return start_date + timedelta(seconds=random_second)
 
 
