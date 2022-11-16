@@ -12,6 +12,7 @@ from django.contrib.auth.models import User
 from random import randrange
 from datetime import timedelta
 
+
 def random_date():
     """
     This function will return a random datetime between two datetime
