@@ -5,7 +5,7 @@ applications:
   - route: crt-portal-django-prod.app.cloud.gov
   - route: civilrights.justice.gov
   - route: www.civilrights.justice.gov
-  memory: 512M
+  memory: 2G
   instances: 4
   env:
     ENV: PRODUCTION
