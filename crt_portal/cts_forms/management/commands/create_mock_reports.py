@@ -9,6 +9,22 @@ from cts_forms.models import EmailReportCount, ProtectedClass
 from cts_forms.model_variables import PROTECTED_MODEL_CHOICES
 from cts_forms.forms import add_activity
 from django.contrib.auth.models import User
+from random import randrange
+from datetime import timedelta
+
+
+def random_date():
+    """
+    This function will return a random datetime between two datetime
+    objects.
+    """
+    UTC = timezone('UTC')
+    start_date = UTC.localize(datetime(2020, 1, 1))
+    end_date = UTC.localize(datetime.now())
+    delta = end_date - start_date
+    int_delta = (delta.days * 24 * 60 * 60) + delta.seconds
+    random_second = randrange(int_delta)  # nosec
+    return start_date + timedelta(seconds=random_second)
 
 
 class Command(BaseCommand):  # pragma: no cover
@@ -60,9 +76,9 @@ class Command(BaseCommand):  # pragma: no cover
         for i in range(number_reports):
             report = ReportFactory.build()
             UTC = timezone('UTC')
-            report.create_date = UTC.localize(datetime.now())
-            # This save creates the report id, report.pk, so we can create a public_id
+            date = random_date()
             report.save()
+            report.create_date = date
             salt_chars = salt()
             report.public_id = f'{report.pk}-{salt_chars}'
 
@@ -110,6 +126,10 @@ class Command(BaseCommand):  # pragma: no cover
                 report.create_date = UTC.localize(datetime(2021, 1, 1, 0, 0, 0))
             # 50% chance of sending an email
             elif rand <= 50:
+                add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
+                add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
+                add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
+                add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
                 add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
                 protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[0][0])
                 report.protected_class.add(protected_example)
