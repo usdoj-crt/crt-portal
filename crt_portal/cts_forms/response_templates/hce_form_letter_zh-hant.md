@@ -20,7 +20,7 @@ is_html: true
 
 要瞭解關於信用、殘障權利、住房權利和其它更多的信息，請訪問我們的與住房相關的資源網頁：[https://civilrights.justice.gov/housing-resources](https://civilrights.justice.gov/housing-resources).
 
-您也可以咨詢私人律師, 以確定您的什麽訴求, 如果有任何的訴求的話, 在其它聯邦或州法律下是成立的。如果您没有律師，您可以通過您所在州的律師協會或地方法律協助機構来找到一個能和您討論您的投訴的律師：[https://www.americanbar.org/groups/legal_services/flh-home/](https://www.americanbar.org/groups/legal_services/flh-home/) 或[www.lsc.gov/find-legal-aid](www.lsc.gov/find-legal-aid).
+您也可以咨詢私人律師, 以確定您的什麽訴求, 如果有任何的訴求的話, 在其它聯邦或州法律下是成立的。如果您没有律師，您可以通過您所在州的律師協會或地方法律協助機構来找到一個能和您討論您的投訴的律師：[https://www.americanbar.org/groups/legal_services/flh-home/](https://www.americanbar.org/groups/legal_services/flh-home/) 或[https://www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid).
 
 
 此致，
