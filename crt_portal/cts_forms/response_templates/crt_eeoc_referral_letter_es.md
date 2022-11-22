@@ -124,7 +124,8 @@ Un abogado particular para personas de bajos ingresos
 
 LA ORGANIZACIÓN QUE PODRÍA AYUDAR
 
-Corporación de Servicios Legales (u Oficinas de Asistencia Legal)
+Legal Services Corporation (o Legal Aid Offices):
+Para que le ayuden a localizar a un abogado de asistencia legal por su zona
 
     www.lsc.gov/find-legal-aid
     Comuníquese por teléfono: 202-295-1500
