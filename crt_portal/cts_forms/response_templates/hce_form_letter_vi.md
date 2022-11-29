@@ -5,7 +5,7 @@ language: vi
 is_html: true
 ---
 
-Kính thưa {{vi.addressee}}:
+{{vi.addressee}}:
 
 Cảm ơn quý vị đã liên lạc với Bộ Tư Pháp vào ngày {{ko.date_of_intake}}. Thư này nằm thông báo cho quý vị biết về cách chúng tôi xem xét báo cáo của quý vị và những gì quý vị có thể làm trong khi chờ đợi. Số báo cáo của quý vị là {{ record_locator  }}. Trong tương lai, vui lòng nhắc lại số này nếu quý vị muốn hỏi chúng tôi về báo cáo của quý vị.
 
