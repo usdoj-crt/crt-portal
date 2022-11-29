@@ -13,7 +13,7 @@ def remove_test_templates(apps, schema_editor):
 
 def revert_function(apps, schema_editor):
    #  We no longer add form letters this way, so we don't want to add them here.
-   #  We do want to be able to revert this mibration though.
+   #  We do want to be able to revert this migration though.
    pass
 
 class Migration(migrations.Migration):
