@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-18 17:58+0000\n"
+"POT-Creation-Date: 2022-11-21 21:48+0000\n"
 "Language: SpanishMIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1439,15 +1439,17 @@ msgstr ""
 
 #: templates/forms/confirmation.html:161
 msgid ""
-"Legal Services Corporation (or Legal Aid Offices), visit <a aria-label=\"www."
-"lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--popup\" "
-"href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> "
-"or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
+"Legal Services Corporation (or Legal Aid Offices), to help you find a legal "
+"aid lawyer in your area visit <a aria-label=\"www.lsc.gov/find-legal-aid\" "
+"class=\"external-link--blue external-link--popup\" href=\"https://www.lsc."
+"gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> or call <a href="
+"\"tel:202-295-1500\">(202) 295-1500</a>"
 msgstr ""
-"Legal Services Corporation [Corporación de servicios legales] (o Legal Aid "
-"Offices), vaya a <a class=\"external-link--blue external-link--popup\" href="
-"\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> o "
-"llame a <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
+"Legal Services Corporation (o Legal Aid Offices): Para que le ayuden a "
+"localizar a un abogado de asistencia legal por su zona, vaya a <a class="
+"\"external-link--blue external-link--popup\" href=\"https://www.lsc.gov/find-"
+"legal-aid\">www.lsc.gov/find-legal-aid</a> o llame a <a href="
+"\"tel:202-295-1500\">(202) 295-1500</a>"
 
 #: templates/forms/confirmation.html:169
 msgid "2"
@@ -1924,35 +1926,38 @@ msgstr "American Bar Association [Colegio de Abogados Estadounidense]"
 
 #: templates/hce_resources.html:140
 msgid "Legal Services Corporation (or Legal Aid Offices)"
-msgstr ""
-"Legal Services Corporation [Corporación de Servicios Legales (o Legal Aid "
-"Offices [Oficinas de Asistencia Legal])"
+msgstr "Legal Services Corporation (o Legal Aid Offices):"
 
 #: templates/hce_resources.html:141
 msgid ""
 "Information on non-profit organizations providing legal help to people with "
-"limited income."
+"limited income. Visit <a class='external-link--blue external-link--popup' "
+"href='https://www.lsc.gov/find-legal-aid'>www.lsc.gov/find-legal-aid</a> or "
+"call (202) 295-1500"
 msgstr ""
-"Información sobre organizaciones sin ánimo de lucro que ofrecen asistencia "
-"legal a personas con ingresos limitados."
+"Información sobre organizaciones sin ánimo de lucro que proveen asistencia "
+"legal a personas con ingresos limitados.Vaya a <a class=\"external-link--"
+"blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid\">www."
+"lsc.gov/find-legal-aid</a> o llame a <a href=\"tel:202-295-1500\">(202) "
+"295-1500</a>"
 
-#: templates/hce_resources.html:148
+#: templates/hce_resources.html:145
 msgid "Enforcement of State Laws"
 msgstr "Aplicación de leyes estatales"
 
-#: templates/hce_resources.html:151
+#: templates/hce_resources.html:148
 msgid "State Attorneys General"
 msgstr "Fiscales Generales Estatales"
 
-#: templates/hce_resources.html:152
+#: templates/hce_resources.html:149
 msgid "Find contact information for your state attorney general."
 msgstr "Busque datos de contacto para su Fiscal General Estatal."
 
-#: templates/hce_resources.html:156
+#: templates/hce_resources.html:153
 msgid "General Assistance"
 msgstr "Ayuda general"
 
-#: templates/hce_resources.html:160
+#: templates/hce_resources.html:157
 msgid ""
 "Assistance with questions about federal agencies, government programs, "
 "services, and more."
@@ -2328,15 +2333,17 @@ msgstr ""
 
 #: templates/landing.html:389
 msgid ""
-"Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
-"aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
-"lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> or call <a href="
-"\"tel:202-295-1500\">(202) 295-1500</a>."
+"Contact Legal Services Corporation to help you find a legal aid lawyer in "
+"your area at <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-"
+"link--blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid"
+"\">lsc.gov/find-legal-aid</a> or call <a href=\"tel:202-295-1500\">(202) "
+"295-1500</a>."
 msgstr ""
-"Comuníquese con Legal Services Corporation [Corporación de Servicios "
-"Legales] en <a class=\"external-link--blue external-link--popup\" href="
-"\"https://lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> o llame al <a "
-"href=\"tel:202-295-1500\">(202) 295-1500</a>."
+"Comuníquese con Legal Services Corporation para que le ayuden a localizar a "
+"un abogado de asistencia legal por su zona en  <a class=\"external-link--"
+"blue external-link--popup\" href=\"https://lsc.gov/find-legal-aid\">lsc.gov/"
+"find-legal-aid</a> o llamando al <a href=\"tel:202-295-1500\">(202) "
+"295-1500</a>."
 
 #: templates/landing.html:390
 msgid ""
@@ -3167,6 +3174,13 @@ msgstr ""
 "problema. Si sabe que se permiten las cookies y tiene este problema, intente "
 "acceder a esta página en otra pestaña o ventana en su navegador. Eso le "
 "creará otra cookie de seguridad y debería resolver el problema."
+
+#~ msgid ""
+#~ "Information on non-profit organizations providing legal help to people "
+#~ "with limited income."
+#~ msgstr ""
+#~ "Información sobre organizaciones sin ánimo de lucro que ofrecen "
+#~ "asistencia legal a personas con ingresos limitados."
 
 #~ msgid "To report civil rights violations, go to "
 #~ msgstr "Para reportar posibles vulneraciones de derechos civiles, vaya a "
