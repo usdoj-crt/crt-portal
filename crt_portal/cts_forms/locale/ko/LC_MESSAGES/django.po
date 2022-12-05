@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-18 17:58+0000\n"
+"POT-Creation-Date: 2022-12-02 13:42+0000\n"
 "Language: Korean\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1359,11 +1359,18 @@ msgstr ""
 "\"tel:800-285-2221\">(800) 285-2221</a>로 전화"
 
 #: templates/forms/confirmation.html:161
+#, fuzzy
+#| msgid ""
+#| "Legal Services Corporation (or Legal Aid Offices), visit <a aria-label="
+#| "\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--"
+#| "popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-"
+#| "legal-aid</a> or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
 msgid ""
-"Legal Services Corporation (or Legal Aid Offices), visit <a aria-label=\"www."
-"lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--popup\" "
-"href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> "
-"or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
+"Legal Services Corporation (or Legal Aid Offices), to help you find a legal "
+"aid lawyer in your area visit <a aria-label=\"www.lsc.gov/find-legal-aid\" "
+"class=\"external-link--blue external-link--popup\" href=\"https://www.lsc."
+"gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> or call <a href="
+"\"tel:202-295-1500\">(202) 295-1500</a>"
 msgstr ""
 "법률서비스 법인 (또는 법률구조공사)의 <a aria-label=\"www.lsc.gov/find-legal-"
 "aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
@@ -1689,31 +1696,29 @@ msgstr ""
 
 #: templates/hce_resources.html:29 templates/hce_resources.html:56
 msgid "Credit"
-msgstr ""
+msgstr "신용"
 
 #: templates/hce_resources.html:32 templates/hce_resources.html:76
-#, fuzzy
 #| msgid "Accessibility"
 msgid "Disability"
-msgstr "접근성"
+msgstr "신체장애"
 
 #: templates/hce_resources.html:35 templates/hce_resources.html:85
 msgid "Housing"
-msgstr ""
+msgstr "주택"
 
 #: templates/hce_resources.html:38
 msgid "Find an attorney"
-msgstr ""
+msgstr "변호인 찾기"
 
 #: templates/hce_resources.html:41
-#, fuzzy
 #| msgid "Enforcement"
 msgid "Enforcement of state laws"
-msgstr "집행"
+msgstr "주 정부법 시행"
 
 #: templates/hce_resources.html:44
 msgid "General assistance"
-msgstr ""
+msgstr "일반적인  지원"
 
 #: templates/hce_resources.html:51
 msgid "Housing section resources"
@@ -1721,139 +1726,158 @@ msgstr ""
 
 #: templates/hce_resources.html:59
 msgid "Consumer Financial Protection Bureau"
-msgstr ""
+msgstr "소비자 금융 보호국"
 
 #: templates/hce_resources.html:60
 msgid "Submit a complaint about a financial product or service."
-msgstr ""
+msgstr "금융상품 또는 서비스에 대한 불만사항 제출"
 
 #: templates/hce_resources.html:66
 msgid "Credit Bureaus"
-msgstr ""
+msgstr "신용 조사국"
 
 #: templates/hce_resources.html:67
 msgid "Find information about credit history or credit scores."
-msgstr ""
+msgstr "신용내역 또는 신용점수에 관한 정보 찾기"
+
+#: templates/hce_resources.html:79
+msgid "Fair Housing Accessibility First"
+msgstr "공정주거 접근성 조치"
 
 #: templates/hce_resources.html:80
 msgid ""
 "Information about physical accessibility requirements in multifamily housing."
-msgstr ""
+msgstr "다가구 주택의 신체적 접근성을 위한 허가조건에 대한 정보 "
 
 #: templates/hce_resources.html:88
-#, fuzzy
 #| msgid "U.S. Department of Justice"
 msgid "U.S. Department of Housing and Urban Development"
-msgstr "미국 법무부"
+msgstr "미 주택 도시 개발부(HUD)"
 
 #: templates/hce_resources.html:89
 msgid "Submit a complaint about discrimination in housing."
-msgstr ""
+msgstr "주택과 관련된 차별에 대한 불만사항 제출"
 
 #: templates/hce_resources.html:96
 msgid "Homelessness Resources"
-msgstr ""
+msgstr "노숙자 지원정보"
 
 #: templates/hce_resources.html:97
 msgid "Information on housing assistance."
-msgstr ""
+msgstr "거주 지원에 관한 정보"
 
 #: templates/hce_resources.html:101
 msgid "Office of Public &amp; Indian Housing"
-msgstr ""
+msgstr "공공 및 인디안 원주민 주택청(PIH)"
 
 #: templates/hce_resources.html:102
 msgid ""
 "Information on public housing authorities, rental assistance, and housing "
 "counseling."
-msgstr ""
+msgstr "공공주택 관련 기관, 임대료 보조 및 주택관련 상담에 관한 정보"
 
 #: templates/hce_resources.html:103
 msgid ""
 "(for inquiries on public housing authorities and housing choice voucher "
 "programs)"
-msgstr ""
+msgstr "(공공주택 관련 기관 및 주택 선택 보증 프로그램에 관한 문의)"
 
 #: templates/hce_resources.html:107
-#, fuzzy
 #| msgid "Office of Inspector General"
 msgid "Office of Inspector General (OIG)"
-msgstr "총 감찰관실"
+msgstr "감찰실"
 
 #: templates/hce_resources.html:108
 msgid "Report fraud, waste, or abuse in HUD-funded programs."
-msgstr ""
+msgstr "HUD 지원 프로그램에 관한 사기, 낭비 혹은 남용 신고"
+
+#: templates/hce_resources.html:110
+msgid "(202) 708-4829 Facsimile"
+msgstr "(202) 708-4829 Fax"
+
+#: templates/hce_resources.html:111
+msgid "Email: hotline@hudoig.gov"
+msgstr "Email: hotline@hudoig.gov"
 
 #: templates/hce_resources.html:115
 msgid "Fair Housing Initiatives Program Agencies"
-msgstr ""
+msgstr "공정주거 조치 프로그램 기관"
 
 #: templates/hce_resources.html:116
 msgid ""
 "Information about organizations that assist people who believe they have "
 "been victims of housing discrimination."
-msgstr ""
+msgstr "주거 차별의 피해자라고 믿는 사람들을 돕는 단체에 대한 정보"
 
 #: templates/hce_resources.html:120
 msgid "Fair Housing Assistance Program Agencies"
-msgstr ""
+msgstr "공정주거 지원 프로그램 기관"
 
 #: templates/hce_resources.html:121
 msgid ""
 "State and local agencies responsible for receiving reports of discrimination."
-msgstr ""
+msgstr "차별에 관한 신고 접수에 책임있는 주 및 지방의 기관들"
 
 #: templates/hce_resources.html:125
 msgid "Rent and Utility Payment Assistance"
-msgstr ""
+msgstr "임대료 및 공공요금 지불 보조"
 
 #: templates/hce_resources.html:126
 msgid "Information on rental assistance programs in your area."
-msgstr ""
+msgstr "해당 지역의 임대료 보조 프로그램에 대한 정보"
 
 #: templates/hce_resources.html:130
 msgid "Find an Attorney"
-msgstr ""
+msgstr "변호인 찾기"
 
 #: templates/hce_resources.html:133
-#, fuzzy
 #| msgid "American Samoa"
 msgid "American Bar Association"
-msgstr "미국령 사모아"
+msgstr "미국 변호사 협회"
 
 #: templates/hce_resources.html:140
 msgid "Legal Services Corporation (or Legal Aid Offices)"
-msgstr ""
+msgstr "법률 서비스 회사 (또는 법률 지원 사무소)"
 
 #: templates/hce_resources.html:141
+#| msgid ""
+#| "Legal Services Corporation (or Legal Aid Offices), visit <a aria-label="
+#| "\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--"
+#| "popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-"
+#| "legal-aid</a> or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
 msgid ""
 "Information on non-profit organizations providing legal help to people with "
-"limited income."
+"limited income. Visit <a class='external-link--blue external-link--popup' "
+"href='https://www.lsc.gov/find-legal-aid'>www.lsc.gov/find-legal-aid</a> or "
+"call (202) 295-1500"
 msgstr ""
+"저소득층에 법률적 도움을 제공하는 비영리 단체에 관한 정보 <a aria-label=\"www.lsc.gov/find-legal-"
+"aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
+"lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> 방문 또는 <a href="
+"\"tel:202-295-1500\">(202) 295-1500</a>"
 
-#: templates/hce_resources.html:148
-#, fuzzy
+#: templates/hce_resources.html:145
 #| msgid "Enforcement"
 msgid "Enforcement of State Laws"
-msgstr "집행"
+msgstr "주 정부법 시행"
 
-#: templates/hce_resources.html:151
+#: templates/hce_resources.html:148
 msgid "State Attorneys General"
-msgstr ""
+msgstr "주 검찰총장"
 
-#: templates/hce_resources.html:152
+#: templates/hce_resources.html:149
 msgid "Find contact information for your state attorney general."
-msgstr ""
+msgstr "주 검찰총장의 연락정보 찾기"
 
-#: templates/hce_resources.html:156
+#: templates/hce_resources.html:153
 msgid "General Assistance"
-msgstr ""
+msgstr "일반적인  지원"
 
-#: templates/hce_resources.html:160
+#: templates/hce_resources.html:157
 msgid ""
 "Assistance with questions about federal agencies, government programs, "
 "services, and more."
-msgstr ""
+msgstr "연방기관, 정부 프로그램, 서비스등에 관한 질문에 대한 지원"
 
 #: templates/landing.html:31
 msgid "Menu"
@@ -2199,11 +2223,18 @@ msgstr ""
 "게 응답해 드릴 수도 있고 도움을 드릴 수도 있습니다."
 
 #: templates/landing.html:389
+#, fuzzy
+#| msgid ""
+#| "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-"
+#| "legal-aid\" class=\"external-link--blue external-link--popup\" href="
+#| "\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> or call "
+#| "<a href=\"tel:202-295-1500\">(202) 295-1500</a>."
 msgid ""
-"Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
-"aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
-"lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> or call <a href="
-"\"tel:202-295-1500\">(202) 295-1500</a>."
+"Contact Legal Services Corporation to help you find a legal aid lawyer in "
+"your area at <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-"
+"link--blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid"
+"\">lsc.gov/find-legal-aid</a> or call <a href=\"tel:202-295-1500\">(202) "
+"295-1500</a>."
 msgstr ""
 "법률서비스 법인 <a aria-label=\"www.lsc.gov/find-legal-aid\" class="
 "\"external-link--blue external-link--popup\" href=\"https://www.lsc.gov/find-"
@@ -2865,8 +2896,8 @@ msgid ""
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
 "contact the Department of Justice"
 msgstr ""
-"<a class='external-link--blue' href='tel:911'>911</a>에 전화하셔서 이런 긴급상황을 지역 법집행기관에 알린 후 법무부에 연락하시"
-"길 바랍니다."
+"<a class='external-link--blue' href='tel:911'>911</a>에 전화하셔서 이런 긴급"
+"상황을 지역 법집행기관에 알린 후 법무부에 연락하시길 바랍니다."
 
 #: templates/vot_resources.html:80
 msgid ""
