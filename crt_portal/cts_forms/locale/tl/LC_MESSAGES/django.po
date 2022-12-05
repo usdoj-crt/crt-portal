@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-18 17:58+0000\n"
+"POT-Creation-Date: 2022-12-02 13:42+0000\n"
 "Language: Tagalog\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1451,11 +1451,18 @@ msgstr ""
 "home</a> o tawagan ang <a href=\"tel:800-285-2221\">(800) 285-2221</a>"
 
 #: templates/forms/confirmation.html:161
+#, fuzzy
+#| msgid ""
+#| "Legal Services Corporation (or Legal Aid Offices), visit <a aria-label="
+#| "\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--"
+#| "popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-"
+#| "legal-aid</a> or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
 msgid ""
-"Legal Services Corporation (or Legal Aid Offices), visit <a aria-label=\"www."
-"lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--popup\" "
-"href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> "
-"or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
+"Legal Services Corporation (or Legal Aid Offices), to help you find a legal "
+"aid lawyer in your area visit <a aria-label=\"www.lsc.gov/find-legal-aid\" "
+"class=\"external-link--blue external-link--popup\" href=\"https://www.lsc."
+"gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> or call <a href="
+"\"tel:202-295-1500\">(202) 295-1500</a>"
 msgstr ""
 "Legal Services Corporation (o mga Tanggapan sa Ligal na Tulong), bisitahin "
 "ang <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue "
@@ -1797,31 +1804,29 @@ msgstr ""
 
 #: templates/hce_resources.html:29 templates/hce_resources.html:56
 msgid "Credit"
-msgstr ""
+msgstr "Pautang"
 
 #: templates/hce_resources.html:32 templates/hce_resources.html:76
-#, fuzzy
 #| msgid "Accessibility"
 msgid "Disability"
-msgstr "Kakayahang makuha"
+msgstr "Kapansanan"
 
 #: templates/hce_resources.html:35 templates/hce_resources.html:85
 msgid "Housing"
-msgstr ""
+msgstr "Pabahay"
 
 #: templates/hce_resources.html:38
 msgid "Find an attorney"
-msgstr ""
+msgstr "Humanap ng Abogado"
 
 #: templates/hce_resources.html:41
-#, fuzzy
 #| msgid "Enforcement"
 msgid "Enforcement of state laws"
-msgstr "Pagpapatupad"
+msgstr "Pagpapatupad ng mga Batas ng Estado"
 
 #: templates/hce_resources.html:44
 msgid "General assistance"
-msgstr ""
+msgstr "Pangkalahatang Tulong"
 
 #: templates/hce_resources.html:51
 msgid "Housing section resources"
@@ -1829,139 +1834,158 @@ msgstr ""
 
 #: templates/hce_resources.html:59
 msgid "Consumer Financial Protection Bureau"
-msgstr ""
+msgstr "Kagawaran ng Proteksyon sa Pananalapi ng Mamimili"
 
 #: templates/hce_resources.html:60
 msgid "Submit a complaint about a financial product or service."
-msgstr ""
+msgstr "Magsumite ng isang reklamo tungkol sa isang produkto o serbisyo sa pananalapi."
 
 #: templates/hce_resources.html:66
 msgid "Credit Bureaus"
-msgstr ""
+msgstr "Mga Kagawaran sa Pautang"
 
 #: templates/hce_resources.html:67
 msgid "Find information about credit history or credit scores."
-msgstr ""
+msgstr "Humanap ng impormasyon tungkol sa kasaysayan ng kredito o mga marka ng kredito."
+
+#: templates/hce_resources.html:79
+msgid "Fair Housing Accessibility First"
+msgstr "Sinaunang Pagkarating sa Patas na Pabahay"
 
 #: templates/hce_resources.html:80
 msgid ""
 "Information about physical accessibility requirements in multifamily housing."
-msgstr ""
+msgstr "Impormasyon tungkol sa mga kinakailangang pisikal na pagkarati ng pabahay ng maraming pamilya."
 
 #: templates/hce_resources.html:88
-#, fuzzy
 #| msgid "U.S. Department of Justice"
 msgid "U.S. Department of Housing and Urban Development"
 msgstr "Kagawaran ng Katarungan ng Estados Unidos"
 
 #: templates/hce_resources.html:89
 msgid "Submit a complaint about discrimination in housing."
-msgstr ""
+msgstr "Magsumite ng isang reklamo tungkol sa diskriminasyon sa pabahay."
 
 #: templates/hce_resources.html:96
 msgid "Homelessness Resources"
-msgstr ""
+msgstr "Mga Mapagkukunan ng Kawalan ng Tirahan "
 
 #: templates/hce_resources.html:97
 msgid "Information on housing assistance."
-msgstr ""
+msgstr "Impormasyon tungkol sa tulong sa pabahay."
 
 #: templates/hce_resources.html:101
 msgid "Office of Public &amp; Indian Housing"
-msgstr ""
+msgstr "Tanggapan ng Pabahay na Pampubliko at Pang-Indyan"
 
 #: templates/hce_resources.html:102
 msgid ""
 "Information on public housing authorities, rental assistance, and housing "
 "counseling."
-msgstr ""
+msgstr "Impormasyon ukol sa mga awtoridad sa pampublikong pabahay, tulong para sa upa, at pagpapayo sa pabahay."
 
 #: templates/hce_resources.html:103
 msgid ""
 "(for inquiries on public housing authorities and housing choice voucher "
 "programs)"
-msgstr ""
+msgstr "(para sa mga katanungan ukol sa mga awtoridad sa pampublikong pabahay at butser na mga programa sa pagpili ng pabahay)"
 
 #: templates/hce_resources.html:107
-#, fuzzy
 #| msgid "Office of Inspector General"
 msgid "Office of Inspector General (OIG)"
-msgstr "Tanggapan ng Inspektor Heneral"
+msgstr "Tanggapan ng Inspektor Heneral (OIG)"
 
 #: templates/hce_resources.html:108
 msgid "Report fraud, waste, or abuse in HUD-funded programs."
-msgstr ""
+msgstr "Mag-ulat tungkol sa pandaraya, pag-aaksaya, o pag-abuso sa mga programang pinondohan ng HUD."
+
+#: templates/hce_resources.html:110
+msgid "(202) 708-4829 Facsimile"
+msgstr "(202) 708-4829 Facsimile"
+
+#: templates/hce_resources.html:111
+msgid "Email: hotline@hudoig.gov"
+msgstr "Email: hotline@hudoig.gov"
 
 #: templates/hce_resources.html:115
 msgid "Fair Housing Initiatives Program Agencies"
-msgstr ""
+msgstr "Mga Ahensya ng Programa sa mga Hakbangin sa Patas na Pabahay"
 
 #: templates/hce_resources.html:116
 msgid ""
 "Information about organizations that assist people who believe they have "
 "been victims of housing discrimination."
-msgstr ""
+msgstr "Impormasyon tungkol sa mga organisasyong tumutulong sa mga taong naniniwalang sila ay naging mga biktima ng diskriminasyon sa pabahay."
 
 #: templates/hce_resources.html:120
 msgid "Fair Housing Assistance Program Agencies"
-msgstr ""
+msgstr "Mga Ahensya ng Programa sa Patas na Tulong sa Pabahay  "
 
 #: templates/hce_resources.html:121
 msgid ""
 "State and local agencies responsible for receiving reports of discrimination."
-msgstr ""
+msgstr "Mga ahensyang pang-estado at pang-lokal na responsable sa pagtanggap ng mga ulat ng diskriminasyon."
 
 #: templates/hce_resources.html:125
 msgid "Rent and Utility Payment Assistance"
-msgstr ""
+msgstr "Tulong sa Pagbabayad ng Upa at Palingkurang-bayan"
 
 #: templates/hce_resources.html:126
 msgid "Information on rental assistance programs in your area."
-msgstr ""
+msgstr "Impormasyon ukol sa mga programa ng tulong sa pag-upa sa iyong lugar."
 
 #: templates/hce_resources.html:130
 msgid "Find an Attorney"
-msgstr ""
+msgstr "Humanap ng Abogado"
 
 #: templates/hce_resources.html:133
-#, fuzzy
 #| msgid "American Samoa"
 msgid "American Bar Association"
-msgstr "American Samoa"
+msgstr "Asosasyon ng mga Kapisanan ng Abogado ng Amerikano"
 
 #: templates/hce_resources.html:140
 msgid "Legal Services Corporation (or Legal Aid Offices)"
-msgstr ""
+msgstr "Korporasyon ng mga Serbisyong Pang-ligal (o mga Tanggapan na Pang-ligal na Tulong)"
 
 #: templates/hce_resources.html:141
+#| msgid ""
+#| "Legal Services Corporation (or Legal Aid Offices), visit <a aria-label="
+#| "\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--"
+#| "popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-"
+#| "legal-aid</a> or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
 msgid ""
 "Information on non-profit organizations providing legal help to people with "
-"limited income."
+"limited income. Visit <a class='external-link--blue external-link--popup' "
+"href='https://www.lsc.gov/find-legal-aid'>www.lsc.gov/find-legal-aid</a> or "
+"call (202) 295-1500"
 msgstr ""
+"Impormasyon ukol sa hindi-pangkalakal na mga organisasyon na nagbibigay ng ligal na tulong sa mga taong may limitadong kita.<a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue "
+"external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc."
+"gov/find-legal-aid</a> o tawagan ang <a href=\"tel:202-295-1500\">(202) "
+"295-1500</a>"
 
-#: templates/hce_resources.html:148
-#, fuzzy
+#: templates/hce_resources.html:145
 #| msgid "Enforcement"
 msgid "Enforcement of State Laws"
-msgstr "Pagpapatupad"
+msgstr "Pagpapatupad ng mga Batas ng Estado"
 
-#: templates/hce_resources.html:151
+#: templates/hce_resources.html:148
 msgid "State Attorneys General"
-msgstr ""
+msgstr "Pang-estadong Mga Abogadong Heneral"
 
-#: templates/hce_resources.html:152
+#: templates/hce_resources.html:149
 msgid "Find contact information for your state attorney general."
-msgstr ""
+msgstr "Humanap ng impormasyon sa pakikipag-ugnayan para sa iyong pang-estadong abogadong heneral."
 
-#: templates/hce_resources.html:156
+#: templates/hce_resources.html:153
 msgid "General Assistance"
-msgstr ""
+msgstr "Pangkalahatang Tulong"
 
-#: templates/hce_resources.html:160
+#: templates/hce_resources.html:157
 msgid ""
 "Assistance with questions about federal agencies, government programs, "
 "services, and more."
-msgstr ""
+msgstr "Tulong sa mga katanungan tungkol sa mga ahensyang pampederal, mga programa ng gobyerno, mga serbisyo, at higit pa."
 
 #: templates/landing.html:31
 msgid "Menu"
@@ -2343,11 +2367,18 @@ msgstr ""
 "mabilisan o tumulong sa iyong pagkabahala"
 
 #: templates/landing.html:389
+#, fuzzy
+#| msgid ""
+#| "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-"
+#| "legal-aid\" class=\"external-link--blue external-link--popup\" href="
+#| "\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> or call "
+#| "<a href=\"tel:202-295-1500\">(202) 295-1500</a>."
 msgid ""
-"Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
-"aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
-"lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> or call <a href="
-"\"tel:202-295-1500\">(202) 295-1500</a>."
+"Contact Legal Services Corporation to help you find a legal aid lawyer in "
+"your area at <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-"
+"link--blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid"
+"\">lsc.gov/find-legal-aid</a> or call <a href=\"tel:202-295-1500\">(202) "
+"295-1500</a>."
 msgstr ""
 "Makipag-ugnay sa Legal Services Corporation sa <a aria-label=\"www.lsc.gov/"
 "find-legal-aid\" class=\"external-link--blue external-link--popup\" href="
@@ -2491,13 +2522,13 @@ msgstr "Humingi ng tulong NGAYON!"
 
 #: templates/partials/important_message_voting.html:8
 #: templates/vot_resources.html:46
-#| msgid "Report a violation"
 msgid "Report voting issues"
 msgstr "Mag-ulat nang mga isyu sa pagboto"
 
 #: templates/partials/important_message_voting.html:9
 msgid "including threats against voters and election fraud."
-msgstr "kabilang ang mga banta laban sa mga mamboboto at pandaraya sa eleksyon "
+msgstr ""
+"kabilang ang mga banta laban sa mga mamboboto at pandaraya sa eleksyon "
 
 #: templates/partials/menu_language_selection.html:36
 msgid "More Language Assistance Services"
@@ -2962,25 +2993,25 @@ msgstr ""
 "Pagkapribado"
 
 #: templates/vot_resources.html:25
-#| msgid "How do I…"
 msgid "How do I..."
 msgstr "Paano ako…"
 
 #: templates/vot_resources.html:29 templates/vot_resources.html:51
-#| msgid "How to report a civil rights violation"
 msgid "Report a possible civil rights violation"
 msgstr "Mag-ulat ng posibleng paglabag sa mga karapatang sibil"
 
 #: templates/vot_resources.html:32 templates/vot_resources.html:69
-#| msgid "How to report a civil rights violation"
 msgid "Report a possible federal criminal civil rights violation"
-msgstr "Mag-ulat ng posibleng paglabag sa mga karapatang sibil ng pederal na kriminal"
+msgstr ""
+"Mag-ulat ng posibleng paglabag sa mga karapatang sibil ng pederal na kriminal"
 
 #: templates/vot_resources.html:35 templates/vot_resources.html:85
 msgid ""
 "Find the election laws, voting hours, or polling place locations in your "
 "state"
-msgstr "Hanapin ang mga batas sa eleksyon, mga oras ng pagboto, o mga lokasyon ng botohan sa iyong estado"
+msgstr ""
+"Hanapin ang mga batas sa eleksyon, mga oras ng pagboto, o mga lokasyon ng "
+"botohan sa iyong estado"
 
 #: templates/vot_resources.html:39 templates/vot_resources.html:93
 msgid "Learn about your voting rights"
@@ -2990,13 +3021,18 @@ msgstr "Alamin ang iyong mga karapatan sa pagboto"
 msgid ""
 "To report civil rights violations, go to <a class='link--blue' href='https://"
 "civilrights.justice.gov/report/'>civilrights.justice.gov/report</a>"
-msgstr "Upang mag-ulat ng posibleng paglabag sa mga karapatang sibil, pumunta sa <a class='link--blue' href='https://civilrights.justice.gov/report/'>civilrights.justice.gov/report</a>"
+msgstr ""
+"Upang mag-ulat ng posibleng paglabag sa mga karapatang sibil, pumunta sa <a "
+"class='link--blue' href='https://civilrights.justice.gov/"
+"report/'>civilrights.justice.gov/report</a>"
 
 #: templates/vot_resources.html:61
 msgid ""
 "Discrimination on the basis of race, color, or membership in a language "
 "minority group while voting or attempting to vote"
-msgstr "Diskriminasyon batay sa lahi, kulay, o pagiging kasapi sa isang minoryang grupo ng wika habang bumoboto o sumusubok na bumoto"
+msgstr ""
+"Diskriminasyon batay sa lahi, kulay, o pagiging kasapi sa isang minoryang "
+"grupo ng wika habang bumoboto o sumusubok na bumoto"
 
 #: templates/vot_resources.html:62
 msgid "Voter registration issues"
@@ -3008,14 +3044,19 @@ msgstr "Kawalan ng pag-access habang bumoboto "
 
 #: templates/vot_resources.html:64
 msgid "Absentee voting issues for uniformed services or overseas voters"
-msgstr "Mga isyu ng pagboto sa nakaliban na mga sundalo sa serbisyo o mga botanteng nasa ibang bansa "
+msgstr ""
+"Mga isyu ng pagboto sa nakaliban na mga sundalo sa serbisyo o mga botanteng "
+"nasa ibang bansa "
 
 #: templates/vot_resources.html:73
 msgid ""
 "All complaints related to violence, threats of violence, or intimidation at "
 "a polling place should be reported first to local police authorities by "
 "calling"
-msgstr "Ang lahat ng mga reklamo tungkol sa karahasan, mga pagbabanta ng karahasan, o pananakot sa lugar ng botohan ay nararapat na iulat muna sa iyong lokal na mga awtoridad ng pulisya sa pamamagitan ng pagtawag sa"
+msgstr ""
+"Ang lahat ng mga reklamo tungkol sa karahasan, mga pagbabanta ng karahasan, "
+"o pananakot sa lugar ng botohan ay nararapat na iulat muna sa iyong lokal na "
+"mga awtoridad ng pulisya sa pamamagitan ng pagtawag sa"
 
 #: templates/vot_resources.html:75
 msgid "911"
@@ -3026,7 +3067,11 @@ msgid ""
 "After alerting local law enforcement to such emergencies by calling <a "
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
 "contact the Department of Justice"
-msgstr "Matapos alertuhan ang lokal na tagapagpatupad ng batas sa naturang mga emerhensiya sa pamamagitan ng  pagtawag sa <a class='external-link--blue' href='tel:911'>911</a>, nararapat na tawagan ng publiko ang Kagawaran ng Hustisya"
+msgstr ""
+"Matapos alertuhan ang lokal na tagapagpatupad ng batas sa naturang mga "
+"emerhensiya sa pamamagitan ng  pagtawag sa <a class='external-link--blue' "
+"href='tel:911'>911</a>, nararapat na tawagan ng publiko ang Kagawaran ng "
+"Hustisya"
 
 #: templates/vot_resources.html:80
 msgid ""
@@ -3035,32 +3080,48 @@ msgid ""
 "united-states-attorney'>U.S. Attorney's Offices</a> or the local <a "
 "class='external-link--blue' href='https://www.fbi.gov/contact-us'>FBI "
 "office</a>"
-msgstr "Ang mga reklamong krimen-sa- halalan ay dapat idirekta sa iyong lokal na <a class='external-link--blue' href='https://www.justice.gov/usao/find-your-united-states-attorney'>Mga Tanggapan ng Abogado ng Estados Unidos</a> o sa lokal na <a class='external-link--blue' href='https://www.fbi.gov/contact-us'>tanggapan ng FBI</a>"
+msgstr ""
+"Ang mga reklamong krimen-sa- halalan ay dapat idirekta sa iyong lokal na <a "
+"class='external-link--blue' href='https://www.justice.gov/usao/find-your-"
+"united-states-attorney'>Mga Tanggapan ng Abogado ng Estados Unidos</a> o sa "
+"lokal na <a class='external-link--blue' href='https://www.fbi.gov/contact-"
+"us'>tanggapan ng FBI</a>"
 
 #: templates/vot_resources.html:88
 msgid ""
 "Go to <a class='external-link--blue' href='https://usa.gov/election-"
 "office'>usa.gov/election-office</a> to find your state election website"
-msgstr "Pumunta sa <a class='external-link--blue' href='https://usa.gov/election-office'>usa.gov/election-office</a> upang hanapin ang website ng tanggapan sa botohan para sa iyong estado"
+msgstr ""
+"Pumunta sa <a class='external-link--blue' href='https://usa.gov/election-"
+"office'>usa.gov/election-office</a> upang hanapin ang website ng tanggapan "
+"sa botohan para sa iyong estado"
 
 #: templates/vot_resources.html:97
 msgid ""
 "Find additional information about voting rights laws at <a class='link--"
 "blue' href='https://justice.gov/crt/voting-section'>www.justice.gov/crt/"
 "voting-section</a>."
-msgstr "Maghanap ng karagdagang impormasyon para sa mga karapatang batas sa pederal na pagboto sa <a class='link--blue' href='https://justice.gov/crt/voting-section'>www.justice.gov/crt/voting-section</a>"
+msgstr ""
+"Maghanap ng karagdagang impormasyon para sa mga karapatang batas sa pederal "
+"na pagboto sa <a class='link--blue' href='https://justice.gov/crt/voting-"
+"section'>www.justice.gov/crt/voting-section</a>"
 
 #: templates/vot_resources.html:99
 msgid ""
 "Learn about federal laws that protect voters with disabilities at <a "
 "class='link--blue' href='https://ada.gov'>ada.gov</a>."
-msgstr "Pag-aralan ang mga batas ng pederal na pumoprotekta sa mga mambobotong may mga kapansanan sa <a class='link--blue' href='https://ada.gov'>ada.gov</a>"
+msgstr ""
+"Pag-aralan ang mga batas ng pederal na pumoprotekta sa mga mambobotong may "
+"mga kapansanan sa <a class='link--blue' href='https://ada.gov'>ada.gov</a>"
 
 #: templates/vot_resources.html:102
 msgid ""
 "Download the Justice Department's new <a class='link--blue' href='https://"
 "www.justice.gov/file/1517936/download'>Know Your Voting Rights</a> guide."
-msgstr "I-download ang bagong patnubay ng Departamenton Hustisya na <a class='link--blue' href='https://www.justice.gov/file/1517936/download'>Know Your Voting Rights</a>"
+msgstr ""
+"I-download ang bagong patnubay ng Departamenton Hustisya na <a class='link--"
+"blue' href='https://www.justice.gov/file/1517936/download'>Know Your Voting "
+"Rights</a>"
 
 #: validators.py:106
 msgid "Enter a valid email address."

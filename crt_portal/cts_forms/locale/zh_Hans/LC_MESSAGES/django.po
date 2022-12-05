@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-18 17:58+0000\n"
+"POT-Creation-Date: 2022-12-02 13:42+0000\n"
 "Language: Chinese Simplified\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1308,11 +1308,18 @@ msgstr ""
 "\"tel:800-285-2221\">（800）285-2221</a>"
 
 #: templates/forms/confirmation.html:161
+#, fuzzy
+#| msgid ""
+#| "Legal Services Corporation (or Legal Aid Offices), visit <a aria-label="
+#| "\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--"
+#| "popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-"
+#| "legal-aid</a> or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
 msgid ""
-"Legal Services Corporation (or Legal Aid Offices), visit <a aria-label=\"www."
-"lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--popup\" "
-"href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> "
-"or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
+"Legal Services Corporation (or Legal Aid Offices), to help you find a legal "
+"aid lawyer in your area visit <a aria-label=\"www.lsc.gov/find-legal-aid\" "
+"class=\"external-link--blue external-link--popup\" href=\"https://www.lsc."
+"gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> or call <a href="
+"\"tel:202-295-1500\">(202) 295-1500</a>"
 msgstr ""
 "法律服务公司（或法律援助办事处），请访问<a aria-label=\"www.lsc.gov/find-"
 "legal-aid\" class=\"external-link--blue external-link--popup\" href="
@@ -1630,171 +1637,178 @@ msgstr ""
 
 #: templates/hce_resources.html:29 templates/hce_resources.html:56
 msgid "Credit"
-msgstr ""
+msgstr "信用"
 
 #: templates/hce_resources.html:32 templates/hce_resources.html:76
-#, fuzzy
-#| msgid "Accessibility"
 msgid "Disability"
-msgstr "便利措施"
+msgstr "残疾"
 
 #: templates/hce_resources.html:35 templates/hce_resources.html:85
 msgid "Housing"
-msgstr ""
+msgstr "房屋"
 
 #: templates/hce_resources.html:38
 msgid "Find an attorney"
-msgstr ""
+msgstr "查找律师"
 
 #: templates/hce_resources.html:41
-#, fuzzy
-#| msgid "Enforcement"
 msgid "Enforcement of state laws"
-msgstr "执法"
+msgstr "州法律执行机构"
 
 #: templates/hce_resources.html:44
 msgid "General assistance"
-msgstr ""
+msgstr "般援助"
 
 #: templates/hce_resources.html:51
 msgid "Housing section resources"
-msgstr ""
+msgstr "消费者金融保护局"
 
 #: templates/hce_resources.html:59
 msgid "Consumer Financial Protection Bureau"
-msgstr ""
+msgstr "消费者金融保护局"
 
 #: templates/hce_resources.html:60
 msgid "Submit a complaint about a financial product or service."
-msgstr ""
+msgstr "提交有关财务产品或服务的投诉。"
 
 #: templates/hce_resources.html:66
 msgid "Credit Bureaus"
-msgstr ""
+msgstr "信贷局"
 
 #: templates/hce_resources.html:67
 msgid "Find information about credit history or credit scores."
-msgstr ""
+msgstr "查找有关信用记录或信用评分的信息。"
+
+#: templates/hce_resources.html:79
+msgid "Fair Housing Accessibility First"
+msgstr "公平住房无障碍第一倡议"
 
 #: templates/hce_resources.html:80
 msgid ""
 "Information about physical accessibility requirements in multifamily housing."
-msgstr ""
+msgstr "有关多户住宅中身体辅助功能要求的信息。"
 
 #: templates/hce_resources.html:88
-#, fuzzy
-#| msgid "U.S. Department of Justice"
 msgid "U.S. Department of Housing and Urban Development"
-msgstr "美国司法部"
+msgstr "美国住房和城市发展部"
 
 #: templates/hce_resources.html:89
 msgid "Submit a complaint about discrimination in housing."
-msgstr ""
+msgstr "提交关于住房歧视的投诉。"
 
 #: templates/hce_resources.html:96
 msgid "Homelessness Resources"
-msgstr ""
+msgstr "无家可归者的资源"
 
 #: templates/hce_resources.html:97
 msgid "Information on housing assistance."
-msgstr ""
+msgstr "住房援助的信息。"
 
 #: templates/hce_resources.html:101
 msgid "Office of Public &amp; Indian Housing"
-msgstr ""
+msgstr "公共和印第安住房办公室"
 
 #: templates/hce_resources.html:102
 msgid ""
 "Information on public housing authorities, rental assistance, and housing "
 "counseling."
-msgstr ""
+msgstr "公共住房当局、租赁援助和住房咨询的信息。"
 
 #: templates/hce_resources.html:103
 msgid ""
 "(for inquiries on public housing authorities and housing choice voucher "
 "programs)"
-msgstr ""
+msgstr "（用于公共住房当局和住房选择券项目的查询）"
 
 #: templates/hce_resources.html:107
-#, fuzzy
 #| msgid "Office of Inspector General"
 msgid "Office of Inspector General (OIG)"
-msgstr "监察长办公室"
+msgstr "督察长办公室 (OIG)"
 
 #: templates/hce_resources.html:108
 msgid "Report fraud, waste, or abuse in HUD-funded programs."
-msgstr ""
+msgstr "报告 HUD 资助的项目中存在的欺诈、浪费或滥用行为。"
+
+#: templates/hce_resources.html:110
+msgid "(202) 708-4829 Facsimile"
+msgstr "传真：(202) 708-4829"
+
+#: templates/hce_resources.html:111
+msgid "Email: hotline@hudoig.gov"
+msgstr "电子邮件：hotline@hudoig.gov"
 
 #: templates/hce_resources.html:115
 msgid "Fair Housing Initiatives Program Agencies"
-msgstr ""
+msgstr "公平住房倡议计划机构"
 
 #: templates/hce_resources.html:116
 msgid ""
 "Information about organizations that assist people who believe they have "
 "been victims of housing discrimination."
-msgstr ""
+msgstr "帮助那些认为他们是住房歧视受害者的援助组织的信息。"
 
 #: templates/hce_resources.html:120
 msgid "Fair Housing Assistance Program Agencies"
-msgstr ""
+msgstr "公平住房援助方案机构"
 
 #: templates/hce_resources.html:121
 msgid ""
 "State and local agencies responsible for receiving reports of discrimination."
-msgstr ""
+msgstr "负责接收歧视报告的州和地方机构。"
 
 #: templates/hce_resources.html:125
 msgid "Rent and Utility Payment Assistance"
-msgstr ""
+msgstr "租金和公用事业付款援助"
 
 #: templates/hce_resources.html:126
 msgid "Information on rental assistance programs in your area."
-msgstr ""
+msgstr "您所在地区里租赁援助项目的信息。"
 
 #: templates/hce_resources.html:130
 msgid "Find an Attorney"
-msgstr ""
+msgstr "查找律师"
 
 #: templates/hce_resources.html:133
-#, fuzzy
-#| msgid "American Samoa"
 msgid "American Bar Association"
-msgstr "美属萨摩亚"
+msgstr "美国律师协会"
 
 #: templates/hce_resources.html:140
 msgid "Legal Services Corporation (or Legal Aid Offices)"
-msgstr ""
+msgstr "法律服务公司（或法律援助办事处）"
 
 #: templates/hce_resources.html:141
 msgid ""
 "Information on non-profit organizations providing legal help to people with "
-"limited income."
+"limited income. Visit <a class='external-link--blue external-link--popup' "
+"href='https://www.lsc.gov/find-legal-aid'>www.lsc.gov/find-legal-aid</a> or "
+"call (202) 295-1500"
 msgstr ""
+"向收入有限的人提供法律援助的非营利组织的信息。<a aria-label=\"www.lsc.gov/"
+"find-legal-aid\" class=\"external-link--blue external-link--popup\" href="
+"\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> <a "
+"href=\"tel:202-295-1500\">（202）295-1500</a>"
+
+#: templates/hce_resources.html:145
+msgid "Enforcement of State Laws"
+msgstr "州法律执行机构"
 
 #: templates/hce_resources.html:148
-#, fuzzy
-#| msgid "Enforcement"
-msgid "Enforcement of State Laws"
-msgstr "执法"
-
-#: templates/hce_resources.html:151
 msgid "State Attorneys General"
-msgstr ""
+msgstr "州检察长"
 
-#: templates/hce_resources.html:152
+#: templates/hce_resources.html:149
 msgid "Find contact information for your state attorney general."
-msgstr ""
+msgstr "查找州检察长的联络信息。"
 
-#: templates/hce_resources.html:156
+#: templates/hce_resources.html:153
 msgid "General Assistance"
-msgstr ""
+msgstr "般援助"
 
-#: templates/hce_resources.html:160
+#: templates/hce_resources.html:157
 msgid ""
 "Assistance with questions about federal agencies, government programs, "
 "services, and more."
-msgstr ""
+msgstr "协助处理有关联邦机构、政府项目、服务等的问题"
 
 #: templates/landing.html:31
 msgid "Menu"
@@ -2124,11 +2138,18 @@ msgstr ""
 "区的当地法律援助办公室或律师可能可以迅速回应或帮助您解决问题"
 
 #: templates/landing.html:389
+#, fuzzy
+#| msgid ""
+#| "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-"
+#| "legal-aid\" class=\"external-link--blue external-link--popup\" href="
+#| "\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> or call "
+#| "<a href=\"tel:202-295-1500\">(202) 295-1500</a>."
 msgid ""
-"Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
-"aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
-"lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> or call <a href="
-"\"tel:202-295-1500\">(202) 295-1500</a>."
+"Contact Legal Services Corporation to help you find a legal aid lawyer in "
+"your area at <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-"
+"link--blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid"
+"\">lsc.gov/find-legal-aid</a> or call <a href=\"tel:202-295-1500\">(202) "
+"295-1500</a>."
 msgstr ""
 "联系法律服务公司 <a aria-label=\"www.lsc.gov/find-legal-aid\" class="
 "\"external-link--blue external-link--popup\" href=\"https://www.lsc.gov/find-"
@@ -2263,7 +2284,6 @@ msgstr "请立刻求助！"
 
 #: templates/partials/important_message_voting.html:8
 #: templates/vot_resources.html:46
-#| msgid "Report a violation"
 msgid "Report voting issues"
 msgstr "举报投票问题"
 
@@ -2698,17 +2718,14 @@ msgid "Civil Rights Division - Department of Justice - Voting resources"
 msgstr "民权司 - 司法部 - 私隐政策"
 
 #: templates/vot_resources.html:25
-#| msgid "How do I…"
 msgid "How do I..."
 msgstr "我如何……"
 
 #: templates/vot_resources.html:29 templates/vot_resources.html:51
-#| msgid "How to report a civil rights violation"
 msgid "Report a possible civil rights violation"
 msgstr "举报可能侵犯民权的行为"
 
 #: templates/vot_resources.html:32 templates/vot_resources.html:69
-#| msgid "How to report a civil rights violation"
 msgid "Report a possible federal criminal civil rights violation"
 msgstr "举报可能侵犯民权的联邦刑事犯罪"
 
@@ -2726,7 +2743,9 @@ msgstr "了解您的投票权利"
 msgid ""
 "To report civil rights violations, go to <a class='link--blue' href='https://"
 "civilrights.justice.gov/report/'>civilrights.justice.gov/report</a>"
-msgstr "举报可能侵犯民权的行为, 请前往<a class='link--blue' href='https://civilrights.justice.gov/report/'>civilrights.justice.gov/report</a>"
+msgstr ""
+"举报可能侵犯民权的行为, 请前往<a class='link--blue' href='https://"
+"civilrights.justice.gov/report/'>civilrights.justice.gov/report</a>"
 
 #: templates/vot_resources.html:61
 msgid ""
@@ -2751,7 +2770,9 @@ msgid ""
 "All complaints related to violence, threats of violence, or intimidation at "
 "a polling place should be reported first to local police authorities by "
 "calling"
-msgstr "所有与在投票站使用暴力、暴力威胁或恐吓有关的举报，都应先拨打911向地方警察当局报告"
+msgstr ""
+"所有与在投票站使用暴力、暴力威胁或恐吓有关的举报，都应先拨打911向地方警察当局"
+"报告"
 
 #: templates/vot_resources.html:75
 msgid "911"
@@ -2762,7 +2783,9 @@ msgid ""
 "After alerting local law enforcement to such emergencies by calling <a "
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
 "contact the Department of Justice"
-msgstr "拨打<a class='external-link--blue' href='tel:911'>911</a>向地方执法部门报告紧急情况后，公众应和司法部联系"
+msgstr ""
+"拨打<a class='external-link--blue' href='tel:911'>911</a>向地方执法部门报告紧"
+"急情况后，公众应和司法部联系"
 
 #: templates/vot_resources.html:80
 msgid ""
@@ -2771,35 +2794,44 @@ msgid ""
 "united-states-attorney'>U.S. Attorney's Offices</a> or the local <a "
 "class='external-link--blue' href='https://www.fbi.gov/contact-us'>FBI "
 "office</a>"
-msgstr "与选举犯罪有关的举报应提交给您当地的<a "
-"class='external-link--blue' href='https://www.justice.gov/usao/find-your-"
-"united-states-attorney'>美国检察官办公室</a>或者<a "
-"class='external-link--blue' href='https://www.fbi.gov/contact-us'>联邦调查局地方分局</a>"
+msgstr ""
+"与选举犯罪有关的举报应提交给您当地的<a class='external-link--blue' "
+"href='https://www.justice.gov/usao/find-your-united-states-attorney'>美国检察"
+"官办公室</a>或者<a class='external-link--blue' href='https://www.fbi.gov/"
+"contact-us'>联邦调查局地方分局</a>"
 
 #: templates/vot_resources.html:88
 msgid ""
 "Go to <a class='external-link--blue' href='https://usa.gov/election-"
 "office'>usa.gov/election-office</a> to find your state election website"
-msgstr "查找您所在州的选举办公室网站, 请访问<a class='external-link--blue' href='https://usa.gov/election-office'>usa.gov/election-office</a>"
+msgstr ""
+"查找您所在州的选举办公室网站, 请访问<a class='external-link--blue' "
+"href='https://usa.gov/election-office'>usa.gov/election-office</a>"
 
 #: templates/vot_resources.html:97
 msgid ""
 "Find additional information about voting rights laws at <a class='link--"
 "blue' href='https://justice.gov/crt/voting-section'>www.justice.gov/crt/"
 "voting-section</a>."
-msgstr "了解更多的联邦投票权法律, 请访问<a class='link--blue' href='https://justice.gov/crt/voting-section'>www.justice.gov/crt/voting-section</a>"
+msgstr ""
+"了解更多的联邦投票权法律, 请访问<a class='link--blue' href='https://justice."
+"gov/crt/voting-section'>www.justice.gov/crt/voting-section</a>"
 
 #: templates/vot_resources.html:99
 msgid ""
 "Learn about federal laws that protect voters with disabilities at <a "
 "class='link--blue' href='https://ada.gov'>ada.gov</a>."
-msgstr "了解联邦法律中保护残障投票者的法律, 请访问<a class='link--blue' href='https://ada.gov'>ada.gov</a>"
+msgstr ""
+"了解联邦法律中保护残障投票者的法律, 请访问<a class='link--blue' "
+"href='https://ada.gov'>ada.gov</a>"
 
 #: templates/vot_resources.html:102
 msgid ""
 "Download the Justice Department's new <a class='link--blue' href='https://"
 "www.justice.gov/file/1517936/download'>Know Your Voting Rights</a> guide."
-msgstr "下载司法部新的<a class='link--blue' href='https://www.justice.gov/file/1517936/download'> “了解您的投票权” </a>指南"
+msgstr ""
+"下载司法部新的<a class='link--blue' href='https://www.justice.gov/"
+"file/1517936/download'> “了解您的投票权” </a>指南"
 
 #: validators.py:106
 msgid "Enter a valid email address."
