@@ -458,10 +458,10 @@ jobs:
       - run:
           name: Flag reports submitted by repeat writers or that have violation summaries identical to other reports
           command: cf run-task crt-portal-django -c "python crt_portal/manage.py flag_repeat_writers" --name flag-repeat-writers  
-      # Refresh the trend view in dev
-      - run:
-          name: Refresh trends view
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends
+      # Refresh the trend view in dev deactivated
+      # - run:
+      #    name: Refresh trends view
+      #    command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends
       # Clear expired sessions in staging session table
       - run:
           name: clearsessions management command
