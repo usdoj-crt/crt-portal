@@ -482,6 +482,24 @@ class RepeatWriterInfo(models.Model):
         logger.info(f'SUCCESS: Refreshed Email view in {elapsed} seconds')
 
 
+class RepeatSummaryInfo(models.Model):
+    summary = models.TextField(unique=True, primary_key=True, help_text="Summary associated with number of reports")
+    count = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'repeat_summary_view'
+
+    @staticmethod
+    def refresh_view():
+        start = time.time()
+        with connection.cursor() as cursor:
+            cursor.execute("REFRESH MATERIALIZED VIEW repeat_summary_view;")
+        end = time.time()
+        elapsed = round(end - start, 4)
+        logger.info(f'SUCCESS: Refreshed RepeatSummaryInfo view in {elapsed} seconds')
+
+
 class EmailReportCount(models.Model):
     """see the total number of reports that are associated with the contact_email for each report"""
     report = models.OneToOneField(Report, primary_key=True, on_delete=models.CASCADE, related_name='email_report_count')

@@ -7,7 +7,7 @@ from django.test import TestCase
 from datetime import datetime
 
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
-from ..models import Report, RepeatWriterInfo, ReportsData, Trends
+from ..models import Report, RepeatSummaryInfo, RepeatWriterInfo, ReportsData, Trends
 from ..forms import add_activity
 
 
@@ -96,6 +96,43 @@ class GenerateRepeatWriterInfo(TestCase):
         call_command('generate_repeat_writer_info')
         repeat_writer_1 = RepeatWriterInfo.objects.filter(email=self.email1.upper()).first()
         self.assertEqual(repeat_writer_1.count, 105)
+
+
+class GenerateRepeatSummaryInfo(TestCase):
+
+    def setUp(self):
+        self.user = User.objects.create_user("DELETE_USER", "ringo@thebeatles.com", "")
+        self.summary1 = SAMPLE_REPORT_1['violation_summary']
+        self.summary2 = SAMPLE_REPORT_2['violation_summary']
+        self.summary3 = SAMPLE_REPORT_3['violation_summary']
+        for _ in range(100):
+            Report.objects.create(**SAMPLE_REPORT_1)
+        for _ in range(50):
+            Report.objects.create(**SAMPLE_REPORT_2)
+        Report.objects.create(**SAMPLE_REPORT_3)
+        call_command('generate_repeat_summary_info')
+
+    def test_total_rows(self):
+        repeat_summary_rows = RepeatSummaryInfo.objects.all().count()
+        self.assertEqual(repeat_summary_rows, 3)
+
+    def test_summary_count(self):
+        repeat_summary_1 = RepeatSummaryInfo.objects.filter(summary=self.summary1.upper()).first()
+        self.assertEqual(repeat_summary_1.count, 100)
+        repeat_summary_2 = RepeatSummaryInfo.objects.filter(summary=self.summary2.upper()).first()
+        self.assertEqual(repeat_summary_2.count, 50)
+        repeat_summary_3 = RepeatSummaryInfo.objects.filter(summary=self.summary3.upper()).first()
+        self.assertEqual(repeat_summary_3.count, 1)
+
+    def test_update_repeat_summary_info(self):
+        for _ in range(5):
+            Report.objects.create(**SAMPLE_REPORT_1)
+        repeat_summary_1 = RepeatSummaryInfo.objects.filter(summary=self.summary1.upper()).first()
+        self.assertEqual(repeat_summary_1.count, 100)
+        call_command('generate_repeat_summary_info')
+        repeat_summary_1 = RepeatSummaryInfo.objects.filter(summary=self.summary1.upper()).first()
+        self.assertEqual(repeat_summary_1.count, 105)
+
 
 
 class GenerateYearlyReports(TestCase):
