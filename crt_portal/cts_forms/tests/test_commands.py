@@ -109,12 +109,19 @@ class GenerateRepeatSummaryInfo(TestCase):
             Report.objects.create(**SAMPLE_REPORT_1)
         for _ in range(50):
             Report.objects.create(**SAMPLE_REPORT_2)
+        for _ in range(50):
+            Report.objects.create(**dict(SAMPLE_REPORT_2, violation_summary=''))
         Report.objects.create(**SAMPLE_REPORT_3)
         call_command('generate_repeat_summary_info')
 
     def test_total_rows(self):
         repeat_summary_rows = RepeatSummaryInfo.objects.all().count()
         self.assertEqual(repeat_summary_rows, 3)
+
+    def test_ignores_empty_summaries(self):
+        empty_summary_count = RepeatSummaryInfo.objects.filter(summary='').count()
+
+        self.assertEqual(empty_summary_count, 0)
 
     def test_summary_count(self):
         repeat_summary_1 = RepeatSummaryInfo.objects.filter(summary=self.summary1.upper()).first()

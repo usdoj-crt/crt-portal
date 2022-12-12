@@ -10,6 +10,7 @@ def add_repeat_summary_view(apps, schema_editor):
             CREATE MATERIALIZED VIEW repeat_summary_view AS
             select UPPER(violation_summary) AS summary, count(*)
             from cts_forms_report
+            where length(trim(violation_summary)) > 0
             group by UPPER(violation_summary);
         """)
 
