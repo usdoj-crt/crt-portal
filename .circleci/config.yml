@@ -398,6 +398,9 @@ jobs:
       - run:
           name: generate repeat_writer_info
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_writer_info" --name generate-repeat-writer-info
+      - run:
+          name: generate repeat_summary_info
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_summary_info" --name generate-repeat-summary-info
 
   staging-maintenance-tasks:
     docker:
@@ -420,7 +423,7 @@ jobs:
       # Mark by_repeat_writer true on reports that were submitted by repeat writers or which have violation summaries identical to other reports
       - run:
           name: Flag reports submitted by repeat writers or that have violation summaries identical to other reports
-          command: cf run-task crt-portal-django -c "python crt_portal/manage.py flag_repeat_writers" --name flag-repeat-writers 
+          command: cf run-task crt-portal-django -c "python crt_portal/manage.py flag_repeat_writers" --name flag-repeat-writers
       # Refresh the trend view in staging
       - run:
           name: Refresh trends view
@@ -435,6 +438,9 @@ jobs:
       - run:
           name: generate repeat_writer_info
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_writer_info" --name generate-repeat-writer-info
+      - run:
+          name: generate repeat_summary_info
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_summary_info" --name generate-repeat-summary-info
 
   dev-maintenance-tasks:
     docker:
@@ -457,7 +463,7 @@ jobs:
       # Mark by_repeat_writer true on reports that were submitted by repeat writers or which have violation summaries identical to other reports
       - run:
           name: Flag reports submitted by repeat writers or that have violation summaries identical to other reports
-          command: cf run-task crt-portal-django -c "python crt_portal/manage.py flag_repeat_writers" --name flag-repeat-writers  
+          command: cf run-task crt-portal-django -c "python crt_portal/manage.py flag_repeat_writers" --name flag-repeat-writers
       # Refresh the trend view in dev
       - run:
           name: Refresh trends view
@@ -472,6 +478,9 @@ jobs:
       - run:
           name: generate repeat_writer_info
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_writer_info" --name generate-repeat-writer-info
+      - run:
+          name: generate repeat_summary_info
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_summary_info" --name generate-repeat-summary-info
 
 workflows:
   build-test-deploy:
