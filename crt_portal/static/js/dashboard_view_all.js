@@ -1,5 +1,4 @@
 (function(root, dom) {
-
   function toggleTarget(toggle) {
     const arrow = toggle.querySelector('.icon');
     const id = toggle.dataset['id'];
@@ -27,7 +26,7 @@
         mode: 'same-origin',
         body: JSON.stringify({ report_pks: ids })
       })
-      .then(() => window.onbeforeunload = null)
+      .then(() => (window.onbeforeunload = null))
       .catch(error => {
         console.error(error);
       });
@@ -38,8 +37,9 @@
     event.preventDefault();
     const allToggled = isToggled(toggleAll);
     toggleAll.querySelector('.icon').classList.toggle('rotate');
-    const toggles = [...dom.querySelectorAll('a.td-toggle')]
-      .filter(toggle => isToggled(toggle) == allToggled);
+    const toggles = [...dom.querySelectorAll('a.td-toggle')].filter(
+      toggle => isToggled(toggle) == allToggled
+    );
 
     toggles.forEach(toggle => toggleTarget(toggle));
 
