@@ -26,6 +26,8 @@ from formtools.wizard.views import SessionWizardView
 from tms.models import TMSEmail
 from datetime import datetime
 
+from typing import List
+
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter
 from .forms import (
@@ -152,11 +154,18 @@ def setup_filter_parameters(report, querydict):
 
 
 def mark_report_as_viewed(report, user):
+    if report.viewed:
+        return
     now = datetime.now()
     description = f"Report viewed at {now.strftime('%m/%d/%y %H:%M:%M %p')}"
     add_activity(user, "Report viewed:", description, report)
     report.viewed = True
     report.save()
+
+
+def mark_reports_as_viewed(reports, user):
+    for report in reports:
+        mark_report_as_viewed(report, user)
 
 
 def _format_date(date_string):

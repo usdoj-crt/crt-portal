@@ -1,17 +1,18 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from cts_forms.models import Report, ResponseTemplate
 from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-from cts_forms.views import mark_report_as_viewed
+from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed
 from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter
 from rest_framework.permissions import IsAuthenticated
 from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
 from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView
 import html
+import json
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -40,6 +41,16 @@ class ReportList(generics.ListAPIView):
     queryset = Report.objects.all().order_by('pk')
     serializer_class = ReportSerializer
 
+    def post(self, request, *args, **kwargs):
+        try:
+            report_pks = request.data['report_pks']
+        except (json.decoder.JSONDecodeError, KeyError):
+            return HttpResponse(status=400)
+
+        reports = Report.objects.filter(pk__in=report_pks).all()
+        mark_reports_as_viewed(reports, request.user)
+        return HttpResponse(status=200)
+
 
 class ReportDetail(generics.RetrieveUpdateAPIView):
     queryset = Report.objects.all()
@@ -53,16 +64,14 @@ class ReportDetail(generics.RetrieveUpdateAPIView):
         report_pk = kwargs.get("pk")
         if report_pk:
             report = Report.objects.filter(pk=report_pk).first()
-            if not report.viewed:
-                mark_report_as_viewed(report, request.user)
+            mark_report_as_viewed(report, request.user)
         return self.update(request, *args, **kwargs)
 
     def put(self, request, *args, **kwargs):
         report_pk = kwargs.get("pk")
         if report_pk:
             report = Report.objects.filter(pk=report_pk).first()
-            if not report.viewed:
-                mark_report_as_viewed(report, request.user)
+            mark_report_as_viewed(report, request.user)
         return self.update(request, *args, **kwargs)
 
 
