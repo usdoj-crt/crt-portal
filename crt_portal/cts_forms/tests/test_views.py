@@ -842,10 +842,7 @@ class ReportListApiTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.user = User.objects.create_user("USER_1", "cookiemonster@fake.net", "")
-        self.test_reports = [
-          Report.objects.create(**SAMPLE_REPORT_1)
-          for i in range(10)
-        ]
+        self.test_reports = [Report.objects.create(**SAMPLE_REPORT_1) for i in range(10)]
         self.report_ids = [report.id for report in self.test_reports]
         self.base_url = reverse('api:report-list')
         self.client.login(username="USER_1", password="")  # nosec

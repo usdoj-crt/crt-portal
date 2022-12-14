@@ -1,4 +1,4 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse
 from cts_forms.models import Report, ResponseTemplate
 from rest_framework import generics
 from rest_framework import permissions

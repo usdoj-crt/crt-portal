@@ -26,8 +26,6 @@ from formtools.wizard.views import SessionWizardView
 from tms.models import TMSEmail
 from datetime import datetime
 
-from typing import List
-
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter
 from .forms import (
