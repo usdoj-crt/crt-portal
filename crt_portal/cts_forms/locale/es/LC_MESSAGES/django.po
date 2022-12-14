@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-11-21 21:48+0000\n"
+"POT-Creation-Date: 2022-12-02 13:42+0000\n"
 "Language: SpanishMIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1826,6 +1826,10 @@ msgid "Find information about credit history or credit scores."
 msgstr ""
 "Busque información sobre el historial crediticio o calificaciones crediticias"
 
+#: templates/hce_resources.html:79
+msgid "Fair Housing Accessibility First"
+msgstr ""
+
 #: templates/hce_resources.html:80
 msgid ""
 "Information about physical accessibility requirements in multifamily housing."
@@ -1881,6 +1885,14 @@ msgid "Report fraud, waste, or abuse in HUD-funded programs."
 msgstr ""
 "Denuncie casos de  fraude, desperdicio o abuso en programas financiados por "
 "el HUD."
+
+#: templates/hce_resources.html:110
+msgid "(202) 708-4829 Facsimile"
+msgstr ""
+
+#: templates/hce_resources.html:111
+msgid "Email: hotline@hudoig.gov"
+msgstr ""
 
 #: templates/hce_resources.html:115
 msgid "Fair Housing Initiatives Program Agencies"

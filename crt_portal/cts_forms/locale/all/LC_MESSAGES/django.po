@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-18 17:58+0000\n"
+"POT-Creation-Date: 2022-12-02 13:42+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1253,10 +1253,11 @@ msgstr ""
 
 #: templates/forms/confirmation.html:161
 msgid ""
-"Legal Services Corporation (or Legal Aid Offices), visit <a aria-label=\"www."
-"lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--popup\" "
-"href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> "
-"or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
+"Legal Services Corporation (or Legal Aid Offices), to help you find a legal "
+"aid lawyer in your area visit <a aria-label=\"www.lsc.gov/find-legal-aid\" "
+"class=\"external-link--blue external-link--popup\" href=\"https://www.lsc."
+"gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> or call <a href="
+"\"tel:202-295-1500\">(202) 295-1500</a>"
 msgstr ""
 
 #: templates/forms/confirmation.html:169
@@ -1579,6 +1580,10 @@ msgstr ""
 msgid "Find information about credit history or credit scores."
 msgstr ""
 
+#: templates/hce_resources.html:79
+msgid "Fair Housing Accessibility First"
+msgstr ""
+
 #: templates/hce_resources.html:80
 msgid ""
 "Information about physical accessibility requirements in multifamily housing."
@@ -1624,6 +1629,14 @@ msgstr ""
 msgid "Report fraud, waste, or abuse in HUD-funded programs."
 msgstr ""
 
+#: templates/hce_resources.html:110
+msgid "(202) 708-4829 Facsimile"
+msgstr ""
+
+#: templates/hce_resources.html:111
+msgid "Email: hotline@hudoig.gov"
+msgstr ""
+
 #: templates/hce_resources.html:115
 msgid "Fair Housing Initiatives Program Agencies"
 msgstr ""
@@ -1666,26 +1679,28 @@ msgstr ""
 #: templates/hce_resources.html:141
 msgid ""
 "Information on non-profit organizations providing legal help to people with "
-"limited income."
+"limited income. Visit <a class='external-link--blue external-link--popup' "
+"href='https://www.lsc.gov/find-legal-aid'>www.lsc.gov/find-legal-aid</a> or "
+"call (202) 295-1500"
 msgstr ""
 
-#: templates/hce_resources.html:148
+#: templates/hce_resources.html:145
 msgid "Enforcement of State Laws"
 msgstr ""
 
-#: templates/hce_resources.html:151
+#: templates/hce_resources.html:148
 msgid "State Attorneys General"
 msgstr ""
 
-#: templates/hce_resources.html:152
+#: templates/hce_resources.html:149
 msgid "Find contact information for your state attorney general."
 msgstr ""
 
-#: templates/hce_resources.html:156
+#: templates/hce_resources.html:153
 msgid "General Assistance"
 msgstr ""
 
-#: templates/hce_resources.html:160
+#: templates/hce_resources.html:157
 msgid ""
 "Assistance with questions about federal agencies, government programs, "
 "services, and more."
@@ -1984,10 +1999,11 @@ msgstr ""
 
 #: templates/landing.html:389
 msgid ""
-"Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
-"aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
-"lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> or call <a href="
-"\"tel:202-295-1500\">(202) 295-1500</a>."
+"Contact Legal Services Corporation to help you find a legal aid lawyer in "
+"your area at <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-"
+"link--blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid"
+"\">lsc.gov/find-legal-aid</a> or call <a href=\"tel:202-295-1500\">(202) "
+"295-1500</a>."
 msgstr ""
 
 #: templates/landing.html:390

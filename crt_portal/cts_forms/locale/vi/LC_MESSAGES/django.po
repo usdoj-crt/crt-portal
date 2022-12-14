@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-10-18 17:58+0000\n"
+"POT-Creation-Date: 2022-12-02 13:42+0000\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -1420,11 +1420,18 @@ msgstr ""
 "home</a> hoặc gọi <a href=\"tel:800-285-2221\">(800) 285-2221</a>"
 
 #: templates/forms/confirmation.html:161
+#, fuzzy
+#| msgid ""
+#| "Legal Services Corporation (or Legal Aid Offices), visit <a aria-label="
+#| "\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--"
+#| "popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-"
+#| "legal-aid</a> or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
 msgid ""
-"Legal Services Corporation (or Legal Aid Offices), visit <a aria-label=\"www."
-"lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--popup\" "
-"href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> "
-"or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
+"Legal Services Corporation (or Legal Aid Offices), to help you find a legal "
+"aid lawyer in your area visit <a aria-label=\"www.lsc.gov/find-legal-aid\" "
+"class=\"external-link--blue external-link--popup\" href=\"https://www.lsc."
+"gov/find-legal-aid\">www.lsc.gov/find-legal-aid</a> or call <a href="
+"\"tel:202-295-1500\">(202) 295-1500</a>"
 msgstr ""
 "Legal Services Corporation (hoặc Legal Aid Offices), vui lòng truy cập <a "
 "aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue "
@@ -1761,31 +1768,29 @@ msgstr ""
 
 #: templates/hce_resources.html:29 templates/hce_resources.html:56
 msgid "Credit"
-msgstr ""
+msgstr "Tín Dụng"
 
 #: templates/hce_resources.html:32 templates/hce_resources.html:76
-#, fuzzy
 #| msgid "Accessibility"
 msgid "Disability"
-msgstr "Khả Năng Tiếp Cận"
+msgstr "Khuyến Tật (Disability)"
 
 #: templates/hce_resources.html:35 templates/hce_resources.html:85
 msgid "Housing"
-msgstr ""
+msgstr "Nhà Ở (Housing)"
 
 #: templates/hce_resources.html:38
 msgid "Find an attorney"
-msgstr ""
+msgstr "Tìm một luật sư"
 
 #: templates/hce_resources.html:41
-#, fuzzy
 #| msgid "Enforcement"
 msgid "Enforcement of state laws"
-msgstr "Đảm bảo thực thi"
+msgstr "Thực Thi Luật Tiểu Bang"
 
 #: templates/hce_resources.html:44
 msgid "General assistance"
-msgstr ""
+msgstr "Hổ Trợ Tổng Quát"
 
 #: templates/hce_resources.html:51
 msgid "Housing section resources"
@@ -1793,139 +1798,159 @@ msgstr ""
 
 #: templates/hce_resources.html:59
 msgid "Consumer Financial Protection Bureau"
-msgstr ""
+msgstr "Văn Phòng Bảo Vệ Tài Chính Người Tiêu Dùng (Consumer Financial Protection Bureau)"
 
 #: templates/hce_resources.html:60
 msgid "Submit a complaint about a financial product or service."
-msgstr ""
+msgstr "Nộp đơn khiếu nại về một sản phẩm tài chính hoặc một dịch vụ."
 
 #: templates/hce_resources.html:66
 msgid "Credit Bureaus"
-msgstr ""
+msgstr "Các Công Ty Tư Vấn Tín Nhiệm (Credit Bureaus)"
 
 #: templates/hce_resources.html:67
 msgid "Find information about credit history or credit scores."
-msgstr ""
+msgstr "Tìm thông tin về quá trình tín dụng hoặc các điểm tín dụng."
+
+#: templates/hce_resources.html:79
+msgid "Fair Housing Accessibility First"
+msgstr "Truy Cặp Công Bằng Nhà Ở Đầu Tiên (Fair Housing Accessibility First)"
 
 #: templates/hce_resources.html:80
 msgid ""
 "Information about physical accessibility requirements in multifamily housing."
-msgstr ""
+msgstr "Thông tin về những qui định dành cho người có khuyến tật sử dụng vào nơi chung cư/đa gia đình."
 
 #: templates/hce_resources.html:88
-#, fuzzy
 #| msgid "U.S. Department of Justice"
 msgid "U.S. Department of Housing and Urban Development"
-msgstr "Bộ Tư pháp Hoa Kỳ"
+msgstr "Sở Nhà Ở và Phát Triển Đô Thị Hoa Kỳ (U.S. Department of Housing and Urban Development)"
 
 #: templates/hce_resources.html:89
 msgid "Submit a complaint about discrimination in housing."
-msgstr ""
+msgstr "Nộp đơn khiếu nại về kỳ thị trong nhà ở."
 
 #: templates/hce_resources.html:96
 msgid "Homelessness Resources"
-msgstr ""
+msgstr "Các Tài Nguyên Trợ Giúp Người Vô Gia Cư  (Homelessness Resources)"
 
 #: templates/hce_resources.html:97
 msgid "Information on housing assistance."
-msgstr ""
+msgstr "Thông tin về việc hổ trợ cho nhà ở."
 
 #: templates/hce_resources.html:101
 msgid "Office of Public &amp; Indian Housing"
-msgstr ""
+msgstr "Văn Phòng Trợ Giúp Nhà Ở Cho Công Cộng & Thổ Dân Hoa Kỳ (Office of Public & Indian Housing) "
 
 #: templates/hce_resources.html:102
 msgid ""
 "Information on public housing authorities, rental assistance, and housing "
 "counseling."
-msgstr ""
+msgstr "Thông tin về các cơ quan quản lý nhà ở công cộng, hổ trợ trả tiền thuê nhà và tư vấn về nhà ở."
 
 #: templates/hce_resources.html:103
 msgid ""
 "(for inquiries on public housing authorities and housing choice voucher "
 "programs)"
-msgstr ""
+msgstr "(đề được giài đáp thắc mắc về các cơ quan quản lý nhà ở công cộng và những chương trình lựa chọn phiếu nhà ở)"
 
 #: templates/hce_resources.html:107
-#, fuzzy
 #| msgid "Office of Inspector General"
 msgid "Office of Inspector General (OIG)"
-msgstr "Văn phòng Tổng Thanh tra"
+msgstr "Văn Phòng Tổng Thanh Tra (OIG)"
 
 #: templates/hce_resources.html:108
 msgid "Report fraud, waste, or abuse in HUD-funded programs."
-msgstr ""
+msgstr "Báo cáo sự gian lận, phí phạm, hoặc lạm dụng các chương trình do HUD tài trợ."
+
+#: templates/hce_resources.html:110
+msgid "(202) 708-4829 Facsimile"
+msgstr "(202) 708-4829 đánh fax"
+
+#: templates/hce_resources.html:111
+msgid "Email: hotline@hudoig.gov"
+msgstr "Điện thư: hotline@hudoig.gov"
 
 #: templates/hce_resources.html:115
 msgid "Fair Housing Initiatives Program Agencies"
-msgstr ""
+msgstr "Những Chương Trình Sáng Kiến Nhà Ở Công Bằng (Fair Housing Initiatives Program Agencies)"
 
 #: templates/hce_resources.html:116
 msgid ""
 "Information about organizations that assist people who believe they have "
 "been victims of housing discrimination."
-msgstr ""
+msgstr "Thông tin về những tổ chức hổ trợ  cho những người tin rằng họ đã là nạn nhân của sự kỳ thị về nhà ở."
 
 #: templates/hce_resources.html:120
 msgid "Fair Housing Assistance Program Agencies"
-msgstr ""
+msgstr "Các Cơ Quan Hổ Trợ Nhà Ở Công Bằng  (Fair Housing Assistance Program Agencies)"
 
 #: templates/hce_resources.html:121
 msgid ""
 "State and local agencies responsible for receiving reports of discrimination."
-msgstr ""
+msgstr "Các cơ quan của tiểu bang và tại địa phương có trách nhiệm tiếp nhận những báo cáo về kỳ thị."
 
 #: templates/hce_resources.html:125
 msgid "Rent and Utility Payment Assistance"
-msgstr ""
+msgstr "Hổ Trợ Tiền Thuê Nhà Và Điện Nước (Rent and Utily Payment Assistance)"
 
 #: templates/hce_resources.html:126
 msgid "Information on rental assistance programs in your area."
-msgstr ""
+msgstr "Thông tin về những chương trình hổ trợ tiền thuê nhà tại địa phương trong khu vực của qúy vị."
 
 #: templates/hce_resources.html:130
 msgid "Find an Attorney"
-msgstr ""
+msgstr "Tìm một luật sư"
 
 #: templates/hce_resources.html:133
-#, fuzzy
 #| msgid "American Samoa"
 msgid "American Bar Association"
-msgstr "American Samoa"
+msgstr "Hiệp Hội Luật Sư Đoàn Hoa Kỳ (American Bar Association)"
 
 #: templates/hce_resources.html:140
 msgid "Legal Services Corporation (or Legal Aid Offices)"
-msgstr ""
+msgstr "Các Dịch Vụ Pháp Lý  (Hoặc Các Văn Phòng Hồ Trợ Pháp Lý)  (Legal Services Corporation or Legal Aid Offices)"
 
 #: templates/hce_resources.html:141
+#| msgid ""
+#| "Legal Services Corporation (or Legal Aid Offices), visit <a aria-label="
+#| "\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--"
+#| "popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-"
+#| "legal-aid</a> or call <a href=\"tel:202-295-1500\">(202) 295-1500</a>"
 msgid ""
 "Information on non-profit organizations providing legal help to people with "
-"limited income."
+"limited income. Visit <a class='external-link--blue external-link--popup' "
+"href='https://www.lsc.gov/find-legal-aid'>www.lsc.gov/find-legal-aid</a> or "
+"call (202) 295-1500"
 msgstr ""
+"Thông tin về các tổ chức bất vụ lợi cung cấp trợ lý cho những người với lợi tức có giới hạn. <a "
+"aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue "
+"external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc."
+"gov/find-legal-aid</a> hoặc gọi <a href=\"tel:202-295-1500\">(202) 295-1500</"
+"a>"
 
-#: templates/hce_resources.html:148
-#, fuzzy
+#: templates/hce_resources.html:145
 #| msgid "Enforcement"
 msgid "Enforcement of State Laws"
-msgstr "Đảm bảo thực thi"
+msgstr "Thực Thi Luật Tiểu Bang"
 
-#: templates/hce_resources.html:151
+#: templates/hce_resources.html:148
 msgid "State Attorneys General"
-msgstr ""
+msgstr "Tổng Chưởng Lý Tiểu Bang"
 
-#: templates/hce_resources.html:152
+#: templates/hce_resources.html:149
 msgid "Find contact information for your state attorney general."
-msgstr ""
+msgstr "Tìm thông tin liên lạc Tổng Chưởng Lý Tiểu Bang."
 
-#: templates/hce_resources.html:156
+#: templates/hce_resources.html:153
 msgid "General Assistance"
-msgstr ""
+msgstr "Hổ Trợ Tổng Quát"
 
-#: templates/hce_resources.html:160
+#: templates/hce_resources.html:157
 msgid ""
 "Assistance with questions about federal agencies, government programs, "
 "services, and more."
-msgstr ""
+msgstr "Hổ Trợ cho những thắc mắc về các cơ quan liên bang, các chương trình của chính phủ, các dịch vụ, và nhiều hơn nữa."
 
 #: templates/landing.html:31
 msgid "Menu"
@@ -2293,11 +2318,18 @@ msgstr ""
 "đỡ quý vị về mối quan ngại của quý vị"
 
 #: templates/landing.html:389
+#, fuzzy
+#| msgid ""
+#| "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-"
+#| "legal-aid\" class=\"external-link--blue external-link--popup\" href="
+#| "\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> or call "
+#| "<a href=\"tel:202-295-1500\">(202) 295-1500</a>."
 msgid ""
-"Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-legal-"
-"aid\" class=\"external-link--blue external-link--popup\" href=\"https://www."
-"lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a> or call <a href="
-"\"tel:202-295-1500\">(202) 295-1500</a>."
+"Contact Legal Services Corporation to help you find a legal aid lawyer in "
+"your area at <a aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-"
+"link--blue external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid"
+"\">lsc.gov/find-legal-aid</a> or call <a href=\"tel:202-295-1500\">(202) "
+"295-1500</a>."
 msgstr ""
 "Liên hệ với Legal Services Corporation tại <a aria-label=\"www.lsc.gov/find-"
 "legal-aid\" class=\"external-link--blue external-link--popup\" href="
@@ -2979,8 +3011,9 @@ msgid ""
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
 "contact the Department of Justice"
 msgstr ""
-"Sau khi đã gọi <a class='external-link--blue' href='tel:911'>911</a>để báo cho cơ quan thi hành pháp luật địa phương về những "
-"trường hợp khẩn cấp này, quần chúng nên liên lạc với Bộ Tư Pháp"
+"Sau khi đã gọi <a class='external-link--blue' href='tel:911'>911</a>để báo "
+"cho cơ quan thi hành pháp luật địa phương về những trường hợp khẩn cấp này, "
+"quần chúng nên liên lạc với Bộ Tư Pháp"
 
 #: templates/vot_resources.html:80
 msgid ""
