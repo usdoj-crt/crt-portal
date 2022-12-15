@@ -166,6 +166,59 @@ class Valid_CRT_view_Tests(TestCase):
         self.assertTrue('ADM' in self.content)
 
 
+class OriginationDataTests(TestCase):
+    """Ensures that origination (utm, etc) data makes it into the database."""
+    def test_form_works_without_codes(self):
+        response = self.client.get('/report/')
+        self.assertEqual(response.status_code, 200)
+
+    def test_form_captures_params(self):
+        response = self.client.get(
+            '/report/',
+            {
+                'utm_source': 'mock-source',
+                'utm_medium': 'mock-medium',
+                'utm_campaign': 'mock-campaign',
+                'utm_term': 'mock-term',
+                'utm_content': 'mock-content',
+            })
+
+        self.assertEqual(response.status_code, 200)
+        expected_template = '<input type="hidden" name="0-{field}" value="{mock}" id="id_0-{field}">'
+        self.assertInHTML(
+            expected_template.format(
+                field='origination_utm_source', mock='mock-source'), response.content.decode())
+        self.assertInHTML(
+            expected_template.format(
+                field='origination_utm_medium', mock='mock-medium'), response.content.decode())
+        self.assertInHTML(
+            expected_template.format(
+                field='origination_utm_campaign', mock='mock-campaign'), response.content.decode())
+        self.assertInHTML(
+            expected_template.format(
+                field='origination_utm_term', mock='mock-term'), response.content.decode())
+        self.assertInHTML(
+            expected_template.format(
+                field='origination_utm_content', mock='mock-content'), response.content.decode())
+
+    def test_captured_params_are_saved(self):
+        form_data_dict = {
+            **copy.deepcopy(SAMPLE_REPORT_1),
+            'protected_class': ProtectedClass.objects.none(),
+            'origination_utm_source': 'mock-source',
+            'origination_utm_medium': 'mock-medium',
+            'origination_utm_campaign': 'mock-campaign',
+            'origination_utm_term': 'mock-term',
+            'origination_utm_content': 'mock-content',
+        }
+        _, saved_object = save_form(form_data_dict, intake_format='web')
+        self.assertEqual(saved_object.origination_utm_source, 'mock-source')
+        self.assertEqual(saved_object.origination_utm_medium, 'mock-medium')
+        self.assertEqual(saved_object.origination_utm_campaign, 'mock-campaign')
+        self.assertEqual(saved_object.origination_utm_term, 'mock-term')
+        self.assertEqual(saved_object.origination_utm_content, 'mock-content')
+
+
 class SectionAssignmentTests(TestCase):
     def test_CRM_routing(self):
         data = copy.deepcopy(SAMPLE_REPORT_1)
