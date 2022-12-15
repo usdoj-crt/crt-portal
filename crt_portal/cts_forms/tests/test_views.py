@@ -3,6 +3,7 @@ Internal views and misc views
 """
 import copy
 import io
+import json
 import secrets
 from datetime import date, timedelta
 
@@ -834,6 +835,55 @@ class LoginRequiredTests(TestCase):
                 ),
                 None,
             )
+
+
+class ReportListApiTests(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user("USER_1", "cookiemonster@fake.net", "")
+        self.test_reports = [Report.objects.create(**SAMPLE_REPORT_1) for i in range(10)]
+        self.report_ids = [report.id for report in self.test_reports]
+        self.base_url = reverse('api:report-list')
+        self.client.login(username="USER_1", password="")  # nosec
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_unauthenticated_user_cant_access_url(self):
+        self.client.logout()
+        url = self.base_url
+
+        data = json.dumps({'report_pks': self.report_ids})
+
+        response = self.client.post(url, data, content_type='application/json')
+        self.assertEqual(response.status_code, 403)
+
+    def test_authenticated_user_can_access_url(self):
+        url = self.base_url
+
+        data = json.dumps({'report_pks': self.report_ids})
+        response = self.client.post(url, data, content_type='application/json')
+
+        self.assertEqual(response.status_code, 200)
+
+    def test_missing_list_json(self):
+        url = self.base_url
+
+        response = self.client.post(url, json.dumps({}), content_type='application/json')
+
+        self.assertEqual(response.status_code, 400)
+
+    def test_mark_reports_viewed(self):
+        url = self.base_url
+
+        data = json.dumps({'report_pks': self.report_ids})
+        response = self.client.post(url, data, content_type='application/json')
+
+        for report in self.test_reports:
+            report.refresh_from_db()
+            self.assertTrue(report.viewed)
+        self.assertEqual(response.status_code, 200)
 
 
 class FormLettersIndexTests(TestCase):

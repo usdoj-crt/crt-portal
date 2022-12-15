@@ -22,7 +22,11 @@
               <label class="usa-checkbox__label crt-checkbox__label checkbox-all" for="checkbox-all" aria-label="select all records"></label>
             </div>
           </th>
-          <th></th>
+          <th>
+            <a class="td-toggle-all display-flex" data-posted='false' href="#">
+              <img src="{% static "img/intake-icons/ic_chevron-right.svg" %}" alt="show all rows containing additional information" class="icon">
+            </a>
+          </th>
           {% render_sortable_heading 'Status' sort_state filter_state %}
           {% render_sortable_heading 'Total #' sort_state filter_state nowrap=True %}
           {% render_sortable_heading 'ID' sort_state filter_state %}
