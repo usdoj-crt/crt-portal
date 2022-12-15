@@ -131,6 +131,15 @@ def save_form(form_data_dict, **kwargs):
     return form_data_dict, r
 
 
+ORIGINATION_FIELDS = [
+    'origination_utm_source',
+    'origination_utm_medium',
+    'origination_utm_campaign',
+    'origination_utm_term',
+    'origination_utm_content',
+]
+
+
 class Contact(ModelForm):
     class Meta:
         model = Report
@@ -138,9 +147,13 @@ class Contact(ModelForm):
             'contact_first_name', 'contact_last_name',
             'contact_email', 'contact_phone', 'servicemember',
             'contact_address_line_1', 'contact_address_line_2', 'contact_state',
-            'contact_city', 'contact_zip',
+            'contact_city', 'contact_zip', *ORIGINATION_FIELDS
         ]
         widgets = {
+            **{
+                field: HiddenInput()
+                for field in ORIGINATION_FIELDS
+            },
             'contact_first_name': TextInput(attrs={
                 'class': 'usa-input',
             }),

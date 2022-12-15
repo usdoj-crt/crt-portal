@@ -186,6 +186,17 @@ class CRTReportWizard(SessionWizardView):
         _('Review'),
     ]
 
+    def get_form_initial(self, step):
+        initial_dict = super().get_form_initial(step)
+        return {
+            **initial_dict,
+            'origination_utm_source': self.request.GET.get('utm_source'),
+            'origination_utm_medium': self.request.GET.get('utm_medium'),
+            'origination_utm_campaign': self.request.GET.get('utm_campaign'),
+            'origination_utm_term': self.request.GET.get('utm_term'),
+            'origination_utm_content': self.request.GET.get('utm_content'),
+        }
+
     def form_refreshed(self):
         """
         True if the form and associated session data have been refreshed and cleared
