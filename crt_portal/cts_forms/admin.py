@@ -11,7 +11,8 @@ from django.db.models.functions import Lower
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
-                     JudicialDistrict, RoutingSection, RoutingStepOneContact, VotingMode)
+                     JudicialDistrict, RoutingSection, RoutingStepOneContact,
+                     VotingMode, Campaign)
 from .signals import get_client_ip
 
 logger = logging.getLogger(__name__)
@@ -209,6 +210,15 @@ class VotingModeAdmin(admin.ModelAdmin):
         return 'Voting Mode: False'
 
 
+class CampaignAdmin(admin.ModelAdmin):
+    list_display = ['uuid', 'internal_name', 'campaign_url']
+    readonly_fields = ['campaign_url']
+
+    @admin.display(description='Campaign URL')
+    def campaign_url(self, obj):
+        return obj.get_absolute_url()
+
+
 admin.site.register(CommentAndSummary)
 admin.site.register(Report, ReportAdmin)
 admin.site.register(ProtectedClass)
@@ -219,6 +229,7 @@ admin.site.register(DoNotEmail)
 admin.site.register(JudicialDistrict, JudicialDistrictAdmin)
 admin.site.register(RoutingSection, RoutingSectionAdmin)
 admin.site.register(VotingMode, VotingModeAdmin)
+admin.site.register(Campaign, CampaignAdmin)
 admin.site.register(RoutingStepOneContact, RoutingStepOneContactAdmin)
 
 # Activity stream already registers an Admin for Action, we want to replace it
