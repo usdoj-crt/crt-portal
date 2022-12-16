@@ -8,7 +8,7 @@ import logging
 
 from django import forms
 from django.conf import settings
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.utils.translation import gettext_lazy as _
@@ -32,7 +32,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PRIMARY_COMPLAINT_DICT_VOTING,
                               PUBLIC_OR_PRIVATE_EMPLOYER_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
-from .models import Report, ResponseTemplate, EmailReportCount
+from .models import Report, ResponseTemplate, EmailReportCount, Campaign
 from .forms import save_form, Review
 from .mail import crt_send_mail
 from utils.voting_mode import is_voting_mode
@@ -186,13 +186,27 @@ class CRTReportWizard(SessionWizardView):
         _('Review'),
     ]
 
+    def get_campaign_initial(self):
+        campaign_id = self.request.GET.get('utm_campaign')
+        if not campaign_id:
+            return {}
+        try:
+            exists = Campaign.objects.filter(uuid=campaign_id).exists()
+        except ValidationError:
+            return {'unknown_origination_utm_campaign': campaign_id}
+        if not exists:
+            return {'unknown_origination_utm_campaign': campaign_id}
+        return {'origination_utm_campaign': campaign_id}
+
     def get_form_initial(self, step):
         initial_dict = super().get_form_initial(step)
+        campaign_initial = self.get_campaign_initial()
+
         return {
             **initial_dict,
+            **campaign_initial,
             'origination_utm_source': self.request.GET.get('utm_source'),
             'origination_utm_medium': self.request.GET.get('utm_medium'),
-            'origination_utm_campaign': self.request.GET.get('utm_campaign'),
             'origination_utm_term': self.request.GET.get('utm_term'),
             'origination_utm_content': self.request.GET.get('utm_content'),
         }

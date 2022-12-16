@@ -135,6 +135,7 @@ ORIGINATION_FIELDS = [
     'origination_utm_source',
     'origination_utm_medium',
     'origination_utm_campaign',
+    'unknown_origination_utm_campaign',
     'origination_utm_term',
     'origination_utm_content',
 ]

@@ -26,7 +26,7 @@ from ..model_variables import (
     PROTECTED_MODEL_CHOICES, SERVICEMEMBER_ERROR,
     VIOLATION_SUMMARY_ERROR, WHERE_ERRORS, DATE_ERRORS
 )
-from ..models import CommentAndSummary, ProtectedClass, Report
+from ..models import CommentAndSummary, ProtectedClass, Report, Campaign
 from .test_data import SAMPLE_REPORT_1
 
 
@@ -168,6 +168,12 @@ class Valid_CRT_view_Tests(TestCase):
 
 class OriginationDataTests(TestCase):
     """Ensures that origination (utm, etc) data makes it into the database."""
+    def setUp(self):
+        self.campaign = Campaign.objects.create(internal_name="Fake Campaign")
+
+    def tearDown(self):
+        self.campaign.delete()
+
     def test_form_works_without_codes(self):
         response = self.client.get('/report/')
         self.assertEqual(response.status_code, 200)
@@ -178,7 +184,7 @@ class OriginationDataTests(TestCase):
             {
                 'utm_source': 'mock-source',
                 'utm_medium': 'mock-medium',
-                'utm_campaign': 'mock-campaign',
+                'utm_campaign': self.campaign.uuid,
                 'utm_term': 'mock-term',
                 'utm_content': 'mock-content',
             })
@@ -193,7 +199,7 @@ class OriginationDataTests(TestCase):
                 field='origination_utm_medium', mock='mock-medium'), response.content.decode())
         self.assertInHTML(
             expected_template.format(
-                field='origination_utm_campaign', mock='mock-campaign'), response.content.decode())
+                field='origination_utm_campaign', mock=self.campaign.uuid), response.content.decode())
         self.assertInHTML(
             expected_template.format(
                 field='origination_utm_term', mock='mock-term'), response.content.decode())
@@ -201,22 +207,44 @@ class OriginationDataTests(TestCase):
             expected_template.format(
                 field='origination_utm_content', mock='mock-content'), response.content.decode())
 
+    def test_form_captures_unknown_campaigns(self):
+        response = self.client.get(
+            '/report/',
+            {
+                'utm_campaign': 'ohno-campaign',
+            })
+
+        self.assertEqual(response.status_code, 200)
+        expected_template = '<input type="hidden" name="0-{field}" value="{mock}" id="id_0-{field}">'
+        self.assertInHTML(
+            expected_template.format(
+                field='unknown_origination_utm_campaign', mock='ohno-campaign'), response.content.decode())
+
     def test_captured_params_are_saved(self):
         form_data_dict = {
             **copy.deepcopy(SAMPLE_REPORT_1),
             'protected_class': ProtectedClass.objects.none(),
             'origination_utm_source': 'mock-source',
             'origination_utm_medium': 'mock-medium',
-            'origination_utm_campaign': 'mock-campaign',
+            'origination_utm_campaign': self.campaign,
             'origination_utm_term': 'mock-term',
             'origination_utm_content': 'mock-content',
         }
         _, saved_object = save_form(form_data_dict, intake_format='web')
         self.assertEqual(saved_object.origination_utm_source, 'mock-source')
         self.assertEqual(saved_object.origination_utm_medium, 'mock-medium')
-        self.assertEqual(saved_object.origination_utm_campaign, 'mock-campaign')
+        self.assertEqual(saved_object.origination_utm_campaign, self.campaign)
         self.assertEqual(saved_object.origination_utm_term, 'mock-term')
         self.assertEqual(saved_object.origination_utm_content, 'mock-content')
+
+    def test_unknown_campaign_is_saved(self):
+        form_data_dict = {
+            **copy.deepcopy(SAMPLE_REPORT_1),
+            'protected_class': ProtectedClass.objects.none(),
+            'unknown_origination_utm_campaign': 'ohno-campaign',
+        }
+        _, saved_object = save_form(form_data_dict, intake_format='web')
+        self.assertEqual(saved_object.unknown_origination_utm_campaign, 'ohno-campaign')
 
 
 class SectionAssignmentTests(TestCase):
