@@ -1,6 +1,7 @@
 """All models need to be added to signals.py for proper logging."""
 import logging
 import time
+import uuid
 from datetime import datetime
 from babel.dates import format_date
 
@@ -116,6 +117,15 @@ class RoutingStepOneContact(models.Model):
 
 class VotingMode(models.Model):
     toggle = models.BooleanField(default=False)
+
+
+class Campaign(models.Model):
+    uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
+    internal_name = models.CharField(max_length=100, null=False, unique=True, blank=False, help_text="The non-publicly-facing name for this campaign")
+    description = models.TextField(max_length=1000, null=False, blank=True)
+
+    def get_absolute_url(self):
+        return f'https://civilrights.justice.gov/report?utm_campaign={self.uuid}'
 
 
 class Report(models.Model):
