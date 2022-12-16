@@ -13,6 +13,7 @@ variable_rename = {
     'location_name': 'Incident location name',
     'location_state': 'Incident state',
     'assigned_to': 'Assignee',
+    'origination_utm_campaign': 'Campaign',
     'public_id': 'Complaint ID',
     'primary_statute': 'Classification',
     'violation_summary': 'Personal description',

@@ -120,12 +120,16 @@ class VotingMode(models.Model):
 
 
 class Campaign(models.Model):
-    uuid = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, editable=False)
     internal_name = models.CharField(max_length=100, null=False, unique=True, blank=False, help_text="The non-publicly-facing name for this campaign")
     description = models.TextField(max_length=1000, null=False, blank=True)
+    show_in_filters = models.BooleanField(default=True, null=False)
 
     def get_absolute_url(self):
         return f'https://civilrights.justice.gov/report?utm_campaign={self.uuid}'
+
+    def __str__(self):
+        return self.internal_name
 
 
 class Report(models.Model):
@@ -217,7 +221,7 @@ class Report(models.Model):
     origination_utm_medium = models.CharField(max_length=100, null=True, blank=True)
     # Identifies a specific product promotion or strategic campaign.
     # For Portal specifically, this will be a uuid tied to a Campaign object.
-    origination_utm_campaign = models.CharField(max_length=100, null=True, blank=True)
+    origination_utm_campaign = models.ForeignKey(Campaign, blank=False, null=True, related_name="reports", on_delete=models.SET_NULL)
     # Identifies search terms.
     origination_utm_term = models.CharField(max_length=100, null=True, blank=True)
     # Identifies what specifically was clicked to bring the user to the site, such as a banner ad or a text link.
