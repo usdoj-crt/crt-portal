@@ -36,7 +36,7 @@ from .forms import (
 )
 from .mail import crt_send_mail
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, User, \
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, Campaign, User, \
     RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import report_sort
@@ -252,12 +252,17 @@ def index_view(request):
             "url": f'{report.id}?next={all_args_encoded}&index={paginated_offset + index}',
         })
 
-    selected_assignee = request.GET.get("assigned_to", "")
-    selected_assignee_object = User.objects.filter(username=selected_assignee).first()
-    if selected_assignee_object:
-        selected_assignee_id = selected_assignee_object.pk
-    else:
-        selected_assignee_id = ''
+    selected_assignee_id = fetch_selected_foreign_key(
+        request,
+        'assigned_to',
+        lambda text: User.objects.filter(username=text).first()
+    )
+
+    selected_campaign_uuid = fetch_selected_foreign_key(
+        request,
+        'origination_utm_campaign',
+        lambda text: Campaign.objects.filter(internal_name=text).first()
+    )
 
     final_data = {
         'form': Filters(request.GET),
@@ -270,9 +275,18 @@ def index_view(request):
         'filters': query_filters,
         'return_url_args': all_args_encoded,
         'selected_assignee_id': selected_assignee_id,
+        'selected_origination_utm_campaign': selected_campaign_uuid,
     }
 
     return render(request, 'forms/complaint_view/index/index.html', final_data)
+
+
+def fetch_selected_foreign_key(request, field_name, query):
+    param_text = request.GET.get(field_name, "")
+    if param_text == '(none)':
+        return '-1'
+    selected = query(param_text)
+    return selected.pk if selected else ''
 
 
 @login_required

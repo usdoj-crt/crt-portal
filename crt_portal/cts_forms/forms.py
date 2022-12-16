@@ -48,7 +48,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment)
+                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment, Campaign)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -1055,6 +1055,20 @@ class Filters(ModelForm):
             label=_("Assigned to"),  # This is overriden in templates as "Assigned"
             widget=Select(attrs={
                 'name': 'assigned_to',
+                'class': 'usa-input usa-select',
+            })
+        )
+
+        self.fields['origination_utm_campaign'] = MultipleChoiceField(
+            required=False,
+            choices=[
+                ('', ''),  # Default choice: empty (include everything)
+                ('-1', '(none)'),  # Custom: No assigned campaign.
+                *Campaign.objects.filter(show_in_filters=True).values_list('uuid', 'internal_name').order_by('internal_name')
+            ],
+            label=_("Campaign"),
+            widget=Select(attrs={
+                'name': 'origination_utm_campaign',
                 'class': 'usa-input usa-select',
             })
         )

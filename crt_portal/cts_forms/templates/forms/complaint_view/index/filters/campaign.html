@@ -1,0 +1,13 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block controls %}origination_utm_campaign{% endblock %}
+{% block label %}Campaign{% endblock %}
+{% block id %}origination_utm_campaign{% endblock %}
+{% block content %}
+  <label for="id_origination_utm_campaign">
+    <span class="usa-sr-only">campaign</span>
+  </label>
+  <div class="usa-combo-box" data-placeholder="Select one" data-default-value="{{ selected_origination_utm_campaign }}">
+    {{ form.origination_utm_campaign }}
+  </div>
+{% endblock %}

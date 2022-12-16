@@ -13,6 +13,11 @@ from .models import Report, User
 from actstream import registry
 from actstream.models import actor_stream
 
+foreign_key_displays = {
+    'assigned_to': 'username',
+    'origination_utm_campaign': 'internal_name',
+}
+
 # To add a new filter option for Reports, add the field name and expected filter behavior
 # These filters should match the order they're presented in filter-controls.html
 filter_options = {
@@ -22,6 +27,7 @@ filter_options = {
     'contact_last_name': '__icontains',
     'public_id': '__icontains',  # aka "ID" or "Complaint ID"
     'assigned_to': 'foreign_key',  # aka "Assignee"
+    'origination_utm_campaign': 'foreign_key',
 
     'location_address_line_1': '__icontains',  # not in filter controls?
     'location_address_line_2': '__icontains',  # not in filter controls?
@@ -83,15 +89,16 @@ def report_filter(querydict):
     for field in filter_options.keys():
         filter_list = querydict.getlist(field)
 
+        field_options = filter_options[field]
         if len(filter_list) > 0:
             filters[field] = querydict.getlist(field)
-            if filter_options[field] == '__in':
+            if field_options == '__in':
                 # works for one or more options with exact matches
                 kwargs[f'{field}__in'] = querydict.getlist(field)
-            elif filter_options[field] == '__search':
+            elif field_options == '__search':
                 # takes one phrase
                 kwargs[f'{field}__search'] = querydict.getlist(field)[0]
-            elif filter_options[field] == '__icontains':
+            elif field_options == '__icontains':
                 kwargs[f'{field}__icontains'] = querydict.getlist(field)[0]
             elif 'date' in field:
                 # filters by a start date or an end date expects yyyy-mm-dd
@@ -101,31 +108,31 @@ def report_filter(querydict):
                 try:
                     dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
                     dateObj = change_datetime_to_end_of_day(dateObj, field)
-                    kwargs[f'{field_name}{filter_options[field]}'] = dateObj
+                    kwargs[f'{field_name}{field_options}'] = dateObj
                 except ValueError:
                     # if the date is invalid, we ignore it.
                     continue
-            elif filter_options[field] == 'summary':
+            elif field_options == 'summary':
                 # assumes summaries are edited so there is only one per report - that is current behavior
                 kwargs['internal_comments__note__search'] = querydict.getlist(field)[0]
                 kwargs['internal_comments__is_summary'] = True
-            elif filter_options[field] == 'reported_reason':
+            elif field_options == 'reported_reason':
                 reasons = querydict.getlist(field)
                 kwargs['protected_class__value__in'] = reasons
-            elif filter_options[field] == 'foreign_key':
-                # assumes assigned_to but could add logic for other foreign keys in the future
+            elif field_options == 'foreign_key':
+                display_field = foreign_key_displays[field]
                 if querydict.getlist(field)[0] == '(none)':
-                    kwargs['assigned_to__isnull'] = True
+                    kwargs[f'{field}__isnull'] = True
                 else:
-                    kwargs['assigned_to__username__in'] = querydict.getlist(field)
-            elif filter_options[field] == 'eq':
+                    kwargs[f'{field}__{display_field}__in'] = querydict.getlist(field)
+            elif field_options == 'eq':
                 kwargs[field] = querydict.getlist(field)[0]
-            elif filter_options[field] == '__gte':
+            elif field_options == '__gte':
                 kwargs[field] = querydict.getlist(field)
-            elif filter_options[field] == 'violation_summary':
+            elif field_options == 'violation_summary':
                 search_query = querydict.getlist(field)[0]
                 qs = qs.filter(violation_summary_search_vector=_make_search_query(search_query))
-            elif filter_options[field] == 'contact_phone':
+            elif field_options == 'contact_phone':
                 # Removes all non digit characters, then breaks the number into blocks to search individually
                 # EG (123) 456-7890 will search to see if  "123" AND "456" AND "7890" are in the number
                 phone_number_array = ''.join(c if c.isdigit() else ' ' for c in querydict.getlist(field)[0]).split()
