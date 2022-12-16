@@ -19,7 +19,7 @@ from testfixtures import LogCapture
 
 from ..forms import ContactEditForm, ReportEditForm, add_activity
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
-from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary
+from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign
 from .test_data import SAMPLE_REPORT_1
 from .factories import ReportFactory
 
@@ -473,6 +473,10 @@ class CRT_FILTER_Tests(TestCase):
         test_report.servicemember = 'yes'
         test_report.hate_crime = 'yes'
         test_report.public_id = '999-XYZ'
+
+        self.campaign = Campaign.objects.create(internal_name="Fake Campaign")
+        test_report.origination_utm_campaign = self.campaign
+
         test_report.save()
 
         self.client = Client()
@@ -485,6 +489,7 @@ class CRT_FILTER_Tests(TestCase):
 
     def tearDown(self):
         self.user.delete()
+        self.campaign.delete()
 
     def test_filter(self):
         url = f'{self.url_base}?assigned_section=ADM'
@@ -566,6 +571,33 @@ class CRT_FILTER_Tests(TestCase):
         report_len = len(reports)
 
         self.assertEqual(report_len, self.len_all_results - 1)
+
+    def test_campaign_filter(self):
+        campaign_filter = 'origination_utm_campaign=Fake%20Campaign'
+        response = self.client.get(f'{self.url_base}?{campaign_filter}')
+        reports = response.context['data_dict']
+
+        report_len = len(reports)
+
+        self.assertEqual(report_len, 1)
+
+    def test_campaign_filter_none(self):
+        campaign_filter = 'origination_utm_campaign=(none)'
+        response = self.client.get(f'{self.url_base}?{campaign_filter}')
+        reports = response.context['data_dict']
+
+        report_len = len(reports)
+
+        self.assertEqual(report_len, self.len_all_results - 1)
+
+    def test_campaign_filter_invalid(self):
+        campaign_filter = 'origination_utm_campaign=woops'
+        response = self.client.get(f'{self.url_base}?{campaign_filter}')
+        reports = response.context['data_dict']
+
+        report_len = len(reports)
+
+        self.assertEqual(report_len, 0)
 
     def test_last_name_filter(self):
         last_name_filter = 'contact_last_name=bar'
