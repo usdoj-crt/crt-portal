@@ -141,7 +141,6 @@ class GenerateRepeatSummaryInfo(TestCase):
         self.assertEqual(repeat_summary_1.count, 105)
 
 
-
 class GenerateYearlyReports(TestCase):
 
     def setUp(self):
