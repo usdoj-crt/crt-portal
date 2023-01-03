@@ -8,7 +8,7 @@ To use them, you'll need to set your [gitconfig](https://git-scm.com/docs/githoo
 
 ```
 echo '[core]' >> .git/config;
-echo '  hooksPath="./git-hooks"' >> .git/config;
+echo '  hooksPath="./.githooks"' >> .git/config;
 ```
 
 or edit the config appropriately, if you've already changed it in the past.
