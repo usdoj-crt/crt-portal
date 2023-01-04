@@ -48,7 +48,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment)
+                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment, Campaign)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -131,6 +131,16 @@ def save_form(form_data_dict, **kwargs):
     return form_data_dict, r
 
 
+ORIGINATION_FIELDS = [
+    'origination_utm_source',
+    'origination_utm_medium',
+    'origination_utm_campaign',
+    'unknown_origination_utm_campaign',
+    'origination_utm_term',
+    'origination_utm_content',
+]
+
+
 class Contact(ModelForm):
     class Meta:
         model = Report
@@ -138,9 +148,13 @@ class Contact(ModelForm):
             'contact_first_name', 'contact_last_name',
             'contact_email', 'contact_phone', 'servicemember',
             'contact_address_line_1', 'contact_address_line_2', 'contact_state',
-            'contact_city', 'contact_zip',
+            'contact_city', 'contact_zip', *ORIGINATION_FIELDS
         ]
         widgets = {
+            **{
+                field: HiddenInput()
+                for field in ORIGINATION_FIELDS
+            },
             'contact_first_name': TextInput(attrs={
                 'class': 'usa-input',
             }),
@@ -1042,6 +1056,20 @@ class Filters(ModelForm):
             label=_("Assigned to"),  # This is overriden in templates as "Assigned"
             widget=Select(attrs={
                 'name': 'assigned_to',
+                'class': 'usa-input usa-select',
+            })
+        )
+
+        self.fields['origination_utm_campaign'] = MultipleChoiceField(
+            required=False,
+            choices=[
+                ('', ''),  # Default choice: empty (include everything)
+                ('-1', '(none)'),  # Custom: No assigned campaign.
+                *Campaign.objects.filter(show_in_filters=True).values_list('uuid', 'internal_name').order_by('internal_name')
+            ],
+            label=_("Campaign"),
+            widget=Select(attrs={
+                'name': 'origination_utm_campaign',
                 'class': 'usa-input usa-select',
             })
         )

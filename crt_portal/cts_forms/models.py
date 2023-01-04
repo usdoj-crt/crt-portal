@@ -1,6 +1,7 @@
 """All models need to be added to signals.py for proper logging."""
 import logging
 import time
+import uuid
 from datetime import datetime
 from babel.dates import format_date
 
@@ -118,6 +119,19 @@ class VotingMode(models.Model):
     toggle = models.BooleanField(default=False)
 
 
+class Campaign(models.Model):
+    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, editable=False)
+    internal_name = models.CharField(max_length=100, null=False, unique=True, blank=False, help_text="The non-publicly-facing name for this campaign")
+    description = models.TextField(max_length=1000, null=False, blank=True)
+    show_in_filters = models.BooleanField(default=True, null=False)
+
+    def get_absolute_url(self):
+        return f'https://civilrights.justice.gov/report?utm_campaign={self.uuid}'
+
+    def __str__(self):
+        return self.internal_name
+
+
 class Report(models.Model):
     PRIMARY_COMPLAINT_DEPENDENT_FIELDS = {
         'workplace': ['public_or_private_employer', 'employer_size'],
@@ -199,6 +213,22 @@ class Report(models.Model):
     # Internal codes
     district = models.CharField(max_length=7, null=True, blank=True, choices=DISTRICT_CHOICES)
     primary_statute = models.CharField(max_length=7, null=True, blank=True, choices=STATUTE_CHOICES)
+
+    # Origination info (utm campaigns, etc) about where the report came from.
+    # Identifies which site sent the traffic.
+    origination_utm_source = models.CharField(max_length=100, null=True, blank=True)
+    # Identifies what type of link was used, such as cost per click or email.
+    origination_utm_medium = models.CharField(max_length=100, null=True, blank=True)
+    # Identifies a specific product promotion or strategic campaign.
+    # For Portal specifically, this will be a uuid tied to a Campaign object.
+    origination_utm_campaign = models.ForeignKey(Campaign, blank=True, null=True, related_name="reports", on_delete=models.SET_NULL)
+    # If a UTM campaign is provided, but we're not tracking it in the Campaign table, we'll record it here to avoid data loss due to bad configuration.
+    unknown_origination_utm_campaign = models.CharField(max_length=700, null=True, blank=True)
+    # Identifies search terms.
+    origination_utm_term = models.CharField(max_length=100, null=True, blank=True)
+    # Identifies what specifically was clicked to bring the user to the site, such as a banner ad or a text link.
+    # It is often used for A/B testing and content-targeted ads.
+    origination_utm_content = models.CharField(max_length=100, null=True, blank=True)
 
     # Metadata
     public_id = models.CharField(max_length=100, null=False, blank=False)
