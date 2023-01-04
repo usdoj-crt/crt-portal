@@ -51,7 +51,12 @@ def _get_completed_at(request):
     e.g: "2015-08-05 18:47:18 UTC"
     """
     completed_at = unquote(request.POST.get('completed_at', ''))
-    completed_datetime = datetime.strptime(completed_at, '%Y-%m-%d %H:%M:%S %Z').replace(tzinfo=timezone.utc)
+    try:
+        completed_datetime = datetime.strptime(completed_at, '%Y-%m-%d %H:%M:%S %Z').replace(tzinfo=timezone.utc)
+    except ValueError:
+        # This is an edge case that appears to happen if TMS has trouble
+        # recording or retrieving metadata for this send.
+        return None
     return completed_datetime
 
 
@@ -61,7 +66,12 @@ def _get_completed_at2(data):
     Note this this is a different format than what gets posted to webhook
     """
     completed_at = data.get('completed_at', '')
-    completed_datetime = datetime.strptime(completed_at, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=timezone.utc)
+    try:
+        completed_datetime = datetime.strptime(completed_at, '%Y-%m-%dT%H:%M:%SZ').replace(tzinfo=timezone.utc)
+    except ValueError:
+        # This is an edge case that appears to happen if TMS has trouble
+        # recording or retrieving metadata for this send.
+        return None
     return completed_datetime
 
 
@@ -98,10 +108,16 @@ class WebhookView(View):
                 email = TMSEmail.objects.get(tms_id=message_id)
             except TMSEmail.DoesNotExist:
                 return HttpResponse(status=404)
-            email.status = request.POST['status']
+            email.status = request.POST.get('status', TMSEmail.INCONCLUSIVE)
             email.completed_at = _get_completed_at(request)
             if email.failed:
-                email.error_message = request.POST['error_message']
+                email.error_message = request.POST.get('error_message')
+            elif email.completed_at is None:
+                # Note: we only log the keys to avoid exposing PII such as
+                # recipient in the logs
+                request_keys = ', '.join(request.POST.keys())
+                logger.error(f'TMS did not supply completed_at for TMS_ID {email.tms_id}. Supplied keys: {request_keys}')
+                email.error_message = 'Warning: This message may have sent, but was not marked as completed by TMS'
             email.save()
             logger.debug("Webhook update received and processed for TMS_ID: {message_id}")
             return HttpResponse(status=204)
@@ -182,6 +198,8 @@ class AdminMessageView(LoginRequiredMixin, View):
                 # it does not exist
                 if email.failed:
                     email.error_message = message['error_message']
+                elif email.completed_at is None:
+                    email.error_message = 'Warning: This message may have sent, but was not marked as completed by TMS'
                 email.save()
 
                 # Displays both payloads
