@@ -29,6 +29,6 @@ if [[ -n "$unstaged" ]]; then
   echo
 fi
 
-docker --log-level ERROR compose run --no-TTY web flake8
+docker --log-level ERROR compose run --interactive --no-TTY web flake8
 echo 'Flake8 passed!'
 

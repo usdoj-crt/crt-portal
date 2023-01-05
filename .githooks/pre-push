@@ -5,7 +5,7 @@ set -eo pipefail
 
 echo 'Running pre-push tests (run again with --no-verify to skip)...'
 
-docker compose run --no-TTY web \
+docker compose run --interactive --no-TTY web \
     python /code/crt_portal/manage.py test cts_forms \
     --noinput --parallel
 
