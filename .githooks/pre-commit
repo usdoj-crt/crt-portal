@@ -9,12 +9,13 @@ changes="$( \
     | grep '\.py$' || printf '' \
 )"
 if [[ -z "$changes" ]]; then
+  echo 'No python changes detected, skipping pre-commit flake8'
   exit 0  # Skip flake8 because we have no changed python code.
 fi
 
 # Run flake8 against all code in the `source_code` directory
 # Only output failures.
-echo 'Running flake8...'
+echo 'Running pre-commit flake8 (run again with --no-verify to skip)...'
 
 unstaged="$( \
   git ls-files -m \

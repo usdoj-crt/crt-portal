@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# If any command fails, exit immediately with that command's exit status
+set -eo pipefail
+
+echo 'Running pre-push tests (run again with --no-verify to skip)...'
+
+docker compose run --no-TTY web \
+    python /code/crt_portal/manage.py test cts_forms \
+    --noinput --parallel
+
+echo 'Tests passed!'
