@@ -141,7 +141,7 @@ After the strings are translated, the translation can be compiled back to Django
 
     docker-compose run -w /code/crt_portal/cts_forms web django-admin compilemessages
 
-Note: Sometimes links should be included in a translation because they might appear in different parts of the sentence in different languages.  If so, you need to change the quotes within the hyperlinks from double quotes to single quote.  eg 
+Note: Sometimes links should be included in a translation because they might appear in different parts of the sentence in different languages.  If so, you need to change the quotes within the hyperlinks from double quotes to single quote.  eg
 
 ```
 {% trans "To report civil rights violations, go to <a class='link--blue' href='https://civilrights.justice.gov/report/'>civilrights.justice.gov/report</a>" %} .
@@ -186,6 +186,8 @@ The volumes are the data elements in Docker. Note that you will need to re-creat
 ## Tests
 
 Tests run automatically with repos that are integrated with Circle CI. You can run those tests locally with the following instructions.
+
+To avoid pushing broken code, you can also configure tests to run locally automatically by following the instructions in [.githooks/README.md](.githooks/README.md).
 
 ### Unit tests
 
@@ -305,9 +307,9 @@ That will produce a report locally that you can view in your browser. It will gi
 
 ### End-to-End tests
 
-We're using [Playwright](https://github.com/microsoft/playwright-python) for automated end-to-end testing. 
+We're using [Playwright](https://github.com/microsoft/playwright-python) for automated end-to-end testing.
 
-To run Playwright tests locally, first install it by running 
+To run Playwright tests locally, first install it by running
 
     pipenv install playwright
 
