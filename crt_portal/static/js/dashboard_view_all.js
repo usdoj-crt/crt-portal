@@ -3,12 +3,13 @@
     const arrow = toggle.querySelector('.icon');
     const id = toggle.dataset['id'];
     const summary = dom.getElementById(`tr-additional-${id}`);
+    toggle.setAttribute('aria-expanded', isToggled(toggle) ? 'false' : 'true');
     arrow.classList.toggle('rotate');
     summary.toggleAttribute('hidden');
   }
 
   function isToggled(target) {
-    return target.querySelector('.icon').classList.contains('rotate');
+    return target.getAttribute('aria-expanded') === 'true';
   }
 
   function markAsViewed(ids) {
@@ -37,6 +38,7 @@
     event.preventDefault();
     const allToggled = isToggled(toggleAll);
     toggleAll.querySelector('.icon').classList.toggle('rotate');
+    toggleAll.setAttribute('aria-expanded', allToggled ? 'false' : 'true');
     const toggles = [...dom.querySelectorAll('a.td-toggle')].filter(
       toggle => isToggled(toggle) == allToggled
     );

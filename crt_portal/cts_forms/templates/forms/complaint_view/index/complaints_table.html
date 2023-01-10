@@ -1,5 +1,6 @@
 {% load sortable_table_heading %}
 {% load static %}
+
 <form class="usa-form"
       method="get"
       action="{% url 'crt_forms:crt-forms-actions' %}"
@@ -23,8 +24,8 @@
             </div>
           </th>
           <th>
-            <a class="td-toggle-all display-flex" data-posted='false' href="#">
-              <img src="{% static "img/intake-icons/ic_chevron-right.svg" %}" alt="show all rows containing additional information" class="icon">
+            <a aria-expanded="false" role="button" aria-label="Expand all detail rows" id="toggle-all" class="td-toggle-all display-flex" data-posted='false' href="#">
+              <img aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
             </a>
           </th>
           {% render_sortable_heading 'Status' sort_state filter_state %}
@@ -55,8 +56,8 @@
                 </div>
               </td>
               <td>
-                <a data-id="{{ datum.report.id }}" class="td-toggle display-flex" href="#">
-                  <img src="{% static "img/intake-icons/ic_chevron-right.svg" %}" alt="show additional information in a new row" class="icon">
+                <a data-id="{{ datum.report.id }}" aria-expanded="false" aria-label="Expand details for Record {{datum.report.id}}" role="button" aria-controls="tr-additional-{{ datum.report.id }}" class="td-toggle display-flex" href="#">
+                  <img aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
                 </a>
               </td>
               <td>
