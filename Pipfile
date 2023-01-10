@@ -5,6 +5,9 @@ verify_ssl = true
 
 [dev-packages]
 awscli = "*"
+PyYAML = "==5.3.1" # To satisfy aws cli
+rsa = "==4.7" # To satisfy aws cli
+botocore = "==1.27.91" # To satisfy aws cli
 bandit = "*"
 flake8 = "*"
 testfixtures = "*"
@@ -16,6 +19,7 @@ pytest-playwright = "*"
 django-debug-toolbar = "*"
 factory-boy = "*"
 tblib = "*"
+localstack = "~=0.14.2"
 
 [packages]
 django = "==3.2.16"
@@ -41,7 +45,8 @@ boto3 = "*"
 python-frontmatter = "*"
 djangorestframework = "*"
 markdown = "*"
-localstack = "~=0.14.2"
+
+
 
 [requires]
 python_version = "3.10.8"
