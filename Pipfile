@@ -46,8 +46,6 @@ python-frontmatter = "*"
 djangorestframework = "*"
 markdown = "*"
 
-
-
 [requires]
 python_version = "3.10.8"
 
