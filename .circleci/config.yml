@@ -124,9 +124,9 @@ jobs:
       #      npm run test:a11y-without-report
       #- store_artifacts:
       #    path: ./pa11y-screenshots
-      - run:
-          name: E2E tests
-          command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=http://127.0.0.1:8000
+      #- run:
+      #    name: E2E tests
+      #    command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=http://127.0.0.1:8000
 
   e2e-test-dev:
     description: Runs E2E tests against dev
