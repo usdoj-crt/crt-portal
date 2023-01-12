@@ -115,6 +115,7 @@
     create_date_end: '',
     summary: '',
     assigned_to: '',
+    origination_utm_campaign: '',
     public_id: '',
     primary_statute: '',
     reported_reason: [],
@@ -291,6 +292,7 @@
     var createdatestartEl = formEl.querySelector('input[name="create_date_start"]');
     var createdateendEl = formEl.querySelector('input[name="create_date_end"]');
     var assigneeEl = formEl.querySelector('#id_assigned_to');
+    var campaignEl = formEl.querySelector('#id_origination_utm_campaign');
     var complaintIDEl = formEl.querySelector('input[name="public_id"]');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
     var perPageEl = dom.querySelector('select[name="per_page"]');
@@ -395,6 +397,10 @@
     textInputView({
       el: assigneeEl,
       name: 'assigned_to'
+    });
+    textInputView({
+      el: campaignEl,
+      name: 'origination_utm_campaign'
     });
     textInputView({
       el: personalDescriptionEl,
