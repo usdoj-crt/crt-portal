@@ -12,7 +12,7 @@
     <table class="usa-table crt-table sort-table">
       <thead>
         <tr>
-          <th>
+          <th aria-label="Bulk Action Selection">
             <div class="usa-checkbox td-checkbox">
               <input type="checkbox"
                      name="all"
@@ -20,10 +20,10 @@
                      value="all"
                      id="checkbox-all"
               >
-              <label class="usa-checkbox__label crt-checkbox__label checkbox-all" for="checkbox-all" aria-label="select all records"></label>
+              <label class="usa-checkbox__label crt-checkbox__label checkbox-all" for="checkbox-all" aria-label="Select all records"></label>
             </div>
           </th>
-          <th>
+          <th aria-label="Detail toggles">
             <a aria-expanded="false" role="button" aria-label="Expand all detail rows" id="toggle-all" class="td-toggle-all display-flex" data-posted='false' href="#">
               <img aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
             </a>
@@ -52,7 +52,7 @@
                          value="{{ datum.report.id }}"
                          id="checkbox-{{ datum.report.id }}"
                   >
-                  <label class="usa-checkbox__label crt-checkbox__label" for="checkbox-{{ datum.report.id }}" aria-label="select record {{ datum.report.id }}"></label>
+                  <label class="usa-checkbox__label crt-checkbox__label" for="checkbox-{{ datum.report.id }}" aria-label="Select record {{ datum.report.id }}"></label>
                 </div>
               </td>
               <td>
