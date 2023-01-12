@@ -148,7 +148,19 @@
       }
     }
 
+    td.quickview {
+      &:first-of-type {
+        // Skip the checkbox and expansion rows
+        padding-left: calc(65px + 42px + 1rem);
+      }
+      &:last-of-type {
+        // Skip the last two columns
+        padding-right: calc(150px + 167px + 1rem);
+      }
+    }
+
     .td-quickview {
+      display: block;
       font-weight: bold;
       text-transform: uppercase;
       margin-bottom: 0.5rem;

@@ -39,6 +39,8 @@
           {% render_sortable_heading 'Incident City/State' sort_state filter_state %}
           {% render_sortable_heading 'Incident Date' sort_state filter_state %}
         </tr>
+        <span class="usa-sr-only" role="columnheader" id="crt-table-summary-header">Summary</span>
+        <span class="usa-sr-only" role="columnheader" id="crt-table-description-header">Personal Description</span>
       </thead>
       {% if data_dict %}
         <tbody>
@@ -109,23 +111,22 @@
               </td>
             </tr>
             {# this row is hidden by default #}
-            <tr id="tr-additional-{{ datum.report.id }}" hidden>
-              <td colspan="2"></td>
-              <td colspan="4">
-                <div class="td-quickview">
+            <tr class="tr-quickview" id="tr-additional-{{ datum.report.id }}" hidden>
+              <td headers="crt-table-summary-header" class="quickview" colspan="6">
+                <label aria-hidden="true" for="tr-quickview-summary-{{ datum.report.id }}" class="td-quickview">
                   Summary
-                </div>
-                <div class="td-summary">
+                </label>
+                <div role="textbox" aria-readonly="true" id="tr-quickview-summary-{{ datum.report.id }}" class="td-summary">
                   {% with summary=datum.report.get_summary %}
                     {{ summary.note|linebreaks|default:"-" }}
                   {% endwith %}
                 </div>
               </td>
-              <td colspan="4">
-                <div class="td-quickview">
+              <td headers="crt-table-description-header" class="quickview" colspan="6">
+                <label aria-hidden="true" for="tr-quickview-description-{{ datum.report.id }}" class="td-quickview">
                   Personal Description
-                </div>
-                <div class="td-summary word-break">
+                </label>
+                <div role="textbox" aria-readonly="true" id="tr-quickview-description-{{ datum.report.id }}" class="td-summary word-break">
                   {{ datum.report.violation_summary|linebreaks|default:"-" }}
                 </div>
               </td>
