@@ -344,7 +344,6 @@ $arrow-height: 24px;
     a {
       color: color($theme-color-warning);
       font-weight: bold;
-      // text-decoration: none;
       &:hover {
         color:color($theme-link-dark-hover-color) !important;
       }
