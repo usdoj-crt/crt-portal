@@ -344,7 +344,7 @@ $arrow-height: 24px;
     a {
       color: color($theme-color-warning);
       font-weight: bold;
-      text-decoration: none;
+      // text-decoration: none;
       &:hover {
         color:color($theme-link-dark-hover-color) !important;
       }
@@ -382,7 +382,7 @@ $arrow-height: 24px;
     min-height: 6rem;
     @include at-media-max(desktop) {
       min-height: unset;
-      
+
       &.crt-landing--largetext {
         font-size: $theme-heading-font-size-md-mobile;
         line-height: 1.5;
@@ -697,12 +697,12 @@ $arrow-height: 24px;
   h2 {
     margin-top: 1rem;
   }
-  
+
   .crt-landing--largetext{
     font-size: $theme-heading-font-size-md-mobile;
     line-height: 1.3;
   }
-  
+
   .crt-landing--card {
     @include at-media-max(mobile-lg) {
       padding: 1.5rem !important
