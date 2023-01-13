@@ -10,6 +10,13 @@
 
   <div class="crt-xscroll">
     <table class="usa-table crt-table sort-table">
+      {# This "fake" table makes nested headers available to screen readers #}
+      <span role="table" class="usa-sr-only">
+        <span role="row">
+          <span role="columnheader" class="usa-sr-only" id="crt-table-summary-header">Summary</span>
+          <span role="columnheader" class="usa-sr-only" id="crt-table-description-header">Personal Description</span>
+        </span>
+      </span>
       <thead>
         <tr>
           <th aria-label="Bulk Action Selection">
@@ -39,8 +46,6 @@
           {% render_sortable_heading 'Incident City/State' sort_state filter_state %}
           {% render_sortable_heading 'Incident Date' sort_state filter_state %}
         </tr>
-        <span class="usa-sr-only" role="columnheader" id="crt-table-summary-header">Summary</span>
-        <span class="usa-sr-only" role="columnheader" id="crt-table-description-header">Personal Description</span>
       </thead>
       {% if data_dict %}
         <tbody>
@@ -112,7 +117,9 @@
             </tr>
             {# this row is hidden by default #}
             <tr class="tr-quickview" id="tr-additional-{{ datum.report.id }}" hidden>
-              <td headers="crt-table-summary-header" class="quickview" colspan="6">
+              {# All screen readers don't yet read the headers attribute correctly, so we've added a redundant aria-label #}
+              {# https://a11ysupport.io/tech/html/headers_attribute #}
+              <td aria-label="Summary" headers="crt-table-summary-header" class="quickview" colspan="6">
                 <label aria-hidden="true" for="tr-quickview-summary-{{ datum.report.id }}" class="td-quickview">
                   Summary
                 </label>
@@ -122,7 +129,7 @@
                   {% endwith %}
                 </div>
               </td>
-              <td headers="crt-table-description-header" class="quickview" colspan="6">
+              <td aria-label="Personal Description" headers="crt-table-description-header" class="quickview" colspan="6">
                 <label aria-hidden="true" for="tr-quickview-description-{{ datum.report.id }}" class="td-quickview">
                   Personal Description
                 </label>
