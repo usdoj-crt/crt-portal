@@ -1,7 +1,7 @@
 {
   "urls": [
     {
-      "url": "http://127.0.0.1:8000/report",
+      "url": "http://localhost:8000/report",
       "actions": [
         "wait for element #id_0-contact_phone to be visible"
       ],

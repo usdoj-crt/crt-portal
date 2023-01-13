@@ -1,7 +1,7 @@
 {
   "urls": [
     {
-      "url": "http://127.0.0.1:8000/report",
+      "url": "http://localhost:8000/report",
       "actions": [
         "click element #id_0-servicemember_0",
         "wait for element #report-step-1-continue to be visible",

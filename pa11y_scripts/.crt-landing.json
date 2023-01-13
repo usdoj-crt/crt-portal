@@ -2,17 +2,17 @@
     "urls": [
         {
           "useIncognitoBrowserContext": true,
-          "url": "http://127.0.0.1:8000/",
+          "url": "http://localhost:8000/",
           "actions": [
-            "wait for url to be http://127.0.0.1:8000/"
+            "wait for url to be http://localhost:8000/"
           ],
           "screenCapture": "pa11y-screenshots/crt-landing-view.png"
         },
         {
           "useIncognitoBrowserContext": true,
-          "url": "http://127.0.0.1:8000/",
+          "url": "http://localhost:8000/",
           "actions": [
-            "wait for url to be http://127.0.0.1:8000/",
+            "wait for url to be http://localhost:8000/",
             "click #crt-landing--example_option",
             "wait for element #crt-landing--example-workplace to be visible"
           ],

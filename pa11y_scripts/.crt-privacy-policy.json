@@ -1,7 +1,7 @@
 {
   "urls": [
     {
-      "url": "http://127.0.0.1:8000/privacy-policy",
+      "url": "http://localhost:8000/privacy-policy",
       "actions": [
         "wait for element #privacy-act-statement to be visible"
       ],
