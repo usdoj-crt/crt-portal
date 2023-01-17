@@ -150,8 +150,8 @@
 
     td.quickview {
       &:first-of-type {
-        // Skip the checkbox and expansion rows
-        padding-left: calc(65px + 42px + 1rem);
+        // Skip the checkbox row
+        padding-left: calc(30px + 1rem);
       }
       &:last-of-type {
         // Skip the last two columns

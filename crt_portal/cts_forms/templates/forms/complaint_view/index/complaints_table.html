@@ -117,9 +117,12 @@
             </tr>
             {# this row is hidden by default #}
             <tr class="tr-quickview" id="tr-additional-{{ datum.report.id }}" hidden>
+              <td class="quickview">
+                <span class="usa-sr-only">Details for record {{ datum.report.id }}</span>
+              </td>
               {# All screen readers don't yet read the headers attribute correctly, so we've added a redundant aria-label #}
               {# https://a11ysupport.io/tech/html/headers_attribute #}
-              <td aria-label="Summary" headers="crt-table-summary-header" class="quickview" colspan="6">
+              <td aria-label="Summary" headers="crt-table-summary-header" class="quickview" colspan="5">
                 <label aria-hidden="true" for="tr-quickview-summary-{{ datum.report.id }}" class="td-quickview">
                   Summary
                 </label>
