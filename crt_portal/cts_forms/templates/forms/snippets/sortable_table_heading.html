@@ -2,7 +2,7 @@
 
 {% load static %}
 
-<th aria-label="{{heading}}" scope="col" class="{% if sort_url %}sort-cell{% endif %}" {% if nowrap %}nowrap{% endif %}>
+<th scope="col" class="{% if sort_url %}sort-cell{% endif %}" {% if nowrap %}nowrap{% endif %}>
   {% if sort_url %}
     <a
       id="{{id}}"
@@ -10,10 +10,10 @@
       class="sort-link display-block {% if is_descending %}sort-up{% else %}sort-down{% endif %}"
       aria-label="Sort complaints by {{ heading }} {% if is_descending %}descending{% else %}ascending{% endif %}"
     >
-      <span aria-hidden="true">{{ heading }}</span>
+      <span>{{ heading }}</span>
     </a>
   {% else %}
-    <span aria-hidden="true">
+    <span tabindex="0">
       {{ heading }}
     </span>
   {% endif %}

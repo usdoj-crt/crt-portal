@@ -11,7 +11,7 @@
   <div class="crt-xscroll">
     <table class="usa-table crt-table sort-table">
       {# This "fake" table makes nested headers available to screen readers #}
-      <span role="table" class="usa-sr-only">
+      <span tabindex="-1" role="table" class="usa-sr-only">
         <span role="row">
           <span role="columnheader" class="usa-sr-only" id="crt-table-summary-header">Summary</span>
           <span role="columnheader" class="usa-sr-only" id="crt-table-description-header">Personal Description</span>
@@ -126,7 +126,7 @@
                 <label aria-hidden="true" for="tr-quickview-summary-{{ datum.report.id }}" class="td-quickview">
                   Summary
                 </label>
-                <div role="textbox" aria-readonly="true" id="tr-quickview-summary-{{ datum.report.id }}" class="td-summary">
+                <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-summary-{{ datum.report.id }}" class="td-summary">
                   {% with summary=datum.report.get_summary %}
                     {{ summary.note|linebreaks|default:"-" }}
                   {% endwith %}
@@ -136,7 +136,7 @@
                 <label aria-hidden="true" for="tr-quickview-description-{{ datum.report.id }}" class="td-quickview">
                   Personal Description
                 </label>
-                <div role="textbox" aria-readonly="true" id="tr-quickview-description-{{ datum.report.id }}" class="td-summary word-break">
+                <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-description-{{ datum.report.id }}" class="td-summary word-break">
                   {{ datum.report.violation_summary|linebreaks|default:"-" }}
                 </div>
               </td>
