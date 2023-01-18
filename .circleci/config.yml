@@ -85,20 +85,19 @@ jobs:
       - run:
           name: Run prettier code formatting check
           command: npm run lint:check
-      # TEMP: removing to iterate faster in CircleCI
-      # - run:
-      #     name: Run unit tests & check coverage
-      #     command: |
-      #       pipenv run coverage run --source='crt_portal' crt_portal/manage.py test --settings=crt_portal.test_settings cts_forms
-      #       pipenv run coverage report --fail-under=85 -m
-      # - run:
-      #     name: Run bandit (Python security) tests
-      #     command: |
-      #       pipenv run bandit -r crt_portal/ --exclude cts_forms/tests
-      # - run:
-      #     name: Run flake8 test for Python code style
-      #     command: |
-      #       pipenv run flake8
+      - run:
+          name: Run unit tests & check coverage
+          command: |
+            pipenv run coverage run --source='crt_portal' crt_portal/manage.py test --settings=crt_portal.test_settings cts_forms
+            pipenv run coverage report --fail-under=85 -m
+      - run:
+          name: Run bandit (Python security) tests
+          command: |
+            pipenv run bandit -r crt_portal/ --exclude cts_forms/tests
+      - run:
+          name: Run flake8 test for Python code style
+          command: |
+            pipenv run flake8
       - run:
           name: add or update response templates
           command: |
