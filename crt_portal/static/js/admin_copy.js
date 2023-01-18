@@ -1,5 +1,5 @@
 (function(root, dom) {
-  const COPY = "Copy to Clipboard";
+  const COPY = 'Copy to Clipboard';
 
   function markAsCopied(button) {
     button.innerText = 'Copied!';
