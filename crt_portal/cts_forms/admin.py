@@ -7,6 +7,7 @@ from django.core.paginator import Paginator
 from django.db.models import Prefetch
 from django.http import StreamingHttpResponse
 from django.contrib.auth.models import User
+from django.utils.html import mark_safe
 from django.db.models.functions import Lower
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
@@ -211,12 +212,19 @@ class VotingModeAdmin(admin.ModelAdmin):
 
 
 class CampaignAdmin(admin.ModelAdmin):
+    class Media:
+        js = ('js/admin_copy.js',)
+        css = {
+            'all': ('css/compiled/admin.css',)
+        }
+
     list_display = ['uuid', 'internal_name', 'campaign_url']
     readonly_fields = ['campaign_url']
 
     @admin.display(description='Campaign URL')
     def campaign_url(self, obj):
-        return obj.get_absolute_url()
+        url = obj.get_absolute_url()
+        return mark_safe(f'<input disabled="disabled" class="admin-copy absolute-url" value="{url}"/>')
 
 
 admin.site.register(CommentAndSummary)

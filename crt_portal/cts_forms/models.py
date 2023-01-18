@@ -126,7 +126,7 @@ class Campaign(models.Model):
     show_in_filters = models.BooleanField(default=True, null=False)
 
     def get_absolute_url(self):
-        return f'https://civilrights.justice.gov/report?utm_campaign={self.uuid}'
+        return f'/report?utm_campaign={self.uuid}'
 
     def __str__(self):
         return self.internal_name
