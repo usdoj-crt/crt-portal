@@ -1,7 +1,7 @@
 {
   "urls": [
     {
-      "url": "http://127.0.0.1:8000/report",
+      "url": "http://localhost:8000/report",
       "actions": [
         "set field #i8n_select to es",
         "click element #language-select",
@@ -10,7 +10,7 @@
       "screenCapture": "pa11y-screenshots/es-page1-contact.png"
     },
     {
-      "url": "http://127.0.0.1:8000/report",
+      "url": "http://localhost:8000/report",
       "actions": [
         "set field #i8n_select to es",
         "click element #language-select",
@@ -21,7 +21,7 @@
       "screenCapture": "pa11y-screenshots/es-page1-error.png"
     },
     {
-      "url": "http://127.0.0.1:8000/report",
+      "url": "http://localhost:8000/report",
       "actions": [
         "set field #i8n_select to es",
         "click element #language-select",
@@ -35,7 +35,7 @@
       "screenCapture": "pa11y-screenshots/es-page2-error.png"
     },
     {
-      "url": "http://127.0.0.1:8000/report",
+      "url": "http://localhost:8000/report",
       "actions": [
         "set field #i8n_select to es",
         "click element #language-select",
@@ -47,7 +47,7 @@
       "screenCapture": "pa11y-screenshots/es-page2-primary-issue.png"
     },
      {
-      "url": "http://127.0.0.1:8000/report",
+      "url": "http://localhost:8000/report",
       "actions": [
         "set field #i8n_select to es",
         "click element #language-select",
@@ -62,7 +62,7 @@
       "screenCapture": "pa11y-screenshots/es-page3-hatecrime.png"
     },
     {
-      "url": "http://127.0.0.1:8000/report",
+      "url": "http://localhost:8000/report",
       "actions": [
         "set field #i8n_select to es",
         "click element #language-select",
@@ -80,7 +80,7 @@
       "screenCapture": "pa11y-screenshots/es-page3-location-commercial.png"
     },
     {
-      "url": "http://127.0.0.1:8000/report",
+      "url": "http://localhost:8000/report",
       "actions": [
         "set field #i8n_select to es",
         "click element #language-select",
@@ -97,7 +97,7 @@
       "screenCapture": "pa11y-screenshots/es-page3-location-education.png"
     },
     {
-      "url": "http://127.0.0.1:8000/report",
+      "url": "http://localhost:8000/report",
       "actions": [
         "set field #i8n_select to es",
         "click element #language-select",
@@ -114,7 +114,7 @@
       "screenCapture": "pa11y-screenshots/es-page3-location-police.png"
     },
     {
-      "url": "http://127.0.0.1:8000/report",
+      "url": "http://localhost:8000/report",
       "actions": [
         "set field #i8n_select to es",
         "click element #language-select",
@@ -131,7 +131,7 @@
       "screenCapture": "pa11y-screenshots/es-page3-location-workplace.png"
     },
     {
-      "url": "http://127.0.0.1:8000/report",
+      "url": "http://localhost:8000/report",
       "actions": [
         "set field #i8n_select to es",
         "click element #language-select",
@@ -155,7 +155,7 @@
       "screenCapture": "pa11y-screenshots/es-page4-protected-class.png"
     },
     {
-      "url": "http://127.0.0.1:8000/report",
+      "url": "http://localhost:8000/report",
       "actions": [
         "set field #i8n_select to es",
         "click element #language-select",
@@ -182,7 +182,7 @@
       "screenCapture": "pa11y-screenshots/es-page4-date.png"
     },
     {
-      "url": "http://127.0.0.1:8000/report",
+      "url": "http://localhost:8000/report",
       "actions": [
         "set field #i8n_select to es",
         "click element #language-select",
@@ -217,7 +217,7 @@
       "screenCapture": "pa11y-screenshots/es-page5-date-error.png"
     },
     {
-      "url": "http://127.0.0.1:8000/report",
+      "url": "http://localhost:8000/report",
       "actions": [
         "set field #i8n_select to es",
         "click element #language-select",
@@ -248,7 +248,7 @@
       "screenCapture": "pa11y-screenshots/es-page6-details.png"
     },
     {
-      "url": "http://127.0.0.1:8000/report",
+      "url": "http://localhost:8000/report",
       "actions": [
         "set field #i8n_select to es",
         "click element #language-select",
@@ -281,7 +281,7 @@
       "screenCapture": "pa11y-screenshots/es-page7-review.png"
     },
     {
-      "url": "http://127.0.0.1:8000/report",
+      "url": "http://localhost:8000/report",
       "actions": [
         "set field #i8n_select to es",
         "click element #language-select",

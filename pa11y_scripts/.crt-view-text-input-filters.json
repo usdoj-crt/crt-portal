@@ -2,9 +2,9 @@
     "urls": [
         {
           "useIncognitoBrowserContext": true,
-          "url": "http://127.0.0.1:8000/form/view/",
+          "url": "http://localhost:8000/form/view/",
           "actions": [
-            "wait for url to be http://127.0.0.1:8000/accounts/login/?next=/form/view/",
+            "wait for url to be http://localhost:8000/accounts/login/?next=/form/view/",
             "set field #id_username to pa11y_tester",
             "set field #id_password to imposing40Karl5monomial",
             "click #login",

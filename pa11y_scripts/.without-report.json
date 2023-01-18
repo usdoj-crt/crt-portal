@@ -1,31 +1,31 @@
 {
     "urls": [{
-            "url": "http://127.0.0.1:8000/",
+            "url": "http://localhost:8000/",
             "screenCapture": "pa11y-screenshots/crt-landing-view.png"
         },
         {
-            "url": "http://127.0.0.1:8000/",
+            "url": "http://localhost:8000/",
             "actions": [
-                "wait for url to be http://127.0.0.1:8000/",
+                "wait for url to be http://localhost:8000/",
                 "click #crt-landing--example_option",
                 "wait for element #crt-landing--example-workplace to be visible"
             ],
             "screenCapture": "pa11y-screenshots/crt-landing-dropdown.png"
         },
         {
-            "url": "http://127.0.0.1:8000/report",
+            "url": "http://localhost:8000/report",
             "screenCapture": "pa11y-screenshots/page1-contact.png"
         },
         {
-            "url": "http://127.0.0.1:8000/privacy-policy",
+            "url": "http://localhost:8000/privacy-policy",
             "screenCapture": "pa11y-screenshots/crt-privacy-policy.png"
         },
         {
-            "url": "http://127.0.0.1:8000/hate-crime-human-trafficking",
+            "url": "http://localhost:8000/hate-crime-human-trafficking",
             "screenCapture": "pa11y-screenshots/crt-hate-crime-human-trafficking.png"
         },
         {
-            "url": "http://127.0.0.1:8000/errors/404",
+            "url": "http://localhost:8000/errors/404",
             "screenCapture": "pa11y-screenshots/404.png"
         }
     ]
