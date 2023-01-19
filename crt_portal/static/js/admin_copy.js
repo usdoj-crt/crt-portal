@@ -21,6 +21,7 @@
       markAsCopied(copyButton);
     };
 
+    target.parentElement.classList.add('admin-copy-button-parent');
     target.parentElement.appendChild(copyButton);
   }
 
