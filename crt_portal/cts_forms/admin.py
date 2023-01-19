@@ -224,7 +224,7 @@ class CampaignAdmin(admin.ModelAdmin):
     @admin.display(description='Campaign URL')
     def campaign_url(self, obj):
         url = obj.get_absolute_url()
-        return mark_safe(f'<input disabled="disabled" class="admin-copy absolute-url" value="{url}"/>')
+        return mark_safe(f'<input aria-label="Campaign URL" disabled="disabled" class="admin-copy absolute-url" value="{url}"/>')
 
 
 admin.site.register(CommentAndSummary)
