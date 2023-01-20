@@ -1,5 +1,5 @@
 ---
-title: DRS - EEOC Referral Form Letter
+title: CRT - EEOC Referral Form Letter
 subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from {{ section_name }} Section"
 language: en
 ---

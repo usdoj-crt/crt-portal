@@ -25,16 +25,16 @@
         case 'EOS - Department of Ed OCR Referral Form Letter':
           addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.deptOfEd);
           break;
-        case 'DRS - Dept of Ed Referral Form Letter':
+        case 'CRT - Dept of Ed Referral Form Letter':
           addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.deptOfEd);
           break;
-        case 'DRS - DOT Referral Form Letter':
+        case 'CRT - DOT Referral Form Letter':
           addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.DOT);
           break;
-        case 'DRS - HHS Referral Form Letter':
+        case 'CRT - HHS Referral Form Letter':
           addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.HHS);
           break;
-        case 'DRS - EEOC Referral Form Letter':
+        case 'CRT - EEOC Referral Form Letter':
           addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.EEOC);
           break;
         case 'EOS - EEOC Referral Form Letter':
