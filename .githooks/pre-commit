@@ -1,34 +1,44 @@
 #!/bin/sh
 
+function check_flake8() {
+  changes="$( \
+    git status --porcelain \
+      | awk '{ print $2 }' \
+      | grep '\.py$' || printf '' \
+  )"
+  if [[ -z "$changes" ]]; then
+    echo 'No python changes detected, skipping pre-commit flake8'
+    return 0  # Skip flake8 because we have no changed python code.
+  fi
+
+  # Run flake8 against all code in the `source_code` directory
+  # Only output failures.
+  echo 'Running pre-commit flake8 (run again with --no-verify to skip)...'
+
+  unstaged="$( \
+    git ls-files -m \
+      | grep '\.py$' \
+      | awk '{ print "- " $0 }' || printf '' \
+  )"
+  if [[ -n "$unstaged" ]]; then
+    echo
+    echo 'Warning: your unstaged changes may affect flake8 results:'
+    echo "$unstaged"
+    echo
+  fi
+
+  docker --log-level ERROR compose run --interactive --no-TTY web flake8
+  return $?
+}
+
+function check_prettier() {
+  echo 'Running pre-commit prettier (run again with --no-verify to skip)...'
+  npm run lint:check
+  return $?
+}
+
 # If any command fails, exit immediately with that command's exit status
 set -eo pipefail
 
-changes="$( \
-  git status --porcelain \
-    | awk '{ print $2 }' \
-    | grep '\.py$' || printf '' \
-)"
-if [[ -z "$changes" ]]; then
-  echo 'No python changes detected, skipping pre-commit flake8'
-  exit 0  # Skip flake8 because we have no changed python code.
-fi
-
-# Run flake8 against all code in the `source_code` directory
-# Only output failures.
-echo 'Running pre-commit flake8 (run again with --no-verify to skip)...'
-
-unstaged="$( \
-  git ls-files -m \
-    | grep '\.py$' \
-    | awk '{ print "- " $0 }' || printf '' \
-)"
-if [[ -n "$unstaged" ]]; then
-  echo
-  echo 'Warning: your unstaged changes may affect flake8 results:'
-  echo "$unstaged"
-  echo
-fi
-
-docker --log-level ERROR compose run --interactive --no-TTY web flake8
-echo 'Flake8 passed!'
-
+check_flake8
+check_prettier
