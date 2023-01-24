@@ -1,7 +1,6 @@
 #!/bin/bash
-# link testing
+# url testing
 # source urlchecker.sh
-# need to figure out way to exclude more directories
 main_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 excluded_directory="*/node_modules/*"
 all_urls=()
@@ -14,10 +13,10 @@ match_file()
         in_files+=("${all_files[$j]}")
        fi
     done
-    echo "$1 - $in_files" >> output.csv
+    echo "$in_files" >> output.csv
 }
 # add new headers file to get curl responses
-touch headers
+tmpheaderfile=$(mktemp headers)
 # clear output file
 echo -n "" > output.csv
 # find links in all files in main directory except excluded directory 
@@ -31,10 +30,11 @@ do
 done
 # check response for all unique urls
 unique_urls=($(tr ' ' '\n' <<<"${all_urls[@]}" | awk '!u[$0]++' | tr '\n' ' '))
-excluded_urls="`cat $main_dir/excluded_urls.csv`"
+excluded_urls=("`cat $main_dir/excluded_urls`")
 for i in "${unique_urls[@]}"
 do
- if [[ "${excluded_urls}" == *"${i}"* ]];
+ # skip urls in excluded_urls file
+ if echo ${excluded_urls[@]} | grep -q -w "${i}";
    then
         continue
  else
@@ -54,6 +54,4 @@ do
  fi
 done
 # remove headers file as it's no longer needed
-if [ -f "headers" ] ; then
-    rm "headers"
-fi
+rm ${tmpheaderfile}
