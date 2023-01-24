@@ -7,10 +7,12 @@
       var id = target.dataset['id'];
       var image = target.children[0];
       var row = dom.getElementById('tr-additional-' + id);
-      if (image.classList.contains('rotate')) {
+      if (target.getAttribute('aria-expanded') === 'true') {
+        target.setAttribute('aria-expanded', 'false');
         image.classList.remove('rotate');
         row.setAttribute('hidden', '');
       } else {
+        target.setAttribute('aria-expanded', 'true');
         image.classList.add('rotate');
         row.removeAttribute('hidden');
 

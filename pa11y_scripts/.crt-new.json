@@ -1,13 +1,13 @@
 {
   "urls": [
     {
-      "url": "http://127.0.0.1:8000/form/new/",
+      "url": "http://localhost:8000/form/new/",
       "actions": [
-        "wait for url to be http://127.0.0.1:8000/accounts/login/?next=/form/new/",
+        "wait for url to be http://localhost:8000/accounts/login/?next=/form/new/",
         "set field #id_username to pa11y_tester",
         "set field #id_password to imposing40Karl5monomial",
         "click #login",
-        "wait for url to be http://127.0.0.1:8000/form/new/"
+        "wait for url to be http://localhost:8000/form/new/"
       ],
       "screenCapture": "pa11y-screenshots/crt-new.png"
     }

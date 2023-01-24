@@ -1,5 +1,6 @@
 {% load sortable_table_heading %}
 {% load static %}
+
 <form class="usa-form"
       method="get"
       action="{% url 'crt_forms:crt-forms-actions' %}"
@@ -9,9 +10,16 @@
 
   <div class="crt-xscroll">
     <table class="usa-table crt-table sort-table">
+      {# This "fake" table makes nested headers available to screen readers #}
+      <span tabindex="-1" role="table" class="usa-sr-only">
+        <span role="row">
+          <span role="columnheader" class="usa-sr-only" id="crt-table-summary-header">Summary</span>
+          <span role="columnheader" class="usa-sr-only" id="crt-table-description-header">Personal Description</span>
+        </span>
+      </span>
       <thead>
         <tr>
-          <th>
+          <th aria-label="Bulk Action Selection">
             <div class="usa-checkbox td-checkbox">
               <input type="checkbox"
                      name="all"
@@ -19,12 +27,12 @@
                      value="all"
                      id="checkbox-all"
               >
-              <label class="usa-checkbox__label crt-checkbox__label checkbox-all" for="checkbox-all" aria-label="select all records"></label>
+              <label class="usa-checkbox__label crt-checkbox__label checkbox-all" for="checkbox-all" aria-label="Select all records"></label>
             </div>
           </th>
-          <th>
-            <a class="td-toggle-all display-flex" data-posted='false' href="#">
-              <img src="{% static "img/intake-icons/ic_chevron-right.svg" %}" alt="show all rows containing additional information" class="icon">
+          <th aria-label="Detail toggles">
+            <a aria-expanded="false" role="button" aria-label="Expand all detail rows" id="toggle-all" class="td-toggle-all display-flex" data-posted='false' href="#">
+              <img alt="" aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
             </a>
           </th>
           {% render_sortable_heading 'Status' sort_state filter_state %}
@@ -51,12 +59,12 @@
                          value="{{ datum.report.id }}"
                          id="checkbox-{{ datum.report.id }}"
                   >
-                  <label class="usa-checkbox__label crt-checkbox__label" for="checkbox-{{ datum.report.id }}" aria-label="select record {{ datum.report.id }}"></label>
+                  <label class="usa-checkbox__label crt-checkbox__label" for="checkbox-{{ datum.report.id }}" aria-label="Select record {{ datum.report.id }}"></label>
                 </div>
               </td>
               <td>
-                <a data-id="{{ datum.report.id }}" class="td-toggle display-flex" href="#">
-                  <img src="{% static "img/intake-icons/ic_chevron-right.svg" %}" alt="show additional information in a new row" class="icon">
+                <a data-id="{{ datum.report.id }}" aria-expanded="false" aria-label="Expand details for Record {{datum.report.id}}" role="button" aria-controls="tr-additional-{{ datum.report.id }}" class="td-toggle display-flex" href="#">
+                  <img aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
                 </a>
               </td>
               <td>
@@ -108,23 +116,27 @@
               </td>
             </tr>
             {# this row is hidden by default #}
-            <tr id="tr-additional-{{ datum.report.id }}" hidden>
-              <td colspan="2"></td>
-              <td colspan="4">
-                <div class="td-quickview">
+            <tr class="tr-quickview" id="tr-additional-{{ datum.report.id }}" hidden>
+              <td class="quickview">
+                <span class="usa-sr-only">Details for record {{ datum.report.id }}</span>
+              </td>
+              {# All screen readers don't yet read the headers attribute correctly, so we've added a redundant aria-label #}
+              {# https://a11ysupport.io/tech/html/headers_attribute #}
+              <td aria-label="Summary" headers="crt-table-summary-header" class="quickview" colspan="5">
+                <label aria-hidden="true" for="tr-quickview-summary-{{ datum.report.id }}" class="td-quickview">
                   Summary
-                </div>
-                <div class="td-summary">
+                </label>
+                <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-summary-{{ datum.report.id }}" class="td-summary">
                   {% with summary=datum.report.get_summary %}
                     {{ summary.note|linebreaks|default:"-" }}
                   {% endwith %}
                 </div>
               </td>
-              <td colspan="4">
-                <div class="td-quickview">
+              <td aria-label="Personal Description" headers="crt-table-description-header" class="quickview" colspan="6">
+                <label aria-hidden="true" for="tr-quickview-description-{{ datum.report.id }}" class="td-quickview">
                   Personal Description
-                </div>
-                <div class="td-summary word-break">
+                </label>
+                <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-description-{{ datum.report.id }}" class="td-summary word-break">
                   {{ datum.report.violation_summary|linebreaks|default:"-" }}
                 </div>
               </td>
