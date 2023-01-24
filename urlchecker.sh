@@ -1,17 +1,27 @@
 #!/bin/bash
 # link testing
-# source urlchecker.sh /Users/katiewitham/crt-portal
-main_directory=$1
+# source urlchecker.sh
 # need to figure out way to exclude more directories
+main_dir="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 excluded_directory="*/node_modules/*"
 all_urls=()
 all_files=()
+match_file()
+{
+  for (( j=0; j<=${#all_urls[@]}; j++ )); do
+    if [ ${all_urls[$j]} = ${1} ]
+      then
+        in_files+=("${all_files[$j]}")
+       fi
+    done
+    echo "$1 - $in_files" >> output.csv
+}
 # add new headers file to get curl responses
 touch headers
 # clear output file
 echo -n "" > output.csv
 # find links in all files in main directory except excluded directory 
-sudo find $main_directory -type f ! -path $excluded_directory -exec grep -iREo "(http|https)://[a-zA-Z0-9./?=_%:-]*" {} \; | while read url;
+sudo find $main_dir -type f ! -path $excluded_directory -exec grep -iREo "(http|https)://[a-zA-Z0-9./?=_%:-]*" {} \; | while read url;
 # separate links from files and trim links
 do
    all_files+=(${url})
@@ -21,26 +31,27 @@ do
 done
 # check response for all unique urls
 unique_urls=($(tr ' ' '\n' <<<"${all_urls[@]}" | awk '!u[$0]++' | tr '\n' ' '))
+excluded_urls="`cat $main_dir/excluded_urls.csv`"
 for i in "${unique_urls[@]}"
 do
+ if [[ "${excluded_urls}" == *"${i}"* ]];
+   then
+        continue
+ else
     curl ${i} -I -o headers -s
     response=$(cat headers | head -n 1 | cut '-d ' '-f2')
     in_files=()
-    if [ -n $response ]
+  if [ -z ${response} ];
     then
-        if [ $response -eq 404 ]
-        then
-        # if we get a 404 find matching index for file so we can put the url and the file where it was found in the csv
-            for (( j=0; j<=${#all_urls[@]}; j++ )); do
-                if [ ${all_urls[$j]} = ${i} ]
-                then
-                    in_files+=("${all_files[$j]}")
-                fi
-            done
-            echo "$i - $in_files" >> output.csv
-
-        fi
-    fi
+         continue
+      
+  fi
+  if [ ${response} -eq 404 ];
+     then
+    # if we get a 404 find matching index for file so we can put the url and the file where it was found in the csv
+    match_file $i
+  fi
+ fi
 done
 # remove headers file as it's no longer needed
 if [ -f "headers" ] ; then
