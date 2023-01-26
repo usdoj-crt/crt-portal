@@ -8,6 +8,7 @@ all_files=()
 function print_files_for_url()
 {
 local url_to_match=$1
+local in_files=()
   for (( j=0; j<=${#all_urls[@]}; j++ )); do
     if [ $all_urls[$j] = $url_to_match ]
       then
@@ -21,14 +22,16 @@ tmp_header_file=$(mktemp headers)
 # clear output file
 echo -n "" > output.csv
 # find links in all files in main directory except excluded directory 
-find $main_dir -type f ! -path $excluded_directory -exec grep -iREo "(http|https)://[a-zA-Z0-9./?=_%:-]*" {} \; | while read url;
+while read url;
 # separate links from files and trim links
 do
    all_files+=("$url")
    plain_url=${url#*:}
    trimmed_url=$(echo $plain_url | sed 's:/*$::' | sed 's/\.$//')
    all_urls+=("$trimmed_url")
-done
+done < <(find $main_dir -type f ! -path $excluded_directory -exec grep -iREo "(http|https)://[a-zA-Z0-9./?=_%:-]*" {} \;)
+
+echo $all_urls
 # check response for all unique urls
 unique_urls=($(tr ' ' '\n' <<<"${all_urls[@]}" | awk '!u[$0]++' | tr '\n' ' '))
 excluded_urls=("$(cat $main_dir/excluded_urls)")
@@ -41,7 +44,7 @@ do
  else
     curl $i -I -o headers -s
     response=$(cat headers | head -n 1 | cut '-d ' '-f2')
-    in_files=()
+    
   if [ -z $response ];
     then
          continue
