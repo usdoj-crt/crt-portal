@@ -10,6 +10,13 @@ class Command(BaseCommand):  # pragma: no cover
     help = 'Adds new response templates or updates existing ones'
 
     templates_dir = os.path.join(settings.BASE_DIR, 'cts_forms', 'response_templates')
+    template_ids = []
+
+    def template_exists(self, object):
+        if object.title in self.template_ids:
+            return
+        else:
+            return object
 
     def handle(self, *args, **options):
         templates = os.scandir(self.templates_dir)
@@ -47,10 +54,12 @@ class Command(BaseCommand):  # pragma: no cover
                         self.stdout.write(self.style.ERROR(f'Response template {template.name} is missing required `{e.args[0]}` property. Skipping it!'))
                         continue
 
+                    self.template_ids.append(letter_id)
                     # Mark if a letter should be processed from Markdown to HTML.
                     # This is optional. Default value is false
                     # Note: this does not catch errors or typos in values.
                     letter_data['is_html'] = content.get('is_html', False)
+                    letter_data['is_user_created'] = content.get('is_user_created', False)
 
                     letter, created = ResponseTemplate.objects.update_or_create(title=letter_id, defaults=letter_data)
 
@@ -58,3 +67,10 @@ class Command(BaseCommand):  # pragma: no cover
                         self.stdout.write(self.style.SUCCESS(f'Created response template: {letter.title}'))
                     else:
                         self.stdout.write(self.style.SUCCESS(f'Updated response template: {letter.title}'))
+      
+        objects_without_templates = filter(self.template_exists, ResponseTemplate.objects.all())
+        self.stdout.write(self.style.HTTP_INFO(f'{objects_without_templates}'))
+        for object in objects_without_templates:
+            if object.is_user_created is False:
+                self.stdout.write(self.style.SUCCESS(f'Deleted response template: {object.title}'))
+                object.delete()
