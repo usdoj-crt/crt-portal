@@ -321,11 +321,6 @@ These tests are automatically executed for every pull request against a developm
 
 As we build out our end-to-end test suite it will be further automated and integrated into our CI/CD pipeline.
 
-### Url testing
-In order to test the urls in the code base and return any 404s to an output.csv file we are using a sh script. This can be run with the following command:
-
-    ./urlchecker.sh
-
 ## Browser targeting
 
 For the general public facing pages, we regularly test against Microsoft Edge, Internet Explorer 11, and Google Chrome, and occasionally test against Safari and Firefox.
