@@ -1,14 +1,15 @@
 ---
-title: DRS - DOT Referral Form Letter
+title: CRT - Dept of Ed Referral Form Letter
 subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from {{ section_name }} Section"
 language: en
 ---
-Re:		Civil Rights Division Complaint – {{ record_locator }} from the Disability Rights Section
+Re:		Civil Rights Division Complaint – {{ record_locator }} from {{ section_name }}
 
 Thank you for contacting the Department of Justice on {{ date_of_intake }}.  We have reviewed the information you provided and have determined that the complaint raises issues that are more appropriately addressed by another federal agency.  We are, therefore, referring this complaint to the following agency for further action:
 
-Department of Transportation, Aviation Consumer Protection Division  
-(202) 366-4648 (voice); (202) 366-8538 (TTY)
+U.S. Department of Education, Office for Civil Rights  
+(800) 421-3481; (202) 453-6012 (fax); (800) 877-8339 (TDD)  
+OCR@ed.gov
 
 What you can do:
 
