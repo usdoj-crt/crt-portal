@@ -1836,9 +1836,26 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
         """
         Extend ProForm to capture field definitions from component forms, excluding those which should not be editable here
         """
-        exclude = ['intake_format', 'violation_summary', 'contact_first_name', 'contact_last_name', 'election_details',
-                   'contact_email', 'contact_phone', 'contact_address_line_1', 'contact_address_line_2', 'contact_state',
-                   'contact_city', 'contact_zip']
+        exclude = [
+            'contact_address_line_1',
+            'contact_address_line_2',
+            'contact_city',
+            'contact_email',
+            'contact_first_name',
+            'contact_last_name',
+            'contact_phone',
+            'contact_state',
+            'contact_zip',
+            'election_details',
+            'intake_format',
+            'origination_utm_campaign',
+            'origination_utm_content',
+            'origination_utm_medium',
+            'origination_utm_source',
+            'origination_utm_term',
+            'unknown_origination_utm_campaign',
+            'violation_summary',
+        ]
 
     def success_message(self):
         return self.SUCCESS_MESSAGE

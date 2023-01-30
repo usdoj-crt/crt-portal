@@ -132,6 +132,7 @@ class Campaign(models.Model):
         return self.internal_name
 
 
+# NOTE: If you add fields to report, they'll automatically be set to empty on the edit form. Make sure to address any additions in ReportEditForm as well!
 class Report(models.Model):
     PRIMARY_COMPLAINT_DEPENDENT_FIELDS = {
         'workplace': ['public_or_private_employer', 'employer_size'],
