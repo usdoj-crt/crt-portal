@@ -6,7 +6,7 @@ applications:
   - route: civilrights.justice.gov
   - route: www.civilrights.justice.gov
   memory: 2G
-  instances: 3
+  instances: 4
   env:
     ENV: PRODUCTION
     AUTH_RELYING_PARTY_ID: "crt-portal-django-prod.app.cloud.gov"
