@@ -3,7 +3,7 @@ applications:
 - name: crt-portal-django
   routes:
   - route: crt-portal-django-dev.app.cloud.gov
-  memory: 512M
+  memory: 2G
   instances: 1
   env:
     ENV: DEVELOP
