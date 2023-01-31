@@ -1,5 +1,5 @@
 ---
-title: DRS - HHS Referral Form Letter (Chinese Simplified)
+title: CRT - EEOC Referral Form Letter (Chinese Simplified)
 subject: "回应：您的民权司报告 - {{ zh_hans.section_name }}科的 {{ record_locator }}"
 language: zh-hans
 ---
@@ -7,8 +7,11 @@ Re:		您的民权司报告 - {{ zh_hans.section_name }}科的 {{ record_locator 
 
 谢谢您于{{ zh_hans.date_of_intake }}联系司法部。我们审阅了您提供的信息后决定，投诉所提出的问题由另一个联邦机构处理更为合适。因此, 我们将该投诉转给下列的机构做进一步处理：
 
-卫生和公众服务部(Department of Health and Human Services)  
-1-800-368-1019
+美国平等就业机会委员会 (U.S. Equal Employment Opportunity Commission)  
+1-800-669-4000  
+1-800-669-6820 (文字电话仅适用于失聪/听障来电者)  
+1-844-234-5122 (美国手语视频电话仅适用失聪/听障来电者)  
+https://www.eeoc.gov/
 
 您可以做什么：
 
