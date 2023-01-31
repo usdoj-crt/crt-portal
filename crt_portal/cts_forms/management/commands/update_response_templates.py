@@ -67,7 +67,7 @@ class Command(BaseCommand):  # pragma: no cover
                         self.stdout.write(self.style.SUCCESS(f'Created response template: {letter.title}'))
                     else:
                         self.stdout.write(self.style.SUCCESS(f'Updated response template: {letter.title}'))
-      
+
         objects_without_templates = filter(self.template_exists, ResponseTemplate.objects.all())
         for object in objects_without_templates:
             if object.is_user_created is False:
