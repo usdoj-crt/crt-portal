@@ -4,7 +4,7 @@ applications:
   routes:
   - route: crt-portal-django-stage.app.cloud.gov
   memory: 2G
-  instances: 1
+  instances: 2
   env:
     ENV: STAGE
     FORM_AUTOCOMPLETE_OFF: True
