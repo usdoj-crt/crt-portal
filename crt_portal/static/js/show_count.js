@@ -3,7 +3,7 @@
     const count = summary.report_count;
     const span = document.createElement('span');
     span.className = 'added-count';
-    span.appendChild(document.createTextNode(`(${count})`));
+    span.appendChild(document.createTextNode(count));
     target.appendChild(span);
   }
 
