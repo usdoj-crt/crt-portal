@@ -5,7 +5,7 @@ from django.db import migrations
 
 def add_crm_letters(apps, schema_editor):
     ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
-    subject = 'Response: Your Civil Rights Division Report - {{ record_locator }} from the {{ section_name }} Section'
+    subject = 'Response: Your Civil Rights Division Report - {{ record_locator }} from {{ section_name }} Section'
     ResponseTemplate.objects.create(
         title='CRM - R1 Form Letter',
         subject=subject,
