@@ -59,7 +59,7 @@ class Command(BaseCommand):  # pragma: no cover
                     # This is optional. Default value is false
                     # Note: this does not catch errors or typos in values.
                     letter_data['is_html'] = content.get('is_html', False)
-                    letter_data['is_user_created'] = content.get('is_user_created', False)
+                    letter_data['is_user_created'] = False
 
                     letter, created = ResponseTemplate.objects.update_or_create(title=letter_id, defaults=letter_data)
 
@@ -70,6 +70,10 @@ class Command(BaseCommand):  # pragma: no cover
 
         objects_without_templates = filter(self.template_exists, ResponseTemplate.objects.all())
         for object in objects_without_templates:
-            if object.is_user_created is False:
-                self.stdout.write(self.style.SUCCESS(f'Deleted response template: {object.title}'))
-                object.delete()
+            if not object.is_user_created:
+                letter_id = object.title
+                letter_data = {
+                    'show_in_dropdown': False,
+                }
+                letter = ResponseTemplate.objects.update_or_create(title=letter_id, defaults=letter_data)
+                self.stdout.write(self.style.SUCCESS(f'Updated response template: {object.title}'))
