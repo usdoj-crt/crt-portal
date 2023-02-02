@@ -226,12 +226,15 @@ class CampaignAdmin(admin.ModelAdmin):
         url = obj.get_absolute_url()
         return mark_safe(f'<input aria-label="Campaign URL" disabled="disabled" class="admin-copy absolute-url" value="{url}"/>')
 
+class ResponseTemplateAdmin(admin.ModelAdmin):
+    exclude = ['is_user_created']
+
 
 admin.site.register(CommentAndSummary)
 admin.site.register(Report, ReportAdmin)
 admin.site.register(ProtectedClass)
 admin.site.register(HateCrimesandTrafficking)
-admin.site.register(ResponseTemplate)
+admin.site.register(ResponseTemplate, ResponseTemplateAdmin)
 admin.site.register(Profile)
 admin.site.register(DoNotEmail)
 admin.site.register(JudicialDistrict, JudicialDistrictAdmin)

@@ -1348,7 +1348,7 @@ class ResponseActions(Form):
             "aria-label": "template selection"
         }
         self.fields['templates'] = ModelChoiceField(
-            queryset=templates,
+            queryset=templates.filter(show_in_dropdown=True),
             empty_label="(no template chosen)",
             widget=DataAttributesSelect(data=data, attrs=attrs),
             required=False,
