@@ -68,12 +68,10 @@ class Command(BaseCommand):  # pragma: no cover
                     else:
                         self.stdout.write(self.style.SUCCESS(f'Updated response template: {letter.title}'))
 
-        objects_without_templates = filter(self.template_exists, ResponseTemplate.objects.all())
-        for object in objects_without_templates:
-            if not object.is_user_created:
-                letter_id = object.title
-                letter_data = {
-                    'show_in_dropdown': False,
-                }
-                letter = ResponseTemplate.objects.update_or_create(title=letter_id, defaults=letter_data)
-                self.stdout.write(self.style.SUCCESS(f'Updated response template: {object.title}'))
+        for object in ResponseTemplate.objects.filter(is_user_created=False).exclude(title__in=self.template_ids):
+            letter_id = object.title
+            letter_data = {
+                'show_in_dropdown': False,
+            }
+            letter = ResponseTemplate.objects.update_or_create(title=letter_id, defaults=letter_data)
+            self.stdout.write(self.style.SUCCESS(f'Updated response template: {object.title}'))
