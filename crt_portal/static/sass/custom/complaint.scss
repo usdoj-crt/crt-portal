@@ -65,6 +65,16 @@ $complaint-header-min-height: 200px;
   }
 }
 
+.complaint-card-heading {
+  small {
+    text-transform: none;
+  }
+
+  .margin-left-auto {
+    float: right;
+  }
+}
+
 .bold {
   font-weight: bold;
 }
