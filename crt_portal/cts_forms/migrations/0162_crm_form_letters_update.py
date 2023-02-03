@@ -5,7 +5,7 @@ def modify_crm_form_letters(apps, schema_editor):
     ResponseTemplate = apps.get_model('cts_forms', 'ResponseTemplate')
     crm_r1_form_letter = ResponseTemplate.objects.get(title='CRM - R1 Form Letter')
     crm_r2_form_letter = ResponseTemplate.objects.get(title='CRM - R2 Form Letter')
-    subject = 'Response: Your Civil Rights Division Report - {{ record_locator }} from {{ section_name }} Section'
+    subject = 'Response: Your Civil Rights Division Report - {{ record_locator }} from the {{ section_name }} Section'
     crm_r1_form_letter.subject = subject
     crm_r2_form_letter.subject = subject
     crm_r1_form_letter.save()
