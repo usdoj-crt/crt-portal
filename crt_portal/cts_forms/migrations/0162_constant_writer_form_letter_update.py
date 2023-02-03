@@ -10,7 +10,7 @@ def modify_constant_writer_form_letter(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('cts_forms', '0160_gh1439_campaign_link_tracking'),
+        ('cts_forms', '0161_constant_writer_form_letter_update'),
     ]
 
     operations = [

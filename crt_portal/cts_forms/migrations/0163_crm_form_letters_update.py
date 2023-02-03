@@ -14,7 +14,7 @@ def modify_crm_form_letters(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('cts_forms', '0161_constant_writer_form_letter_update'),
+        ('cts_forms', '0162_constant_writer_form_letter_update'),
     ]
 
     operations = [
