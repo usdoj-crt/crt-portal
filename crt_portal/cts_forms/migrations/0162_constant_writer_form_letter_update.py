@@ -10,7 +10,7 @@ def modify_constant_writer_form_letter(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('cts_forms', '0161_constant_writer_form_letter_update'),
+        ('cts_forms', '0161_add_responsetemplate_fields'),
     ]
 
     operations = [
