@@ -9,6 +9,16 @@ services:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     ports:
       - 5432:5432
+  jupyter:
+    container_name: "jupyter_main"
+    build:
+      dockerfile: jupyterhub.Dockerfile
+    platform: linux/amd64
+    command: jupyterhub --config '/srv/jupyterhub/jupyterhub_config.py'
+    ports:
+      - 8001:8000  # Don't conflict with the web app on 8000
+    volumes:
+      - ./jupyterhub:/srv/jupyterhub
   web:
     platform: linux/amd64
     environment:

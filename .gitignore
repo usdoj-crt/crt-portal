@@ -23,3 +23,8 @@ crt_portal/NO_ZIP.txt
 # this is where we store uploaded attachments when USE_LOCALSTACK=False
 attachments/
 url_checker.sh
+
+jupyterhub/*
+!jupyterhub/jupyterhub_config.py
+!jupyterhub/assignments/
+jupyterhub/assignments/*/.ipynb_checkpoints/

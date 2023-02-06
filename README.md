@@ -83,6 +83,20 @@ Now to compile the sass files into css, run:
 
 Also note, that the staticfiles folder is the destination of all static assets when you or a script runs `manage.py collectstatic` so don't make your changes there, or they will be overwritten.
 
+## Jupyter
+
+Running `docker-compose up --build` should install and run the jupyter server locally.
+
+To access it, visit http://localhost:8888/
+
+(You'll probably need to set a password, first:)
+
+```
+docker-compose run jupyter jupyter server password
+```
+
+The server should have a configured connection to postgres out-of-the-box.
+
 ## Running common tasks
 
 ### Migrations
