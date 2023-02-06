@@ -12,12 +12,6 @@ class Command(BaseCommand):  # pragma: no cover
     templates_dir = os.path.join(settings.BASE_DIR, 'cts_forms', 'response_templates')
     template_ids = []
 
-    def template_exists(self, object):
-        if object.title in self.template_ids:
-            return
-        else:
-            return object
-
     def handle(self, *args, **options):
         templates = os.scandir(self.templates_dir)
         environment = os.environ.get('ENV', 'UNDEFINED')
