@@ -77,7 +77,11 @@
               <td>
                 <a class="td-link display-block" href="{{datum.url}}">
                   {% with count=datum.report.related_reports_count|default:"—" %}
+                  {% if datum.report.by_repeat_writer %}
+                    <div class="constant-writer"><span>{{ count }}</span><img src="{% static "img/mail_outline.svg" %}" alt="Constant writer" class="cw-icon"><span>CW</span></div>
+                  {% else %}
                     {{ count }}
+                  {% endif %}
                   {% endwith %}
                 </a>
               </td>

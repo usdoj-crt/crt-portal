@@ -195,6 +195,16 @@
   }
 }
 
+.constant-writer {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.constant-writer img {
+  margin: 0 8px 0 12px;
+}
+
 // Styles for complaint statuses in View All Table
 
 .status-new {
