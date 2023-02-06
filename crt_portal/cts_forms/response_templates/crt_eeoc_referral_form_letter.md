@@ -1,9 +1,9 @@
 ---
 title: CRT - EEOC Referral Form Letter
-subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from {{ section_name }} Section"
+subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from the {{ section_name }} Section"
 language: en
 ---
-Re:		Civil Rights Division Complaint – {{ record_locator }} from {{ section_name }}
+Re:		Civil Rights Division Complaint – {{ record_locator }} from the {{ section_name }} Section
 
 Thank you for contacting the Department of Justice on {{ date_of_intake }}.  We have reviewed the information you provided and have determined that the complaint raises issues that are more appropriately addressed by another federal agency.  We are, therefore, referring this complaint to the following agency for further action:
 
