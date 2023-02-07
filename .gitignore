@@ -25,6 +25,8 @@ attachments/
 url_checker.sh
 
 jupyterhub/*
+!jupyterhub/Pipfile
+!jupyterhub/Pipfile.lock
 !jupyterhub/jupyterhub_config.py
 !jupyterhub/assignments/
 jupyterhub/assignments/*/.ipynb_checkpoints/

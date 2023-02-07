@@ -2,7 +2,10 @@ version: "3.7"
 
 services:
   db:
-    image: postgres:11.14-alpine
+    build:
+      dockerfile: db/db.Dockerfile
+      args:
+        - analytics_password=${POSTGRES_ANALYTICS_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
@@ -10,13 +13,17 @@ services:
     ports:
       - 5432:5432
   jupyter:
+    platform: linux/amd64
     container_name: "jupyter_main"
+    environment:
+      - DATABASE_URL=postgresql://analytics:${POSTGRES_ANALYTICS_PASSWORD}@db:5432/postgres
     build:
       dockerfile: jupyterhub.Dockerfile
-    platform: linux/amd64
     command: jupyterhub --config '/srv/jupyterhub/jupyterhub_config.py'
     ports:
       - 8001:8000  # Don't conflict with the web app on 8000
+    depends_on:
+      - db
     volumes:
       - ./jupyterhub:/srv/jupyterhub
   web:

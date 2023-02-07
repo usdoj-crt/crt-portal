@@ -35,10 +35,11 @@ Clone the project locally:
 
     git clone git@github.com:usdoj-crt/crt-portal.git
 
-In the top level directory create a .env file in the top of your directory and add the following environment variables. Set `SECRET_KEY` to a long, random string and `POSTGRES_PASSWORD` to any string you like.
+In the top level directory create a .env file in the top of your directory and add the following environment variables. Set `SECRET_KEY` to a long, random string and `POSTGRES_PASSWORD`/`POSTGRES_JUPYTER_PASSWORD` to any strings you like.
 
     SECRET_KEY="this_is_a_long_random_string"
     POSTGRES_PASSWORD="rando_pw"
+    POSTGRES_ANALYTICS_PASSWORD="some_other_password"
 
 To build the project
     You will need to build the project for the first time and when there are package updates to apply.

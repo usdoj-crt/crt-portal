@@ -17,10 +17,12 @@ RUN adduser jupyter sudo
 RUN chown -R jupyter .
 RUN echo 'root ALL=(ALL:ALL) ALL' > /etc/sudoers
 RUN echo 'jupyter ALL=(ALL) NOPASSWD: /usr/local/bin/sudospawner' >> /etc/sudoers
-RUN python3 -m pip install jupyterlab jupyter_client sudospawner
 
-# Install packages for use inside of jupyterlab
-RUN apt-get -y install r-cran-irkernel r-cran-tidyverse
+RUN apt-get -y install r-cran-irkernel r-cran-tidyverse r-cran-rpostgresql
+RUN pip install --upgrade pip
+RUN pip install pipenv
+COPY jupyterhub/Pipfile jupyterhub/Pipfile.lock /srv/jupyterhub
+RUN pipenv install --dev --system
 RUN R -e "IRkernel::installspec(user = FALSE)"
 
 USER jupyter
