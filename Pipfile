@@ -22,7 +22,7 @@ tblib = "*"
 localstack = "~=0.14.2"
 
 [packages]
-django = "==3.2.16"
+django = "==3.2.17"
 gunicorn = "*"
 django-compressor = "*"
 django-compressor-toolkit = "*"
@@ -47,7 +47,7 @@ djangorestframework = "*"
 markdown = "*"
 
 [requires]
-python_version = "3.10.8"
+python_version = "3.11.1"
 
 [pipenv]
 allow_prereleases = true

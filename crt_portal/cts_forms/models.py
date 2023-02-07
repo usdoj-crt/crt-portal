@@ -126,12 +126,13 @@ class Campaign(models.Model):
     show_in_filters = models.BooleanField(default=True, null=False)
 
     def get_absolute_url(self):
-        return f'https://civilrights.justice.gov/report?utm_campaign={self.uuid}'
+        return f'/report?utm_campaign={self.uuid}'
 
     def __str__(self):
         return self.internal_name
 
 
+# NOTE: If you add fields to report, they'll automatically be set to empty on the edit form. Make sure to address any additions in ReportEditForm as well!
 class Report(models.Model):
     PRIMARY_COMPLAINT_DEPENDENT_FIELDS = {
         'workplace': ['public_or_private_employer', 'employer_size'],

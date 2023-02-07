@@ -92,6 +92,8 @@ In Django, when you update the data models you need to create migrations and the
     docker-compose run web python /code/crt_portal/manage.py makemigrations
     docker-compose run web python /code/crt_portal/manage.py migrate
 
+Keep in mind that if you've added new fields to form models (like the report) you'll need to address them on the form edit pages (see ReportEditForm) to prevent new fields being cleared out when edits happen.
+
 ### Installing a new Python package
 To install a new Python package, run:
 
@@ -320,6 +322,7 @@ Then, run with the following command.
 These tests are automatically executed for every pull request against a development instance in CircleCI.
 
 As we build out our end-to-end test suite it will be further automated and integrated into our CI/CD pipeline.
+
 ## Browser targeting
 
 For the general public facing pages, we regularly test against Microsoft Edge, Internet Explorer 11, and Google Chrome, and occasionally test against Safari and Firefox.
