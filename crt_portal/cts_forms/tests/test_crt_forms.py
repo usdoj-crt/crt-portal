@@ -523,7 +523,7 @@ class FormNavigationTests(TestCase):
         self.assertEqual(response.status_code, 200)
         content = str(response.content)
         expected = ('/form/view/'
-                    '?violation_summary=this%20is%20my%20summary'
+                    '?violation_summary=^this%20is%20my%20summary$'
                     '&amp;assigned_section=ADM')
         self.assertIn(expected, content)
 
