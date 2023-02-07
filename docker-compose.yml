@@ -16,7 +16,13 @@ services:
     platform: linux/amd64
     container_name: "jupyter_main"
     environment:
+        # Format needed for Python connections:
       - DATABASE_URL=postgresql://analytics:${POSTGRES_ANALYTICS_PASSWORD}@db:5432/postgres
+        # Format needed for R connections:
+      - DATABASE_HOSTNAME=db
+      - DATABASE_PORT=5432
+      - DATABASE_USER=analytics
+      - DATABASE_PASSWORD=${POSTGRES_ANALYTICS_PASSWORD}
     build:
       dockerfile: jupyterhub.Dockerfile
     command: jupyterhub --config '/srv/jupyterhub/jupyterhub_config.py'

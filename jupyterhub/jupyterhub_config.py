@@ -1025,7 +1025,7 @@ c.Spawner.notebook_dir = '/srv/jupyterhub/assignments'
 #  process's environment (such as `CONFIGPROXY_AUTH_TOKEN`) is not passed to the
 #  single-user server's process.
 #  Default: ['PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', 'VIRTUAL_ENV', 'LANG', 'LC_ALL', 'JUPYTERHUB_SINGLEUSER_APP']
-c.Spawner.env_keep = ['PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', 'VIRTUAL_ENV', 'LANG', 'LC_ALL', 'JUPYTERHUB_SINGLEUSER_APP', 'DATABASE_URL']
+c.Spawner.env_keep = ['PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', 'VIRTUAL_ENV', 'LANG', 'LC_ALL', 'JUPYTERHUB_SINGLEUSER_APP', 'DATABASE_URL', 'DATABASE_HOSTNAME', 'DATABASE_PORT', 'DATABASE_USER', 'DATABASE_PASSWORD']
 
 ## Extra environment variables to set for the single-user server's process.
 #
