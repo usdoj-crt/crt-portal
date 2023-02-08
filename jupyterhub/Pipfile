@@ -12,6 +12,7 @@ sqlalchemy = "<2"
 psycopg2-binary = "*"
 matplotlib = "*"
 pandas = "*"
+ipywidgets = "*"
 
 [requires]
 python_version = "3.11.1"
