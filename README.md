@@ -87,17 +87,13 @@ Also note, that the staticfiles folder is the destination of all static assets w
 
 ## Jupyter
 
-Running `docker-compose up --build` should install and run the jupyter server locally.
+Running `docker-compose up --build` should install and run the Jupyter server locally.
 
-To access it, visit http://localhost:8888/
+After it builds (which will take a while the first go around) visit http://localhost:8001/ to access it. Locally, the username is `dev`, and the password is whatever you entered for JUPYTER_DEV_PASSWORD in `.env`.
 
-(You'll probably need to set a password, first:)
+Upon logging in, you should be taken to a directory of examples. The examples are saved in the codebase, and demonstrate how to query the pre-configured postgres connection, etc.
 
-```
-docker-compose run jupyter jupyter server password
-```
-
-The server should have a configured connection to postgres out-of-the-box.
+Note that code _not_ in `examples/` is not saved to any persistent space, and might be lost if/when the Docker instance restarts.
 
 ## Running common tasks
 
