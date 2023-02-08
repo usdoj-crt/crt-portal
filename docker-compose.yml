@@ -25,6 +25,8 @@ services:
       - DATABASE_PASSWORD=${POSTGRES_ANALYTICS_PASSWORD}
     build:
       dockerfile: jupyterhub.Dockerfile
+      args:
+        - dev_password=${JUPYTER_DEV_PASSWORD}
     command: jupyterhub --config '/srv/jupyterhub/jupyterhub_config.py'
     ports:
       - 8001:8000  # Don't conflict with the web app on 8000

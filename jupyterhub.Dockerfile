@@ -1,12 +1,13 @@
 FROM jupyterhub/jupyterhub:3.1.1
+ARG dev_password
 
 WORKDIR /srv/jupyterhub
 
 RUN apt-get -y update
 RUN apt-get -y install sudo r-base r-base-dev
 
-RUN useradd -m dev
-RUN echo 'dev:password' | chpasswd
+RUN useradd -m dev --shell /bin/bash
+RUN echo dev:${dev_password} | chpasswd
 
 # Use a shared notebook directory
 RUN mkdir -p ./assignments
@@ -17,6 +18,7 @@ RUN adduser jupyter sudo
 RUN chown -R jupyter .
 RUN echo 'root ALL=(ALL:ALL) ALL' > /etc/sudoers
 RUN echo 'jupyter ALL=(ALL) NOPASSWD: /usr/local/bin/sudospawner' >> /etc/sudoers
+RUN usermod -aG shadow jupyter
 
 RUN apt-get -y install r-cran-irkernel r-cran-tidyverse r-cran-rpostgresql
 RUN pip install --upgrade pip
