@@ -3,7 +3,9 @@
 # Mock "cf", as we don't want to actually interact with cloudfoundry.
 function cf() {
   if [[ "$1" == "env" ]] && [[ $# -eq 2 ]]; then
-    env # Use local env instead of cloudfoundry env.
+    # Use local env instead of cloudfoundry env.
+    # Cloudfoundry env outputs colon separated instead of equals.
+    env | sed 's/=/: /'
     return 0
   fi
 

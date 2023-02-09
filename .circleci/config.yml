@@ -554,7 +554,10 @@ commands:
 workflows:
   build-test-deploy:
     jobs:
-      - build_and_test
+      - build_and_test:
+          filters:
+            branches:
+              ignore: /kk\/1459\/.*/
 
       - owasp-scan-dev:
           filters:

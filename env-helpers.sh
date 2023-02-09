@@ -7,7 +7,7 @@ CF_APP="$1"
 function cf_get_env() {
   local name
   name="$1"
-  cf env "$CF_APP" | grep "^$name=" | sed "s/^$name=//"
+  cf env "$CF_APP" | grep "^$name: " | sed "s/^$name: //"
   return 0
 }
 
