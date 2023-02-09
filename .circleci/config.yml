@@ -477,6 +477,33 @@ jobs:
           name: generate repeat_writer_info
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_writer_info" --name generate-repeat-writer-info
 
+commands:
+  acquire-lock:
+    description: "Make sure nothing else is deploying."
+    parameters:
+      app:
+        type: enum
+        enum: ["clamav-rest", "crt-portal-django"]
+    steps:
+      - run:
+          no_output_timeout: 2h
+          command: |
+            . env-helpers.sh << app >>
+            cf_wait_for_lock CCI_NEXT_TICKET CCI_SERVING_TICKET
+
+  release-lock:
+    description: "Indicate that we're done using cloudfoundry, allowing the next process in line to use it."
+    parameters:
+      app:
+        type: enum
+        enum: ["clamav-rest", "crt-portal-django"]
+    steps:
+      - run:
+          command: |
+            . env-helpers.sh << app >>
+            serving="$(cf_increment_env CCI_SERVING_TICKET)"
+            printf "Lock released - now serving ticket $((serving + 1))\n"
+
 workflows:
   build-test-deploy:
     jobs:
