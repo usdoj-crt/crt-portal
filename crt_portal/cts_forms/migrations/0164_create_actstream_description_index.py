@@ -13,7 +13,7 @@ def create_actstream_description_index(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0160_gh1439_campaign_link_tracking'),
+        ('cts_forms', '0163_crm_form_letters_update'),
     ]
     operations = [
         migrations.RunPython(create_actstream_description_index)
