@@ -26,7 +26,7 @@
         {% else %}
             is
         {% endif %}
-        {{data.related_reports_count}} report{{ data.related_reports_count|pluralize }} associated with this contact.
+        {{data.related_reports_count}} report{{ data.related_reports_count|pluralize }} associated with this email address.
 </small>
 
 {% for status, reports in data.related_reports_display %}

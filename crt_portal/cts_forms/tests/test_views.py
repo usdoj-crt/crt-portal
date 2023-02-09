@@ -869,6 +869,40 @@ class LoginRequiredTests(TestCase):
             )
 
 
+class ReportSummaryApiTests(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user("USER_1", "cookiemonster@fake.net", "")
+        self.test_reports = [Report.objects.create(**SAMPLE_REPORT_1) for i in range(10)]
+        self.report_ids = [report.id for report in self.test_reports]
+        self.base_url = reverse('api:report-summary')
+        self.client.login(username="USER_1", password="")  # nosec
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_unauthenticated_user_cant_access_url(self):
+        self.client.logout()
+        url = self.base_url
+
+        data = {'assigned_section': 'ADM'}
+
+        response = self.client.get(url, data, content_type='application/json')
+        self.assertEqual(response.status_code, 403)
+
+    def test_filters_count(self):
+        url = self.base_url
+        self.test_reports[0].assigned_section = 'APP'
+        self.test_reports[0].save()
+
+        data = {'assigned_section': 'ADM'}
+
+        response = self.client.get(url, data, content_type='application/json')
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), {"report_count": 9})
+
+
 class ReportListApiTests(TestCase):
 
     def setUp(self):
