@@ -512,7 +512,6 @@ class FormNavigationTests(TestCase):
         self.assertEqual(content.count('complaint-nav'), 2)
         self.assertEqual(content.count('disabled-nav'), 1)
 
-
     def test_email_filtering(self):
         # generate random reports associated with a different email address
         ReportFactory.create_batch(5, assigned_section='VOT', contact_email='SomeoneElse@usa.gov')
