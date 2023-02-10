@@ -32,53 +32,6 @@ install-python-dev-dependencies: &install-python-dev-dependencies
       pipenv run python -m playwright install
 
 jobs:
-  test-locks:
-    docker:
-      # standard docker python image
-      - image: python:3.11.1
-        environment: # environment variables for primary container
-          PIPENV_VENV_IN_PROJECT: true
-          DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
-          CF_MANIFEST: manifest_dev.yaml
-          CF_SPACE: dev
-      # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
-      - image: postgres:11.14-alpine
-        environment:
-          POSTGRES_USER: root
-          POSTGRES_DB: circle_test
-          POSTGRES_PASSWORD: password
-    steps:
-      - checkout
-      - run:
-          name: Node install
-          command: |
-            echo "deb https://deb.nodesource.com/node_14.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
-            wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
-            apt-get update && \
-            apt-get install -yqq nodejs && \
-            npm i -g npm@^8 && \
-            rm -rf /var/lib/apt/lists/*
-            npm ci --production
-            node node_modules/gulp/bin/gulp build-sass
-            node node_modules/gulp/bin/gulp build-js
-      # database will be migrated in cloud.gov
-      - *install-python-dependencies
-      - run:
-          name: install cf7
-          command: |
-            curl -L -o cf7.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v7&source=github'
-            dpkg -i cf7.deb
-            rm cf7.deb
-            cf7 api https://api.fr.cloud.gov
-      - run:
-          name: Login to cloud.gov
-          command: cf7 login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s ${CF_SPACE}
-      - acquire-lock:
-          app: crt-portal-django
-      - run: sleep 300 # wait five minutes
-      - release-lock:
-          app: crt-portal-django
-
   build_and_test: # runs not using Workflows must have a `build` job as entry point
     # directory where steps are run
     working_directory: ~/code
@@ -295,12 +248,16 @@ jobs:
       - run:
           name: Login to cloud.gov
           command: cf7 login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s ${CF_SPACE}
+      - acquire-lock:
+          app: crt-portal-django
       - run:
           name: Deploy clamav-rest to dev
           command: cf7 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
       - run:
           name: Deploy crt-portal-django to dev
           command: cf7 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
+      - release-lock:
+          app: crt-portal-django
 
   deploy-stage:
     working_directory: ~/code
@@ -533,6 +490,7 @@ commands:
         enum: ["clamav-rest", "crt-portal-django"]
     steps:
       - run:
+          name: "Wait for other deployments to finish"
           no_output_timeout: 2h
           command: |
             . env-helpers.sh << parameters.app >>
@@ -546,6 +504,7 @@ commands:
         enum: ["clamav-rest", "crt-portal-django"]
     steps:
       - run:
+          name: "Let other deployments start"
           command: |
             . env-helpers.sh << parameters.app >>
             serving="$(cf_increment_env CCI_SERVING_TICKET)"
@@ -554,10 +513,7 @@ commands:
 workflows:
   build-test-deploy:
     jobs:
-      - build_and_test:
-          filters:
-            branches:
-              ignore: /kk\/1459\/.*/
+      - build_and_test
 
       - owasp-scan-dev:
           filters:
@@ -575,11 +531,6 @@ workflows:
           filters:
             branches:
               only: master
-
-      - test-locks:
-          filters:
-            branches:
-              only: /kk\/1459\/.*/
 
       - deploy-dev:
           requires:
