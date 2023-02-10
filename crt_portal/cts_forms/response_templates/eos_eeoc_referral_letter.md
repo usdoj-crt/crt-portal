@@ -1,6 +1,6 @@
 ---
 title: EOS - EEOC Referral Form Letter
-subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from the {{ section_name }} Section"
+subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from {{ section_name }} Section"
 language: en
 html: true
 ---

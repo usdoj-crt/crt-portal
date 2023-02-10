@@ -197,7 +197,6 @@ def _was_sent_constant_writer_email(reports):
     report_emails = tuple(map(_get_email, reports))
     if len(report_emails) == 0:
         return
-    format_strings = ','.join(['%s'] * len(reports))
     with connection.cursor() as cursor:
         try:
             cursor.execute(
@@ -205,16 +204,15 @@ def _was_sent_constant_writer_email(reports):
                 from cts_forms_report r
                 left join actstream_action act on concat('Email sent: ''CRT - Constant Writer'' to ', r.contact_email, ' via govDelivery TMS') = act.description
                 WHERE act.verb = 'Contacted complainant:'
-                AND r.contact_email in (%s)
+                AND r.contact_email IN %s
                 order by act.timestamp desc
-                """ % format_strings, report_emails)
+                """, params=[report_emails])
             contact_templates = cursor.fetchall()
         except Exception:
             contact_templates = None
     if contact_templates:
         for report in reports:
             _set_constant_writer(contact_templates, report)
-            logging.info(report.constant_writer)
 
 
 @login_required
@@ -274,7 +272,6 @@ def index_view(request):
     data = []
 
     paginated_offset = page_format['page_range_start'] - 1
-
     for index, report in enumerate(requested_reports):
         p_class_list = format_protected_class(
             report.protected_class.all().order_by('form_order'),

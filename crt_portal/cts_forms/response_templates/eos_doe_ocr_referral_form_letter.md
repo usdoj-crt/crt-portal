@@ -1,6 +1,6 @@
 ---
 title: EOS - Department of Ed OCR Referral Form Letter
-subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from the Educational Opportunities Section"
+subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from Educational Opportunities Section"
 language: en
 ---
 Re: Your Civil Rights Division Complaint – {{ record_locator }} from the Educational Opportunities Section

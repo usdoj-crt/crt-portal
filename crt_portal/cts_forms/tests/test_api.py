@@ -179,15 +179,15 @@ class APIResponseDetailTests(TestCase):
         """test response detail get"""
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "false")
-        self.assertContains(response, "{{ addressee }}")
+        self.assertTrue("false" in str(response.content))
+        self.assertFalse("true" in str(response.content))
 
     def test_response_detail_url_with_report_id(self):
         """test response detail get with report_id"""
         response = self.client.get(self.url + f"?report_id={self.test_report.id}")
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "false")
-        self.assertContains(response, "Lincoln")
+        self.assertTrue("false" in str(response.content))
+        self.assertFalse("true" in str(response.content))
         self.assertFalse("{{ addressee }}" in str(response.content))
         self.assertFalse("{{ record_locator }}" in str(response.content))
         self.assertFalse("{{ section_name }}" in str(response.content))

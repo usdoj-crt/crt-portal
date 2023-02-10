@@ -19,7 +19,7 @@ class ResponseTemplateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ResponseTemplate
-        fields = ['url', 'pk', 'title', 'subject', 'body', 'language', 'is_html', 'show_in_dropdown', 'is_user_created']
+        fields = ['url', 'pk', 'title', 'subject', 'body', 'language', 'is_html']
 
 
 class RelatedReportSerializer(serializers.ModelSerializer):
