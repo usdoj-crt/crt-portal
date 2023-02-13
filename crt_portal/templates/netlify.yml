@@ -1,0 +1,65 @@
+# {# This still loads, but is commented out to prevent yml syntax failure: #}
+# {% load static %}
+# CMS Configuration
+backend:
+  # Specifies which git service will be used for the backend.
+  name: github
+  repo: usdoj/crt-portal
+  branch: develop
+
+  # Base URL - OAuth client hostname
+  base_url: https://federalistapp.18f.gov
+  # Auth Endpoint: Path to append to base_url for authentication requests.
+  auth_endpoint: external/auth/github
+
+  site_domain: {{ request.get_host }}
+  # Pull (or Merge) Requests label prefix when using editorial workflow.
+  cms_label_prefix: cms/
+
+# Publish mode: Editorial workflow provides more control over the publishing process. All unpublished entries will be arranged in a board according to their status, and they can be further reviewed and edited before going live.
+# Optional field.
+publish_mode: editorial_workflow
+
+# Media Folder: The media_folder option specifies the folder path where uploaded files should be saved, relative to the base of the repo.
+# Required.
+media_folder: crt_portal/static/img
+public_folder: {% get_static_prefix %}
+
+# We don't want netlify to manage search.
+search: false
+
+# Slug type: The slug option allows you to change how filenames for entries are created and sanitized. It also applies to filenames of media inserted via the default media library.
+slug:
+  # Sanitize filenames (slugs) according to RFC3986. The only allowed characters are (0-9, a-z, A-Z, _, -, ~).
+  encoding: ascii
+  # Set to true to remove diacritics from slug characters before sanitizing. This is often helpful when using ascii encoding.
+  clean_accents: true
+  # The replacement string used to substitute unsafe characters, defaults to -.
+  sanitize_replacement: "-"
+
+collections:
+  - label: Response Templates
+    name: response_templates
+    folder: crt_portal/cts_forms/response_templates/
+    create: true
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Subject
+        name: subject
+        widget: string
+      - label: Language
+        name: language
+        widget: select
+        options: ["en", "es", "ko", "tl", "vi", "zh-hans", "zh-hant"]
+      - label: Is HTML?
+        name: is_html
+        widget: boolean
+      - label: Email Content
+        name: body
+        widget: markdown
+
+
+
+

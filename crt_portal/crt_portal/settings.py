@@ -90,6 +90,7 @@ INSTALLED_APPS = [
     # 'actstream',
     'cts_forms.apps.CtsActstreamConfig',  # Override default actstream config
     'cts_forms.apps.CtsFormsConfig',
+    'cms.apps.CmsConfig',
     'compressor',
     'compressor_toolkit',
     'storages',
