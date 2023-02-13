@@ -59,7 +59,3 @@ collections:
       - label: Email Content
         name: body
         widget: markdown
-
-
-
-
