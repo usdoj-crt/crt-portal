@@ -15,53 +15,6 @@
   <!-- Include the script that builds the page and powers Netlify CMS -->
   <script src="{% static 'vendor/js.cookie.min.js' %}"></script>
   <script src="{% static 'vendor/netlify-cms.js' %}"></script>
-  <script>
-
-  let updateCount = 0;
-  function renderMarkdown(component) {
-    updateCount++;
-    const updateCountBeforePost = updateCount;
-    window
-      .fetch('/cms/render', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': Cookies.get('csrftoken')
-        },
-        mode: 'same-origin',
-        body: JSON.stringify({'entry' : component.props.entry})
-      })
-      .then(response => {
-        response.text().then(text => {
-          if (updateCount !== updateCountBeforePost) return;
-          component.setState({html: text});
-        });
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }
-
-  var TemplatePreview = createClass({
-    getInitialState() {
-      return { html: '' };
-    },
-    componentDidMount() {
-      renderMarkdown(this);
-    },
-    componentDidUpdate(previousProps) {
-      if (previousProps.entry.data.body === this.props.entry.data.body &&
-          previousProps.entry.data.is_html === this.props.entry.data.is_html) {
-        return;
-      }
-      renderMarkdown(this);
-    },
-    render() {
-      return h('div', { dangerouslySetInnerHTML: { __html: this.state.html } });
-    },
-  });
-
-  CMS.registerPreviewTemplate("response_templates", TemplatePreview);
-</script>
+  <script src="{% static 'js/cms.min.js' %}"></script>
 </body>
 </html>
