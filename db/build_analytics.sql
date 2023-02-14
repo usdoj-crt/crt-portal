@@ -10,7 +10,7 @@ DROP USER analytics;
 
 -- User needs access to both existing and future tables
 CREATE USER analytics;
-GRANT CONNECT ON DATABASE postgrs TO analytics;
+GRANT CONNECT ON DATABASE postgres TO analytics;
 GRANT ALL PRIVILEGES ON SCHEMA analytics TO analytics;
 GRANT SELECT ON ALL TABLES IN SCHEMA public TO analytics;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT ON TABLES TO analytics;
