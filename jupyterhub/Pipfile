@@ -13,6 +13,9 @@ psycopg2-binary = "*"
 matplotlib = "*"
 pandas = "*"
 ipywidgets = "*"
+plotly = "*"
+bokeh = "*"
+holoviews = "*"
 
 [requires]
 python_version = "3.11.1"
