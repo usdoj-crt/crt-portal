@@ -18,7 +18,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
-from django.db import connection
 from django.db.models import F
 from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
@@ -183,38 +182,6 @@ def _related_reports_count(report):
         return 1
 
 
-def _get_email(report):
-    return report.contact_email
-
-
-def _set_constant_writer(contact_templates, report):
-    for contact_template in contact_templates:
-        if contact_template[1].upper() == report.contact_email.upper():
-            report.constant_writer = True
-
-
-def _was_sent_constant_writer_email(reports):
-    report_emails = tuple(map(_get_email, reports))
-    if len(report_emails) == 0:
-        return
-    with connection.cursor() as cursor:
-        try:
-            cursor.execute(
-                """  select act.description as description, r.contact_email as email
-                from cts_forms_report r
-                left join actstream_action act on concat('Email sent: ''CRT - Constant Writer'' to ', r.contact_email, ' via govDelivery TMS') = act.description
-                WHERE act.verb = 'Contacted complainant:'
-                AND r.contact_email IN %s
-                order by act.timestamp desc
-                """, params=[report_emails])
-            contact_templates = cursor.fetchall()
-        except Exception:
-            contact_templates = None
-    if contact_templates:
-        for report in reports:
-            _set_constant_writer(contact_templates, report)
-
-
 @login_required
 def index_view(request):
     profile_form = ProfileForm()
@@ -303,8 +270,6 @@ def index_view(request):
         'origination_utm_campaign',
         lambda text: Campaign.objects.filter(internal_name=text).first()
     )
-
-    _was_sent_constant_writer_email(requested_reports)
 
     final_data = {
         'form': Filters(request.GET),

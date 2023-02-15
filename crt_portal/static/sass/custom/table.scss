@@ -195,13 +195,24 @@
   }
 }
 
-.constant-writer {
+.report-count {
   align-items: center;
   display: flex;
   justify-content: space-between;
 }
 
-.constant-writer img {
+.show-cw.hidden .cw-icon, .show-cw.hidden .cw-text{
+  display: none;
+}
+
+.show-cw {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 12px;
+}
+
+.cw-icon {
   margin: 0 8px 0 12px;
 }
 
