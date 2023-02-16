@@ -1,11 +1,16 @@
 (function(root, dom) {
   let updateCount = 0;
+  let updateAborter = null;
+
   function renderMarkdown(component) {
     updateCount++;
+    if (updateAborter) updateAborter.abort(); // Cancel other pending requests
+    updateAborter = new AbortController();
     const updateCountBeforePost = updateCount;
     window
       .fetch('/cms/render', {
         method: 'POST',
+        signal: updateAborter.signal,
         headers: {
           'Content-Type': 'application/json',
           'X-CSRFToken': Cookies.get('csrftoken')
@@ -14,6 +19,7 @@
         body: JSON.stringify({ entry: component.props.entry })
       })
       .then(response => {
+        updateAborter = null;
         response.text().then(text => {
           if (updateCount !== updateCountBeforePost) return;
           component.setState({ html: text });

@@ -5,7 +5,7 @@ backend:
   # Specifies which git service will be used for the backend.
   name: github
   repo: usdoj/crt-portal
-  branch: develop
+  branch: kk/cms
 
   # Base URL - OAuth client hostname
   base_url: https://pages.cloud.gov
