@@ -10,6 +10,9 @@ from cts_forms.mail import CustomHTMLExtension
 
 BASE_CONTEXT = {
     'addressee': '[Variable: Addressee Name]',
+    'contact_address_line_1': '[Variable: Contact Address Line 1]',
+    'contact_address_line_2': '[Variable: Contact Address Line 2]',
+    'contact_email': '[Variable: Contact Email]',
     'date_of_intake': '[Variable: Date of Intake]',
     'outgoing_date': '[Variable: Outgoing Date]',
     'section_name': '[Variable: Section]',
