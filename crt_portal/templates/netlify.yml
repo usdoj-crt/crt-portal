@@ -8,7 +8,7 @@ backend:
   branch: develop
 
   # Base URL - OAuth client hostname
-  base_url: https://federalistapp.18f.gov
+  base_url: https://pages.cloud.gov
   # Auth Endpoint: Path to append to base_url for authentication requests.
   auth_endpoint: external/auth/github
 
