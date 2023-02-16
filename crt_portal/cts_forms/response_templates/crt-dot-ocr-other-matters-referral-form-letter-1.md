@@ -1,5 +1,6 @@
 ---
-title: CRT - DOT (OCR - Other Matters) Referral Form Letter
+title: CRT - SSA-OGC - employees (complaints about service/SSA employees)
+  Referral Form Letter
 subject: "Re: Civil Rights Division Complaint - {{ record_locator }}"
 language: en
 is_html: true
