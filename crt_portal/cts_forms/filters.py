@@ -131,7 +131,11 @@ def report_filter(querydict):
                 kwargs[field] = querydict.getlist(field)
             elif field_options == 'violation_summary':
                 search_query = querydict.getlist(field)[0]
-                qs = qs.filter(violation_summary_search_vector=_make_search_query(search_query))
+                if search_query.startswith('^') and search_query.endswith('$'):
+                    # Allow for "exact match" using the common regex syntax.
+                    qs = qs.filter(violation_summary=search_query[1:-1])
+                else:
+                    qs = qs.filter(violation_summary_search_vector=_make_search_query(search_query))
             elif field_options == 'contact_phone':
                 # Removes all non digit characters, then breaks the number into blocks to search individually
                 # EG (123) 456-7890 will search to see if  "123" AND "456" AND "7890" are in the number

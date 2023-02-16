@@ -512,6 +512,21 @@ class FormNavigationTests(TestCase):
         self.assertEqual(content.count('complaint-nav'), 2)
         self.assertEqual(content.count('disabled-nav'), 1)
 
+    def test_view_all_descriptions(self):
+        first = self.reports[-1]
+        first.violation_summary = 'this is my summary'
+        first.save()
+
+        response = self.client.get(
+            reverse('crt_forms:crt-forms-show', args=[first.id])
+        )
+        self.assertEqual(response.status_code, 200)
+        content = str(response.content)
+        expected = ('/form/view/'
+                    '?violation_summary=^this%20is%20my%20summary$'
+                    '&amp;assigned_section=ADM')
+        self.assertIn(expected, content)
+
     def test_email_filtering(self):
         # generate random reports associated with a different email address
         ReportFactory.create_batch(5, assigned_section='VOT', contact_email='SomeoneElse@usa.gov')

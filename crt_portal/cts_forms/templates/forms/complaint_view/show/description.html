@@ -1,10 +1,23 @@
 {% load i18n %}
+{% load all_sections %}
 {% get_available_languages as LANGUAGES %}
 {% get_language_info_list for LANGUAGES as languages %}
 
 <div class="crt-portal-card crt-description-card">
   <div class="crt-portal-card__content">
-    <h3 class="complaint-card-heading text-uppercase">Personal description</h3>
+    <h3 class="complaint-card-heading text-uppercase">
+      Personal description
+      <small class="margin-left-auto">
+        <a class="related-reports show-count"
+           href="{% url 'crt_forms:crt-forms-index' %}?violation_summary=^{{data.violation_summary | urlencode}}${% filter_for_all_sections %}">
+            View
+            <span
+              class="show-count"
+              data-count-params="?violation_summary=^{{data.violation_summary | urlencode}}${% filter_for_all_sections %}"></span>
+            reports matching this description
+          </a>
+      </small>
+    </h3>
     <div class="word-break">
       {{ description|linebreaks }}
     </div>
