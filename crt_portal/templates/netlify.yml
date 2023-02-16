@@ -5,7 +5,7 @@ backend:
   # Specifies which git service will be used for the backend.
   name: github
   repo: usdoj/crt-portal
-  branch: kk/cms
+  branch: kk/147x/response_templates
 
   # Base URL - OAuth client hostname
   base_url: https://pages.cloud.gov
@@ -18,7 +18,7 @@ backend:
 
 # Publish mode: Editorial workflow provides more control over the publishing process. All unpublished entries will be arranged in a board according to their status, and they can be further reviewed and edited before going live.
 # Optional field.
-publish_mode: editorial_workflow
+# publish_mode: editorial_workflow
 
 # Media Folder: The media_folder option specifies the folder path where uploaded files should be saved, relative to the base of the repo.
 # Required.
