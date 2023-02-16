@@ -4,6 +4,7 @@ subject: "Re: Civil Rights Division Complaint - {{ record_locator }}"
 language: en
 is_html: true
 ---
+<span style="float: right">{{ outgoing_date }}</span>
 Associate Director                                                
 EEO Programs Division
 Departmental Office of Civil Rights
