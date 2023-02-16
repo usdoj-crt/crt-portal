@@ -149,7 +149,7 @@ class Command(BaseCommand):  # pragma: no cover
                 protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[0][0])
                 report.protected_class.add(protected_example)
             elif rand <= 70:
-                referral = random.choice(SECTIONS)
+                referral = random.choice(SECTIONS)  # nosec
                 if report.assigned_section != referral:
                     add_activity(user3, 'Assigned section:', f'Updated from "{report.assigned_section}" to "{referral}"', report)
                     report.assigned_section = referral
