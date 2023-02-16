@@ -615,6 +615,9 @@ class ResponseTemplate(models.Model):
         return Context({
             'record_locator': report.public_id,
             'addressee': report.addressee,
+            'contact_address_line_1': report.contact_address_line_1,
+            'contact_address_line_2': report.contact_address_line_2,
+            'contact_email': report.contact_email,
             'date_of_intake': format_date(report_create_date_est, format='long', locale='en_US'),
             'outgoing_date': format_date(today, locale='en_US'),  # required for paper mail
             'section_name': section_choices.get(report.assigned_section, "no section"),
