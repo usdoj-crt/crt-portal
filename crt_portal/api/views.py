@@ -125,12 +125,15 @@ class ReportCWs(APIView):
     A view that returns a boolean of whether the email associated with a report has been sent the constant writer email accessed in JSON.
 
 
-    Example: api/report-cws/?reports={1:test.test@test.com, 2:test2.test@test.com}
+    Example: api/report-cws/
     """
     permission_classes = (IsAuthenticated,)
 
-    def get(self, request):
-        report_cws_payload = report_cws(request.GET)
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def post(self, request):
+        report_cws_payload = report_cws(request.data)
         return Response(report_cws_payload)
 
 

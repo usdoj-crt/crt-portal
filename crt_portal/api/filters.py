@@ -1,6 +1,5 @@
 # Class to handle filtering data by supplied query params, providing the params are valid.
-
-import json
+import logging
 from cts_forms.models import User, Report, FormLettersSent
 from actstream import registry
 from actstream.models import actor_stream
@@ -144,19 +143,17 @@ def reports_accessed_filter(querydict):
 
 
 def _set_constant_writer(contact_templates, email):
-    constant_writer = False
     for contact_template in contact_templates:
         if contact_template[1].upper() == email.upper():
-            constant_writer = True
-    return constant_writer
+            return True
+    return False
 
 
 def report_cws(reports):
-    parsed_reports = json.loads(reports["reports"])
     report_cws_payload = {
         "reports": {},
     }
-    emails = tuple(set(parsed_reports.values()))
+    emails = tuple(set(reports.values()))
     if emails is None:
         return report_cws_payload
     with connection.cursor() as cursor:
@@ -170,9 +167,10 @@ def report_cws(reports):
                 ORDER BY act.timestamp DESC
                 """, params=[emails])
             contact_templates = cursor.fetchall()
-        except Exception:
+        except Exception as e:
+            logging.warn(e)
             return report_cws_payload
-    for id, email in parsed_reports.items():
+    for id, email in reports.items():
         report_cws_payload["reports"][id] = {
             "email": email,
             "constant_writer": _set_constant_writer(contact_templates, email)
