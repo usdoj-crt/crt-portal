@@ -1,19 +1,26 @@
-from django.http import HttpResponse
+from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter, report_cws
+from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
+from cts_forms.filters import report_filter
+from cts_forms.mail import CustomHTMLExtension
 from cts_forms.models import Report, ResponseTemplate
+from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed
+from django.conf import settings
+from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.template import Context, Template
 from rest_framework import generics
 from rest_framework import permissions
 from rest_framework.decorators import api_view
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
-from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed
-from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter, report_cws
-from cts_forms.filters import report_filter
-from rest_framework.permissions import IsAuthenticated
-from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
-from django.contrib.auth.decorators import login_required
 from rest_framework.views import APIView
+import frontmatter
 import html
 import json
+import markdown
+import os
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
@@ -89,6 +96,61 @@ class ReportDetail(generics.RetrieveUpdateAPIView):
             report = Report.objects.filter(pk=report_pk).first()
             mark_report_as_viewed(report, request.user)
         return self.update(request, *args, **kwargs)
+
+
+class ResponseTemplatePreview(generics.ListAPIView):
+    """
+    API endpoint that allows responses to be viewed.
+    """
+    permission_classes = [permissions.IsAuthenticated]
+
+    _templates_dir = os.path.join(settings.BASE_DIR, 'cts_forms', 'response_templates')
+
+    def _make_example_context(self):
+        base_context = {
+            'addressee': '[Variable: Addressee Name]',
+            'contact_address_line_1': '[Variable: Contact Address Line 1]',
+            'contact_address_line_2': '[Variable: Contact Address Line 2]',
+            'contact_email': '[Variable: Contact Email]',
+            'date_of_intake': '[Variable: Date of Intake]',
+            'outgoing_date': '[Variable: Outgoing Date]',
+            'section_name': '[Variable: Section]',
+        }
+
+        lang_contexts = {
+            lang: {
+                key: f'[{lang}] {value}'
+                for key, value in base_context.items()
+            } for lang in ['es', 'ko', 'tl', 'vi', 'zh_hans', 'zh_hant']
+        }
+
+        return Context({
+            'record_locator': '[Variable: Record Locator]',
+            **base_context,
+            **lang_contexts,
+        })
+
+    def _render_response_template(self, request, *, is_html, markdown_body):
+        context = self._make_example_context()
+        if is_html:
+            subbed = str(Template(markdown_body).render(context))
+            md = markdown.markdown(subbed, extensions=['nl2br', CustomHTMLExtension()])
+            return render(request, 'email.html', {'content': md})
+
+        return HttpResponse(Template(markdown_body.replace('\n', '<br>')).render(context))
+
+    def get(self, request, filename):
+        if not filename:
+            return HttpResponse('No filename provided', status=400)
+
+        path = os.path.join(self._templates_dir, filename)
+        with open(path, 'r') as f:
+            content = frontmatter.load(f)
+
+        return self._render_response_template(
+            request,
+            is_html=content.get('is_html', False),
+            markdown_body=str(content))
 
 
 class ResponseList(generics.ListAPIView):
