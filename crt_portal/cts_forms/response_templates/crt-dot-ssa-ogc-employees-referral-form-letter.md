@@ -1,13 +1,11 @@
 ---
 title: CRT - SSA-OGC - employees (complaints about service/SSA employees)
   Referral Form Letter
-subject: "Re: Civil Rights Division Complaint - {{ record_locator }}"
+subject: "Re: Civil Rights Division Complaint – {{ record_locator }} from the {{ section_name }} Section"
 language: en
 is_html: true
 ---
-Re: Civil Rights Division Complaint - {{ record_locator }}
-
-{{ addressee }},
+Re: Civil Rights Division Complaint – {{ record_locator }} from the {{ section_name }} Section
 
 Thank you for contacting the Department of Justice on {{ date_of_intake }}.  We have reviewed the information you provided and have determined that the complaint raises issues that are more appropriately addressed by another federal agency.  We are, therefore, referring this complaint to the following agency for further action:
 
