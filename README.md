@@ -35,10 +35,12 @@ Clone the project locally:
 
     git clone git@github.com:usdoj-crt/crt-portal.git
 
-In the top level directory create a .env file in the top of your directory and add the following environment variables. Set `SECRET_KEY` to a long, random string and `POSTGRES_PASSWORD` to any string you like.
+In the top level directory create a .env file in the top of your directory and add the following environment variables. Set `SECRET_KEY` to a long, random string and `POSTGRES_PASSWORD`, `POSTGRES_ANALYTICS_PASSWORD`, and `JUPYTER_DEV_PASSWORD` to any strings you like.
 
     SECRET_KEY="this_is_a_long_random_string"
     POSTGRES_PASSWORD="rando_pw"
+    POSTGRES_ANALYTICS_PASSWORD="some_other_password"
+    JUPYTER_DEV_PASSWORD="yet_another_password"
 
 To build the project
     You will need to build the project for the first time and when there are package updates to apply.
@@ -82,6 +84,16 @@ Now to compile the sass files into css, run:
     npm run gulp:watch
 
 Also note, that the staticfiles folder is the destination of all static assets when you or a script runs `manage.py collectstatic` so don't make your changes there, or they will be overwritten.
+
+## Jupyter
+
+Running `docker-compose up --build` should install and run the Jupyter server locally.
+
+After it builds (which will take a while the first go around) visit http://localhost:8001/ to access it. Locally, the username is `dev`, and the password is whatever you entered for JUPYTER_DEV_PASSWORD in `.env`.
+
+Upon logging in, you should be taken to a directory of examples. The examples are saved in the codebase, and demonstrate how to query the pre-configured postgres connection, etc.
+
+Note that code _not_ in `examples/` is not saved to any persistent space, and might be lost if/when the Docker instance restarts.
 
 ## Running common tasks
 

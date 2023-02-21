@@ -251,12 +251,16 @@ jobs:
       - run:
           name: Login to cloud.gov
           command: cf7 login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s ${CF_SPACE}
+      - acquire-lock:
+          app: crt-portal-django
       - run:
           name: Deploy clamav-rest to dev
           command: cf7 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
       - run:
           name: Deploy crt-portal-django to dev
           command: cf7 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
+      - release-lock:
+          app: crt-portal-django
 
   deploy-stage:
     working_directory: ~/code
@@ -479,6 +483,35 @@ jobs:
       - run:
           name: generate repeat_writer_info
           command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_writer_info" --name generate-repeat-writer-info
+
+commands:
+  acquire-lock:
+    description: "Make sure nothing else is deploying."
+    parameters:
+      app:
+        type: enum
+        enum: ["clamav-rest", "crt-portal-django"]
+    steps:
+      - run:
+          name: "Wait for other deployments to finish"
+          no_output_timeout: 2h
+          command: |
+            . env-helpers.sh << parameters.app >>
+            cf_wait_for_lock CCI_NEXT_TICKET CCI_SERVING_TICKET
+
+  release-lock:
+    description: "Indicate that we're done using cloudfoundry, allowing the next process in line to use it."
+    parameters:
+      app:
+        type: enum
+        enum: ["clamav-rest", "crt-portal-django"]
+    steps:
+      - run:
+          name: "Let other deployments start"
+          command: |
+            . env-helpers.sh << parameters.app >>
+            serving="$(cf_increment_env CCI_SERVING_TICKET)"
+            printf "Lock released - now serving ticket $((serving + 1))\n"
 
 workflows:
   build-test-deploy:

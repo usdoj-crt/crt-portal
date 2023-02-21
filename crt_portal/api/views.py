@@ -6,7 +6,8 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed
-from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter
+from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter, report_cws
+from cts_forms.filters import report_filter
 from rest_framework.permissions import IsAuthenticated
 from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
 from django.contrib.auth.decorators import login_required
@@ -29,7 +30,8 @@ def api_root(request, format=None):
         'responses': reverse('api:response-list', request=request, format=format),
         'report-count': reverse('api:report-count', request=request, format=format),
         'related-reports': reverse('api:related-reports', request=request, format=format),
-        'form-letters': reverse('api:form-letters', request=request, format=format)
+        'form-letters': reverse('api:form-letters', request=request, format=format),
+        'report-cws': reverse('api:report-cws', request=request, format=format)
     })
 
 
@@ -50,6 +52,20 @@ class ReportList(generics.ListAPIView):
         reports = Report.objects.filter(pk__in=report_pks).all()
         mark_reports_as_viewed(reports, request.user)
         return HttpResponse(status=200)
+
+
+class ReportCountView(APIView):
+    """
+    A view that returns the count of reports matching given filters.
+
+
+    Example: api/report/?start_date=2022-02-01&end_date=2022-04-14&intake_specialist=USER_1
+    """
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, format=None):
+        reports_accessed_payload = reports_accessed_filter(request.GET)
+        return Response(reports_accessed_payload)
 
 
 class ReportDetail(generics.RetrieveUpdateAPIView):
@@ -105,18 +121,30 @@ class ResponseDetail(generics.RetrieveAPIView):
         return Response(serialized_data)
 
 
-class ReportCountView(APIView):
+class ReportSummary(APIView):
     """
-    A view that returns the count of reports accessed in JSON.
+    A view that returns counts of reports matching filters.
 
 
-    Example: api/report-count/?start_date=2022-02-01&end_date=2022-04-14&intake_specialist=USER_1
+    Example: api/report-summary/?violation_summary=some%20summary
     """
     permission_classes = (IsAuthenticated,)
 
     def get(self, request, format=None):
-        reports_accessed_payload = reports_accessed_filter(request.GET)
-        return Response(reports_accessed_payload)
+        filtered, _ = report_filter(request.GET)
+        return Response({"report_count": filtered.count()})
+
+
+class ReportCWs(APIView):
+    """
+    A view that returns a boolean of whether the email associated with a report has been sent the constant writer email accessed in JSON.
+    Example: api/report-cws/
+    """
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        report_cws_payload = report_cws(request.data)
+        return Response(report_cws_payload)
 
 
 class RelatedReports(generics.ListAPIView):
