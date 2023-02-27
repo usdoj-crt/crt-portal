@@ -2,6 +2,7 @@
 title: CRT - DOT (ACP-Airlines) Referral Form Letter (Korean)
 subject: "회신: 귀하의 민권국 보고서 - {{ ko.section_name }}과의 {{ record_locator }}"
 language: ko
+is_html: true
 ---
 Re:		귀하의 민권국 보고서 - {{ ko.section_name }}과의 {{ record_locator }}
 
