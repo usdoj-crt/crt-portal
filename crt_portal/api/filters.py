@@ -1,8 +1,10 @@
 # Class to handle filtering data by supplied query params, providing the params are valid.
 
+import logging
 from cts_forms.models import User, Report, FormLettersSent
 from actstream import registry
 from actstream.models import actor_stream
+from django.db import connection
 from django.utils.datastructures import MultiValueDictKeyError
 import urllib.parse
 from datetime import datetime
@@ -139,3 +141,39 @@ def reports_accessed_filter(querydict):
         filtered_actions = actor_stream(intake_specialist).filter(**kwargs)
         reports_accessed_payload["report_count"] = len(filtered_actions)
     return reports_accessed_payload
+
+
+def _set_constant_writer(contact_templates, email):
+    for contact_template in contact_templates:
+        if contact_template[1].upper() == email.upper():
+            return True
+    return False
+
+
+def report_cws(reports):
+    report_cws_payload = {
+        "reports": {},
+    }
+    emails = tuple(set(reports.values()))
+    if emails is None:
+        return report_cws_payload
+    with connection.cursor() as cursor:
+        try:
+            cursor.execute(
+                """  SELECT act.description AS description, r.contact_email AS email
+                FROM cts_forms_report r
+                LEFT JOIN actstream_action act ON CONCAT('Email sent: ''CRT - Constant Writer'' to ', r.contact_email, ' via govDelivery TMS') = act.description
+                WHERE act.verb = 'Contacted complainant:'
+                AND r.contact_email IN %s
+                ORDER BY act.timestamp DESC
+                """, params=[emails])
+            contact_templates = cursor.fetchall()
+        except Exception as e:
+            logging.warn(e)
+            return report_cws_payload
+    for id, email in reports.items():
+        report_cws_payload["reports"][id] = {
+            "email": email,
+            "constant_writer": _set_constant_writer(contact_templates, email)
+        }
+    return report_cws_payload

@@ -65,6 +65,51 @@ class APIFormLettersIndex(TestCase):
         self.assertEqual(response.status_code, 403)
 
 
+class APIPreviewResponseFileTests(TestCase):
+    def setUp(self):
+        self.client = Client(raise_request_exception=False)
+        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_preview_response_text(self):
+        """Makes sure our route for previewing markdown files works."""
+        self.url = reverse(
+            "api:preview-response-file",
+            kwargs={"filename": 'crt_non_actionable.md'})
+        self.client.login(username="DELETE_USER", password="")  # nosec
+
+        response = self.client.get(self.url)
+
+        self.assertContains(response, "Thank you for taking the time")
+        self.assertContains(response, "[Variable: Addressee Name]")
+
+    def test_preview_response_html(self):
+        """Makes sure our route for previewing markdown files works."""
+        self.url = reverse(
+            "api:preview-response-file",
+            kwargs={"filename": 'hce_form_letter.md'})
+        self.client.login(username="DELETE_USER", password="")  # nosec
+
+        response = self.client.get(self.url)
+
+        self.assertContains(response, "Thank you for contacting")
+        self.assertContains(response, "[Variable: Addressee Name]")
+        self.assertContains(response, "<li>If your")
+
+    def test_unauthenticated(self):
+        """Only logged in users should be able to preview templates."""
+        self.url = reverse(
+            "api:preview-response-file",
+            kwargs={"filename": 'crt_non_actionable.md'})
+        self.client.logout()
+
+        response = self.client.get(self.url, follow=True)
+
+        self.assertEqual(response.status_code, 403)
+
+
 class APIReportListTests(TestCase):
     def setUp(self):
         self.client = Client()
@@ -179,15 +224,15 @@ class APIResponseDetailTests(TestCase):
         """test response detail get"""
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
-        self.assertTrue("false" in str(response.content))
-        self.assertFalse("true" in str(response.content))
+        self.assertContains(response, "false")
+        self.assertContains(response, "{{ addressee }}")
 
     def test_response_detail_url_with_report_id(self):
         """test response detail get with report_id"""
         response = self.client.get(self.url + f"?report_id={self.test_report.id}")
         self.assertEqual(response.status_code, 200)
-        self.assertTrue("false" in str(response.content))
-        self.assertFalse("true" in str(response.content))
+        self.assertContains(response, "false")
+        self.assertContains(response, "Lincoln")
         self.assertFalse("{{ addressee }}" in str(response.content))
         self.assertFalse("{{ record_locator }}" in str(response.content))
         self.assertFalse("{{ section_name }}" in str(response.content))

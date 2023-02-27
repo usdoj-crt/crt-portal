@@ -8,12 +8,12 @@
     <h3 class="complaint-card-heading text-uppercase">
       Personal description
       <small class="margin-left-auto">
-        <a class="related-reports show-count"
-           href="{% url 'crt_forms:crt-forms-index' %}?violation_summary={{data.violation_summary | urlencode}}{% filter_for_all_sections %}">
+        <a class="related-reports"
+           href="{% url 'crt_forms:crt-forms-index' %}?violation_summary=^{{data.violation_summary | urlencode}}${% filter_for_all_sections %}">
             View
             <span
               class="show-count"
-              data-count-params="?violation_summary={{data.violation_summary | urlencode}}{% filter_for_all_sections %}"></span>
+              data-count-params="?violation_summary=^{{data.violation_summary | urlencode}}${% filter_for_all_sections %}"></span>
             reports matching this description
           </a>
       </small>

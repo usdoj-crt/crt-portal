@@ -77,7 +77,15 @@
               <td>
                 <a class="td-link display-block" href="{{datum.url}}">
                   {% with count=datum.report.related_reports_count|default:"—" %}
-                    {{ count }}
+                  <div class="report-count"><span>{{ count }}</span>
+                    <span
+                      class="show-cw hidden"
+                      data-id="{{ datum.report.id }}"
+                      data-email="{{ datum.report.contact_email|default:'' }}">
+                        <img src="{% static "img/mail_outline.svg" %}" alt="Constant writer" class="cw-icon">
+                        <span class="cw-text">CW</span>
+                    </span>
+                  </div>
                   {% endwith %}
                 </a>
               </td>

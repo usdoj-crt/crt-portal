@@ -62,7 +62,7 @@
         <input type="text" name="search_example_1" class="usa-input border-0 margin-y-1" value='"mask vaccine"'>
       </div>
       <div class="tablet:grid-col-fill">
-        <strong>“</strong>Mask Vaccine<strong>”</strong>: Gets results for reports with similar matching words in the quotation marks<sup>*</sup>.
+        <strong>“</strong>Mask Vaccine<strong>”</strong>: Gets results for reports containing the phrase in the quotation marks.<sup>*</sup>
       </div>
     </div>
     <div class="grid-row grid-gap display-flex flex-align-center usa-form">
@@ -70,7 +70,15 @@
         <input type="text" name="search_example_1" class="usa-input border-0 margin-y-1" value="mask and (vaccine OR shot)">
       </div>
       <div class="tablet:grid-col-fill">
-        Mask <strong>AND (</strong>Vaccine <strong>OR</strong> Shot<strong>)</strong>: Gets results that have both Mark and Vaccine plus also reports with both Mask and Shot<sup>*</sup>.
+        Mask <strong>AND (</strong>Vaccine <strong>OR</strong> Shot<strong>)</strong>: Gets results that have both Mark and Vaccine plus also reports with both Mask and Shot.<sup>*</sup>
+      </div>
+    </div>
+    <div class="grid-row grid-gap display-flex flex-align-center usa-form">
+      <div class="tablet:grid-col-3">
+        <input type="text" name="search_example_1" class="usa-input border-0 margin-y-1" value='^mask vaccine$'>
+      </div>
+      <div class="tablet:grid-col-fill">
+        <strong>^</strong>Mask Vaccine<strong>$</strong>: Look only for records where the full text of the description matches "Mask Vaccine". For example, searching for "^a test$" would not match the description "this is a test" or "a test description". It would only match "a test".
       </div>
     </div>
     <div class="grid-row">
