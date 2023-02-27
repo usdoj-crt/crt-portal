@@ -1,13 +1,27 @@
+from typing import Optional
+
 from django.core.management.commands import makemigrations
-from django.conf import settings
-import os
 import uuid
+
+import pathlib
+
+
+def find_upwards(cwd: pathlib.Path, filename: str) -> Optional[pathlib.Path]:
+    if cwd == pathlib.Path(cwd.root) or cwd == cwd.parent:
+        return None
+
+    fullpath = cwd / filename
+    return fullpath if fullpath.exists() else find_upwards(cwd.parent, filename)
 
 
 class Command(makemigrations.Command):
     def write_migration_files(self, changes):
-        marker_path = os.path.join(settings.SITE_ROOT, '.migration_conflict_marker')
-        with open(marker_path, 'w') as f:
+        cwd = pathlib.Path(__file__).parent
+        marker = find_upwards(cwd, ".migration_conflict_marker")
+        if not marker:
+            raise RuntimeError("Could not find .migration_conflict_marker")
+
+        with marker.open('w') as f:
             print("DO NOT EDIT: Re-run makemigrations to regenerate this file.", file=f)
             print("Conflicts here mean another developer merged migrations first.", file=f)
             print("To fix, delete and regenerate your new migrations to depend on theirs.", file=f)
