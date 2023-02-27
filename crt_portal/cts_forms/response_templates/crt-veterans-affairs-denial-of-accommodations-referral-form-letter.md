@@ -18,6 +18,9 @@ How you have helped:
 Although we are unable to act on your complaint, your report can help us find issues affecting multiple people or communities.  It also helps us understand emerging trends and topics.
 
 Thank you for taking the time to contact the Department of Justice about your concerns.
-<br/>
+
+Sincerely,
+
+
 U.S. Department of Justice
 Civil Rights Division

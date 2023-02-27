@@ -2,6 +2,7 @@
 title: CRT - DOT (ACP-Airlines) Referral Form Letter (Vietnamese)
 subject: "Hồi đáp: Báo Cáo của Ban Dân Quyền của Quý Vị - {{ record_locator }} từ Phòng {{ vi.section_name }}"
 language: vi
+is_html: true
 ---
 Re:		Báo Cáo của Ban Dân Quyền của Quý Vị - {{ record_locator }} từ Phòng {{ vi.section_name }}
 
