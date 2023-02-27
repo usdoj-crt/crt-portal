@@ -20,7 +20,7 @@ from testfixtures import LogCapture
 
 from ..forms import ContactEditForm, ReportEditForm, add_activity
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
-from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign
+from ..models import DashboardEmbed, Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign
 from .test_data import SAMPLE_REPORT_1
 from .factories import ReportFactory
 
@@ -775,6 +775,36 @@ class CRT_Dashboard_Tests(TestCase):
         self.client.force_login(self.superuser)
         response = self.client.get(url)
         self.assertTrue('0 reports' in str(response.content))
+
+
+class CRT_Analytics_Tests(TestCase):
+    def setUp(self):
+        # We'll need a report and a handful of actions
+        self.client = Client()
+        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
+        self.url = reverse('crt_forms:dashboard')
+        self.client.force_login(self.superuser)
+
+    def tearDown(self):
+        DashboardEmbed.objects.all().delete()
+
+    def test_analytics_hides_when_no_embeds(self):
+        response = self.client.get(self.url, follow=True)
+
+        self.assertNotContains(response, 'Analytics')
+
+    def test_analytics_embeds_content(self):
+        DashboardEmbed.objects.create(filename='test.html',
+                                      content='<strong>This renders!</strong>',
+                                      mimetype='text/html').save()
+        DashboardEmbed.objects.create(filename='test2.html',
+                                      content='<strong>This also renders!</strong>',
+                                      mimetype='text/html').save()
+
+        response = self.client.get(self.url, follow=True)
+
+        self.assertIn('<strong>This renders!</strong>', str(response.content))
+        self.assertIn('<strong>This also renders!</strong>', str(response.content))
 
 
 class LoginRequiredTests(TestCase):

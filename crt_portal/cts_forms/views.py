@@ -19,6 +19,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
 from django.db.models import F
+from django.forms.models import model_to_dict
 from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.views.generic import FormView, TemplateView, View
@@ -36,7 +37,7 @@ from .forms import (
 )
 from .mail import crt_send_mail
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
-from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, Campaign, User, \
+from .models import CommentAndSummary, DashboardEmbed, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, Campaign, User, \
     RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import report_sort
@@ -296,40 +297,39 @@ def fetch_selected_foreign_key(request, field_name, query):
     return selected.pk if selected else ''
 
 
-@login_required
-def dashboard_view(request):
+def process_intake_filters(request):
     query_filters, selected_actions = dashboard_filter(request.GET)
 
-    # process filter query params
-    filter_args = ''
-    for query_item in query_filters.keys():
-        arg = query_item
-        for item in query_filters[query_item]:
-            filter_args = filter_args + f'&{arg}={item}'
-
-    reports_set = set()
-    for action in selected_actions:
-        reports_set.add(action.target_object_id)
+    reports = {action.target_object_id for action in selected_actions}
     start_date = _format_date(request.GET.get("create_date_start", ""))
     end_date = _format_date(request.GET.get("create_date_end", ""))
 
     selected_actor = request.GET.get("assigned_to", "")
     selected_actor_object = User.objects.filter(username=selected_actor).first()
-    if selected_actor_object:
-        selected_actor_id = selected_actor_object.pk
-    else:
-        selected_actor_id = ''
+    selected_actor_id = selected_actor_object.pk if selected_actor_object else ''
 
-    final_data = {
+    return {
         'form': Filters(request.GET),
         'selected_actor': selected_actor,
         'selected_actor_id': selected_actor_id,
         'date_range_start': start_date,
         'date_range_end': end_date,
-        'activity_count': len(reports_set),
+        'activity_count': len(reports),
         'filters': query_filters,
     }
-    return render(request, 'forms/complaint_view/dashboard/index.html', final_data)
+
+
+@login_required
+def dashboard_view(request):
+    embeds = [model_to_dict(e) for e in DashboardEmbed.objects.all()]
+
+    return render(
+        request,
+        'forms/complaint_view/dashboard/index.html',
+        {
+            **process_intake_filters(request),
+            'embeds': embeds,
+        })
 
 
 def serialize_data(report, request, report_id):
