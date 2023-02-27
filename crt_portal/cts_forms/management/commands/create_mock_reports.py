@@ -13,6 +13,9 @@ from random import randrange
 from datetime import timedelta
 
 
+SECTIONS = ['ADM', 'APP', 'CRM', 'DRS', 'ELS', 'EOS', 'FCS', 'HCE', 'IER', 'POL', 'SPL', 'VOT']
+
+
 def random_date():
     """
     This function will return a random datetime between two datetime
@@ -102,6 +105,9 @@ class Command(BaseCommand):  # pragma: no cover
                 report.protected_class.add(protected_example4)
                 report.protected_class.add(protected_example5)
                 report.create_date = UTC.localize(datetime(2020, 6, 21, 18, 25, 30))
+                if report.assigned_section != 'CRM':
+                    add_activity(user1, 'Assigned section:', f'Updated from "{report.assigned_section}" to "CRM"', report)
+                    report.assigned_section = 'CRM'
             # 3%
             elif rand <= 3:
                 report.contact_email = "frequentflier2@test.test"
@@ -113,6 +119,9 @@ class Command(BaseCommand):  # pragma: no cover
                 report.protected_class.add(protected_example2)
                 report.protected_class.add(protected_example3)
                 report.create_date = UTC.localize(datetime(2021, 12, 31, 18, 25, 30))
+                if report.assigned_section != 'SPL':
+                    add_activity(user1, 'Assigned section:', f'Updated from "{report.assigned_section}" to "SPL"', report)
+                    report.assigned_section = 'SPL'
             # 6%
             elif rand <= 6:
                 report.contact_email = "frequentflier3@test.test"
@@ -124,8 +133,14 @@ class Command(BaseCommand):  # pragma: no cover
                 report.protected_class.add(protected_example2)
                 report.protected_class.add(protected_example3)
                 report.create_date = UTC.localize(datetime(2021, 1, 1, 0, 0, 0))
+                if report.assigned_section != 'VOT':
+                    add_activity(user2, 'Assigned section:', f'Updated from "{report.assigned_section}" to "VOT"', report)
+                    report.assigned_section = 'VOT'
             # 50% chance of sending an email
             elif rand <= 50:
+                if report.assigned_section != 'DRS':
+                    add_activity(user3, 'Assigned section:', f'Updated from "{report.assigned_section}" to "DRS"', report)
+                    report.assigned_section = 'DRS'
                 add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
                 add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
                 add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
@@ -133,6 +148,11 @@ class Command(BaseCommand):  # pragma: no cover
                 add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
                 protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[0][0])
                 report.protected_class.add(protected_example)
+            elif rand <= 70:
+                referral = random.choice(SECTIONS)  # nosec
+                if report.assigned_section != referral:
+                    add_activity(user3, 'Assigned section:', f'Updated from "{report.assigned_section}" to "{referral}"', report)
+                    report.assigned_section = referral
             report.save()
         EmailReportCount.refresh_view()
         FormLettersSent.refresh_view()
