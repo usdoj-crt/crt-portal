@@ -122,6 +122,7 @@ class VotingMode(models.Model):
 class Campaign(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, editable=False)
     internal_name = models.CharField(max_length=100, null=False, unique=True, blank=False, help_text="The non-publicly-facing name for this campaign")
+    foo = models.CharField(max_length=100, null=False, unique=True, blank=False, help_text="foo")
     description = models.TextField(max_length=1000, null=False, blank=True)
     show_in_filters = models.BooleanField(default=True, null=False)
 
