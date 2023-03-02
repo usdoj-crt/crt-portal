@@ -3,7 +3,7 @@ import frontmatter
 import yaml
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from cts_forms.models import ResponseTemplate
+from cts_forms.models import ResponseTemplate, ReferralContact
 
 
 class Command(BaseCommand):  # pragma: no cover
@@ -47,6 +47,14 @@ class Command(BaseCommand):  # pragma: no cover
                     except KeyError as e:
                         self.stdout.write(self.style.ERROR(f'Response template {template.name} is missing required `{e.args[0]}` property. Skipping it!'))
                         continue
+
+                    referral_contact_machine_name = content.get('referral_contact')
+                    if referral_contact_machine_name:
+                        maybe_referral_contact = ReferralContact.objects.filter(machine_name=referral_contact_machine_name).first()
+                        if maybe_referral_contact:
+                            letter_data['referral_contact'] = maybe_referral_contact
+                        else:
+                            self.stdout.write(self.style.ERROR(f'Response template {template.name} has an unknown referral_contact {referral_contact_machine_name}'))
 
                     self.template_ids.append(letter_id)
                     # Mark if a letter should be processed from Markdown to HTML.
