@@ -6,7 +6,7 @@ verify_ssl = true
 [packages]
 jupyterlab = "*"
 jupyter_client = "*"
-sudospawner = "*"
+oauthenticator = "*"
 ipython-sql = "*"
 sqlalchemy = "<2"
 psycopg2-binary = "*"

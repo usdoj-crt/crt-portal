@@ -35,12 +35,11 @@ Clone the project locally:
 
     git clone git@github.com:usdoj-crt/crt-portal.git
 
-In the top level directory create a .env file in the top of your directory and add the following environment variables. Set `SECRET_KEY` to a long, random string and `POSTGRES_PASSWORD`, `POSTGRES_ANALYTICS_PASSWORD`, and `JUPYTER_DEV_PASSWORD` to any strings you like.
+In the top level directory create a .env file in the top of your directory and add the following environment variables. Set `SECRET_KEY` to a long, random string and `POSTGRES_PASSWORD`, `POSTGRES_ANALYTICS_PASSWORD`.
 
     SECRET_KEY="this_is_a_long_random_string"
     POSTGRES_PASSWORD="rando_pw"
     POSTGRES_ANALYTICS_PASSWORD="some_other_password"
-    JUPYTER_DEV_PASSWORD="yet_another_password"
 
 To build the project
     You will need to build the project for the first time and when there are package updates to apply.
@@ -86,6 +85,80 @@ Now to compile the sass files into css, run:
 Also note, that the staticfiles folder is the destination of all static assets when you or a script runs `manage.py collectstatic` so don't make your changes there, or they will be overwritten.
 
 ## Jupyter
+
+### Setting up
+
+There's a few things to set up before Jupyter can be run:
+
+First, be sure you've set up `POSTGRES_ANALYTICS_PASSWORD` (as mentioned above). You'll need to restart the db instance if you're just getting to this now:
+
+```
+docker compose stop db && docker compose up -d db
+```
+
+#### OAuth
+
+Jupyter uses the Portal's auth system to decide who can log in. Because of this, there's a bit of local setup involved.
+
+First, you'll need to set OAUTH_PROVIDER_CLIENT_ID and OAUTH_PROVIDER_CLIENT_SECRET. This is basically the username and password for Jupyter to "log in" to the portal. To get these:
+1. Go to http://localhost:8000/oauth2_provider/applications
+2. Add your app as an application on this page, and add to ID and Secret to the OAUTH_PROVIDER_CLIENT_ID and OAUTH_PROVIDER_CLIENT_SECRET above in .env
+    a. Name: "JupyterHub" is fine.
+    b. Redirect uris: http://localhost:8001/hub/oauth_callback
+    c. Client type: Confidential
+    d. Grant type: Authorization Code
+    e. Algorithm: HMAC with SHA-2 256 (aka S256)
+
+Here's an example of what this will look like:
+
+![example of config from above](https://user-images.githubusercontent.com/15126660/222504478-778ca5ed-417f-4cb5-8eb1-9532e7ecc719.png)
+
+Because Jupyterhub is trusted (as in, controlled by us) you can also set "Skip authorization" on this application in the admin panel (at http://localhost:8000/admin/oauth2_provider/application/1/change) to save users an extra click when they log in for the first time.
+
+You'll need to restart Jupyter for these to take effect:
+
+```
+docker compose stop jupyter && docker compose up -d jupyter
+```
+
+To understand where and why to put these pieces where we are, let's talk about how OAuth works in general.
+
+The main thing to understand is the initial login process. There's a couple of steps:
+1. Checking that the user is okay with our app (/authorize).
+2. Checking that the provider is okay with our app (/token).
+
+Tokens expire often but authorization does not. So long as the user still has the app authorized, the app can continue to ask for more tokens on behalf of the user.
+
+Here's the general oauth process (authorzation_code with PKCE). If anything fails or is invalid, an error is ferried back to the user:
+
+```mermaid
+sequenceDiagram
+participant U as User
+participant JF as Client (Frontend)
+participant JB as Client (Backend)
+participant PF as Provider (Frontend)
+participant PB as Provider (Django Backend)
+
+title OAuth: First-time Login
+
+U ->> JF: Tries to go to a page
+JF ->> JB: Has user logged in before?
+Note left of JB: (No, first time user)
+JB ->> PB: Redirect to Provider Oauth [/authorize]
+Note left of PB: Verify CLIENT_ID, Start PKCE
+PB ->> PF: Show Login screen
+PF ->> PB: Verify user credentials
+PB ->> JB: If Valid, Send code
+JB ->> PB: Send code + PKCE verifier for Token
+PB ->> JB: If verified, send token
+Note left of PB: Store Token + Expiration
+JB ->> JF: Send token to frontend
+Note Left of JF: Cache Token
+JF ->> U: Redirect to Intended Page
+U ->> JF: Requests now include Token
+```
+
+### Installing and Running
 
 Running `docker-compose up --build` should install and run the Jupyter server locally.
 
