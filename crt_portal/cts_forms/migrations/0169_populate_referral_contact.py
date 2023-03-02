@@ -3,77 +3,102 @@
 from django.db import migrations
 
 
+def remove_referral_contacts(apps, schema_editor):
+    del schema_editor  # Unused
+
+    ReferralContact = apps.get_model('cts_forms', 'ReferralContact')
+    ReferralContact.objects.all().delete()
+
+
 def add_referral_contacts(apps, schema_editor):
     del schema_editor  # Unused
 
     ReferralContact = apps.get_model('cts_forms', 'ReferralContact')
 
+    # doe
     ReferralContact.objects.create(
         name='U.S. Department of Education - Office for Civil Rights',
+        machine_name='doe',
         notes='',
         addressee_text='Office for Civil Rights\nU.S. Department of Education\n400 Maryland Avenue, SW\nWashington, DC 20202-1100',
         addressee_emails='',
         show_as_referral=True,
     )
 
+    # Hhs
     ReferralContact.objects.create(
         name='Department of Health and Human Services - Office for Civil Rights',
+        machine_name='hhs',
         notes='',
         addressee_text='Office for Civil Rights\nDepartment of Health and Human Services\n200 Independence Avenue, SW, Room 515F\nHumphrey Building\nWashington, D.C.  20201',
         addressee_emails='',
         show_as_referral=True,
     )
 
+    # Eeoc
     ReferralContact.objects.create(
         name='U.S. Equal Employment Opportunity Commission - Field Management Programs',
+        machine_name='eeoc',
         notes='',
         addressee_text='Field Management Programs\nU.S. Equal Employment Opportunity Commission\n131 M Street, N.E.\nWashington, DC  20507',
         addressee_emails='',
         show_as_referral=True,
     )
 
+    # DotAcp
     ReferralContact.objects.create(
-        name='Aviation Consumer Protection Division - Director of Civil Rights Advocacy',
+        name='U.S. Department of Transportation - Aviation Consumer Protection Division',
+        machine_name='dot-acp',
         notes='',
         addressee_text='Director of Civil Rights Advocacy\nAviation Consumer Protection Division\nDepartment of Transportation\n1200 New Jersey Avenue, S.E., C-75\nW96-432\nWashington, D.C.  20590',
         addressee_emails='',
         show_as_referral=True,
     )
 
+    # DotFta
     ReferralContact.objects.create(
-        name='Federal Transit Administration - Office of Civil Rights',
+        name='U.S. Department of Transportation - Federal Transit Administration',
+        machine_name='dot-fta',
         notes='',
         addressee_text='Associate Administrator for Civil Rights\nOffice of Civil Rights\nFederal Transit Administration\nU.S. Department of Transportation\n1200 New Jersey Avenue, SE, Room E54-312\nWashington, D.C.  20590',
         addressee_emails='',
         show_as_referral=True,
     )
 
+    # DotOcr
     ReferralContact.objects.create(
-        name='Departmental Office of Civil Rights - EEO Programs Division',
+        name='U.S. Department of Transportation - Office of Civil Rights',
+        machine_name='dot-ocr',
         notes='',
         addressee_text='Associate Director\nEEO Programs Division\nDepartmental Office of Civil Rights\nOffice of the Secretary\nU.S. Department of Transportation \n1200 New Jersey Avenue, SE, Room W78-304\nWashington, D.C.  20590',
         addressee_emails='',
         show_as_referral=True,
     )
 
+    # SsaOpi
     ReferralContact.objects.create(
         name='Social Security Administration - Office of Public Inquiries',
+        machine_name='ssa-opi',
         notes='',
         addressee_text='Director of the Office of Policy, Procedures, and\nOperations Support\nOffice of Public Inquiries\nSocial Security Administration\n6401 Security Boulevard\nWindsor Park Building\nBaltimore, MD  21235',
         addressee_emails='',
         show_as_referral=True,
     )
 
+    # SsaOgc
     ReferralContact.objects.create(
         name='Social Security Administration - Office of the General Counsel',
+        machine_name='ssa-ogc',
         notes='',
         addressee_text='Labor and Employment Division\nOffice of General Law\nOffice of the General Counsel\nSocial Security Administration\nP.O. Box 17788  \nBaltimore, MD  21235-7788',
         addressee_emails='',
         show_as_referral=True,
     )
 
+    # Va
     ReferralContact.objects.create(
         name='Department of Veterans Affairs - For Resolution Management (08)',
+        machine_name='va',
         notes='',
         addressee_text='Deputy Assistant Secretary\nFor Resolution Management (08)\nDepartment of Veterans Affairs\n810 Vermont Avenue, N.W.\nWashington, D.C.  20420',
         addressee_emails='',
@@ -88,5 +113,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(add_referral_contacts),
+        migrations.RunPython(add_referral_contacts, remove_referral_contacts),
     ]

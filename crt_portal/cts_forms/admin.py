@@ -212,7 +212,7 @@ class VotingModeAdmin(admin.ModelAdmin):
 
 
 class ReferralContactAdmin(admin.ModelAdmin):
-    list_display = ['name', 'notes', 'show_as_referral']
+    list_display = ['machine_name', 'name', 'notes', 'show_as_referral']
 
 
 class CampaignAdmin(admin.ModelAdmin):

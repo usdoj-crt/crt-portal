@@ -2,12 +2,13 @@
 title: CRT - HHS Referral Form Letter (Chinese Traditional)
 subject: "回應：您的民權司報告 - {{ zh_hant.section_name }}科的 {{ record_locator }}"
 language: zh-hant
+referral_contact: hhs
 ---
 Re:		您的民權司報告 - {{ zh_hant.section_name }}科的 {{ record_locator }}
 
 謝謝您于{{ zh_hant.date_of_intake }}聯係司法部。我們審查了您提供的信息后決定，投訴所提出的問題由另一個聯邦機構處理更爲合適。因此我們將該投訴轉給下列的機構做進一步處理：
 
-衛生和公衆服務部(Department of Health and Human Services)  
+衛生和公衆服務部(Department of Health and Human Services)
 1-800-368-1019
 
 您可以做什麽：
@@ -23,5 +24,5 @@ Re:		您的民權司報告 - {{ zh_hant.section_name }}科的 {{ record_locator 
 此致，
 
 
-美國司法部  
+美國司法部
 民權司

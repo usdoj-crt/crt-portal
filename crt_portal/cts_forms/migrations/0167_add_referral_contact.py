@@ -15,6 +15,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(help_text='A short name to show in dropdown fields.', max_length=500, unique=True)),
+                ('machine_name', models.CharField(max_length=500, null=False, unique=True, blank=False, help_text="A short, non-changing name to be used in template code.")),
                 ('notes', models.TextField(blank=True, help_text='Internal notes about how to use this referral information.', max_length=7000)),
                 ('addressee_text', models.TextField(blank=True, help_text='What to print on printed referral forms.', max_length=7000)),
                 ('addressee_emails', models.TextField(blank=True, help_text="A comma-separated list of emails to include on email referrals (for example: 'a@a.gov, b@b.gov')", max_length=7000)),

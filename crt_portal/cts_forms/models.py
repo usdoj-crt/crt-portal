@@ -120,6 +120,7 @@ class VotingMode(models.Model):
 
 
 class ReferralContact(models.Model):
+    machine_name = models.CharField(max_length=500, null=False, unique=True, blank=False, help_text="A short, non-changing name to be used in template code.")
     name = models.CharField(max_length=500, null=False, unique=True, blank=False, help_text="A short name to show in dropdown fields.")
     notes = models.TextField(max_length=7000, null=False, blank=True, help_text="Internal notes about how to use this referral information.")
     addressee_text = models.TextField(max_length=7000, null=False, blank=True, help_text="What to print on printed referral forms.")

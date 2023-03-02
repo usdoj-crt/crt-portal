@@ -3,6 +3,7 @@ title: CRT - DOT (FTA-Public Transp.) Referral Form Letter
 subject: "Re: Civil Rights Division Complaint – {{ record_locator }} from the {{ section_name }} Section"
 language: en
 is_html: true
+referral_contact: dot-fta
 ---
 Re: Civil Rights Division Complaint – {{ record_locator }} from the {{ section_name }} Section
 
