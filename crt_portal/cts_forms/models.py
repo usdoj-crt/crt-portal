@@ -603,6 +603,7 @@ class ResponseTemplate(models.Model):
     is_html = models.BooleanField('HTML email', default=False,)
     show_in_dropdown = models.BooleanField('Show in select template dropdown', default=True,)
     is_user_created = models.BooleanField('Is user created', default=True,)
+    referral_contact = models.ForeignKey(ReferralContact, blank=True, null=True, related_name="response_templates", on_delete=models.SET_NULL)
 
     def utc_timezone_to_est(self, utc_dt):
         local_tz = pytz.timezone('US/Eastern')
