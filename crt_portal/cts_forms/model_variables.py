@@ -80,10 +80,11 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
         _('Denied an accommodation for a disability, including not being allowed to have a service animal <strong>in the workplace</strong>'),
     ],
     'housing': [
-        _('Denied housing, a permit, or a loan based on personal characteristics like race, sex, and/or having children under 18 years old'),
-        _('Harassment by a landlord or another tenant, including sexual harassment'),
-        _('Challenges with terminating a lease due to military status change'),
-        _('Denied an accommodation for a disability, including not being allowed to have a service or assistance animal <strong>in public housing</strong>'),
+        _('Refusing to sell or rent to someone because of race, national origin, disability, religion, sex, or because they have children'),
+        _('Making only certain apartments available or applying rules differently to tenants because of race, national origin, disability, religion, sex, or because they have children'),
+        _('Tenants being sexually harassed by a landlord or the landlord’s employee'),
+        _('Refusing to make a reasonable accommodation in housing'),
+        _('Landlord taking action against a tenant who is a domestic violence survivor because they request emergency assistance'),
     ],
     'education': [
         _('Harassment based on race, sex, national origin, disability, or religion'),
@@ -102,9 +103,8 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
         _('Denied access to safe living conditions or accommodations for a disability, language barrier, or religious practice while incarcerated'),
     ],
     'commercial_or_public': [
-        _('A physical or online location that does not provide disability accommodations'),
-        _('Denied service or entry because of a perceived personal characteristic like race, sex, or religion'),
-        _('Denied an accommodation for a disability, including not being allowed to have a service animal <strong>in a commercial or public location</strong>'),
+        _('Discriminated against at a business, such as a restaurant or place of entertainment, or a public location because of race, color, national origin, or religion'),
+        _('Discriminated against at a business or public location because of disability, including lack of accessible building features or refusal to accommodate a service dog'),
     ],
     'something_else': []
 }
@@ -122,10 +122,11 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES_VOTING = {
         _('Denied an accommodation for a disability, including not being allowed to have a service animal <strong>in the workplace</strong>'),
     ],
     'housing': [
-        _('Denied housing, a permit, or a loan based on personal characteristics like race, sex, and/or having children under 18 years old'),
-        _('Harassment by a landlord or another tenant, including sexual harassment'),
-        _('Challenges with terminating a lease due to military status change'),
-        _('Denied an accommodation for a disability, including not being allowed to have a service or assistance animal <strong>in public housing</strong>'),
+        _('Refusing to sell or rent to someone because of race, national origin, disability, religion, sex, or because they have children'),
+        _('Making only certain apartments available or applying rules differently to tenants because of race, national origin, disability, religion, sex, or because they have children'),
+        _('Tenants being sexually harassed by a landlord or the landlord’s employee'),
+        _('Refusing to make a reasonable accommodation in housing'),
+        _('Landlord taking action against a tenant who is a domestic violence survivor because they request emergency assistance'),
     ],
     'education': [
         _('Harassment based on race, sex, national origin, disability, or religion'),
@@ -139,9 +140,8 @@ PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES_VOTING = {
         _('Denied access to safe living conditions or accommodations for a disability, language barrier, or religious practice while incarcerated'),
     ],
     'commercial_or_public': [
-        _('A physical or online location that does not provide disability accommodations'),
-        _('Denied service or entry because of a perceived personal characteristic like race, sex, or religion'),
-        _('Denied an accommodation for a disability, including not being allowed to have a service animal <strong>in a commercial or public location</strong>'),
+        _('Discriminated against at a business, such as a restaurant or place of entertainment, or a public location because of race, color, national origin, or religion'),
+        _('Discriminated against at a business or public location because of disability, including lack of accessible building features or refusal to accommodate a service dog'),
     ],
     'something_else': []
 }
