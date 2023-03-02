@@ -119,6 +119,17 @@ class VotingMode(models.Model):
     toggle = models.BooleanField(default=False)
 
 
+class ReferralContact(models.Model):
+    name = models.CharField(max_length=500, null=False, unique=True, blank=False, help_text="A short name to show in dropdown fields.")
+    notes = models.TextField(max_length=7000, null=False, blank=True, help_text="Internal notes about how to use this referral information.")
+    addressee_text = models.TextField(max_length=7000, null=False, blank=True, help_text="What to print on printed referral forms.")
+    addressee_emails = models.TextField(max_length=7000, null=False, blank=True, help_text="A comma-separated list of emails to include on email referrals (for example: 'a@a.gov, b@b.gov')")
+    show_as_referral = models.BooleanField(default=True, null=False, help_text="Whether to list this contact as a referral option.")
+
+    def __str__(self):
+        return self.name
+
+
 class Campaign(models.Model):
     uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, unique=True, editable=False)
     internal_name = models.CharField(max_length=100, null=False, unique=True, blank=False, help_text="The non-publicly-facing name for this campaign")
