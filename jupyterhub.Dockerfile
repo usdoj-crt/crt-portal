@@ -15,8 +15,10 @@ RUN \
 RUN pip install --upgrade pip
 RUN pip install pipenv
 COPY jupyterhub/Pipfile jupyterhub/Pipfile.lock /srv/jupyterhub
-RUN pipenv install --dev --system
+RUN pipenv sync --dev --system
 RUN R -e "IRkernel::installspec(user = FALSE)"
+
+COPY jupyterhub/export_embed.py /srv/jupyterhub/export_embed.py
 
 # Run as root to allow JupyterHub to spawn containers and create users.
 USER root

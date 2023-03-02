@@ -22,6 +22,7 @@
       {% include "forms/complaint_view/dashboard/complaints_table.html" with page_format=page_format sort_state=sort_state filter_state=filter_state %}
     </div>
   </div>
+  {% include "forms/complaint_view/dashboard/analytics.html" with embeds=embeds %}
 </div>
 {% endblock %}
 {% block page_js %}
