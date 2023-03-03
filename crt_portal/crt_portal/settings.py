@@ -97,7 +97,8 @@ INSTALLED_APPS = [
     # 'django_auth_adfs' in production only
     'crequest',
     'rest_framework',
-    'tms'
+    'tms',
+    'shortener.apps.ShortenerConfig',
 ]
 SITE_ID = 1
 
