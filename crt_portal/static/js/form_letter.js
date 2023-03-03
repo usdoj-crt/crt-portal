@@ -1,13 +1,23 @@
 (function(root) {
-  // const DEPT_ADDRESS = {
-  //   deptOfEd: `<p id="form-letterhead--dept-addressee">
-  //       U.S. Department of Education<br>
-  //       Office for Civil Rights<br>
-  //       Lyndon Baines Johnson Department of Education Bldg.<br>
-  //       400 Maryland Avenue, SW<br>
-  //       Washington, DC 20202-1100<br>
-  //     </p>`,
-  // };
+  function addReferralAddress(referral_contact) {
+    const addressee = document.getElementById('form-letterhead--addressee');
+    const deptAddressee = document.getElementById('form-letterhead--dept-addressee');
+
+    if (deptAddressee) {
+      deptAddressee.remove();
+    }
+
+    if (!addressee) return;
+
+    const addressee_text = referral_contact?.addressee_text;
+    if (!addressee_text) return;
+
+    const newDeptAddressee = document.createElement('p');
+    newDeptAddressee.id = 'form-letterhead--dept-addressee';
+    newDeptAddressee.innerText = addressee_text;
+
+    addressee.parentNode.insertBefore(newDeptAddressee, addressee);
+  }
 
   document.addEventListener('DOMContentLoaded', function() {
     // `marked` should be loaded in global context at this point.
@@ -81,8 +91,8 @@
           letter.hidden = false;
           letter.innerHTML = data.body || '';
         }
+        addReferralAddress(data.referral_contact);
       });
-    addReferralAddress(option);
     if (index >= 1) {
       copy.removeAttribute('disabled');
       print.removeAttribute('disabled');
