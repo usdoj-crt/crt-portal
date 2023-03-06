@@ -98,10 +98,7 @@ class ReportDetail(generics.RetrieveUpdateAPIView):
         return self.update(request, *args, **kwargs)
 
 
-class ResponseTemplatePreview(generics.ListAPIView):
-    """
-    API endpoint that allows responses to be viewed.
-    """
+class ResponseTemplatePreviewBase:
     permission_classes = [permissions.IsAuthenticated]
 
     _templates_dir = os.path.join(settings.BASE_DIR, 'cts_forms', 'response_templates')
@@ -130,14 +127,30 @@ class ResponseTemplatePreview(generics.ListAPIView):
             **lang_contexts,
         })
 
-    def _render_response_template(self, request, *, is_html, markdown_body):
+    def _render_response_template(self, request, *, is_html=False, body='', **kwargs):
+        del kwargs  # Allow for extra, unused render variables.
         context = self._make_example_context()
         if is_html:
-            subbed = str(Template(markdown_body).render(context))
+            subbed = str(Template(body).render(context))
             md = markdown.markdown(subbed, extensions=['nl2br', CustomHTMLExtension()])
             return render(request, 'email.html', {'content': md})
 
-        return HttpResponse(Template(markdown_body.replace('\n', '<br>')).render(context))
+        return HttpResponse(Template(body.replace('\n', '<br>')).render(context))
+
+
+class ResponseTemplateFormPreview(generics.ListAPIView, ResponseTemplatePreviewBase):
+    """
+    API endpoint that allows responses to be viewed based on content.
+    """
+
+    def post(self, request):
+        return self._render_response_template(request, **request.data)
+
+
+class ResponseTemplateFilePreview(generics.ListAPIView, ResponseTemplatePreviewBase):
+    """
+    API endpoint that allows responses to be viewed given a filename.
+    """
 
     def get(self, request, filename):
         if not filename:
@@ -150,7 +163,7 @@ class ResponseTemplatePreview(generics.ListAPIView):
         return self._render_response_template(
             request,
             is_html=content.get('is_html', False),
-            markdown_body=str(content))
+            body=str(content))
 
 
 class ResponseList(generics.ListAPIView):

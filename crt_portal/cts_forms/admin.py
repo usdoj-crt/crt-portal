@@ -228,7 +228,20 @@ class CampaignAdmin(admin.ModelAdmin):
 
 
 class ResponseTemplateAdmin(admin.ModelAdmin):
+    class Media:
+        js = ('js/response_template_preview.js',)
+        css = {
+            'all': ('css/compiled/admin.css',)
+        }
+
     exclude = ['is_user_created']
+    readonly_fields = ['preview']
+
+    @admin.display(description='Email Preview')
+    def preview(self, obj):
+        return mark_safe('<iframe class="response-template-preview"'
+                         'width="100%" height="100%"'
+                         '></iframe>')
 
 
 admin.site.register(CommentAndSummary)
