@@ -99,8 +99,6 @@ class ReportDetail(generics.RetrieveUpdateAPIView):
 
 
 class ResponseTemplatePreviewBase:
-    permission_classes = [permissions.IsAuthenticated]
-
     _templates_dir = os.path.join(settings.BASE_DIR, 'cts_forms', 'response_templates')
 
     def _make_example_context(self):
@@ -128,6 +126,8 @@ class ResponseTemplatePreviewBase:
         })
 
     def _render_response_template(self, request, *, is_html=False, body='', **kwargs):
+        if isinstance(body, list):
+            body = ''.join(body)
         del kwargs  # Allow for extra, unused render variables.
         context = self._make_example_context()
         if is_html:
@@ -139,18 +139,16 @@ class ResponseTemplatePreviewBase:
 
 
 class ResponseTemplateFormPreview(generics.ListAPIView, ResponseTemplatePreviewBase):
-    """
-    API endpoint that allows responses to be viewed based on content.
-    """
+    """API endpoint that allows responses to be viewed based on content."""
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
         return self._render_response_template(request, **request.data)
 
 
 class ResponseTemplateFilePreview(generics.ListAPIView, ResponseTemplatePreviewBase):
-    """
-    API endpoint that allows responses to be viewed given a filename.
-    """
+    """API endpoint that allows responses to be viewed given a filename."""
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, filename):
         if not filename:

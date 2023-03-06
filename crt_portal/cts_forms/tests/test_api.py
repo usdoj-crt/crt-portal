@@ -65,6 +65,46 @@ class APIFormLettersIndex(TestCase):
         self.assertEqual(response.status_code, 403)
 
 
+class APIPreviewResponseFormTests(TestCase):
+    def setUp(self):
+        self.client = Client(raise_request_exception=False)
+        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.url = reverse("api:preview-response-form")
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_preview_response_text(self):
+        """Makes sure our route for previewing markdown files works."""
+        self.client.login(username="DELETE_USER", password="")  # nosec
+
+        response = self.client.post(
+            self.url,
+            {"body": "hello, {{ addressee }}"}
+        )
+
+        self.assertContains(response, "hello, [Variable: Addressee Name]")
+
+    def test_preview_response_html(self):
+        """Makes sure our route for previewing markdown files works."""
+        self.client.login(username="DELETE_USER", password="")  # nosec
+
+        response = self.client.post(
+            self.url,
+            {"body": "hello, *{{ addressee }}*", "is_html": True}
+        )
+
+        self.assertContains(response, "hello, <em>[Variable: Addressee Name]</em>")
+
+    def test_unauthenticated(self):
+        """Only logged in users should be able to preview templates."""
+        self.client.logout()
+
+        response = self.client.get(self.url, follow=True)
+
+        self.assertEqual(response.status_code, 403)
+
+
 class APIPreviewResponseFileTests(TestCase):
     def setUp(self):
         self.client = Client(raise_request_exception=False)
