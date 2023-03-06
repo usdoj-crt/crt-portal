@@ -27,7 +27,17 @@
 
   function makeAbsolute(input) {
     if (!input.classList.contains('absolute-url')) return;
-    input.value = `${window.location.origin}${input.value}`;
+    const origin = getOrigin();
+    input.value = `${origin}${input.value}`;
+  }
+
+  function getOrigin() {
+    const origin = window.location.origin;
+    if (origin.includes('crt-portal-django-prod.app.cloud.gov')) {
+      return 'https://civilrights.justice.gov';
+    }
+
+    return origin;
   }
 
   function setupButtons() {
