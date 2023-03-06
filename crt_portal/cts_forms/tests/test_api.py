@@ -83,7 +83,7 @@ class APIPreviewResponseFormTests(TestCase):
             {"body": "hello, {{ addressee }}"}
         )
 
-        self.assertContains(response, "hello, [Variable: Addressee Name]")
+        self.assertContains(response, 'hello, <span class="variable">Addressee Name</span>')
 
     def test_preview_response_html(self):
         """Makes sure our route for previewing markdown files works."""
@@ -94,7 +94,7 @@ class APIPreviewResponseFormTests(TestCase):
             {"body": "hello, *{{ addressee }}*", "is_html": True}
         )
 
-        self.assertContains(response, "hello, <em>[Variable: Addressee Name]</em>")
+        self.assertContains(response, 'hello, <em><span class="variable">Addressee Name</span></em>')
 
     def test_unauthenticated(self):
         """Only logged in users should be able to preview templates."""
@@ -123,7 +123,7 @@ class APIPreviewResponseFileTests(TestCase):
         response = self.client.get(self.url)
 
         self.assertContains(response, "Thank you for taking the time")
-        self.assertContains(response, "[Variable: Addressee Name]")
+        self.assertContains(response, '<span class="variable">Addressee Name</span>')
 
     def test_preview_response_html(self):
         """Makes sure our route for previewing markdown files works."""
@@ -135,7 +135,7 @@ class APIPreviewResponseFileTests(TestCase):
         response = self.client.get(self.url)
 
         self.assertContains(response, "Thank you for contacting")
-        self.assertContains(response, "[Variable: Addressee Name]")
+        self.assertContains(response, '<span class="variable">Addressee Name</span>')
         self.assertContains(response, "<li>If your")
 
     def test_unauthenticated(self):

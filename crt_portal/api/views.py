@@ -1,4 +1,5 @@
 from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter, report_cws
+from django.utils.html import mark_safe
 from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
 from cts_forms.filters import report_filter
 from cts_forms.mail import CustomHTMLExtension
@@ -101,15 +102,18 @@ class ReportDetail(generics.RetrieveUpdateAPIView):
 class ResponseTemplatePreviewBase:
     _templates_dir = os.path.join(settings.BASE_DIR, 'cts_forms', 'response_templates')
 
+    def _mark_variable(self, value):
+        return mark_safe(f'<span class="variable">{value}</span>')
+
     def _make_example_context(self):
         base_context = {
-            'addressee': '[Variable: Addressee Name]',
-            'contact_address_line_1': '[Variable: Contact Address Line 1]',
-            'contact_address_line_2': '[Variable: Contact Address Line 2]',
-            'contact_email': '[Variable: Contact Email]',
-            'date_of_intake': '[Variable: Date of Intake]',
-            'outgoing_date': '[Variable: Outgoing Date]',
-            'section_name': '[Variable: Section]',
+            'addressee': self._mark_variable('Addressee Name'),
+            'contact_address_line_1': self._mark_variable('Contact Address Line 1'),
+            'contact_address_line_2': self._mark_variable('Contact Address Line 2'),
+            'contact_email': self._mark_variable('Contact Email'),
+            'date_of_intake': self._mark_variable('Date of Intake'),
+            'outgoing_date': self._mark_variable('Outgoing Date'),
+            'section_name': self._mark_variable('Section'),
         }
 
         lang_contexts = {
@@ -120,14 +124,21 @@ class ResponseTemplatePreviewBase:
         }
 
         return Context({
-            'record_locator': '[Variable: Record Locator]',
+            'record_locator': self._mark_variable('Record Locator'),
             **base_context,
             **lang_contexts,
         })
 
+    def _add_css(self, body):
+        return body + mark_safe(
+            '{% load static %}'
+            '<link rel="stylesheet" href="{% static "css/compiled/template-preview.css" %}">'
+        )
+
     def _render_response_template(self, request, *, is_html=False, body='', **kwargs):
         if isinstance(body, list):
             body = ''.join(body)
+        body = self._add_css(body)
         del kwargs  # Allow for extra, unused render variables.
         context = self._make_example_context()
         if is_html:
