@@ -6,9 +6,11 @@ from django.test import TestCase
 from django.test.client import Client
 from django.urls import reverse
 
+from shortener.models import ShortenedURL
+
 from ..admin import ACTION_FIELDS, REPORT_FIELDS
 from ..forms import add_activity
-from ..models import Report
+from ..models import Campaign, Report
 from .test_data import SAMPLE_REPORT_1
 from .factories import ReportFactory
 
@@ -70,6 +72,49 @@ class ActionAdminTests(TestCase):
         response3 = self.client.get(url3)
         self.assertTrue('Action 1' not in str(response3.content))
         self.assertTrue('Action 2' in str(response3.content))
+
+
+class CampaignAdminTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.superuser = User.objects.create_superuser('CAMPAIGN_TEST_USER', 'a@a.com', '')
+        self.client.force_login(self.superuser)
+        if ShortenedURL.objects.first():
+            ShortenedURL.objects.delete()
+        if Campaign.objects.first():
+            Campaign.objects.delete()
+
+    def test_list(self):
+        campaign = Campaign.objects.create(internal_name='Test Campaign')
+        campaign.save()
+        campaign.refresh_from_db()
+        uuid = campaign.uuid
+
+        target = reverse('admin:cts_forms_campaign_changelist')
+        response = self.client.get(target)
+        body = response.content.decode('utf-8')
+
+        self.assertIn('<td class="field-internal_name">Test Campaign</td>', body)
+        self.assertIn(('/admin/shortener/shortenedurl/add/?'
+                       f'destination=/report?utm_campaign={uuid}'),
+                      body)
+
+    def test_list_with_url(self):
+        campaign = Campaign.objects.create(internal_name='Test Campaign')
+        campaign.save()
+        campaign.refresh_from_db()
+        uuid = campaign.uuid
+        url = ShortenedURL.objects.create(
+            shortname='test',
+            destination=f'/report?utm_campaign={uuid}')
+        short_url = url.get_short_url()
+
+        target = reverse('admin:cts_forms_campaign_changelist')
+        response = self.client.get(target)
+        body = response.content.decode('utf-8')
+
+        self.assertIn('<td class="field-internal_name">Test Campaign</td>', body)
+        self.assertIn((f'<input aria-label="Short URL" disabled="disabled" class="admin-copy absolute-url" value="{short_url}"/>'), body)
 
 
 class ReportAdminTests(TestCase):
