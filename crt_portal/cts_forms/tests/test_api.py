@@ -74,6 +74,14 @@ class APIPreviewResponseFormTests(TestCase):
     def tearDown(self):
         self.user.delete()
 
+    def test_help_page_renders(self):
+        """Makes sure our route for previewing markdown files works."""
+        self.client.login(username="DELETE_USER", password="")  # nosec
+
+        response = self.client.get(self.url)
+
+        self.assertContains(response, 'This page explains')
+
     def test_preview_response_text(self):
         """Makes sure our route for previewing markdown files works."""
         self.client.login(username="DELETE_USER", password="")  # nosec
@@ -96,7 +104,15 @@ class APIPreviewResponseFormTests(TestCase):
 
         self.assertContains(response, 'hello, <em><span class="variable">Addressee Name</span></em>')
 
-    def test_unauthenticated(self):
+    def test_unauthenticated_post(self):
+        """Only logged in users should be able to preview templates."""
+        self.client.logout()
+
+        response = self.client.post(self.url, {'body': 'oops'}, follow=True)
+
+        self.assertEqual(response.status_code, 403)
+
+    def test_unauthenticated_get(self):
         """Only logged in users should be able to preview templates."""
         self.client.logout()
 

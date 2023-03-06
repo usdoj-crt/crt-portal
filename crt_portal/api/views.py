@@ -135,7 +135,9 @@ class ResponseTemplatePreviewBase:
             '<link rel="stylesheet" href="{% static "css/compiled/template-preview.css" %}">'
         )
 
-    def _render_response_template(self, request, *, is_html=False, body='', **kwargs):
+    def _render_response_template(self, request, *, is_html=False, body='', extra_markdown_extensions=None, **kwargs):
+        if extra_markdown_extensions is None:
+            extra_markdown_extensions = []
         if isinstance(body, list):
             body = ''.join(body)
         body = self._add_css(body)
@@ -143,7 +145,7 @@ class ResponseTemplatePreviewBase:
         context = self._make_example_context()
         if is_html:
             subbed = str(Template(body).render(context))
-            md = markdown.markdown(subbed, extensions=['nl2br', CustomHTMLExtension()])
+            md = markdown.markdown(subbed, extensions=['extra', 'nl2br', CustomHTMLExtension(), *extra_markdown_extensions])
             return render(request, 'email.html', {'content': md})
 
         return HttpResponse(Template(body.replace('\n', '<br>')).render(context))
@@ -152,6 +154,18 @@ class ResponseTemplatePreviewBase:
 class ResponseTemplateFormPreview(generics.ListAPIView, ResponseTemplatePreviewBase):
     """API endpoint that allows responses to be viewed based on content."""
     permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        help_path = os.path.join(settings.BASE_DIR, 'cts_forms/templates/template_help.md')
+
+        with open(help_path, 'r') as f:
+            content = frontmatter.load(f)
+
+        return self._render_response_template(
+            request,
+            is_html=True,
+            body=str(content),
+            extra_markdown_extensions=['toc'])
 
     def post(self, request):
         return self._render_response_template(request, **request.data)
