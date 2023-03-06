@@ -109,14 +109,18 @@ docker compose stop db && docker compose up -d db
 
 Jupyter uses the Portal's auth system to decide who can log in. Because of this, there's a bit of local setup involved.
 
+**Note: Because Jupyter uses system auth, make sure your Portal user is not named `root`**
+
 First, you'll need to set OAUTH_PROVIDER_CLIENT_ID and OAUTH_PROVIDER_CLIENT_SECRET. This is basically the username and password for Jupyter to "log in" to the portal. To get these:
 1. Go to http://localhost:8000/oauth2_provider/applications
 2. Add your app as an application on this page, and add to ID and Secret to the OAUTH_PROVIDER_CLIENT_ID and OAUTH_PROVIDER_CLIENT_SECRET above in .env
-    a. Name: "JupyterHub" is fine.
-    b. Redirect uris: http://localhost:8001/hub/oauth_callback
-    c. Client type: Confidential
-    d. Grant type: Authorization Code
-    e. Algorithm: HMAC with SHA-2 256 (aka S256)
+    1. Name: "JupyterHub" is fine.
+    2. Redirect uris: http://localhost:8001/hub/oauth_callback
+    3. Client type: Confidential
+    4. Grant type: Authorization Code
+    5. Algorithm: HMAC with SHA-2 256 (aka S256)
+    
+**NOTE: Make sure to copy the secret key _before_ saving the entry. Once saved, the secret will be hashed and can't be viewed again**
 
 Here's an example of what this will look like:
 
