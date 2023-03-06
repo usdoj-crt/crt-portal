@@ -242,7 +242,7 @@ class CampaignAdmin(admin.ModelAdmin):
         url = obj.get_absolute_url()
         name = obj.internal_name.lower().replace(' ', '-')
         add_short_link = reverse('admin:shortener_shortenedurl_add') + f'?destination={url}&shortname={name}'
-        return mark_safe(f'<a href="{add_short_link}">Create Short URL</a>')
+        return mark_safe(f'<a class="button" href="{add_short_link}">Create Short URL</a>')
 
     @admin.display(description='Long URL')
     def campaign_url(self, obj):
