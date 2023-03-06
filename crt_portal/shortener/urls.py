@@ -6,5 +6,5 @@ app_name = 'shortener'
 
 
 urlpatterns = [
-    re_path(r'^.*/$', redirect_to_shortened)
+    re_path(r'^.*/$', redirect_to_shortened, name='shortener-redirect')
 ]

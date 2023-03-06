@@ -9,5 +9,8 @@ class ShortenedURL(models.Model):
     def __str__(self):
         return self.shortname
 
+    def get_short_url(self):
+        return f"/link/{self.shortname}"
+
     def get_absolute_url(self):
         return self.destination

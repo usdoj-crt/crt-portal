@@ -2,12 +2,14 @@ import csv
 import logging
 
 from actstream.models import Action, Follow
+from django.apps import apps
 from django.contrib import admin
 from django.core.paginator import Paginator
 from django.db.models import Prefetch
 from django.http import StreamingHttpResponse
 from django.contrib.auth.models import User
 from django.utils.html import mark_safe
+from django.urls import reverse
 from django.db.models.functions import Lower
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
@@ -218,13 +220,34 @@ class CampaignAdmin(admin.ModelAdmin):
             'all': ('css/compiled/admin.css',)
         }
 
-    list_display = ['uuid', 'internal_name', 'campaign_url']
-    readonly_fields = ['campaign_url']
+    list_display = ['uuid', 'internal_name', 'shorten_url', 'campaign_url']
+    readonly_fields = ['campaign_url', 'shorten_url']
 
-    @admin.display(description='Campaign URL')
+    @admin.display(description='Short URL')
+    def shorten_url(self, obj):
+        # Find ShortenedURL objects containing the campaign uuid
+        ShortenedURL = apps.get_model('shortener', 'ShortenedURL')
+        short = ShortenedURL.objects.filter(destination=obj.get_absolute_url()).first()
+        if not short:
+            return self._get_create_short_link(obj)
+
+        admin_edit = reverse('admin:shortener_shortenedurl_change', args=[short.pk])
+        short_url = short.get_short_url()
+
+        copy = f'<input aria-label="Short URL" disabled="disabled" class="admin-copy absolute-url" value="{short_url}"/>'
+        edit = f'<a class="button" href="{admin_edit}">Change Short URL</a>'
+        return mark_safe(f'<div>{copy} {edit}</div>')
+
+    def _get_create_short_link(self, obj):
+        url = obj.get_absolute_url()
+        name = obj.internal_name.lower().replace(' ', '-')
+        add_short_link = reverse('admin:shortener_shortenedurl_add') + f'?destination={url}&shortname={name}'
+        return mark_safe(f'<a href="{add_short_link}">Create Short URL</a>')
+
+    @admin.display(description='Long URL')
     def campaign_url(self, obj):
         url = obj.get_absolute_url()
-        return mark_safe(f'<input aria-label="Campaign URL" disabled="disabled" class="admin-copy absolute-url" value="{url}"/>')
+        return mark_safe(f'<input aria-label="Long URL" disabled="disabled" class="admin-copy absolute-url" value="{url}"/>')
 
 
 class ResponseTemplateAdmin(admin.ModelAdmin):
