@@ -1,0 +1,19 @@
+{% load static %}
+{% if embeds %}
+<h2 style="margin-top: 2em" class="intake-section-title">Analytics</h2>
+<div class="margin-bottom-2">Take a high-level look at report data.</div>
+
+{% for embed in embeds %}
+  <div class="crt-portal-card">
+  <div class="crt-portal-card">
+    <div class="intake-table-header">
+      <h2 class="intake-section-title">{{ embed.title }}</h2>
+    </div>
+    <div class="crt-portal-card__content crt-portal-card__content--lg">
+      <div class="margin-top-3">
+      {{ embed.content | safe }}
+      </div>
+    </div>
+  </div>
+{% endfor %}
+{% endif %}
