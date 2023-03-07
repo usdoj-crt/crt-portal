@@ -145,7 +145,7 @@ class ResponseTemplatePreviewBase:
         context = self._make_example_context()
         if is_html:
             subbed = str(Template(body).render(context))
-            md = markdown.markdown(subbed, extensions=['extra', 'nl2br', CustomHTMLExtension(), *extra_markdown_extensions])
+            md = markdown.markdown(subbed, extensions=['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension(), *extra_markdown_extensions])
             return render(request, 'email.html', {'content': md})
 
         return HttpResponse(Template(body.replace('\n', '<br>')).render(context))

@@ -81,13 +81,73 @@ _*Dependent on economic or taxonomic policy_
 Which will show as:
 
 - Fruit
-  - Apples
-  - Bananas
+    - Apples
+    - Bananas
 - Vegetables
-  - Tomato\*
-  - Potato\*
+    - Tomato\*
+    - Potato\*
 
 _\*Dependent on economic or taxonomic policy_
+
+### Something's not working...
+
+Some common situations where things might not work as expected:
+
+---
+
+#### Not leaving blank lines
+
+Between paragraphs, or between different fancy formatting, leave a blank line.
+
+```
+Lists, for instance, won't work if they're directly on the next line after text:
+- See?
+- Not working.
+
+You need to leave some space:
+
+- That's
+- Better.
+```
+
+Becomes:
+
+Lists, for instance, won't work if they're directly on the next line after text:
+- See?
+- Not working.
+
+You need to leave some space:
+
+- That's
+- Better.
+
+---
+
+#### Not indenting by four spaces
+
+With this markdown, you have to use four spaces to indent:
+
+```
+- This is a list
+  - This is not quite a sublist yet
+
+versus:
+
+- This is another list
+    - And this is a correct sublist!
+```
+
+which becomes:
+
+- This is a list
+  - This is not quite a sublist yet
+
+versus:
+
+- This is another list
+    - And this is a correct sublist!
+
+---
 
 ### What can I do with it?
 
@@ -151,19 +211,19 @@ And for ordered:
 1. Here
 ```
 
-Which shows as:
+Which shows as (make sure to use four spaces to indent):
 
 - Unordered
-  - Sublist
-  - Here
+    - Sublist
+    - Here
 - List
 - Here
 
 And for ordered:
 
 1. Ordered
-   1. Sublist
-   1. Here
+     1. Sublist
+     1. Here
 1. List
 1. Here
 
@@ -202,6 +262,41 @@ which becomes:
 > I wrote a haiku
 > It is in this block quote now
 > Wow block quotes are great
+
+---
+
+#### Admonitions
+
+Admonitions are boxes with some text in them. We don't have styles for them now, but the HTML will be produced all the same:
+
+```
+!!! note
+    Make sure to indent these by four spaces
+
+!!! danger
+    Oh no danger!
+```
+
+which becomes:
+
+!!! note
+    Make sure to indent these by four spaces
+
+!!! danger
+    Oh no danger!
+
+
+The following types are standard, but we can invent our own:
+
+- attention
+- caution
+- danger
+- error
+- hint
+- important
+- note
+- tip
+- warning
 
 ---
 
