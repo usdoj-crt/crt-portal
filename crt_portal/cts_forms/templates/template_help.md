@@ -23,6 +23,7 @@ All of our templates support a few special variables. They are:
 | `date_of_intake`         | February 29, 1988            | The day the report was submitted                      |
 | `outgoing_date`          | February 31, 1988            | The day this reply is being sent (today)              |
 | `section_name`           | Voting                       | The section of the user sending the reply             |
+| `record_locator`         | 12345-XYZ                    | The identifier (record locator) of the report         |
 
 ### How do I use them?
 
@@ -57,7 +58,21 @@ If you don't see the following (for example, if you see `{ addressee }` instead 
 | `contact_email`          | {{ contact_email }}          |
 | `date_of_intake`         | {{ date_of_intake }}         |
 | `outgoing_date`          | {{ outgoing_date }}          |
+| `record_locator`         | {{ record_locator }}         |
 | `section_name`           | {{ section_name }}           |
+
+### What about translation/localization?
+
+Some variables have translated/localized forms. To use them, add the lanugage code to the start of the variable name, separated with a period. For example:
+
+| Name                        | Shows As                        |
+| --------------------------- | ------------------------------- |
+| `es.addressee`              | {{ es.addressee }}              |
+| `ko.contact_address_line_1` | {{ ko.contact_address_line_1 }} |
+| `tl.contact_address_line_2` | {{ tl.contact_address_line_2 }} |
+| `vi.contact_email`          | {{ vi.contact_email }}          |
+| `zh_hans.date_of_intake`    | {{ zh_hans.date_of_intake }}    |
+| `zh_hant.outgoing_date`     | {{ zh_hant.outgoing_date }}     |
 
 ## Markdown (Text Formatting)
 
@@ -81,11 +96,11 @@ _*Dependent on economic or taxonomic policy_
 Which will show as:
 
 - Fruit
-    - Apples
-    - Bananas
+  - Apples
+  - Bananas
 - Vegetables
-    - Tomato\*
-    - Potato\*
+  - Tomato\*
+  - Potato\*
 
 _\*Dependent on economic or taxonomic policy_
 
@@ -113,6 +128,7 @@ You need to leave some space:
 Becomes:
 
 Lists, for instance, won't work if they're directly on the next line after text:
+
 - See?
 - Not working.
 
@@ -145,7 +161,7 @@ which becomes:
 versus:
 
 - This is another list
-    - And this is a correct sublist!
+  - And this is a correct sublist!
 
 ---
 
@@ -214,16 +230,16 @@ And for ordered:
 Which shows as (make sure to use four spaces to indent):
 
 - Unordered
-    - Sublist
-    - Here
+  - Sublist
+  - Here
 - List
 - Here
 
 And for ordered:
 
 1. Ordered
-     1. Sublist
-     1. Here
+   1. Sublist
+   1. Here
 1. List
 1. Here
 
@@ -280,11 +296,10 @@ Admonitions are boxes with some text in them. We don't have styles for them now,
 which becomes:
 
 !!! note
-    Make sure to indent these by four spaces
+Make sure to indent these by four spaces
 
 !!! danger
-    Oh no danger!
-
+Oh no danger!
 
 The following types are standard, but we can invent our own:
 
@@ -316,7 +331,7 @@ Footnotes[^1], which have a label[^@#$%] and some content:
 (These will show up at the bottom of the page, after all of the rest of the content)
 
 [^1]: This is a footnote content.
-[^@#$%]: A footnote on the label: "@#$%".
+[^@#$%]: A footnote on the label: "@#\$%".
 
 ---
 

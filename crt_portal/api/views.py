@@ -107,25 +107,25 @@ class ResponseTemplatePreviewBase:
 
     def _make_example_context(self):
         base_context = {
-            'addressee': self._mark_variable('Addressee Name'),
-            'contact_address_line_1': self._mark_variable('Contact Address Line 1'),
-            'contact_address_line_2': self._mark_variable('Contact Address Line 2'),
-            'contact_email': self._mark_variable('Contact Email'),
-            'date_of_intake': self._mark_variable('Date of Intake'),
-            'outgoing_date': self._mark_variable('Outgoing Date'),
-            'section_name': self._mark_variable('Section'),
+            'addressee': 'Addressee Name',
+            'contact_address_line_1': 'Contact Address Line 1',
+            'contact_address_line_2': 'Contact Address Line 2',
+            'contact_email': 'Contact Email',
+            'date_of_intake': 'Date of Intake',
+            'outgoing_date': 'Outgoing Date',
+            'section_name': 'Section',
         }
 
         lang_contexts = {
             lang: {
-                key: f'[{lang}] {value}'
+                key: self._mark_variable(f'[{lang}] {value}')
                 for key, value in base_context.items()
             } for lang in ['es', 'ko', 'tl', 'vi', 'zh_hans', 'zh_hant']
         }
 
         return Context({
             'record_locator': self._mark_variable('Record Locator'),
-            **base_context,
+            **{k: self._mark_variable(v) for k, v in base_context.items()},
             **lang_contexts,
         })
 
