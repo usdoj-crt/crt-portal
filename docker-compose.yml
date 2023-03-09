@@ -34,6 +34,7 @@ services:
       - 8001:8000  # Don't conflict with the web app on 8000
     depends_on:
       - db
+      - web
     volumes:
       - ./jupyterhub:/srv/jupyterhub
   web:
