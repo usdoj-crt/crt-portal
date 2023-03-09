@@ -90,19 +90,17 @@ Also note, that the staticfiles folder is the destination of all static assets w
 
 There's a few things to set up before Jupyter can be run:
 
-First, be sure you've set up `POSTGRES_ANALYTICS_PASSWORD` (as mentioned above).
+First, be sure you've set up `POSTGRES_ANALYTICS_PASSWORD` (as mentioned above). You'll need to restart the db instance if you're just getting to this now:
+
+```
+docker compose stop db && docker compose up -d db
+```
 
 You'll also need to set the following env to tell Jupyter where to find the Django app:
 
 ```
 WEB_EXTERNAL_HOSTNAME="localhost:8000"
 WEB_INTERNAL_HOSTNAME="web:8000"
-```
-
-You'll need to restart the db instance if you're just getting to this now:
-
-```
-docker compose stop db && docker compose up -d db
 ```
 
 #### OAuth
