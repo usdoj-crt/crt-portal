@@ -27,7 +27,26 @@
       });
   }
 
+  function pasteMarkdown(event, input) {
+    const turndown = new TurndownService();
+    const pastedHtml = event.clipboardData.getData('text/html');
+    const markdown = turndown.turndown(pastedHtml);
+    // Word sometimes includes comments in its HTML, so strip them:
+    const sanitized = markdown.replace(/<!--(?!>)[\S\s]*?-->/g, '');
+    input.value =
+      input.value.substring(0, input.selectionStart) +
+      sanitized +
+      input.value.substring(input.selectionEnd);
+  }
+
   function listenForChanges(form, previewContainer) {
+    const bodyInput = document.getElementById('id_body');
+    bodyInput.addEventListener('paste', function(event) {
+      pasteMarkdown(event, bodyInput);
+      event.preventDefault();
+      form.dispatchEvent(new Event('change'));
+    });
+
     form.addEventListener('change', function() {
       populatePreviewContent(form, previewContainer);
     });
