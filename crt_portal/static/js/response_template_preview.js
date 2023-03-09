@@ -50,6 +50,12 @@
     form.addEventListener('change', function() {
       populatePreviewContent(form, previewContainer);
     });
+
+    const printButton = document.getElementById('print_template_preview');
+    printButton.addEventListener('click', function(event) {
+      previewContainer.contentWindow.print();
+      event.preventDefault();
+    });
   }
 
   function setupPreview() {

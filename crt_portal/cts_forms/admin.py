@@ -235,11 +235,15 @@ class ResponseTemplateAdmin(admin.ModelAdmin):
         }
 
     exclude = ['is_user_created']
-    readonly_fields = ['template_help', 'preview']
+    readonly_fields = ['template_help', 'print_template', 'preview']
 
     @admin.display(description='Template Help')
     def template_help(self, obj):
         return mark_safe('For help with template variables and formatting, <a target="_blank" href="/api/preview-response">go here</a>')
+
+    @admin.display(description='Print Email Preview')
+    def print_template(self, obj):
+        return mark_safe('<button class="button" id="print_template_preview">Print Email Preview</button>')
 
     @admin.display(description='Email Preview')
     def preview(self, obj):
