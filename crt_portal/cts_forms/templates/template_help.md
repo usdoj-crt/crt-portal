@@ -96,11 +96,11 @@ _*Dependent on economic or taxonomic policy_
 Which will show as:
 
 - Fruit
-  - Apples
-  - Bananas
+    - Apples
+    - Bananas
 - Vegetables
-  - Tomato\*
-  - Potato\*
+    - Tomato\*
+    - Potato\*
 
 _\*Dependent on economic or taxonomic policy_
 
@@ -128,7 +128,6 @@ You need to leave some space:
 Becomes:
 
 Lists, for instance, won't work if they're directly on the next line after text:
-
 - See?
 - Not working.
 
@@ -161,7 +160,7 @@ which becomes:
 versus:
 
 - This is another list
-  - And this is a correct sublist!
+    - And this is a correct sublist!
 
 ---
 
@@ -296,10 +295,10 @@ Admonitions are boxes with some text in them. We don't have styles for them now,
 which becomes:
 
 !!! note
-Make sure to indent these by four spaces
+    Make sure to indent these by four spaces
 
 !!! danger
-Oh no danger!
+    Oh no danger!
 
 The following types are standard, but we can invent our own:
 
@@ -331,7 +330,7 @@ Footnotes[^1], which have a label[^@#$%] and some content:
 (These will show up at the bottom of the page, after all of the rest of the content)
 
 [^1]: This is a footnote content.
-[^@#$%]: A footnote on the label: "@#\$%".
+[^@#$%]: A footnote on the label: "@#$%".
 
 ---
 
