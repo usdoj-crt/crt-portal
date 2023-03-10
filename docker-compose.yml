@@ -23,15 +23,18 @@ services:
       - DATABASE_PORT=5432
       - DATABASE_USER=analytics
       - DATABASE_PASSWORD=${POSTGRES_ANALYTICS_PASSWORD}
+      - OAUTH_PROVIDER_CLIENT_ID=${OAUTH_PROVIDER_CLIENT_ID}
+      - OAUTH_PROVIDER_CLIENT_SECRET=${OAUTH_PROVIDER_CLIENT_SECRET}
+      - WEB_EXTERNAL_HOSTNAME=${WEB_EXTERNAL_HOSTNAME}
+      - WEB_INTERNAL_HOSTNAME=${WEB_INTERNAL_HOSTNAME}
     build:
       dockerfile: jupyterhub.Dockerfile
-      args:
-        - dev_password=${JUPYTER_DEV_PASSWORD}
     command: jupyterhub --config '/srv/jupyterhub/jupyterhub_config.py'
     ports:
       - 8001:8000  # Don't conflict with the web app on 8000
     depends_on:
       - db
+      - web
     volumes:
       - ./jupyterhub:/srv/jupyterhub
   web:

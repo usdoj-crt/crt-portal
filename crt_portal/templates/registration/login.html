@@ -7,6 +7,7 @@
       <p>Please note this process will be replaced with DOJ single sign on.</p>
       <form label="log in form" method="post">
         {% csrf_token %}
+        <input type="hidden" name="next" value="{{ next }}" />
         {{ form.as_p }}
         <button label="login" type="submit" id="login" class="usa-button">Login</button>
       </form>
