@@ -13,7 +13,7 @@ from django.db.models.functions import Lower
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
                      JudicialDistrict, RoutingSection, RoutingStepOneContact,
-                     VotingMode, Campaign)
+                     VotingMode, Campaign, ReferralContact)
 from .signals import get_client_ip
 
 logger = logging.getLogger(__name__)
@@ -211,6 +211,10 @@ class VotingModeAdmin(admin.ModelAdmin):
         return 'Voting Mode: False'
 
 
+class ReferralContactAdmin(admin.ModelAdmin):
+    list_display = ['machine_name', 'name', 'notes', 'show_as_referral']
+
+
 class CampaignAdmin(admin.ModelAdmin):
     class Media:
         js = ('js/admin_copy.js',)
@@ -242,6 +246,7 @@ admin.site.register(JudicialDistrict, JudicialDistrictAdmin)
 admin.site.register(RoutingSection, RoutingSectionAdmin)
 admin.site.register(VotingMode, VotingModeAdmin)
 admin.site.register(Campaign, CampaignAdmin)
+admin.site.register(ReferralContact, ReferralContactAdmin)
 admin.site.register(RoutingStepOneContact, RoutingStepOneContactAdmin)
 
 # Activity stream already registers an Admin for Action, we want to replace it

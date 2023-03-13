@@ -3,6 +3,7 @@ title: CRT - DOT (ACP-Airlines) Referral Form Letter (Chinese Simplified)
 subject: "回应：您的民权司报告 - {{ zh_hans.section_name }}科的 {{ record_locator }}"
 language: zh-hans
 is_html: true
+referral_contact: dot-acp
 ---
 Re:		您的民权司报告 - {{ zh_hans.section_name }}科的 {{ record_locator }}
 

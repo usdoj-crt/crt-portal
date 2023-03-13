@@ -215,6 +215,10 @@ body.is-modal {
       margin-right: 0.75in;
     }
 
+    #form-letterhead--dept-addressee {
+      white-space: pre-line;
+    }
+
     #form-letter--placeholder {
       margin-left: 0.75in;
       margin-right: 0.75in;
@@ -318,7 +322,7 @@ body.is-modal {
     background-size: 24px 24px;
     padding-left: 0;
   }
-  
+
   .usa-alert__text {
     display: inline-block;
     padding-bottom: 1rem;

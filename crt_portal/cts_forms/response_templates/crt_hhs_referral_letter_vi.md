@@ -2,12 +2,13 @@
 title: CRT - HHS Referral Form Letter (Vietnamese)
 subject: "Hồi đáp: Báo Cáo của Ban Dân Quyền của Quý Vị - {{ record_locator }} từ Phòng {{ vi.section_name }}"
 language: vi
+referral_contact: hhs
 ---
 Re:		Báo Cáo của Ban Dân Quyền của Quý Vị - {{ record_locator }} từ Phòng {{ vi.section_name }}
 
 Cảm ơn quý vị đã liên lạc Bộ Tư Pháp vào ngày {{ vi.date_of_intake }}. Chúng tôi đã duyệt qua thông tin quý vị cung cấp và xác định rằng khiếu nại này nêu lên những vấn đề mà một cơ quan liên bang khác có thể xử lý thích hợp hơn. Vì vậy, chúng tôi sẽ chuyển khiếu nại này tới cơ quan sau đây để thực hiện những việc tiếp theo:
 
-Bộ Y Tế và Dịch Vụ Nhân Sinh (Department of Health and Human Services)  
+Bộ Y Tế và Dịch Vụ Nhân Sinh (Department of Health and Human Services)
 1-800-368-1019
 
 Những gì quý vị có thể làm:
@@ -23,5 +24,5 @@ Cảm ơn quý vị đã dành thời gian liên lạc với Bộ Tư Pha�
 Trân trọng,
 
 
-Bộ Tư Pháp Hoa Kỳ  
+Bộ Tư Pháp Hoa Kỳ
 Ban Dân Quyền

@@ -2,15 +2,16 @@
 title: CRT - EEOC Referral Form Letter (Vietnamese)
 subject: "Hồi đáp: Báo Cáo của Ban Dân Quyền của Quý Vị - {{ record_locator }} từ Phòng {{ vi.section_name }}"
 language: vi
+referral_contact: eeoc
 ---
 Re:		Báo Cáo của Ban Dân Quyền của Quý Vị - {{ record_locator }} từ Phòng {{ vi.section_name }}
 
 Cảm ơn quý vị đã liên lạc Bộ Tư Pháp vào ngày {{ vi.date_of_intake }}. Chúng tôi đã duyệt qua thông tin quý vị cung cấp và xác định rằng khiếu nại này nêu lên những vấn đề mà một cơ quan liên bang khác có thể xử lý thích hợp hơn. Vì vậy, chúng tôi sẽ chuyển khiếu nại này tới cơ quan sau đây để thực hiện những việc tiếp theo:
 
 Ủy Ban Cơ Hội Việc Làm Bình Đẳng của Hoa Kỳ (U.S. Equal Employment Opportunity Commission)
-1-800-669-4000  
-1-800-669-6820 (Chế độ TTY chỉ dành riêng cho người gọi Khiếm Thính/Lãng Tai)  
-1-844-234-5122 (Hệ Thống Điện Thoại Video ASL chỉ dành riêng cho người gọi Khiếm Thính/Lãng Tai)  
+1-800-669-4000
+1-800-669-6820 (Chế độ TTY chỉ dành riêng cho người gọi Khiếm Thính/Lãng Tai)
+1-844-234-5122 (Hệ Thống Điện Thoại Video ASL chỉ dành riêng cho người gọi Khiếm Thính/Lãng Tai)
 https://www.eeoc.gov/
 
 Những gì quý vị có thể làm:
@@ -26,5 +27,5 @@ Cảm ơn quý vị đã dành thời gian liên lạc với Bộ Tư Pha�
 Trân trọng,
 
 
-Bộ Tư Pháp Hoa Kỳ  
+Bộ Tư Pháp Hoa Kỳ
 Ban Dân Quyền

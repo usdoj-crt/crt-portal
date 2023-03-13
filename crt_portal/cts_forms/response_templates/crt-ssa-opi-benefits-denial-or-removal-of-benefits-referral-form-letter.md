@@ -3,6 +3,7 @@ title: CRT - SSA-OPI benefits (denial or removal of benefits) Referral Form Lett
 subject: "Re: Civil Rights Division Complaint – {{ record_locator }} from the {{ section_name }} Section"
 language: en
 is_html: true
+referral_contact: ssa-opi
 ---
 Re: Civil Rights Division Complaint – {{ record_locator }} from the {{ section_name }} Section
 
