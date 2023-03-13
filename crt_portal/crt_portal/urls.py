@@ -55,6 +55,7 @@ urlpatterns = auth + [
     path('accounts/', include('django.contrib.auth.urls')),
     path('email/', include('tms.urls')),
     path('form/', include('cts_forms.urls')),
+    path('link/', include('shortener.urls')),
     path('report/', CRTReportWizard.as_view(
         [
             Contact,
