@@ -255,7 +255,24 @@ class CampaignAdmin(admin.ModelAdmin):
 
 
 class ResponseTemplateAdmin(admin.ModelAdmin):
+    class Media:
+        js = ('js/response_template_preview.js',)
+        css = {
+            'all': ('css/compiled/admin.css',)
+        }
+
     exclude = ['is_user_created']
+    readonly_fields = ['template_help', 'preview']
+
+    @admin.display(description='Template Help')
+    def template_help(self, obj):
+        return mark_safe('For help with template variables and formatting, <a target="_blank" href="/api/preview-response">go here</a>')
+
+    @admin.display(description='Email Preview')
+    def preview(self, obj):
+        return mark_safe('<iframe class="response-template-preview"'
+                         'width="100%" height="100%"'
+                         '></iframe>')
 
 
 admin.site.register(CommentAndSummary)

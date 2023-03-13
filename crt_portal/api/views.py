@@ -1,4 +1,5 @@
 from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter, report_cws
+from django.utils.html import mark_safe
 from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
 from cts_forms.filters import report_filter
 from cts_forms.mail import CustomHTMLExtension
@@ -98,46 +99,81 @@ class ReportDetail(generics.RetrieveUpdateAPIView):
         return self.update(request, *args, **kwargs)
 
 
-class ResponseTemplatePreview(generics.ListAPIView):
-    """
-    API endpoint that allows responses to be viewed.
-    """
-    permission_classes = [permissions.IsAuthenticated]
-
+class ResponseTemplatePreviewBase:
     _templates_dir = os.path.join(settings.BASE_DIR, 'cts_forms', 'response_templates')
+
+    def _mark_variable(self, value):
+        return mark_safe(f'<span class="variable">{value}</span>')
 
     def _make_example_context(self):
         base_context = {
-            'addressee': '[Variable: Addressee Name]',
-            'contact_address_line_1': '[Variable: Contact Address Line 1]',
-            'contact_address_line_2': '[Variable: Contact Address Line 2]',
-            'contact_email': '[Variable: Contact Email]',
-            'date_of_intake': '[Variable: Date of Intake]',
-            'outgoing_date': '[Variable: Outgoing Date]',
-            'section_name': '[Variable: Section]',
+            'addressee': 'Addressee Name',
+            'contact_address_line_1': 'Contact Address Line 1',
+            'contact_address_line_2': 'Contact Address Line 2',
+            'contact_email': 'Contact Email',
+            'date_of_intake': 'Date of Intake',
+            'outgoing_date': 'Outgoing Date',
+            'section_name': 'Section',
         }
 
         lang_contexts = {
             lang: {
-                key: f'[{lang}] {value}'
+                key: self._mark_variable(f'[{lang}] {value}')
                 for key, value in base_context.items()
             } for lang in ['es', 'ko', 'tl', 'vi', 'zh_hans', 'zh_hant']
         }
 
         return Context({
-            'record_locator': '[Variable: Record Locator]',
-            **base_context,
+            'record_locator': self._mark_variable('Record Locator'),
+            **{k: self._mark_variable(v) for k, v in base_context.items()},
             **lang_contexts,
         })
 
-    def _render_response_template(self, request, *, is_html, markdown_body):
+    def _add_css(self, body):
+        return body + mark_safe(
+            '{% load static %}'
+            '<link rel="stylesheet" href="{% static "css/compiled/template-preview.css" %}">'
+        )
+
+    def _render_response_template(self, request, *, is_html=False, body='', extra_markdown_extensions=None, **kwargs):
+        if extra_markdown_extensions is None:
+            extra_markdown_extensions = []
+        if isinstance(body, list):
+            body = ''.join(body)
+        body = self._add_css(body)
+        del kwargs  # Allow for extra, unused render variables.
         context = self._make_example_context()
         if is_html:
-            subbed = str(Template(markdown_body).render(context))
-            md = markdown.markdown(subbed, extensions=['nl2br', CustomHTMLExtension()])
+            subbed = str(Template(body).render(context))
+            md = markdown.markdown(subbed, extensions=['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension(), *extra_markdown_extensions])
             return render(request, 'email.html', {'content': md})
 
-        return HttpResponse(Template(markdown_body.replace('\n', '<br>')).render(context))
+        return HttpResponse(Template(body.replace('\n', '<br>')).render(context))
+
+
+class ResponseTemplateFormPreview(generics.ListAPIView, ResponseTemplatePreviewBase):
+    """API endpoint that allows responses to be viewed based on content."""
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request):
+        help_path = os.path.join(settings.BASE_DIR, 'cts_forms/templates/template_help.md')
+
+        with open(help_path, 'r') as f:
+            content = frontmatter.load(f)
+
+        return self._render_response_template(
+            request,
+            is_html=True,
+            body=str(content),
+            extra_markdown_extensions=['toc'])
+
+    def post(self, request):
+        return self._render_response_template(request, **request.data)
+
+
+class ResponseTemplateFilePreview(generics.ListAPIView, ResponseTemplatePreviewBase):
+    """API endpoint that allows responses to be viewed given a filename."""
+    permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request, filename):
         if not filename:
@@ -150,7 +186,7 @@ class ResponseTemplatePreview(generics.ListAPIView):
         return self._render_response_template(
             request,
             is_html=content.get('is_html', False),
-            markdown_body=str(content))
+            body=str(content))
 
 
 class ResponseList(generics.ListAPIView):

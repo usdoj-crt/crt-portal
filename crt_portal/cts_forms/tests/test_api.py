@@ -65,6 +65,62 @@ class APIFormLettersIndex(TestCase):
         self.assertEqual(response.status_code, 403)
 
 
+class APIPreviewResponseFormTests(TestCase):
+    def setUp(self):
+        self.client = Client(raise_request_exception=False)
+        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.url = reverse("api:preview-response-form")
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_help_page_renders(self):
+        """Makes sure our route for previewing markdown files works."""
+        self.client.login(username="DELETE_USER", password="")  # nosec
+
+        response = self.client.get(self.url)
+
+        self.assertContains(response, 'This page explains')
+
+    def test_preview_response_text(self):
+        """Makes sure our route for previewing markdown files works."""
+        self.client.login(username="DELETE_USER", password="")  # nosec
+
+        response = self.client.post(
+            self.url,
+            {"body": "hello, {{ addressee }}"}
+        )
+
+        self.assertContains(response, 'hello, <span class="variable">Addressee Name</span>')
+
+    def test_preview_response_html(self):
+        """Makes sure our route for previewing markdown files works."""
+        self.client.login(username="DELETE_USER", password="")  # nosec
+
+        response = self.client.post(
+            self.url,
+            {"body": "hello, *{{ addressee }}*", "is_html": True}
+        )
+
+        self.assertContains(response, 'hello, <em><span class="variable">Addressee Name</span></em>')
+
+    def test_unauthenticated_post(self):
+        """Only logged in users should be able to preview templates."""
+        self.client.logout()
+
+        response = self.client.post(self.url, {'body': 'oops'}, follow=True)
+
+        self.assertEqual(response.status_code, 403)
+
+    def test_unauthenticated_get(self):
+        """Only logged in users should be able to preview templates."""
+        self.client.logout()
+
+        response = self.client.get(self.url, follow=True)
+
+        self.assertEqual(response.status_code, 403)
+
+
 class APIPreviewResponseFileTests(TestCase):
     def setUp(self):
         self.client = Client(raise_request_exception=False)
@@ -83,7 +139,7 @@ class APIPreviewResponseFileTests(TestCase):
         response = self.client.get(self.url)
 
         self.assertContains(response, "Thank you for taking the time")
-        self.assertContains(response, "[Variable: Addressee Name]")
+        self.assertContains(response, '<span class="variable">Addressee Name</span>')
 
     def test_preview_response_html(self):
         """Makes sure our route for previewing markdown files works."""
@@ -95,7 +151,7 @@ class APIPreviewResponseFileTests(TestCase):
         response = self.client.get(self.url)
 
         self.assertContains(response, "Thank you for contacting")
-        self.assertContains(response, "[Variable: Addressee Name]")
+        self.assertContains(response, '<span class="variable">Addressee Name</span>')
         self.assertContains(response, "<li>If your")
 
     def test_unauthenticated(self):

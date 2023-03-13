@@ -68,7 +68,7 @@ def crt_send_mail(report, template, purpose=TMSEmail.MANUAL_EMAIL):
         return None
 
     if template.is_html:
-        md = markdown.markdown(message, extensions=['nl2br', CustomHTMLExtension()])
+        md = markdown.markdown(message, extensions=['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension()])
         html_message = render_to_string('email.html', {'content': md})
     else:
         # replace newlines, \n, with <br> so the API will generate formatted emails
