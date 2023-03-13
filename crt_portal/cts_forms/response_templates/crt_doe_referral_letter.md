@@ -2,13 +2,14 @@
 title: CRT - Dept of Ed Referral Form Letter
 subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from the {{ section_name }} Section"
 language: en
+referral_contact: doe
 ---
 Re:		Civil Rights Division Complaint – {{ record_locator }} from the {{ section_name }} Section
 
 Thank you for contacting the Department of Justice on {{ date_of_intake }}.  We have reviewed the information you provided and have determined that the complaint raises issues that are more appropriately addressed by another federal agency.  We are, therefore, referring this complaint to the following agency for further action:
 
-U.S. Department of Education, Office for Civil Rights  
-(800) 421-3481; (202) 453-6012 (fax); (800) 877-8339 (TDD)  
+U.S. Department of Education, Office for Civil Rights
+(800) 421-3481; (202) 453-6012 (fax); (800) 877-8339 (TDD)
 OCR@ed.gov
 
 What you can do:
@@ -24,5 +25,5 @@ Thank you for taking the time to contact the Department of Justice about your co
 Sincerely,
 
 
-U.S. Department of Justice  
+U.S. Department of Justice
 Civil Rights Division

@@ -19,6 +19,7 @@ import django.conf.locale
 from django.utils.log import DEFAULT_LOGGING
 from django.utils.translation import gettext_lazy as _
 
+
 # Are we in a test environment?
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
@@ -75,6 +76,7 @@ ALLOWED_HOSTS = [
 ]
 
 if environment == 'UNDEFINED':
+    # Note: See local_settings.py to change this for local development.
     ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Application definition
@@ -82,6 +84,8 @@ if environment == 'UNDEFINED':
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'oauth2_provider',
+    'corsheaders',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -107,12 +111,25 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'crequest.middleware.CrequestMiddleware',
 ]
+
+
+OAUTH2_PROVIDER = {
+    "OIDC_ENABLED": True,
+    "SCOPES": {
+        "openid": "See your user profile information",
+    },
+    "OAUTH2_VALIDATOR_CLASS": "crt_portal.oauth_classes.CustomOAuth2Validator",
+}
+
+# Disallow requests from other hosts (eventually jupyter will be allowed)
+CORS_ALLOWED_ORIGINS = []
 
 ROOT_URLCONF = 'crt_portal.urls'
 

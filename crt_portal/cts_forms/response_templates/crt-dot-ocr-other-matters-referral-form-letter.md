@@ -3,6 +3,7 @@ title: CRT - DOT (OCR - Other Matters) Referral Form Letter
 subject: "Re: Civil Rights Division Complaint – {{ record_locator }} from the {{ section_name }} Section"
 language: en
 is_html: true
+referral_contact: dot-ocr
 ---
 Re: Civil Rights Division Complaint – {{ record_locator }} from the {{ section_name }} Section
 

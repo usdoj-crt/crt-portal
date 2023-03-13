@@ -2,15 +2,16 @@
 title: EOS - Department of Ed OCR Referral Form Letter
 subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from the Educational Opportunities Section"
 language: en
+referral_contact: doe
 ---
 Re: Your Civil Rights Division Complaint – {{ record_locator }} from the Educational Opportunities Section
 
 Thank you for contacting the Department of Justice on {{ date_of_intake }}.  We have reviewed the information you provided and have determined that the complaint raises issues that are more appropriately addressed by another federal agency.  We are, therefore, referring this complaint to the following agency for further action:
 
-U.S. Department of Education, Office for Civil Rights  
-(800) 421-3481; (202) 453-6012 (fax); (800) 877-8339 (TDD)  
+U.S. Department of Education, Office for Civil Rights
+(800) 421-3481; (202) 453-6012 (fax); (800) 877-8339 (TDD)
 OCR@ed.gov
-https://www2.ed.gov/about/offices/list/ocr/index.html 
+https://www2.ed.gov/about/offices/list/ocr/index.html
 
 What you can do:
 
@@ -25,7 +26,7 @@ You also may contact your state bar association or local legal aid office to ass
     (800) 285-2221
 
     Legal Services Corporation (or Legal Aid Offices)
-    https://www.lsc.gov/find-legal-aid 
+    https://www.lsc.gov/find-legal-aid
     (202) 295-1500
 
 How you have helped:
@@ -36,5 +37,5 @@ Thank you for taking the time to contact the Department of Justice about your co
 
 Sincerely,
 
-U.S. Department of Justice  
+U.S. Department of Justice
 Civil Rights Division

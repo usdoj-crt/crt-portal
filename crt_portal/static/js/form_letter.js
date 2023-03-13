@@ -1,110 +1,23 @@
 (function(root) {
-  const DEPT_ADDRESS = {
-    deptOfEd: `<p id="form-letterhead--dept-addressee">
-        U.S. Department of Education<br>
-        Office for Civil Rights<br>
-        Lyndon Baines Johnson Department of Education Bldg.<br>
-        400 Maryland Avenue, SW<br>
-        Washington, DC 20202-1100<br>
-      </p>`,
-    Hhs: `<p id="form-letterhead--dept-addressee">
-        Office for Civil Rights<br>
-        Department of Health and Human Services<br>
-        200 Independence Avenue, SW, Room 515F<br>
-        Humphrey Building<br>
-        Washington, D.C.  20201<br>
-      </p>`,
-    Eeoc: `<p id="form-letterhead--dept-addressee">
-        Field Management Programs<br>
-        U.S. Equal Employment Opportunity Commission<br>
-        131 M Street, N.E.<br>
-        Washington, DC  20507<br>
-      </p>`,
-    DotAcp: `<p id="form-letterhead--dept-addressee">
-        Director of Civil Rights Advocacy<br>
-        Aviation Consumer Protection Division<br>
-        Department of Transportation<br>
-        1200 New Jersey Avenue, S.E., C-75<br>
-        W96-432<br>
-        Washington, D.C.  20590<br>
-      </p>`,
-    DotFta: `<p id="form-letterhead--dept-addressee">
-        Associate Administrator for Civil Rights<br>
-        Office of Civil Rights<br>
-        Federal Transit Administration<br>
-        U.S. Department of Transportation<br>
-        1200 New Jersey Avenue, SE, Room E54-312<br>
-        Washington, D.C.  20590<br>
-      </p>`,
-    DotOcr: `<p id="form-letterhead--dept-addressee">
-        Associate Director<br>
-        EEO Programs Division<br>
-        Departmental Office of Civil Rights<br>
-        Office of the Secretary<br>
-        U.S. Department of Transportation <br>
-        1200 New Jersey Avenue, SE, Room W78-304<br>
-        Washington, D.C.  20590<br>
-      </p>`,
-    SsaOpi: `<p id="form-letterhead--dept-addressee">
-        Director of the Office of Policy, Procedures, and<br>
-        Operations Support<br>
-        Office of Public Inquiries<br>
-        Social Security Administration<br>
-        6401 Security Boulevard<br>
-        Windsor Park Building<br>
-        Baltimore, MD  21235<br>
-      </p>`,
-    SsaOgc: `<p id="form-letterhead--dept-addressee">
-        Labor and Employment Division<br>
-        Office of General Law<br>
-        Office of the General Counsel<br>
-        Social Security Administration<br>
-        P.O. Box 17788  <br>
-        Baltimore, MD  21235-7788<br>
-      </p>`,
-    Va: `<p id="form-letterhead--dept-addressee">
-        Deputy Assistant Secretary<br>
-        For Resolution Management (08)<br>
-        Department of Veterans Affairs<br>
-        810 Vermont Avenue, N.W.<br>
-        Washington, D.C.  20420<br>
-      </p>`
-  };
-
-  const addReferralAddress = option => {
-    let addressee = document.getElementById('form-letterhead--addressee');
-    let deptAddressee = document.getElementById('form-letterhead--dept-addressee');
+  function addReferralAddress(referral_contact) {
+    const addressee = document.getElementById('form-letterhead--addressee');
+    const deptAddressee = document.getElementById('form-letterhead--dept-addressee');
 
     if (deptAddressee) {
       deptAddressee.remove();
     }
 
     if (!addressee) return;
-    const letterName = option.innerText.trim();
-    if (letterName.includes('EOS - Department of Ed OCR Referral Form Letter')) {
-      addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.deptOfEd);
-    } else if (letterName.includes('CRT - Dept of Ed Referral Form Letter')) {
-      addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.deptOfEd);
-    } else if (letterName.includes('CRT - DOT (ACP-Airlines)')) {
-      addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.DotAcp);
-    } else if (letterName.includes('CRT - DOT (FTA-Public Transp.)')) {
-      addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.DotFta);
-    } else if (letterName.includes('CRT - DOT (OCR - Other Matters)')) {
-      addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.DotOcr);
-    } else if (letterName.includes('CRT - SSA-OPI benefits')) {
-      addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.SsaOpi);
-    } else if (letterName.includes('CRT - SSA-OGC - employees')) {
-      addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.SsaOgc);
-    } else if (letterName.includes('CRT - Veterans Affairs')) {
-      addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.Va);
-    } else if (letterName.includes('CRT - HHS Referral Form Letter')) {
-      addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.Hhs);
-    } else if (letterName.includes('CRT - EEOC Referral Form Letter')) {
-      addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.Eeoc);
-    } else if (letterName.includes('EOS - EEOC Referral Form Letter')) {
-      addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.Eeoc);
-    }
-  };
+
+    const addressee_text = referral_contact?.addressee_text;
+    if (!addressee_text) return;
+
+    const newDeptAddressee = document.createElement('p');
+    newDeptAddressee.id = 'form-letterhead--dept-addressee';
+    newDeptAddressee.innerText = addressee_text;
+
+    addressee.parentNode.insertBefore(newDeptAddressee, addressee);
+  }
 
   document.addEventListener('DOMContentLoaded', function() {
     // `marked` should be loaded in global context at this point.
@@ -178,8 +91,8 @@
           letter.hidden = false;
           letter.innerHTML = data.body || '';
         }
+        addReferralAddress(data.referral_contact);
       });
-    addReferralAddress(option);
     if (index >= 1) {
       copy.removeAttribute('disabled');
       print.removeAttribute('disabled');
