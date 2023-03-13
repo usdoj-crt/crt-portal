@@ -139,13 +139,13 @@ crt_portal/crt_portal/urls.py
 # Adding mock reports
 To add mock reports for local testing, run the create_mock_reports command with the number of reports you want.
 
-For example, run 
+For example, run
 
 ```docker-compose run web python crt_portal/manage.py create_mock_reports 10```
 
 to generate 10 reports.
 
-If you need to modify reports for individual testing needs, you can do it temporarily in the python file. For example, if you wanted to test performance of the SQL command that generates the #Total column on "view/form", uncomment 
+If you need to modify reports for individual testing needs, you can do it temporarily in the python file. For example, if you wanted to test performance of the SQL command that generates the #Total column on "view/form", uncomment
 
 ```# report.contact_email = "test@test.test"```
 
@@ -193,9 +193,9 @@ For staging and prod we use the `medium-psql-redundant` database service. These 
     ```sh
     cf login -a api.fr.cloud.gov --sso
     ```
-    
-    Enter the passcode from the URL that is given to you, and make sure you select the correct organization and space. 
-    
+
+    Enter the passcode from the URL that is given to you, and make sure you select the correct organization and space.
+
     ```sh
     cf target -s dev
     ```
@@ -237,7 +237,7 @@ For staging and prod we use the `medium-psql-redundant` database service. These 
     ```sh
     psql postgres://<username>:<password>@<host>:<port>/<name> < crt_dev_<date>.dump
     ```
-    
+
     You may see some errors because the new database doesn't have the same roles. This is fine: roles could only be preserved by running `pg_dumpall` command on the original database, and we didn't do that because we do not have access to run that on `shared_psql` instances. The data will still be loaded just fine.
 
     After the data has been loaded, close the SSH tunnel.
@@ -398,28 +398,28 @@ Templates that have been previously added via a migration may not yet exist as f
 
 To remove a legacy response template permanently, that should be done with a new migration.
 
-
 ### Adding a department address to a form
-If you need to add a department address to a form, you will need to add it to ```form_letters.js```, where you will add the html address to ```DEPT_ADDRESS``` and add a new case to the ```addReferralAddress``` switch
 
-ex add to form_letter.js
+Department addresses for referral templates are stored in the database as `cts_forms.models.ReferralContact`
 
-DEPT_ADDRESS
+New contacts will need to be added to the admin panel. They can be paired with referral templates using the machine name, for example, if your ReferralContact's `machine_name` is `eeoc`:
+
 ```
-deptOfEd:
-    '<p id="form-letterhead--dept-addressee">U.S. Department of Education<br>Office for Civil Rights<br>Lyndon Baines Johnson Department of Education Bldg.<br>400 Maryland Avenue, SW<br>Washington, DC 20202-1100<br></p>'
+---
+title: CRT - EEOC Referral Form Letter
+subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from the {{ section_name }} Section"
+language: en
+referral_contact: eeoc
+---
 ```
 
-addReferralAddress
-```
-case 'DRS - Dept of Ed Referral Form Letter':
-    addressee.insertAdjacentHTML('beforebegin', DEPT_ADDRESS.deptOfEd);
-    break;
-```
+This will cause the referral information to be appended to the top of the printed letter when printing the letter.
+
+Note that this doesn't (yet) affect the content of referral letters, which should still be updated in markdown and checked in to source control.
 
 ### Updating forms
 
-Here is example code for modifying an existing form. 
+Here is example code for modifying an existing form.
 
 ```
 from django.db import migrations
