@@ -25,15 +25,8 @@
     target.parentElement.appendChild(copyButton);
   }
 
-  function makeAbsolute(input) {
-    if (!input.classList.contains('absolute-url')) return;
-    input.value = `${window.location.origin}${input.value}`;
-  }
-
   function setupButtons() {
-    const targets = dom.querySelectorAll('.admin-copy');
-    targets.forEach(makeAbsolute);
-    targets.forEach(createCopyButton);
+    dom.querySelectorAll('.admin-copy').forEach(createCopyButton);
   }
 
   root.addEventListener('load', setupButtons);

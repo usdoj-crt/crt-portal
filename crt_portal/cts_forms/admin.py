@@ -219,13 +219,18 @@ class ReferralContactAdmin(admin.ModelAdmin):
 
 class CampaignAdmin(admin.ModelAdmin):
     class Media:
-        js = ('js/admin_copy.js',)
+        js = (
+            'vendor/qrcode.js',
+            'js/admin_copy.js',
+            'js/absolute_url.js',
+            'js/qr.js',
+        )
         css = {
             'all': ('css/compiled/admin.css',)
         }
 
     list_display = ['uuid', 'internal_name', 'shorten_url', 'campaign_url']
-    readonly_fields = ['campaign_url', 'shorten_url']
+    readonly_fields = ['campaign_url', 'shorten_url', 'qrcode']
 
     @admin.display(description='Short URL')
     def shorten_url(self, obj):
@@ -251,7 +256,12 @@ class CampaignAdmin(admin.ModelAdmin):
     @admin.display(description='Long URL')
     def campaign_url(self, obj):
         url = obj.get_absolute_url()
-        return mark_safe(f'<input aria-label="Long URL" disabled="disabled" class="admin-copy absolute-url" value="{url}"/>')
+        return mark_safe(f'<input aria-label="Long URL" disabled="disabled" class="admin-copy absolute-url long-url" value="{url}"/>')
+
+    @admin.display(description='QR (Camera-readable version of the Long URL)')
+    def qrcode(self, obj):
+        del obj
+        return mark_safe('<div class="qrcode" data-qr-source=".long-url"></div>')
 
 
 class ResponseTemplateAdmin(admin.ModelAdmin):
