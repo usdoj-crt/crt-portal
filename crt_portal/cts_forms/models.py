@@ -656,12 +656,20 @@ class ResponseTemplate(models.Model):
         except ValueError:
             report_create_date_est = self.utc_timezone_to_est(report.create_date)
 
+        referral_text = ''
+        if self.referral_contact:
+            referral_translations = self.referral_contact.variable_text or {}
+            referral_en = referral_translations.get('en')
+            referral_translated = referral_translations.get(self.language)
+            referral_text = referral_translated or referral_en or ''
+
         return Context({
             'record_locator': report.public_id,
             'addressee': report.addressee,
             'date_of_intake': format_date(report_create_date_est, format='long', locale='en_US'),
             'outgoing_date': format_date(today, locale='en_US'),  # required for paper mail
             'section_name': section_choices.get(report.assigned_section, "no section"),
+            'referral_text': referral_text,
             # spanish translations
             'es': {
                 'addressee': report.addressee_es,

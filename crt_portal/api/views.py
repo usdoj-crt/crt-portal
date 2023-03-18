@@ -106,11 +106,8 @@ class ResponseTemplatePreviewBase:
         return mark_safe(f'<span class="variable">{value}</span>')
 
     def _make_example_context(self):
-        base_context = {
+        to_be_translated = {
             'addressee': 'Addressee Name',
-            'contact_address_line_1': 'Contact Address Line 1',
-            'contact_address_line_2': 'Contact Address Line 2',
-            'contact_email': 'Contact Email',
             'date_of_intake': 'Date of Intake',
             'outgoing_date': 'Outgoing Date',
             'section_name': 'Section',
@@ -119,13 +116,18 @@ class ResponseTemplatePreviewBase:
         lang_contexts = {
             lang: {
                 key: self._mark_variable(f'[{lang}] {value}')
-                for key, value in base_context.items()
+                for key, value in to_be_translated.items()
             } for lang in ['es', 'ko', 'tl', 'vi', 'zh_hans', 'zh_hant']
         }
 
         return Context({
+            # The following are 'en' only.
+            'contact_address_line_1': self._mark_variable('Contact Address Line 1'),
+            'contact_address_line_2': self._mark_variable('Contact Address Line 2'),
+            'contact_email': self._mark_variable('Contact Email'),
+            'referral_text': self._mark_variable('Referral Text'),
             'record_locator': self._mark_variable('Record Locator'),
-            **{k: self._mark_variable(v) for k, v in base_context.items()},
+            **{k: self._mark_variable(v) for k, v in to_be_translated.items()},
             **lang_contexts,
         })
 

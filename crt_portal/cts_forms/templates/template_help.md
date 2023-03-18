@@ -24,6 +24,7 @@ All of our templates support a few special variables. They are:
 | `outgoing_date`          | February 31, 1988            | The day this reply is being sent (today)              |
 | `section_name`           | Voting                       | The section of the user sending the reply             |
 | `record_locator`         | 12345-XYZ                    | The identifier (record locator) of the report         |
+| `referral_text`          | Ministry of Magic            | The referral_variable set on the ReferralContact |
 
 ### How do I use them?
 
@@ -60,19 +61,20 @@ If you don't see the following (for example, if you see `{ addressee }` instead 
 | `outgoing_date`          | {{ outgoing_date }}          |
 | `record_locator`         | {{ record_locator }}         |
 | `section_name`           | {{ section_name }}           |
+| `referral_text`          | {{ referral_text }}          |
 
 ### What about translation/localization?
 
 Some variables have translated/localized forms. To use them, add the lanugage code to the start of the variable name, separated with a period. For example:
 
-| Name                        | Shows As                        |
-| --------------------------- | ------------------------------- |
-| `es.addressee`              | {{ es.addressee }}              |
-| `ko.contact_address_line_1` | {{ ko.contact_address_line_1 }} |
-| `tl.contact_address_line_2` | {{ tl.contact_address_line_2 }} |
-| `vi.contact_email`          | {{ vi.contact_email }}          |
-| `zh_hans.date_of_intake`    | {{ zh_hans.date_of_intake }}    |
-| `zh_hant.outgoing_date`     | {{ zh_hant.outgoing_date }}     |
+| Name                     | Shows As                     |
+| ------------------------ | ---------------------------- |
+| `es.addressee`           | {{ es.addressee }}           |
+| `ko.addressee`           | {{ ko.addressee }}           |
+| `tl.addressee`           | {{ tl.addressee }}           |
+| `vi.section_name`        | {{ vi.section_name }}        |
+| `zh_hans.date_of_intake` | {{ zh_hans.date_of_intake }} |
+| `zh_hant.outgoing_date`  | {{ zh_hant.outgoing_date }}  |
 
 ## Markdown (Text Formatting)
 
