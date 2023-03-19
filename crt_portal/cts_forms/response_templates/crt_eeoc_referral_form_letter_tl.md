@@ -8,11 +8,7 @@ Re:		Ang Iyong Ulat sa Dibisyon sa Mga Karapatang Sibil – {{ record_locator }}
 
 Salamat sa pakikipag-ugnayan sa Kagawaran ng Katarungan sa {{ tl.date_of_intake }}. Ang impormasyong ibinigay mo ay sinuri namin at natukoy namin na ang nag reklamo ay naglalabas ng mga isyu na mas angkop na tinutugunan ng isa pang pederal na ahensya. Kami, samakatuwid, ay isinasangguni ang  reklamong ito sa sumusunod na ahensya para sa karagdagang aksyon:
 
-Komisyon para sa Pantay na Oportunidad sa Trabaho ng Estados Unidos (U.S. Equal Employment Opportunity Commission)
-1-800-669-4000
-1-800-669-6820 (TTY para sa Bingi/Para lamang sa mga tumatawag na Mahina ang Pandinig)
-1-844-234-5122 (ASL Bideyong Telepono para sa Bingi/ Para lamang sa mga tumatawag na Mahina ang Pandinig)
-https://www.eeoc.gov/
+{{ referral_contact }}
 
 Ano ang pwede mong gawin:
 

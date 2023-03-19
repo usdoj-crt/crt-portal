@@ -9,8 +9,7 @@ Re:		Su informe de la División de Derechos Civiles - {{ record_locator }} de la
 
 Gracias por comunicarse con el Departamento de Justicia el {{ es.date_of_intake }}. Hemos revisado la información que usted proporcionó y hemos determinado que la demanda plantea cuestiones que podrían ser tratadas de manera más apropiada por otra agencia federal. Por lo tanto, remitimos esta queja a la siguiente agencia para que tome medidas adicionales:
 
-Department of Transportation, Aviation Consumer Protection Division
-(202) 366-4648 (voz); (202) 366-8538 (TTY)
+{{ referral_contact }}
 
 Lo que usted puede hacer:
 

@@ -9,8 +9,7 @@ Re: Civil Rights Division Complaint – {{ record_locator }} from the {{ section
 
 Thank you for contacting the Department of Justice on {{ date_of_intake }}.  We have reviewed the information you provided and have determined that the complaint raises issues that are more appropriately addressed by another federal agency.  We are, therefore, referring this complaint to the following agency for further action:
 
-U.S. Department of Transportation: Departmental Office of Civil Rights
-(202) 366-4648 (voice) and (202) 366-8538 (TTY)
+{{ referral_contact }}
 
 The above agency will review your complaint.  While we will take no further action on this matter, you can contact the agency above to check the status of your complaint.
 

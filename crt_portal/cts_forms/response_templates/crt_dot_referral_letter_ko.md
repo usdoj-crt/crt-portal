@@ -9,8 +9,7 @@ Re:		귀하의 민권국 보고서 - {{ ko.section_name }}과의 {{ record_locat
 
 {{ ko.date_of_intake }}에 법무부에 연락을 주셔서 감사드립니다. 귀하가 제공한 정보를 검토한 결과  제기하신 문제는 다른 연방 기관에서 더 적절하게 해결할수 있다고 판단되었습니다. 따라서 추가 조치를 위해 귀하의 문제를 다음 기관에 전달할것입니다.
 
-교통부, 항공 소비자 보호 부서 (Department of Transportation, Aviation Consumer Protection Division)
-(202) 366-4648 (음성); (202) 366-8538 (TTY)
+{{ referral_contact }}
 
 귀하가 하실 수 있는 것:
 
