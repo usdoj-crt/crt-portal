@@ -9,6 +9,8 @@
     const textarea = document.createElement('textarea');
     textarea.className = 'vLargeTextField';
     textarea.value = getFullData(widget)[languageCode];
+    const numRows = textarea.value.split('\n').length;
+    textarea.setAttribute('rows', Math.max(5, numRows + 1));
     textarea.id = areaId;
 
     const label = document.createElement('label');
