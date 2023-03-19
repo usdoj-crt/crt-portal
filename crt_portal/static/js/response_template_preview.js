@@ -29,7 +29,8 @@
 
   function pasteMarkdown(event, input) {
     const turndown = new TurndownService();
-    const pastedHtml = event.clipboardData.getData('text/html');
+    const pastedHtml =
+      event.clipboardData.getData('text/html') || event.clipboardData.getData('text/plain');
     const markdown = turndown.turndown(pastedHtml);
     // Word sometimes includes comments in its HTML, so strip them:
     const sanitized = markdown.replace(/<!--(?!>)[\S\s]*?-->/g, '');
