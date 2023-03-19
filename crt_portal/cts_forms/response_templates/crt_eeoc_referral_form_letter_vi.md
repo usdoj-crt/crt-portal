@@ -8,7 +8,7 @@ Re:		Báo Cáo của Ban Dân Quyền của Quý Vị - {{ record_locator }}
 
 Cảm ơn quý vị đã liên lạc Bộ Tư Pháp vào ngày {{ vi.date_of_intake }}. Chúng tôi đã duyệt qua thông tin quý vị cung cấp và xác định rằng khiếu nại này nêu lên những vấn đề mà một cơ quan liên bang khác có thể xử lý thích hợp hơn. Vì vậy, chúng tôi sẽ chuyển khiếu nại này tới cơ quan sau đây để thực hiện những việc tiếp theo:
 
-{{ referral_contact }}
+{{ referral_text }}
 
 Những gì quý vị có thể làm:
 

@@ -9,7 +9,7 @@ Re:		Ang Iyong Ulat sa Dibisyon sa Mga Karapatang Sibil – {{ record_locator }}
 
 Salamat sa pakikipag-ugnayan sa Kagawaran ng Katarungan sa {{ tl.date_of_intake }}. Ang impormasyong ibinigay mo ay sinuri namin at natukoy namin na ang nag reklamo ay naglalabas ng mga isyu na mas angkop na tinutugunan ng isa pang pederal na ahensya. Kami, samakatuwid, ay isinasangguni ang  reklamong ito sa sumusunod na ahensya para sa karagdagang aksyon:
 
-{{ referral_contact }}
+{{ referral_text }}
 
 Ano ang pwede mong gawin:
 
