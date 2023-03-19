@@ -115,7 +115,8 @@ U.S. Department of Transportation: Federal Transit Administration
         'dot-acp': {
             'en': textwrap.dedent("""
 Department of Transportation, Aviation Consumer Protection Division
-(202) 366-4648 (voice); (202) 366-8538 (TTY)
+(202) 366-2220; (800) 778-4838
+www.transportation.gov/airconsumer
                                   """).strip(),
             'es': textwrap.dedent("""
 Department of Transportation, Aviation Consumer Protection Division
