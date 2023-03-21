@@ -2,18 +2,20 @@ import csv
 import logging
 
 from actstream.models import Action, Follow
+from django.apps import apps
 from django.contrib import admin
 from django.core.paginator import Paginator
 from django.db.models import Prefetch
 from django.http import StreamingHttpResponse
 from django.contrib.auth.models import User
 from django.utils.html import mark_safe
+from django.urls import reverse
 from django.db.models.functions import Lower
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
                      JudicialDistrict, RoutingSection, RoutingStepOneContact,
-                     VotingMode, Campaign)
+                     VotingMode, Campaign, ReferralContact)
 from .signals import get_client_ip
 
 logger = logging.getLogger(__name__)
@@ -211,6 +213,10 @@ class VotingModeAdmin(admin.ModelAdmin):
         return 'Voting Mode: False'
 
 
+class ReferralContactAdmin(admin.ModelAdmin):
+    list_display = ['machine_name', 'name', 'notes', 'show_as_referral']
+
+
 class CampaignAdmin(admin.ModelAdmin):
     class Media:
         js = ('js/admin_copy.js',)
@@ -218,17 +224,59 @@ class CampaignAdmin(admin.ModelAdmin):
             'all': ('css/compiled/admin.css',)
         }
 
-    list_display = ['uuid', 'internal_name', 'campaign_url']
-    readonly_fields = ['campaign_url']
+    list_display = ['uuid', 'internal_name', 'shorten_url', 'campaign_url']
+    readonly_fields = ['campaign_url', 'shorten_url']
 
-    @admin.display(description='Campaign URL')
+    @admin.display(description='Short URL')
+    def shorten_url(self, obj):
+        # Find ShortenedURL objects containing the campaign uuid
+        ShortenedURL = apps.get_model('shortener', 'ShortenedURL')
+        short = ShortenedURL.objects.filter(destination=obj.get_absolute_url()).first()
+        if not short:
+            return self._get_create_short_link(obj)
+
+        admin_edit = reverse('admin:shortener_shortenedurl_change', args=[short.pk])
+        short_url = short.get_short_url()
+
+        copy = f'<input aria-label="Short URL" disabled="disabled" class="admin-copy absolute-url" value="{short_url}"/>'
+        edit = f'<a class="button" href="{admin_edit}">Change Short URL</a>'
+        return mark_safe(f'<div>{copy} {edit}</div>')
+
+    def _get_create_short_link(self, obj):
+        url = obj.get_absolute_url()
+        name = obj.internal_name.lower().replace(' ', '-')
+        add_short_link = reverse('admin:shortener_shortenedurl_add') + f'?destination={url}&shortname={name}'
+        return mark_safe(f'<a class="button" href="{add_short_link}">Create Short URL</a>')
+
+    @admin.display(description='Long URL')
     def campaign_url(self, obj):
         url = obj.get_absolute_url()
-        return mark_safe(f'<input aria-label="Campaign URL" disabled="disabled" class="admin-copy absolute-url" value="{url}"/>')
+        return mark_safe(f'<input aria-label="Long URL" disabled="disabled" class="admin-copy absolute-url" value="{url}"/>')
 
 
 class ResponseTemplateAdmin(admin.ModelAdmin):
+    class Media:
+        js = ('js/response_template_preview.js',)
+        css = {
+            'all': ('css/compiled/admin.css',)
+        }
+
     exclude = ['is_user_created']
+    readonly_fields = ['template_help', 'print_template', 'preview']
+
+    @admin.display(description='Template Help')
+    def template_help(self, obj):
+        return mark_safe('For help with template variables and formatting, <a target="_blank" href="/api/preview-response">go here</a>')
+
+    @admin.display(description='Print Email Preview')
+    def print_template(self, obj):
+        return mark_safe('<button class="button" id="print_template_preview">Print Email Preview</button>')
+
+    @admin.display(description='Email Preview')
+    def preview(self, obj):
+        return mark_safe('<iframe class="response-template-preview"'
+                         'width="100%" height="100%"'
+                         '></iframe>')
 
 
 admin.site.register(CommentAndSummary)
@@ -242,6 +290,7 @@ admin.site.register(JudicialDistrict, JudicialDistrictAdmin)
 admin.site.register(RoutingSection, RoutingSectionAdmin)
 admin.site.register(VotingMode, VotingModeAdmin)
 admin.site.register(Campaign, CampaignAdmin)
+admin.site.register(ReferralContact, ReferralContactAdmin)
 admin.site.register(RoutingStepOneContact, RoutingStepOneContactAdmin)
 
 # Activity stream already registers an Admin for Action, we want to replace it

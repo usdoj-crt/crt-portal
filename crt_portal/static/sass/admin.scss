@@ -10,3 +10,14 @@
   display: flex;
   gap: 5px;
 }
+
+.response-template-preview {
+  border: 0px;
+  background-color: white;
+}
+
+.field-preview .readonly {
+  display: flex;
+  width: auto;
+  height: 90vh;
+}

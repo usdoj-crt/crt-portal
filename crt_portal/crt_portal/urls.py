@@ -49,11 +49,13 @@ else:
 
 # add app related urls here or in cts_forms.urls
 urlpatterns = auth + [
+    path("oauth2_provider/", include('oauth2_provider.urls', namespace='oauth2_provider')),
     path('i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('email/', include('tms.urls')),
     path('form/', include('cts_forms.urls')),
+    path('link/', include('shortener.urls')),
     path('report/', CRTReportWizard.as_view(
         [
             Contact,

@@ -1,4 +1,11 @@
 # Configuration file for jupyterhub.
+import os
+from oauthenticator.generic import LocalGenericOAuthenticator
+import random
+import string
+import base64
+import hashlib
+
 
 c = get_config()  #noqa
 
@@ -170,7 +177,41 @@ c = get_config()  #noqa
 #    - null: jupyterhub.auth.NullAuthenticator
 #    - pam: jupyterhub.auth.PAMAuthenticator
 #  Default: 'jupyterhub.auth.PAMAuthenticator'
-# c.JupyterHub.authenticator_class = 'jupyterhub.auth.PAMAuthenticator'
+c.JupyterHub.authenticator_class = LocalGenericOAuthenticator
+
+LocalGenericOAuthenticator.create_system_users = True
+
+# Generate a code_challenge, which is an extra security step imposed by django-oauth-toolkit.
+# For more info: https://django-oauth-toolkit.readthedocs.io/en/stable/getting_started.html
+code_verifier = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(random.randint(43, 128)))
+code_verifier = base64.urlsafe_b64encode(code_verifier.encode('utf-8'))
+code_challenge = hashlib.sha256(code_verifier).digest()
+code_challenge = base64.urlsafe_b64encode(code_challenge).decode('utf-8').replace('=', '')
+
+web_external_hostname = os.environ.get('WEB_EXTERNAL_HOSTNAME')
+web_internal_hostname = os.environ.get('WEB_INTERNAL_HOSTNAME')
+
+c.LocalGenericOAuthenticator.client_id = os.environ.get('OAUTH_PROVIDER_CLIENT_ID')
+c.LocalGenericOAuthenticator.client_secret = os.environ.get('OAUTH_PROVIDER_CLIENT_SECRET')
+
+c.LocalGenericOAuthenticator.extra_authorize_params = {
+    'code_challenge': code_challenge,
+    'code_challenge_method': 'S256',
+}
+
+c.LocalGenericOAuthenticator.extra_params = {
+    'code_verifier': code_verifier,
+}
+
+c.LocalGenericOAuthenticator.login_service = 'DOJ CRT Portal'
+c.LocalGenericOAuthenticator.basic_auth = True
+
+# Requests to this url are from the client, so use the external hostname.
+c.LocalGenericOAuthenticator.authorize_url = f'http://{web_external_hostname}/oauth2_provider/authorize/'
+
+# Requests to these url are from the server, so use the internal hostname.
+c.LocalGenericOAuthenticator.token_url = f'http://{web_internal_hostname}/oauth2_provider/token/'
+c.LocalGenericOAuthenticator.userdata_url = f'http://{web_internal_hostname}/oauth2_provider/userinfo/'
 
 ## The base URL of the entire application.
 #
@@ -765,7 +806,6 @@ c = get_config()  #noqa
 #    - simple: jupyterhub.spawner.SimpleLocalProcessSpawner
 #  Default: 'jupyterhub.spawner.LocalProcessSpawner'
 # c.JupyterHub.spawner_class = 'jupyterhub.spawner.LocalProcessSpawner'
-c.JupyterHub.spawner_class = 'sudospawner.SudoSpawner'
 
 ## Path to SSL certificate file for the public facing interface of the proxy
 #

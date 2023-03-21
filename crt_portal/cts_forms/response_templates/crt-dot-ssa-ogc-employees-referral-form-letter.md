@@ -4,6 +4,7 @@ title: CRT - SSA-OGC - employees (complaints about service/SSA employees)
 subject: "Re: Civil Rights Division Complaint – {{ record_locator }} from the {{ section_name }} Section"
 language: en
 is_html: true
+referral_contact: ssa-ogc
 ---
 Re: Civil Rights Division Complaint – {{ record_locator }} from the {{ section_name }} Section
 
