@@ -52,26 +52,35 @@
    * @returns {Array} A list of URI-encoded query param strings
    */
   function makeQueryParams(params) {
-    const persistentKeys = ['grouping', 'group_params', 'per_page', 'page', 'sort'];
+    const grouping = document.getElementsByName('grouping')[0].value;
+    const persistentParams = ['group_params', 'page', 'per_page', 'sort'];
     var currentParams = getQueryParams(root.location.search, Object.keys(initialFilterState));
     var keys = Object.keys(params);
-    return keys.reduce(function(memo, key) {
-      // Clear group params when a new filter is added or grouping is set to default
-      if (key === 'group_params' && params['grouping'] === 'default') {
+    let resetGroupParams = false;
+    const newParams = keys.reduce(function(memo, key) {
+      // Reset group params when grouping is set to default
+      if (key === 'group_params' && grouping === 'default') {
         var paramValue = [];
       } else {
         var paramValue = params[key];
       }
-      if (
-        !persistentKeys.includes(key) &&
-        'group_params' in currentParams &&
-        !(key in currentParams)
-      ) {
-        console.log(key);
-        //  params['group_params'] = [];
-      }
+
       if (!paramValue || !paramValue.length) {
+        // Reset group params when filter is removed
+        if (!persistentParams.includes(key) && key in currentParams) {
+          resetGroupParams = true;
+        }
         return memo;
+      }
+
+      const currentParam = key in currentParams ? currentParams[key][0] : null;
+      // Reset group params when new filter is added
+      if (
+        !persistentParams.includes(key) &&
+        paramValue[0] != currentParam &&
+        grouping != 'default'
+      ) {
+        resetGroupParams = true;
       }
 
       var valueToList = wrapValue(paramValue);
@@ -87,6 +96,14 @@
 
       return memo;
     }, []);
+    if (resetGroupParams) {
+      for (let i = 0; i < newParams.length; i++) {
+        if (newParams[i].includes('group_params')) {
+          newParams.splice(i, 1);
+        }
+      }
+    }
+    return newParams;
   }
 
   /**
@@ -301,7 +318,8 @@
     }
 
     props.el.addEventListener('change', function(event) {
-      if (props.name == 'per_page' && filterDataModel['grouping'] !== 'default') {
+      const grouping = document.getElementsByName('grouping')[0].value;
+      if (props.name == 'per_page' && grouping !== 'default') {
         const per_page_els = document.getElementsByName('per_page');
         filterDataModel['group_params'] = updateGroupParams(
           filterDataModel['group_params'],

@@ -281,6 +281,7 @@ def get_group_view_data(request, requested_reports, query_filters, grouping, gro
     # process filter query params
     filter_args = get_filter_args(query_filters)
     page_args += filter_args
+    report_url_args += filter_args
 
     if desc != 'All other reports':
         desc_filter = f'&violation_summary=^{desc}$'
@@ -462,6 +463,9 @@ def serialize_data(report, request, report_id):
         report.protected_class.all().order_by('form_order'),
         report.other_class,
     )
+
+    return_url_args = request.GET.get('next', '')
+    return_url_args = urllib.parse.unquote(return_url_args)
 
     output = {
         'actions': ComplaintActions(instance=report),
