@@ -1,3 +1,4 @@
+import json
 from django import template
 
 
@@ -40,19 +41,25 @@ def heading_2_model_prop(heading):
 
 # Helper function to generate a sort query string to be passed to the template
 # When the query is descending, returns a query string for an ascending sort.
-def sort_url_factory(heading, is_descending, filter_state):
+def sort_url_factory(heading, is_descending, filter_state, grouping, group_params, index):
     sort_properties = heading_2_model_prop(heading)
 
     if is_descending:
         sortables = sort_properties
     else:
         sortables = map(lambda x: '-{}'.format(x), sort_properties)
-
-    return '?' + '&'.join('sort=' + p for p in sortables) + filter_state
+    if group_params:
+        group_params_copy = group_params.copy()
+        group_params_copy[index] = group_params_copy[index].copy()
+        group_params_copy[index]['sort'] = [''.join(p for p in sortables)]
+        group_params_copy = json.dumps(group_params_copy)
+        return '?group_params=' + group_params_copy + '&grouping=' + grouping + filter_state
+    else:
+        return '?' + '&'.join('sort=' + p for p in sortables) + '&grouping=' + grouping + filter_state
 
 
 @register.inclusion_tag('forms/snippets/sortable_table_heading.html')
-def render_sortable_heading(heading, sort_state, filter_state, nowrap=False):
+def render_sortable_heading(heading, sort_state, filter_state, grouping='default', group_params=None, index=1, nowrap=False):
     safe_heading = heading.lower()
     sortable_prop = sort_lookup.get(safe_heading, None)
 
@@ -61,11 +68,10 @@ def render_sortable_heading(heading, sort_state, filter_state, nowrap=False):
         'id': heading.lower().replace(' ', '-') + '-sort',
         'nowrap': nowrap
     }
-
     if sortable_prop in sortable_props:
         is_descending = sort_state.get(sortable_prop, False)
         sort_dict.update({
-            'sort_url': sort_url_factory(safe_heading, is_descending, filter_state),
+            'sort_url': sort_url_factory(safe_heading, is_descending, filter_state, grouping, group_params, index),
             'is_descending': is_descending
         })
 

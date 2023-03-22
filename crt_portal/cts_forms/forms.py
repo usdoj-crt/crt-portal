@@ -46,7 +46,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               SERVICEMEMBER_ERROR, STATES_AND_TERRITORIES,
                               STATUS_CHOICES, STATUTE_CHOICES,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
-                              HATE_CRIME_CHOICES)
+                              HATE_CRIME_CHOICES, GROUPING)
 from .models import (CommentAndSummary,
                      ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment, Campaign)
 from .phone_regex import phone_validation_regex
@@ -1109,6 +1109,17 @@ class Filters(ModelForm):
             'aria-label': 'Records per page'
         })
     )
+    grouping = ChoiceField(
+        initial=('default', 'Default'),
+        required=False,
+        label=_("Grouping"),
+        choices=_add_empty_choice(GROUPING),
+        widget=Select(attrs={
+            'name': 'grouping',
+            'class': 'usa-select',
+            'aria-label': 'Grouping'
+        })
+    )
     summary = CharField(
         required=False,
         widget=TextInput(
@@ -1300,8 +1311,8 @@ class Filters(ModelForm):
                 'placeholder': labels['public_id'],
                 'aria-label': labels['public_id']
             }),
-            'violation_summary': TextInput(attrs={
-                'class': 'usa-input',
+            'violation_summary': Textarea(attrs={
+                'class': 'usa-textarea border-0',
                 'name': 'violation_summary',
                 'placeholder': labels['violation_summary'],
                 'aria-label': labels['violation_summary']

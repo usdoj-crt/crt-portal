@@ -35,16 +35,16 @@
               <img alt="" aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
             </a>
           </th>
-          {% render_sortable_heading 'Status' sort_state filter_state %}
-          {% render_sortable_heading 'Total #' sort_state filter_state nowrap=True %}
-          {% render_sortable_heading 'ID' sort_state filter_state %}
-          {% render_sortable_heading 'Routed' sort_state filter_state %}
-          {% render_sortable_heading 'Submitted' sort_state filter_state %}
-          {% render_sortable_heading 'Contact Name' sort_state filter_state %}
-          {% render_sortable_heading 'Contact Details' sort_state filter_state %}
-          {% render_sortable_heading 'Incident Location' sort_state filter_state %}
-          {% render_sortable_heading 'Incident City/State' sort_state filter_state %}
-          {% render_sortable_heading 'Incident Date' sort_state filter_state %}
+          {% render_sortable_heading 'Status' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Total #' sort_state filter_state grouping group_params index nowrap=True %}
+          {% render_sortable_heading 'ID' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Routed' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Submitted' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Contact Name' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Contact Details' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Incident Location' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Incident City/State' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Incident Date' sort_state filter_state grouping group_params index %}
         </tr>
       </thead>
       {% if data_dict %}
@@ -184,7 +184,7 @@
   </div>
 {% endif %}
 
-{% if not page_format.has_next and data_dict %}
+{% if not page_format.has_next and grouping == 'default' and data_dict %}
   <div class="crt-portal-card table-message">
     <div class="crt-portal-card__content">
       <div class="grid-container padding-bottom-2">

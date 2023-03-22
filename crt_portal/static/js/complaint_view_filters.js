@@ -52,10 +52,24 @@
    * @returns {Array} A list of URI-encoded query param strings
    */
   function makeQueryParams(params) {
+    const persistentKeys = ['grouping', 'group_params', 'per_page', 'page', 'sort'];
+    var currentParams = getQueryParams(root.location.search, Object.keys(initialFilterState));
     var keys = Object.keys(params);
     return keys.reduce(function(memo, key) {
-      var paramValue = params[key];
-
+      // Clear group params when a new filter is added or grouping is set to default
+      if (key === 'group_params' && params['grouping'] === 'default') {
+        var paramValue = [];
+      } else {
+        var paramValue = params[key];
+      }
+      if (
+        !persistentKeys.includes(key) &&
+        'group_params' in currentParams &&
+        !(key in currentParams)
+      ) {
+        console.log(key);
+        //  params['group_params'] = [];
+      }
       if (!paramValue || !paramValue.length) {
         return memo;
       }
@@ -130,7 +144,9 @@
     no_status: '',
     language: [],
     contact_phone: '',
-    correctional_facility_type: []
+    correctional_facility_type: [],
+    grouping: 'default',
+    group_params: []
   };
   var filterDataModel = {};
 
@@ -144,8 +160,26 @@
       if (state.hasOwnProperty(key)) {
         state[key] = decodeFormData(value);
       }
+      if (key === 'grouping') {
+        document.getElementsByName('grouping')[0].value = value;
+      }
+      if (key === 'group_params') {
+        const per_page_els = document.getElementsByName('per_page');
+        if (state[key].length) {
+          const group_params = JSON.parse(state[key][0].replaceAll('"', "'").replaceAll("'", '"'));
+          for (let i = 0; i < per_page_els.length; i++) {
+            per_page_els[i].value = group_params[i]['per_page'];
+          }
+        }
+      }
       if (key === 'per_page') {
-        document.getElementsByName('per_page')[0].value = value;
+        const per_page_els = document.getElementsByName('per_page');
+        if (per_page_els.length === 1 && !state['group_params'].length) {
+          per_page_els[0].value = value;
+        } else {
+          state[key] = '';
+          state['group_params'] = updateGroupParams(state['group_params'], per_page_els);
+        }
       }
     }
   }
@@ -267,10 +301,45 @@
     }
 
     props.el.addEventListener('change', function(event) {
-      filterDataModel[props.name] = event.target.value;
-      if (props.name == 'per_page') {
+      if (props.name == 'per_page' && filterDataModel['grouping'] !== 'default') {
+        const per_page_els = document.getElementsByName('per_page');
+        filterDataModel['group_params'] = updateGroupParams(
+          filterDataModel['group_params'],
+          per_page_els
+        );
+      } else {
+        filterDataModel[props.name] = event.target.value;
+      }
+      if (props.name == 'per_page' || props.name == 'grouping') {
         dom.getElementById('apply-filters-button').click();
       }
+    });
+  }
+
+  function updateGroupParams(group_params, per_page_els) {
+    if (group_params.length) {
+      group_params = JSON.parse(group_params[0].replaceAll('"', "'").replaceAll("'", '"'));
+      for (let i = 0; i < per_page_els.length; i++) {
+        group_params[i]['per_page'] = per_page_els[i].value ? Number(per_page_els[i].value) : 15;
+      }
+    } else {
+      for (let i = 0; i < per_page_els.length; i++) {
+        group_params.push({
+          page: 1,
+          per_page: per_page_els[i].value ? Number(per_page_els[i].value) : 15,
+          sort: []
+        });
+      }
+    }
+    return JSON.stringify(group_params);
+  }
+
+  function textInputsView(props) {
+    props.el.forEach(el => {
+      textInputView({
+        el: el,
+        name: props.name
+      });
     });
   }
 
@@ -295,8 +364,9 @@
     var campaignEl = formEl.querySelector('#id_origination_utm_campaign');
     var complaintIDEl = formEl.querySelector('input[name="public_id"]');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
-    var perPageEl = dom.querySelector('select[name="per_page"]');
-    var personalDescriptionEl = formEl.querySelector('input[name="violation_summary"]');
+    var perPageEl = dom.getElementsByName('per_page');
+    var groupingEl = dom.querySelector('select[name="grouping"]');
+    var personalDescriptionEl = formEl.querySelector('textarea[name="violation_summary"]');
     var primaryIssueEl = dom.getElementsByName('primary_complaint');
     var reportedReasonEl = dom.getElementsByName('reported_reason');
     var relevantDetailsEl = dom.getElementsByName('commercial_or_public_place');
@@ -422,9 +492,13 @@
       el: statuteEl,
       name: 'primary_statute'
     });
-    textInputView({
+    textInputsView({
       el: perPageEl,
       name: 'per_page'
+    });
+    textInputView({
+      el: groupingEl,
+      name: 'grouping'
     });
     clearFiltersView({
       el: clearAllEl,
@@ -507,7 +581,7 @@
   // instantiate the controller that manages the UI components / views
   function init() {
     if (root.location.search === '') {
-      root.location.search = '?status=new&status=open&no_status=false';
+      root.location.search = '?status=new&status=open&no_status=false&grouping=default';
     }
     var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
 

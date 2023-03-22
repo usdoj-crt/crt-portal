@@ -1,0 +1,87 @@
+{% extends "forms/complaint_view/intake_base.html" %}
+{% load static %}
+
+{% block page_header %}
+{% include 'forms/complaint_view/intake_filters_header.html' with title_text="Reporting Portal" profile_form=profile_form  %}
+{% endblock %}
+
+{% block content %}
+<div class="intake-content">
+  <div id="status-update" class="grid-col-auto">
+    {% include 'partials/messages.html' %}
+  </div>
+  {% include "forms/complaint_view/index/filter-controls.html" with filters=filters form=form %}
+  <div class="display-flex margin-top-4 flex-wrap flex-justify">
+    {% include "forms/complaint_view/index/active-filters.html" %}
+    <span class="grouping-select {{ grouping }}">
+    <span>Group by:</span>
+    {% include "forms/complaint_view/index/grouping-select.html" %}
+    </span>
+  </div>
+  {% if groups|length == 1 %}
+  <div class="grid-container padding-top-7">
+    <div class="align-center">
+      <img alt="filter icon" src="{% static 'img/filters.svg' %}" class="margin-top-1" />
+      <p class="margin-bottom-1 margin-top-1" role="status"><b>No matching descriptions found</b></p>
+      <em>All reports have unique descriptions</em>
+    </div>
+  </div>
+{% endif %}
+  {% for group in groups %}
+  <div class="display-flex margin-top-8">
+    <span class="intake-pagination margin-left-auto">
+      Showing {{ group.data.page_format.page_range_start }} - {{ group.data.page_format.page_range_end }} of {{ group.data.page_format.count }} records
+      {% if group_params|length %}
+        {% include 'forms/complaint_view/index/filters/per_page.html' with per_page=group_params.forloop.counter0.page %}
+      {% else %}
+        {% include 'forms/complaint_view/index/filters/per_page.html' with per_page=15 %}
+      {% endif %}
+    </span>
+  </div>
+  <br/>
+  </form>
+  <div class="grid-col-auto">
+    <div class="intake-table">
+      <div class="intake-table-header">
+        {% if groups|length == forloop.counter %}
+            <h2 class="intake-section-title">All other reports</h2>
+        {% else %}
+        <h2 class="intake-section-title">Group {{ forloop.counter }} - Matched Description:
+            {{ group.desc|slice:":30" }}
+            {% if group.desc|length > 30 %}
+            <span
+                class="intake-section-title-tooltip"
+              >
+              ···
+              <span class="tooltip-content">
+               <b>Report description</b>
+               <br />
+               <br />
+                {{ group.desc }}
+              </span>
+            </span>
+            {% endif %}
+        </h2>
+        {% endif %}
+        <div class="margin-left-auto">
+          {% include "forms/snippets/group_pagination.html" with page_format=group.data.page_format page_args=page_args group_params=group_params index=forloop.counter0 placement="top" %}
+        </div>
+      </div>
+        {% include "forms/complaint_view/index/complaints_table.html" with group_params=group_params grouping=grouping page_format=group.data.page_format data_dict=group.data.data_dict sort_state=group.data.sort_state filter_state=group.data.filter_state index=forloop.counter0 %}
+    </div>
+  </div>
+  <div class="margin-bottom-5">
+    {% include "forms/snippets/group_pagination.html" with page_format=group.data.page_format page_args=page_args group_params=group_params index=forloop.counter0 placement="bottom" %}
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
+{% block page_js %}
+{{ block.super }}
+<script src="{% static 'vendor/js.cookie.min.js' %}"></script>
+<script src="{% static 'js/complaint_quick_view.min.js' %}"></script>
+<script src="{% static 'js/complaint_view_filters.min.js' %}"></script>
+<script src="{% static 'js/complaint_actions.min.js' %}"></script>
+<script src="{% static 'js/dashboard_view_all.min.js'%}"></script>
+<script src="{% static 'js/constant_writer.min.js'%}"></script>
+{% endblock %}

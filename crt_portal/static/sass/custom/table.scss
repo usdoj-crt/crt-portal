@@ -306,6 +306,32 @@
   }
 }
 
+.grouping-select {
+  align-items: center;
+  display: flex;
+  margin-bottom: 1rem;
+  padding-right: 1.5rem;
+  .select-link.usa-select {
+    background: url(../../img/kebab-menu-icon.svg) no-repeat;
+    background-color: transparent;
+    background-position: right center;
+    border: none;
+    display: flex;
+    height: auto;
+    margin-left: 5px;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-right: 12px;
+    padding-top: 0;
+    width: auto;
+  }
+  &.default {
+    .select-link.usa-select {
+      max-width: 73px;
+    }
+  }
+}
+
 .selection-action-notification {
   position: fixed;
   width: 100%;

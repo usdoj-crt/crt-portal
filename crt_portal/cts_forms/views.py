@@ -4,6 +4,7 @@ This is where to put views that need authentication.
  - Add a test to ensure authentication
  - Be mindful of any naming collision with public URLs in settings
 """
+import json
 import logging
 import mimetypes
 import urllib.parse
@@ -28,7 +29,7 @@ from tms.models import TMSEmail
 from datetime import datetime
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
-from .filters import report_filter, dashboard_filter
+from .filters import report_filter, dashboard_filter, report_grouping
 from .forms import (
     BulkActionsForm, CommentActions, ComplaintActions,
     ContactEditForm, Filters, PrintActions, ProfileForm,
@@ -72,7 +73,7 @@ def reconstruct_query(next_qp):
 
     report_query = report_query.annotate(email_count=F('email_report_count__email_count'))
 
-    sort_expr, sorts = report_sort(querydict)
+    sort_expr, sorts = report_sort(querydict.getlist('sort'))
     report_query = report_query.order_by(*sort_expr)
 
     return report_query
@@ -185,6 +186,7 @@ def _related_reports_count(report):
 
 @login_required
 def index_view(request):
+    grouping = request.GET.get('grouping', 'default')
     profile_form = ProfileForm()
     # Check for Profile object, then add filter to request
     if hasattr(request.user, 'profile') and request.user.profile.intake_filters:
@@ -197,16 +199,76 @@ def index_view(request):
 
         data = {'intake_filters': request.GET.getlist('assigned_section')}
         profile_form = ProfileForm(data)
+    selected_assignee_id = fetch_selected_foreign_key(
+        request,
+        'assigned_to',
+        lambda text: User.objects.filter(username=text).first()
+    )
 
-    report_query, query_filters = report_filter(request.GET)
+    selected_campaign_uuid = fetch_selected_foreign_key(
+        request,
+        'origination_utm_campaign',
+        lambda text: Campaign.objects.filter(internal_name=text).first()
+    )
+    if grouping != 'default':
+        group_queries, filters = report_grouping(request.GET)
+        group_params = json.loads(request.GET.get('group_params', "[]").replace("'", '"'))
+        group_view_data = []
+        updated_group_queries = []
+        for i, group_query in enumerate(group_queries):
+            requested_reports = group_query['qs'].annotate(email_count=F('email_report_count__email_count'))
+            # Make sure query either has results or is the "All other reports" query
+            if len(requested_reports) > 0 or i == (len(group_queries) - 1):
+                group_query['requested_reports'] = requested_reports
+                updated_group_queries.append(group_query)
+        for i, updated_group_query in enumerate(updated_group_queries):
+            params = group_params[i] if 0 <= i < len(group_params) else {'sort': [], 'per_page': 15, 'page': 1}
+            group_data = get_group_view_data(request, updated_group_query['requested_reports'], filters, grouping, params, updated_group_query['desc'])
+            group_view_data.append({
+                "desc": updated_group_query['desc'],
+                "data": group_data
+            })
+        # Reset group params if number of groups has changed
+        updated_group_params = []
+        if len(updated_group_queries) != len(group_params):
+            for query in enumerate(updated_group_queries):
+                updated_group_params.append({
+                    "sort": [],
+                    "per_page": 15,
+                    "page": 1,
+                })
+        else:
+            updated_group_params = group_params
+        final_data = get_group_view_data(request, updated_group_queries[0]["qs"], filters, grouping, updated_group_params[0], 'All other reports')
+        final_data['return_url_args'] = urllib.parse.quote(f"{final_data['page_args']}&group_params={updated_group_params}")
+        final_data.update({
+            'profile_form': profile_form,
+            'selected_assignee_id': selected_assignee_id,
+            'selected_origination_utm_campaign': selected_campaign_uuid,
+            'group_params': updated_group_params,
+            'groups': group_view_data
+        })
 
+        return render(request, 'forms/complaint_view/index/grouped_index.html', final_data)
+
+    else:
+        report_query, query_filters = report_filter(request.GET)
+        final_data = get_view_data(request, report_query, query_filters)
+        final_data.update({
+            'profile_form': profile_form,
+            'selected_assignee_id': selected_assignee_id,
+            'selected_origination_utm_campaign': selected_campaign_uuid
+        })
+        return render(request, 'forms/complaint_view/index/index.html', final_data)
+
+
+def get_group_view_data(request, requested_reports, query_filters, grouping, group_params, desc):
     # Sort data based on request from params, default to `created_date` of complaint
-    per_page = request.GET.get('per_page', 15)
-    page = request.GET.get('page', 1)
+    per_page = group_params['per_page']
+    page = group_params['page']
+    sort = group_params['sort']
+    sort_expr, sorts = report_sort(sort)
 
-    requested_reports = report_query.annotate(email_count=F('email_report_count__email_count'))
-
-    sort_expr, sorts = report_sort(request.GET)
     requested_reports = requested_reports.order_by(*sort_expr)
 
     paginator = Paginator(requested_reports, per_page)
@@ -214,17 +276,89 @@ def index_view(request):
 
     sort_state = {}
     # make sure the links for this page have the same paging, sorting, filtering etc.
-    page_args = f'?per_page={per_page}'
-
+    report_url_args = f'?per_page={per_page}&grouping={grouping}'
+    page_args = f'?grouping={grouping}'
     # process filter query params
-    filter_args = ''
-    for query_item in query_filters.keys():
-        arg = query_item
-        for item in query_filters[query_item]:
-            filter_args = filter_args + f'&{arg}={item}'
+    filter_args = get_filter_args(query_filters)
+    page_args += filter_args
+
+    if desc != 'All other reports':
+        desc_filter = f'&violation_summary=^{desc}$'
+        report_url_args += desc_filter
+    # process sort query params
+    sort_args, sort_state = get_sort_args(sorts, sort_state)
+
+    report_url_args += sort_args
+    all_report_url_args_encoded = urllib.parse.quote(f'{report_url_args}&page={page}')
+    all_args_encoded = urllib.parse.quote(f'{page_args}')
+
+    paginated_offset = page_format['page_range_start'] - 1
+    data = get_report_data(requested_reports, all_report_url_args_encoded, paginated_offset)
+
+    final_data = {
+        'form': Filters(request.GET),
+        'data_dict': data,
+        'grouping': grouping,
+        'page_format': page_format,
+        'page_args': page_args,
+        'sort_state': sort_state,
+        'filter_state': filter_args,
+        'filters': query_filters,
+        'return_url_args': all_args_encoded,
+    }
+
+    return final_data
+
+
+def get_view_data(request, report_query, query_filters):
+    requested_reports = report_query.annotate(email_count=F('email_report_count__email_count'))
+
+    # Sort data based on request from params, default to `created_date` of complaint
+    per_page = request.GET.get('per_page', 15)
+    page = request.GET.get('page', 1)
+    sort_expr, sorts = report_sort(request.GET.getlist('sort'))
+
+    requested_reports = requested_reports.order_by(*sort_expr)
+
+    paginator = Paginator(requested_reports, per_page)
+    requested_reports, page_format = pagination(paginator, page, per_page)
+
+    sort_state = {}
+    # make sure the links for this page have the same paging, sorting, filtering etc.
+    report_url_args = f'?per_page={per_page}&grouping=default'
+    page_args = report_url_args
+    # process filter query params
+    filter_args = get_filter_args(query_filters)
     page_args += filter_args
 
     # process sort query params
+    sort_args, sort_state = get_sort_args(sorts, sort_state)
+
+    report_url_args += sort_args
+    all_report_url_args_encoded = urllib.parse.quote(f'{report_url_args}&page={page}')
+    page_args += sort_args
+
+    all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
+
+    paginated_offset = page_format['page_range_start'] - 1
+    data = get_report_data(requested_reports, all_report_url_args_encoded, paginated_offset)
+
+    final_data = {
+        'form': Filters(request.GET),
+        'data_dict': data,
+        'grouping': 'default',
+        'page_format': page_format,
+        'page_args': page_args,
+        'sort_state': sort_state,
+        'filter_state': filter_args,
+        'filters': query_filters,
+        'return_url_args': all_args_encoded,
+    }
+
+    return final_data
+
+
+def get_sort_args(sorts, sort_state):
     sort_args = ''
     for sort_item in sorts:
         if sort_item[0] == SORT_DESC_CHAR:
@@ -233,13 +367,20 @@ def index_view(request):
             sort_state.update({sort_item: False})
 
         sort_args += f'&sort={sort_item}'
-    page_args += sort_args
+    return sort_args, sort_state
 
-    all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
 
+def get_filter_args(query_filters):
+    filter_args = ''
+    for query_item in query_filters.keys():
+        arg = query_item
+        for item in query_filters[query_item]:
+            filter_args = filter_args + f'&{arg}={item}'
+    return filter_args
+
+
+def get_report_data(requested_reports, report_url_args, paginated_offset):
     data = []
-
-    paginated_offset = page_format['page_range_start'] - 1
     for index, report in enumerate(requested_reports):
         p_class_list = format_protected_class(
             report.protected_class.all().order_by('form_order'),
@@ -257,36 +398,9 @@ def index_view(request):
         data.append({
             "report": report,
             "report_protected_classes": p_class_list,
-            "url": f'{report.id}?next={all_args_encoded}&index={paginated_offset + index}',
+            "url": f'{report.id}?next={report_url_args}&index={paginated_offset + index}',
         })
-
-    selected_assignee_id = fetch_selected_foreign_key(
-        request,
-        'assigned_to',
-        lambda text: User.objects.filter(username=text).first()
-    )
-
-    selected_campaign_uuid = fetch_selected_foreign_key(
-        request,
-        'origination_utm_campaign',
-        lambda text: Campaign.objects.filter(internal_name=text).first()
-    )
-
-    final_data = {
-        'form': Filters(request.GET),
-        'profile_form': profile_form,
-        'data_dict': data,
-        'page_format': page_format,
-        'page_args': page_args,
-        'sort_state': sort_state,
-        'filter_state': filter_args,
-        'filters': query_filters,
-        'return_url_args': all_args_encoded,
-        'selected_assignee_id': selected_assignee_id,
-        'selected_origination_utm_campaign': selected_campaign_uuid,
-    }
-
-    return render(request, 'forms/complaint_view/index/index.html', final_data)
+    return data
 
 
 def fetch_selected_foreign_key(request, field_name, query):
