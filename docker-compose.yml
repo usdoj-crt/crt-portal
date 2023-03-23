@@ -82,7 +82,7 @@ services:
        - 8025:8025 # web ui
      # command: -invite-jim=1 -jim-accept=0.50  # uncomment to enable and configure Jim (Chaos Monkey)
   clamav-rest:
-    image: ajilaag/clamav-rest:20220511   # ## 20201028
+    image: ajilaag/clamav-rest:20230321 # ##20220511
     environment:
       - MAX_FILE_SIZE=100M
       - SIGNATURE_CHECKS=1
