@@ -23,11 +23,10 @@
             <div class="usa-checkbox td-checkbox">
               <input type="checkbox"
                      name="all"
-                     class="usa-checkbox__input"
+                     class="usa-checkbox__input checkbox-input-all"
                      value="all"
-                     id="checkbox-all"
               >
-              <label class="usa-checkbox__label crt-checkbox__label checkbox-all" for="checkbox-all" aria-label="Select all records"></label>
+              <label class="usa-checkbox__label crt-checkbox__label checkbox-all" aria-label="Select all records"></label>
             </div>
           </th>
           <th aria-label="Detail toggles">
@@ -161,7 +160,7 @@
         <img src="{% static 'img/ic_successconfirmation-white.svg' %}" alt="action available on selection" class="icon">
       </div>
       <h2>
-        <span id="selection-action-count">1 record</span> selected
+        <span id="selection-action-count" class="selection-action-count">1 record</span> selected
       </h2>
       <div class="selection-submit">
         <button type="submit" id="actions" label="actions" class="usa-button">Actions</button>

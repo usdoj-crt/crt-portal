@@ -77,7 +77,7 @@
       // Reset group params when new filter is added
       if (
         !persistentParams.includes(key) &&
-        paramValue[0] != currentParam &&
+        paramValue[0] != decodeFormData(currentParam) &&
         grouping != 'default'
       ) {
         resetGroupParams = true;
@@ -336,7 +336,7 @@
 
   function updateGroupParams(group_params, per_page_els) {
     if (group_params.length) {
-      group_params = JSON.parse(group_params[0].replaceAll('"', "'").replaceAll("'", '"'));
+      group_params = JSON.parse(group_params[0]?.replaceAll('"', "'").replaceAll("'", '"'));
       for (let i = 0; i < per_page_els.length; i++) {
         group_params[i]['per_page'] = per_page_els[i].value ? Number(per_page_els[i].value) : 15;
       }

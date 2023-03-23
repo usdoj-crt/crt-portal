@@ -130,6 +130,15 @@
     .td-checkbox {
       background: transparent;
       padding: 0;
+      position: relative;
+
+      .usa-checkbox__input {
+        cursor: pointer;
+        height: 100%;
+        left: 0;
+        width: 100%;
+        z-index: 10;
+      }
     }
 
     .td-toggle,

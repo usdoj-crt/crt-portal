@@ -326,8 +326,7 @@ def get_view_data(request, report_query, query_filters):
 
     sort_state = {}
     # make sure the links for this page have the same paging, sorting, filtering etc.
-    report_url_args = f'?per_page={per_page}&grouping=default'
-    page_args = report_url_args
+    page_args = f'?per_page={per_page}&grouping=default'
     # process filter query params
     filter_args = get_filter_args(query_filters)
     page_args += filter_args
@@ -335,14 +334,12 @@ def get_view_data(request, report_query, query_filters):
     # process sort query params
     sort_args, sort_state = get_sort_args(sorts, sort_state)
 
-    report_url_args += sort_args
-    all_report_url_args_encoded = urllib.parse.quote(f'{report_url_args}&page={page}')
     page_args += sort_args
 
     all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
 
     paginated_offset = page_format['page_range_start'] - 1
-    data = get_report_data(requested_reports, all_report_url_args_encoded, paginated_offset)
+    data = get_report_data(requested_reports, all_args_encoded, paginated_offset)
 
     final_data = {
         'form': Filters(request.GET),
