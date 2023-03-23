@@ -24,9 +24,9 @@ If you are experiencing housing discrimination:
 
 HUD investigates individual claims of housing discrimination. This may include discrimination based on race, color, national origin, religion, sex, familial status, or disability in housing. If you are experiencing housing discrimination, we recommend that you file a complaint with HUD.
 
-You may also file a complaint with HUD if you believe your housing rights under the Violence Against Women Act (VAWA) have been violated. HUD has provided information about VAWA’s housing protections at [https://www.hud.gov/program\_offices/fair\_housing\_equal\_opp/VAWA](https://www.hud.gov/program_offices/fair_housing_equal_opp/VAWA).
+You may also file a complaint with HUD if you believe your housing rights under the Violence Against Women Act (VAWA) have been violated. HUD has provided information about VAWA’s housing protections at [https://www.hud.gov/program_offices/fair_housing_equal_opp/VAWA](https://www.hud.gov/program_offices/fair_housing_equal_opp/VAWA).
 
-You can file a complaint with HUD online at [www.hud.gov/program\_offices/fair\_‌housing\_‌equal\_‌‌opp/online-complaint](http://www.hud.gov/program_offices/fair_‌housing_‌equal_opp/online-complaint), or call 1-800-669-9777 or TTY: 1-800-877-8339.
+You can file a complaint with HUD online at [https://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint](http://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint), or call 1-800-669-9777 or TTY: 1-800-877-8339.
 
 You have one year from the date of the discrimination or violation to file with HUD or they will not review your complaint.
 
@@ -38,12 +38,12 @@ The CFPB may help you identify resources for which you may qualify, at [www.cons
 If you are experiencing discrimination in lending or credit:
 ============================================================
 
-You can file a complaint with HUD at [www.hud.gov/program\_offices/fair\_housing\_equal\_opp/‌online-complaint](http://www.hud.gov/program_offices/fair_housing_equal_opp/‌online-complaint) and with the CFPB at [www.consumerfinance.gov/complaint](http://www.consumerfinance.gov/complaint/).
+You can file a complaint with HUD at [https://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint](http://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint) and with the CFPB at [www.consumerfinance.gov/complaint](http://www.consumerfinance.gov/complaint/).
 
 If you would like to hire an attorney:
 ======================================
 
-You may want to consult a private attorney to see if you have any rights under other federal and state laws. If you do not have an attorney, your state bar association or local legal assistance agency may be able to help. Search for a local attorney at [www.americanbar.org/groups/‌legal\_‌services/flh-home](http://www.americanbar.org/groups/legal_services/flh-home/) or [www.lsc.gov/find-legal-aid](http://www.lsc.gov/find-legal-aid).
+You may want to consult a private attorney to see if you have any rights under other federal and state laws. If you do not have an attorney, your state bar association or local legal assistance agency may be able to help. Search for a local attorney at [www.americanbar.org/groups/‌legal_services/flh-home](http://www.americanbar.org/groups/legal_services/flh-home/) or [www.lsc.gov/find-legal-aid](http://www.lsc.gov/find-legal-aid).
 
 For more information about credit, disability rights, and housing rights, please visit our housing resources page at [https://civilrights.justice.gov/housing-resources](https://civilrights.justice.gov/housing-resources).
 
