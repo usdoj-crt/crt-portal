@@ -24,7 +24,7 @@ class TMSClient(object):
         """
         endpoint = self._get_endpoint(target)
         # ## timeout added for bandit check https://bandit.readthedocs.io/en/1.7.5/plugins/b113_request_without_timeout.html
-        return requests.get(endpoint + query_parameters, headers=self.headers, timeout=15 )
+        return requests.get(endpoint + query_parameters, headers=self.headers, timeout=15)
 
     def post(self, target='', query_parameters='', payload=None):
         """
