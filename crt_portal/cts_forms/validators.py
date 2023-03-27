@@ -43,7 +43,7 @@ def validate_filename(file):
 
 def _scan_file(file):
     try:
-        return requests.post(settings.AV_SCAN_URL, files={'file': file}, data={'name': file.name})
+        return requests.post(settings.AV_SCAN_URL, files={'file': file}, data={'name': file.name}, timeout=25)
     except requests.exceptions.ConnectionError:
         raise ValidationError('We were unable to complete a security inspection of the file, please try again or contact support for assistance.')
 
