@@ -883,7 +883,7 @@ var TurndownService = (function () {
 
       var replacement = '';
       if (node.nodeType === 3) {
-        replacement = node.isCode || parentNode.tagName == 'A' ? node.nodeValue : self.escape(node.nodeValue);
+        replacement = node.isCode ? node.nodeValue : self.escape(node.nodeValue);
       } else if (node.nodeType === 1) {
         replacement = replacementForNode.call(self, node);
       }
