@@ -21,14 +21,14 @@ We are not determining that your report lacks merit. Your issue may still be act
 ## To find a local office:
 
 American Bar Association
-[www.americanbar.org/groups/legal_services/flh-home](https://www.americanbar.org/groups/legal_services/flh-home)
+[https://www.americanbar.org/groups/legal_services/flh-home](https://www.americanbar.org/groups/legal_services/flh-home)
 (800) 285-2221
 
 Legal Services Corporation (or Legal Aid Offices)
-[www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid)
+[https://www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid)
 (202) 295-1500
 
-How you have helped:
+# How you have helped:
 
 While we don’t have the capacity to take on each individual report, your report can help us find issues affecting multiple people or communities. It also helps us understand emerging trends and topics.
 
