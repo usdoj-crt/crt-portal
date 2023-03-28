@@ -301,6 +301,7 @@ if environment in ['PRODUCTION', 'STAGE']:
         'LOGIN_EXEMPT_URLS': [
             '^$',
             '^report',
+            '^link',
             '^robots.txt',
             '^privacy-policy',
             '^hate-crime-human-trafficking',

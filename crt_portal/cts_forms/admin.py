@@ -246,7 +246,10 @@ class ReferralContactAdmin(admin.ModelAdmin):
 
 class CampaignAdmin(admin.ModelAdmin):
     class Media:
-        js = ('js/admin_copy.js',)
+        js = (
+            'js/admin_copy.js',
+            'js/absolute_url.js',
+        )
         css = {
             'all': ('css/compiled/admin.css',)
         }
