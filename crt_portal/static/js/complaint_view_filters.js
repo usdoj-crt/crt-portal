@@ -59,11 +59,7 @@
     let resetGroupParams = false;
     const newParams = keys.reduce(function(memo, key) {
       // Reset group params when grouping is set to default
-      if (key === 'group_params' && grouping === 'default') {
-        var paramValue = [];
-      } else {
-        var paramValue = params[key];
-      }
+      const paramValue = key === 'group_params' && grouping === 'default' ? [] : params[key];
 
       if (!paramValue || !paramValue.length) {
         // Reset group params when filter is removed
@@ -96,14 +92,8 @@
 
       return memo;
     }, []);
-    if (resetGroupParams) {
-      for (let i = 0; i < newParams.length; i++) {
-        if (newParams[i].includes('group_params')) {
-          newParams.splice(i, 1);
-        }
-      }
-    }
-    return newParams;
+    if (!resetGroupParams) return newParams;
+    return newParams.filter(param => !param.includes('group_params'));
   }
 
   /**
@@ -180,14 +170,12 @@
       if (key === 'grouping') {
         document.getElementsByName('grouping')[0].value = value;
       }
-      if (key === 'group_params') {
+      if (key === 'group_params' && state[key].length) {
         const per_page_els = document.getElementsByName('per_page');
-        if (state[key].length) {
-          const group_params = JSON.parse(state[key][0].replaceAll('"', "'").replaceAll("'", '"'));
-          for (let i = 0; i < per_page_els.length; i++) {
-            per_page_els[i].value = group_params[i]['per_page'];
-          }
-        }
+        const group_params = JSON.parse(state[key][0].replaceAll('"', "'").replaceAll("'", '"'));
+        per_page_els.forEach((el, i) => {
+          el.value = group_params[i]['per_page'];
+        });
       }
       if (key === 'per_page') {
         const per_page_els = document.getElementsByName('per_page');
@@ -337,19 +325,20 @@
   function updateGroupParams(group_params, per_page_els) {
     if (group_params.length) {
       group_params = JSON.parse(group_params[0]?.replaceAll('"', "'").replaceAll("'", '"'));
-      for (let i = 0; i < per_page_els.length; i++) {
-        group_params[i]['per_page'] = per_page_els[i].value ? Number(per_page_els[i].value) : 15;
-      }
-    } else {
-      for (let i = 0; i < per_page_els.length; i++) {
-        group_params.push({
-          page: 1,
-          per_page: per_page_els[i].value ? Number(per_page_els[i].value) : 15,
-          sort: []
-        });
-      }
+      per_page_els.forEach((el, i) => {
+        group_params[i]['per_page'] = el.value ? Number(el.value) : 15;
+      });
+      return JSON.stringify(group_params);
     }
-    return JSON.stringify(group_params);
+    return JSON.stringify(
+      per_page_els.map(el => {
+        return {
+          page: 1,
+          per_page: el.value ? Number(el.value) : 15,
+          sort: []
+        };
+      })
+    );
   }
 
   function textInputsView(props) {

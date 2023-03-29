@@ -211,55 +211,61 @@ def index_view(request):
         lambda text: Campaign.objects.filter(internal_name=text).first()
     )
     if grouping != 'default':
-        group_queries, filters = report_grouping(request.GET)
-        group_params = json.loads(request.GET.get('group_params', "[]").replace("'", '"'))
-        group_view_data = []
-        updated_group_queries = []
-        for i, group_query in enumerate(group_queries):
-            requested_reports = group_query['qs'].annotate(email_count=F('email_report_count__email_count'))
-            # Make sure query either has results or is the "All other reports" query
-            if len(requested_reports) > 0 or i == (len(group_queries) - 1):
-                group_query['requested_reports'] = requested_reports
-                updated_group_queries.append(group_query)
-        for i, updated_group_query in enumerate(updated_group_queries):
-            params = group_params[i] if 0 <= i < len(group_params) else {'sort': [], 'per_page': 15, 'page': 1}
-            group_data = get_group_view_data(request, updated_group_query['requested_reports'], filters, grouping, params, updated_group_query['desc'])
-            group_view_data.append({
-                "desc": updated_group_query['desc'],
-                "data": group_data
+        return render_group_view(request, profile_form, selected_assignee_id, selected_campaign_uuid, grouping)
+    return render_default_view(request, profile_form, selected_assignee_id, selected_campaign_uuid)
+
+
+def render_group_view(request, profile_form, selected_assignee_id, selected_campaign_uuid, grouping):
+    group_queries, filters = report_grouping(request.GET)
+    group_params = json.loads(request.GET.get('group_params', "[]").replace("'", '"'))
+    group_view_data = []
+    updated_group_queries = []
+    for i, group_query in enumerate(group_queries):
+        requested_reports = group_query['qs'].annotate(email_count=F('email_report_count__email_count'))
+        # Make sure query either has results or is the "All other reports" query
+        if len(requested_reports) > 0 or i == (len(group_queries) - 1):
+            group_query['requested_reports'] = requested_reports
+            updated_group_queries.append(group_query)
+    for i, updated_group_query in enumerate(updated_group_queries):
+        params = group_params[i] if 0 <= i < len(group_params) else {'sort': [], 'per_page': 15, 'page': 1}
+        group_data = get_group_view_data(request, updated_group_query['requested_reports'], filters, grouping, params, updated_group_query['desc'])
+        group_view_data.append({
+            "desc": updated_group_query['desc'],
+            "data": group_data
+        })
+    # Reset group params if number of groups has changed
+    updated_group_params = []
+    if len(updated_group_queries) != len(group_params):
+        for query in enumerate(updated_group_queries):
+            updated_group_params.append({
+                "sort": [],
+                "per_page": 15,
+                "page": 1,
             })
-        # Reset group params if number of groups has changed
-        updated_group_params = []
-        if len(updated_group_queries) != len(group_params):
-            for query in enumerate(updated_group_queries):
-                updated_group_params.append({
-                    "sort": [],
-                    "per_page": 15,
-                    "page": 1,
-                })
-        else:
-            updated_group_params = group_params
-        final_data = get_group_view_data(request, updated_group_queries[0]["qs"], filters, grouping, updated_group_params[0], 'All other reports')
-        final_data['return_url_args'] = urllib.parse.quote(f"{final_data['page_args']}&group_params={updated_group_params}")
-        final_data.update({
-            'profile_form': profile_form,
-            'selected_assignee_id': selected_assignee_id,
-            'selected_origination_utm_campaign': selected_campaign_uuid,
-            'group_params': updated_group_params,
-            'groups': group_view_data
-        })
-
-        return render(request, 'forms/complaint_view/index/grouped_index.html', final_data)
-
     else:
-        report_query, query_filters = report_filter(request.GET)
-        final_data = get_view_data(request, report_query, query_filters)
-        final_data.update({
-            'profile_form': profile_form,
-            'selected_assignee_id': selected_assignee_id,
-            'selected_origination_utm_campaign': selected_campaign_uuid
-        })
-        return render(request, 'forms/complaint_view/index/index.html', final_data)
+        updated_group_params = group_params
+    final_data = get_group_view_data(request, updated_group_queries[0]["qs"], filters, grouping, updated_group_params[0], 'All other reports')
+    final_data['return_url_args'] = urllib.parse.quote(f"{final_data['page_args']}&group_params={updated_group_params}")
+    final_data.update({
+        'profile_form': profile_form,
+        'selected_assignee_id': selected_assignee_id,
+        'selected_origination_utm_campaign': selected_campaign_uuid,
+        'group_params': updated_group_params,
+        'groups': group_view_data
+    })
+
+    return render(request, 'forms/complaint_view/index/grouped_index.html', final_data)
+
+
+def render_default_view(request, profile_form, selected_assignee_id, selected_campaign_uuid):
+    report_query, query_filters = report_filter(request.GET)
+    final_data = get_view_data(request, report_query, query_filters)
+    final_data.update({
+        'profile_form': profile_form,
+        'selected_assignee_id': selected_assignee_id,
+        'selected_origination_utm_campaign': selected_campaign_uuid
+    })
+    return render(request, 'forms/complaint_view/index/index.html', final_data)
 
 
 def get_group_view_data(request, requested_reports, query_filters, grouping, group_params, desc):
@@ -296,7 +302,7 @@ def get_group_view_data(request, requested_reports, query_filters, grouping, gro
     paginated_offset = page_format['page_range_start'] - 1
     data = get_report_data(requested_reports, all_report_url_args_encoded, paginated_offset)
 
-    final_data = {
+    return {
         'form': Filters(request.GET),
         'data_dict': data,
         'grouping': grouping,
@@ -307,8 +313,6 @@ def get_group_view_data(request, requested_reports, query_filters, grouping, gro
         'filters': query_filters,
         'return_url_args': all_args_encoded,
     }
-
-    return final_data
 
 
 def get_view_data(request, report_query, query_filters):
@@ -341,7 +345,7 @@ def get_view_data(request, report_query, query_filters):
     paginated_offset = page_format['page_range_start'] - 1
     data = get_report_data(requested_reports, all_args_encoded, paginated_offset)
 
-    final_data = {
+    return {
         'form': Filters(request.GET),
         'data_dict': data,
         'grouping': 'default',
@@ -352,8 +356,6 @@ def get_view_data(request, report_query, query_filters):
         'filters': query_filters,
         'return_url_args': all_args_encoded,
     }
-
-    return final_data
 
 
 def get_sort_args(sorts, sort_state):

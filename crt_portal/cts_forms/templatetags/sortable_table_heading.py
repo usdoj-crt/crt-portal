@@ -48,16 +48,15 @@ def sort_url_factory(heading, is_descending, filter_state, grouping, group_param
         sortables = sort_properties
     else:
         sortables = map(lambda x: '-{}'.format(x), sort_properties)
-    if group_params:
-        group_params_copy = group_params.copy()
-        group_params_copy[index] = group_params_copy[index].copy()
-        group_params_copy[index]['sort'] = [''.join(p for p in sortables)]
-        # Go back to page 1 of results when sort params change
-        group_params_copy[index]['page'] = 1
-        group_params_copy = json.dumps(group_params_copy)
-        return '?group_params=' + group_params_copy + '&grouping=' + grouping + filter_state
-    else:
+    if not group_params:
         return '?' + '&'.join('sort=' + p for p in sortables) + '&grouping=' + grouping + filter_state
+    group_params_copy = group_params.copy()
+    group_params_copy[index] = group_params_copy[index].copy()
+    group_params_copy[index]['sort'] = [''.join(p for p in sortables)]
+    # Go back to page 1 of results when sort params change
+    group_params_copy[index]['page'] = 1
+    group_params_copy = json.dumps(group_params_copy)
+    return '?group_params=' + group_params_copy + '&grouping=' + grouping + filter_state
 
 
 @register.inclusion_tag('forms/snippets/sortable_table_heading.html')
