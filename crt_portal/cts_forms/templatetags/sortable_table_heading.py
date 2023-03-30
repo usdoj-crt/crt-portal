@@ -56,7 +56,7 @@ def sort_url_factory(heading, is_descending, filter_state, grouping, group_param
     # Go back to page 1 of results when sort params change
     group_params_copy[index]['page'] = 1
     group_params_copy = json.dumps(group_params_copy)
-    return '?group_params=' + group_params_copy + '&grouping=' + grouping + filter_state
+    return f'?group_params={group_params_copy}&grouping={grouping}{filter_state}'
 
 
 @register.inclusion_tag('forms/snippets/sortable_table_heading.html')
