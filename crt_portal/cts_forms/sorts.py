@@ -11,8 +11,7 @@ def _valid_sort_params(sort):
     return all(elem.replace("-", '') in valid_fields for elem in sort)
 
 
-def report_sort(querydict):
-    sort = querydict.getlist('sort')
+def report_sort(sort):
 
     if not _valid_sort_params(sort):
         raise Http404(f'Invalid sort request: {sort}')

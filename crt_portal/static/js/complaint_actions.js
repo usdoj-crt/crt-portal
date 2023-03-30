@@ -1,43 +1,52 @@
 (function(root, dom) {
-  function update_record_count() {
-    var action_notification_el = dom.querySelector('.selection-action-notification');
-    var count_el = dom.getElementById('selection-action-count');
-    var count = dom.querySelectorAll('td input.usa-checkbox__input:checked').length;
+  function updateRecordCount(index, parentTable) {
+    const actionNotificationEls = dom.getElementsByClassName('selection-action-notification');
+    const actionNotificationEl = actionNotificationEls[index];
+    const countEl = actionNotificationEl.getElementsByClassName('selection-action-count')[0];
+    const count = parentTable.querySelectorAll('td input.usa-checkbox__input:checked').length;
     if (count === 0) {
-      action_notification_el.setAttribute('hidden', 'hidden');
+      actionNotificationEl.setAttribute('hidden', 'hidden');
     } else {
-      var records_plural = count === 1 ? ' record' : ' records';
-      count_el.innerText = count + records_plural;
-      action_notification_el.removeAttribute('hidden');
+      const recordsPlural = count === 1 ? ' record' : ' records';
+      countEl.innerText = count + recordsPlural;
+      actionNotificationEl.removeAttribute('hidden');
     }
   }
 
-  var select_all_checkboxes = dom.getElementById('checkbox-all');
-  var all_checkboxes = dom.querySelectorAll('td input.usa-checkbox__input');
-  for (var i = 0; i < all_checkboxes.length; i++) {
-    var checkbox = all_checkboxes[i];
-    checkbox.onclick = function(event) {
-      var target = event.target;
-      var parent = target.parentNode.parentNode.parentNode;
+  function addCheckAllListener(selectAllCheckbox, allCheckboxes) {
+    selectAllCheckbox.addEventListener('click', event => {
+      const checked = event.target.checked;
+      allCheckboxes.forEach(checkbox => {
+        if (checkbox.checked !== checked) {
+          checkbox.click();
+        }
+      });
+    });
+  }
+
+  function addCheckboxListener(checkbox, index, parentTable) {
+    checkbox.addEventListener('click', event => {
+      const target = event.target;
+      const parent = target.parentNode.parentNode.parentNode;
       if (target.checked) {
         parent.classList.add('selected');
       } else {
         parent.classList.remove('selected');
-        if (select_all_checkboxes.checked) {
-          select_all_checkboxes.checked = false;
+        if (selectAllCheckboxes[index].checked) {
+          selectAllCheckboxes[index].checked = false;
         }
       }
-      update_record_count();
-    };
+      updateRecordCount(index, parentTable);
+    });
   }
 
-  select_all_checkboxes.onclick = function(event) {
-    var checked = event.target.checked;
-    for (var i = 0; i < all_checkboxes.length; i++) {
-      var checkbox = all_checkboxes[i];
-      if (checkbox.checked !== checked) {
-        checkbox.click(); // trigger onclick function
-      }
-    }
-  };
+  const selectAllCheckboxes = dom.getElementsByClassName('checkbox-input-all');
+  for (let index = 0; index < selectAllCheckboxes.length; index++) {
+    const parentTable = selectAllCheckboxes[index].closest('.usa-table.crt-table');
+    const allCheckboxes = parentTable.querySelectorAll('td input.usa-checkbox__input');
+    allCheckboxes.forEach(checkbox => {
+      addCheckboxListener(checkbox, index, parentTable);
+    });
+    addCheckAllListener(selectAllCheckboxes[index], allCheckboxes);
+  }
 })(window, document);

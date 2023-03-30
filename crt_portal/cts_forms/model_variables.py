@@ -658,6 +658,10 @@ PER_PAGE = (
     ('5', '5'), ('15', '15'), ('25', '25'), ('50', '50')
 )
 
+GROUPING = (
+    ('default', 'Default'), ('matching-descriptions', 'Matching descriptions')
+)
+
 PUBLIC_USER = 'public user'
 
 CONTACT_PHONE_INVALID_MESSAGE = _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')

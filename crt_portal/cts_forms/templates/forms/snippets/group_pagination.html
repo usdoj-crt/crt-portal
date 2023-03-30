@@ -1,0 +1,72 @@
+{# not on public pages #}
+{% load grouping_page %}
+
+{% load static %}
+<section class="usa-pagination-wrapper">
+  <nav class="usa-pagination view-all-pagination" aria-label="pagination">
+    <span class="usa-sr-only">Pagination: Current page, page {{ page_format.page }}.</span>
+    <ol class="pagination">
+      {# Left nav arrow #}
+      {% if page_format.has_previous %}
+        <li class="nav-arrow">
+          <span id="page-back-{{placement}}" class="usa-sr-only">Previous page.</span>
+          <a href="{% grouping_page page_args group_params index page_format.prev_page_number %}" aria-labelledby="page-back-{{placement}}">
+            {% include "forms/snippets/nav_arrow.html" %}
+          </a>
+        </li>
+      {% else %}
+        <li class="nav-arrow disabled-nav" aria-hidden='true'>
+          <div>
+            {% include "forms/snippets/nav_arrow.html" %}
+          </div>
+        </li>
+      {% endif %}
+
+      {% if page_format.show_first %}
+        <li><a href="{% grouping_page page_args group_params index 1 %}" role="button" aria-label="Go to page 1.">1</a></li>
+      {% endif %}
+      {% if page_format.first_ellipsis %}
+        <li class="disabled-nav">
+          <span class="ellipsis" aria-hidden='true'>...</span>
+        </li>
+      {% endif %}
+
+      {% for linkpage in page_format.page_numbers %}
+        {% if linkpage == page_format.page %}
+           <li class="current-page disabled-nav" aria-current="true">
+             <div>
+               {{ page_format.page }}
+            </div>
+          </li>
+        {% else %}
+           <li><a href="{% grouping_page page_args group_params index linkpage %}" role="button" aria-label="Go to page {{ linkpage }}.">{{ linkpage }}</a></li>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_format.last_ellipsis %}
+        <li class="disabled-nav">
+          <span class="ellipsis" aria-hidden='true'>...</span>
+        </li>
+      {% endif %}
+      {% if page_format.show_last %}
+        <li><a href="{% grouping_page page_args group_params index page_format.total_pages %}" role="button" aria-label="Go to page {{ page_format.total_pages }}.">{{ page_format.total_pages }}</a></li>
+      {% endif %}
+
+      {# Right nav arrow #}
+      {% if page_format.has_next %}
+        <li class="nav-arrow">
+          <span id="page-forward-{{placement}}" class="usa-sr-only">Next page.</span>
+          <a href="{% grouping_page page_args group_params index page_format.next_page_number %}" aria-labelledby="page-forward-{{placement}}">
+            {% include "forms/snippets/nav_arrow.html" with point_right=True %}
+          </a>
+        </li>
+      {% else %}
+        <li class="nav-arrow disabled-nav" aria-hidden="true">
+          <div>
+            {% include "forms/snippets/nav_arrow.html" with point_right=True %}
+          </div>
+        </li>
+      {% endif %}
+    </ol>
+  </nav>
+</section>

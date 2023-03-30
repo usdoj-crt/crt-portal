@@ -130,6 +130,15 @@
     .td-checkbox {
       background: transparent;
       padding: 0;
+      position: relative;
+
+      .usa-checkbox__input {
+        cursor: pointer;
+        height: 100%;
+        left: 0;
+        width: 100%;
+        z-index: 10;
+      }
     }
 
     .td-toggle,
@@ -303,6 +312,32 @@
     display: flex;
     margin-left: 10px;
     margin-top: 2px;
+  }
+}
+
+.grouping-select {
+  align-items: center;
+  display: flex;
+  margin-bottom: 1rem;
+  padding-right: 1.5rem;
+  .select-link.usa-select {
+    background: url(../../img/kebab-menu-icon.svg) no-repeat;
+    background-color: transparent;
+    background-position: right center;
+    border: none;
+    display: flex;
+    height: auto;
+    margin-left: 5px;
+    margin-top: 0;
+    padding-bottom: 0;
+    padding-right: 12px;
+    padding-top: 0;
+    width: auto;
+  }
+  &.default {
+    .select-link.usa-select {
+      max-width: 73px;
+    }
   }
 }
 
