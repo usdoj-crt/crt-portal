@@ -506,10 +506,8 @@
   function applyArchivedCampaigns() {
     document.querySelectorAll('[data-archived="True"]').forEach(el => {
       const pair = document.querySelector(`[data-value="${el.value}"]`);
-      if (!pair) {
-        console.error(`Could not find archived campaign pair for ${el.value}`);
-        return;
-      }
+      if (!pair) return;
+      console.log('Archiving campaign pair', pair);
       pair.dataset.archived = true;
     });
   }
@@ -539,6 +537,7 @@
 
     filterController();
     initValidateTextSearch();
+    applyArchivedCampaigns();
     observeArchivedCampaigns();
   }
 
