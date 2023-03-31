@@ -503,6 +503,26 @@
     });
   }
 
+  function applyArchivedCampaigns() {
+    document.querySelectorAll('[data-archived="True"]').forEach(el => {
+      const pair = document.querySelector(`[data-value="${el.value}"]`);
+      if (!pair) {
+        console.error(`Could not find archived campaign pair for ${el.value}`);
+        return;
+      }
+      pair.dataset.archived = true;
+    });
+  }
+
+  function observeArchivedCampaigns() {
+    const observer = new MutationObserver((mutationList, observer) => {
+      applyArchivedCampaigns();
+    });
+    observer.observe(document.getElementById('id_origination_utm_campaign--list'), {
+      childList: true
+    });
+  }
+
   // Bootstrap the filter code's data persistence and
   // instantiate the controller that manages the UI components / views
   function init() {
@@ -519,6 +539,7 @@
 
     filterController();
     initValidateTextSearch();
+    observeArchivedCampaigns();
   }
 
   window.addEventListener('DOMContentLoaded', init);
