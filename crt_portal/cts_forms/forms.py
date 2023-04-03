@@ -1054,6 +1054,7 @@ class CampaignSelect(Select):
             'attrs': {
                 **properties['attrs'],
                 'data-archived': str(campaign.archived if campaign else False),
+                **({'data-section': str(campaign.section)} if campaign and campaign.section else {}),
             },
         }
 

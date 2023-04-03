@@ -266,7 +266,7 @@ class CampaignAdmin(admin.ModelAdmin):
             'all': ('css/compiled/admin.css',)
         }
 
-    list_display = ['uuid', 'internal_name', 'archived', 'shorten_url', 'campaign_url']
+    list_display = ['uuid', 'section', 'internal_name', 'archived', 'shorten_url', 'campaign_url']
     readonly_fields = ['campaign_url', 'shorten_url']
     actions = [mark_as_archived, unmark_as_archived]
 
