@@ -42,11 +42,11 @@
       const toggles = [...parentTable.querySelectorAll('a.td-toggle')].filter(
         toggle => isToggled(toggle) == allToggled
       );
-  
+
       toggles.forEach(toggle => toggleTarget(toggle));
-  
+
       if (allToggled || toggleAll.dataset['posted'] === 'true') return;
-  
+
       markAsViewed(toggles.map(toggle => Number(toggle.dataset['id'])));
       // Set a flag on the toggle so we don't resubmit data multiple times per session.
       toggleAll.dataset['posted'] = 'true';
@@ -57,5 +57,5 @@
   toggleAllButtons.forEach(toggleAll => {
     const parentTable = toggleAll.closest('.usa-table.crt-table');
     addToggleListener(toggleAll, parentTable);
-  })
+  });
 })(window, document);
