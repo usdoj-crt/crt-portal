@@ -5,9 +5,11 @@ import uuid
 from datetime import datetime
 from babel.dates import format_date
 
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.indexes import GinIndex
 from django.contrib.postgres.search import SearchVectorField
+from django.core.exceptions import ValidationError
 from django.core.validators import MaxValueValidator, RegexValidator
 from django.db import connection, models
 from django.template import Context, Template
@@ -119,6 +121,25 @@ class VotingMode(models.Model):
     toggle = models.BooleanField(default=False)
 
 
+def validate_translated_text(language_json):
+    """Validates a JSONField as a Dict[LanguageCode, str]."""
+    allowed_codes = {code for code, name in settings.LANGUAGES}
+    for code, translation in language_json.items():
+        if code not in allowed_codes:
+            raise ValidationError(f'Unrecognized language code: {code}')
+        if not isinstance(translation, str):
+            raise ValidationError(f'Translation for {code} must be a string')
+
+
+def make_translated_text():
+    """Creates a translation dictionary for use in JSONField(default)."""
+    return {
+        code: ''
+        for code, name
+        in settings.LANGUAGES
+    }
+
+
 class ReferralContact(models.Model):
     machine_name = models.CharField(max_length=500, null=False, unique=True, blank=False, help_text="A short, non-changing name to be used in template code.")
     name = models.CharField(max_length=500, null=False, unique=True, blank=False, help_text="A short name to show in dropdown fields.")
@@ -126,6 +147,7 @@ class ReferralContact(models.Model):
     addressee_text = models.TextField(max_length=7000, null=False, blank=True, help_text="What to print on printed referral forms.")
     addressee_emails = models.TextField(max_length=7000, null=False, blank=True, help_text="A comma-separated list of emails to include on email referrals (for example: 'a@a.gov, b@b.gov')")
     show_as_referral = models.BooleanField(default=True, null=False, help_text="Whether to list this contact as a referral option.")
+    variable_text = models.JSONField(null=False, help_text="Text to display when using the {{ referral_text }} variable in Response Templates.", default=make_translated_text, validators=[validate_translated_text])
 
     def __str__(self):
         return self.name
@@ -634,12 +656,20 @@ class ResponseTemplate(models.Model):
         except ValueError:
             report_create_date_est = self.utc_timezone_to_est(report.create_date)
 
+        referral_text = ''
+        if self.referral_contact:
+            referral_translations = self.referral_contact.variable_text or {}
+            referral_en = referral_translations.get('en')
+            referral_translated = referral_translations.get(self.language)
+            referral_text = referral_translated or referral_en or ''
+
         return Context({
             'record_locator': report.public_id,
             'addressee': report.addressee,
             'date_of_intake': format_date(report_create_date_est, format='long', locale='en_US'),
             'outgoing_date': format_date(today, locale='en_US'),  # required for paper mail
             'section_name': section_choices.get(report.assigned_section, "no section"),
+            'referral_text': referral_text,
             # spanish translations
             'es': {
                 'addressee': report.addressee_es,

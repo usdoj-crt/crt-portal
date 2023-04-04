@@ -9,8 +9,7 @@ Re:		Civil Rights Division Complaint – {{ record_locator }} from the {{ sectio
 
 Thank you for contacting the Department of Justice on {{ date_of_intake }}.  We have reviewed the information you provided and have determined that the complaint raises issues that are more appropriately addressed by another federal agency.  We are, therefore, referring this complaint to the following agency for further action:
 
-Department of Transportation, Aviation Consumer Protection Division
-(202) 366-4648 (voice); (202) 366-8538 (TTY)
+{{ referral_text }}
 
 What you can do:
 

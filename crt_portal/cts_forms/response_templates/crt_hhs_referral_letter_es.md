@@ -8,8 +8,7 @@ Re:		Su informe de la División de Derechos Civiles - {{ record_locator }} de la
 
 Gracias por comunicarse con el Departamento de Justicia el {{ es.date_of_intake }}. Hemos revisado la información que usted proporcionó y hemos determinado que la demanda plantea cuestiones que podrían ser tratadas de manera más apropiada por otra agencia federal. Por lo tanto, remitimos esta queja a la siguiente agencia para que tome medidas adicionales:
 
-Department of Health and Human Services
-1-800-368-1019
+{{ referral_text }}
 
 Lo que usted puede hacer:
 

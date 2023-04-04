@@ -152,7 +152,7 @@ class APIPreviewResponseFileTests(TestCase):
 
         self.assertContains(response, "Thank you for contacting")
         self.assertContains(response, '<span class="variable">Addressee Name</span>')
-        self.assertContains(response, "<li>If your")
+        self.assertContains(response, "<h1")
 
     def test_unauthenticated(self):
         """Only logged in users should be able to preview templates."""

@@ -8,11 +8,7 @@ Re:		您的民權司報告 - {{ zh_hant.section_name }}科的 {{ record_locator 
 
 謝謝您于{{ zh_hant.date_of_intake }}聯係司法部。我們審查了您提供的信息后決定，投訴所提出的問題由另一個聯邦機構處理更爲合適。因此我們將該投訴轉給下列的機構做進一步處理：
 
-美國平等就業機會委員會 (U.S. Equal Employment Opportunity Commission)
-1-800-669-4000
-1-800-669-6820 (耳聾或聽力障礙人士打電話專用電傳打字機)
-1-844-234-5122 (耳聾或聽力障礙人士打電話專用美國手語視頻電話)
-https://www.eeoc.gov/
+{{ referral_text }}
 
 您可以做什麽：
 

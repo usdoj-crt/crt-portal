@@ -8,9 +8,7 @@ Re:		Civil Rights Division Complaint – {{ record_locator }} from the {{ sectio
 
 Thank you for contacting the Department of Justice on {{ date_of_intake }}.  We have reviewed the information you provided and have determined that the complaint raises issues that are more appropriately addressed by another federal agency.  We are, therefore, referring this complaint to the following agency for further action:
 
-U.S. Department of Education, Office for Civil Rights
-(800) 421-3481; (202) 453-6012 (fax); (800) 877-8339 (TDD)
-OCR@ed.gov
+{{ referral_text }}
 
 What you can do:
 

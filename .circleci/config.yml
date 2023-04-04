@@ -4,15 +4,15 @@
 
 version: 2.1
 
-# Snippet for installing CloudFoundry CLI version 7
-install-cf7: &install-cf7
+# Snippet for installing CloudFoundry CLI version 8
+install-cf8: &install-cf8
   run:
-    name: Install CF7
+    name: Install CF8
     command: |
-      curl -L -o cf7.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v7&source=github'
-      sudo dpkg -i cf7.deb
-      rm cf7.deb
-      cf7 api https://api.fr.cloud.gov
+      curl -A "" -L -o cf8.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v8&source=github'
+      sudo dpkg -i cf8.deb
+      rm cf8.deb
+      cf8 api https://api.fr.cloud.gov
 
 install-python-dependencies: &install-python-dependencies
   run:
@@ -37,7 +37,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.11.1-browsers
+      - image: cimg/python:3.11.2-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -136,7 +136,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.11.1-browsers
+      - image: cimg/python:3.11.2-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -151,7 +151,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.11.1-browsers
+      - image: cimg/python:3.11.2-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -203,7 +203,7 @@ jobs:
     working_directory: ~/code
     docker:
       # standard docker python image
-      - image: python:3.11.1
+      - image: python:3.11.2
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -236,12 +236,12 @@ jobs:
       # database will be migrated in cloud.gov
       - *install-python-dependencies
       - run:
-          name: install cf7
+          name: install cf8
           command: |
-            curl -L -o cf7.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v7&source=github'
-            dpkg -i cf7.deb
-            rm cf7.deb
-            cf7 api https://api.fr.cloud.gov
+            curl -A "" -L -o cf8.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v8&source=github'
+            dpkg -i cf8.deb
+            rm cf8.deb
+            cf8 api https://api.fr.cloud.gov
       # - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
       #     key: deps-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
       #     paths:
@@ -250,22 +250,22 @@ jobs:
       #       - "/usr/local/lib/python3.8/site-packages"
       - run:
           name: Login to cloud.gov
-          command: cf7 login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s ${CF_SPACE}
+          command: cf8 login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s ${CF_SPACE}
       - acquire-lock:
           app: crt-portal-django
       - run:
           name: Deploy clamav-rest to dev
-          command: cf7 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
+          command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
       - run:
           name: Deploy crt-portal-django to dev
-          command: cf7 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
+          command: cf8 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
       - release-lock:
           app: crt-portal-django
 
   deploy-stage:
     working_directory: ~/code
     docker:
-      - image: python:3.11.1
+      - image: python:3.11.2
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -297,12 +297,12 @@ jobs:
       # database will be migrated in cloud.gov
       - *install-python-dependencies
       - run:
-          name: install cf7
+          name: install cf8
           command: |
-            curl -L -o cf7.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v7&source=github'
-            dpkg -i cf7.deb
-            rm cf7.deb
-            cf7 api https://api.fr.cloud.gov
+            curl -A "" -L -o cf8.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v8&source=github'
+            dpkg -i cf8.deb
+            rm cf8.deb
+            cf8 api https://api.fr.cloud.gov
       - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
           key: deps-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
           paths:
@@ -311,19 +311,19 @@ jobs:
             - "/usr/local/lib/python3.11/site-packages"
       - run:
           name: Login to cloud.gov
-          command: cf7 login -u ${CRT_USERNAME_STAGE} -p ${CRT_PASSWORD_STAGE} -o doj-crtportal -s ${CF_SPACE}
+          command: cf8 login -u ${CRT_USERNAME_STAGE} -p ${CRT_PASSWORD_STAGE} -o doj-crtportal -s ${CF_SPACE}
       - run:
           name: Deploy clamav-rest to staging
-          command: cf7 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
+          command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
       - run:
           name: Deploy crt-portal-django to staging
-          command: cf7 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
+          command: cf8 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
 
   deploy-prod:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: python:3.11.1
+      - image: python:3.11.2
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -355,12 +355,12 @@ jobs:
       # database will be migrated in cloud.gov
       - *install-python-dependencies
       - run:
-          name: install cf7
+          name: install cf8
           command: |
-            curl -L -o cf7.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v7&source=github'
-            dpkg -i cf7.deb
-            rm cf7.deb
-            cf7 api https://api.fr.cloud.gov
+            curl -A "" -L -o cf8.deb 'https://packages.cloudfoundry.org/stable?release=debian64&version=v8&source=github'
+            dpkg -i cf8.deb
+            rm cf8.deb
+            cf8 api https://api.fr.cloud.gov
       - save_cache: # cache Python and Node dependencies using checksum of Pipfile and package.json as the cache-key
           key: deps-v4-{{ .Branch }}-{{ checksum "Pipfile.lock" }}-{{ checksum "package.json" }}
           paths:
@@ -369,13 +369,13 @@ jobs:
             - "/usr/local/lib/python3.11/site-packages"
       - run:
           name: Login to cloud.gov
-          command: cf7 login -u ${CRT_USERNAME_PROD} -p ${CRT_PASSWORD_PROD} -o doj-crtportal -s ${CF_SPACE}
+          command: cf8 login -u ${CRT_USERNAME_PROD} -p ${CRT_PASSWORD_PROD} -o doj-crtportal -s ${CF_SPACE}
       - run:
           name: Deploy clamav-rest to production
-          command: cf7 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
+          command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
       - run:
           name: Deploy crt-portal-django to production
-          command: cf7 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
+          command: cf8 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
 
   prod-maintenance-tasks:
     docker:
@@ -386,7 +386,7 @@ jobs:
           - CF_SPACE: prod
     steps:
       # Install cloud foundry tools
-      - *install-cf7
+      - *install-cf8
       # login into cloud.gov prod space
       - run:
           name: Login to cloud.gov Production
@@ -419,7 +419,7 @@ jobs:
           - CF_SPACE: staging
     steps:
       # Install cloud foundry tools
-      - *install-cf7
+      - *install-cf8
       # login to Staging Cloud.gov space
       - run:
           name: Login to cloud.gov Staging
@@ -456,7 +456,7 @@ jobs:
           - CF_SPACE: dev
     steps:
       # Install cloud foundry tools
-      - *install-cf7
+      - *install-cf8
       # login to Cloud.gov dev space
       - run:
           name: Login to cloud.gov Dev

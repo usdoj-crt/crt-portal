@@ -4,24 +4,50 @@ subject: "Response: Your Civil Rights Division Report - {{ record_locator }} fro
 language: en
 is_html: true
 ---
-{{ addressee }},
+{{addressee}},
 
-Thank you for contacting the Department of Justice on {{ date_of_intake }}.  This letter will inform you about how we will review your report and what you can do in the meantime.  Your report number is {{ record_locator }}. Please refer to this number in the future if you want to ask us about your report.
+Thank you for contacting the Department of Justice on {{date_of_intake}}. The Housing and Civil Enforcement Section is reviewing your report. In this letter, we explain how we will review your report and provide you with other options to pursue.
 
-We will carefully review your report and will contact you if we need additional information and/or are able to open an investigation.  Please be aware that in situations involving the type of discrimination you have alleged, the Civil Rights Division generally becomes involved only when groups of people are affected.  We generally do not open investigations based on individual claims of discrimination.
+**Your report number is {{record_locator}}. If you want to ask us about your report, this number will help us locate your information.**
 
-In the meantime, here are some suggestions for what you can do:
+What happens now?
+================
 
-- If your complaint relates to discrimination in housing, you may want to file a complaint with the Department of Housing and Urban Development (“HUD”): https://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint. (Please note that you have one year from the date of the discrimination to file a complaint with HUD.) 
-- If your complaint relates to discrimination in lending, you may want to file complaints with HUD and with the Consumer Financial Protection Bureau: https://www.consumerfinance.gov/complaint/.
-- If you need assistance with paying your rent or utility bills, the CFPB’s website may help you identify available resources that you may qualify for: https://www.consumerfinance.gov/coronavirus/mortgage-and-housing-assistance/renter-protections/find-help-with-rent-and-utilities/
+We are reviewing your report. We look at reports like yours to help us select new cases or pursue existing ones. We will review your report to see if it fits into one of these two categories. If so, we may contact you for more information.
 
-For more information about the Housing Section and our work, please visit our web page: https://www.justice.gov/crt/housing-and-civil-enforcement-section.
+Unfortunately, we cannot investigate every complaint. Our office generally handles only cases arising from widespread problems affecting groups of people. We do not investigate complaints based on individual claims of discrimination. If we are unable to investigate your complaint, we will not contact you.
 
-For more information about credit, disability rights, housing rights, and more, please visit our Housing-related resource page at https://civilrights.justice.gov/housing-resources.
+To avoid missing out on an opportunity to get help, we recommend that you file a complaint with the Department of Housing and Urban Development (HUD) or Consumer Financial Protection Bureau (CFPB) as laid out below.
 
-You also may wish to consult a private attorney to determine what claims, if any, you may have under other federal and state laws.  If you do not have an attorney, you may find your state bar association or local legal assistance agency helpful in locating an attorney to discuss your complaint: https://www.americanbar.org/groups/legal_services/flh-home/ or https://www.lsc.gov/find-legal-aid.
+If you are experiencing housing discrimination:
+===============================================
+
+HUD investigates individual claims of housing discrimination. This may include discrimination based on race, color, national origin, religion, sex, familial status, or disability in housing. If you are experiencing housing discrimination, we recommend that you file a complaint with HUD.
+
+You may also file a complaint with HUD if you believe your housing rights under the Violence Against Women Act (VAWA) have been violated. HUD has provided information about VAWA’s housing protections at [https://www.hud.gov/program_offices/fair_housing_equal_opp/VAWA](https://www.hud.gov/program_offices/fair_housing_equal_opp/VAWA).
+
+You can file a complaint with HUD online at [https://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint](http://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint), or call 1-800-669-9777 or TTY: 1-800-877-8339.
+
+You have one year from the date of the discrimination or violation to file with HUD or they will not review your complaint.
+
+If you need help paying your rent or utility bills:
+===================================================
+
+The CFPB may help you identify resources for which you may qualify, at [www.consumerfinance.gov/coronavirus/mortgage-and-housing-assistance/‌renter-protections/find-help-with-rent-and-utilities/](http://www.consumerfinance.gov/coronavirus/mortgage-and-housing-assistance/renter-protections/find-help-with-rent-and-utilities/).
+
+If you are experiencing discrimination in lending or credit:
+============================================================
+
+You can file a complaint with HUD at [https://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint](http://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint) and with the CFPB at [www.consumerfinance.gov/complaint](http://www.consumerfinance.gov/complaint/).
+
+If you would like to hire an attorney:
+======================================
+
+You may want to consult a private attorney to see if you have any rights under other federal and state laws. If you do not have an attorney, your state bar association or local legal assistance agency may be able to help. Search for a local attorney at [www.americanbar.org/groups/‌legal_services/flh-home](http://www.americanbar.org/groups/legal_services/flh-home/) or [www.lsc.gov/find-legal-aid](http://www.lsc.gov/find-legal-aid).
+
+For more information about credit, disability rights, and housing rights, please visit our housing resources page at [https://civilrights.justice.gov/housing-resources](https://civilrights.justice.gov/housing-resources).
 
 Sincerely,
+
 U.S. Department of Justice
 Civil Rights Division

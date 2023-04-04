@@ -3,9 +3,12 @@ import logging
 
 from actstream.models import Action, Follow
 from django.apps import apps
+from django.conf import settings
 from django.contrib import admin
+from django.contrib.admin.widgets import AdminTextareaWidget
 from django.core.paginator import Paginator
 from django.db.models import Prefetch
+from django import forms
 from django.http import StreamingHttpResponse
 from django.contrib.auth.models import User
 from django.utils.html import mark_safe
@@ -38,6 +41,19 @@ class ReadOnlyModelAdmin(admin.ModelAdmin):
 
     def has_view_permission(self, request, obj=None):
         return request.user.is_superuser
+
+
+class TranslatedTextWidget(AdminTextareaWidget):
+    """Shows an entry for each language in settings.LANGUAGES."""
+    def __init__(self, attrs=None):
+        codes = ','.join([code for code, name in settings.LANGUAGES])
+        super().__init__(attrs={
+            'class': 'vTranslatedTextField',
+            'data-language-codes': codes,
+            **(attrs or {})
+        })
+
+    media = forms.Media(js=['js/translated_text_widget.js'])
 
 
 class Echo:
@@ -213,13 +229,27 @@ class VotingModeAdmin(admin.ModelAdmin):
         return 'Voting Mode: False'
 
 
+class ReferralContactAdminForm(forms.ModelForm):
+    class Meta:
+        model = ReferralContact
+        exclude = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['variable_text'].widget = TranslatedTextWidget()
+
+
 class ReferralContactAdmin(admin.ModelAdmin):
     list_display = ['machine_name', 'name', 'notes', 'show_as_referral']
+    form = ReferralContactAdminForm
 
 
 class CampaignAdmin(admin.ModelAdmin):
     class Media:
-        js = ('js/admin_copy.js',)
+        js = (
+            'js/admin_copy.js',
+            'js/absolute_url.js',
+        )
         css = {
             'all': ('css/compiled/admin.css',)
         }
