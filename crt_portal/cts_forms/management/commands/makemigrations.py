@@ -16,6 +16,10 @@ def find_upwards(cwd: pathlib.Path, filename: str) -> Optional[pathlib.Path]:
 
 class Command(makemigrations.Command):
     def write_migration_files(self, changes):
+        if self.dry_run:
+            super(Command, self).write_migration_files(changes)
+            return
+
         cwd = pathlib.Path(__file__).parent
         marker = find_upwards(cwd, ".migration_conflict_marker")
         if not marker:
