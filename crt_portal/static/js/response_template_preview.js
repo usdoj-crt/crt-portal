@@ -31,10 +31,12 @@
     const turndown = new TurndownService();
     let pastedHtml = event.clipboardData.getData('text/html');
     // Turndown escapes underscores so maintain them in links by replacing them before processing
-    const aTags = pastedHtml.match(/(<[Aa]\s(.*)<\/[Aa]>)/g);
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(pastedHtml, 'text/html');
+    const aTags = Array.from(htmlDoc.getElementsByTagName('a'));
     aTags.forEach(aTag => {
-      const newATag = aTag.replaceAll('_', '(UNDERSCORE)');
-      pastedHtml = pastedHtml.replaceAll(aTag, newATag);
+      const newhref = aTag['href'].replaceAll('_', '(UNDERSCORE)');
+      pastedHtml = pastedHtml.replaceAll(aTag['href'], newhref);
     });
     const markdown = turndown.turndown(pastedHtml);
     // Word sometimes includes comments in its HTML, so strip them:
