@@ -1,4 +1,5 @@
 {% extends "forms/complaint_view/intake_base.html" %}
+{% load back_to_all %}
 {% load static %}
 
 {% block page_title %}
@@ -12,7 +13,7 @@
         <div class="tablet:grid-col-10 grid-offset-1 padding-left-05">
           <div class="complaint-filter-navigation display-flex flex-row flex-justify">
             <div class="display-flex">
-              <a class="outline-button outline-button--dark" href="{% url 'crt_forms:crt-forms-index' %}{{ return_url_args }}">
+              <a class="outline-button outline-button--dark" href="{% url 'crt_forms:crt-forms-index' %}{% back_to_all return_url_args %}">
                 <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" alt="back arrow" class="icon">
                 Back to all
               </a>
