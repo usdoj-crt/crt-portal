@@ -158,6 +158,7 @@ class Campaign(models.Model):
     internal_name = models.CharField(max_length=100, null=False, unique=True, blank=False, help_text="The non-publicly-facing name for this campaign")
     description = models.TextField(max_length=1000, null=False, blank=True)
     show_in_filters = models.BooleanField(default=True, null=False)
+    archived = models.BooleanField(default=False, null=False)
 
     def get_absolute_url(self):
         return f'/report?utm_campaign={self.uuid}'

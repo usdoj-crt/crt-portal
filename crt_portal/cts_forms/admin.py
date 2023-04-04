@@ -244,6 +244,18 @@ class ReferralContactAdmin(admin.ModelAdmin):
     form = ReferralContactAdminForm
 
 
+def mark_as_archived(modeladmin, request, queryset):
+    queryset.update(archived=True)
+
+
+def unmark_as_archived(modeladmin, request, queryset):
+    queryset.update(archived=False)
+
+
+mark_as_archived.allowed_permissions = ('change',)  # noqa
+unmark_as_archived.allowed_permissions = ('change',)  # noqa
+
+
 class CampaignAdmin(admin.ModelAdmin):
     class Media:
         js = (
@@ -254,8 +266,9 @@ class CampaignAdmin(admin.ModelAdmin):
             'all': ('css/compiled/admin.css',)
         }
 
-    list_display = ['uuid', 'internal_name', 'shorten_url', 'campaign_url']
+    list_display = ['uuid', 'internal_name', 'archived', 'shorten_url', 'campaign_url']
     readonly_fields = ['campaign_url', 'shorten_url']
+    actions = [mark_as_archived, unmark_as_archived]
 
     @admin.display(description='Short URL')
     def shorten_url(self, obj):

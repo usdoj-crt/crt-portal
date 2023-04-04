@@ -176,6 +176,12 @@
       padding-right: 4rem;
     }
 
+    li[data-archived="true"]:after {
+      content: " (Expired)";
+      color: #757575;
+      font-style: italic;
+    }
+
     &.intake-checkbox {
       ul {
         @include flex-container();

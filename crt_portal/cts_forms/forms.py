@@ -1040,6 +1040,24 @@ def reported_reason_proform():
         yield (key, new_value)
 
 
+class CampaignSelect(Select):
+    def __init__(self, campaigns, *args, **kwargs):
+        """Takes an additional dictionary of uuid: Campaign."""
+        self.campaigns = campaigns
+        super().__init__(*args, **kwargs)
+
+    def create_option(self, name, value, *args, **kwargs):
+        properties = super().create_option(name, value, *args, **kwargs)
+        campaign = self.campaigns.get(value, None)
+        return {
+            **properties,
+            'attrs': {
+                **properties['attrs'],
+                'data-archived': str(campaign.archived if campaign else False),
+            },
+        }
+
+
 class Filters(ModelForm):
 
     def __init__(self, *args, **kwargs):
@@ -1060,15 +1078,24 @@ class Filters(ModelForm):
             })
         )
 
+        campaigns = {
+            campaign.uuid: campaign
+            for campaign in
+            Campaign.objects.filter(show_in_filters=True).order_by('internal_name').all()
+        }
+        campaign_choices = [
+            (uuid, campaign.internal_name)
+            for uuid, campaign in campaigns.items()
+        ]
         self.fields['origination_utm_campaign'] = MultipleChoiceField(
             required=False,
             choices=[
                 ('', ''),  # Default choice: empty (include everything)
                 ('-1', '(none)'),  # Custom: No assigned campaign.
-                *Campaign.objects.filter(show_in_filters=True).values_list('uuid', 'internal_name').order_by('internal_name')
+                *campaign_choices,
             ],
             label=_("Campaign"),
-            widget=Select(attrs={
+            widget=CampaignSelect(campaigns, attrs={
                 'name': 'origination_utm_campaign',
                 'class': 'usa-input usa-select',
             })
