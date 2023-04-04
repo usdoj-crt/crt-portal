@@ -182,6 +182,10 @@
       font-style: italic;
     }
 
+    li[data-section]:before {
+      content: attr(data-section) " - ";
+    }
+
     &.intake-checkbox {
       ul {
         @include flex-container();

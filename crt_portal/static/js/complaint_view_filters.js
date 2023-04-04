@@ -588,14 +588,22 @@
     document.querySelectorAll('[data-archived="True"]').forEach(el => {
       const pair = document.querySelector(`[data-value="${el.value}"]`);
       if (!pair) return;
-      console.log('Archiving campaign pair', pair);
       pair.dataset.archived = true;
     });
   }
 
-  function observeArchivedCampaigns() {
+  function applyCampaignSection() {
+    document.querySelectorAll('[data-section]').forEach(el => {
+      const pair = document.querySelector(`[data-value="${el.value}"]`);
+      if (!pair) return;
+      pair.dataset.section = el.dataset.section;
+    });
+  }
+
+  function observeCampaigns() {
     const observer = new MutationObserver((mutationList, observer) => {
       applyArchivedCampaigns();
+      applyCampaignSection();
     });
     observer.observe(document.getElementById('id_origination_utm_campaign--list'), {
       childList: true
@@ -619,7 +627,7 @@
     filterController();
     initValidateTextSearch();
     applyArchivedCampaigns();
-    observeArchivedCampaigns();
+    observeCampaigns();
   }
 
   window.addEventListener('DOMContentLoaded', init);
