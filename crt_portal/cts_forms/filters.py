@@ -4,6 +4,7 @@ import re
 import urllib.parse
 from datetime import datetime
 
+from django.db.models import Count
 from django.contrib.postgres.search import SearchQuery
 from django.db import connection
 
@@ -80,6 +81,25 @@ def _get_date_field_from_param(field):
     which follows the last occurrence of `_`
     """
     return field[:field.rfind('_')]
+
+
+def report_grouping(querydict):
+    groups = Report.objects.values('violation_summary').annotate(total=Count('violation_summary')).filter(total__gt=1).order_by('-total')
+    group_queries = []
+    summaries = []
+    all_qs, filters = report_filter(querydict)
+    for group in groups:
+        description = group['violation_summary']
+        summaries.append(description)
+        group_queries.append({
+            "qs": all_qs.filter(violation_summary=description),
+            "desc": description
+        })
+    group_queries.append({
+        "qs": all_qs.exclude(violation_summary__in=summaries),
+        "desc": "All other reports"
+    })
+    return group_queries, filters
 
 
 def report_filter(querydict):

@@ -37,8 +37,16 @@ function check_prettier() {
   return $?
 }
 
+function check_missing_migrations() {
+  echo 'Running pre-commit to check for unprocessed migrations (run again with --no-verify to skip)...'
+  docker --log-level ERROR compose run --interactive --no-TTY web \
+    /code/crt_portal/manage.py makemigrations --check --dry-run
+  return $?
+}
+
 # If any command fails, exit immediately with that command's exit status
 set -eo pipefail
 
 check_flake8
 check_prettier
+check_missing_migrations

@@ -94,6 +94,10 @@ form#cts-forms-profile {
     padding-left: 0;
   }
 
+  .summary-filter textarea.usa-textarea {
+    max-height: 5rem;
+  }
+
   .help-text__small {
     + ul,
     + .usa-button {

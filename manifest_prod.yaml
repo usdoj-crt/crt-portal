@@ -15,7 +15,7 @@ applications:
     NEW_RELIC_ENVIRONMENT: production
     NEW_RELIC_APP_NAME: CRT PORTAL (prod)
     NEW_RELIC_LOG: stdout
-    AV_SCAN_URL: http://clamav-rest-prod.apps.internal:9000/scan
+    AV_SCAN_URL: https://clamav-rest-prod.apps.internal:9443/scan
   buildpacks:
   - https://github.com/cloudfoundry/apt-buildpack
   - python_buildpack

@@ -52,12 +52,31 @@
    * @returns {Array} A list of URI-encoded query param strings
    */
   function makeQueryParams(params) {
+    const grouping = document.getElementsByName('grouping')[0].value;
+    const persistentParams = ['group_params', 'page', 'per_page', 'sort'];
+    var currentParams = getQueryParams(root.location.search, Object.keys(initialFilterState));
     var keys = Object.keys(params);
-    return keys.reduce(function(memo, key) {
-      var paramValue = params[key];
+    let resetGroupParams = false;
+    const newParams = keys.reduce(function(memo, key) {
+      // Reset group params when grouping is set to default
+      const paramValue = key === 'group_params' && grouping === 'default' ? [] : params[key];
 
       if (!paramValue || !paramValue.length) {
+        // Reset group params when filter is removed
+        if (!persistentParams.includes(key) && key in currentParams) {
+          resetGroupParams = true;
+        }
         return memo;
+      }
+
+      const currentParam = key in currentParams ? currentParams[key][0] : null;
+      // Reset group params when new filter is added
+      if (
+        !persistentParams.includes(key) &&
+        paramValue[0] != decodeFormData(currentParam) &&
+        grouping != 'default'
+      ) {
+        resetGroupParams = true;
       }
 
       var valueToList = wrapValue(paramValue);
@@ -73,6 +92,8 @@
 
       return memo;
     }, []);
+    if (!resetGroupParams) return newParams;
+    return newParams.filter(param => !param.includes('group_params'));
   }
 
   /**
@@ -130,7 +151,9 @@
     no_status: '',
     language: [],
     contact_phone: '',
-    correctional_facility_type: []
+    correctional_facility_type: [],
+    grouping: 'default',
+    group_params: []
   };
   var filterDataModel = {};
 
@@ -144,8 +167,24 @@
       if (state.hasOwnProperty(key)) {
         state[key] = decodeFormData(value);
       }
+      if (key === 'grouping') {
+        document.getElementsByName('grouping')[0].value = value;
+      }
+      if (key === 'group_params' && state[key].length) {
+        const per_page_els = document.getElementsByName('per_page');
+        const group_params = JSON.parse(state[key][0].replaceAll('"', "'").replaceAll("'", '"'));
+        per_page_els.forEach((el, i) => {
+          el.value = group_params[i]['per_page'];
+        });
+      }
       if (key === 'per_page') {
-        document.getElementsByName('per_page')[0].value = value;
+        const per_page_els = document.getElementsByName('per_page');
+        if (per_page_els.length === 1 && !state['group_params'].length) {
+          per_page_els[0].value = value;
+        } else {
+          state[key] = '';
+          state['group_params'] = updateGroupParams(state['group_params'], per_page_els);
+        }
       }
     }
   }
@@ -267,10 +306,47 @@
     }
 
     props.el.addEventListener('change', function(event) {
-      filterDataModel[props.name] = event.target.value;
-      if (props.name == 'per_page') {
+      const grouping = document.getElementsByName('grouping')[0].value;
+      if (props.name == 'per_page' && grouping !== 'default') {
+        const per_page_els = document.getElementsByName('per_page');
+        filterDataModel['group_params'] = updateGroupParams(
+          filterDataModel['group_params'],
+          per_page_els
+        );
+      } else {
+        filterDataModel[props.name] = event.target.value;
+      }
+      if (props.name == 'per_page' || props.name == 'grouping') {
         dom.getElementById('apply-filters-button').click();
       }
+    });
+  }
+
+  function updateGroupParams(group_params, per_page_els) {
+    if (group_params.length) {
+      group_params = JSON.parse(group_params[0]?.replaceAll('"', "'").replaceAll("'", '"'));
+      per_page_els.forEach((el, i) => {
+        group_params[i]['per_page'] = el.value ? Number(el.value) : 15;
+      });
+      return JSON.stringify(group_params);
+    }
+    return JSON.stringify(
+      per_page_els.map(el => {
+        return {
+          page: 1,
+          per_page: el.value ? Number(el.value) : 15,
+          sort: []
+        };
+      })
+    );
+  }
+
+  function textInputsView(props) {
+    props.el.forEach(el => {
+      textInputView({
+        el: el,
+        name: props.name
+      });
     });
   }
 
@@ -295,8 +371,9 @@
     var campaignEl = formEl.querySelector('#id_origination_utm_campaign');
     var complaintIDEl = formEl.querySelector('input[name="public_id"]');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
-    var perPageEl = dom.querySelector('select[name="per_page"]');
-    var personalDescriptionEl = formEl.querySelector('input[name="violation_summary"]');
+    var perPageEl = dom.getElementsByName('per_page');
+    var groupingEl = dom.querySelector('select[name="grouping"]');
+    var personalDescriptionEl = formEl.querySelector('textarea[name="violation_summary"]');
     var primaryIssueEl = dom.getElementsByName('primary_complaint');
     var reportedReasonEl = dom.getElementsByName('reported_reason');
     var relevantDetailsEl = dom.getElementsByName('commercial_or_public_place');
@@ -422,9 +499,13 @@
       el: statuteEl,
       name: 'primary_statute'
     });
-    textInputView({
+    textInputsView({
       el: perPageEl,
       name: 'per_page'
+    });
+    textInputView({
+      el: groupingEl,
+      name: 'grouping'
     });
     clearFiltersView({
       el: clearAllEl,
@@ -503,11 +584,37 @@
     });
   }
 
+  function applyArchivedCampaigns() {
+    document.querySelectorAll('[data-archived="True"]').forEach(el => {
+      const pair = document.querySelector(`[data-value="${el.value}"]`);
+      if (!pair) return;
+      pair.dataset.archived = true;
+    });
+  }
+
+  function applyCampaignSection() {
+    document.querySelectorAll('[data-section]').forEach(el => {
+      const pair = document.querySelector(`[data-value="${el.value}"]`);
+      if (!pair) return;
+      pair.dataset.section = el.dataset.section;
+    });
+  }
+
+  function observeCampaigns() {
+    const observer = new MutationObserver((mutationList, observer) => {
+      applyArchivedCampaigns();
+      applyCampaignSection();
+    });
+    observer.observe(document.getElementById('id_origination_utm_campaign--list'), {
+      childList: true
+    });
+  }
+
   // Bootstrap the filter code's data persistence and
   // instantiate the controller that manages the UI components / views
   function init() {
     if (root.location.search === '') {
-      root.location.search = '?status=new&status=open&no_status=false';
+      root.location.search = '?status=new&status=open&no_status=false&grouping=default';
     }
     var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
 
@@ -519,6 +626,8 @@
 
     filterController();
     initValidateTextSearch();
+    applyArchivedCampaigns();
+    observeCampaigns();
   }
 
   window.addEventListener('DOMContentLoaded', init);

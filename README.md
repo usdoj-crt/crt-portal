@@ -117,7 +117,7 @@ First, you'll need to set OAUTH_PROVIDER_CLIENT_ID and OAUTH_PROVIDER_CLIENT_SEC
     3. Client type: Confidential
     4. Grant type: Authorization Code
     5. Algorithm: HMAC with SHA-2 256 (aka S256)
-    
+
 **NOTE: Make sure to copy the secret key _before_ saving the entry. Once saved, the secret will be hashed and can't be viewed again**
 
 Here's an example of what this will look like:
@@ -495,6 +495,8 @@ A [network policy](https://docs.cloudfoundry.org/devguide/deploy-apps/cf-network
 Direct traffic from the portal to the ClamAV REST API:
 
     cf add-network-policy crt-portal-django --destination-app clamav-rest --protocol tcp --port 9000
+
+    cf add-network-policy crt-portal-django --destination-app clamav-rest --protocol tcp --port 9443
 
 ### User roles and permissions
 

@@ -33,22 +33,29 @@
       });
   }
 
-  const toggleAll = dom.querySelector('a.td-toggle-all');
-  toggleAll.onclick = function(event) {
-    event.preventDefault();
-    const allToggled = isToggled(toggleAll);
-    toggleAll.querySelector('.icon').classList.toggle('rotate');
-    toggleAll.setAttribute('aria-expanded', allToggled ? 'false' : 'true');
-    const toggles = [...dom.querySelectorAll('a.td-toggle')].filter(
-      toggle => isToggled(toggle) == allToggled
-    );
+  function addToggleListener(toggleAll, parentTable) {
+    toggleAll.addEventListener('click', event => {
+      event.preventDefault();
+      const allToggled = isToggled(toggleAll);
+      toggleAll.querySelector('.icon').classList.toggle('rotate');
+      toggleAll.setAttribute('aria-expanded', allToggled ? 'false' : 'true');
+      const toggles = [...parentTable.querySelectorAll('a.td-toggle')].filter(
+        toggle => isToggled(toggle) == allToggled
+      );
 
-    toggles.forEach(toggle => toggleTarget(toggle));
+      toggles.forEach(toggle => toggleTarget(toggle));
 
-    if (allToggled || toggleAll.dataset['posted'] === 'true') return;
+      if (allToggled || toggleAll.dataset['posted'] === 'true') return;
 
-    markAsViewed(toggles.map(toggle => Number(toggle.dataset['id'])));
-    // Set a flag on the toggle so we don't resubmit data multiple times per session.
-    toggleAll.dataset['posted'] = 'true';
-  };
+      markAsViewed(toggles.map(toggle => Number(toggle.dataset['id'])));
+      // Set a flag on the toggle so we don't resubmit data multiple times per session.
+      toggleAll.dataset['posted'] = 'true';
+    });
+  }
+
+  const toggleAllButtons = dom.querySelectorAll('.td-toggle-all');
+  toggleAllButtons.forEach(toggleAll => {
+    const parentTable = toggleAll.closest('.usa-table.crt-table');
+    addToggleListener(toggleAll, parentTable);
+  });
 })(window, document);

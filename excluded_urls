@@ -9,3 +9,4 @@ https://www.lsc.gov/find-
 https://www.fbi.gov/contact-
 http://localhost:4566
 http://clamav-rest-dev.apps.internal:9000/scan
+https://clamav-rest-dev.apps.internal:9443/scan

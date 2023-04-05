@@ -8,7 +8,33 @@
   .intake-section-title {
     font-size: 28px;
     line-height: 26px;
+    margin-bottom: 0;
     margin-top: 0;
+
+    .intake-section-title-tooltip {
+      position: relative;
+
+      &:hover {
+        .tooltip-content {
+          display: block;
+        }
+      }
+      .tooltip-content {
+        background-color: white;
+        box-shadow: 0px 10px 10px rgba(0, 0, 0, 0.13);
+        color: #1B1B1B;
+        display: none;
+        font-family: 'Public Sans Web';
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 16px;
+        max-width: 260px;
+        padding: 16px;
+        position: absolute;
+        right: -262px;
+        z-index: 1000;
+      }
+    }
   }
 }
 
@@ -148,6 +174,16 @@
 
     @include at-media(desktop-lg) {
       padding-right: 4rem;
+    }
+
+    li[data-archived="true"]:after {
+      content: " (Expired)";
+      color: #757575;
+      font-style: italic;
+    }
+
+    li[data-section]:before {
+      content: attr(data-section) " - ";
     }
 
     &.intake-checkbox {
@@ -550,9 +586,11 @@ form#cts-forms-profile {
 .intake-table-header {
   @include u-bg($theme-color-primary-lighter);
 
+  align-items: center;
   display: flex;
   border-radius: 5px 5px;
   min-height: 5rem;
+  padding-bottom: 1.2rem;
   padding-left: 1.3rem;
   padding-right: 2rem;
   padding-top: 1.2rem;

@@ -38,27 +38,29 @@
       {% include 'forms/complaint_view/index/filters/summary_filter.html' %} <!-- CRT summary -->
       {% include 'forms/complaint_view/index/filters/incident_location_filter.html' %}
     </div>
-
-    <p>
-      Search on keywords in the Personal Description field below. Use AND, OR, minus sign (-), “quotations”, or (parentheses) to search multiple keywords combinations.
-      <a href="{% url 'crt_forms:cts-forms-search-help' %}?next={{ return_url_args}}" class="text-no-wrap">View search examples</a>
-    </p>
-    <div class="intake-filters">
-      {% include 'forms/complaint_view/index/filters/violation_summary_filter.html' %} <!-- Personal description -->
-    </div>
-    <div class="usa-alert usa-alert--error usa-alert--slim" id="search-notification">
-      <div class="usa-alert__body">
-        <em class="usa-alert__text"></em>
+    <div class="grid-row flex-wrap flex-justify flex-align-end padding-bottom-5 border-gray-50 border-bottom">
+      <div class="grid-col flex-3">
+        <p>
+          Search on keywords in the Personal Description field below. Use AND, OR, minus sign (-), “quotations”, or (parentheses) to search multiple keywords combinations.
+          <a href="{% url 'crt_forms:cts-forms-search-help' %}?next={{ return_url_args}}" class="text-no-wrap">View search examples</a>
+        </p>
+        <div class="summary-filter">
+          {% include 'forms/complaint_view/index/filters/violation_summary_filter.html' %} <!-- Personal description -->
+        </div>
+        <div class="usa-alert usa-alert--error usa-alert--slim" id="search-notification">
+          <div class="usa-alert__body">
+            <em class="usa-alert__text"></em>
+          </div>
+        </div>
       </div>
-    </div>
-
-    <div class="text-right">
-      <button class="usa-button" type="submit" id="apply-filters-button">
-        Apply filters
-      </button>
-      <button class="usa-button usa-button--unstyled" data-clear-filters>
-        Clear all filters
-      </button>
+      <div class="text-right flex-2">
+        <button class="usa-button" type="submit" id="apply-filters-button">
+          Apply filters
+        </button>
+        <button class="usa-button usa-button--unstyled" data-clear-filters>
+          Clear all filters
+       </button>
+      </div>
     </div>
   </div>
 </form>

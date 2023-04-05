@@ -29,10 +29,18 @@
 
   function pasteMarkdown(event, input) {
     const turndown = new TurndownService();
-    const pastedHtml = event.clipboardData.getData('text/html');
+    let pastedHtml = event.clipboardData.getData('text/html');
+    // Turndown escapes underscores so maintain them in links by replacing them before processing
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(pastedHtml, 'text/html');
+    const aTags = Array.from(htmlDoc.getElementsByTagName('a'));
+    aTags.forEach(aTag => {
+      const newhref = aTag['href'].replaceAll('_', '(UNDERSCORE)');
+      pastedHtml = pastedHtml.replaceAll(aTag['href'], newhref);
+    });
     const markdown = turndown.turndown(pastedHtml);
     // Word sometimes includes comments in its HTML, so strip them:
-    const sanitized = markdown.replace(/<!--(?!>)[\S\s]*?-->/g, '');
+    const sanitized = markdown.replace(/<!--(?!>)[\S\s]*?-->/g, '').replaceAll('(UNDERSCORE)', '_');
     input.value =
       input.value.substring(0, input.selectionStart) +
       sanitized +
