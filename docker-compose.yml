@@ -52,7 +52,7 @@ services:
       - LOCALSTACK_URL=http://localstack:4566
       - AWS_ACCESS_KEY_ID=test
       - AWS_SECRET_ACCESS_KEY=test
-      - AV_SCAN_URL=http://clamav-rest:9000/scan
+      - AV_SCAN_URL=https://clamav-rest:9443/scan
     build: .
     command: /code/run.sh
     volumes:
@@ -88,6 +88,7 @@ services:
       - SIGNATURE_CHECKS=1
     ports:
       - "9000:9000"
+      - "9443:9443"
 volumes:
   postgres_data:
   localstack-vol:
