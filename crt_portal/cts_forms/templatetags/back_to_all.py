@@ -13,7 +13,7 @@ def back_to_all(return_url_args=''):
     if grouping == 'default':
         return return_url_args
     violation_summary = querydict.get('violation_summary', '')
-    if '$' in violation_summary:
+    if violation_summary.startswith('^') and violation_summary.endswith('$'):
         querydict.pop('violation_summary')
         return_url_args = dict_to_query(querydict)
     return return_url_args
