@@ -722,7 +722,10 @@ class ActionsView(LoginRequiredMixin, FormView):
     def get(self, request):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
-
+        query_string = return_url_args
+        group_desc = request.GET.get('group-desc', None)
+        if group_desc is not None and group_desc != 'All other reports':
+            query_string = f'{return_url_args}&violation_summary=^{group_desc}$'
         ids = request.GET.getlist('id')
         # The select all option only applies if 1. user hits the
         # select all button and 2. we have more records in the query
@@ -730,7 +733,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         selected_all = request.GET.get('all', '') == 'all'
 
         if selected_all:
-            requested_query = reconstruct_query(return_url_args)
+            requested_query = reconstruct_query(query_string)
         else:
             requested_query = Report.objects.filter(pk__in=ids)
 
