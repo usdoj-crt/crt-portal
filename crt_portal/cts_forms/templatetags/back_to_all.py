@@ -15,12 +15,5 @@ def back_to_all(return_url_args=''):
     violation_summary = querydict.get('violation_summary', '')
     if violation_summary.startswith('^') and violation_summary.endswith('$'):
         querydict.pop('violation_summary')
-        return_url_args = dict_to_query(querydict)
+        return_url_args = urllib.parse.urlencode(querydict)
     return return_url_args
-
-
-def dict_to_query(querydict):
-    query = ''
-    for key in querydict.keys():
-        query += str(key) + '=' + str(querydict[key]) + "&"
-    return query
