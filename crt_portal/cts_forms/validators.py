@@ -45,7 +45,7 @@ def _scan_file(file):
     try:
         # ClamAV only listens on 9443, which is SSL, but it self-signs its cert.
         # Because this request stays within the cloud.gov container, it's fine to not verify SSL.
-        return requests.post(settings.AV_SCAN_URL, files={'file': file}, data={'name': file.name}, timeout=25, verify=False)  # nosec
+        return requests.post(settings.AV_SCAN_URL, files={'file': file}, data={'name': file.name}, verify=False)  # nosec
     except requests.exceptions.ConnectionError as e:
         logging.exception(e)
         raise ValidationError('We were unable to complete a security inspection of the file, please try again or contact support for assistance.')
