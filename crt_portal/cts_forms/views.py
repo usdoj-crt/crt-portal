@@ -526,8 +526,12 @@ class ResponseView(LoginRequiredMixin, View):
         url = preserve_filter_parameters(report, request.POST)
 
         if form.is_valid() and form.has_changed():
-
-            template = form.cleaned_data['templates']
+            tab = form.cleaned_data['selected_tab']
+            template_kind = {
+                'response-template-default': 'templates_default',
+                'response-template-referral': 'templates_referral',
+            }[tab]
+            template = form.cleaned_data[template_kind]
             button_type = request.POST['type']
 
             if button_type == 'send':  # We're going to send an email!

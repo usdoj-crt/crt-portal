@@ -1382,14 +1382,27 @@ class ResponseActions(Form):
             for template in templates
         }
         attrs = {
-            "id": "intake_select",
-            "class": "usa-select",
             "aria-label": "template selection"
         }
-        self.fields['templates'] = ModelChoiceField(
-            queryset=templates.filter(show_in_dropdown=True),
+        self.fields['selected_tab'] = CharField(widget=HiddenInput())
+        self.fields['templates_default'] = ModelChoiceField(
+            queryset=templates.filter(show_in_dropdown=True,
+                                      referral_contact__isnull=True),
             empty_label="(no template chosen)",
-            widget=DataAttributesSelect(data=data, attrs=attrs),
+            widget=DataAttributesSelect(data=data, attrs={
+                **attrs,
+                "class": "intake-select usa-select response-template-default",
+            }),
+            required=False,
+        )
+        self.fields['templates_referral'] = ModelChoiceField(
+            queryset=templates.filter(show_in_dropdown=True,
+                                      referral_contact__isnull=False),
+            empty_label="(no template chosen)",
+            widget=DataAttributesSelect(data=data, attrs={
+                **attrs,
+                "class": "intake-select usa-select response-template-referral",
+            }),
             required=False,
         )
 
