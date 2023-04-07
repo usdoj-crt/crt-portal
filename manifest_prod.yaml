@@ -26,7 +26,7 @@ applications:
   - VCAP_SERVICES
 - name: clamav-rest
   instances: 1
-  memory: 2G
+  memory: 4G
   env:
     MAX_FILE_SIZE: 100M
     SIGNATURE_CHECKS: 8
