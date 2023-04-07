@@ -90,11 +90,13 @@ def report_grouping(querydict):
     all_qs, filters = report_filter(querydict)
     for group in groups:
         description = group['violation_summary']
-        summaries.append(description)
-        group_queries.append({
-            "qs": all_qs.filter(violation_summary=description),
-            "desc": description
-        })
+        qs = all_qs.filter(violation_summary=description)
+        if qs.count() > 1:
+            summaries.append(description)
+            group_queries.append({
+                "qs": all_qs.filter(violation_summary=description),
+                "desc": description
+            })
     group_queries.append({
         "qs": all_qs.exclude(violation_summary__in=summaries),
         "desc": "All other reports"
