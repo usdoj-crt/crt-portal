@@ -88,6 +88,7 @@ services:
       - SIGNATURE_CHECKS=1
     ports:
       - "9000:9000"
+      - "9443:9443"
 volumes:
   postgres_data:
   localstack-vol:
