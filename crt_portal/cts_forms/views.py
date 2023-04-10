@@ -527,7 +527,6 @@ class ResponseView(LoginRequiredMixin, View):
         form = ResponseActions(request.POST, instance=report)
         url = preserve_filter_parameters(report, request.POST)
 
-        print('boop', form.is_valid(), form.has_changed())
         if not form.has_changed():
             return redirect(url)
         if not form.is_valid():
