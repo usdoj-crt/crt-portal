@@ -19,6 +19,7 @@ applications:
   - crt-db
   - crt-s3
   - sso-creds
+  - crt-irplogdraindev
   - VCAP_SERVICES
 - name: clamav-rest
   instances: 1
