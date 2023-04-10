@@ -23,10 +23,12 @@ from django.db.models import F
 from django.forms.models import model_to_dict
 from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.utils.html import mark_safe
 from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
 from tms.models import TMSEmail
 from datetime import datetime
+
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter, report_grouping
@@ -525,32 +527,45 @@ class ResponseView(LoginRequiredMixin, View):
         form = ResponseActions(request.POST, instance=report)
         url = preserve_filter_parameters(report, request.POST)
 
-        if form.is_valid() and form.has_changed():
-            tab = form.cleaned_data['selected_tab']
-            template_kind = {
-                'response-template-default': 'templates_default',
-                'response-template-referral': 'templates_referral',
-            }[tab]
-            template = form.cleaned_data[template_kind]
-            button_type = request.POST['type']
+        print('boop', form.is_valid(), form.has_changed())
+        if not form.has_changed():
+            return redirect(url)
+        if not form.is_valid():
+            logging.error({'message': f"Form validation error: {form.errors}"})
+            messages.add_message(request,
+                                 messages.ERROR,
+                                 mark_safe(
+                                     "Sorry, we weren't able to do that:"
+                                     f"{form.errors}"
+                                     "Please refresh and try again."),
+                                 )
+            return redirect(url)
 
-            if button_type == 'send':  # We're going to send an email!
-                try:
-                    sent = crt_send_mail(report, template, TMSEmail.MANUAL_EMAIL)
-                    if sent:
-                        description = f"Email sent: '{template.title}' to {report.contact_email} via {self.MAIL_SERVICE}"
-                    else:
-                        description = f"{report.contact_email} not in allowed domains, not attempting to deliver {template.title}."
-                except Exception as e:  # catch *all* exceptions
-                    logger.warning({'message': f"Email failed to send: {e}", 'report': report.id})
-                    messages.add_message(request, messages.ERROR, self.SEND_MAIL_ERROR)
-                    return redirect(url)  # Return here, nothing to write in activity log
-            else:
-                action = self.ACTIONS[button_type]
-                description = f"{action} '{template.title}' template"
+        tab = form.cleaned_data['selected_tab']
+        template_kind = {
+            'response-template-default': 'templates_default',
+            'response-template-referral': 'templates_referral',
+        }[tab]
+        template = form.cleaned_data[template_kind]
+        button_type = request.POST['type']
 
-            messages.add_message(request, messages.SUCCESS, description)
-            add_activity(request.user, "Contacted complainant:", description, report)
+        if button_type == 'send':  # We're going to send an email!
+            try:
+                sent = crt_send_mail(report, template, TMSEmail.MANUAL_EMAIL)
+                if sent:
+                    description = f"Email sent: '{template.title}' to {report.contact_email} via {self.MAIL_SERVICE}"
+                else:
+                    description = f"{report.contact_email} not in allowed domains, not attempting to deliver {template.title}."
+            except Exception as e:  # catch *all* exceptions
+                logger.warning({'message': f"Email failed to send: {e}", 'report': report.id})
+                messages.add_message(request, messages.ERROR, self.SEND_MAIL_ERROR)
+                return redirect(url)  # Return here, nothing to write in activity log
+        else:
+            action = self.ACTIONS[button_type]
+            description = f"{action} '{template.title}' template"
+
+        messages.add_message(request, messages.SUCCESS, description)
+        add_activity(request.user, "Contacted complainant:", description, report)
 
         return redirect(url)
 

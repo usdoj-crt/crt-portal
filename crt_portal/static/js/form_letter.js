@@ -62,6 +62,7 @@
     letter_html.hidden = true;
     letter.innerHTML = '';
     letter.hidden = false;
+    document.querySelectorAll('.intake-select').forEach(s => (s.selectedIndex = 0));
     copy.setAttribute('disabled', 'disabled');
     print.setAttribute('disabled', 'disabled');
     send_email.setAttribute('disabled', 'disabled');
@@ -111,6 +112,8 @@
   });
 
   function showOnlyTab(toShow) {
+    reset();
+    document.querySelector('input[name="selected_tab"]').value = toShow;
     allTabs.forEach(tabName => {
       [...document.getElementsByClassName(tabName)].forEach(el => {
         el.classList.toggle('display-none', toShow !== tabName);
@@ -127,7 +130,6 @@
       event.stopPropagation();
       reset();
       const tabName = event.currentTarget.dataset.tab;
-      document.querySelector('input[name="selected_tab"]').value = tabName;
       tabs.forEach(tabToSelect => {
         const isCurrent = tabToSelect.dataset.tab === tabName;
         tabToSelect.classList.toggle('intake-tabbed-current', isCurrent);
