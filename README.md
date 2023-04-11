@@ -82,6 +82,8 @@ Now to compile the sass files into css, run:
 
     npm run gulp:watch
 
+Note that you'll need to turn off localstack for this to work without running `collectstatic`, by setting `USE_LOCALSTACK=False` in `.env`.
+
 Also note, that the staticfiles folder is the destination of all static assets when you or a script runs `manage.py collectstatic` so don't make your changes there, or they will be overwritten.
 
 ## Jupyter
