@@ -84,10 +84,10 @@ def _get_date_field_from_param(field):
 
 
 def report_grouping(querydict):
-    groups = Report.objects.values('violation_summary').annotate(total=Count('violation_summary')).filter(total__gt=1).order_by('-total')
+    all_qs, filters = report_filter(querydict)
+    groups = all_qs.values('violation_summary').annotate(total=Count('violation_summary')).filter(total__gt=1).order_by('-total')
     group_queries = []
     summaries = []
-    all_qs, filters = report_filter(querydict)
     for group in groups:
         description = group['violation_summary']
         qs = all_qs.filter(violation_summary=description)
