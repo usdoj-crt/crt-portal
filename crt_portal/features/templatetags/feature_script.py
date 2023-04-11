@@ -28,4 +28,5 @@ def feature_script():
             document.documentElement.classList.add(...{feature_classes});
         </script>
     """)
-    return mark_safe(script)
+    # This is safe because the inputs are from admins, and are restricted.
+    return mark_safe(script)  # nosec
