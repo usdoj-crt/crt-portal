@@ -22,9 +22,6 @@
               {{data.contact_email|default_if_none:"-"}}
             </strong>
           </p>
-          <p class="intake-template--description">
-            Subject: <strong id="intake_description">(no template chosen)</strong>
-          </p>
           <span>
             Template Language:
           </span>
@@ -33,18 +30,11 @@
               <option value="{{ language.code }}" aria-label="template language selection" {% if language.code == 'en' %}selected{% endif %}>{{ language.name }}</option>
             {% endfor %}
           </select>
-          <span>
-            Template:
-          </span>
-          {{ responses.templates }}
-          <div class="modal-main">
-            <div id="intake_letter_html" class="form-letter" hidden></div>
-            <textarea disabled aria-label="intake letter" id="intake_letter" rows="10" cols="80"></textarea>
-          </div>
+          {% include 'forms/complaint_view/show/response_template_content.html' %}
           <div class="modal-footer">
-            <button disabled id="intake_copy" class="usa-button" type="submit" name="type" value="copy">Copy</button>
-            <button disabled id="intake_print" class="usa-button" type="submit" name="type" value="print">Print</button>
             <button disabled id="intake_send" data-email-enabled="{{email_enabled}}" class="usa-button" type="submit" name="type" value="send">Send</button>
+            <button disabled id="intake_print" class="usa-button" type="submit" name="type" value="print">Print</button>
+            <button disabled id="intake_copy" class="usa-button" type="submit" name="type" value="copy">Copy letter</button>
             <button id="intake_template_cancel" class="usa-button usa-button--unstyled">Cancel</button>
           </div>
         </div>

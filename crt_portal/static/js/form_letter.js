@@ -62,46 +62,80 @@
     letter_html.hidden = true;
     letter.innerHTML = '';
     letter.hidden = false;
+    document.querySelectorAll('.intake-select').forEach(s => (s.selectedIndex = 0));
     copy.setAttribute('disabled', 'disabled');
     print.setAttribute('disabled', 'disabled');
     send_email.setAttribute('disabled', 'disabled');
   };
 
   const description = document.getElementById('intake_description');
-  const options = document.getElementById('intake_select');
+  const selects = document.querySelectorAll('.intake-select');
   const reportId = document.getElementById('template-report-id').value;
-  options.addEventListener('change', function(event) {
-    event.preventDefault();
-    const index = event.target.selectedIndex;
-    const option = event.target.options[index];
-    const value = event.target.value;
-    window
-      .fetch('/api/responses/' + value + '/?report_id=' + reportId)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(data) {
-        description.innerHTML = data.subject || '(select a response template)';
-        if (data.is_html) {
-          letter.hidden = true;
-          letter_html.hidden = false;
-          letter_html.innerHTML = marked.parse(data.body || '');
-        } else {
-          letter_html.hidden = true;
-          letter.hidden = false;
-          letter.innerHTML = data.body || '';
+  selects.forEach(select =>
+    select.addEventListener('change', function(event) {
+      event.preventDefault();
+      const index = event.target.selectedIndex;
+      const option = event.target.options[index];
+      const value = event.target.value;
+      window
+        .fetch('/api/responses/' + value + '/?report_id=' + reportId)
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          description.innerHTML = data.subject || '(select a response template)';
+          if (data.is_html) {
+            letter.hidden = true;
+            letter_html.hidden = false;
+            letter_html.innerHTML = marked.parse(data.body || '');
+          } else {
+            letter_html.hidden = true;
+            letter.hidden = false;
+            letter.innerHTML = data.body || '';
+          }
+          addReferralAddress(data.referral_contact);
+        });
+      if (index >= 1) {
+        copy.removeAttribute('disabled');
+        print.removeAttribute('disabled');
+        if (email_enabled && has_contact_email) {
+          send_email.removeAttribute('disabled');
         }
-        addReferralAddress(data.referral_contact);
-      });
-    if (index >= 1) {
-      copy.removeAttribute('disabled');
-      print.removeAttribute('disabled');
-      if (email_enabled && has_contact_email) {
-        send_email.removeAttribute('disabled');
+      } else {
+        reset();
       }
-    } else {
+    })
+  );
+
+  const allTabs = [...document.querySelectorAll('a.intake-tabbed-nav-link')].map(tab => {
+    return tab.dataset.tab;
+  });
+
+  function showOnlyTab(toShow) {
+    reset();
+    document.querySelector('input[name="selected_tab"]').value = toShow;
+    allTabs.forEach(tabName => {
+      [...document.getElementsByClassName(tabName)].forEach(el => {
+        el.classList.toggle('display-none', toShow !== tabName);
+      });
+    });
+  }
+
+  showOnlyTab(allTabs[0]);
+
+  const tabs = [...document.querySelectorAll('a.intake-tabbed-nav-link')];
+  tabs.forEach(tab => {
+    tab.addEventListener('click', function(event) {
+      event.preventDefault();
+      event.stopPropagation();
       reset();
-    }
+      const tabName = event.currentTarget.dataset.tab;
+      tabs.forEach(tabToSelect => {
+        const isCurrent = tabToSelect.dataset.tab === tabName;
+        tabToSelect.classList.toggle('intake-tabbed-current', isCurrent);
+      });
+      showOnlyTab(tabName);
+    });
   });
 
   var setLanguageCookie = function(lang) {
@@ -125,11 +159,11 @@
 
     // form letters for languages other than the one selected
     var toHide = document.querySelectorAll(
-      `#intake_select > option.usa-select:not([data-language=${selected_language}])`
+      `.intake-select > option.usa-select:not([data-language=${selected_language}])`
     );
     // form letters for the language that is selected
     var toShow = document.querySelectorAll(
-      `#intake_select > option.usa-select[data-language=${selected_language}]`
+      `.intake-select > option.usa-select[data-language=${selected_language}]`
     );
 
     for (var el of toHide) {
@@ -141,8 +175,9 @@
     }
 
     // the selected language changed, clear the currently selected form letter
-    var intake_select = document.getElementById('intake_select');
-    intake_select.selectedIndex = 0;
+    document.querySelectorAll('.intake-select').forEach(intake_select => {
+      intake_select.selectedIndex = 0;
+    });
     reset();
   };
 
