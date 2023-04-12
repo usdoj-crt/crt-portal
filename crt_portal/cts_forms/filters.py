@@ -90,8 +90,7 @@ def report_grouping(querydict):
     summaries = []
     for group in groups:
         description = group['violation_summary']
-        qs = all_qs.filter(violation_summary=description)
-        if qs.count() <= 1:
+        if description == "":
             continue
         summaries.append(description)
         group_queries.append({

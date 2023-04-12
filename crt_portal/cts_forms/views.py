@@ -756,6 +756,7 @@ class ActionsView(LoginRequiredMixin, FormView):
             'print_reports': requested_query,
             'print_options': PrintActions(),
             'questions': Review.question_text,
+            'query_string': query_string,
         }
         return render(request, 'forms/complaint_view/actions/index.html', output)
 
@@ -764,9 +765,13 @@ class ActionsView(LoginRequiredMixin, FormView):
         selected_all = request.POST.get('all', '') == 'all'
         confirm_all = request.POST.get('confirm_all', '') == 'confirm_all'
         ids = request.POST.get('ids', '').split(',')
+        query_string = request.POST.get('query_string', None)
+
+        if query_string is None:
+            query_string = return_url_args
 
         if confirm_all:
-            requested_query = reconstruct_query(return_url_args)
+            requested_query = reconstruct_query(query_string)
         else:
             requested_query = Report.objects.filter(pk__in=ids)
 
