@@ -244,7 +244,7 @@ def render_group_view(request, profile_form, selected_assignee_id, selected_camp
             })
     else:
         updated_group_params = group_params
-    final_data = get_group_view_data(request, updated_group_queries[0]["qs"], filters, grouping, updated_group_params[0], 'All other reports')
+    final_data = group_view_data[len(group_view_data) - 1]["data"]
     final_data['return_url_args'] = urllib.parse.quote(f"{final_data['page_args']}&group_params={updated_group_params}")
     final_data.update({
         'profile_form': profile_form,
