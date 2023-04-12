@@ -765,10 +765,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         selected_all = request.POST.get('all', '') == 'all'
         confirm_all = request.POST.get('confirm_all', '') == 'confirm_all'
         ids = request.POST.get('ids', '').split(',')
-        query_string = request.POST.get('query_string', None)
-
-        if query_string is None:
-            query_string = return_url_args
+        query_string = request.POST.get('query_string', return_url_args)
 
         if confirm_all:
             requested_query = reconstruct_query(query_string)
