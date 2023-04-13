@@ -1,5 +1,14 @@
 """Form widgets"""
-from django.forms.widgets import ChoiceWidget, SelectMultiple, DateInput
+from django.forms.widgets import ChoiceWidget, NumberInput, Select, SelectMultiple, DateInput, MultiWidget
+
+from cts_forms.model_variables import DISTRICT_CHOICES, STATUTE_CHOICES, EMPTY_CHOICE
+
+
+def add_empty_choice(choices, default_string=EMPTY_CHOICE):
+    """Add an empty option to list of choices"""
+    if isinstance(choices, list):
+        choices = tuple(choices)
+    return (('', default_string),) + choices
 
 
 class UsaRadioSelect(ChoiceWidget):
@@ -12,6 +21,45 @@ class CrtPrimaryIssueRadioGroup(ChoiceWidget):
     input_type = 'radio'
     template_name = 'forms/widgets/multiple_inputs.html'
     option_template_name = 'forms/widgets/crt_radio_area_option.html'
+
+
+class DjNumberWidget(MultiWidget):
+    template_name = 'forms/widgets/dj_number.html'
+
+    def __init__(self, attrs=None):
+        if not attrs:
+            attrs = {}
+        widgets = (
+            Select(attrs={
+                'data-placeholder': '###',
+                'is_combobox': True,
+                'label': 'DJ Number Statute',
+                'class': 'usa-input usa-select',
+                **attrs
+            }, choices=add_empty_choice(STATUTE_CHOICES, default_string='')),
+            Select(attrs={
+                'data-placeholder': '##',
+                'label': 'DJ Number District',
+                'is_combobox': True,
+                'class': 'usa-input usa-select',
+                **attrs
+            }, choices=add_empty_choice(DISTRICT_CHOICES, default_string='')),
+            NumberInput(attrs={
+                'size': '4',
+                'label': 'DJ Number Sequence',
+                'class': 'usa-input',
+                'min': '0',
+                'max': '9999',
+                'placeholder': '####',
+                **attrs,
+            }),
+        )
+        super().__init__(widgets, attrs)
+
+    def decompress(self, value):
+        if not value:
+            return ''
+        return '-'.join([value.statute, value.district, value.sequence])
 
 
 class ComplaintSelect(ChoiceWidget):
@@ -46,6 +94,11 @@ class CrtMultiSelect(SelectMultiple):
 
 class CrtDateInput(DateInput):
     input_type = 'date'
+
+
+class CrtNumberInput(NumberInput):
+    input_type = 'number'
+
 
 # Overrides Django CheckboxSelectMultiple:
 # https://docs.djangoproject.com/en/2.2/ref/forms/widgets/#checkboxselectmultiple

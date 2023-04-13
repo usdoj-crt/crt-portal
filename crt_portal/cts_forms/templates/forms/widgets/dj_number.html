@@ -1,0 +1,17 @@
+{% spaceless %}
+  {% for widget in widget.subwidgets %}
+    <label id="{{widget.name}}_label" for="id_{{widget.name}}" class="usa-sr-only">{{widget.attrs.label}}</label>
+    {% if widget.attrs.is_combobox %}
+      <div
+          class="usa-combo-box"
+          for="{{widget.name}}_label"
+          data-placeholder="{{widget.attrs.placeholder}}"
+          data-default-value="{{ widget.attrs.default_value }}">
+        {% include widget.template_name %}
+      </div>
+    {% else %}
+      {% include widget.template_name %}
+    {% endif %}
+  {% endfor %}
+{% endspaceless %}
+
