@@ -103,6 +103,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'tms',
     'shortener.apps.ShortenerConfig',
+    'features.apps.FeaturesConfig',
 ]
 SITE_ID = 1
 
@@ -139,12 +140,16 @@ TEMPLATES = [
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
-            'builtins': ['cts_forms.templatetags.with_input_error'],
+            'builtins': [
+                'cts_forms.templatetags.with_input_error',
+                'features.templatetags.feature_script',
+            ],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'features.templatetags.feature_context.enabled_features',
             ],
         },
     },
