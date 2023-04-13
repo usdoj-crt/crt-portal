@@ -2,6 +2,7 @@
 {% load i18n %}
 {% load get_env %}
 {% load get_voting_mode %}
+{% load feature_script %}
 {% get_current_language as LANGUAGE_CODE %}
 <!DOCTYPE html>
 <html lang="{{LANGUAGE_CODE}}">
@@ -18,7 +19,6 @@
        <!-- End Google Tag Manager -->
       {% endif %}
     {% endblock %}
-
 
     {% block meta %}
       <meta charset="utf-8">
@@ -144,6 +144,7 @@
       {% endblock footer_extra %}
     </footer>
     {% endblock %}
+    {% feature_script %}
     <script src="{% static 'js/url_params_polyfill.min.js' %}"></script>
     <script src="{% static 'vendor/uswds.min.js' %}"></script>
     <script src="{% static 'js/focus_alert.min.js' %}"></script>
