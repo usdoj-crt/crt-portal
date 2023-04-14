@@ -644,38 +644,7 @@ class ShowView(LoginRequiredMixin, View):
         report = get_object_or_404(Report, pk=id)
 
         form, inbound_form_type = self.get_form(request, report)
-        if form.is_valid() and form.has_changed():
-            report = form.save(commit=False)
-
-            # Reset Assignee and Status if assigned_section is changed
-            if 'assigned_section' in form.changed_data:
-                primary_statute = report.primary_statute
-                report.status_assignee_reset()
-                if primary_statute:
-                    description = f'Updated from "{primary_statute}" to "None"'
-                    add_activity(request.user, "Primary classification:", description, report)
-
-            # District and location are on different forms so handled here.
-            # If the incident location changes, update the district.
-            # District can be overwritten in the drop down.
-            # If there was a location change but no new match for district, don't override.
-            if 'district' not in form.changed_data:
-                current_district = report.district
-                assigned_district = report.assign_district()
-                if assigned_district and current_district != assigned_district:
-                    report.district = assigned_district
-                    description = f'Updated from "{current_district}" to "{report.district}"'
-                    add_activity(request.user, "District:", description, report)
-
-            report.save()
-            if 'contact_email' in form.changed_data:
-                EmailReportCount.refresh_view()
-            form.update_activity_stream(request.user)
-            messages.add_message(request, messages.SUCCESS, form.success_message())
-
-            url = preserve_filter_parameters(report, request.POST)
-            return redirect(url)
-        else:
+        if not (form.is_valid() and form.has_changed()):
             output = serialize_data(report, request, id)
             filter_output = setup_filter_parameters(report, request.POST)
             output.update({inbound_form_type: form, **filter_output})
@@ -684,13 +653,54 @@ class ShowView(LoginRequiredMixin, View):
                 fail_message = form.FAIL_MESSAGE
             except AttributeError:
                 fail_message = 'No updates applied'
-            messages.add_message(request, messages.ERROR, fail_message)
+
+            if not form.is_valid():
+                error_items = ''.join([
+                    f'<li>{field} {form.cleaned_data.get(field)}: {error}</li>'
+                    for field, error
+                    in form.errors.items()
+                ])
+                fail_message += f'<ul>{error_items}</ul>'
+
+            messages.add_message(request,
+                                 messages.ERROR,
+                                 mark_safe(fail_message))
 
             # Provide new for those not submitted
             for form_type, form in self.forms.items():
                 if form_type != inbound_form_type:
                     output.update({form_type: form(instance=report)})
             return render(request, 'forms/complaint_view/show/index.html', output)
+        report = form.save(commit=False)
+
+        # Reset Assignee and Status if assigned_section is changed
+        if 'assigned_section' in form.changed_data:
+            primary_statute = report.primary_statute
+            report.status_assignee_reset()
+            if primary_statute:
+                description = f'Updated from "{primary_statute}" to "None"'
+                add_activity(request.user, "Primary classification:", description, report)
+
+        # District and location are on different forms so handled here.
+        # If the incident location changes, update the district.
+        # District can be overwritten in the drop down.
+        # If there was a location change but no new match for district, don't override.
+        if 'district' not in form.changed_data:
+            current_district = report.district
+            assigned_district = report.assign_district()
+            if assigned_district and current_district != assigned_district:
+                report.district = assigned_district
+                description = f'Updated from "{current_district}" to "{report.district}"'
+                add_activity(request.user, "District:", description, report)
+
+        report.save()
+        if 'contact_email' in form.changed_data:
+            EmailReportCount.refresh_view()
+        form.update_activity_stream(request.user)
+        messages.add_message(request, messages.SUCCESS, form.success_message())
+
+        url = preserve_filter_parameters(report, request.POST)
+        return redirect(url)
 
 
 class RoutingGuideView(LoginRequiredMixin, View):

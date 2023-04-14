@@ -1424,7 +1424,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
     class Meta:
         model = Report
         fields = ['assigned_section', 'status', 'primary_statute',
-                  'district', 'assigned_to', 'referred']
+                  'district', 'assigned_to', 'referred', 'dj_number']
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
@@ -1485,6 +1485,8 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             # rename referred if applicable
             if field == 'referred':
                 name = 'Secondary review'
+            if field == 'dj_number':
+                name = 'ICM DJ Number'
             original = self.initial[field]
             changed = self.cleaned_data[field]
             # fix bug where id was showing up instead of user name
@@ -1511,6 +1513,11 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         """Prepare update success message for rendering in template"""
         def get_label(field):
             field = self.fields[field]
+            # Some fields can't support the extra context label, and store it
+            # on their attributes
+            if attrs_label := field.widget.attrs.get('field_label', None):
+                return attrs_label
+            # Most standard fields will have a direct label.
             if hasattr(field.widget, 'label'):
                 return field.widget.label
             return field.label

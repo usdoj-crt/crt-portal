@@ -60,8 +60,20 @@ class DjNumberWidget(MultiWidget):
 
     def decompress(self, value):
         if not value:
-            return ''
-        return '-'.join([value.statute, value.district, value.sequence])
+            return [None, None, None]
+        components = value.rsplit('-', 2)
+        if len(components) != 3:
+            return [None, None, None]
+        try:
+            return components
+        except ValueError:
+            return [None, None, None]
+
+    def value_from_datadict(self, data, files, name):
+        components = super().value_from_datadict(data, files, name)
+        if any(not c for c in components):
+            return None
+        return '-'.join(components)
 
 
 class ComplaintSelect(ChoiceWidget):

@@ -6,7 +6,7 @@
           class="usa-combo-box"
           for="{{widget.name}}_label"
           data-placeholder="{{widget.attrs.placeholder}}"
-          data-default-value="{{ widget.attrs.default_value }}">
+          data-default-value="{{ widget.value | first }}">
         {% include widget.template_name %}
       </div>
     {% else %}
