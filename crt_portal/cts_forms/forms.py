@@ -1468,7 +1468,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             required=False
         )
         self.fields['dj_number'] = CharField(
-            widget=DjNumberWidget(),
+            widget=DjNumberWidget(attrs={'field_label': 'ICM DJ Number'}),
             required=False,
         )
 

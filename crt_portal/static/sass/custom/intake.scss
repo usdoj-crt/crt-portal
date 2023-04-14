@@ -437,6 +437,22 @@ input::-webkit-inner-spin-button {
   }
 }
 
+.crt-combo-box-compact ~ .usa-combo-box__input {
+  padding-right: 0;
+}
+
+.crt-combo-box-compact ~ .usa-combo-box__clear-input__wrapper .usa-combo-box__clear-input {
+  right: 0;
+}
+
+.crt-combo-box-compact ~ .usa-combo-box__input-button-separator {
+  display: none;
+}
+
+.usa-combo-box.usa-combo-box--pristine .crt-combo-box-compact ~ .usa-combo-box__toggle-list__wrapper {
+  display: none;
+}
+
 #id_dj_number_2 {
   max-width: 3.5em;
 }

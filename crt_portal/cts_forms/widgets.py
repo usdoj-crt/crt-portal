@@ -31,19 +31,21 @@ class DjNumberWidget(MultiWidget):
             attrs = {}
         widgets = (
             Select(attrs={
-                'data-placeholder': '###',
+                'placeholder': '###',
                 'is_combobox': True,
                 'label': 'DJ Number Statute',
-                'class': 'usa-input usa-select',
+                'class': 'usa-input usa-select crt-combo-box-compact',
                 **attrs
             }, choices=add_empty_choice(STATUTE_CHOICES, default_string='')),
             Select(attrs={
-                'data-placeholder': '##',
+                'placeholder': '##',
                 'label': 'DJ Number District',
                 'is_combobox': True,
-                'class': 'usa-input usa-select',
+                'class': 'usa-input usa-select crt-combo-box-compact',
                 **attrs
-            }, choices=add_empty_choice(DISTRICT_CHOICES, default_string='')),
+            }, choices=add_empty_choice([
+                (key, key) for key, _ in DISTRICT_CHOICES
+            ], default_string='')),
             NumberInput(attrs={
                 'size': '4',
                 'label': 'DJ Number Sequence',
