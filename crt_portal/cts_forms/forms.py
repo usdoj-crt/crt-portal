@@ -15,6 +15,8 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
+from features.models import Feature
+
 from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
                               COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
@@ -1467,8 +1469,13 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             choices=add_empty_choice(DISTRICT_CHOICES, default_string=''),
             required=False
         )
+
+        if Feature.is_feature_enabled('dj-number'):
+            DjInput = DjNumberWidget(attrs={'field_label': 'ICM DJ Number'})
+        else:
+            DjInput = HiddenInput()
         self.fields['dj_number'] = CharField(
-            widget=DjNumberWidget(attrs={'field_label': 'ICM DJ Number'}),
+            widget=DjInput,
             required=False,
         )
 
