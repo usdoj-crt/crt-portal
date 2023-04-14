@@ -8,7 +8,7 @@ FeatureNameValidator = RegexValidator(r'^[a-z\-]*$', 'Feature may only contain t
 class AddFeatureMigration(migrations.RunPython):
     def __init__(self, feature_name, enabled, **kwargs):
         def add_feature(apps, schema_editor):
-            del apps, schema_editor  # unused
+            drop_feature(apps, schema_editor)
             Feature.objects.create(name=feature_name, enabled=enabled)
 
         def drop_feature(apps, schema_editor):
