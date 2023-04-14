@@ -49,7 +49,7 @@ class DjNumberWidget(MultiWidget):
             NumberInput(attrs={
                 'size': '4',
                 'label': 'DJ Number Sequence',
-                'class': 'usa-input',
+                'class': 'usa-input crt-restrict-number',
                 'min': '0',
                 'max': '9999',
                 'placeholder': '####',
