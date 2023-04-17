@@ -218,14 +218,14 @@ class ReportFilterTests(TestCase):
 # test suites don't like it when databases throw errors inside of them
 class ReportFilterErrorTests(TransactionTestCase):
     @classmethod
-    def setUpTestData(self):
+    def setUpTestData(cls):
         test_data = SAMPLE_REPORT_1.copy()
 
         test_data['violation_summary'] = 'plane'
-        self.report1 = Report.objects.create(**test_data)
+        cls.report1 = Report.objects.create(**test_data)
 
         test_data['violation_summary'] = 'truck'
-        self.report2 = Report.objects.create(**test_data)
+        cls.report2 = Report.objects.create(**test_data)
 
     def test_malformed_parens_search(self):
         """
@@ -238,36 +238,36 @@ class ReportFilterErrorTests(TransactionTestCase):
 
 class ReportLanguageFilterTests(TestCase):
     @classmethod
-    def setUpTestData(self):
+    def setUpTestData(cls):
         test_data = SAMPLE_REPORT_1.copy()
 
         # test setup for language English
         test_data['language'] = 'en'
-        self.report1 = Report.objects.create(**test_data)
+        cls.report1 = Report.objects.create(**test_data)
 
         # test setup for language Spanish
         test_data['language'] = 'es'
-        self.report2 = Report.objects.create(**test_data)
+        cls.report2 = Report.objects.create(**test_data)
 
         # test setup for language Chinese traditional
         test_data['language'] = 'zh-hant'
-        self.report3 = Report.objects.create(**test_data)
+        cls.report3 = Report.objects.create(**test_data)
 
         # test setup for language Chinese simplified
         test_data['language'] = 'zh-hans'
-        self.report4 = Report.objects.create(**test_data)
+        cls.report4 = Report.objects.create(**test_data)
 
         # test setup for language Vietnamese
         test_data['language'] = 'vi'
-        self.report5 = Report.objects.create(**test_data)
+        cls.report5 = Report.objects.create(**test_data)
 
         # test setup for language Korean
         test_data['language'] = 'ko'
-        self.report6 = Report.objects.create(**test_data)
+        cls.report6 = Report.objects.create(**test_data)
 
         # test setup for language tagalog
         test_data['language'] = 'tl'
-        self.report7 = Report.objects.create(**test_data)
+        cls.report7 = Report.objects.create(**test_data)
 
     # report language filter test
     # report submitted in English
@@ -306,33 +306,105 @@ class ReportLanguageFilterTests(TestCase):
         self.assertEqual(reports.count(), 1)
 
 
+class ReportDjNumberFilterTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        test_data = SAMPLE_REPORT_1.copy()
+        reports = [
+            {'dj_number': '170-12C-1234'},
+            {'dj_number': '170-USE-12C-1234'},
+            {'dj_number': '39-1-1234'},
+            {'dj_number': '39-12C-1234'},
+            {'dj_number': '50-3-1233'},
+        ]
+
+        for report in reports:
+            Report.objects.create(**test_data, **report)
+
+    def test_filter_by_special_case(self):
+        report_170_use, _ = report_filter(QueryDict('dj_number=170-USE-%-%'))
+        report_170, _ = report_filter(QueryDict('dj_number=170-%-%'))
+
+        self.assertCountEqual(report_170_use.values_list('dj_number', flat=True), [
+            '170-USE-12C-1234'
+        ])
+        self.assertCountEqual(report_170.values_list('dj_number', flat=True), [
+            '170-12C-1234'
+        ])
+
+    def test_filter_by_nothing(self):
+        reports, _ = report_filter(QueryDict(''))
+
+        self.assertCountEqual(reports.values_list('dj_number', flat=True), [
+            '170-12C-1234',
+            '170-USE-12C-1234',
+            '39-1-1234',
+            '39-12C-1234',
+            '50-3-1233',
+        ])
+
+    def test_filter_by_statute(self):
+        reports, _ = report_filter(QueryDict('dj_number=39-%-%'))
+
+        self.assertCountEqual(reports.values_list('dj_number', flat=True), [
+            '39-1-1234',
+            '39-12C-1234',
+        ])
+
+    def test_filter_by_district(self):
+        reports, _ = report_filter(QueryDict('dj_number=%-12C-%'))
+
+        self.assertCountEqual(reports.values_list('dj_number', flat=True), [
+            '170-12C-1234',
+            '170-USE-12C-1234',
+            '39-12C-1234',
+        ])
+
+    def test_filter_by_sequence(self):
+        reports, _ = report_filter(QueryDict('dj_number=%-%-1234'))
+
+        self.assertCountEqual(reports.values_list('dj_number', flat=True), [
+            '170-12C-1234',
+            '170-USE-12C-1234',
+            '39-1-1234',
+            '39-12C-1234',
+        ])
+
+    def test_filter_by_compound(self):
+        reports, _ = report_filter(QueryDict('dj_number=39-12C-%'))
+
+        self.assertCountEqual(reports.values_list('dj_number', flat=True), [
+            '39-12C-1234',
+        ])
+
+
 class FormLettersFilterTests(TestCase):
     @classmethod
-    def setUpTestData(self):
-        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
-        self.report1 = Report.objects.create(**SAMPLE_REPORT_1)
-        self.report2 = Report.objects.create(**SAMPLE_REPORT_2)
-        self.report3 = Report.objects.create(**SAMPLE_REPORT_3)
-        self.report4 = Report.objects.create(**SAMPLE_REPORT_4)
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        cls.report1 = Report.objects.create(**SAMPLE_REPORT_1)
+        cls.report2 = Report.objects.create(**SAMPLE_REPORT_2)
+        cls.report3 = Report.objects.create(**SAMPLE_REPORT_3)
+        cls.report4 = Report.objects.create(**SAMPLE_REPORT_4)
         registry.register(User)
-        add_activity(self.user, "Contacted complainant:", "Email sent: 'EOS - Department of Ed OCR Referral Form Letter' to cookiemonster@fakeemail.com via govDelivery TMS", self.report4)
-        first_action = actor_stream(self.user).first()
+        add_activity(cls.user, "Contacted complainant:", "Email sent: 'EOS - Department of Ed OCR Referral Form Letter' to cookiemonster@fakeemail.com via govDelivery TMS", cls.report4)
+        first_action = actor_stream(cls.user).first()
         first_action.timestamp = datetime(2022, 4, 12, 14, 56, 53, tzinfo=pytz.utc)
         first_action.save()
-        add_activity(self.user, "Contacted complainant:", "Email sent: 'EOS - EEOC Referral Form Letter' to    eileenmcfarland@navapbc.com via govDelivery TMS", self.report2)
-        second_action = actor_stream(self.user).first()
+        add_activity(cls.user, "Contacted complainant:", "Email sent: 'EOS - EEOC Referral Form Letter' to    eileenmcfarland@navapbc.com via govDelivery TMS", cls.report2)
+        second_action = actor_stream(cls.user).first()
         second_action.timestamp = datetime(2022, 4, 12, 17, 30, 53, tzinfo=pytz.utc)
         second_action.save()
-        add_activity(self.user, "Contacted complainant:", "Email sent: 'EOS - EEOC Referral Form Letter' to  bigbird@fake.com via govDelivery TMS", self.report3)
-        third_action = actor_stream(self.user).first()
+        add_activity(cls.user, "Contacted complainant:", "Email sent: 'EOS - EEOC Referral Form Letter' to  bigbird@fake.com via govDelivery TMS", cls.report3)
+        third_action = actor_stream(cls.user).first()
         third_action.timestamp = datetime(2022, 4, 15, 10, 56, 53, tzinfo=pytz.utc)
         third_action.save()
-        add_activity(self.user, "Added comment: ", "Email sent: 'SPL - Standard Form Letter' to gregory94@example.com via govDelivery TMS", self.report4)
-        fourth_action = actor_stream(self.user).first()
+        add_activity(cls.user, "Added comment: ", "Email sent: 'SPL - Standard Form Letter' to gregory94@example.com via govDelivery TMS", cls.report4)
+        fourth_action = actor_stream(cls.user).first()
         fourth_action.timestamp = datetime(2022, 5, 1, 10, 56, 53, tzinfo=pytz.utc)
         fourth_action.save()
-        add_activity(self.user, "Contacted complainant:", "Email sent: 'CRT - Request for Agency Review' to hernandezcolleen@example.com via govDelivery TMS", self.report1)
-        fifth_action = actor_stream(self.user).first()
+        add_activity(cls.user, "Contacted complainant:", "Email sent: 'CRT - Request for Agency Review' to hernandezcolleen@example.com via govDelivery TMS", cls.report1)
+        fifth_action = actor_stream(cls.user).first()
         fifth_action.timestamp = datetime(2022, 5, 4, 10, 56, 53, tzinfo=pytz.utc)
         fifth_action.save()
         FormLettersSent.refresh_view()
@@ -382,7 +454,7 @@ class FormLettersFilterTests(TestCase):
 
 class AutoResponsesFilterTests(TestCase):
     @classmethod
-    def setUpTestData(self):
+    def setUpTestData(cls):
         report_1 = Report.objects.create(**SAMPLE_REPORT_1)
         report_1.create_date = datetime(2022, 4, 12, 18, 17, 52, 0, tzinfo=pytz.utc)
         report_1.save()

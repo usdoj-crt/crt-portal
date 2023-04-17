@@ -29,7 +29,7 @@ filter_options = {
     'public_id': '__icontains',  # aka "ID" or "Complaint ID"
     'assigned_to': 'foreign_key',  # aka "Assignee"
     'origination_utm_campaign': 'foreign_key',
-
+    'origination_utm_campaign': 'foreign_key',
     'location_address_line_1': '__icontains',  # not in filter controls?
     'location_address_line_2': '__icontains',  # not in filter controls?
     'location_city_town': '__icontains',
@@ -47,6 +47,7 @@ filter_options = {
 
     'primary_statute': '__in',  # aka "Classification"
     'primary_complaint': '__in',  # aka "Primary issue"
+    'dj_number': 'dj_number',
     'reported_reason': 'reported_reason',
     'commercial_or_public_place': '__in',  # aka "Relevant details"
 
@@ -112,58 +113,69 @@ def report_filter(querydict):
         filter_list = querydict.getlist(field)
 
         field_options = filter_options[field]
-        if len(filter_list) > 0:
-            filters[field] = querydict.getlist(field)
-            if field_options == '__in':
-                # works for one or more options with exact matches
-                kwargs[f'{field}__in'] = querydict.getlist(field)
-            elif field_options == '__search':
-                # takes one phrase
-                kwargs[f'{field}__search'] = querydict.getlist(field)[0]
-            elif field_options == '__icontains':
-                kwargs[f'{field}__icontains'] = querydict.getlist(field)[0]
-            elif 'date' in field:
-                # filters by a start date or an end date expects yyyy-mm-dd
-                field_name = _get_date_field_from_param(field)
-                encodedDate = querydict.getlist(field)[0]
-                decodedDate = urllib.parse.unquote(encodedDate)
-                try:
-                    dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
-                    dateObj = change_datetime_to_end_of_day(dateObj, field)
-                    kwargs[f'{field_name}{field_options}'] = dateObj
-                except ValueError:
-                    # if the date is invalid, we ignore it.
-                    continue
-            elif field_options == 'summary':
-                # assumes summaries are edited so there is only one per report - that is current behavior
-                kwargs['internal_comments__note__search'] = querydict.getlist(field)[0]
-                kwargs['internal_comments__is_summary'] = True
-            elif field_options == 'reported_reason':
-                reasons = querydict.getlist(field)
-                kwargs['protected_class__value__in'] = reasons
-            elif field_options == 'foreign_key':
-                display_field = foreign_key_displays[field]
-                if querydict.getlist(field)[0] == '(none)':
-                    kwargs[f'{field}__isnull'] = True
-                else:
-                    kwargs[f'{field}__{display_field}__in'] = querydict.getlist(field)
-            elif field_options == 'eq':
-                kwargs[field] = querydict.getlist(field)[0]
-            elif field_options == '__gte':
-                kwargs[field] = querydict.getlist(field)
-            elif field_options == 'violation_summary':
-                search_query = querydict.getlist(field)[0]
-                if search_query.startswith('^') and search_query.endswith('$'):
-                    # Allow for "exact match" using the common regex syntax.
-                    qs = qs.filter(violation_summary=search_query[1:-1])
-                else:
-                    qs = qs.filter(violation_summary_search_vector=_make_search_query(search_query))
-            elif field_options == 'contact_phone':
-                # Removes all non digit characters, then breaks the number into blocks to search individually
-                # EG (123) 456-7890 will search to see if  "123" AND "456" AND "7890" are in the number
-                phone_number_array = ''.join(c if c.isdigit() else ' ' for c in querydict.getlist(field)[0]).split()
-                for number_block in phone_number_array:
-                    qs = qs.filter(contact_phone__icontains=number_block)
+        if len(filter_list) <= 0:
+            continue
+
+        filters[field] = querydict.getlist(field)
+        if field_options == '__in':
+            # works for one or more options with exact matches
+            kwargs[f'{field}__in'] = querydict.getlist(field)
+        elif field_options == '__search':
+            # takes one phrase
+            kwargs[f'{field}__search'] = querydict.getlist(field)[0]
+        elif field_options == '__icontains':
+            kwargs[f'{field}__icontains'] = querydict.getlist(field)[0]
+        elif 'date' in field:
+            # filters by a start date or an end date expects yyyy-mm-dd
+            field_name = _get_date_field_from_param(field)
+            encodedDate = querydict.getlist(field)[0]
+            decodedDate = urllib.parse.unquote(encodedDate)
+            try:
+                dateObj = datetime.strptime(decodedDate, "%Y-%m-%d")
+                dateObj = change_datetime_to_end_of_day(dateObj, field)
+                kwargs[f'{field_name}{field_options}'] = dateObj
+            except ValueError:
+                # if the date is invalid, we ignore it.
+                continue
+        elif field_options == 'summary':
+            # assumes summaries are edited so there is only one per report - that is current behavior
+            kwargs['internal_comments__note__search'] = querydict.getlist(field)[0]
+            kwargs['internal_comments__is_summary'] = True
+        elif field_options == 'reported_reason':
+            reasons = querydict.getlist(field)
+            kwargs['protected_class__value__in'] = reasons
+        elif field_options == 'dj_number':
+            dj_number = querydict.get(field, None)
+            if dj_number is None:
+                continue
+            statute, district, sequence = dj_number.rsplit('-', 2)
+            statute = '[^-]+(-USE)?' if statute == '%' else statute
+            district = '[^-]+' if district == '%' else district
+            sequence = '[^-]+' if sequence == '%' else sequence
+            kwargs['dj_number__iregex'] = f'^{statute}-{district}-{sequence}$'
+        elif field_options == 'foreign_key':
+            display_field = foreign_key_displays[field]
+            if querydict.getlist(field)[0] == '(none)':
+                kwargs[f'{field}__isnull'] = True
+            else:
+                kwargs[f'{field}__{display_field}__in'] = querydict.getlist(field)
+        elif field_options == 'eq':
+            kwargs[field] = querydict.getlist(field)[0]
+        elif field_options == '__gte':
+            kwargs[field] = querydict.getlist(field)
+        elif field_options == 'violation_summary':
+            search_query = querydict.getlist(field)[0]
+            if search_query.startswith('^') and search_query.endswith('$'):
+                # Allow for "exact match" using the common regex syntax.
+                qs = qs.filter(violation_summary=search_query[1:-1])
+            else:
+                qs = qs.filter(violation_summary_search_vector=_make_search_query(search_query))
+        elif field_options == 'contact_phone':
+            # Removes all non digit characters, then breaks the number into blocks to search individually
+            # EG (123) 456-7890 will search to see if  "123" AND "456" AND "7890" are in the number
+            phone_number_array = ''.join(c if c.isdigit() else ' ' for c in querydict.getlist(field)[0]).split()
+            for number_block in phone_number_array:
+                qs = qs.filter(contact_phone__icontains=number_block)
 
     # Check to see if there are multiple values in report_reason search and run distinct if so.  If not, run a regular
     # much faster search.

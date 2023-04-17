@@ -6,8 +6,6 @@
       components = [components.slice(0, -2).join('-'), ...components.slice(-2)];
     }
 
-    console.log(components);
-
     if (components.length === 1) {
       // Try to paste this normally, as a single field.
       return;

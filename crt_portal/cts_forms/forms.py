@@ -1425,8 +1425,15 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
 
     class Meta:
         model = Report
-        fields = ['assigned_section', 'status', 'primary_statute',
-                  'district', 'assigned_to', 'referred', 'dj_number']
+        fields = [
+            'assigned_section',
+            'status',
+            'primary_statute',
+            'district',
+            'assigned_to',
+            'referred',
+            'dj_number',
+        ]
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
@@ -1536,6 +1543,15 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             fields += f', and {updated_fields[-1]}'
             message = f"Successfully updated {fields}."
         return message
+
+    def clean_dj_number(self):
+        dj_number = self.cleaned_data.get('dj_number', None)
+        if not dj_number:
+            return None
+        if '%' in dj_number:
+            # This indicates a partially-supplied number, so don't save it.
+            return None
+        return dj_number
 
     def save(self, commit=True):
         """
