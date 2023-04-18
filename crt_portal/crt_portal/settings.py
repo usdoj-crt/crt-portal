@@ -30,7 +30,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # We are running the testing environment with UNDEFINED.
 # For cloud.gov the ENV must be set in the manifests
 environment = os.environ.get('ENV', 'UNDEFINED')
-USE_LOCALSTACK = os.environ.get('USE_LOCALSTACK', None)
+USE_LOCALSTACK = os.environ.get('USE_LOCALSTACK', 'False')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
@@ -103,6 +103,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'tms',
     'shortener.apps.ShortenerConfig',
+    'features.apps.FeaturesConfig',
 ]
 SITE_ID = 1
 
@@ -139,12 +140,16 @@ TEMPLATES = [
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
-            'builtins': ['cts_forms.templatetags.with_input_error'],
+            'builtins': [
+                'cts_forms.templatetags.with_input_error',
+                'features.templatetags.feature_script',
+            ],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'features.templatetags.feature_context.enabled_features',
             ],
         },
     },
@@ -490,13 +495,19 @@ AV_SCAN_URL = os.getenv('AV_SCAN_URL')
 AV_SCAN_MAX_ATTEMPTS = 10
 
 ENABLE_LOCAL_ATTACHMENT_STORAGE = False
-if USE_LOCALSTACK:
+if USE_LOCALSTACK == 'True':
     from .localstack_settings import *  # noqa: F401,F403
 elif environment == 'LOCAL':
     ENABLE_LOCAL_ATTACHMENT_STORAGE = True
 
 if environment == 'LOCAL':
     from .local_settings import *  # noqa: F401,F403
+    try:
+        # Allow for overriding settings (such as ports and localstack)
+        # for each developer level.
+        from .gitignored_settings import *  # noqa: F401,F403
+    except ImportError:
+        pass
 
 # Don't activate the debug toolbar in a test environment; it can unexpectedly
 # output HTML content that will break test assertions

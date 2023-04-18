@@ -1,4 +1,5 @@
 .local_settings
+gitignored_settings.py
 node_modules/
 *.DS_Store
 *.pyc

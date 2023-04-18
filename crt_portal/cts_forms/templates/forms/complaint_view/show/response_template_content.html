@@ -1,0 +1,42 @@
+
+<div class="intake-tabbed-area">
+  {{ responses.selected_tab }}
+
+  <header class="intake-tabbed-header">
+    <div class="intake-tabbed-nav-container">
+      <nav aria-label="Primary navigation" class="intake-tabbed-nav">
+        <ul class="intake-tabbed-nav__primary intake-tabbed-accordion">
+          <li class="intake-tabbed-nav__primary-item">
+            <a href="#" data-tab="response-template-default" class="intake-tabbed-nav-link intake-tabbed-current"><span>CRT responses</span></a>
+          </li>
+          <li class="intake-tabbed-nav__primary-item">
+            <a href="#" data-tab="response-template-referral" class="intake-tabbed-nav-link"><span>Referral letters</span></a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="intake-tab-content">
+
+    <div class="modal-main">
+      <div id='response-modal-form' class="modal-form">
+        <div class="modal-main">
+          <span class="response-template-default">CRT response letter:</span>
+          <span class="response-template-referral">Referral letter:</span>
+          {{ responses.templates_default }}
+          {{ responses.templates_referral }}
+
+          <p class="intake-template--description">
+            Subject: <strong id="intake_description">(no template chosen)</strong>
+          </p>
+
+          <div id="intake_letter_html" class="form-letter" hidden></div>
+          <textarea disabled aria-label="intake letter" id="intake_letter" rows="10" cols="80"></textarea>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

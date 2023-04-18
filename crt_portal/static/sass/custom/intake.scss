@@ -298,6 +298,120 @@
   }
 }
 
+#intake_print:not([disabled="disabled"]),#intake_copy:not([disabled="disabled"]) {
+  background-color: #ecf1f7;
+  color: #162e51;
+}
+
+.intake-tabbed-area {
+
+  nav ul {
+    list-style: none;
+
+    li:not(:first-child) {
+      margin-top: 0;
+    }
+
+    margin: 0;
+  }
+
+  .intake-tabbed-header {
+    font-family: Public Sans Web,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  select.intake-select {
+    margin-bottom: 16px;
+    width: 100%;
+  }
+
+  .intake-tabbed-nav-container {
+    padding: 0;
+    align-items: flex-end;
+    justify-content: space-between;
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 64rem;
+  }
+
+  .intake-tabbed-nav {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    float: right;
+    font-family: Public Sans Web,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 1rem;
+    justify-content: flex-start;
+    line-height: 1;
+    padding: 0;
+    position: relative;
+    width: 100%;
+  }
+
+  .intake-tabbed-nav__primary intake-tabbed-accordion {
+    color: #2e2e2a;
+    font-family: Public Sans Web,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 1rem;
+    line-height: 1;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .intake-tabbed-nav__primary {
+    width: auto;
+    display: flex;
+  }
+
+  .intake-tabbed-header--basic .intake-tabbed-nav__link:hover::after, .intake-tabbed-header--basic .intake-tabbed-nav__primary-item>.intake-tabbed-current::after {
+    bottom: 0;
+  }
+
+  .intake-tabbed-nav__primary-item {
+    font-size: .88rem;
+    line-height: 1;
+
+    &:has(.intake-tabbed-current) {
+      background-color: #ECF1F7;
+    }
+  }
+
+  a.intake-tabbed-nav-link {
+    line-height: 1;
+    padding: 1rem;
+    color: #162e51;
+    display: block;
+    font-weight: 700;
+    text-decoration: none;
+
+    &.intake-tabbed-current {
+      background-color: #ECF1F7;
+      position: relative;
+
+      span {
+        padding-bottom: 11px;
+        border-bottom: 3px solid #005EA2;
+      }
+    }
+  }
+
+  .intake-tab-content {
+    background-color: #ECF1F7;
+    padding: 16px;
+    margin-bottom:16px;
+  }
+
+  textarea {
+    background-color: white;
+  }
+
+  #intake_letter_html {
+    background-color: white;
+  }
+}
+
 .usa-select {
   @include u-border(1px, $theme-color-primary-darker);
   border-radius: 3px;

@@ -328,16 +328,18 @@ class ResponseActionTests(TestCase):
         self.report = Report.objects.create(**SAMPLE_REPORT_1)
         self.template = ResponseTemplate.objects.create(**SAMPLE_RESPONSE_TEMPLATE)
 
-    def post_template_action(self, what):
+    def post_template_action(self, what, **form_kwargs):
         response = self.client.post(
             reverse(
                 'crt_forms:crt-forms-response',
                 kwargs={'id': self.report.id},
             ),
             {
-                'templates': self.template.id,
+                'templates_default': self.template.id,
+                'selected_tab': 'response-template-default',
                 'type': what,
                 'next': '?per_page=15',
+                **form_kwargs,
             },
             follow=True
         )

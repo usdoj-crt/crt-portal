@@ -82,6 +82,8 @@ Now to compile the sass files into css, run:
 
     npm run gulp:watch
 
+Note that you'll need to turn off localstack for this to work without running `collectstatic`, by setting `USE_LOCALSTACK=False` in `.env`.
+
 Also note, that the staticfiles folder is the destination of all static assets when you or a script runs `manage.py collectstatic` so don't make your changes there, or they will be overwritten.
 
 ## Jupyter
@@ -235,6 +237,61 @@ In production, we use [django-auth-adfs](https://django-auth-adfs.readthedocs.io
 We also explicitly add login required to views and functions that need authentication. If you are making a new path that requires authentication, add a test the [login required test class](https://github.com/usdoj-crt/crt-portal/blob/e9856a2b4726df5ad97ecbf84db99b7767f1662c/crt_portal/cts_forms/tests/tests.py#L985).
 
 We also use public and private as a way to separate views into manageable files. In `cts_forms`, private views are in `views.py` and public views are in `views_public.py`.
+
+### Using Feature Flags
+
+Feature flags allow us to turn on and off certain features from the admin console.
+
+These features can be found at `/admin/features`.
+
+Adding, enabling, and disabling features is done through the admin interface, but gating features in code varies depending on the language.
+
+#### Feature Flags in Django Templates
+
+Django templates should all have an ENABLED_FEATURES dictionary available. The values in the dictionary are either True, False, or None if the feature is enabled, disabled, or missing respectively.
+
+For example:
+
+```jinja
+Secret feature enabled?: {{ ENABLED_FEATURES.secret_feature }}
+
+{% if ENABLED_FEATURES.secret_feature %}
+    The secret feature lives here!
+{% endif %}
+```
+
+#### Feature Flags in Python
+
+To use a feature flag in python, you can use features.models.Feature.is_feature_enabled. Note that you can use `django.apps` to make importing Feature easier. For example:
+
+```python
+from django.apps import apps
+
+Feature = apps.get_model('features', 'Feature')
+if Feature.is_feature_enabled('secret-feature'):
+    do_secret_thing()
+```
+
+#### Feature Flags in Javascript
+
+Our base templates have a global variables with feature status available. To use it:
+
+```javascript
+if (ENABLED_FEATURES.secretFeature) {
+    do_secret_thing()
+}
+```
+
+#### Feature Flags in SCSS
+
+Finally, the "html" tag of all base templates has feature classes appended to it, which allows for SCSS rules that will only apply if that feature is enabled:
+
+```scss
+.secret-feature span.secret-span {
+    color: rainbow;
+    display: magical;
+}
+```
 
 ### I18N
 

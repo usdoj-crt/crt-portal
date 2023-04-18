@@ -23,10 +23,12 @@ from django.db.models import F
 from django.forms.models import model_to_dict
 from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
+from django.utils.html import mark_safe
 from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
 from tms.models import TMSEmail
 from datetime import datetime
+
 
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter, report_grouping
@@ -244,7 +246,7 @@ def render_group_view(request, profile_form, selected_assignee_id, selected_camp
             })
     else:
         updated_group_params = group_params
-    final_data = get_group_view_data(request, updated_group_queries[0]["qs"], filters, grouping, updated_group_params[0], 'All other reports')
+    final_data = group_view_data[-1]["data"]
     final_data['return_url_args'] = urllib.parse.quote(f"{final_data['page_args']}&group_params={updated_group_params}")
     final_data.update({
         'profile_form': profile_form,
@@ -525,28 +527,44 @@ class ResponseView(LoginRequiredMixin, View):
         form = ResponseActions(request.POST, instance=report)
         url = preserve_filter_parameters(report, request.POST)
 
-        if form.is_valid() and form.has_changed():
+        if not form.has_changed():
+            return redirect(url)
+        if not form.is_valid():
+            logging.error({'message': f"Form validation error: {form.errors}"})
+            messages.add_message(request,
+                                 messages.ERROR,
+                                 mark_safe(
+                                     "Sorry, we weren't able to do that:"
+                                     f"{form.errors}"
+                                     "Please refresh and try again."),
+                                 )
+            return redirect(url)
 
-            template = form.cleaned_data['templates']
-            button_type = request.POST['type']
+        tab = form.cleaned_data['selected_tab']
+        template_kind = {
+            'response-template-default': 'templates_default',
+            'response-template-referral': 'templates_referral',
+        }[tab]
+        template = form.cleaned_data[template_kind]
+        button_type = request.POST['type']
 
-            if button_type == 'send':  # We're going to send an email!
-                try:
-                    sent = crt_send_mail(report, template, TMSEmail.MANUAL_EMAIL)
-                    if sent:
-                        description = f"Email sent: '{template.title}' to {report.contact_email} via {self.MAIL_SERVICE}"
-                    else:
-                        description = f"{report.contact_email} not in allowed domains, not attempting to deliver {template.title}."
-                except Exception as e:  # catch *all* exceptions
-                    logger.warning({'message': f"Email failed to send: {e}", 'report': report.id})
-                    messages.add_message(request, messages.ERROR, self.SEND_MAIL_ERROR)
-                    return redirect(url)  # Return here, nothing to write in activity log
-            else:
-                action = self.ACTIONS[button_type]
-                description = f"{action} '{template.title}' template"
+        if button_type == 'send':  # We're going to send an email!
+            try:
+                sent = crt_send_mail(report, template, TMSEmail.MANUAL_EMAIL)
+                if sent:
+                    description = f"Email sent: '{template.title}' to {report.contact_email} via {self.MAIL_SERVICE}"
+                else:
+                    description = f"{report.contact_email} not in allowed domains, not attempting to deliver {template.title}."
+            except Exception as e:  # catch *all* exceptions
+                logger.warning({'message': f"Email failed to send: {e}", 'report': report.id})
+                messages.add_message(request, messages.ERROR, self.SEND_MAIL_ERROR)
+                return redirect(url)  # Return here, nothing to write in activity log
+        else:
+            action = self.ACTIONS[button_type]
+            description = f"{action} '{template.title}' template"
 
-            messages.add_message(request, messages.SUCCESS, description)
-            add_activity(request.user, "Contacted complainant:", description, report)
+        messages.add_message(request, messages.SUCCESS, description)
+        add_activity(request.user, "Contacted complainant:", description, report)
 
         return redirect(url)
 
@@ -722,7 +740,10 @@ class ActionsView(LoginRequiredMixin, FormView):
     def get(self, request):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
-
+        query_string = return_url_args
+        group_desc = request.GET.get('group-desc', None)
+        if group_desc is not None and group_desc != 'All other reports':
+            query_string = f'{return_url_args}&violation_summary=^{group_desc}$'
         ids = request.GET.getlist('id')
         # The select all option only applies if 1. user hits the
         # select all button and 2. we have more records in the query
@@ -730,7 +751,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         selected_all = request.GET.get('all', '') == 'all'
 
         if selected_all:
-            requested_query = reconstruct_query(return_url_args)
+            requested_query = reconstruct_query(query_string)
         else:
             requested_query = Report.objects.filter(pk__in=ids)
 
@@ -753,6 +774,7 @@ class ActionsView(LoginRequiredMixin, FormView):
             'print_reports': requested_query,
             'print_options': PrintActions(),
             'questions': Review.question_text,
+            'query_string': query_string,
         }
         return render(request, 'forms/complaint_view/actions/index.html', output)
 
@@ -761,9 +783,10 @@ class ActionsView(LoginRequiredMixin, FormView):
         selected_all = request.POST.get('all', '') == 'all'
         confirm_all = request.POST.get('confirm_all', '') == 'confirm_all'
         ids = request.POST.get('ids', '').split(',')
+        query_string = request.POST.get('query_string', return_url_args)
 
         if confirm_all:
-            requested_query = reconstruct_query(return_url_args)
+            requested_query = reconstruct_query(query_string)
         else:
             requested_query = Report.objects.filter(pk__in=ids)
 
