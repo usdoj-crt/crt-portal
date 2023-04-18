@@ -412,9 +412,52 @@
   }
 }
 
-.usa-select {
+.usa-input, .usa-select {
   @include u-border(1px, $theme-color-primary-darker);
   border-radius: 3px;
+}
+
+input[type='number'] {
+    -moz-appearance:textfield;
+    appearance: textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.crt-multi {
+  flex-basis: 60%;
+  display: flex;
+  gap: 8px;
+
+  input {
+    margin-top: 0;
+  }
+}
+
+.crt-combo-box-compact ~ .usa-combo-box__input {
+  padding-right: 0;
+}
+
+.crt-combo-box-compact ~ .usa-combo-box__clear-input__wrapper .usa-combo-box__clear-input {
+  right: 0;
+}
+
+.crt-combo-box-compact ~ .usa-combo-box__input-button-separator {
+  display: none;
+}
+
+.usa-combo-box.usa-combo-box--pristine .crt-combo-box-compact ~ .usa-combo-box__toggle-list__wrapper {
+  display: none;
+}
+
+#id_dj_number_2 {
+  max-width: 3.5em;
+}
+
+.usa-select {
   background-image: url(../../img/intake-icons/ic_chevron-down.svg);
   background-size: 15px;
   background-position: right 0.75rem center; // Restore legacy position
@@ -782,11 +825,6 @@ form#cts-forms-profile {
     .usa-combo-box input,
     .crt-checkbox__label {
       margin-top: 0; // Fixes vertical spacing issues
-    }
-
-    // Force combo box inputs to use bold text to match other UI
-    .usa-combo-box input {
-      font-weight: bold;
     }
   }
 

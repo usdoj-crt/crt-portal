@@ -40,6 +40,21 @@
       </label>
       {{ actions.district }}
     </div>
+    {% if ENABLED_FEATURES.dj_number %}
+    <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="Tip: Paste a full DJ number in any box">
+      <div class="margin-bottom-2 crt-dropdown crt-dj-number">
+        <label for="actions_dj_number" class="intake-label">
+          {{ actions.fields.dj_number.widget.attrs.field_label }}
+        </label>
+          <div id="actions_dj_number" class="crt-multi">
+            {{ actions.dj_number }}
+          </div>
+      </div>
+    </span>
+    {% else %}
+      <!-- Hidden DJ number input, as the feature is off. -->
+      {{ actions.dj_number }}
+    {% endif %}
     <div class="margin-bottom-2 crt-dropdown">
       <label for="id_assigned_to" class="intake-label">
         {{ actions.fields.assigned_to.label }}

@@ -15,6 +15,8 @@ from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 
+from features.models import Feature
+
 from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
                               COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
@@ -23,7 +25,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
                               CORRECTIONAL_FACILITY_LOCATION_TYPE_CHOICES,
                               DATE_ERRORS, DISTRICT_CHOICES,
                               EMPLOYER_SIZE_CHOICES, EMPLOYER_SIZE_ERROR,
-                              EMPTY_CHOICE, INCIDENT_DATE_HELPTEXT,
+                              INCIDENT_DATE_HELPTEXT,
                               INTAKE_FORMAT_CHOICES,
                               INTAKE_FORMAT_ERROR,
                               POLICE_LOCATION_ERRORS, PER_PAGE,
@@ -60,20 +62,13 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT,
                             HATE_CRIME_QUESTION)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
-                      CrtPrimaryIssueRadioGroup, UsaCheckboxSelectMultiple,
-                      UsaRadioSelect, DataAttributesSelect, CrtDateInput)
+                      CrtPrimaryIssueRadioGroup, DjNumberWidget, UsaCheckboxSelectMultiple,
+                      UsaRadioSelect, DataAttributesSelect, CrtDateInput, add_empty_choice)
 from utils.voting_mode import is_voting_mode
 
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
-
-
-def _add_empty_choice(choices, default_string=EMPTY_CHOICE):
-    """Add an empty option to list of choices"""
-    if isinstance(choices, list):
-        choices = tuple(choices)
-    return (('', default_string),) + choices
 
 
 def add_activity(user, verb, description, instance):
@@ -327,7 +322,7 @@ class LocationForm(ModelForm):
         }
         self.fields['location_city_town'].required = True
         self.fields['location_state'] = ChoiceField(
-            choices=_add_empty_choice(STATES_AND_TERRITORIES),
+            choices=add_empty_choice(STATES_AND_TERRITORIES),
             widget=Select(attrs={
                 'class': 'usa-select'
             }),
@@ -1120,7 +1115,7 @@ class Filters(ModelForm):
     primary_statute = ChoiceField(
         required=False,
         label=_("Primary classification"),  # This is overridden in templates to the shorter "Classification"
-        choices=_add_empty_choice(STATUTE_CHOICES),
+        choices=add_empty_choice(STATUTE_CHOICES),
         widget=Select(attrs={
             'name': 'primary_statute',
             'class': 'usa-select',
@@ -1130,7 +1125,7 @@ class Filters(ModelForm):
     per_page = ChoiceField(
         required=False,
         label=_("Records per page"),
-        choices=_add_empty_choice(PER_PAGE),
+        choices=add_empty_choice(PER_PAGE),
         widget=Select(attrs={
             'name': 'per_page',
             'class': 'usa-select',
@@ -1141,7 +1136,7 @@ class Filters(ModelForm):
         initial=('default', 'Default'),
         required=False,
         label=_("Grouping"),
-        choices=_add_empty_choice(GROUPING),
+        choices=add_empty_choice(GROUPING),
         widget=Select(attrs={
             'name': 'grouping',
             'class': 'usa-select',
@@ -1431,7 +1426,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
     class Meta:
         model = Report
         fields = ['assigned_section', 'status', 'primary_statute',
-                  'district', 'assigned_to', 'referred']
+                  'district', 'assigned_to', 'referred', 'dj_number']
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
@@ -1439,7 +1434,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         self.fields['assigned_section'] = ChoiceField(
             widget=ComplaintSelect(
                 label='Section',
-                attrs={'class': 'usa-select text-bold crt-dropdown__data'},
+                attrs={'class': 'usa-select crt-dropdown__data'},
             ),
             choices=SECTION_CHOICES_WITHOUT_LABELS,
             required=False
@@ -1461,7 +1456,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
                     'class': 'crt-dropdown__data',
                 },
             ),
-            choices=_add_empty_choice(STATUTE_CHOICES, default_string=''),
+            choices=add_empty_choice(STATUTE_CHOICES, default_string=''),
             required=False
         )
         self.fields['district'] = ChoiceField(
@@ -1471,8 +1466,17 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
                     'class': 'crt-dropdown__data',
                 },
             ),
-            choices=_add_empty_choice(DISTRICT_CHOICES, default_string=''),
+            choices=add_empty_choice(DISTRICT_CHOICES, default_string=''),
             required=False
+        )
+
+        if Feature.is_feature_enabled('dj-number'):
+            DjInput = DjNumberWidget(attrs={'field_label': 'ICM DJ Number'})
+        else:
+            DjInput = HiddenInput()
+        self.fields['dj_number'] = CharField(
+            widget=DjInput,
+            required=False,
         )
 
     def get_actions(self):
@@ -1488,6 +1492,8 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             # rename referred if applicable
             if field == 'referred':
                 name = 'Secondary review'
+            if field == 'dj_number':
+                name = 'ICM DJ Number'
             original = self.initial[field]
             changed = self.cleaned_data[field]
             # fix bug where id was showing up instead of user name
@@ -1514,6 +1520,11 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         """Prepare update success message for rendering in template"""
         def get_label(field):
             field = self.fields[field]
+            # Some fields can't support the extra context label, and store it
+            # on their attributes
+            if attrs_label := field.widget.attrs.get('field_label', None):
+                return attrs_label
+            # Most standard fields will have a direct label.
             if hasattr(field.widget, 'label'):
                 return field.widget.label
             return field.label
@@ -1592,16 +1603,16 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
     assigned_section = ChoiceField(
         label='Section',
         widget=ComplaintSelect(
-            attrs={'class': 'usa-select text-bold crt-dropdown__data'},
+            attrs={'class': 'usa-select crt-dropdown__data'},
         ),
-        choices=_add_empty_choice(SECTION_CHOICES_WITHOUT_LABELS, default_string=EMPTY_CHOICE),
+        choices=add_empty_choice(SECTION_CHOICES_WITHOUT_LABELS, default_string=EMPTY_CHOICE),
         required=False
     )
     status = ChoiceField(
         widget=ComplaintSelect(
             attrs={'class': 'crt-dropdown__data'},
         ),
-        choices=_add_empty_choice(STATUS_CHOICES, default_string=EMPTY_CHOICE),
+        choices=add_empty_choice(STATUS_CHOICES, default_string=EMPTY_CHOICE),
         required=False
     )
     primary_statute = ChoiceField(
@@ -1609,7 +1620,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         widget=ComplaintSelect(
             attrs={'class': 'crt-dropdown__data'},
         ),
-        choices=_add_empty_choice(STATUTE_CHOICES, default_string=EMPTY_CHOICE),
+        choices=add_empty_choice(STATUTE_CHOICES, default_string=EMPTY_CHOICE),
         required=False
     )
     district = ChoiceField(
@@ -1620,7 +1631,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
                 'disabled': 'disabled'
             },
         ),
-        choices=_add_empty_choice(DISTRICT_CHOICES, default_string=EMPTY_CHOICE),
+        choices=add_empty_choice(DISTRICT_CHOICES, default_string=EMPTY_CHOICE),
         required=False
     )
     assigned_to = ModelChoiceField(
