@@ -322,8 +322,8 @@ class ReportDjNumberFilterTests(TestCase):
             Report.objects.create(**test_data, **report)
 
     def test_filter_by_special_case(self):
-        report_170_use, _ = report_filter(QueryDict('dj_number=170-USE-%-%'))
-        report_170, _ = report_filter(QueryDict('dj_number=170-%-%'))
+        report_170_use, _ = report_filter(QueryDict('dj_number=170-USE--'))
+        report_170, _ = report_filter(QueryDict('dj_number=170--'))
 
         self.assertCountEqual(report_170_use.values_list('dj_number', flat=True), [
             '170-USE-12C-1234'
@@ -344,7 +344,7 @@ class ReportDjNumberFilterTests(TestCase):
         ])
 
     def test_filter_by_statute(self):
-        reports, _ = report_filter(QueryDict('dj_number=39-%-%'))
+        reports, _ = report_filter(QueryDict('dj_number=39--'))
 
         self.assertCountEqual(reports.values_list('dj_number', flat=True), [
             '39-1-1234',
@@ -352,7 +352,7 @@ class ReportDjNumberFilterTests(TestCase):
         ])
 
     def test_filter_by_district(self):
-        reports, _ = report_filter(QueryDict('dj_number=%-12C-%'))
+        reports, _ = report_filter(QueryDict('dj_number=-12C-'))
 
         self.assertCountEqual(reports.values_list('dj_number', flat=True), [
             '170-12C-1234',
@@ -361,7 +361,7 @@ class ReportDjNumberFilterTests(TestCase):
         ])
 
     def test_filter_by_sequence(self):
-        reports, _ = report_filter(QueryDict('dj_number=%-%-1234'))
+        reports, _ = report_filter(QueryDict('dj_number=--1234'))
 
         self.assertCountEqual(reports.values_list('dj_number', flat=True), [
             '170-12C-1234',
@@ -371,7 +371,7 @@ class ReportDjNumberFilterTests(TestCase):
         ])
 
     def test_filter_by_compound(self):
-        reports, _ = report_filter(QueryDict('dj_number=39-12C-%'))
+        reports, _ = report_filter(QueryDict('dj_number=39-12C-'))
 
         self.assertCountEqual(reports.values_list('dj_number', flat=True), [
             '39-12C-1234',

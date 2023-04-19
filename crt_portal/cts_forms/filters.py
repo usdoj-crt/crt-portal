@@ -149,9 +149,9 @@ def report_filter(querydict):
             if dj_number is None:
                 continue
             statute, district, sequence = dj_number.rsplit('-', 2)
-            statute = '[^-]+(-USE)?' if statute == '%' else statute
-            district = '[^-]+' if district == '%' else district
-            sequence = '[^-]+' if sequence == '%' else sequence
+            statute = statute or '[^-]+(-USE)?'
+            district = district or '[^-]+'
+            sequence = sequence or '[^-]+'
             kwargs['dj_number__iregex'] = f'^{statute}-{district}-{sequence}$'
         elif field_options == 'foreign_key':
             display_field = foreign_key_displays[field]

@@ -71,7 +71,7 @@ class DjNumberWidget(MultiWidget):
 
     def value_from_datadict(self, data, files, name):
         components = super().value_from_datadict(data, files, name)
-        return '-'.join(c if c else '%' for c in components)
+        return '-'.join(c if c else '' for c in components)
 
 
 class ComplaintSelect(ChoiceWidget):

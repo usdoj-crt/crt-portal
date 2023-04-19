@@ -80,6 +80,15 @@ def add_activity(user, verb, description, instance):
     )
 
 
+def get_dj_widget():
+    if not Feature.is_feature_enabled('dj-number'):
+        return HiddenInput()
+    return DjNumberWidget(attrs={
+        'field_label': 'ICM DJ Number',
+        'name': 'dj_number',
+    })
+
+
 class ActivityStreamUpdater(object):
     """Utility functions to update activity stream for all changed fields"""
 
@@ -1056,8 +1065,17 @@ class CampaignSelect(Select):
 
 class Filters(ModelForm):
 
-    def __init__(self, *args, **kwargs):
-        ModelForm.__init__(self, *args, **kwargs)
+    def __init__(self, data, *args, **kwargs):
+        data = data.copy()
+        # Multifields need to be initialized at a subcomponent level.
+        components = data.get('dj_number', '').rsplit('-', 2)
+        if len(components) == 3:
+            data['dj_number_0'] = components[0]
+            data['dj_number_1'] = components[1]
+            data['dj_number_2'] = components[2]
+
+        ModelForm.__init__(self, data, *args, **kwargs)
+
         # Putting this field in __init__ allows the User QuerySet to be evaluated
         # (otherwise it breaks when this module is read during a migration)
         self.fields['assigned_to'] = ChoiceField(
@@ -1260,6 +1278,10 @@ class Filters(ModelForm):
             'name': 'correctional_facility_type',
         }),
     )
+    dj_number = CharField(
+        widget=get_dj_widget(),
+        required=False,
+    )
 
     class Meta:
         model = Report
@@ -1285,6 +1307,7 @@ class Filters(ModelForm):
             'referred',
             'language',
             'correctional_facility_type',
+            'dj_number',
         ]
 
         labels = {
@@ -1477,12 +1500,8 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             required=False
         )
 
-        if Feature.is_feature_enabled('dj-number'):
-            DjInput = DjNumberWidget(attrs={'field_label': 'ICM DJ Number'})
-        else:
-            DjInput = HiddenInput()
         self.fields['dj_number'] = CharField(
-            widget=DjInput,
+            widget=get_dj_widget(),
             required=False,
         )
 
@@ -1548,8 +1567,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         dj_number = self.cleaned_data.get('dj_number', None)
         if not dj_number:
             return None
-        if '%' in dj_number:
-            # This indicates a partially-supplied number, so don't save it.
+        if any(not c for c in dj_number.rsplit('-', 2)):
             return None
         return dj_number
 
