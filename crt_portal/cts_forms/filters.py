@@ -162,6 +162,8 @@ def report_filter(querydict):
                 search_query = querydict.getlist(field)[0]
                 if search_query.startswith('^#') and search_query.endswith('$'):
                     report_id = search_query[2:-1]
+                    if report_id == '-1':
+                        continue  # This means "all other reports" when grouping
                     try:
                         report = Report.objects.get(pk=report_id)
                     except (Report.DoesNotExist, ValueError):
