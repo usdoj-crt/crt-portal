@@ -11,7 +11,7 @@ WORKDIR /code
 
 # Install Python dependencies
 RUN pip install --upgrade pip
-RUN pip install pipenv
+RUN pip install --force-reinstall -v "pipenv==v2023.3.20"
 
 COPY Pipfile Pipfile.lock /code/
 RUN pipenv install --dev --system
@@ -25,7 +25,8 @@ RUN \
   wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
   apt-get update && \
   apt-get install -yqq nodejs && \
-  pip install -U pip && pip install pipenv && \
+  pip install -U pip && \
+  pip install --force-reinstall -v "pipenv==v2023.3.20" && \
   npm i -g npm@^8 && \
   pip --version && \
   npm -v && \

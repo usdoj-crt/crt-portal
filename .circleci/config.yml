@@ -19,7 +19,7 @@ install-python-dependencies: &install-python-dependencies
     name: Install python dependencies
     command: |
       pip install -U pip
-      pip install pipenv
+      pip install --force-reinstall -v "pipenv==v2023.3.20"
       pipenv install
 
 install-python-dev-dependencies: &install-python-dev-dependencies
@@ -27,7 +27,7 @@ install-python-dev-dependencies: &install-python-dev-dependencies
     name: Install python dev dependencies
     command: |
       pip install -U pip
-      pip install pipenv
+      pip install --force-reinstall -v "pipenv==v2023.3.20"
       pipenv install --dev
       pipenv run python -m playwright install
 
