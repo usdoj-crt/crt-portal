@@ -11,10 +11,10 @@ WORKDIR /code
 
 # Install Python dependencies
 RUN pip install --upgrade pip
-RUN pip install --force-reinstall -v "pipenv==v2023.3.20"
+RUN pip install pipenv
 
 COPY Pipfile Pipfile.lock /code/
-RUN pipenv sync --dev --system
+RUN pipenv install --dev --system
 
 # Install Node and npm dependencies
 RUN \
@@ -26,7 +26,7 @@ RUN \
   apt-get update && \
   apt-get install -yqq nodejs && \
   pip install -U pip && \
-  pip install --force-reinstall -v "pipenv==v2023.3.20" && \
+  pip install pipenv && \
   npm i -g npm@^8 && \
   pip --version && \
   npm -v && \
