@@ -343,12 +343,13 @@
           filterDataModel['group_params'],
           per_page_els
         );
-      } else {
-        filterDataModel[props.name] = buildMultiValue(event.target, event.target.value);
       }
       if (props.name == 'per_page' || props.name == 'grouping') {
+        filterDataModel[props.name] = event.target.value;
         dom.getElementById('apply-filters-button').click();
+        return;
       }
+      filterDataModel[props.name] = buildMultiValue(event.target, event.target.value);
     }
     props.el.addEventListener('change', onChange);
     props.el.addEventListener('paste', dispatchChange);
