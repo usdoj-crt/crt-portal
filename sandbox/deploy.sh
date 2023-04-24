@@ -6,7 +6,7 @@ set -e  # Don't continue if one of the below commands fails.
 
 cf target -o sandbox-usdoj
 
-This would happen once, as an infrequent / maintenance tasks:
+# This would happen once, as an infrequent / maintenance tasks:
 cf create-service aws-rds micro-psql crt-sandbox-db
 while cf service crt-sandbox-db | grep "create in progress" > /dev/null; do
   echo 'Waiting for crt-sandbox-db to be created, this takes a few minutes...'
