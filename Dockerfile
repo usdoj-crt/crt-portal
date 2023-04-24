@@ -14,7 +14,7 @@ RUN pip install --upgrade pip
 RUN pip install --force-reinstall -v "pipenv==v2023.3.20"
 
 COPY Pipfile Pipfile.lock /code/
-RUN pipenv install --dev --system
+RUN pipenv sync --dev --system
 
 # Install Node and npm dependencies
 RUN \
