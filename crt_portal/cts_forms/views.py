@@ -230,9 +230,10 @@ def render_group_view(request, profile_form, selected_assignee_id, selected_camp
             updated_group_queries.append(group_query)
     for i, updated_group_query in enumerate(updated_group_queries):
         params = group_params[i] if 0 <= i < len(group_params) else {'sort': [], 'per_page': 15, 'page': 1}
-        group_data = get_group_view_data(request, updated_group_query['requested_reports'], filters, grouping, params, updated_group_query['desc'])
+        group_data = get_group_view_data(request, updated_group_query['requested_reports'], filters, grouping, params, updated_group_query['desc_id'])
         group_view_data.append({
             "desc": updated_group_query['desc'],
+            "desc_id": updated_group_query['desc_id'],
             "data": group_data
         })
     # Reset group params if number of groups has changed
@@ -270,7 +271,7 @@ def render_default_view(request, profile_form, selected_assignee_id, selected_ca
     return render(request, 'forms/complaint_view/index/index.html', final_data)
 
 
-def get_group_view_data(request, requested_reports, query_filters, grouping, group_params, desc):
+def get_group_view_data(request, requested_reports, query_filters, grouping, group_params, desc_id):
     # Sort data based on request from params, default to `created_date` of complaint
     per_page = group_params['per_page']
     page = group_params['page']
@@ -291,8 +292,8 @@ def get_group_view_data(request, requested_reports, query_filters, grouping, gro
     page_args += filter_args
     report_url_args += filter_args
 
-    if desc != 'All other reports':
-        desc_filter = f'&violation_summary=^{desc}$'
+    if desc_id != -1:
+        desc_filter = f'&violation_summary=^#{desc_id}$'
         report_url_args += desc_filter
     # process sort query params
     sort_args, sort_state = get_sort_args(sorts, sort_state)
@@ -751,9 +752,9 @@ class ActionsView(LoginRequiredMixin, FormView):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
         query_string = return_url_args
-        group_desc = request.GET.get('group-desc', None)
-        if group_desc is not None and group_desc != 'All other reports':
-            query_string = f'{return_url_args}&violation_summary=^{group_desc}$'
+        group_desc_id = request.GET.get('group-desc-id', -1)
+        if group_desc_id != -1:
+            query_string = f'{return_url_args}&violation_summary=^#{group_desc_id}$'
         ids = request.GET.getlist('id')
         # The select all option only applies if 1. user hits the
         # select all button and 2. we have more records in the query
