@@ -45,7 +45,6 @@ language: zh-hans
     在线查找：
     www.lsc.gov/find-legal-aid
 
-    通过电话联系：(202) 295-1500
 
 您如何提供了帮助：
 

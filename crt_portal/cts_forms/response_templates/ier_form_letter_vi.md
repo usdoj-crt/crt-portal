@@ -160,7 +160,6 @@ TỔ CHỨC CÓ THỂ CÓ KHẢ NĂNG GIÚP ĐỠ
 Các Dịch Vụ Pháp Lý (hoặc các Văn Phòng Hỗ Trợ Pháp Lý)
 
     www.lsc.gov/find-legal-aid
-    Liên lạc qua điện thoại: 202-295-1500
 
 
 ĐỂ TÌM ĐƯỢC…

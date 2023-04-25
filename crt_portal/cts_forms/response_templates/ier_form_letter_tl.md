@@ -160,7 +160,6 @@ SAMAHAN NA MAAARING MAKATULONG
 Samahan ng mga Paglilingkod para sa Batas (o mga Tanggapan ng Tulong para sa Batas)
 
     www.lsc.gov/find-legal-aid
-    Makipag-ugnay sa pamamagitan ng telepono: 202-295-1500
 
 
 UPANG MAKAHANAP NG…

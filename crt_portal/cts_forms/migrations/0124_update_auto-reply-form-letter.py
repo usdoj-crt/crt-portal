@@ -47,7 +47,7 @@ WHAT YOU CAN DO NEXT
 1. Contact local legal aid organizations or a lawyer if you haven’t already
 Legal aid offices or members of lawyer associations in your state may be able to help you with your issue.
 * American Bar Association, visit www.findlegalhelp.org or call (800) 285-2221
-* Legal Service Corporation (or Legal Aid Offices), visit www.lsc.gov/find-legal-aid or call (202) 295-1500
+* Legal Service Corporation (or Legal Aid Offices), visit www.lsc.gov/find-legal-aid
 
 
 2. LEARN MORE: Visit civilrights.justice.gov to learn more about your rights and see examples of violations we handle.

@@ -160,7 +160,6 @@ ORGANIZATION THAT MAY BE ABLE TO HELP
 Legal Services Corporation (or Legal Aid Offices)
 
     www.lsc.gov/find-legal-aid
-    Contact by phone: 202-295-1500
 
 
 TO FIND…

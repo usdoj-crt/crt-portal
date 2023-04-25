@@ -45,7 +45,6 @@ language: ko
     온라인으로 찾기:
     www.lsc.gov/find-legal-aid
 
-    전화로 연락: (202) 295-1500
 
 귀하가 도와 주신 내용:
 

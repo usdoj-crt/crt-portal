@@ -24,7 +24,6 @@ You also may contact your state bar association or local legal aid office to ass
 
     Legal Services Corporation (or Legal Aid Offices)
     https://www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 How you have helped:
 

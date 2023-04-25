@@ -26,7 +26,6 @@ American Bar Association
 
 Legal Services Corporation (or Legal Aid Offices)
 [https://www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid)
-(202) 295-1500
 
 # How you have helped:
 

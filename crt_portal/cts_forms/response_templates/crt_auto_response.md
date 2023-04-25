@@ -13,7 +13,7 @@ Thank you for submitting a report to the Civil Rights Division. Please save your
 If you reported an incident where you or someone else has experienced or is still experiencing physical harm or violence, or are in immediate danger, please call 911 and contact the police.
 
 # What to Expect
-## 1. We review your report 
+## 1. We review your report
 Our specialists in the Civil Rights Division carefully read every report to identify civil rights violations, spot trends, and determine if we have authority to help with your report.
 
 
@@ -28,9 +28,9 @@ In some cases, we may determine that we don’t have legal authority to handle y
 
 
 ## 3. When possible, we will follow up with you
-We do our best to let you know about the outcome of our review. However, we may not always be able to provide you with updates because: 
+We do our best to let you know about the outcome of our review. However, we may not always be able to provide you with updates because:
 
-- We’re actively working on an investigation or case related to your report. 
+- We’re actively working on an investigation or case related to your report.
 - We’re receiving and actively reviewing many requests at the same time.
 
 If we are able to respond, we will contact you using the contact information you provided in this report. Depending on the type of report, response times can vary. If you need to reach us about your report, please refer to your report number when contacting us. This is how we keep track of your submission.
@@ -40,7 +40,7 @@ If we are able to respond, we will contact you using the contact information you
 Legal aid offices or members of lawyer associations in your state may be able to help you with your issue.
 
 - American Bar Association, visit the [www.americanbar.org/groups/legal_services/flh-home](www.americanbar.org/groups/legal_services/flh-home) or call (800) 285-2221
-- Legal Services Corporation (or Legal Aid Offices),to help you find a legal aid lawyer in your area visit [www.lsc.gov/find-legal-aid](www.lsc.gov/find-legal-aid) or call (202) 295-1500
+- Legal Services Corporation (or Legal Aid Offices),to help you find a legal aid lawyer in your area visit [www.lsc.gov/find-legal-aid](www.lsc.gov/find-legal-aid)
 
 
 ## 2. Learn More

@@ -128,7 +128,6 @@ Legal Services Corporation (o Legal Aid Offices):
 Para que le ayuden a localizar a un abogado de asistencia legal por su zona
 
     www.lsc.gov/find-legal-aid
-    Comuníquese por teléfono: 202-295-1500
 
 Cómo nos ha ayudado:
 
