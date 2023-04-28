@@ -27,11 +27,10 @@ language: ko
 
     법률서비스 법인(Legal Services Corporation) (또는 법률구조공사(Legal Aid Offices))
     www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 시간을 내셔서 귀하의 우려사항을 법무부에 알려 주심에 감사드립니다. 이 문제에 대해서 더 이상의 도움을 드리지 못하는 점을 유감으로 생각합니다.
 
 안녕히 계십시오.
 
 미국 법무부
-민권국 
+민권국

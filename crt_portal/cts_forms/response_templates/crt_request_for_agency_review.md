@@ -45,7 +45,6 @@ Legal Services Corporation (or Legal Aid Offices)
     Find online:
     www.lsc.gov/find-legal-aid
 
-    Contact by phone: (202) 295-1500
 
 How you helped:
 

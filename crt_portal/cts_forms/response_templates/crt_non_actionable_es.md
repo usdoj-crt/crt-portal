@@ -27,7 +27,6 @@ El colegio de abogados de su estado o una oficina local de asistencia legal podr
 
     Legal Services Corporation [Corporación de Servicios Legales] (o Legal Aid Offices [Oficinas de Asistencia Legal])
     www.lsc.gov/find-legal-aid (solo en inglés)
-    (202) 295-1500
 
 Gracias por comunicarse con el Departamento de Justicia acerca de sus preocupaciones. Sentimos no poder ayudarle más con este asunto.
 
