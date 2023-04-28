@@ -1,5 +1,6 @@
-from django.db import migrations, models
 from django.core.validators import RegexValidator
+from django.db import migrations, models
+from django.db.utils import ProgrammingError
 
 
 FeatureNameValidator = RegexValidator(r'^[a-z\-]*$', 'Feature may only contain the letters a-z and the dash (-) character')
@@ -51,5 +52,7 @@ class Feature(models.Model):
         """
         try:
             return cls.objects.get(name=name).enabled
-        except cls.DoesNotExist:
+        # During tests, this might be run prior to migrations,
+        # hence ProgrammingError
+        except (cls.DoesNotExist, ProgrammingError):
             return None

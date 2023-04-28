@@ -151,7 +151,6 @@ SAMAHANG MAAARING MAKATULONG
 Korporasyon para sa mga Pang-ligal na Serbisyo  (o mga Tanggapan sa Ligal na Tulong)
 
     www.lsc.gov/find-legal-aid
-    Makipag-ugnay sa pamamagitan ng telepono: 202-295-1500
 
 
 Paano ka nakatulong:
@@ -164,4 +163,4 @@ Taos-puso,
 
 Kagawaran ng Katarungan ng Estados Unidos
 Dibisyon sa mga Karapatang Sibil
-        
+

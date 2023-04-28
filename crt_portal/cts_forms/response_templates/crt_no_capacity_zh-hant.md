@@ -25,7 +25,6 @@ language: zh-hant
 
     法律服務公司（或法律援助辦公室）
     www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 您如何提供了幫助：
 
@@ -36,4 +35,4 @@ language: zh-hant
 耑此，
 
 美國司法部
-民權司 
+民權司

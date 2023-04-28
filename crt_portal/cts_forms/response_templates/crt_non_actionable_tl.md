@@ -5,7 +5,7 @@ language: tl
 ---
 {{ tl.addressee }}，
 
-Nakipag-ugnay ka sa Kagawaran ng Katarungan noong {{ tl.date_of_intake }}.  Pagkatapos ng maingat na pagsusuri ng iyong isinumite, napagpasyahan naming hindi na gumawa ng anumang karagdagang pagkilos sa iyong reklamo. 
+Nakipag-ugnay ka sa Kagawaran ng Katarungan noong {{ tl.date_of_intake }}.  Pagkatapos ng maingat na pagsusuri ng iyong isinumite, napagpasyahan naming hindi na gumawa ng anumang karagdagang pagkilos sa iyong reklamo.
 
 Ano ang aming ginawa:
 
@@ -27,7 +27,6 @@ Ang iyong samahan ng bar ng estado o lokal na tanggapan sa ligal na tulong ay ma
 
     Korporasyon ng Serbisyong Ligal (o mga Tanggapan sa Ligal na Tulong)
     www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 Salamat sa paglaan mo ng oras na makipag-ugnay sa Kagawaran ng Katarungan tungkol sa iyong mga pagkabahala. Nagsisisi kami na hindi kami makapagbigay ng karagdagang tulong sa bagay na ito.
 

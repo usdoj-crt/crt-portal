@@ -437,6 +437,17 @@ input::-webkit-inner-spin-button {
   }
 }
 
+.intake-filters {
+  .crt-multi {
+    flex-basis: 100%;
+  }
+}
+
+.intake-content .intake-filters .crt-dropdown.crt-dj-number {
+  margin-right: 0;
+  margin-bottom: 0;
+}
+
 .crt-combo-box-compact ~ .usa-combo-box__input {
   padding-right: 0;
 }

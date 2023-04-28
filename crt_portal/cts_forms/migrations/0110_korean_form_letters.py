@@ -25,7 +25,7 @@ def add_letters(apps, schema_editor):
 
 안녕히 계십시오.
 /s/
-형사과 
+형사과
 """)
 
     ResponseTemplate.objects.create(
@@ -99,7 +99,7 @@ www.fbi.gov/contact-us/field-offices
 
 귀하께서는 {{ ko.date_of_intake }}에 법무부에 연락하셨습니다. 귀하의 신고서 번호는 {{ record_locator }}입니다.
 
-인권 문제와 관련하여 관심을 갖고 시간을 내셔서 귀하의 견해를 표명하시기 위해서 서신을 보내 주신 데 대해 감사 드립니다. 귀하가 제공하신 정보에 관심을 갖고 담당자가 신중히 처리할 것임을 알려 드립니다. 
+인권 문제와 관련하여 관심을 갖고 시간을 내셔서 귀하의 견해를 표명하시기 위해서 서신을 보내 주신 데 대해 감사 드립니다. 귀하가 제공하신 정보에 관심을 갖고 담당자가 신중히 처리할 것임을 알려 드립니다.
 
 안녕히 계십시오.
 
@@ -235,7 +235,6 @@ www.fbi.gov/contact-us/field-offices
 법률서비스 법인(Legal Services Corporation) (또는 법률구조공사(Legal Aid Offices))
 
     www.lsc.gov/find-legal-aid
-    전화로 연락: 202-295-1500
 
 귀하가 도와 주신 내용:
 
@@ -275,7 +274,6 @@ www.fbi.gov/contact-us/field-offices
 
     법률서비스 법인(Legal Services Corporation) (또는 법률구조공사(Legal Aid Offices))
     www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 귀하가 도와 주신 내용:
 
@@ -286,7 +284,7 @@ www.fbi.gov/contact-us/field-offices
 안녕히 계십시오.
 
 미국 법무부
-민권국 
+민권국
 """)
 
     ResponseTemplate.objects.create(
@@ -317,14 +315,13 @@ www.fbi.gov/contact-us/field-offices
 
     법률서비스 법인(Legal Services Corporation) (또는 법률구조공사(Legal Aid Offices))
     www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 시간을 내셔서 귀하의 우려사항을 법무부에 알려 주심에 감사드립니다. 이 문제에 대해서 더 이상의 도움을 드리지 못하는 점을 유감으로 생각합니다.
 
 안녕히 계십시오.
 
 미국 법무부
-민권국 
+민권국
 """)
 
     ResponseTemplate.objects.create(
@@ -372,8 +369,6 @@ www.fbi.gov/contact-us/field-offices
 
     온라인으로 찾기:
     www.lsc.gov/find-legal-aid
-
-    전화로 연락: (202) 295-1500
 
 귀하가 도와 주신 내용:
 
@@ -582,8 +577,6 @@ www.fbi.gov/contact-us/field-offices
     온라인으로 찾기:
     www.lsc.gov/find-legal-aid
 
-    전화로 연락: (202) 295-1500
-
 귀하가 도와 주신 내용:
 
 귀하의 신고는 민권 개선에 도움을 줄 수 있습니다. 귀하의 신고와 유사한 신고 정보를 통해 민권국은 민권과 관련된 긴급한 출현 문제들을 파악할 수 있습니다. 이를 통해 민권국은 미국 내 모든 사람들의 민권을 보호하기 위해 어떠한 조치를 취해야 하는지 알 수 있습니다.
@@ -658,7 +651,7 @@ PREA에 대한 자세한 내용은 다음 PREA 정보 센터 웹사이트에서 
         body="""
 {{ ko.addressee }}，
 
-귀하는 {{ ko.date_of_intake }}에 법무부에 연락하셨습니다. 귀하의 신고서 번호는 {{ record_locator }}입니다. 민권국은 이 문제에 대한 유사한 서신을 이전에도 받았으며 그 문의에 답변을 제공하였습니다.  
+귀하는 {{ ko.date_of_intake }}에 법무부에 연락하셨습니다. 귀하의 신고서 번호는 {{ record_locator }}입니다. 민권국은 이 문제에 대한 유사한 서신을 이전에도 받았으며 그 문의에 답변을 제공하였습니다.
 
 이전에 보내드린 답변에 추가할 수 있는 내용이 없으며 이 문제에 대해서 추가적으로 도움을 드릴 수 없어 진심으로 유감으로 생각합니다.
 

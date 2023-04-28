@@ -26,7 +26,6 @@ Hiệp hội luật sư tiểu bang hoặc văn phòng hỗ trợ pháp lý đ�
     (800) 285-2221
     Legal Services Corporation (hoặc Legal Aid Offices)
     www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 Cảm ơn quý vị đã dành thời gian liên hệ với Bộ Tư pháp về những mối quan ngại của mình. Chúng tôi rất tiếc vì chúng tôi không thể trợ giúp thêm về vấn đề này.
 

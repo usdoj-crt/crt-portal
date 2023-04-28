@@ -24,7 +24,6 @@ No hemos determinado que su presentación carece de mérito. Es posible que otra
 
     Legal Services Corporation [Corporación de Servicios Legales] (o Legal Aid Offices [Oficinas de Asistencia Legal])
     www.lsc.gov/find-legal-aid (solo en inglés)
-    (202) 295-1500
 
 Cómo usted nos ha ayudado:
 

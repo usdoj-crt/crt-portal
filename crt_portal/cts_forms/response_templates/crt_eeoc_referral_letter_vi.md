@@ -55,7 +55,7 @@ CƠ QUAN CÓ THỂ GIÚP ĐỠ
 
 Nhân viên phụ trách cơ hội việc làm bình đẳng tại cơ quan liên bang của quý vị
 
-    Tìm nhân viên phụ trách EEO liên bang của quý vị: 
+    Tìm nhân viên phụ trách EEO liên bang của quý vị:
 
 TÔI ĐÃ GẶP PHẢI...
 
@@ -124,7 +124,6 @@ TỔ CHỨC CÓ THỂ GIÚP ĐỠ
 
 Legal Services Corporation (hoặc Legal Aid Offices)
 www.lsc.gov/find-legal-aid
-    Liên hệ qua điện thoại: 202-295-1500
 
 Quý vị đã giúp đỡ như thế nào:
 
@@ -136,4 +135,4 @@ Trân trọng,
 
 Bộ Tư pháp Hoa Kỳ
 Ban Dân Quyền
-        
+

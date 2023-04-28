@@ -1,5 +1,7 @@
 import csv
+import io
 import logging
+import zipfile
 
 from actstream.models import Action, Follow
 from django.apps import apps
@@ -9,9 +11,10 @@ from django.contrib.admin.widgets import AdminTextareaWidget
 from django.core.paginator import Paginator
 from django.db.models import Prefetch
 from django import forms
-from django.http import StreamingHttpResponse
+from django.http import HttpResponse, StreamingHttpResponse
 from django.contrib.auth.models import User
 from django.utils.html import mark_safe
+from django.utils.text import slugify
 from django.urls import reverse
 from django.db.models.functions import Lower
 
@@ -297,6 +300,25 @@ class CampaignAdmin(admin.ModelAdmin):
         return mark_safe(f'<input aria-label="Long URL" disabled="disabled" class="admin-copy absolute-url" value="{url}"/>')
 
 
+def export_templates_as_zip(modeladmin, request, queryset):
+    """Export a zip file containing all of the database's response templates."""
+    buffer = io.BytesIO()
+    zip_file = zipfile.ZipFile(buffer, "w")
+
+    for template in queryset:
+        filename = slugify(template.title) + ".md"
+        zip_file.writestr(filename, template.body)
+
+    zip_file.close()
+
+    response = HttpResponse(buffer.getvalue(), content_type="application/zip")
+    response["Content-Disposition"] = 'attachment; filename="templates.zip"'
+
+    return response
+
+export_templates_as_zip.allowed_permissions = ('view',)  # noqa
+
+
 class ResponseTemplateAdmin(admin.ModelAdmin):
     class Media:
         js = ('js/response_template_preview.js',)
@@ -304,6 +326,7 @@ class ResponseTemplateAdmin(admin.ModelAdmin):
             'all': ('css/compiled/admin.css',)
         }
 
+    actions = [export_templates_as_zip]
     exclude = ['is_user_created']
     readonly_fields = ['template_help', 'print_template', 'preview']
 

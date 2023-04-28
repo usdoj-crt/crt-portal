@@ -137,6 +137,7 @@
     summary: '',
     assigned_to: '',
     origination_utm_campaign: '',
+    dj_number: '',
     public_id: '',
     primary_statute: '',
     reported_reason: [],
@@ -250,15 +251,25 @@
     window.location = form.action + finalQuery;
   };
 
+  function dispatchChange(event) {
+    // setTimeout ensures the "change" event happens after the paste completes:
+    setTimeout(() => {
+      event.target.dispatchEvent(new Event('change'));
+    }, 0);
+  }
+
   /**
    * View to control multiselect element behavior
    * @param {Object} props
    * @param {HTMLElement} props.el The DOM node this view manages
    */
   function multiSelectView(props) {
-    props.el.addEventListener('change', function(event) {
-      filterDataModel[props.name] = multiSelectView.getValues(event.target);
-    });
+    function onChange(event) {
+      const newValue = buildMultiValue(event.target, multiSelectView.getValues(event.target));
+      filterDataModel[props.name] = newValue;
+    }
+    props.el.addEventListener('change', onChange);
+    props.el.addEventListener('paste', dispatchChange);
   }
 
   multiSelectView.getValues = function(select) {
@@ -278,7 +289,7 @@
   function checkBoxView(props) {
     for (var i = 0; i < props.el.length; i++) {
       props.el[i].addEventListener('change', function(event) {
-        checkBoxView.getValues(event.target);
+        buildMultiValue(event.target, checkBoxView.getValues(event.target));
       });
     }
   }
@@ -292,6 +303,26 @@
     }
   };
 
+  /** Produces a new multi-field value given one of its constituent parts. */
+  function buildMultiValue(target, newValue) {
+    const fieldName = target
+      .getAttribute('id')
+      .replace(/^id_/, '')
+      .replace(/_[0-9]+$/, '');
+
+    if (fieldName !== 'dj_number') return newValue;
+
+    let subIndex = 0;
+    let component;
+    const changed = [];
+    while ((component = document.querySelector(`#id_${fieldName}_${subIndex}`))) {
+      changed.push(component.value || '');
+      subIndex++;
+    }
+
+    return changed.join('-');
+  }
+
   /**
    * View to control text input element behavior
    * @param {Object} props
@@ -304,8 +335,7 @@
         'Component must be supplied with a valid DOM node and a `name` key corresponding to a key in the filterDataModel object'
       );
     }
-
-    props.el.addEventListener('change', function(event) {
+    function onChange(event) {
       const grouping = document.getElementsByName('grouping')[0].value;
       if (props.name == 'per_page' && grouping !== 'default') {
         const per_page_els = Array.from(document.getElementsByName('per_page'));
@@ -313,13 +343,16 @@
           filterDataModel['group_params'],
           per_page_els
         );
-      } else {
-        filterDataModel[props.name] = event.target.value;
       }
       if (props.name == 'per_page' || props.name == 'grouping') {
+        filterDataModel[props.name] = event.target.value;
         dom.getElementById('apply-filters-button').click();
+        return;
       }
-    });
+      filterDataModel[props.name] = buildMultiValue(event.target, event.target.value);
+    }
+    props.el.addEventListener('change', onChange);
+    props.el.addEventListener('paste', dispatchChange);
   }
 
   function updateGroupParams(group_params, per_page_els) {
@@ -369,6 +402,7 @@
     var createdateendEl = formEl.querySelector('input[name="create_date_end"]');
     var assigneeEl = formEl.querySelector('#id_assigned_to');
     var campaignEl = formEl.querySelector('#id_origination_utm_campaign');
+    var djNumberEl = formEl.querySelectorAll('.crt-dj-number input');
     var complaintIDEl = formEl.querySelector('input[name="public_id"]');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
     var perPageEl = dom.getElementsByName('per_page');
@@ -502,6 +536,10 @@
     textInputsView({
       el: perPageEl,
       name: 'per_page'
+    });
+    textInputsView({
+      el: djNumberEl,
+      name: 'dj_number'
     });
     textInputView({
       el: groupingEl,

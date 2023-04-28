@@ -127,7 +127,6 @@ language: zh-hans
 法律服务公司（或法律援助办公室）
 
     www.lsc.gov/find-legal-aid
-    通过电话联系：202-295-1500
 
 您如何提供了帮助：
 
@@ -139,4 +138,4 @@ language: zh-hans
 
 美国司法部
 民权司
-        
+

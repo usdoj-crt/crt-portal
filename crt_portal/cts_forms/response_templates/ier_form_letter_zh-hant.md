@@ -160,7 +160,6 @@ language: zh-hant
 法律服務組織（或法律援助辦公室）
 
     www.lsc.gov/find-legal-aid
-    致電：202-295-1500
 
 
 要找到……

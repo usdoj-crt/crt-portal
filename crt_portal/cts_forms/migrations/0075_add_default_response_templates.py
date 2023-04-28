@@ -32,7 +32,6 @@ www.findlegalhelp.org
 
 Legal Service Corporation (or Legal Aid Offices)
 www.lsc.gov/find-legal-aid
-(202) 295-1500
 
 Thank you for taking the time to contact the Department of Justice about your concerns. We regret that we are not able to provide more help on this matter.
 
@@ -69,7 +68,6 @@ www.findlegalhelp.org
 
 Legal Service Corporation (or Legal Aid Offices)
 www.lsc.gov/find-legal-aid
-(202) 295-1500
 
 How you have helped:
 
