@@ -9,7 +9,7 @@ register = template.Library()
 class TimestampedStaticNode(StaticNode):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.timestamp = str(int(os.path.getmtime('.')))
+        self.timestamp = str(int(os.path.getmtime('/code/package-lock.json')))
 
     def url(self, *args, **kwargs):
         url = super().url(*args, **kwargs)
