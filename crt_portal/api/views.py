@@ -133,7 +133,6 @@ class ResponseTemplatePreviewBase:
 
     def _add_css(self, body):
         return body + mark_safe(
-            '{% load static %}'
             '<link rel="stylesheet" href="{% static "css/compiled/template-preview.css" %}">'
         )
 

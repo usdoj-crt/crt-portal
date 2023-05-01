@@ -143,6 +143,7 @@ TEMPLATES = [
             'builtins': [
                 'cts_forms.templatetags.with_input_error',
                 'features.templatetags.feature_script',
+                'cts_forms.templatetags.static_refresh',
             ],
             'context_processors': [
                 'django.template.context_processors.debug',
