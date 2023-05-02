@@ -13,6 +13,8 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
+from . import model_variables
+
 from .attachments import MAX_FILE_SIZE_MB, ALLOWED_CONTENT_TYPES, ALLOWED_FILE_EXTENSIONS
 
 logger = logging.getLogger(__name__)
@@ -92,6 +94,22 @@ def validate_file_extension(file):
 
     if this_file_extension not in ALLOWED_FILE_EXTENSIONS:
         raise ValidationError(f'File extension: {this_file_extension} not supported for upload, supported extensions are: {ALLOWED_FILE_EXTENSIONS}')
+
+
+def validate_dj_number(dj_number):
+    components = dj_number.rsplit('-', 2)
+    if len(components) != 3:
+        raise ValidationError(model_variables.DJ_NUMBER_INVALID_MESSAGE)
+    statute, district, sequence = components
+
+    if statute not in (key for key, _ in model_variables.STATUTE_CHOICES):
+        raise ValidationError(model_variables.DJ_NUMBER_INVALID_MESSAGE + f' The statute number {statute} is invalid.')
+
+    if district not in (key for key, _ in model_variables.DISTRICT_CHOICES):
+        raise ValidationError(model_variables.DJ_NUMBER_INVALID_MESSAGE + f' The district number {district} is invalid.')
+
+    if not sequence.isdigit() or not (1 <= len(sequence) <= 4):
+        raise ValidationError(model_variables.DJ_NUMBER_INVALID_MESSAGE + f' The sequence number {sequence} must be between one and four digits.')
 
 
 def validate_file_attachment(file):

@@ -13,6 +13,7 @@ from ..attachments import (
 )
 from ..validators import (
     validate_content_type,
+    validate_dj_number,
     validate_email_address,
     validate_file_extension,
     validate_file_infection,
@@ -105,6 +106,35 @@ class TestFileNameValidator(TestCase):
 
             with self.assertRaises(ValidationError):
                 validate_filename(invalid_filename)
+
+
+class TestDjNumberValidator(TestCase):
+
+    def test_validate_dj_number_valid(self):
+        validate_dj_number('170-80-1234')
+
+    def test_validate_dj_number_valid_extra_dash(self):
+        validate_dj_number('170-USE-80-1234')
+
+    def test_validate_dj_number_statute(self):
+        with self.assertRaisesRegex(ValidationError, r'statute number 666 is invalid'):
+            validate_dj_number('666-26S-1234')
+
+    def test_validate_dj_number_district(self):
+        with self.assertRaisesRegex(ValidationError, r'district number 666 is invalid'):
+            validate_dj_number('170-666-1234')
+
+    def test_validate_dj_number_sequence_digits(self):
+        with self.assertRaisesRegex(ValidationError, r'sequence number 12a4 must'):
+            validate_dj_number('170-26S-12a4')
+
+    def test_validate_dj_number_sequence_missing(self):
+        with self.assertRaisesRegex(ValidationError, r'sequence number  must'):
+            validate_dj_number('170-26S-')
+
+    def test_validate_dj_number_sequence_too_large(self):
+        with self.assertRaisesRegex(ValidationError, r'sequence number 12345 must'):
+            validate_dj_number('170-26S-12345')
 
 
 # use this to match the class signature expected in validate_content_type, file.file.content_type

@@ -42,7 +42,7 @@ from .model_variables import (CLOSED_STATUS,
                               STATUTE_CHOICES)
 from .phone_regex import phone_validation_regex
 import pytz
-from .validators import validate_file_attachment, validate_email_address
+from .validators import validate_file_attachment, validate_email_address, validate_dj_number
 
 logger = logging.getLogger(__name__)
 User = get_user_model()
@@ -205,6 +205,13 @@ class Report(models.Model):
     )
 
     hate_crime = models.CharField(max_length=4, null=True, blank=True, choices=HATE_CRIME_CHOICES)
+
+    dj_number = models.CharField(
+        validators=[validate_dj_number],
+        max_length=256,
+        null=True,
+        blank=True,
+    )
 
     # Protected Class
     # See docs for notes on updating these values:

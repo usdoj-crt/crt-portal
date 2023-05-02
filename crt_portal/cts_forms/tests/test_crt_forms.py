@@ -23,118 +23,101 @@ from .test_data import SAMPLE_REPORT_1, SAMPLE_RESPONSE_TEMPLATE
 
 
 class ActionTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.test_pass = secrets.token_hex(32)
+        cls.user1 = User.objects.create_user('USER_1', 'user1@example.com', cls.test_pass)
+        cls.user2 = User.objects.create_user('USER_2', 'user2@example.com', cls.test_pass)
+
     def setUp(self):
-        self.test_pass = secrets.token_hex(32)
-
-        self.user1 = User.objects.create_user('USER_1', 'user1@example.com', self.test_pass)
-        self.user2 = User.objects.create_user('USER_2', 'user2@example.com', self.test_pass)
-
-    def test_valid(self):
-        form = ComplaintActions(data={
+        self.initial_values = {
             'assigned_section': 'ADM',
             'status': 'new',
             'primary_statute': '144',
             'district': '1',
-        })
-        self.assertTrue(form.is_valid())
+            'dj_number_0': '39',
+            'dj_number_1': '1',
+            'dj_number_2': '1234',
+            'dj_number': '39-1-1234',
+            'assigned_to': self.user1.pk,
+        }
+
+    def test_valid(self):
+        self.initial_values.pop('assigned_to')
+        form = ComplaintActions(data=self.initial_values)
+        self.assertEqual(form.errors, {})
 
     def test_user_assignment(self):
         form = ComplaintActions(
-            initial={
-                'assigned_section': 'ADM',
-                'status': 'new',
-                'primary_statute': '144',
-                'district': '1',
-                'assigned_to': self.user1.pk
-            },
-            data={
-                'assigned_section': 'ADM',
-                'status': 'new',
-                'primary_statute': '144',
-                'district': '1',
-                'assigned_to': self.user2.pk
-            }
+            initial=self.initial_values,
+            data={**self.initial_values, 'assigned_to': self.user2.pk},
         )
 
-        self.assertTrue(form.is_valid())
+        self.assertEqual(form.errors, {})
 
-        for action in form.get_actions():
-            self.assertEqual(action[0], 'Assigned to:')
-            self.assertEqual(action[1], f'Updated from "{self.user1.username}" to "{self.user2.username}"')
+        self.assertCountEqual(form.get_actions(), [(
+            'Assigned to:',
+            f'Updated from "{self.user1.username}" to "{self.user2.username}"'
+        )])
 
     def test_user_new_assignment(self):
         form = ComplaintActions(
-            initial={
-                'assigned_section': 'ADM',
-                'status': 'new',
-                'primary_statute': '144',
-                'district': '1',
-                'assigned_to': None,
-            },
-            data={
-                'assigned_section': 'ADM',
-                'status': 'new',
-                'primary_statute': '144',
-                'district': '1',
-                'assigned_to': self.user2.pk,
-            }
+            initial={**self.initial_values, 'assigned_to': None},
+            data={**self.initial_values, 'assigned_to': self.user2.pk},
         )
 
-        self.assertTrue(form.is_valid())
-
-        self.assertTrue(form.is_valid())
-        actions = list(form.get_actions())
-        self.assertTrue(actions)
-        self.assertEqual(actions[0], ('Assigned to:', f'"{self.user2.username}"'))
-        self.assertEqual(actions[1], ('Assigned to:', f'Updated from "None" to "{self.user2.username}"'))
+        self.assertEqual(form.errors, {})
+        self.assertCountEqual(form.get_actions(), [
+            ('Assigned to:', f'"{self.user2.username}"'),
+            ('Assigned to:', f'Updated from "None" to "{self.user2.username}"'),
+        ])
 
     def test_section_change(self):
         """Changes to section are recorded in activity log"""
         form = ComplaintActions(
-            initial={
-                'assigned_section': 'ADM',
-                'status': 'new',
-                'primary_statute': '144',
-                'district': '1',
-                'assigned_to': self.user1.pk
-            },
+            initial=self.initial_values,
+            data={**self.initial_values, 'assigned_section': 'VOT'}
+        )
+
+        self.assertEqual(form.errors, {})
+        self.assertCountEqual(form.get_actions(), [
+            ('Assigned section:', 'Updated from "ADM" to "VOT"')
+        ])
+
+    def test_dj_number(self):
+        form = ComplaintActions(
+            initial=self.initial_values,
             data={
-                'assigned_section': 'VOT',
-                'status': 'new',
-                'primary_statute': '144',
-                'district': '1',
-                'assigned_to': self.user1.pk
+                **self.initial_values,
+                'dj_number_0': '170',
+                'dj_number_1': '12C',
+                'dj_number_2': '1234',
             }
         )
 
-        self.assertTrue(form.is_valid())
-        actions = list(form.get_actions())
-        self.assertTrue(actions)
-        self.assertEqual(actions[0], ('Assigned section:', 'Updated from "ADM" to "VOT"'))
+        self.assertEqual(form.errors, {})
+
+        self.assertCountEqual(form.get_actions(), [
+            ('ICM DJ Number:', 'Updated from "39-1-1234" to "170-12C-1234"'),
+        ])
 
     def test_referral(self):
         form = ComplaintActions(
             initial={
-                'assigned_section': 'ADM',
-                'status': 'new',
-                'primary_statute': '144',
-                'district': '1',
+                **self.initial_values,
                 'assigned_to': None,
                 'referred': False,
             },
             data={
-                'assigned_section': 'ADM',
-                'status': 'new',
-                'primary_statute': '144',
-                'district': '1',
+                **self.initial_values,
                 'assigned_to': None,
                 'referred': True,
             }
         )
-        self.assertTrue(form.is_valid())
-        actions = list(form.get_actions())
-        self.assertTrue(actions)
-        self.assertEqual(actions[0], ('Secondary review:', 'Updated from "False" to "True"'))
+        self.assertEqual(form.errors, {})
+        self.assertCountEqual(form.get_actions(), [
+            ('Secondary review:', 'Updated from "False" to "True"'),
+        ])
 
 
 class CommentActionTests(TestCase):
@@ -739,7 +722,10 @@ class ReportActionTests(TestCase):
             'status': NEW_STATUS,
             'assigned_to': '',
             'assigned_section': 'ADM',
-            'primary_statute': '144'
+            'primary_statute': '144',
+            'dj_number_0': '39',
+            'dj_number_1': '1',
+            'dj_number_2': '1234',
         }
         url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
         response = self.client.post(url, params_1, follow=True)
@@ -751,6 +737,9 @@ class ReportActionTests(TestCase):
             'status': NEW_STATUS,
             'assigned_to': '',
             'assigned_section': 'HCE',
+            'dj_number_0': '39',
+            'dj_number_1': '1',
+            'dj_number_2': '1234',
         }
         response = self.client.post(url, params_2, follow=True)
         self.report.refresh_from_db()

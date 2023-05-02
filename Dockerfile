@@ -25,7 +25,8 @@ RUN \
   wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
   apt-get update && \
   apt-get install -yqq nodejs && \
-  pip install -U pip && pip install pipenv && \
+  pip install -U pip && \
+  pip install pipenv && \
   npm i -g npm@^8 && \
   pip --version && \
   npm -v && \

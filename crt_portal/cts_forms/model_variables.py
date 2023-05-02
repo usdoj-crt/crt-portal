@@ -666,6 +666,8 @@ PUBLIC_USER = 'public user'
 
 CONTACT_PHONE_INVALID_MESSAGE = _('If you submit a phone number, please make sure to include between 7 and 15 digits. The characters "+", ")", "(", "-", and "." are allowed. Please include country code if entering an international phone number.')
 
+DJ_NUMBER_INVALID_MESSAGE = 'Please double check the DJ Number. It should consist of a classification and Judicial district, separated by "-".'
+
 PRINT_CHOICES = (
     ('correspondent', 'Correspondent Information'),
     ('issue', 'Reported Issue'),
