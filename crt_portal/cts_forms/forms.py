@@ -1926,7 +1926,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
     trafficking = BooleanField(required=False, widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'}))
 
     # Summary fields
-    summary = CharField(required=False, strip=True, widget=Textarea(attrs={'class': 'usa-textarea'}))
+    summary = CharField(required=False, strip=True, widget=Textarea(attrs={'class': 'usa-textarea', 'data-soft-valid': 'true', 'data-soft-maxlength': 7000}))
     summary_id = IntegerField(required=False, widget=HiddenInput())
 
     class Meta(ProForm.Meta):
