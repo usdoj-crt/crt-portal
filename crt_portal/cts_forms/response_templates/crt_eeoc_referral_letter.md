@@ -128,7 +128,6 @@ Legal Services Corporation (or Legal Aid Offices)
 To help you find a legal aid lawyer in your area
 
     www.lsc.gov/find-legal-aid
-    Contact by phone: 202-295-1500
 
 How you helped:
 
@@ -140,4 +139,4 @@ Sincerely,
 
 U.S. Department of Justice
 Civil Rights Division
-        
+

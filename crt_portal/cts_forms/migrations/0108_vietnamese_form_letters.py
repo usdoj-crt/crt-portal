@@ -25,7 +25,7 @@ Chúng tôi sẽ xem xét thư của quý vị để quyết định xem có c�
 
 Trân trọng,
 /s/
-Bộ phân Hình sự 
+Bộ phân Hình sự
 """)
 
     ResponseTemplate.objects.create(
@@ -43,7 +43,7 @@ Thông tin mà quý vị cung cấp không đủ để cho phép chúng tôi xá
 Quý vị có thể yên tâm rằng nếu bằng chứng cho thấy có hành vi vi phạm có thể truy tố đối với quy chế về quyền dân sự hình sự của liên bang, thì các hành động phù hợp sẽ được thực hiện.
 
 Xin cảm ơn quý vị,
-Bộ phân Hình sự 
+Bộ phân Hình sự
 """)
 
     ResponseTemplate.objects.create(
@@ -160,7 +160,7 @@ CƠ QUAN CÓ THỂ GIÚP ĐỠ
 
 Nhân viên phụ trách cơ hội việc làm bình đẳng tại cơ quan liên bang của quý vị
 
-    Tìm nhân viên phụ trách EEO liên bang của quý vị: 
+    Tìm nhân viên phụ trách EEO liên bang của quý vị:
 
 TÔI ĐÃ GẶP PHẢI...
 
@@ -229,7 +229,6 @@ TỔ CHỨC CÓ THỂ GIÚP ĐỠ
 
 Legal Services Corporation (hoặc Legal Aid Offices)
 www.lsc.gov/find-legal-aid
-    Liên hệ qua điện thoại: 202-295-1500
 
 Quý vị đã giúp đỡ như thế nào:
 
@@ -270,7 +269,6 @@ www.findlegalhelp.org
 
     Legal Service Corporation (hoặc Legal Aid Offices)
 www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 Quý vị đã giúp đỡ như thế nào:
 
@@ -311,7 +309,6 @@ www.findlegalhelp.org
     (800) 285-2221
     Legal Service Corporation (hoặc Legal Aid Offices)
 www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 Cảm ơn quý vị đã dành thời gian liên hệ với Bộ Tư pháp về những mối quan ngại của mình. Chúng tôi rất tiếc vì chúng tôi không thể trợ giúp thêm về vấn đề này.
 
@@ -365,7 +362,7 @@ Legal Services Corporation (hoặc Legal Aid Offices)
 
     Tìm trực tuyến:
 www.lsc.gov/find-legal-aid
-    Liên hệ qua điện thoại: (202) 295-1500
+
 Quý vị đã giúp đỡ như thế nào:
 
 Mặc dù chúng tôi không thể hành động trong trường hợp cụ thể này, nhưng báo cáo của quý vị sẽ giúp chúng tôi nâng cao dân quyền. Thông tin từ các báo cáo như của quý vị giúp chúng tôi hiểu được các vấn đề cấp bách và mới xuất hiện. Điều này giúp cung cấp thông tin về cách chúng tôi bảo vệ dân quyền của tất cả mọi người trên đất nước này.
@@ -562,7 +559,7 @@ Legal Services Corporation (hoặc Legal Aid Offices)
 
     Tìm trực tuyến:
 www.lsc.gov/find-legal-aid
-    Liên hệ qua điện thoại: (202) 295-1500
+
 Quý vị đã giúp đỡ như thế nào:
 
 Báo cáo của quý vị sẽ giúp chúng tôi nâng cao dân quyền. Thông tin từ các báo cáo như báo cáo của quý vị giúp chúng tôi hiểu được các vấn đề cấp bách và mới xuất hiện về dân quyền. Điều này giúp cung cấp thông tin về cách chúng tôi bảo vệ dân quyền của tất cả mọi người trên đất nước này.
@@ -600,7 +597,7 @@ Những gì quý vị có thể làm:
 
 Điều phối viên PREA của tiểu bang có thể trợ giúp quý vị trong tình huống của quý vị. Quý vị có thể liên hệ với Điều phối viên PREA của tiểu bang bằng cách tham khảo danh mục đính kèm.
 
-Quý vị cũng có thể tìm hiểu thêm về PREA tại trang web của Trung tâm Thông tin PREA: 
+Quý vị cũng có thể tìm hiểu thêm về PREA tại trang web của Trung tâm Thông tin PREA:
 www.prearesourcecenter.org/training-technical-assistance/prea-101/prisons-and-jail-standards
 
 Quý vị đã giúp đỡ như thế nào:
@@ -638,7 +635,7 @@ Ban Dân Quyền
         body="""
 {{ vi.addressee }}，
 
-Quý vị đã liên hệ với Bộ Tư pháp vào ngày {{ vi.date_of_intake }}. Mã số báo cáo của quý vị là {{ record_locator }}.  Trước đây, chúng tôi đã nhận được thư tín tương tự từ quý vị liên quan đến vấn đề này và chúng tôi đã trả lời câu hỏi của quý vị.  
+Quý vị đã liên hệ với Bộ Tư pháp vào ngày {{ vi.date_of_intake }}. Mã số báo cáo của quý vị là {{ record_locator }}.  Trước đây, chúng tôi đã nhận được thư tín tương tự từ quý vị liên quan đến vấn đề này và chúng tôi đã trả lời câu hỏi của quý vị.
 
 Chúng tôi không thể bổ sung thêm thông tin nào vào câu trả lời trước đó của mình và chúng tôi thật lấy làm tiếc rằng chúng tôi không thể giúp đỡ thêm cho quý vị về vấn đề này.
 

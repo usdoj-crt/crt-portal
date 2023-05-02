@@ -25,7 +25,7 @@ def add_letters(apps, schema_editor):
 
 耑此，
 /s/
-刑事科 
+刑事科
 """)
 
     ResponseTemplate.objects.create(
@@ -235,7 +235,6 @@ www.fbi.gov/contact-us/field-offices
 法律服務公司（或法律援助辦公室）
 
     www.lsc.gov/find-legal-aid
-    透過電話聯繫： 202-295-1500
 
 您如何提供了幫助：
 
@@ -275,7 +274,6 @@ www.fbi.gov/contact-us/field-offices
 
     法律服務公司（或法律援助辦公室）
     www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 您如何提供了幫助：
 
@@ -286,7 +284,7 @@ www.fbi.gov/contact-us/field-offices
 耑此，
 
 美國司法部
-民權司 
+民權司
 """)
 
     ResponseTemplate.objects.create(
@@ -317,14 +315,13 @@ www.fbi.gov/contact-us/field-offices
 
     法律服務公司（或法律援助辦公室）
     www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 感謝您抽出寶貴時間就您關切之事與司法部聯繫。很抱歉，我們無法在此事件上提供更多幫助。
 
 耑此，
 
 美國司法部
-民權司 
+民權司
 """)
 
     ResponseTemplate.objects.create(
@@ -372,8 +369,6 @@ www.fbi.gov/contact-us/field-offices
 
     線上查詢：
     www.lsc.gov/find-legal-aid
-
-    透過電話聯繫： (202) 295-1500
 
 您如何提供了幫助：
 
@@ -583,8 +578,6 @@ www.fbi.gov/contact-us/field-offices
     線上查詢：
     www.lsc.gov/find-legal-aid
 
-    透過電話聯繫： (202) 295-1500
-
 您如何提供了幫助：
 
 您的舉報將幫助我們推動民權。諸如您的舉報等資訊可幫助我們了解新出現的和緊迫的民權問題。這有助於我們了解如何保護這個國家所有人民權的狀況。
@@ -651,7 +644,7 @@ www.fbi.gov/contact-us/field-offices
 
 耑此，
 美國司法部
-民權司 
+民權司
 """)
 
     ResponseTemplate.objects.create(
@@ -660,7 +653,7 @@ www.fbi.gov/contact-us/field-offices
         body="""
 {{ zh_hant.addressee }}，
 
-您於{{ zh_hant.date_of_intake }}與司法部聯繫。您的舉報號碼為{{ record_locator }}。我們先前曾收到您關於此事件的類似信函，我們已對該詢問信函進行了回覆。  
+您於{{ zh_hant.date_of_intake }}與司法部聯繫。您的舉報號碼為{{ record_locator }}。我們先前曾收到您關於此事件的類似信函，我們已對該詢問信函進行了回覆。
 
 我們沒有其他可以補充前次回覆的內容，對於此事件我們無法為您提供進一步的幫助，我們深表遺憾。
 
@@ -684,7 +677,7 @@ def remove_letters(apps, schema_editor):
     ResponseTemplate.objects.filter(title='SPL - Referral for PREA Issues (Chinese Traditional)').delete()
     ResponseTemplate.objects.filter(title='Trending - General COVID inquiries (Chinese Traditional)').delete()
     ResponseTemplate.objects.filter(title='CRT - Constant Writer (Chinese Traditional)').delete()
-    
+
 
 class Migration(migrations.Migration):
 

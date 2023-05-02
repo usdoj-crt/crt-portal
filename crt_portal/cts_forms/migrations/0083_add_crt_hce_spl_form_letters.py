@@ -200,8 +200,6 @@ Legal Services Corporation (or Legal Aid Offices)
     Find online:
     www.lsc.gov/find-legal-aid
 
-    Contact by phone: (202) 295-1500
-
 How you helped:
 
 Your report will help us advance civil rights. Information from reports such as yours helps us understand emerging and urgent issues in civil rights. This helps inform how we protect the civil rights of all people in this country.
@@ -298,8 +296,6 @@ Legal Services Corporation (or Legal Aid Offices)
 
     Find online:
     www.lsc.gov/find-legal-aid
-
-    Contact by phone: (202) 295-1500
 
 How you helped:
 

@@ -25,7 +25,6 @@ Hindi namin tinutukoy na ang iyong ulat ay kulang sa merito. Ang iyong suliranin
 
     Korporasyon para sa Ligal na Serbisyo (o mga Tanggapan sa Ligal na Tulong)
     www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 Paano ka nakatulong:
 
@@ -36,4 +35,4 @@ Salamat sa paglaan mo ng oras na makipag-ugnay sa Kagawaran ng Katarungan tungko
 Taos-puso,
 
 Kagawaran ng Katarungan ng Estados Unidos
-Dibisyon sa mga Karapatang Sibil  
+Dibisyon sa mga Karapatang Sibil

@@ -45,7 +45,6 @@ Korporasyon ng mga Serbisyong Pangligal (o mga Tanggapan sa Ligal na Tulong)
     Hanapin online:
     www.lsc.gov/find-legal-aid
 
-    Makipag-ugnay sa pamamagitan ng telepono: (202) 295-1500
 
 
 Paano ka nakatulong:

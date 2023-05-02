@@ -235,7 +235,6 @@ www.fbi.gov/contact-us/field-offices
 法律服务公司（或法律援助办公室）
 
     www.lsc.gov/find-legal-aid
-    通过电话联系：202-295-1500
 
 您如何提供了帮助：
 
@@ -275,7 +274,6 @@ www.fbi.gov/contact-us/field-offices
 
     法律服务公司（或法律援助办公室）
     www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 您如何提供了帮助：
 
@@ -317,7 +315,6 @@ www.fbi.gov/contact-us/field-offices
 
     法律服务公司（或法律援助办公室）
     www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 感谢您抽出宝贵时间就您所关注的事项与司法部联系。很抱歉，我们无法在此问题上提供更多帮助。
 
@@ -373,7 +370,6 @@ www.fbi.gov/contact-us/field-offices
     在线查找：
     www.lsc.gov/find-legal-aid
 
-    通过电话联系：(202) 295-1500
 
 您如何提供了帮助：
 
@@ -526,7 +522,7 @@ www.fbi.gov/contact-us/field-offices
 - 原籍国
 - 宗教
 - 性别
-- 婚姻状况 
+- 婚姻状况
 - 年龄（只要您达到了可以签订合同的年龄）
 - 从任何公共援助计划中获得收入，或
 - 报复
@@ -582,7 +578,6 @@ www.fbi.gov/contact-us/field-offices
     在线查找：
     www.lsc.gov/find-legal-aid
 
-    通过电话联系：(202) 295-1500
 
 您如何提供了帮助：
 
@@ -649,7 +644,7 @@ www.fbi.gov/contact-us/field-offices
 
 此致，
 美国司法部
-民权司 
+民权司
 """)
 
     ResponseTemplate.objects.create(
@@ -658,7 +653,7 @@ www.fbi.gov/contact-us/field-offices
         body="""
 {{ zh_hans.addressee }}，
 
-您于{{ zh_hans.date_of_intake }}联系了司法部。您的报告编号为 {{ record_locator }}。我们之前曾收到您关于此事件的类似信件并已进行了回复。  
+您于{{ zh_hans.date_of_intake }}联系了司法部。您的报告编号为 {{ record_locator }}。我们之前曾收到您关于此事件的类似信件并已进行了回复。
 
 关于之前的回复，我们没有其他可以补充的内容，因此无法就此事为您提供进一步的帮助，我们对此深感遗憾。
 
@@ -682,7 +677,7 @@ def remove_letters(apps, schema_editor):
     ResponseTemplate.objects.filter(title='SPL - Referral for PREA Issues (Chinese Simplified)').delete()
     ResponseTemplate.objects.filter(title='Trending - General COVID inquiries (Chinese Simplified)').delete()
     ResponseTemplate.objects.filter(title='CRT - Constant Writer (Chinese Simplified)').delete()
-    
+
 
 class Migration(migrations.Migration):
 
