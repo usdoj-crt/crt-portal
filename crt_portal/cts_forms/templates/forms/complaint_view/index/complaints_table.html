@@ -6,8 +6,9 @@
       novalidate
 >
   <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
-  <input type="hidden" value="{{ group_desc_id }}" name="group-desc-id" id="group-desc-id" />
-
+  {% if group_desc_id %}
+    <input type="hidden" value="{{group_desc_id}}" name="group-desc-id" id="group-desc-id" />
+  {% endif %}
   <div class="crt-xscroll">
     <table class="usa-table crt-table sort-table">
       {# This "fake" table makes nested headers available to screen readers #}
