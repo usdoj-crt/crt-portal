@@ -499,7 +499,7 @@ ENABLE_LOCAL_ATTACHMENT_STORAGE = False
 if USE_LOCALSTACK == 'True':
     from .localstack_settings import *  # noqa: F401,F403
 elif environment == 'LOCAL':
-    ENABLE_LOCAL_ATTACHMENT_STORAGE = False
+    ENABLE_LOCAL_ATTACHMENT_STORAGE = True
 
 if environment == 'LOCAL':
     from .local_settings import *  # noqa: F401,F403
