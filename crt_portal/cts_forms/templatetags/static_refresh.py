@@ -1,7 +1,9 @@
 import os
 
+import urllib.parse as urlparse
+from urllib.parse import urlencode
+
 from django import template
-from django.conf import settings
 from django.templatetags.static import StaticNode
 
 register = template.Library()
@@ -14,11 +16,19 @@ class TimestampedStaticNode(StaticNode):
 
     def url(self, *args, **kwargs):
         url = super().url(*args, **kwargs)
-        if settings.USE_STATIC_CACHEBUSTER:
-            return url
-        return f'{url}?v={self.timestamp}'
+        return _add_params_to_url(url, {'v': self.timestamp})
 
 
 @register.tag('static')
 def do_static(parser, token):
     return TimestampedStaticNode.handle_token(parser, token)
+
+
+def _add_params_to_url(url, params):
+    url_parts = list(urlparse.urlparse(url))
+    query = dict(urlparse.parse_qsl(url_parts[4]))
+    query.update(params)
+
+    url_parts[4] = urlencode(query)
+
+    return urlparse.urlunparse(url_parts)

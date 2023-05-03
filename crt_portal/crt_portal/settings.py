@@ -496,12 +496,10 @@ AV_SCAN_URL = os.getenv('AV_SCAN_URL')
 AV_SCAN_MAX_ATTEMPTS = 10
 
 ENABLE_LOCAL_ATTACHMENT_STORAGE = False
-USE_STATIC_CACHEBUSTER = True
 if USE_LOCALSTACK == 'True':
     from .localstack_settings import *  # noqa: F401,F403
 elif environment == 'LOCAL':
     ENABLE_LOCAL_ATTACHMENT_STORAGE = False
-    USE_STATIC_CACHEBUSTER = False
 
 if environment == 'LOCAL':
     from .local_settings import *  # noqa: F401,F403
