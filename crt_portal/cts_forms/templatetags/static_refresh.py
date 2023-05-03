@@ -1,6 +1,7 @@
 import os
 
 from django import template
+from django.conf import settings
 from django.templatetags.static import StaticNode
 
 register = template.Library()
@@ -13,6 +14,8 @@ class TimestampedStaticNode(StaticNode):
 
     def url(self, *args, **kwargs):
         url = super().url(*args, **kwargs)
+        if settings.USE_STATIC_CACHEBUSTER:
+            return url
         return f'{url}?v={self.timestamp}'
 
 
