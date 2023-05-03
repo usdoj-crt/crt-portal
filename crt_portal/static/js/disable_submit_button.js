@@ -1,13 +1,28 @@
+/** Used by public and internal-facing forms to prevent duplicate submission. */
 (function(root) {
-  document.getElementById('report-form').addEventListener('submit', disableSubmitButton);
-  function disableSubmitButton() {
-    const submitNextButton = document.getElementById('submit-next');
-    const submitNextTopButton = document.getElementById('submit-next-top');
-    const submitNextBottomButton = document.getElementById('submit-next-bottom');
-    const submitButton = document.getElementById('submit');
-    if (submitNextButton) submitNextButton.disabled = true;
-    if (submitNextTopButton) submitNextTopButton.disabled = true;
-    if (submitNextBottomButton) submitNextBottomButton.disabled = true;
-    if (submitButton) submitButton.disabled = true;
+  function disableButtons(form) {
+    // Use setTimeout to detach from the submission thread, ensuring the form is
+    // submitted before we disable the buttons.
+    const submitButtons = form.querySelectorAll('[type="submit"]');
+    setTimeout(() => {
+      submitButtons.forEach(button => {
+        button.disabled = true;
+      });
+    }, 0);
   }
+
+  root.addEventListener('load', () => {
+    Array.from(document.forms).forEach(form => {
+      form.addEventListener('submit', event => {
+        if (form.classList.contains('is-submitting')) {
+          console.warn('Preventing duplicate submission');
+          event.preventDefault();
+          return false;
+        }
+        form.classList.add('is-submitting');
+        disableButtons(form);
+        return true;
+      });
+    });
+  });
 })(window);
