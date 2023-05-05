@@ -1,0 +1,51 @@
+#!/bin/bash
+
+read -r -d '' usage <<EOF
+Convenience script to run code on the standalone container's sub-instances.
+
+Automatically syncs the codebase to the standalone container before each
+command.
+
+Usage:
+
+  $0 <name_for_standalone_group> <compose_command_to_run>
+
+Examples:
+
+  $0 lint up
+  $0 lint sync  # Copies the codebase to the standalone container
+  $0 lint run web npm run lint:check
+  $0 lint run web manage.py /code/crt_portal/manage.py check
+EOF
+
+# Echo usage and exit if less than two args are present:
+if [ "$#" -lt 2 ]; then
+  echo "$usage"
+  exit 1
+fi
+
+project_suffix="$1"
+command_to_run="$2"
+shift 2
+
+name="crt-portal-standalone-$project_suffix"
+
+if [[ "$command_to_run" == "sync" ]]; then
+  COMPOSE_PROJECT_NAME="$name" \
+    docker compose cp . standalone:. $@
+  exit $?
+fi
+
+if [[ "$command_to_run" == "up" || "$command_to_run" == "down" ]]; then
+  COMPOSE_PROJECT_NAME="$name" \
+    docker compose $command_to_run standalone $@
+  if [[ "$command_to_run" == "up" ]]; then
+    $0 $project_suffix sync
+  fi
+  exit $?
+fi
+
+$0 $project_suffix sync
+COMPOSE_PROJECT_NAME="$name" \
+  docker compose run standalone \
+  docker compose $command_to_run $@
