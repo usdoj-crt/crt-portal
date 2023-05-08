@@ -132,7 +132,7 @@ jobs:
           command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=http://localhost:8000
       - run:
           name: Create a test user for e2e tests that require authentication.
-          command: cf run-task crt-portal-django -c "python crt_portal/manage.py create_test_user"
+          command: pipenv run crt-portal/manage.py create_test_user
       - run:
           name: Authed E2E tests
           environment:
