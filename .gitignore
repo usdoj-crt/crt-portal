@@ -1,3 +1,4 @@
+test-user-*.txt
 .local_settings
 gitignored_settings.py
 node_modules/
