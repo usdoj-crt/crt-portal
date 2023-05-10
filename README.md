@@ -63,16 +63,7 @@ To run the project
 
     docker-compose up
 
-You can also build the project as a standalone docker-on-docker project using:
-
-    docker compose up standalone
-
-You can run additional instances by naming them using COMPOSE_PROJECT_NAME, and use docker run to start jobs you'd otherwise run locally:
-
-    COMPOSE_PROJECT_NAME=my-other-standalone docker compose up standalone
-    COMPOSE_PROJECT_NAME=my-other-standalone docker compose run standalone docker compose run web npm run lint:check
-
-Since this is a bit wordy and requires setting quite a few variables to set, there's a helper script for this - to see usage details, run:
+You can also build the project under a separate project, detached from local dependencies (ports and volumes) using:
 
     ./standalone
 

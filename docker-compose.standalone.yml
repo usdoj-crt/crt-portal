@@ -45,6 +45,3 @@ services:
       - 1025
       - 8025
     profiles: ["not-tests"]
-
-  standalone: # Don't recursively run ourselves!
-    profiles: ["not-standalone"]
