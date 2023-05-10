@@ -140,6 +140,7 @@
     dj_number: '',
     public_id: '',
     primary_statute: '',
+    district: '',
     reported_reason: [],
     commercial_or_public_place: [],
     intake_format: [],
@@ -405,6 +406,7 @@
     var djNumberEl = formEl.querySelectorAll('.crt-dj-number input');
     var complaintIDEl = formEl.querySelector('input[name="public_id"]');
     var statuteEl = formEl.querySelector('select[name="primary_statute"]');
+    var districtEl = formEl.querySelector('select[name="district"]');
     var perPageEl = dom.getElementsByName('per_page');
     var groupingEl = dom.querySelector('select[name="grouping"]');
     var personalDescriptionEl = formEl.querySelector('textarea[name="violation_summary"]');
@@ -532,6 +534,10 @@
     textInputView({
       el: statuteEl,
       name: 'primary_statute'
+    });
+    textInputView({
+      el: districtEl,
+      name: 'district'
     });
     textInputsView({
       el: perPageEl,
