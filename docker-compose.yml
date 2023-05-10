@@ -77,18 +77,6 @@ services:
       - MAX_FILE_SIZE=100M
       - SIGNATURE_CHECKS=1
 
-  standalone:
-    platform: linux/amd64
-    privileged: true  # This is required for docker-in-docker to run.
-    build:
-      dockerfile: standalone.Dockerfile
-    command: docker-compose up
-    environment:
-      - COMPOSE_PROFILES=${STANDALONE_PROFILES:-tests,not-tests}
-      - COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME:-crt-portal-standalone}
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-
 volumes:
   postgres_data:
   localstack-vol:
