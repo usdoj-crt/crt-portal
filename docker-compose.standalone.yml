@@ -10,7 +10,7 @@ services:
 
   db:
     ports:
-      - 5432
+      - ${DATABASE_PORT:-}:5432
     environment:
       - DATABASE_PORT=5432
       - POSTGRES_PASSWORD="passwordfortests"
@@ -18,7 +18,7 @@ services:
 
   web:
     ports:
-      - 8000
+      - ${WEB_PORT:-}:8000
     environment:
       - LOCALSTACK_URL=http://localstack:4566
       - AV_SCAN_URL=http://clamav-rest:9000/scan
@@ -37,7 +37,7 @@ services:
 
   jupyter:
     ports:
-      - 8001
+      - ${JUPYTER_PORT:-}:8000
     profiles: ["not-tests"]
 
   mailhog:

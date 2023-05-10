@@ -14,15 +14,44 @@ class Migration(migrations.Migration):
         migrations.RunSQL(
             "CREATE SCHEMA IF NOT EXISTS analytics",
             reverse_sql=special.RunSQL.noop),
+        # This table may or may not exist for test instances depending on when
+        # the migrations are run. This safely creates or adopts the table:
+        migrations.RunSQL(
+            "CREATE TABLE IF NOT EXISTS analytics.dashboard_embed ()",
+            reverse_sql=special.RunSQL.noop),
+
         migrations.CreateModel(
             name='DashboardEmbed',
-            fields=[
-                ('filename', models.CharField(max_length=255, primary_key=True, serialize=False)),
-                ('content', models.TextField(default='')),
-                ('mimetype', models.CharField(default='text/html', max_length=255)),
-            ],
+            fields=[],
             options={
+                'managed': False,
                 'db_table': 'analytics"."dashboard_embed',
             },
+        ),
+
+        migrations.AlterModelOptions(
+            name='DashboardEmbed',
+            options={
+                'managed': True,
+                'db_table': 'analytics"."dashboard_embed',
+            },
+        ),
+
+        migrations.AddField(
+            model_name='DashboardEmbed',
+            name='filename',
+            field=models.CharField(max_length=255, primary_key=True, serialize=False)
+        ),
+
+        migrations.AddField(
+            model_name='DashboardEmbed',
+            name='content',
+            field=models.TextField(default='')
+        ),
+
+        migrations.AddField(
+            model_name='DashboardEmbed',
+            name='mimetype',
+            field=models.CharField(default='text/html', max_length=255)
         ),
     ]

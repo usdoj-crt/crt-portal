@@ -72,7 +72,7 @@ You can run additional instances by naming them using COMPOSE_PROJECT_NAME, and 
     COMPOSE_PROJECT_NAME=my-other-standalone docker compose up standalone
     COMPOSE_PROJECT_NAME=my-other-standalone docker compose run standalone docker compose run web npm run lint:check
 
-Since this is a bit wordy, there's a helper script for this - to see usage details, run:
+Since this is a bit wordy and requires setting quite a few variables to set, there's a helper script for this - to see usage details, run:
 
     ./standalone
 
