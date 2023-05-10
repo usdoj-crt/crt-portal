@@ -489,7 +489,9 @@ Then, run with the following command.
 
 These tests are automatically executed for every pull request against a development instance in CircleCI.
 
-As we build out our end-to-end test suite it will be further automated and integrated into our CI/CD pipeline.
+They're also executed against development and staging as those releases happen.
+
+Note that any tests which which require authentication are only executed against branches as part of build_and_test, not dev / staging / prod.
 
 ## Browser targeting
 
