@@ -11,9 +11,45 @@
   gap: 5px;
 }
 
+.flex-submit {
+  input {
+    margin: 0;
+  }
+
+  .dangerous {
+    background: var(--delete-button-bg);
+
+    &:hover,&:active,&:focus {
+      background: var(--delete-button-hover-bg);
+    }
+  }
+
+  display: flex;
+  text-align: left;
+  align-items: center;
+  gap: 15px;
+}
+
+.form-row.field-results {
+  label {
+    display: none;
+  }
+
+  .readonly {
+    margin-left: 0;
+  }
+}
+
 .response-template-preview {
   border: 0px;
   background-color: white;
+}
+
+.ipynb-results {
+  border: 0px;
+  background-color: white;
+  height: 100vh;
+  width: 100%;
 }
 
 .field-preview .readonly {
