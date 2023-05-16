@@ -47,6 +47,7 @@ filter_options = {
     'modified_date_end': '__lte',  # not in filter controls?
 
     'primary_statute': '__in',  # aka "Classification"
+    'district': '__in',
     'primary_complaint': '__in',  # aka "Primary issue"
     'dj_number': 'dj_number',
     'reported_reason': 'reported_reason',
