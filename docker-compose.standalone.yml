@@ -1,0 +1,47 @@
+# Extends and unsets bindings for each instance, meaning they can be run in
+# isolation by tests, etc.
+#
+# Ports configured here are bound to the containers but not on the host machine, meaning multiple groups of these standalone containers can exist on the same host.
+#
+# Certain containers are excluded from the test env entirely with the "not-tests" profile.
+version: "3.7"
+
+services:
+
+  db:
+    ports:
+      - ${DATABASE_PORT:-}:5432
+    environment:
+      - DATABASE_PORT=5432
+      - POSTGRES_PASSWORD="passwordfortests"
+    profiles: ["tests"]
+
+  web:
+    ports:
+      - ${WEB_PORT:-}:8000
+    environment:
+      - LOCALSTACK_URL=http://localstack:4566
+      - AV_SCAN_URL=http://clamav-rest:9000/scan
+      - POSTGRES_PASSWORD="passwordfortests"
+    profiles: ["tests"]
+
+  localstack:
+    ports:
+      - 4566
+    profiles: ["tests"]
+
+  clamav-rest:
+    ports:
+      - 9000
+    profiles: ["tests"]
+
+  jupyter:
+    ports:
+      - ${JUPYTER_PORT:-}:8000
+    profiles: ["not-tests"]
+
+  mailhog:
+    ports:
+      - 1025
+      - 8025
+    profiles: ["not-tests"]
