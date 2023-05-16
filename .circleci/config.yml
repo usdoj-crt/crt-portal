@@ -130,6 +130,14 @@ jobs:
           environment:
             PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome
           command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=http://localhost:8000
+      - run:
+          name: Create a test user for e2e tests that require authentication.
+          command: pipenv run crt_portal/manage.py create_test_user
+      - run:
+          name: Authed E2E tests
+          environment:
+            PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome
+          command: pipenv run pytest crt_portal/cts_forms/tests/integration-authed/*.py --base-url=http://localhost:8000
 
   e2e-test-dev:
     description: Runs E2E tests against dev

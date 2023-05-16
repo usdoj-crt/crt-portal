@@ -1,6 +1,5 @@
 {% extends "forms/complaint_view/intake_base.html" %}
 {% load back_to_all %}
-{% load static %}
 
 {% block page_title %}
  <title>CRT Complaint Records{% for message in messages %} - {{ message }}{% endfor %}</title>
@@ -97,7 +96,9 @@
 <script src="{% static 'js/modal.min.js' %}"></script>
 <script src="{% static 'js/form_letter.min.js' %}"></script>
 <script src="{% static 'js/restrict_field.min.js' %}"></script>
+<script src="{% static 'js/soft_validation.min.js' %}"></script>
 <script src="{% static 'js/paste_dj_field.min.js' %}"></script>
+<script src="{% static 'js/disable_submit_button.min.js' %}"></script>
 <script src="{% static 'js/print_report.min.js' %}"></script>
 <script src="{% static 'js/attachments.min.js' %}"></script>
 <script src="{% static 'js/show_count.min.js'%}"></script>

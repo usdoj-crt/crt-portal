@@ -164,6 +164,10 @@ form#cts-forms-profile {
       background-color: color($theme-link-hover-color);
     }
 
+    &:disabled:hover {
+      background-color: #c9c9c9;
+    }
+
     @media (min-width: 30em) {
       margin-top: 0;
     }
