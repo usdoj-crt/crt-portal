@@ -16,6 +16,7 @@ variable_rename = {
     'origination_utm_campaign': 'Campaign',
     'public_id': 'Complaint ID',
     'primary_statute': 'Classification',
+    'district': 'District number',
     'violation_summary': 'Personal description',
     'primary_complaint': 'Primary issue',
     'servicemember': 'Servicemember',

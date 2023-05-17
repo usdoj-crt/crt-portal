@@ -1130,6 +1130,16 @@ class Filters(ModelForm):
             'name': 'location_state',
         }),
     )
+    district = ChoiceField(
+        required=False,
+        label=_("District number"),
+        choices=add_empty_choice(DISTRICT_CHOICES),
+        widget=Select(attrs={
+            'name': 'district',
+            'class': 'usa-select',
+            'aria-label': 'District Number'
+        })
+    )
     primary_statute = ChoiceField(
         required=False,
         label=_("Primary classification"),  # This is overridden in templates to the shorter "Classification"
@@ -1296,6 +1306,7 @@ class Filters(ModelForm):
             'assigned_to',
             'public_id',
             'primary_statute',
+            'district',
             'violation_summary',
             'primary_complaint',
             'contact_phone',

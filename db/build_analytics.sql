@@ -17,6 +17,7 @@ GRANT SELECT ON ALL TABLES IN SCHEMA public TO analytics;
 ALTER DEFAULT PRIVILEGES FOR USER postgres IN SCHEMA public GRANT SELECT ON TABLES TO analytics;
 
 -- Jupyter expects these to exist, but they might also be created by Django:
+CREATE TABLE IF NOT EXISTS analytics.dashboard_embed ();
 CREATE TABLE IF NOT EXISTS analytics.analyticsfile ();
 -- We'll need to do anything in the analytics schema:
 GRANT ALL PRIVILEGES ON SCHEMA analytics TO analytics;

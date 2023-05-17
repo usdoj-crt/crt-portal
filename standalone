@@ -1,0 +1,69 @@
+#!/bin/bash
+
+read -r -d '' usage <<EOF
+Convenience script to run code on the standalone container's sub-instances.
+
+Automatically syncs the codebase to the standalone container before each
+command.
+
+Usage:
+
+  $0 <name_for_standalone_group> <compose_command_to_run>
+
+Examples:
+
+  $0 lint up
+  $0 lint sync  # Copies the codebase to the standalone container
+  $0 lint run web npm run lint:check
+  $0 lint run web manage.py /code/crt_portal/manage.py check
+
+Environment:
+
+  You can set optional environment variables to change ports and profiles:
+
+    WEB_PORT=8002 JUPYTER_PORT=8004 ./standalone cake up
+
+  Recognized variables include:
+
+    COMPOSE_PROFILES
+    WEB_PORT
+    DATABASE_PORT
+    JUPYTER_PORT
+
+EOF
+
+# Echo usage and exit if less than two args are present:
+if [ "$#" -lt 2 ]; then
+  echo "$usage"
+  exit 1
+fi
+
+project_suffix="$1"
+command_to_run="$2"
+shift 2
+
+compose_files="-f docker-compose.yml -f docker-compose.standalone.yml"
+
+function standalone_compose() {
+  # Run in a subshell so as to not pollute environment variables.
+  (
+    export COMPOSE_PROJECT_NAME="crt-portal-standalone-$project_suffix";
+    export COMPOSE_PROFILES="${COMPOSE_PROFILES:-tests,not-tests}";
+    export WEB_PORT="$WEB_PORT";
+    export DATABASE_PORT="$DATABASE_PORT";
+    export JUPYTER_PORT="$JUPYTER_PORT";
+    docker compose $compose_files $@
+  )
+  return $?
+}
+
+if [[ "$command_to_run" == "sync" ]]; then
+  echo "Copying codebase to $project_suffix:web and $project_suffix:jupyter"
+  standalone_compose cp . web:/code/ $@
+  standalone_compose cp ./jupyterhub jupyter:/srv/jupyterhub $@
+  exit $?
+fi
+
+printf "Note: Standalone instances do not stay in sync with the local codebase. Run $0 $project_suffix sync to update it, if needed.\n\n"
+
+standalone_compose $command_to_run $@

@@ -1,0 +1,40 @@
+# This default dockerfile override sets ports and volumes mapping docker
+# containers to the local machine, meaning that the docker instances are
+# accessible on local ports (for web, database, etc), and code is synced with
+# the containers.
+version: "3.7"
+
+services:
+  db:
+    ports:
+      - ${DATABASE_PORT:-5432}:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  jupyter:
+    ports:
+      - ${JUPYTER_PORT:-8001}:8000
+    volumes:
+      - ./jupyterhub:/srv/jupyterhub
+
+  web:
+    ports:
+      - ${WEB_PORT:-8000}:8000
+    volumes:
+      - .:/code
+
+  mailhog:
+    ports:
+      - ${MAILHOG_SMTP_PORT:-1025}:1025
+      - ${MAILHOG_UI_PORT:-8025}:8025
+
+  clamav-rest:
+    ports:
+      - ${CLAMAV_REST_PORT:-9000}:9000
+
+  localstack:
+    ports:
+      - ${LOCALSTACK_PORT:-4566}:4566
+    volumes:
+      - "localstack-vol:/tmp/localstack"
+

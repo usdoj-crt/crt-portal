@@ -1,0 +1,11 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block controls %}district{% endblock %}
+{% block label %}District Number{% endblock %}
+{% block id %}district{% endblock %}
+
+{% block content %}
+  <div id="district-filter">
+    {{ form.district }}
+  </div>
+{% endblock %}
