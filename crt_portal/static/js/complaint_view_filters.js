@@ -112,6 +112,7 @@
    * @returns {String} The strings joined as a single ampersand-delimited string
    */
   function finalizeQueryParams(params) {
+    gtag('event', 'search_filter', { params: params });
     return params.length ? params.join('&') : '';
   }
 

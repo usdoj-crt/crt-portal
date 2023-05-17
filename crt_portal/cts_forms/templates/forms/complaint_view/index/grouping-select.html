@@ -1,4 +1,4 @@
 <select name="grouping" class="usa-select select-link usa-button--unstyled" aria-label="Grouping options">
   <option value="default">Default</option>
-  <option value="matching-descriptions">Matching descriptions</option>
+  <option onselect="gtag('event', 'click', {'event_name': 'group by matching description'});"  value="matching-descriptions">Matching descriptions</option>
 </select>
