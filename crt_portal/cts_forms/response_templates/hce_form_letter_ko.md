@@ -4,22 +4,45 @@ subject: "회신: 귀하의 민권국 보고서 - {{ ko.section_name }}과의 {{
 language: ko
 is_html: true
 ---
-{{ko.addressee}} 귀하:
+{{ko.addressee}}님 귀하,
 
-법무부로 {{ko.date_of_intake}} 에 연락해 주셔서 감사합니다.  귀하의 신고가 어떻게 검토될 것이며 그 과정에서 귀하가 하실 수 있는 것이 무엇인지에 대한 정보를 제공하고자 이 편지를 보냅니다.  귀하의 신고 번호는 {{ record_locator  }} 입니다.  추후에 귀하의 신고에 대해 문의하기 원하시면 이 번호를 참고해 주십시오.
+{{ko.date_of_intake}}에 법무부에 연락해 주셔서 감사합니다. 주택 및 민사 집행부에서 귀하의 신고를 검토하고 있습니다. 이 서신은 귀하의 신고가 어떻게 검토되는지 설명하고 귀하께서 추진하실 수 있는 다른 방법들을 제공해 드립니다.
 
-귀하의 제보를 신중하게 검토한 후 추가 정보가 필요할 시, 또는 이 제보가 수사로 진행될 경우에 귀하에게 연락 드리겠습니다.  귀하께서 주장하시는 차별 종류는 일반적으로 다수에게 영향을 미칠 경우에만 민권국이 개입된다는 점을 유의하시기 바랍니다.  개인의 차별에 대한 주장 만으로는 수사를 진행하지 않는 것이 우리 기관의 관행입니다.
+**귀하의** **신고** **번호는** **{{ record_locator }}****입니다****.** **귀하의** **신고에** **대해** **문의하시려면** **이** **번호를** **통해** **귀하의** **정보를** **찾을** **수** **있습니다****.**
 
-검토 과정 동안 다음 사항들을 권장합니다:
-- 귀하의 불만이 주택에 관련된 차별일 경우, 주택도시개발부 (HUD)에 불만을 신고할 수 있습니다: [https://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint](https://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint). (HUD는 차별 경험 후 1년 이내까지만 신고 가능한 것을 유의하십시오.)
-- 귀하의 불만이 융자에 관련된 차별일 경우, HUD와 아울러 소비자 금융 보호국 (CFPB)에 불만을 신고할 수 있습니다: [https://www.consumerfinance.gov/complaint/](https://www.consumerfinance.gov/complaint/).
-- 집세 또는 공과금 지불에 대한 보조가 필요하시면 CFPB 홈페이지에서 귀하께 해당되는 지원 정보를 확인할 수 있습니다 [https://www.consumerfinance.gov/coronavirus/mortgage-and-housing-assistance/renter-protections/find-help-with-rent-and-utilities/](https://www.consumerfinance.gov/coronavirus/mortgage-and-housing-assistance/renter-protections/find-help-with-rent-and-utilities/)
+**다음** **단계는?**
 
-주택부와 우리 기관의 업무에 대한 정보를 원하시면 홈페이지를 방문해 주십시오: [www.justice.gov/crt/housing-and-civil-enforcement-section](https://www.justice.gov/crt/housing-and-civil-enforcement-section).
+귀하의 신고를 검토 중 입니다. 우리는 귀하의 신고와 같은 제보를 검토하여 새로운 수사를 시작하거나 기존 수사들을 진행합니다. 귀하의 신고가 이 두 범주 중 하나에 해당하는지 검토하겠습니다. 해당하는 경우, 추가 정보를 얻기 위해 귀하께 연락을 드릴 수도 있습니다.
 
-신용, 장애자 권리, 주택 권리 등에 대한 추가 정보는 주택 관련 정보 페이지를 방문해 주십시오: [civilrights.justice.gov/housing-resources](https://civilrights.justice.gov/housing-resources).
+유감스럽게도 모든 제보를 조사할 수는 없습니다. 우리 집행부는 일반적으로 다수에게 영향을 주는 광범위한 문제에서 발생하는 사건만을 처리합니다. 차별에 대한 개별적 주장에 근거한 제보는 조사하지 않습니다. 귀하의 제보가 조사 불가능할 경우에는 연락을 드리지 않을 것입니다.
 
-개인 변호사와 상담하여 연방 및 주법에 의거한 귀하의 주장의 성립 여부도 알아볼 수 있습니다.  개인 변호사가 없다면 거주하는 주의 변호사 협회 또는 지역 법률 지원 기관에 문의하여 귀하의 신고에 대해 상의할 변호사를 찾는데 도움을 얻으십시오:  [https://www.americanbar.org/groups/legal_services/flh-home/](https://www.americanbar.org/groups/legal_services/flh-home/) 또는 [www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid).
+귀하께서 도움을 받을 기회를 놓치지 않도록 주택도시개발부(HUD) 또는 소비자금융보호국(CFPB)에 아래와 같이 신고하시기를 권장합니다.
 
+**주거** **차별을** **겪고** **있는** **경우****:**
+
+HUD는 주거 차별에 대한 개별 클레임을 조사합니다. 여기에는 인종, 피부색, 국적, 종교, 성별, 가족 사항  또는 장애에 따른 주거 차별이 포함될 수 있습니다. 주거에 대한 차별을 겪고 있는 경우 HUD에 민원을 제기하시기를 권장합니다.
+
+또한 여성폭력방지법(VAWA)에 따른 주거권이 침해되었다고 판단되는 경우 HUD에 민원을 제기하실 수 있습니다. HUD는https://www.hud.gov/program_offices/fair_housing_equal_opp/VAWA에서 VAWA의 주택 보호에 대한 정보를 제공했습니다.
+
+[www.hud.gov/program_offices/fair_‌housing_‌equal_‌‌opp/online-complaint](http://www.hud.gov/program_offices/fair_‌housing_‌equal_opp/online-complaint)를 통해 온라인으로 또는1-800-669-9777에 전화로, 또는 1-800-877-8339에 문자전화로 민원을 제기하실 수 있습니다.  
+
+차별 또는 위반 발생일로부터 1년 내에 HUD에 신고 하지 않으면 HUD는 귀하의 제보를 검토하지 않을 것입니다.
+
+**임대료나** **공과금** **납부에** **도움이** **필요할** **경우****:**
+
+CFPB는 [www.consumerfinance.gov/coronavirus/mortgage-and-housing-assistance/‌renter-protections/find-help-with-rent-and-utilities/](http://www.consumerfinance.gov/coronavirus/mortgage-and-housing-assistance/renter-protections/find-help-with-rent-and-utilities/)에서 귀하의 자격에 맞는 자원을 식별하는 데 도움이 될 수 있습니다.
+
+**대출** **또는** **신용에서** **차별을** **경험하는** **경우****:**
+
+HUD에 [www.hud.gov/program_offices/fair_housing_equal_opp/‌online-complaint](http://www.hud.gov/program_offices/fair_housing_equal_opp/‌online-complaint) 로 또는 CFPB에 [www.consumerfinance.gov/complaint](http://www.consumerfinance.gov/complaint/)로 민원을 제기할 수 있습니다.
+
+**변호사를** **고용하고** **싶다면:**
+
+다른 연방 및 주 법에 따라 귀하께 어떤 권리가 있는지 확인하기 위해 개인 변호사와 상의하실 수 있습니다. 변호사가 없는 경우 주 변호사 협회나 지역 법률 지원 기관이 도움을 줄 수 있습니다. [www.americanbar.org/groups/‌legal_‌services/flh-home](http://www.americanbar.org/groups/legal_services/flh-home/)에서 또는 [www.lsc.gov/find-legal-aid](http://www.lsc.gov/find-legal-aid)에서 지역 변호사를 검색하십시오.
+
+신용, 장애인 권리 및 주거 권리에 대한 자세한 내용은[https://civilrights.justice.gov/housing-resources](https://civilrights.justice.gov/housing-resources)의 주택 자원 페이지를 참조하십시오.
+
+  
 미국 법무부
+
 민권국
