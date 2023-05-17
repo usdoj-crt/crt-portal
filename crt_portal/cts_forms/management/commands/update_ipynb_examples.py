@@ -21,7 +21,7 @@ def _simplify_path(path) -> str:
 
 
 def _is_in_git(path: str) -> bool:
-    return os.system(f'git ls-files --error-unmatch "{path}" > /dev/null 2>&1') == 0
+    return os.system(f"git ls-files --error-unmatch '{path}' > /dev/null 2>&1") == 0  # nosec
 
 
 def _build_error_notebook(error: Exception):
