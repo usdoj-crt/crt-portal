@@ -103,6 +103,7 @@
    * @returns {String} Param in the format of {key}={value}
    */
   function makeQueryParam(key, value) {
+    gtag('event', 'search_filter', { filter: key });
     return key + '=' + encodeURIComponent(value);
   }
 
@@ -112,7 +113,6 @@
    * @returns {String} The strings joined as a single ampersand-delimited string
    */
   function finalizeQueryParams(params) {
-    gtag('event', 'search_filter', { params: params });
     return params.length ? params.join('&') : '';
   }
 
