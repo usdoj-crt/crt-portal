@@ -132,7 +132,7 @@ Jupyter uses the Portal's auth system to decide who can log in. Because of this,
 The following shows how to do this manually. To do this automatically in the local environment, you can run the following, then skip to restarting Jupyter below:
 
 ```
-docker-compose run web python /code/crt_portal/manage.py create_local_oauth
+docker-compose run web python /code/crt_portal/manage.py create_local_oauth --write-to-env
 ```
 
 First, you'll need to set OAUTH_PROVIDER_CLIENT_ID and OAUTH_PROVIDER_CLIENT_SECRET. This is basically the username and password for Jupyter to "log in" to the portal. To get these:
