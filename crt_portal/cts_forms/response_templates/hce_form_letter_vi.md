@@ -4,12 +4,11 @@ subject: "Hồi đáp: Báo Cáo của Ban Dân Quyền của Quý Vị - 
 language: vi
 is_html: true
 ---
-
-Kính thưa {{vi.addressee}},
+{{vi.addressee}},
 
 Cảm ơn quý vị đã liên lạc với Bộ Tư Pháp vào ngày {{vi.date_of_intake}}. Bộ Phận Thực Thi Nhà Ở và Dân Sự đang xem xét báo cáo của quý vị. Trong thư này, chúng tôi sẽ giải thích cách chúng tôi tiến hành việc xem xét báo cáo của quý vị và đưa ra những giải pháp khác mà quý vị có thể lựa chọn.
 
-**Số báo cáo của quý vị là** **{{ record_locator }}.** **N****ếu quý vị muốn hỏi chúng tôi về báo cáo của quý vị****,** **số này sẽ giúp chúng tôi tìm ra thông tin của quý vị****.**
+**Số báo cáo của quý vị là {{ record_locator }}. Nếu quý vị muốn hỏi chúng tôi về báo cáo của quý vị, số này sẽ giúp chúng tôi tìm ra thông tin của quý vị.**
 
 **Điều gì diễn ra bây giờ?**
 
@@ -19,7 +18,7 @@ Tiếc rằng chúng tôi không thể điều tra tất cả mọi khiê�
 
 Để tránh bỏ lỡ cơ hội được giúp đỡ, chúng tôi đề nghị quý vị nên nộp đơn khiếu nại lên Bộ Gia Cư và Phát Triển Đô Thị (Department of Housing and Urban Development, HUD) hoặc Cục Bảo Vệ Tài Chính Người Tiêu Dùng (Consumer Financial Protection Bureau, CFPB) như được nêu dưới đây.
 
-**Nếu quý vị bị phân biệt đối xử về nhà ở****:**
+**Nếu quý vị bị phân biệt đối xử về nhà ở:**
 
 HUD điều tra những khiếu nại của cá nhân về phân biệt đối xử về nhà ở. Việc này có thể bao gồm sự phân biệt đối xử dựa trên chủng tộc, màu da, nguồn gốc quốc gia, tôn giáo, giới tính, tình trạng gia đình, hoặc tình trạng khuyết tật trong vấn đề nhà ở. Nếu quý vị đang gặp phải nạn phân biệt đối xử về nhà ở, chúng tôi đề nghị quý vị nên nộp thư khiếu nại lên HUD.
 
@@ -29,11 +28,11 @@ Quý vị có thể nộp thư khiếu nại trực tuyến lên HUD tạ
 
 Quý vị có được một năm, tính từ ngày quý vị gặp phải nạn phân biệt đối xử, để nộp đơn khiếu nại lên HUD, nếu không, họ sẽ không duyệt xét thư khiếu nại của quý vị.
 
-**Nếu quý vị cần giúp đỡ trong việc thanh toán tiền thuê nhà hoặc hóa đơn điện nước****:**
+**Nếu quý vị cần giúp đỡ trong việc thanh toán tiền thuê nhà hoặc hóa đơn điện nước:**
 
 CFPB có thể giúp quý vị tìm thấy những nguồn hỗ trợ sẵn có mà quý vị có thể hội đủ điều kiện được nhận, tại [www.consumerfinance.gov/coronavirus/mortgage-and-housing-assistance/‌renter-protections/find-help-with-rent-and-utilities/](http://www.consumerfinance.gov/coronavirus/mortgage-and-housing-assistance/renter-protections/find-help-with-rent-and-utilities/).
 
-**Nếu quý vị bị phân biệt đối xử trong việc vay tiền hay vấn đề tín dụng****:**
+**Nếu quý vị bị phân biệt đối xử trong việc vay tiền hay vấn đề tín dụng:**
 
 Quý vị có thể gửi đơn khiếu nại lên HUD tại trang mạng [www.hud.gov/program_offices/fair_housing_equal_opp/‌online-complaint](http://www.hud.gov/program_offices/fair_housing_equal_opp/‌online-complaint) và khiếu nại lên CFPB tại trang mạng [www.consumerfinance.gov/complaint](http://www.consumerfinance.gov/complaint/).
 

@@ -4,7 +4,7 @@ subject: "Respuesta: Su informe de la División de Derechos Civiles - {{ record_
 language: es
 is_html: true
 ---
-Estimado(a) {{ es.addressee }},
+{{ es.addressee }},
 
 Gracias por ponerse en contacto con el Departamento de Justicia el {{ es.date_of_intake }}. La Sección de Vivienda y Cumplimiento de la Ley Civil está revisando su queja. En la presente, le explicamos cómo revisaremos su denuncia y le ofrecemos otras alternativas a las que puede recurrir.
 
