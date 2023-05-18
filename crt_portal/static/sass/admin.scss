@@ -12,8 +12,13 @@
 }
 
 .flex-submit {
-  input {
-    margin: 0;
+  button {
+    color: white;
+    height: 35px;
+    line-height: 15px;
+    border: none;
+    border-radius: 4px;
+    transition: background 0.15s;
   }
 
   .dangerous {

@@ -1,3 +1,4 @@
+from typing import Optional
 from contextlib import contextmanager
 from datetime import datetime
 import os
@@ -5,6 +6,7 @@ from urllib.parse import urlencode
 
 from django.conf import settings
 from django.db import models
+from django.apps import apps
 from nbconvert.preprocessors.execute import ExecutePreprocessor
 import nbconvert
 import nbformat
@@ -37,6 +39,19 @@ def _readonly_database_env():
         os.environ.update(clean_env)
 
 
+class ExecuteCellPreprocessor(ExecutePreprocessor):
+    """A special ExecutePreprocessor that only runs one step."""
+
+    def __init__(self, *args, **kwargs):
+        self._run_only_cell = kwargs.pop('run_only_cell', 0)
+        super().__init__(*args, **kwargs)
+
+    def preprocess_cell(self, cell, resources, index):
+        if self._run_only_cell != index:
+            return cell, resources
+        return super().preprocess_cell(cell, resources, index)
+
+
 class AnalyticsFile(models.Model):
     """Stores Jupyter notebooks in the database.
 
@@ -67,19 +82,38 @@ class AnalyticsFile(models.Model):
             raise ValueError(f"Notebook is not a valid ipynb: {loaded}")
         return loaded
 
-    def refresh(self) -> None:
-        """Re-runs the associated ipynb."""
+    def refresh(self, *, run_only_cell: Optional[int] = None) -> Optional[int]:
+        """Re-runs the associated ipynb.
+
+        Returning the next unexecuted cell or None."""
         if self.type != 'notebook':
             raise ValueError(f"Can't refresh a {self.type}")
-        processor = ExecutePreprocessor(timeout=600, kernel_name='python3')
+
+        if run_only_cell is not None:
+            processor = ExecuteCellPreprocessor(timeout=600,
+                                                kernel_name='python3',
+                                                run_only_cell=run_only_cell)
+        else:
+            processor = ExecutePreprocessor(timeout=600, kernel_name='python3')
 
         with _readonly_database_env():
-            notebook, _ = processor.preprocess(self.as_notebook())
+            kernel_manager = apps.get_app_config('analytics').kernel_manager
+
+            notebook, _ = processor.preprocess(
+                self.as_notebook(),
+                km=kernel_manager,
+            )
 
         self.content = nbformat.writes(notebook)
         local_tz = pytz.timezone('US/Eastern')
         self.last_run = datetime.now(local_tz)
         self.last_modified = datetime.now(local_tz)
+
+        if run_only_cell is None:
+            return None
+        if run_only_cell + 1 >= len(notebook['cells']):
+            return None
+        return run_only_cell + 1
 
     def to_html(self) -> str:
         """Runs the notebook and returns rendered HTML as a string."""
