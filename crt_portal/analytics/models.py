@@ -99,10 +99,14 @@ class AnalyticsFile(models.Model):
         with _readonly_database_env():
             kernel_manager = apps.get_app_config('analytics').kernel_manager
 
-            notebook, _ = processor.preprocess(
-                self.as_notebook(),
-                km=kernel_manager,
-            )
+            try:
+                notebook, _ = processor.preprocess(
+                    self.as_notebook(),
+                    km=kernel_manager,
+                )
+            finally:
+                if processor.kc:
+                    processor.kc.stop_channels()
 
         self.content = nbformat.writes(notebook)
         local_tz = pytz.timezone('US/Eastern')
@@ -112,6 +116,7 @@ class AnalyticsFile(models.Model):
         if run_only_cell is None:
             return None
         if run_only_cell + 1 >= len(notebook['cells']):
+            kernel_manager.shutdown_kernel()
             return None
         return run_only_cell + 1
 
