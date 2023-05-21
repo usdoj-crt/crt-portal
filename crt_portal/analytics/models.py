@@ -1,3 +1,4 @@
+import json
 from typing import Optional
 from contextlib import contextmanager
 from datetime import datetime
@@ -108,7 +109,7 @@ class AnalyticsFile(models.Model):
                 if processor.kc:
                     processor.kc.stop_channels()
 
-        self.content = nbformat.writes(notebook)
+        self.content = json.dumps(notebook)
         local_tz = pytz.timezone('US/Eastern')
         self.last_run = datetime.now(local_tz)
         self.last_modified = datetime.now(local_tz)
