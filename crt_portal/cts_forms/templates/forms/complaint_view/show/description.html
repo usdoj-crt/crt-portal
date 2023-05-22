@@ -9,7 +9,7 @@
       Personal description
       <small class="margin-left-auto">
         <a class="related-reports"
-           onclick="gtag('event', 'click', {'event_name': 'view related reports'});"
+          id="related-reports"
            href="{% url 'crt_forms:crt-forms-index' %}?violation_summary=^{{data.violation_summary | urlencode}}${% filter_for_all_sections %}">
             View
             <span
@@ -32,3 +32,4 @@
     </p>
   </div>
 </div>
+<script src="{% static 'js/ga_util.js' %}"></script>

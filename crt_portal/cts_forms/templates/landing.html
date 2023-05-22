@@ -419,7 +419,15 @@
 {% endblock footer_extra %}
 
 {% block page_js %}
-  <script nonce="{{ request.csp_nonce }}">
+  <script type="module" nonce="{{ request.csp_nonce }}">
+   import { sendGAPublicClickEvent } from "./static/js/ga_util.js";
+   var navItems = document.getElementsByClassName("crt-landing--menu_link");
+   for (var i = 0; i < navItems.length; i++) {
+     var navItem = navItems[i];
+     navItem.onclick = function (el) {
+      sendGAPublicClickEvent('main nav ' + el.innerText);
+     }
+    }
    var examples = document.getElementById("crt-landing--examples");
    var items = examples.getElementsByClassName("usa-nav__submenu-item");
    for (var i = 0; i < items.length; i++) {
@@ -431,6 +439,7 @@
          target = el.target.parentElement;
        }
        var key = target.dataset["key"];
+       sendGAPublicClickEvent('example list ' + key);
        displayExample(key);
        el.preventDefault();
      }
