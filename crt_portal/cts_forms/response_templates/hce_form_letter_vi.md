@@ -4,47 +4,28 @@ subject: "Hồi đáp: Báo Cáo của Ban Dân Quyền của Quý Vị - 
 language: vi
 is_html: true
 ---
-{{vi.addressee}},
 
-Cảm ơn quý vị đã liên lạc với Bộ Tư Pháp vào ngày {{vi.date_of_intake}}. Bộ Phận Thực Thi Nhà Ở và Dân Sự đang xem xét báo cáo của quý vị. Trong thư này, chúng tôi sẽ giải thích cách chúng tôi tiến hành việc xem xét báo cáo của quý vị và đưa ra những giải pháp khác mà quý vị có thể lựa chọn.
+{{vi.addressee}}:
 
-**Số báo cáo của quý vị là {{ record_locator }}. Nếu quý vị muốn hỏi chúng tôi về báo cáo của quý vị, số này sẽ giúp chúng tôi tìm ra thông tin của quý vị.**
+Cảm ơn quý vị đã liên lạc với Bộ Tư Pháp vào ngày {{ko.date_of_intake}}. Thư này nằm thông báo cho quý vị biết về cách chúng tôi xem xét báo cáo của quý vị và những gì quý vị có thể làm trong khi chờ đợi. Số báo cáo của quý vị là {{ record_locator  }}. Trong tương lai, vui lòng nhắc lại số này nếu quý vị muốn hỏi chúng tôi về báo cáo của quý vị.
 
-**Điều gì diễn ra bây giờ?**
+Chúng tôi sẽ xem xét cẩn thận báo cáo của quý vị và sẽ liên lạc với quý vị nếu chúng tôi cần thêm thông tin và/hay có thể mở cuộc điều tra. Xin lưu ý rằng trong những trường hợp liên quan đến loại phân biệt đối xử mà quý vị đã đề cập, Ban Dân Quyền thường chỉ được tham dự vào khi có nhiều nhóm người bị ảnh hưởng. Chúng tôi thường không mở cuộc điều tra dựa trên những khiếu nại của từng cá nhân về việc phân biệt đối xử.
 
-Chúng tôi đang xem xét báo cáo của quý vị. Chúng tôi xem những báo cáo giống như báo cáo của quý vị để giúp chúng rôi chọn ra những ca mới hay theo đuổi những ca hiện có. Chúng tôi sẽ xem xét báo cáo của quý vị để xem nó có phù hợp với một trong hai hạng mục này không. Nếu có, chúng tôi có thể sẽ liên lạc với quý vị để lấy thêm thông tin.
+Trong thời gian chờ đợi, đây là một số gợi ý về những gì quý vị có thể làm:
 
-Tiếc rằng chúng tôi không thể điều tra tất cả mọi khiếu nại. Văn phòng chúng tôi thường chỉ giải quyết những vụ việc phát sinh từ các vấn đề phổ biến ảnh hưởng đến nhiều nhóm người. Chúng tôi không điều tra những khiếu nại phân biệt đối xử của từng cá nhân. Nếu chúng tôi không thể điều tra khiếu nại của quý vị, chúng tôi sẽ không liên lạc với quý vị.
+- Nếu khiếu nại của quý vị liên quan đến sự phân biệt đối xử về nhà ở, quý vị có thể nộp đơn khiếu nại lên Bộ Gia Cư và và Phát Triền Đô Thị (the Department of Housing and Urban Development, HUD): [https://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint](https://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint).
+(Xin lưu ý rằng quý vị có được một năm, tính từ ngày quý vị gặp phải tình trạng phân biệt đối xử, để nộp đơn khiếu nại lên HUD.)
 
-Để tránh bỏ lỡ cơ hội được giúp đỡ, chúng tôi đề nghị quý vị nên nộp đơn khiếu nại lên Bộ Gia Cư và Phát Triển Đô Thị (Department of Housing and Urban Development, HUD) hoặc Cục Bảo Vệ Tài Chính Người Tiêu Dùng (Consumer Financial Protection Bureau, CFPB) như được nêu dưới đây.
+- Nếu khiếu nại cùa quý vị liên quan đến sự phân biệt đối xử trong việc vay tiền, quý vị có thể gửi đơn khiếu nại lên HUD và Cục Bảo vệ Tài Chính Người Tiêu Dùng (Consumer Financial Protection Bureau): [https://www.consumerfinance.gov/complaint/](https://www.consumerfinance.gov/complaint/).
 
-**Nếu quý vị bị phân biệt đối xử về nhà ở:**
+- Nếu quý vị cần hỗ trợ trong việc thanh toán tiền thuê nhà hoặc hóa đơn điện nước, trang web của CFPB có thể giúp quý vị tìm thấy những nguồn hỗ trợ sẵn có mà quý vị có thể hội đủ điều kiện được nhận. [https://www.consumerfinance.gov/coronavirus/mortgage-and-housing-assistance/renter-protections/find-help-with-rent-and-utilities/](https://www.consumerfinance.gov/coronavirus/mortgage-and-housing-assistance/renter-protections/find-help-with-rent-and-utilities/)
 
-HUD điều tra những khiếu nại của cá nhân về phân biệt đối xử về nhà ở. Việc này có thể bao gồm sự phân biệt đối xử dựa trên chủng tộc, màu da, nguồn gốc quốc gia, tôn giáo, giới tính, tình trạng gia đình, hoặc tình trạng khuyết tật trong vấn đề nhà ở. Nếu quý vị đang gặp phải nạn phân biệt đối xử về nhà ở, chúng tôi đề nghị quý vị nên nộp thư khiếu nại lên HUD.
+Để biết thêm thông tin về Đơn Vị Phụ Trách Gia Cư và công việc của chúng tôi, vui lòng truy cập trang mạng: [https://www.justice.gov/crt/housing-and-civil-enforcement-section](https://www.justice.gov/crt/housing-and-civil-enforcement-section).
 
-Quý vị cũng có thể nộp đơn khiếu nại lên HUD nếu tin rằng những quyền lợi về nhà ở của mình chiếu theo Đạo Luật Chống Bạo Hành Phụ Nữ (Violence Against Women Act, VAWA) đã bị vi phạm. HUD cung cấp thông tin về sự bảo vệ về nhà ở của VAWA tại trang mạng [https://www.hud.gov/program_offices/fair_housing_equal_opp/VAWA](https://www.hud.gov/program_offices/fair_housing_equal_opp/VAWA).
+Để biết thêm thông tin về tín dụng, quyền của người khuyết tật, quyền về nhà ở, và những thông tin khác, vui lòng truy cập trang tài nguyên liên quan đến Gia Cư của chúng tôi tại [https://civilrights.justice.gov/housing-resources](https://civilrights.justice.gov/housing-resources).
 
-Quý vị có thể nộp thư khiếu nại trực tuyến lên HUD tại trang mạng [www.hud.gov/program_offices/fair_‌housing_‌equal_‌‌opp/online-complaint](http://www.hud.gov/program_offices/fair_‌housing_‌equal_opp/online-complaint), hoặc gọi 1-800-669-9777 hay TTY: 1-800-877-8339.
+Quý vị cũng có thể muốn tham khảo ý kiến của một luật sư riêng để xác định xem quý vị có thể đệ những đơn khiếu nại nào, nếu có, chiếu theo những điều luật khác của liên bang và tiểu bang. Nếu quý vị không có luật sư, đoàn luật sư tiểu bang hay cơ quan trợ giúp pháp lý địa phương của quý vị có thể hữu ích trong việc giúp quý vị tìm luật sư để thảo luận về khiếu nại của quý vị:  [https://www.americanbar.org/groups/legal_services/flh-home/](https://www.americanbar.org/groups/legal_services/flh-home/) hoặc [https://www.lsc.gov/find-legal-aid](https://www.lsc.gov/find-legal-aid).
 
-Quý vị có được một năm, tính từ ngày quý vị gặp phải nạn phân biệt đối xử, để nộp đơn khiếu nại lên HUD, nếu không, họ sẽ không duyệt xét thư khiếu nại của quý vị.
-
-**Nếu quý vị cần giúp đỡ trong việc thanh toán tiền thuê nhà hoặc hóa đơn điện nước:**
-
-CFPB có thể giúp quý vị tìm thấy những nguồn hỗ trợ sẵn có mà quý vị có thể hội đủ điều kiện được nhận, tại [www.consumerfinance.gov/coronavirus/mortgage-and-housing-assistance/‌renter-protections/find-help-with-rent-and-utilities/](http://www.consumerfinance.gov/coronavirus/mortgage-and-housing-assistance/renter-protections/find-help-with-rent-and-utilities/).
-
-**Nếu quý vị bị phân biệt đối xử trong việc vay tiền hay vấn đề tín dụng:**
-
-Quý vị có thể gửi đơn khiếu nại lên HUD tại trang mạng [www.hud.gov/program_offices/fair_housing_equal_opp/‌online-complaint](http://www.hud.gov/program_offices/fair_housing_equal_opp/‌online-complaint) và khiếu nại lên CFPB tại trang mạng [www.consumerfinance.gov/complaint](http://www.consumerfinance.gov/complaint/).
-
-**Nếu quý vị muốn thuê luật sư:**
-
-Quý vị cũng có thể muốn tham khảo ý kiến của một luật sư riêng để xác định xem quý vị những quyền hạn nào chiếu theo những điều luật khác của liên bang và tiểu bang. Nếu quý vị không có luật sư, đoàn luật sư tiểu bang hay cơ quan trợ giúp pháp lý địa phương của quý vị có thể giúp đỡ. Tìm luật sư địa phương tại trang mạng [www.americanbar.org/groups/‌legal_‌services/flh-home](http://www.americanbar.org/groups/legal_services/flh-home/) or [www.lsc.gov/find-legal-aid](http://www.lsc.gov/find-legal-aid).
-
-Để biết thêm thông tin về tín dụng, quyền của người khuyết tật, và quyền về nhà ở, vui lòng truy cập trang tài nguyên về gia cư của chúng tôi tại [https://civilrights.justice.gov/housing-resources](https://civilrights.justice.gov/housing-resources).
-
-Trân trọng,
-
-  
+Trân trọng
 Bộ Tư Pháp Hoa Kỳ
-
 Ban Dân Quyền
