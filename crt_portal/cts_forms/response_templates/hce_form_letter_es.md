@@ -16,7 +16,7 @@ A continuación aparecen algunas sugerencias de cosas que usted puede hacer en e
 - Si su queja tiene que ver con discriminación en el ámbito crediticio, podría presentar quejas ante el HUD y la Oficina para la Protección Financiera del Consumidor («CFPB», por sus siglas en inglés): [https://www.consumerfinance.gov/complaint/](https://www.consumerfinance.gov/complaint/).
 - Si usted necesita ayuda para pagar el alquiler o servicios públicos, el sitio web del CFPB podría ayudarle a identificar recursos disponibles para los cuales podría ser elegible: [https://www.consumerfinance.gov/coronavirus/mortgage-and-housing-assistance/renter-protections/find-help-with-rent-and-utilities/](https://www.consumerfinance.gov/coronavirus/mortgage-and-housing-assistance/renter-protections/find-help-with-rent-and-utilities/)
 
-Para más información sobre la Sección de Vivienda y nuestro trabajo, visite nuestra página web en [https://www.justice.gov/crt/housing-and-civil-enforcement-section](https://www.justice.gov/crt/housing-and-civil-enforcement-section).
+Para más información sobre la Sección de Vivienda y nuestro trabajo, visite nuestra página web en [https://www.justice.gov/crt/housing-and-civil-enforcement-section](https://www.justice.gov/crt/housing-and-civil-enforcement-section). 
 
 Para más información sobre el ámbito crediticio, los derechos de los discapacitados y los derechos a la vivienda, entre otras cosas, visite nuestra página de recursos relacionados con la vivienda en [https://civilrights.justice.gov/housing-resources](https://civilrights.justice.gov/housing-resources).
 
