@@ -199,21 +199,6 @@ Upon logging in, you should be taken to a directory of examples. The examples ar
 
 Note that code _not_ in `examples/` is not saved to any persistent space, and might be lost if/when the Docker instance restarts.
 
-### Dashboard Exports
-
-Jupyter notebooks can be exported piecemeal to the web application.
-
-To set up a notebook for this process:
-- Set "export_embed: true" on the notebook metadata
-- Hide any unnecessary cells and code using the "hide_input" and "hide" tags for cell metadata.
-
-Then, to convert and port the file over, run:
-
-```
-docker-compose run jupyter python3 export_embed.py
-```
-
-
 ## Running common tasks
 
 ### Migrations
