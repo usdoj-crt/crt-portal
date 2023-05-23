@@ -4,6 +4,7 @@ subject: "Tugon: Ang Iyong Ulat sa Dibisyon sa Mga Karapatang Sibil – {{ recor
 language: tl
 is_html: true
 ---
+
 {{tl.addressee}}:
 
 Salamat sa iyong pakikipag-ugnayan sa Kagawaran ng Hustisya noong {{tl.date_of_intake}}. Ipinapaalam sa iyo ng liham na ito tungkol sa kung paano namin susuriin ang iyong ulat at kung ano ang maaari mong gawin pansamantala.  Ang numero ng iyong ulat ay {{ record_locator  }}. Mangyaring sumangguni sa numerong ito sa hinaharap kung nais mo kaming tanungin tungkol sa iyong ulat.
