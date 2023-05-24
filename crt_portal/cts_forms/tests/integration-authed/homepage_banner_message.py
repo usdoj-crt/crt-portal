@@ -10,8 +10,6 @@ def test_can_add_banner_message(page):
 
     page.goto("/admin/cts_forms/bannermessage/")
 
-    page.click("#djHideToolBarButton")
-
     if page.locator('.paginator').text_content().strip() != '0 banner messages':
         page.click("#action-toggle")
         page.select_option('select[name="action"]', 'delete_selected')
