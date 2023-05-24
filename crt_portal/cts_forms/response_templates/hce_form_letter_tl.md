@@ -4,7 +4,7 @@ subject: "Tugon: Ang Iyong Ulat sa Dibisyon sa Mga Karapatang Sibil – {{ recor
 language: tl
 is_html: true
 ---
-{{tl.addressee}}:,
+{{tl.addressee}}:
 
 Salamat sa iyong pakikipag-ugnayan sa Kagawaran ng Hustisya noong {{tl.date_of_intake}}.  Sinusuri ng Pangkat ng Pabahay at Sibil na Pagpapatupad ang iyong ulat.  Sa liham na ito, ipinapaliwanag namin kung paano namin susuriin ang iyong ulat at magkakaloob sa iyo ng iba pang mga pagpipilian sa pagpapatuloy.
 
