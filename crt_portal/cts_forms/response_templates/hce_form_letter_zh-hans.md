@@ -40,7 +40,7 @@ is_html: true
 
 您可能希望与私人律师磋商看您是否享有其他联邦和州法律下的任何权利，如果您没有律师，您所在州的律师协会或当地法律援助机构或许可以为您提供援助，您可以从 www.americanbar.org/groups/legal_services/flh-home 或 www.lsc.gov/find-legal-aid 寻找当地律师。
 
-有关信贷、残疾权利和住房权利的更多信息，请访问我们的住房资源页面https://civilrights.justice.gov/housing-resources。
+有关信贷、残疾权利和住房权利的更多信息，请访问我们的住房资源页面https://civilrights.justice.gov/housing-resources 。
 
 
 此致
