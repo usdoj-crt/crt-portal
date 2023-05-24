@@ -37,7 +37,9 @@
     aTags.forEach(aTag => {
       const newHref = aTag['href'].replaceAll('_', '(UNDERSCORE)');
       const newLinkText = aTag.innerText.replaceAll('_', '(UNDERSCORE)');
-      pastedHtml = pastedHtml.replaceAll(aTag['href'], newHref).replaceAll(aTag.innerText, newLinkText);
+      pastedHtml = pastedHtml
+        .replaceAll(aTag['href'], newHref)
+        .replaceAll(aTag.innerText, newLinkText);
     });
     const markdown = turndown.turndown(pastedHtml);
     // Word sometimes includes comments in its HTML, so strip them:
