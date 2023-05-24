@@ -24,7 +24,7 @@ HUD điều tra những khiếu nại của cá nhân về phân biệt đ
 
 Quý vị cũng có thể nộp đơn khiếu nại lên HUD nếu tin rằng những quyền lợi về nhà ở của mình chiếu theo Đạo Luật Chống Bạo Hành Phụ Nữ (Violence Against Women Act, VAWA) đã bị vi phạm. HUD cung cấp thông tin về sự bảo vệ về nhà ở của VAWA tại trang mạng [https://www.hud.gov/program_offices/fair_housing_equal_opp/VAWA](https://www.hud.gov/program_offices/fair_housing_equal_opp/VAWA).
 
-Quý vị có thể nộp thư khiếu nại trực tuyến lên HUD tại trang mạng [www.hud.gov/program_offices/fair_‌housing_‌equal_‌‌opp/online-complaint](http://www.hud.gov/program_offices/fair_‌housing_‌equal_opp/online-complaint), hoặc gọi 1-800-669-9777 hay TTY: 1-800-877-8339.
+Quý vị có thể nộp thư khiếu nại trực tuyến lên HUD tại trang mạng [www.hud.gov/program_offices/fair_‌housing_‌equal_‌‌opp/online-complaint](http://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint), hoặc gọi 1-800-669-9777 hay TTY: 1-800-877-8339.
 
 Quý vị có được một năm, tính từ ngày quý vị gặp phải nạn phân biệt đối xử, để nộp đơn khiếu nại lên HUD, nếu không, họ sẽ không duyệt xét thư khiếu nại của quý vị.
 
@@ -34,7 +34,7 @@ CFPB có thể giúp quý vị tìm thấy những nguồn hỗ trợ 
 
 **Nếu quý vị bị phân biệt đối xử trong việc vay tiền hay vấn đề tín dụng:**
 
-Quý vị có thể gửi đơn khiếu nại lên HUD tại trang mạng [www.hud.gov/program_offices/fair_housing_equal_opp/‌online-complaint](http://www.hud.gov/program_offices/fair_housing_equal_opp/‌online-complaint) và khiếu nại lên CFPB tại trang mạng [www.consumerfinance.gov/complaint](http://www.consumerfinance.gov/complaint/).
+Quý vị có thể gửi đơn khiếu nại lên HUD tại trang mạng [www.hud.gov/program_offices/fair_housing_equal_opp/‌online-complaint](http://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint) và khiếu nại lên CFPB tại trang mạng [www.consumerfinance.gov/complaint](http://www.consumerfinance.gov/complaint/).
 
 **Nếu quý vị muốn thuê luật sư:**
 

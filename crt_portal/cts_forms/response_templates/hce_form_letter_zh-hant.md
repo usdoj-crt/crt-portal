@@ -24,7 +24,7 @@ is_html: true
 
 如果您認為您在《暴力侵害婦女法》下應享有的住房權利受到侵犯，您也可以向房屋和城市發展部投訴。房屋和城市發展部在網上提供了有關《暴力侵害婦女法》住房保護的信息[https://www.hud.gov/program_offices/fair_housing_equal_opp/VAWA](https://www.hud.gov/program_offices/fair_housing_equal_opp/VAWA)。
 
-您可以在網上 [www.hud.gov/program_offices/fair_‌housing_‌equal_‌‌opp/online-complaint](http://www.hud.gov/program_offices/fair_‌housing_‌equal_opp/online-complaint) 或致電 1-800-669-9777 或 電傳打字1-800-877-8339向房屋和城市發展部投訴。
+您可以在網上 [www.hud.gov/program_offices/fair_‌housing_‌equal_‌‌opp/online-complaint](http://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint) 或致電 1-800-669-9777 或 電傳打字1-800-877-8339向房屋和城市發展部投訴。
 
 您有一年時間從受到歧視或違規之日起向房屋和城市發展部提出投訴，否則他們不會受理您的投訴。
 
@@ -34,7 +34,7 @@ is_html: true
 
 **如果您在貸款或信貸方面受到歧視：**
 
-您可以向房屋和城市發展部[www.hud.gov/program_offices/fair_housing_equal_opp/‌online-complaint](http://www.hud.gov/program_offices/fair_housing_equal_opp/‌online-complaint) 和消費者金融保護局[www.consumerfinance.gov/complaint](http://www.consumerfinance.gov/complaint/) 提出投訴。
+您可以向房屋和城市發展部[www.hud.gov/program_offices/fair_housing_equal_opp/‌online-complaint](http://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint) 和消費者金融保護局[www.consumerfinance.gov/complaint](http://www.consumerfinance.gov/complaint/) 提出投訴。
 
 **如果您想聘請律師：**
 

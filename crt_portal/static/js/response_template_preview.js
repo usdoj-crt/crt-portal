@@ -35,8 +35,9 @@
     const htmlDoc = parser.parseFromString(pastedHtml, 'text/html');
     const aTags = Array.from(htmlDoc.getElementsByTagName('a'));
     aTags.forEach(aTag => {
-      const newhref = aTag['href'].replaceAll('_', '(UNDERSCORE)');
-      pastedHtml = pastedHtml.replaceAll(aTag['href'], newhref);
+      const newHref = aTag['href'].replaceAll('_', '(UNDERSCORE)');
+      const newLinkText = aTag.innerText.replaceAll('_', '(UNDERSCORE)');
+      pastedHtml = pastedHtml.replaceAll(aTag['href'], newHref).replaceAll(aTag.innerText, newLinkText);
     });
     const markdown = turndown.turndown(pastedHtml);
     // Word sometimes includes comments in its HTML, so strip them:
