@@ -421,11 +421,11 @@
 {% block page_js %}
   <script type="module" nonce="{{ request.csp_nonce }}">
    import { sendGAPublicClickEvent } from "./static/js/ga_util.js";
-   var navItems = document.getElementsByClassName("crt-landing--menu_link");
+   var navItems = document.getElementsByClassName("usa-nav__primary-item");
    for (var i = 0; i < navItems.length; i++) {
-     var navItem = navItems[i];
-     navItem.onclick = function (el) {
-      sendGAPublicClickEvent('main nav ' + el.innerText);
+    var navItem = navItems[i];
+     navItem.onclick = function (event) {
+      sendGAPublicClickEvent('main nav ' + event.target.innerText);
      }
     }
    var examples = document.getElementById("crt-landing--examples");
