@@ -22,7 +22,7 @@ is_html: true
 
 HUD는 주거 차별에 대한 개별 클레임을 조사합니다. 여기에는 인종, 피부색, 국적, 종교, 성별, 가족 사항  또는 장애에 따른 주거 차별이 포함될 수 있습니다. 주거에 대한 차별을 겪고 있는 경우 HUD에 민원을 제기하시기를 권장합니다.
 
-또한 여성폭력방지법(VAWA)에 따른 주거권이 침해되었다고 판단되는 경우 HUD에 민원을 제기하실 수 있습니다. HUD는https://www.hud.gov/program_offices/fair_housing_equal_opp/VAWA에서 VAWA의 주택 보호에 대한 정보를 제공했습니다.
+또한 여성폭력방지법(VAWA)에 따른 주거권이 침해되었다고 판단되는 경우 HUD에 민원을 제기하실 수 있습니다. HUD는 https://www.hud.gov/program_offices/fair_housing_equal_opp/VAWA 에서 VAWA의 주택 보호에 대한 정보를 제공했습니다.
 
 [www.hud.gov/program_offices/fair_‌housing_‌equal_‌‌opp/online-complaint](http://www.hud.gov/program_offices/fair_housing_equal_opp/online-complaint)를 통해 온라인으로 또는1-800-669-9777에 전화로, 또는 1-800-877-8339에 문자전화로 민원을 제기하실 수 있습니다.  
 
