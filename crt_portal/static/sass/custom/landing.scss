@@ -72,6 +72,15 @@ $arrow-height: 24px;
   margin-top: 0.5rem;
   padding: 1rem 2rem;
 
+  &.usa-button--outline {
+    color: #162e51 !important;
+    background: #ecf1f7;
+    &:hover {
+      color: #162e51 !important;
+      background: #d9e8f6 !important;
+    }
+  }
+
   &:hover {
     background: color($theme-link-hover-color);
   }

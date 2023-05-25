@@ -1,26 +1,26 @@
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-02 13:42+0000\n"
+"POT-Creation-Date: 2023-05-25 13:49+0000\n"
 "Language: Vietnamese\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. Translators: this is the default- blank options for a drop-down menu where a user chooses a state
-#: forms.py:188 forms.py:1740
+#: forms.py:206 forms.py:1876
 msgid " - Select - "
 msgstr " - Chọn - "
 
 #. Translators: This is help text for the question asking if someone is a service member
-#: forms.py:200
+#: forms.py:218
 msgid ""
 "If you’re reporting on behalf of someone else, please select their status."
 msgstr ""
 "Nếu quý vị đang báo cáo thay mặt cho người khác, vui lòng chọn tình trạng "
 "của họ."
 
-#: forms.py:217 templates/forms/report_contact_info.html:9
+#: forms.py:235 templates/forms/report_contact_info.html:8
 msgid ""
 "If you believe you or someone else has experienced a civil rights violation, "
 "please tell us what happened."
@@ -28,7 +28,7 @@ msgstr ""
 "Nếu quý vị cho rằng quý vị hoặc một người nào đó đã bị vi phạm dân quyền, "
 "vui lòng cho chúng tôi biết điều gì đã xảy ra."
 
-#: forms.py:245
+#: forms.py:263
 msgid ""
 "Select the reason that best describes your concern. Each reason lists "
 "examples of civil rights violations that may relate to your incident. In "
@@ -40,7 +40,7 @@ msgstr ""
 "của quý vị. Trong một phần khác của báo cáo này, quý vị sẽ có thể mô tả mối "
 "quan ngại của mình qua lời lẽ riêng của quý vị."
 
-#: forms.py:303
+#: forms.py:321
 msgid ""
 "Examples: Name of business, school, intersection, prison, polling place, "
 "website, etc."
@@ -48,11 +48,11 @@ msgstr ""
 "Ví dụ: Tên doanh nghiệp, trường học, giao lộ, nhà tù, điểm bỏ phiếu, trang "
 "web, v.v."
 
-#: forms.py:325 question_text.py:29
+#: forms.py:343 question_text.py:29
 msgid "Where did this happen?"
 msgstr "Việc này đã xảy ra ở đâu?"
 
-#: forms.py:337
+#: forms.py:355
 msgid ""
 "Please tell us the city, state, and name of the location where this incident "
 "took place. This ensures your report is reviewed by the right people within "
@@ -62,7 +62,7 @@ msgstr ""
 "ra vụ việc này. Điều này nhằm đảm bảo báo cáo của quý vị được đánh giá bởi "
 "những người phù hợp trong Ban Dân quyền."
 
-#: forms.py:400
+#: forms.py:418
 msgid ""
 "Public employers include organizations funded by the government like the "
 "military, post office, fire department, courthouse, DMV, or public school. "
@@ -73,7 +73,7 @@ msgstr ""
 "phương tiện cơ giới (DMV) hoặc trường công lập. Đơn vị này có thể là ở cấp "
 "địa phương hoặc tiểu bang."
 
-#: forms.py:401
+#: forms.py:419
 msgid ""
 "Private employers are business or non-profits not funded by the government "
 "such as retail stores, banks, or restaurants."
@@ -82,11 +82,11 @@ msgstr ""
 "chính phủ tài trợ, chẳng hạn như cửa hàng bán lẻ, ngân hàng, hoặc nhà hàng."
 
 #. Translators: describe the "other" option for commercial or public place question
-#: forms.py:447
+#: forms.py:465
 msgid "Please describe"
 msgstr "Vui lòng mô tả"
 
-#: forms.py:514
+#: forms.py:532
 msgid ""
 "Includes schools, educational programs, or educational activities, like "
 "training programs, sports teams, clubs, or other school-sponsored activities"
@@ -95,11 +95,11 @@ msgstr ""
 "chương trình đào tạo, các đội thể thao, câu lạc bộ, hoặc các hoạt động khác "
 "do trường bảo trợ"
 
-#: forms.py:525
+#: forms.py:543
 msgid "Please select the type of school or educational program."
 msgstr "Vui lòng chọn loại hình trường học hoặc chương trình giáo dục."
 
-#: forms.py:548
+#: forms.py:566
 msgid ""
 "There are federal and state laws that protect people from discrimination "
 "based on their personal characteristics. Here is a list of the most common "
@@ -112,11 +112,11 @@ msgstr ""
 "vụ việc của quý vị."
 
 #. Translators: This is to explain an "other" choice for personal characteristics
-#: forms.py:553
+#: forms.py:571
 msgid "Please describe \"Other reason\""
 msgstr "Vui lòng mô tả “Lý do khác”"
 
-#: forms.py:741
+#: forms.py:759
 msgid ""
 "It is important for us to know how recently this incident happened so we can "
 "take the appropriate action. If this happened over a period of time or is "
@@ -127,27 +127,41 @@ msgstr ""
 "diễn ra trong một khoảng thời gian hoặc vẫn đang diễn ra, vui lòng cho biết "
 "ngày gần đây nhất."
 
-#: forms.py:1042
+#: forms.py:1088
 msgid "Assigned to"
 msgstr "Được giao cho"
 
-#: forms.py:1058
+#: forms.py:1111
+msgid "Campaign"
+msgstr ""
+
+#: forms.py:1127
 msgid "Incident state"
 msgstr ""
 
-#: forms.py:1066
+#: forms.py:1135
+#, fuzzy
+#| msgid "District of Columbia"
+msgid "District number"
+msgstr "District of Columbia"
+
+#: forms.py:1145
 msgid "Primary classification"
 msgstr "Phân loại chính"
 
-#: forms.py:1076
+#: forms.py:1155
 msgid "Records per page"
 msgstr ""
 
-#: forms.py:1290
+#: forms.py:1166
+msgid "Grouping"
+msgstr ""
+
+#: forms.py:1386
 msgid "Create date cannot be in the future."
 msgstr "Ngày tạo không được là ngày trong tương lai."
 
-#: forms.py:1473
+#: forms.py:1609
 msgid "Comment cannot be empty"
 msgstr "Nhận xét không được để trống"
 
@@ -483,7 +497,7 @@ msgstr ""
 "các mối đe dọa gây tổn hại về thể chất, giữ lại tiền lương đã hứa, hoặc bị "
 "giam chân trong một hợp đồng làm việc giả mạo"
 
-#: model_variables.py:185 templates/landing.html:285
+#: model_variables.py:185 templates/landing.html:283
 msgid "Age"
 msgstr "Tuổi"
 
@@ -526,11 +540,11 @@ msgstr "Quốc gia xuất xứ (bao gồm tổ tiên và dân tộc)"
 msgid "Pregnancy"
 msgstr "Mang thai"
 
-#: model_variables.py:194 templates/landing.html:278
+#: model_variables.py:194 templates/landing.html:276
 msgid "Race/color"
 msgstr "Chủng tộc/màu da"
 
-#: model_variables.py:195 templates/landing.html:280
+#: model_variables.py:195 templates/landing.html:278
 msgid "Religion"
 msgstr "Tôn giáo"
 
@@ -1006,7 +1020,7 @@ msgstr "Vui lòng nhập một ngày hợp lệ. Sử dụng định dạng MM/D
 msgid "Please select the type of election or voting activity."
 msgstr "Vui lòng chọn hình thức bầu cử hoặc hoạt động bỏ phiếu."
 
-#: model_variables.py:636
+#: model_variables.py:667
 msgid ""
 "If you submit a phone number, please make sure to include between 7 and 15 "
 "digits. The characters \"+\", \")\", \"(\", \"-\", and \".\" are allowed. "
@@ -1206,12 +1220,12 @@ msgstr ""
 "cung cấp chi tiết về những tài liệu đó, chúng tôi có thể biết được tài liệu "
 "nào sẽ hữu ích nhất đối với báo cáo của quý vị."
 
-#: templates/base.html:43 templates/base.html:68
-#: templates/forms/report_base.html:10 templates/forms/report_base.html:13
+#: templates/base.html:42 templates/base.html:67
+#: templates/forms/report_base.html:9 templates/forms/report_base.html:12
 msgid "Contact the Civil Rights Division | Department of Justice"
 msgstr "Liên hệ với Ban Dân Quyền | Bộ Tư pháp"
 
-#: templates/base.html:56
+#: templates/base.html:55
 msgid ""
 "Have you or someone you know experienced unlawful discrimination? The Civil "
 "Rights Division may be able to help. Civil rights laws can protect you from "
@@ -1225,19 +1239,19 @@ msgstr ""
 "trong nhiều môi trường khác nhau như nhà ở, nơi làm việc, trường học, hoạt "
 "động bỏ phiếu, doanh nghiệp, chăm sóc sức khỏe, không gian công cộng, v.v."
 
-#: templates/base.html:78
+#: templates/base.html:77
 msgid "Skip to main content"
 msgstr "Đi thẳng đến nội dung chính"
 
-#: templates/base.html:132 templates/forms/errors.html:13
-#: templates/forms/report_maintenance.html:13 templates/landing.html:11
-#: templates/landing.html:18
+#: templates/base.html:131 templates/forms/errors.html:12
+#: templates/forms/report_maintenance.html:12 templates/landing.html:10
+#: templates/landing.html:17
 msgid "U.S. Department of Justice"
 msgstr "Bộ Tư pháp Hoa Kỳ"
 
-#: templates/base.html:135 templates/forms/confirmation.html:21
-#: templates/forms/errors.html:14 templates/forms/report_maintenance.html:14
-#: templates/landing.html:11 templates/landing.html:21
+#: templates/base.html:134 templates/forms/confirmation.html:20
+#: templates/forms/errors.html:13 templates/forms/report_maintenance.html:13
+#: templates/landing.html:10 templates/landing.html:20
 msgid "Civil Rights Division"
 msgstr "Ban Dân Quyền"
 
@@ -1247,52 +1261,52 @@ msgstr "Ban Dân Quyền"
 #: templates/forms/question_cards/police_location.html:4
 #: templates/forms/question_cards/single_form.html:16
 #: templates/forms/question_cards/single_question.html:13
-#: templates/forms/report_class.html:14 templates/forms/report_details.html:12
-#: templates/forms/report_location.html:33
-#: templates/forms/report_location.html:39
-#: templates/forms/report_primary_complaint.html:11
+#: templates/forms/report_class.html:13 templates/forms/report_details.html:12
+#: templates/forms/report_location.html:32
+#: templates/forms/report_location.html:38
+#: templates/forms/report_primary_complaint.html:10
 #: templates/forms/snippets/input.html:9
 msgid "required"
 msgstr "bắt buộc"
 
-#: templates/forms/confirmation.html:8
+#: templates/forms/confirmation.html:7
 msgid "Submission complete"
 msgstr "nộp xong"
 
-#: templates/forms/confirmation.html:20 templates/forms/confirmation.html:26
-#: templates/forms/portal/header.html:3
+#: templates/forms/confirmation.html:19 templates/forms/confirmation.html:25
+#: templates/forms/portal/header.html:2
 msgid "United States Department of Justice"
 msgstr "Bộ Tư pháp Hoa Kỳ"
 
-#: templates/forms/confirmation.html:29
+#: templates/forms/confirmation.html:28
 msgid "Thank you for submitting a report to the Civil Rights Division."
 msgstr "Cảm ơn quý vị đã gửi báo cáo đến Ban Dân quyền."
 
-#: templates/forms/confirmation.html:46
+#: templates/forms/confirmation.html:45
 msgid "Report successfully submitted"
 msgstr "Báo cáo đã được nộp thành công"
 
-#: templates/forms/confirmation.html:51
+#: templates/forms/confirmation.html:50
 msgid "Please save your record number for tracking."
 msgstr "Vui lòng lưu lại số hồ sơ của quý vị để theo dõi."
 
-#: templates/forms/confirmation.html:55
+#: templates/forms/confirmation.html:54
 msgid "Your record number is:"
 msgstr "Số hồ sơ của quý vị là:"
 
-#: templates/forms/confirmation.html:61
+#: templates/forms/confirmation.html:60
 msgid "Print report"
 msgstr "In baìo caìo"
 
-#: templates/forms/confirmation.html:72
+#: templates/forms/confirmation.html:71
 msgid "What to expect"
 msgstr "Những việc sẽ diễn ra"
 
-#: templates/forms/confirmation.html:82
+#: templates/forms/confirmation.html:81
 msgid "We review your report"
 msgstr "Chúng tôi sẽ đánh giá báo cáo của quý vị"
 
-#: templates/forms/confirmation.html:87
+#: templates/forms/confirmation.html:86
 msgid ""
 "Our specialists in the Civil Rights Division carefully read every report to "
 "identify civil rights violations, spot trends, and determine if we have "
@@ -1302,15 +1316,15 @@ msgstr ""
 "định các hành vi vi phạm dân quyền, phát hiện xu hướng, và xác định xem "
 "chúng tôi có thẩm quyền trợ giúp vụ việc trong báo cáo của quý vị hay không."
 
-#: templates/forms/confirmation.html:97
+#: templates/forms/confirmation.html:96
 msgid "Our specialists determine the next step"
 msgstr "Các chuyên gia của chúng tôi sẽ xác định bước tiếp theo"
 
-#: templates/forms/confirmation.html:101
+#: templates/forms/confirmation.html:100
 msgid "We may decide to:"
 msgstr "Chúng tôi có thể quyết định:"
 
-#: templates/forms/confirmation.html:104
+#: templates/forms/confirmation.html:103
 msgid ""
 "<strong>Open an investigation</strong> or take some other action within the "
 "legal authority of the Justice Department."
@@ -1318,7 +1332,7 @@ msgstr ""
 "<strong>Mở một cuộc điều tra</strong> hoặc thực hiện một hành động nào khác "
 "trong thẩm quyền pháp lý của Bộ Tư pháp."
 
-#: templates/forms/confirmation.html:105
+#: templates/forms/confirmation.html:104
 msgid ""
 "<strong>Collect more information</strong> before we can look into your "
 "report."
@@ -1326,7 +1340,7 @@ msgstr ""
 "<strong>Thu thập thêm thông tin</strong> trước khi chúng tôi có thể đánh giá "
 "báo cáo của quý vị."
 
-#: templates/forms/confirmation.html:106
+#: templates/forms/confirmation.html:105
 msgid ""
 "<strong>Recommend another government agency</strong> that can properly look "
 "into your report. If so, we’ll let you know."
@@ -1335,7 +1349,7 @@ msgstr ""
 "của quý vị một cách chính xác. Nếu vậy, chúng tôi sẽ thông báo cho quý vị "
 "biết."
 
-#: templates/forms/confirmation.html:109
+#: templates/forms/confirmation.html:108
 msgid ""
 "In some cases, we may determine that we don’t have legal authority to handle "
 "your report and will recommend that you seek help from a private lawyer or "
@@ -1345,11 +1359,11 @@ msgstr ""
 "thẩm quyền pháp lý để xử lý báo cáo của quý vị và sẽ khuyến nghị quý vị nên "
 "tìm kiếm sự trợ giúp từ luật sư riêng hoặc tổ chức hỗ trợ pháp lý địa phương."
 
-#: templates/forms/confirmation.html:119
+#: templates/forms/confirmation.html:118
 msgid "When possible, we will follow up with you"
 msgstr "Khi có thể, chúng tôi sẽ liên hệ với quý vị"
 
-#: templates/forms/confirmation.html:124
+#: templates/forms/confirmation.html:123
 msgid ""
 "We do our best to let you know about the outcome of our review. However, we "
 "may not always be able to provide you with updates because:"
@@ -1358,18 +1372,18 @@ msgstr ""
 "giá của chúng tôi. Tuy nhiên, không phải lúc nào chúng tôi cũng có thể cung "
 "cấp cho quý vị các thông tin cập nhật vì:"
 
-#: templates/forms/confirmation.html:128
+#: templates/forms/confirmation.html:127
 msgid ""
 "We’re actively working on an investigation or case related to your report."
 msgstr ""
 "Chúng tôi đang tích cực thực hiện một cuộc điều tra hoặc trường hợp liên "
 "quan đến báo cáo của quý vị."
 
-#: templates/forms/confirmation.html:131
+#: templates/forms/confirmation.html:130
 msgid "We’re receiving and actively reviewing many requests at the same time."
 msgstr "Chúng tôi đang nhận và tích cực đánh giá nhiều yêu cầu cùng một lúc."
 
-#: templates/forms/confirmation.html:134 templates/landing.html:381
+#: templates/forms/confirmation.html:133 templates/landing.html:379
 msgid ""
 "If we are able to respond, we will contact you using the contact information "
 "you provided in this report. Depending on the type of report, response times "
@@ -1384,22 +1398,22 @@ msgstr ""
 "vị khi liên hệ với chúng tôi. Đây là cách chúng tôi theo dõi hồ sơ của quý "
 "vị."
 
-#: templates/forms/confirmation.html:142
+#: templates/forms/confirmation.html:141
 msgid "What you can do next"
 msgstr "Quý vị có thể làm gì tiếp theo"
 
-#: templates/forms/confirmation.html:148
+#: templates/forms/confirmation.html:147
 msgid "1"
 msgstr "1"
 
-#: templates/forms/confirmation.html:151
+#: templates/forms/confirmation.html:150
 msgid ""
 "Contact local legal aid organizations or a lawyer if you haven’t already"
 msgstr ""
 "Liên hệ với các tổ chức hỗ trợ pháp lý địa phương hoặc luật sư nếu quý vị "
 "chưa làm việc đó"
 
-#: templates/forms/confirmation.html:155
+#: templates/forms/confirmation.html:154
 msgid ""
 "Legal aid offices or members of lawyer associations in your state may be "
 "able to help you with your issue."
@@ -1407,7 +1421,7 @@ msgstr ""
 "Các văn phòng hỗ trợ pháp lý hoặc thành viên của các hiệp hội luật sư ở tiểu "
 "bang của quý vị có thể giúp quý vị giải quyết vấn đề của mình."
 
-#: templates/forms/confirmation.html:158
+#: templates/forms/confirmation.html:157
 msgid ""
 "American Bar Association, visit <a class=\"external-link--blue external-"
 "link--popup\" href=\"https://www.americanbar.org/groups/legal_services/flh-"
@@ -1419,7 +1433,7 @@ msgstr ""
 "legal_services/flh-home/\">www.americanbar.org/groups/legal_services/flh-"
 "home</a> hoặc gọi <a href=\"tel:800-285-2221\">(800) 285-2221</a>"
 
-#: templates/forms/confirmation.html:161
+#: templates/forms/confirmation.html:160
 #, fuzzy
 #| msgid ""
 #| "Legal Services Corporation (or Legal Aid Offices), visit <a aria-label="
@@ -1437,15 +1451,15 @@ msgstr ""
 "external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc."
 "gov/find-legal-aid</a>"
 
-#: templates/forms/confirmation.html:169
+#: templates/forms/confirmation.html:168
 msgid "2"
 msgstr "2"
 
-#: templates/forms/confirmation.html:172
+#: templates/forms/confirmation.html:171
 msgid "Get help immediately if you are in danger"
 msgstr "Yêu cầu trợ giúp ngay lập tức nếu quý vị đang gặp nguy hiểm"
 
-#: templates/forms/confirmation.html:177
+#: templates/forms/confirmation.html:176
 msgid ""
 "If you reported an incident where you or someone else has experienced or is "
 "still experiencing physical harm or violence, or are in immediate danger, "
@@ -1456,11 +1470,11 @@ msgstr ""
 "hiểm ngay trước mắt, vui lòng gọi <a href=\"tel:911\">911</a> và liên hệ với "
 "cảnh sát."
 
-#: templates/forms/confirmation.html:190
+#: templates/forms/confirmation.html:189
 msgid "Your submission"
 msgstr "Hồ sơ của quý vị"
 
-#: templates/forms/error_422.html:5 templates/forms/errors.html:31
+#: templates/forms/error_422.html:5 templates/forms/errors.html:30
 msgid "We're sorry, something went wrong"
 msgstr "Chúng tôi rất tiếc, đã có lỗi xảy ra"
 
@@ -1482,54 +1496,54 @@ msgstr ""
 "tab trình duyệt khi nhập báo cáo của quý vị.</p>\n"
 "    "
 
-#: templates/forms/errors.html:33
+#: templates/forms/errors.html:32
 msgid "We hope to fix this issue shortly"
 msgstr "Chúng tôi hy vọng sẽ sớm khắc phục sự cố này"
 
-#: templates/forms/errors.html:35
+#: templates/forms/errors.html:34
 msgid "Error: "
 msgstr "Lỗi: "
 
-#: templates/forms/errors.html:37 templates/forms/report_maintenance.html:33
+#: templates/forms/errors.html:36 templates/forms/report_maintenance.html:32
 msgid "If you need to contact us immediately, you can reach us by:"
 msgstr ""
 "Nếu quý vị cần liên hệ với chúng tôi ngay lập tức, quý vị có thể liên hệ với "
 "chúng tôi bằng cách:"
 
-#: templates/forms/errors.html:42 templates/forms/report_maintenance.html:38
+#: templates/forms/errors.html:41 templates/forms/report_maintenance.html:37
 msgid "Email"
 msgstr "Email"
 
-#: templates/forms/errors.html:51 templates/forms/report_maintenance.html:47
-#: templates/partials/footer.html:32
+#: templates/forms/errors.html:50 templates/forms/report_maintenance.html:46
+#: templates/partials/footer.html:31
 msgid "(toll-free)"
 msgstr "(số điện thoại miễn phí)"
 
-#: templates/forms/errors.html:52 templates/forms/report_maintenance.html:48
-#: templates/partials/footer.html:33
+#: templates/forms/errors.html:51 templates/forms/report_maintenance.html:47
+#: templates/partials/footer.html:32
 msgid "Telephone Device for the Deaf"
 msgstr "Thiết bị Điện thoại dành cho Người khiếm thính"
 
-#: templates/forms/errors.html:53 templates/forms/report_maintenance.html:49
-#: templates/partials/footer.html:34
+#: templates/forms/errors.html:52 templates/forms/report_maintenance.html:48
+#: templates/partials/footer.html:33
 msgid "(TTY)"
 msgstr "(TTY)"
 
-#: templates/forms/errors.html:68 templates/forms/report_maintenance.html:64
+#: templates/forms/errors.html:67 templates/forms/report_maintenance.html:63
 msgid "Other information"
 msgstr "Các thông tin khác"
 
-#: templates/forms/errors.html:69
+#: templates/forms/errors.html:68
 msgid "File a complaint"
 msgstr "Nộp đơn khiếu nại"
 
-#: templates/forms/errors.html:71 templates/forms/report_maintenance.html:66
-#: templates/landing.html:138
+#: templates/forms/errors.html:70 templates/forms/report_maintenance.html:65
+#: templates/landing.html:136
 msgid "About the Civil Rights Division"
 msgstr "Giới thiệu về Ban Dân Quyền"
 
-#: templates/forms/errors.html:74 templates/forms/report_maintenance.html:69
-#: templates/landing.html:121
+#: templates/forms/errors.html:73 templates/forms/report_maintenance.html:68
+#: templates/landing.html:119
 msgid ""
 "If you or someone else is in immediate danger, <a href=\"tel:911\">please "
 "call 911 or local police.</a>"
@@ -1537,11 +1551,11 @@ msgstr ""
 "Nếu quý vị hoặc một người nào đó đang gặp nguy hiểm ngay trước mắt, <a href="
 "\"tel:911\">vui lòng gọi 911 hoặc cảnh sát địa phương</a>."
 
-#: templates/forms/portal/progress-bar.html:6
+#: templates/forms/portal/progress-bar.html:5
 msgid "progress"
 msgstr "tiến trình"
 
-#: templates/forms/portal/progress-bar.html:8
+#: templates/forms/portal/progress-bar.html:7
 #, python-format
 msgid ""
 "\n"
@@ -1554,15 +1568,15 @@ msgstr ""
 "%(total_stages)s.\n"
 "        "
 
-#: templates/forms/portal/progress-bar.html:27
+#: templates/forms/portal/progress-bar.html:26
 msgid "not completed"
 msgstr "chưa hoàn thành"
 
-#: templates/forms/portal/progress-bar.html:29
+#: templates/forms/portal/progress-bar.html:28
 msgid "completed"
 msgstr "đã hoàn thành"
 
-#: templates/forms/report_base.html:8
+#: templates/forms/report_base.html:7
 #, python-format
 msgid ""
 "\n"
@@ -1571,11 +1585,11 @@ msgstr ""
 "\n"
 "        Bước %(stage_number)s: %(current_step_name)s - "
 
-#: templates/forms/report_base.html:22
+#: templates/forms/report_base.html:21
 msgid "Contact the Department of Justice to report a civil rights violation"
 msgstr "Liên hệ với Bộ Tư pháp để báo cáo hành vi vi phạm dân quyền"
 
-#: templates/forms/report_base.html:54
+#: templates/forms/report_base.html:53
 #, python-format
 msgid ""
 "\n"
@@ -1594,22 +1608,22 @@ msgstr[1] ""
 "                  %(counter)s lỗi được tìm thấy\n"
 "                "
 
-#: templates/forms/report_base.html:84
-#: templates/forms/report_contact_info.html:39
+#: templates/forms/report_base.html:83
+#: templates/forms/report_contact_info.html:38
 msgid "Submit"
 msgstr "Gửi"
 
-#: templates/forms/report_base.html:86
-#: templates/forms/report_contact_info.html:33
-#: templates/forms/report_contact_info.html:41
+#: templates/forms/report_base.html:85
+#: templates/forms/report_contact_info.html:32
+#: templates/forms/report_contact_info.html:40
 msgid "Next"
 msgstr "Tiếp theo"
 
-#: templates/forms/report_base.html:95 templates/forms/report_review.html:34
+#: templates/forms/report_base.html:94 templates/forms/report_review.html:33
 msgid "previous step"
 msgstr "bước trước"
 
-#: templates/forms/report_base.html:98 templates/forms/report_review.html:37
+#: templates/forms/report_base.html:97 templates/forms/report_review.html:36
 #: templates/partials/redirect-modal.html:23
 msgid "Back"
 msgstr "Quay lại"
@@ -1622,11 +1636,11 @@ msgstr "Địa chỉ"
 msgid "None selected"
 msgstr "Không lựa chọn nào được chọn"
 
-#: templates/forms/report_maintenance.html:30
+#: templates/forms/report_maintenance.html:29
 msgid "This page is currently down for maintenance."
 msgstr "Trang này hiện đang ngưng hoạt động để bảo trì."
 
-#: templates/forms/report_maintenance.html:31
+#: templates/forms/report_maintenance.html:30
 msgid ""
 "We expect to be back shortly. We recommend checking back to report a civil "
 "rights violation."
@@ -1634,13 +1648,13 @@ msgstr ""
 "Chúng tôi dự kiến sẽ sớm hoạt động trở lại. Chúng tôi khuyến khích quý vị "
 "nên kiểm tra lại để báo cáo hành vi vi phạm dân quyền."
 
-#: templates/forms/report_review.html:10
+#: templates/forms/report_review.html:9
 msgid "Before you submit your report, please check your responses"
 msgstr ""
 "Trước khi quý vị gửi báo cáo của mình, vui lòng kiểm tra các câu trả lời của "
 "quý vị"
 
-#: templates/forms/report_review.html:12
+#: templates/forms/report_review.html:11
 msgid ""
 "If you need to make any changes, you can go back and edit the previous "
 "pages. Please make sure your information is accurate. This allows us to "
@@ -1651,7 +1665,7 @@ msgstr ""
 "chính xác. Điều này cho phép chúng tôi hồi đáp lại báo cáo của quý vị một "
 "cách nhanh chóng."
 
-#: templates/forms/report_review.html:14 templates/forms/report_review.html:26
+#: templates/forms/report_review.html:13 templates/forms/report_review.html:25
 msgid "Submit report"
 msgstr "Gửi báo cáo"
 
@@ -1660,7 +1674,7 @@ msgid "Edit this page"
 msgstr "Chỉnh sửa trang này"
 
 #: templates/forms/widgets/crt_radio_area_option.html:26
-#: templates/vot_resources.html:58
+#: templates/vot_resources.html:57
 msgid "Examples:"
 msgstr "Ví dụ:"
 
@@ -1686,8 +1700,8 @@ msgstr ""
 "          %(word_limit)s đã đạt đến giới hạn từ\n"
 "        "
 
-#: templates/hate_crime_human_trafficking.html:7
-#: templates/hate_crime_human_trafficking.html:14
+#: templates/hate_crime_human_trafficking.html:6
+#: templates/hate_crime_human_trafficking.html:13
 msgid ""
 "Civil Rights Division - Department of Justice - Get help for hate crimes and "
 "human trafficking"
@@ -1695,27 +1709,27 @@ msgstr ""
 "Ban Dân Quyền - Bộ Tư pháp - Nhận sự giúp đỡ khi gặp tội ác do thù hận và "
 "nạn buôn người"
 
-#: templates/hate_crime_human_trafficking.html:25
+#: templates/hate_crime_human_trafficking.html:24
 msgid "Get help"
 msgstr "Hãy nhận sự giúp đỡ NGAY BÂY GIỜ!"
 
-#: templates/hate_crime_human_trafficking.html:29
+#: templates/hate_crime_human_trafficking.html:28
 msgid "Report a hate crime"
 msgstr "Trình báo một tội ác do thù hận"
 
-#: templates/hate_crime_human_trafficking.html:32
+#: templates/hate_crime_human_trafficking.html:31
 msgid "Report human trafficking"
 msgstr "Trình báo nạn buôn người"
 
-#: templates/hate_crime_human_trafficking.html:39
+#: templates/hate_crime_human_trafficking.html:38
 msgid "Get help for hate crimes and human trafficking"
 msgstr "Nhận sự giúp đỡ khi gặp tội ác do thù hận và nạn buôn người"
 
-#: templates/hate_crime_human_trafficking.html:44
+#: templates/hate_crime_human_trafficking.html:43
 msgid "Where to report a hate crime"
 msgstr "Nơi trình báo một tội ác do thù hận"
 
-#: templates/hate_crime_human_trafficking.html:46
+#: templates/hate_crime_human_trafficking.html:45
 msgid ""
 "A hate crime is violence or threats of violence based on race, color, "
 "national origin, religion, gender, sexual orientation, gender identity, or "
@@ -1725,23 +1739,23 @@ msgstr ""
 "nguồn gốc quốc gia, tôn giáo, giới tính, khuynh hướng tình dục, bản dạng "
 "giới, hoặc sự tàn tật."
 
-#: templates/hate_crime_human_trafficking.html:50
+#: templates/hate_crime_human_trafficking.html:49
 msgid "In cases of emergency, contact 911"
 msgstr "Trong trường hợp khẩn cấp, gọi 911"
 
-#: templates/hate_crime_human_trafficking.html:55
+#: templates/hate_crime_human_trafficking.html:54
 msgid "Otherwise, contact the FBI online"
 msgstr "Nếu không, liên hệ với FBI trực tuyến"
 
-#: templates/hate_crime_human_trafficking.html:60
+#: templates/hate_crime_human_trafficking.html:59
 msgid "Or a local field office by phone"
 msgstr "Hoặc văn phòng địa phương qua điện thoại"
 
-#: templates/hate_crime_human_trafficking.html:66
+#: templates/hate_crime_human_trafficking.html:65
 msgid "Where to report human trafficking"
 msgstr "Nơi trình báo nạn buôn người"
 
-#: templates/hate_crime_human_trafficking.html:68
+#: templates/hate_crime_human_trafficking.html:67
 msgid ""
 "Human trafficking includes being forced or coerced to do work, or forced or "
 "coerced to engage in sex acts for something of value."
@@ -1750,235 +1764,251 @@ msgstr ""
 "buộc hay cưỡng bức thực hiện hành vi tình dục để được một thứ gì đó có giá "
 "trị."
 
-#: templates/hate_crime_human_trafficking.html:72 templates/landing.html:257
+#: templates/hate_crime_human_trafficking.html:71 templates/landing.html:255
 msgid "Get help from the National Human Trafficking Hotline"
 msgstr "Nhận sự giúp đỡ từ Đường Dây Nóng Chống Buôn Người Toàn Quốc"
 
-#: templates/hce_resources.html:7 templates/hce_resources.html:14
+#: templates/hce_resources.html:6 templates/hce_resources.html:13
 #, fuzzy
 #| msgid "Civil Rights Division - Department of Justice - Privacy Policy"
 msgid "Civil Rights Division - Department of Justice - Get resources"
 msgstr "Ban Dân Quyền - Bộ Tư pháp - Chính sách Quyền riêng tư"
 
-#: templates/hce_resources.html:25
+#: templates/hce_resources.html:24
 msgid "Housing Section Resources"
 msgstr ""
 
-#: templates/hce_resources.html:29 templates/hce_resources.html:56
+#: templates/hce_resources.html:28 templates/hce_resources.html:55
 msgid "Credit"
 msgstr "Tín Dụng"
 
-#: templates/hce_resources.html:32 templates/hce_resources.html:76
-#| msgid "Accessibility"
+#: templates/hce_resources.html:31 templates/hce_resources.html:75
 msgid "Disability"
 msgstr "Khuyến Tật (Disability)"
 
-#: templates/hce_resources.html:35 templates/hce_resources.html:85
+#: templates/hce_resources.html:34 templates/hce_resources.html:84
 msgid "Housing"
 msgstr "Nhà Ở (Housing)"
 
-#: templates/hce_resources.html:38
+#: templates/hce_resources.html:37
 msgid "Find an attorney"
 msgstr "Tìm một luật sư"
 
-#: templates/hce_resources.html:41
-#| msgid "Enforcement"
+#: templates/hce_resources.html:40
 msgid "Enforcement of state laws"
 msgstr "Thực Thi Luật Tiểu Bang"
 
-#: templates/hce_resources.html:44
+#: templates/hce_resources.html:43
 msgid "General assistance"
 msgstr "Hổ Trợ Tổng Quát"
 
-#: templates/hce_resources.html:51
+#: templates/hce_resources.html:50
 msgid "Housing section resources"
 msgstr ""
 
-#: templates/hce_resources.html:59
+#: templates/hce_resources.html:58
 msgid "Consumer Financial Protection Bureau"
-msgstr "Văn Phòng Bảo Vệ Tài Chính Người Tiêu Dùng (Consumer Financial Protection Bureau)"
+msgstr ""
+"Văn Phòng Bảo Vệ Tài Chính Người Tiêu Dùng (Consumer Financial Protection "
+"Bureau)"
 
-#: templates/hce_resources.html:60
+#: templates/hce_resources.html:59
 msgid "Submit a complaint about a financial product or service."
 msgstr "Nộp đơn khiếu nại về một sản phẩm tài chính hoặc một dịch vụ."
 
-#: templates/hce_resources.html:66
+#: templates/hce_resources.html:65
 msgid "Credit Bureaus"
 msgstr "Các Công Ty Tư Vấn Tín Nhiệm (Credit Bureaus)"
 
-#: templates/hce_resources.html:67
+#: templates/hce_resources.html:66
 msgid "Find information about credit history or credit scores."
 msgstr "Tìm thông tin về quá trình tín dụng hoặc các điểm tín dụng."
 
-#: templates/hce_resources.html:79
+#: templates/hce_resources.html:78
 msgid "Fair Housing Accessibility First"
 msgstr "Truy Cặp Công Bằng Nhà Ở Đầu Tiên (Fair Housing Accessibility First)"
 
-#: templates/hce_resources.html:80
+#: templates/hce_resources.html:79
 msgid ""
 "Information about physical accessibility requirements in multifamily housing."
-msgstr "Thông tin về những qui định dành cho người có khuyến tật sử dụng vào nơi chung cư/đa gia đình."
+msgstr ""
+"Thông tin về những qui định dành cho người có khuyến tật sử dụng vào nơi "
+"chung cư/đa gia đình."
+
+#: templates/hce_resources.html:87
+msgid "U.S. Department of Housing and Urban Development"
+msgstr ""
+"Sở Nhà Ở và Phát Triển Đô Thị Hoa Kỳ (U.S. Department of Housing and Urban "
+"Development)"
 
 #: templates/hce_resources.html:88
-#| msgid "U.S. Department of Justice"
-msgid "U.S. Department of Housing and Urban Development"
-msgstr "Sở Nhà Ở và Phát Triển Đô Thị Hoa Kỳ (U.S. Department of Housing and Urban Development)"
-
-#: templates/hce_resources.html:89
 msgid "Submit a complaint about discrimination in housing."
 msgstr "Nộp đơn khiếu nại về kỳ thị trong nhà ở."
 
-#: templates/hce_resources.html:96
+#: templates/hce_resources.html:95
 msgid "Homelessness Resources"
 msgstr "Các Tài Nguyên Trợ Giúp Người Vô Gia Cư  (Homelessness Resources)"
 
-#: templates/hce_resources.html:97
+#: templates/hce_resources.html:96
 msgid "Information on housing assistance."
 msgstr "Thông tin về việc hổ trợ cho nhà ở."
 
-#: templates/hce_resources.html:101
+#: templates/hce_resources.html:100
 msgid "Office of Public &amp; Indian Housing"
-msgstr "Văn Phòng Trợ Giúp Nhà Ở Cho Công Cộng & Thổ Dân Hoa Kỳ (Office of Public & Indian Housing) "
+msgstr ""
+"Văn Phòng Trợ Giúp Nhà Ở Cho Công Cộng & Thổ Dân Hoa Kỳ (Office of Public & "
+"Indian Housing) "
 
-#: templates/hce_resources.html:102
+#: templates/hce_resources.html:101
 msgid ""
 "Information on public housing authorities, rental assistance, and housing "
 "counseling."
-msgstr "Thông tin về các cơ quan quản lý nhà ở công cộng, hổ trợ trả tiền thuê nhà và tư vấn về nhà ở."
+msgstr ""
+"Thông tin về các cơ quan quản lý nhà ở công cộng, hổ trợ trả tiền thuê nhà "
+"và tư vấn về nhà ở."
 
-#: templates/hce_resources.html:103
+#: templates/hce_resources.html:102
 msgid ""
 "(for inquiries on public housing authorities and housing choice voucher "
 "programs)"
-msgstr "(đề được giài đáp thắc mắc về các cơ quan quản lý nhà ở công cộng và những chương trình lựa chọn phiếu nhà ở)"
+msgstr ""
+"(đề được giài đáp thắc mắc về các cơ quan quản lý nhà ở công cộng và những "
+"chương trình lựa chọn phiếu nhà ở)"
 
-#: templates/hce_resources.html:107
-#| msgid "Office of Inspector General"
+#: templates/hce_resources.html:106
 msgid "Office of Inspector General (OIG)"
 msgstr "Văn Phòng Tổng Thanh Tra (OIG)"
 
-#: templates/hce_resources.html:108
+#: templates/hce_resources.html:107
 msgid "Report fraud, waste, or abuse in HUD-funded programs."
-msgstr "Báo cáo sự gian lận, phí phạm, hoặc lạm dụng các chương trình do HUD tài trợ."
+msgstr ""
+"Báo cáo sự gian lận, phí phạm, hoặc lạm dụng các chương trình do HUD tài trợ."
 
-#: templates/hce_resources.html:110
+#: templates/hce_resources.html:109
 msgid "(202) 708-4829 Facsimile"
 msgstr "(202) 708-4829 đánh fax"
 
-#: templates/hce_resources.html:111
+#: templates/hce_resources.html:110
 msgid "Email: hotline@hudoig.gov"
 msgstr "Điện thư: hotline@hudoig.gov"
 
-#: templates/hce_resources.html:115
+#: templates/hce_resources.html:114
 msgid "Fair Housing Initiatives Program Agencies"
-msgstr "Những Chương Trình Sáng Kiến Nhà Ở Công Bằng (Fair Housing Initiatives Program Agencies)"
+msgstr ""
+"Những Chương Trình Sáng Kiến Nhà Ở Công Bằng (Fair Housing Initiatives "
+"Program Agencies)"
 
-#: templates/hce_resources.html:116
+#: templates/hce_resources.html:115
 msgid ""
 "Information about organizations that assist people who believe they have "
 "been victims of housing discrimination."
-msgstr "Thông tin về những tổ chức hổ trợ  cho những người tin rằng họ đã là nạn nhân của sự kỳ thị về nhà ở."
+msgstr ""
+"Thông tin về những tổ chức hổ trợ  cho những người tin rằng họ đã là nạn "
+"nhân của sự kỳ thị về nhà ở."
+
+#: templates/hce_resources.html:119
+msgid "Fair Housing Assistance Program Agencies"
+msgstr ""
+"Các Cơ Quan Hổ Trợ Nhà Ở Công Bằng  (Fair Housing Assistance Program "
+"Agencies)"
 
 #: templates/hce_resources.html:120
-msgid "Fair Housing Assistance Program Agencies"
-msgstr "Các Cơ Quan Hổ Trợ Nhà Ở Công Bằng  (Fair Housing Assistance Program Agencies)"
-
-#: templates/hce_resources.html:121
 msgid ""
 "State and local agencies responsible for receiving reports of discrimination."
-msgstr "Các cơ quan của tiểu bang và tại địa phương có trách nhiệm tiếp nhận những báo cáo về kỳ thị."
+msgstr ""
+"Các cơ quan của tiểu bang và tại địa phương có trách nhiệm tiếp nhận những "
+"báo cáo về kỳ thị."
 
-#: templates/hce_resources.html:125
+#: templates/hce_resources.html:124
 msgid "Rent and Utility Payment Assistance"
 msgstr "Hổ Trợ Tiền Thuê Nhà Và Điện Nước (Rent and Utily Payment Assistance)"
 
-#: templates/hce_resources.html:126
+#: templates/hce_resources.html:125
 msgid "Information on rental assistance programs in your area."
-msgstr "Thông tin về những chương trình hổ trợ tiền thuê nhà tại địa phương trong khu vực của qúy vị."
+msgstr ""
+"Thông tin về những chương trình hổ trợ tiền thuê nhà tại địa phương trong "
+"khu vực của qúy vị."
 
-#: templates/hce_resources.html:130
+#: templates/hce_resources.html:129
 msgid "Find an Attorney"
 msgstr "Tìm một luật sư"
 
-#: templates/hce_resources.html:133
-#| msgid "American Samoa"
+#: templates/hce_resources.html:132
 msgid "American Bar Association"
 msgstr "Hiệp Hội Luật Sư Đoàn Hoa Kỳ (American Bar Association)"
 
-#: templates/hce_resources.html:140
+#: templates/hce_resources.html:139
 msgid "Legal Services Corporation (or Legal Aid Offices)"
-msgstr "Các Dịch Vụ Pháp Lý  (Hoặc Các Văn Phòng Hồ Trợ Pháp Lý)  (Legal Services Corporation or Legal Aid Offices)"
+msgstr ""
+"Các Dịch Vụ Pháp Lý  (Hoặc Các Văn Phòng Hồ Trợ Pháp Lý)  (Legal Services "
+"Corporation or Legal Aid Offices)"
 
-#: templates/hce_resources.html:141
-#| msgid ""
-#| "Legal Services Corporation (or Legal Aid Offices), visit <a aria-label="
-#| "\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue external-link--"
-#| "popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc.gov/find-"
-#| "legal-aid</a>"
+#: templates/hce_resources.html:140
 msgid ""
 "Information on non-profit organizations providing legal help to people with "
 "limited income. Visit <a class='external-link--blue external-link--popup' "
 "href='https://www.lsc.gov/find-legal-aid'>www.lsc.gov/find-legal-aid</a>"
 msgstr ""
-"Thông tin về các tổ chức bất vụ lợi cung cấp trợ lý cho những người với lợi tức có giới hạn. <a "
-"aria-label=\"www.lsc.gov/find-legal-aid\" class=\"external-link--blue "
-"external-link--popup\" href=\"https://www.lsc.gov/find-legal-aid\">www.lsc."
-"gov/find-legal-aid</a>"
+"Thông tin về các tổ chức bất vụ lợi cung cấp trợ lý cho những người với lợi "
+"tức có giới hạn. <a aria-label=\"www.lsc.gov/find-legal-aid\" class="
+"\"external-link--blue external-link--popup\" href=\"https://www.lsc.gov/find-"
+"legal-aid\">www.lsc.gov/find-legal-aid</a>"
 
-#: templates/hce_resources.html:145
-#| msgid "Enforcement"
+#: templates/hce_resources.html:144
 msgid "Enforcement of State Laws"
 msgstr "Thực Thi Luật Tiểu Bang"
 
-#: templates/hce_resources.html:148
+#: templates/hce_resources.html:147
 msgid "State Attorneys General"
 msgstr "Tổng Chưởng Lý Tiểu Bang"
 
-#: templates/hce_resources.html:149
+#: templates/hce_resources.html:148
 msgid "Find contact information for your state attorney general."
 msgstr "Tìm thông tin liên lạc Tổng Chưởng Lý Tiểu Bang."
 
-#: templates/hce_resources.html:153
+#: templates/hce_resources.html:152
 msgid "General Assistance"
 msgstr "Hổ Trợ Tổng Quát"
 
-#: templates/hce_resources.html:157
+#: templates/hce_resources.html:156
 msgid ""
 "Assistance with questions about federal agencies, government programs, "
 "services, and more."
-msgstr "Hổ Trợ cho những thắc mắc về các cơ quan liên bang, các chương trình của chính phủ, các dịch vụ, và nhiều hơn nữa."
+msgstr ""
+"Hổ Trợ cho những thắc mắc về các cơ quan liên bang, các chương trình của "
+"chính phủ, các dịch vụ, và nhiều hơn nữa."
 
-#: templates/landing.html:31
+#: templates/landing.html:30
 msgid "Menu"
 msgstr "Thực đơn"
 
-#: templates/landing.html:40
+#: templates/landing.html:39
 msgid "About the Division"
 msgstr "Giới thiệu về Ban"
 
-#: templates/landing.html:45
+#: templates/landing.html:44
 msgid "Your rights"
 msgstr "Các quyền của quý vị"
 
-#: templates/landing.html:50 templates/partials/footer.html:70
+#: templates/landing.html:49 templates/partials/footer.html:69
 msgid "Report a violation"
 msgstr "Báo cáo một vi phạm"
 
-#: templates/landing.html:55
+#: templates/landing.html:54
 msgid "Already submitted?"
 msgstr "Đã gửi?"
 
-#: templates/landing.html:60 templates/partials/footer.html:9
-#: views_public.py:180 views_public.py:259 views_public.py:277
+#: templates/landing.html:59 templates/partials/footer.html:8
+#: views_public.py:180 views_public.py:284 views_public.py:302
 msgid "Contact"
 msgstr "Liên Hệ"
 
-#: templates/landing.html:91
+#: templates/landing.html:90
 msgid "We uphold the civil rights of <em>all</em> people in the United States."
 msgstr ""
 "Chúng tôi đề cao quyền công dân của <em>tất cả</em> mọi người dân ở Hoa Kỳ."
 
-#: templates/landing.html:96
+#: templates/landing.html:95
 msgid ""
 "The Civil Rights Division enforces federal laws that protect you from "
 "discrimination based on your race, color, national origin, disability "
@@ -1990,7 +2020,7 @@ msgstr ""
 "tính, tôn giáo, tình trạng gia đình, hoặc tình trạng mất các quyền hợp hiến "
 "khác của quý vị."
 
-#: templates/landing.html:99
+#: templates/landing.html:98
 msgid ""
 "If you believe your civil rights, or someone else’s, have been violated, "
 "submit a report using our online form."
@@ -1998,16 +2028,15 @@ msgstr ""
 "Nếu quý vị tin rằng dân quyền của mình hoặc của người khác đã bị vi phạm, "
 "hãy gửi báo cáo bằng cách sử dụng mẫu trực tuyến của chúng tôi."
 
-#: templates/landing.html:101 templates/landing.html:354
+#: templates/landing.html:100 templates/landing.html:352
 msgid "Start a report"
 msgstr "Bắt đầu báo cáo"
 
-#: templates/landing.html:102
-msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
+#: templates/landing.html:101
+msgid "Learn more"
 msgstr ""
-"hoặc tìm hiểu thêm về các <a href=\"#your-rights\">quyền của quý vị</a>"
 
-#: templates/landing.html:115
+#: templates/landing.html:113
 msgid ""
 "If you are in danger, contact <a href=\"tel:911\" aria-label=\"9 1 1\">911</"
 "a>"
@@ -2015,7 +2044,7 @@ msgstr ""
 "Nếu quý vị đang gặp nguy hiểm, hãy gọi <a href=\"tel:911\" aria-label=\"9 1 "
 "1\">911</a>"
 
-#: templates/landing.html:126
+#: templates/landing.html:124
 msgid ""
 "If you are reporting misconduct by law enforcement or believe you have "
 "experienced a hate crime, please <a aria-label=\"contact the FBI\" class="
@@ -2027,15 +2056,15 @@ msgstr ""
 "label=\"contact the FBI\" class=\"external-link--white\" href=\"https://www."
 "fbi.gov/contact-us\">liên hệ với FBI</a>."
 
-#: templates/landing.html:140
+#: templates/landing.html:138
 msgid "We protect your rights through:"
 msgstr "Chúng tôi bảo vệ các quyền của quý vị thông qua:"
 
-#: templates/landing.html:143
+#: templates/landing.html:141
 msgid "Enforcement"
 msgstr "Đảm bảo thực thi"
 
-#: templates/landing.html:145
+#: templates/landing.html:143
 msgid ""
 "We sue or prosecute individuals and organizations who violate civil rights "
 "laws."
@@ -2043,7 +2072,7 @@ msgstr ""
 "Chúng tôi khởi kiện hoặc truy tố những cá nhân và tổ chức vi phạm luật dân "
 "quyền."
 
-#: templates/landing.html:148
+#: templates/landing.html:146
 #, python-format
 msgid ""
 "\n"
@@ -2058,32 +2087,32 @@ msgstr ""
 "\">mẫu đơn trực tuyến</a>.\n"
 "                "
 
-#: templates/landing.html:154
+#: templates/landing.html:152
 msgid "Education"
 msgstr "Giáo dục"
 
-#: templates/landing.html:156
+#: templates/landing.html:154
 msgid "We help the public understand how to comply with these laws."
 msgstr "Chúng tôi giúp công chúng hiểu cách tuân thủ các luật này."
 
-#: templates/landing.html:157
+#: templates/landing.html:155
 msgid "We do this through public speaking, technical assistance, and more."
 msgstr ""
 "Chúng tôi thực hiện điều này thông qua phát biểu trước công chúng, trợ giúp "
 "kỹ thuật, và những việc làm khác."
 
-#: templates/landing.html:160
+#: templates/landing.html:158
 msgid "Coordination"
 msgstr "Hợp tác"
 
-#: templates/landing.html:162
+#: templates/landing.html:160
 msgid ""
 "We help the entire federal government work together to enforce these laws."
 msgstr ""
 "Chúng tôi giúp toàn bộ chính phủ liên bang phối hợp làm việc cùng nhau để "
 "thực thi các luật này."
 
-#: templates/landing.html:163
+#: templates/landing.html:161
 msgid ""
 "Our teams work with other agencies to promote a consistent approach to civil "
 "rights laws."
@@ -2091,11 +2120,11 @@ msgstr ""
 "Các nhóm của chúng tôi làm việc với các cơ quan khác để thúc đẩy cách tiếp "
 "cận nhất quán đối với các luật dân quyền."
 
-#: templates/landing.html:175
+#: templates/landing.html:173
 msgid "Understanding your rights"
 msgstr "Hiểu các quyền của quý vị"
 
-#: templates/landing.html:178
+#: templates/landing.html:176
 msgid ""
 "Civil rights laws can protect you from unlawful discrimination, harassment, "
 "or abuse in a variety of settings like <span class=\"crt-landing--"
@@ -2108,7 +2137,7 @@ msgstr ""
 "trường học, hoạt động bỏ phiếu, doanh nghiệp, chăm sóc sức khỏe, không gian "
 "công cộng</span>, v.v."
 
-#: templates/landing.html:181
+#: templates/landing.html:179
 msgid ""
 "If you have been <span class=\"crt-landing--rights_categories\">mistreated "
 "by law enforcement</span> (including while incarcerated), believe you have "
@@ -2123,23 +2152,23 @@ msgstr ""
 "rights_categories\">nạn buôn người</span>, chúng tôi có thể giúp đưa quý vị "
 "đến đúng nơi."
 
-#: templates/landing.html:197
+#: templates/landing.html:195
 msgid "Choose from this list to see example civil rights violations:"
 msgstr "Chọn từ danh sách này để xem ví dụ về các hành vi vi phạm dân quyền:"
 
-#: templates/landing.html:238
+#: templates/landing.html:236
 msgid "Examples"
 msgstr "Các ví dụ"
 
-#: templates/landing.html:254
+#: templates/landing.html:252
 msgid "Get help for hate crimes"
 msgstr "Nhận sự giúp đỡ khi gặp phải những hành vi phạm tội do thù hận"
 
-#: templates/landing.html:257
+#: templates/landing.html:255
 msgid "Were you forced to work against your will?"
 msgstr "Quý vị có bị ép buộc phải làm việc trái ý mình không?"
 
-#: templates/landing.html:264
+#: templates/landing.html:262
 msgid ""
 "If you think you’ve experienced a similar situation, learn <a href=\"#crt-"
 "landing--reporting\">how to report a civil rights violation</a>."
@@ -2147,15 +2176,15 @@ msgstr ""
 "Nếu quý vị cho rằng mình đã trải qua trường hợp tương tự, hãy tìm hiểu <a "
 "href=\"#crt-landing--reporting\">cách báo cáo hành vi vi phạm dân quyền</a>."
 
-#: templates/landing.html:274
+#: templates/landing.html:272
 msgid "Protected by civil rights laws"
 msgstr "Được các luật dân quyền bảo vệ"
 
-#: templates/landing.html:276
+#: templates/landing.html:274
 msgid "These are the most common characteristics that are legally protected."
 msgstr "Đây là những đặc điểm chung nhất được bảo vệ hợp pháp."
 
-#: templates/landing.html:279
+#: templates/landing.html:277
 msgid ""
 "Disability <span class=\"crt-landing--protected\">including temporary or in "
 "recovery</span>"
@@ -2163,15 +2192,15 @@ msgstr ""
 "Tình trạng khuyết tật <span class=\"crt-landing--protected\">bao gồm tạm "
 "thời hoặc đang phục hồi</span>"
 
-#: templates/landing.html:281
+#: templates/landing.html:279
 msgid "Sex, gender identity, and sexual orientation"
 msgstr "Giới tính, nhận dạng giới tính, và xu hướng tình dục"
 
-#: templates/landing.html:282
+#: templates/landing.html:280
 msgid "Immigration/citizenship status"
 msgstr "Tình trạng nhập cư/tư cách công dân"
 
-#: templates/landing.html:283
+#: templates/landing.html:281
 msgid ""
 "Language and national origin <span class=\"crt-landing--protected"
 "\">including ancestry and ethnicity</span>"
@@ -2179,7 +2208,7 @@ msgstr ""
 "Ngôn ngữ và quốc gia xuất xứ <span class=\"crt-landing--protected\">bao gồm "
 "tổ tiên và dân tộc</span>"
 
-#: templates/landing.html:284
+#: templates/landing.html:282
 msgid ""
 "Family, marital, or parental status <span class=\"crt-landing--protected"
 "\">including pregnancy</span>"
@@ -2187,19 +2216,19 @@ msgstr ""
 "Tình trạng gia đình, hôn nhân, hay làm cha mẹ <span class=\"crt-landing--"
 "protected\">bao gồm cả tình trạng mang thai</span>"
 
-#: templates/landing.html:286
+#: templates/landing.html:284
 msgid "Genetic identification"
 msgstr "Nhận dạng di truyền"
 
-#: templates/landing.html:287
+#: templates/landing.html:285
 msgid "Servicemember status"
 msgstr "Tình trạng quân vụ"
 
-#: templates/landing.html:301
+#: templates/landing.html:299
 msgid "How to report a civil rights violation"
 msgstr "Cách báo cáo một hành vi vi phạm dân quyền"
 
-#: templates/landing.html:306
+#: templates/landing.html:304
 msgid ""
 "If you believe that you or someone else experienced unlawful discrimination, "
 "you can report a civil rights violation."
@@ -2207,11 +2236,11 @@ msgstr ""
 "Nếu quý vị tin rằng quý vị hoặc người khác đã bị phân biệt đối xử bất hợp "
 "pháp, quý vị có thể báo cáo một hành vi vi phạm dân quyền."
 
-#: templates/landing.html:315
+#: templates/landing.html:313
 msgid "Report using our online form."
 msgstr "Báo cáo bằng cách sử dụng mẫu trực tuyến của chúng tôi."
 
-#: templates/landing.html:316
+#: templates/landing.html:314
 msgid ""
 "By completing the online form, you can provide the details we need to "
 "understand what happened. You will receive a confirmation number and your "
@@ -2222,11 +2251,11 @@ msgstr ""
 "nhận và báo cáo của quý vị ngay lập tức được gửi đến nhân viên của chúng tôi "
 "để đánh giá."
 
-#: templates/landing.html:324
+#: templates/landing.html:322
 msgid "We review your report."
 msgstr "Chúng tôi sẽ đánh giá báo cáo của quý vị."
 
-#: templates/landing.html:325
+#: templates/landing.html:323
 msgid ""
 "Teams that specialize in handling your type of issue will review it. If it "
 "needs to be forwarded to another team or agency, we will try to connect your "
@@ -2236,11 +2265,11 @@ msgstr ""
 "vụ việc cần được chuyển tiếp đến một nhóm hoặc cơ quan khác, chúng tôi sẽ cố "
 "gắng kết nối khiếu nại của quý vị với đúng nhóm."
 
-#: templates/landing.html:333
+#: templates/landing.html:331
 msgid "We determine next steps and get back to you."
 msgstr "Chúng tôi xác định các bước tiếp theo và liên hệ lại với quý vị."
 
-#: templates/landing.html:334
+#: templates/landing.html:332
 msgid ""
 "Possible outcomes include: following up for more information, starting a "
 "mediation or investigation, directing you to another organization for "
@@ -2250,13 +2279,13 @@ msgstr ""
 "hòa giải hoặc điều tra, chuyển quý vị đến một tổ chức khác để được trợ giúp "
 "thêm hoặc thông báo cho quý vị rằng chúng tôi không thể giúp đỡ."
 
-#: templates/landing.html:353
+#: templates/landing.html:351
 msgid "Have you or someone you know experienced a civil rights violation?"
 msgstr ""
 "Quý vị hoặc một người nào đó mà quý vị biết có từng bị vi phạm dân quyền "
 "không?"
 
-#: templates/landing.html:359
+#: templates/landing.html:357
 msgid ""
 "If you cannot access the online form, you can <a href=\"#phone-footer"
 "\">call</a> to report a violation or report a violation by <a href="
@@ -2266,15 +2295,15 @@ msgstr ""
 "\"#phone-footer\">gọi điện</a> để báo cáo hành vi vi phạm hoặc báo cáo hành "
 "vi vi phạm qua <a href=\"#address-footer\">thư</a>."
 
-#: templates/landing.html:369
+#: templates/landing.html:367
 msgid "Already submitted a report?"
 msgstr "Quý vị đã gửi báo cáo?"
 
-#: templates/landing.html:372
+#: templates/landing.html:370
 msgid "Here's what to expect."
 msgstr "Dưới đây là những việc sẽ xảy ra."
 
-#: templates/landing.html:376
+#: templates/landing.html:374
 msgid ""
 "<strong>Thank you for your report.</strong> We carefully read each one to "
 "determine if we have the authority to help. We do our best to let you know "
@@ -2287,22 +2316,22 @@ msgstr ""
 "tôi. Tuy nhiên, không phải lúc nào chúng tôi cũng có thể cung cấp cho quý vị "
 "các thông tin cập nhật vì:"
 
-#: templates/landing.html:378
+#: templates/landing.html:376
 msgid ""
 "We're actively working on an investigation or case related to your report."
 msgstr ""
 "Chúng tôi đang tích cực tiến hành một cuộc điều tra hoặc đang xử lý một "
 "trường hợp liên quan đến báo cáo của quý vị."
 
-#: templates/landing.html:379
+#: templates/landing.html:377
 msgid "We're receiving and actively reviewing many reports at the same time."
 msgstr "Chúng tôi đang nhận và tích cực đánh giá nhiều báo cáo cùng một lúc."
 
-#: templates/landing.html:386
+#: templates/landing.html:384
 msgid "Need urgent legal help?"
 msgstr "Quý vị cần hỗ trợ pháp lý khẩn cấp?"
 
-#: templates/landing.html:388
+#: templates/landing.html:386
 msgid ""
 "Due to the amount of reports we receive, it can take several weeks for us to "
 "respond to your issue. Local legal aid offices or lawyers in your area may "
@@ -2313,7 +2342,7 @@ msgstr ""
 "hoặc luật sư trong khu vực của quý vị có thể nhanh chóng hồi đáp hoặc giúp "
 "đỡ quý vị về mối quan ngại của quý vị"
 
-#: templates/landing.html:389
+#: templates/landing.html:387
 #, fuzzy
 #| msgid ""
 #| "Contact Legal Services Corporation at <a aria-label=\"www.lsc.gov/find-"
@@ -2329,7 +2358,7 @@ msgstr ""
 "legal-aid\" class=\"external-link--blue external-link--popup\" href="
 "\"https://www.lsc.gov/find-legal-aid\">lsc.gov/find-legal-aid</a>."
 
-#: templates/landing.html:390
+#: templates/landing.html:388
 msgid ""
 "Or visit <a class=\"external-link--blue external-link--popup american-bar-"
 "link\" href=\"https://www.americanbar.org/groups/legal_services/flh-home/"
@@ -2343,15 +2372,15 @@ msgstr ""
 "\"tel:800-285-2221\">(800) 285-2221</a> để tìm luật sư thông qua Hiệp hội "
 "Luật sư Hoa Kỳ."
 
-#: templates/landing.html:404
+#: templates/landing.html:402
 msgid "Image attributions"
 msgstr "Mô tả ảnh"
 
-#: templates/partials/banner/usa_banner_content.html:7
+#: templates/partials/banner/usa_banner_content.html:6
 msgid "Official websites use .gov"
 msgstr "Những trang mạng chính thức sử dụng tên miền .gov"
 
-#: templates/partials/banner/usa_banner_content.html:8
+#: templates/partials/banner/usa_banner_content.html:7
 msgid ""
 "A <strong>.gov</strong> website belongs to an official government "
 "organization in the United States."
@@ -2359,15 +2388,15 @@ msgstr ""
 "Trang mạng <strong>.gov</strong> thuộc một cơ quan chính thức của chính phủ "
 "tại Hoa Kỳ."
 
-#: templates/partials/banner/usa_banner_content.html:16
+#: templates/partials/banner/usa_banner_content.html:15
 msgid "Secure .gov websites use HTTPS"
 msgstr "Các trang mạng an toàn có tên miền .gov sử dụng HTTPS"
 
-#: templates/partials/banner/usa_banner_content.html:18
+#: templates/partials/banner/usa_banner_content.html:17
 msgid "A <strong>lock</strong> ("
 msgstr "<strong>Biểu tượng ổ khóa</strong> ("
 
-#: templates/partials/banner/usa_banner_content.html:20
+#: templates/partials/banner/usa_banner_content.html:19
 msgid ""
 ") or <strong>https://</strong> means you’ve safely connected to the .gov "
 "website. Share sensitive information only on official, secure websites."
@@ -2376,12 +2405,12 @@ msgstr ""
 "trang mạng .gov. Chỉ chia sẻ những thông tin nhạy cảm trên những trang mạng "
 "chính thức và an toàn."
 
-#: templates/partials/banner/usa_banner_header.html:9
+#: templates/partials/banner/usa_banner_header.html:8
 msgid "An official website of the United States government"
 msgstr "Một trang web chính thức của chính phủ Hoa Kỳ"
 
-#: templates/partials/banner/usa_banner_header.html:10
-#: templates/partials/banner/usa_banner_header.html:13
+#: templates/partials/banner/usa_banner_header.html:9
+#: templates/partials/banner/usa_banner_header.html:12
 msgid "Here’s how you know"
 msgstr "Đây là cách để quý vị biết"
 
@@ -2413,39 +2442,39 @@ msgstr "Không, tôi không muốn cung cấp."
 msgid "Yes, I'd like to add it"
 msgstr "Có, tôi muốn cung cấp."
 
-#: templates/partials/footer.html:47
+#: templates/partials/footer.html:46
 msgid "Availability of Language Assistance Services"
 msgstr "Các Dịch vụ Hỗ trợ Ngôn ngữ sẵn có"
 
-#: templates/partials/footer.html:59
+#: templates/partials/footer.html:58
 msgid "Links"
 msgstr "Các liên kết"
 
-#: templates/partials/footer.html:67
+#: templates/partials/footer.html:66
 msgid "About the division"
 msgstr "Giới thiệu về ban"
 
-#: templates/partials/footer.html:73
+#: templates/partials/footer.html:72
 msgid "Privacy policy"
 msgstr "Chính sách quyền riêng tư"
 
-#: templates/partials/footer.html:76
+#: templates/partials/footer.html:75
 msgid "FOIA"
 msgstr "FOIA (Freedom of Information Act, Đạo Luật Tự Do Thông Tin)"
 
-#: templates/partials/footer.html:79
+#: templates/partials/footer.html:78
 msgid "Accessibility"
 msgstr "Khả Năng Tiếp Cận"
 
-#: templates/partials/footer.html:91
+#: templates/partials/footer.html:90
 msgid "Office of Inspector General"
 msgstr "Văn phòng Tổng Thanh tra"
 
-#: templates/partials/footer.html:94
+#: templates/partials/footer.html:93
 msgid "Budget and performance"
 msgstr "Ngân sách và hiệu quả"
 
-#: templates/partials/footer.html:97
+#: templates/partials/footer.html:96
 msgid "Legal policies and Disclaimers"
 msgstr "Chính sách pháp lý và Tuyên bố miễn trách nhiệm"
 
@@ -2465,7 +2494,7 @@ msgid "Get help NOW!"
 msgstr "Hãy nhận sự giúp đỡ NGAY BÂY GIỜ!"
 
 #: templates/partials/important_message_voting.html:8
-#: templates/vot_resources.html:46
+#: templates/vot_resources.html:45
 msgid "Report voting issues"
 msgstr "Trình báo những khả nghi trong việc bỏ phiếu"
 
@@ -2473,7 +2502,7 @@ msgstr "Trình báo những khả nghi trong việc bỏ phiếu"
 msgid "including threats against voters and election fraud."
 msgstr "bao gồm sự đe dọa đối với các cử tri và gian lận bầu cử"
 
-#: templates/partials/menu_language_selection.html:36
+#: templates/partials/menu_language_selection.html:35
 msgid "More Language Assistance Services"
 msgstr "Còn Nhiều Dịch Vụ Hỗ Trợ Ngôn Ngữ Khác Nữa"
 
@@ -2562,7 +2591,7 @@ msgstr ""
 msgid "Continue"
 msgstr "Tiếp tục"
 
-#: templates/partials/unsupported-browser-modal.html:10
+#: templates/partials/unsupported-browser-modal.html:9
 msgid ""
 "\n"
 "          <strong>NOTICE: Your mobile browser is not compatible with this "
@@ -2574,7 +2603,7 @@ msgstr ""
 "thích với mẫu này</strong> và quý vị có thể gặp trở ngại khi nộp đơn.\n"
 "          "
 
-#: templates/partials/unsupported-browser-modal.html:15
+#: templates/partials/unsupported-browser-modal.html:14
 msgid ""
 "\n"
 "          Please consider downloading the latest version of Google Chrome, "
@@ -2589,23 +2618,23 @@ msgstr ""
 "đến đây.</a>\n"
 "          "
 
-#: templates/privacy.html:7 templates/privacy.html:13
+#: templates/privacy.html:6 templates/privacy.html:12
 msgid "Civil Rights Division - Department of Justice - Privacy Policy"
 msgstr "Ban Dân Quyền - Bộ Tư pháp - Chính sách Quyền riêng tư"
 
-#: templates/privacy.html:23 templates/privacy.html:36
+#: templates/privacy.html:22 templates/privacy.html:35
 msgid "Privacy Act Statement"
 msgstr "Tuyên bố về Đạo luật về Quyền Riêng tư"
 
-#: templates/privacy.html:27
+#: templates/privacy.html:26
 msgid "Your information"
 msgstr "Thông tin của quý vị"
 
-#: templates/privacy.html:30
+#: templates/privacy.html:29
 msgid "Our Statutes"
 msgstr "Các Quy chế của Chúng tôi"
 
-#: templates/privacy.html:39
+#: templates/privacy.html:38
 msgid ""
 "The information you provide through this form will help the Department of "
 "Justice’s Civil Rights Division (“us,” “we”) enforce the federal civil "
@@ -2615,7 +2644,7 @@ msgstr ""
 "(“chúng tôi”) thực thi các quy chế về dân quyền của liên bang trong thẩm "
 "quyền của mình."
 
-#: templates/privacy.html:42
+#: templates/privacy.html:41
 msgid ""
 "In addition to our enforcement efforts, we may use the information you "
 "provide on this form for certain routine purposes. These include sharing "
@@ -2625,7 +2654,7 @@ msgstr ""
 "thông tin quý vị cung cấp trong mẫu này cho các mục đích thông thường nhất "
 "định. Các mục đích này bao gồm việc chia sẻ với:"
 
-#: templates/privacy.html:44
+#: templates/privacy.html:43
 msgid ""
 "\n"
 "                    <li>\n"
@@ -2680,18 +2709,18 @@ msgstr ""
 "                    </li>\n"
 "                    "
 
-#: templates/privacy.html:67
+#: templates/privacy.html:66
 msgid ""
 "For a complete list of routine agency uses, please consult the following:"
 msgstr ""
 "Để có danh sách đầy đủ các mục đích sử dụng thông thường của cơ quan, vui "
 "lòng tham khảo phần dưới đây:"
 
-#: templates/privacy.html:76
+#: templates/privacy.html:75
 msgid "You should also know that:"
 msgstr "Quý vị cũng cần biết rằng:"
 
-#: templates/privacy.html:78
+#: templates/privacy.html:77
 msgid ""
 "\n"
 "                    <li>Any information you provide to us through this form "
@@ -2720,17 +2749,17 @@ msgstr ""
 "                    </li>\n"
 "                    "
 
-#: templates/privacy.html:87 templates/privacy.html:148
+#: templates/privacy.html:86 templates/privacy.html:147
 msgid "Return to top"
 msgstr "Trở về đầu trang"
 
-#: templates/privacy.html:90
+#: templates/privacy.html:89
 msgid ""
 "We are authorized to collect this information pursuant to the following "
 "statutes:"
 msgstr "Chúng tôi được phép thu thập thông tin này theo các quy chế sau:"
 
-#: templates/privacy.html:92
+#: templates/privacy.html:91
 msgid ""
 "\n"
 "                    <li>Official Misconduct, 18 U.S.C. §§ 241, 242</li>\n"
@@ -2903,7 +2932,7 @@ msgstr ""
 "li>\n"
 "                    "
 
-#: templates/privacy.html:144
+#: templates/privacy.html:143
 msgid ""
 "\n"
 "                The full list of routine uses for this correspondence can be "
@@ -2922,26 +2951,26 @@ msgstr ""
 "(5-25-2017).\n"
 "                "
 
-#: templates/vot_resources.html:7 templates/vot_resources.html:14
+#: templates/vot_resources.html:6 templates/vot_resources.html:13
 #, fuzzy
 #| msgid "Civil Rights Division - Department of Justice - Privacy Policy"
 msgid "Civil Rights Division - Department of Justice - Voting resources"
 msgstr "Ban Dân Quyền - Bộ Tư pháp - Chính sách Quyền riêng tư"
 
-#: templates/vot_resources.html:25
+#: templates/vot_resources.html:24
 msgid "How do I..."
 msgstr "Bằng cách nào tôi có thể…"
 
-#: templates/vot_resources.html:29 templates/vot_resources.html:51
+#: templates/vot_resources.html:28 templates/vot_resources.html:50
 msgid "Report a possible civil rights violation"
 msgstr "Trình báo một việc có khả năng vi phạm quyền công dân"
 
-#: templates/vot_resources.html:32 templates/vot_resources.html:69
+#: templates/vot_resources.html:31 templates/vot_resources.html:68
 msgid "Report a possible federal criminal civil rights violation"
 msgstr ""
 "Trình báo một việc có khả năng là vi phạm hình sự liên bang về quyền công dân"
 
-#: templates/vot_resources.html:35 templates/vot_resources.html:85
+#: templates/vot_resources.html:34 templates/vot_resources.html:84
 msgid ""
 "Find the election laws, voting hours, or polling place locations in your "
 "state"
@@ -2949,11 +2978,11 @@ msgstr ""
 "Tìm thông tin về luật bầu cử, giờ bỏ phiếu, hoặc những địa điểm bỏ phiếu "
 "trong tiểu bang của mình"
 
-#: templates/vot_resources.html:39 templates/vot_resources.html:93
+#: templates/vot_resources.html:38 templates/vot_resources.html:92
 msgid "Learn about your voting rights"
 msgstr "Tìm hiểu về quyền bỏ phiếu của mình"
 
-#: templates/vot_resources.html:54
+#: templates/vot_resources.html:53
 msgid ""
 "To report civil rights violations, go to <a class='link--blue' href='https://"
 "civilrights.justice.gov/report/'>civilrights.justice.gov/report</a>"
@@ -2962,7 +2991,7 @@ msgstr ""
 "mạng <a class='link--blue' href='https://civilrights.justice.gov/"
 "report/'>civilrights.justice.gov/report</a>"
 
-#: templates/vot_resources.html:61
+#: templates/vot_resources.html:60
 msgid ""
 "Discrimination on the basis of race, color, or membership in a language "
 "minority group while voting or attempting to vote"
@@ -2970,21 +2999,21 @@ msgstr ""
 "Phân biệt đối xử dựa trên chủng tộc, màu da, hay đối với người thuộc nhóm "
 "thiểu số về ngôn ngữ trong khi bỏ phiếu hay định bỏ phiếu"
 
-#: templates/vot_resources.html:62
+#: templates/vot_resources.html:61
 msgid "Voter registration issues"
 msgstr "Những vấn đề về đăng ký cử tri"
 
-#: templates/vot_resources.html:63
+#: templates/vot_resources.html:62
 msgid "Lack of accessibility while voting"
 msgstr "Thiếu phương tiện hổ trợ khi bỏ phiếu"
 
-#: templates/vot_resources.html:64
+#: templates/vot_resources.html:63
 msgid "Absentee voting issues for uniformed services or overseas voters"
 msgstr ""
 "Những vấn đề về bỏ phiếu khiếm diện đối với những cử tri thuộc lực lượng mặc "
 "đồng phục hay đang ở hải ngoại"
 
-#: templates/vot_resources.html:73
+#: templates/vot_resources.html:72
 msgid ""
 "All complaints related to violence, threats of violence, or intimidation at "
 "a polling place should be reported first to local police authorities by "
@@ -2994,11 +3023,11 @@ msgstr ""
 "dẫm tại nơi bỏ phiếu trước hết phải được trình báo với cơ quan cảnh sát địa "
 "phương bằng cách gọi "
 
-#: templates/vot_resources.html:75
+#: templates/vot_resources.html:74
 msgid "911"
 msgstr "911"
 
-#: templates/vot_resources.html:78
+#: templates/vot_resources.html:77
 msgid ""
 "After alerting local law enforcement to such emergencies by calling <a "
 "class='external-link--blue' href='tel:911'>911</a>, the public should "
@@ -3008,7 +3037,7 @@ msgstr ""
 "cho cơ quan thi hành pháp luật địa phương về những trường hợp khẩn cấp này, "
 "quần chúng nên liên lạc với Bộ Tư Pháp"
 
-#: templates/vot_resources.html:80
+#: templates/vot_resources.html:79
 msgid ""
 "Election-crime complaints should be directed to your local <a "
 "class='external-link--blue' href='https://www.justice.gov/usao/find-your-"
@@ -3022,7 +3051,7 @@ msgstr ""
 "class='external-link--blue' href='https://www.fbi.gov/contact-us'>Văn Phòng "
 "FBI</a> địa phương của quý vị"
 
-#: templates/vot_resources.html:88
+#: templates/vot_resources.html:87
 msgid ""
 "Go to <a class='external-link--blue' href='https://usa.gov/election-"
 "office'>usa.gov/election-office</a> to find your state election website"
@@ -3031,7 +3060,7 @@ msgstr ""
 "office'>usa.gov/election-office</a> để tìm trang mạng văn phòng bầu cử của "
 "tiểu bang mình"
 
-#: templates/vot_resources.html:97
+#: templates/vot_resources.html:96
 msgid ""
 "Find additional information about voting rights laws at <a class='link--"
 "blue' href='https://justice.gov/crt/voting-section'>www.justice.gov/crt/"
@@ -3041,7 +3070,7 @@ msgstr ""
 "class='link--blue' href='https://justice.gov/crt/voting-section'>www.justice."
 "gov/crt/voting-section</a>."
 
-#: templates/vot_resources.html:99
+#: templates/vot_resources.html:98
 msgid ""
 "Learn about federal laws that protect voters with disabilities at <a "
 "class='link--blue' href='https://ada.gov'>ada.gov</a>."
@@ -3049,7 +3078,7 @@ msgstr ""
 "Tìm hiểu về luật liên bang bảo vệ những cử tri bị khuyết tật tại <a "
 "class='link--blue' href='https://ada.gov'>ada.gov</a>."
 
-#: templates/vot_resources.html:102
+#: templates/vot_resources.html:101
 msgid ""
 "Download the Justice Department's new <a class='link--blue' href='https://"
 "www.justice.gov/file/1517936/download'>Know Your Voting Rights</a> guide."
@@ -3058,77 +3087,77 @@ msgstr ""
 "href='https://www.justice.gov/file/1517936/download'>Hiểu Biết về Quyền Bỏ "
 "Phiếu của Mình</a>"
 
-#: validators.py:106
+#: validators.py:127
 msgid "Enter a valid email address."
 msgstr "điền vào địa chỉ email hợp lệ"
 
-#: views_public.py:181 views_public.py:260 views_public.py:278
-#: views_public.py:313
+#: views_public.py:181 views_public.py:285 views_public.py:303
+#: views_public.py:338
 msgid "Primary concern"
 msgstr "Mối quan ngại chính"
 
-#: views_public.py:182 views_public.py:261 views_public.py:262
-#: views_public.py:263 views_public.py:264 views_public.py:265
-#: views_public.py:266
+#: views_public.py:182 views_public.py:286 views_public.py:287
+#: views_public.py:288 views_public.py:289 views_public.py:290
+#: views_public.py:291
 msgid "Location"
 msgstr "Địa điểm"
 
-#: views_public.py:183 views_public.py:267 views_public.py:285
+#: views_public.py:183 views_public.py:292 views_public.py:310
 msgid "Personal characteristics"
 msgstr "Các đặc điểm cá nhân"
 
-#: views_public.py:184 views_public.py:268 views_public.py:286
+#: views_public.py:184 views_public.py:293 views_public.py:311
 msgid "Date"
 msgstr "Ngày"
 
-#: views_public.py:185 views_public.py:269 views_public.py:287
+#: views_public.py:185 views_public.py:294 views_public.py:312
 msgid "Personal description"
 msgstr "Mô tả cá nhân"
 
-#: views_public.py:186 views_public.py:270 views_public.py:318
+#: views_public.py:186 views_public.py:295 views_public.py:343
 msgid "Review"
 msgstr "Đánh giá"
 
-#: views_public.py:279 views_public.py:280 views_public.py:281
-#: views_public.py:282 views_public.py:283 views_public.py:284
+#: views_public.py:304 views_public.py:305 views_public.py:306
+#: views_public.py:307 views_public.py:308 views_public.py:309
 msgid "Location details"
 msgstr "Thông tin chi tiết về địa điểm"
 
-#: views_public.py:288
+#: views_public.py:313
 msgid "Review your report"
 msgstr "Đánh giá báo cáo của quý vị"
 
-#: views_public.py:304
+#: views_public.py:329
 msgid "word remaining"
 msgstr "từ còn lại"
 
-#: views_public.py:305
+#: views_public.py:330
 msgid " words remaining"
 msgstr " các từ còn lại"
 
-#: views_public.py:306
+#: views_public.py:331
 msgid " word limit reached"
 msgstr " đã đạt đến giới hạn từ"
 
-#: views_public.py:316
+#: views_public.py:341
 msgid "Please select if any that apply to your situation (optional)"
 msgstr ""
 "Vui lòng chọn nếu có bất kỳ câu trả lời nào phù hợp với tình huống của quý "
 "vị (tùy chọn)"
 
-#: views_public.py:401
+#: views_public.py:426
 msgid "404 | Page not found"
 msgstr "404 | Không tìm thấy trang"
 
-#: views_public.py:402
+#: views_public.py:427
 msgid "We can't find the page you are looking for"
 msgstr "Chúng tôi không thể tìm thấy trang quý vị đang tìm kiếm"
 
-#: views_public.py:461
+#: views_public.py:486
 msgid "Your browser couldn't create a secure cookie"
 msgstr "Trình duyệt của quý vị không thể tạo cookie an toàn"
 
-#: views_public.py:462
+#: views_public.py:487
 msgid ""
 "We use security cookies to protect your information from attackers. Make "
 "sure you allow cookies for this site. Having the page open for long periods "
@@ -3142,6 +3171,10 @@ msgstr ""
 "cookie được cho phép và quý vị đang gặp sự cố này, hãy thử truy cập trang "
 "này trong cửa sổ hoặc tab trình duyệt mới. Điều đó sẽ tạo cho quý vị một "
 "cookie bảo mật mới và sẽ giải quyết được sự cố."
+
+#~ msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
+#~ msgstr ""
+#~ "hoặc tìm hiểu thêm về các <a href=\"#your-rights\">quyền của quý vị</a>"
 
 #~ msgid "To report civil rights violations, go to "
 #~ msgstr ""
