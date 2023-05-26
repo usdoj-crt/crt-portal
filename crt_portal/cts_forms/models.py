@@ -258,6 +258,9 @@ class Report(models.Model):
     district = models.CharField(max_length=7, null=True, blank=True, choices=DISTRICT_CHOICES)
     primary_statute = models.CharField(max_length=7, null=True, blank=True, choices=STATUTE_CHOICES)
 
+    # Used to de-duplicate report submissions.
+    submission_id = models.UUIDField(null=True, blank=False, unique=True)
+
     # Origination info (utm campaigns, etc) about where the report came from.
     # Identifies which site sent the traffic.
     origination_utm_source = models.CharField(max_length=100, null=True, blank=True)

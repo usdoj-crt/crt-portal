@@ -45,5 +45,5 @@ def test_report_complete_and_valid_submission(page, base_url):
     with admin_page.expect_navigation():
         click_button(admin_page, 'Apply filters')
 
-    assert len(admin_page.locator('.crt-table .tr-status-new').all()) > 1
+    assert len(admin_page.locator('.crt-table .tr-status-new').all()) == 1
     page.pause()

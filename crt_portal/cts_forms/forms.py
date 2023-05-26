@@ -1,7 +1,8 @@
 import logging
 from datetime import datetime, timezone
-from actstream import action
+import uuid
 
+from actstream import action
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
@@ -152,13 +153,14 @@ class Contact(ModelForm):
             'contact_first_name', 'contact_last_name',
             'contact_email', 'contact_phone', 'servicemember',
             'contact_address_line_1', 'contact_address_line_2', 'contact_state',
-            'contact_city', 'contact_zip', *ORIGINATION_FIELDS
+            'contact_city', 'contact_zip', *ORIGINATION_FIELDS, 'submission_id'
         ]
         widgets = {
             **{
                 field: HiddenInput()
                 for field in ORIGINATION_FIELDS
             },
+            'submission_id': HiddenInput(),
             'contact_first_name': TextInput(attrs={
                 'class': 'usa-input',
             }),
@@ -191,6 +193,9 @@ class Contact(ModelForm):
         ModelForm.__init__(self, *args, **kwargs)
         self.label_suffix = ''
 
+        self.fields['submission_id'].initial = uuid.uuid4().hex
+        # Let the database handle this validation to prevent race conditions:
+        self.fields['submission_id'].validators = []
         self.fields['contact_first_name'].label = CONTACT_QUESTIONS['contact_first_name']
         self.fields['contact_last_name'].label = CONTACT_QUESTIONS['contact_last_name']
         self.fields['contact_email'].label = CONTACT_QUESTIONS['contact_email']

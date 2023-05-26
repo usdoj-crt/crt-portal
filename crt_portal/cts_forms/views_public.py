@@ -5,8 +5,10 @@ These are the views that are available to the public.
 """
 import os
 import logging
+import time
 
 from django import forms
+from django.db.utils import IntegrityError
 from django.conf import settings
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.shortcuts import render
@@ -382,20 +384,32 @@ class CRTReportWizard(SessionWizardView):
         return context
 
     def done(self, form_list, form_dict, **kwargs):
+        def render_done(done_report):
+            return render(
+                self.request, 'forms/confirmation.html',
+                {
+                    'report': done_report,
+                    'questions': Review.question_text,
+                    'ordered_step_names': self.ORDERED_STEP_NAMES
+                },
+            )
+
         form_data_dict = self.get_all_cleaned_data()
-        _, report = save_form(form_data_dict, intake_format='web')
+        try:
+            _, report = save_form(form_data_dict, intake_format='web')
+        except IntegrityError:
+            submission_id = form_data_dict.get('submission_id')
+            logging.warn(f'Duplicate submission detected for {submission_id}')
+            original = Report.objects.get(submission_id=submission_id)
+            while not original.public_id:
+                time.sleep(1)
+                original.refresh_from_db()
+            return render_done(original)
 
         if settings.EMAIL_AUTORESPONSE_ENABLED:
             send_autoresponse_mail(report)
         EmailReportCount.refresh_view()
-        return render(
-            self.request, 'forms/confirmation.html',
-            {
-                'report': report,
-                'questions': Review.question_text,
-                'ordered_step_names': self.ORDERED_STEP_NAMES
-            },
-        )
+        return render_done(report)
 
 
 # Error pages start here #
@@ -427,6 +441,16 @@ def error_404(request, exception=None):
             'message': _("We can't find the page you are looking for")
         },
         status=404
+    )
+
+
+def error_409(request, exception=None):
+    return render(
+        request,
+        'forms/errors_heading.html', {
+            'status': 409,
+        },
+        status=409
     )
 
 
