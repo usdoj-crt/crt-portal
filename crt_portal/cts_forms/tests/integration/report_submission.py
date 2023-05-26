@@ -34,3 +34,23 @@ def test_error_if_form_refreshed(page, base_url):
 @pytest.mark.only_browser("chromium")
 def test_report_complete_and_valid_submission(page):
     fill_public_form(page)
+
+    # Complete submission
+    with page.expect_navigation():
+        click_button(page.locator('.crt-portal-card',
+                                  has_text='Review your Report'),
+                     'Submit report')
+
+    with page.expect_navigation():
+        click_button(page.locator('.crt-portal-card',
+                                  has_text='Location'),
+                     'Edit this page')
+    assert page.title() == "Step 3: Location - Contact the Civil Rights Division | Department of Justice"
+
+    # Navigate back to review page
+    next_step(page)
+    next_step(page)
+    next_step(page)
+    next_step(page)
+
+    assert page.title() == "Submission complete"

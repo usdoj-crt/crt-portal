@@ -1,6 +1,6 @@
 import pytest
 
-from auth import login_as_superuser
+from .auth import login_as_superuser
 
 
 @pytest.mark.only_browser("chromium")

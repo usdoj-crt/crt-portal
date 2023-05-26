@@ -1,3 +1,18 @@
+import urllib.parse
+
+
+def disable_javascript(page, base_url):
+    """Creates a new page with javascript disabled."""
+    scheme, location, path, _, _ = urllib.parse.urlsplit(page.url)
+    context = page.context.browser.new_context(
+        storage_state=page.context.storage_state(),
+        java_script_enabled=False,
+        base_url=base_url,
+    )
+
+    return context.new_page()
+
+
 def click_button(locatable, text):
     """Clicks the button with the given text label."""
     locators = [
@@ -18,7 +33,8 @@ def next_step(page):
     return response.value
 
 
-def fill_public_form(page):
+def fill_public_form(page, contact_email="testing@test.com"):
+    """Fills the form out to submission."""
     page.goto("/report")
     assert page.title() == "Step 1: Contact - Contact the Civil Rights Division | Department of Justice"
 
@@ -29,7 +45,7 @@ def fill_public_form(page):
     page.fill("input[name='0-contact_last_name']", "Tester")
 
     # Fill input[name="0-contact_email"]
-    page.fill("input[name='0-contact_email']", "testing@test.com")
+    page.fill("input[name='0-contact_email']", contact_email)
 
     # Fill input[name="0-contact_phone"]
     page.fill("input[name='0-contact_phone']", "555-555-5555")
@@ -101,22 +117,3 @@ def fill_public_form(page):
     # Go to step 7
     next_step(page)
     assert page.title() == "Step 7: Review - Contact the Civil Rights Division | Department of Justice"
-
-    with page.expect_navigation():
-        click_button(page.locator('.crt-portal-card',
-                                  has_text='Location'),
-                     'Edit this page')
-    assert page.title() == "Step 3: Location - Contact the Civil Rights Division | Department of Justice"
-
-    # Navigate back to review page
-    next_step(page)
-    next_step(page)
-    next_step(page)
-    next_step(page)
-
-    # Complete submission
-    with page.expect_navigation():
-        click_button(page.locator('.crt-portal-card',
-                                  has_text='Review your Report'),
-                     'Submit report')
-    assert page.title() == "Submission complete"
