@@ -41,6 +41,9 @@
         .replaceAll(aTag['href'], newHref)
         .replaceAll(aTag.innerText, newLinkText);
     });
+    pastedHtml = pastedHtml
+      .replaceAll('date_of_intake', 'date(UNDERSCORE)of(UNDERSCORE)intake')
+      .replaceAll('record_locator', 'record(UNDERSCORE)locator');
     const markdown = turndown.turndown(pastedHtml);
     // Word sometimes includes comments in its HTML, so strip them:
     const sanitized = markdown.replace(/<!--(?!>)[\S\s]*?-->/g, '').replaceAll('(UNDERSCORE)', '_');
