@@ -23,11 +23,11 @@ applications:
   - VCAP_SERVICES
 - name: clamav-rest
   instances: 1
-  memory: 2G
+  memory: 3G
   env:
     MAX_FILE_SIZE: 100M
     SIGNATURE_CHECKS: 1
   docker:
-    image: ajilaag/clamav-rest:20230321    # ##20220511
+    image: ajilaag/clamav-rest:latest    # ##20220511
   routes:
   - route: clamav-rest-dev.apps.internal
