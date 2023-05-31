@@ -98,7 +98,7 @@
             <strong>{% trans "If you believe your civil rights, or someone else’s, have been violated, submit a report using our online form." %}</strong>
           </p>
           <a class="usa-button usa-button--big crt-button--large" href="{% url 'crt_report_form' %}">{% trans "Start a report" %}</a>
-          <p class="text-italic">{% trans 'or learn more about <a href="#your-rights">your rights</a>' %}</p>
+          <p class="text-italic">{% trans 'or learn more about <a id="info-link" href="#your-rights">your rights</a>' %}</p>
 
         </div>
       </div>
@@ -419,7 +419,15 @@
 {% endblock footer_extra %}
 
 {% block page_js %}
-  <script nonce="{{ request.csp_nonce }}">
+  <script type="module" nonce="{{ request.csp_nonce }}">
+   import { sendGAPublicClickEvent } from "./static/js/ga_util.js";
+   var navItems = document.getElementsByClassName("usa-nav__primary-item");
+   for (var i = 0; i < navItems.length; i++) {
+    var navItem = navItems[i];
+     navItem.onclick = function (event) {
+      sendGAPublicClickEvent('main nav ' + event.target.innerText);
+     }
+    }
    var examples = document.getElementById("crt-landing--examples");
    var items = examples.getElementsByClassName("usa-nav__submenu-item");
    for (var i = 0; i < items.length; i++) {
@@ -431,9 +439,14 @@
          target = el.target.parentElement;
        }
        var key = target.dataset["key"];
+       sendGAPublicClickEvent('example list ' + key);
        displayExample(key);
        el.preventDefault();
      }
+   }
+   var infoButton = document.getElementById("info-link");
+   infoButton.onclick = function () {
+    sendGAPublicClickEvent('info button');
    }
    function displayExample(key) {
      var examples_field = document.getElementById("crt-landing--choice_examples");
