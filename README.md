@@ -46,10 +46,28 @@ To build the project
 
     docker-compose up -d --build
 
+You can also customize the ports various services run on by specifying the following in your .env file (changing any ports as desired):
+
+```
+DATABASE_PORT=5432
+WEB_PORT=8000
+JUPYTER_PORT=8001
+MAILHOG_SMTP_PORT=1025
+MAILHOG_UI_PORT=8025
+CLAMAV_REST_PORT=9000
+LOCALSTACK_PORT=4566
+```
+
 To run the project
     This is a quicker way to start the project as long as you don't have new packages to install.
 
     docker-compose up
+
+You can also build the project under a separate project, detached from local dependencies (ports and volumes) using:
+
+    ./standalone
+
+More configuration for this adanced usage can be found in docker-compose.standalone.yml
 
 Visit the site locally at [http://0.0.0.0:8000/report] 🎉
 
