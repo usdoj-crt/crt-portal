@@ -14,6 +14,13 @@ from datetime import timedelta
 
 
 SECTIONS = ['ADM', 'APP', 'CRM', 'DRS', 'ELS', 'EOS', 'FCS', 'HCE', 'IER', 'POL', 'SPL', 'VOT']
+DISTRICTS = ['1', '2', '3', '6', '8', '9', '10', '11', '11E', '12', '12C', '13', '14', '15', '16',
+             '17', '17M', '18', '19', '20', '21', '22', '23', '24', '25', '26', '26S', '27', '28',
+             '29', '30', '31', '32', '32M', '33', '34', '35', '36', '37', '38', '39', '40', '41',
+             '42', '43', '44', '45', '46', '47', '48', '49', '50', '51', '52', '53', '54', '54M',
+             '55', '56', '57', '58', '59', '59N', '60', '61', '62', '63', '64', '65', '66', '67',
+             '69', '70', '71', '72', '73', '74', '75', '76', '77', '78', '79', '80', '81', '82',
+             '83', '84', '85', '86', '87', '90', '91', '103']
 
 
 def random_date():
@@ -148,6 +155,7 @@ class Command(BaseCommand):  # pragma: no cover
                 add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
                 protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[0][0])
                 report.protected_class.add(protected_example)
+                report.district = random.choice(DISTRICTS)
             elif rand <= 70:
                 referral = random.choice(SECTIONS)  # nosec
                 if report.assigned_section != referral:
