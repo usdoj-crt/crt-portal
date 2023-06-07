@@ -1,4 +1,5 @@
-def login_as_superuser(page):
+def login_as_superuser(page) -> str:
+    """Log in as the manage.py create_test_user user and return the username."""
     with page.expect_navigation():
         page.goto("/admin/logout")
 
@@ -24,3 +25,5 @@ def login_as_superuser(page):
 
     # If we're not auth'd, this will say "Log in | ...":
     assert page.title() == "Site administration | Django site admin"
+
+    return username
