@@ -20,7 +20,7 @@ from testfixtures import LogCapture
 
 from ..forms import ContactEditForm, ReportEditForm, add_activity
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
-from ..models import DashboardEmbed, Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign
+from ..models import DashboardEmbed, Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign, BannerMessage
 from .test_data import SAMPLE_REPORT_1
 from .factories import ReportFactory
 
@@ -980,6 +980,28 @@ class ReportListApiTests(TestCase):
             report.refresh_from_db()
             self.assertTrue(report.viewed)
         self.assertEqual(response.status_code, 200)
+
+
+class BannerMessageTests(TestCase):
+    """Tests the db-backed banner messages.
+
+    Find more banner tests in the e2e suite."""
+    def setUp(self):
+        self.client = Client()
+
+    def test_renders_without_banner(self):
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Have you been a victim of a hate crime')
+
+    def test_renders_banner(self):
+        BannerMessage.objects.create(show=True,
+                                     order=0,
+                                     kind='notice',
+                                     markdown_content={'en': 'banner **test**'})
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'banner <strong>test</strong>')
 
 
 class FormLettersIndexTests(TestCase):

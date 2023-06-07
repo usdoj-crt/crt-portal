@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load get_voting_mode %}
+{% load banner_message %}
 
 {% block page_header %}
   <header class="crt-landing--header crt-landing--blue">
@@ -74,6 +75,7 @@
 {% block content %}
 
   {% voting_banner as votbanner %}
+  {% banner_message %}
   {% if votbanner == 'True' %}
   <!-- display only when voting toggle is on -->
       {% include "partials/important_message_voting.html" %}

@@ -12,6 +12,10 @@ def login_as_superuser(page):
     except FileNotFoundError:
         raise RuntimeError('Please run manage.py create_test_user first.')
 
+    # This menu gets in the way of clicks, and we aren't testing it.
+    if page.locator('#djHideToolBarButton').is_visible():
+        page.click("#djHideToolBarButton")
+
     page.fill("input[name='username']", username)
     page.fill("input[name='password']", password)
 
