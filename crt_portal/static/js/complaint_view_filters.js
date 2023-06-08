@@ -1,4 +1,3 @@
-import { sendGAClickEvent, sendGAFilterEvent } from './ga_util.js';
 (function(root, dom) {
   /**
    * Convert an array-like object to an array.
@@ -45,6 +44,21 @@ import { sendGAClickEvent, sendGAFilterEvent } from './ga_util.js';
     });
 
     return paramsMap;
+  }
+
+  function getSection() {
+    const sectionDropdown = document.getElementById('assigned-section-label');
+    return sectionDropdown?.innerText;
+  }
+
+  function gtag() {
+    window.dataLayer = window.dataLayer || [];
+    dataLayer.push(arguments);
+  }
+
+  function sendGAFilterEvent(params) {
+    const section = getSection();
+    gtag('event', 'search_filter', { filters: params, section: section });
   }
 
   /**
@@ -349,9 +363,6 @@ import { sendGAClickEvent, sendGAFilterEvent } from './ga_util.js';
         );
       }
       if (props.name == 'per_page' || props.name == 'grouping') {
-        if (props.name == 'grouping') {
-          sendGAClickEvent('grouping set to' + event.target.value);
-        }
         filterDataModel[props.name] = event.target.value;
         dom.getElementById('apply-filters-button').click();
         return;
