@@ -11,7 +11,11 @@
       {% include 'forms/complaint_view/dashboard/filters/action.html' %}
       {% include 'forms/complaint_view/index/filters/public_id_filter.html' %}
     </div>
-
+    <div style="display:none" class="usa-alert usa-alert--error usa-alert--slim" id="filter-notification">
+      <div class="usa-alert__body">
+        <em class="usa-alert__text"></em>
+      </div>
+    </div>
     <div class="text-right">
       <button class="usa-button" type="submit" id="apply-filters-button">
         Apply filters

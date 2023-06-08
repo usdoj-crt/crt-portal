@@ -15,7 +15,7 @@
           {% render_sortable_heading 'User' sort_state filter_state %}
           {% render_sortable_heading 'Action' sort_state filter_state nowrap=True %}
           {% render_sortable_heading 'Detail' sort_state filter_state nowrap=True %}
-          {% render_sortable_heading 'Complaint ID' sort_state filter_state %}
+          {% render_sortable_heading 'Complaint ID' sort_state filter_state nowrap=True %}
         </tr>
       </thead>
       {% if data %}
@@ -32,6 +32,19 @@
         </tbody>
       {% endif %}
     </table>
+    {% if not data %}
+        <div class="crt-portal-card table-message">
+            <div class="crt-portal-card__content">
+                <div class="grid-container padding-bottom-2">
+                    <div class="align-center">
+                        <img alt="filter icon" src="{% static 'img/filters.svg' %}" class="margin-top-1" />
+                        <p class="margin-bottom-1 margin-top-1" role="status"><b>No activity found</b></p>
+                        <em>Try adjusting your filters to see more activities</em>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
     {% endif %}
   </div>
 </form>

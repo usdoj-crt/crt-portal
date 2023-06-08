@@ -23,6 +23,7 @@ foreign_key_displays = {
 # To add a new filter option for Reports, add the field name and expected filter behavior
 # These filters should match the order they're presented in filter-controls.html
 filter_options = {
+    'actions': '__icontains',
     'assigned_section': '__in',
     'status': '__in',
     'contact_first_name': '__icontains',
@@ -210,6 +211,12 @@ def dashboard_filter(querydict):
         filter_list = querydict.getlist(field)
         if len(filter_list) > 0:
             filters[field] = querydict.getlist(field)
+            if field == 'actions':
+                field_name = 'verb'
+                kwargs[f'{field_name}__icontains'] = querydict.getlist(field)[0]
+            if field == 'public_id':
+                field_name ='target_object_id'
+                kwargs[f'{field_name}__icontains'] = querydict.getlist(field)[0]
             if 'date' in field:
                 # filters by a start date or an end date expects yyyy-mm-dd
                 field_name = 'timestamp'
