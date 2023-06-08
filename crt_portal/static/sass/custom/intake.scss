@@ -36,6 +36,12 @@
       }
     }
   }
+
+  .intake-table-header {
+    .intake-section-title {
+      font-size: 22px;
+    }
+  }
 }
 
 .intake-header {
@@ -792,7 +798,7 @@ form#cts-forms-profile {
   align-items: center;
   display: flex;
   border-radius: 5px 5px;
-  min-height: 5rem;
+  min-height: 3rem;
   padding-bottom: 1.2rem;
   padding-left: 1.3rem;
   padding-right: 2rem;

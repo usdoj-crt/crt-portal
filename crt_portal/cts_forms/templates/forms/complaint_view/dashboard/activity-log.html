@@ -4,6 +4,7 @@
 {% include 'forms/complaint_view/dashboard/header.html' %}
 {% endblock %}
 {% block content %}
+{% include 'forms/complaint_view/dashboard/team-management-header.html' %}
 {% include 'forms/complaint_view/dashboard/activity-log-header.html' %}
 <div class="intake-content">
   <div id="status-update" class="grid-col-auto">
@@ -16,7 +17,7 @@
   <div class="grid-col-auto">
     <div class="intake-table">
       <div class="intake-table-header">
-        <h2 class="intake-section-title">Activity log</h2>
+        <h3 class="intake-section-title">Activity log</h3>
       </div>
       {% include "forms/complaint_view/dashboard/activity_table.html" with page_format=page_format sort_state=sort_state filter_state=filter_state %}
     </div>
