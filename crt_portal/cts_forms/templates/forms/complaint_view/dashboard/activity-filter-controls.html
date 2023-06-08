@@ -1,13 +1,15 @@
 <form
   id="filters-form"
   method="GET"
-  action="/form/dashboard"
+  action="/form/dashboard/activity"
   novalidate
 >
   <div class="usa-form">
     <div class="intake-filters">
       {% include 'forms/complaint_view/dashboard/filters/assignee.html' %}
       {% include 'forms/complaint_view/index/filters/date.html' %}
+      {% include 'forms/complaint_view/dashboard/filters/action.html' %}
+      {% include 'forms/complaint_view/index/filters/public_id_filter.html' %}
     </div>
 
     <div class="text-right">

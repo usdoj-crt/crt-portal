@@ -86,6 +86,7 @@
     font-weight: 500;
     &:hover {
       color: #fff;
+      background-color: transparent;
       border-bottom: 3px solid color('white');
     }
 
@@ -112,6 +113,40 @@
         background: color($theme-color-warning-light) !important;
       }
     }
+  }
+}
+
+.dashboard-header {
+  @include u-padding-x(4);
+  @include flex-container();
+  justify-content: space-between;
+  margin-bottom: 4rem;
+
+  .title {
+    @include flex-container();
+
+    .usa-nav__primary {
+      display: flex;
+      margin-top: 0;
+      .usa-nav__primary-item {
+        border-top: none;
+      }
+
+    }
+
+  }
+  .crt-landing--menu_link.reporting-header {
+    border: none;
+    margin: 0 1rem;
+    padding: 1rem 0;
+  }
+
+  .crt-landing--menu_link.reporting-header.selected {
+    border-bottom: 3px solid #005EA2;
+  }
+  .usa-nav__primary a:not(.usa-button):hover {
+    background-color: transparent;
+    border-bottom: 3px solid #005EA2;
   }
 }
 

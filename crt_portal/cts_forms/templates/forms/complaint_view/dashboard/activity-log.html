@@ -3,26 +3,24 @@
 {% block page_header %}
 {% include 'forms/complaint_view/dashboard/header.html' %}
 {% endblock %}
-
 {% block content %}
-{% include 'forms/complaint_view/dashboard/reports-touched-header.html' %}
+{% include 'forms/complaint_view/dashboard/activity-log-header.html' %}
 <div class="intake-content">
   <div id="status-update" class="grid-col-auto">
     {% include 'partials/messages.html' %}
   </div>
-  {% include "forms/complaint_view/dashboard/filter-controls.html" with filters=filters form=form %}
+  {% include "forms/complaint_view/dashboard/activity-filter-controls.html" with filters=filters form=form %}
   <div class="display-flex margin-top-8">
     {% include "forms/complaint_view/dashboard/active-filters.html" %}
   </div>
   <div class="grid-col-auto">
     <div class="intake-table">
       <div class="intake-table-header">
-        <h2 class="intake-section-title">Reports touched</h2>
+        <h2 class="intake-section-title">Activity log</h2>
       </div>
-      {% include "forms/complaint_view/dashboard/complaints_table.html" with page_format=page_format sort_state=sort_state filter_state=filter_state %}
+      {% include "forms/complaint_view/dashboard/activity_table.html" with page_format=page_format sort_state=sort_state filter_state=filter_state %}
     </div>
   </div>
-  {% include "forms/complaint_view/dashboard/analytics.html" with embeds=embeds %}
 </div>
 {% endblock %}
 {% block page_js %}
