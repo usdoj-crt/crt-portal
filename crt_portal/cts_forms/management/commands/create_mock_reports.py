@@ -19,7 +19,8 @@ def random_dist():
     district_arr = []
     for district_choice in DISTRICT_CHOICES:
         district_arr.append(district_choice[0])
-    return random.choice(district_arr)
+    # nosec turns off bandit error because random is not used for security or run outside of local env.
+    return random.choice(district_arr) #nosec
 
 def random_date():
     """
