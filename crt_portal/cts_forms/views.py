@@ -43,7 +43,7 @@ from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
 from .models import CommentAndSummary, DashboardEmbed, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, Campaign, User, \
     RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
-from .sorts import report_sort
+from .sorts import activity_sort, report_sort
 
 logger = logging.getLogger(__name__)
 
@@ -436,31 +436,57 @@ def process_intake_filters(request):
     }
 
 
-def get_action_data(requested_actions):
+def get_action_data(requested_actions, report_url_args, paginated_offset):
     data = []
-    for action in requested_actions:
+    for index, action in enumerate(requested_actions):
         data.append({
             "action": action.verb,
             "detail": action.description,
             "timestamp": action.timestamp,
             "reportid": action.target_object_id,
-            "url": f'/form/view/{action.target_object_id}'
+            "url": f'/form/view/{action.target_object_id}?next={report_url_args}&index={paginated_offset + index}'
         })
     return data
 
 
 def process_activity_filters(request):
     query_filters, selected_actions = dashboard_filter(request.GET)
+    per_page = request.GET.get('per_page', 15)
+    page = request.GET.get('page', 1)
+    sort_expr, sorts = activity_sort(request.GET.getlist('sort'))
+    selected_actions = selected_actions.order_by(*sort_expr)
+    paginator = Paginator(selected_actions, per_page)
+    selected_actions, page_format = pagination(paginator, page, per_page)
+    sort_state = {}
+    # make sure the links for this page have the same paging, sorting, filtering etc.
+    page_args = f'?per_page={per_page}'
+    # process filter query params
+    filter_args = get_filter_args(query_filters)
+    page_args += filter_args
+
+    # process sort query params
+    sort_args, sort_state = get_sort_args(sorts, sort_state)
+
+    page_args += sort_args
+    all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
+
+    paginated_offset = page_format['page_range_start'] - 1
     selected_actor = request.GET.get("assigned_to", "")
     selected_actor_object = User.objects.filter(username=selected_actor).first()
     selected_actor_id = selected_actor_object.pk if selected_actor_object else ''
-    data = get_action_data(selected_actions)
+    data = get_action_data(selected_actions, all_args_encoded, paginated_offset)
     return {
         'form': Filters(request.GET),
         'selected_actor': selected_actor,
         'selected_actor_id': selected_actor_id,
         'filters': query_filters,
         'data': data,
+        'page_format': page_format,
+        'page_args': page_args,
+        'sort_state': sort_state,
+        'filter_state': filter_args,
+        'filters': query_filters,
+        'return_url_args': all_args_encoded,
     }
 
 

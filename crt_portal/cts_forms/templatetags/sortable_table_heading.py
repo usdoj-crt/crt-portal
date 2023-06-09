@@ -13,6 +13,9 @@ sort_lookup = {
     'location name': 'location_name',
     'incident location': 'location_city_town',
     'incident date': 'last_incident_month',
+    'timestamp': 'timestamp',
+    'action': 'actions',
+    'detail': 'detail',
 }
 sortable_props = [
     'status',
@@ -24,6 +27,9 @@ sortable_props = [
     'location_name',
     'location_city_town',
     'last_incident_month',
+    'timestamp',
+    'actions',
+    'detail',
 ]
 
 
