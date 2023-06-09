@@ -256,12 +256,13 @@
     const textEl = alertEl.querySelector('.usa-alert__text');
     const value = inputEl.value;
     if (!value.length || value == '(none)') {
-      e.preventDefault()
+      e.preventDefault();
       buttonEl.setAttribute('disabled', '');
-      textEl.textContent =
-        'Please select an intake specialist to see activity log data';
+      textEl.textContent = 'Please select an intake specialist to see activity log data';
       alertEl.style.display = 'inline-block';
-      inputEl.addEventListener('change', (e) => {validateFilter(e)})
+      inputEl.addEventListener('change', e => {
+        validateFilter(e);
+      });
     } else {
       buttonEl.removeAttribute('disabled');
       textEl.textContent = '';
