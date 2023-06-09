@@ -9,7 +9,7 @@ SORT_DESC_CHAR = '-'
 
 def _valid_sort_params(sort, type):
     if type == 'activity':
-        valid_fields = ['timestamp', 'actions', 'detail', 'target_object_id']
+        valid_fields = ['timestamp', 'verb', 'description', 'target_object_id']
     else:
         valid_fields = [f.name for f in Report._meta.fields] + [f.name for f in EmailReportCount._meta.fields]
     return all(elem.replace("-", '') in valid_fields for elem in sort)
@@ -33,6 +33,7 @@ def report_sort(sort):
 
     return sort_exprs, sort
 
+
 def activity_sort(sort):
 
     if not _valid_sort_params(sort, 'activity'):
@@ -41,6 +42,9 @@ def activity_sort(sort):
     sort_exprs = []
 
     for sort_item in sort:
+        sort_name = sort_item
+        if sort_item == 'actions':
+            sort_name = 'verb'
         if sort_item[0] == SORT_DESC_CHAR:
             sort_exprs.append(F(sort_item[1::]))
         else:

@@ -14,8 +14,9 @@ sort_lookup = {
     'incident location': 'location_city_town',
     'incident date': 'last_incident_month',
     'timestamp': 'timestamp',
-    'action': 'actions',
-    'detail': 'detail',
+    'action': 'verb',
+    'detail': 'description',
+    'complaint id': 'target_object_id'
 }
 sortable_props = [
     'status',
@@ -28,8 +29,9 @@ sortable_props = [
     'location_city_town',
     'last_incident_month',
     'timestamp',
-    'actions',
-    'detail',
+    'verb',
+    'description',
+    'target_object_id',
 ]
 
 
