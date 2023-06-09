@@ -255,13 +255,13 @@
     const alertEl = document.getElementById('filter-notification');
     const textEl = alertEl.querySelector('.usa-alert__text');
     const value = inputEl.value;
-    console.log(value);
-    if (!value.length) {
+    if (!value.length || value == '(none)') {
       e.preventDefault()
       buttonEl.setAttribute('disabled', '');
       textEl.textContent =
         'Please select an intake specialist to see activity log data';
       alertEl.style.display = 'inline-block';
+      inputEl.addEventListener('change', (e) => {validateFilter(e)})
     } else {
       buttonEl.removeAttribute('disabled');
       textEl.textContent = '';
