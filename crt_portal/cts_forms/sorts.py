@@ -1,6 +1,5 @@
 from django.db.models import F
 from django.http import Http404
-from actstream.models import actor_stream
 
 from .models import EmailReportCount, Report
 
@@ -42,9 +41,6 @@ def activity_sort(sort):
     sort_exprs = []
 
     for sort_item in sort:
-        sort_name = sort_item
-        if sort_item == 'actions':
-            sort_name = 'verb'
         if sort_item[0] == SORT_DESC_CHAR:
             sort_exprs.append(F(sort_item[1::]))
         else:
