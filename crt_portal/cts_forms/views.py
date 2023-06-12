@@ -461,11 +461,10 @@ def process_activity_filters(request):
     sort_state = {}
     # make sure the links for this page have the same paging, sorting, filtering etc.
     page_args = f'?activity=true&per_page={per_page}'
-    # process filter query params
+
     filter_args = get_filter_args(query_filters)
     page_args += filter_args
 
-    # process sort query params
     sort_args, sort_state = get_sort_args(sorts, sort_state)
 
     page_args += sort_args

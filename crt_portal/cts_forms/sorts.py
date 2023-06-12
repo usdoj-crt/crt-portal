@@ -10,7 +10,11 @@ def _valid_sort_params(sort, type):
     if type == 'activity':
         valid_fields = ['timestamp', 'verb', 'description', 'target_object_id']
     else:
-        valid_fields = [f.name for f in Report._meta.fields] + [f.name for f in EmailReportCount._meta.fields]
+        fields = [
+          *EmailReportCount._meta.fields,
+          *Report._meta.fields,
+        ]
+        valid_fields = [f.name for f in fields]
     return all(elem.replace("-", '') in valid_fields for elem in sort)
 
 
