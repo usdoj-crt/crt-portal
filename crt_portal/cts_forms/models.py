@@ -5,6 +5,7 @@ import uuid
 from datetime import datetime
 from babel.dates import format_date
 
+import markdown
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.postgres.indexes import GinIndex
@@ -14,6 +15,7 @@ from django.core.validators import MaxValueValidator, RegexValidator
 from django.db import connection, models
 from django.template import Context, Template
 from django.urls import reverse
+from django.utils import translation
 from django.utils.functional import cached_property
 from django.utils.html import escape
 
@@ -121,13 +123,24 @@ class VotingMode(models.Model):
     toggle = models.BooleanField(default=False)
 
 
+def get_translation(translated_text_json, language=None):
+    """Gets a translated string from translated text (see make_translated_text)."""
+    if not language:
+        language = translation.get_language()
+
+    translations = translated_text_json or {}
+    en = translations.get('en')
+    translated = translations.get(language)
+    return translated or en or ''
+
+
 def validate_translated_text(language_json):
     """Validates a JSONField as a Dict[LanguageCode, str]."""
     allowed_codes = {code for code, name in settings.LANGUAGES}
-    for code, translation in language_json.items():
+    for code, translated in language_json.items():
         if code not in allowed_codes:
             raise ValidationError(f'Unrecognized language code: {code}')
-        if not isinstance(translation, str):
+        if not isinstance(translated, str):
             raise ValidationError(f'Translation for {code} must be a string')
 
 
@@ -138,6 +151,22 @@ def make_translated_text():
         for code, name
         in settings.LANGUAGES
     }
+
+
+class BannerMessage(models.Model):
+    order = models.IntegerField(default=0, help_text="The order in which to show the message, lower numbers first. If two messages have the same order number, they might change positions.")
+    show = models.BooleanField(default=False, help_text="Whether to show the message on the public landing page.")
+    kind = models.CharField(
+        max_length=10, null=False, blank=False, default='warning',
+        choices=(('notice', 'notice'), ('alert', 'alert'), ('emergency', 'emergency')))
+    markdown_content = models.JSONField(null=False, help_text="Markdown to render and display in the banner.", default=make_translated_text, validators=[validate_translated_text])
+
+    def english(self):
+        return self.markdown_content.get('en', '')
+
+    def as_html(self):
+        translated = get_translation(self.markdown_content)
+        return markdown.markdown(translated, extensions=['extra', 'sane_lists', 'admonition', 'nl2br'])
 
 
 class ReferralContact(models.Model):

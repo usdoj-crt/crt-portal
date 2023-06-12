@@ -284,6 +284,32 @@ $arrow-height: 24px;
   @include text--body-copy__large();
 }
 
+.crt-landing--admin-message * {
+  font-size: 18px;
+}
+
+.crt-landing--important-message.crt-landing--admin-message-emergency a,
+.crt-landing--admin-message-emergency.crt-landing--important-message a:visited {
+  color: #f0f0f0;
+}
+
+.crt-landing--important-message.crt-landing--admin-message-emergency a,
+.crt-landing--admin-message-emergency.crt-landing--important-message a:hover {
+  color: #dfe1e2;
+}
+
+.crt-landing--admin-message a {
+  font-weight: 700;
+}
+
+.crt-landing--admin-message p {
+  margin: 0;
+}
+
+.crt-landing--admin-message a:hover {
+  text-decoration: none;
+}
+
 .crt-landing--hero {
   background-image: url(../../img/landing-page-hero.jpeg);
   background-repeat: no-repeat;
