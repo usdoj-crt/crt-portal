@@ -1,0 +1,10 @@
+{% extends 'admin/change_form.html' %}
+
+{% block submit_buttons_bottom %}
+    <div class="submit-row flex-submit">
+        <button class="dangerous admin-run"></button>
+
+        <p>This will overwrite the notebook's output. Because these notebooks are made for Jupyter and not Django, this may not work for all notebooks, or may take a while to run, but is not harmful. If it fails, just go back.</p>
+    </div>
+    {{ block.super }}
+{% endblock %}

@@ -6,6 +6,11 @@ import string
 import base64
 import hashlib
 
+pythonpath = ';'.join([
+    *os.environ.get('PYTHONPATH', '').split(';'),
+    '/srv/jupyterhub/helpers'
+])
+os.environ['PYTHONPATH'] = pythonpath
 
 c = get_config()  #noqa
 
@@ -989,6 +994,10 @@ c.LocalGenericOAuthenticator.userdata_url = f'http://{web_internal_hostname}/oau
 #  Default: ['jupyterhub-singleuser']
 c.Spawner.cmd = ['jupyterhub-singleuser']
 c.Spawner.notebook_dir = '/srv/jupyterhub/assignments'
+c.Spawner.args = [
+    '--ServerApp.contents_manager_class=table_contents_manager.TableContentsManager',
+    '--ServerApp.root_dir=/srv/jupyterhub',
+]
 
 ## Maximum number of consecutive failures to allow before shutting down
 #  JupyterHub.
@@ -1090,7 +1099,9 @@ c.Spawner.env_keep = ['PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', '
 #      allowing override of 'default' env variables,
 #      such as JUPYTERHUB_API_URL.
 #  Default: {}
-# c.Spawner.environment = {}
+c.Spawner.environment = {
+    'PYTHONPATH': '/srv/jupyterhub/helpers'
+}
 
 ## Timeout (in seconds) before giving up on a spawned HTTP server
 #

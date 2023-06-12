@@ -31,6 +31,9 @@ fi;
 echo 'Updating response templates…'
 python /code/crt_portal/manage.py update_response_templates
 
+echo 'Updating Jupyter Notebooks…'
+python /code/crt_portal/manage.py update_ipynb_examples
+
 echo 'Compiling i8n files…'
 python /code/crt_portal/manage.py compilemessages
 
