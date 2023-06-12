@@ -454,7 +454,8 @@ def process_activity_filters(request):
     per_page = request.GET.get('per_page', 15)
     page = request.GET.get('page', 1)
     sort_expr, sorts = activity_sort(request.GET.getlist('sort'))
-    selected_actions = selected_actions.order_by(*sort_expr)
+    if selected_actions != []:
+        selected_actions = selected_actions.order_by(*sort_expr)
     paginator = Paginator(selected_actions, per_page)
     selected_actions, page_format = pagination(paginator, page, per_page)
     sort_state = {}
