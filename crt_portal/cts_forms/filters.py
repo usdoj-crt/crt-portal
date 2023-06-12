@@ -1,6 +1,5 @@
 # Class to handle filtering Reports by supplied query params,
 # provided they are valid filterable model properties.
-import logging
 import re
 import urllib.parse
 from datetime import datetime
@@ -216,7 +215,7 @@ def dashboard_filter(querydict):
                 field_name = 'verb'
                 kwargs[f'{field_name}__in'] = querydict.getlist(field)
             if field == 'public_id':
-                field_name ='target_object_id'
+                field_name = 'target_object_id'
                 kwargs[f'{field_name}__icontains'] = querydict.getlist(field)[0]
             if 'date' in field:
                 # filters by a start date or an end date expects yyyy-mm-dd
