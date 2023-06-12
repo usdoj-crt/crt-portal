@@ -460,7 +460,7 @@ def process_activity_filters(request):
     selected_actions, page_format = pagination(paginator, page, per_page)
     sort_state = {}
     # make sure the links for this page have the same paging, sorting, filtering etc.
-    page_args = f'?per_page={per_page}'
+    page_args = f'?activity=true&per_page={per_page}'
     # process filter query params
     filter_args = get_filter_args(query_filters)
     page_args += filter_args
@@ -534,6 +534,8 @@ def serialize_data(report, request, report_id):
 
     return_url_args = request.GET.get('next', '')
     return_url_args = urllib.parse.unquote(return_url_args)
+    querydict = QueryDict(return_url_args).dict()
+    activity = querydict.get('activity', 'false')
 
     output = {
         'actions': ComplaintActions(instance=report),
@@ -553,6 +555,7 @@ def serialize_data(report, request, report_id):
         # for print media consumption
         'print_actions': report.activity(),
         'questions': Review.question_text,
+        'activity': activity,
     }
 
     return output
