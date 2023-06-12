@@ -25,12 +25,11 @@ function sendGAClickEvent(event_name) {
       });
     }
     const navItems = document.getElementsByClassName('usa-nav__primary-item');
-    for (var i = 0; i < navItems.length; i++) {
-      const navItem = navItems[i];
+    navItems.forEach(navItem => {
       navItem.addEventListener('click', e =>
         sendGAPublicClickEvent('main nav ' + e.target.innerText)
       );
-    }
+    });
     const examples = document.getElementById('crt-landing--examples');
     if (examples != null) {
       const items = examples.getElementsByClassName('usa-nav__submenu-item');
