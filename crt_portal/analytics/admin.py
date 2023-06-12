@@ -32,6 +32,10 @@ class NotebookAdmin(admin.ModelAdmin):
         css = {
             'all': ('css/compiled/admin.css',)
         }
+        js = (
+            'vendor/js.cookie.min.js',
+            'js/admin_notebook_actions.js',
+        )
 
     actions = [export_notebooks_as_zip]
 
