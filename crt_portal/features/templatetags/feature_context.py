@@ -15,7 +15,7 @@ def enabled_features(request):
     del request  # Unused here.
     return {
         'ENABLED_FEATURES': defaultdict(None, **{
-            feature.snake_case(): feature.enabled
+            feature.snake_case(): feature.is_enabled()
             for feature in
             Feature.objects.all()
         })

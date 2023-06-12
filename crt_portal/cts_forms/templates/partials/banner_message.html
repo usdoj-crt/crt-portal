@@ -1,0 +1,28 @@
+{% load i18n %}
+
+<div class="
+  crt-landing--important-message
+  crt-landing--admin-message
+  padding-y-1
+  {% if message.kind == 'notice' %}
+  crt-landing--admin-message-notice
+  bg-white
+  text-ink
+  {% elif message.kind == 'alert' %}
+  crt-landing--admin-message-alert
+  bg-gold
+  text-ink
+  {% elif message.kind == 'emergency' %}
+  crt-landing--admin-message-emergency
+  bg-secondary-dark
+  text-base-lightest
+  {% endif %}
+  ">
+  <div class="grid-container">
+    <div class="grid-row grid-gap">
+      <div class="tablet:grid-col-12">
+        {{ message.as_html | safe }}
+      </div>
+    </div>
+  </div>
+</div>

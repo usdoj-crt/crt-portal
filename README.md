@@ -634,6 +634,8 @@ We are using the defaults, so you can press enter for all the set up options. Yo
 ### Deployment for each environment
 * The app will deploy to **dev** when the tests pass and a PR is merged into `develop`. You should do this in GitHub.
 
+NOTE: If this deployment fails, you'll need to unlock the deployment and either merge again or re-run the build-test-deploy workflow in CircleCI. Run `./unlock_deployment.sh --help` for details.
+
 * The app will deploy to **stage** when the tests pass and when we make or update a branch that starts with `release/`.
     * Make sure the develop branch is approved for deploy by the product owner
     * Look at ZenHub and see if there is anything in "Dev done" flag that for approval so those issues are in "Ready for UAT" when you make the release

@@ -72,7 +72,7 @@ services:
 
   clamav-rest:
     hostname: clamav-rest
-    image: ajilaag/clamav-rest:20230321 # ##20220511
+    image: ajilaag/clamav-rest:latest # ##20220511
     environment:
       - MAX_FILE_SIZE=100M
       - SIGNATURE_CHECKS=1

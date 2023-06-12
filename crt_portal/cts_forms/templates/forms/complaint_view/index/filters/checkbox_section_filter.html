@@ -10,7 +10,7 @@
       type="button"
       data-crt-dropdown-control
     >
-      <span class="label">{{ form.get_section_filters|multiselect_summary:"View sections" }}</span>
+      <span id="assigned-section-label" class="label">{{ form.get_section_filters|multiselect_summary:"View sections" }}</span>
       <span alt="open filter dropdown" class="icon" />
     </button>
     <div class="content" id="assigned-section" hidden>
