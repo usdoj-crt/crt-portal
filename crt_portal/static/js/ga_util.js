@@ -30,22 +30,17 @@ function sendGAClickEvent(event_name) {
         sendGAPublicClickEvent('main nav ' + e.target.innerText)
       );
     });
-    const examples = document.getElementById('crt-landing--examples');
-    if (examples != null) {
-      const items = examples.getElementsByClassName('usa-nav__submenu-item');
-      for (let i = 0; i < items.length; i++) {
-        const item = items[i];
-        item.addEventListener('click', e => {
-          let target = e.target;
-          if (!target.dataset.hasOwnProperty('key')) {
-            // user clicked on the link; obtain the parent element.
-            target = e.target.parentElement;
-          }
-          const key = target.dataset['key'];
-          sendGAPublicClickEvent('example list ' + key);
-        });
-      }
-    }
+    const examples = document.querySelectorAll('#crt-landing--examples .usa-nav__submenu-item');
+    examples.forEach(example => {
+      item.addEventListener('click', e => {
+        let target = e.target;
+        if (!target.dataset.hasOwnProperty('key')) {
+          target = e.target.parentElement;
+        }
+        const key = target.dataset['key'];
+        sendGAPublicClickEvent('example list ' + key);
+      });
+    });
     const infoButton = document.getElementById('info-link');
     if (infoButton !== null) {
       infoButton.addEventListener('click', sendGAPublicClickEvent('info button'));
