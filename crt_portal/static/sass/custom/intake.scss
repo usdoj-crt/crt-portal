@@ -76,6 +76,12 @@
 
     }
 
+    .usa-tooltip__body {
+      border: 1px solid #dfe1e2;
+      &:after {
+        border-left: 5px solid #dfe1e2;
+      }
+    }
   }
 
   .crt-landing--menu_link.reporting-header {

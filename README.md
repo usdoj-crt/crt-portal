@@ -129,6 +129,12 @@ Jupyter uses the Portal's auth system to decide who can log in. Because of this,
 
 **Note: Because Jupyter uses system auth, make sure your Portal user is not named `root`**
 
+The following shows how to do this manually. To do this automatically in the local environment, you can run the following, then skip to restarting Jupyter below:
+
+```
+docker-compose run web python /code/crt_portal/manage.py create_local_oauth --write-to-env
+```
+
 First, you'll need to set OAUTH_PROVIDER_CLIENT_ID and OAUTH_PROVIDER_CLIENT_SECRET. This is basically the username and password for Jupyter to "log in" to the portal. To get these:
 1. Go to http://localhost:8000/oauth2_provider/applications
 2. Add your app as an application on this page, and add to ID and Secret to the OAUTH_PROVIDER_CLIENT_ID and OAUTH_PROVIDER_CLIENT_SECRET above in .env
@@ -627,6 +633,8 @@ We are using the defaults, so you can press enter for all the set up options. Yo
 
 ### Deployment for each environment
 * The app will deploy to **dev** when the tests pass and a PR is merged into `develop`. You should do this in GitHub.
+
+NOTE: If this deployment fails, you'll need to unlock the deployment and either merge again or re-run the build-test-deploy workflow in CircleCI. Run `./unlock_deployment.sh --help` for details.
 
 * The app will deploy to **stage** when the tests pass and when we make or update a branch that starts with `release/`.
     * Make sure the develop branch is approved for deploy by the product owner

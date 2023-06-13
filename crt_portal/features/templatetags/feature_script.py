@@ -14,12 +14,12 @@ def feature_script():
     all_features = Feature.objects.all()
 
     feature_json = json.dumps({
-        f.camel_case(): f.enabled
+        f.camel_case(): f.is_enabled()
         for f in all_features
     }, separators=(',', ':'))
 
     feature_classes = json.dumps([
-        f.name for f in all_features if f.enabled
+        f.name for f in all_features if f.is_enabled()
     ], separators=(',', ':'))
 
     script = textwrap.dedent(f"""

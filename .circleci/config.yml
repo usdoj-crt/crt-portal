@@ -103,6 +103,10 @@ jobs:
           command: |
             pipenv run crt_portal/manage.py update_response_templates
       - run:
+          name: add or update analytics notebooks examples
+          command: |
+            pipenv run crt_portal/manage.py update_ipynb_examples
+      - run:
           name: compile messages for internationalization
           command: |
             pipenv run crt_portal/manage.py compilemessages

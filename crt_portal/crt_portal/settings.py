@@ -104,6 +104,7 @@ INSTALLED_APPS = [
     'tms',
     'shortener.apps.ShortenerConfig',
     'features.apps.FeaturesConfig',
+    'analytics.apps.AnalyticsConfig',
 ]
 SITE_ID = 1
 

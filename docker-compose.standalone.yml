@@ -23,6 +23,7 @@ services:
       - LOCALSTACK_URL=http://localstack:4566
       - AV_SCAN_URL=http://clamav-rest:9000/scan
       - POSTGRES_PASSWORD="passwordfortests"
+      - JUPYTER_PORT=${JUPYTER_PORT:-8001}
     profiles: ["tests"]
 
   localstack:
@@ -36,6 +37,11 @@ services:
     profiles: ["tests"]
 
   jupyter:
+    environment:
+      - WEB_EXTERNAL_HOSTNAME=localhost:${WEB_PORT}
+    env_file:
+      - .env
+      - .${COMPOSE_PROJECT_NAME}.env
     ports:
       - ${JUPYTER_PORT:-}:8000
     profiles: ["not-tests"]
