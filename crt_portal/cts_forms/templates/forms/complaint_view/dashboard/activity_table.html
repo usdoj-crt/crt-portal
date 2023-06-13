@@ -1,0 +1,51 @@
+{% load sortable_table_heading %}
+<form class="usa-form"
+      method="get"
+      action="{% url 'crt_forms:crt-forms-actions' %}"
+      novalidate
+>
+  <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
+
+  <div>
+    {% if selected_actor %}
+    <table class="usa-table crt-table dashboard-table">
+      <thead>
+        <tr>
+          {% render_sortable_heading 'Timestamp' sort_state filter_state %}
+          {% render_sortable_heading 'User' sort_state filter_state %}
+          {% render_sortable_heading 'Action' sort_state filter_state nowrap=True %}
+          {% render_sortable_heading 'Detail' sort_state filter_state nowrap=True %}
+          {% render_sortable_heading 'Complaint ID' sort_state filter_state %}
+        </tr>
+      </thead>
+      {% if data %}
+        <tbody>
+          {% for datum in data %}
+            <tr class="tr-status-{{ datum.report.status }} tr--hover{% cycle ' stripe' '' %}">
+              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.timestamp }}</a></td>
+              <td><a class="td-link display-block" href="{{datum.url}}">{{ selected_actor }}</a></td>
+              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.action }}</a></td>
+              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.detail }}</a></td>
+              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.reportid }}</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      {% endif %}
+    </table>
+    {% endif %}
+  </div>
+</form>
+
+{% if not selected_actor %}
+  <div class="crt-portal-card table-message">
+    <div class="crt-portal-card__content">
+      <div class="grid-container padding-bottom-2">
+        <div class="align-center">
+          <img alt="filter icon" src="{% static 'img/filters.svg' %}" class="margin-top-1" />
+          <p class="margin-bottom-1 margin-top-1" role="status"><b>Select intake specialist</b></p>
+          <em>Please select an intake specialist to see activity log data</em>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

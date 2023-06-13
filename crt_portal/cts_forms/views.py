@@ -436,6 +436,18 @@ def process_intake_filters(request):
     }
 
 
+def process_activity_filters(request):
+    selected_actor = request.GET.get("assigned_to", "")
+    selected_actor_object = User.objects.filter(username=selected_actor).first()
+    selected_actor_id = selected_actor_object.pk if selected_actor_object else ''
+
+    return {
+        'form': Filters(request.GET),
+        'selected_actor': selected_actor,
+        'selected_actor_id': selected_actor_id,
+    }
+
+
 @login_required
 def dashboard_view(request):
     embeds = [model_to_dict(e) for e in DashboardEmbed.objects.all()]
@@ -446,6 +458,17 @@ def dashboard_view(request):
         {
             **process_intake_filters(request),
             'embeds': embeds,
+        })
+
+
+@login_required
+def dashboard_activity_log_view(request):
+
+    return render(
+        request,
+        'forms/complaint_view/dashboard/activity-log.html',
+        {
+            **process_activity_filters(request),
         })
 
 

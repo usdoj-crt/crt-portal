@@ -17,7 +17,7 @@ from django.conf import settings
 
 from features.models import Feature
 
-from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
+from .model_variables import (ACTION_CHOICES, COMMERCIAL_OR_PUBLIC_ERROR,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
                               COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
                               CONTACT_PHONE_INVALID_MESSAGE,
@@ -1114,7 +1114,14 @@ class Filters(ModelForm):
                 'class': 'usa-input usa-select',
             })
         )
-
+    actions = MultipleChoiceField(
+        required=False,
+        label='Action taken',
+        choices=ACTION_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'actions',
+        }),
+    )
     status = MultipleChoiceField(
         initial=(('new', 'New'), ('open', 'Open')),
         required=False,
