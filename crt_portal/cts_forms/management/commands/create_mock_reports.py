@@ -15,12 +15,14 @@ from datetime import timedelta
 
 SECTIONS = ['ADM', 'APP', 'CRM', 'DRS', 'ELS', 'EOS', 'FCS', 'HCE', 'IER', 'POL', 'SPL', 'VOT']
 
+
 def random_dist():
     district_arr = []
     for district_choice in DISTRICT_CHOICES:
         district_arr.append(district_choice[0])
     # nosec turns off bandit error because random is not used for security or run outside of local env.
-    return random.choice(district_arr) #nosec
+    return random.choice(district_arr)  # nosec
+
 
 def random_date():
     """
