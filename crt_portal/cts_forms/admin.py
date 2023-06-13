@@ -21,7 +21,7 @@ from django.db.models.functions import Lower
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
                      JudicialDistrict, RoutingSection, RoutingStepOneContact,
-                     VotingMode, Campaign, ReferralContact)
+                     VotingMode, Campaign, ReferralContact, BannerMessage)
 from .signals import get_client_ip
 
 logger = logging.getLogger(__name__)
@@ -33,6 +33,7 @@ ACTION_FIELDS = ['timestamp', 'actor', 'verb', 'description', 'target']
 
 class ReadOnlyModelAdmin(admin.ModelAdmin):
     """Disable add, modify, and delete functionality"""
+
     def has_add_permission(self, request):
         return False
 
@@ -48,6 +49,7 @@ class ReadOnlyModelAdmin(admin.ModelAdmin):
 
 class TranslatedTextWidget(AdminTextareaWidget):
     """Shows an entry for each language in settings.LANGUAGES."""
+
     def __init__(self, attrs=None):
         codes = ','.join([code for code, name in settings.LANGUAGES])
         super().__init__(attrs={
@@ -63,6 +65,7 @@ class Echo:
     """An object that implements just the write method of the file-like
     interface.
     """
+
     def write(self, value):
         """Write the value by returning it, instead of storing in a buffer."""
         return value
@@ -139,6 +142,8 @@ def export_reports_as_csv(modeladmin, request, queryset):
 
     logger.info(format_export_message(request, queryset.count(), 'reports'))
     return response
+
+
 export_reports_as_csv.allowed_permissions = ('view',)  # noqa
 
 
@@ -156,6 +161,8 @@ def export_actions_as_csv(modeladmin, request, queryset):
 
     logger.info(format_export_message(request, queryset.count(), 'activity log entries'))
     return response
+
+
 export_actions_as_csv.allowed_permissions = ('view',)  # noqa
 
 
@@ -247,6 +254,24 @@ class ReferralContactAdmin(admin.ModelAdmin):
     form = ReferralContactAdminForm
 
 
+class BannerMessageAdminForm(forms.ModelForm):
+    class Meta:
+        model = BannerMessage
+        exclude = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['markdown_content'].widget = TranslatedTextWidget()
+
+
+class BannerMessageAdmin(admin.ModelAdmin):
+    def get_ordering(self, request):
+        return ['order']
+
+    list_display = ['order', 'show', 'kind', 'english']
+    form = BannerMessageAdminForm
+
+
 def mark_as_archived(modeladmin, request, queryset):
     queryset.update(archived=True)
 
@@ -316,6 +341,7 @@ def export_templates_as_zip(modeladmin, request, queryset):
 
     return response
 
+
 export_templates_as_zip.allowed_permissions = ('view',)  # noqa
 
 
@@ -357,6 +383,7 @@ admin.site.register(RoutingSection, RoutingSectionAdmin)
 admin.site.register(VotingMode, VotingModeAdmin)
 admin.site.register(Campaign, CampaignAdmin)
 admin.site.register(ReferralContact, ReferralContactAdmin)
+admin.site.register(BannerMessage, BannerMessageAdmin)
 admin.site.register(RoutingStepOneContact, RoutingStepOneContactAdmin)
 
 # Activity stream already registers an Admin for Action, we want to replace it

@@ -1,3 +1,4 @@
+import { sendGAClickEvent, sendGAFilterEvent } from './ga_util.js';
 (function(root, dom) {
   /**
    * Convert an array-like object to an array.
@@ -57,6 +58,7 @@
     var currentParams = getQueryParams(root.location.search, Object.keys(initialFilterState));
     var keys = Object.keys(params);
     let resetGroupParams = false;
+    const newParamKeys = [];
     const newParams = keys.reduce(function(memo, key) {
       // Reset group params when grouping is set to default
       const paramValue = key === 'group_params' && grouping === 'default' ? [] : params[key];
@@ -83,7 +85,7 @@
       var paramsString = valueToList
         .reduce(function(accum, value) {
           accum.push(makeQueryParam(key, value));
-
+          newParamKeys.push(key);
           return accum;
         }, [])
         .join('&');
@@ -92,6 +94,7 @@
 
       return memo;
     }, []);
+    sendGAFilterEvent([newParamKeys].sort().join(' '));
     if (!resetGroupParams) return newParams;
     return newParams.filter(param => !param.includes('group_params'));
   }
@@ -346,6 +349,9 @@
         );
       }
       if (props.name == 'per_page' || props.name == 'grouping') {
+        if (props.name == 'grouping') {
+          sendGAClickEvent('grouping set to' + event.target.value);
+        }
         filterDataModel[props.name] = event.target.value;
         dom.getElementById('apply-filters-button').click();
         return;

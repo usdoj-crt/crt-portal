@@ -1,4 +1,5 @@
-def login_as_superuser(page):
+def login_as_superuser(page) -> str:
+    """Log in as the manage.py create_test_user user and return the username."""
     with page.expect_navigation():
         page.goto("/admin/logout")
 
@@ -12,6 +13,10 @@ def login_as_superuser(page):
     except FileNotFoundError:
         raise RuntimeError('Please run manage.py create_test_user first.')
 
+    # This menu gets in the way of clicks, and we aren't testing it.
+    if page.locator('#djHideToolBarButton').is_visible():
+        page.click("#djHideToolBarButton")
+
     page.fill("input[name='username']", username)
     page.fill("input[name='password']", password)
 
@@ -20,3 +25,5 @@ def login_as_superuser(page):
 
     # If we're not auth'd, this will say "Log in | ...":
     assert page.title() == "Site administration | Django site admin"
+
+    return username
