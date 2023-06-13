@@ -421,7 +421,7 @@ You can also run a subset of tests by specifying a path to a specific test class
 
 We use the unit tests for calculating code coverage. Tests will fail if code coverage is below 89%. You can run code coverage locally with:
 
-    docker-compose run web coverage run --source='.' /code/crt_portal/manage.py test cts_forms --parallel
+    docker-compose run web coverage run --source='.' /code/crt_portal/manage.py test shortener tms features cts_forms  --parallel
     docker-compose run web coverage report --fail-under=89 -m
 
 The -m will give you the line numbers in code that that are not tested by any unit tests. You can use that information to add test coverage.
