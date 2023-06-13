@@ -121,6 +121,14 @@
       if (state.hasOwnProperty(key)) {
         state[key] = decodeFormData(value);
       }
+      if (key === 'per_page') {
+        const per_page_el = dom.querySelector('select[name="per_page"]');
+        if (per_page_el) {
+          per_page_el.value = value;
+        } else {
+          state[key] = '';
+        }
+      }
     }
   }
 
@@ -239,10 +247,14 @@
         'Component must be supplied with a valid DOM node and a `name` key corresponding to a key in the filterDataModel object'
       );
     }
-
-    props.el.addEventListener('change', function(event) {
+    function onChange(event) {
       filterDataModel[props.name] = event.target.value;
-    });
+      if (props.name == 'per_page') {
+        dom.getElementById('apply-filters-button').click();
+        return;
+      }
+    }
+    props.el.addEventListener('change', onChange);
   }
 
   function clearFiltersView(props) {
@@ -253,6 +265,7 @@
     const buttonEl = document.getElementById('apply-filters-button');
     const inputEl = document.getElementById('id_assigned_to');
     const alertEl = document.getElementById('filter-notification');
+    if (!alertEl) return;
     const textEl = alertEl.querySelector('.usa-alert__text');
     const value = inputEl.value;
     if (!value.length || value == '(none)') {
@@ -279,6 +292,7 @@
     var assigneeEl = formEl.querySelector('#id_assigned_to');
     const actionsEl = dom.getElementsByName('actions');
     const complaintIDEl = formEl.querySelector('input[name="public_id"]');
+    const perPageEl = dom.querySelector('select[name="per_page"]');
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
      * and perform a new search with the updated filters applied.
@@ -338,14 +352,6 @@
       el: activeFiltersEl,
       onClick: onFilterTagClick
     });
-    checkBoxView({
-      el: actionsEl,
-      name: 'actions'
-    });
-    textInputView({
-      el: complaintIDEl,
-      name: 'public_id'
-    });
     textInputView({
       el: assigneeEl,
       name: 'assigned_to'
@@ -358,6 +364,21 @@
       el: createdateendEl,
       name: 'create_date_end'
     });
+    const location = window.location.href;
+    if (location.includes('activity')) {
+      checkBoxView({
+        el: actionsEl,
+        name: 'actions'
+      });
+      textInputView({
+        el: perPageEl,
+        name: 'per_page'
+      });
+      textInputView({
+        el: complaintIDEl,
+        name: 'public_id'
+      });
+    }
     clearFiltersView({
       el: clearAllEl,
       onClick: clearAllFilters

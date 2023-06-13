@@ -6,14 +6,21 @@ from .models import EmailReportCount, Report
 SORT_DESC_CHAR = '-'
 
 
-def _valid_sort_params(sort):
-    valid_fields = [f.name for f in Report._meta.fields] + [f.name for f in EmailReportCount._meta.fields]
+def _valid_sort_params(sort, type):
+    if type == 'activity':
+        valid_fields = ['timestamp', 'verb', 'description', 'target_object_id']
+    else:
+        fields = [
+            *EmailReportCount._meta.fields,
+            *Report._meta.fields,
+        ]
+        valid_fields = [f.name for f in fields]
     return all(elem.replace("-", '') in valid_fields for elem in sort)
 
 
 def report_sort(sort):
 
-    if not _valid_sort_params(sort):
+    if not _valid_sort_params(sort, 'report'):
         raise Http404(f'Invalid sort request: {sort}')
 
     sort_exprs = []
@@ -26,5 +33,23 @@ def report_sort(sort):
             sort_exprs.append(F(sort_item).asc(nulls_last=nulls_last))
 
     sort_exprs.extend([F('create_date').desc(), F('id').desc()])
+
+    return sort_exprs, sort
+
+
+def activity_sort(sort):
+
+    if not _valid_sort_params(sort, 'activity'):
+        raise Http404(f'Invalid sort request: {sort}')
+
+    sort_exprs = []
+
+    for sort_item in sort:
+        if sort_item[0] == SORT_DESC_CHAR:
+            sort_exprs.append(F(sort_item[1::]))
+        else:
+            sort_exprs.append(F(sort_item))
+
+    sort_exprs.extend([F('id').desc()])
 
     return sort_exprs, sort
