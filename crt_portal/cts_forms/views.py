@@ -436,15 +436,31 @@ def process_intake_filters(request):
     }
 
 
+def get_action_data(requested_actions):
+    data = []
+    for action in requested_actions:
+        data.append({
+            "action": action.verb,
+            "detail": action.description,
+            "timestamp": action.timestamp,
+            "reportid": action.target_object_id,
+            "url": f'/form/view/{action.target_object_id}'
+        })
+    return data
+
+
 def process_activity_filters(request):
+    query_filters, selected_actions = dashboard_filter(request.GET)
     selected_actor = request.GET.get("assigned_to", "")
     selected_actor_object = User.objects.filter(username=selected_actor).first()
     selected_actor_id = selected_actor_object.pk if selected_actor_object else ''
-
+    data = get_action_data(selected_actions)
     return {
         'form': Filters(request.GET),
         'selected_actor': selected_actor,
         'selected_actor_id': selected_actor_id,
+        'filters': query_filters,
+        'data': data,
     }
 
 

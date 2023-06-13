@@ -103,9 +103,11 @@
     create_date_start: '',
     create_date_end: '',
     assigned_to: '',
+    actions: [],
     sort: '',
     page: '',
-    per_page: ''
+    per_page: '',
+    public_id: ''
   };
   var filterDataModel = {};
 
@@ -247,6 +249,27 @@
     props.el.addEventListener('click', props.onClick);
   }
 
+  function validateFilter(e) {
+    const buttonEl = document.getElementById('apply-filters-button');
+    const inputEl = document.getElementById('id_assigned_to');
+    const alertEl = document.getElementById('filter-notification');
+    const textEl = alertEl.querySelector('.usa-alert__text');
+    const value = inputEl.value;
+    if (!value.length || value == '(none)') {
+      e.preventDefault();
+      buttonEl.setAttribute('disabled', '');
+      textEl.textContent = 'Please select an intake specialist to see activity log data';
+      alertEl.style.display = 'inline-block';
+      inputEl.addEventListener('change', e => {
+        validateFilter(e);
+      });
+    } else {
+      buttonEl.removeAttribute('disabled');
+      textEl.textContent = '';
+      alertEl.style.display = 'none';
+    }
+  }
+
   function filterController() {
     var formEl = dom.getElementById('filters-form');
     var activeFiltersEl = dom.querySelector('[data-active-filters]');
@@ -254,6 +277,8 @@
     var createdateendEl = formEl.querySelector('input[name="create_date_end"]');
     var clearAllEl = dom.querySelector('[data-clear-filters]');
     var assigneeEl = formEl.querySelector('#id_assigned_to');
+    const actionsEl = dom.getElementsByName('actions');
+    const complaintIDEl = formEl.querySelector('input[name="public_id"]');
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
      * and perform a new search with the updated filters applied.
@@ -272,7 +297,8 @@
         'commercial_or_public_place',
         'reported_reason',
         'language',
-        'correctional_facility_type'
+        'correctional_facility_type',
+        'actions'
       ];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {
@@ -312,6 +338,14 @@
       el: activeFiltersEl,
       onClick: onFilterTagClick
     });
+    checkBoxView({
+      el: actionsEl,
+      name: 'actions'
+    });
+    textInputView({
+      el: complaintIDEl,
+      name: 'public_id'
+    });
     textInputView({
       el: assigneeEl,
       name: 'assigned_to'
@@ -338,7 +372,10 @@
     Object.keys(initialFilterState).forEach(function(key) {
       filterDataModel[key] = initialFilterState[key];
     });
-
+    const buttonEl = document.getElementById('apply-filters-button');
+    buttonEl.addEventListener('click', function(e) {
+      validateFilter(e);
+    });
     mutateFilterDataWithUpdates(filterDataModel, filterUpdates);
 
     filterController();
