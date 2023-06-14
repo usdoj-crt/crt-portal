@@ -21,7 +21,7 @@ from testfixtures import LogCapture
 from ..forms import ContactEditForm, ReportEditForm, add_activity
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
 from ..models import DashboardEmbed, Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign, BannerMessage
-from .test_data import SAMPLE_REPORT_1
+from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_3, SAMPLE_REPORT_4
 from .factories import ReportFactory
 
 
@@ -480,6 +480,8 @@ class CRT_FILTER_Tests(TestCase):
 
         test_report.save()
 
+        self.test_report2 = Report.objects.create(**SAMPLE_REPORT_3)
+        self.test_report3 = Report.objects.create(**SAMPLE_REPORT_4)
         self.client = Client()
         # we are not running the tests against the production database, so this shouldn't be producing real users anyway.
         self.test_pass = secrets.token_hex(32)
@@ -559,19 +561,20 @@ class CRT_FILTER_Tests(TestCase):
         url_not_in_phrase = f'{self.url_base}?violation_summary=haberdashery'
         url_not_in_phrase_response = self.client.get(url_not_in_phrase).context['data_dict']
 
-        self.assertEqual(len(phrase_response), self.len_all_results)
-        self.assertEqual(len(case_insensitive_phrase_response), self.len_all_results)
-        self.assertEqual(len(disjointed_phrase_response), self.len_all_results)
+        self.assertEqual(len(phrase_response), 8)
+        self.assertEqual(len(case_insensitive_phrase_response), 8)
+        self.assertEqual(len(disjointed_phrase_response), 8)
         self.assertEqual(len(url_not_in_phrase_response), 0)
 
     def test_first_name_filter(self):
         first_name_filter = 'contact_first_name=lin'
         response = self.client.get(f'{self.url_base}?{first_name_filter}')
         reports = response.context['data_dict']
+        expected_reports = Report.objects.filter(contact_first_name__icontains='lin').count()
 
         report_len = len(reports)
 
-        self.assertEqual(report_len, self.len_all_results - 1)
+        self.assertEqual(report_len, expected_reports)
 
     def test_campaign_filter(self):
         campaign_filter = 'origination_utm_campaign=Fake%20Campaign'
@@ -688,6 +691,13 @@ class CRT_FILTER_Tests(TestCase):
         # We've specified ADM as a query param, we should only see reports from that section
         expected_reports = Report.objects.filter(assigned_section='ADM').count()
         self.assertEqual(len(reports), expected_reports)
+    
+    def test_grouping_filter(self):
+        grouping_filter = 'grouping=matching-descriptions'
+        response = self.client.get(f'{self.url_base}?{grouping_filter}')
+        groups = response.context['groups']
+        self.assertEqual(len(groups), 3)
+        self.assertTrue('Group 1' in str(response.content))
 
 
 class Data_Export(TestCase):
@@ -776,6 +786,62 @@ class CRT_Dashboard_Tests(TestCase):
         response = self.client.get(url)
         self.assertTrue('0 reports' in str(response.content))
 
+class CRT_Activity_Dashboard_Tests(TestCase):
+    def setUp(self):
+        # We'll need a report and a handful of actions
+        self.client = Client()
+        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
+        self.superuser2 = User.objects.create_superuser('superduperuser2', 'a@a.com', '')
+        self.report = Report.objects.create(**SAMPLE_REPORT_1)
+        self.report2 = Report.objects.create(**SAMPLE_REPORT_1)
+        self.url = reverse('crt_forms:activity-log')
+        add_activity(self.superuser, 'Added comment: ', 'description', self.report)
+        add_activity(self.superuser, 'Added summary: ', 'description', self.report)
+
+    def test_view_activity_dashboard_unauthenticated(self):
+        """Unauthenticated attempt to view all page redirects to login page."""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_view_activity_dashboard_authenticated(self):
+        """Authenticated will return 200 and display "Select intake specialist."""
+        self.client.force_login(self.superuser)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('Select intake specialist' in str(response.content))
+
+    def test_assigned_to_filter_wrong_user(self):
+        url = f'{self.url}?assigned_to=superduperuser2'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        self.assertTrue('0 records' in str(response.content))
+        self.assertTrue('superduperuser2' in str(response.content))
+
+    def test_assigned_to_filter(self):
+        """Should only return two records for the report"""
+        url = f'{self.url}?assigned_to=superduperuser'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        self.assertTrue('2 records' in str(response.content))
+        self.assertTrue('superduperuser' in str(response.content))
+
+    def test_date_range(self):
+        url = f'{self.url}?create_date_start=2021-09-01&create_date_end=2035-09-30&assigned_to=superduperuser'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        self.assertTrue('2 records' in str(response.content))
+    
+    def test_verb_filter(self):
+        url = f'{self.url}?create_date_start=2021-09-01&create_date_end=2035-09-30&assigned_to=superduperuser&actions=Added summary: '
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        self.assertTrue('1 record' in str(response.content))
+    
+    def test_complaint_id_filter(self):
+        url = f'{self.url}?create_date_start=2021-09-01&create_date_end=2035-09-30&assigned_to=superduperuser&public_id={self.report.id}'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        self.assertTrue('2 records' in str(response.content))
 
 class CRT_Analytics_Tests(TestCase):
     def setUp(self):
