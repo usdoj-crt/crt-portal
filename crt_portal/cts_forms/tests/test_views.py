@@ -696,7 +696,7 @@ class CRT_FILTER_Tests(TestCase):
         grouping_filter = 'grouping=matching-descriptions'
         response = self.client.get(f'{self.url_base}?{grouping_filter}')
         groups = response.context['groups']
-        self.assertEqual(len(groups), 3)
+        self.assertEqual(len(groups), 2)
         self.assertTrue('Group 1' in str(response.content))
 
 

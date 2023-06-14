@@ -221,7 +221,7 @@ class ReportFilterTests(TestCase):
     
     def test_grouping(self):
         group_queries, _ = report_grouping(QueryDict('grouping="matching-descriptions"'))
-        self.assertEqual(group_queries.count(), 2)
+        self.assertEqual(len(group_queries), 2)
         self.assertEqual(group_queries[0]['qs'].count(), 2)
 
 
