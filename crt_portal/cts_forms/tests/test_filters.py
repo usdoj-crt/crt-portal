@@ -218,7 +218,7 @@ class ReportFilterTests(TestCase):
         """
         reports, _ = report_filter(QueryDict('violation_summary=boat%20AND%20(hovercraft%20OR%20(truck%20AND%20fishing))'))
         self.assertEqual(reports.count(), 2)
-    
+
     def test_grouping(self):
         group_queries, _ = report_grouping(QueryDict('grouping="matching-descriptions"'))
         self.assertEqual(len(group_queries), 2)
