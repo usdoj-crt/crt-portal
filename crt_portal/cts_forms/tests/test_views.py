@@ -691,7 +691,7 @@ class CRT_FILTER_Tests(TestCase):
         # We've specified ADM as a query param, we should only see reports from that section
         expected_reports = Report.objects.filter(assigned_section='ADM').count()
         self.assertEqual(len(reports), expected_reports)
-    
+
     def test_grouping_filter(self):
         grouping_filter = 'grouping=matching-descriptions'
         response = self.client.get(f'{self.url_base}?{grouping_filter}')
@@ -786,6 +786,7 @@ class CRT_Dashboard_Tests(TestCase):
         response = self.client.get(url)
         self.assertTrue('0 reports' in str(response.content))
 
+
 class CRT_Activity_Dashboard_Tests(TestCase):
     def setUp(self):
         # We'll need a report and a handful of actions
@@ -830,18 +831,19 @@ class CRT_Activity_Dashboard_Tests(TestCase):
         self.client.force_login(self.superuser)
         response = self.client.get(url)
         self.assertTrue('2 records' in str(response.content))
-    
+
     def test_verb_filter(self):
         url = f'{self.url}?create_date_start=2021-09-01&create_date_end=2035-09-30&assigned_to=superduperuser&actions=Added summary: '
         self.client.force_login(self.superuser)
         response = self.client.get(url)
         self.assertTrue('1 record' in str(response.content))
-    
+
     def test_complaint_id_filter(self):
         url = f'{self.url}?create_date_start=2021-09-01&create_date_end=2035-09-30&assigned_to=superduperuser&public_id={self.report.id}'
         self.client.force_login(self.superuser)
         response = self.client.get(url)
         self.assertTrue('2 records' in str(response.content))
+
 
 class CRT_Analytics_Tests(TestCase):
     def setUp(self):
