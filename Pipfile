@@ -62,6 +62,8 @@ numpy = "*"
 pandas = "*"
 ipywidgets = "*"
 plotly = "*"
+bokeh = "*"
+holoviews = "*"
 
 [requires]
 python_version = "3.11.3"
