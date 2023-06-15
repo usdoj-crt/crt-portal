@@ -525,9 +525,20 @@ commands:
             printf "Lock released - now serving ticket $((serving + 1))\n"
 
 workflows:
+  debug-dev-deploy:
+    jobs:
+      - deploy-dev:
+          filters:
+            branches:
+              only:
+                - kk/shrink-python
+
   build-test-deploy:
     jobs:
-      - build_and_test
+      - build_and_test:
+          filters:
+            branches:
+              ignore: kk/shrink-python
 
       - owasp-scan-dev:
           filters:
@@ -551,10 +562,7 @@ workflows:
             - build_and_test
           filters:
             branches:
-              only:
-                - develop
-                # TODO: Remove this before merging:
-                - kk/shrink-python
+              only: develop
 
       - deploy-stage:
           requires:
