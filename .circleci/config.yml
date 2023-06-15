@@ -20,7 +20,9 @@ install-python-dependencies: &install-python-dependencies
     command: |
       pip install -U pip
       pip install pipenv
-      pipenv install
+      # The following includes quite a few optimizations to save disk space by
+      # turning off features not required when not running in development.
+      CFLAGS="-g0 -Wl --strip-all -I/usr/include:/usr/local/include -L/usr/lib:/usr/local/lib" pipenv install --extra-pip-args="--no-cache-dir --compile --global-option=build_ext"
 
 install-python-dev-dependencies: &install-python-dev-dependencies
   run:
@@ -549,7 +551,10 @@ workflows:
             - build_and_test
           filters:
             branches:
-              only: develop
+              only:
+                - develop
+                # TODO: Remove this before merging:
+                - kk/shrink-python
 
       - deploy-stage:
           requires:
