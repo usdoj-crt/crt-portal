@@ -20,9 +20,7 @@ install-python-dependencies: &install-python-dependencies
     command: |
       pip install -U pip
       pip install pipenv
-      # The following includes quite a few optimizations to save disk space by
-      # turning off features not required when not running in development.
-      CFLAGS="-g0 -Wl -I/usr/include:/usr/local/include -L/usr/lib:/usr/local/lib" pipenv install --extra-pip-args="--no-cache-dir --compile --global-option=build_ext"
+      pipenv install --extra-pip-args="--no-cache-dir --compile"
 
 install-python-dev-dependencies: &install-python-dev-dependencies
   run:
