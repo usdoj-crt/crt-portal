@@ -267,6 +267,7 @@ jobs:
           command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
       - run:
           name: Deploy crt-portal-django to dev
+          no_output_timeout: 20m
           command: cf8 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
       - release-lock:
           app: crt-portal-django
@@ -326,6 +327,7 @@ jobs:
           command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
       - run:
           name: Deploy crt-portal-django to staging
+          no_output_timeout: 20m
           command: cf8 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
 
   deploy-prod:
@@ -384,6 +386,7 @@ jobs:
           command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
       - run:
           name: Deploy crt-portal-django to production
+          no_output_timeout: 20m
           command: cf8 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
 
   prod-maintenance-tasks:
