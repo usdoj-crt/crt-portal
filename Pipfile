@@ -57,8 +57,6 @@ jupyter_client = "*"
 jupysql = "*"
 ipykernel = "*"
 sqlalchemy = "<2"
-pandas = "*"
-plotly = "*"
 
 [requires]
 python_version = "3.11.3"
