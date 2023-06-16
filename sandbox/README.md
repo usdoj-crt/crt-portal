@@ -2,7 +2,6 @@
 
 Run "run.sh" to (in a sandbox account):
 
-- Deploy an AWS RDS instance
-- Deploy two workers (one to write and a second to read)
-- Test that the workers can only read/write as appropriate
+- Deploy a worker
+- Test that the workers can import the appropriate (prod and not dev) libraries
 - Clean up
