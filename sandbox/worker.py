@@ -12,9 +12,7 @@ def stat():
     return 'ok'
 
 
-app.route('/create_analytics_user')(helpers.create_analytics_user)
-app.route('/modify')(helpers.modify)
-app.route('/read')(helpers.read)
+app.route('/try_to_import')(helpers.try_to_import)
 
 
 if __name__ == "__main__":

@@ -6,5 +6,3 @@ applications:
   buildpacks:
   - https://github.com/cloudfoundry/apt-buildpack
   - python_buildpack
-  services:
-  - crt-sandbox-db-WHOAMI

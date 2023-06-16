@@ -10,24 +10,14 @@ echo ""
 echo "Here's that, but in a diagram:"
 echo ""
 echo "+------------+           +---------+"
-echo "|  Worker 1  |   write   |         |"
-echo "|   (Main)   |<--------->|         |"
-echo "+------------+           |Database |"
-echo "                         |(aws-rds)|"
-echo "+------------+           |         |"
-echo "|  Worker 2  |   read    |         |"
-echo "| (Analytics)|<----------+         |"
+echo "|  Worker 1  |   import  | Python  |"
+echo "|   (./app)  |<--------->| (./deps)|"
 echo "+------------+           +---------+"
 echo ""
 read -p "...Press enter to start the test..."
 echo ""
 echo "Checking database access for worker1:"
 cf ssh "crt-portal-sandbox-worker1-$(whoami)" -c './app/run_proof_remote.sh'
-echo
-echo "Everything above should have passed."
-echo
-echo "Checking database access for worker2:"
-cf ssh "crt-portal-sandbox-worker2-$(whoami)" -c './app/run_proof_remote.sh'
 echo
 echo "Everything except for the final READ should have failed."
 echo "We can see that the worker is not granted VCAP_SERVICES, so wouldn't know"
