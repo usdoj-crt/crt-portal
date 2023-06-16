@@ -14,11 +14,8 @@ else
   echo "$DB_USER"
 fi
 
-echo -n 'Can modify database? '
-echo "$(curl -s 'localhost:8080/modify')"
+echo -n 'Can import dependencies? '
+echo "$(curl -s 'localhost:8080/try_to_import_prod')"
 
-echo -n 'Can create database users? '
-echo "$(curl -s 'localhost:8080/create_analytics_user')"
-
-echo -n 'Can read from database? '
-echo "$(curl -s 'localhost:8080/read')"
+echo -n 'Can import dev dependencies? '
+echo "$(curl -s 'localhost:8080/try_to_import_dev')"

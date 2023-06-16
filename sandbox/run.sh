@@ -3,9 +3,8 @@
 set -e  # Don't continue if one of the below commands fails.
 
 echo "This will:"
-echo "- Deploy two workers and a database to sandbox."
-echo "- Curl the first worker a few times."
-echo "- Curl the second worker a few times."
+echo "- Deploy a worker to sandbox."
+echo "- Curl the worker."
 echo "- Tear everything down."
 echo
 read -p "If that's what you want, press enter..."

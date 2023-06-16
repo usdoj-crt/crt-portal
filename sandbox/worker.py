@@ -12,7 +12,8 @@ def stat():
     return 'ok'
 
 
-app.route('/try_to_import')(helpers.try_to_import)
+app.route('/try_to_import_prod')(helpers.try_to_import_prod)
+app.route('/try_to_import_dev')(helpers.try_to_import_dev)
 
 
 if __name__ == "__main__":
