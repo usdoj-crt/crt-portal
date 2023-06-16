@@ -57,8 +57,7 @@ jupyter_client = "*"
 jupysql = "*"
 ipykernel = "*"
 sqlalchemy = "<2"
-matplotlib = "*"
-numpy = "*"
+pandas = "*"
 plotly = "*"
 
 [requires]
