@@ -1,5 +1,7 @@
 import csv
+import io
 import logging
+import zipfile
 
 from actstream.models import Action, Follow
 from django.apps import apps
@@ -9,16 +11,17 @@ from django.contrib.admin.widgets import AdminTextareaWidget
 from django.core.paginator import Paginator
 from django.db.models import Prefetch
 from django import forms
-from django.http import StreamingHttpResponse
+from django.http import HttpResponse, StreamingHttpResponse
 from django.contrib.auth.models import User
 from django.utils.html import mark_safe
+from django.utils.text import slugify
 from django.urls import reverse
 from django.db.models.functions import Lower
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
                      JudicialDistrict, RoutingSection, RoutingStepOneContact,
-                     VotingMode, Campaign, ReferralContact)
+                     VotingMode, Campaign, ReferralContact, BannerMessage)
 from .signals import get_client_ip
 
 logger = logging.getLogger(__name__)
@@ -30,6 +33,7 @@ ACTION_FIELDS = ['timestamp', 'actor', 'verb', 'description', 'target']
 
 class ReadOnlyModelAdmin(admin.ModelAdmin):
     """Disable add, modify, and delete functionality"""
+
     def has_add_permission(self, request):
         return False
 
@@ -45,6 +49,7 @@ class ReadOnlyModelAdmin(admin.ModelAdmin):
 
 class TranslatedTextWidget(AdminTextareaWidget):
     """Shows an entry for each language in settings.LANGUAGES."""
+
     def __init__(self, attrs=None):
         codes = ','.join([code for code, name in settings.LANGUAGES])
         super().__init__(attrs={
@@ -60,6 +65,7 @@ class Echo:
     """An object that implements just the write method of the file-like
     interface.
     """
+
     def write(self, value):
         """Write the value by returning it, instead of storing in a buffer."""
         return value
@@ -136,6 +142,8 @@ def export_reports_as_csv(modeladmin, request, queryset):
 
     logger.info(format_export_message(request, queryset.count(), 'reports'))
     return response
+
+
 export_reports_as_csv.allowed_permissions = ('view',)  # noqa
 
 
@@ -153,6 +161,8 @@ def export_actions_as_csv(modeladmin, request, queryset):
 
     logger.info(format_export_message(request, queryset.count(), 'activity log entries'))
     return response
+
+
 export_actions_as_csv.allowed_permissions = ('view',)  # noqa
 
 
@@ -244,6 +254,24 @@ class ReferralContactAdmin(admin.ModelAdmin):
     form = ReferralContactAdminForm
 
 
+class BannerMessageAdminForm(forms.ModelForm):
+    class Meta:
+        model = BannerMessage
+        exclude = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['markdown_content'].widget = TranslatedTextWidget()
+
+
+class BannerMessageAdmin(admin.ModelAdmin):
+    def get_ordering(self, request):
+        return ['order']
+
+    list_display = ['order', 'show', 'kind', 'english']
+    form = BannerMessageAdminForm
+
+
 def mark_as_archived(modeladmin, request, queryset):
     queryset.update(archived=True)
 
@@ -297,6 +325,26 @@ class CampaignAdmin(admin.ModelAdmin):
         return mark_safe(f'<input aria-label="Long URL" disabled="disabled" class="admin-copy absolute-url" value="{url}"/>')
 
 
+def export_templates_as_zip(modeladmin, request, queryset):
+    """Export a zip file containing all of the database's response templates."""
+    buffer = io.BytesIO()
+    zip_file = zipfile.ZipFile(buffer, "w")
+
+    for template in queryset:
+        filename = slugify(template.title) + ".md"
+        zip_file.writestr(filename, template.body)
+
+    zip_file.close()
+
+    response = HttpResponse(buffer.getvalue(), content_type="application/zip")
+    response["Content-Disposition"] = 'attachment; filename="templates.zip"'
+
+    return response
+
+
+export_templates_as_zip.allowed_permissions = ('view',)  # noqa
+
+
 class ResponseTemplateAdmin(admin.ModelAdmin):
     class Media:
         js = ('js/response_template_preview.js',)
@@ -304,6 +352,7 @@ class ResponseTemplateAdmin(admin.ModelAdmin):
             'all': ('css/compiled/admin.css',)
         }
 
+    actions = [export_templates_as_zip]
     exclude = ['is_user_created']
     readonly_fields = ['template_help', 'print_template', 'preview']
 
@@ -334,6 +383,7 @@ admin.site.register(RoutingSection, RoutingSectionAdmin)
 admin.site.register(VotingMode, VotingModeAdmin)
 admin.site.register(Campaign, CampaignAdmin)
 admin.site.register(ReferralContact, ReferralContactAdmin)
+admin.site.register(BannerMessage, BannerMessageAdmin)
 admin.site.register(RoutingStepOneContact, RoutingStepOneContactAdmin)
 
 # Activity stream already registers an Admin for Action, we want to replace it

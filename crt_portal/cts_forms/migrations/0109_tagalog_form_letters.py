@@ -25,7 +25,7 @@ Susuriin namin ang iyong sulat upang magpasya kung kinakailangan naming makipag-
 
 Taos-puso,
 /s/
-Ang Seksyong Pangkriminal 
+Ang Seksyong Pangkriminal
 """)
 
     ResponseTemplate.objects.create(
@@ -259,7 +259,6 @@ SAMAHANG MAAARING MAKATULONG
 Korporasyon para sa mga Pang-ligal na Serbisyo  (o mga Tanggapan sa Ligal na Tulong)
 
     www.lsc.gov/find-legal-aid
-    Makipag-ugnay sa pamamagitan ng telepono: 202-295-1500
 
 
 Paano ka nakatulong:
@@ -300,7 +299,6 @@ Hindi namin tinutukoy na ang iyong ulat ay kulang sa merito. Ang iyong suliranin
 
     Korporasyon para sa Ligal na Serbisyo (o mga Tanggapan sa Ligal na Tulong)
     www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 Paano ka nakatulong:
 
@@ -311,7 +309,7 @@ Salamat sa paglaan mo ng oras na makipag-ugnay sa Kagawaran ng Katarungan tungko
 Taos-puso,
 
 Kagawaran ng Katarungan ng Estados Unidos
-Dibisyon sa mga Karapatang Sibil  
+Dibisyon sa mga Karapatang Sibil
 """)
 
     ResponseTemplate.objects.create(
@@ -320,7 +318,7 @@ Dibisyon sa mga Karapatang Sibil
         body="""
 {{ tl.addressee }}，
 
-Nakipag-ugnay ka sa Kagawaran ng Katarungan noong {{ tl.date_of_intake }}.  Pagkatapos ng maingat na pagsusuri ng iyong isinumite, napagpasyahan naming hindi na gumawa ng anumang karagdagang pagkilos sa iyong reklamo. 
+Nakipag-ugnay ka sa Kagawaran ng Katarungan noong {{ tl.date_of_intake }}.  Pagkatapos ng maingat na pagsusuri ng iyong isinumite, napagpasyahan naming hindi na gumawa ng anumang karagdagang pagkilos sa iyong reklamo.
 
 Ano ang aming ginawa:
 
@@ -342,7 +340,6 @@ Ang iyong samahan ng bar ng estado o lokal na tanggapan sa ligal na tulong ay ma
 
     Korporasyon ng Serbisyong Ligal (o mga Tanggapan sa Ligal na Tulong)
     www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 Salamat sa paglaan mo ng oras na makipag-ugnay sa Kagawaran ng Katarungan tungkol sa iyong mga pagkabahala. Nagsisisi kami na hindi kami makapagbigay ng karagdagang tulong sa bagay na ito.
 
@@ -397,9 +394,6 @@ Korporasyon ng mga Serbisyong Pangligal (o mga Tanggapan sa Ligal na Tulong)
 
     Hanapin online:
     www.lsc.gov/find-legal-aid
-
-    Makipag-ugnay sa pamamagitan ng telepono: (202) 295-1500
-
 
 Paano ka nakatulong:
 
@@ -629,9 +623,6 @@ Korporasyon sa mga Serbisyong Pangligal (o mga Tanggapan sa Ligal na Tulong)
     Hanapin online:
     www.lsc.gov/find-legal-aid
 
-    Makipag-ugnay sa pamamagitan ng  telepono: (202) 295-1500
-
-
 Paano ka nakatulong:
 
 Ang iyong ulat ay makakatulong sa amin na isulong ang mga karapatang sibil.  Ang impormasyon mula sa mga ulat katulad ng sa iyo ay nakakatulong sa amin na maunawaan ang umuusbong at kagyat na mga suliranin tungkol sa mga karapatang sibil.   Makakatulong ito na ipaalam kung paano namin pinoprotektahan ang mga karapatang sibil ng lahat ng mga tao sa bansang ito.
@@ -713,7 +704,7 @@ Dibisyon sa mga  Karapatang Sibil
         body="""
 {{ tl.addressee }}，
 
-Nakipag-ugnay ka sa Kagawaran ng Katarungan noong {{ tl.date_of_intake }}. Ang numero ng iyong ulat ay {{ record_locator }}.  Nakatanggap kami dati ng kaparehong pagsusulatan mula sa iyo tungkol sa bagay na ito at tumugon kami sa pagtatanong na iyon. 
+Nakipag-ugnay ka sa Kagawaran ng Katarungan noong {{ tl.date_of_intake }}. Ang numero ng iyong ulat ay {{ record_locator }}.  Nakatanggap kami dati ng kaparehong pagsusulatan mula sa iyo tungkol sa bagay na ito at tumugon kami sa pagtatanong na iyon.
 
 Wala na kaming maidadagdag sa aming paunang tugon at taos-puso kaming nagsisisi na hindi ka namin maalok ng karagadagang tulong tungkol sa bagay na ito.
 

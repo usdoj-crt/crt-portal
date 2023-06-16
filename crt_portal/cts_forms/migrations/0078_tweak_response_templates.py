@@ -31,7 +31,6 @@ Your state bar association or local legal aid office may be able to help with yo
 
     Legal Service Corporation (or Legal Aid Offices)
     www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 Thank you for taking the time to contact the Department of Justice about your concerns. We regret that we are not able to provide more help on this matter.
 
@@ -66,7 +65,6 @@ We are not determining that your report lacks merit. Your issue may still be act
 
     Legal Service Corporation (or Legal Aid Offices)
     www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 How you have helped:
 

@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
-{% load static %}
 {% load i18n %}
 {% load get_voting_mode %}
+{% load banner_message %}
 
 {% block page_header %}
   <header class="crt-landing--header crt-landing--blue">
@@ -75,6 +75,7 @@
 {% block content %}
 
   {% voting_banner as votbanner %}
+  {% banner_message %}
   {% if votbanner == 'True' %}
   <!-- display only when voting toggle is on -->
       {% include "partials/important_message_voting.html" %}
@@ -99,7 +100,7 @@
             <strong>{% trans "If you believe your civil rights, or someone else’s, have been violated, submit a report using our online form." %}</strong>
           </p>
           <a class="usa-button usa-button--big crt-button--large" href="{% url 'crt_report_form' %}">{% trans "Start a report" %}</a>
-          <p class="text-italic">{% trans 'or learn more about <a href="#your-rights">your rights</a>' %}</p>
+          <p class="text-italic">{% trans 'or learn more about <a id="info-link" href="#your-rights">your rights</a>' %}</p>
 
         </div>
       </div>
@@ -386,7 +387,7 @@
             <h3 class="h3__display">{% trans "Need urgent legal help?" %}</h3>
           </div>
           <p>{% trans "Due to the amount of reports we receive, it can take several weeks for us to respond to your issue. Local legal aid offices or lawyers in your area may be able to quickly respond to or help with your concern" %}</p>
-          <p>{% trans 'Contact Legal Services Corporation to help you find a legal aid lawyer in your area at <a aria-label="www.lsc.gov/find-legal-aid" class="external-link--blue external-link--popup" href="https://www.lsc.gov/find-legal-aid">lsc.gov/find-legal-aid</a> or call <a href="tel:202-295-1500">(202) 295-1500</a>.' %}</p>
+          <p>{% trans 'Contact Legal Services Corporation to help you find a legal aid lawyer in your area at <a aria-label="www.lsc.gov/find-legal-aid" class="external-link--blue external-link--popup" href="https://www.lsc.gov/find-legal-aid">lsc.gov/find-legal-aid</a>.' %}</p>
           <p>{% trans 'Or visit <a class="external-link--blue external-link--popup american-bar-link" href="https://www.americanbar.org/groups/legal_services/flh-home/">www.americanbar.org/groups/legal_services/flh-home</a> or call <a href="tel:800-285-2221">(800) 285-2221</a> to find a lawyer through the American Bar Association.' %}</p>
         </div>
       </div>
@@ -420,7 +421,15 @@
 {% endblock footer_extra %}
 
 {% block page_js %}
-  <script nonce="{{ request.csp_nonce }}">
+  <script type="module" nonce="{{ request.csp_nonce }}">
+   import { sendGAPublicClickEvent } from "./static/js/ga_util.js";
+   var navItems = document.getElementsByClassName("usa-nav__primary-item");
+   for (var i = 0; i < navItems.length; i++) {
+    var navItem = navItems[i];
+     navItem.onclick = function (event) {
+      sendGAPublicClickEvent('main nav ' + event.target.innerText);
+     }
+    }
    var examples = document.getElementById("crt-landing--examples");
    var items = examples.getElementsByClassName("usa-nav__submenu-item");
    for (var i = 0; i < items.length; i++) {
@@ -432,9 +441,14 @@
          target = el.target.parentElement;
        }
        var key = target.dataset["key"];
+       sendGAPublicClickEvent('example list ' + key);
        displayExample(key);
        el.preventDefault();
      }
+   }
+   var infoButton = document.getElementById("info-link");
+   infoButton.onclick = function () {
+    sendGAPublicClickEvent('info button');
    }
    function displayExample(key) {
      var examples_field = document.getElementById("crt-landing--choice_examples");

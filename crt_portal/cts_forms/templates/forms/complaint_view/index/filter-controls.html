@@ -1,5 +1,4 @@
-{% load static %}
-<h2 class="intake-section-title margin-bottom-105">Report Records</h2>
+<h2 class="intake-section-title margin-bottom-105 padding-bottom-2">Report Records</h2>
 <span>Find specific CRT Report Records by using the filter options below.</span>
 <form
   id="filters-form"
@@ -24,6 +23,7 @@
       {% include 'forms/complaint_view/index/filters/contact_email.html' %}
       {% include 'forms/complaint_view/index/filters/contact_phone_number_filter.html' %} <!-- CRT summary -->
       {% include 'forms/complaint_view/index/filters/date.html' %}
+      {% include 'forms/complaint_view/index/filters/district_number_filter.html' %}
       {% include 'forms/complaint_view/index/filters/primary_statute_filter.html' %} <!-- Classification -->
       {% include 'forms/complaint_view/index/filters/primary_issue.html' %}
       {% include 'forms/complaint_view/index/filters/reported_reason.html' %}
@@ -37,6 +37,9 @@
 
       {% include 'forms/complaint_view/index/filters/summary_filter.html' %} <!-- CRT summary -->
       {% include 'forms/complaint_view/index/filters/incident_location_filter.html' %}
+      {% if ENABLED_FEATURES.dj_number %}
+        {% include 'forms/complaint_view/index/filters/dj_number.html' %}
+      {% endif %}
     </div>
     <div class="grid-row flex-wrap flex-justify flex-align-end padding-bottom-5 border-gray-50 border-bottom">
       <div class="grid-col flex-3">

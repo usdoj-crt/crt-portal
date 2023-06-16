@@ -1,6 +1,9 @@
-from django.db import migrations, models
-from django.core.validators import RegexValidator
+from crequest.middleware import CrequestMiddleware
 
+from django.core.validators import RegexValidator
+from django.db import migrations, models
+from django.db.utils import ProgrammingError
+from django.contrib.auth.models import User
 
 FeatureNameValidator = RegexValidator(r'^[a-z\-]*$', 'Feature may only contain the letters a-z and the dash (-) character')
 
@@ -25,6 +28,7 @@ class Feature(models.Model):
     name = models.CharField(max_length=256, unique=True, blank=False, null=False, validators=[FeatureNameValidator], help_text="A unique name for the feature, using only lowercase letters and dashes (-)")
     description = models.TextField(blank=True, null=True, help_text="A description of the feature, if the name isn't sufficient to explain what it is.")
     enabled = models.BooleanField(default=False, help_text="Whether to show this feature in the application.")
+    users_when_disabled = models.ManyToManyField(User, blank=True, help_text="Users who are allowed to see this feature. Note that enabled features will be visible to everybody, always.")
 
     def __str__(self):
         return self.name
@@ -40,6 +44,15 @@ class Feature(models.Model):
     def snake_case(self):
         return self.name.replace('-', '_')
 
+    def is_enabled(self):
+        if self.enabled:
+            return True
+        request = CrequestMiddleware.get_request()
+        if not request or not request.user:
+            return False
+        # Only allow if the current user is in the allowed list:
+        return self.users_when_disabled.filter(id=request.user.id).exists()
+
     @classmethod
     def is_feature_enabled(cls, name):
         """Gets whether a feature is enabled.
@@ -50,6 +63,8 @@ class Feature(models.Model):
         feature doesn't exist.
         """
         try:
-            return cls.objects.get(name=name).enabled
-        except cls.DoesNotExist:
+            return cls.objects.get(name=name).is_enabled()
+        # During tests, this might be run prior to migrations,
+        # hence ProgrammingError
+        except (cls.DoesNotExist, ProgrammingError):
             return None

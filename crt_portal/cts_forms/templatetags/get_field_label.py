@@ -16,6 +16,7 @@ variable_rename = {
     'origination_utm_campaign': 'Campaign',
     'public_id': 'Complaint ID',
     'primary_statute': 'Classification',
+    'district': 'District number',
     'violation_summary': 'Personal description',
     'primary_complaint': 'Primary issue',
     'servicemember': 'Servicemember',
@@ -30,6 +31,7 @@ variable_rename = {
     'correctional_facility_type': 'Prison type',
     'create_date_start': 'Submission date start',
     'create_date_end': 'Submission date end',
+    'actions': 'Actions',
 }
 
 

@@ -1,4 +1,3 @@
-{% load static %}
 {% load multiselect_summary %}
 {% block content %}
 <form id="cts-forms-profile" class="usa-form" method="post" action="{% url 'crt_forms:cts-forms-profile' %}" novalidate>
@@ -11,7 +10,7 @@
       type="button"
       data-crt-dropdown-control
     >
-      <span class="label">{{ form.get_section_filters|multiselect_summary:"View sections" }}</span>
+      <span id="assigned-section-label" class="label">{{ form.get_section_filters|multiselect_summary:"View sections" }}</span>
       <span alt="open filter dropdown" class="icon" />
     </button>
     <div class="content" id="assigned-section" hidden>

@@ -160,7 +160,6 @@ UNA ORGANIZACIÓN QUE PODRÍA AYUDARLE
 Legal Services Corporation [Corporación de Servicios Legales] (o Legal Aid Offices [Oficinas de Asistencia Legal])
 
     www.lsc.gov/find-legal-aid
-    Por teléfono: 202-295-1500
 
 
 PARA LOCALIZAR A…

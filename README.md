@@ -46,10 +46,28 @@ To build the project
 
     docker-compose up -d --build
 
+You can also customize the ports various services run on by specifying the following in your .env file (changing any ports as desired):
+
+```
+DATABASE_PORT=5432
+WEB_PORT=8000
+JUPYTER_PORT=8001
+MAILHOG_SMTP_PORT=1025
+MAILHOG_UI_PORT=8025
+CLAMAV_REST_PORT=9000
+LOCALSTACK_PORT=4566
+```
+
 To run the project
     This is a quicker way to start the project as long as you don't have new packages to install.
 
     docker-compose up
+
+You can also build the project under a separate project, detached from local dependencies (ports and volumes) using:
+
+    ./standalone
+
+More configuration for this adanced usage can be found in docker-compose.standalone.yml
 
 Visit the site locally at [http://0.0.0.0:8000/report] 🎉
 
@@ -110,6 +128,12 @@ WEB_INTERNAL_HOSTNAME="web:8000"
 Jupyter uses the Portal's auth system to decide who can log in. Because of this, there's a bit of local setup involved.
 
 **Note: Because Jupyter uses system auth, make sure your Portal user is not named `root`**
+
+The following shows how to do this manually. To do this automatically in the local environment, you can run the following, then skip to restarting Jupyter below:
+
+```
+docker-compose run web python /code/crt_portal/manage.py create_local_oauth --write-to-env
+```
 
 First, you'll need to set OAUTH_PROVIDER_CLIENT_ID and OAUTH_PROVIDER_CLIENT_SECRET. This is basically the username and password for Jupyter to "log in" to the portal. To get these:
 1. Go to http://localhost:8000/oauth2_provider/applications
@@ -397,7 +421,7 @@ You can also run a subset of tests by specifying a path to a specific test class
 
 We use the unit tests for calculating code coverage. Tests will fail if code coverage is below 89%. You can run code coverage locally with:
 
-    docker-compose run web coverage run --source='.' /code/crt_portal/manage.py test cts_forms --parallel
+    docker-compose run web coverage run --source='.' /code/crt_portal/manage.py test shortener tms features cts_forms  --parallel
     docker-compose run web coverage report --fail-under=89 -m
 
 The -m will give you the line numbers in code that that are not tested by any unit tests. You can use that information to add test coverage.
@@ -489,7 +513,9 @@ Then, run with the following command.
 
 These tests are automatically executed for every pull request against a development instance in CircleCI.
 
-As we build out our end-to-end test suite it will be further automated and integrated into our CI/CD pipeline.
+They're also executed against development and staging as those releases happen.
+
+Note that any tests which which require authentication are only executed against branches as part of build_and_test, not dev / staging / prod.
 
 ## Browser targeting
 
@@ -607,6 +633,8 @@ We are using the defaults, so you can press enter for all the set up options. Yo
 
 ### Deployment for each environment
 * The app will deploy to **dev** when the tests pass and a PR is merged into `develop`. You should do this in GitHub.
+
+NOTE: If this deployment fails, you'll need to unlock the deployment and either merge again or re-run the build-test-deploy workflow in CircleCI. Run `./unlock_deployment.sh --help` for details.
 
 * The app will deploy to **stage** when the tests pass and when we make or update a branch that starts with `release/`.
     * Make sure the develop branch is approved for deploy by the product owner

@@ -1,5 +1,4 @@
 {% extends "forms/complaint_view/intake_base.html" %}
-{% load static %}
 
 {% block page_header %}
 {% include 'forms/complaint_view/intake_filters_header.html' with title_text="Reporting Portal" profile_form=profile_form  %}
@@ -29,7 +28,7 @@
   <div class="grid-col-auto">
     <div class="intake-table">
       <div class="intake-table-header">
-        <h2 class="intake-section-title">Incoming records</h2>
+        <h3 class="intake-section-title">Incoming records</h3>
         <div class="margin-left-auto">
           {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args placement="top" %}
         </div>
@@ -46,8 +45,10 @@
 {{ block.super }}
 <script src="{% static 'vendor/js.cookie.min.js' %}"></script>
 <script src="{% static 'js/complaint_quick_view.min.js' %}"></script>
-<script src="{% static 'js/complaint_view_filters.min.js' %}"></script>
+<script type="module" src="{% static 'js/complaint_view_filters.min.js' %}"></script>
 <script src="{% static 'js/complaint_actions.min.js' %}"></script>
 <script src="{% static 'js/dashboard_view_all.min.js'%}"></script>
 <script src="{% static 'js/constant_writer.min.js'%}"></script>
+<script src="{% static 'js/paste_dj_field.min.js' %}"></script>
+<script type="module" src="{% static 'js/ga_util.js' %}"></script>
 {% endblock %}

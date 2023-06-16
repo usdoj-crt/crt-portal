@@ -26,7 +26,6 @@ Chúng tôi không xác định rằng báo cáo của quý vị là thiếu th�
 
     Legal Services Corporation (hoặc Legal Aid Offices)
     www.lsc.gov/find-legal-aid
-    (202) 295-1500
 
 Quý vị đã giúp đỡ như thế nào:
 

@@ -6,6 +6,7 @@ from .models import Feature
 class FeatureAdmin(admin.ModelAdmin):
     list_display = ('pk', 'title_case', 'name', 'enabled')
     readonly_fields = ('title_case', 'python_variable', 'javascript_variable')
+    filter_horizontal = ('users_when_disabled',)
 
     @admin.display(description='Feature Title')
     def title_case(self, obj):

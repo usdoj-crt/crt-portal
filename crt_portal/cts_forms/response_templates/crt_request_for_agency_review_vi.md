@@ -43,7 +43,7 @@ Legal Services Corporation (hoặc Legal Aid Offices)
 
     Tìm trực tuyến:
 www.lsc.gov/find-legal-aid
-    Liên hệ qua điện thoại: (202) 295-1500
+
 Quý vị đã giúp đỡ như thế nào:
 
 Mặc dù chúng tôi không thể hành động trong trường hợp cụ thể này, nhưng báo cáo của quý vị sẽ giúp chúng tôi nâng cao dân quyền. Thông tin từ các báo cáo như của quý vị giúp chúng tôi hiểu được các vấn đề cấp bách và mới xuất hiện. Điều này giúp cung cấp thông tin về cách chúng tôi bảo vệ dân quyền của tất cả mọi người trên đất nước này.

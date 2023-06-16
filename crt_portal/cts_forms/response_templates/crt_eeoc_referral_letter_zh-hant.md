@@ -127,7 +127,6 @@ language: zh-hant
 法律服務公司（或法律援助辦公室）
 
     www.lsc.gov/find-legal-aid
-    透過電話聯繫： 202-295-1500
 
 您如何提供了幫助：
 

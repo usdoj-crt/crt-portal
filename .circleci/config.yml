@@ -20,7 +20,7 @@ install-python-dependencies: &install-python-dependencies
     command: |
       pip install -U pip
       pip install pipenv
-      pipenv install
+      pipenv install --extra-pip-args="--no-cache-dir --compile"
 
 install-python-dev-dependencies: &install-python-dev-dependencies
   run:
@@ -37,7 +37,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.11.2-browsers
+      - image: cimg/python:3.11.3-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -88,7 +88,7 @@ jobs:
       - run:
           name: Run unit tests & check coverage
           command: |
-            pipenv run coverage run --source='crt_portal' crt_portal/manage.py test --settings=crt_portal.test_settings cts_forms
+            pipenv run coverage run --source='crt_portal' crt_portal/manage.py test --settings=crt_portal.test_settings shortener tms features cts_forms
             pipenv run coverage report --fail-under=85 -m
       - run:
           name: Run bandit (Python security) tests
@@ -102,6 +102,10 @@ jobs:
           name: add or update response templates
           command: |
             pipenv run crt_portal/manage.py update_response_templates
+      - run:
+          name: add or update analytics notebooks examples
+          command: |
+            pipenv run crt_portal/manage.py update_ipynb_examples
       - run:
           name: compile messages for internationalization
           command: |
@@ -130,13 +134,21 @@ jobs:
           environment:
             PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome
           command: pipenv run pytest crt_portal/cts_forms/tests/integration/*.py --base-url=http://localhost:8000
+      - run:
+          name: Create a test user for e2e tests that require authentication.
+          command: pipenv run crt_portal/manage.py create_test_user
+      - run:
+          name: Authed E2E tests
+          environment:
+            PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome
+          command: pipenv run pytest crt_portal/cts_forms/tests/integration-authed/*.py --base-url=http://localhost:8000
 
   e2e-test-dev:
     description: Runs E2E tests against dev
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.11.2-browsers
+      - image: cimg/python:3.11.3-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -151,7 +163,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.11.2-browsers
+      - image: cimg/python:3.11.3-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -200,7 +212,7 @@ jobs:
     working_directory: ~/code
     docker:
       # standard docker python image
-      - image: python:3.11.2
+      - image: python:3.11.3
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -248,6 +260,11 @@ jobs:
       - run:
           name: Login to cloud.gov
           command: cf8 login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s ${CF_SPACE}
+      - run:
+          name: List dependency size
+          command: |
+            du node_modules -h --max-depth=1 | sort -h | tail -n 30
+            du .venv/lib/python3.11/site-packages/ -h --max-depth=1 | sort -h | tail -n 30
       - acquire-lock:
           app: crt-portal-django
       - run:
@@ -255,6 +272,7 @@ jobs:
           command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
       - run:
           name: Deploy crt-portal-django to dev
+          no_output_timeout: 20m
           command: cf8 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
       - release-lock:
           app: crt-portal-django
@@ -262,7 +280,7 @@ jobs:
   deploy-stage:
     working_directory: ~/code
     docker:
-      - image: python:3.11.2
+      - image: python:3.11.3
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -314,13 +332,14 @@ jobs:
           command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
       - run:
           name: Deploy crt-portal-django to staging
+          no_output_timeout: 20m
           command: cf8 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
 
   deploy-prod:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: python:3.11.2
+      - image: python:3.11.3
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -372,6 +391,7 @@ jobs:
           command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
       - run:
           name: Deploy crt-portal-django to production
+          no_output_timeout: 20m
           command: cf8 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
 
   prod-maintenance-tasks:

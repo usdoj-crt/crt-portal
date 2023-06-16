@@ -1,5 +1,4 @@
 {% extends "forms/complaint_view/intake_base.html" %}
-{% load static %}
 
 {% block page_header %}
 {% include 'forms/complaint_view/intake_filters_header.html' with title_text="Reporting Portal" profile_form=profile_form  %}
@@ -67,7 +66,7 @@
           {% include "forms/snippets/group_pagination.html" with page_format=group.data.page_format page_args=page_args group_params=group_params index=forloop.counter0 placement="top" %}
         </div>
       </div>
-        {% include "forms/complaint_view/index/complaints_table.html" with group_desc=group.desc group_params=group_params grouping=grouping page_format=group.data.page_format data_dict=group.data.data_dict sort_state=group.data.sort_state filter_state=group.data.filter_state index=forloop.counter0 %}
+        {% include "forms/complaint_view/index/complaints_table.html" with group_desc=group.desc group_desc_id=group.desc_id group_params=group_params grouping=grouping page_format=group.data.page_format data_dict=group.data.data_dict sort_state=group.data.sort_state filter_state=group.data.filter_state index=forloop.counter0 %}
     </div>
   </div>
   <div class="margin-bottom-5">
@@ -80,8 +79,10 @@
 {{ block.super }}
 <script src="{% static 'vendor/js.cookie.min.js' %}"></script>
 <script src="{% static 'js/complaint_quick_view.min.js' %}"></script>
-<script src="{% static 'js/complaint_view_filters.min.js' %}"></script>
+<script type="module" src="{% static 'js/complaint_view_filters.min.js' %}"></script>
 <script src="{% static 'js/complaint_actions.min.js' %}"></script>
 <script src="{% static 'js/dashboard_view_all.min.js'%}"></script>
 <script src="{% static 'js/constant_writer.min.js'%}"></script>
+<script src="{% static 'js/paste_dj_field.min.js' %}"></script>
+<script type="module" src="{% static 'js/ga_util.js' %}"></script>
 {% endblock %}

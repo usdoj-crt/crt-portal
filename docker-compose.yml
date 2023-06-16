@@ -2,25 +2,23 @@ version: "3.7"
 
 services:
   db:
+    hostname: db
     build:
       dockerfile: db/db.Dockerfile
       args:
         - analytics_password=${POSTGRES_ANALYTICS_PASSWORD}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data/
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    ports:
-      - 5432:5432
+
   jupyter:
+    hostname: jupyter
     platform: linux/amd64
-    container_name: "jupyter_main"
     environment:
         # Format needed for Python connections:
-      - DATABASE_URL=postgresql://analytics:${POSTGRES_ANALYTICS_PASSWORD}@db:5432/postgres
+      - DATABASE_URL=postgresql://analytics:${POSTGRES_ANALYTICS_PASSWORD}@db:${DATABASE_PORT:-5432}/postgres
         # Format needed for R connections:
       - DATABASE_HOSTNAME=db
-      - DATABASE_PORT=5432
+      - DATABASE_PORT=${DATABASE_PORT:-5432}
       - DATABASE_USER=analytics
       - DATABASE_PASSWORD=${POSTGRES_ANALYTICS_PASSWORD}
       - OAUTH_PROVIDER_CLIENT_ID=${OAUTH_PROVIDER_CLIENT_ID}
@@ -30,14 +28,12 @@ services:
     build:
       dockerfile: jupyterhub.Dockerfile
     command: jupyterhub --config '/srv/jupyterhub/jupyterhub_config.py'
-    ports:
-      - 8001:8000  # Don't conflict with the web app on 8000
     depends_on:
       - db
       - web
-    volumes:
-      - ./jupyterhub:/srv/jupyterhub
+
   web:
+    hostname: web
     platform: linux/amd64
     environment:
       - ENV=LOCAL
@@ -49,45 +45,38 @@ services:
       - RESTRICT_EMAIL_RECIPIENTS_TO=${RESTRICT_EMAIL_RECIPIENTS_TO}
       - FORM_AUTOCOMPLETE_OFF=False
       - USE_LOCALSTACK=${USE_LOCALSTACK:-True}
-      - LOCALSTACK_URL=http://localstack:4566
+      - LOCALSTACK_URL=http://localstack:${LOCALSTACK_PORT-4566}
       - AWS_ACCESS_KEY_ID=test
       - AWS_SECRET_ACCESS_KEY=test
-      - AV_SCAN_URL=http://clamav-rest:9000/scan
+      - AV_SCAN_URL=http://clamav-rest:${CLAMAV_REST_PORT:-9000}/scan
     build: .
     command: /code/run.sh
-    volumes:
-      - .:/code
-    ports:
-      - 8000:8000
     depends_on:
       - db
       - localstack
+
   localstack:
-    container_name: "localstack_main"
+    hostname: localstack
     image: localstack/localstack-full:0.14.2
-    ports:
-      - "4566:4566"
     environment:
       - SERVICES=s3
       ## - DEBUG=1
       ## this will be deprecated in future community version of local-stack
 #      - LEGACY_PERSISTENCE=1
       - DATA_DIR=/tmp/localstack/data
-    volumes:
-      - "localstack-vol:/tmp/localstack"
+
   mailhog:
-     image: mailhog/mailhog
-     ports:
-       - 1025:1025 # smtp server
-       - 8025:8025 # web ui
-     # command: -invite-jim=1 -jim-accept=0.50  # uncomment to enable and configure Jim (Chaos Monkey)
+    hostname: mailhog
+    image: mailhog/mailhog
+    # command: -invite-jim=1 -jim-accept=0.50  # uncomment to enable and configure Jim (Chaos Monkey)
+
   clamav-rest:
-    image: ajilaag/clamav-rest:20230321 # ##20220511
+    hostname: clamav-rest
+    image: ajilaag/clamav-rest:latest # ##20220511
     environment:
       - MAX_FILE_SIZE=100M
       - SIGNATURE_CHECKS=1
-    ports:
-      - "9000:9000"
+
 volumes:
   postgres_data:
   localstack-vol:

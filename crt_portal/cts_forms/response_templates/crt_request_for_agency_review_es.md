@@ -45,7 +45,6 @@ Legal Services Corporation [Corporación de Servicios Legales] (o Legal Aid Offi
     En Internet:
     www.lsc.gov/find-legal-aid (solo en inglés)
 
-    Por teléfono: (202) 295-1500
 
 Cómo nos ha ayudado:
 

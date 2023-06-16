@@ -17,7 +17,7 @@ from django.conf import settings
 
 from features.models import Feature
 
-from .model_variables import (COMMERCIAL_OR_PUBLIC_ERROR,
+from .model_variables import (ACTION_CHOICES, COMMERCIAL_OR_PUBLIC_ERROR,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
                               COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
                               CONTACT_PHONE_INVALID_MESSAGE,
@@ -78,6 +78,15 @@ def add_activity(user, verb, description, instance):
         description=description,
         target=instance
     )
+
+
+def get_dj_widget():
+    if not Feature.is_feature_enabled('dj-number'):
+        return HiddenInput()
+    return DjNumberWidget(attrs={
+        'field_label': 'ICM DJ Number',
+        'name': 'dj_number',
+    })
 
 
 class ActivityStreamUpdater(object):
@@ -1056,8 +1065,17 @@ class CampaignSelect(Select):
 
 class Filters(ModelForm):
 
-    def __init__(self, *args, **kwargs):
-        ModelForm.__init__(self, *args, **kwargs)
+    def __init__(self, data, *args, **kwargs):
+        data = data.copy()
+        # Multifields need to be initialized at a subcomponent level.
+        components = data.get('dj_number', '').rsplit('-', 2)
+        if len(components) == 3:
+            data['dj_number_0'] = components[0]
+            data['dj_number_1'] = components[1]
+            data['dj_number_2'] = components[2]
+
+        ModelForm.__init__(self, data, *args, **kwargs)
+
         # Putting this field in __init__ allows the User QuerySet to be evaluated
         # (otherwise it breaks when this module is read during a migration)
         self.fields['assigned_to'] = ChoiceField(
@@ -1096,7 +1114,14 @@ class Filters(ModelForm):
                 'class': 'usa-input usa-select',
             })
         )
-
+    actions = MultipleChoiceField(
+        required=False,
+        label='Action taken',
+        choices=ACTION_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'actions',
+        }),
+    )
     status = MultipleChoiceField(
         initial=(('new', 'New'), ('open', 'Open')),
         required=False,
@@ -1111,6 +1136,16 @@ class Filters(ModelForm):
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'location_state',
         }),
+    )
+    district = ChoiceField(
+        required=False,
+        label=_("District number"),
+        choices=add_empty_choice(DISTRICT_CHOICES),
+        widget=Select(attrs={
+            'name': 'district',
+            'class': 'usa-select',
+            'aria-label': 'District Number'
+        })
     )
     primary_statute = ChoiceField(
         required=False,
@@ -1260,6 +1295,10 @@ class Filters(ModelForm):
             'name': 'correctional_facility_type',
         }),
     )
+    dj_number = CharField(
+        widget=get_dj_widget(),
+        required=False,
+    )
 
     class Meta:
         model = Report
@@ -1274,6 +1313,7 @@ class Filters(ModelForm):
             'assigned_to',
             'public_id',
             'primary_statute',
+            'district',
             'violation_summary',
             'primary_complaint',
             'contact_phone',
@@ -1285,6 +1325,7 @@ class Filters(ModelForm):
             'referred',
             'language',
             'correctional_facility_type',
+            'dj_number',
         ]
 
         labels = {
@@ -1425,8 +1466,15 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
 
     class Meta:
         model = Report
-        fields = ['assigned_section', 'status', 'primary_statute',
-                  'district', 'assigned_to', 'referred', 'dj_number']
+        fields = [
+            'assigned_section',
+            'status',
+            'primary_statute',
+            'district',
+            'assigned_to',
+            'referred',
+            'dj_number',
+        ]
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
@@ -1470,12 +1518,8 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             required=False
         )
 
-        if Feature.is_feature_enabled('dj-number'):
-            DjInput = DjNumberWidget(attrs={'field_label': 'ICM DJ Number'})
-        else:
-            DjInput = HiddenInput()
         self.fields['dj_number'] = CharField(
-            widget=DjInput,
+            widget=get_dj_widget(),
             required=False,
         )
 
@@ -1536,6 +1580,14 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             fields += f', and {updated_fields[-1]}'
             message = f"Successfully updated {fields}."
         return message
+
+    def clean_dj_number(self):
+        dj_number = self.cleaned_data.get('dj_number', None)
+        if not dj_number:
+            return None
+        if any(not c for c in dj_number.rsplit('-', 2)):
+            return None
+        return dj_number
 
     def save(self, commit=True):
         """
@@ -1892,7 +1944,7 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
     trafficking = BooleanField(required=False, widget=CheckboxInput(attrs={'class': 'usa-checkbox__input'}))
 
     # Summary fields
-    summary = CharField(required=False, strip=True, widget=Textarea(attrs={'class': 'usa-textarea'}))
+    summary = CharField(required=False, strip=True, widget=Textarea(attrs={'class': 'usa-textarea', 'data-soft-valid': 'true', 'data-soft-maxlength': 7000}))
     summary_id = IntegerField(required=False, widget=HiddenInput())
 
     class Meta(ProForm.Meta):

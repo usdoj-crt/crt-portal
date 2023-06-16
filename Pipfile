@@ -49,9 +49,17 @@ boto3 = "*"
 python-frontmatter = "*"
 djangorestframework = "*"
 markdown = "*"
+nbconvert = "*"  # For running Jupyter ipynb files.
+nbformat = "*"  # For running Jupyter ipynb files.
+
+# The following are needed for refreshing Jupyter notebooks:
+jupyter_client = "*"
+jupysql = "*"
+ipykernel = "*"
+sqlalchemy = "<2"
 
 [requires]
-python_version = "3.11.2"
+python_version = "3.11.3"
 
 [pipenv]
 allow_prereleases = true

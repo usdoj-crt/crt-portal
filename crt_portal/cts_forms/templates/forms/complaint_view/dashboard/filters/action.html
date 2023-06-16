@@ -1,0 +1,12 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block classes %}actions{% endblock %}
+{% block controls %}actions{% endblock %}
+{% block label %}{{ form.actions.label }}{% endblock %}
+{% block id %}actions{% endblock %}
+
+{% block content %}
+  <div id="actions-filter" class="multicheckboxes-container">
+    {{ form.actions }}
+  </div>
+{% endblock %}
