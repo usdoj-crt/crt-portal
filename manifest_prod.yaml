@@ -6,6 +6,7 @@ applications:
   - route: civilrights.justice.gov
   - route: www.civilrights.justice.gov
   memory: 2G
+  disk_quota: 2G
   instances: 4
   env:
     ENV: PRODUCTION
