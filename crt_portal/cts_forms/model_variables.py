@@ -679,6 +679,8 @@ ACTION_CHOICES = (
     ('Contact state:', 'Contact state'),
     ('District:', 'District'),
     ('Added summary:', 'Added summary'),
+    ('Updated summary: ', 'Updated summary'),
+    ('Updated comment: ', 'Updated comment'),
 )
 
 PRINT_CHOICES = (
