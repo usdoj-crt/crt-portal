@@ -681,7 +681,7 @@ ACTION_CHOICES = (
     ('Added summary:', 'Added summary'),
     ('Assigned to:', 'Assigned to'),
     ('Report closed and Assignee removed', 'Report closed and Assignee removed'),
-    ('Primary classification:', 'Primary classification')
+    ('Primary classification:', 'Primary classification'),
     ('Updated summary: ', 'Updated summary'),
     ('Updated comment: ', 'Updated comment'),
     ('Status:', 'Status'),
