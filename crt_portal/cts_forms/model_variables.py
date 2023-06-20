@@ -684,6 +684,7 @@ ACTION_CHOICES = (
     ('Primary classification:', 'Primary classification')
     ('Updated summary: ', 'Updated summary'),
     ('Updated comment: ', 'Updated comment'),
+    ('Status:', 'Status'),
 )
 
 PRINT_CHOICES = (
