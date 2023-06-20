@@ -242,8 +242,6 @@ jobs:
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
             node node_modules/gulp/bin/gulp build-js
-      # database will be migrated in cloud.gov
-      - *install-python-dependencies
       - run:
           name: install cf8
           command: |
@@ -531,9 +529,20 @@ commands:
             printf "Lock released - now serving ticket $((serving + 1))\n"
 
 workflows:
+  debug-dev-deploy:
+    jobs:
+      - deploy-dev:
+          filters:
+            branches:
+              only:
+                - kk/1559/remove-deploy-pipenv
+
   build-test-deploy:
     jobs:
-      - build_and_test
+      - build_and_test:
+          filters:
+            branches:
+              ignore: kk/1559/remove-deploy-pipenv
 
       - owasp-scan-dev:
           filters:
