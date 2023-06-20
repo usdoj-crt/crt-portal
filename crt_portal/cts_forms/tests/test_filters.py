@@ -8,7 +8,7 @@ from django.http import QueryDict
 from django.test import SimpleTestCase, TestCase, TransactionTestCase
 import pytz
 
-from ..filters import report_filter
+from ..filters import report_filter, report_grouping
 from api.filters import form_letters_filter, autoresponses_filter
 from ..models import Report, ProtectedClass, FormLettersSent
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
@@ -57,6 +57,12 @@ class ReportFilterTests(TestCase):
         test_data['violation_summary'] = 'boat plane'
         Report.objects.create(**test_data)
 
+        test_data['violation_summary'] = 'motorcycle'
+        Report.objects.create(**test_data)
+
+        test_data['violation_summary'] = 'motorcycle'
+        Report.objects.create(**test_data)
+
     def test_no_filters(self):
         """Returns all reports when no filters provided"""
         reports, _ = report_filter(QueryDict(''))
@@ -83,7 +89,7 @@ class ReportFilterTests(TestCase):
         self.assertEqual(reports.count(), 1)
         # Since non numeric characters are stripped, it should return all results.
         reports, _ = report_filter(QueryDict('contact_phone=Hello'))
-        self.assertEqual(reports.count(), 9)
+        self.assertEqual(reports.count(), 11)
 
     def test_or_search_for_violation_summary(self):
         """
@@ -151,7 +157,7 @@ class ReportFilterTests(TestCase):
         # This one is a little counter-intuitive, because one result will have "truck"
         # and "boat" in it. Why? Because the search query translates to "all entries
         # without 'boat'", and "all entries with truck, regardless of whether it has 'boat".
-        self.assertEqual(reports.count(), 4)
+        self.assertEqual(reports.count(), 6)
         for report in reports:
             self.assertEqual('truck' in report.violation_summary or 'boat' not in report.violation_summary, True)
 
@@ -212,6 +218,11 @@ class ReportFilterTests(TestCase):
         """
         reports, _ = report_filter(QueryDict('violation_summary=boat%20AND%20(hovercraft%20OR%20(truck%20AND%20fishing))'))
         self.assertEqual(reports.count(), 2)
+
+    def test_grouping(self):
+        group_queries, _ = report_grouping(QueryDict('grouping="matching-descriptions"'))
+        self.assertEqual(len(group_queries), 2)
+        self.assertEqual(group_queries[0]['qs'].count(), 2)
 
 
 # This is a separate test suite from the above search query tests because

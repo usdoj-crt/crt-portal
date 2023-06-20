@@ -422,14 +422,6 @@
 
 {% block page_js %}
   <script type="module" nonce="{{ request.csp_nonce }}">
-   import { sendGAPublicClickEvent } from "./static/js/ga_util.js";
-   var navItems = document.getElementsByClassName("usa-nav__primary-item");
-   for (var i = 0; i < navItems.length; i++) {
-    var navItem = navItems[i];
-     navItem.onclick = function (event) {
-      sendGAPublicClickEvent('main nav ' + event.target.innerText);
-     }
-    }
    var examples = document.getElementById("crt-landing--examples");
    var items = examples.getElementsByClassName("usa-nav__submenu-item");
    for (var i = 0; i < items.length; i++) {
@@ -441,15 +433,11 @@
          target = el.target.parentElement;
        }
        var key = target.dataset["key"];
-       sendGAPublicClickEvent('example list ' + key);
        displayExample(key);
        el.preventDefault();
      }
    }
-   var infoButton = document.getElementById("info-link");
-   infoButton.onclick = function () {
-    sendGAPublicClickEvent('info button');
-   }
+
    function displayExample(key) {
      var examples_field = document.getElementById("crt-landing--choice_examples");
      var helptext_field = document.getElementById("crt-landing--choice_helptext");
@@ -482,6 +470,7 @@
      }
    };
   </script>
+  <script src="{% static 'js/ga_util.js' %}"></script>
   <script src="{% static 'js/modal.min.js' %}"></script>
   <script src="{% static 'js/redirect-modal.min.js' %}"></script>
 {% endblock %}

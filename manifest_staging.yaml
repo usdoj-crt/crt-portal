@@ -4,6 +4,7 @@ applications:
   routes:
   - route: crt-portal-django-stage.app.cloud.gov
   memory: 2G
+  disk_quota: 2G
   instances: 2
   env:
     ENV: STAGE
