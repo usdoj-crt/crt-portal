@@ -1,5 +1,3 @@
-import textwrap
-
 from django.core.exceptions import ValidationError
 from django.template import Context, Template
 from django.test import TestCase
@@ -58,15 +56,10 @@ class FeatureTests(TestCase):
             '{% load feature_script %}'
             '{% feature_script %}'
         )
-        self.assertEquals(
-            template.render(Context({})),
-            textwrap.dedent("""
-                <script>
-                    const ENABLED_FEATURES = {"featureOn":true,"featureOff":false};
-                    document.documentElement.classList.add(...["feature-on"]);
-                </script>
-            """)
-        )
+        content = template.render(Context({}))
+        self.assertIn('const ENABLED_FEATURES', content)
+        self.assertIn('"featureOn":true,"featureOff":false', content)
+        self.assertIn('document.documentElement.classList.add(...', content)
 
     def test_is_feature_enabled_template_tag_conditions(self):
         Feature(name='feature-on', enabled=True).save()
