@@ -12,19 +12,19 @@
   </div>
   {% include "forms/complaint_view/dashboard/activity-filter-controls.html" with filters=filters form=form %}
   <div class="display-flex margin-top-8">
-    <span class="intake-pagination margin-left-auto">
-      Showing {{ page_format.page_range_start }} - {{ page_format.page_range_end }} of {{ page_format.count }} records
-      {% include 'forms/complaint_view/index/filters/per_page.html' with per_page=page_format.per_page %}
-    </span>
-  </div>
-  <div class="display-flex margin-top-8">
     {% include "forms/complaint_view/dashboard/active-filters.html" %}
   </div>
   <div class="grid-col-auto">
     <div class="intake-table">
-      <div class="intake-table-header">
+      <div class="intake-table-header flex-justify">
         <h3 class="intake-section-title">Activity log</h3>
-        <div class="margin-left-auto">
+        <div>
+          <span class="intake-pagination activity-pagination margin-left-auto">
+            {{ page_format.page_range_start }} - {{ page_format.page_range_end }} of {{ page_format.count }} results
+            {% include 'forms/complaint_view/index/filters/per_page.html' with per_page=page_format.per_page %}
+          </span>
+        </div>
+        <div>
           {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args placement="top" %}
         </div>
       </div>
