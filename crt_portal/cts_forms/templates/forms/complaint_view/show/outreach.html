@@ -12,15 +12,62 @@
     <legend class="usa-sr-only">Complaint detail view outreach</legend>
     <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
     <input type="hidden" value="{{ index }}" name="index" id="index" />
+
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
       <label for="id_campaign" class="intake-label">
         Campaign
       </label>
       {{ outreach.origination_utm_campaign }}
-      <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="The internal name of the outreach effort.">
+      <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{{ outreach.origination_utm_campaign.help_text }}">
         <span class="help-text icon-only"></span>
       </span>
     </div>
+
+    <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
+      <label for="id_source" class="intake-label">
+        Source
+      </label>
+      {{ outreach.origination_utm_source }}
+      <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{{ outreach.origination_utm_source.help_text }}">
+        <span class="help-text icon-only"></span>
+      </span>
+    </div>
+
+    <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
+      <label for="id_medium" class="intake-label">
+        Medium
+      </label>
+      {{ outreach.origination_utm_medium }}
+      <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{{ outreach.origination_utm_medium.help_text }}">
+        <span class="help-text icon-only"></span>
+      </span>
+    </div>
+
+    <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
+      <label for="id_content" class="intake-label">
+        Content
+      </label>
+      {{ outreach.origination_utm_content }}
+      <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{{ outreach.origination_utm_content.help_text }}">
+        <span class="help-text icon-only"></span>
+      </span>
+    </div>
+
+    <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
+      <label for="id_term" class="intake-label">
+        Term
+      </label>
+      {{ outreach.origination_utm_term }}
+      <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{{ outreach.origination_utm_term.help_text }}">
+        <span class="help-text icon-only"></span>
+      </span>
+    </div>
+
+
+
+
+
+
     <button class="usa-button" type="submit" name='type' value='{{outreach.CONTEXT_KEY}}'>Update Outreach</button>
   </fieldset>
 </form>

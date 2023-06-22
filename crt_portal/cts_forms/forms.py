@@ -1623,10 +1623,34 @@ class ComplaintOutreach(ModelForm, ActivityStreamUpdater):
         model = Report
         fields = [
             'origination_utm_campaign',
+            'origination_utm_source',
+            'origination_utm_medium',
+            'origination_utm_term',
+            'origination_utm_content',
         ]
+        widgets = {
+            'origination_utm_source': TextInput(attrs={
+                'class': 'usa-input',
+                'field_label': 'Outreach Source',
+            }),
+            'origination_utm_medium': TextInput(attrs={
+                'class': 'usa-input',
+                'field_label': 'Outreach Medium',
+            }),
+            'origination_utm_term': TextInput(attrs={
+                'class': 'usa-input',
+                'field_label': 'Outreach Term',
+            }),
+            'origination_utm_content': TextInput(attrs={
+                'class': 'usa-input',
+                'field_label': 'Outreach Content',
+            }),
+        }
 
     def __init__(self, *args, **kwargs):
         ModelForm.__init__(self, *args, **kwargs)
+        for name, field in self.fields.items():
+            field.help_text = Report._meta.get_field(name).help_text
 
     def get_actions(self):
         """
@@ -1634,17 +1658,17 @@ class ComplaintOutreach(ModelForm, ActivityStreamUpdater):
         If report has been closed, emit action for activity log
         """
         for field in self.changed_data:
-            name = ' '.join(field.split('_')).capitalize()
             original = self.initial[field]
             changed = self.cleaned_data[field]
+            field = field.replace('origination_utm_', '')
+            name = ' '.join(field.split('_')).capitalize()
             # fix bug where id was showing up instead of user name
-            if field == 'origination_utm_campaign':
-                name = 'Campaign'
+            if field == 'campaign':
                 if original is None:
                     yield f"{name}:", f'"{changed}"'
                 else:
                     original = Campaign.objects.get(uuid=original)
-            yield f"{name}:", f'Updated from "{original}" to "{changed}"'
+            yield f"Outreach {name}:", f'Updated from "{original}" to "{changed}"'
 
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
