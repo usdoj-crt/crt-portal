@@ -1,0 +1,28 @@
+{% extends "forms/complaint_view/show/card.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block extra_classes %}crt-action-card{% endblock %}
+{% block icon %}
+<img src="{% static icon %}" alt="" class="icon" />
+{% endblock %}
+
+{% block card_content %}
+<form id="complaint-view-outreach" class="usa-form" method="post" action="/form/view/{{data.id}}/?next={{ return_url_args|urlencode }}&index={{ index }}" novalidate>
+  {% csrf_token %}
+  <fieldset name="view-outreach" class="usa-fieldset usa-prose">
+    <legend class="usa-sr-only">Complaint detail view outreach</legend>
+    <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
+    <input type="hidden" value="{{ index }}" name="index" id="index" />
+    <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
+      <label for="id_campaign" class="intake-label">
+        Campaign
+      </label>
+      {{ outreach.origination_utm_campaign }}
+      <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="The internal name of the outreach effort.">
+        <span class="help-text icon-only"></span>
+      </span>
+    </div>
+    <button class="usa-button" type="submit" name='type' value='{{outreach.CONTEXT_KEY}}'>Update Outreach</button>
+  </fieldset>
+</form>
+
+{% endblock %}

@@ -836,7 +836,7 @@ form#cts-forms-profile {
   border: 1px solid #565C64;
 }
 
-#complaint-view-actions, #bulk_actions_section {
+#complaint-view-actions, #bulk_actions_section, #complaint-view-outreach {
   .usa-checkbox__label::before {
     position: relative;
   }
@@ -844,6 +844,7 @@ form#cts-forms-profile {
     &.crt-dropdown__shrink-to-contents {
       select {
         flex-basis: 30%;
+        flex-grow: 1;
       }
 
       .help-text {
@@ -851,6 +852,11 @@ form#cts-forms-profile {
         font-size: $theme-text-font-size-xs;
         padding-left: 0.5rem;
         margin-top: 0.5rem;
+
+        &.icon-only {
+          margin-top: 0;
+          display: table;
+        }
 
         &::before {
           height: 1rem;

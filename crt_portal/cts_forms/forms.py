@@ -1607,6 +1607,77 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         return report
 
 
+class ComplaintOutreach(ModelForm, ActivityStreamUpdater):
+    report_closed = False
+    CONTEXT_KEY = 'outreach'
+    origination_utm_campaign = ModelChoiceField(
+        queryset=Campaign.objects.filter().order_by('internal_name'),
+        label='Campaign',
+        required=False,
+        widget=Select(attrs={
+            'class': 'usa-input usa-select',
+        })
+    )
+
+    class Meta:
+        model = Report
+        fields = [
+            'origination_utm_campaign',
+        ]
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+
+    def get_actions(self):
+        """
+        Parse incoming changed data for activity stream entry
+        If report has been closed, emit action for activity log
+        """
+        for field in self.changed_data:
+            name = ' '.join(field.split('_')).capitalize()
+            original = self.initial[field]
+            changed = self.cleaned_data[field]
+            # fix bug where id was showing up instead of user name
+            if field == 'origination_utm_campaign':
+                name = 'Campaign'
+                if original is None:
+                    yield f"{name}:", f'"{changed}"'
+                else:
+                    original = Campaign.objects.get(uuid=original)
+            yield f"{name}:", f'Updated from "{original}" to "{changed}"'
+
+    def update_activity_stream(self, user):
+        """Send all actions to activity stream"""
+        for verb, description in self.get_actions():
+            action.send(
+                user,
+                verb=verb,
+                description=description,
+                target=self.instance
+            )
+
+    def success_message(self):
+        """Prepare update success message for rendering in template"""
+        def get_label(field):
+            field = self.fields[field]
+            # Some fields can't support the extra context label, and store it
+            # on their attributes
+            if attrs_label := field.widget.attrs.get('field_label', None):
+                return attrs_label
+            # Most standard fields will have a direct label.
+            if hasattr(field.widget, 'label'):
+                return field.widget.label
+            return field.label
+        updated_fields = [get_label(field) for field in self.changed_data]
+        if len(updated_fields) == 1:
+            message = f"Successfully updated {updated_fields[0]}."
+        else:
+            fields = ', '.join(updated_fields[:-1])
+            fields += f', and {updated_fields[-1]}'
+            message = f"Successfully updated {fields}."
+        return message
+
+
 class CommentActions(ModelForm):
     class Meta:
         model = CommentAndSummary
