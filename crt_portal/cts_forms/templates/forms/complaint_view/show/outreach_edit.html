@@ -10,9 +10,7 @@
         Campaign
       </label>
       {{ outreach.origination_utm_campaign }}
-      <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{{ outreach.origination_utm_campaign.help_text }}">
-        <span class="help-text icon-only"></span>
-      </span>
+      {% include 'partials/help_tooltip.html' with tip=outreach.origination_utm_campaign.help_text %}
     </div>
 
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
@@ -20,9 +18,7 @@
         Source
       </label>
       {{ outreach.origination_utm_source }}
-      <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{{ outreach.origination_utm_source.help_text }}">
-        <span class="help-text icon-only"></span>
-      </span>
+      {% include 'partials/help_tooltip.html' with tip=outreach.origination_utm_source.help_text %}
     </div>
 
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
@@ -30,9 +26,7 @@
         Medium
       </label>
       {{ outreach.origination_utm_medium }}
-      <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{{ outreach.origination_utm_medium.help_text }}">
-        <span class="help-text icon-only"></span>
-      </span>
+      {% include 'partials/help_tooltip.html' with tip=outreach.origination_utm_medium.help_text %}
     </div>
 
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
@@ -40,9 +34,7 @@
         Content
       </label>
       {{ outreach.origination_utm_content }}
-      <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{{ outreach.origination_utm_content.help_text }}">
-        <span class="help-text icon-only"></span>
-      </span>
+      {% include 'partials/help_tooltip.html' with tip=outreach.origination_utm_content.help_text %}
     </div>
 
     <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
@@ -50,9 +42,7 @@
         Term
       </label>
       {{ outreach.origination_utm_term }}
-      <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{{ outreach.origination_utm_term.help_text }}">
-        <span class="help-text icon-only"></span>
-      </span>
+      {% include 'partials/help_tooltip.html' with tip=outreach.origination_utm_term.help_text %}
     </div>
 
     <button aria-label="update contact details" class="usa-button" disabled type="submit" name="type" value="{{outreach.CONTEXT_KEY}}">Save</button>
