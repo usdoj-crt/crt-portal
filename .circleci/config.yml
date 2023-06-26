@@ -258,11 +258,6 @@ jobs:
       - run:
           name: Login to cloud.gov
           command: cf8 login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s ${CF_SPACE}
-      - run:
-          name: List dependency size
-          command: |
-            du node_modules -h --max-depth=1 | sort -h | tail -n 30
-            du .venv/lib/python3.11/site-packages/ -h --max-depth=1 | sort -h | tail -n 30
       - acquire-lock:
           app: crt-portal-django
       - run:
