@@ -14,14 +14,6 @@ install-cf8: &install-cf8
       rm cf8.deb
       cf8 api https://api.fr.cloud.gov
 
-install-python-dependencies: &install-python-dependencies
-  run:
-    name: Install python dependencies
-    command: |
-      pip install -U pip
-      pip install pipenv
-      pipenv install --extra-pip-args="--no-cache-dir --compile"
-
 install-python-dev-dependencies: &install-python-dev-dependencies
   run:
     name: Install python dev dependencies
@@ -303,7 +295,6 @@ jobs:
             node node_modules/gulp/bin/gulp build-sass
             node node_modules/gulp/bin/gulp build-js
       # database will be migrated in cloud.gov
-      - *install-python-dependencies
       - run:
           name: install cf8
           command: |
@@ -362,7 +353,6 @@ jobs:
             node node_modules/gulp/bin/gulp build-sass
             node node_modules/gulp/bin/gulp build-js
       # database will be migrated in cloud.gov
-      - *install-python-dependencies
       - run:
           name: install cf8
           command: |
@@ -524,20 +514,9 @@ commands:
             printf "Lock released - now serving ticket $((serving + 1))\n"
 
 workflows:
-  debug-dev-deploy:
-    jobs:
-      - deploy-dev:
-          filters:
-            branches:
-              only:
-                - kk/1559/remove-deploy-pipenv
-
   build-test-deploy:
     jobs:
-      - build_and_test:
-          filters:
-            branches:
-              ignore: kk/1559/remove-deploy-pipenv
+      - build_and_test
 
       - owasp-scan-dev:
           filters:
