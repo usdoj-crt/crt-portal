@@ -522,7 +522,7 @@ $arrow-height: 24px;
   .crt-landing--large_select {
     @include u-radius-top('lg');
     @include u-shadow(3);
-    margin-top: 2.5rem;
+    margin-top: 1rem;
     padding: 0;
     background-color: color('white');
 
@@ -551,7 +551,6 @@ $arrow-height: 24px;
       background-size: 1.5rem !important;
       background-color: color($theme-color-primary-darker);
       width: 100%;
-      height: 100%;
 
       &[aria-expanded='false'] {
         background-image: url(../../img/angle-arrow-down-white.svg) !important;
@@ -568,55 +567,9 @@ $arrow-height: 24px;
     }
   }
 
-  #crt-landing--example_option {
+  .crt-landing--example_option {
     font-weight: bold;
     margin-right: 2rem;
-  }
-
-  #crt-landing--examples {
-    padding: 0;
-    background: color('white');
-    @include u-radius-bottom('lg');
-    @include u-shadow(3);
-
-    width: calc(100% - 2rem);
-
-    @include at-media-max(desktop) {
-      width: 100%;
-    }
-
-    margin-top: 5px;
-
-    li {
-      font-weight: normal;
-      line-height: 1.5;
-      cursor: pointer;
-      margin: 0;
-
-      &:hover {
-        color: color($theme-color-primary-darker);
-        background-color: color($theme-color-primary-lighter) !important;
-      }
-
-      &:last-of-type {
-        @include u-radius-bottom('lg');
-      }
-    }
-
-    a {
-      color: color($theme-color-primary-darker);
-      font-weight: normal;
-      line-height: 1.5;
-      text-decoration: none;
-      display: block;
-      padding: 1rem 1.5rem;
-      width: 100%;
-      height: 100%;
-
-      &:hover {
-        color: color($theme-color-primary-darker);
-      }
-    }
   }
 
   .crt-landing--example {
@@ -630,18 +583,19 @@ $arrow-height: 24px;
       padding: 1.5rem;
     }
 
-    #crt-landing--choice_helptext p {
+    .crt-landing--choice_helptext p {
       margin-top: 0;
       margin-bottom: 1.5rem;
       font-style: italic;
     }
 
-    #crt-landing--choice_examples p {
+    .crt-landing--choice_examples p {
+      font-weight: normal;
       margin-top: 1.5rem;
       padding-right: 1rem;
     }
 
-    #crt-landing--humantrafficking, #crt-landing--hate-crimes a {
+    .crt-landing--helplink a {
       background-color: color('white');
       margin-top: 0.5rem;
       font-weight: bold;

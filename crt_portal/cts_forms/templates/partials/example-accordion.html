@@ -1,0 +1,51 @@
+{% load i18n %}
+
+<ul class="usa-nav__primary usa-accordion crt-landing--large_select">
+  <li>
+    <button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="crt-landing-{{choice.key}}--example" aria-label="expand example">
+      <div class="crt-landing--example_option" id="crt-landing-{{choice.key}}--example_option">
+        {{ choice.description }}
+      </div>
+    </button>
+
+    <div class="crt-landing--example crt-landing--lightblue" id="crt-landing-{{choice.key}}--example">
+      <div class="crt-landing--choice_helptext" id="crt-landing-{{choice.key}}--choice_helptext">
+      </div>
+      <p class="crt-landing--example_header">
+        {% trans "Examples" %}
+      </p>
+      <div class="crt-landing--choice_examples" id="crt-landing-{{choice.key}}--choice_examples" class="crt-landing--text">
+          {% for example in choice.examples %}
+            <p>{{ example|safe }}</p>
+          {% endfor %}
+      </div>
+
+      {% if choice.helplink %}
+      <div class="crt-landing--helplink">
+        <a aria-label="{{ choice.helplink.aria_prefix }} {{ choice.helplink.text }}" class="external-link--blue external-link--popup" href="{{ choice.helplink.href }}">{{ choice.helplink.text }}</a>
+      </div>
+      {% endif %}
+
+      {% if ENABLED_FEATURES.education_footer %}
+      {% if choice.note %}
+      <p class="crt-landing--example_header">
+        {% trans "Note" %}
+
+      <div class="crt-landing--choice_examples" id="crt-landing-{{choice.key}}--choice_examples" class="crt-landing--text">
+          <p>{{ choice.note|safe }}</p>
+      </div>
+
+      </p>
+      {% endif %}
+
+      {% if choice.learnmore %}
+      <p class="crt-landing--example_header crt-landing--learnmore">
+        <a href="{{ choice.learnmore }}">{% trans "Learn More" %} →</a>
+      </p>
+      {% endif %}
+      {% endif %}
+    </div>
+
+  </li>
+</ul>
+
