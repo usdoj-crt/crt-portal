@@ -308,7 +308,7 @@ class ReferralResponse(APIView):
             try:
                 email_response = crt_send_mail(report, template)
                 if email_response:
-                    response = f'Sent email referral template #{template.id} to report #{report.id}'
+                    response = f'Sent referral email template #{template.id} to report #{report.id}'
                 else:
                     response = f'Referral email template #{template.id} failed to send to report #{report.id}'
             except Exception as e:
