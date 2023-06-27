@@ -1,0 +1,41 @@
+{% extends "forms/complaint_view/intake_base.html" %}
+
+{% block page_header %}
+{% include 'forms/complaint_view/dashboard/header.html' %}
+{% endblock %}
+{% block content %}
+{% include 'forms/complaint_view/dashboard/team-management-header.html' %}
+{% include 'forms/complaint_view/dashboard/activity-log-header.html' %}
+<div class="intake-content">
+  <div id="status-update" class="grid-col-auto">
+    {% include 'partials/messages.html' %}
+  </div>
+  {% include "forms/complaint_view/dashboard/activity-filter-controls.html" with filters=filters form=form %}
+  <div class="display-flex margin-top-8">
+    <span class="intake-pagination margin-left-auto">
+      Showing {{ page_format.page_range_start }} - {{ page_format.page_range_end }} of {{ page_format.count }} records
+      {% include 'forms/complaint_view/index/filters/per_page.html' with per_page=page_format.per_page %}
+    </span>
+  </div>
+  <div class="display-flex margin-top-8">
+    {% include "forms/complaint_view/dashboard/active-filters.html" %}
+  </div>
+  <div class="grid-col-auto">
+    <div class="intake-table">
+      <div class="intake-table-header">
+        <h3 class="intake-section-title">Activity log</h3>
+        <div class="margin-left-auto">
+          {% include "forms/snippets/pagination.html" with page_format=page_format page_args=page_args placement="top" %}
+        </div>
+      </div>
+      {% include "forms/complaint_view/dashboard/activity_table.html" with page_format=page_format sort_state=sort_state filter_state=filter_state %}
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block page_js %}
+{{ block.super }}
+<script src="{% static 'js/dashboard_quick_view.min.js' %}"></script>
+<script src="{% static 'js/dashboard_view_filters.min.js' %}"></script>
+<script src="{% static 'js/ga_util.js' %}"></script>
+{% endblock %}

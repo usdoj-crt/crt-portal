@@ -668,6 +668,25 @@ CONTACT_PHONE_INVALID_MESSAGE = _('If you submit a phone number, please make sur
 
 DJ_NUMBER_INVALID_MESSAGE = 'Please double check the DJ Number. It should consist of a classification and Judicial district, separated by "-".'
 
+ACTION_CHOICES = (
+    ('Attached file: ', 'Attached file'),
+    ('Contacted complainant:', 'Contacted complainant'),
+    ('Report viewed:', 'Report viewed'),
+    ('Assigned section:', 'Assigned section'),
+    ('Added comment:', 'Added comment'),
+    ('ICM DJ Number:', 'ICM DJ Number'),
+    ('Secondary review:', 'Secondary review'),
+    ('Contact state:', 'Contact state'),
+    ('District:', 'District'),
+    ('Added summary:', 'Added summary'),
+    ('Assigned to:', 'Assigned to'),
+    ('Report closed and Assignee removed', 'Report closed and Assignee removed'),
+    ('Primary classification:', 'Primary classification'),
+    ('Updated summary: ', 'Updated summary'),
+    ('Updated comment: ', 'Updated comment'),
+    ('Status:', 'Status'),
+)
+
 PRINT_CHOICES = (
     ('correspondent', 'Correspondent Information'),
     ('issue', 'Reported Issue'),

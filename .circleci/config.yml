@@ -20,7 +20,7 @@ install-python-dependencies: &install-python-dependencies
     command: |
       pip install -U pip
       pip install pipenv
-      pipenv install
+      pipenv install --extra-pip-args="--no-cache-dir --compile"
 
 install-python-dev-dependencies: &install-python-dev-dependencies
   run:
@@ -42,7 +42,7 @@ jobs:
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
-      - image: postgres:11.14-alpine
+      - image: postgres:12.15-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
@@ -88,7 +88,7 @@ jobs:
       - run:
           name: Run unit tests & check coverage
           command: |
-            pipenv run coverage run --source='crt_portal' crt_portal/manage.py test --settings=crt_portal.test_settings cts_forms
+            pipenv run coverage run --source='crt_portal' crt_portal/manage.py test --settings=crt_portal.test_settings shortener tms features cts_forms
             pipenv run coverage report --fail-under=85 -m
       - run:
           name: Run bandit (Python security) tests
@@ -102,6 +102,10 @@ jobs:
           name: add or update response templates
           command: |
             pipenv run crt_portal/manage.py update_response_templates
+      - run:
+          name: add or update analytics notebooks examples
+          command: |
+            pipenv run crt_portal/manage.py update_ipynb_examples
       - run:
           name: compile messages for internationalization
           command: |
@@ -218,7 +222,7 @@ jobs:
           CF_MANIFEST: manifest_dev.yaml
           CF_SPACE: dev
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
-      - image: postgres:11.14-alpine
+      - image: postgres:12.15-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
@@ -259,6 +263,11 @@ jobs:
       - run:
           name: Login to cloud.gov
           command: cf8 login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s ${CF_SPACE}
+      - run:
+          name: List dependency size
+          command: |
+            du node_modules -h --max-depth=1 | sort -h | tail -n 30
+            du .venv/lib/python3.11/site-packages/ -h --max-depth=1 | sort -h | tail -n 30
       - acquire-lock:
           app: crt-portal-django
       - run:
@@ -266,6 +275,7 @@ jobs:
           command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
       - run:
           name: Deploy crt-portal-django to dev
+          no_output_timeout: 20m
           command: cf8 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
       - release-lock:
           app: crt-portal-django
@@ -280,7 +290,7 @@ jobs:
           CF_MANIFEST: manifest_staging.yaml
           CF_SPACE: staging
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
-      - image: postgres:11.14-alpine
+      - image: postgres:12.15-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
@@ -325,6 +335,7 @@ jobs:
           command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
       - run:
           name: Deploy crt-portal-django to staging
+          no_output_timeout: 20m
           command: cf8 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
 
   deploy-prod:
@@ -338,7 +349,7 @@ jobs:
           CF_MANIFEST: manifest_prod.yaml
           CF_SPACE: prod
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
-      - image: postgres:11.14-alpine
+      - image: postgres:12.15-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
@@ -383,6 +394,7 @@ jobs:
           command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
       - run:
           name: Deploy crt-portal-django to production
+          no_output_timeout: 20m
           command: cf8 push crt-portal-django --strategy rolling -f ${CF_MANIFEST}
 
   prod-maintenance-tasks:

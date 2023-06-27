@@ -103,9 +103,11 @@
     create_date_start: '',
     create_date_end: '',
     assigned_to: '',
+    actions: [],
     sort: '',
     page: '',
-    per_page: ''
+    per_page: '',
+    public_id: ''
   };
   var filterDataModel = {};
 
@@ -118,6 +120,14 @@
     for (const [key, value] of Object.entries(updates)) {
       if (state.hasOwnProperty(key)) {
         state[key] = decodeFormData(value);
+      }
+      if (key === 'per_page') {
+        const per_page_el = dom.querySelector('select[name="per_page"]');
+        if (per_page_el) {
+          per_page_el.value = value;
+        } else {
+          state[key] = '';
+        }
       }
     }
   }
@@ -237,14 +247,40 @@
         'Component must be supplied with a valid DOM node and a `name` key corresponding to a key in the filterDataModel object'
       );
     }
-
-    props.el.addEventListener('change', function(event) {
+    function onChange(event) {
       filterDataModel[props.name] = event.target.value;
-    });
+      if (props.name == 'per_page') {
+        dom.getElementById('apply-filters-button').click();
+        return;
+      }
+    }
+    props.el.addEventListener('change', onChange);
   }
 
   function clearFiltersView(props) {
     props.el.addEventListener('click', props.onClick);
+  }
+
+  function validateFilter(e) {
+    const buttonEl = document.getElementById('apply-filters-button');
+    const inputEl = document.getElementById('id_assigned_to');
+    const alertEl = document.getElementById('filter-notification');
+    if (!alertEl) return;
+    const textEl = alertEl.querySelector('.usa-alert__text');
+    const value = inputEl.value;
+    if (!value.length || value == '(none)') {
+      e.preventDefault();
+      buttonEl.setAttribute('disabled', '');
+      textEl.textContent = 'Please select an intake specialist to see activity log data';
+      alertEl.style.display = 'inline-block';
+      inputEl.addEventListener('change', e => {
+        validateFilter(e);
+      });
+    } else {
+      buttonEl.removeAttribute('disabled');
+      textEl.textContent = '';
+      alertEl.style.display = 'none';
+    }
   }
 
   function filterController() {
@@ -254,6 +290,9 @@
     var createdateendEl = formEl.querySelector('input[name="create_date_end"]');
     var clearAllEl = dom.querySelector('[data-clear-filters]');
     var assigneeEl = formEl.querySelector('#id_assigned_to');
+    const actionsEl = dom.getElementsByName('actions');
+    const complaintIDEl = formEl.querySelector('input[name="public_id"]');
+    const perPageEl = dom.querySelector('select[name="per_page"]');
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
      * and perform a new search with the updated filters applied.
@@ -272,7 +311,8 @@
         'commercial_or_public_place',
         'reported_reason',
         'language',
-        'correctional_facility_type'
+        'correctional_facility_type',
+        'actions'
       ];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {
@@ -324,6 +364,21 @@
       el: createdateendEl,
       name: 'create_date_end'
     });
+    const location = window.location.href;
+    if (location.includes('activity')) {
+      checkBoxView({
+        el: actionsEl,
+        name: 'actions'
+      });
+      textInputView({
+        el: perPageEl,
+        name: 'per_page'
+      });
+      textInputView({
+        el: complaintIDEl,
+        name: 'public_id'
+      });
+    }
     clearFiltersView({
       el: clearAllEl,
       onClick: clearAllFilters
@@ -338,7 +393,10 @@
     Object.keys(initialFilterState).forEach(function(key) {
       filterDataModel[key] = initialFilterState[key];
     });
-
+    const buttonEl = document.getElementById('apply-filters-button');
+    buttonEl.addEventListener('click', function(e) {
+      validateFilter(e);
+    });
     mutateFilterDataWithUpdates(filterDataModel, filterUpdates);
 
     filterController();

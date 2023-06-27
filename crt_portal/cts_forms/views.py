@@ -43,7 +43,7 @@ from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
 from .models import CommentAndSummary, DashboardEmbed, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, Campaign, User, \
     RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
-from .sorts import report_sort
+from .sorts import activity_sort, report_sort
 
 logger = logging.getLogger(__name__)
 
@@ -436,6 +436,60 @@ def process_intake_filters(request):
     }
 
 
+def get_action_data(requested_actions, report_url_args, paginated_offset):
+    data = []
+    for index, action in enumerate(requested_actions):
+        data.append({
+            "action": action.verb,
+            "detail": action.description,
+            "timestamp": action.timestamp,
+            "reportid": action.target_object_id,
+            "url": f'/form/view/{action.target_object_id}?next={report_url_args}&index={paginated_offset + index}'
+        })
+    return data
+
+
+def process_activity_filters(request):
+    query_filters, selected_actions = dashboard_filter(request.GET)
+    per_page = request.GET.get('per_page', 15)
+    page = request.GET.get('page', 1)
+    sort_expr, sorts = activity_sort(request.GET.getlist('sort'))
+    if selected_actions != []:
+        selected_actions = selected_actions.order_by(*sort_expr)
+    paginator = Paginator(selected_actions, per_page)
+    selected_actions, page_format = pagination(paginator, page, per_page)
+    sort_state = {}
+    # make sure the links for this page have the same paging, sorting, filtering etc.
+    page_args = f'?activity=true&per_page={per_page}'
+
+    filter_args = get_filter_args(query_filters)
+    page_args += filter_args
+
+    sort_args, sort_state = get_sort_args(sorts, sort_state)
+
+    page_args += sort_args
+    all_args_encoded = urllib.parse.quote(f'{page_args}&page={page}')
+
+    paginated_offset = page_format['page_range_start'] - 1
+    selected_actor = request.GET.get("assigned_to", "")
+    selected_actor_object = User.objects.filter(username=selected_actor).first()
+    selected_actor_id = selected_actor_object.pk if selected_actor_object else ''
+    data = get_action_data(selected_actions, all_args_encoded, paginated_offset)
+    return {
+        'form': Filters(request.GET),
+        'selected_actor': selected_actor,
+        'selected_actor_id': selected_actor_id,
+        'filters': query_filters,
+        'data': data,
+        'page_format': page_format,
+        'page_args': page_args,
+        'sort_state': sort_state,
+        'filter_state': filter_args,
+        'filters': query_filters,
+        'return_url_args': all_args_encoded,
+    }
+
+
 @login_required
 def dashboard_view(request):
     embeds = [model_to_dict(e) for e in DashboardEmbed.objects.all()]
@@ -446,6 +500,17 @@ def dashboard_view(request):
         {
             **process_intake_filters(request),
             'embeds': embeds,
+        })
+
+
+@login_required
+def dashboard_activity_log_view(request):
+
+    return render(
+        request,
+        'forms/complaint_view/dashboard/activity-log.html',
+        {
+            **process_activity_filters(request),
         })
 
 
@@ -468,6 +533,8 @@ def serialize_data(report, request, report_id):
 
     return_url_args = request.GET.get('next', '')
     return_url_args = urllib.parse.unquote(return_url_args)
+    querydict = QueryDict(return_url_args).dict()
+    activity = querydict.get('activity', 'false')
 
     output = {
         'actions': ComplaintActions(instance=report),
@@ -487,6 +554,7 @@ def serialize_data(report, request, report_id):
         # for print media consumption
         'print_actions': report.activity(),
         'questions': Review.question_text,
+        'activity': activity,
     }
 
     return output
