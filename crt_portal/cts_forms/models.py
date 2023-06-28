@@ -289,9 +289,9 @@ class Report(models.Model):
 
     # Origination info (utm campaigns, etc) about where the report came from.
     # Identifies which site sent the traffic.
-    origination_utm_source = models.CharField(max_length=100, null=True, blank=True, help_text="Identifies which site sent the traffic, e.g. justice.gov/crt or ada.gov")
+    origination_utm_source = models.CharField(max_length=100, null=True, blank=True, help_text="Identifies which site the traffic came from, e.g. justice.gov/crt or ada.gov")
     # Identifies what type of link was used, such as cost per click or email.
-    origination_utm_medium = models.CharField(max_length=100, null=True, blank=True, help_text="What type of content or link was used, such as social, email, web, mail, etc")
+    origination_utm_medium = models.CharField(max_length=100, null=True, blank=True, help_text="What channel (avenue of communication) was used, such as social, email, web, mail, etc")
     # Identifies a specific product promotion or strategic campaign.
     # For Portal specifically, this will be a uuid tied to a Campaign object.
     origination_utm_campaign = models.ForeignKey(Campaign, blank=True, null=True, related_name="reports", on_delete=models.SET_NULL, help_text="The internal name of the outreach effort.")
@@ -301,7 +301,7 @@ class Report(models.Model):
     origination_utm_term = models.CharField(max_length=100, null=True, blank=True, help_text="Any search terms used in discovering the outreach effort")
     # Identifies what specifically was clicked to bring the user to the site, such as a banner ad or a text link.
     # It is often used for A/B testing and content-targeted ads.
-    origination_utm_content = models.CharField(max_length=100, null=True, blank=True, help_text="A name for the specific link that was used to file the report.")
+    origination_utm_content = models.CharField(max_length=100, null=True, blank=True, help_text="Identifies what specifically was clicked to bring the user to the site, such as to distinguish between two different outreach links on the same webpage or document.")
 
     # Metadata
     public_id = models.CharField(max_length=100, null=False, blank=False)

@@ -63,7 +63,7 @@
         {% include 'forms/complaint_view/show/actions.html' with title="Actions" icon="img/intake-icons/ic_check-circle.svg" %}
         {% include 'forms/complaint_view/show/related_reports.html' with title="Total Complaints" icon="img/intake-icons/copy.svg" %}
         {% if ENABLED_FEATURES.edit_outreach %}
-          {% include 'forms/complaint_view/show/outreach.html' with data=data title="Outreach" icon="img/social-icons/twitter16.svg" %}
+          {% include 'forms/complaint_view/show/outreach.html' with data=data title="Outreach" icon="#campaign" %}
         {% endif %}
         <div class="activity-stream">
           {% include 'forms/complaint_view/show/activity_stream.html' with title="Activity" icon="img/intake-icons/ic_activity.svg" %}
