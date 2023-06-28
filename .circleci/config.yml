@@ -14,14 +14,6 @@ install-cf8: &install-cf8
       rm cf8.deb
       cf8 api https://api.fr.cloud.gov
 
-install-python-dependencies: &install-python-dependencies
-  run:
-    name: Install python dependencies
-    command: |
-      pip install -U pip
-      pip install pipenv
-      pipenv install --extra-pip-args="--no-cache-dir --compile"
-
 install-python-dev-dependencies: &install-python-dev-dependencies
   run:
     name: Install python dev dependencies
@@ -42,7 +34,7 @@ jobs:
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
-      - image: postgres:11.14-alpine
+      - image: postgres:12.15-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
@@ -219,7 +211,7 @@ jobs:
           CF_MANIFEST: manifest_dev.yaml
           CF_SPACE: dev
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
-      - image: postgres:11.14-alpine
+      - image: postgres:12.15-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
@@ -242,8 +234,6 @@ jobs:
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
             node node_modules/gulp/bin/gulp build-js
-      # database will be migrated in cloud.gov
-      - *install-python-dependencies
       - run:
           name: install cf8
           command: |
@@ -260,11 +250,6 @@ jobs:
       - run:
           name: Login to cloud.gov
           command: cf8 login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s ${CF_SPACE}
-      - run:
-          name: List dependency size
-          command: |
-            du node_modules -h --max-depth=1 | sort -h | tail -n 30
-            du .venv/lib/python3.11/site-packages/ -h --max-depth=1 | sort -h | tail -n 30
       - acquire-lock:
           app: crt-portal-django
       - run:
@@ -287,7 +272,7 @@ jobs:
           CF_MANIFEST: manifest_staging.yaml
           CF_SPACE: staging
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
-      - image: postgres:11.14-alpine
+      - image: postgres:12.15-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
@@ -310,7 +295,6 @@ jobs:
             node node_modules/gulp/bin/gulp build-sass
             node node_modules/gulp/bin/gulp build-js
       # database will be migrated in cloud.gov
-      - *install-python-dependencies
       - run:
           name: install cf8
           command: |
@@ -346,7 +330,7 @@ jobs:
           CF_MANIFEST: manifest_prod.yaml
           CF_SPACE: prod
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
-      - image: postgres:11.14-alpine
+      - image: postgres:12.15-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
@@ -369,7 +353,6 @@ jobs:
             node node_modules/gulp/bin/gulp build-sass
             node node_modules/gulp/bin/gulp build-js
       # database will be migrated in cloud.gov
-      - *install-python-dependencies
       - run:
           name: install cf8
           command: |

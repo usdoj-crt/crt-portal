@@ -305,6 +305,12 @@
   align-self: flex-end;
   justify-content: flex-end;
   min-width: 12rem;
+
+  &.activity-pagination {
+    .kabob-menu {
+      height: 0;
+    }
+  }
   .kabob-menu {
     width: 25px;
     background: url(../../img/kebab-menu-icon.svg) no-repeat;

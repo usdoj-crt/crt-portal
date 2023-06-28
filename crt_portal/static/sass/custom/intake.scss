@@ -223,6 +223,11 @@
       padding-right: 4rem;
     }
 
+    &.activity-filters {
+      width: auto;
+      flex-wrap: nowrap;
+    }
+
     li[data-archived="true"]:after {
       content: " (Expired)";
       color: #757575;
