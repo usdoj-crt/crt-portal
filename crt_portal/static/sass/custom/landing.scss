@@ -572,7 +572,7 @@ $arrow-height: 24px;
     margin-right: 2rem;
   }
 
-  .crt-landing--example {
+  .usa-nav__primary .crt-landing--example {
     @include u-radius-bottom('lg');
     @include u-shadow(3);
     background-color: color('white');
@@ -595,13 +595,16 @@ $arrow-height: 24px;
       padding-right: 1rem;
     }
 
-    .crt-landing--helplink a {
+    a {
       background-color: color('white');
       margin-top: 0.5rem;
       font-weight: bold;
       img {
         padding-left: 2px;
       }
+      color: #162e51;
+      text-decoration: underline;
+      padding: 0px;
     }
 
     .crt-landing--example_header {
