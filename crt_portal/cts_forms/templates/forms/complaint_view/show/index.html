@@ -13,12 +13,12 @@
           <div class="complaint-filter-navigation display-flex flex-row flex-justify">
             <div class="display-flex">
               {% if activity %}
-                <a class="outline-button outline-button--dark" href="{% url 'crt_forms:activity-log' %}{% back_to_all return_url_args %}">
+                <a id="backtoall" class="outline-button outline-button--dark" href="{% url 'crt_forms:activity-log' %}{% back_to_all return_url_args %}">
                   <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" alt="back arrow" class="icon">
                   Back to all
                 </a>
               {% else %}
-                <a class="outline-button outline-button--dark" href="{% url 'crt_forms:crt-forms-index' %}{% back_to_all return_url_args %}">
+                <a id="backtoall" class="outline-button outline-button--dark" href="{% url 'crt_forms:crt-forms-index' %}{% back_to_all return_url_args %}">
                   <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" alt="back arrow" class="icon">
                   Back to all
                 </a>
