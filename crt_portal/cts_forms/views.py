@@ -33,7 +33,7 @@ from datetime import datetime
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter, report_grouping
 from .forms import (
-    BulkActionsForm, CommentActions, ComplaintActions,
+    BulkActionsForm, CommentActions, ComplaintActions, ComplaintOutreach,
     ContactEditForm, Filters, PrintActions, ProfileForm,
     ReportEditForm, ResponseActions, add_activity,
     AttachmentActions, Review, save_form,
@@ -538,6 +538,7 @@ def serialize_data(report, request, report_id):
 
     output = {
         'actions': ComplaintActions(instance=report),
+        'outreach': ComplaintOutreach(instance=report),
         'responses': ResponseActions(instance=report),
         'attachment_actions': AttachmentActions(),
         'comments': CommentActions(),
@@ -672,7 +673,7 @@ class PrintView(LoginRequiredMixin, View):
 class ShowView(LoginRequiredMixin, View):
     forms = {
         form.CONTEXT_KEY: form
-        for form in [ContactEditForm, ComplaintActions, ReportEditForm]
+        for form in [ContactEditForm, ComplaintActions, ComplaintOutreach, ReportEditForm]
     }
 
     def get(self, request, id):
