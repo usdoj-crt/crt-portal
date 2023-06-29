@@ -66,7 +66,7 @@ bokeh = "*"
 holoviews = "*"
 
 [requires]
-python_version = "3.11.3"
+python_version = "3.11.4"
 
 [pipenv]
 allow_prereleases = true
