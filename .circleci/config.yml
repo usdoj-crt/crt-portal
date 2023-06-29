@@ -514,9 +514,20 @@ commands:
             printf "Lock released - now serving ticket $((serving + 1))\n"
 
 workflows:
+  debug-dev-deploy:
+    jobs:
+      - deploy-dev:
+          filters:
+            branches:
+              only:
+                - kk/readd-jupyter-deps
+
   build-test-deploy:
     jobs:
-      - build_and_test
+      - build_and_test:
+          filters:
+            branches:
+              ignore: kk/readd-jupyter-deps
 
       - owasp-scan-dev:
           filters:
