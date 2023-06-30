@@ -24,7 +24,7 @@ RUN \
   echo "deb https://deb.nodesource.com/node_14.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
   wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
   apt-get update && \
-  apt-get install -yqq nodejs && \
+  apt-get install -yqq nodejs npm && \
   pip install -U pip && \
   pip install pipenv && \
   npm i -g npm@^8 && \
