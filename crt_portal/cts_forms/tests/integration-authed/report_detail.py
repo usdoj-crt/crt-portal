@@ -12,9 +12,25 @@ def test_click_back_to_all(page):
     page.goto("/form/view")
 
     with page.expect_navigation():
-        page.evaluate("document.querySelector('.td-link')[0].click()")
+        page.evaluate("document.querySelector('.td-link').click()")
+
+    assert page.is_visible("#contact-info")
 
     with page.expect_navigation():
         page.evaluate("document.getElementById('backtoall').click()")
 
     assert page.is_visible("#contact-email-filter")
+
+    page.goto("/form/dashboard/activity")
+
+    page.evaluate("document.querySelector('select[name=\"assigned_to\"]')[2].click()")
+    
+    with page.expect_navigation():
+        assert page.evaluate("document.querySelector('.td-link')[0].click()")
+    
+    assert page.is_visible("#contact-info")
+
+    with page.expect_navigation():
+        page.evaluate("document.getElementById('backtoall').click()")
+
+    assert page.is_visible("#actions")
