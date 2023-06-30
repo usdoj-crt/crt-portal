@@ -294,7 +294,7 @@ class Report(models.Model):
     origination_utm_medium = models.CharField(max_length=100, null=True, blank=True, help_text="What channel (avenue of communication) was used, such as social, email, web, mail, etc")
     # Identifies a specific product promotion or strategic campaign.
     # For Portal specifically, this will be a uuid tied to a Campaign object.
-    origination_utm_campaign = models.ForeignKey(Campaign, blank=True, null=True, related_name="reports", on_delete=models.SET_NULL, help_text="The internal name of the outreach effort.")
+    origination_utm_campaign = models.ForeignKey(Campaign, blank=True, null=True, related_name="reports", on_delete=models.SET_NULL, help_text="The internal name of the outreach effort.", verbose_name="Outreach Name")
     # If a UTM campaign is provided, but we're not tracking it in the Campaign table, we'll record it here to avoid data loss due to bad configuration.
     unknown_origination_utm_campaign = models.CharField(max_length=700, null=True, blank=True)
     # Identifies search terms.
