@@ -1607,6 +1607,101 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         return report
 
 
+class ComplaintOutreach(ModelForm, ActivityStreamUpdater):
+    report_closed = False
+    CONTEXT_KEY = 'outreach'
+    origination_utm_campaign = ModelChoiceField(
+        queryset=Campaign.objects.filter().order_by('internal_name'),
+        label='Campaign',
+        required=False,
+        widget=Select(attrs={
+            'class': 'usa-input usa-select',
+        })
+    )
+
+    class Meta:
+        model = Report
+        fields = [
+            'origination_utm_campaign',
+            'origination_utm_source',
+            'origination_utm_medium',
+            'origination_utm_term',
+            'origination_utm_content',
+        ]
+        widgets = {
+            'origination_utm_source': TextInput(attrs={
+                'class': 'usa-input',
+                'field_label': 'Outreach Source',
+            }),
+            'origination_utm_medium': TextInput(attrs={
+                'class': 'usa-input',
+                'field_label': 'Outreach Medium',
+            }),
+            'origination_utm_term': TextInput(attrs={
+                'class': 'usa-input',
+                'field_label': 'Outreach Term',
+            }),
+            'origination_utm_content': TextInput(attrs={
+                'class': 'usa-input',
+                'field_label': 'Outreach Content',
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        ModelForm.__init__(self, *args, **kwargs)
+        for name, field in self.fields.items():
+            field.help_text = Report._meta.get_field(name).help_text
+
+    def get_actions(self):
+        """
+        Parse incoming changed data for activity stream entry
+        If report has been closed, emit action for activity log
+        """
+        for field in self.changed_data:
+            original = self.initial[field]
+            changed = self.cleaned_data[field]
+            field = field.replace('origination_utm_', '')
+            name = ' '.join(field.split('_')).capitalize()
+            # fix bug where id was showing up instead of user name
+            if field == 'campaign':
+                if original is None:
+                    yield f"{name}:", f'"{changed}"'
+                else:
+                    original = Campaign.objects.get(uuid=original)
+            yield f"Outreach {name}:", f'Updated from "{original}" to "{changed}"'
+
+    def update_activity_stream(self, user):
+        """Send all actions to activity stream"""
+        for verb, description in self.get_actions():
+            action.send(
+                user,
+                verb=verb,
+                description=description,
+                target=self.instance
+            )
+
+    def success_message(self):
+        """Prepare update success message for rendering in template"""
+        def get_label(field):
+            field = self.fields[field]
+            # Some fields can't support the extra context label, and store it
+            # on their attributes
+            if attrs_label := field.widget.attrs.get('field_label', None):
+                return attrs_label
+            # Most standard fields will have a direct label.
+            if hasattr(field.widget, 'label'):
+                return field.widget.label
+            return field.label
+        updated_fields = [get_label(field) for field in self.changed_data]
+        if len(updated_fields) == 1:
+            message = f"Successfully updated {updated_fields[0]}."
+        else:
+            fields = ', '.join(updated_fields[:-1])
+            fields += f', and {updated_fields[-1]}'
+            message = f"Successfully updated {fields}."
+        return message
+
+
 class CommentActions(ModelForm):
     class Meta:
         model = CommentAndSummary

@@ -1,0 +1,54 @@
+{% extends "forms/complaint_view/show/card.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block extra_title %}  <button aria-label="edit outreach information" id="edit-outreach-info-btn"
+class="edit-toggle-btn usa-button usa-button--unstyled button--edit margin-left-auto" type="button">Edit</button>
+{% endblock %}
+{% block extra_classes %}crt-outreach-card crt-toggleable-card{% endblock %}
+
+{% block icon %}
+  {% if icon|first == '#' %}
+    <svg class="icon" fill="#162e51" aria-hidden="true" focusable="false" role="img">
+      <use xlink:href="{% static 'img/sprite.svg' %}{{icon}}"></use>
+    </svg>
+  {% else %}
+    <img src="{% static icon %}" alt="" class="icon" />
+  {% endif %}
+{% endblock %}
+
+{% block card_content %}
+  <div id="outreach-info" class="{% if outreach.errors %}display-none{% endif %} toggle-info">
+    <table class="usa-table usa-table--borderless complaint-card-table">
+      <tr>
+        <th>Campaign</th>
+        <td>{{ data.origination_utm_campaign.internal_name|default:"—" }}</td>
+        <td>{% include 'partials/help_tooltip.html' with tip=outreach.origination_utm_campaign.help_text %}</td>
+      </tr>
+      <tr>
+        <th>Source</th>
+        <td>{{ data.origination_utm_source|default:"—" }}</td>
+        <td>{% include 'partials/help_tooltip.html' with tip=outreach.origination_utm_source.help_text %}</td>
+      </tr>
+      <tr>
+        <th>Medium</th>
+        <td>{{ data.origination_utm_medium|default:"—" }}</td>
+        <td>{% include 'partials/help_tooltip.html' with tip=outreach.origination_utm_medium.help_text %}</td>
+      </tr>
+      <tr>
+        <th>Content</th>
+        <td>{{ data.origination_utm_content|default:"—" }}</td>
+        <td>{% include 'partials/help_tooltip.html' with tip=outreach.origination_utm_content.help_text %}</td>
+      </tr>
+      <tr>
+        <th>Term</th>
+        <td>{{ data.origination_utm_term|default:"—" }}</td>
+        <td>{% include 'partials/help_tooltip.html' with tip=outreach.origination_utm_term.help_text %}</td>
+      </tr>
+    </table>
+  </div>
+
+  {% if not disable_edit %}
+    <div class="edit-outreach">
+      {% include 'forms/complaint_view/show/outreach_edit.html' %}
+    </div>
+  {% endif %}
+{% endblock %}

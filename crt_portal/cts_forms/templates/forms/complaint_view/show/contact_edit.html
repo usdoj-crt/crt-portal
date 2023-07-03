@@ -1,4 +1,4 @@
-<form id="contact-edit-form" class="usa-form {% if not contact_form.errors %}display-none{% endif %}" method="post" novalidate>
+<form id="contact-edit-form" class="toggle-edit-form usa-form {% if not contact_form.errors %}display-none{% endif %}" method="post" novalidate>
     {% csrf_token %}
     <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
     <input type="hidden" value="{{ index }}" name="index" id="index" />

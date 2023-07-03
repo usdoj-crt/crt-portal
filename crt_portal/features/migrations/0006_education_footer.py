@@ -7,7 +7,7 @@ from features.models import AddFeatureMigration
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('features', '0004_team_management_redo'),
+        ('features', '0005_edit_outreach'),
     ]
 
     operations = [

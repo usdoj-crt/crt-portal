@@ -5,7 +5,7 @@ from datetime import datetime
 from pytz import timezone
 import random
 from cts_forms.signals import salt
-from cts_forms.models import EmailReportCount, ProtectedClass
+from cts_forms.models import EmailReportCount, ProtectedClass, Campaign
 from cts_forms.model_variables import PROTECTED_MODEL_CHOICES, DISTRICT_CHOICES
 from cts_forms.forms import add_activity
 from django.contrib.auth.models import User
@@ -84,6 +84,13 @@ class Command(BaseCommand):  # pragma: no cover
         if not user3:
             user3 = User.objects.create_user("USER_3", "user1@example.com", "")
 
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        campaigns = [
+            Campaign.objects.create(internal_name=f'Auto Campaign {now} ({i})',
+                                    section=random.choice([*SECTIONS, *([None] * len(SECTIONS))]))  # nosec
+            for i in range(5)
+        ]
+
         for i in range(number_reports):
             report = ReportFactory.build()
             UTC = timezone('UTC')
@@ -92,6 +99,10 @@ class Command(BaseCommand):  # pragma: no cover
             report.create_date = date
             salt_chars = salt()
             report.public_id = f'{report.pk}-{salt_chars}'
+
+            campaign_chance = random.randint(1, 100)  # nosec
+            if campaign_chance > 75:
+                report.origination_utm_campaign = random.choice(campaigns)  # nosec
 
             # Code to replicate bad data that can occur in prod when there are database errors.
             # report.intake_format = None
