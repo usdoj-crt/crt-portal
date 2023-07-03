@@ -173,10 +173,9 @@ def reconstruct_activity_query(next_qp):
 
     _, selected_actions = dashboard_filter(querydict)
     sort_expr, _ = activity_sort(querydict.getlist('sort'))
-    if selected_actions != []:
-        selected_actions = selected_actions.order_by(*sort_expr)
-
-    return selected_actions
+    if not selected_actions:
+        return selected_actions
+    return selected_actions.order_by(*sort_expr)
 
 
 def mark_report_as_viewed(report, user):

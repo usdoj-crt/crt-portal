@@ -13,12 +13,12 @@
           <div class="complaint-filter-navigation display-flex flex-row flex-justify">
             <div class="display-flex">
               {% if activity %}
-                <a id="backtoall" class="outline-button outline-button--dark" href="{% url 'crt_forms:activity-log' %}{% back_to_all return_url_args %}">
+                <a class="outline-button outline-button--dark" href="{% url 'crt_forms:activity-log' %}{% back_to_all return_url_args %}">
                   <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" alt="back arrow" class="icon">
                   Back to all
                 </a>
               {% else %}
-                <a id="backtoall" class="outline-button outline-button--dark" href="{% url 'crt_forms:crt-forms-index' %}{% back_to_all return_url_args %}">
+                <a class="outline-button outline-button--dark" href="{% url 'crt_forms:crt-forms-index' %}{% back_to_all return_url_args %}">
                   <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" alt="back arrow" class="icon">
                   Back to all
                 </a>
@@ -28,7 +28,7 @@
               <nav class="usa-pagination display-flex" aria-label="pagination">
                 <span>{{ filter_current|default:"N/A" }} of {{ filter_count }} records</span>
                 <ol class="display-flex margin-0 pagination">
-                  <li class="complaint-nav nav-arrow{% if not filter_previous %} disabled-nav{% endif %}">
+                  <li class="complaint-nav nav-arrow{% if not filter_previous %} disabled-nav{% else %} enabled-nav{% endif %}">
                     {% if filter_previous %}
                       <a href="{% url 'crt_forms:crt-forms-show' id=filter_previous %}{{ filter_previous_query }}">
                         {% include "forms/snippets/nav_arrow.html" %}
@@ -37,7 +37,7 @@
                       {% include "forms/snippets/nav_arrow.html" %}
                     {% endif %}
                   </li>
-                  <li class="complaint-nav nav-arrow{% if not filter_next %} disabled-nav{% endif %}">
+                  <li class="complaint-nav nav-arrow{% if not filter_next %} disabled-nav{% else %} enabled-nav{% endif %}">
                     {% if filter_next %}
                       <a href="{% url 'crt_forms:crt-forms-show' id=filter_next %}{{ filter_next_query }}">
                         {% include "forms/snippets/nav_arrow.html" with point_right=True %}
