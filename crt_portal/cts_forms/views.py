@@ -159,9 +159,8 @@ def get_requested_ids(return_url_args):
     if activity:
         requested_query = reconstruct_activity_query(return_url_args)
         return list(map(int, requested_query.values_list('target_object_id', flat=True)))
-    else:
-        requested_query = reconstruct_query(return_url_args)
-        return list(requested_query.values_list('id', flat=True))
+    requested_query = reconstruct_query(return_url_args)
+    return list(requested_query.values_list('id', flat=True))
 
 
 def reconstruct_activity_query(next_qp):
