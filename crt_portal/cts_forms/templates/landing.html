@@ -198,66 +198,11 @@
           <h2 class="h2__display">{% trans "Choose from this list to see example civil rights violations:" %}</h2>
         </div>
         <div class="tablet:grid-col-12">
-          <div class="grid-row grid-gap">
+          <div class="grid-row">
             <div class="tablet:grid-col-7">
-              <ul class="usa-nav__primary usa-accordion crt-landing--large_select">
-                <li>
-                  <button class="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="crt-landing--examples" aria-label="select example">
-                    <div id="crt-landing--example_option">
-                      {% voting_banner as votbanner %}
-                      {% if votbanner == 'True' %}
-                      <!-- display only when voting toggle is on -->
-                          {{ choices.voting.description }}
-                      {% else %}
-                          {{ choices.workplace.description }}
-                      {% endif %}
-                    </div>
-                  </button>
-                  <ul id="crt-landing--examples" class="usa-nav__submenu" hidden>
-                    {% for key, value in choices.items %}
-                      <li
-                        id="crt-landing--example-{{ key }}"
-                        class="usa-nav__submenu-item"
-                        data-key="{{ key }}"
-                        data-examplecount="{{ value.examples | length }}"
-                        data-description="{{ value.description }}"
-                        data-helptext="{{ value.helptext }}"
-                        {% for example in value.examples %}
-                          data-example{{ forloop.counter0 }}="{{ example }}"
-                        {% endfor %}
-                      >
-                        <a href="#">{{ value.description }}</a>
-                      </li>
-                    {% endfor %}
-                  </ul>
-                </li>
-              </ul>
-              <div class="crt-landing--example">
-                <div id="crt-landing--choice_helptext">
-                </div>
-                <p class="crt-landing--example_header">
-                  {% trans "Examples" %}
-                </p>
-                <div id="crt-landing--choice_examples" class="crt-landing--text">
-                  {% voting_banner as votbanner %}
-                  {% if votbanner == 'True' %}
-                  <!-- display only when voting toggle is on -->
-                    {% for example in choices.voting.examples %}
-                      <p>{{ example|safe }}</p>
-                    {% endfor %}
-                  {% else %}
-                    {% for example in choices.workplace.examples %}
-                      <p>{{ example|safe }}</p>
-                    {% endfor %}
-                  {% endif %}
-                </div>
-                <div hidden id="crt-landing--hate-crimes">
-                  <a href="./hate-crime-human-trafficking">{% trans "Get help for hate crimes" %}</a>
-                </div>
-                <div hidden id="crt-landing--humantrafficking">
-                  <a aria-label="{% trans "Were you forced to work against your will?" %} {% trans "Get help from the National Human Trafficking Hotline" %}" class="external-link--blue external-link--popup" href=" https://humantraffickinghotline.org/">{% trans "Get help from the National Human Trafficking Hotline" %}</a>
-                </div>
-              </div>
+              {% for choice in choices %}
+                {% include "partials/example-accordion.html" with choice=choice %}
+              {% endfor %}
               <div class="grid-row grid-gap">
                 <div class="tablet:grid-col-9">
                   <p class="crt-landing--similar_situation">
@@ -421,55 +366,6 @@
 {% endblock footer_extra %}
 
 {% block page_js %}
-  <script type="module" nonce="{{ request.csp_nonce }}">
-   var examples = document.getElementById("crt-landing--examples");
-   var items = examples.getElementsByClassName("usa-nav__submenu-item");
-   for (var i = 0; i < items.length; i++) {
-     var item = items[i];
-     item.onclick = function (el) {
-       var target = el.target;
-       if (!el.target.dataset.hasOwnProperty("key")) {
-         // user clicked on the link; obtain the parent element.
-         target = el.target.parentElement;
-       }
-       var key = target.dataset["key"];
-       displayExample(key);
-       el.preventDefault();
-     }
-   }
-
-   function displayExample(key) {
-     var examples_field = document.getElementById("crt-landing--choice_examples");
-     var helptext_field = document.getElementById("crt-landing--choice_helptext");
-     var option_field = document.getElementById("crt-landing--example_option");
-     var trafficking_button = document.getElementById("crt-landing--humantrafficking");
-     var hate_crimes_button = document.getElementById("crt-landing--hate-crimes")
-     var el = document.getElementById("crt-landing--example-" + key);
-     var helptext = el.dataset["helptext"];
-     if (helptext) {
-       helptext_field.innerHTML = "<p>" + helptext + "</p>";
-     } else {
-       helptext_field.innerHTML = "";
-     }
-     if (key === "human_trafficking") {
-       trafficking_button.removeAttribute('hidden');
-       hate_crimes_button.setAttribute('hidden', 'hidden');
-     } else if (key === "hate_crime") {
-       hate_crimes_button.removeAttribute('hidden');
-       trafficking_button.setAttribute('hidden', 'hidden');
-     } else {
-       trafficking_button.setAttribute('hidden', 'hidden');
-       hate_crimes_button.setAttribute('hidden', 'hidden');
-     }
-     option_field.innerHTML = el.dataset["description"];
-     let length = el.dataset.examplecount;
-     examples_field.innerHTML = "";
-     for (var i = 0; i < length; i++) {
-       var example = el.dataset["example" + i];
-       examples_field.innerHTML += "<p>" + example + "</p>";
-     }
-   };
-  </script>
   <script src="{% static 'js/ga_util.js' %}"></script>
   <script src="{% static 'js/modal.min.js' %}"></script>
   <script src="{% static 'js/redirect-modal.min.js' %}"></script>
