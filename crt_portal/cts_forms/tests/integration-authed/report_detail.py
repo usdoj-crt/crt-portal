@@ -4,6 +4,7 @@ from auth import login_as_superuser
 
 
 @pytest.mark.only_browser("chromium")
+@pytest.mark.timeout(60)
 def test_click_back_to_all(page):
     """Opens report detail page and goes back to reports page"""
 
