@@ -23,7 +23,7 @@ def test_click_back_to_all(page):
 
     with page.expect_navigation():
         page.locator('.enabled-nav > a').click()
-    
+
     pagination = page.locator('.usa-pagination > span').text_content().strip()
     assert pagination == '2 of ' + total_results + ' records'
 
