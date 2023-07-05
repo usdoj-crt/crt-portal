@@ -24,19 +24,19 @@ def test_click_back_to_all(page):
     assert page.is_visible("#contact-info")
 
     with page.expect_navigation():
-        page.locator('.next').click()
+        page.evaluate("document.querySelector('.next > a').click()")
 
     pagination = page.locator('.usa-pagination > span').text_content().strip()
     assert pagination == '2 of ' + total_results + ' records'
 
     with page.expect_navigation():
-        page.locator('.next').click()
+        page.evaluate("document.querySelector('.next > a').click()")
 
     pagination = page.locator('.usa-pagination > span').text_content().strip()
     assert pagination == '3 of ' + total_results + ' records'
 
     with page.expect_navigation():
-        page.locator('.prev').click()
+        page.evaluate("document.querySelector('.prev > a').click()")
 
     pagination = page.locator('.usa-pagination > span').text_content().strip()
     assert pagination == '2 of ' + total_results + ' records'
