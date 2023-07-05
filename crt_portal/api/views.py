@@ -313,4 +313,8 @@ class ReferralResponse(APIView):
                     response = f'Referral email template #{template.id} failed to send to report #{report.id}'
             except Exception as e:
                 response = f'Referral email template #{template.id} failed to send to report #{report.id}: {e}'
+        if action == 'copy letter':
+            response = f'Referral email template #{template.id} copied to clipboard'
+        if action == 'print':
+            response = f'Referral email template #{template.id} printed'
         return Response({'email_response': response, 'preview': preview})
