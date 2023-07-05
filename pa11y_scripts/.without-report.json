@@ -7,8 +7,8 @@
             "url": "http://localhost:8000/",
             "actions": [
                 "wait for url to be http://localhost:8000/",
-                "click #crt-landing--example_option",
-                "wait for element #crt-landing--example-workplace to be visible"
+                "click button[aria-controls='crt-landing-workplace--example']",
+                "wait for element #crt-landing-workplace--example_option to be visible"
             ],
             "screenCapture": "pa11y-screenshots/crt-landing-dropdown.png"
         },

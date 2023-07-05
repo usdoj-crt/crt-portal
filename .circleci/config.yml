@@ -14,14 +14,6 @@ install-cf8: &install-cf8
       rm cf8.deb
       cf8 api https://api.fr.cloud.gov
 
-install-python-dependencies: &install-python-dependencies
-  run:
-    name: Install python dependencies
-    command: |
-      pip install -U pip
-      pip install pipenv
-      pipenv install --extra-pip-args="--no-cache-dir --compile"
-
 install-python-dev-dependencies: &install-python-dev-dependencies
   run:
     name: Install python dev dependencies
@@ -37,7 +29,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.11.3-browsers
+      - image: cimg/python:3.11.4-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -148,7 +140,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.11.3-browsers
+      - image: cimg/python:3.11.4-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -163,7 +155,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.11.3-browsers
+      - image: cimg/python:3.11.4-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -212,7 +204,7 @@ jobs:
     working_directory: ~/code
     docker:
       # standard docker python image
-      - image: python:3.11.3
+      - image: python:3.11.4
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -236,14 +228,12 @@ jobs:
             echo "deb https://deb.nodesource.com/node_14.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
             wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
             apt-get update && \
-            apt-get install -yqq nodejs && \
+            apt-get install -yqq nodejs npm && \
             npm i -g npm@^8 && \
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
             node node_modules/gulp/bin/gulp build-js
-      # database will be migrated in cloud.gov
-      - *install-python-dependencies
       - run:
           name: install cf8
           command: |
@@ -260,11 +250,6 @@ jobs:
       - run:
           name: Login to cloud.gov
           command: cf8 login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s ${CF_SPACE}
-      - run:
-          name: List dependency size
-          command: |
-            du node_modules -h --max-depth=1 | sort -h | tail -n 30
-            du .venv/lib/python3.11/site-packages/ -h --max-depth=1 | sort -h | tail -n 30
       - acquire-lock:
           app: crt-portal-django
       - run:
@@ -280,7 +265,7 @@ jobs:
   deploy-stage:
     working_directory: ~/code
     docker:
-      - image: python:3.11.3
+      - image: python:3.11.4
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -303,14 +288,13 @@ jobs:
             echo "deb https://deb.nodesource.com/node_14.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
             wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
             apt-get update && \
-            apt-get install -yqq nodejs && \
+            apt-get install -yqq nodejs npm && \
             npm i -g npm@^8 && \
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
             node node_modules/gulp/bin/gulp build-js
       # database will be migrated in cloud.gov
-      - *install-python-dependencies
       - run:
           name: install cf8
           command: |
@@ -339,7 +323,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: python:3.11.3
+      - image: python:3.11.4
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -362,14 +346,13 @@ jobs:
             echo "deb https://deb.nodesource.com/node_14.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
             wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
             apt-get update && \
-            apt-get install -yqq nodejs && \
+            apt-get install -yqq nodejs npm && \
             npm i -g npm@^8 && \
             rm -rf /var/lib/apt/lists/*
             npm ci --production
             node node_modules/gulp/bin/gulp build-sass
             node node_modules/gulp/bin/gulp build-js
       # database will be migrated in cloud.gov
-      - *install-python-dependencies
       - run:
           name: install cf8
           command: |

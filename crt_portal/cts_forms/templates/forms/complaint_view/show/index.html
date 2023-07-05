@@ -62,6 +62,9 @@
       <div class="complaint-actions tablet:grid-col-4 grid-offset-1">
         {% include 'forms/complaint_view/show/actions.html' with title="Actions" icon="img/intake-icons/ic_check-circle.svg" %}
         {% include 'forms/complaint_view/show/related_reports.html' with title="Total Complaints" icon="img/intake-icons/copy.svg" %}
+        {% if ENABLED_FEATURES.edit_outreach %}
+          {% include 'forms/complaint_view/show/outreach.html' with data=data title="Outreach" icon="#campaign" %}
+        {% endif %}
         <div class="activity-stream">
           {% include 'forms/complaint_view/show/activity_stream.html' with title="Activity" icon="img/intake-icons/ic_activity.svg" %}
         </div>
@@ -98,7 +101,7 @@
 {{ block.super }}
 <script src="{% static 'vendor/js.cookie.min.js' %}"></script>
 <script defer src="{% static 'vendor/marked.min.js' %}"></script>
-<script src="{% static 'js/edit_contact_info.min.js' %}"></script>
+<script src="{% static 'js/edit_detail_card.min.js' %}"></script>
 <script src="{% static 'js/edit_details.min.js' %}"></script>
 <script src="{% static 'js/modal.min.js' %}"></script>
 <script src="{% static 'js/form_letter.min.js' %}"></script>

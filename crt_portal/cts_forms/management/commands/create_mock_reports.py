@@ -5,8 +5,8 @@ from datetime import datetime
 from pytz import timezone
 import random
 from cts_forms.signals import salt
-from cts_forms.models import EmailReportCount, ProtectedClass
-from cts_forms.model_variables import PROTECTED_MODEL_CHOICES
+from cts_forms.models import EmailReportCount, ProtectedClass, Campaign
+from cts_forms.model_variables import PROTECTED_MODEL_CHOICES, DISTRICT_CHOICES
 from cts_forms.forms import add_activity
 from django.contrib.auth.models import User
 from random import randrange
@@ -14,6 +14,14 @@ from datetime import timedelta
 
 
 SECTIONS = ['ADM', 'APP', 'CRM', 'DRS', 'ELS', 'EOS', 'FCS', 'HCE', 'IER', 'POL', 'SPL', 'VOT']
+
+
+def random_dist():
+    district_arr = []
+    for district_choice in DISTRICT_CHOICES:
+        district_arr.append(district_choice[0])
+    # nosec turns off bandit error because random is not used for security or run outside of local env.
+    return random.choice(district_arr)  # nosec
 
 
 def random_date():
@@ -76,6 +84,13 @@ class Command(BaseCommand):  # pragma: no cover
         if not user3:
             user3 = User.objects.create_user("USER_3", "user1@example.com", "")
 
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        campaigns = [
+            Campaign.objects.create(internal_name=f'Auto Campaign {now} ({i})',
+                                    section=random.choice([*SECTIONS, *([None] * len(SECTIONS))]))  # nosec
+            for i in range(5)
+        ]
+
         for i in range(number_reports):
             report = ReportFactory.build()
             UTC = timezone('UTC')
@@ -84,6 +99,10 @@ class Command(BaseCommand):  # pragma: no cover
             report.create_date = date
             salt_chars = salt()
             report.public_id = f'{report.pk}-{salt_chars}'
+
+            campaign_chance = random.randint(1, 100)  # nosec
+            if campaign_chance > 75:
+                report.origination_utm_campaign = random.choice(campaigns)  # nosec
 
             # Code to replicate bad data that can occur in prod when there are database errors.
             # report.intake_format = None
@@ -148,6 +167,7 @@ class Command(BaseCommand):  # pragma: no cover
                 add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
                 protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[0][0])
                 report.protected_class.add(protected_example)
+                report.district = random_dist()
             elif rand <= 70:
                 referral = random.choice(SECTIONS)  # nosec
                 if report.assigned_section != referral:
