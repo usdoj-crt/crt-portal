@@ -24,7 +24,7 @@ tblib = "*"
 localstack = "~=0.14.2"
 
 [packages]
-django = "==3.2.17"
+django = "==4.2.2"
 gunicorn = "*"
 django-compressor = "*"
 django-compressor-toolkit = "*"
