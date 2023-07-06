@@ -1,5 +1,13 @@
 {% extends "forms/complaint_view/show/card.html" %}
 {% block title %}{{title}}{% endblock %}
+{% block extra_title %}
+  <div class="card-controls">
+    <span class="usa-tooltip" data-position="right" title="Include system messages in the activity log">
+      <input checked="checked" type="checkbox" name="show_system" class="usa-checkbox__input" aria-label="Include system messages in activity" id="id_activity_system">
+      <label for="id_activity_system" class="usa-checkbox__label crt-checkbox__label">System</label>
+    </span>
+  </div>
+{% endblock %}
 {% block icon %}
   <img src="{% static icon %}" alt="" class="icon" />
 {% endblock %}

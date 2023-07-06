@@ -36,13 +36,27 @@ $complaint-header-min-height: 200px;
 }
 
 .activity-stream {
-  .crt-portal-card__content {
-    max-height: 43.75rem;
+  .crt-portal-card__content ul {
+    max-height: 40rem;
     overflow-y: scroll;
   }
 
   .activity-stream-list {
     .activity-stream-item {
+      svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+
+      .comment-icon {
+        display: none;
+      }
+      &.comment .comment-icon {
+        display: inline-block;
+        padding-top: 5px;
+        vertical-align: middle;
+      }
+
       border-bottom: 1px solid color('gray-cool-20'); // USWDS system color design token: https://designsystem.digital.gov/design-tokens/color/system-tokens/
       padding: 0.5rem 0 0.5rem 0;
 

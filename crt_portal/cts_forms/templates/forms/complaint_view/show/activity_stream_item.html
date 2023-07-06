@@ -6,6 +6,9 @@
     </span>
   </div>
   <p class="margin-top-05">
+    <span class="comment-icon">
+      {% include 'partials/sprite.html' with icon='comment' %}
+    </span>
     {{ activity.verb }}{{ activity.description|linebreaks }}
   </p>
 </li>
