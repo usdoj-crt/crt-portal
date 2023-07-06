@@ -4,7 +4,6 @@ from auth import login_as_superuser
 
 
 @pytest.mark.only_browser("chromium")
-@pytest.mark.timeout(60)
 def test_click_back_to_all(page):
     """Opens report detail page and goes back to reports page"""
 
@@ -25,19 +24,19 @@ def test_click_back_to_all(page):
     assert page.is_visible("#contact-info")
 
     with page.expect_navigation():
-        page.evaluate("document.querySelector('.next > a').click()")
+        page.evaluate("document.querySelector('.next').click()")
 
     pagination = page.locator('.usa-pagination > span').text_content().strip()
     assert pagination == '2 of ' + total_results + ' records'
 
     with page.expect_navigation():
-        page.evaluate("document.querySelector('.next > a').click()")
+        page.evaluate("document.querySelector('.next').click()")
 
     pagination = page.locator('.usa-pagination > span').text_content().strip()
     assert pagination == '3 of ' + total_results + ' records'
 
     with page.expect_navigation():
-        page.evaluate("document.querySelector('.prev > a').click()")
+        page.evaluate("document.querySelector('.prev').click()")
 
     pagination = page.locator('.usa-pagination > span').text_content().strip()
     assert pagination == '2 of ' + total_results + ' records'

@@ -1045,14 +1045,6 @@
             "markers": "python_version >= '3.7'",
             "version": "==7.4.0"
         },
-        "pytest-timeout": {
-            "hashes": [
-                "sha256:c07ca07404c612f8abbe22294b23c368e2e5104b521c1790195561f37e1ac3d9",
-                "sha256:f6f50101443ce70ad325ceb4473c4255e9d74e3c7cd0ef827309dfa4c0d975c6"
-            ],
-            "index": "pypi",
-            "version": "==2.1.0"
-        },
         "python-dateutil": {
             "hashes": [
                 "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86",

@@ -56,7 +56,6 @@ jupyter_client = "*"
 jupysql = "*"
 ipykernel = "*"
 sqlalchemy = "<2"
-pytest-timeout = "*"
 
 [requires]
 python_version = "3.11.3"

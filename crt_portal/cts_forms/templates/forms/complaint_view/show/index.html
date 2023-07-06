@@ -28,18 +28,18 @@
               <nav class="usa-pagination display-flex" aria-label="pagination">
                 <span>{{ filter_current|default:"N/A" }} of {{ filter_count }} records</span>
                 <ol class="display-flex margin-0 pagination">
-                  <li class="complaint-nav prev nav-arrow{% if not filter_previous %} disabled-nav{% endif %}">
+                  <li class="complaint-nav nav-arrow{% if not filter_previous %} disabled-nav{% endif %}">
                     {% if filter_previous %}
-                      <a href="{% url 'crt_forms:crt-forms-show' id=filter_previous %}{{ filter_previous_query }}">
+                      <a class="prev" href="{% url 'crt_forms:crt-forms-show' id=filter_previous %}{{ filter_previous_query }}">
                         {% include "forms/snippets/nav_arrow.html" %}
                       </a>
                     {% else %}
                       {% include "forms/snippets/nav_arrow.html" %}
                     {% endif %}
                   </li>
-                  <li class="complaint-nav next nav-arrow{% if not filter_next %} disabled-nav{% endif %}">
+                  <li class="complaint-nav nav-arrow{% if not filter_next %} disabled-nav{% endif %}">
                     {% if filter_next %}
-                      <a href="{% url 'crt_forms:crt-forms-show' id=filter_next %}{{ filter_next_query }}">
+                      <a class="next" href="{% url 'crt_forms:crt-forms-show' id=filter_next %}{{ filter_next_query }}">
                         {% include "forms/snippets/nav_arrow.html" with point_right=True %}
                       </a>
                     {% else %}
