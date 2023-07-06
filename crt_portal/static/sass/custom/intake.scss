@@ -239,16 +239,16 @@
     }
 
     &.intake-checkbox {
-      ul {
+      > div {
         @include flex-container();
         flex-wrap: wrap;
         white-space: normal;
 
-        li {
+        > div {
           margin: 0.5rem;
         }
 
-        li:first-child {
+        > div:first-child {
           margin-left: 0;
         }
 
@@ -323,7 +323,7 @@
       overflow-y: scroll;
       position: relative;
 
-      ul {
+      > div,ul {
         padding: 0;
         margin: 0.5rem;
 
