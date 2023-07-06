@@ -29,7 +29,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.11.3-browsers
+      - image: cimg/python:3.11.4-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -140,7 +140,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.11.3-browsers
+      - image: cimg/python:3.11.4-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -155,7 +155,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.11.3-browsers
+      - image: cimg/python:3.11.4-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -204,7 +204,7 @@ jobs:
     working_directory: ~/code
     docker:
       # standard docker python image
-      - image: python:3.11.3
+      - image: python:3.11.4
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -228,7 +228,7 @@ jobs:
             echo "deb https://deb.nodesource.com/node_14.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
             wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
             apt-get update && \
-            apt-get install -yqq nodejs && \
+            apt-get install -yqq nodejs npm && \
             npm i -g npm@^8 && \
             rm -rf /var/lib/apt/lists/*
             npm ci --production
@@ -265,7 +265,7 @@ jobs:
   deploy-stage:
     working_directory: ~/code
     docker:
-      - image: python:3.11.3
+      - image: python:3.11.4
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -288,7 +288,7 @@ jobs:
             echo "deb https://deb.nodesource.com/node_14.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
             wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
             apt-get update && \
-            apt-get install -yqq nodejs && \
+            apt-get install -yqq nodejs npm && \
             npm i -g npm@^8 && \
             rm -rf /var/lib/apt/lists/*
             npm ci --production
@@ -323,7 +323,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: python:3.11.3
+      - image: python:3.11.4
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -346,7 +346,7 @@ jobs:
             echo "deb https://deb.nodesource.com/node_14.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
             wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
             apt-get update && \
-            apt-get install -yqq nodejs && \
+            apt-get install -yqq nodejs npm && \
             npm i -g npm@^8 && \
             rm -rf /var/lib/apt/lists/*
             npm ci --production

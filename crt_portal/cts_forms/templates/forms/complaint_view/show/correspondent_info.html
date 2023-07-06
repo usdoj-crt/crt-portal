@@ -3,16 +3,16 @@
 
 {% block title %}Correspondent information{% endblock %}
 {% block extra_title %}  <button aria-label="edit contact information" id="edit-contact-info-btn"
-class="usa-button usa-button--unstyled button--edit margin-left-auto" type="button">Edit</button>
+class="edit-toggle-btn usa-button usa-button--unstyled button--edit margin-left-auto" type="button">Edit</button>
 {% endblock %}
-{% block extra_classes %}crt-correspondent-card{% endblock %}
+{% block extra_classes %}crt-correspondent-card crt-toggleable-card{% endblock %}
 
 {% block icon %}
   <img src="{% static "img/intake-icons/ic_contact.svg" %}" alt="" class="icon" />
 {% endblock %}
 
 {% block card_content %}
-  <div id="contact-info" {% if contact_form.errors %}class="display-none"{% endif %}>
+  <div id="contact-info" class="{% if contact_form.errors %}display-none{% endif %} toggle-info">
     <table class="usa-table usa-table--borderless complaint-card-table">
       <tr>
         <th>Name</th>

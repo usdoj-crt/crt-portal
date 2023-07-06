@@ -24,6 +24,9 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               ELECTION_DICT, EMPLOYER_SIZE_DICT,
                               LANDING_COMPLAINT_CHOICES_TO_EXAMPLES,
                               LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
+                              LANDING_COMPLAINT_CHOICES_TO_HELPLINK,
+                              LANDING_COMPLAINT_CHOICES_TO_NOTE,
+                              LANDING_COMPLAINT_CHOICES_TO_LEARNMORE,
                               LANDING_COMPLAINT_DICT,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES,
                               PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES_VOTING,
@@ -60,15 +63,28 @@ class LandingPageView(TemplateView):
             **PRIMARY_COMPLAINT_CHOICES_TO_HELPTEXT,
             **LANDING_COMPLAINT_CHOICES_TO_HELPTEXT,
         }
-        choices = {
-            key: {
+        all_helplinks = {
+            **LANDING_COMPLAINT_CHOICES_TO_HELPLINK,
+        }
+        all_learnmore = {
+            **LANDING_COMPLAINT_CHOICES_TO_LEARNMORE,
+        }
+        all_note = {
+            **LANDING_COMPLAINT_CHOICES_TO_NOTE,
+        }
+        choices = [
+            {
+                'key': key,
                 'description': description,
                 'examples': all_examples.get(key, []),
                 'helptext': all_helptext.get(key, ''),
+                'helplink': all_helplinks.get(key, {}),
+                'learnmore': all_learnmore.get(key, ''),
+                'note': all_note.get(key, ''),
             }
             for key, description in all_complaints.items()
             if key != 'something_else'  # exclude because this choice has no examples
-        }
+        ]
         return {'choices': choices}
 
 

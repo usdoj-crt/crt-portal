@@ -70,6 +70,26 @@ LANDING_COMPLAINT_CHOICES_TO_HELPTEXT = {
     'hate_crime': _('To potentially be a hate crime, the situation must include physical harm, or attempts to cause harm with a dangerous weapon, because of race, color, national origin, religion, gender, sexual orientation, gender identity, or disability.  Threats of force or physical harm because of race, color, religion or national origin are also potential hate crimes.'),
     'human_trafficking': _('Human trafficking is when someone is forced into labor or sex work for profit. This can happen in many types of work that include, for example: agriculture, domestic work, restaurants, cleaning services, and sex work.')
 }
+LANDING_COMPLAINT_CHOICES_TO_HELPLINK = {
+    'human_trafficking': {
+        'aria_prefix': _('Were you forced to work against your will?'),
+        'text': _('Get help from the National Human Trafficking Hotline'),
+        'href': 'https://humantraffickinghotline.org/',
+    },
+    'hate_crime': {
+        'text': _('Get help for hate crimes'),
+        'href': './hate-crime-human-trafficking',
+    },
+}
+
+LANDING_COMPLAINT_CHOICES_TO_NOTE = {
+    'voting': _('To report a threat against voters, threats against election officials, or election fraud, visit <a href="https://tips.fbi.gov">tips.fbi.gov</a> or call 800-CALL-FBI'),
+}
+
+LANDING_COMPLAINT_CHOICES_TO_LEARNMORE = {
+    'voting': './voting-resources',
+    'housing': './housing-resources',
+}
 
 PRIMARY_COMPLAINT_CHOICES_TO_EXAMPLES = {
     'workplace': [

@@ -46,6 +46,28 @@ shift 2
 
 compose_files="-f docker-compose.yml -f docker-compose.standalone.yml"
 
+if command -v netstat >/dev/null && \
+  [[ -z "$WEB_PORT" ]] || [[ -z "$JUPYTER_PORT" ]] || [[ -z "$DATABASE_PORT" ]]; then
+  echo "(Ports currently in use:)"
+  netstat -natp tcp | grep "\*\." | sort 2>/dev/null
+fi
+
+if [[ -z "$WEB_PORT" ]]; then
+  read -p "Enter a port for the web server [8010]: "
+  WEB_PORT="${REPLY:-8010}"
+fi
+
+if [[ -z "$JUPYTER_PORT" ]]; then
+  read -p "Enter a port for Jupyter [8011]: "
+  JUPYTER_PORT="${REPLY:-8011}"
+fi
+
+if [[ -z "$DATABASE_PORT" ]]; then
+  read -p "Enter a port for the database (leave blank to not bind one): "
+  DATABASE_PORT="$REPLY"
+fi
+
+
 function standalone_compose() {
   # Run in a subshell so as to not pollute environment variables.
   (
@@ -102,6 +124,22 @@ if [[ "$command_to_run" == "setup" ]]; then
     standalone_compose run --rm web python /code/crt_portal/manage.py create_local_oauth --port "$JUPYTER_PORT" >> ".crt-portal-standalone-$project_suffix.env"
     standalone_compose stop jupyter && standalone_compose up -d jupyter
   fi
+
+  read -r -d '' setup_complete <<EOF
+Group $project_suffix has been set up!
+
+Postgres URI, if a database port was specified:
+- DB: postgres://postgres:passwordfortests@localhost:$DATABASE_PORT/postgres
+
+Quick URLs:
+- Landing: http://localhost:$WEB_PORT
+- Intake:  http://localhost:$WEB_PORT/form/view
+- Admin:   http://localhost:$WEB_PORT/admin
+- Jupyter: http://localhost:$JUPYTER_PORT
+
+EOF
+
+  echo "$setup_complete"
 
   exit 0
 fi

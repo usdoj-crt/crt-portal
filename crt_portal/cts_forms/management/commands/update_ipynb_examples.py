@@ -20,8 +20,10 @@ def _simplify_path(path) -> str:
     return path.replace(notebook_dir, '')
 
 
-def _is_in_git(path: str) -> bool:
-    return os.system(f"git ls-files --error-unmatch '{path}' > /dev/null 2>&1") == 0  # nosec
+def _should_keep(path: str) -> bool:
+    if '.ipynb_checkpoints' in path:
+        return False
+    return True
 
 
 def _build_error_notebook(error: Exception):
@@ -147,19 +149,19 @@ class Command(BaseCommand):  # pragma: no cover
                 if not filename.endswith('.ipynb'):
                     continue
                 notebook_path = os.path.join(dirpath, filename)
-                if not _is_in_git(notebook_path):
+                if not _should_keep(notebook_path):
                     continue
                 files.append(self._safe_load_notebook(notebook_path))
             for dirname in dirnames:
                 directory_path = os.path.join(dirpath, dirname)
-                if not _is_in_git(directory_path):
+                if not _should_keep(directory_path):
                     continue
                 files.append(self._safe_load_directory(directory_path))
             for filename in filenames:
                 if filename.endswith('.ipynb'):
                     continue
                 file_path = os.path.join(dirpath, filename)
-                if not _is_in_git(file_path):
+                if not _should_keep(file_path):
                     continue
                 files.append(self._safe_load_file(file_path))
 
