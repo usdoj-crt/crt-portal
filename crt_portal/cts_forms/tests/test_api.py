@@ -442,7 +442,7 @@ class APIReferralResponseTests(TestCase):
             {"report_id": self.test_report.id, "template_id": self.template.id, "action": "send"}
         )
         self.assertContains(response, "email template")
-    
+
     def test_unauthenticated_referral_response_url(self):
         """test report detail not logged in"""
         self.client.logout()

@@ -21,7 +21,7 @@
         console.log(data);
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
       });
   }
   actionButtons.forEach(button => button.addEventListener('click', getReferralResponse));
