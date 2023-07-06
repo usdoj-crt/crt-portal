@@ -303,18 +303,18 @@ class ReferralResponse(APIView):
         template_id = request.data['template_id']
         template = get_object_or_404(ResponseTemplate, pk=template_id)
         action = request.data['action']
-        preview = {}
+        preview = {'preview': {}}
+        if not action:
+            return Response({'response': '500: No action provided', **preview})
         if action == 'send':
             try:
                 email_response = crt_send_mail(report, template)
-                if email_response:
-                    response = f'Sent referral email template #{template.id} to report #{report.id}'
-                else:
-                    response = f'Referral email template #{template.id} failed to send to report #{report.id}'
             except Exception as e:
-                response = f'Referral email template #{template.id} failed to send to report #{report.id}: {e}'
+                return Response({'response': f'502: Referral email template #{template.id} failed to send to report #{report.id}: {e}', **preview})
+            if not email_response:
+                return Response({'response': f'502: Referral email template #{template.id} failed to send to report #{report.id}', **preview})
+            return Response({'response': f'Sent referral email template #{template.id} to report #{report.id}', **preview})
         if action == 'copy letter':
-            response = f'Referral email template #{template.id} copied to clipboard'
+            return Response({'response': f'Referral email template #{template.id} copied to clipboard', **preview})
         if action == 'print':
-            response = f'Referral email template #{template.id} printed'
-        return Response({'email_response': response, 'preview': preview})
+            return Response({'response': f'Referral email template #{template.id} printed', **preview})
