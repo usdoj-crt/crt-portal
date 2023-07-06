@@ -23,7 +23,7 @@ def feature_script():
     ], separators=(',', ':'))
 
     script = textwrap.dedent(f"""
-        <script>
+        <script nonce="{{ request.csp_nonce }}">
             const ENABLED_FEATURES = {feature_json};
             document.documentElement.classList.add(...{feature_classes});
         </script>

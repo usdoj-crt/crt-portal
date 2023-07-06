@@ -467,7 +467,7 @@ def get_action_data(requested_actions, report_url_args, paginated_offset):
             "detail": action.description,
             "timestamp": action.timestamp,
             "reportid": action.target_object_id,
-            "url": f'/form/view/{action.target_object_id}?next={report_url_args}&index={paginated_offset + index}'
+            "url": f'/form/view/{action.target_object_id}/?next={report_url_args}&index={paginated_offset + index}'
         })
     return data
 
