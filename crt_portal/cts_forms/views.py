@@ -92,8 +92,7 @@ def preserve_filter_parameters(report, querydict):
     index = querydict.get('index', '')
 
     if return_url_args:
-        requested_query = reconstruct_query(return_url_args)
-        requested_ids = list(requested_query.values_list('id', flat=True))
+        requested_ids = get_requested_ids(return_url_args)
         try:
             index = requested_ids.index(report.id)
         except ValueError:
@@ -119,8 +118,7 @@ def setup_filter_parameters(report, querydict):
         index = None
 
     if return_url_args and index is not None:
-        requested_query = reconstruct_query(return_url_args)
-        requested_ids = list(requested_query.values_list('id', flat=True))
+        requested_ids = get_requested_ids(return_url_args)
 
         index = int(index)
         if report.id in requested_ids:
@@ -153,6 +151,31 @@ def setup_filter_parameters(report, querydict):
         })
 
     return output
+
+
+def get_requested_ids(return_url_args):
+    return_url_querydict = QueryDict(return_url_args[1:])
+    activity = return_url_querydict.get('activity', None)
+    if activity:
+        requested_query = reconstruct_activity_query(return_url_args)
+        return list(map(int, requested_query.values_list('target_object_id', flat=True)))
+    requested_query = reconstruct_query(return_url_args)
+    return list(requested_query.values_list('id', flat=True))
+
+
+def reconstruct_activity_query(next_qp):
+    """
+    Reconstruct the query filter on the previous page using the next
+    query parameter. note that if next is empty, the resulting query
+    will return all records.
+    """
+    querydict = QueryDict(next_qp)
+
+    _, selected_actions = dashboard_filter(querydict)
+    sort_expr, _ = activity_sort(querydict.getlist('sort'))
+    if not selected_actions:
+        return selected_actions
+    return selected_actions.order_by(*sort_expr)
 
 
 def mark_report_as_viewed(report, user):
@@ -444,7 +467,7 @@ def get_action_data(requested_actions, report_url_args, paginated_offset):
             "detail": action.description,
             "timestamp": action.timestamp,
             "reportid": action.target_object_id,
-            "url": f'/form/view/{action.target_object_id}?next={report_url_args}&index={paginated_offset + index}'
+            "url": f'/form/view/{action.target_object_id}/?next={report_url_args}&index={paginated_offset + index}'
         })
     return data
 
@@ -534,7 +557,7 @@ def serialize_data(report, request, report_id):
     return_url_args = request.GET.get('next', '')
     return_url_args = urllib.parse.unquote(return_url_args)
     querydict = QueryDict(return_url_args).dict()
-    activity = querydict.get('activity', 'false')
+    activity = querydict.get('?activity', None)
 
     output = {
         'actions': ComplaintActions(instance=report),
