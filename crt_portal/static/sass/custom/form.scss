@@ -89,7 +89,7 @@ form#cts-forms-profile {
 // Form styles
 .usa-form {
   max-width: 100% !important;
-  ul {
+  div.multicheckboxes-container > div,ul {
     margin-left: 0;
     padding-left: 0;
   }
@@ -131,6 +131,12 @@ form#cts-forms-profile {
     padding-left: 1rem;
     border-left: 2px solid color($theme-color-primary-darker);
 
+    div.multicheckboxes-container > div > div:last-child {
+      height: 25px;
+      margin-bottom: 0 !important;
+      padding-bottom: 0;
+    }
+
     ul > li:last-child {
       height: 25px;
       margin-bottom: 0 !important;
@@ -149,7 +155,7 @@ form#cts-forms-profile {
       margin-top: 0;
     }
 
-    ul {
+    div.multicheckboxes-container > div,ul {
       margin-bottom: 0;
     }
   }
@@ -173,7 +179,7 @@ form#cts-forms-profile {
     }
   }
 
-  li {
+  div.multicheckboxes-container > div > div {
     > .usa-checkbox {
       margin-bottom: 1rem;
       &:last-child {
