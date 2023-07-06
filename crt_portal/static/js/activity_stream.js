@@ -10,6 +10,7 @@
     document.querySelectorAll('.activity-stream-item.system').forEach(item => {
       item.hidden = !this.checked;
     });
+    sendGAClickEvent('activity stream toggle system');
   };
   toggleSystemButton = document.querySelector('#id_activity_system');
   toggleSystemButton.addEventListener('change', toggleSystem);
