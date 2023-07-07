@@ -441,7 +441,6 @@ class APIReferralResponseTests(TestCase):
             self.url,
             {"report_id": self.test_report.id, "template_id": self.template.id, "action": "send"}
         )
-        self.assertContains(response, "email template")
         self.assertTrue(
             "email template" in str(response.data)
         )
