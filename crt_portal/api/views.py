@@ -7,7 +7,7 @@ from cts_forms.models import Report, ResponseTemplate
 from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.template import Context, Template
 from rest_framework import generics
@@ -307,7 +307,7 @@ class ReferralResponse(APIView):
         if not action:
             return JsonResponse(
               {
-                'message': 'No action provided',
+                'response': 'No action provided',
                 **preview,
               }, status=400
               )
@@ -315,9 +315,9 @@ class ReferralResponse(APIView):
             try:
                 email_response = crt_send_mail(report, template)
             except Exception as e:
-                return Response({'response': f'502: Referral email template #{template.id} failed to send to report #{report.id}: {e}', **preview})
+                return JsonResponse({'response': f'Referral email template #{template.id} failed to send to report #{report.id}: {e}', **preview}, status=502)
             if not email_response:
-                return Response({'response': f'502: Referral email template #{template.id} failed to send to report #{report.id}', **preview})
+                return JsonResponse({'response': f'Referral email template #{template.id} failed to send to report #{report.id}', **preview}, status=502)
             return Response({'response': f'Sent referral email template #{template.id} to report #{report.id}', **preview})
         if action == 'copy letter':
             return Response({'response': f'Referral email template #{template.id} copied to clipboard', **preview})
