@@ -10,6 +10,12 @@ def test_click_back_to_all(page):
     login_as_superuser(page)
 
     page.goto("/form/view")
+    page.locator('#id_status_0').check()
+    page.locator('#id_status_1').check()
+
+    with page.expect_navigation():
+        page.locator('#apply-filters-button').click()
+
     total_results = page.evaluate("document.querySelector('.intake-pagination').innerText.split(' ')[5]")
     first_result = page.evaluate("document.querySelector('.stripe > td > .td-checkbox > input').value")
 
@@ -24,19 +30,19 @@ def test_click_back_to_all(page):
     assert page.is_visible("#contact-info")
 
     with page.expect_navigation():
-        page.evaluate("document.querySelector('.next').click()")
+        page.locator('.next').click()
 
     pagination = page.locator('.usa-pagination > span').text_content().strip()
     assert pagination == '2 of ' + total_results + ' records'
 
     with page.expect_navigation():
-        page.evaluate("document.querySelector('.next').click()")
+        page.locator('.next').click()
 
     pagination = page.locator('.usa-pagination > span').text_content().strip()
     assert pagination == '3 of ' + total_results + ' records'
 
     with page.expect_navigation():
-        page.evaluate("document.querySelector('.prev').click()")
+        page.locator('.prev').click()
 
     pagination = page.locator('.usa-pagination > span').text_content().strip()
     assert pagination == '2 of ' + total_results + ' records'
