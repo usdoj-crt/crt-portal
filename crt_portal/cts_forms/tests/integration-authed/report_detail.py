@@ -11,8 +11,7 @@ def test_click_back_to_all(page):
 
     page.goto("/form/view")
 
-    page.locator('#id_status_1').check()
-
+    page.fill('input[name="contact_first_name"]', 'Chris')
 
     with page.expect_navigation():
         page.locator('#apply-filters-button').click()
@@ -31,19 +30,19 @@ def test_click_back_to_all(page):
     assert page.is_visible("#contact-info")
 
     with page.expect_navigation():
-        page.locator('.next').click()
+        page.locator('.pagination > li:nth-child(2) > a').click()
 
     pagination = page.locator('.usa-pagination > span').text_content().strip()
     assert pagination == '2 of ' + total_results + ' records'
 
     with page.expect_navigation():
-        page.locator('.next').click()
+        page.locator('.pagination > li:nth-child(2) > a').click()
 
     pagination = page.locator('.usa-pagination > span').text_content().strip()
     assert pagination == '3 of ' + total_results + ' records'
 
     with page.expect_navigation():
-        page.locator('.prev').click()
+        page.locator('.pagination > li:nth-child(1) > a').click()
 
     pagination = page.locator('.usa-pagination > span').text_content().strip()
     assert pagination == '2 of ' + total_results + ' records'
