@@ -1,9 +1,11 @@
+import base64
 import os
 
 import urllib.parse as urlparse
 from urllib.parse import urlencode
 
 from django import template
+from django.conf import settings
 from django.templatetags.static import StaticNode
 
 register = template.Library()
@@ -22,6 +24,19 @@ class TimestampedStaticNode(StaticNode):
 @register.tag('static')
 def do_static(parser, token):
     return TimestampedStaticNode.handle_token(parser, token)
+
+
+@register.simple_tag
+def static_embed(path):
+    """Returns an html tag with the image data embedded."""
+    if not path.startswith('img/'):
+        raise ValueError('static_embed only supports images')
+    filetype = path.split('.')[-1]
+
+    source = os.path.join(settings.BASE_DIR, 'static', path)
+    with open(source, 'rb') as f:
+        content = base64.b64encode(f.read()).decode()
+    return f'data:image/{filetype};base64,{content}'
 
 
 def _add_params_to_url(url, params):
