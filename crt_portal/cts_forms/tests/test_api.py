@@ -2,6 +2,7 @@
 DRF API Tests
 """
 
+import logging
 from django.contrib.auth.models import User
 from django.test import TestCase
 from django.test.client import Client
@@ -442,7 +443,7 @@ class APIReferralResponseTests(TestCase):
             {"report_id": self.test_report.id, "template_id": self.template.id, "action": "send"}
         )
         self.assertTrue(
-            "email template" in str(response.data)
+            "email template" in str(response.content, 'utf-8')
         )
 
     def test_unauthenticated_referral_response_url(self):
