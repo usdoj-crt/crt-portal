@@ -1,4 +1,6 @@
 from django.core.management.base import BaseCommand
+from cts_forms.mail import crt_send_mail
+from tms.models import TMSEmail
 from cts_forms.models import FormLettersSent
 from cts_forms.tests.factories import ReportFactory
 from datetime import datetime
@@ -143,6 +145,8 @@ class Command(BaseCommand):  # pragma: no cover
                 add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
                 add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
                 add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
+                template = ResponseTemplate.objects.get(**random_form_letters[i])
+                crt_send_mail(report, template, TMSEmail.MANUAL_EMAIL, dry_run=True)
                 protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[0][0])
                 report.protected_class.add(protected_example)
                 report.district = random_dist()

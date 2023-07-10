@@ -52,7 +52,7 @@ class CustomHTMLExtension(Extension):
         md.treeprocessors.register(CustomHTMLProcessor(md), 'custom_html_processor', 15)
 
 
-def crt_send_mail(report, template, purpose=TMSEmail.MANUAL_EMAIL):
+def crt_send_mail(report, template, purpose=TMSEmail.MANUAL_EMAIL, dry_run=False):
     """
     Given a report and a template, use django's builtin `send_mail` to generate and send
     an outbound email
@@ -74,20 +74,32 @@ def crt_send_mail(report, template, purpose=TMSEmail.MANUAL_EMAIL):
         # replace newlines, \n, with <br> so the API will generate formatted emails
         html_message = message.replace('\n', '<br>')
 
+    if settings.EMAIL_BACKEND != 'tms.backend.TMSEmailBackend':
+        TMSEmail.create_fake(subject=subject,
+                             body=message,
+                             html_body=html_message,
+                             report=report,
+                             purpose=purpose
+                             ).save()
+        return [1]  # This pretends we've sent one email to one recipient.
+
+    if dry_run:
+        return [0]  # This pretends we've sent one email to one recipient.
+
     send_results = send_mail(
         subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list,
         fail_silently=False, html_message=html_message
     )
     logger.info(f'Sent email response template #{template.id} to report: {report.id}')
-    if settings.EMAIL_BACKEND == 'tms.backend.TMSEmailBackend':
-        response = send_results[0]
-        TMSEmail(tms_id=response['id'],
-                 recipient=report.contact_email,
-                 subject=subject,
-                 body=message,
-                 report=report,
-                 created_at=datetime.strptime(response['created_at'], '%Y-%m-%dT%H:%M:%S%z'),
-                 status=response['status'],
-                 purpose=purpose
-                 ).save()
+    response = send_results[0]
+    TMSEmail(tms_id=response['id'],
+             recipient=report.contact_email,
+             subject=subject,
+             body=message,
+             html_body=html_message,
+             report=report,
+             created_at=datetime.strptime(response['created_at'], '%Y-%m-%dT%H:%M:%S%z'),
+             status=response['status'],
+             purpose=purpose
+             ).save()
     return send_results
