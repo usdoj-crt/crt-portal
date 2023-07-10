@@ -305,12 +305,7 @@ class ReferralResponse(APIView):
         action = request.data['action']
         preview = {'preview': {}}
         if not action:
-            return JsonResponse(
-                {
-                    'response': 'No action provided',
-                    **preview,
-                  }, status=400
-            )
+            return JsonResponse({'response': 'No action provided', **preview}, status=400)
         if action == 'send':
             try:
                 email_response = crt_send_mail(report, template)
