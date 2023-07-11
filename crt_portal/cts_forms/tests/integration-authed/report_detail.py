@@ -11,14 +11,15 @@ def test_click_back_to_all(page):
 
     page.goto("/form/view")
 
-    page.fill('input[name="contact_first_name"]', 'Chris')
+    page.locator('#id_status_0').check()
 
+    page.screenshot(path="e2e-screenshots/report_detail_test_1.png", full_page=True)
     with page.expect_navigation():
         page.locator('#apply-filters-button').click()
 
     total_results = page.evaluate("document.querySelector('.intake-pagination').innerText.split(' ')[5]")
     first_result = page.evaluate("document.querySelector('.stripe > td > .td-checkbox > input').value")
-
+    page.screenshot(path="e2e-screenshots/report_detail_test_2.png", full_page=True)
     with page.expect_navigation():
         page.evaluate("document.querySelector('.td-link').click()")
 
@@ -28,26 +29,26 @@ def test_click_back_to_all(page):
     assert pagination == '1 of ' + total_results + ' records'
 
     assert page.is_visible("#contact-info")
-
+    page.screenshot(path="e2e-screenshots/report_detail_test_3.png", full_page=True)
     with page.expect_navigation():
-        page.locator('.pagination > li:nth-child(2) > a').click()
+        page.locator('.next').click()
 
     pagination = page.locator('.usa-pagination > span').text_content().strip()
     assert pagination == '2 of ' + total_results + ' records'
-
+    page.screenshot(path="e2e-screenshots/report_detail_test_4.png", full_page=True)
     with page.expect_navigation():
-        page.locator('.pagination > li:nth-child(2) > a').click()
+        page.locator('.next').click()
 
     pagination = page.locator('.usa-pagination > span').text_content().strip()
     assert pagination == '3 of ' + total_results + ' records'
-
+    page.screenshot(path="e2e-screenshots/report_detail_test_5.png", full_page=True)
     with page.expect_navigation():
-        page.locator('.pagination > li:nth-child(1) > a').click()
+        page.locator('.prev').click()
 
     pagination = page.locator('.usa-pagination > span').text_content().strip()
     assert pagination == '2 of ' + total_results + ' records'
-
+    page.screenshot(path="report_detail_test_6.png", full_page=True)
     with page.expect_navigation():
         page.locator('.outline-button--dark').click()
-
+    page.screenshot(path="e2e-screenshots/report_detail_test_7.png", full_page=True)
     assert page.is_visible("#contact-email-filter")
