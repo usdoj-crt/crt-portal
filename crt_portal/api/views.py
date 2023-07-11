@@ -1,6 +1,7 @@
 from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter, report_cws
 from django.utils.html import mark_safe
 from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
+from crt_portal.cts_forms.views import serialize_data
 from cts_forms.filters import report_filter
 from cts_forms.mail import CustomHTMLExtension
 from cts_forms.models import Report, ResponseTemplate
@@ -288,8 +289,13 @@ class FormLettersIndex(APIView):
 
 
 class  ComplainantDetail(generics.RetrieveAPIView):
+    permission_classes = (IsAuthenticated,)
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         report_pk = request.query_params.get('report_id')
+        data = {}
         if report_pk:
             report = Report.objects.filter(pk=report_pk).first()
+            data = serialize_data(report, request, report_pk)
+        return
+
