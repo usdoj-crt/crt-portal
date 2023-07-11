@@ -1,3 +1,4 @@
+import os
 from django.core.management.base import BaseCommand
 from cts_forms.models import FormLettersSent
 from cts_forms.tests.factories import ReportFactory
@@ -49,6 +50,10 @@ class Command(BaseCommand):  # pragma: no cover
         parser.add_argument('number_reports')
 
     def handle(self, *args, **options):
+        environment = os.environ.get('ENV', 'UNDEFINED')
+        if environment not in ['LOCAL', 'UNDEFINED', 'STAGE', 'DEVELOP']:
+            self.stdout.write(self.style.NOTICE(f'Cannot create mock reports in {environment}'))
+            return
         number_reports = int(options["number_reports"])
         random_form_letters = random.choices(population=self.forms, weights=self.weights, k=number_reports)  # nosec
 
