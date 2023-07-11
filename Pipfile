@@ -24,7 +24,7 @@ tblib = "*"
 localstack = "~=0.14.2"
 
 [packages]
-django = "==3.2.17"
+django = "==4.2.2"
 gunicorn = "*"
 django-compressor = "*"
 django-compressor-toolkit = "*"
@@ -57,9 +57,16 @@ jupyter_client = "*"
 jupysql = "*"
 ipykernel = "*"
 sqlalchemy = "<2"
+matplotlib = "*"
+numpy = "*"
+pandas = "*"
+ipywidgets = "*"
+plotly = "*"
+bokeh = "*"
+holoviews = "*"
 
 [requires]
-python_version = "3.11.3"
+python_version = "3.11.4"
 
 [pipenv]
 allow_prereleases = true

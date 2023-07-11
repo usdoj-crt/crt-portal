@@ -3,5 +3,5 @@
 {% block extrahead %}
     <link rel="icon" href="{% static "img/favicon.png" %}">
     <script src="{% static 'vendor/turndown.js' %}"></script>
-    {% feature_script %}
+    {% feature_script request.csp_nonce %}
 {% endblock %}

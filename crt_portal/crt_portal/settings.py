@@ -423,6 +423,8 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'https://fonts.gstatic.com',
     )
     CSP_INCLUDE_NONCE_IN = ['script-src']
+    # Allow admin panel functionality (which is trusted content that uses inline sources):
+    CSP_EXCLUDE_URL_PREFIXES = ('/admin',)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/

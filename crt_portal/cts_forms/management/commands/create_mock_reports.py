@@ -5,8 +5,8 @@ from datetime import datetime
 from pytz import timezone
 import random
 from cts_forms.signals import salt
-from cts_forms.models import EmailReportCount, ProtectedClass
-from cts_forms.model_variables import PROTECTED_MODEL_CHOICES
+from cts_forms.models import EmailReportCount, ProtectedClass, Campaign, ResponseTemplate
+from cts_forms.model_variables import PROTECTED_MODEL_CHOICES, DISTRICT_CHOICES
 from cts_forms.forms import add_activity
 from django.contrib.auth.models import User
 from random import randrange
@@ -16,14 +16,21 @@ from datetime import timedelta
 SECTIONS = ['ADM', 'APP', 'CRM', 'DRS', 'ELS', 'EOS', 'FCS', 'HCE', 'IER', 'POL', 'SPL', 'VOT']
 
 
+def random_dist():
+    district_arr = []
+    for district_choice in DISTRICT_CHOICES:
+        district_arr.append(district_choice[0])
+    # nosec turns off bandit error because random is not used for security or run outside of local env.
+    return random.choice(district_arr)  # nosec
+
+
 def random_date():
-    """
-    This function will return a random datetime between two datetime
-    objects.
-    """
+    """Gets a random date, prioritizing recent dates but including old, too."""
     UTC = timezone('UTC')
-    start_date = UTC.localize(datetime(2020, 1, 1))
     end_date = UTC.localize(datetime.now())
+    older_start_date = UTC.localize(datetime(2020, 1, 1))
+    newer_start_date = end_date - timedelta(days=30)
+    start_date = random.choice([older_start_date, newer_start_date])  # nosec
     delta = end_date - start_date
     int_delta = (delta.days * 24 * 60 * 60) + delta.seconds
     random_second = randrange(int_delta)  # nosec
@@ -33,31 +40,10 @@ def random_date():
 class Command(BaseCommand):  # pragma: no cover
     help = "Create mock reports for local testing"
 
-    forms = ['CRM R1 Form Letter',
-             'CRM R2 Form Letter',
-             'CRM - Referral to FBI',
-             'CRT - Comments & Opinions',
-             'CRT - Constant Writer',
-             'CRT - EEOC Referral Letter',
-             'CRT - No Capacity',
-             'CRT - Non-Actionable',
-             'CRT - Request for Agency Review',
-             'CRT - Dept of Ed Referral Form Letter',
-             'CRT - DOT Referral Form Letter',
-             'CRT - EEOC Referral Form Letter',
-             'CRT - HHS Referral Form Letter',
-             'HCE - Form Letter',
-             'IER - Form Letter',
-             'SPL - Referral for PREA Issues',
-             'SPL - Standard Form Letter',
-             'Trending - General COVID inquiries',
-             'EOS - Dept of Ed Referral Form Letter',
-             'EOS - EEOC Referral Form Letter'
-             ]
+    forms = list(ResponseTemplate.objects.values('title').distinct())
 
-    # These are the probabilities that a given form letter will be sent.  I suspect we will adjust these after we see the
-    # shape of production data.
-    weights = [2, 1, 2, 2, 1, 2, 3, 16, 20, 4, 2, 1, 1, 1, 1, 1, 2, 3, 1, 2]
+    # These are the probabilities that a given form letter will be sent.
+    weights = [random.randint(1, 20) for _ in forms]  # nosec
 
     def add_arguments(self, parser):
         parser.add_argument('number_reports')
@@ -76,6 +62,13 @@ class Command(BaseCommand):  # pragma: no cover
         if not user3:
             user3 = User.objects.create_user("USER_3", "user1@example.com", "")
 
+        now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        campaigns = [
+            Campaign.objects.create(internal_name=f'Auto Campaign {now} ({i})',
+                                    section=random.choice([*SECTIONS, *([None] * len(SECTIONS))]))  # nosec
+            for i in range(5)
+        ]
+
         for i in range(number_reports):
             report = ReportFactory.build()
             UTC = timezone('UTC')
@@ -84,6 +77,10 @@ class Command(BaseCommand):  # pragma: no cover
             report.create_date = date
             salt_chars = salt()
             report.public_id = f'{report.pk}-{salt_chars}'
+
+            campaign_chance = random.randint(1, 100)  # nosec
+            if campaign_chance > 75:
+                report.origination_utm_campaign = random.choice(campaigns)  # nosec
 
             # Code to replicate bad data that can occur in prod when there are database errors.
             # report.intake_format = None
@@ -148,6 +145,7 @@ class Command(BaseCommand):  # pragma: no cover
                 add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
                 protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[0][0])
                 report.protected_class.add(protected_example)
+                report.district = random_dist()
             elif rand <= 70:
                 referral = random.choice(SECTIONS)  # nosec
                 if report.assigned_section != referral:

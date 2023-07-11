@@ -25,7 +25,7 @@ function sendGAClickEvent(event_name) {
       });
     }
     const navItems = document.getElementsByClassName('usa-nav__primary-item');
-    navItems.forEach(navItem => {
+    Array.from(navItems).forEach(navItem => {
       navItem.addEventListener('click', e =>
         sendGAPublicClickEvent('main nav ' + e.target.innerText)
       );

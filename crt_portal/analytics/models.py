@@ -22,6 +22,7 @@ def _readonly_database_env():
     password = db['PASSWORD']
     host = db['HOST']
     port = db['PORT']
+    port_str = f":{port}" if port else ""
     attrs = urlencode({
         'options': " ".join([
             "-c default_transaction_read_only=on",
@@ -30,7 +31,7 @@ def _readonly_database_env():
         ]),
         'target_session_attrs': 'read-only'
     })
-    uri = f'postgresql://{user}:{password}@{host}:{port}/{name}?{attrs}'
+    uri = f'postgresql://{user}:{password}@{host}{port_str}/{name}?{attrs}'
     clean_env = os.environ.copy()
     os.environ['DATABASE_URL'] = uri
     try:

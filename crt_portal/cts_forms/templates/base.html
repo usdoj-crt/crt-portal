@@ -143,7 +143,7 @@
       {% endblock footer_extra %}
     </footer>
     {% endblock %}
-    {% feature_script %}
+    {% feature_script request.csp_nonce %}
     <script src="{% static 'js/url_params_polyfill.min.js' %}"></script>
     <script src="{% static 'vendor/uswds.min.js' %}"></script>
     <script src="{% static 'js/focus_alert.min.js' %}"></script>

@@ -10,7 +10,7 @@ register = template.Library()
 
 
 @register.simple_tag
-def feature_script():
+def feature_script(csp_nonce):
     all_features = Feature.objects.all()
 
     feature_json = json.dumps({
@@ -23,7 +23,7 @@ def feature_script():
     ], separators=(',', ':'))
 
     script = textwrap.dedent(f"""
-        <script>
+        <script nonce="{csp_nonce}">
             const ENABLED_FEATURES = {feature_json};
             document.documentElement.classList.add(...{feature_classes});
         </script>

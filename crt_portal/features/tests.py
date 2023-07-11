@@ -54,7 +54,7 @@ class FeatureTests(TestCase):
         Feature(name='feature-off').save()
         template = Template(
             '{% load feature_script %}'
-            '{% feature_script %}'
+            '{% feature_script request.csp_nonce %}'
         )
         content = template.render(Context({}))
         self.assertIn('const ENABLED_FEATURES', content)
