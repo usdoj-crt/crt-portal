@@ -22,7 +22,12 @@
 
       {% if choice.helplink %}
       <div class="crt-landing--helplink">
-        <a aria-label="{{ choice.helplink.aria_prefix }} {{ choice.helplink.text }}" class="external-link--blue external-link--popup" href="{{ choice.helplink.href }}">{{ choice.helplink.text }}</a>
+        <a
+          aria-label="{{ choice.helplink.aria_prefix }} {{ choice.helplink.text }}"
+          {% if choice.helplink.href|first != '.' and choice.helplink.href|first != '/' %}
+          class="external-link--blue external-link--popup"
+          {% endif %}
+          href="{{ choice.helplink.href }}">{{ choice.helplink.text }}</a>
       </div>
       {% endif %}
 
