@@ -138,11 +138,11 @@ class AdminWebhookView(LoginRequiredMixin, View):
             connection = TMSClient()
         # Raised when there are no TMS credentials in the env
         except AttributeError:
-            return render(request, 'email.html', {'data': 'no tms settings here'})
+            return render(request, 'email_admin.html', {'data': 'no tms settings here'})
 
         response = connection.get(target=self.WEBHOOK_ENDPOINT)
         parsed = json.loads(response.content)
-        return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
+        return render(request, 'email_admin.html', {'data': json.dumps(parsed, indent=2)})
 
 
 class AdminMessageView(LoginRequiredMixin, View):
@@ -154,13 +154,13 @@ class AdminMessageView(LoginRequiredMixin, View):
     @method_decorator(staff_member_required)
     def get(self, request, tms_id):
         if not tms_id:
-            return render(request, 'email.html', {'data': 'need an email id'})
+            return render(request, 'email_admin.html', {'data': 'need an email id'})
 
         try:
             connection = TMSClient()
         # Raised when there are no TMS credentials in the env
         except AttributeError:
-            return render(request, 'email.html', {'data': 'no tms settings here'})
+            return render(request, 'email_admin.html', {'data': 'no tms settings here'})
 
         response = connection.get(target=self.WEBHOOK_ENDPOINT + '/' + str(tms_id))
         parsed = json.loads(response.content)
@@ -203,8 +203,8 @@ class AdminMessageView(LoginRequiredMixin, View):
                 email.save()
 
                 # Displays both payloads
-                return render(request, 'email.html', {'data': json.dumps(parsed, indent=2) + '\n' + json.dumps(parsed2, indent=2)})
+                return render(request, 'email_admin.html', {'data': json.dumps(parsed, indent=2) + '\n' + json.dumps(parsed2, indent=2)})
             else:
-                return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
+                return render(request, 'email_admin.html', {'data': json.dumps(parsed, indent=2)})
         else:
-            return render(request, 'email.html', {'data': json.dumps(parsed, indent=2)})
+            return render(request, 'email_admin.html', {'data': json.dumps(parsed, indent=2)})
