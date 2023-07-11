@@ -17,6 +17,7 @@ urlpatterns = [
     path('report-summary/', ReportSummary.as_view(), name='report-summary'),
     path('related-reports/', RelatedReports.as_view(), name='related-reports'),
     path('form-letters/', FormLettersIndex.as_view(), name='form-letters'),
+    path('complainant-detail/', ComplainantDetail.as_view(), name='complainant-detail'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

@@ -1174,3 +1174,23 @@ class SimpleFilterFormTests(TestCase):
         data = QueryDict('assigned_section=ADM&assigned_section=<script>alert()</script>')
         form = Filters(data)
         self.assertEqual({'ADM'}, form.get_section_filters)
+
+
+class ReferralEmailContentTests(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        self.complainant_url = reverse("api:response-detail", kwargs={"pk": 94})
+        self.referral_url = reverse("api:response-detail", kwargs={"pk": 124})
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_build_email_content(self):
+        complainant_response = self.client.get(self.complainant_url + f"?report_id={self.test_report.id}")
+        referral_response = self.client.get(self.referral_url + f"?report_id={self.test_report.id}")
+        complainant_details =

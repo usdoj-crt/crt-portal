@@ -6,10 +6,12 @@ from markdown.extensions import Extension
 # Element is not a parser and there is no alternative to importing from `xml`.
 from xml.etree.ElementTree import Element  # nosec
 from datetime import datetime
+from django.shortcuts import get_object_or_404
 
 from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from .models import Report
 from tms.models import TMSEmail
 
 logger = logging.getLogger(__name__)
@@ -91,3 +93,15 @@ def crt_send_mail(report, template, purpose=TMSEmail.MANUAL_EMAIL):
                  purpose=purpose
                  ).save()
     return send_results
+
+
+def combine_email_content(report_id, referral):
+    report = get_object_or_404(Report, pk=report_id)
+    report.contact_address_line_1
+    report.contact_address_line_2
+    report.contact_city
+    report.contact_state
+    report.contact_zip
+    report.contact_phone
+    report.contact_email
+    report.violation_summary

@@ -39,7 +39,8 @@ def api_root(request, format=None):
         'report-count': reverse('api:report-count', request=request, format=format),
         'related-reports': reverse('api:related-reports', request=request, format=format),
         'form-letters': reverse('api:form-letters', request=request, format=format),
-        'report-cws': reverse('api:report-cws', request=request, format=format)
+        'report-cws': reverse('api:report-cws', request=request, format=format),
+        'complainant-detail': reverse('api:complainant-detail', request=request, format=format),
     })
 
 
@@ -284,3 +285,11 @@ class FormLettersIndex(APIView):
             return HttpResponse(status=400)
         except IndexError:
             return HttpResponse(status=500)
+
+
+class  ComplainantDetail(generics.RetrieveAPIView):
+
+    def get(self, request):
+        report_pk = request.query_params.get('report_id')
+        if report_pk:
+            report = Report.objects.filter(pk=report_pk).first()

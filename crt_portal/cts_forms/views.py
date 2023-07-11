@@ -721,6 +721,10 @@ class ShowView(LoginRequiredMixin, View):
             'routing_guide_link':
                 f'/form/view/{id}/routing-guide/?{request.META["QUERY_STRING"]}',
         })
+        complainant_info = render(request, 'forms/complaint_view/show/index.html', output)
+        output.update({
+            'complainant_info': complainant_info
+        })
         return render(request, 'forms/complaint_view/show/index.html', output)
 
     def get_form(self, request, report):
