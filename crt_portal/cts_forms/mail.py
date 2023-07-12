@@ -57,7 +57,7 @@ def crt_send_mail(report, template, purpose=TMSEmail.MANUAL_EMAIL, dry_run=False
     Given a report and a template, use django's builtin `send_mail` to generate and send
     an outbound email
 
-    Returns a reference to the delivered TMSAPI request
+    Returns a list of integers indicating the number of successfully sent emails.
     """
     subject = template.render_subject(report)
     message = template.render_body(report)
@@ -81,10 +81,10 @@ def crt_send_mail(report, template, purpose=TMSEmail.MANUAL_EMAIL, dry_run=False
                              report=report,
                              purpose=purpose
                              ).save()
-        return [1]  # This pretends we've sent one email to one recipient.
+        return [1]
 
     if dry_run:
-        return [0]  # This pretends we've sent one email to one recipient.
+        return [0]
 
     send_results = send_mail(
         subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list,
