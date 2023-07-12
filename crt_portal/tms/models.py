@@ -1,3 +1,4 @@
+from datetime import datetime
 import uuid
 
 from django.db import models
@@ -32,6 +33,7 @@ class TMSEmail(models.Model):
     report = models.ForeignKey('cts_forms.Report', related_name='emails', blank=True, on_delete=models.CASCADE)
     subject = models.TextField(help_text='Subject line of outbound email')
     body = models.TextField(help_text='Body of outbound email')
+    html_body = models.TextField(help_text='HTML body of outbound email, if present', null=True)
     recipient = models.EmailField()
     created_at = models.DateTimeField()
     completed_at = models.DateTimeField(null=True)
@@ -41,6 +43,24 @@ class TMSEmail(models.Model):
 
     def __str__(self):
         return f"TMS messsage ID: {self.tms_id}"
+
+    @classmethod
+    def create_fake(cls, *, report, **kwargs):
+        try:
+            latest_id = cls.objects.latest('tms_id').tms_id + 1
+        except cls.DoesNotExist:
+            latest_id = 1
+        return cls(tms_id=latest_id,
+                   recipient=report.contact_email,
+                   report=report,
+                   created_at=datetime.now(),
+                   status='FAKE_DEVELOPMENT_SEND',
+                   **kwargs)
+
+    @property
+    def sent_content(self):
+        """The content that was actually (attempted to be) sent to the user."""
+        return self.html_body or self.body
 
     @property
     def failed(self):
