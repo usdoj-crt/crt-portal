@@ -6,14 +6,14 @@
     });
   };
 
-  const toggleSystem = function() {
+  const toggleComment = function() {
     document.querySelectorAll('.activity-stream-item.system').forEach(item => {
-      item.hidden = !this.checked;
+      item.hidden = this.checked;
     });
-    sendGAClickEvent('activity stream toggle system');
+    sendGAClickEvent('activity stream toggle comment');
   };
-  toggleSystemButton = document.querySelector('#id_activity_system');
-  toggleSystemButton.addEventListener('change', toggleSystem);
+  toggleCommentButton = document.querySelector('#id_activity_comment');
+  toggleCommentButton.addEventListener('change', toggleComment);
 
   root.addEventListener('load', tagComments);
 })(window, document);
