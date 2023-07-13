@@ -43,5 +43,8 @@ RUN npm install
 # Install gettext for i18n
 RUN apt-get update && apt-get install -y gettext
 
+# Install wkhtmltopdf for pdf conversions
+RUN apt-get install -y wkhtmltopdf
+
 # Copy project
 COPY . /code/
