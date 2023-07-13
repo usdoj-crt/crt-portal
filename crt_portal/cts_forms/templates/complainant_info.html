@@ -1,0 +1,169 @@
+{% load commercial_public_space_view %}
+{% load correctional_facility_view %}
+{% load employer_info_view %}
+{% load i18n %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+
+{% block content %}
+<div class="complaint-information tablet:grid-col-6">
+  <div id="contact-info">
+    <table class="usa-table usa-table--borderless complaint-card-table">
+      <tr>
+        <th>Name</th>
+        <td>
+          <strong>
+            {% with l_name=data.contact_last_name|default:"—" f_name=data.contact_first_name|default:"—" %}
+            {{ l_name }}, {{ f_name }}
+            {% endwith %}
+          </strong>
+        </td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td>
+          <div class="display-flex">
+            <span>{{ data.contact_email|default:"—" }}</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>Phone</th>
+        <td>{{ data.contact_phone|default:"—" }}</td>
+      </tr>
+      <tr>
+        <th>Address</th>
+        <td>
+          <span>{{ data.contact_address_line_1|default:"—" }}</span>
+          <br />
+          <span>{{ data.contact_address_line_2|default:"—" }}</span>
+          <br />
+          <span
+            >{{ data.contact_city|default:"—" }}, {{ data.contact_state|default:"—" }}, {{
+            data.contact_zip|default:"—" }}</span
+          >
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="report-details">
+    <table class="usa-table usa-table--borderless complaint-card-table">
+      <tr>
+        <th><label>Primary issue</label></th>
+        <td>
+          <div class="details">
+            {{ data.primary_complaint }}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th><label>Hate crime</label></th>
+        <td>
+          <div class="details">
+            <span>{{data.hate_crime|title|default:"—"}}</span>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <th>Relevant details</th>
+        <td>
+            <div class="details">
+                {% if data.election_details %}
+                  Election type (federal/local): {{ data.election_details }}
+                {% elif data.commercial_or_public_place %}
+                  {% render_commercial_public_space_view data.commercial_or_public_place data.other_commercial_or_public_place %}
+                {% elif data.inside_correctional_facility %}
+                  {% render_correctional_facility_view data.inside_correctional_facility data.correctional_facility_type %}
+                {% elif data.public_or_private_school %}
+                  School type: {% if data.public_or_private_school == 'not_sure' %} Not sure {% else %}
+                  {{ data.public_or_private_school|title }} {% endif %}
+                {% elif data.public_or_private_employer %}
+                  {% render_employer_info_view data.public_or_private_employer data.employer_size %}
+                {% else %}
+                  <span>—</span>
+                {% endif %}
+              </div>
+        </td>
+      </tr>
+      <tr>
+        <th><label>Organization name</label></th>
+        <td>
+          <div class="details">
+            <span>{{data.location_name|default:"—"}}</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>Address</th>
+        <td>
+          <div class="details">
+            <span>{{ data.location_address_line_1|default:"—" }}</span>
+            <br />
+            <span>{{ data.location_address_line_2|default:"—" }}</span>
+            <br />
+            <span
+              >{{data.location_city_town|default:"—"}}, {{data.location_state|default:"—"}}</span
+            >
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th><label>Reported reason</label></th>
+        <td>
+          <div class="details">
+            {% if data.other_class %}
+            <br />
+            Other: {{data.other_class}} {% endif %} {% if not data.other_class %}
+            <span>—</span>
+            {% endif %}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th><label>Servicemember</label></th>
+        <td>
+          <div class="details">
+            {{data.servicemember|title|default:"—"}}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>Date of incident</th>
+        <td>
+          <div class="details">
+            {{
+            data.last_incident_month|default:"—"}}/{{data.last_incident_day|default:"—"}}/{{data.last_incident_year|default:"—"}}
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>CRT receipt date</th>
+        <td>
+          <div class="details">
+            {{data.crt_reciept_month|default:"—"}}/{{data.crt_reciept_day|default:"—"}}/{{data.crt_reciept_year|default:"—"}}
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div class="crt-portal-card crt-description-card">
+    <div class="crt-portal-card__content">
+      <h3 class="complaint-card-heading text-uppercase">
+        Personal description
+      </h3>
+      <div class="word-break">
+        {{ data.violation_summary|linebreaks }}
+      </div>
+    </div>
+    <div class="crt-portal-card__content">
+      <h3 class="complaint-card-heading text-uppercase">Report language</h3>
+      <p>
+        {% for language in languages %} {% if language.code == data.language %}This report submitted
+        in: {{ language.name }}{% endif %} {% endfor %}
+      </p>
+    </div>
+  </div>
+</div>
+{% endblock %}

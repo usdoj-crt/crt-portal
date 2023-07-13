@@ -6,12 +6,10 @@ from markdown.extensions import Extension
 # Element is not a parser and there is no alternative to importing from `xml`.
 from xml.etree.ElementTree import Element  # nosec
 from datetime import datetime
-from django.shortcuts import get_object_or_404
 
 from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from .models import Report
 from tms.models import TMSEmail
 
 logger = logging.getLogger(__name__)
@@ -95,13 +93,45 @@ def crt_send_mail(report, template, purpose=TMSEmail.MANUAL_EMAIL):
     return send_results
 
 
-def combine_email_content(report_id, referral):
-    report = get_object_or_404(Report, pk=report_id)
-    report.contact_address_line_1
-    report.contact_address_line_2
-    report.contact_city
-    report.contact_state
-    report.contact_zip
-    report.contact_phone
-    report.contact_email
-    report.violation_summary
+def build_referral_content(complainant_letter, referral_letter, report):
+    referral_letter_json = referral_letter.json()
+    complainant_letter_json = complainant_letter.json()
+    referral_letter_body = referral_letter_json['body']
+    complainant_letter_body = complainant_letter_json['body']
+    data = {
+        'contact_address_line_1': report.contact_address_line_1,
+        'contact_address_line_2': report.contact_address_line_2,
+        'contact_city': report.contact_city,
+        'contact_state': report.contact_state,
+        'contact_zip': report.contact_zip,
+        'contact_phone': report.contact_phone,
+        'contact_email': report.contact_email,
+        'primary_complaint': report.primary_complaint,
+        'hate_crime': report.hate_crime,
+        'commercial_or_public_place': report.commercial_or_public_place,
+        'location_name': report.location_name,
+        'location_address_line_1': report.location_address_line_1,
+        'location_address_line_2': report.location_address_line_2,
+        'location_city_town': report.location_city_town,
+        'location_state': report.location_state,
+        'protected_class': report.protected_class,
+        'servicemember': report.servicemember,
+        'last_incident_month': report.last_incident_month,
+        'last_incident_day': report.last_incident_day,
+        'last_incident_year': report.last_incident_year,
+        'crt_reciept_year': report.crt_reciept_year,
+        'crt_reciept_day': report.crt_reciept_day,
+        'crt_reciept_month': report.crt_reciept_month,
+        'violation_summary': report.violation_summary,
+        'language': report.language,
+        'election_details': report.election_details,
+        'other_commercial_or_public_place': report.other_commercial_or_public_place,
+        'inside_correctional_facility': report.inside_correctional_facility,
+        'correctional_facility_type': report.correctional_facility_type,
+        'public_or_private_school': report.public_or_private_school,
+        'public_or_private_employer': report.public_or_private_employer,
+        'employer_size': report.employer_size,
+    }
+    complainant_info = render_to_string('complainant_info.html', {'data': data})
+    content = referral_letter_body + '<br />' + complainant_letter_body + '<br />' + complainant_info
+    return render_to_string('email.html', {'content': content})
