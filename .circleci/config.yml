@@ -52,9 +52,6 @@ jobs:
           name: Install gettext
           command: sudo apt-get update && sudo apt-get install -yqq gettext
       - run:
-          name: Install wkhtmltopdf
-          command: sudo apt-get install -yqq wkhtmltopdf
-      - run:
           name: Node install, generate CSS
           command: |
             npm ci
