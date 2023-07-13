@@ -84,7 +84,7 @@ class Command(BaseCommand):  # pragma: no cover
             report.create_date = date
             salt_chars = salt()
             report.public_id = f'{report.pk}-{salt_chars}'
-            title = random_form_letters[i]
+            title = random_form_letters[i].get('title')
 
             campaign_chance = random.randint(1, 100)  # nosec
             if campaign_chance > 75:
