@@ -2,13 +2,13 @@ from api.filters import form_letters_filter, reports_accessed_filter, autorespon
 from django.utils.html import mark_safe
 from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
 from cts_forms.filters import report_filter
-from cts_forms.mail import CustomHTMLExtension
+from cts_forms.mail import CustomHTMLExtension, crt_send_mail
 from cts_forms.models import Report, ResponseTemplate
 from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpResponse, JsonResponse
+from django.shortcuts import render, get_object_or_404
 from django.template import Context, Template
 from rest_framework import generics
 from rest_framework import permissions
@@ -39,7 +39,8 @@ def api_root(request, format=None):
         'report-count': reverse('api:report-count', request=request, format=format),
         'related-reports': reverse('api:related-reports', request=request, format=format),
         'form-letters': reverse('api:form-letters', request=request, format=format),
-        'report-cws': reverse('api:report-cws', request=request, format=format)
+        'report-cws': reverse('api:report-cws', request=request, format=format),
+        'referral-response': reverse('api:referral-response', request=request, format=format)
     })
 
 
@@ -284,3 +285,36 @@ class FormLettersIndex(APIView):
             return HttpResponse(status=400)
         except IndexError:
             return HttpResponse(status=500)
+
+
+class ReferralResponse(APIView):
+    """
+    API endpoint that enables referral letter previews and email send status
+
+
+    Example: api/referral-response/
+    """
+
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request):
+        report_id = request.data['report_id']
+        report = get_object_or_404(Report, pk=report_id)
+        template_id = request.data['template_id']
+        template = get_object_or_404(ResponseTemplate, pk=template_id)
+        action = request.data['action']
+        preview = {'preview': {}}
+        if not action:
+            return JsonResponse({'response': 'No action provided', **preview}, status=400)
+        if action == 'send':
+            try:
+                email_response = crt_send_mail(report, template)
+            except Exception as e:
+                return JsonResponse({'response': f'Referral email template #{template.id} failed to send to report #{report.id}: {e}', **preview}, status=502)
+            if not email_response:
+                return JsonResponse({'response': f'Referral email template #{template.id} failed to send to report #{report.id}', **preview}, status=502)
+            return Response({'response': f'Sent referral email template #{template.id} to report #{report.id}', **preview})
+        if action == 'copy letter':
+            return Response({'response': f'Referral email template #{template.id} copied to clipboard', **preview})
+        if action == 'print':
+            return Response({'response': f'Referral email template #{template.id} printed', **preview})

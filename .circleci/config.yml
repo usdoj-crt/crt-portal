@@ -106,6 +106,10 @@ jobs:
           command: |
             pipenv run crt_portal/manage.py compilemessages
       - run:
+          name: create mock reports
+          command: |
+            pipenv run crt_portal/manage.py create_mock_reports 100
+      - run:
           name: run server for tests
           environment:
             DEBUG: true
@@ -137,7 +141,8 @@ jobs:
           environment:
             PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome
           command: pipenv run pytest crt_portal/cts_forms/tests/integration-authed/*.py --base-url=http://localhost:8000
-
+      - store_artifacts:
+          path: ./e2e-screenshots
   e2e-test-dev:
     description: Runs E2E tests against dev
     working_directory: ~/code

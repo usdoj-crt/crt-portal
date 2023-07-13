@@ -30,7 +30,7 @@
                 <ol class="display-flex margin-0 pagination">
                   <li class="complaint-nav nav-arrow{% if not filter_previous %} disabled-nav{% endif %}">
                     {% if filter_previous %}
-                      <a href="{% url 'crt_forms:crt-forms-show' id=filter_previous %}{{ filter_previous_query }}">
+                      <a class="prev" href="{% url 'crt_forms:crt-forms-show' id=filter_previous %}{{ filter_previous_query }}">
                         {% include "forms/snippets/nav_arrow.html" %}
                       </a>
                     {% else %}
@@ -39,7 +39,7 @@
                   </li>
                   <li class="complaint-nav nav-arrow{% if not filter_next %} disabled-nav{% endif %}">
                     {% if filter_next %}
-                      <a href="{% url 'crt_forms:crt-forms-show' id=filter_next %}{{ filter_next_query }}">
+                      <a class="next" href="{% url 'crt_forms:crt-forms-show' id=filter_next %}{{ filter_next_query }}">
                         {% include "forms/snippets/nav_arrow.html" with point_right=True %}
                       </a>
                     {% else %}
@@ -105,6 +105,7 @@
 <script src="{% static 'js/edit_details.min.js' %}"></script>
 <script src="{% static 'js/modal.min.js' %}"></script>
 <script src="{% static 'js/form_letter.min.js' %}"></script>
+<script src="{% static 'js/referral_response.min.js' %}"></script>
 <script src="{% static 'js/restrict_field.min.js' %}"></script>
 <script src="{% static 'js/soft_validation.min.js' %}"></script>
 <script src="{% static 'js/paste_dj_field.min.js' %}"></script>
