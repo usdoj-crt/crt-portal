@@ -350,6 +350,14 @@
   }
 }
 
+.title .card-controls {
+  margin-left: auto;
+
+  label.usa-checkbox__label {
+    margin-bottom: 1.5rem;
+  }
+}
+
 #intake_print:not([disabled="disabled"]),#intake_copy:not([disabled="disabled"]) {
   background-color: #ecf1f7;
   color: #162e51;
