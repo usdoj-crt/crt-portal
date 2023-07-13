@@ -1,7 +1,7 @@
 (function(root) {
   const actionButtons = document.querySelectorAll('.action_button');
-  const report_id = document.getElementById('report-id').value;
-  const template_id = document.getElementById('template-id').value;
+  const report_id = document.getElementById('report-id')?.value;
+  const template_id = document.getElementById('template-id')?.value;
   function getReferralResponse(e) {
     e.preventDefault();
     window
