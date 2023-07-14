@@ -80,6 +80,12 @@
         {% include 'partials/sprite.html' with icon='mail' %}
         Contact complainant
       </button>
+      {% if ENABLED_FEATURES.separate_referrals_workflow %}
+      <button onclick="event.preventDefault();alert('not implemented')" class="outline-button outline-button--blue" id="contact_complainant">
+        {% include 'partials/sprite.html' with icon='social_distance' %}
+        Refer complaint
+      </button>
+      {% endif %}
       <button class="outline-button outline-button--blue" id="printout_report">
         {% include 'partials/sprite.html' with icon='print' %}
         Print report information
