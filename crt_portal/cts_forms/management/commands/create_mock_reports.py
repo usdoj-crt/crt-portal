@@ -9,7 +9,7 @@ from pytz import timezone
 import random
 from cts_forms.signals import salt
 from cts_forms.models import EmailReportCount, ProtectedClass, Campaign, ResponseTemplate
-from cts_forms.model_variables import PROTECTED_MODEL_CHOICES, DISTRICT_CHOICES
+from cts_forms.model_variables import PROTECTED_MODEL_CHOICES, DISTRICT_CHOICES, STATUTE_CHOICES
 from cts_forms.forms import add_activity
 from django.contrib.auth.models import User
 from random import randrange
@@ -84,6 +84,13 @@ class Command(BaseCommand):  # pragma: no cover
             report.create_date = date
             salt_chars = salt()
             report.public_id = f'{report.pk}-{salt_chars}'
+
+            dj_number_chance = random.randint(1, 100)  # nosec
+            if dj_number_chance > 90:
+                statute = random.choice(STATUTE_CHOICES)[0]  # nosec
+                district = random.choice(DISTRICT_CHOICES)[0]  # nosec
+                sequence = random.randint(1, 9999)  # nosec
+                report.dj_number = f'{statute}-{district}-{sequence}'
 
             campaign_chance = random.randint(1, 100)  # nosec
             if campaign_chance > 75:
