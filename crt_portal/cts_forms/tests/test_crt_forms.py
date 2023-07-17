@@ -1198,5 +1198,6 @@ class ReferralEmailContentTests(TestCase):
         complainant_response = self.client.get(self.complainant_letter_url + f"?report_id={self.test_report.id}")
         referral_response = self.client.get(self.referral_letter_url + f"?report_id={self.test_report.id}")
         content = build_referral_content(complainant_response, referral_response, self.test_report)
-        self.assertContains(content, "<!DOCTYPE html")
-        self.assertContains(content, "Lincoln")
+        self.assertContains(content, 'test data')
+        self.assertContains(content, 'test 2 data')
+        self.assertContains(content, 'Lincoln')

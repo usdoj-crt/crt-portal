@@ -93,12 +93,12 @@ def crt_send_mail(report, template, purpose=TMSEmail.MANUAL_EMAIL):
     return send_results
 
 
-def build_referral_content(complainant_letter, referral_letter, report):
-    referral_letter_json = referral_letter.json()
-    complainant_letter_json = complainant_letter.json()
-    referral_letter_body = referral_letter_json['body']
-    complainant_letter_body = complainant_letter_json['body']
+
+
+def build_referral_content(complainant_letter_body, referral_letter_body, report):
     data = {
+        'referral_letter': referral_letter_body,
+        'complainant_letter': complainant_letter_body,
         'contact_address_line_1': report.contact_address_line_1,
         'contact_address_line_2': report.contact_address_line_2,
         'contact_city': report.contact_city,
@@ -132,6 +132,5 @@ def build_referral_content(complainant_letter, referral_letter, report):
         'public_or_private_employer': report.public_or_private_employer,
         'employer_size': report.employer_size,
     }
-    complainant_info = render_to_string('complainant_info.html', {'data': data})
-    content = referral_letter_body + '<br />' + complainant_letter_body + '<br />' + complainant_info
-    return render_to_string('email.html', {'content': content})
+    referral_content_string = render_to_string('referral_info.html', {'data': data})
+    return referral_content_string

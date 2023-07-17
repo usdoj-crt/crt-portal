@@ -287,15 +287,3 @@ class FormLettersIndex(APIView):
         except IndexError:
             return HttpResponse(status=500)
 
-
-class  ComplainantDetail(generics.RetrieveAPIView):
-    permission_classes = (IsAuthenticated,)
-
-    def get(self, request, *args, **kwargs):
-        report_pk = request.query_params.get('report_id')
-        data = {}
-        if report_pk:
-            report = Report.objects.filter(pk=report_pk).first()
-            data = serialize_data(report, request, report_pk)
-        return
-
