@@ -31,9 +31,6 @@ def test_contact_complainant_modal(page):
     assert page.locator('#intake_description').text_content().strip() == '[Select response letter]'
     assert page.locator('#intake_letter').input_value().strip() == ''
 
-    for label in ['Send', 'Print letter', 'Copy letter']:
-        assert page.locator('button').filter(has_text=label).is_disabled()
-
     page.locator('select').filter(has_text='English').select_option('Spanish')
     page.locator('select').filter(has_text='[Select response letter]').select_option('CRT - No capacity')
 

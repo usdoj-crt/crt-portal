@@ -219,6 +219,9 @@
   }
 
   function copyContents(event) {
+    if (ENABLED_FEATURES.separateReferralsWorkflow) {
+      if (!validateSend()) return;
+    }
     const subject = description.innerText;
 
     if (!letter.hidden) {
@@ -240,7 +243,21 @@
   }
   copy.addEventListener('click', copyContents);
 
+  const validateSend = function() {
+    const letterField = document.querySelector('.crt-response-letter');
+    letterField.classList.remove('error');
+    if (description.innerText.trim() === '[Select response letter]') {
+      event.preventDefault();
+      letterField.classList.add('error');
+      return false;
+    }
+    return true;
+  };
+
   var printContents = function(event) {
+    if (ENABLED_FEATURES.separateReferralsWorkflow) {
+      if (!validateSend()) return;
+    }
     const letterhead = document.getElementById('form-letterhead');
     const letter_placeholder = document.getElementById('form-letter--placeholder');
     // Text-only letter
@@ -265,16 +282,11 @@
   };
   print.addEventListener('click', printContents);
 
-  const validateSend = function() {
-    const letterField = document.querySelector('.crt-response-letter');
-    letterField.classList.remove('error');
-    if (description.innerText.trim() === '[Select response letter]') {
-      event.preventDefault();
-      letterField.classList.add('error');
-    }
-  };
-
   if (ENABLED_FEATURES.separateReferralsWorkflow) {
+    if (!has_contact_email) {
+      send_email.setAttribute('hidden', 'true');
+      print.classList.add('primary');
+    }
     send_email.addEventListener('click', validateSend);
     print.removeAttribute('disabled');
     copy.removeAttribute('disabled');
