@@ -57,7 +57,7 @@
   var has_contact_email = Boolean(document.getElementById('contact_email').dataset.email);
 
   var reset = function() {
-    description.innerHTML = '(select a response template)';
+    description.innerHTML = '[Select response letter]';
     letter_html.innerHTML = '';
     letter_html.hidden = true;
     letter.innerHTML = '';
@@ -83,7 +83,7 @@
           return response.json();
         })
         .then(function(data) {
-          description.innerHTML = data.subject || '(select a response template)';
+          description.innerHTML = data.subject || '[Select response letter]';
           if (data.is_html) {
             letter.hidden = true;
             letter_html.hidden = false;
@@ -110,6 +110,8 @@
   const allTabs = [...document.querySelectorAll('a.intake-tabbed-nav-link')].map(tab => {
     return tab.dataset.tab;
   });
+
+  if (!allTabs.length) return;
 
   function showOnlyTab(toShow) {
     reset();

@@ -1424,7 +1424,7 @@ class ResponseActions(Form):
         self.fields['templates_default'] = ModelChoiceField(
             queryset=templates.filter(show_in_dropdown=True,
                                       referral_contact__isnull=True),
-            empty_label="(no template chosen)",
+            empty_label="[Select response letter]",
             widget=DataAttributesSelect(data=data, attrs={
                 **attrs,
                 "class": "intake-select usa-select response-template-default",
@@ -1434,7 +1434,7 @@ class ResponseActions(Form):
         self.fields['templates_referral'] = ModelChoiceField(
             queryset=templates.filter(show_in_dropdown=True,
                                       referral_contact__isnull=False),
-            empty_label="(no template chosen)",
+            empty_label="[Select response letter]",
             widget=DataAttributesSelect(data=data, attrs={
                 **attrs,
                 "class": "intake-select usa-select response-template-referral",
