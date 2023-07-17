@@ -44,6 +44,25 @@
   }
 }
 
+.required {
+  color: #B50909;
+}
+
+.crt-response-letter .error-message {
+  display: none;
+}
+
+.crt-response-letter.error {
+  padding-left: .5rem;
+  border-left: .25rem solid #B50909;
+
+  .error-message {
+    color: #B50909;
+    font-weight: 700;
+    display: block;
+  }
+}
+
 hr {
   border-top: 1px solid #949495;
   border-bottom: 0px;
