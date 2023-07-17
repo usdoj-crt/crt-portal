@@ -1,7 +1,6 @@
 from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter, report_cws
 from django.utils.html import mark_safe
 from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
-from crt_portal.cts_forms.views import serialize_data
 from cts_forms.filters import report_filter
 from cts_forms.mail import CustomHTMLExtension
 from cts_forms.models import Report, ResponseTemplate
@@ -40,8 +39,7 @@ def api_root(request, format=None):
         'report-count': reverse('api:report-count', request=request, format=format),
         'related-reports': reverse('api:related-reports', request=request, format=format),
         'form-letters': reverse('api:form-letters', request=request, format=format),
-        'report-cws': reverse('api:report-cws', request=request, format=format),
-        'complainant-detail': reverse('api:complainant-detail', request=request, format=format),
+        'report-cws': reverse('api:report-cws', request=request, format=format)
     })
 
 
@@ -286,4 +284,3 @@ class FormLettersIndex(APIView):
             return HttpResponse(status=400)
         except IndexError:
             return HttpResponse(status=500)
-

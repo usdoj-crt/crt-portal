@@ -93,8 +93,6 @@ def crt_send_mail(report, template, purpose=TMSEmail.MANUAL_EMAIL):
     return send_results
 
 
-
-
 def build_referral_content(complainant_letter_body, referral_letter_body, report):
     data = {
         'referral_letter': referral_letter_body,

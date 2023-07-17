@@ -2,6 +2,8 @@
 These are the forms that appear on the individual report page to update a report.
 See test_intake_forms.py for tests of the general form and the pro form.
 """
+import json
+import logging
 import secrets
 import urllib.parse
 
@@ -1197,7 +1199,7 @@ class ReferralEmailContentTests(TestCase):
     def test_build_referral_content(self):
         complainant_response = self.client.get(self.complainant_letter_url + f"?report_id={self.test_report.id}")
         referral_response = self.client.get(self.referral_letter_url + f"?report_id={self.test_report.id}")
-        content = build_referral_content(complainant_response, referral_response, self.test_report)
-        self.assertContains(content, 'test data')
-        self.assertContains(content, 'test 2 data')
+        content = build_referral_content(json.loads(complainant_response.content)['body'], json.loads(referral_response.content)['body'], self.test_report)
+        self.assertContains(content, 'test template')
+        self.assertContains(content, 'test 2 template')
         self.assertContains(content, 'Lincoln')
