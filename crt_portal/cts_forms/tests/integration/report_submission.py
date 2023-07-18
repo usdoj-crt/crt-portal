@@ -4,7 +4,7 @@ from cts_forms.tests.integration_util import console
 
 
 @pytest.mark.only_browser("chromium")
-@console.raise_errors(ignore='422 (Unprocessable Entity)')
+@console.raise_errors(ignore='422')
 def test_error_if_form_refreshed(page, base_url):
 
     def next_step():
