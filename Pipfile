@@ -51,6 +51,9 @@ djangorestframework = "*"
 markdown = "*"
 nbconvert = "*"  # For running Jupyter ipynb files.
 nbformat = "*"  # For running Jupyter ipynb files.
+pypdf = "*"
+weasyprint = "*"
+
 # The following are needed for refreshing Jupyter notebooks:
 jupyter_client = "*"
 jupysql = "*"
