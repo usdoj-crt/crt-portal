@@ -1,9 +1,11 @@
 import pytest
 
-from auth import login_as_superuser
+from cts_forms.tests.integration_authed.auth import login_as_superuser
+from cts_forms.tests.integration_util import console
 
 
 @pytest.mark.only_browser("chromium")
+@console.raise_errors()
 def test_click_back_to_all(page):
     """Opens report detail page and goes back to reports page"""
 

@@ -137,7 +137,7 @@ jobs:
           name: Authed E2E tests
           environment:
             PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome
-          command: pipenv run pytest crt_portal/cts_forms/tests/integration-authed/*.py --base-url=http://localhost:8000
+          command: pipenv run pytest crt_portal/cts_forms/tests/integration_authed/*.py --base-url=http://localhost:8000
       - store_artifacts:
           path: ./e2e-screenshots
   e2e-test-dev:

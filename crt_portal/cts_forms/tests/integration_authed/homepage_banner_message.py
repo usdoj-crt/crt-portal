@@ -1,9 +1,11 @@
 import pytest
 
-from auth import login_as_superuser
+from cts_forms.tests.integration_authed.auth import login_as_superuser
+from cts_forms.tests.integration_util import console
 
 
 @pytest.mark.only_browser("chromium")
+@console.raise_errors()
 def test_can_add_banner_message(page):
     """Filters and takes action on an open report."""
     login_as_superuser(page)

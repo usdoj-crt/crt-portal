@@ -1,6 +1,7 @@
 import pytest
 
-from auth import login_as_superuser
+from cts_forms.tests.integration_authed.auth import login_as_superuser
+from cts_forms.tests.integration_util import console
 
 
 def toggle_feature_for_user(*,
@@ -38,6 +39,7 @@ def toggle_feature_for_user(*,
 
 
 @pytest.mark.only_browser("chromium")
+@console.raise_errors()
 def test_can_enable_features_per_user(page):
     """Filters and takes action on an open report."""
     username = login_as_superuser(page)

@@ -1,9 +1,14 @@
 import pytest
 
-from auth import login_as_superuser
+from cts_forms.tests.integration_authed.auth import login_as_superuser
+from cts_forms.tests.integration_util import console
 
 
 @pytest.mark.only_browser("chromium")
+@console.raise_errors(ignore=[
+    # This icon isn't always there in local:
+    'usa-icons/check_circle.svg',
+])
 def test_close_report_via_bulk_actions(page):
     """Filters and takes action on an open report."""
     print('Note: this test assumes that report_submission.py was run first')
