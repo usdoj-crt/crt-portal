@@ -3,7 +3,6 @@ These are the forms that appear on the individual report page to update a report
 See test_intake_forms.py for tests of the general form and the pro form.
 """
 import json
-import logging
 import secrets
 import urllib.parse
 
