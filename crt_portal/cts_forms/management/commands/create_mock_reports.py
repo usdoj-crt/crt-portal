@@ -84,6 +84,7 @@ class Command(BaseCommand):  # pragma: no cover
             report.create_date = date
             salt_chars = salt()
             report.public_id = f'{report.pk}-{salt_chars}'
+            title = random_form_letters[i].get('title')
 
             dj_number_chance = random.randint(1, 100)  # nosec
             if dj_number_chance > 90:
@@ -122,7 +123,7 @@ class Command(BaseCommand):  # pragma: no cover
             # 3%
             elif rand <= 3:
                 report.contact_email = "frequentflier2@test.test"
-                add_activity(user1, 'Contacted complainant:', f"Copied '{random_form_letters[i]}' template", report)
+                add_activity(user1, 'Contacted complainant:', f"Copied '{title}' template", report)
                 protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[5][0])
                 protected_example2 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[6][0])
                 protected_example3 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[7][0])
@@ -136,7 +137,7 @@ class Command(BaseCommand):  # pragma: no cover
             # 6%
             elif rand <= 6:
                 report.contact_email = "frequentflier3@test.test"
-                add_activity(user2, 'Contacted complainant:', f"Printed '{random_form_letters[i]}' template", report)
+                add_activity(user2, 'Contacted complainant:', f"Printed '{title}' template", report)
                 protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[8][0])
                 protected_example2 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[9][0])
                 protected_example3 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[10][0])
@@ -152,11 +153,11 @@ class Command(BaseCommand):  # pragma: no cover
                 if report.assigned_section != 'DRS':
                     add_activity(user3, 'Assigned section:', f'Updated from "{report.assigned_section}" to "DRS"', report)
                     report.assigned_section = 'DRS'
-                add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
-                add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
-                add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
-                add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
-                add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
+                add_activity(user3, 'Contacted complainant:', f"Email sent: '{title}' to {report.contact_email} via govDelivery TMS", report)
+                add_activity(user3, 'Contacted complainant:', f"Email sent: '{title}' to {report.contact_email} via govDelivery TMS", report)
+                add_activity(user3, 'Contacted complainant:', f"Email sent: '{title}' to {report.contact_email} via govDelivery TMS", report)
+                add_activity(user3, 'Contacted complainant:', f"Email sent: '{title}' to {report.contact_email} via govDelivery TMS", report)
+                add_activity(user3, 'Contacted complainant:', f"Email sent: '{title}' to {report.contact_email} via govDelivery TMS", report)
                 template = ResponseTemplate.objects.get(**random_form_letters[i])
                 crt_send_mail(report, template, TMSEmail.MANUAL_EMAIL, dry_run=True)
                 protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[0][0])
