@@ -29,7 +29,12 @@
               <option value="{{ language.code }}" aria-label="template language selection" {% if language.code == 'en' %}selected{% endif %}>{{ language.name }}</option>
             {% endfor %}
           </select>
-          {% include 'forms/complaint_view/show/response_template_content.html' %}
+          {% if ENABLED_FEATURES.separate_referrals_workflow %}
+            {% include 'forms/complaint_view/show/contact_complainant.html' %}
+          {% else %}
+            {% include 'forms/complaint_view/show/response_template_content.html' %}
+          {% endif %}
+
           <div class="modal-footer">
             <button disabled id="intake_send" data-email-enabled="{{email_enabled}}" class="usa-button" type="submit" name="type" value="send">Send</button>
             <button disabled id="intake_print" class="usa-button" type="submit" name="type" value="print">Print</button>
