@@ -302,6 +302,49 @@ For staging and prod we use the `medium-psql-redundant` database service. These 
     - Delete database dump file from your local machine
     - Delete `crt-db-old` from cloud.gov
 
+## Setup Jupyter on Cloud Foundry
+
+### Create a Read-only User
+
+Jupyter needs read-only access to the database in order to make queries.
+
+To do this, Django migrations read-only database user on the application database (for a simplified proof of concept and to learn more about how this works, see [this PR](https://github.com/usdoj-crt/crt-portal/pull/1390)).
+
+The migrations happen automatically, but need to be told the username and password to use. To do this, set `POSTGRES_ANALYTICS_USER` and `POSTGRES_ANALYTICS_PASSWORD`:
+
+```shell
+cf target -s {target environment}
+cf set-env crt-portal-django POSTGRES_ANALYTICS_USER {secret username}
+cf set-env crt-portal-django POSTGRES_ANALYTICS_PASSWORD {secret password}
+```
+
+If migrations have already been run, you can either migrate down and up (**which will drop all analytics data**) or add a new migration to create the user.
+
+To migrate down and up, run:
+
+```shell
+cf run-task crt-portal-django -c "python manage.py migrate analytics zero" --name drop-analytics -k 2G
+cf run-task crt-portal-django -c "python manage.py migrate analytics" --name migrate-analytics -k 2G
+```
+
+To add a new migration, use `analytics.models.make_analytics_user`, for example:
+
+```python
+from analytics import models
+
+class Migration(migrations.Migration):
+    ...
+    operations = models.make_analytics_user()
+```
+
+You'll also need to configure Jupyter OAuth, by running:
+
+```
+python manage.py create_jupyter_oauth
+```
+
+and setting using `cf set-env` to persist the variables it produces.
+
 ## Response templates
 
 Response templates (for example, form letters) are used by intake specialists to respond to complaints. These are stored as flat text files with YAML front-matter metadata in this location:

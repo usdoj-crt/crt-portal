@@ -35,11 +35,12 @@ Clone the project locally:
 
     git clone git@github.com:usdoj-crt/crt-portal.git
 
-In the top level directory create a .env file in the top of your directory and add the following environment variables. Set `SECRET_KEY` to a long, random string and `POSTGRES_PASSWORD`, `POSTGRES_ANALYTICS_PASSWORD`.
+In the top level directory create a .env file in the top of your directory and add the following environment variables. Set `SECRET_KEY` to a long, random string and `POSTGRES_PASSWORD`, `POSTGRES_ANALYTICS_PASSWORD`, `POSTGRES_ANALYTICS_USER`.
 
     SECRET_KEY="this_is_a_long_random_string"
     POSTGRES_PASSWORD="rando_pw"
     POSTGRES_ANALYTICS_PASSWORD="some_other_password"
+    POSTGRES_ANALYTICS_USER="some_readonlyuser"
 
 To build the project
     You will need to build the project for the first time and when there are package updates to apply.
@@ -110,10 +111,12 @@ Also note, that the staticfiles folder is the destination of all static assets w
 
 There's a few things to set up before Jupyter can be run:
 
-First, be sure you've set up `POSTGRES_ANALYTICS_PASSWORD` (as mentioned above). You'll need to restart the db instance if you're just getting to this now:
+First, be sure you've set up `POSTGRES_ANALYTICS_PASSWORD` (as mentioned above). You'll need to restart the DB (to pick up the new env variable) and rerun the `analytics` migrations if you're just getting to this now:
 
 ```
 docker compose stop db && docker compose up -d db
+docker compose run web python /code/crt_portal/manage.py migrate analytics zero
+docker compose run web python /code/crt_portal/manage.py migrate analytics
 ```
 
 You'll also need to set the following env to tell Jupyter where to find the Django app:
@@ -132,7 +135,7 @@ Jupyter uses the Portal's auth system to decide who can log in. Because of this,
 The following shows how to do this manually. To do this automatically in the local environment, you can run the following, then skip to restarting Jupyter below:
 
 ```
-docker-compose run web python /code/crt_portal/manage.py create_local_oauth --write-to-env
+docker-compose run web python /code/crt_portal/manage.py create_jupyter_oauth --write-to-env
 ```
 
 First, you'll need to set OAUTH_PROVIDER_CLIENT_ID and OAUTH_PROVIDER_CLIENT_SECRET. This is basically the username and password for Jupyter to "log in" to the portal. To get these:
