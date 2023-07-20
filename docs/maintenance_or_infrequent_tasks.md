@@ -533,6 +533,8 @@ Output, if any, of the command being executed will be be available in the applic
 
 ## Manually running manage.py
 
+Note: Only use this for troubleshooting purposes, if `cf run-task` won't work. The recommended method is to login to cloud.gov ssh console, go to the target space (dev, staging, prod) and cf run-task with appropriate python command.
+
 In the event that period tasks are failing, or that you need to run manage.py from Cloud Foundry (dev, stage, or prod), you can connect to one of the remote instances to troubleshoot and run commands.
 
 Note that this will be one of the actual, user-facing instances - so long-running commands may tie up the instance and cause delays on the site.
