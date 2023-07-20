@@ -531,6 +531,35 @@ Your local output of executing the above command will reflect success or failure
 
 Output, if any, of the command being executed will be be available in the application logs.
 
+## Manually running manage.py
+
+Note: Only use this for troubleshooting purposes, if `cf run-task` won't work. The recommended method is to login to cloud.gov ssh console, go to the target space (dev, staging, prod) and cf run-task with appropriate python command.
+
+In the event that period tasks are failing, or that you need to run manage.py from Cloud Foundry (dev, stage, or prod), you can connect to one of the remote instances to troubleshoot and run commands.
+
+Note that this will be one of the actual, user-facing instances - so long-running commands may tie up the instance and cause delays on the site.
+
+A bit of setup is required to get bash to recognize the python dependencies:
+
+```shell
+cf target -s your_target_environment
+cf ssh crt-portal-django -t -c '\
+    export LD_LIBRARY_PATH="$HOME/deps/1/lib:$HOME/deps/0/lib" && \
+    export PATH="$PATH:$HOME/deps/1/python/bin/" && \
+    cd /home/vcap/app/crt_portal && \
+    exec /bin/bash -li \
+  '
+```
+
+Once you've connected and have a prompt, you can run commands such as:
+
+```shell
+python manage.py generate_repeat_writer_info
+```
+
+For more about the directory structure of deployed instances, see [cloudfoundry's docs](https://docs.cloudfoundry.org/buildpacks/understand-buildpacks.html#droplet-filesystem).
+
+
 ## Updating the U.S. Web Design System
 
 Our front-end stylesheets and UI components are based on the [U.S. Web Design System (USWDS)](https://designsystem.digital.gov/). We want to track updates to the USWDS closely whenever possible in order to adopt the most recent guidance in user experience, developer experience, and accessibility, and to keep our product up-to-date with other modern federal government websites. Update cadence should be roughly 1-2 months, but if we're behind, it's best to update only one minor version at a time (usually okay to include all patch updates) incorporating changes at each step. _Despite following semantic versioning, USWDS v2 can introduce breaking changes at minor versions_.
