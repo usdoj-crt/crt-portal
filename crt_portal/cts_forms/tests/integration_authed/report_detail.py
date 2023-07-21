@@ -1,18 +1,13 @@
 import pytest
 
-from cts_forms.tests.integration_authed.auth import login_as_superuser, get_test_credentials
-from cts_forms.tests.integration_util import console
-from cts_forms.tests.integration_authed.features_per_user import toggle_feature_for_user
+from cts_forms.tests.integration_authed.auth import login_as_superuser
+from cts_forms.tests.integration_util import console, features, admin_models
 
 
 @pytest.mark.only_browser("chromium")
 @console.raise_errors(ignore='404')
+@features.login_as_superuser_with_feature('separate-referrals-workflow')
 def test_contact_complainant_modal(page):
-    """Tests the contact complainant modal."""
-    login_as_superuser(page)
-    username, _ = get_test_credentials()
-    toggle_feature_for_user(page=page, feature_name='separate-referrals-workflow', username=username, enable=True)
-
     page.goto("/form/view")
 
     assert page.is_visible("#filters-form")
@@ -51,6 +46,75 @@ def test_contact_complainant_modal(page):
         assert success == "Email sent: 'CRT - No capacity' to testing@test.com via govDelivery TMS"
     except AssertionError:
         assert success == 'testing@test.com not in allowed domains, not attempting to deliver CRT - No capacity.'
+
+
+@pytest.mark.only_browser("chromium")
+@console.raise_errors(ignore='404')
+@features.login_as_superuser_with_feature('separate-referrals-workflow')
+def test_refer_complainant_modal_no_email(page):
+    admin_models.delete(
+        page,
+        '/admin/cts_forms/responsetemplate',
+        title__contains='Referrals integration test',
+    )
+    admin_models.delete(
+        page,
+        '/admin/cts_forms/referralcontact',
+        machine_name__contains='test-referral-contact-no-email',
+    )
+    admin_models.create(
+        page,
+        '/admin/cts_forms/referralcontact',
+        machine_name='test-referral-contact-no-email',
+        name='Test Referral Contact No Email',
+    )
+    for language in ['en', 'es']:
+        admin_models.create(
+            page,
+            '/admin/cts_forms/responsetemplate',
+            title=f'({language}) Referrals integration test - no agency email',
+            subject=f'Re: [{language}] your referrals test',
+            body=r'{{addressee}}, this should be deleted following a successful test.',
+            language=language,
+            is_html=True,
+            show_in_dropdown=True,
+            referral_contact='Test Referral Contact No Email',
+        )
+    page.goto("/form/view")
+
+    assert page.is_visible("#filters-form")
+
+    page.fill("input[name='contact_first_name']", "Testing")
+    page.fill("input[name='contact_last_name']", "Tester")
+    page.locator('label').filter(has_text="Closed").click()
+    with page.expect_navigation():
+        page.evaluate("document.getElementById('apply-filters-button').click()")
+    with page.expect_navigation():
+        page.evaluate("document.querySelector('.td-link').click()")
+
+    page.locator('button').filter(has_text="Refer complainant").click()
+
+    page.screenshot(path="e2e-screenshots/refer_1_unselected.png", full_page=True)
+    assert page.locator('.current-step[aria-label="Current step one of three: Complainant Letter"]').filter(has_text="Complainant letter").is_visible()
+    assert page.locator('.future-step[aria-label="Future step two of three: Agency Letter"]').filter(has_text="Agency letter").is_visible()
+    assert page.locator('.future-step[aria-label="Future step three of three: Review and Send"]').filter(has_text="Review and send").is_visible()
+    assert page.locator('.card-header').innerText == 'Complainant letter'
+    assert page.locator('select').filter(has_text="English").input_value().strip() == 'English'
+    assert page.locator('select').filter(has_text="[Select an agency]").is_visible()
+    assert page.get_by_text('Email:').text_content().strip() == 'Email: testing@test.com'
+    assert page.get_by_text('Subject:').text_content().strip() == 'Subject:'
+    assert page.locator('#intake_letter_html').text_content().strip() == ''
+
+    page.locator('button').filter(has_text="Next").click()
+    page.screenshot(path="e2e-screenshots/refer_1_agency_required.png", full_page=True)
+    assert page.get_by_text('Agency is required').is_visible()
+    assert page.locator('.current-step[aria-label="Current step one of three: Complainant Letter"]').filter(has_text="Complainant letter").is_visible()
+
+    page.locator('select').filter(has_text="English").select_option('Spanish')
+    assert page.locator('select').filter(has_text="[Select an agency]").locator('option').count == 1
+    page.locator('select').filter(has_text="[Select an agency]").select_option('(es) Referrals integration test - no agency email')
+    assert page.get_by_text('Subject:').text_content().strip() == 'Subject: Re: [es] your referrals test'
+    page.wait_for_selector('#intake_letter_html:has-text("Dear Testing Tester")')
 
 
 @pytest.mark.only_browser("chromium")
