@@ -1,11 +1,12 @@
 import pytest
 
-from auth import login_as_superuser, get_test_credentials
-from features_per_user import toggle_feature_for_user
+from cts_forms.tests.integration_authed.auth import login_as_superuser, get_test_credentials
+from cts_forms.tests.integration_util import console
+from cts_forms.tests.integration_authed.features_per_user import toggle_feature_for_user
 
 
 @pytest.mark.only_browser("chromium")
-@pytest.mark.only
+@console.raise_errors(ignore='404')
 def test_contact_complainant_modal(page):
     """Tests the contact complainant modal."""
     login_as_superuser(page)
@@ -53,6 +54,7 @@ def test_contact_complainant_modal(page):
 
 
 @pytest.mark.only_browser("chromium")
+@console.raise_errors()
 def test_click_back_to_all(page):
     """Opens report detail page and goes back to reports page"""
 
@@ -96,7 +98,7 @@ def test_click_back_to_all(page):
 
     pagination = page.locator('.usa-pagination > span').text_content().strip()
     assert pagination == '2 of ' + total_results + ' records'
-    page.screenshot(path="report_detail_test_6.png", full_page=True)
+    page.screenshot(path="e2e-screenshots/report_detail_test_6.png", full_page=True)
     with page.expect_navigation():
         page.locator('.outline-button--dark').click()
     page.screenshot(path="e2e-screenshots/report_detail_test_7.png", full_page=True)

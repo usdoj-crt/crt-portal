@@ -1,7 +1,10 @@
 import pytest
 
+from cts_forms.tests.integration_util import console
+
 
 @pytest.mark.only_browser("chromium")
+@console.raise_errors()
 def test_education_accordion(page):
     page.goto('/')
 

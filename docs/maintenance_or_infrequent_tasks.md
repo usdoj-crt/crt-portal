@@ -524,7 +524,7 @@ Here's an example of executing the `refresh_trends` management command.
 ```bash
 # Authenticate and target the desired space (dev, staging, or prod)
 # Then, submit a task to run the `refresh_trends` management command with:
-cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends
+cf run-task crt-portal-django -c "python crt_portal/manage.py refresh_trends" --name refresh-trends -k 2G
 ```
 
 Your local output of executing the above command will reflect success or failure of the task's submission.

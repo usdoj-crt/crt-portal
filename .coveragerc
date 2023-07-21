@@ -4,5 +4,5 @@ omit =
     # omit anything in a tests directory
     */migrations/*
     */integration/*
-    */integration-authed/*
+    */integration_authed/*
     */tests.py

@@ -1,7 +1,10 @@
 import pytest
 
+from cts_forms.tests.integration_util import console
+
 
 @pytest.mark.only_browser("chromium")
+@console.raise_errors(ignore='422')
 def test_error_if_form_refreshed(page, base_url):
 
     def next_step():
@@ -29,6 +32,7 @@ def test_error_if_form_refreshed(page, base_url):
 
 
 @pytest.mark.only_browser("chromium")
+@console.raise_errors()
 def test_report_complete_and_valid_submission(page):
 
     def next_step():
