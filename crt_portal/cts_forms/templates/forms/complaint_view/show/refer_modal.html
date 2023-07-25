@@ -1,0 +1,32 @@
+{% load i18n %}
+
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+
+<form class="usa-form" id="referral_modal_form">
+  {% csrf_token %}
+  <input type="hidden" value="{{ return_url_args }}" name="next" id="referral_modal_next" />
+  <input type="hidden" value="{{ data.id }}" name="id" id="referral_report_id" />
+  <div id="intake_referral_modal" hidden>
+    <div class="modal-wrapper intake-template--modal">
+      <div class="modal-content modal-content--large">
+        <div class="modal-header">
+          <h1>Refer complaint</h1>
+        </div>
+        <div class="modal-form">
+          <div class="modal-step step-1 complainant-letter">
+            <h2>Complainant letter</h2>
+            <div class="modal-step-content">
+              {% include 'forms/complaint_view/show/refer_modal_complainant_letter.html' %}
+            </div>
+          </div>
+
+          <div class="modal-footer">
+            <button class="usa-button referral-next" type="button">Next</button>
+            <button class="usa-button cancel usa-button--unstyled">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

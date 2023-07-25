@@ -37,6 +37,19 @@ body.is-modal {
     @include u-shadow(3);
   }
 
+  .modal-step-content {
+    background-color: #ECF1F7;
+    padding: 16px;
+    margin-bottom:16px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 4rem);
+
+    textarea {
+      background-color: white;
+    }
+  }
+
   .modal-content--small {
     width: 90%;
     padding: 1rem;
@@ -72,6 +85,12 @@ body.is-modal {
   }
 
   .modal-form {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 4rem);
+  }
+
+  .modal-step {
     display: flex;
     flex-direction: column;
     height: calc(100% - 4rem);
@@ -120,14 +139,14 @@ body.is-modal {
     min-height: 2rem;
   }
 
-  #response-modal-form {
+  #response-modal-form,.modal-form {
     p {
       margin-top: 0px;
       margin-bottom: 1rem;
     }
   }
 
-  #template-language-select {
+  #template-language-select,.language-select {
     width: 50%;
     margin-bottom: 1rem;
   }
@@ -137,14 +156,14 @@ body.is-modal {
     margin-bottom: 1rem;
   }
 
-  #intake_letter {
+  #intake_letter,.letter-plaintext {
     padding: 0 1rem;
     width: 100%;
     flex-grow: 1;
     @include u-radius('md');
   }
 
-  #intake_letter_html {
+  #intake_letter_html,.letter-html {
     overflow-y: auto;
     overflow-x: hidden;
     padding: 1em;
