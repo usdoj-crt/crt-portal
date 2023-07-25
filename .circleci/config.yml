@@ -103,6 +103,10 @@ jobs:
           command: |
             pipenv run crt_portal/manage.py compilemessages
       - run:
+          name: create mock reports
+          command: |
+            pipenv run crt_portal/manage.py create_mock_reports 100
+      - run:
           name: run server for tests
           environment:
             DEBUG: true
@@ -133,8 +137,9 @@ jobs:
           name: Authed E2E tests
           environment:
             PUPPETEER_EXECUTABLE_PATH: /usr/bin/google-chrome
-          command: pipenv run pytest crt_portal/cts_forms/tests/integration-authed/*.py --base-url=http://localhost:8000
-
+          command: pipenv run pytest crt_portal/cts_forms/tests/integration_authed/*.py --base-url=http://localhost:8000
+      - store_artifacts:
+          path: ./e2e-screenshots
   e2e-test-dev:
     description: Runs E2E tests against dev
     working_directory: ~/code
@@ -397,21 +402,22 @@ jobs:
       # Refresh the trend view task in prod deactivated
       # - run:
       #    name: Refresh trends view
-      #    command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends
+      #    command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends -k 2G
       # Mark by_repeat_writer true on reports that were submitted by repeat writers or which have violation summaries identical to other reports
       - run:
           name: Flag reports submitted by repeat writers or that have violation summaries identical to other reports
-          command: cf run-task crt-portal-django -c "python crt_portal/manage.py flag_repeat_writers" --name flag-repeat-writers
+          command: cf run-task crt-portal-django -c "python crt_portal/manage.py flag_repeat_writers" --name flag-repeat-writers -k 2G
       # Clear expired sessions in staging session table
       - run:
           name: clearsessions management command
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions
-      - run:
-          name: generate yearly reports command
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_yearly_reports" --name generate-yearly-reports
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions -k 2G
+      #
+      # - run:
+      #     name: generate yearly reports command
+      #     command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_yearly_reports" --name generate-yearly-reports -k 2G
       - run:
           name: generate repeat_writer_info
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_writer_info" --name generate-repeat-writer-info
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_writer_info" --name generate-repeat-writer-info -k 2G
 
   staging-maintenance-tasks:
     docker:
@@ -430,25 +436,25 @@ jobs:
       # Refresh the form letters sent view in staging
       - run:
           name: Refresh form letters sent view
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_form_letters_sent_view" --name refresh-form-letters-sent-view
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_form_letters_sent_view" --name refresh-form-letters-sent-view -k 2G
       # Mark by_repeat_writer true on reports that were submitted by repeat writers or which have violation summaries identical to other reports
       - run:
           name: Flag reports submitted by repeat writers or that have violation summaries identical to other reports
-          command: cf run-task crt-portal-django -c "python crt_portal/manage.py flag_repeat_writers" --name flag-repeat-writers
+          command: cf run-task crt-portal-django -c "python crt_portal/manage.py flag_repeat_writers" --name flag-repeat-writers -k 2G
       # Refresh the trend view in staging deactivated
       # - run:
       #     name: Refresh trends view
-      #     command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends
+      #     command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends -k 2G
       # Clear expired sessions in staging session table
       - run:
           name: clearsessions management command
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions -k 2G
       - run:
           name: generate yearly reports command
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_yearly_reports" --name generate-yearly-reports
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_yearly_reports" --name generate-yearly-reports -k 2G
       - run:
           name: generate repeat_writer_info
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_writer_info" --name generate-repeat-writer-info
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_writer_info" --name generate-repeat-writer-info -k 2G
 
   dev-maintenance-tasks:
     docker:
@@ -467,25 +473,25 @@ jobs:
       # Refresh the form letters sent view in dev
       - run:
           name: Refresh form letters sent view
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_form_letters_sent_view" --name refresh-form-letters-sent-view
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_form_letters_sent_view" --name refresh-form-letters-sent-view -k 2G
       # Mark by_repeat_writer true on reports that were submitted by repeat writers or which have violation summaries identical to other reports
       - run:
           name: Flag reports submitted by repeat writers or that have violation summaries identical to other reports
-          command: cf run-task crt-portal-django -c "python crt_portal/manage.py flag_repeat_writers" --name flag-repeat-writers
+          command: cf run-task crt-portal-django -c "python crt_portal/manage.py flag_repeat_writers" --name flag-repeat-writers -k 2G
       # Refresh the trend view in dev deactivated
       # - run:
       #    name: Refresh trends view
-      #    command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends
+      #    command: cf run-task crt-portal-django  -c "python crt_portal/manage.py refresh_trends" --name refresh-trends -k 2G
       # Clear expired sessions in staging session table
       - run:
           name: clearsessions management command
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py clearsessions" --name clear-sessions -k 2G
       - run:
           name: generate yearly reports command
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_yearly_reports" --name generate-yearly-reports
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_yearly_reports" --name generate-yearly-reports -k 2G
       - run:
           name: generate repeat_writer_info
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_writer_info" --name generate-repeat-writer-info
+          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_writer_info" --name generate-repeat-writer-info -k 2G
 
 commands:
   acquire-lock:

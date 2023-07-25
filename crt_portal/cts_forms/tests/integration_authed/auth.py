@@ -24,6 +24,7 @@ def login_as_superuser(page) -> str:
         page.evaluate("document.querySelector('input[type=\"submit\"]').click()")
 
     # If we're not auth'd, this will say "Log in | ...":
+    # Make sure to run manage.py create_test_user if your test is failing here!
     assert page.title() == "Site administration | Django site admin"
 
     return username

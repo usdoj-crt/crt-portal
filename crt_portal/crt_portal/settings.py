@@ -370,6 +370,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'https://touchpoints.app.cloud.gov',
         'https://dap.digitalgov.gov',
         'https://www.google-analytics.com',
+        'https://stats.g.doubleclick.net',
         'https://www.googletagmanager.com/',
     )
     # headers required for security
@@ -388,6 +389,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'civilrights.justice.gov',
         'https://dap.digitalgov.gov',
         'https://www.google-analytics.com',
+        'https://stats.g.doubleclick.net',
         'https://touchpoints.app.cloud.gov',
         'https://www.googletagmanager.com/',
     )
@@ -398,6 +400,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'civilrights.justice.gov',
         'https://dap.digitalgov.gov',
         'https://www.google-analytics.com',
+        'https://stats.g.doubleclick.net',
         'https://touchpoints.app.cloud.gov',
         'https://www.googletagmanager.com/',
     )

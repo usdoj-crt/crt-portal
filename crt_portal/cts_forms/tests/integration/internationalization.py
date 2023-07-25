@@ -1,7 +1,10 @@
 import pytest
 
+from cts_forms.tests.integration_util import console
+
 
 @pytest.mark.only_browser("chromium")
+@console.raise_errors()
 def test_select_english_from_banner(page):
     page.goto('/')
 
@@ -16,6 +19,7 @@ def test_select_english_from_banner(page):
 
 
 @pytest.mark.only_browser("chromium")
+@console.raise_errors()
 def test_select_spanish_from_banner(page):
     page.goto('/')
 
@@ -30,6 +34,7 @@ def test_select_spanish_from_banner(page):
 
 
 @pytest.mark.only_browser("chromium")
+@console.raise_errors()
 def test_select_english_from_mobile_menu(page):
     page.set_viewport_size({'width': 800, 'height': 1200})
 
@@ -49,6 +54,7 @@ def test_select_english_from_mobile_menu(page):
 
 
 @pytest.mark.only_browser("chromium")
+@console.raise_errors()
 def test_select_spanish_from_mobile_menu(page):
     page.set_viewport_size({'width': 800, 'height': 1200})
 

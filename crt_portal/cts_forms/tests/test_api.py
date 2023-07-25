@@ -421,3 +421,38 @@ class APIRelatedReportsTests(TestCase):
         self.assertTrue('recent_email_sent' in str(response.content))
         self.assertTrue('create_date' in str(response.content))
         self.assertTrue('email' in str(response.content))
+
+
+class APIReferralResponseTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
+        self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
+        self.template = ResponseTemplate.objects.create(**SAMPLE_RESPONSE_TEMPLATE)
+        self.url = reverse("api:referral-response")
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_referral_response(self):
+        """Makes sure our route for sending referral emails works."""
+        self.client.login(username="DELETE_USER", password="")  # nosec
+        response = self.client.post(
+            self.url,
+            {"report_id": self.test_report.id, "template_id": self.template.id, "action": "send"}
+        )
+        self.assertTrue(
+            "email template" in str(response.content, 'utf-8')
+        )
+
+    def test_unauthenticated_referral_response_url(self):
+        """test report detail not logged in"""
+        self.client.logout()
+        response = self.client.post(
+            self.url,
+            {"report_id": self.test_report.id, "template_id": self.template.id, "action": "send"}
+        )
+        self.assertTrue(
+            "Authentication credentials were not provided" in str(response.content)
+        )
+        self.assertEqual(response.status_code, 403)

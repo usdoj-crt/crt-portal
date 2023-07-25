@@ -1,4 +1,7 @@
+import os
 from django.core.management.base import BaseCommand
+from cts_forms.mail import crt_send_mail
+from tms.models import TMSEmail
 from cts_forms.models import FormLettersSent
 from cts_forms.tests.factories import ReportFactory
 from datetime import datetime
@@ -6,7 +9,7 @@ from pytz import timezone
 import random
 from cts_forms.signals import salt
 from cts_forms.models import EmailReportCount, ProtectedClass, Campaign, ResponseTemplate
-from cts_forms.model_variables import PROTECTED_MODEL_CHOICES, DISTRICT_CHOICES
+from cts_forms.model_variables import PROTECTED_MODEL_CHOICES, DISTRICT_CHOICES, STATUTE_CHOICES
 from cts_forms.forms import add_activity
 from django.contrib.auth.models import User
 from random import randrange
@@ -49,6 +52,10 @@ class Command(BaseCommand):  # pragma: no cover
         parser.add_argument('number_reports')
 
     def handle(self, *args, **options):
+        environment = os.environ.get('ENV', 'UNDEFINED')
+        if environment not in ['LOCAL', 'UNDEFINED', 'STAGE', 'DEVELOP']:
+            self.stdout.write(self.style.NOTICE(f'Cannot create mock reports in {environment}'))
+            return
         number_reports = int(options["number_reports"])
         random_form_letters = random.choices(population=self.forms, weights=self.weights, k=number_reports)  # nosec
 
@@ -77,6 +84,14 @@ class Command(BaseCommand):  # pragma: no cover
             report.create_date = date
             salt_chars = salt()
             report.public_id = f'{report.pk}-{salt_chars}'
+            title = random_form_letters[i].get('title')
+
+            dj_number_chance = random.randint(1, 100)  # nosec
+            if dj_number_chance > 90:
+                statute = random.choice(STATUTE_CHOICES)[0]  # nosec
+                district = random.choice(DISTRICT_CHOICES)[0]  # nosec
+                sequence = random.randint(1, 9999)  # nosec
+                report.dj_number = f'{statute}-{district}-{sequence}'
 
             campaign_chance = random.randint(1, 100)  # nosec
             if campaign_chance > 75:
@@ -108,7 +123,7 @@ class Command(BaseCommand):  # pragma: no cover
             # 3%
             elif rand <= 3:
                 report.contact_email = "frequentflier2@test.test"
-                add_activity(user1, 'Contacted complainant:', f"Copied '{random_form_letters[i]}' template", report)
+                add_activity(user1, 'Contacted complainant:', f"Copied '{title}' template", report)
                 protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[5][0])
                 protected_example2 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[6][0])
                 protected_example3 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[7][0])
@@ -122,7 +137,7 @@ class Command(BaseCommand):  # pragma: no cover
             # 6%
             elif rand <= 6:
                 report.contact_email = "frequentflier3@test.test"
-                add_activity(user2, 'Contacted complainant:', f"Printed '{random_form_letters[i]}' template", report)
+                add_activity(user2, 'Contacted complainant:', f"Printed '{title}' template", report)
                 protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[8][0])
                 protected_example2 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[9][0])
                 protected_example3 = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[10][0])
@@ -138,11 +153,13 @@ class Command(BaseCommand):  # pragma: no cover
                 if report.assigned_section != 'DRS':
                     add_activity(user3, 'Assigned section:', f'Updated from "{report.assigned_section}" to "DRS"', report)
                     report.assigned_section = 'DRS'
-                add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
-                add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
-                add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
-                add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
-                add_activity(user3, 'Contacted complainant:', f"Email sent: '{random_form_letters[i]}' to {report.contact_email} via govDelivery TMS", report)
+                add_activity(user3, 'Contacted complainant:', f"Email sent: '{title}' to {report.contact_email} via govDelivery TMS", report)
+                add_activity(user3, 'Contacted complainant:', f"Email sent: '{title}' to {report.contact_email} via govDelivery TMS", report)
+                add_activity(user3, 'Contacted complainant:', f"Email sent: '{title}' to {report.contact_email} via govDelivery TMS", report)
+                add_activity(user3, 'Contacted complainant:', f"Email sent: '{title}' to {report.contact_email} via govDelivery TMS", report)
+                add_activity(user3, 'Contacted complainant:', f"Email sent: '{title}' to {report.contact_email} via govDelivery TMS", report)
+                template = ResponseTemplate.objects.get(**random_form_letters[i])
+                crt_send_mail(report, template, TMSEmail.MANUAL_EMAIL, dry_run=True)
                 protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[0][0])
                 report.protected_class.add(protected_example)
                 report.district = random_dist()

@@ -1,5 +1,7 @@
 import pytest
 
+from cts_forms.tests.integration_util import console
+
 
 @pytest.fixture(scope="function")
 def browser_context_args(browser_context_args):
@@ -10,6 +12,7 @@ def browser_context_args(browser_context_args):
 
 
 @pytest.mark.only_browser("chromium")
+@console.raise_errors()
 def test_unsupported_browser_modal_visible(page):
 
     page.goto("/report")
