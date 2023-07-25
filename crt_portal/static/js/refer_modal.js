@@ -70,6 +70,7 @@
     getOpenModalButton().addEventListener('click', showModal);
     root.CRT.cancelModal(getModal(), getCloseModalButton());
     initLanguage();
+    root.CRT.refreshSteps(getModal());
   }
 
   initModal();

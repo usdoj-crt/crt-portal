@@ -14,11 +14,29 @@
           <h1>Refer complaint</h1>
         </div>
         <div class="modal-form">
-          <div class="modal-step step-1 complainant-letter">
-            <h2>Complainant letter</h2>
+          {% include 'partials/steps.html' %}
+
+          <div data-step="1" class="modal-step complainant-letter">
+            <h2 class="step-text">Complainant letter</h2>
             <div class="modal-step-content">
               {% include 'forms/complaint_view/show/refer_modal_complainant_letter.html' %}
             </div>
+          </div>
+
+          <div data-step="2" class="modal-step agency-letter">
+            <h2 class="step-text">Agency letter</h2>
+          </div>
+
+          <div data-step="3" class="modal-step review-and-send">
+            <h2 class="step-text">Review and send</h2>
+          </div>
+
+          <div data-step="4" class="modal-step review-and-send">
+            <h2 class="step-text">Woot woot</h2>
+          </div>
+
+          <div data-step="5" class="modal-step review-and-send">
+            <h2 class="step-text">Woof woof</h2>
           </div>
 
           <div class="modal-footer">
