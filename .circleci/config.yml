@@ -322,7 +322,7 @@ jobs:
       - run:
           name: Deploy crt-portal-django to staging
           no_output_timeout: 20m
-          command: cf8 push crt-portal-django --strategy rolling --app-start-timeout 600 -f ${CF_MANIFEST}
+          command: cf8 push crt-portal-django --strategy rolling --app-start-timeout 300 -f ${CF_MANIFEST}
 
   deploy-prod:
     working_directory: ~/code
@@ -380,7 +380,7 @@ jobs:
       - run:
           name: Deploy crt-portal-django to production
           no_output_timeout: 20m
-          command: cf8 push crt-portal-django --strategy rolling --app-start-timeout 600 -f ${CF_MANIFEST}
+          command: cf8 push crt-portal-django --strategy rolling --app-start-timeout 300 -f ${CF_MANIFEST}
 
   prod-maintenance-tasks:
     docker:
