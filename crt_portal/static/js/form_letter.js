@@ -34,26 +34,6 @@
     });
   }
 
-  function addReferralAddress(referral_contact) {
-    const addressee = document.getElementById('form-letterhead--addressee');
-    const deptAddressee = document.getElementById('form-letterhead--dept-addressee');
-
-    if (deptAddressee) {
-      deptAddressee.remove();
-    }
-
-    if (!addressee) return;
-
-    const addressee_text = referral_contact?.addressee_text;
-    if (!addressee_text) return;
-
-    const newDeptAddressee = document.createElement('p');
-    newDeptAddressee.id = 'form-letterhead--dept-addressee';
-    newDeptAddressee.innerText = addressee_text;
-
-    addressee.parentNode.insertBefore(newDeptAddressee, addressee);
-  }
-
   document.addEventListener('DOMContentLoaded', function() {
     // `marked` should be loaded in global context at this point.
     if (marked) {
@@ -114,28 +94,16 @@
   selects.forEach(select =>
     select.addEventListener('change', function(event) {
       event.preventDefault();
-      const index = event.target.selectedIndex;
-      const option = event.target.options[index];
-      const value = event.target.value;
-      window
-        .fetch('/api/responses/' + value + '/?report_id=' + reportId)
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(data) {
+      root.CRT.renderTemplatePreview(modal, {
+        reportId,
+        responseTemplate: event.target.value,
+        htmlBox: letter_html,
+        plaintextBox: letter,
+        afterRendered: data => {
           description.innerHTML = data.subject || '[Select response letter]';
-          if (data.is_html) {
-            letter.hidden = true;
-            letter_html.hidden = false;
-            letter_html.innerHTML = marked.parse(data.body || '');
-          } else {
-            letter_html.hidden = true;
-            letter.hidden = false;
-            letter.innerHTML = data.body || '';
-          }
-          addReferralAddress(data.referral_contact);
-        });
-      if (index >= 1) {
+        }
+      });
+      if (event.target.selectedIndex >= 1) {
         copy.removeAttribute('disabled');
         print.removeAttribute('disabled');
         if (email_enabled && has_contact_email) {

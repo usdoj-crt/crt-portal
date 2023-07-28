@@ -5,9 +5,11 @@
   {% endfor %}
 </select>
 
-Refer complaint to
-
-{{ responses.templates_referral }}
+<div class="modal-field template-field">
+  Refer complaint to
+  <p class="error-message"></p>
+  {{ responses.templates_referral }}
+</div>
 
 {% if not data.contact_email %}
 
