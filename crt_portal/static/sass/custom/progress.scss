@@ -40,13 +40,9 @@ $outline: color('white');
   }
 }
 
-.modal-form {
+.modal-wrapper {
   $circle-diameter: 2.5rem;
   $circle-border-width: 4px;
-
-  div[aria-label="progress"] {
-    margin-bottom: 1rem;
-  }
 
   .connecting-line  {
     bottom: unset;

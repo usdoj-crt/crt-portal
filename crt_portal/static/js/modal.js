@@ -80,7 +80,7 @@
       nextStepIdPrefix++;
     }
     const stepIdPrefix = modal.dataset.stepIdPrefix;
-    stepNavs = modal.querySelector('div[aria-label="progress"] .steps');
+    stepNavs = getProgress(modal);
     const container = stepNavs.parentElement;
 
     [...container.querySelectorAll('.connecting-line')].forEach(line =>
@@ -114,13 +114,17 @@
     if (modal.dataset.stepsInitialized) return;
 
     onUseButton(modal.querySelector('button.next'), () => {
-      const steps = modal.querySelector('[aria-label="progress"] .steps');
+      const steps = getProgress(modal);
       const currentStep = Number(steps.dataset.currentStep);
       const targetStep = currentStep + 1;
       goToStep({ modal, targetStep, validateModal });
     });
 
     modal.dataset.stepsInitialized = true;
+  }
+
+  function getProgress(modal) {
+    return modal.querySelector('.progress .steps');
   }
 
   function initStepPage({
@@ -219,7 +223,7 @@
   }
 
   function canGoToStep({ modal, targetStep, validateModal }) {
-    const steps = modal.querySelector('[aria-label="progress"] .steps');
+    const steps = getProgress(modal);
     const numSteps = steps.querySelectorAll('.step').length;
     if (targetStep > numSteps) return false;
     const currentStep = Number(steps.dataset.currentStep);
@@ -229,7 +233,7 @@
 
   function goToStep({ modal, targetStep, validateModal }) {
     if (!canGoToStep({ modal, targetStep, validateModal })) return;
-    modal.querySelector('[aria-label="progress"] .steps').dataset.currentStep = targetStep;
+    getProgress(modal).dataset.currentStep = targetStep;
     root.CRT.renderSteps(modal, validateModal);
   }
 })(window, document);

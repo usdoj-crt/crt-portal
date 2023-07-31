@@ -401,6 +401,9 @@ hr {
 }
 
 .intake-tabbed-area {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
 
   nav ul {
     list-style: none;
@@ -419,7 +422,6 @@ hr {
   }
 
   select.intake-select {
-    margin-bottom: 16px;
     width: 100%;
   }
 
@@ -495,6 +497,9 @@ hr {
   }
 
   .intake-tab-content {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
     background-color: #ECF1F7;
     padding: 16px;
     margin-bottom:16px;

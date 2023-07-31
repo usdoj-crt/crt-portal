@@ -30,11 +30,24 @@ body.is-modal {
     display: none;
   }
 
+  .modal-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
   .modal-content {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    gap: 1rem;
     position: relative;
     background: white;
     @include u-radius('md');
     @include u-shadow(3);
+    p {
+      margin: 0;
+    }
   }
 
   .modal-step-content {
@@ -43,7 +56,8 @@ body.is-modal {
     margin-bottom:16px;
     display: flex;
     flex-direction: column;
-    height: calc(100% - 4rem);
+    overflow: auto;
+    gap: 1rem;
 
     textarea {
       background-color: white;
@@ -52,6 +66,7 @@ body.is-modal {
 
   .modal-content--small {
     width: 90%;
+    overflow: auto;
     padding: 1rem;
     @include at-media(tablet) {
       width: 85%;
@@ -64,8 +79,11 @@ body.is-modal {
   }
 
   .modal-content--large {
+    display: flex;
+    gap: 0;
     width: 80%;
     height: 60%;
+    overflow: auto;
     min-height: 40rem; // a11y: don't collapse modal
     padding: 2rem;
     @include at-media(tablet) {
@@ -81,24 +99,32 @@ body.is-modal {
   .modal-main {
     display: flex;
     flex-direction: column;
+    overflow: auto;
+    gap: 1rem;
     flex-grow: 1;
   }
 
   .modal-form {
     display: flex;
     flex-direction: column;
+    overflow: auto;
+    flex-grow: 1;
+    gap: 1rem;
   }
 
   .modal-step {
     display: flex;
     flex-direction: column;
-    height: calc(100% - 4rem);
+    overflow: auto;
+    flex-grow: 1;
+    gap: 1rem;
   }
 
   .modal-guide {
     display: flex;
     flex-direction: column;
-    height: calc(100% - 4rem);
+    overflow: auto;
+    gap: 1rem;
     overflow-y: scroll;
     border-bottom: 1px solid color($theme-color-primary-darker);
   }
@@ -119,10 +145,6 @@ body.is-modal {
     min-height: 40rem; // a11y: don't collapse modal
     padding: 2rem;
   }
-
-  .modal-footer {
-    margin-top: 0.5rem;
-  }
 }
 
 .intake-template--modal {
@@ -138,21 +160,12 @@ body.is-modal {
     min-height: 2rem;
   }
 
-  #response-modal-form,.modal-form {
-    p {
-      margin-top: 0px;
-      margin-bottom: 1rem;
-    }
-  }
-
   #template-language-select,.language-select {
     width: 50%;
-    margin-bottom: 1rem;
   }
 
   .intake-select {
     width: 50%;
-    margin-bottom: 1rem;
   }
 
   #intake_letter,.letter-plaintext {
@@ -167,8 +180,9 @@ body.is-modal {
     overflow-x: hidden;
     padding: 1em;
     width: 100%;
-    height: 220px;
+    flex-grow: 1;
     border: 1px solid black;
+    background-color: white;
     @include u-radius('md');
   }
 }

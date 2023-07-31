@@ -206,8 +206,13 @@
     const modal = getModal();
     const openButton = getOpenModalButton();
     const cancelButton = getCloseModalButton(modal);
+    if (!openButton || !modal) return;
     openButton.addEventListener('click', event => showModal(event, modal));
-    cancelButton.addEventListener('click', () => reset(modal));
+    cancelButton.addEventListener('click', () => {
+      reset(modal);
+      modal.querySelector('.progress .steps').dataset.currentStep = 1;
+      root.CRT.renderSteps(modal, validateModal);
+    });
     root.CRT.cancelModal(modal, cancelButton);
     initLanguage(modal);
     initAgencySelect(modal);

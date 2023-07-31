@@ -1,6 +1,18 @@
 (function(root, dom) {
   root.CRT = root.CRT || {};
 
+  document.addEventListener('DOMContentLoaded', function() {
+    // `marked` should be loaded in global context at this point.
+    if (marked) {
+      marked.setOptions({
+        gfm: true,
+        breaks: true
+      });
+    } else {
+      console.error('marked.js parser not loaded');
+    }
+  });
+
   function addReferralAddress(referral_contact) {
     const addressee = document.getElementById('form-letterhead--addressee');
     const deptAddressee = document.getElementById('form-letterhead--dept-addressee');
