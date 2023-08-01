@@ -206,7 +206,7 @@
 
   function makeStepAccessible({ stepNavs, stepNav, stepPage, stepText }) {
     stepNavs.setAttribute('role', 'tablist');
-    stepNav.setAttribute('aria-label', stepText);
+    stepNav.setAttribute('aria-label', stepText.innerText);
     stepNav.setAttribute('role', 'tab');
     stepPage.setAttribute('role', 'tabpanel');
     stepNav.setAttribute('aria-controls', stepPage.id);

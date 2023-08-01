@@ -22,19 +22,19 @@
 
 {% else %}
 
-<p>
+<p tabindex="0">
   <strong>Email:</strong>
   <strong class="contact-email" data-email="{{data.contact_email|default_if_none:''}}">
     {{data.contact_email|default_if_none:""}}
   </strong>
 </p>
 
-<p>
+<p tabindex="0">
   <strong>Subject:</strong>
   <strong class="subject">[Select response letter]</strong>
 </p>
 
 {% endif %}
 
-<div class="letter-html form-letter" hidden></div>
-<textarea disabled aria-label="Preview of the response to the complainant" class="letter-plaintext" rows="8" cols="80"></textarea>
+<div tabindex="0" class="letter-html form-letter" hidden></div>
+<textarea tabindex="0" disabled aria-label="Preview of the response to the complainant" class="letter-plaintext" rows="8" cols="80"></textarea>
