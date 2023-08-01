@@ -87,3 +87,9 @@ SAMPLE_RESPONSE_TEMPLATE = {
     "subject": "test data with record {{ record_locator }}",
     "body": "test template with record {{ record_locator }}",
 }
+
+SAMPLE_RESPONSE_TEMPLATE_2 = {
+    "title": "test 2",
+    "subject": "test 2 data with record {{ record_locator }}",
+    "body": "test 2 template with record {{ record_locator }}",
+}

@@ -2,6 +2,7 @@
 These are the forms that appear on the individual report page to update a report.
 See test_intake_forms.py for tests of the general form and the pro form.
 """
+import json
 import secrets
 import urllib.parse
 
@@ -15,11 +16,13 @@ from django.utils.http import urlencode
 
 from datetime import datetime
 
+from cts_forms.mail import build_referral_content
+
 from ..forms import BulkActionsForm, ComplaintActions, Filters, ReportEditForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, NEW_STATUS
 from ..models import CommentAndSummary, Report, ResponseTemplate, EmailReportCount
 from .factories import ReportFactory
-from .test_data import SAMPLE_REPORT_1, SAMPLE_RESPONSE_TEMPLATE
+from .test_data import SAMPLE_REPORT_1, SAMPLE_RESPONSE_TEMPLATE, SAMPLE_RESPONSE_TEMPLATE_2
 
 
 class ActionTests(TestCase):
@@ -1174,3 +1177,28 @@ class SimpleFilterFormTests(TestCase):
         data = QueryDict('assigned_section=ADM&assigned_section=<script>alert()</script>')
         form = Filters(data)
         self.assertEqual({'ADM'}, form.get_section_filters)
+
+
+class ReferralEmailContentTests(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
+        self.template = ResponseTemplate.objects.create(**SAMPLE_RESPONSE_TEMPLATE)
+        self.template2 = ResponseTemplate.objects.create(**SAMPLE_RESPONSE_TEMPLATE_2)
+        self.test_pass = secrets.token_hex(32)
+        self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
+        self.client.login(username='DELETE_USER', password=self.test_pass)
+        self.complainant_letter_url = reverse("api:response-detail", kwargs={"pk": self.template.id})
+        self.referral_letter_url = reverse("api:response-detail", kwargs={"pk": self.template2.id})
+
+    def tearDown(self):
+        self.user.delete()
+
+    def test_build_referral_content(self):
+        complainant_response = self.client.get(self.complainant_letter_url + f"?report_id={self.test_report.id}")
+        referral_response = self.client.get(self.referral_letter_url + f"?report_id={self.test_report.id}")
+        content = build_referral_content(json.loads(complainant_response.content)['body'], json.loads(referral_response.content)['body'], self.test_report)
+        self.assertTrue('test template' in content)
+        self.assertTrue('test 2 template' in content)
+        self.assertTrue('Lincoln' in content)

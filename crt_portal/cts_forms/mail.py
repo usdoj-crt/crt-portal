@@ -103,3 +103,44 @@ def crt_send_mail(report, template, purpose=TMSEmail.MANUAL_EMAIL, dry_run=False
              purpose=purpose
              ).save()
     return send_results
+
+
+def build_referral_content(complainant_letter_body, referral_letter_body, report):
+    data = {
+        'referral_letter': referral_letter_body,
+        'complainant_letter': complainant_letter_body,
+        'contact_address_line_1': report.contact_address_line_1,
+        'contact_address_line_2': report.contact_address_line_2,
+        'contact_city': report.contact_city,
+        'contact_state': report.contact_state,
+        'contact_zip': report.contact_zip,
+        'contact_phone': report.contact_phone,
+        'contact_email': report.contact_email,
+        'primary_complaint': report.primary_complaint,
+        'hate_crime': report.hate_crime,
+        'commercial_or_public_place': report.commercial_or_public_place,
+        'location_name': report.location_name,
+        'location_address_line_1': report.location_address_line_1,
+        'location_address_line_2': report.location_address_line_2,
+        'location_city_town': report.location_city_town,
+        'location_state': report.location_state,
+        'protected_class': report.protected_class,
+        'servicemember': report.servicemember,
+        'last_incident_month': report.last_incident_month,
+        'last_incident_day': report.last_incident_day,
+        'last_incident_year': report.last_incident_year,
+        'crt_reciept_year': report.crt_reciept_year,
+        'crt_reciept_day': report.crt_reciept_day,
+        'crt_reciept_month': report.crt_reciept_month,
+        'violation_summary': report.violation_summary,
+        'language': report.language,
+        'election_details': report.election_details,
+        'other_commercial_or_public_place': report.other_commercial_or_public_place,
+        'inside_correctional_facility': report.inside_correctional_facility,
+        'correctional_facility_type': report.correctional_facility_type,
+        'public_or_private_school': report.public_or_private_school,
+        'public_or_private_employer': report.public_or_private_employer,
+        'employer_size': report.employer_size,
+    }
+    referral_content_string = render_to_string('referral_info.html', {'data': data})
+    return referral_content_string
