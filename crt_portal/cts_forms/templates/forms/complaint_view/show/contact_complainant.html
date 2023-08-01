@@ -1,15 +1,20 @@
 <div class="modal-main">
   <div id='response-modal-form' class="modal-form">
     <div class="modal-main">
-      <span class="response-template-default">CRT response letter:</span>
-      {{ responses.templates_default }}
+      <div class="crt-response-letter">
+        <span class="response-template-default">CRT response letter<span class="required">*</span></span>
+        <p class="error-message">Response letter is required</p>
+        {{ responses.templates_default }}
+      </div>
 
       <p class="intake-template--description">
-        Subject: <strong id="intake_description">(no template chosen)</strong>
+        Subject: <strong id="intake_description">[Select response letter]</strong>
       </p>
 
       <div id="intake_letter_html" class="form-letter" hidden></div>
       <textarea disabled aria-label="intake letter" id="intake_letter" rows="10" cols="80"></textarea>
+
+      <input type="hidden" name="selected_tab" value="response-template-default"/>
     </div>
   </div>
 </div>

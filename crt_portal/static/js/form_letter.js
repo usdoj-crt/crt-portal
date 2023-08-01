@@ -1,4 +1,39 @@
 (function(root) {
+  function setupTabs() {
+    const allTabs = [...document.querySelectorAll('a.intake-tabbed-nav-link')].map(tab => {
+      return tab.dataset.tab;
+    });
+
+    if (!allTabs.length) return;
+
+    function showOnlyTab(toShow) {
+      reset();
+      document.querySelector('input[name="selected_tab"]').value = toShow;
+      allTabs.forEach(tabName => {
+        [...document.getElementsByClassName(tabName)].forEach(el => {
+          el.classList.toggle('display-none', toShow !== tabName);
+        });
+      });
+    }
+
+    showOnlyTab(allTabs[0]);
+
+    const tabs = [...document.querySelectorAll('a.intake-tabbed-nav-link')];
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        reset();
+        const tabName = event.currentTarget.dataset.tab;
+        tabs.forEach(tabToSelect => {
+          const isCurrent = tabToSelect.dataset.tab === tabName;
+          tabToSelect.classList.toggle('intake-tabbed-current', isCurrent);
+        });
+        showOnlyTab(tabName);
+      });
+    });
+  }
+
   function addReferralAddress(referral_contact) {
     const addressee = document.getElementById('form-letterhead--addressee');
     const deptAddressee = document.getElementById('form-letterhead--dept-addressee');
@@ -54,18 +89,23 @@
   var send_email = document.getElementById('intake_send');
 
   var email_enabled = document.getElementById('intake_send').dataset.emailEnabled === 'True';
-  var has_contact_email = Boolean(document.getElementById('contact_email').dataset.email);
+  var contact_email = document.getElementById('contact_email').dataset.email;
+  var has_contact_email = !!contact_email;
 
   var reset = function() {
-    description.innerHTML = '(select a response template)';
+    description.innerHTML = '[Select response letter]';
     letter_html.innerHTML = '';
     letter_html.hidden = true;
     letter.innerHTML = '';
     letter.hidden = false;
+    const letterField = document.querySelector('.crt-response-letter');
+    letterField?.classList.remove('error');
     document.querySelectorAll('.intake-select').forEach(s => (s.selectedIndex = 0));
-    copy.setAttribute('disabled', 'disabled');
-    print.setAttribute('disabled', 'disabled');
-    send_email.setAttribute('disabled', 'disabled');
+    if (!ENABLED_FEATURES.separateReferralsWorkflow) {
+      copy.setAttribute('disabled', 'disabled');
+      print.setAttribute('disabled', 'disabled');
+      send_email.setAttribute('disabled', 'disabled');
+    }
   };
 
   const description = document.getElementById('intake_description');
@@ -83,7 +123,7 @@
           return response.json();
         })
         .then(function(data) {
-          description.innerHTML = data.subject || '(select a response template)';
+          description.innerHTML = data.subject || '[Select response letter]';
           if (data.is_html) {
             letter.hidden = true;
             letter_html.hidden = false;
@@ -107,36 +147,7 @@
     })
   );
 
-  const allTabs = [...document.querySelectorAll('a.intake-tabbed-nav-link')].map(tab => {
-    return tab.dataset.tab;
-  });
-
-  function showOnlyTab(toShow) {
-    reset();
-    document.querySelector('input[name="selected_tab"]').value = toShow;
-    allTabs.forEach(tabName => {
-      [...document.getElementsByClassName(tabName)].forEach(el => {
-        el.classList.toggle('display-none', toShow !== tabName);
-      });
-    });
-  }
-
-  showOnlyTab(allTabs[0]);
-
-  const tabs = [...document.querySelectorAll('a.intake-tabbed-nav-link')];
-  tabs.forEach(tab => {
-    tab.addEventListener('click', function(event) {
-      event.preventDefault();
-      event.stopPropagation();
-      reset();
-      const tabName = event.currentTarget.dataset.tab;
-      tabs.forEach(tabToSelect => {
-        const isCurrent = tabToSelect.dataset.tab === tabName;
-        tabToSelect.classList.toggle('intake-tabbed-current', isCurrent);
-      });
-      showOnlyTab(tabName);
-    });
-  });
+  setupTabs();
 
   var setLanguageCookie = function(lang) {
     document.cookie = 'form-letter-language' + '=' + lang;
@@ -207,27 +218,46 @@
     document.removeEventListener('copy', listener);
   }
 
-  var copyContents = function(event) {
-    // Text-only letter
+  function copyContents(event) {
+    if (ENABLED_FEATURES.separateReferralsWorkflow) {
+      if (!validateSend()) return;
+    }
+    const subject = description.innerText;
+
     if (!letter.hidden) {
       const el = document.createElement('textarea');
-      el.value = description.innerText + '\n\n' + letter.value;
+      el.value = letter.value;
       el.setAttribute('readonly', '');
       el.style.position = 'absolute';
       el.style.left = '-9999px';
       document.body.appendChild(el);
       el.select();
-      el.setSelectionRange(0, 99999); // mobile
+      el.setSelectionRange(0, 99999);
       document.execCommand('copy');
       document.body.removeChild(el);
-      // HTML content
     } else if (!letter_html.hidden) {
       copyHTMLToClipboard(letter_html.innerHTML);
     }
-  };
+    recipient = contact_email || '';
+    root.location.href = `mailto:${recipient}?subject=${subject}`;
+  }
   copy.addEventListener('click', copyContents);
 
+  const validateSend = function() {
+    const letterField = document.querySelector('.crt-response-letter');
+    letterField.classList.remove('error');
+    if (description.innerText.trim() === '[Select response letter]') {
+      event.preventDefault();
+      letterField.classList.add('error');
+      return false;
+    }
+    return true;
+  };
+
   var printContents = function(event) {
+    if (ENABLED_FEATURES.separateReferralsWorkflow) {
+      if (!validateSend()) return;
+    }
     const letterhead = document.getElementById('form-letterhead');
     const letter_placeholder = document.getElementById('form-letter--placeholder');
     // Text-only letter
@@ -251,4 +281,15 @@
     root.CRT.closeModal(modal);
   };
   print.addEventListener('click', printContents);
+
+  if (ENABLED_FEATURES.separateReferralsWorkflow) {
+    if (!has_contact_email) {
+      send_email.setAttribute('hidden', 'true');
+      print.classList.add('primary');
+    }
+    send_email.addEventListener('click', validateSend);
+    print.removeAttribute('disabled');
+    copy.removeAttribute('disabled');
+    send_email.removeAttribute('disabled');
+  }
 })(window);
