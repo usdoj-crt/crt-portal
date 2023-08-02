@@ -50,14 +50,28 @@ body.is-modal {
     }
   }
 
+  .modal-subsection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
   .modal-step-content {
     background-color: #ECF1F7;
     padding: 16px;
-    margin-bottom:16px;
+    margin-bottom: 0;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     overflow: auto;
     gap: 1rem;
+
+    ul,ol {
+      margin-left: 1rem;
+      padding-left: 1rem;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
 
     textarea {
       background-color: white;
@@ -76,6 +90,10 @@ body.is-modal {
       width: 50%;
       padding: 3rem;
     }
+  }
+
+  .modal-content--large.modal-content--extra {
+    height: 100%;
   }
 
   .modal-content--large {
@@ -113,6 +131,11 @@ body.is-modal {
   }
 
   .modal-step {
+    .step-text {
+      margin-top: 1.5rem;
+      margin-bottom: 0px;
+    }
+
     display: flex;
     flex-direction: column;
     overflow: auto;
