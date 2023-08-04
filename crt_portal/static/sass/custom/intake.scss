@@ -44,6 +44,28 @@
   }
 }
 
+.required {
+  color: #B50909;
+}
+
+.crt-response-letter .error-message {
+  display: none;
+}
+
+.error-message {
+  color: #B50909;
+  font-weight: 700;
+}
+
+.crt-response-letter.error {
+  padding-left: .5rem;
+  border-left: .25rem solid #B50909;
+
+  .error-message {
+    display: block;
+  }
+}
+
 hr {
   border-top: 1px solid #949495;
   border-bottom: 0px;
@@ -371,6 +393,11 @@ hr {
 #intake_print:not([disabled="disabled"]),#intake_copy:not([disabled="disabled"]) {
   background-color: #ecf1f7;
   color: #162e51;
+}
+
+#intake_print.primary:not([disabled="disabled"]) {
+  background-color: #162e51;
+  color: #fff;
 }
 
 .intake-tabbed-area {

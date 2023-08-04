@@ -15,14 +15,26 @@
           <h1>Contact complainant</h1>
         </div>
         <div id='response-modal-form' class="modal-form">
-          <p>Name: <strong>{{data.contact_full_name|default_if_none:"-"}}</strong></p>
-          <p>Email:
+          <p>Complainant name: <strong>{{data.contact_full_name|default_if_none:"-"}}</strong></p>
+          <p>Complainant email:
+            {% if ENABLED_FEATURES.separate_referrals_workflow %}
+            {% if not data.contact_email %}
+              <span class="error-message">There is no email on file for this complainant.</span> You will need to print this letter to contact this person.
+            {% endif %}
+            <strong id="contact_email" data-email="{{data.contact_email|default_if_none:''}}">
+              {{data.contact_email|default_if_none:""}}
+            </strong>
+
+            {% else %}
+
             <strong id="contact_email" data-email="{{data.contact_email|default_if_none:''}}">
               {{data.contact_email|default_if_none:"-"}}
             </strong>
+
+            {% endif %}
           </p>
           <span>
-            Template Language:
+            Template language
           </span>
           <select id="template-language-select" class="usa-select" aria-label="template language selection">
             {% for language in languages %}
@@ -36,9 +48,9 @@
           {% endif %}
 
           <div class="modal-footer">
-            <button disabled id="intake_send" data-email-enabled="{{email_enabled}}" class="usa-button" type="submit" name="type" value="send">Send</button>
-            <button disabled id="intake_print" class="usa-button" type="submit" name="type" value="print">Print</button>
-            <button disabled id="intake_copy" class="usa-button" type="submit" name="type" value="copy">Copy letter</button>
+            <button id="intake_send" data-email-enabled="{{email_enabled}}" class="usa-button" type="submit" name="type" value="send">Send</button>
+            <button id="intake_print" class="usa-button" type="submit" name="type" value="print">Print letter</button>
+            <button id="intake_copy" class="usa-button" type="submit" name="type" value="copy">Copy letter</button>
             <button id="intake_template_cancel" class="usa-button usa-button--unstyled">Cancel</button>
           </div>
         </div>
