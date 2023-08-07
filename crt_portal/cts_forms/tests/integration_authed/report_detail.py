@@ -139,8 +139,8 @@ def test_refer_complaint_modal_no_email(page):
     letter_step = modal.locator('.modal-step.agency-letter')
     assert letter_step.get_by_text('There is no email on file for this agency.').is_visible()
 
-    # TODO: Update this to include the agency letter:
-    letter_step.locator('.letter-html').filter(has_text='Dear ReferralTestingNoEmail,').wait_for()
+    letter_step.locator('.letter-html').filter(has_text='we feel is more appropriate for your agency').wait_for()
+    letter_step.locator('.letter-html').filter(has_text='First name: ReferralTestingNoEmail').wait_for()
 
     admin_models.delete(
         page,
@@ -249,9 +249,10 @@ def test_refer_complaint_modal_with_email(page):
     assert letter_step.get_by_text('Refer complaint to (es) Referrals integration test - with agency email').is_visible()
     assert letter_step.get_by_text('Email: ayy@example.com').is_visible()
     assert letter_step.get_by_text('CC: bee@example.com, cee@example.com').is_visible()
-    # TODO: Update these to include the agency letter:
-    assert letter_step.get_by_text('Subject: Re: [es] your referrals test').is_visible()
-    letter_step.locator('.letter-html').filter(has_text='Dear ReferralTestingWithEmail,').wait_for()
+    assert letter_step.get_by_text('Subject: [DOJ CRT Referral]').is_visible()
+
+    letter_step.locator('.letter-html').filter(has_text='we feel is more appropriate for your agency').wait_for()
+    letter_step.locator('.letter-html').filter(has_text='First name: ReferralTestingWithEmail').wait_for()
 
     admin_models.delete(
         page,

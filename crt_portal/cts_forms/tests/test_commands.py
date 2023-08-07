@@ -125,9 +125,15 @@ class GenerateYearlyReports(TestCase):
 class CreateMockReports(TestCase):
 
     def test_create_mock_reports(self):
+        reports_length_before = len(Report.objects.all())
         call_command('create_mock_reports', 100)
-        reports_length = len(Report.objects.all())
-        self.assertEqual(reports_length, 100)
+        reports_length_after = len(Report.objects.all())
+        difference = reports_length_after - reports_length_before
+        self.assertEqual(
+            difference,
+            100,
+            f'Adding 100 new reports on top of {reports_length_before} existing'
+            f' actually added {difference}, for {reports_length_after} total')
 
 
 class RefreshTrends(TestCase):

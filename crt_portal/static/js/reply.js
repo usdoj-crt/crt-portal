@@ -56,7 +56,7 @@
   };
 
   root.CRT.handleReferral = async function(action, { reportId, responseTemplate }) {
-    const response = await window.fetch('/api/referral-response/', {
+    const response = await window.fetch('/api/response-action/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

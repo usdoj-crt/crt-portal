@@ -183,6 +183,7 @@ class ReferralContact(models.Model):
             addressee.strip()
             for addressee
             in self.addressee_emails.split(',')
+            if addressee
         ]
 
     def __str__(self):

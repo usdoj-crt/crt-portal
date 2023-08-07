@@ -93,3 +93,13 @@ SAMPLE_RESPONSE_TEMPLATE_2 = {
     "subject": "test 2 data with record {{ record_locator }}",
     "body": "test 2 template with record {{ record_locator }}",
 }
+
+SAMPLE_REFERRAL_CONTACT = {
+    "machine_name": "fake_referral_contact",
+    "name": "Fake Referral Contact",
+    "notes": "This is a fake referral contact",
+    "addressee_text": "Dept of Referrals\nOffice of Civil Rights\n5 some way, Austin, Nevada",
+    "addressee_emails": "a@example.gov, b@example.gov,c@example.gov",
+    "show_as_referral": True,
+    "variable_text": {"en": "Fake Contact", "es": "Fake Spanish Contact"},
+}

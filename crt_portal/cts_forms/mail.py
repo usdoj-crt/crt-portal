@@ -63,17 +63,20 @@ class Mail(types.SimpleNamespace):
     html_message: Optional[str]
 
 
-def render_agency_mail(*, complainant_letter: Mail, report, template, extra_ccs=None) -> Mail:
+def render_agency_mail(*, complainant_letter: Mail, report, template, extra_ccs=None) -> Optional[Mail]:
+    if not template.referral_contact:
+        return None
     if not extra_ccs:
         extra_ccs = []
-    message = build_referral_content(complainant_letter=complainant_letter, template=template, report=report)
+    message = _build_referral_content(complainant_letter=complainant_letter, template=template, report=report)
 
     recipients = template.referral_contact.clean_addressee_emails()
     all_recipients = (recipients + extra_ccs) if recipients else []
+    allowed_recipients = remove_disallowed_recipients(all_recipients)
 
     return Mail(message=message,
                 html_message=message,
-                recipients=all_recipients,
+                recipients=allowed_recipients,
                 subject=f'[DOJ CRT Referral] {report.public_id} - {report.contact_full_name}',
                 )
 
@@ -88,7 +91,7 @@ def render_complainant_mail(*, report, template) -> Mail:
         # replace newlines, \n, with <br> so the API will generate formatted emails
         html_message = message.replace('\n', '<br>')
 
-    recipients = [report.contact_email]
+    recipients = remove_disallowed_recipients([report.contact_email])
 
     return Mail(
         subject=template.render_subject(report),
@@ -118,7 +121,7 @@ def send_tms(message: Mail, *, report: Report, purpose: str, dry_run: bool) -> L
         message.subject,
         message.message,
         settings.DEFAULT_FROM_EMAIL,
-        remove_disallowed_recipients(message.recipients),
+        message.recipients,
         fail_silently=False,
         html_message=message.html_message
     )
@@ -146,7 +149,7 @@ def mail_to_complainant(report, template, purpose=TMSEmail.MANUAL_EMAIL, dry_run
     """
     if not rendered:
         rendered = render_complainant_mail(report=report, template=template)
-    if not rendered.recipient_list:
+    if not rendered.recipients:
         logger.info(f'{report.contact_email} not in allowed domains, not attempting to deliver email response template #{template.id} to report: {report.id}')
         return None
 
@@ -156,7 +159,9 @@ def mail_to_complainant(report, template, purpose=TMSEmail.MANUAL_EMAIL, dry_run
     return send_results
 
 
-def build_referral_content(*, complainant_letter, template, report):
+def _build_referral_content(*, complainant_letter, template, report) -> Optional[str]:
+    if not template.referral_contact:
+        return None
     data = {
         'complainant_letter': complainant_letter,
         'template': model_to_dict(template),

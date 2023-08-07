@@ -288,12 +288,12 @@ class FormLettersIndex(APIView):
             return HttpResponse(status=500)
 
 
-class ReferralResponse(APIView):
+class ResponseAction(APIView):
     """
     API endpoint that enables referral letter previews and email send status
 
 
-    Example: api/referral-response/
+    Example: api/response-action/
     """
 
     permission_classes = (IsAuthenticated,)
@@ -328,7 +328,7 @@ class ReferralResponse(APIView):
         if not template.referral_contact:
             return complainant_letter, None
 
-        extra_ccs = request.user.email or []
+        extra_ccs = [request.user.email] if request.user.email else []
         agency_letter = render_agency_mail(complainant_letter=complainant_letter,
                                            report=report,
                                            template=template,
