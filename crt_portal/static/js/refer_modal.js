@@ -22,12 +22,6 @@
     const letterHtmls = modal.querySelectorAll('.letter-html');
     letterHtmls.forEach(letterHtml => {
       letterHtml.innerHTML = '';
-      letterHtml.hidden = true;
-    });
-    const letterPlaintexts = modal.querySelectorAll('.letter-plaintext');
-    letterPlaintexts.forEach(letterPlaintext => {
-      letterPlaintext.innerHTML = '';
-      letterPlaintext.hidden = false;
     });
     const subject = modal.querySelector('.subject');
     if (subject) {
