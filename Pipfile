@@ -24,7 +24,7 @@ tblib = "*"
 localstack = "~=0.14.2"
 
 [packages]
-django = "==4.2.2"
+django = "==4.2.3"
 gunicorn = "*"
 django-compressor = "*"
 django-compressor-toolkit = "*"
@@ -53,7 +53,6 @@ nbconvert = "*"  # For running Jupyter ipynb files.
 nbformat = "*"  # For running Jupyter ipynb files.
 pypdf = "*"
 weasyprint = "*"
-
 # The following are needed for refreshing Jupyter notebooks:
 jupyter_client = "*"
 jupysql = "*"

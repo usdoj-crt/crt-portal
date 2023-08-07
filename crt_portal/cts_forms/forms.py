@@ -621,7 +621,7 @@ def crt_date_cleaner(self, cleaned_data):
     if 'crt_reciept_month' in cleaned_data:
         month = cleaned_data['crt_reciept_month']
         # These checks are to prevent existing report detail page edits to require the crt_. . . fields.  They are required in the pro form and that is caught through the existing "required" validation.
-        if type(month) != int:
+        if not isinstance(month, int):
             return cleaned_data
         elif month > 12 or month < 1:
             self.add_error('crt_reciept_month', ValidationError(
@@ -634,7 +634,7 @@ def crt_date_cleaner(self, cleaned_data):
     # Test Receipt Day
     if 'crt_reciept_day' in cleaned_data:
         day = cleaned_data['crt_reciept_day']
-        if type(day) != int:
+        if not isinstance(day, int):
             return cleaned_data
         elif day > 31 or day < 1:
             self.add_error('crt_reciept_day', ValidationError(
@@ -647,7 +647,7 @@ def crt_date_cleaner(self, cleaned_data):
     # Test Receipt Year
     if 'crt_reciept_year' in cleaned_data:
         year = cleaned_data['crt_reciept_year']
-        if type(year) != int:
+        if not isinstance(year, int):
             return cleaned_data
         elif year < 2000:
             self.add_error('crt_reciept_year', ValidationError(
@@ -671,7 +671,7 @@ def crt_date_cleaner(self, cleaned_data):
             ))
     if 'last_incident_day' in cleaned_data:
         incident_day = cleaned_data['last_incident_day']
-        if type(incident_day) != int:
+        if not isinstance(incident_day, int):
             return cleaned_data
         elif incident_day > 31 or incident_day < 1:
             self.add_error('last_incident_day', ValidationError(
@@ -679,7 +679,7 @@ def crt_date_cleaner(self, cleaned_data):
             ))
         if 'last_incident_month' in cleaned_data:
             incident_month = cleaned_data['last_incident_month']
-            if type(incident_month) != int:
+            if not isinstance(incident_month, int):
                 return cleaned_data
             elif incident_month > 12 or incident_month < 1:
                 self.add_error('last_incident_month', ValidationError(
@@ -687,7 +687,7 @@ def crt_date_cleaner(self, cleaned_data):
                 ))
     if 'last_incident_year' in cleaned_data:
         incident_year = cleaned_data['last_incident_year']
-        if type(incident_year) != int:
+        if not isinstance(incident_year, int):
             return cleaned_data
         if incident_year < 1900:
             self.add_error('last_incident_year', ValidationError(
