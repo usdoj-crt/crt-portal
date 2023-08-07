@@ -178,6 +178,13 @@ class ReferralContact(models.Model):
     show_as_referral = models.BooleanField(default=True, null=False, help_text="Whether to list this contact as a referral option.")
     variable_text = models.JSONField(null=False, help_text="Text to display when using the {{ referral_text }} variable in Response Templates.", default=make_translated_text, validators=[validate_translated_text])
 
+    def clean_addressee_emails(self):
+        return [
+            addressee.strip()
+            for addressee
+            in self.addressee_emails.split(',')
+        ]
+
     def __str__(self):
         return self.name
 

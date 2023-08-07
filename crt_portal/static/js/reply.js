@@ -54,4 +54,21 @@
         if (afterRendered) afterRendered(data);
       });
   };
+
+  root.CRT.handleReferral = async function(action, { reportId, responseTemplate }) {
+    const response = await window.fetch('/api/referral-response/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': Cookies.get('csrftoken')
+      },
+      mode: 'same-origin',
+      body: JSON.stringify({
+        action,
+        report_id: reportId,
+        template_id: responseTemplate
+      })
+    });
+    return await response.json();
+  };
 })(window, document);
