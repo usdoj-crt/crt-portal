@@ -7,7 +7,7 @@ import urllib.parse
 
 from django.contrib.auth.models import User
 from django.http import QueryDict
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.test.client import Client
 from django.urls import reverse
 from django.utils.html import escape
@@ -1187,6 +1187,7 @@ class ReferralEmailContentTests(TestCase):
             referral_contact=self.referral_contact,
         )
 
+    @override_settings(RESTRICT_EMAIL_RECIPIENTS_TO=['a@example.gov', 'b@example.gov'])
     def test_build_referral_content(self):
         complainant_letter = render_complainant_mail(report=self.report, template=self.template)
 
@@ -1196,7 +1197,7 @@ class ReferralEmailContentTests(TestCase):
 
         self.assertIsNotNone(referral_letter)
 
-        self.assertEqual(referral_letter.recipients, ['a@example.gov', 'b@example.gov', 'c@example.gov'])
+        self.assertEqual(referral_letter.recipients, ['a@example.gov', 'b@example.gov'])
         self.assertEqual(referral_letter.subject, f'[DOJ CRT Referral] {self.report.public_id} - Lincoln Abraham')
         self.assertIn(f'<strong>Subject:</strong> test data with record {self.report.public_id}', referral_letter.html_message)
         self.assertIn('<strong>First name:</strong> Lincoln', referral_letter.html_message)
