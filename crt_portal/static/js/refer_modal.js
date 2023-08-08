@@ -33,6 +33,8 @@
     if (subject) {
       subject.innerHTML = '[Select an agency]';
     }
+
+    applyTemplateLanguageFilter(modal);
   }
 
   function showModal(event, modal) {
