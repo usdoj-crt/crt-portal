@@ -184,7 +184,7 @@ def test_refer_complaint_modal_with_email(page):
         '/admin/cts_forms/referralcontact',
         machine_name='test-referral-contact-with-email',
         name='Test Referral Contact With Email',
-        addressee_emails='ayy@example.com, bee@example.com,cee@example.com'
+        addressee_emails='fake.email1@usdoj.gov,fake.email2@usdoj.gov, fake.email3@usdoj.gov'
     )
     for language in ['en', 'es']:
         admin_models.create(
@@ -247,8 +247,8 @@ def test_refer_complaint_modal_with_email(page):
 
     assert letter_step.get_by_text('Agency letter').is_visible()
     assert letter_step.get_by_text('Refer complaint to (es) Referrals integration test - with agency email').is_visible()
-    assert letter_step.get_by_text('Email: ayy@example.com').is_visible()
-    assert letter_step.get_by_text('CC: bee@example.com, cee@example.com').is_visible()
+    assert letter_step.get_by_text('Email: fake.email1@usdoj.gov').is_visible()
+    assert letter_step.get_by_text('CC: fake.email2@usdoj.gov, fake.email3@usdoj.gov').is_visible()
     assert letter_step.get_by_text('Subject: [DOJ CRT Referral]').is_visible()
 
     letter_step.locator('.letter-html').filter(has_text='we feel is more appropriate for your agency').wait_for()
