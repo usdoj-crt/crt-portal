@@ -41,7 +41,7 @@ def api_root(request, format=None):
         'related-reports': reverse('api:related-reports', request=request, format=format),
         'form-letters': reverse('api:form-letters', request=request, format=format),
         'report-cws': reverse('api:report-cws', request=request, format=format),
-        'referral-response': reverse('api:referral-response', request=request, format=format)
+        'response-action': reverse('api:response-action', request=request, format=format)
     })
 
 
