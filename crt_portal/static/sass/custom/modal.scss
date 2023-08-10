@@ -60,6 +60,27 @@ body.is-modal {
     gap: 0.5rem;
   }
 
+  .actions {
+    display: flex;
+    gap: 1rem;
+  }
+
+  button:not(.usa-button--unstyled) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+
+    &.outline-button {
+      padding: 1.25rem 1.25rem 1.25rem 1rem;
+    }
+  }
+
   .modal-step-content {
     background-color: #ECF1F7;
     padding: 16px;
@@ -74,6 +95,10 @@ body.is-modal {
       margin: 0px;
       color: #162e51;
       font-size: 1.25rem;
+    }
+
+    .outline-button {
+      border: 1px solid #162e51;
     }
 
     ul,ol {

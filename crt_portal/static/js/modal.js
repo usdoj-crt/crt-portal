@@ -79,6 +79,7 @@
       modal.dataset.stepIdPrefix = nextStepIdPrefix;
       nextStepIdPrefix++;
     }
+
     const stepIdPrefix = modal.dataset.stepIdPrefix;
     stepNavs = getProgress(modal);
     const container = stepNavs.parentElement;
@@ -107,6 +108,21 @@
       });
 
     stepNavs.querySelector('.current').focus();
+
+    const currentStep = Number(stepNavs.dataset.currentStep);
+    const numberOfSteps = stepNavs.querySelectorAll('.step').length;
+    const nextButton = modal.querySelector('button.next');
+
+    if (currentStep >= numberOfSteps) {
+      nextButton.innerText = 'Back';
+      nextButton.classList.add('outline-button');
+      nextButton.classList.add('outline-button--blue');
+    } else {
+      nextButton.innerText = 'Next';
+      nextButton.classList.remove('outline-button');
+      nextButton.classList.remove('outline-button--blue');
+    }
+
     setupSteps({ modal, validateModal });
   };
 
@@ -116,7 +132,10 @@
     onUseButton(modal.querySelector('button.next'), () => {
       const steps = getProgress(modal);
       const currentStep = Number(steps.dataset.currentStep);
-      const targetStep = currentStep + 1;
+      const numberOfSteps = steps.querySelectorAll('.step').length;
+
+      const targetStep = currentStep >= numberOfSteps ? currentStep - 1 : currentStep + 1;
+
       goToStep({ modal, targetStep, validateModal });
     });
 

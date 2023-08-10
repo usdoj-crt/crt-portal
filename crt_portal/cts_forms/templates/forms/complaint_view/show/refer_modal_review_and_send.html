@@ -2,13 +2,17 @@
   <p>You are about to send the following emails:</p>
 </div>
 
-<div class="modal-step-content">
+<div class="modal-step-content complainant">
   <h2 tabindex="0">Complainant letter</h2>
 
   {% if not data.contact_email %}
   <p tabindex="0" class="no-email-error">
     Because there is no email on file, you must print this letter to send to the complainant via mail.
   </p>
+
+  <div class="actions">
+    <button class="outline-button outline-button--blue print" type="button">Print letter</button>
+  </div>
 
   {% else %}
 
@@ -23,11 +27,17 @@
     <strong>Subject:</strong>
     <strong class="complainant subject">[Select response letter]</strong>
   </p>
+
+  <div class="actions">
+    <button class="usa-button send" type="button">Send</button>
+    <button class="outline-button outline-button--blue print" type="button">Print letter</button>
+  </div>
+
   {% endif %}
 
 </div>
 
-<div class="modal-step-content">
+<div class="modal-step-content agency">
   <h2 tabindex="0">Agency referral letter</h2>
 
   <p tabindex="0" class="no-agency-email no-email-error">
@@ -40,4 +50,8 @@
     <p><strong>Subject: </strong><span class="agency subject"></span></p>
   </div>
 
+  <div class="actions">
+    <button class="yes-agency-email usa-button send" type="button">Send</button>
+    <button class="outline-button outline-button--blue print" type="button">Print letter</button>
+  </div>
 </div>

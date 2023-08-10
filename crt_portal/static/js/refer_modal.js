@@ -233,20 +233,38 @@
     return { canLeaveStep, ...context };
   }
 
-  function initModal() {
-    const modal = getModal();
-    const openButton = getOpenModalButton();
+  function initCancel(modal) {
     const cancelButton = getCloseModalButton(modal);
-    if (!openButton || !modal) return;
-    openButton.addEventListener('click', event => showModal(event, modal));
     cancelButton.addEventListener('click', () => {
       reset(modal);
       modal.querySelector('.progress .steps').dataset.currentStep = 1;
       root.CRT.renderSteps(modal, validateModal);
     });
     root.CRT.cancelModal(modal, cancelButton);
+  }
+
+  function initPrint(modal) {
+    // TODO
+  }
+
+  function initSend(modal) {
+    // TODO
+  }
+
+  function initActions(modal) {
+    const openButton = getOpenModalButton();
+    if (!openButton || !modal) return;
+    openButton.addEventListener('click', event => showModal(event, modal));
+    initCancel(modal);
+    initPrint(modal);
+    initSend(modal);
+  }
+
+  function initModal() {
+    const modal = getModal();
     initLanguage(modal);
     initAgencySelect(modal);
+    initActions(modal);
     root.CRT.renderSteps(modal, validateModal);
   }
 
