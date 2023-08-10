@@ -51,7 +51,6 @@ def test_contact_complainant_modal(page):
 
 
 @pytest.mark.only_browser("chromium")
-@pytest.mark.boop
 @console.raise_errors(ignore=['404', 'The user aborted a request.'])
 @features.login_as_superuser_with_feature('separate-referrals-workflow')
 def test_refer_complaint_modal_no_email(page):
@@ -165,7 +164,6 @@ def test_refer_complaint_modal_no_email(page):
 
 
 @pytest.mark.only_browser("chromium")
-@pytest.mark.boop
 @console.raise_errors(ignore=['404', 'The user aborted a request.'])
 @features.login_as_superuser_with_feature('separate-referrals-workflow')
 def test_refer_complaint_modal_with_email(page):
