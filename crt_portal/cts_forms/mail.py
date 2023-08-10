@@ -91,7 +91,10 @@ def render_complainant_mail(*, report, template) -> Mail:
         # replace newlines, \n, with <br> so the API will generate formatted emails
         html_message = message.replace('\n', '<br>')
 
-    recipients = remove_disallowed_recipients([report.contact_email])
+    if not report.contact_email:
+        recipients = []
+    else:
+        recipients = remove_disallowed_recipients([report.contact_email])
 
     return Mail(
         subject=template.render_subject(report),
