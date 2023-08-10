@@ -56,6 +56,10 @@ body.is-modal {
     gap: 0.25rem;
   }
 
+  .review-and-send .modal-step-content {
+    gap: 0.5rem;
+  }
+
   .modal-step-content {
     background-color: #ECF1F7;
     padding: 16px;
@@ -65,6 +69,12 @@ body.is-modal {
     flex-grow: 1;
     overflow: auto;
     gap: 1rem;
+
+    h2 {
+      margin: 0px;
+      color: #162e51;
+      font-size: 1.25rem;
+    }
 
     ul,ol {
       margin-left: 1rem;
@@ -131,7 +141,7 @@ body.is-modal {
   }
 
   .modal-step {
-    .step-text {
+    & > h2 {
       margin-top: 1.5rem;
       margin-bottom: 0px;
     }

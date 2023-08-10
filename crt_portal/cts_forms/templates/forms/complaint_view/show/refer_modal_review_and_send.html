@@ -1,0 +1,43 @@
+<div tabindex="0" class="modal-field">
+  <p>You are about to send the following emails:</p>
+</div>
+
+<div class="modal-step-content">
+  <h2 tabindex="0">Complainant letter</h2>
+
+  {% if not data.contact_email %}
+  <p tabindex="0" class="no-email-error">
+    Because there is no email on file, you must print this letter to send to the complainant via mail.
+  </p>
+
+  {% else %}
+
+  <p tabindex="0">
+    <strong>Email:</strong>
+    <strong class="complainant email" data-email="{{data.contact_email|default_if_none:''}}">
+      {{data.contact_email|default_if_none:""}}
+    </strong>
+  </p>
+
+  <p tabindex="0">
+    <strong>Subject:</strong>
+    <strong class="complainant subject">[Select response letter]</strong>
+  </p>
+  {% endif %}
+
+</div>
+
+<div class="modal-step-content">
+  <h2 tabindex="0">Agency referral letter</h2>
+
+  <p tabindex="0" class="no-agency-email no-email-error">
+    Because there is no email on file, you must print this letter to send to the agency via mail.
+  </p>
+
+  <div tabindex="0" class="yes-agency-email modal-subsection">
+    <p><strong>Email: </strong><span class="agency email"></span></p>
+    <p><strong>CC: </strong><span class="agency ccs"></span></p>
+    <p><strong>Subject: </strong><span class="agency subject"></span></p>
+  </div>
+
+</div>

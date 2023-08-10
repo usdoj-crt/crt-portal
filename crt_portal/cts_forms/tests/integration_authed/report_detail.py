@@ -51,6 +51,7 @@ def test_contact_complainant_modal(page):
 
 
 @pytest.mark.only_browser("chromium")
+@pytest.mark.boop
 @console.raise_errors(ignore=['404', 'The user aborted a request.'])
 @features.login_as_superuser_with_feature('separate-referrals-workflow')
 def test_refer_complaint_modal_no_email(page):
@@ -142,6 +143,15 @@ def test_refer_complaint_modal_no_email(page):
     letter_step.locator('.letter-html').filter(has_text='we feel is more appropriate for your agency').wait_for()
     letter_step.locator('.letter-html').filter(has_text='First name: ReferralTestingNoEmail').wait_for()
 
+    modal.locator('button').filter(has_text="Next").click()
+    assert modal.locator('.step.current[data-step="3"]').is_visible()
+    letter_step = modal.locator('.modal-step.review-and-send')
+
+    page.screenshot(path="e2e-screenshots/refer_3_with_email.png", full_page=True)
+    letter_step.locator('p.no-email-error').filter(has_text='you must print this letter to send to the complainant').wait_for()
+    letter_step.locator('p.no-email-error').filter(has_text='you must print this letter to send to the agency').wait_for()
+    assert element.normalize_text(letter_step.locator('h2 .agency-name')) == 'Test Referral Contact No Email'
+
     admin_models.delete(
         page,
         '/admin/cts_forms/responsetemplate',
@@ -155,6 +165,7 @@ def test_refer_complaint_modal_no_email(page):
 
 
 @pytest.mark.only_browser("chromium")
+@pytest.mark.boop
 @console.raise_errors(ignore=['404', 'The user aborted a request.'])
 @features.login_as_superuser_with_feature('separate-referrals-workflow')
 def test_refer_complaint_modal_with_email(page):
@@ -253,6 +264,13 @@ def test_refer_complaint_modal_with_email(page):
 
     letter_step.locator('.letter-html').filter(has_text='we feel is more appropriate for your agency').wait_for()
     letter_step.locator('.letter-html').filter(has_text='First name: ReferralTestingWithEmail').wait_for()
+
+    modal.locator('button').filter(has_text="Next").click()
+    assert modal.locator('.step.current[data-step="3"]').is_visible()
+    letter_step = modal.locator('.modal-step.review-and-send')
+
+    page.screenshot(path="e2e-screenshots/refer_3_with_email.png", full_page=True)
+    assert element.normalize_text(letter_step.locator('h2 .agency-name')) == 'Test Referral Contact With Email'
 
     admin_models.delete(
         page,

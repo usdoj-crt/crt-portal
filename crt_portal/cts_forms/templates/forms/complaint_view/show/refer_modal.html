@@ -30,7 +30,9 @@
           </div>
 
           <div data-step="3" class="modal-step review-and-send">
-            <h2 class="step-text">Review and send</h2>
+            <h2 hidden class="step-text">Review and send</h2>
+            <h2 tabindex="0">You are referring this complaint to <span class="agency-name">N/A</span>.</h2>
+            {% include 'forms/complaint_view/show/refer_modal_review_and_send.html' %}
           </div>
 
           <div class="modal-footer">

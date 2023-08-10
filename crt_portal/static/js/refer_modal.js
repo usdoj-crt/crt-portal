@@ -101,10 +101,8 @@
 
   function displayComplainantDetails(modal, data) {
     const section = modal.querySelector('.complainant-letter');
-    const subject = section.querySelector('.subject');
-    if (subject) {
-      subject.innerText = data?.letter?.subject || '[Select an agency]';
-    }
+    const subjects = modal.querySelectorAll('.complainant.subject');
+    subjects.forEach(s => (s.innerText = data?.letter?.subject || '[Select an agency]'));
     const letterBox = section.querySelector('.letter-html');
     if (letterBox) {
       letterBox.innerHTML = data?.letter?.html_message || 'Message failed to preview.';
@@ -114,26 +112,30 @@
   function displayAgencyDetails(modal, data) {
     const section = modal.querySelector('.agency-letter');
 
+    modal.querySelectorAll('.agency-name').forEach(nameContainer => {
+      nameContainer.innerText = data?.referral_contact?.name || 'N/A';
+    });
+
     if (!data?.letter) return;
 
     const letterBox = section.querySelector('.letter-html');
     if (letterBox) letterBox.innerHTML = data.letter.html_message;
 
-    const yesEmail = document.querySelector('.yes-agency-email');
-    const noEmail = document.querySelector('.no-agency-email');
+    const yesEmails = document.querySelectorAll('.yes-agency-email');
+    const noEmails = document.querySelectorAll('.no-agency-email');
 
     if (!data.letter.recipients?.length) {
-      noEmail.hidden = false;
-      yesEmail.hidden = true;
+      noEmails.forEach(noEmail => (noEmail.hidden = false));
+      yesEmails.forEach(yesEmail => (yesEmail.hidden = true));
       return;
     }
-    noEmail.hidden = true;
-    yesEmail.hidden = false;
+    noEmails.forEach(noEmail => (noEmail.hidden = true));
+    yesEmails.forEach(yesEmail => (yesEmail.hidden = false));
 
-    section.querySelector('.email').innerText = data.letter.recipients[0];
-    section.querySelector('.subject').innerText = data.letter.subject;
+    modal.querySelectorAll('.agency.email').forEach(e => (e.innerText = data.letter.recipients[0]));
+    modal.querySelectorAll('.agency.subject').forEach(e => (e.innerText = data.letter.subject));
     const ccs = data.letter.recipients.slice(1).join(', ');
-    section.querySelector('.ccs').innerText = ccs || '';
+    modal.querySelectorAll('.agency.ccs').forEach(e => (e.innerText = ccs || ''));
   }
 
   function getComplaintLetterInvalidReasons(modal, { currentStepName, targetStepName }) {
