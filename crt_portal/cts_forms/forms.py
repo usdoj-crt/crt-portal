@@ -1434,7 +1434,7 @@ class ResponseActions(Form):
         self.fields['templates_referral'] = ModelChoiceField(
             queryset=templates.filter(show_in_dropdown=True,
                                       referral_contact__isnull=False),
-            empty_label="[Select response letter]",
+            empty_label="[Select an agency]",
             widget=DataAttributesSelect(data=data, attrs={
                 **attrs,
                 "class": "intake-select usa-select response-template-referral",

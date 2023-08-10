@@ -1,4 +1,7 @@
+import types
+from typing import List, Optional
 import logging
+from django.forms.models import model_to_dict
 import markdown
 from markdown.treeprocessors import Treeprocessor
 from markdown.extensions import Extension
@@ -10,6 +13,7 @@ from datetime import datetime
 from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from cts_forms.models import Report
 from tms.models import TMSEmail
 
 logger = logging.getLogger(__name__)
@@ -52,20 +56,33 @@ class CustomHTMLExtension(Extension):
         md.treeprocessors.register(CustomHTMLProcessor(md), 'custom_html_processor', 15)
 
 
-def crt_send_mail(report, template, purpose=TMSEmail.MANUAL_EMAIL, dry_run=False):
-    """
-    Given a report and a template, use django's builtin `send_mail` to generate and send
-    an outbound email
+class Mail(types.SimpleNamespace):
+    recipients: Optional[List[str]]
+    subject: Optional[str]
+    message: Optional[str]
+    html_message: Optional[str]
 
-    Returns a list of integers indicating the number of successfully sent emails.
-    """
-    subject = template.render_subject(report)
-    message = template.render_body(report)
 
-    recipient_list = remove_disallowed_recipients([report.contact_email])
-    if not recipient_list:
-        logger.info(f'{report.contact_email} not in allowed domains, not attempting to deliver email response template #{template.id} to report: {report.id}')
+def render_agency_mail(*, complainant_letter: Mail, report, template, extra_ccs=None) -> Optional[Mail]:
+    if not template.referral_contact:
         return None
+    if not extra_ccs:
+        extra_ccs = []
+    message = _build_referral_content(complainant_letter=complainant_letter, template=template, report=report)
+
+    recipients = template.referral_contact.clean_addressee_emails()
+    all_recipients = (recipients + extra_ccs) if recipients else []
+    allowed_recipients = remove_disallowed_recipients(all_recipients)
+
+    return Mail(message=message,
+                html_message=message,
+                recipients=allowed_recipients,
+                subject=f'[DOJ CRT Referral] {report.public_id} - {report.contact_full_name}',
+                )
+
+
+def render_complainant_mail(*, report, template) -> Mail:
+    message = template.render_body(report)
 
     if template.is_html:
         md = markdown.markdown(message, extensions=['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension()])
@@ -74,10 +91,24 @@ def crt_send_mail(report, template, purpose=TMSEmail.MANUAL_EMAIL, dry_run=False
         # replace newlines, \n, with <br> so the API will generate formatted emails
         html_message = message.replace('\n', '<br>')
 
+    if not report.contact_email:
+        recipients = []
+    else:
+        recipients = remove_disallowed_recipients([report.contact_email])
+
+    return Mail(
+        subject=template.render_subject(report),
+        message=template.render_body(report),
+        html_message=html_message,
+        recipients=recipients,
+    )
+
+
+def send_tms(message: Mail, *, report: Report, purpose: str, dry_run: bool) -> List[int]:
     if settings.EMAIL_BACKEND != 'tms.backend.TMSEmailBackend':
-        TMSEmail.create_fake(subject=subject,
-                             body=message,
-                             html_body=html_message,
+        TMSEmail.create_fake(subject=message.subject,
+                             body=message.message,
+                             html_body=message.html_message,
                              report=report,
                              purpose=purpose
                              ).save()
@@ -86,61 +117,58 @@ def crt_send_mail(report, template, purpose=TMSEmail.MANUAL_EMAIL, dry_run=False
     if dry_run:
         return [0]
 
+    if not message.subject or not message.message or not message.recipients:
+        return [0]
+
     send_results = send_mail(
-        subject, message, settings.DEFAULT_FROM_EMAIL, recipient_list,
-        fail_silently=False, html_message=html_message
+        message.subject,
+        message.message,
+        settings.DEFAULT_FROM_EMAIL,
+        message.recipients,
+        fail_silently=False,
+        html_message=message.html_message
     )
-    logger.info(f'Sent email response template #{template.id} to report: {report.id}')
     response = send_results[0]
     TMSEmail(tms_id=response['id'],
-             recipient=report.contact_email,
-             subject=subject,
-             body=message,
-             html_body=html_message,
+             recipient=message.recipients,
+             subject=message.subject,
+             body=message.message,
+             html_body=message.html_message,
              report=report,
              created_at=datetime.strptime(response['created_at'], '%Y-%m-%dT%H:%M:%S%z'),
              status=response['status'],
              purpose=purpose
              ).save()
+
     return send_results
 
 
-def build_referral_content(complainant_letter_body, referral_letter_body, report):
+def mail_to_complainant(report, template, purpose=TMSEmail.MANUAL_EMAIL, dry_run=False, rendered=None):
+    """
+    Given a report and a template, use django's builtin `send_mail` to generate and send
+    an outbound email
+
+    Returns a list of integers indicating the number of successfully sent emails.
+    """
+    if not rendered:
+        rendered = render_complainant_mail(report=report, template=template)
+    if not rendered.recipients:
+        logger.info(f'{report.contact_email} not in allowed domains, not attempting to deliver email response template #{template.id} to report: {report.id}')
+        return None
+
+    send_results = send_tms(rendered, report=report, purpose=purpose, dry_run=dry_run)
+    logger.info(f'Sent email response template #{template.id} to report: {report.id}')
+
+    return send_results
+
+
+def _build_referral_content(*, complainant_letter, template, report) -> Optional[str]:
+    if not template.referral_contact:
+        return None
     data = {
-        'referral_letter': referral_letter_body,
-        'complainant_letter': complainant_letter_body,
-        'contact_address_line_1': report.contact_address_line_1,
-        'contact_address_line_2': report.contact_address_line_2,
-        'contact_city': report.contact_city,
-        'contact_state': report.contact_state,
-        'contact_zip': report.contact_zip,
-        'contact_phone': report.contact_phone,
-        'contact_email': report.contact_email,
-        'primary_complaint': report.primary_complaint,
-        'hate_crime': report.hate_crime,
-        'commercial_or_public_place': report.commercial_or_public_place,
-        'location_name': report.location_name,
-        'location_address_line_1': report.location_address_line_1,
-        'location_address_line_2': report.location_address_line_2,
-        'location_city_town': report.location_city_town,
-        'location_state': report.location_state,
-        'protected_class': report.protected_class,
-        'servicemember': report.servicemember,
-        'last_incident_month': report.last_incident_month,
-        'last_incident_day': report.last_incident_day,
-        'last_incident_year': report.last_incident_year,
-        'crt_reciept_year': report.crt_reciept_year,
-        'crt_reciept_day': report.crt_reciept_day,
-        'crt_reciept_month': report.crt_reciept_month,
-        'violation_summary': report.violation_summary,
-        'language': report.language,
-        'election_details': report.election_details,
-        'other_commercial_or_public_place': report.other_commercial_or_public_place,
-        'inside_correctional_facility': report.inside_correctional_facility,
-        'correctional_facility_type': report.correctional_facility_type,
-        'public_or_private_school': report.public_or_private_school,
-        'public_or_private_employer': report.public_or_private_employer,
-        'employer_size': report.employer_size,
+        'complainant_letter': complainant_letter,
+        'template': model_to_dict(template),
+        'referral_contact': model_to_dict(template.referral_contact),
+        'report': model_to_dict(report),
     }
-    referral_content_string = render_to_string('referral_info.html', {'data': data})
-    return referral_content_string
+    return render_to_string('referral_info.html', data)

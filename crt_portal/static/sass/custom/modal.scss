@@ -30,15 +30,57 @@ body.is-modal {
     display: none;
   }
 
+  .modal-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
   .modal-content {
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    gap: 1rem;
     position: relative;
     background: white;
     @include u-radius('md');
     @include u-shadow(3);
+    p {
+      margin: 0;
+    }
+  }
+
+  .modal-subsection {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .modal-step-content {
+    background-color: #ECF1F7;
+    padding: 16px;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: auto;
+    gap: 1rem;
+
+    ul,ol {
+      margin-left: 1rem;
+      padding-left: 1rem;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    textarea {
+      background-color: white;
+    }
   }
 
   .modal-content--small {
     width: 90%;
+    overflow: auto;
     padding: 1rem;
     @include at-media(tablet) {
       width: 85%;
@@ -50,9 +92,16 @@ body.is-modal {
     }
   }
 
+  .modal-content--large.modal-content--extra {
+    height: 100%;
+  }
+
   .modal-content--large {
+    display: flex;
+    gap: 0;
     width: 80%;
     height: 60%;
+    overflow: auto;
     min-height: 40rem; // a11y: don't collapse modal
     padding: 2rem;
     @include at-media(tablet) {
@@ -68,19 +117,37 @@ body.is-modal {
   .modal-main {
     display: flex;
     flex-direction: column;
+    overflow: auto;
+    gap: 1rem;
     flex-grow: 1;
   }
 
   .modal-form {
     display: flex;
     flex-direction: column;
-    height: calc(100% - 4rem);
+    overflow: auto;
+    flex-grow: 1;
+    gap: 1rem;
+  }
+
+  .modal-step {
+    .step-text {
+      margin-top: 1.5rem;
+      margin-bottom: 0px;
+    }
+
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    flex-grow: 1;
+    gap: 1rem;
   }
 
   .modal-guide {
     display: flex;
     flex-direction: column;
-    height: calc(100% - 4rem);
+    overflow: auto;
+    gap: 1rem;
     overflow-y: scroll;
     border-bottom: 1px solid color($theme-color-primary-darker);
   }
@@ -101,10 +168,6 @@ body.is-modal {
     min-height: 40rem; // a11y: don't collapse modal
     padding: 2rem;
   }
-
-  .modal-footer {
-    margin-top: 0.5rem;
-  }
 }
 
 .intake-template--modal {
@@ -120,37 +183,29 @@ body.is-modal {
     min-height: 2rem;
   }
 
-  #response-modal-form {
-    p {
-      margin-top: 0px;
-      margin-bottom: 1rem;
-    }
-  }
-
-  #template-language-select {
+  #template-language-select,.language-select {
     width: 50%;
-    margin-bottom: 1rem;
   }
 
   .intake-select {
     width: 50%;
-    margin-bottom: 1rem;
   }
 
-  #intake_letter {
+  #intake_letter,.letter-plaintext {
     padding: 0 1rem;
     width: 100%;
     flex-grow: 1;
     @include u-radius('md');
   }
 
-  #intake_letter_html {
+  #intake_letter_html,.letter-html {
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: scroll;
     padding: 1em;
     width: 100%;
-    height: 220px;
+    flex-grow: 1;
     border: 1px solid black;
+    background-color: white;
     @include u-radius('md');
   }
 }
