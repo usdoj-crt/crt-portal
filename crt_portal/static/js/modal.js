@@ -216,6 +216,7 @@
 
   function onUseButton(button, action) {
     button.addEventListener('click', action);
+    if (button.tagName === 'BUTTON') return;
     button.addEventListener('keypress', function(event) {
       if (!['Enter', ' '].includes(event.key)) return;
       action();

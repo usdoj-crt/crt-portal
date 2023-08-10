@@ -9,7 +9,7 @@
   <input type="hidden" value="{{ data.id }}" name="id" id="referral_report_id" />
   <div id="intake_referral_modal" hidden>
     <div class="modal-wrapper intake-template--modal">
-      <div class="modal-content modal-content--large">
+      <div class="modal-content modal-content--large modal-content--stretch">
         <div class="modal-header">
           <h1>Refer complaint</h1>
           {% include 'partials/steps.html' %}
@@ -24,6 +24,9 @@
 
           <div data-step="2" class="modal-step agency-letter">
             <h2 class="step-text">Agency letter</h2>
+            <div class="modal-step-content">
+              {% include 'forms/complaint_view/show/refer_modal_agency_letter.html' %}
+            </div>
           </div>
 
           <div data-step="3" class="modal-step review-and-send">

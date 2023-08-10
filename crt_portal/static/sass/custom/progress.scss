@@ -44,6 +44,10 @@ $outline: color('white');
   $circle-diameter: 2.5rem;
   $circle-border-width: 4px;
 
+  .progress {
+    margin-top: -2rem;
+  }
+
   .connecting-line  {
     bottom: unset;
     top: 1.5rem;

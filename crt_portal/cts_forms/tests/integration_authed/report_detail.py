@@ -99,7 +99,7 @@ def test_refer_complaint_modal_no_email(page):
 
     modal = page.locator('#intake_referral_modal')
 
-    page.screenshot(path="e2e-screenshots/refer_1_unselected.png", full_page=True)
+    page.screenshot(path="e2e-screenshots/refer_1_no_email_unselected.png", full_page=True)
     assert modal.locator('.step.current[data-step="1"]').is_visible()
     assert modal.locator('.step[data-step="2"]').filter(has_text="Agency letter").is_visible()
     assert modal.locator('.step[data-step="3"]').filter(has_text="Review and send").is_visible()
@@ -114,7 +114,7 @@ def test_refer_complaint_modal_no_email(page):
     assert element.normalize_text(letter_step.locator('.letter-html')) == ''
 
     modal.locator('button').filter(has_text="Next").click()
-    page.screenshot(path="e2e-screenshots/refer_1_agency_required.png", full_page=True)
+    page.screenshot(path="e2e-screenshots/refer_1_no_email_agency_required.png", full_page=True)
     assert modal.get_by_text('Agency is required').is_visible()
     assert modal.locator('.step.current[data-step="1"]').is_visible()
 
@@ -129,6 +129,17 @@ def test_refer_complaint_modal_no_email(page):
     ])
     agency_select.select_option('(es) Referrals integration test - no agency email')
 
+    letter_step.locator('.letter-html').filter(has_text='Dear ReferralTestingNoEmail,').wait_for()
+
+    modal.locator('button').filter(has_text="Next").click()
+    assert modal.locator('.step.current[data-step="2"]').is_visible()
+
+    page.screenshot(path="e2e-screenshots/refer_2_with_email_unselected.png", full_page=True)
+
+    letter_step = modal.locator('.modal-step.agency-letter')
+    assert letter_step.get_by_text('There is no email on file for this agency.').is_visible()
+
+    # TODO: Update this to include the agency letter:
     letter_step.locator('.letter-html').filter(has_text='Dear ReferralTestingNoEmail,').wait_for()
 
     admin_models.delete(
@@ -173,7 +184,7 @@ def test_refer_complaint_modal_with_email(page):
         '/admin/cts_forms/referralcontact',
         machine_name='test-referral-contact-with-email',
         name='Test Referral Contact With Email',
-        addressee_emails='ayy@example.com, bee@example.com'
+        addressee_emails='ayy@example.com, bee@example.com,cee@example.com'
     )
     for language in ['en', 'es']:
         admin_models.create(
@@ -194,7 +205,7 @@ def test_refer_complaint_modal_with_email(page):
 
     modal = page.locator('#intake_referral_modal')
 
-    page.screenshot(path="e2e-screenshots/refer_1_unselected.png", full_page=True)
+    page.screenshot(path="e2e-screenshots/refer_1_with_email_unselected.png", full_page=True)
     assert modal.locator('.step.current[data-step="1"]').is_visible()
     assert modal.locator('.step[data-step="2"]').filter(has_text="Agency letter").is_visible()
     assert modal.locator('.step[data-step="3"]').filter(has_text="Review and send").is_visible()
@@ -208,7 +219,7 @@ def test_refer_complaint_modal_with_email(page):
     assert element.normalize_text(letter_step.locator('.letter-html')) == ''
 
     modal.locator('button').filter(has_text="Next").click()
-    page.screenshot(path="e2e-screenshots/refer_1_agency_required.png", full_page=True)
+    page.screenshot(path="e2e-screenshots/refer_1_with_email_agency_required.png", full_page=True)
     assert modal.get_by_text('Agency is required').is_visible()
     assert modal.locator('.step.current[data-step="1"]').is_visible()
 
@@ -225,6 +236,21 @@ def test_refer_complaint_modal_with_email(page):
 
     assert element.normalize_text(letter_step.locator('p').filter(has_text='Email: ')) == 'Email: test@testing.com'
     letter_step.locator('.subject').filter(has_text='Re: [es] your referrals test').wait_for()
+    letter_step.locator('.letter-html').filter(has_text='Dear ReferralTestingWithEmail,').wait_for()
+
+    modal.locator('button').filter(has_text="Next").click()
+    assert modal.locator('.step.current[data-step="2"]').is_visible()
+
+    page.screenshot(path="e2e-screenshots/refer_2_with_email_unselected.png", full_page=True)
+
+    letter_step = modal.locator('.modal-step.agency-letter')
+
+    assert letter_step.get_by_text('Agency letter').is_visible()
+    assert letter_step.get_by_text('Refer complaint to (es) Referrals integration test - with agency email').is_visible()
+    assert letter_step.get_by_text('Email: ayy@example.com').is_visible()
+    assert letter_step.get_by_text('CC: bee@example.com, cee@example.com').is_visible()
+    # TODO: Update these to include the agency letter:
+    assert letter_step.get_by_text('Subject: Re: [es] your referrals test').is_visible()
     letter_step.locator('.letter-html').filter(has_text='Dear ReferralTestingWithEmail,').wait_for()
 
     admin_models.delete(
