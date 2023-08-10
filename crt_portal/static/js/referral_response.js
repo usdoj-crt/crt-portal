@@ -5,7 +5,7 @@
   function getReferralResponse(e) {
     e.preventDefault();
     window
-      .fetch('/api/referral-response/', {
+      .fetch('/api/response-action/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

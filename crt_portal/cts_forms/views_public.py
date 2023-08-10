@@ -37,7 +37,7 @@ from .model_variables import (COMMERCIAL_OR_PUBLIC_PLACE_DICT,
                               PUBLIC_OR_PRIVATE_SCHOOL_DICT)
 from .models import Report, ResponseTemplate, EmailReportCount, Campaign
 from .forms import save_form, Review
-from .mail import crt_send_mail
+from .mail import mail_to_complainant
 from utils.voting_mode import is_voting_mode
 
 
@@ -171,7 +171,7 @@ def send_autoresponse_mail(report):
     # or if the auto response template doesn't exist
     if report.contact_email and template:
         try:
-            sent = crt_send_mail(report, template, TMSEmail.AUTO_EMAIL)
+            sent = mail_to_complainant(report, template, TMSEmail.AUTO_EMAIL)
             if sent:
                 description = f"Automated response email sent: '{template.title}' to {report.contact_email} for report {report.public_id}"
             else:

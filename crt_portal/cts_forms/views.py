@@ -38,7 +38,7 @@ from .forms import (
     ReportEditForm, ResponseActions, add_activity,
     AttachmentActions, Review, save_form,
 )
-from .mail import crt_send_mail
+from .mail import mail_to_complainant
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
 from .models import CommentAndSummary, DashboardEmbed, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, Campaign, User, \
     RoutingSection, RoutingStepOneContact, RepeatWriterInfo
@@ -643,7 +643,7 @@ class ResponseView(LoginRequiredMixin, View):
 
         if button_type == 'send':  # We're going to send an email!
             try:
-                sent = crt_send_mail(report, template, TMSEmail.MANUAL_EMAIL)
+                sent = mail_to_complainant(report, template, TMSEmail.MANUAL_EMAIL)
                 if sent:
                     description = f"Email sent: '{template.title}' to {report.contact_email} via {self.MAIL_SERVICE}"
                 else:

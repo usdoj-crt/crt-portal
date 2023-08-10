@@ -200,7 +200,7 @@ body.is-modal {
 
   #intake_letter_html,.letter-html {
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: scroll;
     padding: 1em;
     width: 100%;
     flex-grow: 1;

@@ -22,12 +22,6 @@
     const letterHtmls = modal.querySelectorAll('.letter-html');
     letterHtmls.forEach(letterHtml => {
       letterHtml.innerHTML = '';
-      letterHtml.hidden = true;
-    });
-    const letterPlaintexts = modal.querySelectorAll('.letter-plaintext');
-    letterPlaintexts.forEach(letterPlaintext => {
-      letterPlaintext.innerHTML = '';
-      letterPlaintext.hidden = false;
     });
     const subject = modal.querySelector('.subject');
     if (subject) {
@@ -97,59 +91,51 @@
       modal.querySelector('.agency-restated').innerText = event.target.selectedOptions[0].innerText;
       templateField.classList.remove('error');
 
-      // TODO: Use the combined pdf preview API, instead.
-      root.CRT.renderTemplatePreview(modal, {
+      root.CRT.handleReferral('preview', {
         reportId: getReportId(),
-        responseTemplate: event.target.value,
-        htmlBox: modal.querySelector('.complainant-letter .letter-html'),
-        plaintextBox: modal.querySelector('.complainant-letter .letter-plaintext'),
-        afterRendered: data => {
-          const subject = modal.querySelector('.subject');
-          if (!subject) return;
-          subject.innerHTML = data.subject || '[Select an agency]';
-        }
-      });
-
-      // TODO: Use the combined pdf preview API, instead.
-      root.CRT.renderTemplatePreview(modal, {
-        reportId: getReportId(),
-        responseTemplate: event.target.value,
-        htmlBox: modal.querySelector('.agency-letter .letter-html'),
-        plaintextBox: modal.querySelector('.agency-letter .letter-plaintext'),
-        afterRendered: data => {
-          displayAgencyDetails(modal, data);
-        }
+        responseTemplate: event.target.value
+      }).then(data => {
+        displayComplainantDetails(modal, data?.complainant);
+        displayAgencyDetails(modal, data?.agency);
       });
     });
   }
 
+  function displayComplainantDetails(modal, data) {
+    const section = modal.querySelector('.complainant-letter');
+    const subject = section.querySelector('.subject');
+    if (subject) {
+      subject.innerText = data?.letter?.subject || '[Select an agency]';
+    }
+    const letterBox = section.querySelector('.letter-html');
+    if (letterBox) {
+      letterBox.innerHTML = data?.letter?.html_message || 'Message failed to preview.';
+    }
+  }
+
   function displayAgencyDetails(modal, data) {
-    const details = modal.querySelector('.agency-email-details');
-    if (!details) return;
+    const section = modal.querySelector('.agency-letter');
+
+    if (!data?.letter) return;
+
+    const letterBox = section.querySelector('.letter-html');
+    if (letterBox) letterBox.innerHTML = data.letter.html_message;
+
     const yesEmail = document.querySelector('.yes-agency-email');
     const noEmail = document.querySelector('.no-agency-email');
-    if (!data.referral_contact.addressee_emails?.trim().length) {
+
+    if (!data.letter.recipients?.length) {
       noEmail.hidden = false;
       yesEmail.hidden = true;
       return;
     }
     noEmail.hidden = true;
     yesEmail.hidden = false;
-    yesEmail.innerHTML = '';
 
-    const emails = data.referral_contact.addressee_emails.split(',').map(e => e.trim());
-
-    const to = document.createElement('p');
-    to.innerHTML = `<strong>Email: </strong>${emails[0]}`;
-    yesEmail.appendChild(to);
-
-    const cc = document.createElement('p');
-    cc.innerHTML = `<strong>CC: </strong>${emails.slice(1).join(', ')}`;
-    yesEmail.appendChild(cc);
-
-    const subject = document.createElement('p');
-    subject.innerHTML = `<strong>Subject: </strong>${data.subject}`;
-    yesEmail.appendChild(subject);
+    section.querySelector('.email').innerText = data.letter.recipients[0];
+    section.querySelector('.subject').innerText = data.letter.subject;
+    const ccs = data.letter.recipients.slice(1).join(', ');
+    section.querySelector('.ccs').innerText = ccs || '';
   }
 
   function getComplaintLetterInvalidReasons(modal, { currentStepName, targetStepName }) {
