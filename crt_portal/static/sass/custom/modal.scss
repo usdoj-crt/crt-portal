@@ -54,6 +54,10 @@ body.is-modal {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+
+    &.compact {
+      gap: 0rem;
+    }
   }
 
   .review-and-send .modal-step-content {
@@ -63,6 +67,11 @@ body.is-modal {
   .actions {
     display: flex;
     gap: 1rem;
+    flex-wrap: wrap;
+
+    .messages {
+      flex-basis: 100%;
+    }
   }
 
   button:not(.usa-button--unstyled) {
@@ -78,6 +87,12 @@ body.is-modal {
 
     &.outline-button {
       padding: 1.25rem 1.25rem 1.25rem 1rem;
+
+      &:disabled {
+        color: white;
+        background-color: #c9c9c9;
+        border: 0;
+      }
     }
   }
 
@@ -146,6 +161,10 @@ body.is-modal {
     @include at-media(desktop) {
       width: 50%;
       padding: 3rem;
+    }
+
+    &.modal-content--stretch {
+      min-height: 96vh;
     }
   }
 

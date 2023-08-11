@@ -12,25 +12,29 @@
 
   <div class="actions">
     <button class="outline-button outline-button--blue print" type="button">Print letter</button>
+    {% include "partials/message.html" %}
   </div>
 
   {% else %}
 
-  <p tabindex="0">
-    <strong>Email:</strong>
-    <strong class="complainant email" data-email="{{data.contact_email|default_if_none:''}}">
-      {{data.contact_email|default_if_none:""}}
-    </strong>
-  </p>
+  <div class="modal-subsection compact">
+    <p tabindex="0">
+      <strong>Email:</strong>
+      <span class="complainant email" data-email="{{data.contact_email|default_if_none:''}}">
+        {{data.contact_email|default_if_none:""}}
+      </span>
+    </p>
 
-  <p tabindex="0">
-    <strong>Subject:</strong>
-    <strong class="complainant subject">[Select response letter]</strong>
-  </p>
+    <p tabindex="0">
+      <strong>Subject:</strong>
+      <span class="complainant subject">[Select response letter]</span>
+    </p>
+  </div>
 
   <div class="actions">
     <button class="usa-button send" type="button">Send</button>
     <button class="outline-button outline-button--blue print" type="button">Print letter</button>
+    {% include "partials/message.html" %}
   </div>
 
   {% endif %}
@@ -44,7 +48,7 @@
     Because there is no email on file, you must print this letter to send to the agency via mail.
   </p>
 
-  <div tabindex="0" class="yes-agency-email modal-subsection">
+  <div tabindex="0" class="yes-agency-email modal-subsection compact">
     <p><strong>Email: </strong><span class="agency email"></span></p>
     <p><strong>CC: </strong><span class="agency ccs"></span></p>
     <p><strong>Subject: </strong><span class="agency subject"></span></p>
@@ -53,5 +57,6 @@
   <div class="actions">
     <button class="yes-agency-email usa-button send" type="button">Send</button>
     <button class="outline-button outline-button--blue print" type="button">Print letter</button>
+    {% include "partials/message.html" %}
   </div>
 </div>

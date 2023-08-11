@@ -92,7 +92,7 @@
       root.CRT.handleReferral('preview', {
         reportId: getReportId(),
         responseTemplate: event.target.value
-      }).then(data => {
+      }).then(({ data }) => {
         displayComplainantDetails(modal, data?.complainant);
         displayAgencyDetails(modal, data?.agency);
       });
@@ -243,12 +243,46 @@
     root.CRT.cancelModal(modal, cancelButton);
   }
 
-  function initPrint(modal) {
-    // TODO
+  function onReply(modal, button, action) {
+    const actions = button.closest('.actions');
+    const templateId = button.closest('form').querySelector('.template-field select').value;
+    const reportId = getReportId();
+    const sectionClass = button.closest('.modal-step-content').classList;
+    let recipient;
+    if (sectionClass.contains('agency')) recipient = 'agency';
+    else if (sectionClass.contains('complainant')) recipient = 'complainant';
+    root.CRT.handleReferral(action, {
+      reportId,
+      responseTemplate: templateId,
+      recipient
+    })
+      .then(({ data, status }) => {
+        const tag = status >= 300 ? 'error' : 'success';
+        root.CRT.showMessage(actions, { tag, content: data.response });
+        if (tag !== 'success') return;
+        button.disabled = true;
+        const actionsTaken = Number(modal.dataset.actionsTaken) + 1;
+        modal.dataset.actionsTaken = isNaN(actionsTaken) ? 1 : actionsTaken;
+        // We need to refresh to show the updated action log:
+        modal.dataset.navigateOnClose = `/form/view/${reportId}`;
+        if (actionsTaken === 2) {
+          root.CRT.prepareToClose(modal);
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        root.CRT.showMessage(actions, {
+          tag: 'error',
+          content: error?.response || 'Action failed unexpectedly.'
+        });
+      });
   }
 
-  function initSend(modal) {
-    // TODO
+  function initReply(modal, action) {
+    const buttons = modal.querySelectorAll(`button.${action}`);
+    buttons.forEach(button => {
+      button.addEventListener('click', () => onReply(modal, button, action));
+    });
   }
 
   function initActions(modal) {
@@ -256,8 +290,8 @@
     if (!openButton || !modal) return;
     openButton.addEventListener('click', event => showModal(event, modal));
     initCancel(modal);
-    initPrint(modal);
-    initSend(modal);
+    initReply(modal, 'send');
+    initReply(modal, 'print');
   }
 
   function initModal() {

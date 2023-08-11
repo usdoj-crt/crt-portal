@@ -53,6 +53,18 @@
     dom.onkeydown = previousOnkeydown;
     modal.setAttribute('hidden', 'hidden');
     dom.body.classList.remove('is-modal');
+    if (modal.dataset.navigateOnClose) {
+      window.location = modal.dataset.navigateOnClose;
+    }
+  };
+
+  root.CRT.prepareToClose = function(modal) {
+    modal.querySelector('.next').hidden = true;
+    const cancel = modal.querySelector('.cancel');
+    cancel.classList.remove('usa-button--unstyled');
+    cancel.classList.add('outline-button');
+    cancel.classList.add('outline-button--blue');
+    cancel.innerText = 'Return to detail page';
   };
 
   root.CRT.cancelModal = function(modal, cancelEl, formEl) {
