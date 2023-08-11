@@ -2,6 +2,7 @@ from django.forms.models import model_to_dict
 from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter, report_cws
 from django.utils.html import mark_safe
 from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
+from utils.pdf import convert_html_to_pdf
 from cts_forms.filters import report_filter
 from cts_forms.mail import CustomHTMLExtension, mail_to_complainant, mail_to_agency, render_agency_mail, render_complainant_mail
 from cts_forms.models import Report, ResponseTemplate
@@ -20,6 +21,7 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 import frontmatter
+import base64
 import html
 import json
 import markdown
@@ -385,8 +387,16 @@ class ResponseAction(APIView):
                      f"Contacted {recipient}:",
                      description,
                      report)
-        # TODO: export to PDF
-        return JsonResponse({'response': description})
+        message = (
+            complainant_letter.html_message
+            if recipient == 'complainant'
+            else agency_letter.html_message
+        )
+        pdfBytes = convert_html_to_pdf(message).getvalue()
+        return JsonResponse({
+            'response': description,
+            'pdf': base64.b64encode(pdfBytes).decode('utf-8'),
+        })
 
     def _send_mail(self, *, request, report, template, recipient,
                    complainant_letter, agency_letter) -> JsonResponse:

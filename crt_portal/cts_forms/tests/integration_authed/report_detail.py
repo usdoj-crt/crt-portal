@@ -153,6 +153,17 @@ def test_refer_complaint_modal_no_email(page):
     assert element.all_normalized_text(letter_step.locator('.modal-step-content.agency .actions button')) == ['Print letter']
     assert element.all_normalized_text(letter_step.locator('.modal-step-content.complainant .actions button')) == ['Print letter']
 
+    with page.expect_download():
+        letter_step.locator('.modal-step-content.agency .actions button').filter(has_text='Print letter').click()
+    assert letter_step.locator('.agency .usa-alert--success').is_visible()
+
+    with page.expect_download():
+        letter_step.locator('.modal-step-content.complainant .actions button').filter(has_text='Print letter').click()
+    assert letter_step.locator('.complainant .usa-alert--success').is_visible()
+
+    with page.expect_navigation():
+        modal.locator('button').filter(has_text='Return to detail page').click()
+
     admin_models.delete(
         page,
         '/admin/cts_forms/responsetemplate',
@@ -166,7 +177,6 @@ def test_refer_complaint_modal_no_email(page):
 
 
 @pytest.mark.only_browser("chromium")
-@pytest.mark.boop
 @console.raise_errors(ignore=['404', 'The user aborted a request.'])
 @features.login_as_superuser_with_feature('separate-referrals-workflow')
 def test_refer_complaint_modal_with_email(page):
