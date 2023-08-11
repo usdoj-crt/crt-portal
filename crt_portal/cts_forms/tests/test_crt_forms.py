@@ -7,19 +7,20 @@ import urllib.parse
 
 from django.contrib.auth.models import User
 from django.http import QueryDict
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from django.test.client import Client
 from django.urls import reverse
 from django.utils.html import escape
 from django.utils.http import urlencode
 
 from datetime import datetime
+from cts_forms.mail import render_complainant_mail, render_agency_mail
 
 from ..forms import BulkActionsForm, ComplaintActions, Filters, ReportEditForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, NEW_STATUS
-from ..models import CommentAndSummary, Report, ResponseTemplate, EmailReportCount
+from ..models import CommentAndSummary, ReferralContact, Report, ResponseTemplate, EmailReportCount
 from .factories import ReportFactory
-from .test_data import SAMPLE_REPORT_1, SAMPLE_RESPONSE_TEMPLATE
+from .test_data import SAMPLE_REFERRAL_CONTACT, SAMPLE_REPORT_1, SAMPLE_RESPONSE_TEMPLATE
 
 
 class ActionTests(TestCase):
@@ -1174,3 +1175,29 @@ class SimpleFilterFormTests(TestCase):
         data = QueryDict('assigned_section=ADM&assigned_section=<script>alert()</script>')
         form = Filters(data)
         self.assertEqual({'ADM'}, form.get_section_filters)
+
+
+class ReferralEmailContentTests(TestCase):
+
+    def setUp(self):
+        self.report = Report.objects.create(**SAMPLE_REPORT_1)
+        self.referral_contact = ReferralContact.objects.create(**SAMPLE_REFERRAL_CONTACT)
+        self.template = ResponseTemplate.objects.create(
+            **SAMPLE_RESPONSE_TEMPLATE,
+            referral_contact=self.referral_contact,
+        )
+
+    @override_settings(RESTRICT_EMAIL_RECIPIENTS_TO=['a@example.gov', 'b@example.gov'])
+    def test_build_referral_content(self):
+        complainant_letter = render_complainant_mail(report=self.report, template=self.template)
+
+        referral_letter = render_agency_mail(complainant_letter=complainant_letter,
+                                             template=self.template,
+                                             report=self.report)
+
+        self.assertIsNotNone(referral_letter)
+
+        self.assertEqual(referral_letter.recipients, ['a@example.gov', 'b@example.gov'])
+        self.assertEqual(referral_letter.subject, f'[DOJ CRT Referral] {self.report.public_id} - Lincoln Abraham')
+        self.assertIn(f'<strong>Subject:</strong> test data with record {self.report.public_id}', referral_letter.html_message)
+        self.assertIn('<strong>First name:</strong> Lincoln', referral_letter.html_message)

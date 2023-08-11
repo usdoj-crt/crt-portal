@@ -1,37 +1,40 @@
 (function(root) {
-  function addReferralAddress(referral_contact) {
-    const addressee = document.getElementById('form-letterhead--addressee');
-    const deptAddressee = document.getElementById('form-letterhead--dept-addressee');
-
-    if (deptAddressee) {
-      deptAddressee.remove();
-    }
-
-    if (!addressee) return;
-
-    const addressee_text = referral_contact?.addressee_text;
-    if (!addressee_text) return;
-
-    const newDeptAddressee = document.createElement('p');
-    newDeptAddressee.id = 'form-letterhead--dept-addressee';
-    newDeptAddressee.innerText = addressee_text;
-
-    addressee.parentNode.insertBefore(newDeptAddressee, addressee);
-  }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    // `marked` should be loaded in global context at this point.
-    if (marked) {
-      marked.setOptions({
-        gfm: true,
-        breaks: true
-      });
-    } else {
-      console.error('marked.js parser not loaded');
-    }
-  });
-
   var modal = document.getElementById('intake_template');
+
+  function setupTabs() {
+    const allTabs = [...document.querySelectorAll('a.intake-tabbed-nav-link')].map(tab => {
+      return tab.dataset.tab;
+    });
+
+    if (!allTabs.length) return;
+
+    function showOnlyTab(toShow) {
+      reset();
+      modal.querySelector('input[name="selected_tab"]').value = toShow;
+      allTabs.forEach(tabName => {
+        [...modal.getElementsByClassName(tabName)].forEach(el => {
+          el.classList.toggle('display-none', toShow !== tabName);
+        });
+      });
+    }
+
+    showOnlyTab(allTabs[0]);
+
+    const tabs = [...modal.querySelectorAll('a.intake-tabbed-nav-link')];
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        reset();
+        const tabName = event.currentTarget.dataset.tab;
+        tabs.forEach(tabToSelect => {
+          const isCurrent = tabToSelect.dataset.tab === tabName;
+          tabToSelect.classList.toggle('intake-tabbed-current', isCurrent);
+        });
+        showOnlyTab(tabName);
+      });
+    });
+  }
 
   var contact = document.getElementById('contact_complainant');
   var showModal = function(event) {
@@ -47,55 +50,48 @@
   var cancel_modal = document.getElementById('intake_template_cancel');
   root.CRT.cancelModal(modal, cancel_modal);
 
-  var copy = document.getElementById('intake_copy');
-  var print = document.getElementById('intake_print');
-  var letter = document.getElementById('intake_letter');
-  var letter_html = document.getElementById('intake_letter_html');
-  var send_email = document.getElementById('intake_send');
+  var copy = modal.querySelector('#intake_copy');
+  var print = modal.querySelector('#intake_print');
+  var letter = modal.querySelector('#intake_letter');
+  var letter_html = modal.querySelector('#intake_letter_html');
+  var send_email = modal.querySelector('#intake_send');
 
-  var email_enabled = document.getElementById('intake_send').dataset.emailEnabled === 'True';
-  var has_contact_email = Boolean(document.getElementById('contact_email').dataset.email);
+  var email_enabled = modal.querySelector('#intake_send').dataset.emailEnabled === 'True';
+  var contact_email = modal.querySelector('#contact_email').dataset.email;
+  var has_contact_email = !!contact_email;
 
   var reset = function() {
-    description.innerHTML = '(select a response template)';
+    description.innerHTML = '[Select response letter]';
     letter_html.innerHTML = '';
     letter_html.hidden = true;
     letter.innerHTML = '';
     letter.hidden = false;
-    document.querySelectorAll('.intake-select').forEach(s => (s.selectedIndex = 0));
-    copy.setAttribute('disabled', 'disabled');
-    print.setAttribute('disabled', 'disabled');
-    send_email.setAttribute('disabled', 'disabled');
+    const letterField = modal.querySelector('.crt-response-letter');
+    letterField?.classList.remove('error');
+    modal.querySelectorAll('.intake-select').forEach(s => (s.selectedIndex = 0));
+    if (!ENABLED_FEATURES.separateReferralsWorkflow) {
+      copy.setAttribute('disabled', 'disabled');
+      print.setAttribute('disabled', 'disabled');
+      send_email.setAttribute('disabled', 'disabled');
+    }
   };
 
-  const description = document.getElementById('intake_description');
-  const selects = document.querySelectorAll('.intake-select');
-  const reportId = document.getElementById('template-report-id').value;
+  const description = modal.querySelector('#intake_description');
+  const selects = modal.querySelectorAll('.intake-select');
+  const reportId = modal.closest('form').querySelector('#template-report-id').value;
   selects.forEach(select =>
     select.addEventListener('change', function(event) {
       event.preventDefault();
-      const index = event.target.selectedIndex;
-      const option = event.target.options[index];
-      const value = event.target.value;
-      window
-        .fetch('/api/responses/' + value + '/?report_id=' + reportId)
-        .then(function(response) {
-          return response.json();
-        })
-        .then(function(data) {
-          description.innerHTML = data.subject || '(select a response template)';
-          if (data.is_html) {
-            letter.hidden = true;
-            letter_html.hidden = false;
-            letter_html.innerHTML = marked.parse(data.body || '');
-          } else {
-            letter_html.hidden = true;
-            letter.hidden = false;
-            letter.innerHTML = data.body || '';
-          }
-          addReferralAddress(data.referral_contact);
-        });
-      if (index >= 1) {
+      root.CRT.renderTemplatePreview(modal, {
+        reportId,
+        responseTemplate: event.target.value,
+        htmlBox: letter_html,
+        plaintextBox: letter,
+        afterRendered: data => {
+          description.innerHTML = data.subject || '[Select response letter]';
+        }
+      });
+      if (event.target.selectedIndex >= 1) {
         copy.removeAttribute('disabled');
         print.removeAttribute('disabled');
         if (email_enabled && has_contact_email) {
@@ -107,36 +103,7 @@
     })
   );
 
-  const allTabs = [...document.querySelectorAll('a.intake-tabbed-nav-link')].map(tab => {
-    return tab.dataset.tab;
-  });
-
-  function showOnlyTab(toShow) {
-    reset();
-    document.querySelector('input[name="selected_tab"]').value = toShow;
-    allTabs.forEach(tabName => {
-      [...document.getElementsByClassName(tabName)].forEach(el => {
-        el.classList.toggle('display-none', toShow !== tabName);
-      });
-    });
-  }
-
-  showOnlyTab(allTabs[0]);
-
-  const tabs = [...document.querySelectorAll('a.intake-tabbed-nav-link')];
-  tabs.forEach(tab => {
-    tab.addEventListener('click', function(event) {
-      event.preventDefault();
-      event.stopPropagation();
-      reset();
-      const tabName = event.currentTarget.dataset.tab;
-      tabs.forEach(tabToSelect => {
-        const isCurrent = tabToSelect.dataset.tab === tabName;
-        tabToSelect.classList.toggle('intake-tabbed-current', isCurrent);
-      });
-      showOnlyTab(tabName);
-    });
-  });
+  setupTabs();
 
   var setLanguageCookie = function(lang) {
     document.cookie = 'form-letter-language' + '=' + lang;
@@ -154,15 +121,15 @@
   };
 
   var applyTemplateLanguageFilter = function() {
-    var language_select = document.getElementById('template-language-select');
+    var language_select = modal.querySelector('#template-language-select');
     var selected_language = language_select.value;
 
     // form letters for languages other than the one selected
-    var toHide = document.querySelectorAll(
+    var toHide = modal.querySelectorAll(
       `.intake-select > option.usa-select:not([data-language=${selected_language}])`
     );
     // form letters for the language that is selected
-    var toShow = document.querySelectorAll(
+    var toShow = modal.querySelectorAll(
       `.intake-select > option.usa-select[data-language=${selected_language}]`
     );
 
@@ -175,13 +142,13 @@
     }
 
     // the selected language changed, clear the currently selected form letter
-    document.querySelectorAll('.intake-select').forEach(intake_select => {
+    modal.querySelectorAll('.intake-select').forEach(intake_select => {
       intake_select.selectedIndex = 0;
     });
     reset();
   };
 
-  var language_select = document.getElementById('template-language-select');
+  var language_select = modal.querySelector('#template-language-select');
   language_select.onchange = function(event) {
     event.preventDefault();
     applyTemplateLanguageFilter();
@@ -207,27 +174,46 @@
     document.removeEventListener('copy', listener);
   }
 
-  var copyContents = function(event) {
-    // Text-only letter
+  function copyContents(event) {
+    if (ENABLED_FEATURES.separateReferralsWorkflow) {
+      if (!validateSend()) return;
+    }
+    const subject = description.innerText;
+
     if (!letter.hidden) {
       const el = document.createElement('textarea');
-      el.value = description.innerText + '\n\n' + letter.value;
+      el.value = letter.value;
       el.setAttribute('readonly', '');
       el.style.position = 'absolute';
       el.style.left = '-9999px';
       document.body.appendChild(el);
       el.select();
-      el.setSelectionRange(0, 99999); // mobile
+      el.setSelectionRange(0, 99999);
       document.execCommand('copy');
       document.body.removeChild(el);
-      // HTML content
     } else if (!letter_html.hidden) {
       copyHTMLToClipboard(letter_html.innerHTML);
     }
-  };
+    recipient = contact_email || '';
+    root.location.href = `mailto:${recipient}?subject=${subject}`;
+  }
   copy.addEventListener('click', copyContents);
 
+  const validateSend = function() {
+    const letterField = modal.querySelector('.crt-response-letter');
+    letterField.classList.remove('error');
+    if (description.innerText.trim() === '[Select response letter]') {
+      event.preventDefault();
+      letterField.classList.add('error');
+      return false;
+    }
+    return true;
+  };
+
   var printContents = function(event) {
+    if (ENABLED_FEATURES.separateReferralsWorkflow) {
+      if (!validateSend()) return;
+    }
     const letterhead = document.getElementById('form-letterhead');
     const letter_placeholder = document.getElementById('form-letter--placeholder');
     // Text-only letter
@@ -251,4 +237,15 @@
     root.CRT.closeModal(modal);
   };
   print.addEventListener('click', printContents);
+
+  if (ENABLED_FEATURES.separateReferralsWorkflow) {
+    if (!has_contact_email) {
+      send_email.setAttribute('hidden', 'true');
+      print.classList.add('primary');
+    }
+    send_email.addEventListener('click', validateSend);
+    print.removeAttribute('disabled');
+    copy.removeAttribute('disabled');
+    send_email.removeAttribute('disabled');
+  }
 })(window);

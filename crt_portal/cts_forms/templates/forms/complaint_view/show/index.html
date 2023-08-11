@@ -93,7 +93,8 @@
 {% endblock %}
 
 {% block usa_footer %}
-  {% include 'forms/complaint_view/show/response_template.html' %}
+  {% include 'forms/complaint_view/show/response_template_modal.html' %}
+  {% include 'forms/complaint_view/show/refer_modal.html' %}
   {% include 'forms/complaint_view/show/print_report.html' with single_print=True %}
 {% endblock %}
 
@@ -104,7 +105,9 @@
 <script src="{% static 'js/edit_detail_card.min.js' %}"></script>
 <script src="{% static 'js/edit_details.min.js' %}"></script>
 <script src="{% static 'js/modal.min.js' %}"></script>
+<script src="{% static 'js/reply.min.js' %}"></script>
 <script src="{% static 'js/form_letter.min.js' %}"></script>
+<script src="{% static 'js/refer_modal.min.js' %}"></script>
 <script src="{% static 'js/referral_response.min.js' %}"></script>
 <script src="{% static 'js/restrict_field.min.js' %}"></script>
 <script src="{% static 'js/soft_validation.min.js' %}"></script>

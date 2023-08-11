@@ -1,0 +1,63 @@
+{% load i18n %}
+
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+
+<form class="usa-form" method="post" action="{% url 'crt_forms:crt-forms-response' id=data.id %}">
+  {% csrf_token %}
+  <input type="hidden" value="{{ return_url_args }}" name="next" id="modal_next" />
+  <input type="hidden" value="{{ index }}" name="index" id="index" />
+  <input type="hidden" value="{{ data.id }}" name="id" id="template-report-id" />
+  <div id="intake_template" hidden>
+    <div class="modal-wrapper intake-template--modal">
+      <div class="modal-content modal-content--large">
+        <div class="modal-header">
+          <h1>Contact complainant</h1>
+        </div>
+        <div id='response-modal-form' class="modal-form">
+          <p>Complainant name: <strong>{{data.contact_full_name|default_if_none:"-"}}</strong></p>
+          <p>Complainant email:
+            {% if ENABLED_FEATURES.separate_referrals_workflow %}
+            {% if not data.contact_email %}
+              <span class="error-message">There is no email on file for this complainant.</span> You will need to print this letter to contact this person.
+            {% endif %}
+            <strong id="contact_email" data-email="{{data.contact_email|default_if_none:''}}">
+              {{data.contact_email|default_if_none:""}}
+            </strong>
+
+            {% else %}
+
+            <strong id="contact_email" data-email="{{data.contact_email|default_if_none:''}}">
+              {{data.contact_email|default_if_none:"-"}}
+            </strong>
+
+            {% endif %}
+          </p>
+          <div class="modal-field">
+            <p>
+              Template language
+            </p>
+            <select id="template-language-select" class="usa-select" aria-label="template language selection">
+              {% for language in languages %}
+                <option value="{{ language.code }}" aria-label="template language selection" {% if language.code == 'en' %}selected{% endif %}>{{ language.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% if ENABLED_FEATURES.separate_referrals_workflow %}
+            {% include 'forms/complaint_view/show/contact_complainant.html' %}
+          {% else %}
+            {% include 'forms/complaint_view/show/response_template_content.html' %}
+          {% endif %}
+
+          <div class="modal-footer">
+            <button id="intake_send" data-email-enabled="{{email_enabled}}" class="usa-button" type="submit" name="type" value="send">Send</button>
+            <button id="intake_print" class="usa-button" type="submit" name="type" value="print">Print letter</button>
+            <button id="intake_copy" class="usa-button" type="submit" name="type" value="copy">Copy letter</button>
+            <button id="intake_template_cancel" class="usa-button usa-button--unstyled">Cancel</button>
+          </div>
+        </div>
+      </div>
+      {% include 'forms/complaint_view/print/form_letter.html' %}
+    </div>
+  </div>
+</form>

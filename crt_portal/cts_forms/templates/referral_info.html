@@ -1,0 +1,200 @@
+{% load commercial_public_space_view %}
+{% load correctional_facility_view %}
+{% load employer_info_view %}
+{% load i18n %}
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+{% block content %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Public+Sans:ital@0;1&display=swap" rel="stylesheet"/>
+  </head>
+  <body bgcolor="#ecf1f7" style="padding: 0; margin: 0; width: 100%; font-family: 'Public Sans', 'Helvetica', 'Arial', san-serif; max-width: 100%; background-color: #ffffff; line-height:1.4;">
+    <table bgcolor="#ecf1f7" border="0" cellpadding="0" cellspacing="0" style="background-color:#ecf1f7; font-family:'Public Sans','Helvetica','Arial',san-serif; margin:0; margin-bottom:16px; width:100%;">
+      <tbody>
+        <tr>
+          <td>
+            <center>
+              <table bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" style="background-color:#ffffff; margin:0 auto; width: 100%; max-width:800px; padding:0;">
+                <tbody>
+                  <tr>
+                    <td class="wrapper header">
+                      <table bgcolor="#162e51" border="0" cellpadding="0" cellspacing="0" style="margin:0 auto; background-color: #162e51; width: 100%; height: 100px;">
+                        <tbody>
+                          <tr>
+                            <td class="column" valign="center" style="padding:24px 8px 24px 32px;width:64px;">
+                              <img src="{% static "img/doj-logo-footer.png" %}" alt="" style="width:64px;height:64px;"/>
+                            </td>
+                            <td class="column" valign="center" style="padding:24px 0;width:100%;line-height:1.2;">
+                              <p style="margin-top: 8px; margin-bottom:0;color:#ffffff;font-size:12px;font-weight: 700;font-family: Merriweather Web,Merriweather Web,Tinos,Georgia,Cambria,Times New Roman,Times,serif;">
+                                U.S. Department of Justice
+                              </p>
+                              <p style="margin-bottom: 8px; margin-top:0;color:#ffffff;font-size:22px;font-weight: 700;font-family: Merriweather Web,Merriweather Web,Tinos,Georgia,Cambria,Times New Roman,Times,serif;">
+                                Civil Rights Division
+                              </p>
+                            </td>
+                            <td class="column" valign="center" style="padding:24px 32px;" align="right">
+                              <p class="header-link" style="border-left: 1px solid #ffbe2e; padding-left:8px;">
+                                <a href="https://civilrights.justice.gov" style="color:#ffffff;text-decoration:none;">civilrights.justice.gov</a>
+                              </p>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </center>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-left:1rem; margin-right: 1rem">
+
+      <div style="display: flex; margin-bottom: 2rem">
+        <div class="spacer" style="flex-grow: 1"></div>
+        <pre style="font-family: unset">{{referral_contact.addressee_text}}</pre>
+      </div>
+
+      <p><strong>Attn:</strong> {{referral_contact.name}}</p>
+      <br/>
+      <p>The Department of Justice's Civil Rights Divison has received a complaint we feel is more appropriate for your agency. Please review the following details below:</p>
+
+    <h1>Complainant Information</h1>
+
+    <p>The following complainant information was collected through the civilrights.justice.gov reporting portal. Information not provided by the complainant will be indicated by a "—".<p>
+
+    <h2>Reporting Portal Record Locator</h2>
+    <p>
+      <div class="display-flex">
+        <span>{{ report.public_id|default:"—" }}</span>
+      </div>
+    </p>
+
+    <h2>Name</h2>
+    <p>
+      <strong>
+        {% with last_name=report.contact_last_name|default:"—" first_name=report.contact_first_name|default:"—" %}
+          <p><strong>First name:</strong> {{ first_name }}</p>
+          <p><strong>Last name:</strong> {{ last_name }}</p>
+        {% endwith %}
+      </strong>
+    </p>
+
+    <h2>Email</h2>
+    <p>
+      <div class="display-flex">
+        <span>{{ report.contact_email|default:"—" }}</span>
+      </div>
+    </p>
+
+    <h2>Phone</h2>
+    <p>{{ report.contact_phone|default:"—" }}</p>
+
+    <h2>Complainant Contact Address</h2>
+    <p>
+      <span>{{ report.contact_address_line_1|default:"—" }}</span>
+      <br />
+      <span>{{ report.contact_address_line_2|default:"—" }}</span>
+      <br />
+      <span>{{ report.contact_city|default:"—" }}, {{report.contact_state|default:"—" }}, {{report.contact_zip|default:"—" }}</span>
+    </p>
+
+    <h2>Primary issue</h2>
+    <p>
+      <div class="details">
+        {{ report.primary_complaint }}
+      </div>
+    </p>
+
+    <h2>Hate crime</h2>
+    <p>
+      <div class="details">
+        <span>{{report.hate_crime|title|default:"—"}}</span>
+      </div>
+    </p>
+
+    <h2>Relevant details</h2>
+    <p>
+      <div class="details">
+        {% if report.election_details %} Election type (federal/local): {{ report.election_details }} {% elif report.commercial_or_public_place %} {% render_commercial_public_space_view report.commercial_or_public_place report.other_commercial_or_public_place %} {% elif report.inside_correctional_facility %} {% render_correctional_facility_view report.inside_correctional_facility report.correctional_facility_type %} {% elif report.public_or_private_school %} School type: {% if report.public_or_private_school == 'not_sure' %} Not sure {% else %} {{ report.public_or_private_school|title }} {% endif %} {% elif report.public_or_private_employer %} {% render_employer_info_view report.public_or_private_employer report.employer_size %} {% else %}<span>—<span>{% endif %}
+      </div>
+    </p>
+
+    <h2>Organization name</h2>
+    <p>
+      <div class="details">
+        <span>{{report.location_name|default:"—"}}</span>
+      </div>
+    </p>
+
+    <h2>Incident Location Address</h2>
+    <p>
+      <div class="details">
+        <p>{{ report.location_address_line_1|default:"—" }}</p>
+        <p>{{ report.location_address_line_2|default:"—" }}</p>
+        <p>{{ report.location_city_town|default:"—"}}, {{report.location_state|default:"—"}}</p>
+      </div>
+    </p>
+
+    <h2>Reported reason</h2>
+    <p>
+      <div class="details">
+        {% if report.other_class %}<br />Other: {{report.other_class}} {% endif %}{% if not report.other_class %}<span>-</span>{% endif %}
+      </div>
+    </p>
+
+    <h2>Servicemember</h2>
+    <p>
+      <div class="details">
+        {{report.servicemember|title|default:"—"}}
+      </div>
+    </p>
+
+    <h2>Date of incident</h2>
+    <p>
+      <div class="details">
+        {{report.last_incident_month|default:"—"}}/{{report.last_incident_day|default:"—"}}/{{report.last_incident_year|default:"—"}}
+      </div>
+    </p>
+
+    <h2>CRT receipt date</h2>
+    <p>
+      <div class="details">
+        {{report.crt_reciept_month|default:"—"}}/{{report.crt_reciept_day|default:"—"}}/{{report.crt_reciept_year|default:"—"}}
+      </div>
+    </p>
+
+    <h2>Personal description</h2>
+    <p>
+      <div class="details">
+        {{ report.violation_summary|linebreaks }}
+      </div>
+    </p>
+
+    <h2>Report language</h2>
+    <p>
+      <div class="details">
+        {% for language in languages %} {% if language.code == report.language %}This report submitted in: {{language.name }}{% endif %} {% endfor %}
+      </div>
+    </p>
+
+      <h1>Complainant Letter</h1>
+      <p>The following is a copy of the letter sent to the complainant:</p>
+      <hr/><br/>
+      <p><strong>Subject:</strong> {{complainant_letter.subject}}</p>
+      <p><strong>Content:</strong></p>
+      <div style="border: 1px dashed black">
+        {{complainant_letter.html_message | safe}}
+      </div>
+    </div>
+  </body>
+</html>
+{% endblock %}

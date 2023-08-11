@@ -44,6 +44,28 @@
   }
 }
 
+.required {
+  color: #B50909;
+}
+
+.modal-field .error-message {
+  display: none;
+}
+
+.error-message {
+  color: #B50909;
+  font-weight: 700;
+}
+
+.modal-field.error {
+  padding-left: .5rem;
+  border-left: .25rem solid #B50909;
+
+  .error-message {
+    display: block;
+  }
+}
+
 hr {
   border-top: 1px solid #949495;
   border-bottom: 0px;
@@ -373,7 +395,15 @@ hr {
   color: #162e51;
 }
 
+#intake_print.primary:not([disabled="disabled"]) {
+  background-color: #162e51;
+  color: #fff;
+}
+
 .intake-tabbed-area {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
 
   nav ul {
     list-style: none;
@@ -392,7 +422,6 @@ hr {
   }
 
   select.intake-select {
-    margin-bottom: 16px;
     width: 100%;
   }
 
@@ -468,6 +497,9 @@ hr {
   }
 
   .intake-tab-content {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
     background-color: #ECF1F7;
     padding: 16px;
     margin-bottom:16px;
@@ -477,7 +509,7 @@ hr {
     background-color: white;
   }
 
-  #intake_letter_html {
+  #intake_letter_html,.letter-html {
     background-color: white;
   }
 }

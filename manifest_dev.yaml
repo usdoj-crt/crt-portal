@@ -4,7 +4,7 @@ applications:
   routes:
   - route: crt-portal-django-dev.app.cloud.gov
   - route: crt-portal-django-dev.app.apps.internal
-  memory: 2G
+  memory: 512M
   disk_quota: 2G
   instances: 1
   env:
