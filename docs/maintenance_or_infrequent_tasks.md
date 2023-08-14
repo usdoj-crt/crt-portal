@@ -343,6 +343,8 @@ class Migration(migrations.Migration):
 
 So long as there is an entry for crt-portal-jupyter in `manifest_etc.yaml`, the application can be deployed with `cf push` or by merging a pull request. See `manifest_dev.yaml` for an example of how to configure a new cloud foundry space.
 
+Make sure that .circleci/config.yml contains an entry for "Deploy crt-portal-jupyter to (space)" under the relevant section.
+
 ### 3. Tell Jupyter the database address
 
 Because Jupyter should _never_ have write access to the database, we can't expose VCAP_SERVICES to it. This means, however, that it also doesn't know the name, address, or port of the database.
