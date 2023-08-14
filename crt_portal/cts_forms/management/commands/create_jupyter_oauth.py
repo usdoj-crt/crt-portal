@@ -53,7 +53,7 @@ class Command(BaseCommand):  # pragma: no cover
             skip_authorization=True,
         )
 
-        if options.get('set_env'):
+        if options.get('cf_set_env'):
             preamble = 'cf set-env crt-portal-jupyter'
             print(f'{preamble} OAUTH_PROVIDER_CLIENT_ID {client_id} && '
                   f'{preamble} OAUTH_PROVIDER_CLIENT_SECRET {client_secret}')

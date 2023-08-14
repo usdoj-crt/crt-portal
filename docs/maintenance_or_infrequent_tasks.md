@@ -304,13 +304,15 @@ For staging and prod we use the `medium-psql-redundant` database service. These 
 
 ## Setup Jupyter on Cloud Foundry
 
-### Create a Read-only User
+Note: All of these `manage.py` commands must be run from an ssh session on a Portal instance (see `Manually running manage.py`).
+
+### 1. Create a Read-only User
 
 Jupyter needs read-only access to the database in order to make queries.
 
 To do this, Django migrations read-only database user on the application database (for a simplified proof of concept and to learn more about how this works, see [this PR](https://github.com/usdoj-crt/crt-portal/pull/1390)).
 
-The migrations happen automatically, but need to be told the username and password to use. To do this, set `POSTGRES_ANALYTICS_USER` and `POSTGRES_ANALYTICS_PASSWORD`:
+The migrations happen automatically, but need to be told the username and password to use. To do this, set `POSTGRES_ANALYTICS_USER` and `POSTGRES_ANALYTICS_PASSWORD` (these must be randomly generated, valid postgres credentials):
 
 ```shell
 cf target -s {target environment}
@@ -323,8 +325,8 @@ If migrations have already been run, you can either migrate down and up (**which
 To migrate down and up, run:
 
 ```shell
-cf run-task crt-portal-django -c "python manage.py migrate analytics zero" --name drop-analytics -k 2G
-cf run-task crt-portal-django -c "python manage.py migrate analytics" --name migrate-analytics -k 2G
+python manage.py migrate analytics zero
+python manage.py migrate analytics
 ```
 
 To add a new migration, use `analytics.models.make_analytics_user`, for example:
@@ -337,13 +339,49 @@ class Migration(migrations.Migration):
     operations = models.make_analytics_user()
 ```
 
-You'll also need to configure Jupyter OAuth, by running:
+### 2. Deploy the Application
+
+So long as there is an entry for crt-portal-jupyter in `manifest_etc.yaml`, the application can be deployed with `cf push` or by merging a pull request. See `manifest_dev.yaml` for an example of how to configure a new cloud foundry space.
+
+### 3. Tell Jupyter the database address
+
+Because Jupyter should _never_ have write access to the database, we can't expose VCAP_SERVICES to it. This means, however, that it also doesn't know the name, address, or port of the database.
+
+To fix that, run the following **locally**. This must be run whenever postgres is re-created / re-staged:
 
 ```
-python manage.py create_jupyter_oauth
+./sync-jupyter-db.sh
 ```
 
-and setting using `cf set-env` to persist the variables it produces.
+### 4. Configure OAuth
+
+You'll also need to configure Jupyter OAuth. This happens in two steps - one of which is run on the portal instance over ssh, and the other of which is run locally:
+
+Over ssh, create the oauth application in our serving postgres:
+
+```bash
+python manage.py create_jupyter_oauth --cf-set-env
+```
+
+Then, copy the output it produces (`cf set-env ...`) and run it locally so that it applies to all of our instances, e.g.:
+
+```bash
+cf set-env crt-portal-jupyter OAUTH_PROVIDER_CLIENT_ID some-long-generated-client-id-here && cf set-env crt-portal-jupyter OAUTH_PROVIDER_CLIENT_SECRET some-long-generated-client-secret-here
+```
+
+You'll also need to tell it where to find the portal, using the routes from manifest_*.yaml - for example, on dev:
+```bash
+cf set-env crt-portal-jupyter WEB_EXTERNAL_HOSTNAME "crt-portal-django-dev.app.cloud.gov"
+cf set-env crt-portal-jupyter WEB_INTERNAL_HOSTNAME "crt-portal-django-dev.app.apps.internal"
+```
+
+You'll need to restart the serving Jupyter instances for it to read the new environment variables, which can be done by running the following locally:
+
+```bash
+cf restart crt-portal-jupyter
+```
+
+Once they restart, confirm all is good by logging out of the portal (this can be done from the top right corner of the admin panel), then logging into Jupyter.
 
 ## Response templates
 
