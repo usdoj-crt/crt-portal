@@ -32,22 +32,6 @@ wait-for-tasks: &wait-for-tasks
     command: |
       sleep 300  # (Five minutes)
 
-configure-jupyter-db-env: &configure-jupyter-db-env
-  run:
-    name: Install python dev dependencies
-    command: |
-      pip install -U pip
-      pip install pipenv
-      pipenv install --dev
-      pipenv run python -m playwright install
-
-# - DATABASE_URL=postgresql://${POSTGRES_ANALYTICS_USER}:${POSTGRES_ANALYTICS_PASSWORD}@db:${DATABASE_PORT:-5432}/postgres
-#   # Format needed for R connections:
-# - DATABASE_HOSTNAME=db
-# - DATABASE_PORT=${DATABASE_PORT:-5432}
-# - DATABASE_USER=${POSTGRES_ANALYTICS_USER}
-# - DATABASE_PASSWORD=${POSTGRES_ANALYTICS_PASSWORD}
-
 jobs:
   build_and_test: # runs not using Workflows must have a `build` job as entry point
     # directory where steps are run
@@ -575,11 +559,9 @@ workflows:
               only: master
 
       - deploy-dev:
-          requires:
-            - build_and_test
           filters:
             branches:
-              only: develop
+              only: kk/1589/dev-jupyter-access
 
       - deploy-stage:
           requires:
