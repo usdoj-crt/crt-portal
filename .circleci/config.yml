@@ -273,6 +273,10 @@ jobs:
           name: Deploy crt-portal-django to dev
           no_output_timeout: 20m
           command: cf8 push crt-portal-django --strategy rolling --app-start-timeout 180 -f ${CF_MANIFEST}
+      - run:
+          name: Deploy crt-portal-jupyter to dev
+          no_output_timeout: 20m
+          command: cf8 push crt-portal-jupyter --strategy rolling --app-start-timeout 180 -f ${CF_MANIFEST}
       - release-lock:
           app: crt-portal-django
 
