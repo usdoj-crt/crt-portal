@@ -36,6 +36,7 @@ applications:
   - route: clamav-rest-dev.apps.internal
 
 - name: crt-portal-jupyter
+  path: jupyterhub
   routes:
   - route: crt-portal-jupyter-dev.app.cloud.gov
   memory: 512M
@@ -46,5 +47,6 @@ applications:
     WEB_EXTERNAL_HOSTNAME: crt-portal-django-dev.app.cloud.gov
     WEB_INTERNAL_HOSTNAME: crt-portal-django-dev.apps.internal
   buildpacks:
+  - https://github.com/cloudfoundry/nodejs-buildpack
   - https://github.com/cloudfoundry/apt-buildpack
   - python_buildpack

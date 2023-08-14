@@ -4,6 +4,7 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [packages]
+jupyterhub = "*"
 jupyterlab = "*"
 jupyter_client = "*"
 oauthenticator = "*"
@@ -19,7 +20,7 @@ bokeh = "*"
 holoviews = "*"
 
 [requires]
-python_version = "3.11.1"
+python_version = "3.11.4"
 
 [pipenv]
 allow_prereleases = true

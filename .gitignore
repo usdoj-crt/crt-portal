@@ -30,6 +30,10 @@ report-data/
 output.csv
 
 jupyterhub/*
+!jupyterhub/start-jupyter.sh
+!jupyterhub/.nvmrc
+!jupyterhub/apt.yml
+!jupyterhub/package.json
 !jupyterhub/Pipfile
 !jupyterhub/Pipfile.lock
 !jupyterhub/jupyterhub_config.py
