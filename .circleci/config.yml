@@ -42,14 +42,14 @@ jobs:
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+          POSTGRES_ANALYTICS_USER: analytics
+          POSTGRES_ANALYTICS_PASSWORD: analytics_password
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
       - image: postgres:12.15-alpine
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
           POSTGRES_PASSWORD: password
-          POSTGRES_ANALYTICS_USER: analytics
-          POSTGRES_ANALYTICS_PASSWORD: analytics_password
     steps:
       - checkout
       # Removing chache for now, we either need to build our image or move the cache location
