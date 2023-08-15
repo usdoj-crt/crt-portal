@@ -1,15 +1,22 @@
 # Configuration file for jupyterhub.
 import os
-from oauthenticator.generic import LocalGenericOAuthenticator
+from oauthenticator.generic import GenericOAuthenticator
 import random
 import string
 import base64
 import hashlib
 import json
 
+try:
+    vcap_application = json.loads(os.environ.get('VCAP_APPLICATION', ''))
+except json.decoder.JSONDecodeError:
+    vcap_application = {}
+
+home = '/home/vcap/app' if vcap_application else '/srv/jupyterhub'
+
 pythonpath = ';'.join([
     *os.environ.get('PYTHONPATH', '').split(';'),
-    '/srv/jupyterhub/helpers'
+    f'{home}/helpers',
 ])
 os.environ['PYTHONPATH'] = pythonpath
 
@@ -183,9 +190,14 @@ c = get_config()  #noqa
 #    - null: jupyterhub.auth.NullAuthenticator
 #    - pam: jupyterhub.auth.PAMAuthenticator
 #  Default: 'jupyterhub.auth.PAMAuthenticator'
-c.JupyterHub.authenticator_class = LocalGenericOAuthenticator
+class PortalOAuthenticator(GenericOAuthenticator):
+    def check_allowed(self, username, authentication=None):
+        # Don't rely on an allowlist for users.
+        # Use Portal admin panel settings, instead.
+        # (See crt_portal/oauth_classes.py)
+        return True
 
-LocalGenericOAuthenticator.create_system_users = True
+c.JupyterHub.authenticator_class = PortalOAuthenticator
 
 # Generate a code_challenge, which is an extra security step imposed by django-oauth-toolkit.
 # For more info: https://django-oauth-toolkit.readthedocs.io/en/stable/getting_started.html
@@ -196,36 +208,32 @@ code_challenge = base64.urlsafe_b64encode(code_challenge).decode('utf-8').replac
 
 web_external_hostname = os.environ.get('WEB_EXTERNAL_HOSTNAME')
 web_internal_hostname = os.environ.get('WEB_INTERNAL_HOSTNAME')
-try:
-    vcap_application = json.loads(os.environ.get('VCAP_APPLICATION', ''))
-except json.decoder.JSONDecodeError:
-    vcap_application = {}
 vcap_uris = vcap_application.get('application_uris', [])
 jupyter_external_hostname = 'https://' + vcap_uris[0] if vcap_uris else ''
 
-c.LocalGenericOAuthenticator.client_id = os.environ.get('OAUTH_PROVIDER_CLIENT_ID')
-c.LocalGenericOAuthenticator.client_secret = os.environ.get('OAUTH_PROVIDER_CLIENT_SECRET')
+PortalOAuthenticator.client_id = os.environ.get('OAUTH_PROVIDER_CLIENT_ID')
+PortalOAuthenticator.client_secret = os.environ.get('OAUTH_PROVIDER_CLIENT_SECRET')
 
-c.LocalGenericOAuthenticator.extra_authorize_params = {
+PortalOAuthenticator.extra_authorize_params = {
     'code_challenge': code_challenge,
     'code_challenge_method': 'S256',
 }
 
-c.LocalGenericOAuthenticator.extra_params = {
+PortalOAuthenticator.token_params = {
     'code_verifier': code_verifier,
 }
 
-c.LocalGenericOAuthenticator.login_service = 'DOJ CRT Portal'
-c.LocalGenericOAuthenticator.basic_auth = True
+PortalOAuthenticator.login_service = 'DOJ CRT Portal'
+PortalOAuthenticator.basic_auth = False
 
 # Requests to this url are from the client, so use the external hostname.
-c.LocalGenericOAuthenticator.authorize_url = f'{web_external_hostname}/oauth2_provider/authorize/'
+PortalOAuthenticator.authorize_url = f'{web_external_hostname}/oauth2_provider/authorize/'
 
 # Requests to these url are from the server, so use the internal hostname.
-c.LocalGenericOAuthenticator.token_url = f'{web_internal_hostname}/oauth2_provider/token/'
-c.LocalGenericOAuthenticator.userdata_url = f'{web_internal_hostname}/oauth2_provider/userinfo/'
+PortalOAuthenticator.token_url = f'{web_internal_hostname}/oauth2_provider/token/'
+PortalOAuthenticator.userdata_url = f'{web_internal_hostname}/oauth2_provider/userinfo/'
 
-c.LocalGenericOAuthenticator.oauth_callback_url = f'{jupyter_external_hostname}/hub/oauth_callback'
+PortalOAuthenticator.oauth_callback_url = f'{jupyter_external_hostname}/hub/oauth_callback'
 
 ## The base URL of the entire application.
 #
@@ -819,7 +827,8 @@ c.LocalGenericOAuthenticator.oauth_callback_url = f'{jupyter_external_hostname}/
 #    - localprocess: jupyterhub.spawner.LocalProcessSpawner
 #    - simple: jupyterhub.spawner.SimpleLocalProcessSpawner
 #  Default: 'jupyterhub.spawner.LocalProcessSpawner'
-# c.JupyterHub.spawner_class = 'jupyterhub.spawner.LocalProcessSpawner'
+# We use SimpleLocalProcessSpawner, because we don't want to isolate user instances.
+c.JupyterHub.spawner_class = 'jupyterhub.spawner.SimpleLocalProcessSpawner'
 
 ## Path to SSL certificate file for the public facing interface of the proxy
 #
@@ -1002,10 +1011,10 @@ c.LocalGenericOAuthenticator.oauth_callback_url = f'{jupyter_external_hostname}/
 #  documentation for your spawner to verify!
 #  Default: ['jupyterhub-singleuser']
 c.Spawner.cmd = ['jupyterhub-singleuser']
-c.Spawner.notebook_dir = '/srv/jupyterhub/assignments'
+c.Spawner.notebook_dir = f'{home}/assignments'
 c.Spawner.args = [
     '--ServerApp.contents_manager_class=table_contents_manager.TableContentsManager',
-    '--ServerApp.root_dir=/srv/jupyterhub',
+    f'--ServerApp.root_dir={home}',
 ]
 
 ## Maximum number of consecutive failures to allow before shutting down
@@ -1083,7 +1092,7 @@ c.Spawner.args = [
 #  process's environment (such as `CONFIGPROXY_AUTH_TOKEN`) is not passed to the
 #  single-user server's process.
 #  Default: ['PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', 'VIRTUAL_ENV', 'LANG', 'LC_ALL', 'JUPYTERHUB_SINGLEUSER_APP']
-c.Spawner.env_keep = ['PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', 'VIRTUAL_ENV', 'LANG', 'LC_ALL', 'JUPYTERHUB_SINGLEUSER_APP', 'DATABASE_URL', 'DATABASE_HOSTNAME', 'DATABASE_PORT', 'DATABASE_USER', 'DATABASE_PASSWORD']
+c.Spawner.env_keep = ['PATH', 'PYTHONPATH', 'LD_LIBRARY_PATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', 'VIRTUAL_ENV', 'LANG', 'LC_ALL', 'JUPYTERHUB_SINGLEUSER_APP', 'DATABASE_URL', 'DATABASE_HOSTNAME', 'DATABASE_PORT', 'DATABASE_USER', 'DATABASE_PASSWORD']
 
 ## Extra environment variables to set for the single-user server's process.
 #
@@ -1109,7 +1118,7 @@ c.Spawner.env_keep = ['PATH', 'PYTHONPATH', 'CONDA_ROOT', 'CONDA_DEFAULT_ENV', '
 #      such as JUPYTERHUB_API_URL.
 #  Default: {}
 c.Spawner.environment = {
-    'PYTHONPATH': '/srv/jupyterhub/helpers'
+    'PYTHONPATH': f'{home}/helpers',
 }
 
 ## Timeout (in seconds) before giving up on a spawned HTTP server

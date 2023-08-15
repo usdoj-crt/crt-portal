@@ -38,7 +38,7 @@ class Command(BaseCommand):  # pragma: no cover
         client_id = generators.generate_client_id()
         client_secret = generators.generate_client_secret()
         jupyter_port = options.get('port')
-        manual_redirect_uris = options.get('redirect_uris', '').split()
+        manual_redirect_uris = options.get('redirect_uris')
         redirect_uris = manual_redirect_uris or f'http://localhost:{jupyter_port}/hub/oauth_callback'
 
         Application.objects.all().delete()
