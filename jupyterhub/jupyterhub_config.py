@@ -5,6 +5,7 @@ import random
 import string
 import base64
 import hashlib
+import json
 
 pythonpath = ';'.join([
     *os.environ.get('PYTHONPATH', '').split(';'),
@@ -195,6 +196,12 @@ code_challenge = base64.urlsafe_b64encode(code_challenge).decode('utf-8').replac
 
 web_external_hostname = os.environ.get('WEB_EXTERNAL_HOSTNAME')
 web_internal_hostname = os.environ.get('WEB_INTERNAL_HOSTNAME')
+try:
+    vcap_application = json.loads(os.environ.get('VCAP_APPLICATION', ''))
+except json.decoder.JSONDecodeError:
+    vcap_application = {}
+vcap_uris = vcap_application.get('application_uris', [])
+jupyter_external_hostname = 'https://' + vcap_uris[0] if vcap_uris else ''
 
 c.LocalGenericOAuthenticator.client_id = os.environ.get('OAUTH_PROVIDER_CLIENT_ID')
 c.LocalGenericOAuthenticator.client_secret = os.environ.get('OAUTH_PROVIDER_CLIENT_SECRET')
@@ -212,11 +219,13 @@ c.LocalGenericOAuthenticator.login_service = 'DOJ CRT Portal'
 c.LocalGenericOAuthenticator.basic_auth = True
 
 # Requests to this url are from the client, so use the external hostname.
-c.LocalGenericOAuthenticator.authorize_url = f'http://{web_external_hostname}/oauth2_provider/authorize/'
+c.LocalGenericOAuthenticator.authorize_url = f'{web_external_hostname}/oauth2_provider/authorize/'
 
 # Requests to these url are from the server, so use the internal hostname.
-c.LocalGenericOAuthenticator.token_url = f'http://{web_internal_hostname}/oauth2_provider/token/'
-c.LocalGenericOAuthenticator.userdata_url = f'http://{web_internal_hostname}/oauth2_provider/userinfo/'
+c.LocalGenericOAuthenticator.token_url = f'{web_internal_hostname}/oauth2_provider/token/'
+c.LocalGenericOAuthenticator.userdata_url = f'{web_internal_hostname}/oauth2_provider/userinfo/'
+
+c.LocalGenericOAuthenticator.oauth_callback_url = f'{jupyter_external_hostname}/hub/oauth_callback'
 
 ## The base URL of the entire application.
 #

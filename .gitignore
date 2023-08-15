@@ -30,7 +30,7 @@ report-data/
 output.csv
 
 jupyterhub/*
-!jupyterhub/start-jupyter.sh
+!jupyterhub/Procfile
 !jupyterhub/.nvmrc
 !jupyterhub/apt.yml
 !jupyterhub/package.json

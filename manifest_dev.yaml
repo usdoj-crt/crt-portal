@@ -44,8 +44,8 @@ applications:
   instances: 1
   env:
     ENV: DEVELOP
-    WEB_EXTERNAL_HOSTNAME: crt-portal-django-dev.app.cloud.gov
-    WEB_INTERNAL_HOSTNAME: crt-portal-django-dev.apps.internal
+    WEB_EXTERNAL_HOSTNAME: https://crt-portal-django-dev.app.cloud.gov
+    WEB_INTERNAL_HOSTNAME: http://crt-portal-django-dev.apps.internal:8080
   buildpacks:
   - https://github.com/cloudfoundry/nodejs-buildpack
   - https://github.com/cloudfoundry/apt-buildpack

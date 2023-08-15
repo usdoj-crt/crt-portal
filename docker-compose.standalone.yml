@@ -38,7 +38,7 @@ services:
 
   jupyter:
     environment:
-      - WEB_EXTERNAL_HOSTNAME=localhost:${WEB_PORT}
+      - WEB_EXTERNAL_HOSTNAME=http://localhost:${WEB_PORT}
     env_file:
       - .env
       - .${COMPOSE_PROJECT_NAME}.env

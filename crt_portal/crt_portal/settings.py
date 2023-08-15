@@ -74,6 +74,7 @@ ALLOWED_HOSTS = [
     'crt-portal-django.app.cloud.gov',
     'crt-portal-django-stage.app.cloud.gov',
     'crt-portal-django-dev.app.cloud.gov',
+    'crt-portal-django-dev.apps.internal',
 ]
 
 if environment == 'UNDEFINED':

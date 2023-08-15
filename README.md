@@ -122,8 +122,8 @@ docker compose run web python /code/crt_portal/manage.py migrate analytics
 You'll also need to set the following env to tell Jupyter where to find the Django app:
 
 ```
-WEB_EXTERNAL_HOSTNAME="localhost:8000"
-WEB_INTERNAL_HOSTNAME="web:8000"
+WEB_EXTERNAL_HOSTNAME="http://localhost:8000"
+WEB_INTERNAL_HOSTNAME="http://web:8000"
 ```
 
 #### OAuth
