@@ -20,14 +20,12 @@ function cf_set_env() {
 }
 
 portal_services="$(get_db_config)"
-cf_env_target crt-portal-jupyter
-jupyter_services="$(get_db_config)"
 
 db_name="$(echo "$portal_services" | jq -r '.["db_name"]')"
 db_host="$(echo "$portal_services" | jq -r '.["host"]')"
 db_port="$(echo "$portal_services" | jq -r '.["port"]')"
-db_user="$(echo "$jupyter_services" | jq -r '.["username"]')"
-db_password="$(echo "$jupyter_services" | jq -r '.["password"]')"
+db_user="$(cf_get_env POSTGRES_ANALYTICS_USER)"
+db_password="$(cf_get_env POSTGRES_ANALYTICS_PASSWORD)"
 
 # Format needed for Python connections:
 cf_set_env DATABASE_URL "postgresql://$db_user:$db_password@$db_host:$db_port/$db_name"
@@ -37,3 +35,5 @@ cf_set_env DATABASE_HOSTNAME "$db_host"
 cf_set_env DATABASE_PORT "$db_port"
 cf_set_env DATABASE_USER "$db_user"
 cf_set_env DATABASE_PASSWORD "$db_password"
+
+cf restart crt-portal-jupyter

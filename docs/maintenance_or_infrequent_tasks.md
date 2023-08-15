@@ -394,7 +394,9 @@ Make sure that .circleci/config.yml contains an entry for "Deploy crt-portal-jup
 
 Because Jupyter should _never_ have write access to the database, we can't expose VCAP_SERVICES to it. This means, however, that it also doesn't know the name, address, or port of the database.
 
-To fix that, run the following **locally**. This must be run whenever postgres is re-created / re-staged:
+To fix that, run the following **locally**. Note that this will restart Jupyter.
+
+This must be run whenever postgres is re-created / re-staged:
 
 ```
 ./sync-jupyter-db.sh
