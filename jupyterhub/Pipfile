@@ -18,10 +18,10 @@ ipywidgets = "*"
 plotly = "*"
 bokeh = "*"
 holoviews = "*"
+exceptiongroup = "*"
 
 [requires]
 python_version = "3.11.4"
 
 [pipenv]
 allow_prereleases = true
-

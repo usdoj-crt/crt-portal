@@ -39,7 +39,7 @@ applications:
   path: jupyterhub
   routes:
   - route: crt-portal-jupyter-dev.app.cloud.gov
-  memory: 512M
+  memory: 2G
   disk_quota: 2G
   instances: 1
   env:

@@ -7,6 +7,8 @@ import base64
 import hashlib
 import json
 
+# Having VCAP_APPLICATION set means we're on cloud foundry - i.e., not local.
+# See: https://docs.cloudfoundry.org/devguide/deploy-apps/environment-variable.html#VCAP-APPLICATION
 try:
     vcap_application = json.loads(os.environ.get('VCAP_APPLICATION', ''))
 except json.decoder.JSONDecodeError:
@@ -209,7 +211,10 @@ code_challenge = base64.urlsafe_b64encode(code_challenge).decode('utf-8').replac
 web_external_hostname = os.environ.get('WEB_EXTERNAL_HOSTNAME')
 web_internal_hostname = os.environ.get('WEB_INTERNAL_HOSTNAME')
 vcap_uris = vcap_application.get('application_uris', [])
-jupyter_external_hostname = 'https://' + vcap_uris[0] if vcap_uris else ''
+jupyter_external_hostname = (
+    'https://' + vcap_uris[0] if vcap_uris
+    else 'http://localhost:8001'
+)
 
 PortalOAuthenticator.client_id = os.environ.get('OAUTH_PROVIDER_CLIENT_ID')
 PortalOAuthenticator.client_secret = os.environ.get('OAUTH_PROVIDER_CLIENT_SECRET')
@@ -1010,11 +1015,14 @@ c.JupyterHub.spawner_class = 'jupyterhub.spawner.SimpleLocalProcessSpawner'
 #  environment variables. Most, including the default, do not. Consult the
 #  documentation for your spawner to verify!
 #  Default: ['jupyterhub-singleuser']
+local_spawner_args = ['--allow-root'] # Local docker runs as root - this is fine because it's contained within docker.
+
 c.Spawner.cmd = ['jupyterhub-singleuser']
 c.Spawner.notebook_dir = f'{home}/assignments'
 c.Spawner.args = [
     '--ServerApp.contents_manager_class=table_contents_manager.TableContentsManager',
     f'--ServerApp.root_dir={home}',
+    *([] if vcap_application else local_spawner_args),
 ]
 
 ## Maximum number of consecutive failures to allow before shutting down
