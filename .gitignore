@@ -29,16 +29,6 @@ attachments/
 report-data/
 output.csv
 
-jupyterhub/*
-!jupyterhub/Procfile
-!jupyterhub/.nvmrc
-!jupyterhub/apt.yml
-!jupyterhub/package.json
-!jupyterhub/Pipfile
-!jupyterhub/Pipfile.lock
-!jupyterhub/jupyterhub_config.py
-!jupyterhub/jupyter_server_config.py
-!jupyterhub/export_embed.py
-!jupyterhub/helpers
-!jupyterhub/assignments/
-jupyterhub/assignments/*/.ipynb_checkpoints/
+jupyterhub/**/.ipynb_checkpoints/
+jupyterhub/jupyterhub.sqlite
+jupyterhub/jupyterhub_cookie_secret

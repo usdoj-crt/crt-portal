@@ -565,9 +565,11 @@ workflows:
               only: master
 
       - deploy-dev:
+          requires:
+            - build_and_test
           filters:
             branches:
-              only: kk/1589/dev-jupyter-access
+              only: develop
 
       - deploy-stage:
           requires:
