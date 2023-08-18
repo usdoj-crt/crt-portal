@@ -235,12 +235,34 @@
 
   function initCancel(modal) {
     const cancelButton = getCloseModalButton(modal);
-    cancelButton.addEventListener('click', () => {
+    root.CRT.cancelModal(modal, cancelButton, undefined, () => {
       reset(modal);
       modal.querySelector('.progress .steps').dataset.currentStep = 1;
       root.CRT.renderSteps(modal, validateModal);
     });
-    root.CRT.cancelModal(modal, cancelButton);
+  }
+
+  function updateCanClose(modal) {
+    const sentToSoFar = [modal.dataset.repliedagency, modal.dataset.repliedcomplainant].filter(
+      recipient => !!recipient
+    );
+    const numberSentSoFar = sentToSoFar.length;
+    const notYetSentTo = ['agency', 'complainant'].filter(recipient => {
+      return !sentToSoFar.includes(recipient);
+    });
+
+    if (numberSentSoFar === 1) {
+      modal.dataset.confirmClose =
+        `You've replied to the ${sentToSoFar[0]}` +
+        ` but haven't contacted the ${notYetSentTo[0]}.` +
+        ' Are you sure you want to exit without contacting both?';
+    } else {
+      modal.dataset.confirmClose = '';
+    }
+
+    if (numberSentSoFar === 2) {
+      root.CRT.prepareToClose(modal);
+    }
   }
 
   function onReply(modal, button, action) {
@@ -251,6 +273,9 @@
     let recipient;
     if (sectionClass.contains('agency')) recipient = 'agency';
     else if (sectionClass.contains('complainant')) recipient = 'complainant';
+    modal.dataset[`replied${recipient}`] = recipient;
+    updateCanClose(modal);
+
     root.CRT.handleReferral(action, {
       reportId,
       responseTemplate: templateId,
@@ -261,13 +286,8 @@
         root.CRT.showMessage(actions, { tag, content: data.response });
         if (tag !== 'success') return;
         button.disabled = true;
-        const actionsTaken = Number(modal.dataset.actionsTaken) + 1;
-        modal.dataset.actionsTaken = isNaN(actionsTaken) ? 1 : actionsTaken;
         // We need to refresh to show the updated action log:
         modal.dataset.navigateOnClose = `/form/view/${reportId}`;
-        if (actionsTaken === 2) {
-          root.CRT.prepareToClose(modal);
-        }
       })
       .catch(error => {
         console.error(error);

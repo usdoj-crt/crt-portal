@@ -15,7 +15,8 @@
         isEscape = event.keyCode === 27;
       }
       if (isEscape) {
-        root.CRT.closeModal(modal);
+        modal.dataset.canClose = '';
+        return root.CRT.closeModal(modal);
       }
       var isTab = false;
       if ('key' in event) {
@@ -49,7 +50,17 @@
     dom.body.classList.add('is-modal');
   };
 
+  function canClose(modal) {
+    if (!modal.dataset.confirmClose) return true;
+    // Prevent prompting twice:
+    if (modal.dataset.canClose) return Boolean(Number(modal.dataset.canClose));
+    const answer = confirm(modal.dataset.confirmClose);
+    modal.dataset.canClose = Number(answer);
+    return answer;
+  }
+
   root.CRT.closeModal = function(modal) {
+    if (!canClose(modal)) return false;
     dom.onkeydown = previousOnkeydown;
     modal.setAttribute('hidden', 'hidden');
     dom.body.classList.remove('is-modal');
@@ -68,15 +79,18 @@
     cancel.innerText = 'Return to detail page';
   };
 
-  root.CRT.cancelModal = function(modal, cancelEl, formEl) {
-    var dismissModal = function(event) {
+  root.CRT.cancelModal = function(modal, cancelEl, formEl, afterCancel) {
+    function dismissModal(event) {
+      modal.dataset.canClose = '';
+      if (!canClose(modal)) return false;
       if (formEl) {
         formEl.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
         formEl.focus();
       }
       event.preventDefault();
       root.CRT.closeModal(modal);
-    };
+      if (afterCancel) afterCancel();
+    }
     onUseButton(cancelEl, dismissModal);
   };
 
