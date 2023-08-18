@@ -72,7 +72,7 @@
     </div>
     <div class="intake-section apply-discard">
       <button class="usa-button" type="submit" name='type' value='{{actions.CONTEXT_KEY}}'>Apply changes</button>
-      <button type="reset" class="outline-button outline-button--blue">Discard changes</button>
+      <button type="button" onclick="resetChanges()" class="outline-button outline-button--blue">Discard changes</button>
     </div>
     <hr/>
     <div class="intake-section">
@@ -92,6 +92,16 @@
       </button>
     </div>
   </fieldset>
+  <script nonce="{{request.csp_nonce}}">
+    function resetChanges() {
+      const form = document.getElementById('complaint-view-actions');
+      form.reset();
+      [...form.getElementsByClassName('usa-combo-box')].forEach(combobox => {
+        const select = combobox.getElementsByTagName('select')[0];
+        select.nextSibling.value = select.value;
+      });
+    }
+  </script>
 </form>
 
 {% endblock %}

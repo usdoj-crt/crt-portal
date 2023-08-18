@@ -1464,6 +1464,14 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         })
     )
 
+    def field_changed(self, field):
+        # if both are Falsy, nothing actually changed (None ~= "")
+        old = self.initial[field]
+        new = self.cleaned_data[field]
+        if not old and not new:
+            return False
+        return old != new
+
     class Meta:
         model = Report
         fields = [
@@ -1528,7 +1536,8 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         Parse incoming changed data for activity stream entry
         If report has been closed, emit action for activity log
         """
-        for field in self.changed_data:
+        changed_data = filter(self.field_changed, self.changed_data)
+        for field in changed_data:
             name = ' '.join(field.split('_')).capitalize()
             # rename primary statute if applicable
             if field == 'primary_statute':
@@ -1572,7 +1581,10 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             if hasattr(field.widget, 'label'):
                 return field.widget.label
             return field.label
-        updated_fields = [get_label(field) for field in self.changed_data]
+        changed_data = filter(self.field_changed, self.changed_data)
+        updated_fields = [get_label(field) for field in changed_data]
+        if not len(updated_fields):
+            return
         if len(updated_fields) == 1:
             message = f"Successfully updated {updated_fields[0]}."
         else:
