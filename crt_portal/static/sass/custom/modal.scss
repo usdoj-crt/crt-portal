@@ -39,7 +39,6 @@ body.is-modal {
   .modal-content {
     display: flex;
     flex-direction: column;
-    overflow: auto;
     gap: 1rem;
     position: relative;
     background: white;
@@ -103,7 +102,6 @@ body.is-modal {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    overflow: auto;
     gap: 1rem;
 
     h2 {
@@ -130,7 +128,6 @@ body.is-modal {
 
   .modal-content--small {
     width: 90%;
-    overflow: auto;
     padding: 1rem;
     @include at-media(tablet) {
       width: 85%;
@@ -151,7 +148,6 @@ body.is-modal {
     gap: 0;
     width: 80%;
     height: 60%;
-    overflow: auto;
     min-height: 40rem; // a11y: don't collapse modal
     padding: 2rem;
     @include at-media(tablet) {
@@ -171,7 +167,6 @@ body.is-modal {
   .modal-main {
     display: flex;
     flex-direction: column;
-    overflow: auto;
     gap: 1rem;
     flex-grow: 1;
   }
@@ -179,7 +174,7 @@ body.is-modal {
   .modal-form {
     display: flex;
     flex-direction: column;
-    overflow: auto;
+    overflow: scroll;
     flex-grow: 1;
     gap: 1rem;
   }
@@ -191,8 +186,9 @@ body.is-modal {
     }
 
     display: flex;
+    overflow: scroll;
+    margin-top: 1.5rem;
     flex-direction: column;
-    overflow: auto;
     flex-grow: 1;
     gap: 1rem;
   }
@@ -200,7 +196,6 @@ body.is-modal {
   .modal-guide {
     display: flex;
     flex-direction: column;
-    overflow: auto;
     gap: 1rem;
     overflow-y: scroll;
     border-bottom: 1px solid color($theme-color-primary-darker);
@@ -255,6 +250,7 @@ body.is-modal {
   #intake_letter_html,.letter-html {
     overflow-y: auto;
     overflow-x: scroll;
+    max-height: 50vh;
     padding: 1em;
     width: 100%;
     flex-grow: 1;
