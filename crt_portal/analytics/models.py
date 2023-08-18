@@ -124,6 +124,22 @@ class ExecuteCellPreprocessor(ExecutePreprocessor):
         return super().preprocess_cell(cell, resources, index)
 
 
+def _keep_only_code(notebook_content: Optional[str]) -> str:
+    if not notebook_content:
+        return ''
+
+    preprocessors = [
+        nbconvert.preprocessors.ClearOutputPreprocessor(),
+        nbconvert.preprocessors.ClearMetadataPreprocessor(),
+    ]
+    node = nbformat.reads(notebook_content, as_version=nbformat.NO_CONVERT)
+
+    for preprocessor in preprocessors:
+        preprocessor.preprocess(node, {})
+
+    return node
+
+
 class AnalyticsFile(models.Model):
     """Stores Jupyter notebooks in the database.
 
@@ -145,6 +161,40 @@ class AnalyticsFile(models.Model):
 
     from_command = models.BooleanField(default=False, help_text="If true, the notebook was loaded from a command, and should not be modified (e.g., examples)")
     last_run = models.DateTimeField(null=True, blank=True, help_text="The last time this notebook was run from the Portal admin panel")
+
+    @classmethod
+    def get_existing(cls, other):
+        try:
+            return AnalyticsFile.objects.get(name=other.name, path=other.path)
+        except AnalyticsFile.DoesNotExist:
+            return None
+
+    def has_same_source_as(self, other) -> bool:
+        """Ignoring outputs, etc, whether this has the same code as `other`.
+
+        Used, for example, in determining whether to reload a file.
+        """
+        self_attrs = {
+            'name': self.name,
+            'path': self.path,
+            'type': self.path,
+            'format': self.path,
+            'mimetype': self.mimetype,
+        }
+        other_attrs = {
+            'name': self.name,
+            'path': self.path,
+            'type': self.path,
+            'format': self.path,
+            'mimetype': self.mimetype,
+        }
+        if self_attrs != other_attrs:
+            return False
+
+        if self.type == 'notebook':
+            return _keep_only_code(self.content) == _keep_only_code(other.content)
+
+        return self.content == other.content
 
     def as_notebook(self) -> nbformat.NotebookNode:
         loaded = nbformat.reads(self.content, as_version=4)
