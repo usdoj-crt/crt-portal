@@ -60,6 +60,7 @@
 
   root.CRT.prepareToClose = function(modal) {
     modal.querySelector('.next').hidden = true;
+    modal.querySelector('.back').hidden = true;
     const cancel = modal.querySelector('.cancel');
     cancel.classList.remove('usa-button--unstyled');
     cancel.classList.add('outline-button');
@@ -123,33 +124,45 @@
 
     const currentStep = Number(stepNavs.dataset.currentStep);
     const numberOfSteps = stepNavs.querySelectorAll('.step').length;
-    const nextButton = modal.querySelector('button.next');
 
-    if (currentStep >= numberOfSteps) {
-      nextButton.innerText = 'Back';
-      nextButton.classList.add('outline-button');
-      nextButton.classList.add('outline-button--blue');
-    } else {
-      nextButton.innerText = 'Next';
-      nextButton.classList.remove('outline-button');
-      nextButton.classList.remove('outline-button--blue');
-    }
+    modal.querySelector('.next').hidden = currentStep >= numberOfSteps;
+    modal.querySelector('.back').hidden = currentStep <= 1;
 
     setupSteps({ modal, validateModal });
   };
 
-  function setupSteps({ modal, validateModal }) {
-    if (modal.dataset.stepsInitialized) return;
-
-    onUseButton(modal.querySelector('button.next'), () => {
+  function makeNextOrBackHandler({ modal, direction, validateModal }) {
+    return () => {
+      const stepsToMove = direction === 'next' ? 1 : -1;
       const steps = getProgress(modal);
       const currentStep = Number(steps.dataset.currentStep);
       const numberOfSteps = steps.querySelectorAll('.step').length;
 
-      const targetStep = currentStep >= numberOfSteps ? currentStep - 1 : currentStep + 1;
+      const targetStep = currentStep + stepsToMove;
 
       goToStep({ modal, targetStep, validateModal });
-    });
+    };
+  }
+
+  function setupSteps({ modal, validateModal }) {
+    if (modal.dataset.stepsInitialized) return;
+
+    onUseButton(
+      modal.querySelector('button.next'),
+      makeNextOrBackHandler({
+        modal,
+        direction: 'next',
+        validateModal
+      })
+    );
+    onUseButton(
+      modal.querySelector('button.back'),
+      makeNextOrBackHandler({
+        modal,
+        direction: 'back',
+        validateModal
+      })
+    );
 
     modal.dataset.stepsInitialized = true;
   }

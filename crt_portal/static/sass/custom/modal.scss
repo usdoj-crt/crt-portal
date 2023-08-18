@@ -410,6 +410,18 @@ body.is-modal {
   }
 
   .modal-footer {
+    &.actions {
+      display: flex;
+
+      .outline-button {
+        font-size: 1rem;
+        font-weight: 700;
+      }
+      .outline-button--blue {
+        font-size: 1rem;
+        font-weight: 700;
+      }
+    }
     margin-top: auto;
   }
 }
