@@ -153,6 +153,10 @@ class AnalyticsFile(models.Model):
     class Meta:
         db_table = 'analytics"."analyticsfile'
         managed = True
+        permissions = (
+            ("jupyter_editor", "Can access and edit Jupyter Notebooks"),
+            ("jupyter_superuser", "Can use Jupyter admin features"),
+        )
 
     name = models.CharField(max_length=1024, blank=True, null=False, help_text="A human-readable name for the notebook")
     content = models.TextField(blank=True, null=True, help_text="The file contents (not human readable, do not edit)")
