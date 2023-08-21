@@ -1,0 +1,8 @@
+---
+packages:
+    - gettext
+    # - r-base
+    # - r-base-dev
+    # - r-cran-irkernel
+    # - r-cran-tidyverse
+    # - r-cran-rpostgresql

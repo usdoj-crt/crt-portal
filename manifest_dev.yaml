@@ -3,6 +3,7 @@ applications:
 - name: crt-portal-django
   routes:
   - route: crt-portal-django-dev.app.cloud.gov
+  - route: crt-portal-django-dev.apps.internal
   memory: 512M
   disk_quota: 2G
   instances: 1
@@ -22,6 +23,7 @@ applications:
   - sso-creds
   - crt-irplogdraindev
   - VCAP_SERVICES
+
 - name: clamav-rest
   instances: 1
   memory: 3G
@@ -32,3 +34,21 @@ applications:
     image: ajilaag/clamav-rest:latest    # ##20220511
   routes:
   - route: clamav-rest-dev.apps.internal
+
+- name: crt-portal-jupyter
+  path: jupyterhub
+  routes:
+  - route: crt-portal-jupyter-dev.app.cloud.gov
+  memory: 2G
+  disk_quota: 2G
+  instances: 1
+  env:
+    ENV: DEVELOP
+    WEB_EXTERNAL_HOSTNAME: https://crt-portal-django-dev.app.cloud.gov
+    WEB_INTERNAL_HOSTNAME: http://crt-portal-django-dev.apps.internal:8080
+    LD_LIBRARY_PATH: "/home/vcap/deps/2/lib:/home/vcap/deps/1/lib:/home/vcap/deps/0/lib"
+
+  buildpacks:
+  - https://github.com/cloudfoundry/nodejs-buildpack
+  - https://github.com/cloudfoundry/apt-buildpack
+  - python_buildpack

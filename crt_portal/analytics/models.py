@@ -1,3 +1,4 @@
+import logging
 import json
 from typing import Optional
 from contextlib import contextmanager
@@ -8,10 +9,79 @@ from urllib.parse import urlencode
 from django.conf import settings
 from django.db import models
 from django.apps import apps
+from django.db.migrations import RunSQL
+from django.db.migrations.operations import special
 from nbconvert.preprocessors.execute import ExecutePreprocessor
 import nbconvert
 import nbformat
 import pytz
+
+
+class RunSQLIgnoringErrors(RunSQL):
+    """RunSQL, but don't raise exceptions.
+
+    Useful, for example, to perform operations that don't support IF NOT EXISTS.
+    """
+
+    def database_forwards(self, *args, **kwargs):
+        try:
+            super().database_forwards(*args, **kwargs)
+        except Exception as e:
+            logging.exception(f"Ignoring error in RunSQL (this message can probably be ignored): {e}")
+
+    def database_backwards(self, *args, **kwargs):
+        try:
+            super().database_backwards(*args, **kwargs)
+        except Exception as e:
+            logging.exception(f"Ignoring error in RunSQL (this message can probably be ignored): {e}")
+
+
+def make_analytics_user():
+    """Use as the `operations` variable in a migration."""
+    user = settings.DATABASES['analytics']['USER']
+    db = settings.DATABASES['analytics']['NAME']
+    password = settings.DATABASES['analytics']['PASSWORD']
+    superuser = settings.DATABASES['default']['USER']
+
+    return [
+        RunSQLIgnoringErrors(
+            f"CREATE USER {user};",
+            reverse_sql=special.RunSQL.noop,
+        ),
+        RunSQLIgnoringErrors(
+            f"GRANT CONNECT ON DATABASE {db} TO {user};",
+            reverse_sql=special.RunSQL.noop,
+        ),
+        RunSQLIgnoringErrors(
+            f"GRANT SELECT ON ALL TABLES IN SCHEMA public TO {user};",
+            reverse_sql=special.RunSQL.noop,
+        ),
+        RunSQLIgnoringErrors(
+            f"ALTER DEFAULT PRIVILEGES FOR USER {superuser} IN SCHEMA public GRANT SELECT ON TABLES TO {user};",
+            reverse_sql=special.RunSQL.noop,
+        ),
+        RunSQLIgnoringErrors(
+            f"""
+            GRANT ALL PRIVILEGES ON SCHEMA analytics TO {user};
+            GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA analytics TO {user};
+            GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA analytics TO {user};
+            GRANT ALL PRIVILEGES ON ALL FUNCTIONS IN SCHEMA analytics TO {user};
+            """,
+            reverse_sql=special.RunSQL.noop,
+        ),
+        RunSQLIgnoringErrors(
+            f"""
+            ALTER DEFAULT PRIVILEGES FOR USER {superuser} IN SCHEMA analytics GRANT ALL PRIVILEGES ON TABLES TO {user};
+            ALTER DEFAULT PRIVILEGES FOR USER {superuser} IN SCHEMA analytics GRANT ALL PRIVILEGES ON SEQUENCES TO {user};
+            ALTER DEFAULT PRIVILEGES FOR USER {superuser} IN SCHEMA analytics GRANT ALL PRIVILEGES ON FUNCTIONS TO {user};
+            """,
+            reverse_sql=special.RunSQL.noop,
+        ),
+        RunSQLIgnoringErrors(
+            f"ALTER USER {user} PASSWORD '{password}';",
+            reverse_sql=special.RunSQL.noop,
+        ),
+    ]
 
 
 @contextmanager

@@ -121,7 +121,7 @@ if [[ "$command_to_run" == "setup" ]]; then
 
   read -p "Configure Jupyter oauth (and restart jupyter) [y/N]? "
   if [[ "$REPLY" =~ ^[Yy]$ ]]; then
-    standalone_compose run --rm web python /code/crt_portal/manage.py create_local_oauth --port "$JUPYTER_PORT" >> ".crt-portal-standalone-$project_suffix.env"
+    standalone_compose run --rm web python /code/crt_portal/manage.py create_jupyter_oauth --port "$JUPYTER_PORT" >> ".crt-portal-standalone-$project_suffix.env"
     standalone_compose stop jupyter && standalone_compose up -d jupyter
   fi
 

@@ -42,6 +42,7 @@ VOTING_MODE = os.environ.get('VOTING_MODE', False)
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
+DATABASES = {}
 if environment != 'LOCAL':
     """ This will default to prod settings and locally, setting the env
     to local will allow you to add the variables directly and not have
@@ -64,7 +65,7 @@ if environment != 'LOCAL':
             'PASSWORD': db_credentials['password'],
             'HOST': db_credentials['host'],
             'PORT': '',
-        }
+        },
     }
 
 # production hosts are specified later
@@ -73,6 +74,7 @@ ALLOWED_HOSTS = [
     'crt-portal-django.app.cloud.gov',
     'crt-portal-django-stage.app.cloud.gov',
     'crt-portal-django-dev.app.cloud.gov',
+    'crt-portal-django-dev.apps.internal',
 ]
 
 if environment == 'UNDEFINED':
@@ -515,6 +517,12 @@ if environment == 'LOCAL':
         from .gitignored_settings import *  # noqa: F401,F403
     except ImportError:
         pass
+
+DATABASES['analytics'] = {  # This must happen after importing local_settings
+    **DATABASES['default'],
+    'USER': os.environ['POSTGRES_ANALYTICS_USER'],
+    'PASSWORD': os.environ['POSTGRES_ANALYTICS_PASSWORD'],
+}
 
 # Don't activate the debug toolbar in a test environment; it can unexpectedly
 # output HTML content that will break test assertions
