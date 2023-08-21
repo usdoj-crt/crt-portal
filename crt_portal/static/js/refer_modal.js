@@ -7,6 +7,10 @@
     return document.getElementById('template-report-id').value;
   }
 
+  function getPublicId() {
+    return document.querySelector('.details-id h2').innerText.replaceAll('ID: ', '');
+  }
+
   function getOpenModalButton() {
     return document.getElementById('refer_complaint');
   }
@@ -265,10 +269,19 @@
     }
   }
 
+  function downloadBase64Pdf(filename, content) {
+    const pdfLink = document.createElement('a');
+    pdfLink.setAttribute('download', `${filename}.pdf`);
+    pdfLink.href = `data:application/pdf;base64,${content}`;
+    pdfLink.click();
+    pdfLink.remove();
+  }
+
   function onReply(modal, button, action) {
     const actions = button.closest('.actions');
     const templateId = button.closest('form').querySelector('.template-field select').value;
     const reportId = getReportId();
+    const publicId = getPublicId();
     const sectionClass = button.closest('.modal-step-content').classList;
     let recipient;
     if (sectionClass.contains('agency')) recipient = 'agency';
@@ -285,6 +298,7 @@
         const tag = status >= 300 ? 'error' : 'success';
         root.CRT.showMessage(actions, { tag, content: data.response });
         if (tag !== 'success') return;
+        if (data.pdf) downloadBase64Pdf(`Report ${publicId} (${recipient})`, data.pdf);
         button.disabled = true;
         // We need to refresh to show the updated action log:
         modal.dataset.navigateOnClose = `/form/view/${reportId}`;
