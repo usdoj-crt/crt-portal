@@ -1464,6 +1464,23 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         })
     )
 
+    def field_changed(self, field):
+        # if both are Falsy, nothing actually changed (None ~= "")
+        old = self.initial[field]
+        new = self.cleaned_data[field]
+        if not old and not new:
+            return False
+        return old != new
+
+    @cached_property
+    def changed_data(self):
+        return [
+            field_name
+            for field_name
+            in super().changed_data
+            if self.field_changed(field_name)
+        ]
+
     class Meta:
         model = Report
         fields = [
