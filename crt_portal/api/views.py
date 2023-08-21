@@ -2,10 +2,12 @@ from django.forms.models import model_to_dict
 from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter, report_cws
 from django.utils.html import mark_safe
 from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
+from utils.pdf import convert_html_to_pdf
 from cts_forms.filters import report_filter
-from cts_forms.mail import CustomHTMLExtension, mail_to_complainant, render_agency_mail, render_complainant_mail
+from cts_forms.mail import CustomHTMLExtension, mail_to_complainant, mail_to_agency, render_agency_mail, render_complainant_mail
 from cts_forms.models import Report, ResponseTemplate
 from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed
+from cts_forms.forms import add_activity
 from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, JsonResponse
@@ -19,6 +21,7 @@ from rest_framework.response import Response
 from rest_framework.reverse import reverse
 from rest_framework.views import APIView
 import frontmatter
+import base64
 import html
 import json
 import markdown
@@ -298,6 +301,8 @@ class ResponseAction(APIView):
 
     permission_classes = (IsAuthenticated,)
 
+    MAIL_SERVICE = "govDelivery TMS"
+
     def _build_preview(self, template, complainant_letter, referral_letter):
         complainant = {
             'letter': {
@@ -335,29 +340,84 @@ class ResponseAction(APIView):
                                            extra_ccs=extra_ccs)
         return complainant_letter, agency_letter
 
-    def post(self, request):
-        report_id = request.data['report_id']
+    def post(self, request) -> JsonResponse:
+        report_id = request.data.get('report_id')
+        if report_id is None:
+            return JsonResponse({'response': 'Referral email failed to send: No report id provided!'}, status=400)
         report = get_object_or_404(Report, pk=report_id)
-        template_id = request.data['template_id']
+        template_id = request.data.get('template_id')
+        if template_id is None:
+            return JsonResponse({'response': 'Referral email failed to send: No template id provided!'}, status=400)
         template = get_object_or_404(ResponseTemplate, pk=template_id)
         action = request.data['action']
+        recipient = request.data.get('recipient', None)
         complainant_letter, agency_letter = self._build_letters(report, template, request)
 
         if action == 'preview':
             preview = self._build_preview(template, complainant_letter, agency_letter)
             return JsonResponse(preview)
 
-        if action == 'copy letter':
-            return Response({'response': f'Referral email template #{template.pk} copied to clipboard'})
         if action == 'print':
-            return Response({'response': f'Referral email template #{template.pk} printed'})
+            return self._print_mail(request=request,
+                                    report=report,
+                                    template=template,
+                                    recipient=recipient,
+                                    complainant_letter=complainant_letter,
+                                    agency_letter=agency_letter)
+
         if action != 'send':
-            return JsonResponse({'response': f'Referral email template #{template.pk} failed to send to report #{report.pk}: Action "{action}" is not supported'}, status=400)
+            return JsonResponse({
+                'response': (
+                    f'Referral email template #{template.pk} failed to send '
+                    'to report #{report.pk}: Action "{action}" is not supported'
+                )}, status=400)
+
+        return self._send_mail(request=request,
+                               report=report,
+                               template=template,
+                               recipient=recipient,
+                               complainant_letter=complainant_letter,
+                               agency_letter=agency_letter)
+
+    def _print_mail(self, *, request, report, template, recipient,
+                    complainant_letter, agency_letter) -> JsonResponse:
+        action = 'Printed' if recipient == 'complainant' else 'Printed referral'
+        description = f"{action} '{template.title}' template"
+        add_activity(request.user,
+                     f"Contacted {recipient}:",
+                     description,
+                     report)
+        message = (
+            complainant_letter.html_message
+            if recipient == 'complainant'
+            else agency_letter.html_message
+        )
+        pdfBytes = convert_html_to_pdf(message).getvalue()
+        return JsonResponse({
+            'response': description,
+            'pdf': base64.b64encode(pdfBytes).decode('utf-8'),
+        })
+
+    def _send_mail(self, *, request, report, template, recipient,
+                   complainant_letter, agency_letter) -> JsonResponse:
+        if not recipient or recipient not in ['agency', 'complainant']:
+            return JsonResponse({'response': f'Referral email template #{template.pk} failed to send to report #{report.pk}: A recipient ("agency" or "complainant") must be specified.'}, status=400)
 
         try:
-            email_response = mail_to_complainant(report, template, rendered=complainant_letter)
+            if recipient == 'complainant':
+                email_response = mail_to_complainant(report, template, rendered=complainant_letter)
+            else:
+                email_response = mail_to_agency(report, template, rendered=agency_letter)
         except Exception as e:
             return JsonResponse({'response': f'Referral email template #{template.pk} failed to send to report #{report.pk}: {e}'}, status=502)
+
         if not email_response:
-            return JsonResponse({'response': f'Referral email template #{template.pk} failed to send to report #{report.pk}'}, status=502)
-        return Response({'response': f'Sent referral email template #{template.pk} to report #{report.pk}'})
+            description = f"{report.contact_email} not in allowed domains, not attempting to deliver {template.title}."
+            add_activity(request.user, f"Contacted {recipient}:", description, report)
+            return JsonResponse({'response': description}, status=502)
+
+        addressee = report.contact_email if recipient == 'complainant' else template.referral_contact.name
+        action = 'Email sent' if recipient == 'complainant' else 'Referral sent'
+        description = f"{action}: '{template.title}' to {addressee} via {self.MAIL_SERVICE}"
+        add_activity(request.user, f"Contacted {recipient}:", description, report)
+        return JsonResponse({'response': description})

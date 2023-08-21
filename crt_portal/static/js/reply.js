@@ -55,7 +55,7 @@
       });
   };
 
-  root.CRT.handleReferral = async function(action, { reportId, responseTemplate }) {
+  root.CRT.handleReferral = async function(action, { reportId, responseTemplate, recipient }) {
     const response = await window.fetch('/api/response-action/', {
       method: 'POST',
       headers: {
@@ -66,9 +66,11 @@
       body: JSON.stringify({
         action,
         report_id: reportId,
-        template_id: responseTemplate
+        template_id: responseTemplate,
+        recipient
       })
     });
-    return await response.json();
+    const data = await response.json();
+    return { data, status: response.status };
   };
 })(window, document);
