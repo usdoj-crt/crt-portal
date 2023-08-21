@@ -15,7 +15,8 @@
         isEscape = event.keyCode === 27;
       }
       if (isEscape) {
-        root.CRT.closeModal(modal);
+        modal.dataset.canClose = '';
+        return root.CRT.closeModal(modal);
       }
       var isTab = false;
       if ('key' in event) {
@@ -49,21 +50,47 @@
     dom.body.classList.add('is-modal');
   };
 
+  function canClose(modal) {
+    if (!modal.dataset.confirmClose) return true;
+    // Prevent prompting twice:
+    if (modal.dataset.canClose) return Boolean(Number(modal.dataset.canClose));
+    const answer = confirm(modal.dataset.confirmClose);
+    modal.dataset.canClose = Number(answer);
+    return answer;
+  }
+
   root.CRT.closeModal = function(modal) {
+    if (!canClose(modal)) return false;
     dom.onkeydown = previousOnkeydown;
     modal.setAttribute('hidden', 'hidden');
     dom.body.classList.remove('is-modal');
+    if (modal.dataset.navigateOnClose) {
+      window.location = modal.dataset.navigateOnClose;
+    }
   };
 
-  root.CRT.cancelModal = function(modal, cancelEl, formEl) {
-    var dismissModal = function(event) {
+  root.CRT.prepareToClose = function(modal) {
+    modal.querySelector('.next').hidden = true;
+    modal.querySelector('.back').hidden = true;
+    const cancel = modal.querySelector('.cancel');
+    cancel.classList.remove('usa-button--unstyled');
+    cancel.classList.add('outline-button');
+    cancel.classList.add('outline-button--blue');
+    cancel.innerText = 'Return to detail page';
+  };
+
+  root.CRT.cancelModal = function(modal, cancelEl, formEl, afterCancel) {
+    function dismissModal(event) {
+      modal.dataset.canClose = '';
+      if (!canClose(modal)) return false;
       if (formEl) {
         formEl.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
         formEl.focus();
       }
       event.preventDefault();
       root.CRT.closeModal(modal);
-    };
+      if (afterCancel) afterCancel();
+    }
     onUseButton(cancelEl, dismissModal);
   };
 
@@ -79,6 +106,7 @@
       modal.dataset.stepIdPrefix = nextStepIdPrefix;
       nextStepIdPrefix++;
     }
+
     const stepIdPrefix = modal.dataset.stepIdPrefix;
     stepNavs = getProgress(modal);
     const container = stepNavs.parentElement;
@@ -107,18 +135,48 @@
       });
 
     stepNavs.querySelector('.current').focus();
+
+    const currentStep = Number(stepNavs.dataset.currentStep);
+    const numberOfSteps = stepNavs.querySelectorAll('.step').length;
+
+    modal.querySelector('.next').hidden = currentStep >= numberOfSteps;
+    modal.querySelector('.back').hidden = currentStep <= 1;
+
     setupSteps({ modal, validateModal });
   };
+
+  function makeNextOrBackHandler({ modal, direction, validateModal }) {
+    return () => {
+      const stepsToMove = direction === 'next' ? 1 : -1;
+      const steps = getProgress(modal);
+      const currentStep = Number(steps.dataset.currentStep);
+      const numberOfSteps = steps.querySelectorAll('.step').length;
+
+      const targetStep = currentStep + stepsToMove;
+
+      goToStep({ modal, targetStep, validateModal });
+    };
+  }
 
   function setupSteps({ modal, validateModal }) {
     if (modal.dataset.stepsInitialized) return;
 
-    onUseButton(modal.querySelector('button.next'), () => {
-      const steps = getProgress(modal);
-      const currentStep = Number(steps.dataset.currentStep);
-      const targetStep = currentStep + 1;
-      goToStep({ modal, targetStep, validateModal });
-    });
+    onUseButton(
+      modal.querySelector('button.next'),
+      makeNextOrBackHandler({
+        modal,
+        direction: 'next',
+        validateModal
+      })
+    );
+    onUseButton(
+      modal.querySelector('button.back'),
+      makeNextOrBackHandler({
+        modal,
+        direction: 'back',
+        validateModal
+      })
+    );
 
     modal.dataset.stepsInitialized = true;
   }

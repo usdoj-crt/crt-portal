@@ -162,6 +162,23 @@ def mail_to_complainant(report, template, purpose=TMSEmail.MANUAL_EMAIL, dry_run
     return send_results
 
 
+def mail_to_agency(report, template, purpose=TMSEmail.MANUAL_EMAIL, *, rendered, dry_run=False):
+    """
+    Given a report and a template, use django's builtin `send_mail` to generate and send
+    an outbound email
+
+    Returns a list of integers indicating the number of successfully sent emails.
+    """
+    if not rendered.recipients:
+        logger.info(f'Attempted to mail response template #{template.id} to an agency, but has no recipients.')
+        return None
+
+    send_results = send_tms(rendered, report=report, purpose=purpose, dry_run=dry_run)
+    logger.info(f'Sent email response template #{template.id} to report: {report.id} as referral')
+
+    return send_results
+
+
 def _build_referral_content(*, complainant_letter, template, report) -> Optional[str]:
     if not template.referral_contact:
         return None

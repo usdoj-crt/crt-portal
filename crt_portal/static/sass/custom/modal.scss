@@ -39,7 +39,6 @@ body.is-modal {
   .modal-content {
     display: flex;
     flex-direction: column;
-    overflow: auto;
     gap: 1rem;
     position: relative;
     background: white;
@@ -54,6 +53,46 @@ body.is-modal {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
+
+    &.compact {
+      gap: 0rem;
+    }
+  }
+
+  .review-and-send .modal-step-content {
+    gap: 0.5rem;
+  }
+
+  .actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    .messages {
+      flex-basis: 100%;
+    }
+  }
+
+  button:not(.usa-button--unstyled) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+
+    &.outline-button {
+      padding: 1.25rem 1.25rem 1.25rem 1rem;
+
+      &:disabled {
+        color: white;
+        background-color: #c9c9c9;
+        border: 0;
+      }
+    }
   }
 
   .modal-step-content {
@@ -63,8 +102,17 @@ body.is-modal {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
-    overflow: auto;
     gap: 1rem;
+
+    h2 {
+      margin: 0px;
+      color: #162e51;
+      font-size: 1.25rem;
+    }
+
+    .outline-button {
+      border: 1px solid #162e51;
+    }
 
     ul,ol {
       margin-left: 1rem;
@@ -80,7 +128,6 @@ body.is-modal {
 
   .modal-content--small {
     width: 90%;
-    overflow: auto;
     padding: 1rem;
     @include at-media(tablet) {
       width: 85%;
@@ -101,7 +148,6 @@ body.is-modal {
     gap: 0;
     width: 80%;
     height: 60%;
-    overflow: auto;
     min-height: 40rem; // a11y: don't collapse modal
     padding: 2rem;
     @include at-media(tablet) {
@@ -112,12 +158,15 @@ body.is-modal {
       width: 50%;
       padding: 3rem;
     }
+
+    &.modal-content--stretch {
+      min-height: 96vh;
+    }
   }
 
   .modal-main {
     display: flex;
     flex-direction: column;
-    overflow: auto;
     gap: 1rem;
     flex-grow: 1;
   }
@@ -125,20 +174,21 @@ body.is-modal {
   .modal-form {
     display: flex;
     flex-direction: column;
-    overflow: auto;
+    overflow: scroll;
     flex-grow: 1;
     gap: 1rem;
   }
 
   .modal-step {
-    .step-text {
+    & > h2 {
       margin-top: 1.5rem;
       margin-bottom: 0px;
     }
 
     display: flex;
+    overflow: scroll;
+    margin-top: 1.5rem;
     flex-direction: column;
-    overflow: auto;
     flex-grow: 1;
     gap: 1rem;
   }
@@ -146,7 +196,6 @@ body.is-modal {
   .modal-guide {
     display: flex;
     flex-direction: column;
-    overflow: auto;
     gap: 1rem;
     overflow-y: scroll;
     border-bottom: 1px solid color($theme-color-primary-darker);
@@ -201,6 +250,7 @@ body.is-modal {
   #intake_letter_html,.letter-html {
     overflow-y: auto;
     overflow-x: scroll;
+    max-height: 50vh;
     padding: 1em;
     width: 100%;
     flex-grow: 1;
@@ -356,6 +406,18 @@ body.is-modal {
   }
 
   .modal-footer {
+    &.actions {
+      display: flex;
+
+      .outline-button {
+        font-size: 1rem;
+        font-weight: 700;
+      }
+      .outline-button--blue {
+        font-size: 1rem;
+        font-weight: 700;
+      }
+    }
     margin-top: auto;
   }
 }
