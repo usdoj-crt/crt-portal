@@ -7,6 +7,10 @@
     return document.getElementById('template-report-id').value;
   }
 
+  function getPublicId() {
+    return document.querySelector('.details-id h2').innerText.replaceAll('ID: ', '');
+  }
+
   function getOpenModalButton() {
     return document.getElementById('refer_complaint');
   }
@@ -92,7 +96,7 @@
       root.CRT.handleReferral('preview', {
         reportId: getReportId(),
         responseTemplate: event.target.value
-      }).then(data => {
+      }).then(({ data }) => {
         displayComplainantDetails(modal, data?.complainant);
         displayAgencyDetails(modal, data?.agency);
       });
@@ -233,20 +237,102 @@
     return { canLeaveStep, ...context };
   }
 
-  function initModal() {
-    const modal = getModal();
-    const openButton = getOpenModalButton();
+  function initCancel(modal) {
     const cancelButton = getCloseModalButton(modal);
-    if (!openButton || !modal) return;
-    openButton.addEventListener('click', event => showModal(event, modal));
-    cancelButton.addEventListener('click', () => {
+    root.CRT.cancelModal(modal, cancelButton, undefined, () => {
       reset(modal);
       modal.querySelector('.progress .steps').dataset.currentStep = 1;
       root.CRT.renderSteps(modal, validateModal);
     });
-    root.CRT.cancelModal(modal, cancelButton);
+  }
+
+  function updateCanClose(modal) {
+    const sentToSoFar = [modal.dataset.repliedagency, modal.dataset.repliedcomplainant].filter(
+      recipient => !!recipient
+    );
+    const numberSentSoFar = sentToSoFar.length;
+    const notYetSentTo = ['agency', 'complainant'].filter(recipient => {
+      return !sentToSoFar.includes(recipient);
+    });
+
+    if (numberSentSoFar === 1) {
+      modal.dataset.confirmClose =
+        `You've replied to the ${sentToSoFar[0]}` +
+        ` but haven't contacted the ${notYetSentTo[0]}.` +
+        ' Are you sure you want to exit without contacting both?';
+    } else {
+      modal.dataset.confirmClose = '';
+    }
+
+    if (numberSentSoFar === 2) {
+      root.CRT.prepareToClose(modal);
+    }
+  }
+
+  function downloadBase64Pdf(filename, content) {
+    const pdfLink = document.createElement('a');
+    pdfLink.setAttribute('download', `${filename}.pdf`);
+    pdfLink.href = `data:application/pdf;base64,${content}`;
+    pdfLink.click();
+    pdfLink.remove();
+  }
+
+  function onReply(modal, button, action) {
+    const actions = button.closest('.actions');
+    const templateId = button.closest('form').querySelector('.template-field select').value;
+    const reportId = getReportId();
+    const publicId = getPublicId();
+    const sectionClass = button.closest('.modal-step-content').classList;
+    let recipient;
+    if (sectionClass.contains('agency')) recipient = 'agency';
+    else if (sectionClass.contains('complainant')) recipient = 'complainant';
+    modal.dataset[`replied${recipient}`] = recipient;
+    updateCanClose(modal);
+
+    root.CRT.handleReferral(action, {
+      reportId,
+      responseTemplate: templateId,
+      recipient
+    })
+      .then(({ data, status }) => {
+        const tag = status >= 300 ? 'error' : 'success';
+        root.CRT.showMessage(actions, { tag, content: data.response });
+        if (tag !== 'success') return;
+        if (data.pdf) downloadBase64Pdf(`Report ${publicId} (${recipient})`, data.pdf);
+        button.disabled = true;
+        // We need to refresh to show the updated action log:
+        modal.dataset.navigateOnClose = `/form/view/${reportId}`;
+      })
+      .catch(error => {
+        console.error(error);
+        root.CRT.showMessage(actions, {
+          tag: 'error',
+          content: error?.response || 'Action failed unexpectedly.'
+        });
+      });
+  }
+
+  function initReply(modal, action) {
+    const buttons = modal.querySelectorAll(`button.${action}`);
+    buttons.forEach(button => {
+      button.addEventListener('click', () => onReply(modal, button, action));
+    });
+  }
+
+  function initActions(modal) {
+    const openButton = getOpenModalButton();
+    if (!openButton || !modal) return;
+    openButton.addEventListener('click', event => showModal(event, modal));
+    initCancel(modal);
+    initReply(modal, 'send');
+    initReply(modal, 'print');
+  }
+
+  function initModal() {
+    const modal = getModal();
     initLanguage(modal);
     initAgencySelect(modal);
+    initActions(modal);
     root.CRT.renderSteps(modal, validateModal);
   }
 

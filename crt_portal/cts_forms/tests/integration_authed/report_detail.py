@@ -150,6 +150,19 @@ def test_refer_complaint_modal_no_email(page):
     letter_step.locator('p.no-email-error').filter(has_text='you must print this letter to send to the complainant').wait_for()
     letter_step.locator('p.no-email-error').filter(has_text='you must print this letter to send to the agency').wait_for()
     assert element.normalize_text(letter_step.locator('h2 .agency-name')) == 'Test Referral Contact No Email'
+    assert element.all_normalized_text(letter_step.locator('.modal-step-content.agency .actions button')) == ['Print letter']
+    assert element.all_normalized_text(letter_step.locator('.modal-step-content.complainant .actions button')) == ['Print letter']
+
+    with page.expect_download():
+        letter_step.locator('.modal-step-content.agency .actions button').filter(has_text='Print letter').click()
+    assert letter_step.locator('.agency .usa-alert--success').is_visible()
+
+    with page.expect_download():
+        letter_step.locator('.modal-step-content.complainant .actions button').filter(has_text='Print letter').click()
+    assert letter_step.locator('.complainant .usa-alert--success').is_visible()
+
+    with page.expect_navigation():
+        modal.locator('button').filter(has_text='Return to detail page').click()
 
     admin_models.delete(
         page,
@@ -269,6 +282,9 @@ def test_refer_complaint_modal_with_email(page):
 
     page.screenshot(path="e2e-screenshots/refer_3_with_email.png", full_page=True)
     assert element.normalize_text(letter_step.locator('h2 .agency-name')) == 'Test Referral Contact With Email'
+    # Note: On circleci, this only includes 'print' because no email sending is
+    # allowed:
+    assert 'Print letter' in element.all_normalized_text(letter_step.locator('.modal-step-content.agency .actions button'))
 
     admin_models.delete(
         page,
