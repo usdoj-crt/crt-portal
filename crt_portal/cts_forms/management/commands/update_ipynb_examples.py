@@ -1,8 +1,10 @@
+from typing import Dict, Tuple, TypeVar, Generic, Callable
 from datetime import datetime
 import json
 import os
 import sys
 import traceback
+from types import SimpleNamespace
 import uuid
 
 from analytics.models import AnalyticsFile
@@ -22,6 +24,12 @@ def _simplify_path(path) -> str:
 
 def _should_keep(path: str) -> bool:
     if '.ipynb_checkpoints' in path:
+        return False
+    if 'node_modules/' in path:
+        return False
+    if '__pycache__' in path:
+        return False
+    if 'jupyterhub.sqlite' in path:
         return False
     return True
 
@@ -66,6 +74,41 @@ def _build_error_notebook(error: Exception):
         "nbformat": 4,
         "nbformat_minor": 5
     })
+
+
+DiffKey = TypeVar('DiffKey')
+DiffValue = TypeVar('DiffValue')
+
+
+class DictDiff(SimpleNamespace, Generic[DiffKey, DiffValue]):
+    removed: Dict[DiffKey, DiffValue]
+    added: Dict[DiffKey, DiffValue]
+    changed: Dict[DiffKey, Tuple[DiffValue, DiffValue]]
+
+
+def _diff_dicts(before: Dict[DiffKey, DiffValue],
+                after: Dict[DiffKey, DiffValue],
+                is_same: Callable[[DiffValue, DiffValue], bool]) -> DictDiff:
+    removed = {
+        key: before[key]
+        for key
+        in before.keys() - after.keys()
+    }
+
+    added = {
+        key: after[key]
+        for key
+        in after.keys() - before.keys()
+    }
+
+    changed = {
+        key: (before[key], after[key])
+        for key
+        in after.keys() & before.keys()
+        if not is_same(before[key], after[key])
+    }
+
+    return DictDiff(removed=removed, added=added, changed=changed)
 
 
 class Command(BaseCommand):  # pragma: no cover
@@ -138,11 +181,7 @@ class Command(BaseCommand):  # pragma: no cover
             'from_command': True
         }
 
-    def handle(self, *args, **options):
-        del args, options  # Unused
-
-        AnalyticsFile.objects.filter(from_command=True).delete()
-
+    def _gather_files_from_code(self):
         files = []
         for (dirpath, dirnames, filenames) in os.walk(notebook_dir):
             for filename in filenames:
@@ -166,9 +205,52 @@ class Command(BaseCommand):  # pragma: no cover
                 files.append(self._safe_load_file(file_path))
 
         files.append(self._safe_load_directory('/'))
-        preview = len(files)
-        self.stdout.write(self.style.SUCCESS(f'Loading {preview} Jupyter objects from filesystem:\n'))
+        return files
 
-        AnalyticsFile.objects.bulk_create(files)
+    def _preview_file_changes(self, diff: DictDiff):
+        count = len(diff.added) + len(diff.changed) + len(diff.removed)
+        self.stdout.write(self.style.SUCCESS('\n'.join([
+            f'Updating {count} Jupyter objects from filesystem:',
+            *[f'  + (added) {added} ' for added in diff.added],
+            *[f'  ! (changed) {changed}' for changed in diff.changed],
+            *[f'  - (removed) {removed}' for removed in diff.removed],
+        ])))
 
-        self.stdout.write(self.style.SUCCESS(f'Loaded {preview} Jupyter objects from filesystem'))
+    def _update_files(self, diff: DictDiff) -> int:
+        to_delete = [
+            *diff.removed.values(),
+            *[before for before, _ in diff.changed.values()],
+        ]
+        to_create = [
+            *diff.added.values(),
+            *[after for _, after in diff.changed.values()],
+        ]
+        for file in to_delete:
+            file.delete()
+        AnalyticsFile.objects.bulk_create(to_create)
+        return len(to_create)
+
+    def handle(self, *args, **options):
+        del args, options  # Unused
+
+        code_files = {
+            (file.name, file.path): file
+            for file
+            in self._gather_files_from_code()
+        }
+        database_files = {
+            (file.name, file.path): file
+            for file
+            in AnalyticsFile.objects.filter(from_command=True)
+        }
+
+        diff = _diff_dicts(
+            database_files,
+            code_files,
+            lambda before, after: before.has_same_source_as(after)
+        )
+
+        self._preview_file_changes(diff)
+
+        total_created = self._update_files(diff)
+        self.stdout.write(self.style.SUCCESS(f'Loaded {total_created} Jupyter objects from filesystem'))
