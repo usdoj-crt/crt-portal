@@ -309,6 +309,7 @@ class ResponseAction(APIView):
                 'recipients': complainant_letter.recipients,
                 'subject': complainant_letter.subject,
                 'html_message': complainant_letter.html_message,
+                'disallowed_recipients': complainant_letter.disallowed_recipients or [],
             }
         }
 
@@ -320,6 +321,7 @@ class ResponseAction(APIView):
                 'recipients': referral_letter.recipients,
                 'subject': referral_letter.subject,
                 'html_message': referral_letter.html_message,
+                'disallowed_recipients': referral_letter.disallowed_recipients or [],
             },
             'template': model_to_dict(template),
             'referral_contact': model_to_dict(template.referral_contact),
