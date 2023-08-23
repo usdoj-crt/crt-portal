@@ -47,6 +47,7 @@ def make_analytics_user():
         RunSQLIgnoringErrors(
             f"CREATE USER {user};",
             reverse_sql=f"""
+                REASSIGN OWNED BY {user} TO {superuser};
                 DROP OWNED BY {user};
                 DROP ROLE {user};
             """,
