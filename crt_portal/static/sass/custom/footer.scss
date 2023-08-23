@@ -98,6 +98,11 @@ footer {
     }
 }
 
+#address-footer a {
+  text-transform: none;
+  text-decoration: underline;
+}
+
 .usa-footer__links.usa-footer__language {
   a {
     text-transform: none;
