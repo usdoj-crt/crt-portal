@@ -333,11 +333,10 @@ class ResponseAction(APIView):
         if not template.referral_contact:
             return complainant_letter, None
 
-        extra_ccs = [request.user.email] if request.user.email else []
         agency_letter = render_agency_mail(complainant_letter=complainant_letter,
                                            report=report,
                                            template=template,
-                                           extra_ccs=extra_ccs)
+                                           extra_ccs=[])
         return complainant_letter, agency_letter
 
     def post(self, request) -> JsonResponse:
