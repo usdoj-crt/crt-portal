@@ -29,8 +29,8 @@ RUN \
   node -v i  && \
   rm -rf /var/lib/apt/lists/*
 
-COPY jupyterhub/package*.json /srv/jupyterhub/
-RUN npm ci
+# TODO: Install this from package-lock.json
+RUN npm install -g configurable-http-proxy@^4.5.6
 
 COPY jupyterhub/Pipfile jupyterhub/Pipfile.lock /srv/jupyterhub
 RUN pipenv sync --dev --system
@@ -38,8 +38,6 @@ RUN pipenv sync --dev --system
 RUN R -e "IRkernel::installspec(user = FALSE)"
 
 COPY jupyterhub/ /srv/jupyterhub/
-
-RUN ln -s "/srv/jupyterhub/node_modules/.bin/configurable-http-proxy" /usr/bin/configurable-http-proxy
 
 # Run as root to allow JupyterHub to spawn containers and create users.
 USER root
