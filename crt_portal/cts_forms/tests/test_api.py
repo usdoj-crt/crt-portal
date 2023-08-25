@@ -423,13 +423,13 @@ class APIRelatedReportsTests(TestCase):
         self.assertTrue('email' in str(response.content))
 
 
-class APIReferralResponseTests(TestCase):
+class APIResponseActionTests(TestCase):
     def setUp(self):
         self.client = Client()
         self.user = User.objects.create_user("DELETE_USER", "george@thebeatles.com", "")
         self.test_report = Report.objects.create(**SAMPLE_REPORT_1)
         self.template = ResponseTemplate.objects.create(**SAMPLE_RESPONSE_TEMPLATE)
-        self.url = reverse("api:referral-response")
+        self.url = reverse("api:response-action")
 
     def tearDown(self):
         self.user.delete()
@@ -439,7 +439,7 @@ class APIReferralResponseTests(TestCase):
         self.client.login(username="DELETE_USER", password="")  # nosec
         response = self.client.post(
             self.url,
-            {"report_id": self.test_report.id, "template_id": self.template.id, "action": "send"}
+            {"report_id": self.test_report.pk, "template_id": self.template.pk, "action": "send"}
         )
         self.assertTrue(
             "email template" in str(response.content, 'utf-8')
@@ -450,7 +450,7 @@ class APIReferralResponseTests(TestCase):
         self.client.logout()
         response = self.client.post(
             self.url,
-            {"report_id": self.test_report.id, "template_id": self.template.id, "action": "send"}
+            {"report_id": self.test_report.pk, "template_id": self.template.pk, "action": "send"}
         )
         self.assertTrue(
             "Authentication credentials were not provided" in str(response.content)

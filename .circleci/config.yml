@@ -42,6 +42,8 @@ jobs:
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
+          POSTGRES_ANALYTICS_USER: analytics
+          POSTGRES_ANALYTICS_PASSWORD: analytics_password
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
       - image: postgres:12.15-alpine
         environment:
@@ -276,6 +278,10 @@ jobs:
           name: Deploy crt-portal-django to dev
           no_output_timeout: 20m
           command: cf8 push crt-portal-django --strategy rolling --app-start-timeout 180 -f ${CF_MANIFEST}
+      - run:
+          name: Deploy crt-portal-jupyter to dev
+          no_output_timeout: 20m
+          command: cf8 push crt-portal-jupyter --strategy rolling --app-start-timeout 180 -f ${CF_MANIFEST}
       - release-lock:
           app: crt-portal-django
 

@@ -1,0 +1,39 @@
+<div class="modal-field">
+  <p>Complainant language</p>
+  <select class="usa-select language-select" aria-label="complainant language selection">
+    {% for language in languages %}
+      <option value="{{ language.code }}" {% if language.code == 'en' %}selected{% endif %}>{{ language.name }}</option>
+    {% endfor %}
+  </select>
+</div>
+
+<div class="modal-field template-field">
+  Refer complaint to
+  <p class="error-message"></p>
+  {{ responses.templates_referral }}
+</div>
+
+{% if not data.contact_email %}
+
+<p class="no-email-error">
+  <span class="error-message">There is no email on file for this complainant.</span>
+  You will need to print this letter to contact this person.
+</p>
+
+{% else %}
+
+<p tabindex="0">
+  <strong>Email:</strong>
+  <strong class="complainant email" data-email="{{data.contact_email|default_if_none:''}}">
+    {{data.contact_email|default_if_none:""}}
+  </strong>
+</p>
+
+<p tabindex="0">
+  <strong>Subject:</strong>
+  <strong class="complainant subject">[Select response letter]</strong>
+</p>
+
+{% endif %}
+
+<div tabindex="0" class="letter-html form-letter"></div>

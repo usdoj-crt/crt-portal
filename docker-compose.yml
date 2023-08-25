@@ -5,8 +5,6 @@ services:
     hostname: db
     build:
       dockerfile: db/db.Dockerfile
-      args:
-        - analytics_password=${POSTGRES_ANALYTICS_PASSWORD}
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
@@ -15,11 +13,11 @@ services:
     platform: linux/amd64
     environment:
         # Format needed for Python connections:
-      - DATABASE_URL=postgresql://analytics:${POSTGRES_ANALYTICS_PASSWORD}@db:${DATABASE_PORT:-5432}/postgres
+      - DATABASE_URL=postgresql://${POSTGRES_ANALYTICS_USER}:${POSTGRES_ANALYTICS_PASSWORD}@db:${DATABASE_PORT:-5432}/postgres
         # Format needed for R connections:
       - DATABASE_HOSTNAME=db
       - DATABASE_PORT=${DATABASE_PORT:-5432}
-      - DATABASE_USER=analytics
+      - DATABASE_USER=${POSTGRES_ANALYTICS_USER}
       - DATABASE_PASSWORD=${POSTGRES_ANALYTICS_PASSWORD}
       - OAUTH_PROVIDER_CLIENT_ID=${OAUTH_PROVIDER_CLIENT_ID}
       - OAUTH_PROVIDER_CLIENT_SECRET=${OAUTH_PROVIDER_CLIENT_SECRET}
@@ -40,6 +38,8 @@ services:
       - SECRET_KEY=${SECRET_KEY}
       - VOTING_MODE=${VOTING_MODE}
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_ANALYTICS_PASSWORD=${POSTGRES_ANALYTICS_PASSWORD}
+      - POSTGRES_ANALYTICS_USER=${POSTGRES_ANALYTICS_USER}
       - TMS_AUTH_TOKEN=${TMS_AUTH_TOKEN}
       - TMS_WEBHOOK_ALLOWED_CIDR_NETS=${TMS_WEBHOOK_ALLOWED_CIDR_NETS}
       - RESTRICT_EMAIL_RECIPIENTS_TO=${RESTRICT_EMAIL_RECIPIENTS_TO}

@@ -1,0 +1,47 @@
+{% load i18n %}
+
+{% get_available_languages as LANGUAGES %}
+{% get_language_info_list for LANGUAGES as languages %}
+
+<form class="usa-form" id="referral_modal_form">
+  {% csrf_token %}
+  <input type="hidden" value="{{ return_url_args }}" name="next" id="referral_modal_next" />
+  <input type="hidden" value="{{ data.id }}" name="id" id="referral_report_id" />
+  <div id="intake_referral_modal" hidden>
+    <div class="modal-wrapper intake-template--modal">
+      <div class="modal-content modal-content--large modal-content--stretch">
+        <div class="modal-header">
+          <h1>Refer complaint</h1>
+          {% include 'partials/steps.html' %}
+        </div>
+        <div class="modal-form">
+          <div data-step="1" class="modal-step complainant-letter">
+            <h2 class="step-text">Complainant letter</h2>
+            <div class="modal-step-content">
+              {% include 'forms/complaint_view/show/refer_modal_complainant_letter.html' %}
+            </div>
+          </div>
+
+          <div data-step="2" class="modal-step agency-letter">
+            <h2 class="step-text">Agency letter</h2>
+            <div class="modal-step-content">
+              {% include 'forms/complaint_view/show/refer_modal_agency_letter.html' %}
+            </div>
+          </div>
+
+          <div data-step="3" class="modal-step review-and-send">
+            <h2 hidden class="step-text">Review and send</h2>
+            <h2 tabindex="0">You are referring this complaint to <span class="agency-name">N/A</span>.</h2>
+            {% include 'forms/complaint_view/show/refer_modal_review_and_send.html' %}
+          </div>
+
+          <div class="modal-footer actions">
+            <button class="usa-button next" type="button">Next</button>
+            <button class="outline-button outline-button--blue back" type="button">Back</button>
+            <button class="usa-button cancel usa-button--unstyled" type="button">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

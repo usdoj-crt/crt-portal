@@ -11,6 +11,20 @@ function cf_get_env() {
   return 0
 }
 
+function cf_get_multiline_env() {
+  local name
+  name="$1"
+  cf env "$CF_APP" \
+    | awk "/$name: /,/\0/" \
+    | sed "s/^$name: //" \
+    | jq 2>/dev/null
+  return 0
+}
+
+function cf_env_target() {
+  CF_APP="$1"
+}
+
 # Increments a variable, returning the prior value.
 # If the value gets too high, we loop back to zero to avoid overflow.
 function cf_increment_env() {

@@ -48,7 +48,7 @@
   color: #B50909;
 }
 
-.crt-response-letter .error-message {
+.modal-field .error-message {
   display: none;
 }
 
@@ -57,7 +57,7 @@
   font-weight: 700;
 }
 
-.crt-response-letter.error {
+.modal-field.error {
   padding-left: .5rem;
   border-left: .25rem solid #B50909;
 
@@ -401,6 +401,9 @@ hr {
 }
 
 .intake-tabbed-area {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
 
   nav ul {
     list-style: none;
@@ -419,7 +422,6 @@ hr {
   }
 
   select.intake-select {
-    margin-bottom: 16px;
     width: 100%;
   }
 
@@ -495,6 +497,9 @@ hr {
   }
 
   .intake-tab-content {
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
     background-color: #ECF1F7;
     padding: 16px;
     margin-bottom:16px;
@@ -504,7 +509,7 @@ hr {
     background-color: white;
   }
 
-  #intake_letter_html {
+  #intake_letter_html,.letter-html {
     background-color: white;
   }
 }

@@ -1,0 +1,2 @@
+# used by cloud.gov - see: https://docs.cloudfoundry.org/devguide/deploy-apps/manifest-attributes.html
+web: mkdir -p assignments && jupyterhub --ip 0.0.0.0 --port $PORT
