@@ -46,7 +46,11 @@ def make_analytics_user():
     return [
         RunSQLIgnoringErrors(
             f"CREATE USER {user};",
-            reverse_sql=special.RunSQL.noop,
+            reverse_sql=f"""
+                REASSIGN OWNED BY {user} TO {superuser};
+                DROP OWNED BY {user};
+                DROP ROLE {user};
+            """,
         ),
         RunSQLIgnoringErrors(
             f"GRANT CONNECT ON DATABASE {db} TO {user};",
