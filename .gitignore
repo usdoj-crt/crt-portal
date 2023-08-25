@@ -30,6 +30,6 @@ report-data/
 output.csv
 
 jupyterhub/**/.ipynb_checkpoints/
-jupyterhub/jupyterhub.sqlite
+jupyterhub/jupyterhub.sqlite*
 jupyterhub/jupyterhub_cookie_secret
 jupyterhub/jupyterhub-proxy.pid

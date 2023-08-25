@@ -518,11 +518,12 @@ if environment == 'LOCAL':
     except ImportError:
         pass
 
-DATABASES['analytics'] = {  # This must happen after importing local_settings
-    **DATABASES['default'],
-    'USER': os.environ['POSTGRES_ANALYTICS_USER'],
-    'PASSWORD': os.environ['POSTGRES_ANALYTICS_PASSWORD'],
-}
+if os.environ.get('ENV', 'UNDEFINED') in ['LOCAL', 'DEVELOP']:
+    DATABASES['analytics'] = {  # This must happen after importing local_settings
+        **DATABASES['default'],
+        'USER': os.environ['POSTGRES_ANALYTICS_USER'],
+        'PASSWORD': os.environ['POSTGRES_ANALYTICS_PASSWORD'],
+    }
 
 # Don't activate the debug toolbar in a test environment; it can unexpectedly
 # output HTML content that will break test assertions
