@@ -19,6 +19,8 @@ from django.utils import translation
 from django.utils.functional import cached_property
 from django.utils.html import escape
 
+from utils import sanitize
+
 from .managers import ActiveProtectedClassChoiceManager
 from .model_variables import (CLOSED_STATUS,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
@@ -423,13 +425,18 @@ class Report(models.Model):
         return 'ADM'
 
     def assign_district(self):
-        if self.location_city_town and self.location_state:
-            city = self.location_city_town.upper().strip()
-            district_query = JudicialDistrict.objects.filter(city=city, state=self.location_state)
-            if len(district_query) > 0:
-                return district_query[0].district
+        if not self.location_city_town:
+            return None
+        if not self.location_state:
+            return None
 
-        return None
+        city = sanitize.sanitize_city(self.location_city_town)
+        state = self.location_state
+        district_query = JudicialDistrict.objects.filter(city=city, state=state)
+        if len(district_query) <= 0:
+            return None
+
+        return district_query[0].district
 
     @property
     def get_summary(self):
