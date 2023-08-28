@@ -309,6 +309,7 @@ class ResponseAction(APIView):
                 'recipients': complainant_letter.recipients,
                 'subject': complainant_letter.subject,
                 'html_message': complainant_letter.html_message,
+                'disallowed_recipients': complainant_letter.disallowed_recipients or [],
             }
         }
 
@@ -320,6 +321,7 @@ class ResponseAction(APIView):
                 'recipients': referral_letter.recipients,
                 'subject': referral_letter.subject,
                 'html_message': referral_letter.html_message,
+                'disallowed_recipients': referral_letter.disallowed_recipients or [],
             },
             'template': model_to_dict(template),
             'referral_contact': model_to_dict(template.referral_contact),
@@ -333,11 +335,10 @@ class ResponseAction(APIView):
         if not template.referral_contact:
             return complainant_letter, None
 
-        extra_ccs = [request.user.email] if request.user.email else []
         agency_letter = render_agency_mail(complainant_letter=complainant_letter,
                                            report=report,
                                            template=template,
-                                           extra_ccs=extra_ccs)
+                                           extra_ccs=[])
         return complainant_letter, agency_letter
 
     def post(self, request) -> JsonResponse:

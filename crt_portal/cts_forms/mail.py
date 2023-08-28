@@ -58,6 +58,7 @@ class CustomHTMLExtension(Extension):
 
 class Mail(types.SimpleNamespace):
     recipients: Optional[List[str]]
+    disallowed_recipients: Optional[List[str]]
     subject: Optional[str]
     message: Optional[str]
     html_message: Optional[str]
@@ -73,10 +74,12 @@ def render_agency_mail(*, complainant_letter: Mail, report, template, extra_ccs=
     recipients = template.referral_contact.clean_addressee_emails()
     all_recipients = (recipients + extra_ccs) if recipients else []
     allowed_recipients = remove_disallowed_recipients(all_recipients)
+    disallowed_recipients = list(set(all_recipients) - set(allowed_recipients))
 
     return Mail(message=message,
                 html_message=message,
                 recipients=allowed_recipients,
+                disallowed_recipients=disallowed_recipients,
                 subject=f'[DOJ CRT Referral] {report.public_id} - {report.contact_full_name}',
                 )
 
@@ -92,15 +95,19 @@ def render_complainant_mail(*, report, template) -> Mail:
         html_message = message.replace('\n', '<br>')
 
     if not report.contact_email:
-        recipients = []
+        all_recipients = []
     else:
-        recipients = remove_disallowed_recipients([report.contact_email])
+        all_recipients = [report.contact_email]
+
+    allowed_recipients = remove_disallowed_recipients(all_recipients)
+    disallowed_recipients = list(set(all_recipients) - set(allowed_recipients))
 
     return Mail(
         subject=template.render_subject(report),
         message=template.render_body(report),
         html_message=html_message,
-        recipients=recipients,
+        recipients=allowed_recipients,
+        disallowed_recipients=disallowed_recipients,
     )
 
 

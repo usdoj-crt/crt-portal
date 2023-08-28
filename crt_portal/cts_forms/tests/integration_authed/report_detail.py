@@ -256,7 +256,7 @@ def test_refer_complaint_modal_with_email(page):
     ])
     agency_select.select_option('(es) Referrals integration test - with agency email')
 
-    assert element.normalize_text(letter_step.locator('p').filter(has_text='Email: ')) == 'Email: test@testing.com'
+    assert element.normalize_text(letter_step.locator('p').filter(has_text='Email: ')) == 'Email: test@testing.com (will not be sent from this test site)'
     letter_step.locator('.subject').filter(has_text='Re: [es] your referrals test').wait_for()
     letter_step.locator('.letter-html').filter(has_text='Dear ReferralTestingWithEmail,').wait_for()
 
