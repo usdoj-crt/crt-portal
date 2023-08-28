@@ -69,12 +69,13 @@ $outline: color('white');
   ol.steps {
     .step {
       .step-text {
+        text-wrap: nowrap;
+        white-space: nowrap;
+
         @include at-media-max(desktop) {
           display: unset;
           color: #005EA2;
           font-weight: 400;
-          text-wrap: nowrap;
-          white-space: nowrap;
         }
       }
 
