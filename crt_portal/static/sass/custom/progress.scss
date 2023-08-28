@@ -73,6 +73,8 @@ $outline: color('white');
           display: unset;
           color: #005EA2;
           font-weight: 400;
+          text-wrap: nowrap;
+          white-space: nowrap;
         }
       }
 
