@@ -58,6 +58,7 @@
 
     <div style="margin-left:1rem; margin-right: 1rem">
 
+      {% if referral_contact %}
       <div style="display: flex; margin-bottom: 2rem">
         <div class="spacer" style="flex-grow: 1"></div>
         <pre style="font-family: unset">{{referral_contact.addressee_text}}</pre>
@@ -66,6 +67,7 @@
       <p><strong>Attn:</strong> {{referral_contact.name}}</p>
       <br/>
       <p>The Department of Justice's Civil Rights Divison has received a complaint we feel is more appropriate for your agency. Please review the following details below:</p>
+      {% endif %}
 
     <h1>Complainant Information</h1>
 
@@ -186,6 +188,7 @@
       </div>
     </p>
 
+      {% if complainant_letter %}
       <h1>Complainant Letter</h1>
       <p>The following is a copy of the letter sent to the complainant:</p>
       <hr/><br/>
@@ -194,6 +197,7 @@
       <div style="border: 1px dashed black">
         {{complainant_letter.html_message | safe}}
       </div>
+      {% endif %}
     </div>
   </body>
 </html>
