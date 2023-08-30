@@ -18,6 +18,8 @@ from django.utils.text import slugify
 from django.urls import reverse
 from django.db.models.functions import Lower
 
+from utils import pdf
+
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
                      JudicialDistrict, RoutingSection, RoutingStepOneContact,
@@ -166,6 +168,41 @@ def export_actions_as_csv(modeladmin, request, queryset):
 export_actions_as_csv.allowed_permissions = ('view',)  # noqa
 
 
+def export_reports_as_pdf(modeladmin, request, queryset):
+    """Export a zip file containing Reports as pdf files."""
+    del modeladmin, request  # Unused
+    buffer = io.BytesIO()
+    archive = zipfile.ZipFile(buffer, "w")
+
+    if queryset.count() == 1:
+        try:
+            content = pdf.convert_report_to_pdf(queryset.first())
+            return HttpResponse(content.getvalue(), content_type="application/pdf")
+        except pdf.FailedToGeneratePDF as error:
+            logging.exception(error)
+            return HttpResponse(f'{error}', status=500)
+
+    errors = []
+    for report in queryset:
+        try:
+            content = pdf.convert_report_to_pdf(report)
+            archive.writestr(f'{report.public_id}.pdf', content.getvalue())
+        except pdf.FailedToGeneratePDF as error:
+            logging.exception(error)
+            errors.append(f'{report.public_id}: {error}')
+    if errors:
+        archive.writestr("errors.txt", "\n".join(errors))
+    archive.close()
+
+    response = HttpResponse(buffer.getvalue(), content_type="application/zip")
+    response["Content-Disposition"] = 'attachment; filename="reports_export.zip"'
+
+    return response
+
+
+export_reports_as_pdf.allowed_permissions = ('view',)  # noqa
+
+
 class ReportAdmin(ReadOnlyModelAdmin):
     """
     View-only report admin providing filtering and export functionality
@@ -184,7 +221,7 @@ class ReportAdmin(ReadOnlyModelAdmin):
         'origination_utm_campaign',
     ]
     ordering = ['public_id']
-    actions = [export_reports_as_csv]
+    actions = [export_reports_as_csv, export_reports_as_pdf]
 
 
 class ActorActionFilter(admin.SimpleListFilter):
