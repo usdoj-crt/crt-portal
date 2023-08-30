@@ -17,7 +17,8 @@ from django.conf import settings
 
 from features.models import Feature
 
-from .model_variables import (ACTION_CHOICES, COMMERCIAL_OR_PUBLIC_ERROR,
+from .filters import get_report_filter_from_search
+from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLIC_ERROR,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
                               COMMERCIAL_OR_PUBLIC_PLACE_HELP_TEXT,
                               CONTACT_PHONE_INVALID_MESSAGE,
@@ -50,7 +51,7 @@ from .model_variables import (ACTION_CHOICES, COMMERCIAL_OR_PUBLIC_ERROR,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES, GROUPING)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment, Campaign)
+                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment, Campaign, SavedSearch, get_system_user)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -119,20 +120,39 @@ def save_form(form_data_dict, **kwargs):
     """Saving all the report form data, in use for the public form and the Pro form
     """
     m2m_protected_class = form_data_dict.pop('protected_class')
-    r = Report.objects.create(**form_data_dict)
+    report = Report.objects.create(**form_data_dict)
 
     # Many to many fields need to be added or updated to the main model, with a related manager such as add() or update()
     for protected in m2m_protected_class:
-        r.protected_class.add(protected)
+        report.protected_class.add(protected)
 
-    r.assigned_section = r.assign_section()
-    r.district = r.assign_district()
+    report.assigned_section = report.assign_section()
+    report.district = report.assign_district()
     if kwargs.get('intake_format'):
-        r.intake_format = kwargs.get('intake_format')
-    r.save()
+        report.intake_format = kwargs.get('intake_format')
+    report.save()
+    maybe_auto_close(report)
     # adding this back for the save page results
     form_data_dict['protected_class'] = m2m_protected_class.values()
-    return form_data_dict, r
+    return form_data_dict, report
+
+
+def maybe_auto_close(report):
+    closing_searches = SavedSearch.objects.filter(auto_close=True)
+    for search in closing_searches:
+        queryset, _ = get_report_filter_from_search(search)
+        if not queryset.contains(report):
+            continue
+        report.status = CLOSED_STATUS
+        report.closeout_report()
+        report.assigned_section = 'ADM'
+        report.save()
+        action.send(
+            get_system_user(),
+            verb="Report auto-closed",
+            description=f"Report automatically closed on submission because: {search.auto_close_reason}",
+            target=report,
+        )
 
 
 ORIGINATION_FIELDS = [
