@@ -360,25 +360,18 @@ class Report(models.Model):
     def __str__(self):
         return self.public_id
 
-    def __has_immigration_protected_classes(self, pcs):
-        immigration_classes = [
-            'immigration',
-            'national_origin',
-            'language'
-        ]
-        is_not_included = set(pcs).isdisjoint(set(immigration_classes))
-
-        if is_not_included:
-            return False
-
-        return True
+    immigration_classes = {
+        'immigration',
+        'national_origin',
+        'language'
+    }
 
     def __is_not_disabled(self, pcs):
         return 'disability' not in pcs
 
     def assign_section(self):
         """See the SectionAssignmentTests for expected behaviors"""
-        protected_classes = [pc.value for pc in self.protected_class.all()]
+        protected_classes = {pc.value for pc in self.protected_class.all()}
 
         if self.primary_complaint == 'voting':
             if self.__is_not_disabled(protected_classes):
@@ -387,7 +380,7 @@ class Report(models.Model):
                 return 'DRS'
 
         elif self.primary_complaint == 'workplace':
-            if self.__has_immigration_protected_classes(protected_classes):
+            if not (self.immigration_classes - protected_classes):
                 return 'IER'
             else:
                 return 'ELS'

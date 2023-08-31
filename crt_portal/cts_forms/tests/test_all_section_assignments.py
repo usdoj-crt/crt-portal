@@ -5,6 +5,7 @@ View expected results: data/section_assignment_expected.csv If section routing r
 
 The output of this test is saved to data/section_assignment.csv
 """
+from typing import List
 import csv
 import copy
 import itertools
@@ -12,11 +13,45 @@ import itertools
 from django.test import TestCase
 
 from ..models import Report, ProtectedClass
-from ..model_variables import PRIMARY_COMPLAINT_CHOICES, PROTECTED_CLASS_CHOICES, COMMERCIAL_OR_PUBLIC_PLACE_CHOICES, CORRECTIONAL_FACILITY_LOCATION_CHOICES, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES
+from ..model_variables import PRIMARY_COMPLAINT_CHOICES, PROTECTED_CLASS_CHOICES, COMMERCIAL_OR_PUBLIC_PLACE_CHOICES, CORRECTIONAL_FACILITY_LOCATION_CHOICES, PROTECTED_CLASS_DICT, PUBLIC_OR_PRIVATE_SCHOOL_CHOICES, PRIMARY_COMPLAINT_DICT
 from .test_data import SAMPLE_REPORT_1
 
 
 FIELDNAMES = ['Section assignment', 'Primary complaint', 'Protected class', 'Hate crime', 'Place', 'Facility', 'School']
+
+
+def translate_edge_cases(cases):
+    return [
+        (
+            (primary, PRIMARY_COMPLAINT_DICT[primary]),
+            [
+                PROTECTED_CLASS_DICT[protected_class]
+                for protected_class in protected_classes
+            ]
+        ) for primary, protected_classes in cases
+    ]
+
+
+# See #1612
+IER_EDGE_CASES = [
+    ('workplace', ('Immigration', 'National origin', 'Language')),
+    ('workplace', ('Immigration', 'National origin', 'Disability')),
+    ('workplace', ('National origin', 'Language', 'Genetic')),
+    ('workplace', ('Immigration', 'Language', 'Religion')),
+    ('workplace', ('National origin', 'Age', 'Sex')),
+    ('workplace', ('Immigration', 'Gender', 'Orientation')),
+    ('workplace', ('Language', 'Pregnancy', 'Other')),
+    ('voting', ('Immigration', 'National origin', 'Language')),
+    ('voting', ('Immigration', 'Gender', 'Orientation')),
+    ('commercial_or_public', ('Immigration', 'National origin', 'Language')),
+    ('commercial_or_public', ('Immigration', 'Gender', 'Orientation')),
+]
+
+# Protected class is a checkbox, not radio button, so users can select multiple.
+# That's too many combinations, though, so we only look at the subset we've added special logic for:
+COMPLEX_EDGE_CASES = translate_edge_cases([
+    *IER_EDGE_CASES,
+])
 
 
 def load_expected_assignment():
@@ -27,6 +62,10 @@ def load_expected_assignment():
             ''.join(line)
             for line in reader
         }
+
+
+def classes_to_string(protected_classes: List[ProtectedClass]) -> str:
+    return '|'.join(str(c.protected_class) for c in protected_classes)
 
 
 class Ultimate_Section_Assignment_Test(TestCase):
@@ -47,18 +86,16 @@ class Ultimate_Section_Assignment_Test(TestCase):
         record = ''.join(row.values())
         self.actual_rows.append(row)
         self.actual.add(record)
-        self.assertIn(record, self.expected)
 
-    def create_and_check_report(self, *, primary, protected_class):
-        class_object = ProtectedClass.objects.get_or_create(protected_class=protected_class)
+    def create_and_check_report(self, *, primary, protected_classes):
         if primary[0] not in ['commercial_or_public', 'police', 'education']:
             test_report = Report.objects.create(**SAMPLE_REPORT_1)
-            test_report.protected_class.add(class_object[0])
+            test_report.protected_class.set(protected_classes)
             section = test_report.assign_section()
             self.write_and_check({
                 'Section assignment': section,
                 'Primary complaint': primary[0],
-                'Protected class': str(protected_class),
+                'Protected class': classes_to_string(protected_classes),
                 'Place': 'n/a',
                 'Facility': 'n/a',
                 'School': 'n/a',
@@ -69,12 +106,12 @@ class Ultimate_Section_Assignment_Test(TestCase):
                 data = copy.deepcopy(SAMPLE_REPORT_1)
                 data['commercial_or_public_place'] = place[0]
                 test_report = Report.objects.create(**data)
-                test_report.protected_class.add(class_object[0])
+                test_report.protected_class.set(protected_classes)
                 section = test_report.assign_section()
                 self.write_and_check({
                     'Section assignment': section,
                     'Primary complaint': primary[0],
-                    'Protected class': str(protected_class),
+                    'Protected class': classes_to_string(protected_classes),
                     'Place': place[0],
                     'Facility': 'n/a',
                     'School': 'n/a',
@@ -84,12 +121,12 @@ class Ultimate_Section_Assignment_Test(TestCase):
                 data = copy.deepcopy(SAMPLE_REPORT_1)
                 data['inside_correctional_facility'] = facility[0]
                 test_report = Report.objects.create(**data)
-                test_report.protected_class.add(class_object[0])
+                test_report.protected_class.set(protected_classes)
                 section_facility = test_report.assign_section()
                 self.write_and_check({
                     'Section assignment': section_facility,
                     'Primary complaint': primary[0],
-                    'Protected class': str(protected_class),
+                    'Protected class': classes_to_string(protected_classes),
                     'Place': 'n/a',
                     'Facility': facility[0],
                     'School': 'n/a',
@@ -99,23 +136,43 @@ class Ultimate_Section_Assignment_Test(TestCase):
                 data = copy.deepcopy(SAMPLE_REPORT_1)
                 data['public_or_private_school'] = school[0]
                 test_report = Report.objects.create(**data)
-                test_report.protected_class.add(class_object[0])
+                test_report.protected_class.set(protected_classes)
                 section_facility = test_report.assign_section()
                 self.write_and_check({
                     'Section assignment': section_facility,
                     'Primary complaint': primary[0],
-                    'Protected class': str(protected_class),
+                    'Protected class': classes_to_string(protected_classes),
                     'Place': 'n/a',
                     'Facility': 'n/a',
                     'School': school[0],
                 })
 
     def test_all_assignments(self):
-        for protected_class, primary in itertools.product(PROTECTED_CLASS_CHOICES, PRIMARY_COMPLAINT_CHOICES):
+        protected_class_selections = [
+            *itertools.combinations(PROTECTED_CLASS_CHOICES, 1),
+        ]
+
+        selections = [
+            *COMPLEX_EDGE_CASES,
+            *itertools.product(PRIMARY_COMPLAINT_CHOICES, protected_class_selections),
+        ]
+
+        import pprint
+        pprint.pprint(selections)
+
+        models = (
+            (
+                primary,
+                [
+                    ProtectedClass.objects.get_or_create(protected_class=selection)[0]
+                    for selection in protected_class_selection
+                ]
+            )
+            for primary, protected_class_selection in selections
+        )
+
+        for primary, protected_class_set in models:
             SAMPLE_REPORT_1['primary_complaint'] = primary[0]
             self.create_and_check_report(primary=primary,
-                                         protected_class=protected_class)
-        not_in_test = self.actual - self.expected
-        self.assertEqual(not_in_test, set())
-        missing_value = self.expected - self.actual
-        self.assertEqual(missing_value, set())
+                                         protected_classes=protected_class_set)
+        self.assertEqual(self.actual, self.expected)
