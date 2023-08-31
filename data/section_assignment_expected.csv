@@ -29,6 +29,12 @@ CRM,police,Sex,,n/a,outside,n/a
 CRM,police,Sexual orientation,,n/a,outside,n/a
 CRM,police,None of these apply to me,,n/a,outside,n/a
 CRM,police,Other reason,,n/a,outside,n/a
+ELS,workplace,Immigration/citizenship status (choosing this will not share your status)|National origin (including ancestry and ethnicity)|Disability (including temporary or recovered and including HIV and drug addiction),,n/a,n/a,n/a
+ELS,workplace,National origin (including ancestry and ethnicity)|Language|Genetic information (including family medical history),,n/a,n/a,n/a
+ELS,workplace,Immigration/citizenship status (choosing this will not share your status)|Language|Religion,,n/a,n/a,n/a
+ELS,workplace,National origin (including ancestry and ethnicity)|Age|Sex,,n/a,n/a,n/a
+ELS,workplace,Immigration/citizenship status (choosing this will not share your status)|Gender identity (including gender stereotypes)|Sexual orientation,,n/a,n/a,n/a
+ELS,workplace,Language|Pregnancy|Other reason,,n/a,n/a,n/a
 ELS,workplace,Age,,n/a,n/a,n/a
 ELS,workplace,Disability (including temporary or recovered and including HIV and drug addiction),,n/a,n/a,n/a
 ELS,workplace,"Family, marital, or parental status",,n/a,n/a,n/a
@@ -187,15 +193,9 @@ HCE,housing,Sexual orientation,,n/a,n/a,n/a
 HCE,housing,None of these apply to me,,n/a,n/a,n/a
 HCE,housing,Other reason,,n/a,n/a,n/a
 IER,workplace,Immigration/citizenship status (choosing this will not share your status)|National origin (including ancestry and ethnicity)|Language,,n/a,n/a,n/a
-ELS,workplace,Immigration/citizenship status (choosing this will not share your status)|National origin (including ancestry and ethnicity)|Disability (including temporary or recovered and including HIV and drug addiction),,n/a,n/a,n/a
-ELS,workplace,National origin (including ancestry and ethnicity)|Language|Genetic information (including family medical history),,n/a,n/a,n/a
-ELS,workplace,Immigration/citizenship status (choosing this will not share your status)|Language|Religion,,n/a,n/a,n/a
-ELS,workplace,National origin (including ancestry and ethnicity)|Age|Sex,,n/a,n/a,n/a
-ELS,workplace,Immigration/citizenship status (choosing this will not share your status)|Gender identity (including gender stereotypes)|Sexual orientation,,n/a,n/a,n/a
-ELS,workplace,Language|Pregnancy|Other reason,,n/a,n/a,n/a
-ELS,workplace,Immigration/citizenship status (choosing this will not share your status),,n/a,n/a,n/a
-ELS,workplace,Language,,n/a,n/a,n/a
-ELS,workplace,National origin (including ancestry and ethnicity),,n/a,n/a,n/a
+IER,workplace,Immigration/citizenship status (choosing this will not share your status),,n/a,n/a,n/a
+IER,workplace,Language,,n/a,n/a,n/a
+IER,workplace,National origin (including ancestry and ethnicity),,n/a,n/a,n/a
 SPL,commercial_or_public,Immigration/citizenship status (choosing this will not share your status)|National origin (including ancestry and ethnicity)|Language,,healthcare,n/a,n/a
 SPL,commercial_or_public,Immigration/citizenship status (choosing this will not share your status)|Gender identity (including gender stereotypes)|Sexual orientation,,healthcare,n/a,n/a
 SPL,commercial_or_public,Age,,healthcare,n/a,n/a

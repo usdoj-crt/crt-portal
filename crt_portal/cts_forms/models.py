@@ -380,10 +380,11 @@ class Report(models.Model):
                 return 'DRS'
 
         elif self.primary_complaint == 'workplace':
-            if not (self.immigration_classes - protected_classes):
-                return 'IER'
-            else:
+            if not protected_classes:
                 return 'ELS'
+            if protected_classes - self.immigration_classes:
+                return 'ELS'
+            return 'IER'
 
         elif self.primary_complaint == 'commercial_or_public':
             if not self.__is_not_disabled(protected_classes):

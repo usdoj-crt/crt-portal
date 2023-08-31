@@ -68,7 +68,7 @@ def classes_to_string(protected_classes: List[ProtectedClass]) -> str:
     return '|'.join(str(c.protected_class) for c in protected_classes)
 
 
-class Ultimate_Section_Assignment_Test(TestCase):
+class UltimateSectionAssignmentTest(TestCase):
     def setUp(self):
         self.actual = set()
         self.actual_rows = []
