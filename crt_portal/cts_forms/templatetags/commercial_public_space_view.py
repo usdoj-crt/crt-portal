@@ -7,7 +7,7 @@ register = template.Library()
 
 
 @register.inclusion_tag('forms/snippets/commercial_public_space_view.html')
-def render_commercial_public_space_view(location, type):
+def render_commercial_public_space_view(location, type, is_referral_view=False):
     other_text = None
 
     if location != 'other':
@@ -18,5 +18,6 @@ def render_commercial_public_space_view(location, type):
 
     return {
         'location_type': location_type,
-        'other_text': other_text
+        'other_text': other_text,
+        'is_referral_view': is_referral_view
     }
