@@ -271,7 +271,7 @@ class AutoCloseTests(TestCase):
         self.assertIsNotNone(action, 'No acstream found for auto-closed report')
         self.assertEqual(action.actor, get_system_user())
         self.assertEqual(action.verb, 'Report auto-closed')
-        self.assertEqual(action.description, 'Report automatically closed on submission because: foo happened!')
+        self.assertEqual(action.description, 'Report automatically closed on submission because foo happened!')
 
     def test_maybe_auto_close_skips_nonmatching(self):
         maybe_auto_close(self.nonmatching_report)

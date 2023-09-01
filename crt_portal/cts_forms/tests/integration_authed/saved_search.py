@@ -5,7 +5,6 @@ from cts_forms.tests.integration_util import console, admin_models, element
 
 
 @pytest.mark.only_browser("chromium")
-@pytest.mark.boop
 @console.raise_errors(ignore='404')
 def test_saved_search(page):
     login_as_superuser(page)
