@@ -220,6 +220,10 @@ PROTECTED_CLASS_FIELDS = [
 ]
 # PROTECTED_CLASS_CHOICES refers to the choices that will be displayed on the form front-end.
 PROTECTED_CLASS_CHOICES = [field[2] for field in PROTECTED_CLASS_FIELDS]
+PROTECTED_CLASS_DICT = {
+    field[1]: field[2]
+    for field in PROTECTED_CLASS_FIELDS
+}
 # PROTECTED_MODEL_CHOICES are the constraints added to the database for acceptable answers.
 PROTECTED_MODEL_CHOICES = tuple(
     (field[1].lower().replace(' ', '_'), field[2]) for field in PROTECTED_CLASS_FIELDS
