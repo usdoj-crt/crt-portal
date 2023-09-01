@@ -1,6 +1,7 @@
 {% load commercial_public_space_view %}
 {% load correctional_facility_view %}
 {% load employer_info_view %}
+{% load primary_complaint_view %}
 {% load i18n %}
 {% get_available_languages as LANGUAGES %}
 {% get_language_info_list for LANGUAGES as languages %}
@@ -111,7 +112,7 @@
     <h2>What is your primary reason for contacting the Civil Rights Division?</h2>
     <p>
       <div class="details">
-        {{ report.primary_complaint }}
+        {% render_primary_complaint_view report.primary_complaint %}
       </div>
     </p>
 
