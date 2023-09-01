@@ -1,5 +1,4 @@
 from django import template
-from django.utils.translation import gettext_lazy as _
 
 from ..model_variables import PRIMARY_COMPLAINT_DICT
 
@@ -14,3 +13,4 @@ def render_primary_complaint_view(primary_complaint):
     return {
         'primary_complaint': primary_complaint,
     }
+    
