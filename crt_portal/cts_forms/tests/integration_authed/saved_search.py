@@ -5,6 +5,7 @@ from cts_forms.tests.integration_util import console, admin_models, element
 
 
 @pytest.mark.only_browser("chromium")
+@pytest.mark.boop
 @console.raise_errors(ignore='404')
 def test_saved_search(page):
     login_as_superuser(page)
@@ -33,8 +34,8 @@ def test_saved_search(page):
         '/admin/cts_forms/savedsearch',
         name='Test Auto-Closing Saved Search',
         auto_close=True,
-        auto_close_reason='Matched integration test search',
-        query='status=new&status=open&violation_summary=%22auto%20close%20me!%22&no_status=false&grouping=default',
+        auto_close_reason='it was auto-routed to other agency for processing',
+        query='status=new&status=open&violation_summary=%22refer%20to%20agency!%22&no_status=false&grouping=default',
     )
 
     closed = admin_models.create_report(
@@ -45,8 +46,9 @@ def test_saved_search(page):
         intake_format='phone',
         primary_complaint='something_else',
         contact_first_name='SavedSearchTest',
-        violation_summary='auto close me!',
+        violation_summary='refer to agency!',
     )
 
     page.goto(f'/form/view/{closed}')
     assert element.normalize_text(page.locator('#id_status [selected]')) == 'Closed'
+    assert page.locator('#id_summary').input_value() == 'Report automatically closed on submission because it was auto-routed to other agency for processing'

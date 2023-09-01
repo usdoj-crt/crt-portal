@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(help_text='The name of the search as it will appear in lists and dropdowns.', max_length=255)),
                 ('query', models.TextField(default='status=new&status=open&no_status=false&grouping=default', help_text='The encoded search represented as a URL querystring for the /form/view page.')),
                 ('auto_close', models.BooleanField(default=False, help_text='Whether to automatically close incoming reports that match this search. Only applies to new submissions.')),
-                ('auto_close_reason', models.CharField(blank=True, help_text='The reason to add to the report summary when auto-closing.', max_length=255, null=True)),
+                ('auto_close_reason', models.CharField(blank=True, help_text="The reason to add to the report summary when auto-closing. Will be filled in the following blank: 'Report automatically closed on submission because ____'", max_length=255, null=True)),
             ],
         ),
         migrations.RunPython(add_system_user, remove_system_user),

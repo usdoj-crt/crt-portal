@@ -143,14 +143,20 @@ def maybe_auto_close(report):
         queryset, _ = get_report_filter_from_search(search)
         if not queryset.contains(report):
             continue
+        reason_for_closing = f"Report automatically closed on submission because {search.auto_close_reason}"
+        system_user = get_system_user()
         report.status = CLOSED_STATUS
         report.closeout_report()
         report.assigned_section = 'ADM'
+        summary = report.internal_comments.get_or_create(is_summary=True)[0]
+        summary.author = system_user.username
+        summary.note = reason_for_closing
+        summary.save()
         report.save()
         action.send(
-            get_system_user(),
+            system_user,
             verb="Report auto-closed",
-            description=f"Report automatically closed on submission because: {search.auto_close_reason}",
+            description=reason_for_closing,
             target=report,
         )
 
