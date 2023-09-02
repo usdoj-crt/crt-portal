@@ -13,4 +13,3 @@ def render_primary_complaint_view(primary_complaint):
     return {
         'primary_complaint': primary_complaint,
     }
-    
