@@ -1,6 +1,7 @@
 {% load commercial_public_space_view %}
 {% load correctional_facility_view %}
 {% load employer_info_view %}
+{% load primary_complaint_view %}
 {% load i18n %}
 {% get_available_languages as LANGUAGES %}
 {% get_language_info_list for LANGUAGES as languages %}
@@ -60,7 +61,6 @@
 
       {% if referral_contact %}
       <div style="display: flex; margin-bottom: 2rem">
-        <div class="spacer" style="flex-grow: 1"></div>
         <pre style="font-family: unset">{{referral_contact.addressee_text}}</pre>
       </div>
 
@@ -99,7 +99,7 @@
 
     <h2>Phone</h2>
     <p>{{ report.contact_phone|default:"—" }}</p>
-
+    <br />
     <h2>Complainant Contact Address</h2>
     <p>
       <span>{{ report.contact_address_line_1|default:"—" }}</span>
@@ -108,15 +108,15 @@
       <br />
       <span>{{ report.contact_city|default:"—" }}, {{report.contact_state|default:"—" }}, {{report.contact_zip|default:"—" }}</span>
     </p>
-
-    <h2>Primary issue</h2>
+    <br />
+    <h2>What is your primary reason for contacting the Civil Rights Division?</h2>
     <p>
       <div class="details">
-        {{ report.primary_complaint }}
+        {% render_primary_complaint_view report.primary_complaint %}
       </div>
     </p>
 
-    <h2>Hate crime</h2>
+    <h2>Does your situation involve physical harm or threats of violence?</h2>
     <p>
       <div class="details">
         <span>{{report.hate_crime|title|default:"—"}}</span>
@@ -126,7 +126,7 @@
     <h2>Relevant details</h2>
     <p>
       <div class="details">
-        {% if report.election_details %} Election type (federal/local): {{ report.election_details }} {% elif report.commercial_or_public_place %} {% render_commercial_public_space_view report.commercial_or_public_place report.other_commercial_or_public_place %} {% elif report.inside_correctional_facility %} {% render_correctional_facility_view report.inside_correctional_facility report.correctional_facility_type %} {% elif report.public_or_private_school %} School type: {% if report.public_or_private_school == 'not_sure' %} Not sure {% else %} {{ report.public_or_private_school|title }} {% endif %} {% elif report.public_or_private_employer %} {% render_employer_info_view report.public_or_private_employer report.employer_size %} {% else %}<span>—<span>{% endif %}
+        {% if report.election_details %} What kind of election or voting activity was this related to? {{ report.election_details }} {% elif report.commercial_or_public_place %} {% render_commercial_public_space_view report.commercial_or_public_place report.other_commercial_or_public_place true %} {% elif report.inside_correctional_facility %} {% render_correctional_facility_view report.inside_correctional_facility report.correctional_facility_type true %} {% elif report.public_or_private_school %} Did this happen at a public or a private school, educational program or activity? {% if report.public_or_private_school == 'not_sure' %} Not sure {% else %} {{ report.public_or_private_school|title }} {% endif %} {% elif report.public_or_private_employer %} {% render_employer_info_view report.public_or_private_employer report.employer_size true %} {% else %}<span>—<span>{% endif %}
       </div>
     </p>
 
@@ -137,30 +137,34 @@
       </div>
     </p>
 
-    <h2>Incident Location Address</h2>
+    <h2>Where did this happen?</h2>
     <p>
       <div class="details">
-        <p>{{ report.location_address_line_1|default:"—" }}</p>
-        <p>{{ report.location_address_line_2|default:"—" }}</p>
-        <p>{{ report.location_city_town|default:"—"}}, {{report.location_state|default:"—"}}</p>
+        <p>
+          <span>{{ report.location_address_line_1|default:"—" }}</span>
+          <br />
+          <span>{{ report.location_address_line_2|default:"—" }}</span>
+          <br />
+          <span>{{ report.location_city_town|default:"—"}}, {{report.location_state|default:"—"}}</span>
+        </p>
       </div>
     </p>
 
-    <h2>Reported reason</h2>
+    <h2>Do you believe any of these personal characteristics influenced why you were treated this way?</h2>
     <p>
       <div class="details">
         {% if report.other_class %}<br />Other: {{report.other_class}} {% endif %}{% if not report.other_class %}<span>-</span>{% endif %}
       </div>
     </p>
 
-    <h2>Servicemember</h2>
+    <h2>Are you now or have ever been an active duty service member?</h2>
     <p>
       <div class="details">
         {{report.servicemember|title|default:"—"}}
       </div>
     </p>
 
-    <h2>Date of incident</h2>
+    <h2>When did this happen?</h2>
     <p>
       <div class="details">
         {{report.last_incident_month|default:"—"}}/{{report.last_incident_day|default:"—"}}/{{report.last_incident_year|default:"—"}}
@@ -174,7 +178,7 @@
       </div>
     </p>
 
-    <h2>Personal description</h2>
+    <h2>In your own words, describe what happened</h2>
     <p>
       <div class="details">
         {{ report.violation_summary|linebreaks }}
