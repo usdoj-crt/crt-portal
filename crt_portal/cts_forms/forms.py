@@ -130,11 +130,30 @@ def save_form(form_data_dict, **kwargs):
     report.district = report.assign_district()
     if kwargs.get('intake_format'):
         report.intake_format = kwargs.get('intake_format')
+    maybe_auto_reroute(report)
     report.save()
     maybe_auto_close(report)
     # adding this back for the save page results
     form_data_dict['protected_class'] = m2m_protected_class.values()
     return form_data_dict, report
+
+
+def maybe_auto_reroute(report):
+    rerouting_searches = SavedSearch.objects.filter(override_section_assignment=True)
+    for search in rerouting_searches:
+        queryset, _ = get_report_filter_from_search(search)
+        if not queryset.contains(report):
+            continue
+        system_user = get_system_user()
+        report.assigned_section = search.override_section_assignment_with
+        report.save()
+        action.send(
+            system_user,
+            verb="Routing overridden",
+            description=f"Rerouted to {search.override_section_assignment_with} due to Saved Search {search.name}",
+            target=report,
+        )
+        return
 
 
 def maybe_auto_close(report):
@@ -159,6 +178,7 @@ def maybe_auto_close(report):
             description=reason_for_closing,
             target=report,
         )
+        return
 
 
 ORIGINATION_FIELDS = [
