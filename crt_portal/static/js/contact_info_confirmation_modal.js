@@ -17,7 +17,7 @@
         submitNextButton.click();
       } else {
         event.preventDefault();
-        var cancelModalButton = document.getElementById('external-link--cancel');
+        const cancelModalButton = modal_el.querySelector('.external-link--cancel');
 
         // field_el is the field element that will need to be filled out.  We want to focus that field and scroll to it.
         var field_el = {};
@@ -36,7 +36,7 @@
     var stepOneSubmitButton = document.getElementById('report-step-1-continue');
     if (stepOneSubmitButton) {
       var submitNextButton = document.getElementById('submit-next');
-      var continue_modal_button = document.getElementById('external-link--continue');
+      var continue_modal_button = modal_el.querySelector('.external-link--continue');
       continue_modal_button.onclick = function(event) {
         event.preventDefault();
         submitNextButton.click();

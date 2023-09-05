@@ -1,0 +1,37 @@
+{% load i18n %}
+
+<div class="omb--modal" hidden>
+  <div class="modal-wrapper" role="dialog" aria-modal="true" aria-describedby="modal_dialog_header">
+    <div class="modal-content modal-content--small">
+      <div class="modal-header">
+        <h1 id="modal_dialog_header" class="h2__display margin-0">
+          OMB #1190-0020
+        </h1>
+      </div>
+      <div class="modal-form">
+        <p>
+          {% trans "According to the Paperwork Reduction Act of 1995, no persons are required to respond to a collection of information unless such collection displays a valid OMB control number." %}
+        </p>
+        <p>
+          {% trans "Public reporting burden for this collection of information is estimated to average 10 minutes per response per response, including time for reviewing instructions, searching existing data sources, gathering and maintaining the data needed, and completing and reviewing the collection of information. The obligation to respond to this collection is voluntary." %}
+        </p>
+        <p>
+          {% trans "Send comments regarding the burden estimate or any other aspect of this collection of information, including suggestions for reducing this burden, to:" %}
+        </p>
+        <p>
+          U.S. Department of Justice<br/>
+          Civil Rights Division<br/>
+          950 Pennsylvania Avenue, NW<br/>
+          Washington, D.C. 20530-0001<br/>
+        </p>
+        <div class="modal-footer">
+          <ul class="usa-button-group">
+            <li class="usa-button-group__item">
+              <a class="external-link--cancel" href="#" class="usa-button button--continue">{% trans "Return to filing a report" %}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
