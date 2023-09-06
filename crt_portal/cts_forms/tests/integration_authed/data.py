@@ -4,7 +4,6 @@ from cts_forms.tests.integration_util import console, features
 
 
 @pytest.mark.only_browser("chromium")
-@pytest.mark.boop
 @console.raise_errors(ignore='404')
 @features.login_as_superuser_without_feature('data-dashboard')
 def test_flag_off(page):
@@ -13,7 +12,6 @@ def test_flag_off(page):
 
 
 @pytest.mark.only_browser("chromium")
-@pytest.mark.boop
 @console.raise_errors(ignore='404')
 @features.login_as_superuser_with_feature('data-dashboard')
 def test_dashboard_page(page):
