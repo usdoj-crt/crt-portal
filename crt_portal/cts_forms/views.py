@@ -20,7 +20,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
 from django.db.models import F
-from django.forms.models import model_to_dict
 from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.html import mark_safe
@@ -40,7 +39,7 @@ from .forms import (
 )
 from .mail import mail_to_complainant
 from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
-from .models import CommentAndSummary, DashboardEmbed, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, Campaign, User, \
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, Campaign, User, \
     RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import activity_sort, report_sort
@@ -518,14 +517,11 @@ def process_activity_filters(request):
 
 @login_required
 def dashboard_view(request):
-    embeds = [model_to_dict(e) for e in DashboardEmbed.objects.all()]
-
     return render(
         request,
         'forms/complaint_view/dashboard/index.html',
         {
             **process_intake_filters(request),
-            'embeds': embeds,
         })
 
 
