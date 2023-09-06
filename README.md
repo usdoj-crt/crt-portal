@@ -64,6 +64,8 @@ To run the project
 
     docker-compose up
 
+    If you're actively writing code, and want to save time by skipping gulp, migrations, and manage.py commands (often the case when restarting the server for development), you can add `SKIP_LOCAL_WEB_SETUP=True` to your .env file.
+
 You can also build the project under a separate project, detached from local dependencies (ports and volumes) using:
 
     ./standalone

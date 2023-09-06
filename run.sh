@@ -1,6 +1,16 @@
 #!/bin/bash
 # used by local docker container
 
+function start_server() {
+    echo 'Starting Django Server…'
+    python /code/crt_portal/manage.py runserver 0.0.0.0:8000
+}
+
+if [[ "$SKIP_LOCAL_WEB_SETUP" == "True" ]]; then
+    start_server
+    exit $?
+fi;
+
 # # make sure migrations are applied
 echo 'Migrating database...'
 python /code/crt_portal/manage.py migrate
@@ -37,5 +47,4 @@ python /code/crt_portal/manage.py update_ipynb_examples
 echo 'Compiling i8n files…'
 python /code/crt_portal/manage.py compilemessages
 
-echo 'Starting Django Server…'
-python /code/crt_portal/manage.py runserver 0.0.0.0:8000
+start_server
