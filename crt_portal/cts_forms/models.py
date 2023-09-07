@@ -19,6 +19,8 @@ from django.utils import translation
 from django.utils.functional import cached_property
 from django.utils.html import escape
 
+from utils import sanitize
+
 from .managers import ActiveProtectedClassChoiceManager
 from .model_variables import (CLOSED_STATUS,
                               COMMERCIAL_OR_PUBLIC_PLACE_CHOICES,
@@ -358,78 +360,76 @@ class Report(models.Model):
     def __str__(self):
         return self.public_id
 
-    def __has_immigration_protected_classes(self, pcs):
-        immigration_classes = [
-            'immigration',
-            'national_origin',
-            'language'
-        ]
-        is_not_included = set(pcs).isdisjoint(set(immigration_classes))
+    immigration_classes = {
+        'immigration',
+        'national_origin',
+        'language'
+    }
 
-        if is_not_included:
-            return False
-
-        return True
-
-    def __is_not_disabled(self, pcs):
-        return 'disability' not in pcs
+    disability_classes = {
+        'disability'
+    }
 
     def assign_section(self):
         """See the SectionAssignmentTests for expected behaviors"""
-        protected_classes = [pc.value for pc in self.protected_class.all()]
+        protected_classes = {pc.value for pc in self.protected_class.all()}
+        is_disabled = bool(self.disability_classes & protected_classes)
+        is_only_immigration = bool(protected_classes - self.immigration_classes)
 
         if self.primary_complaint == 'voting':
-            if self.__is_not_disabled(protected_classes):
-                return 'VOT'
-            else:
+            if is_disabled:
                 return 'DRS'
+            return 'VOT'
 
-        elif self.primary_complaint == 'workplace':
-            if self.__has_immigration_protected_classes(protected_classes):
-                return 'IER'
-            else:
+        if self.primary_complaint == 'workplace':
+            if not protected_classes:
                 return 'ELS'
+            if is_only_immigration:
+                return 'ELS'
+            return 'IER'
 
-        elif self.primary_complaint == 'commercial_or_public':
-            if not self.__is_not_disabled(protected_classes):
+        if self.primary_complaint == 'commercial_or_public':
+            if is_disabled:
                 return 'DRS'
-            elif self.commercial_or_public_place == 'healthcare':
+            if self.commercial_or_public_place == 'healthcare':
                 return 'SPL'
-            else:
-                return 'HCE'
-
-        elif self.primary_complaint == 'housing':
             return 'HCE'
 
-        elif self.primary_complaint == 'education':
+        if self.primary_complaint == 'housing':
+            return 'HCE'
+
+        if self.primary_complaint == 'education':
             if self.public_or_private_school == 'public' or self.public_or_private_school == 'not_sure':
                 return 'EOS'
-            elif self.__is_not_disabled(protected_classes):
-                return 'EOS'
-            elif self.public_or_private_school == 'private' and not self.__is_not_disabled(protected_classes):
+            if is_disabled:
                 return 'DRS'
+            return 'EOS'
 
-        elif self.primary_complaint == 'police':
-            if self.__is_not_disabled(protected_classes) and self.inside_correctional_facility == 'inside':
+        if self.primary_complaint == 'police':
+            if is_disabled:
+                return 'DRS'
+            if self.inside_correctional_facility == 'inside':
                 return 'SPL'
-            elif self.__is_not_disabled(protected_classes) and self.inside_correctional_facility == 'outside':
-                return 'CRM'
-            else:
-                return 'DRS'
+            return 'CRM'
 
-        elif self.primary_complaint == 'something_else' and not self.__is_not_disabled(protected_classes):
+        if self.primary_complaint == 'something_else' and is_disabled:
             return 'DRS'
 
         return 'ADM'
 
     def assign_district(self):
-        if self.location_city_town and self.location_state:
-            city = self.location_city_town.upper().strip()
-            district_query = JudicialDistrict.objects.filter(city=city, state=self.location_state)
-            if len(district_query) > 0:
-                return district_query[0].district
+        if not self.location_city_town:
+            return None
+        if not self.location_state:
+            return None
 
-        return None
+        city = sanitize.sanitize_city(self.location_city_town)
+        state = self.location_state
+        district_query = JudicialDistrict.objects.filter(city=city, state=state)
+        if len(district_query) <= 0:
+            return None
+
+        return district_query[0].district
 
     @property
     def get_summary(self):

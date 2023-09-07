@@ -193,13 +193,12 @@ c = get_config()  #noqa
 #    - pam: jupyterhub.auth.PAMAuthenticator
 #  Default: 'jupyterhub.auth.PAMAuthenticator'
 class PortalOAuthenticator(GenericOAuthenticator):
-    def check_allowed(self, username, authentication=None):
-        # Don't rely on an allowlist for users.
-        # Use Portal admin panel settings, instead.
-        # (See crt_portal/oauth_classes.py)
-        return True
+    pass
 
 c.JupyterHub.authenticator_class = PortalOAuthenticator
+
+PortalOAuthenticator.allowed_groups = {'jupyter_editor'}
+PortalOAuthenticator.admin_groups = {'jupyter_superuser'}
 
 # Generate a code_challenge, which is an extra security step imposed by django-oauth-toolkit.
 # For more info: https://django-oauth-toolkit.readthedocs.io/en/stable/getting_started.html

@@ -1,10 +1,12 @@
 import io
 
+from django.forms.models import model_to_dict
 from django.template.loader import render_to_string
 import markdown
 import pypdf
 import weasyprint
 
+from cts_forms.models import Report
 from cts_forms.mail import CustomHTMLExtension
 from tms.models import TMSEmail
 
@@ -13,7 +15,15 @@ class FailedToGeneratePDF(RuntimeError):
     pass
 
 
+_LEFT_ALIGN = weasyprint.CSS(string="""
+    center {
+        text-align: left !important;
+    }
+""")
+
+
 def convert_html_to_pdf(source_html: str, stylesheets=[]) -> io.BytesIO:
+    stylesheets = stylesheets + [_LEFT_ALIGN]
     out = io.BytesIO()
     try:
         weasyprint.HTML(
@@ -61,15 +71,22 @@ The following email message (with Granicus TMS id {email.tms_id}) was sent by th
 
 def convert_tms_to_pdf(email: TMSEmail) -> io.BytesIO:
     cover_page = _make_cover_page(email)
-    style = weasyprint.CSS(string="""
-        center {
-            text-align: left !important;
-        }
-    """)
 
     pdf = pypdf.PdfMerger()
-    pdf.append(convert_html_to_pdf(cover_page, stylesheets=[style]))
-    pdf.append(convert_html_to_pdf(email.sent_content, stylesheets=[style]))
+    pdf.append(convert_html_to_pdf(cover_page))
+    pdf.append(convert_html_to_pdf(email.sent_content))
     out = io.BytesIO()
     pdf.write(out)
     return out
+
+
+def convert_report_to_pdf(report: Report) -> io.BytesIO:
+    """Exports a report as a pdf."""
+    data = {
+        'complainant_letter': None,
+        'template': None,
+        'referral_contact': None,
+        'report': model_to_dict(report),
+    }
+    html = render_to_string('referral_info.html', data)
+    return convert_html_to_pdf(html)

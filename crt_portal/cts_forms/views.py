@@ -291,7 +291,9 @@ def render_default_view(request, profile_form, selected_assignee_id, selected_ca
         'selected_assignee_id': selected_assignee_id,
         'selected_origination_utm_campaign': selected_campaign_uuid
     })
-    return render(request, 'forms/complaint_view/index/index.html', final_data)
+    response = render(request, 'forms/complaint_view/index/index.html', final_data)
+    response.set_cookie('complaint_view_per_page', final_data['per_page'])
+    return response
 
 
 def get_group_view_data(request, requested_reports, query_filters, grouping, group_params, desc_id):
@@ -345,7 +347,7 @@ def get_view_data(request, report_query, query_filters):
     requested_reports = report_query.annotate(email_count=F('email_report_count__email_count'))
 
     # Sort data based on request from params, default to `created_date` of complaint
-    per_page = request.GET.get('per_page', 15)
+    per_page = request.GET.get('per_page', request.COOKIES.get('complaint_view_per_page', 15))
     page = request.GET.get('page', 1)
     sort_expr, sorts = report_sort(request.GET.getlist('sort'))
 
@@ -377,6 +379,7 @@ def get_view_data(request, report_query, query_filters):
         'grouping': 'default',
         'page_format': page_format,
         'page_args': page_args,
+        'per_page': per_page,
         'sort_state': sort_state,
         'filter_state': filter_args,
         'filters': query_filters,

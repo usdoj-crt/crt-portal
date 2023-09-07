@@ -1,5 +1,10 @@
 {# not on public pages #}
-
-Employer type: {{employer_type}}
-<br />
-Employee size: {{employee_size}}
+{% if is_referral_view %}
+    Was this a public or private employer?: {{employer_type}}
+    <br />
+    How large is this employer?: {{employee_size}}
+{% else %}
+    Employer type: {{employer_type}}
+    <br />
+    Employee size: {{employee_size}}
+{% endif %}

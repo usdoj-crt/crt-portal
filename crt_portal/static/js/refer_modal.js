@@ -113,6 +113,10 @@
     if (letterBox) {
       letterBox.innerHTML = data?.letter?.html_message || 'Message failed to preview.';
     }
+    const blocked = data.letter.disallowed_recipients?.join(', ');
+    modal
+      .querySelectorAll('.complainant.blocked-email-hideshow')
+      .forEach(hideshow => (hideshow.hidden = !blocked || blocked.length <= 0));
   }
 
   function displayAgencyDetails(modal, data) {
@@ -130,7 +134,12 @@
     const yesEmails = document.querySelectorAll('.yes-agency-email');
     const noEmails = document.querySelectorAll('.no-agency-email');
 
-    if (!data.letter.recipients?.length) {
+    const allRecipients = [
+      ...(data.letter.recipients || []),
+      ...(data.letter.disallowed_recipients || [])
+    ];
+
+    if (!allRecipients.length) {
       noEmails.forEach(noEmail => (noEmail.hidden = false));
       yesEmails.forEach(yesEmail => (yesEmail.hidden = true));
       return;
@@ -138,10 +147,16 @@
     noEmails.forEach(noEmail => (noEmail.hidden = true));
     yesEmails.forEach(yesEmail => (yesEmail.hidden = false));
 
-    modal.querySelectorAll('.agency.email').forEach(e => (e.innerText = data.letter.recipients[0]));
+    modal.querySelectorAll('.agency.email').forEach(e => (e.innerText = allRecipients[0] || ''));
     modal.querySelectorAll('.agency.subject').forEach(e => (e.innerText = data.letter.subject));
-    const ccs = data.letter.recipients.slice(1).join(', ');
+    const ccs = allRecipients.slice(1).join(', ');
     modal.querySelectorAll('.agency.ccs').forEach(e => (e.innerText = ccs || ''));
+
+    const blocked = data.letter.disallowed_recipients?.join(', ');
+    modal
+      .querySelectorAll('.agency.blocked-email-hideshow')
+      .forEach(hideshow => (hideshow.hidden = !blocked || blocked.length <= 0));
+    modal.querySelectorAll('.agency.blocked-email').forEach(e => (e.innerText = blocked || ''));
   }
 
   function getComplaintLetterInvalidReasons(modal, { currentStepName, targetStepName }) {

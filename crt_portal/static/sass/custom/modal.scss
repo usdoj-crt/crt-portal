@@ -47,6 +47,11 @@ body.is-modal {
     p {
       margin: 0;
     }
+    .letter-html {
+      p {
+        margin: 24px 0 0;
+      }
+    }
   }
 
   .modal-subsection {
@@ -59,8 +64,19 @@ body.is-modal {
     }
   }
 
-  .review-and-send .modal-step-content {
-    gap: 0.5rem;
+  .review-and-send {
+    h2 {
+      font-size: 1rem;
+      font-weight: normal;
+
+      .agency-name {
+        font-weight: 700;
+      }
+    }
+
+    .modal-step-content {
+      gap: 0.5rem;
+    }
   }
 
   .actions {
@@ -151,16 +167,12 @@ body.is-modal {
     min-height: 40rem; // a11y: don't collapse modal
     padding: 2rem;
     @include at-media(tablet) {
-      width: 70%;
+      width: 80%;
       padding: 2rem;
     }
     @include at-media(desktop) {
-      width: 50%;
+      width: 70%;
       padding: 3rem;
-    }
-
-    &.modal-content--stretch {
-      min-height: 96vh;
     }
   }
 
@@ -174,9 +186,16 @@ body.is-modal {
   .modal-form {
     display: flex;
     flex-direction: column;
-    overflow: scroll;
+    overflow-y: scroll;
     flex-grow: 1;
     gap: 1rem;
+
+    /* Hide scrollbar on various browsers */
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+    &::-webkit-scrollbar { /* Chrome, Opera, Safari */
+      display: none;
+    }
   }
 
   .modal-step {
@@ -186,8 +205,8 @@ body.is-modal {
     }
 
     display: flex;
-    overflow: scroll;
-    margin-top: 1.5rem;
+    overflow-y: scroll;
+    margin-top: 0.5rem;
     flex-direction: column;
     flex-grow: 1;
     gap: 1rem;
@@ -223,6 +242,27 @@ body.is-modal {
   align-items: normal;
   padding-top: 1rem;
   padding-bottom: 1rem;
+
+  &.modal--stretch {
+    padding-top: 0;
+    padding-bottom: 0;
+
+    .step-text {
+      margin-top: 0.25rem;
+    }
+
+    .modal-content--large {
+      min-height: 100vh;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+
+    &.modal-wrapper {
+      h1:not(.h2__display) {
+        font-size: 1.5rem;
+      }
+    }
+  }
 
   .modal-content--large {
     min-height: 50rem;

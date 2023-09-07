@@ -1,5 +1,5 @@
 import types
-from typing import List, Optional
+from typing import List, Optional, Tuple
 import logging
 from django.forms.models import model_to_dict
 import markdown
@@ -13,7 +13,7 @@ from datetime import datetime
 from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from cts_forms.models import Report
+from cts_forms.models import Report, ResponseTemplate
 from tms.models import TMSEmail
 
 logger = logging.getLogger(__name__)
@@ -58,6 +58,7 @@ class CustomHTMLExtension(Extension):
 
 class Mail(types.SimpleNamespace):
     recipients: Optional[List[str]]
+    disallowed_recipients: Optional[List[str]]
     subject: Optional[str]
     message: Optional[str]
     html_message: Optional[str]
@@ -73,10 +74,12 @@ def render_agency_mail(*, complainant_letter: Mail, report, template, extra_ccs=
     recipients = template.referral_contact.clean_addressee_emails()
     all_recipients = (recipients + extra_ccs) if recipients else []
     allowed_recipients = remove_disallowed_recipients(all_recipients)
+    disallowed_recipients = list(set(all_recipients) - set(allowed_recipients))
 
     return Mail(message=message,
                 html_message=message,
                 recipients=allowed_recipients,
+                disallowed_recipients=disallowed_recipients,
                 subject=f'[DOJ CRT Referral] {report.public_id} - {report.contact_full_name}',
                 )
 
@@ -92,15 +95,19 @@ def render_complainant_mail(*, report, template) -> Mail:
         html_message = message.replace('\n', '<br>')
 
     if not report.contact_email:
-        recipients = []
+        all_recipients = []
     else:
-        recipients = remove_disallowed_recipients([report.contact_email])
+        all_recipients = [report.contact_email]
+
+    allowed_recipients = remove_disallowed_recipients(all_recipients)
+    disallowed_recipients = list(set(all_recipients) - set(allowed_recipients))
 
     return Mail(
         subject=template.render_subject(report),
         message=template.render_body(report),
         html_message=html_message,
-        recipients=recipients,
+        recipients=allowed_recipients,
+        disallowed_recipients=disallowed_recipients,
     )
 
 
@@ -189,3 +196,45 @@ def _build_referral_content(*, complainant_letter, template, report) -> Optional
         'report': model_to_dict(report),
     }
     return render_to_string('referral_info.html', data)
+
+
+def build_preview(template, complainant_letter, referral_letter):
+    """Turns Mails into a jsonable bunch of metadata for sending replies."""
+    complainant = {
+        'letter': {
+            'recipients': complainant_letter.recipients,
+            'subject': complainant_letter.subject,
+            'html_message': complainant_letter.html_message,
+            'disallowed_recipients': complainant_letter.disallowed_recipients or [],
+        }
+    }
+
+    if not referral_letter:
+        return {'complainant': complainant}
+
+    agency = {
+        'letter': {
+            'recipients': referral_letter.recipients,
+            'subject': referral_letter.subject,
+            'html_message': referral_letter.html_message,
+            'disallowed_recipients': referral_letter.disallowed_recipients or [],
+        },
+        'template': model_to_dict(template),
+        'referral_contact': model_to_dict(template.referral_contact),
+    }
+    return {'complainant': complainant, 'agency': agency}
+
+
+def build_letters(report: Report, template: ResponseTemplate) -> Tuple[Mail, Optional[Mail]]:
+    """Creates Mails related to replying to or referring a template."""
+    complainant_letter = render_complainant_mail(report=report,
+                                                 template=template)
+
+    if not template.referral_contact:
+        return complainant_letter, None
+
+    agency_letter = render_agency_mail(complainant_letter=complainant_letter,
+                                       report=report,
+                                       template=template,
+                                       extra_ccs=[])
+    return complainant_letter, agency_letter

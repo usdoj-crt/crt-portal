@@ -1,10 +1,9 @@
-from django.forms.models import model_to_dict
 from api.filters import form_letters_filter, reports_accessed_filter, autoresponses_filter, report_cws
 from django.utils.html import mark_safe
 from api.serializers import ReportSerializer, ResponseTemplateSerializer, RelatedReportSerializer
 from utils.pdf import convert_html_to_pdf
 from cts_forms.filters import report_filter
-from cts_forms.mail import CustomHTMLExtension, mail_to_complainant, mail_to_agency, render_agency_mail, render_complainant_mail
+from cts_forms.mail import CustomHTMLExtension, mail_to_complainant, mail_to_agency, build_letters, build_preview
 from cts_forms.models import Report, ResponseTemplate
 from cts_forms.views import mark_report_as_viewed, mark_reports_as_viewed
 from cts_forms.forms import add_activity
@@ -303,43 +302,6 @@ class ResponseAction(APIView):
 
     MAIL_SERVICE = "govDelivery TMS"
 
-    def _build_preview(self, template, complainant_letter, referral_letter):
-        complainant = {
-            'letter': {
-                'recipients': complainant_letter.recipients,
-                'subject': complainant_letter.subject,
-                'html_message': complainant_letter.html_message,
-            }
-        }
-
-        if not referral_letter:
-            return {'complainant': complainant}
-
-        agency = {
-            'letter': {
-                'recipients': referral_letter.recipients,
-                'subject': referral_letter.subject,
-                'html_message': referral_letter.html_message,
-            },
-            'template': model_to_dict(template),
-            'referral_contact': model_to_dict(template.referral_contact),
-        }
-        return {'complainant': complainant, 'agency': agency}
-
-    def _build_letters(self, report, template, request):
-        complainant_letter = render_complainant_mail(report=report,
-                                                     template=template)
-
-        if not template.referral_contact:
-            return complainant_letter, None
-
-        extra_ccs = [request.user.email] if request.user.email else []
-        agency_letter = render_agency_mail(complainant_letter=complainant_letter,
-                                           report=report,
-                                           template=template,
-                                           extra_ccs=extra_ccs)
-        return complainant_letter, agency_letter
-
     def post(self, request) -> JsonResponse:
         report_id = request.data.get('report_id')
         if report_id is None:
@@ -351,10 +313,10 @@ class ResponseAction(APIView):
         template = get_object_or_404(ResponseTemplate, pk=template_id)
         action = request.data['action']
         recipient = request.data.get('recipient', None)
-        complainant_letter, agency_letter = self._build_letters(report, template, request)
+        complainant_letter, agency_letter = build_letters(report, template)
 
         if action == 'preview':
-            preview = self._build_preview(template, complainant_letter, agency_letter)
+            preview = build_preview(template, complainant_letter, agency_letter)
             return JsonResponse(preview)
 
         if action == 'print':

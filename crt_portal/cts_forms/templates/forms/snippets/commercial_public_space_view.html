@@ -1,3 +1,3 @@
 {# not on public pages #}
 
-Location: {% if other_text %} {{other_text}}, <em>{{location_type}}</em> {% else %} {{location_type }} {% endif %}
+{% if is_referral_view %}Please choose the type of location that best describes where the incident happened:{% else %}Location:{% endif %} {% if other_text %} {{other_text}}, <em>{{location_type}}</em> {% else %} {{location_type }} {% endif %}
