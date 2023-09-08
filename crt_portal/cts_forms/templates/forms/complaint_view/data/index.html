@@ -13,7 +13,7 @@
   <div id="status-update" class="grid-col-auto">
     {% include 'partials/messages.html' %}
   </div>
-  <input id="profile_section" type="hidden" value="{{ profile_form.intake_filters.value | first }}"/>
+  <input id="profile_section" type="hidden" value="{{ profile_form.intake_filters.value | default:"" | first }}"/>
   {% include "forms/complaint_view/data/filter-controls.html" with filters=filters form=form %}
 </div>
 
