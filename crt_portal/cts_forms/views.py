@@ -39,7 +39,7 @@ from .forms import (
     AttachmentActions, Review, save_form,
 )
 from .mail import mail_to_complainant
-from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
+from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, SECTION_CHOICES
 from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, Campaign, User, \
     RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
@@ -533,6 +533,7 @@ def data_view(request):
         {
             'profile_form': profile_form,
             'groups': get_dashboard_structure(),
+            'sections': [choice[0] for choice in SECTION_CHOICES],
         })
 
 
