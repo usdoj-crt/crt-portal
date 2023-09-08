@@ -281,8 +281,8 @@ class DashboardGroup(models.Model):
 
 
 class FileGroupAssignment(models.Model):
-    analytics_file = models.ForeignKey(AnalyticsFile, on_delete=models.DO_NOTHING)
-    dashboard_group = models.ForeignKey(DashboardGroup, on_delete=models.DO_NOTHING)
+    analytics_file = models.ForeignKey(AnalyticsFile, on_delete=models.CASCADE)
+    dashboard_group = models.ForeignKey(DashboardGroup, on_delete=models.CASCADE)
     show_only_for_sections = models.ManyToManyField(RoutingSection, blank=True, help_text="If set, the notebook will only be displayed for the given section(s). If unset, the notebook will be displayed for all sections.")
 
 
@@ -295,7 +295,13 @@ def get_dashboard_structure():
             groups[group_id] = {
                 **model_to_dict(assignment.dashboard_group),
                 'notebooks': [],
-                'show_only_for_sections': [],
             }
-        groups[group_id]['notebooks'].append(assignment.analytics_file.to_html())
+        groups[group_id]['notebooks'].append({
+            'html': assignment.analytics_file.to_html(),
+            'show_only_for_sections': [
+                section.section
+                for section
+                in assignment.show_only_for_sections.all()
+            ],
+        })
     return sorted(groups.values(), key=lambda g: g['order'])
