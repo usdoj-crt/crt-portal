@@ -84,6 +84,11 @@ hr {
   }
 }
 
+.notebooks {
+  display: flex;
+  gap: 2rem;
+}
+
 .notebook {
   h1,h2,h3,h4,h5,h6 {
     font-family: Merriweather Web,Merriweather Web,Tinos,Georgia,Cambria,Times New Roman,Times,serif;

@@ -17,18 +17,30 @@
   {% include "forms/complaint_view/data/filter-controls.html" with filters=filters form=form %}
 </div>
 
-{% for group in groups %}
-<div class="margin-bottom-5 margin-top-3 margin-left-4 padding-left-2">
-  <h2 class="intake-section-title padding-bottom-6">{{group.header}}</h2>
-</div>
-<div hidden class="intake-content notebooks">
-  {% for notebook in group.notebooks %}
-  <div class="notebook">
-    {{ notebook | safe }}
+<div hidden class="data-content">
+  {% for group in groups %}
+  <div class="data-group">
+    <div class="margin-bottom-5 margin-top-3 margin-left-4 padding-left-2">
+      <h2 class="intake-section-title padding-bottom-6">{{group.header}}</h2>
+    </div>
+    <div class="intake-content notebooks">
+      {% for notebook in group.notebooks %}
+        <div
+          class="notebook
+          {% if notebook.show_only_for_sections %}
+            filter-by-section
+          {% endif %}
+          {% for section in notebook.show_only_for_sections %}
+            section-{{ section }}
+          {% endfor %}"
+        >
+        {{ notebook.html | safe }}
+      </div>
+      {% endfor %}
+    </div>
   </div>
   {% endfor %}
 </div>
-{% endfor %}
 {% endblock %}
 {% block page_js %}
 {{ block.super }}
