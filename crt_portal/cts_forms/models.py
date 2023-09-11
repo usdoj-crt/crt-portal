@@ -216,6 +216,8 @@ class SavedSearch(models.Model):
     query = models.TextField(null=False, blank=False, help_text="The encoded search represented as a URL querystring for the /form/view page.", default='status=new&status=open&no_status=false&grouping=default')
     auto_close = models.BooleanField(default=False, null=False, help_text="Whether to automatically close incoming reports that match this search. Only applies to new submissions.")
     auto_close_reason = models.CharField(max_length=255, null=True, blank=True, help_text="The reason to add to the report summary when auto-closing. Will be filled in the following blank: 'Report automatically closed on submission because ____'")
+    override_section_assignment = models.BooleanField(default=False, null=False, help_text="Whether to override the section assignment for all reports with this campaign")
+    override_section_assignment_with = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, help_text="If set, this will override the section assignment for all reports with this campaign. This can be used to 'tweak' the routing logic based on Personal Description, etc.")
 
     def get_absolute_url(self):
         return f'/form/view?{self.query}'
