@@ -8,9 +8,9 @@ from django.http import QueryDict
 from django.test import SimpleTestCase, TestCase, TransactionTestCase
 import pytz
 
-from ..filters import report_filter, report_grouping
+from ..filters import get_report_filter_from_search, report_filter, report_grouping
 from api.filters import form_letters_filter, autoresponses_filter
-from ..models import Report, ProtectedClass, FormLettersSent
+from ..models import Report, ProtectedClass, FormLettersSent, SavedSearch
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
 
 
@@ -20,6 +20,20 @@ class FilterTests(SimpleTestCase):
         self.assertEqual(_get_date_field_from_param('create_date_start'), 'create_date')
         self.assertEqual(_get_date_field_from_param('closed_date_end'), 'closed_date')
         self.assertEqual(_get_date_field_from_param('modified_date_start'), 'modified_date')
+
+
+class FilterFromSavedSearchTests(TestCase):
+    def test_get_report_filter_from_search(self):
+        search = SavedSearch.objects.create(
+            name='test search',
+            query='status=new&status=open&violation_summary=%22foo!%22&no_status=false&grouping=default'
+        )
+        matching_report = Report.objects.create(**{**SAMPLE_REPORT_1, 'violation_summary': 'foo!'})
+        nonmatching_report = Report.objects.create(**{**SAMPLE_REPORT_1, 'violation_summary': 'bar!'})
+
+        queryset, _ = get_report_filter_from_search(search)
+        self.assertTrue(queryset.contains(matching_report), "Report didn't match filter from search when it should")
+        self.assertFalse(queryset.contains(nonmatching_report), 'Report matched filter from search when it should not')
 
 
 class ReportFilterTests(TestCase):
