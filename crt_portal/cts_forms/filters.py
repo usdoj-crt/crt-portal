@@ -8,6 +8,7 @@ from django.core.validators import ValidationError
 from django.db.models import Count, Min
 from django.contrib.postgres.search import SearchQuery
 from django.db import connection
+from django.http.request import QueryDict, MultiValueDict
 
 from utils.datetime_fns import change_datetime_to_end_of_day
 
@@ -112,6 +113,12 @@ def report_grouping(querydict):
         "desc_id": -1,
     })
     return group_queries, filters
+
+
+def get_report_filter_from_search(search):
+    querydict = QueryDict('', mutable=True)
+    querydict.update(MultiValueDict(urllib.parse.parse_qs(search.query)))
+    return report_filter(querydict)
 
 
 def report_filter(querydict):
