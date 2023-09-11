@@ -19,11 +19,12 @@ from django.urls import reverse
 from django.db.models.functions import Lower
 
 from utils import pdf
+from .filters import get_report_filter_from_search
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
                      JudicialDistrict, RoutingSection, RoutingStepOneContact,
-                     VotingMode, Campaign, ReferralContact, BannerMessage)
+                     VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch)
 from .signals import get_client_ip
 
 logger = logging.getLogger(__name__)
@@ -418,6 +419,35 @@ class ResponseTemplateAdmin(admin.ModelAdmin):
                          '></iframe>')
 
 
+class SavedSearchAdmin(admin.ModelAdmin):
+    class Media:
+        js = (
+            'js/admin_copy.js',
+            'js/absolute_url.js',
+        )
+        css = {
+            'all': ('css/compiled/admin.css',)
+        }
+
+    list_display = ['id', 'name', 'query']
+    readonly_fields = ['search_url', 'matching_reports']
+
+    @admin.display(description='Search Results')
+    def search_url(self, obj):
+        url = obj.get_absolute_url()
+        return mark_safe(f'<input aria-label="Search Results" disabled="disabled" class="admin-copy absolute-url" value="{url}"/>')
+
+    @admin.display(description='Matching Reports')
+    def matching_reports(self, obj):
+        try:
+            reports, _ = get_report_filter_from_search(obj)
+            count = reports.count()
+        except Exception as e:
+            return f'Something went wrong running this search: {e}'
+        url = obj.get_absolute_url()
+        return mark_safe(f'<a href="{url}">View {count} matching reports</a>')
+
+
 admin.site.register(CommentAndSummary)
 admin.site.register(Report, ReportAdmin)
 admin.site.register(ProtectedClass)
@@ -432,6 +462,7 @@ admin.site.register(Campaign, CampaignAdmin)
 admin.site.register(ReferralContact, ReferralContactAdmin)
 admin.site.register(BannerMessage, BannerMessageAdmin)
 admin.site.register(RoutingStepOneContact, RoutingStepOneContactAdmin)
+admin.site.register(SavedSearch, SavedSearchAdmin)
 
 # Activity stream already registers an Admin for Action, we want to replace it
 admin.site.unregister(Action)
