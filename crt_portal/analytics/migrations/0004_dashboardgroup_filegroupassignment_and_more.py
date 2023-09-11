@@ -7,7 +7,6 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0177_delete_dashboardembed'),
         ('analytics', '0003_alter_analyticsfile_options'),
     ]
 

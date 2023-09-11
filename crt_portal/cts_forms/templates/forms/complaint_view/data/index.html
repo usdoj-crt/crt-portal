@@ -21,7 +21,7 @@
 <div class="intake-content notebooks">
   {% for notebook in group.notebooks %}
   <div class="notebook">
-    {{ notebook | safe }}
+    {{ notebook.html | safe }}
   </div>
   {% endfor %}
 </div>
