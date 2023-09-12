@@ -629,15 +629,6 @@ class EmailReportCount(models.Model):
         logger.info(f'SUCCESS: Refreshed Email view in {elapsed} seconds')
 
 
-class DashboardEmbed(models.Model):
-    """Contains Analytics-generated content for use in dashboard pages."""
-    class Meta:
-        db_table = 'analytics"."dashboard_embed'
-    filename = models.CharField(max_length=255, primary_key=True)
-    content = models.TextField(default='')
-    mimetype = models.CharField(max_length=255, default='text/html')
-
-
 class Trends(models.Model):
     """see the top 10 non-stop words from violation summary """
     word = models.TextField()
