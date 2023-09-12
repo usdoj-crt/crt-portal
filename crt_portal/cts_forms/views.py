@@ -526,6 +526,16 @@ def dashboard_view(request):
 
 
 @login_required
+def data_view(request):
+    return render(
+        request,
+        'forms/complaint_view/data/index.html',
+        {
+            **process_intake_filters(request),
+        })
+
+
+@login_required
 def dashboard_activity_log_view(request):
 
     return render(
@@ -839,6 +849,7 @@ class RoutingGuideView(LoginRequiredMixin, View):
 
 class ActionsView(LoginRequiredMixin, FormView):
     """ CRT view to update report data"""
+
     def get(self, request):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
@@ -1142,6 +1153,7 @@ class SaveCommentView(LoginRequiredMixin, FormView):
 
 class ProFormView(LoginRequiredMixin, SessionWizardView):
     """This is the one-page internal form for CRT staff to input complaints"""
+
     def get_template_names(self):
         return 'forms/pro_template.html'
 
@@ -1201,6 +1213,7 @@ class TrendView(LoginRequiredMixin, TemplateView):
 
 class SearchHelperView(LoginRequiredMixin, TemplateView):
     """This shows advanced help text for the full-text search"""
+
     def get(self, request):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
