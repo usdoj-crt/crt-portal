@@ -2,7 +2,7 @@ import io
 import traceback
 import zipfile
 
-from .models import AnalyticsFile
+from .models import AnalyticsFile, DashboardGroup, FileGroupAssignment
 
 from django.contrib import admin
 from django.http import HttpResponse, HttpResponseRedirect
@@ -78,4 +78,22 @@ class Notebook(AnalyticsFile):
         proxy = True
 
 
+class DashboardGroupAdmin(admin.ModelAdmin):
+    list_display = ('header', 'order')
+
+
+class FileGroupAssignmentAdmin(admin.ModelAdmin):
+    pass
+
+    list_display = ('display_group', 'display_files')
+
+    def display_files(self, obj):
+        return "\n".join([str(obj.analytics_file)])
+
+    def display_group(self, obj):
+        return "\n".join([str(obj.dashboard_group)])
+
+
 admin.site.register(Notebook, NotebookAdmin)
+admin.site.register(DashboardGroup, DashboardGroupAdmin)
+admin.site.register(FileGroupAssignment, FileGroupAssignmentAdmin)

@@ -25,6 +25,7 @@ from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.html import mark_safe
 from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
+from analytics.models import get_dashboard_structure
 from tms.models import TMSEmail
 from datetime import datetime
 
@@ -208,21 +209,28 @@ def _related_reports_count(report):
         return 1
 
 
+def get_profile_form(request):
+    # Check for Profile object, then add filter to request
+    if not hasattr(request.user, 'profile'):
+        return ProfileForm()
+    if not request.user.profile.intake_filters:
+        return ProfileForm()
+
+    request.GET = request.GET.copy()
+    global_section_filter = request.user.profile.intake_filters.split(',')
+
+    # If assigned_section is NOT specified in request, use filter from profile
+    if 'assigned_section' not in request.GET:
+        request.GET.setlist('assigned_section', global_section_filter)
+
+    data = {'intake_filters': request.GET.getlist('assigned_section')}
+    return ProfileForm(data)
+
+
 @login_required
 def index_view(request):
     grouping = request.GET.get('grouping', 'default')
-    profile_form = ProfileForm()
-    # Check for Profile object, then add filter to request
-    if hasattr(request.user, 'profile') and request.user.profile.intake_filters:
-        request.GET = request.GET.copy()
-        global_section_filter = request.user.profile.intake_filters.split(',')
-
-        # If assigned_section is NOT specified in request, use filter from profile
-        if 'assigned_section' not in request.GET:
-            request.GET.setlist('assigned_section', global_section_filter)
-
-        data = {'intake_filters': request.GET.getlist('assigned_section')}
-        profile_form = ProfileForm(data)
+    profile_form = get_profile_form(request)
     selected_assignee_id = fetch_selected_foreign_key(
         request,
         'assigned_to',
@@ -516,20 +524,23 @@ def process_activity_filters(request):
 
 
 @login_required
-def dashboard_view(request):
+def data_view(request):
+    profile_form = get_profile_form(request)
+
     return render(
         request,
-        'forms/complaint_view/dashboard/index.html',
+        'forms/complaint_view/data/index.html',
         {
-            **process_intake_filters(request),
+            'profile_form': profile_form,
+            'groups': get_dashboard_structure(),
         })
 
 
 @login_required
-def data_view(request):
+def dashboard_view(request):
     return render(
         request,
-        'forms/complaint_view/data/index.html',
+        'forms/complaint_view/dashboard/index.html',
         {
             **process_intake_filters(request),
         })
