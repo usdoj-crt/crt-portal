@@ -1,5 +1,6 @@
-from typing import Dict, Tuple, TypeVar, Generic, Callable
+from typing import Dict, Tuple, TypeVar, Generic, Callable, List
 from datetime import datetime
+import itertools
 import json
 import os
 import sys
@@ -7,7 +8,8 @@ import traceback
 from types import SimpleNamespace
 import uuid
 
-from analytics.models import AnalyticsFile
+from cts_forms.models import RoutingSection
+from analytics.models import AnalyticsFile, DashboardGroup, FileGroupAssignment, get_dashboard_structure_from_db, get_dashboard_structure_from_json
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
@@ -228,7 +230,59 @@ class Command(BaseCommand):  # pragma: no cover
         for file in to_delete:
             file.delete()
         AnalyticsFile.objects.bulk_create(to_create)
-        return len(to_create)
+        return len(to_create), len(to_delete)
+
+    def _are_dashboards_same(self, a: Dict, b: Dict) -> bool:
+        if a.get('header') != b.get('header'):
+            return False
+
+        if a.get('order') != b.get('order'):
+            return False
+
+        notebook_fields = ('path', 'show_only_for_sections')
+        notebooks_a = [
+            tuple([a.get(field) for field in notebook_fields])
+            for a in a.get('notebooks', [])
+        ]
+        notebooks_b = [
+            tuple([b.get(field) for field in notebook_fields])
+            for b in b.get('notebooks', [])
+        ]
+        if notebooks_a != notebooks_b:
+            return False
+
+        return True
+
+    def _maybe_remake_dashboard_groups(self, notebooks_changed) -> List[str]:
+        current = get_dashboard_structure_from_db()
+        code = get_dashboard_structure_from_json()
+        has_changed_dashboards = any(
+            not self._are_dashboards_same(a, b)
+            for a, b
+            in itertools.zip_longest(current, code, fillvalue={})
+        )
+
+        if not has_changed_dashboards and not notebooks_changed:
+            return []
+
+        DashboardGroup.objects.all().delete()
+        FileGroupAssignment.objects.all().delete()
+
+        for group in code:
+            dashboard_group = DashboardGroup.objects.create(
+                header=group.get('header'),
+                order=group.get('order'),
+            )
+            for notebook in group.get('notebooks'):
+                assignment = FileGroupAssignment.objects.create(
+                    analytics_file=AnalyticsFile.objects.get(path=notebook.get('path')),
+                    dashboard_group=dashboard_group,
+                )
+                sections = RoutingSection.objects.filter(section__in=notebook.get('show_only_for_sections')).all()
+                assignment.show_only_for_sections.set(sections)
+                assignment.save()
+
+        return [group.get('header') for group in code]
 
     def handle(self, *args, **options):
         del args, options  # Unused
@@ -252,5 +306,8 @@ class Command(BaseCommand):  # pragma: no cover
 
         self._preview_file_changes(diff)
 
-        total_created = self._update_files(diff)
-        self.stdout.write(self.style.SUCCESS(f'Loaded {total_created} Jupyter objects from filesystem'))
+        total_created, total_deleted = self._update_files(diff)
+
+        created_groups = self._maybe_remake_dashboard_groups(total_deleted or total_created)
+
+        self.stdout.write(self.style.SUCCESS(f'Added {total_created}, deleted {total_deleted} Jupyter objects from filesystem, and created {created_groups} dashboard groups'))

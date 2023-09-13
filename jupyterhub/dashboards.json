@@ -1,0 +1,29 @@
+[
+  {
+    "header": "Submission statistics",
+    "notebooks": [
+      {
+        "path": "assignments/intake-dashboard/assignable.ipynb",
+        "show_only_for_sections": []
+      }
+    ],
+    "order": 0
+  },
+  {
+    "header": "Test Group",
+    "notebooks": [
+      {
+        "path": "assignments/intake-dashboard/only_for_adm.ipynb",
+        "show_only_for_sections": []
+      },
+      {
+        "path": "assignments/intake-dashboard/assignable.ipynb",
+        "show_only_for_sections": [
+          "ADM",
+          "APP"
+        ]
+      }
+    ],
+    "order": 1
+  }
+]
