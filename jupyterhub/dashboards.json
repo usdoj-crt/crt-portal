@@ -3,7 +3,7 @@
     "header": "Submission statistics",
     "notebooks": [
       {
-        "path": "assignments/intake-dashboard/assignable.ipynb",
+        "path": "assignments/intake-dashboard/total_complaints.ipynb",
         "show_only_for_sections": []
       }
     ],
