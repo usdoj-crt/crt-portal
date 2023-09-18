@@ -363,6 +363,9 @@ class Report(models.Model):
     referred = models.BooleanField(default=False)
     referral_section = models.TextField(choices=SECTION_CHOICES, blank=True)
 
+    litigation_hold = models.BooleanField(default=False)
+    retention_schedule = models.ForeignKey(RetentionSchedule, blank=True, null=True, related_name="reports", on_delete=models.SET_NULL)
+
     violation_summary_search_vector = SearchVectorField(null=True, editable=False)
 
     class Meta:
