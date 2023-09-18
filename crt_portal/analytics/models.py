@@ -11,7 +11,6 @@ from django.db import models
 from django.apps import apps
 from django.db.migrations import RunSQL
 from django.db.migrations.operations import special
-from django.forms import model_to_dict
 from nbconvert.preprocessors.execute import ExecutePreprocessor
 import nbconvert
 import nbformat
@@ -286,22 +285,30 @@ class FileGroupAssignment(models.Model):
     show_only_for_sections = models.ManyToManyField(RoutingSection, blank=True, help_text="If set, the notebook will only be displayed for the given section(s). If unset, the notebook will be displayed for all sections.")
 
 
-def get_dashboard_structure():
+def get_dashboard_structure_from_json():
+    """Returns the dashboard structure from the JSON file."""
+    with open('jupyterhub/dashboards.json', 'r') as f:
+        return json.load(f)
+
+
+def get_dashboard_structure_from_db(include_content=True):
     assignments = FileGroupAssignment.objects.all().prefetch_related('analytics_file', 'dashboard_group')
     groups = {}
     for assignment in assignments:
         group_id = assignment.dashboard_group.pk
         if group_id not in groups:
             groups[group_id] = {
-                **model_to_dict(assignment.dashboard_group),
+                'header': assignment.dashboard_group.header,
+                'order': assignment.dashboard_group.order,
                 'notebooks': [],
             }
         groups[group_id]['notebooks'].append({
-            'html': assignment.analytics_file.to_html(),
+            **({'html': assignment.analytics_file.to_html()} if include_content else {}),
             'show_only_for_sections': [
                 section.section
                 for section
                 in assignment.show_only_for_sections.all()
             ],
+            'path': assignment.analytics_file.path,
         })
     return sorted(groups.values(), key=lambda g: g['order'])
