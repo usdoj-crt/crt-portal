@@ -16,7 +16,7 @@ class Command(BaseCommand):  # pragma: no cover
         del args, options  # Unused
 
         structure = get_dashboard_structure_from_db(include_content=False)
-        with open(f'{NOTEBOOK_DIR}/dashboards.json', 'w') as f:
+        with open(os.path.join(NOTEBOOK_DIR, 'dashboards.json'), 'w') as f:
             json.dump(structure, f, indent=2, sort_keys=True)
 
         self.stdout.write(self.style.SUCCESS('Wrote ./jupyterhub/dashboards.json'))

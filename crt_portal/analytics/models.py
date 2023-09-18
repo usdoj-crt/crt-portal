@@ -285,9 +285,13 @@ class FileGroupAssignment(models.Model):
     show_only_for_sections = models.ManyToManyField(RoutingSection, blank=True, help_text="If set, the notebook will only be displayed for the given section(s). If unset, the notebook will be displayed for all sections.")
 
 
+NOTEBOOK_DIR = os.path.join(settings.BASE_DIR, '..', 'jupyterhub')
+
+
 def get_dashboard_structure_from_json():
     """Returns the dashboard structure from the JSON file."""
-    with open('jupyterhub/dashboards.json', 'r') as f:
+    config = os.path.join(NOTEBOOK_DIR, 'dashboards.json')
+    with open(config, 'r') as f:
         return json.load(f)
 
 
