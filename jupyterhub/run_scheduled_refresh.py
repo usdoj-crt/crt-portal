@@ -1,5 +1,6 @@
 """Automatically refreshes the output of files."""
 
+from django.conf import settings
 from typing import Optional, Dict, List
 from helpers.table_contents_manager import TableContentsManager
 import copy
@@ -10,6 +11,9 @@ import os
 from nbconvert.preprocessors.execute import ExecutePreprocessor
 import nbformat
 
+NOTEBOOK_DIR = os.path.join(settings.BASE_DIR, '..', 'jupyterhub')
+SCHEDULES_PATH = os.path.join(NOTEBOOK_DIR, 'schedules.json')
+
 
 def main():
     schedules = _read()
@@ -18,7 +22,7 @@ def main():
 
 
 def _read():
-    with open('schedules.json', 'r') as f:
+    with open(SCHEDULES_PATH, 'r') as f:
         return json.load(f)
 
 
@@ -29,7 +33,7 @@ def _any_to_json(unknown):
 
 
 def _write(schedules):
-    with open('schedules.json', 'w') as f:
+    with open(SCHEDULES_PATH, 'w') as f:
         json.dump(schedules, f, default=_any_to_json, indent=2, sort_keys=True)
 
 
