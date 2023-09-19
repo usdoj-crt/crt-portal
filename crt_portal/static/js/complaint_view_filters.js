@@ -173,7 +173,7 @@
     correctional_facility_type: [],
     grouping: 'default',
     group_params: [],
-    litigation_hold: [],
+    litigation_hold: []
   };
   var filterDataModel = {};
 
