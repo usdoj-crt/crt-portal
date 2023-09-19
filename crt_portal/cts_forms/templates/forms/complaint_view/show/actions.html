@@ -62,6 +62,21 @@
         {{ actions.assigned_to }}
       </div>
     </div>
+
+    {% if ENABLED_FEATURES.disposition %}
+    <div class="margin-bottom-2 crt-dropdown">
+      <label for="id_retention_schedule" class="intake-label">
+        {{ actions.fields.retention_schedule.label }}
+      </label>
+      <div class="usa-combo-box" data-placeholder="Assign schedule" data-default-value="{{ actions.retention_schedule.value }}">
+        {{ actions.retention_schedule }}
+      </div>
+    </div>
+    {% else %}
+      <!-- Hidden input as the feature is off, but we don't want to lose the value. -->
+      {{ actions.retention_schedule }}
+    {% endif %}
+
     <div class="margin-bottom-2 crt-checkbox">
       <label class="intake-label">
         {{ actions.fields.referred.label }}
