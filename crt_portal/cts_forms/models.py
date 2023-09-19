@@ -235,6 +235,9 @@ class RetentionSchedule(models.Model):
     da_number = models.CharField(max_length=255, null=False, blank=False, help_text="The disposition authority number for this schedule (assigned by NARA).")
     is_retired = models.BooleanField(default=False, null=False, help_text="Whether this schedule is no longer active (show as a retired / expired schedule)")
 
+    def __str__(self):
+        return self.name
+
 
 # NOTE: If you add fields to report, they'll automatically be set to empty on the edit form. Make sure to address any additions in ReportEditForm as well!
 class Report(models.Model):

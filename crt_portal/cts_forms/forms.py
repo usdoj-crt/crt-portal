@@ -51,7 +51,7 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES, GROUPING)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment, Campaign, SavedSearch, get_system_user)
+                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -87,6 +87,16 @@ def get_dj_widget():
     return DjNumberWidget(attrs={
         'field_label': 'ICM DJ Number',
         'name': 'dj_number',
+    })
+
+
+def get_retention_schedule_widget():
+    if not Feature.is_feature_enabled('disposition'):
+        return HiddenInput()
+    return Select(attrs={
+        'field_label': 'Retention Schedule',
+        'name': 'retention_schedule',
+        'class': 'usa-input usa-select',
     })
 
 
@@ -1122,8 +1132,8 @@ class Filters(ModelForm):
 
         ModelForm.__init__(self, data, *args, **kwargs)
 
-        # Putting this field in __init__ allows the User QuerySet to be evaluated
-        # (otherwise it breaks when this module is read during a migration)
+        # Putting these fields in __init__ allows their QuerySets to be evaluated
+        # (otherwise they break when this module is read during a migration)
         self.fields['assigned_to'] = ChoiceField(
             required=False,
             choices=[
@@ -1535,6 +1545,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             'primary_statute',
             'district',
             'assigned_to',
+            'retention_schedule',
             'referred',
             'dj_number',
         ]
@@ -1586,6 +1597,14 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             required=False,
         )
 
+        self.fields['retention_schedule'] = ModelChoiceField(
+            queryset=RetentionSchedule.objects.all().order_by('order'),
+            empty_label='Assign schedule',
+            label='Retention schedule',
+            required=False,
+            widget=get_retention_schedule_widget(),
+        )
+
     def get_actions(self):
         """
         Parse incoming changed data for activity stream entry
@@ -1604,11 +1623,13 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             original = self.initial[field]
             changed = self.cleaned_data[field]
             # fix bug where id was showing up instead of user name
-            if field == 'assigned_to':
+            if field in ['assigned_to', 'retention_schedule']:
                 if original is None:
                     yield f"{name}:", f'"{changed}"'
-                else:
+                elif field == 'assigned_to':
                     original = User.objects.get(id=original)
+                elif field == 'retention_schedule':
+                    original = RetentionSchedule.objects.get(id=original)
             yield f"{name}:", f'Updated from "{original}" to "{changed}"'
         if self.report_closed:
             yield "Report closed and Assignee removed", f"Date closed updated to {self.instance.closed_date.strftime('%m/%d/%y %H:%M:%M %p')}"
