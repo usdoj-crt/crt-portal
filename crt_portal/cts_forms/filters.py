@@ -38,6 +38,7 @@ filter_options = {
     'location_address_line_2': '__icontains',  # not in filter controls?
     'location_city_town': '__icontains',
     'location_state': '__in',
+    'retention_schedule': 'foreign_key',
 
     'contact_email': '__icontains',
     'contact_phone': 'contact_phone',

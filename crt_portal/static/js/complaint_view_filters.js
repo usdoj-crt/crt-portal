@@ -173,7 +173,8 @@
     correctional_facility_type: [],
     grouping: 'default',
     group_params: [],
-    litigation_hold: []
+    litigation_hold: [],
+    retention_schedule: [],
   };
   var filterDataModel = {};
 
@@ -440,6 +441,7 @@
     var contactPhoneEL = dom.getElementsByName('contact_phone')[0];
     var correctionalFacilityTypeEl = dom.getElementsByName('correctional_facility_type');
     var litigationHoldEl = dom.getElementsByName('litigation_hold');
+    var retentionScheduleEl = dom.getElementsByName('retention_schedule');
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
      * and perform a new search with the updated filters applied.
@@ -621,6 +623,10 @@
     checkBoxView({
       el: litigationHoldEl,
       name: 'litigation_hold'
+    });
+    checkBoxView({
+      el: retentionScheduleEl,
+      name: 'retention_schedule'
     });
   }
 
