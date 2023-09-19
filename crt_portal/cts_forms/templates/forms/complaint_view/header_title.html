@@ -16,12 +16,10 @@
         Team management
       </a>
     </li>
-    {% if ENABLED_FEATURES.team_management_redo %}
+    {% if ENABLED_FEATURES.data_dashboard %}
     <li class="usa-nav__primary-item">
-      <a class="crt-landing--menu_link reporting-header {% if page == 'team_management' %} selected {% endif %}" href="/this-does-not-exist-yet-just-testing-user-access">
-        <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="(Early, Limited Access) This will eventually replace the old Team Management page">
-          🆕 Team Management
-        </span>
+      <a class="crt-landing--menu_link reporting-header {% if page == 'data_dashboard' %} selected {% endif %}" href="/form/data">
+        🆕 Data dashboard
       </a>
     </li>
     {% endif %}

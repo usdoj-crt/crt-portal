@@ -1,0 +1,33 @@
+{% extends "forms/complaint_view/intake_base.html" %}
+
+{% block page_header %}
+{% include 'forms/complaint_view/data/header.html' with profile_form=profile_form%}
+{% endblock %}
+
+{% block content %}
+<div class="margin-left-4 padding-left-2">
+  <h2 class="intake-section-title padding-bottom-2">Data dashboard</h2>
+</div>
+<div class="intake-content">
+  <div id="status-update" class="grid-col-auto">
+    {% include 'partials/messages.html' %}
+  </div>
+</div>
+
+{% for group in groups %}
+<div class="margin-bottom-5 margin-left-4 padding-left-2">
+  <h2 class="intake-section-title padding-bottom-6">{{group.header}}</h2>
+</div>
+<div class="intake-content notebooks">
+  {% for notebook in group.notebooks %}
+  <div class="notebook">
+    {{ notebook.html | safe }}
+  </div>
+  {% endfor %}
+</div>
+{% endfor %}
+{% endblock %}
+{% block page_js %}
+{{ block.super }}
+<script src="{% static 'js/ga_util.min.js' %}"></script>
+{% endblock %}
