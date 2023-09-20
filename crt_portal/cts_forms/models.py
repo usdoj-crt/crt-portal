@@ -227,6 +227,12 @@ class SavedSearch(models.Model):
 
 
 class RetentionSchedule(models.Model):
+
+    class Meta:
+        permissions = (
+            ("assign_retentionschedule", "Can assign retention schedules to reports"),
+        )
+
     name = models.CharField(max_length=255, null=False, blank=False, help_text="The name of the schedule that will be shown to intake specialists in dropdowns.")
     order = models.IntegerField(default=0, help_text="The order in which to show the schedules, lower numbers first. If two schedules have the same order number, they might change positions.")
     description = models.TextField(max_length=7000, null=False, blank=True, help_text="Internal notes, shown only here, about this schedule.")

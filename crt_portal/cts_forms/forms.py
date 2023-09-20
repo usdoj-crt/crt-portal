@@ -1540,8 +1540,8 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
 
     def field_changed(self, field):
         # if both are Falsy, nothing actually changed (None ~= "")
-        old = self.initial[field]
-        new = self.cleaned_data[field]
+        old = self.initial.get(field, None)
+        new = self.cleaned_data.get(field, None)
         if not old and not new:
             return False
         return old != new
@@ -1554,6 +1554,11 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             in super().changed_data
             if self.field_changed(field_name)
         ]
+
+    def can_assign_schedule(self):
+        if not self.user:
+            return False
+        return self.user.has_perm('cts_forms.assign_retentionschedule')
 
     class Meta:
         model = Report
@@ -1569,7 +1574,9 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             'dj_number',
         ]
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, user=None, **kwargs):
+        self.user = user
+
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['assigned_section'] = ChoiceField(
@@ -1621,6 +1628,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             empty_label='Assign schedule',
             label='Retention schedule',
             required=False,
+            disabled=not self.can_assign_schedule(),
             widget=get_retention_schedule_widget(),
         )
 
@@ -1694,6 +1702,13 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             return None
         return dj_number
 
+    def clean_retention_schedule(self):
+        if not self.field_changed('retention_schedule'):
+            return self.cleaned_data.get('retention_schedule')
+        if not self.can_assign_schedule():
+            raise ValidationError('You do not have permission to assign retention schedules.')
+        return self.cleaned_data['retention_schedule']
+
     def save(self, commit=True):
         """
         If report.status is `closed`, set assigned_to to None.
@@ -1752,7 +1767,8 @@ class ComplaintOutreach(ModelForm, ActivityStreamUpdater):
             }),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, user=None, **kwargs):
+        self.user = user
         ModelForm.__init__(self, *args, **kwargs)
         for name, field in self.fields.items():
             field.help_text = Report._meta.get_field(name).help_text
@@ -2126,7 +2142,8 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
             }),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, user=None, **kwargs):
+        self.user = user
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['contact_phone'].error_messages = {'invalid': CONTACT_PHONE_INVALID_MESSAGE}
@@ -2183,10 +2200,11 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
             required=False,
         )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, user=None, **kwargs):
         """
         Proform initializes all component forms, we'll skip that and define only the fields need for this form
         """
+        self.user = user
         ModelForm.__init__(self, *args, **kwargs)
 
         #  We're handling old hatecrimes_trafficking data with separate boolean fields
