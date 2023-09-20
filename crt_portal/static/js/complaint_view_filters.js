@@ -174,7 +174,7 @@
     grouping: 'default',
     group_params: [],
     litigation_hold: [],
-    retention_schedule: [],
+    retention_schedule: []
   };
   var filterDataModel = {};
 
@@ -461,7 +461,7 @@
         'reported_reason',
         'language',
         'correctional_facility_type',
-        'retention_schedule',
+        'retention_schedule'
       ];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {
