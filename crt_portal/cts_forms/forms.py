@@ -1363,7 +1363,7 @@ class Filters(ModelForm):
             'name': 'litigation_hold',
         }),
     )
-    retention_period = MultipleChoiceField(
+    retention_schedule = MultipleChoiceField(
         required=False,
         label='Retention schedule',
         choices=RETENTION_SCHEDULE_CHOICES,

@@ -414,7 +414,6 @@ class LitigationHoldFilterTests(TestCase):
         test_data['litigation_hold'] = True
         cls.report2 = Report.objects.create(**test_data)
 
-        # test setup for language Chinese traditional
         test_data['litigation_hold'] = False
         cls.report3 = Report.objects.create(**test_data)
 
@@ -424,6 +423,40 @@ class LitigationHoldFilterTests(TestCase):
 
     def test_litigation_hold_filter(self):
         reports, _ = report_filter(QueryDict('litigation_hold=True'))
+        self.assertEqual(reports.count(), 2)
+
+class RetentionScheduleFilterTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        test_data = SAMPLE_REPORT_1.copy()
+
+        test_data['retention_schedule'] = '1 Year'
+        cls.report1 = Report.objects.create(**test_data)
+
+        test_data['retention_schedule'] = '1 Year'
+        cls.report2 = Report.objects.create(**test_data)
+
+        test_data['retention_schedule'] = '1 Year'
+        cls.report3 = Report.objects.create(**test_data)
+
+        test_data['retention_schedule'] = '3 Year'
+        cls.report4 = Report.objects.create(**test_data)
+
+        test_data['retention_schedule'] = '3 Year'
+        cls.report5 = Report.objects.create(**test_data)
+
+        cls.report6 = Report.objects.create(**test_data)
+
+    def test_no_retention_schedule_filter(self):
+        reports, _ = report_filter(QueryDict(''))
+        self.assertEqual(reports.count(), 6)
+
+    def test_retention_schedule_1_3_filter(self):
+        reports, _ = report_filter(QueryDict('retention_schedule=1%20Year&retention_schedule=3%20Year'))
+        self.assertEqual(reports.count(), 5)
+
+    def test_retention_schedule_3_filter(self):
+        reports, _ = report_filter(QueryDict('retention_schedule=3%20Year'))
         self.assertEqual(reports.count(), 2)
 
 

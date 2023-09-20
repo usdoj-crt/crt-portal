@@ -19,6 +19,7 @@ from actstream.models import actor_stream
 foreign_key_displays = {
     'assigned_to': 'username',
     'origination_utm_campaign': 'internal_name',
+    'retention_schedule': 'name',
 }
 
 # To add a new filter option for Reports, add the field name and expected filter behavior
@@ -31,7 +32,6 @@ filter_options = {
     'contact_last_name': '__icontains',
     'public_id': '__icontains',  # aka "ID" or "Complaint ID"
     'assigned_to': 'foreign_key',  # aka "Assignee"
-    'origination_utm_campaign': 'foreign_key',
     'origination_utm_campaign': 'foreign_key',
     'litigation_hold': 'eq',
     'location_address_line_1': '__icontains',  # not in filter controls?
