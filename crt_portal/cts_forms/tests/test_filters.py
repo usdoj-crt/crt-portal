@@ -414,7 +414,6 @@ class LitigationHoldFilterTests(TestCase):
         test_data['litigation_hold'] = True
         cls.report2 = Report.objects.create(**test_data)
 
-        # test setup for language Chinese traditional
         test_data['litigation_hold'] = False
         cls.report3 = Report.objects.create(**test_data)
 
