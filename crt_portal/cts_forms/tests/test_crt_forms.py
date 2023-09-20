@@ -5,6 +5,8 @@ See test_intake_forms.py for tests of the general form and the pro form.
 import secrets
 import urllib.parse
 
+from unittest import mock
+
 from django.contrib.auth.models import User
 from django.http import QueryDict
 from django.test import TestCase, override_settings
@@ -43,7 +45,6 @@ class ActionTests(TestCase):
             'dj_number_2': '1234',
             'dj_number': '39-1-1234',
             'assigned_to': self.user1.pk,
-            'retention_schedule': self.schedule1.pk,
             'litigation_hold': False,
         }
 
@@ -107,12 +108,16 @@ class ActionTests(TestCase):
         ])
 
     def test_retention_schedule(self):
+        self.initial_values['retention_schedule'] = self.schedule1.pk
+        unprivileged_user = mock.MagicMock()
+        unprivileged_user.has_perm.return_value = True
         form = ComplaintActions(
             initial=self.initial_values,
             data={
                 **self.initial_values,
                 'retention_schedule': self.schedule3.pk,
-            }
+            },
+            user=unprivileged_user
         )
 
         self.assertEqual(form.errors, {})
@@ -120,6 +125,25 @@ class ActionTests(TestCase):
         self.assertCountEqual(form.get_actions(), [
             ('Retention schedule:', 'Updated from "1 Year" to "3 Year"'),
         ])
+
+    def test_retention_schedule_without_permissions(self):
+        self.initial_values['retention_schedule'] = self.schedule1.pk
+        unprivileged_user = mock.MagicMock()
+        unprivileged_user.has_perm.return_value = False
+        form = ComplaintActions(
+            initial=self.initial_values,
+            data={
+                **self.initial_values,
+                'retention_schedule': self.schedule3.pk,
+            },
+            user=unprivileged_user
+        )
+
+        self.assertDictEqual(form.errors, {
+            'retention_schedule': ['You do not have permission to assign retention schedules.'],
+        })
+
+        self.assertCountEqual(form.get_actions(), [])
 
     def test_litigation_hold(self):
         form = ComplaintActions(

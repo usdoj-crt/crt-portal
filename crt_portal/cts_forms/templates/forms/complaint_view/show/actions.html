@@ -64,6 +64,11 @@
     </div>
 
     {% if ENABLED_FEATURES.disposition %}
+
+    {% if actions.fields.retention_schedule.disabled %}
+    <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="Only section records staff may change this field">
+    {% endif %}
+
     <div class="margin-bottom-2 crt-dropdown">
       <label for="id_retention_schedule" class="intake-label">
         {{ actions.fields.retention_schedule.label }}
@@ -72,6 +77,11 @@
         {{ actions.retention_schedule }}
       </div>
     </div>
+
+    {% if actions.fields.retention_schedule.disabled %}
+    </span>
+    {% endif %}
+
     {% else %}
       <!-- Hidden input as the feature is off, but we don't want to lose the value. -->
       {{ actions.retention_schedule }}

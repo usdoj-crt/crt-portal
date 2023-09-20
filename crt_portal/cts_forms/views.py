@@ -581,7 +581,7 @@ def serialize_data(report, request, report_id):
     activity = querydict.get('?activity', None)
 
     output = {
-        'actions': ComplaintActions(instance=report),
+        'actions': ComplaintActions(instance=report, user=request.user),
         'outreach': ComplaintOutreach(instance=report),
         'responses': ResponseActions(instance=report),
         'attachment_actions': AttachmentActions(),
@@ -748,7 +748,7 @@ class ShowView(LoginRequiredMixin, View):
         form_type = request.POST.get('type')
         if not form_type:
             raise SuspiciousOperation("Invalid form data")
-        return self.forms[form_type](request.POST, request.FILES, instance=report), form_type
+        return self.forms[form_type](request.POST, request.FILES, instance=report, user=request.user), form_type
 
     def post(self, request, id):
         """
@@ -783,7 +783,7 @@ class ShowView(LoginRequiredMixin, View):
             # Provide new for those not submitted
             for form_type, form in self.forms.items():
                 if form_type != inbound_form_type:
-                    output.update({form_type: form(instance=report)})
+                    output.update({form_type: form(instance=report, user=request.user)})
             return render(request, 'forms/complaint_view/show/index.html', output)
         report = form.save(commit=False)
 
