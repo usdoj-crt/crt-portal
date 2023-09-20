@@ -1,0 +1,11 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block controls %}retention_schedule{% endblock %}
+{% block label %}{{ form.retention_schedule.label }}{% endblock %}
+{% block id %}retention_schedule{% endblock %}
+
+{% block content %}
+  <div id="retention_schedule-filter" class="multicheckboxes-container">
+    {{ form.retention_schedule }}
+  </div>
+{% endblock %}
