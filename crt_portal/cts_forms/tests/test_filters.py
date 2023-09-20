@@ -430,7 +430,6 @@ class RetentionScheduleFilterTests(TestCase):
     def setUpTestData(cls):
         test_data = SAMPLE_REPORT_1.copy()
 
-        test_data['retention_schedule'] = RetentionSchedule.objects.get(name='1 Year')
         cls.report1 = Report.objects.create(**test_data)
 
         test_data['retention_schedule'] = RetentionSchedule.objects.get(name='1 Year')
@@ -439,12 +438,13 @@ class RetentionScheduleFilterTests(TestCase):
         test_data['retention_schedule'] = RetentionSchedule.objects.get(name='1 Year')
         cls.report3 = Report.objects.create(**test_data)
 
-        test_data['retention_schedule'] = RetentionSchedule.objects.get(name='3 Year')
+        test_data['retention_schedule'] = RetentionSchedule.objects.get(name='1 Year')
         cls.report4 = Report.objects.create(**test_data)
 
         test_data['retention_schedule'] = RetentionSchedule.objects.get(name='3 Year')
         cls.report5 = Report.objects.create(**test_data)
 
+        test_data['retention_schedule'] = RetentionSchedule.objects.get(name='3 Year')
         cls.report6 = Report.objects.create(**test_data)
 
     def test_no_retention_schedule_filter(self):
