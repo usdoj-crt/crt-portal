@@ -45,7 +45,6 @@ class ActionTests(TestCase):
             'dj_number_2': '1234',
             'dj_number': '39-1-1234',
             'assigned_to': self.user1.pk,
-            'retention_schedule': self.schedule1.pk,
             'litigation_hold': False,
         }
 
@@ -109,6 +108,7 @@ class ActionTests(TestCase):
         ])
 
     def test_retention_schedule(self):
+        self.initial_values['retention_schedule'] = self.schedule1.pk
         unprivileged_user = mock.MagicMock()
         unprivileged_user.has_perm.return_value = True
         form = ComplaintActions(
@@ -127,6 +127,7 @@ class ActionTests(TestCase):
         ])
 
     def test_retention_schedule_without_permissions(self):
+        self.initial_values['retention_schedule'] = self.schedule1.pk
         unprivileged_user = mock.MagicMock()
         unprivileged_user.has_perm.return_value = False
         form = ComplaintActions(
