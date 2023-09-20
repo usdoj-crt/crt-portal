@@ -100,6 +100,16 @@ def get_retention_schedule_widget():
     })
 
 
+def get_litigation_hold_widget():
+    if not Feature.is_feature_enabled('disposition'):
+        return HiddenInput()
+
+    return UsaCheckboxSelectMultiple(attrs={
+        'field_label': 'Litigation Hold',
+        'name': 'litigation_hold',
+    }),
+
+
 class ActivityStreamUpdater(object):
     """Utility functions to update activity stream for all changed fields"""
 
@@ -1519,6 +1529,14 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             'aria-label': 'Secondary review',
         })
     )
+    litigation_hold = BooleanField(
+        label='Litigation hold',
+        required=False,
+        widget=CheckboxInput(attrs={
+            'class': 'usa-checkbox__input',
+            'aria-label': 'Litigation hold',
+        })
+    )
 
     def field_changed(self, field):
         # if both are Falsy, nothing actually changed (None ~= "")
@@ -1546,6 +1564,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             'district',
             'assigned_to',
             'retention_schedule',
+            'litigation_hold',
             'referred',
             'dj_number',
         ]
@@ -1618,6 +1637,8 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             # rename referred if applicable
             if field == 'referred':
                 name = 'Secondary review'
+            if field == 'litigation_hold':
+                name = 'Litigation hold'
             if field == 'dj_number':
                 name = 'ICM DJ Number'
             original = self.initial[field]

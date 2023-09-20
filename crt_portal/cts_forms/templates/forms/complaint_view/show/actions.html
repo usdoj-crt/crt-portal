@@ -77,6 +77,20 @@
       {{ actions.retention_schedule }}
     {% endif %}
 
+    {% if ENABLED_FEATURES.disposition %}
+      <div class="margin-bottom-2 crt-checkbox">
+        <label class="intake-label">
+          {{ actions.fields.litigation_hold.label }}
+        </label>
+        {{ actions.litigation_hold }}
+        {# empty label for the checkbox to render using the ::before selector #}
+        <label for="id_litigation_hold" class="usa-checkbox__label crt-checkbox__label"></label>
+      </div>
+    {% else %}
+      <!-- Hidden input as the feature is off, but we don't want to lose the value. -->
+      {{ actions.litigation_hold }}
+    {% endif %}
+
     <div class="margin-bottom-2 crt-checkbox">
       <label class="intake-label">
         {{ actions.fields.referred.label }}
