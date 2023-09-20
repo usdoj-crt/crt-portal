@@ -75,6 +75,39 @@ hr {
   margin-bottom: 0;
 }
 
+.intake-content .notebook {
+  .jp-Cell {
+    padding: 0;
+  }
+  .jp-RenderedHTMLCommon {
+    padding-right: 0;
+  }
+}
+
+.notebooks {
+  display: flex;
+  gap: 2rem;
+}
+
+.notebook {
+  h1,h2,h3,h4,h5,h6 {
+    font-family: Merriweather Web,Merriweather Web,Tinos,Georgia,Cambria,Times New Roman,Times,serif;
+    font-weight: 600;
+  }
+
+  .crt-portal-card {
+    &.dark {
+      background-color: #162e51;
+      color: #fff;
+    }
+
+    padding: 5px 20px
+  }
+}
+
+.accent-blue {
+  color: #81AEFC;
+}
 
 .intake-header {
   @include u-bg($theme-color-primary-darker);

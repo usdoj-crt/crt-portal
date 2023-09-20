@@ -16,6 +16,8 @@ import nbconvert
 import nbformat
 import pytz
 
+from cts_forms.models import RoutingSection
+
 
 class RunSQLIgnoringErrors(RunSQL):
     """RunSQL, but don't raise exceptions.
@@ -212,6 +214,9 @@ class AnalyticsFile(models.Model):
             raise ValueError(f"Notebook is not a valid ipynb: {loaded}")
         return loaded
 
+    def __str__(self):
+        return self.path
+
     def refresh(self, *, run_only_cell: Optional[int] = None) -> Optional[int]:
         """Re-runs the associated ipynb.
 
@@ -256,5 +261,58 @@ class AnalyticsFile(models.Model):
             raise ValueError(f"Can't HTML-ify a {self.type}")
         exporter = nbconvert.HTMLExporter()
         exporter.exclude_input = True
+        exporter.exclude_input_prompt = True
+        exporter.exclude_output_prompt = True
+        exporter.exclude_output_stdin = True
+        exporter.exclude_raw = True
         html, _ = exporter.from_notebook_node(self.as_notebook())
         return html
+
+
+class DashboardGroup(models.Model):
+    """Organizes notebooks for display in the Portal's intake section."""
+    header = models.CharField(max_length=256, blank=True, null=False, help_text="A human-readable header for the group")
+    notebooks = models.ManyToManyField(AnalyticsFile, through='FileGroupAssignment', blank=True, help_text="The notebooks to display in this group")
+    order = models.IntegerField(default=0, help_text="The order in which to display this group, lower numbers first")
+
+    def __str__(self):
+        return self.header
+
+
+class FileGroupAssignment(models.Model):
+    analytics_file = models.ForeignKey(AnalyticsFile, on_delete=models.CASCADE)
+    dashboard_group = models.ForeignKey(DashboardGroup, on_delete=models.CASCADE)
+    show_only_for_sections = models.ManyToManyField(RoutingSection, blank=True, help_text="If set, the notebook will only be displayed for the given section(s). If unset, the notebook will be displayed for all sections.")
+
+
+NOTEBOOK_DIR = os.path.join(settings.BASE_DIR, '..', 'jupyterhub')
+
+
+def get_dashboard_structure_from_json():
+    """Returns the dashboard structure from the JSON file."""
+    config = os.path.join(NOTEBOOK_DIR, 'dashboards.json')
+    with open(config, 'r') as f:
+        return json.load(f)
+
+
+def get_dashboard_structure_from_db(include_content=True):
+    assignments = FileGroupAssignment.objects.all().prefetch_related('analytics_file', 'dashboard_group')
+    groups = {}
+    for assignment in assignments:
+        group_id = assignment.dashboard_group.pk
+        if group_id not in groups:
+            groups[group_id] = {
+                'header': assignment.dashboard_group.header,
+                'order': assignment.dashboard_group.order,
+                'notebooks': [],
+            }
+        groups[group_id]['notebooks'].append({
+            **({'html': assignment.analytics_file.to_html()} if include_content else {}),
+            'show_only_for_sections': [
+                section.section
+                for section
+                in assignment.show_only_for_sections.all()
+            ],
+            'path': assignment.analytics_file.path,
+        })
+    return sorted(groups.values(), key=lambda g: g['order'])

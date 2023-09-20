@@ -20,12 +20,12 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
 from django.core.paginator import Paginator
 from django.db.models import F
-from django.forms.models import model_to_dict
 from django.http import Http404, HttpResponse, QueryDict
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.html import mark_safe
 from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
+from analytics.models import get_dashboard_structure_from_db
 from tms.models import TMSEmail
 from datetime import datetime
 
@@ -39,8 +39,8 @@ from .forms import (
     AttachmentActions, Review, save_form,
 )
 from .mail import mail_to_complainant
-from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
-from .models import CommentAndSummary, DashboardEmbed, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, Campaign, User, \
+from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, SECTION_CHOICES
+from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, Campaign, User, \
     RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
 from .sorts import activity_sort, report_sort
@@ -209,21 +209,28 @@ def _related_reports_count(report):
         return 1
 
 
+def get_profile_form(request):
+    # Check for Profile object, then add filter to request
+    if not hasattr(request.user, 'profile'):
+        return ProfileForm()
+    if not request.user.profile.intake_filters:
+        return ProfileForm()
+
+    request.GET = request.GET.copy()
+    global_section_filter = request.user.profile.intake_filters.split(',')
+
+    # If assigned_section is NOT specified in request, use filter from profile
+    if 'assigned_section' not in request.GET:
+        request.GET.setlist('assigned_section', global_section_filter)
+
+    data = {'intake_filters': request.GET.getlist('assigned_section')}
+    return ProfileForm(data)
+
+
 @login_required
 def index_view(request):
     grouping = request.GET.get('grouping', 'default')
-    profile_form = ProfileForm()
-    # Check for Profile object, then add filter to request
-    if hasattr(request.user, 'profile') and request.user.profile.intake_filters:
-        request.GET = request.GET.copy()
-        global_section_filter = request.user.profile.intake_filters.split(',')
-
-        # If assigned_section is NOT specified in request, use filter from profile
-        if 'assigned_section' not in request.GET:
-            request.GET.setlist('assigned_section', global_section_filter)
-
-        data = {'intake_filters': request.GET.getlist('assigned_section')}
-        profile_form = ProfileForm(data)
+    profile_form = get_profile_form(request)
     selected_assignee_id = fetch_selected_foreign_key(
         request,
         'assigned_to',
@@ -517,15 +524,26 @@ def process_activity_filters(request):
 
 
 @login_required
-def dashboard_view(request):
-    embeds = [model_to_dict(e) for e in DashboardEmbed.objects.all()]
+def data_view(request):
+    profile_form = get_profile_form(request)
 
+    return render(
+        request,
+        'forms/complaint_view/data/index.html',
+        {
+            'profile_form': profile_form,
+            'groups': get_dashboard_structure_from_db(),
+            'sections': [choice[0] for choice in SECTION_CHOICES],
+        })
+
+
+@login_required
+def dashboard_view(request):
     return render(
         request,
         'forms/complaint_view/dashboard/index.html',
         {
             **process_intake_filters(request),
-            'embeds': embeds,
         })
 
 
@@ -843,6 +861,7 @@ class RoutingGuideView(LoginRequiredMixin, View):
 
 class ActionsView(LoginRequiredMixin, FormView):
     """ CRT view to update report data"""
+
     def get(self, request):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
@@ -1146,6 +1165,7 @@ class SaveCommentView(LoginRequiredMixin, FormView):
 
 class ProFormView(LoginRequiredMixin, SessionWizardView):
     """This is the one-page internal form for CRT staff to input complaints"""
+
     def get_template_names(self):
         return 'forms/pro_template.html'
 
@@ -1205,6 +1225,7 @@ class TrendView(LoginRequiredMixin, TemplateView):
 
 class SearchHelperView(LoginRequiredMixin, TemplateView):
     """This shows advanced help text for the full-text search"""
+
     def get(self, request):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)

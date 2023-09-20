@@ -16,7 +16,7 @@ from ..forms import (
     CommercialPublicLocation, ComplaintActions, Contact,
     Details, EducationLocation, WorkplaceLocation, LocationForm,
     PoliceLocation, PrimaryReason, ProfileForm, ProForm,
-    ProtectedClassForm, When, save_form
+    ProtectedClassForm, When, save_form, maybe_auto_close, maybe_auto_reroute
 )
 from ..model_variables import (
     CONTACT_PHONE_INVALID_MESSAGE,
@@ -26,12 +26,13 @@ from ..model_variables import (
     PROTECTED_MODEL_CHOICES, SERVICEMEMBER_ERROR,
     VIOLATION_SUMMARY_ERROR, WHERE_ERRORS, DATE_ERRORS
 )
-from ..models import CommentAndSummary, ProtectedClass, Report, Campaign
+from ..models import CommentAndSummary, ProtectedClass, Report, Campaign, get_system_user, SavedSearch
 from .test_data import SAMPLE_REPORT_1
 
 
 class Valid_Form_Tests(TestCase):
     """Confirms each form is valid when given valid test data."""
+
     def setUp(self):
         for choice, label in PROTECTED_MODEL_CHOICES:
             ProtectedClass.objects.get_or_create(value=choice)
@@ -168,6 +169,7 @@ class Valid_CRT_view_Tests(TestCase):
 
 class OriginationDataTests(TestCase):
     """Ensures that origination (utm, etc) data makes it into the database."""
+
     def setUp(self):
         self.campaign = Campaign.objects.create(internal_name="Fake Campaign")
 
@@ -245,6 +247,98 @@ class OriginationDataTests(TestCase):
         }
         _, saved_object = save_form(form_data_dict, intake_format='web')
         self.assertEqual(saved_object.unknown_origination_utm_campaign, 'ohno-campaign')
+
+
+class RoutingOverrideTests(TestCase):
+    def setUp(self):
+        self.search = SavedSearch.objects.create(
+            name='test search',
+            query='status=new&status=open&violation_summary=%22foo!%22&no_status=false&grouping=default',
+            override_section_assignment=True,
+            override_section_assignment_with='DRS',
+        )
+        self.matching_report = Report.objects.create(**{**SAMPLE_REPORT_1, 'violation_summary': 'foo!'})
+        self.nonmatching_report = Report.objects.create(**{**SAMPLE_REPORT_1, 'violation_summary': 'bar!'})
+
+    def test_maybe_auto_reroute_reroutes_matching(self):
+        maybe_auto_reroute(self.matching_report)
+
+        self.matching_report.refresh_from_db()
+
+        self.assertEqual(self.matching_report.assigned_section, 'DRS')
+        actions = self.matching_report.target_actions.all().prefetch_related('actor')
+        action = next((a for a in actions if 'Routing overridden' in a.verb), None)
+        self.assertIsNotNone(action, 'No acstream found for rerouted report')
+        self.assertEqual(action.actor, get_system_user())
+        self.assertEqual(action.verb, 'Routing overridden')
+        self.assertEqual(action.description, 'Rerouted to DRS due to Saved Search test search')
+
+    def test_maybe_auto_reroute_skips_nonmatching(self):
+        maybe_auto_reroute(self.nonmatching_report)
+
+        self.nonmatching_report.refresh_from_db()
+        self.assertEqual(self.nonmatching_report.status, 'new')
+        actions = self.nonmatching_report.target_actions.all().prefetch_related('actor')
+        action = next((a for a in actions if 'Routing overridden' in a.verb), None)
+        self.assertIsNone(action)
+
+    def test_maybe_auto_reroute_only_reroutes_if_enabled(self):
+        self.search.override_section_assignment = False
+        self.search.save()
+        maybe_auto_reroute(self.matching_report)
+
+        self.matching_report.refresh_from_db()
+
+        self.assertEqual(self.matching_report.status, 'new')
+        actions = self.matching_report.target_actions.all().prefetch_related('actor')
+        action = next((a for a in actions if 'Routing overridden' in a.verb), None)
+        self.assertIsNone(action)
+
+
+class AutoCloseTests(TestCase):
+    def setUp(self):
+        self.search = SavedSearch.objects.create(
+            name='test search',
+            query='status=new&status=open&violation_summary=%22foo!%22&no_status=false&grouping=default',
+            auto_close=True,
+            auto_close_reason='foo happened!',
+        )
+        self.matching_report = Report.objects.create(**{**SAMPLE_REPORT_1, 'violation_summary': 'foo!'})
+        self.nonmatching_report = Report.objects.create(**{**SAMPLE_REPORT_1, 'violation_summary': 'bar!'})
+
+    def test_maybe_auto_close_closes_matching(self):
+        maybe_auto_close(self.matching_report)
+
+        self.matching_report.refresh_from_db()
+
+        self.assertEqual(self.matching_report.status, 'closed')
+        actions = self.matching_report.target_actions.all().prefetch_related('actor')
+        action = next((a for a in actions if 'auto-closed' in a.verb), None)
+        self.assertIsNotNone(action, 'No acstream found for auto-closed report')
+        self.assertEqual(action.actor, get_system_user())
+        self.assertEqual(action.verb, 'Report auto-closed')
+        self.assertEqual(action.description, 'Report automatically closed on submission because foo happened!')
+
+    def test_maybe_auto_close_skips_nonmatching(self):
+        maybe_auto_close(self.nonmatching_report)
+
+        self.nonmatching_report.refresh_from_db()
+        self.assertEqual(self.nonmatching_report.status, 'new')
+        actions = self.nonmatching_report.target_actions.all().prefetch_related('actor')
+        action = next((a for a in actions if 'auto-closed' in a.description), None)
+        self.assertIsNone(action)
+
+    def test_maybe_auto_close_only_closes_if_enabled(self):
+        self.search.auto_close = False
+        self.search.save()
+        maybe_auto_close(self.matching_report)
+
+        self.matching_report.refresh_from_db()
+
+        self.assertEqual(self.matching_report.status, 'new')
+        actions = self.matching_report.target_actions.all().prefetch_related('actor')
+        action = next((a for a in actions if 'auto-closed' in a.description), None)
+        self.assertIsNone(action)
 
 
 class SectionAssignmentTests(TestCase):

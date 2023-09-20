@@ -52,6 +52,10 @@ logger = logging.getLogger(__name__)
 User = get_user_model()
 
 
+def get_system_user():
+    return User.objects.get(username='system.user')
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     intake_filters = models.TextField(max_length=500, blank=True)
@@ -115,6 +119,9 @@ class JudicialDistrict(models.Model):
 class RoutingSection(models.Model):
     section = models.TextField(choices=SECTION_CHOICES_WITHOUT_LABELS, default='ADM', unique=True)
     names = models.CharField(max_length=700, null=False, blank=False)
+
+    def __str__(self):
+        return self.section
 
 
 class RoutingStepOneContact(models.Model):
@@ -205,6 +212,18 @@ class Campaign(models.Model):
 
     def __str__(self):
         return self.internal_name
+
+
+class SavedSearch(models.Model):
+    name = models.CharField(max_length=255, null=False, blank=False, help_text="The name of the search as it will appear in lists and dropdowns.")
+    query = models.TextField(null=False, blank=False, help_text="The encoded search represented as a URL querystring for the /form/view page.", default='status=new&status=open&no_status=false&grouping=default')
+    auto_close = models.BooleanField(default=False, null=False, help_text="Whether to automatically close incoming reports that match this search. Only applies to new submissions.")
+    auto_close_reason = models.CharField(max_length=255, null=True, blank=True, help_text="The reason to add to the report summary when auto-closing. Will be filled in the following blank: 'Report automatically closed on submission because ____'")
+    override_section_assignment = models.BooleanField(default=False, null=False, help_text="Whether to override the section assignment for all reports with this campaign")
+    override_section_assignment_with = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, help_text="If set, this will override the section assignment for all reports with this campaign. This can be used to 'tweak' the routing logic based on Personal Description, etc.")
+
+    def get_absolute_url(self):
+        return f'/form/view?{self.query}'
 
 
 # NOTE: If you add fields to report, they'll automatically be set to empty on the edit form. Make sure to address any additions in ReportEditForm as well!
@@ -611,15 +630,6 @@ class EmailReportCount(models.Model):
         end = time.time()
         elapsed = round(end - start, 4)
         logger.info(f'SUCCESS: Refreshed Email view in {elapsed} seconds')
-
-
-class DashboardEmbed(models.Model):
-    """Contains Analytics-generated content for use in dashboard pages."""
-    class Meta:
-        db_table = 'analytics"."dashboard_embed'
-    filename = models.CharField(max_length=255, primary_key=True)
-    content = models.TextField(default='')
-    mimetype = models.CharField(max_length=255, default='text/html')
 
 
 class Trends(models.Model):

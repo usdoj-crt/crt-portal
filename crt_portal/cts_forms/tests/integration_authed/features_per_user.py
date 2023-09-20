@@ -11,7 +11,7 @@ def test_can_enable_features_per_user(page):
     username = login_as_superuser(page)
 
     features.toggle_feature_for_user(page=page,
-                                     feature_name='team-management-redo',
+                                     feature_name='data-dashboard',
                                      username=username,
                                      enable=False)
 
@@ -20,17 +20,17 @@ def test_can_enable_features_per_user(page):
     assert len(nav) == 2
 
     features.toggle_feature_for_user(page=page,
-                                     feature_name='team-management-redo',
+                                     feature_name='data-dashboard',
                                      username=username,
                                      enable=True)
 
     page.goto("/form/view")
     nav = page.locator('.usa-nav__primary li').all()
     assert len(nav) == 3
-    assert '🆕 Team Management' in nav[2].text_content().strip()
+    assert '🆕 Data dashboard' in nav[2].text_content().strip()
 
     features.toggle_feature_for_user(page=page,
-                                     feature_name='team-management-redo',
+                                     feature_name='data-dashboard',
                                      username=username,
                                      enable=False)
 
