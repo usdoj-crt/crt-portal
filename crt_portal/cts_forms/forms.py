@@ -1365,6 +1365,14 @@ class Filters(ModelForm):
         widget=get_dj_widget(),
         required=False,
     )
+    litigation_hold = MultipleChoiceField(
+        required=False,
+        label='Litigation hold',
+        choices=((True, 'Yes'),),
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'litigation_hold',
+        }),
+    )
 
     class Meta:
         model = Report
@@ -1392,6 +1400,7 @@ class Filters(ModelForm):
             'language',
             'correctional_facility_type',
             'dj_number',
+            'litigation_hold',
         ]
 
         labels = {

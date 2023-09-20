@@ -136,6 +136,7 @@ class Command(BaseCommand):  # pragma: no cover
                     report.assigned_section = 'SPL'
             # 6%
             elif rand <= 6:
+                report.litigation_hold = True
                 report.contact_email = "frequentflier3@test.test"
                 add_activity(user2, 'Contacted complainant:', f"Printed '{title}' template", report)
                 protected_example = ProtectedClass.objects.get(value=PROTECTED_MODEL_CHOICES[8][0])

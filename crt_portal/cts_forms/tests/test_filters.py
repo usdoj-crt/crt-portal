@@ -403,6 +403,29 @@ class ReportDjNumberFilterTests(TestCase):
         ])
 
 
+class LitigationHoldFilterTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        test_data = SAMPLE_REPORT_1.copy()
+
+        test_data['litigation_hold'] = True
+        cls.report1 = Report.objects.create(**test_data)
+
+        test_data['litigation_hold'] = True
+        cls.report2 = Report.objects.create(**test_data)
+
+        test_data['litigation_hold'] = False
+        cls.report3 = Report.objects.create(**test_data)
+
+    def test_no_litigation_hold_filter(self):
+        reports, _ = report_filter(QueryDict('litigation_hold=False'))
+        self.assertEqual(reports.count(), 1)
+
+    def test_litigation_hold_filter(self):
+        reports, _ = report_filter(QueryDict('litigation_hold=True'))
+        self.assertEqual(reports.count(), 2)
+
+
 class FormLettersFilterTests(TestCase):
     @classmethod
     def setUpTestData(cls):

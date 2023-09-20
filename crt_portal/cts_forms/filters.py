@@ -33,6 +33,7 @@ filter_options = {
     'assigned_to': 'foreign_key',  # aka "Assignee"
     'origination_utm_campaign': 'foreign_key',
     'origination_utm_campaign': 'foreign_key',
+    'litigation_hold': 'eq',
     'location_address_line_1': '__icontains',  # not in filter controls?
     'location_address_line_2': '__icontains',  # not in filter controls?
     'location_city_town': '__icontains',
