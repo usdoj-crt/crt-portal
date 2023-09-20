@@ -10,7 +10,7 @@ import pytz
 
 from ..filters import get_report_filter_from_search, report_filter, report_grouping
 from api.filters import form_letters_filter, autoresponses_filter
-from ..models import Report, ProtectedClass, FormLettersSent, SavedSearch
+from ..models import Report, ProtectedClass, FormLettersSent, RetentionSchedule, SavedSearch
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
 
 
@@ -423,6 +423,41 @@ class LitigationHoldFilterTests(TestCase):
 
     def test_litigation_hold_filter(self):
         reports, _ = report_filter(QueryDict('litigation_hold=True'))
+        self.assertEqual(reports.count(), 2)
+
+
+class RetentionScheduleFilterTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        test_data = SAMPLE_REPORT_1.copy()
+
+        cls.report1 = Report.objects.create(**test_data)
+
+        test_data['retention_schedule'] = RetentionSchedule.objects.get(name='1 Year')
+        cls.report2 = Report.objects.create(**test_data)
+
+        test_data['retention_schedule'] = RetentionSchedule.objects.get(name='1 Year')
+        cls.report3 = Report.objects.create(**test_data)
+
+        test_data['retention_schedule'] = RetentionSchedule.objects.get(name='1 Year')
+        cls.report4 = Report.objects.create(**test_data)
+
+        test_data['retention_schedule'] = RetentionSchedule.objects.get(name='3 Year')
+        cls.report5 = Report.objects.create(**test_data)
+
+        test_data['retention_schedule'] = RetentionSchedule.objects.get(name='3 Year')
+        cls.report6 = Report.objects.create(**test_data)
+
+    def test_no_retention_schedule_filter(self):
+        reports, _ = report_filter(QueryDict(''))
+        self.assertEqual(reports.count(), 6)
+
+    def test_retention_schedule_1_3_filter(self):
+        reports, _ = report_filter(QueryDict('retention_schedule=1%20Year&retention_schedule=3%20Year'))
+        self.assertEqual(reports.count(), 5)
+
+    def test_retention_schedule_3_filter(self):
+        reports, _ = report_filter(QueryDict('retention_schedule=3%20Year'))
         self.assertEqual(reports.count(), 2)
 
 

@@ -173,7 +173,8 @@
     correctional_facility_type: [],
     grouping: 'default',
     group_params: [],
-    litigation_hold: []
+    litigation_hold: [],
+    retention_schedule: []
   };
   var filterDataModel = {};
 
@@ -440,6 +441,7 @@
     var contactPhoneEL = dom.getElementsByName('contact_phone')[0];
     var correctionalFacilityTypeEl = dom.getElementsByName('correctional_facility_type');
     var litigationHoldEl = dom.getElementsByName('litigation_hold');
+    var retentionScheduleEl = dom.getElementsByName('retention_schedule');
     /**
      * Update the filter data model when the user clears (clicks on) a filter tag,
      * and perform a new search with the updated filters applied.
@@ -458,7 +460,8 @@
         'commercial_or_public_place',
         'reported_reason',
         'language',
-        'correctional_facility_type'
+        'correctional_facility_type',
+        'retention_schedule'
       ];
       var filterIndex = multiSelectElements.indexOf(filterName);
       if (filterIndex !== -1) {
@@ -621,6 +624,10 @@
     checkBoxView({
       el: litigationHoldEl,
       name: 'litigation_hold'
+    });
+    checkBoxView({
+      el: retentionScheduleEl,
+      name: 'retention_schedule'
     });
   }
 

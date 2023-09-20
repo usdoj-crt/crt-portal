@@ -33,6 +33,7 @@ variable_rename = {
     'create_date_end': 'Submission date end',
     'actions': 'Actions',
     'litigation_hold': 'Litigation hold',
+    'retention_schedule': 'Retention schedule',
 }
 
 

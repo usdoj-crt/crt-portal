@@ -433,6 +433,13 @@ PUBLIC_OR_PRIVATE_SCHOOL_CHOICES = (
 )
 PUBLIC_OR_PRIVATE_SCHOOL_DICT = dict(PUBLIC_OR_PRIVATE_SCHOOL_CHOICES)
 
+RETENTION_SCHEDULE_CHOICES = (
+    ('1 Year', _('1 Year')),
+    ('3 Year', _('3 Year')),
+    ('10 Year', _('10 Year')),
+    ('Permanent', _('Permanent')),
+)
+
 STATES_AND_TERRITORIES = (
     ('AL', _('Alabama')),
     ('AK', _('Alaska')),

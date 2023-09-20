@@ -49,7 +49,7 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               SERVICEMEMBER_ERROR, STATES_AND_TERRITORIES,
                               STATUS_CHOICES, STATUTE_CHOICES,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
-                              HATE_CRIME_CHOICES, GROUPING)
+                              HATE_CRIME_CHOICES, GROUPING, RETENTION_SCHEDULE_CHOICES)
 from .models import (CommentAndSummary,
                      ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user)
 from .phone_regex import phone_validation_regex
@@ -1373,6 +1373,14 @@ class Filters(ModelForm):
             'name': 'litigation_hold',
         }),
     )
+    retention_schedule = MultipleChoiceField(
+        required=False,
+        label='Retention schedule',
+        choices=RETENTION_SCHEDULE_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'retention_schedule',
+        }),
+    )
 
     class Meta:
         model = Report
@@ -1401,6 +1409,7 @@ class Filters(ModelForm):
             'correctional_facility_type',
             'dj_number',
             'litigation_hold',
+            'retention_schedule',
         ]
 
         labels = {
