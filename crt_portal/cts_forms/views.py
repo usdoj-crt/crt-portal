@@ -25,7 +25,7 @@ from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.utils.html import mark_safe
 from django.views.generic import FormView, TemplateView, View
 from formtools.wizard.views import SessionWizardView
-from analytics.models import get_dashboard_structure
+from analytics.models import get_dashboard_structure_from_db
 from tms.models import TMSEmail
 from datetime import datetime
 
@@ -39,7 +39,7 @@ from .forms import (
     AttachmentActions, Review, save_form,
 )
 from .mail import mail_to_complainant
-from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES
+from .model_variables import HATE_CRIMES_TRAFFICKING_MODEL_CHOICES, SECTION_CHOICES
 from .models import CommentAndSummary, Profile, Report, ReportAttachment, ReportsData, Trends, EmailReportCount, Campaign, User, \
     RoutingSection, RoutingStepOneContact, RepeatWriterInfo
 from .page_through import pagination
@@ -532,7 +532,8 @@ def data_view(request):
         'forms/complaint_view/data/index.html',
         {
             'profile_form': profile_form,
-            'groups': get_dashboard_structure(),
+            'groups': get_dashboard_structure_from_db(),
+            'sections': [choice[0] for choice in SECTION_CHOICES],
         })
 
 
