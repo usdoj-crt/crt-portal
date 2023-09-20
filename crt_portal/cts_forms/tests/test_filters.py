@@ -425,6 +425,7 @@ class LitigationHoldFilterTests(TestCase):
         reports, _ = report_filter(QueryDict('litigation_hold=True'))
         self.assertEqual(reports.count(), 2)
 
+
 class RetentionScheduleFilterTests(TestCase):
     @classmethod
     def setUpTestData(cls):
