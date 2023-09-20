@@ -44,6 +44,7 @@ class ActionTests(TestCase):
             'dj_number': '39-1-1234',
             'assigned_to': self.user1.pk,
             'retention_schedule': self.schedule1.pk,
+            'litigation_hold': False,
         }
 
     def test_valid(self):
@@ -118,6 +119,21 @@ class ActionTests(TestCase):
 
         self.assertCountEqual(form.get_actions(), [
             ('Retention schedule:', 'Updated from "1 Year" to "3 Year"'),
+        ])
+
+    def test_litigation_hold(self):
+        form = ComplaintActions(
+            initial=self.initial_values,
+            data={
+                **self.initial_values,
+                'litigation_hold': True,
+            }
+        )
+
+        self.assertEqual(form.errors, {})
+
+        self.assertCountEqual(form.get_actions(), [
+            ('Litigation hold:', 'Updated from "False" to "True"'),
         ])
 
     def test_referral(self):
