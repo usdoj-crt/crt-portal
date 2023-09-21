@@ -5,6 +5,8 @@ See test_intake_forms.py for tests of the general form and the pro form.
 import secrets
 import urllib.parse
 
+from unittest import mock
+
 from django.contrib.auth.models import User
 from django.http import QueryDict
 from django.test import TestCase, override_settings
@@ -18,7 +20,7 @@ from cts_forms.mail import render_complainant_mail, render_agency_mail
 
 from ..forms import BulkActionsForm, ComplaintActions, Filters, ReportEditForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, NEW_STATUS
-from ..models import CommentAndSummary, ReferralContact, Report, ResponseTemplate, EmailReportCount
+from ..models import CommentAndSummary, ReferralContact, Report, ResponseTemplate, EmailReportCount, RetentionSchedule
 from .factories import ReportFactory
 from .test_data import SAMPLE_REFERRAL_CONTACT, SAMPLE_REPORT_1, SAMPLE_RESPONSE_TEMPLATE
 
@@ -29,6 +31,8 @@ class ActionTests(TestCase):
         cls.test_pass = secrets.token_hex(32)
         cls.user1 = User.objects.create_user('USER_1', 'user1@example.com', cls.test_pass)
         cls.user2 = User.objects.create_user('USER_2', 'user2@example.com', cls.test_pass)
+        cls.schedule1 = RetentionSchedule.objects.get(name='1 Year')
+        cls.schedule3 = RetentionSchedule.objects.get(name='3 Year')
 
     def setUp(self):
         self.initial_values = {
@@ -41,6 +45,7 @@ class ActionTests(TestCase):
             'dj_number_2': '1234',
             'dj_number': '39-1-1234',
             'assigned_to': self.user1.pk,
+            'litigation_hold': False,
         }
 
     def test_valid(self):
@@ -100,6 +105,59 @@ class ActionTests(TestCase):
 
         self.assertCountEqual(form.get_actions(), [
             ('ICM DJ Number:', 'Updated from "39-1-1234" to "170-12C-1234"'),
+        ])
+
+    def test_retention_schedule(self):
+        self.initial_values['retention_schedule'] = self.schedule1.pk
+        unprivileged_user = mock.MagicMock()
+        unprivileged_user.has_perm.return_value = True
+        form = ComplaintActions(
+            initial=self.initial_values,
+            data={
+                **self.initial_values,
+                'retention_schedule': self.schedule3.pk,
+            },
+            user=unprivileged_user
+        )
+
+        self.assertEqual(form.errors, {})
+
+        self.assertCountEqual(form.get_actions(), [
+            ('Retention schedule:', 'Updated from "1 Year" to "3 Year"'),
+        ])
+
+    def test_retention_schedule_without_permissions(self):
+        self.initial_values['retention_schedule'] = self.schedule1.pk
+        unprivileged_user = mock.MagicMock()
+        unprivileged_user.has_perm.return_value = False
+        form = ComplaintActions(
+            initial=self.initial_values,
+            data={
+                **self.initial_values,
+                'retention_schedule': self.schedule3.pk,
+            },
+            user=unprivileged_user
+        )
+
+        self.assertDictEqual(form.errors, {
+            'retention_schedule': ['You do not have permission to assign retention schedules.'],
+        })
+
+        self.assertCountEqual(form.get_actions(), [])
+
+    def test_litigation_hold(self):
+        form = ComplaintActions(
+            initial=self.initial_values,
+            data={
+                **self.initial_values,
+                'litigation_hold': True,
+            }
+        )
+
+        self.assertEqual(form.errors, {})
+
+        self.assertCountEqual(form.get_actions(), [
+            ('Litigation hold:', 'Updated from "False" to "True"'),
         ])
 
     def test_referral(self):

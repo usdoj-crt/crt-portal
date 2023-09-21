@@ -228,6 +228,8 @@ jobs:
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
           CF_MANIFEST: manifest_dev.yaml
+          CF_STAGING_TIMEOUT: 40
+          CF_STARTUP_TIMEOUT: 10
           CF_SPACE: dev
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
       - image: postgres:12.15-alpine
@@ -293,6 +295,8 @@ jobs:
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
           CF_MANIFEST: manifest_staging.yaml
+          CF_STAGING_TIMEOUT: 40
+          CF_STARTUP_TIMEOUT: 10
           CF_SPACE: staging
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
       - image: postgres:12.15-alpine
@@ -351,6 +355,8 @@ jobs:
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
           CF_MANIFEST: manifest_prod.yaml
+          CF_STAGING_TIMEOUT: 40
+          CF_STARTUP_TIMEOUT: 10
           CF_SPACE: prod
       # CircleCI PostgreSQL images available at: https://hub.docker.com/_/postgres
       - image: postgres:12.15-alpine

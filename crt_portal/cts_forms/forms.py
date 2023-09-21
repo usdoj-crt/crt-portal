@@ -49,9 +49,9 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               SERVICEMEMBER_ERROR, STATES_AND_TERRITORIES,
                               STATUS_CHOICES, STATUTE_CHOICES,
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
-                              HATE_CRIME_CHOICES, GROUPING)
+                              HATE_CRIME_CHOICES, GROUPING, RETENTION_SCHEDULE_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment, Campaign, SavedSearch, get_system_user)
+                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -88,6 +88,26 @@ def get_dj_widget():
         'field_label': 'ICM DJ Number',
         'name': 'dj_number',
     })
+
+
+def get_retention_schedule_widget():
+    if not Feature.is_feature_enabled('disposition'):
+        return HiddenInput()
+    return Select(attrs={
+        'field_label': 'Retention Schedule',
+        'name': 'retention_schedule',
+        'class': 'usa-input usa-select',
+    })
+
+
+def get_litigation_hold_widget():
+    if not Feature.is_feature_enabled('disposition'):
+        return HiddenInput()
+
+    return UsaCheckboxSelectMultiple(attrs={
+        'field_label': 'Litigation Hold',
+        'name': 'litigation_hold',
+    }),
 
 
 class ActivityStreamUpdater(object):
@@ -1122,8 +1142,8 @@ class Filters(ModelForm):
 
         ModelForm.__init__(self, data, *args, **kwargs)
 
-        # Putting this field in __init__ allows the User QuerySet to be evaluated
-        # (otherwise it breaks when this module is read during a migration)
+        # Putting these fields in __init__ allows their QuerySets to be evaluated
+        # (otherwise they break when this module is read during a migration)
         self.fields['assigned_to'] = ChoiceField(
             required=False,
             choices=[
@@ -1345,6 +1365,22 @@ class Filters(ModelForm):
         widget=get_dj_widget(),
         required=False,
     )
+    litigation_hold = MultipleChoiceField(
+        required=False,
+        label='Litigation hold',
+        choices=((True, 'Yes'),),
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'litigation_hold',
+        }),
+    )
+    retention_schedule = MultipleChoiceField(
+        required=False,
+        label='Retention schedule',
+        choices=RETENTION_SCHEDULE_CHOICES,
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'retention_schedule',
+        }),
+    )
 
     class Meta:
         model = Report
@@ -1372,6 +1408,8 @@ class Filters(ModelForm):
             'language',
             'correctional_facility_type',
             'dj_number',
+            'litigation_hold',
+            'retention_schedule',
         ]
 
         labels = {
@@ -1509,11 +1547,19 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             'aria-label': 'Secondary review',
         })
     )
+    litigation_hold = BooleanField(
+        label='Litigation hold',
+        required=False,
+        widget=CheckboxInput(attrs={
+            'class': 'usa-checkbox__input',
+            'aria-label': 'Litigation hold',
+        })
+    )
 
     def field_changed(self, field):
         # if both are Falsy, nothing actually changed (None ~= "")
-        old = self.initial[field]
-        new = self.cleaned_data[field]
+        old = self.initial.get(field, None)
+        new = self.cleaned_data.get(field, None)
         if not old and not new:
             return False
         return old != new
@@ -1527,6 +1573,11 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             if self.field_changed(field_name)
         ]
 
+    def can_assign_schedule(self):
+        if not self.user:
+            return False
+        return self.user.has_perm('cts_forms.assign_retentionschedule')
+
     class Meta:
         model = Report
         fields = [
@@ -1535,11 +1586,15 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             'primary_statute',
             'district',
             'assigned_to',
+            'retention_schedule',
+            'litigation_hold',
             'referred',
             'dj_number',
         ]
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, user=None, **kwargs):
+        self.user = user
+
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['assigned_section'] = ChoiceField(
@@ -1586,6 +1641,15 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             required=False,
         )
 
+        self.fields['retention_schedule'] = ModelChoiceField(
+            queryset=RetentionSchedule.objects.all().order_by('order'),
+            empty_label='Assign schedule',
+            label='Retention schedule',
+            required=False,
+            disabled=not self.can_assign_schedule(),
+            widget=get_retention_schedule_widget(),
+        )
+
     def get_actions(self):
         """
         Parse incoming changed data for activity stream entry
@@ -1599,16 +1663,20 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
             # rename referred if applicable
             if field == 'referred':
                 name = 'Secondary review'
+            if field == 'litigation_hold':
+                name = 'Litigation hold'
             if field == 'dj_number':
                 name = 'ICM DJ Number'
             original = self.initial[field]
             changed = self.cleaned_data[field]
             # fix bug where id was showing up instead of user name
-            if field == 'assigned_to':
+            if field in ['assigned_to', 'retention_schedule']:
                 if original is None:
                     yield f"{name}:", f'"{changed}"'
-                else:
+                elif field == 'assigned_to':
                     original = User.objects.get(id=original)
+                elif field == 'retention_schedule':
+                    original = RetentionSchedule.objects.get(id=original)
             yield f"{name}:", f'Updated from "{original}" to "{changed}"'
         if self.report_closed:
             yield "Report closed and Assignee removed", f"Date closed updated to {self.instance.closed_date.strftime('%m/%d/%y %H:%M:%M %p')}"
@@ -1651,6 +1719,13 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         if any(not c for c in dj_number.rsplit('-', 2)):
             return None
         return dj_number
+
+    def clean_retention_schedule(self):
+        if not self.field_changed('retention_schedule'):
+            return self.cleaned_data.get('retention_schedule')
+        if not self.can_assign_schedule():
+            raise ValidationError('You do not have permission to assign retention schedules.')
+        return self.cleaned_data['retention_schedule']
 
     def save(self, commit=True):
         """
@@ -1710,7 +1785,8 @@ class ComplaintOutreach(ModelForm, ActivityStreamUpdater):
             }),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, user=None, **kwargs):
+        self.user = user
         ModelForm.__init__(self, *args, **kwargs)
         for name, field in self.fields.items():
             field.help_text = Report._meta.get_field(name).help_text
@@ -2084,7 +2160,8 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
             }),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, user=None, **kwargs):
+        self.user = user
         ModelForm.__init__(self, *args, **kwargs)
 
         self.fields['contact_phone'].error_messages = {'invalid': CONTACT_PHONE_INVALID_MESSAGE}
@@ -2141,10 +2218,11 @@ class ReportEditForm(ProForm, ActivityStreamUpdater):
             required=False,
         )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, user=None, **kwargs):
         """
         Proform initializes all component forms, we'll skip that and define only the fields need for this form
         """
+        self.user = user
         ModelForm.__init__(self, *args, **kwargs)
 
         #  We're handling old hatecrimes_trafficking data with separate boolean fields
