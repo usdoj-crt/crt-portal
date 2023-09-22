@@ -515,9 +515,24 @@ jobs:
       # - run:
       #     name: generate yearly reports command
       #     command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_yearly_reports" --name generate-yearly-reports -m 512M -k 2G
+
+  dev-jupyter-tasks:
+    docker:
+      # Use CircleCI convenience base image since we only need
+      # CloudFoundry CLI
+      - image: cimg/base:2020.01
+        environment:
+          - CF_SPACE: dev
+    steps:
+      # Install cloud foundry tools
+      - *install-cf8
+      # login to Cloud.gov dev space
       - run:
-          name: generate repeat_writer_info
-          command: cf run-task crt-portal-django  -c "python crt_portal/manage.py generate_repeat_writer_info" --name generate-repeat-writer-info -m 512M -k 2G
+          name: Login to cloud.gov Dev
+          command: cf login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s ${CF_SPACE}
+      - run:
+          name: run scheduled notebooks
+          command: cf ssh crt-portal-jupyter  -c "python run_scheduled_refresh.py"
 
 commands:
   acquire-lock:
@@ -615,6 +630,16 @@ workflows:
     triggers:
       - schedule:
           cron: "0 0 * * *" # run past 8pm every night EST
+          filters:
+            branches:
+              only: develop
+
+  periodic-tasks-jupyter-dev:
+    jobs:
+      - dev-jupyter-tasks
+    triggers:
+      - schedule:
+          cron: "* 0,6,12,18 * * *" # run four times per day
           filters:
             branches:
               only: develop
