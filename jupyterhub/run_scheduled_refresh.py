@@ -1,6 +1,5 @@
 """Automatically refreshes the output of files."""
 
-from django.conf import settings
 from typing import Optional, Dict, List
 from helpers.table_contents_manager import TableContentsManager
 import copy
@@ -11,7 +10,8 @@ import os
 from nbconvert.preprocessors.execute import ExecutePreprocessor
 import nbformat
 
-NOTEBOOK_DIR = os.path.join(settings.BASE_DIR, '..', 'jupyterhub')
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+NOTEBOOK_DIR = os.path.join(BASE_DIR)
 SCHEDULES_PATH = os.path.join(NOTEBOOK_DIR, 'schedules.json')
 
 
