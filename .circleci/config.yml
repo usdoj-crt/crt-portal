@@ -532,7 +532,7 @@ jobs:
           command: cf login -u ${CRT_USERNAME_DEV} -p ${CRT_PASSWORD_DEV} -o doj-crtportal -s ${CF_SPACE}
       - run:
           name: run scheduled notebooks
-          command: cf ssh crt-portal-jupyter  -c "python run_scheduled_refresh.py"
+          command: cf ssh crt-portal-jupyter  -c 'export LD_LIBRARY_PATH="$HOME/deps/0/lib:$HOME/deps/1/lib:$HOME/deps/2/lib" && export PATH="$PATH:$HOME/deps/2/python/bin/" && cd /home/vcap/app && python run_scheduled_refresh.py'
 
 commands:
   acquire-lock:
