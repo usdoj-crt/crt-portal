@@ -639,7 +639,7 @@ workflows:
       - dev-jupyter-tasks
     triggers:
       - schedule:
-          cron: "* 0,6,12,18 * * *" # run four times per day
+          cron: "0 0,6,12,18 * * *" # run four times per day
           filters:
             branches:
               only: develop
