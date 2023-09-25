@@ -21,7 +21,6 @@ django-types = "*"
 djangorestframework-types = "*"
 factory-boy = "*"
 tblib = "*"
-localstack = "~=0.14.2"
 
 [packages]
 django = "==4.2.3"

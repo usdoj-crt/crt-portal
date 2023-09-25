@@ -56,7 +56,6 @@ JUPYTER_PORT=8001
 MAILHOG_SMTP_PORT=1025
 MAILHOG_UI_PORT=8025
 CLAMAV_REST_PORT=9000
-LOCALSTACK_PORT=4566
 ```
 
 To run the project
@@ -101,9 +100,7 @@ Now to compile the sass files into css, run:
 
     npm run gulp:watch
 
-Note that you'll need to turn off localstack for this to work without running `collectstatic`, by setting `USE_LOCALSTACK=False` in `.env`.
-
-Also note, that the staticfiles folder is the destination of all static assets when you or a script runs `manage.py collectstatic` so don't make your changes there, or they will be overwritten.
+Note, that the staticfiles folder is the destination of all static assets when you or a script runs `manage.py collectstatic` so don't make your changes there, or they will be overwritten.
 
 ## Jupyter
 
