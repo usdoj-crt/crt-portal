@@ -226,6 +226,25 @@ class SavedSearch(models.Model):
         return f'/form/view?{self.query}'
 
 
+class RetentionSchedule(models.Model):
+
+    class Meta:
+        permissions = (
+            ("assign_retentionschedule", "Can assign retention schedules to reports"),
+        )
+
+    name = models.CharField(max_length=255, null=False, blank=False, help_text="The name of the schedule that will be shown to intake specialists in dropdowns.")
+    order = models.IntegerField(default=0, help_text="The order in which to show the schedules, lower numbers first. If two schedules have the same order number, they might change positions.")
+    description = models.TextField(max_length=7000, null=False, blank=True, help_text="Internal notes, shown only here, about this schedule.")
+    tooltip = models.CharField(max_length=255, null=False, blank=True, help_text="The text to show in the tooltip for this schedule.")
+    retention_years = models.IntegerField(null=False, blank=False, help_text="The number of years to retain reports with this schedule (following their closure). Set to 0 for permanent retention.")
+    da_number = models.CharField(max_length=255, null=False, blank=False, help_text="The disposition authority number for this schedule (assigned by NARA).")
+    is_retired = models.BooleanField(default=False, null=False, help_text="Whether this schedule is no longer active (show as a retired / expired schedule)")
+
+    def __str__(self):
+        return self.name
+
+
 # NOTE: If you add fields to report, they'll automatically be set to empty on the edit form. Make sure to address any additions in ReportEditForm as well!
 class Report(models.Model):
     PRIMARY_COMPLAINT_DEPENDENT_FIELDS = {
@@ -352,6 +371,9 @@ class Report(models.Model):
     # referrals
     referred = models.BooleanField(default=False)
     referral_section = models.TextField(choices=SECTION_CHOICES, blank=True)
+
+    litigation_hold = models.BooleanField(default=False)
+    retention_schedule = models.ForeignKey(RetentionSchedule, blank=True, null=True, related_name="reports", on_delete=models.SET_NULL)
 
     violation_summary_search_vector = SearchVectorField(null=True, editable=False)
 

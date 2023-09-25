@@ -23,7 +23,7 @@ from .filters import get_report_filter_from_search
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
-                     JudicialDistrict, RoutingSection, RoutingStepOneContact,
+                     JudicialDistrict, RetentionSchedule, RoutingSection, RoutingStepOneContact,
                      VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch)
 from .signals import get_client_ip
 
@@ -393,6 +393,12 @@ def export_templates_as_zip(modeladmin, request, queryset):
 export_templates_as_zip.allowed_permissions = ('view',)  # noqa
 
 
+class RetentionScheduleAdmin(admin.ModelAdmin):
+    list_display = ['name', 'da_number', 'is_retired', 'order', 'tooltip']
+    search_fields = ['name', 'da_number']
+    ordering = ['order']
+
+
 class ResponseTemplateAdmin(admin.ModelAdmin):
     class Media:
         js = ('js/response_template_preview.js',)
@@ -463,6 +469,7 @@ admin.site.register(ReferralContact, ReferralContactAdmin)
 admin.site.register(BannerMessage, BannerMessageAdmin)
 admin.site.register(RoutingStepOneContact, RoutingStepOneContactAdmin)
 admin.site.register(SavedSearch, SavedSearchAdmin)
+admin.site.register(RetentionSchedule, RetentionScheduleAdmin)
 
 # Activity stream already registers an Admin for Action, we want to replace it
 admin.site.unregister(Action)

@@ -115,6 +115,12 @@
 </div>
 {% endblock footer_extra %}
 
+{% block usa_footer %}
+{% with show_omb=True %}
+{{ block.super }}
+{% endwith %}
+{% endblock %}
+
 {% block page_js %}
 <script src="{% static 'js/disable_submit_button.min.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
@@ -133,6 +139,7 @@
 <script src="{% static 'js/modal.min.js' %}"></script>
 <script src="{% static 'js/unsupported_browsers.min.js' %}"></script>
 <script src="{% static 'js/contact_info_confirmation_modal.min.js' %}"></script>
+<script src="{% static 'js/omb.min.js' %}"></script>
     <script nonce="{{request.csp_nonce}}">
   (function(root) {
     if (root.CRT.isUnsupportedBrowser()) {
