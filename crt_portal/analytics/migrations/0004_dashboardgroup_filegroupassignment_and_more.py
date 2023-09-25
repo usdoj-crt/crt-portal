@@ -2,6 +2,8 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
+
+
 class Migration(migrations.Migration):
     dependencies = [
         ('cts_forms', '0179_delete_dashboardembed'),
