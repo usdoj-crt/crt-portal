@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% get_current_language as LANGUAGE_CODE %}
-
+{% load banner_message %}
 
 {% block page_title %}
   <title>{% trans "Submission complete" %}</title>
@@ -10,6 +10,7 @@
 {% block body_class %}class="confirmation-page"{% endblock %}
 
 {% block page_header %}
+{% banner_message %}
 <header class="crt-form-header">
   <div class="grid-container">
     <div class="grid-row grid-gap flex-child">
