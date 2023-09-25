@@ -1,10 +1,10 @@
 {% load i18n %}
 
 <div id="external-link--modal" hidden>
-  <div class="modal-wrapper" role="dialog" aria-modal="true" aria-describedby="modal_dialog_header">
+  <div class="modal-wrapper" role="dialog" aria-modal="true" aria-describedby="leaving_modal_dialog_header">
     <div class="modal-content modal-content--small">
       <div class="modal-header">
-        <h1 id="modal_dialog_header" class="h2__display margin-0">
+        <h1 id="leaving_modal_dialog_header" class="h2__display margin-0">
           {% trans "You are now leaving the Department of Justice website." %}
         </h1>
       </div>
@@ -20,10 +20,10 @@
         <div class="modal-footer">
           <ul class="usa-button-group">
             <li class="usa-button-group__item">
-              <a id="external-link--cancel" href="#" class="usa-button usa-button--outline">{% trans "Back" %}</a>
+              <a class="external-link--cancel" href="#" class="usa-button usa-button--outline">{% trans "Back" %}</a>
             </li>
             <li class="usa-button-group__item">
-              <a id="external-link--continue" href="#" class="usa-button button--continue">{% trans "Continue" %}</a>
+              <a class="external-link--continue" href="#" class="usa-button button--continue">{% trans "Continue" %}</a>
             </li>
           </ul>
         </div>

@@ -1,0 +1,11 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block controls %}litigation_hold{% endblock %}
+{% block label %}{{ form.litigation_hold.label }}{% endblock %}
+{% block id %}litigation_hold{% endblock %}
+
+{% block content %}
+  <div id="litigation_hold-filter" class="multicheckboxes-container multicheckboxes-yesno">
+    {{ form.litigation_hold }}
+  </div>
+{% endblock %}

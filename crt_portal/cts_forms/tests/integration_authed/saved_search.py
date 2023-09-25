@@ -6,7 +6,6 @@ from cts_forms.tests.integration_util import console, admin_models, element
 
 @pytest.mark.only_browser("chromium")
 @console.raise_errors(ignore='404')
-@pytest.mark.boop
 def test_auto_close(page):
     login_as_superuser(page)
 
@@ -55,7 +54,6 @@ def test_auto_close(page):
 
 
 @pytest.mark.only_browser("chromium")
-@pytest.mark.boop
 @console.raise_errors(ignore='404')
 def test_auto_reroute(page):
     login_as_superuser(page)

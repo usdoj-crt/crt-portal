@@ -402,6 +402,27 @@ This must be run whenever postgres is re-created / re-staged:
 ./sync-jupyter-db.sh
 ```
 
+## Scheduling Notebooks to Run
+
+Jupyter notebooks can be scheduled to run using the jupyterhub/schedules.json file.
+
+This file expects a list of entries in the following format:
+
+```json
+[
+    {
+        "path": "assignments/intake-dashboard/total_complaints.ipynb",
+        "last_executed": "2023-09-15T15:28:00.984824",
+        "interval": {"days": 2},
+    }
+]
+```
+
+Where:
+
+- `path` is the path to the notebook relative to the `jupyterhub/` directory
+- `last_executed` can be left blank (this will be updated after each run)
+- `interval` will be unpacked to the constructor of datetime.timedelta. Note that the interval is limited by the frequency at which the circleci/config.yml task (`periodic-tasks-jupyter-*` is run.
 
 ## Response templates
 

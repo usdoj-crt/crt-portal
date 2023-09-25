@@ -40,6 +40,10 @@
       {% if ENABLED_FEATURES.dj_number %}
         {% include 'forms/complaint_view/index/filters/dj_number.html' %}
       {% endif %}
+      {% if ENABLED_FEATURES.disposition %}
+        {% include 'forms/complaint_view/index/filters/litigation_hold.html' %}
+        {% include 'forms/complaint_view/index/filters/retention_schedule.html' %}
+      {% endif %}
     </div>
     <div class="grid-row flex-wrap flex-justify flex-align-end padding-bottom-5 border-gray-50 border-bottom">
       <div class="grid-col flex-3">
