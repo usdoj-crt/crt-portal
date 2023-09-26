@@ -338,11 +338,11 @@ jobs:
           command: cf8 login -u ${CRT_USERNAME_STAGE} -p ${CRT_PASSWORD_STAGE} -o doj-crtportal -s ${CF_SPACE}
       - run:
           name: Deploy clamav-rest to staging
-          command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
+          command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST} | sed 's/.*/Use cf logs to view build information/'
       - run:
           name: Deploy crt-portal-django to staging
           no_output_timeout: 20m
-          command: cf8 push crt-portal-django --strategy rolling --app-start-timeout 180 -f ${CF_MANIFEST}
+          command: cf8 push crt-portal-django --strategy rolling --app-start-timeout 180 -f ${CF_MANIFEST} | sed 's/.*/Use cf logs to view build information/'
 
   deploy-prod:
     working_directory: ~/code
@@ -398,11 +398,11 @@ jobs:
           command: cf8 login -u ${CRT_USERNAME_PROD} -p ${CRT_PASSWORD_PROD} -o doj-crtportal -s ${CF_SPACE}
       - run:
           name: Deploy clamav-rest to production
-          command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
+          command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST} | sed 's/.*/Use cf logs to view build information/'
       - run:
           name: Deploy crt-portal-django to production
           no_output_timeout: 20m
-          command: cf8 push crt-portal-django --strategy rolling --app-start-timeout 180 -f ${CF_MANIFEST}
+          command: cf8 push crt-portal-django --strategy rolling --app-start-timeout 180 -f ${CF_MANIFEST} | sed 's/.*/Use cf logs to view build information/'
 
   prod-maintenance-tasks:
     docker:
@@ -587,9 +587,11 @@ workflows:
               only: master
 
       - deploy-dev:
+          requires:
+            - build_and_test
           filters:
             branches:
-              only: kk/cicd-logs
+              only: develop
 
       - deploy-stage:
           requires:
