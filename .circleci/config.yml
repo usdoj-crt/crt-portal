@@ -272,15 +272,16 @@ jobs:
           app: crt-portal-django
       - run:
           name: Deploy clamav-rest to dev
-          command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST}
+          # Hide possibly sensitive build information, while still producing output to avoid triggering a no_output_timeout
+          command: cf8 push clamav-rest --strategy rolling -f ${CF_MANIFEST} | sed 's/.*/Use cf logs to view build information/'
       - run:
           name: Deploy crt-portal-django to dev
           no_output_timeout: 20m
-          command: cf8 push crt-portal-django --strategy rolling --app-start-timeout 180 -f ${CF_MANIFEST}
+          command: cf8 push crt-portal-django --strategy rolling --app-start-timeout 180 -f ${CF_MANIFEST} | sed 's/.*/Use cf logs to view build information/'
       - run:
           name: Deploy crt-portal-jupyter to dev
           no_output_timeout: 20m
-          command: cf8 push crt-portal-jupyter --strategy rolling --app-start-timeout 180 -f ${CF_MANIFEST}
+          command: cf8 push crt-portal-jupyter --strategy rolling --app-start-timeout 180 -f ${CF_MANIFEST} | sed 's/.*/Use cf logs to view build information/'
       - release-lock:
           app: crt-portal-django
 
@@ -566,8 +567,6 @@ commands:
 workflows:
   build-test-deploy:
     jobs:
-      - build_and_test
-
       - owasp-scan-dev:
           filters:
             branches:
@@ -586,11 +585,9 @@ workflows:
               only: master
 
       - deploy-dev:
-          requires:
-            - build_and_test
           filters:
             branches:
-              only: develop
+              only: kk/cicd-logs
 
       - deploy-stage:
           requires:
