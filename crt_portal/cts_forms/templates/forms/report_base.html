@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load banner_message %}
 {% load i18n %}
 
 {% block page_title %}
@@ -18,6 +19,8 @@
 {% endblock %}
 
 {% block page_header %}
+  {% banner_message %}
+
   {% trans "Contact the Department of Justice to report a civil rights violation" as intro_text %}
   {% include 'forms/portal/header.html' with intro_text=intro_text %}
 {% endblock %}

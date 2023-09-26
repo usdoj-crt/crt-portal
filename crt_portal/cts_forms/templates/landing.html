@@ -68,14 +68,13 @@
 
     </div>
   </header>
+  {% banner_message %}
 {% endblock %}
 
 {% block main_class %} class="margin-top-0 margin-bottom-0"{% endblock %}
 
 {% block content %}
-
   {% voting_banner as votbanner %}
-  {% banner_message %}
   {% if votbanner == 'True' %}
   <!-- display only when voting toggle is on -->
       {% include "partials/important_message_voting.html" %}
