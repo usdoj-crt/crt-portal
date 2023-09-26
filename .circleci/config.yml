@@ -567,6 +567,8 @@ commands:
 workflows:
   build-test-deploy:
     jobs:
+      - build_and_test
+
       - owasp-scan-dev:
           filters:
             branches:
