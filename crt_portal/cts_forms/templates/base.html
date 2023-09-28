@@ -111,7 +111,6 @@
     {% endif %}
 
     {% block page_header %}{% endblock %}
-
     <main id="main-content" {% block main_class %}{% endblock %}>
       {% block content %} {% endblock %}
     </main>
@@ -136,7 +135,7 @@
             </div>
           </div>
         </div>
-      {% include "partials/footer.html" %}
+      {% include "partials/footer.html" with show_omb=show_omb %}
       </div>
 
       {% block footer_extra %}

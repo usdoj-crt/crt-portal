@@ -1,0 +1,23 @@
+[
+  {
+    "interval": {
+      "hours": 1
+    },
+    "last_executed": "2023-09-15T19:03:34.362762",
+    "path": "assignments/intake-dashboard/total_complaints.ipynb"
+  },
+  {
+    "interval": {
+      "hours": 1
+    },
+    "last_executed": "2023-09-15T19:03:42.499914",
+    "path": "assignments/intake-dashboard/only_for_adm.ipynb"
+  },
+  {
+    "interval": {
+      "hours": 1
+    },
+    "last_executed": "2023-09-15T19:03:50.688017",
+    "path": "assignments/intake-dashboard/assignable.ipynb"
+  }
+]

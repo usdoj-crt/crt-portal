@@ -3,7 +3,7 @@
   var modal_el = document.getElementById('external-link--modal');
   var span = document.getElementById('external-link--address');
   var links = document.querySelectorAll('.external-link--popup');
-  var continue_button = document.getElementById('external-link--continue');
+  var continue_button = modal_el.querySelector('.external-link--continue');
   var redirect;
   for (var i = 0; i < links.length; i++) {
     var link = links[i];
@@ -30,6 +30,6 @@
       };
     };
   }
-  var cancel_modal = document.getElementById('external-link--cancel');
+  const cancel_modal = modal_el.querySelector('.external-link--cancel');
   root.CRT.cancelModal(modal_el, cancel_modal);
 })(window);

@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load banner_message %}
 
 {% block page_header %}
-<header class="confirmation-header crt-landing--blue padding-bottom-10">
+{% banner_message %}
+<header class="padding-top-2 confirmation-header crt-landing--blue padding-bottom-10">
   <div class="grid-container">
     <div class="grid-row grid-gap flex-child">
       <div class="tablet:grid-col-9 tablet:grid-offset-1">

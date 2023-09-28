@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load banner_message %}
 {% load i18n %}
 
 {% block page_title %}
@@ -18,6 +19,8 @@
 {% endblock %}
 
 {% block page_header %}
+  {% banner_message %}
+
   {% trans "Contact the Department of Justice to report a civil rights violation" as intro_text %}
   {% include 'forms/portal/header.html' with intro_text=intro_text %}
 {% endblock %}
@@ -115,6 +118,12 @@
 </div>
 {% endblock footer_extra %}
 
+{% block usa_footer %}
+{% with show_omb=True %}
+{{ block.super }}
+{% endwith %}
+{% endblock %}
+
 {% block page_js %}
 <script src="{% static 'js/disable_submit_button.min.js' %}"></script>
 <script nonce="{{request.csp_nonce}}">
@@ -133,6 +142,7 @@
 <script src="{% static 'js/modal.min.js' %}"></script>
 <script src="{% static 'js/unsupported_browsers.min.js' %}"></script>
 <script src="{% static 'js/contact_info_confirmation_modal.min.js' %}"></script>
+<script src="{% static 'js/omb.min.js' %}"></script>
     <script nonce="{{request.csp_nonce}}">
   (function(root) {
     if (root.CRT.isUnsupportedBrowser()) {
