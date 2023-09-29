@@ -324,7 +324,7 @@ class ReportAttachmentTests(TestCase):
 
         # we should reply with a redirect to a presigned s3 url
         if (response.status_code == 200):
-            return self.skipTest('localstack is disabled, but attachments work')
+            return self.skipTest('attachments work')
 
         self.assertEqual(response.status_code, 302)
         # the presigned url should target the private S3 bucket

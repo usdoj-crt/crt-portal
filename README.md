@@ -419,7 +419,7 @@ Please keep in mind that the quality of tests is more important than the quantit
 
 That will create a file locally that tells your machine to not load zip codes on migration. These are not needed for tests and take a while.
 
-Another way to have a speedier experience locally is to not run local stack and ClamAV unless you are testing attachment uploads or email.
+Another way to have a speedier experience locally is to not run ClamAV unless you are testing attachment uploads or email.
 
 ### Accessibility test
 For accessibility testing with Pa11y, we generally want a test on each unique view. You can run Pa11y locally, _if you have npm installed locally_:
