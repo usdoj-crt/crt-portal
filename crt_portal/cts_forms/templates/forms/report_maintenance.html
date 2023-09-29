@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 {% load i18n %}
+{% load banner_message %}
 
 {% block page_header %}
+{% banner_message %}
 <header class="confirmation-header crt-landing--blue padding-bottom-10">
   <div class="grid-container">
     <div class="grid-row grid-gap flex-child">
@@ -26,47 +28,17 @@
       <div class="crt-error-card">
         <div class="crt-error-card__content">
           <div class="display-flex flex-column padding-bottom-3">
-            <h1 class=".h1__display">{% trans 'This page is currently down for maintenance.' %}</h1>
-            <span>{% trans 'We expect to be back shortly. We recommend checking back to report a civil rights violation.' %}</span>
-          </div>
-          <h2 class="error-subheading">{% trans 'If you need to contact us immediately, you can reach us by:' %}</h2>
-          <div class="crt-error-box">
-            <img src="{% static "img/at-sign.svg" %}" alt="Email" />
-            <span>
-              <ul>
-                <li>{% trans 'Email' %} : <a href="mailto:Ask.CRT@usdoj.gov">ask.CRT@usdoj.gov</a></li>
-              </ul>
-            </span>
-          </div>
-          <div class="crt-error-box">
-            <img src="{% static "img/phone_70.svg" %}" alt='Phone' />
-            <span class="display-flex flex-column">
-              <ul>
-                <li><a href="tel:202-514-3847">(202) 514-3847</a></li>
-                <li><a href="tel:1-855-856-1247">1-855-856-1247</a> {% trans '(toll-free)' %}</li>
-                <li>{% trans 'Telephone Device for the Deaf' %}</li>
-                <li>{% trans '(TTY)' %} <a href="tel:202-514-0716">(202) 514-0716</a></li>
-              </ul>
-            </span>
-          </div>
-          <div class="crt-error-box">
-            <img src="{% static "img/mail_70.svg" %}" alt="Mail" />
-            <span class="display-flex flex-column">
-              <ul>
-                <li>U.S. Department of Justice</li>
-                <li>Civil Rights Division</li>
-                <li>950 Pennsylvania Avenue, NW</li>
-                <li>Washington, D.C. 20530-0001</li>
-              </ul>
-            </span>
-          </div>
-          <h2 class="error-subheading">{% trans 'Other information' %}</h2>
-          <p><a
-              href="https://civilrights.justice.gov/#about-the-division">{% trans 'About the Civil Rights Division' %}</a>
+            <h1 class=".h1__display">This page is unavailable.</h1>
+            <p>The appropriation that funds the salaries of staff who support the Civil Rights Reporting Portal has lapsed. As a result, the staff is furloughed and is not available to support the Civil Rights Reporting Portal. The Civil Rights Reporting Portal is currently not receiving new reports. We will reopen the Civil Rights Reporting Portal as soon as funding is restored.</p>
             <p>
-              <p>
-                {% trans 'If you or someone else is in immediate danger, <a href="tel:911">please call 911 or local police.</a>' %}
-              </p>
+              If you or someone else is in immediate danger, <a href="tel:911">please call 911</a> or local police.
+            </p>
+            <p>
+              If you are reporting misconduct by law enforcement or believe you have experienced a hate crime, please <a href="https://www.fbi.gov/contact-us">contact the FBI</a>.
+            </p>
+            <p>
+              Please refer to the <a href="https://www.justice.gov/jmd/page/file/1015676/download">Department of Justice’s contingency plan</a>  for more information.
+            </p>
         </div>
       </div>
     </div>

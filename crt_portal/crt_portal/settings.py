@@ -35,7 +35,7 @@ USE_LOCALSTACK = os.environ.get('USE_LOCALSTACK', 'False')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
 ENABLE_DEBUG_TOOLBAR = os.environ.get('ENABLE_DEBUG_TOOLBAR', False)
-MAINTENANCE_MODE = os.environ.get('MAINTENANCE_MODE', False)
+MAINTENANCE_MODE = True
 VOTING_MODE = os.environ.get('VOTING_MODE', False)
 
 
