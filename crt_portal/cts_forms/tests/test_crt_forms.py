@@ -145,8 +145,12 @@ class ActionTests(TestCase):
 
         self.assertCountEqual(form.get_actions(), [])
 
-    def test_litigation_hold(self):
+    def test_litigation_hold_turns_on(self):
+        instance = Report.objects.create(**SAMPLE_REPORT_1,
+                                         public_id='foo',
+                                         litigation_hold=False)
         form = ComplaintActions(
+            instance=instance,
             initial=self.initial_values,
             data={
                 **self.initial_values,
@@ -161,7 +165,9 @@ class ActionTests(TestCase):
         ])
 
     def test_litigation_hold_blocks_single_edits(self):
+        instance = Report.objects.create(**SAMPLE_REPORT_1, litigation_hold=True)
         form = ComplaintActions(
+            instance=instance,
             initial={
                 **self.initial_values,
                 'litigation_hold': True,
@@ -172,11 +178,10 @@ class ActionTests(TestCase):
                 'assigned_section': 'APP',
             }
         )
-        form.instance.public_id = 'foo'
 
         self.assertIn(
             form.errors.get('__all__', ['Error not present'])[0],
-            'No changes can be made to report foo while it is under litigation hold'
+            f'No changes can be made to report {instance.public_id} while it is under litigation hold'
         )
 
     def test_litigation_hold_blocks_for_all_forms(self):
@@ -229,8 +234,8 @@ class ActionTests(TestCase):
             }
         )
 
-        self.assertEqual(hold_off_and_unchanged.errors, [])
-        self.assertEqual(hold_on_and_changed.errors, [])
+        self.assertEqual(hold_off_and_unchanged.errors, {})
+        self.assertEqual(hold_on_and_changed.errors, {})
 
     def test_litigation_hold_blocks_bulk_edits(self):
         a = Report.objects.create(**SAMPLE_REPORT_1, public_id='a', litigation_hold=True)

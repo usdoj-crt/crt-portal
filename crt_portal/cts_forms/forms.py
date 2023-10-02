@@ -120,7 +120,7 @@ class LitigationHoldLock(object):
         if hasattr(self, 'instance'):
             bad_ids = (
                 [self.instance.public_id]
-                if self.initial.get('litigation_hold', False)
+                if self.instance.litigation_hold
                 else []
             )
         elif hasattr(self, 'queryset'):
