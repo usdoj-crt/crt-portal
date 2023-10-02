@@ -940,7 +940,7 @@ class ActionsView(LoginRequiredMixin, FormView):
                     target = ':'
                 else:
                     target = f' {key}:'
-                error_message = f'Could not bulk update {target}: {errors}'
+                error_message = f'Could not bulk update{target} {errors}'
                 messages.add_message(request, messages.ERROR, error_message)
 
             all_ids_count = requested_query.count()
