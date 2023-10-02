@@ -770,7 +770,7 @@ class ShowView(LoginRequiredMixin, View):
 
             if not form.is_valid():
                 error_items = ''.join([
-                    f'<li>{field} {form.cleaned_data.get(field)}: {error}</li>'
+                    f'<li>Problem modifying {field if field != "__all__" else "report"}: {error}</li>'
                     for field, error
                     in form.errors.items()
                 ])

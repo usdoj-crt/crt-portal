@@ -18,7 +18,7 @@ from django.utils.http import urlencode
 from datetime import datetime
 from cts_forms.mail import render_complainant_mail, render_agency_mail
 
-from ..forms import BulkActionsForm, ComplaintActions, Filters, ReportEditForm
+from ..forms import BulkActionsForm, ComplaintActions, ComplaintOutreach, ContactEditForm, Filters, ReportEditForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, NEW_STATUS
 from ..models import CommentAndSummary, ReferralContact, Report, ResponseTemplate, EmailReportCount, RetentionSchedule
 from .factories import ReportFactory
@@ -159,6 +159,95 @@ class ActionTests(TestCase):
         self.assertCountEqual(form.get_actions(), [
             ('Litigation hold:', 'Updated from "False" to "True"'),
         ])
+
+    def test_litigation_hold_blocks_single_edits(self):
+        form = ComplaintActions(
+            initial={
+                **self.initial_values,
+                'litigation_hold': True,
+            },
+            data={
+                **self.initial_values,
+                'litigation_hold': True,
+                'assigned_section': 'APP',
+            }
+        )
+        form.instance.public_id = 'foo'
+
+        self.assertIn(
+            form.errors.get('__all__', ['Error not present'])[0],
+            'No changes can be made to report foo while it is under litigation hold'
+        )
+
+    def test_litigation_hold_blocks_for_all_forms(self):
+        instance = Report.objects.create(**SAMPLE_REPORT_1,
+                                         public_id='foo',
+                                         litigation_hold=True)
+        forms_and_changes = [
+            (ComplaintActions, {'assigned_section': 'APP'}),
+            (ComplaintOutreach, {'origination_utm_content': 'foo'}),
+            (ContactEditForm, {'contact_first_name': 'foo'}),
+            (ReportEditForm, {'primary_complaint': 'workplace'}),
+        ]
+
+        errors = []
+        for factory, changes in forms_and_changes:
+            factory = factory(
+                instance=instance,
+                initial=self.initial_values,
+                data={
+                    **self.initial_values,
+                    **changes,
+                }
+            )
+            factory.instance.public_id = 'foo'
+            if factory.errors:
+                errors.append((factory.__class__.__name__, factory.errors))
+
+        self.assertEqual(errors, [])
+
+    def test_litigation_hold_off_allows_edits(self):
+        hold_off_and_unchanged = ComplaintActions(
+            initial={
+                **self.initial_values,
+                'litigation_hold': False,
+            },
+            data={
+                **self.initial_values,
+                'assigned_section': 'APP',
+            }
+        )
+        hold_on_and_changed = ComplaintActions(
+            initial={
+                **self.initial_values,
+                'litigation_hold': False,
+            },
+            data={
+                **self.initial_values,
+                'assigned_section': 'APP',
+                'litigation_hold': True,
+            }
+        )
+
+        self.assertEqual(hold_off_and_unchanged.errors, [])
+        self.assertEqual(hold_on_and_changed.errors, [])
+
+    def test_litigation_hold_blocks_bulk_edits(self):
+        a = Report.objects.create(**SAMPLE_REPORT_1, public_id='a', litigation_hold=True)
+        b = Report.objects.create(**SAMPLE_REPORT_1, public_id='b', litigation_hold=True)
+        c = Report.objects.create(**SAMPLE_REPORT_1, public_id='c')
+
+        queryset = Report.objects.all().filter(pk__in=[a.pk, b.pk, c.pk])
+
+        form = BulkActionsForm(queryset, {
+            'assigned_section': 'APP',
+            'comment': 'Test bulk change',
+        })
+
+        self.assertIn(
+            form.errors.get('__all__', ['Error not present'])[0],
+            'No changes can be made to reports a, b while they are under litigation hold'
+        )
 
     def test_referral(self):
         form = ComplaintActions(
