@@ -25,13 +25,17 @@ applications:
   - crt-s3
   - sso-creds
   - VCAP_SERVICES
+- name: clamav-server
+  docker:
+    image: mkodockx/docker-clamav:alpine
 - name: clamav-rest
   instances: 1
   memory: 4G
   env:
     MAX_FILE_SIZE: 100M
     SIGNATURE_CHECKS: 8
+    CLAMD_HOST: clamav-server
   docker:
-    image: ajilaag/clamav-rest:20230729 # ##20230520
+    image: lokori/clamav-rest:latest
   routes:
   - route: clamav-rest-prod.apps.internal

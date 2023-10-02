@@ -55,7 +55,7 @@ WEB_PORT=8000
 JUPYTER_PORT=8001
 MAILHOG_SMTP_PORT=1025
 MAILHOG_UI_PORT=8025
-CLAMAV_REST_PORT=9000
+CLAMAV_REST_PORT=8080
 ```
 
 To run the project
@@ -562,7 +562,7 @@ A [network policy](https://docs.cloudfoundry.org/devguide/deploy-apps/cf-network
 
 Direct traffic from the portal to the ClamAV REST API:
 
-    cf add-network-policy crt-portal-django --destination-app clamav-rest --protocol tcp --port 9000
+    cf add-network-policy crt-portal-django --destination-app clamav-rest --protocol tcp --port 8080
 
     cf add-network-policy crt-portal-django --destination-app clamav-rest --protocol tcp --port 9443
 
