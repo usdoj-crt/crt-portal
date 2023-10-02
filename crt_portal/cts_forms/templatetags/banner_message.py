@@ -6,9 +6,20 @@ from ..models import BannerMessage
 
 register = template.Library()
 
+DONT_SHOW_ON_ROUTES = [
+    '/form/',
+    '/admin/',
+    '/accounts/',
+]
 
-@register.simple_tag
-def banner_message():
+
+@register.simple_tag(takes_context=True)
+def banner_message(context):
+    request = context.get('request', None)
+    for route in DONT_SHOW_ON_ROUTES:
+        if request and request.path.startswith(route):
+            return ''
+
     banners = [
         render_to_string('partials/banner_message.html', {'message': message})
         for message in
