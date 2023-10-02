@@ -114,9 +114,9 @@ class LitigationHoldLock(object):
     """Prevents updates to ModelForms with litigation hold set."""
 
     def clean(self, *args, **kwargs):
-        super(LitigationHoldLock, self).clean(*args, **kwargs)
+        superclean = super(LitigationHoldLock, self).clean(*args, **kwargs)
         if self.cleaned_data.get('litigation_hold') is False:
-            return
+            return superclean
         if hasattr(self, 'instance'):
             bad_ids = (
                 [self.instance.public_id]
@@ -129,7 +129,7 @@ class LitigationHoldLock(object):
             raise ValidationError('Litigation hold lock requires either instance or queryset')
 
         if not bad_ids:
-            return
+            return superclean
 
         readable_ids = ', '.join(str(id) for id in bad_ids)
         readable_target = (
