@@ -1,4 +1,5 @@
 from datetime import datetime
+import random
 import uuid
 
 from django.db import models
@@ -50,11 +51,24 @@ class TMSEmail(models.Model):
             latest_id = cls.objects.latest('tms_id').tms_id + 1
         except cls.DoesNotExist:
             latest_id = 1
+
+        status = random.choice([choice[0] for choice in cls.STATUS_CHOICES])
+
+        error_message = None
+        if status == cls.FAILED:
+            error_message = 'This is a fake error message'
+
+        completed_at = None
+        if status == cls.SENT:
+            completed_at = datetime.now()
+
         return cls(tms_id=latest_id,
                    recipient=report.contact_email,
                    report=report,
                    created_at=datetime.now(),
-                   status='FAKE_DEVELOPMENT_SEND',
+                   completed_at=completed_at,
+                   status=status,
+                   error_message=error_message,
                    **kwargs)
 
     @property

@@ -151,7 +151,6 @@ class AdminMessageView(LoginRequiredMixin, View):
     http_method_names = ['get']
     WEBHOOK_ENDPOINT = "/messages/email"
 
-    @method_decorator(staff_member_required)
     def get(self, request, tms_id):
         if not tms_id:
             return render(request, 'email_admin.html', {'data': 'need an email id'})
