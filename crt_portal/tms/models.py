@@ -52,7 +52,7 @@ class TMSEmail(models.Model):
         except cls.DoesNotExist:
             latest_id = 1
 
-        status = random.choice([choice[0] for choice in cls.STATUS_CHOICES])
+        status = random.choice([choice[0] for choice in cls.STATUS_CHOICES])  # nosec
 
         error_message = None
         if status == cls.FAILED:
