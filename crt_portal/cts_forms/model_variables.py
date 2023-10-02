@@ -438,6 +438,7 @@ RETENTION_SCHEDULE_CHOICES = (
     ('3 Year', _('3 Year')),
     ('10 Year', _('10 Year')),
     ('Permanent', _('Permanent')),
+    ('(none)', _('None set')),
 )
 
 STATES_AND_TERRITORIES = (
