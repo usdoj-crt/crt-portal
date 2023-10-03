@@ -1376,7 +1376,11 @@ class Filters(ModelForm):
     retention_schedule = MultipleChoiceField(
         required=False,
         label='Retention schedule',
-        choices=RETENTION_SCHEDULE_CHOICES,
+        choices=[
+            ('', ''),  # Default choice: empty (include everything)
+            ('(none)', 'None'),  # Custom: No assigned campaign.
+            *RETENTION_SCHEDULE_CHOICES,
+        ],
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'retention_schedule',
         }),

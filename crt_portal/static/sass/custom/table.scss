@@ -230,14 +230,24 @@
 .status-new {
   @include u-bg('cyan-10v');
   color: color($theme-color-base-ink);
+  border-color: #a8f2ff;
 }
 
 .status-open {
   @include u-bg('green-cool-10v');
+  border-color: #b7f5bd;
 }
 
 .status-closed {
   background-color: color($theme-color-base-lighter);
+  border-color: color($theme-color-base-lighter);
+}
+
+.status-retention {
+  border-color: #162e51;
+  color: #162e51;
+  margin-left: 0.5em;
+  min-width: fit-content;
 }
 
 .status-tag {
@@ -245,6 +255,8 @@
   padding: 4px;
   padding-left: 10px;
   padding-right: 10px;
+  border-style: solid;
+  border-width: 2px;
   border-radius: 1.5rem;
   text-transform: uppercase;
 }

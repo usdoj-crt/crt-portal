@@ -4,6 +4,11 @@
     ID: {{ data.public_id }}
   </h2>
   <span class="status-tag status-{{data.status}} margin-top-05">{{ data.status }}</span>
+  {% if data.litigation_hold %}
+    <span class="status-tag status-retention margin-top-05">Litigation Hold</span>
+  {% elif data.retention_schedule %}
+    <span class="status-tag status-retention margin-top-05">{{ data.retention_schedule }}</span>
+  {% endif %}
 </div>
 <p>
   <span>
