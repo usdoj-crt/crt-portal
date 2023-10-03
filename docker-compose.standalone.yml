@@ -20,7 +20,7 @@ services:
     ports:
       - ${WEB_PORT:-}:8000
     environment:
-      - AV_SCAN_URL=http://clamav-rest:8080/scan
+      - AV_SCAN_URL=http://clamav-rest:9000/scan
       - POSTGRES_PASSWORD="passwordfortests"
       - JUPYTER_PORT=${JUPYTER_PORT:-8001}
     profiles: ["tests"]

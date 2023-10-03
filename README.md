@@ -562,7 +562,7 @@ A [network policy](https://docs.cloudfoundry.org/devguide/deploy-apps/cf-network
 
 Direct traffic from the portal to the ClamAV REST API:
 
-    cf add-network-policy crt-portal-django --destination-app clamav-rest --protocol tcp --port 8080
+    cf add-network-policy crt-portal-django --destination-app clamav-rest --protocol tcp --port 9000
 
     cf add-network-policy crt-portal-django --destination-app clamav-rest --protocol tcp --port 9443
 
