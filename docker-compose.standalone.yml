@@ -25,13 +25,9 @@ services:
       - JUPYTER_PORT=${JUPYTER_PORT:-8001}
     profiles: ["tests"]
 
-  clamav-server:
-    ports:
-      - 3310
-
   clamav-rest:
     ports:
-      - 8080
+      - 9000
     profiles: ["tests"]
 
   jupyter:

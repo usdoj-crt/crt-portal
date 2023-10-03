@@ -46,7 +46,7 @@ services:
       - FORM_AUTOCOMPLETE_OFF=False
       - AWS_ACCESS_KEY_ID=test
       - AWS_SECRET_ACCESS_KEY=test
-      - AV_SCAN_URL=http://clamav-rest:${CLAMAV_REST_PORT:-8080}/scan
+      - AV_SCAN_URL=http://clamav-rest:${CLAMAV_REST_PORT:-9000}/scan
     build: .
     command: /code/run.sh
     depends_on:
@@ -57,19 +57,12 @@ services:
     image: mailhog/mailhog
     # command: -invite-jim=1 -jim-accept=0.50  # uncomment to enable and configure Jim (Chaos Monkey)
 
-  clamav-server:
-    image: mkodockx/docker-clamav:alpine
-
   clamav-rest:
-    image: lokori/clamav-rest:latest
-    links:
-      - clamav-server
+    hostname: clamav-rest
+    image: ajilaag/clamav-rest:latest # ##20220511
     environment:
       - MAX_FILE_SIZE=100M
       - SIGNATURE_CHECKS=1
-      - CLAMD_HOST=clamav-server
-    ports:
-      - "8080:8080"
 
 volumes:
   postgres_data:

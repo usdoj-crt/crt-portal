@@ -24,19 +24,14 @@ applications:
   - crt-irplogdraindev
   - VCAP_SERVICES
 
-- name: clamav-server
-  docker:
-    image: mkodockx/docker-clamav:alpine
-
 - name: clamav-rest
   instances: 1
   memory: 3G
   env:
     MAX_FILE_SIZE: 100M
     SIGNATURE_CHECKS: 1
-    CLAMD_HOST: clamav-server
   docker:
-    image: lokori/clamav-rest:latest
+    image: ajilaag/clamav-rest:latest    # ##20220511
   routes:
   - route: clamav-rest-dev.apps.internal
 
