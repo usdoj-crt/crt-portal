@@ -2,6 +2,7 @@ import types
 from typing import List, Optional, Tuple
 import logging
 from django.forms.models import model_to_dict
+from django.http import HttpRequest
 import markdown
 from markdown.treeprocessors import Treeprocessor
 from markdown.extensions import Extension
@@ -13,7 +14,7 @@ from datetime import datetime
 from django.conf import settings
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from cts_forms.models import Report, ResponseTemplate
+from cts_forms.models import Report, ResponseTemplate, NotificationPreference
 from tms.models import TMSEmail
 
 logger = logging.getLogger(__name__)
@@ -111,7 +112,45 @@ def render_complainant_mail(*, report, template) -> Mail:
     )
 
 
-def send_tms(message: Mail, *, report: Report, purpose: str, dry_run: bool) -> List[int]:
+def _render_notification_mail(*,
+                              report: Optional[Report],
+                              template: ResponseTemplate,
+                              recipients: List[str],
+                              request: Optional[HttpRequest],
+                              **kwargs) -> Mail:
+
+    extra_context = {
+        'current_user': request.user if request else None,
+        'report': report,
+        **kwargs,
+    }
+
+    message = template.render_body(report, **extra_context)
+
+    md = markdown.markdown(message, extensions=['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension()])
+    html_message = render_to_string('email.html', {'content': md})
+
+    allowed_recipients = remove_disallowed_recipients(recipients)
+    notifiable_recipients = [
+        preference.user.email
+        for preference in
+        NotificationPreference.objects.filter(user__email__in=allowed_recipients)
+        if getattr(preference, template.title, False)
+    ]
+
+    disallowed_recipients = list(set(recipients) - set(notifiable_recipients))
+
+    subject = template.render_subject(report, **extra_context)
+    subject = f'[CRT Portal] {template.subject}'
+
+    return Mail(message=message,
+                html_message=html_message,
+                recipients=allowed_recipients,
+                disallowed_recipients=disallowed_recipients,
+                subject=subject)
+
+
+def send_tms(message: Mail, *, report: Optional[Report], purpose: str, dry_run: bool) -> List[int]:
     if settings.EMAIL_BACKEND != 'tms.backend.TMSEmailBackend':
         TMSEmail.create_fake(subject=message.subject,
                              body=message.message,
@@ -148,6 +187,28 @@ def send_tms(message: Mail, *, report: Report, purpose: str, dry_run: bool) -> L
              ).save()
 
     return send_results
+
+
+def maybe_notify(template_title: str,
+                 *,
+                 report: Optional[Report],
+                 recipients: List[str]):
+    """Sends a notification to an internal user, if they have the preference enabled."""
+    try:
+        template = ResponseTemplate.objects.get(title=template_title)
+    except ResponseTemplate.DoesNotExist as e:
+        raise ValueError(f'Cannot send notification (no template with title {template_title})') from e
+    message = _render_notification_mail(report=report,
+                                        template=template,
+                                        recipients=recipients)
+
+    suffix = f' about report {report.id}' if report else ''
+    logger.info(f'Notification ({template.title}) sent to {message.recipients}{suffix}')
+
+    send_tms(message,
+             report=report,
+             purpose=TMSEmail.NOTIFICATION,
+             dry_run=False)
 
 
 def mail_to_complainant(report, template, purpose=TMSEmail.MANUAL_EMAIL, dry_run=False, rendered=None):

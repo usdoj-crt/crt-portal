@@ -23,9 +23,11 @@ class TMSEmail(models.Model):
 
     AUTO_EMAIL = 'auto'
     MANUAL_EMAIL = 'manual'
+    NOTIFICATION = 'internal'
     PURPOSE_CHOICES = [
         (AUTO_EMAIL, 'Autoresponse'),
         (MANUAL_EMAIL, 'Manual response'),
+        (NOTIFICATION, 'Internal notification'),
     ]
 
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

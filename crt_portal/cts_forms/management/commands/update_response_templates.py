@@ -3,7 +3,7 @@ import frontmatter
 import yaml
 from django.conf import settings
 from django.core.management.base import BaseCommand
-from cts_forms.models import ResponseTemplate, ReferralContact
+from cts_forms.models import ResponseTemplate, ReferralContact, User, NotificationPreference
 
 
 class Command(BaseCommand):  # pragma: no cover
@@ -12,7 +12,7 @@ class Command(BaseCommand):  # pragma: no cover
     templates_dir = os.path.join(settings.BASE_DIR, 'cts_forms', 'response_templates')
     template_ids = []
 
-    def handle(self, *args, **options):
+    def update_templates(self, *args, **options):
         templates = os.scandir(self.templates_dir)
         environment = os.environ.get('ENV', 'UNDEFINED')
         for template in templates:
@@ -43,6 +43,7 @@ class Command(BaseCommand):  # pragma: no cover
                             'subject': content['subject'],
                             'language': content['language'],
                             'body': content,
+                            'is_notification': content.get('is_notification', False),
                         }
                     except KeyError as e:
                         self.stdout.write(self.style.ERROR(f'Response template {template.name} is missing required `{e.args[0]}` property. Skipping it!'))
@@ -62,13 +63,12 @@ class Command(BaseCommand):  # pragma: no cover
                     # Note: this does not catch errors or typos in values.
                     letter_data['is_html'] = content.get('is_html', False)
                     letter_data['is_user_created'] = False
+                    letter_data['show_in_dropdown'] = not letter_data['is_notification']
 
                     letter, created = ResponseTemplate.objects.update_or_create(title=letter_id, defaults=letter_data)
 
-                    if created:
-                        self.stdout.write(self.style.SUCCESS(f'Created response template: {letter.title}'))
-                    else:
-                        self.stdout.write(self.style.SUCCESS(f'Updated response template: {letter.title}'))
+                    verb = 'Created' if created else 'Updated'
+                    self.stdout.write(self.style.SUCCESS(f'{verb} response template: {letter.title}'))
 
         for object in ResponseTemplate.objects.filter(is_user_created=False).exclude(title__in=self.template_ids):
             letter_id = object.title
@@ -77,3 +77,11 @@ class Command(BaseCommand):  # pragma: no cover
             }
             letter = ResponseTemplate.objects.update_or_create(title=letter_id, defaults=letter_data)
             self.stdout.write(self.style.SUCCESS(f'Updated response template: {object.title}'))
+
+    def update_notification_preferences(self, *args, **options):
+        for user in User.objects.all():
+            NotificationPreference.objects.get_or_create(user=user)
+
+    def handle(self, *args, **options):
+        self.update_templates(*args, **options)
+        self.update_notification_preferences(*args, **options)

@@ -1,4 +1,5 @@
 """All models need to be added to signals.py for proper logging."""
+from typing import Optional
 import logging
 import time
 import uuid
@@ -59,6 +60,14 @@ def get_system_user():
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     intake_filters = models.TextField(max_length=500, blank=True)
+
+    def __str__(self):
+        return str(self.user)
+
+
+class NotificationPreference(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='notification_preference')
+    assigned_to = models.BooleanField('Notify user when they are assigned to a report', default=False)
 
     def __str__(self):
         return str(self.user)
@@ -703,6 +712,7 @@ class ResponseTemplate(models.Model):
     language = models.CharField(default='en', max_length=10, null=False, blank=False,)
     is_html = models.BooleanField('HTML email', default=False,)
     show_in_dropdown = models.BooleanField('Show in select template dropdown', default=True,)
+    is_notification = models.BooleanField('Only for use by notification systems', default=False,)
     is_user_created = models.BooleanField('Is user created', default=True,)
     referral_contact = models.ForeignKey(ReferralContact, blank=True, null=True, related_name="response_templates", on_delete=models.SET_NULL)
 
@@ -711,7 +721,7 @@ class ResponseTemplate(models.Model):
         local_dt = utc_dt.replace(tzinfo=pytz.utc).astimezone(local_tz)
         return local_tz.normalize(local_dt)
 
-    def available_report_fields(self, report):
+    def available_report_fields(self, report: Optional[Report]):
         """
         Only permit a small subset of report fields
         """
@@ -723,6 +733,11 @@ class ResponseTemplate(models.Model):
         section_choices_vi = dict(SECTION_CHOICES_VI)
         section_choices_zh_hans = dict(SECTION_CHOICES_ZH_HANS)
         section_choices_zh_hant = dict(SECTION_CHOICES_ZH_HANT)
+
+        if not report:
+            return Context({
+                'outgoing_date': format_date(today, locale='en_US'),
+            })
 
         # For ProForm reports, the date the report was received is more relevant than the create date, so
         # we use that when it is available
@@ -787,14 +802,16 @@ class ResponseTemplate(models.Model):
             },
         })
 
-    def render_subject(self, report):
+    def render_subject(self, report, **kwargs):
         template = Template(self.subject)
         context = self.available_report_fields(report)
+        context.update(kwargs)
         return escape(template.render(context))
 
-    def render_body(self, report):
+    def render_body(self, report, **kwargs):
         template = Template(self.body)
         context = self.available_report_fields(report)
+        context.update(kwargs)
         return escape(template.render(context))
 
     def __str__(self):
