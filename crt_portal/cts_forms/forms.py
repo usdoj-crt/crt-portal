@@ -110,6 +110,37 @@ def get_litigation_hold_widget():
     }),
 
 
+class LitigationHoldLock(object):
+    """Prevents updates to ModelForms with litigation hold set."""
+
+    def clean(self, *args, **kwargs):
+        superclean = super(LitigationHoldLock, self).clean(*args, **kwargs)
+        if self.cleaned_data.get('litigation_hold') is False:
+            return superclean
+        if hasattr(self, 'instance'):
+            bad_ids = (
+                [self.instance.public_id]
+                if self.instance.litigation_hold
+                else []
+            )
+        elif hasattr(self, 'queryset'):
+            bad_ids = self.queryset.filter(litigation_hold=True).values_list('public_id', flat=True)
+        else:
+            raise ValidationError('Litigation hold lock requires either instance or queryset')
+
+        if not bad_ids:
+            return superclean
+
+        readable_ids = ', '.join(str(id) for id in bad_ids)
+        readable_target = (
+            f'report {readable_ids} while it is'
+            if len(bad_ids) == 1
+            else f'reports {readable_ids} while they are'
+        )
+
+        raise ValidationError(f'No changes can be made to {readable_target} under litigation hold')
+
+
 class ActivityStreamUpdater(object):
     """Utility functions to update activity stream for all changed fields"""
 
@@ -1531,7 +1562,7 @@ class ResponseActions(Form):
         )
 
 
-class ComplaintActions(ModelForm, ActivityStreamUpdater):
+class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
     report_closed = False
     CONTEXT_KEY = 'actions'
     assigned_to = ModelChoiceField(
@@ -1749,7 +1780,7 @@ class ComplaintActions(ModelForm, ActivityStreamUpdater):
         return report
 
 
-class ComplaintOutreach(ModelForm, ActivityStreamUpdater):
+class ComplaintOutreach(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
     report_closed = False
     CONTEXT_KEY = 'outreach'
     origination_utm_campaign = ModelChoiceField(
@@ -1888,7 +1919,7 @@ class PrintActions(Form):
     )
 
 
-class BulkActionsForm(Form, ActivityStreamUpdater):
+class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
     EMPTY_CHOICE = 'Multiple'
     assigned_section = ChoiceField(
         label='Section',
@@ -1968,6 +1999,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
 
     def __init__(self, query, *args, **kwargs):
         Form.__init__(self, *args, **kwargs)
+        self.queryset = query
         # set initial values if applicable
         keys = ['assigned_section', 'status', 'primary_statute', 'district']
         for key, initial_value in BulkActionsForm.get_initial_values(query, keys):
@@ -2112,7 +2144,7 @@ class BulkActionsForm(Form, ActivityStreamUpdater):
         return updated_number or len(reports)  # sometimes only a comment is added
 
 
-class ContactEditForm(ModelForm, ActivityStreamUpdater):
+class ContactEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
     CONTEXT_KEY = 'contact_form'
     SUCCESS_MESSAGE = "Successfully updated contact information."
     FAIL_MESSAGE = "Failed to update contact details."
@@ -2174,7 +2206,7 @@ class ContactEditForm(ModelForm, ActivityStreamUpdater):
         return self.SUCCESS_MESSAGE
 
 
-class ReportEditForm(ProForm, ActivityStreamUpdater):
+class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
     CONTEXT_KEY = "details_form"
     FAIL_MESSAGE = "Failed to update complaint details."
     SUCCESS_MESSAGE = "Successfully updated complaint details."
