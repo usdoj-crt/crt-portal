@@ -33,7 +33,7 @@
         <p class="margin-y-1">
             <span class="status-tag status-{{status}} margin-top-05">{{ status }}</span>
         </p>
-        <table class="usa-table usa-table--borderless related-reports width-full">
+        <table class="usa-table usa-table--borderless card-table width-full">
             <tbody>
                 {% for report in reports %}
                     <tr>
@@ -43,7 +43,7 @@
                             {% if report.recent_email_sent %}
                             <span class="usa-tooltip" data-position="bottom" title="{{report.recent_email_sent}}">
                                 Letter sent
-                                <img src="{% static "img/ic_help-circle-dark.svg" %}" alt="More info" class="letter-sent-icon">
+                                <img src="{% static "img/ic_help-circle-dark.svg" %}" alt="More info" class="card-table-icon">
                             </span>
                             {% endif %}
                         </td>

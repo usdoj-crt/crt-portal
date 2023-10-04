@@ -1,0 +1,87 @@
+{% extends "forms/complaint_view/show/card.html" %}
+{% block title %}{{title}}{% endblock %}
+{% block extra_classes %}crt-responses-card{% endblock %}
+
+{% block icon %}
+  {% if icon|first == '#' %}
+    <svg class="icon" fill="#162e51" aria-hidden="true" focusable="false" role="img">
+      <use xlink:href="{% static 'img/sprite.svg' %}{{icon}}"></use>
+    </svg>
+  {% else %}
+    <img src="{% static icon %}" alt="" class="icon" />
+  {% endif %}
+{% endblock %}
+
+{% block card_content %}
+<div id="responses-info">
+  <small>
+      We have sent {{data.email_responses|length}} response{{ data.email_responses|length|pluralize }} to this report.
+  </small>
+</div>
+
+<table class="usa-table usa-table--borderless card-table width-full">
+  <thead>
+    <tr>
+      <th scope="col">TMS ID</th>
+      <th scope="col">Status</th>
+      <th scope="col">Drafted</th>
+      <th scope="col">Sent</th>
+      <th scope="col">Details</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {% for response in data.email_responses %}
+    <tr>
+      <td>
+        <a target="_blank" href="/email/admin/messages/{{response.tms_id}}">
+          {{response.tms_id}}
+        </a>
+      </td>
+      <td>
+        {{response.status|title}}
+        <span class="float-right">
+          <span class="usa-tooltip" data-position="right" title="{% spaceless %}
+            {% if response.status == 'new' %}
+              Response not yet sent, check back later
+            {% elif response.status == 'sending' %}
+              Attempting to send, check back later
+            {% elif response.status == 'sent' %}
+              Sent to complainant
+            {% elif response.status == 'failed' %}
+              Not sent to complainant (see detail)
+            {% elif response.status == 'inconclusive' %}
+              Possibly sent
+            {% endif %}
+          {% endspaceless %}">
+          <img src="/static/img/ic_help-circle-dark.svg?v=1696278647" alt="More info" class="card-table-icon">
+          </span>
+        </span>
+
+
+      </td>
+      <td>{{response.created_at|date:"SHORT_DATE_FORMAT"}}</td>
+      <td>{{response.completed_at|date:"SHORT_DATE_FORMAT"|default:"(Unsent)"}}</td>
+      <td>
+        {% if response.purpose == 'auto' %}
+        <span class="usa-tooltip" data-position="left" title="Automatic Reply">
+          <svg class="icon card-table-icon" fill="#162e51" aria-hidden="true" focusable="false" role="img">
+            <use xlink:href="{% static 'img/sprite.svg' %}#loop"></use>
+          </svg>
+        </span>
+        {% endif %}
+
+        {% if response.status == 'failed' %}
+        <span class="usa-tooltip" data-position="left" title="{{response.error_message|default:"This message failed to send"}}">
+          <svg class="icon card-table-icon" fill="#162e51" aria-hidden="true" focusable="false" role="img">
+            <use xlink:href="{% static 'img/sprite.svg' %}#error_outline"></use>
+          </svg>
+        </span>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

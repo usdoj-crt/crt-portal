@@ -124,13 +124,25 @@
   }
 }
 
-
 .crt-related-reports-card {
   max-height: 450px;
   overflow-y: scroll;
 }
 
-table.related-reports {
+.crt-responses-card {
+  max-height: 450px;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+.crt-responses-card table.card-table {
+  td:last-child {
+    padding-right: 0;
+    text-align: left;
+  }
+}
+
+table.card-table {
   font-size: 0.75rem;
   margin-top: 0px;
 
@@ -147,9 +159,10 @@ table.related-reports {
     text-align: right;
   }
 
-  .letter-sent-icon {
+  .card-table-icon {
     height: 1rem;
     min-width: 1rem;
+    max-width: 1rem;
     vertical-align: text-bottom;
     margin-left: 0.15rem;
   }
@@ -158,7 +171,7 @@ table.related-reports {
 table.attachments-table {
   font-size: 0.75rem;
   margin-top: 0px;
-  
+
   th:first-child {
     padding-left: 1rem;
   }

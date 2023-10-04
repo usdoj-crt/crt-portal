@@ -551,6 +551,18 @@ class Report(models.Model):
         return Report.objects.exclude(contact_email__isnull=True).filter(contact_email__iexact=self.contact_email).order_by('status', '-create_date')[:1000]
 
     @cached_property
+    def email_responses(self):
+        """Populate data showing responses we've sent and their status."""
+        return list(self.emails.all().order_by('-created_at').values(
+            'completed_at',
+            'created_at',
+            'error_message',
+            'purpose',
+            'status',
+            'tms_id',
+        ))
+
+    @cached_property
     def related_reports_display(self):
         """Return set of related reports grouped by STATUS for template rendering"""
         reports = self.related_reports
