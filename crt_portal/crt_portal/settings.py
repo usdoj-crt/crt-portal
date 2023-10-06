@@ -30,7 +30,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # We are running the testing environment with UNDEFINED.
 # For cloud.gov the ENV must be set in the manifests
 environment = os.environ.get('ENV', 'UNDEFINED')
-USE_LOCALSTACK = os.environ.get('USE_LOCALSTACK', 'False')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', False)
@@ -504,15 +503,11 @@ AV_SCAN_URL = os.getenv('AV_SCAN_URL')
 AV_SCAN_MAX_ATTEMPTS = 10
 
 ENABLE_LOCAL_ATTACHMENT_STORAGE = False
-if USE_LOCALSTACK == 'True':
-    from .localstack_settings import *  # noqa: F401,F403
-elif environment == 'LOCAL':
-    ENABLE_LOCAL_ATTACHMENT_STORAGE = True
-
 if environment == 'LOCAL':
+    ENABLE_LOCAL_ATTACHMENT_STORAGE = True
     from .local_settings import *  # noqa: F401,F403
     try:
-        # Allow for overriding settings (such as ports and localstack)
+        # Allow for overriding settings (such as ports)
         # for each developer level.
         from .gitignored_settings import *  # noqa: F401,F403
     except ImportError:
