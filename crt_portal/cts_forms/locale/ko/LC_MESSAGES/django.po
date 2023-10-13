@@ -1927,8 +1927,8 @@ msgid "Start a report"
 msgstr "신고서 작성"
 
 #: templates/landing.html:102
-msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
-msgstr "<a href=\"#your-rights\">귀하의 권리</a>에 대해 더 알아보세요"
+msgid "Learn your rights"
+msgstr "귀하의 권리를 숙지하십시오"
 
 #: templates/landing.html:115
 msgid ""

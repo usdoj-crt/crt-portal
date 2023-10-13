@@ -2040,10 +2040,9 @@ msgid "Start a report"
 msgstr "Mag-umpisa ng isang ulat"
 
 #: templates/landing.html:102
-msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
+msgid "Learn your rights"
 msgstr ""
-"o matuto ng karagdagang kaalaman tungkol sa <a href=\"#your-rights\">iyong "
-"mga karapatan</a>"
+"Alamin ang iyong mga karapatan"
 
 #: templates/landing.html:115
 msgid ""

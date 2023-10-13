@@ -2003,9 +2003,9 @@ msgid "Start a report"
 msgstr "Bắt đầu báo cáo"
 
 #: templates/landing.html:102
-msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
+msgid "Learn your rights"
 msgstr ""
-"hoặc tìm hiểu thêm về các <a href=\"#your-rights\">quyền của quý vị</a>"
+"Hãy biết về quyền lợi của mình"
 
 #: templates/landing.html:115
 msgid ""

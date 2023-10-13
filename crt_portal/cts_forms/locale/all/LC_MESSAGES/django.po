@@ -1752,7 +1752,7 @@ msgid "Start a report"
 msgstr ""
 
 #: templates/landing.html:102
-msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
+msgid "Learn your rights"
 msgstr ""
 
 #: templates/landing.html:115
