@@ -35,27 +35,27 @@
               <img src="{% static "img/usa-icons/close.svg" %}" role="img" alt="close">
             </button>
             <ul class="usa-nav__primary usa-accordion">
-              <li class="usa-nav__primary-item">
+              <li class="usa-nav__primary-item" data-ga-event-name="About the Division nav item">
                 <a class="crt-landing--menu_link" href="/#about-the-division">
                   {% trans "About the Division" %}
                 </a>
               </li>
-              <li class="usa-nav__primary-item">
+              <li class="usa-nav__primary-item" data-ga-event-name="Your rights nav item">
                 <a class="crt-landing--menu_link" href="/#your-rights">
                   {% trans "Your rights" %}
                 </a>
               </li>
-              <li class="usa-nav__primary-item">
+              <li class="usa-nav__primary-item" data-ga-event-name="Report a violation nav item">
                 <a class="crt-landing--menu_link" href="/#report-a-violation">
                   {% trans "Report a violation" %}
                 </a>
               </li>
-              <li class="usa-nav__primary-item">
+              <li class="usa-nav__primary-item" data-ga-event-name="Already submitted? nav item">
                 <a class="crt-landing--menu_link" href="/#already-submitted">
                   {% trans "Already submitted?" %}
                 </a>
               </li>
-              <li class="usa-nav__primary-item">
+              <li class="usa-nav__primary-item" data-ga-event-name="Contact nav item">
                 <a class="crt-landing--menu_link" href="/#contact-crt">
                   {% trans "Contact" %}
                 </a>
@@ -99,7 +99,7 @@
             <strong>{% trans "If you believe your civil rights, or someone else’s, have been violated, submit a report using our online form." %}</strong>
           </p>
           <a class="usa-button usa-button--big crt-button--large" href="{% url 'crt_report_form' %}">{% trans "Start a report" %}</a>
-          <a class="usa-button usa-button--outline usa-button--big crt-button--large" id="info-link" href="#your-rights">{% trans "Learn your rights" %}</a>
+          <a class="usa-button usa-button--outline usa-button--big crt-button--large" id="info-link" data-ga-event-name="learn more about your rights" href="#your-rights">{% trans "Learn your rights" %}</a>
         </div>
       </div>
     </div>

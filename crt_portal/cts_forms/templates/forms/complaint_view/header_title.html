@@ -6,18 +6,18 @@
     Reporting Portal
   </h1>
   <ul class="usa-nav__primary usa-accordion">
-    <li class="usa-nav__primary-item">
+    <li class="usa-nav__primary-item" data-ga-event-name="report records nav item">
       <a class="crt-landing--menu_link reporting-header {% if page == 'report_records' %} selected {% endif %}" href="/form/view">
         Report records
       </a>
     </li>
-    <li class="usa-nav__primary-item">
+    <li class="usa-nav__primary-item" data-ga-event-name="team management nav item">
       <a class="crt-landing--menu_link reporting-header {% if page == 'team_management' %} selected {% endif %}" href="/form/dashboard">
         Team management
       </a>
     </li>
     {% if ENABLED_FEATURES.data_dashboard %}
-    <li class="usa-nav__primary-item">
+    <li class="usa-nav__primary-item" data-ga-event-name="data dashboard nav item">
       <a class="crt-landing--menu_link reporting-header {% if page == 'data_dashboard' %} selected {% endif %}" href="/form/data">
         🆕 Data dashboard
       </a>
