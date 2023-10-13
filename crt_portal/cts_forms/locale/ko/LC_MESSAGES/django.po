@@ -1233,6 +1233,10 @@ msgstr "당신의 기록 번호:"
 msgid "Print report"
 msgstr "보고서 출력"
 
+#: templates/forms/confirmation.html:62
+msgid "Save report"
+msgstr "보고서 저장하기"
+
 #: templates/forms/confirmation.html:72
 msgid "What to expect"
 msgstr "추후 상황"

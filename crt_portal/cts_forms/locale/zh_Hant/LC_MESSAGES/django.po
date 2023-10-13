@@ -1200,6 +1200,10 @@ msgstr "您的記錄號碼是："
 msgid "Print report"
 msgstr "打印報告"
 
+#: templates/forms/confirmation.html:62
+msgid "Save report"
+msgstr "瞭解您的權利"
+
 #: templates/forms/confirmation.html:72
 msgid "What to expect"
 msgstr "後續流程"

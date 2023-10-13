@@ -1148,6 +1148,10 @@ msgstr ""
 msgid "Print report"
 msgstr ""
 
+#: templates/forms/confirmation.html:62
+msgid "Save report"
+msgstr ""
+
 #: templates/forms/confirmation.html:72
 msgid "What to expect"
 msgstr ""
