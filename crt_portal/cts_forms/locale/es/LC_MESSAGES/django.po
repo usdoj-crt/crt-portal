@@ -2030,7 +2030,7 @@ msgstr "Inicie el proceso de querella"
 
 #: templates/landing.html:102
 msgid "Learn your rights"
-msgstr "Aprenda sus derechos"
+msgstr "Aprender sobre sus derechos"
 
 #: templates/landing.html:115
 msgid ""
