@@ -370,6 +370,7 @@ class Report(models.Model):
 
     # referrals
     referred = models.BooleanField(default=False)
+    referral_section = models.TextField(choices=SECTION_CHOICES, blank=True)
 
     litigation_hold = models.BooleanField(default=False)
     retention_schedule = models.ForeignKey(RetentionSchedule, blank=True, null=True, related_name="reports", on_delete=models.SET_NULL)
