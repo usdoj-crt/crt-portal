@@ -1202,7 +1202,7 @@ msgstr "打印報告"
 
 #: templates/forms/confirmation.html:62
 msgid "Save report"
-msgstr "瞭解您的權利"
+msgstr "保存報告"
 
 #: templates/forms/confirmation.html:72
 msgid "What to expect"
