@@ -72,6 +72,16 @@
   #print_button {
     margin-top: 2rem;
   }
+
+  #save_button {
+    font-weight: 700;
+    font-size: 1rem;
+    margin-top: 2rem;
+
+    &:hover {
+      background-color: #2378c3;
+    }
+  }
 }
 
 section hr {

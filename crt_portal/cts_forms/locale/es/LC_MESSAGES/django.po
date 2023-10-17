@@ -1301,7 +1301,11 @@ msgstr "Su número de registro es:"
 
 #: templates/forms/confirmation.html:61
 msgid "Print report"
-msgstr ""
+msgstr "Imprimir reporte"
+
+#: templates/forms/confirmation.html:62
+msgid "Save report"
+msgstr "Guardar reporte"
 
 #: templates/forms/confirmation.html:72
 msgid "What to expect"

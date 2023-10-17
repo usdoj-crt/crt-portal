@@ -1284,6 +1284,10 @@ msgstr "Số hồ sơ của quý vị là:"
 msgid "Print report"
 msgstr "In baìo caìo"
 
+#: templates/forms/confirmation.html:62
+msgid "Save report"
+msgstr "Lưu bản báo cáo"
+
 #: templates/forms/confirmation.html:72
 msgid "What to expect"
 msgstr "Những việc sẽ diễn ra"

@@ -1316,6 +1316,10 @@ msgstr "Ang numero ng iyong tala ay:"
 msgid "Print report"
 msgstr "Ilimbag ang ulat"
 
+#: templates/forms/confirmation.html:62
+msgid "Save report"
+msgstr "I-save ang ulat"
+
 #: templates/forms/confirmation.html:72
 msgid "What to expect"
 msgstr "Ano ang dapat asahan"

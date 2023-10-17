@@ -58,7 +58,10 @@
               <span class="record-number margin-left-1">{{report.public_id}}</span>
             </div>
           </div>
-          <button id="print_button" class="usa-button">{% trans "Print report" %}</button>
+          <div class="display-flex flex-row flex-align-center">
+            <button id="print_button" class="usa-button print-save-btn">{% trans "Print report" %}</button>
+            <button id="save_button" class="text-bold usa-button outline-button outline-button--blue print-save-btn">{% trans "Save report" %}</button>
+          </div>
       </div>
     </div>
   </div>
@@ -210,9 +213,11 @@
   <script src="{% static 'js/modal.min.js' %}"></script>
   <script src="{% static 'js/redirect-modal.min.js' %}"></script>
   <script nonce="{{ request.csp_nonce }}">
-   var print_el = document.getElementById('print_button');
-   print_el.onclick = function() {
+   const btns = document.querySelectorAll('.print-save-btn');
+   btns.forEach(btn => {
+    btn.onclick = function() {
      window.print();
-   };
+    };
+   })
   </script>
 {% endblock %}

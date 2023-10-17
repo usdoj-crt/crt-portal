@@ -1189,6 +1189,10 @@ msgstr "您的记录号码是："
 msgid "Print report"
 msgstr "打印报告"
 
+#: templates/forms/confirmation.html:62
+msgid "Save report"
+msgstr "保存报告"
+
 #: templates/forms/confirmation.html:72
 msgid "What to expect"
 msgstr "后续流程"
