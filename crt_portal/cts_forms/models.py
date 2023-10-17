@@ -544,6 +544,10 @@ class Report(models.Model):
         self.assigned_to = None
         self.status = 'new'
         self.primary_statute = None
+        self.retention_schedule = None
+        self.referred = False
+        self.dj_number = None
+        self.district = None
 
     @cached_property
     def related_reports(self):

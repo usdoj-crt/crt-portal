@@ -2018,6 +2018,10 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             updates['primary_statute'] = None
             updates['assigned_to'] = ''
             updates['status'] = 'new'
+            updates['retention_schedule'] = None
+            updates['referred'] = False
+            updates['dj_number'] = None
+            updates['district'] = None
 
         updates.pop('district', None)  # district is currently disabled (read-only)
         return updates
