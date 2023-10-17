@@ -2033,8 +2033,8 @@ msgid "Start a report"
 msgstr "Inicie el proceso de querella"
 
 #: templates/landing.html:102
-msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
-msgstr "o aprenda más sobre <a href=\"#your-rights\">sus derechos</a>"
+msgid "Learn your rights"
+msgstr "Aprender sobre sus derechos"
 
 #: templates/landing.html:115
 msgid ""

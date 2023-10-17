@@ -10,6 +10,7 @@
       <small class="margin-left-auto">
         <a class="related-reports"
           id="related-reports"
+          data-ga-event-name="View reports with matching description"
            href="{% url 'crt_forms:crt-forms-index' %}?violation_summary=^{{data.violation_summary | urlencode}}${% filter_for_all_sections %}">
             View
             <span

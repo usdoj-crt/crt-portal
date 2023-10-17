@@ -1860,8 +1860,8 @@ msgid "Start a report"
 msgstr "开始报告"
 
 #: templates/landing.html:102
-msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
-msgstr "或了解更多<a href=\"#your-rights\">你的权利</a>"
+msgid "Learn your rights"
+msgstr "了解您的权利"
 
 #: templates/landing.html:115
 msgid ""

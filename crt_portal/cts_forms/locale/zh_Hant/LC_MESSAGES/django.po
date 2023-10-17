@@ -1875,8 +1875,8 @@ msgid "Start a report"
 msgstr "開始提交報告"
 
 #: templates/landing.html:102
-msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
-msgstr "或進一步瞭解<a href=\"#your-rights\">您的權利</a>"
+msgid "Learn your rights"
+msgstr "瞭解您的權利"
 
 #: templates/landing.html:115
 msgid ""
