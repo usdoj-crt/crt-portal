@@ -1704,7 +1704,6 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
                 name = 'ICM DJ Number'
             original = self.initial[field]
             changed = self.cleaned_data[field]
-            logging.info(self.cleaned_data)
             # fix bug where id was showing up instead of user name
             if field in ['assigned_to', 'retention_schedule']:
                 if original is None:
