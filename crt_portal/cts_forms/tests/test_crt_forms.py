@@ -790,14 +790,14 @@ class ReportActionTests(TestCase):
         self.client.login(username='DELETE_USER', password=self.test_pass)
         self.report = Report.objects.create(**SAMPLE_REPORT_1)
 
-    def test_referral_section_checked(self):
-        self.assertEqual(self.report.referral_section, '')
+    def test_secondary_review_checked(self):
         url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
         params = {
             'type': 'actions',
             # Keep the same status as when the report was created.
             'status': NEW_STATUS,
             'referred': 'on',
+            'assigned_section': 'ADM',
         }
         response = self.client.post(url, params, follow=True)
         content = str(response.content)
@@ -806,11 +806,9 @@ class ReportActionTests(TestCase):
         self.assertTrue(escape('Updated from "False" to "True"') in content)
         self.report.refresh_from_db()
         self.assertTrue(self.report.referred)
-        self.assertEqual(self.report.referral_section, 'ADM')
 
-    def test_referral_section_unchecked(self):
+    def test_secondary_review_unchecked(self):
         self.report.referred = True
-        self.report.referral_section = 'ADM'
         self.report.save()
         url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
         params = {
@@ -826,7 +824,6 @@ class ReportActionTests(TestCase):
         self.assertTrue(escape('Updated from "True" to "False"') in content)
         self.report.refresh_from_db()
         self.assertFalse(self.report.referred)
-        self.assertEqual(self.report.referral_section, '')
 
     def test_assign_report_to_user(self):
         url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})

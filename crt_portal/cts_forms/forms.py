@@ -1704,6 +1704,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
                 name = 'ICM DJ Number'
             original = self.initial[field]
             changed = self.cleaned_data[field]
+            logging.info(self.cleaned_data)
             # fix bug where id was showing up instead of user name
             if field in ['assigned_to', 'retention_schedule']:
                 if original is None:
@@ -1771,10 +1772,6 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         if report.closed:
             report.closeout_report()
             self.report_closed = True
-        if report.referred:
-            report.referral_section = report.assigned_section
-        elif report.referral_section:
-            report.referral_section = ''
         if commit:
             report.save()
         return report
@@ -1981,6 +1978,18 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
                 'class': 'usa-textarea',
             },
         ),
+    )
+    retention_schedule = MultipleChoiceField(
+        required=False,
+        label='Retention schedule',
+        choices=[
+            ('', ''),  # Default choice: empty (include everything)
+            ('(none)', 'None'),  # Custom: No assigned campaign.
+            *RETENTION_SCHEDULE_CHOICES,
+        ],
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'retention_schedule',
+        }),
     )
 
     def get_initial_values(record_query, keys):

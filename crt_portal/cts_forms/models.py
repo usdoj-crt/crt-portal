@@ -370,7 +370,6 @@ class Report(models.Model):
 
     # referrals
     referred = models.BooleanField(default=False)
-    referral_section = models.TextField(choices=SECTION_CHOICES, blank=True)
 
     litigation_hold = models.BooleanField(default=False)
     retention_schedule = models.ForeignKey(RetentionSchedule, blank=True, null=True, related_name="reports", on_delete=models.SET_NULL)
@@ -537,7 +536,7 @@ class Report(models.Model):
         local_tz = pytz.timezone('US/Eastern')
         self.closed_date = datetime.now(local_tz)
 
-    def status_assignee_reset(self):
+    def reset_for_changed_section(self):
         """
         Remove assignee and update status to new
         """
