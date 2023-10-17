@@ -1286,7 +1286,7 @@ msgstr "In baìo caìo"
 
 #: templates/forms/confirmation.html:62
 msgid "Save report"
-msgstr "Hãy biết về quyền lợi của mình"
+msgstr "Lưu bản báo cáo"
 
 #: templates/forms/confirmation.html:72
 msgid "What to expect"
