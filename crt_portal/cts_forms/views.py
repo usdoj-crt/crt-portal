@@ -770,7 +770,7 @@ class ShowView(LoginRequiredMixin, View):
 
             if not form.is_valid():
                 error_items = ''.join([
-                    f'<li>{field} {form.cleaned_data.get(field)}: {error}</li>'
+                    f'<li>Problem modifying {field if field != "__all__" else "report"}: {error}</li>'
                     for field, error
                     in form.errors.items()
                 ])
@@ -936,7 +936,11 @@ class ActionsView(LoginRequiredMixin, FormView):
         else:
             for key in bulk_actions_form.errors:
                 errors = '; '.join(bulk_actions_form.errors[key])
-                error_message = f'Could not bulk update {key}: {errors}'
+                if key == '__all__':
+                    target = ':'
+                else:
+                    target = f' {key}:'
+                error_message = f'Could not bulk update{target} {errors}'
                 messages.add_message(request, messages.ERROR, error_message)
 
             all_ids_count = requested_query.count()

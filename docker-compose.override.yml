@@ -31,10 +31,3 @@ services:
   clamav-rest:
     ports:
       - ${CLAMAV_REST_PORT:-9000}:9000
-
-  localstack:
-    ports:
-      - ${LOCALSTACK_PORT:-4566}:4566
-    volumes:
-      - "localstack-vol:/tmp/localstack"
-

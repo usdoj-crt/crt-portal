@@ -20,15 +20,9 @@ services:
     ports:
       - ${WEB_PORT:-}:8000
     environment:
-      - LOCALSTACK_URL=http://localstack:4566
       - AV_SCAN_URL=http://clamav-rest:9000/scan
       - POSTGRES_PASSWORD="passwordfortests"
       - JUPYTER_PORT=${JUPYTER_PORT:-8001}
-    profiles: ["tests"]
-
-  localstack:
-    ports:
-      - 4566
     profiles: ["tests"]
 
   clamav-rest:
