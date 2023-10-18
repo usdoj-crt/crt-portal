@@ -1990,6 +1990,18 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             'name': 'retention_schedule',
         }),
     )
+    referred = BooleanField(
+        label='Secondary review',
+        required=False,
+        widget=CheckboxInput(attrs={
+            'class': 'usa-checkbox__input',
+            'aria-label': 'Secondary review',
+        })
+    )
+    dj_number = CharField(
+        widget=get_dj_widget(),
+        required=False,
+    )
 
     def get_initial_values(record_query, keys):
         """

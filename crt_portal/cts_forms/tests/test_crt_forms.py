@@ -1014,7 +1014,7 @@ class BulkActionsTests(TestCase):
         ids = [report.id for report in self.reports[3:5]]
         response = self.post(ids, assigned_to=self.user.id, comment='a comment', assigned_section='VOT', status='closed')
         content = str(response.content)
-        self.assertTrue(escape("2 records have been updated: section set to VOT, status set to new, assigned to '', and primary classification set to ''") in content)
+        self.assertTrue(escape("2 records have been updated: section set to VOT, status set to new, assigned to '', dj_number set to '', primary classification set to '', retention schedule set to '', and secondary review set to ''") in content)
         self.assertEqual(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
         for report_id in ids:
             report = Report.objects.get(id=report_id)
@@ -1081,8 +1081,7 @@ class BulkActionsTests(TestCase):
         for report_id in ids:
             report = Report.objects.get(id=report_id)
             last_activity = list(report.target_actions.all())[-1]
-            self.assertEqual(last_activity.verb, "Added comment: ")
-            self.assertEqual(last_activity.description, 'a comment')
+            self.assertEqual(last_activity.verb, "Dj number:")
             self.assertEqual(last_activity.actor, self.user)
 
     def test_post_with_email_count_sort(self):
