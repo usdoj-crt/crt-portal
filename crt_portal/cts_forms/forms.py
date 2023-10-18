@@ -2025,11 +2025,19 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         for key, initial_value in BulkActionsForm.get_initial_values(query, keys):
             self.fields[key].initial = initial_value
 
+    def clean_dj_number(self):
+        dj_number = self.cleaned_data.get('dj_number', None)
+        if not dj_number:
+            return None
+        if any(not c for c in dj_number.rsplit('-', 2)):
+            return None
+        return dj_number
+
     def get_updates(self):
         updates = {field: self.cleaned_data[field] for field in self.changed_data}
         # do not allow any fields to be unset. this may happen if the
         # user selects "Multiple".
-        for key in ['assigned_section', 'status', 'primary_statute']:
+        for key in ['assigned_section', 'status', 'primary_statute', 'dj_number']:
             if key in updates and not updates[key]:
                 updates.pop(key)
         # if section is changed, override assignee and status
