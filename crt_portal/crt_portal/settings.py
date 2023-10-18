@@ -305,7 +305,8 @@ if environment in ['PRODUCTION', 'STAGE']:
                           "last_name": "surname",
                           "email": "emailaddress"},
         "USERNAME_CLAIM": AUTH_USERNAME_CLAIM,
-        "GROUP_CLAIM": AUTH_GROUP_CLAIM,
+        # Explicitly DON'T set a group claim, as it will undo our native groups.
+        # "GROUP_CLAIM": AUTH_GROUP_CLAIM,
         'LOGIN_EXEMPT_URLS': [
             '^$',
             '^report',
