@@ -1999,6 +1999,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         })
     )
     dj_number = CharField(
+        label='Dj number',
         widget=get_dj_widget(),
         required=False,
     )
@@ -2021,7 +2022,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         Form.__init__(self, *args, **kwargs)
         self.queryset = query
         # set initial values if applicable
-        keys = ['assigned_section', 'status', 'primary_statute', 'district']
+        keys = ['assigned_section', 'status', 'primary_statute', 'dj_number', 'retention_schedule', 'referred', 'district']
         for key, initial_value in BulkActionsForm.get_initial_values(query, keys):
             self.fields[key].initial = initial_value
 
@@ -2037,10 +2038,10 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         updates = {field: self.cleaned_data[field] for field in self.changed_data}
         # do not allow any fields to be unset. this may happen if the
         # user selects "Multiple".
-        for key in ['assigned_section', 'status', 'primary_statute', 'dj_number']:
+        for key in ['assigned_section', 'status', 'primary_statute', 'dj_number', 'retention_schedule', 'referred']:
             if key in updates and not updates[key]:
                 updates.pop(key)
-        # if section is changed, override assignee and status
+        # if section is changed, override assignee, status, retention schedule, secondary review
         # explicitly, even if they are set by the user.
         if 'assigned_section' in updates:
             updates['primary_statute'] = None
@@ -2049,7 +2050,6 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             updates['retention_schedule'] = None
             updates['referred'] = False
             updates['dj_number'] = None
-            updates['district'] = None
 
         updates.pop('district', None)  # district is currently disabled (read-only)
         return updates
@@ -2075,7 +2075,9 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             descriptions.append(description)
         if len(descriptions) > 1:
             descriptions[-1] = f'and {descriptions[-1]}'
-        return ', '.join(descriptions) or 'comment added'
+        final_description = ', '.join(descriptions) or 'comment added'
+        logging.info(final_description)
+        return final_description
 
     def get_actions(self, report):
         """
