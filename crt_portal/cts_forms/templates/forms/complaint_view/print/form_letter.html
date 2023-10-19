@@ -15,25 +15,7 @@
     <p><em>Washington, DC 20530</em></p>
     <p>{% now "F j, Y" %}</p>
   </div>
-  {% if data.contact_first_name or data.contact_last_name or data.contact_address_line_1 or data.contact_city or data.contact_state or data.contact_zip or data.contact_email %}
-    <p id="form-letterhead--addressee">
-      {% if data.contact_first_name %}{{ data.contact_first_name }}{% endif %} {% if data.contact_last_name %}{{ data.contact_last_name }}{% endif %}
-      {% if data.contact_address_line_1 %}
-        <br />
-        {{ data.contact_address_line_1 }}
-      {% endif %}
-      {% if data.contact_address_line_2 %}
-        <br />
-        {{ data.contact_address_line_2 }}
-      {% endif %}
-      <br />
-      {% if data.contact_city %}{{ data.contact_city }},{% endif %} {% if data.contact_state %}{{ data.contact_state }}{% endif %} {% if data.contact_zip %}{{ data.contact_zip }}{% endif %}
-      {% if data.contact_email %}
-        <br />
-        {{ data.contact_email }}
-      {% endif %}
-    </p>
-  {% endif %}
+  {% include 'letterhead.html' with report=data %}
   <div id="form-letter--placeholder" class="form-letter">
   </div>
 </div>

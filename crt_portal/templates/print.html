@@ -1,0 +1,115 @@
+{% load i18n %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Public+Sans:ital@0;1&display=swap"
+    rel="stylesheet">
+  <style rel="stylesheet" type="text/css">
+@page {
+  size: auto;
+  margin: 0mm;
+}
+
+body {
+  font-family: 'Public Sans','Helvetica','Arial',san-serif;
+  padding: 0;
+  margin: 0;
+  line-height: 1.5;
+}
+
+#form-letterhead {
+  height: 100%;
+  width: 100%;
+}
+
+.form-letterhead--header {
+  display: flex;
+}
+
+.form-letterhead--header img {
+  height: 100px;
+  padding-left: 3rem;
+}
+
+.form-letterhead--header-logo {
+  width: 50%;
+}
+
+.form-letterhead--header-text {
+  margin-top: 1.25rem;
+  margin-bottom: 0px;
+  font-weight: bold;
+}
+
+.form-letterhead--header-subtext {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+.subheader {
+  width: 50%;
+  margin-left: 50%;
+  margin-bottom: 1rem;
+}
+
+#form-letterhead--addressee, #form-letterhead--dept-addressee {
+  margin-left: 0.75in;
+  margin-right: 0.75in;
+  margin-bottom: 4em;
+}
+
+#form-letterhead--dept-addressee {
+  white-space: pre-line;
+}
+
+#form-letter--placeholder {
+  margin-left: 0.75in;
+  margin-right: 0.75in;
+}
+
+#form-letter--placeholder.form-letter-text {
+    white-space: pre-line;
+}
+
+hr {
+  border: 2px solid #000;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+a[href]:after {
+  content: ' (' attr(href) ')';
+}
+  </style>
+</head>
+
+<body>
+  <div id="form-letterhead">
+    <div class="form-letterhead--header">
+      <div class="form-letterhead--header-logo">
+        <img src="{% static_embed "img/doj-logo-footer.png" %}" alt="" />
+      </div>
+      <div class="form-letterhead--header-textbox">
+        <h2 class="form-letterhead--header-text">U.S. Department of Justice</h2>
+        <h2 class="form-letterhead--header-subtext">Civil Rights Division</h2>
+      </div>
+    </div>
+    <hr />
+    <div class="subheader">
+      <p><em>Washington, DC 20530</em></p>
+      <p>{% now "F j, Y" %}</p>
+    </div>
+    {% include 'letterhead.html' with report=report %}
+    <div id="form-letter--placeholder" class="form-letter">
+      {{ content | safe }}
+    </div>
+  </div>
+</body>
+
+</html>
