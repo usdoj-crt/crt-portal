@@ -164,7 +164,9 @@ class PdfMessageView(LoginRequiredMixin, View):
         tms_email = get_object_or_404(TMSEmail, tms_id=tms_id)
         try:
             content = pdf.convert_tms_to_pdf(tms_email)
-            return HttpResponse(content.getvalue(), content_type="application/pdf")
+            response = HttpResponse(content.getvalue(), content_type="application/pdf")
+            response['Content-Disposition'] = f'attachment; filename="tms_id_{tms_email.tms_id}.pdf"'
+            return response
         except pdf.FailedToGeneratePDF as error:
             logging.exception(error)
             return HttpResponse(f'{error}', status=500)
@@ -190,7 +192,9 @@ class PdfReportView(LoginRequiredMixin, View):
 
         out = io.BytesIO()
         combined.write(out)
-        return HttpResponse(out.getvalue(), content_type="application/pdf")
+        response = HttpResponse(out.getvalue(), content_type="application/pdf")
+        response['Content-Disposition'] = f'attachment; filename="tms_for_report_id_{report.id}.pdf"'
+        return response
 
 
 class AdminMessageView(LoginRequiredMixin, View):
