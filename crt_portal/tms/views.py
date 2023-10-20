@@ -1,11 +1,15 @@
+import io
 import json
 import logging
 import re
 from datetime import datetime, timezone
 from urllib.parse import unquote
 
+import pypdf
+
 from cts_forms.models import DoNotEmail
 from cts_forms.signals import get_client_ip
+from django.apps import apps
 from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -16,11 +20,14 @@ from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View
 from netaddr import IPNetwork
+from utils import pdf
 
 from .api.client import TMSClient
 from .models import TMSEmail
 
 logger = logging.getLogger(__name__)
+
+Report = apps.get_model('cts_forms', 'Report')
 
 
 class UnsubscribeView(View):
@@ -143,6 +150,47 @@ class AdminWebhookView(LoginRequiredMixin, View):
         response = connection.get(target=self.WEBHOOK_ENDPOINT)
         parsed = json.loads(response.content)
         return render(request, 'email_admin.html', {'data': json.dumps(parsed, indent=2)})
+
+
+class PdfMessageView(LoginRequiredMixin, View):
+    """View a PDF of the message sent to TMS"""
+
+    http_method_names = ['get']
+    WEBHOOK_ENDPOINT = "/messages/pdf"
+
+    def get(self, request, tms_id):
+        del request  # unused
+
+        tms_email = get_object_or_404(TMSEmail, tms_id=tms_id)
+        try:
+            content = pdf.convert_tms_to_pdf(tms_email)
+            return HttpResponse(content.getvalue(), content_type="application/pdf")
+        except pdf.FailedToGeneratePDF as error:
+            logging.exception(error)
+            return HttpResponse(f'{error}', status=500)
+
+
+class PdfReportView(LoginRequiredMixin, View):
+    """View a PDF of the message sent to TMS"""
+
+    http_method_names = ['get']
+    WEBHOOK_ENDPOINT = "/messages/report-pdf"
+
+    def get(self, request, report_id):
+        del request  # unused
+
+        report = get_object_or_404(Report, id=report_id)
+        combined = pypdf.PdfMerger()
+        for email in report.emails.exclude(purpose=TMSEmail.AUTO_EMAIL):
+            try:
+                combined.append(pdf.convert_tms_to_pdf(email))
+            except pdf.FailedToGeneratePDF as error:
+                logging.exception(error)
+                return HttpResponse(f'{error}', status=500)
+
+        out = io.BytesIO()
+        combined.write(out)
+        return HttpResponse(out.getvalue(), content_type="application/pdf")
 
 
 class AdminMessageView(LoginRequiredMixin, View):

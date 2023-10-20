@@ -72,9 +72,17 @@ The following email message (with Granicus TMS id {email.tms_id}) was sent by th
 def convert_tms_to_pdf(email: TMSEmail) -> io.BytesIO:
     cover_page = _make_cover_page(email)
 
+    header_style = weasyprint.CSS(string=f"""
+     @page {{
+         @top-right{{
+             content: "TMS ID #{email.tms_id}";
+         }}
+     }}
+    """)
+
     pdf = pypdf.PdfMerger()
-    pdf.append(convert_html_to_pdf(cover_page))
-    pdf.append(convert_html_to_pdf(email.sent_content))
+    pdf.append(convert_html_to_pdf(cover_page, stylesheets=[header_style]))
+    pdf.append(convert_html_to_pdf(email.sent_content, stylesheets=[header_style]))
     out = io.BytesIO()
     pdf.write(out)
     return out
