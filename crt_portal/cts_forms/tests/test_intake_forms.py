@@ -6,7 +6,7 @@ Tests for:
 import copy
 import secrets
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.test import TestCase
 from django.test.client import Client
@@ -28,6 +28,9 @@ from ..model_variables import (
 )
 from ..models import CommentAndSummary, ProtectedClass, Report, Campaign, get_system_user, SavedSearch
 from .test_data import SAMPLE_REPORT_1
+
+
+User = get_user_model()
 
 
 class Valid_Form_Tests(TestCase):

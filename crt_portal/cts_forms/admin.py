@@ -12,7 +12,7 @@ from django.core.paginator import Paginator
 from django.db.models import Prefetch
 from django import forms
 from django.http import HttpResponse, StreamingHttpResponse
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.utils.html import mark_safe
 from django.utils.text import slugify
 from django.urls import reverse
@@ -27,6 +27,7 @@ from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch)
 from .signals import get_client_ip
 
+User = get_user_model()
 logger = logging.getLogger(__name__)
 
 EXCLUDED_REPORT_FIELDS = ['violation_summary_search_vector']

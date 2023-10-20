@@ -3,9 +3,11 @@ from crequest.middleware import CrequestMiddleware
 from django.core.validators import RegexValidator
 from django.db import migrations, models
 from django.db.utils import ProgrammingError
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 
 FeatureNameValidator = RegexValidator(r'^[a-z\-]*$', 'Feature may only contain the letters a-z and the dash (-) character')
+
+User = get_user_model()
 
 
 class AddFeatureMigration(migrations.RunPython):

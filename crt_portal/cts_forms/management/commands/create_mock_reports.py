@@ -11,10 +11,11 @@ from cts_forms.signals import salt
 from cts_forms.models import EmailReportCount, ProtectedClass, Campaign, ResponseTemplate
 from cts_forms.model_variables import PROTECTED_MODEL_CHOICES, DISTRICT_CHOICES, STATUTE_CHOICES
 from cts_forms.forms import add_activity
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from random import randrange
 from datetime import timedelta
 
+User = get_user_model()
 
 SECTIONS = ['ADM', 'APP', 'CRM', 'DRS', 'ELS', 'EOS', 'FCS', 'HCE', 'IER', 'POL', 'SPL', 'VOT']
 

@@ -1,7 +1,7 @@
 import random
 import string
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.test import TestCase
 from datetime import datetime
@@ -9,6 +9,8 @@ from datetime import datetime
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
 from ..models import Report, RepeatWriterInfo, ReportsData, Trends
 from ..forms import add_activity
+
+User = get_user_model()
 
 
 class FlagRepeatWriters(TestCase):

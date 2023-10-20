@@ -1,7 +1,8 @@
 # Class to handle filtering data by supplied query params, providing the params are valid.
 
 import logging
-from cts_forms.models import User, Report, FormLettersSent
+from cts_forms.models import Report, FormLettersSent
+from django.contrib.auth import get_user_model
 from actstream import registry
 from actstream.models import actor_stream
 from django.db import connection
@@ -10,6 +11,8 @@ import urllib.parse
 from datetime import datetime
 
 from utils.datetime_fns import change_datetime_to_end_of_day
+
+User = get_user_model()
 
 
 def autoresponses_filter(querydict):

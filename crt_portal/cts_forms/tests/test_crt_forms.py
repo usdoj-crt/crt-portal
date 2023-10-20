@@ -7,7 +7,7 @@ import urllib.parse
 
 from unittest import mock
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.http import QueryDict
 from django.test import TestCase, override_settings
 from django.test.client import Client
@@ -23,6 +23,8 @@ from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, NEW_STATUS
 from ..models import CommentAndSummary, ReferralContact, Report, ResponseTemplate, EmailReportCount, RetentionSchedule
 from .factories import ReportFactory
 from .test_data import SAMPLE_REFERRAL_CONTACT, SAMPLE_REPORT_1, SAMPLE_RESPONSE_TEMPLATE
+
+User = get_user_model()
 
 
 class ActionTests(TestCase):

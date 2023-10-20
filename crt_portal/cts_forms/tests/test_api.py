@@ -2,7 +2,7 @@
 DRF API Tests
 """
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.test.client import Client
 from django.urls import reverse
@@ -11,6 +11,9 @@ from .test_data import SAMPLE_REPORT_1, SAMPLE_RESPONSE_TEMPLATE
 from cts_forms.views import add_activity
 from actstream.models import actor_stream
 from datetime import datetime
+
+
+User = get_user_model()
 
 
 class APIBaseUrlTests(TestCase):

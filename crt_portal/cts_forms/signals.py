@@ -6,7 +6,7 @@ import random
 
 from crequest.middleware import CrequestMiddleware
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
@@ -14,6 +14,7 @@ from django.dispatch import receiver
 from .models import Report, ProtectedClass, CommentAndSummary
 from .model_variables import PUBLIC_USER
 
+User = get_user_model()
 logger = logging.getLogger(__name__)
 
 

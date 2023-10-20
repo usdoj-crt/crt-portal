@@ -1,7 +1,7 @@
 from datetime import datetime
 from cts_forms.forms import add_activity
 from cts_forms.filters import _get_date_field_from_param
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from actstream import registry
 from actstream.models import actor_stream
 from django.http import QueryDict
@@ -12,6 +12,8 @@ from ..filters import get_report_filter_from_search, report_filter, report_group
 from api.filters import form_letters_filter, autoresponses_filter
 from ..models import Report, ProtectedClass, FormLettersSent, RetentionSchedule, SavedSearch
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
+
+User = get_user_model()
 
 
 class FilterTests(SimpleTestCase):

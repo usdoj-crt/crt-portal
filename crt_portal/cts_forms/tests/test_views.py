@@ -7,7 +7,7 @@ import json
 import secrets
 from datetime import date, timedelta
 
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.core.management import call_command
 from django.core.files.uploadedfile import TemporaryUploadedFile
@@ -23,6 +23,8 @@ from ..model_variables import PRIMARY_COMPLAINT_CHOICES
 from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign, BannerMessage
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_3, SAMPLE_REPORT_4
 from .factories import ReportFactory
+
+User = get_user_model()
 
 
 class ProfileViewTests(TestCase):
