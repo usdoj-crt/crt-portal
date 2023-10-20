@@ -8,11 +8,12 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib import admin
 from django.contrib.admin.widgets import AdminTextareaWidget
+from django.contrib.auth.admin import UserAdmin
+from django.contrib.auth.models import User
 from django.core.paginator import Paginator
 from django.db.models import Prefetch
 from django import forms
 from django.http import HttpResponse, StreamingHttpResponse
-from django.contrib.auth.models import User
 from django.utils.html import mark_safe
 from django.utils.text import slugify
 from django.urls import reverse
@@ -454,12 +455,27 @@ class SavedSearchAdmin(admin.ModelAdmin):
         return mark_safe(f'<a href="{url}">View {count} matching reports</a>')
 
 
+class ProfileInline(admin.StackedInline):
+    model = Profile
+    can_delete = False
+    verbose_name_plural = 'Profile'
+    fk_name = 'user'
+
+
+class CustomUserAdmin(UserAdmin):
+    inlines = (ProfileInline, )
+
+    def get_inline_instances(self, request, obj=None):
+        if not obj:
+            return list()
+        return super().get_inline_instances(request, obj)
+
+
 admin.site.register(CommentAndSummary)
 admin.site.register(Report, ReportAdmin)
 admin.site.register(ProtectedClass)
 admin.site.register(HateCrimesandTrafficking)
 admin.site.register(ResponseTemplate, ResponseTemplateAdmin)
-admin.site.register(Profile)
 admin.site.register(DoNotEmail)
 admin.site.register(JudicialDistrict, JudicialDistrictAdmin)
 admin.site.register(RoutingSection, RoutingSectionAdmin)
@@ -475,3 +491,6 @@ admin.site.register(RetentionSchedule, RetentionScheduleAdmin)
 admin.site.unregister(Action)
 admin.site.unregister(Follow)
 admin.site.register(Action, ActionAdmin)
+
+admin.site.unregister(User)
+admin.site.register(User, CustomUserAdmin)
