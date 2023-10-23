@@ -46,7 +46,7 @@ services:
       - FORM_AUTOCOMPLETE_OFF=False
       - AWS_ACCESS_KEY_ID=test
       - AWS_SECRET_ACCESS_KEY=test
-      - AV_SCAN_URL=http://clamav-rest:${CLAMAV_REST_PORT:-9000}/scan
+      - AV_SCAN_URL=http://clamav-rest:${CLAMAV_REST_PORT:-9000}/api/v1/scan
     build: .
     command: /code/run.sh
     depends_on:
@@ -57,12 +57,29 @@ services:
     image: mailhog/mailhog
     # command: -invite-jim=1 -jim-accept=0.50  # uncomment to enable and configure Jim (Chaos Monkey)
 
+  clamd:
+    image: clamav/clamav
+    restart: unless-stopped
+    ports:
+      - 3310:3310
+
   clamav-rest:
-    hostname: clamav-rest
-    image: ajilaag/clamav-rest:latest # ##20220511
+    image: benzino77/clamav-rest-api
+    restart: unless-stopped
+    # depends_on is ignored in some situations (have a look at the discussion in this PR: https://github.com/benzino77/clamav-rest-api/pull/23)
+    # to fix such situation there is wait-for-it script available inside the CRA docker image (https://github.com/vishnubob/wait-for-it)
+    # so to wait for clamd to be available, one could ovewrite the CMD with wait-for-it script
+    command: ['/usr/bin/wait-for-it', '-h', 'clamd', '-p', '3310', '-s', '-t', '60', '--', 'npm', 'start']
+    depends_on:
+      - clamd
     environment:
-      - MAX_FILE_SIZE=100M
-      - SIGNATURE_CHECKS=1
+      - NODE_ENV=local
+      - CLAMD_IP=clamd
+      - APP_FORM_KEY=FILES
+      - APP_PORT=9000
+      - APP_MAX_FILE_SIZE=100000000
+    ports:
+      - '9000:9000'
 
 volumes:
   postgres_data:

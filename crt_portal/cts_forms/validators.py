@@ -47,7 +47,8 @@ def _scan_file(file):
     try:
         # ClamAV only listens on 9443, which is SSL, but it self-signs its cert.
         # Because this request stays within the cloud.gov container, it's fine to not verify SSL.
-        return requests.post(settings.AV_SCAN_URL, files={'file': file}, data={'name': file.name}, verify=False)  # nosec
+        files = [('FILES', file.name)]
+        return requests.post(settings.AV_SCAN_URL, files=files, data={'name': file.name}, verify=False)  # nosec
     except requests.exceptions.ConnectionError as e:
         logging.exception(e)
         raise ValidationError('We were unable to complete a security inspection of the file, please try again or contact support for assistance.')
@@ -67,7 +68,7 @@ def validate_file_infection(file):
 
         logger.info(f'Scan attempt {attempt} failed, trying again...')
         file.seek(0)
-
+    logging.info(res)
     if res.status_code not in AV_SCAN_CODES['CLEAN']:
         logger.info(f'Scan of {file} revealed potential infection - rejecting!')
         raise ValidationError('The file you uploaded did not pass our security inspection, attachment failed!')
