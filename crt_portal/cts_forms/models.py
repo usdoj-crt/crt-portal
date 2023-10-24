@@ -537,13 +537,17 @@ class Report(models.Model):
         local_tz = pytz.timezone('US/Eastern')
         self.closed_date = datetime.now(local_tz)
 
-    def status_assignee_reset(self):
+    def reset_for_changed_section(self):
         """
         Remove assignee and update status to new
         """
         self.assigned_to = None
         self.status = 'new'
         self.primary_statute = None
+        self.retention_schedule = None
+        self.referred = False
+        self.dj_number = None
+        self.district = None
 
     @cached_property
     def related_reports(self):

@@ -10,7 +10,7 @@ from pytz import timezone
 
 from ...admin import iter_queryset, _serialize_report_export
 
-EXCLUDED_REPORT_FIELDS = ['violation_summary_search_vector']
+EXCLUDED_REPORT_FIELDS = ['violation_summary_search_vector', 'referral_section']
 REPORT_FIELDS = [field.name for field in Report._meta.fields if field.name not in EXCLUDED_REPORT_FIELDS]
 
 
