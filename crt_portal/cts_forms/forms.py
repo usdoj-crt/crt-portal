@@ -113,18 +113,29 @@ def get_litigation_hold_widget():
 class LitigationHoldLock(object):
     """Prevents updates to ModelForms with litigation hold set."""
 
+    def _get_offending_instance(self):
+        if self.cleaned_data.get('litigation_hold') is False:
+            return []
+        return (
+            [self.instance.public_id]
+            if self.instance.litigation_hold
+            else []
+        )
+
+    def _get_offending_queryset(self):
+        if 'litigation_hold' in self.changed_data:
+            if set(self.changed_data) == {'comment', 'litigation_hold'}:
+                return []
+            if self.cleaned_data.get('litigation_hold') is False:
+                return []
+        return self.queryset.filter(litigation_hold=True).values_list('public_id', flat=True)
+
     def clean(self, *args, **kwargs):
         superclean = super(LitigationHoldLock, self).clean(*args, **kwargs)
-        if self.cleaned_data.get('litigation_hold') is False:
-            return superclean
         if hasattr(self, 'instance'):
-            bad_ids = (
-                [self.instance.public_id]
-                if self.instance.litigation_hold
-                else []
-            )
+            bad_ids = self._get_offending_instance()
         elif hasattr(self, 'queryset'):
-            bad_ids = self.queryset.filter(litigation_hold=True).values_list('public_id', flat=True)
+            bad_ids = self._get_offending_queryset()
         else:
             raise ValidationError('Litigation hold lock requires either instance or queryset')
 
@@ -1983,7 +1994,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         ),
     )
 
-    def get_initial_values(record_query, keys):
+    def get_initial_values(self, record_query, keys):
         """
         Given a record query and a list of keys, determine if a key has a
         singular value within that query. Used to set initial fields
@@ -1997,20 +2008,70 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             if values.count() == 1:
                 yield key, values[0]
 
-    def __init__(self, query, *args, **kwargs):
+    def setup_litigation_hold(self, query):
+        litigation_hold_states = query.order_by().values_list('litigation_hold', flat=True).distinct()
+        if litigation_hold_states.count() == 1:
+            initial = 'on' if litigation_hold_states[0] else 'off'
+        else:
+            initial = 'mixed'
+        self.fields['litigation_hold'] = ChoiceField(
+            label='Litigation hold',
+            widget=ComplaintSelect(
+                attrs={'class': 'crt-dropdown__data'},
+            ),
+            choices=(('on', 'On'), ('off', 'Off'), ('mixed', self.EMPTY_CHOICE)),
+            required=False,
+            initial=initial,
+        )
+
+    def clean_litigation_hold(self):
+        if 'litigation_hold' not in self.changed_data:
+            return None
+        if self.cleaned_data['litigation_hold'] == 'on':
+            return True
+        if self.cleaned_data['litigation_hold'] == 'off':
+            return False
+        return None
+
+    def __init__(self, query, *args, user=None, **kwargs):
+        self.user = user
         Form.__init__(self, *args, **kwargs)
         self.queryset = query
+
+        self.fields['retention_schedule'] = ModelChoiceField(
+            queryset=RetentionSchedule.objects.all().order_by('order'),
+            empty_label=self.EMPTY_CHOICE,
+            label='Retention schedule',
+            required=False,
+            disabled=not self.can_assign_schedule(),
+            widget=get_retention_schedule_widget(),
+        )
+
+        self.setup_litigation_hold(query)
+
         # set initial values if applicable
-        keys = ['assigned_section', 'status', 'primary_statute', 'district']
-        for key, initial_value in BulkActionsForm.get_initial_values(query, keys):
+        keys = ['assigned_section', 'status', 'primary_statute', 'district', 'retention_schedule']
+        for key, initial_value in self.get_initial_values(query, keys):
             self.fields[key].initial = initial_value
+
+    def can_assign_schedule(self):
+        if not self.user:
+            return False
+        return self.user.has_perm('cts_forms.assign_retentionschedule')
+
+    def clean_retention_schedule(self):
+        if 'retention_schedule' not in self.changed_data:
+            return None
+        if not self.can_assign_schedule():
+            raise ValidationError('You do not have permission to assign retention schedules.')
+        return self.cleaned_data['retention_schedule']
 
     def get_updates(self):
         updates = {field: self.cleaned_data[field] for field in self.changed_data}
         # do not allow any fields to be unset. this may happen if the
         # user selects "Multiple".
-        for key in ['assigned_section', 'status', 'primary_statute']:
-            if key in updates and not updates[key]:
+        for key in ['assigned_section', 'status', 'primary_statute', 'litigation_hold', 'retention_schedule']:
+            if key in updates and updates[key] in [None, '']:
                 updates.pop(key)
         # if section is changed, override assignee and status
         # explicitly, even if they are set by the user.
@@ -2065,7 +2126,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
                 name = 'Primary classification'
             if field in ['summary', 'comment']:
                 continue
-            initial = getattr(report, field, 'None')
+            initial = getattr(report, field, None)
 
             if field_changed(initial, updates[field]):
                 yield f"{name}:", f'Updated from "{initial}" to "{updates[field]}"'
