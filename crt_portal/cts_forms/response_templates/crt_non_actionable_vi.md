@@ -2,6 +2,7 @@
 title: CRT - Non-Actionable (Vietnamese)
 subject: "Hồi đáp: Báo Cáo của Ban Dân Quyền của Quý Vị - {{ record_locator }} từ Phòng {{ vi.section_name }}"
 language: vi
+show_in_dropdown: false
 ---
 {{ vi.addressee }}，
 
