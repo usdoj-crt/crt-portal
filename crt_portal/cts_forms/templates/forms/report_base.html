@@ -143,7 +143,7 @@
 <script src="{% static 'js/unsupported_browsers.min.js' %}"></script>
 <script src="{% static 'js/contact_info_confirmation_modal.min.js' %}"></script>
 <script src="{% static 'js/omb.min.js' %}"></script>
-    <script nonce="{{request.csp_nonce}}">
+<script nonce="{{request.csp_nonce}}">
   (function(root) {
     if (root.CRT.isUnsupportedBrowser()) {
       var unsupportedBrowserModal = document.getElementById('unsupported_browser_modal');
