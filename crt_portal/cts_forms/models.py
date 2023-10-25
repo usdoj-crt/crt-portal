@@ -57,8 +57,9 @@ def get_system_user():
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     intake_filters = models.TextField(max_length=500, blank=True)
+    section = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, default=None)
 
     def __str__(self):
         return str(self.user)
