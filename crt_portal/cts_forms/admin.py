@@ -10,17 +10,22 @@ from django.contrib import admin
 from django.contrib.admin.widgets import AdminTextareaWidget
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
+from django.contrib import messages
+from django.http import HttpResponseRedirect, HttpRequest
 from django.core.paginator import Paginator
 from django.db.models import Prefetch
 from django import forms
 from django.http import HttpResponse, StreamingHttpResponse
+from django.shortcuts import render
 from django.utils.html import mark_safe
 from django.utils.text import slugify
-from django.urls import reverse
+from django.urls import reverse, path
 from django.db.models.functions import Lower
 
 from utils import pdf
 from .filters import get_report_filter_from_search
+
+from .model_variables import SECTION_CHOICES
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
@@ -464,11 +469,74 @@ class ProfileInline(admin.StackedInline):
 
 class CustomUserAdmin(UserAdmin):
     inlines = (ProfileInline, )
+    actions = ("bulk_change_profile", *UserAdmin.actions)
+
+    list_filter = (
+        *UserAdmin.list_filter,
+        ('profile__section', admin.EmptyFieldListFilter),
+        'profile__section',
+        ('email', admin.EmptyFieldListFilter),
+    )
 
     def get_inline_instances(self, request, obj=None):
         if not obj:
             return list()
         return super().get_inline_instances(request, obj)
+
+    @admin.action(description="Change Profile Information")
+    def bulk_change_profile(modeladmin, request, queryset):
+        del request  # unused
+        selected = queryset.values_list("pk", flat=True)
+        ids_query = "&".join(f'id={pk}' for pk in selected)
+        return HttpResponseRedirect(f"/admin/auth/user/bulk_change_profile/?{ids_query}")
+
+    def change_profile(self, request: HttpRequest):
+        if request.method == 'GET':
+            user_ids = request.GET.getlist('id')
+            return render(request, 'admin/change_profile.html', {
+                'change_profile': {
+                    'users': User.objects.filter(pk__in=user_ids),
+                    'ids': user_ids,
+                    'SECTION_CHOICES': SECTION_CHOICES,
+                },
+                **admin.site.each_context(request),
+            })
+        elif request.method != 'POST':
+            return HttpResponse(status=405)
+
+        raw_ids = request.POST.get('ids')
+        if not raw_ids:
+            return HttpResponse(status=400)
+        ids = [int(raw_id) for raw_id in raw_ids.split(',')]
+
+        profile = {
+            key.replace('profile__', ''): value
+            for key, value in request.POST.items()
+            if key.startswith('profile__')
+        }
+
+        profiles = [
+            Profile(user_id=user_id, **profile)
+            for user_id in ids
+        ]
+        try:
+            Profile.objects.bulk_create(
+                profiles,
+                update_conflicts=True,
+                unique_fields=['user_id'],
+                update_fields=list(profile.keys()),
+            )
+            messages.success(request, 'Updated profiles for {} users'.format(len(ids)))
+        except Exception as e:
+            messages.error(request, 'Failed to update profiles for {} users: {}'.format(len(ids), e))
+            logging.exception(e)
+
+        return HttpResponseRedirect(reverse('admin:auth_user_changelist'))
+
+    def get_urls(self):
+        return [
+            path(r'bulk_change_profile/', self.admin_site.admin_view(self.change_profile), name='change_profile')
+        ] + super().get_urls()
 
 
 admin.site.register(CommentAndSummary)
