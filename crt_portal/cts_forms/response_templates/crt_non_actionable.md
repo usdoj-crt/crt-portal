@@ -10,7 +10,7 @@ You contacted the Department of Justice on {{ date_of_intake }}. After careful r
 
 # What we did:
 
-Team members from the Civil Rights Division reviewed the information you submitted.  Based on this information, our team determined that the federal civil rights laws we enforce do not cover the situation you described.  Therefore, we cannot take further action.
+Team members from the Civil Rights Division reviewed the information you submitted. Based on this information, our team determined that the situation you described does not appear to be within the jurisdiction of the federal civil rights laws we enforce. For that reason and in the exercise of our enforcement discretion, the Division will take no further action regarding your correspondence. Even when the Division has jurisdiction over a particular matter, it is within the Division’s discretion to determine whether to pursue a particular matter for various reasons including the availability of evidence, among other considerations.
 
 Your report number is {{ record_locator }}.
 
