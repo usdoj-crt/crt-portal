@@ -1337,7 +1337,7 @@ class ReferralEmailContentTests(TestCase):
 
     @override_settings(RESTRICT_EMAIL_RECIPIENTS_TO=['a@example.gov', 'b@example.gov'])
     def test_build_referral_content(self):
-        complainant_letter = render_complainant_mail(report=self.report, template=self.template)
+        complainant_letter = render_complainant_mail(report=self.report, template=self.template, action='email')
 
         referral_letter = render_agency_mail(complainant_letter=complainant_letter,
                                              template=self.template,

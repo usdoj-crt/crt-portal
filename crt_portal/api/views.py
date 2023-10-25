@@ -313,7 +313,11 @@ class ResponseAction(APIView):
         template = get_object_or_404(ResponseTemplate, pk=template_id)
         action = request.data['action']
         recipient = request.data.get('recipient', None)
-        complainant_letter, agency_letter = build_letters(report, template)
+        complainant_letter, agency_letter = build_letters(
+            report,
+            template,
+            action=action,
+        )
 
         if action == 'preview':
             preview = build_preview(template, complainant_letter, agency_letter)

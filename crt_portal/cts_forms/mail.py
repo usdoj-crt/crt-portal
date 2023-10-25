@@ -84,15 +84,17 @@ def render_agency_mail(*, complainant_letter: Mail, report, template, extra_ccs=
                 )
 
 
-def render_complainant_mail(*, report, template) -> Mail:
+def render_complainant_mail(*, report, template, action) -> Mail:
     message = template.render_body(report)
 
     if template.is_html:
-        md = markdown.markdown(message, extensions=['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension()])
-        html_message = render_to_string('email.html', {'content': md})
+        content = markdown.markdown(message, extensions=['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension()])
     else:
-        # replace newlines, \n, with <br> so the API will generate formatted emails
-        html_message = message.replace('\n', '<br>')
+        content = message.replace('\n', '<br>')
+
+    html_source = 'print.html' if action == 'print' else 'email.html'
+    html_message = render_to_string(html_source,
+                                    {'content': content, 'report': report})
 
     if not report.contact_email:
         all_recipients = []
@@ -158,7 +160,7 @@ def mail_to_complainant(report, template, purpose=TMSEmail.MANUAL_EMAIL, dry_run
     Returns a list of integers indicating the number of successfully sent emails.
     """
     if not rendered:
-        rendered = render_complainant_mail(report=report, template=template)
+        rendered = render_complainant_mail(report=report, template=template, action='email')
     if not rendered.recipients:
         logger.info(f'{report.contact_email} not in allowed domains, not attempting to deliver email response template #{template.id} to report: {report.id}')
         return None
@@ -225,10 +227,11 @@ def build_preview(template, complainant_letter, referral_letter):
     return {'complainant': complainant, 'agency': agency}
 
 
-def build_letters(report: Report, template: ResponseTemplate) -> Tuple[Mail, Optional[Mail]]:
+def build_letters(report: Report, template: ResponseTemplate, *, action) -> Tuple[Mail, Optional[Mail]]:
     """Creates Mails related to replying to or referring a template."""
     complainant_letter = render_complainant_mail(report=report,
-                                                 template=template)
+                                                 template=template,
+                                                 action=action)
 
     if not template.referral_contact:
         return complainant_letter, None
