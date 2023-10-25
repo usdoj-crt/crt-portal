@@ -32,7 +32,11 @@ def test_error_if_form_refreshed(page, base_url):
 
 
 @pytest.mark.only_browser("chromium")
-@console.raise_errors()
+@console.raise_errors(ignore=[
+    # The touchpoints script tries to embed a flag image.
+    # We don't support data URIs, so this fails:
+    'data:image/png;base64,iVBOR'
+])
 def test_report_complete_and_valid_submission(page):
 
     def next_step():
