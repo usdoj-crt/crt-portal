@@ -37,7 +37,6 @@
           <li>Assigned to</li>
           {% if ENABLED_FEATURES.disposition %}
           <li>Retention schedule</li>
-          <li>Litigation hold</li>
           {% endif %}
         </ul>
         <p>
@@ -73,12 +72,6 @@
             {{ bulk_actions_form.retention_schedule.label }}
           </label>
           {{ bulk_actions_form.retention_schedule }}
-        </div>
-        <div class="margin-bottom-2 crt-checkbox">
-          <label for="id_litigation_hold" class="intake-label">
-            {{ bulk_actions_form.litigation_hold.label }}
-          </label>
-          {{ bulk_actions_form.litigation_hold }}
         </div>
         {% endif %}
         <div class="margin-bottom-2 crt-textarea">

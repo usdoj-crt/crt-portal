@@ -2031,31 +2031,6 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             if values.count() == 1:
                 yield key, values[0]
 
-    def setup_litigation_hold(self, query):
-        litigation_hold_states = query.order_by().values_list('litigation_hold', flat=True).distinct()
-        if litigation_hold_states.count() == 1:
-            initial = 'on' if litigation_hold_states[0] else 'off'
-        else:
-            initial = ''
-        self.fields['litigation_hold'] = ChoiceField(
-            label='Litigation hold',
-            widget=ComplaintSelect(
-                attrs={'class': 'crt-dropdown__data'},
-            ),
-            choices=(('on', 'On'), ('off', 'Off'), ('', self.EMPTY_CHOICE)),
-            required=False,
-            initial=initial,
-        )
-
-    def clean_litigation_hold(self):
-        if 'litigation_hold' not in self.changed_data:
-            return ''
-        if self.cleaned_data['litigation_hold'] == 'on':
-            return True
-        if self.cleaned_data['litigation_hold'] == 'off':
-            return False
-        return ''
-
     def __init__(self, query, *args, user=None, **kwargs):
         self.user = user
         Form.__init__(self, *args, **kwargs)
@@ -2069,8 +2044,6 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             disabled=not self.can_assign_schedule(),
             widget=get_retention_schedule_widget(),
         )
-
-        self.setup_litigation_hold(query)
 
         # set initial values if applicable
         keys = ['assigned_section', 'status', 'primary_statute', 'dj_number', 'retention_schedule', 'referred', 'district']
@@ -2103,7 +2076,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         updates = {field: self.cleaned_data[field] for field in self.changed_data}
         # do not allow any fields to be unset. this may happen if the
         # user selects "Multiple".
-        for key in ['assigned_section', 'status', 'primary_statute', 'dj_number', 'retention_schedule', 'referred', 'litigation_hold']:
+        for key in ['assigned_section', 'status', 'primary_statute', 'dj_number', 'retention_schedule', 'referred']:
             if key in updates and updates[key] in [None, '']:
                 updates.pop(key)
         # if section is changed, override assignee, status, retention schedule, secondary review
