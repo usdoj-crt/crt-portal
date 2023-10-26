@@ -1189,14 +1189,16 @@ class BulkActionsTests(TestCase):
 class BulkActionsFormTests(TestCase):
     def test_bulk_actions_initial_empty(self):
         queryset = Report.objects.all()
-        result = list(BulkActionsForm.get_initial_values(queryset, []))
+        form = BulkActionsForm(queryset)
+        result = list(form.get_initial_values(queryset, []))
         self.assertEqual(result, [])
 
     def test_bulk_actions_initial(self):
         [Report.objects.create(**SAMPLE_REPORT_1) for _ in range(4)]
         queryset = Report.objects.all()
         keys = ['assigned_section', 'status', 'id']
-        result = list(BulkActionsForm.get_initial_values(queryset, keys))
+        form = BulkActionsForm(queryset)
+        result = list(form.get_initial_values(queryset, keys))
         self.assertEqual(result, [('assigned_section', 'ADM'), ('status', 'new')])
 
     def test_bulk_actions_change_section(self):
