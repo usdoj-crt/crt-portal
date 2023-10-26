@@ -13,16 +13,38 @@
 {% endblock %}
 
 {% block card_content %}
+{% if data.email_responses|length == 0 %}
 <div id="responses-info">
-  <small>
-      We have sent {{data.email_responses|length}} response{{ data.email_responses|length|pluralize }} to this report.
-  </small>
+  <p>
+    <small>
+      No email responses have been sent to this report.
+    </small>
+  </p>
+</div>
+{% else %}
+<div id="responses-info">
+  <p>
+    <small>
+    We have sent {{data.email_responses|length}} response{{ data.email_responses|length|pluralize }} to this report.
+    </small>
+  </p>
+  <p>
+    <small>
+    View them below, or
+      <a target="_blank" href="/email/admin/report-pdf/{{data.id}}">
+        view a combined PDF
+        <svg class="inline-icon" fill="#162e51" aria-hidden="true" focusable="false" role="img">
+          <use xlink:href="/static/img/sprite.svg?v=1697818165#save_alt"></use>
+        </svg>
+      </a> (this may take a moment for reports with many responses)
+    </small>
+  </p>
 </div>
 
 <table class="usa-table usa-table--borderless card-table width-full">
   <thead>
     <tr>
-      <th scope="col">TMS ID</th>
+      <th scope="col">ID</th>
       <th scope="col">Status</th>
       <th scope="col">Drafted</th>
       <th scope="col">Sent</th>
@@ -34,7 +56,7 @@
     {% for response in data.email_responses %}
     <tr>
       <td>
-        <a target="_blank" href="/email/admin/messages/{{response.tms_id}}">
+        <a target="_blank" href="/email/admin/pdf/{{response.tms_id}}">
           {{response.tms_id}}
         </a>
       </td>
@@ -83,5 +105,5 @@
     {% endfor %}
   </tbody>
 </table>
-
+{% endif %}
 {% endblock %}
