@@ -11,6 +11,19 @@
   gap: 5px;
 }
 
+.change-profile {
+  form .aligned {
+    ul {
+      margin-left: 2em;
+      padding-left: 1em;
+
+      li {
+        list-style-type: square;
+      }
+    }
+  }
+}
+
 .flex-submit {
   button {
     color: white;

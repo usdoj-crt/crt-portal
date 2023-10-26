@@ -1782,10 +1782,6 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         if report.closed:
             report.closeout_report()
             self.report_closed = True
-        if report.referred:
-            report.referral_section = report.assigned_section
-        elif report.referral_section:
-            report.referral_section = ''
         if commit:
             report.save()
         return report
@@ -1993,6 +1989,33 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             },
         ),
     )
+    retention_schedule = MultipleChoiceField(
+        required=False,
+        label='Retention schedule',
+        choices=[
+            ('', ''),  # Default choice: empty (include everything)
+            ('(none)', 'None'),  # Custom: No assigned campaign.
+            *RETENTION_SCHEDULE_CHOICES,
+        ],
+        widget=UsaCheckboxSelectMultiple(attrs={
+            'name': 'retention_schedule',
+        }),
+        initial='',
+    )
+    referred = BooleanField(
+        label='Secondary review',
+        required=False,
+        widget=CheckboxInput(attrs={
+            'class': 'usa-checkbox__input',
+            'aria-label': 'Secondary review',
+        })
+    )
+    dj_number = CharField(
+        label='Dj number',
+        widget=get_dj_widget(),
+        required=False,
+        initial='',
+    )
 
     def get_initial_values(self, record_query, keys):
         """
@@ -2013,25 +2036,25 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         if litigation_hold_states.count() == 1:
             initial = 'on' if litigation_hold_states[0] else 'off'
         else:
-            initial = 'mixed'
+            initial = ''
         self.fields['litigation_hold'] = ChoiceField(
             label='Litigation hold',
             widget=ComplaintSelect(
                 attrs={'class': 'crt-dropdown__data'},
             ),
-            choices=(('on', 'On'), ('off', 'Off'), ('mixed', self.EMPTY_CHOICE)),
+            choices=(('on', 'On'), ('off', 'Off'), ('', self.EMPTY_CHOICE)),
             required=False,
             initial=initial,
         )
 
     def clean_litigation_hold(self):
         if 'litigation_hold' not in self.changed_data:
-            return None
+            return ''
         if self.cleaned_data['litigation_hold'] == 'on':
             return True
         if self.cleaned_data['litigation_hold'] == 'off':
             return False
-        return None
+        return ''
 
     def __init__(self, query, *args, user=None, **kwargs):
         self.user = user
@@ -2050,9 +2073,11 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         self.setup_litigation_hold(query)
 
         # set initial values if applicable
-        keys = ['assigned_section', 'status', 'primary_statute', 'district', 'retention_schedule']
+        keys = ['assigned_section', 'status', 'primary_statute', 'dj_number', 'retention_schedule', 'referred', 'district']
         for key, initial_value in self.get_initial_values(query, keys):
             self.fields[key].initial = initial_value
+        if not self.fields['dj_number'].initial:
+            self.fields['dj_number'].initial = '--'
 
     def can_assign_schedule(self):
         if not self.user:
@@ -2066,19 +2091,30 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             raise ValidationError('You do not have permission to assign retention schedules.')
         return self.cleaned_data['retention_schedule']
 
+    def clean_dj_number(self):
+        dj_number = self.cleaned_data.get('dj_number', '')
+        if not dj_number:
+            return ''
+        if any(not c for c in dj_number.rsplit('-', 2)):
+            return ''
+        return dj_number
+
     def get_updates(self):
         updates = {field: self.cleaned_data[field] for field in self.changed_data}
         # do not allow any fields to be unset. this may happen if the
         # user selects "Multiple".
-        for key in ['assigned_section', 'status', 'primary_statute', 'litigation_hold', 'retention_schedule']:
+        for key in ['assigned_section', 'status', 'primary_statute', 'dj_number', 'retention_schedule', 'referred', 'litigation_hold']:
             if key in updates and updates[key] in [None, '']:
                 updates.pop(key)
-        # if section is changed, override assignee and status
+        # if section is changed, override assignee, status, retention schedule, secondary review
         # explicitly, even if they are set by the user.
         if 'assigned_section' in updates:
             updates['primary_statute'] = None
             updates['assigned_to'] = ''
             updates['status'] = 'new'
+            updates['retention_schedule'] = None
+            updates['referred'] = False
+            updates['dj_number'] = None
 
         updates.pop('district', None)  # district is currently disabled (read-only)
         return updates
@@ -2104,7 +2140,9 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             descriptions.append(description)
         if len(descriptions) > 1:
             descriptions[-1] = f'and {descriptions[-1]}'
-        return ', '.join(descriptions) or 'comment added'
+        final_description = ', '.join(descriptions) or 'comment added'
+        logging.info(final_description)
+        return final_description
 
     def get_actions(self, report):
         """

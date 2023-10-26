@@ -177,7 +177,7 @@ class ActionTests(TestCase):
             'assigned_section': SAMPLE_REPORT_1['assigned_section'],
             'status': NEW_STATUS,
             'retention_schedule': self.schedule3.pk,
-            'litigation_hold': 'mixed',
+            'litigation_hold': '',
             'comment': 'Test bulk change',
         }, user=unprivileged_user)
         form.full_clean()
@@ -881,14 +881,14 @@ class ReportActionTests(TestCase):
         self.client.login(username='DELETE_USER', password=self.test_pass)
         self.report = Report.objects.create(**SAMPLE_REPORT_1)
 
-    def test_referral_section_checked(self):
-        self.assertEqual(self.report.referral_section, '')
+    def test_secondary_review_checked(self):
         url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
         params = {
             'type': 'actions',
             # Keep the same status as when the report was created.
             'status': NEW_STATUS,
             'referred': 'on',
+            'assigned_section': 'ADM',
         }
         response = self.client.post(url, params, follow=True)
         content = str(response.content)
@@ -897,11 +897,9 @@ class ReportActionTests(TestCase):
         self.assertTrue(escape('Updated from "False" to "True"') in content)
         self.report.refresh_from_db()
         self.assertTrue(self.report.referred)
-        self.assertEqual(self.report.referral_section, 'ADM')
 
-    def test_referral_section_unchecked(self):
+    def test_secondary_review_unchecked(self):
         self.report.referred = True
-        self.report.referral_section = 'ADM'
         self.report.save()
         url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
         params = {
@@ -917,7 +915,6 @@ class ReportActionTests(TestCase):
         self.assertTrue(escape('Updated from "True" to "False"') in content)
         self.report.refresh_from_db()
         self.assertFalse(self.report.referred)
-        self.assertEqual(self.report.referral_section, '')
 
     def test_assign_report_to_user(self):
         url = reverse('crt_forms:crt-forms-show', kwargs={'id': self.report.id})
@@ -1108,7 +1105,7 @@ class BulkActionsTests(TestCase):
         ids = [report.id for report in self.reports[3:5]]
         response = self.post(ids, assigned_to=self.user.id, comment='a comment', assigned_section='VOT', status='closed')
         content = str(response.content)
-        self.assertTrue(escape("2 records have been updated: section set to VOT, status set to new, assigned to '', and primary classification set to ''") in content)
+        self.assertTrue(escape("2 records have been updated: section set to VOT, status set to new, assigned to '', primary classification set to '', retention schedule set to '', secondary review set to '', and dj number set to ''") in content)
         self.assertEqual(response.request['PATH_INFO'], reverse('crt_forms:crt-forms-index'))
         for report_id in ids:
             report = Report.objects.get(id=report_id)
@@ -1176,7 +1173,6 @@ class BulkActionsTests(TestCase):
             report = Report.objects.get(id=report_id)
             last_activity = list(report.target_actions.all())[-1]
             self.assertEqual(last_activity.verb, "Added comment: ")
-            self.assertEqual(last_activity.description, 'a comment')
             self.assertEqual(last_activity.actor, self.user)
 
     def test_post_with_email_count_sort(self):
@@ -1432,7 +1428,7 @@ class ReferralEmailContentTests(TestCase):
 
     @override_settings(RESTRICT_EMAIL_RECIPIENTS_TO=['a@example.gov', 'b@example.gov'])
     def test_build_referral_content(self):
-        complainant_letter = render_complainant_mail(report=self.report, template=self.template)
+        complainant_letter = render_complainant_mail(report=self.report, template=self.template, action='email')
 
         referral_letter = render_agency_mail(complainant_letter=complainant_letter,
                                              template=self.template,

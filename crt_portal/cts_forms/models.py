@@ -57,8 +57,9 @@ def get_system_user():
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     intake_filters = models.TextField(max_length=500, blank=True)
+    section = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, default=None)
 
     def __str__(self):
         return str(self.user)
@@ -537,13 +538,17 @@ class Report(models.Model):
         local_tz = pytz.timezone('US/Eastern')
         self.closed_date = datetime.now(local_tz)
 
-    def status_assignee_reset(self):
+    def reset_for_changed_section(self):
         """
         Remove assignee and update status to new
         """
         self.assigned_to = None
         self.status = 'new'
         self.primary_statute = None
+        self.retention_schedule = None
+        self.referred = False
+        self.dj_number = None
+        self.district = None
 
     @cached_property
     def related_reports(self):
