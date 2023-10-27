@@ -4,15 +4,6 @@
 /******************************************
 Heading and body type styles
 ******************************************/
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.intake-label {
-  @include add-knockout-font-smoothing;
-}
 
 // NOTE: We're overriding the USWDS declarations for heading tags here because
 // we want to avoid the normalization that happens with the font tokens:
