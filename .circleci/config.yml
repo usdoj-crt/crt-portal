@@ -343,6 +343,10 @@ jobs:
           name: Deploy crt-portal-django to staging
           no_output_timeout: 20m
           command: cf8 push crt-portal-django --strategy rolling --app-start-timeout 180 -f ${CF_MANIFEST} | sed 's/.*/Use cf logs to view build information/'
+      - run:
+          name: Deploy crt-portal-jupyter to staging
+          no_output_timeout: 20m
+          command: cf8 push crt-portal-jupyter --strategy rolling --app-start-timeout 180 -f ${CF_MANIFEST} | sed 's/.*/Use cf logs to view build information/'
 
   deploy-prod:
     working_directory: ~/code
