@@ -88,8 +88,22 @@
     document.querySelector('.data-content').hidden = false;
   }
 
+  function initCityFilter(filter) {
+    filter.addEventListener('change', () => {
+      filterByCity(filter.value);
+    });
+  }
+
+  function filterByCity(city) {
+    dom.querySelectorAll('.city-wrapper').forEach(cityDataWrapper => {
+        cityDataWrapper.hidden = !cityDataWrapper.classList.contains(city);
+    })
+  }
+
   dom.addEventListener('DOMContentLoaded', function() {
     const sectionFilter = dom.querySelector('#id_section');
+    const cityFilter = dom.querySelector('.incident-location-city');
+    initCityFilter(cityFilter);
     initSectionFilter(sectionFilter);
   });
 })(window, document);
