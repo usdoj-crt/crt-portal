@@ -50,8 +50,7 @@
     "postcss": "^8.4.31",
     "postcss-csso": "^5.0.0",
     "sass": "^1.52.1",
-    "url-search-params-polyfill": "^7.0.1",
-    "uswds-gulp": "github:uswds/uswds-gulp"
+    "url-search-params-polyfill": "^7.0.1"
   },
   "devDependencies": {
     "pa11y": "^6.0.1",
