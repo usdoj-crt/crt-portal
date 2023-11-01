@@ -1301,7 +1301,11 @@ msgstr "Su número de registro es:"
 
 #: templates/forms/confirmation.html:61
 msgid "Print report"
-msgstr ""
+msgstr "Imprimir reporte"
+
+#: templates/forms/confirmation.html:62
+msgid "Save report"
+msgstr "Guardar reporte"
 
 #: templates/forms/confirmation.html:72
 msgid "What to expect"
@@ -2029,8 +2033,8 @@ msgid "Start a report"
 msgstr "Inicie el proceso de querella"
 
 #: templates/landing.html:102
-msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
-msgstr "o aprenda más sobre <a href=\"#your-rights\">sus derechos</a>"
+msgid "Learn your rights"
+msgstr "Aprender sobre sus derechos"
 
 #: templates/landing.html:115
 msgid ""

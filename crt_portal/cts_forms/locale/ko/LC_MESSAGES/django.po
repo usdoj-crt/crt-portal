@@ -1233,6 +1233,10 @@ msgstr "당신의 기록 번호:"
 msgid "Print report"
 msgstr "보고서 출력"
 
+#: templates/forms/confirmation.html:62
+msgid "Save report"
+msgstr "보고서 저장하기"
+
 #: templates/forms/confirmation.html:72
 msgid "What to expect"
 msgstr "추후 상황"
@@ -1927,8 +1931,8 @@ msgid "Start a report"
 msgstr "신고서 작성"
 
 #: templates/landing.html:102
-msgid "or learn more about <a href=\"#your-rights\">your rights</a>"
-msgstr "<a href=\"#your-rights\">귀하의 권리</a>에 대해 더 알아보세요"
+msgid "Learn your rights"
+msgstr "귀하의 권리를 숙지하십시오"
 
 #: templates/landing.html:115
 msgid ""

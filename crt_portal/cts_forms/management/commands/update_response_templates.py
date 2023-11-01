@@ -61,6 +61,7 @@ class Command(BaseCommand):  # pragma: no cover
                     # This is optional. Default value is false
                     # Note: this does not catch errors or typos in values.
                     letter_data['is_html'] = content.get('is_html', False)
+                    letter_data['show_in_dropdown'] = content.get('show_in_dropdown', True)
                     letter_data['is_user_created'] = False
 
                     letter, created = ResponseTemplate.objects.update_or_create(title=letter_id, defaults=letter_data)
