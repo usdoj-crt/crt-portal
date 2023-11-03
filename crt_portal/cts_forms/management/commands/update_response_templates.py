@@ -43,6 +43,7 @@ class Command(BaseCommand):  # pragma: no cover
                             'subject': content['subject'],
                             'language': content['language'],
                             'body': content,
+                            'is_notification': content.get('is_notification', False),
                         }
                     except KeyError as e:
                         self.stdout.write(self.style.ERROR(f'Response template {template.name} is missing required `{e.args[0]}` property. Skipping it!'))
@@ -61,15 +62,13 @@ class Command(BaseCommand):  # pragma: no cover
                     # This is optional. Default value is false
                     # Note: this does not catch errors or typos in values.
                     letter_data['is_html'] = content.get('is_html', False)
-                    letter_data['show_in_dropdown'] = content.get('show_in_dropdown', True)
+                    letter_data['show_in_dropdown'] = content.get('show_in_dropdown', not letter_data['is_notification'])
                     letter_data['is_user_created'] = False
 
                     letter, created = ResponseTemplate.objects.update_or_create(title=letter_id, defaults=letter_data)
 
-                    if created:
-                        self.stdout.write(self.style.SUCCESS(f'Created response template: {letter.title}'))
-                    else:
-                        self.stdout.write(self.style.SUCCESS(f'Updated response template: {letter.title}'))
+                    verb = 'Created' if created else 'Updated'
+                    self.stdout.write(self.style.SUCCESS(f'{verb} response template: {letter.title}'))
 
         for object in ResponseTemplate.objects.filter(is_user_created=False).exclude(title__in=self.template_ids):
             letter_id = object.title
