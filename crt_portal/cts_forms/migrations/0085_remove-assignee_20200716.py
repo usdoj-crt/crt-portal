@@ -3,7 +3,7 @@
 from django.db import migrations
 from datetime import datetime
 import pytz
-from actstream import action
+from utils import activity
 from django.contrib.auth import get_user_model
 from actstream import registry
 
@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                         report.assigned_to = None
                         report.save()
                         # Add the closed activity to activity stream
-                        action.send(superuser, verb='Assignee Removed: ',
+                        activity.send_action(superuser, verb='Assignee Removed: ',
                                     description='Removed assignee for closed record before July 1, 2020',
                                     target=report)
     operations = [
