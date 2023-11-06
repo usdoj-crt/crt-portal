@@ -604,6 +604,15 @@ def serialize_data(report, request, report_id):
 
     return output
 
+@login_required
+def disposition_view(request):
+    report_query, query_filters = report_filter(QueryDict('status=closed&retention_schedule=1%20Year&retention_schedule=3%20Year&retention_schedule=10%20Year&retention_schedule=Permanent'))
+    profile_form = get_profile_form(request)
+    final_data = get_view_data(request, report_query, query_filters)
+    final_data.update({
+        'profile_form': profile_form,
+    })
+    return render(request, 'forms/complaint_view/disposition/index.html', final_data)
 
 class ProfileView(LoginRequiredMixin, FormView):
     # Can be used for updating section filter for a profile

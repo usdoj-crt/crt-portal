@@ -68,7 +68,7 @@ def sort_url_factory(heading, is_descending, filter_state, grouping, group_param
 
 
 @register.inclusion_tag('forms/snippets/sortable_table_heading.html')
-def render_sortable_heading(heading, sort_state, filter_state, grouping='default', group_params=None, index=1, nowrap=False):
+def render_sortable_heading(heading, sort_state, filter_state='', grouping='default', group_params=None, index=1, nowrap=False):
     safe_heading = heading.lower()
     sortable_prop = sort_lookup.get(safe_heading, None)
 
