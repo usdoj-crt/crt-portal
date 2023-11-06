@@ -18,10 +18,15 @@
       },
       {
         "path": "assignments/intake-dashboard/assignable.ipynb",
-        "show_only_for_sections": [
-          "ADM",
-          "APP"
-        ]
+        "show_only_for_sections": []
+      },
+      {
+        "path": "assignments/intake-dashboard/whats_happening_where.ipynb",
+        "show_only_for_sections": []
+      },
+      {
+        "path": "assignments/intake-dashboard/report_districts.ipynb",
+        "show_only_for_sections": []
       }
     ],
     "order": 1
