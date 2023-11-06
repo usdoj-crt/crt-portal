@@ -48,7 +48,7 @@ class TMSEmail(models.Model):
         return f"TMS messsage ID: {self.tms_id}"
 
     @classmethod
-    def create_fake(cls, *, report, **kwargs):
+    def create_fake(cls, *, report, recipient=None, **kwargs):
         try:
             latest_id = cls.objects.latest('tms_id').tms_id + 1
         except cls.DoesNotExist:
@@ -65,7 +65,7 @@ class TMSEmail(models.Model):
             completed_at = datetime.now()
 
         return cls(tms_id=latest_id,
-                   recipient=report.contact_email,
+                   recipient=recipient or report.contact_email,
                    report=report,
                    created_at=datetime.now(),
                    completed_at=completed_at,
