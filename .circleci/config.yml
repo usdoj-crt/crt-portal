@@ -595,9 +595,12 @@ workflows:
               only: develop
 
       - deploy-stage:
+          requires:
+            - owasp-scan-dev
+            - build_and_test
           filters:
             branches:
-              only: kk/1646/adfs-group-removal-fix
+              only: /^release.*/
 
       - deploy-prod:
           requires:
@@ -614,12 +617,12 @@ workflows:
             branches:
               only: develop
 
-#       - e2e-test-stage:
-#           requires:
-#             - deploy-stage
-#           filters:
-#             branches:
-#               only: /^release.*/
+      - e2e-test-stage:
+          requires:
+            - deploy-stage
+          filters:
+            branches:
+              only: /^release.*/
 
   # Scheduled maintenance jobs for portal
   # Dev scheduled jobs
