@@ -75,7 +75,7 @@ def test_report_complete_and_valid_submission(page):
     assert page.title() == "Step 2: Primary concern - Contact the Civil Rights Division | Department of Justice"
 
     # Check voting
-    page.check("#id_1-primary_complaint_4")
+    page.check('[name="1-primary_complaint"][value="voting"]')
 
     # Check footer exist
     content = page.text_content("footer")
