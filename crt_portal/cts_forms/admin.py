@@ -30,7 +30,7 @@ from .model_variables import SECTION_CHOICES
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
                      JudicialDistrict, RetentionSchedule, RoutingSection, RoutingStepOneContact,
-                     VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch)
+                     VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch, NotificationPreference)
 from .signals import get_client_ip
 
 logger = logging.getLogger(__name__)
@@ -467,8 +467,15 @@ class ProfileInline(admin.StackedInline):
     fk_name = 'user'
 
 
+class NotificationPreferenceInline(admin.StackedInline):
+    model = NotificationPreference
+    can_delete = True
+    verbose_name_plural = 'Notification Preferences'
+    fk_name = 'user'
+
+
 class CustomUserAdmin(UserAdmin):
-    inlines = (ProfileInline, )
+    inlines = (ProfileInline, NotificationPreferenceInline)
     actions = ("bulk_change_profile", *UserAdmin.actions)
 
     list_filter = (

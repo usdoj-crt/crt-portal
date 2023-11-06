@@ -1,6 +1,5 @@
 import logging
 from datetime import datetime, timezone
-from actstream import action
 
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
@@ -66,6 +65,7 @@ from .widgets import (ComplaintSelect, CrtMultiSelect,
                       CrtPrimaryIssueRadioGroup, DjNumberWidget, UsaCheckboxSelectMultiple,
                       UsaRadioSelect, DataAttributesSelect, CrtDateInput, add_empty_choice)
 from utils.voting_mode import is_voting_mode
+from utils import activity
 
 
 logger = logging.getLogger(__name__)
@@ -73,7 +73,7 @@ User = get_user_model()
 
 
 def add_activity(user, verb, description, instance):
-    action.send(
+    activity.send_action(
         user,
         verb=verb,
         description=description,
@@ -198,7 +198,7 @@ def maybe_auto_reroute(report):
         system_user = get_system_user()
         report.assigned_section = search.override_section_assignment_with
         report.save()
-        action.send(
+        activity.send_action(
             system_user,
             verb="Routing overridden",
             description=f"Rerouted to {search.override_section_assignment_with} due to Saved Search {search.name}",
@@ -223,7 +223,7 @@ def maybe_auto_close(report):
         summary.note = reason_for_closing
         summary.save()
         report.save()
-        action.send(
+        activity.send_action(
             system_user,
             verb="Report auto-closed",
             description=reason_for_closing,
@@ -1719,7 +1719,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
         for verb, description in self.get_actions():
-            action.send(
+            activity.send_action(
                 user,
                 verb=verb,
                 description=description,
@@ -1843,7 +1843,7 @@ class ComplaintOutreach(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
     def update_activity_stream(self, user):
         """Send all actions to activity stream"""
         for verb, description in self.get_actions():
-            action.send(
+            activity.send_action(
                 user,
                 verb=verb,
                 description=description,
@@ -1895,7 +1895,7 @@ class CommentActions(ModelForm):
 
     def update_activity_stream(self, user, report, verb):
         """Send all actions to activity stream"""
-        action.send(
+        activity.send_action(
             user,
             verb=verb,
             description=self.instance.note,
@@ -2369,7 +2369,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
         """Generate activity log entry for summary if it was updated"""
         super().update_activity_stream(user)
         if 'summary' in self.changed_data:
-            action.send(
+            activity.send_action(
                 user,
                 verb='Added summary: ' if self.summary_created else 'Updated summary: ',
                 description=self.summary.note,
@@ -2424,7 +2424,7 @@ class AttachmentActions(ModelForm):
 
     def update_activity_stream(self, user, verb, instance):
         """Send all actions to activity stream"""
-        action.send(
+        activity.send_action(
             user,
             verb=verb,
             description=instance.filename,
