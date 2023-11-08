@@ -16,7 +16,10 @@ sort_lookup = {
     'timestamp': 'timestamp',
     'action': 'verb',
     'detail': 'description',
-    'complaint id': 'target_object_id'
+    'complaint id': 'target_object_id',
+    'retention schedule': 'retention_schedule',
+    'closed date': 'closed_date',
+    'expiration date': 'expiration_date',
 }
 sortable_props = [
     'status',
@@ -32,6 +35,9 @@ sortable_props = [
     'verb',
     'description',
     'target_object_id',
+    'retention_schedule',
+    'closed_date',
+    'expiration_date',
 ]
 
 

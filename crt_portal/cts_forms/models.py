@@ -372,6 +372,8 @@ class Report(models.Model):
     author = models.CharField(max_length=1000, null=True, blank=True)
     assigned_to = models.ForeignKey(User, blank=True, null=True, related_name="assigned_complaints", on_delete=models.CASCADE)
     closed_date = models.DateTimeField(blank=True, null=True, help_text="The Date this report's status was most recently set to \"Closed\"")
+    expiration_date = models.DateTimeField(blank=True, null=True, help_text="The Date this report's status was most recently set to \"Closed\" plus the length of the Retention Schedule")
+    eligible_date = models.DateTimeField(blank=True, null=True, help_text="The Date this report is eligible for disposal, 30 days before the expiration date")
     language = models.CharField(default='en', max_length=10, blank=True, null=True)
     viewed = models.BooleanField(default=False)
 
@@ -555,6 +557,8 @@ class Report(models.Model):
         self.status = 'new'
         self.primary_statute = None
         self.retention_schedule = None
+        self.expiration_date = None
+        self.eligible_date = None
         self.referred = False
         self.dj_number = None
         self.district = None

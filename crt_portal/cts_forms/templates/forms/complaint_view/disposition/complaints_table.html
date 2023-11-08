@@ -33,14 +33,14 @@
               <img alt="" aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
             </a>
           </th>
-          {% render_sortable_heading 'Status' sort_state %}
-          {% render_sortable_heading 'Section' sort_state %}
-          {% render_sortable_heading 'Retention Schedule' sort_state %}
-          {% render_sortable_heading 'Expiration Date' sort_state %}
-          {% render_sortable_heading 'Closed Date' sort_state %}
-          {% render_sortable_heading 'Total #' sort_state %}
-          {% render_sortable_heading 'Incident Location' sort_state %}
-          {% render_sortable_heading 'Incident City/State' sort_state %}
+          {% render_sortable_heading 'Status' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Section' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Retention Schedule' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Expiration Date' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Closed Date' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Total #' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Incident Location' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Incident City/State' sort_state filter_state grouping group_params index %}
         </tr>
       </thead>
       {% if data_dict %}
@@ -64,18 +64,18 @@
                 </a>
               </td>
               <td>
-                <a class="td-link display-block" href="{{datum.url}}">
+                <a class="td-link display-block" href="view/{{datum.url}}">
                   <span class="status-tag status-{{ datum.report.status }}">
                     {{ datum.report.status }}
                   </span>
                 </a>
               </td>
-              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.assigned_section }}</a></td>
-              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.retention_schedule }}</a></td>
-              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.expiration_date|date:"SHORT_DATE_FORMAT"|default:"-" }}</a></td>
-              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.closed_date|date:"SHORT_DATE_FORMAT" }}</a></td>
+              <td><a class="td-link display-block" href="view/{{datum.url}}">{{ datum.report.assigned_section }}</a></td>
+              <td><a class="td-link display-block" href="view/{{datum.url}}">{{ datum.report.retention_schedule }}</a></td>
+              <td><a class="td-link display-block" href="view/{{datum.url}}">{{ datum.report.expiration_date|date:"SHORT_DATE_FORMAT"|default:"-" }}</a></td>
+              <td><a class="td-link display-block" href="view/{{datum.url}}">{{ datum.report.closed_date|date:"SHORT_DATE_FORMAT" }}</a></td>
               <td>
-                <a class="td-link display-block" href="{{datum.url}}">
+                <a class="td-link display-block" href="view/{{datum.url}}">
                   {% with count=datum.report.related_reports_count|default:"—" %}
                   <div class="report-count"><span>{{ count }}</span>
                     <span
@@ -89,9 +89,9 @@
                   {% endwith %}
                 </a>
               </td>
-              <td><a class="td-link display-block" href="{{datum.url}}">{{ datum.report.location_name|default:"-" }}</a></td>
+              <td><a class="td-link display-block" href="view/{{datum.url}}">{{ datum.report.location_name|default:"-" }}</a></td>
               <td>
-                <a class="td-link display-block" href="{{datum.url}}">
+                <a class="td-link display-block" href="view/{{datum.url}}">
                   {{ datum.report.location_city_town }}, {{ datum.report.location_state }}
                 </a>
               </td>
@@ -125,19 +125,19 @@
                 <label aria-hidden="true" for="tr-quickview-contact-{{ datum.report.id }}" class="td-quickview">
                   Contact Details
                 </label>
-                <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-contact-{{ datum.report.id }}" class="td-contact word-break">
-                    {% with last=datum.report.contact_last_name|default:"—" %}
-                        {{ last|truncatechars:20 }}{% endwith %}, {% with first=datum.report.contact_first_name|default:"—" %}
-                        {{ first|truncatechars:20 }}
+                <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-contact-{{ datum.report.id }}" class="td-summary">
+                    <p>{% with last=datum.report.contact_last_name|default:"—" %}
+                        {{ last }}{% endwith %}, {% with first=datum.report.contact_first_name|default:"—" %}
+                        {{ first }}
                     {% endwith %}
                     <br>
                     {% with email=datum.report.contact_email|default:"—" %}
-                        {{ email|truncatechars:20 }}
+                        {{ email }}
                     {% endwith %}
                     <br>
                     {% with phone=datum.report.contact_phone|default:"—"  %}
-                        {{ phone|truncatechars:20 }}
-                    {% endwith %}
+                        {{ phone }}
+                    {% endwith %}</p>
                 </div>
               </td>
             </tr>

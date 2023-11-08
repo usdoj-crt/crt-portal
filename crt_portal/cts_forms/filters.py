@@ -70,6 +70,7 @@ filter_options = {
     'other_class': '__search',  # not in filter controls?
     # this is not a db query filter, not needed here, duplicate tag fix, removed from the filter tag list
     # 'per_page': '__pass',  # adding so a filter tag will show up in /form/view.  No filtering will actually happen.
+    'disposition_status': 'disposition_status',
 }
 
 # To add a new filter option for Reports, add the field name and expected filter behavior
@@ -203,6 +204,13 @@ def report_filter(querydict):
             phone_number_array = ''.join(c if c.isdigit() else ' ' for c in querydict.getlist(field)[0]).split()
             for number_block in phone_number_array:
                 qs = qs.filter(contact_phone__icontains=number_block)
+        elif field_options == 'disposition_status':
+            disposition_status = querydict.getlist(field)[0]
+            expiration_filter = get_expiration_filter(disposition_status)
+            today = datetime.today().date()
+            kwargs[f'expiration_date{expiration_filter}'] = today
+            if disposition_status == 'eligible':
+                kwargs['eligible_date__lte'] = today
 
     # Check to see if there are multiple values in report_reason search and run distinct if so.  If not, run a regular
     # much faster search.
@@ -212,6 +220,13 @@ def report_filter(querydict):
         qs = qs.filter(**kwargs)
     return qs, filters
 
+def get_expiration_filter(disposition_status):
+    if disposition_status == 'past':
+        return '__lt'
+    if disposition_status == 'eligible':
+        return '__gt'
+    if disposition_status == 'other':
+        return '__gt'
 
 def dashboard_filter(querydict):
     kwargs = {}
