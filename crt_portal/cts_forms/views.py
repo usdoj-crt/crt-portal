@@ -613,6 +613,7 @@ def serialize_data(report, request, report_id):
 
     return output
 
+
 @login_required
 def disposition_view(request):
     disposition_status = request.GET.get('disposition_status', 'past')
@@ -624,6 +625,7 @@ def disposition_view(request):
         'disposition_status': disposition_status,
     })
     return render(request, 'forms/complaint_view/disposition/index.html', final_data)
+
 
 class ProfileView(LoginRequiredMixin, FormView):
     # Can be used for updating section filter for a profile

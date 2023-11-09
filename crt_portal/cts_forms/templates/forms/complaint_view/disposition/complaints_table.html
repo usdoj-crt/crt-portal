@@ -18,16 +18,6 @@
       </span>
       <thead>
         <tr>
-        <th aria-label="Bulk Action Selection">
-            <div class="usa-checkbox td-checkbox">
-                <input type="checkbox"
-                    name="all"
-                    class="usa-checkbox__input checkbox-input-all"
-                    value="all"
-                >
-                <label class="usa-checkbox__label crt-checkbox__label checkbox-all" aria-label="Select all records"></label>
-            </div>
-          </th>
           <th aria-label="Detail toggles">
             <a aria-expanded="false" role="button" aria-label="Expand all detail rows" class="td-toggle-all display-flex" data-posted='false' href="#">
               <img alt="" aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
@@ -47,17 +37,6 @@
         <tbody>
           {% for datum in data_dict %}
             <tr class="tr-status-{{ datum.report.status }} tr--hover{% cycle ' stripe' '' %}">
-              <td>
-                <div class="usa-checkbox td-checkbox">
-                  <input type="checkbox"
-                         name="id"
-                         class="usa-checkbox__input"
-                         value="{{ datum.report.id }}"
-                         id="checkbox-{{ datum.report.id }}"
-                  >
-                  <label class="usa-checkbox__label crt-checkbox__label" for="checkbox-{{ datum.report.id }}" aria-label="Select record {{ datum.report.id }}"></label>
-                </div>
-              </td>
               <td>
                 <a data-id="{{ datum.report.id }}" aria-expanded="false" aria-label="Expand details for Record {{datum.report.id}}" role="button" aria-controls="tr-additional-{{ datum.report.id }}" class="td-toggle display-flex" href="#">
                   <img aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">

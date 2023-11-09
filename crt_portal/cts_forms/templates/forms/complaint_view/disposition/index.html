@@ -14,6 +14,7 @@
 
 <div id="status-update" class="grid-col-auto">
     {% include 'partials/messages.html' %}
+    {% include "forms/complaint_view/disposition/filter-controls.html" with filters=filters form=form %}
 </div>
 <div class="display-flex margin-top-8">
 <span class="intake-pagination margin-left-auto">
@@ -42,6 +43,11 @@
 {% endblock %}
 {% block page_js %}
 {{ block.super }}
-<script src="{% static 'js/dashboard_quick_view.min.js' %}"></script>
 <script src="{% static 'js/ga_util.min.js' %}"></script>
+<script src="{% static 'vendor/js.cookie.min.js' %}"></script>
+<script src="{% static 'js/complaint_quick_view.min.js' %}"></script>
+<script type="module" src="{% static 'js/disposition_pagination.min.js' %}"></script>
+<script src="{% static 'js/constant_writer.min.js'%}"></script>
+<script src="{% static 'js/complaint_actions.min.js' %}"></script>
+<script src="{% static 'js/dashboard_view_all.min.js'%}"></script>
 {% endblock %}

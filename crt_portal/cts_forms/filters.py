@@ -68,9 +68,9 @@ filter_options = {
     'summary': 'summary',  # aka "CRT summary"
     'location_name': '__icontains',
     'other_class': '__search',  # not in filter controls?
+    'disposition_status': 'disposition_status',
     # this is not a db query filter, not needed here, duplicate tag fix, removed from the filter tag list
     # 'per_page': '__pass',  # adding so a filter tag will show up in /form/view.  No filtering will actually happen.
-    'disposition_status': 'disposition_status',
 }
 
 # To add a new filter option for Reports, add the field name and expected filter behavior
@@ -220,6 +220,7 @@ def report_filter(querydict):
         qs = qs.filter(**kwargs)
     return qs, filters
 
+
 def get_expiration_filter(disposition_status):
     if disposition_status == 'past':
         return '__lt'
@@ -227,6 +228,7 @@ def get_expiration_filter(disposition_status):
         return '__gt'
     if disposition_status == 'other':
         return '__gt'
+
 
 def dashboard_filter(querydict):
     kwargs = {}
