@@ -187,7 +187,6 @@
     });
   }
 
-
   function init() {
     if (root.location.search === '') {
       root.location.search = '?disposition_status=past';
