@@ -318,13 +318,19 @@ if environment in ['PRODUCTION', 'STAGE']:
             '^email',
             '^housing-resources',
             '^voting-resources',
+            '^oauth2_provider/token/',
+            '^oauth2_provider/userinfo/',
         ],
     }
 
+    if environment == 'STAGE':
+        login_base_url = 'https://crt-portal-django-stage.app.cloud.gov'
+    else:
+        login_base_url = 'https://crt-portal-django-prod.app.cloud.gov'
     # Configure django to redirect users to the right URL for login
-    LOGIN_URL = "/oauth2/login"
+    LOGIN_URL = f"{login_base_url}/oauth2/login"
     # The url where the ADFS server calls back to our app
-    LOGIN_REDIRECT_URL = "/oauth2/callback"
+    LOGIN_REDIRECT_URL = f"{login_base_url}/oauth2/callback"
 
     ALLOWED_HOSTS = [
         'civilrights.justice.gov',
