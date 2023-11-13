@@ -88,8 +88,37 @@
     document.querySelector('.data-content').hidden = false;
   }
 
+  function initCityFilter(filter) {
+    filter?.addEventListener('change', () => {
+      filterByCity(filter.value);
+    });
+  }
+
+  function filterByCity(city) {
+    dom.querySelectorAll('.city-wrapper').forEach(cityDataWrapper => {
+      cityDataWrapper.hidden = !cityDataWrapper.classList.contains(city) && city.length;
+    });
+  }
+
+  function initDistrictFilter(filter) {
+    filter?.addEventListener('change', () => {
+      filterByDistrict(filter.value);
+    });
+  }
+
+  function filterByDistrict(district) {
+    dom.querySelectorAll('.district-wrapper').forEach(districtDataWrapper => {
+      districtDataWrapper.hidden =
+        !districtDataWrapper.classList.contains(district) && district.length;
+    });
+  }
+
   dom.addEventListener('DOMContentLoaded', function() {
     const sectionFilter = dom.querySelector('#id_section');
+    const cityFilter = dom.querySelector('.incident-location-city');
+    const districtFilter = dom.querySelector('.incident-district');
     initSectionFilter(sectionFilter);
+    initCityFilter(cityFilter);
+    initDistrictFilter(districtFilter);
   });
 })(window, document);

@@ -77,7 +77,8 @@ def add_activity(user, verb, description, instance):
         user,
         verb=verb,
         description=description,
-        target=instance
+        target=instance,
+        send_notification=True,
     )
 
 
@@ -1723,7 +1724,8 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
                 user,
                 verb=verb,
                 description=description,
-                target=self.instance
+                target=self.instance,
+                send_notification=True,
             )
 
     def success_message(self):
@@ -1861,7 +1863,8 @@ class ComplaintOutreach(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
                 user,
                 verb=verb,
                 description=description,
-                target=self.instance
+                target=self.instance,
+                send_notification=True,
             )
 
     def success_message(self):
@@ -1913,7 +1916,8 @@ class CommentActions(ModelForm):
             user,
             verb=verb,
             description=self.instance.note,
-            target=report
+            target=report,
+            send_notification=True,
         )
 
 
@@ -2406,7 +2410,8 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
                 user,
                 verb='Added summary: ' if self.summary_created else 'Updated summary: ',
                 description=self.summary.note,
-                target=self.instance
+                target=self.instance,
+                send_notification=True,
             )
 
     def save(self, user=None, commit=True):
@@ -2461,5 +2466,6 @@ class AttachmentActions(ModelForm):
             user,
             verb=verb,
             description=instance.filename,
-            target=instance.report
+            target=instance.report,
+            send_notification=True,
         )

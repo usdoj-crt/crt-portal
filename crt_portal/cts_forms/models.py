@@ -571,7 +571,7 @@ class Report(models.Model):
     @cached_property
     def email_responses(self):
         """Populate data showing responses we've sent and their status."""
-        return list(self.emails.all().order_by('-created_at').values(
+        return list(self.emails.exclude(purpose='internal').order_by('-created_at').values(
             'completed_at',
             'created_at',
             'error_message',
@@ -826,13 +826,13 @@ class ResponseTemplate(models.Model):
     def render_subject(self, report, **kwargs):
         template = Template(self.subject)
         context = self.available_report_fields(report)
-        context.update(kwargs)
+        context.update({**kwargs, 'report': report})
         return escape(template.render(context))
 
     def render_body(self, report, **kwargs):
         template = Template(self.body)
         context = self.available_report_fields(report)
-        context.update(kwargs)
+        context.update({**kwargs, 'report': report})
         return escape(template.render(context))
 
     def __str__(self):
