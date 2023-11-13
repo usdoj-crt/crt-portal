@@ -5,48 +5,26 @@
   }
 
   /**
-   * Converts a query string into an object, where the key is the
-   * name of the query and the value is an array of all values associated
-   * with that query.
-   *
-   * Necessary because we can have multiple filters / search params
-   * with the same name, and they all need to be passed in the final query.
-   *
    * @param {String} queryString The query string we want to convert into an object
-   * @param {Array} paramsWhitelist The list of params accepted as search filters
+   * @param {Array} paramsAllowlist The list of accepted params
    * @returns {Object} Map of all params and their URL encoded values
    */
-  function getQueryParams(queryString, paramsWhitelist) {
-    var paramsMap = {};
-    var search = new URLSearchParams(queryString);
-    var acceptedParams = (paramsWhitelist instanceof Array && paramsWhitelist) || [];
+  function getQueryParams(queryString, paramsAllowlist) {
+    const paramsMap = {};
+    const search = new URLSearchParams(queryString);
+    const acceptedParams = (paramsAllowlist instanceof Array && paramsAllowlist) || [];
 
-    search.forEach(function(value, filterName) {
-      if (acceptedParams.indexOf(filterName) >= 0) {
-        paramsMap[filterName] = paramsMap[filterName] || [];
+    search.forEach(function(value, name) {
+      if (acceptedParams.indexOf(name) >= 0) {
+        paramsMap[name] = paramsMap[name] || [];
 
-        if (paramsMap[filterName].indexOf(value) < 0) {
-          paramsMap[filterName].push(encodeURIComponent(value));
+        if (paramsMap[name].indexOf(value) < 0) {
+          paramsMap[name].push(encodeURIComponent(value));
         }
       }
     });
 
     return paramsMap;
-  }
-
-  function getSection() {
-    const sectionDropdown = document.getElementById('assigned-section-label');
-    return sectionDropdown?.innerText;
-  }
-
-  function gtag() {
-    window.dataLayer = window.dataLayer || [];
-    dataLayer.push(arguments);
-  }
-
-  function sendGAFilterEvent(params) {
-    const section = getSection();
-    gtag('event', 'search_filter', { filters: params, section: section });
   }
 
   /**
@@ -55,7 +33,7 @@
    * @returns {Array} A list of URI-encoded query param strings
    */
   function makeQueryParams(params) {
-    var keys = Object.keys(params);
+    const keys = Object.keys(params);
     const newParamKeys = [];
     const newParams = keys.reduce(function(memo, key) {
       const paramValue = params[key];
@@ -63,8 +41,8 @@
         return memo;
       }
 
-      var valueToList = wrapValue(paramValue);
-      var paramsString = valueToList
+      const valueToList = wrapValue(paramValue);
+      const paramsString = valueToList
         .reduce(function(accum, value) {
           accum.push(makeQueryParam(key, value));
           newParamKeys.push(key);
@@ -76,7 +54,6 @@
 
       return memo;
     }, []);
-    sendGAFilterEvent([newParamKeys].sort().join(' '));
     return newParams;
   }
 
@@ -100,24 +77,24 @@
   }
 
   /**
-   * filterDataModel and the mutation function below control the `model` behavior
-   * of the filters
+   * dataModel and the mutation function below control the `model` behavior
+   * of the query
    */
 
-  var initialFilterState = {
+  const initialState = {
     sort: '',
     page: '',
     per_page: '',
     disposition_status: ''
   };
-  var filterDataModel = {};
+  const dataModel = {};
 
   /**
-   * Mutate the current filter state with updated filter values
-   * @param {Object} state The current filter state
-   * @param {Object} updates The properties of the filter state to be updated
+   * Mutate the current state with updated values
+   * @param {Object} state The current state
+   * @param {Object} updates The properties of the state to be updated
    */
-  function mutateFilterDataWithUpdates(state, updates) {
+  function mutateDataWithUpdates(state, updates) {
     for (const [key, value] of Object.entries(updates)) {
       if (state.hasOwnProperty(key)) {
         state[key] = decodeFormData(value);
@@ -146,7 +123,7 @@
    * @param {HTMLElement} props.el The DOM node this view manages
    */
   function formView(props) {
-    var form = props.el;
+    const form = props.el;
 
     form.addEventListener('submit', function handleSubmit(event) {
       event.preventDefault();
@@ -156,14 +133,14 @@
   }
 
   /**
-   * Create a query param string from our filter data model, and update the URL
-   * in the browser to perform a new search with the applied filters
+   * Create a query param string from the data model, and update the URL
+   * in the browser to perform a new search with the applied query
    */
   formView.doSearch = function doSearch(form) {
-    var preparedFilters = finalizeQueryParams(makeQueryParams(filterDataModel));
-    var finalQuery = '';
-    if (preparedFilters) {
-      finalQuery = '?' + preparedFilters;
+    const preparedData = finalizeQueryParams(makeQueryParams(dataModel));
+    let finalQuery = '';
+    if (preparedData) {
+      finalQuery = '?' + preparedData;
     }
     window.location = form.action + finalQuery;
   };
@@ -172,17 +149,17 @@
    * View to control text input element behavior
    * @param {Object} props
    * @param {HTMLElement} props.el The DOM node this view manages
-   * @param {String} props.name The key in the filter data model that corresponds to the data to update
+   * @param {String} props.name The key in the data model that corresponds to the data to update
    */
   function textInputView(props) {
     if (!props.el || !props.name) {
       throw new Error(
-        'Component must be supplied with a valid DOM node and a `name` key corresponding to a key in the filterDataModel object'
+        'Component must be supplied with a valid DOM node and a `name` key corresponding to a key in the dataModel object'
       );
     }
     function onChange(event) {
-      filterDataModel[props.name] = event.target.value;
-      dom.getElementById('apply-filters-button').click();
+      dataModel[props.name] = event.target.value;
+      dom.getElementById('apply-sort-page-button').click();
       return;
     }
     props.el.addEventListener('change', onChange);
@@ -197,9 +174,9 @@
     });
   }
 
-  function filterController() {
-    var formEl = dom.getElementById('filters-form');
-    var perPageEl = dom.getElementsByName('per_page');
+  function dataController() {
+    const formEl = dom.getElementById('sort-page-form');
+    const perPageEl = dom.getElementsByName('per_page');
 
     formView({
       el: formEl
@@ -210,21 +187,20 @@
     });
   }
 
-  // Bootstrap the filter code's data persistence and
-  // instantiate the controller that manages the UI components / views
+
   function init() {
     if (root.location.search === '') {
       root.location.search = '?disposition_status=past';
     }
-    var filterUpdates = getQueryParams(root.location.search, Object.keys(initialFilterState));
+    const updates = getQueryParams(root.location.search, Object.keys(initialState));
 
-    Object.keys(initialFilterState).forEach(function(key) {
-      filterDataModel[key] = initialFilterState[key];
+    Object.keys(initialState).forEach(function(key) {
+      dataModel[key] = initialState[key];
     });
 
-    mutateFilterDataWithUpdates(filterDataModel, filterUpdates);
+    mutateDataWithUpdates(dataModel, updates);
 
-    filterController();
+    dataController();
   }
 
   window.addEventListener('DOMContentLoaded', init);

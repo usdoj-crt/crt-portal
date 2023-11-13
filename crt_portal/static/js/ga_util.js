@@ -11,8 +11,8 @@ function getEventName(e) {
   if (e.target.dataset.gaEventName) {
     return e.target.dataset.gaEventName;
   }
-  const ariaLabel = e.target.ariaLabel.length ? e.target.ariaLabel : 'unlabeled link element';
-  const innerText = e.target.innerText.length ? e.target.innerText : 'empty link element';
+  const ariaLabel = e.target.ariaLabel?.length ? e.target.ariaLabel : 'unlabeled link element';
+  const innerText = e.target.innerText?.length ? e.target.innerText : 'empty link element';
   return ariaLabel + ' ' + innerText;
 }
 
