@@ -5,7 +5,7 @@ import copy
 import io
 import json
 import secrets
-from datetime import date, timedelta
+from datetime import UTC, date, timedelta, datetime
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -20,7 +20,7 @@ from testfixtures import LogCapture
 
 from ..forms import ComplaintOutreach, ContactEditForm, ReportEditForm, add_activity
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
-from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign, BannerMessage
+from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign, BannerMessage, RetentionSchedule
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_3, SAMPLE_REPORT_4
 from .factories import ReportFactory
 
@@ -874,6 +874,93 @@ class CRT_Activity_Dashboard_Tests(TestCase):
         self.client.force_login(self.superuser)
         response = self.client.get(url)
         self.assertTrue('2 records' in str(response.content))
+
+
+class CRT_Disposition_Tests(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
+        self.superuser2 = User.objects.create_superuser('superduperuser2', 'a@a.com', '')
+        self.report_data = SAMPLE_REPORT_1.copy()
+        self.report_data.update({'status': 'closed'})
+        closed_date = "2022-02-01 18:17:52.74131+00"
+        self.report_data.update({'closed_date': closed_date})
+        retention_schedule = RetentionSchedule.objects.get(retention_years=10)
+        self.report_data.update({'retention_schedule': retention_schedule})
+        expiration_date = "2032-02-01 18:17:52.74131+00"
+        self.report_data.update({'expiration_date': expiration_date})
+        self.report_data.update({'eligible_date': "2032-01-01 18:17:52.74131+00"})
+        self.report = Report.objects.create(**self.report_data)
+        self.report_data_2 = SAMPLE_REPORT_1.copy()
+        self.report_data_2.update({'status': 'closed'})
+        self.report_data_2.update({'closed_date': closed_date})
+        retention_schedule_2 = RetentionSchedule.objects.get(retention_years=3)
+        self.report_data_2.update({'retention_schedule': retention_schedule_2})
+        expiration_date_2 = "2025-02-01 18:17:52.74131+00"
+        self.report_data_2.update({'expiration_date': expiration_date_2})
+        self.report_data_2.update({'eligible_date': "2025-01-01 18:17:52.74131+00"})
+        self.report_2 = Report.objects.create(**self.report_data_2)
+        self.report_data_3 = SAMPLE_REPORT_1.copy()
+        self.report_data_3.update({'status': 'closed'})
+        self.report_data_3.update({'closed_date': closed_date})
+        retention_schedule_3 = RetentionSchedule.objects.get(retention_years=1)
+        self.report_data_3.update({'retention_schedule': retention_schedule_3})
+        expiration_date_3 = "2023-02-01 18:17:52.74131+00"
+        self.report_data_3.update({'expiration_date': expiration_date_3})
+        self.report_data_3.update({'eligible_date': "2023-01-01 18:17:52.74131+00"})
+        self.report_3 = Report.objects.create(**self.report_data_3)
+        self.report_data_4 = SAMPLE_REPORT_1.copy()
+        self.report_data_4.update({'status': 'closed'})
+        self.report_data_4.update({'closed_date': closed_date})
+        retention_schedule_4 = RetentionSchedule.objects.get(retention_years=3)
+        self.report_data_4.update({'retention_schedule': retention_schedule_4})
+        expiration_date_4 = date.today() + timedelta(days=1)
+        self.report_data_4.update({'expiration_date': expiration_date_4})
+        self.report_data_4.update({'eligible_date': expiration_date_4 - timedelta(days=30)})
+        self.report_4 = Report.objects.create(**self.report_data_4)
+        self.url = reverse('crt_forms:disposition')
+
+    def test_view_disposition_unauthenticated(self):
+        """Unauthenticated attempt to view all page redirects to login page."""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_view_disposition_authenticated(self):
+        """Authenticated will return 200 and display "Disposing Report Records"""
+        self.client.force_login(self.superuser)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue('Disposing Report Records' in str(response.content))
+
+    def test_past_disposition(self):
+        url = f'{self.url}?disposition_status=past'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        reports = response.context['data_dict']
+        report_len = len(reports)
+        self.assertEqual(report_len, 1)
+        self.assertTrue('1 Year' in str(response.content))
+
+    def test_eligible_for_expiration(self):
+        """Should only return one report"""
+        url = f'{self.url}?disposition_status=eligible'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        reports = response.context['data_dict']
+        report_len = len(reports)
+        self.assertEqual(report_len, 1)
+        self.assertTrue('3 Year' in str(response.content))
+
+    def test_other_scheduled_reports(self):
+        """Should only return two reports"""
+        url = f'{self.url}?disposition_status=other'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        reports = response.context['data_dict']
+        report_len = len(reports)
+        self.assertEqual(report_len, 2)
+        self.assertTrue('Permanent' in str(response.content))
 
 
 class LoginRequiredTests(TestCase):
