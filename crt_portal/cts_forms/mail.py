@@ -15,6 +15,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from cts_forms.models import Report, ResponseTemplate
 from tms.models import TMSEmail
+from utils.markdown_extensions import RelativeToAbsoluteLinkExtension
 
 logger = logging.getLogger(__name__)
 
@@ -113,16 +114,30 @@ def render_complainant_mail(*, report, template, action) -> Mail:
     )
 
 
-def send_tms(message: Mail, *, report: Report, purpose: str, dry_run: bool) -> List[int]:
-    if settings.EMAIL_BACKEND != 'tms.backend.TMSEmailBackend':
-        TMSEmail.create_fake(subject=message.subject,
-                             body=message.message,
-                             html_body=message.html_message,
-                             report=report,
-                             purpose=purpose
-                             ).save()
-        return [1]
+def _render_notification_mail(*,
+                              report: Optional[Report],
+                              template: ResponseTemplate,
+                              recipients: List[str],
+                              **kwargs) -> Mail:
 
+    message = template.render_body(report, **kwargs)
+
+    md = markdown.markdown(message, extensions=['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension(), RelativeToAbsoluteLinkExtension(for_intake=True)])
+    html_message = render_to_string('notification.html', {'content': md})
+
+    allowed_recipients = remove_disallowed_recipients(recipients)
+    disallowed_recipients = list(set(recipients) - set(allowed_recipients))
+
+    subject = template.render_subject(report, **kwargs)
+
+    return Mail(message=message,
+                html_message=html_message,
+                recipients=allowed_recipients,
+                disallowed_recipients=disallowed_recipients,
+                subject=f'[CRT Portal] {subject}')
+
+
+def send_tms(message: Mail, *, report: Optional[Report], purpose: str, dry_run: bool) -> List[int]:
     if dry_run:
         return [0]
 
@@ -137,19 +152,52 @@ def send_tms(message: Mail, *, report: Report, purpose: str, dry_run: bool) -> L
         fail_silently=False,
         html_message=message.html_message
     )
-    response = send_results[0]
-    TMSEmail(tms_id=response['id'],
-             recipient=message.recipients,
-             subject=message.subject,
-             body=message.message,
-             html_body=message.html_message,
-             report=report,
-             created_at=datetime.strptime(response['created_at'], '%Y-%m-%dT%H:%M:%S%z'),
-             status=response['status'],
-             purpose=purpose
-             ).save()
+    response = send_results if isinstance(send_results, int) else send_results[0]
+    if settings.EMAIL_BACKEND != 'tms.backend.TMSEmailBackend':
+        TMSEmail.create_fake(subject=message.subject,
+                             body=message.message,
+                             html_body=message.html_message,
+                             report=report,
+                             recipient=message.recipients,
+                             purpose=purpose
+                             ).save()
+    else:
+        TMSEmail(tms_id=response['id'],
+                 recipient=message.recipients,
+                 subject=message.subject,
+                 body=message.message,
+                 html_body=message.html_message,
+                 report=report,
+                 created_at=datetime.strptime(response['created_at'], '%Y-%m-%dT%H:%M:%S%z'),
+                 status=response['status'],
+                 purpose=purpose
+                 ).save()
 
     return send_results
+
+
+def notify(template_title: str,
+           *,
+           report: Optional[Report],
+           recipients: List[str],
+           **kwargs):
+    """Sends a notification to an internal user, if they have the preference enabled."""
+    try:
+        template = ResponseTemplate.objects.get(title=template_title)
+    except ResponseTemplate.DoesNotExist as e:
+        raise ValueError(f'Cannot send notification (no template with title {template_title})') from e
+    message = _render_notification_mail(report=report,
+                                        template=template,
+                                        recipients=recipients,
+                                        **kwargs)
+
+    suffix = f' about report {report.id}' if report else ''
+    logger.info(f'Notification ({template.title}) sent to {message.recipients}{suffix}')
+
+    send_tms(message,
+             report=report,
+             purpose=TMSEmail.NOTIFICATION,
+             dry_run=False)
 
 
 def mail_to_complainant(report, template, purpose=TMSEmail.MANUAL_EMAIL, dry_run=False, rendered=None):

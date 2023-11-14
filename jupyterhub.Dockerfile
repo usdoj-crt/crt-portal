@@ -12,20 +12,18 @@ RUN mkdir -p ./assignments
 
 # This must be done as one step to avoid docker caching the update portion:
 RUN \
-  echo "deb https://deb.nodesource.com/node_14.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
-  wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
+  echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" > /etc/apt/sources.list.d/nodesource.list && \
+  curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
   apt-get -y update && \
   apt-get -y install \
     git \
     sudo \
     r-base r-base-dev \
     r-cran-irkernel r-cran-tidyverse r-cran-rpostgresql && \
-  apt-get install -yqq nodejs npm && \
+  apt-get install -yqq nodejs && \
   pip install -U pip && \
   pip install pipenv && \
   pip --version && \
-  npm i -g npm@^8 && \
-  npm -v && \
   node -v i  && \
   rm -rf /var/lib/apt/lists/*
 

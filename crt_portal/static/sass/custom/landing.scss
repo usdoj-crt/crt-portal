@@ -363,6 +363,16 @@ $arrow-height: 24px;
       background: color($theme-color-warning);
       color: black !important;
       margin-top: 0;
+
+      &.usa-button--outline.usa-button--big {
+        color: black !important;
+        box-shadow: none;
+        margin-top: 1em;
+
+        &:visited {
+          color: black  !important;
+        }
+      }
     }
 
     a,

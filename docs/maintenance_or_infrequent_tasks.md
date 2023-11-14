@@ -320,6 +320,8 @@ cf set-env crt-portal-django POSTGRES_ANALYTICS_USER {secret username}
 cf set-env crt-portal-django POSTGRES_ANALYTICS_PASSWORD {secret password}
 ```
 
+Make sure to also update settings.py to set `DATABASES['analytics']` on the instance you're deploying to.
+
 If migrations have already been run, you can either migrate down and up (**which will drop all analytics data**) or add a new migration to create the user.
 
 To migrate down and up, run:

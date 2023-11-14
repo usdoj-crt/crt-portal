@@ -44,8 +44,6 @@ export_tms_as_csv.allowed_permissions = ('view',)  # noqa
 def export_tms_as_pdf(modeladmin, request, queryset):
     """Export a zip file containing TMS as pdf files."""
     del modeladmin, request  # Unused
-    buffer = io.BytesIO()
-    archive = zipfile.ZipFile(buffer, "w")
 
     if queryset.count() == 1:
         try:
@@ -55,6 +53,8 @@ def export_tms_as_pdf(modeladmin, request, queryset):
             logging.exception(error)
             return HttpResponse(f'{error}', status=500)
 
+    buffer = io.BytesIO()
+    archive = zipfile.ZipFile(buffer, "w")
     errors = []
     for email in queryset:
         try:

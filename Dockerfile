@@ -10,34 +10,27 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /code
 
 # Install Python dependencies
-RUN pip install --upgrade pip
-RUN pip install pipenv
+RUN \
+  pip install --upgrade pip && \
+  pip install pipenv
 
 COPY Pipfile Pipfile.lock /code/
-RUN pipenv install --dev --system
+RUN pipenv sync --dev --system
 
-# Install Node and npm dependencies
 RUN \
   apt-get update && \
-  apt-get install -yqq apt-transport-https
+  apt-get install -yqq apt-transport-https && \
+  apt-get autoremove -y
+
 RUN \
-  echo "deb https://deb.nodesource.com/node_14.x buster main" > /etc/apt/sources.list.d/nodesource.list && \
-  wget -qO- https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - && \
+  echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_20.x nodistro main" > /etc/apt/sources.list.d/nodesource.list && \
+  curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg && \
   apt-get update && \
-  apt-get install -yqq nodejs npm && \
-  pip install -U pip && \
-  pip install pipenv && \
-  npm i -g npm@^8 && \
-  pip --version && \
-  npm -v && \
-  node -v i  && \
+  apt-get install -yqq nodejs && \
+  node -v i && \
   rm -rf /var/lib/apt/lists/*
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-
-COPY package*.json /code/
-
+COPY package.json package-lock.json /code/
 RUN npm install
 
 # Install gettext for i18n

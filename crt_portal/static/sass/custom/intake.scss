@@ -44,6 +44,14 @@
   }
 }
 
+.inline-icon {
+  height: 1rem;
+  min-width: 1rem;
+  max-width: 1rem;
+  vertical-align: text-bottom;
+  margin-left: 0.15rem;
+}
+
 .required {
   color: #B50909;
 }

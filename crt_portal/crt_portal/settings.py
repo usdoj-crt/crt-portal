@@ -306,7 +306,7 @@ if environment in ['PRODUCTION', 'STAGE']:
                           "email": "emailaddress"},
         "USERNAME_CLAIM": AUTH_USERNAME_CLAIM,
         # Explicitly DON'T set a group claim, as it will undo our native groups.
-        # "GROUP_CLAIM": AUTH_GROUP_CLAIM,
+        "GROUP_CLAIM": None,
         'LOGIN_EXEMPT_URLS': [
             '^$',
             '^report',
@@ -514,7 +514,7 @@ if environment == 'LOCAL':
     except ImportError:
         pass
 
-if os.environ.get('ENV', 'UNDEFINED') in ['LOCAL', 'DEVELOP']:
+if os.environ.get('ENV', 'UNDEFINED') in ['LOCAL', 'DEVELOP', 'STAGE']:
     DATABASES['analytics'] = {  # This must happen after importing local_settings
         **DATABASES['default'],
         'USER': os.environ['POSTGRES_ANALYTICS_USER'],
