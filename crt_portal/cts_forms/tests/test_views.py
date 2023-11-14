@@ -5,7 +5,7 @@ import copy
 import io
 import json
 import secrets
-from datetime import UTC, date, timedelta, datetime
+from datetime import date, timedelta
 
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
