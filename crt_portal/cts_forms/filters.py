@@ -206,11 +206,14 @@ def report_filter(querydict):
                 qs = qs.filter(contact_phone__icontains=number_block)
         elif field_options == 'disposition_status':
             disposition_status = querydict.getlist(field)[0]
-            expiration_filter = get_expiration_filter(disposition_status)
             today = datetime.today().date()
-            kwargs[f'expiration_date{expiration_filter}'] = today
+            if disposition_status == 'past':
+                kwargs[f'expiration_date__lt'] = today
             if disposition_status == 'eligible':
+                kwargs[f'expiration_date__gte'] = today
                 kwargs['eligible_date__lte'] = today
+            if disposition_status == 'other':
+                kwargs['eligible_date__gt'] = today
 
     # Check to see if there are multiple values in report_reason search and run distinct if so.  If not, run a regular
     # much faster search.
@@ -219,15 +222,6 @@ def report_filter(querydict):
     else:
         qs = qs.filter(**kwargs)
     return qs, filters
-
-
-def get_expiration_filter(disposition_status):
-    if disposition_status == 'past':
-        return '__lt'
-    if disposition_status == 'eligible':
-        return '__gt'
-    if disposition_status == 'other':
-        return '__gt'
 
 
 def dashboard_filter(querydict):
