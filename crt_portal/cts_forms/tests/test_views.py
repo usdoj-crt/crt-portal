@@ -881,7 +881,6 @@ class CRT_Disposition_Tests(TestCase):
     def setUp(self):
         self.client = Client()
         self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
-        self.superuser2 = User.objects.create_superuser('superduperuser2', 'a@a.com', '')
         self.report_data = SAMPLE_REPORT_1.copy()
         self.report_data.update({'status': 'closed'})
         closed_date = "2022-02-01 18:17:52.74131+00"
