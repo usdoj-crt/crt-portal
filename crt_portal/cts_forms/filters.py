@@ -208,9 +208,9 @@ def report_filter(querydict):
             disposition_status = querydict.getlist(field)[0]
             today = datetime.today().date()
             if disposition_status == 'past':
-                kwargs[f'expiration_date__lt'] = today
+                kwargs['expiration_date__lt'] = today
             if disposition_status == 'eligible':
-                kwargs[f'expiration_date__gte'] = today
+                kwargs['expiration_date__gte'] = today
                 kwargs['eligible_date__lte'] = today
             if disposition_status == 'other':
                 kwargs['eligible_date__gt'] = today
