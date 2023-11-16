@@ -109,15 +109,15 @@ class ActionTests(TestCase):
 
     def test_retention_schedule(self):
         self.initial_values['retention_schedule'] = self.schedule1.pk
-        unprivileged_user = mock.MagicMock()
-        unprivileged_user.has_perm.return_value = True
+        privileged_user = mock.MagicMock()
+        privileged_user.has_perm.return_value = True
         form = ComplaintActions(
             initial=self.initial_values,
             data={
                 **self.initial_values,
                 'retention_schedule': self.schedule3.pk,
             },
-            user=unprivileged_user
+            user=privileged_user
         )
 
         self.assertEqual(form.errors, {})
@@ -144,6 +144,47 @@ class ActionTests(TestCase):
         })
 
         self.assertCountEqual(form.get_actions(), [])
+
+    def test_bulk_retention_schedule(self):
+        privileged_user = mock.MagicMock()
+        privileged_user.has_perm.return_value = True
+        a = Report.objects.create(**SAMPLE_REPORT_1, public_id='a', retention_schedule=self.schedule3)
+        b = Report.objects.create(**SAMPLE_REPORT_1, public_id='b', retention_schedule=self.schedule1)
+        queryset = Report.objects.all().filter(pk__in=[a.pk, b.pk])
+
+        form = BulkActionsForm(queryset, {
+            'retention_schedule': self.schedule3.pk,
+            'comment': 'Test bulk change',
+        }, user=privileged_user)
+        form.full_clean()
+
+        self.assertEqual(form.errors, {})
+        self.assertCountEqual(form.get_actions(a), [
+        ])
+        self.assertCountEqual(form.get_actions(b), [
+            ('Retention schedule:', 'Updated from "1 Year" to "3 Year"'),
+        ])
+
+    def test_bulk_retention_schedule_without_permissions(self):
+        self.initial_values['retention_schedule'] = self.schedule1.pk
+        unprivileged_user = mock.MagicMock()
+        unprivileged_user.has_perm.return_value = False
+        a = Report.objects.create(**SAMPLE_REPORT_1, public_id='a', retention_schedule=self.schedule1, litigation_hold=False)
+        b = Report.objects.create(**SAMPLE_REPORT_1, public_id='b', retention_schedule=self.schedule1, litigation_hold=False)
+        queryset = Report.objects.all().filter(pk__in=[a.pk, b.pk])
+
+        form = BulkActionsForm(queryset, {
+            'assigned_section': SAMPLE_REPORT_1['assigned_section'],
+            'status': NEW_STATUS,
+            'retention_schedule': self.schedule3.pk,
+            'comment': 'Test bulk change',
+        }, user=unprivileged_user)
+        form.full_clean()
+
+        # The behavior is to ignore changes (because the field is disabled, so users shouldn't be able to make changes).
+        # So, we're just asserting there's no retention_schedule change here:
+        self.assertCountEqual(form.get_actions(a), [])
+        self.assertCountEqual(form.get_actions(b), [])
 
     def test_litigation_hold_turns_on(self):
         instance = Report.objects.create(**SAMPLE_REPORT_1,
@@ -243,11 +284,11 @@ class ActionTests(TestCase):
         c = Report.objects.create(**SAMPLE_REPORT_1, public_id='c')
 
         queryset = Report.objects.all().filter(pk__in=[a.pk, b.pk, c.pk])
-
         form = BulkActionsForm(queryset, {
             'assigned_section': 'APP',
             'comment': 'Test bulk change',
         })
+        form.full_clean()
 
         self.assertIn(
             form.errors.get('__all__', ['Error not present'])[0],
@@ -1098,14 +1139,16 @@ class BulkActionsTests(TestCase):
 class BulkActionsFormTests(TestCase):
     def test_bulk_actions_initial_empty(self):
         queryset = Report.objects.all()
-        result = list(BulkActionsForm.get_initial_values(queryset, []))
+        form = BulkActionsForm(queryset)
+        result = list(form.get_initial_values(queryset, []))
         self.assertEqual(result, [])
 
     def test_bulk_actions_initial(self):
         [Report.objects.create(**SAMPLE_REPORT_1) for _ in range(4)]
         queryset = Report.objects.all()
         keys = ['assigned_section', 'status', 'id']
-        result = list(BulkActionsForm.get_initial_values(queryset, keys))
+        form = BulkActionsForm(queryset)
+        result = list(form.get_initial_values(queryset, keys))
         self.assertEqual(result, [('assigned_section', 'ADM'), ('status', 'new')])
 
     def test_bulk_actions_change_section(self):
