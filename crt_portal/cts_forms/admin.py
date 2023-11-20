@@ -106,7 +106,7 @@ def iter_queryset(queryset, headers, *, pagination=settings.DEFAULT_EXPORT_PAGIN
         yield from paginator.get_page(i + 1)
 
 
-def _prepare_report_csv_queryset(queryset):
+def prepare_report_csv_queryset(queryset):
     """
     Customize the rendering of protected_class and summary instances
     while rendering headers as-is
@@ -148,7 +148,7 @@ def export_reports_as_csv(modeladmin, request, queryset):
     writer = csv.writer(Echo(), quoting=csv.QUOTE_ALL)
     headers = REPORT_FIELDS + ['protected_class', 'internal_summary']
 
-    iterator = iter_queryset(_prepare_report_csv_queryset(queryset), headers)
+    iterator = iter_queryset(prepare_report_csv_queryset(queryset), headers)
 
     response = StreamingHttpResponse((writer.writerow(report) for report in iterator),
                                      content_type="text/csv")

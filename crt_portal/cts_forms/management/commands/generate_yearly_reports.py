@@ -8,7 +8,7 @@ from io import StringIO
 from django.core.files.base import ContentFile
 from pytz import timezone
 
-from ...admin import iter_queryset, _serialize_report_export
+from ...admin import iter_queryset, prepare_report_csv_queryset
 
 EXCLUDED_REPORT_FIELDS = ['violation_summary_search_vector', 'referral_section']
 REPORT_FIELDS = [field.name for field in Report._meta.fields if field.name not in EXCLUDED_REPORT_FIELDS]
@@ -38,12 +38,10 @@ class Command(BaseCommand):  # pragma: no cover
                                                               to_attr='internal_summary')
                                                      ).order_by('id')
                 total_count += queryset.count()
-                iterator = iter_queryset(queryset, headers)
+                iterator = iter_queryset(prepare_report_csv_queryset(queryset), headers)
                 csv_buffer = StringIO()
                 csv_writer = csv.writer(csv_buffer, quoting=csv.QUOTE_ALL)
-
-                for report in iterator:
-                    csv_writer.writerow(_serialize_report_export(report))
+                csv_writer.writerows(iterator)
                 csv_file = ContentFile(csv_buffer.getvalue().encode('utf-8'))
                 # Check to see if a report of the given filename exists, if so, update.  If not, create a new one.
                 try:
