@@ -88,7 +88,7 @@ def format_export_message(request, records, what_was_exported):
     return f'ADMIN ACTION by: {username} {userid} @ {ip}. Exported {records} {what_was_exported} as csv.'
 
 
-def iter_queryset(queryset, headers):
+def iter_queryset(queryset, headers, *, pagination=settings.DEFAULT_EXPORT_PAGINATION):
     """
     The iterator provided by queryset.iterator isn't adequate here
 
@@ -100,7 +100,7 @@ def iter_queryset(queryset, headers):
     through the queryset to reduce the number of total queries required
     """
     yield headers
-    paginator = Paginator(queryset, 2000)
+    paginator = Paginator(queryset, pagination)
     for i in range(paginator.num_pages):
         yield from paginator.get_page(i + 1)
 

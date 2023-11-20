@@ -178,6 +178,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Controls admin export page size.
+# Exports with many large columns per row should lower this value.
+# Exports with lots of smaller rows may raise this value.
+DEFAULT_EXPORT_PAGINATION = 20000
+
 LOGIN_REDIRECT_URL = '/'
 
 # Internationalization
