@@ -1764,26 +1764,12 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             raise ValidationError('You do not have permission to assign retention schedules.')
         return self.cleaned_data['retention_schedule']
 
-    def get_expiration_date(self, report):
-        if report.closed_date and report.retention_schedule:
-            try:
-                date = datetime(report.closed_date.year + report.retention_schedule.retention_years, report.closed_date.month, report.closed_date.day).date()
-                return date
-            except ValueError:
-                return None
-        return None
-
     def save(self, commit=True):
         """
         If report.status is `closed`, set assigned_to to None.
         If this report was referred, set the section.
         """
         report = super().save(commit=False)
-        if 'retention_schedule' in self.changed_data or 'closed_date' in self.changed_data:
-            report.expiration_date = self.get_expiration_date(report)
-            if report.expiration_date:
-                report.eligible_date = report.expiration_date - timedelta(days=30)
-            report.save()
         if report.closed:
             report.closeout_report()
             self.report_closed = True
@@ -2052,15 +2038,6 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             return None
         return dj_number
 
-    def get_expiration_date(self, report):
-        if report.closed_date and report.retention_schedule:
-            try:
-                date = datetime(report.closed_date.year + report.retention_schedule.retention_years, report.closed_date.month, report.closed_date.day).date()
-                return date
-            except ValueError:
-                return None
-        return None
-
     def get_updates(self):
         updates = {field: self.cleaned_data[field] for field in self.changed_data}
         # do not allow any fields to be unset. this may happen if the
@@ -2186,16 +2163,6 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
                     summary = CommentAndSummary.objects.create(**kwargs)
                     report.internal_comments.add(summary)
                 activities.append({'user': user, 'report': report, 'verb': 'Added summary: ', 'description': summary_string})
-
-        retention_schedule = updated_data.get('retention_schedule', None)
-        closed_date = updated_data.get('closed_date', None)
-
-        if retention_schedule or closed_date:
-            for report in reports:
-                report.expiration_date = self.get_expiration_date(report)
-                if report.expiration_date:
-                    report.eligible_date = report.expiration_date - timedelta(days=30)
-                report.save()
 
         if updated_data:
             updated_data['modified_date'] = datetime.now(timezone.utc)

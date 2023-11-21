@@ -429,6 +429,8 @@ def get_report_data(requested_reports, report_url_args, paginated_offset):
         # If a user has an email, it is looked up in the table to see if they are a repeat writer and add the count to the report.
         if report.contact_email:
             report.related_reports_count = _related_reports_count(report)
+        if report.retention_schedule and report.closed_date:
+            report.expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years, report.closed_date.month, report.closed_date.day).date()
         if report.other_class:
             p_class_list.append(report.other_class)
         if len(p_class_list) > 3:
