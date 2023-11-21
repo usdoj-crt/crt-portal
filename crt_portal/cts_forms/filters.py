@@ -209,9 +209,9 @@ def report_filter(querydict):
             disposition_status = querydict.getlist(field)[0]
             today = datetime.today().date()
             qs = qs.annotate(retention_year=F('retention_schedule__retention_years'),
-                                expiration_year=F('retention_year') + ExtractYear('closed_date'),
-                                expiration_date=Cast(Concat(F('expiration_year'), Value('-'), ExtractMonth('closed_date'), Value('-'), ExtractDay('closed_date'), output_field=CharField()), output_field=DateField()),
-                                eligible_date=ExpressionWrapper(F('expiration_date') - timedelta(days=30), output_field=DateField()))
+                             expiration_year=F('retention_year') + ExtractYear('closed_date'),
+                             expiration_date=Cast(Concat(F('expiration_year'), Value('-'), ExtractMonth('closed_date'), Value('-'), ExtractDay('closed_date'), output_field=CharField()), output_field=DateField()),
+                             eligible_date=ExpressionWrapper(F('expiration_date') - timedelta(days=30), output_field=DateField()))
             if disposition_status == 'past':
                 kwargs['expiration_date__lt'] = today
             if disposition_status == 'eligible':
