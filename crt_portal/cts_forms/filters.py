@@ -213,9 +213,9 @@ def report_filter(querydict):
                             expiration_date=Cast(Concat(F('expiration_year'), Value('-'), ExtractMonth('closed_date'), Value('-'), ExtractDay('closed_date'), output_field=CharField()), output_field=DateField()),
                             eligible_date=ExpressionWrapper(F('expiration_date') - timedelta(days=30), output_field=DateField()))
             if disposition_status == 'past':
-                kwargs[f'expiration_date__lt'] = today
+                kwargs['expiration_date__lt'] = today
             if disposition_status == 'eligible':
-                kwargs[f'expiration_date__gte'] = today
+                kwargs['expiration_date__gte'] = today
                 kwargs['eligible_date__lte'] = today
             if disposition_status == 'other':
                 kwargs['eligible_date__gt'] = today
