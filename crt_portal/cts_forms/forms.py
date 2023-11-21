@@ -1758,6 +1758,18 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             fields = ', '.join(updated_fields[:-1])
             fields += f', and {updated_fields[-1]}'
             message = f"Successfully updated {fields}."
+        if 'Assigned to' in updated_fields and 'Section' not in updated_fields:
+            assigned_user = self.cleaned_data['assigned_to']
+            if not assigned_user:
+                return message
+            if not hasattr(assigned_user, 'notification_preference'):
+                message += ' Assignee will not be notified because they have not set notification preferences.'
+            elif not assigned_user.notification_preference.assigned_to:
+                message += ' Assignee will not be notified because they have opted out of notifications.'
+            elif not assigned_user.email:
+                message += ' Assignee will not be notified because they do not have an email address listed.'
+            else:
+                message += ' Assignee will be notified via email.'
         return message
 
     def clean_dj_number(self):
