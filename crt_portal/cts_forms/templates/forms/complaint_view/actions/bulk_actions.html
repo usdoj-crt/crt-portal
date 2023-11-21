@@ -32,9 +32,12 @@
           Please know that any change to <code>Section</code> will make the following fields uneditable:</p>
         <ul class="bulk-helptext-list">
           <li>Status</li>
-          <li>Primary Classification</li>
-          <li>Judicial District</li>
-          <li>Assigned To</li>
+          <li>Primary classification</li>
+          <li>Judicial district</li>
+          <li>Assigned to</li>
+          {% if ENABLED_FEATURES.disposition %}
+          <li>Retention schedule</li>
+          {% endif %}
         </ul>
         <p>
           If you need to edit these fields, please return to the <a href="{% url 'crt_forms:crt-forms-index' %}{{ return_url_args }}">Back to All Table</a>. If you have additional questions, please contact <a href="mailto:randy.abramson@usdoj.gov">randy.abramson@usdoj.gov</a> or <a href="mailto:bill.laughman@usdoj.gov">bill.laughman@usdoj.gov</a>
@@ -63,6 +66,14 @@
           </label>
           {{ bulk_actions_form.assigned_to }}
         </div>
+        {% if ENABLED_FEATURES.disposition %}
+        <div class="margin-bottom-2 crt-dropdown">
+          <label for="id_retention_schedule" class="intake-label">
+            {{ bulk_actions_form.retention_schedule.label }}
+          </label>
+          {{ bulk_actions_form.retention_schedule }}
+        </div>
+        {% endif %}
         <div class="margin-bottom-2 crt-textarea">
           <label for="id_summary" class="intake-label">
             {{ bulk_actions_form.summary.label }}
