@@ -1,5 +1,5 @@
 import logging
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
 
 from django.contrib.auth import get_user_model
 from django.core.validators import ValidationError
