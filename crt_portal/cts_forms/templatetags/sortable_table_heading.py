@@ -16,7 +16,10 @@ sort_lookup = {
     'timestamp': 'timestamp',
     'action': 'verb',
     'detail': 'description',
-    'complaint id': 'target_object_id'
+    'complaint id': 'target_object_id',
+    'retention schedule': 'retention_schedule',
+    'closed date': 'closed_date',
+    'expiration date': 'expiration_date',
 }
 sortable_props = [
     'status',
@@ -32,6 +35,9 @@ sortable_props = [
     'verb',
     'description',
     'target_object_id',
+    'retention_schedule',
+    'closed_date',
+    'expiration_date',
 ]
 
 
@@ -68,7 +74,7 @@ def sort_url_factory(heading, is_descending, filter_state, grouping, group_param
 
 
 @register.inclusion_tag('forms/snippets/sortable_table_heading.html')
-def render_sortable_heading(heading, sort_state, filter_state, grouping='default', group_params=None, index=1, nowrap=False):
+def render_sortable_heading(heading, sort_state, filter_state='', grouping='default', group_params=None, index=1, nowrap=False):
     safe_heading = heading.lower()
     sortable_prop = sort_lookup.get(safe_heading, None)
 
