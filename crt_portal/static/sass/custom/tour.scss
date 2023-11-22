@@ -1,0 +1,26 @@
+@use "uswds-core" as *;
+
+.shepherd-element {
+    &.usa-modal {
+        margin: 0 auto;
+        padding: .5rem 2rem;
+    }
+
+    .shepherd-button {
+        line-height: .9;
+        color: #fff;
+        background-color: #005ea2;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: 0;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: 700;
+        margin-right: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        text-align: center;
+        text-decoration: none;
+    }
+}
