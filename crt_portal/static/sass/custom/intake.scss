@@ -1002,6 +1002,42 @@ form#cts-forms-profile {
   }
 }
 
+.usa-tags-container {
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  input[type="checkbox"] + label .usa-tag {
+    display: none;
+  }
+
+  input[type="checkbox"]:checked + label .usa-tag {
+    display: inline;
+  }
+
+  .usa-selected-tags {
+    .tag-option {
+      display: inline-block;
+    }
+  }
+
+  .usa-tag {
+    background-color: #e1e7f1;
+    color: #162e51;
+    cursor: pointer;
+    &:after {
+      content: "";
+      height: 1rem;
+      width: 1.25rem;
+      margin-left: 4px;
+      display: inline-block;
+      background-image: url(../../img/usa-icons/close.svg);
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+}
+
 .intake-label {
   @include u-font('sans', 16);
   color: color($theme-color-base-ink);

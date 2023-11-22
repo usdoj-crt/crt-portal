@@ -42,6 +42,14 @@
     <input type="hidden" value="{{ return_url_args }}" name="next" id="next-{{ id_name }}" />
     <input type="hidden" value="{{ index }}" name="index" id="index-{{ id_name }}" />
     <table class="usa-table usa-table--borderless complaint-card-table">
+      {% if ENABLED_FEATURES.tags %}
+      <tr>
+        <th>Tags</th>
+        <td>
+        {{ details_form.tags }}
+        </td>
+      </tr>
+      {% endif %}
       <tr>
         <th><label for="{{details_form.primary_complaint.id_for_label}}">Primary issue</label></th>
         <td>
