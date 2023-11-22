@@ -2310,6 +2310,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             'contact_zip',
             'election_details',
             'intake_format',
+            'tags',
             'origination_utm_campaign',
             'origination_utm_content',
             'origination_utm_medium',
