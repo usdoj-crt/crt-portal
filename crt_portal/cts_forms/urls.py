@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import (ActionsView, index_view, data_view, dashboard_view, dashboard_activity_log_view, RoutingGuideView, ShowView, ProFormView,
                     SaveCommentView, TrendView, ResponseView, SearchHelperView,
-                    PrintView, ProfileView, ReportAttachmentView, ReportDataView, DataExport, RemoveReportAttachmentView)
+                    PrintView, ProfileView, ReportAttachmentView, ReportDataView, DataExport, RemoveReportAttachmentView, unsubscribe_view)
 from .forms import ProForm
 
 app_name = 'crt_forms'
@@ -28,5 +28,6 @@ urlpatterns = [
     path('trends/', TrendView.as_view(), name='trends'),
     path('dashboard/', dashboard_view, name='dashboard'),
     path('data/', data_view, name='data'),
-    path('dashboard/activity', dashboard_activity_log_view, name='activity-log')
+    path('dashboard/activity', dashboard_activity_log_view, name='activity-log'),
+    path('notifications/unsubscribe', unsubscribe_view, name='crt-forms-notifications-unsubscribe'),
 ]

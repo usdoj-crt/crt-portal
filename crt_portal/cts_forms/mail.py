@@ -16,6 +16,7 @@ from django.template.loader import render_to_string
 from cts_forms.models import Report, ResponseTemplate
 from tms.models import TMSEmail
 from utils.markdown_extensions import RelativeToAbsoluteLinkExtension
+from utils.site_prefix import get_site_prefix
 
 logger = logging.getLogger(__name__)
 
@@ -123,7 +124,10 @@ def _render_notification_mail(*,
     message = template.render_body(report, **kwargs)
 
     md = markdown.markdown(message, extensions=['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension(), RelativeToAbsoluteLinkExtension(for_intake=True)])
-    html_message = render_to_string('notification.html', {'content': md})
+    html_message = render_to_string('notification.html', {
+        'content': md,
+        'unsubscribe_link': '/'.join([get_site_prefix(for_intake=True), 'form/notifications/unsubscribe'])
+    })
 
     allowed_recipients = remove_disallowed_recipients(recipients)
     disallowed_recipients = list(set(recipients) - set(allowed_recipients))

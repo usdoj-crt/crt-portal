@@ -605,6 +605,29 @@ def serialize_data(report, request, report_id):
     return output
 
 
+@login_required
+def unsubscribe_view(request):
+    if not hasattr(request.user, 'notification_preference'):
+        messages.add_message(request,
+                             messages.ERROR,
+                             mark_safe("You are not subscribed to notifications"))
+        return redirect(reverse('crt_forms:crt-forms-index'))
+    preferences = request.user.notification_preference
+
+    if not preferences.assigned_to:
+        messages.add_message(request,
+                             messages.ERROR,
+                             mark_safe("You are not subscribed to notifications"))
+        return redirect(reverse('crt_forms:crt-forms-index'))
+
+    preferences.assigned_to = False
+    preferences.save()
+    messages.add_message(request,
+                         messages.SUCCESS,
+                         mark_safe("You have been unsubscribed from all portal notifications"))
+    return redirect(reverse('crt_forms:crt-forms-index'))
+
+
 class ProfileView(LoginRequiredMixin, FormView):
     # Can be used for updating section filter for a profile
     form_class = ProfileForm
