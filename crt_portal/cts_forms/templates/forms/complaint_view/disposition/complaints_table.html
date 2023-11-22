@@ -1,0 +1,156 @@
+{% load sortable_table_heading %}
+
+<form class="usa-form"
+      method="get"
+      action="{% url 'crt_forms:crt-forms-actions' %}"
+      novalidate
+>
+  <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
+
+  <div class="crt-xscroll">
+    <table class="usa-table crt-table sort-table">
+      {# This "fake" table makes nested headers available to screen readers #}
+      <span tabindex="-1" role="table" class="usa-sr-only">
+        <span role="row">
+          <span role="columnheader" class="usa-sr-only" id="crt-table-summary-header">Summary</span>
+          <span role="columnheader" class="usa-sr-only" id="crt-table-description-header">Personal Description</span>
+        </span>
+      </span>
+      <thead>
+        <tr>
+          <th aria-label="Detail toggles">
+            <a aria-expanded="false" role="button" aria-label="Expand all detail rows" class="td-toggle-all display-flex" data-posted='false' href="#">
+              <img alt="" aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
+            </a>
+          </th>
+          {% render_sortable_heading 'Status' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Section' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Retention Schedule' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Expiration Date' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Closed Date' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Total #' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Incident Location' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Incident City/State' sort_state filter_state grouping group_params index %}
+        </tr>
+      </thead>
+      {% if data_dict %}
+        <tbody>
+          {% for datum in data_dict %}
+            <tr class="tr-status-{{ datum.report.status }} tr--hover{% cycle ' stripe' '' %}">
+              <td>
+                <a data-id="{{ datum.report.id }}" aria-expanded="false" aria-label="Expand details for Record {{datum.report.id}}" role="button" aria-controls="tr-additional-{{ datum.report.id }}" class="td-toggle display-flex" href="#">
+                  <img aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
+                </a>
+              </td>
+              <td>
+                <a class="td-link display-block" href="view/{{datum.url}}">
+                  <span class="status-tag status-{{ datum.report.status }}">
+                    {{ datum.report.status }}
+                  </span>
+                </a>
+              </td>
+              <td><a class="td-link display-block" href="view/{{datum.url}}">{{ datum.report.assigned_section }}</a></td>
+              <td><a class="td-link display-block" href="view/{{datum.url}}">{{ datum.report.retention_schedule }}</a></td>
+              <td><a class="td-link display-block" href="view/{{datum.url}}">{{ datum.report.expiration_date|date:"SHORT_DATE_FORMAT"|default:"-" }}</a></td>
+              <td><a class="td-link display-block" href="view/{{datum.url}}">{{ datum.report.closed_date|date:"SHORT_DATE_FORMAT" }}</a></td>
+              <td>
+                <a class="td-link display-block" href="view/{{datum.url}}">
+                  {% with count=datum.report.related_reports_count|default:"—" %}
+                  <div class="report-count"><span>{{ count }}</span>
+                    <span
+                      class="show-cw hidden"
+                      data-id="{{ datum.report.id }}"
+                      data-email="{{ datum.report.contact_email|default:'' }}">
+                        <img src="{% static "img/mail_outline.svg" %}" alt="Constant writer" class="cw-icon">
+                        <span class="cw-text">CW</span>
+                    </span>
+                  </div>
+                  {% endwith %}
+                </a>
+              </td>
+              <td><a class="td-link display-block" href="view/{{datum.url}}">{{ datum.report.location_name|default:"-" }}</a></td>
+              <td>
+                <a class="td-link display-block" href="view/{{datum.url}}">
+                  {{ datum.report.location_city_town }}, {{ datum.report.location_state }}
+                </a>
+              </td>
+            </tr>
+            {# this row is hidden by default #}
+            <tr class="tr-quickview" id="tr-additional-{{ datum.report.id }}" hidden>
+              <td class="quickview">
+                <span class="usa-sr-only">Details for record {{ datum.report.id }}</span>
+              </td>
+              {# All screen readers don't yet read the headers attribute correctly, so we've added a redundant aria-label #}
+              {# https://a11ysupport.io/tech/html/headers_attribute #}
+              <td aria-label="Summary" headers="crt-table-summary-header" class="quickview" colspan="3">
+                <label aria-hidden="true" for="tr-quickview-summary-{{ datum.report.id }}" class="td-quickview">
+                  Summary
+                </label>
+                <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-summary-{{ datum.report.id }}" class="td-summary">
+                  {% with summary=datum.report.get_summary %}
+                    {{ summary.note|linebreaks|default:"-" }}
+                  {% endwith %}
+                </div>
+              </td>
+              <td aria-label="Personal Description" headers="crt-table-description-header" class="quickview" colspan="3">
+                <label aria-hidden="true" for="tr-quickview-description-{{ datum.report.id }}" class="td-quickview">
+                  Personal Description
+                </label>
+                <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-description-{{ datum.report.id }}" class="td-summary word-break">
+                  {{ datum.report.violation_summary|linebreaks|default:"-" }}
+                </div>
+              </td>
+              <td aria-label="Contact Details" headers="crt-table-contact-header" class="quickview" colspan="3">
+                <label aria-hidden="true" for="tr-quickview-contact-{{ datum.report.id }}" class="td-quickview">
+                  Contact Details
+                </label>
+                <div tabindex="0" role="textbox" aria-readonly="true" id="tr-quickview-contact-{{ datum.report.id }}" class="td-summary">
+                    <p>{% with last=datum.report.contact_last_name|default:"—" %}
+                        {{ last }}{% endwith %}, {% with first=datum.report.contact_first_name|default:"—" %}
+                        {{ first }}
+                    {% endwith %}
+                    <br>
+                    {% with email=datum.report.contact_email|default:"—" %}
+                        {{ email }}
+                    {% endwith %}
+                    <br>
+                    {% with phone=datum.report.contact_phone|default:"—"  %}
+                        {{ phone }}
+                    {% endwith %}</p>
+                </div>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      {% endif %}
+    </table>
+  </div>
+</form>
+
+{% if not data_dict %}
+  <div class="crt-portal-card table-message">
+    <div class="crt-portal-card__content">
+      <div class="grid-container padding-bottom-2">
+        <div class="align-center">
+          <img alt="filter icon" src="{% static 'img/filters.svg' %}" class="margin-top-1" />
+          <p class="margin-bottom-1 margin-top-1" role="status"><b>No records found</b></p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% if not page_format.has_next and data_dict %}
+  <div class="crt-portal-card table-message">
+    <div class="crt-portal-card__content">
+      <div class="grid-container padding-bottom-2">
+        <div class="align-center">
+          <p class="margin-bottom-1">
+            <img alt="encouraging coffee icon" src="{% static 'img/coffee.svg' %}" />
+            <b>End of results</b>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}

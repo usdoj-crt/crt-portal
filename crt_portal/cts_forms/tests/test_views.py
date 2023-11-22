@@ -20,7 +20,7 @@ from testfixtures import LogCapture
 
 from ..forms import ComplaintOutreach, ContactEditForm, ReportEditForm, add_activity
 from ..model_variables import PRIMARY_COMPLAINT_CHOICES
-from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign, BannerMessage
+from ..models import Profile, Report, ReportAttachment, ProtectedClass, PROTECTED_MODEL_CHOICES, CommentAndSummary, Campaign, BannerMessage, RetentionSchedule
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_3, SAMPLE_REPORT_4
 from .factories import ReportFactory
 
@@ -874,6 +874,80 @@ class CRT_Activity_Dashboard_Tests(TestCase):
         self.client.force_login(self.superuser)
         response = self.client.get(url)
         self.assertTrue('2 records' in str(response.content))
+
+
+class CRTDispositionTests(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        self.superuser = User.objects.create_superuser('superduperuser', 'a@a.com', '')
+        self.other_report_data = SAMPLE_REPORT_1.copy()
+        self.other_report_data.update({'status': 'closed'})
+        closed_date = "2022-02-01 18:17:52.74131+00"
+        self.other_report_data.update({'closed_date': closed_date})
+        other_retention_schedule = RetentionSchedule.objects.get(retention_years=10)
+        self.other_report_data.update({'retention_schedule': other_retention_schedule})
+        Report.objects.create(**self.other_report_data)
+        self.other_report_data_2 = SAMPLE_REPORT_1.copy()
+        self.other_report_data_2.update({'status': 'closed'})
+        self.other_report_data_2.update({'closed_date': closed_date})
+        other_retention_schedule_2 = RetentionSchedule.objects.get(retention_years=3)
+        self.other_report_data_2.update({'retention_schedule': other_retention_schedule_2})
+        Report.objects.create(**self.other_report_data_2)
+        self.expired_report_data = SAMPLE_REPORT_1.copy()
+        self.expired_report_data.update({'status': 'closed'})
+        self.expired_report_data.update({'closed_date': closed_date})
+        expired_retention_schedule = RetentionSchedule.objects.get(retention_years=1)
+        self.expired_report_data.update({'retention_schedule': expired_retention_schedule})
+        Report.objects.create(**self.expired_report_data)
+        self.eligible_report_data = SAMPLE_REPORT_1.copy()
+        self.eligible_report_data.update({'status': 'closed'})
+        self.eligible_report_data.update({'closed_date': date.today() - timedelta(weeks=51)})
+        eligible_retention_schedule = RetentionSchedule.objects.get(retention_years=1)
+        self.eligible_report_data.update({'retention_schedule': eligible_retention_schedule})
+        Report.objects.create(**self.eligible_report_data)
+        self.url = reverse('crt_forms:disposition')
+
+    def test_view_disposition_unauthenticated(self):
+        """Unauthenticated attempt to view all page redirects to login page."""
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 302)
+
+    def test_view_disposition_authenticated(self):
+        """Authenticated will return 200 and display "Disposing Report Records"""
+        self.client.force_login(self.superuser)
+        response = self.client.get(self.url)
+        self.assertEqual(response.status_code, 200)
+        self.assertIn('Disposing Report Records', str(response.content))
+
+    def test_past_disposition(self):
+        url = f'{self.url}?disposition_status=past'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        reports = response.context['data_dict']
+        report_len = len(reports)
+        self.assertEqual(report_len, 1)
+        self.assertIn('1 Year', str(response.content))
+
+    def test_eligible_for_expiration(self):
+        """Should only return one report"""
+        url = f'{self.url}?disposition_status=eligible'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        reports = response.context['data_dict']
+        report_len = len(reports)
+        self.assertEqual(report_len, 1)
+        self.assertIn('3 Year', str(response.content))
+
+    def test_other_scheduled_reports(self):
+        """Should only return two reports"""
+        url = f'{self.url}?disposition_status=other'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        reports = response.context['data_dict']
+        report_len = len(reports)
+        self.assertEqual(report_len, 2)
+        self.assertIn('Permanent', str(response.content))
 
 
 class LoginRequiredTests(TestCase):

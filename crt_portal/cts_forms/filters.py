@@ -2,10 +2,11 @@
 # provided they are valid filterable model properties.
 import re
 import urllib.parse
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.core.validators import ValidationError
 
-from django.db.models import Count, Min
+from django.db.models import ExpressionWrapper, Count, Min, F, Value, CharField, DateField
+from django.db.models.functions import ExtractDay, ExtractMonth, ExtractYear, Concat, Cast
 from django.contrib.postgres.search import SearchQuery
 from django.db import connection
 from django.http.request import QueryDict, MultiValueDict
@@ -68,6 +69,7 @@ filter_options = {
     'summary': 'summary',  # aka "CRT summary"
     'location_name': '__icontains',
     'other_class': '__search',  # not in filter controls?
+    'disposition_status': 'disposition_status',
     # this is not a db query filter, not needed here, duplicate tag fix, removed from the filter tag list
     # 'per_page': '__pass',  # adding so a filter tag will show up in /form/view.  No filtering will actually happen.
 }
@@ -203,6 +205,20 @@ def report_filter(querydict):
             phone_number_array = ''.join(c if c.isdigit() else ' ' for c in querydict.getlist(field)[0]).split()
             for number_block in phone_number_array:
                 qs = qs.filter(contact_phone__icontains=number_block)
+        elif field_options == 'disposition_status':
+            disposition_status = querydict.getlist(field)[0]
+            today = datetime.today().date()
+            qs = qs.annotate(retention_year=F('retention_schedule__retention_years'),
+                             expiration_year=F('retention_year') + ExtractYear('closed_date'),
+                             expiration_date=Cast(Concat(F('expiration_year'), Value('-'), ExtractMonth('closed_date'), Value('-'), ExtractDay('closed_date'), output_field=CharField()), output_field=DateField()),
+                             eligible_date=ExpressionWrapper(F('expiration_date') - timedelta(days=30), output_field=DateField()))
+            if disposition_status == 'past':
+                kwargs['expiration_date__lt'] = today
+            if disposition_status == 'eligible':
+                kwargs['expiration_date__gte'] = today
+                kwargs['eligible_date__lte'] = today
+            if disposition_status == 'other':
+                kwargs['eligible_date__gt'] = today
 
     # Check to see if there are multiple values in report_reason search and run distinct if so.  If not, run a regular
     # much faster search.

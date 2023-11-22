@@ -15,6 +15,7 @@ def _valid_sort_params(sort, type):
             *Report._meta.fields,
         ]
         valid_fields = [f.name for f in fields]
+        valid_fields.append('expiration_date')
     return all(elem.replace("-", '') in valid_fields for elem in sort)
 
 

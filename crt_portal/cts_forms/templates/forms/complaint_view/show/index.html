@@ -12,8 +12,13 @@
         <div class="tablet:grid-col-10 grid-offset-1 padding-left-05">
           <div class="complaint-filter-navigation display-flex flex-row flex-justify">
             <div class="display-flex">
-              {% if activity %}
+              {% if view_type == 'activity' %}
                 <a class="outline-button outline-button--dark" href="{% url 'crt_forms:activity-log' %}{% back_to_all return_url_args %}">
+                  <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" alt="back arrow" class="icon">
+                  Back to all
+                </a>
+              {% elif view_type == 'disposition'  %}
+                <a class="outline-button outline-button--dark" href="{% url 'crt_forms:disposition' %}{% back_to_all return_url_args %}">
                   <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" alt="back arrow" class="icon">
                   Back to all
                 </a>
