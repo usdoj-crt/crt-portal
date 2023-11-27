@@ -1719,7 +1719,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             # fix bug where id was showing up instead of user name
             if field in ['assigned_to', 'retention_schedule']:
                 if original is None:
-                    yield f"{name}:", f'"{changed}"'
+                    original = 'None'
                 elif field == 'assigned_to':
                     original = User.objects.get(id=original)
                 elif field == 'retention_schedule':

@@ -73,10 +73,10 @@ class ActionTests(TestCase):
         )
 
         self.assertEqual(form.errors, {})
-        self.assertCountEqual(form.get_actions(), [
-            ('Assigned to:', f'"{self.user2.username}"'),
-            ('Assigned to:', f'Updated from "None" to "{self.user2.username}"'),
-        ])
+        self.assertCountEqual(form.get_actions(), [(
+            'Assigned to:',
+            f'Updated from "None" to "{self.user2.username}"',
+        )])
 
     def test_section_change(self):
         """Changes to section are recorded in activity log"""
