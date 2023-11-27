@@ -30,7 +30,19 @@
     const select = wrapper.querySelector('.usa-combo-box.assign-tag select');
     const checkboxes = wrapper.querySelectorAll('.usa-selected-tags input[type="checkbox"]');
     checkboxes.forEach(checkbox => {
-      checkbox.addEventListener('change', () => {
+      const label = checkbox.nextElementSibling;
+      label.addEventListener('keypress', function(event) {
+        if (!['Enter', ' '].includes(event.key)) return;
+        checkbox.click();
+      });
+      checkbox.addEventListener('change', event => {
+        if (!wrapper.closest('.details-form-edit')) {
+          // Edit mode is off.
+          checkbox.checked = true;
+          event.preventDefault();
+          event.stopPropagation();
+          return false;
+        }
         updateComboOptions(select, checkboxes);
       });
     });

@@ -46,7 +46,9 @@
       <tr>
         <th>Tags</th>
         <td>
+        {% with toggle_form=details_form %}
         {{ details_form.tags }}
+        {% endwith %}
         </td>
       </tr>
       {% endif %}
