@@ -3,7 +3,30 @@
 .shepherd-element {
     &.usa-modal {
         margin: 0 auto;
-        padding: .5rem 2rem;
+        padding: 2rem;
+        z-index: 2;
+    }
+
+    .shepherd-cancel-icon {
+        background-image: url(../../img/close-blue-60-alt.svg),linear-gradient(transparent,transparent);
+        background-size: 13px;
+        background-repeat: no-repeat;
+        background-color: transparent;
+        background-position: center;
+        right: 0.75rem;
+        position: absolute;
+        top: 0.75rem;
+        border: 0;
+        cursor: pointer;
+        height: 12px;
+
+        > span {
+            display: none;
+        }
+    }
+
+    .shepherd-footer {
+        padding-top: 1rem;
     }
 
     .shepherd-button {
