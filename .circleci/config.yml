@@ -550,7 +550,7 @@ jobs:
     steps:
       # Install cloud foundry tools
       - *install-cf8
-      # login to Cloud.gov dev space
+      # login to Cloud.gov stage space
       - run:
           name: Login to cloud.gov Staging
           command: cf login -u ${CRT_USERNAME_STAGE} -p ${CRT_PASSWORD_STAGE} -o doj-crtportal -s ${CF_SPACE}
@@ -568,7 +568,7 @@ jobs:
     steps:
       # Install cloud foundry tools
       - *install-cf8
-      # login to Cloud.gov dev space
+      # login to Cloud.gov prod space
       - run:
           name: Login to cloud.gov Prod
           command: cf login -u ${CRT_USERNAME_PROD} -p ${CRT_PASSWORD_PROD} -o doj-crtportal -s ${CF_SPACE}
