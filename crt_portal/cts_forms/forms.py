@@ -79,6 +79,7 @@ def add_activity(user, verb, description, instance):
         description=description,
         target=instance,
         send_notification=True,
+        is_bulk=False,
     )
 
 
@@ -2215,8 +2216,9 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
                 report.save()
                 activities.append({'user': user, 'report': report, 'verb': "Report closed and Assignee removed", 'description': f"Date closed updated to {report.closed_date.strftime('%m/%d/%y %H:%M:%M %p')}"})
         for act in activities:
-            add_activity(act['user'], act['verb'], act['description'], act['report'])
-
+            add_activity(act['user'], act['verb'], act['description'], act['report'], True)
+        if 'assigned_to' in updated_data:
+            activity.handle_bulk_notify(user, 'Assigned to:', f"Assigned to: Updated to {updated_data['assigned_to']}", reports)
         return updated_number or len(reports)  # sometimes only a comment is added
 
 
