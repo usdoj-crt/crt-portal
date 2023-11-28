@@ -72,14 +72,14 @@ logger = logging.getLogger(__name__)
 User = get_user_model()
 
 
-def add_activity(user, verb, description, instance):
+def add_activity(user, verb, description, instance, is_bulk=False):
     activity.send_action(
         user,
         verb=verb,
         description=description,
         target=instance,
         send_notification=True,
-        is_bulk=False,
+        is_bulk=is_bulk,
     )
 
 

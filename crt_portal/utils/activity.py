@@ -1,7 +1,7 @@
 import logging
 from actstream import action
 from cts_forms.models import Report
-from cts_forms.mail import notify
+from cts_forms.mail import notify, bulk_notify
 
 
 def send_action(user, *, verb, description, target, send_notification=False, is_bulk=False):
@@ -47,14 +47,35 @@ def _handle_notify_assigned_to(*, user, verb, description, target):
                'description': description,
                'target': target,
            })
-    bulk_notify(template_title='assigned_to',
-           report=report,
-           recipients=[report.assigned_to.email],
+
+
+def _handle_bulk_notify_assigned_to(*, user, verb, description, targets):
+    count = len(targets)
+    first_report = targets[0] if targets else None
+    reports = targets if isinstance(first_report, Report) else None
+    if not reports:
+        logging.warning('Not notifying assignee (no target reports given)')
+        return
+    if not first_report.assigned_to:
+        logging.info(f'Not notifying assignee (no assignee) ({count} reports)')
+        return
+    if not hasattr(first_report.assigned_to, 'notification_preference'):
+        logging.info(f'Not notifying assignee (no notification preference) ({count} report)')
+        return
+    if not first_report.assigned_to.notification_preference.assigned_to:
+        logging.info(f'Not notifying assignee (opted out of notification) ({count} report)')
+        return
+    if not first_report.assigned_to.email:
+        logging.warning(f'Not notifying assignee (User {first_report.assigned_to.id} is opted in, but has no email address)')
+        return
+    bulk_notify(template_title='assigned_to_bulk',
+           reports=reports,
+           recipients=[first_report.assigned_to.email],
            actstream={
                'user': user,
                'verb': verb,
                'description': description,
-               'target': target,
+               'targets': targets,
            })
 
 
@@ -75,8 +96,8 @@ def handle_bulk_notify(user, verb, description, reports):
         'user': user,
         'verb': verb,
         'description': description,
-        'target': reports,
+        'targets': reports,
     }
     verb = kwargs.get('verb', None)
     if verb == 'Assigned to:':
-        return _handle_notify_assigned_to(**kwargs)
+        return _handle_bulk_notify_assigned_to(**kwargs)
