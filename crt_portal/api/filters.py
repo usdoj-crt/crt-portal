@@ -155,7 +155,7 @@ def report_cws(reports):
         "reports": {},
     }
     emails = tuple(set(reports.values()))
-    if emails is None:
+    if not emails:
         return report_cws_payload
     with connection.cursor() as cursor:
         try:
