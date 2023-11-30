@@ -30,7 +30,8 @@
 
   tour.addStep({
     id: 'second-step',
-    text: 'The <b>past disposition</b> tab shows reports that are past their expiration date.',
+    text:
+      'The <strong>past disposition</strong> tab shows reports that are past their expiration date.',
     attachTo: {
       element: '.past-disposition',
       on: 'top'
@@ -47,7 +48,7 @@
   tour.addStep({
     id: 'third-step',
     text:
-      'The <b>eligible for expiration</b> tab shows reports that are within 30 days of or on their Expiration date.',
+      'The <strong>eligible for expiration</strong> tab shows reports that are within 30 days of or on their Expiration date.',
     attachTo: {
       element: '.eligible-expiration',
       on: 'top'
@@ -64,7 +65,7 @@
   tour.addStep({
     id: 'fourth-step',
     text:
-      'The <b>other scheduled reports</b> tab shows reports that have expiration dates more than 30 days in the future.',
+      'The <strong>other scheduled reports</strong> tab shows reports that have expiration dates more than 30 days in the future.',
     attachTo: {
       element: '.other-scheduled',
       on: 'top'
@@ -81,7 +82,7 @@
   tour.addStep({
     id: 'fifth-step',
     text:
-      'The record <b>expiration date</b> is the close date plus number of years of the retention schedule.',
+      'The record <strong>expiration date</strong> is the close date plus number of years of the retention schedule.',
     attachTo: {
       element: '#expiration-date-sort',
       on: 'top'
@@ -112,8 +113,13 @@
     ]
   });
 
-  if (!localStorage.getItem('shepherd-tour')) {
-    tour.start();
-    localStorage.setItem('shepherd-tour', 'yes');
+  function init() {
+    const searchParams = new URLSearchParams(window.location.search);
+    if (localStorage.getItem('shepherd-tour') != 'yes' && searchParams.has('disposition_status')) {
+      tour.start();
+      localStorage.setItem('shepherd-tour', 'yes');
+    }
   }
+
+  window.addEventListener('DOMContentLoaded', init);
 })(window);

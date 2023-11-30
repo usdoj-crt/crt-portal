@@ -1,5 +1,9 @@
 @use "uswds-core" as *;
 
+.shepherd-modal-overlay-container {
+    display: none;
+}
+
 .shepherd-element {
     &.usa-modal {
         margin: 0 auto;
