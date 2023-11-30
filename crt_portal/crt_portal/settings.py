@@ -530,7 +530,7 @@ if environment == 'LOCAL':
     except ImportError:
         pass
 
-if os.environ.get('ENV', 'UNDEFINED') in ['LOCAL', 'DEVELOP', 'STAGE']:
+if os.environ.get('ENV', 'UNDEFINED') in ['LOCAL', 'DEVELOP', 'STAGE', 'PRODUCTION']:
     DATABASES['analytics'] = {  # This must happen after importing local_settings
         **DATABASES['default'],
         'USER': os.environ['POSTGRES_ANALYTICS_USER'],
