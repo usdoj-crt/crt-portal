@@ -23,5 +23,12 @@
       </a>
     </li>
     {% endif %}
+    {% if ENABLED_FEATURES.disposition %}
+    <li class="usa-nav__primary-item" data-ga-event-name="disposition nav item">
+      <a class="crt-landing--menu_link reporting-header {% if page == 'disposition' %} selected {% endif %}" href="/form/disposition">
+        🆕 Disposition
+      </a>
+    </li>
+    {% endif %}
   </ul>
 </div>

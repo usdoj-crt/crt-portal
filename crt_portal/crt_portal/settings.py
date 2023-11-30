@@ -178,6 +178,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Controls admin export page size.
+# Exports with many large columns per row should lower this value.
+# Exports with lots of smaller rows may raise this value.
+DEFAULT_EXPORT_PAGINATION = 20000
+
 LOGIN_REDIRECT_URL = '/'
 
 # Internationalization
@@ -318,19 +323,27 @@ if environment in ['PRODUCTION', 'STAGE']:
             '^email',
             '^housing-resources',
             '^voting-resources',
+            '^oauth2_provider/token/',
+            '^oauth2_provider/userinfo/',
         ],
     }
 
+    if environment == 'STAGE':
+        login_base_url = 'https://crt-portal-django-stage.app.cloud.gov'
+    else:
+        login_base_url = 'https://crt-portal-django-prod.app.cloud.gov'
     # Configure django to redirect users to the right URL for login
-    LOGIN_URL = "/oauth2/login"
+    LOGIN_URL = f"{login_base_url}/oauth2/login"
     # The url where the ADFS server calls back to our app
-    LOGIN_REDIRECT_URL = "/oauth2/callback"
+    LOGIN_REDIRECT_URL = f"{login_base_url}/oauth2/callback"
 
     ALLOWED_HOSTS = [
         'civilrights.justice.gov',
         'www.civilrights.justice.gov',
         'crt-portal-django-prod.app.cloud.gov',
         'crt-portal-django-stage.app.cloud.gov',
+        'crt-portal-django-prod.apps.internal',
+        'crt-portal-django-stage.apps.internal',
     ]
 
 STATIC_URL = '/static/'
@@ -374,6 +387,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'https://www.google-analytics.com',
         'https://stats.g.doubleclick.net',
         'https://www.googletagmanager.com/',
+        'https://cdnjs.cloudflare.com/',
     )
     # headers required for security
     SESSION_COOKIE_SECURE = True
@@ -394,6 +408,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'https://stats.g.doubleclick.net',
         'https://touchpoints.app.cloud.gov',
         'https://www.googletagmanager.com/',
+        'https://cdnjs.cloudflare.com/',
     )
     CSP_CONNECT_SRC = (
         "'self'",
@@ -405,6 +420,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'https://stats.g.doubleclick.net',
         'https://touchpoints.app.cloud.gov',
         'https://www.googletagmanager.com/',
+        'https://cdnjs.cloudflare.com/',
     )
     CSP_IMG_SRC = allowed_sources
     CSP_MEDIA_SRC = allowed_sources

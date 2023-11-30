@@ -350,7 +350,7 @@ def get_group_view_data(request, requested_reports, query_filters, grouping, gro
     }
 
 
-def get_view_data(request, report_query, query_filters):
+def get_view_data(request, report_query, query_filters, disposition_status=None):
     requested_reports = report_query.annotate(email_count=F('email_report_count__email_count'))
 
     # Sort data based on request from params, default to `created_date` of complaint
@@ -365,9 +365,13 @@ def get_view_data(request, report_query, query_filters):
 
     sort_state = {}
     # make sure the links for this page have the same paging, sorting, filtering etc.
-    page_args = f'?per_page={per_page}&grouping=default'
-    # process filter query params
-    filter_args = get_filter_args(query_filters)
+    if disposition_status:
+        page_args = f'?per_page={per_page}'
+        filter_args = f'{get_filter_args(query_filters)}&disposition_status={disposition_status}'
+    else:
+        page_args = f'?per_page={per_page}&grouping=default'
+        filter_args = get_filter_args(query_filters)
+
     page_args += filter_args
 
     # process sort query params
@@ -425,6 +429,8 @@ def get_report_data(requested_reports, report_url_args, paginated_offset):
         # If a user has an email, it is looked up in the table to see if they are a repeat writer and add the count to the report.
         if report.contact_email:
             report.related_reports_count = _related_reports_count(report)
+        if report.retention_schedule and report.closed_date:
+            report.expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years, report.closed_date.month, report.closed_date.day).date()
         if report.other_class:
             p_class_list.append(report.other_class)
         if len(p_class_list) > 3:
@@ -579,6 +585,11 @@ def serialize_data(report, request, report_id):
     return_url_args = urllib.parse.unquote(return_url_args)
     querydict = QueryDict(return_url_args).dict()
     activity = querydict.get('?activity', None)
+    if activity:
+        view_type = 'activity'
+    else:
+        disposition_status = querydict.get('disposition_status', None)
+        view_type = 'disposition' if disposition_status else 'records'
 
     output = {
         'actions': ComplaintActions(instance=report, user=request.user),
@@ -599,10 +610,23 @@ def serialize_data(report, request, report_id):
         # for print media consumption
         'print_actions': report.activity(),
         'questions': Review.question_text,
-        'activity': activity,
+        'view_type': view_type,
     }
 
     return output
+
+
+@login_required
+def disposition_view(request):
+    disposition_status = request.GET.get('disposition_status', 'past')
+    report_query, query_filters = report_filter(QueryDict('status=closed&retention_schedule=1%20Year&retention_schedule=3%20Year&retention_schedule=10%20Year&retention_schedule=Permanent&disposition_status=' + disposition_status))
+    profile_form = get_profile_form(request)
+    final_data = get_view_data(request, report_query, query_filters, disposition_status)
+    final_data.update({
+        'profile_form': profile_form,
+        'disposition_status': disposition_status,
+    })
+    return render(request, 'forms/complaint_view/disposition/index.html', final_data)
 
 
 class ProfileView(LoginRequiredMixin, FormView):
@@ -880,7 +904,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         else:
             requested_query = Report.objects.filter(pk__in=ids)
 
-        bulk_actions_form = BulkActionsForm(requested_query)
+        bulk_actions_form = BulkActionsForm(requested_query, user=request.user)
         all_ids_count = requested_query.count()
         ids_count = len(ids)
 
@@ -918,7 +942,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         if requested_query.count() > 500:
             raise PermissionDenied
 
-        bulk_actions_form = BulkActionsForm(requested_query, request.POST)
+        bulk_actions_form = BulkActionsForm(requested_query, request.POST, user=request.user)
 
         if bulk_actions_form.is_valid():
             number = bulk_actions_form.update(requested_query, request.user)

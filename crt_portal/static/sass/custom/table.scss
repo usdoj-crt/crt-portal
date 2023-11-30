@@ -38,6 +38,27 @@
   overflow-x: scroll;
 }
 
+.data-table {
+  .crt-table {
+    thead {
+      th {
+        text-transform: none;
+      }
+    }
+    tbody {
+      tr {
+        td {
+          color: #2e2e2a;
+          height: 100%;
+          padding: 0.5rem 1rem 0.5rem 0.25rem;
+          position: relative;
+          width: 100%;
+        }
+      }
+    }
+  }
+}
+
 .crt-table {
   @extend .usa-table;
   @include text--body-copy__small();

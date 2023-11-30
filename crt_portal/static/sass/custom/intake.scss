@@ -94,6 +94,7 @@ hr {
 
 .notebooks {
   display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
 }
 
@@ -201,11 +202,12 @@ hr {
   }
 }
 
-.dashboard-header {
+.tab-header {
   @include u-padding-x(4);
   @include flex-container();
   justify-content: space-between;
   margin-bottom: 4rem;
+  padding-left: 0;
 
   .title {
     @include flex-container();
@@ -221,17 +223,16 @@ hr {
 
   }
   .crt-landing--menu_link.reporting-header {
-    border: none;
-    margin: 0 1rem;
-    padding: 1rem 0;
+    padding: 1rem;
   }
 
   .crt-landing--menu_link.reporting-header.selected {
-    border-bottom: 3px solid #005EA2;
+    color:  #162e51;
+    border-bottom: 4px solid #005EA2;
   }
   .usa-nav__primary a:not(.usa-button):hover {
     background-color: transparent;
-    border-bottom: 3px solid #005EA2;
+    border-bottom: 4px solid #005EA2;
   }
 }
 

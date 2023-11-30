@@ -5,6 +5,7 @@ applications:
   - route: crt-portal-django-prod.app.cloud.gov
   - route: civilrights.justice.gov
   - route: www.civilrights.justice.gov
+  - route: crt-portal-django-prod.apps.internal
   memory: 2G
   disk_quota: 2G
   instances: 4
@@ -35,3 +36,20 @@ applications:
     image: ajilaag/clamav-rest:20230729 # ##20230520
   routes:
   - route: clamav-rest-prod.apps.internal
+
+- name: crt-portal-jupyter
+  path: jupyterhub
+  routes:
+  - route: crt-portal-jupyter-prod.app.cloud.gov
+  memory: 2G
+  disk_quota: 2G
+  instances: 1
+  env:
+    ENV: PRODUCTION
+    WEB_EXTERNAL_HOSTNAME: https://crt-portal-django-prod.app.cloud.gov
+    WEB_INTERNAL_HOSTNAME: http://crt-portal-django-prod.apps.internal:8080
+    LD_LIBRARY_PATH: "/home/vcap/deps/2/lib:/home/vcap/deps/1/lib:/home/vcap/deps/0/lib"
+  buildpacks:
+  - https://github.com/cloudfoundry/nodejs-buildpack
+  - https://github.com/cloudfoundry/apt-buildpack
+  - python_buildpack

@@ -114,18 +114,29 @@ def get_litigation_hold_widget():
 class LitigationHoldLock(object):
     """Prevents updates to ModelForms with litigation hold set."""
 
+    def _get_offending_instance(self):
+        if self.cleaned_data.get('litigation_hold') is False:
+            return []
+        return (
+            [self.instance.public_id]
+            if self.instance.litigation_hold
+            else []
+        )
+
+    def _get_offending_queryset(self):
+        if 'litigation_hold' in self.changed_data:
+            if set(self.changed_data) == {'comment', 'litigation_hold'}:
+                return []
+            if self.cleaned_data.get('litigation_hold') is False:
+                return []
+        return self.queryset.filter(litigation_hold=True).values_list('public_id', flat=True)
+
     def clean(self, *args, **kwargs):
         superclean = super(LitigationHoldLock, self).clean(*args, **kwargs)
-        if self.cleaned_data.get('litigation_hold') is False:
-            return superclean
         if hasattr(self, 'instance'):
-            bad_ids = (
-                [self.instance.public_id]
-                if self.instance.litigation_hold
-                else []
-            )
+            bad_ids = self._get_offending_instance()
         elif hasattr(self, 'queryset'):
-            bad_ids = self.queryset.filter(litigation_hold=True).values_list('public_id', flat=True)
+            bad_ids = self._get_offending_queryset()
         else:
             raise ValidationError('Litigation hold lock requires either instance or queryset')
 
@@ -1708,7 +1719,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             # fix bug where id was showing up instead of user name
             if field in ['assigned_to', 'retention_schedule']:
                 if original is None:
-                    yield f"{name}:", f'"{changed}"'
+                    original = 'None'
                 elif field == 'assigned_to':
                     original = User.objects.get(id=original)
                 elif field == 'retention_schedule':
@@ -1993,6 +2004,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         widget=UsaCheckboxSelectMultiple(attrs={
             'name': 'retention_schedule',
         }),
+        initial='',
     )
     referred = BooleanField(
         label='Secondary review',
@@ -2006,9 +2018,10 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         label='Dj number',
         widget=get_dj_widget(),
         required=False,
+        initial='',
     )
 
-    def get_initial_values(record_query, keys):
+    def get_initial_values(self, record_query, keys):
         """
         Given a record query and a list of keys, determine if a key has a
         singular value within that query. Used to set initial fields
@@ -2022,20 +2035,45 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             if values.count() == 1:
                 yield key, values[0]
 
-    def __init__(self, query, *args, **kwargs):
+    def __init__(self, query, *args, user=None, **kwargs):
+        self.user = user
         Form.__init__(self, *args, **kwargs)
         self.queryset = query
+
+        self.fields['retention_schedule'] = ModelChoiceField(
+            queryset=RetentionSchedule.objects.all().order_by('order'),
+            empty_label=self.EMPTY_CHOICE,
+            label='Retention schedule',
+            required=False,
+            disabled=not self.can_assign_schedule(),
+            widget=get_retention_schedule_widget(),
+        )
+
         # set initial values if applicable
         keys = ['assigned_section', 'status', 'primary_statute', 'dj_number', 'retention_schedule', 'referred', 'district']
-        for key, initial_value in BulkActionsForm.get_initial_values(query, keys):
+        for key, initial_value in self.get_initial_values(query, keys):
             self.fields[key].initial = initial_value
+        if not self.fields['dj_number'].initial:
+            self.fields['dj_number'].initial = '--'
+
+    def can_assign_schedule(self):
+        if not self.user:
+            return False
+        return self.user.has_perm('cts_forms.assign_retentionschedule')
+
+    def clean_retention_schedule(self):
+        if 'retention_schedule' not in self.changed_data:
+            return None
+        if not self.can_assign_schedule():
+            raise ValidationError('You do not have permission to assign retention schedules.')
+        return self.cleaned_data['retention_schedule']
 
     def clean_dj_number(self):
-        dj_number = self.cleaned_data.get('dj_number', None)
+        dj_number = self.cleaned_data.get('dj_number', '')
         if not dj_number:
-            return None
+            return ''
         if any(not c for c in dj_number.rsplit('-', 2)):
-            return None
+            return ''
         return dj_number
 
     def get_updates(self):
@@ -2043,7 +2081,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         # do not allow any fields to be unset. this may happen if the
         # user selects "Multiple".
         for key in ['assigned_section', 'status', 'primary_statute', 'dj_number', 'retention_schedule', 'referred']:
-            if key in updates and not updates[key]:
+            if key in updates and updates[key] in [None, '']:
                 updates.pop(key)
         # if section is changed, override assignee, status, retention schedule, secondary review
         # explicitly, even if they are set by the user.
@@ -2103,7 +2141,7 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
                 name = 'Primary classification'
             if field in ['summary', 'comment']:
                 continue
-            initial = getattr(report, field, 'None')
+            initial = getattr(report, field, None)
 
             if field_changed(initial, updates[field]):
                 yield f"{name}:", f'Updated from "{initial}" to "{updates[field]}"'

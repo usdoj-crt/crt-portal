@@ -358,6 +358,8 @@ cf add-network-policy crt-portal-jupyter crt-portal-django
 cf add-network-policy crt-portal-django crt-portal-jupyter
 ```
 
+Note: Make sure that crt-portal-django has an apps.internal route in `manifest_etc.yaml`, and is added to ALLOWED_HOSTS in settings.py
+
 The actual configuration happens in two steps - one of which is run on the portal instance over ssh, and the other of which is run locally:
 
 Over ssh, create the oauth application in our serving postgres. Make sure to swap out `dev` with the correct URI:

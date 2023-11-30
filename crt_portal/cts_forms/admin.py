@@ -10,10 +10,11 @@ from django.contrib import admin
 from django.contrib.admin.widgets import AdminTextareaWidget
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
+from django.contrib.postgres.aggregates import StringAgg
 from django.contrib import messages
 from django.http import HttpResponseRedirect, HttpRequest
 from django.core.paginator import Paginator
-from django.db.models import Prefetch
+from django.db.models import Subquery, OuterRef
 from django import forms
 from django.http import HttpResponse, StreamingHttpResponse
 from django.shortcuts import render
@@ -88,7 +89,7 @@ def format_export_message(request, records, what_was_exported):
     return f'ADMIN ACTION by: {username} {userid} @ {ip}. Exported {records} {what_was_exported} as csv.'
 
 
-def iter_queryset(queryset, headers):
+def iter_queryset(queryset, headers, *, pagination=settings.DEFAULT_EXPORT_PAGINATION):
     """
     The iterator provided by queryset.iterator isn't adequate here
 
@@ -100,26 +101,34 @@ def iter_queryset(queryset, headers):
     through the queryset to reduce the number of total queries required
     """
     yield headers
-    paginator = Paginator(queryset, 2000)
+    paginator = Paginator(queryset, pagination)
     for i in range(paginator.num_pages):
         yield from paginator.get_page(i + 1)
 
 
-def _serialize_report_export(data):
+def prepare_report_csv_queryset(queryset):
     """
     Customize the rendering of protected_class and summary instances
     while rendering headers as-is
     """
-    if isinstance(data, Report):
-        row = [getattr(data, field) for field in REPORT_FIELDS]
-        row.append('; '.join([str(pc) for pc in data.protected_class.all()]))
-        if data.internal_summary:
-            # incoming summaries are sorted by descending modified_date the first is the most recent
-            row.append(data.internal_summary[0].note)
-        else:
-            row.append('')
-        return row
-    return data
+
+    summaries = (
+        CommentAndSummary.objects
+        .filter(is_summary=True, report=OuterRef('pk'))
+        .order_by('-modified_date')
+        .only('note')
+    )
+
+    return (
+        queryset
+        .prefetch_related('protected_class')
+        .annotate(_exportable_protected_class=StringAgg('protected_class__protected_class', delimiter='; '))
+        .annotate(_exportable_summary=Subquery(summaries.values('note')[:1]))
+        .order_by('id')
+        .values_list(*REPORT_FIELDS,
+                     '_exportable_protected_class',
+                     '_exportable_summary')
+    )
 
 
 def _serialize_action(data):
@@ -139,13 +148,9 @@ def export_reports_as_csv(modeladmin, request, queryset):
     writer = csv.writer(Echo(), quoting=csv.QUOTE_ALL)
     headers = REPORT_FIELDS + ['protected_class', 'internal_summary']
 
-    summaries = CommentAndSummary.objects.filter(is_summary=True).order_by('-modified_date')
-    queryset = queryset.prefetch_related('protected_class',
-                                         Prefetch('internal_comments', queryset=summaries, to_attr='internal_summary')
-                                         ).order_by('id')
-    iterator = iter_queryset(queryset, headers)
+    iterator = iter_queryset(prepare_report_csv_queryset(queryset), headers)
 
-    response = StreamingHttpResponse((writer.writerow(_serialize_report_export(report)) for report in iterator),
+    response = StreamingHttpResponse((writer.writerow(report) for report in iterator),
                                      content_type="text/csv")
     response['Content-Disposition'] = 'attachment; filename="report_export.csv"'
 

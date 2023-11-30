@@ -407,6 +407,10 @@ jobs:
           name: Deploy crt-portal-django to production
           no_output_timeout: 20m
           command: cf8 push crt-portal-django --strategy rolling --app-start-timeout 180 -f ${CF_MANIFEST} | sed 's/.*/Use cf logs to view build information/'
+      - run:
+          name: Deploy crt-portal-jupyter to production
+          no_output_timeout: 20m
+          command: cf8 push crt-portal-jupyter --strategy rolling --app-start-timeout 180 -f ${CF_MANIFEST} | sed 's/.*/Use cf logs to view build information/'
 
   prod-maintenance-tasks:
     docker:
@@ -539,6 +543,43 @@ jobs:
           name: run scheduled notebooks
           command: cf ssh crt-portal-jupyter  -c 'export LD_LIBRARY_PATH="$HOME/deps/0/lib:$HOME/deps/1/lib:$HOME/deps/2/lib" && export PATH="$PATH:$HOME/deps/2/python/bin/" && cd /home/vcap/app && python run_scheduled_refresh.py'
 
+  staging-jupyter-tasks:
+    docker:
+      # Use CircleCI convenience base image since we only need
+      # CloudFoundry CLI
+      - image: cimg/base:2020.01
+        environment:
+          - CF_SPACE: staging
+    steps:
+      # Install cloud foundry tools
+      - *install-cf8
+      # login to Cloud.gov stage space
+      - run:
+          name: Login to cloud.gov Staging
+          command: cf login -u ${CRT_USERNAME_STAGE} -p ${CRT_PASSWORD_STAGE} -o doj-crtportal -s ${CF_SPACE}
+      - run:
+          name: run scheduled notebooks
+          command: cf ssh crt-portal-jupyter  -c 'export LD_LIBRARY_PATH="$HOME/deps/0/lib:$HOME/deps/1/lib:$HOME/deps/2/lib" && export PATH="$PATH:$HOME/deps/2/python/bin/" && cd /home/vcap/app && python run_scheduled_refresh.py'
+
+  prod-jupyter-tasks:
+    docker:
+      # Use CircleCI convenience base image since we only need
+      # CloudFoundry CLI
+      - image: cimg/base:2020.01
+        environment:
+          - CF_SPACE: prod
+    steps:
+      # Install cloud foundry tools
+      - *install-cf8
+      # login to Cloud.gov prod space
+      - run:
+          name: Login to cloud.gov Prod
+          command: cf login -u ${CRT_USERNAME_PROD} -p ${CRT_PASSWORD_PROD} -o doj-crtportal -s ${CF_SPACE}
+      - run:
+          name: run scheduled notebooks
+          command: cf ssh crt-portal-jupyter  -c 'export LD_LIBRARY_PATH="$HOME/deps/0/lib:$HOME/deps/1/lib:$HOME/deps/2/lib" && export PATH="$PATH:$HOME/deps/2/python/bin/" && cd /home/vcap/app && python run_scheduled_refresh.py'
+
+
 commands:
   acquire-lock:
     description: "Make sure nothing else is deploying."
@@ -660,6 +701,16 @@ workflows:
             branches:
               only: /^release.*/
 
+  periodic-tasks-jupyter-staging:
+    jobs:
+      - staging-jupyter-tasks
+    triggers:
+      - schedule:
+          cron: "0 1,7,13,19 * * *" # run four times per day
+          filters:
+            branches:
+              only: /^release.*/
+
   # prod scheduled jobs
   periodic-tasks-prod:
     jobs:
@@ -667,6 +718,16 @@ workflows:
     triggers:
       - schedule:
           cron: "0 5 * * *" # run at 1am every night EST
+          filters:
+            branches:
+              only: master
+
+  periodic-tasks-jupyter-prod:
+    jobs:
+      - prod-jupyter-tasks
+    triggers:
+      - schedule:
+          cron: "0 2,8,14,20 * * *" # run four times per day
           filters:
             branches:
               only: master
