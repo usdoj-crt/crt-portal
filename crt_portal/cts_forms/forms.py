@@ -1739,24 +1739,24 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
                 send_notification=True,
             )
 
+    def get_assigned_to_message(self, field):
+        if field != 'assigned_to' or 'assigned_section' in self.changed_data:
+            return ''
+        assigned_user = self.cleaned_data['assigned_to']
+        if not assigned_user:
+            return ''
+        if not hasattr(assigned_user, 'notification_preference'):
+            return f" {assigned_user} will not be notified because they have not set notification preferences."
+        if not assigned_user.notification_preference.assigned_to:
+            return f" {assigned_user} will not be notified because they have opted out of notifications."
+        if not assigned_user.email:
+            return f" {assigned_user} will not be notified because they do not have an email address listed."
+        return f" {assigned_user} will be notified via email."
+
     def get_notification_messages(self, message):
-        notification_fields = ['assigned_to']
         for field in self.changed_data:
-            if field not in notification_fields:
-                continue
-            if field == 'assigned_to' and 'assigned_section' not in self.changed_data:
-                assigned_user = self.cleaned_data['assigned_to']
-                if not assigned_user:
-                    continue
-                if not hasattr(assigned_user, 'notification_preference'):
-                    message += f" {assigned_user} will not be notified because they have not set notification preferences."
-                elif not assigned_user.notification_preference.assigned_to:
-                    message += f" {assigned_user} will not be notified because they have opted out of notifications."
-                elif not assigned_user.email:
-                    message += f" {assigned_user} will not be notified because they do not have an email address listed."
-                else:
-                    message += f" {assigned_user} will be notified via email."
-            return message
+            message += self.get_assigned_to_message(field)
+        return message
 
     def success_message(self):
         """Prepare update success message for rendering in template"""
