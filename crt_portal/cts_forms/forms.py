@@ -2282,6 +2282,18 @@ class ContactEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         return self.SUCCESS_MESSAGE
 
 
+class TagsField(ModelMultipleChoiceField):
+    def __init__(self, *args, **kwargs):
+        queryset = Tag.objects.filter(show_in_lists=True).order_by('section', 'name')
+        super().__init__(queryset=queryset,
+                         widget=UsaTagSelectMultiple(),
+                         required=False,
+                         *args, **kwargs)
+
+    def label_from_instance(self, obj: Tag):
+        return f"<span class='section'>{obj.section or 'ALL'}</span> <span class='name'>{obj.name}</span>"
+
+
 class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
     CONTEXT_KEY = "details_form"
     FAIL_MESSAGE = "Failed to update complaint details."
@@ -2294,11 +2306,7 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
     summary = CharField(required=False, strip=True, widget=Textarea(attrs={'class': 'usa-textarea', 'data-soft-valid': 'true', 'data-soft-maxlength': 7000}))
     summary_id = IntegerField(required=False, widget=HiddenInput())
 
-    tags = ModelMultipleChoiceField(
-        queryset=Tag.objects.filter(show_in_lists=True),
-        widget=UsaTagSelectMultiple(),
-        required=False,
-    )
+    tags = TagsField()
 
     class Meta(ProForm.Meta):
         """
