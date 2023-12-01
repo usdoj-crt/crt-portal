@@ -82,7 +82,7 @@
   tour.addStep({
     id: 'fifth-step',
     text:
-      'The record <strong>expiration date</strong> is the close date plus number of years of the retention schedule.',
+      'The record <strong>expiration date</strong> is the first of the year <strong>after</strong> the close date plus the number of years of the retention schedule.',
     attachTo: {
       element: '#expiration-date-sort',
       on: 'top'
