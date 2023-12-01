@@ -1739,6 +1739,25 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
                 send_notification=True,
             )
 
+    def get_assigned_to_message(self, field):
+        if field != 'assigned_to' or 'assigned_section' in self.changed_data:
+            return ''
+        assigned_user = self.cleaned_data['assigned_to']
+        if not assigned_user:
+            return ''
+        if not hasattr(assigned_user, 'notification_preference'):
+            return f" {assigned_user} will not be notified because they have not set notification preferences."
+        if not assigned_user.notification_preference.assigned_to:
+            return f" {assigned_user} will not be notified because they have opted out of notifications."
+        if not assigned_user.email:
+            return f" {assigned_user} will not be notified because they do not have an email address listed."
+        return f" {assigned_user} will be notified via email."
+
+    def get_notification_messages(self, message):
+        for field in self.changed_data:
+            message += self.get_assigned_to_message(field)
+        return message
+
     def success_message(self):
         """Prepare update success message for rendering in template"""
         def get_label(field):
@@ -1758,6 +1777,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             fields = ', '.join(updated_fields[:-1])
             fields += f', and {updated_fields[-1]}'
             message = f"Successfully updated {fields}."
+        message = self.get_notification_messages(message)
         return message
 
     def clean_dj_number(self):
