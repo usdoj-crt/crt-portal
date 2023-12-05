@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from django.core.validators import ValidationError
 
 from django.db.models import ExpressionWrapper, Count, Min, F, Value, CharField, DateField
-from django.db.models.functions import ExtractDay, ExtractMonth, ExtractYear, Concat, Cast
+from django.db.models.functions import ExtractYear, Concat, Cast
 from django.contrib.postgres.search import SearchQuery
 from django.db import connection
 from django.http.request import QueryDict, MultiValueDict
