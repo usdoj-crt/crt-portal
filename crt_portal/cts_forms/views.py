@@ -430,7 +430,7 @@ def get_report_data(requested_reports, report_url_args, paginated_offset):
         if report.contact_email:
             report.related_reports_count = _related_reports_count(report)
         if report.retention_schedule and report.closed_date:
-            report.expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years, report.closed_date.month, report.closed_date.day).date()
+            report.expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years + 1, 1, 1).date()
         if report.other_class:
             p_class_list.append(report.other_class)
         if len(p_class_list) > 3:
