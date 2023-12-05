@@ -862,7 +862,6 @@ class ResponseTemplate(models.Model):
         context.update({**kwargs, 'report': report, 'reports': reports})
         return escape(template.render(context))
 
-
     def __str__(self):
         return self.title
 

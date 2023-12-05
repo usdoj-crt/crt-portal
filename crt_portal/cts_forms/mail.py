@@ -209,11 +209,11 @@ def notify(template_title: str,
 
 
 def bulk_notify(template_title: str,
-           *,
-           report: Optional[Report],
-           reports: List[Report],
-           recipients: List[str],
-           **kwargs):
+                *,
+                report: Optional[Report],
+                reports: List[Report],
+                recipients: List[str],
+                **kwargs):
     """Sends a notification to an internal user, if they have the preference enabled."""
     try:
         template = ResponseTemplate.objects.get(title=template_title)

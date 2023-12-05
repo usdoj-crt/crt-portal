@@ -69,15 +69,15 @@ def _handle_bulk_notify_assigned_to(*, user, verb, description, targets):
         logging.warning(f'Not notifying assignee (User {first_report.assigned_to.id} is opted in, but has no email address)')
         return
     bulk_notify(template_title='assigned_to_bulk',
-           report=reports[0],
-           recipients=[first_report.assigned_to.email],
-           reports=reports,
-           actstream={
-               'user': user,
-               'verb': verb,
-               'description': description,
-               'targets': targets,
-           })
+                report=reports[0],
+                recipients=[first_report.assigned_to.email],
+                reports=reports,
+                actstream={
+                    'user': user,
+                    'verb': verb,
+                    'description': description,
+                    'targets': targets,
+                })
 
 
 def _handle_notify(*, user, verb, description, target):
