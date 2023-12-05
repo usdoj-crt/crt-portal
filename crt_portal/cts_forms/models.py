@@ -819,17 +819,30 @@ class ResponseTemplate(models.Model):
             },
         })
 
-    def render_subject(self, report, reports, **kwargs):
+    def render_subject(self, report, **kwargs):
+        template = Template(self.subject)
+        context = self.available_report_fields(report)
+        context.update({**kwargs, 'report': report})
+        return escape(template.render(context))
+
+    def render_body(self, report, **kwargs):
+        template = Template(self.body)
+        context = self.available_report_fields(report)
+        context.update({**kwargs, 'report': report})
+        return escape(template.render(context))
+
+    def render_bulk_subject(self, report, reports, **kwargs):
         template = Template(self.subject)
         context = self.available_report_fields(report)
         context.update({**kwargs, 'report': report, 'reports': reports})
         return escape(template.render(context))
 
-    def render_body(self, report, reports, **kwargs):
+    def render_bulk_body(self, report, reports, **kwargs):
         template = Template(self.body)
         context = self.available_report_fields(report)
         context.update({**kwargs, 'report': report, 'reports': reports})
         return escape(template.render(context))
+
 
     def __str__(self):
         return self.title

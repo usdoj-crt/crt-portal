@@ -116,16 +116,17 @@ def render_complainant_mail(*, report, template, action) -> Mail:
 
 def _render_notification_mail(*,
                               report: Optional[Report],
-                              reports: Optional[List[Report]],
                               template: ResponseTemplate,
                               recipients: List[str],
+                              reports: Optional[List[Report]],
                               **kwargs) -> Mail:
+
     if reports:
-        message = template.render_body(report, reports, **kwargs)
-        subject = template.render_subject(report, reports, **kwargs)
+        message = template.render_bulk_body(report, reports, **kwargs)
+        subject = template.render_bulk_subject(report, reports, **kwargs)
     else:
-        message = template.render_body(report, reports, **kwargs)
-        subject = template.render_subject(report, reports, **kwargs)
+        message = template.render_body(report, **kwargs)
+        subject = template.render_subject(report, **kwargs)
 
     md = markdown.markdown(message, extensions=['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension(), RelativeToAbsoluteLinkExtension(for_intake=True)])
     html_message = render_to_string('notification.html', {'content': md})
@@ -190,7 +191,6 @@ def notify(template_title: str,
     except ResponseTemplate.DoesNotExist as e:
         raise ValueError(f'Cannot send notification (no template with title {template_title})') from e
     message = _render_notification_mail(report=report,
-                                        reports=None,
                                         template=template,
                                         recipients=recipients,
                                         **kwargs)
@@ -206,6 +206,7 @@ def notify(template_title: str,
 
 def bulk_notify(template_title: str,
            *,
+           report: Optional[Report],
            reports: List[Report],
            recipients: List[str],
            **kwargs):
@@ -214,13 +215,13 @@ def bulk_notify(template_title: str,
         template = ResponseTemplate.objects.get(title=template_title)
     except ResponseTemplate.DoesNotExist as e:
         raise ValueError(f'Cannot send notification (no template with title {template_title})') from e
-    message = _render_notification_mail(report=reports[0],
-                                        reports=reports,
+    message = _render_notification_mail(report=report,
                                         template=template,
                                         recipients=recipients,
+                                        reports=reports,
                                         **kwargs)
 
-    suffix = f' about {len(reports)} reports' if reports else ''
+    suffix = f' about {len(reports)} reports'
     logger.info(f'Notification ({template.title}) sent to {message.recipients}{suffix}')
 
     send_tms(message,

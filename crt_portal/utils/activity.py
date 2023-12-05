@@ -60,17 +60,18 @@ def _handle_bulk_notify_assigned_to(*, user, verb, description, targets):
         logging.info(f'Not notifying assignee (no assignee) ({count} reports)')
         return
     if not hasattr(first_report.assigned_to, 'notification_preference'):
-        logging.info(f'Not notifying assignee (no notification preference) ({count} report)')
+        logging.info(f'Not notifying assignee (no notification preference) ({count} reports)')
         return
     if not first_report.assigned_to.notification_preference.assigned_to:
-        logging.info(f'Not notifying assignee (opted out of notification) ({count} report)')
+        logging.info(f'Not notifying assignee (opted out of notification) ({count} reports)')
         return
     if not first_report.assigned_to.email:
         logging.warning(f'Not notifying assignee (User {first_report.assigned_to.id} is opted in, but has no email address)')
         return
     bulk_notify(template_title='assigned_to_bulk',
-           reports=reports,
+           report=reports[0],
            recipients=[first_report.assigned_to.email],
+           reports=reports,
            actstream={
                'user': user,
                'verb': verb,
