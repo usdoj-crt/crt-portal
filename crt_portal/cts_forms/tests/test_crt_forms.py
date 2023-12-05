@@ -6,8 +6,10 @@ import secrets
 import urllib.parse
 
 from unittest import mock
+from botocore.docs.method import types
 
 from django.contrib.auth.models import User
+from django.contrib.messages import get_messages
 from django.http import QueryDict
 from django.test import TestCase, override_settings
 from django.test.client import Client
@@ -20,7 +22,7 @@ from cts_forms.mail import render_complainant_mail, render_agency_mail
 
 from ..forms import BulkActionsForm, ComplaintActions, ComplaintOutreach, ContactEditForm, Filters, ReportEditForm
 from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, NEW_STATUS
-from ..models import CommentAndSummary, ReferralContact, Report, ResponseTemplate, EmailReportCount, RetentionSchedule
+from ..models import CommentAndSummary, NotificationPreference, ReferralContact, Report, ResponseTemplate, EmailReportCount, RetentionSchedule
 from .factories import ReportFactory
 from .test_data import SAMPLE_REFERRAL_CONTACT, SAMPLE_REPORT_1, SAMPLE_RESPONSE_TEMPLATE
 
@@ -73,10 +75,10 @@ class ActionTests(TestCase):
         )
 
         self.assertEqual(form.errors, {})
-        self.assertCountEqual(form.get_actions(), [
-            ('Assigned to:', f'"{self.user2.username}"'),
-            ('Assigned to:', f'Updated from "None" to "{self.user2.username}"'),
-        ])
+        self.assertCountEqual(form.get_actions(), [(
+            'Assigned to:',
+            f'Updated from "None" to "{self.user2.username}"',
+        )])
 
     def test_section_change(self):
         """Changes to section are recorded in activity log"""
@@ -312,6 +314,74 @@ class ActionTests(TestCase):
         self.assertCountEqual(form.get_actions(), [
             ('Secondary review:', 'Updated from "False" to "True"'),
         ])
+
+
+class NotificationPreferencesTests(TestCase):
+    unsubscribe = reverse('crt_forms:crt-forms-notifications-unsubscribe')
+
+    def setUp(self):
+        self.client = Client()
+        self.users = types.SimpleNamespace(
+            subscribed=User.objects.create_user('SUBSCRIBED_USER', 'subscribed@example.com', 'password'),
+            unsubscribed=User.objects.create_user('UNSUBSCRIBED_USER', 'unsubscribed@example.com', 'password'),
+            noprefs=User.objects.create_user('NOPREFS_USER', 'noprefs@example.com', 'password'),
+        )
+        NotificationPreference.objects.create(
+            user=self.users.subscribed,
+            assigned_to=True,
+        )
+        NotificationPreference.objects.create(
+            user=self.users.unsubscribed,
+            assigned_to=False,
+        )
+
+    def test_unsubscribe_unsubscribes(self):
+        """The comment shows up in the report's activity log"""
+        user = self.users.subscribed
+        self.client.login(username=user.username,
+                          password='password')
+
+        response = self.client.get(self.unsubscribe)
+
+        self.assertRedirects(response,
+                             reverse('crt_forms:crt-forms-index'),
+                             fetch_redirect_response=True)
+        self.assertIn('You have been unsubscribed from all portal notifications',
+                      [m.message for m in get_messages(response.wsgi_request)])
+        user.refresh_from_db()
+        self.assertFalse(user.notification_preference.assigned_to)
+
+    def test_unsubscribe_safe_for_no_prefs(self):
+        """The comment shows up in the report's activity log"""
+        user = self.users.noprefs
+        self.client.login(username=user.username,
+                          password='password')
+
+        response = self.client.get(self.unsubscribe)
+
+        self.assertRedirects(response,
+                             reverse('crt_forms:crt-forms-index'),
+                             fetch_redirect_response=True)
+        self.assertIn('You are not subscribed to notifications',
+                      [m.message for m in get_messages(response.wsgi_request)])
+        user.refresh_from_db()
+        self.assertFalse(hasattr(user, 'notification_preference'))
+
+    def test_unsubscribe_safe_for_not_subscribed(self):
+        """The comment shows up in the report's activity log"""
+        user = self.users.unsubscribed
+        self.client.login(username=user.username,
+                          password='password')
+
+        response = self.client.get(self.unsubscribe)
+
+        self.assertRedirects(response,
+                             reverse('crt_forms:crt-forms-index'),
+                             fetch_redirect_response=True)
+        self.assertIn('You are not subscribed to notifications',
+                      [m.message for m in get_messages(response.wsgi_request)])
+        user.refresh_from_db()
+        self.assertFalse(user.notification_preference.assigned_to)
 
 
 class CommentActionTests(TestCase):

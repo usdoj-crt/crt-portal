@@ -255,6 +255,23 @@ class RetentionSchedule(models.Model):
         return self.name
 
 
+class Tag(models.Model):
+
+    class Meta:
+        permissions = (
+            ("assign_tag", "Can assign tags to reports"),
+        )
+
+    name = models.CharField(max_length=255, null=False, blank=False, help_text="The name of the tag that will be shown throughout the app.")
+    section = models.TextField(choices=SECTION_CHOICES, null=True, blank=True, default=None, help_text="The section to which this tag applies. If set, this tag will only be available to reports in this section.")
+    tooltip = models.CharField(max_length=255, null=False, blank=True, help_text="The text to show in the tooltip for this tag.")
+    description = models.TextField(max_length=7000, null=False, blank=True, help_text="Long-form notes about this tag, not shown on most pages.")
+    show_in_lists = models.BooleanField(default=False, null=False, help_text="Whether to show this tag in the list page and dropdowns")
+
+    def __str__(self):
+        return self.name
+
+
 # NOTE: If you add fields to report, they'll automatically be set to empty on the edit form. Make sure to address any additions in ReportEditForm as well!
 class Report(models.Model):
     PRIMARY_COMPLAINT_DEPENDENT_FIELDS = {
@@ -360,6 +377,8 @@ class Report(models.Model):
     # Identifies what specifically was clicked to bring the user to the site, such as a banner ad or a text link.
     # It is often used for A/B testing and content-targeted ads.
     origination_utm_content = models.CharField(max_length=100, null=True, blank=True, help_text="Identifies what specifically was clicked to bring the user to the site, such as to distinguish between two different outreach links on the same webpage or document.")
+
+    tags = models.ManyToManyField(Tag, blank=True)
 
     # Metadata
     public_id = models.CharField(max_length=100, null=False, blank=False)

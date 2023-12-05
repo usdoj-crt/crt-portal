@@ -387,6 +387,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'https://www.google-analytics.com',
         'https://stats.g.doubleclick.net',
         'https://www.googletagmanager.com/',
+        'https://cdnjs.cloudflare.com/',
     )
     # headers required for security
     SESSION_COOKIE_SECURE = True
@@ -407,6 +408,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'https://stats.g.doubleclick.net',
         'https://touchpoints.app.cloud.gov',
         'https://www.googletagmanager.com/',
+        'https://cdnjs.cloudflare.com/',
     )
     CSP_CONNECT_SRC = (
         "'self'",
@@ -418,6 +420,7 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'https://stats.g.doubleclick.net',
         'https://touchpoints.app.cloud.gov',
         'https://www.googletagmanager.com/',
+        'https://cdnjs.cloudflare.com/',
     )
     CSP_IMG_SRC = allowed_sources
     CSP_MEDIA_SRC = allowed_sources
@@ -527,7 +530,7 @@ if environment == 'LOCAL':
     except ImportError:
         pass
 
-if os.environ.get('ENV', 'UNDEFINED') in ['LOCAL', 'DEVELOP', 'STAGE']:
+if os.environ.get('ENV', 'UNDEFINED') in ['LOCAL', 'DEVELOP', 'STAGE', 'PRODUCTION']:
     DATABASES['analytics'] = {  # This must happen after importing local_settings
         **DATABASES['default'],
         'USER': os.environ['POSTGRES_ANALYTICS_USER'],

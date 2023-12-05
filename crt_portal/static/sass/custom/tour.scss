@@ -1,0 +1,53 @@
+@use "uswds-core" as *;
+
+.shepherd-modal-overlay-container {
+    display: none;
+}
+
+.shepherd-element {
+    &.usa-modal {
+        margin: 0 auto;
+        padding: 2rem;
+        z-index: 2;
+    }
+
+    .shepherd-cancel-icon {
+        background-image: url(../../img/close-blue-60-alt.svg),linear-gradient(transparent,transparent);
+        background-size: 13px;
+        background-repeat: no-repeat;
+        background-color: transparent;
+        background-position: center;
+        right: 0.75rem;
+        position: absolute;
+        top: 0.75rem;
+        border: 0;
+        cursor: pointer;
+        height: 12px;
+
+        > span {
+            display: none;
+        }
+    }
+
+    .shepherd-footer {
+        padding-top: 1rem;
+    }
+
+    .shepherd-button {
+        line-height: .9;
+        color: #fff;
+        background-color: #005ea2;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        border: 0;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: 700;
+        margin-right: 0.5rem;
+        padding: 0.75rem 1.25rem;
+        text-align: center;
+        text-decoration: none;
+    }
+}

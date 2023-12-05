@@ -206,6 +206,7 @@ def report_filter(querydict):
             for number_block in phone_number_array:
                 qs = qs.filter(contact_phone__icontains=number_block)
         elif field_options == 'disposition_status':
+            qs = qs.filter(closed_date__isnull=False)
             disposition_status = querydict.getlist(field)[0]
             today = datetime.today().date()
             qs = qs.annotate(retention_year=F('retention_schedule__retention_years'),

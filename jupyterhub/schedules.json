@@ -19,5 +19,19 @@
     },
     "last_executed": "2023-09-15T19:03:50.688017",
     "path": "assignments/intake-dashboard/assignable.ipynb"
+  },
+  {
+    "interval": {
+      "hours": 1
+    },
+    "last_executed": "",
+    "path": "assignments/intake-dashboard/whats_happening_where.ipynb"
+  },
+  {
+    "interval": {
+      "hours": 1
+    },
+    "last_executed": "",
+    "path": "assignments/intake-dashboard/report_districts.ipynb"
   }
 ]

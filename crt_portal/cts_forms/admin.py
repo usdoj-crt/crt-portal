@@ -30,7 +30,7 @@ from .model_variables import SECTION_CHOICES
 
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
-                     JudicialDistrict, RetentionSchedule, RoutingSection, RoutingStepOneContact,
+                     JudicialDistrict, RetentionSchedule, RoutingSection, RoutingStepOneContact, Tag,
                      VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch, NotificationPreference)
 from .signals import get_client_ip
 
@@ -410,6 +410,12 @@ class RetentionScheduleAdmin(admin.ModelAdmin):
     ordering = ['order']
 
 
+class TagAdmin(admin.ModelAdmin):
+    list_display = ['name', 'section', 'show_in_lists', 'tooltip']
+    search_fields = ['name', 'section', 'show_in_lists', 'tooltip']
+    ordering = ['section', 'name']
+
+
 class ResponseTemplateAdmin(admin.ModelAdmin):
     class Media:
         js = ('js/response_template_preview.js',)
@@ -561,6 +567,7 @@ admin.site.register(JudicialDistrict, JudicialDistrictAdmin)
 admin.site.register(RoutingSection, RoutingSectionAdmin)
 admin.site.register(VotingMode, VotingModeAdmin)
 admin.site.register(Campaign, CampaignAdmin)
+admin.site.register(Tag, TagAdmin)
 admin.site.register(ReferralContact, ReferralContactAdmin)
 admin.site.register(BannerMessage, BannerMessageAdmin)
 admin.site.register(RoutingStepOneContact, RoutingStepOneContactAdmin)
