@@ -6,7 +6,7 @@ from django.core.validators import ValidationError
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           ClearableFileInput, DateField,
                           EmailInput, HiddenInput, IntegerField,
-                          ModelChoiceField, ModelForm, Form,
+                          MultipleHiddenInput, ModelChoiceField, ModelForm, Form,
                           ModelMultipleChoiceField, MultipleChoiceField,
                           Select, SelectMultiple, Textarea, TextInput,
                           TypedChoiceField)
@@ -2282,6 +2282,24 @@ class ContactEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         return self.SUCCESS_MESSAGE
 
 
+class TagsField(ModelMultipleChoiceField):
+    def __init__(self, *args, **kwargs):
+        queryset = Tag.objects.filter(show_in_lists=True).order_by('section', 'name')
+        super().__init__(queryset=queryset,
+                         widget=get_tags_widget(),
+                         required=False,
+                         *args, **kwargs)
+
+    def label_from_instance(self, obj: Tag):
+        return f"<span class='section'>{obj.section or 'ALL'}</span> <span class='name'>{obj.name}</span>"
+
+
+def get_tags_widget():
+    if not Feature.is_feature_enabled('tags'):
+        return MultipleHiddenInput()
+    return UsaTagSelectMultiple()
+
+
 class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
     CONTEXT_KEY = "details_form"
     FAIL_MESSAGE = "Failed to update complaint details."
@@ -2293,12 +2311,6 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
     # Summary fields
     summary = CharField(required=False, strip=True, widget=Textarea(attrs={'class': 'usa-textarea', 'data-soft-valid': 'true', 'data-soft-maxlength': 7000}))
     summary_id = IntegerField(required=False, widget=HiddenInput())
-
-    tags = ModelMultipleChoiceField(
-        queryset=Tag.objects.filter(show_in_lists=True),
-        widget=UsaTagSelectMultiple(),
-        required=False,
-    )
 
     class Meta(ProForm.Meta):
         """
@@ -2325,6 +2337,8 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             'violation_summary',
         ]
 
+        fields = ProForm.Meta.fields + ['tags']
+
     def success_message(self):
         return self.SUCCESS_MESSAGE
 
@@ -2342,6 +2356,8 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
         """
         self.user = user
         ModelForm.__init__(self, *args, **kwargs)
+
+        self.fields['tags'] = TagsField()
 
         #  We're handling old hatecrimes_trafficking data with separate boolean fields
         self.fields['hatecrime'].initial = self.instance.hatecrimes_trafficking.filter(value='physical_harm').exists()

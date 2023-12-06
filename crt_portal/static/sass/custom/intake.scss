@@ -1002,8 +1002,9 @@ form#cts-forms-profile {
   }
 }
 
-.details-form-edit .usa-tag {
+.details-form-edit .usa-selected-tags .usa-tag {
   cursor: pointer;
+  padding-right: 0;
 
   &:after {
     content: "";
@@ -1015,6 +1016,10 @@ form#cts-forms-profile {
     background-repeat: no-repeat;
     background-size: cover;
   }
+}
+
+.usa-tags-container .usa-combo-box__list li {
+  background-color: white;
 }
 
 .usa-tags-container {
@@ -1039,6 +1044,25 @@ form#cts-forms-profile {
   .usa-tag {
     background-color: #e1e7f1;
     color: #162e51;
+    padding-left: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 5px;
+
+    .section {
+      border-radius: 3px;
+      margin-right: 0;
+      padding-left: 5px;
+      padding-right: 5px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      background-color: #2378c3;
+      color: white;
+    }
+
+    .name {
+      text-transform: none;
+    }
   }
 }
 

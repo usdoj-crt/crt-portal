@@ -51,6 +51,8 @@
         {% endwith %}
         </td>
       </tr>
+      {% else %}
+        {{ details_form.tags }} {# Renders a hidden input to not lose tags. #}
       {% endif %}
       <tr>
         <th><label for="{{details_form.primary_complaint.id_for_label}}">Primary issue</label></th>

@@ -26,6 +26,30 @@
     });
   }
 
+  function listenForDropdownOpen(wrapper) {
+    const ul = wrapper.querySelector('.usa-combo-box ul.usa-combo-box__list');
+    const observer = new MutationObserver(mutations => {
+      mutations.forEach((mutation, observer) => {
+        mutation.addedNodes.forEach(maybeComboBoxItem => {
+          styleExpandedDropdown(maybeComboBoxItem);
+        });
+      });
+    });
+    observer.observe(ul, { childList: true });
+  }
+
+  function styleExpandedDropdown(comboBoxItem) {
+    if (!comboBoxItem.classList.contains('usa-combo-box__list-option')) return;
+    const sectionTag = comboBoxItem.innerText.split(' ');
+    if (sectionTag.length !== 2) return;
+    const [section, tag] = sectionTag;
+    comboBoxItem.innerHTML = `
+      <span class="usa-tag usa-tag--big">
+        <span class="section">${section}</span> <span class="name">${tag}</span>
+      </span>
+    `;
+  }
+
   function listenForDeselect(wrapper) {
     const select = wrapper.querySelector('.usa-combo-box.assign-tag select');
     const checkboxes = wrapper.querySelectorAll('.usa-selected-tags input[type="checkbox"]');
@@ -51,6 +75,7 @@
   function attachListeners(wrapper) {
     listenForSelect(wrapper);
     listenForDeselect(wrapper);
+    listenForDropdownOpen(wrapper);
   }
 
   root.addEventListener('load', () => {

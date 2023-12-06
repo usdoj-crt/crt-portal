@@ -103,7 +103,7 @@
   }
 
   function showFollowUpQuestions(selectedReason) {
-    const allOptionalFields = [
+    let allOptionalFields = [
       'public_or_private_employer',
       'employer_size',
       'public_or_private_school',
