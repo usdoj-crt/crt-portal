@@ -119,7 +119,7 @@ def _render_notification_mail(*,
                               report: Optional[Report],
                               template: ResponseTemplate,
                               recipients: List[str],
-                              reports: Optional[List[Report]],
+                              reports: Optional[List[Report]] = None,
                               **kwargs) -> Mail:
 
     if reports:
@@ -197,6 +197,7 @@ def notify(template_title: str,
     message = _render_notification_mail(report=report,
                                         template=template,
                                         recipients=recipients,
+                                        reports=None,
                                         **kwargs)
 
     suffix = f' about report {report.id}' if report else ''
