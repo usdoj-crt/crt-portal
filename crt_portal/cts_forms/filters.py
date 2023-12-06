@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from django.core.validators import ValidationError
 
 from django.db.models import ExpressionWrapper, Count, Min, F, Value, CharField, DateField
-from django.db.models.functions import ExtractDay, ExtractMonth, ExtractYear, Concat, Cast
+from django.db.models.functions import ExtractYear, Concat, Cast
 from django.contrib.postgres.search import SearchQuery
 from django.db import connection
 from django.http.request import QueryDict, MultiValueDict
@@ -210,8 +210,8 @@ def report_filter(querydict):
             disposition_status = querydict.getlist(field)[0]
             today = datetime.today().date()
             qs = qs.annotate(retention_year=F('retention_schedule__retention_years'),
-                             expiration_year=F('retention_year') + ExtractYear('closed_date'),
-                             expiration_date=Cast(Concat(F('expiration_year'), Value('-'), ExtractMonth('closed_date'), Value('-'), ExtractDay('closed_date'), output_field=CharField()), output_field=DateField()),
+                             expiration_year=F('retention_year') + ExtractYear('closed_date') + 1,
+                             expiration_date=Cast(Concat(F('expiration_year'), Value('-'), Value('01'), Value('-'), Value('01'), output_field=CharField()), output_field=DateField()),
                              eligible_date=ExpressionWrapper(F('expiration_date') - timedelta(days=30), output_field=DateField()))
             if disposition_status == 'past':
                 kwargs['expiration_date__lt'] = today

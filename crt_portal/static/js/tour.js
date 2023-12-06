@@ -48,7 +48,7 @@
   tour.addStep({
     id: 'third-step',
     text:
-      'The <strong>eligible for expiration</strong> tab shows reports that are within 30 days of or on their Expiration date.',
+      'The <strong>eligible for disposition</strong> tab shows reports that are within 30 days of or on their Expiration date.',
     attachTo: {
       element: '.eligible-expiration',
       on: 'top'
