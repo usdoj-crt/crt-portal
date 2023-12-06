@@ -142,6 +142,11 @@ class UsaCheckboxSelectMultiple(ChoiceWidget):
         return super().id_for_label(id_, index)
 
 
+class UsaTagSelectMultiple(UsaCheckboxSelectMultiple):
+    template_name = 'forms/widgets/usa_tag_select.html'
+    option_template_name = 'forms/widgets/usa_tag_option.html'
+
+
 class DataAttributesSelect(ChoiceWidget):
     input_type = 'select'
     template_name = 'django/forms/widgets/select.html'

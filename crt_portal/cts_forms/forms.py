@@ -6,7 +6,7 @@ from django.core.validators import ValidationError
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           ClearableFileInput, DateField,
                           EmailInput, HiddenInput, IntegerField,
-                          ModelChoiceField, ModelForm, Form,
+                          MultipleHiddenInput, ModelChoiceField, ModelForm, Form,
                           ModelMultipleChoiceField, MultipleChoiceField,
                           Select, SelectMultiple, Textarea, TextInput,
                           TypedChoiceField)
@@ -50,7 +50,7 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES, GROUPING, RETENTION_SCHEDULE_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user)
+                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -62,7 +62,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT,
                             HATE_CRIME_QUESTION)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
-                      CrtPrimaryIssueRadioGroup, DjNumberWidget, UsaCheckboxSelectMultiple,
+                      CrtPrimaryIssueRadioGroup, DjNumberWidget, UsaCheckboxSelectMultiple, UsaTagSelectMultiple,
                       UsaRadioSelect, DataAttributesSelect, CrtDateInput, add_empty_choice)
 from utils.voting_mode import is_voting_mode
 from utils import activity
@@ -2302,6 +2302,24 @@ class ContactEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         return self.SUCCESS_MESSAGE
 
 
+class TagsField(ModelMultipleChoiceField):
+    def __init__(self, *args, **kwargs):
+        queryset = Tag.objects.filter(show_in_lists=True).order_by('section', 'name')
+        super().__init__(queryset=queryset,
+                         widget=get_tags_widget(),
+                         required=False,
+                         *args, **kwargs)
+
+    def label_from_instance(self, obj: Tag):
+        return f"<span class='section'>{obj.section or 'ALL'}</span> <span class='name'>{obj.name}</span>"
+
+
+def get_tags_widget():
+    if not Feature.is_feature_enabled('tags'):
+        return MultipleHiddenInput()
+    return UsaTagSelectMultiple()
+
+
 class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
     CONTEXT_KEY = "details_form"
     FAIL_MESSAGE = "Failed to update complaint details."
@@ -2330,7 +2348,6 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             'contact_zip',
             'election_details',
             'intake_format',
-            'tags',
             'origination_utm_campaign',
             'origination_utm_content',
             'origination_utm_medium',
@@ -2339,6 +2356,8 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             'unknown_origination_utm_campaign',
             'violation_summary',
         ]
+
+        fields = ProForm.Meta.fields + ['tags']
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
@@ -2357,6 +2376,8 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
         """
         self.user = user
         ModelForm.__init__(self, *args, **kwargs)
+
+        self.fields['tags'] = TagsField()
 
         #  We're handling old hatecrimes_trafficking data with separate boolean fields
         self.fields['hatecrime'].initial = self.instance.hatecrimes_trafficking.filter(value='physical_harm').exists()
