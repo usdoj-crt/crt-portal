@@ -116,9 +116,9 @@ def render_complainant_mail(*, report, template, action) -> Mail:
 
 
 def _render_notification_mail(*,
+                              report: Optional[Report],
                               template: ResponseTemplate,
                               recipients: List[str],
-                              report: Optional[Report] = None,
                               reports: Optional[List[Report]] = None,
                               **kwargs) -> Mail:
 
@@ -197,6 +197,7 @@ def notify(template_title: str,
     message = _render_notification_mail(report=report,
                                         template=template,
                                         recipients=recipients,
+                                        reports=None,
                                         **kwargs)
 
     suffix = f' about report {report.id}' if report else ''
