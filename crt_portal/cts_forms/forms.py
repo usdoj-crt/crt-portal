@@ -83,6 +83,18 @@ def add_activity(user, verb, description, instance, is_bulk=False):
     )
 
 
+def get_assigned_to_message(assigned_user):
+    if not assigned_user:
+        return ''
+    if not hasattr(assigned_user, 'notification_preference'):
+        return f" {assigned_user} will not be notified because they have not set notification preferences."
+    if not assigned_user.notification_preference.assigned_to:
+        return f" {assigned_user} will not be notified because they have opted out of notifications."
+    if not assigned_user.email:
+        return f" {assigned_user} will not be notified because they do not have an email address listed."
+    return f" {assigned_user} will be notified via email."
+
+
 def get_dj_widget():
     if not Feature.is_feature_enabled('dj-number'):
         return HiddenInput()
@@ -1740,23 +1752,11 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
                 send_notification=True,
             )
 
-    def get_assigned_to_message(self, field):
-        if field != 'assigned_to' or 'assigned_section' in self.changed_data:
-            return ''
-        assigned_user = self.cleaned_data['assigned_to']
-        if not assigned_user:
-            return ''
-        if not hasattr(assigned_user, 'notification_preference'):
-            return f" {assigned_user} will not be notified because they have not set notification preferences."
-        if not assigned_user.notification_preference.assigned_to:
-            return f" {assigned_user} will not be notified because they have opted out of notifications."
-        if not assigned_user.email:
-            return f" {assigned_user} will not be notified because they do not have an email address listed."
-        return f" {assigned_user} will be notified via email."
-
     def get_notification_messages(self, message):
         for field in self.changed_data:
-            message += self.get_assigned_to_message(field)
+            if 'assigned_section' not in self.changed_data and field == 'assigned_to':
+                assigned_user = self.cleaned_data['assigned_to']
+                message += get_assigned_to_message(assigned_user)
         return message
 
     def success_message(self):
@@ -2117,23 +2117,11 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         updates.pop('district', None)  # district is currently disabled (read-only)
         return updates
 
-    def get_assigned_to_message(self, field):
-        if field != 'assigned_to' or 'assigned_section' in self.changed_data:
-            return ''
-        assigned_user = self.cleaned_data['assigned_to']
-        if not assigned_user:
-            return ''
-        if not hasattr(assigned_user, 'notification_preference'):
-            return f" {assigned_user} will not be notified because they have not set notification preferences."
-        if not assigned_user.notification_preference.assigned_to:
-            return f" {assigned_user} will not be notified because they have opted out of notifications."
-        if not assigned_user.email:
-            return f" {assigned_user} will not be notified because they do not have an email address listed."
-        return f" {assigned_user} will be notified via email."
-
     def get_notification_messages(self, message):
         for field in self.changed_data:
-            message += self.get_assigned_to_message(field)
+            if 'assigned_section' not in self.changed_data and field == 'assigned_to':
+                assigned_user = self.cleaned_data['assigned_to']
+                message += get_assigned_to_message(assigned_user)
         return message
 
     def get_update_description(self):
