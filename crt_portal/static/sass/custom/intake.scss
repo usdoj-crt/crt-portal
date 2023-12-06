@@ -1002,6 +1002,21 @@ form#cts-forms-profile {
   }
 }
 
+.details-form-edit .usa-tag {
+  cursor: pointer;
+
+  &:after {
+    content: "";
+    height: 1rem;
+    width: 1.25rem;
+    margin-left: 4px;
+    display: inline-block;
+    background-image: url(../../img/usa-icons/close.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+}
+
 .usa-tags-container {
   input[type="checkbox"] {
     display: none;
@@ -1024,17 +1039,6 @@ form#cts-forms-profile {
   .usa-tag {
     background-color: #e1e7f1;
     color: #162e51;
-    cursor: pointer;
-    &:after {
-      content: "";
-      height: 1rem;
-      width: 1.25rem;
-      margin-left: 4px;
-      display: inline-block;
-      background-image: url(../../img/usa-icons/close.svg);
-      background-repeat: no-repeat;
-      background-size: cover;
-    }
   }
 }
 

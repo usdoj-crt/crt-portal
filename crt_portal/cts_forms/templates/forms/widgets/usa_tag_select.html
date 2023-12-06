@@ -20,17 +20,19 @@
     {% endfor %}
   </div>
 
-  <label class="usa-label usa-sr-only" for="{{id}}-assign-tag">Assign a tag</label>
-  <div class="usa-combo-box assign-tag"
-       title="Type to select a tag for this report"
-       data-placeholder="Add tags...">
-    <select class="usa-select" id="{{id}}-assign-tag">
-    {% for group, options, index in widget.optgroups %}
-    {% for option in options %}
-      <option value="{{ option.value }}">{{ option.label }}</option>
-    {% endfor %}
-    {% endfor %}
-    </select>
+  <div class="details-edit {% if not details_form.errors %}display-none{% endif %}">
+    <label class="usa-label usa-sr-only" for="{{id}}-assign-tag">Assign a tag</label>
+    <div class="usa-combo-box assign-tag"
+         title="Type to select a tag for this report"
+         data-placeholder="Add tags...">
+      <select class="usa-select" id="{{id}}-assign-tag">
+      {% for group, options, index in widget.optgroups %}
+      {% for option in options %}
+        <option value="{{ option.value }}">{{ option.label }}</option>
+      {% endfor %}
+      {% endfor %}
+      </select>
+    </div>
   </div>
 </div>
 {% endwith %}
