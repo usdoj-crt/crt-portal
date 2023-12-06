@@ -116,10 +116,10 @@ def render_complainant_mail(*, report, template, action) -> Mail:
 
 
 def _render_notification_mail(*,
-                              report: Optional[Report],
                               template: ResponseTemplate,
                               recipients: List[str],
-                              reports: Optional[List[Report]],
+                              report: Optional[Report] = None,
+                              reports: Optional[List[Report]] = None,
                               **kwargs) -> Mail:
 
     if reports:
