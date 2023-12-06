@@ -38,4 +38,4 @@ def test_close_report_via_bulk_actions(page):
         apply_action.click()
 
     alert = page.locator('#status-update .usa-alert__text').text_content().strip()
-    assert alert == '1 record has been updated: status set to closed'
+    assert alert == '1 record has been updated: status set to closed.'
