@@ -8,13 +8,21 @@ is_notification: true
 
 Hello,
 
-You have been assigned to take a look at {{reports|length}} Reports:
+You have been assigned {{reports|length}} reports in the CRT Reporting Portal, which takes in reports from the public at civilrights.justice.gov:
 
  {% for r in reports %}
      - [Report {{r.id}}](/form/view/{{r.id}})
  {% endfor %}
 
-Please take a look at the links above or, if you think this was in error, please add a comment and reassign the reports as appropriate.
+After reviewing the links above, you can:
+
+1. Respond to the public through the Portal User Interface
+
+2. Change the status of the reports (close the reports)
+
+3. Assign the reports to another user and more
+
+If you need training on how to process these reports, please reach out to [Bill.Laughman@usdoj.gov](mailto:bill.laughman@usdoj.gov).
 
 Sincerely,
 
