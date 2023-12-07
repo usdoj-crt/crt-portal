@@ -25,6 +25,9 @@ def get_client_ip(request):
         ip = request.META.get('REMOTE_ADDR')
     return ip
 
+def get_user_section():
+    current_request = CrequestMiddleware.get_request()
+    return current_request.user.profile.section
 
 def format_user_message(action, current_request, instance):
     # CLI in the case that someone is using the python shell, in that case more log will be available outside the app in cloud.gov
