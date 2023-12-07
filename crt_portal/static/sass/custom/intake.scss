@@ -1010,7 +1010,7 @@ form#cts-forms-profile {
     content: "";
     height: 1rem;
     width: 1.25rem;
-    margin-left: 4px;
+    margin-left: 2px;
     display: inline-block;
     background-image: url(../../img/usa-icons/close.svg);
     background-repeat: no-repeat;
@@ -1037,7 +1037,7 @@ form#cts-forms-profile {
 
   .usa-selected-tags {
     .tag-option {
-      display: inline-block;
+      display: block;
     }
   }
 }
@@ -1063,6 +1063,7 @@ form#cts-forms-profile {
   }
 
   .name {
+    padding-left: 3px;
     text-transform: none;
   }
 }
