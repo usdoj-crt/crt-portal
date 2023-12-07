@@ -9,7 +9,7 @@
       <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" alt="back arrow" class="icon">
       Back to report details
     </a>
-    <button class="usa-button disposition-guide-print-button" type="submit" id="apply-filters-button">
+    <button class="usa-button routing-guide-print-button" type="submit" id="apply-filters-button">
       Print
     </button>
   </div>
@@ -161,4 +161,5 @@
 {% endblock %}
 {% block page_js %}
 {{ block.super }}
+<script src="{% static 'js/routing_guide.min.js' %}"></script>
 {% endblock %}
