@@ -187,6 +187,7 @@
    */
   root.CRT.filterTagView = function(props) {
     var filters = props.el;
+    root.CRT.filterTagViewFilters = filters;
     var onClickHandler = props.onClick;
 
     filters.addEventListener('click', function handleFilterTagClick(event) {
@@ -398,7 +399,7 @@
   };
 
   root.CRT.clearAllFilters = function() {
-    const activeFilters = toArray(root.CRT.filterTagView.el.children);
+    const activeFilters = toArray(root.CRT.filterTagViewFilters.children);
 
     var updates = activeFilters.reduce(function(updates, node) {
       var filterName = node.getAttribute('data-filter-name');
