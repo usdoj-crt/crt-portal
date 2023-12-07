@@ -18,9 +18,10 @@ from actstream import registry
 from actstream.models import actor_stream
 
 foreign_key_displays = {
-    'assigned_to': 'username',
-    'origination_utm_campaign': 'internal_name',
-    'retention_schedule': 'name',
+    'assigned_to': ('username', str),
+    'origination_utm_campaign': ('internal_name', str),
+    'retention_schedule': ('name', str),
+    'tags': ('id', int),
 }
 
 # To add a new filter option for Reports, add the field name and expected filter behavior
@@ -34,6 +35,7 @@ filter_options = {
     'public_id': '__icontains',  # aka "ID" or "Complaint ID"
     'assigned_to': 'foreign_key',  # aka "Assignee"
     'origination_utm_campaign': 'foreign_key',
+    'tags': 'foreign_key',
     'litigation_hold': 'eq',
     'location_address_line_1': '__icontains',  # not in filter controls?
     'location_address_line_2': '__icontains',  # not in filter controls?
@@ -174,11 +176,12 @@ def report_filter(querydict):
             sequence = sequence or '[^-]+'
             kwargs['dj_number__iregex'] = f'^{statute}-{district}-{sequence}$'
         elif field_options == 'foreign_key':
-            display_field = foreign_key_displays[field]
+            display_field, cast = foreign_key_displays[field]
             if querydict.getlist(field)[0] == '(none)':
                 kwargs[f'{field}__isnull'] = True
             else:
-                kwargs[f'{field}__{display_field}__in'] = querydict.getlist(field)
+                values = [cast(v) for v in querydict.getlist(field)]
+                kwargs[f'{field}__{display_field}__in'] = values
         elif field_options == 'eq':
             kwargs[field] = querydict.getlist(field)[0]
         elif field_options == '__gte':

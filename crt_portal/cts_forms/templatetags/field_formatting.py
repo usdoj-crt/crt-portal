@@ -34,6 +34,7 @@ variable_rename = {
     'actions': 'Actions',
     'litigation_hold': 'Litigation hold',
     'retention_schedule': 'Retention schedule',
+    'tags': 'Tag',
 }
 
 
@@ -51,3 +52,40 @@ def get_field_label(value, arg):
         return variable_rename.get(arg, arg.replace('_', ' '))
 
     return variable_rename.get(field.name, field.verbose_name)
+
+
+def _get_tag_section_and_name(tag_id):
+    Tag = apps.get_model('cts_forms', 'Tag')
+    tags = Tag.objects.filter(id=tag_id).values('name', 'section')
+    if not tags:
+        return '', ''
+    return tags[0]['section'], tags[0]['name']
+
+
+def _get_tags_markup(field_content):
+    section, name = _get_tag_section_and_name(field_content)
+    return f'''
+    <span class="usa-tag usa-tag--big">
+        <span class="section">{section}</span>
+        <span class="name">{name}</span>
+    </span>
+    '''
+
+
+@register.filter(name='get_field_markup')
+def get_field_markup(field_content, field_name) -> str:
+    if field_name == 'tags':
+        return _get_tags_markup(field_content)
+    return field_content
+
+
+def _get_tags_plaintext(field_content):
+    section, name = _get_tag_section_and_name(field_content)
+    return f'{section} - {name}'
+
+
+@register.filter(name='get_field_plaintext')
+def get_field_plaintext(field_content, field_name) -> str:
+    if field_name == 'tags':
+        return _get_tags_plaintext(field_content)
+    return field_content
