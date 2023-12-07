@@ -1,0 +1,164 @@
+{% extends "forms/complaint_view/intake_base.html" %}
+{% block page_header %}
+{% include 'forms/complaint_view/routing_guide_header.html' %}
+{% endblock %}
+{% block content %}
+<div class="intake-content grid-container-widescreen disposition-guide">
+  <div class="display-flex margin-bottom-6 disposition-guide-buttons">
+    <a class="outline-button outline-button--dark" href="{{redirect_path}}">
+      <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" alt="back arrow" class="icon">
+      Back to report details
+    </a>
+    <button class="usa-button disposition-guide-print-button" type="submit" id="apply-filters-button">
+      Print
+    </button>
+  </div>
+  <h2 class="intake-section-title margin-bottom-2">Field guide for assigning records schedules</h2>
+  <p class="text-italic">(last updated: Dec 2023)</p>
+  <p class="text-bold margin-top-205 margin-bottom-05">This guide is intended to help intake specialists</p>
+  <span>This is an internal guide designed to help intake specialists know which federal records schedule to assign to a report.</span>
+  <div class="crt-portal-card padding-x-4 padding-y-3">
+    <div class="title">
+      <h2 class="intake-section-title">1 Year</h2>
+    </div>
+    <p class="text-bold">Public Correspondence – No Response (DAA-0060-2014-0004-0001)</p>
+    <p class="text-bold">These records are routine correspondence from the public that do not require a response. These do not include any communications for which a section replies to the complainant or refers to another agency.</p>
+
+    <p class="text-bold">Public correspondence - no response records include the following categories of correspondence:</p>
+    <ul>
+        <li>Write-in campaigns</li>
+        <li>Repeat writers</li>
+        <li>Personal opinions on current events or personal experiences</li>
+        <li>Informational or reference literature</li>
+        <li>Commendations</li>
+        <li>Anonymous communication</li>
+        <li>Correspondence received in error, addressed to another entity and copied to DOJ</li>
+    </ul>
+    <p class="text-bold">Disposition Instruction</p>
+    <table class="usa-table usa-table--borderless disposition-guide-table">
+      <tbody>
+        <tr>
+          <td>Cutoff Instruction</td>
+          <td>
+            Cut off at the end of the calendar year.
+          </td>
+        </tr>
+        <tr>
+          <td class="disposition-last-row">Retention period</td>
+          <td class="disposition-last-row">Destroy no sooner than 3 months and no later than 1 year after cutoff.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="crt-portal-card padding-x-4 padding-top-3 padding-bottom-4">
+    <div class="title">
+      <h2 class="intake-section-title">3 Year</h2>
+    </div>
+    <p class="text-bold">Public Correspondence – Response Required (DAA-0060-2014-0004-0002)</p>
+    <p class="text-bold">These records are communications from the public that require a response, but no formal action. The records require no policy decisions or administrative actions and lack evidential value.</p>
+    <p class="text-bold">The original incoming report and copy of the standard form letter or general response are retained.</p>
+    <p class="text-bold">Examples of incoming reports requiring a response include requests for information such as:</p>
+    <ul>
+        <li>Photographs</li>
+        <li>Publications</li>
+        <li>Comments</li>
+        <li>Complaints</li>
+        <li>Commendations</li>
+    </ul>
+    <p class="text-bold">Disposition Instruction</p>
+    <table class="usa-table usa-table--borderless disposition-guide-table">
+      <tbody>
+        <tr>
+          <td>Cutoff Instruction</td>
+          <td>
+            Cut off at the end of the calendar year.
+          </td>
+        </tr>
+        <tr>
+          <td class="disposition-last-row">Retention period</td>
+          <td class="disposition-last-row">Destroy 3 year(s) after cutoff.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="crt-portal-card padding-x-4 padding-y-3">
+    <div class="title">
+      <h2 class="intake-section-title">10 Year (Temporary)</h2>
+    </div>
+    <p class="text-bold">General DJ Number Files – GNT (DAA-0060-2017-0022-0002)</p>
+    <p class="text-bold">These records are correspondence or materials that:</p>
+    <ul>
+        <li>Have not developed into a case handled by the Department of Justice</li>
+        <li>Require few or no actions</li>
+        <li>Document routine administrative, statistical, or reporting actions for the DJ Class</li>
+    </ul>
+    <p class="text-bold">If a Department-handled case or matter later develops out of the material, the section responsible for the records will:</p>
+    <ul>
+        <li>Open a formal DJ Numbered case</li>
+        <li>Move (or copy) the material from the temporary file into the DJ numbered case file</li>
+    </ul>
+    <p class="text-bold">Disposition Instruction</p>
+    <table class="usa-table usa-table--borderless disposition-guide-table">
+      <tbody>
+        <tr>
+          <td class="disposition-last-row">Retention period</td>
+          <td class="disposition-last-row">Destroy/delete when 10 years old.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="crt-portal-card padding-x-4 padding-y-3">
+    <div class="title">
+      <h2 class="intake-section-title">Permanent</h2>
+    </div>
+    <p class="text-bold">General DJ Number Files – GNP (DAA-0060-2017-0022-0001)</p>
+    <p class="text-bold">General DJ Numbers that contain materials that document the Division's direction for litigating activities within the DJ Class. These general DJ number files may include:</p>
+    <ul>
+        <li>Documentation of the establishment of the class</li>
+        <li>Department or Division policies and procedures for litigation activities related to the class topic</li>
+        <li>Definitions or interpretations</li>
+        <li>Copies or citations to legislation</li>
+        <li>Executive Orders</li>
+        <li>Presidential proclamations, or directives under which litigation may take place for the class</li>
+        <li>Other documentation that defines or directs the overall litigation-related activities within the class</li>
+    </ul>
+    <p class="text-bold">If a Department-handled case or matter later develops out of the material, the section responsible for the records will:</p>
+    <ul>
+        <li>Open a formal DJ Numbered case</li>
+        <li>Move (or copy) the material from the temporary file into the DJ numbered case file</li>
+    </ul>
+    <p class="text-bold">Disposition Instruction</p>
+    <table class="usa-table usa-table--borderless disposition-guide-table">
+      <tbody>
+        <tr>
+          <td class="disposition-last-row">Transfer to the National Archives for Accessioning: Transfer to NARA when 25 years old.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="crt-portal-card padding-x-4 padding-top-3 padding-bottom-4">
+  <div class="title">
+    <h2 class="intake-section-title">Questions?</h2>
+  </div>
+  <p>If you have a question about whether you should route a report to a particular section, start by talking to your supervisor.</p>
+  <p>If you still have questions, contact the point of contact for a given section.</p>
+  <table class="usa-table usa-table--borderless routing-guide-table-3">
+    <tbody>
+    {% for routing_section_block in routing_section_blocks %}
+      <tr>
+        <th>{{ routing_section_block.section_1 }}</th>
+        <td>{{ routing_section_block.names_1 }}</td>
+        <th>{{ routing_section_block.section_2 }}</th>
+        <td>{{ routing_section_block.names_2 }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+  <h3 class="disposition-guide-h3">Final Note</h3>
+  <p><span class="text-bold">This guide is designed to be practical, not precise.</span> The federal civil rights laws we enforce are varied and complex. When we list a section for routing, it does not mean that the section will necessarily have enforcement authority for that report. It also does not mean this section is the only one who might have enforcement authority. Being listed here only means this section is likely best positioned to know the right next step for this kind of report.</p>
+</div>
+{% endblock %}
+{% block page_js %}
+{{ block.super }}
+{% endblock %}

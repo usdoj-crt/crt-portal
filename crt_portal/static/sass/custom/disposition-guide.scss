@@ -1,0 +1,74 @@
+@use "uswds-core" as *;
+@use "variables" as *;
+
+.disposition-guide-table {
+  width: 100%;
+  th {
+    width: 60%;
+    padding-right: 0;
+    color: #2e2e2a;
+    font-weight: 700;
+    border-top: 0;
+    padding-bottom: 0.8rem;
+    vertical-align: top;
+  }
+  tr {
+    td {
+      vertical-align: top;
+      &:nth-child(2) {
+        font-weight: bold;
+      }
+    }
+    td:nth-child(even) {
+      border-left: 1px solid #D8D8D8;
+    }
+  }
+  .disposition-border-bottom {
+    border-bottom: 1px solid color($theme-color-base-ink);
+  }
+  .disposition-last-row {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+}
+
+.disposition-card {
+  height: 576px;
+  overflow-y: scroll;
+  overflow: -moz-scrollbars-vertical;
+}
+
+@media print {
+  .disposition-card {
+    height: 100%;
+  }
+}
+
+.disposition-guide {
+  ::-webkit-scrollbar {
+  width: 24px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #c1c1c1;
+  }
+  .back-to-report-button {
+    width: 80%;
+  }
+  .disposition-guide-buttons {
+    justify-content: space-between;
+  }
+  .disposition-guide-h3 {
+    font-family: family('heading');
+    font-style: normal;
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 26px;
+    color: color($theme-color-base-ink);
+  }
+}
