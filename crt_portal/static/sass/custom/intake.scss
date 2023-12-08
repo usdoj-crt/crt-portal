@@ -887,6 +887,10 @@ form#cts-forms-profile {
     font-weight: 700;
     line-height: 1.6; /* Prevent text from being clipped */
   }
+
+  &[data-filter-name="tags"] > span {
+    overflow: visible;
+  }
 }
 
 .intake-table {
@@ -1060,6 +1064,10 @@ form#cts-forms-profile {
   padding-top: 0;
   padding-bottom: 0;
   padding-right: 5px;
+
+  .usa-tooltip__body {
+    text-transform: none;
+  }
 
   .section {
     border-radius: 3px;
