@@ -9,6 +9,7 @@ def get_client_ip(request):
         ip = request.META.get('REMOTE_ADDR')
     return ip
 
+
 def get_user_section():
     current_request = CrequestMiddleware.get_request()
     user = current_request.user
