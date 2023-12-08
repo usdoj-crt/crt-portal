@@ -4,20 +4,20 @@
   class="usa-tags-container {% if widget.attrs.class %}{{ widget.attrs.class }}{% endif %}">
 
   <div class="usa-selected-tags">
+    {% spaceless %}
     {% for group, options, index in widget.optgroups %}
     {% if group %}
     <div>
       <label>{{ group }}</label>
     {% endif %}
       {% for option in options %}
-      <div class="tag-option">
-      {% include option.template_name with widget=option %}
-      </div>
+      <div class="tag-option">{% include option.template_name with widget=option %}</div>
       {% endfor %}
     {% if group %}
     </div>
     {% endif %}
     {% endfor %}
+    {% endspaceless %}
   </div>
 
   <div class="details-edit {% if details_form and not details_form.errors %}display-none{% endif %}">
