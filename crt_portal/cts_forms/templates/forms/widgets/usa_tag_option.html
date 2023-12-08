@@ -5,5 +5,5 @@
   {% if widget.value != None %} value="{{ widget.value|stringformat:'s' }}"{% endif %}
   {% include "django/forms/widgets/attrs.html" %}
 /><label tabindex="0" {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>
-  <span class="usa-tag usa-tag--big">{{ widget.label | safe }}</span>
+  {{ widget.label | safe }}
 </label>

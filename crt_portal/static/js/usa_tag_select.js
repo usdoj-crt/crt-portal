@@ -46,14 +46,13 @@
 
   function styleExpandedDropdown(comboBoxItem) {
     if (!comboBoxItem.classList.contains('usa-combo-box__list-option')) return;
-    const sectionTag = comboBoxItem.innerText.split(' ');
-    if (sectionTag.length !== 2) return;
-    const [section, tag] = sectionTag;
-    comboBoxItem.innerHTML = `
-      <span class="usa-tag usa-tag--big">
-        <span class="section">${section}</span> <span class="name">${tag}</span>
-      </span>
-    `;
+
+    const tagId = comboBoxItem.dataset.value;
+    const checkbox = comboBoxItem
+      .closest('.usa-tags-container')
+      .querySelector(`.usa-selected-tags input[value="${tagId}"]`);
+
+    comboBoxItem.innerHTML = checkbox.dataset.label;
   }
 
   function listenForDeselect(wrapper) {

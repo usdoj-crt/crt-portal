@@ -113,7 +113,14 @@ class TagsField(ModelMultipleChoiceField):
                          *args, **kwargs)
 
     def label_from_instance(self, obj: Tag):
-        return f"<span class='section'>{obj.section or 'ALL'}</span> <span class='name'>{obj.name}</span>"
+        chip = f"<span class='section'>{obj.section or 'ALL'}</span> <span class='name'>{obj.name}</span>"
+
+        tag = f"<span class='usa-tag usa-tag--big'>{chip}</span>"
+
+        if obj.tooltip:
+            return f"<span class='usa-tooltip' data-position='right' data-classes='display-inline' title='{obj.tooltip}'>{tag}</span>"
+
+        return tag
 
 
 def get_tags_widget():

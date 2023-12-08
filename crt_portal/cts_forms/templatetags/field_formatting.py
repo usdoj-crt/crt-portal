@@ -54,20 +54,22 @@ def get_field_label(value, arg):
     return variable_rename.get(field.name, field.verbose_name)
 
 
-def _get_tag_section_and_name(tag_id):
+def _get_tag_attrs(tag_id, *attrs):
     Tag = apps.get_model('cts_forms', 'Tag')
-    tags = Tag.objects.filter(id=tag_id).values('name', 'section')
+    tags = Tag.objects.filter(id=tag_id).values(*attrs)
     if not tags:
-        return '', ''
-    return tags[0]['section'], tags[0]['name']
+        return [''] * len(attrs)
+    return tuple([tags[0][attr] for attr in attrs])
 
 
 def _get_tags_markup(field_content):
-    section, name = _get_tag_section_and_name(field_content)
+    section, name, tooltip = _get_tag_attrs(field_content, 'section', 'name', 'tooltip')
     return f'''
-    <span class="usa-tag usa-tag--big">
-        <span class="section">{section}</span>
-        <span class="name">{name}</span>
+    <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="{tooltip}">
+        <span class="usa-tag usa-tag--big">
+            <span class="section">{section}</span>
+            <span class="name">{name}</span>
+        </span>
     </span>
     '''
 
@@ -80,7 +82,7 @@ def get_field_markup(field_content, field_name) -> str:
 
 
 def _get_tags_plaintext(field_content):
-    section, name = _get_tag_section_and_name(field_content)
+    section, name = _get_tag_attrs(field_content, 'section', 'name')
     return f'{section} - {name}'
 
 
