@@ -12,6 +12,7 @@ from django.db import connection
 from django.http.request import QueryDict, MultiValueDict
 
 from utils.datetime_fns import change_datetime_to_end_of_day
+from utils.request_utils import get_user_section
 
 from .models import Report, User
 from actstream import registry
@@ -207,6 +208,9 @@ def report_filter(querydict):
                 qs = qs.filter(contact_phone__icontains=number_block)
         elif field_options == 'disposition_status':
             qs = qs.filter(closed_date__isnull=False)
+            user_section = get_user_section()
+            if user_section:
+                qs = qs.filter(assigned_section=user_section)
             disposition_status = querydict.getlist(field)[0]
             today = datetime.today().date()
             qs = qs.annotate(retention_year=F('retention_schedule__retention_years'),

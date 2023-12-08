@@ -8,7 +8,7 @@ from urllib.parse import unquote
 import pypdf
 
 from cts_forms.models import DoNotEmail
-from cts_forms.signals import get_client_ip
+from utils.request_utils import get_client_ip
 from django.apps import apps
 from django.conf import settings
 from django.contrib.admin.views.decorators import staff_member_required
