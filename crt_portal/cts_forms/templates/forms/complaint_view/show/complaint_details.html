@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block card_content %}
-<form id="details-edit-form" class="usa-form " method="post" novalidate>
+<form id="details-edit-form" class="usa-form {% if details_form.errors %}details-form-edit{% else %}details-form-view{% endif %}" method="post" novalidate>
 
 <div class="crt-current-summary blue-background usa-prose">
   <div id="current-summary" class="details">

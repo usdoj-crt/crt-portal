@@ -8,12 +8,13 @@ from datetime import datetime
 from pytz import timezone
 import random
 from cts_forms.signals import salt
-from cts_forms.models import EmailReportCount, ProtectedClass, Campaign, ResponseTemplate
+from cts_forms.models import EmailReportCount, ProtectedClass, Campaign, ResponseTemplate, CommentAndSummary
 from cts_forms.model_variables import PROTECTED_MODEL_CHOICES, DISTRICT_CHOICES, STATUTE_CHOICES
 from cts_forms.forms import add_activity
 from django.contrib.auth.models import User
 from random import randrange
 from datetime import timedelta
+from .migrate_tags import SPL_TAGS
 
 
 SECTIONS = ['ADM', 'APP', 'CRM', 'DRS', 'ELS', 'EOS', 'FCS', 'HCE', 'IER', 'POL', 'SPL', 'VOT']
@@ -96,6 +97,15 @@ class Command(BaseCommand):  # pragma: no cover
             campaign_chance = random.randint(1, 100)  # nosec
             if campaign_chance > 75:
                 report.origination_utm_campaign = random.choice(campaigns)  # nosec
+            old_style_tag_chance = random.randint(1, 100)  # nosec
+            if old_style_tag_chance > 75:
+                tags = ', '.join([
+                    random.choice(SPL_TAGS)[0]   # nosec
+                    for _ in range(random.randint(1, 5))  # nosec
+                ])
+                summary = CommentAndSummary.objects.create(note=f'this summary contains old-style tags: {tags}', is_summary=True)
+                summary.save()
+                report.internal_comments.add(summary)
 
             # Code to replicate bad data that can occur in prod when there are database errors.
             # report.intake_format = None

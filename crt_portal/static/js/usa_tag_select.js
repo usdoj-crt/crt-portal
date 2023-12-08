@@ -66,7 +66,7 @@
         checkAndChange(checkbox, false);
       });
       checkbox.addEventListener('change', event => {
-        if (!wrapper.closest('.details-form-edit')) {
+        if (wrapper.closest('.details-form-view')) {
           // Edit mode is off.
           checkbox.checked = true;
           event.preventDefault();

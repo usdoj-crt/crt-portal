@@ -1,11 +1,16 @@
+from typing import List, Tuple
 from django.core.management.base import BaseCommand
-from cts_forms.models import Tag
+from cts_forms.models import Tag, Report, CommentAndSummary
+from django.db.models import Q
+from operator import or_, and_
+from django.core.paginator import Paginator
+from functools import reduce
 
 
 class Command(BaseCommand):  # pragma: no cover
     help = "Load and migrate section tags"
 
-    def _fetch_spl_tags(self):
+    def _fetch_spl_tags(self) -> Tuple[List[Tag], int]:
         tags, did_create = zip(*[
             Tag.objects.update_or_create(
                 name=name,
@@ -18,21 +23,71 @@ class Command(BaseCommand):  # pragma: no cover
             )
             for name, description_1, description_2 in SPL_TAGS
         ])
+
         return tags, sum(did_create)
 
-    def _create_or_update_tags(self):
-        tags, number_created = zip(*[
-            self._fetch_spl_tags(),
-        ])
+    def _create_or_update_tags(self) -> List[Tag]:
+        tags, number_created = self._fetch_spl_tags()
+        number_updated = len(tags) - number_created
 
-        total_created = sum(number_created)
-        self.stdout.write(self.style.SUCCESS(f'Created {total_created} tags'))
+        self.stdout.write(self.style.SUCCESS(f'Created {number_created} tags, updated {number_updated} tags'))
 
         return tags
 
     def handle(self, *args, **options):
         del args, options  # unused
-        self._create_or_update_tags()
+        tags = self._create_or_update_tags()
+        self._match_tags_from_summary(tags)
+
+    def _match_tags_from_summary(self, tags: List[Tag]):
+        all_terms = SPL_SEARCH_TERMS
+
+        tags_by_name = {
+            tag.name: tag
+            for tag in tags
+        }
+
+        comments_with_tags = CommentAndSummary.objects.filter(
+            and_(
+                Q(is_summary=True),
+                reduce(or_, [
+                    Q(note__contains=search_term)
+                    for search_term, _
+                    in all_terms
+                ])
+            )
+        )
+
+        reports_with_tags = Report.objects.filter(
+            internal_comments__in=comments_with_tags
+        )
+
+        changes = 0
+        for report in _paginate(reports_with_tags.order_by('name').prefetch_related('tags', 'internal_comments')):
+            changed = False
+            for search_term, tag_name in all_terms:
+                summary = report.internal_comments.order_by('-modified_date').filter(is_summary=True).first()
+                if search_term not in summary.note:
+                    continue
+
+                tag = tags_by_name[tag_name]
+                if report.tags.filter(pk=tag.pk).exists():
+                    continue
+
+                report.tags.add(tag)
+                changed = True
+
+            if changed:
+                changes += 1
+                report.save()
+
+        self.stdout.write(self.style.SUCCESS(f'Added {changes} tags to reports'))
+
+
+def _paginate(queryset):
+    paginator = Paginator(queryset, 2000)
+    for page_number in range(paginator.num_pages):
+        yield from paginator.get_page(page_number + 1)
 
 
 SPL_TAGS = [
@@ -121,4 +176,10 @@ SPL_TAGS = [
     ('THRT', 'Threats', '168 - CRIPA'),
     ('VENT', 'Ventilation', '168 - CRIPA'),
     ('VIST', 'Visitation', '168 - CRIPA'),
+]
+
+SPL_SEARCH_TERMS = [
+    (name, name)
+    for name, _, _
+    in SPL_TAGS
 ]
