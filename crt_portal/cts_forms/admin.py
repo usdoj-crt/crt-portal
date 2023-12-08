@@ -32,7 +32,7 @@ from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
                      JudicialDistrict, RetentionSchedule, RoutingSection, RoutingStepOneContact, Tag,
                      VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch, NotificationPreference)
-from crt_portal.utils.request_utils import get_client_ip
+from utils.request_utils import get_client_ip
 
 logger = logging.getLogger(__name__)
 
