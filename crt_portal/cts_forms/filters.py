@@ -12,7 +12,7 @@ from django.db import connection
 from django.http.request import QueryDict, MultiValueDict
 
 from utils.datetime_fns import change_datetime_to_end_of_day
-from .signals import get_user_section
+from crt_portal.utils.request_utils import get_user_section
 
 from .models import Report, User
 from actstream import registry

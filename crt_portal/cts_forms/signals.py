@@ -11,25 +11,14 @@ from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.db.models.signals import post_save, post_delete, pre_save
 from django.dispatch import receiver
 
+from crt_portal.utils.request_utils import get_client_ip
+
 from .models import Report, ProtectedClass, CommentAndSummary
 from .model_variables import PUBLIC_USER
 
 logger = logging.getLogger(__name__)
 
-
-def get_client_ip(request):
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
-
-def get_user_section():
-    current_request = CrequestMiddleware.get_request()
-    return current_request.user.profile.section
-
-def format_user_message(action, current_request, instance):
+def _format_user_message(action, current_request, instance):
     # CLI in the case that someone is using the python shell, in that case more log will be available outside the app in cloud.gov
     ip = get_client_ip(current_request) if current_request else 'CLI'
     username = current_request.user.username if current_request else 'CLI'
@@ -37,7 +26,7 @@ def format_user_message(action, current_request, instance):
     return f'ADMIN ACTION by: {username} {userid} @ {ip} User {action}: {instance.pk} permissions: {instance.user_permissions.all()} staff: {instance.is_staff} superuser: {instance.is_superuser} active: {instance.is_active}'
 
 
-def format_data_message(action, current_request, instance):
+def _format_data_message(action, current_request, instance):
     # public users will not have usernames, but they will have ip addresses
     ip = get_client_ip(current_request) if current_request else 'CLI'
     username = current_request.user.username if current_request else 'CLI'
@@ -50,14 +39,14 @@ def format_data_message(action, current_request, instance):
 def save_user(sender, instance, created, **kwargs):
     action = 'created' if created else 'saved'
     current_request = CrequestMiddleware.get_request()
-    message = format_user_message(action, current_request, instance)
+    message = _format_user_message(action, current_request, instance)
     logger.info(message)
 
 
 @receiver(post_delete, sender=User)
 def delete_user(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
-    message = format_user_message('deleted', current_request, instance)
+    message = _format_user_message('deleted', current_request, instance)
     logger.info(message)
 
 
@@ -115,5 +104,5 @@ def post_report_create(sender, instance, created, **kwargs):
 @receiver(post_delete, sender=CommentAndSummary)
 def delete_report(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
-    message = str(format_data_message('DATA DELETED', current_request, instance))
+    message = str(_format_data_message('DATA DELETED', current_request, instance))
     logger.info(message)
