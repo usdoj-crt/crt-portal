@@ -18,6 +18,7 @@ from .model_variables import PUBLIC_USER
 
 logger = logging.getLogger(__name__)
 
+
 def _format_user_message(action, current_request, instance):
     # CLI in the case that someone is using the python shell, in that case more log will be available outside the app in cloud.gov
     ip = get_client_ip(current_request) if current_request else 'CLI'
