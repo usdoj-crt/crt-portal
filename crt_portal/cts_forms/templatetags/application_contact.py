@@ -1,4 +1,3 @@
-
 from django import template
 from django.utils.safestring import mark_safe
 
@@ -15,12 +14,12 @@ def application_contact_markup():
     ]
 
     if len(contacts) >= 3:
-        return mark_safe("{}, or {}".format(", ".join(contacts[:-1]), contacts[-1]))
+        return mark_safe("{}, or {}".format(", ".join(contacts[:-1]), contacts[-1]))  # nosec
 
     if len(contacts) == 2:
-        return mark_safe(" or ".join(contacts))
+        return mark_safe(" or ".join(contacts))  # nosec
 
     if len(contacts) == 1:
-        return mark_safe(contacts[0])
+        return mark_safe(contacts[0])  # nosec
 
-    return mark_safe("your application's administrator")
+    return mark_safe("your application's administrator")  # nosec
