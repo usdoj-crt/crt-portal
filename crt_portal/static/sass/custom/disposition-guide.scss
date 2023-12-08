@@ -71,4 +71,16 @@
     line-height: 26px;
     color: color($theme-color-base-ink);
   }
+  .image-container {
+    background: #ECF1F7;
+    border-radius: 25px;
+    height: 32px;
+    width: 32px;
+    display: flex;
+    justify-content: center;
+    margin-right: 8px;
+    .help-image {
+      width: 60%;
+    }
+  }
 }
