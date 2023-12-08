@@ -96,8 +96,8 @@ def get_section_contacts():
                 "names_2": ""
             }
 
-    return { "routing_section_blocks": routing_section_blocks,
-            "routing_step_one_contacts": routing_step_one_contacts }
+    return {"routing_section_blocks": routing_section_blocks,
+             "routing_step_one_contacts": routing_step_one_contacts}
 
 
 def reconstruct_query(next_qp):
