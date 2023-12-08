@@ -1,5 +1,6 @@
 from django.template import Context, Template
-from django.test import SimpleTestCase
+from django.test import TestCase, SimpleTestCase
+from cts_forms.models import ApplicationContact
 
 
 class MultiselectSummaryTest(SimpleTestCase):
@@ -20,6 +21,39 @@ class MultiselectSummaryTest(SimpleTestCase):
     def test_three_selected(self):
         rendered = self.TEMPLATE.render(Context({"selected": ["One", "Two", "Three"]}))
         self.assertIn("Multi (3)", rendered)
+
+
+class ApplicationContactTests(TestCase):
+    def setUp(self):
+        ApplicationContact.objects.all().delete()
+
+    def test_no_contacts(self):
+        rendered = Template('{% load application_contact %}{% application_contact_markup %}').render(Context())
+
+        self.assertEqual(rendered, "your application's administrator")
+
+    def test_one_contact(self):
+        ApplicationContact.objects.create(name="One", email="one@example.com")
+        rendered = Template('{% load application_contact %}{% application_contact_markup %}').render(Context())
+
+        self.assertEqual(rendered, '<a href="mailto:one@example.com">One (one@example.com)</a>')
+
+    def test_two_contacts(self):
+        ApplicationContact.objects.create(name="One", email="one@example.com", order=1)
+        ApplicationContact.objects.create(name="Two", email="two@example.com", order=0)
+
+        rendered = Template('{% load application_contact %}{% application_contact_markup %}').render(Context())
+
+        self.assertEqual(rendered, '<a href="mailto:one@example.com">One (one@example.com)</a> or <a href="mailto:two@example.com">Two (two@example.com)</a>')
+
+    def test_three_contacts(self):
+        ApplicationContact.objects.create(name="One", email="one@example.com", order=1)
+        ApplicationContact.objects.create(name="Two", email="two@example.com", order=0)
+        ApplicationContact.objects.create(name="Three", email="three@example.com", order=0)
+
+        rendered = Template('{% load application_contact %}{% application_contact_markup %}').render(Context())
+
+        self.assertEqual(rendered, '<a href="mailto:one@example.com">One (one@example.com)</a>, <a href="mailto:two@example.com">Two (two@example.com)</a>, or <a href="mailto:three@example.com">Three (three@example.com)</a>')
 
 
 class StaticEmbedTest(SimpleTestCase):

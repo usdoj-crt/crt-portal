@@ -1,5 +1,6 @@
 {% load commercial_public_space_view %}
 {% load correctional_facility_view %}
+{% load application_contact %}
 {% load employer_info_view %}
 {% load primary_complaint_view %}
 {% load i18n %}
@@ -59,6 +60,8 @@
 
     <div style="margin-left:1rem; margin-right: 1rem">
       {{ content | safe }}
+
+      <p>If you need training on how to process these reports, please reach out to {% application_contact_markup %}.</p>
 
       <p>Sincerely,</p>
 

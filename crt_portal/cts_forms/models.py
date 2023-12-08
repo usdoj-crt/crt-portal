@@ -134,6 +134,15 @@ class RoutingSection(models.Model):
         return self.section
 
 
+class ApplicationContact(models.Model):
+    name = models.CharField(max_length=250, null=False, blank=False)
+    email = models.CharField(max_length=250, null=False, blank=False)
+    order = models.IntegerField(default=0, help_text="The order in which to show the name, lower numbers first. If two names have the same order number, they might change positions.")
+
+    def __str__(self):
+        return f'{self.name} ({self.email})'
+
+
 class RoutingStepOneContact(models.Model):
     contacts = models.TextField(max_length=700, null=False, blank=False)
 
