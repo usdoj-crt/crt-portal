@@ -26,8 +26,28 @@ class Command(BaseCommand):  # pragma: no cover
 
         return tags, sum(did_create)
 
+    def _fetch_vot_tags(self) -> Tuple[List[Tag], int]:
+        tags, did_create = zip(*[
+            Tag.objects.update_or_create(
+                name=name,
+                section='VOT',
+                defaults={
+                    'description': description,
+                    'tooltip': tooltip,
+                    'show_in_lists': True,
+                }
+            )
+            for name, tooltip, description in VOT_TAGS
+        ])
+
+        return tags, sum(did_create)
+
     def _create_or_update_tags(self) -> List[Tag]:
-        tags, number_created = self._fetch_spl_tags()
+        spl_tags, spl_number_created = self._fetch_spl_tags()
+        vot_tags, vot_number_created = self._fetch_vot_tags()
+        tags = spl_tags + vot_tags
+
+        number_created = spl_number_created + vot_number_created
         number_updated = len(tags) - number_created
 
         self.stdout.write(self.style.SUCCESS(f'Created {number_created} tags, updated {number_updated} tags'))
@@ -40,7 +60,7 @@ class Command(BaseCommand):  # pragma: no cover
         self._match_tags_from_summary(tags)
 
     def _match_tags_from_summary(self, tags: List[Tag]):
-        all_terms = SPL_SEARCH_TERMS
+        all_terms = SPL_SEARCH_TERMS + VOT_SEARCH_TERMS
 
         tags_by_name = {
             tag.name: tag
@@ -63,7 +83,7 @@ class Command(BaseCommand):  # pragma: no cover
         )
 
         changes = 0
-        for report in _paginate(reports_with_tags.order_by('name').prefetch_related('tags', 'internal_comments')):
+        for report in _paginate(reports_with_tags.order_by('id').prefetch_related('tags', 'internal_comments')):
             changed = False
             for search_term, tag_name in all_terms:
                 summary = report.internal_comments.order_by('-modified_date').filter(is_summary=True).first()
@@ -182,4 +202,48 @@ SPL_SEARCH_TERMS = [
     (name, name)
     for name, _, _
     in SPL_TAGS
+]
+
+VOT_TAGS = [
+    ('NoDepartmentJurisdiction', 'Presents allegation of possible violations that no component in the Department can address.', 'Presents allegation of possible violations that no component in the Department can address.\nExample:  Individual reports a high number of internet networks available near polling place.\nIndividual reports failure to receive absentee ballot in the mail.'),
+    ('NoDivisionJurisdictionReferto', 'Presents allegation of possible violations that other Divisions in the Department may have the jurisdiction to address.', 'Presents allegation of possible violations that other Divisions in the Department may have the jurisdiction to address.\nExample:  Individual reports being offered money to vote for a particular candidate.'),
+    ('NoSectionJurisdictionReferto', 'Presents allegation of possible violations that other Sections in CRT may have the jurisdiction to address.', 'Presents allegation of possible violations that other Sections in CRT may have the jurisdiction to address.\nExample:  Individual reports polling place is not accessible to persons with a disability.'),
+    ('Comment', 'Does not present any allegation of possible violations and expresses only personal opinion on a matter.', 'Does not present any allegation of possible violations and expresses only personal opinion on a matter.\nExample:  Individual states his/her view that no incumbent can be a candidate for that office.'),
+    ('NoPersonalKnowledge', '', ''),
+    ('NoResponseReceived', '', ''),
+    ('AbsenteeBallot', '', ''),
+    ('BallotFormat', '', ''),
+    ('CandidateQualification', '', ''),
+    ('Criminal(CRT)', '', '',),
+    ('Criminal(other)', '', '',),
+    ('EarlyVoting', '', ''),
+    ('FOIA', '', ''),
+    ('GeneralInquiry', '', ''),
+    ('ListMaintenance', '', ''),
+    ('MethodofElection/redistricting', '', ''),
+    ('Military/OverseasCitizens', '', ''),
+    ('Monitors/Observers', '', ''),
+    ('PollingPlace', '', ''),
+    ('PollingPlacePersonnel', '', ''),
+    ('ProvisionalBallot', '', ''),
+    ('RestorationofRights', '', ''),
+    ('VoteDenial', '', ''),
+    ('VoterAssistance(§203)', '', '',),
+    ('VoterAssistance(§208)', '', '',),
+    ('VoterChallenge', '', ''),
+    ('VoterIdentification', '', ''),
+    ('VoterIntimidation', '', ''),
+    ('VoterRegistration', '', ''),
+    ('VotingMachine', '', ''),
+    ('VotingMachineAccessibility', '', ''),
+]
+
+ALL_TAGS = SPL_TAGS + VOT_TAGS
+
+VOT_SEARCH_TERMS = [
+    (f'#{name}', name)
+    for name, _, _
+    in VOT_TAGS
+] + [
+    ('#COMMENT', 'Comment'),
 ]

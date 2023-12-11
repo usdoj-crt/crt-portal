@@ -14,7 +14,7 @@ from cts_forms.forms import add_activity
 from django.contrib.auth.models import User
 from random import randrange
 from datetime import timedelta
-from .migrate_tags import SPL_TAGS
+from .migrate_tags import ALL_TAGS
 
 
 SECTIONS = ['ADM', 'APP', 'CRM', 'DRS', 'ELS', 'EOS', 'FCS', 'HCE', 'IER', 'POL', 'SPL', 'VOT']
@@ -100,7 +100,7 @@ class Command(BaseCommand):  # pragma: no cover
             old_style_tag_chance = random.randint(1, 100)  # nosec
             if old_style_tag_chance > 75:
                 tags = ', '.join([
-                    random.choice(SPL_TAGS)[0]   # nosec
+                    random.choice(ALL_TAGS)[0]   # nosec
                     for _ in range(random.randint(1, 5))  # nosec
                 ])
                 summary = CommentAndSummary.objects.create(note=f'this summary contains old-style tags: {tags}', is_summary=True)
