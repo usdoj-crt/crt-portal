@@ -2,9 +2,10 @@ from django.contrib import admin
 from django.utils.html import mark_safe
 
 from .models import ShortenedURL
+from utils.admin import CrtModelAdmin
 
 
-class ShortenedURLAdmin(admin.ModelAdmin):
+class ShortenedURLAdmin(CrtModelAdmin):
     list_display = ('pk', 'destination', 'current_shortname')
     readonly_fields = ('current_shortname',)
 
