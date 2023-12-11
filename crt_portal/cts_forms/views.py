@@ -70,33 +70,14 @@ def get_section_contacts():
         routing_step_one_contacts = RoutingStepOneContact.objects.first().contacts
     except AttributeError:
         routing_step_one_contacts = "ask.CRT@usdoj.gov"
-    routing_section_block = {
-        "section_1": "",
-        "names_1": "",
-        "section_2": "",
-        "names_2": ""
-    }
-    routing_section_blocks = []
-    # Because we display 2 sections per row in the table,
-    # we are breaking up the routing sections into groups of two.
-    for index, route in enumerate(routing_sections):
-        if index % 2 == 0:
-            routing_section_block["section_1"] = route.section
-            routing_section_block["names_1"] = route.names
-            if index == len(routing_sections) - 1:
-                routing_section_blocks.append(routing_section_block)
-        else:
-            routing_section_block["section_2"] = route.section
-            routing_section_block["names_2"] = route.names
-            routing_section_blocks.append(routing_section_block)
-            routing_section_block = {
-                "section_1": "",
-                "names_1": "",
-                "section_2": "",
-                "names_2": ""
-            }
+    routing_data = []
+    for route in routing_sections:
+        routing_data.append({
+            "section": route.section,
+            "names": route.names
+        })
 
-    return {"routing_section_blocks": routing_section_blocks, "routing_step_one_contacts": routing_step_one_contacts}
+    return {"routing_data": routing_data, "routing_step_one_contacts": routing_step_one_contacts}
 
 
 def reconstruct_query(next_qp):

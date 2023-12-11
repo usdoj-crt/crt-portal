@@ -32,6 +32,22 @@
   }
 }
 
+.contact-table {
+  tr {
+    border-bottom: solid 1px #dfe1e2;
+    td {
+      vertical-align: top;
+      border:none;
+    }
+
+  .section-head {
+    padding-bottom: 0.5rem;
+    font-weight: bold;
+    border: none;
+  }
+  }
+}
+
 .disposition-card {
   height: 576px;
   overflow-y: scroll;

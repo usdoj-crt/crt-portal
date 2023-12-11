@@ -157,14 +157,12 @@
   </div>
   <p>If you have a question about whether you should route a report to a particular section, start by talking to your supervisor.</p>
   <p>If you still have questions, contact the point of contact for a given section.</p>
-  <table class="usa-table usa-table--borderless routing-guide-table-3">
-    <tbody>
-    {% for routing_section_block in routing_section_blocks %}
-      <tr>
-        <th>{{ routing_section_block.section_1 }}</th>
-        <td>{{ routing_section_block.names_1 }}</td>
-        <th>{{ routing_section_block.section_2 }}</th>
-        <td>{{ routing_section_block.names_2 }}</td>
+  <table class="usa-table usa-table--borderless contact-table">
+    <tbody class="display-flex flex-wrap flex-align-end grid-row">
+    {% for routing_datum in routing_data %}
+      <tr class="grid-col-6">
+        <th class="section-head">{{ routing_datum.section }}</th>
+        <td>{{ routing_datum.names }}</td>
       </tr>
     {% endfor %}
     </tbody>
