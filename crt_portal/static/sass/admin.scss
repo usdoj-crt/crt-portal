@@ -1,3 +1,63 @@
+.shepherd-element {
+  background-color: white;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  box-shadow: 0px 0px 10px var(--object-tools-bg);
+}
+
+.shepherd-title {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5em;
+  text-align: center;
+}
+
+.shepherd-button {
+  color: #fff;
+  height: 35px;
+  line-height: 15px;
+  border: 0;
+  border-radius: 4px;
+  transition: background 0.15s;
+  background-color: var(--button-bg);
+
+  &:hover {
+    background-color: var(--button-hover-bg);
+  }
+}
+
+.shepherd-footer {
+  padding-bottom: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 5px;
+}
+
+.shepherd-target {
+  border: 3px solid red;
+}
+
+body.shepherd-target {
+  border: 0px;
+}
+
+.shepherd-step-count {
+  background-color: var(--breadcrumbs-bg);
+  border-radius: 2px;
+  color: var(--breadcrumbs-link-fg);
+  padding-left: 0.25em;
+  padding-right: 0.25em;
+  padding-top: 0.1em;
+  padding-bottom: 0.1em;
+  margin-right: 0.255em;
+  display: inline-flex;
+}
+
+.shepherd-text {
+  padding: 1em;
+}
+
 .admin-copy {
   flex-grow: 1;
 }
@@ -37,7 +97,9 @@
   .dangerous {
     background: var(--delete-button-bg);
 
-    &:hover,&:active,&:focus {
+    &:hover,
+    &:active,
+    &:focus {
       background: var(--delete-button-hover-bg);
     }
   }
@@ -48,7 +110,8 @@
   gap: 15px;
 }
 
-.form-row.field-results, .form-row.field-preview {
+.form-row.field-results,
+.form-row.field-preview {
   label {
     display: none;
   }
