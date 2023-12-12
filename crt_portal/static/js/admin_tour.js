@@ -1,7 +1,7 @@
 (function(root) {
   const TOURS = {
     example: {
-      title: 'Example tour',
+      title: 'Example walkthrough',
       steps: [
         {
           id: '1',
@@ -159,7 +159,7 @@
         </th>
         <td>
           <a class="viewlink start-tour" href="javascript:void(0)" class="viewlink">
-            ${tour.title}
+            Start Walkthrough
           </a>
         </td>
       `;
