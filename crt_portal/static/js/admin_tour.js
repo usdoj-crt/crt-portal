@@ -1,46 +1,42 @@
 (function(root) {
   const TOURS = {
-    example: tour => {
-      return {
-        title: 'Example tour',
-        description:
-          'This example shows how tours work without actually requiring changing anything.',
-        steps: [
-          {
-            id: '1',
-            title: 'First step',
-            text: 'This is the first step. Pressing next will go to the next step.',
-            mustBeOnUrl: '/admin/'
+    example: {
+      title: 'Example tour',
+      steps: [
+        {
+          id: '1',
+          title: 'First step',
+          text: 'This is the first step. Pressing next will go to the next step.',
+          mustBeOnUrl: '/admin/'
+        },
+        {
+          id: '2',
+          title: 'Second step',
+          text: 'This is the second step. Pressing next will go to the users page.'
+        },
+        {
+          id: '3',
+          title: 'Third step',
+          arrow: true,
+          text:
+            'This is the third step. It shows how to target a specific element, such as this username.',
+          attachTo: {
+            element: '.results tr:first-of-type .field-username'
           },
-          {
-            id: '2',
-            title: 'Second step',
-            text: 'This is the second step. Pressing next will go to the users page.'
+          mustBeOnUrl: '/admin/auth/user/'
+        },
+        {
+          id: '4',
+          title: 'Last step',
+          arrow: true,
+          text: 'This is the last step. It shows how you can scroll between elements on a page.',
+          attachTo: {
+            element: '#nav-sidebar .module:last-child',
+            scrollTo: true
           },
-          {
-            id: '3',
-            title: 'Third step',
-            arrow: true,
-            text:
-              'This is the third step. It shows how to target a specific element, such as this username.',
-            attachTo: {
-              element: '.results tr:first-of-type .field-username'
-            },
-            mustBeOnUrl: '/admin/auth/user/'
-          },
-          {
-            id: '4',
-            title: 'Last step',
-            arrow: true,
-            text: 'This is the last step. It shows how you can scroll between elements on a page.',
-            attachTo: {
-              element: '#nav-sidebar .module:last-child',
-              scrollTo: true
-            },
-            mustBeOnUrl: '/admin/auth/user/'
-          }
-        ]
-      };
+          mustBeOnUrl: '/admin/auth/user/'
+        }
+      ]
     }
   };
 
@@ -94,13 +90,13 @@
     ];
   }
 
-  function init() {
+  function startOrResumeTour() {
     const searchParams = new URLSearchParams(window.location.search);
     const tourId = searchParams.get('admin-tour');
     const stepId = searchParams.get('admin-tour-step');
     if (!tourId) return;
-    const makeTour = TOURS[tourId];
-    if (!makeTour) {
+    const tourData = TOURS[tourId];
+    if (!tourData) {
       console.error(`No tour found for ${tourId}`);
       return;
     }
@@ -112,7 +108,6 @@
       }
     });
 
-    const tourData = makeTour(tour);
     const steps = tourData.steps;
     const currentStep = steps.find(step => step.id === stepId);
 
@@ -134,6 +129,56 @@
       return;
     }
     tour.start();
+  }
+
+  function addTourLinks() {
+    if (window.location.pathname !== '/admin/') return;
+
+    const mainContent = document.querySelector('#content-main');
+    if (!mainContent) return;
+
+    const tourLinks = document.createElement('div');
+    tourLinks.classList.add('module');
+    tourLinks.innerHTML = `
+      <table>
+        <caption>
+          <span>Walkthroughs</span>
+        </caption>
+        <tbody class="tours">
+        </tbody>
+      </table>
+    `;
+    const links = tourLinks.querySelector('.tours');
+
+    Object.entries(TOURS).forEach(([tourId, tour]) => {
+      const row = document.createElement('tr');
+      row.classList.add('model-action');
+      row.innerHTML = `
+        <th scope="row">
+          <a class="start-tour" href="javascript:void(0)">${tour.title}</a>
+        </th>
+        <td>
+          <a class="viewlink start-tour" href="javascript:void(0)" class="viewlink">
+            ${tour.title}
+          </a>
+        </td>
+      `;
+
+      row.querySelectorAll('.start-tour').forEach(link => {
+        link.addEventListener('click', () => {
+          window.location = `/admin/?admin-tour=${tourId}`;
+        });
+      });
+
+      links.appendChild(row);
+    });
+
+    mainContent.prepend(tourLinks);
+  }
+
+  function init() {
+    startOrResumeTour();
+    addTourLinks();
   }
 
   window.addEventListener('DOMContentLoaded', init);
