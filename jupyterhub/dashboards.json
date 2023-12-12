@@ -10,16 +10,8 @@
     "order": 0
   },
   {
-    "header": "Test Group",
+    "header": "What's Happening Where",
     "notebooks": [
-      {
-        "path": "assignments/intake-dashboard/only_for_adm.ipynb",
-        "show_only_for_sections": []
-      },
-      {
-        "path": "assignments/intake-dashboard/assignable.ipynb",
-        "show_only_for_sections": []
-      },
       {
         "path": "assignments/intake-dashboard/report_districts.ipynb",
         "show_only_for_sections": []

@@ -13,8 +13,3 @@ You have been assigned to take a look at [Report {{record_locator}}](/form/view/
 
 Please take a look at the link above or, if you think this was in error, please add a comment and reassign the report as appropriate.
 
-Sincerely,
-
-Portal Team
-
-_please do not reply to this message_

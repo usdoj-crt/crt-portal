@@ -430,7 +430,7 @@ def get_report_data(requested_reports, report_url_args, paginated_offset):
         if report.contact_email:
             report.related_reports_count = _related_reports_count(report)
         if report.retention_schedule and report.closed_date:
-            report.expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years, report.closed_date.month, report.closed_date.day).date()
+            report.expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years + 1, 1, 1).date()
         if report.other_class:
             p_class_list.append(report.other_class)
         if len(p_class_list) > 3:
@@ -627,6 +627,29 @@ def disposition_view(request):
         'disposition_status': disposition_status,
     })
     return render(request, 'forms/complaint_view/disposition/index.html', final_data)
+
+
+@login_required
+def unsubscribe_view(request):
+    if not hasattr(request.user, 'notification_preference'):
+        messages.add_message(request,
+                             messages.ERROR,
+                             mark_safe("You are not subscribed to notifications"))
+        return redirect(reverse('crt_forms:crt-forms-index'))
+    preferences = request.user.notification_preference
+
+    if not preferences.assigned_to:
+        messages.add_message(request,
+                             messages.ERROR,
+                             mark_safe("You are not subscribed to notifications"))
+        return redirect(reverse('crt_forms:crt-forms-index'))
+
+    preferences.assigned_to = False
+    preferences.save()
+    messages.add_message(request,
+                         messages.SUCCESS,
+                         mark_safe("You have been unsubscribed from all portal notifications"))
+    return redirect(reverse('crt_forms:crt-forms-index'))
 
 
 class ProfileView(LoginRequiredMixin, FormView):

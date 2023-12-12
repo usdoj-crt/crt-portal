@@ -6,7 +6,7 @@ from django.core.validators import ValidationError
 from django.forms import (BooleanField, CharField, CheckboxInput, ChoiceField,
                           ClearableFileInput, DateField,
                           EmailInput, HiddenInput, IntegerField,
-                          ModelChoiceField, ModelForm, Form,
+                          MultipleHiddenInput, ModelChoiceField, ModelForm, Form,
                           ModelMultipleChoiceField, MultipleChoiceField,
                           Select, SelectMultiple, Textarea, TextInput,
                           TypedChoiceField)
@@ -50,7 +50,7 @@ from .model_variables import (ACTION_CHOICES, CLOSED_STATUS, COMMERCIAL_OR_PUBLI
                               VIOLATION_SUMMARY_ERROR, WHERE_ERRORS,
                               HATE_CRIME_CHOICES, GROUPING, RETENTION_SCHEDULE_CHOICES)
 from .models import (CommentAndSummary,
-                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user)
+                     ProtectedClass, Report, ResponseTemplate, Profile, ReportAttachment, Campaign, RetentionSchedule, SavedSearch, get_system_user, Tag)
 from .phone_regex import phone_validation_regex
 from .question_group import QuestionGroup
 from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
@@ -62,7 +62,7 @@ from .question_text import (CONTACT_QUESTIONS, DATE_QUESTIONS,
                             WORKPLACE_QUESTIONS, HATE_CRIME_HELP_TEXT,
                             HATE_CRIME_QUESTION)
 from .widgets import (ComplaintSelect, CrtMultiSelect,
-                      CrtPrimaryIssueRadioGroup, DjNumberWidget, UsaCheckboxSelectMultiple,
+                      CrtPrimaryIssueRadioGroup, DjNumberWidget, UsaCheckboxSelectMultiple, UsaTagSelectMultiple,
                       UsaRadioSelect, DataAttributesSelect, CrtDateInput, add_empty_choice)
 from utils.voting_mode import is_voting_mode
 from utils import activity
@@ -72,14 +72,27 @@ logger = logging.getLogger(__name__)
 User = get_user_model()
 
 
-def add_activity(user, verb, description, instance):
+def add_activity(user, verb, description, instance, is_bulk=False):
     activity.send_action(
         user,
         verb=verb,
         description=description,
         target=instance,
         send_notification=True,
+        is_bulk=is_bulk,
     )
+
+
+def get_assigned_to_message(assigned_user):
+    if not assigned_user:
+        return ''
+    if not hasattr(assigned_user, 'notification_preference'):
+        return f" {assigned_user} will not be notified because they have not set notification preferences."
+    if not assigned_user.notification_preference.assigned_to:
+        return f" {assigned_user} will not be notified because they have opted out of notifications."
+    if not assigned_user.email:
+        return f" {assigned_user} will not be notified because they do not have an email address listed."
+    return f" {assigned_user} will be notified via email."
 
 
 def get_dj_widget():
@@ -1739,6 +1752,13 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
                 send_notification=True,
             )
 
+    def get_notification_messages(self, message):
+        for field in self.changed_data:
+            if 'assigned_section' not in self.changed_data and field == 'assigned_to':
+                assigned_user = self.cleaned_data['assigned_to']
+                message += get_assigned_to_message(assigned_user)
+        return message
+
     def success_message(self):
         """Prepare update success message for rendering in template"""
         def get_label(field):
@@ -1758,6 +1778,7 @@ class ComplaintActions(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
             fields = ', '.join(updated_fields[:-1])
             fields += f', and {updated_fields[-1]}'
             message = f"Successfully updated {fields}."
+        message = self.get_notification_messages(message)
         return message
 
     def clean_dj_number(self):
@@ -2096,6 +2117,13 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         updates.pop('district', None)  # district is currently disabled (read-only)
         return updates
 
+    def get_notification_messages(self, message):
+        for field in self.changed_data:
+            if 'assigned_section' not in self.changed_data and field == 'assigned_to':
+                assigned_user = self.cleaned_data['assigned_to']
+                message += get_assigned_to_message(assigned_user)
+        return message
+
     def get_update_description(self):
         """
         Given a submitted form, emit a textual description of what was updated.
@@ -2117,7 +2145,8 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
             descriptions.append(description)
         if len(descriptions) > 1:
             descriptions[-1] = f'and {descriptions[-1]}'
-        final_description = ', '.join(descriptions) or 'comment added'
+        final_description = ', '.join(descriptions) + '.' or 'comment added.'
+        final_description = self.get_notification_messages(final_description)
         logging.info(final_description)
         return final_description
 
@@ -2215,8 +2244,9 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
                 report.save()
                 activities.append({'user': user, 'report': report, 'verb': "Report closed and Assignee removed", 'description': f"Date closed updated to {report.closed_date.strftime('%m/%d/%y %H:%M:%M %p')}"})
         for act in activities:
-            add_activity(act['user'], act['verb'], act['description'], act['report'])
-
+            add_activity(act['user'], act['verb'], act['description'], act['report'], True)
+        if 'assigned_to' in updated_data:
+            activity.handle_bulk_notify(user, 'Assigned to:', f"Assigned to: Updated to {updated_data['assigned_to']}", reports)
         return updated_number or len(reports)  # sometimes only a comment is added
 
 
@@ -2282,6 +2312,24 @@ class ContactEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
         return self.SUCCESS_MESSAGE
 
 
+class TagsField(ModelMultipleChoiceField):
+    def __init__(self, *args, **kwargs):
+        queryset = Tag.objects.filter(show_in_lists=True).order_by('section', 'name')
+        super().__init__(queryset=queryset,
+                         widget=get_tags_widget(),
+                         required=False,
+                         *args, **kwargs)
+
+    def label_from_instance(self, obj: Tag):
+        return f"<span class='section'>{obj.section or 'ALL'}</span> <span class='name'>{obj.name}</span>"
+
+
+def get_tags_widget():
+    if not Feature.is_feature_enabled('tags'):
+        return MultipleHiddenInput()
+    return UsaTagSelectMultiple()
+
+
 class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
     CONTEXT_KEY = "details_form"
     FAIL_MESSAGE = "Failed to update complaint details."
@@ -2310,7 +2358,6 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             'contact_zip',
             'election_details',
             'intake_format',
-            'tags',
             'origination_utm_campaign',
             'origination_utm_content',
             'origination_utm_medium',
@@ -2319,6 +2366,8 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
             'unknown_origination_utm_campaign',
             'violation_summary',
         ]
+
+        fields = ProForm.Meta.fields + ['tags']
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
@@ -2337,6 +2386,8 @@ class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
         """
         self.user = user
         ModelForm.__init__(self, *args, **kwargs)
+
+        self.fields['tags'] = TagsField()
 
         #  We're handling old hatecrimes_trafficking data with separate boolean fields
         self.fields['hatecrime'].initial = self.instance.hatecrimes_trafficking.filter(value='physical_harm').exists()

@@ -16,6 +16,7 @@ from django.template.loader import render_to_string
 from cts_forms.models import Report, ResponseTemplate
 from tms.models import TMSEmail
 from utils.markdown_extensions import RelativeToAbsoluteLinkExtension
+from utils.site_prefix import get_site_prefix
 
 logger = logging.getLogger(__name__)
 
@@ -118,17 +119,24 @@ def _render_notification_mail(*,
                               report: Optional[Report],
                               template: ResponseTemplate,
                               recipients: List[str],
+                              reports: Optional[List[Report]] = None,
                               **kwargs) -> Mail:
 
-    message = template.render_body(report, **kwargs)
+    if reports:
+        message = template.render_bulk_body(report, reports, **kwargs)
+        subject = template.render_bulk_subject(report, reports, **kwargs)
+    else:
+        message = template.render_body(report, **kwargs)
+        subject = template.render_subject(report, **kwargs)
 
     md = markdown.markdown(message, extensions=['extra', 'sane_lists', 'admonition', 'nl2br', CustomHTMLExtension(), RelativeToAbsoluteLinkExtension(for_intake=True)])
-    html_message = render_to_string('notification.html', {'content': md})
+    html_message = render_to_string('notification.html', {
+        'content': md,
+        'unsubscribe_link': '/'.join([get_site_prefix(for_intake=True), 'form/notifications/unsubscribe'])
+    })
 
     allowed_recipients = remove_disallowed_recipients(recipients)
     disallowed_recipients = list(set(recipients) - set(allowed_recipients))
-
-    subject = template.render_subject(report, **kwargs)
 
     return Mail(message=message,
                 html_message=html_message,
@@ -189,6 +197,7 @@ def notify(template_title: str,
     message = _render_notification_mail(report=report,
                                         template=template,
                                         recipients=recipients,
+                                        reports=None,
                                         **kwargs)
 
     suffix = f' about report {report.id}' if report else ''
@@ -196,6 +205,32 @@ def notify(template_title: str,
 
     send_tms(message,
              report=report,
+             purpose=TMSEmail.NOTIFICATION,
+             dry_run=False)
+
+
+def bulk_notify(template_title: str,
+                *,
+                report: Optional[Report],
+                reports: List[Report],
+                recipients: List[str],
+                **kwargs):
+    """Sends a notification to an internal user, if they have the preference enabled."""
+    try:
+        template = ResponseTemplate.objects.get(title=template_title)
+    except ResponseTemplate.DoesNotExist as e:
+        raise ValueError(f'Cannot send notification (no template with title {template_title})') from e
+    message = _render_notification_mail(report=report,
+                                        template=template,
+                                        recipients=recipients,
+                                        reports=reports,
+                                        **kwargs)
+
+    suffix = f' about {len(reports)} reports'
+    logger.info(f'Notification ({template.title}) sent to {message.recipients}{suffix}')
+
+    send_tms(message,
+             report=reports[0],
              purpose=TMSEmail.NOTIFICATION,
              dry_run=False)
 

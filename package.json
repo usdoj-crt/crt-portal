@@ -50,6 +50,7 @@
     "postcss": "^8.4.31",
     "postcss-csso": "^5.0.0",
     "sass": "^1.52.1",
+    "shepherd.js": "^11.2.0",
     "url-search-params-polyfill": "^7.0.1",
     "uswds-gulp": "github:uswds/uswds-gulp"
   },
