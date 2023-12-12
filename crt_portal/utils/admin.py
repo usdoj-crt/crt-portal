@@ -13,7 +13,7 @@ class CrtModelAdmin(admin.ModelAdmin):
             _make_passthrough_filter(param)
             for param in EXTRA_QUERY_PARAMS
         ])
-        return super().get_list_filter(*args, **kwargs) + passthrough
+        return tuple(super().get_list_filter(*args, **kwargs)) + passthrough
 
 
 def _make_passthrough_filter(param):
