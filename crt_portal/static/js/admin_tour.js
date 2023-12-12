@@ -53,6 +53,7 @@
                 <li>Pair the ResponseTemplate with the ReferralContact.</li>
               </ol>
               <p>We'll start by looking at how to update the template content.</p>
+              <p>This walkthrough will take us through a few existing objects - <strong>don't edit those directly</strong>, but feel free to <a href="/admin/" target="_blank">open a new tab</a> to be able to fill things in as we go.</p>
             `,
           mustBeOnUrl: '/admin/',
           when: {
