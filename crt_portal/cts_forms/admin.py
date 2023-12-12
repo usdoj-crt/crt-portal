@@ -32,7 +32,7 @@ from .model_variables import SECTION_CHOICES
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
                      JudicialDistrict, RetentionSchedule, RoutingSection, RoutingStepOneContact, Tag,
-                     VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch, NotificationPreference)
+                     VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch, NotificationPreference, ApplicationContact)
 from utils.request_utils import get_client_ip
 
 logger = logging.getLogger(__name__)
@@ -283,6 +283,11 @@ class JudicialDistrictAdmin(ReadOnlyModelAdmin):
 
 class RoutingSectionAdmin(CrtModelAdmin):
     list_display = ['section', 'names']
+
+
+class ApplicationContactAdmin(CrtModelAdmin):
+    list_display = ['name', 'email', 'order']
+    ordering = ['order']
 
 
 class RoutingStepOneContactAdmin(CrtModelAdmin):
@@ -566,6 +571,7 @@ admin.site.register(ResponseTemplate, ResponseTemplateAdmin)
 admin.site.register(DoNotEmail)
 admin.site.register(JudicialDistrict, JudicialDistrictAdmin)
 admin.site.register(RoutingSection, RoutingSectionAdmin)
+admin.site.register(ApplicationContact, ApplicationContactAdmin)
 admin.site.register(VotingMode, VotingModeAdmin)
 admin.site.register(Campaign, CampaignAdmin)
 admin.site.register(Tag, TagAdmin)

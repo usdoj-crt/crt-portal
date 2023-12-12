@@ -40,6 +40,9 @@
       {% if ENABLED_FEATURES.dj_number %}
         {% include 'forms/complaint_view/index/filters/dj_number.html' %}
       {% endif %}
+      {% if ENABLED_FEATURES.tags %}
+        {% include 'forms/complaint_view/index/filters/tags.html' %}
+      {% endif %}
       {% if ENABLED_FEATURES.disposition %}
         {% include 'forms/complaint_view/index/filters/litigation_hold.html' %}
         {% include 'forms/complaint_view/index/filters/retention_schedule.html' %}
