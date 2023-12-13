@@ -303,7 +303,8 @@ Washington, D.C. 20420</pre>
       tour.addStep({
         buttons: getButtons(tour, tourId, step, index, steps),
         ...step,
-        title: `${stepCountPrefix} ${step.title}`
+        title: `${stepCountPrefix} ${step.title}`,
+        classes: `shepherd-step-number-${index + 1}`
       });
     });
 
@@ -336,6 +337,7 @@ Washington, D.C. 20420</pre>
     Object.entries(TOURS).forEach(([tourId, tour]) => {
       const row = document.createElement('tr');
       row.classList.add('model-action');
+      row.dataset.tour = tourId;
       row.innerHTML = `
         <th scope="row">
           <a class="start-tour" href="javascript:void(0)">${tour.title}</a>
