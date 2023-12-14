@@ -3,12 +3,16 @@
 import re
 import urllib.parse
 from datetime import datetime, timedelta
+from operator import or_
+
 from django.core.validators import ValidationError
 
-from django.db.models import ExpressionWrapper, Count, Min, F, Value, CharField, DateField
+from django.db.models import ExpressionWrapper, Count, IntegerField, Min, F, Value, CharField, DateField, Func
 from django.db.models.functions import ExtractYear, Concat, Cast
-from django.contrib.postgres.search import SearchQuery
+
+from django.contrib.postgres.search import SearchQuery, TrigramSimilarity
 from django.db import connection
+from django.db.models.lookups import GreaterThan, LessThanOrEqual
 from django.http.request import QueryDict, MultiValueDict
 
 from utils.datetime_fns import change_datetime_to_end_of_day
@@ -70,7 +74,7 @@ filter_options = {
 
     'violation_summary': 'violation_summary',  # aka "Personal description"
     'summary': 'summary',  # aka "CRT summary"
-    'location_name': '__icontains',
+    'location_name': 'location_name',
     'other_class': '__search',  # not in filter controls?
     'disposition_status': 'disposition_status',
     # this is not a db query filter, not needed here, duplicate tag fix, removed from the filter tag list
@@ -271,6 +275,42 @@ def dashboard_filter(querydict):
     else:
         return filters, []
     return filters, filtered_actions
+
+
+class Metaphone(Func):
+    function = 'METAPHONE'
+    arity = 2
+    output_field = CharField()
+
+
+class LevenshteinLessEqual(Func):
+    function = 'levenshtein_less_equal'
+    arity = 3
+    output_field = IntegerField()
+
+
+def filter_by_similar(queryset, column, search_text):
+    return queryset.annotate(
+        **{f'{column}_similar': or_(
+            # Checks for "sounds like" similarity:
+            GreaterThan(
+                TrigramSimilarity(
+                    Metaphone(column, 10),
+                    Metaphone(Value(search_text), 10),
+                ),
+                0.5,
+            ),
+            # Checks for "looks like" similarity:
+            LessThanOrEqual(
+                LevenshteinLessEqual(
+                    column,
+                    Value(search_text),
+                    Value(4),
+                ),
+                4,
+            )
+        )}
+    ).filter(**{f'{column}_similar': True})
 
 
 def _make_search_query(search_text):

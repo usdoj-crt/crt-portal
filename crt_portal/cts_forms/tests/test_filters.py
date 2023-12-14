@@ -8,7 +8,7 @@ from django.http import QueryDict
 from django.test import SimpleTestCase, TestCase, TransactionTestCase
 import pytz
 
-from ..filters import get_report_filter_from_search, report_filter, report_grouping
+from ..filters import get_report_filter_from_search, report_filter, report_grouping, filter_by_similar
 from api.filters import form_letters_filter, autoresponses_filter
 from ..models import Report, ProtectedClass, FormLettersSent, RetentionSchedule, SavedSearch
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
@@ -533,6 +533,29 @@ class FormLettersFilterTests(TestCase):
         request.update({"assigned_section": "CRM", "start_date": "2022-04-11", "end_date": "2022-04-14"})
         result = form_letters_filter(request)
         self.assertEqual(result["total_form_letters"], 2)
+
+
+class SimilarityFilterTests(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        Report.objects.create(**{**SAMPLE_REPORT_1,
+                                 'location_name': 'fake location'})
+        Report.objects.create(**{**SAMPLE_REPORT_2,
+                                 'location_name': 'flake loctaion'})
+        Report.objects.create(**{**SAMPLE_REPORT_3,
+                                 'location_name': 'fayk lokayshun'})
+        Report.objects.create(**{**SAMPLE_REPORT_4,
+                                 'location_name': 'no do not match this'})
+
+    def test_matches(self):
+        results = filter_by_similar(
+            Report.objects.all().order_by('location_name'),
+            'location_name',
+            'fake location'
+        )
+
+        self.assertEqual([result.location_name for result in results],
+                         ['fake location', 'fayk lokayshun', 'flake loctaion'])
 
 
 class AutoResponsesFilterTests(TestCase):
