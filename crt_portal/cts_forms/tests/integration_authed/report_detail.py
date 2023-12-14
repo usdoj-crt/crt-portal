@@ -1,13 +1,14 @@
 import pytest
 
 from cts_forms.tests.integration_authed.auth import login_as_superuser
-from cts_forms.tests.integration_util import console, features, admin_models, element
+from cts_forms.tests.integration_util import console, features, admin_models, element, reporting
 
 
 @pytest.mark.only_browser("chromium")
 @console.raise_errors(ignore='404')
 @features.login_as_superuser_with_feature('separate-referrals-workflow')
-def test_contact_complainant_modal(page):
+@reporting.capture_report('contact_complainant_modal.pdf')
+def test_contact_complainant_modal(page, *, report):
     page.goto("/form/view")
 
     assert page.is_visible("#filters-form")
@@ -24,7 +25,7 @@ def test_contact_complainant_modal(page):
 
     modal = page.locator('#intake_template')
 
-    page.screenshot(path="e2e-screenshots/contact_complainant_unselected.png", full_page=True)
+    report.screenshot(page, full_page=True, caption='Upon clicking "Contact Complaint from the Report Details page, users will be presented with this modal."')
     assert element.normalize_text(modal.locator('#id_templates_default option[checked]')) == '[Select response letter]'
     assert element.normalize_text(modal.locator('#intake_description')) == '[Select response letter]'
     assert modal.locator('#intake_letter').input_value() == ''
@@ -37,12 +38,12 @@ def test_contact_complainant_modal(page):
 
     for label in ['Send', 'Print letter', 'Copy letter']:
         assert modal.locator('button').filter(has_text=label).is_enabled()
-    page.screenshot(path="e2e-screenshots/contact_complainant_selected.png", full_page=True)
+    report.screenshot(page, full_page=True, caption='Users can select a language and a response letter from the dropdowns. The letter will be populated with the complainant\'s name, the date the report was submitted, etc. The content of these templates can be changed by application administrators.')
 
     with page.expect_navigation():
         modal.locator('button').filter(has_text='Send').click()
 
-    page.screenshot(path="e2e-screenshots/contact_complainant_sent.png", full_page=True)
+    report.screenshot(page, full_page=True, caption='Upon clicking "Send", the complainant will be sent an email with the letter at the content. A success message will be displayed at the top of the page if the send was successful. Note that, with the way email works, a send might be successful but the message may not be delivered (it may be caught by a spam filter, etc)')
     success = element.normalize_text(page.locator('.usa-alert--success'))
     try:
         assert success == "Email sent: 'CRT - No capacity' to testing@test.com via govDelivery TMS"
@@ -53,7 +54,8 @@ def test_contact_complainant_modal(page):
 @pytest.mark.only_browser("chromium")
 @console.raise_errors(ignore=['404', 'The user aborted a request.'])
 @features.login_as_superuser_with_feature('separate-referrals-workflow')
-def test_refer_complaint_modal_no_email(page):
+@reporting.capture_report('refer_complaint_modal_no_email.pdf')
+def test_refer_complaint_modal_no_email(page, *, report):
     admin_models.delete(
         page,
         '/admin/cts_forms/responsetemplate',
@@ -99,7 +101,7 @@ def test_refer_complaint_modal_no_email(page):
 
     modal = page.locator('#intake_referral_modal')
 
-    page.screenshot(path="e2e-screenshots/refer_1_no_email_unselected.png", full_page=True)
+    report.screenshot(page, full_page=True, caption='Upon clicking "Refer complaint" from the Report Details page, users will be presented with this modal. For this specific complaint, we can see that there is no email on file for the complainant. This will come into play at the last step, when we go to contact them.')
     assert modal.locator('.step.current[data-step="1"]').is_visible()
     assert modal.locator('.step[data-step="2"]').filter(has_text="Agency letter").is_visible()
     assert modal.locator('.step[data-step="3"]').filter(has_text="Review and send").is_visible()
@@ -114,7 +116,7 @@ def test_refer_complaint_modal_no_email(page):
     assert element.normalize_text(letter_step.locator('.letter-html')) == ''
 
     modal.locator('button').filter(has_text="Next").click()
-    page.screenshot(path="e2e-screenshots/refer_1_no_email_agency_required.png", full_page=True)
+    report.screenshot(page, full_page=True, caption='Users must select a language and an agency from the dropdowns. The letter will be populated with the complainant\'s name, the date the report was submitted, etc. The content of these templates can be changed by application administrators.')
     assert modal.get_by_text('Agency is required').is_visible()
     assert modal.locator('.step.current[data-step="1"]').is_visible()
 
@@ -134,7 +136,7 @@ def test_refer_complaint_modal_no_email(page):
     modal.locator('button').filter(has_text="Next").click()
     assert modal.locator('.step.current[data-step="2"]').is_visible()
 
-    page.screenshot(path="e2e-screenshots/refer_2_with_email_unselected.png", full_page=True)
+    report.screenshot(page, full_page=True, caption='Upon clicking "Next", users will be presented with the agency letter. This letter will be sent to the agency. Note that, because there is no email on file for the agency, the user will be prompted to print the letter and send it to the agency.')
 
     letter_step = modal.locator('.modal-step.agency-letter')
     assert letter_step.get_by_text('There is no email on file for this agency.').is_visible()
@@ -146,7 +148,7 @@ def test_refer_complaint_modal_no_email(page):
     assert modal.locator('.step.current[data-step="3"]').is_visible()
     letter_step = modal.locator('.modal-step.review-and-send')
 
-    page.screenshot(path="e2e-screenshots/refer_3_with_email.png", full_page=True)
+    report.screenshot(page, full_page=True, caption='Upon clicking "Next", users will be presented with the review and send page. This page will show the user the content of the letters, and prompt them to print the letters and send them to the complainant and agency. Because there is no email on file for either group, here, the letters will need to be printed.')
     letter_step.locator('p.no-email-error').filter(has_text='you must print this letter to send to the complainant').wait_for()
     letter_step.locator('p.no-email-error').filter(has_text='you must print this letter to send to the agency').wait_for()
     assert element.normalize_text(letter_step.locator('h2 .agency-name')) == 'Test Referral Contact No Email'
@@ -179,7 +181,8 @@ def test_refer_complaint_modal_no_email(page):
 @pytest.mark.only_browser("chromium")
 @console.raise_errors(ignore=['404', 'The user aborted a request.'])
 @features.login_as_superuser_with_feature('separate-referrals-workflow')
-def test_refer_complaint_modal_with_email(page):
+@reporting.capture_report('refer_complaint_modal_with_email.pdf')
+def test_refer_complaint_modal_with_email(page, *, report):
     admin_models.delete(
         page,
         '/admin/cts_forms/responsetemplate',
@@ -227,7 +230,7 @@ def test_refer_complaint_modal_with_email(page):
 
     modal = page.locator('#intake_referral_modal')
 
-    page.screenshot(path="e2e-screenshots/refer_1_with_email_unselected.png", full_page=True)
+    report.screenshot(page, full_page=True, caption='Upon clicking "Refer complaint" from the Report Details page, users will be presented with this modal. For this specific complaint, we can see that there is an email on file for the complainant. This will come into play at the last step, when we go to contact them.')
     assert modal.locator('.step.current[data-step="1"]').is_visible()
     assert modal.locator('.step[data-step="2"]').filter(has_text="Agency letter").is_visible()
     assert modal.locator('.step[data-step="3"]').filter(has_text="Review and send").is_visible()
@@ -241,7 +244,7 @@ def test_refer_complaint_modal_with_email(page):
     assert element.normalize_text(letter_step.locator('.letter-html')) == ''
 
     modal.locator('button').filter(has_text="Next").click()
-    page.screenshot(path="e2e-screenshots/refer_1_with_email_agency_required.png", full_page=True)
+    report.screenshot(page, full_page=True, caption='Users must select a language and an agency from the dropdowns. The letter will be populated with the complainant\'s name, the date the report was submitted, etc. The content of these templates can be changed by application administrators.')
     assert modal.get_by_text('Agency is required').is_visible()
     assert modal.locator('.step.current[data-step="1"]').is_visible()
 
@@ -263,7 +266,7 @@ def test_refer_complaint_modal_with_email(page):
     modal.locator('button').filter(has_text="Next").click()
     assert modal.locator('.step.current[data-step="2"]').is_visible()
 
-    page.screenshot(path="e2e-screenshots/refer_2_with_email_unselected.png", full_page=True)
+    report.screenshot(page, full_page=True, caption='Upon clicking "Next", users will be presented with the agency letter. This letter will be sent to the agency. Note that, because there is an email on file for the agency, the user will be prompted to send the letter to the agency via email.')
 
     letter_step = modal.locator('.modal-step.agency-letter')
 
@@ -280,7 +283,7 @@ def test_refer_complaint_modal_with_email(page):
     assert modal.locator('.step.current[data-step="3"]').is_visible()
     letter_step = modal.locator('.modal-step.review-and-send')
 
-    page.screenshot(path="e2e-screenshots/refer_3_with_email.png", full_page=True)
+    report.screenshot(page, full_page=True, caption='Upon clicking "Next", users will be presented with the review and send page. This page will show the user the content of the letters, and prompt them to send the letters to the complainant and agency. Because there is an email on file for the agency, here, the letters can be sent via email instead of printing.')
     assert element.normalize_text(letter_step.locator('h2 .agency-name')) == 'Test Referral Contact With Email'
     # Note: On circleci, this only includes 'print' because no email sending is
     # allowed:
@@ -300,22 +303,21 @@ def test_refer_complaint_modal_with_email(page):
 
 @pytest.mark.only_browser("chromium")
 @console.raise_errors()
-def test_click_back_to_all(page):
-    """Opens report detail page and goes back to reports page"""
-
+@reporting.capture_report('click_back_to_all.pdf')
+def test_click_back_to_all(page, *, report):
     login_as_superuser(page)
 
     page.goto("/form/view")
 
     page.locator('#id_status_0').check()
 
-    page.screenshot(path="e2e-screenshots/report_detail_test_1.png", full_page=True)
+    report.screenshot(page, full_page=True, caption='This test verfiies that users can click the "Back to all" button from the Report Details page to return to the list of reports with the correct filter.')
     with page.expect_navigation():
         page.locator('#apply-filters-button').click()
 
     total_results = page.evaluate("document.querySelector('.intake-pagination').innerText.split(' ')[5]")
     first_result = page.evaluate("document.querySelector('.stripe > td > .td-checkbox > input').value")
-    page.screenshot(path="e2e-screenshots/report_detail_test_2.png", full_page=True)
+    report.screenshot(page, full_page=True, caption=f"Here we've filtered the list of reports to have a non-default set of filters. We can see that there are {total_results} results, and the first result is {first_result}.")
     with page.expect_navigation():
         page.evaluate("document.querySelector('.td-link').click()")
 
@@ -325,26 +327,27 @@ def test_click_back_to_all(page):
     assert pagination == '1 of ' + total_results + ' records'
 
     assert page.is_visible("#contact-info")
-    page.screenshot(path="e2e-screenshots/report_detail_test_3.png", full_page=True)
+    report.screenshot(page, full_page=True, caption='We can see that the Report Details page has the correct report ID, and that the pagination at the top of the page matches the pagination on the list of reports page.')
     with page.expect_navigation():
         page.locator('.pagination .next').click()
 
     pagination = element.normalize_text(page.locator('.usa-pagination > span'))
     assert pagination == '2 of ' + total_results + ' records'
-    page.screenshot(path="e2e-screenshots/report_detail_test_4.png", full_page=True)
+    report.screenshot(page, full_page=True, caption='Clicking "Next" on the pagination will take the user to the next complaint.')
     with page.expect_navigation():
         page.locator('.pagination .next').click()
 
     pagination = element.normalize_text(page.locator('.usa-pagination > span'))
     assert pagination == '3 of ' + total_results + ' records'
-    page.screenshot(path="e2e-screenshots/report_detail_test_5.png", full_page=True)
+    report.screenshot(page, full_page=True, caption='For good measure, clicking "Next" on the pagination will take the user to the third complaint.')
     with page.expect_navigation():
         page.locator('.prev').click()
 
     pagination = element.normalize_text(page.locator('.usa-pagination > span'))
     assert pagination == '2 of ' + total_results + ' records'
-    page.screenshot(path="e2e-screenshots/report_detail_test_6.png", full_page=True)
+    report.screenshot(page, full_page=True, caption='Clicking "Previous" on the pagination will take the user back to the second complaint.')
     with page.expect_navigation():
         page.locator('.outline-button--dark').click()
-    page.screenshot(path="e2e-screenshots/report_detail_test_7.png", full_page=True)
+
+    report.screenshot(page, full_page=True, caption='Clicking "Back to all" will take the user back to the list of reports with the correct filter.')
     assert page.is_visible("#contact-email-filter")
