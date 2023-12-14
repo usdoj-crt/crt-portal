@@ -1,0 +1,11 @@
+{% extends "forms/complaint_view/index/filter.html" %}
+
+{% block controls %}tags{% endblock %}
+{% block label %}Tags{% endblock %}
+{% block id %}tags{% endblock %}
+{% block content %}
+  <label for="id_tags">
+    <span class="usa-sr-only">tags</span>
+  </label>
+  {{ form.tags }}
+{% endblock %}

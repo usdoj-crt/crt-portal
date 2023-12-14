@@ -372,21 +372,8 @@
   root.CRT.onFilterTagClick = function(node) {
     var filterName = node.getAttribute('data-filter-name');
 
-    // see if we have to process multiple select elements first
-    var multiSelectElements = [
-      'status',
-      'location_state',
-      'violation_summary',
-      'primary_complaint',
-      'intake_format',
-      'commercial_or_public_place',
-      'reported_reason',
-      'language',
-      'correctional_facility_type',
-      'retention_schedule'
-    ];
-    var filterIndex = multiSelectElements.indexOf(filterName);
-    if (filterIndex !== -1) {
+    const isMultiSelect = root.CRT.filterDataModel[filterName] instanceof Array;
+    if (isMultiSelect) {
       var selections = root.CRT.filterDataModel[filterName];
       var selectionData = node.getAttribute('data-filter-value');
       selections.splice(selections.indexOf(selectionData), 1);
