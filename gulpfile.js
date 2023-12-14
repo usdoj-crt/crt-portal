@@ -14,7 +14,7 @@ USWDS SASS GULPFILE
 /**
  * See package.json for reference commit SHA from
  * https://github.com/uswds/uswds-gulp
- * 
+ *
  * Primary differences on our side:
  * - We also use this to minify our own JavaScript
  * - We did not port over the SVG sprite maker
@@ -32,6 +32,7 @@ const uglify = require("gulp-uglify");
 const sass = require("gulp-sass")(require("sass"));
 const sourcemaps = require("gulp-sourcemaps");
 const uswds = "./node_modules/@uswds/uswds";
+const shepherd = "./node_modules/shepherd.js";
 
 /*
 ----------------------------------------
@@ -56,6 +57,8 @@ const FONTS_DEST = "./crt_portal/static/fonts";
 // Javascript destination
 const JS_DEST = "./crt_portal/static/js";
 const JS_FILES = [`${JS_DEST}/*.js`, `!${JS_DEST}/*.min.js`];
+const JS_VENDOR_FILES = [`${shepherd}/dist/js/**/**.min.js`, `${uswds}/dist/js/**/**.min.js`];
+const JS_VENDOR_DEST = "./crt_portal/static/vendor";
 
 // Compiled CSS destination
 const CSS_DEST = "./crt_portal/static/css/compiled";
@@ -85,8 +88,9 @@ gulp.task("copy-uswds-images", () => {
   return gulp.src(`${uswds}/dist/img/**/**`).pipe(gulp.dest(`${IMG_DEST}`));
 });
 
-gulp.task("copy-uswds-js", () => {
-  return gulp.src(`${uswds}/dist/js/**/**`).pipe(gulp.dest(`${JS_DEST}`));
+gulp.task('copy-vendor-js', () => {
+  return gulp.src(JS_VENDOR_FILES)
+    .pipe(gulp.dest(`${JS_VENDOR_DEST}`))
 });
 
 gulp.task('build-js', function () {
@@ -140,7 +144,7 @@ gulp.task(
     "copy-uswds-setup",
     "copy-uswds-fonts",
     "copy-uswds-images",
-    "copy-uswds-js",
+    "copy-vendor-js",
     "build-js",
     "build-sass"
   )
@@ -151,10 +155,10 @@ gulp.task("watch-sass", function () {
 });
 
 gulp.task("watch-js", function () {
-  gulp.watch(JS_FILES, gulp.series("build-js", "watch-js"));
+  gulp.watch(JS_FILES, gulp.series("build-js", "copy-vendor-js", "watch-js"));
 });
 
-gulp.task("build", gulp.parallel("build-sass", "build-js"));
+gulp.task("build", gulp.parallel("build-sass", "build-js", "copy-vendor-js"));
 
 gulp.task("watch", gulp.parallel("watch-sass", "watch-js"));
 

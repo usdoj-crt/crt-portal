@@ -6,6 +6,7 @@
   "scripts": {
     "sass:watch": "gulp watch-sass",
     "gulp:watch": "gulp watch",
+    "gulp:build": "gulp build",
     "lint:check": "prettier --check \"crt_portal/static/js/*.js\"",
     "lint:write": "prettier --write \"crt_portal/static/js/*.js\"",
     "test:all-spanish": "pa11y-ci --config pa11y_scripts/.all-spanish.json",
