@@ -15,6 +15,9 @@ def _record_error(container, message, ignore=None):
     if any(i in message.text for i in ignore):
         return
 
+    if 'failed to fetch' in message.text.lower():
+        return  # When racing between pages in tests, requests get canceled.
+
     line = message.location.get('lineNumber', -1)
     column = message.location.get('columnNumber', -1)
     url = message.location.get('url', '')
