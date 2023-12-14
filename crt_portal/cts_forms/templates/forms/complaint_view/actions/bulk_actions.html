@@ -1,6 +1,7 @@
 {% extends "forms/complaint_view/show/card.html" %}
 
 {% load i18n %}
+{% load application_contact %}
 
 {% block title %}Update multiple records{% endblock %}
 
@@ -40,7 +41,7 @@
           {% endif %}
         </ul>
         <p>
-          If you need to edit these fields, please return to the <a href="{% url 'crt_forms:crt-forms-index' %}{{ return_url_args }}">Back to All Table</a>. If you have additional questions, please contact <a href="mailto:randy.abramson@usdoj.gov">randy.abramson@usdoj.gov</a> or <a href="mailto:bill.laughman@usdoj.gov">bill.laughman@usdoj.gov</a>
+          If you need to edit these fields, please return to the <a href="{% url 'crt_forms:crt-forms-index' %}{{ return_url_args }}">Back to All Table</a>. If you have additional questions, please contact {% application_contact_markup %}
         </p>
         <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
           <label for="id_status" class="intake-label">

@@ -10,6 +10,12 @@
     });
   }
 
+  function checkAndChange(checkbox, shouldBeChecked) {
+    checkbox.checked = shouldBeChecked;
+    checkbox.dispatchEvent(new Event('click'));
+    checkbox.dispatchEvent(new Event('change'));
+  }
+
   function listenForSelect(wrapper) {
     const select = wrapper.querySelector('.usa-combo-box.assign-tag select');
     const checkboxes = wrapper.querySelectorAll('.usa-selected-tags input[type="checkbox"]');
@@ -18,7 +24,7 @@
       if (!event.target.value) return;
       const tagId = event.target.value;
       select.value = '';
-      selectedTags.querySelector(`input[value="${tagId}"]`).checked = true;
+      checkAndChange(selectedTags.querySelector(`input[value="${tagId}"]`), true);
       updateComboOptions(select, checkboxes);
       setTimeout(() => {
         wrapper.querySelector('.usa-combo-box__clear-input').click();
@@ -40,14 +46,13 @@
 
   function styleExpandedDropdown(comboBoxItem) {
     if (!comboBoxItem.classList.contains('usa-combo-box__list-option')) return;
-    const sectionTag = comboBoxItem.innerText.split(' ');
-    if (sectionTag.length !== 2) return;
-    const [section, tag] = sectionTag;
-    comboBoxItem.innerHTML = `
-      <span class="usa-tag usa-tag--big">
-        <span class="section">${section}</span> <span class="name">${tag}</span>
-      </span>
-    `;
+
+    const tagId = comboBoxItem.dataset.value;
+    const checkbox = comboBoxItem
+      .closest('.usa-tags-container')
+      .querySelector(`.usa-selected-tags input[value="${tagId}"]`);
+
+    comboBoxItem.innerHTML = checkbox.dataset.label;
   }
 
   function listenForDeselect(wrapper) {
@@ -57,10 +62,10 @@
       const label = checkbox.nextElementSibling;
       label.addEventListener('keypress', function(event) {
         if (!['Enter', ' '].includes(event.key)) return;
-        checkbox.click();
+        checkAndChange(checkbox, false);
       });
       checkbox.addEventListener('change', event => {
-        if (!wrapper.closest('.details-form-edit')) {
+        if (wrapper.closest('.details-form-view')) {
           // Edit mode is off.
           checkbox.checked = true;
           event.preventDefault();

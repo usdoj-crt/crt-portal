@@ -3,6 +3,7 @@ import traceback
 import zipfile
 
 from .models import AnalyticsFile, DashboardGroup, FileGroupAssignment
+from utils.admin import CrtModelAdmin
 
 from django.contrib import admin
 from django.http import HttpResponse, HttpResponseRedirect
@@ -27,7 +28,7 @@ def export_notebooks_as_zip(modeladmin, request, queryset):
     return response
 
 
-class NotebookAdmin(admin.ModelAdmin):
+class NotebookAdmin(CrtModelAdmin):
     class Media:
         css = {
             'all': ('css/compiled/admin.css',)
@@ -78,11 +79,11 @@ class Notebook(AnalyticsFile):
         proxy = True
 
 
-class DashboardGroupAdmin(admin.ModelAdmin):
+class DashboardGroupAdmin(CrtModelAdmin):
     list_display = ('header', 'order')
 
 
-class FileGroupAssignmentAdmin(admin.ModelAdmin):
+class FileGroupAssignmentAdmin(CrtModelAdmin):
     pass
 
     list_display = ('display_group', 'display_files')

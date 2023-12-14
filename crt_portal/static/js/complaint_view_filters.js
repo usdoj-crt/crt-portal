@@ -22,6 +22,7 @@
     assigned_to: '',
     origination_utm_campaign: '',
     dj_number: '',
+    tags: [],
     public_id: '',
     primary_statute: '',
     district: '',
@@ -46,39 +47,42 @@
 
   function filterController() {
     root.CRT.formEl = dom.getElementById('filters-form');
-    var firstNameEl = root.CRT.formEl.querySelector('input[name="contact_first_name"]');
-    var lastNameEl = root.CRT.formEl.querySelector('input[name="contact_last_name"]');
-    var locationCityEl = root.CRT.formEl.querySelector('input[name="location_city_town"]');
-    var locationNameEl = root.CRT.formEl.querySelector('input[name="location_name"]');
-    var locationStateEl = dom.getElementsByName('location_state');
-    var activeFiltersEl = dom.querySelector('[data-active-filters]');
-    var clearAllEl = dom.querySelector('[data-clear-filters]');
-    var statusEl = dom.getElementsByName('status');
-    var summaryEl = root.CRT.formEl.querySelector('input[name="summary"]');
-    var createdatestartEl = root.CRT.formEl.querySelector('input[name="create_date_start"]');
-    var createdateendEl = root.CRT.formEl.querySelector('input[name="create_date_end"]');
-    var assigneeEl = root.CRT.formEl.querySelector('#id_assigned_to');
-    var campaignEl = root.CRT.formEl.querySelector('#id_origination_utm_campaign');
-    var djNumberEl = root.CRT.formEl.querySelectorAll('.crt-dj-number input');
-    var complaintIDEl = root.CRT.formEl.querySelector('input[name="public_id"]');
-    var statuteEl = root.CRT.formEl.querySelector('select[name="primary_statute"]');
-    var districtEl = root.CRT.formEl.querySelector('select[name="district"]');
-    var perPageEl = dom.getElementsByName('per_page');
-    var groupingEl = dom.querySelector('select[name="grouping"]');
-    var personalDescriptionEl = root.CRT.formEl.querySelector('textarea[name="violation_summary"]');
-    var primaryIssueEl = dom.getElementsByName('primary_complaint');
-    var reportedReasonEl = dom.getElementsByName('reported_reason');
-    var relevantDetailsEl = dom.getElementsByName('commercial_or_public_place');
-    var intakeFormatEl = dom.getElementsByName('intake_format');
-    var hateCrimeEl = dom.getElementsByName('hate_crime');
-    var servicememberEl = dom.getElementsByName('servicemember');
-    var contactEmailEl = dom.querySelector('input[name="contact_email"]');
-    var referredEl = dom.getElementsByName('referred');
-    var languageEl = dom.getElementsByName('language');
-    var contactPhoneEL = dom.getElementsByName('contact_phone')[0];
-    var correctionalFacilityTypeEl = dom.getElementsByName('correctional_facility_type');
-    var litigationHoldEl = dom.getElementsByName('litigation_hold');
-    var retentionScheduleEl = dom.getElementsByName('retention_schedule');
+    const firstNameEl = root.CRT.formEl.querySelector('input[name="contact_first_name"]');
+    const lastNameEl = root.CRT.formEl.querySelector('input[name="contact_last_name"]');
+    const locationCityEl = root.CRT.formEl.querySelector('input[name="location_city_town"]');
+    const locationNameEl = root.CRT.formEl.querySelector('input[name="location_name"]');
+    const locationStateEl = dom.getElementsByName('location_state');
+    const activeFiltersEl = dom.querySelector('[data-active-filters]');
+    const clearAllEl = dom.querySelector('[data-clear-filters]');
+    const statusEl = dom.getElementsByName('status');
+    const summaryEl = root.CRT.formEl.querySelector('input[name="summary"]');
+    const createdatestartEl = root.CRT.formEl.querySelector('input[name="create_date_start"]');
+    const createdateendEl = root.CRT.formEl.querySelector('input[name="create_date_end"]');
+    const assigneeEl = root.CRT.formEl.querySelector('#id_assigned_to');
+    const campaignEl = root.CRT.formEl.querySelector('#id_origination_utm_campaign');
+    const djNumberEl = root.CRT.formEl.querySelectorAll('.crt-dj-number input');
+    const complaintIDEl = root.CRT.formEl.querySelector('input[name="public_id"]');
+    const statuteEl = root.CRT.formEl.querySelector('select[name="primary_statute"]');
+    const districtEl = root.CRT.formEl.querySelector('select[name="district"]');
+    const perPageEl = dom.getElementsByName('per_page');
+    const groupingEl = dom.querySelector('select[name="grouping"]');
+    const personalDescriptionEl = root.CRT.formEl.querySelector(
+      'textarea[name="violation_summary"]'
+    );
+    const primaryIssueEl = dom.getElementsByName('primary_complaint');
+    const tagsEl = dom.getElementsByName('tags');
+    const reportedReasonEl = dom.getElementsByName('reported_reason');
+    const relevantDetailsEl = dom.getElementsByName('commercial_or_public_place');
+    const intakeFormatEl = dom.getElementsByName('intake_format');
+    const hateCrimeEl = dom.getElementsByName('hate_crime');
+    const servicememberEl = dom.getElementsByName('servicemember');
+    const contactEmailEl = dom.querySelector('input[name="contact_email"]');
+    const referredEl = dom.getElementsByName('referred');
+    const languageEl = dom.getElementsByName('language');
+    const contactPhoneEL = dom.getElementsByName('contact_phone')[0];
+    const correctionalFacilityTypeEl = dom.getElementsByName('correctional_facility_type');
+    const litigationHoldEl = dom.getElementsByName('litigation_hold');
+    const retentionScheduleEl = dom.getElementsByName('retention_schedule');
 
     root.CRT.formView({
       el: root.CRT.formEl
@@ -168,6 +172,10 @@
       name: 'primary_complaint'
     });
     root.CRT.checkBoxView({
+      el: tagsEl,
+      name: 'tags'
+    });
+    root.CRT.checkBoxView({
       el: reportedReasonEl,
       name: 'reported_reason'
     });
@@ -222,7 +230,7 @@
     if (root.location.search === '') {
       root.location.search = '?status=new&status=open&no_status=false&grouping=default';
     }
-    var filterUpdates = root.CRT.getQueryParams(
+    const filterUpdates = root.CRT.getQueryParams(
       root.location.search,
       Object.keys(root.CRT.initialFilterState)
     );

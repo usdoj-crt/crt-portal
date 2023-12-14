@@ -27,7 +27,7 @@ function check_flake8() {
     echo
   fi
 
-  docker --log-level ERROR compose run --interactive --no-TTY web flake8
+  docker --log-level ERROR compose run --rm --interactive --no-TTY web flake8
   return $?
 }
 
@@ -39,7 +39,7 @@ function check_prettier() {
 
 function check_missing_migrations() {
   echo 'Running pre-commit to check for unprocessed migrations (run again with --no-verify to skip)...'
-  docker --log-level ERROR compose run --interactive --no-TTY web \
+  docker --log-level ERROR compose run --rm --interactive --no-TTY web \
     /code/crt_portal/manage.py makemigrations --check --dry-run
   return $?
 }

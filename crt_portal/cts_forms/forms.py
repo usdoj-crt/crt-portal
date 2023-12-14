@@ -104,6 +104,31 @@ def get_dj_widget():
     })
 
 
+class TagsField(ModelMultipleChoiceField):
+    def __init__(self, *args, **kwargs):
+        queryset = Tag.objects.filter(show_in_lists=True).order_by('section', 'name')
+        super().__init__(queryset=queryset,
+                         widget=get_tags_widget(),
+                         required=False,
+                         *args, **kwargs)
+
+    def label_from_instance(self, obj: Tag):
+        chip = f"<span class='section'>{obj.section or 'ALL'}</span> <span class='name'>{obj.name}</span>"
+
+        tag = f"<span class='usa-tag usa-tag--big'>{chip}</span>"
+
+        if obj.tooltip:
+            return f"<span class='usa-tooltip' data-position='right' data-classes='display-inline' title='{obj.tooltip}'>{tag}</span>"
+
+        return tag
+
+
+def get_tags_widget():
+    if not Feature.is_feature_enabled('tags'):
+        return MultipleHiddenInput()
+    return UsaTagSelectMultiple()
+
+
 def get_retention_schedule_widget():
     if not Feature.is_feature_enabled('disposition'):
         return HiddenInput()
@@ -1214,6 +1239,8 @@ class Filters(ModelForm):
             })
         )
 
+        self.fields['tags'] = TagsField()
+
         campaigns = {
             campaign.uuid: campaign
             for campaign in
@@ -1468,6 +1495,7 @@ class Filters(ModelForm):
             'language',
             'correctional_facility_type',
             'dj_number',
+            'tags',
             'litigation_hold',
             'retention_schedule',
         ]
@@ -2310,24 +2338,6 @@ class ContactEditForm(LitigationHoldLock, ModelForm, ActivityStreamUpdater):
 
     def success_message(self):
         return self.SUCCESS_MESSAGE
-
-
-class TagsField(ModelMultipleChoiceField):
-    def __init__(self, *args, **kwargs):
-        queryset = Tag.objects.filter(show_in_lists=True).order_by('section', 'name')
-        super().__init__(queryset=queryset,
-                         widget=get_tags_widget(),
-                         required=False,
-                         *args, **kwargs)
-
-    def label_from_instance(self, obj: Tag):
-        return f"<span class='section'>{obj.section or 'ALL'}</span> <span class='name'>{obj.name}</span>"
-
-
-def get_tags_widget():
-    if not Feature.is_feature_enabled('tags'):
-        return MultipleHiddenInput()
-    return UsaTagSelectMultiple()
 
 
 class ReportEditForm(LitigationHoldLock, ProForm, ActivityStreamUpdater):
