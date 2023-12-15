@@ -267,7 +267,7 @@ def dashboard_filter(querydict):
         filtered_actions = actor_stream(selected_actor).filter(**kwargs)
         response_actions = filtered_actions.filter(verb='Contacted complainant:')
     else:
-        return filters, []
+        return filters, [], []
     return filters, filtered_actions, response_actions
 
 
