@@ -171,7 +171,7 @@ def reconstruct_activity_query(next_qp):
     """
     querydict = QueryDict(next_qp)
 
-    _, selected_actions = dashboard_filter(querydict)
+    _, selected_actions, _ = dashboard_filter(querydict)
     sort_expr, _ = activity_sort(querydict.getlist('sort'))
     if not selected_actions:
         return selected_actions
@@ -454,7 +454,7 @@ def fetch_selected_foreign_key(request, field_name, query):
 
 
 def process_intake_filters(request):
-    query_filters, selected_actions = dashboard_filter(request.GET)
+    query_filters, selected_actions, response_actions = dashboard_filter(request.GET)
 
     reports = {action.target_object_id for action in selected_actions}
     start_date = _format_date(request.GET.get("create_date_start", ""))
@@ -471,6 +471,7 @@ def process_intake_filters(request):
         'date_range_start': start_date,
         'date_range_end': end_date,
         'activity_count': len(reports),
+        'response_count': len(response_actions),
         'filters': query_filters,
     }
 
@@ -489,7 +490,7 @@ def get_action_data(requested_actions, report_url_args, paginated_offset):
 
 
 def process_activity_filters(request):
-    query_filters, selected_actions = dashboard_filter(request.GET)
+    query_filters, selected_actions, _ = dashboard_filter(request.GET)
     per_page = request.GET.get('per_page', 15)
     page = request.GET.get('page', 1)
     sort_expr, sorts = activity_sort(request.GET.getlist('sort'))
