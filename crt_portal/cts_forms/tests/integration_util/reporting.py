@@ -3,6 +3,24 @@ import tempfile
 import pathlib
 
 
+def capture_report(path_to_pdf):
+    """Decorator that captures screenshots and aggregates them into a PDF.
+
+    Example:
+        @capture_report('example.pdf')
+        def test_example(page, *, report):
+            report.screenshot(page, caption='Example screenshot')
+    """
+    def wrapper(func):
+        def decorator(page, *args, **kwargs):
+            report = PdfReport(path_to_pdf)
+            result = func(page, *args, report=report, **kwargs)
+            report.save()
+            return result
+        return decorator
+    return wrapper
+
+
 class PdfReport:
     """Captures multiple screenshots over time and aggregates them into a PDF."""
 
@@ -10,9 +28,20 @@ class PdfReport:
         self.path_to_pdf = f'e2e-screenshots/{path_to_pdf}'
         self.screenshots = []
 
-    def screenshot(self, page, caption=''):
+    def screenshot(self, page, caption='', **kwargs):
+        if page.evaluate('() => document.body.classList.contains("is-modal")'):
+            target = next(
+                modal
+                for modal
+                in page.locator('.modal-wrapper').all()
+                if modal.is_visible()
+            )
+            kwargs.pop('full_page', None)
+        else:
+            target = page
+
         self.screenshots.append({
-            'file': page.screenshot(),
+            'file': target.screenshot(**kwargs),
             'caption': caption,
         })
 
@@ -27,6 +56,8 @@ class PdfReport:
     def _screenshot_to_html(self, screenshot):
         path = screenshot['path']
         caption = screenshot['caption']
+        if not caption.strip().startswith('<'):
+            caption = f'<p>{caption}</p>'
         return f'''
             <div class="page">
                 <img src="file://{path}" />
@@ -63,6 +94,8 @@ class PdfReport:
                 img {
                     margin-bottom: 1em;
                     border: 1px solid black;
+                    max-height: 9in;
+                    object-fit: contain;
                 }
             '''
         )
