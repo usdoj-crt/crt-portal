@@ -77,7 +77,7 @@ filter_options = {
 
     'violation_summary': 'violation_summary',  # aka "Personal description"
     'summary': 'summary',  # aka "CRT summary"
-    'location_name': '__icontains',
+    'location_name': 'location_name',
     'other_class': '__search',  # not in filter controls?
     'disposition_status': 'disposition_status',
     # this is not a db query filter, not needed here, duplicate tag fix, removed from the filter tag list
