@@ -18,6 +18,7 @@ crt_portal/static/css/compiled/*
 crt_portal/static/css/styles.css
 crt_portal/static/css/styles.css.map
 crt_portal/static/js/*.min.js*
+crt_portal/static/vendor/*min.js*
 data/section_assignment.csv
 .vscode
 .coverage
