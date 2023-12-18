@@ -2,6 +2,7 @@
 title: CRT - Dept of the Interior Referral Form Letter
 subject: "Response: Your Civil Rights Division Report - {{ record_locator }} from the {{ section_name }} Section"
 language: en
+is_html: true
 referral_contact: doi
 ---
 Re:		Civil Rights Division Complaint – {{ record_locator }} from the {{ section_name }} Section
@@ -10,11 +11,11 @@ Thank you for contacting the Department of Justice on {{ date_of_intake }}.  We 
 
 {{ referral_text }}
 
-What you can do:
+### What you can do:
 
 The above agency will review your complaint.  While we will take no further action on this matter, you can contact the agency above to check the status of your complaint.
 
-###How you have helped:
+### How you have helped:
 
 Although we are unable to act on your complaint, your report can help us find issues affecting multiple people or communities. It also helps us understand emerging trends and topics.
 
