@@ -2105,6 +2105,15 @@ class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
         if not self.fields['dj_number'].initial:
             self.fields['dj_number'].initial = '--'
 
+    def clean(self, *args, **kwargs):
+        cleaned_data = super().clean(*args, **kwargs)
+        is_closing = cleaned_data.get('status') == 'closed'
+        all_viewed = not self.queryset.filter(viewed=False).exists()
+        if is_closing and not all_viewed:
+            raise ValidationError('Not all reports in the queryset have been viewed. Each report must be viewed before it can be closed.')
+
+        return cleaned_data
+
     def can_assign_schedule(self):
         if not self.user:
             return False
