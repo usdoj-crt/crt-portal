@@ -456,7 +456,7 @@ def fetch_selected_foreign_key(request, field_name, query):
 def process_intake_filters(request):
     query_filters, selected_actions, response_actions = dashboard_filter(request.GET)
 
-    reports = {action.target_object_id for action in selected_actions}
+    reports = selected_actions.values('target_object_id').distinct()
     start_date = _format_date(request.GET.get("create_date_start", ""))
     end_date = _format_date(request.GET.get("create_date_end", ""))
 
@@ -470,8 +470,8 @@ def process_intake_filters(request):
         'selected_actor_id': selected_actor_id,
         'date_range_start': start_date,
         'date_range_end': end_date,
-        'activity_count': len(reports),
-        'response_count': len(response_actions),
+        'activity_count': reports.count(),
+        'response_count': response_actions.count(),
         'filters': query_filters,
     }
 

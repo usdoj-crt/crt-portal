@@ -16,7 +16,7 @@ from utils.request_utils import get_user_section
 
 from .models import Report, User
 from actstream import registry
-from actstream.models import actor_stream
+from actstream.models import actor_stream, Action
 
 foreign_key_displays = {
     'assigned_to': 'username',
@@ -267,7 +267,7 @@ def dashboard_filter(querydict):
         filtered_actions = actor_stream(selected_actor).filter(**kwargs)
         response_actions = filtered_actions.filter(verb='Contacted complainant:')
     else:
-        return filters, [], []
+        return filters, Action.objects.none(), Action.objects.none()
     return filters, filtered_actions, response_actions
 
 
