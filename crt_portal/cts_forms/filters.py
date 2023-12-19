@@ -21,7 +21,7 @@ from utils.request_utils import get_user_section
 
 from .models import Report, User
 from actstream import registry
-from actstream.models import actor_stream
+from actstream.models import actor_stream, Action
 
 Feature = apps.get_model('features', 'Feature')
 
@@ -286,9 +286,10 @@ def dashboard_filter(querydict):
     selected_actor = User.objects.filter(username=selected_actor_username).first()
     if selected_actor:
         filtered_actions = actor_stream(selected_actor).filter(**kwargs)
+        response_actions = filtered_actions.filter(verb='Contacted complainant:')
     else:
-        return filters, []
-    return filters, filtered_actions
+        return filters, Action.objects.none(), Action.objects.none()
+    return filters, filtered_actions, response_actions
 
 
 class Metaphone(Func):
