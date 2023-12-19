@@ -5,6 +5,7 @@ import urllib.parse
 from datetime import datetime, timedelta
 from operator import or_
 
+from django.apps import apps
 from django.core.validators import ValidationError
 
 from django.db.models import ExpressionWrapper, Count, IntegerField, Min, F, Value, CharField, DateField, Func
@@ -21,6 +22,8 @@ from utils.request_utils import get_user_section
 from .models import Report, User
 from actstream import registry
 from actstream.models import actor_stream
+
+Feature = apps.get_model('features', 'Feature')
 
 foreign_key_displays = {
     'assigned_to': ('username', str),
@@ -74,7 +77,7 @@ filter_options = {
 
     'violation_summary': 'violation_summary',  # aka "Personal description"
     'summary': 'summary',  # aka "CRT summary"
-    'location_name': '__icontains',
+    'location_name': 'location_name',
     'other_class': '__search',  # not in filter controls?
     'disposition_status': 'disposition_status',
     # this is not a db query filter, not needed here, duplicate tag fix, removed from the filter tag list
@@ -135,6 +138,7 @@ def get_report_filter_from_search(search):
 def report_filter(querydict):
     kwargs = {}
     filters = {}
+    similarity = {}
     qs = Report.objects.filter()
     for field in filter_options.keys():
         filter_list = querydict.getlist(field)
@@ -191,6 +195,14 @@ def report_filter(querydict):
             kwargs[field] = querydict.getlist(field)[0]
         elif field_options == '__gte':
             kwargs[field] = querydict.getlist(field)
+        elif field_options == 'location_name':
+            location_query = querydict.getlist(field)[0]
+            fuzzy_enabled = Feature.is_feature_enabled('fuzzy-location-name')
+            if fuzzy_enabled and location_query.startswith('~'):
+                similarity['location_name'] = location_query[1:]
+            else:
+                kwargs['location_name__icontains'] = location_query
+
         elif field_options == 'violation_summary':
             search_query = querydict.getlist(field)[0]
             if search_query.startswith('^#') and search_query.endswith('$'):
@@ -238,6 +250,8 @@ def report_filter(querydict):
         qs = qs.filter(**kwargs).distinct()
     else:
         qs = qs.filter(**kwargs)
+    for field_name, query in similarity.items():
+        qs = filter_by_similar(qs, field_name, query)
     return qs, filters
 
 

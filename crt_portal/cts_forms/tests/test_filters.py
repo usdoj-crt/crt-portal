@@ -1,6 +1,7 @@
 from datetime import datetime
 from cts_forms.forms import add_activity
 from cts_forms.filters import _get_date_field_from_param
+from django.apps import apps
 from django.contrib.auth.models import User
 from actstream import registry
 from actstream.models import actor_stream
@@ -536,6 +537,11 @@ class FormLettersFilterTests(TestCase):
 
 
 class SimilarityFilterTests(TestCase):
+    def setUp(self):
+        self.Feature = apps.get_model('features', 'Feature')
+        self.Feature.objects.update_or_create(name='fuzzy-location-name',
+                                              defaults={'enabled': True})
+
     @classmethod
     def setUpTestData(cls):
         Report.objects.create(**{**SAMPLE_REPORT_1,
@@ -548,18 +554,40 @@ class SimilarityFilterTests(TestCase):
                                  'location_name': 'no do not match this'})
 
     def test_matches(self):
-        results = filter_by_similar(
+        reports = filter_by_similar(
             Report.objects.all().order_by('location_name'),
             'location_name',
             'fake location'
         )
 
-        self.assertEqual([result.location_name for result in results],
+        self.assertEqual([result.location_name for result in reports],
                          ['fake location', 'fayk lokayshun', 'flake loctaion'])
+
+    def test_matches_via_querydict(self):
+        reports, _ = report_filter(QueryDict('location_name=~fake%20location'))
+        reports = reports.order_by('location_name')
+
+        self.assertEqual([result.location_name for result in reports],
+                         ['fake location', 'fayk lokayshun', 'flake loctaion'])
+
+    def test_exact_match_when_feature_disabled(self):
+        self.Feature.objects.update_or_create(name='fuzzy-location-name',
+                                              defaults={'enabled': False})
+        reports, _ = report_filter(QueryDict('location_name=~fake%20location'))
+        reports = reports.order_by('location_name')
+
+        self.assertEqual([result.location_name for result in reports],
+                         [])
+
+    def test_exact_match_still_works(self):
+        reports, _ = report_filter(QueryDict('location_name=fake%20location'))
+
+        self.assertEqual([result.location_name for result in reports],
+                         ['fake location'])
 
 
 class AutoResponsesFilterTests(TestCase):
-    @classmethod
+    @ classmethod
     def setUpTestData(cls):
         report_1 = Report.objects.create(**SAMPLE_REPORT_1)
         report_1.create_date = datetime(2022, 4, 12, 18, 17, 52, 0, tzinfo=pytz.utc)
