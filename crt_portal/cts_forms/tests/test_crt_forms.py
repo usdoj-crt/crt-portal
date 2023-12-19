@@ -179,6 +179,7 @@ class ActionTests(TestCase):
             'assigned_section': SAMPLE_REPORT_1['assigned_section'],
             'status': NEW_STATUS,
             'retention_schedule': self.schedule3.pk,
+            'litigation_hold': '',
             'comment': 'Test bulk change',
         }, user=unprivileged_user)
         form.full_clean()
@@ -296,6 +297,55 @@ class ActionTests(TestCase):
             form.errors.get('__all__', ['Error not present'])[0],
             'No changes can be made to reports a, b while they are under litigation hold'
         )
+
+    def test_litigation_hold_allows_bulk_disabling(self):
+        a = Report.objects.create(**SAMPLE_REPORT_1, public_id='a', litigation_hold=True)
+        b = Report.objects.create(**SAMPLE_REPORT_1, public_id='b', litigation_hold=True)
+        c = Report.objects.create(**SAMPLE_REPORT_1, public_id='c')
+        privileged_user = mock.MagicMock()
+        privileged_user.has_perm.return_value = True
+
+        queryset = Report.objects.all().filter(pk__in=[a.pk, b.pk, c.pk])
+        form = BulkActionsForm(queryset, {
+            'assigned_section': 'APP',
+            'litigation_hold': 'off',
+            'comment': 'Test bulk change',
+        }, user=privileged_user)
+        form.full_clean()
+
+        self.assertCountEqual(form.get_actions(a), [
+            ('Litigation hold:', 'Updated from "True" to "False"'),
+            ('Assigned section:', 'Updated from "ADM" to "APP"'),
+        ])
+        self.assertCountEqual(form.get_actions(b), [
+            ('Litigation hold:', 'Updated from "True" to "False"'),
+            ('Assigned section:', 'Updated from "ADM" to "APP"'),
+        ])
+        self.assertCountEqual(form.get_actions(c), [
+            ('Assigned section:', 'Updated from "ADM" to "APP"'),
+        ])
+        self.assertEqual(form.errors, {})
+
+    def test_litigation_hold_allows_bulk_enabling(self):
+        a = Report.objects.create(**SAMPLE_REPORT_1, public_id='a', litigation_hold=True)
+        b = Report.objects.create(**SAMPLE_REPORT_1, public_id='b', litigation_hold=True)
+        c = Report.objects.create(**SAMPLE_REPORT_1, public_id='c')
+
+        queryset = Report.objects.all().filter(pk__in=[a.pk, b.pk, c.pk])
+        form = BulkActionsForm(queryset, {
+            'assigned_section': SAMPLE_REPORT_1['assigned_section'],
+            'status': NEW_STATUS,
+            'litigation_hold': 'on',
+            'comment': 'Test bulk change',
+        })
+        form.full_clean()
+
+        self.assertCountEqual(form.get_actions(a), [])
+        self.assertCountEqual(form.get_actions(b), [])
+        self.assertCountEqual(form.get_actions(c), [
+            ('Litigation hold:', 'Updated from "False" to "True"'),
+        ])
+        self.assertEqual(form.errors, {})
 
     def test_referral(self):
         form = ComplaintActions(
