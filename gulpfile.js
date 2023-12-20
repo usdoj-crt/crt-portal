@@ -93,7 +93,7 @@ gulp.task('copy-vendor-js', () => {
     .pipe(gulp.dest(`${JS_VENDOR_DEST}`))
 });
 
-gulp.task('build-js', function () {
+gulp.task('build-custom-js', function () {
   return gulp.src(JS_FILES)
     .pipe(sourcemaps.init())
     // Minify the file
@@ -105,6 +105,14 @@ gulp.task('build-js', function () {
     // Output
     .pipe(gulp.dest(`${JS_DEST}`))
 });
+
+gulp.task(
+  "build-js",
+  gulp.series(
+    "build-custom-js",
+    "copy-vendor-js",
+    )
+);
 
 gulp.task("build-sass", function (done) {
   var plugins = [
