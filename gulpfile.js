@@ -108,7 +108,7 @@ gulp.task('build-custom-js', function () {
 
 gulp.task(
   "build-js",
-  gulp.series(
+  gulp.parallel(
     "build-custom-js",
     "copy-vendor-js",
     )
