@@ -218,6 +218,303 @@ Washington, D.C. 20420</pre>
           }
         }
       ]
+    },
+
+    'add-campaign': {
+      title: 'Add a new outreach campaign',
+      steps: [
+        {
+          id: '1',
+          title: 'Add a new outreach campaign',
+          text: `
+              <p>Adding a new outreach campaign consists of a couple of steps:</p>
+              <ol>
+                <li><strong>Create the campaign</strong>.</li>
+                <li>Create a shareable Shortened URL for the campaign.</li>
+              </ol>
+              <p>We'll start by creating the campaign.</p>
+            `,
+          mustBeOnUrl: '/admin/'
+        },
+        {
+          id: '2',
+          title: 'Create the campaign',
+          text: `
+              <p>To create the campaign, start by clicking "Add" next to Campaign.</p>
+            `,
+          mustBeOnUrl: '/admin/',
+          nextAction: () => {
+            document.querySelector('tr.model-campaign a.addlink').click();
+          },
+          when: {
+            show: () => {
+              document.querySelectorAll('tr.model-campaign a.addlink').forEach(link => {
+                link.href =
+                  '/admin/cts_forms/campaign/add/?admin-tour=add-campaign&admin-tour-step=3';
+              });
+            }
+          },
+          attachTo: {
+            element: 'tr.model-campaign a.addlink',
+            scrollTo: true
+          }
+        },
+        {
+          id: '3',
+          title: 'Fill in campaign details',
+          text: `
+              <p>Fill in the campaign details</p>
+            `,
+          mustBeOnUrl: '/admin/cts_forms/campaign/add/',
+          attachTo: {
+            element: '#content',
+            scrollTo: true
+          }
+        },
+        {
+          id: '4',
+          title: 'Click "Save and continue editing"',
+          text: `
+              <p>We want to stay on this page to create the URL, so select "Continue Editing"</p>
+            `,
+          mustBeOnUrl: '/admin/cts_forms/campaign/add/',
+          attachTo: {
+            element: '.submit-row',
+            scrollTo: true
+          }
+        },
+        {
+          id: '5',
+          title: 'Create a shortened URL',
+          text: `
+              <p>Now that we've created the campaign, we can create a shortened URL for it.</p>
+              <p>There's a shortcut from the campaign's own page that makes this easier - click "Create Short URL" to get started.</p>
+            `,
+          nextAction: () => {
+            document.querySelector('.field-shorten_url a').click();
+          },
+          when: {
+            show: () => {
+              document.querySelector(
+                '.field-shorten_url a'
+              ).href += `&admin-tour=add-campaign&admin-tour-step=6`;
+            }
+          },
+          attachTo: {
+            element: '.field-shorten_url',
+            scrollTo: true
+          }
+        },
+        {
+          id: '6',
+          title: 'Provide a name for the URL',
+          text: `
+              <p>Because we've come via the shortcut, the destination is already filled in.</p>
+              <p>Now we just need to provide a name for the URL.</p>
+              <p>Note that you can only use letters, numbers, and dashes in the name.</p>
+            `,
+          attachTo: {
+            element: '.field-shortname',
+            scrollTo: true
+          },
+          previousAction: () => {
+            window.history.back();
+          }
+        },
+        {
+          id: '7',
+          title: 'Click "Save and continue editing"',
+          text: `
+              <p>We want to stay on this page, so select "Save and continue editing"</p>
+            `,
+          attachTo: {
+            element: '.submit-row',
+            scrollTo: true
+          }
+        },
+        {
+          id: '8',
+          title: 'Done!',
+          text: `
+              <p>That's it! The campaign is now ready to be shared.</p>
+              <p>To find the shareable URL, go back to the campaign you've just saved and look at the "Short URL" field. Viewing it there will account for differences in the production URL when sharing with the public versus internal staff.</p>
+              <p>You can click "Copy to Clipboard" next to that link to copy it and share.</p>
+            `,
+          attachTo: {
+            element: '.model-campaign',
+            scrollTo: true
+          },
+          mustBeOnUrl: '/admin/'
+        }
+      ]
+    },
+
+    'add-saved-search': {
+      title: 'Use Saved Search to reroute or refer reports',
+      steps: [
+        {
+          id: '1',
+          title: 'Overview',
+          text: `
+              <p>Saved Search allows admins to reroute or refer reports based on the content of the report.</p>
+              <p>Let's look at an example of how to set this up.</p>
+            `,
+          mustBeOnUrl: '/admin/',
+          attachTo: {
+            element: '.model-savedsearch',
+            scrollTo: true
+          }
+        },
+        {
+          id: '2',
+          title: 'Create a new Saved Search',
+          text: `
+              <p>Start by clicking "Add" next to Saved Search.</p>
+            `,
+          mustBeOnUrl: '/admin/',
+          nextAction: () => {
+            document.querySelector('tr.model-savedsearch a.addlink').click();
+          },
+          when: {
+            show: () => {
+              document.querySelectorAll('tr.model-savedsearch a.addlink').forEach(link => {
+                link.href =
+                  '/admin/cts_forms/savedsearch/add/?admin-tour=add-saved-search&admin-tour-step=3';
+              });
+            }
+          },
+          attachTo: {
+            element: 'tr.model-savedsearch a.addlink',
+            scrollTo: true
+          }
+        },
+        {
+          id: '3',
+          title: 'Add a name for the search',
+          text: `
+              <p>Now fill out the name.</p>
+              <p>The name will appear in lists and dropdowns.</p>
+              <p>For example, if a report is re-routed, the Saved Search that rerouted it will be named in the activity log.</p>
+            `,
+          mustBeOnUrl: '/admin/cts_forms/savedsearch/add/',
+          attachTo: {
+            element: '.field-name',
+            scrollTo: true
+          }
+        },
+        {
+          id: '4',
+          title: 'Enter the query string for the saved search',
+          text: `
+              <p>The query string is the part of the URL after the question mark.</p>
+              <p>For example, in the URL <code>https://civilrights.justice.gov/form/view/?status=new&status=open&no_status=false&grouping=default</code>, the query string is <code>status=new&status=open&no_status=false&grouping=default</code>.</p>
+              <p>We'll double check this in a few steps, before activating the search.</p>
+              <p><strong>Note:</strong> If you're confused about this at all, seek help from a developer - specifying an incorrect query may result in the saved search applying to too many records, or no records.</p>
+            `,
+          mustBeOnUrl: '/admin/cts_forms/savedsearch/add/',
+          attachTo: {
+            element: '.field-query',
+            scrollTo: true
+          }
+        },
+        {
+          id: '5',
+          title: 'If setting up a referral - reason',
+          text: `
+              <p>If you're setting up a referral, you'll want to provide a reason for the referral.</p>
+              <p>This will be recorded in the activity log.</p>
+              <p>Otherwise, skip this step.</p>
+            `,
+          mustBeOnUrl: '/admin/cts_forms/savedsearch/add/',
+          attachTo: {
+            element: '.field-auto_close_reason',
+            scrollTo: true
+          }
+        },
+        {
+          id: '6',
+          title: 'If setting up rerouting - section',
+          text: `
+              <p>If you're setting up rerouting, select the section to route to.</p>
+              <p>Otherwise, skip this step.</p>
+            `,
+          mustBeOnUrl: '/admin/cts_forms/savedsearch/add/',
+          attachTo: {
+            element: '.field-override_section_assignment_with',
+            scrollTo: true
+          }
+        },
+        {
+          id: '7',
+          title: 'Save and check results',
+          text: `
+              <p>Select "save and continue editing".</p>
+              <p>This will allow us to stay on the same page and double check our results.</p>
+              <p><strong>Note:</strong> Make sure you haven't checked the "Auto Close" or "Override Section Assignment" boxes yet. Saving now lets us double check that our search is correct before enabling the automatic action.</p>
+            `,
+          mustBeOnUrl: '/admin/cts_forms/savedsearch/add/',
+          attachTo: {
+            element: '.submit-row',
+            scrollTo: true
+          }
+        },
+        {
+          id: '8',
+          title: 'Make sure the matching reports is correct',
+          text: `
+              <p>Take a look at the "View 1234 matching reports" count</p>
+              <p>You can click through to make sure this filter will affect the correct reports</p>
+              <p>Note that automatic action will only apply to <em>new reports</em> that come in while the search is active.</p>
+            `,
+          mustBeOnUrl: '/admin/cts_forms/savedsearch/add/',
+          attachTo: {
+            element: '.field-matching_reports',
+            scrollTo: true
+          }
+        },
+        {
+          id: '9',
+          title: 'If setting up a referral - auto-close',
+          text: `
+              <p>Now that we've doubled checked, we can actually activate the search.</p>
+              <p>If you're setting up a referral, you'll want to check the auto-close box so that records are not handled twice.</p>
+              <p>Otherwise, skip this step.</p>
+            `,
+          mustBeOnUrl: '/admin/cts_forms/savedsearch/add/',
+          attachTo: {
+            element: '.field-auto_close',
+            scrollTo: true
+          }
+        },
+        {
+          id: '10',
+          title: 'If setting up rerouting - override assignment',
+          text: `
+              <p>If you're setting up rerouting, check this box to turn on the auto-reassignment.</p>
+              <p>Otherwise, skip this step.</p>
+            `,
+          mustBeOnUrl: '/admin/cts_forms/savedsearch/add/',
+          attachTo: {
+            element: '.field-override_section_assignment',
+            scrollTo: true
+          }
+        },
+        {
+          id: '11',
+          title: 'Save and finish!',
+          text: `
+              <p>That's it! Select save to enable the search</p>
+              <p>You can use the "View matching reports" link to double check the search as new reports come in.</p>
+              <p>Note that automatic action will only apply to <em>new reports</em> that come in while the search is active.</p>
+              <p>If you need to turn off the search, you can always come back and uncheck the "Auto Close" or "Override Section Assignment" boxes.</p>
+            `,
+          mustBeOnUrl: '/admin/cts_forms/savedsearch/add/',
+          attachTo: {
+            element: '.submit-row',
+            scrollTo: true
+          }
+        }
+      ]
     }
   };
 
