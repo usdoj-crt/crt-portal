@@ -152,7 +152,6 @@ gulp.task(
     "copy-uswds-setup",
     "copy-uswds-fonts",
     "copy-uswds-images",
-    "copy-vendor-js",
     "build-js",
     "build-sass"
   )
@@ -163,10 +162,10 @@ gulp.task("watch-sass", function () {
 });
 
 gulp.task("watch-js", function () {
-  gulp.watch(JS_FILES, gulp.series("build-js", "copy-vendor-js", "watch-js"));
+  gulp.watch(JS_FILES, gulp.series("build-js", "watch-js"));
 });
 
-gulp.task("build", gulp.parallel("build-sass", "build-js", "copy-vendor-js"));
+gulp.task("build", gulp.parallel("build-sass", "build-js"));
 
 gulp.task("watch", gulp.parallel("watch-sass", "watch-js"));
 
