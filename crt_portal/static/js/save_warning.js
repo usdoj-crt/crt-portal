@@ -4,7 +4,7 @@
   forms.forEach(form => {
     form.addEventListener('change', () => (showWarning = true));
   });
-  const btns = document.querySelectorAll('.usa-button');
+  const btns = document.querySelectorAll('[type="submit"]');
   btns.forEach(btn => {
     btn.addEventListener('click', () => (showWarning = false));
   });
