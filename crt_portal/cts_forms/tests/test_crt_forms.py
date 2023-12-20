@@ -1035,7 +1035,7 @@ class BulkActionsTests(TestCase):
         self.test_pass = secrets.token_hex(32)
         self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
-        self.reports = ReportFactory.create_batch(16, assigned_section='ADM', status='new')
+        self.reports = ReportFactory.create_batch(16, assigned_section='ADM', status='new', viewed=True)
 
     def get(self, ids, all_ids=False):
         params = {
