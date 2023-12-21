@@ -109,7 +109,19 @@ hr {
       background-color: #162e51;
       color: #fff;
     }
-
+    th {
+      span {
+        text-decoration: underline;
+      }
+    }
+    td {
+      a {
+        text-decoration: underline;
+      }
+    }
+    h3 {
+      color: #162e51;
+    }
     padding: 5px 20px
   }
 }
