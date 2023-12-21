@@ -4,7 +4,7 @@ from cts_forms.models import RetentionSchedule, Report
 from cts_forms.tests.test_data import SAMPLE_REPORT_1
 
 import importlib
-migration = importlib.import_module('cts_forms.migrations.0189_backfill_ten_year_retention')
+migration = importlib.import_module('cts_forms.migrations.0190_backfill_ten_year_retention')
 
 
 class BackfillTenYearRetentionTest(TestCase):
