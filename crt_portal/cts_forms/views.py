@@ -64,18 +64,16 @@ def format_protected_class(p_class_objects, other_class):
     return p_class_list
 
 
-def get_section_contacts():
+def get_section_contacts(purpose: str):
     routing_sections = RoutingSection.objects.all()
     try:
         routing_step_one_contacts = RoutingStepOneContact.objects.first().contacts
     except AttributeError:
         routing_step_one_contacts = "ask.CRT@usdoj.gov"
-    routing_data = []
-    for route in routing_sections:
-        routing_data.append({
-            "section": route.section,
-            "names": route.names
-        })
+    routing_data = [
+        {"section": route.section, "names": route.get_pocs(purpose)}
+        for route in routing_sections
+    ]
 
     return {"routing_data": routing_data, "routing_step_one_contacts": routing_step_one_contacts}
 
@@ -886,7 +884,7 @@ class ShowView(LoginRequiredMixin, View):
 class RoutingGuideView(LoginRequiredMixin, View):
 
     def get(self, request, id):
-        output = get_section_contacts()
+        output = get_section_contacts('routing')
         output['redirect_path'] = f'/form/view/{id}/?{request.META["QUERY_STRING"]}'
         return render(request, 'forms/complaint_view/routing_guide.html', output)
 
@@ -894,7 +892,7 @@ class RoutingGuideView(LoginRequiredMixin, View):
 class DispositionGuideView(LoginRequiredMixin, View):
 
     def get(self, request, id):
-        output = get_section_contacts()
+        output = get_section_contacts('retention')
         output['redirect_path'] = f'/form/view/{id}/?{request.META["QUERY_STRING"]}'
         return render(request, 'forms/complaint_view/disposition_guide.html', output)
 
