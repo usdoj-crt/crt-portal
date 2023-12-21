@@ -22,7 +22,7 @@ def backfill_ten_year_retention(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0188_add_fuzzy_extensions'),
+        ('cts_forms', '0189_alter_routingsection_options_and_more'),
     ]
 
     operations = [
