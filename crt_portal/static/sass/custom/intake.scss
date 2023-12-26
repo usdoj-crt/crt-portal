@@ -109,13 +109,16 @@ hr {
       background-color: #162e51;
       color: #fff;
     }
-    th {
+    .crt-table thead tr th {
+      text-align: left;
       span {
         text-decoration: underline;
       }
     }
-    td {
+    .crt-table tbody tr td {
+      text-align: left;
       a {
+        padding-left: 0;
         text-decoration: underline;
       }
     }
