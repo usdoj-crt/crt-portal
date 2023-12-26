@@ -1979,6 +1979,24 @@ class PrintActions(Form):
     )
 
 
+class BulkDispositionActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
+    comment = CharField(
+        required=True,
+        max_length=7000,
+        widget=Textarea(
+            attrs={
+                'rows': 3,
+                'class': 'usa-textarea',
+            },
+        ),
+    )
+
+    def __init__(self, query, *args, user=None, **kwargs):
+        self.user = user
+        Form.__init__(self, *args, **kwargs)
+        self.queryset = query
+
+
 class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
     EMPTY_CHOICE = 'Multiple'
     assigned_section = ChoiceField(
