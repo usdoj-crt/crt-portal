@@ -1,20 +1,23 @@
-{% load get_field_label %}
+{% load field_formatting %}
 
 <div id="active-filters" data-active-filters>
-  {% for key, value in filters.items %}
-    {% for item in value %}
-      {% if key != "assigned_section" %}
-        <span class="usa-sr-only">{{key}}: {{item}}</span>
-        <button
-          class="filter-tag"
-          aria-label="Remove filter {{'Report'|get_field_label:key}}: {{item}} from the list"
-          data-filter-name="{{key}}"
-          data-filter-value="{{item}}"
-        >
-          <span>{{ 'Report'|get_field_label:key }}: {{item}}</span>
-          <img src="{% static 'img/intake-icons/ic_close.svg' %}" class="icon right" alt="close">
-        </button>
-      {% endif %}
-    {% endfor %}
-  {% endfor %}
+{% for key, value in filters.items %}
+{% for item in value %}
+{% if key == "assigned_section" %}
+{% else %}
+{% with plaintext=item|get_field_plaintext:key markup=item|get_field_markup:key %}
+  <span class="usa-sr-only">{{key}}: {{plaintext}}</span>
+  <button
+    class="filter-tag"
+    aria-label="Remove filter {{'Report'|get_field_label:key}}: {{plaintext}} from the list"
+    data-filter-name="{{key}}"
+    data-filter-value="{{item}}"
+  >
+    <span>{{ 'Report'|get_field_label:key }}: {{markup | safe}}</span>
+    <img src="{% static 'img/intake-icons/ic_close.svg' %}" class="icon right" alt="close">
+  </button>
+{% endwith %}
+{% endif %}
+{% endfor %}
+{% endfor %}
 </div>

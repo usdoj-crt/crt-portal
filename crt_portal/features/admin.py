@@ -1,9 +1,10 @@
 from django.contrib import admin
 
+from utils.admin import CrtModelAdmin
 from .models import Feature
 
 
-class FeatureAdmin(admin.ModelAdmin):
+class FeatureAdmin(CrtModelAdmin):
     list_display = ('pk', 'title_case', 'name', 'enabled')
     readonly_fields = ('title_case', 'python_variable', 'javascript_variable')
     filter_horizontal = ('users_when_disabled',)

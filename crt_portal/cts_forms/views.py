@@ -64,6 +64,22 @@ def format_protected_class(p_class_objects, other_class):
     return p_class_list
 
 
+def get_section_contacts():
+    routing_sections = RoutingSection.objects.all()
+    try:
+        routing_step_one_contacts = RoutingStepOneContact.objects.first().contacts
+    except AttributeError:
+        routing_step_one_contacts = "ask.CRT@usdoj.gov"
+    routing_data = []
+    for route in routing_sections:
+        routing_data.append({
+            "section": route.section,
+            "names": route.names
+        })
+
+    return {"routing_data": routing_data, "routing_step_one_contacts": routing_step_one_contacts}
+
+
 def reconstruct_query(next_qp):
     """
     Reconstruct the query filter on the previous page using the next
@@ -171,7 +187,7 @@ def reconstruct_activity_query(next_qp):
     """
     querydict = QueryDict(next_qp)
 
-    _, selected_actions = dashboard_filter(querydict)
+    _, selected_actions, _ = dashboard_filter(querydict)
     sort_expr, _ = activity_sort(querydict.getlist('sort'))
     if not selected_actions:
         return selected_actions
@@ -454,9 +470,9 @@ def fetch_selected_foreign_key(request, field_name, query):
 
 
 def process_intake_filters(request):
-    query_filters, selected_actions = dashboard_filter(request.GET)
+    query_filters, selected_actions, response_actions = dashboard_filter(request.GET)
 
-    reports = {action.target_object_id for action in selected_actions}
+    reports = selected_actions.values('target_object_id').distinct()
     start_date = _format_date(request.GET.get("create_date_start", ""))
     end_date = _format_date(request.GET.get("create_date_end", ""))
 
@@ -470,7 +486,8 @@ def process_intake_filters(request):
         'selected_actor_id': selected_actor_id,
         'date_range_start': start_date,
         'date_range_end': end_date,
-        'activity_count': len(reports),
+        'activity_count': reports.count(),
+        'response_count': response_actions.count(),
         'filters': query_filters,
     }
 
@@ -489,7 +506,7 @@ def get_action_data(requested_actions, report_url_args, paginated_offset):
 
 
 def process_activity_filters(request):
-    query_filters, selected_actions = dashboard_filter(request.GET)
+    query_filters, selected_actions, _ = dashboard_filter(request.GET)
     per_page = request.GET.get('per_page', 15)
     page = request.GET.get('page', 1)
     sort_expr, sorts = activity_sort(request.GET.getlist('sort'))
@@ -788,6 +805,8 @@ class ShowView(LoginRequiredMixin, View):
             **filter_output,
             'routing_guide_link':
                 f'/form/view/{id}/routing-guide/?{request.META["QUERY_STRING"]}',
+            'disposition_guide_link':
+                f'/form/view/{id}/disposition-guide/?{request.META["QUERY_STRING"]}',
         })
         return render(request, 'forms/complaint_view/show/index.html', output)
 
@@ -867,43 +886,17 @@ class ShowView(LoginRequiredMixin, View):
 class RoutingGuideView(LoginRequiredMixin, View):
 
     def get(self, request, id):
-        routing_sections = RoutingSection.objects.all()
-        try:
-            routing_step_one_contacts = RoutingStepOneContact.objects.first().contacts
-        except AttributeError:
-            routing_step_one_contacts = "ask.CRT@usdoj.gov"
-        routing_section_block = {
-            "section_1": "",
-            "names_1": "",
-            "section_2": "",
-            "names_2": ""
-        }
-        routing_section_blocks = []
-        # Because we display 2 sections per row in the table,
-        # we are breaking up the routing sections into groups of two.
-        for index, route in enumerate(routing_sections):
-            if index % 2 == 0:
-                routing_section_block["section_1"] = route.section
-                routing_section_block["names_1"] = route.names
-                if index == len(routing_sections) - 1:
-                    routing_section_blocks.append(routing_section_block)
-            else:
-                routing_section_block["section_2"] = route.section
-                routing_section_block["names_2"] = route.names
-                routing_section_blocks.append(routing_section_block)
-                routing_section_block = {
-                    "section_1": "",
-                    "names_1": "",
-                    "section_2": "",
-                    "names_2": ""
-                }
-        output = {
-            "redirect_path":
-                f'/form/view/{id}/?{request.META["QUERY_STRING"]}',
-            "routing_section_blocks": routing_section_blocks,
-            "routing_step_one_contacts": routing_step_one_contacts
-        }
+        output = get_section_contacts()
+        output['redirect_path'] = f'/form/view/{id}/?{request.META["QUERY_STRING"]}'
         return render(request, 'forms/complaint_view/routing_guide.html', output)
+
+
+class DispositionGuideView(LoginRequiredMixin, View):
+
+    def get(self, request, id):
+        output = get_section_contacts()
+        output['redirect_path'] = f'/form/view/{id}/?{request.META["QUERY_STRING"]}'
+        return render(request, 'forms/complaint_view/disposition_guide.html', output)
 
 
 class ActionsView(LoginRequiredMixin, FormView):

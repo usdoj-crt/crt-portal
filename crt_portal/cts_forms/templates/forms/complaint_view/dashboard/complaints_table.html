@@ -14,6 +14,7 @@
           {% render_sortable_heading 'User' sort_state filter_state %}
           {% render_sortable_heading 'Date range' sort_state filter_state nowrap=True %}
           {% render_sortable_heading 'Reports touched' sort_state filter_state nowrap=True %}
+          {% render_sortable_heading 'Responses sent' sort_state filter_state nowrap=True %}
         </tr>
       </thead>
       <tbody>
@@ -36,6 +37,9 @@
             </td>
           <td style="vertical-align: middle;font-weight: 700;">
             {{ activity_count }} report{{ activity_count|pluralize }}
+          </td>
+          <td style="vertical-align: middle;font-weight: 700;">
+            {{ response_count }} response{{ response_count|pluralize }}
           </td>
         </tr>
       </tbody>

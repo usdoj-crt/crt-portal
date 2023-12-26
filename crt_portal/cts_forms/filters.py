@@ -3,24 +3,33 @@
 import re
 import urllib.parse
 from datetime import datetime, timedelta
+from operator import or_
+
+from django.apps import apps
 from django.core.validators import ValidationError
 
-from django.db.models import ExpressionWrapper, Count, Min, F, Value, CharField, DateField
+from django.db.models import ExpressionWrapper, Count, IntegerField, Min, F, Value, CharField, DateField, Func
 from django.db.models.functions import ExtractYear, Concat, Cast
-from django.contrib.postgres.search import SearchQuery
+
+from django.contrib.postgres.search import SearchQuery, TrigramSimilarity
 from django.db import connection
+from django.db.models.lookups import GreaterThan, LessThanOrEqual
 from django.http.request import QueryDict, MultiValueDict
 
 from utils.datetime_fns import change_datetime_to_end_of_day
+from utils.request_utils import get_user_section
 
 from .models import Report, User
 from actstream import registry
-from actstream.models import actor_stream
+from actstream.models import actor_stream, Action
+
+Feature = apps.get_model('features', 'Feature')
 
 foreign_key_displays = {
-    'assigned_to': 'username',
-    'origination_utm_campaign': 'internal_name',
-    'retention_schedule': 'name',
+    'assigned_to': ('username', str),
+    'origination_utm_campaign': ('internal_name', str),
+    'retention_schedule': ('name', str),
+    'tags': ('id', int),
 }
 
 # To add a new filter option for Reports, add the field name and expected filter behavior
@@ -34,6 +43,7 @@ filter_options = {
     'public_id': '__icontains',  # aka "ID" or "Complaint ID"
     'assigned_to': 'foreign_key',  # aka "Assignee"
     'origination_utm_campaign': 'foreign_key',
+    'tags': 'foreign_key',
     'litigation_hold': 'eq',
     'location_address_line_1': '__icontains',  # not in filter controls?
     'location_address_line_2': '__icontains',  # not in filter controls?
@@ -67,7 +77,7 @@ filter_options = {
 
     'violation_summary': 'violation_summary',  # aka "Personal description"
     'summary': 'summary',  # aka "CRT summary"
-    'location_name': '__icontains',
+    'location_name': 'location_name',
     'other_class': '__search',  # not in filter controls?
     'disposition_status': 'disposition_status',
     # this is not a db query filter, not needed here, duplicate tag fix, removed from the filter tag list
@@ -128,6 +138,7 @@ def get_report_filter_from_search(search):
 def report_filter(querydict):
     kwargs = {}
     filters = {}
+    similarity = {}
     qs = Report.objects.filter()
     for field in filter_options.keys():
         filter_list = querydict.getlist(field)
@@ -174,15 +185,24 @@ def report_filter(querydict):
             sequence = sequence or '[^-]+'
             kwargs['dj_number__iregex'] = f'^{statute}-{district}-{sequence}$'
         elif field_options == 'foreign_key':
-            display_field = foreign_key_displays[field]
+            display_field, cast = foreign_key_displays[field]
             if querydict.getlist(field)[0] == '(none)':
                 kwargs[f'{field}__isnull'] = True
             else:
-                kwargs[f'{field}__{display_field}__in'] = querydict.getlist(field)
+                values = [cast(v) for v in querydict.getlist(field)]
+                kwargs[f'{field}__{display_field}__in'] = values
         elif field_options == 'eq':
             kwargs[field] = querydict.getlist(field)[0]
         elif field_options == '__gte':
             kwargs[field] = querydict.getlist(field)
+        elif field_options == 'location_name':
+            location_query = querydict.getlist(field)[0]
+            fuzzy_enabled = Feature.is_feature_enabled('fuzzy-location-name')
+            if fuzzy_enabled and location_query.startswith('~'):
+                similarity['location_name'] = location_query[1:]
+            else:
+                kwargs['location_name__icontains'] = location_query
+
         elif field_options == 'violation_summary':
             search_query = querydict.getlist(field)[0]
             if search_query.startswith('^#') and search_query.endswith('$'):
@@ -207,6 +227,9 @@ def report_filter(querydict):
                 qs = qs.filter(contact_phone__icontains=number_block)
         elif field_options == 'disposition_status':
             qs = qs.filter(closed_date__isnull=False)
+            user_section = get_user_section()
+            if user_section:
+                qs = qs.filter(assigned_section=user_section)
             disposition_status = querydict.getlist(field)[0]
             today = datetime.today().date()
             qs = qs.annotate(retention_year=F('retention_schedule__retention_years'),
@@ -227,6 +250,8 @@ def report_filter(querydict):
         qs = qs.filter(**kwargs).distinct()
     else:
         qs = qs.filter(**kwargs)
+    for field_name, query in similarity.items():
+        qs = filter_by_similar(qs, field_name, query)
     return qs, filters
 
 
@@ -261,9 +286,46 @@ def dashboard_filter(querydict):
     selected_actor = User.objects.filter(username=selected_actor_username).first()
     if selected_actor:
         filtered_actions = actor_stream(selected_actor).filter(**kwargs)
+        response_actions = filtered_actions.filter(verb='Contacted complainant:')
     else:
-        return filters, []
-    return filters, filtered_actions
+        return filters, Action.objects.none(), Action.objects.none()
+    return filters, filtered_actions, response_actions
+
+
+class Metaphone(Func):
+    function = 'METAPHONE'
+    arity = 2
+    output_field = CharField()
+
+
+class LevenshteinLessEqual(Func):
+    function = 'levenshtein_less_equal'
+    arity = 3
+    output_field = IntegerField()
+
+
+def filter_by_similar(queryset, column, search_text):
+    return queryset.annotate(
+        **{f'{column}_similar': or_(
+            # Checks for "sounds like" similarity:
+            GreaterThan(
+                TrigramSimilarity(
+                    Metaphone(column, 10),
+                    Metaphone(Value(search_text), 10),
+                ),
+                0.5,
+            ),
+            # Checks for "looks like" similarity:
+            LessThanOrEqual(
+                LevenshteinLessEqual(
+                    column,
+                    Value(search_text),
+                    Value(4),
+                ),
+                4,
+            )
+        )}
+    ).filter(**{f'{column}_similar': True})
 
 
 def _make_search_query(search_text):

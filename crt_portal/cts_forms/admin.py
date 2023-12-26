@@ -24,6 +24,7 @@ from django.urls import reverse, path
 from django.db.models.functions import Lower
 
 from utils import pdf
+from utils.admin import CrtModelAdmin
 from .filters import get_report_filter_from_search
 
 from .model_variables import SECTION_CHOICES
@@ -31,8 +32,8 @@ from .model_variables import SECTION_CHOICES
 from .models import (CommentAndSummary, HateCrimesandTrafficking, Profile,
                      ProtectedClass, Report, ResponseTemplate, DoNotEmail,
                      JudicialDistrict, RetentionSchedule, RoutingSection, RoutingStepOneContact, Tag,
-                     VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch, NotificationPreference)
-from .signals import get_client_ip
+                     VotingMode, Campaign, ReferralContact, BannerMessage, SavedSearch, NotificationPreference, ApplicationContact)
+from utils.request_utils import get_client_ip
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +42,7 @@ REPORT_FIELDS = [field.name for field in Report._meta.fields if field.name not i
 ACTION_FIELDS = ['timestamp', 'actor', 'verb', 'description', 'target']
 
 
-class ReadOnlyModelAdmin(admin.ModelAdmin):
+class ReadOnlyModelAdmin(CrtModelAdmin):
     """Disable add, modify, and delete functionality"""
 
     def has_add_permission(self, request):
@@ -280,15 +281,20 @@ class JudicialDistrictAdmin(ReadOnlyModelAdmin):
     search_fields = ['zipcode', 'city', 'county', 'state', 'district']
 
 
-class RoutingSectionAdmin(admin.ModelAdmin):
+class RoutingSectionAdmin(CrtModelAdmin):
     list_display = ['section', 'names']
 
 
-class RoutingStepOneContactAdmin(admin.ModelAdmin):
+class ApplicationContactAdmin(CrtModelAdmin):
+    list_display = ['name', 'email', 'order']
+    ordering = ['order']
+
+
+class RoutingStepOneContactAdmin(CrtModelAdmin):
     list_display = ['contacts']
 
 
-class VotingModeAdmin(admin.ModelAdmin):
+class VotingModeAdmin(CrtModelAdmin):
     list_display = ['voting_toggle_display_name']
 
     @admin.display(description='Voting Toggle')
@@ -308,7 +314,7 @@ class ReferralContactAdminForm(forms.ModelForm):
         self.fields['variable_text'].widget = TranslatedTextWidget()
 
 
-class ReferralContactAdmin(admin.ModelAdmin):
+class ReferralContactAdmin(CrtModelAdmin):
     list_display = ['machine_name', 'name', 'notes', 'show_as_referral']
     form = ReferralContactAdminForm
 
@@ -323,7 +329,7 @@ class BannerMessageAdminForm(forms.ModelForm):
         self.fields['markdown_content'].widget = TranslatedTextWidget()
 
 
-class BannerMessageAdmin(admin.ModelAdmin):
+class BannerMessageAdmin(CrtModelAdmin):
     def get_ordering(self, request):
         return ['order']
 
@@ -343,7 +349,7 @@ mark_as_archived.allowed_permissions = ('change',)  # noqa
 unmark_as_archived.allowed_permissions = ('change',)  # noqa
 
 
-class CampaignAdmin(admin.ModelAdmin):
+class CampaignAdmin(CrtModelAdmin):
     class Media:
         js = (
             'js/admin_copy.js',
@@ -404,19 +410,19 @@ def export_templates_as_zip(modeladmin, request, queryset):
 export_templates_as_zip.allowed_permissions = ('view',)  # noqa
 
 
-class RetentionScheduleAdmin(admin.ModelAdmin):
+class RetentionScheduleAdmin(CrtModelAdmin):
     list_display = ['name', 'da_number', 'is_retired', 'order', 'tooltip']
     search_fields = ['name', 'da_number']
     ordering = ['order']
 
 
-class TagAdmin(admin.ModelAdmin):
+class TagAdmin(CrtModelAdmin):
     list_display = ['name', 'section', 'show_in_lists', 'tooltip']
     search_fields = ['name', 'section', 'show_in_lists', 'tooltip']
     ordering = ['section', 'name']
 
 
-class ResponseTemplateAdmin(admin.ModelAdmin):
+class ResponseTemplateAdmin(CrtModelAdmin):
     class Media:
         js = ('js/response_template_preview.js',)
         css = {
@@ -442,7 +448,7 @@ class ResponseTemplateAdmin(admin.ModelAdmin):
                          '></iframe>')
 
 
-class SavedSearchAdmin(admin.ModelAdmin):
+class SavedSearchAdmin(CrtModelAdmin):
     class Media:
         js = (
             'js/admin_copy.js',
@@ -485,7 +491,7 @@ class NotificationPreferenceInline(admin.StackedInline):
     fk_name = 'user'
 
 
-class CustomUserAdmin(UserAdmin):
+class CustomUserAdmin(UserAdmin, CrtModelAdmin):
     inlines = (ProfileInline, NotificationPreferenceInline)
     actions = ("bulk_change_profile", *UserAdmin.actions)
 
@@ -565,6 +571,7 @@ admin.site.register(ResponseTemplate, ResponseTemplateAdmin)
 admin.site.register(DoNotEmail)
 admin.site.register(JudicialDistrict, JudicialDistrictAdmin)
 admin.site.register(RoutingSection, RoutingSectionAdmin)
+admin.site.register(ApplicationContact, ApplicationContactAdmin)
 admin.site.register(VotingMode, VotingModeAdmin)
 admin.site.register(Campaign, CampaignAdmin)
 admin.site.register(Tag, TagAdmin)
