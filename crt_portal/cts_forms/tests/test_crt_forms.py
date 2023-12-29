@@ -1342,6 +1342,16 @@ class BulkActionsFormTests(TestCase):
             self.assertTrue(action in expected_actions)
 
 
+class BulkDispositionFormTests(TestCase):
+    def test_bulk_disposition_update(self):
+        [Report.objects.create(**SAMPLE_REPORT_1) for _ in range(4)]
+        queryset = Report.objects.all()
+        user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', secrets.token_hex(32))
+        form = BulkDispositionForm(queryset, user)
+        result = form.update(queryset, user)
+        self.assertEqual(result, 4)
+
+
 class FiltersFormTests(TestCase):
     def setUp(self):
         self.client = Client()

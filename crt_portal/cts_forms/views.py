@@ -949,42 +949,16 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
 
         if requested_query.count() > 500:
             raise PermissionDenied
-        if bulk_disposition_form.is_valid():
-            bulk_disposition_form = BulkDispositionForm(requested_query, request.POST, user=request.user)
-            number = bulk_disposition_form.update(requested_query, request.user)
-            plural = 's have' if number > 1 else ' has'
-            message = f'{number} record{plural} been approved for deletion'
-            logging.info(message)
-            messages.add_message(request, messages.SUCCESS, message)
 
-            url = reverse('crt_forms:disposition')
-            return redirect(f"{url}{return_url_args}")
-        else:
-            for key in bulk_disposition_form.errors:
-                errors = '; '.join(bulk_disposition_form.errors[key])
-                if key == '__all__':
-                    target = ':'
-                else:
-                    target = f' {key}:'
-                error_message = f'Could not bulk update{target} {errors}'
-                messages.add_message(request, messages.ERROR, error_message)
+        bulk_disposition_form = BulkDispositionForm(requested_query, request.POST, user=request.user)
+        number = bulk_disposition_form.update(requested_query, request.user)
+        plural = 's have' if number > 1 else ' has'
+        message = f'{number} record{plural} been approved for deletion'
+        logging.info(message)
+        messages.add_message(request, messages.SUCCESS, message)
 
-            all_ids_count = requested_query.count()
-            ids_count = len(ids)
-
-            # further refine selected_all to ensure < 15 items don't show up.
-            selected_all = selected_all and all_ids_count != ids_count
-
-            output = {
-                'return_url_args': return_url_args,
-                'selected_all': 'all' if selected_all else '',
-                'ids': ','.join(ids),
-                'ids_count': ids_count,
-                'show_warning': ids_count > 15,
-                'all_ids_count': all_ids_count,
-                'bulk_actions_form': bulk_disposition_form,
-            }
-            return render(request, 'forms/complaint_view/disposition/actions/index.html', output)
+        url = reverse('crt_forms:disposition')
+        return redirect(f"{url}{return_url_args}")
 
 
 class ActionsView(LoginRequiredMixin, FormView):
