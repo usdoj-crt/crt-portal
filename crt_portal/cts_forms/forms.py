@@ -1995,8 +1995,8 @@ class BulkDispositionForm(Form, ActivityStreamUpdater):
 
         # TO DO: add logic to approve report for deletion
         # for report in reports:
-            # expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years + 1, 1, 1).date()
-            # add_activity(user, 'Disposition:', f'Approved for deletion on {expiration_date}', report, True)
+        # expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years + 1, 1, 1).date()
+        # add_activity(user, 'Disposition:', f'Approved for deletion on {expiration_date}', report, True)
         return reports.count()
 
 
