@@ -33,7 +33,7 @@ from datetime import datetime
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter, report_grouping
 from .forms import (
-    BulkActionsForm, BulkDispositionActionsForm, CommentActions, ComplaintActions, ComplaintOutreach,
+    BulkActionsForm, BulkDispositionForm, CommentActions, ComplaintActions, ComplaintOutreach,
     ContactEditForm, Filters, PrintActions, ProfileForm,
     ReportEditForm, ResponseActions, add_activity,
     AttachmentActions, Review, save_form,
@@ -906,9 +906,6 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         return_url_args = request.GET.get('next', '')
         return_url_args = urllib.parse.unquote(return_url_args)
         query_string = return_url_args
-        group_desc_id = request.GET.get('group-desc-id', -1)
-        if group_desc_id != -1:
-            query_string = f'{return_url_args}&violation_summary=^#{group_desc_id}$'
         ids = request.GET.getlist('id')
         # The select all option only applies if 1. user hits the
         # select all button and 2. we have more records in the query
@@ -920,7 +917,7 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         else:
             requested_query = Report.objects.filter(pk__in=ids)
 
-        bulk_actions_form = BulkDispositionActionsForm(requested_query, user=request.user)
+        bulk_disposition_form = BulkDispositionForm(requested_query, user=request.user)
         all_ids_count = requested_query.count()
         ids_count = len(ids)
 
@@ -934,11 +931,34 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
             'ids_count': ids_count,
             'show_warning': ids_count > 15,
             'all_ids_count': all_ids_count,
-            'bulk_actions_form': bulk_actions_form,
-            'questions': Review.question_text,
+            'bulk_actions_form': bulk_disposition_form,
             'query_string': query_string,
         }
         return render(request, 'forms/complaint_view/disposition/actions/index.html', output)
+
+    def post(self, request):
+        return_url_args = request.POST.get('next', '')
+        confirm_all = request.POST.get('confirm_all', '') == 'confirm_all'
+        ids = request.POST.get('ids', '').split(',')
+        query_string = request.POST.get('query_string', return_url_args)
+
+        if confirm_all:
+            requested_query = reconstruct_query(query_string)
+        else:
+            requested_query = Report.objects.filter(pk__in=ids)
+
+        if requested_query.count() > 500:
+            raise PermissionDenied
+
+        bulk_disposition_form = BulkDispositionForm(requested_query, request.POST, user=request.user)
+        number = bulk_disposition_form.update(requested_query, request.user)
+        plural = 's have' if number > 1 else ' has'
+        message = f'{number} record{plural} been approved for deletion'
+        logging.info(message)
+        messages.add_message(request, messages.SUCCESS, message)
+
+        url = reverse('crt_forms:disposition')
+        return redirect(f"{url}{return_url_args}")
 
 
 class ActionsView(LoginRequiredMixin, FormView):

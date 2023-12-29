@@ -2,7 +2,7 @@
 
 {% load i18n %}
 
-{% block title %}Approve multiple records for disposition{% endblock %}
+{% block title %}Approve multiple records for deletion{% endblock %}
 
 {% block extra_classes %}crt-actions-card{% endblock %}
 
@@ -20,22 +20,14 @@
       <input type="hidden" value="{{ selected_all }}" name="all" id="all" />
       <input type="hidden" value="{{ query_string }}" name="query_string" id="query_string" />
 
-      <div id="bulk_actions_section">
-        <div class="margin-bottom-2 crt-textarea">
-          <label for="id_comment" class="intake-label">
-            {{ bulk_actions_form.comment.label }}
-            <span class="field-required">{% trans "required" %}</span>
-          </label>
-          {{ bulk_actions_form.comment}}
-        </div>
-
+        <p>This bulk disposition action form does not currently do anything. In the future it will allow users to approve the deletion of reports.</p>
         <button class="usa-button{% if show_warning %} button--warning display-flex align-center{% endif %}"
                 {% if show_warning %}id="show_warning_section_partial"{% endif %}
                 disabled
                 type="submit"
                 name="selected_ids"
         >
-          Approve {{ ids_count }} record{{ ids_count|pluralize:"s" }} for disposition
+          Approve {{ ids_count }} record{{ ids_count|pluralize:"s" }} for deletion
         </button>
 
         {% if selected_all %}
@@ -44,11 +36,11 @@
                     id="show_warning_section"
                     disabled
             >
-              Apply changes to {{ all_ids_count }} record{{ all_ids_count|pluralize:"s" }}
+             Approve {{ all_ids_count }} record{{ all_ids_count|pluralize:"s" }} for deletion
             </button>
           {% else %}
             <p>
-              Maximum records for bulk change is capped at 500. Please return to the <a href="{% url 'crt_forms:crt-forms-index' %}{{ return_url_args }}">View All Table</a> and adjust your filters.
+              Maximum records for bulk deletion is capped at 500. Please return to the <a href="{% url 'crt_forms:disposition' %}{{ return_url_args }}">Disposition Page</a> and adjust your selection.
             </p>
           {% endif %}
         {% endif %}

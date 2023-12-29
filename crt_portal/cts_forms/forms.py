@@ -1979,22 +1979,25 @@ class PrintActions(Form):
     )
 
 
-class BulkDispositionActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
-    comment = CharField(
-        required=True,
-        max_length=7000,
-        widget=Textarea(
-            attrs={
-                'rows': 3,
-                'class': 'usa-textarea',
-            },
-        ),
-    )
+class BulkDispositionForm(Form, ActivityStreamUpdater):
 
     def __init__(self, query, *args, user=None, **kwargs):
         self.user = user
         Form.__init__(self, *args, **kwargs)
         self.queryset = query
+
+    def update(self, reports, user):
+        """
+        Bulk update given reports and update activity log for each report
+        """
+        report_ids = reports.values_list('pk', flat=True)
+        reports = Report.objects.filter(pk__in=report_ids)
+
+        # TO DO: add logic to approve report for deletion
+        # for report in reports:
+            # expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years + 1, 1, 1).date()
+            # add_activity(user, 'Disposition:', f'Approved for deletion on {expiration_date}', report, True)
+        return reports.count()
 
 
 class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
