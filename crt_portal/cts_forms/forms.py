@@ -1984,8 +1984,8 @@ class BulkDispositionForm(Form, ActivityStreamUpdater):
     assigned_section = ChoiceField(
         label='Section',
         widget=ComplaintSelect(attrs={
-                'class': 'usa-select crt-dropdown__data',
-                'disabled': 'disabled',
+            'class': 'usa-select crt-dropdown__data',
+            'disabled': 'disabled',
         }),
         choices=add_empty_choice(SECTION_CHOICES_WITHOUT_LABELS, default_string=EMPTY_CHOICE),
         required=False
