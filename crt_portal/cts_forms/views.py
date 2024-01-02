@@ -947,9 +947,6 @@ class DispositionActionsView(LoginRequiredMixin, FormView):
         else:
             requested_query = Report.objects.filter(pk__in=ids)
 
-        if requested_query.count() > 500:
-            raise PermissionDenied
-
         bulk_disposition_form = BulkDispositionForm(requested_query, request.POST, user=request.user)
         number = bulk_disposition_form.update(requested_query, request.user)
         plural = 's have' if number > 1 else ' has'

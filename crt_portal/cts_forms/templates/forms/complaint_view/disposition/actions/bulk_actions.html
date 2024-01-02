@@ -21,6 +21,18 @@
       <input type="hidden" value="{{ query_string }}" name="query_string" id="query_string" />
 
         <p>This bulk disposition action form does not currently do anything. In the future it will allow users to approve the deletion of reports.</p>
+        <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
+            <label for="id_assigned_section" class="intake-label">
+              {{ bulk_actions_form.assigned_section.label }}
+            </label>
+            {{ bulk_actions_form.assigned_section }}
+        </div>
+        <div class="margin-bottom-2 crt-dropdown">
+            <label for="id_retention_schedule" class="intake-label">
+              {{ bulk_actions_form.retention_schedule.label }}
+            </label>
+            {{ bulk_actions_form.retention_schedule }}
+        </div>
         <button class="usa-button{% if show_warning %} button--warning display-flex align-center{% endif %}"
                 {% if show_warning %}id="show_warning_section_partial"{% endif %}
                 disabled
@@ -31,18 +43,12 @@
         </button>
 
         {% if selected_all %}
-          {% if all_ids_count <= 500 %}
             <button class="usa-button button--warning display-flex align-center"
                     id="show_warning_section"
                     disabled
             >
              Approve {{ all_ids_count }} record{{ all_ids_count|pluralize:"s" }} for deletion
             </button>
-          {% else %}
-            <p>
-              Maximum records for bulk deletion is capped at 500. Please return to the <a href="{% url 'crt_forms:disposition' %}{{ return_url_args }}">Disposition Page</a> and adjust your selection.
-            </p>
-          {% endif %}
         {% endif %}
       </div>
 
