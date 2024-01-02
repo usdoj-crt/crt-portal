@@ -1506,7 +1506,7 @@ class Filters(ModelForm):
             'contact_last_name': 'Contact last name',
             'location_city_town': 'Incident city',
             'location_state': 'Incident state',
-            'location_name': 'Incident location name',
+            'location_name': 'Organization name',
             'assigned_to': 'Assignee',
             'public_id': 'Complaint ID',
             'violation_summary': 'Personal description',
