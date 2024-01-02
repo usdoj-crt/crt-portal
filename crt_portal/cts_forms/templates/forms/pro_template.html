@@ -70,8 +70,9 @@
     <div class="margin-top-3">
       {% include "forms/question_cards/single_question.html" with field=form.protected_class card_title="Personal characteristics" %}
     </div>
-
-    {% include "forms/question_cards/single_question.html" with field=form.other_class card_title="Personal characteristics" %}
+    <div class="padding-left-4 other-class-option">
+      {% include "forms/question_cards/other_question.html" with field=form.other_class card_title="Personal characteristics" %}
+    </div>
   </div>
 </div>
 
