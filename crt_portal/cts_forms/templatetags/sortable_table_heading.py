@@ -10,7 +10,7 @@ sort_lookup = {
     'routed': 'assigned_section',
     'submitted': 'create_date',
     'contact name': 'contact_last_name',
-    'location name': 'location_name',
+    'organization name': 'location_name',
     'incident location': 'location_city_town',
     'incident date': 'last_incident_month',
     'timestamp': 'timestamp',
