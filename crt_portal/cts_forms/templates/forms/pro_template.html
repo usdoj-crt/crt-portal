@@ -55,7 +55,7 @@
 
       {% include "forms/question_cards/single_question.html" with hidden=True field=form.commercial_or_public_place label_class=question_group.help_cls %}
 
-      {% include "forms/question_cards/single_question.html" with hidden=True field=form.other_commercial_or_public_place label_class=question_group.help_cls %}
+      {% include "forms/question_cards/other_question.html" with hidden=True field=form.other_commercial_or_public_place label="Other commercial or public place" label_class=question_group.help_cls %}
     </div>
   </div>
 </div>
@@ -70,9 +70,7 @@
     <div class="margin-top-3">
       {% include "forms/question_cards/single_question.html" with field=form.protected_class card_title="Personal characteristics" %}
     </div>
-    <div class="padding-left-4 other-class-option">
-      {% include "forms/question_cards/other_question.html" with field=form.other_class card_title="Personal characteristics" %}
-    </div>
+    {% include "forms/question_cards/other_question.html" with field=form.other_class card_title="Personal characteristics" %}
   </div>
 </div>
 
