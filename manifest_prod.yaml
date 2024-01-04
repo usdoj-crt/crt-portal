@@ -7,7 +7,7 @@ applications:
   - route: www.civilrights.justice.gov
   - route: crt-portal-django-prod.apps.internal
   memory: 2G
-  disk_quota: 2G
+  disk_quota: 7G
   instances: 4
   env:
     ENV: PRODUCTION
