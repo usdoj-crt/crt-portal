@@ -261,6 +261,7 @@ class RetentionSchedule(models.Model):
     class Meta:
         permissions = (
             ("assign_retentionschedule", "Can assign retention schedules to reports"),
+            ("approve_disposition", "Can approve disposition of reports"),
         )
 
     name = models.CharField(max_length=255, null=False, blank=False, help_text="The name of the schedule that will be shown to intake specialists in dropdowns.")

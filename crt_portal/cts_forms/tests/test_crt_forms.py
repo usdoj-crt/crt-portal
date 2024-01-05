@@ -20,7 +20,7 @@ from django.utils.http import urlencode
 from datetime import datetime
 from cts_forms.mail import render_complainant_mail, render_agency_mail
 
-from ..forms import BulkActionsForm, ComplaintActions, ComplaintOutreach, ContactEditForm, Filters, ReportEditForm
+from ..forms import BulkActionsForm, BulkDispositionForm, ComplaintActions, ComplaintOutreach, ContactEditForm, Filters, ReportEditForm
 from ..model_variables import CLOSED_STATUS, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, NEW_STATUS
 from ..models import CommentAndSummary, NotificationPreference, ReferralContact, Report, ResponseTemplate, EmailReportCount, RetentionSchedule
 from .factories import ReportFactory
@@ -1340,6 +1340,16 @@ class BulkActionsFormTests(TestCase):
         ]
         for action in form.get_actions(queryset.first()):
             self.assertTrue(action in expected_actions)
+
+
+class BulkDispositionFormTests(TestCase):
+    def test_bulk_disposition_update(self):
+        [Report.objects.create(**SAMPLE_REPORT_1) for _ in range(4)]
+        queryset = Report.objects.all()
+        user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', secrets.token_hex(32))
+        form = BulkDispositionForm(queryset, user)
+        result = form.update(queryset, user)
+        self.assertEqual(result, 4)
 
 
 class FiltersFormTests(TestCase):

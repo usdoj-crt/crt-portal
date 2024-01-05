@@ -1979,6 +1979,64 @@ class PrintActions(Form):
     )
 
 
+class BulkDispositionForm(Form, ActivityStreamUpdater):
+    EMPTY_CHOICE = 'Multiple'
+    assigned_section = ChoiceField(
+        label='Section',
+        widget=ComplaintSelect(attrs={
+            'class': 'usa-select crt-dropdown__data',
+            'disabled': 'disabled',
+        }),
+        choices=add_empty_choice(SECTION_CHOICES_WITHOUT_LABELS, default_string=EMPTY_CHOICE),
+        required=False
+    )
+    retention_schedule = MultipleChoiceField(
+        required=False,
+        label='Retention schedule',
+        choices=add_empty_choice(RETENTION_SCHEDULE_CHOICES, default_string=EMPTY_CHOICE),
+        widget=ComplaintSelect(attrs={
+            'class': 'usa-select crt-dropdown__data',
+            'disabled': 'disabled',
+        }),
+    )
+
+    def get_initial_values(self, record_query, keys):
+        """
+        Given a record query and a list of keys, determine if a key has a
+        singular value within that query. Used to set initial fields
+        for bulk update forms.
+        """
+        # make sure the queryset does not order by anything, otherwise
+        # we will have difficulty getting distinct results.
+        query = record_query.order_by()
+        for key in keys:
+            values = query.values_list(key, flat=True).distinct()
+            if values.count() == 1:
+                yield key, values[0]
+
+    def __init__(self, query, *args, user=None, **kwargs):
+        self.user = user
+        Form.__init__(self, *args, **kwargs)
+        self.queryset = query
+        # set initial values if applicable
+        keys = ['assigned_section', 'retention_schedule']
+        for key, initial_value in self.get_initial_values(query, keys):
+            self.fields[key].initial = initial_value
+
+    def update(self, reports, user):
+        """
+        Bulk update given reports and update activity log for each report
+        """
+        report_ids = reports.values_list('pk', flat=True)
+        reports = Report.objects.filter(pk__in=report_ids)
+
+        # TO DO: add logic to approve report for deletion
+        # for report in reports:
+        # expiration_date = datetime(report.closed_date.year + report.retention_schedule.retention_years + 1, 1, 1).date()
+        # add_activity(user, 'Disposition:', f'Approved for deletion on {expiration_date}', report, True)
+        return reports.count()
+
+
 class BulkActionsForm(LitigationHoldLock, Form, ActivityStreamUpdater):
     EMPTY_CHOICE = 'Multiple'
     assigned_section = ChoiceField(

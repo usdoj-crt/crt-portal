@@ -1,0 +1,80 @@
+{% extends "forms/complaint_view/show/card.html" %}
+
+{% load i18n %}
+
+{% block title %}Approve multiple records for deletion{% endblock %}
+
+{% block extra_classes %}crt-actions-card{% endblock %}
+
+{% block icon %}
+  <img src="{% static "img/intake-icons/ic_check-circle.svg" %}" alt="icon" class="icon" />
+{% endblock %}
+
+{% block card_content %}
+  {% if ids_count %}
+    <form class="usa-form" method="post" novalidate>
+      {% csrf_token %}
+
+      <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
+      <input type="hidden" value="{{ ids }}" name="ids" id="ids" />
+      <input type="hidden" value="{{ selected_all }}" name="all" id="all" />
+      <input type="hidden" value="{{ query_string }}" name="query_string" id="query_string" />
+
+        <p>This bulk disposition action form does not currently do anything. In the future it will allow users to approve the deletion of reports.</p>
+        <div class="margin-bottom-2 crt-dropdown crt-dropdown__shrink-to-contents">
+            <label for="id_assigned_section" class="intake-label">
+              {{ bulk_actions_form.assigned_section.label }}
+            </label>
+            {{ bulk_actions_form.assigned_section }}
+        </div>
+        <div class="margin-bottom-2 crt-dropdown">
+            <label for="id_retention_schedule" class="intake-label">
+              {{ bulk_actions_form.retention_schedule.label }}
+            </label>
+            {{ bulk_actions_form.retention_schedule }}
+        </div>
+        <button class="usa-button{% if show_warning %} button--warning display-flex align-center{% endif %}"
+                {% if show_warning %}id="show_warning_section_partial"{% endif %}
+                disabled
+                type="submit"
+                name="selected_ids"
+        >
+          Approve {{ ids_count }} record{{ ids_count|pluralize:"s" }} for deletion
+        </button>
+
+        {% if selected_all %}
+            <button class="usa-button button--warning display-flex align-center"
+                    id="show_warning_section"
+                    disabled
+            >
+             Approve {{ all_ids_count }} record{{ all_ids_count|pluralize:"s" }} for deletion
+            </button>
+        {% endif %}
+      </div>
+
+      {% if show_warning or selected_all %}
+        <div id="warning_section" hidden>
+          <p>
+            Are you sure you want to update
+            <span id="warning_count_all">{{ all_ids_count }}</span>
+            <span id="warning_count_partial">{{ ids_count }}</span>
+            records?
+          </p>
+          <button class="usa-button button--warning display-flex align-center"
+                  id="confirm_button"
+                  name="confirm_all"
+                  value="confirm_all"
+                  type="submit">
+            Yes
+          </button>
+          <button class="usa-button"
+                  id="cancel_warning_section">
+            No
+          </button>
+        </div>
+      {% endif %}
+    </form>
+  {% else %}
+    <p>No records were selected.</p>
+  {% endif %}
+{% endblock %}

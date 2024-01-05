@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import (ActionsView, index_view, data_view, dashboard_view, dashboard_activity_log_view, disposition_view, RoutingGuideView, DispositionGuideView, ShowView, ProFormView,
+from .views import (ActionsView, index_view, data_view, dashboard_view, dashboard_activity_log_view, disposition_view, RoutingGuideView, DispositionGuideView, DispositionActionsView, ShowView, ProFormView,
                     SaveCommentView, TrendView, ResponseView, SearchHelperView,
                     PrintView, ProfileView, ReportAttachmentView, ReportDataView, DataExport, RemoveReportAttachmentView, unsubscribe_view)
 from .forms import ProForm
@@ -31,5 +31,6 @@ urlpatterns = [
     path('data/', data_view, name='data'),
     path('dashboard/activity', dashboard_activity_log_view, name='activity-log'),
     path('disposition', disposition_view, name='disposition'),
+    path('disposition/actions', DispositionActionsView.as_view(), name='disposition-actions'),
     path('notifications/unsubscribe', unsubscribe_view, name='crt-forms-notifications-unsubscribe'),
 ]

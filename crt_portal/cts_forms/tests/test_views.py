@@ -886,19 +886,19 @@ class CRTDispositionTests(TestCase):
         self.other_report_data.update({'closed_date': date.today()})
         other_retention_schedule = RetentionSchedule.objects.get(retention_years=10)
         self.other_report_data.update({'retention_schedule': other_retention_schedule})
-        Report.objects.create(**self.other_report_data)
+        self.other_report = Report.objects.create(**self.other_report_data)
         self.other_report_data_2 = SAMPLE_REPORT_1.copy()
         self.other_report_data_2.update({'status': 'closed'})
         self.other_report_data_2.update({'closed_date': date.today()})
         other_retention_schedule_2 = RetentionSchedule.objects.get(retention_years=3)
         self.other_report_data_2.update({'retention_schedule': other_retention_schedule_2})
-        Report.objects.create(**self.other_report_data_2)
+        self.other_report_2 = Report.objects.create(**self.other_report_data_2)
         self.expired_report_data = SAMPLE_REPORT_1.copy()
         self.expired_report_data.update({'status': 'closed'})
         self.expired_report_data.update({'closed_date': "2020-02-01 18:17:52.74131+00"})
         expired_retention_schedule = RetentionSchedule.objects.get(retention_years=1)
         self.expired_report_data.update({'retention_schedule': expired_retention_schedule})
-        Report.objects.create(**self.expired_report_data)
+        self.expired_report = Report.objects.create(**self.expired_report_data)
         self.url = reverse('crt_forms:disposition')
 
     def test_view_disposition_unauthenticated(self):
@@ -931,6 +931,13 @@ class CRTDispositionTests(TestCase):
         report_len = len(reports)
         self.assertEqual(report_len, 2)
         self.assertIn('Permanent', str(response.content))
+
+    def test_disposition_bulk_action(self):
+        url = reverse('crt_forms:disposition-actions')
+        url = f'{url}?next=%253Fper_page%253D15%2526status%253Dclosed%2526retention_schedule%253D1%2520Year%2526retention_schedule%253D3%2520Year%2526retention_schedule%253D10%2520Year%2526retention_schedule%253DPermanent%2526disposition_status%253Dpast%2526page%253D1&id={self.other_report.id}&id={self.other_report_2.id}'
+        self.client.force_login(self.superuser)
+        response = self.client.get(url)
+        self.assertIn('deletion', str(response.content))
 
 
 class LoginRequiredTests(TestCase):
