@@ -26,12 +26,17 @@
       </div>
 
       <div class="complaint-page grid-row grid-gap-4">
+        {% if not action %}
         <div class="complaint-actions tablet:grid-col-5 grid-offset-1">
           {% include 'forms/complaint_view/actions/bulk_actions.html' %}
         </div>
-        <div class="complaint-actions tablet:grid-col-5 margin-top-2">
+        {% endif %}
+
+        {% if action == 'print' %}
+        <div class="complaint-actions tablet:grid-col-5 grid-offset-1 margin-top-2">
           {% include 'forms/complaint_view/actions/bulk_print.html' with reports=print_reports %}
         </div>
+        {% endif %}
       </div>
     </div>
   </div>

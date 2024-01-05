@@ -55,10 +55,10 @@
   };
 
   const report = document.getElementById('printout_report');
-  report.addEventListener('click', showModal);
+  report?.addEventListener('click', showModal);
 
   const cancelModal = document.getElementById('print_report_cancel');
-  root.CRT.cancelModal(modal, cancelModal);
+  if (cancelModal) root.CRT.cancelModal(modal, cancelModal);
 
   const printButtons = document.querySelectorAll('.print-report-button');
   Object.keys(OPTION_MAPPING_TO_SECTION).forEach(optionId => {

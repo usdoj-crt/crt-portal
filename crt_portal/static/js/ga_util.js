@@ -49,6 +49,9 @@ function sendGAClickEvent(e) {
     if (groupingButton !== null) {
       groupingButton.addEventListener('change', sendGAClickEvent);
     }
+    Array.from(document.querySelectorAll('.bulk-submit-ga')).forEach(button => {
+      button.addEventListener('click', sendGAClickEvent);
+    });
   }
   window.addEventListener('DOMContentLoaded', init);
 })(window, document);

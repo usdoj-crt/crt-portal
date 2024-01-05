@@ -1131,6 +1131,7 @@ class BulkActionsTests(TestCase):
             'next': '?per_page=8',
             'id': ids,
             'all': 'all',
+            'action': 'print',
         }
         response = self.client.get(reverse('crt_forms:crt-forms-actions'), params)
         self.assertEqual(response.status_code, 200)

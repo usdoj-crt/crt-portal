@@ -987,6 +987,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         selected_all = selected_all and all_ids_count != ids_count
 
         output = {
+            'action': request.GET.get('action', ''),
             'return_url_args': return_url_args,
             'selected_all': 'all' if selected_all else '',
             'ids': ','.join(ids),
