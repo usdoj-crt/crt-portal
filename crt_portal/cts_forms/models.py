@@ -448,6 +448,26 @@ class Report(models.Model):
                 return None
         return None
 
+    @cached_property
+    def summary(self):
+        """Finds the summary from the report's internal comments list.
+
+        This should be preferred when prefetch_related has been used.
+
+        Avoid this when data has not been prefetched -  django ORM query would be better.
+        """
+        summaries = sorted([
+            summary
+            for summary
+            in self.internal_comments.all()
+            if summary.is_summary
+        ], key=lambda s: s.modified_date, reverse=True)
+
+        if not summaries:
+            return None
+
+        return summaries[0]
+
     def __str__(self):
         return self.public_id
 
