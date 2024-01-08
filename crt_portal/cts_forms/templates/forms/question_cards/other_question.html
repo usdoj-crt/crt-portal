@@ -1,0 +1,23 @@
+{% load i18n %}
+<div class="padding-left-4 other-class-option">
+<div
+  class="form-group"
+  {% if hidden %}
+  style="display:none"
+  id="div-{{ field.id_for_label }}"
+  {%  endif %}
+>
+{% if field.label %}
+    <label for="{{ field.id_for_label }}" class="{{label_class}} margin-bottom-1 display-block">{{ field.label }}{% if required or field.field.required or proform_required %}<span class="field-required">{% trans "required" %}</span>{% endif %}</label>
+{% endif %}
+{% if field.help_text %}
+  <p class="help-text__small" {% if ally_id%}id="{{ally_id}}" {%endif%}>
+    <em>{{ field.help_text }}</em>
+  </p>
+{% endif %}
+{{ field | withInputError }}
+{% if field.errors %}
+    {% include "forms/snippets/error_alert.html" with errors=field.errors %}
+{% endif %}
+</div>
+</div>
