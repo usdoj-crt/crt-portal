@@ -1,8 +1,9 @@
 {% extends "forms/complaint_view/intake_base.html" %}
+{% load back_to_all %}
 
 
 {% block page_title %}
-  <title>CRT Complaint Records - Update multiple records</title>
+  <title>CRT Complaint Disposition - Update multiple records</title>
 {% endblock %}
 
 {% block content %}
@@ -13,7 +14,7 @@
         <div class="tablet:grid-col-10 grid-offset-1 padding-left-05">
           <div class="complaint-filter-navigation display-flex flex-row flex-justify">
             <div class="display-flex">
-              <a class="outline-button outline-button--dark bulk-action-back-button" href="{% url 'crt_forms:crt-forms-index' %}{{ return_url_args }}">
+              <a class="outline-button outline-button--dark" href="{% url 'crt_forms:disposition' %}{% back_to_all return_url_args %}">
                 <img src="{% static "img/intake-icons/ic_arrow_forward.svg" %}" alt="back arrow" class="icon">
                 Back to all
               </a>
@@ -26,24 +27,12 @@
       </div>
 
       <div class="complaint-page grid-row grid-gap-4">
-        {% if not action %}
         <div class="complaint-actions tablet:grid-col-5 grid-offset-1">
-          {% include 'forms/complaint_view/actions/bulk_actions.html' %}
+          {% include 'forms/complaint_view/disposition/actions/bulk_actions.html' %}
         </div>
-        {% endif %}
-
-        {% if action == 'print' %}
-        <div class="complaint-actions tablet:grid-col-5 grid-offset-1 margin-top-2">
-          {% include 'forms/complaint_view/actions/bulk_print.html' with reports=print_reports %}
-        </div>
-        {% endif %}
       </div>
     </div>
   </div>
-{% endblock %}
-
-{% block usa_footer %}
-  {% include 'forms/complaint_view/show/print_report.html' with single_print=False %}
 {% endblock %}
 
 {% block page_js %}

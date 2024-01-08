@@ -49,7 +49,7 @@ def backfill_ten_year_retention(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('cts_forms', '0189_alter_routingsection_options_and_more'),
+        ('cts_forms', '0190_alter_retentionschedule_options'),
     ]
 
     operations = [

@@ -42,7 +42,7 @@
           {% render_sortable_heading 'Submitted' sort_state filter_state grouping group_params index %}
           {% render_sortable_heading 'Contact Name' sort_state filter_state grouping group_params index %}
           {% render_sortable_heading 'Contact Details' sort_state filter_state grouping group_params index %}
-          {% render_sortable_heading 'Incident Location' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Organization Name' sort_state filter_state grouping group_params index %}
           {% render_sortable_heading 'Incident City/State' sort_state filter_state grouping group_params index %}
           {% render_sortable_heading 'Incident Date' sort_state filter_state grouping group_params index %}
         </tr>
@@ -164,7 +164,10 @@
         <span id="selection-action-count" class="selection-action-count">1 record</span> selected
       </h2>
       <div class="selection-submit">
-        <button type="submit" id="actions" label="actions" class="usa-button">Actions</button>
+        <button data-ga-event-name="complaints bulk actions" type="submit" name="action" id="actions" label="actions" class="usa-button bulk-submit-ga">Actions</button>
+        <button data-ga-event-name="complaints bulk print" type="submit" name="action" value="print" id="actions" label="actions" class="usa-button bulk-submit-ga">
+          <span class="usa-tooltip" data-position="right" data-classes="display-inline" title="This may take a while if many reports are selected.">Print</span>
+        </button>
       </div>
     </div>
   </div>

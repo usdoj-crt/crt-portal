@@ -261,6 +261,7 @@ class RetentionSchedule(models.Model):
     class Meta:
         permissions = (
             ("assign_retentionschedule", "Can assign retention schedules to reports"),
+            ("approve_disposition", "Can approve disposition of reports"),
         )
 
     name = models.CharField(max_length=255, null=False, blank=False, help_text="The name of the schedule that will be shown to intake specialists in dropdowns.")
@@ -446,6 +447,26 @@ class Report(models.Model):
             except ValueError:
                 return None
         return None
+
+    @cached_property
+    def summary(self):
+        """Finds the summary from the report's internal comments list.
+
+        This should be preferred when prefetch_related has been used.
+
+        Avoid this when data has not been prefetched -  django ORM query would be better.
+        """
+        summaries = sorted([
+            summary
+            for summary
+            in self.internal_comments.all()
+            if summary.is_summary
+        ], key=lambda s: s.modified_date, reverse=True)
+
+        if not summaries:
+            return None
+
+        return summaries[0]
 
     def __str__(self):
         return self.public_id

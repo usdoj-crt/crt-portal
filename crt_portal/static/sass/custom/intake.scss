@@ -109,7 +109,22 @@ hr {
       background-color: #162e51;
       color: #fff;
     }
-
+    .crt-table thead tr th {
+      text-align: left;
+      span {
+        text-decoration: underline;
+      }
+    }
+    .crt-table tbody tr td {
+      text-align: left;
+      a {
+        padding-left: 0;
+        text-decoration: underline;
+      }
+    }
+    h3 {
+      color: #162e51;
+    }
     padding: 5px 20px
   }
 }

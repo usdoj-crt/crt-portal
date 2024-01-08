@@ -23,6 +23,9 @@ def test_close_report_via_bulk_actions(page):
     with page.expect_navigation():
         page.evaluate("document.getElementById('apply-filters-button').click()")
 
+    # We can't bulk-close if reports are not viewed:
+    page.locator('.td-toggle-all').click()
+
     # This should be the bulk action checkbox:
     page.evaluate("document.querySelector('.tr-status-new input[type=\"checkbox\"]').click()")
 
