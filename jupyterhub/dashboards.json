@@ -1,15 +1,5 @@
 [
   {
-    "header": "Submission statistics",
-    "notebooks": [
-      {
-        "path": "assignments/intake-dashboard/total_complaints.ipynb",
-        "show_only_for_sections": []
-      }
-    ],
-    "order": 0
-  },
-  {
     "header": "What's Happening Where",
     "notebooks": [
       {
@@ -21,6 +11,6 @@
         "show_only_for_sections": []
       }
     ],
-    "order": 1
+    "order": 0
   }
 ]
