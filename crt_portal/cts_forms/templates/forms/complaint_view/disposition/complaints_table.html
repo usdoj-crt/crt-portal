@@ -2,7 +2,7 @@
 
 <form class="usa-form"
       method="get"
-      action="{% url 'crt_forms:crt-forms-actions' %}"
+      action="{% url 'crt_forms:disposition-actions' %}"
       novalidate
 >
   <input type="hidden" value="{{ return_url_args }}" name="next" id="next" />
@@ -18,6 +18,18 @@
       </span>
       <thead>
         <tr>
+          {% if can_approve_disposition %}
+          <th aria-label="Bulk Action Selection">
+            <div class="usa-checkbox td-checkbox">
+              <input type="checkbox"
+                     name="all"
+                     class="usa-checkbox__input checkbox-input-all"
+                     value="all"
+              >
+              <label class="usa-checkbox__label crt-checkbox__label checkbox-all" aria-label="Select all records"></label>
+            </div>
+          </th>
+          {% endif %}
           <th aria-label="Detail toggles">
             <a aria-expanded="false" role="button" aria-label="Expand all detail rows" class="td-toggle-all display-flex" data-posted='false' href="#">
               <img alt="" aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
@@ -29,7 +41,7 @@
           {% render_sortable_heading 'Expiration Date' sort_state filter_state grouping group_params index %}
           {% render_sortable_heading 'Closed Date' sort_state filter_state grouping group_params index %}
           {% render_sortable_heading 'Total #' sort_state filter_state grouping group_params index %}
-          {% render_sortable_heading 'Incident Location' sort_state filter_state grouping group_params index %}
+          {% render_sortable_heading 'Organization name' sort_state filter_state grouping group_params index %}
           {% render_sortable_heading 'Incident City/State' sort_state filter_state grouping group_params index %}
         </tr>
       </thead>
@@ -37,6 +49,19 @@
         <tbody>
           {% for datum in data_dict %}
             <tr class="tr-status-{{ datum.report.status }} tr--hover{% cycle ' stripe' '' %}">
+              {% if can_approve_disposition %}
+              <td>
+                <div class="usa-checkbox td-checkbox">
+                  <input type="checkbox"
+                         name="id"
+                         class="usa-checkbox__input"
+                         value="{{ datum.report.id }}"
+                         id="checkbox-{{ datum.report.id }}"
+                  >
+                  <label class="usa-checkbox__label crt-checkbox__label" for="checkbox-{{ datum.report.id }}" aria-label="Select record {{ datum.report.id }}"></label>
+                </div>
+              </td>
+              {% endif %}
               <td>
                 <a data-id="{{ datum.report.id }}" aria-expanded="false" aria-label="Expand details for Record {{datum.report.id}}" role="button" aria-controls="tr-additional-{{ datum.report.id }}" class="td-toggle display-flex" href="#">
                   <img aria-hidden="true" src="{% static "img/intake-icons/ic_chevron-right.svg" %}" class="icon">
@@ -124,6 +149,19 @@
         </tbody>
       {% endif %}
     </table>
+  </div>
+  <div class="selection-action-notification" hidden>
+    <div class="display-flex flex-align-center">
+      <div>
+        <img src="{% static 'img/ic_successconfirmation-white.svg' %}" alt="action available on selection" class="icon">
+      </div>
+      <h2>
+        <span id="selection-action-count" class="selection-action-count">1 record</span> selected
+      </h2>
+      <div class="selection-submit">
+        <button type="submit" id="actions" label="actions" class="usa-button">Actions</button>
+      </div>
+    </div>
   </div>
 </form>
 

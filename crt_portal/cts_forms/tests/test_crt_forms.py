@@ -20,8 +20,8 @@ from django.utils.http import urlencode
 from datetime import datetime
 from cts_forms.mail import render_complainant_mail, render_agency_mail
 
-from ..forms import BulkActionsForm, ComplaintActions, ComplaintOutreach, ContactEditForm, Filters, ReportEditForm
-from ..model_variables import PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, NEW_STATUS
+from ..forms import BulkActionsForm, BulkDispositionForm, ComplaintActions, ComplaintOutreach, ContactEditForm, Filters, ReportEditForm
+from ..model_variables import CLOSED_STATUS, PUBLIC_OR_PRIVATE_EMPLOYER_CHOICES, NEW_STATUS
 from ..models import CommentAndSummary, NotificationPreference, ReferralContact, Report, ResponseTemplate, EmailReportCount, RetentionSchedule
 from .factories import ReportFactory
 from .test_data import SAMPLE_REFERRAL_CONTACT, SAMPLE_REPORT_1, SAMPLE_RESPONSE_TEMPLATE
@@ -179,6 +179,7 @@ class ActionTests(TestCase):
             'assigned_section': SAMPLE_REPORT_1['assigned_section'],
             'status': NEW_STATUS,
             'retention_schedule': self.schedule3.pk,
+            'litigation_hold': '',
             'comment': 'Test bulk change',
         }, user=unprivileged_user)
         form.full_clean()
@@ -187,6 +188,23 @@ class ActionTests(TestCase):
         # So, we're just asserting there's no retention_schedule change here:
         self.assertCountEqual(form.get_actions(a), [])
         self.assertCountEqual(form.get_actions(b), [])
+
+    def test_unviewed_reports_raises_error(self):
+        unviewed = Report.objects.create(**SAMPLE_REPORT_1, public_id='a', retention_schedule=self.schedule1, viewed=False)
+        viewed = Report.objects.create(**SAMPLE_REPORT_1, public_id='b', retention_schedule=self.schedule1, viewed=True)
+        queryset = Report.objects.all().filter(pk__in=[viewed.pk, unviewed.pk])
+
+        form = BulkActionsForm(queryset, {
+            'status': CLOSED_STATUS,
+            'comment': 'Test bulk change',
+        })
+        form.full_clean()
+
+        self.assertDictEqual(form.errors, {
+            '__all__': [
+                'Not all reports in the queryset have been viewed. Each report must be viewed before it can be closed.'
+            ],
+        })
 
     def test_litigation_hold_turns_on(self):
         instance = Report.objects.create(**SAMPLE_REPORT_1,
@@ -296,6 +314,55 @@ class ActionTests(TestCase):
             form.errors.get('__all__', ['Error not present'])[0],
             'No changes can be made to reports a, b while they are under litigation hold'
         )
+
+    def test_litigation_hold_allows_bulk_disabling(self):
+        a = Report.objects.create(**SAMPLE_REPORT_1, public_id='a', litigation_hold=True)
+        b = Report.objects.create(**SAMPLE_REPORT_1, public_id='b', litigation_hold=True)
+        c = Report.objects.create(**SAMPLE_REPORT_1, public_id='c')
+        privileged_user = mock.MagicMock()
+        privileged_user.has_perm.return_value = True
+
+        queryset = Report.objects.all().filter(pk__in=[a.pk, b.pk, c.pk])
+        form = BulkActionsForm(queryset, {
+            'assigned_section': 'APP',
+            'litigation_hold': 'off',
+            'comment': 'Test bulk change',
+        }, user=privileged_user)
+        form.full_clean()
+
+        self.assertCountEqual(form.get_actions(a), [
+            ('Litigation hold:', 'Updated from "True" to "False"'),
+            ('Assigned section:', 'Updated from "ADM" to "APP"'),
+        ])
+        self.assertCountEqual(form.get_actions(b), [
+            ('Litigation hold:', 'Updated from "True" to "False"'),
+            ('Assigned section:', 'Updated from "ADM" to "APP"'),
+        ])
+        self.assertCountEqual(form.get_actions(c), [
+            ('Assigned section:', 'Updated from "ADM" to "APP"'),
+        ])
+        self.assertEqual(form.errors, {})
+
+    def test_litigation_hold_allows_bulk_enabling(self):
+        a = Report.objects.create(**SAMPLE_REPORT_1, public_id='a', litigation_hold=True)
+        b = Report.objects.create(**SAMPLE_REPORT_1, public_id='b', litigation_hold=True)
+        c = Report.objects.create(**SAMPLE_REPORT_1, public_id='c')
+
+        queryset = Report.objects.all().filter(pk__in=[a.pk, b.pk, c.pk])
+        form = BulkActionsForm(queryset, {
+            'assigned_section': SAMPLE_REPORT_1['assigned_section'],
+            'status': NEW_STATUS,
+            'litigation_hold': 'on',
+            'comment': 'Test bulk change',
+        })
+        form.full_clean()
+
+        self.assertCountEqual(form.get_actions(a), [])
+        self.assertCountEqual(form.get_actions(b), [])
+        self.assertCountEqual(form.get_actions(c), [
+            ('Litigation hold:', 'Updated from "False" to "True"'),
+        ])
+        self.assertEqual(form.errors, {})
 
     def test_referral(self):
         form = ComplaintActions(
@@ -1018,7 +1085,7 @@ class BulkActionsTests(TestCase):
         self.test_pass = secrets.token_hex(32)
         self.user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', self.test_pass)
         self.client.login(username='DELETE_USER', password=self.test_pass)
-        self.reports = ReportFactory.create_batch(16, assigned_section='ADM', status='new')
+        self.reports = ReportFactory.create_batch(16, assigned_section='ADM', status='new', viewed=True)
 
     def get(self, ids, all_ids=False):
         params = {
@@ -1064,6 +1131,7 @@ class BulkActionsTests(TestCase):
             'next': '?per_page=8',
             'id': ids,
             'all': 'all',
+            'action': 'print',
         }
         response = self.client.get(reverse('crt_forms:crt-forms-actions'), params)
         self.assertEqual(response.status_code, 200)
@@ -1273,6 +1341,16 @@ class BulkActionsFormTests(TestCase):
         ]
         for action in form.get_actions(queryset.first()):
             self.assertTrue(action in expected_actions)
+
+
+class BulkDispositionFormTests(TestCase):
+    def test_bulk_disposition_update(self):
+        [Report.objects.create(**SAMPLE_REPORT_1) for _ in range(4)]
+        queryset = Report.objects.all()
+        user = User.objects.create_user('DELETE_USER', 'ringo@thebeatles.com', secrets.token_hex(32))
+        form = BulkDispositionForm(queryset, user)
+        result = form.update(queryset, user)
+        self.assertEqual(result, 4)
 
 
 class FiltersFormTests(TestCase):

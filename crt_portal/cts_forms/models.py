@@ -127,8 +127,19 @@ class JudicialDistrict(models.Model):
 
 
 class RoutingSection(models.Model):
+    class Meta:
+        verbose_name = 'Section POC'
+        verbose_name_plural = 'Section POCs'
     section = models.TextField(choices=SECTION_CHOICES_WITHOUT_LABELS, default='ADM', unique=True)
-    names = models.CharField(max_length=700, null=False, blank=False)
+    names = models.CharField(verbose_name='Routing Section POCs', max_length=700, null=False, blank=False, default='')
+    retention_section_pocs = models.CharField(verbose_name='Retention Section POCs', max_length=700, null=False, blank=False, default='')
+
+    def get_pocs(self, purpose='routing'):
+        if purpose == 'retention':
+            return self.retention_section_pocs
+        if purpose == 'routing':
+            return self.names
+        raise ValueError(f'Invalid section contact purpose: {purpose}')
 
     def __str__(self):
         return self.section
@@ -250,6 +261,7 @@ class RetentionSchedule(models.Model):
     class Meta:
         permissions = (
             ("assign_retentionschedule", "Can assign retention schedules to reports"),
+            ("approve_disposition", "Can approve disposition of reports"),
         )
 
     name = models.CharField(max_length=255, null=False, blank=False, help_text="The name of the schedule that will be shown to intake specialists in dropdowns.")
@@ -435,6 +447,26 @@ class Report(models.Model):
             except ValueError:
                 return None
         return None
+
+    @cached_property
+    def summary(self):
+        """Finds the summary from the report's internal comments list.
+
+        This should be preferred when prefetch_related has been used.
+
+        Avoid this when data has not been prefetched -  django ORM query would be better.
+        """
+        summaries = sorted([
+            summary
+            for summary
+            in self.internal_comments.all()
+            if summary.is_summary
+        ], key=lambda s: s.modified_date, reverse=True)
+
+        if not summaries:
+            return None
+
+        return summaries[0]
 
     def __str__(self):
         return self.public_id

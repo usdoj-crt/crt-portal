@@ -282,7 +282,7 @@ class JudicialDistrictAdmin(ReadOnlyModelAdmin):
 
 
 class RoutingSectionAdmin(CrtModelAdmin):
-    list_display = ['section', 'names']
+    list_display = ['section', 'names', 'retention_section_pocs']
 
 
 class ApplicationContactAdmin(CrtModelAdmin):

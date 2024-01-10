@@ -3,6 +3,9 @@
   AriaAutocomplete(select, {});
 
   var comment_field = document.getElementById('id_comment');
+  if (!comment_field) {
+    return; // This is the print view, no actions are shown.
+  }
   comment_field.oninput = function(event) {
     var buttons = document.querySelectorAll('.complaint-page .usa-button');
     for (var i = 0; i < buttons.length; i++) {

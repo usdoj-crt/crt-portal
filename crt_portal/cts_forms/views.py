@@ -33,7 +33,7 @@ from datetime import datetime
 from .attachments import ALLOWED_FILE_EXTENSIONS
 from .filters import report_filter, dashboard_filter, report_grouping
 from .forms import (
-    BulkActionsForm, CommentActions, ComplaintActions, ComplaintOutreach,
+    BulkActionsForm, BulkDispositionForm, CommentActions, ComplaintActions, ComplaintOutreach,
     ContactEditForm, Filters, PrintActions, ProfileForm,
     ReportEditForm, ResponseActions, add_activity,
     AttachmentActions, Review, save_form,
@@ -64,18 +64,16 @@ def format_protected_class(p_class_objects, other_class):
     return p_class_list
 
 
-def get_section_contacts():
+def get_section_contacts(purpose: str):
     routing_sections = RoutingSection.objects.all()
     try:
         routing_step_one_contacts = RoutingStepOneContact.objects.first().contacts
     except AttributeError:
         routing_step_one_contacts = "ask.CRT@usdoj.gov"
-    routing_data = []
-    for route in routing_sections:
-        routing_data.append({
-            "section": route.section,
-            "names": route.names
-        })
+    routing_data = [
+        {"section": route.section, "names": route.get_pocs(purpose)}
+        for route in routing_sections
+    ]
 
     return {"routing_data": routing_data, "routing_step_one_contacts": routing_step_one_contacts}
 
@@ -639,9 +637,11 @@ def disposition_view(request):
     report_query, query_filters = report_filter(QueryDict('status=closed&retention_schedule=1%20Year&retention_schedule=3%20Year&retention_schedule=10%20Year&retention_schedule=Permanent&disposition_status=' + disposition_status))
     profile_form = get_profile_form(request)
     final_data = get_view_data(request, report_query, query_filters, disposition_status)
+    can_approve_disposition = request.user.has_perm('cts_forms.approve_disposition') if request.user else False
     final_data.update({
         'profile_form': profile_form,
         'disposition_status': disposition_status,
+        'can_approve_disposition': can_approve_disposition,
     })
     return render(request, 'forms/complaint_view/disposition/index.html', final_data)
 
@@ -886,7 +886,7 @@ class ShowView(LoginRequiredMixin, View):
 class RoutingGuideView(LoginRequiredMixin, View):
 
     def get(self, request, id):
-        output = get_section_contacts()
+        output = get_section_contacts('routing')
         output['redirect_path'] = f'/form/view/{id}/?{request.META["QUERY_STRING"]}'
         return render(request, 'forms/complaint_view/routing_guide.html', output)
 
@@ -894,9 +894,68 @@ class RoutingGuideView(LoginRequiredMixin, View):
 class DispositionGuideView(LoginRequiredMixin, View):
 
     def get(self, request, id):
-        output = get_section_contacts()
+        output = get_section_contacts('retention')
         output['redirect_path'] = f'/form/view/{id}/?{request.META["QUERY_STRING"]}'
         return render(request, 'forms/complaint_view/disposition_guide.html', output)
+
+
+class DispositionActionsView(LoginRequiredMixin, FormView):
+    """ CRT view to update report disposition"""
+
+    def get(self, request):
+        return_url_args = request.GET.get('next', '')
+        return_url_args = urllib.parse.unquote(return_url_args)
+        query_string = return_url_args
+        ids = request.GET.getlist('id')
+        # The select all option only applies if 1. user hits the
+        # select all button and 2. we have more records in the query
+        # than the ids passed in
+        selected_all = request.GET.get('all', '') == 'all'
+
+        if selected_all:
+            requested_query = reconstruct_query(query_string)
+        else:
+            requested_query = Report.objects.filter(pk__in=ids)
+
+        bulk_disposition_form = BulkDispositionForm(requested_query, user=request.user)
+        all_ids_count = requested_query.count()
+        ids_count = len(ids)
+
+        # further refine selected_all to ensure < 15 items don't show up.
+        selected_all = selected_all and all_ids_count != ids_count
+
+        output = {
+            'return_url_args': return_url_args,
+            'selected_all': 'all' if selected_all else '',
+            'ids': ','.join(ids),
+            'ids_count': ids_count,
+            'show_warning': ids_count > 15,
+            'all_ids_count': all_ids_count,
+            'bulk_actions_form': bulk_disposition_form,
+            'query_string': query_string,
+        }
+        return render(request, 'forms/complaint_view/disposition/actions/index.html', output)
+
+    def post(self, request):
+        return_url_args = request.POST.get('next', '')
+        confirm_all = request.POST.get('confirm_all', '') == 'confirm_all'
+        ids = request.POST.get('ids', '').split(',')
+        query_string = request.POST.get('query_string', return_url_args)
+
+        if confirm_all:
+            requested_query = reconstruct_query(query_string)
+        else:
+            requested_query = Report.objects.filter(pk__in=ids)
+
+        bulk_disposition_form = BulkDispositionForm(requested_query, request.POST, user=request.user)
+        number = bulk_disposition_form.update(requested_query, request.user)
+        plural = 's have' if number > 1 else ' has'
+        message = f'{number} record{plural} been approved for deletion'
+        logging.info(message)
+        messages.add_message(request, messages.SUCCESS, message)
+
+        url = reverse('crt_forms:disposition')
+        return redirect(f"{url}{return_url_args}")
 
 
 class ActionsView(LoginRequiredMixin, FormView):
@@ -928,6 +987,7 @@ class ActionsView(LoginRequiredMixin, FormView):
         selected_all = selected_all and all_ids_count != ids_count
 
         output = {
+            'action': request.GET.get('action', ''),
             'return_url_args': return_url_args,
             'selected_all': 'all' if selected_all else '',
             'ids': ','.join(ids),

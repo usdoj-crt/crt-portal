@@ -10,7 +10,7 @@ variable_rename = {
     'contact_first_name': 'Contact first name',
     'contact_last_name': 'Contact last name',
     'location_city_town': 'Incident city',
-    'location_name': 'Incident location name',
+    'location_name': 'Organization name',
     'location_state': 'Incident state',
     'assigned_to': 'Assignee',
     'origination_utm_campaign': 'Campaign',

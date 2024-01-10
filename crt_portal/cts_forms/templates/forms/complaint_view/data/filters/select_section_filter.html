@@ -1,5 +1,5 @@
-<label for="id_section" class="usa-label crt-dropdown__label">Select a Section</label>
 <select id="id_section" name="section" class="usa-select usa-input usa-select crt-dropdown__data">
+  <option value="">Select a Section</option>
   {% for section in sections %}
   <option value="{{section}}">{{section}}</option>
   {% endfor %}

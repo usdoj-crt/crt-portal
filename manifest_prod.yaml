@@ -7,7 +7,7 @@ applications:
   - route: www.civilrights.justice.gov
   - route: crt-portal-django-prod.apps.internal
   memory: 2G
-  disk_quota: 2G
+  disk_quota: 7G
   instances: 4
   env:
     ENV: PRODUCTION
@@ -33,7 +33,7 @@ applications:
     MAX_FILE_SIZE: 100M
     SIGNATURE_CHECKS: 8
   docker:
-    image: ajilaag/clamav-rest:20230729 # ##20230520
+    image: ajilaag/clamav-rest:20240106 # ##20230729
   routes:
   - route: clamav-rest-prod.apps.internal
 
@@ -42,7 +42,7 @@ applications:
   routes:
   - route: crt-portal-jupyter-prod.app.cloud.gov
   memory: 2G
-  disk_quota: 2G
+  disk_quota: 7G
   instances: 1
   env:
     ENV: PRODUCTION
