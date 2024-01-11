@@ -53,6 +53,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(backfill_ten_year_retention,
+        # NOTE: This is causing problems on production, so we're disabling it:
+        migrations.RunPython(migrations.RunPython.noop,
                              migrations.RunPython.noop),
     ]
