@@ -174,7 +174,7 @@ class BackfillTenYearRetentionTest(TestCase):
         ]
 
     def test_backfills_successfully(self):
-        call_command('backfill_ten_year_retention', 2000)
+        call_command('backfill_ten_year_retention', 2000, 0)
         self.report.refresh_from_db()
 
         self.assertEqual(self.report.retention_schedule, self.ten_year_schedule)
@@ -184,7 +184,7 @@ class BackfillTenYearRetentionTest(TestCase):
         self.report.dj_number = '170-80-1234'
         self.report.save()
 
-        call_command('backfill_ten_year_retention', 2000)
+        call_command('backfill_ten_year_retention', 2000, 0)
         self.report.refresh_from_db()
 
         self.assertIsNone(self.report.retention_schedule)
@@ -194,7 +194,7 @@ class BackfillTenYearRetentionTest(TestCase):
         self.report.status = 'open'
         self.report.save()
 
-        call_command('backfill_ten_year_retention', 2000)
+        call_command('backfill_ten_year_retention', 2000, 0)
         self.report.refresh_from_db()
 
         self.assertIsNone(self.report.retention_schedule)
@@ -204,7 +204,7 @@ class BackfillTenYearRetentionTest(TestCase):
         self.report.litigation_hold = True
         self.report.save()
 
-        call_command('backfill_ten_year_retention', 2000)
+        call_command('backfill_ten_year_retention', 2000, 0)
         self.report.refresh_from_db()
 
         self.assertIsNone(self.report.retention_schedule)
@@ -214,7 +214,7 @@ class BackfillTenYearRetentionTest(TestCase):
         self.report.retention_schedule = self.not_ten_year_schedule
         self.report.save()
 
-        call_command('backfill_ten_year_retention', 2000)
+        call_command('backfill_ten_year_retention', 2000, 0)
         self.report.refresh_from_db()
 
         self.assertEqual(self.report.retention_schedule, self.not_ten_year_schedule)
