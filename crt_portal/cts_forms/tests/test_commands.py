@@ -7,7 +7,7 @@ from django.test import TestCase
 from datetime import datetime
 
 from .test_data import SAMPLE_REPORT_1, SAMPLE_REPORT_2, SAMPLE_REPORT_3, SAMPLE_REPORT_4
-from ..models import Report, RepeatWriterInfo, ReportsData, Trends
+from ..models import Report, RepeatWriterInfo, ReportsData, Trends, RetentionSchedule
 from ..forms import add_activity
 
 
@@ -150,3 +150,72 @@ class RefreshTrends(TestCase):
             all_trend_words.append(trend.word)
         self.assertEqual(len(trends), 30)
         self.assertTrue('nation' in str(all_trend_words))
+
+
+class BackfillTenYearRetentionTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.ten_year_schedule = RetentionSchedule.objects.get(name='10 Year')
+        cls.not_ten_year_schedule = RetentionSchedule.objects.get(name='3 Year')
+
+    def setUp(self):
+        self.report = Report.objects.create(**SAMPLE_REPORT_1,
+                                            retention_schedule=None,
+                                            status='closed',
+                                            litigation_hold=False,
+                                            dj_number=None)
+
+    def _get_migrate_activity(self):
+        return [
+            activity
+            for activity
+            in self.report.target_actions.all()
+            if (activity.verb == 'Retention schedule:' and activity.description == 'Migrated from "None" to "10 Year"')
+        ]
+
+    def test_backfills_successfully(self):
+        call_command('backfill_ten_year_retention', 2000, 0)
+        self.report.refresh_from_db()
+
+        self.assertEqual(self.report.retention_schedule, self.ten_year_schedule)
+        self.assertEqual(len(self._get_migrate_activity()), 1)
+
+    def test_ignores_with_dj_number(self):
+        self.report.dj_number = '170-80-1234'
+        self.report.save()
+
+        call_command('backfill_ten_year_retention', 2000, 0)
+        self.report.refresh_from_db()
+
+        self.assertIsNone(self.report.retention_schedule)
+        self.assertEqual(len(self._get_migrate_activity()), 0)
+
+    def test_ignores_open(self):
+        self.report.status = 'open'
+        self.report.save()
+
+        call_command('backfill_ten_year_retention', 2000, 0)
+        self.report.refresh_from_db()
+
+        self.assertIsNone(self.report.retention_schedule)
+        self.assertEqual(len(self._get_migrate_activity()), 0)
+
+    def test_ignores_litigation_hold(self):
+        self.report.litigation_hold = True
+        self.report.save()
+
+        call_command('backfill_ten_year_retention', 2000, 0)
+        self.report.refresh_from_db()
+
+        self.assertIsNone(self.report.retention_schedule)
+        self.assertEqual(len(self._get_migrate_activity()), 0)
+
+    def test_ignores_with_retention_schedule(self):
+        self.report.retention_schedule = self.not_ten_year_schedule
+        self.report.save()
+
+        call_command('backfill_ten_year_retention', 2000, 0)
+        self.report.refresh_from_db()
+
+        self.assertEqual(self.report.retention_schedule, self.not_ten_year_schedule)
+        self.assertEqual(len(self._get_migrate_activity()), 0)
