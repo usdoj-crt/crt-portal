@@ -70,7 +70,11 @@
     <script src="{% static 'vendor/uswds-init.min.js' %}"></script>
     <link rel="icon" href="{% static "img/favicon.png" %}">
     <link rel="stylesheet" href="{% static "css/compiled/styles.css" %}">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/colreorder/1.7.0/css/colReorder.dataTables.min.css" />
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/colreorder/1.7.0/js/dataTables.colReorder.min.js"></script>
     {% block head %}{% endblock %}
   </head>
   <body {% block body_class %}{% endblock %}>
