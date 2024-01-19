@@ -1,5 +1,6 @@
 """Form widgets"""
-from django.forms.widgets import ChoiceWidget, NumberInput, Select, SelectMultiple, DateInput, MultiWidget
+from django.forms import MultiValueField, CharField, IntegerField
+from django.forms.widgets import ChoiceWidget, TextInput, NumberInput, Select, SelectMultiple, DateInput, MultiWidget
 
 from cts_forms.model_variables import DISTRICT_CHOICES, STATUTE_CHOICES, EMPTY_CHOICE
 
@@ -21,6 +22,73 @@ class CrtPrimaryIssueRadioGroup(ChoiceWidget):
     input_type = 'radio'
     template_name = 'forms/widgets/multiple_inputs.html'
     option_template_name = 'forms/widgets/crt_radio_area_option.html'
+
+
+class FuzzyWidget(MultiWidget):
+    template_name = 'forms/widgets/fuzzy.html'
+
+    def __init__(self, attrs=None):
+        if not attrs:
+            attrs = {}
+        widgets = (
+            TextInput(attrs={
+                'label': 'Search for:',
+                'class': 'usa-input usa-tooltip margin-bottom-2',
+                'title': 'Enter the text to search for. Adjust the sliders below to match typos and misspellings.',
+                **attrs
+            }),
+            NumberInput(attrs={
+                'label': 'Sounds like sensitivity:',
+                'class': 'usa-range usa-tooltip',
+                'type': 'range',
+                'title': 'Slide to the right to include more misspellings. All the way to the left means match exactly.',
+                'min': '0',
+                'max': '10',
+                **attrs,
+            }),
+            NumberInput(attrs={
+                'label': 'Looks like sensitivity:',
+                'class': 'usa-range usa-tooltip',
+                'type': 'range',
+                'title': 'Slide to the right to include more typos. All the way to the left means match exactly.',
+                'min': '0',
+                'max': '10',
+                **attrs,
+            }),
+        )
+        super().__init__(widgets, attrs)
+        self.widgets_names[0] = ''
+
+    def decompress(self, value):
+        if not value:
+            return ['', 0, 0]
+        raw = value.split('\0')
+        if len(raw) != 3:
+            return ['', 0, 0]
+        value, sound, look = raw
+        try:
+            return [value, int(sound), int(look)]
+        except ValueError:
+            return ['', 0, 0]
+
+    def value_from_datadict(self, data, files, name):
+        components = super().value_from_datadict(data, files, name)
+        return '\0'.join(str(c) if c else '' for c in components)
+
+
+class FuzzyFilterField(MultiValueField):
+    widget = FuzzyWidget
+
+    def __init__(self, *args, **kwargs):
+        fields = (
+            CharField(max_length=31),
+            IntegerField(),
+            IntegerField(),
+        )
+        super().__init__(fields, *args, **kwargs)
+
+    def compress(self, data_list):
+        return "\0".join(data_list)
 
 
 class DjNumberWidget(MultiWidget):

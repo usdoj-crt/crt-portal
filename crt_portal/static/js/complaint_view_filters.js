@@ -13,6 +13,8 @@
     contact_email: '',
     violation_summary: [],
     location_name: '',
+    location_name_1: '0',
+    location_name_2: '0',
     location_address_line_1: '',
     location_address_line_2: '',
     location_city_town: '',
@@ -51,6 +53,8 @@
     const lastNameEl = root.CRT.formEl.querySelector('input[name="contact_last_name"]');
     const locationCityEl = root.CRT.formEl.querySelector('input[name="location_city_town"]');
     const locationNameEl = root.CRT.formEl.querySelector('input[name="location_name"]');
+    const locationName1El = root.CRT.formEl.querySelector('input[name="location_name_1"]');
+    const locationName2El = root.CRT.formEl.querySelector('input[name="location_name_2"]');
     const locationStateEl = dom.getElementsByName('location_state');
     const activeFiltersEl = dom.querySelector('[data-active-filters]');
     const clearAllEl = dom.querySelector('[data-clear-filters]');
@@ -102,6 +106,14 @@
     root.CRT.textInputView({
       el: locationNameEl,
       name: 'location_name'
+    });
+    root.CRT.textInputView({
+      el: locationName1El,
+      name: 'location_name_1'
+    });
+    root.CRT.textInputView({
+      el: locationName2El,
+      name: 'location_name_2'
     });
     root.CRT.checkBoxView({
       el: locationStateEl,
