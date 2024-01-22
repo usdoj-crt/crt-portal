@@ -33,6 +33,9 @@ const sass = require("gulp-sass")(require("sass"));
 const sourcemaps = require("gulp-sourcemaps");
 const uswds = "./node_modules/@uswds/uswds";
 const shepherd = "./node_modules/shepherd.js";
+const jquery = "./node_modules/jquery";
+const datatable_js = "./node_modules/datatables.net";
+const datatable_css = "./node_modules/datatables.net-dt";
 
 /*
 ----------------------------------------
@@ -57,7 +60,7 @@ const FONTS_DEST = "./crt_portal/static/fonts";
 // Javascript destination
 const JS_DEST = "./crt_portal/static/js";
 const JS_FILES = [`${JS_DEST}/*.js`, `!${JS_DEST}/*.min.js`];
-const JS_VENDOR_FILES = [`${shepherd}/dist/js/**/**.min.js`, `${uswds}/dist/js/**/**.min.js`];
+const JS_VENDOR_FILES = [`${shepherd}/dist/js/**/**.min.js`, `${uswds}/dist/js/**/**.min.js`, `${jquery}/dist/**.min.js`, `${datatable_js}/js/**.min.js`];
 const JS_VENDOR_DEST = "./crt_portal/static/vendor";
 
 // Compiled CSS destination
@@ -147,6 +150,13 @@ gulp.task("build-sass", function (done) {
 });
 
 gulp.task(
+  'build-css', () => {
+    return gulp
+      .src(`${datatable_css}/css/**.css`)
+      .pipe(gulp.dest(`${CSS_DEST}`));
+  });
+
+gulp.task(
   "init",
   gulp.series(
     "copy-uswds-setup",
@@ -165,7 +175,7 @@ gulp.task("watch-js", function () {
   gulp.watch(JS_FILES, gulp.series("build-js", "watch-js"));
 });
 
-gulp.task("build", gulp.parallel("build-sass", "build-js"));
+gulp.task("build", gulp.parallel("build-css", "build-sass", "build-js"));
 
 gulp.task("watch", gulp.parallel("watch-sass", "watch-js"));
 

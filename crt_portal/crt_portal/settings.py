@@ -388,8 +388,6 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'https://stats.g.doubleclick.net',
         'https://www.googletagmanager.com/',
         'https://cdnjs.cloudflare.com/',
-        'https://ajax.googleapis.com',
-        'https://cdn.datatables.net',
     )
     # headers required for security
     SESSION_COOKIE_SECURE = True
@@ -412,7 +410,6 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'https://www.googletagmanager.com/',
         'https://cdnjs.cloudflare.com/',
         'https://ajax.googleapis.com',
-        'https://cdn.datatables.net',
     )
     CSP_CONNECT_SRC = (
         "'self'",
@@ -426,7 +423,6 @@ if environment in ['PRODUCTION', 'STAGE', 'DEVELOP']:
         'https://www.googletagmanager.com/',
         'https://cdnjs.cloudflare.com/',
         'https://ajax.googleapis.com',
-        'https://cdn.datatables.net',
     )
     CSP_IMG_SRC = allowed_sources
     CSP_MEDIA_SRC = allowed_sources
