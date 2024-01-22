@@ -1,12 +1,14 @@
 """
 Testing multilingual properties used to make messages
 """
+from unittest import mock
 from django.test import SimpleTestCase, TestCase
 from types import SimpleNamespace
 
 from .factories import ReportFactory
 
-from cts_forms.models import JudicialDistrict
+from cts_forms.models import JudicialDistrict, Report, ReportDispositionBatch, RetentionSchedule, User
+from .test_data import SAMPLE_REPORT_1
 
 
 class ReportSimpleTests(SimpleTestCase):
@@ -48,6 +50,45 @@ class ReportSimpleTests(SimpleTestCase):
 
 
 class ReportTests(TestCase):
+    test_user = User(username='disposition_test_user')
+
+    @classmethod
+    def setUpTestData(cls):
+        User.objects.filter(username='disposition_test_user').delete()
+        cls.test_user.save()
+        test_data = {
+            **SAMPLE_REPORT_1.copy(),
+            'retention_schedule': RetentionSchedule.objects.get(name='1 Year'),
+            'location_name': 'batch disposition tests',
+        }
+        for schedule in ['1 Year', '3 Year', '3 Year']:
+            kwargs = {
+                **test_data,
+                'retention_schedule': RetentionSchedule.objects.get(name=schedule)
+            }
+            Report.objects.create(**kwargs)
+
+    @mock.patch('crequest.middleware.CrequestMiddleware.get_request',
+                return_value=mock.Mock(user=test_user))
+    def test_disposition(self, mock_crequest_middleware: mock.Mock):
+        reports = Report.objects.filter(location_name='batch disposition tests')
+        batch = ReportDispositionBatch.dispose(reports)
+        self.assertEqual(batch.disposed_by.get_username(), 'disposition_test_user')
+        self.assertEqual(batch.disposed_count, 3)
+        self.assertEqual(batch.disposed_reports.count(), 3)
+        self.assertEqual({
+            disposed.schedule.name
+            for disposed in batch.disposed_reports.all()
+        }, {'1 Year', '3 Year'})
+        self.assertEqual({
+            disposed.public_id
+            for disposed in batch.disposed_reports.all()
+        }, {
+            original.public_id
+            for original in reports.all()
+        })
+        self.assertTrue(all(original.disposed for original in reports))
+
     class DistrictEdgeCase(SimpleNamespace):
         city_user_enters: str
         expected_correction: str
