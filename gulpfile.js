@@ -152,7 +152,7 @@ gulp.task("build-sass", function (done) {
 gulp.task(
   'build-css', () => {
     return gulp
-      .src(`${datatable_css}/css/**.css`)
+      .src(`${datatable_css}/css/**.min.css`)
       .pipe(gulp.dest(`${CSS_DEST}`));
   });
 
@@ -163,12 +163,13 @@ gulp.task(
     "copy-uswds-fonts",
     "copy-uswds-images",
     "build-js",
+    "build-css",
     "build-sass"
   )
 );
 
 gulp.task("watch-sass", function () {
-  gulp.watch(`${PROJECT_SASS_SRC}/**/*.scss`, gulp.series("build-sass", "watch-sass"));
+  gulp.watch(`${PROJECT_SASS_SRC}/**/*.scss`, gulp.series("build-css", "build-sass", "watch-sass"));
 });
 
 gulp.task("watch-js", function () {
