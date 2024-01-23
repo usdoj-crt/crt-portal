@@ -38,7 +38,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.11.6-browsers
+      - image: cimg/python:3.12.1-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -156,7 +156,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.11.6-browsers
+      - image: cimg/python:3.12.1-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -171,7 +171,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: cimg/python:3.11.6-browsers
+      - image: cimg/python:3.12.1-browsers
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
     steps:
@@ -220,7 +220,7 @@ jobs:
     working_directory: ~/code
     docker:
       # standard docker python image
-      - image: python:3.11.6
+      - image: python:3.12.1
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -287,7 +287,7 @@ jobs:
   deploy-stage:
     working_directory: ~/code
     docker:
-      - image: python:3.11.6
+      - image: python:3.12.1
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -330,7 +330,7 @@ jobs:
           paths:
             - ".venv"
             - "/usr/local/bin"
-            - "/usr/local/lib/python3.11/site-packages"
+            - "/usr/local/lib/python3.12/site-packages"
       - run:
           name: Login to cloud.gov
           command: cf8 login -u ${CRT_USERNAME_STAGE} -p ${CRT_PASSWORD_STAGE} -o doj-crtportal -s ${CF_SPACE}
@@ -350,7 +350,7 @@ jobs:
     working_directory: ~/code
     docker:
       # CircleCI Python images available at: https://hub.docker.com/r/cimg/python/
-      - image: python:3.11.6
+      - image: python:3.12.1
         environment: # environment variables for primary container
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
@@ -393,7 +393,7 @@ jobs:
           paths:
             - ".venv"
             - "/usr/local/bin"
-            - "/usr/local/lib/python3.11/site-packages"
+            - "/usr/local/lib/python3.12/site-packages"
       - run:
           name: Login to cloud.gov
           command: cf8 login -u ${CRT_USERNAME_PROD} -p ${CRT_PASSWORD_PROD} -o doj-crtportal -s ${CF_SPACE}

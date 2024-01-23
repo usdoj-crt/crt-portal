@@ -22,17 +22,17 @@ class FeatureTests(TestCase):
     def test_to_camel_case(self):
         feature = Feature(name='test-feature-hooray')
 
-        self.assertEquals(feature.camel_case(), 'testFeatureHooray')
+        self.assertEqual(feature.camel_case(), 'testFeatureHooray')
 
     def test_to_snake_case(self):
         feature = Feature(name='test-feature-hooray')
 
-        self.assertEquals(feature.snake_case(), 'test_feature_hooray')
+        self.assertEqual(feature.snake_case(), 'test_feature_hooray')
 
     def test_to_title_case(self):
         feature = Feature(name='test-feature-hooray')
 
-        self.assertEquals(feature.title_case(), 'Test Feature Hooray')
+        self.assertEqual(feature.title_case(), 'Test Feature Hooray')
 
     def test_is_feature_enabled_true(self):
         feature = Feature(name='test-feature-hooray', enabled=True)
@@ -71,7 +71,7 @@ class FeatureTests(TestCase):
         )
         rendered = template.render(Context(enabled_features({})))
 
-        self.assertEquals(rendered, 'good')
+        self.assertEqual(rendered, 'good')
 
     def test_is_feature_enabled_template_tag(self):
         Feature(name='feature-on', enabled=True).save()
@@ -83,4 +83,4 @@ class FeatureTests(TestCase):
         )
         rendered = template.render(Context(enabled_features({})))
 
-        self.assertEquals(rendered, 'on:True,off:False,missing:')
+        self.assertEqual(rendered, 'on:True,off:False,missing:')

@@ -716,7 +716,7 @@ class ResponseActionTests(TestCase):
                 kwargs={'pk': 1},
             ) + f"?report_id={self.report.id}"
         )
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         content = str(response.content)
         self.assertTrue('You contacted the Department of Justice on December 31, 2020' in content)
         self.assertFalse('You contacted the Department of Justice on December 1, 2000' in content)
@@ -733,7 +733,7 @@ class ResponseActionTests(TestCase):
                 kwargs={'pk': 1},
             ) + f"?report_id={self.report.id}"
         )
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         content = str(response.content)
         self.assertTrue('You contacted the Department of Justice on December 31, 2020' in content)
         self.assertFalse('You contacted the Department of Justice on December 1, 2000' in content)
@@ -749,7 +749,7 @@ class ResponseActionTests(TestCase):
                 kwargs={'pk': 1},
             ) + f"?report_id={self.report.id}"
         )
-        self.assertEquals(response.status_code, 200)
+        self.assertEqual(response.status_code, 200)
         content = str(response.content)
         self.assertTrue('You contacted the Department of Justice on December 1, 2000' in content)
         self.assertFalse('You contacted the Department of Justice on December 31, 2020' in content)
