@@ -15,6 +15,7 @@ pa11y-screenshots/
 e2e-screenshots/
 # auto-generated files
 crt_portal/static/css/compiled/*
+crt_portal/static/css/vendor/*
 crt_portal/static/css/styles.css
 crt_portal/static/css/styles.css.map
 crt_portal/static/js/*.min.js*

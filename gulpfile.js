@@ -66,6 +66,9 @@ const JS_VENDOR_DEST = "./crt_portal/static/vendor";
 // Compiled CSS destination
 const CSS_DEST = "./crt_portal/static/css/compiled";
 
+// CSS vendor destination
+const CSS_VENDOR_DEST = "./crt_portal/static/css/vendor";
+
 // Site CSS destination
 // Like the _site/assets/css directory in Jekyll, if necessary.
 // If using, uncomment line 106
@@ -100,7 +103,7 @@ gulp.task(
   "copy-vendor-css", () => {
     return gulp
       .src(`${datatable_css}/css/**.min.css`)
-      .pipe(gulp.dest(`${CSS_DEST}`));
+      .pipe(gulp.dest(`${CSS_VENDOR_DEST}`));
   });
 
 gulp.task('build-custom-js', function () {
@@ -164,8 +167,9 @@ gulp.task(
     "copy-uswds-setup",
     "copy-uswds-fonts",
     "copy-uswds-images",
+    "copy-vendor-css",
     "build-js",
-    "build-css"
+    "build-sass"
   )
 );
 
