@@ -812,8 +812,6 @@ class ShowView(LoginRequiredMixin, View):
 
     def get_form(self, request, report):
         form_type = request.POST.get('type')
-        logging.info(request.POST)
-        logging.info(request.FILES)
         if not form_type:
             raise SuspiciousOperation("Invalid form data")
         return self.forms[form_type](request.POST, request.FILES, instance=report, user=request.user), form_type
